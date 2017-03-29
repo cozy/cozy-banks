@@ -1,5 +1,5 @@
 {
-  "name": "<APP_NAME>",
+  "name": "cozy-bank",
   "version": "3.0.0",
   "main": "src/main.jsx",
   "scripts": {
