@@ -1,7 +1,7 @@
 {
   "name": "Bank",
   "slug": "Bank",
-  "icon": "icon.svg",
+  "icon": "icon-bank.svg",
   "description": "Bank application",
   "version": "3.0.0",
   "licence": "AGPL-3.0",
