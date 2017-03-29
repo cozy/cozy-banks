@@ -1,4 +1,9 @@
 @import 'cozy-ui'
 
-.title
-  color blue
+.bnk-wrapper
+    @extend    $app-2panes-sticky
+.bnk-content
+    top-padded(30px)
+    left-padded(30px)
+    @media (max-width: (768/basefont)rem)
+        padding 0

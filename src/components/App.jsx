@@ -1,11 +1,18 @@
 import styles from '../styles/app'
 
 import React from 'react'
-import { translate } from '../lib/I18n'
 import classNames from 'classnames'
 
-const App = ({ t }) => (
-  <h1 className={classNames(styles['title'])}>{ t('App.welcome') }</h1>
+import Sidebar from './Sidebar'
+
+export const App = ({ children }) => (
+  <div className={classNames(styles['bnk-wrapper'], styles['bnk-sticky'])}>
+    <Sidebar />
+
+    <main className={styles['bnk-content']}>
+      { children }
+    </main>
+  </div>
 )
 
-export default translate()(App)
+export default App
