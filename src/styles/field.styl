@@ -1,0 +1,49 @@
+@import 'cozy-ui'
+
+:local
+    @extend $form
+    @extend $form-text
+    @extend $form-select
+
+    .coz-form-controls
+        margin  1em 0
+        width   100%
+        padding 0
+
+        [role=button]
+            width        100%
+            margin-left  0
+            margin-right 0
+
+    .bnk-field
+        &:after
+            opacity 0
+            transition: opacity 3s ease-in-out
+
+    .bnk-field-loading
+        &:after
+            @extend $icon-spinner-blue
+            @extend $icon-16
+            opacity 1
+
+
+    .bnk-field-saved,
+    .coz-form-controls [role=button].saved
+        &:after
+            @extend $icon
+            @extend $icon-16
+            opacity 1
+            background-image embedurl("../assets/icons/icon-checked.svg")
+
+    .bnk-field-loading
+    .bnk-field-saved
+        select
+            background-image none
+        &:after
+            position absolute
+            bottom   0
+            right    0
+            margin   .9em .75em
+
+    .set-view-subtitle
+        margin-bottom  0em
