@@ -95,9 +95,11 @@
   "dependencies": {
     "classnames": "^2.2.0",
     "cozy-bar": "3.0.0-beta14",
-    "cozy-client-js": "0.1.8",
+    "cozy-client-js": "0.1.9",
     "cozy-ui": "3.0.0-beta19",
     "node-polyglot": "^2.2.0",
+    "pouchdb": "^6.1.2",
+    "pouchdb-find": "^0.10.5",
     "preact": "^7.1.0",
     "preact-compat": "^3.9.0",
     "react-bosonic": "1.0.0-beta6",
