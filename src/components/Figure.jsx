@@ -4,11 +4,17 @@ import React, { Component } from 'react'
 
 class Figure extends Component {
   render () {
-    const { total, currency, colored, signed } = this.props
+    const {
+      total, currency, coloredPositive, coloredNegative, signed
+    } = this.props
     const isTotalPositive = total > 0
     let totalCSSClass = ''
-    if (colored && total !== 0) {
-      totalCSSClass = isTotalPositive ? 'bnk-figure-content--positive' : 'bnk-figure-content--negative'
+    if (total !== 0) {
+      if (isTotalPositive && coloredPositive) {
+        totalCSSClass = 'bnk-figure-content--positive'
+      } else if (!isTotalPositive && coloredNegative) {
+        totalCSSClass = 'bnk-figure-content--negative'
+      }
     }
     return (
       <div className={styles[totalCSSClass]}>

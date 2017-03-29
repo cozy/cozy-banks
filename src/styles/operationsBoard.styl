@@ -1,0 +1,25 @@
+@import 'cozy-ui'
+
+[role=application]
+    @extend $table
+
+    .coz-table
+        margin-left -2em
+        width       calc(100% + 2em)
+
+    .coz-table-body
+        height auto
+
+    .bnk-table-date
+    .bnk-table-amount
+        flex  0 0 20%
+
+    .bnk-table-desc
+        flex  0 0 30%
+
+    .bnk-table-actions
+        flex  0 0 15%
+
+    .coz-table-cell.bnk-table-desc,
+    .coz-table-cell.bnk-table-amount
+        color black
