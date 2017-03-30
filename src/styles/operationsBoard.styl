@@ -12,31 +12,38 @@
 
     .coz-table-cell
     .coz-table-header
-        padding-right 1em
-        padding-left  2em
+        padding-right em(12px)
+        padding-left  em(24px)
 
     .bnk-table-date
+        flex    1 0 em(142px)
+
     .bnk-table-amount
-        flex  0 0 15%
+        flex        1 0 em(94px)
+        text-align  right
 
     .bnk-table-desc
-        flex                    0 0 45%
-        background-position-x   2em
+        flex                    1 1 em(300px)
 
     .bnk-table-actions
-        flex  0 0 25%
+        flex  1 1 em(214px)
 
     .coz-table-cell.bnk-table-desc
-        padding-left    5em
+        padding-left    4.5em
         color           black
     .coz-table-cell.bnk-table-amount
         color black
+
+    // All icons for movement types
 
     .bnk-table-desc--bills
         background              embedurl('../assets/icons/icon-bills.svg') em(32px) center no-repeat
 
     .bnk-table-desc--cart
         background              embedurl('../assets/icons/icon-cart.svg') em(32px) center no-repeat
+
+    .bnk-table-desc--car
+        background  embedurl('../assets/icons/icon-car.svg') center no-repeat
 
     .bnk-table-desc--entertainment
         background              embedurl('../assets/icons/icon-entertainment.svg') em(32px) center no-repeat
@@ -70,3 +77,18 @@
 
     .bnk-table-desc--undefined
         background              embedurl('../assets/icons/icon-undefined.svg') em(32px) center no-repeat
+
+    .bnk-table-desc--bills
+    .bnk-table-desc--cart
+    .bnk-table-desc--entertainment
+    .bnk-table-desc--fastfood
+    .bnk-table-desc--health
+    .bnk-table-desc--house
+    .bnk-table-desc--people
+    .bnk-table-desc--phone
+    .bnk-table-desc--restaurant
+    .bnk-table-desc--shopping
+    .bnk-table-desc--transfer
+    .bnk-table-desc--travel
+    .bnk-table-desc--undefined
+        background-position-x   em(24px)
