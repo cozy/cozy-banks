@@ -6,7 +6,7 @@ import Figure from './Figure'
 class FigureBlock extends Component {
   render () {
     const {
-      label, total, currency, coloredPositive, coloredNegative, signed
+      label, total, currency, coloredPositive, coloredNegative, signed, decimalNumbers
     } = this.props
     return (
       <div className={styles['bnk-figure-wrapper']}>
@@ -19,6 +19,7 @@ class FigureBlock extends Component {
           coloredPositive={coloredPositive}
           coloredNegative={coloredNegative}
           signed={signed}
+          decimalNumbers={decimalNumbers}
         />
       </div>
     )

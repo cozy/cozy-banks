@@ -7,6 +7,8 @@ class Figure extends Component {
     const {
       total, currency, coloredPositive, coloredNegative, signed
     } = this.props
+    let { decimalNumbers } = this.props
+    decimalNumbers = isNaN(decimalNumbers) ? 2 : decimalNumbers
     const isTotalPositive = total > 0
     let totalCSSClass = ''
     if (total !== 0) {
@@ -22,7 +24,8 @@ class Figure extends Component {
         <span className={styles['bnk-figure-total']}>
           {total.toLocaleString(
             'fr-FR',
-            {maximumFractionDigits: 2, minimumFractionDigits: 2})
+            {maximumFractionDigits: decimalNumbers,
+              minimumFractionDigits: decimalNumbers})
           }
         </span>
         {currency &&
