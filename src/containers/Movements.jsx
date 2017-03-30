@@ -30,14 +30,22 @@ const MOVEMENTS_DATA = [
     type: 'phone',
     date: new Date(2017, 1, 22),
     amount: -10,
-    currency: '€'
+    currency: '€',
+    action: {
+      type: 'bill',
+      url: ''
+    }
   },
   {
     name: 'Docteur Martin',
     type: 'health',
     date: new Date(2017, 1, 21),
     amount: -450,
-    currency: '€'
+    currency: '€',
+    action: {
+      type: 'refurbishment',
+      url: ''
+    }
   },
   {
     name: 'Salaire de février',

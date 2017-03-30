@@ -27,7 +27,15 @@ export const Operation = ({ f, movement }) => (
       />
     </td>
     <td className={classNames(styles['coz-table-cell'], styles['bnk-table-actions'])}>
-      －
+      {!movement.action && '－'}
+      {movement.action &&
+        <a
+          href={movement.action.url}
+          className={styles['bnk-table-actions-link']}
+        >
+          Voir votre facture
+        </a>
+      }
     </td>
   </tr>
 )
