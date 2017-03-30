@@ -42,7 +42,7 @@ export class Movements extends Component {
       return <Loading loadingType='movements' />
     }
     if (!movements.length) {
-      return <div><h2>Mouvements</h2><p>Pas de mouvements à afficher.</p></div>
+      <div><h2>Mouvements</h2><p>Pas de mouvements à afficher.</p></div>
     }
     return (
       <div>
@@ -50,7 +50,7 @@ export class Movements extends Component {
           Mouvements
         </h2>
         <div className={styles['bnk-mov-form']}>
-          <Select name='locale' options={DATE_OPTIONS} onChange={() => {}} />
+          <Select name='dateRange' options={DATE_OPTIONS} onChange={() => {}} />
         </div>
         <div className={styles['bnk-mov-figures']}>
           <FigureBlock label='Total' total={credits + debits} currency='€' coloredPositive coloredNegative signed />
