@@ -20,7 +20,10 @@ class Figure extends Component {
       <div className={styles[totalCSSClass]}>
         {(isTotalPositive && signed) && '+'}
         <span className={styles['bnk-figure-total']}>
-          {total.toLocaleString('fr-FR')}
+          {total.toLocaleString(
+            'fr-FR',
+            {maximumFractionDigits: 2, minimumFractionDigits: 2})
+          }
         </span>
         {currency &&
           <span className={styles['bnk-figure-currency']}>
