@@ -30,7 +30,7 @@ class OperationsBoard extends Component {
               <td className={classNames(styles['coz-table-cell'], styles['bnk-table-date'])}>
                 22 Février 2016
               </td>
-              <td className={classNames(styles['coz-table-cell'], styles['bnk-table-desc'])}>
+              <td className={classNames(styles['coz-table-cell'], styles['bnk-table-desc'], styles['bnk-table-desc--restaurant'])}>
                 Restaurant Les frères Sushi
               </td>
               <td className={classNames(styles['coz-table-cell'], styles['bnk-table-amount'])}>
