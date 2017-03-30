@@ -10,8 +10,84 @@ import OperationsBoard from '../components/OperationsBoard'
 
 const DATE_OPTIONS = ['Du 01 février au 24 février 2017']
 
+const MOVEMENTS_DATA = [
+  {
+    name: 'Restaurant Les frères Sushi',
+    type: 'restaurant',
+    date: new Date(2017, 1, 22),
+    amount: -32.1,
+    currency: '€'
+  },
+  {
+    name: 'Monoprix',
+    type: 'cart',
+    date: new Date(2017, 1, 22),
+    amount: -12.83,
+    currency: '€'
+  },
+  {
+    name: 'Facture SFR',
+    type: 'phone',
+    date: new Date(2017, 1, 22),
+    amount: -10,
+    currency: '€'
+  },
+  {
+    name: 'Docteur Martin',
+    type: 'health',
+    date: new Date(2017, 1, 21),
+    amount: -450,
+    currency: '€'
+  },
+  {
+    name: 'Salaire de février',
+    type: 'transfer',
+    date: new Date(2017, 1, 21),
+    amount: 2390,
+    currency: '€'
+  },
+  {
+    name: 'Shopping le vetement c\'est la vie',
+    type: 'shopping',
+    date: new Date(2017, 1, 19),
+    amount: -79,
+    currency: '€'
+  },
+  {
+    name: 'Mac King',
+    type: 'fastfood',
+    date: new Date(2017, 1, 19),
+    amount: -7.9,
+    currency: '€'
+  },
+  {
+    name: 'SNCF Paris 13',
+    type: 'travel',
+    date: new Date(2017, 1, 19),
+    amount: -25,
+    currency: '€'
+  },
+  {
+    name: 'Monoprix',
+    type: 'cart',
+    date: new Date(2017, 1, 17),
+    amount: -12.36,
+    currency: '€'
+  }
+]
+
 export class Movements extends Component {
   render () {
+    const movements = MOVEMENTS_DATA
+    let credits = 0
+    let debits = 0
+    movements.forEach((movement) => {
+      if (movement.amount > 0) {
+        credits += movement.amount
+      } else {
+        debits += movement.amount
+      }
+    })
     return (
       <div>
         <h2>
@@ -21,12 +97,12 @@ export class Movements extends Component {
           <Select name='locale' options={DATE_OPTIONS} onChange={() => {}} />
         </div>
         <div className={styles['bnk-mov-figures']}>
-          <FigureBlock label='Total' total={1097.97} currency='€' coloredPositive coloredNegative signed />
-          <FigureBlock label='Débit' total={-1292.03} currency='€' signed />
-          <FigureBlock label='Crédit' total={2390} currency='€' signed />
-          <FigureBlock label='Opérations' total={32} />
+          <FigureBlock label='Total' total={credits + debits} currency='€' coloredPositive coloredNegative signed />
+          <FigureBlock label='Débit' total={debits} currency='€' signed />
+          <FigureBlock label='Crédit' total={credits} currency='€' signed />
+          <FigureBlock label='Opérations' total={movements.length} decimalNumbers={0} />
         </div>
-        <OperationsBoard />
+        <OperationsBoard movements={movements} />
       </div>
     )
   }

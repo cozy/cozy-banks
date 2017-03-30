@@ -3,10 +3,11 @@ import styles from '../styles/operationsBoard'
 import React, { Component } from 'react'
 import classNames from 'classnames'
 
-import Figure from '../components/Figure'
+import Operation from './Operation'
 
 class OperationsBoard extends Component {
   render () {
+    const { movements } = this.props
     return (
       <div>
         <h3>Opérations</h3>
@@ -26,20 +27,7 @@ class OperationsBoard extends Component {
             </th>
           </tr>
           <tbody className={styles['coz-table-body']}>
-            <tr className={styles['coz-table-row']}>
-              <td className={classNames(styles['coz-table-cell'], styles['bnk-table-date'])}>
-                22 Février 2016
-              </td>
-              <td className={classNames(styles['coz-table-cell'], styles['bnk-table-desc'], styles['bnk-table-desc--restaurant'])}>
-                Restaurant Les frères Sushi
-              </td>
-              <td className={classNames(styles['coz-table-cell'], styles['bnk-table-amount'])}>
-                <Figure total={-32.10} currency='€' signed coloredPositive />
-              </td>
-              <td className={classNames(styles['coz-table-cell'], styles['bnk-table-actions'])}>
-                －
-              </td>
-            </tr>
+            {movements.map(movement => <Operation movement={movement} />)}
           </tbody>
         </table>
       </div>
