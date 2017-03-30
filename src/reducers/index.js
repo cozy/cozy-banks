@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux'
 
 import alerterReducer from 'cozy-ui/react/Alerter'
+import movements from './movements'
 
 export const reducers = {
-  alerts: alerterReducer
+  alerts: alerterReducer,
+  movements
 }
 
 const combinedReducers = combineReducers(reducers)
