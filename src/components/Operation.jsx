@@ -26,7 +26,7 @@ export const Operation = ({ t, f, movement }) => (
         coloredPositive
       />
     </td>
-    <td className={classNames(styles['coz-table-cell'], styles['bnk-table-actions'])}>
+    <td className={classNames(styles['coz-table-cell'], styles['bnk-table-actions'], 'coz-desktop')}>
       {!movement.action && '－'}
       {movement.action &&
         <a

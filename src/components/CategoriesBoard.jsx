@@ -19,13 +19,13 @@ class CategoriesBoard extends Component {
             <th className={classNames(styles['coz-table-header'], styles['bnk-table-percentage'])}>
               {'%'}
             </th>
-            <th className={classNames(styles['coz-table-header'], styles['bnk-table-operation'])}>
+            <th className={classNames(styles['coz-table-header'], styles['bnk-table-operation'], 'coz-desktop')}>
               Opérations
             </th>
             <th className={classNames(styles['coz-table-header'], styles['bnk-table-amount'])}>
               Dépense
             </th>
-            <th className={classNames(styles['coz-table-header'], styles['bnk-table-actions'])}>
+            <th className={classNames(styles['coz-table-header'], styles['bnk-table-actions'], 'coz-desktop')}>
               Action
             </th>
           </tr>

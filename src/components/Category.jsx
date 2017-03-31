@@ -22,7 +22,7 @@ export class Category extends Component {
         <td className={classNames(styles['coz-table-cell'], styles['bnk-table-percentage'])}>
           {`${percentage} %`}
         </td>
-        <td className={classNames(styles['coz-table-cell'], styles['bnk-table-operation'])}>
+        <td className={classNames(styles['coz-table-cell'], styles['bnk-table-operation'], 'coz-desktop')}>
           {category.operationsNumber}
         </td>
         <td className={classNames(styles['coz-table-cell'], styles['bnk-table-amount'])}>
@@ -32,7 +32,7 @@ export class Category extends Component {
             signed
           />
         </td>
-        <td className={classNames(styles['coz-table-cell'], styles['bnk-table-actions'])}>
+        <td className={classNames(styles['coz-table-cell'], styles['bnk-table-actions'], 'coz-desktop')}>
           －
         </td>
       </tr>

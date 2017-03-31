@@ -18,17 +18,18 @@
         padding-left  em(24px)
 
     .bnk-table-date
-        flex    1 0 em(142px)
+        flex            1 0 11em
+        padding-left    em(36px)
 
     .bnk-table-amount
-        flex        1 0 em(94px)
+        flex        1 0 7em
         text-align  right
 
     .bnk-table-desc
-        flex    1 1 em(300px)
+        flex    1 0 25em
 
     .bnk-table-actions
-        flex  1 1 em(214px)
+        flex  1 1 15em
 
     .coz-table-cell.bnk-table-desc
         padding-left    4.5em
@@ -42,6 +43,16 @@
         padding-top    .1em
         padding-bottom .1em
         background     embedurl('../assets/icons/icon-link-out.svg') em(0px) center no-repeat
+
+    @media (max-width: (768/basefont)rem)
+        .bnk-table-desc
+            flex    1 0 12em
+
+        .bnk-table-date
+            flex    1 0 7em
+
+        .bnk-table-amount
+            padding-right 2em
 
     // All icons for movement types
 

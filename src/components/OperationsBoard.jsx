@@ -22,7 +22,7 @@ class OperationsBoard extends Component {
             <th className={classNames(styles['coz-table-header'], styles['bnk-table-amount'])}>
               Montant
             </th>
-            <th className={classNames(styles['coz-table-header'], styles['bnk-table-actions'])}>
+            <th className={classNames(styles['coz-table-header'], styles['bnk-table-actions'], 'coz-desktop')}>
               Action
             </th>
           </tr>

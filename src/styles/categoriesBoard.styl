@@ -3,8 +3,6 @@
 [role=application] // @stylint ignore
     @extend $table
 
-    rightSideWidth = 25em
-
     .bnk-categories
         width       100%
 
@@ -22,23 +20,26 @@
         padding-left  em(24px)
 
     .bnk-table-category
-        flex            1 1 em(300px)
-        padding-left    3em
+        flex            1 0 15em
+        padding-left    em(36px)
+
+    .bnk-table-operation
+        flex        1 0 10em
+        text-align  center
 
     .bnk-table-percentage
-    .bnk-table-operation
-        flex        1 0 em(96px)
+        flex        1 0 5em
         text-align  center
 
     .bnk-table-amount
-        flex        1 0 em(96px)
+        flex        1 0 7em
         text-align  right
 
     .bnk-table-actions
-        flex  1 1 em(192px)
+        flex  1 1 15em
 
     .coz-table-cell.bnk-table-category
-        padding-left    6em
+        padding-left    5em
         color           black
 
     .coz-table-cell.bnk-table-amount
@@ -49,6 +50,13 @@
         padding-top    .1em
         padding-bottom .1em
         background     embedurl('../assets/icons/icon-link-out.svg') em(0px) center no-repeat
+
+    @media (max-width: (768/basefont)rem)
+        .bnk-table-category
+            flex    1 0 12em
+
+        .bnk-table-amount
+            padding-right 2em
 
     // All icons for categories types
 
@@ -88,4 +96,4 @@
     .bnk-table-category--travel
     .bnk-table-category--transfer
     .bnk-table-category--toBeDefined
-        background-position-x   em(48px)
+        background-position-x   em(36px)
