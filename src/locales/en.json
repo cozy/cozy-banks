@@ -1,5 +1,13 @@
 {
-  "App": {
-    "welcome": "Hello World!"
+  "Category": {
+    "bills": "Frais, factures",
+    "daily-life": "Vie quotidienne",
+    "transportation": "Transports, véhicules",
+    "hobbies": "Loisirs, sports",
+    "health": "Santé",
+    "house": "Logement, immobilier",
+    "travel": "Sorties, voyages",
+    "transfer": "Transfert, action bancaire",
+    "toBeDefined": "à categoriser"
   }
 }

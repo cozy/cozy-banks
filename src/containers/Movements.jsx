@@ -42,7 +42,7 @@ export class Movements extends Component {
       return <Loading loadingType='movements' />
     }
     if (!movements.length) {
-      <div><h2>Mouvements</h2><p>Pas de mouvements à afficher.</p></div>
+      return <div><h2>Mouvements</h2><p>Pas de mouvements à afficher.</p></div>
     }
     return (
       <div>

@@ -1,6 +1,6 @@
 @import 'cozy-ui'
 
-[role=application]
+[role=application] // @stylint ignore
     @extend $table
 
     .coz-table
@@ -12,6 +12,7 @@
 
     .coz-table-cell
     .coz-table-header
+        font-size     em(14px)
         padding-right em(12px)
         padding-left  em(24px)
 
@@ -63,9 +64,6 @@
     .bnk-table-desc--house
         background  embedurl('../assets/icons/icon-house.svg') center no-repeat
 
-    .bnk-table-desc--people
-        background  embedurl('../assets/icons/icon-people.svg') center no-repeat
-
     .bnk-table-desc--phone
         background  embedurl('../assets/icons/icon-phone.svg') center no-repeat
 
@@ -81,7 +79,7 @@
     .bnk-table-desc--travel
         background  embedurl('../assets/icons/icon-travel.svg') center no-repeat
 
-    .bnk-table-desc--undefined
+    .bnk-table-desc--toBeDefined
         background  embedurl('../assets/icons/icon-undefined.svg') center no-repeat
 
     .bnk-table-desc--bills

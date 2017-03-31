@@ -1,0 +1,91 @@
+@import 'cozy-ui'
+
+[role=application] // @stylint ignore
+    @extend $table
+
+    rightSideWidth = 25em
+
+    .bnk-categories
+        width       100%
+
+    .coz-table
+        margin-left     -2em
+        width           calc(100% + 2em)
+
+    .coz-table-body
+        height auto
+
+    .coz-table-cell
+    .coz-table-header
+        font-size     em(14px)
+        padding-right em(12px)
+        padding-left  em(24px)
+
+    .bnk-table-category
+        flex            1 1 em(300px)
+        padding-left    3em
+
+    .bnk-table-percentage
+    .bnk-table-operation
+        flex        1 0 em(96px)
+        text-align  center
+
+    .bnk-table-amount
+        flex        1 0 em(96px)
+        text-align  right
+
+    .bnk-table-actions
+        flex  1 1 em(192px)
+
+    .coz-table-cell.bnk-table-category
+        padding-left    6em
+        color           black
+
+    .coz-table-cell.bnk-table-amount
+        color black
+
+    .bnk-table-actions-link
+        padding-left   2em
+        padding-top    .1em
+        padding-bottom .1em
+        background     embedurl('../assets/icons/icon-link-out.svg') em(0px) center no-repeat
+
+    // All icons for categories types
+
+    .bnk-table-category--bills
+        background  embedurl('../assets/icons/icon-bills.svg') center no-repeat
+
+    .bnk-table-category--daily-life
+        background  embedurl('../assets/icons/icon-cart.svg') center no-repeat
+
+    .bnk-table-category--transportation
+        background  embedurl('../assets/icons/icon-car.svg') center no-repeat
+
+    .bnk-table-category--hobbies
+        background  embedurl('../assets/icons/icon-entertainment.svg') center no-repeat
+
+    .bnk-table-category--health
+        background  embedurl('../assets/icons/icon-health.svg') center no-repeat
+
+    .bnk-table-category--house
+        background  embedurl('../assets/icons/icon-house.svg') center no-repeat
+
+    .bnk-table-category--travel
+        background  embedurl('../assets/icons/icon-travel.svg') center no-repeat
+
+    .bnk-table-category--transfer
+        background  embedurl('../assets/icons/icon-transfer.svg') center no-repeat
+
+    .bnk-table-category--toBeDefined
+        background  embedurl('../assets/icons/icon-undefined.svg') center no-repeat
+
+    .bnk-table-category--bills
+    .bnk-table-category--daily-life
+    .bnk-table-category--transportation
+    .bnk-table-category--hobbies
+    .bnk-table-category--health
+    .bnk-table-category--house
+    .bnk-table-category--travel
+    .bnk-table-category--transfer
+    .bnk-table-category--toBeDefined
+        background-position-x   em(48px)
