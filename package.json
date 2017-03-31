@@ -97,6 +97,7 @@
     "cozy-bar": "3.0.0-beta14",
     "cozy-client-js": "0.1.9",
     "cozy-ui": "3.0.0-beta19",
+    "date-fns": "^1.28.2",
     "node-polyglot": "^2.2.0",
     "pouchdb": "^6.1.2",
     "pouchdb-find": "^0.10.5",

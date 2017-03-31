@@ -1,0 +1,98 @@
+@import 'cozy-ui'
+
+[role=application] // @stylint ignore
+    @extend $table
+
+    .coz-table
+        margin-left -2em
+        width       calc(100% + 2em)
+
+    .coz-table-body
+        height auto
+
+    .coz-table-cell
+    .coz-table-header
+        font-size     em(14px)
+        padding-right em(12px)
+        padding-left  em(24px)
+
+    .bnk-table-date
+        flex    1 0 em(142px)
+
+    .bnk-table-amount
+        flex        1 0 em(94px)
+        text-align  right
+
+    .bnk-table-desc
+        flex    1 1 em(300px)
+
+    .bnk-table-actions
+        flex  1 1 em(214px)
+
+    .coz-table-cell.bnk-table-desc
+        padding-left    4.5em
+        color           black
+    .coz-table-cell.bnk-table-amount
+        color black
+
+    .bnk-table-actions-link
+        padding-left   2em
+        padding-top    .1em
+        padding-bottom .1em
+        background     embedurl('../assets/icons/icon-link-out.svg') em(0px) center no-repeat
+
+    // All icons for movement types
+
+    .bnk-table-desc--bills
+        background  embedurl('../assets/icons/icon-bills.svg') center no-repeat
+
+    .bnk-table-desc--cart
+        background  embedurl('../assets/icons/icon-cart.svg') center no-repeat
+
+    .bnk-table-desc--car
+        background  embedurl('../assets/icons/icon-car.svg') center no-repeat
+
+    .bnk-table-desc--entertainment
+        background  embedurl('../assets/icons/icon-entertainment.svg') center no-repeat
+
+    .bnk-table-desc--fastfood
+        background  embedurl('../assets/icons/icon-fastfood.svg') center no-repeat
+
+    .bnk-table-desc--health
+        background  embedurl('../assets/icons/icon-health.svg') center no-repeat
+
+    .bnk-table-desc--house
+        background  embedurl('../assets/icons/icon-house.svg') center no-repeat
+
+    .bnk-table-desc--phone
+        background  embedurl('../assets/icons/icon-phone.svg') center no-repeat
+
+    .bnk-table-desc--restaurant
+        background  embedurl('../assets/icons/icon-restaurant.svg') center no-repeat
+
+    .bnk-table-desc--shopping
+        background  embedurl('../assets/icons/icon-shopping.svg') center no-repeat
+
+    .bnk-table-desc--transfer
+        background  embedurl('../assets/icons/icon-transfer.svg') center no-repeat
+
+    .bnk-table-desc--travel
+        background  embedurl('../assets/icons/icon-travel.svg') center no-repeat
+
+    .bnk-table-desc--toBeDefined
+        background  embedurl('../assets/icons/icon-undefined.svg') center no-repeat
+
+    .bnk-table-desc--bills
+    .bnk-table-desc--cart
+    .bnk-table-desc--entertainment
+    .bnk-table-desc--fastfood
+    .bnk-table-desc--health
+    .bnk-table-desc--house
+    .bnk-table-desc--people
+    .bnk-table-desc--phone
+    .bnk-table-desc--restaurant
+    .bnk-table-desc--shopping
+    .bnk-table-desc--transfer
+    .bnk-table-desc--travel
+    .bnk-table-desc--undefined
+        background-position-x   em(24px)
