@@ -75,6 +75,48 @@ const MOVEMENTS_DATA = [
     date: new Date(2017, 1, 17),
     amount: -12.36,
     currency: '€'
+  },
+  {
+    name: 'Changement Frein voiture',
+    type: 'car',
+    date: new Date(2017, 1, 15),
+    amount: -90.86,
+    currency: '€'
+  },
+  {
+    name: 'Virement #782912739932783',
+    type: 'transfer',
+    date: new Date(2017, 1, 15),
+    amount: -100,
+    currency: '€'
+  },
+  {
+    name: 'Mac King',
+    type: 'fastfood',
+    date: new Date(2017, 1, 12),
+    amount: -9.50,
+    currency: '€'
+  },
+  {
+    name: 'Eurostar London',
+    type: 'travel',
+    date: new Date(2017, 1, 12),
+    amount: -110.52,
+    currency: '€'
+  },
+  {
+    name: 'Monoprix',
+    type: 'cart',
+    date: new Date(2017, 1, 10),
+    amount: -43.89,
+    currency: '€'
+  },
+  {
+    name: 'Loyer',
+    type: 'house',
+    date: new Date(2017, 1, 5),
+    amount: -758.32,
+    currency: '€'
   }
 ]
 
