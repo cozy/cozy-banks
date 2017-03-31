@@ -51,7 +51,11 @@ export class Categories extends Component {
           />
         </div>
         <div className={styles['bnk-cat-debits']}>
-          <CategoriesBoard categories={categories.debits} title='Dépenses' />
+          <CategoriesBoard
+            categories={categories.debits}
+            total={categories.totalDebits}
+            title='Dépenses'
+          />
           <div class={styles['bnk-cat-figure']}>
             <FigureBlock
               label='Dépense Totale'
@@ -62,7 +66,11 @@ export class Categories extends Component {
           </div>
         </div>
         <div className={styles['bnk-cat-credits']}>
-          <CategoriesBoard categories={categories.credits} title='Revenus' />
+          <CategoriesBoard
+            categories={categories.credits}
+            total={categories.totalCredits}
+            title='Revenus'
+          />
           <div class={styles['bnk-cat-figure']}>
             <FigureBlock
               label='Revenu Total'
