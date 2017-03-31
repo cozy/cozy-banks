@@ -63,9 +63,15 @@ export const getCategoriesGroupBy = (movements) => {
       totalDebits += movement.amount
     }
   })
+  const credits = Object.values(creditsCategories).sort((a, b) => {
+    return a.amount - b.amount
+  })
+  const debits = Object.values(debitsCategories).sort((a, b) => {
+    return a.amount - b.amount
+  })
   return {
-    credits: Object.values(creditsCategories),
-    debits: Object.values(debitsCategories),
+    credits,
+    debits,
     totalDebits,
     totalCredits,
     currency: '€'

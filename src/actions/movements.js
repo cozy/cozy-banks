@@ -37,7 +37,7 @@ const MOVEMENTS_DATA = [
     amount: -450,
     currency: '€',
     action: {
-      type: 'refurbishment',
+      type: 'reimbursement',
       url: ''
     }
   },
@@ -77,17 +77,17 @@ const MOVEMENTS_DATA = [
     currency: '€'
   },
   {
-    name: 'Changement Frein voiture',
+    name: 'Changement frein voiture',
     type: 'car',
     date: new Date(2017, 1, 15),
     amount: -90.86,
     currency: '€'
   },
   {
-    name: 'Virement #782912739932783',
+    name: 'Virement épargne',
     type: 'transfer',
     date: new Date(2017, 1, 15),
-    amount: -100,
+    amount: -200,
     currency: '€'
   },
   {
@@ -109,6 +109,13 @@ const MOVEMENTS_DATA = [
     type: 'cart',
     date: new Date(2017, 1, 10),
     amount: -43.89,
+    currency: '€'
+  },
+  {
+    name: 'DAB',
+    type: 'toBeDefined',
+    date: new Date(2017, 1, 8),
+    amount: -50,
     currency: '€'
   },
   {

@@ -1,4 +1,11 @@
 {
+  "Movements": {
+    "actions": {
+      "bill": "Voir votre facture",
+      "reimbursement": "Vérifier vos remboursements"
+    }
+  },
+
   "Category": {
     "bills": "Frais, factures",
     "daily-life": "Vie quotidienne",
@@ -8,6 +15,6 @@
     "house": "Logement, immobilier",
     "travel": "Sorties, voyages",
     "transfer": "Transfert, action bancaire",
-    "toBeDefined": "à categoriser"
+    "toBeDefined": "À catégoriser"
   }
 }

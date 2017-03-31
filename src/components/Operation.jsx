@@ -6,7 +6,7 @@ import { translate } from '../lib/I18n'
 
 import Figure from '../components/Figure'
 
-export const Operation = ({ f, movement }) => (
+export const Operation = ({ t, f, movement }) => (
   <tr className={styles['coz-table-row']}>
     <td className={classNames(styles['coz-table-cell'], styles['bnk-table-date'])}>
       {f(movement.date, 'DD MMMM YYYY')}
@@ -33,7 +33,7 @@ export const Operation = ({ f, movement }) => (
           href={movement.action.url}
           className={styles['bnk-table-actions-link']}
         >
-          Voir votre facture
+          {t(`Movements.actions.${movement.action.type}`)}
         </a>
       }
     </td>

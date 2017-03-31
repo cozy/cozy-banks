@@ -65,7 +65,7 @@ export class Categories extends Component {
           <CategoriesBoard categories={categories.credits} title='Revenus' />
           <div class={styles['bnk-cat-figure']}>
             <FigureBlock
-              label='Revenu Totale'
+              label='Revenu Total'
               total={categories.totalCredits}
               currency={categories.currency}
               signed
