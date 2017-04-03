@@ -8,8 +8,7 @@ import Figure from '../components/Figure'
 
 export class Category extends Component {
   render () {
-    const { t, category, total } = this.props
-    const percentage = Math.round(category.amount / total * 100)
+    const { t, category } = this.props
     return (
       <tr className={styles['coz-table-row']}>
         <td className={classNames(
@@ -20,7 +19,7 @@ export class Category extends Component {
           {t(`Category.${category.name}`)}
         </td>
         <td className={classNames(styles['coz-table-cell'], styles['bnk-table-percentage'])}>
-          {`${percentage} %`}
+          {`${category.percentage} %`}
         </td>
         <td className={classNames(styles['coz-table-cell'], styles['bnk-table-operation'], 'coz-desktop')}>
           {category.operationsNumber}

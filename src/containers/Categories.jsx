@@ -7,7 +7,8 @@ import { translate } from '../lib/I18n'
 import Select from '../components/Select'
 import FigureBlock from '../components/FigureBlock'
 import CategoriesBoard from '../components/CategoriesBoard'
-import Loading from '../components/Loading.jsx'
+import Loading from '../components/Loading'
+import PieChart from '../components/PieChart'
 
 import {
   fetchMovements
@@ -30,7 +31,7 @@ export class Categories extends Component {
   }
 
   render () {
-    const { movements } = this.props
+    const { t, movements } = this.props
     if (this.state.isFetching) {
       return <Loading loadingType='categories' />
     }
@@ -38,6 +39,12 @@ export class Categories extends Component {
       return <div><h2>Categorisation</h2><p>Pas de categories à afficher.</p></div>
     }
     const categories = getCategoriesGroupBy(movements)
+    const pieDataObject = {labels: [], data: [], colors: []}
+    categories.debits.forEach((category) => {
+      pieDataObject.labels.push(t(`Category.${category.name}`))
+      pieDataObject.data.push((0 - category.amount).toFixed(2)) // use positive values
+      pieDataObject.colors.push(category.color)
+    })
     return (
       <div>
         <h2>
@@ -53,7 +60,6 @@ export class Categories extends Component {
         <div className={styles['bnk-cat-debits']}>
           <CategoriesBoard
             categories={categories.debits}
-            total={categories.totalDebits}
             title='Dépenses'
           />
           <div class={styles['bnk-cat-figure']}>
@@ -63,12 +69,17 @@ export class Categories extends Component {
               currency={categories.currency}
               signed
             />
+            <PieChart
+              labels={pieDataObject.labels}
+              data={pieDataObject.data}
+              colors={pieDataObject.colors}
+              className='bnk-cat-debits-pie'
+            />
           </div>
         </div>
         <div className={styles['bnk-cat-credits']}>
           <CategoriesBoard
             categories={categories.credits}
-            total={categories.totalCredits}
             title='Revenus'
           />
           <div class={styles['bnk-cat-figure']}>

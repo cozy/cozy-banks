@@ -7,7 +7,7 @@ import Category from './Category'
 
 class CategoriesBoard extends Component {
   render () {
-    const { categories, title, total } = this.props
+    const { categories, title } = this.props
     return (
       <div className={styles['bnk-categories']}>
         <h3>{title}</h3>
@@ -31,7 +31,7 @@ class CategoriesBoard extends Component {
           </tr>
           <tbody className={styles['coz-table-body']}>
             {categories.map(category =>
-              <Category category={category} total={total} />)}
+              <Category category={category} />)}
           </tbody>
         </table>
       </div>
