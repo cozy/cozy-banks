@@ -57,10 +57,10 @@ export class Categories extends Component {
             onChange={() => {}}
           />
         </div>
+        <h3 className={styles['bnk-cat-title']}>Dépenses</h3>
         <div className={styles['bnk-cat-debits']}>
           <CategoriesBoard
             categories={categories.debits}
-            title='Dépenses'
             amountType='debit'
           />
           <div class={styles['bnk-cat-figure']}>
@@ -78,10 +78,10 @@ export class Categories extends Component {
             />
           </div>
         </div>
+        <h3 className={styles['bnk-cat-title']}>Revenus</h3>
         <div className={styles['bnk-cat-credits']}>
           <CategoriesBoard
             categories={categories.credits}
-            title='Revenus'
             amountType='credit'
           />
           <div class={styles['bnk-cat-figure']}>
