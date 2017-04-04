@@ -16,7 +16,8 @@ export class PieChart extends Component {
         datasets: [
           {
             data: props.data,
-            backgroundColor: props.colors
+            backgroundColor: props.colors,
+            borderWidth: 0
           }
         ]
       },
@@ -24,9 +25,26 @@ export class PieChart extends Component {
         legend: {
           display: false
         },
-        layout: { padding: 10 },
+        responsive: false,
+        maintainAspectRatio: false,
+        tooltips: {
+          callbacks: {
+            label: (tooltipItem, data) => {
+              const label = data.labels[tooltipItem.index]
+              return `${label}`
+            },
+            afterLabel: (tooltipItem, data) => {
+              const value = data.datasets[0].data[tooltipItem.index]
+              return `${value} €`
+            }
+          },
+          bodySpacing: 4,
+          xPadding: 8
+        },
         pieceLabel: {
           mode: 'percentage',
+          fontSize: 16,
+          fontFamily: '"Lato"',
           precision: 0
         }
       }
@@ -40,11 +58,13 @@ export class PieChart extends Component {
   render () {
     const { data, options } = this.state
     return (
-      <Pie
-        data={data}
-        className={styles['bnk-chart-pie']}
-        options={options}
-      />
+      <div className={styles['bnk-chart-pie']}>
+        <Pie
+          data={data}
+          height={250}
+          options={options}
+        />
+      </div>
     )
   }
 }
