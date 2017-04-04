@@ -61,6 +61,7 @@ export class Categories extends Component {
           <CategoriesBoard
             categories={categories.debits}
             title='Dépenses'
+            amountType='debit'
           />
           <div class={styles['bnk-cat-figure']}>
             <FigureBlock
@@ -81,6 +82,7 @@ export class Categories extends Component {
           <CategoriesBoard
             categories={categories.credits}
             title='Revenus'
+            amountType='credit'
           />
           <div class={styles['bnk-cat-figure']}>
             <FigureBlock

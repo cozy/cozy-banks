@@ -2,12 +2,13 @@ import styles from '../styles/categoriesBoard'
 
 import React, { Component } from 'react'
 import classNames from 'classnames'
+import { translate } from '../lib/I18n'
 
 import Category from './Category'
 
 class CategoriesBoard extends Component {
   render () {
-    const { categories, title } = this.props
+    const { t, categories, title, amountType } = this.props
     return (
       <div className={styles['bnk-categories']}>
         <h3>{title}</h3>
@@ -23,7 +24,7 @@ class CategoriesBoard extends Component {
               Opérations
             </th>
             <th className={classNames(styles['coz-table-header'], styles['bnk-table-amount'])}>
-              Dépense
+              {t(`Categories.board.${amountType}-header`)}
             </th>
             <th className={classNames(styles['coz-table-header'], styles['bnk-table-actions'], 'coz-desktop')}>
               Action
@@ -39,4 +40,4 @@ class CategoriesBoard extends Component {
   }
 }
 
-export default CategoriesBoard
+export default translate()(CategoriesBoard)

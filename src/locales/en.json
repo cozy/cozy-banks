@@ -16,5 +16,12 @@
     "travel": "Sorties, voyages",
     "transfer": "Transfert, action bancaire",
     "toBeDefined": "À catégoriser"
+  },
+
+  "Categories": {
+    "board": {
+      "debit-header": "Dépense",
+      "credit-header": "Revenu"
+    }
   }
 }
