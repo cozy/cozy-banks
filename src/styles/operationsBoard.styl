@@ -34,6 +34,9 @@
     .coz-table-cell.bnk-table-desc
         padding-left    4.5em
         color           black
+        // default movement icon
+        background  embedurl('../assets/icons/categories/icon-cat-uncategorized.svg') center no-repeat
+        background-position-x   em(24px)
 
     .coz-table-cell.bnk-table-amount
         color black
@@ -54,59 +57,49 @@
         .bnk-table-amount
             padding-right 2em
 
-    // All icons for movement types
+    // All icons and classes for movement types
 
-    .bnk-table-desc--bills
-        background  embedurl('../assets/icons/icon-bills.svg') center no-repeat
+    childrenMvts = children_activities pocket_money school_insurance child-care toys child_support school_restaurant children_others
 
-    .bnk-table-desc--cart
-        background  embedurl('../assets/icons/icon-cart.svg') center no-repeat
+    dailyLifeMvts = regular_shopping pets gifts cosmetics donations clothing telecom personal_loan_refund shopping meals press daily_life_others
 
-    .bnk-table-desc--car
-        background  embedurl('../assets/icons/icon-car.svg') center no-repeat
+    educationMvts = lessons school_fees education_supplies student_load_refund education_others
 
-    .bnk-table-desc--entertainment
-        background  embedurl('../assets/icons/icon-entertainment.svg') center no-repeat
+    healthMvts = health_insurance health_costs health_refunds health_others
 
-    .bnk-table-desc--fastfood
-        background  embedurl('../assets/icons/icon-fastfood.svg') center no-repeat
+    housingMvts = housing_insurance housing_costs water electricity rent furnitures mortgage_refund house_works housing_others
 
-    .bnk-table-desc--health
-        background  embedurl('../assets/icons/icon-health.svg') center no-repeat
+    incomeMvts = allowances gift_incomes dividends interests pension complementary_incomes replacement_incomes rental_incomes salary income_others
 
-    .bnk-table-desc--house
-        background  embedurl('../assets/icons/icon-house.svg') center no-repeat
+    leasuresMvts = leasures_subscription leasures_lessons electronic leasures_supplies multimedia hobbies leasures_others
 
-    .bnk-table-desc--phone
-        background  embedurl('../assets/icons/icon-phone.svg') center no-repeat
+    outBudgetMvts = security_purchases security_sales advances refunds releasings expenses_bill saving_transfer internal_transfer out- budget_others
 
-    .bnk-table-desc--restaurant
-        background  embedurl('../assets/icons/icon-restaurant.svg') center no-repeat
+    servicesMvts = home_help financial_consulting legal_consulting bank_charges post services_others
 
-    .bnk-table-desc--shopping
-        background  embedurl('../assets/icons/icon-shopping.svg') center no-repeat
+    taxesMvts = social_contribution income_tax wealth_tax property_tax taxes_others
 
-    .bnk-table-desc--transfer
-        background  embedurl('../assets/icons/icon-transfer.svg') center no-repeat
+    transportationMvts = car_purchase car_insurance fuel vehicle_maintenance garage vehicle_rental parking_costs vehicle_loan_refund taxi public_transportation transportation_others
 
-    .bnk-table-desc--travel
-        background  embedurl('../assets/icons/icon-travel.svg') center no-repeat
+    tripsMvts = trips_transportation restaurants cultural_trips relaxation_trips journeys trips_others
 
-    .bnk-table-desc--toBeDefined
-        background  embedurl('../assets/icons/icon-undefined.svg') center no-repeat
+    uncategorizedMvts = cheques withdrawals uncategorized_transfers uncategorized_others
 
-    .bnk-table-desc--bills
-    .bnk-table-desc--cart
-    .bnk-table-desc--car
-    .bnk-table-desc--entertainment
-    .bnk-table-desc--fastfood
-    .bnk-table-desc--health
-    .bnk-table-desc--house
-    .bnk-table-desc--people
-    .bnk-table-desc--phone
-    .bnk-table-desc--restaurant
-    .bnk-table-desc--shopping
-    .bnk-table-desc--transfer
-    .bnk-table-desc--travel
-    .bnk-table-desc--toBeDefined
-        background-position-x   em(24px)
+    // GATHERED
+    allMvts = childrenMvts dailyLifeMvts educationMvts healthMvts housingMvts incomeMvts leasuresMvts outBudgetMvts servicesMvts taxesMvts transportationMvts tripsMvts uncategorizedMvts
+
+    // For now, all mouvements from same category use the same icon
+    categories = children daily-life education health housing income leasures out-budget services taxes transportation trips uncategorized
+
+    // TODO use function to get each movement icon instead of category icon
+    getTemporaryCatBkg(categoryLabel)
+        icon = '../assets/icons/categories/icon-cat-%s.svg' % categoryLabel
+        {background} embedurl(icon) center no-repeat // @stylint ignore
+
+    for num in 0..12
+        mvtsList = allMvts[num]
+        category = categories[num]
+        for mvt in mvtsList
+            .coz-table-cell.bnk-table-desc--{mvt}
+                getTemporaryCatBkg(category)
+                background-position-x   em(24px)

@@ -58,42 +58,15 @@
         .bnk-table-amount
             padding-right 2em
 
-    // All icons for categories types
+    // All icons and classes for categories types
 
-    .bnk-table-category--bills
-        background  embedurl('../assets/icons/icon-bills.svg') center no-repeat
+    categories = children daily-life education health housing income leasures out-budget services taxes transportation trips uncategorized
 
-    .bnk-table-category--daily-life
-        background  embedurl('../assets/icons/icon-cart.svg') center no-repeat
+    getCatBkg(categoryLabel)
+        icon = '../assets/icons/categories/icon-cat-%s.svg' % categoryLabel
+        {background} embedurl(icon) center no-repeat
 
-    .bnk-table-category--transportation
-        background  embedurl('../assets/icons/icon-car.svg') center no-repeat
-
-    .bnk-table-category--hobbies
-        background  embedurl('../assets/icons/icon-entertainment.svg') center no-repeat
-
-    .bnk-table-category--health
-        background  embedurl('../assets/icons/icon-health.svg') center no-repeat
-
-    .bnk-table-category--house
-        background  embedurl('../assets/icons/icon-house.svg') center no-repeat
-
-    .bnk-table-category--travel
-        background  embedurl('../assets/icons/icon-travel.svg') center no-repeat
-
-    .bnk-table-category--transfer
-        background  embedurl('../assets/icons/icon-transfer.svg') center no-repeat
-
-    .bnk-table-category--toBeDefined
-        background  embedurl('../assets/icons/icon-undefined.svg') center no-repeat
-
-    .bnk-table-category--bills
-    .bnk-table-category--daily-life
-    .bnk-table-category--transportation
-    .bnk-table-category--hobbies
-    .bnk-table-category--health
-    .bnk-table-category--house
-    .bnk-table-category--travel
-    .bnk-table-category--transfer
-    .bnk-table-category--toBeDefined
-        background-position-x   em(36px)
+    for category in categories
+        .bnk-table-category--{category}
+            getCatBkg(category)
+            background-position-x   em(36px)
