@@ -2,20 +2,24 @@
   "Movements": {
     "actions": {
       "bill": "Voir votre facture",
-      "reimbursement": "Vérifier vos remboursements"
+      "refund": "Vérifier vos remboursements"
     }
   },
 
   "Category": {
-    "bills": "Frais, factures",
+    "services": "Services",
     "daily-life": "Vie quotidienne",
     "transportation": "Transports, véhicules",
-    "hobbies": "Loisirs, sports",
+    "leasures": "Loisirs, sports",
     "health": "Santé",
-    "house": "Logement, immobilier",
-    "travel": "Sorties, voyages",
-    "transfer": "Transfert, action bancaire",
-    "toBeDefined": "À catégoriser"
+    "housing": "Logement, immobilier",
+    "trips": "Sorties, voyages",
+    "income": "Revenus",
+    "children": "Enfants",
+    "education": "Education, formation",
+    "taxes": "Impôts, taxes",
+    "out-budget": "Hors budget",
+    "uncategorized": "À catégoriser"
   },
 
   "Categories": {
