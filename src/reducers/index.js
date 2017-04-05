@@ -2,42 +2,12 @@ import { combineReducers } from 'redux'
 
 import alerterReducer from 'cozy-ui/react/Alerter'
 import movements from './movements'
+import categoriesMap from '../lib/categoriesMap'
 
 export const reducers = {
   alerts: alerterReducer,
   movements
 }
-
-const debitsGroupByIndex = {
-  bills: 'bills',
-  cart: 'daily-life',
-  car: 'transportation',
-  entertainment: 'hobbies',
-  fastfood: 'daily-life',
-  health: 'health',
-  house: 'house',
-  phone: 'bills',
-  restaurant: 'hobbies',
-  shopping: 'hobbies',
-  travel: 'travel',
-  transfer: 'transfer'
-}
-
-const creditsGroupByIndex = {
-  transfer: 'transfer'
-}
-
-const categoriesColorsMap = new Map([
-  ['bills', '#7F6BEE'],
-  ['daily-life', '#FD7461'],
-  ['transportation', '#4DCEC5'],
-  ['hobbies', '#FC4C83'],
-  ['health', '#F62C2C'],
-  ['house', '#FF962F'],
-  ['travel', '#40DE8E'],
-  ['transfer', '#35CE68'],
-  ['toBeDefined', '#95999D']
-])
 
 export const getCategoriesGroupBy = (movements) => {
   let creditsCategories = {}
@@ -46,33 +16,36 @@ export const getCategoriesGroupBy = (movements) => {
   let totalDebits = 0
   movements.forEach((movement) => {
     if (movement.amount > 0) {
-      const creditCategoryName = creditsGroupByIndex[movement.type] || 'toBeDefined'
-      if (!creditsCategories.hasOwnProperty(creditCategoryName)) {
-        creditsCategories[creditCategoryName] = {
-          name: creditCategoryName,
-          color: categoriesColorsMap.get(creditCategoryName),
+      const creditCategory = categoriesMap.get(movement.type) ||
+        categoriesMap.get('uncategorized_others')
+
+      if (!creditsCategories.hasOwnProperty(creditCategory.name)) {
+        creditsCategories[creditCategory.name] = {
+          name: creditCategory.name,
+          color: creditCategory.color,
           amount: movement.amount,
           currency: movement.currency,
           operationsNumber: 1
         }
       } else {
-        creditsCategories[creditCategoryName].amount += movement.amount
-        creditsCategories[creditCategoryName].operationsNumber++
+        creditsCategories[creditCategory.name].amount += movement.amount
+        creditsCategories[creditCategory.name].operationsNumber++
       }
       totalCredits += movement.amount
     } else {
-      const debitCategoryName = debitsGroupByIndex[movement.type] || 'toBeDefined'
-      if (!debitsCategories.hasOwnProperty(debitCategoryName)) {
-        debitsCategories[debitCategoryName] = {
-          name: debitCategoryName,
-          color: categoriesColorsMap.get(debitCategoryName),
+      const debitCategory = categoriesMap.get(movement.type) ||
+        categoriesMap.get('uncategorized_others')
+      if (!debitsCategories.hasOwnProperty(debitCategory.name)) {
+        debitsCategories[debitCategory.name] = {
+          name: debitCategory.name,
+          color: debitCategory.color,
           amount: movement.amount,
           currency: movement.currency,
           operationsNumber: 1
         }
       } else {
-        debitsCategories[debitCategoryName].amount += movement.amount
-        debitsCategories[debitCategoryName].operationsNumber++
+        debitsCategories[debitCategory.name].amount += movement.amount
+        debitsCategories[debitCategory.name].operationsNumber++
       }
       totalDebits += movement.amount
     }
