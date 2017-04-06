@@ -50,11 +50,13 @@ export class Category extends Component {
           </td>
         </tr>
         {!this.state.collapsed &&
-          category.subcategories.map((subcategory) => (
-            <Subcategory
-              subcategory={subcategory}
-            />
-          ))
+          <div className={styles['bnk-table-subcategories']}>
+            {category.subcategories.map((subcategory) => (
+              <Subcategory
+                subcategory={subcategory}
+              />
+            ))}
+          </div>
         }
       </tr>
     )

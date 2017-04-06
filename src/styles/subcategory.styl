@@ -6,7 +6,7 @@
     .coz-table-row
         font-size   em(14px)
         width       100%
-        background  grey-10
+        background  linear-gradient(to right, grey-10 85%, white 100%)
 
     .coz-table-cell.bnk-table-subcat-name
         margin-left     2em
@@ -44,3 +44,7 @@
 
         .bnk-table-subcat-amount
             padding-right 1em
+
+    @media (max-width: (1260/basefont)rem)
+        .coz-table-row
+            background  grey-10

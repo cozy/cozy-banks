@@ -13,7 +13,12 @@ export class Subcategory extends Component {
 
     return (
       <tr className={styles['coz-table-row']}>
-        <td className={classNames(operationsStyles['coz-table-cell'], operationsStyles['bnk-table-desc'], operationsStyles[`bnk-table-desc--${subcategory.name}`], styles['bnk-table-subcat-name'], styles['coz-table-cell'])}>
+        <td className={classNames(
+            operationsStyles['coz-table-cell'],
+            operationsStyles['bnk-table-desc'],
+            operationsStyles[`bnk-table-desc--${subcategory.name}`],
+            styles['bnk-table-subcat-name'], styles['coz-table-cell'])}
+        >
           {t(`Data.subcategories.${subcategory.name}`)}
         </td>
         <td className={classNames(styles['coz-table-cell'], styles['bnk-table-subcat-percentage'])}>
