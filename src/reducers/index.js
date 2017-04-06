@@ -9,7 +9,7 @@ export const reducers = {
   movements
 }
 
-export const getCategoriesGroupBy = (movements) => {
+export const getCategoriesGroups = (movements) => {
   let creditsCategories = {}
   let totalCredits = 0
   let debitsCategories = {}
@@ -25,11 +25,33 @@ export const getCategoriesGroupBy = (movements) => {
           color: creditCategory.color,
           amount: movement.amount,
           currency: movement.currency,
-          operationsNumber: 1
+          operationsNumber: 1,
+          subcategories: {
+            [movement.type]: {
+              name: [movement.type],
+              amount: movement.amount,
+              operationsNumber: 1,
+              currency: movement.currency
+            }
+          }
         }
       } else {
         creditsCategories[creditCategory.name].amount += movement.amount
         creditsCategories[creditCategory.name].operationsNumber++
+        // subcategories
+        const subcategories =
+          creditsCategories[creditCategory.name].subcategories
+        if (subcategories.hasOwnProperty(movement.type)) {
+          subcategories[movement.type].amount += movement.amount
+          subcategories[movement.type].operationsNumber++
+        } else {
+          subcategories[movement.type] = {
+            name: [movement.type],
+            amount: movement.amount,
+            operationsNumber: 1,
+            currency: movement.currency
+          }
+        }
       }
       totalCredits += movement.amount
     } else {
@@ -41,15 +63,39 @@ export const getCategoriesGroupBy = (movements) => {
           color: debitCategory.color,
           amount: movement.amount,
           currency: movement.currency,
-          operationsNumber: 1
+          operationsNumber: 1,
+          subcategories: {
+            [movement.type]: {
+              name: [movement.type],
+              amount: movement.amount,
+              operationsNumber: 1,
+              currency: movement.currency
+            }
+          }
         }
       } else {
         debitsCategories[debitCategory.name].amount += movement.amount
         debitsCategories[debitCategory.name].operationsNumber++
+        // subcategories
+        const subcategories =
+          debitsCategories[debitCategory.name].subcategories
+        if (subcategories.hasOwnProperty(movement.type)) {
+          subcategories[movement.type].amount += movement.amount
+          subcategories[movement.type].operationsNumber++
+        } else {
+          subcategories[movement.type] = {
+            name: [movement.type],
+            amount: movement.amount,
+            operationsNumber: 1,
+            currency: movement.currency
+          }
+        }
       }
       totalDebits += movement.amount
     }
   })
+
+  // sorting categories
   const credits = Object.values(creditsCategories).sort((a, b) => {
     return a.amount - b.amount
   })
@@ -58,12 +104,31 @@ export const getCategoriesGroupBy = (movements) => {
     return a.amount - b.amount
   })
 
-  // percentages
   debits.forEach((debit) => {
+    // category percentage
     debit.percentage = Math.round(debit.amount / totalDebits * 100)
+    // subcategories sorting
+    debit.subcategories = Object.values(debit.subcategories).sort((a, b) => {
+      return a.amount - b.amount
+    })
+    // subcategories percentage
+    debit.subcategories.forEach((subcategory) => {
+      subcategory.percentage =
+        Math.round(subcategory.amount / totalDebits * 100)
+    })
   })
   credits.forEach((credit) => {
+    // category percentage
     credit.percentage = Math.round(credit.amount / totalCredits * 100)
+    // subcategories sorting
+    credit.subcategories = Object.values(credit.subcategories).sort((a, b) => {
+      return a.amount - b.amount
+    })
+    // subcategories percentage
+    credit.subcategories.forEach((subcategory) => {
+      subcategory.percentage =
+        Math.round(subcategory.amount / totalCredits * 100)
+    })
   })
 
   return {

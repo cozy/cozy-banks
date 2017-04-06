@@ -1,0 +1,46 @@
+@import 'cozy-ui'
+
+[role=application] // @stylint ignore
+    @extend $table
+
+    .coz-table-row
+        font-size   em(14px)
+        width       100%
+        background  grey-10
+
+    .coz-table-cell.bnk-table-subcat-name
+        margin-left     2em
+        padding-left    4em
+        flex            1 0 13.5em
+        background-size em(32px)
+
+    .bnk-table-subcat-percentage
+        flex        1 0 4em
+        text-align  center
+
+    .bnk-table-subcat-operation
+        flex        1 0 9em
+        text-align  center
+
+    .bnk-table-subcat-amount
+        flex            1 0 6em
+        padding-right   1em
+        text-align      right
+
+    .bnk-table-actions
+        flex  1 1 15.5em
+
+    @media (max-width: (768/basefont)rem)
+        .coz-table-cell.bnk-table-subcat-name
+            flex            1 0 10.5em
+
+        .bnk-table-subcat-amount
+            padding-right 2.5em
+
+
+    @media (max-width: (1023/basefont)rem)
+        .coz-table-cell.bnk-table-subcat-name
+            flex            1 0 14em
+
+        .bnk-table-subcat-amount
+            padding-right 1em

@@ -15,7 +15,7 @@ import {
 }
 from '../actions'
 
-import { getCategoriesGroupBy } from '../reducers'
+import { getCategoriesGroups } from '../reducers'
 
 const DATE_OPTIONS = ['Du 01 février au 24 février 2017']
 
@@ -38,10 +38,10 @@ export class Categories extends Component {
     if (!movements.length) {
       return <div><h2>Categorisation</h2><p>Pas de categories à afficher.</p></div>
     }
-    const categories = getCategoriesGroupBy(movements)
+    const categories = getCategoriesGroups(movements)
     const pieDataObject = {labels: [], data: [], colors: []}
     categories.debits.forEach((category) => {
-      pieDataObject.labels.push(t(`Category.${category.name}`))
+      pieDataObject.labels.push(t(`Data.categories.${category.name}`))
       pieDataObject.data.push((0 - category.amount).toFixed(2)) // use positive values
       pieDataObject.colors.push(category.color)
     })
