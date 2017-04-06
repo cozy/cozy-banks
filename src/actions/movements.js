@@ -87,7 +87,7 @@ const MOVEMENTS_DATA = [
     name: 'Virement épargne',
     type: 'saving_transfer',
     date: new Date(2017, 1, 15),
-    amount: -200,
+    amount: -150,
     currency: '€'
   },
   {
@@ -112,8 +112,8 @@ const MOVEMENTS_DATA = [
     currency: '€'
   },
   {
-    name: 'DAB',
-    type: 'DAB',
+    name: 'Retrait gabier',
+    type: 'withdrawals',
     date: new Date(2017, 1, 8),
     amount: -50,
     currency: '€'

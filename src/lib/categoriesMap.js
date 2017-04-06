@@ -138,6 +138,7 @@ export const categoriesMap = new Map([
   ['refunds', outBudget],
   ['releasings', outBudget],
   ['expenses_bill', outBudget],
+  ['deferred_debit', outBudget],
   ['saving_transfer', outBudget],
   ['internal_transfer', outBudget],
   ['out-budget_others', outBudget],
@@ -149,7 +150,7 @@ export const categoriesMap = new Map([
   ['post', services],
   ['services_others', services],
 
-  ['social_contribution', taxes],
+  ['social_contributions', taxes],
   ['income_tax', taxes],
   ['wealth_tax ', taxes],
   ['property_tax', taxes],
