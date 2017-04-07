@@ -4,6 +4,12 @@
 
 export const FETCH_BANK_MOVEMENTS_SUCCESS = 'FETCH_BANK_MOVEMENTS_SUCCESS'
 
+const STACK_DOMAIN =
+  'https://' + document.querySelector('[role=application]').dataset.cozyDomain
+
+let COZY_SANTE_URL =
+  new URL(`${STACK_DOMAIN.replace('recette', 'recette-sante')}`)
+
 const MOVEMENTS_DATA = [
   {
     name: 'Restaurant Les frères Sushi',
@@ -38,7 +44,7 @@ const MOVEMENTS_DATA = [
     currency: '€',
     action: {
       type: 'refund',
-      url: ''
+      url: COZY_SANTE_URL.href + '#remboursements' + '?onboard'
     }
   },
   {
