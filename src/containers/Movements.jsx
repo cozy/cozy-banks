@@ -10,11 +10,12 @@ import OperationsBoard from '../components/OperationsBoard'
 import Loading from '../components/Loading.jsx'
 
 import {
-  fetchMovements
+  fetchMovements,
+  indexOperationsByDate
 }
 from '../actions'
 
-const DATE_OPTIONS = ['Du 01 février au 24 février 2017']
+const DATE_OPTIONS = ['Du 01 mars au 31 mars 2017']
 
 export class Movements extends Component {
   constructor (props) {
@@ -69,8 +70,9 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 export const mapDispatchToProps = (dispatch, ownProps) => ({
-  fetchMovements: () => {
-    return dispatch(fetchMovements())
+  fetchMovements: async () => {
+    const mangoIndex = await dispatch(indexOperationsByDate())
+    return dispatch(fetchMovements(mangoIndex))
   }
 })
 

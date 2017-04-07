@@ -24,6 +24,11 @@
       "description": "Required by the cozy-bar to display the icons of the apps",
       "type": "io.cozy.apps",
       "verbs": ["GET"]
+    },
+    "bank_operations": {
+      "description": "Used to manage your bank operations",
+      "type": "io.cozy.bank_operations",
+      "verbs": ["GET", "POST", "PUT"]
     }
   }
 }

@@ -16,7 +16,7 @@ export const getCategoriesGroups = (movements) => {
   let totalDebits = 0
   movements.forEach((movement) => {
     if (movement.amount > 0) {
-      const creditCategory = categoriesMap.get(movement.type) ||
+      const creditCategory = categoriesMap.get(movement.operationType) ||
         categoriesMap.get('uncategorized_others')
 
       if (!creditsCategories.hasOwnProperty(creditCategory.name)) {
@@ -27,8 +27,8 @@ export const getCategoriesGroups = (movements) => {
           currency: movement.currency,
           operationsNumber: 1,
           subcategories: {
-            [movement.type]: {
-              name: [movement.type],
+            [movement.operationType]: {
+              name: [movement.operationType],
               amount: movement.amount,
               operationsNumber: 1,
               currency: movement.currency
@@ -41,12 +41,12 @@ export const getCategoriesGroups = (movements) => {
         // subcategories
         const subcategories =
           creditsCategories[creditCategory.name].subcategories
-        if (subcategories.hasOwnProperty(movement.type)) {
-          subcategories[movement.type].amount += movement.amount
-          subcategories[movement.type].operationsNumber++
+        if (subcategories.hasOwnProperty(movement.operationType)) {
+          subcategories[movement.operationType].amount += movement.amount
+          subcategories[movement.operationType].operationsNumber++
         } else {
-          subcategories[movement.type] = {
-            name: [movement.type],
+          subcategories[movement.operationType] = {
+            name: [movement.operationType],
             amount: movement.amount,
             operationsNumber: 1,
             currency: movement.currency
@@ -55,7 +55,7 @@ export const getCategoriesGroups = (movements) => {
       }
       totalCredits += movement.amount
     } else {
-      const debitCategory = categoriesMap.get(movement.type) ||
+      const debitCategory = categoriesMap.get(movement.operationType) ||
         categoriesMap.get('uncategorized_others')
       if (!debitsCategories.hasOwnProperty(debitCategory.name)) {
         debitsCategories[debitCategory.name] = {
@@ -65,8 +65,8 @@ export const getCategoriesGroups = (movements) => {
           currency: movement.currency,
           operationsNumber: 1,
           subcategories: {
-            [movement.type]: {
-              name: [movement.type],
+            [movement.operationType]: {
+              name: [movement.operationType],
               amount: movement.amount,
               operationsNumber: 1,
               currency: movement.currency
@@ -79,12 +79,12 @@ export const getCategoriesGroups = (movements) => {
         // subcategories
         const subcategories =
           debitsCategories[debitCategory.name].subcategories
-        if (subcategories.hasOwnProperty(movement.type)) {
-          subcategories[movement.type].amount += movement.amount
-          subcategories[movement.type].operationsNumber++
+        if (subcategories.hasOwnProperty(movement.operationType)) {
+          subcategories[movement.operationType].amount += movement.amount
+          subcategories[movement.operationType].operationsNumber++
         } else {
-          subcategories[movement.type] = {
-            name: [movement.type],
+          subcategories[movement.operationType] = {
+            name: [movement.operationType],
             amount: movement.amount,
             operationsNumber: 1,
             currency: movement.currency
@@ -97,7 +97,7 @@ export const getCategoriesGroups = (movements) => {
 
   // sorting categories
   const credits = Object.values(creditsCategories).sort((a, b) => {
-    return a.amount - b.amount
+    return b.amount - a.amount
   })
 
   const debits = Object.values(debitsCategories).sort((a, b) => {
@@ -122,7 +122,7 @@ export const getCategoriesGroups = (movements) => {
     credit.percentage = Math.round(credit.amount / totalCredits * 100)
     // subcategories sorting
     credit.subcategories = Object.values(credit.subcategories).sort((a, b) => {
-      return a.amount - b.amount
+      return b.amount - a.amount
     })
     // subcategories percentage
     credit.subcategories.forEach((subcategory) => {
