@@ -11,12 +11,6 @@ export const FETCH_BANK_OPERATIONS_SUCCESS = 'FETCH_BANK_OPERATIONS_SUCCESS'
 
 export const BANK_OPERATIONS_DOCTYPE = 'io.cozy.bank_operations'
 
-const STACK_DOMAIN =
-  'https://' + document.querySelector('[role=application]').dataset.cozyDomain
-
-let COZY_SANTE_URL =
-  new URL(`${STACK_DOMAIN.replace('recette', 'recette-sante')}`)
-
 // Mango: Index bank operations
 export const indexOperationsByDate = () => {
   return async dispatch => {
@@ -44,13 +38,13 @@ export const throwServerError = (error) => {
   )
 }
 
-// Returns bank movements
+// Returns bank operations
 export const fetchOperations = (mangoIndex) => {
   return async (dispatch) => {
     dispatch({ type: FETCH_BANK_OPERATIONS })
     return await cozy.client.data.query(mangoIndex, {
       selector: {'date': {'$gt': null}},
-      fields: ['_id', 'operationType', 'name', 'amount', 'currency', 'date'],
+      fields: ['_id', 'operationType', 'name', 'amount', 'currency', 'date', 'action'],
       descending: true
     }).then((operations) => {
       dispatch({type: FETCH_BANK_OPERATIONS_SUCCESS, operations})
