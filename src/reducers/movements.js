@@ -1,12 +1,12 @@
 import {
-  FETCH_BANK_MOVEMENTS_SUCCESS
+  FETCH_BANK_OPERATIONS_SUCCESS
 } from '../actions'
 
 // reducer for the full bank movements list
 export const movements = (state = [], action) => {
   switch (action.type) {
-    case FETCH_BANK_MOVEMENTS_SUCCESS:
-      return action.movements
+    case FETCH_BANK_OPERATIONS_SUCCESS:
+      return action.operations
     default:
       return state
   }

@@ -14,7 +14,7 @@ export const Operation = ({ t, f, movement }) => (
     <td className={classNames(
         styles['coz-table-cell'],
         styles['bnk-table-desc'],
-        styles[`bnk-table-desc--${movement.type}`])}
+        styles[`bnk-table-desc--${movement.operationType}`])}
     >
       {movement.name}
     </td>
