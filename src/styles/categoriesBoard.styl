@@ -3,6 +3,8 @@
 [role=application] // @stylint ignore
     @extend $table
 
+    activeBkgColor = #E8F2FF
+
     .bnk-categories
         width       100%
 
@@ -13,11 +15,28 @@
     .coz-table-body
         height auto
 
+    .coz-table-row
+        cursor  pointer
+
     .coz-table-cell
     .coz-table-header
         font-size     em(14px)
         padding-right em(12px)
         padding-left  em(24px)
+
+    .coz-table-header
+        cursor  default
+
+    .bnk-table-row--uncollapsed
+    .bnk-table-row--uncollapsed:hover
+        border-top  1px solid dodger-blue
+        background  activeBkgColor
+
+        .bnk-table-chevron
+            background  embedurl('../assets/icons/icon-chevron-down-active.svg') center no-repeat
+            transform   rotate3d(1, 0, 0, 180deg)
+            transition  all .2s
+
 
     .bnk-table-category
         flex            1 0 15em
@@ -36,7 +55,12 @@
         text-align  right
 
     .bnk-table-actions
-        flex  1 1 15em
+        flex  1 1 14em
+
+    .bnk-table-chevron
+        flex        0 0 2em
+        background  embedurl('../assets/icons/icon-chevron-down.svg') center no-repeat
+        transition  all .2s
 
     .coz-table-cell.bnk-table-category
         padding-left    5em
@@ -60,9 +84,10 @@
             content         ''
             top             0
             background      transparent
-            width           calc(100% + 1em)
+            width           100%
             height          100%
-            box-shadow      0 -1px 3px alpha(grey-05, .5) inset
+            box-sizing      border-box
+            border-bottom   1px solid dodger-blue
             pointer-events  none
 
     @media (max-width: (768/basefont)rem)

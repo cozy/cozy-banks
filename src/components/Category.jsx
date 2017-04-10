@@ -10,21 +10,25 @@ import Subcategory from '../components/Subcategory'
 export class Category extends Component {
   constructor (props) {
     super(props)
-    this.state = {collapsed: true}
+    this.state = {isCollapsed: true}
 
     this.handleClick = this.handleClick.bind(this)
   }
 
   handleClick () {
-    this.setState({collapsed: !this.state.collapsed})
+    this.setState({isCollapsed: !this.state.isCollapsed})
   }
 
   render () {
     const { t, category } = this.props
+    const { isCollapsed } = this.state
 
     return (
       <tr onClick={this.handleClick}>
-        <tr className={styles['coz-table-row']}>
+        <tr className={classNames(
+            styles['coz-table-row'],
+            isCollapsed ? '' : styles['bnk-table-row--uncollapsed'])}
+        >
           <td className={classNames(
               styles['coz-table-cell'],
               styles['bnk-table-category'],
@@ -48,8 +52,9 @@ export class Category extends Component {
           <td className={classNames(styles['coz-table-cell'], styles['bnk-table-actions'], 'coz-desktop')}>
             －
           </td>
+          <td className={classNames(styles['coz-table-cell'], styles['bnk-table-chevron'])} />
         </tr>
-        {!this.state.collapsed &&
+        {!isCollapsed &&
           <div className={styles['bnk-table-subcategories']}>
             {category.subcategories.map((subcategory) => (
               <Subcategory
