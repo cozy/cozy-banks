@@ -10,7 +10,7 @@ import OperationsBoard from '../components/OperationsBoard'
 import Loading from '../components/Loading.jsx'
 
 import {
-  fetchMovements,
+  fetchOperations,
   indexOperationsByDate
 }
 from '../actions'
@@ -22,27 +22,27 @@ export class Movements extends Component {
     super(props)
     this.state = {isFetching: true}
 
-    props.fetchMovements()
+    props.fetchOperations()
       .then((
         this.setState({isFetching: false})
       ))
   }
 
   render () {
-    const { movements } = this.props
+    const { operations } = this.props
     let credits = 0
     let debits = 0
-    movements.forEach((movement) => {
-      if (movement.amount > 0) {
-        credits += movement.amount
+    operations.forEach((operation) => {
+      if (operation.amount > 0) {
+        credits += operation.amount
       } else {
-        debits += movement.amount
+        debits += operation.amount
       }
     })
     if (this.state.isFetching) {
       return <Loading loadingType='movements' />
     }
-    if (!movements.length) {
+    if (!operations.length) {
       return <div><h2>Mouvements</h2><p>Pas de mouvements à afficher.</p></div>
     }
     return (
@@ -57,22 +57,22 @@ export class Movements extends Component {
           <FigureBlock label='Total' total={credits + debits} currency='€' coloredPositive coloredNegative signed />
           <FigureBlock label='Débit' total={debits} currency='€' signed />
           <FigureBlock label='Crédit' total={credits} currency='€' signed />
-          <FigureBlock label='Opérations' total={movements.length} decimalNumbers={0} />
+          <FigureBlock label='Opérations' total={operations.length} decimalNumbers={0} />
         </div>
-        <OperationsBoard movements={movements} />
+        <OperationsBoard operations={operations} />
       </div>
     )
   }
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  movements: state.movements
+  operations: state.operations
 })
 
 export const mapDispatchToProps = (dispatch, ownProps) => ({
-  fetchMovements: async () => {
+  fetchOperations: async () => {
     const mangoIndex = await dispatch(indexOperationsByDate())
-    return dispatch(fetchMovements(mangoIndex))
+    return dispatch(fetchOperations(mangoIndex))
   }
 })
 

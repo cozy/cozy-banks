@@ -45,7 +45,7 @@ export const throwServerError = (error) => {
 }
 
 // Returns bank movements
-export const fetchMovements = (mangoIndex) => {
+export const fetchOperations = (mangoIndex) => {
   return async (dispatch) => {
     dispatch({ type: FETCH_BANK_OPERATIONS })
     return await cozy.client.data.query(mangoIndex, {
@@ -53,7 +53,6 @@ export const fetchMovements = (mangoIndex) => {
       fields: ['_id', 'operationType', 'name', 'amount', 'currency', 'date'],
       descending: true
     }).then((operations) => {
-      console.log(operations)
       dispatch({type: FETCH_BANK_OPERATIONS_SUCCESS, operations})
     }).catch(fetchError => {
       if (fetchError instanceof Error) throw fetchError

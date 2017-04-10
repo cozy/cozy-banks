@@ -7,7 +7,7 @@ import Operation from './Operation'
 
 class OperationsBoard extends Component {
   render () {
-    const { movements } = this.props
+    const { operations } = this.props
     return (
       <div>
         <h3>Opérations</h3>
@@ -27,7 +27,7 @@ class OperationsBoard extends Component {
             </th>
           </tr>
           <tbody className={styles['coz-table-body']}>
-            {movements.map(movement => <Operation movement={movement} />)}
+            {operations.map(operation => <Operation operation={operation} />)}
           </tbody>
         </table>
       </div>

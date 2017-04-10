@@ -11,7 +11,7 @@ import Loading from '../components/Loading'
 import PieChart from '../components/PieChart'
 
 import {
-  fetchMovements,
+  fetchOperations,
   indexOperationsByDate
 }
 from '../actions'
@@ -25,21 +25,21 @@ export class Categories extends Component {
     super(props)
     this.state = {isFetching: true}
 
-    props.fetchMovements()
+    props.fetchOperations()
       .then((
         this.setState({isFetching: false})
       ))
   }
 
   render () {
-    const { t, movements } = this.props
+    const { t, operations } = this.props
     if (this.state.isFetching) {
       return <Loading loadingType='categories' />
     }
-    if (!movements.length) {
+    if (!operations.length) {
       return <div><h2>Categorisation</h2><p>Pas de categories à afficher.</p></div>
     }
-    const categories = getCategoriesGroups(movements)
+    const categories = getCategoriesGroups(operations)
     const pieDataObject = {labels: [], data: [], colors: []}
     categories.debits.forEach((category) => {
       pieDataObject.labels.push(t(`Data.categories.${category.name}`))
@@ -100,13 +100,13 @@ export class Categories extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  movements: state.movements
+  operations: state.operations
 })
 
 export const mapDispatchToProps = (dispatch, ownProps) => ({
-  fetchMovements: async () => {
+  fetchOperations: async () => {
     const mangoIndex = await dispatch(indexOperationsByDate())
-    return dispatch(fetchMovements(mangoIndex))
+    return dispatch(fetchOperations(mangoIndex))
   }
 })
 

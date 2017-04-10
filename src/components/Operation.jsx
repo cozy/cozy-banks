@@ -6,34 +6,34 @@ import { translate } from '../lib/I18n'
 
 import Figure from '../components/Figure'
 
-export const Operation = ({ t, f, movement }) => (
+export const Operation = ({ t, f, operation }) => (
   <tr className={styles['coz-table-row']}>
     <td className={classNames(styles['coz-table-cell'], styles['bnk-table-date'])}>
-      {f(movement.date, 'DD MMMM YYYY')}
+      {f(operation.date, 'DD MMMM YYYY')}
     </td>
     <td className={classNames(
         styles['coz-table-cell'],
         styles['bnk-table-desc'],
-        styles[`bnk-table-desc--${movement.operationType}`])}
+        styles[`bnk-table-desc--${operation.operationType}`])}
     >
-      {movement.name}
+      {operation.name}
     </td>
     <td className={classNames(styles['coz-table-cell'], styles['bnk-table-amount'])}>
       <Figure
-        total={movement.amount}
-        currency={movement.currency}
+        total={operation.amount}
+        currency={operation.currency}
         signed
         coloredPositive
       />
     </td>
     <td className={classNames(styles['coz-table-cell'], styles['bnk-table-actions'], 'coz-desktop')}>
-      {!movement.action && '－'}
-      {movement.action &&
+      {!operation.action && '－'}
+      {operation.action &&
         <a
-          href={movement.action.url}
+          href={operation.action.url}
           className={styles['bnk-table-actions-link']}
         >
-          {t(`Movements.actions.${movement.action.type}`)}
+          {t(`Movements.actions.${operation.action.type}`)}
         </a>
       }
     </td>
