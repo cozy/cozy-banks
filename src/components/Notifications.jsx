@@ -6,7 +6,24 @@ import React, { Component } from 'react'
 import Toggle from './Toggle'
 
 class Notifications extends Component {
-  render () {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      solde: false,
+      montant: false,
+      salaire: false,
+      retard: false,
+      hebdo: false,
+      mensuel: false,
+    }
+  }
+  onToggle(setting, checked) {
+    this.setState({
+      [setting]: checked
+    })
+  }
+  render (props, state) {
     return (
       <div>
         <h3>
@@ -22,7 +39,7 @@ class Notifications extends Component {
           </p>
 
           <div className={styles['notification-toggle']}>
-            <Toggle />
+            <Toggle name="solde" checked={state.solde} onToggle={checked => this.onToggle('solde', checked)} />
           </div>
         </div>
 
@@ -36,7 +53,7 @@ class Notifications extends Component {
           </p>
 
           <div className={styles['notification-toggle']}>
-            <Toggle />
+            <Toggle name="montant" checked={state.montant} onToggle={checked => this.onToggle('montant', checked)} />
           </div>
         </div>
 

@@ -13,6 +13,7 @@
     height 100%
     border-radius 1em
     background grey
+    transition all .2s ease-out
 
 .label:before
     position absolute
@@ -26,10 +27,10 @@
     border-radius 50%
     content ''
     background white
+    transition all .2s ease-out
 
 .checkbox:checked + .label
     background green
 
     &:before
-        right 2px
-        left auto
+        left calc(100% - .9em - 2px)

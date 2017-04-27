@@ -3,11 +3,16 @@ import styles from '../styles/toggle.styl'
 import React, { Component } from 'react'
 
 class Toggle extends Component {
-  render () {
+  onChange () {
+    if (this.props.onToggle) {
+      this.props.onToggle(!this.props.checked)
+    }
+  }
+  render (props, state) {
     return (
       <span className={styles['toggle']}>
-        <input type="checkbox" name="checkbox1" id="checkbox1" className={styles['checkbox']} />
-        <label for="checkbox1" className={styles['label']}></label>
+        <input type="checkbox" name={props.name} id={props.name} className={styles['checkbox']} checked={props.checked} onChange={this.onChange.bind(this)} />
+        <label for={props.name} className={styles['label']} />
       </span>
     )
   }
