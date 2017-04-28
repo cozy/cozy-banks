@@ -5,6 +5,12 @@ import React, { Component } from 'react'
 
 import Toggle from 'cozy-ui/react/Toggle'
 
+const NotificationDescription = ({ children }) => (
+  <p className={styles['notification-description']}>
+    {children}
+  </p>
+)
+
 class Notifications extends Component {
   constructor (props) {
     super(props)
@@ -24,38 +30,64 @@ class Notifications extends Component {
     })
   }
   render (props, state) {
+    let notifications = [{
+      'title': 'Seuil de solde',
+      'name': 'solde',
+      'description': <NotificationDescription>
+        Vous receverez un email, si votre solde est inférieur à <input type="number" value="400" className={styles['notification-input']} />
+      </NotificationDescription>
+    }, {
+      'title': 'Montant de mouvement',
+      'name': 'montant',
+      'description': <NotificationDescription>
+        Vous receverez un email, si un mouvement est supérieur à <input type="number" value="30" className={styles['notification-input']} />
+      </NotificationDescription>
+    }, {
+      'title': 'Versement de salaire',
+      'name': 'salaire',
+      'description': <NotificationDescription>
+        Vous receverez un email à la réception de votre salaire chaque mois.
+      </NotificationDescription>
+    }, {
+      'title': 'Retard de salaire',
+      'name': 'retard',
+      'description': <NotificationDescription>
+        Vous serez prévenu si vous n’avez pas reçu votre salaire au <input type="number" value="7" className={styles['notification-input']} /> de chaque mois.
+      </NotificationDescription>
+    }, {
+      'title': 'Synthèse hebdomadaire',
+      'name': 'hebdo',
+      'description': <NotificationDescription>
+        Vous receverez un récapitulatif de vos dépenses et de vos revenus tous les lundis de chaque semaine.
+      </NotificationDescription>
+    }, {
+      'title': 'Synthèse mensuelle',
+      'name': 'mensuel',
+      'description': <NotificationDescription>
+        Vous receverez un récapitulatif de vos dépenses et de vos revenus tous les premiers de chaque mois.
+      </NotificationDescription>
+    }]
+
     return (
       <div>
         <h4>
           Notifications
         </h4>
 
-        <h5>
-          Seuil du solde
-        </h5>
-        <div className={styles['notification']}>
-          <p className={styles['notification-description']}>
-            Lorem ipsum dolor si amet <input type="number" className={styles['notification-input']} />
-          </p>
+        {notifications.map(notification => (
+          <div>
+            <h5>
+              {notification.title}
+            </h5>
+            <div className={styles['notification']}>
+              {notification.description}
 
-          <div className={styles['notification-toggle']}>
-            <Toggle name="solde" checked={state.solde} onToggle={checked => this.onToggle('solde', checked)} />
+              <div className={styles['notification-toggle']}>
+                <Toggle name={notification.name} checked={state[notification.name]} onToggle={checked => this.onToggle(notification.name, checked)} />
+              </div>
+            </div>
           </div>
-        </div>
-
-        <h5>
-          Montant
-        </h5>
-        <div className={styles['notification']}>
-          <p className={styles['notification-description']}>
-            Lorem ipsum dolor si amet <input type="number" className={classNames(styles['notification-input'], styles['suffixed'])} /><span>€</span>
-            super long texte a ralgone ca continue plusieurs lignes ok lol
-          </p>
-
-          <div className={styles['notification-toggle']}>
-            <Toggle name="montant" checked={state.montant} onToggle={checked => this.onToggle('montant', checked)} />
-          </div>
-        </div>
+        ))}
 
       </div>
     )
