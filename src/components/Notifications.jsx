@@ -3,7 +3,7 @@ import classNames from 'classnames'
 
 import React, { Component } from 'react'
 
-import Toggle from './Toggle'
+import Toggle from 'cozy-ui/react/Toggle'
 
 class Notifications extends Component {
   constructor (props) {
@@ -26,13 +26,13 @@ class Notifications extends Component {
   render (props, state) {
     return (
       <div>
-        <h3>
-          Notifications
-        </h3>
-
         <h4>
-          Seuil du solde
+          Notifications
         </h4>
+
+        <h5>
+          Seuil du solde
+        </h5>
         <div className={styles['notification']}>
           <p className={styles['notification-description']}>
             Lorem ipsum dolor si amet <input type="number" className={styles['notification-input']} />
@@ -43,9 +43,9 @@ class Notifications extends Component {
           </div>
         </div>
 
-        <h4>
+        <h5>
           Montant
-        </h4>
+        </h5>
         <div className={styles['notification']}>
           <p className={styles['notification-description']}>
             Lorem ipsum dolor si amet <input type="number" className={classNames(styles['notification-input'], styles['suffixed'])} /><span>€</span>

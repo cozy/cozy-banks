@@ -1,5 +1,3 @@
-import styles from '../styles/parametres'
-
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { translate } from '../lib/I18n'
