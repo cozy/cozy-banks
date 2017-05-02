@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import React, { Component } from 'react'
 
 import Toggle from 'cozy-ui/react/Toggle'
+import Modal from 'cozy-ui/react/Modal'
 
 const NotificationDescription = ({ children }) => (
   <p className={styles['notification-description']}>
@@ -22,12 +23,16 @@ class Notifications extends Component {
       retard: false,
       hebdo: false,
       mensuel: false,
+      comingSoonModal: true,
     }
   }
   onToggle(setting, checked) {
     this.setState({
-      [setting]: checked
+      [setting]: false// keep everything unchecked while it's not working
     })
+  }
+  dismissComingSoon () {
+    this.setState({ comingSoonModal: false })
   }
   render (props, state) {
     let notifications = [{
@@ -73,6 +78,14 @@ class Notifications extends Component {
         <h4>
           Notifications
         </h4>
+
+        { state.comingSoonModal &&
+          <Modal
+            title={'À venir'}
+            description={'Ces fonctionnalités seront bientôt disponnibles.'}
+            secondaryAction={this.dismissComingSoon.bind(this)}
+          />
+        }
 
         {notifications.map(notification => (
           <div>
