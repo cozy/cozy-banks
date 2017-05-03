@@ -14,32 +14,32 @@ export class Parametres extends Component {
         <h2>
           Paramètres
         </h2>
-        <Tabs className={styles['bnk-tabs']} initialActiveTab="notifications">
+        <Tabs className={styles['bnk-tabs']} initialActiveTab='notifications'>
           <TabList className={styles['bnk-coz-tab-list']}>
-            <Tab name="profil">
+            <Tab name='profil'>
               Profil
             </Tab>
-            <Tab name="comptes">
+            <Tab name='comptes'>
               Comptes
             </Tab>
-            <Tab name="groupes">
+            <Tab name='groupes'>
               Groupes
             </Tab>
-            <Tab name="notifications">
+            <Tab name='notifications'>
               Notifications
             </Tab>
           </TabList>
           <TabPanels>
-            <TabPanel name="profil">
+            <TabPanel name='profil'>
               Coming Soon
             </TabPanel>
-            <TabPanel name="comptes">
+            <TabPanel name='comptes'>
               Coming Soon
             </TabPanel>
-            <TabPanel name="groupes">
+            <TabPanel name='groupes'>
               Coming Soon
             </TabPanel>
-            <TabPanel name="notifications">
+            <TabPanel name='notifications'>
               <Notifications />
             </TabPanel>
           </TabPanels>

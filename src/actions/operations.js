@@ -16,7 +16,7 @@ export const indexOperationsByDate = () => {
   return async dispatch => {
     dispatch({ type: INDEX_BANK_OPERATIONS_BY_DATE })
     const fields = [ 'date' ]
-    return await cozy.client.data.defineIndex(BANK_OPERATIONS_DOCTYPE, fields)
+    return cozy.client.data.defineIndex(BANK_OPERATIONS_DOCTYPE, fields)
       .then((mangoIndexByDate) => {
         dispatch({
           type: INDEX_BANK_OPERATIONS_BY_DATE_SUCCESS,
@@ -42,7 +42,7 @@ export const throwServerError = (error) => {
 export const fetchOperations = (mangoIndex) => {
   return async (dispatch) => {
     dispatch({ type: FETCH_BANK_OPERATIONS })
-    return await cozy.client.data.query(mangoIndex, {
+    return cozy.client.data.query(mangoIndex, {
       selector: {'date': {'$gt': null}},
       fields: ['_id', 'operationType', 'label', 'amount', 'currency', 'date', 'action'],
       descending: true

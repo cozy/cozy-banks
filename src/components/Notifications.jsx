@@ -23,10 +23,10 @@ class Notifications extends Component {
       retard: false,
       hebdo: false,
       mensuel: false,
-      comingSoonModal: true,
+      comingSoonModal: true
     }
   }
-  onToggle(setting, checked) {
+  onToggle (setting, checked) {
     this.setState({
       [setting]: false// keep everything unchecked while it's not working
     })
@@ -39,13 +39,13 @@ class Notifications extends Component {
       'title': 'Seuil de solde',
       'name': 'solde',
       'description': <NotificationDescription>
-        Vous receverez un email, si votre solde est inférieur à <input type="number" value="400" className={classNames(styles['notification-input'], styles['suffixed'])} /><span>€</span>
+        Vous receverez un email, si votre solde est inférieur à <input type='number' value='400' className={classNames(styles['notification-input'], styles['suffixed'])} /><span>€</span>
       </NotificationDescription>
     }, {
       'title': 'Montant de mouvement',
       'name': 'montant',
       'description': <NotificationDescription>
-        Vous receverez un email, si un mouvement est supérieur à <input type="number" value="30" className={classNames(styles['notification-input'], styles['suffixed'])} /><span>€</span>
+        Vous receverez un email, si un mouvement est supérieur à <input type='number' value='30' className={classNames(styles['notification-input'], styles['suffixed'])} /><span>€</span>
       </NotificationDescription>
     }, {
       'title': 'Versement de salaire',
@@ -57,7 +57,7 @@ class Notifications extends Component {
       'title': 'Retard de salaire',
       'name': 'retard',
       'description': <NotificationDescription>
-        Vous serez prévenu si vous n’avez pas reçu votre salaire au <input type="number" value="7" className={styles['notification-input']} /> de chaque mois.
+        Vous serez prévenu si vous n’avez pas reçu votre salaire au <input type='number' value='7' className={styles['notification-input']} /> de chaque mois.
       </NotificationDescription>
     }, {
       'title': 'Synthèse hebdomadaire',
