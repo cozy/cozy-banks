@@ -9,12 +9,6 @@ import Notifications from '../components/Notifications'
 
 export class Parametres extends Component {
   render () {
-    let tabs = {
-      'Profil': 'Coming Soon',
-      'Comptes': 'Coming Soon',
-      'Groupes': 'Coming Soon',
-      'Notifications': <Notifications />,
-    }
     return (
       <div>
         <h2>
