@@ -39,13 +39,13 @@ class Notifications extends Component {
       'title': 'Seuil de solde',
       'name': 'solde',
       'description': <NotificationDescription>
-        Vous receverez un email, si votre solde est inférieur à <input type="number" value="400" className={styles['notification-input']} />
+        Vous receverez un email, si votre solde est inférieur à <input type="number" value="400" className={classNames(styles['notification-input'], styles['suffixed'])} /><span>€</span>
       </NotificationDescription>
     }, {
       'title': 'Montant de mouvement',
       'name': 'montant',
       'description': <NotificationDescription>
-        Vous receverez un email, si un mouvement est supérieur à <input type="number" value="30" className={styles['notification-input']} />
+        Vous receverez un email, si un mouvement est supérieur à <input type="number" value="30" className={classNames(styles['notification-input'], styles['suffixed'])} /><span>€</span>
       </NotificationDescription>
     }, {
       'title': 'Versement de salaire',
