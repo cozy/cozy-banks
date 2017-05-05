@@ -28,7 +28,8 @@ class Notifications extends Component {
   }
   onToggle (setting, checked) {
     this.setState({
-      [setting]: false// keep everything unchecked while it's not working
+      [setting]: false,// keep everything unchecked while it's not working
+      comingSoonModal: true
     })
   }
   dismissComingSoon () {
