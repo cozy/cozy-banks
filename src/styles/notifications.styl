@@ -28,6 +28,15 @@ input[type='number'].notification-input
     margin 0 5px
     width 3.5em
 
+    &.suffixed::-webkit-inner-spin-button
+    &.suffixed::-webkit-outer-spin-button
+        -webkit-appearance none
+
+    &::-webkit-contacts-auto-fill-button
+        visibility     hidden
+        display        none
+        pointer-events none
+
     &.suffixed + span
         position absolute
         margin-left -1.5em
