@@ -17,7 +17,7 @@ import {
 }
 from '../actions'
 
-const TOTAL_FILTER = 'debit'
+const TOTAL_FILTER = 'total'
 const DEBIT_FILTER = 'debit'
 const INCOME_CATEGORY = 'income'
 const FILTERS = [TOTAL_FILTER, DEBIT_FILTER]
@@ -54,26 +54,32 @@ export class Categories extends Component {
     const FILTER_OPTIONS = FILTERS.map(filter => (t(`Categories.filter.${filter}`)))
     const shouldFilterIncome = filter === DEBIT_FILTER
 
-    // turn the breakdown into an simple array with compted values, as the components expect
+    // turn the breakdown into an simple array with computed values, as the components expect
     let categories = Object.values(operationsByCategories).map(category => {
       let subcategories = Object.values(category.subcategories).map(subcategory => {
+        const debit = subcategory.operations.reduce((total, op) => (op.amount < 0 ? total + op.amount : total), 0)
+        const credit = subcategory.operations.reduce((total, op) => (op.amount > 0 ? total + op.amount : total), 0)
+
         return {
           name: subcategory.name,
-          amount: subcategory.operations.reduce((total, op) => (total + op.amount), 0),
-          debit: category.operations.reduce((total, op) => (op.amount < 0 ? total + op.amount : total), 0),
-          credit: category.operations.reduce((total, op) => (op.amount > 0 ? total + op.amount : total), 0),
+          amount: credit + debit,
+          debit: debit,
+          credit: credit,
           percentage: 0,
           currency: subcategory.operations[0].currency,
           operationsNumber: subcategory.operations.length
         }
       })
 
+      const debit = category.operations.reduce((total, op) => (op.amount < 0 ? total + op.amount : total), 0)
+      const credit = category.operations.reduce((total, op) => (op.amount > 0 ? total + op.amount : total), 0)
+
       return {
         name: category.name,
         color: category.color,
-        amount: category.operations.reduce((total, op) => (total + op.amount), 0),
-        debit: category.operations.reduce((total, op) => (op.amount < 0 ? total + op.amount : total), 0),
-        credit: category.operations.reduce((total, op) => (op.amount > 0 ? total + op.amount : total), 0),
+        amount: credit + debit,
+        debit: debit,
+        credit: credit,
         percentage: 0,
         currency: category.operations[0].currency,
         operationsNumber: category.operations.length,
@@ -85,8 +91,8 @@ export class Categories extends Component {
 
     // now we need to run some extra calculations based on the sums we just did
     const absoluteOperationsTotal = categories.reduce((total, category) => (total + Math.abs(category.amount)), 0)
-    let operationsTotal = 0
     const globalCurrency = categories[0].currency
+    let operationsTotal = 0
 
     // compute individual percentages. This can only be done now because we need the computed amounts
     categories.forEach(category => {
@@ -99,7 +105,7 @@ export class Categories extends Component {
       operationsTotal += category.amount
     })
 
-    // sort the ctaegories for display
+    // sort the categories for display
     categories = categories.sort((a, b) => (b.percentage - a.percentage))
 
     // configure the pie chart
@@ -136,7 +142,6 @@ export class Categories extends Component {
               label={t(`Categories.title.${filter}`)}
               total={operationsTotal}
               currency={globalCurrency}
-              signed
             />
             <PieChart
               labels={pieDataObject.labels}
@@ -155,7 +160,7 @@ const mapStateToProps = (state, ownProps) => {
   let categories = {}
 
   state.operations.forEach(operation => {
-    //Creates a map of categories, where each entry contains a list of related operations and a breakdown by sub-category
+    // Creates a map of categories, where each entry contains a list of related operations and a breakdown by sub-category
     let category = categoriesMap.get(operation.operationType) || categoriesMap.get('uncategorized_others')
 
     // create a new parent category if necessary

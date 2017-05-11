@@ -43,25 +43,23 @@ export class Category extends Component {
             {category.operationsNumber}
           </td>
           <td className={classNames(styles['coz-table-cell'], styles['bnk-table-amount'])}>
-            {category.debit !== 0 ?
-              <Figure
+            {category.debit !== 0
+              ? <Figure
                 total={category.debit}
                 currency={category.currency}
                 signed
               />
-              :
-              '－'
+              : '－'
             }
           </td>
           <td className={classNames(styles['coz-table-cell'], styles['bnk-table-amount'])}>
-            {category.credit !== 0 ?
-              <Figure
+            {category.credit !== 0
+              ? <Figure
                 total={category.credit}
                 currency={category.currency}
                 signed
               />
-              :
-              '－'
+              : '－'
             }
           </td>
           <td className={classNames(styles['coz-table-cell'], styles['bnk-table-actions'], 'coz-desktop')}>

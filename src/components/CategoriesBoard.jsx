@@ -8,7 +8,7 @@ import Category from './Category'
 
 class CategoriesBoard extends Component {
   render () {
-    const { t, categories } = this.props
+    const { categories } = this.props
     return (
       <div className={styles['bnk-categories']}>
         <table className={styles['coz-table']}>
