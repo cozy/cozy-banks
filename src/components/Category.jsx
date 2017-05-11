@@ -47,6 +47,7 @@ export class Category extends Component {
               total={category.amount}
               currency={category.currency}
               signed
+              coloredPositive
             />
           </td>
           <td className={classNames(styles['coz-table-cell'], styles['bnk-table-actions'], 'coz-desktop')}>

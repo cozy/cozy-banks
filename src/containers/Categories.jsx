@@ -16,7 +16,7 @@ import {
 }
 from '../actions'
 
-import { getCategoriesGroups } from '../reducers'
+import { groupOperationsByCategory } from '../reducers'
 
 const DATE_OPTIONS = ['Du 01 mars au 31 mars 2017']
 
@@ -39,11 +39,50 @@ export class Categories extends Component {
     if (!operations.length) {
       return <div><h2>Categorisation</h2><p>Pas de categories à afficher.</p></div>
     }
-    const categories = getCategoriesGroups(operations)
+    const operationsByCategories = groupOperationsByCategory(operations)
+
+    let categories = operationsByCategories.map(category => {
+      let subcategories = Object.values(category.subcategories).map(subcategory => {
+        return {
+          name: subcategory.name,
+          amount: subcategory.operations.reduce((total, op) => (total + op.amount), 0),
+          percentage: 0,
+          currency: subcategory.operations[0].currency,
+          operationsNumber: subcategory.operations.length,
+        }
+      })
+
+      return {
+        name: category.name,
+        color: category.color,
+        amount: category.operations.reduce((total, op) => (total + op.amount), 0),
+        percentage: 0,
+        currency: category.operations[0].currency,
+        operationsNumber: category.operations.length,
+        subcategories: subcategories
+      }
+    })
+
+    const absoluteOperationsTotal = categories.reduce((total, category) => (total + Math.abs(category.amount)), 0)
+    let operationsTotal = 0
+    const globalCurrency = operationsByCategories[0].operations[0].currency
+
+    categories.forEach(category => {
+      category.percentage = Math.round(Math.abs(category.amount) / absoluteOperationsTotal * 100)
+
+      category.subcategories.forEach(subcategory => {
+        subcategory.percentage = Math.round(Math.abs(subcategory.amount) / absoluteOperationsTotal * 100)
+      })
+
+      operationsTotal += category.amount
+    })
+
+    categories = categories.sort((a, b) => (b.percentage - a.percentage))
+
     const pieDataObject = {labels: [], data: [], colors: []}
-    categories.debits.forEach((category) => {
+    categories.forEach((category) => {
       pieDataObject.labels.push(t(`Data.categories.${category.name}`))
-      pieDataObject.data.push((0 - category.amount).toFixed(2)) // use positive values
+      pieDataObject.data.push(Math.abs(category.amount).toFixed(2)) // use positive values
       pieDataObject.colors.push(category.color)
     })
     return (
@@ -58,17 +97,18 @@ export class Categories extends Component {
             onChange={() => {}}
           />
         </div>
-        <h3 className={styles['bnk-cat-title']}>Dépenses</h3>
+
+        <h3 className={styles['bnk-cat-title']}>Total</h3>
         <div className={styles['bnk-cat-debits']}>
           <CategoriesBoard
-            categories={categories.debits}
-            amountType='debit'
+            categories={categories}
+            amountType='net'
           />
           <div class={styles['bnk-cat-figure']}>
             <FigureBlock
-              label='Dépense Totale'
-              total={categories.totalDebits}
-              currency={categories.currency}
+              label='Total'
+              total={operationsTotal}
+              currency={globalCurrency}
               signed
             />
             <PieChart
@@ -76,21 +116,6 @@ export class Categories extends Component {
               data={pieDataObject.data}
               colors={pieDataObject.colors}
               className='bnk-cat-debits-pie'
-            />
-          </div>
-        </div>
-        <h3 className={styles['bnk-cat-title']}>Revenus</h3>
-        <div className={styles['bnk-cat-credits']}>
-          <CategoriesBoard
-            categories={categories.credits}
-            amountType='credit'
-          />
-          <div class={styles['bnk-cat-figure']}>
-            <FigureBlock
-              label='Revenu Total'
-              total={categories.totalCredits}
-              currency={categories.currency}
-              signed
             />
           </div>
         </div>

@@ -9,135 +9,35 @@ export const reducers = {
   operations
 }
 
-export const getCategoriesGroups = (operations) => {
-  let creditsCategories = {}
-  let totalCredits = 0
-  let debitsCategories = {}
-  let totalDebits = 0
-  operations.forEach((operation) => {
-    if (operation.amount > 0) {
-      const creditCategory = categoriesMap.get(operation.operationType) ||
-        categoriesMap.get('uncategorized_others')
+export const groupOperationsByCategory = (operations) => {
+  let categories = {}
 
-      if (!creditsCategories.hasOwnProperty(creditCategory.name)) {
-        creditsCategories[creditCategory.name] = {
-          name: creditCategory.name,
-          color: creditCategory.color,
-          amount: operation.amount,
-          currency: operation.currency,
-          operationsNumber: 1,
-          subcategories: {
-            [operation.operationType]: {
-              name: [operation.operationType],
-              amount: operation.amount,
-              operationsNumber: 1,
-              currency: operation.currency
-            }
-          }
-        }
-      } else {
-        creditsCategories[creditCategory.name].amount += operation.amount
-        creditsCategories[creditCategory.name].operationsNumber++
-        // subcategories
-        const subcategories =
-          creditsCategories[creditCategory.name].subcategories
-        if (subcategories.hasOwnProperty(operation.operationType)) {
-          subcategories[operation.operationType].amount += operation.amount
-          subcategories[operation.operationType].operationsNumber++
-        } else {
-          subcategories[operation.operationType] = {
-            name: [operation.operationType],
-            amount: operation.amount,
-            operationsNumber: 1,
-            currency: operation.currency
-          }
-        }
+  operations.forEach(operation => {
+    let category = categoriesMap.get(operation.operationType) || categoriesMap.get('uncategorized_others')
+
+    //create a new parent category if necessary
+    if (!categories.hasOwnProperty(category.name)) {
+      categories[category.name] = {
+        name: category.name,
+        color: category.color,
+        operations: [],
+        subcategories: {}
       }
-      totalCredits += operation.amount
-    } else {
-      const debitCategory = categoriesMap.get(operation.operationType) ||
-        categoriesMap.get('uncategorized_others')
-      if (!debitsCategories.hasOwnProperty(debitCategory.name)) {
-        debitsCategories[debitCategory.name] = {
-          name: debitCategory.name,
-          color: debitCategory.color,
-          amount: operation.amount,
-          currency: operation.currency,
-          operationsNumber: 1,
-          subcategories: {
-            [operation.operationType]: {
-              name: [operation.operationType],
-              amount: operation.amount,
-              operationsNumber: 1,
-              currency: operation.currency
-            }
-          }
-        }
-      } else {
-        debitsCategories[debitCategory.name].amount += operation.amount
-        debitsCategories[debitCategory.name].operationsNumber++
-        // subcategories
-        const subcategories =
-          debitsCategories[debitCategory.name].subcategories
-        if (subcategories.hasOwnProperty(operation.operationType)) {
-          subcategories[operation.operationType].amount += operation.amount
-          subcategories[operation.operationType].operationsNumber++
-        } else {
-          subcategories[operation.operationType] = {
-            name: [operation.operationType],
-            amount: operation.amount,
-            operationsNumber: 1,
-            currency: operation.currency
-          }
-        }
-      }
-      totalDebits += operation.amount
     }
+
+    //create the subcategory if necessary
+    if (!categories[category.name].subcategories.hasOwnProperty(operation.operationType)){
+      categories[category.name].subcategories[operation.operationType] = {
+        name: operation.operationType,
+        operations: []
+      }
+    }
+
+    categories[category.name].operations.push(operation)
+    categories[category.name].subcategories[operation.operationType].operations.push(operation);
   })
 
-  // sorting categories
-  const credits = Object.values(creditsCategories).sort((a, b) => {
-    return b.amount - a.amount
-  })
-
-  const debits = Object.values(debitsCategories).sort((a, b) => {
-    return a.amount - b.amount
-  })
-
-  debits.forEach((debit) => {
-    // category percentage
-    debit.percentage = Math.round(debit.amount / totalDebits * 100)
-    // subcategories sorting
-    debit.subcategories = Object.values(debit.subcategories).sort((a, b) => {
-      return a.amount - b.amount
-    })
-    // subcategories percentage
-    debit.subcategories.forEach((subcategory) => {
-      subcategory.percentage =
-        Math.round(subcategory.amount / totalDebits * 100)
-    })
-  })
-  credits.forEach((credit) => {
-    // category percentage
-    credit.percentage = Math.round(credit.amount / totalCredits * 100)
-    // subcategories sorting
-    credit.subcategories = Object.values(credit.subcategories).sort((a, b) => {
-      return b.amount - a.amount
-    })
-    // subcategories percentage
-    credit.subcategories.forEach((subcategory) => {
-      subcategory.percentage =
-        Math.round(subcategory.amount / totalCredits * 100)
-    })
-  })
-
-  return {
-    credits,
-    debits,
-    totalDebits,
-    totalCredits,
-    currency: '€'
-  }
+  return Object.values(categories);
 }
 
 const combinedReducers = combineReducers(reducers)

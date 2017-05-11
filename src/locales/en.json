@@ -9,7 +9,8 @@
   "Categories": {
     "board": {
       "debit-header": "Dépense",
-      "credit-header": "Revenu"
+      "credit-header": "Revenu",
+      "net-header": "Net"
     }
   },
 
