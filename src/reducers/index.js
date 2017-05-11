@@ -9,6 +9,9 @@ export const reducers = {
   operations
 }
 
+/**
+* This function creates a Map of categories, where each entry contains a list of related operations and a breakdown by sub-category
+*/
 export const groupOperationsByCategory = (operations, includeCredits = true, includeDebits = true) => {
   let categories = {}
 
@@ -18,7 +21,7 @@ export const groupOperationsByCategory = (operations, includeCredits = true, inc
 
     let category = categoriesMap.get(operation.operationType) || categoriesMap.get('uncategorized_others')
 
-    //create a new parent category if necessary
+    // create a new parent category if necessary
     if (!categories.hasOwnProperty(category.name)) {
       categories[category.name] = {
         name: category.name,
@@ -28,8 +31,8 @@ export const groupOperationsByCategory = (operations, includeCredits = true, inc
       }
     }
 
-    //create the subcategory if necessary
-    if (!categories[category.name].subcategories.hasOwnProperty(operation.operationType)){
+    // create the subcategory if necessary
+    if (!categories[category.name].subcategories.hasOwnProperty(operation.operationType)) {
       categories[category.name].subcategories[operation.operationType] = {
         name: operation.operationType,
         operations: []
@@ -37,10 +40,10 @@ export const groupOperationsByCategory = (operations, includeCredits = true, inc
     }
 
     categories[category.name].operations.push(operation)
-    categories[category.name].subcategories[operation.operationType].operations.push(operation);
+    categories[category.name].subcategories[operation.operationType].operations.push(operation)
   })
 
-  return Object.values(categories);
+  return categories
 }
 
 const combinedReducers = combineReducers(reducers)

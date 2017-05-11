@@ -36,7 +36,7 @@ export class Categories extends Component {
       ))
   }
 
-  applyFilter(selectName, filterLabel, filterIndex){
+  applyFilter (selectName, filterLabel, filterIndex) {
     this.setState({filter: FILTERS[filterIndex]})
   }
 
@@ -48,20 +48,24 @@ export class Categories extends Component {
     if (!operations.length) {
       return <div><h2>Categorisation</h2><p>Pas de categories à afficher.</p></div>
     }
+    // compute the filter to use
     const FILTER_OPTIONS = FILTERS.map(filter => (t(`Categories.filter.${filter}`)))
     const { filter } = this.state
     const includeDebits = filter !== 'credit'
     const includeCredits = filter !== 'debit'
+
+    // get a category breakdown of all operations
     const operationsByCategories = groupOperationsByCategory(operations, includeCredits, includeDebits)
 
-    let categories = operationsByCategories.map(category => {
+    // turn the breakdown into an simple array with compted values, as the components expect
+    let categories = Object.values(operationsByCategories).map(category => {
       let subcategories = Object.values(category.subcategories).map(subcategory => {
         return {
           name: subcategory.name,
           amount: subcategory.operations.reduce((total, op) => (total + op.amount), 0),
           percentage: 0,
           currency: subcategory.operations[0].currency,
-          operationsNumber: subcategory.operations.length,
+          operationsNumber: subcategory.operations.length
         }
       })
 
@@ -76,10 +80,12 @@ export class Categories extends Component {
       }
     })
 
+    // now we need to run some extra calculations based on the sums we just did
     const absoluteOperationsTotal = categories.reduce((total, category) => (total + Math.abs(category.amount)), 0)
     let operationsTotal = 0
-    const globalCurrency = operationsByCategories[0].operations[0].currency
+    const globalCurrency = categories[0].currency
 
+    // compute individual percentages. This can only be done now because we need the computed amounts
     categories.forEach(category => {
       category.percentage = Math.round(Math.abs(category.amount) / absoluteOperationsTotal * 100)
 
@@ -90,8 +96,10 @@ export class Categories extends Component {
       operationsTotal += category.amount
     })
 
+    // sort the ctaegories for display
     categories = categories.sort((a, b) => (b.percentage - a.percentage))
 
+    // configure the pie chart
     const pieDataObject = {labels: [], data: [], colors: []}
     categories.forEach((category) => {
       pieDataObject.labels.push(t(`Data.categories.${category.name}`))
