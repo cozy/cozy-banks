@@ -18,17 +18,26 @@ from '../actions'
 
 import { groupOperationsByCategory } from '../reducers'
 
+const FILTERS = ['net', 'debit', 'credit']
+
 const DATE_OPTIONS = ['Du 01 mars au 31 mars 2017']
 
 export class Categories extends Component {
   constructor (props) {
     super(props)
-    this.state = {isFetching: true}
+    this.state = {
+      isFetching: true,
+      filter: FILTERS[0]
+    }
 
     props.fetchOperations()
       .then((
         this.setState({isFetching: false})
       ))
+  }
+
+  applyFilter(selectName, filterLabel, filterIndex){
+    this.setState({filter: FILTERS[filterIndex]})
   }
 
   render () {
@@ -39,7 +48,11 @@ export class Categories extends Component {
     if (!operations.length) {
       return <div><h2>Categorisation</h2><p>Pas de categories à afficher.</p></div>
     }
-    const operationsByCategories = groupOperationsByCategory(operations)
+    const FILTER_OPTIONS = FILTERS.map(filter => (t(`Categories.filter.${filter}`)))
+    const { filter } = this.state
+    const includeDebits = filter !== 'credit'
+    const includeCredits = filter !== 'debit'
+    const operationsByCategories = groupOperationsByCategory(operations, includeCredits, includeDebits)
 
     let categories = operationsByCategories.map(category => {
       let subcategories = Object.values(category.subcategories).map(subcategory => {
@@ -96,13 +109,18 @@ export class Categories extends Component {
             options={DATE_OPTIONS}
             onChange={() => {}}
           />
+          <Select
+            name='filterRange'
+            options={FILTER_OPTIONS}
+            onChange={this.applyFilter.bind(this)}
+          />
         </div>
 
         <h3 className={styles['bnk-cat-title']}>Total</h3>
         <div className={styles['bnk-cat-debits']}>
           <CategoriesBoard
             categories={categories}
-            amountType='net'
+            amountType={filter}
           />
           <div class={styles['bnk-cat-figure']}>
             <FigureBlock

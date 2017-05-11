@@ -11,6 +11,11 @@
       "debit-header": "Dépense",
       "credit-header": "Revenu",
       "net-header": "Net"
+    },
+    "filter": {
+      "debit": "Dépenses",
+      "credit": "Revenus",
+      "net": "Net"
     }
   },
 

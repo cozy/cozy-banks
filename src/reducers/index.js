@@ -9,10 +9,13 @@ export const reducers = {
   operations
 }
 
-export const groupOperationsByCategory = (operations) => {
+export const groupOperationsByCategory = (operations, includeCredits = true, includeDebits = true) => {
   let categories = {}
 
   operations.forEach(operation => {
+    if (!includeCredits && operation.amount > 0) return
+    if (!includeDebits && operation.amount < 0) return
+
     let category = categoriesMap.get(operation.operationType) || categoriesMap.get('uncategorized_others')
 
     //create a new parent category if necessary
