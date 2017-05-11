@@ -10,12 +10,16 @@
     "board": {
       "debit-header": "Dépense",
       "credit-header": "Revenu",
-      "net-header": "Net"
+      "total-header": "Total"
     },
     "filter": {
       "debit": "Dépenses",
       "credit": "Revenus",
-      "net": "Net"
+      "total": "Total"
+    },
+    "title": {
+      "total": "Solde de la période",
+      "debit": "Dépense nette"
     }
   },
 
