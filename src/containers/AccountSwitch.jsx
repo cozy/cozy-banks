@@ -17,7 +17,8 @@ class AccountSwitch extends Component {
     super(props)
 
     this.state = {
-      isFetching: true
+      isFetching: true,
+      open: false
     }
 
     props.fetchAccounts()
@@ -31,42 +32,57 @@ class AccountSwitch extends Component {
   switchAccount (account) {
     this.props.selectAccounts([account._id]);
   }
+  toggle (state) {
+    // You would think that opening and closing the menu is easy, but it's fucking not. It needs to be closed when the user does pretty much anything except clicking inside the menu.
+    // The react-nclickoutside lib doesn't work with preact. Listening for events at the document level doesn't really work either because it's impossible to predict in what order the handlers are going to be called.
+    // So here we are with a method that is called on focus / on blur. The problem is, even a click *inside* the menu is going to trigger the blur event, and close it -- and somehow the click event gets lost in translation. So we have to introduce a small delay before actually removing the menu from the DOM.
+    let delay = state ? 0 : 100
+    setTimeout(() => {
+      this.setState({open: state})
+    }, delay)
+  }
   render () {
 
     const { accounts, selectedAccount } = this.props
-    const { isFetching } = this.state
+    const { isFetching, open } = this.state
 
     if (isFetching) return ''
 
     return (
       <div className={styles['account-switch']}>
-        <div className={styles['account-switch-button']}>
+        <button className={classNames(styles['account-switch-button'], {[styles['active']]: open})} onFocus={this.toggle.bind(this, true)} onBlur={this.toggle.bind(this, false)}>
           { selectedAccount !== null
             ?
             <div>
-              <h3>
-                { selectedAccount.bank + ' ' + selectedAccount.account }
-              </h3>
-              <span>
+              <div className={styles['account-name']}>
+                { selectedAccount.account + ' ' + selectedAccount.bank }
+              </div>
+              <div className={styles['account-num']}>
                 n° { selectedAccount.number }
-              </span>
+              </div>
             </div>
             :
-            '-'
+            <div>
+              <div className={styles['account-name']}>
+                Tous les comptes
+              </div>
+            </div>
           }
-        </div>
-        <div className={styles['account-switch-menu']}>
-          <h4>
-            Comptes
-          </h4>
-          <ul>
-            { accounts.map(account => (
-            <li onClick={() => {this.switchAccount(account)}} className={classNames({[styles['active']]: selectedAccount && account._id === selectedAccount._id})}>
-              { account.bank + ' ' + account.account }
-            </li>
-            )) }
-          </ul>
-        </div>
+        </button>
+        { open &&
+          <div className={styles['account-switch-menu']}>
+            <h4>
+              Comptes
+            </h4>
+            <ul>
+              { accounts.map(account => (
+              <li onClick={() => {this.switchAccount(account)}} className={classNames({[styles['active']]: selectedAccount && account._id === selectedAccount._id})}>
+                { account.account + ' ' + account.bank }
+              </li>
+              )) }
+            </ul>
+          </div>
+        }
       </div>
     )
   }
