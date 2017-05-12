@@ -2,11 +2,14 @@ import { combineReducers } from 'redux'
 
 import alerterReducer from 'cozy-ui/react/Alerter'
 import operations from './operations'
+import { accounts, selectedAccounts } from './accounts'
 import categoriesMap from '../lib/categoriesMap'
 
 export const reducers = {
   alerts: alerterReducer,
-  operations
+  operations,
+  accounts,
+  selectedAccounts
 }
 
 export const getCategoriesGroups = (operations) => {

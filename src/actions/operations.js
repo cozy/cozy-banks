@@ -3,13 +3,14 @@
 /**
   Bank movements related features
 **/
+import { throwServerError } from './index.js'
 
 export const INDEX_BANK_OPERATIONS_BY_DATE = 'INDEX_BANK_OPERATIONS_BY_DATE'
 export const INDEX_BANK_OPERATIONS_BY_DATE_SUCCESS = 'INDEX_BANK_OPERATIONS_BY_DATE_SUCCESS'
 export const FETCH_BANK_OPERATIONS = 'FETCH_BANK_OPERATIONS'
 export const FETCH_BANK_OPERATIONS_SUCCESS = 'FETCH_BANK_OPERATIONS_SUCCESS'
 
-export const BANK_OPERATIONS_DOCTYPE = 'io.cozy.bank_operations'
+export const BANK_OPERATIONS_DOCTYPE = 'io.cozy.bank.operations'
 
 // Mango: Index bank operations
 export const indexOperationsByDate = () => {
@@ -28,14 +29,6 @@ export const indexOperationsByDate = () => {
         throwServerError(fetchError)
       })
   }
-}
-
-// helper to hanlde server error
-export const throwServerError = (error) => {
-  throw new Error(error.response
-    ? error.response.statusText
-    : error
-  )
 }
 
 // Returns bank operations
