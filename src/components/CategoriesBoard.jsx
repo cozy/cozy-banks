@@ -8,7 +8,7 @@ import Category from './Category'
 
 class CategoriesBoard extends Component {
   render () {
-    const { t, categories, amountType } = this.props
+    const { categories } = this.props
     return (
       <div className={styles['bnk-categories']}>
         <table className={styles['coz-table']}>
@@ -23,7 +23,10 @@ class CategoriesBoard extends Component {
               Opérations
             </th>
             <th className={classNames(styles['coz-table-header'], styles['bnk-table-amount'])}>
-              {t(`Categories.board.${amountType}-header`)}
+              Débit
+            </th>
+            <th className={classNames(styles['coz-table-header'], styles['bnk-table-amount'])}>
+              Crédit
             </th>
             <th className={classNames(styles['coz-table-header'], styles['bnk-table-actions'], 'coz-desktop')}>
               Action
