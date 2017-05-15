@@ -23,14 +23,13 @@ class AccountSwitch extends Component {
 
     props.fetchAccounts()
       .then(() => {
-        if (this.props.accounts.length > 0) this.switchAccount(this.props.accounts[0])
         this.setState({
           isFetching: false,
         })
       })
   }
   switchAccount (account) {
-    this.props.selectAccounts([account._id]);
+    (this.props.selectedAccount && this.props.selectedAccount._id === account._id) ? this.props.selectAccounts([]) : this.props.selectAccounts([account._id]);
   }
   toggle (state) {
     // You would think that opening and closing the menu is easy, but it's fucking not. It needs to be closed when the user does pretty much anything except clicking inside the menu.
