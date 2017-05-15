@@ -29,6 +29,7 @@ class AccountSwitch extends Component {
       })
   }
   switchAccount (account) {
+    // We only ever want one account to be selected
     (this.props.selectedAccount && this.props.selectedAccount._id === account._id) ? this.props.selectAccounts([]) : this.props.selectAccounts([account._id])
   }
   toggle (state) {
@@ -44,12 +45,12 @@ class AccountSwitch extends Component {
     const { accounts, selectedAccount } = this.props
     const { isFetching, open } = this.state
 
-    if (isFetching) return ''
-
     return (
       <div className={styles['account-switch']}>
         <button className={classNames(styles['account-switch-button'], {[styles['active']]: open})} onFocus={this.toggle.bind(this, true)} onBlur={this.toggle.bind(this, false)}>
-          { selectedAccount !== null
+          { isFetching
+            ? 'Chargement...'
+            : selectedAccount !== null
             ? <div>
               <div className={styles['account-name']}>
                 { selectedAccount.account + ' ' + selectedAccount.bank }
