@@ -55,6 +55,19 @@ export class PieChart extends Component {
     Chart.pluginService.register(pieceLabel)
   }
 
+  componentWillReceiveProps (nextProps) {
+    this.setState({data: {
+      labels: nextProps.labels,
+      datasets: [
+        {
+          data: nextProps.data,
+          backgroundColor: nextProps.colors,
+          borderWidth: 0
+        }
+      ]
+    }})
+  }
+
   render () {
     const { data, options } = this.state
     return (

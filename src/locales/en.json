@@ -9,7 +9,17 @@
   "Categories": {
     "board": {
       "debit-header": "Dépense",
-      "credit-header": "Revenu"
+      "credit-header": "Revenu",
+      "total-header": "Total"
+    },
+    "filter": {
+      "debit": "Dépenses",
+      "credit": "Revenus",
+      "total": "Total"
+    },
+    "title": {
+      "total": "Solde de la période",
+      "debit": "Dépense nette"
     }
   },
 
