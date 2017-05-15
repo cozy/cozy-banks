@@ -6,6 +6,7 @@ import { translate } from '../lib/I18n'
 
 import { Tab, Tabs, TabList, TabPanel, TabPanels } from 'cozy-ui/react/Tabs'
 import Notifications from '../components/Notifications'
+import Groupes from '../components/Groupes'
 
 export class Parametres extends Component {
   render () {
@@ -14,7 +15,7 @@ export class Parametres extends Component {
         <h2>
           Paramètres
         </h2>
-        <Tabs className={styles['bnk-tabs']} initialActiveTab='notifications'>
+        <Tabs className={styles['bnk-tabs']} initialActiveTab='groupes'>
           <TabList className={styles['bnk-coz-tab-list']}>
             <Tab name='profil'>
               Profil
@@ -37,7 +38,7 @@ export class Parametres extends Component {
               Coming Soon
             </TabPanel>
             <TabPanel name='groupes'>
-              Coming Soon
+              <Groupes />
             </TabPanel>
             <TabPanel name='notifications'>
               <Notifications />
