@@ -37,7 +37,7 @@ export const fetchOperations = (mangoIndex) => {
     dispatch({ type: FETCH_BANK_OPERATIONS })
     return cozy.client.data.query(mangoIndex, {
       selector: {'date': {'$gt': null}},
-      fields: ['_id', 'operationType', 'label', 'amount', 'currency', 'date', 'action'],
+      fields: ['_id', 'operationType', 'bankAccount', 'label', 'amount', 'currency', 'date', 'action'],
       descending: true
     }).then((operations) => {
       dispatch({type: FETCH_BANK_OPERATIONS_SUCCESS, operations})

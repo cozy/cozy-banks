@@ -15,6 +15,8 @@ import {
 }
 from '../actions'
 
+import { getFilteredOperations } from '../selectors'
+
 const DATE_OPTIONS = ['Du 01 mars au 31 mars 2017']
 
 export class Movements extends Component {
@@ -66,7 +68,7 @@ export class Movements extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  operations: state.operations
+  operations: getFilteredOperations(state)
 })
 
 export const mapDispatchToProps = (dispatch, ownProps) => ({
