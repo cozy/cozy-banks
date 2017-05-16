@@ -14,30 +14,31 @@
             background  activeBkgColor
 
     .coz-table-cell.bnk-table-subcat-name
+        box-sizing border-box
         margin-left     2em
         padding-left    em(60px) // 24px + 36px
-        flex            1 0 13.5em
+        flex            0 0 26.5%
         color           black
         background      none
 
     .bnk-table-subcat-percentage
-        flex        1 0 4em
+        flex        0 0 10%
         text-align  center
         white-space nowrap
+        font-weight bold
+        color       black
 
     .bnk-table-subcat-operation
-        flex        1 0 9em
+        flex        0 0 10%
         text-align  center
 
     .bnk-table-subcat-amount
-        flex            1 0 6em
+        flex            0 0 15%
         padding-right   1em
         text-align      right
-        color           black
 
     .bnk-table-actions
-        flex            1 1 15.5em
-        margin-right    em(26px)
+        flex        0 0 20%
 
     @media (max-width: (768/basefont)rem)
         .coz-table-cell.bnk-table-subcat-name

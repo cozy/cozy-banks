@@ -39,35 +39,41 @@
 
 
     .bnk-table-category
-        flex            1 0 15em
+        flex            0 0 30%
         padding-left    em(36px)
 
     .bnk-table-operation
-        flex        1 0 10em
+        flex        0 0 10%
         text-align  center
 
     .bnk-table-percentage
-        flex        1 0 5em
+        flex        0 0 10%
         text-align  center
 
     .bnk-table-amount
-        flex        1 0 7em
+        flex        0 0 15%
         text-align  right
 
     .bnk-table-actions
-        flex  1 1 14em
+        flex        0 0 15%
 
     .bnk-table-chevron
-        flex        0 0 2em
+        flex        0 0 5%
         background  embedurl('../assets/icons/icon-chevron-down.svg') center no-repeat
         transition  all .2s
+
+    .coz-table-header.bnk-table-operation
+        padding 0
+        overflow hidden
+        text-overflow ellipsis
 
     .coz-table-cell.bnk-table-category
         padding-left    5em
         color           black
 
-    .coz-table-cell.bnk-table-amount
+    .coz-table-cell.bnk-table-percentage
         color black
+        font-weight bold
 
     .bnk-table-actions-link
         padding-left   2em

@@ -25,11 +25,24 @@ export class Subcategory extends Component {
           {subcategory.operationsNumber}
         </td>
         <td className={classNames(styles['coz-table-cell'], styles['bnk-table-subcat-amount'])}>
-          <Figure
-            total={subcategory.amount}
-            currency={subcategory.currency}
-            signed
-          />
+          {subcategory.debit !== 0
+            ? <Figure
+              total={subcategory.debit}
+              currency={subcategory.currency}
+              signed
+            />
+            : '－'
+          }
+        </td>
+        <td className={classNames(styles['coz-table-cell'], styles['bnk-table-subcat-amount'])}>
+          {subcategory.credit !== 0
+            ? <Figure
+              total={subcategory.credit}
+              currency={subcategory.currency}
+              signed
+            />
+            : '－'
+          }
         </td>
         <td className={classNames(styles['coz-table-cell'], styles['bnk-table-actions'], 'coz-desktop')}>
           －
