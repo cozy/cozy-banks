@@ -42,14 +42,14 @@ class AccountSwitch extends Component {
     }, delay)
   }
   render () {
-    const { accounts, selectedAccount } = this.props
+    const { t, accounts, selectedAccount } = this.props
     const { isFetching, open } = this.state
 
     return (
       <div className={styles['account-switch']}>
         <button className={classNames(styles['account-switch-button'], {[styles['active']]: open})} onFocus={this.toggle.bind(this, true)} onBlur={this.toggle.bind(this, false)}>
           { isFetching
-            ? 'Chargement...'
+            ? `${t('Loading.loading')}...`
             : selectedAccount !== null
             ? <div>
               <div className={styles['account-name']}>
@@ -61,7 +61,7 @@ class AccountSwitch extends Component {
             </div>
             : <div>
               <div className={styles['account-name']}>
-                Tous les comptes
+                {t('AccountSwitch.all_accounts')}
               </div>
             </div>
           }
@@ -69,7 +69,7 @@ class AccountSwitch extends Component {
         { open &&
           <div className={styles['account-switch-menu']}>
             <h4>
-              Comptes
+              {t('AccountSwitch.accounts')}
             </h4>
             <ul>
               { accounts.map(account => (

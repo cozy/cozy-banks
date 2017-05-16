@@ -118,7 +118,12 @@ export class Categories extends Component {
       return <Loading loadingType='categories' />
     }
     if (categories.length === 0) {
-      return <div><h2>Categorisation</h2><p>Pas de categories à afficher.</p></div>
+      return (
+        <div>
+          <h2>{t('Categories.title.empty')}</h2>
+          <p>{t('Categories.title.empty_text')}</p>
+        </div>
+      )
     }
     // compute the filter to use
     const { filter } = this.state
@@ -157,7 +162,7 @@ export class Categories extends Component {
     return (
       <div>
         <h2>
-          Catégorisation
+          {t('Categories.title.general')}
         </h2>
         <div className={styles['bnk-cat-form']}>
           <Select
