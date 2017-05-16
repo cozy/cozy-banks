@@ -4,7 +4,7 @@ import App from './App'
 
 import Movements from '../containers/Movements'
 import Categories from '../containers/Categories'
-import Parametres from '../containers/Parametres'
+import Settings from '../containers/Settings'
 
 export const ComingSoon = () => (<p style='margin-left: 2em'>Coming soon!</p>)
 
@@ -16,7 +16,7 @@ const AppRoute = (
     <Route path='categories' component={Categories} />
     <Route path='projections' component={ComingSoon} />
     <Route path='savings' component={ComingSoon} />
-    <Route path='settings' component={Parametres} />
+    <Route path='settings' component={Settings} />
   </Route>
 )
 

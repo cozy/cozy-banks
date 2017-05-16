@@ -8,7 +8,7 @@ import { Tab, Tabs, TabList, TabPanel, TabPanels } from 'cozy-ui/react/Tabs'
 import Notifications from '../components/Notifications'
 import Groups from '../components/Groups'
 
-export class Parametres extends Component {
+export class Settings extends Component {
   render () {
     return (
       <div>
@@ -59,4 +59,4 @@ export const mapDispatchToProps = (dispatch, ownProps) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(translate()(Parametres))
+)(translate()(Settings))

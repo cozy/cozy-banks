@@ -14,7 +14,7 @@ export const Operation = ({ t, f, operation }) => (
     <td className={classNames(
         styles['coz-table-cell'],
         styles['bnk-table-desc'],
-        styles[`bnk-table-desc--${operation.operationType}`])}
+        styles[`bnk-table-desc--${operation.category}`])}
     >
       {operation.label}
     </td>
