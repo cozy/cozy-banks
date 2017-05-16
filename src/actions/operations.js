@@ -3,7 +3,8 @@
 /**
   Bank movements related features
 **/
-import { throwServerError } from './index.js'
+import { throwServerError } from './index'
+import { BANK_ACCOUNTS_DOCTYPE } from './accounts'
 
 export const INDEX_BANK_OPERATIONS_BY_DATE = 'INDEX_BANK_OPERATIONS_BY_DATE'
 export const INDEX_BANK_OPERATIONS_BY_DATE_SUCCESS = 'INDEX_BANK_OPERATIONS_BY_DATE_SUCCESS'
@@ -37,9 +38,15 @@ export const fetchOperations = (mangoIndex) => {
     dispatch({ type: FETCH_BANK_OPERATIONS })
     return cozy.client.data.query(mangoIndex, {
       selector: {'date': {'$gt': null}},
-      fields: ['_id', 'operationType', 'bankAccount', 'label', 'amount', 'currency', 'date', 'action'],
+      fields: ['_id', 'category', 'account', 'label', 'amount', 'currency', 'date', 'action'],
       descending: true
     }).then((operations) => {
+      //remove the prefix from account ids
+      operations = operations.map(operation => {
+        if (operation.account.indexOf(BANK_ACCOUNTS_DOCTYPE) === 0) operation.account = operation.account.substring(BANK_ACCOUNTS_DOCTYPE.length + 1)
+        return operation
+      })
+
       dispatch({type: FETCH_BANK_OPERATIONS_SUCCESS, operations})
     }).catch(fetchError => {
       if (fetchError instanceof Error) throw fetchError
