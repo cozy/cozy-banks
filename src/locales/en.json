@@ -13,7 +13,7 @@
       "total-header": "Total"
     },
     "filter": {
-      "debit": "Dépenses",
+      "debit": "Total hors categ. revenus",
       "credit": "Revenus",
       "total": "Total"
     },
