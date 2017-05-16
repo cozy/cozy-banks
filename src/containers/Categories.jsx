@@ -17,6 +17,8 @@ import {
 }
 from '../actions'
 
+import { getFilteredOperations } from '../selectors'
+
 const TOTAL_FILTER = 'total'
 const DEBIT_FILTER = 'debit'
 const INCOME_CATEGORY = 'income'
@@ -29,7 +31,7 @@ const operationsByCategory = (operations) => {
 
   operations.forEach(operation => {
     // Creates a map of categories, where each entry contains a list of related operations and a breakdown by sub-category
-    let category = categoriesMap.get(operation.operationType) || categoriesMap.get('uncategorized_others')
+    let category = categoriesMap.get(operation.category) || categoriesMap.get('uncategorized_others')
 
     // create a new parent category if necessary
     if (!categories.hasOwnProperty(category.name)) {
@@ -42,15 +44,15 @@ const operationsByCategory = (operations) => {
     }
 
     // create the subcategory if necessary
-    if (!categories[category.name].subcategories.hasOwnProperty(operation.operationType)) {
-      categories[category.name].subcategories[operation.operationType] = {
-        name: operation.operationType,
+    if (!categories[category.name].subcategories.hasOwnProperty(operation.category)) {
+      categories[category.name].subcategories[operation.category] = {
+        name: operation.category,
         operations: []
       }
     }
 
     categories[category.name].operations.push(operation)
-    categories[category.name].subcategories[operation.operationType].operations.push(operation)
+    categories[category.name].subcategories[operation.category].operations.push(operation)
   })
 
   return categories
@@ -116,7 +118,12 @@ export class Categories extends Component {
       return <Loading loadingType='categories' />
     }
     if (categories.length === 0) {
-      return <div><h2>Categorisation</h2><p>Pas de categories à afficher.</p></div>
+      return (
+        <div>
+          <h2>{t('Categories.title.empty')}</h2>
+          <p>{t('Categories.title.empty_text')}</p>
+        </div>
+      )
     }
     // compute the filter to use
     const { filter } = this.state
@@ -155,7 +162,7 @@ export class Categories extends Component {
     return (
       <div>
         <h2>
-          Catégorisation
+          {t('Categories.title.general')}
         </h2>
         <div className={styles['bnk-cat-form']}>
           <Select
@@ -194,7 +201,7 @@ export class Categories extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  categories: computeCategorieData(operationsByCategory(state.operations))
+  categories: computeCategorieData(operationsByCategory(getFilteredOperations(state)))
 })
 
 export const mapDispatchToProps = (dispatch, ownProps) => ({

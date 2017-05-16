@@ -8,28 +8,28 @@ import Category from './Category'
 
 class CategoriesBoard extends Component {
   render () {
-    const { categories } = this.props
+    const { t, categories } = this.props
     return (
       <div className={styles['bnk-categories']}>
         <table className={styles['coz-table']}>
           <tr className={classNames(styles['coz-table-head'], styles['coz-table-row'])}>
             <th className={classNames(styles['coz-table-header'], styles['bnk-table-category'])}>
-              Catégorie
+              {t('Categories.headers.categories')}
             </th>
             <th className={classNames(styles['coz-table-header'], styles['bnk-table-percentage'])}>
               {'%'}
             </th>
             <th className={classNames(styles['coz-table-header'], styles['bnk-table-operation'], 'coz-desktop')}>
-              Opérations
+              {t('Categories.headers.operations')}
             </th>
             <th className={classNames(styles['coz-table-header'], styles['bnk-table-amount'])}>
-              Débit
+              {t('Categories.headers.debit')}
             </th>
             <th className={classNames(styles['coz-table-header'], styles['bnk-table-amount'])}>
-              Crédit
+              {t('Categories.headers.credit')}
             </th>
             <th className={classNames(styles['coz-table-header'], styles['bnk-table-actions'], 'coz-desktop')}>
-              Action
+              {t('Categories.headers.action')}
             </th>
           </tr>
           <tbody className={styles['coz-table-body']}>
