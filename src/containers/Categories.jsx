@@ -17,6 +17,8 @@ import {
 }
 from '../actions'
 
+import { getFilteredOperations } from '../selectors'
+
 const TOTAL_FILTER = 'total'
 const DEBIT_FILTER = 'debit'
 const INCOME_CATEGORY = 'income'
@@ -194,7 +196,7 @@ export class Categories extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  categories: computeCategorieData(operationsByCategory(state.operations))
+  categories: computeCategorieData(operationsByCategory(getFilteredOperations(state)))
 })
 
 export const mapDispatchToProps = (dispatch, ownProps) => ({
