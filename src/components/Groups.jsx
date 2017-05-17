@@ -6,7 +6,7 @@ import React, { Component } from 'react'
 import Toggle from 'cozy-ui/react/Toggle'
 import Modal from 'cozy-ui/react/Modal'
 
-const GroupModal = ({ onClose }) => (
+const GroupModal = ({ group, onClose }) => (
   <Modal
     title={'Editer le groupe'}
     secondaryAction={onClose}
@@ -15,7 +15,7 @@ const GroupModal = ({ onClose }) => (
       <label className={styles['coz-form-label']}>
         Libellé
       </label>
-      <input type="text" />
+      <input type="text" value={group.label} />
 
       <label className={styles['coz-form-label']}>
         Comptes
@@ -47,12 +47,26 @@ class Groups extends Component {
       editingGroup: null
     }
   }
+  addGroup () {
+    this.setState({
+      editingGroup: {
+        label: 'Group name',
+        accounts: []
+      }
+    })
+  }
   editGroup (group) {
     this.setState({
       editingGroup: group
     })
   }
+  saveGroupChange (data) {
+    this.setState({
+      editingGroup: null
+    })
+  }
   render (props, state) {
+    const { groups } = props
     const { editingGroup } = state
 
     return (
@@ -69,34 +83,35 @@ class Groups extends Component {
             <th className={classNames(styles['coz-table-header'], styles['bnk-table-comptes'])}>
               Comptes
             </th>
-            <th className={classNames(styles['coz-table-header'], styles['bnk-table-actions'])}>
-
-            </th>
+            <th className={classNames(styles['coz-table-header'], styles['bnk-table-actions'])} />
           </tr>
           <tbody className={styles['coz-table-body']}>
-            <tr className={styles['coz-table-row']}>
-              <td className={classNames(styles['coz-table-cell'], styles['bnk-table-libelle'])}>
-                groupe name
-              </td>
-              <td className={classNames(styles['coz-table-cell'], styles['bnk-table-comptes'])}>
-                accounts
-              </td>
-              <td className={classNames(styles['coz-table-cell'], styles['bnk-table-actions'])}>
-                <button className={styles['bnk-action-button']} onClick={this.editGroup.bind(this, {})}>
-                  éditer
-                </button>
-              </td>
-            </tr>
+            { groups.map(group => (
+              <tr className={styles['coz-table-row']}>
+                <td className={classNames(styles['coz-table-cell'], styles['bnk-table-libelle'])}>
+                  {group.label}
+                </td>
+                <td className={classNames(styles['coz-table-cell'], styles['bnk-table-comptes'])}>
+
+                </td>
+                <td className={classNames(styles['coz-table-cell'], styles['bnk-table-actions'])}>
+                  <button className={styles['bnk-action-button']} onClick={this.editGroup.bind(this, group)}>
+                    éditer
+                  </button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
 
-        { editingGroup &&
+        { editingGroup !== null &&
           <GroupModal
-            onClose={this.editGroup.bind(this, null)}
+            group={editingGroup}
+            onClose={this.saveGroupChange.bind(this)}
           />
         }
 
-        <button className={classNames(styles['bnk-action-button'], styles['icon-plus'])}>
+        <button className={classNames(styles['bnk-action-button'], styles['icon-plus'])} onClick={this.addGroup.bind(this)}>
           Créer un groupe
         </button>
       </div>

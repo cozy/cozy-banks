@@ -8,6 +8,8 @@ import { connect } from 'react-redux'
 import {
   indexAccounts,
   fetchAccounts,
+  indexAccountGroups,
+  fetchAccountGroups,
   selectAccounts
 }
 from '../actions'
@@ -22,6 +24,9 @@ class AccountSwitch extends Component {
     }
 
     props.fetchAccounts()
+      .then(() => {
+        return this.props.fetchGroups()
+      })
       .then(() => {
         this.setState({
           isFetching: false
@@ -93,6 +98,10 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   fetchAccounts: async () => {
     const mangoIndex = await dispatch(indexAccounts())
     return dispatch(fetchAccounts(mangoIndex))
+  },
+  fetchGroups: async () => {
+    const mangoIndex = await dispatch(indexAccountGroups())
+    return dispatch(fetchAccountGroups(mangoIndex))
   },
   selectAccounts: (ids) => {
     dispatch(selectAccounts(ids))

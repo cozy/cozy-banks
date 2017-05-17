@@ -10,6 +10,8 @@ import Groups from '../components/Groups'
 
 export class Settings extends Component {
   render () {
+    const { groups } = this.props
+
     return (
       <div>
         <h2>
@@ -38,7 +40,7 @@ export class Settings extends Component {
               Coming Soon
             </TabPanel>
             <TabPanel name='groups'>
-              <Groups />
+              <Groups groups={groups} />
             </TabPanel>
             <TabPanel name='notifications'>
               <Notifications />
@@ -51,6 +53,7 @@ export class Settings extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
+  groups: state.groups
 })
 
 export const mapDispatchToProps = (dispatch, ownProps) => ({

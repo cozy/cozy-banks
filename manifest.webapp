@@ -34,6 +34,11 @@
       "description": "Used to manage your bank operations",
       "type": "io.cozy.bank.operations",
       "verbs": ["GET", "POST", "PUT"]
+    },
+    "bank.accountGroups": {
+      "description": "Used to group accounts",
+      "type": "io.cozy.bank.accountGroups",
+      "verbs": ["GET", "POST", "PUT"]
     }
   }
 }
