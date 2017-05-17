@@ -1,13 +1,27 @@
 import { createSelector } from 'reselect'
+import { BANK_ACCOUNT_GROUPS_DOCTYPE, BANK_ACCOUNTS_DOCTYPE } from '../actions'
 
 const getOperations = (state) => state.operations
-const getSelectedAccounts = (state) => state.selectedAccounts
+const getGroups = (state) => state.groups
+const getAccountFilters = (state) => state.accountFilters
 
 export const getFilteredOperations = createSelector(
-  [ getOperations, getSelectedAccounts ],
-  (operations, selectedAccountIds) => {
-    if (selectedAccountIds.length === 0) return operations// If there is no active filter, return everything
+  [ getOperations, getGroups, getAccountFilters ],
+  (operations, groups, accountFilters) => {
+    if (accountFilters.length === 0) return operations// If there is no active filter, return everything
+    let accountIds = []
 
-    return operations.filter(operation => (selectedAccountIds.indexOf(operation.account) >= 0))
+    // create a list of all authorized account ids, combining groups and raw accounts
+    accountFilters.forEach(filter => {
+      let [ doctype, id ] = filter.split(':')
+
+      if (doctype === BANK_ACCOUNTS_DOCTYPE) accountIds.push(id)
+      else if (doctype === BANK_ACCOUNT_GROUPS_DOCTYPE) {
+        let group = groups.find(group => (group._id === id))
+        accountIds = accountIds.concat(group.accounts)
+      }
+    })
+
+    return operations.filter(operation => (accountIds.indexOf(operation.account) >= 0))
   }
 )

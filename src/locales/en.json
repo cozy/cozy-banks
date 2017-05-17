@@ -5,7 +5,8 @@
 
   "AccountSwitch": {
     "all_accounts": "Tous les comptes",
-    "accounts": "Comptes"
+    "accounts": "Comptes",
+    "groups": "Groupes"
   },
 
   "Movements": {

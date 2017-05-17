@@ -10,10 +10,12 @@ import {
   fetchAccounts,
   indexAccountGroups,
   fetchAccountGroups,
-  selectAccounts
+  filterAccounts,
+  filterGroups
 }
 from '../actions'
 
+// Note that everything is set up to be abble to combine filters (even the redux store). It's only limited to one filter in a few places, because the UI can only accomodate one right now.
 class AccountSwitch extends Component {
   constructor (props) {
     super(props)
@@ -33,9 +35,11 @@ class AccountSwitch extends Component {
         })
       })
   }
-  switchAccount (account) {
-    // We only ever want one account to be selected
-    (this.props.selectedAccount && this.props.selectedAccount._id === account._id) ? this.props.selectAccounts([]) : this.props.selectAccounts([account._id])
+  switchAccount (accountOrGroup, isGroup) {
+    let fn = isGroup ? this.props.filterGroups : this.props.filterAccounts
+
+    if (this.props.selectedAccount && this.props.selectedAccount.indexOf(accountOrGroup._id) >= 0) fn([])
+    else fn([accountOrGroup._id])
   }
   toggle (state) {
     // You would think that opening and closing the menu is easy, but it's fucking not. It needs to be closed when the user does pretty much anything except clicking inside the menu.
@@ -47,8 +51,15 @@ class AccountSwitch extends Component {
     }, delay)
   }
   render () {
-    const { t, accounts, selectedAccount } = this.props
+    const { t, accounts, groups } = this.props
+    let { selectedAccount } = this.props
     const { isFetching, open } = this.state
+
+    if (selectedAccount !== null){
+      // convert the selected account id into an account / group for the display
+      let idWithoutDoctype = selectedAccount.substring(selectedAccount.indexOf(':') + 1)
+      selectedAccount = accounts.find(account => (account._id) === idWithoutDoctype) || groups.find(group => (group._id) === idWithoutDoctype)
+    }
 
     return (
       <div className={styles['account-switch']}>
@@ -58,11 +69,11 @@ class AccountSwitch extends Component {
             : selectedAccount !== null
             ? <div>
               <div className={styles['account-name']}>
-                { selectedAccount.label + ' ' + selectedAccount.institutionLabel }
+                { selectedAccount.label }
               </div>
-              <div className={styles['account-num']}>
+              { selectedAccount.number && (<div className={styles['account-num']}>
                 n° { selectedAccount.number }
-              </div>
+              </div>)}
             </div>
             : <div>
               <div className={styles['account-name']}>
@@ -74,11 +85,27 @@ class AccountSwitch extends Component {
         { open &&
           <div className={styles['account-switch-menu']}>
             <h4>
+              {t('AccountSwitch.groups')}
+            </h4>
+            <ul>
+              { groups.map(group => (
+                <li onClick={() => { this.switchAccount(group, true) }} className={classNames({[styles['active']]: selectedAccount && group._id === selectedAccount._id})}>
+                  { group.label }
+                  <span className={styles['account-count']}>
+                    ({ group.accounts.length } comptes)
+                  </span>
+                </li>
+              )) }
+            </ul>
+
+            <hr />
+
+            <h4>
               {t('AccountSwitch.accounts')}
             </h4>
             <ul>
               { accounts.map(account => (
-                <li onClick={() => { this.switchAccount(account) }} className={classNames({[styles['active']]: selectedAccount && account._id === selectedAccount._id})}>
+                <li onClick={() => { this.switchAccount(account, false) }} className={classNames({[styles['active']]: selectedAccount && account._id === selectedAccount._id})}>
                   { account.label + ' ' + account.institutionLabel }
                 </li>
               )) }
@@ -92,7 +119,8 @@ class AccountSwitch extends Component {
 
 const mapStateToProps = (state, ownProps) => ({
   accounts: state.accounts,
-  selectedAccount: state.selectedAccounts.length > 0 ? state.accounts.find(account => (account._id === state.selectedAccounts[0])) : null
+  groups: state.groups,
+  selectedAccount: (state.accountFilters.length > 0) ? state.accountFilters[0]  : null,
 })
 const mapDispatchToProps = (dispatch, ownProps) => ({
   fetchAccounts: async () => {
@@ -103,8 +131,11 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     const mangoIndex = await dispatch(indexAccountGroups())
     return dispatch(fetchAccountGroups(mangoIndex))
   },
-  selectAccounts: (ids) => {
-    dispatch(selectAccounts(ids))
+  filterAccounts: (ids) => {
+    dispatch(filterAccounts(ids))
+  },
+  filterGroups: (ids) => {
+    dispatch(filterGroups(ids))
   }
 })
 

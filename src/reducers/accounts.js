@@ -4,7 +4,8 @@ import {
   CREATE_BANK_ACCOUNT_GROUPS_SUCCESS,
   UPDATE_BANK_ACCOUNT_GROUPS_SUCCESS,
   DELETE_BANK_ACCOUNT_GROUPS_SUCCESS,
-  SELECT_ACCOUNTS
+  FILTER_ACCOUNTS,
+  FILTER_GROUPS
 } from '../actions'
 
 export const accounts = (state = [], action) => {
@@ -31,10 +32,12 @@ export const groups = (state = [], action) => {
   }
 }
 
-export const selectedAccounts = (state = [], action) => {
+export const accountFilters = (state = [], action) => {
   switch (action.type) {
-    case SELECT_ACCOUNTS:
+    case FILTER_ACCOUNTS:
       return action.accounts
+    case FILTER_GROUPS:
+      return action.groups
     default:
       return state
   }

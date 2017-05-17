@@ -8,7 +8,7 @@ export const FETCH_BANK_ACCOUNT_GROUPS_SUCCESS = 'FETCH_BANK_ACCOUNT_GROUPS_SUCC
 export const CREATE_BANK_ACCOUNT_GROUPS_SUCCESS = 'CREATE_BANK_ACCOUNT_GROUPS_SUCCESS'
 export const UPDATE_BANK_ACCOUNT_GROUPS_SUCCESS = 'UPDATE_BANK_ACCOUNT_GROUPS_SUCCESS'
 export const DELETE_BANK_ACCOUNT_GROUPS_SUCCESS = 'DELETE_BANK_ACCOUNT_GROUPS_SUCCESS'
-//export const SELECT_ACCOUNTS = 'SELECT_ACCOUNTS'
+export const FILTER_GROUPS = 'FILTER_GROUPS'
 
 export const BANK_ACCOUNT_GROUPS_DOCTYPE = 'io.cozy.bank.accountGroups'
 
@@ -94,7 +94,9 @@ export const deleteGroup = (group) => {
   }
 }
 
-//export const selectAccounts = (accountIds = []) => ({
-//  type: SELECT_ACCOUNTS,
-//  accounts: accountIds
-//})
+export const filterGroups = (groupIds = []) => {
+  return {
+    type: FILTER_GROUPS,
+    groups: groupIds.map(id => (BANK_ACCOUNT_GROUPS_DOCTYPE + ':' + id))
+  }
+}

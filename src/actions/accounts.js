@@ -5,7 +5,7 @@ export const INDEX_BANK_ACCOUNTS_BY_ID = 'INDEX_BANK_ACCOUNTS_BY_ID'
 export const INDEX_BANK_ACCOUNTS_BY_ID_SUCCESS = 'INDEX_BANK_ACCOUNTS_BY_ID_SUCCESS'
 export const FETCH_BANK_ACCOUNTS = 'FETCH_BANK_ACCOUNTS'
 export const FETCH_BANK_ACCOUNTS_SUCCESS = 'FETCH_BANK_ACCOUNTS_SUCCESS'
-export const SELECT_ACCOUNTS = 'SELECT_ACCOUNTS'
+export const FILTER_ACCOUNTS = 'FILTER_ACCOUNTS'
 
 export const BANK_ACCOUNTS_DOCTYPE = 'io.cozy.bank.accounts'
 
@@ -44,7 +44,9 @@ export const fetchAccounts = (mangoIndex) => {
   }
 }
 
-export const selectAccounts = (accountIds = []) => ({
-  type: SELECT_ACCOUNTS,
-  accounts: accountIds
-})
+export const filterAccounts = (accountIds = []) => {
+  return {
+    type: FILTER_ACCOUNTS,
+    accounts: accountIds.map(id => (BANK_ACCOUNTS_DOCTYPE + ':' + id))
+  }
+}

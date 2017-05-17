@@ -2,14 +2,14 @@ import { combineReducers } from 'redux'
 
 import alerterReducer from 'cozy-ui/react/Alerter'
 import operations from './operations'
-import { accounts, selectedAccounts, groups } from './accounts'
+import { accounts, groups, accountFilters } from './accounts'
 
 export const reducers = {
   alerts: alerterReducer,
   operations,
   accounts,
   groups,
-  selectedAccounts
+  accountFilters
 }
 
 const combinedReducers = combineReducers(reducers)
