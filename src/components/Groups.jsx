@@ -3,41 +3,7 @@ import classNames from 'classnames'
 
 import React, { Component } from 'react'
 
-import Toggle from 'cozy-ui/react/Toggle'
-import Modal from 'cozy-ui/react/Modal'
-
-const GroupModal = ({ group, onClose }) => (
-  <Modal
-    title={'Editer le groupe'}
-    secondaryAction={onClose}
-  >
-    <form className={styles['bnk-form']}>
-      <label className={styles['coz-form-label']}>
-        Libellé
-      </label>
-      <input type="text" value={group.label} />
-
-      <label className={styles['coz-form-label']}>
-        Comptes
-      </label>
-      <table className={styles['coz-table-modal']}>
-        <tbody className={styles['coz-table-body']}>
-          <tr className={styles['coz-table-row']}>
-            <td className={classNames(styles['coz-table-cell'])}>
-              CCHQ
-            </td>
-            <td className={classNames(styles['coz-table-cell'])}>
-              97896768734
-            </td>
-            <td className={classNames(styles['coz-table-cell'])}>
-              <Toggle name="a" />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </form>
-  </Modal>
-)
+import GroupsModal from './GroupsModal'
 
 class Groups extends Component {
   constructor (props) {
@@ -61,12 +27,16 @@ class Groups extends Component {
     })
   }
   saveGroupChange (data) {
+    const id = data._id
+    delete data._id
+    this.props.updateGroup(id, data)
+
     this.setState({
       editingGroup: null
     })
   }
   render (props, state) {
-    const { groups } = props
+    const { groups, accounts } = props
     const { editingGroup } = state
 
     return (
@@ -92,7 +62,12 @@ class Groups extends Component {
                   {group.label}
                 </td>
                 <td className={classNames(styles['coz-table-cell'], styles['bnk-table-comptes'])}>
-
+                  { group.accounts.map((accountId, index) => {
+                    const account = accounts.find(account => (account._id === accountId))
+                    let text = account ? account.label : ''
+                    if (index < group.accounts.length - 1) text += ' ; '
+                    return text
+                  }) }
                 </td>
                 <td className={classNames(styles['coz-table-cell'], styles['bnk-table-actions'])}>
                   <button className={styles['bnk-action-button']} onClick={this.editGroup.bind(this, group)}>
@@ -105,10 +80,13 @@ class Groups extends Component {
         </table>
 
         { editingGroup !== null &&
-          <GroupModal
-            group={editingGroup}
-            onClose={this.saveGroupChange.bind(this)}
-          />
+          <div>
+            <GroupsModal
+              group={editingGroup}
+              accounts={accounts}
+              onClose={this.saveGroupChange.bind(this)}
+            />
+          </div>
         }
 
         <button className={classNames(styles['bnk-action-button'], styles['icon-plus'])} onClick={this.addGroup.bind(this)}>

@@ -8,9 +8,11 @@ import { Tab, Tabs, TabList, TabPanel, TabPanels } from 'cozy-ui/react/Tabs'
 import Notifications from '../components/Notifications'
 import Groups from '../components/Groups'
 
+import { updateGroup } from '../actions'
+
 export class Settings extends Component {
   render () {
-    const { groups } = this.props
+    const { groups, accounts, updateGroup } = this.props
 
     return (
       <div>
@@ -40,7 +42,11 @@ export class Settings extends Component {
               Coming Soon
             </TabPanel>
             <TabPanel name='groups'>
-              <Groups groups={groups} />
+              <Groups
+                groups={groups}
+                accounts={accounts}
+                updateGroup={updateGroup}
+              />
             </TabPanel>
             <TabPanel name='notifications'>
               <Notifications />
@@ -53,10 +59,14 @@ export class Settings extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  groups: state.groups
+  groups: state.groups,
+  accounts: state.accounts
 })
 
 export const mapDispatchToProps = (dispatch, ownProps) => ({
+  updateGroup: async (id, data) => {
+    return dispatch(updateGroup(id, data))
+  }
 })
 
 export default connect(
