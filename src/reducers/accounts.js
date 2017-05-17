@@ -3,6 +3,7 @@ import {
   FETCH_BANK_ACCOUNT_GROUPS_SUCCESS,
   CREATE_BANK_ACCOUNT_GROUPS_SUCCESS,
   UPDATE_BANK_ACCOUNT_GROUPS_SUCCESS,
+  DELETE_BANK_ACCOUNT_GROUPS_SUCCESS,
   SELECT_ACCOUNTS
 } from '../actions'
 
@@ -23,6 +24,8 @@ export const groups = (state = [], action) => {
       return [...state, action.group]
     case UPDATE_BANK_ACCOUNT_GROUPS_SUCCESS:
       return state.map(group => (group._id === action.group._id ? action.group : group))
+    case DELETE_BANK_ACCOUNT_GROUPS_SUCCESS:
+      return state.filter(group => (group._id !== action.group._id))
     default:
       return state
   }

@@ -10,12 +10,13 @@ import Groups from '../components/Groups'
 
 import {
   createGroup,
-  updateGroup
+  updateGroup,
+  deleteGroup
 } from '../actions'
 
 export class Settings extends Component {
   render () {
-    const { groups, accounts, createGroup, updateGroup } = this.props
+    const { groups, accounts, createGroup, updateGroup, deleteGroup } = this.props
 
     return (
       <div>
@@ -50,6 +51,7 @@ export class Settings extends Component {
                 accounts={accounts}
                 createGroup={createGroup}
                 updateGroup={updateGroup}
+                deleteGroup={deleteGroup}
               />
             </TabPanel>
             <TabPanel name='notifications'>
@@ -73,6 +75,9 @@ export const mapDispatchToProps = (dispatch, ownProps) => ({
   },
   createGroup: async (data) => {
     return dispatch(createGroup(data))
+  },
+  deleteGroup: async (group) => {
+    return dispatch(deleteGroup(group))
   },
 })
 

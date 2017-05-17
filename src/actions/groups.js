@@ -7,6 +7,7 @@ export const FETCH_BANK_ACCOUNT_GROUPS = 'FETCH_BANK_ACCOUNT_GROUPS'
 export const FETCH_BANK_ACCOUNT_GROUPS_SUCCESS = 'FETCH_BANK_ACCOUNT_GROUPS_SUCCESS'
 export const CREATE_BANK_ACCOUNT_GROUPS_SUCCESS = 'CREATE_BANK_ACCOUNT_GROUPS_SUCCESS'
 export const UPDATE_BANK_ACCOUNT_GROUPS_SUCCESS = 'UPDATE_BANK_ACCOUNT_GROUPS_SUCCESS'
+export const DELETE_BANK_ACCOUNT_GROUPS_SUCCESS = 'DELETE_BANK_ACCOUNT_GROUPS_SUCCESS'
 //export const SELECT_ACCOUNTS = 'SELECT_ACCOUNTS'
 
 export const BANK_ACCOUNT_GROUPS_DOCTYPE = 'io.cozy.bank.accountGroups'
@@ -35,7 +36,7 @@ export const fetchAccountGroups = (mangoIndex) => {
     dispatch({ type: FETCH_BANK_ACCOUNT_GROUPS })
     return cozy.client.data.query(mangoIndex, {
       selector: {'_id': {'$gt': null}},
-      fields: ['_id', 'label', 'accounts']
+      fields: ['_id', '_rev', 'label', 'accounts']
     }).then((groups) => {
       dispatch({type: FETCH_BANK_ACCOUNT_GROUPS_SUCCESS, groups})
     }).catch(fetchError => {
@@ -51,11 +52,8 @@ export const createGroup = (data) => {
     .then(group => {
       dispatch({
         type: CREATE_BANK_ACCOUNT_GROUPS_SUCCESS,
-        group: {
-          _id: group._id,
-          label: group.label,
-          accounts: group.accounts,
-      }})
+        group: group
+      })
     })
     .catch(fetchError => {
       if (fetchError instanceof Error) throw fetchError
@@ -67,14 +65,27 @@ export const createGroup = (data) => {
 export const updateGroup = (groupId, data) => {
   return async (dispatch) => {
     return cozy.client.data.updateAttributes(BANK_ACCOUNT_GROUPS_DOCTYPE, groupId, data)
-    .then(attributes => {
+    .then(group => {
       dispatch({
         type: UPDATE_BANK_ACCOUNT_GROUPS_SUCCESS,
-        group: {
-          _id: attributes._id,
-          label: attributes.label,
-          accounts: attributes.accounts,
-      }})
+        group: group
+      })
+    })
+    .catch(fetchError => {
+      if (fetchError instanceof Error) throw fetchError
+      throwServerError(fetchError)
+    })
+  }
+}
+
+export const deleteGroup = (group) => {
+  return async (dispatch) => {
+    return cozy.client.data.delete(BANK_ACCOUNT_GROUPS_DOCTYPE, group)
+    .then(() => {
+      dispatch({
+        type: DELETE_BANK_ACCOUNT_GROUPS_SUCCESS,
+        group: group
+      })
     })
     .catch(fetchError => {
       if (fetchError instanceof Error) throw fetchError

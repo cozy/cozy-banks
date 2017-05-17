@@ -41,7 +41,8 @@ class Groups extends Component {
     })
   }
   deleteGroup (group) {
-    console.log('delete group')
+    this.props.deleteGroup(group)
+
     this.setState({
       editingGroup: null
     })
