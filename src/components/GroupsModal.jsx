@@ -36,16 +36,41 @@ class GroupsModal extends Component {
       group: group
     })
   }
-  onClose () {
-    this.props.onClose(this.state.group)
+  save () {
+    this.props.onSave(this.state.group)
+  }
+  delete () {
+    this.props.onDelete(this.state.group)
+  }
+  cancel () {
+    this.props.onCancel(this.state.group)
   }
   render () {
     const { t, accounts } = this.props
     const { group } = this.state
+    const isExistingGroup = !!group._id
+    let primaryAction, primaryText, primaryType, secondaryAction
+
+    if (isExistingGroup){
+      primaryAction = this.delete.bind(this)
+      primaryText = 'delete'
+      primaryType = 'danger-outline'
+      secondaryAction = this.save.bind(this)
+    }
+    else{
+      primaryAction = this.save.bind(this)
+      primaryText = 'create'
+      primaryType = 'regular'
+      secondaryAction = this.cancel.bind(this)
+    }
+
     return (
       <Modal
         title={'Editer le groupe'}
-        secondaryAction={this.onClose.bind(this)}
+        primaryText={primaryText}
+        primaryType={primaryType}
+        primaryAction={primaryAction}
+        secondaryAction={secondaryAction}
       >
         <form className={styles['bnk-form']}>
           <label className={styles['coz-form-label']}>

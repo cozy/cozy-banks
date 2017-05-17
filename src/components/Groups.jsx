@@ -16,7 +16,7 @@ class Groups extends Component {
   addGroup () {
     this.setState({
       editingGroup: {
-        label: 'Group name',
+        label: '',
         accounts: []
       }
     })
@@ -26,11 +26,22 @@ class Groups extends Component {
       editingGroup: group
     })
   }
-  saveGroupChange (data) {
-    const id = data._id
-    delete data._id
-    this.props.updateGroup(id, data)
+  saveGroupChanges (data) {
+    if (data._id){
+      const id = data._id
+      delete data._id
+      this.props.updateGroup(id, data)
+    }
+    else {
+      this.props.createGroup(data)
+    }
 
+    this.setState({
+      editingGroup: null
+    })
+  }
+  deleteGroup (group) {
+    console.log('delete group')
     this.setState({
       editingGroup: null
     })
@@ -84,7 +95,9 @@ class Groups extends Component {
             <GroupsModal
               group={editingGroup}
               accounts={accounts}
-              onClose={this.saveGroupChange.bind(this)}
+              onSave={this.saveGroupChanges.bind(this)}
+              onDelete={this.deleteGroup.bind(this)}
+              onCancel={this.editGroup.bind(this, null)}
             />
           </div>
         }
