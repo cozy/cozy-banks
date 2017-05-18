@@ -19,7 +19,7 @@ class GroupsModal extends Component {
     group.label = e.target.value
 
     this.setState({
-      group: group
+      group
     })
   }
   toggleAccount (accountId, enabled) {
@@ -33,7 +33,7 @@ class GroupsModal extends Component {
     group.accounts = selectedAccounts
 
     this.setState({
-      group: group
+      group
     })
   }
   save () {
