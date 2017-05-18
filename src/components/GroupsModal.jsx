@@ -37,7 +37,7 @@ class GroupsModal extends Component {
     })
   }
   save () {
-    if (this.state.group.label.trim() === '') return;
+    if (this.state.group.label.trim() === '') return
     this.props.onSave(this.state.group)
   }
   delete () {
@@ -52,14 +52,13 @@ class GroupsModal extends Component {
     const isExistingGroup = !!group._id
     let primaryAction, primaryText, primaryType, secondaryAction, title
 
-    if (isExistingGroup){
+    if (isExistingGroup) {
       title = t('Groups.edit_group')
       primaryAction = this.delete.bind(this)
       primaryText = t('Groups.delete')
       primaryType = 'danger-outline'
       secondaryAction = this.save.bind(this)
-    }
-    else{
+    } else {
       title = 'Créer un groupe'
       primaryAction = this.save.bind(this)
       primaryText = t('Groups.create')
@@ -79,7 +78,7 @@ class GroupsModal extends Component {
           <label className={styles['coz-form-label']}>
             {t('Groups.label')}
           </label>
-          <input type="text" value={group.label} onInput={this.rename.bind(this)} />
+          <input type='text' value={group.label} onInput={this.rename.bind(this)} />
 
           <label className={styles['coz-form-label']}>
             {t('Groups.accounts')}

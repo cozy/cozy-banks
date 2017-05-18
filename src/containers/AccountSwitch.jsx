@@ -67,7 +67,7 @@ class AccountSwitch extends Component {
     let { selectedAccount } = this.props
     const { isFetching, open } = this.state
 
-    if (selectedAccount !== null){
+    if (selectedAccount !== null) {
       // convert the selected account id into an account / group for the display
       let idWithoutDoctype = selectedAccount.substring(selectedAccount.indexOf(':') + 1)
       selectedAccount = accounts.find(account => (account._id) === idWithoutDoctype) || groups.find(group => (group._id) === idWithoutDoctype)
@@ -142,7 +142,7 @@ class AccountSwitch extends Component {
 const mapStateToProps = (state, ownProps) => ({
   accounts: state.accounts,
   groups: state.groups,
-  selectedAccount: (state.accountFilters.length > 0) ? state.accountFilters[0]  : null,
+  selectedAccount: (state.accountFilters.length > 0) ? state.accountFilters[0] : null
 })
 const mapDispatchToProps = (dispatch, ownProps) => ({
   fetchAccounts: async () => {

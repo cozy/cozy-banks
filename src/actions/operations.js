@@ -41,7 +41,7 @@ export const fetchOperations = (mangoIndex) => {
       fields: ['_id', 'category', 'account', 'label', 'amount', 'currency', 'date', 'action'],
       descending: true
     }).then((operations) => {
-      //remove the prefix from account ids
+      // remove the prefix from account ids
       operations = operations.map(operation => {
         if (operation.account.indexOf(BANK_ACCOUNTS_DOCTYPE) === 0) operation.account = operation.account.substring(BANK_ACCOUNTS_DOCTYPE.length + 1)
         return operation

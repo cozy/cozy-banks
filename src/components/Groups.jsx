@@ -28,10 +28,9 @@ class Groups extends Component {
     })
   }
   saveGroupChanges (data) {
-    if (data._id){
+    if (data._id) {
       this.props.updateGroup(data._id, data)
-    }
-    else {
+    } else {
       this.props.createGroup(data)
     }
 

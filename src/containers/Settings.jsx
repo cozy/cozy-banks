@@ -81,7 +81,7 @@ export const mapDispatchToProps = (dispatch, ownProps) => ({
   },
   deleteGroup: async (group) => {
     return dispatch(deleteGroup(group))
-  },
+  }
 })
 
 export default connect(
