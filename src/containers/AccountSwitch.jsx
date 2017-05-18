@@ -112,7 +112,7 @@ class AccountSwitch extends Component {
               )) }
             </ul>
             <Link to={'/settings/groups'}>
-              Gérer mes groupes
+              {t('AccountSwitch.manage_groups')}
             </Link>
 
             <hr />
@@ -130,7 +130,7 @@ class AccountSwitch extends Component {
               )) }
             </ul>
             <Link to={'/settings/accounts'}>
-              Gérer mes comptes
+              {t('AccountSwitch.manage_accounts')}
             </Link>
           </div>
         }

@@ -53,16 +53,16 @@ class GroupsModal extends Component {
     let primaryAction, primaryText, primaryType, secondaryAction, title
 
     if (isExistingGroup){
-      title = 'Editer le groupe'
+      title = t('Groups.edit_group')
       primaryAction = this.delete.bind(this)
-      primaryText = 'delete'
+      primaryText = t('Groups.delete')
       primaryType = 'danger-outline'
       secondaryAction = this.save.bind(this)
     }
     else{
       title = 'Créer un groupe'
       primaryAction = this.save.bind(this)
-      primaryText = 'create'
+      primaryText = t('Groups.create')
       primaryType = 'regular'
       secondaryAction = this.cancel.bind(this)
     }
@@ -77,12 +77,12 @@ class GroupsModal extends Component {
       >
         <form className={styles['bnk-form']}>
           <label className={styles['coz-form-label']}>
-            Libellé
+            {t('Groups.label')}
           </label>
           <input type="text" value={group.label} onInput={this.rename.bind(this)} />
 
           <label className={styles['coz-form-label']}>
-            Comptes
+            {t('Groups.accounts')}
           </label>
           <table className={styles['coz-table-modal']}>
             <tbody className={styles['coz-table-body']}>

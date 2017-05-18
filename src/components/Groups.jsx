@@ -2,6 +2,7 @@ import styles from '../styles/groupes'
 import classNames from 'classnames'
 
 import React, { Component } from 'react'
+import { translate } from 'cozy-ui/react/helpers/i18n'
 
 import GroupsModal from './GroupsModal'
 
@@ -46,22 +47,22 @@ class Groups extends Component {
     })
   }
   render (props, state) {
-    const { groups, accounts } = props
+    const { t, groups, accounts } = props
     const { editingGroup } = state
 
     return (
       <div>
         <h4>
-          Groupes
+          {t('Groups.groups')}
         </h4>
 
         <table className={styles['coz-table']}>
           <tr className={classNames(styles['coz-table-head'], styles['coz-table-row'])}>
             <th className={classNames(styles['coz-table-header'], styles['bnk-table-libelle'])}>
-              Libellé
+              {t('Groups.label')}
             </th>
             <th className={classNames(styles['coz-table-header'], styles['bnk-table-comptes'])}>
-              Comptes
+              {t('Groups.accounts')}
             </th>
             <th className={classNames(styles['coz-table-header'], styles['bnk-table-actions'])} />
           </tr>
@@ -81,7 +82,7 @@ class Groups extends Component {
                 </td>
                 <td className={classNames(styles['coz-table-cell'], styles['bnk-table-actions'])}>
                   <button className={styles['bnk-action-button']} onClick={this.editGroup.bind(this, group)}>
-                    éditer
+                    {t('Groups.edit')}
                   </button>
                 </td>
               </tr>
@@ -102,11 +103,11 @@ class Groups extends Component {
         }
 
         <button className={classNames(styles['bnk-action-button'], styles['icon-plus'])} onClick={this.addGroup.bind(this)}>
-          Créer un groupe
+          {t('Groups.create')}
         </button>
       </div>
     )
   }
 }
 
-export default Groups
+export default translate()(Groups)
