@@ -3,6 +3,7 @@ import styles from '../styles/parametres'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { translate } from '../lib/I18n'
+//import { withRouter } from 'react-router'
 
 import { Tab, Tabs, TabList, TabPanel, TabPanels } from 'cozy-ui/react/Tabs'
 import Notifications from '../components/Notifications'
@@ -16,36 +17,39 @@ import {
 
 export class Settings extends Component {
   render () {
-    const { groups, accounts, createGroup, updateGroup, deleteGroup } = this.props
+    const { groups, accounts, createGroup, updateGroup, deleteGroup, params } = this.props
+    const tabNames = ['profil', 'accounts', 'groups', 'notifications']
+    let defaultTab = tabNames[0]
+    if (params.tab && tabNames.indexOf(params.tab) >= 0) defaultTab = params.tab
 
     return (
       <div>
         <h2>
           Paramètres
         </h2>
-        <Tabs className={styles['bnk-tabs']} initialActiveTab='groups'>
+        <Tabs className={styles['bnk-tabs']} initialActiveTab={defaultTab}>
           <TabList className={styles['bnk-coz-tab-list']}>
-            <Tab name='profil'>
+            <Tab name={tabNames[0]}>
               Profil
             </Tab>
-            <Tab name='accounts'>
+            <Tab name={tabNames[1]}>
               Comptes
             </Tab>
-            <Tab name='groups'>
+            <Tab name={tabNames[2]}>
               Groupes
             </Tab>
-            <Tab name='notifications'>
+            <Tab name={tabNames[3]}>
               Notifications
             </Tab>
           </TabList>
           <TabPanels>
-            <TabPanel name='profil'>
+            <TabPanel name={tabNames[0]}>
               Coming Soon
             </TabPanel>
-            <TabPanel name='accounts'>
+            <TabPanel name={tabNames[1]}>
               Coming Soon
             </TabPanel>
-            <TabPanel name='groups'>
+            <TabPanel name={tabNames[2]}>
               <Groups
                 groups={groups}
                 accounts={accounts}
@@ -54,7 +58,7 @@ export class Settings extends Component {
                 deleteGroup={deleteGroup}
               />
             </TabPanel>
-            <TabPanel name='notifications'>
+            <TabPanel name={tabNames[3]}>
               <Notifications />
             </TabPanel>
           </TabPanels>

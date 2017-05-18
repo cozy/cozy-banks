@@ -100,7 +100,7 @@ class AccountSwitch extends Component {
                 </li>
               )) }
             </ul>
-            <Link to={'/settings'}>
+            <Link to={'/settings/groups'}>
               Gérer mes groupes
             </Link>
 
@@ -118,6 +118,9 @@ class AccountSwitch extends Component {
                 </li>
               )) }
             </ul>
+            <Link to={'/settings/accounts'}>
+              Gérer mes comptes
+            </Link>
           </div>
         }
       </div>
