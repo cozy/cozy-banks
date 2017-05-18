@@ -90,11 +90,13 @@ class AccountSwitch extends Component {
             </h4>
             <ul>
               { groups.map(group => (
-                <li onClick={() => { this.switchAccount(group, true) }} className={classNames({[styles['active']]: selectedAccount && group._id === selectedAccount._id})}>
-                  { group.label }
-                  <span className={styles['account-count']}>
-                    ({ group.accounts.length } comptes)
-                  </span>
+                <li>
+                  <button onClick={() => { this.switchAccount(group, true) }} className={classNames({[styles['active']]: selectedAccount && group._id === selectedAccount._id})}>
+                    { group.label }
+                    <span className={styles['account-count']}>
+                      ({ group.accounts.length } comptes)
+                    </span>
+                  </button>
                 </li>
               )) }
             </ul>
@@ -109,8 +111,10 @@ class AccountSwitch extends Component {
             </h4>
             <ul>
               { accounts.map(account => (
-                <li onClick={() => { this.switchAccount(account, false) }} className={classNames({[styles['active']]: selectedAccount && account._id === selectedAccount._id})}>
-                  { account.label + ' ' + account.institutionLabel }
+                <li>
+                  <button onClick={() => { this.switchAccount(account, false) }} className={classNames({[styles['active']]: selectedAccount && account._id === selectedAccount._id})}>
+                    { account.label + ' ' + account.institutionLabel }
+                  </button>
                 </li>
               )) }
             </ul>
