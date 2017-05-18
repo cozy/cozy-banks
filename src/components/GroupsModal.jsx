@@ -37,6 +37,7 @@ class GroupsModal extends Component {
     })
   }
   save () {
+    if (this.state.group.label.trim() === '') return;
     this.props.onSave(this.state.group)
   }
   delete () {
