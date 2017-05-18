@@ -35,6 +35,9 @@ class AccountSwitch extends Component {
           isFetching: false
         })
       })
+
+    document.addEventListener('click', this.onClickOutside.bind(this))
+    this.lastOpenEvent = null
   }
   switchAccount (accountOrGroup, isGroup) {
     let fn = isGroup ? this.props.filterGroups : this.props.filterAccounts
@@ -42,14 +45,22 @@ class AccountSwitch extends Component {
     if (this.props.selectedAccount && this.props.selectedAccount.indexOf(accountOrGroup._id) >= 0) fn([])
     else fn([accountOrGroup._id])
   }
-  toggle (state) {
-    // You would think that opening and closing the menu is easy, but it's fucking not. It needs to be closed when the user does pretty much anything except clicking inside the menu.
-    // The react-nclickoutside lib doesn't work with preact. Listening for events at the document level doesn't really work either because it's impossible to predict in what order the handlers are going to be called.
-    // So here we are with a method that is called on focus / on blur. The problem is, even a click *inside* the menu is going to trigger the blur event, and close it -- and somehow the click event gets lost in translation. So we have to introduce a small delay before actually removing the menu from the DOM.
-    let delay = state ? 0 : 150
-    setTimeout(() => {
-      this.setState({open: state})
-    }, delay)
+  onClickOutside (e) {
+    // the event that trigered the menu open propagates and eventually ends up here, but in that case we don't wnt to close the menu. So if it's the same event, we just ignore it.
+    if (e === this.lastOpenEvent) return
+
+    this.setState({
+      open: false
+    })
+  }
+  toggle (e) {
+    let newState = !this.state.open
+
+    if (newState) this.lastOpenEvent = e
+
+    this.setState({
+      open: newState
+    })
   }
   render () {
     const { t, accounts, groups } = this.props
@@ -64,7 +75,7 @@ class AccountSwitch extends Component {
 
     return (
       <div className={styles['account-switch']}>
-        <button className={classNames(styles['account-switch-button'], {[styles['active']]: open})} onFocus={this.toggle.bind(this, true)} onBlur={this.toggle.bind(this, false)}>
+        <button className={classNames(styles['account-switch-button'], {[styles['active']]: open})} onClick={this.toggle.bind(this)}>
           { isFetching
             ? `${t('Loading.loading')}...`
             : selectedAccount !== null
