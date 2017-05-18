@@ -10,7 +10,7 @@ class GroupsModal extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      // since we're going to change `group@, we need to deep copy it to avoid mutating the state
+      // since we're going to change `group`, we need to deep copy it to avoid mutating the state
       group: JSON.parse(JSON.stringify(props.group))
     }
   }
@@ -50,15 +50,17 @@ class GroupsModal extends Component {
     const { t, accounts } = this.props
     const { group } = this.state
     const isExistingGroup = !!group._id
-    let primaryAction, primaryText, primaryType, secondaryAction
+    let primaryAction, primaryText, primaryType, secondaryAction, title
 
     if (isExistingGroup){
+      title = 'Editer le groupe'
       primaryAction = this.delete.bind(this)
       primaryText = 'delete'
       primaryType = 'danger-outline'
       secondaryAction = this.save.bind(this)
     }
     else{
+      title = 'Créer un groupe'
       primaryAction = this.save.bind(this)
       primaryText = 'create'
       primaryType = 'regular'
@@ -67,7 +69,7 @@ class GroupsModal extends Component {
 
     return (
       <Modal
-        title={'Editer le groupe'}
+        title={title}
         primaryText={primaryText}
         primaryType={primaryType}
         primaryAction={primaryAction}

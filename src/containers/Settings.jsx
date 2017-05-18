@@ -3,7 +3,6 @@ import styles from '../styles/parametres'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { translate } from '../lib/I18n'
-//import { withRouter } from 'react-router'
 
 import { Tab, Tabs, TabList, TabPanel, TabPanels } from 'cozy-ui/react/Tabs'
 import Notifications from '../components/Notifications'

@@ -28,9 +28,7 @@ class Groups extends Component {
   }
   saveGroupChanges (data) {
     if (data._id){
-      const id = data._id
-      delete data._id
-      this.props.updateGroup(id, data)
+      this.props.updateGroup(data._id, data)
     }
     else {
       this.props.createGroup(data)

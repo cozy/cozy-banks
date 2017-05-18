@@ -9,9 +9,9 @@ export const getFilteredOperations = createSelector(
   [ getOperations, getGroups, getAccountFilters ],
   (operations, groups, accountFilters) => {
     if (accountFilters.length === 0) return operations// If there is no active filter, return everything
-    let accountIds = []
 
     // create a list of all authorized account ids, combining groups and raw accounts
+    let accountIds = []
     accountFilters.forEach(filter => {
       let [ doctype, id ] = filter.split(':')
 
