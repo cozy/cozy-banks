@@ -85,10 +85,10 @@ class GroupsModal extends Component {
             <tbody className={styles['coz-table-body']}>
               { accounts.map(account => (
                 <tr className={styles['coz-table-row']}>
-                  <td className={classNames(styles['coz-table-cell'])}>
+                  <td className={classNames(styles['coz-table-cell'], styles['bnk-table-libelle'])}>
                     {account.label}
                   </td>
-                  <td className={classNames(styles['coz-table-cell'])}>
+                  <td className={classNames(styles['coz-table-cell'], styles['bnk-table-acct-number'])}>
                     {account.number}
                   </td>
                   <td className={classNames(styles['coz-table-cell'])}>
