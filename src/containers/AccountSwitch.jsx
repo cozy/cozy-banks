@@ -40,10 +40,14 @@ class AccountSwitch extends Component {
     this.lastOpenEvent = null
   }
   switchAccount (accountOrGroup, isGroup) {
-    let fn = isGroup ? this.props.filterGroups : this.props.filterAccounts
-
-    if (this.props.selectedAccount && this.props.selectedAccount.indexOf(accountOrGroup._id) >= 0) fn([])
-    else fn([accountOrGroup._id])
+    if (accountOrGroup === null) {
+      this.props.filterGroups([])
+      this.props.filterAccounts([])
+    }
+    else{
+      if (isGroup) this.props.filterGroups([accountOrGroup._id])
+      else this.props.filterAccounts([accountOrGroup._id])
+    }
   }
   onClickOutside (e) {
     // the event that trigered the menu open propagates and eventually ends up here, but in that case we don't wnt to close the menu. So if it's the same event, we just ignore it.
@@ -83,13 +87,17 @@ class AccountSwitch extends Component {
               <div className={styles['account-name']}>
                 { selectedAccount.label }
               </div>
-              { selectedAccount.number && (<div className={styles['account-num']}>
-                n° { selectedAccount.number }
-              </div>)}
+              <div className={styles['account-num']}>
+                { selectedAccount.number && 'n°' + selectedAccount.number }
+                { selectedAccount.accounts && t('AccountSwitch.account_counter', selectedAccount.accounts.length) }
+              </div>
             </div>
             : <div>
               <div className={styles['account-name']}>
                 {t('AccountSwitch.all_accounts')}
+                <div className={styles['account-num']}>
+                  {t('AccountSwitch.account_counter', accounts.length)}
+                </div>
               </div>
             </div>
           }
@@ -100,12 +108,20 @@ class AccountSwitch extends Component {
               {t('AccountSwitch.groups')}
             </h4>
             <ul>
+              <li>
+                <button onClick={() => { this.switchAccount(null, true) }} className={classNames({[styles['active']]: selectedAccount === null})}>
+                  {t('AccountSwitch.all_accounts')}
+                  <span className={styles['account-count']}>
+                    ({t('AccountSwitch.account_counter', accounts.length)})
+                  </span>
+                </button>
+              </li>
               { groups.map(group => (
                 <li>
                   <button onClick={() => { this.switchAccount(group, true) }} className={classNames({[styles['active']]: selectedAccount && group._id === selectedAccount._id})}>
                     { group.label }
                     <span className={styles['account-count']}>
-                      ({ group.accounts.length } comptes)
+                      ({t('AccountSwitch.account_counter', group.accounts.length)})
                     </span>
                   </button>
                 </li>

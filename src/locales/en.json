@@ -8,7 +8,8 @@
     "accounts": "Comptes",
     "groups": "Groupes",
     "manage_groups": "Gérer mes groupes",
-    "manage_accounts": "Gérer mes comptes"
+    "manage_accounts": "Gérer mes comptes",
+    "account_counter": "%{smart_count} compte |||| %{smart_count} comptes"
   },
 
   "Movements": {
