@@ -5,7 +5,10 @@
 
   "AccountSwitch": {
     "all_accounts": "Tous les comptes",
-    "accounts": "Comptes"
+    "accounts": "Comptes",
+    "groups": "Groupes",
+    "manage_groups": "Gérer mes groupes",
+    "manage_accounts": "Gérer mes comptes"
   },
 
   "Movements": {
@@ -169,5 +172,16 @@
       "uncategorized_transfers": "Virements non categorisés",
       "uncategorized_others": "Autres (À catégoriser)"
     }
+  },
+
+  "Groups": {
+    "groups": "Groupes",
+    "label": "Libellé",
+    "accounts": "Comptes",
+    "create": "créer",
+    "edit": "éditer",
+    "delete": "supprimer",
+    "create": "Créer un groupe",
+    "edit_group": "Editer le groupe"
   }
 }

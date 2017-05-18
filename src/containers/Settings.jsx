@@ -6,40 +6,58 @@ import { translate } from '../lib/I18n'
 
 import { Tab, Tabs, TabList, TabPanel, TabPanels } from 'cozy-ui/react/Tabs'
 import Notifications from '../components/Notifications'
+import Groups from '../components/Groups'
+
+import {
+  createGroup,
+  updateGroup,
+  deleteGroup
+} from '../actions'
 
 export class Settings extends Component {
   render () {
+    const { groups, accounts, createGroup, updateGroup, deleteGroup, params } = this.props
+    const tabNames = ['profil', 'accounts', 'groups', 'notifications']
+    let defaultTab = tabNames[0]
+    if (params.tab && tabNames.indexOf(params.tab) >= 0) defaultTab = params.tab
+
     return (
       <div>
         <h2>
           Paramètres
         </h2>
-        <Tabs className={styles['bnk-tabs']} initialActiveTab='notifications'>
+        <Tabs className={styles['bnk-tabs']} initialActiveTab={defaultTab}>
           <TabList className={styles['bnk-coz-tab-list']}>
-            <Tab name='profil'>
+            <Tab name={tabNames[0]}>
               Profil
             </Tab>
-            <Tab name='comptes'>
+            <Tab name={tabNames[1]}>
               Comptes
             </Tab>
-            <Tab name='groupes'>
+            <Tab name={tabNames[2]}>
               Groupes
             </Tab>
-            <Tab name='notifications'>
+            <Tab name={tabNames[3]}>
               Notifications
             </Tab>
           </TabList>
           <TabPanels>
-            <TabPanel name='profil'>
+            <TabPanel name={tabNames[0]}>
               Coming Soon
             </TabPanel>
-            <TabPanel name='comptes'>
+            <TabPanel name={tabNames[1]}>
               Coming Soon
             </TabPanel>
-            <TabPanel name='groupes'>
-              Coming Soon
+            <TabPanel name={tabNames[2]}>
+              <Groups
+                groups={groups}
+                accounts={accounts}
+                createGroup={createGroup}
+                updateGroup={updateGroup}
+                deleteGroup={deleteGroup}
+              />
             </TabPanel>
-            <TabPanel name='notifications'>
+            <TabPanel name={tabNames[3]}>
               <Notifications />
             </TabPanel>
           </TabPanels>
@@ -50,9 +68,20 @@ export class Settings extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
+  groups: state.groups,
+  accounts: state.accounts
 })
 
 export const mapDispatchToProps = (dispatch, ownProps) => ({
+  updateGroup: async (id, data) => {
+    return dispatch(updateGroup(id, data))
+  },
+  createGroup: async (data) => {
+    return dispatch(createGroup(data))
+  },
+  deleteGroup: async (group) => {
+    return dispatch(deleteGroup(group))
+  }
 })
 
 export default connect(

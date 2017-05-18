@@ -8,3 +8,4 @@ export const throwServerError = (error) => {
 
 export * from './operations'
 export * from './accounts'
+export * from './groups'

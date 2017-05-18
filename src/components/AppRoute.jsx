@@ -16,7 +16,7 @@ const AppRoute = (
     <Route path='categories' component={Categories} />
     <Route path='projections' component={ComingSoon} />
     <Route path='savings' component={ComingSoon} />
-    <Route path='settings' component={Settings} />
+    <Route path='settings(/:tab)' component={Settings} />
   </Route>
 )
 
