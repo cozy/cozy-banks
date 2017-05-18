@@ -43,8 +43,7 @@ class AccountSwitch extends Component {
     if (accountOrGroup === null) {
       this.props.filterGroups([])
       this.props.filterAccounts([])
-    }
-    else{
+    } else {
       if (isGroup) this.props.filterGroups([accountOrGroup._id])
       else this.props.filterAccounts([accountOrGroup._id])
     }
