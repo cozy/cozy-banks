@@ -35,9 +35,9 @@
       "type": "io.cozy.bank.operations",
       "verbs": ["GET", "POST", "PUT"]
     },
-    "bank.accountGroups": {
+    "bank.groups": {
       "description": "Manage groups of bank accounts",
-      "type": "io.cozy.bank.accountGroups",
+      "type": "io.cozy.bank.groups",
       "verbs": ["GET", "POST", "PUT", "DELETE"]
     }
   }

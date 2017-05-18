@@ -10,7 +10,7 @@ export const UPDATE_BANK_ACCOUNT_GROUPS_SUCCESS = 'UPDATE_BANK_ACCOUNT_GROUPS_SU
 export const DELETE_BANK_ACCOUNT_GROUPS_SUCCESS = 'DELETE_BANK_ACCOUNT_GROUPS_SUCCESS'
 export const FILTER_GROUPS = 'FILTER_GROUPS'
 
-export const BANK_ACCOUNT_GROUPS_DOCTYPE = 'io.cozy.bank.accountGroups'
+export const BANK_ACCOUNT_GROUPS_DOCTYPE = 'io.cozy.bank.groups'
 
 export const indexAccountGroups = () => {
   return async dispatch => {
