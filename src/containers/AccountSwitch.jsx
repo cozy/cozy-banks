@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import React, { Component } from 'react'
 import { translate } from '../lib/I18n'
 import { connect } from 'react-redux'
+import { Link } from 'react-router'
 
 import {
   indexAccounts,
@@ -97,6 +98,9 @@ class AccountSwitch extends Component {
                 </li>
               )) }
             </ul>
+            <Link to={'/settings'}>
+              Gérer mes groupes
+            </Link>
 
             <hr />
 
