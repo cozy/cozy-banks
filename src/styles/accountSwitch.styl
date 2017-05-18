@@ -59,10 +59,20 @@
 
     li
         box-sizing border-box
-        padding 8px 16px
+        overflow hidden
+        padding 8px 26px 8px 16px
         border-left 3px solid transparent
         color grey-08
+        text-overflow ellipsis
+        white-space nowrap
         cursor pointer
+
+    a
+        display block
+        text-transform uppercase
+        padding 8px 18px
+        font-size .8em
+        font-weight bold
 
     .active
         border-left-color dodger-blue
@@ -70,6 +80,6 @@
         font-weight bold
 
     .account-count
-        padding-left 1em
+        padding-left .5em
         color grey-11
         font-size .8em
