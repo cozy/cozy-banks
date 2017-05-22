@@ -1,10 +1,42 @@
+/* global cozy */
 import styles from '../styles/operationsBoard'
 
 import React from 'react'
 import classNames from 'classnames'
+import Modal from 'cozy-ui/react/Modal'
 import { translate } from '../lib/I18n'
+import confirm from '../lib/confirm'
+
+const wrapIframe = (element, doctype, id) => {
+  cozy.client.intents
+  .create('OPEN', doctype, { id })
+  .start(element)
+  .then(response => console.log('intent service response: ', response))
+}
+
+const showIframeModal = ({doctype, id}) => {
+  confirm(<Modal
+    title={'title'}
+    description={<div ref={iframeHolder => wrapIframe(iframeHolder, doctype, id)} />}
+    secondaryText={'secondary text'}
+    secondaryAction={() => {}}
+    primaryType='danger'
+    primaryText={'primary text'}
+    primaryAction={() => {}}
+   />)
+}
 
 import Figure from '../components/Figure'
+
+class ViewAction extends React.Component {
+  render () {
+    const { action, t } = this.props
+    console.log(action.payload)
+    return (
+      <a onClick={() => showIframeModal(action.payload)} className={styles['bnk-table-actions-link']}>{t(`Movements.actions.${action.type}`)}</a>
+    )
+  }
+}
 
 export const Operation = ({ t, f, operation }) => (
   <tr className={styles['coz-table-row']}>
@@ -29,12 +61,7 @@ export const Operation = ({ t, f, operation }) => (
     <td className={classNames(styles['coz-table-cell'], styles['bnk-table-actions'], 'coz-desktop')}>
       {!operation.action && '－'}
       {operation.action &&
-        <a
-          href={operation.action.url}
-          className={styles['bnk-table-actions-link']}
-        >
-          {t(`Movements.actions.${operation.action.type}`)}
-        </a>
+        <ViewAction t={t} action={operation.action} />
       }
     </td>
   </tr>
