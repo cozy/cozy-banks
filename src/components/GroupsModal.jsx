@@ -94,7 +94,7 @@ class GroupsModal extends Component {
                     {account.number}
                   </td>
                   <td className={classNames(styles['coz-table-cell'])}>
-                    <Toggle name={account._id} checked={group.accounts.indexOf(account._id) >= 0} onToggle={this.toggleAccount.bind(this, account._id)} />
+                    <Toggle id={account._id} checked={group.accounts.indexOf(account._id) >= 0} onToggle={this.toggleAccount.bind(this, account._id)} />
                   </td>
                 </tr>
               )) }
