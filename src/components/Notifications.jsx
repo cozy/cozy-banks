@@ -98,7 +98,7 @@ class Notifications extends Component {
               {notification.description}
 
               <div className={styles['notification-toggle']}>
-                <Toggle name={notification.name} checked={state[notification.name]} onToggle={checked => this.onToggle(notification.name, checked)} />
+                <Toggle id={notification.name} checked={state[notification.name]} onToggle={checked => this.onToggle(notification.name, checked)} />
               </div>
             </div>
           </div>
