@@ -3,7 +3,12 @@ import Modal from 'cozy-ui/react/Modal'
 import React, { Component } from 'react'
 import styles from '../styles/modals'
 
-export default class IntentModal extends Component {
+export default class FullscreenIntentModal extends Component {
+  constructor () {
+    super()
+    this.saveRef = this.saveRef.bind(this)
+  }
+
   componentDidMount () {
     this.intent = this.props.intent
       .start(this.target)
