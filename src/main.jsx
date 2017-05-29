@@ -1,4 +1,4 @@
-/* global cozy */
+/* global cozy __DEVELOPMENT__ */
 
 import 'babel-polyfill'
 
@@ -7,7 +7,7 @@ import './styles/main'
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
 import { Router, hashHistory } from 'react-router'
@@ -16,14 +16,25 @@ import { I18n } from './lib/I18n'
 import appReducers from './reducers'
 import AppRoute from './components/AppRoute'
 
+if (__DEVELOPMENT__) {
+  // Enables React dev tools for Preact
+  // Cannot use import as we are in a condition
+  require('preact/devtools')
+
+  // Export React to window for the devtools
+  window.React = React
+}
+
+const composeEnhancers = (__DEVELOPMENT__ && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
+
 const loggerMiddleware = createLogger()
 
 const store = createStore(
   appReducers,
-  applyMiddleware(
+  composeEnhancers(applyMiddleware(
     thunkMiddleware,
     loggerMiddleware
-  )
+  ))
 )
 
 const context = window.context

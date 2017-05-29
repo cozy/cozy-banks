@@ -13,8 +13,8 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      __SERVER__: JSON.stringify('http://app.cozy.local:8080'),
-      __STACK_ASSETS__: false
+      __STACK_ASSETS__: false,
+      __DEVELOPMENT__: true
     }),
     new webpack.ProvidePlugin({
       'cozy.client': 'cozy-client-js/dist/cozy-client.js',
