@@ -5,36 +5,45 @@ import React from 'react'
 import classNames from 'classnames'
 import Modal from 'cozy-ui/react/Modal'
 import { translate } from '../lib/I18n'
-import confirm from '../lib/confirm'
-
-const wrapIframe = (element, doctype, id) => {
-  cozy.client.intents
-  .create('OPEN', doctype, { id })
-  .start(element)
-  .then(response => console.log('intent service response: ', response))
-}
-
-const showIframeModal = ({doctype, id}) => {
-  confirm(<Modal
-    title={'title'}
-    description={<div ref={iframeHolder => wrapIframe(iframeHolder, doctype, id)} />}
-    secondaryText={'secondary text'}
-    secondaryAction={() => {}}
-    primaryType='danger'
-    primaryText={'primary text'}
-    primaryAction={() => {}}
-   />)
-}
-
-import Figure from '../components/Figure'
+import Figure from './Figure'
+import FullscreenIntentModal from './FullscreenIntentModal'
 
 class ViewAction extends React.Component {
+  constructor () {
+    super()
+    this.showModal = this.showModal.bind(this)
+    this.closeModal = this.closeModal.bind(this)
+  }
+
+  createIntent () {
+    const { doctype, id } = this.props.action.payload
+    return cozy.client.intents.create('OPEN', doctype, { id })
+  }
+
+  showModal () {
+    this.setState({ intent: this.createIntent() })
+  }
+
+  closeModal () {
+    this.setState({ intent: null })
+  }
+
   render () {
     const { action, t } = this.props
-    console.log(action.payload)
-    return (
-      <a onClick={() => showIframeModal(action.payload)} className={styles['bnk-table-actions-link']}>{t(`Movements.actions.${action.type}`)}</a>
-    )
+    return <span>
+      <a onClick={ this.showModal } className={styles['bnk-table-actions-link']}>{t(`Movements.actions.${action.type}`)}</a>
+      { this.state.intent
+        ? <FullscreenIntentModal
+            intent={ this.state.intent }
+            onIntentError={ this.handleModalError }
+            secondaryAction={ this.closeModal } />
+        : null }
+    </span>
+  }
+
+  handleModalError (err) {
+    this.setState({ intent: null })
+    console.warn(err)
   }
 }
 
