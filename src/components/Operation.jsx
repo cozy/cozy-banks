@@ -1,13 +1,10 @@
-/* global cozy */
 import styles from '../styles/operationsBoard'
 
 import React from 'react'
 import classNames from 'classnames'
-import Modal from 'cozy-ui/react/Modal'
 import { translate } from '../lib/I18n'
 import Figure from './Figure'
 import FileOpener from './FileOpener'
-
 
 export const Operation = ({ t, f, operation }) => (
   <tr className={styles['coz-table-row']}>

@@ -1,3 +1,5 @@
+/* global cozy */
+
 import React from 'react'
 import FullscreenIntentModal from './FullscreenIntentModal'
 
@@ -22,20 +24,20 @@ class FileOpener extends React.Component {
   }
 
   render ({ children }, { intent }) {
-    const { action, } = this.props
     return <span>
       { React.cloneElement(children, { onClick: this.showModal }) }
       { intent
         ? <FullscreenIntentModal
-            intent={ intent }
-            onIntentError={ this.handleModalError }
-            secondaryAction={ this.closeModal } />
+          intent={intent}
+          onIntentError={this.handleModalError}
+          secondaryAction={this.closeModal} />
         : null }
     </span>
   }
 
   handleModalError (err) {
     this.setState({ intent: null })
+    console.warn(err)
   }
 }
 
