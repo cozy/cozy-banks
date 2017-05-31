@@ -1,11 +1,14 @@
 import Modal from 'cozy-ui/react/Modal'
-import modalStyles from 'cozy-ui/react/Modal/styles.styl'
 
 import React, { Component } from 'react'
-import cx from 'classnames'
 import styles from '../styles/modals'
 
-export default class IntentModal extends Component {
+export default class FullscreenIntentModal extends Component {
+  constructor () {
+    super()
+    this.saveRef = this.saveRef.bind(this)
+  }
+
   componentDidMount () {
     this.intent = this.props.intent
       .start(this.target)
@@ -13,10 +16,14 @@ export default class IntentModal extends Component {
       .catch(err => this.props.onIntentError(err))
   }
 
+  saveRef (ref) {
+    this.target = ref
+  }
+
   render ({ style }) {
-    return <div style={style} className={ styles['modal--fullscreen'] } >
-      <Modal withCross={ true } secondaryAction={ this.props.secondaryAction }>
-        <div className={ styles.content } ref={ ref => this.target = ref } />
+    return <div style={style} className={styles['modal--fullscreen']} >
+      <Modal withCross secondaryAction={this.props.secondaryAction}>
+        <div className={styles.content} ref={ this.saveRef } />
       </Modal>
     </div>
   }
