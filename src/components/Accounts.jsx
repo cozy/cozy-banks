@@ -56,7 +56,7 @@ class Accounts extends Component {
     return (
       <div>
         <h4>
-          {t('Accounts.accounts')}
+          {t('Accounts.my-accounts')}
         </h4>
 
         <table className={styles['coz-table']}>
@@ -85,10 +85,13 @@ class Accounts extends Component {
                   {account.label}
                 </td>
                 <td className={classNames(styles['coz-table-cell'], styles['bnk-table-bank'])}>
+                  {account.institutionLabel}
                 </td>
                 <td className={classNames(styles['coz-table-cell'], styles['bnk-table-account'])}>
+                  { account.number }
                 </td>
                 <td className={classNames(styles['coz-table-cell'], styles['bnk-table-type'])}>
+                  { account.type }
                 </td>
                 <td className={classNames(styles['coz-table-cell'], styles['bnk-table-shared'])}>
                   { <AccountSharingStatus withText account={ account } /> }
@@ -134,12 +137,13 @@ class Accounts extends Component {
                   {account.label}
                 </td>
                 <td className={classNames(styles['coz-table-cell'], styles['bnk-table-bank'])}>
-
+                  {account.institutionLabel}
                 </td>
                 <td className={classNames(styles['coz-table-cell'], styles['bnk-table-account'])}>
-
+                  {account.number}
                 </td>
                 <td className={classNames(styles['coz-table-cell'], styles['bnk-table-type'])}>
+                  {account.type}
                 </td>
                 <td className={classNames(styles['coz-table-cell'], styles['bnk-table-shared'])}>
                   { <AccountSharingStatus withText account={ account } /> }

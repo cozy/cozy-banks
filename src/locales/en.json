@@ -192,6 +192,8 @@
     "type": "Type",
     "shared": "Partagé",
     "bank": "Banque",
-    "add-account": "Ajouter un compte"
+    "add-account": "Ajouter un compte",
+    "my-accounts": "Mes comptes",
+    "shared-accounts": "Comptes que l'on m'a partagé"
   }
 }
