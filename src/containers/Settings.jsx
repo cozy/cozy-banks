@@ -47,7 +47,9 @@ export class Settings extends Component {
               Coming Soon
             </TabPanel>
             <TabPanel name={tabNames[1]}>
-              Coming Soon
+              <Accounts
+                accounts={accounts}
+              />
             </TabPanel>
             <TabPanel name={tabNames[2]}>
               <Groups
