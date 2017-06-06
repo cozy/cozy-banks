@@ -6,6 +6,9 @@ import { translate } from 'lib/I18n'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 
+import AccountSharingStatus from 'components/AccountSharingStatus'
+import { Media, Bd, Img } from 'components/Media'
+
 import {
   indexAccounts,
   fetchAccounts,
@@ -84,7 +87,7 @@ class AccountSwitch extends Component {
             : selectedAccount !== null
             ? <div>
               <div className={styles['account-name']}>
-                { selectedAccount.label }
+                { selectedAccount.label } { <AccountSharingStatus account={ selectedAccount } /> }
               </div>
               <div className={styles['account-num']}>
                 { selectedAccount.number && 'n°' + selectedAccount.number }
@@ -138,8 +141,17 @@ class AccountSwitch extends Component {
             <ul>
               { accounts.map(account => (
                 <li>
-                  <button onClick={() => { this.switchAccount(account, false) }} className={classNames({[styles['active']]: selectedAccount && account._id === selectedAccount._id})}>
-                    { account.label + ' ' + account.institutionLabel }
+                  <button
+                      onClick={() => { this.switchAccount(account, false) }}
+                      className={classNames({[styles['active']]: selectedAccount && account._id === selectedAccount._id})}>
+                    <Media>
+                      <Bd>
+                        { account.label } - { account.institutionLabel }
+                      </Bd>
+                      <Img>
+                        <AccountSharingStatus tooltip account={ account } />
+                      </Img>
+                    </Media>
                   </button>
                 </li>
               )) }
