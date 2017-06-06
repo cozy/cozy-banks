@@ -1,10 +1,10 @@
-import styles from '../styles/subcategory'
+import styles from 'styles/subcategory'
 
 import React, { Component } from 'react'
 import classNames from 'classnames'
-import { translate } from '../lib/I18n'
+import { translate } from 'lib/I18n'
 
-import Figure from '../components/Figure'
+import Figure from 'components/Figure'
 
 export class Subcategory extends Component {
   render () {

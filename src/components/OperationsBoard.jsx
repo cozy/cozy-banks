@@ -1,9 +1,9 @@
-import styles from '../styles/operationsBoard'
+import styles from 'styles/operationsBoard'
 
 import React from 'react'
 import classNames from 'classnames'
 
-import Operation from './Operation'
+import Operation from 'components/Operation'
 
 const OperationsBoard = ({ operations }) => (
   <div>

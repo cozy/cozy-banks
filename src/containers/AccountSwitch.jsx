@@ -1,8 +1,8 @@
-import styles from '../styles/accountSwitch'
+import styles from 'styles/accountSwitch'
 import classNames from 'classnames'
 
 import React, { Component } from 'react'
-import { translate } from '../lib/I18n'
+import { translate } from 'lib/I18n'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 
@@ -14,7 +14,7 @@ import {
   filterAccounts,
   filterGroups
 }
-from '../actions'
+from 'actions'
 
 // Note that everything is set up to be abble to combine filters (even the redux store). It's only limited to one filter in a few places, because the UI can only accomodate one right now.
 class AccountSwitch extends Component {

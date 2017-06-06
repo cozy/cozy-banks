@@ -2,7 +2,7 @@
 
 import 'babel-polyfill'
 
-import './styles/main'
+import 'styles/main'
 
 import React from 'react'
 import { render } from 'react-dom'
@@ -11,10 +11,10 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
 import { Router, hashHistory } from 'react-router'
-import { I18n } from './lib/I18n'
+import { I18n } from 'lib/I18n'
 
-import appReducers from './reducers'
-import AppRoute from './components/AppRoute'
+import appReducers from 'reducers'
+import AppRoute from 'components/AppRoute'
 
 if (__DEVELOPMENT__) {
   // Enables React dev tools for Preact

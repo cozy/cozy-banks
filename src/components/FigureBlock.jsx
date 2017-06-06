@@ -1,7 +1,7 @@
-import styles from '../styles/figureBlock'
+import styles from 'styles/figureBlock'
 
 import React, { Component } from 'react'
-import Figure from './Figure'
+import Figure from 'components/Figure'
 
 class FigureBlock extends Component {
   render () {

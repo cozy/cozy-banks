@@ -7,13 +7,15 @@ const PostCSSAssetsPlugin = require('postcss-assets-webpack-plugin')
 
 const {extractor, production} = require('./webpack.vars')
 const pkg = require(path.resolve(__dirname, '../package.json'))
+const SRC_DIR = path.resolve(__dirname, '../src')
 
 module.exports = {
   output: {
     filename: 'app.js'
   },
   resolve: {
-    extensions: ['', '.js', '.json', '.css']
+    extensions: ['', '.js', '.json', '.css'],
+    modulesDirectories: ['node_modules', SRC_DIR]
   },
   module: {
     loaders: [

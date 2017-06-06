@@ -1,7 +1,7 @@
 /* global cozy */
 
 import React from 'react'
-import FullscreenIntentModal from './FullscreenIntentModal'
+import FullscreenIntentModal from 'components/FullscreenIntentModal'
 
 class FileOpener extends React.Component {
   constructor () {

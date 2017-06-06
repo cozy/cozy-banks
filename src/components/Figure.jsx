@@ -1,4 +1,4 @@
-import styles from '../styles/figure'
+import styles from 'styles/figure'
 
 import React, { Component } from 'react'
 

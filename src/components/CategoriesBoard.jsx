@@ -1,10 +1,10 @@
-import styles from '../styles/categoriesBoard'
+import styles from 'styles/categoriesBoard'
 
 import React, { Component } from 'react'
 import classNames from 'classnames'
-import { translate } from '../lib/I18n'
+import { translate } from 'lib/I18n'
 
-import Category from './Category'
+import Category from 'components/Category'
 
 class CategoriesBoard extends Component {
   render () {

@@ -1,4 +1,4 @@
-import styles from '../styles/notifications'
+import styles from 'styles/notifications'
 import classNames from 'classnames'
 
 import React, { Component } from 'react'

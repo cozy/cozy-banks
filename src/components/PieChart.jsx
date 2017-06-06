@@ -2,10 +2,10 @@
 Component to render a pie chart from data (size from props too)
 */
 
-import styles from '../styles/pieChart'
+import styles from 'styles/pieChart'
 import React, { Component } from 'react'
 import { Pie, Chart } from 'react-chartjs-2'
-import pieceLabel from '../lib/chartjsPieLabels'
+import pieceLabel from 'lib/chartjsPieLabels'
 
 export class PieChart extends Component {
   constructor (props) {

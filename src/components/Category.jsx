@@ -1,11 +1,11 @@
-import styles from '../styles/categoriesBoard'
+import styles from 'styles/categoriesBoard'
 
 import React, { Component } from 'react'
 import classNames from 'classnames'
-import { translate } from '../lib/I18n'
+import { translate } from 'lib/I18n'
 
-import Figure from '../components/Figure'
-import Subcategory from '../components/Subcategory'
+import Figure from 'components/Figure'
+import Subcategory from 'components/Subcategory'
 
 export class Category extends Component {
   constructor (props) {
