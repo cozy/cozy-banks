@@ -40,6 +40,16 @@
       "description": "Manage groups of bank accounts",
       "type": "io.cozy.bank.groups",
       "verbs": ["GET", "POST", "PUT", "DELETE"]
+    },
+    "sharings": {
+      "description": "Handle shared bank accounts",
+      "type": "io.cozy.mocks.sharings",
+      "verbs": ["GET"]
+    },
+    "recipients": {
+      "description": "Get recipients for shared accounts",
+      "type": "io.cozy.mocks.recipients",
+      "verbs": ["GET"]
     }
   }
 }
