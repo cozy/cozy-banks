@@ -30,31 +30,31 @@ const key = function (doctype, id) {
 // REDUCERS
 // doctype+id -> { shared: true|false, fetching: true|false }
 const initialState = {}
-export const reducer = function (state=initialState, action) {
+export const reducer = function (state = initialState, action) {
   const { type, doctype, id } = action
   const docKey = key(doctype, id)
   const docInfo = state[docKey] || {}
   let newDocInfo
   switch (type) {
-  case FETCH_DOC_SHARING:
-    newDocInfo = {
-      ...docInfo,
-      fetching: true
-    }
-    return { ...state, [docKey]: newDocInfo }
-  case FETCH_DOC_SHARING_SUCCESS:
-    newDocInfo = {
-      ...docInfo,
-      fetching: false,
-      info: action.sharing
-    }
-    return { ...state, [docKey]: newDocInfo }
-  case FETCH_DOC_SHARING_ERROR:
-    newDocInfo = {
-      ...docInfo,
-      fetching: false
-    }
-    return { ...state, [docKey]: newDocInfo }
+    case FETCH_DOC_SHARING:
+      newDocInfo = {
+        ...docInfo,
+        fetching: true
+      }
+      return { ...state, [docKey]: newDocInfo }
+    case FETCH_DOC_SHARING_SUCCESS:
+      newDocInfo = {
+        ...docInfo,
+        fetching: false,
+        info: action.sharing
+      }
+      return { ...state, [docKey]: newDocInfo }
+    case FETCH_DOC_SHARING_ERROR:
+      newDocInfo = {
+        ...docInfo,
+        fetching: false
+      }
+      return { ...state, [docKey]: newDocInfo }
   }
   return state
 }

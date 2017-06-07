@@ -15,7 +15,7 @@ class AccountSharingStatus extends Component {
     }
   }
 
-  render ({ account, sharingInfo, withText, tooltip })  {
+  render ({ account, sharingInfo, withText, tooltip }) {
     const info = (sharingInfo && sharingInfo.info) || {}
 
     const isShared = info.recipients || info.shared
@@ -30,7 +30,7 @@ class AccountSharingStatus extends Component {
       'data-rh': iconProps['to'] || iconProps['from']
     } : {}
 
-    return isShared && <span { ...rhProps }>
+    return isShared && <span {...rhProps}>
       <SharingIcon {...iconProps} />
       { withText && <span>&nbsp;{ info.recipients && info.recipients.join(', ') }</span>}
     </span>

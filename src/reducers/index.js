@@ -5,7 +5,6 @@ import operations from './operations'
 import { accounts, groups, accountFilters } from './accounts'
 import * as sharingStatus from 'modules/SharingStatus'
 
-
 export const reducers = {
   alerts: alerterReducer,
   operations,

@@ -50,9 +50,7 @@ class Accounts extends Component {
   }
 
   render (props, state) {
-    const { t, groups, accounts, sharedAccounts } = props
-    const { editingGroup } = state
-
+    const { t, accounts } = props
     return (
       <div>
         <h4>
@@ -94,10 +92,9 @@ class Accounts extends Component {
                   { account.type }
                 </td>
                 <td className={classNames(styles['coz-table-cell'], styles['bnk-table-shared'])}>
-                  { <AccountSharingStatus withText account={ account } /> }
+                  { <AccountSharingStatus withText account={account} /> }
                 </td>
-                <td className={classNames(styles['coz-table-cell'], styles['bnk-table-actions'])}>
-                </td>
+                <td className={classNames(styles['coz-table-cell'], styles['bnk-table-actions'])} />
               </tr>
             ))}
           </tbody>
@@ -146,10 +143,9 @@ class Accounts extends Component {
                   {account.type}
                 </td>
                 <td className={classNames(styles['coz-table-cell'], styles['bnk-table-shared'])}>
-                  { <AccountSharingStatus withText account={ account } /> }
+                  { <AccountSharingStatus withText account={account} /> }
                 </td>
-                <td className={classNames(styles['coz-table-cell'], styles['bnk-table-actions'])}>
-                </td>
+                <td className={classNames(styles['coz-table-cell'], styles['bnk-table-actions'])} />
               </tr>
             ))}
           </tbody>

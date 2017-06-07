@@ -44,7 +44,7 @@ export const accountFilters = (state = [], action) => {
 }
 
 export const isShared = function (account) {
-  return account.institutionLabel == 'CIC'
+  return account.institutionLabel === 'CIC'
 }
 
 export default accounts

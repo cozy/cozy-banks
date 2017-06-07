@@ -23,7 +23,7 @@ export default class FullscreenIntentModal extends Component {
   render ({ style }) {
     return <div style={style} className={styles['modal--fullscreen']} >
       <Modal withCross secondaryAction={this.props.secondaryAction}>
-        <div className={styles.content} ref={ this.saveRef } />
+        <div className={styles.content} ref={this.saveRef} />
       </Modal>
     </div>
   }
