@@ -33,7 +33,7 @@ export const indexOperationsByDate = () => {
 }
 
 const removeAccountPrefix = (operations) => operations.map(operation => {
-  if (operation.account.indexOf(BANK_ACCOUNTS_DOCTYPE) === 0) {
+  if (operation.account && operation.account.indexOf(BANK_ACCOUNTS_DOCTYPE) === 0) {
     operation.account = operation.account.substring(BANK_ACCOUNTS_DOCTYPE.length + 1)
   }
   return operation
