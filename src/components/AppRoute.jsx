@@ -17,6 +17,7 @@ const AppRoute = (
     <Route path='projections' component={ComingSoon} />
     <Route path='savings' component={ComingSoon} />
     <Route path='settings(/:tab)' component={Settings} />
+    <Redirect from='*' to='/' />
   </Route>
 )
 
