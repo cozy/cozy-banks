@@ -1,10 +1,10 @@
-import styles from '../styles/operationsBoard'
+import styles from 'styles/operationsBoard'
 
 import React from 'react'
 import classNames from 'classnames'
-import { translate } from '../lib/I18n'
-import Figure from './Figure'
-import FileOpener from './FileOpener'
+import { translate } from 'lib/I18n'
+import Figure from 'components/Figure'
+import FileOpener from 'components/FileOpener'
 
 export const Operation = ({ t, f, operation }) => (
   <tr className={styles['coz-table-row']}>

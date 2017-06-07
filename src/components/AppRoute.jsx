@@ -1,10 +1,10 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router'
-import App from './App'
+import App from 'components/App'
 
-import Movements from '../containers/Movements'
-import Categories from '../containers/Categories'
-import Settings from '../containers/Settings'
+import Movements from 'containers/Movements'
+import Categories from 'containers/Categories'
+import Settings from 'containers/Settings'
 
 export const ComingSoon = () => (<p style='margin-left: 2em'>Coming soon!</p>)
 

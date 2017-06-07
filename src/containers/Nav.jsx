@@ -1,12 +1,12 @@
-import styles from '../styles/nav'
+import styles from 'styles/nav'
 
 import React, { Component } from 'react'
 import classNames from 'classnames'
-import { translate } from '../lib/I18n'
+import { translate } from 'lib/I18n'
 import { Link, withRouter } from 'react-router'
 import { connect } from 'react-redux'
 
-import Spinner from '../components/Spinner'
+import Spinner from 'components/Spinner'
 
 class ActiveLink extends Component {
   constructor (props) {

@@ -1,18 +1,19 @@
-import styles from '../styles/parametres'
+import styles from 'styles/parametres'
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { translate } from '../lib/I18n'
+import { translate } from 'lib/I18n'
 
 import { Tab, Tabs, TabList, TabPanel, TabPanels } from 'cozy-ui/react/Tabs'
-import Notifications from '../components/Notifications'
-import Groups from '../components/Groups'
+import Notifications from 'components/Notifications'
+import Groups from 'components/Groups'
+import Accounts from 'components/Accounts'
 
 import {
   createGroup,
   updateGroup,
   deleteGroup
-} from '../actions'
+} from 'actions'
 
 export class Settings extends Component {
   render () {
@@ -46,7 +47,9 @@ export class Settings extends Component {
               Coming Soon
             </TabPanel>
             <TabPanel name={tabNames[1]}>
-              Coming Soon
+              <Accounts
+                accounts={accounts}
+              />
             </TabPanel>
             <TabPanel name={tabNames[2]}>
               <Groups

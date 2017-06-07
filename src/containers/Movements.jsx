@@ -1,21 +1,21 @@
-import styles from '../styles/movements'
+import styles from 'styles/movements'
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { translate } from '../lib/I18n'
+import { translate } from 'lib/I18n'
 
-import Select from '../components/Select'
-import FigureBlock from '../components/FigureBlock'
-import OperationsBoard from '../components/OperationsBoard'
-import Loading from '../components/Loading.jsx'
+import Select from 'components/Select'
+import FigureBlock from 'components/FigureBlock'
+import OperationsBoard from 'components/OperationsBoard'
+import Loading from 'components/Loading.jsx'
 
 import {
   fetchOperations,
   indexOperationsByDate
 }
-from '../actions'
+from 'actions'
 
-import { getFilteredOperations } from '../selectors'
+import { getFilteredOperations } from 'selectors'
 
 const DATE_OPTIONS = ['Du 01 mars au 31 mars 2017']
 
@@ -45,7 +45,10 @@ export class Movements extends Component {
       return <Loading loadingType='movements' />
     }
     if (!operations.length) {
-      return <div><h2>Mouvements</h2><p>Pas de mouvements à afficher.</p></div>
+      return <div>
+        <h2>Mouvements</h2>
+        <p>Pas de mouvements à afficher.</p>
+      </div>
     }
     return (
       <div>

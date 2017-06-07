@@ -1,23 +1,23 @@
-import styles from '../styles/categories'
+import styles from 'styles/categories'
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { translate } from '../lib/I18n'
-import categoriesMap from '../lib/categoriesMap'
+import { translate } from 'lib/I18n'
+import categoriesMap from 'lib/categoriesMap'
 
-import Select from '../components/Select'
-import FigureBlock from '../components/FigureBlock'
-import CategoriesBoard from '../components/CategoriesBoard'
-import Loading from '../components/Loading'
-import PieChart from '../components/PieChart'
+import Select from 'components/Select'
+import FigureBlock from 'components/FigureBlock'
+import CategoriesBoard from 'components/CategoriesBoard'
+import Loading from 'components/Loading'
+import PieChart from 'components/PieChart'
 
 import {
   fetchOperations,
   indexOperationsByDate
 }
-from '../actions'
+from 'actions'
 
-import { getFilteredOperations } from '../selectors'
+import { getFilteredOperations } from 'selectors'
 
 const TOTAL_FILTER = 'total'
 const DEBIT_FILTER = 'debit'

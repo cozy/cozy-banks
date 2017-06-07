@@ -1,7 +1,7 @@
 import Modal from 'cozy-ui/react/Modal'
 
 import React, { Component } from 'react'
-import styles from '../styles/modals'
+import styles from 'styles/modals'
 
 export default class FullscreenIntentModal extends Component {
   constructor () {

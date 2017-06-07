@@ -1,7 +1,7 @@
 'use strict'
 
 const merge = require('webpack-merge')
-const { production, target } = require('./config/webpack.vars')
+const { production, target, hotReload } = require('./config/webpack.vars')
 
 const common = merge(
   require('./config/webpack.config.base'),
@@ -11,6 +11,7 @@ const common = merge(
   require('./config/webpack.config.pictures'),
   require('./config/webpack.config.vendors'),
   require('./config/webpack.config.manifest'),
+  hotReload ? require(`./config/webpack.config.hot-reload`) : null,
   require(`./config/webpack.target.${target}`)
 )
 

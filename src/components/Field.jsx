@@ -1,4 +1,4 @@
-import styles from '../styles/field'
+import styles from 'styles/field'
 
 import React from 'react'
 import classNames from 'classnames'

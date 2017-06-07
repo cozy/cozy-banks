@@ -1,10 +1,10 @@
-import styles from '../styles/groupes'
+import styles from 'styles/groupes'
 import classNames from 'classnames'
 
 import React, { Component } from 'react'
 import { translate } from 'cozy-ui/react/helpers/i18n'
 
-import GroupsModal from './GroupsModal'
+import GroupsModal from 'components/GroupsModal'
 
 class Groups extends Component {
   constructor (props) {

@@ -1,7 +1,7 @@
-import styles from '../styles/loading'
+import styles from 'styles/loading'
 
 import React from 'react'
-import { translate } from '../lib/I18n'
+import { translate } from 'lib/I18n'
 
 export const Loading = ({ t, loadingType, noMargin }) => {
   return (

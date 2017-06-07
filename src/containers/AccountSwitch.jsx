@@ -1,10 +1,13 @@
-import styles from '../styles/accountSwitch'
+import styles from 'styles/accountSwitch'
 import classNames from 'classnames'
 
 import React, { Component } from 'react'
-import { translate } from '../lib/I18n'
+import { translate } from 'lib/I18n'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
+
+import AccountSharingStatus from 'components/AccountSharingStatus'
+import { Media, Bd, Img } from 'components/Media'
 
 import {
   indexAccounts,
@@ -14,7 +17,7 @@ import {
   filterAccounts,
   filterGroups
 }
-from '../actions'
+from 'actions'
 
 // Note that everything is set up to be abble to combine filters (even the redux store). It's only limited to one filter in a few places, because the UI can only accomodate one right now.
 class AccountSwitch extends Component {
@@ -84,7 +87,7 @@ class AccountSwitch extends Component {
             : selectedAccount !== null
             ? <div>
               <div className={styles['account-name']}>
-                { selectedAccount.label }
+                { selectedAccount.label } { <AccountSharingStatus account={ selectedAccount } /> }
               </div>
               <div className={styles['account-num']}>
                 { selectedAccount.number && 'n°' + selectedAccount.number }
@@ -138,8 +141,17 @@ class AccountSwitch extends Component {
             <ul>
               { accounts.map(account => (
                 <li>
-                  <button onClick={() => { this.switchAccount(account, false) }} className={classNames({[styles['active']]: selectedAccount && account._id === selectedAccount._id})}>
-                    { account.label + ' ' + account.institutionLabel }
+                  <button
+                      onClick={() => { this.switchAccount(account, false) }}
+                      className={classNames({[styles['active']]: selectedAccount && account._id === selectedAccount._id})}>
+                    <Media>
+                      <Bd>
+                        { account.label } - { account.institutionLabel }
+                      </Bd>
+                      <Img>
+                        <AccountSharingStatus tooltip account={ account } />
+                      </Img>
+                    </Media>
                   </button>
                 </li>
               )) }

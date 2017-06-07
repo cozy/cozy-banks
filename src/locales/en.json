@@ -184,5 +184,16 @@
     "delete": "supprimer",
     "create": "Créer un groupe",
     "edit_group": "Editer le groupe"
+  },
+
+  "Accounts": {
+    "label": "Libellé",
+    "account": "Compte ",
+    "type": "Type",
+    "shared": "Partagé",
+    "bank": "Banque",
+    "add-account": "Ajouter un compte",
+    "my-accounts": "Mes comptes",
+    "shared-accounts": "Comptes que l'on m'a partagé"
   }
 }
