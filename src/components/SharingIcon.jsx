@@ -3,7 +3,7 @@ import styles from 'styles/icons'
 import cx from 'classnames'
 
 export default function ({to, from}) {
-  return <i title={ to || from } className={
+  return <i className={
     cx(styles['sharing-icon'], {
       [styles['sharing-icon--to']]: to,
       [styles['sharing-icon--from']]: from
