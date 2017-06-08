@@ -8,11 +8,11 @@ import { Media, Bd, Img } from 'components/Media'
 
 const ACCOUNT_DOCTYPE = 'io.cozy.bank.accounts'
 
-const ownerRx = /\((.*)\)/
+const ownerRx = /\((.*)\)/ // find the word in parenthesis
 const getOwner = function (account) {
   if (!account) { return }
   const match = ownerRx.exec(account.label)
-  return match ? match[1] : ''
+  return match ? match[1] : account.label.split(' ').slice(-1)[0]
 }
 
 class AccountSharingStatus extends Component {
