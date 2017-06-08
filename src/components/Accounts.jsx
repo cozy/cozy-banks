@@ -101,7 +101,7 @@ class Accounts extends Component {
         </table>
 
         <button className={classNames(styles['bnk-action-button'], styles['icon-plus'])} onClick={this.addGroup.bind(this)}>
-          {t('Accounts.create')}
+          {t('Accounts.add-account')}
         </button>
 
         <h4>
