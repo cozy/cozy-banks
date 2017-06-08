@@ -9,7 +9,7 @@ export function findSharing (cozy, doctype, id) {
 
   return cozy.data.find(doctype, id)
     .then(account => {
-      sharing.owner = account.owner
+      sharing.account = account
       const { recipients } = account
       const hasRecipients = recipients && recipients.length
       return hasRecipients
