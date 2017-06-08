@@ -14,11 +14,7 @@ module.exports = {
   ]
 }
 
-// Method to modify the manifest slug on dev builds. On production builds the
-// manifest should be copied without modification.
-//
-// For dev builds we use the generic "app" slug to share the same application
-// domain for each applications.
+// Method to modify the manifest slug at build time
 function transformManifest (buffer) {
   const manifest = JSON.parse(buffer.toString())
 
