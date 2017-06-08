@@ -16,8 +16,6 @@ import { I18n } from 'lib/I18n'
 import appReducers from 'reducers'
 import AppRoute from 'components/AppRoute'
 
-import * as sharings from './lib/sharings.js'
-
 if (__DEVELOPMENT__) {
   // Enables React dev tools for Preact
   // Cannot use import as we are in a condition

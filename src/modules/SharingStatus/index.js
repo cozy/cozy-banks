@@ -1,4 +1,6 @@
-import { findSharing} from 'lib/sharings'
+/* global cozy */
+
+import { findSharing } from 'lib/sharings'
 
 const FETCH_DOC_SHARING = 'FETCH_DOC_SHARING'
 const FETCH_DOC_SHARING_SUCCESS = 'FETCH_DOC_SHARING_SUCCESS'
