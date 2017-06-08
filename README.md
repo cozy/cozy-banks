@@ -13,3 +13,10 @@ cozy-stack serve --appdir bank:<url_to_public_folder>
 ## Fixtures
 
 You can add fixtures by using [ACH](https://gitlab.cozycloud.cc/labs/ACH) and data in [data/bank](https://gitlab.cozycloud.cc/labs/ACH/tree/master/data/bank).
+
+## Skins
+
+The Bank application can be "skinned" to MesInfos style.
+
+Use `env SKIN='mesinfos' yarn build` for example to build with the MesInfos icon and slug. To deploy to a branch different from build you can use `env DEPLOY_BRANCH='build-maif' yarn deploy`.
+
