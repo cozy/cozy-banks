@@ -58,11 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
     replaceTitleOnMobile: true
   })
 
-  sharings.findRecipients(cozy.client, 'io.cozy.bank.accounts', 'ce8835a061d0ef68947afe69a0046722')
-    .then(list => {
-      console.debug('findForId', list)
-    })
-
   render((
     <I18n context={context} lang={lang}>
       <Provider store={store}>
