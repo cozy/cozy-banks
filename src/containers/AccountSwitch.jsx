@@ -87,7 +87,7 @@ class AccountSwitch extends Component {
             : selectedAccount !== null
             ? <div>
               <div className={styles['account-name']}>
-                { selectedAccount.label } { <AccountSharingStatus account={ selectedAccount } /> }
+                { selectedAccount.label } { <AccountSharingStatus account={selectedAccount} /> }
               </div>
               <div className={styles['account-num']}>
                 { selectedAccount.number && 'n°' + selectedAccount.number }
@@ -142,14 +142,14 @@ class AccountSwitch extends Component {
               { accounts.map(account => (
                 <li>
                   <button
-                      onClick={() => { this.switchAccount(account, false) }}
-                      className={classNames({[styles['active']]: selectedAccount && account._id === selectedAccount._id})}>
+                    onClick={() => { this.switchAccount(account, false) }}
+                    className={classNames({[styles['active']]: selectedAccount && account._id === selectedAccount._id})}>
                     <Media>
                       <Bd>
                         { account.label } - { account.institutionLabel }
                       </Bd>
                       <Img>
-                        <AccountSharingStatus tooltip account={ account } />
+                        <AccountSharingStatus tooltip account={account} />
                       </Img>
                     </Media>
                   </button>
