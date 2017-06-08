@@ -6,6 +6,19 @@ import { translate } from 'lib/I18n'
 import Figure from 'components/Figure'
 import FileOpener from 'components/FileOpener'
 
+const OperationAction = function ({ t, action }) {
+  const link = <a className={styles['bnk-table-actions-link']}>
+    {t(`Movements.actions.${action.type}`)}
+  </a>
+  if (action.payload) {
+    return <FileOpener t={t} file={action.payload}>
+      { link }
+    </FileOpener>
+  } else if (action.url) {
+    return React.cloneElement(link, { target: '_blank', href: action.url })
+  }
+}
+
 export const Operation = ({ t, f, operation }) => (
   <tr className={styles['coz-table-row']}>
     <td className={classNames(styles['coz-table-cell'], styles['bnk-table-date'])}>
@@ -29,11 +42,7 @@ export const Operation = ({ t, f, operation }) => (
     <td className={classNames(styles['coz-table-cell'], styles['bnk-table-actions'], 'coz-desktop')}>
       {!operation.action && '－'}
       {operation.action &&
-        <FileOpener t={t} file={operation.action.payload}>
-          <a className={styles['bnk-table-actions-link']}>
-            {t(`Movements.actions.${operation.action.type}`)}
-          </a>
-        </FileOpener>}
+        <OperationAction t={t} action={operation.action} />}
     </td>
   </tr>
 )
