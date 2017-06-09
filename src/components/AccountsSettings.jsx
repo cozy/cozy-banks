@@ -5,6 +5,51 @@ import React, { Component } from 'react'
 import { translate } from 'cozy-ui/react/helpers/i18n'
 import AccountSharingStatus from 'components/AccountSharingStatus'
 
+const AccountsTable = function ({ accounts, t }) {
+  return <table className={styles['coz-table']}>
+    <tr className={classNames(styles['coz-table-head'], styles['coz-table-row'])}>
+      <th className={classNames(styles['coz-table-header'], styles['bnk-table-libelle'])}>
+        {t('Accounts.label')}
+      </th>
+      <th className={classNames(styles['coz-table-header'], styles['bnk-table-bank'])}>
+        {t('Accounts.bank')}
+      </th>
+      <th className={classNames(styles['coz-table-header'], styles['bnk-table-account'])}>
+        {t('Accounts.account')}
+      </th>
+      <th className={classNames(styles['coz-table-header'], styles['bnk-table-type'])}>
+        {t('Accounts.type')}
+      </th>
+      <th className={classNames(styles['coz-table-header'], styles['bnk-table-shared'])}>
+        {t('Accounts.shared')}
+      </th>
+      <th className={classNames(styles['coz-table-header'], styles['bnk-table-actions'])} />
+    </tr>
+    <tbody className={styles['coz-table-body']}>
+      { accounts.map(account => (
+        <tr className={styles['coz-table-row']}>
+          <td className={classNames(styles['coz-table-cell'], styles['bnk-table-libelle'])}>
+            {account.label}
+          </td>
+          <td className={classNames(styles['coz-table-cell'], styles['bnk-table-bank'])}>
+            {account.institutionLabel}
+          </td>
+          <td className={classNames(styles['coz-table-cell'], styles['bnk-table-account'])}>
+            { account.number }
+          </td>
+          <td className={classNames(styles['coz-table-cell'], styles['bnk-table-type'])}>
+            { account.type }
+          </td>
+          <td className={classNames(styles['coz-table-cell'], styles['bnk-table-shared'])}>
+            { <AccountSharingStatus withText account={account} /> }
+          </td>
+          <td className={classNames(styles['coz-table-cell'], styles['bnk-table-actions'])} />
+        </tr>
+      ))}
+    </tbody>
+  </table>
+}
+
 class AccountsSettings extends Component {
   constructor (props) {
     super(props)
@@ -57,48 +102,7 @@ class AccountsSettings extends Component {
           {t('Accounts.my-accounts')}
         </h4>
 
-        <table className={styles['coz-table']}>
-          <tr className={classNames(styles['coz-table-head'], styles['coz-table-row'])}>
-            <th className={classNames(styles['coz-table-header'], styles['bnk-table-libelle'])}>
-              {t('Accounts.label')}
-            </th>
-            <th className={classNames(styles['coz-table-header'], styles['bnk-table-bank'])}>
-              {t('Accounts.bank')}
-            </th>
-            <th className={classNames(styles['coz-table-header'], styles['bnk-table-account'])}>
-              {t('Accounts.account')}
-            </th>
-            <th className={classNames(styles['coz-table-header'], styles['bnk-table-type'])}>
-              {t('Accounts.type')}
-            </th>
-            <th className={classNames(styles['coz-table-header'], styles['bnk-table-shared'])}>
-              {t('Accounts.shared')}
-            </th>
-            <th className={classNames(styles['coz-table-header'], styles['bnk-table-actions'])} />
-          </tr>
-          <tbody className={styles['coz-table-body']}>
-            { accounts.map(account => (
-              <tr className={styles['coz-table-row']}>
-                <td className={classNames(styles['coz-table-cell'], styles['bnk-table-libelle'])}>
-                  {account.label}
-                </td>
-                <td className={classNames(styles['coz-table-cell'], styles['bnk-table-bank'])}>
-                  {account.institutionLabel}
-                </td>
-                <td className={classNames(styles['coz-table-cell'], styles['bnk-table-account'])}>
-                  { account.number }
-                </td>
-                <td className={classNames(styles['coz-table-cell'], styles['bnk-table-type'])}>
-                  { account.type }
-                </td>
-                <td className={classNames(styles['coz-table-cell'], styles['bnk-table-shared'])}>
-                  { <AccountSharingStatus withText account={account} /> }
-                </td>
-                <td className={classNames(styles['coz-table-cell'], styles['bnk-table-actions'])} />
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <AccountsTable accounts={ accounts } t={ t } />
 
         <button className={classNames(styles['bnk-action-button'], styles['icon-plus'])} onClick={this.addGroup.bind(this)}>
           {t('Accounts.add-account')}
@@ -108,48 +112,7 @@ class AccountsSettings extends Component {
           {t('Accounts.shared-accounts')}
         </h4>
 
-        <table className={styles['coz-table']}>
-          <tr className={classNames(styles['coz-table-head'], styles['coz-table-row'])}>
-            <th className={classNames(styles['coz-table-header'], styles['bnk-table-libelle'])}>
-              {t('Accounts.label')}
-            </th>
-            <th className={classNames(styles['coz-table-header'], styles['bnk-table-bank'])}>
-              {t('Accounts.bank')}
-            </th>
-            <th className={classNames(styles['coz-table-header'], styles['bnk-table-account'])}>
-              {t('Accounts.account')}
-            </th>
-            <th className={classNames(styles['coz-table-header'], styles['bnk-table-type'])}>
-              {t('Accounts.type')}
-            </th>
-            <th className={classNames(styles['coz-table-header'], styles['bnk-table-shared'])}>
-              {t('Accounts.shared')}
-            </th>
-            <th className={classNames(styles['coz-table-header'], styles['bnk-table-actions'])} />
-          </tr>
-          <tbody className={styles['coz-table-body']}>
-            { accounts.map(account => (
-              <tr className={styles['coz-table-row']}>
-                <td className={classNames(styles['coz-table-cell'], styles['bnk-table-libelle'])}>
-                  {account.label}
-                </td>
-                <td className={classNames(styles['coz-table-cell'], styles['bnk-table-bank'])}>
-                  {account.institutionLabel}
-                </td>
-                <td className={classNames(styles['coz-table-cell'], styles['bnk-table-account'])}>
-                  {account.number}
-                </td>
-                <td className={classNames(styles['coz-table-cell'], styles['bnk-table-type'])}>
-                  {account.type}
-                </td>
-                <td className={classNames(styles['coz-table-cell'], styles['bnk-table-shared'])}>
-                  { <AccountSharingStatus withText account={account} /> }
-                </td>
-                <td className={classNames(styles['coz-table-cell'], styles['bnk-table-actions'])} />
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <AccountsTable accounts={ accounts } t={ t } />
       </div>
     )
   }
