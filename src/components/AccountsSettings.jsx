@@ -5,7 +5,7 @@ import React, { Component } from 'react'
 import { translate } from 'cozy-ui/react/helpers/i18n'
 import AccountSharingStatus from 'components/AccountSharingStatus'
 
-class Accounts extends Component {
+class AccountsSettings extends Component {
   constructor (props) {
     super(props)
 
@@ -155,4 +155,4 @@ class Accounts extends Component {
   }
 }
 
-export default translate()(Accounts)
+export default translate()(AccountsSettings)
