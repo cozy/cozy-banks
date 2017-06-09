@@ -9,7 +9,9 @@ export function findSharing (cozy, doctype, id) {
 
   return cozy.data.find(doctype, id)
     .then(account => {
+      // Temporary to be able to get the owner from the account label
       sharing.account = account
+      sharing.owner = account.owner
       const { recipients } = account
       const hasRecipients = recipients && recipients.length
       return hasRecipients

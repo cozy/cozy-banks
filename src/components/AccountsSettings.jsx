@@ -1,12 +1,15 @@
-import styles from 'styles/accounts'
 import classNames from 'classnames'
-
+import { connect } from 'react-redux'
 import React, { Component } from 'react'
 import { translate } from 'cozy-ui/react/helpers/i18n'
 import AccountSharingStatus from 'components/AccountSharingStatus'
+import { getSharingInfo } from 'reducers'
+import { ACCOUNT_DOCTYPE } from 'doctypes'
+import { groupBy } from 'lodash'
+import styles from 'styles/accounts'
 
 const AccountsTable = function ({ accounts, t }) {
-  return <table className={styles['coz-table']}>
+  return accounts ? <table className={styles['coz-table']}>
     <tr className={classNames(styles['coz-table-head'], styles['coz-table-row'])}>
       <th className={classNames(styles['coz-table-header'], styles['bnk-table-libelle'])}>
         {t('Accounts.label')}
@@ -47,7 +50,9 @@ const AccountsTable = function ({ accounts, t }) {
         </tr>
       ))}
     </tbody>
-  </table>
+  </table> : <div>
+    Pas encore de comptes
+  </div>
 }
 
 class AccountsSettings extends Component {
@@ -96,13 +101,20 @@ class AccountsSettings extends Component {
 
   render (props, state) {
     const { t, accounts } = props
+
+    const accountBySharingDirection = groupBy(accounts, account => {
+      const sharingInfo = this.props.getSharingInfo(ACCOUNT_DOCTYPE, account._id)
+      const infos = (sharingInfo && sharingInfo.info) || {}
+      return !!(!infos.recipients || infos.recipients.length === 0 || infos.owner)
+    })
+
     return (
       <div>
         <h4>
           {t('Accounts.my-accounts')}
         </h4>
 
-        <AccountsTable accounts={ accounts } t={ t } />
+        <AccountsTable accounts={ accountBySharingDirection[true] } t={ t } />
 
         <button className={classNames(styles['bnk-action-button'], styles['icon-plus'])} onClick={this.addGroup.bind(this)}>
           {t('Accounts.add-account')}
@@ -112,10 +124,18 @@ class AccountsSettings extends Component {
           {t('Accounts.shared-accounts')}
         </h4>
 
-        <AccountsTable accounts={ accounts } t={ t } />
+        <AccountsTable accounts={ accountBySharingDirection[false] } t={ t } />
       </div>
     )
   }
 }
 
-export default translate()(AccountsSettings)
+const mapStateToProps = (state) => {
+  return {
+    getSharingInfo: (doctype, id) => {
+      return getSharingInfo(state, doctype, id)
+    }
+  }
+}
+
+export default connect(mapStateToProps)(translate()(AccountsSettings))
