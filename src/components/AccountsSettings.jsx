@@ -1,12 +1,18 @@
 import classNames from 'classnames'
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
+
 import { translate } from 'cozy-ui/react/helpers/i18n'
-import AccountSharingStatus from 'components/AccountSharingStatus'
+
 import { getSharingInfo } from 'reducers'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 import { groupBy } from 'lodash'
 import styles from 'styles/accounts'
+import { fetchSharingInfo } from 'modules/SharingStatus'
+
+import AccountSharingStatus from 'components/AccountSharingStatus'
+import Spinner from 'components/Spinner'
+import { fetchData } from 'components/fetchData'
 
 const AccountsTable = function ({ accounts, t }) {
   return accounts ? <table className={styles['coz-table']}>
@@ -138,4 +144,16 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(translate()(AccountsSettings))
+const fetchAccountsSharingInfo = function (props) {
+  const { accounts } = props;
+  return Promise.all(accounts.map(account => {
+    return props.dispatch(fetchSharingInfo(ACCOUNT_DOCTYPE, account._id))
+  }))
+}
+
+export default (
+  connect(mapStateToProps)(
+  translate()(
+  fetchData(fetchAccountsSharingInfo)(
+  AccountsSettings))
+))
