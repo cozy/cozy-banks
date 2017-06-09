@@ -5,8 +5,7 @@ import { connect } from 'react-redux'
 import { getSharingInfo } from 'reducers'
 import { fetchSharingInfo } from 'modules/SharingStatus'
 import { Media, Bd, Img } from 'components/Media'
-
-const ACCOUNT_DOCTYPE = 'io.cozy.bank.accounts'
+import { ACCOUNT_DOCTYPE } from 'doctypes'
 
 const ownerRx = /\((.*)\)/ // find the word in parenthesis
 const getOwner = function (account) {
