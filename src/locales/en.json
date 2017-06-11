@@ -1,6 +1,12 @@
 {
   "Loading": {
-    "loading": "Chargement"
+    "loading": "Chargement",
+    "error": "Il y a eu une erreur pendant le chargement des données. Merci de réessayer plus tard."
+  },
+
+  "Error": {
+    "more-information": "More information",
+    "less-information": "Less information"
   },
 
   "AccountSwitch": {

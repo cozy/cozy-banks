@@ -11,7 +11,8 @@ import styles from 'styles/accounts'
 import { fetchSharingInfo } from 'modules/SharingStatus'
 
 import AccountSharingStatus from 'components/AccountSharingStatus'
-import { fetchData } from 'components/fetchData'
+import Spinner from 'components/Spinner'
+import fetchData from 'components/fetchData'
 
 const AccountsTable = function ({ accounts, t }) {
   return accounts ? <table className={styles['coz-table']}>

@@ -1,27 +1,32 @@
 import React, { Component } from 'react'
 import Spinner from 'components/Spinner'
+import DisplayError from 'components/DisplayError'
 
-export const fetchData = fetch => WrappedComponent => {
-  return class Wrapper extends Component {
+export default fetch => WrappedComponent => {
+  class Wrapper extends Component {
     componentDidMount () {
       this.state = { ready: false }
       fetch(this.props).then(
         data => this.setState({ ready: true, data }),
-        () => this.setState({ error: true }))
+        error => this.setState({ error }))
     }
 
-    render () {
-      if (this.state.error) {
-        return <div>
-          Il y a eu une erreur
-        </div>
-      } else if (!this.state.ready) {
+    render (props, { error, ready, data }) {
+      if (error) {
+        return <DisplayError error={ error }/>
+      } else if (!ready) {
         return <div>
           <Spinner />
         </div>
       } else {
-        return <WrappedComponent {...this.props} {...this.state.data} />
+        return <WrappedComponent {...props} {...data} />
       }
     }
   }
+
+  try {
+    Object.defineProperty(Wrapper, 'name', { value: `${Component.name} [from fetchData]` })
+  } catch (e) {}
+
+  return Wrapper
 }
