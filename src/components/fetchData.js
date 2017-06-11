@@ -2,19 +2,23 @@ import React, { Component } from 'react'
 import Spinner from 'components/Spinner'
 import DisplayError from 'components/DisplayError'
 
+/**
+  Higher order component to wait for a promise
+  before displaying the real component.
+*/
 export default fetch => WrappedComponent => {
   class Wrapper extends Component {
     componentDidMount () {
-      this.state = { ready: false }
+      this.state = { hasData: false, hasError: false }
       fetch(this.props).then(
-        data => this.setState({ ready: true, data }),
-        error => this.setState({ error }))
+        data => this.setState({ hasData: true, data }),
+        error => this.setState({ hasError: true, error }))
     }
 
-    render (props, { error, ready, data }) {
-      if (error) {
+    render (props, { hasData, data, hasError, error }) {
+      if (hasError) {
         return <DisplayError error={ error }/>
-      } else if (!ready) {
+      } else if (!hasData) {
         return <div>
           <Spinner />
         </div>
@@ -25,7 +29,11 @@ export default fetch => WrappedComponent => {
   }
 
   try {
-    Object.defineProperty(Wrapper, 'name', { value: `${Component.name} [from fetchData]` })
+    Object.defineProperty(
+      Wrapper,
+      'name',
+      { value: `${Component.name} [from fetchData]` }
+    )
   } catch (e) {}
 
   return Wrapper

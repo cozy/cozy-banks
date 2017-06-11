@@ -20,6 +20,10 @@ const styles = {
   }
 }
 
+/**
+  Display errors in a red background with a button
+  to display the stack trace
+*/
 class DisplayError extends Component {
   render ({ error, t }, { displayStack }) {
     const toggleStack = () => this.setState({
