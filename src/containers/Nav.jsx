@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 
 import Spinner from 'components/Spinner'
 
-class ActiveLink extends Component {
+class ActiveLinkWithoutRouter extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -16,15 +16,15 @@ class ActiveLink extends Component {
     }
   }
 
-  open (e) {
-//    this.setState({ opening: true })
-//    this.props.onClick()
-//      .then(() => this.setState({ opening: false }))
-  }
-
-  render ({ to, className, children }, { opening }) {
+  render ({ to, className, children, router }, { opening }) {
     return (
-      <Link to={to} className={className} onClick={e => this.open(e)}>
+      <Link
+          to={to}
+          className={classNames(
+            styles['coz-nav-link'],
+            { [styles['active']]: router.isActive(to) },
+            className
+          )}>
         {children}
         {opening && <Spinner />}
       </Link>
@@ -32,78 +32,56 @@ class ActiveLink extends Component {
   }
 }
 
-const Nav = ({ t, router }) => {
+const ActiveLink = withRouter(ActiveLinkWithoutRouter)
+
+const Nav = ({ t }) => {
   return (
     <nav>
       <ul class={styles['coz-nav']}>
         <li class={styles['coz-nav-item']}>
           <ActiveLink
-            to='/currentBalance'
-            className={classNames(
-              styles['coz-nav-link'],
-              styles['bnk-cat-balance'],
-              { [styles['active']]: router.isActive('currentBalance') }
-            )}
+            to='currentBalance'
+            className={styles['bnk-cat-balance']}
           >
             {t('nav.movements')}
           </ActiveLink>
         </li>
         <li class={styles['coz-nav-item']}>
           <ActiveLink
-            to='/movements'
-            className={classNames(
-              styles['coz-nav-link'],
-              styles['bnk-cat-movements'],
-              { [styles['active']]: router.isActive('movements') }
-            )}
+            to='movements'
+            className={styles['bnk-cat-movements']}
           >
             {t('nav.movements')}
           </ActiveLink>
         </li>
         <li class={styles['coz-nav-item']}>
           <ActiveLink
-            to='/categories'
-            className={classNames(
-              styles['coz-nav-link'],
-              styles['bnk-cat-categories'],
-              { [styles['active']]: router.isActive('categories') }
-            )}
+            to='categories'
+            className={styles['bnk-cat-categories']}
           >
             {t('nav.categorisation')}
           </ActiveLink>
         </li>
         <li class={styles['coz-nav-item']}>
           <ActiveLink
-            to='/projections'
-            className={classNames(
-              styles['coz-nav-link'],
-              styles['bnk-cat-projections'],
-              { [styles['active']]: router.isActive('projections') }
-            )}
+            to='projections'
+            className={styles['bnk-cat-projections']}
           >
             {t('nav.projections')}
           </ActiveLink>
         </li>
         <li class={styles['coz-nav-item']}>
           <ActiveLink
-            to='/savings'
-            className={classNames(
-              styles['coz-nav-link'],
-              styles['bnk-cat-savings'],
-              { [styles['active']]: router.isActive('savings') }
-            )}
+            to='savings'
+            className={styles['bnk-cat-savings']}
           >
              {t('nav.savings')}
           </ActiveLink>
         </li>
         <li class={styles['coz-nav-item']}>
           <ActiveLink
-            to='/settings'
-            className={classNames(
-              styles['coz-nav-link'],
-              styles['bnk-cat-settings'],
-              { [styles['active']]: router.isActive('settings') }
-            )}
+            to='settings'
+            className={styles['bnk-cat-settings']}
           >
             {t('nav.settings')}
           </ActiveLink>
@@ -119,5 +97,5 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  withRouter(translate()(Nav))
+  translate()(Nav)
 )
