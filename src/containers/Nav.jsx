@@ -36,8 +36,8 @@ const ActiveLink = withRouter(ActiveLinkWithoutRouter)
 const Nav = ({ t }) => {
   return (
     <nav>
-      <ul class={styles['coz-nav']}>
-        <li class={styles['coz-nav-item']}>
+      <ul className={styles['coz-nav']}>
+        <li className={styles['coz-nav-item']}>
           <ActiveLink
             to='currentBalance'
             className={styles['bnk-cat-balance']}
@@ -45,7 +45,7 @@ const Nav = ({ t }) => {
             {t('nav.movements')}
           </ActiveLink>
         </li>
-        <li class={styles['coz-nav-item']}>
+        <li className={styles['coz-nav-item']}>
           <ActiveLink
             to='movements'
             className={styles['bnk-cat-movements']}
@@ -53,7 +53,7 @@ const Nav = ({ t }) => {
             {t('nav.movements')}
           </ActiveLink>
         </li>
-        <li class={styles['coz-nav-item']}>
+        <li className={styles['coz-nav-item']}>
           <ActiveLink
             to='categories'
             className={styles['bnk-cat-categories']}
@@ -61,7 +61,7 @@ const Nav = ({ t }) => {
             {t('nav.categorisation')}
           </ActiveLink>
         </li>
-        <li class={styles['coz-nav-item']}>
+        <li className={styles['coz-nav-item']}>
           <ActiveLink
             to='projections'
             className={styles['bnk-cat-projections']}
@@ -69,7 +69,7 @@ const Nav = ({ t }) => {
             {t('nav.projections')}
           </ActiveLink>
         </li>
-        <li class={styles['coz-nav-item']}>
+        <li className={styles['coz-nav-item']}>
           <ActiveLink
             to='savings'
             className={styles['bnk-cat-savings']}
@@ -77,7 +77,7 @@ const Nav = ({ t }) => {
              {t('nav.savings')}
           </ActiveLink>
         </li>
-        <li class={styles['coz-nav-item']}>
+        <li className={styles['coz-nav-item']}>
           <ActiveLink
             to='settings'
             className={styles['bnk-cat-settings']}
