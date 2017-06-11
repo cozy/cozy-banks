@@ -7,31 +7,17 @@ import { Link, withRouter } from 'react-router'
 
 import Spinner from 'components/Spinner'
 
-class ActiveLinkWithoutRouter extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      opening: false
-    }
-  }
-
-  render ({ to, className, children, router }, { opening }) {
-    return (
-      <Link
-          to={to}
-          className={classNames(
-            styles['coz-nav-link'],
-            { [styles['active']]: router.isActive(to) },
-            className
-          )}>
-        {children}
-        {opening && <Spinner />}
-      </Link>
-    )
-  }
-}
-
-const ActiveLink = withRouter(ActiveLinkWithoutRouter)
+const ActiveLink = withRouter(({ to, className, children, router }) => {
+  return <Link
+      to={to}
+      className={classNames(
+        styles['coz-nav-link'],
+        { [styles['active']]: router.isActive(to) },
+        className
+      )}>
+    {children}
+  </Link>
+})
 
 const Nav = ({ t }) => {
   return (
