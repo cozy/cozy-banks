@@ -45,7 +45,7 @@ const Nav = ({ t, router }) => {
               { [styles['active']]: router.isActive('currentBalance') }
             )}
           >
-            Solde actuel
+            {t('nav.movements')}
           </ActiveLink>
         </li>
         <li class={styles['coz-nav-item']}>
@@ -57,7 +57,7 @@ const Nav = ({ t, router }) => {
               { [styles['active']]: router.isActive('movements') }
             )}
           >
-            Mouvements
+            {t('nav.movements')}
           </ActiveLink>
         </li>
         <li class={styles['coz-nav-item']}>
@@ -69,7 +69,7 @@ const Nav = ({ t, router }) => {
               { [styles['active']]: router.isActive('categories') }
             )}
           >
-            Categorisation
+            {t('nav.categorisation')}
           </ActiveLink>
         </li>
         <li class={styles['coz-nav-item']}>
@@ -81,7 +81,7 @@ const Nav = ({ t, router }) => {
               { [styles['active']]: router.isActive('projections') }
             )}
           >
-            Prévisions
+            {t('nav.projections')}
           </ActiveLink>
         </li>
         <li class={styles['coz-nav-item']}>
@@ -93,7 +93,7 @@ const Nav = ({ t, router }) => {
               { [styles['active']]: router.isActive('savings') }
             )}
           >
-            Economiser
+             {t('nav.savings')}
           </ActiveLink>
         </li>
         <li class={styles['coz-nav-item']}>
@@ -105,7 +105,7 @@ const Nav = ({ t, router }) => {
               { [styles['active']]: router.isActive('settings') }
             )}
           >
-            Parametres
+            {t('nav.settings')}
           </ActiveLink>
         </li>
       </ul>

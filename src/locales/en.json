@@ -12,6 +12,15 @@
     "account_counter": "%{smart_count} compte |||| %{smart_count} comptes"
   },
 
+  "nav": {
+    "movements": "Mouvements",
+    "balance": "Solde actuel",
+    "categorisation": "Catégorisation",
+    "projections": "Prévisions",
+    "savings": "Economiser",
+    "settings": "Paramètres"
+  },
+
   "Movements": {
     "actions": {
       "bill": "Voir votre facture",
@@ -34,8 +43,8 @@
       "general": "Catégorisation",
       "total": "Solde de la période",
       "debit": "Dépense nette",
-      "empty": "Categorisation",
-      "empty_text": "Pas de categories à afficher."
+      "empty": "Catégorisation",
+      "empty_text": "Pas de catégories à afficher."
     },
     "headers": {
       "categories": "Catégories",
