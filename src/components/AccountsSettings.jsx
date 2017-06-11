@@ -56,9 +56,9 @@ const AccountsTable = function ({ accounts, t }) {
         </tr>
       ))}
     </tbody>
-  </table> : <div>
-    Pas encore de comptes
-  </div>
+  </table> : <p>
+    { t("Accounts.no-accounts") }
+  </p>
 }
 
 class AccountsSettings extends Component {
@@ -122,9 +122,11 @@ class AccountsSettings extends Component {
 
         <AccountsTable accounts={accountBySharingDirection[true]} t={t} />
 
-        <button className={classNames(styles['bnk-action-button'], styles['icon-plus'])} onClick={this.addGroup.bind(this)}>
-          {t('Accounts.add-account')}
-        </button>
+        <p>
+          <button className={classNames(styles['bnk-action-button'], styles['icon-plus'])} onClick={this.addGroup.bind(this)}>
+            {t('Accounts.add-account')}
+          </button>
+        </p>
 
         <h4>
           {t('Accounts.shared-accounts')}

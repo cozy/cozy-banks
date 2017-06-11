@@ -209,7 +209,8 @@
     "bank": "Banque",
     "add-account": "Ajouter un compte",
     "my-accounts": "Mes comptes",
-    "shared-accounts": "Comptes que l'on m'a partagé"
+    "shared-accounts": "Comptes que l'on m'a partagé",
+    "no-accounts": "Vous n'avez pas encore de compte."
   },
 
   "SelectDates": {
