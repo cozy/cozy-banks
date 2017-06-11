@@ -4,7 +4,6 @@ import React, { Component } from 'react'
 import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'
 import { Link, withRouter } from 'react-router'
-import { connect } from 'react-redux'
 
 import Spinner from 'components/Spinner'
 
@@ -91,11 +90,4 @@ const Nav = ({ t }) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => ({
-})
-const mapDispatchToProps = (dispatch, ownProps) => ({
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(
-  translate()(Nav)
-)
+export default translate()(Nav)
