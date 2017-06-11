@@ -12,7 +12,7 @@
     "account_counter": "%{smart_count} compte |||| %{smart_count} comptes"
   },
 
-  "nav": {
+  "Nav": {
     "movements": "Mouvements",
     "balance": "Solde actuel",
     "categorisation": "Catégorisation",

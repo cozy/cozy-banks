@@ -7,7 +7,7 @@ import { Link, withRouter } from 'react-router'
 
 import Spinner from 'components/Spinner'
 
-const ActiveLink = withRouter(({ to, className, children, router }) => {
+const ActiveLink = withRouter(function ActiveLink ({ to, className, children, router }) {
   return <Link
       to={to}
       className={classNames(
@@ -28,7 +28,7 @@ const Nav = ({ t }) => {
             to='currentBalance'
             className={styles['bnk-cat-balance']}
           >
-            {t('nav.movements')}
+            {t('Nav.movements')}
           </ActiveLink>
         </li>
         <li className={styles['coz-nav-item']}>
@@ -36,7 +36,7 @@ const Nav = ({ t }) => {
             to='movements'
             className={styles['bnk-cat-movements']}
           >
-            {t('nav.movements')}
+            {t('Nav.movements')}
           </ActiveLink>
         </li>
         <li className={styles['coz-nav-item']}>
@@ -44,7 +44,7 @@ const Nav = ({ t }) => {
             to='categories'
             className={styles['bnk-cat-categories']}
           >
-            {t('nav.categorisation')}
+            {t('Nav.categorisation')}
           </ActiveLink>
         </li>
         <li className={styles['coz-nav-item']}>
@@ -52,7 +52,7 @@ const Nav = ({ t }) => {
             to='projections'
             className={styles['bnk-cat-projections']}
           >
-            {t('nav.projections')}
+            {t('Nav.projections')}
           </ActiveLink>
         </li>
         <li className={styles['coz-nav-item']}>
@@ -60,7 +60,7 @@ const Nav = ({ t }) => {
             to='savings'
             className={styles['bnk-cat-savings']}
           >
-             {t('nav.savings')}
+             {t('Nav.savings')}
           </ActiveLink>
         </li>
         <li className={styles['coz-nav-item']}>
@@ -68,7 +68,7 @@ const Nav = ({ t }) => {
             to='settings'
             className={styles['bnk-cat-settings']}
           >
-            {t('nav.settings')}
+            {t('Nav.settings')}
           </ActiveLink>
         </li>
       </ul>
