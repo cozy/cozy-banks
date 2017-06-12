@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import React, { Component } from 'react'
 import Spinner from 'components/Spinner'
 
 export const fetchData = fetch => WrappedComponent => {
