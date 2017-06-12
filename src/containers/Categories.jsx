@@ -23,7 +23,7 @@ const TOTAL_FILTER = 'total'
 const DEBIT_FILTER = 'debit'
 const INCOME_CATEGORY = 'income'
 const FILTERS = [TOTAL_FILTER, DEBIT_FILTER]
-const DATE_OPTIONS = ['Du 01 mars au 31 mars 2017']
+const DATE_OPTIONS = ['-']
 
 // This function builds a map of categories and sub-categories, each containing a list of related operations, a name and a color
 const operationsByCategory = (operations) => {
