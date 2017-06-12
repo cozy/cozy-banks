@@ -165,11 +165,11 @@ export class Categories extends Component {
           {t('Categories.title.general')}
         </h2>
         <div className={styles['bnk-cat-form']}>
-          <Select
+          {false && <Select
             name='dateRange'
             options={DATE_OPTIONS}
             onChange={() => {}}
-          />
+          />}
           <Select
             name='filterRange'
             options={FILTER_OPTIONS}
