@@ -1,4 +1,4 @@
-const RECIPIENT_DOCTYPE = 'io.cozy.mocks.recipients'
+import { RECIPIENT_DOCTYPE } from 'doctypes'
 
 export function findSharing (cozy, doctype, id) {
   if (!id) throw new Error('Missing mandatory parameter `id`')
@@ -9,6 +9,8 @@ export function findSharing (cozy, doctype, id) {
 
   return cozy.data.find(doctype, id)
     .then(account => {
+      // Temporary to be able to get the owner from the account label
+      sharing.account = account
       sharing.owner = account.owner
       const { recipients } = account
       const hasRecipients = recipients && recipients.length

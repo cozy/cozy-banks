@@ -7,7 +7,7 @@ import { translate } from 'lib/I18n'
 import { Tab, Tabs, TabList, TabPanel, TabPanels } from 'cozy-ui/react/Tabs'
 import Notifications from 'components/Notifications'
 import Groups from 'components/Groups'
-import Accounts from 'components/Accounts'
+import AccountsSettings from 'components/AccountsSettings'
 
 import {
   createGroup,
@@ -47,9 +47,7 @@ export class Settings extends Component {
               Coming Soon
             </TabPanel>
             <TabPanel name={tabNames[1]}>
-              <Accounts
-                accounts={accounts}
-              />
+              <AccountsSettings accounts={accounts} />
             </TabPanel>
             <TabPanel name={tabNames[2]}>
               <Groups

@@ -4,9 +4,15 @@ import styles from 'styles/tooltip'
 import { connect } from 'react-redux'
 import { getSharingInfo } from 'reducers'
 import { fetchSharingInfo } from 'modules/SharingStatus'
+import { Media, Bd, Img } from 'components/Media'
+import { ACCOUNT_DOCTYPE } from 'doctypes'
 
-// TODO
-const ACCOUNT_DOCTYPE = 'accounts'
+const ownerRx = /\((.*)\)/ // find the word in parenthesis
+const getOwner = function (account) {
+  if (!account) { return }
+  const match = ownerRx.exec(account.label)
+  return match ? match[1] : account.label.split(' ').slice(-1)[0]
+}
 
 class AccountSharingStatus extends Component {
   componentDidMount () {
@@ -18,22 +24,27 @@ class AccountSharingStatus extends Component {
   render ({ account, sharingInfo, withText, tooltip }) {
     const info = (sharingInfo && sharingInfo.info) || {}
 
-    const isShared = info.recipients || info.shared
+    const isShared = info.recipients && info.recipients.length > 0
     const iconProps = {}
 
-    if (info.recipients) { iconProps['from'] = info.recipients.join(', ') }
-    if (info.shared) { iconProps['to'] = 'Patrick Browne' }
+    if (info.owner) {
+      iconProps.to = true
+    } else if (info.recipients && info.recipients.length) {
+      iconProps.from = true
+    }
+
+    const owner = getOwner(info.account)
 
     const rhProps = tooltip ? {
       'data-rh-cls': styles['account-sharing-tooltip'],
       'data-rh-at': 'top',
-      'data-rh': iconProps['to'] || iconProps['from']
+      'data-rh': `Partagé par ${owner}`
     } : {}
 
-    return isShared && <span {...rhProps}>
-      <SharingIcon {...iconProps} />
-      { withText && <span>&nbsp;{ info.recipients && info.recipients.join(', ') }</span>}
-    </span>
+    return isShared && <Media {...rhProps}>
+      <Img><SharingIcon {...iconProps} /></Img>
+      <Bd>{ withText && <span>Partagé par { owner }</span>}</Bd>
+    </Media>
   }
 }
 

@@ -21,6 +21,7 @@ function transformManifest (buffer) {
   if (skin === 'mesinfos') {
     manifest.slug = 'mesinfos-banques'
     manifest.name = 'Banques'
+    manifest.category = 'partners'
   }
 
   return JSON.stringify(manifest, null, 2)
