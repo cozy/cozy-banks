@@ -17,7 +17,7 @@ from 'actions'
 
 import { getFilteredOperations } from 'selectors'
 
-const DATE_OPTIONS = ['Du 01 mars au 31 mars 2017']
+const DATE_OPTIONS = ['-']
 
 export class Movements extends Component {
   constructor (props) {
