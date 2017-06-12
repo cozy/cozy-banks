@@ -17,7 +17,7 @@ export default fetch => WrappedComponent => {
 
     render (props, { hasData, data, hasError, error }) {
       if (hasError) {
-        return <DisplayError error={ error }/>
+        return <DisplayError error={error} />
       } else if (!hasData) {
         return <div>
           <Spinner />
@@ -32,7 +32,7 @@ export default fetch => WrappedComponent => {
     Object.defineProperty(
       Wrapper,
       'name',
-      { value: `${Component.name} [from fetchData]` }
+      {value: `${Component.name} [from fetchData]`}
     )
   } catch (e) {}
 

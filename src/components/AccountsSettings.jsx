@@ -11,7 +11,6 @@ import styles from 'styles/accounts'
 import { fetchSharingInfo } from 'modules/SharingStatus'
 
 import AccountSharingStatus from 'components/AccountSharingStatus'
-import Spinner from 'components/Spinner'
 import fetchData from 'components/fetchData'
 
 const AccountsTable = function ({ accounts, t }) {
@@ -57,7 +56,7 @@ const AccountsTable = function ({ accounts, t }) {
       ))}
     </tbody>
   </table> : <p>
-    { t("Accounts.no-accounts") }
+    { t('Accounts.no-accounts') }
   </p>
 }
 

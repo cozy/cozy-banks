@@ -1,16 +1,14 @@
 import styles from 'styles/nav'
 
-import React, { Component } from 'react'
+import React from 'react'
 import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'
 import { Link, withRouter } from 'react-router'
 
-import Spinner from 'components/Spinner'
-
 const ActiveLink = withRouter(function ActiveLink ({ to, className, children, router }) {
   return <Link
-      to={to}
-      className={classNames(
+    to={to}
+    className={classNames(
         styles['coz-nav-link'],
         { [styles['active']]: router.isActive(to) },
         className
@@ -60,7 +58,7 @@ const Nav = ({ t }) => {
             to='savings'
             className={styles['bnk-cat-savings']}
           >
-             {t('Nav.savings')}
+            {t('Nav.savings')}
           </ActiveLink>
         </li>
         <li className={styles['coz-nav-item']}>

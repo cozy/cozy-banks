@@ -25,20 +25,20 @@ const styles = {
   to display the stack trace
 */
 class DisplayError extends Component {
-  render ({ error, t }, { displayStack }) {
+  render ({error, t}, {displayStack}) {
     const toggleStack = () => this.setState({
       displayStack: !displayStack
     })
-    return <div style={ styles.container }>
-      { error.message }<br/>
-      <a style={ styles.btn } onClick={ toggleStack }>
-        { displayStack 
+    return <div style={styles.container}>
+      { error.message }<br />
+      <a style={styles.btn} onClick={toggleStack}>
+        {displayStack
           ? t('Error.less-information')
-          : t('Error.more-information') }
+          : t('Error.more-information')}
       </a>
-      { displayStack && <pre style={ styles.pre }>
+      {displayStack && <pre style={styles.pre}>
         { error.stack }
-      </pre> } 
+      </pre>}
     </div>
   }
 }
