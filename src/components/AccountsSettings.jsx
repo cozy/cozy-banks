@@ -11,7 +11,6 @@ import styles from 'styles/accounts'
 import { fetchSharingInfo } from 'modules/SharingStatus'
 
 import AccountSharingStatus from 'components/AccountSharingStatus'
-import Spinner from 'components/Spinner'
 import { fetchData } from 'components/fetchData'
 
 const AccountsTable = function ({ accounts, t }) {
@@ -120,7 +119,7 @@ class AccountsSettings extends Component {
           {t('Accounts.my-accounts')}
         </h4>
 
-        <AccountsTable accounts={ accountBySharingDirection[true] } t={ t } />
+        <AccountsTable accounts={accountBySharingDirection[true]} t={t} />
 
         <button className={classNames(styles['bnk-action-button'], styles['icon-plus'])} onClick={this.addGroup.bind(this)}>
           {t('Accounts.add-account')}
@@ -130,7 +129,7 @@ class AccountsSettings extends Component {
           {t('Accounts.shared-accounts')}
         </h4>
 
-        <AccountsTable accounts={ accountBySharingDirection[false] } t={ t } />
+        <AccountsTable accounts={accountBySharingDirection[false]} t={t} />
       </div>
     )
   }
@@ -145,7 +144,7 @@ const mapStateToProps = (state) => {
 }
 
 const fetchAccountsSharingInfo = function (props) {
-  const { accounts } = props;
+  const { accounts } = props
   return Promise.all(accounts.map(account => {
     return props.dispatch(fetchSharingInfo(ACCOUNT_DOCTYPE, account._id))
   }))
