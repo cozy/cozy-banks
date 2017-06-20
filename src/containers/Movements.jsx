@@ -2,7 +2,7 @@ import styles from 'styles/movements'
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { translate } from 'lib/I18n'
+import { translate } from 'cozy-ui/react/I18n'
 
 import Select from 'components/Select'
 import FigureBlock from 'components/FigureBlock'

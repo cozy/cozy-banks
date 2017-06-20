@@ -1,5 +1,5 @@
 import React from 'react'
-import { translate } from 'cozy-ui/react/helpers/i18n'
+import { translate } from 'cozy-ui/react/I18n'
 import Field from 'components/Field'
 
 const Select = ({ t, name, value, options, onChange }) => (

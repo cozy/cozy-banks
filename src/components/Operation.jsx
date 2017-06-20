@@ -2,7 +2,7 @@ import styles from 'styles/operationsBoard'
 
 import React from 'react'
 import classNames from 'classnames'
-import { translate } from 'lib/I18n'
+import { translate } from 'cozy-ui/react/I18n'
 import Figure from 'components/Figure'
 import FileOpener from 'components/FileOpener'
 
