@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import React, { Component } from 'react'
 import Toggle from 'cozy-ui/react/Toggle'
 import Modal from 'cozy-ui/react/Modal'
-import { translate } from 'lib/I18n'
+import { translate } from 'cozy-ui/react/I18n'
 
 class GroupsModal extends Component {
   constructor (props) {

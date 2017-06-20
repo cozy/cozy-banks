@@ -2,7 +2,7 @@ import styles from 'styles/groupes'
 import classNames from 'classnames'
 
 import React, { Component } from 'react'
-import { translate } from 'cozy-ui/react/helpers/i18n'
+import { translate } from 'cozy-ui/react/I18n'
 
 import GroupsModal from 'components/GroupsModal'
 

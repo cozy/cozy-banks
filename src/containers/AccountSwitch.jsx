@@ -2,7 +2,7 @@ import styles from 'styles/accountSwitch'
 import classNames from 'classnames'
 
 import React, { Component } from 'react'
-import { translate } from 'lib/I18n'
+import { translate } from 'cozy-ui/react/I18n'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 

@@ -97,7 +97,7 @@
     "classnames": "^2.2.0",
     "cozy-bar": "3.0.0-beta14",
     "cozy-client-js": "^0.3.2",
-    "cozy-ui": "3.0.0-beta29",
+    "cozy-ui": "3.0.0-beta36",
     "date-fns": "^1.28.2",
     "node-polyglot": "^2.2.0",
     "pouchdb": "^6.1.2",

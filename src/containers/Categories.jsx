@@ -2,7 +2,7 @@ import styles from 'styles/categories'
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { translate } from 'lib/I18n'
+import { translate } from 'cozy-ui/react/I18n'
 import categoriesMap from 'lib/categoriesMap'
 
 import Select from 'components/Select'

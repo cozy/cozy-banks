@@ -2,7 +2,7 @@ import styles from 'styles/field'
 
 import React from 'react'
 import classNames from 'classnames'
-import { translate } from 'cozy-ui/react/helpers/i18n'
+import { translate } from 'cozy-ui/react/I18n'
 
 const Field = ({ t, name, submitting, saved, errors, description, subtitle, children }) => (
   <div className={classNames(styles['coz-form'], styles['bnk-field'], {
