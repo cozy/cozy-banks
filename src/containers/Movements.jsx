@@ -7,7 +7,7 @@ import { translate } from 'cozy-ui/react/I18n'
 import FigureBlock from 'components/FigureBlock'
 import OperationsBoard from 'components/OperationsBoard'
 import Loading from 'components/Loading.jsx'
-import { getStartDate, getEndDate, SelectDates, getFilteredOperations } from 'ducks/filteredOperations'
+import { SelectDates, getFilteredOperations } from 'ducks/filteredOperations'
 import { fetchOperations, indexOperationsByDate } from 'actions'
 
 export class Movements extends Component {
@@ -17,8 +17,7 @@ export class Movements extends Component {
       isFetching: true
     }
 
-    const { fetchOperations, startDate, endDate } = this.props
-    fetchOperations(startDate, endDate).then(
+    this.props.fetchOperations().then(
       this.setState({isFetching: false})
     )
   }
@@ -68,15 +67,13 @@ export class Movements extends Component {
 
 const mapStateToProps = (state, ownProps) => ({
   operations: state.operations,
-  filteredOperations: getFilteredOperations(state),
-  startDate: getStartDate(state),
-  endDate: getEndDate(state)
+  filteredOperations: getFilteredOperations(state)
 })
 
 export const mapDispatchToProps = (dispatch, ownProps) => ({
-  fetchOperations: async (startDate, endDate) => {
+  fetchOperations: async () => {
     const mangoIndex = await dispatch(indexOperationsByDate())
-    return dispatch(fetchOperations(mangoIndex, startDate, endDate))
+    return dispatch(fetchOperations(mangoIndex))
   }
 })
 

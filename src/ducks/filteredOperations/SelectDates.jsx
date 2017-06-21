@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Select from 'components/Select'
 import { subMonths, startOfMonth, endOfMonth, differenceInDays, endOfDay } from 'date-fns'
 import { translate } from 'cozy-ui/react/I18n'
-import { getStartDate, getEndDate, filterOperationsByDate } from '.'
+import { getStartDate, getEndDate, addFilterByDates } from '.'
 
 const createRange = (startDate, endDate) => ({ startDate, endDate })
 
@@ -34,10 +34,8 @@ export class SelectDates extends Component {
     this.getSelected = this.getSelected.bind(this)
 
     const dates = getDatesRange()
-    const { startDate, endDate } = this.props
     this.state = {
-      datesRange: dates,
-      selected: this.getSelected(dates, startDate, endDate)
+      datesRange: dates
     }
   }
 
@@ -55,7 +53,8 @@ export class SelectDates extends Component {
   }
 
   render ({t, f, startDate, endDate}) {
-    const { datesRange, selected } = this.state
+    const { datesRange } = this.state
+    const selected = this.getSelected(datesRange, startDate, endDate)
 
     // create options
     const options = []
@@ -82,7 +81,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 export const mapDispatchToProps = (dispatch, ownProps) => ({
   onChange: (dateRange) => {
-    dispatch(filterOperationsByDate(ownProps.operations, dateRange.startDate, dateRange.endDate))
+    dispatch(addFilterByDates(dateRange.startDate, dateRange.endDate))
   }
 })
 

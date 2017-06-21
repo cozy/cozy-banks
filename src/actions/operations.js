@@ -5,7 +5,6 @@
 **/
 import { throwServerError } from './index'
 import { BANK_ACCOUNTS_DOCTYPE } from './accounts'
-import { filterOperationsByDate } from 'ducks/filteredOperations'
 
 export const INDEX_BANK_OPERATIONS_BY_DATE = 'INDEX_BANK_OPERATIONS_BY_DATE'
 export const INDEX_BANK_OPERATIONS_BY_DATE_SUCCESS = 'INDEX_BANK_OPERATIONS_BY_DATE_SUCCESS'
@@ -41,7 +40,7 @@ const removeAccountPrefix = (operations) => operations.map(operation => {
 })
 
 // Returns bank operations
-export const fetchOperations = (mangoIndex, startDate, endDate) => {
+export const fetchOperations = (mangoIndex) => {
   return async (dispatch) => {
     return cozy.client.data.query(mangoIndex, {
       selector: {'date': {'$gt': null}},
@@ -68,7 +67,6 @@ export const fetchOperations = (mangoIndex, startDate, endDate) => {
       }
       return operations
     })
-    .then(operations => dispatch(filterOperationsByDate(operations, startDate, endDate)))
     .catch(fetchError => {
       if (fetchError instanceof Error) throw fetchError
       throwServerError(fetchError)

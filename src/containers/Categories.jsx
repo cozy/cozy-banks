@@ -10,7 +10,7 @@ import FigureBlock from 'components/FigureBlock'
 import CategoriesBoard from 'components/CategoriesBoard'
 import Loading from 'components/Loading'
 import PieChart from 'components/PieChart'
-import { getStartDate, getEndDate, SelectDates, getFilteredOperations } from 'ducks/filteredOperations'
+import { SelectDates, getFilteredOperations } from 'ducks/filteredOperations'
 import { fetchOperations, indexOperationsByDate } from 'actions'
 import { getOperations } from 'selectors'
 
@@ -96,8 +96,7 @@ export class Categories extends Component {
       filter: FILTERS[0]
     }
 
-    const { fetchOperations, startDate, endDate } = this.props
-    fetchOperations(startDate, endDate).then(
+    this.props.fetchOperations().then(
       this.setState({isFetching: false})
     )
   }
@@ -195,15 +194,13 @@ export class Categories extends Component {
 
 const mapStateToProps = (state, ownProps) => ({
   categories: computeCategorieData(operationsByCategory(getFilteredOperations(state))),
-  operations: getOperations(state),
-  startDate: getStartDate(state),
-  endDate: getEndDate(state)
+  operations: getOperations(state)
 })
 
 export const mapDispatchToProps = (dispatch, ownProps) => ({
-  fetchOperations: async (startDate, endDate) => {
+  fetchOperations: async () => {
     const mangoIndex = await dispatch(indexOperationsByDate())
-    return dispatch(fetchOperations(mangoIndex, startDate, endDate))
+    return dispatch(fetchOperations(mangoIndex))
   }
 })
 

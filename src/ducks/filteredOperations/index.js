@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
-import { startOfMonth, endOfDay, isAfter, parse } from 'date-fns'
+import { startOfMonth, endOfDay, isAfter, isBefore, parse } from 'date-fns'
 import SelectDates from './SelectDates'
+import { getOperations } from 'selectors'
 
 // constants
 const FILTER_BY_DATES = 'FILTER_BY_DATES'
@@ -8,29 +9,26 @@ const FILTER_BY_DATES = 'FILTER_BY_DATES'
 // selectors
 export const getStartDate = state => state.filteredOperations.startDate
 export const getEndDate = state => state.filteredOperations.endDate
-export const getFilteredOperations = state => state.filteredOperations.operations
+export const getFilteredOperations = state => {
+  const operations = getOperations(state)
+  const startDate = getStartDate(state)
+  const endDate = getEndDate(state)
+
+  return operations.filter(operation => {
+    const date = parse(operation.date)
+    return isAfter(date, startDate) && isBefore(date, endDate)
+  })
+}
 
 // actions
-export const filterOperationsByDate = (operations, startDate, endDate) => {
-  return { type: FILTER_BY_DATES, operations, startDate, endDate }
+export const addFilterByDates = (startDate, endDate) => {
+  return { type: FILTER_BY_DATES, startDate, endDate }
 }
 
 // components
 export { SelectDates }
 
 // reducers
-const operations = (state = [], action) => {
-  switch (action.type) {
-    case FILTER_BY_DATES:
-      return action.operations.filter(operation => {
-        const date = parse(operation.date)
-        return isAfter(date, action.startDate) && isAfter(action.endDate, date)
-      })
-    default:
-      return state
-  }
-}
-
 const getDefaultStartDate = () => startOfMonth(new Date())
 const startDate = (state = getDefaultStartDate(), action) => {
   switch (action.type) {
@@ -53,6 +51,5 @@ const endDate = (state = getDefaultEndDate(), action) => {
 
 export default combineReducers({
   startDate,
-  endDate,
-  operations
+  endDate
 })
