@@ -7,14 +7,15 @@ import 'styles/main'
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import { createStore, applyMiddleware, compose } from 'redux'
-import thunkMiddleware from 'redux-thunk'
-import createLogger from 'redux-logger'
 import { Router, hashHistory } from 'react-router'
 import { I18n } from 'lib/I18n'
 
-import appReducers from 'reducers'
+import store from 'store'
 import AppRoute from 'components/AppRoute'
+
+import {
+  shouldEnableTracking,
+  getTracker } from 'cozy-ui/react/helpers/tracker'
 
 if (__DEVELOPMENT__) {
   // Enables React dev tools for Preact
@@ -25,17 +26,6 @@ if (__DEVELOPMENT__) {
   window.React = React
 }
 
-const composeEnhancers = (__DEVELOPMENT__ && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
-
-const loggerMiddleware = createLogger()
-
-const store = createStore(
-  appReducers,
-  composeEnhancers(applyMiddleware(
-    thunkMiddleware,
-    loggerMiddleware
-  ))
-)
 
 const context = window.context
 const lang = document.documentElement.getAttribute('lang') || 'en'
@@ -56,10 +46,18 @@ document.addEventListener('DOMContentLoaded', () => {
     replaceTitleOnMobile: true
   })
 
+  const piwikEnabled = shouldEnableTracking() && getTracker()
+  let history = hashHistory
+  if (piwikEnabled) {
+    let trackerInstance = getTracker()
+    history = trackerInstance.connectToHistory(hashHistory)
+    trackerInstance.track(history.getCurrentLocation()) // when using a hash history, the initial visit is not tracked by piwik react router
+  }
+
   render((
     <I18n context={context} lang={lang}>
       <Provider store={store}>
-        <Router history={hashHistory} routes={AppRoute} />
+        <Router history={history} routes={AppRoute} />
       </Provider>
     </I18n>
   ), document.querySelector('[role=application]'))
