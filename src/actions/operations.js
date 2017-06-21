@@ -51,20 +51,22 @@ export const fetchOperations = (mangoIndex) => {
       dispatch({type: SET_OPERATIONS, operations})
       return operations
     })
-    .then(operations => operations.map(operation => {
-      if (operation.bill) {
-        const [ doctype, id ] = operation.bill.split(':')
-        const action = {
-          type: 'bill',
-          payload: {
-            doctype,
-            id
+    .then(operations => {
+      for (const operation of operations) {
+        if (operation.bill) {
+          const [ doctype, id ] = operation.bill.split(':')
+          const action = {
+            type: 'bill',
+            payload: {
+              doctype,
+              id
+            }
           }
+          dispatch({ type: 'ATTACH_ACTION', id: operation._id, action })
         }
-        dispatch({ type: 'ATTACH_ACTION', id: operation._id, action })
       }
       return operations
-    }))
+    })
     .catch(fetchError => {
       if (fetchError instanceof Error) throw fetchError
       throwServerError(fetchError)

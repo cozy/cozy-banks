@@ -4,10 +4,12 @@ import alerterReducer from 'cozy-ui/react/Alerter'
 import operations from './operations'
 import { accounts, groups, accountFilters } from './accounts'
 import * as sharingStatus from 'modules/SharingStatus'
+import filteredOperations from 'ducks/filteredOperations'
 
 export const reducers = {
   alerts: alerterReducer,
   operations,
+  filteredOperations,
   accounts,
   groups,
   accountFilters,

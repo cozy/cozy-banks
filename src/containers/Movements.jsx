@@ -4,49 +4,44 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react/I18n'
 
-import Select from 'components/Select'
 import FigureBlock from 'components/FigureBlock'
 import OperationsBoard from 'components/OperationsBoard'
 import Loading from 'components/Loading.jsx'
-
-import {
-  fetchOperations,
-  indexOperationsByDate
-}
-from 'actions'
-
-import { getFilteredOperations } from 'selectors'
-
-const DATE_OPTIONS = ['-']
+import { SelectDates, getFilteredOperations } from 'ducks/filteredOperations'
+import { fetchOperations, indexOperationsByDate } from 'actions'
 
 export class Movements extends Component {
   constructor (props) {
     super(props)
-    this.state = {isFetching: true}
+    this.state = {
+      isFetching: true
+    }
 
-    props.fetchOperations()
-      .then((
-        this.setState({isFetching: false})
-      ))
+    this.props.fetchOperations().then(
+      this.setState({isFetching: false})
+    )
   }
 
   render () {
-    const { operations } = this.props
+    const { operations, filteredOperations } = this.props
+    if (this.state.isFetching) {
+      return <Loading loadingType='movements' />
+    }
     let credits = 0
     let debits = 0
-    operations.forEach((operation) => {
+    filteredOperations.forEach((operation) => {
       if (operation.amount > 0) {
         credits += operation.amount
       } else {
         debits += operation.amount
       }
     })
-    if (this.state.isFetching) {
-      return <Loading loadingType='movements' />
-    }
-    if (!operations.length) {
+    if (!filteredOperations.length) {
       return <div>
         <h2>Mouvements</h2>
+        <div className={styles['bnk-mov-form']}>
+          <SelectDates operations={operations} />
+        </div>
         <p>Pas de mouvements à afficher.</p>
       </div>
     }
@@ -56,22 +51,23 @@ export class Movements extends Component {
           Mouvements
         </h2>
         <div className={styles['bnk-mov-form']}>
-          {false && <Select name='dateRange' options={DATE_OPTIONS} onChange={() => {}} />}
+          <SelectDates operations={operations} />
         </div>
         <div className={styles['bnk-mov-figures']}>
           <FigureBlock label='Total' total={credits + debits} currency='€' coloredPositive coloredNegative signed />
           <FigureBlock label='Débit' total={debits} currency='€' signed />
           <FigureBlock label='Crédit' total={credits} currency='€' signed />
-          <FigureBlock label='Opérations' total={operations.length} decimalNumbers={0} />
+          <FigureBlock label='Opérations' total={filteredOperations.length} decimalNumbers={0} />
         </div>
-        <OperationsBoard operations={operations} />
+        <OperationsBoard operations={filteredOperations} />
       </div>
     )
   }
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  operations: getFilteredOperations(state)
+  operations: state.operations,
+  filteredOperations: getFilteredOperations(state)
 })
 
 export const mapDispatchToProps = (dispatch, ownProps) => ({

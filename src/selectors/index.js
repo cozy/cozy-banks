@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect'
 import { BANK_ACCOUNT_GROUPS_DOCTYPE, BANK_ACCOUNTS_DOCTYPE } from '../actions'
 
-const getOperations = (state) => state.operations
+export const getOperations = (state) => state.operations
 const getGroups = (state) => state.groups
 const getAccountFilters = (state) => state.accountFilters
 

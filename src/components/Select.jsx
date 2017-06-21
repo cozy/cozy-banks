@@ -9,10 +9,10 @@ const Select = ({ t, name, value, options, onChange }) => (
     >
     {options.map(optionValue => (
       <option
-        value={optionValue}
-        selected={value === optionValue}
+        value={optionValue.value !== undefined ? optionValue.value : optionValue}
+        selected={value === optionValue.value || value === optionValue}
       >
-        {optionValue}
+        {optionValue.name || optionValue}
       </option>
     ))}
   </select>
