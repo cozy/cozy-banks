@@ -198,8 +198,7 @@
   },
 
   "SelectDates": {
-    "last_12_months": "Les 12 derniers mois",
-    "progress_month": "Le mois en cours"
+    "last_12_months": "Les 12 derniers mois"
   }
 
 }
