@@ -195,5 +195,11 @@
     "add-account": "Ajouter un compte",
     "my-accounts": "Mes comptes",
     "shared-accounts": "Comptes que l'on m'a partagé"
+  },
+
+  "SelectDates": {
+    "last_12_months": "Les 12 derniers mois",
+    "progress_month": "Le mois en cours"
   }
+
 }

@@ -37,11 +37,11 @@ const store = createStore(
   ))
 )
 
-const lang = document.documentElement.getAttribute('lang') || 'en'
-
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.querySelector('[role=application]')
   const data = root.dataset
+  // Force the French language for the translation of dates
+  const lang = 'fr' || data.cozyLocale || 'en'
 
   cozy.client.init({
     cozyURL: '//' + data.cozyDomain,

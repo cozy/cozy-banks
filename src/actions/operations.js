@@ -5,6 +5,7 @@
 **/
 import { throwServerError } from './index'
 import { BANK_ACCOUNTS_DOCTYPE } from './accounts'
+import { filterOperationsByDate } from 'ducks/filteredOperations'
 
 export const INDEX_BANK_OPERATIONS_BY_DATE = 'INDEX_BANK_OPERATIONS_BY_DATE'
 export const INDEX_BANK_OPERATIONS_BY_DATE_SUCCESS = 'INDEX_BANK_OPERATIONS_BY_DATE_SUCCESS'
@@ -40,7 +41,7 @@ const removeAccountPrefix = (operations) => operations.map(operation => {
 })
 
 // Returns bank operations
-export const fetchOperations = (mangoIndex) => {
+export const fetchOperations = (mangoIndex, startDate, endDate) => {
   return async (dispatch) => {
     return cozy.client.data.query(mangoIndex, {
       selector: {'date': {'$gt': null}},
@@ -51,20 +52,23 @@ export const fetchOperations = (mangoIndex) => {
       dispatch({type: SET_OPERATIONS, operations})
       return operations
     })
-    .then(operations => operations.map(operation => {
-      if (operation.bill) {
-        const [ doctype, id ] = operation.bill.split(':')
-        const action = {
-          type: 'bill',
-          payload: {
-            doctype,
-            id
+    .then(operations => {
+      for (const operation of operations) {
+        if (operation.bill) {
+          const [ doctype, id ] = operation.bill.split(':')
+          const action = {
+            type: 'bill',
+            payload: {
+              doctype,
+              id
+            }
           }
+          dispatch({ type: 'ATTACH_ACTION', id: operation._id, action })
         }
-        dispatch({ type: 'ATTACH_ACTION', id: operation._id, action })
       }
       return operations
-    }))
+    })
+    .then(operations => dispatch(filterOperationsByDate(operations, startDate, endDate)))
     .catch(fetchError => {
       if (fetchError instanceof Error) throw fetchError
       throwServerError(fetchError)

@@ -10,20 +10,14 @@ import FigureBlock from 'components/FigureBlock'
 import CategoriesBoard from 'components/CategoriesBoard'
 import Loading from 'components/Loading'
 import PieChart from 'components/PieChart'
-
-import {
-  fetchOperations,
-  indexOperationsByDate
-}
-from 'actions'
-
-import { getFilteredOperations } from 'selectors'
+import { getStartDate, getEndDate, SelectDates, getFilteredOperations } from 'ducks/filteredOperations'
+import { fetchOperations, indexOperationsByDate } from 'actions'
+import { getOperations } from 'selectors'
 
 const TOTAL_FILTER = 'total'
 const DEBIT_FILTER = 'debit'
 const INCOME_CATEGORY = 'income'
 const FILTERS = [TOTAL_FILTER, DEBIT_FILTER]
-const DATE_OPTIONS = ['-']
 
 // This function builds a map of categories and sub-categories, each containing a list of related operations, a name and a color
 const operationsByCategory = (operations) => {
@@ -102,10 +96,10 @@ export class Categories extends Component {
       filter: FILTERS[0]
     }
 
-    props.fetchOperations()
-      .then((
-        this.setState({isFetching: false})
-      ))
+    const { fetchOperations, startDate, endDate } = this.props
+    fetchOperations(startDate, endDate).then(
+      this.setState({isFetching: false})
+    )
   }
 
   applyFilter (selectName, filterLabel, filterIndex) {
@@ -113,7 +107,7 @@ export class Categories extends Component {
   }
 
   render () {
-    const { t, categories } = this.props
+    const { t, categories, operations } = this.props
     if (this.state.isFetching) {
       return <Loading loadingType='categories' />
     }
@@ -121,6 +115,9 @@ export class Categories extends Component {
       return (
         <div>
           <h2>{t('Categories.title.empty')}</h2>
+          <div className={styles['bnk-cat-form']}>
+            <SelectDates operations={operations} />
+          </div>
           <p>{t('Categories.title.empty_text')}</p>
         </div>
       )
@@ -165,11 +162,7 @@ export class Categories extends Component {
           {t('Categories.title.general')}
         </h2>
         <div className={styles['bnk-cat-form']}>
-          {false && <Select
-            name='dateRange'
-            options={DATE_OPTIONS}
-            onChange={() => {}}
-          />}
+          <SelectDates operations={operations} />
           <Select
             name='filterRange'
             options={FILTER_OPTIONS}
@@ -201,13 +194,16 @@ export class Categories extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  categories: computeCategorieData(operationsByCategory(getFilteredOperations(state)))
+  categories: computeCategorieData(operationsByCategory(getFilteredOperations(state))),
+  operations: getOperations(state),
+  startDate: getStartDate(state),
+  endDate: getEndDate(state)
 })
 
 export const mapDispatchToProps = (dispatch, ownProps) => ({
-  fetchOperations: async () => {
+  fetchOperations: async (startDate, endDate) => {
     const mangoIndex = await dispatch(indexOperationsByDate())
-    return dispatch(fetchOperations(mangoIndex))
+    return dispatch(fetchOperations(mangoIndex, startDate, endDate))
   }
 })
 
