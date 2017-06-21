@@ -11,6 +11,7 @@ const common = merge(
   require('./config/webpack.config.pictures'),
   require('./config/webpack.config.vendors'),
   require('./config/webpack.config.manifest'),
+  require('./config/webpack.config.piwik'),
   hotReload ? require(`./config/webpack.config.hot-reload`) : null,
   require(`./config/webpack.target.${target}`)
 )

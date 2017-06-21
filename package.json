@@ -100,6 +100,7 @@
     "cozy-ui": "3.0.0-beta36",
     "date-fns": "^1.28.2",
     "node-polyglot": "^2.2.0",
+    "piwik-react-router": "^0.8.2",
     "pouchdb": "^6.1.2",
     "pouchdb-find": "^0.10.5",
     "preact": "^7.1.0",

@@ -16,6 +16,9 @@
   {{.CozyClientJS}}
   {{.CozyBar}}
   <% } %>
+  <%  if (__STACK_ASSETS__ || (__DEVELOPMENT__ && __TARGET__ !== 'mobile')) { %>
+  <script src="//{{.Domain}}/assets/js/piwik.js" defer></script>
+  <% } %>
 </head>
 <div
   role="application"
@@ -24,4 +27,5 @@
   data-cozy-locale="{{.Locale}}"
   data-cozy-app-name="{{.AppName}}"
   data-cozy-icon-path="{{.IconPath}}"
+  data-cozy-tracking="{{.Tracking}}"
 >
