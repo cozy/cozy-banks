@@ -12,7 +12,6 @@ import Loading from 'components/Loading'
 import PieChart from 'components/PieChart'
 import { SelectDates, getFilteredOperations } from 'ducks/filteredOperations'
 import { fetchOperations, indexOperationsByDate } from 'actions'
-import { getOperations } from 'selectors'
 
 const TOTAL_FILTER = 'total'
 const DEBIT_FILTER = 'debit'
@@ -106,7 +105,7 @@ export class Categories extends Component {
   }
 
   render () {
-    const { t, categories, operations } = this.props
+    const { t, categories } = this.props
     if (this.state.isFetching) {
       return <Loading loadingType='categories' />
     }
@@ -115,7 +114,7 @@ export class Categories extends Component {
         <div>
           <h2>{t('Categories.title.empty')}</h2>
           <div className={styles['bnk-cat-form']}>
-            <SelectDates operations={operations} />
+            <SelectDates />
           </div>
           <p>{t('Categories.title.empty_text')}</p>
         </div>
@@ -161,7 +160,7 @@ export class Categories extends Component {
           {t('Categories.title.general')}
         </h2>
         <div className={styles['bnk-cat-form']}>
-          <SelectDates operations={operations} />
+          <SelectDates />
           <Select
             name='filterRange'
             options={FILTER_OPTIONS}
@@ -193,8 +192,7 @@ export class Categories extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  categories: computeCategorieData(operationsByCategory(getFilteredOperations(state))),
-  operations: getOperations(state)
+  categories: computeCategorieData(operationsByCategory(getFilteredOperations(state)))
 })
 
 export const mapDispatchToProps = (dispatch, ownProps) => ({
