@@ -19,7 +19,7 @@ export class Settings extends Component {
   render () {
     const { groups, accounts, createGroup, updateGroup, deleteGroup, params } = this.props
     const tabNames = ['profil', 'accounts', 'groups', 'notifications']
-    let defaultTab = tabNames[0]
+    let defaultTab = tabNames[1]
     if (params.tab && tabNames.indexOf(params.tab) >= 0) defaultTab = params.tab
 
     return (
