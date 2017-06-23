@@ -2,33 +2,50 @@ import { combineReducers } from 'redux'
 import { createSelector } from 'reselect'
 import { startOfMonth, endOfDay, isAfter, isBefore, parse } from 'date-fns'
 import SelectDates from './SelectDates'
-import { getOperations, getGroups } from 'selectors'
+import { getOperations, getGroups, getAccounts } from 'selectors'
 import { BANK_ACCOUNTS_DOCTYPE, BANK_ACCOUNT_GROUPS_DOCTYPE } from 'actions'
 
 // constants
 const FILTER_BY_DATES = 'FILTER_BY_DATES'
-const FILTER_BY_ACCOUNTS = 'FILTER_BY_ACCOUNTS'
-const FILTER_BY_ACCOUNTS_RESET = 'FILTER_BY_ACCOUNTS_RESET'
-const FILTER_BY_GROUPS = 'FILTER_BY_GROUPS'
+const FILTER_BY_ACCOUNT = 'FILTER_BY_ACCOUNT'
+const FILTER_BY_GROUP = 'FILTER_BY_GROUP'
+const RESET_ACCOUNT_OR_GROUP = 'RESET_ACCOUNT_OR_GROUP'
 
 // selectors
 export const getStartDate = state => state.filteredOperations.startDate
 export const getEndDate = state => state.filteredOperations.endDate
-export const getAccounts = state => state.filteredOperations.accounts
+export const getAccountOrGroupType = state => state.filteredOperations.accountOrGroupType
+export const getAccountOrGroupId = state => state.filteredOperations.accountOrGroupId
+
+export const getAccountOrGroup = state => {
+  const doctype = getAccountOrGroupType(state)
+  const id = getAccountOrGroupId(state)
+  let accountsOrGroups = []
+
+  if (doctype === BANK_ACCOUNTS_DOCTYPE) {
+    accountsOrGroups = getAccounts(state)
+  } else if (doctype === BANK_ACCOUNT_GROUPS_DOCTYPE) {
+    accountsOrGroups = getGroups(state)
+  }
+
+  return accountsOrGroups.find(accountOrGroup => accountOrGroup._id === id)
+}
 
 export const getAccountIds = state => {
-  const groups = getGroups(state)
-  let accountIds = []
-  getAccounts(state).forEach(filter => {
-    const [ doctype, id ] = filter.split(':')
+  const doctype = getAccountOrGroupType(state)
+  const id = getAccountOrGroupId(state)
 
-    if (doctype === BANK_ACCOUNTS_DOCTYPE) {
-      accountIds.push(id)
-    } else if (doctype === BANK_ACCOUNT_GROUPS_DOCTYPE && groups !== undefined) {
-      const group = groups.find(group => group._id === id)
-      if (group) accountIds = accountIds.concat(group.accounts)
+  let accountIds = []
+
+  if (doctype === BANK_ACCOUNTS_DOCTYPE) {
+    accountIds.push(id)
+  } else if (doctype === BANK_ACCOUNT_GROUPS_DOCTYPE) {
+    const group = getGroups(state).find(group => group._id === id)
+    if (group) {
+      accountIds = accountIds.concat(group.accounts)
     }
-  })
+  }
+
   return accountIds
 }
 
@@ -53,17 +70,9 @@ const filterByAccountIds = (operations, accountIds) => operations.filter(operati
 
 // actions
 export const addFilterByDates = (startDate, endDate) => ({ type: FILTER_BY_DATES, startDate, endDate })
-export const resetFilterByAccounts = () => ({ type: FILTER_BY_ACCOUNTS_RESET })
-
-export const filterAccounts = (accountIds = []) => {
-  const accounts = accountIds.map(id => (BANK_ACCOUNTS_DOCTYPE + ':' + id))
-  return { type: FILTER_BY_ACCOUNTS, accounts }
-}
-
-export const filterGroups = (groupIds = []) => {
-  const groups = groupIds.map(id => (BANK_ACCOUNT_GROUPS_DOCTYPE + ':' + id))
-  return { type: FILTER_BY_GROUPS, groups }
-}
+export const resetAccountOrGroup = () => ({ type: RESET_ACCOUNT_OR_GROUP })
+export const filterByAccount = account => ({ type: FILTER_BY_ACCOUNT, id: account._id })
+export const filterByGroup = group => ({ type: FILTER_BY_GROUP, id: group._id })
 
 // components
 export { SelectDates }
@@ -89,14 +98,27 @@ const endDate = (state = getDefaultEndDate(), action) => {
   }
 }
 
-export const accounts = (state = [], action) => {
+export const accountOrGroupType = (state = null, action) => {
   switch (action.type) {
-    case FILTER_BY_ACCOUNTS:
-      return action.accounts
-    case FILTER_BY_GROUPS:
-      return action.groups
-    case FILTER_BY_ACCOUNTS_RESET:
-      return []
+    case FILTER_BY_ACCOUNT:
+      return BANK_ACCOUNTS_DOCTYPE
+    case FILTER_BY_GROUP:
+      return BANK_ACCOUNT_GROUPS_DOCTYPE
+    case RESET_ACCOUNT_OR_GROUP:
+      return null
+    default:
+      return state
+  }
+}
+
+export const accountOrGroupId = (state = null, action) => {
+  switch (action.type) {
+    case FILTER_BY_ACCOUNT:
+      return action.id
+    case FILTER_BY_GROUP:
+      return action.id
+    case RESET_ACCOUNT_OR_GROUP:
+      return null
     default:
       return state
   }
@@ -105,5 +127,6 @@ export const accounts = (state = [], action) => {
 export default combineReducers({
   startDate,
   endDate,
-  accounts
+  accountOrGroupType,
+  accountOrGroupId
 })

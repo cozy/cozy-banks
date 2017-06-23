@@ -10,7 +10,8 @@ import { saveState } from 'store/persistedState'
 const persisteState = store => {
   store.subscribe(() => saveState({
     filteredOperations: {
-      accounts: store.getState().filteredOperations.accounts
+      accountOrGroupType: store.getState().filteredOperations.accountOrGroupType,
+      accountOrGroupId: store.getState().filteredOperations.accountOrGroupId
     }
   }))
 }
