@@ -1,5 +1,14 @@
 import localforage from 'localforage'
 
+export const persistState = store => {
+  store.subscribe(() => saveState({
+    filters: {
+      accountOrGroupType: store.getState().filters.accountOrGroupType,
+      accountOrGroupId: store.getState().filters.accountOrGroupId
+    }
+  }))
+}
+
 export const loadState = async () => {
   try {
     const persistedState = await localforage.getItem('state')

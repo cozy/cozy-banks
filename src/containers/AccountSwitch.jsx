@@ -8,7 +8,7 @@ import AccountSharingStatus from 'components/AccountSharingStatus'
 import { Media, Bd, Img } from 'components/Media'
 import { indexAccounts, fetchAccounts, indexAccountGroups, fetchAccountGroups } from 'actions'
 import { getGroups, getAccounts } from 'selectors'
-import { filterByAccount, filterByGroup, getAccountOrGroup, resetAccountOrGroup } from 'ducks/filteredOperations'
+import { filterByAccount, filterByGroup, getAccountOrGroup, resetAccountOrGroup } from 'ducks/filters'
 import styles from 'styles/accountSwitch'
 
 // Note that everything is set up to be abble to combine filters (even the redux store). It's only limited to one filter in a few places, because the UI can only accomodate one right now.

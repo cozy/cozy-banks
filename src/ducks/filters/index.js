@@ -12,10 +12,10 @@ const FILTER_BY_GROUP = 'FILTER_BY_GROUP'
 const RESET_ACCOUNT_OR_GROUP = 'RESET_ACCOUNT_OR_GROUP'
 
 // selectors
-export const getStartDate = state => state.filteredOperations.startDate
-export const getEndDate = state => state.filteredOperations.endDate
-export const getAccountOrGroupType = state => state.filteredOperations.accountOrGroupType
-export const getAccountOrGroupId = state => state.filteredOperations.accountOrGroupId
+export const getStartDate = state => state.filters.startDate
+export const getEndDate = state => state.filters.endDate
+const getAccountOrGroupType = state => state.filters.accountOrGroupType
+const getAccountOrGroupId = state => state.filters.accountOrGroupId
 
 export const getAccountOrGroup = state => {
   const doctype = getAccountOrGroupType(state)
@@ -31,7 +31,7 @@ export const getAccountOrGroup = state => {
   return accountsOrGroups.find(accountOrGroup => accountOrGroup._id === id)
 }
 
-export const getAccountIds = state => {
+const getAccountIds = state => {
   const doctype = getAccountOrGroupType(state)
   const id = getAccountOrGroupId(state)
 
@@ -98,7 +98,7 @@ const endDate = (state = getDefaultEndDate(), action) => {
   }
 }
 
-export const accountOrGroupType = (state = null, action) => {
+const accountOrGroupType = (state = null, action) => {
   switch (action.type) {
     case FILTER_BY_ACCOUNT:
       return BANK_ACCOUNTS_DOCTYPE
@@ -111,7 +111,7 @@ export const accountOrGroupType = (state = null, action) => {
   }
 }
 
-export const accountOrGroupId = (state = null, action) => {
+const accountOrGroupId = (state = null, action) => {
   switch (action.type) {
     case FILTER_BY_ACCOUNT:
       return action.id

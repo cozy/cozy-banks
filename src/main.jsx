@@ -9,7 +9,7 @@ import { Router, hashHistory } from 'react-router'
 import { I18n } from 'cozy-ui/react/I18n'
 import { shouldEnableTracking, getTracker } from 'cozy-ui/react/helpers/tracker'
 
-import { loadState } from 'store/persistedState'
+import { loadState, persistState } from 'store/persistedState'
 import configureStore from 'store/configureStore'
 import AppRoute from 'components/AppRoute'
 
@@ -24,6 +24,7 @@ if (__DEVELOPMENT__) {
 
 const renderAppWithPersistedState = persistedState => {
   const store = configureStore(persistedState)
+  persistState(store)
   const root = document.querySelector('[role=application]')
   const data = root.dataset
   // Force the French language for the translation of dates

@@ -5,16 +5,6 @@ import createLogger from 'redux-logger'
 import { shouldEnableTracking, getTracker, createTrackerMiddleware } from 'cozy-ui/react/helpers/tracker'
 
 import appReducers from 'reducers'
-import { saveState } from 'store/persistedState'
-
-const persisteState = store => {
-  store.subscribe(() => saveState({
-    filteredOperations: {
-      accountOrGroupType: store.getState().filteredOperations.accountOrGroupType,
-      accountOrGroupId: store.getState().filteredOperations.accountOrGroupId
-    }
-  }))
-}
 
 const configureStore = persistedState => {
   // Enable Redux dev tools
@@ -38,8 +28,6 @@ const configureStore = persistedState => {
     ...reducers,
     composeEnhancers(applyMiddleware.apply(null, middlewares))
   )
-
-  persisteState(store)
 
   return store
 }

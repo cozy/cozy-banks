@@ -7,7 +7,7 @@ import { translate } from 'cozy-ui/react/I18n'
 import FigureBlock from 'components/FigureBlock'
 import OperationsBoard from 'components/OperationsBoard'
 import Loading from 'components/Loading.jsx'
-import { SelectDates, getFilteredOperations } from 'ducks/filteredOperations'
+import { SelectDates, getFilteredOperations } from 'ducks/filters'
 import { fetchOperations, indexOperationsByDate } from 'actions'
 
 export class Movements extends Component {
