@@ -25,7 +25,7 @@ export const getAccountIds = state => {
     if (doctype === BANK_ACCOUNTS_DOCTYPE) {
       accountIds.push(id)
     } else if (doctype === BANK_ACCOUNT_GROUPS_DOCTYPE && groups !== undefined) {
-      const group = groups.find(group => (group._id === id))
+      const group = groups.find(group => group._id === id)
       if (group) accountIds = accountIds.concat(group.accounts)
     }
   })
@@ -48,7 +48,6 @@ const filterByDates = (operations, startDate, endDate) => operations.filter(oper
 })
 
 const filterByAccountIds = (operations, accountIds) => operations.filter(operation => {
-  console.log('operation', operation)
   return accountIds.indexOf(operation.account) !== -1
 })
 

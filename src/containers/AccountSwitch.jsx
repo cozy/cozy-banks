@@ -180,8 +180,8 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     const mangoIndex = await dispatch(indexAccountGroups())
     return dispatch(fetchAccountGroups(mangoIndex))
   },
-  filterAccounts: (ids) => dispatch(filterAccounts(ids)),
-  filterGroups: (ids) => dispatch(filterGroups(ids)),
+  filterAccounts: ids => dispatch(filterAccounts(ids)),
+  filterGroups: ids => dispatch(filterGroups(ids)),
   resetFilterByAccounts: () => dispatch(resetFilterByAccounts())
 })
 
