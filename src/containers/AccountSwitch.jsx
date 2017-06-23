@@ -1,23 +1,15 @@
-import styles from 'styles/accountSwitch'
-import classNames from 'classnames'
-
 import React, { Component } from 'react'
 import { translate } from 'cozy-ui/react/I18n'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
+import classNames from 'classnames'
 
 import AccountSharingStatus from 'components/AccountSharingStatus'
 import { Media, Bd, Img } from 'components/Media'
-
-import {
-  indexAccounts,
-  fetchAccounts,
-  indexAccountGroups,
-  fetchAccountGroups,
-  filterAccounts,
-  filterGroups
-}
-from 'actions'
+import { indexAccounts, fetchAccounts, indexAccountGroups, fetchAccountGroups } from 'actions'
+import { getGroups, getAccounts } from 'selectors'
+import { filterByAccount, filterByGroup, getAccountOrGroup, resetAccountOrGroup } from 'ducks/filters'
+import styles from 'styles/accountSwitch'
 
 // Note that everything is set up to be abble to combine filters (even the redux store). It's only limited to one filter in a few places, because the UI can only accomodate one right now.
 class AccountSwitch extends Component {
@@ -42,15 +34,7 @@ class AccountSwitch extends Component {
     document.addEventListener('click', this.onClickOutside.bind(this))
     this.lastOpenEvent = null
   }
-  switchAccount (accountOrGroup, isGroup) {
-    if (accountOrGroup === null) {
-      this.props.filterGroups([])
-      this.props.filterAccounts([])
-    } else {
-      if (isGroup) this.props.filterGroups([accountOrGroup._id])
-      else this.props.filterAccounts([accountOrGroup._id])
-    }
-  }
+
   onClickOutside (e) {
     // the event that trigered the menu open propagates and eventually ends up here, but in that case we don't wnt to close the menu. So if it's the same event, we just ignore it.
     if (e === this.lastOpenEvent) return
@@ -59,6 +43,7 @@ class AccountSwitch extends Component {
       open: false
     })
   }
+
   toggle (e) {
     let newState = !this.state.open
 
@@ -68,30 +53,24 @@ class AccountSwitch extends Component {
       open: newState
     })
   }
-  render () {
-    const { t, accounts, groups } = this.props
-    let { selectedAccount } = this.props
-    const { isFetching, open } = this.state
 
-    if (selectedAccount !== null) {
-      // convert the selected account id into an account / group for the display
-      let idWithoutDoctype = selectedAccount.substring(selectedAccount.indexOf(':') + 1)
-      selectedAccount = accounts.find(account => (account._id) === idWithoutDoctype) || groups.find(group => (group._id) === idWithoutDoctype)
-    }
+  render () {
+    const { t, accounts, groups, accountOrGroup, resetAccountOrGroup, filterByAccount, filterByGroup } = this.props
+    const { isFetching, open } = this.state
 
     return (
       <div className={styles['account-switch']}>
         <button className={classNames(styles['account-switch-button'], {[styles['active']]: open})} onClick={this.toggle.bind(this)}>
           { isFetching
             ? `${t('Loading.loading')}...`
-            : selectedAccount !== null
+            : accountOrGroup
             ? <div>
               <div className={styles['account-name']}>
-                { selectedAccount.label } { <AccountSharingStatus account={selectedAccount} /> }
+                { accountOrGroup.label } { <AccountSharingStatus account={accountOrGroup} /> }
               </div>
               <div className={styles['account-num']}>
-                { selectedAccount.number && 'n°' + selectedAccount.number }
-                { selectedAccount.accounts && t('AccountSwitch.account_counter', selectedAccount.accounts.length) }
+                { accountOrGroup.number && 'n°' + accountOrGroup.number }
+                { accountOrGroup.accounts && t('AccountSwitch.account_counter', accountOrGroup.accounts.length) }
               </div>
             </div>
             : <div>
@@ -111,7 +90,7 @@ class AccountSwitch extends Component {
             </h4>
             <ul>
               <li>
-                <button onClick={() => { this.switchAccount(null, true) }} className={classNames({[styles['active']]: selectedAccount === null})}>
+                <button onClick={() => { resetAccountOrGroup() }} className={classNames({[styles['active']]: accountOrGroup === undefined})}>
                   {t('AccountSwitch.all_accounts')}
                   <span className={styles['account-count']}>
                     ({t('AccountSwitch.account_counter', accounts.length)})
@@ -120,7 +99,9 @@ class AccountSwitch extends Component {
               </li>
               { groups.map(group => (
                 <li>
-                  <button onClick={() => { this.switchAccount(group, true) }} className={classNames({[styles['active']]: selectedAccount && group._id === selectedAccount._id})}>
+                  <button
+                    onClick={() => { filterByGroup(group) }}
+                    className={classNames({[styles['active']]: accountOrGroup && group._id === accountOrGroup._id})}>
                     { group.label }
                     <span className={styles['account-count']}>
                       ({t('AccountSwitch.account_counter', group.accounts.length)})
@@ -142,8 +123,8 @@ class AccountSwitch extends Component {
               { accounts.map(account => (
                 <li>
                   <button
-                    onClick={() => { this.switchAccount(account, false) }}
-                    className={classNames({[styles['active']]: selectedAccount && account._id === selectedAccount._id})}>
+                    onClick={() => { filterByAccount(account) }}
+                    className={classNames({[styles['active']]: accountOrGroup && account._id === accountOrGroup._id})}>
                     <Media>
                       <Bd>
                         { account.label } - { account.institutionLabel }
@@ -167,10 +148,11 @@ class AccountSwitch extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  accounts: state.accounts,
-  groups: state.groups,
-  selectedAccount: (state.accountFilters.length > 0) ? state.accountFilters[0] : null
+  accounts: getAccounts(state),
+  groups: getGroups(state),
+  accountOrGroup: getAccountOrGroup(state)
 })
+
 const mapDispatchToProps = (dispatch, ownProps) => ({
   fetchAccounts: async () => {
     const mangoIndex = await dispatch(indexAccounts())
@@ -180,14 +162,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     const mangoIndex = await dispatch(indexAccountGroups())
     return dispatch(fetchAccountGroups(mangoIndex))
   },
-  filterAccounts: (ids) => {
-    dispatch(filterAccounts(ids))
-  },
-  filterGroups: (ids) => {
-    dispatch(filterGroups(ids))
-  }
+  resetAccountOrGroup: () => dispatch(resetAccountOrGroup()),
+  filterByAccount: account => dispatch(filterByAccount(account)),
+  filterByGroup: group => dispatch(filterByGroup(group))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  translate()(AccountSwitch)
-)
+export default connect(mapStateToProps, mapDispatchToProps)(translate()(AccountSwitch))

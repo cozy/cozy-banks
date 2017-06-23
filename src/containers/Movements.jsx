@@ -7,7 +7,7 @@ import { translate } from 'cozy-ui/react/I18n'
 import FigureBlock from 'components/FigureBlock'
 import OperationsBoard from 'components/OperationsBoard'
 import Loading from 'components/Loading.jsx'
-import { SelectDates, getFilteredOperations } from 'ducks/filteredOperations'
+import { SelectDates, getFilteredOperations } from 'ducks/filters'
 import { fetchOperations, indexOperationsByDate } from 'actions'
 
 export class Movements extends Component {
@@ -23,7 +23,7 @@ export class Movements extends Component {
   }
 
   render () {
-    const { operations, filteredOperations } = this.props
+    const { filteredOperations } = this.props
     if (this.state.isFetching) {
       return <Loading loadingType='movements' />
     }
@@ -40,7 +40,7 @@ export class Movements extends Component {
       return <div>
         <h2>Mouvements</h2>
         <div className={styles['bnk-mov-form']}>
-          <SelectDates operations={operations} />
+          <SelectDates />
         </div>
         <p>Pas de mouvements à afficher.</p>
       </div>
@@ -51,7 +51,7 @@ export class Movements extends Component {
           Mouvements
         </h2>
         <div className={styles['bnk-mov-form']}>
-          <SelectDates operations={operations} />
+          <SelectDates />
         </div>
         <div className={styles['bnk-mov-figures']}>
           <FigureBlock label='Total' total={credits + debits} currency='€' coloredPositive coloredNegative signed />
@@ -66,7 +66,6 @@ export class Movements extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  operations: state.operations,
   filteredOperations: getFilteredOperations(state)
 })
 
