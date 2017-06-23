@@ -1,16 +1,14 @@
-import styles from 'styles/accountSwitch'
-import classNames from 'classnames'
-
 import React, { Component } from 'react'
 import { translate } from 'cozy-ui/react/I18n'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
+import classNames from 'classnames'
 
 import AccountSharingStatus from 'components/AccountSharingStatus'
 import { Media, Bd, Img } from 'components/Media'
-
 import { indexAccounts, fetchAccounts, indexAccountGroups, fetchAccountGroups } from 'actions'
-import { filterAccounts, filterGroups, getAccounts } from 'ducks/filteredOperations'
+import { filterAccounts, filterGroups, getAccounts, resetFilterByAccounts } from 'ducks/filteredOperations'
+import styles from 'styles/accountSwitch'
 
 // Note that everything is set up to be abble to combine filters (even the redux store). It's only limited to one filter in a few places, because the UI can only accomodate one right now.
 class AccountSwitch extends Component {
@@ -66,7 +64,7 @@ class AccountSwitch extends Component {
   }
 
   render () {
-    const { t, accounts, groups } = this.props
+    const { t, accounts, groups, resetFilterByAccounts } = this.props
     let { selectedAccount } = this.props
     const { isFetching, open } = this.state
 
@@ -74,6 +72,10 @@ class AccountSwitch extends Component {
       // convert the selected account id into an account / group for the display
       let idWithoutDoctype = selectedAccount.substring(selectedAccount.indexOf(':') + 1)
       selectedAccount = accounts.find(account => (account._id) === idWithoutDoctype) || groups.find(group => (group._id) === idWithoutDoctype)
+      if (selectedAccount === undefined) {
+        resetFilterByAccounts()
+        selectedAccount = null
+      }
     }
 
     return (
@@ -179,7 +181,8 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     return dispatch(fetchAccountGroups(mangoIndex))
   },
   filterAccounts: (ids) => dispatch(filterAccounts(ids)),
-  filterGroups: (ids) => dispatch(filterGroups(ids))
+  filterGroups: (ids) => dispatch(filterGroups(ids)),
+  resetFilterByAccounts: () => dispatch(resetFilterByAccounts())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(translate()(AccountSwitch))

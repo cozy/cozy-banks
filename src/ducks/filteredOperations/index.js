@@ -8,6 +8,7 @@ import { BANK_ACCOUNTS_DOCTYPE, BANK_ACCOUNT_GROUPS_DOCTYPE } from 'actions'
 // constants
 const FILTER_BY_DATES = 'FILTER_BY_DATES'
 const FILTER_BY_ACCOUNTS = 'FILTER_BY_ACCOUNTS'
+const FILTER_BY_ACCOUNTS_RESET = 'FILTER_BY_ACCOUNTS_RESET'
 const FILTER_BY_GROUPS = 'FILTER_BY_GROUPS'
 
 // selectors
@@ -53,6 +54,7 @@ const filterByAccountIds = (operations, accountIds) => operations.filter(operati
 
 // actions
 export const addFilterByDates = (startDate, endDate) => ({ type: FILTER_BY_DATES, startDate, endDate })
+export const resetFilterByAccounts = () => ({ type: FILTER_BY_ACCOUNTS_RESET })
 
 export const filterAccounts = (accountIds = []) => {
   const accounts = accountIds.map(id => (BANK_ACCOUNTS_DOCTYPE + ':' + id))
@@ -94,6 +96,8 @@ export const accounts = (state = [], action) => {
       return action.accounts
     case FILTER_BY_GROUPS:
       return action.groups
+    case FILTER_BY_ACCOUNTS_RESET:
+      return []
     default:
       return state
   }
