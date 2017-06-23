@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+import { createSelector } from 'reselect'
 import { startOfMonth, endOfDay, isAfter, isBefore, parse } from 'date-fns'
 import SelectDates from './SelectDates'
 import { getOperations, getGroups } from 'selectors'
@@ -30,14 +31,14 @@ export const getAccountIds = state => {
   return accountIds
 }
 
-export const getFilteredOperations = state => {
-  const accountIds = getAccountIds(state)
-  console.log(accountIds)
-  const operations = accountIds && accountIds.length > 0
-    ? filterByAccountIds(getOperations(state), accountIds)
-    : getOperations(state)
-  return filterByDates(operations, getStartDate(state), getEndDate(state))
-}
+export const getFilteredOperations = createSelector([getOperations, getAccountIds, getStartDate, getEndDate],
+  (operations, accountIds, startDate, endDate) => {
+    if (accountIds && accountIds.length > 0) {
+      operations = filterByAccountIds(operations, accountIds)
+    }
+    return filterByDates(operations, startDate, endDate)
+  }
+)
 
 // filters
 const filterByDates = (operations, startDate, endDate) => operations.filter(operation => {
