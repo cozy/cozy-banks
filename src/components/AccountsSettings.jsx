@@ -11,7 +11,7 @@ import styles from 'styles/accounts'
 import { fetchSharingInfo } from 'modules/SharingStatus'
 
 import AccountSharingStatus from 'components/AccountSharingStatus'
-import { fetchData } from 'components/fetchData'
+import fetchData from 'components/fetchData'
 
 const AccountsTable = function ({ accounts, t }) {
   return accounts ? <table className={styles['coz-table']}>
@@ -55,9 +55,9 @@ const AccountsTable = function ({ accounts, t }) {
         </tr>
       ))}
     </tbody>
-  </table> : <div>
-    Pas encore de comptes
-  </div>
+  </table> : <p>
+    { t('Accounts.no-accounts') }
+  </p>
 }
 
 class AccountsSettings extends Component {
@@ -121,9 +121,11 @@ class AccountsSettings extends Component {
 
         <AccountsTable accounts={accountBySharingDirection[true]} t={t} />
 
-        <button className={classNames(styles['bnk-action-button'], styles['icon-plus'])} onClick={this.addGroup.bind(this)}>
-          {t('Accounts.add-account')}
-        </button>
+        <p>
+          <button className={classNames(styles['bnk-action-button'], styles['icon-plus'])} onClick={this.addGroup.bind(this)}>
+            {t('Accounts.add-account')}
+          </button>
+        </p>
 
         <h4>
           {t('Accounts.shared-accounts')}

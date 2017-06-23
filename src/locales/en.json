@@ -1,6 +1,12 @@
 {
   "Loading": {
-    "loading": "Chargement"
+    "loading": "Chargement",
+    "error": "Il y a eu une erreur pendant le chargement des données. Merci de réessayer plus tard."
+  },
+
+  "Error": {
+    "more-information": "More information",
+    "less-information": "Less information"
   },
 
   "AccountSwitch": {
@@ -10,6 +16,15 @@
     "manage_groups": "Gérer mes groupes",
     "manage_accounts": "Gérer mes comptes",
     "account_counter": "%{smart_count} compte |||| %{smart_count} comptes"
+  },
+
+  "Nav": {
+    "movements": "Mouvements",
+    "balance": "Solde actuel",
+    "categorisation": "Catégorisation",
+    "projections": "Prévisions",
+    "savings": "Economiser",
+    "settings": "Paramètres"
   },
 
   "Movements": {
@@ -34,8 +49,8 @@
       "general": "Catégorisation",
       "total": "Solde de la période",
       "debit": "Dépense nette",
-      "empty": "Categorisation",
-      "empty_text": "Pas de categories à afficher."
+      "empty": "Catégorisation",
+      "empty_text": "Pas de catégories à afficher."
     },
     "headers": {
       "categories": "Catégories",
@@ -194,7 +209,8 @@
     "bank": "Banque",
     "add-account": "Ajouter un compte",
     "my-accounts": "Mes comptes",
-    "shared-accounts": "Comptes que l'on m'a partagé"
+    "shared-accounts": "Comptes que l'on m'a partagé",
+    "no-accounts": "Vous n'avez pas encore de compte."
   },
 
   "SelectDates": {
