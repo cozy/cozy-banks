@@ -30,7 +30,8 @@
   "Movements": {
     "actions": {
       "bill": "Voir votre facture",
-      "refund": "Vérifier vos remboursements"
+      "refund": "Vérifier vos remboursements",
+      "app": "Voir dans l'app %{appName}"
     }
   },
 
