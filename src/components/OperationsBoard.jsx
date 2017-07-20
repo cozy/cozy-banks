@@ -19,8 +19,11 @@ const OperationsBoard = ({ operations, urls }) => (
         <th className={classNames(styles['coz-table-header'], styles['bnk-table-amount'])}>
           Montant
         </th>
-        <th className={classNames(styles['coz-table-header'], styles['bnk-table-actions'], 'coz-desktop')}>
+        <th className={classNames(styles['coz-table-header'], styles['bnk-table-action'], 'coz-desktop')}>
           Action
+        </th>
+        <th className={classNames(styles['coz-table-header'], styles['bnk-table-actions'], 'coz-desktop')}>
+          &nbsp;
         </th>
       </tr>
       <tbody className={styles['coz-table-body']}>

@@ -75,6 +75,7 @@ const mapStateToProps = (state, ownProps) => ({
     // - find operation label
     // - display appName in translate `Movements.actions.app`
     MAIF: getUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-maif'),
+    HEALTH: getUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-sante'),
     EDF: getUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-edf')
   },
   filteredOperations: getFilteredOperations(state)

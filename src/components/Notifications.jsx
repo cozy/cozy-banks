@@ -81,7 +81,7 @@ class Notifications extends Component {
           Notifications
         </h4>
 
-        { state.comingSoonModal &&
+        {state.comingSoonModal &&
           <Modal
             title={'À venir'}
             description={'Ces fonctionnalités seront bientôt disponibles.'}

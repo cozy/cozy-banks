@@ -43,7 +43,7 @@ class AccountSharingStatus extends Component {
 
     return isShared && <Media {...rhProps}>
       <Img><SharingIcon {...iconProps} /></Img>
-      <Bd>{ withText && <span>Partagé par { owner }</span>}</Bd>
+      <Bd>{withText && <span>Partagé par {owner}</span>}</Bd>
     </Media>
   }
 }

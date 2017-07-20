@@ -18,6 +18,13 @@ module.exports = {
     modulesDirectories: ['node_modules', SRC_DIR]
   },
   module: {
+    preLoaders: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'standard-loader'
+      }
+    ],
     loaders: [
       {
         test: /\.js$/,
@@ -39,6 +46,9 @@ module.exports = {
     noParse: [
       /localforage\/dist/
     ]
+  },
+  standard: {
+    parser: 'babel-eslint'
   },
   postcss: () => {
     return [

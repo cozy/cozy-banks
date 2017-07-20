@@ -12,7 +12,7 @@ export const App = ({ children }) => (
     <Sidebar />
 
     <main className={styles['bnk-content']}>
-      { children }
+      {children}
     </main>
 
     {/* Outside every other component to bypass overflow:hidden */}
