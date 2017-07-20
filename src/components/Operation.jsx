@@ -4,22 +4,9 @@ import React from 'react'
 import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'
 import Figure from 'components/Figure'
-import FileOpener from 'components/FileOpener'
+import { OperationMenu, OperationAction } from 'ducks/operations'
 
-const OperationAction = function ({ t, action }) {
-  const link = <a className={styles['bnk-table-actions-link']}>
-    {t(`Movements.actions.${action.type}`)}
-  </a>
-  if (action.payload) {
-    return <FileOpener t={t} file={action.payload}>
-      { link }
-    </FileOpener>
-  } else if (action.url) {
-    return React.cloneElement(link, { target: '_blank', href: action.url })
-  }
-}
-
-export const Operation = ({ t, f, operation }) => (
+export const Operation = ({ t, f, operation, urls }) => (
   <tr className={styles['coz-table-row']}>
     <td className={classNames(styles['coz-table-cell'], styles['bnk-table-date'])}>
       {f(operation.date, 'DD MMMM YYYY')}
@@ -39,10 +26,11 @@ export const Operation = ({ t, f, operation }) => (
         coloredPositive
       />
     </td>
+    <td className={classNames(styles['coz-table-cell'], styles['bnk-table-action'], 'coz-desktop')}>
+      <OperationAction operation={operation} urls={urls} />
+    </td>
     <td className={classNames(styles['coz-table-cell'], styles['bnk-table-actions'], 'coz-desktop')}>
-      {!operation.action && '－'}
-      {operation.action &&
-        <OperationAction t={t} action={operation.action} />}
+      <OperationMenu operation={operation} urls={urls} />
     </td>
   </tr>
 )

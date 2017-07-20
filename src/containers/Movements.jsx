@@ -9,6 +9,7 @@ import OperationsBoard from 'components/OperationsBoard'
 import Loading from 'components/Loading.jsx'
 import { SelectDates, getFilteredOperations } from 'ducks/filters'
 import { fetchOperations, indexOperationsByDate } from 'actions'
+import { getUrlBySource, findApps } from 'ducks/apps'
 
 export class Movements extends Component {
   constructor (props) {
@@ -17,13 +18,16 @@ export class Movements extends Component {
       isFetching: true
     }
 
-    this.props.fetchOperations().then(
+    const { fetchOperations, fetchApps } = this.props
+
+    fetchOperations().then(
       this.setState({isFetching: false})
     )
+    fetchApps()
   }
 
   render () {
-    const { filteredOperations } = this.props
+    const { filteredOperations, urls } = this.props
     if (this.state.isFetching) {
       return <Loading loadingType='movements' />
     }
@@ -59,17 +63,26 @@ export class Movements extends Component {
           <FigureBlock label='Crédit' total={credits} currency='€' signed />
           <FigureBlock label='Opérations' total={filteredOperations.length} decimalNumbers={0} />
         </div>
-        <OperationsBoard operations={filteredOperations} />
+        <OperationsBoard operations={filteredOperations} urls={urls} />
       </div>
     )
   }
 }
 
 const mapStateToProps = (state, ownProps) => ({
+  urls: {
+    // this keys are used on Operation.jsx to:
+    // - find operation label
+    // - display appName in translate `Movements.actions.app`
+    MAIF: getUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-maif'),
+    HEALTH: getUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-sante'),
+    EDF: getUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-edf')
+  },
   filteredOperations: getFilteredOperations(state)
 })
 
 export const mapDispatchToProps = (dispatch, ownProps) => ({
+  fetchApps: () => dispatch(findApps()),
   fetchOperations: async () => {
     const mangoIndex = await dispatch(indexOperationsByDate())
     return dispatch(fetchOperations(mangoIndex))

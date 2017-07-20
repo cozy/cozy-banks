@@ -30,14 +30,14 @@ class DisplayError extends Component {
       displayStack: !displayStack
     })
     return <div style={styles.container}>
-      { error.message }<br />
+      {error.message}<br />
       <a style={styles.btn} onClick={toggleStack}>
         {displayStack
           ? t('Error.less-information')
           : t('Error.more-information')}
       </a>
       {displayStack && <pre style={styles.pre}>
-        { error.stack }
+        {error.stack}
       </pre>}
     </div>
   }

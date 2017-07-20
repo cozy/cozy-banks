@@ -9,7 +9,7 @@ const makeTrackingComponent = Tag => {
     action, category
   }))(class extends Component {
     render ({ children, action, category, ...props }) {
-      return <Tag {...props}>{ children }</Tag>
+      return <Tag {...props}>{children}</Tag>
     }
   })
 }

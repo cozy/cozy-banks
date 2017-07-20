@@ -29,8 +29,11 @@
 
   "Movements": {
     "actions": {
-      "bill": "Voir votre facture",
-      "refund": "Vérifier vos remboursements"
+      "bill": "Afficher votre facture",
+      "refund": "Vérifier vos remboursements",
+      "app": "Accéder à mon espace %{appName}",
+      "attach": "Attacher un document",
+      "comment": "ajouter un commentaire"
     }
   },
 

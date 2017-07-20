@@ -66,18 +66,18 @@ class Groups extends Component {
             <th className={classNames(styles['coz-table-header'], styles['bnk-table-actions'])} />
           </tr>
           <tbody className={styles['coz-table-body']}>
-            { groups.map(group => (
+            {groups.map(group => (
               <tr className={styles['coz-table-row']}>
                 <td className={classNames(styles['coz-table-cell'], styles['bnk-table-libelle'])}>
                   {group.label}
                 </td>
                 <td className={classNames(styles['coz-table-cell'], styles['bnk-table-comptes'])}>
-                  { group.accounts.map((accountId, index) => {
+                  {group.accounts.map((accountId, index) => {
                     const account = accounts.find(account => (account._id === accountId))
                     let text = account ? account.label : ''
                     if (index < group.accounts.length - 1) text += ' ; '
                     return text
-                  }) }
+                  })}
                 </td>
                 <td className={classNames(styles['coz-table-cell'], styles['bnk-table-actions'])}>
                   <button className={styles['bnk-action-button']} onClick={this.editGroup.bind(this, group)}>
@@ -89,7 +89,7 @@ class Groups extends Component {
           </tbody>
         </table>
 
-        { editingGroup !== null &&
+        {editingGroup !== null &&
           <div>
             <GroupsModal
               group={editingGroup}

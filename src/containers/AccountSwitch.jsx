@@ -61,16 +61,16 @@ class AccountSwitch extends Component {
     return (
       <div className={styles['account-switch']}>
         <button className={classNames(styles['account-switch-button'], {[styles['active']]: open})} onClick={this.toggle.bind(this)}>
-          { isFetching
+          {isFetching
             ? `${t('Loading.loading')}...`
             : accountOrGroup
             ? <div>
               <div className={styles['account-name']}>
-                { accountOrGroup.label } { <AccountSharingStatus account={accountOrGroup} /> }
+                {accountOrGroup.label} {<AccountSharingStatus account={accountOrGroup} />}
               </div>
               <div className={styles['account-num']}>
-                { accountOrGroup.number && 'n°' + accountOrGroup.number }
-                { accountOrGroup.accounts && t('AccountSwitch.account_counter', accountOrGroup.accounts.length) }
+                {accountOrGroup.number && 'n°' + accountOrGroup.number}
+                {accountOrGroup.accounts && t('AccountSwitch.account_counter', accountOrGroup.accounts.length)}
               </div>
             </div>
             : <div>
@@ -83,7 +83,7 @@ class AccountSwitch extends Component {
             </div>
           }
         </button>
-        { open &&
+        {open &&
           <div className={styles['account-switch-menu']}>
             <h4>
               {t('AccountSwitch.groups')}
@@ -97,18 +97,18 @@ class AccountSwitch extends Component {
                   </span>
                 </button>
               </li>
-              { groups.map(group => (
+              {groups.map(group => (
                 <li>
                   <button
                     onClick={() => { filterByGroup(group) }}
                     className={classNames({[styles['active']]: accountOrGroup && group._id === accountOrGroup._id})}>
-                    { group.label }
+                    {group.label}
                     <span className={styles['account-count']}>
                       ({t('AccountSwitch.account_counter', group.accounts.length)})
                     </span>
                   </button>
                 </li>
-              )) }
+              ))}
             </ul>
             <Link to={'/settings/groups'}>
               {t('AccountSwitch.manage_groups')}
@@ -120,14 +120,14 @@ class AccountSwitch extends Component {
               {t('AccountSwitch.accounts')}
             </h4>
             <ul>
-              { accounts.map(account => (
+              {accounts.map(account => (
                 <li>
                   <button
                     onClick={() => { filterByAccount(account) }}
                     className={classNames({[styles['active']]: accountOrGroup && account._id === accountOrGroup._id})}>
                     <Media>
                       <Bd>
-                        { account.label } - { account.institutionLabel }
+                        {account.label} - {account.institutionLabel}
                       </Bd>
                       <Img>
                         <AccountSharingStatus tooltip account={account} />
@@ -135,7 +135,7 @@ class AccountSwitch extends Component {
                     </Media>
                   </button>
                 </li>
-              )) }
+              ))}
             </ul>
             <Link to={'/settings/accounts'}>
               {t('AccountSwitch.manage_accounts')}

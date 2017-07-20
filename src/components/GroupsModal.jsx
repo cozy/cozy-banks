@@ -85,7 +85,7 @@ class GroupsModal extends Component {
           </label>
           <table className={styles['coz-table-modal']}>
             <tbody className={styles['coz-table-body']}>
-              { accounts.map(account => (
+              {accounts.map(account => (
                 <tr className={styles['coz-table-row']}>
                   <td className={classNames(styles['coz-table-cell'], styles['bnk-table-libelle'])}>
                     {account.label}
@@ -97,7 +97,7 @@ class GroupsModal extends Component {
                     <Toggle id={account._id} checked={group.accounts.indexOf(account._id) >= 0} onToggle={this.toggleAccount.bind(this, account._id)} />
                   </td>
                 </tr>
-              )) }
+              ))}
             </tbody>
           </table>
         </form>

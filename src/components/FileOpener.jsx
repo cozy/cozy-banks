@@ -25,13 +25,13 @@ class FileOpener extends React.Component {
 
   render ({ children }, { intent }) {
     return <span>
-      { React.cloneElement(children, { onClick: this.showModal }) }
-      { intent
+      {React.cloneElement(children, { onClick: this.showModal })}
+      {intent
         ? <FullscreenIntentModal
           intent={intent}
           onIntentError={this.handleModalError}
           secondaryAction={this.closeModal} />
-        : null }
+        : null}
     </span>
   }
 

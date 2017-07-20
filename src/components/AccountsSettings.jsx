@@ -34,7 +34,7 @@ const AccountsTable = function ({ accounts, t }) {
       <th className={classNames(styles['coz-table-header'], styles['bnk-table-actions'])} />
     </tr>
     <tbody className={styles['coz-table-body']}>
-      { accounts.map(account => (
+      {accounts.map(account => (
         <tr className={styles['coz-table-row']}>
           <td className={classNames(styles['coz-table-cell'], styles['bnk-table-libelle'])}>
             {account.label}
@@ -43,20 +43,20 @@ const AccountsTable = function ({ accounts, t }) {
             {account.institutionLabel}
           </td>
           <td className={classNames(styles['coz-table-cell'], styles['bnk-table-account'])}>
-            { account.number }
+            {account.number}
           </td>
           <td className={classNames(styles['coz-table-cell'], styles['bnk-table-type'])}>
-            { account.type }
+            {account.type}
           </td>
           <td className={classNames(styles['coz-table-cell'], styles['bnk-table-shared'])}>
-            { <AccountSharingStatus withText account={account} /> }
+            {<AccountSharingStatus withText account={account} />}
           </td>
           <td className={classNames(styles['coz-table-cell'], styles['bnk-table-actions'])} />
         </tr>
       ))}
     </tbody>
   </table> : <p>
-    { t('Accounts.no-accounts') }
+    {t('Accounts.no-accounts')}
   </p>
 }
 
