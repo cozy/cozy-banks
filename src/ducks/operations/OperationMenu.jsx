@@ -12,7 +12,7 @@ const OperationMenu = ({t, operation, urls}) => (
     className={styles['fil-toolbar-menu']}
     buttonClassName={styles['fil-toolbar-more-btn']}
   >
-    {getLinkType(operation, urls) !== FILE_LINK &&
+    {getLinkType(operation, urls) !== FILE_LINK && operation.action && operation.action.payload &&
       <Item>
         <OperationFileAction t={t} operation={operation}>
           <a className={styles['action-bill']}>
