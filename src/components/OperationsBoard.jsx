@@ -34,6 +34,9 @@ const OperationsBoard = ({ f, operations, urls }) => {
           <th className={classNames(styles['coz-table-header'], styles['bnk-table-action'], 'coz-desktop')}>
             Action
           </th>
+          <th className={classNames(styles['coz-table-header'], styles['bnk-table-action'], 'coz-mobile')}>
+            &nbsp;
+          </th>
           <th className={classNames(styles['coz-table-header'], styles['bnk-table-actions'], 'coz-desktop')}>
             &nbsp;
           </th>
@@ -42,7 +45,7 @@ const OperationsBoard = ({ f, operations, urls }) => {
           const operationsOrdered = operationsByDate[date].sort((op1, op2) => compareDesc(op1.date, op2.date))
           return (
             <tbody className={styles['coz-table-body']}>
-              <tr className={classNames(styles['bnk-table-row-date'], 'coz-mobile')}><td colspan='5'>{f(date, 'dddd D MMMM')}</td></tr>
+              <tr className={classNames(styles['bnk-table-row-date'], 'coz-mobile')}><td colspan='6'>{f(date, 'dddd D MMMM')}</td></tr>
               {operationsOrdered.map(operation => <Operation operation={operation} urls={urls} />)}
             </tbody>
           )

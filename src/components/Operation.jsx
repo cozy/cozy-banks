@@ -26,7 +26,10 @@ export const Operation = ({ t, f, operation, urls }) => (
         coloredPositive
       />
     </td>
-    <td className={classNames(styles['coz-table-cell'], styles['bnk-table-action'], 'coz-desktop')}>
+    <td className={classNames(styles['coz-table-cell'], styles['bnk-table-action'], styles['coz-desktop'], 'coz-desktop')}>
+      <OperationAction operation={operation} urls={urls} />
+    </td>
+    <td className={classNames(styles['coz-table-cell'], styles['bnk-table-action'], styles['coz-mobile'], 'coz-mobile')}>
       <OperationAction operation={operation} urls={urls} />
     </td>
     <td className={classNames(styles['coz-table-cell'], styles['bnk-table-actions'], 'coz-desktop')}>
