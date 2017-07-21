@@ -11,6 +11,16 @@
     .coz-table-body
         height auto
 
+        &:last-child
+            .coz-table-row:last-child
+                border-bottom 1px solid grey-09
+
+    .coz-table-row
+        border-bottom 1px solid grey-09
+
+        &:last-child
+            border-bottom-width 0
+
     .coz-table-cell
     .coz-table-header
         font-size     em(14px)
@@ -44,6 +54,16 @@
 
     .coz-table-cell.bnk-table-amount
         color black
+
+    .bnk-table-row-date
+        background-color grey-10
+        color grey-11
+        font-size em(12px)
+        text-transform uppercase
+        font-weight bold
+
+        td
+            padding-left 18px
 
     @media (max-width: (768/basefont)rem)
         .bnk-table-desc

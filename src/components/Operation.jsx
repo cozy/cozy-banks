@@ -8,7 +8,7 @@ import { OperationMenu, OperationAction } from 'ducks/operations'
 
 export const Operation = ({ t, f, operation, urls }) => (
   <tr className={styles['coz-table-row']}>
-    <td className={classNames(styles['coz-table-cell'], styles['bnk-table-date'])}>
+    <td className={classNames(styles['coz-table-cell'], styles['bnk-table-date'], 'coz-desktop')}>
       {f(operation.date, 'DD MMMM YYYY')}
     </td>
     <td className={classNames(
