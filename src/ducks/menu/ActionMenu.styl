@@ -1,0 +1,71 @@
+@require 'cozy-ui'
+
+.fil-actionmenu
+    @extend        $popover
+    z-index        $file-action-menu
+    position       fixed
+    bottom         em(9px)
+    left           0
+    width          "calc(100% - %s)" % em(16px)
+    margin         0 em(8px)
+    padding-bottom em(5px)
+
+    &.with-transition
+        transition transform .1s ease-out
+
+    hr
+        margin-top 0
+
+.fil-actionmenu-header
+    padding     em(20px) em(24px) em(20px) em(20px)
+    font-size   16px
+    font-weight bold
+
+.fil-actionmenu-file
+    margin-left   em(19px)
+    padding-left  em(45px)
+    background-position 0 center
+    background-repeat no-repeat
+
+.fil-toolbar-more-btn
+    @extends $button--secondary
+    @extends $button--more
+    border-width 0
+
+.menu-header
+    display flex
+    padding 0 0 0 1em!important
+    background-position-x 1em!important
+
+    .menu-header-left
+        flex 1 1 auto
+        padding em(18px) em(9px) em(18px) em(50px)
+
+        h3
+            align-self bottom
+            margin 0
+            font-size 1.2em
+            margin-bottom em(6px)
+
+        span
+            font-size 1em
+            align-self top
+            color grey-11
+            text-transform capitalize
+
+    .menu-header-right
+        flex 0 1 auto
+        align-self center
+        padding em(18px) em(18px) em(18px) em(9px)
+
+.action-bill
+    background embedurl('../../assets/icons/actions/icon-file.svg') em(16px) center no-repeat
+.action-attach
+    background embedurl('../../assets/icons/actions/icon-link.svg') em(16px) center no-repeat
+.action-comment
+    background embedurl('../../assets/icons/actions/icon-comment.svg') em(16px) center no-repeat
+.action-app
+.action-refund
+    background embedurl('../../assets/icons/actions/icon-link-out.svg') em(16px) center no-repeat
+.action-alert
+    background embedurl('../../assets/icons/actions/icon-bell-16.svg') em(16px) center no-repeat

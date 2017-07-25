@@ -1,5 +1,12 @@
 @import 'cozy-ui'
 
+.bnk-table-actions-link
+    cursor pointer
+    padding-left   2em
+    padding-top    .1em
+    padding-bottom .1em
+    background     embedurl('../../assets/icons/icon-link-out.svg') em(0px) center no-repeat
+
 [role=application] // @stylint ignore
     @extend $table
 
@@ -10,6 +17,7 @@
 
     .coz-table-body
         height auto
+        overflow inherit
 
         &:last-child
             .coz-table-row:last-child
@@ -17,9 +25,6 @@
 
     .coz-table-row
         border-bottom 1px solid grey-09
-
-        &:last-child
-            border-bottom-width 0
 
     .coz-table-cell
     .coz-table-header
@@ -39,16 +44,7 @@
         flex    1 0 25em
 
     .bnk-table-action
-        &.coz-desktop
-            flex  1 1 15em
-        &.coz-mobile
-            width 30px
-            white-space nowrap
-            padding-left 0
-
-            a
-                padding-left 4em
-
+        flex  1 1 15em
 
     .bnk-table-actions
         width 70px
@@ -58,7 +54,7 @@
         padding-left    4.5em
         color           black
         // default movement icon
-        background  embedurl('../assets/icons/categories/icon-cat-uncategorized.svg') center no-repeat
+        background  embedurl('../../assets/icons/categories/icon-cat-uncategorized.svg') center no-repeat
         background-position-x   em(24px)
 
     .coz-table-cell.bnk-table-amount
@@ -74,7 +70,7 @@
         td
             padding-left 18px
 
-    @media (max-width: (768/basefont)rem)
+    @media (max-width: (1023/basefont)rem)
         .bnk-table-desc
             flex    1 0 12em
 
@@ -83,6 +79,33 @@
 
         .bnk-table-amount
             padding-right 2em
+
+        .coz-table-row
+            border-bottom 1px solid transparent
+
+        .coz-table-body
+            .coz-table-row
+                border-bottom 1px solid grey-09
+
+                &:last-child
+                    border-bottom 1px solid transparent
+
+                    &:hover
+                        border-bottom 1px solid grey-09
+
+                &:fisrt-child
+                    border-top 1px solid transparent
+
+                    &:hover
+                        border-top 1px solid grey-09
+        .bnk-table-action
+            flex inherit
+            width 30px
+            white-space nowrap
+            padding-left 0
+
+            a
+                padding-left 4em
 
     // All icons and classes for movement types
 
@@ -120,7 +143,7 @@
 
     // TODO use function to get each movement icon instead of category icon
     getTemporaryCatBkg(categoryLabel)
-        icon = '../assets/icons/categories/icon-cat-%s.svg' % categoryLabel
+        icon = '../../assets/icons/categories/icon-cat-%s.svg' % categoryLabel
         {background} embedurl(icon) center no-repeat // @stylint ignore
 
     for num in 0..12

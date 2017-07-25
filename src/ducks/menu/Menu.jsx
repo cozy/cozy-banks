@@ -2,10 +2,7 @@ import React, { Component } from 'react'
 import classNames from 'classnames'
 import styles from './Menu.styl'
 
-export const Item = ({ children, onClick }) =>
-  <div onClick={onClick} className={styles['coz-menu-item']}>{children}</div>
-
-export default class Menu extends Component {
+export class Menu extends Component {
   state = { opened: false }
 
   toggle = () => this.state.opened ? this.close() : this.open()
@@ -32,7 +29,7 @@ export default class Menu extends Component {
   }
 
   renderItems () {
-    return React.Children.map(this.props.children, (item) => {
+    return React.Children.map(this.props.children, item => {
       if (!item) return item
       // ideally here, we should rely on React's type property and verify that
       // type === Item, but for some reason, preact vnodes don't have this property
@@ -71,3 +68,5 @@ export default class Menu extends Component {
     )
   }
 }
+
+export default Menu
