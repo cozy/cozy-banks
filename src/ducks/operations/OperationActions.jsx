@@ -10,7 +10,7 @@ import styles from './OperationActions.styl'
 const HEALTH_LINK = 'refund'
 const APP_LINK = 'app'
 const FILE_LINK = 'bill'
-const URL_LINK = 'link'
+const URL_LINK = 'url'
 
 // helpers
 
@@ -33,7 +33,7 @@ const getLinkType = (operation, urls) => {
     return APP_LINK
   } else if (action && action.payload) {
     return FILE_LINK
-  } else if (action && action.url) {
+  } else if (action && action.type === URL_LINK) {
     return URL_LINK
   }
   return undefined
@@ -41,10 +41,10 @@ const getLinkType = (operation, urls) => {
 
 // components
 
-export const Action = translate()(({t, actionName, appName, onClick, href, target, className}) => (
+export const Action = translate()(({t, actionValue, actionName, appName, onClick, href, target, className}) => (
   <Item>
     <a className={className || styles[`action-${actionName}`]} onClick={onClick} href={href} target={target}>
-      {t(`Movements.actions.${actionName}`, { appName: appName })}
+      {actionValue || t(`Movements.actions.${actionName}`, { appName: appName })}
     </a>
   </Item>
 ))
@@ -79,10 +79,11 @@ export const OperationAction = ({operation, urls, onClick, type, className}) => 
       return <Action actionName={type} href={urls['HEALTH'] + '/#/remboursements'} className={className} />
     case APP_LINK:
       return <Action actionName={type} appName={appName} href={urls[appName]} className={className} />
-    case URL_LINK:
-      return <Action actionName={type} href={operation.action.url} target='_blank' onClick={onClick} className={className} />
     case FILE_LINK:
       return <ActionWithFile actionName={type} operation={operation} onClick={onClick} className={className} />
+    case URL_LINK:
+      const action = operation.action
+      return <Action actionValue={action.trad} actionName={type} href={action.url} target={action.target} onClick={onClick} className={className} />
     default:
       return undefined
   }
