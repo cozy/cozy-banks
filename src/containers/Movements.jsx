@@ -51,9 +51,7 @@ export class Movements extends Component {
     }
     return (
       <div>
-        <h2>
-          Mouvements
-        </h2>
+        <h2>Mouvements</h2>
         <div className={styles['bnk-mov-form']}>
           <SelectDates />
         </div>

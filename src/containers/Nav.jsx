@@ -26,7 +26,7 @@ const Nav = ({ t }) => {
             to='currentBalance'
             className={styles['bnk-cat-balance']}
           >
-            {t('Nav.movements')}
+            {t('Nav.balance')}
           </ActiveLink>
         </li>
         <li className={styles['coz-nav-item']}>
