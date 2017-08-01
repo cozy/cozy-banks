@@ -47,22 +47,6 @@ const Nav = ({ t }) => {
         </li>
         <li className={styles['coz-nav-item']}>
           <ActiveLink
-            to='projections'
-            className={styles['bnk-cat-projections']}
-          >
-            {t('Nav.projections')}
-          </ActiveLink>
-        </li>
-        <li className={styles['coz-nav-item']}>
-          <ActiveLink
-            to='savings'
-            className={styles['bnk-cat-savings']}
-          >
-            {t('Nav.savings')}
-          </ActiveLink>
-        </li>
-        <li className={styles['coz-nav-item']}>
-          <ActiveLink
             to='settings'
             className={styles['bnk-cat-settings']}
           >
