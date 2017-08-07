@@ -1,4 +1,6 @@
-import Menu, { Item } from './Menu'
+import Menu from './Menu'
+import ActionMenu from './ActionMenu'
+import Item from './Item'
 
 // components
-export { Menu, Item }
+export { Menu, Item, ActionMenu }

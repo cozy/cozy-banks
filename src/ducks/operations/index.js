@@ -1,5 +1,4 @@
-import OperationAction from './OperationAction'
-import OperationMenu from './OperationMenu'
+import OperationsWithSelection from './OperationsWithSelection'
 
 // components
-export { OperationAction, OperationMenu }
+export { OperationsWithSelection as Operations }

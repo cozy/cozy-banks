@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react/I18n'
 
 import FigureBlock from 'components/FigureBlock'
-import OperationsBoard from 'components/OperationsBoard'
+import { Operations } from 'ducks/operations'
 import Loading from 'components/Loading.jsx'
 import { SelectDates, getFilteredOperations } from 'ducks/filters'
 import { fetchOperations, indexOperationsByDate } from 'actions'
@@ -51,9 +51,7 @@ export class Movements extends Component {
     }
     return (
       <div>
-        <h2>
-          Mouvements
-        </h2>
+        <h2>Mouvements</h2>
         <div className={styles['bnk-mov-form']}>
           <SelectDates />
         </div>
@@ -63,7 +61,7 @@ export class Movements extends Component {
           <FigureBlock label='Crédit' total={credits} currency='€' signed />
           <FigureBlock label='Opérations' total={filteredOperations.length} decimalNumbers={0} />
         </div>
-        <OperationsBoard operations={filteredOperations} urls={urls} />
+        <Operations operations={filteredOperations} urls={urls} />
       </div>
     )
   }
