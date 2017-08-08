@@ -160,7 +160,7 @@ export class Categories extends Component {
           {t('Categories.title.general')}
         </h2>
         <div className={styles['bnk-cat-form']}>
-          <SelectDates />
+          <SelectDates />&nbsp;
           <Select
             name='filterRange'
             options={FILTER_OPTIONS}
