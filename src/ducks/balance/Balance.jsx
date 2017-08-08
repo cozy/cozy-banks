@@ -1,5 +1,5 @@
 import React from 'react'
-import Table from 'ducks/Table'
+import Table from 'components/Table'
 import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react/I18n'
 import styles from './Balance.styl'
