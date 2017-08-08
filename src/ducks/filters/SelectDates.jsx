@@ -5,6 +5,10 @@ import { subMonths, startOfMonth, endOfMonth, differenceInDays, endOfDay } from 
 import { translate } from 'cozy-ui/react/I18n'
 import { getStartDate, getEndDate, addFilterByDates } from '.'
 
+import styles from 'styles/select-dates'
+import Icon from 'cozy-ui/react/Icon'
+import arrowLeft from 'assets/icons/icon-arrow-left.svg'
+
 const createRange = (startDate, endDate) => ({ startDate, endDate })
 
 const getDatesRange = () => {
@@ -30,7 +34,8 @@ export class SelectDates extends Component {
     super(props)
 
     this.onChange = this.onChange.bind(this)
-    this.getSelected = this.getSelected.bind(this)
+    this.onChooseNext = this.onChooseNext.bind(this)
+    this.onChoosePrev = this.onChoosePrev.bind(this)
 
     const dates = getDatesRange()
     this.state = {
@@ -38,7 +43,9 @@ export class SelectDates extends Component {
     }
   }
 
-  getSelected (datesRange, startDate, endDate) {
+  getSelectedIndex () {
+    const { datesRange } = this.state
+    const { startDate, endDate } = this.props
     for (const [index, value] of datesRange.entries()) {
       if (differenceInDays(value.startDate, startDate) === 0 && differenceInDays(value.endDate, endDate) === 0) {
         return index
@@ -47,15 +54,10 @@ export class SelectDates extends Component {
     return 0
   }
 
-  onChange (name, index) {
-    this.props.onChange(this.state.datesRange[index])
-  }
-
-  render ({t, f, startDate, endDate}) {
-    const { datesRange } = this.state
-    const selected = this.getSelected(datesRange, startDate, endDate)
-
+  getOptions () {
     // create options
+    const { t, f } = this.props
+    const { datesRange } = this.state
     const options = []
     for (const [index, value] of datesRange.entries()) {
       if (index === datesRange.length - 1) {
@@ -64,10 +66,42 @@ export class SelectDates extends Component {
         options.push({value: index, name: capitalizeFirstLetter(f(value.startDate, 'MMMM YYYY'))})
       }
     }
+    return options
+  }
 
-    return (
-      <Select name='datesRange' value={selected} options={options} onChange={this.onChange} />
-    )
+  onChange (name, index) {
+    this.props.onChange(this.state.datesRange[index])
+  }
+
+  onChooseNext () {
+    this.chooseOption(-1)
+  }
+
+  onChoosePrev () {
+    this.chooseOption(+1)
+  }
+
+  chooseOption (inc) {
+    const index = this.getSelectedIndex()
+    const options = this.getOptions()
+    const newIndex = index + inc
+    if (newIndex > -1 && index < options.length) {
+      this.onChange(null, newIndex)
+    }
+  }
+
+  render ({t, f, startDate, endDate}) {
+    const selected = this.getSelectedIndex()
+    const options = this.getOptions()
+    return <div className={styles['select-dates']}>
+      <button disabled={selected === options.length - 1} className={styles['prev-button']} onClick={this.onChoosePrev}>
+        <Icon height='1rem' icon={arrowLeft} />
+      </button>
+      <Select className={styles['select-dates-select']} name='datesRange' value={selected} options={options} onChange={this.onChange} />
+      <button disabled={selected === 0} className={styles['next-button']} onClick={this.onChooseNext}>
+        <Icon height='1rem' className={styles['next-icon']} icon={arrowLeft} />
+      </button>
+    </div>
   }
 }
 

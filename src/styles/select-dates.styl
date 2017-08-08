@@ -1,0 +1,47 @@
+@import 'cozy-ui'
+@import './breakpoints.styl'
+
+.select-dates
+    display inline
+    white-space nowrap
+
+.select-dates-select
+    display inline
+    background red
+
+    select
+        border-radius 0
+
+
++mobile()
+    .select-dates-select select
+        width 160px
+
+
+.prev-button, .next-button
+    background transparent
+    border-radius 4px
+    box-sizing border-box
+    border 1px solid grey-03
+    padding 0.75em
+    outline 0
+    cursor pointer
+    font-size 1.125em
+
+    &:disabled
+        cursor not-allowed
+
+.prev-button
+    border-top-right-radius 0
+    border-bottom-right-radius 0
+    border-right-width 0
+
+
+
+.next-button
+    border-top-left-radius 0
+    border-bottom-left-radius 0
+    border-left-width 0
+
+.next-icon
+    transform rotate(180deg)
