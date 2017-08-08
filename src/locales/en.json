@@ -34,9 +34,6 @@
       "group": "Total du groupe %{label}",
       "account": "Total du compte %{label}"
     },
-    "subtitle_with_account_filter": "",
-    "subtitle_with_account_filter": "",
-    "subtitle_with_account_filter": "",
     "account_name": "Nom du compte",
     "solde": "Solde",
     "bank_name": "Nom de la banque",
