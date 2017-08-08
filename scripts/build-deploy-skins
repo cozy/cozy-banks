@@ -1,0 +1,16 @@
+#!/bin/bash
+
+echo "Building vanilla"
+yarn run build
+echo "Deploying vanilla"
+yarn run deploy
+
+SKINS=(mesinfos)
+
+for skin in ${SKINS[@]}; do
+  echo "Building $skin"
+  env SKIN=$skin yarn run build
+
+  echo "Deploying $skin"
+  env DEPLOY_BRANCH=build-$skin yarn run deploy
+done
