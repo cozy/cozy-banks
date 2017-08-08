@@ -18,8 +18,8 @@ import {
 export class Settings extends Component {
   render () {
     const { groups, accounts, createGroup, updateGroup, deleteGroup, params } = this.props
-    const tabNames = ['profil', 'accounts', 'groups', 'notifications']
-    let defaultTab = tabNames[1]
+    const tabNames = ['accounts', 'groups', 'notifications']
+    let defaultTab = tabNames[0]
     if (params.tab && tabNames.indexOf(params.tab) >= 0) defaultTab = params.tab
 
     return (
@@ -30,26 +30,20 @@ export class Settings extends Component {
         <Tabs className={styles['bnk-tabs']} initialActiveTab={defaultTab}>
           <TabList className={styles['bnk-coz-tab-list']}>
             <Tab name={tabNames[0]}>
-              Profil
-            </Tab>
-            <Tab name={tabNames[1]}>
               Comptes
             </Tab>
-            <Tab name={tabNames[2]}>
+            <Tab name={tabNames[1]}>
               Groupes
             </Tab>
-            <Tab name={tabNames[3]}>
+            <Tab name={tabNames[2]}>
               Notifications
             </Tab>
           </TabList>
           <TabPanels>
             <TabPanel name={tabNames[0]}>
-              Coming Soon
-            </TabPanel>
-            <TabPanel name={tabNames[1]}>
               <AccountsSettings accounts={accounts} />
             </TabPanel>
-            <TabPanel name={tabNames[2]}>
+            <TabPanel name={tabNames[1]}>
               <Groups
                 groups={groups}
                 accounts={accounts}
@@ -58,7 +52,7 @@ export class Settings extends Component {
                 deleteGroup={deleteGroup}
               />
             </TabPanel>
-            <TabPanel name={tabNames[3]}>
+            <TabPanel name={tabNames[2]}>
               <Notifications />
             </TabPanel>
           </TabPanels>
