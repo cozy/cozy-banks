@@ -1,6 +1,10 @@
 @import 'cozy-ui'
 @import './breakpoints.styl'
 
+// Due to discrepancies between Chrome and Firefox in
+// how select height is computed, we set it directly
+select-date-height=3rem
+
 .select-dates
     display inline
     white-space nowrap
@@ -11,6 +15,7 @@
 
     select
         border-radius 0
+        height select-date-height
 
 
 +small-screen()
@@ -26,10 +31,15 @@
     padding .75em
     outline 0
     cursor pointer
-    font-size 1.125em
+    font-size 1.125rem
+    height select-date-height
 
     &:disabled
         cursor not-allowed
+
+    svg
+        width 1rem
+        height 1rem
 
 .prev-button
     border-top-right-radius 0
