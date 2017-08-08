@@ -21,7 +21,7 @@ module.exports = {
     preLoaders: [
       {
         test: /\.jsx?$/,
-        exclude: /node_modules/,
+        include: SRC_DIR,
         loader: 'standard-loader'
       }
     ],
