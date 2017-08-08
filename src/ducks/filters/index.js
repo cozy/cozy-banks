@@ -14,7 +14,7 @@ const RESET_ACCOUNT_OR_GROUP = 'RESET_ACCOUNT_OR_GROUP'
 // selectors
 export const getStartDate = state => state.filters.startDate
 export const getEndDate = state => state.filters.endDate
-const getAccountOrGroupType = state => state.filters.accountOrGroupType
+export const getAccountOrGroupType = state => state.filters.accountOrGroupType
 const getAccountOrGroupId = state => state.filters.accountOrGroupId
 
 export const getAccountOrGroup = state => {
@@ -29,6 +29,33 @@ export const getAccountOrGroup = state => {
   }
 
   return accountsOrGroups.find(accountOrGroup => accountOrGroup._id === id)
+}
+
+export const getAccountsFiltered = state => {
+  const accountsFiltered = []
+
+  const doctype = getAccountOrGroupType(state)
+  const id = getAccountOrGroupId(state)
+  const accounts = getAccounts(state)
+
+  if (doctype === BANK_ACCOUNTS_DOCTYPE) {
+    const account = accounts.find(account => account._id === id)
+    if (account) {
+      accountsFiltered.push(account)
+    }
+  } else if (doctype === BANK_ACCOUNT_GROUPS_DOCTYPE) {
+    const group = getGroups(state).find(group => group._id === id)
+    if (group) {
+      group.accounts.map(accountId => {
+        const account = accounts.find(account => account._id === accountId)
+        accountsFiltered.push(account)
+      })
+    }
+  } else {
+    return accounts
+  }
+
+  return accountsFiltered
 }
 
 const getAccountIds = state => {

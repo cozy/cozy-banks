@@ -1,0 +1,43 @@
+@import 'cozy-ui'
+
+.bnk-table
+    width           calc(100% + 2em)
+    margin-left     -2em
+    margin-bottom   3em
+
+    .account_name
+        flex-basis 40%
+    .solde
+        flex-basis 20%
+        text-align right
+    .bank_name
+        flex-basis 20%
+    .account_number
+        flex-basis 20%
+
+    @media (max-width: (768/basefont)rem)
+        .account_name
+            flex-basis 60%
+        .solde
+            flex-basis 40%
+        .bank_name
+            display none
+        .account_number
+            display none
+
+    tbody
+        height auto
+        overflow inherit
+
+        .account_name
+            color charcoal-grey
+            font-size 1em
+
+        .solde
+            color charcoal-grey
+            font-weight bold
+            font-size 1em
+
+            span
+                color cool-grey
+                font-weight inherit

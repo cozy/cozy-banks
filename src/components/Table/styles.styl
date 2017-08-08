@@ -1,0 +1,58 @@
+@import 'cozy-ui'
+
+.coz-table
+    position        relative
+    display         flex
+    flex-direction  column
+    flex            1 1 100%
+    height          100%
+    text-align      left
+    color           grey-11
+
+    thead
+        flex 0 0 em(31px, 16px)
+
+        td
+            padding         em(8px, 12px) em(32px, 12px) // @stylint ignore
+            font-size       12px
+            text-transform  uppercase
+
+        tr:hover
+            background-color white
+
+    tbody
+        flex      1 1 auto
+        display   flex
+        flex-direction column
+        overflow  auto
+
+    tr
+        display         flex
+        flex-direction  row
+        align-items     center
+        flex            0 0 auto
+        width           100%
+        border-bottom   1px solid grey-09
+
+        &:hover
+            background-color grey-10
+
+    td
+        box-sizing  border-box
+        padding     em(15px, 14px) em(32px, 14px) // @stylint ignore
+        font-size   14px
+        flex 1 0 auto
+
+    @media (max-width: (1024/basefont)rem)
+        tr
+            max-width  100vw
+
+    @media (max-width: (768/basefont)rem)
+        thead
+            display none
+
+        tbody
+            max-height  100%
+
+        td
+            padding em(5px, 5px)
