@@ -1,6 +1,7 @@
 import React from 'react'
 import Table from 'components/Table'
 import { connect } from 'react-redux'
+import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'
 import styles from './Balance.styl'
 import { getAccountsFiltered, getAccountOrGroupType, getAccountOrGroup } from 'ducks/filters'
@@ -33,14 +34,20 @@ const Balance = ({t, accounts, type, accountOrGroup}) => {
           </tr>
         </thead>
         <tbody>
-          {accounts.map(account => (
-            <tr>
-              <td className={styles['account_name']}>{account.label}</td>
-              <td className={styles['solde']}>{account.amount} <span>€</span></td>
-              <td className={styles['bank_name']}>{account.institutionLabel}</td>
-              <td className={styles['account_number']}>{account.number}</td>
-            </tr>
-          ))}
+          {accounts.map(account => {
+            const isAlert = account.amount ? account.amount < 0 : false
+            return (
+              <tr>
+                <td className={classNames(styles['account_name'], styles[isAlert ? 'alert' : ''])}>
+                  {account.label}
+                  {isAlert && <span className='coz-error coz-error--warning'></span>}
+                </td>
+                <td className={styles['solde']}>{account.amount} <span>€</span></td>
+                <td className={styles['bank_name']}>{account.institutionLabel}</td>
+                <td className={styles['account_number']}>{account.number}</td>
+              </tr>
+            )
+          })}
         </tbody>
       </Table>
     </div>
