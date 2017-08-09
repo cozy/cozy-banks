@@ -40,7 +40,7 @@ const Balance = ({t, accounts, type, accountOrGroup}) => {
               <tr>
                 <td className={classNames(styles['account_name'], styles[isAlert ? 'alert' : ''])}>
                   {account.label}
-                  {isAlert && <span className='coz-error coz-error--warning'></span>}
+                  {isAlert && <span className='coz-error coz-error--warning' />}
                 </td>
                 <td className={styles['solde']}>{account.amount} <span>€</span></td>
                 <td className={styles['bank_name']}>{account.institutionLabel}</td>
