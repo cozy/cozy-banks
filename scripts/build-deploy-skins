@@ -12,5 +12,11 @@ for skin in ${SKINS[@]}; do
   env SKIN=$skin yarn run build
 
   echo "Deploying $skin"
-  env DEPLOY_BRANCH=$(npm run get-deploy-branch -s)-$skin yarn run deploy
+
+  # Take DEPLOY_BRANCH from the env or try to guess to it from
+  # the git branch
+  DEPLOY_BRANCH=${DEPLOY_BRANCH:-$(npm run get-deploy-branch -s)}
+
+  # Add -$skin to the DEPLOY_BRANCH for the deploy process
+  env DEPLOY_BRANCH=$DEPLOY_BRANCH-$skin yarn run deploy
 done
