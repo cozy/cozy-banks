@@ -20,10 +20,13 @@ const Balance = ({t, accounts, type, accountOrGroup}) => {
     default:
       trad = 'Balance.subtitle.all'
   }
+  let total = 0
+  accounts.map(account => total += parseInt(account.amount, 10))
   return (
-    <div>
+    <div className={styles['balance']}>
       <h2>{t('Balance.title')}</h2>
       <h3>{t(trad, {label: label})}</h3>
+      <div className={styles['total']}>{total > 0 ? '+' : ''}{total.toLocaleString()} €</div>
       <Table className={styles['bnk-table']}>
         <thead>
           <tr>
@@ -38,11 +41,11 @@ const Balance = ({t, accounts, type, accountOrGroup}) => {
             const isAlert = account.amount ? account.amount < 0 : false
             return (
               <tr>
-                <td className={classNames(styles['account_name'], styles[isAlert ? 'alert' : ''])}>
+                <td className={classNames(styles['account_name'], { [styles.alert]: isAlert })}>
                   {account.label}
                   {isAlert && <span className='coz-error coz-error--warning' />}
                 </td>
-                <td className={styles['solde']}>{account.amount} <span>€</span></td>
+                <td className={styles['solde']}>{account.amount.toLocaleString()} <span>€</span></td>
                 <td className={styles['bank_name']}>{account.institutionLabel}</td>
                 <td className={styles['account_number']}>{account.number}</td>
               </tr>

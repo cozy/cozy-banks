@@ -1,5 +1,30 @@
 @import 'cozy-ui'
 
+.balance
+    h2
+        margin 0 auto 1.5em
+
+    h3
+        margin-bottom 0.2em
+        color cool-grey
+        font-size 0.7em
+        text-transform uppercase
+
+    .total
+        font-weight bold
+        font-size 2em
+
+    @media (max-width: (768/basefont)rem)
+        h2
+            display none
+
+        h3
+            margin-top 2em
+            margin-bottom 1em
+
+        .total
+            font-size 1.4em
+
 .bnk-table
     width           calc(100% + 2em)
     margin-left     -2em
