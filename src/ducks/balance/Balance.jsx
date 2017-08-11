@@ -21,7 +21,9 @@ const Balance = ({t, accounts, type, accountOrGroup}) => {
       trad = 'Balance.subtitle.all'
   }
   let total = 0
-  accounts.map(account => total += parseInt(account.amount, 10))
+  accounts.map(account => {
+    total += parseInt(account.amount, 10)
+  })
   return (
     <div className={styles['balance']}>
       <h2>{t('Balance.title')}</h2>

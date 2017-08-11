@@ -20,7 +20,7 @@ export const setApps = apps => ({ type: SET_APPS, apps })
 
 // actions async
 export const findApps = () => async dispatch => {
-  return cozy.client.fetchJSON('GET', `/apps/`).then(apps => dispatch(setApps(apps)))
+  return cozy.client.fetchJSON('GET', '/apps/').then(apps => dispatch(setApps(apps)))
 }
 
 // reducers
