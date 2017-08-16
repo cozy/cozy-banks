@@ -22,7 +22,7 @@ const Balance = ({t, accounts, type, accountOrGroup}) => {
   }
   let total = 0
   accounts.map(account => {
-    total += parseInt(account.amount, 10)
+    total += parseInt(account.balance, 10)
   })
   return (
     <div className={styles['balance']}>
@@ -40,7 +40,7 @@ const Balance = ({t, accounts, type, accountOrGroup}) => {
         </thead>
         <tbody>
           {accounts.map(account => {
-            const isAlert = account.amount ? account.amount < 0 : false
+            const isAlert = account.balance ? account.balance < 0 : false
             return (
               <tr>
                 <td className={classNames(styles['account_name'], { [styles.alert]: isAlert })}>
