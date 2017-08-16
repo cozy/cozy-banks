@@ -48,7 +48,9 @@ export const getAccountsFiltered = state => {
     if (group) {
       group.accounts.map(accountId => {
         const account = accounts.find(account => account._id === accountId)
-        accountsFiltered.push(account)
+        if (account) {
+          accountsFiltered.push(account)
+        }
       })
     }
   } else {
