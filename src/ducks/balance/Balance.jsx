@@ -47,7 +47,7 @@ const Balance = ({t, accounts, type, accountOrGroup}) => {
                   {account.label}
                   {isAlert && <span className='coz-error coz-error--warning' />}
                 </td>
-                <td className={classNames(styles['solde'], { [styles.alert]: isAlert })}>{account.amount.toLocaleString()} <span>€</span></td>
+                <td className={classNames(styles['solde'], { [styles.alert]: isAlert })}>{account.balance.toLocaleString()} <span>€</span></td>
                 <td className={styles['bank_name']}>{account.institutionLabel}</td>
                 <td className={styles['account_number']}>{account.number}</td>
               </tr>
