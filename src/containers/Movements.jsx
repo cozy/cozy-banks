@@ -6,7 +6,8 @@ import { translate } from 'cozy-ui/react/I18n'
 
 import FigureBlock from 'components/FigureBlock'
 import { Operations } from 'ducks/operations'
-import Loading from 'components/Loading.jsx'
+import Loading from 'components/Loading'
+import Topbar from 'components/Topbar'
 import { SelectDates, getFilteredOperations } from 'ducks/filters'
 import { fetchOperations, indexOperationsByDate } from 'actions'
 import { getUrlBySource, findApps } from 'ducks/apps'
@@ -41,17 +42,23 @@ export class Movements extends Component {
       }
     })
     if (!filteredOperations.length) {
-      return <div>
-        <h2>Mouvements</h2>
-        <div className={styles['bnk-mov-form']}>
-          <SelectDates />
+      return (
+        <div>
+          <Topbar>
+            <h2>Mouvements</h2>
+          </Topbar>
+          <div className={styles['bnk-mov-form']}>
+            <SelectDates />
+          </div>
+          <p>Pas de mouvements à afficher.</p>
         </div>
-        <p>Pas de mouvements à afficher.</p>
-      </div>
+      )
     }
     return (
       <div>
-        <h2>Mouvements</h2>
+        <Topbar>
+          <h2>Mouvements</h2>
+        </Topbar>
         <div className={styles['bnk-mov-form']}>
           <SelectDates />
         </div>

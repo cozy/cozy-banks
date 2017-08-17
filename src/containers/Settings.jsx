@@ -8,6 +8,7 @@ import { Tab, Tabs, TabList, TabPanel, TabPanels } from 'cozy-ui/react/Tabs'
 import Notifications from 'components/Notifications'
 import Groups from 'components/Groups'
 import AccountsSettings from 'components/AccountsSettings'
+import Topbar from 'components/Topbar'
 
 import {
   createGroup,
@@ -24,9 +25,9 @@ export class Settings extends Component {
 
     return (
       <div>
-        <h2>
-          Paramètres
-        </h2>
+        <Topbar>
+          <h2>Paramètres</h2>
+        </Topbar>
         <Tabs className={styles['bnk-tabs']} initialActiveTab={defaultTab}>
           <TabList className={styles['bnk-coz-tab-list']}>
             <Tab name={tabNames[0]}>
