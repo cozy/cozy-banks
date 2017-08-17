@@ -5,7 +5,7 @@
     padding-left   2em
     padding-top    .1em
     padding-bottom .1em
-    background     embedurl('../../assets/icons/icon-link-out.svg') em(0px) center no-repeat
+    background     embedurl('assets/icons/icon-link-out.svg') em(0px) center no-repeat
 
 [role=application] // @stylint ignore
     @extend $table
@@ -54,7 +54,7 @@
         padding-left    4.5em
         color           black
         // default movement icon
-        background  embedurl('../../assets/icons/categories/icon-cat-uncategorized.svg') center no-repeat
+        background  embedurl('assets/icons/categories/icon-cat-uncategorized.svg') center no-repeat
         background-position-x   em(24px)
 
     .coz-table-cell.bnk-table-amount
@@ -144,7 +144,7 @@
 
     // TODO use function to get each movement icon instead of category icon
     getTemporaryCatBkg(categoryLabel)
-        icon = '../../assets/icons/categories/icon-cat-%s.svg' % categoryLabel
+        icon = 'assets/icons/categories/icon-cat-%s.svg' % categoryLabel
         {background} embedurl(icon) center no-repeat // @stylint ignore
 
     for num in 0..12
