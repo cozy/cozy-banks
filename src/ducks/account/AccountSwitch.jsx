@@ -15,7 +15,6 @@ import styles from './AccountSwitch.styl'
 // Note that everything is set up to be abble to combine filters (even the redux store). It's only limited to one filter in a few places, because the UI can only accomodate one right now.
 class AccountSwitch extends Component {
   constructor (props) {
-    console.log('constructor')
     super(props)
 
     this.state = {
@@ -38,27 +37,16 @@ class AccountSwitch extends Component {
   }
 
   onClickOutside (e) {
-    console.log('onClickOutside')
     // the event that trigered the menu open propagates and eventually ends up here,
     // but in that case we don't wnt to close the menu. So if it's the same event,
     // we just ignore it.
     if (e === this.lastOpenEvent) return
-    if (this.state.open) {
-      this.setState({
-        open: false
-      })
-    }
+    this.close()
   }
 
-  close = e => {
+  close = () => {
     if (this.state.open) {
       this.setState({ open: false })
-    }
-  }
-
-  open = e => {
-    if (!this.state.open) {
-      this.setState({ open: true })
     }
   }
 
@@ -73,11 +61,8 @@ class AccountSwitch extends Component {
   }
 
   render () {
-    console.log('render')
     const { t, accounts, groups, accountOrGroup, resetAccountOrGroup, filterByAccount, filterByGroup } = this.props
     const { isFetching, open } = this.state
-
-    console.log(accountOrGroup)
 
     return (
       <div className={styles['account-switch']}>

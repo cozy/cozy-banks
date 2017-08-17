@@ -1,6 +1,6 @@
 import React from 'react'
 import Table from 'components/Table'
-import Topbar from 'components/Topbar'
+import { Topbar } from 'ducks/commons'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'

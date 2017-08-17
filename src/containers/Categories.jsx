@@ -10,7 +10,7 @@ import FigureBlock from 'components/FigureBlock'
 import CategoriesBoard from 'components/CategoriesBoard'
 import Loading from 'components/Loading'
 import PieChart from 'components/PieChart'
-import Topbar from 'components/Topbar'
+import { Topbar } from 'ducks/commons'
 import { SelectDates, getFilteredOperations } from 'ducks/filters'
 import { fetchOperations, indexOperationsByDate } from 'actions'
 

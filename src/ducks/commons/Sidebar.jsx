@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { AccountSwitch } from 'ducks/account'
 import Nav from './Nav'
 import styles from './Sidebar.styl'

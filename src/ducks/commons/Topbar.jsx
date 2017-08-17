@@ -1,7 +1,5 @@
-/* global __TARGET__ */
-import styles from './styles.styl'
-
 import React from 'react'
+import styles from './Topbar.styl'
 
 const Topbar = ({ children }) => (
   <div className={styles['fil-topbar']}>

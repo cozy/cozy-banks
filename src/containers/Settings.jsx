@@ -8,7 +8,7 @@ import { Tab, Tabs, TabList, TabPanel, TabPanels } from 'cozy-ui/react/Tabs'
 import Notifications from 'components/Notifications'
 import Groups from 'components/Groups'
 import AccountsSettings from 'components/AccountsSettings'
-import Topbar from 'components/Topbar'
+import { Topbar } from 'ducks/commons'
 
 import {
   createGroup,
