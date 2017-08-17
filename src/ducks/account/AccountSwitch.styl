@@ -13,7 +13,7 @@
     border 0
     text-align left
     outline 0
-    background  embedurl('../assets/icons/icon-chevron-down.svg') 90% center no-repeat
+    background  embedurl('assets/icons/icon-chevron-down.svg') 90% center no-repeat
 
     .account-name
         max-width 90%
@@ -34,6 +34,51 @@
 
     &:focus
         background silver
+
+@media (max-width: (768/basefont)rem)
+    .account-switch
+        top 0
+        right 0
+
+    .account-switch-button-mobile
+        background-color transparent
+
+@media (max-width: (1023/basefont)rem)
+    .account-switch
+        z-index 60
+        position fixed
+        top 68px
+        right 20px
+        height 47px
+        margin 0
+        padding 0
+        width 48px
+        border-width 0
+
+    .account-switch-menu-content
+        z-index 61
+        position fixed
+        top 58px
+        bottom 58px
+        left 10px
+        right 10px
+        max-height inherit
+        overflow auto
+
+    .account-switch-menu
+        top 0
+        left 0
+        right 0
+        max-height inherit
+
+    .account-switch-button-mobile
+        width 100%
+        height 100%
+        background embedurl('assets/icons/actions/filter.svg') center center no-repeat alpha(silver, 0.8)
+
+        &.active
+            background-image embedurl('assets/icons/actions/filter-active.svg')
+
 
 .account-switch-menu
     position absolute
@@ -90,7 +135,7 @@
 
     .active
         border-left-color dodger-blue
-        background  embedurl('../assets/icons/icon-checked-blue.svg') 98% center no-repeat
+        background  embedurl('assets/icons/icon-checked-blue.svg') 98% center no-repeat
         font-weight bold
 
     .account-count

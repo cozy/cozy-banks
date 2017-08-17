@@ -1,13 +1,11 @@
-import styles from 'styles/app'
-
 import React from 'react'
 import classNames from 'classnames'
-
-import Sidebar from 'components/Sidebar'
 import ReactHint from 'react-hint'
 import 'react-hint/css/index.css'
+import Sidebar from './Sidebar'
+import styles from './Layout.styl'
 
-export const App = ({ children }) => (
+const Layout = ({ children }) => (
   <div className={classNames(styles['bnk-wrapper'], styles['bnk-sticky'])}>
     <Sidebar />
 
@@ -20,4 +18,4 @@ export const App = ({ children }) => (
   </div>
 )
 
-export default App
+export default Layout

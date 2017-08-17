@@ -1,5 +1,6 @@
 import React from 'react'
 import Table from 'components/Table'
+import { Topbar } from 'ducks/commons'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'
@@ -26,7 +27,9 @@ const Balance = ({t, accounts, type, accountOrGroup}) => {
   })
   return (
     <div className={styles['balance']}>
-      <h2>{t('Balance.title')}</h2>
+      <Topbar>
+        <h2>{t('Balance.title')}</h2>
+      </Topbar>
       <h3>{t(trad, {label: label})}</h3>
       <div className={styles['total']}>{total > 0 ? '+' : ''}{total.toLocaleString()} €</div>
       <Table className={styles['bnk-table']}>

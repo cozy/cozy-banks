@@ -10,6 +10,7 @@ import FigureBlock from 'components/FigureBlock'
 import CategoriesBoard from 'components/CategoriesBoard'
 import Loading from 'components/Loading'
 import PieChart from 'components/PieChart'
+import { Topbar } from 'ducks/commons'
 import { SelectDates, getFilteredOperations } from 'ducks/filters'
 import { fetchOperations, indexOperationsByDate } from 'actions'
 
@@ -112,7 +113,9 @@ export class Categories extends Component {
     if (categories.length === 0) {
       return (
         <div>
-          <h2>{t('Categories.title.empty')}</h2>
+          <Topbar>
+            <h2>{t('Categories.title.empty')}</h2>
+          </Topbar>
           <div className={styles['bnk-cat-form']}>
             <SelectDates />
           </div>
@@ -156,9 +159,9 @@ export class Categories extends Component {
     })
     return (
       <div>
-        <h2>
-          {t('Categories.title.general')}
-        </h2>
+        <Topbar>
+          <h2>{t('Categories.title.general')}</h2>
+        </Topbar>
         <div className={styles['bnk-cat-form']}>
           <SelectDates />&nbsp;
           <Select
