@@ -1,9 +1,10 @@
 import React from 'react'
+import classNames from 'classnames'
 import withGestures from 'ducks/commons/withGestures'
 import styles from './Backdrop.styl'
 
-const Backdrop = () => (
-  <div className={styles['menu-backdrop']} />
+const Backdrop = ({className}) => (
+  <div className={classNames(styles['menu-backdrop'], className)} />
 )
 
 export default withGestures(
