@@ -33,7 +33,7 @@
         background  activeBkgColor
 
         .bnk-table-chevron
-            background  embedurl('assets/icons/icon-chevron-down-active.svg') center no-repeat
+            background  embedurl('../assets/icons/icon-chevron-down-active.svg') center no-repeat
             transform   rotate3d(1, 0, 0, 180deg)
             transition  all .2s
 
@@ -59,7 +59,7 @@
 
     .bnk-table-chevron
         flex        0 0 5%
-        background  embedurl('assets/icons/icon-chevron-down.svg') center no-repeat
+        background  embedurl('../assets/icons/icon-chevron-down.svg') center no-repeat
         transition  all .2s
 
     .coz-table-header.bnk-table-operation
@@ -79,7 +79,7 @@
         padding-left   2em
         padding-top    .1em
         padding-bottom .1em
-        background     embedurl('assets/icons/icon-link-out.svg') em(0px) center no-repeat
+        background     embedurl('../assets/icons/icon-link-out.svg') em(0px) center no-repeat
 
     .bnk-table-subcategories
         position    relative
@@ -108,7 +108,7 @@
     categories = children daily-life education health housing income leasures out-budget services taxes transportation trips uncategorized
 
     getCatBkg(categoryLabel)
-        icon = 'assets/icons/categories/icon-cat-%s.svg' % categoryLabel
+        icon = '../assets/icons/categories/icon-cat-%s.svg' % categoryLabel
         {background} embedurl(icon) center no-repeat
 
     for category in categories
