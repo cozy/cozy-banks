@@ -9,7 +9,7 @@ if (skin === 'mesinfos') {
   copies.push({ from: 'vendor/assets/mesinfos' })
 }
 
-copies.push({ from: 'vendor/assets', ignore: ['.gitkeep'] })
+copies.push({ from: 'vendor/assets' })
 
 module.exports = {
   plugins: [
