@@ -11,9 +11,7 @@
     @extend $table
 
     .coz-table
-        width           calc(100% + 2em)
-        margin-left     -2em
-        margin-bottom   3em
+        margin-bottom 0
 
     .coz-table-body
         height auto
@@ -154,3 +152,14 @@
             .coz-table-cell.bnk-table-desc--{mvt}
                 getTemporaryCatBkg(category)
                 background-position-x   em(24px)
+
+            @media (max-width: (724/basefont)rem)
+                .coz-table-cell.bnk-table-desc--{mvt}
+                    background-position-x   em(16px)
+                    background-size 24px
+
+    @media (max-width: (724/basefont)rem)
+        .coz-table-body .coz-table-row
+            font-size 0.8em
+        .coz-table-cell.bnk-table-desc
+            padding-left    4em

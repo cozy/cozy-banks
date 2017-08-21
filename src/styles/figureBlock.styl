@@ -1,7 +1,7 @@
 @import 'cozy-ui'
 
 .bnk-figure-wrapper
-    font-size       32px
+    font-size       em(32px)
     margin-right    2.5em
     color           charcoal-grey
 
@@ -10,4 +10,11 @@
         margin-bottom   .5em
         color           cool-grey
         text-transform  uppercase
-        font-size       12px
+        font-size       em(12px)
+
+@media (max-width: (768/basefont)rem)
+    .bnk-figure-wrapper
+        font-size em(32px)
+
+        .bnk-figure-label
+            font-size em(12px)

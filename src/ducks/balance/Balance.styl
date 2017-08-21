@@ -13,8 +13,10 @@
     .total
         font-weight bold
         font-size 2em
+        margin-bottom 1em
 
-    @media (max-width: (768/basefont)rem)
+@media (max-width: (768/basefont)rem)
+    .balance
         h2
             margin 0
         h3
@@ -25,9 +27,7 @@
             font-size 1.4em
 
 .bnk-table
-    width           calc(100% + 2em)
-    margin-left     -2em
-    margin-bottom   3em
+    height auto
 
     .account_name
         flex-basis 40%
@@ -39,26 +39,16 @@
     .account_number
         flex-basis 20%
 
-    @media (max-width: (768/basefont)rem)
-        .account_name
-            flex-basis 60%
-        .solde
-            flex-basis 40%
-        .bank_name
-            display none
-        .account_number
-            display none
-
     tbody
         height auto
         overflow inherit
 
         .account_name
             color charcoal-grey
-            font-weight bold
             font-size 1em
 
             &.alert
+                font-weight bold
                 color pomegranate
 
                 span
@@ -83,3 +73,14 @@
             span
                 color cool-grey
                 font-weight inherit
+
+@media (max-width: (768/basefont)rem)
+    .bnk-table
+        .account_name
+            flex-basis 60%
+        .solde
+            flex-basis 40%
+        .bank_name
+            display none
+        .account_number
+            display none
