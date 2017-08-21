@@ -9,7 +9,7 @@ import styles from './OperationActions.styl'
 
 const HEALTH_LINK = 'refund'
 const APP_LINK = 'app'
-const FILE_LINK = 'bill'
+const BILL_LINK = 'bill'
 const URL_LINK = 'url'
 
 // helpers
@@ -32,7 +32,7 @@ const getLinkType = (operation, urls) => {
   } else if (appName) {
     return APP_LINK
   } else if (action && action.payload) {
-    return FILE_LINK
+    return BILL_LINK
   } else if (action && action.type === URL_LINK) {
     return URL_LINK
   }
@@ -79,7 +79,7 @@ export const OperationAction = ({operation, urls, onClick, type, className}) => 
       return <Action actionName={type} href={urls['HEALTH'] + '/#/remboursements'} className={className} />
     case APP_LINK:
       return <Action actionName={type} appName={appName} href={urls[appName]} className={className} />
-    case FILE_LINK:
+    case BILL_LINK:
       return <ActionWithFile actionName={type} operation={operation} onClick={onClick} className={className} />
     case URL_LINK:
       const action = operation.action
