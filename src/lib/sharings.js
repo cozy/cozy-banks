@@ -1,6 +1,6 @@
 import { RECIPIENT_DOCTYPE } from 'doctypes'
 
-export function findSharing (cozy, doctype, id) {
+export const findSharing = (cozy, doctype, id) => {
   if (!id) throw new Error('Missing mandatory parameter `id`')
 
   const sharing = {

@@ -19,7 +19,7 @@ export const reducers = {
 
 const combinedReducers = combineReducers(reducers)
 
-export const getSharingInfo = function (state, doctype, id) {
+export const getSharingInfo = (state, doctype, id) => {
   return sharingStatus.getSharingInfo(state.sharingStatus, doctype, id)
 }
 export default combinedReducers
