@@ -48,18 +48,14 @@ class AccountSharingStatus extends Component {
   }
 }
 
-const mapStateToProps = function (state, ownProps) {
-  return {
-    sharingInfo: getSharingInfo(state, ACCOUNT_DOCTYPE, ownProps.account._id)
-  }
-}
+const mapStateToProps = (state, ownProps) => ({
+  sharingInfo: getSharingInfo(state, ACCOUNT_DOCTYPE, ownProps.account._id)
+})
 
-const mapDispatchToProps = (dispatch, props) => {
-  return {
-    fetchSharingInfo: (doctype, id) => {
-      dispatch(fetchSharingInfo(ACCOUNT_DOCTYPE, props.account._id))
-    }
+const mapDispatchToProps = (dispatch, props) => ({
+  fetchSharingInfo: (doctype, id) => {
+    dispatch(fetchSharingInfo(ACCOUNT_DOCTYPE, props.account._id))
   }
-}
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(AccountSharingStatus)

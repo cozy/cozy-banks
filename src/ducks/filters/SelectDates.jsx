@@ -112,7 +112,7 @@ const mapStateToProps = state => ({
   endDate: getEndDate(state)
 })
 
-export const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = dispatch => ({
   onChange: (dateRange) => {
     dispatch(addFilterByDates(dateRange.startDate, dateRange.endDate))
   }
