@@ -1,5 +1,6 @@
 import React from 'react'
 import Table from 'components/Table'
+import FigureBlock from 'components/FigureBlock'
 import { Topbar } from 'ducks/commons'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
@@ -30,8 +31,7 @@ const Balance = ({t, accounts, type, accountOrGroup}) => {
       <Topbar>
         <h2>{t('Balance.title')}</h2>
       </Topbar>
-      <h3>{t(trad, {label: label})}</h3>
-      <div className={styles['total']}>{total > 0 ? '+' : ''}{total.toLocaleString()} €</div>
+      <FigureBlock label={t(trad, {label: label})} total={total} currency='€' coloredPositive coloredNegative signed />
       <Table className={styles['bnk-table']}>
         <thead>
           <tr>
