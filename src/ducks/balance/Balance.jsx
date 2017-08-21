@@ -1,6 +1,6 @@
 import React from 'react'
 import Table from 'components/Table'
-import FigureBlock from 'components/FigureBlock'
+import { FigureBlock } from 'components/Figure'
 import { Topbar } from 'ducks/commons'
 import { connect } from 'react-redux'
 import classNames from 'classnames'

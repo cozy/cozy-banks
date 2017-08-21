@@ -1,7 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'
-import Figure from 'components/Figure'
+import { Figure } from 'components/Figure'
 import styles from './SubCategory.styl'
 
 const SubCategory = ({ t, subcategory }) => (

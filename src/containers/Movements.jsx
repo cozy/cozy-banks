@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react/I18n'
 
-import FigureBlock from 'components/FigureBlock'
+import { FigureBlock } from 'components/Figure'
 import { Operations } from 'ducks/operations'
 import Loading from 'components/Loading'
 import { Topbar } from 'ducks/commons'

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'
-import Figure from 'components/Figure'
+import { Figure } from 'components/Figure'
 import SubCategory from './SubCategory'
 import styles from './CategoriesBoard.styl'
 
