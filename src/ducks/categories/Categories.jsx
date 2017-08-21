@@ -1,10 +1,7 @@
-import styles from 'styles/categories'
-
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react/I18n'
 import categoriesMap from 'lib/categoriesMap'
-
 import Select from 'components/Select'
 import FigureBlock from 'components/FigureBlock'
 import CategoriesBoard from 'components/CategoriesBoard'
@@ -13,6 +10,7 @@ import PieChart from 'components/PieChart'
 import { Topbar } from 'ducks/commons'
 import { SelectDates, getFilteredOperations } from 'ducks/filters'
 import { fetchOperations, indexOperationsByDate } from 'actions'
+import styles from './categories.styl'
 
 const TOTAL_FILTER = 'total'
 const DEBIT_FILTER = 'debit'
@@ -88,7 +86,7 @@ const computeCategorieData = (operationsByCategory) => {
   })
 }
 
-export class Categories extends Component {
+class Categories extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -194,18 +192,15 @@ export class Categories extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = state => ({
   categories: computeCategorieData(operationsByCategory(getFilteredOperations(state)))
 })
 
-export const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = dispatch => ({
   fetchOperations: async () => {
     const mangoIndex = await dispatch(indexOperationsByDate())
     return dispatch(fetchOperations(mangoIndex))
   }
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(translate()(Categories))
+export default connect(mapStateToProps, mapDispatchToProps)(translate()(Categories))
