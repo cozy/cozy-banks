@@ -1,21 +1,16 @@
-import styles from 'styles/categoriesBoard'
-
 import React, { Component } from 'react'
 import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'
-
 import Figure from 'components/Figure'
-import Subcategory from 'components/Subcategory'
+import SubCategory from './SubCategory'
+import styles from './CategoriesBoard.styl'
 
-export class Category extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {isCollapsed: true}
-
-    this.handleClick = this.handleClick.bind(this)
+class Category extends Component {
+  state = {
+    isCollapsed: true
   }
 
-  handleClick () {
+  handleClick = () => {
     this.setState({isCollapsed: !this.state.isCollapsed})
   }
 
@@ -70,7 +65,7 @@ export class Category extends Component {
         {!isCollapsed &&
           <div className={styles['bnk-table-subcategories']}>
             {category.subcategories.map((subcategory) => (
-              <Subcategory
+              <SubCategory
                 subcategory={subcategory}
               />
             ))}
