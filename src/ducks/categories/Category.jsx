@@ -37,7 +37,7 @@ class Category extends Component {
           <td className={classNames(styles['coz-table-cell'], styles['bnk-table-operation'], 'coz-desktop')}>
             {category.operationsNumber}
           </td>
-          <td className={classNames(styles['coz-table-cell'], styles['bnk-table-amount'])}>
+          <td className={classNames(styles['coz-table-cell'], styles['bnk-table-amount'], 'coz-desktop')}>
             {category.debit !== 0
               ? <Figure
                 total={category.debit}
@@ -47,7 +47,7 @@ class Category extends Component {
               : '－'
             }
           </td>
-          <td className={classNames(styles['coz-table-cell'], styles['bnk-table-amount'])}>
+          <td className={classNames(styles['coz-table-cell'], styles['bnk-table-amount'], 'coz-desktop')}>
             {category.credit !== 0
               ? <Figure
                 total={category.credit}
@@ -59,6 +59,13 @@ class Category extends Component {
           </td>
           <td className={classNames(styles['coz-table-cell'], styles['bnk-table-actions'], 'coz-desktop')}>
             －
+          </td>
+          <td className={classNames(styles['coz-table-cell'], styles['bnk-table-amount'], 'coz-mobile', 'coz-desktop')}>
+            <Figure
+              total={category.credit + category.debit}
+              currency={category.currency}
+              signed
+            />
           </td>
           <td className={classNames(styles['coz-table-cell'], styles['bnk-table-chevron'])} />
         </tr>

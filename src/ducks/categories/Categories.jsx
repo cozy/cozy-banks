@@ -161,18 +161,16 @@ class Categories extends Component {
           <h2>{t('Categories.title.general')}</h2>
         </Topbar>
         <div className={styles['bnk-cat-form']}>
-          <SelectDates />&nbsp;
+          <SelectDates />
           <Select
+            className='coz-desktop'
             name='filterRange'
             options={FILTER_OPTIONS}
             onChange={this.applyFilter.bind(this)}
           />
         </div>
 
-        <div className={styles['bnk-cat-debits']}>
-          <CategoriesBoard
-            categories={filteredCategories}
-          />
+        <div>
           <div class={styles['bnk-cat-figure']}>
             <FigureBlock
               label={t(`Categories.title.${filter}`)}
@@ -186,6 +184,9 @@ class Categories extends Component {
               className='bnk-cat-debits-pie'
             />
           </div>
+          <CategoriesBoard
+            categories={filteredCategories}
+          />
         </div>
       </div>
     )

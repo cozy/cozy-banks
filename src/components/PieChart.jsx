@@ -75,6 +75,7 @@ export class PieChart extends Component {
         <Pie
           data={data}
           height={250}
+          width={250}
           options={options}
         />
       </div>
