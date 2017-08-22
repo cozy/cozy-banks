@@ -8,6 +8,7 @@ class FileOpener extends React.Component {
     super()
     this.showModal = this.showModal.bind(this)
     this.closeModal = this.closeModal.bind(this)
+    this.handleModalError = this.handleModalError.bind(this)
   }
 
   createIntent () {
@@ -21,11 +22,23 @@ class FileOpener extends React.Component {
 
   closeModal () {
     this.setState({ intent: null })
+    this.props.onClose && this.props.onClose()
+  }
+
+  handleModalError (err) {
+    this.setState({ intent: null, error: err })
+    this.props.onError && this.props.onError()
+  }
+
+  componentDidMount () {
+    if (this.props.autoopen) {
+      this.showModal()
+    }
   }
 
   render ({ children }, { intent }) {
     return <span>
-      {React.cloneElement(children, { onClick: this.showModal })}
+      { children && React.cloneElement(children, { onClick: this.showModal })}
       {intent
         ? <FullscreenIntentModal
           intent={intent}
@@ -33,11 +46,6 @@ class FileOpener extends React.Component {
           secondaryAction={this.closeModal} />
         : null}
     </span>
-  }
-
-  handleModalError (err) {
-    this.setState({ intent: null })
-    console.warn(err)
   }
 }
 
