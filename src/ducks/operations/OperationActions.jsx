@@ -1,23 +1,19 @@
 /* global cozy */
-
 import React from 'react'
 import { Item } from 'ducks/menu'
 import { translate } from 'cozy-ui/react/I18n'
 import FileOpener from 'components/FileOpener'
 import Spinner from 'components/Spinner'
-
 import styles from './OperationActions.styl'
 import _ from 'lodash'
 
 // constants
-
 const HEALTH_LINK = 'refund'
 const APP_LINK = 'app'
 const BILL_LINK = 'bill'
 const URL_LINK = 'url'
 
 // helpers
-
 const getAppName = (urls, operation) => {
   let appName
   Object.keys(urls).map(key => {
@@ -28,9 +24,7 @@ const getAppName = (urls, operation) => {
   return appName
 }
 
-const getOperationBill = function (operation) {
-  return _.get(operation, 'bills[0]')
-}
+const getOperationBill = operation => _.get(operation, 'bills[0]')
 
 const getLinkType = (operation, urls) => {
   const action = operation.action
