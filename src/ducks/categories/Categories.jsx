@@ -1,18 +1,16 @@
-import styles from 'styles/categories'
-
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react/I18n'
 import categoriesMap from 'lib/categoriesMap'
-
 import Select from 'components/Select'
-import FigureBlock from 'components/FigureBlock'
-import CategoriesBoard from 'components/CategoriesBoard'
+import { FigureBlock } from 'components/Figure'
 import Loading from 'components/Loading'
 import PieChart from 'components/PieChart'
 import { Topbar } from 'ducks/commons'
 import { SelectDates, getFilteredOperations } from 'ducks/filters'
 import { fetchOperations, indexOperationsByDate } from 'actions'
+import CategoriesBoard from './CategoriesBoard'
+import styles from './Categories.styl'
 
 const TOTAL_FILTER = 'total'
 const DEBIT_FILTER = 'debit'
@@ -88,7 +86,7 @@ const computeCategorieData = (operationsByCategory) => {
   })
 }
 
-export class Categories extends Component {
+class Categories extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -163,18 +161,16 @@ export class Categories extends Component {
           <h2>{t('Categories.title.general')}</h2>
         </Topbar>
         <div className={styles['bnk-cat-form']}>
-          <SelectDates />&nbsp;
+          <SelectDates />
           <Select
+            className='coz-desktop'
             name='filterRange'
             options={FILTER_OPTIONS}
             onChange={this.applyFilter.bind(this)}
           />
         </div>
 
-        <div className={styles['bnk-cat-debits']}>
-          <CategoriesBoard
-            categories={filteredCategories}
-          />
+        <div>
           <div class={styles['bnk-cat-figure']}>
             <FigureBlock
               label={t(`Categories.title.${filter}`)}
@@ -188,24 +184,24 @@ export class Categories extends Component {
               className='bnk-cat-debits-pie'
             />
           </div>
+          <CategoriesBoard
+            categories={filteredCategories}
+          />
         </div>
       </div>
     )
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = state => ({
   categories: computeCategorieData(operationsByCategory(getFilteredOperations(state)))
 })
 
-export const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = dispatch => ({
   fetchOperations: async () => {
     const mangoIndex = await dispatch(indexOperationsByDate())
     return dispatch(fetchOperations(mangoIndex))
   }
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(translate()(Categories))
+export default connect(mapStateToProps, mapDispatchToProps)(translate()(Categories))

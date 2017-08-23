@@ -8,7 +8,7 @@ import { Media, Bd, Img } from 'components/Media'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 
 const ownerRx = /\((.*)\)/ // find the word in parenthesis
-const getOwner = function (account) {
+const getOwner = (account) => {
   if (!account) { return }
   const match = ownerRx.exec(account.label)
   return match ? match[1] : account.label.split(' ').slice(-1)[0]
@@ -48,18 +48,14 @@ class AccountSharingStatus extends Component {
   }
 }
 
-const mapStateToProps = function (state, ownProps) {
-  return {
-    sharingInfo: getSharingInfo(state, ACCOUNT_DOCTYPE, ownProps.account._id)
-  }
-}
+const mapStateToProps = (state, ownProps) => ({
+  sharingInfo: getSharingInfo(state, ACCOUNT_DOCTYPE, ownProps.account._id)
+})
 
-const mapDispatchToProps = (dispatch, props) => {
-  return {
-    fetchSharingInfo: (doctype, id) => {
-      dispatch(fetchSharingInfo(ACCOUNT_DOCTYPE, props.account._id))
-    }
+const mapDispatchToProps = (dispatch, props) => ({
+  fetchSharingInfo: (doctype, id) => {
+    dispatch(fetchSharingInfo(ACCOUNT_DOCTYPE, props.account._id))
   }
-}
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(AccountSharingStatus)

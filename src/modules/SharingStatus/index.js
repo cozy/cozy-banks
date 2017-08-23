@@ -26,13 +26,13 @@ export const fetchSharingInfo = (doctype, id) => dispatch => {
   })
 }
 
-const key = function (doctype, id) {
+const key = (doctype, id) => {
   return `${doctype}/${id}`
 }
 // REDUCERS
 // doctype+id -> { shared: true|false, fetching: true|false }
 const initialState = {}
-export const reducer = function (state = initialState, action) {
+export const reducer = (state = initialState, action) => {
   const { type, doctype, id } = action
   const docKey = key(doctype, id)
   const docInfo = state[docKey] || {}

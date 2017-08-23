@@ -30,7 +30,7 @@ export const groups = (state = [], action) => {
   }
 }
 
-export const isShared = function (account) {
+export const isShared = account => {
   return account.institutionLabel === 'CIC'
 }
 

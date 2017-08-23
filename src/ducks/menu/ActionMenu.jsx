@@ -7,7 +7,7 @@ import styles from './ActionMenu.styl'
 import styles2 from '../operations/Operations.styl'
 import OperationActions from '../operations/OperationActions'
 import Backdrop from './Backdrop'
-import Figure from 'components/Figure'
+import { Figure } from 'components/Figure'
 
 const MenuHeaderOperation = translate()(({ f, operation }) => (
   <div className={classNames(styles['menu-header'], styles2[`bnk-table-desc--${operation.category}`], styles2['coz-table-cell'])}>

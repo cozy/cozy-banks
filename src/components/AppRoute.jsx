@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router'
 import { Layout } from 'ducks/commons'
 
 import Movements from 'containers/Movements'
-import Categories from 'containers/Categories'
+import { Categories } from 'ducks/categories'
 import Settings from 'containers/Settings'
 import { Balance } from 'ducks/balance'
 

@@ -1,0 +1,74 @@
+@import 'cozy-ui'
+@import '../../styles/breakpoints.styl'
+
+// Due to discrepancies between Chrome and Firefox in
+// how select height is computed, we set it directly
+select-date-height=3rem
+select-date-width=20rem
+
+.select-dates
+    display flex
+    white-space nowrap
+    width select-date-width
+    height select-date-height
+
+    .prev-button, .next-button, .select-dates-select
+        height 100%
+        margin 0
+
+    .prev-button, .next-button
+        width select-date-height
+        margin 0
+        padding 0
+
+        svg
+            margin-top 5px
+
+    .select-dates-select
+        display inline
+        flex 1
+
+        select
+            padding 0 1rem
+            width 100%
+            border-radius 0
+            height 100%
+            vertical-align top // corrects a 1px bug on Windows' Chrome
+
++small-screen()
+    .select-dates
+        width 100%
+        height 2.5rem
+
+        .prev-button, .next-button
+            width: 2.5rem
+
+.prev-button, .next-button
+    background transparent
+    border-radius 4px
+    box-sizing border-box
+    border 1px solid grey-03
+    padding 1em
+    outline 0
+    cursor pointer
+    font-size 1.125rem
+
+    &:disabled
+        cursor not-allowed
+
+    svg
+        width 1rem
+        height 1rem
+
+.prev-button
+    border-top-right-radius 0
+    border-bottom-right-radius 0
+    border-right-width 0
+
+.next-button
+    border-top-left-radius 0
+    border-bottom-left-radius 0
+    border-left-width 0
+
+.next-icon
+    transform rotate(180deg)

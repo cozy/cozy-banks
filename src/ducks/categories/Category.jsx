@@ -1,21 +1,16 @@
-import styles from 'styles/categoriesBoard'
-
 import React, { Component } from 'react'
 import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'
+import { Figure } from 'components/Figure'
+import SubCategory from './SubCategory'
+import styles from './CategoriesBoard.styl'
 
-import Figure from 'components/Figure'
-import Subcategory from 'components/Subcategory'
-
-export class Category extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {isCollapsed: true}
-
-    this.handleClick = this.handleClick.bind(this)
+class Category extends Component {
+  state = {
+    isCollapsed: true
   }
 
-  handleClick () {
+  handleClick = () => {
     this.setState({isCollapsed: !this.state.isCollapsed})
   }
 
@@ -42,7 +37,7 @@ export class Category extends Component {
           <td className={classNames(styles['coz-table-cell'], styles['bnk-table-operation'], 'coz-desktop')}>
             {category.operationsNumber}
           </td>
-          <td className={classNames(styles['coz-table-cell'], styles['bnk-table-amount'])}>
+          <td className={classNames(styles['coz-table-cell'], styles['bnk-table-amount'], 'coz-desktop')}>
             {category.debit !== 0
               ? <Figure
                 total={category.debit}
@@ -52,7 +47,7 @@ export class Category extends Component {
               : '－'
             }
           </td>
-          <td className={classNames(styles['coz-table-cell'], styles['bnk-table-amount'])}>
+          <td className={classNames(styles['coz-table-cell'], styles['bnk-table-amount'], 'coz-desktop')}>
             {category.credit !== 0
               ? <Figure
                 total={category.credit}
@@ -65,12 +60,19 @@ export class Category extends Component {
           <td className={classNames(styles['coz-table-cell'], styles['bnk-table-actions'], 'coz-desktop')}>
             －
           </td>
+          <td className={classNames(styles['coz-table-cell'], styles['bnk-table-amount'], 'coz-mobile', 'coz-desktop')}>
+            <Figure
+              total={category.credit + category.debit}
+              currency={category.currency}
+              signed
+            />
+          </td>
           <td className={classNames(styles['coz-table-cell'], styles['bnk-table-chevron'])} />
         </tr>
         {!isCollapsed &&
           <div className={styles['bnk-table-subcategories']}>
             {category.subcategories.map((subcategory) => (
-              <Subcategory
+              <SubCategory
                 subcategory={subcategory}
               />
             ))}

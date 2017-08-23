@@ -2,7 +2,7 @@ import React from 'react'
 import classNames from 'classnames'
 import compareDesc from 'date-fns/compare_desc'
 import { translate } from 'cozy-ui/react/I18n'
-import Figure from 'components/Figure'
+import { Figure } from 'components/Figure'
 import OperationMenu from './OperationMenu'
 import { OperationAction } from './OperationActions'
 

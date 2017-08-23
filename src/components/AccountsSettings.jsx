@@ -13,7 +13,7 @@ import { fetchSharingInfo } from 'modules/SharingStatus'
 import AccountSharingStatus from 'components/AccountSharingStatus'
 import fetchData from 'components/fetchData'
 
-const AccountsTable = function ({ accounts, t }) {
+const AccountsTable = ({ accounts, t }) => {
   return accounts ? <table className={styles['coz-table']}>
     <tr className={classNames(styles['coz-table-head'], styles['coz-table-row'])}>
       <th className={classNames(styles['coz-table-header'], styles['bnk-table-libelle'])}>
@@ -137,15 +137,13 @@ class AccountsSettings extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    getSharingInfo: (doctype, id) => {
-      return getSharingInfo(state, doctype, id)
-    }
+const mapStateToProps = state => ({
+  getSharingInfo: (doctype, id) => {
+    return getSharingInfo(state, doctype, id)
   }
-}
+})
 
-const fetchAccountsSharingInfo = function (props) {
+const fetchAccountsSharingInfo = props => {
   const { accounts } = props
   return Promise.all(accounts.map(account => {
     return props.dispatch(fetchSharingInfo(ACCOUNT_DOCTYPE, account._id))

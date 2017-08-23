@@ -63,12 +63,12 @@ export class Settings extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = state => ({
   groups: state.groups,
   accounts: state.accounts
 })
 
-export const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = dispatch => ({
   updateGroup: async (id, data) => {
     return dispatch(updateGroup(id, data))
   },
@@ -80,7 +80,4 @@ export const mapDispatchToProps = (dispatch, ownProps) => ({
   }
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(translate()(Settings))
+export default connect(mapStateToProps, mapDispatchToProps)(translate()(Settings))

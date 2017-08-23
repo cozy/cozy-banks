@@ -157,13 +157,13 @@ class AccountSwitch extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = state => ({
   accounts: getAccounts(state),
   groups: getGroups(state),
   accountOrGroup: getAccountOrGroup(state)
 })
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = dispatch => ({
   fetchAccounts: async () => {
     const mangoIndex = await dispatch(indexAccounts())
     return dispatch(fetchAccounts(mangoIndex))

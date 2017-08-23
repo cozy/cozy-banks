@@ -4,8 +4,16 @@
     @extend    $app-2panes-sticky
 
 .bnk-content
-    top-padded(30px)
-    left-padded(30px)
-    @media (max-width: (768/basefont)rem)
-        padding         0
-        padding-left    2em
+    padding 2em
+
+    table
+        width calc(100% + 4em)
+        margin-left -2em
+
+@media (max-width: (768/basefont)rem)
+    .bnk-content
+        padding 1em
+
+        table
+            width calc(100% + 2em)
+            margin-left -1em

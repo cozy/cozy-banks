@@ -5,7 +5,7 @@ import { subMonths, startOfMonth, endOfMonth, differenceInDays, endOfDay } from 
 import { translate } from 'cozy-ui/react/I18n'
 import { getStartDate, getEndDate, addFilterByDates } from '.'
 
-import styles from 'styles/select-dates'
+import styles from './SelectDates.styl'
 import Icon from 'cozy-ui/react/Icon'
 import arrowLeft from 'assets/icons/icon-arrow-left.svg'
 
@@ -25,7 +25,7 @@ const getDatesRange = () => {
   return datesRange
 }
 
-function capitalizeFirstLetter (string) {
+const capitalizeFirstLetter = string => {
   return string.charAt(0).toUpperCase() + string.slice(1)
 }
 
@@ -93,24 +93,26 @@ export class SelectDates extends Component {
   render ({t, f, startDate, endDate}) {
     const selected = this.getSelectedIndex()
     const options = this.getOptions()
-    return <div className={styles['select-dates']}>
-      <button disabled={selected === options.length - 1} className={styles['prev-button']} onClick={this.onChoosePrev}>
-        <Icon height='1rem' icon={arrowLeft} />
-      </button>
-      <Select className={styles['select-dates-select']} name='datesRange' value={selected} options={options} onChange={this.onChange} />
-      <button disabled={selected === 0} className={styles['next-button']} onClick={this.onChooseNext}>
-        <Icon width='auto' height='auto' className={styles['next-icon']} icon={arrowLeft} />
-      </button>
-    </div>
+    return (
+      <div className={styles['select-dates']}>
+        <button disabled={selected === options.length - 1} className={styles['prev-button']} onClick={this.onChoosePrev}>
+          <Icon height='1rem' icon={arrowLeft} />
+        </button>
+        <Select className={styles['select-dates-select']} name='datesRange' value={selected} options={options} onChange={this.onChange} />
+        <button disabled={selected === 0} className={styles['next-button']} onClick={this.onChooseNext}>
+          <Icon width='auto' height='auto' className={styles['next-icon']} icon={arrowLeft} />
+        </button>
+      </div>
+    )
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = state => ({
   startDate: getStartDate(state),
   endDate: getEndDate(state)
 })
 
-export const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = dispatch => ({
   onChange: (dateRange) => {
     dispatch(addFilterByDates(dateRange.startDate, dateRange.endDate))
   }

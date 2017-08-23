@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react/I18n'
 
-import FigureBlock from 'components/FigureBlock'
+import { FigureBlock } from 'components/Figure'
 import { Operations } from 'ducks/operations'
 import Loading from 'components/Loading'
 import { Topbar } from 'ducks/commons'
@@ -74,7 +74,7 @@ export class Movements extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = state => ({
   urls: {
     // this keys are used on Operation.jsx to:
     // - find operation label
@@ -86,7 +86,7 @@ const mapStateToProps = (state, ownProps) => ({
   filteredOperations: getFilteredOperations(state)
 })
 
-export const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = dispatch => ({
   fetchApps: () => dispatch(findApps()),
   fetchOperations: async () => {
     const mangoIndex = await dispatch(indexOperationsByDate())
@@ -94,7 +94,4 @@ export const mapDispatchToProps = (dispatch, ownProps) => ({
   }
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(translate()(Movements))
+export default connect(mapStateToProps, mapDispatchToProps)(translate()(Movements))
