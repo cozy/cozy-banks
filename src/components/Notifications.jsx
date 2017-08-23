@@ -85,7 +85,7 @@ class Notifications extends Component {
           <Modal
             title={'À venir'}
             description={'Ces fonctionnalités seront bientôt disponibles.'}
-            secondaryAction={this.dismissComingSoon.bind(this)}
+            secondaryAction={this.dismissComingSoon}
           />
         }
 

@@ -1,15 +1,12 @@
-import classNames from 'classnames'
-import { connect } from 'react-redux'
 import React, { Component } from 'react'
-
+import { connect } from 'react-redux'
+import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'
-
 import { getSharingInfo } from 'reducers'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 import { groupBy } from 'lodash'
 import styles from 'styles/accounts'
 import { fetchSharingInfo } from 'modules/SharingStatus'
-
 import AccountSharingStatus from 'components/AccountSharingStatus'
 import fetchData from 'components/fetchData'
 
@@ -61,15 +58,11 @@ const AccountsTable = ({ accounts, t }) => {
 }
 
 class AccountsSettings extends Component {
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      editingGroup: null
-    }
+  state = {
+    editingGroup: null
   }
 
-  addGroup () {
+  addGroup = () => {
     this.setState({
       editingGroup: {
         label: '',
@@ -78,13 +71,13 @@ class AccountsSettings extends Component {
     })
   }
 
-  editGroup (group) {
+  editGroup = group => {
     this.setState({
       editingGroup: group
     })
   }
 
-  saveGroupChanges (data) {
+  saveGroupChanges = data => {
     if (data._id) {
       this.props.updateGroup(data._id, data)
     } else {
@@ -96,7 +89,7 @@ class AccountsSettings extends Component {
     })
   }
 
-  deleteGroup (group) {
+  deleteGroup = group => {
     this.props.deleteGroup(group)
 
     this.setState({
@@ -104,11 +97,9 @@ class AccountsSettings extends Component {
     })
   }
 
-  render (props, state) {
-    const { t, accounts } = props
-
+  render ({ t, accounts, getSharingInfo }) {
     const accountBySharingDirection = groupBy(accounts, account => {
-      const sharingInfo = this.props.getSharingInfo(ACCOUNT_DOCTYPE, account._id)
+      const sharingInfo = getSharingInfo(ACCOUNT_DOCTYPE, account._id)
       const infos = (sharingInfo && sharingInfo.info) || {}
       return !!(!infos.recipients || infos.recipients.length === 0 || infos.owner)
     })
@@ -122,7 +113,7 @@ class AccountsSettings extends Component {
         <AccountsTable accounts={accountBySharingDirection[true]} t={t} />
 
         <p>
-          <button className={classNames(styles['bnk-action-button'], styles['icon-plus'])} onClick={this.addGroup.bind(this)}>
+          <button className={classNames(styles['bnk-action-button'], styles['icon-plus'])} onClick={this.addGroup}>
             {t('Accounts.add-account')}
           </button>
         </p>

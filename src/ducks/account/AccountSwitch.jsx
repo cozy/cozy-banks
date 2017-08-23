@@ -32,11 +32,11 @@ class AccountSwitch extends Component {
         })
       })
 
-    document.addEventListener('click', this.onClickOutside.bind(this))
+    document.addEventListener('click', this.onClickOutside)
     this.lastOpenEvent = null
   }
 
-  onClickOutside (e) {
+  onClickOutside = e => {
     // the event that trigered the menu open propagates and eventually ends up here,
     // but in that case we don't wnt to close the menu. So if it's the same event,
     // we just ignore it.
@@ -50,7 +50,7 @@ class AccountSwitch extends Component {
     }
   }
 
-  toggle (e) {
+  toggle = e => {
     let newState = !this.state.open
 
     if (newState) this.lastOpenEvent = e
@@ -66,7 +66,7 @@ class AccountSwitch extends Component {
 
     return (
       <div className={styles['account-switch']}>
-        <button className={classNames(styles['account-switch-button'], {[styles['active']]: open}, 'coz-desktop')} onClick={this.toggle.bind(this)}>
+        <button className={classNames(styles['account-switch-button'], {[styles['active']]: open}, 'coz-desktop')} onClick={this.toggle}>
           {isFetching
             ? `${t('Loading.loading')}...`
             : accountOrGroup
@@ -89,7 +89,7 @@ class AccountSwitch extends Component {
             </div>
           }
         </button>
-        <button className={classNames('coz-btn', styles['account-switch-button-mobile'], 'coz-mobile', {[styles['active']]: accountOrGroup})} onClick={this.toggle.bind(this)} />
+        <button className={classNames('coz-btn', styles['account-switch-button-mobile'], 'coz-mobile', {[styles['active']]: accountOrGroup})} onClick={this.toggle} />
         {open && <Backdrop className='coz-mobile' onClose={this.close} />}
         {open &&
           <div className={styles['account-switch-menu-content']}>
