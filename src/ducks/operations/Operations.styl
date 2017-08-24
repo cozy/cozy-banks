@@ -1,165 +1,128 @@
 @import 'cozy-ui'
 
-.bnk-table-actions-link
-    cursor pointer
-    padding-left   2em
-    padding-top    .1em
-    padding-bottom .1em
-    background     embedurl('../../assets/icons/icon-link-out.svg') em(0px) center no-repeat
+.bnk-op-table
+    .bnk-op-date
+        flex-basis 15%
+    .bnk-op-desc
+        flex-basis 30%
+    .bnk-op-amount
+        flex-basis 20%
+        text-align right
+    .bnk-op-action
+        flex-basis 25%
+    .bnk-op-actions
+        flex-basis 10%
 
-[role=application] // @stylint ignore
-    @extend $table
+@media (max-width: (768/basefont)rem)
+    .bnk-op-table
+        .bnk-op-desc
+            cursor pointer
+            flex-basis 60%
+        .bnk-op-amount
+            cursor pointer
+            flex-basis 40%
+        .bnk-op-date
+        .bnk-op-action
+        .bnk-op-actions
+            display none
 
-    .coz-table
-        margin-bottom 0
+        tbody
+            .bnk-op-desc
+                color charcoal-grey
 
-    .coz-table-body
-        height auto
-        overflow inherit
+// Actions
 
-        &:last-child
-            .coz-table-row:last-child
-                border-bottom 1px solid silver
+.bnk-op-table
+    .bnk-op-action
+        padding-left 0
 
-    .coz-table-row
-        border-bottom 1px solid silver
+        .bnk-table-actions-link
+            background-image: none
 
-    .coz-table-cell
-    .coz-table-header
-        font-size     em(14px)
-        padding-right em(12px)
-        padding-left  em(24px)
+    tbody
+        overflow inherit!important
 
-    .bnk-table-date
-        flex            1 0 11em
-        padding-left    em(36px)
+        .bnk-op-actions
+            padding 0 2rem 0 0
 
-    .bnk-table-amount
-        flex        1 0 7em
-        text-align  right
+            > div
+                float right
 
-    .bnk-table-desc
-        flex    1 0 25em
+// Date section on mobile
 
-    .bnk-table-action
-        flex  1 1 15em
+.bnk-op-table
+    .bnk-op-date-header
+        display none
 
-    .bnk-table-actions
-        width 70px
-        padding 0
+@media (max-width: (768/basefont)rem)
+    .bnk-op-table
+        tr:last-child
+            border-width 0
+        tbody:last-child
+            tr:last-child
+                border-bottom-width 1px
+        .bnk-op-date-header
+            display inherit
+            background-color pale-grey
+            border-width 0
 
+            td
+                background-color pale-grey
+                color cool-grey
+                font-size em(12px)
+                text-transform uppercase
+                font-weight bold
+                padding 0 1rem
+                line-height em(16px)
+
+// All icons and classes for movement types
+
+childrenMvts = children_activities pocket_money school_insurance child-care toys child_support school_restaurant children_others
+
+dailyLifeMvts = regular_shopping pets gifts cosmetics donations clothing telecom personal_loan_refund shopping meals press daily_life_others
+
+educationMvts = lessons school_fees education_supplies student_load_refund education_others
+
+healthMvts = health_insurance health_costs health_refunds health_others
+
+housingMvts = housing_insurance housing_costs water electricity rent furnitures mortgage_refund house_works housing_others
+
+incomeMvts = allowances gift_incomes dividends interests pension complementary_incomes replacement_incomes rental_incomes salary income_others
+
+leasuresMvts = leasures_subscription leasures_lessons electronic leasures_supplies multimedia hobbies leasures_others
+
+outBudgetMvts = security_purchases security_sales advances refunds releasings expenses_bill deferred_debit saving_transfer internal_transfer out-budget_others
+
+servicesMvts = home_help financial_consulting legal_consulting bank_charges post services_others
+
+taxesMvts = social_contributions income_tax wealth_tax property_tax taxes_others
+
+transportationMvts = car_purchase car_insurance fuel vehicle_maintenance garage vehicle_rental parking_costs vehicle_loan_refund taxi public_transportation transportation_others
+
+tripsMvts = trips_transportation restaurants cultural_trips relaxation_trips journeys trips_others
+
+uncategorizedMvts = cheques withdrawals uncategorized_transfers uncategorized_others
+
+// GATHERED
+allMvts = childrenMvts dailyLifeMvts educationMvts healthMvts housingMvts incomeMvts leasuresMvts outBudgetMvts servicesMvts taxesMvts transportationMvts tripsMvts uncategorizedMvts
+
+// For now, all mouvements from same category use the same icon
+categories = children daily-life education health housing income leasures out-budget services taxes transportation trips uncategorized
+
+// TODO use function to get each movement icon instead of category icon
+getTemporaryCatBkg(categoryLabel)
+    icon = '../../assets/icons/categories/icon-cat-%s.svg' % categoryLabel
+    background-image embedurl(icon) // @stylint ignore
+
+for num in 0..12
+    mvtsList = allMvts[num]
+    category = categories[num]
+    for mvt in mvtsList
+        .bnk-table-desc--{mvt}
+            getTemporaryCatBkg(category)
+
+@media (max-width: (724/basefont)rem)
+    .coz-table-body .coz-table-row
+        font-size 0.8em
     .coz-table-cell.bnk-table-desc
-        padding-left    4.5em
-        color           black
-        // default movement icon
-        background  embedurl('../../assets/icons/categories/icon-cat-uncategorized.svg') center no-repeat
-        background-position-x   em(24px)
-
-    .coz-table-cell.bnk-table-amount
-        color black
-
-    .bnk-table-row-date
-        background-color pale-grey
-        color cool-grey
-        font-size em(12px)
-        text-transform uppercase
-        font-weight bold
-
-        td
-            padding-left 18px
-
-    @media (max-width: (1023/basefont)rem)
-        .bnk-table-desc
-            flex    1 0 12em
-
-        .bnk-table-date
-            flex    1 0 7em
-
-        .bnk-table-amount
-            padding-right 2em
-
-        .coz-table-row
-            border-bottom 1px solid transparent
-
-        .coz-table-body
-            .coz-table-row
-                border-bottom 1px solid silver
-
-                &:last-child
-                    border-bottom 1px solid transparent
-
-                    &:hover
-                        border-bottom 1px solid silver
-
-                &:fisrt-child
-                    border-top 1px solid transparent
-
-                    &:hover
-                        border-top 1px solid silver
-        .bnk-table-action
-            flex inherit
-            width 30px
-            white-space nowrap
-            padding-left 0
-            overflow hidden
-
-            a
-                padding-left 4em
-
-    // All icons and classes for movement types
-
-    childrenMvts = children_activities pocket_money school_insurance child-care toys child_support school_restaurant children_others
-
-    dailyLifeMvts = regular_shopping pets gifts cosmetics donations clothing telecom personal_loan_refund shopping meals press daily_life_others
-
-    educationMvts = lessons school_fees education_supplies student_load_refund education_others
-
-    healthMvts = health_insurance health_costs health_refunds health_others
-
-    housingMvts = housing_insurance housing_costs water electricity rent furnitures mortgage_refund house_works housing_others
-
-    incomeMvts = allowances gift_incomes dividends interests pension complementary_incomes replacement_incomes rental_incomes salary income_others
-
-    leasuresMvts = leasures_subscription leasures_lessons electronic leasures_supplies multimedia hobbies leasures_others
-
-    outBudgetMvts = security_purchases security_sales advances refunds releasings expenses_bill deferred_debit saving_transfer internal_transfer out-budget_others
-
-    servicesMvts = home_help financial_consulting legal_consulting bank_charges post services_others
-
-    taxesMvts = social_contributions income_tax wealth_tax property_tax taxes_others
-
-    transportationMvts = car_purchase car_insurance fuel vehicle_maintenance garage vehicle_rental parking_costs vehicle_loan_refund taxi public_transportation transportation_others
-
-    tripsMvts = trips_transportation restaurants cultural_trips relaxation_trips journeys trips_others
-
-    uncategorizedMvts = cheques withdrawals uncategorized_transfers uncategorized_others
-
-    // GATHERED
-    allMvts = childrenMvts dailyLifeMvts educationMvts healthMvts housingMvts incomeMvts leasuresMvts outBudgetMvts servicesMvts taxesMvts transportationMvts tripsMvts uncategorizedMvts
-
-    // For now, all mouvements from same category use the same icon
-    categories = children daily-life education health housing income leasures out-budget services taxes transportation trips uncategorized
-
-    // TODO use function to get each movement icon instead of category icon
-    getTemporaryCatBkg(categoryLabel)
-        icon = '../../assets/icons/categories/icon-cat-%s.svg' % categoryLabel
-        {background} embedurl(icon) center no-repeat // @stylint ignore
-
-    for num in 0..12
-        mvtsList = allMvts[num]
-        category = categories[num]
-        for mvt in mvtsList
-            .coz-table-cell.bnk-table-desc--{mvt}
-                getTemporaryCatBkg(category)
-                background-position-x   em(24px)
-
-            @media (max-width: (724/basefont)rem)
-                .coz-table-cell.bnk-table-desc--{mvt}
-                    background-position-x   em(16px)
-                    background-size 24px
-
-    @media (max-width: (724/basefont)rem)
-        .coz-table-body .coz-table-row
-            font-size 0.8em
-        .coz-table-cell.bnk-table-desc
-            padding-left    4em
+        padding-left    4em

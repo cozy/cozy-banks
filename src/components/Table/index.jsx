@@ -9,8 +9,8 @@ const Table = ({children, className}) => (
   </table>
 )
 
-const TdWithIcon = ({children, className}) => (
-  <td className={classNames(styles['coz-table-td-with-icon'], className)}>
+const TdWithIcon = ({children, className, onClick}) => (
+  <td className={classNames(styles['coz-table-td-with-icon'], className)} onClick={onClick}>
     {children}
   </td>
 )
