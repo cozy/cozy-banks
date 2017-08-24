@@ -74,21 +74,11 @@ const Operations = ({ f, operations, urls, selectOperation }) => {
                     {operation.label}
                   </td>
                   <td className={classNames(styles['coz-table-cell'], styles['bnk-table-amount'], 'coz-desktop')}>
-                    <Figure
-                      total={operation.amount}
-                      currency={operation.currency}
-                      signed
-                      coloredPositive
-                    />
+                    <Figure total={operation.amount} currency={operation.currency} coloredPositive signed />
                   </td>
                   <td className={classNames(styles['coz-table-cell'], styles['bnk-table-amount'], 'coz-mobile')}
                     onClick={() => selectOperation(operation)}>
-                    <Figure
-                      total={operation.amount}
-                      currency={operation.currency}
-                      signed
-                      coloredPositive
-                    />
+                    <Figure total={operation.amount} currency={operation.currency} coloredPositive signed />
                   </td>
                   <td className={classNames(styles['coz-table-cell'], styles['bnk-table-action'])}>
                     <OperationAction operation={operation} urls={urls} className={styles['bnk-table-actions-link']} />

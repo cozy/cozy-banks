@@ -9,11 +9,18 @@
         font-size       em(18px)
         font-weight     900
 
-    > div
-        margin-top      .5em
-
 .bnk-mov-figures
-    margin          1em 0 2em
+    margin          1em 0
     display         flex
     flex-direction  row
     flex-wrap       wrap
+
+    > div
+        margin 0 1em 1em 0
+        flex 1
+
+@media (max-width: (1023/basefont)rem)
+    .bnk-mov-figures
+        > div
+            margin 0
+            flex-basis 50%

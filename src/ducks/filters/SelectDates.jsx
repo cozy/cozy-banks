@@ -29,21 +29,12 @@ const capitalizeFirstLetter = string => {
   return string.charAt(0).toUpperCase() + string.slice(1)
 }
 
-export class SelectDates extends Component {
-  constructor (props) {
-    super(props)
-
-    this.onChange = this.onChange.bind(this)
-    this.onChooseNext = this.onChooseNext.bind(this)
-    this.onChoosePrev = this.onChoosePrev.bind(this)
-
-    const dates = getDatesRange()
-    this.state = {
-      datesRange: dates
-    }
+class SelectDates extends Component {
+  state = {
+    datesRange: getDatesRange()
   }
 
-  getSelectedIndex () {
+  getSelectedIndex = () => {
     const { datesRange } = this.state
     const { startDate, endDate } = this.props
     for (const [index, value] of datesRange.entries()) {
@@ -54,7 +45,7 @@ export class SelectDates extends Component {
     return 0
   }
 
-  getOptions () {
+  getOptions = () => {
     // create options
     const { t, f } = this.props
     const { datesRange } = this.state
@@ -69,19 +60,19 @@ export class SelectDates extends Component {
     return options
   }
 
-  onChange (name, index) {
+  onChange = (name, index) => {
     this.props.onChange(this.state.datesRange[index])
   }
 
-  onChooseNext () {
+  onChooseNext = () => {
     this.chooseOption(-1)
   }
 
-  onChoosePrev () {
+  onChoosePrev = () => {
     this.chooseOption(+1)
   }
 
-  chooseOption (inc) {
+  chooseOption = inc => {
     const index = this.getSelectedIndex()
     const options = this.getOptions()
     const newIndex = index + inc

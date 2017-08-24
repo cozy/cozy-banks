@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import classNames from 'classnames'
 import styles from './Menu.styl'
 
-export class Menu extends Component {
+class Menu extends Component {
   state = { opened: false }
 
   toggle = () => this.state.opened ? this.close() : this.open()

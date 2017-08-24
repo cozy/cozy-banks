@@ -8,6 +8,7 @@ const FigureBlock = ({label, total, currency, coloredPositive, coloredNegative, 
       {label}
     </h4>
     <Figure
+      className={styles['bnk-figure']}
       total={total}
       currency={currency}
       coloredPositive={coloredPositive}

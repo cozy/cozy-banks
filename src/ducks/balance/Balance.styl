@@ -1,69 +1,42 @@
 @import 'cozy-ui'
 
 .balance
-    h2
-        margin 0 auto 1.5em
+    table
+        .account_name
+            flex-basis 40%
+        .solde
+            flex-basis 20%
+            text-align right
+        .bank_name
+            flex-basis 20%
+        .account_number
+            flex-basis 20%
+
+        tbody
+            .solde
+            .account_name
+                color charcoal-grey
+
+                &.alert
+                    font-weight bold
+                    color pomegranate
+
+                    span
+                        margin-left 5px
+                        heigth 1rem
+
+                        &:before
+                            vertical-align middle
+                            margin-bottom 3px
 
 @media (max-width: (768/basefont)rem)
     .balance
-        h2
-            margin 0
-
-.bnk-table
-    height auto
-
-    .account_name
-        flex-basis 40%
-    .solde
-        flex-basis 20%
-        text-align right
-    .bank_name
-        flex-basis 20%
-    .account_number
-        flex-basis 20%
-
-    tbody
-        height auto
-        overflow inherit
-
-        .account_name
-            color charcoal-grey
-            font-size 1em
-
-            &.alert
-                font-weight bold
-                color pomegranate
-
-                span
-                    margin-left 5px
-                    heigth 1rem
-
-                    &:before
-                        vertical-align middle
-                        margin-bottom 3px
-
-        .solde
-            color charcoal-grey
-            font-weight bold
-            font-size 1em
-
-            &.alert
-                color pomegranate
-
-                span
-                    color pomegranate
-
-            span
-                color cool-grey
-                font-weight inherit
-
-@media (max-width: (768/basefont)rem)
-    .bnk-table
-        .account_name
-            flex-basis 60%
-        .solde
-            flex-basis 40%
-        .bank_name
-            display none
-        .account_number
-            display none
+        table
+            .account_name
+                flex-basis 60%
+            .solde
+                flex-basis 40%
+            .bank_name
+                display none
+            .account_number
+                display none

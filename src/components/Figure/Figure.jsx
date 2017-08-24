@@ -1,9 +1,10 @@
 import React from 'react'
+import classNames from 'classnames'
 import styles from './Figure.styl'
 
 const Figure = props => {
   const {
-    total, currency, coloredPositive, coloredNegative, signed
+    total, currency, coloredPositive, coloredNegative, signed, className
   } = props
 
   let { decimalNumbers } = props
@@ -20,9 +21,9 @@ const Figure = props => {
   }
 
   return (
-    <div className={styles[totalCSSClass]}>
-      {(isTotalPositive && signed) && '+'}
+    <div className={classNames(styles[totalCSSClass], className)}>
       <span className={styles['bnk-figure-total']}>
+        {(isTotalPositive && signed) && '+'}
         {total.toLocaleString(
           'fr-FR',
           {maximumFractionDigits: decimalNumbers,
