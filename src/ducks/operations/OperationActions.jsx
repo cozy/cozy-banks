@@ -113,6 +113,7 @@ export const OperationAction = ({operation, urls, onClick, type, className}) => 
     const action = operation.action
     options.actionValue = action.trad
     options.target = action.target
+    options.href = action.url
     options.onClick = onClick
   }
 
