@@ -28,7 +28,7 @@ export const indexAccounts = () => {
 }
 
 // Returns bank accounts
-export const fetchAccounts = (mangoIndex) => {
+export const fetchAccounts = mangoIndex => {
   return async (dispatch) => {
     dispatch({ type: FETCH_BANK_ACCOUNTS })
     return cozy.client.data.query(mangoIndex, {

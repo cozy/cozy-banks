@@ -14,7 +14,7 @@ import styles from './Categories.styl'
 const INCOME_CATEGORY = 'income'
 
 // This function builds a map of categories and sub-categories, each containing a list of related operations, a name and a color
-const operationsByCategory = (operations) => {
+const operationsByCategory = operations => {
   let categories = {}
 
   operations.forEach(operation => {
@@ -48,7 +48,7 @@ const operationsByCategory = (operations) => {
 
 // Very specific to this component: takes the operations by category as returned by the `operationsByCategory` function, and turns it into a flat array, while computing derived data such as totals and curencies.
 // The result is used pretty much as is down the chain by other components, so changing property names here should be done with care.
-const computeCategorieData = (operationsByCategory) => {
+const computeCategorieData = operationsByCategory => {
   return Object.values(operationsByCategory).map(category => {
     let subcategories = Object.values(category.subcategories).map(subcategory => {
       const debit = subcategory.operations.reduce((total, op) => (op.amount < 0 ? total + op.amount : total), 0)

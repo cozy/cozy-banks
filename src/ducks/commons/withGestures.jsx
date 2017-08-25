@@ -7,7 +7,7 @@ const shouldListenToTap = handlers => Object.keys(handlers).find(h => /^tap/.tes
 
 const GHOST_CLICK_DELAY = 350
 
-const withGestures = (eventHandlers) => {
+const withGestures = eventHandlers => {
   return WrappedComponent => {
     return class WithGesturesComponent extends Component {
       componentDidMount () {
