@@ -1,5 +1,5 @@
 /* global cozy */
-import React from 'react'
+import React, { Component } from 'react'
 import { Item } from 'ducks/menu'
 import { translate } from 'cozy-ui/react/I18n'
 import FileOpener from 'components/FileOpener'
@@ -49,14 +49,8 @@ export const Action = translate()(({t, actionValue, name, appName, className, ..
 ))
 
 const billSpinnerStyle = { marginLeft: '-0.25rem', marginRight: '-1rem' }
-class BillAction extends React.Component {
-  constructor () {
-    super()
-    this.onClick = this.onClick.bind(this)
-    this.onCloseModal = this.onCloseModal.bind(this)
-  }
-
-  onClick () {
+class BillAction extends Component {
+  onClick = () => {
     this.setState({ loading: true })
     this.fetchFile().then(() => {
       this.setState({ loading: false })
@@ -65,11 +59,11 @@ class BillAction extends React.Component {
     })
   }
 
-  onCloseModal () {
+  onCloseModal = () => {
     this.setState({ file: null })
   }
 
-  fetchFile () {
+  fetchFile = () => {
     const { operation } = this.props
     const billRef = getOperationBill(operation)
     const [doctype, id] = billRef.split(':')
@@ -97,7 +91,9 @@ class BillAction extends React.Component {
 
 export const OperationAction = ({operation, urls, onClick, type, className}) => {
   type = type || getLinkType(operation, urls)
-  const appName = getAppName(urls, operation)
+  if (type === undefined) {
+    return
+  }
 
   let options = {
     name: type,
@@ -110,6 +106,7 @@ export const OperationAction = ({operation, urls, onClick, type, className}) => 
   if (type === HEALTH_LINK) {
     options.href = urls['HEALTH'] + '/#/remboursements'
   } else if (type === APP_LINK) {
+    const appName = getAppName(urls, operation)
     options.href = urls[appName]
     options.appName = appName
   } else if (type === URL_LINK) {
@@ -122,7 +119,7 @@ export const OperationAction = ({operation, urls, onClick, type, className}) => 
   if (type === BILL_LINK) {
     widget = <BillAction operation={operation} {...options} />
   } else {
-    widget = <Action {...{options}} />
+    widget = <Action {...options} />
   }
 
   return widget ? <Item>{widget}</Item> : null

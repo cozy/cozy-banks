@@ -17,9 +17,7 @@ class Item extends Component {
     this.props.onClick().then(() => this.toggleSpinner())
   }
 
-  render () {
-    const { working } = this.state
-    const { className, children, onClick, withSpinner } = this.props
+  render ({className, children, onClick, withSpinner}, { working }) {
     return (
       <div className={classNames(className, styles['coz-menu-item'])} onClick={onClick ? this.handleClick : ''}>
         {children}
