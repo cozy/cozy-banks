@@ -82,14 +82,16 @@ class BillAction extends React.Component {
   render (props, { loading, file }) {
     const actionStyle = {}
     if (loading) { actionStyle.background = 'none' }
-    return <span>
-      { file && <FileOpener
-        onClose={this.onCloseModal}
-        onError={this.onCloseModal}
-        file={file} autoopen /> }
-      { loading ? <Spinner style={billSpinnerStyle} /> : null }
-      <Action {...props} onClick={this.onClick} style={actionStyle} />
-    </span>
+    return (
+      <span>
+        {file && <FileOpener
+          onClose={this.onCloseModal}
+          onError={this.onCloseModal}
+          file={file} autoopen />}
+        {loading ? <Spinner style={billSpinnerStyle} /> : null}
+        <Action {...props} onClick={this.onClick} style={actionStyle} />
+      </span>
+    )
   }
 }
 
@@ -123,7 +125,7 @@ export const OperationAction = ({operation, urls, onClick, type, className}) => 
     widget = <Action {...{options}} />
   }
 
-  return widget ? <Item>{ widget }</Item> : null
+  return widget ? <Item>{widget}</Item> : null
 }
 
 const OperationActions = ({operation, urls, withoutDefault, onClose}) => {
