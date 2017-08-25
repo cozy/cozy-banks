@@ -2,6 +2,7 @@
 
 [role=application]// @stylint ignore
     @extend $navigation
+
     .bnk-cat-balance
         background: embedurl('../../assets/icons/icon-dashboard.svg') em(24px) center no-repeat
         &.active
@@ -28,6 +29,9 @@
             background-image: embedurl('../../assets/icons/icon-people-active.svg')
 
     @media (max-width: (1023/basefont)rem)
+
+        .coz-nav:first-child
+            margin-left .5em
         .bnk-cat-balance
         .bnk-cat-movements
         .bnk-cat-categories

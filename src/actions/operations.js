@@ -32,7 +32,7 @@ export const indexOperationsByDate = () => {
   }
 }
 
-const removeAccountPrefix = (operations) => operations.map(operation => {
+const removeAccountPrefix = operations => operations.map(operation => {
   if (operation.account && operation.account.indexOf(BANK_ACCOUNTS_DOCTYPE) === 0) {
     operation.account = operation.account.substring(BANK_ACCOUNTS_DOCTYPE.length + 1)
   }
@@ -40,7 +40,7 @@ const removeAccountPrefix = (operations) => operations.map(operation => {
 })
 
 // Returns bank operations
-export const fetchOperations = (mangoIndex) => {
+export const fetchOperations = mangoIndex => {
   return async (dispatch) => {
     return cozy.client.data.query(mangoIndex, {
       selector: {'date': {'$gt': null}},

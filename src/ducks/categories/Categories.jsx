@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react/I18n'
 import categoriesMap from 'lib/categoriesMap'
-import Select from 'components/Select'
 import { FigureBlock } from 'components/Figure'
 import Loading from 'components/Loading'
 import PieChart from 'components/PieChart'
@@ -12,13 +11,10 @@ import { fetchOperations, indexOperationsByDate } from 'actions'
 import CategoriesBoard from './CategoriesBoard'
 import styles from './Categories.styl'
 
-const TOTAL_FILTER = 'total'
-const DEBIT_FILTER = 'debit'
 const INCOME_CATEGORY = 'income'
-const FILTERS = [TOTAL_FILTER, DEBIT_FILTER]
 
 // This function builds a map of categories and sub-categories, each containing a list of related operations, a name and a color
-const operationsByCategory = (operations) => {
+const operationsByCategory = operations => {
   let categories = {}
 
   operations.forEach(operation => {
@@ -52,7 +48,7 @@ const operationsByCategory = (operations) => {
 
 // Very specific to this component: takes the operations by category as returned by the `operationsByCategory` function, and turns it into a flat array, while computing derived data such as totals and curencies.
 // The result is used pretty much as is down the chain by other components, so changing property names here should be done with care.
-const computeCategorieData = (operationsByCategory) => {
+const computeCategorieData = operationsByCategory => {
   return Object.values(operationsByCategory).map(category => {
     let subcategories = Object.values(category.subcategories).map(subcategory => {
       const debit = subcategory.operations.reduce((total, op) => (op.amount < 0 ? total + op.amount : total), 0)
@@ -91,7 +87,7 @@ class Categories extends Component {
     super(props)
     this.state = {
       isFetching: true,
-      filter: FILTERS[0]
+      withIncome: true
     }
 
     this.props.fetchOperations().then(
@@ -99,15 +95,15 @@ class Categories extends Component {
     )
   }
 
-  applyFilter (selectName, filterLabel, filterIndex) {
-    this.setState({filter: FILTERS[filterIndex]})
+  applyFilter = e => {
+    this.setState({withIncome: e.target.checked})
   }
 
-  render () {
-    const { t, categories } = this.props
-    if (this.state.isFetching) {
+  render ({t, categories}, {isFetching, withIncome}) {
+    if (isFetching) {
       return <Loading loadingType='categories' />
     }
+
     if (categories.length === 0) {
       return (
         <div>
@@ -121,14 +117,12 @@ class Categories extends Component {
         </div>
       )
     }
+
     // compute the filter to use
-    const { filter } = this.state
-    const FILTER_OPTIONS = FILTERS.map(filter => (t(`Categories.filter.${filter}`)))
-    const shouldFilterIncome = filter === DEBIT_FILTER
-
     let filteredCategories = categories
-
-    if (shouldFilterIncome) filteredCategories = filteredCategories.filter(category => (category.name !== INCOME_CATEGORY))
+    if (!withIncome) {
+      filteredCategories = filteredCategories.filter(category => (category.name !== INCOME_CATEGORY))
+    }
 
     // compute some global data
     const absoluteOperationsTotal = filteredCategories.reduce((total, category) => (total + Math.abs(category.amount)), 0)
@@ -157,33 +151,37 @@ class Categories extends Component {
     })
     return (
       <div>
+
         <Topbar>
           <h2>{t('Categories.title.general')}</h2>
         </Topbar>
-        <div className={styles['bnk-cat-form']}>
-          <SelectDates />
-          <Select
-            className='coz-desktop'
-            name='filterRange'
-            options={FILTER_OPTIONS}
-            onChange={this.applyFilter.bind(this)}
-          />
-        </div>
 
-        <div>
-          <div class={styles['bnk-cat-figure']}>
+        <div className={styles['bnk-cat-top']}>
+          <div className={styles['bnk-cat-form']}>
+            <SelectDates />
+            <div className={styles['bnk-cat-filter']}>
+              <label>
+                <input type='checkbox' checked={withIncome ? 'checked' : ''} onChange={this.applyFilter} />
+                Inclure les revenus
+              </label>
+            </div>
             <FigureBlock
-              label={t(`Categories.title.${filter}`)}
+              label={withIncome ? t('Categories.title.total') : t('Categories.title.debit')}
               total={operationsTotal}
               currency={globalCurrency}
-            />
+              coloredPositive coloredNegative signed />
+          </div>
+
+          <div className={styles['bnk-cat-figure']}>
             <PieChart
               labels={pieDataObject.labels}
               data={pieDataObject.data}
               colors={pieDataObject.colors}
-              className='bnk-cat-debits-pie'
             />
           </div>
+        </div>
+
+        <div className={styles['bnk-cat-table']}>
           <CategoriesBoard
             categories={filteredCategories}
           />

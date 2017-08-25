@@ -16,7 +16,7 @@ import {
   deleteGroup
 } from 'actions'
 
-export class Settings extends Component {
+class Settings extends Component {
   render () {
     const { groups, accounts, createGroup, updateGroup, deleteGroup, params } = this.props
     const tabNames = ['accounts', 'groups', 'notifications']

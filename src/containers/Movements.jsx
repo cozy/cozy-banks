@@ -12,7 +12,7 @@ import { SelectDates, getFilteredOperations } from 'ducks/filters'
 import { fetchOperations, indexOperationsByDate } from 'actions'
 import { getUrlBySource, findApps } from 'ducks/apps'
 
-export class Movements extends Component {
+class Movements extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -64,9 +64,9 @@ export class Movements extends Component {
         </div>
         <div className={styles['bnk-mov-figures']}>
           <FigureBlock label='Total' total={credits + debits} currency='€' coloredPositive coloredNegative signed />
+          <FigureBlock label='Opérations' total={filteredOperations.length} decimalNumbers={0} />
           <FigureBlock label='Débit' total={debits} currency='€' signed />
           <FigureBlock label='Crédit' total={credits} currency='€' signed />
-          <FigureBlock label='Opérations' total={filteredOperations.length} decimalNumbers={0} />
         </div>
         <Operations operations={filteredOperations} urls={urls} />
       </div>

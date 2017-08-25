@@ -30,7 +30,7 @@ export const indexAccountGroups = () => {
 }
 
 // Returns bank accounts
-export const fetchAccountGroups = (mangoIndex) => {
+export const fetchAccountGroups = mangoIndex => {
   return async (dispatch) => {
     dispatch({ type: FETCH_BANK_ACCOUNT_GROUPS })
     return cozy.client.data.query(mangoIndex, {
@@ -45,7 +45,7 @@ export const fetchAccountGroups = (mangoIndex) => {
   }
 }
 
-export const createGroup = (data) => {
+export const createGroup = data => {
   return async (dispatch) => {
     return cozy.client.data.create(BANK_ACCOUNT_GROUPS_DOCTYPE, data)
     .then(group => {
@@ -77,7 +77,7 @@ export const updateGroup = (groupId, data) => {
   }
 }
 
-export const deleteGroup = (group) => {
+export const deleteGroup = group => {
   return async (dispatch) => {
     return cozy.client.data.delete(BANK_ACCOUNT_GROUPS_DOCTYPE, group)
     .then(() => {

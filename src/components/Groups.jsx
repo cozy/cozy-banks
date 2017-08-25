@@ -1,20 +1,15 @@
-import styles from 'styles/groupes'
-import classNames from 'classnames'
-
 import React, { Component } from 'react'
+import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'
-
 import GroupsModal from 'components/GroupsModal'
+import styles from 'styles/groupes'
 
 class Groups extends Component {
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      editingGroup: null
-    }
+  state = {
+    editingGroup: null
   }
-  addGroup () {
+
+  addGroup = () => {
     this.setState({
       editingGroup: {
         label: '',
@@ -22,12 +17,14 @@ class Groups extends Component {
       }
     })
   }
-  editGroup (group) {
+
+  editGroup = group => {
     this.setState({
       editingGroup: group
     })
   }
-  saveGroupChanges (data) {
+
+  saveGroupChanges = data => {
     if (data._id) {
       this.props.updateGroup(data._id, data)
     } else {
@@ -38,17 +35,16 @@ class Groups extends Component {
       editingGroup: null
     })
   }
-  deleteGroup (group) {
+
+  deleteGroup = group => {
     this.props.deleteGroup(group)
 
     this.setState({
       editingGroup: null
     })
   }
-  render (props, state) {
-    const { t, groups, accounts } = props
-    const { editingGroup } = state
 
+  render ({ t, groups, accounts }, { editingGroup }) {
     return (
       <div>
         <h4>
@@ -94,14 +90,14 @@ class Groups extends Component {
             <GroupsModal
               group={editingGroup}
               accounts={accounts}
-              onSave={this.saveGroupChanges.bind(this)}
-              onDelete={this.deleteGroup.bind(this)}
-              onCancel={this.editGroup.bind(this, null)}
+              onSave={this.saveGroupChanges}
+              onDelete={this.deleteGroup}
+              onCancel={this.editGroup}
             />
           </div>
         }
 
-        <button className={classNames(styles['bnk-action-button'], styles['icon-plus'])} onClick={this.addGroup.bind(this)}>
+        <button className={classNames(styles['bnk-action-button'], styles['icon-plus'])} onClick={this.addGroup}>
           {t('Groups.create')}
         </button>
       </div>

@@ -7,7 +7,7 @@ import React, { Component } from 'react'
 import { Pie, Chart } from 'react-chartjs-2'
 import pieceLabel from 'lib/chartjsPieLabels'
 
-export class PieChart extends Component {
+class PieChart extends Component {
   constructor (props) {
     super(props)
     this.state = {

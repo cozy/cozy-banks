@@ -1,10 +1,9 @@
-import styles from 'styles/groupes'
-import classNames from 'classnames'
-
 import React, { Component } from 'react'
+import classNames from 'classnames'
 import Toggle from 'cozy-ui/react/Toggle'
 import Modal from 'cozy-ui/react/Modal'
 import { translate } from 'cozy-ui/react/I18n'
+import styles from 'styles/groupes'
 
 class GroupsModal extends Component {
   constructor (props) {
@@ -14,7 +13,8 @@ class GroupsModal extends Component {
       group: JSON.parse(JSON.stringify(props.group))
     }
   }
-  rename (e) {
+
+  rename = e => {
     let group = this.state.group
     group.label = e.target.value
 
@@ -22,7 +22,8 @@ class GroupsModal extends Component {
       group
     })
   }
-  toggleAccount (accountId, enabled) {
+
+  toggleAccount = (accountId, enabled) => {
     let group = this.state.group
     let selectedAccounts = group.accounts
     let indexInSelectedAccounts = selectedAccounts.indexOf(accountId)
@@ -36,34 +37,36 @@ class GroupsModal extends Component {
       group
     })
   }
-  save () {
+
+  save = () => {
     if (this.state.group.label.trim() === '') return
     this.props.onSave(this.state.group)
   }
-  delete () {
+
+  delete = () => {
     this.props.onDelete(this.state.group)
   }
-  cancel () {
+
+  cancel = () => {
     this.props.onCancel(this.state.group)
   }
-  render () {
-    const { t, accounts } = this.props
-    const { group } = this.state
+
+  render ({ t, accounts }, { group }) {
     const isExistingGroup = !!group._id
     let primaryAction, primaryText, primaryType, secondaryAction, title
 
     if (isExistingGroup) {
       title = t('Groups.edit_group')
-      primaryAction = this.delete.bind(this)
+      primaryAction = this.delete
       primaryText = t('Groups.delete')
       primaryType = 'danger-outline'
-      secondaryAction = this.save.bind(this)
+      secondaryAction = this.save
     } else {
       title = 'Créer un groupe'
-      primaryAction = this.save.bind(this)
+      primaryAction = this.save
       primaryText = t('Groups.create')
       primaryType = 'regular'
-      secondaryAction = this.cancel.bind(this)
+      secondaryAction = this.cancel
     }
 
     return (
@@ -78,7 +81,7 @@ class GroupsModal extends Component {
           <label className={styles['coz-form-label']}>
             {t('Groups.label')}
           </label>
-          <input type='text' value={group.label} onInput={this.rename.bind(this)} />
+          <input type='text' value={group.label} onInput={this.rename} />
 
           <label className={styles['coz-form-label']}>
             {t('Groups.accounts')}

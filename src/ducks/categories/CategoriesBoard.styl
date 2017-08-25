@@ -1,103 +1,84 @@
 @import 'cozy-ui'
 
-[role=application] // @stylint ignore
-    @extend $table
+activeBkgColor = #E8F2FF
 
-    activeBkgColor = #E8F2FF
-
-    .bnk-categories
-        width       100%
-
-    .coz-table-body
-        height auto
-
-    .coz-table-row
+.bnk-table-category
+    .bnk-table-row
         cursor  pointer
 
-    .coz-table-cell
-    .coz-table-header
-        font-size     em(14px)
-        padding-right em(12px)
-        padding-left  em(24px)
-
-    .coz-table-header
-        cursor  default
-
-    .bnk-table-row--uncollapsed
-    .bnk-table-row--uncollapsed:hover
-        border-top  1px solid dodger-blue
-        background  activeBkgColor
-
-        .bnk-table-chevron
-            background  embedurl('../../assets/icons/icon-chevron-down-active.svg') center no-repeat
-            transform   rotate3d(1, 0, 0, 180deg)
-            transition  all .2s
-
-
-    .bnk-table-category
-        flex            0 0 30%
-        padding-left    em(36px)
-
-    .bnk-table-operation
-        flex        0 0 10%
-        text-align  center
+    .bnk-table-category-category
+        flex-basis 30%
 
     .bnk-table-percentage
-        flex        0 0 10%
-        text-align  center
+        flex-basis 10%
+        text-align center
 
-    .bnk-table-amount
-        flex        0 0 15%
-        text-align  right
-
-    .bnk-table-actions
-        flex        0 0 15%
-
-    .bnk-table-chevron
-        flex        0 0 5%
-        background  embedurl('../../assets/icons/icon-chevron-down.svg') center no-repeat
-        transition  all .2s
-
-    .coz-table-header.bnk-table-operation
+    .bnk-table-operation
+        flex-basis 10%
+        text-align center
         padding 0
         overflow hidden
         text-overflow ellipsis
 
-    .coz-table-cell.bnk-table-category
-        padding-left    5em
-        color           black
+    .bnk-table-amount
+    .bnk-table-total
+        flex-basis 15%
+        text-align right
 
-    .coz-table-cell.bnk-table-percentage
-        color black
-        font-weight bold
+    .bnk-table-chevron
+        flex inherit
+        background-position left
+        background-repeat no-repeat
+        transition all .2s
+        padding 1em 2rem 1em 16px
 
-    .bnk-table-actions-link
-        padding-left   2em
-        padding-top    .1em
-        padding-bottom .1em
-        background     embedurl('../../assets/icons/icon-link-out.svg') em(0px) center no-repeat
+    .bnk-table-row
+    .bnk-table-row--uncollapsed
+        .bnk-table-chevron
+            background-image embedurl('../../assets/icons/icon-chevron-down.svg')
 
-    .bnk-table-subcategories
-        position    relative
-        width       100%
-        overflow    hidden
-        &::after
-            position        absolute
-            content         ''
-            top             0
-            background      transparent
-            width           100%
-            height          100%
-            box-sizing      border-box
-            border-bottom   1px solid dodger-blue
-            pointer-events  none
+        .bnk-table-category-category
+        .bnk-table-total
+        .bnk-table-percentage
+            color charcoal-grey
+
+        .bnk-table-percentage
+            font-weight bold
+
+    .bnk-table-row--uncollapsed
+    .bnk-table-row--uncollapsed:hover
+        border-top  1px solid dodger-blue
+        background-color activeBkgColor
+
+        .bnk-table-chevron
+            background-image embedurl('../../assets/icons/icon-chevron-down-active.svg')
+            transform   rotate3d(1, 0, 0, 180deg)
+
+    .bnk-table-row-subcategory
+    .bnk-table-row-subcategory:hover
+        background-color activeBkgColor
+    .bnk-table-row-subcategory:last-child
+        border-bottom 1px solid dodger-blue
+
+    @media (max-width: (1023/basefont)rem)
+        .bnk-table-amount
+            display none
 
     @media (max-width: (768/basefont)rem)
-        .bnk-table-category
-            flex    1 0 12em
+        .bnk-table-category-category
+            flex-basis 60%
 
+        .bnk-table-percentage
+            flex-basis 10%
+            padding 1em 0
+
+        .bnk-table-total
+            flex-basis 30%
+
+        .bnk-table-operation
         .bnk-table-amount
-            padding-right 2em
+        .bnk-table-chevron
+            display none
 
     // All icons and classes for categories types
 
@@ -105,9 +86,8 @@
 
     getCatBkg(categoryLabel)
         icon = '../../assets/icons/categories/icon-cat-%s.svg' % categoryLabel
-        {background} embedurl(icon) center no-repeat
+        background-image embedurl(icon)
 
     for category in categories
         .bnk-table-category--{category}
             getCatBkg(category)
-            background-position-x   em(36px)

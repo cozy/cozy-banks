@@ -1,6 +1,6 @@
 import React from 'react'
 import Table from 'components/Table'
-import { FigureBlock } from 'components/Figure'
+import { Figure, FigureBlock } from 'components/Figure'
 import { Topbar } from 'ducks/commons'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
@@ -32,7 +32,7 @@ const Balance = ({t, accounts, type, accountOrGroup}) => {
         <h2>{t('Balance.title')}</h2>
       </Topbar>
       <FigureBlock label={t(trad, {label: label})} total={total} currency='€' coloredPositive coloredNegative signed />
-      <Table className={styles['bnk-table']}>
+      <Table>
         <thead>
           <tr>
             <td className={styles['account_name']}>{t('Balance.account_name')}</td>
@@ -50,7 +50,9 @@ const Balance = ({t, accounts, type, accountOrGroup}) => {
                   {account.label}
                   {isAlert && <span className='coz-error coz-error--warning' />}
                 </td>
-                <td className={classNames(styles['solde'], { [styles.alert]: isAlert })}>{account.balance.toLocaleString()} <span>€</span></td>
+                <td className={classNames(styles['solde'], { [styles.alert]: isAlert })}>
+                  <Figure total={account.balance} currency='€' coloredNegative signed />
+                </td>
                 <td className={styles['bank_name']}>{account.institutionLabel}</td>
                 <td className={styles['account_number']}>{account.number}</td>
               </tr>

@@ -1,10 +1,8 @@
-import styles from 'styles/notifications'
-import classNames from 'classnames'
-
 import React, { Component } from 'react'
-
+import classNames from 'classnames'
 import Toggle from 'cozy-ui/react/Toggle'
 import Modal from 'cozy-ui/react/Modal'
+import styles from 'styles/notifications'
 
 const NotificationDescription = ({ children }) => (
   <p className={styles['notification-description']}>
@@ -13,29 +11,28 @@ const NotificationDescription = ({ children }) => (
 )
 
 class Notifications extends Component {
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      solde: false,
-      montant: false,
-      salaire: false,
-      retard: false,
-      hebdo: false,
-      mensuel: false,
-      comingSoonModal: true
-    }
+  state = {
+    solde: false,
+    montant: false,
+    salaire: false,
+    retard: false,
+    hebdo: false,
+    mensuel: false,
+    comingSoonModal: true
   }
-  onToggle (setting, checked) {
+
+  onToggle = (setting, checked) => {
     this.setState({
       // keep everything unchecked while it's not working
       [setting]: false,
       comingSoonModal: true
     })
   }
-  dismissComingSoon () {
+
+  dismissComingSoon = () => {
     this.setState({ comingSoonModal: false })
   }
+
   render (props, state) {
     let notifications = [{
       'title': 'Seuil de solde',
@@ -85,7 +82,7 @@ class Notifications extends Component {
           <Modal
             title={'À venir'}
             description={'Ces fonctionnalités seront bientôt disponibles.'}
-            secondaryAction={this.dismissComingSoon.bind(this)}
+            secondaryAction={this.dismissComingSoon}
           />
         }
 

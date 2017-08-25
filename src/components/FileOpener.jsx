@@ -1,9 +1,8 @@
 /* global cozy */
-
-import React from 'react'
+import React, { Component } from 'react'
 import FullscreenIntentModal from 'components/FullscreenIntentModal'
 
-class FileOpener extends React.Component {
+class FileOpener extends Component {
   createIntent = () => {
     const { doctype, id } = this.props.file
     return cozy.client.intents.create('OPEN', doctype, { id })
@@ -32,7 +31,7 @@ class FileOpener extends React.Component {
   render ({ children }, { intent }) {
     return (
       <span>
-        { children && React.cloneElement(children, { onClick: this.showModal })}
+        {children && React.cloneElement(children, { onClick: this.showModal })}
         {intent
           ? <FullscreenIntentModal
             intent={intent}
