@@ -31,7 +31,9 @@ const Balance = ({t, accounts, type, accountOrGroup}) => {
       <Topbar>
         <h2>{t('Balance.title')}</h2>
       </Topbar>
-      <FigureBlock label={t(trad, {label: label})} total={total} currency='€' coloredPositive coloredNegative signed />
+      <div className={styles['kpi']}>
+        <FigureBlock label={t(trad, {label: label})} total={total} currency='€' coloredPositive coloredNegative signed />
+      </div>
       <Table>
         <thead>
           <tr>
