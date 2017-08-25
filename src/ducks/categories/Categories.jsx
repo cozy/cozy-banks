@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react/I18n'
+import Toggle from 'cozy-ui/react/Toggle'
 import categoriesMap from 'lib/categoriesMap'
 import { FigureBlock } from 'components/Figure'
 import Loading from 'components/Loading'
@@ -160,8 +161,8 @@ class Categories extends Component {
           <div className={styles['bnk-cat-form']}>
             <SelectDates />
             <div className={styles['bnk-cat-filter']}>
-              <label>
-                <input type='checkbox' checked={withIncome ? 'checked' : ''} onChange={this.applyFilter} />
+              <Toggle id='withIncome' checked={withIncome} onToggle={checked => this.setState({withIncome: checked})} />
+              <label htmlFor='withIncome'>
                 Inclure les revenus
               </label>
             </div>
