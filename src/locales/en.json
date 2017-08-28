@@ -16,7 +16,7 @@
     "less-information": "Less information"
   },
   "AccountSwitch": {
-    "account_counter": "% {Smart_count} account |||| % {Smart_count} accounts",
+    "account_counter": "%{smart_count} account |||| %{smart_count} accounts",
     "all_accounts": "All accounts",
     "manage_groups": "Manage my groups",
     "groups": "Groups",
