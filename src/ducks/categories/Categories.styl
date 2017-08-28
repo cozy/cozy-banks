@@ -31,3 +31,97 @@
 
         .bnk-cat-figure
             flex-basis 100%
+
+// Table
+
+activeBkgColor = #E8F2FF
+
+.bnk-table-category
+    .bnk-table-row
+        cursor  pointer
+
+    .bnk-table-category-category
+        flex-basis 30%
+
+    .bnk-table-percentage
+        flex-basis 10%
+        text-align center
+
+    .bnk-table-operation
+        flex-basis 10%
+        text-align center
+        padding 0
+        overflow hidden
+        text-overflow ellipsis
+
+    .bnk-table-amount
+    .bnk-table-total
+        flex-basis 15%
+        text-align right
+
+    .bnk-table-chevron
+        flex inherit
+        background-position left
+        background-repeat no-repeat
+        transition all .2s
+        padding 1em 2rem 1em 16px
+
+    .bnk-table-row
+    .bnk-table-row--uncollapsed
+        .bnk-table-chevron
+            background-image embedurl('../../assets/icons/icon-chevron-down.svg')
+
+        .bnk-table-category-category
+        .bnk-table-total
+        .bnk-table-percentage
+            color charcoal-grey
+
+        .bnk-table-percentage
+            font-weight bold
+
+    .bnk-table-row--uncollapsed
+    .bnk-table-row--uncollapsed:hover
+        border-top  1px solid dodger-blue
+        background-color activeBkgColor
+
+        .bnk-table-chevron
+            background-image embedurl('../../assets/icons/icon-chevron-down-active.svg')
+            transform   rotate3d(1, 0, 0, 180deg)
+
+    .bnk-table-row-subcategory
+    .bnk-table-row-subcategory:hover
+        background-color activeBkgColor
+    .bnk-table-row-subcategory:last-child
+        border-bottom 1px solid dodger-blue
+
+    @media (max-width: (1023/basefont)rem)
+        .bnk-table-amount
+            display none
+
+    @media (max-width: (768/basefont)rem)
+        .bnk-table-category-category
+            flex-basis 60%
+
+        .bnk-table-percentage
+            flex-basis 10%
+            padding 1em 0
+
+        .bnk-table-total
+            flex-basis 30%
+
+        .bnk-table-operation
+        .bnk-table-amount
+        .bnk-table-chevron
+            display none
+
+    // All icons and classes for categories types
+
+    categories = children daily-life education health housing income leasures out-budget services taxes transportation trips uncategorized
+
+    getCatBkg(categoryLabel)
+        icon = '../../assets/icons/categories/icon-cat-%s.svg' % categoryLabel
+        background-image embedurl(icon)
+
+    for category in categories
+        .bnk-table-category--{category}
+            getCatBkg(category)
