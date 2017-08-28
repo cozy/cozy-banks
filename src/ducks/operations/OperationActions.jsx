@@ -136,9 +136,15 @@ const OperationActions = ({operation, urls, withoutDefault, onClose}) => {
     <div>
       {displayDefaultAction &&
         <OperationAction operation={operation} urls={urls} onClick={onClose} />}
-      <Action name='attach' onClick={onClose} />
-      <Action name='comment' onClick={onClose} />
-      <Action name='alert' onClick={onClose} />
+      <Item>
+        <Action name='attach' onClick={onClose} />
+      </Item>
+      <Item>
+        <Action name='comment' onClick={onClose} />
+      </Item>
+      <Item>
+        <Action name='alert' onClick={onClose} />
+      </Item>
     </div>
   )
 }
