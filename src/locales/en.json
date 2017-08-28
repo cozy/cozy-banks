@@ -27,8 +27,8 @@
     "bank_name": "Name of the bank",
     "subtitle": {
       "all": "Total of all your accounts",
-      "group": "Total group% {label}",
-      "account": "Total account% {label}"
+      "group": "Total group %{label}",
+      "account": "Total account %{label}"
     },
     "title": "Current balance",
     "solde": "Balance",
