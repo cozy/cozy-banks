@@ -1,238 +1,214 @@
 {
   "Loading": {
-    "loading": "Chargement",
-    "error": "Il y a eu une erreur pendant le chargement des données. Merci de réessayer plus tard."
+    "loading": "Loading",
+    "error": "There was an error while loading the data. Thank you try again later."
   },
-
+  "Nav": {
+    "categorisation": "Categorization",
+    "settings": "Settings",
+    "savings": "Save",
+    "projections": "Forecasts",
+    "balance": "Current balance",
+    "movements": "Movements"
+  },
   "Error": {
     "more-information": "More information",
     "less-information": "Less information"
   },
-
   "AccountSwitch": {
-    "all_accounts": "Tous les comptes",
-    "accounts": "Comptes",
-    "groups": "Groupes",
-    "manage_groups": "Gérer mes groupes",
-    "manage_accounts": "Gérer mes comptes",
-    "account_counter": "%{smart_count} compte |||| %{smart_count} comptes"
+    "account_counter": "% {Smart_count} account |||| % {Smart_count} accounts",
+    "all_accounts": "All accounts",
+    "manage_groups": "Manage my groups",
+    "groups": "Groups",
+    "accounts": "Accounts",
+    "manage_accounts": "Manage my accounts"
   },
-
-  "Nav": {
-    "movements": "Mouvements",
-    "balance": "Solde actuel",
-    "categorisation": "Catégorisation",
-    "projections": "Prévisions",
-    "savings": "Economiser",
-    "settings": "Paramètres"
-  },
-
   "Balance": {
-    "title": "Solde actuel",
+    "bank_name": "Name of the bank",
     "subtitle": {
-      "all": "Total de tous vos comptes",
-      "group": "Total du groupe %{label}",
-      "account": "Total du compte %{label}"
+      "all": "Total of all your accounts",
+      "group": "Total group% {label}",
+      "account": "Total account% {label}"
     },
-    "account_name": "Nom du compte",
-    "solde": "Solde",
-    "bank_name": "Nom de la banque",
-    "account_number": "Numéro du compte"
+    "title": "Current balance",
+    "solde": "Balance",
+    "account_number": "Account number",
+    "account_name": "Account name"
   },
-
-  "Movements": {
-    "actions": {
-      "more": "Plus",
-      "bill": "Afficher votre facture",
-      "refund": "Vérifier vos remboursements",
-      "app": "Accéder à votre espace %{appName}",
-      "attach": "Attacher un document",
-      "alert": "Créer une alerte",
-      "comment": "Ajouter un commentaire"
+  "SelectDates": {
+    "last_12_months": "The last 12 months"
+  },
+  "Accounts": {
+    "no-accounts": "Do not have an account yet.",
+    "account": "Account",
+    "shared-accounts": "Accounts that I was shared",
+    "my-accounts": "My accounts",
+    "shared": "Sharing",
+    "add-account": "Add an account",
+    "type": "Type",
+    "bank": "Bank",
+    "label": "Wording"
+  },
+  "Groups": {
+    "edit_group": "Edit Group",
+    "edit": "edit",
+    "create": "Create a group",
+    "label": "Wording",
+    "accounts": "Accounts",
+    "groups": "Groups",
+    "delete": "remove"
+  },
+  "Data": {
+    "subcategories": {
+      "taxi": "Taxi",
+      "journeys": "traveling",
+      "telecom": "Internet, TV, Telecom",
+      "property_tax": "Taxes of land, dwelling",
+      "vehicle_loan_refund": "Vehicle loan repayment",
+      "car_insurance": "Vehicle insurance",
+      "vehicle_rental": "Car rent",
+      "security_purchases": "Shopping",
+      "lessons": "Courses, tutoring",
+      "electricity": "Electricity, gas, heating",
+      "saving_transfer": "Savings transfers",
+      "cosmetics": "Hairdresser, aesthetics, cosmetics, care",
+      "fuel": "Fuel",
+      "releasings": "Unblocking loans, credits, reserves",
+      "advances": "Advances",
+      "expenses_bill": "Expense notes (+/-)",
+      "rental_incomes": "Rental income",
+      "press": "Tobacco, Press",
+      "wealth_tax": "ISF",
+      "complementary_incomes": "Supplementary income",
+      "housing_others": "Other (Housing, Real Estate)",
+      "daily_life_others": "Other (Daily life)",
+      "garage": "Garage, private parking",
+      "donations": "Charitable donations",
+      "restaurants": "Restaurants, Nightlife",
+      "school_insurance": "School Insurance",
+      "education_supplies": "Books, school supplies",
+      "allowances": "Aid, allowances",
+      "financial_consulting": "Financial Advisory Services",
+      "out-budget_others": "Other (Out of budget)",
+      "trips_others": "Other (Outings, travel)",
+      "multimedia": "Music, books, movies",
+      "leasures_others": "Other (Sports, Recreation)",
+      "pets": "Animals",
+      "uncategorized_others": "Other (To categorize)",
+      "replacement_incomes": "Replacement income",
+      "income_others": "Other income)",
+      "dividends": "dividends",
+      "security_sales": "Sales of securities",
+      "withdrawals": "Cash withdrawals",
+      "water": "Water",
+      "pocket_money": "Pocket money",
+      "uncategorized_transfers": "Uncategorized transfers",
+      "internal_transfer": "Internal transfers",
+      "home_help": "Home help",
+      "school_restaurant": "School catering",
+      "leasures_subscription": "Sports, leisure",
+      "children_activities": "Child Activities",
+      "furnitures": "Furniture, equipment",
+      "legal_consulting": "legal advice",
+      "school_fees": "Registration, schooling",
+      "leasures_supplies": "Sports equipment",
+      "health_insurance": "Mutual contribution, provident",
+      "house_works": "Work, decoration, garden",
+      "student_load_refund": "Student loan repayment",
+      "toys": "Toys, gifts",
+      "electronic": "Electronics, multimedia",
+      "post": "Post office",
+      "child-care": "Child Care",
+      "vehicle_maintenance": "Maintenance, vehicle equipment",
+      "interests": "Interests",
+      "shopping": "Shopping / e-commerce",
+      "services_others": "Other services)",
+      "education_others": "Other (Education, training)",
+      "health_costs": "Medical bills",
+      "car_purchase": "Vehicle Purchase",
+      "housing_insurance": "Business Consulting",
+      "children_others": "Other (Children)",
+      "income_tax": "Income taxes",
+      "taxes_others": "Other (Taxes)",
+      "leasures_lessons": "Sports, leisure",
+      "bank_charges": "Bank charges",
+      "cultural_trips": "Cultural outings",
+      "health_refunds": "Health Reimbursement",
+      "rent": "Rent",
+      "hobbies": "Passion, hobby",
+      "mortgage_refund": "Home loan repayment",
+      "public_transportation": "Public transportation",
+      "clothing": "Clothing",
+      "housing_costs": "Housing charges",
+      "social_contributions": "Social contributions",
+      "personal_loan_refund": "Consumable Loan Repayment",
+      "trips_transportation": "Airplane, train, boat",
+      "child_support": "Pension paid",
+      "health_others": "Other (Health)",
+      "cheques": "checks",
+      "deferred_debit": "Debit card debit",
+      "gifts": "Gifts",
+      "transportation_others": "Other (Transport, vehicles)",
+      "meals": "Snacks, fast food, meals at work",
+      "parking_costs": "Parking, tolls, PV",
+      "gift_incomes": "Gifts, donations received",
+      "salary": "Salary / Income from activities",
+      "relaxation_trips": "Relaxation",
+      "regular_shopping": "Food, supermarket",
+      "refunds": "refunds",
+      "pension": "Retirement"
+    },
+    "categories": {
+      "transportation": "Transportation, vehicles",
+      "daily-life": "Everyday life",
+      "out-budget": "Out of budget",
+      "services": "Services",
+      "education": "Education, training",
+      "children": "children",
+      "housing": "Housing, real estate",
+      "taxes": "Taxes, taxes",
+      "health": "Health",
+      "income": "earnings",
+      "leasures": "Leisure, sports",
+      "trips": "Outings, trips",
+      "uncategorized": "To be categorized"
     }
   },
-
   "Categories": {
-    "board": {
-      "debit-header": "Dépense",
-      "credit-header": "Revenu",
-      "total-header": "Total"
-    },
     "filter": {
-      "debit": "Total hors categ. revenus",
-      "credit": "Revenus",
-      "total": "Total"
-    },
-    "title": {
-      "general": "Catégorisation",
-      "total": "Solde de la période",
-      "debit": "Dépense nette",
-      "empty": "Catégorisation",
-      "empty_text": "Pas de catégories à afficher."
+      "credit": "earnings",
+      "total": "Total",
+      "debit": "Total excl. earnings"
     },
     "headers": {
-      "categories": "Catégories",
-      "operations": "Opérations",
-      "debit": "Débit",
-      "credit": "Crédit",
-      "total": "Total"
-    }
-  },
-
-  "Data": {
-    "categories": {
-      "children": "Enfants",
-      "daily-life": "Vie quotidienne",
-      "education": "Education, formation",
-      "health": "Santé",
-      "housing": "Logement, immobilier",
-      "income": "Revenus",
-      "leasures": "Loisirs, sports",
-      "out-budget": "Hors budget",
-      "services": "Services",
-      "taxes": "Impôts, taxes",
-      "transportation": "Transports, véhicules",
-      "trips": "Sorties, voyages",
-      "uncategorized": "À catégoriser"
+      "operations": "operations",
+      "credit": "Credit",
+      "total": "Total",
+      "categories": "Categories",
+      "debit": "Debit"
     },
-    "subcategories": {
-      "children_activities": "Activités enfants",
-      "pocket_money": "Argent de poche",
-      "school_insurance": "Assurance scolaire",
-      "child-care": "Garde d'enfants",
-      "toys": "Jouets, cadeaux",
-      "child_support": "Pension versée",
-      "school_restaurant": "Restauration scolaire",
-      "children_others": "Autres (Enfants)",
-
-      "regular_shopping": "Alimentation, supermarché",
-      "pets": "Animaux",
-      "gifts": "Cadeaux offerts",
-      "cosmetics": "Coiffeur, esthétique, cosmétique, soins",
-      "donations": "Dons caritatifs",
-      "clothing": "Habillement",
-      "telecom": "Internet, TV, télécom",
-      "personal_loan_refund": "Remboursement prêt consommation",
-      "shopping": "Shopping / e-commerce",
-      "meals": "Snacks, fast-foods, repas au travail",
-      "press": "Tabac, Presse",
-      "daily_life_others": "Autres (Vie quotidienne)",
-
-      "lessons": "Cours, soutien scolaire",
-      "school_fees": "Inscription, scolarité",
-      "education_supplies": "Livres, fournitures scolaires",
-      "student_load_refund": "Remboursement prêt étudiant",
-      "education_others": "Autres (Education, formation)",
-
-      "health_insurance": "Cotisation mutuelle, prévoyance",
-      "health_costs": "Frais de santé",
-      "health_refunds": "Remboursement de santé",
-      "health_others": "Autres (Santé)",
-
-      "housing_insurance": "Assurance logement",
-      "housing_costs": "Charges logement",
-      "water": "Eau",
-      "electricity": "Electricité, gaz, chauffage",
-      "rent": "Loyer",
-      "furnitures": "Meubles, équipements",
-      "mortgage_refund": "Remboursement prêt immobilier",
-      "house_works": "Travaux, décoration, jardin",
-      "housing_others": "Autres (Logement, immobilier)",
-
-      "allowances": "Aides, allocations",
-      "gift_incomes": "Cadeaux, dons reçus",
-      "dividends": "Dividendes",
-      "interests": "Intérêts",
-      "pension": "Retraite",
-      "complementary_incomes": "Revenus complémentaires",
-      "replacement_incomes": "Revenus de remplacement",
-      "rental_incomes": "Revenus locatifs",
-      "salary": "Salaire / Revenus d'activités",
-      "income_others": "Autres (Revenus)",
-
-      "leasures_subscription": "Cotisation sports, loisirs",
-      "leasures_lessons": "Cours sports, loisirs",
-      "electronic": "Electronique, multimédia",
-      "leasures_supplies": "Equipement sports, loisirs",
-      "multimedia": "Musique, livres, films",
-      "hobbies": "Passion, hobby",
-      "leasures_others": "Autres (Sports, loisirs)",
-
-      "security_purchases": "Achats",
-      "security_sales": "Ventes de titres",
-      "advances": "Avances",
-      "refunds": "Remboursements",
-      "releasings": "Déblocage prêt, crédits, réserves",
-      "expenses_bill": "Notes de frais (+/-)",
-      "deferred_debit": "Prélèvement carte débit différé",
-      "saving_transfer": "Virements d'épargne",
-      "internal_transfer": "Virements internes",
-      "out-budget_others": "Autres (Hors budget)",
-
-      "home_help": "Aide à domicile",
-      "financial_consulting": "Conseil financier",
-      "legal_consulting": "Conseil juridique",
-      "bank_charges": "Frais bancaires",
-      "post": "Poste, courrier",
-      "services_others": "Autres (Services)",
-
-      "social_contributions": "Contributions sociales",
-      "income_tax": "Impôts sur le revenu",
-      "wealth_tax": "ISF",
-      "property_tax": "Taxes foncières, d'habitation",
-      "taxes_others": "Autres (Impôts, taxes)",
-
-      "car_purchase": "Achat véhicule",
-      "car_insurance": "Assurance véhicule",
-      "fuel": "Carburant",
-      "vehicle_maintenance": "Entretien, équipements véhicules",
-      "garage": "Garage, parking privé",
-      "vehicle_rental": "Location véhicule",
-      "parking_costs": "Parking, péages, PV",
-      "vehicle_loan_refund": "Remboursement prêt véhicule",
-      "taxi": "Taxi",
-      "public_transportation": "Transports en commun",
-      "transportation_others": "Autres (Transports, véhicules)",
-
-      "trips_transportation": "Avion, train, bateau",
-      "restaurants": "Restaurants, soirées",
-      "cultural_trips": "Sorties culturelles",
-      "relaxation_trips": "Sorties détente",
-      "journeys": "Voyages",
-      "trips_others": "Autres (Sorties, voyages)",
-
-      "cheques": "Chèques",
-      "withdrawals": "Retraits d'espèces",
-      "uncategorized_transfers": "Virements non categorisés",
-      "uncategorized_others": "Autres (À catégoriser)"
+    "board": {
+      "debit-header": "Spent",
+      "credit-header": "Returned",
+      "total-header": "Total"
+    },
+    "title": {
+      "empty_text": "No categories to display.",
+      "total": "Balance of the period",
+      "general": "Categorization",
+      "empty": "Categorization",
+      "debit": "Net expenditure"
     }
   },
-
-  "Groups": {
-    "groups": "Groupes",
-    "label": "Libellé",
-    "accounts": "Comptes",
-    "create": "créer",
-    "edit": "éditer",
-    "delete": "supprimer",
-    "create": "Créer un groupe",
-    "edit_group": "Editer le groupe"
-  },
-
-  "Accounts": {
-    "label": "Libellé",
-    "account": "Compte ",
-    "type": "Type",
-    "shared": "Partagé",
-    "bank": "Banque",
-    "add-account": "Ajouter un compte",
-    "my-accounts": "Mes comptes",
-    "shared-accounts": "Comptes que l'on m'a partagé",
-    "no-accounts": "Vous n'avez pas encore de compte."
-  },
-
-  "SelectDates": {
-    "last_12_months": "Les 12 derniers mois"
+  "Movements": {
+    "actions": {
+      "refund": "Check your refunds",
+      "comment": "add a comment",
+      "app": "Access your space% {appName}",
+      "bill": "View your invoice",
+      "alert": "Create an alert",
+      "attach": "Attach a document",
+      "more": "More"
+    }
   }
-
 }
