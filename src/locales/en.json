@@ -1,12 +1,12 @@
 {
   "Loading": {
     "loading": "Loading",
-    "error": "There was an error while loading the data. Thank you try again later."
+    "error": "An error occured while loading the data. Please try again later."
   },
   "Nav": {
     "categorisation": "Categorization",
     "settings": "Settings",
-    "savings": "Save",
+    "savings": "Savings",
     "projections": "Forecasts",
     "balance": "Current balance",
     "movements": "Movements"
@@ -36,18 +36,18 @@
     "account_name": "Account name"
   },
   "SelectDates": {
-    "last_12_months": "The last 12 months"
+    "last_12_months": "Last 12 months"
   },
   "Accounts": {
-    "no-accounts": "Do not have an account yet.",
+    "no-accounts": "you do not have any account yet.",
     "account": "Account",
-    "shared-accounts": "Accounts that I was shared",
+    "shared-accounts": "Accounts shared to me",
     "my-accounts": "My accounts",
-    "shared": "Sharing",
+    "shared": "Shared",
     "add-account": "Add an account",
     "type": "Type",
     "bank": "Bank",
-    "label": "Wording"
+    "label": "Label"
   },
   "Groups": {
     "edit_group": "Edit Group",
@@ -90,7 +90,7 @@
       "allowances": "Aid, allowances",
       "financial_consulting": "Financial Advisory Services",
       "out-budget_others": "Other (Out of budget)",
-      "trips_others": "Other (Outings, travel)",
+      "trips_others": "Other (travel)",
       "multimedia": "Music, books, movies",
       "leasures_others": "Other (Sports, Recreation)",
       "pets": "Animals",
@@ -181,7 +181,7 @@
       "debit": "Total excl. earnings"
     },
     "headers": {
-      "operations": "operations",
+      "operations": "Operations",
       "credit": "Credit",
       "total": "Total",
       "categories": "Categories",
@@ -189,7 +189,7 @@
     },
     "board": {
       "debit-header": "Spent",
-      "credit-header": "Returned",
+      "credit-header": "Earnings",
       "total-header": "Total"
     },
     "title": {
@@ -203,8 +203,8 @@
   "Movements": {
     "actions": {
       "refund": "Check your refunds",
-      "comment": "add a comment",
-      "app": "Access your space% {appName}",
+      "comment": "Add a comment",
+      "app": "Access your space %{appName}",
       "bill": "View your invoice",
       "alert": "Create an alert",
       "attach": "Attach a document",
