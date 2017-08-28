@@ -28,7 +28,7 @@ const renderAppWithPersistedState = persistedState => {
   const root = document.querySelector('[role=application]')
   const data = root.dataset
   // Force the French language for the translation of dates
-  const lang = 'fr' || data.cozyLocale || 'en'
+  const lang = data.cozyLocale || 'en'
 
   cozy.client.init({
     cozyURL: '//' + data.cozyDomain,
