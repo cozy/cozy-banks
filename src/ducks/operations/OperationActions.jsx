@@ -6,6 +6,7 @@ import FileOpener from 'components/FileOpener'
 import Spinner from 'components/Spinner'
 import styles from './OperationActions.styl'
 import _ from 'lodash'
+import flash from 'ducks/flash'
 
 // constants
 const HEALTH_LINK = 'refund'
@@ -70,6 +71,8 @@ class BillAction extends Component {
     return cozy.client.data.find(doctype, id).then(doc => {
       const [doctype, id] = doc.invoice.split(':')
       this.setState({file: {doctype, id}})
+    }).catch(() => {
+      flash('error', `Impossible de trouver la facture associée (${doctype}:${id}])`)
     })
   }
 
