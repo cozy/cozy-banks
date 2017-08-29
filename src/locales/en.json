@@ -1,6 +1,6 @@
 {
   "Loading": {
-    "loading": "Loading",
+    "loading": "Loading...",
     "error": "An error occured while loading the data. Please try again later."
   },
   "Nav": {
@@ -201,6 +201,12 @@
     }
   },
   "Movements": {
+    "title": "Movements",
+    "no-movements": "No movements to display",
+    "total": "Total",
+    "operations": "Operations",
+    "debit": "Debit",
+    "credit": "Credit",
     "actions": {
       "refund": "Check your refunds",
       "comment": "Add a comment",
@@ -210,5 +216,45 @@
       "attach": "Attach a document",
       "more": "More"
     }
+  },
+
+  "Notifications": {
+    "weekly_summary": {
+      "description": "You will receive a summary of your expenses and revenues every Monday of every week.",
+      "title": "Weekly Synthesis"
+    },
+    "title": "Notifications",
+    "when_month_revenue": {
+      "description": "You will receive an email at the reception of your salary each month.",
+      "title": "Payment of salary"
+    },
+    "monthly_summary": {
+      "description": "You will receive a summary of your expenses and income each month.",
+      "title": "Monthly summary"
+    },
+    "if_balance_lower": {
+      "description": "You will receive an email if your balance is less than",
+      "title": "Balance threshold"
+    },
+    "if_movement_greater": {
+      "description": "You will receive an email if a move is greater than",
+      "title": "Movement amount"
+    },
+    "no_revenue": {
+      "description": "You will be notified if you have not received your salary at the %{input} of each month.",
+      "title": "Salary Delay"
+    }
+  },
+
+  "ComingSoon": {
+    "description": "These features will soon be available.",
+    "title": "To come up"
+  },
+
+  "Settings": {
+    "title": "Settings",
+    "accounts": "Accounts",
+    "groups": "Groups",
+    "notifications": "Notifications"
   }
 }

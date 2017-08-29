@@ -1,6 +1,6 @@
 {
   "Loading": {
-    "loading": "Chargement",
+    "loading": "Chargement...",
     "error": "Il y a eu une erreur pendant le chargement des données. Merci de réessayer plus tard."
   },
 
@@ -41,6 +41,12 @@
   },
 
   "Movements": {
+    "title": "Mouvements",
+    "no-movements": "Pas de mouvements à afficher",
+    "total": "Total",
+    "operations": "Opérations",
+    "debit": "Débit",
+    "credit": "Crédit",
     "actions": {
       "more": "Plus",
       "bill": "Afficher votre facture",
@@ -233,6 +239,45 @@
 
   "SelectDates": {
     "last_12_months": "Les 12 derniers mois"
-  }
+  },
 
+  "Notifications": {
+    "title": "Notifications",
+    "if_balance_lower": {
+      "title": "Seuil de solde",
+      "description": "Vous receverez un email, si votre solde est inférieur à"
+    },
+    "if_movement_greater": {
+      "title": "Montant de mouvement",
+      "description": "Vous receverez un email, si un mouvement est supérieur à"
+    },
+    "no_revenue": {
+      "title": "Retard de salaire",
+      "description": "Vous serez prévenu si vous n’avez pas reçu votre salaire au %{input} de chaque mois."
+    },
+    "when_month_revenue": {
+      "title": "Versement de salaire",
+      "description": "Vous receverez un email à la réception de votre salaire chaque mois."
+    },
+    "weekly_summary": {
+      "title": "Synthèse hebdomadaire",
+      "description": "Vous receverez un récapitulatif de vos dépenses et de vos revenus tous les lundis de chaque semaine."
+    },
+    "monthly_summary": {
+      "title": "Synthèse mensuelle",
+      "description": "Vous receverez un récapitulatif de vos dépenses et de vos revenus tous les premiers de chaque mois."
+    }
+  },
+
+  "ComingSoon": {
+    "title": "À venir",
+    "description": "Ces fonctionnalités seront bientôt disponibles."
+  },
+
+  "Settings": {
+    "title": "Paramètres",
+    "accounts": "Comptes",
+    "groups": "Groupes",
+    "notifications": "Notifications"
+  }
 }
