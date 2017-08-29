@@ -11,7 +11,7 @@ export const Loading = ({ t, loadingType, noMargin }) => {
         : styles['bnk-loading']
       }
     >
-      {loadingType && <p>{ t("Loading.loading") }</p>}
+      {loadingType && <p>{t("Loading.loading")}</p>}
     </div>
   )
 }
