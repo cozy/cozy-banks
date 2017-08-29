@@ -18,7 +18,7 @@ import {
 
 class Settings extends Component {
   render () {
-    const { groups, accounts, createGroup, updateGroup, deleteGroup, params } = this.props
+    const { t, groups, accounts, createGroup, updateGroup, deleteGroup, params } = this.props
     const tabNames = ['accounts', 'groups', 'notifications']
     let defaultTab = tabNames[0]
     if (params.tab && tabNames.indexOf(params.tab) >= 0) defaultTab = params.tab
@@ -26,18 +26,18 @@ class Settings extends Component {
     return (
       <div>
         <Topbar>
-          <h2>Paramètres</h2>
+          <h2>{t("Settings.title")}</h2>
         </Topbar>
         <Tabs className={styles['bnk-tabs']} initialActiveTab={defaultTab}>
           <TabList className={styles['bnk-coz-tab-list']}>
             <Tab name={tabNames[0]}>
-              Comptes
+              {t("Settings.accounts")}
             </Tab>
             <Tab name={tabNames[1]}>
-              Groupes
+              {t("Settings.groups")}
             </Tab>
             <Tab name={tabNames[2]}>
-              Notifications
+              {t("Settings.notifications")}
             </Tab>
           </TabList>
           <TabPanels>

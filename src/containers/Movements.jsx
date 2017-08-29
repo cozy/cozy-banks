@@ -28,7 +28,7 @@ class Movements extends Component {
   }
 
   render () {
-    const { filteredOperations, urls } = this.props
+    const { t, filteredOperations, urls } = this.props
     if (this.state.isFetching) {
       return <Loading loadingType='movements' />
     }
@@ -45,28 +45,28 @@ class Movements extends Component {
       return (
         <div>
           <Topbar>
-            <h2>Mouvements</h2>
+            <h2>{t('Movements.title')}</h2>
           </Topbar>
           <div className={styles['bnk-mov-form']}>
             <SelectDates />
           </div>
-          <p>Pas de mouvements à afficher.</p>
+          <p>{t('Movements.no-movements')}</p>
         </div>
       )
     }
     return (
       <div>
         <Topbar>
-          <h2>Mouvements</h2>
+          <h2>{t('Movements.title')}</h2>
         </Topbar>
         <div className={styles['bnk-mov-form']}>
           <SelectDates />
         </div>
         <div className={styles['bnk-mov-figures']}>
-          <FigureBlock label='Total' total={credits + debits} currency='€' coloredPositive coloredNegative signed />
-          <FigureBlock label='Opérations' total={filteredOperations.length} decimalNumbers={0} />
-          <FigureBlock label='Débit' total={debits} currency='€' signed />
-          <FigureBlock label='Crédit' total={credits} currency='€' signed />
+          <FigureBlock label={t("Movements.total")} total={credits + debits} currency='€' coloredPositive coloredNegative signed />
+          <FigureBlock label={t("Movements.operations")} total={filteredOperations.length} decimalNumbers={0} />
+          <FigureBlock label={t("Movements.debit")} total={debits} currency='€' signed />
+          <FigureBlock label={t("Movements.credit")} total={credits} currency='€' signed />
         </div>
         <Operations operations={filteredOperations} urls={urls} />
       </div>

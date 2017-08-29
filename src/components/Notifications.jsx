@@ -3,12 +3,16 @@ import classNames from 'classnames'
 import Toggle from 'cozy-ui/react/Toggle'
 import Modal from 'cozy-ui/react/Modal'
 import styles from 'styles/notifications'
+import {translate } from 'cozy-ui/react/I18n'
+import {objectT} from 'utils/i18n'
 
 const NotificationDescription = ({ children }) => (
   <p className={styles['notification-description']}>
     {children}
   </p>
 )
+
+
 
 class Notifications extends Component {
   state = {
@@ -34,54 +38,60 @@ class Notifications extends Component {
   }
 
   render (props, state) {
+    const {t} = props
     let notifications = [{
-      'title': 'Seuil de solde',
+      'title': t('Notifications.if_balance_lower.title'),
       'name': 'solde',
       'description': <NotificationDescription>
-        Vous receverez un email, si votre solde est inférieur à <input type='text' value='400' className={classNames(styles['notification-input'], styles['suffixed'])} /><span>€</span>
+        {t('Notifications.if_balance_lower.description')} <input type='text' value='400' className={classNames(styles['notification-input'], styles['suffixed'])} /><span>€</span>
       </NotificationDescription>
     }, {
-      'title': 'Montant de mouvement',
+      'title': t('Notifications.if_movement_greater.title'),
       'name': 'montant',
       'description': <NotificationDescription>
-        Vous receverez un email, si un mouvement est supérieur à <input type='text' value='30' className={classNames(styles['notification-input'], styles['suffixed'])} /><span>€</span>
+        {t('Notifications.if_movement_greater.description')} <input type='text' value='30' className={classNames(styles['notification-input'], styles['suffixed'])} /><span>€</span>
       </NotificationDescription>
     }, {
-      'title': 'Versement de salaire',
+      'title': t('Notifications.when_month_revenue.title'),
       'name': 'salaire',
       'description': <NotificationDescription>
-        Vous receverez un email à la réception de votre salaire chaque mois.
+        {t('Notifications.when_month_revenue.description')}
       </NotificationDescription>
     }, {
-      'title': 'Retard de salaire',
+      'title': t('Notifications.no_revenue.title'),
       'name': 'retard',
       'description': <NotificationDescription>
-        Vous serez prévenu si vous n’avez pas reçu votre salaire au <input type='text' value='7' className={styles['notification-input']} /> de chaque mois.
+        {objectT(t, 'Notifications.no_revenue.description', {
+          input: <input
+            type='text'
+            value='7'
+            className={styles['notification-input']} />
+        })}
       </NotificationDescription>
     }, {
-      'title': 'Synthèse hebdomadaire',
+      'title': t('Notifications.weekly_summary.title'),
       'name': 'hebdo',
       'description': <NotificationDescription>
-        Vous receverez un récapitulatif de vos dépenses et de vos revenus tous les lundis de chaque semaine.
+        {t('Notifications.weekly_summary.description')}
       </NotificationDescription>
     }, {
-      'title': 'Synthèse mensuelle',
+      'title': t('Notifications.monthly_summary.title'),
       'name': 'mensuel',
       'description': <NotificationDescription>
-        Vous receverez un récapitulatif de vos dépenses et de vos revenus tous les premiers de chaque mois.
+        {t('Notifications.monthly_summary.description')}
       </NotificationDescription>
     }]
 
     return (
       <div>
         <h4>
-          Notifications
+          {t('Notifications.title')}
         </h4>
 
         {state.comingSoonModal &&
           <Modal
-            title={'À venir'}
-            description={'Ces fonctionnalités seront bientôt disponibles.'}
+            title={t('ComingSoon.title')}
+            description={t('ComingSoon.description')}
             secondaryAction={this.dismissComingSoon}
           />
         }
@@ -106,4 +116,4 @@ class Notifications extends Component {
   }
 }
 
-export default Notifications
+export default translate()(Notifications)
