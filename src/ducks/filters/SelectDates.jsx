@@ -15,11 +15,12 @@ const getDatesRange = () => {
   const datesRange = []
   const now = endOfDay(new Date())
 
-  for (let monthNumber of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]) {
+  for (const monthNumber of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]) {
     const month = subMonths(now, monthNumber)
     datesRange.push(createRange(startOfMonth(month), endOfMonth(month)))
   }
 
+  // last year
   datesRange.push(createRange(subMonths(now, 12), now))
 
   return datesRange

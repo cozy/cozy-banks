@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import { createSelector } from 'reselect'
-import { startOfMonth, endOfDay, isAfter, isBefore, parse } from 'date-fns'
+import { startOfMonth, endOfMonth, isAfter, isBefore, parse } from 'date-fns'
 import SelectDates from './SelectDates'
 import { getOperations, getGroups, getAccounts } from 'selectors'
 import { BANK_ACCOUNTS_DOCTYPE, BANK_ACCOUNT_GROUPS_DOCTYPE } from 'actions'
@@ -117,7 +117,7 @@ const startDate = (state = getDefaultStartDate(), action) => {
   }
 }
 
-const getDefaultEndDate = () => endOfDay(new Date())
+const getDefaultEndDate = () => endOfMonth(new Date())
 const endDate = (state = getDefaultEndDate(), action) => {
   switch (action.type) {
     case FILTER_BY_DATES:
