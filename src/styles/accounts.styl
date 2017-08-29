@@ -1,44 +1,32 @@
 @import 'cozy-ui'
 
-[role=application] // @stylint ignore
-    @extend $table
-
-    .coz-table-row:hover
-        background transparent
-
-    .coz-table-body
-        height auto
-
-
-    .coz-table-cell.bnk-table-libelle
-        color black
-
+.bnk-table-account
     .bnk-table-libelle
-        flex 0 0 30%
+        flex-basis 30%
 
     .bnk-table-bank
-        flex 0 0 15%
+        flex-basis 15%
 
     .bnk-table-account
-        flex 0 0 17%
+        flex-basis 17%
 
     .bnk-table-type
-        flex 0 0 15%
+        flex-basis 15%
 
     .bnk-table-shared
-        flex 0 0 15%
+        flex-basis 15%
 
     .bnk-table-actions
-        flex 0 0 8%
+        flex-basis 8%
         text-align right
 
-    .bnk-action-button
-        background 0
-        border 0
-        color dodger-blue
-        text-transform uppercase
-        cursor pointer
+.bnk-action-button
+    background 0
+    border 0
+    color dodger-blue
+    text-transform uppercase
+    cursor pointer
 
-        &.icon-plus
-            padding-left 1.5em
-            background  embedurl('../assets/icons/icon-add.svg') left center no-repeat
+    &.icon-plus
+        padding-left 1.5em
+        background  embedurl('../assets/icons/icon-add.svg') left center no-repeat

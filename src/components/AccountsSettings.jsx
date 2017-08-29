@@ -9,50 +9,53 @@ import styles from 'styles/accounts'
 import { fetchSharingInfo } from 'modules/SharingStatus'
 import AccountSharingStatus from 'components/AccountSharingStatus'
 import fetchData from 'components/fetchData'
+import Table from 'components/Table'
 
 const AccountsTable = ({ accounts, t }) => {
-  return accounts ? <table className={styles['coz-table']}>
-    <tr className={classNames(styles['coz-table-head'], styles['coz-table-row'])}>
-      <th className={classNames(styles['coz-table-header'], styles['bnk-table-libelle'])}>
-        {t('Accounts.label')}
-      </th>
-      <th className={classNames(styles['coz-table-header'], styles['bnk-table-bank'])}>
-        {t('Accounts.bank')}
-      </th>
-      <th className={classNames(styles['coz-table-header'], styles['bnk-table-account'])}>
-        {t('Accounts.account')}
-      </th>
-      <th className={classNames(styles['coz-table-header'], styles['bnk-table-type'])}>
-        {t('Accounts.type')}
-      </th>
-      <th className={classNames(styles['coz-table-header'], styles['bnk-table-shared'])}>
-        {t('Accounts.shared')}
-      </th>
-      <th className={classNames(styles['coz-table-header'], styles['bnk-table-actions'])} />
-    </tr>
-    <tbody className={styles['coz-table-body']}>
+  return accounts ? <Table className={styles['bnk-table-account']}>
+    <thead>
+      <tr className={styles['coz-table-row']}>
+        <td className={styles['bnk-table-libelle']}>
+          {t('Accounts.label')}
+        </td>
+        <td className={styles['bnk-table-bank']}>
+          {t('Accounts.bank')}
+        </td>
+        <td className={styles['bnk-table-account']}>
+          {t('Accounts.account')}
+        </td>
+        <td className={styles['bnk-table-type']}>
+          {t('Accounts.type')}
+        </td>
+        <td className={styles['bnk-table-shared']}>
+          {t('Accounts.shared')}
+        </td>
+        <td className={styles['bnk-table-actions']} />
+      </tr>
+    </thead>
+    <tbody>
       {accounts.map(account => (
-        <tr className={styles['coz-table-row']}>
-          <td className={classNames(styles['coz-table-cell'], styles['bnk-table-libelle'])}>
+        <tr>
+          <td className={styles['bnk-table-libelle']}>
             {account.label}
           </td>
-          <td className={classNames(styles['coz-table-cell'], styles['bnk-table-bank'])}>
+          <td className={styles['bnk-table-bank']}>
             {account.institutionLabel}
           </td>
-          <td className={classNames(styles['coz-table-cell'], styles['bnk-table-account'])}>
+          <td className={styles['bnk-table-account']}>
             {account.number}
           </td>
-          <td className={classNames(styles['coz-table-cell'], styles['bnk-table-type'])}>
+          <td className={styles['bnk-table-type']}>
             {account.type}
           </td>
-          <td className={classNames(styles['coz-table-cell'], styles['bnk-table-shared'])}>
+          <td className={styles['bnk-table-shared']}>
             {<AccountSharingStatus withText account={account} />}
           </td>
-          <td className={classNames(styles['coz-table-cell'], styles['bnk-table-actions'])} />
+          <td className={styles['bnk-table-actions']} />
         </tr>
       ))}
     </tbody>
-  </table> : <p>
+  </Table> : <p>
     {t('Accounts.no-accounts')}
   </p>
 }
