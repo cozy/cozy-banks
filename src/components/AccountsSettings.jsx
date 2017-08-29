@@ -11,6 +11,28 @@ import AccountSharingStatus from 'components/AccountSharingStatus'
 import fetchData from 'components/fetchData'
 import Table from 'components/Table'
 
+const renderAccount = account => <AccountLine account={account} />
+
+const AccountLine = ({ account }) =>
+  <tr>
+    <td className={styles['bnk-table-libelle']}>
+      {account.label}
+    </td>
+    <td className={styles['bnk-table-bank']}>
+      {account.institutionLabel}
+    </td>
+    <td className={styles['bnk-table-account']}>
+      {account.number}
+    </td>
+    <td className={styles['bnk-table-type']}>
+      {account.type}
+    </td>
+    <td className={styles['bnk-table-shared']}>
+      {<AccountSharingStatus withText account={account} />}
+    </td>
+    <td className={styles['bnk-table-actions']} />
+  </tr>
+
 const AccountsTable = ({ accounts, t }) => {
   return accounts ? <Table className={styles['bnk-table-account']}>
     <thead>
@@ -34,26 +56,7 @@ const AccountsTable = ({ accounts, t }) => {
       </tr>
     </thead>
     <tbody>
-      {accounts.map(account => (
-        <tr>
-          <td className={styles['bnk-table-libelle']}>
-            {account.label}
-          </td>
-          <td className={styles['bnk-table-bank']}>
-            {account.institutionLabel}
-          </td>
-          <td className={styles['bnk-table-account']}>
-            {account.number}
-          </td>
-          <td className={styles['bnk-table-type']}>
-            {account.type}
-          </td>
-          <td className={styles['bnk-table-shared']}>
-            {<AccountSharingStatus withText account={account} />}
-          </td>
-          <td className={styles['bnk-table-actions']} />
-        </tr>
-      ))}
+      {accounts.map(renderAccount)}
     </tbody>
   </Table> : <p>
     {t('Accounts.no-accounts')}
