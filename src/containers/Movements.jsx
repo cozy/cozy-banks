@@ -63,10 +63,10 @@ class Movements extends Component {
           <SelectDates />
         </div>
         <div className={styles['bnk-mov-figures']}>
-          <FigureBlock label={t("Movements.total")} total={credits + debits} currency='€' coloredPositive coloredNegative signed />
-          <FigureBlock label={t("Movements.operations")} total={filteredOperations.length} decimalNumbers={0} />
-          <FigureBlock label={t("Movements.debit")} total={debits} currency='€' signed />
-          <FigureBlock label={t("Movements.credit")} total={credits} currency='€' signed />
+          <FigureBlock label={t('Movements.total')} total={credits + debits} currency='€' coloredPositive coloredNegative signed />
+          <FigureBlock label={t('Movements.operations')} total={filteredOperations.length} decimalNumbers={0} />
+          <FigureBlock label={t('Movements.debit')} total={debits} currency='€' signed />
+          <FigureBlock label={t('Movements.credit')} total={credits} currency='€' signed />
         </div>
         <Operations operations={filteredOperations} urls={urls} />
       </div>

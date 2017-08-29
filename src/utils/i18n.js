@@ -18,7 +18,7 @@ const splitKeepingDelimiters = function (s, subs) {
 
 const mapKeys = (original, fn) => {
   const out = {}
-  Object.keys(original).forEach(k => out[fn(k)] = original[k])
+  Object.keys(original).forEach(k => { out[fn(k)] = original[k] })
   return out
 }
 

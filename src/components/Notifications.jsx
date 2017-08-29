@@ -3,16 +3,14 @@ import classNames from 'classnames'
 import Toggle from 'cozy-ui/react/Toggle'
 import Modal from 'cozy-ui/react/Modal'
 import styles from 'styles/notifications'
-import {translate } from 'cozy-ui/react/I18n'
+import {translate} from 'cozy-ui/react/I18n'
 import {objectT} from 'utils/i18n'
 
-const NotificationDescription = ({ children }) => (
+const NotificationDescription = ({children}) => (
   <p className={styles['notification-description']}>
     {children}
   </p>
 )
-
-
 
 class Notifications extends Component {
   state = {

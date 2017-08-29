@@ -26,18 +26,18 @@ class Settings extends Component {
     return (
       <div>
         <Topbar>
-          <h2>{t("Settings.title")}</h2>
+          <h2>{t('Settings.title')}</h2>
         </Topbar>
         <Tabs className={styles['bnk-tabs']} initialActiveTab={defaultTab}>
           <TabList className={styles['bnk-coz-tab-list']}>
             <Tab name={tabNames[0]}>
-              {t("Settings.accounts")}
+              {t('Settings.accounts')}
             </Tab>
             <Tab name={tabNames[1]}>
-              {t("Settings.groups")}
+              {t('Settings.groups')}
             </Tab>
             <Tab name={tabNames[2]}>
-              {t("Settings.notifications")}
+              {t('Settings.notifications')}
             </Tab>
           </TabList>
           <TabPanels>
