@@ -53,7 +53,11 @@ module.exports = {
       require('autoprefixer')(['last 2 versions'])
     ]
   },
+  standard: {
+   parser: 'babel-eslint'
+  },
   plugins: [
+    // ChartJS uses moment :( To remove when we do not use it anymore
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|fr/),
     new webpack.ContextReplacementPlugin(/date-fns[\/\\]locale$/, /en|fr/),
     new HtmlWebpackPlugin({
