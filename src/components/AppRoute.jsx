@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router'
 import { Layout } from 'ducks/commons'
 
 import Movements from 'containers/Movements'
-import { Categories } from 'ducks/categories'
+import { CategoriesPage } from 'ducks/categories'
 import Settings from 'containers/Settings'
 import { Balance } from 'ducks/balance'
 
@@ -14,7 +14,7 @@ const AppRoute = (
     <Redirect from='/' to='movements' />
     <Route path='currentBalance' component={Balance} />
     <Route path='movements' component={Movements} />
-    <Route path='categories' component={Categories} />
+    <Route path='categories' component={CategoriesPage} />
     <Route path='projections' component={ComingSoon} />
     <Route path='savings' component={ComingSoon} />
     <Route path='settings(/:tab)' component={Settings} />

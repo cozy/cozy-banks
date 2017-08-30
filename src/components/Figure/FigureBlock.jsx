@@ -1,9 +1,10 @@
 import React from 'react'
+import classNames from 'classnames'
 import Figure from './Figure'
 import styles from './FigureBlock.styl'
 
-const FigureBlock = ({label, total, currency, coloredPositive, coloredNegative, signed, decimalNumbers}) => (
-  <div className={styles['bnk-figure-wrapper']}>
+const FigureBlock = ({className, label, total, currency, coloredPositive, coloredNegative, signed, decimalNumbers}) => (
+  <div className={classNames(styles['bnk-figure-wrapper'], className)}>
     <h4 className={styles['bnk-figure-label']}>
       {label}
     </h4>

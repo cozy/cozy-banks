@@ -13,17 +13,14 @@ import { fetchOperations, indexOperationsByDate } from 'actions'
 import { getUrlBySource, findApps } from 'ducks/apps'
 
 class Movements extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      isFetching: true
-    }
+  state = {
+    isFetching: this.props.filteredOperations.length === 0
+  }
 
+  async componentDidMount () {
     const { fetchOperations, fetchApps } = this.props
-
-    fetchOperations().then(
-      this.setState({isFetching: false})
-    )
+    await fetchOperations()
+    this.setState({isFetching: false})
     fetchApps()
   }
 
@@ -41,19 +38,6 @@ class Movements extends Component {
         debits += operation.amount
       }
     })
-    if (!filteredOperations.length) {
-      return (
-        <div>
-          <Topbar>
-            <h2>{t('Movements.title')}</h2>
-          </Topbar>
-          <div className={styles['bnk-mov-form']}>
-            <SelectDates />
-          </div>
-          <p>{t('Movements.no-movements')}</p>
-        </div>
-      )
-    }
     return (
       <div>
         <Topbar>
@@ -62,13 +46,15 @@ class Movements extends Component {
         <div className={styles['bnk-mov-form']}>
           <SelectDates />
         </div>
-        <div className={styles['bnk-mov-figures']}>
+        {filteredOperations.length !== 0 && <div className={styles['bnk-mov-figures']}>
           <FigureBlock label={t('Movements.total')} total={credits + debits} currency='€' coloredPositive coloredNegative signed />
           <FigureBlock label={t('Movements.operations')} total={filteredOperations.length} decimalNumbers={0} />
           <FigureBlock label={t('Movements.debit')} total={debits} currency='€' signed />
           <FigureBlock label={t('Movements.credit')} total={credits} currency='€' signed />
-        </div>
-        <Operations operations={filteredOperations} urls={urls} />
+        </div>}
+        {filteredOperations.length === 0
+          ? <p>{t('Movements.no-movements')}</p>
+          : <Operations operations={filteredOperations} urls={urls} />}
       </div>
     )
   }
@@ -76,7 +62,7 @@ class Movements extends Component {
 
 const mapStateToProps = state => ({
   urls: {
-    // this keys are used on Operation.jsx to:
+    // this keys are used on Operations.jsx to:
     // - find operation label
     // - display appName in translate `Movements.actions.app`
     MAIF: getUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-maif'),

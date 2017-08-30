@@ -1,5 +1,12 @@
 @import 'cozy-ui'
 
+.bnk-cat-close button
+    padding 0
+    margin 0
+    width 100%
+    height 100%
+    background embedurl('../../assets/icons/icon-arrow-left.svg') center no-repeat
+
 .bnk-cat-top
     display         flex
     flex-direction  row
@@ -9,15 +16,18 @@
         flex-basis 50%
 
         .bnk-cat-filter
-            padding 2rem 0
+        .bnk-cat-figure
+            padding 2rem 0 0
+
+        .bnk-cat-filter
             > span
                 margin-right 1em
             > label
-                font-size 0.8em
+                font-size .8em
                 position absolute
                 line-height 24px
 
-    .bnk-cat-figure
+    .bnk-cat-chart
         flex-basis 50%
 
 @media (max-width: (768/basefont)rem)
@@ -27,9 +37,10 @@
             flex-basis 100%
 
             .bnk-cat-filter
-                padding 1rem 0
+            .bnk-cat-figure
+                padding 1rem 0 0
 
-        .bnk-cat-figure
+        .bnk-cat-chart
             flex-basis 100%
 
 // Table
@@ -37,7 +48,7 @@
 activeBkgColor = #E8F2FF
 
 .bnk-table-category
-    .bnk-table-row
+    tbody tr
         cursor  pointer
 
     .bnk-table-category-category
@@ -78,10 +89,8 @@ activeBkgColor = #E8F2FF
 
         .bnk-table-percentage
             font-weight bold
-
     .bnk-table-row--uncollapsed
     .bnk-table-row--uncollapsed:hover
-        border-top  1px solid dodger-blue
         background-color activeBkgColor
 
         .bnk-table-chevron
@@ -91,8 +100,6 @@ activeBkgColor = #E8F2FF
     .bnk-table-row-subcategory
     .bnk-table-row-subcategory:hover
         background-color activeBkgColor
-    .bnk-table-row-subcategory:last-child
-        border-bottom 1px solid dodger-blue
 
     @media (max-width: (1023/basefont)rem)
         .bnk-table-amount

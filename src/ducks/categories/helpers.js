@@ -4,7 +4,7 @@ import categoriesMap from './categoriesMap'
 export const operationsByCategory = operations => {
   let categories = {}
 
-  operations.forEach(operation => {
+  for (const operation of operations) {
     // Creates a map of categories, where each entry contains a list of related operations and a breakdown by sub-category
     let category = categoriesMap.get(operation.category) || categoriesMap.get('uncategorized_others')
 
@@ -28,7 +28,7 @@ export const operationsByCategory = operations => {
 
     categories[category.name].operations.push(operation)
     categories[category.name].subcategories[operation.category].operations.push(operation)
-  })
+  }
 
   return categories
 }
