@@ -10,6 +10,7 @@ import { fetchSharingInfo } from 'modules/SharingStatus'
 import AccountSharingStatus from 'components/AccountSharingStatus'
 import fetchData from 'components/fetchData'
 import Table from 'components/Table'
+import Loading from 'components/Loading'
 
 const renderAccount = account => <AccountLine account={account} />
 
@@ -103,9 +104,12 @@ class AccountsSettings extends Component {
     })
   }
 
-  render ({ t, accounts, getSharingInfo }) {
-    const accountBySharingDirection = groupBy(accounts, account => {
-      const sharingInfo = getSharingInfo(ACCOUNT_DOCTYPE, account._id)
+  render ({ t, accounts }) {
+    if (accounts.fetchStatus === 'loading') {
+      return <Loading />
+    }
+    const accountBySharingDirection = groupBy(accounts.data, account => {
+      const sharingInfo = false; // getSharingInfo(ACCOUNT_DOCTYPE, account._id)
       const infos = (sharingInfo && sharingInfo.info) || {}
       return !!(!infos.recipients || infos.recipients.length === 0 || infos.owner)
     })
@@ -134,6 +138,10 @@ class AccountsSettings extends Component {
   }
 }
 
+const mapDocumentsToProps = ownProps => ({
+  accounts: fetchCollection('accounts', 'io.cozy.bank.accounts')
+})
+
 const mapStateToProps = state => ({
   getSharingInfo: (doctype, id) => {
     return getSharingInfo(state, doctype, id)
@@ -142,14 +150,16 @@ const mapStateToProps = state => ({
 
 const fetchAccountsSharingInfo = props => {
   const { accounts } = props
-  return Promise.all(accounts.map(account => {
+  return Promise.resolve([])
+  return Promise.all(accounts.data.map(account => {
     return props.dispatch(fetchSharingInfo(ACCOUNT_DOCTYPE, account._id))
   }))
 }
 
 export default (
+  cozyConnect(mapDocumentsToProps)(
   connect(mapStateToProps)(
   translate()(
   fetchData(fetchAccountsSharingInfo)(
   AccountsSettings))
-))
+)))
