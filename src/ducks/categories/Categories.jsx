@@ -16,6 +16,14 @@ class Categories extends Component {
 
   render ({t, categories, selectedCategory, selectCategory, withIncome, filterWithInCome}) {
     if (categories === undefined) categories = []
+    const selectedCat = categories.find(category => category.name === selectedCategory)
+    if (selectedCategory) {
+      if (selectedCat) {
+        categories = [selectedCat]
+      } else {
+        categories = []
+      }
+    }
     let operationsTotal = 0
     const globalCurrency = categories.length > 0 ? categories[0].currency : '€'
 
@@ -47,8 +55,6 @@ class Categories extends Component {
         return a.amount - b.amount
       }
     })
-
-    const selectedCat = categories.find(category => category.name === selectedCategory)
 
     return (
       <div>
