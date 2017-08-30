@@ -2,12 +2,15 @@
 
 $coz-bar-size = 48px
 
-.fil-topbar
+.Topbar-title
     > h2
         margin 0 auto 1.5em
 
+.Topbar-left
+    display none
+
 @media (max-width: (768/basefont)rem)
-    .fil-topbar
+    .Topbar-title
         bottom-spaced(10px)
         right-spaced(32px)
         left-spaced(32px)
@@ -16,7 +19,7 @@ $coz-bar-size = 48px
         margin   0
         position fixed
         top      0
-        left     2.5em
+        left     40px
         right    48px
         z-index  $nav-index
         height   $coz-bar-size
@@ -28,3 +31,16 @@ $coz-bar-size = 48px
         > h2
             font-size 1.3em
             margin    0
+
+    .Topbar-left
+        position fixed
+        top 0
+        left 0
+        width 40px
+        height $coz-bar-size
+        z-index  $nav-index
+        overflow hidden
+        background-color white
+        display block
+        border-bottom 1px solid grey-09
+        box-sizing border-box

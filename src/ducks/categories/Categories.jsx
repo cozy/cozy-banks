@@ -1,206 +1,140 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'
 import Toggle from 'cozy-ui/react/Toggle'
-import categoriesMap from 'lib/categoriesMap'
-import { FigureBlock } from 'components/Figure'
-import Loading from 'components/Loading'
-import PieChart from 'components/PieChart'
-import { Topbar } from 'ducks/commons'
-import { SelectDates, getFilteredOperations } from 'ducks/filters'
-import { fetchOperations, indexOperationsByDate } from 'actions'
-import CategoriesBoard from './CategoriesBoard'
-import styles from './Categories.styl'
-
-const INCOME_CATEGORY = 'income'
-
-// This function builds a map of categories and sub-categories, each containing a list of related operations, a name and a color
-const operationsByCategory = operations => {
-  let categories = {}
-
-  operations.forEach(operation => {
-    // Creates a map of categories, where each entry contains a list of related operations and a breakdown by sub-category
-    let category = categoriesMap.get(operation.category) || categoriesMap.get('uncategorized_others')
-
-    // create a new parent category if necessary
-    if (!categories.hasOwnProperty(category.name)) {
-      categories[category.name] = {
-        name: category.name,
-        color: category.color,
-        operations: [],
-        subcategories: {}
-      }
-    }
-
-    // create the subcategory if necessary
-    if (!categories[category.name].subcategories.hasOwnProperty(operation.category)) {
-      categories[category.name].subcategories[operation.category] = {
-        name: operation.category,
-        operations: []
-      }
-    }
-
-    categories[category.name].operations.push(operation)
-    categories[category.name].subcategories[operation.category].operations.push(operation)
-  })
-
-  return categories
-}
-
-// Very specific to this component: takes the operations by category as returned by the `operationsByCategory` function, and turns it into a flat array, while computing derived data such as totals and curencies.
-// The result is used pretty much as is down the chain by other components, so changing property names here should be done with care.
-const computeCategorieData = operationsByCategory => {
-  return Object.values(operationsByCategory).map(category => {
-    let subcategories = Object.values(category.subcategories).map(subcategory => {
-      const debit = subcategory.operations.reduce((total, op) => (op.amount < 0 ? total + op.amount : total), 0)
-      const credit = subcategory.operations.reduce((total, op) => (op.amount > 0 ? total + op.amount : total), 0)
-
-      return {
-        name: subcategory.name,
-        amount: credit + debit,
-        debit: debit,
-        credit: credit,
-        percentage: 0,
-        currency: subcategory.operations[0].currency,
-        operationsNumber: subcategory.operations.length
-      }
-    })
-
-    const debit = category.operations.reduce((total, op) => (op.amount < 0 ? total + op.amount : total), 0)
-    const credit = category.operations.reduce((total, op) => (op.amount > 0 ? total + op.amount : total), 0)
-
-    return {
-      name: category.name,
-      color: category.color,
-      amount: credit + debit,
-      debit: debit,
-      credit: credit,
-      percentage: 0,
-      currency: category.operations[0].currency,
-      operationsNumber: category.operations.length,
-      subcategories: subcategories
-    }
-  })
-}
+import { Table, TdWithIcon } from 'components/Table'
+import { Figure, FigureBlock } from 'components/Figure'
+import { SelectDates } from 'ducks/filters'
+import styles from './styles'
+import CategoriesChart from './CategoriesChart'
 
 class Categories extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      isFetching: true,
-      withIncome: true
-    }
-
-    this.props.fetchOperations().then(
-      this.setState({isFetching: false})
-    )
+  toggle = categoryName => {
+    const { selectedCategory, selectCategory } = this.props
+    selectedCategory ? selectCategory(undefined) : selectCategory(categoryName)
   }
 
-  applyFilter = e => {
-    this.setState({withIncome: e.target.checked})
-  }
-
-  render ({t, categories}, {isFetching, withIncome}) {
-    if (isFetching) {
-      return <Loading loadingType='categories' />
-    }
-
-    if (categories.length === 0) {
-      return (
-        <div>
-          <Topbar>
-            <h2>{t('Categories.title.empty')}</h2>
-          </Topbar>
-          <div className={styles['bnk-cat-form']}>
-            <SelectDates />
-          </div>
-          <p>{t('Categories.title.empty_text')}</p>
-        </div>
-      )
-    }
-
-    // compute the filter to use
-    let filteredCategories = categories
-    if (!withIncome) {
-      filteredCategories = filteredCategories.filter(category => (category.name !== INCOME_CATEGORY))
-    }
-
-    // compute some global data
-    const absoluteOperationsTotal = filteredCategories.reduce((total, category) => (total + Math.abs(category.amount)), 0)
-    const globalCurrency = filteredCategories[0].currency
+  render ({t, categories, selectedCategory, selectCategory, withIncome, filterWithInCome}) {
+    if (categories === undefined) categories = []
     let operationsTotal = 0
+    const globalCurrency = categories.length > 0 ? categories[0].currency : '€'
 
-    filteredCategories.forEach(category => {
-      category.percentage = Math.round(Math.abs(category.amount) / absoluteOperationsTotal * 100)
+    if (categories.length !== 0) {
+      // compute some global data
+      const absoluteOperationsTotal = categories.reduce((total, category) => (total + Math.abs(category.amount)), 0)
+      for (let category of categories) {
+        category.percentage = Math.round(Math.abs(category.amount) / absoluteOperationsTotal * 100)
+        const absoluteSubcategoriesTotal = category.subcategories.reduce((total, category) => (total + Math.abs(category.amount)), 0)
+        for (let subcategory of category.subcategories) {
+          subcategory.percentage = Math.round(Math.abs(subcategory.amount) / absoluteSubcategoriesTotal * 100)
+        }
+        category.subcategories = category.subcategories.sort((a, b) => {
+          if (b.percentage !== a.percentage) {
+            return b.percentage - a.percentage
+          } else {
+            return a.amount - b.amount
+          }
+        })
+        operationsTotal += category.amount
+      }
+    }
 
-      category.subcategories.forEach(subcategory => {
-        subcategory.percentage = Math.round(Math.abs(subcategory.amount) / absoluteOperationsTotal * 100)
-      })
-
-      operationsTotal += category.amount
+     // sort the categories for display
+    categories = categories.sort((a, b) => {
+      if (b.percentage !== a.percentage) {
+        return b.percentage - a.percentage
+      } else {
+        return a.amount - b.amount
+      }
     })
 
-    // sort the categories for display
-    filteredCategories = filteredCategories.sort((a, b) => (b.percentage - a.percentage))
+    const selectedCat = categories.find(category => category.name === selectedCategory)
 
-    // configure the pie chart
-    const pieDataObject = {labels: [], data: [], colors: []}
-    filteredCategories.forEach((category) => {
-      pieDataObject.labels.push(t(`Data.categories.${category.name}`))
-      pieDataObject.data.push(Math.abs(category.amount).toFixed(2)) // use positive values
-      pieDataObject.colors.push(category.color)
-    })
     return (
       <div>
-
-        <Topbar>
-          <h2>{t('Categories.title.general')}</h2>
-        </Topbar>
-
         <div className={styles['bnk-cat-top']}>
           <div className={styles['bnk-cat-form']}>
             <SelectDates />
-            <div className={styles['bnk-cat-filter']}>
-              <Toggle id='withIncome' checked={withIncome} onToggle={checked => this.setState({withIncome: checked})} />
+            {selectedCategory === undefined && <div className={styles['bnk-cat-filter']}>
+              <Toggle id='withIncome' checked={withIncome} onToggle={checked => filterWithInCome(checked)} />
               <label htmlFor='withIncome'>
                 Inclure les revenus
               </label>
-            </div>
-            <FigureBlock
+            </div>}
+            {categories.length > 0 && <FigureBlock
+              className={styles['bnk-cat-figure']}
               label={withIncome ? t('Categories.title.total') : t('Categories.title.debit')}
-              total={operationsTotal}
+              total={selectedCat ? selectedCat.amount : operationsTotal}
               currency={globalCurrency}
-              coloredPositive coloredNegative signed />
+              coloredPositive coloredNegative signed />}
           </div>
-
-          <div className={styles['bnk-cat-figure']}>
-            <PieChart
-              labels={pieDataObject.labels}
-              data={pieDataObject.data}
-              colors={pieDataObject.colors}
-            />
-          </div>
+          <CategoriesChart categories={categories} selectedCategory={selectedCategory} selectCategory={selectCategory} />
         </div>
-
-        <div className={styles['bnk-cat-table']}>
-          <CategoriesBoard
-            categories={filteredCategories}
-          />
-        </div>
+        {categories.length === 0
+          ? <p>{t('Categories.title.empty_text')}</p>
+          : <Table className={styles['bnk-table-category']}>
+            <thead>
+              <tr>
+                <td className={styles['bnk-table-category-category']}>{t('Categories.headers.categories')}</td>
+                <td className={styles['bnk-table-percentage']}>%</td>
+                <td className={styles['bnk-table-operation']}>{t('Categories.headers.operations')}</td>
+                <td className={styles['bnk-table-total']}>{t('Categories.headers.total')}</td>
+                <td className={styles['bnk-table-amount']}>{t('Categories.headers.credit')}</td>
+                <td className={styles['bnk-table-amount']}>{t('Categories.headers.debit')}</td>
+                <td className={styles['bnk-table-chevron']} />
+              </tr>
+            </thead>
+            {categories.map(category => {
+              const isCollapsed = selectedCategory !== category.name
+              if (selectedCategory !== undefined && isCollapsed) return
+              return (
+                <tbody>
+                  <tr className={isCollapsed ? styles['bnk-table-row'] : styles['bnk-table-row--uncollapsed']} onClick={() => this.toggle(category.name)}>
+                    <TdWithIcon className={classNames(styles['bnk-table-category-category'], styles[`bnk-table-category--${category.name}`])}>
+                      {t(`Data.categories.${category.name}`)}
+                    </TdWithIcon>
+                    <td className={styles['bnk-table-percentage']}>
+                      {selectedCategory ? '100 %' : `${category.percentage} %`}
+                    </td>
+                    <td className={styles['bnk-table-operation']}>{category.operationsNumber}</td>
+                    <td className={styles['bnk-table-total']}>
+                      <Figure total={category.credit + category.debit} currency={category.currency} coloredPositive signed />
+                    </td>
+                    <td className={styles['bnk-table-amount']}>
+                      {category.credit ? <Figure total={category.credit} currency={category.currency} signed /> : '－'}
+                    </td>
+                    <td className={styles['bnk-table-amount']}>
+                      {category.debit ? <Figure total={category.debit} currency={category.currency} signed /> : '－'}
+                    </td>
+                    <td className={styles['bnk-table-chevron']} />
+                  </tr>
+                  {!isCollapsed && category.subcategories.map(subcategory => (
+                    <tr className={styles['bnk-table-row-subcategory']} onClick={() => this.toggle(category.name)}>
+                      <td className={styles['bnk-table-category-category']}>
+                        {t(`Data.subcategories.${subcategory.name}`)}
+                      </td>
+                      <td className={styles['bnk-table-percentage']}>{`${subcategory.percentage} %`}</td>
+                      <td className={styles['bnk-table-operation']}>{subcategory.operationsNumber}</td>
+                      <td className={styles['bnk-table-total']}>
+                        <Figure total={subcategory.credit + subcategory.debit} currency={subcategory.currency} signed />
+                      </td>
+                      <td className={styles['bnk-table-amount']}>
+                        {subcategory.credit ? <Figure total={subcategory.credit} currency={subcategory.currency} signed /> : '－'}
+                      </td>
+                      <td className={styles['bnk-table-amount']}>
+                        {subcategory.debit ? <Figure total={subcategory.debit} currency={subcategory.currency} signed /> : '－'}
+                      </td>
+                      <td className={styles['bnk-table-chevron']} />
+                    </tr>
+                  ))}
+                </tbody>
+              )
+            })}
+          </Table>
+        }
       </div>
     )
   }
 }
 
-const mapStateToProps = state => ({
-  categories: computeCategorieData(operationsByCategory(getFilteredOperations(state)))
-})
-
-const mapDispatchToProps = dispatch => ({
-  fetchOperations: async () => {
-    const mangoIndex = await dispatch(indexOperationsByDate())
-    return dispatch(fetchOperations(mangoIndex))
-  }
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(translate()(Categories))
+export default translate()(Categories)

@@ -1,4 +1,4 @@
-import Categories from './Categories'
+import CategoriesPage from './CategoriesPage'
 
 // components
-export { Categories }
+export { CategoriesPage }

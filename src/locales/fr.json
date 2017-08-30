@@ -73,7 +73,6 @@
       "general": "Catégorisation",
       "total": "Solde de la période",
       "debit": "Dépense nette",
-      "empty": "Catégorisation",
       "empty_text": "Pas de catégories à afficher."
     },
     "headers": {
