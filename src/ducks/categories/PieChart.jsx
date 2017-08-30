@@ -65,6 +65,17 @@ class PieChart extends Component {
     }})
   }
 
+  click = e => {
+    const { onClick } = this.props
+    if (onClick) {
+      if (e.length > 0) {
+        onClick(e[0]._index)
+      } else {
+        onClick(undefined)
+      }
+    }
+  }
+
   render ({onClick}, { data, options }) {
     return (
       <div className={styles['bnk-chart-pie']}>
@@ -73,7 +84,7 @@ class PieChart extends Component {
           height={250}
           width={250}
           options={options}
-          onElementsClick={e => { if (onClick) onClick(e[0]._index) }}
+          onElementsClick={this.click}
         />
       </div>
     )
