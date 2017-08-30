@@ -26,8 +26,11 @@ class CategoriesPage extends Component {
   }
 
   async componentDidMount () {
-    await this.props.fetchOperations()
-    this.setState({isFetching: false})
+    try {
+      await this.props.fetchOperations()
+    } finally {
+      this.setState({isFetching: false})
+    }
   }
 
   render ({t, categories}, {isFetching, withIncome, selectedCategory}) {

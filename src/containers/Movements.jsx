@@ -18,10 +18,12 @@ class Movements extends Component {
   }
 
   async componentDidMount () {
-    const { fetchOperations, fetchApps } = this.props
-    await fetchOperations()
-    this.setState({isFetching: false})
-    fetchApps()
+    try {
+      await this.props.fetchOperations()
+    } finally {
+      this.setState({isFetching: false})
+    }
+    this.props.fetchApps()
   }
 
   render () {
