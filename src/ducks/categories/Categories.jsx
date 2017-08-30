@@ -11,11 +11,7 @@ import CategoriesChart from './CategoriesChart'
 class Categories extends Component {
   toggle = categoryName => {
     const { selectedCategory, selectCategory } = this.props
-    if (selectedCategory) {
-      selectCategory()
-    } else {
-      selectCategory(categoryName)
-    }
+    selectedCategory ? selectCategory(undefined) : selectCategory(categoryName)
   }
 
   render ({t, categories, selectedCategory, selectCategory, withIncome, filterWithInCome}) {
@@ -72,10 +68,11 @@ class Categories extends Component {
               currency={globalCurrency}
               coloredPositive coloredNegative signed />}
           </div>
-          <CategoriesChart categories={categories} selectedCategory={selectedCategory} />
+          <CategoriesChart categories={categories} selectedCategory={selectedCategory} selectCategory={selectCategory} />
         </div>
-        {categories.length > 0
-          ? <Table className={styles['bnk-table-category']}>
+        {categories.length === 0
+          ? <p>{t('Categories.title.empty_text')}</p>
+          : <Table className={styles['bnk-table-category']}>
             <thead>
               <tr>
                 <td className={styles['bnk-table-category-category']}>{t('Categories.headers.categories')}</td>
@@ -134,7 +131,6 @@ class Categories extends Component {
               )
             })}
           </Table>
-          : <p>{t('Categories.title.empty_text')}</p>
         }
       </div>
     )
