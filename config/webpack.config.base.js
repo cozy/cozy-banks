@@ -8,7 +8,6 @@ const PostCSSAssetsPlugin = require('postcss-assets-webpack-plugin')
 const {extractor, production} = require('./webpack.vars')
 const pkg = require(path.resolve(__dirname, '../package.json'))
 const SRC_DIR = path.resolve(__dirname, '../src')
-const webpack = require('webpack')
 
 module.exports = {
   output: {
@@ -48,14 +47,15 @@ module.exports = {
       /localforage\/dist/
     ]
   },
+  standard: {
+    parser: 'babel-eslint'
+  },
   postcss: () => {
     return [
       require('autoprefixer')(['last 2 versions'])
     ]
   },
   plugins: [
-    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|fr/),
-    new webpack.ContextReplacementPlugin(/date-fns[\/\\]locale$/, /en|fr/),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, '../src/index.ejs'),
       title: pkg.name,
