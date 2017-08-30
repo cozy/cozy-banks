@@ -16,7 +16,10 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.js', '.json', '.css'],
-    modulesDirectories: ['node_modules', SRC_DIR]
+    modulesDirectories: ['node_modules', SRC_DIR],
+    alias: {
+      'redux-cozy-client': path.resolve(SRC_DIR, './lib/redux-cozy-client')
+    }
   },
   module: {
     preLoaders: [
