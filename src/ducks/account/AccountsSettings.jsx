@@ -11,18 +11,22 @@ import AccountSharingStatus from 'components/AccountSharingStatus'
 import fetchData from 'components/fetchData'
 import Table from 'components/Table'
 import Loading from 'components/Loading'
+import {
+  cozyConnect,
+  fetchCollection
+} from 'redux-cozy-client'
 
-const renderAccount = account => <AccountLine account={account} />
-
-const AccountLine = ({ account }) =>
+const AccountLine = ({account}) =>
   <tr>
     <td className={styles['bnk-table-libelle']}>
-      {account.label}
+      <a href={`#/settings/accounts/${account.id}`}>
+        {account.label}
+      </a>
     </td>
     <td className={styles['bnk-table-bank']}>
       {account.institutionLabel}
     </td>
-    <td className={styles['bnk-table-account']}>
+    <td className={styles['bnk-table-number']}>
       {account.number}
     </td>
     <td className={styles['bnk-table-type']}>
@@ -34,6 +38,8 @@ const AccountLine = ({ account }) =>
     <td className={styles['bnk-table-actions']} />
   </tr>
 
+const renderAccount = account => <AccountLine account={account} />
+
 const AccountsTable = ({ accounts, t }) => {
   return accounts ? <Table className={styles['bnk-table-account']}>
     <thead>
@@ -44,7 +50,7 @@ const AccountsTable = ({ accounts, t }) => {
         <td className={styles['bnk-table-bank']}>
           {t('Accounts.bank')}
         </td>
-        <td className={styles['bnk-table-account']}>
+        <td className={styles['bnk-table-number']}>
           {t('Accounts.account')}
         </td>
         <td className={styles['bnk-table-type']}>
@@ -109,7 +115,7 @@ class AccountsSettings extends Component {
       return <Loading />
     }
     const accountBySharingDirection = groupBy(accounts.data, account => {
-      const sharingInfo = false; // getSharingInfo(ACCOUNT_DOCTYPE, account._id)
+      const sharingInfo = false // getSharingInfo(ACCOUNT_DOCTYPE, account._id)
       const infos = (sharingInfo && sharingInfo.info) || {}
       return !!(!infos.recipients || infos.recipients.length === 0 || infos.owner)
     })

@@ -27,6 +27,25 @@
     "settings": "Paramètres"
   },
 
+  "AccountDetails": {
+    "label": "Libellé",
+    "institutionLabel": "Banque",
+    "number": "Numéro",
+    "type": "Type"
+  },
+
+  "Accounts": {
+    "account": "Compte ",
+    "add-account": "Ajouter un compte",
+    "bank": "Banque",
+    "label": "Libellé",
+    "my-accounts": "Mes comptes",
+    "no-accounts": "Vous n'avez pas encore de compte.",
+    "shared": "Partagé",
+    "shared-accounts": "Comptes que l'on m'a partagé",
+    "type": "Type"
+  },
+
   "Balance": {
     "title": "Solde actuel",
     "subtitle": {
