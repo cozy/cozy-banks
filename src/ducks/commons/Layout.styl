@@ -1,19 +1,25 @@
 @require 'cozy-ui'
+@require '../../styles/breakpoints.styl'
 
 .bnk-wrapper
     @extend    $app-2panes-sticky
 
+padded-content(pad)
+    padding pad
+
+    .full-width
+        margin-left -(pad)
+        margin-right -(pad)
+
+    .full-width-table
+        margin-left -(pad)
+        margin-right -(pad)
+        width calc(100% + 2*(pad))
+
+
 .bnk-content
-    padding 2em
+    padded-content(2em)
 
-    table
-        width calc(100% + 4em)
-        margin-left -2em
-
-@media (max-width: (768/basefont)rem)
++small-screen()
     .bnk-content
-        padding 1em
-
-        table
-            width calc(100% + 2em)
-            margin-left -1em
+        padded-content(1rem)

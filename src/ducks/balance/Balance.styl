@@ -1,9 +1,12 @@
 @require 'cozy-ui'
 
+.balance-table
+    composes full-width-table from '../commons/Layout.styl'
+
 .balance
     .kpi
         margin 0 0 1em 0
-    table
+    .balance-table
         .account_name
             flex-basis 40%
         .solde

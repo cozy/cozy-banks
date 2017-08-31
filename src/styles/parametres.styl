@@ -1,17 +1,9 @@
 @require 'cozy-ui'
 
 
-.bnk-tabs .bnk-coz-tab-list
-    width calc(100% + 4em)
-    margin-left -2em
+.bnk-coz-tab-list
+    composes full-width from '../ducks/commons/Layout.styl'
 
+.bnk-tabs .bnk-coz-tab-list
     :first-child
         padding-left 30px
-
-@media (max-width: (768/basefont)rem)
-    .bnk-tabs .bnk-coz-tab-list
-        width calc(100% + 2em)
-        margin-left -1em
-
-        :first-child
-            padding-left 15px
