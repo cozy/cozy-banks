@@ -1,4 +1,4 @@
-import Notifications from './Notifications'
+import Settings from './Settings'
 
 // components
-export { Notifications }
+export { Settings }

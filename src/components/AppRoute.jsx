@@ -4,7 +4,7 @@ import { Layout } from 'ducks/commons'
 
 import Movements from 'containers/Movements'
 import { CategoriesPage } from 'ducks/categories'
-import Settings from 'containers/Settings'
+import { Settings } from 'ducks/settings'
 import { Balance } from 'ducks/balance'
 import { AccountSettings } from 'ducks/account'
 
