@@ -105,41 +105,39 @@ class _GeneralSettings extends Component {
 const GeneralSettings = withDispatch(
   translate()(_GeneralSettings))
 
-const AccountSettings = translate()(class extends Component {
-  render ({account, onClose, t}) {
-    if (!account) {
-      return <Loading />
-    }
-    return (
-      <div>
-        <BackButton>
-          <a href='#/settings/accounts' />
-        </BackButton>
-        <Topbar>
-          <h2>
-            {account.label}
-          </h2>
-        </Topbar>
-        <Tabs
-            className={styles['account-settings__tabs']}
-            initialActiveTab='details'>
-          <TabList className={styles['account-settings__tab-list']} >
-            <Tab name='details'>{t('Détails')}</Tab>
-            <Tab name='sharing'>{t('Partage')}</Tab>
-          </TabList>
-          <TabPanels>
-            <TabPanel name='details'>
-              <GeneralSettings account={account} />
-            </TabPanel>
-            <TabPanel name='sharing'>
-              <AccountSharingDetails account={account} />
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
-      </div>
-    )
+const AccountSettings = function ({account, onClose, t}) {
+  if (!account) {
+    return <Loading />
   }
-})
+  return (
+    <div>
+      <BackButton>
+        <a href='#/settings/accounts' />
+      </BackButton>
+      <Topbar>
+        <h2>
+          {account.label}
+        </h2>
+      </Topbar>
+      <Tabs
+        className={styles['account-settings__tabs']}
+        initialActiveTab='details'>
+        <TabList className={styles['account-settings__tab-list']} >
+          <Tab name='details'>{t('Détails')}</Tab>
+          <Tab name='sharing'>{t('Partage')}</Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel name='details'>
+            <GeneralSettings account={account} />
+          </TabPanel>
+          <TabPanel name='sharing'>
+            <AccountSharingDetails account={account} />
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
+    </div>
+  )
+}
 
 const mapDocumentsToProps = function ({routeParams}) {
   return {
