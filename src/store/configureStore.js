@@ -25,8 +25,8 @@ const configureStore = persistedState => {
 
   // middlewares
   const middlewares = [
-    cozyMiddleware(getCozyClient()),
-    thunkMiddleware
+    thunkMiddleware,
+    cozyMiddleware(getCozyClient())
   ]
   if (shouldEnableTracking() && getTracker()) {
     middlewares.push(createTrackerMiddleware())

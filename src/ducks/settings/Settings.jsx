@@ -37,13 +37,7 @@ const Settings = ({ t, groups, accounts, createGroup, updateGroup, deleteGroup, 
             <AccountsSettings />
           </TabPanel>
           <TabPanel name={tabNames[1]}>
-            <GroupsSettings
-              groups={groups}
-              accounts={accounts}
-              createGroup={createGroup}
-              updateGroup={updateGroup}
-              deleteGroup={deleteGroup}
-            />
+            <GroupsSettings />
           </TabPanel>
           <TabPanel name={tabNames[2]}>
             <Notifications />

@@ -34,6 +34,12 @@
     "type": "Type"
   },
 
+  "AccountSettings": {
+    "details": "Détails",
+    "sharing": "Partage",
+    "back-to-accounts": "Revenir aux comptes"
+  },
+
   "Accounts": {
     "account": "Compte ",
     "add-account": "Ajouter un compte",
@@ -240,7 +246,9 @@
     "edit": "éditer",
     "delete": "supprimer",
     "create": "Créer un groupe",
-    "edit_group": "Editer le groupe"
+    "edit_group": "Editer le groupe",
+    "no-groups": "Avec les groupes, vous pouvez facilement rassembler plusieurs comptes, n'hésitez pas à en créer un !",
+    "back-to-groups": "Revenir aux groupes"
   },
 
   "Accounts": {

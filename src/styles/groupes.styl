@@ -2,6 +2,13 @@
 
 .Groups__table
     composes full-width-table from '../ducks/commons/Layout.styl'
+
+    & > tbody > tr > td
+        font-size 0.85rem
+        text-overflow ellipsis
+        overflow hidden
+        white-space nowrap
+
     tr:hover
         background transparent
 
@@ -30,7 +37,6 @@
 .bnk-form
     @extend $form
     @extend $form-text
-    padding 10px 20px
 
     input[type=text]
         width 100%

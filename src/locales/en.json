@@ -31,6 +31,12 @@
     "type": "Type"
   },
 
+  "AccountSettings": {
+    "details": "Details",
+    "sharing": "Sharing",
+    "back-to-accounts": "Back to accounts"
+  },
+
   "Accounts": {
     "account": "Account",
     "add-account": "Add an account",
@@ -76,7 +82,9 @@
     "label": "Label",
     "accounts": "Accounts",
     "groups": "Groups",
-    "delete": "remove"
+    "delete": "remove",
+    "no-groups": "Using groups, you can easily gather several accounts, feel free to create one.",
+    "back-to-groups": "Back to groups"
   },
   "Data": {
     "subcategories": {

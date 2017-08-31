@@ -3,11 +3,8 @@ import { connect } from 'react-redux'
 import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'
 import { getSharingInfo } from 'reducers'
-import { ACCOUNT_DOCTYPE } from 'doctypes'
 import { groupBy } from 'lodash'
 import styles from 'styles/accounts'
-import { fetchSharingInfo } from 'modules/SharingStatus'
-import AccountSharingStatus from 'components/AccountSharingStatus'
 import fetchData from 'components/fetchData'
 import Table from 'components/Table'
 import Loading from 'components/Loading'
@@ -15,6 +12,11 @@ import {
   cozyConnect,
   fetchCollection
 } from 'redux-cozy-client'
+
+// See comment below about sharings
+// import { ACCOUNT_DOCTYPE } from 'doctypes'
+// import { fetchSharingInfo } from 'modules/SharingStatus'
+import AccountSharingStatus from 'components/AccountSharingStatus'
 
 const AccountLine = ({account}) =>
   <tr>
@@ -155,11 +157,13 @@ const mapStateToProps = state => ({
 })
 
 const fetchAccountsSharingInfo = props => {
-  const { accounts } = props
   return Promise.resolve([])
-  return Promise.all(accounts.data.map(account => {
-    return props.dispatch(fetchSharingInfo(ACCOUNT_DOCTYPE, account._id))
-  }))
+  // const { accounts } = props
+  // TODO reactivate when we understand how sharings work
+  // with redux-cozy-client
+  // return Promise.all(accounts.data.map(account => {
+  //   return props.dispatch(fetchSharingInfo(ACCOUNT_DOCTYPE, account._id))
+  // }))
 }
 
 export default (

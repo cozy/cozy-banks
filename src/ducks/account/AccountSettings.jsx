@@ -1,25 +1,19 @@
 import React, { Component } from 'react'
-import { translate } from 'cozy-ui/react/I18n'
 import {
+  translate,
   Button,
   Tabs, TabPanels, TabPanel, TabList, Tab
 } from 'cozy-ui/react'
 import { Topbar } from 'ducks/commons'
 import Loading from 'components/Loading'
 import styles from 'styles/accounts'
-import modalStyles from 'cozy-ui/react/Modal/styles'
 import { withDispatch } from 'utils'
 import BackButton from 'components/BackButton'
-import { cozyConnect, fetchDocument, updateDocument } from 'redux-cozy-client'
-import classnames from 'classnames'
+import { cozyConnect, fetchDocument, updateDocument, deleteDocument } from 'redux-cozy-client'
+import { withRouter } from 'react-router'
 
 const AccountSharingDetails = translate()(({ t }) =>
   <div>{t('ComingSoon.title')}</div>)
-
-const ModalButtons = ({children}) =>
-  <div className={classnames(modalStyles['coz-modal-content'], modalStyles['coz-modal-buttons'])}>{
-    children
-  }</div>
 
 class _GeneralSettings extends Component {
   state = { modifying: false }
@@ -35,7 +29,10 @@ class _GeneralSettings extends Component {
   }
 
   onClickRemove = () => {
-
+    const { dispatch, account, router } = this.props
+    dispatch(deleteDocument(account)).then(() => {
+      router.push('/settings/accounts')
+    })
   }
 
   onClickSave = () => {
@@ -86,8 +83,8 @@ class _GeneralSettings extends Component {
             <td>{account.type}</td>
           </tr>
         </table>
-        <ModalButtons>
-          <Button theme='secondary' onClick={this.onClickRemove}>
+        <div>
+          <Button theme='danger-outline' onClick={this.onClickRemove}>
             Supprimer
           </Button>
           {!modifying && <Button theme='regular' onClick={this.onClickModify}>
@@ -96,14 +93,13 @@ class _GeneralSettings extends Component {
           {modifying && <Button theme='regular' onClick={this.onClickSave}>
             Sauver
           </Button>}
-        </ModalButtons>
+        </div>
       </div>
     )
   }
 }
 
-const GeneralSettings = withDispatch(
-  translate()(_GeneralSettings))
+const GeneralSettings = withRouter(withDispatch(translate()(_GeneralSettings)))
 
 const AccountSettings = function ({account, onClose, t}) {
   if (!account) {
@@ -119,12 +115,17 @@ const AccountSettings = function ({account, onClose, t}) {
           {account.label}
         </h2>
       </Topbar>
+      <p className='coz-desktop'>
+        <a href='#/settings/accounts'>
+          {t('AccountSettings.back-to-accounts')}
+        </a>
+      </p>
       <Tabs
         className={styles['account-settings__tabs']}
         initialActiveTab='details'>
         <TabList className={styles['account-settings__tab-list']} >
-          <Tab name='details'>{t('Détails')}</Tab>
-          <Tab name='sharing'>{t('Partage')}</Tab>
+          <Tab name='details'>{t('AccountSettings.details')}</Tab>
+          <Tab name='sharing'>{t('AccountSettings.sharing')}</Tab>
         </TabList>
         <TabPanels>
           <TabPanel name='details'>
