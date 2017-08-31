@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react/I18n'
 
 import Notifications from 'components/Notifications'
-import Groups from 'components/Groups'
+import GroupsSettings from 'components/GroupsSettings'
 import { AccountsSettings } from 'ducks/account'
 import { Topbar } from 'ducks/commons'
 
@@ -48,7 +48,7 @@ class Settings extends Component {
               <AccountsSettings />
             </TabPanel>
             <TabPanel name={tabNames[1]}>
-              <Groups
+              <GroupsSettings
                 groups={groups}
                 accounts={accounts}
                 createGroup={createGroup}

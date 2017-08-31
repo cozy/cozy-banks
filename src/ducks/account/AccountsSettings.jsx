@@ -44,22 +44,22 @@ const AccountsTable = ({ accounts, t }) => {
   return accounts ? <Table className={styles['bnk-table-account']}>
     <thead>
       <tr className={styles['coz-table-row']}>
-        <td className={styles['bnk-table-libelle']}>
+        <th className={styles['bnk-table-libelle']}>
           {t('Accounts.label')}
-        </td>
-        <td className={styles['bnk-table-bank']}>
+        </th>
+        <th className={styles['bnk-table-bank']}>
           {t('Accounts.bank')}
-        </td>
-        <td className={styles['bnk-table-number']}>
+        </th>
+        <th className={styles['bnk-table-number']}>
           {t('Accounts.account')}
-        </td>
-        <td className={styles['bnk-table-type']}>
+        </th>
+        <th className={styles['bnk-table-type']}>
           {t('Accounts.type')}
-        </td>
-        <td className={styles['bnk-table-shared']}>
+        </th>
+        <th className={styles['bnk-table-shared']}>
           {t('Accounts.shared')}
-        </td>
-        <td className={styles['bnk-table-actions']} />
+        </th>
+        <th className={styles['bnk-table-actions']} />
       </tr>
     </thead>
     <tbody>
