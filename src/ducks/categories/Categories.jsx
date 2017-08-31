@@ -16,6 +16,14 @@ class Categories extends Component {
 
   render ({t, categories, selectedCategory, selectCategory, withIncome, filterWithInCome}) {
     if (categories === undefined) categories = []
+    const selectedCat = categories.find(category => category.name === selectedCategory)
+    if (selectedCategory) {
+      if (selectedCat) {
+        categories = [selectedCat]
+      } else {
+        categories = []
+      }
+    }
     let operationsTotal = 0
     const globalCurrency = categories.length > 0 ? categories[0].currency : '€'
 
@@ -26,7 +34,11 @@ class Categories extends Component {
         category.percentage = Math.round(Math.abs(category.amount) / absoluteOperationsTotal * 100)
         const absoluteSubcategoriesTotal = category.subcategories.reduce((total, category) => (total + Math.abs(category.amount)), 0)
         for (let subcategory of category.subcategories) {
-          subcategory.percentage = Math.round(Math.abs(subcategory.amount) / absoluteSubcategoriesTotal * 100)
+          if (absoluteSubcategoriesTotal === 0) {
+            subcategory.percentage = 100
+          } else {
+            subcategory.percentage = Math.round(Math.abs(subcategory.amount) / absoluteSubcategoriesTotal * 100)
+          }
         }
         category.subcategories = category.subcategories.sort((a, b) => {
           if (b.percentage !== a.percentage) {
@@ -47,8 +59,6 @@ class Categories extends Component {
         return a.amount - b.amount
       }
     })
-
-    const selectedCat = categories.find(category => category.name === selectedCategory)
 
     return (
       <div>
