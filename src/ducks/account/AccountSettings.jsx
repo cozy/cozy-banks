@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react/I18n'
-
 import {
   Button,
   Tabs, TabPanels, TabPanel, TabList, Tab
@@ -10,22 +8,13 @@ import { Topbar } from 'ducks/commons'
 import Loading from 'components/Loading'
 import styles from 'styles/accounts'
 import modalStyles from 'cozy-ui/react/Modal/styles'
-
+import { withDispatch } from 'utils'
 import BackButton from 'components/BackButton'
-
-import {
-  cozyConnect,
-  fetchDocument,
-  updateDocument
-} from 'redux-cozy-client'
-
+import { cozyConnect, fetchDocument, updateDocument } from 'redux-cozy-client'
 import classnames from 'classnames'
 
 const AccountSharingDetails = translate()(({ t }) =>
   <div>{t('ComingSoon.title')}</div>)
-
-const withDispatch = Component =>
-  connect(null, dispatch => ({ dispatch }))(Component)
 
 const ModalButtons = ({children}) =>
   <div className={classnames(modalStyles['coz-modal-content'], modalStyles['coz-modal-buttons'])}>{

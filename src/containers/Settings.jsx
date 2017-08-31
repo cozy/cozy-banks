@@ -1,18 +1,14 @@
 import styles from 'styles/parametres'
-
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react/I18n'
-
 import Notifications from 'components/Notifications'
 import GroupsSettings from 'components/GroupsSettings'
 import { AccountsSettings } from 'ducks/account'
 import { Topbar } from 'ducks/commons'
-
 import {
   Tabs, TabPanels, TabPanel, TabList, Tab
 } from 'cozy-ui/react'
-
 import {
   createGroup,
   updateGroup,
