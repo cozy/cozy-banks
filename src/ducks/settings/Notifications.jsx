@@ -36,7 +36,7 @@ class Notifications extends Component {
         title: t('Notifications.if_movement_greater.title'),
         name: 'amountMax',
         description: t('Notifications.if_movement_greater.description'),
-        value: settings.montant.value
+        value: settings.notifications.amountMax.value
       }
     ]
 
