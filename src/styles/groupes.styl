@@ -1,19 +1,19 @@
-@import 'cozy-ui'
+@require 'cozy-ui'
 
-[role=application] // @stylint ignore
-    @extend $table
+.Groups__table
+    composes full-width-table from '../ducks/commons/Layout.styl'
 
-    .coz-table-row:hover
+    & > tbody > tr > td
+        font-size 0.85rem
+        text-overflow ellipsis
+        overflow hidden
+        white-space nowrap
+
+    tr:hover
         background transparent
-
-    .coz-table-body
-        height auto
 
     .bnk-table-libelle
         flex 0 0 30%
-
-    .coz-table-cell.bnk-table-libelle
-        color black
 
     .bnk-table-comptes
         flex 0 0 50%
@@ -22,22 +22,21 @@
         flex 0 0 20%
         text-align right
 
-    .bnk-action-button
-        background 0
-        border 0
-        color dodger-blue
-        text-transform uppercase
-        cursor pointer
+.bnk-action-button
+    background 0
+    border 0
+    color dodger-blue
+    text-transform uppercase
+    cursor pointer
 
-        &.icon-plus
-            padding-left 1.5em
-            background  embedurl('../assets/icons/icon-add.svg') left center no-repeat
+    &.icon-plus
+        padding-left 1.5em
+        background  embedurl('../assets/icons/icon-add.svg') left center no-repeat
 
 
 .bnk-form
     @extend $form
     @extend $form-text
-    padding 10px 20px
 
     input[type=text]
         width 100%

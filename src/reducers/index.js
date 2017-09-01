@@ -6,6 +6,7 @@ import { accounts, groups } from './accounts'
 import * as sharingStatus from 'modules/SharingStatus'
 import filters from 'ducks/filters'
 import apps from 'ducks/apps'
+import { reducer } from 'redux-cozy-client'
 
 export const reducers = {
   alerts: alerterReducer,
@@ -14,7 +15,8 @@ export const reducers = {
   apps,
   accounts,
   groups,
-  sharingStatus: sharingStatus.reducer
+  sharingStatus: sharingStatus.reducer,
+  cozy: reducer
 }
 
 const combinedReducers = combineReducers(reducers)

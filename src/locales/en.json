@@ -23,6 +23,32 @@
     "accounts": "Accounts",
     "manage_accounts": "Manage my accounts"
   },
+
+  "AccountDetails": {
+    "label": "Label",
+    "institutionLabel": "Bank",
+    "number": "Number",
+    "type": "Type"
+  },
+
+  "AccountSettings": {
+    "details": "Details",
+    "sharing": "Sharing",
+    "back-to-accounts": "Back to accounts"
+  },
+
+  "Accounts": {
+    "account": "Account",
+    "add-account": "Add an account",
+    "bank": "Bank",
+    "label": "Label",
+    "my-accounts": "My accounts",
+    "no-accounts": "You do not have any account yet.",
+    "shared": "Shared",
+    "shared-accounts": "Accounts shared to me",
+    "type": "Type"
+  },
+
   "Balance": {
     "bank_name": "Name of the bank",
     "subtitle": {
@@ -39,7 +65,7 @@
     "last_12_months": "Last 12 months"
   },
   "Accounts": {
-    "no-accounts": "you do not have any account yet.",
+    "no-accounts": "You do not have any account yet.",
     "account": "Account",
     "shared-accounts": "Accounts shared to me",
     "my-accounts": "My accounts",
@@ -53,10 +79,12 @@
     "edit_group": "Edit Group",
     "edit": "edit",
     "create": "Create a group",
-    "label": "Wording",
+    "label": "Label",
     "accounts": "Accounts",
     "groups": "Groups",
-    "delete": "remove"
+    "delete": "remove",
+    "no-groups": "Using groups, you can easily gather several accounts, feel free to create one.",
+    "back-to-groups": "Back to groups"
   },
   "Data": {
     "subcategories": {

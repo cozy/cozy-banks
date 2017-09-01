@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import classNames from 'classnames'
 import Toggle from 'cozy-ui/react/Toggle'
 import Modal from 'cozy-ui/react/Modal'
-import styles from 'styles/notifications'
 import {translate} from 'cozy-ui/react/I18n'
 import {objectT} from 'utils/i18n'
+import styles from './Notifications.styl'
 
 const NotificationDescription = ({children}) => (
   <p className={styles['notification-description']}>

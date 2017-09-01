@@ -27,6 +27,31 @@
     "settings": "Paramètres"
   },
 
+  "AccountDetails": {
+    "label": "Libellé",
+    "institutionLabel": "Banque",
+    "number": "Numéro",
+    "type": "Type"
+  },
+
+  "AccountSettings": {
+    "details": "Détails",
+    "sharing": "Partage",
+    "back-to-accounts": "Revenir aux comptes"
+  },
+
+  "Accounts": {
+    "account": "Compte ",
+    "add-account": "Ajouter un compte",
+    "bank": "Banque",
+    "label": "Libellé",
+    "my-accounts": "Mes comptes",
+    "no-accounts": "Vous n'avez pas encore de compte.",
+    "shared": "Partagé",
+    "shared-accounts": "Comptes que l'on m'a partagé",
+    "type": "Type"
+  },
+
   "Balance": {
     "title": "Solde actuel",
     "subtitle": {
@@ -221,7 +246,9 @@
     "edit": "éditer",
     "delete": "supprimer",
     "create": "Créer un groupe",
-    "edit_group": "Editer le groupe"
+    "edit_group": "Editer le groupe",
+    "no-groups": "Avec les groupes, vous pouvez facilement rassembler plusieurs comptes, n'hésitez pas à en créer un !",
+    "back-to-groups": "Revenir aux groupes"
   },
 
   "Accounts": {

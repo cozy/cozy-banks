@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react/I18n'
 import Loading from 'components/Loading'
-import { TopbarTitle, TopbarLeft } from 'ducks/commons/Topbar'
+import { TopbarTitle } from 'ducks/commons/Topbar'
 import { getFilteredOperations } from 'ducks/filters'
 import { fetchOperations, indexOperationsByDate } from 'actions'
 
 import { operationsByCategory, computeCategorieData } from './helpers'
-import styles from './styles'
 import Categories from './Categories'
+import BackButton from 'components/BackButton'
 
 class CategoriesPage extends Component {
   state = {
@@ -43,9 +43,9 @@ class CategoriesPage extends Component {
         <TopbarTitle>
           <h2>{t('Categories.title.general')}</h2>
         </TopbarTitle>
-        {selectedCategory && <TopbarLeft className={styles['bnk-cat-close']}>
-          <button className={'coz-btn'} onClick={() => this.selectCategory(undefined)} />
-        </TopbarLeft>}
+        {selectedCategory && <BackButton>
+          <button onClick={() => this.selectCategory(undefined)} />
+        </BackButton>}
         {isFetching
           ? <Loading loadingType='categories' />
           : <Categories categories={categories}

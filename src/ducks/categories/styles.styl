@@ -1,11 +1,4 @@
-@import 'cozy-ui'
-
-.bnk-cat-close button
-    padding 0
-    margin 0
-    width 100%
-    height 100%
-    background embedurl('../../assets/icons/icon-arrow-left.svg') center no-repeat
+@require 'cozy-ui'
 
 .bnk-cat-top
     display         flex
@@ -48,6 +41,7 @@
 activeBkgColor = #E8F2FF
 
 .bnk-table-category
+    composes full-width-table from '../commons/Layout.styl'
     tbody tr
         cursor  pointer
 

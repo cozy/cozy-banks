@@ -1,44 +1,66 @@
-@import 'cozy-ui'
+@require 'cozy-ui'
+@require './breakpoints.styl'
 
-[role=application] // @stylint ignore
-    @extend $table
-
-    .coz-table-row:hover
-        background transparent
-
-    .coz-table-body
-        height auto
-
-
-    .coz-table-cell.bnk-table-libelle
-        color black
+.bnk-table-account
+    composes full-width-table from '../ducks/commons/Layout.styl'
+    & > tbody > tr > td
+        font-size 0.85rem
+        text-overflow ellipsis
+        overflow hidden
+        white-space nowrap
 
     .bnk-table-libelle
-        flex 0 0 30%
+        flex-basis 25%
 
     .bnk-table-bank
-        flex 0 0 15%
+        flex-basis 20%
 
-    .bnk-table-account
-        flex 0 0 17%
+    .bnk-table-number
+        flex-basis 15%
 
     .bnk-table-type
-        flex 0 0 15%
+        flex-basis 15%
 
     .bnk-table-shared
-        flex 0 0 15%
+        flex-basis 15%
 
     .bnk-table-actions
-        flex 0 0 8%
+        flex-basis 10%
         text-align right
 
-    .bnk-action-button
-        background 0
-        border 0
-        color dodger-blue
-        text-transform uppercase
-        cursor pointer
++small-screen()
+    .bnk-table-type
+        display none
 
-        &.icon-plus
-            padding-left 1.5em
-            background  embedurl('../assets/icons/icon-add.svg') left center no-repeat
+.bnk-action-button
+    background 0
+    border 0
+    color dodger-blue
+    text-transform uppercase
+    cursor pointer
+
+    &.icon-plus
+        padding-left 1.5em
+        background  embedurl('../assets/icons/icon-add.svg') left center no-repeat
+
+.info-table.info-table
+    width 100%
+    margin-bottom 1rem
+    tr
+        display table-row
+        border-bottom 0
+
+        td
+            display table-cell
+
+        &:hover
+            background transparent
+
+        td:first-child
+            font-weight bold
+            color cool-grey
+            font-variant small-caps
+            text-transform uppercase
+
+.account-settings__tab-list
+    composes full-width from '../ducks/commons/Layout.styl'

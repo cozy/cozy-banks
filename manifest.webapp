@@ -29,7 +29,7 @@
     "bank.accounts": {
       "description": "Used to list your bank accounts",
       "type": "io.cozy.bank.accounts",
-      "verbs": ["GET", "POST", "PUT"]
+      "verbs": ["GET", "POST", "PUT", "DELETE"]
     },
     "bank.operations": {
       "description": "Used to manage your bank operations",
