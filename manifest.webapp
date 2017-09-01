@@ -26,6 +26,11 @@
       "type": "io.cozy.apps",
       "verbs": ["GET"]
     },
+    "bank.settings": {
+      "description": "Used to manage your bank settings",
+      "type": "io.cozy.bank.settings",
+      "verbs": ["GET", "POST", "PUT"]
+    },
     "bank.accounts": {
       "description": "Used to list your bank accounts",
       "type": "io.cozy.bank.accounts",
