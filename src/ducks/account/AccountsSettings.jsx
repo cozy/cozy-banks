@@ -1,6 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-import classNames from 'classnames'
 import { translate, Button, Icon } from 'cozy-ui/react'
 import { getSharingInfo } from 'reducers'
 import { groupBy } from 'lodash'
@@ -12,6 +11,7 @@ import {
   cozyConnect,
   fetchCollection
 } from 'redux-cozy-client'
+import plus from 'assets/icons/16/plus.svg'
 
 // See comment below about sharings
 // import { ACCOUNT_DOCTYPE } from 'doctypes'
@@ -72,77 +72,37 @@ const AccountsTable = ({ accounts, t }) => {
   </p>
 }
 
-class AccountsSettings extends Component {
-  state = {
-    editingGroup: null
+const AccountsSettings = ({ t, accounts }) => {
+  if (accounts.fetchStatus === 'loading') {
+    return <Loading />
   }
+  const accountBySharingDirection = groupBy(accounts.data, account => {
+    const sharingInfo = false // getSharingInfo(ACCOUNT_DOCTYPE, account._id)
+    const infos = (sharingInfo && sharingInfo.info) || {}
+    return !!(!infos.recipients || infos.recipients.length === 0 || infos.owner)
+  })
 
-  addGroup = () => {
-    this.setState({
-      editingGroup: {
-        label: '',
-        accounts: []
-      }
-    })
-  }
+  return (
+    <div>
+      <h4>
+        {t('Accounts.my-accounts')}
+      </h4>
 
-  editGroup = group => {
-    this.setState({
-      editingGroup: group
-    })
-  }
+      <AccountsTable accounts={accountBySharingDirection[true]} t={t} />
 
-  saveGroupChanges = data => {
-    if (data._id) {
-      this.props.updateGroup(data._id, data)
-    } else {
-      this.props.createGroup(data)
-    }
-
-    this.setState({
-      editingGroup: null
-    })
-  }
-
-  deleteGroup = group => {
-    this.props.deleteGroup(group)
-
-    this.setState({
-      editingGroup: null
-    })
-  }
-
-  render ({ t, accounts }) {
-    if (accounts.fetchStatus === 'loading') {
-      return <Loading />
-    }
-    const accountBySharingDirection = groupBy(accounts.data, account => {
-      const sharingInfo = false // getSharingInfo(ACCOUNT_DOCTYPE, account._id)
-      const infos = (sharingInfo && sharingInfo.info) || {}
-      return !!(!infos.recipients || infos.recipients.length === 0 || infos.owner)
-    })
-
-    return (
-      <div>
-        <h4>
-          {t('Accounts.my-accounts')}
-        </h4>
-
-        <AccountsTable accounts={accountBySharingDirection[true]} t={t} />
-
-        <h4>
-          {t('Accounts.shared-accounts')}
-        </h4>
-
-        <AccountsTable accounts={accountBySharingDirection[false]} t={t} />
-      </div>
-    )
-  }
       <p>
         <Button theme='regular'>
           <Icon icon={plus} />&nbsp;{t('Accounts.add-account')}
         </Button>
       </p>
+
+      <h4>
+        {t('Accounts.shared-accounts')}
+      </h4>
+
+      <AccountsTable accounts={accountBySharingDirection[false]} t={t} />
+    </div>
+  )
 }
 
 const mapDocumentsToProps = ownProps => ({
