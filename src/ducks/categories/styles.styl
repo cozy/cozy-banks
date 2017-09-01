@@ -37,9 +37,6 @@
             flex-basis 100%
 
 // Table
-
-activeBkgColor = #E8F2FF
-
 .bnk-table-category
     composes full-width-table from '../commons/Layout.styl'
     tbody tr
@@ -83,17 +80,11 @@ activeBkgColor = #E8F2FF
 
         .bnk-table-percentage
             font-weight bold
-    .bnk-table-row--uncollapsed
-    .bnk-table-row--uncollapsed:hover
-        background-color activeBkgColor
 
+    .bnk-table-row--uncollapsed:hover
         .bnk-table-chevron
             background-image embedurl('../../assets/icons/icon-chevron-down-active.svg')
             transform   rotate3d(1, 0, 0, 180deg)
-
-    .bnk-table-row-subcategory
-    .bnk-table-row-subcategory:hover
-        background-color activeBkgColor
 
     @media (max-width: (1023/basefont)rem)
         .bnk-table-amount
