@@ -14,26 +14,9 @@ import styles from './AccountSwitch.styl'
 
 // Note that everything is set up to be abble to combine filters (even the redux store). It's only limited to one filter in a few places, because the UI can only accomodate one right now.
 class AccountSwitch extends Component {
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      isFetching: true,
-      open: false
-    }
-
-    props.fetchAccounts()
-      .then(() => {
-        return this.props.fetchGroups()
-      })
-      .then(() => {
-        this.setState({
-          isFetching: false
-        })
-      })
-
-    document.addEventListener('click', this.onClickOutside)
-    this.lastOpenEvent = null
+  state = {
+    isFetching: true,
+    open: false
   }
 
   onClickOutside = e => {
@@ -58,6 +41,20 @@ class AccountSwitch extends Component {
     this.setState({
       open: newState
     })
+  }
+
+  async componentDidMount () {
+    document.addEventListener('click', this.onClickOutside)
+    this.lastOpenEvent = null
+
+    try {
+      await this.props.fetchAccounts()
+      await this.props.fetchGroups()
+    } finally {
+      this.setState({
+        isFetching: false
+      })
+    }
   }
 
   render () {
