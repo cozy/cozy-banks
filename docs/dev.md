@@ -20,7 +20,7 @@ Style
 
 Avoid `constructor` if you can by leveraging `transform-class-properties`
 
-❌ Bad :
+❌  Bad :
 
 ```
 class MyComponent extends Component {
@@ -31,7 +31,7 @@ class MyComponent extends Component {
 }
 ```
 
-✅ Good
+✅  Good
 
 ```
 class MyComponent extends Component {
@@ -44,7 +44,7 @@ class MyComponent extends Component {
 Avoid binding event handlers in `constructor`, leverage `transform-class-properties` 
 + arrow functions.
 
-❌ Bad :
+❌  Bad :
 
 ```
 class MyComponent extends Component {
@@ -59,7 +59,7 @@ class MyComponent extends Component {
 }
 ```
 
-✅ Good
+✅  Good
 
 ```
 class MyComponent extends Component {
