@@ -12,6 +12,7 @@ import { shouldEnableTracking, getTracker } from 'cozy-ui/react/helpers/tracker'
 import { loadState, persistState } from 'store/persistedState'
 import configureStore from 'store/configureStore'
 import AppRoute from 'components/AppRoute'
+import 'number-to-locale-string'
 
 if (__DEVELOPMENT__) {
   // Enables React dev tools for Preact

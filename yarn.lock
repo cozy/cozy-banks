@@ -4537,6 +4537,10 @@ number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
 
+number-to-locale-string@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/number-to-locale-string/-/number-to-locale-string-1.0.1.tgz#8c306fda358467bc7eb4746e078be28e21000f31"
+
 "nwmatcher@>= 1.3.9 < 2.0.0":
   version "1.3.9"
   resolved "https://registry.yarnpkg.com/nwmatcher/-/nwmatcher-1.3.9.tgz#8bab486ff7fa3dfd086656bbe8b17116d3692d2a"
