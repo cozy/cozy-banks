@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import classNames from 'classnames'
 import { translate, Button, Icon } from 'cozy-ui/react'
 import styles from 'styles/groupes'
 import Table from 'components/Table'
@@ -16,53 +15,57 @@ const goTo = url => () => {
   window.location = url
 }
 
+const GroupList = translate()(({groups, accounts, t}) => {
+  return groups.length ? <Table className={styles.Groups__table}>
+    <thead>
+      <tr>
+        <th className={styles['bnk-table-libelle']}>
+          {t('Groups.label')}
+        </th>
+        <th className={styles['bnk-table-comptes']}>
+          {t('Groups.accounts')}
+        </th>
+      </tr>
+    </thead>
+
+    <tbody className={styles['coz-table-body']}>
+      {groups.map(group => (
+        <tr>
+          <td className={styles['bnk-table-libelle']}>
+            <a href={`#/settings/groups/${group._id}`}>
+              {group.label}
+            </a>
+          </td>
+          <td className={styles['bnk-table-comptes']}>
+            {group.accounts.map((accountId, index) => {
+              const account = accounts.data.find(account => (account._id === accountId))
+              let text = account ? account.label : ''
+              if (index < group.accounts.length - 1) text += ' ; '
+              return text
+            })}
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </Table> : <p>
+    {t('Groups.no-groups')}
+  </p>
+})
+
 class Groups extends Component {
   render ({ t, groups, accounts }, { editingGroup }) {
     if (isPending(groups) || isPending(accounts)) {
       return <Loading />
     }
-
-    const validGroups = groups.data.filter(x => x)
     return (
       <div>
         <h4>
           {t('Groups.groups')}
         </h4>
 
-        { validGroups.length ? <Table className={styles.Groups__table}>
-          <thead>
-            <tr>
-              <th className={styles['bnk-table-libelle']}>
-                {t('Groups.label')}
-              </th>
-              <th className={styles['bnk-table-comptes']}>
-                {t('Groups.accounts')}
-              </th>
-            </tr>
-          </thead>
-
-          <tbody className={styles['coz-table-body']}>
-            {validGroups.map(group => (
-              <tr>
-                <td className={styles['bnk-table-libelle']}>
-                  <a href={`#/settings/groups/${group._id}`}>
-                    {group.label}
-                  </a>
-                </td>
-                <td className={styles['bnk-table-comptes']}>
-                  {group.accounts.map((accountId, index) => {
-                    const account = accounts.data.find(account => (account._id === accountId))
-                    let text = account ? account.label : ''
-                    if (index < group.accounts.length - 1) text += ' ; '
-                    return text
-                  })}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table> : <p>
-          {t('Groups.no-groups')}
-        </p>}
+        {groups.fetchStatus === 'loading'
+          ? <Loading />
+          : <GroupList accounts={accounts} groups={groups.data.filter(x => x)} />}
 
         <Button theme='regular' onClick={goTo('#/settings/groups/new')}>
           <Icon icon={plus} /> {t('Groups.create')}
