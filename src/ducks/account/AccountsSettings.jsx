@@ -4,7 +4,6 @@ import { translate, Button, Icon } from 'cozy-ui/react'
 import { getSharingInfo } from 'reducers'
 import { groupBy } from 'lodash'
 import styles from 'styles/accounts'
-import fetchData from 'components/fetchData'
 import Table from 'components/Table'
 import Loading from 'components/Loading'
 import {
@@ -16,6 +15,8 @@ import plus from 'assets/icons/16/plus.svg'
 // See comment below about sharings
 // import { ACCOUNT_DOCTYPE } from 'doctypes'
 // import { fetchSharingInfo } from 'modules/SharingStatus'
+// import fetchData from 'components/fetchData'
+
 import AccountSharingStatus from 'components/AccountSharingStatus'
 
 const AccountLine = ({account}) =>
@@ -115,20 +116,19 @@ const mapStateToProps = state => ({
   }
 })
 
-const fetchAccountsSharingInfo = props => {
-  return Promise.resolve([])
+// TODO reactivate when we understand how sharings work
+// const fetchAccountsSharingInfo = props => {
+//   return Promise.resolve([])
   // const { accounts } = props
-  // TODO reactivate when we understand how sharings work
   // with redux-cozy-client
   // return Promise.all(accounts.data.map(account => {
   //   return props.dispatch(fetchSharingInfo(ACCOUNT_DOCTYPE, account._id))
   // }))
-}
+// }
 
 export default (
   cozyConnect(mapDocumentsToProps)(
   connect(mapStateToProps)(
   translate()(
-  fetchData(fetchAccountsSharingInfo)(
   AccountsSettings))
-)))
+))
