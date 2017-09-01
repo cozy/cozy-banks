@@ -5189,7 +5189,7 @@ pouchdb@^6.1.2:
     through2 "2.0.1"
     vuvuzela "1.0.3"
 
-preact-compat@^3.11.0, preact-compat@^3.9.0:
+preact-compat@^3.11.0:
   version "3.14.3"
   resolved "https://registry.yarnpkg.com/preact-compat/-/preact-compat-3.14.3.tgz#88fa9c5a1dc749ab45e4c7f1fc755455ebb125b4"
   dependencies:
@@ -5201,6 +5201,16 @@ preact-compat@^3.11.0, preact-compat@^3.9.0:
 preact-compat@^3.16.0:
   version "3.16.0"
   resolved "https://registry.yarnpkg.com/preact-compat/-/preact-compat-3.16.0.tgz#cf2bc1b2f8fca14900d68094f9e10b8b329cc41e"
+  dependencies:
+    immutability-helper "^2.1.2"
+    preact-render-to-string "^3.6.0"
+    preact-transition-group "^1.1.0"
+    prop-types "^15.5.8"
+    standalone-react-addons-pure-render-mixin "^0.1.1"
+
+preact-compat@^3.17.0:
+  version "3.17.0"
+  resolved "https://registry.yarnpkg.com/preact-compat/-/preact-compat-3.17.0.tgz#528cfdfc301190c1a0f47567336be1f4be0266b3"
   dependencies:
     immutability-helper "^2.1.2"
     preact-render-to-string "^3.6.0"
@@ -5225,6 +5235,10 @@ preact@^7.1.0:
 preact@^8.1.0:
   version "8.2.1"
   resolved "https://registry.yarnpkg.com/preact/-/preact-8.2.1.tgz#674243df0c847884d019834044aa2fcd311e72ed"
+
+preact@^8.2.5:
+  version "8.2.5"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-8.2.5.tgz#cbfa3962a8012768159f6d01d46f9c1eb3213c0a"
 
 prebuild@^4.1.1:
   version "4.5.0"

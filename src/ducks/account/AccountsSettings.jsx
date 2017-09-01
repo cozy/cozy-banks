@@ -1,21 +1,22 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-import classNames from 'classnames'
-import { translate } from 'cozy-ui/react/I18n'
+import { translate, Button, Icon } from 'cozy-ui/react'
 import { getSharingInfo } from 'reducers'
 import { groupBy } from 'lodash'
 import styles from 'styles/accounts'
-import fetchData from 'components/fetchData'
 import Table from 'components/Table'
 import Loading from 'components/Loading'
 import {
   cozyConnect,
   fetchCollection
 } from 'redux-cozy-client'
+import plus from 'assets/icons/16/plus.svg'
 
 // See comment below about sharings
 // import { ACCOUNT_DOCTYPE } from 'doctypes'
 // import { fetchSharingInfo } from 'modules/SharingStatus'
+// import fetchData from 'components/fetchData'
+
 import AccountSharingStatus from 'components/AccountSharingStatus'
 
 const AccountLine = ({account}) =>
@@ -72,78 +73,37 @@ const AccountsTable = ({ accounts, t }) => {
   </p>
 }
 
-class AccountsSettings extends Component {
-  state = {
-    editingGroup: null
+const AccountsSettings = ({ t, accounts }) => {
+  if (accounts.fetchStatus === 'loading') {
+    return <Loading />
   }
+  const accountBySharingDirection = groupBy(accounts.data, account => {
+    const sharingInfo = false // getSharingInfo(ACCOUNT_DOCTYPE, account._id)
+    const infos = (sharingInfo && sharingInfo.info) || {}
+    return !!(!infos.recipients || infos.recipients.length === 0 || infos.owner)
+  })
 
-  addGroup = () => {
-    this.setState({
-      editingGroup: {
-        label: '',
-        accounts: []
-      }
-    })
-  }
+  return (
+    <div>
+      <h4>
+        {t('Accounts.my-accounts')}
+      </h4>
 
-  editGroup = group => {
-    this.setState({
-      editingGroup: group
-    })
-  }
+      <AccountsTable accounts={accountBySharingDirection[true]} t={t} />
 
-  saveGroupChanges = data => {
-    if (data._id) {
-      this.props.updateGroup(data._id, data)
-    } else {
-      this.props.createGroup(data)
-    }
+      <p>
+        <Button theme='regular'>
+          <Icon icon={plus} />&nbsp;{t('Accounts.add-account')}
+        </Button>
+      </p>
 
-    this.setState({
-      editingGroup: null
-    })
-  }
+      <h4>
+        {t('Accounts.shared-accounts')}
+      </h4>
 
-  deleteGroup = group => {
-    this.props.deleteGroup(group)
-
-    this.setState({
-      editingGroup: null
-    })
-  }
-
-  render ({ t, accounts }) {
-    if (accounts.fetchStatus === 'loading') {
-      return <Loading />
-    }
-    const accountBySharingDirection = groupBy(accounts.data, account => {
-      const sharingInfo = false // getSharingInfo(ACCOUNT_DOCTYPE, account._id)
-      const infos = (sharingInfo && sharingInfo.info) || {}
-      return !!(!infos.recipients || infos.recipients.length === 0 || infos.owner)
-    })
-
-    return (
-      <div>
-        <h4>
-          {t('Accounts.my-accounts')}
-        </h4>
-
-        <AccountsTable accounts={accountBySharingDirection[true]} t={t} />
-
-        <p>
-          <button className={classNames(styles['bnk-action-button'], styles['icon-plus'])} onClick={this.addGroup}>
-            {t('Accounts.add-account')}
-          </button>
-        </p>
-
-        <h4>
-          {t('Accounts.shared-accounts')}
-        </h4>
-
-        <AccountsTable accounts={accountBySharingDirection[false]} t={t} />
-      </div>
-    )
-  }
+      <AccountsTable accounts={accountBySharingDirection[false]} t={t} />
+    </div>
+  )
 }
 
 const mapDocumentsToProps = ownProps => ({
@@ -156,20 +116,19 @@ const mapStateToProps = state => ({
   }
 })
 
-const fetchAccountsSharingInfo = props => {
-  return Promise.resolve([])
+// TODO reactivate when we understand how sharings work
+// const fetchAccountsSharingInfo = props => {
+//   return Promise.resolve([])
   // const { accounts } = props
-  // TODO reactivate when we understand how sharings work
   // with redux-cozy-client
   // return Promise.all(accounts.data.map(account => {
   //   return props.dispatch(fetchSharingInfo(ACCOUNT_DOCTYPE, account._id))
   // }))
-}
+// }
 
 export default (
   cozyConnect(mapDocumentsToProps)(
   connect(mapStateToProps)(
   translate()(
-  fetchData(fetchAccountsSharingInfo)(
   AccountsSettings))
-)))
+))

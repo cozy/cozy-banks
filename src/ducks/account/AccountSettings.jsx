@@ -67,7 +67,7 @@ class _GeneralSettings extends Component {
             <td>{t('AccountDetails.label')}</td>
             <td>
               {!modifying && account.label}
-              {modifying && this.renderInputFor('label') }
+              {modifying && this.renderInputFor('label')}
             </td>
           </tr>
           <tr>
