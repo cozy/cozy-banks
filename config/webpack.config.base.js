@@ -31,7 +31,7 @@ module.exports = {
     ],
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /(node_modules|cozy-(bar|client-js))/,
         loader: 'babel-loader'
       },
