@@ -69,7 +69,7 @@ class GroupSettings extends Component {
   onRemove = () => {
     const { group, dispatch, router } = this.props
     dispatch(deleteDocument(group)).then(() => {
-      router.push(`/settings/groups`)
+      router.push('/settings/groups')
     })
   }
 
@@ -84,7 +84,7 @@ class GroupSettings extends Component {
           <a href='#/settings/groups' />
         </BackButton>
         <Topbar>
-          <h2>{ group.label }</h2>
+          <h2>{group.label}</h2>
         </Topbar>
         <p className='coz-desktop'>
           <a href='#/settings/groups'>
@@ -100,11 +100,11 @@ class GroupSettings extends Component {
           <label className={styles['coz-form-label']}>
             {t('Groups.accounts')}
           </label>
-          { accounts.fetchStatus === 'pending' ? <Loading /> : <table className={styles['coz-table-modal']}>
+          {accounts.fetchStatus === 'pending' ? <Loading /> : <table className={styles['coz-table-modal']}>
             <tbody className={styles['coz-table-body']}>
-              { accounts.data && accounts.data.map(this.renderAccountLine)}
+              {accounts.data && accounts.data.map(this.renderAccountLine)}
             </tbody>
-          </table> }
+          </table>}
         </form>
         <p>
           <Button theme='danger-outline' onClick={this.onRemove}>

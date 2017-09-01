@@ -4,6 +4,6 @@ import styles from './style.styl'
 
 export default ({ children }) => (
   <TopbarLeft className={styles['back-button']}>
-    { children }
+    {children}
   </TopbarLeft>
 )
