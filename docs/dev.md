@@ -13,4 +13,58 @@ a folder. Ex: `BackButton`
 * Sometimes you can have a duck without views, typically when it concerns
 a particular doctype.
 
+Style
+=====
 
+### Constructor
+
+Avoid `constructor` if you can by leveraging `transform-class-properties`
+
+❌ Bad :
+
+```
+class MyComponent extends Component {
+  constructor () {
+    super()
+    this.state = { counter: 0 }
+  }
+}
+```
+
+✅ Good
+
+```
+class MyComponent extends Component {
+  this.state = { counter: 0 }
+}
+```
+
+### Binding event handlers
+
+Avoid binding event handlers in `constructor`, leverage `transform-class-properties` 
++ arrow functions.
+
+❌ Bad :
+
+```
+class MyComponent extends Component {
+  constructor () {
+    super()
+    this.onClick = this.onClick.bind(this)
+  }
+  
+  onClick (ev) {
+    ...
+  }
+}
+```
+
+✅ Good
+
+```
+class MyComponent extends Component {
+  this.onClick = (ev) => {
+    ...
+  }
+}
+```
