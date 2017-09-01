@@ -5,7 +5,12 @@ import Settings from './Settings'
 const DOCTYPE = 'io.cozy.bank.settings'
 const COLLECTION_NAME = 'settings'
 const DEFAULTS_SETTINGS = {
-  montant: false
+  notifications: {
+    amountMax: {
+      value: 30,
+      enable: false
+    }
+  }
 }
 
 // components
@@ -19,7 +24,8 @@ export const updateSettings = settings => updateDocument(settings)
 // utils
 export const getSettings = settingsCollection => {
   if (settingsCollection && settingsCollection.data && settingsCollection.data.length > 0) {
-    return settingsCollection.data[0]
+    const settings = settingsCollection.data[0]
+    return { ...DEFAULTS_SETTINGS, ...settings }
   } else {
     return DEFAULTS_SETTINGS
   }
