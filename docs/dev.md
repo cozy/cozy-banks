@@ -42,7 +42,7 @@ class MyComponent extends Component {
 ### Binding event handlers
 
 Avoid binding event handlers in `constructor`, leverage `transform-class-properties` 
-+ arrow functions.
+and arrow functions.
 
 ❌  Bad :
 
