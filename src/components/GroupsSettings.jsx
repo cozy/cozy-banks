@@ -1,14 +1,19 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
-import { translate } from 'cozy-ui/react/I18n'
+import { translate, Button, Icon } from 'cozy-ui/react'
 import styles from 'styles/groupes'
 import Table from 'components/Table'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { cozyConnect, fetchCollection } from 'redux-cozy-client'
 import Loading from 'components/Loading'
+import plus from 'assets/icons/16/plus.svg'
 
 const isPending = (reduxObj) => {
   return reduxObj.fetchStatus === 'pending'
+}
+
+const goTo = url => () => {
+  window.location = url
 }
 
 class Groups extends Component {
@@ -59,9 +64,9 @@ class Groups extends Component {
           {t('Groups.no-groups')}
         </p>}
 
-        <a href={`#/settings/groups/new`} className={classNames(styles['bnk-action-button'], styles['icon-plus'])}>
-          {t('Groups.create')}
-        </a>
+        <Button theme='regular' onClick={goTo('#/settings/groups/new')}>
+          <Icon icon={plus} /> {t('Groups.create')}
+        </Button>
       </div>
     )
   }

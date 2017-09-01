@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
-import { translate } from 'cozy-ui/react/I18n'
+import { translate, Button, Icon } from 'cozy-ui/react'
 import { getSharingInfo } from 'reducers'
 import { groupBy } from 'lodash'
 import styles from 'styles/accounts'
@@ -130,12 +130,6 @@ class AccountsSettings extends Component {
 
         <AccountsTable accounts={accountBySharingDirection[true]} t={t} />
 
-        <p>
-          <button className={classNames(styles['bnk-action-button'], styles['icon-plus'])} onClick={this.addGroup}>
-            {t('Accounts.add-account')}
-          </button>
-        </p>
-
         <h4>
           {t('Accounts.shared-accounts')}
         </h4>
@@ -144,6 +138,11 @@ class AccountsSettings extends Component {
       </div>
     )
   }
+      <p>
+        <Button theme='regular'>
+          <Icon icon={plus} />&nbsp;{t('Accounts.add-account')}
+        </Button>
+      </p>
 }
 
 const mapDocumentsToProps = ownProps => ({
