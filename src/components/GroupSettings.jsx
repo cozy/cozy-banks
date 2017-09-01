@@ -126,7 +126,6 @@ const mkNewGroup = function () {
 
 const mapDocumentsToProps = props => {
   const groupId = props.routeParams.groupId
-  console.log('mapDocumentsToProps', groupId)
   return {
     group: (groupId === 'new' || !groupId) ? mkNewGroup() : fetchDocument(GROUP_DOCTYPE, groupId),
     accounts: fetchCollection('accounts', ACCOUNT_DOCTYPE)
