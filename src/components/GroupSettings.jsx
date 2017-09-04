@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import classNames from 'classnames'
 import Loading from 'components/Loading'
 import styles from 'styles/groupes'
 import { withDispatch } from 'utils'
@@ -17,6 +16,7 @@ import { Button, translate, Toggle } from 'cozy-ui/react'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { withRouter } from 'react-router'
 import { omit } from 'lodash'
+import Table from 'components/Table'
 import Spinner from 'components/Spinner'
 
 const accountInGroup = (account, group) =>
@@ -63,14 +63,14 @@ class GroupSettings extends Component {
 
   renderAccountLine = (account) => {
     const { group } = this.props
-    return <tr className={styles['coz-table-row']}>
-      <td className={classNames(styles['coz-table-cell'], styles['bnk-table-libelle'])}>
+    return <tr>
+      <td className={styles.groupAccountLabel}>
         {account.label}
       </td>
-      <td className={classNames(styles['coz-table-cell'], styles['bnk-table-acct-number'])}>
+      <td className={styles.groupAccountNumber}>
         {account.number}
       </td>
-      <td className={classNames(styles['coz-table-cell'])}>
+      <td className={styles.groupAccountToggle}>
         <Toggle id={account._id} checked={accountInGroup(account, group)} onToggle={this.toggleAccount.bind(null, account._id)} />
       </td>
     </tr>
@@ -122,11 +122,11 @@ class GroupSettings extends Component {
           <label className={styles['coz-form-label']}>
             {t('Groups.accounts')}
           </label>
-          {accounts.fetchStatus === 'pending' ? <Loading /> : <table className={styles['coz-table-modal']}>
-            <tbody className={styles['coz-table-body']}>
+          {accounts.fetchStatus === 'pending' ? <Loading /> : <Table className={styles.Accounts__table}>
+            <tbody>
               {accounts.data && accounts.data.map(this.renderAccountLine)}
             </tbody>
-          </table>}
+          </Table>}
         </form>
         <p>
           <Button theme='danger-outline' onClick={this.onRemove}>
