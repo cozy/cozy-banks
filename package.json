@@ -9,7 +9,7 @@
     "clean:browser": "rm -rf build/*",
     "clean:mobile": "rm -rf mobile/www",
     "commons:build": "webpack --config webpack.config.js --bail",
-    "commons:watch": "webpack --config webpack.config.js --watch --display-modules --display-chunks",
+    "commons:watch": "webpack --config webpack.config.js --watch",
     "commons:watch:standalone": "webpack-dev-server --config webpack.config.js --port 8282 --display-modules --display-chunks --inline --hot",
     "get-deploy-branch": "test $(git rev-parse --abbrev-ref HEAD) = 'prod' && echo latest || echo build",
     "deploy": "git-directory-deploy --username Cozy --email contact@cozycloud.cc --directory build/ --branch ${DEPLOY_BRANCH:-$(npm run get-deploy-branch -s)}",
