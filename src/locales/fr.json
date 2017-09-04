@@ -248,7 +248,9 @@
     "create": "Créer un groupe",
     "edit_group": "Editer le groupe",
     "no-groups": "Avec les groupes, vous pouvez facilement rassembler plusieurs comptes, n'hésitez pas à en créer un !",
-    "back-to-groups": "Revenir aux groupes"
+    "back-to-groups": "Revenir aux groupes",
+    "rename": "Renommer",
+    "save": "Sauver"
   },
 
   "Accounts": {

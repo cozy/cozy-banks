@@ -84,7 +84,9 @@
     "groups": "Groups",
     "delete": "remove",
     "no-groups": "Using groups, you can easily gather several accounts, feel free to create one.",
-    "back-to-groups": "Back to groups"
+    "back-to-groups": "Back to groups",
+    "rename": "Rename",
+    "save": "Save"
   },
   "Data": {
     "subcategories": {
