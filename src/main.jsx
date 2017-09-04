@@ -1,4 +1,4 @@
-/* global cozy __DEVELOPMENT__ */
+/* global cozy */
 import 'babel-polyfill'
 import 'styles/main'
 
@@ -13,15 +13,6 @@ import { loadState, persistState } from 'store/persistedState'
 import configureStore from 'store/configureStore'
 import AppRoute from 'components/AppRoute'
 import 'number-to-locale-string'
-
-if (__DEVELOPMENT__) {
-  // Enables React dev tools for Preact
-  // Cannot use import as we are in a condition
-  require('preact/devtools')
-
-  // Export React to window for the devtools
-  window.React = React
-}
 
 const renderAppWithPersistedState = persistedState => {
   const store = configureStore(persistedState)
