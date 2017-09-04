@@ -55,9 +55,9 @@ class Notifications extends Component {
               <p className={styles['notification-description']}>
                 {notification.description}
                 <input type='text'
-                    onChange={e => this.onChangeValue(notification.name, e.target.value)}
-                    value={settings.notifications[notification.name].value}
-                    className={classNames(styles['notification-input'], styles['suffixed'])} />
+                  onChange={e => this.onChangeValue(notification.name, e.target.value)}
+                  value={settings.notifications[notification.name].value}
+                  className={classNames(styles['notification-input'], styles['suffixed'])} />
                 <span>€</span>
               </p>
 
