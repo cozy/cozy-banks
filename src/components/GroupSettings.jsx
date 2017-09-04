@@ -17,25 +17,35 @@ import { Button, translate, Toggle } from 'cozy-ui/react'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { withRouter } from 'react-router'
 import { omit } from 'lodash'
+import Spinner from 'components/Spinner'
 
 const accountInGroup = (account, group) =>
   group.accounts.indexOf(account._id) > -1
 
 class GroupSettings extends Component {
+  state = { modifying: false, saving: false }
   rename = e => {
     const { group } = this.props
-    this.updateOrCreate({...group, label: e.target.value})
+    const label = this.inputRef.value
+    this.setState({saving: true})
+    this.updateOrCreate({...group, label }, () => {
+      this.setState({saving: false, modifying: false})
+    })
   }
 
-  async updateOrCreate (group) {
+  async updateOrCreate (group, cb) {
     const { dispatch, router } = this.props
     const method = group.id ? updateDocument : createDocument
-    const response = await dispatch(method.apply(this, arguments))
-    if (response && response.data) {
-      const doc = response.data[0]
-      if (group.id !== doc.id) {
-        router.push(`/settings/groups/${doc.id}`)
+    try {
+      const response = await dispatch(method.apply(this, arguments))
+      if (response && response.data) {
+        const doc = response.data[0]
+        if (group.id !== doc.id) {
+          router.push(`/settings/groups/${doc.id}`)
+        }
       }
+    } finally {
+      cb && cb()
     }
   }
 
@@ -73,7 +83,11 @@ class GroupSettings extends Component {
     })
   }
 
-  render ({ t, group, accounts, isNewGroup }) {
+  modifyName = () => {
+    this.setState({ modifying: true })
+  }
+
+  render ({ t, group, accounts, isNewGroup }, { modifying, saving }) {
     if (!group) {
       return <Loading />
     }
@@ -95,7 +109,15 @@ class GroupSettings extends Component {
           <label className={styles['coz-form-label']}>
             {t('Groups.label')}
           </label>
-          <input type='text' defaultValue={group.label} onBlur={this.rename} />
+          {!modifying && <p>{ group.label }</p>}
+          {modifying && <p>
+            <input ref={ref=>this.inputRef=ref} autofocus type='text' defaultValue={group.label} />
+          </p>}
+          {modifying ? <Button disabled={saving} theme='regular' onClick={this.rename}>
+            {t('Groups.save')} { saving && <Spinner /> }
+          </Button> : <Button theme='regular' onClick={this.modifyName}>
+            {t('Groups.rename')}
+          </Button>}
 
           <label className={styles['coz-form-label']}>
             {t('Groups.accounts')}
