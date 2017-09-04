@@ -37,12 +37,12 @@ const GroupList = translate()(({groups, accounts, t}) => {
             </a>
           </td>
           <td className={styles['bnk-table-comptes']}>
-            {group.accounts.map((accountId, index) => {
-              const account = accounts.data.find(account => (account._id === accountId))
-              let text = account ? account.label : ''
-              if (index < group.accounts.length - 1) text += ' ; '
-              return text
-            })}
+            {group.accounts
+              .map(accountId =>
+                accounts.data.find(account => (account._id === accountId))
+              ).filter(account => account)
+               .map(account => account.label)
+               .join('; ')}
           </td>
         </tr>
       ))}
