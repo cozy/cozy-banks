@@ -28,13 +28,11 @@ const GroupList = translate()(({groups, accounts, t}) => {
       </tr>
     </thead>
 
-    <tbody className={styles['coz-table-body']}>
+    <tbody>
       {groups.map(group => (
-        <tr>
+        <tr onClick={goTo(`#/settings/groups/${group._id}`)} className={styles.Accounts__row}>
           <td className={styles['bnk-table-libelle']}>
-            <a href={`#/settings/groups/${group._id}`}>
-              {group.label}
-            </a>
+            {group.label}
           </td>
           <td className={styles['bnk-table-comptes']}>
             {group.accounts
@@ -42,7 +40,7 @@ const GroupList = translate()(({groups, accounts, t}) => {
                 accounts.data.find(account => (account._id === accountId))
               ).filter(account => account)
                .map(account => account.label)
-               .join('; ')}
+               .join(', ')}
           </td>
         </tr>
       ))}
@@ -59,17 +57,15 @@ class Groups extends Component {
     }
     return (
       <div>
-        <h4>
-          {t('Groups.groups')}
-        </h4>
-
         {groups.fetchStatus === 'loading'
           ? <Loading />
           : <GroupList accounts={accounts} groups={groups.data.filter(x => x)} />}
 
-        <Button theme='regular' onClick={goTo('#/settings/groups/new')}>
-          <Icon icon={plus} /> {t('Groups.create')}
-        </Button>
+        <p>
+          <Button theme='regular' onClick={goTo('#/settings/groups/new')}>
+            <Icon icon={plus} /> {t('Groups.create')}
+          </Button>
+        </p>
       </div>
     )
   }

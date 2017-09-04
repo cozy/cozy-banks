@@ -3,24 +3,33 @@
 .Groups__table
     composes full-width-table from '../ducks/commons/Layout.styl'
 
-    & > tbody > tr > td
+    td
         font-size .85rem
         text-overflow ellipsis
         overflow hidden
         white-space nowrap
 
-    tr:hover
-        background transparent
+.bnk-table-actions
+    flex 0 0 20%
+    text-align right
 
-    .bnk-table-libelle
-        flex 0 0 30%
+.Accounts__table
+    composes full-width-table from '../ducks/commons/Layout.styl'
 
-    .bnk-table-comptes
-        flex 0 0 50%
+.Accounts__row
+    composes mobile-row from '../components/Table/styles.styl'
+    composes nav-row from '../ducks/commons/mobile.styl'
 
-    .bnk-table-actions
-        flex 0 0 20%
-        text-align right
+.bnk-table-libelle
+    flex 0 0 50%
+    composes mobile-row-main from '../components/Table/styles.styl'
+
+.bnk-table-comptes
+    flex 0 0 50%
+    composes mobile-row-label from '../components/Table/styles.styl'
+
+.bnk-table-acct-number
+    flex 0 0 25%
 
 .bnk-form
     @extend $form

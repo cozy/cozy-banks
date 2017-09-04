@@ -19,12 +19,14 @@ import plus from 'assets/icons/16/plus.svg'
 
 import AccountSharingStatus from 'components/AccountSharingStatus'
 
+const goTo = href => () => {
+  window.location = href
+}
+
 const AccountLine = ({account}) =>
-  <tr>
+  <tr onClick={goTo(`#/settings/accounts/${account.id}`)} className={styles['bnk-table-account-row']}>
     <td className={styles['bnk-table-libelle']}>
-      <a href={`#/settings/accounts/${account.id}`}>
-        {account.label}
-      </a>
+      {account.label}
     </td>
     <td className={styles['bnk-table-bank']}>
       {account.institutionLabel}

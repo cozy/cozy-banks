@@ -8,7 +8,6 @@
     flex            1 1 100%
     text-align      left
     color           grey-11
-    margin-bottom 3em
 
     thead
         flex 0 0 em(31px, 16px)
@@ -42,7 +41,8 @@
         box-sizing  border-box
         padding     1em 2rem
         font-size   14px
-        flex 1 0 auto
+        flex-grow 1
+        flex-shrink 0
 
     +medium-screen()
         tr
@@ -70,3 +70,25 @@
             padding-left calc(1.5rem + 26px)
             background-position 1rem
             background-size 26px
+
++small-screen()
+    .coz-table
+        .mobile-row
+            flex-wrap wrap
+
+        .mobile-row:first-child
+            border-top 1px solid silver
+
+        .mobile-row-main
+            flex-basis 100%
+            padding-top 0.5rem
+            padding-bottom 0.25rem
+            font-size 1rem
+            color charcoal-grey
+
+        .mobile-row-label
+            flex-basis 30%
+            padding-top 0.25rem
+            padding-bottom 0.5rem
+            font-size 0.75rem
+            color cool-grey

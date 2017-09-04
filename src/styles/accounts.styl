@@ -1,55 +1,68 @@
 @require 'cozy-ui'
 @require './breakpoints.styl'
 
+// Account settings table
++small-screen()
+    .bnk-table-type
+        display none
+
 .bnk-table-account
     composes full-width-table from '../ducks/commons/Layout.styl'
-    & > tbody > tr > td
+
+    td
         font-size .85rem
         text-overflow ellipsis
         overflow hidden
         white-space nowrap
 
-    .bnk-table-libelle
-        flex-basis 25%
+.bnk-table-libelle
+    flex-basis 25%
+    composes mobile-row-main from '../components/Table/styles.styl'
 
-    .bnk-table-bank
-        flex-basis 20%
+.bnk-table-bank
+    flex-basis 20%
 
-    .bnk-table-number
-        flex-basis 15%
+.bnk-table-number
+    flex-basis 15%
 
-    .bnk-table-type
-        flex-basis 15%
+.bnk-table-type
+    flex-basis 15%
 
-    .bnk-table-shared
-        flex-basis 15%
+.bnk-table-shared
+    flex-basis 15%
 
-    .bnk-table-actions
-        flex-basis 10%
-        text-align right
+.bnk-table-actions
+    flex-basis 10%
+    text-align right
 
-+small-screen()
-    .bnk-table-type
-        display none
+.bnk-table-account-row
+    composes mobile-row from '../components/Table/styles.styl'
+    composes nav-row from '../ducks/commons/mobile.styl'
 
+.bnk-table-bank, .bnk-table-number
+    composes mobile-row-label from '../components/Table/styles.styl'
+
+// Account details
 .info-table.info-table
     width 100%
     margin-bottom 1rem
     tr
-        display table-row
-        border-bottom 0
-
         td
-            display table-cell
+            border-bottom 0.25rem transparent solid
 
         &:hover
             background transparent
 
         td:first-child
-            font-weight bold
             color cool-grey
-            font-variant small-caps
-            text-transform uppercase
 
+// Tabs
 .account-settings__tab-list
     composes full-width from '../ducks/commons/Layout.styl'
+
+    +small-screen()
+        display flex
+
+        & > *
+            width 100%
+            text-align center
