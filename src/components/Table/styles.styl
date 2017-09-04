@@ -1,4 +1,5 @@
 @require 'cozy-ui'
+@require '../../styles/breakpoints.styl'
 
 .coz-table
     position        relative
@@ -43,11 +44,11 @@
         font-size   14px
         flex 1 0 auto
 
-    @media (max-width: (1024/basefont)rem)
+    +medium-screen()
         tr
             max-width  100vw
 
-    @media (max-width: (768/basefont)rem)
+    +small-screen()
         thead
             display none
 
