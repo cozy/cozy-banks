@@ -21,7 +21,7 @@ class Notifications extends Component {
     const { settingsCollection, dispatch } = this.props
     let settings = getSettings(settingsCollection)
     const updateOrCreate = settings._id ? updateSettings : createSettings
-    settings.notifications[setting].value = value
+    settings.notifications[setting].value = value.replace(/\D/i, '')
     dispatch(updateOrCreate(settings))
   }
 
@@ -54,12 +54,11 @@ class Notifications extends Component {
             <div className={styles['notification']}>
               <p className={styles['notification-description']}>
                 {notification.description}
-                {notification.value &&
-                  <input type='text'
+                <input type='text'
                     onChange={e => this.onChangeValue(notification.name, e.target.value)}
                     value={settings.notifications[notification.name].value}
-                    className={classNames(styles['notification-input'], styles['suffixed'])} />}
-                {notification.value && <span>€</span>}
+                    className={classNames(styles['notification-input'], styles['suffixed'])} />
+                <span>€</span>
               </p>
 
               <div className={styles['notification-toggle']}>
