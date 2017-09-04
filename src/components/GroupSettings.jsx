@@ -28,7 +28,7 @@ class GroupSettings extends Component {
     const { group } = this.props
     const label = this.inputRef.value
     this.setState({saving: true})
-    this.updateOrCreate({...group, label }, () => {
+    this.updateOrCreate({...group, label}, () => {
       this.setState({saving: false, modifying: false})
     })
   }
@@ -87,6 +87,8 @@ class GroupSettings extends Component {
     this.setState({ modifying: true })
   }
 
+  saveInputRef = ref => { this.inputRef = ref }
+
   render ({ t, group, accounts, isNewGroup }, { modifying, saving }) {
     if (!group) {
       return <Loading />
@@ -111,7 +113,7 @@ class GroupSettings extends Component {
           </label>
           {!modifying && <p>{ group.label }</p>}
           {modifying && <p>
-            <input ref={ref=>this.inputRef=ref} autofocus type='text' defaultValue={group.label} />
+            <input ref={this.saveInputRef} autofocus type='text' defaultValue={group.label} />
           </p>}
           {modifying ? <Button disabled={saving} theme='regular' onClick={this.rename}>
             {t('Groups.save')} { saving && <Spinner /> }
