@@ -55,7 +55,11 @@ export default Onboarding
  * if we have no accounts
  */
 const mapDocumentsToProps = (props) => ({
-  accounts: fetchCollection('accounts', ACCOUNT_DOCTYPE)
+  // Must put things in another collection when there is a parent-child
+  // relationships between components that fetch the same thing. Need
+  // to see with goldoraf how to fetch only once so that we can use
+  // the same collection "accounts" than in the settings.
+  accounts: fetchCollection('onboarding_accounts', ACCOUNT_DOCTYPE)
 })
 
 const enhance = Component => cozyConnect(mapDocumentsToProps)(Component)
