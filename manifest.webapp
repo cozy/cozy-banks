@@ -34,6 +34,11 @@
       "type": "io.cozy.apps",
       "verbs": ["GET"]
     },
+    "notifications": {
+      "description": "Used to send notifications",
+      "type": "io.cozy.notifications",
+      "verbs": ["POST"]
+    },
     "bank.settings": {
       "description": "Used to manage your bank settings",
       "type": "io.cozy.bank.settings",
