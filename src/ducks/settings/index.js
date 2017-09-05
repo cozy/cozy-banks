@@ -6,7 +6,7 @@ const DOCTYPE = 'io.cozy.bank.settings'
 const COLLECTION_NAME = 'settings'
 const DEFAULTS_SETTINGS = {
   notifications: {
-    amountMax: {
+    movementGreater: {
       value: 30,
       enable: false
     }

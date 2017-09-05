@@ -14,29 +14,29 @@ const getOperations = async () => {
   return operationsWithouNotification
 }
 
-// amountMax
+// movementGreater
 
-const isAmountMaxEnable = config => config.amountMax && config.amountMax.enable
+const isMovementGreaterEnable = config => config.movementGreater && config.movementGreater.enable
 
-const processAmountMax = (config, operations) => {
-  const operationsWithAmountMax = []
-  if (config.amountMax && config.amountMax.enable) {
+const processMovementGreater = (config, operations) => {
+  const operationsWithMovementGreater = []
+  if (config.movementGreater && config.movementGreater.enable) {
     for (const operation of operations) {
-      if (operation.amount < -config.amountMax.value) {
-        operationsWithAmountMax.push(operation)
+      if (operation.amount < -config.movementGreater.value) {
+        operationsWithMovementGreater.push(operation)
       }
     }
   }
-  return operationsWithAmountMax
+  return operationsWithMovementGreater
 }
 
-const sendAmountMax = async (config, operations) => {
-  const operationsWithAmountMax = processAmountMax(config, operations)
-  if (operationsWithAmountMax.length === 0) return
+const sendMovementGreater = async (config, operations) => {
+  const operationsWithMovementGreater = processMovementGreater(config, operations)
+  if (operationsWithMovementGreater.length === 0) return
 
   const notification = {
-    reference: 'alert_amount_max',
-    title: operationsWithAmountMax.length + ' operations qui dépasse votre seuil.',
+    reference: 'movement_greater',
+    title: operationsWithMovementGreater.length + ' operations qui dépasse votre seuil.',
     content: 'blabla'
   }
   await cozyClient.fetchJSON('POST', '/notifications', {
@@ -59,7 +59,7 @@ const getConfiguration = async () => {
 }
 
 const isNotificationsEnable = config => {
-  return isAmountMaxEnable(config)
+  return isMovementGreaterEnable(config)
 }
 
 // service
@@ -74,7 +74,7 @@ const notificationsService = async () => {
   if (operations.length === 0) return // stop notifications service
 
   // send notifications
-  await sendAmountMax(config, operations)
+  await sendMovementGreater(config, operations)
 
   // marks the operations processed
   for (let operation of operations) {

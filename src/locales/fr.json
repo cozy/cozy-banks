@@ -267,7 +267,7 @@
     },
     "if_movement_greater": {
       "title": "Montant de mouvement",
-      "description": "Vous receverez un email, si un mouvement est supérieur à"
+      "description": "Vous receverez une notification, si un mouvement est supérieur à"
     },
     "no_revenue": {
       "title": "Retard de salaire",

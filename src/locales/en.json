@@ -237,11 +237,11 @@
   },
 
   "Notifications": {
+    "title": "Notifications",
     "weekly_summary": {
       "description": "You will receive a summary of your expenses and revenues every Monday of every week.",
       "title": "Weekly Synthesis"
     },
-    "title": "Notifications",
     "when_month_revenue": {
       "description": "You will receive an email at the reception of your salary each month.",
       "title": "Payment of salary"
@@ -255,7 +255,7 @@
       "title": "Balance threshold"
     },
     "if_movement_greater": {
-      "description": "You will receive an email if a move is greater than",
+      "description": "You will receive an notification if a move is greater than",
       "title": "Movement amount"
     },
     "no_revenue": {
