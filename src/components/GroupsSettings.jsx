@@ -13,13 +13,13 @@ const isPending = (reduxObj) => {
 }
 
 const GroupList = withRouter(translate()(({groups, accounts, t, router}) => {
-  return groups.length ? <Table className={styles.Groups__table}>
+  return groups.length ? <Table className={styles.GrpsStg__table}>
     <thead>
       <tr>
-        <th className={styles['bnk-table-libelle']}>
+        <th className={styles.GrpsStg__label}>
           {t('Groups.label')}
         </th>
-        <th className={styles['bnk-table-comptes']}>
+        <th className={styles.GrpsStg__accounts}>
           {t('Groups.accounts')}
         </th>
       </tr>
@@ -27,11 +27,11 @@ const GroupList = withRouter(translate()(({groups, accounts, t, router}) => {
 
     <tbody>
       {groups.map(group => (
-        <tr onClick={() => router.push(`/settings/groups/${group._id}`)} className={styles.Accounts__row}>
-          <td className={styles['bnk-table-libelle']}>
+        <tr onClick={() => router.push(`/settings/groups/${group._id}`)} className={styles.GrpsStg__row}>
+          <td className={styles.GrpsStg__label}>
             {group.label}
           </td>
-          <td className={styles['bnk-table-comptes']}>
+          <td className={styles.GrpsStg__accounts}>
             {group.accounts
               .map(accountId =>
                 accounts.data.find(account => (account._id === accountId))

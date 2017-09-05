@@ -64,13 +64,13 @@ class GroupSettings extends Component {
   renderAccountLine = (account) => {
     const { group } = this.props
     return <tr>
-      <td className={styles.groupAccountLabel}>
+      <td className={styles.GrpStg__accntLabel}>
         {account.label}
       </td>
-      <td className={styles.groupAccountNumber}>
+      <td className={styles.GrpStg__accntNumber}>
         {account.number}
       </td>
-      <td className={styles.groupAccountToggle}>
+      <td className={styles.GrpStg__accntToggle}>
         <Toggle id={account._id} checked={accountInGroup(account, group)} onToggle={this.toggleAccount.bind(null, account._id)} />
       </td>
     </tr>
@@ -107,7 +107,7 @@ class GroupSettings extends Component {
             {t('Groups.back-to-groups')}
           </a>
         </p>
-        <form className={styles['bnk-form']}>
+        <form className={styles.GrpStg__form}>
           <label className={styles['coz-form-label']}>
             {t('Groups.label')}
           </label>
@@ -124,7 +124,7 @@ class GroupSettings extends Component {
           <label className={styles['coz-form-label']}>
             {t('Groups.accounts')}
           </label>
-          {accounts.fetchStatus === 'pending' ? <Loading /> : <Table className={styles.Accounts__table}>
+          {accounts.fetchStatus === 'pending' ? <Loading /> : <Table className={styles.GrpStg__table}>
             <tbody>
               {accounts.data && accounts.data.map(this.renderAccountLine)}
             </tbody>

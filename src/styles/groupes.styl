@@ -1,48 +1,47 @@
 @require 'cozy-ui'
+@require './breakpoints.styl'
 
-.Groups__table
-    composes full-width-table from '../ducks/commons/Layout.styl'
+.GrpsStg
+    &__table
+        composes full-width-table from '../ducks/commons/Layout.styl'
 
-    td
-        font-size .85rem
-        text-overflow ellipsis
-        overflow hidden
-        white-space nowrap
+        td
+            font-size .85rem
+            text-overflow ellipsis
+            overflow hidden
+            white-space nowrap
 
-.bnk-table-actions
-    flex 0 0 20%
-    text-align right
+    &__label
+        flex 0 0 50%
+        composes mobile-row-main from '../components/Table/styles.styl'
 
-.Accounts__table
-    composes full-width-table from '../ducks/commons/Layout.styl'
+    &__accounts
+        flex 0 0 50%
+        composes mobile-row-label from '../components/Table/styles.styl'
 
-.Accounts__row
-    composes mobile-row from '../components/Table/styles.styl'
-    composes nav-row from '../ducks/commons/mobile.styl'
+        +small-screen()
+            flex-basis 100%
 
-.bnk-table-libelle
-    flex 0 0 50%
-    composes mobile-row-main from '../components/Table/styles.styl'
+    &__row
+        composes mobile-row from '../components/Table/styles.styl'
+        composes nav-row from '../ducks/commons/mobile.styl' // @stylint ignore
 
-.bnk-table-comptes
-    flex 0 0 50%
-    composes mobile-row-label from '../components/Table/styles.styl'
+.GrpStg
+    &__accntLabel
+        flex-basis 50%
 
-.bnk-table-acct-number
-    flex 0 0 25%
+    &__accntNumber
+        flex-basis 30%
 
-.bnk-form
-    @extend $form
-    @extend $form-text
+    &__accntToggle
+        flex-basis 20%
 
-    input[type=text]
-        width 100%
+    &__table
+        composes full-width-table from '../ducks/commons/Layout.styl'
 
-.groupAccountLabel
-    flex-basis 50%
+    &__form
+        @extend $form
+        @extend $form-text
 
-.groupAccountNumber
-    flex-basis 30%
-
-.groupAccountToggle
-    flex-basis 20%
+        input[type=text]
+            width 100%
