@@ -156,13 +156,13 @@ const mapDocumentsToProps = props => {
   }
 }
 
-const EnhancedGroupSettings = (
+const enhance = Component =>
   cozyConnect(mapDocumentsToProps)(
   translate()(
   withRouter(
-  withDispatch(GroupSettings)
-))))
+  withDispatch(Component))))
 
+const EnhancedGroupSettings = enhance(GroupSettings)
 export default EnhancedGroupSettings
 
 /**
@@ -172,4 +172,6 @@ export default EnhancedGroupSettings
  * to refetch the group but it seems easier to do that to force the usage
  * of a brand new component
  */
-export class NewGroupSettings extends EnhancedGroupSettings {}
+export const NewGroupSettings = enhance(class extends GroupSettings {
+  state = {...this.state, modifying: true}
+})
