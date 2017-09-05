@@ -11,6 +11,7 @@ import {
   fetchCollection
 } from 'redux-cozy-client'
 import plus from 'assets/icons/16/plus.svg'
+import { withRouter } from 'react-router'
 
 // See comment below about sharings
 // import { ACCOUNT_DOCTYPE } from 'doctypes'
@@ -19,12 +20,9 @@ import plus from 'assets/icons/16/plus.svg'
 
 import AccountSharingStatus from 'components/AccountSharingStatus'
 
-const goTo = href => () => {
-  window.location = href
-}
-
-const AccountLine = ({account}) =>
-  <tr onClick={goTo(`#/settings/accounts/${account.id}`)} className={styles['bnk-table-account-row']}>
+// TODO react-router v4
+const _AccountLine = ({account, router}) =>
+  <tr onClick={() => router.push(`/settings/accounts/${account.id}`)} className={styles['bnk-table-account-row']}>
     <td className={styles['bnk-table-libelle']}>
       {account.label}
     </td>
@@ -42,6 +40,8 @@ const AccountLine = ({account}) =>
     </td>
     <td className={styles['bnk-table-actions']} />
   </tr>
+
+const AccountLine = withRouter(_AccountLine)
 
 const renderAccount = account => <AccountLine account={account} />
 
