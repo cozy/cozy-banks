@@ -20,5 +20,8 @@ module.exports = {
       'cozy.client': 'cozy-client-js/dist/cozy-client.js',
       'cozy.bar': 'cozy-bar/dist/cozy-bar.js'
     })
-  ]
+  ],
+  stats: {
+    children: false
+  }
 }

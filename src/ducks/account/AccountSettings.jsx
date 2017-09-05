@@ -84,9 +84,9 @@ class _GeneralSettings extends Component {
           </tr>
         </table>
         <div>
-          <Button theme='danger-outline' onClick={this.onClickRemove}>
+          {/* <Button theme='danger-outline' onClick={this.onClickRemove}>
             Supprimer
-          </Button>
+          </Button> */}
           {!modifying && <Button theme='regular' onClick={this.onClickModify}>
             Modifier
           </Button>}

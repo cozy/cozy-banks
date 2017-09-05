@@ -6,16 +6,13 @@ import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { cozyConnect, fetchCollection } from 'redux-cozy-client'
 import Loading from 'components/Loading'
 import plus from 'assets/icons/16/plus.svg'
+import { withRouter } from 'react-router'
 
 const isPending = (reduxObj) => {
   return reduxObj.fetchStatus === 'pending'
 }
 
-const goTo = url => () => {
-  window.location = url
-}
-
-const GroupList = translate()(({groups, accounts, t}) => {
+const GroupList = withRouter(translate()(({groups, accounts, t, router}) => {
   return groups.length ? <Table className={styles.Groups__table}>
     <thead>
       <tr>
@@ -28,21 +25,19 @@ const GroupList = translate()(({groups, accounts, t}) => {
       </tr>
     </thead>
 
-    <tbody className={styles['coz-table-body']}>
+    <tbody>
       {groups.map(group => (
-        <tr>
+        <tr onClick={() => router.push(`/settings/groups/${group._id}`)} className={styles.Accounts__row}>
           <td className={styles['bnk-table-libelle']}>
-            <a href={`#/settings/groups/${group._id}`}>
-              {group.label}
-            </a>
+            {group.label}
           </td>
           <td className={styles['bnk-table-comptes']}>
-            {group.accounts.map((accountId, index) => {
-              const account = accounts.data.find(account => (account._id === accountId))
-              let text = account ? account.label : ''
-              if (index < group.accounts.length - 1) text += ' ; '
-              return text
-            })}
+            {group.accounts
+              .map(accountId =>
+                accounts.data.find(account => (account._id === accountId))
+              ).filter(account => account)
+               .map(account => account.label)
+               .join(', ')}
           </td>
         </tr>
       ))}
@@ -50,30 +45,28 @@ const GroupList = translate()(({groups, accounts, t}) => {
   </Table> : <p>
     {t('Groups.no-groups')}
   </p>
-})
+}))
 
-class Groups extends Component {
-  render ({ t, groups, accounts }, { editingGroup }) {
+const Groups = withRouter(class extends Component {
+  render ({ t, groups, accounts, router }, { editingGroup }) {
     if (isPending(groups) || isPending(accounts)) {
       return <Loading />
     }
     return (
       <div>
-        <h4>
-          {t('Groups.groups')}
-        </h4>
-
         {groups.fetchStatus === 'loading'
           ? <Loading />
           : <GroupList accounts={accounts} groups={groups.data.filter(x => x)} />}
 
-        <Button theme='regular' onClick={goTo('#/settings/groups/new')}>
-          <Icon icon={plus} /> {t('Groups.create')}
-        </Button>
+        <p>
+          <Button theme='regular' onClick={() => router.push('/settings/groups/new')}>
+            <Icon icon={plus} /> {t('Groups.create')}
+          </Button>
+        </p>
       </div>
     )
   }
-}
+})
 
 export default cozyConnect(ownProps => {
   return {
