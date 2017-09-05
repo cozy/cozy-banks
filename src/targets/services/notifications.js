@@ -14,8 +14,15 @@ const isNotificationsEnable = config => {
 }
 
 const getOperations = async () => {
-  // to refactor to get only operations without services.notifications
-  return await cozyClient.data.findAll('io.cozy.bank.operations')
+  // to refactor to get only operations without key notifications directly by the stack
+  const operationsWithouNotification = []
+  const operations = await cozyClient.data.findAll('io.cozy.bank.operations')
+  for (const operation of operations) {
+    if (operation.notifications === undefined) {
+      operationsWithouNotification.push(operation)
+    }
+  }
+  return operationsWithouNotification
 }
 
 const processAmountMaxNotification = (config, operations) => {
@@ -43,7 +50,18 @@ const notificationsService = async () => {
 
   // process operations
   const operations = await getOperations()
+  if (operations.length === 0) {
+    console.log('stop : 0 operation') // TO REMOVE
+    return // stop notifications service
+  }
+
   const amountMax = processAmountMaxNotification(config, operations)
+
+  // marks the operations processed
+  for (let operation of operations) {
+    operation.notifications = true
+    await cozyClient.data.update('io.cozy.bank.operations', operation, operation)
+  }
 
   console.log(amountMax.length) // TO REMOVE
 }
