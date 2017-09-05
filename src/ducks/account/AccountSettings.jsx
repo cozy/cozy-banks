@@ -62,7 +62,7 @@ class _GeneralSettings extends Component {
   render ({t, account}, {modifying}) {
     return (
       <div>
-        <table className={styles['info-table']}>
+        <table className={styles.AcnStg__info}>
           <tr>
             <td>{t('AccountDetails.label')}</td>
             <td>
@@ -121,11 +121,15 @@ const AccountSettings = function ({account, onClose, t}) {
         </a>
       </p>
       <Tabs
-        className={styles['account-settings__tabs']}
+        className={styles.AcnStg__tabs}
         initialActiveTab='details'>
-        <TabList className={styles['account-settings__tab-list']} >
-          <Tab name='details'>{t('AccountSettings.details')}</Tab>
-          <Tab name='sharing'>{t('AccountSettings.sharing')}</Tab>
+        <TabList className={styles.AcnStg__tabList} >
+          <Tab className={styles.AcnStg__tab} name='details'>
+            {t('AccountSettings.details')}
+          </Tab>
+          <Tab className={styles.AcnStg__tab} name='sharing'>
+            {t('AccountSettings.sharing')}
+          </Tab>
         </TabList>
         <TabPanels>
           <TabPanel name='details'>

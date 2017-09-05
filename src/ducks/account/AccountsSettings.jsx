@@ -22,23 +22,23 @@ import AccountSharingStatus from 'components/AccountSharingStatus'
 
 // TODO react-router v4
 const _AccountLine = ({account, router}) =>
-  <tr onClick={() => router.push(`/settings/accounts/${account.id}`)} className={styles['bnk-table-account-row']}>
-    <td className={styles['bnk-table-libelle']}>
+  <tr onClick={() => router.push(`/settings/accounts/${account.id}`)} className={styles.AcnsStg__accountRow}>
+    <td className={styles.AcnsStg__libelle}>
       {account.label}
     </td>
-    <td className={styles['bnk-table-bank']}>
+    <td className={styles.AcnsStg__bank}>
       {account.institutionLabel}
     </td>
-    <td className={styles['bnk-table-number']}>
+    <td className={styles.AcnsStg__number}>
       {account.number}
     </td>
-    <td className={styles['bnk-table-type']}>
+    <td className={styles.AcnsStg__type}>
       {account.type}
     </td>
-    <td className={styles['bnk-table-shared']}>
+    <td className={styles.AcnsStg__shared}>
       {<AccountSharingStatus withText account={account} />}
     </td>
-    <td className={styles['bnk-table-actions']} />
+    <td className={styles.AcnsStg__actions} />
   </tr>
 
 const AccountLine = withRouter(_AccountLine)
@@ -46,25 +46,25 @@ const AccountLine = withRouter(_AccountLine)
 const renderAccount = account => <AccountLine account={account} />
 
 const AccountsTable = ({ accounts, t }) => {
-  return accounts ? <Table className={styles['bnk-table-account']}>
+  return accounts ? <Table className={styles.AcnsStg__accounts}>
     <thead>
-      <tr className={styles['coz-table-row']}>
-        <th className={styles['bnk-table-libelle']}>
+      <tr>
+        <th className={styles.AcnsStg__libelle}>
           {t('Accounts.label')}
         </th>
-        <th className={styles['bnk-table-bank']}>
+        <th className={styles.AcnsStg__bank}>
           {t('Accounts.bank')}
         </th>
-        <th className={styles['bnk-table-number']}>
+        <th className={styles.AcnsStg__number}>
           {t('Accounts.account')}
         </th>
-        <th className={styles['bnk-table-type']}>
+        <th className={styles.AcnsStg__type}>
           {t('Accounts.type')}
         </th>
-        <th className={styles['bnk-table-shared']}>
+        <th className={styles.AcnsStg__shared}>
           {t('Accounts.shared')}
         </th>
-        <th className={styles['bnk-table-actions']} />
+        <th className={styles.AcnsStg__actions} />
       </tr>
     </thead>
     <tbody>

@@ -1,68 +1,68 @@
 @require 'cozy-ui'
 @require './breakpoints.styl'
 
-// Account settings table
-+small-screen()
-    .bnk-table-type
-        display none
+.AcnsStg
+    &__accounts
+        composes full-width-table from '../ducks/commons/Layout.styl'
 
-.bnk-table-account
-    composes full-width-table from '../ducks/commons/Layout.styl'
-
-    td
-        font-size .85rem
-        text-overflow ellipsis
-        overflow hidden
-        white-space nowrap
-
-.bnk-table-libelle
-    flex-basis 25%
-    composes mobile-row-main from '../components/Table/styles.styl'
-
-.bnk-table-bank
-    flex-basis 20%
-
-.bnk-table-number
-    flex-basis 15%
-
-.bnk-table-type
-    flex-basis 15%
-
-.bnk-table-shared
-    flex-basis 15%
-
-.bnk-table-actions
-    flex-basis 10%
-    text-align right
-
-.bnk-table-account-row
-    composes mobile-row from '../components/Table/styles.styl'
-    composes nav-row from '../ducks/commons/mobile.styl'
-
-.bnk-table-bank, .bnk-table-number
-    composes mobile-row-label from '../components/Table/styles.styl'
-
-// Account details
-.info-table.info-table
-    width 100%
-    margin-bottom 1rem
-    tr
         td
-            border-bottom 0.25rem transparent solid
+            font-size .85rem
+            text-overflow ellipsis
+            overflow hidden
+            white-space nowrap
 
-        &:hover
-            background transparent
+    &__libelle
+        flex-basis 25%
+        composes mobile-row-main from '../components/Table/styles.styl'
 
-        td:first-child
-            color cool-grey
+    &__bank
+        flex-basis 20%
 
-// Tabs
-.account-settings__tab-list
-    composes full-width from '../ducks/commons/Layout.styl'
+    &__number
+        flex-basis 15%
+
+    &__type
+        flex-basis 15%
+
+        +small-screen()
+            &
+                display none
+
+    &__shared
+        flex-basis 15%
+
+    &__actions
+        flex-basis 10%
+        text-align right
+
+    &__accountRow
+        composes mobile-row from '../components/Table/styles.styl'
+        composes nav-row from '../ducks/commons/mobile.styl'// @stylint ignore
+
+    &__bank, &__number
+        composes mobile-row-label from '../components/Table/styles.styl'
+
+.AcnStg
+    &__tabList
+        composes full-width from '../ducks/commons/Layout.styl'
 
     +small-screen()
-        display flex
-
-        & > *
+        &__tabList
+            display flex
+        &__tab
             width 100%
             text-align center
+
+    &__info
+        width 100%
+        margin-bottom 1rem
+        tr
+            td
+                border-bottom .25rem transparent solid
+
+            &:hover
+                background transparent
+
+            td:first-child
+                color cool-grey
+                font-size 0.85rem

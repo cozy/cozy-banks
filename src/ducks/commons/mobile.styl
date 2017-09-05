@@ -3,14 +3,14 @@
 .nav-row
     cursor pointer
 
-+small-screen()
-    .nav-row::after
-        content '\00a0'
-        background-image embedurl('../../assets/icons/icon-chevron-down.svg')
-        display block
-        width 15px
-        height 12px
-        transform rotate(-90deg)
-        position absolute
-        right 1rem
-        background-repeat no-repeat
+    +small-screen()
+        &::after
+            content '\00a0'
+            background-image embedurl('../../assets/icons/icon-chevron-down.svg')
+            display block
+            width 15px
+            height 12px
+            transform rotate(-90deg)
+            position absolute
+            right 1rem
+            background-repeat no-repeat
