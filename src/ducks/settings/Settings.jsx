@@ -5,12 +5,11 @@ import GroupsSettings from 'components/GroupsSettings'
 import { AccountsSettings } from 'ducks/account'
 import { Topbar } from 'ducks/commons'
 import { Tabs, TabPanels, TabPanel, TabList, Tab } from 'cozy-ui/react'
-import { createGroup, updateGroup, deleteGroup } from 'actions'
 
 import Notifications from './Notifications'
 import styles from './Settings.styl'
 
-const Settings = ({ t, groups, accounts, createGroup, updateGroup, deleteGroup, params }) => {
+const Settings = ({ t, groups, accounts, params }) => {
   const tabNames = ['accounts', 'groups', 'notifications']
   let defaultTab = tabNames[0]
   if (params.tab && tabNames.indexOf(params.tab) >= 0) defaultTab = params.tab
@@ -53,10 +52,4 @@ const mapStateToProps = state => ({
   accounts: state.accounts
 })
 
-const mapDispatchToProps = dispatch => ({
-  updateGroup: async (id, data) => dispatch(updateGroup(id, data)),
-  createGroup: async (data) => dispatch(createGroup(data)),
-  deleteGroup: async (group) => dispatch(deleteGroup(group))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(translate()(Settings))
+export default connect(mapStateToProps, null)(translate()(Settings))
