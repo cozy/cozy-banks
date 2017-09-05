@@ -111,12 +111,12 @@ class GroupSettings extends Component {
           <label className={styles['coz-form-label']}>
             {t('Groups.label')}
           </label>
-          {!modifying && <p>{ group.label }</p>}
+          {!modifying && <p>{group.label}</p>}
           {modifying && <p>
             <input ref={this.saveInputRef} autofocus type='text' defaultValue={group.label} />
           </p>}
           {modifying ? <Button disabled={saving} theme='regular' onClick={this.rename}>
-            {t('Groups.save')} { saving && <Spinner /> }
+            {t('Groups.save')} {saving && <Spinner />}
           </Button> : <Button theme='regular' onClick={this.modifyName}>
             {t('Groups.rename')}
           </Button>}
