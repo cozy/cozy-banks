@@ -4,8 +4,9 @@ import ReactHint from 'react-hint'
 import 'react-hint/css/index.css'
 import Sidebar from './Sidebar'
 import styles from './Layout.styl'
+import {ensureHasAccounts} from 'ducks/onboarding'
 
-const Layout = ({ children }) => (
+const Layout = ({ children, accounts }) => (
   <div className={classNames(styles['bnk-wrapper'], styles['bnk-sticky'])}>
     <Sidebar />
 
@@ -18,4 +19,4 @@ const Layout = ({ children }) => (
   </div>
 )
 
-export default Layout
+export default ensureHasAccounts(Layout)
