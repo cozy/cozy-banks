@@ -7,7 +7,7 @@ const COLLECTION_NAME = 'settings'
 const DEFAULTS_SETTINGS = {
   notifications: {
     movementGreater: {
-      value: 30,
+      value: 100,
       enable: false
     }
   }
