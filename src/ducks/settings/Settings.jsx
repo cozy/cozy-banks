@@ -1,20 +1,20 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react/I18n'
-import GroupsSettings from 'components/GroupsSettings'
-import { AccountsSettings } from 'ducks/account'
 import { Topbar } from 'ducks/commons'
 import { Tabs, TabPanels, TabPanel, TabList, Tab } from 'cozy-ui/react'
-import { createGroup, updateGroup, deleteGroup } from 'actions'
-
-import Notifications from './Notifications'
 import styles from './Settings.styl'
+import { withRouter } from 'react-router'
 
-const Settings = ({ t, groups, accounts, createGroup, updateGroup, deleteGroup, params }) => {
-  const tabNames = ['accounts', 'groups', 'notifications']
-  let defaultTab = tabNames[0]
-  if (params.tab && tabNames.indexOf(params.tab) >= 0) defaultTab = params.tab
+const tabNames = ['accounts', 'groups', 'notifications']
 
+const Settings = ({ t, groups, accounts, children, router }) => {
+  let defaultTab = router.location.pathname.replace('/settings/', '')
+  if (tabNames.indexOf(defaultTab) === -1) defaultTab = 'accounts'
+
+  const goTo = url => () => {
+    router.push(url)
+  }
   return (
     <div>
       <Topbar>
@@ -22,25 +22,19 @@ const Settings = ({ t, groups, accounts, createGroup, updateGroup, deleteGroup, 
       </Topbar>
       <Tabs className={styles['bnk-tabs']} initialActiveTab={defaultTab}>
         <TabList className={styles['bnk-coz-tab-list']}>
-          <Tab name={tabNames[0]}>
+          <Tab name={tabNames[0]} onClick={goTo('/settings/accounts')}>
             {t('Settings.accounts')}
           </Tab>
-          <Tab name={tabNames[1]}>
+          <Tab name={tabNames[1]} onClick={goTo('/settings/groups')}>
             {t('Settings.groups')}
           </Tab>
-          <Tab name={tabNames[2]}>
+          <Tab name={tabNames[2]} onClick={goTo('/settings/notifications')}>
             {t('Settings.notifications')}
           </Tab>
         </TabList>
         <TabPanels>
-          <TabPanel name={tabNames[0]}>
-            <AccountsSettings />
-          </TabPanel>
-          <TabPanel name={tabNames[1]}>
-            <GroupsSettings />
-          </TabPanel>
-          <TabPanel name={tabNames[2]}>
-            <Notifications />
+          <TabPanel active>
+            {children}
           </TabPanel>
         </TabPanels>
       </Tabs>
@@ -53,10 +47,4 @@ const mapStateToProps = state => ({
   accounts: state.accounts
 })
 
-const mapDispatchToProps = dispatch => ({
-  updateGroup: async (id, data) => dispatch(updateGroup(id, data)),
-  createGroup: async (data) => dispatch(createGroup(data)),
-  deleteGroup: async (group) => dispatch(deleteGroup(group))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(translate()(Settings))
+export default withRouter(connect(mapStateToProps, null)(translate()(Settings)))

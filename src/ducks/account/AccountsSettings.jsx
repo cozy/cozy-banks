@@ -21,7 +21,7 @@ import { withRouter } from 'react-router'
 import AccountSharingStatus from 'components/AccountSharingStatus'
 
 // TODO react-router v4
-const _AccountLine = ({account, router}) =>
+const _AccountLine = ({account, router}) => (
   <tr onClick={() => router.push(`/settings/accounts/${account.id}`)} className={styles.AcnsStg__accountRow}>
     <td className={styles.AcnsStg__libelle}>
       {account.label}
@@ -40,6 +40,7 @@ const _AccountLine = ({account, router}) =>
     </td>
     <td className={styles.AcnsStg__actions} />
   </tr>
+)
 
 const AccountLine = withRouter(_AccountLine)
 

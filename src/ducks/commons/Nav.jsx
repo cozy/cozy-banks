@@ -2,22 +2,20 @@ import React from 'react'
 import { translate, Icon } from 'cozy-ui/react'
 import { Link, withRouter } from 'react-router'
 import styles from './Nav.styl'
-import cx from 'classnames'
 
 import dashboard from 'assets/icons/icon-dashboard.svg'
 import arrows from 'assets/icons/icon-arrow-left-right.svg'
 import graph from 'assets/icons/icon-graph.svg'
 import people from 'assets/icons/icon-people.svg'
 
-const ActiveLink = withRouter(({ to, className, children, router }) => <Link
-  to={to}
-  className={cx(
-      styles['coz-nav-link'],
-      { [styles['active']]: router.isActive(to) },
-      className
-    )}>
-  {children}
-</Link>)
+const ActiveLink = withRouter(({ to, className, children, router }) => (
+  <Link
+    to={to}
+    activeClassName={styles['active']}
+    className={styles['coz-nav-link']}>
+    {children}
+  </Link>
+))
 
 const Nav = ({ t }) => (
   <nav>
