@@ -46,7 +46,7 @@ const AccountLine = withRouter(_AccountLine)
 const renderAccount = account => <AccountLine account={account} />
 
 const AccountsTable = ({ accounts, t }) => {
-  return accounts ? <Table className={styles.AcnsStg__accounts}>
+  return <Table className={styles.AcnsStg__accounts}>
     <thead>
       <tr>
         <th className={styles.AcnsStg__libelle}>
@@ -70,9 +70,7 @@ const AccountsTable = ({ accounts, t }) => {
     <tbody>
       {accounts.map(renderAccount)}
     </tbody>
-  </Table> : <p>
-    {t('Accounts.no-accounts')}
-  </p>
+  </Table>
 }
 
 const AccountsSettings = ({ t, accounts }) => {
@@ -85,13 +83,18 @@ const AccountsSettings = ({ t, accounts }) => {
     return !!(!infos.recipients || infos.recipients.length === 0 || infos.owner)
   })
 
+  const myAccounts = accountBySharingDirection[true]
+  const sharedAccounts = accountBySharingDirection[false]
+
   return (
     <div>
       <h4>
         {t('Accounts.my-accounts')}
       </h4>
 
-      <AccountsTable accounts={accountBySharingDirection[true]} t={t} />
+      {myAccounts
+        ? <AccountsTable accounts={myAccounts} t={t} />
+        : <p>{t('Accounts.no-accounts')}</p>}
 
       <p>
         <Button theme='regular'>
@@ -103,7 +106,9 @@ const AccountsSettings = ({ t, accounts }) => {
         {t('Accounts.shared-accounts')}
       </h4>
 
-      <AccountsTable accounts={accountBySharingDirection[false]} t={t} />
+      {sharedAccounts
+        ? <AccountsTable accounts={sharedAccounts} t={t} />
+        : <p>{t('Accounts.no-shared-accounts')}</p>}
     </div>
   )
 }

@@ -47,6 +47,7 @@
     "label": "Libellé",
     "my-accounts": "Mes comptes",
     "no-accounts": "Vous n'avez pas encore de compte.",
+    "no-shared-accounts": "Vous n'avez pas encore de compte partagé.",
     "shared": "Partagé",
     "shared-accounts": "Comptes que l'on m'a partagé",
     "type": "Type"
@@ -253,17 +254,6 @@
     "save": "Sauver"
   },
 
-  "Accounts": {
-    "label": "Libellé",
-    "account": "Compte ",
-    "type": "Type",
-    "shared": "Partagé",
-    "bank": "Banque",
-    "add-account": "Ajouter un compte",
-    "my-accounts": "Mes comptes",
-    "shared-accounts": "Comptes que l'on m'a partagé",
-    "no-accounts": "Vous n'avez pas encore de compte."
-  },
 
   "SelectDates": {
     "last_12_months": "Les 12 derniers mois"
