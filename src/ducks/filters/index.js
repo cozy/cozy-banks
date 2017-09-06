@@ -4,6 +4,7 @@ import { startOfMonth, endOfMonth, isAfter, isBefore, parse } from 'date-fns'
 import SelectDates from './SelectDates'
 import { getOperations, getGroups, getAccounts } from 'selectors'
 import { BANK_ACCOUNTS_DOCTYPE, BANK_ACCOUNT_GROUPS_DOCTYPE } from 'actions'
+import _ from 'lodash'
 
 // constants
 const FILTER_BY_DATES = 'FILTER_BY_DATES'
@@ -102,7 +103,10 @@ export const addFilterByDates = (startDate, endDate) => ({ type: FILTER_BY_DATES
 export const resetAccountOrGroup = () => ({ type: RESET_ACCOUNT_OR_GROUP })
 export const filterByAccount = account => ({ type: FILTER_BY_ACCOUNT, id: account._id })
 export const filterByGroup = group => ({ type: FILTER_BY_GROUP, id: group._id })
-
+export const addFilterForMostRecentOperations = operations => {
+  const { date } = _(operations).sortBy('date').last()
+  return addFilterByDates(startOfMonth(date), endOfMonth(date))
+}
 // components
 export { SelectDates }
 
