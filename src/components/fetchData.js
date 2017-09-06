@@ -19,9 +19,7 @@ export default fetch => WrappedComponent => {
       if (hasError) {
         return <DisplayError error={error} />
       } else if (!hasData) {
-        return <div>
-          <Spinner />
-        </div>
+        return <div><Spinner /></div>
       } else {
         return <WrappedComponent {...props} {...data} />
       }

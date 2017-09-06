@@ -45,8 +45,8 @@ const AccountLine = withRouter(_AccountLine)
 
 const renderAccount = account => <AccountLine account={account} />
 
-const AccountsTable = ({ accounts, t }) => {
-  return <Table className={styles.AcnsStg__accounts}>
+const AccountsTable = ({ accounts, t }) => (
+  <Table className={styles.AcnsStg__accounts}>
     <thead>
       <tr>
         <th className={styles.AcnsStg__libelle}>
@@ -71,7 +71,7 @@ const AccountsTable = ({ accounts, t }) => {
       {accounts.map(renderAccount)}
     </tbody>
   </Table>
-}
+)
 
 const AccountsSettings = ({ t, accounts }) => {
   if (accounts.fetchStatus === 'loading') {
