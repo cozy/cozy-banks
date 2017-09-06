@@ -267,7 +267,20 @@
     },
     "if_movement_greater": {
       "title": "Montant de mouvement",
-      "description": "Vous receverez une notification, si un mouvement est supérieur à"
+      "description": "Vous receverez une notification, si un mouvement est supérieur à",
+      "notification": {
+        "debit": {
+          "title": "Dépense de %{amount}%{currency}",
+          "content": "%{label}"
+        },
+        "credit": {
+          "title": "Versement de %{amount}%{currency}",
+          "content": "%{label}"
+        },
+        "others": {
+          "title": "%{movement_length} mouvements de plus de %{greater_than}€"
+        }
+      }
     },
     "no_revenue": {
       "title": "Retard de salaire",

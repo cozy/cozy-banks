@@ -1,4 +1,12 @@
 import { cozyClient } from 'cozy-konnector-libs'
+import { initTranslation } from 'cozy-ui/react/I18n/translation'
+
+const lang = process.env.COZY_LOCALE || 'en'
+const dictRequire = lang => require(`../../locales/${lang}`)
+const translation = initTranslation(lang, dictRequire)
+const t = translation.t.bind(translation)
+
+const abs = number => number < 0 ? -number : number
 
 // operations
 
@@ -22,7 +30,7 @@ const processMovementGreater = (config, operations) => {
   const operationsWithMovementGreater = []
   if (config.movementGreater && config.movementGreater.enable) {
     for (const operation of operations) {
-      if (operation.amount < -config.movementGreater.value) {
+      if (abs(operation.amount) > abs(config.movementGreater.value)) {
         operationsWithMovementGreater.push(operation)
       }
     }
@@ -34,15 +42,25 @@ const sendMovementGreater = async (config, operations) => {
   const operationsWithMovementGreater = processMovementGreater(config, operations)
   if (operationsWithMovementGreater.length === 0) return
 
-  const notification = {
-    reference: 'movement_greater',
-    title: operationsWithMovementGreater.length + ' operations qui dépasse votre seuil.',
-    content: 'blabla'
+  const notification = { reference: 'movement_greater' }
+  let translateKey = 'Notifications.if_movement_greater.notification.'
+  if (operationsWithMovementGreater.length === 1) {
+    const operation = operationsWithMovementGreater[0]
+    translateKey += operation.amount > 0 ? 'credit' : 'debit'
+    notification.title = t(`${translateKey}.title`, { amount: operation.amount, currency: operation.currency })
+    notification.content = t(`${translateKey}.content`, { label: operation.label })
+  } else {
+    translateKey += 'others'
+    notification.title = t(`${translateKey}.title`, {
+      "movement_length": operationsWithMovementGreater.length,
+      "greater_than": config.movementGreater.value
+    })
+    notification.content = ' '
   }
   await cozyClient.fetchJSON('POST', '/notifications', {
     data: {
       type: 'io.cozy.notifications',
-      attributes: notifications
+      attributes: notification
     }
   })
 }

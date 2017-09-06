@@ -256,7 +256,20 @@
     },
     "if_movement_greater": {
       "description": "You will receive an notification if a move is greater than",
-      "title": "Movement amount"
+      "title": "Movement amount",
+      "notification": {
+        "debit": {
+          "title": "Debit of %{amount}%{currency}",
+          "content": "%{label}"
+        },
+        "credit": {
+          "title": "Credit of %{amount}%{currency}",
+          "content": "%{label}"
+        },
+        "others": {
+          "title": "%{movement_length} movement greater then %{greater_than}€"
+        }
+      }
     },
     "no_revenue": {
       "description": "You will be notified if you have not received your salary at the %{input} of each month.",
