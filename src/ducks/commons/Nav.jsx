@@ -2,7 +2,6 @@ import React from 'react'
 import { translate, Icon } from 'cozy-ui/react'
 import { Link, withRouter } from 'react-router'
 import styles from './Nav.styl'
-import cx from 'classnames'
 
 import dashboard from 'assets/icons/icon-dashboard.svg'
 import arrows from 'assets/icons/icon-arrow-left-right.svg'
