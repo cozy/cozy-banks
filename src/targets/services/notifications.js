@@ -10,27 +10,43 @@ const abs = number => number < 0 ? -number : number
 
 // operations
 
-const getOperations = async () => {
-  // to refactor to get only operations without key notifications directly by the stack
-  const operationsWithouNotification = []
-  const operations = await cozyClient.data.findAll('io.cozy.bank.operations')
-  for (const operation of operations) {
-    if (operation.notifications === undefined) {
-      operationsWithouNotification.push(operation)
+const getLastSeq = config => config.notifications.lastSeq ? config.notifications.lastSeq : '0'
+
+const saveLastSeq = async (config, lastSeq) => {
+  config.notifications.lastSeq = lastSeq
+  await cozyClient.data.update('io.cozy.bank.settings', config, config)
+}
+
+const getOperationsChanges = async (lastSeq, includeDocs = false) => {
+  const result = await cozyClient.fetchJSON(
+    'GET',
+    `/data/io.cozy.bank.operations/_changes?${includeDocs ? 'include_docs=true&' : ''}since=${lastSeq}`
+  )
+  if (includeDocs) {
+    const operations = []
+    for (const operation of result.results) {
+      operations.push(operation.doc)
     }
+    return operations
+  } else {
+    return result.last_seq
   }
-  return operationsWithouNotification
+}
+
+const getOperations = async config => {
+  const lastSeq = getLastSeq(config)
+  return await getOperationsChanges(lastSeq, true)
 }
 
 // movementGreater
 
-const isMovementGreaterEnable = config => config.movementGreater && config.movementGreater.enable
+const isMovementGreaterEnable = config => config.notifications.movementGreater && config.notifications.movementGreater.enable
 
 const processMovementGreater = (config, operations) => {
   const operationsWithMovementGreater = []
-  if (config.movementGreater && config.movementGreater.enable) {
+  if (config.notifications.movementGreater && config.notifications.movementGreater.enable) {
     for (const operation of operations) {
-      if (abs(operation.amount) > abs(config.movementGreater.value)) {
+      if (abs(operation.amount) > abs(config.notifications.movementGreater.value)) {
         operationsWithMovementGreater.push(operation)
       }
     }
@@ -52,8 +68,8 @@ const sendMovementGreater = async (config, operations) => {
   } else {
     translateKey += 'others'
     notification.title = t(`${translateKey}.title`, {
-      "movement_length": operationsWithMovementGreater.length,
-      "greater_than": config.movementGreater.value
+      movement_length: operationsWithMovementGreater.length,
+      greater_than: config.notifications.movementGreater.value
     })
     notification.content = ' '
   }
@@ -70,7 +86,7 @@ const sendMovementGreater = async (config, operations) => {
 const getConfiguration = async () => {
   const configurations = await cozyClient.data.findAll('io.cozy.bank.settings')
   if (configurations.length > 0 && configurations[0].notifications) {
-    return configurations[0].notifications
+    return configurations[0]
   } else {
     return undefined
   }
@@ -88,7 +104,7 @@ const notificationsService = async () => {
   if (config === undefined || !isNotificationsEnable(config)) return // stop notifications service
 
   // get operations and test if there are operations no precessed
-  const operations = await getOperations()
+  const operations = await getOperations(config)
   if (operations.length === 0) return // stop notifications service
 
   // send notifications
@@ -99,6 +115,10 @@ const notificationsService = async () => {
     operation.notifications = true
     await cozyClient.data.update('io.cozy.bank.operations', operation, operation)
   }
+
+  // save lastSeq
+  const lastSeq = await getOperationsChanges(getLastSeq(config))
+  await saveLastSeq(config, lastSeq)
 }
 
 notificationsService()
