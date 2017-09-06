@@ -142,13 +142,11 @@ class GroupSettings extends Component {
   }
 }
 
-const mkNewGroup = function () {
-  return {
-    label: 'Nouveau groupe',
-    accounts: [],
-    type: GROUP_DOCTYPE
-  }
-}
+const mkNewGroup = () => ({
+  label: 'Nouveau groupe',
+  accounts: [],
+  type: GROUP_DOCTYPE
+})
 
 const mapDocumentsToProps = props => {
   const groupId = props.routeParams.groupId

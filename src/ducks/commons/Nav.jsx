@@ -9,19 +9,15 @@ import arrows from 'assets/icons/icon-arrow-left-right.svg'
 import graph from 'assets/icons/icon-graph.svg'
 import people from 'assets/icons/icon-people.svg'
 
-const ActiveLink = withRouter(function ActiveLink ({ to, className, children, router }) {
-  return (
-    <Link
-      to={to}
-      className={cx(
-          styles['coz-nav-link'],
-          { [styles['active']]: router.isActive(to) },
-          className
-        )}>
-      {children}
-    </Link>
-  )
-})
+const ActiveLink = withRouter(({ to, className, children, router }) => <Link
+  to={to}
+  className={cx(
+      styles['coz-nav-link'],
+      { [styles['active']]: router.isActive(to) },
+      className
+    )}>
+  {children}
+</Link>)
 
 const Nav = ({ t }) => (
   <nav>
