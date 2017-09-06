@@ -1,4 +1,4 @@
-import Onboarding from './onboarding'
+import Onboarding from './Onboarding'
 import EnsureHasAccounts from './ensureHasAccounts'
 
 export {

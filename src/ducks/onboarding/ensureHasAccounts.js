@@ -2,8 +2,8 @@ import { cozyConnect, fetchCollection } from 'redux-cozy-client'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 import Loading from 'components/Loading'
 import {withRouter} from 'react-router'
-import Onboarding from './onboarding'
-import styles from './styles'
+import Onboarding from './Onboarding'
+import styles from './Onboarding.styl'
 
 /**
  * HOC to wrap Layout. Replaces its children by Onboarding
@@ -17,7 +17,7 @@ const mapDocumentsToProps = (props) => ({
   accounts: fetchCollection('onboarding_accounts', ACCOUNT_DOCTYPE)
 })
 
-const hasParameter = function (qs, param) {
+const hasParameter = (qs, param) => {
   // result of querystring parsing is created without prototype
   // thus we need to use Object.prototype.hasOwnProperty
   return Object.prototype.hasOwnProperty.call(qs, param)
