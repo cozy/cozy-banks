@@ -3,7 +3,7 @@ import styles from './style'
 
 // Temporary to show Coming soon
 
-const flash = (type, msg, opts) => {
+const flash = (type, msg, opts = {}) => {
   if (!msg) {
     msg = type
     type = 'info'

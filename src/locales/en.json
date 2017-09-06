@@ -274,5 +274,22 @@
     "accounts": "Accounts",
     "groups": "Groups",
     "notifications": "Notifications"
+  },
+
+  "Onboarding": {
+    "connect-bank-account": "Connect your bank account",
+    "manage-budget": {
+      "description": "The situation of all your accounts in 1 glance",
+      "title": "Control your budget"
+    },
+    "save-time": {
+      "description": "Your invoices at your fingertips directly from your statements",
+      "title": "Save Time"
+    },
+    "cozy-assistant": {
+      "description": "Health accounts of your entire family automagically updated",
+      "title": "Cozy works for you"
+    },
+    "title": "Connect to your banking space"
   }
 }

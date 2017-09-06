@@ -1,5 +1,8 @@
 {
   "env": { "es6": true },
   "parser": "babel-eslint",
-  "extends": ["standard", "standard-jsx"]
+  "extends": ["standard", "standard-jsx"],
+  "rules": {
+    "react/jsx-wrap-multilines": 2
+  }
 }

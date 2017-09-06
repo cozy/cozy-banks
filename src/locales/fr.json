@@ -297,5 +297,22 @@
     "accounts": "Comptes",
     "groups": "Groupes",
     "notifications": "Notifications"
+  },
+
+  "Onboarding": {
+    "title": "Se connecter à votre espace bancaire",
+    "connect-bank-account": "Connecter votre compte bancaire",
+    "manage-budget": {
+      "title": "Maîtrisez votre budget",
+      "description": "La situation de tous vos comptes en 1 coup d'œil"
+    },
+    "save-time": {
+      "title": "Gagnez du temps",
+      "description": "Vos factures à portée de main directement depuis vos relevés"
+    },
+    "cozy-assistant": {
+      "title": "Cozy travaille pour vous",
+      "description": "Les décomptes de santé de toute votre famille à jour automagiquement"
+    }
   }
 }
