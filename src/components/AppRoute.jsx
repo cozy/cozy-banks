@@ -8,22 +8,25 @@ import { Settings } from 'ducks/settings'
 import { Balance } from 'ducks/balance'
 import { AccountSettings } from 'ducks/account'
 import GroupSettings, { NewGroupSettings } from 'components/GroupSettings'
+import { EnsureHasAccounts } from 'ducks/onboarding'
 
 export const ComingSoon = () => (<p style='margin-left: 2em'>Coming soon!</p>)
 
 const AppRoute = (
-  <Route component={Layout}>
-    <Redirect from='/' to='movements' />
-    <Route path='currentBalance' component={Balance} />
-    <Route path='movements' component={Movements} />
-    <Route path='categories' component={CategoriesPage} />
-    <Route path='projections' component={ComingSoon} />
-    <Route path='savings' component={ComingSoon} />
-    <Route path='settings/accounts/:accountId' component={AccountSettings} />
-    <Route path='settings/groups/new' component={NewGroupSettings} />
-    <Route path='settings/groups/:groupId' component={GroupSettings} />
-    <Route path='settings(/:tab)' component={Settings} />
-    <Redirect from='*' to='/' />
+  <Route component={EnsureHasAccounts}>
+    <Route component={Layout}>
+      <Redirect from='/' to='movements' />
+      <Route path='currentBalance' component={Balance} />
+      <Route path='movements' component={Movements} />
+      <Route path='categories' component={CategoriesPage} />
+      <Route path='projections' component={ComingSoon} />
+      <Route path='savings' component={ComingSoon} />
+      <Route path='settings/accounts/:accountId' component={AccountSettings} />
+      <Route path='settings/groups/new' component={NewGroupSettings} />
+      <Route path='settings/groups/:groupId' component={GroupSettings} />
+      <Route path='settings(/:tab)' component={Settings} />
+      <Redirect from='*' to='/' />
+    </Route>
   </Route>
 )
 

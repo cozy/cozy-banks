@@ -1,8 +1,9 @@
 import React from 'react'
-import classNames from 'classnames'
 import { translate, Icon } from 'cozy-ui/react'
 import { Link, withRouter } from 'react-router'
 import styles from './Nav.styl'
+import cx from 'classnames'
+
 import dashboard from 'assets/icons/icon-dashboard.svg'
 import arrows from 'assets/icons/icon-arrow-left-right.svg'
 import graph from 'assets/icons/icon-graph.svg'
@@ -12,7 +13,7 @@ const ActiveLink = withRouter(function ActiveLink ({ to, className, children, ro
   return (
     <Link
       to={to}
-      className={classNames(
+      className={cx(
           styles['coz-nav-link'],
           { [styles['active']]: router.isActive(to) },
           className
