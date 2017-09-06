@@ -16,9 +16,10 @@ padded-content(pad)
         margin-right -(pad)
         width calc(100% + 2*(pad))
 
+content-padding = 2em
 
 .bnk-content
-    padded-content(2em)
+    padded-content(content-padding)
 
 +small-screen()
     .bnk-content
