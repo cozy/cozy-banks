@@ -42,10 +42,6 @@ class Notifications extends Component {
 
     return (
       <div>
-        <h4>
-          {t('Notifications.title')}
-        </h4>
-
         {notifications.map(notification => (
           <div>
             <h5>
