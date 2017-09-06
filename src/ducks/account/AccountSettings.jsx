@@ -54,9 +54,11 @@ class _GeneralSettings extends Component {
   }
 
   renderInputFor = (attribute) => {
-    return <input
-      value={this.state.changes[attribute]}
-      onChange={this.onInputChange.bind(null, attribute)} />
+    return (
+      <input
+        value={this.state.changes[attribute]}
+        onChange={this.onInputChange.bind(null, attribute)} />
+    )
   }
 
   render ({t, account}, {modifying}) {

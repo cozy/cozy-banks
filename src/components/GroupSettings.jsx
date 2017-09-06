@@ -63,17 +63,19 @@ class GroupSettings extends Component {
 
   renderAccountLine = (account) => {
     const { group } = this.props
-    return <tr>
-      <td className={styles.GrpStg__accntLabel}>
-        {account.label}
-      </td>
-      <td className={styles.GrpStg__accntNumber}>
-        {account.number}
-      </td>
-      <td className={styles.GrpStg__accntToggle}>
-        <Toggle id={account._id} checked={accountInGroup(account, group)} onToggle={this.toggleAccount.bind(null, account._id)} />
-      </td>
-    </tr>
+    return (
+      <tr>
+        <td className={styles.GrpStg__accntLabel}>
+          {account.label}
+        </td>
+        <td className={styles.GrpStg__accntNumber}>
+          {account.number}
+        </td>
+        <td className={styles.GrpStg__accntToggle}>
+          <Toggle id={account._id} checked={accountInGroup(account, group)} onToggle={this.toggleAccount.bind(null, account._id)} />
+        </td>
+      </tr>
+    )
   }
 
   onRemove = () => {

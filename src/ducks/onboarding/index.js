@@ -14,37 +14,41 @@ import querystring from 'utils/querystring'
 import applyClass from 'hoc/applyClass'
 
 const Icon = function ({icon}) {
-  return <svg className={styles.Onboarding__icon}>
-    <use xlinkHref={icon} />
-  </svg>
+  return (
+    <svg className={styles.Onboarding__icon}>
+      <use xlinkHref={icon} />
+    </svg>
+  )
 }
 
 const _Onboarding = function ({t}) {
-  return <div className={styles.Onboarding}>
-    <h2>{t('Onboarding.title')}</h2>
-    <div className={styles.Onboarding__sections}>
-      <div className={styles.Onboarding__section}>
-        <Icon icon={calculator} />
-        <h3>{t('Onboarding.manage-budget.title')}</h3>
-        <p>{t('Onboarding.manage-budget.description')}</p>
+  return (
+    <div className={styles.Onboarding}>
+      <h2>{t('Onboarding.title')}</h2>
+      <div className={styles.Onboarding__sections}>
+        <div className={styles.Onboarding__section}>
+          <Icon icon={calculator} />
+          <h3>{t('Onboarding.manage-budget.title')}</h3>
+          <p>{t('Onboarding.manage-budget.description')}</p>
+        </div>
+        <div className={styles.Onboarding__section}>
+          <Icon icon={watch} />
+          <h3>{t('Onboarding.save-time.title')}</h3>
+          <p>{t('Onboarding.save-time.description')}</p>
+        </div>
+        <div className={styles.Onboarding__section}>
+          <Icon icon={cozy} />
+          <h3>{t('Onboarding.cozy-assistant.title')}</h3>
+          <p>{t('Onboarding.cozy-assistant.description')}</p>
+        </div>
       </div>
-      <div className={styles.Onboarding__section}>
-        <Icon icon={watch} />
-        <h3>{t('Onboarding.save-time.title')}</h3>
-        <p>{t('Onboarding.save-time.description')}</p>
-      </div>
-      <div className={styles.Onboarding__section}>
-        <Icon icon={cozy} />
-        <h3>{t('Onboarding.cozy-assistant.title')}</h3>
-        <p>{t('Onboarding.cozy-assistant.description')}</p>
-      </div>
+      <p className={styles.Onboarding__connect}>
+        <Button theme='regular' onClick={() => flash(t('ComingSoon.description'))}>
+          {t('Onboarding.connect-bank-account')}
+        </Button>
+      </p>
     </div>
-    <p className={styles.Onboarding__connect}>
-      <Button theme='regular' onClick={() => flash(t('ComingSoon.description'))}>
-        {t('Onboarding.connect-bank-account')}
-      </Button>
-    </p>
-  </div>
+  )
 }
 
 const Onboarding = applyClass(navStyles.onboarding)(translate()(_Onboarding))
