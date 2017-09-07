@@ -12,7 +12,7 @@ const PURPLE = '#a75bcb'
 const BLUE = '#2d8af2'
 
 const BigIcon = ({ color, icon }) => (
-  <Icon width='auto' height='6rem' style={{ color }} icon={icon} />
+  <Icon width='auto' height='5rem' style={{ color }} icon={icon} />
 )
 
 const Onboarding = ({t}) => (
