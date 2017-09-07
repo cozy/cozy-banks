@@ -300,7 +300,7 @@
   },
 
   "Onboarding": {
-    "title": "Se connecter à votre espace bancaire",
+    "title": "Connecter vos comptes bancaires",
     "connect-bank-account": "Connecter votre compte bancaire",
     "manage-budget": {
       "title": "Maîtrisez votre budget",
@@ -312,7 +312,7 @@
     },
     "cozy-assistant": {
       "title": "Cozy travaille pour vous",
-      "description": "Les décomptes de santé de toute votre famille à jour automagiquement"
+      "description": "Les décomptes de santé de toute votre famille à jour automatiquement"
     }
   }
 }
