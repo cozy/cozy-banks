@@ -300,8 +300,8 @@
   },
 
   "Onboarding": {
-    "title": "Connecter vos comptes bancaires",
-    "connect-bank-account": "Connecter votre compte bancaire",
+    "title": "Se connecter à son espace bancaire",
+    "connect-bank-account": "Connecter vos comptes bancaires",
     "manage-budget": {
       "title": "Maîtrisez votre budget",
       "description": "La situation de tous vos comptes en 1 coup d'œil"
