@@ -6,7 +6,7 @@ export default ({ getLocation }) => Wrapped => withRouter(class extends Componen
   componentDidMount () {
     const node = document.body
     this.hammer = new Hammer.Manager(node, {
-      recognizers: [[Hammer.Swipe, { direction: Hammer.DIRECTION_ALL }]]
+      recognizers: [[Hammer.Swipe, { direction: Hammer.DIRECTION_RIGHT }]]
     })
     this.hammer.on('swiperight', this.onSwipeRight)
   }

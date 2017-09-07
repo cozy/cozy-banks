@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { throttle, mapValues, flow as compose, pick } from 'lodash'
+import { throttle, mapValues, flowRight as compose, pick } from 'lodash'
 
 const breakpoints = {
   'desktop': Infinity,
@@ -65,8 +65,8 @@ const renderOnlyIf = predicate => Wrapped => class extends Component {
  * rendered on mobile
  */
 export const onlyMobile = compose(
-  renderOnlyIf(props => props.breakpoints.mobile),
-  breakpointsAware(pick(breakpoints, 'mobile'))
+  breakpointsAware(pick(breakpoints, 'mobile')),
+  renderOnlyIf(props => props.breakpoints.mobile)
 )
 
 /**
@@ -74,8 +74,8 @@ export const onlyMobile = compose(
  * rendered on tablet
  */
 export const onlyTablet = compose(
-  renderOnlyIf(props => props.breakpoints.tablet),
-  breakpointsAware(pick(breakpoints, 'tablet'))
+  breakpointsAware(pick(breakpoints, 'tablet')),
+  renderOnlyIf(props => props.breakpoints.tablet)
 )
 
 export default breakpointsAware
