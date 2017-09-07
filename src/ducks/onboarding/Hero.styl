@@ -1,0 +1,36 @@
+@require '../../styles/breakpoints.styl'
+
+.Hero
+    margin-left auto
+    margin-right auto
+
+    &__title
+        text-align center
+        margin 3rem 0
+
+    &__subtitle
+        margin-bottom 0
+
+    p
+        line-height 1.25
+
+    &__sections
+        display flex
+        justify-content space-around
+
+        +small-screen()
+            flex-direction column
+            align-items center
+
+    &__section
+        max-width 18.75rem
+        text-align center
+
+        +small-screen()
+            max-width auto
+
+            &:nth-child(2), &:nth-child(3)
+                display none
+
+    &__cta
+        text-align center
