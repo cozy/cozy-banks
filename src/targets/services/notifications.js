@@ -33,12 +33,12 @@ const saveLastSeqInConfig = async (config, lastSeq) => {
   await cozyClient.data.update('io.cozy.bank.settings', config, config)
 }
 
-const startNotificationsService = async () => {
+const sendNotifications = async () => {
   const config = await getConfiguration()
   if (!config) return
 
   const notifications = [
-    new OperationGreater(config.notifications.operationGreater)
+    new OperationGreater(t, config.notifications.operationGreater)
   ]
   const enabledNotifications = notifications.filter(notif => notif.isEnabled())
   if (enabledNotifications.length === 0) return
@@ -49,7 +49,7 @@ const startNotificationsService = async () => {
   if (operations.length > 0) {
     for (const notification of notifications) {
       try {
-        await notification.sendNotification(t, operations)
+        await notification.sendNotification(operations)
       } catch (err) {
         console.warn(err)
       }
@@ -61,4 +61,4 @@ const startNotificationsService = async () => {
   }
 }
 
-startNotificationsService()
+sendNotifications()
