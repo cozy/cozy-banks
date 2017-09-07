@@ -1,3 +1,4 @@
+import React from 'react'
 import { cozyConnect, fetchCollection } from 'redux-cozy-client'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 import Loading from 'components/Loading'
