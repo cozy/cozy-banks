@@ -1,12 +1,10 @@
 'use strict'
 
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 const PostCSSAssetsPlugin = require('postcss-assets-webpack-plugin')
 
 const {extractor, production} = require('./webpack.vars')
-const pkg = require(path.resolve(__dirname, '../package.json'))
 const SRC_DIR = path.resolve(__dirname, '../src')
 const webpack = require('webpack')
 
@@ -63,14 +61,6 @@ module.exports = {
     // ChartJS uses moment :( To remove when we do not use it anymore
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|fr/),
     new webpack.ContextReplacementPlugin(/date-fns[\/\\]locale$/, /en|fr/),
-    new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, '../src/index.ejs'),
-      title: pkg.name,
-      inject: 'head',
-      minify: {
-        collapseWhitespace: true
-      }
-    }),
     new ScriptExtHtmlWebpackPlugin({
       defaultAttribute: 'defer'
     }),

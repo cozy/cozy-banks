@@ -13,7 +13,7 @@ class Notifications extends Component {
     const { settingsCollection, dispatch } = this.props
     let settings = getSettings(settingsCollection)
     const updateOrCreate = settings._id ? updateSettings : createSettings
-    settings.notifications[setting].enable = checked
+    settings.notifications[setting].enabled = checked
     dispatch(updateOrCreate(settings))
   }
 
@@ -33,10 +33,10 @@ class Notifications extends Component {
 
     let notifications = [
       {
-        title: t('Notifications.if_movement_greater.title'),
-        name: 'amountMax',
-        description: t('Notifications.if_movement_greater.description'),
-        value: settings.notifications.amountMax.value
+        title: t('Notifications.if_operation_greater.title'),
+        name: 'operationGreater',
+        description: t('Notifications.if_operation_greater.description'),
+        value: settings.notifications.operationGreater.value
       }
     ]
 
@@ -58,7 +58,7 @@ class Notifications extends Component {
               </p>
 
               <div className={styles['notification-toggle']}>
-                <Toggle id={notification.name} checked={settings.notifications[notification.name].enable}
+                <Toggle id={notification.name} checked={settings.notifications[notification.name].enabled}
                   onToggle={checked => this.onToggle(notification.name, checked)}
                 />
               </div>

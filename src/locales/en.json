@@ -237,11 +237,11 @@
   },
 
   "Notifications": {
+    "title": "Notifications",
     "weekly_summary": {
       "description": "You will receive a summary of your expenses and revenues every Monday of every week.",
       "title": "Weekly Synthesis"
     },
-    "title": "Notifications",
     "when_month_revenue": {
       "description": "You will receive an email at the reception of your salary each month.",
       "title": "Payment of salary"
@@ -254,9 +254,24 @@
       "description": "You will receive an email if your balance is less than",
       "title": "Balance threshold"
     },
-    "if_movement_greater": {
-      "description": "You will receive an email if a move is greater than",
-      "title": "Movement amount"
+    "if_operation_greater": {
+      "description": "You will receive a notification if a movement is greater than",
+      "title": "Movement amount",
+      "notification": {
+        "debit": {
+          "title": "Debit of %{amount}%{currency}",
+          "content": "%{label}"
+        },
+        "credit": {
+          "title": "Credit of %{amount}%{currency}",
+          "content": "%{label}"
+        },
+        "others": {
+          "title": "%{operationsLength} operations greater then %{maxAmount}€",
+          "debitContent": "Debit of %{amount}%{currency} with label %{label}.",
+          "creditContent": "Credit of %{amount}%{currency} with label %{label}."
+        }
+      }
     },
     "no_revenue": {
       "description": "You will be notified if you have not received your salary at the %{input} of each month.",

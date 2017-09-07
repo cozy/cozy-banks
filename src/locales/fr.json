@@ -263,11 +263,26 @@
     "title": "Notifications",
     "if_balance_lower": {
       "title": "Seuil de solde",
-      "description": "Vous receverez un email, si votre solde est inférieur à"
+      "description": "Vous recevrez un email, si votre solde est inférieur à"
     },
-    "if_movement_greater": {
+    "if_operation_greater": {
       "title": "Montant de mouvement",
-      "description": "Vous receverez un email, si un mouvement est supérieur à"
+      "description": "Vous recevrez une notification, si un mouvement est supérieur à",
+      "notification": {
+        "debit": {
+          "title": "Dépense de %{amount}%{currency}",
+          "content": "%{label}"
+        },
+        "credit": {
+          "title": "Versement de %{amount}%{currency}",
+          "content": "%{label}"
+        },
+        "others": {
+          "title": "%{operationsLength} mouvements de plus de %{maxAmount}€",
+          "debitContent": "Dépense de %{amount}%{currency} avec le libellé %{label}.",
+          "creditContent": "Versement de %{amount}%{currency} avec le libellé %{label}."
+        }
+      }
     },
     "no_revenue": {
       "title": "Retard de salaire",
@@ -275,15 +290,15 @@
     },
     "when_month_revenue": {
       "title": "Versement de salaire",
-      "description": "Vous receverez un email à la réception de votre salaire chaque mois."
+      "description": "Vous recevrez un email à la réception de votre salaire chaque mois."
     },
     "weekly_summary": {
       "title": "Synthèse hebdomadaire",
-      "description": "Vous receverez un récapitulatif de vos dépenses et de vos revenus tous les lundis de chaque semaine."
+      "description": "Vous recevrez un récapitulatif de vos dépenses et de vos revenus tous les lundis de chaque semaine."
     },
     "monthly_summary": {
       "title": "Synthèse mensuelle",
-      "description": "Vous receverez un récapitulatif de vos dépenses et de vos revenus tous les premiers de chaque mois."
+      "description": "Vous recevrez un récapitulatif de vos dépenses et de vos revenus tous les premiers de chaque mois."
     }
   },
 

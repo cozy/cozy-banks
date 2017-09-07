@@ -1,4 +1,5 @@
 import { fetchCollection, createDocument, updateDocument } from 'redux-cozy-client'
+import { merge } from 'lodash'
 import Settings from './Settings'
 
 // constants
@@ -6,9 +7,9 @@ const DOCTYPE = 'io.cozy.bank.settings'
 const COLLECTION_NAME = 'settings'
 const DEFAULTS_SETTINGS = {
   notifications: {
-    amountMax: {
-      value: 30,
-      enable: false
+    operationGreater: {
+      value: 100,
+      enabled: false
     }
   }
 }
@@ -25,7 +26,7 @@ export const updateSettings = settings => updateDocument(settings)
 export const getSettings = settingsCollection => {
   if (settingsCollection && settingsCollection.data && settingsCollection.data.length > 0) {
     const settings = settingsCollection.data[0]
-    return { ...DEFAULTS_SETTINGS, ...settings }
+    return merge(DEFAULTS_SETTINGS, settings)
   } else {
     return DEFAULTS_SETTINGS
   }

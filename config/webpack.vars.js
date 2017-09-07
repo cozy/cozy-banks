@@ -13,5 +13,4 @@ module.exports = {
   hotReload,
   extractor: new ExtractTextPlugin(`app${production ? '.[hash].min' : ''}.css`),
   skin
-
 }
