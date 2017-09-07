@@ -98,9 +98,7 @@ class GroupSettings extends Component {
 
     return (
       <div>
-        <BackButton>
-          <a href='#/settings/groups' />
-        </BackButton>
+        <BackButton to='/settings/groups' />
         <Topbar>
           <h2>{group.label}</h2>
         </Topbar>
