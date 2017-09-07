@@ -1,6 +1,6 @@
 import React from 'react'
 import { IndexRoute, Route, Redirect } from 'react-router'
-import { Layout } from 'ducks/commons'
+import App from 'components/App'
 
 import Movements from 'containers/Movements'
 import { CategoriesPage } from 'ducks/categories'
@@ -16,7 +16,7 @@ export const ComingSoon = () => (<p style='margin-left: 2em'>Coming soon!</p>)
 
 const AppRoute = (
   <Route component={EnsureHasAccounts}>
-    <Route component={Layout}>
+    <Route component={App}>
       <Redirect from='/' to='movements' />
       <Route path='currentBalance' component={Balance} />
       <Route path='movements' component={Movements} />

@@ -1,13 +1,10 @@
 import React from 'react'
 import { Icon as BaseIcon } from 'cozy-ui/react'
 import styles from './Hero.styl'
+import mkComponent from 'utils/mkComponent'
 
 export const Icon = ({ color, icon }) => (
   <BaseIcon width='auto' height='5rem' style={{ color }} icon={icon} />
-)
-
-const mkComponent = (Tag, extra = {}) => ({children, ...props}) => (
-  <Tag {...extra} {...props}>{children}</Tag>
 )
 
 export const Hero = mkComponent('div', {className: styles.Hero})

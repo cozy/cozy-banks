@@ -1,7 +1,7 @@
 @require 'cozy-ui'
 @require '../../styles/breakpoints.styl'
 
-.bnk-wrapper
+.coz-layout
     @extend    $app-2panes-sticky
 
 padded-content(pad)
@@ -18,9 +18,18 @@ padded-content(pad)
 
 content-padding = 2em
 
-.bnk-content
+.coz-content
     padded-content(content-padding)
 
-+small-screen()
-    .bnk-content
-        padded-content(1rem)
+    +small-screen()
+        &
+            padded-content(1rem)
+
+.coz-sidebar
+    width            em(220px)
+    border-right     1px solid silver
+    background-color pale-grey
+
+    @media (max-width: (1023/basefont)rem)
+        border-top  1px solid silver
+        border-left none

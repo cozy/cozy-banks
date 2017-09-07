@@ -5,6 +5,7 @@ import Loading from 'components/Loading'
 import {withRouter} from 'react-router'
 import Onboarding from './Onboarding'
 import styles from './Onboarding.styl'
+import { Content } from 'components/Layout'
 
 /**
  * HOC to wrap Layout. Replaces its children by Onboarding
@@ -30,15 +31,17 @@ export default enhance(({children, accounts, location}) => {
   const { fetchStatus } = accounts
   if (fetchStatus === 'pending' || fetchStatus === 'loading') {
     return (
-      <div className={styles.Onboarding__loading}>
-        <Loading />
-      </div>
+      <Content>
+        <div className={styles.Onboarding__loading}>
+          <Loading />
+        </div>
+      </Content>
     )
   } else if (
       (accounts.data && accounts.data.length === 0) ||
       hasParameter(location.query, 'onboarding')
     ) {
-    return <Onboarding />
+    return <Content><Onboarding /></Content>
   }
   return children
 })
