@@ -5,6 +5,7 @@
 **/
 import { throwServerError } from './index'
 import { BANK_ACCOUNTS_DOCTYPE } from './accounts'
+import { addFilterForMostRecentOperations } from 'ducks/filters'
 
 export const INDEX_BANK_OPERATIONS_BY_DATE = 'INDEX_BANK_OPERATIONS_BY_DATE'
 export const INDEX_BANK_OPERATIONS_BY_DATE_SUCCESS = 'INDEX_BANK_OPERATIONS_BY_DATE_SUCCESS'
@@ -40,36 +41,29 @@ const removeAccountPrefix = operations => operations.map(operation => {
 })
 
 // Returns bank operations
-export const fetchOperations = mangoIndex => {
-  return async (dispatch) => {
-    return cozy.client.data.query(mangoIndex, {
+const baseFetchOperations = mangoIndex => async dispatch => {
+  try {
+    let operations = await cozy.client.data.query(mangoIndex, {
       selector: {'date': {'$gt': null}},
       descending: true
     })
-    .then(removeAccountPrefix)
-    .then(operations => {
-      dispatch({type: SET_OPERATIONS, operations})
-      return operations
-    })
-    .then(operations => {
-      for (const operation of operations) {
-        if (operation.bill) {
-          const [ doctype, id ] = operation.bill.split(':')
-          const action = {
-            type: 'bill',
-            payload: {
-              doctype,
-              id
-            }
-          }
-          dispatch({ type: 'ATTACH_ACTION', id: operation._id, action })
-        }
-      }
-      return operations
-    })
-    .catch(fetchError => {
-      if (fetchError instanceof Error) throw fetchError
-      throwServerError(fetchError)
-    })
+    operations = removeAccountPrefix(operations)
+    dispatch({type: SET_OPERATIONS, operations})
+    return operations
+  } catch (fetchError) {
+    if (fetchError instanceof Error) throw fetchError
+    throwServerError(fetchError)
   }
 }
+
+let firstFetch = true
+const fetchOperations = mangoIndex => async dispatch => {
+  const operations = await dispatch(baseFetchOperations(mangoIndex))
+  if (firstFetch) {
+    firstFetch = false
+    dispatch(addFilterForMostRecentOperations(operations))
+  }
+  return operations
+}
+
+export { fetchOperations }

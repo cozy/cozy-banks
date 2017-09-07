@@ -5,7 +5,6 @@ import Loading from 'components/Loading'
 import { TopbarTitle } from 'ducks/commons/Topbar'
 import { getFilteredOperations } from 'ducks/filters'
 import { fetchOperations, indexOperationsByDate } from 'actions'
-
 import { operationsByCategory, computeCategorieData } from './helpers'
 import Categories from './Categories'
 import BackButton from 'components/BackButton'
@@ -63,7 +62,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchOperations: async () => {
     const mangoIndex = await dispatch(indexOperationsByDate())
-    return dispatch(fetchOperations(mangoIndex))
+    await dispatch(fetchOperations(mangoIndex))
   }
 })
 

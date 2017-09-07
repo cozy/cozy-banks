@@ -78,7 +78,7 @@ const mapDispatchToProps = dispatch => ({
   fetchApps: () => dispatch(findApps()),
   fetchOperations: async () => {
     const mangoIndex = await dispatch(indexOperationsByDate())
-    return dispatch(fetchOperations(mangoIndex))
+    await dispatch(fetchOperations(mangoIndex))
   }
 })
 
