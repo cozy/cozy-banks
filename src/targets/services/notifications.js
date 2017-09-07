@@ -40,11 +40,11 @@ const getOperations = async config => {
 
 // movementGreater
 
-const isMovementGreaterEnable = config => config.notifications.movementGreater && config.notifications.movementGreater.enable
+const isMovementGreaterEnabled = config => config.notifications.movementGreater && config.notifications.movementGreater.enabled
 
 const processMovementGreater = (config, operations) => {
   const operationsWithMovementGreater = []
-  if (config.notifications.movementGreater && config.notifications.movementGreater.enable) {
+  if (config.notifications.movementGreater && config.notifications.movementGreater.enabled) {
     for (const operation of operations) {
       if (abs(operation.amount) > abs(config.notifications.movementGreater.value)) {
         operationsWithMovementGreater.push(operation)
@@ -92,16 +92,16 @@ const getConfiguration = async () => {
   }
 }
 
-const isNotificationsEnable = config => {
-  return isMovementGreaterEnable(config)
+const isNotificationsEnabled = config => {
+  return isMovementGreaterEnabled(config)
 }
 
 // service
 
 const notificationsService = async () => {
-  // load configuration and test if a notification is enable
+  // load configuration and test if a notification is enabled
   const config = await getConfiguration()
-  if (config === undefined || !isNotificationsEnable(config)) return // stop notifications service
+  if (config === undefined || !isNotificationsEnabled(config)) return // stop notifications service
 
   // get operations and test if there are operations no precessed
   const operations = await getOperations(config)

@@ -8,7 +8,7 @@ const DEFAULTS_SETTINGS = {
   notifications: {
     movementGreater: {
       value: 100,
-      enable: false
+      enabled: false
     }
   }
 }
