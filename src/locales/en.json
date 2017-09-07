@@ -254,8 +254,8 @@
       "description": "You will receive an email if your balance is less than",
       "title": "Balance threshold"
     },
-    "if_movement_greater": {
-      "description": "You will receive an notification if a move is greater than",
+    "if_operation_greater": {
+      "description": "You will receive a notification if a movement is greater than",
       "title": "Movement amount",
       "notification": {
         "debit": {
@@ -267,7 +267,9 @@
           "content": "%{label}"
         },
         "others": {
-          "title": "%{movement_length} movement greater then %{greater_than}€"
+          "title": "%{operationsLength} operations greater then %{maxAmount}€",
+          "debitContent": "Debit of %{amount}%{currency} with label %{label}.",
+          "creditContent": "Credit of %{amount}%{currency} with label %{label}."
         }
       }
     },
