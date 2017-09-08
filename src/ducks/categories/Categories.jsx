@@ -60,6 +60,12 @@ class Categories extends Component {
       }
     })
 
+    let titleLabel = withIncome ? t('Categories.title.total') : t('Categories.title.debit')
+    if (selectedCat) {
+      const catName = t(`Data.categories.${selectedCat.name}`)
+      titleLabel = `${titleLabel} (${catName})`
+    }
+
     return (
       <div>
         <div className={styles['bnk-cat-top']}>
@@ -73,7 +79,7 @@ class Categories extends Component {
             </div>}
             {categories.length > 0 && <FigureBlock
               className={styles['bnk-cat-figure']}
-              label={withIncome ? t('Categories.title.total') : t('Categories.title.debit')}
+              label={titleLabel}
               total={selectedCat ? selectedCat.amount : operationsTotal}
               currency={globalCurrency}
               coloredPositive coloredNegative signed />}
