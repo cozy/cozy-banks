@@ -33,10 +33,31 @@ class Notifications extends Component {
 
     let notifications = [
       {
+        title: t('Notifications.if_balance_lower.title'),
+        name: 'solde',
+        description: t('Notifications.if_balance_lower.description'),
+        value: '400'
+      },
+      {
         title: t('Notifications.if_operation_greater.title'),
         name: 'operationGreater',
         description: t('Notifications.if_operation_greater.description'),
         value: settings.notifications.operationGreater.value
+      },
+      {
+        title: t('Notifications.when_month_revenue.title'),
+        name: 'salaire',
+        description: t('Notifications.when_month_revenue.description')
+      },
+      {
+        title: t('Notifications.weekly_summary.title'),
+        name: 'hebdo',
+        description: t('Notifications.weekly_summary.description')
+      },
+      {
+        title: t('Notifications.monthly_summary.title'),
+        name: 'mensuel',
+        description: t('Notifications.monthly_summary.description')
       }
     ]
 
@@ -50,11 +71,11 @@ class Notifications extends Component {
             <div className={styles['notification']}>
               <p className={styles['notification-description']}>
                 {notification.description}
-                <input type='text'
+                {notification.value !== undefined && <input type='text'
                   onChange={e => this.onChangeValue(notification.name, e.target.value)}
                   value={settings.notifications[notification.name].value}
-                  className={classNames(styles['notification-input'], styles['suffixed'])} />
-                <span>€</span>
+                  className={classNames(styles['notification-input'], styles['suffixed'])} />}
+                {notification.value !== undefined && <span>€</span>}
               </p>
 
               <div className={styles['notification-toggle']}>

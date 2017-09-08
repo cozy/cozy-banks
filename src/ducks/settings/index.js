@@ -7,8 +7,21 @@ const DOCTYPE = 'io.cozy.bank.settings'
 const COLLECTION_NAME = 'settings'
 const DEFAULTS_SETTINGS = {
   notifications: {
+    solde: {
+      value: 100,
+      enabled: false
+    },
     operationGreater: {
       value: 100,
+      enabled: false
+    },
+    salaire: {
+      enabled: false
+    },
+    hebdo: {
+      enabled: false
+    },
+    mensuel: {
       enabled: false
     }
   }
