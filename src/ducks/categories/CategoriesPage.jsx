@@ -42,9 +42,7 @@ class CategoriesPage extends Component {
         <TopbarTitle>
           <h2>{t('Categories.title.general')}</h2>
         </TopbarTitle>
-        {selectedCategory && <BackButton>
-          <button onClick={() => this.selectCategory(undefined)} />
-        </BackButton>}
+        {selectedCategory && <BackButton onClick={() => this.selectCategory(undefined)} />}
         {isFetching
           ? <Loading loadingType='categories' />
           : <Categories categories={categories}
