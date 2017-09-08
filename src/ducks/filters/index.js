@@ -104,7 +104,8 @@ export const resetAccountOrGroup = () => ({ type: RESET_ACCOUNT_OR_GROUP })
 export const filterByAccount = account => ({ type: FILTER_BY_ACCOUNT, id: account._id })
 export const filterByGroup = group => ({ type: FILTER_BY_GROUP, id: group._id })
 export const addFilterForMostRecentOperations = operations => {
-  const { date } = _(operations).sortBy('date').last()
+  const mostRecentOperation = _(operations).sortBy('date').last()
+  const date = mostRecentOperation ? mostRecentOperation.date : new Date()
   return addFilterByDates(startOfMonth(date), endOfMonth(date))
 }
 // components
