@@ -40,7 +40,7 @@
 
     "commons:services": "webpack --config config/webpack.target.services.js",
     "build:services": "NODE_ENV=services:production yarn run commons:services",
-    "watch:services": "NODE_ENV=services:development yarn run commons:services -- --watch",
+    "watch:services": "NODE_ENV=services:development yarn run commons:services -- --watch"
   },
   "repository": {
     "type": "git",
