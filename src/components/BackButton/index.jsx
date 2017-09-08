@@ -8,7 +8,7 @@ import { flowRight as compose } from 'lodash'
 // props.router is provided by withRouter in withBackSwipe
 const BackButton = ({ onClick, to, router }) => (
   <TopbarLeft className={styles['back-button']}>
-    <a onClick={onClick ? onClick : () => to && router.push(to)} />
+    <a onClick={onClick || (() => to && router.push(to))} />
   </TopbarLeft>
 )
 
