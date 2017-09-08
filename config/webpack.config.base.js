@@ -13,7 +13,7 @@ module.exports = {
     filename: 'app.js'
   },
   resolve: {
-    extensions: ['', '.js', '.json', '.css'],
+    extensions: ['', '.js', '.json', '.css', '.jsx'],
     modulesDirectories: ['node_modules', SRC_DIR],
     alias: {
       'redux-cozy-client': path.resolve(SRC_DIR, './lib/redux-cozy-client')
@@ -53,9 +53,6 @@ module.exports = {
     return [
       require('autoprefixer')(['last 2 versions'])
     ]
-  },
-  standard: {
-   parser: 'babel-eslint'
   },
   plugins: [
     // ChartJS uses moment :( To remove when we do not use it anymore
