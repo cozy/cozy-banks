@@ -25,7 +25,7 @@
       "type": "node",
       "file": "notifications.js",
       "trigger": "@event io.cozy.bank.operations:CREATED",
-      "debounce": "15m"
+      "debounce": "3m"
     }
   },
   "permissions": {
