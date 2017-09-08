@@ -10,6 +10,7 @@ SKINS=(mesinfos)
 for skin in ${SKINS[@]}; do
   echo "Building $skin"
   env SKIN=$skin yarn run build
+  env SKIN=$skin yarn run build:services
 
   echo "Deploying $skin"
 
