@@ -6,9 +6,9 @@ import { onlyMobile } from 'utils/mobileAware'
 import { flowRight as compose } from 'lodash'
 
 // props.router is provided by withRouter in withBackSwipe
-const BackButton = ({ to, router }) => (
+const BackButton = ({ onClick, to, router }) => (
   <TopbarLeft className={styles['back-button']}>
-    <a onClick={() => router.push(to)} />
+    <a onClick={onClick || (() => to && router.push(to))} />
   </TopbarLeft>
 )
 

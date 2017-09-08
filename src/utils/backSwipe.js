@@ -17,8 +17,11 @@ export default ({ getLocation }) => Wrapped => withRouter(class extends Componen
 
   onSwipeRight = (ev) => {
     if (!ev.defaultPrevented) {
-      this.props.router.push(getLocation(this.props))
-      ev.preventDefault()
+      const location = getLocation(this.props)
+      if (location) {
+        this.props.router.push(location)
+        ev.preventDefault()
+      }
     }
   }
 
