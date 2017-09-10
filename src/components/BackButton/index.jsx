@@ -12,7 +12,14 @@ const BackButton = ({ onClick, to, router }) => (
   </TopbarLeft>
 )
 
-export default compose(
+const Enhanced = compose(
   onlyMobile,
   withBackSwipe({ getLocation: ownProps => ownProps.to })
 )(BackButton)
+
+Enhanced.propTypes = {
+  onClick: React.PropTypes.func,
+  to: React.PropTypes.string
+}
+
+export default Enhanced
