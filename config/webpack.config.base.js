@@ -13,29 +13,24 @@ module.exports = {
     filename: 'app.js'
   },
   resolve: {
-    extensions: ['', '.js', '.json', '.css', '.jsx'],
-    modulesDirectories: ['node_modules', SRC_DIR],
+    extensions: ['.js', '.json', '.css', '.jsx'],
+    modules: ['node_modules', SRC_DIR],
     alias: {
       'redux-cozy-client': path.resolve(SRC_DIR, './lib/redux-cozy-client')
     }
   },
   module: {
-    preLoaders: [
+    rules: [
       {
         test: /\.jsx?$/,
         include: SRC_DIR,
-        loader: 'eslint-loader'
-      }
-    ],
-    loaders: [
+        loader: 'eslint-loader',
+        enforce: 'pre'
+      },
       {
         test: /\.jsx?$/,
         exclude: /(node_modules|cozy-(bar|client-js))/,
         loader: 'babel-loader'
-      },
-      {
-        test: /\.json$/,
-        loader: 'json'
       },
       {
         test: /\.css$/,
@@ -70,6 +65,7 @@ module.exports = {
     new PostCSSAssetsPlugin({
       test: /\.css$/,
       plugins: [
+        require('autoprefixer')(['last 2 versions']),
         require('css-mqpacker'),
         require('postcss-discard-duplicates'),
         require('postcss-discard-empty')

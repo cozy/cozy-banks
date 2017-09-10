@@ -1,13 +1,14 @@
 'use strict'
 
 const { extractor } = require('./webpack.vars')
-
+const webpack = require('webpack')
+const autoprefixer = require('autoprefixer')
 module.exports = {
   resolve: {
     extensions: ['.styl']
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.styl$/,
         loader: extractor.extract({

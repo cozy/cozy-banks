@@ -8,8 +8,6 @@ module.exports = {
   },
   devtool: '#cheap-module-source-map',
   plugins: [
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       mangle: true,
       compress: {
