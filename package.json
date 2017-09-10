@@ -37,7 +37,6 @@
     "android:publish": "npm run android:signed && cd mobile ; fastlane supply ; cd ..",
     "ios:run": "cd mobile ; cordova run ios --device ; cd ..",
     "ios:run:emulator": "cd mobile ; cordova run ios --emulator ; cd ..",
-
     "commons:services": "webpack --config config/webpack.target.services.js",
     "build:services": "NODE_ENV=services:production yarn run commons:services",
     "watch:services": "NODE_ENV=services:development yarn run commons:services -- --watch"
@@ -87,6 +86,7 @@
     "react": "^15.4.0",
     "react-addons-test-utils": "^15.4.2",
     "react-dom": "^15.4.0",
+    "react-styleguidist": "^6.0.24",
     "react-test-renderer": "^15.4.0",
     "script-ext-html-webpack-plugin": "^1.5.0",
     "standard": "^8.6.0",
