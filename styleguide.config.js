@@ -15,7 +15,8 @@ module.exports = {
     {
       name: 'General',
       components: () => [
-        './src/components/Table/index.jsx'
+        './src/components/Table/index.jsx',
+        './src/components/SharingIcon.jsx'
       ],
     },
     {

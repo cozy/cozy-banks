@@ -1,34 +1,34 @@
 ```jsx
 
   <Field>
-      <input />
+      <input placeholder='Type your name' />
   </Field>
 ```
 
 `saved=true`
 ```jsx
 <Field saved={ true }>
-    <input />
+    <input placeholder='Type your name' />
 </Field>
 ```
 
 `submitting=true`
 ```jsx
 <Field submitting={ true }>
-    <input />
+    <input placeholder='Type your name' />
 </Field>
 ```
 
 `errors=['hello', 'ca', 'va']`
 ```
 <Field errors={ ['hello', 'ca', 'va'] }>
-    <input />
+    <input placeholder='Type your name' />
 </Field>
 ```
 
 `subtitle=greatest input ever, description=long description`
 ```
 <Field subtitle='greatest input ever' description='Super description'>
-    <input />
+    <input placeholder='Type your name' />
 </Field>
 ```
