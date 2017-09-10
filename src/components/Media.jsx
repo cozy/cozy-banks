@@ -2,6 +2,9 @@ import React from 'react'
 import styles from 'styles/media'
 import cx from 'classnames'
 
+/**
+ * Useful to align image/icon and content.
+ */
 export const Media = ({ children, className, align, ...rest }) => {
   return (
     <div className={cx(styles.media, className, align ? styles['media--' + align] : null)} {...rest}>{

@@ -1,25 +1,27 @@
 ```jsx
+const col1 = { 'flex-basis': '35%' };
+const col2 = { 'flex-basis': '35%' };
+const col3 = { 'flex-basis': '30%' };
+
 <Table>
   <thead>
     <tr>
-      <th>Pizzas</th>
-      <th>Burritos</th>
-      <th>Shawarma</th>
+      <th style={ col1 }>Pizzas</th>
+      <th style={ col2 }>Burritos</th>
+      <th style={ col3 }>Shawarma</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>3</td>
-      <td>2</td>
-      <td>1</td>
+      <td style={ col1 }>3</td>
+      <td style={ col2 }>2</td>
+      <td style={ col3 }>1</td>
     </tr>
     <tr>
-      <td>4</td>
-      <td>5</td>
-      <td>6</td>
+      <td style={ col1 }>4</td>
+      <td style={ col2 }>5</td>
+      <td style={ col3 }>6</td>
     </tr>
   </tbody>
 </Table>
 ```
-
-Can be used in a responsive way

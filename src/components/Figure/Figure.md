@@ -1,21 +1,16 @@
-Pour montrer une KPI importante.
-
 ```jsx
 <div>
-  <FigureBlock
-    label='Balance totale'
+  <Figure
     total={1000}
     currency='EUR'
     coloredPositive coloredNegative signed />
 
-  <FigureBlock
-    label='Balance totale (negative number)'
+  <Figure
     total={-1000}
     currency='EUR'
     coloredPositive coloredNegative signed />
 
-  <FigureBlock
-    label='Balance totale (no color)'
+  <Figure
     total={-1000}
     currency='EUR'
     signed />

@@ -4,7 +4,13 @@ import React from 'react'
 import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'
 
-const Field = ({ t, name, submitting, saved, errors, description, subtitle, className, children }) => (
+/**
+ * Displays a form field with options for
+ * - `submitting` state
+ * - `saved` state
+ * - `errors`
+ */
+const Field = ({ t, submitting, saved, errors, description, subtitle, className, children }) => (
   <div className={classNames(styles['coz-form'], styles['bnk-field'], className, {
     [styles['bnk-field-loading']]: submitting,
     [styles['bnk-field-saved']]: saved
@@ -26,5 +32,27 @@ const Field = ({ t, name, submitting, saved, errors, description, subtitle, clas
     ))}
   </div>
 )
+
+const Types = React.PropTypes
+
+Field.propTypes = {
+  /** Name your field */
+  subtitle: Types.string,
+  /** Description of your field */
+  description: Types.string,
+  /** Shows a spinner */
+  submitting: Types.bool,
+  /** Shows a valid tick */
+  saved: Types.bool,
+  /** Shows errors */
+  errors: Types.arrayOf(Types.string),
+  /** Extra classname */
+  className: Types.string,
+  /** `<input/>`s, `<select/>`s etc... */
+  children: Types.oneOfType([
+    Types.arrayOf(Types.node),
+    Types.node
+  ])
+}
 
 export default translate()(Field)

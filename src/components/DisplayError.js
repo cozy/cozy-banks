@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes as Types } from 'react'
 import { translate } from 'cozy-ui/react/I18n'
 
 const styles = {
@@ -20,12 +20,13 @@ const styles = {
   }
 }
 
+const ident = c => c
 /**
   Display errors in a red background with a button
   to display the stack trace
 */
 class DisplayError extends Component {
-  render ({error, t}, {displayStack}) {
+  render ({error, t = ident}, {displayStack}) {
     const toggleStack = () => this.setState({
       displayStack: !displayStack
     })
@@ -43,6 +44,11 @@ class DisplayError extends Component {
       </div>
     )
   }
+}
+
+DisplayError.propTypes = {
+  /** Error whose stack trace you want to show */
+  error: Types.instanceOf(Error).isRequired
 }
 
 export default translate()(DisplayError)

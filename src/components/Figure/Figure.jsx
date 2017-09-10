@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { PropTypes as Types } from 'react'
 import classNames from 'classnames'
 import styles from './Figure.styl'
 
+/**
+ * Shows a number, typically a balance or an important financial
+ * number in a bold way.
+ */
 const Figure = props => {
   const {
     total, currency, coloredPositive, coloredNegative, signed, className
@@ -37,6 +41,21 @@ const Figure = props => {
       }
     </div>
   )
+}
+
+Figure.propTypes = {
+  /** Number to display */
+  total: Types.number.isRequired,
+  /** Currency to show */
+  currency: Types.string,
+  /** Colors positive numbers in green */
+  coloredPositive: Types.bool,
+  /** Colors negative numbers in red */
+  coloredNegative: Types.bool,
+  /** Displays the sign */
+  signed: Types.bool,
+  /** Numbers of decimals to show (default=2) */
+  decimalNumbers: Types.number
 }
 
 export default Figure

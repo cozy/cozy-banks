@@ -2,7 +2,10 @@ import React from 'react'
 import styles from './styles.styl'
 import classNames from 'classnames'
 
-// components
+/**
+ * Used to display tabular data.
+ * Column widths MUST be explicitly set with `flex-basis`.
+ */
 const Table = ({children, className}) => (
   <table className={classNames(styles['coz-table'], className)}>
     {children}
