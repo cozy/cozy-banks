@@ -10,11 +10,13 @@ module.exports = {
     loaders: [
       {
         test: /\.styl$/,
-        loader: extractor.extract('style', [
-          'css-loader?importLoaders=2&modules&localIdentName=[name]_[local]_[hash:base64:5]',
-          'postcss-loader',
-          'stylus-loader'
-        ])
+        loader: extractor.extract({
+          fallback:'style-loader',
+          use: [
+            'css-loader?importLoaders=2&modules&localIdentName=[name]_[local]_[hash:base64:5]',
+            'stylus-loader'
+          ]
+        })
       }
     ]
   },
