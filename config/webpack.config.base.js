@@ -39,19 +39,24 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: extractor.extract('style', [
-          'css-loader?importLoaders=1',
-          'postcss-loader'
-        ])
+        loader: extractor.extract({
+          fallback: 'style-loader',
+          use: [
+            'css-loader?importLoaders=1',
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: (loader) => [
+                  require('autoprefixer')()
+                ]
+              }
+            }
+          ]
+        })
       }
     ],
     noParse: [
       /localforage\/dist/
-    ]
-  },
-  postcss: () => {
-    return [
-      require('autoprefixer')(['last 2 versions'])
     ]
   },
   plugins: [

@@ -20,7 +20,13 @@ module.exports = {
       }
     ]
   },
-  stylus: {
-    use: [ require('cozy-ui/stylus')() ]
-  }
+  plugins: [
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        stylus: {
+          use: [ require('cozy-ui/stylus')() ]
+        }
+      }
+    })
+  ]
 }
