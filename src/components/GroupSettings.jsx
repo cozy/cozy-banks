@@ -17,7 +17,7 @@ import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { withRouter } from 'react-router'
 import { omit } from 'lodash'
 import Table from 'components/Table'
-import Spinner from 'components/Spinner'
+import Spinner from 'cozy-ui/react/Spinner'
 
 const accountInGroup = (account, group) =>
   group.accounts.indexOf(account._id) > -1
