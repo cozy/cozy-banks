@@ -13,45 +13,45 @@ module.exports = {
     filename: 'app.js'
   },
   resolve: {
-    extensions: ['', '.js', '.json', '.css', '.jsx'],
-    modulesDirectories: ['node_modules', SRC_DIR],
+    extensions: ['.js', '.json', '.css', '.jsx'],
+    modules: ['node_modules', SRC_DIR],
     alias: {
       'redux-cozy-client': path.resolve(SRC_DIR, './lib/redux-cozy-client')
     }
   },
   module: {
-    preLoaders: [
+    rules: [
       {
         test: /\.jsx?$/,
         include: SRC_DIR,
-        loader: 'eslint-loader'
-      }
-    ],
-    loaders: [
+        loader: 'eslint-loader',
+        enforce: 'pre'
+      },
       {
         test: /\.jsx?$/,
         exclude: /(node_modules|cozy-(bar|client-js))/,
         loader: 'babel-loader'
       },
       {
-        test: /\.json$/,
-        loader: 'json'
-      },
-      {
         test: /\.css$/,
-        loader: extractor.extract('style', [
-          'css-loader?importLoaders=1',
-          'postcss-loader'
-        ])
+        loader: extractor.extract({
+          fallback: 'style-loader',
+          use: [
+            'css-loader?importLoaders=1',
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: (loader) => [
+                  require('autoprefixer')()
+                ]
+              }
+            }
+          ]
+        })
       }
     ],
     noParse: [
       /localforage\/dist/
-    ]
-  },
-  postcss: () => {
-    return [
-      require('autoprefixer')(['last 2 versions'])
     ]
   },
   plugins: [
@@ -65,6 +65,7 @@ module.exports = {
     new PostCSSAssetsPlugin({
       test: /\.css$/,
       plugins: [
+        require('autoprefixer')(['last 2 versions']),
         require('css-mqpacker'),
         require('postcss-discard-duplicates'),
         require('postcss-discard-empty')

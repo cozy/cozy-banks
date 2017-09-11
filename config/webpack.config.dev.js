@@ -6,9 +6,9 @@ module.exports = {
   devtool: 'cheap-source-map',
   externals: ['cozy'],
   module: {
-    loaders: [{
+    rules: [{
       test: require.resolve('cozy-bar/dist/cozy-bar.js'),
-      loader: 'imports?css=./cozy-bar.css'
+      loader: 'imports-loader?css=./cozy-bar.css'
     }]
   },
   plugins: [
