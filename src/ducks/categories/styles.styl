@@ -1,4 +1,6 @@
 @require 'cozy-ui'
+@require '../../styles/breakpoints.styl'
+@require '../../styles/mixins.styl'
 
 .bnk-cat-top
     display         flex
@@ -43,14 +45,14 @@
         cursor  pointer
 
     .bnk-table-category-category
-        flex-basis 30%
+        maxed-flex-basis 30%
 
     .bnk-table-percentage
-        flex-basis 10%
+        maxed-flex-basis 10%
         text-align center
 
     .bnk-table-operation
-        flex-basis 10%
+        maxed-flex-basis 10%
         text-align center
         padding 0
         overflow hidden
@@ -58,7 +60,7 @@
 
     .bnk-table-amount
     .bnk-table-total
-        flex-basis 15%
+        maxed-flex-basis 15%
         text-align right
 
     .bnk-table-chevron
@@ -86,20 +88,20 @@
             background-image embedurl('../../assets/icons/icon-chevron-down-active.svg')
             transform   rotate3d(1, 0, 0, 180deg)
 
-    @media (max-width: (1023/basefont)rem)
+    +medium-screen()
         .bnk-table-amount
             display none
 
-    @media (max-width: (768/basefont)rem)
+    +small-screen()
         .bnk-table-category-category
-            flex-basis 60%
+            maxed-flex-basis 60%
 
         .bnk-table-percentage
-            flex-basis 10%
+            maxed-flex-basis 10%
             padding 1em 0
 
         .bnk-table-total
-            flex-basis 30%
+            maxed-flex-basis 30%
 
         .bnk-table-operation
         .bnk-table-amount

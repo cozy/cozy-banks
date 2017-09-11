@@ -4,7 +4,9 @@ import classNames from 'classnames'
 
 /**
  * Used to display tabular data.
- * Column widths MUST be explicitly set with `flex-basis`.
+ * Column widths MUST be explicitly set with `flex-basis` AND `max-width`.
+ *
+ * https://github.com/philipwalton/flexbugs/issues/3
  */
 const Table = ({children, className}) => (
   <table className={classNames(styles['coz-table'], className)}>

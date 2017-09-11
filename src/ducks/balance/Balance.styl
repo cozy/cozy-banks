@@ -1,4 +1,5 @@
 @require 'cozy-ui'
+@require '../../styles/mixins.styl'
 
 .balance-table
     composes full-width-table from '../../components/Layout/Layout.styl'
@@ -8,14 +9,14 @@
         margin 0 0 1em 0
     .balance-table
         .account_name
-            flex-basis 40%
+            maxed-flex-basis 40%
         .solde
-            flex-basis 20%
+            maxed-flex-basis 20%
             text-align right
         .bank_name
-            flex-basis 20%
+            maxed-flex-basis 20%
         .account_number
-            flex-basis 20%
+            maxed-flex-basis 20%
 
         tbody
             .solde
@@ -38,9 +39,9 @@
     .balance
         table
             .account_name
-                flex-basis 60%
+                maxed-flex-basis 60%
             .solde
-                flex-basis 40%
+                maxed-flex-basis 40%
             .bank_name
                 display none
             .account_number

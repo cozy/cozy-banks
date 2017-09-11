@@ -1,0 +1,8 @@
+/**
+Due to a IE11 bug, we need to specify max-width when using
+flex-basis and padding
+https://github.com/philipwalton/flexbugs/issues/3
+*/
+maxed-flex-basis(n)
+    flex-basis n
+    max-width n

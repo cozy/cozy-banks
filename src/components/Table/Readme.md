@@ -1,7 +1,7 @@
 ```jsx
-const col1 = { 'flex-basis': '35%' };
-const col2 = { 'flex-basis': '35%' };
-const col3 = { 'flex-basis': '30%' };
+const col1 = { 'flex-basis': '35%', 'max-width': '35%' };
+const col2 = { 'flex-basis': '35%', 'max-width': '35%' };
+const col3 = { 'flex-basis': '30%', 'max-width': '30%' };
 
 <Table>
   <thead>
@@ -13,9 +13,9 @@ const col3 = { 'flex-basis': '30%' };
   </thead>
   <tbody>
     <tr>
-      <td style={ col1 }>3</td>
+      <td style={ col1 }>1</td>
       <td style={ col2 }>2</td>
-      <td style={ col3 }>1</td>
+      <td style={ col3 }>3</td>
     </tr>
     <tr>
       <td style={ col1 }>4</td>
