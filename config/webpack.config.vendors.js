@@ -6,10 +6,10 @@ const CopyPlugin = require('copy-webpack-plugin')
 const copies = []
 
 if (skin === 'mesinfos') {
-  copies.push({ from: 'vendor/assets/mesinfos' })
+  copies.push({ from: 'src/assets/favicons/mesinfos' })
 }
 
-copies.push({ from: 'vendor/assets' })
+copies.push({ from: 'src/assets/favicons' })
 
 module.exports = {
   plugins: [
