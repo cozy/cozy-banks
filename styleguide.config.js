@@ -37,7 +37,7 @@ module.exports = {
     {
       name: 'Loading',
       components: () => [
-        'src/components/Loading.jsx'
+        'src/components/Loading/Loading.jsx'
       ],
     },
     {
