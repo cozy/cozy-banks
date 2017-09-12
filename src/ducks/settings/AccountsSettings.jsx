@@ -1,17 +1,14 @@
 import React from 'react'
+import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import { translate, Button, Icon } from 'cozy-ui/react'
 import { getSharingInfo } from 'reducers'
 import { groupBy } from 'lodash'
-import styles from './accounts'
 import Table from 'components/Table'
 import Loading from 'components/Loading'
-import {
-  cozyConnect,
-  fetchCollection
-} from 'redux-cozy-client'
+import { cozyConnect, fetchCollection } from 'redux-cozy-client'
 import plus from 'assets/icons/16/plus.svg'
-import { withRouter } from 'react-router'
+import styles from './AccountsSettings.styl'
 
 // See comment below about sharings
 // import { ACCOUNT_DOCTYPE } from 'doctypes'

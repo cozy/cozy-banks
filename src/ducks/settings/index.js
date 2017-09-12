@@ -1,6 +1,8 @@
 import { fetchCollection, createDocument, updateDocument } from 'redux-cozy-client'
 import { merge } from 'lodash'
 import Settings from './Settings'
+import AccountSettings from './AccountSettings'
+import AccountsSettings from './AccountsSettings'
 import GroupSettings, { NewGroupSettings } from './GroupSettings'
 import GroupsSettings from './GroupsSettings'
 
@@ -30,7 +32,7 @@ const DEFAULTS_SETTINGS = {
 }
 
 // components
-export { Settings, GroupsSettings, GroupSettings, NewGroupSettings }
+export { Settings, AccountsSettings, AccountSettings, GroupsSettings, GroupSettings, NewGroupSettings }
 
 // actions
 export const fetchSettingsCollection = () => fetchCollection(COLLECTION_NAME, DOCTYPE)
