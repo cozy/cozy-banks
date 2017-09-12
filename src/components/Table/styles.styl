@@ -7,42 +7,47 @@
     flex-direction  column
     flex            1 1 100%
     text-align      left
-    color           grey-11
+    color           cool-grey
+
+    thead, tbody
+        display   flex
+        flex-direction column
+        flex-grow 1
+        flex-shrink 0
+
+    tbody
+        flex-basis auto
+        overflow  auto
+
+    tr
+        flex            1 0 auto
+        display         flex
+        flex-direction  row
+        align-items     center
+        border-bottom   1px solid silver
+
+    tbody tr
+        &:hover
+            background-color pale-grey
+
+    th
+        text-align left
 
     thead
-        flex 0 0 em(31px, 16px)
-
         td, th
             padding         em(8px, 12px) em(32px, 12px) // @stylint ignore
             font-size       12px
             text-transform  uppercase
+            display block
 
-        tr:hover
-            background-color white
-
-    tbody
-        flex      1 1 auto
-        display   flex
-        flex-direction column
-        overflow  auto
-
-    tr
-        display         flex
-        flex-direction  row
-        align-items     center
-        flex            0 0 auto
-        width           100%
-        border-bottom   1px solid grey-09
-
-        &:hover
-            background-color grey-10
 
     td, th
         box-sizing  border-box
-        padding     1em 2rem
+        padding 1em 2rem
         font-size   14px
         flex-grow 1
         flex-shrink 0
+        display block
 
     +medium-screen()
         tr

@@ -1,19 +1,20 @@
 @require 'cozy-ui'
+@require '../../styles/mixins.styl'
 
 .bnk-op-table
     composes full-width-table from '../../components/Layout/Layout.styl'
 
     .bnk-op-date
-        flex-basis 15%
+        maxed-flex-basis 15%
     .bnk-op-desc
-        flex-basis 30%
+        maxed-flex-basis 30%
     .bnk-op-amount
-        flex-basis 20%
+        maxed-flex-basis 20%
         text-align right
     .bnk-op-action
-        flex-basis 25%
+        maxed-flex-basis 25%
     .bnk-op-actions
-        flex-basis 10%
+        maxed-flex-basis 10%
 
     tbody
         .bnk-op-amount
@@ -24,10 +25,10 @@
     .bnk-op-table
         .bnk-op-desc
             cursor pointer
-            flex-basis 60%
+            maxed-flex-basis 60%
         .bnk-op-amount
             cursor pointer
-            flex-basis 40%
+            maxed-flex-basis 40%
         .bnk-op-date
         .bnk-op-action
         .bnk-op-actions
