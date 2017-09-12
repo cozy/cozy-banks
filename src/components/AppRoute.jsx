@@ -4,13 +4,11 @@ import App from 'components/App'
 
 import { OperationsPage } from 'ducks/operations'
 import { CategoriesPage } from 'ducks/categories'
-import { Settings } from 'ducks/settings'
+import { Settings, GroupsSettings, GroupSettings, NewGroupSettings } from 'ducks/settings'
 import Notifications from 'ducks/settings/Notifications'
 import { Balance } from 'ducks/balance'
 import { AccountSettings, AccountsSettings } from 'ducks/account'
-import GroupSettings, { NewGroupSettings } from 'components/GroupSettings'
 import { EnsureHasAccounts } from 'ducks/onboarding'
-import GroupsSettings from 'components/GroupsSettings'
 
 export const ComingSoon = () => (<p style='margin-left: 2em'>Coming soon!</p>)
 

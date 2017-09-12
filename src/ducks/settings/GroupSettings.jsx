@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Loading from 'components/Loading'
-import styles from 'styles/groupes'
+import styles from './groupes'
 import { withDispatch } from 'utils'
 import {
   createDocument,
