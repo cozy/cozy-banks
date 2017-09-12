@@ -33,6 +33,11 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
+        test: /\.jsx?$/,
+        include: /(node_modules\/cozy-ui)/,
+        loader: 'babel-loader'
+      },
+      {
         test: /\.css$/,
         loader: extractor.extract({
           fallback: 'style-loader',
