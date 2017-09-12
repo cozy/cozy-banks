@@ -19,12 +19,7 @@ const getOperationsChanges = async lastSeq => {
 }
 
 const getAccountsOfOperations = async operations => {
-  const accountsIds = []
-  for (const operation of operations) {
-    if (accountsIds.indexOf(operation.account) === -1) {
-      accountsIds.push(operation.account)
-    }
-  }
+  const accountsIds = Array.from(new Set(operations.map(x => x.accountId)))
   const result = await cozyClient.fetchJSON(
     'POST',
     '/data/io.cozy.bank.accounts/_all_docs?include_docs=true',
