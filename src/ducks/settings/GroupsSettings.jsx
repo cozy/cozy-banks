@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router'
 import { translate, Button, Icon } from 'cozy-ui/react'
-import styles from 'styles/groupes'
 import Table from 'components/Table'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { cozyConnect, fetchCollection } from 'redux-cozy-client'
 import Loading from 'components/Loading'
 import plus from 'assets/icons/16/plus.svg'
-import { withRouter } from 'react-router'
+import styles from './GroupsSettings.styl'
 
 const isPending = (reduxObj) => {
   return reduxObj.fetchStatus === 'pending'

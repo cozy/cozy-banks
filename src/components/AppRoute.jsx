@@ -2,15 +2,12 @@ import React from 'react'
 import { IndexRoute, Route, Redirect } from 'react-router'
 import App from 'components/App'
 
-import Movements from 'containers/Movements'
+import { OperationsPage } from 'ducks/operations'
 import { CategoriesPage } from 'ducks/categories'
-import { Settings } from 'ducks/settings'
+import { Settings, AccountSettings, AccountsSettings, GroupsSettings, GroupSettings, NewGroupSettings } from 'ducks/settings'
 import Notifications from 'ducks/settings/Notifications'
 import { Balance } from 'ducks/balance'
-import { AccountSettings, AccountsSettings } from 'ducks/account'
-import GroupSettings, { NewGroupSettings } from 'components/GroupSettings'
 import { EnsureHasAccounts } from 'ducks/onboarding'
-import GroupsSettings from 'components/GroupsSettings'
 
 export const ComingSoon = () => (<p style='margin-left: 2em'>Coming soon!</p>)
 
@@ -19,7 +16,7 @@ const AppRoute = (
     <Route component={App}>
       <Redirect from='/' to='movements' />
       <Route path='currentBalance' component={Balance} />
-      <Route path='movements' component={Movements} />
+      <Route path='movements' component={OperationsPage} />
       <Route path='categories' component={CategoriesPage} />
       <Route path='projections' component={ComingSoon} />
       <Route path='savings' component={ComingSoon} />

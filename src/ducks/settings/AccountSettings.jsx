@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router'
 import {
   translate,
   Button,
@@ -6,11 +7,10 @@ import {
 } from 'cozy-ui/react'
 import { Topbar } from 'ducks/commons'
 import Loading from 'components/Loading'
-import styles from 'styles/accounts'
 import { withDispatch } from 'utils'
 import BackButton from 'components/BackButton'
 import { cozyConnect, fetchDocument, updateDocument, deleteDocument } from 'redux-cozy-client'
-import { withRouter } from 'react-router'
+import styles from './AccountsSettings.styl'
 
 const AccountSharingDetails = translate()(({ t }) =>
   <div>{t('ComingSoon.title')}</div>)

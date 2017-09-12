@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Loading from 'components/Loading'
-import styles from 'styles/groupes'
 import { withDispatch } from 'utils'
 import {
   createDocument,
@@ -18,6 +17,7 @@ import { withRouter } from 'react-router'
 import { omit } from 'lodash'
 import Table from 'components/Table'
 import Spinner from 'cozy-ui/react/Spinner'
+import styles from './GroupsSettings.styl'
 
 const accountInGroup = (account, group) =>
   group.accounts.indexOf(account._id) > -1

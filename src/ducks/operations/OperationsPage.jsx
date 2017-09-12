@@ -1,18 +1,17 @@
-import styles from 'styles/movements'
-
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react/I18n'
-
 import { FigureBlock } from 'components/Figure'
-import { Operations } from 'ducks/operations'
 import Loading from 'components/Loading'
 import { Topbar } from 'ducks/commons'
 import { SelectDates, getFilteredOperations } from 'ducks/filters'
 import { fetchOperations, indexOperationsByDate } from 'actions'
 import { getUrlBySource, findApps } from 'ducks/apps'
 
-class Movements extends Component {
+import OperationsWithSelection from './OperationsWithSelection'
+import styles from './OperationsPage.styl'
+
+class OperationsPage extends Component {
   state = {
     isFetching: this.props.filteredOperations.length === 0
   }
@@ -56,7 +55,7 @@ class Movements extends Component {
         </div>}
         {filteredOperations.length === 0
           ? <p>{t('Movements.no-movements')}</p>
-          : <Operations operations={filteredOperations} urls={urls} />}
+          : <OperationsWithSelection operations={filteredOperations} urls={urls} />}
       </div>
     )
   }
@@ -82,4 +81,4 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(translate()(Movements))
+export default connect(mapStateToProps, mapDispatchToProps)(translate()(OperationsPage))

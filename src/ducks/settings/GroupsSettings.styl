@@ -1,9 +1,9 @@
 @require 'cozy-ui'
-@require './breakpoints.styl'
+@require '../../styles/breakpoints.styl'
 
 .GrpsStg
     &__table
-        composes full-width-table from '../components/Layout/Layout.styl'
+        composes full-width-table from '../../components/Layout/Layout.styl'
 
         td
             font-size .85rem
@@ -13,18 +13,18 @@
 
     &__label
         flex 0 0 50%
-        composes mobile-row-main from '../components/Table/styles.styl'
+        composes mobile-row-main from '../../components/Table/styles.styl'
 
     &__accounts
         flex 0 0 50%
-        composes mobile-row-label from '../components/Table/styles.styl'
+        composes mobile-row-label from '../../components/Table/styles.styl'
 
         +small-screen()
             flex-basis 100%
 
     &__row
-        composes mobile-row from '../components/Table/styles.styl'
-        composes nav-row from '../ducks/commons/mobile.styl' // @stylint ignore
+        composes mobile-row from '../../components/Table/styles.styl'
+        composes nav-row from '../commons/mobile.styl' // @stylint ignore
 
 .GrpStg
     &__accntLabel
@@ -37,7 +37,7 @@
         flex-basis 20%
 
     &__table
-        composes full-width-table from '../components/Layout/Layout.styl'
+        composes full-width-table from '../../components/Layout/Layout.styl'
 
     &__form
         @extend $form

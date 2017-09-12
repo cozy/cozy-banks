@@ -1,6 +1,6 @@
 import React, { PropTypes as Types } from 'react'
-import styles from 'styles/icons'
 import classnames from 'classnames'
+import styles from './SharingIcon.styl'
 
 const SharingIcon = ({to, from}) => (
   <i className={classnames(styles['sharing-icon'], {

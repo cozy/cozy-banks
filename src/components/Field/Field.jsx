@@ -1,8 +1,7 @@
-import styles from 'styles/field'
-
 import React from 'react'
 import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'
+import styles from './Field.styl'
 
 /**
  * Displays a form field with options for

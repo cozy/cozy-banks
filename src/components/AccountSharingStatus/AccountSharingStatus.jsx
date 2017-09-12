@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import SharingIcon from 'components/SharingIcon'
-import styles from 'styles/tooltip'
 import { connect } from 'react-redux'
 import { getSharingInfo } from 'reducers'
+import SharingIcon from 'components/SharingIcon'
 import { fetchSharingInfo } from 'modules/SharingStatus'
 import { Media, Bd, Img } from 'components/Media'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
+import styles from './AccountSharingStatus.styl'
 
 const ownerRx = /\((.*)\)/ // find the word in parenthesis
 const getOwner = account => {
