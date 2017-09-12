@@ -253,17 +253,17 @@
     "if_balance_lower": {
       "description": "You will receive an email if your balance is less than",
       "title": "Balance threshold",
-      "notification": {
-        "one": {
-          "title": "Balance alert: '%{label}' account is at %{balance}%{currency}",
-          "debitContent": "Debit of %{amount}%{currency} with label '%{label}'.",
-          "creditContent": "Credit of %{amount}%{currency} with label '%{label}'."
-        },
-        "several": {
-          "title": "%{accountsLength} accounts are below your threshold amount of %{lowerBalance}%{currency}",
-          "content": "Balance of %{balance}%{currency} on '%{label}' account."
-        }
-      }
+"notification": {
+  "one": {
+    "title": "Balance alert: '%{label}' account is at %{balance}%{currency}",
+    "debitContent": "Debit of %{amount}%{currency}: '%{label}'.",
+    "creditContent": "Credit of %{amount}%{currency}: '%{label}'."
+  },
+  "several": {
+    "title": "%{accountsLength} accounts are below your threshold amount of %{lowerBalance}%{currency}",
+    "content": "Balance of %{balance}%{currency} on '%{label}' account."
+  }
+}
     },
     "if_operation_greater": {
       "description": "You will receive a notification if a movement is greater than",
