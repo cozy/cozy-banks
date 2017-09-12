@@ -1,5 +1,6 @@
 @require 'cozy-ui'
 @require '../../styles/breakpoints.styl'
+@require '../../styles/mixins.styl'
 
 .AcnsStg
     &__accounts
@@ -13,26 +14,27 @@
 
     &__libelle
         flex-basis 25%
+        maxed-flex-basis 25%
         composes mobile-row-main from '../../components/Table/styles.styl'
 
     &__bank
-        flex-basis 20%
+        maxed-flex-basis 20%
 
     &__number
-        flex-basis 15%
+        maxed-flex-basis 15%
 
     &__type
-        flex-basis 15%
+        maxed-flex-basis 15%
 
         +small-screen()
             &
                 display none
 
     &__shared
-        flex-basis 15%
+        maxed-flex-basis 15%
 
     &__actions
-        flex-basis 10%
+        maxed-flex-basis 10%
         text-align right
 
     &__accountRow
