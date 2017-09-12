@@ -1,5 +1,5 @@
 import Field from './Field'
 
-export { Field }
+export { Field }
 
-export default field
+export default Field
