@@ -17,9 +17,8 @@ class OperationGreater {
     return operations.filter(op => abs(op.amount) > maxAmount)
   }
 
-  async sendNotification (operations) {
+  async sendNotification (accounts, operations) {
     const operationsFiltered = this.filter(operations)
-    console.log('operationsFiltered', operationsFiltered)
     if (operationsFiltered.length === 0) return
 
     const notification = { reference: 'operation_greater' }

@@ -33,59 +33,61 @@ class Notifications extends Component {
 
     let notifications = [
       {
-        title: t('Notifications.if_balance_lower.title'),
-        name: 'solde',
-        description: t('Notifications.if_balance_lower.description'),
-        value: '400'
+        title: 'Notifications.if_balance_lower.title',
+        name: 'balanceLower',
+        description: 'Notifications.if_balance_lower.description'
       },
       {
-        title: t('Notifications.if_operation_greater.title'),
+        title: 'Notifications.if_operation_greater.title',
         name: 'operationGreater',
-        description: t('Notifications.if_operation_greater.description'),
-        value: settings.notifications.operationGreater.value
+        description: 'Notifications.if_operation_greater.description'
       },
       {
-        title: t('Notifications.when_month_revenue.title'),
+        title: 'Notifications.when_month_revenue.title',
         name: 'salaire',
-        description: t('Notifications.when_month_revenue.description')
+        description: 'Notifications.when_month_revenue.description'
       },
       {
-        title: t('Notifications.weekly_summary.title'),
+        title: 'Notifications.weekly_summary.title',
         name: 'hebdo',
-        description: t('Notifications.weekly_summary.description')
+        description: 'Notifications.weekly_summary.description'
       },
       {
-        title: t('Notifications.monthly_summary.title'),
+        title: 'Notifications.monthly_summary.title',
         name: 'mensuel',
-        description: t('Notifications.monthly_summary.description')
+        description: 'Notifications.monthly_summary.description'
       }
     ]
 
     return (
       <div>
-        {notifications.map(notification => (
-          <div>
-            <h5>
-              {notification.title}
-            </h5>
-            <div className={styles['notification']}>
-              <p className={styles['notification-description']}>
-                {notification.description}
-                {notification.value !== undefined && <input type='text'
-                  onChange={e => this.onChangeValue(notification.name, e.target.value)}
-                  value={settings.notifications[notification.name].value}
-                  className={classNames(styles['notification-input'], styles['suffixed'])} />}
-                {notification.value !== undefined && <span>€</span>}
-              </p>
+        {notifications.map(notification => {
+          const setting = settings.notifications[notification.name]
+          const enabled = setting.enabled
+          const value = setting.value
+          const hasValue = value !== undefined
+          return (
+            <div>
+              <h5>{t(notification.title)}</h5>
+              <div className={styles['notification']}>
+                <p className={styles['notification-description']}>
+                  {t(notification.description)}
+                  {hasValue && <input type='text'
+                    onChange={e => this.onChangeValue(notification.name, e.target.value)}
+                    value={value}
+                    className={classNames(styles['notification-input'], styles['suffixed'])} />}
+                  {hasValue && <span>€</span>}
+                </p>
 
-              <div className={styles['notification-toggle']}>
-                <Toggle id={notification.name} checked={settings.notifications[notification.name].enabled}
-                  onToggle={checked => this.onToggle(notification.name, checked)}
-                />
+                <div className={styles['notification-toggle']}>
+                  <Toggle id={notification.name} checked={enabled}
+                    onToggle={checked => this.onToggle(notification.name, checked)}
+                  />
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
     )
   }

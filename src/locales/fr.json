@@ -263,7 +263,18 @@
     "title": "Notifications",
     "if_balance_lower": {
       "title": "Seuil de solde",
-      "description": "Vous recevrez un email, si votre solde est inférieur à"
+      "description": "Vous recevrez un email, si votre solde est inférieur à",
+      "notification": {
+        "one": {
+          "title": "Alerte solde : le compte '%{label}' est à %{balance}%{currency}",
+          "debitContent": "Dépense de %{amount}%{currency} avec le libellé '%{label}'.",
+          "creditContent": "Versement de %{amount}%{currency} avec le libellé '%{label}'."
+        },
+        "several": {
+          "title": "%{accountsLength} comptes sont en dessous de votre seuil de %{lowerBalance}%{currency}",
+          "content": "Solde de %{balance}%{currency} sur le compte '%{label}'."
+        }
+      }
     },
     "if_operation_greater": {
       "title": "Montant de mouvement",
@@ -279,8 +290,8 @@
         },
         "others": {
           "title": "%{operationsLength} mouvements de plus de %{maxAmount}€",
-          "debitContent": "Dépense de %{amount}%{currency} avec le libellé %{label}.",
-          "creditContent": "Versement de %{amount}%{currency} avec le libellé %{label}."
+          "debitContent": "Dépense de %{amount}%{currency} avec le libellé '%{label}'.",
+          "creditContent": "Versement de %{amount}%{currency} avec le libellé '%{label}'."
         }
       }
     },

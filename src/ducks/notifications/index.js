@@ -1,3 +1,4 @@
+import BalanceLower from './BalanceLower'
 import OperationGreater from './OperationGreater'
 
-export { OperationGreater }
+export { BalanceLower, OperationGreater }
