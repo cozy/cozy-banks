@@ -52,6 +52,11 @@ class AccountSwitch extends Component {
     this.lastOpenEvent = null
   }
 
+  accountExists = accountId => {
+    const accounts = this.props.accounts.data
+    return accounts.find(account => account.id == accountId)
+  }
+
   render () {
     const { t, accountOrGroup, resetAccountOrGroup, filterByAccount, filterByGroup } = this.props
     const { open } = this.state
@@ -109,7 +114,7 @@ class AccountSwitch extends Component {
                       className={classNames({[styles['active']]: accountOrGroup && group._id === accountOrGroup._id})}>
                       {group.label}
                       <span className={styles['account-count']}>
-                        ({t('AccountSwitch.account_counter', group.accounts.length)})
+                        ({t('AccountSwitch.account_counter', group.accounts.filter(this.accountExists).length)})
                       </span>
                     </button>
                   </li>
