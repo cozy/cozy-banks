@@ -6,7 +6,7 @@ import {
 } from 'cozy-ui/react'
 import { Topbar } from 'ducks/commons'
 import Loading from 'components/Loading'
-import styles from 'styles/accounts'
+import styles from './accounts'
 import { withDispatch } from 'utils'
 import BackButton from 'components/BackButton'
 import { cozyConnect, fetchDocument, updateDocument, deleteDocument } from 'redux-cozy-client'

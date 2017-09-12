@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { translate, Button, Icon } from 'cozy-ui/react'
 import { getSharingInfo } from 'reducers'
 import { groupBy } from 'lodash'
-import styles from 'styles/accounts'
+import styles from './accounts'
 import Table from 'components/Table'
 import Loading from 'components/Loading'
 import {
