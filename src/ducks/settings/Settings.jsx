@@ -1,14 +1,14 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react/I18n'
 import { Topbar } from 'ducks/commons'
 import { Tabs, TabPanels, TabPanel, TabList, Tab } from 'cozy-ui/react'
 import styles from './Settings.styl'
 import { withRouter } from 'react-router'
+import { flowRight as compose } from 'lodash'
 
 const tabNames = ['accounts', 'groups', 'notifications']
 
-const Settings = ({ t, groups, accounts, children, router }) => {
+const Settings = ({ t, children, router }) => {
   let defaultTab = router.location.pathname.replace('/settings/', '')
   if (tabNames.indexOf(defaultTab) === -1) defaultTab = 'accounts'
 
@@ -42,9 +42,6 @@ const Settings = ({ t, groups, accounts, children, router }) => {
   )
 }
 
-const mapStateToProps = state => ({
-  groups: state.groups,
-  accounts: state.accounts
-})
+const enhance = compose(withRouter, translate())
 
-export default withRouter(connect(mapStateToProps, null)(translate()(Settings)))
+export default enhance(Settings)
