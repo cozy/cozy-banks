@@ -64,7 +64,7 @@ module.exports = {
       name: 'Misc',
       components: () => [
         'src/components/DisplayError.js',
-        'src/components/Media.jsx',
+        'src/components/Media/Media.jsx',
         'src/components/BackButton/index.jsx',
         'src/components/Layout/index.jsx'
       ]
