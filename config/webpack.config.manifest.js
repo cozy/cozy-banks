@@ -7,7 +7,7 @@ const {production, skin} = require('./webpack.vars')
 module.exports = {
   plugins: [
     new CopyPlugin([
-      { from: 'manifest.webapp', transform: transformManifest },
+      { from: 'src/targets/manifest.webapp', transform: transformManifest },
       { from: 'README.md' },
       { from: 'LICENSE' }
     ])
@@ -26,4 +26,3 @@ function transformManifest (buffer) {
 
   return JSON.stringify(manifest, null, 2)
 }
-

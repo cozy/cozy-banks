@@ -54,7 +54,7 @@ class AccountSwitch extends Component {
 
   accountExists = accountId => {
     const accounts = this.props.accounts.data
-    return accounts.find(account => account.id == accountId)
+    return accounts.find(account => account.id === accountId)
   }
 
   render () {

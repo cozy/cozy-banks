@@ -4,7 +4,7 @@
   "icon": "icon-bank.svg",
   "description": "Bank application",
   "category": "cozy",
-  "version": "3.0.0",
+  "version": "1.0.0",
   "licence": "AGPL-3.0",
   "source": "https://gitlab.cozycloud.cc/labs/cozy-bank.git@build",
   "developer": {

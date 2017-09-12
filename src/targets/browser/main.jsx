@@ -42,7 +42,7 @@ const renderAppWithPersistedState = persistedState => {
   }
 
   render((
-    <I18n lang={lang} dictRequire={(lang) => require(`./locales/${lang}`)}>
+    <I18n lang={lang} dictRequire={(lang) => require(`../../locales/${lang}`)}>
       <Provider store={store}>
         <Router history={history} routes={AppRoute} />
       </Provider>

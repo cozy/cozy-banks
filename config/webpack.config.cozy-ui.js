@@ -11,7 +11,6 @@ module.exports = {
     rules: [
       {
         test: /\.styl$/,
-        include: require.resolve('cozy-ui'),
         loader: extractor.extract({
           fallback:'style-loader',
           use: [
