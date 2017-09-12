@@ -11,7 +11,7 @@ const DOCTYPE = 'io.cozy.bank.settings'
 const COLLECTION_NAME = 'settings'
 const DEFAULTS_SETTINGS = {
   notifications: {
-    solde: {
+    balanceLower: {
       value: 100,
       enabled: false
     },

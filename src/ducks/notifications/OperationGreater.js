@@ -2,8 +2,8 @@ import { cozyClient } from 'cozy-konnector-libs'
 const abs = number => number < 0 ? -number : number
 
 class OperationGreater {
-  constructor (t, config) {
-    this.t = t
+  constructor (config) {
+    this.t = config.t
     this.enabled = config.enabled
     this.maxAmount = config.value
   }
@@ -17,9 +17,8 @@ class OperationGreater {
     return operations.filter(op => abs(op.amount) > maxAmount)
   }
 
-  async sendNotification (operations) {
+  async sendNotification (accounts, operations) {
     const operationsFiltered = this.filter(operations)
-    console.log('operationsFiltered', operationsFiltered)
     if (operationsFiltered.length === 0) return
 
     const notification = { reference: 'operation_greater' }
