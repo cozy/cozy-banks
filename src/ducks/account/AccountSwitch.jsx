@@ -6,16 +6,20 @@ import classNames from 'classnames'
 
 import AccountSharingStatus from 'components/AccountSharingStatus'
 import { Media, Bd, Img } from 'components/Media'
-import { indexAccounts, fetchAccounts, indexAccountGroups, fetchAccountGroups } from 'actions'
-import { getGroups, getAccounts } from 'selectors'
 import { filterByAccount, filterByGroup, getAccountOrGroup, resetAccountOrGroup } from 'ducks/filters'
 import { Backdrop } from 'ducks/menu'
 import styles from './AccountSwitch.styl'
+import { flowRight as compose } from 'lodash'
+import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
+import { cozyConnect, fetchCollection } from 'redux-cozy-client'
+
+const isLoading = function (collection) {
+  return collection.fetchStatus === 'pending' || collection.fetchStatus === 'loading'
+}
 
 // Note that everything is set up to be abble to combine filters (even the redux store). It's only limited to one filter in a few places, because the UI can only accomodate one right now.
 class AccountSwitch extends Component {
   state = {
-    isFetching: true,
     open: false
   }
 
@@ -46,20 +50,20 @@ class AccountSwitch extends Component {
   async componentDidMount () {
     document.addEventListener('click', this.onClickOutside)
     this.lastOpenEvent = null
+  }
 
-    try {
-      await this.props.fetchAccounts()
-      await this.props.fetchGroups()
-    } finally {
-      this.setState({
-        isFetching: false
-      })
-    }
+  accountExists = accountId => {
+    const accounts = this.props.accounts.data
+    return accounts.find(account => account.id == accountId)
   }
 
   render () {
-    const { t, accounts, groups, accountOrGroup, resetAccountOrGroup, filterByAccount, filterByGroup } = this.props
-    const { isFetching, open } = this.state
+    const { t, accountOrGroup, resetAccountOrGroup, filterByAccount, filterByGroup } = this.props
+    const { open } = this.state
+    let { accounts, groups } = this.props
+    const isFetching = isLoading(accounts) || isLoading(groups)
+    accounts = accounts.data
+    groups = groups.data
 
     return (
       <div className={styles['account-switch']}>
@@ -110,7 +114,7 @@ class AccountSwitch extends Component {
                       className={classNames({[styles['active']]: accountOrGroup && group._id === accountOrGroup._id})}>
                       {group.label}
                       <span className={styles['account-count']}>
-                        ({t('AccountSwitch.account_counter', group.accounts.length)})
+                        ({t('AccountSwitch.account_counter', group.accounts.filter(this.accountExists).length)})
                       </span>
                     </button>
                   </li>
@@ -155,23 +159,23 @@ class AccountSwitch extends Component {
 }
 
 const mapStateToProps = state => ({
-  accounts: getAccounts(state),
-  groups: getGroups(state),
   accountOrGroup: getAccountOrGroup(state)
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchAccounts: async () => {
-    const mangoIndex = await dispatch(indexAccounts())
-    return dispatch(fetchAccounts(mangoIndex))
-  },
-  fetchGroups: async () => {
-    const mangoIndex = await dispatch(indexAccountGroups())
-    return dispatch(fetchAccountGroups(mangoIndex))
-  },
   resetAccountOrGroup: () => dispatch(resetAccountOrGroup()),
   filterByAccount: account => dispatch(filterByAccount(account)),
   filterByGroup: group => dispatch(filterByGroup(group))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(translate()(AccountSwitch))
+const mapDocumentsToProps = ownProps => ({
+  accounts: fetchCollection('accounts', ACCOUNT_DOCTYPE),
+  groups: fetchCollection('groups', GROUP_DOCTYPE)
+})
+
+const enhance = compose(
+  cozyConnect(mapDocumentsToProps),
+  connect(mapStateToProps, mapDispatchToProps),
+  translate()
+)
+export default enhance(AccountSwitch)

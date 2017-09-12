@@ -9,6 +9,7 @@ import Loading from 'components/Loading'
 import { cozyConnect, fetchCollection } from 'redux-cozy-client'
 import plus from 'assets/icons/16/plus.svg'
 import styles from './AccountsSettings.styl'
+import { ACCOUNT_DOCTYPE } from 'doctypes'
 
 // See comment below about sharings
 // import { ACCOUNT_DOCTYPE } from 'doctypes'
@@ -112,7 +113,7 @@ const AccountsSettings = ({ t, accounts }) => {
 }
 
 const mapDocumentsToProps = ownProps => ({
-  accounts: fetchCollection('accounts', 'io.cozy.bank.accounts')
+  accounts: fetchCollection('accounts', ACCOUNT_DOCTYPE)
 })
 
 const mapStateToProps = state => ({
