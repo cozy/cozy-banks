@@ -3,6 +3,8 @@
 const { extractor } = require('./webpack.vars')
 const webpack = require('webpack')
 const autoprefixer = require('autoprefixer')
+const path = require('path')
+
 module.exports = {
   resolve: {
     extensions: ['.styl']
@@ -21,7 +23,7 @@ module.exports = {
       },
       {
         test: /\.jsx?$/,
-        include: require.resolve('cozy-ui'),
+        include: path.dirname(require.resolve('cozy-ui')),
         loader: 'babel-loader'
       }
     ]
