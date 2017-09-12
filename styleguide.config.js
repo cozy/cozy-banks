@@ -37,13 +37,13 @@ module.exports = {
       name: 'General',
       components: () => [
         'src/components/Table/index.jsx',
-        'src/components/SharingIcon.jsx'
+        'src/components/SharingIcon/SharingIcon.jsx'
       ],
     },
     {
       name: 'Forms',
       components: () => [
-        'src/components/Field.jsx',
+        'src/components/Field/Field.jsx',
         'src/components/Select.jsx',
       ],
     },
