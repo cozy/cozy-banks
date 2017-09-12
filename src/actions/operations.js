@@ -4,14 +4,13 @@
   Bank movements related features
 **/
 import { throwServerError } from './index'
-import { BANK_ACCOUNTS_DOCTYPE } from './accounts'
+import { ACCOUNT_DOCTYPE, OPERATION_DOCTYPE } from 'doctypes'
 import { addFilterForMostRecentOperations } from 'ducks/filters'
 
 export const INDEX_BANK_OPERATIONS_BY_DATE = 'INDEX_BANK_OPERATIONS_BY_DATE'
 export const INDEX_BANK_OPERATIONS_BY_DATE_SUCCESS = 'INDEX_BANK_OPERATIONS_BY_DATE_SUCCESS'
 export const SET_OPERATIONS = 'SET_OPERATIONS'
 
-export const BANK_OPERATIONS_DOCTYPE = 'io.cozy.bank.operations'
 export const DOCTYPE_BILL = 'io.cozy.files'
 
 // Mango: Index bank operations
@@ -19,7 +18,7 @@ export const indexOperationsByDate = () => {
   return async dispatch => {
     dispatch({ type: INDEX_BANK_OPERATIONS_BY_DATE })
     const fields = [ 'date' ]
-    return cozy.client.data.defineIndex(BANK_OPERATIONS_DOCTYPE, fields)
+    return cozy.client.data.defineIndex(OPERATION_DOCTYPE, fields)
       .then((mangoIndexByDate) => {
         dispatch({
           type: INDEX_BANK_OPERATIONS_BY_DATE_SUCCESS,
@@ -34,8 +33,8 @@ export const indexOperationsByDate = () => {
 }
 
 const removeAccountPrefix = operations => operations.map(operation => {
-  if (operation.account && operation.account.indexOf(BANK_ACCOUNTS_DOCTYPE) === 0) {
-    operation.account = operation.account.substring(BANK_ACCOUNTS_DOCTYPE.length + 1)
+  if (operation.account && operation.account.indexOf(ACCOUNT_DOCTYPE) === 0) {
+    operation.account = operation.account.substring(ACCOUNT_DOCTYPE.length + 1)
   }
   return operation
 })

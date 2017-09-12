@@ -2,7 +2,6 @@ import { combineReducers } from 'redux'
 
 import alerterReducer from 'cozy-ui/react/Alerter'
 import operations from './operations'
-import { accounts, groups } from './accounts'
 import * as sharingStatus from 'modules/SharingStatus'
 import filters from 'ducks/filters'
 import apps from 'ducks/apps'
@@ -13,8 +12,6 @@ export const reducers = {
   operations,
   filters,
   apps,
-  accounts,
-  groups,
   sharingStatus: sharingStatus.reducer,
   cozy: reducer
 }

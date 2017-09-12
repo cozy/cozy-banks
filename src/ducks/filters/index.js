@@ -3,7 +3,7 @@ import { createSelector } from 'reselect'
 import { startOfMonth, endOfMonth, isAfter, isBefore, parse } from 'date-fns'
 import SelectDates from './SelectDates'
 import { getOperations, getGroups, getAccounts } from 'selectors'
-import { BANK_ACCOUNTS_DOCTYPE, BANK_ACCOUNT_GROUPS_DOCTYPE } from 'actions'
+import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import _ from 'lodash'
 
 // constants
@@ -23,9 +23,9 @@ export const getAccountOrGroup = state => {
   const id = getAccountOrGroupId(state)
   let accountsOrGroups = []
 
-  if (doctype === BANK_ACCOUNTS_DOCTYPE) {
+  if (doctype === ACCOUNT_DOCTYPE) {
     accountsOrGroups = getAccounts(state)
-  } else if (doctype === BANK_ACCOUNT_GROUPS_DOCTYPE) {
+  } else if (doctype === GROUP_DOCTYPE) {
     accountsOrGroups = getGroups(state)
   }
 
@@ -39,12 +39,12 @@ export const getAccountsFiltered = state => {
   const id = getAccountOrGroupId(state)
   const accounts = getAccounts(state)
 
-  if (doctype === BANK_ACCOUNTS_DOCTYPE) {
+  if (doctype === ACCOUNT_DOCTYPE) {
     const account = accounts.find(account => account._id === id)
     if (account) {
       accountsFiltered.push(account)
     }
-  } else if (doctype === BANK_ACCOUNT_GROUPS_DOCTYPE) {
+  } else if (doctype === GROUP_DOCTYPE) {
     const group = getGroups(state).find(group => group._id === id)
     if (group) {
       group.accounts.map(accountId => {
@@ -67,9 +67,9 @@ const getAccountIds = state => {
 
   let accountIds = []
 
-  if (doctype === BANK_ACCOUNTS_DOCTYPE) {
+  if (doctype === ACCOUNT_DOCTYPE) {
     accountIds.push(id)
-  } else if (doctype === BANK_ACCOUNT_GROUPS_DOCTYPE) {
+  } else if (doctype === GROUP_DOCTYPE) {
     const group = getGroups(state).find(group => group._id === id)
     if (group) {
       accountIds = accountIds.concat(group.accounts)
@@ -135,9 +135,9 @@ const endDate = (state = getDefaultEndDate(), action) => {
 const accountOrGroupType = (state = null, action) => {
   switch (action.type) {
     case FILTER_BY_ACCOUNT:
-      return BANK_ACCOUNTS_DOCTYPE
+      return ACCOUNT_DOCTYPE
     case FILTER_BY_GROUP:
-      return BANK_ACCOUNT_GROUPS_DOCTYPE
+      return GROUP_DOCTYPE
     case RESET_ACCOUNT_OR_GROUP:
       return null
     default:
