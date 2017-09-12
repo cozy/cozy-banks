@@ -11,6 +11,7 @@ module.exports = {
     rules: [
       {
         test: /\.styl$/,
+        include: require.resolve('cozy-ui'),
         loader: extractor.extract({
           fallback:'style-loader',
           use: [
@@ -18,6 +19,11 @@ module.exports = {
             'stylus-loader'
           ]
         })
+      },
+      {
+        test: /\.jsx?$/,
+        include: require.resolve('cozy-ui'),
+        loader: 'babel-loader'
       }
     ]
   },
