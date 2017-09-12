@@ -54,8 +54,8 @@ const sendNotifications = async () => {
   if (!config) return
 
   const notifications = [
-    new OperationGreater(t, config.notifications.operationGreater),
-    new BalanceLower(t, config.notifications.balanceLower)
+    new OperationGreater({ ...config.notifications.operationGreater, t }),
+    new BalanceLower({ ...config.notifications.balanceLower, t })
   ]
   const enabledNotifications = notifications.filter(notif => notif.isEnabled())
   if (enabledNotifications.length === 0) return

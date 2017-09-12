@@ -1,8 +1,8 @@
 import { cozyClient } from 'cozy-konnector-libs'
 
 class BalanceLower {
-  constructor (t, config) {
-    this.t = t
+  constructor (config) {
+    this.t = config.t
     this.enabled = config.enabled
     this.lowerBalance = config.value
   }
