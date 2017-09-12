@@ -1,5 +1,6 @@
 @require 'cozy-ui'
-@import '../../styles/breakpoints.styl'
+@require '../../styles/breakpoints.styl'
+@require '../../styles/mixins.styl'
 
 // Due to discrepancies between Chrome and Firefox in
 // how select height is computed, we set it directly
@@ -67,6 +68,7 @@ select-date-width=20rem
 
 +small-screen()
     .select-dates
+        sticky-top()
         width 100%
         height 2.5rem
 

@@ -1,3 +1,5 @@
+@require '../../components/Layout/Layout.styl'
+
 /**
 Due to a IE11 bug, we need to specify max-width when using
 flex-basis and padding
@@ -6,3 +8,10 @@ https://github.com/philipwalton/flexbugs/issues/3
 maxed-flex-basis(n)
     flex-basis n
     max-width n
+
+sticky-top()
+    position sticky
+    background white
+    z-index 2
+    top -1px
+    box-shadow 0 (- content-padding-small) 0 content-padding-small  white
