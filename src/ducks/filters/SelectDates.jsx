@@ -8,6 +8,8 @@ import { getStartDate, getEndDate, addFilterByDates } from '.'
 import styles from './SelectDates.styl'
 import Icon from 'cozy-ui/react/Icon'
 import arrowLeft from 'assets/icons/icon-arrow-left.svg'
+import cx from 'classnames'
+import { throttle } from 'lodash'
 
 const createRange = (startDate, endDate) => ({ startDate, endDate })
 
@@ -30,7 +32,32 @@ const capitalizeFirstLetter = string => {
   return string.charAt(0).toUpperCase() + string.slice(1)
 }
 
+const getMain = function () {
+  return document.querySelector('main')
+}
+
 class SelectDates extends Component {
+  state = { scrolling: false }
+
+  componentDidMount () {
+    const main = getMain()
+    main.addEventListener('scroll', this.onParentScroll)
+  }
+
+  componentWillUnmount () {
+    const main = getMain()
+    main.removeEventListener(main, 'scroll', this.onParentScroll)
+  }
+
+  onParentScroll = throttle(ev => {
+    const scrollTop = ev.target.scrollTop
+    if (scrollTop > 0 && !this.state.scrolling) {
+      this.setState({ scrolling: true })
+    } else if (scrollTop === 0 && this.state.scrolling) {
+      this.setState({ scrolling: false })
+    }
+  }, 16)
+
   state = {
     datesRange: getDatesRange()
   }
@@ -82,11 +109,11 @@ class SelectDates extends Component {
     }
   }
 
-  render ({t, f, startDate, endDate}) {
+  render ({t, f, startDate, endDate}, {scrolling}) {
     const selected = this.getSelectedIndex()
     const options = this.getOptions()
     return (
-      <div className={styles['select-dates']}>
+      <div className={cx(styles['select-dates'], scrolling && styles['select-dates--scrolling'])}>
         <button disabled={selected === options.length - 1} className={styles['prev-button']} onClick={this.onChoosePrev}>
           <Icon height='1rem' icon={arrowLeft} />
         </button>

@@ -69,16 +69,26 @@ select-date-height-small = 2.5rem
 
 +small-screen()
     .select-dates
-        top 4rem
+        m = 0.75rem // size of the margin-top/bottom
+        topbar-height = 3rem
+        top topbar-height + m
         left content-padding-small
         right content-padding-small
         width auto
         position fixed
         background white
         z-index 2
-        shadow = 10px
-        box-shadow 0 (- shadow) shadow (content-padding-small + shadow/16) white
+
         height select-date-height-small
+
+        &--scrolling
+            shadow-height = 2 // px but we make calculations in rem underneath
+
+            // First box-shadow  is to cover content that is outside the component
+            // Second one is to have a subtle shadow underneath the component
+            box-shadow:
+                0 (m - content-padding-small) 0 content-padding-small white,
+                0 (m - content-padding-small + shadow-height/16) 0 content-padding-small rgba(0,0,0,.15)
 
         .prev-button, .next-button
             width 2.5rem
