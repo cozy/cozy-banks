@@ -14,7 +14,7 @@ Check out the documentation for components on [Styleguidist](https://ptbrowne.gi
 
 ## Fixtures
 
-You can add fixtures by using [ACH](https://gitlab.cozycloud.cc/labs/ACH) and data in [data/bank](https://gitlab.cozycloud.cc/labs/ACH/tree/master/data/bank).
+You can add fixtures by using [ACH](https://gitlab.cozycloud.cc/labs/ACH) and data in [test/fixtures](./test/fixtures).
 
 ## Skins
 

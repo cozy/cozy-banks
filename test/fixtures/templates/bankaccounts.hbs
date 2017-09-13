@@ -1,0 +1,11 @@
+{
+  "io.cozy.bank.accounts": [
+    {{#repeat 3}}
+    {
+     "label": "{{accountType}}",
+     "institutionLabel": "{{bankInstitution}}",
+     "number": "{{int 1000000 9999999}}"
+    }
+    {{/repeat}}
+  ]
+}

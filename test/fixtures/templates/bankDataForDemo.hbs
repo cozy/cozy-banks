@@ -1,0 +1,21 @@
+{
+  "io.cozy.bank.operations": [
+    {{> smallDebit label="Restaurant des frères Sushis" type="meals"}},
+    {{> smallDebit label="Mac King" type="meals"}},
+    {{> smallDebit label="Facture SFR" type="telecom"}},
+    {{> debit label="SNCF Paris 13" type="trips_transportation"}},
+    {{> debit label="Monoprix" type="regular_shopping"}},
+    {{> debit label="Monoprix" type="regular_shopping"}},
+    {{> smallDebit label="Monoprix" type="regular_shopping"}},
+    {{> debit label="Le vêtement c'est la vie" type="clothing"}},
+
+    {{> healthOperation}},
+    {{> healthOperation}},
+
+    {{> bigDebit label="Impôt sur revenue 2015" type="income_tax"}},
+    {{> bigDebit label="Loyer" type="rent"}},
+
+    {{> credit label="Remboursement Santé" type="health_refunds"}},
+    {{> salaryOperation mois="mars"}}
+  ]
+}

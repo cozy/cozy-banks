@@ -1,0 +1,28 @@
+{
+  "io.cozy.files": [
+    {
+      "_id": "43e10136dc3d21f0cde07f83d602050d",
+      "__SRC__": "{{ dir }}/facture_freemobile_20170814.pdf",
+      "__DEST__": "/facture.pdf"
+    }
+  ],
+  "io.cozy.bills": [
+    {
+      "_id": "f2812f0482318448040a722b50009a22",
+      "invoice": "io.cozy.files:{{ metadata 'io.cozy.files' 0 '_id' }}"
+    }
+  ],
+  "io.cozy.bank.operations": [
+    {
+      "account": "",
+      "label": "Facture téléphonique",
+      "date": "2017-08-09T00:00:00Z",
+      "amount": -70,  
+      "currency": "€",
+      "operationType": "phone",
+      "bills": [
+        "io.cozy.bills:{{ metadata 'io.cozy.bills' 0 '_id' }}"
+      ]
+    }
+  ]
+}
