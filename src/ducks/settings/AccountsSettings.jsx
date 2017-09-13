@@ -125,16 +125,16 @@ const mapStateToProps = state => ({
 // TODO reactivate when we understand how sharings work
 // const fetchAccountsSharingInfo = props => {
 //   return Promise.resolve([])
-  // const { accounts } = props
-  // with redux-cozy-client
-  // return Promise.all(accounts.data.map(account => {
-  //   return props.dispatch(fetchSharingInfo(ACCOUNT_DOCTYPE, account._id))
-  // }))
+// const { accounts } = props
+// with redux-cozy-client
+// return Promise.all(accounts.data.map(account => {
+//   return props.dispatch(fetchSharingInfo(ACCOUNT_DOCTYPE, account._id))
+// }))
 // }
 
 export default (
   cozyConnect(mapDocumentsToProps)(
-  connect(mapStateToProps)(
-  translate()(
-  AccountsSettings))
-))
+    connect(mapStateToProps)(
+      translate()(
+        AccountsSettings))
+  ))

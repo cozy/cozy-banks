@@ -51,7 +51,7 @@ class Categories extends Component {
       }
     }
 
-     // sort the categories for display
+    // sort the categories for display
     categories = categories.sort((a, b) => {
       if (b.percentage !== a.percentage) {
         return b.percentage - a.percentage

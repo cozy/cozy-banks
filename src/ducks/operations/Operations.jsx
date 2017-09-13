@@ -42,7 +42,7 @@ const Operations = ({ f, operations, urls, selectOperation }) => {
               <td colspan='6'>{f(date, 'dddd D MMMM')}</td>
             </tr>
             {operationsOrdered.map(operation =>
-              <tr>
+              (<tr>
                 <td className={classNames(styles['bnk-op-date'], 'coz-desktop')}>
                   {f(operation.date, 'DD MMMM YYYY')}
                 </td>
@@ -66,7 +66,7 @@ const Operations = ({ f, operations, urls, selectOperation }) => {
                 <td className={classNames(styles['bnk-op-actions'], 'coz-desktop')}>
                   <OperationMenu operation={operation} urls={urls} />
                 </td>
-              </tr>
+              </tr>)
             )}
           </tbody>
         )

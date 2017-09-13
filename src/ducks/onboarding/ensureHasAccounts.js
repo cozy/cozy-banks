@@ -38,9 +38,9 @@ export default enhance(({children, accounts, location}) => {
       </Content>
     )
   } else if (
-      (accounts.data && accounts.data.length === 0) ||
+    (accounts.data && accounts.data.length === 0) ||
       hasParameter(location.query, 'onboarding')
-    ) {
+  ) {
     return <Content><Onboarding /></Content>
   }
   return children

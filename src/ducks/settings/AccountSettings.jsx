@@ -152,7 +152,7 @@ const mapDocumentsToProps = function ({routeParams}) {
 
 export default (
   cozyConnect(mapDocumentsToProps)(
-  withDispatch(
-  translate()(
-  AccountSettings
-))))
+    withDispatch(
+      translate()(
+        AccountSettings
+      ))))

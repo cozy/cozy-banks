@@ -6,7 +6,7 @@ const Select = ({ t, name, value, options, onChange }) => (
   <select
     name={name}
     onChange={e => onChange(name, e.target.value, options.indexOf(e.target.value))}
-    >
+  >
     {options.map(optionValue => (
       <option
         value={optionValue.value !== undefined ? optionValue.value : optionValue}

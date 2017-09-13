@@ -71,23 +71,23 @@ class AccountSwitch extends Component {
           {isFetching
             ? `${t('Loading.loading')}...`
             : accountOrGroup
-            ? <div>
-              <div className={styles['account-name']}>
-                {accountOrGroup.label} {<AccountSharingStatus account={accountOrGroup} />}
-              </div>
-              <div className={styles['account-num']}>
-                {accountOrGroup.number && 'n°' + accountOrGroup.number}
-                {accountOrGroup.accounts && t('AccountSwitch.account_counter', accountOrGroup.accounts.filter(this.accountExists).length)}
-              </div>
-            </div>
-            : <div>
-              <div className={styles['account-name']}>
-                {t('AccountSwitch.all_accounts')}
+              ? <div>
+                <div className={styles['account-name']}>
+                  {accountOrGroup.label} {<AccountSharingStatus account={accountOrGroup} />}
+                </div>
                 <div className={styles['account-num']}>
-                  {t('AccountSwitch.account_counter', accounts.length)}
+                  {accountOrGroup.number && 'n°' + accountOrGroup.number}
+                  {accountOrGroup.accounts && t('AccountSwitch.account_counter', accountOrGroup.accounts.filter(this.accountExists).length)}
                 </div>
               </div>
-            </div>
+              : <div>
+                <div className={styles['account-name']}>
+                  {t('AccountSwitch.all_accounts')}
+                  <div className={styles['account-num']}>
+                    {t('AccountSwitch.account_counter', accounts.length)}
+                  </div>
+                </div>
+              </div>
           }
         </button>
         <button className={classNames('coz-btn', styles['account-switch-button-mobile'], 'coz-mobile', {[styles['active']]: accountOrGroup})} onClick={this.toggle} />

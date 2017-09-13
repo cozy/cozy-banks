@@ -156,9 +156,9 @@ const mapDocumentsToProps = props => {
 
 const enhance = Component =>
   cozyConnect(mapDocumentsToProps)(
-  translate()(
-  withRouter(
-  withDispatch(Component))))
+    translate()(
+      withRouter(
+        withDispatch(Component))))
 
 const EnhancedGroupSettings = enhance(GroupSettings)
 export default EnhancedGroupSettings

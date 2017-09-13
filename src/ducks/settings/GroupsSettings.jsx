@@ -36,8 +36,8 @@ const GroupList = withRouter(translate()(({groups, accounts, t, router}) => {
               .map(accountId =>
                 accounts.data.find(account => (account._id === accountId))
               ).filter(account => account)
-               .map(account => account.label)
-               .join(', ')}
+              .map(account => account.label)
+              .join(', ')}
           </td>
         </tr>
       ))}
