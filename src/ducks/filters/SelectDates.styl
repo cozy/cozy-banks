@@ -1,10 +1,12 @@
 @require 'cozy-ui'
-@import '../../styles/breakpoints.styl'
+@require '../../styles/breakpoints.styl'
+@require '../../components/Layout/Layout.styl'
 
 // Due to discrepancies between Chrome and Firefox in
 // how select height is computed, we set it directly
 select-date-height=3rem
 select-date-width=20rem
+select-date-height-small = 2.5rem
 
 .select-dates
     display flex
@@ -67,8 +69,16 @@ select-date-width=20rem
 
 +small-screen()
     .select-dates
-        width 100%
-        height 2.5rem
+        top 4rem
+        left content-padding-small
+        right content-padding-small
+        width auto
+        position fixed
+        background white
+        z-index 2
+        shadow = 10px
+        box-shadow 0 (- shadow) shadow (content-padding-small + shadow/16) white
+        height select-date-height-small
 
         .prev-button, .next-button
-            width: 2.5rem
+            width 2.5rem

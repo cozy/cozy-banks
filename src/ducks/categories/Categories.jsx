@@ -68,9 +68,9 @@ class Categories extends Component {
 
     return (
       <div>
+        <SelectDates />
         <div className={styles['bnk-cat-top']}>
           <div className={styles['bnk-cat-form']}>
-            <SelectDates />
             {selectedCategory === undefined && <div className={styles['bnk-cat-filter']}>
               <Toggle id='withIncome' checked={withIncome} onToggle={checked => filterWithInCome(checked)} />
               <label htmlFor='withIncome'>

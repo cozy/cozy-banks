@@ -17,6 +17,7 @@ padded-content(pad)
         width calc(100% + 2*(pad))
 
 content-padding = 2em
+content-padding-small = 1rem
 
 .coz-content
     width 100%
@@ -24,7 +25,7 @@ content-padding = 2em
 
     +small-screen()
         &
-            padded-content(1rem)
+            padded-content(content-padding-small)
 
 .coz-sidebar
     width            em(220px)

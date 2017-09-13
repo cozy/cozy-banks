@@ -40,13 +40,11 @@ class OperationsPage extends Component {
       }
     })
     return (
-      <div>
+      <div className={styles['bnk-mov-page']}>
         <Topbar>
           <h2>{t('Movements.title')}</h2>
         </Topbar>
-        <div className={styles['bnk-mov-form']}>
-          <SelectDates />
-        </div>
+        <SelectDates />
         {filteredOperations.length !== 0 && <div className={styles['bnk-mov-figures']}>
           <FigureBlock label={t('Movements.total')} total={credits + debits} currency='€' coloredPositive coloredNegative signed />
           <FigureBlock label={t('Movements.operations')} total={filteredOperations.length} decimalNumbers={0} />

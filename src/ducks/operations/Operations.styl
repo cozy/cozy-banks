@@ -1,5 +1,6 @@
 @require 'cozy-ui'
 @require '../../styles/mixins.styl'
+@require '../../styles/breakpoints.styl'
 
 .bnk-op-table
     composes full-width-table from '../../components/Layout/Layout.styl'
@@ -8,11 +9,17 @@
         maxed-flex-basis 15%
     .bnk-op-desc
         maxed-flex-basis 30%
+
     .bnk-op-amount
         maxed-flex-basis 20%
         text-align right
     .bnk-op-action
         maxed-flex-basis 25%
+        padding-left 0
+
+        .bnk-table-actions-link
+            background-image: none
+
     .bnk-op-actions
         maxed-flex-basis 10%
 
@@ -21,8 +28,7 @@
         .bnk-op-desc
             color charcoal-grey
 
-@media (max-width: (768/basefont)rem)
-    .bnk-op-table
+    +medium-screen()
         .bnk-op-desc
             cursor pointer
             maxed-flex-basis 60%
@@ -34,37 +40,12 @@
         .bnk-op-actions
             display none
 
-// Actions
-
-.bnk-op-table
-    .bnk-op-action
-        padding-left 0
-
-        .bnk-table-actions-link
-            background-image: none
-
-    tbody
-        overflow inherit!important
-
-        .bnk-op-actions
-            padding 0 2rem 0 0
-
-            > div
-                float right
-
-// Date section on mobile
-
-.bnk-op-table
-    .bnk-op-date-header
-        display none
-
-@media (max-width: (768/basefont)rem)
-    .bnk-op-table
         tr:last-child
             border-width 0
         tbody:last-child
             tr:last-child
                 border-bottom-width 1px
+
         .bnk-op-date-header
             display inherit
             background-color pale-grey
@@ -78,6 +59,18 @@
                 font-weight bold
                 padding 0 1rem
                 line-height em(16px)
+
+    tbody
+        overflow inherit!important
+
+        .bnk-op-actions
+            padding 0 2rem 0 0
+
+            > div
+                float right
+
+    .bnk-op-date-header
+        display none
 
 // All icons and classes for movement types
 
@@ -125,7 +118,7 @@ for num in 0..12
         .bnk-table-desc--{mvt}
             getTemporaryCatBkg(category)
 
-@media (max-width: (724/basefont)rem)
++medium-screen()
     .coz-table-body .coz-table-row
         font-size 0.8em
     .coz-table-cell.bnk-table-desc

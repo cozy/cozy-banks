@@ -8,6 +8,7 @@ import { fetchOperations, indexOperationsByDate } from 'actions'
 import { operationsByCategory, computeCategorieData } from './helpers'
 import Categories from './Categories'
 import BackButton from 'components/BackButton'
+import styles from './CategoriesPage.styl'
 
 class CategoriesPage extends Component {
   state = {
@@ -38,7 +39,7 @@ class CategoriesPage extends Component {
       categories = categories.filter(category => (category.name !== 'income'))
     }
     return (
-      <div>
+      <div className={styles['bnk-cat-page']}>
         <TopbarTitle>
           <h2>{t('Categories.title.general')}</h2>
         </TopbarTitle>

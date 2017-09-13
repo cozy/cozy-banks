@@ -1,8 +1,12 @@
 @require 'cozy-ui'
+@require '../../styles/breakpoints.styl'
+@require '../../ducks/filters/SelectDates.styl'
 
-.bnk-mov-form
-    display         flex
-    flex-direction  row
+.bnk-mov-page
+    +small-screen()
+        // SelectDate is fixed on mobile so we need to add some
+        // padding
+        padding-top select-date-height-small
 
 .bnk-mov-figures
     margin          1em 0
@@ -14,8 +18,7 @@
         margin 0 1em 1em 0
         flex 1
 
-@media (max-width: (1023/basefont)rem)
-    .bnk-mov-figures
-        > div
-            margin 0
-            flex-basis 50%
+        +medium-screen()
+            &
+                margin 0
+                flex-basis 50%
