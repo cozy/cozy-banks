@@ -5,9 +5,10 @@
     @extend    $app-2panes-sticky
 
     // To move to Cozy-UI
-    @media (max-width: (1023/basefont)rem)
+    +medium-screen()
         display block
 
+        // Those pseudo-elements are "ghost" elements replacing bar and nav
         &:before
         &:after
             content ''
@@ -23,7 +24,7 @@
 
 html
 body
-    @media (max-width: (1023/basefont)rem)
+    +medium-screen()
         display block
         height auto
         overflow auto
@@ -31,7 +32,7 @@ body
 // END Cozy-UI
 
 // To move to Cozy-bar
-@media (max-width: (1023/basefont)rem)
++medium-screen()
     [role=banner]
         position fixed
         top 0
