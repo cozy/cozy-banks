@@ -77,7 +77,7 @@ class AccountSwitch extends Component {
               </div>
               <div className={styles['account-num']}>
                 {accountOrGroup.number && 'n°' + accountOrGroup.number}
-                {accountOrGroup.accounts && t('AccountSwitch.account_counter', accountOrGroup.accounts.length)}
+                {accountOrGroup.accounts && t('AccountSwitch.account_counter', accountOrGroup.accounts.filter(this.accountExists).length)}
               </div>
             </div>
             : <div>
