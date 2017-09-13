@@ -4,6 +4,42 @@
 .coz-layout
     @extend    $app-2panes-sticky
 
+    // To move to Cozy-UI
+    @media (max-width: (1023/basefont)rem)
+        display block
+
+        &:before
+        &:after
+            content ''
+            display block
+            height 3rem
+
+        > aside
+            position fixed
+            bottom 0
+            left 0
+            display block
+            z-index $nav-index
+
+html
+body
+    @media (max-width: (1023/basefont)rem)
+        display block
+        height auto
+        overflow auto
+        overflow-x hidden
+// END Cozy-UI
+
+// To move to Cozy-bar
+@media (max-width: (1023/basefont)rem)
+    [role=banner]
+        position fixed
+        top 0
+        left 0
+        width 100%
+        background-color white
+// END Cozy-Bar
+
 padded-content(pad)
     padding pad
 
@@ -26,6 +62,9 @@ content-padding-small = 1rem
     +small-screen()
         &
             padded-content(content-padding-small)
+
+    @media (max-width: (1023/basefont)rem)
+        display block
 
 .coz-sidebar
     width            em(220px)
