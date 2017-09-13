@@ -3,7 +3,7 @@ const webpack = require('webpack')
 const PORT = 8282
 
 module.exports = {
-  entry: ['webpack/hot/dev-server', 'preact/devtools'],
+  entry: ['preact/devtools'],
   output: {
     filename: 'app.js',
     publicPath: 'http://localhost:' + PORT + '/'
