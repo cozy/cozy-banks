@@ -40,7 +40,7 @@ class OperationsPage extends Component {
       }
     })
     return (
-      <div>
+      <div className={styles['bnk-mov-page']}>
         <Topbar>
           <h2>{t('Movements.title')}</h2>
         </Topbar>
