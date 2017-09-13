@@ -12,7 +12,7 @@
     "commons:watch": "webpack --config webpack.config.js --watch",
     "commons:watch:standalone": "webpack-dev-server --config webpack.config.js --port 8282 --inline --hot",
     "get-deploy-branch": "test $(git rev-parse --abbrev-ref HEAD) = 'prod' && echo latest || echo build",
-    "deploy": "git-directory-deploy --username Cozy --email contact@cozycloud.cc --directory build/ --branch ${DEPLOY_BRANCH:-$(npm run get-deploy-branch -s)}",
+    "deploy": "git-directory-deploy --directory build/ --branch ${DEPLOY_BRANCH:-$(npm run get-deploy-branch -s)} --repo git@gitlab.cozycloud.cc:labs/cozy-bank.git",
     "tx": "tx pull --all || true",
     "precommons:build": "npm-run-all lint tx",
     "prebuild:browser": "npm run clean:browser",
