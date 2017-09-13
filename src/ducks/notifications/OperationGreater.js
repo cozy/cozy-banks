@@ -42,7 +42,7 @@ class OperationGreater {
         }) + '\n'
       }
     }
-    return await cozyClient.fetchJSON('POST', '/notifications', {
+    return cozyClient.fetchJSON('POST', '/notifications', {
       data: {
         type: 'io.cozy.notifications',
         attributes: notification
