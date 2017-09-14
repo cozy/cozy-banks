@@ -8,18 +8,22 @@ import classNames from 'classnames'
  *
  * https://github.com/philipwalton/flexbugs/issues/3
  */
-const Table = ({children, className}) => (
-  <table className={classNames(styles['coz-table'], className)}>
-    {children}
-  </table>
+export const Table = ({ children, className, ...rest }) => (
+  <table className={classNames(styles['coz-table'], className)} {...rest}>{
+    children
+  }</table>
 )
 
-const TdWithIcon = ({children, className, onClick}) => (
-  <td className={classNames(styles['coz-table-td-with-icon'], className)} onClick={onClick}>
-    {children}
-  </td>
+export const TdSecondary = ({ children, className, ...rest }) => (
+  <td className={classNames(styles['coz-table-td-secondary'], className)} {...rest}>{
+    children
+  }</td>
 )
 
-export { Table, TdWithIcon }
+export const TdWithIcon = ({children, className, ...rest}) => (
+  <td className={classNames(styles['coz-table-td-with-icon'], className)} {...rest}>{
+    children
+  }</td>
+)
 
 export default Table

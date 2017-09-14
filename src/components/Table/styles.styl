@@ -17,6 +17,7 @@
         flex-shrink 0
 
     tbody
+        max-width 100%
         flex-basis auto
         overflow  auto
 
@@ -33,22 +34,27 @@
 
     th
         text-align left
+        font-weight normal
 
     thead
         td, th
-            padding         em(8px, 12px) em(32px, 12px) // @stylint ignore
-            font-size       12px
+            font-size       .75em
             text-transform  uppercase
             display block
 
-
     td, th
         box-sizing  border-box
-        padding 1em 2rem
-        font-size   14px
+        padding 1em 0 1em 2rem
+        font-size em(16px)
         flex-grow 1
         flex-shrink 0
         display block
+
+        &:last-child
+            padding-right 2rem
+
+        &.coz-table-td-secondary
+            font-size em(14px)
 
     +medium-screen()
         tr
@@ -60,10 +66,13 @@
 
         tbody
             max-height  100%
-            font-size 0.8em
+            font-size .9em
 
         td
-            padding 1em 1rem
+            padding 1em 0 1em 1rem
+
+            &:last-child
+                padding-right 1rem
 
     .coz-table-td-with-icon
         background-repeat no-repeat
@@ -72,7 +81,7 @@
         background-size 32px
         text-transform uppercase
 
-        @media (max-width: (768/basefont)rem)
+        +small-screen()
             padding-left calc(1.5rem + 26px)
             background-position 1rem
             background-size 26px
@@ -87,14 +96,14 @@
 
         .mobile-row-main
             maxed-flex-basis 100%
-            padding-top 0.5rem
-            padding-bottom 0.25rem
+            padding-top .5rem
+            padding-bottom .25rem
             font-size 1rem
             color charcoal-grey
 
         .mobile-row-label
-            padding-top 0.25rem
-            padding-bottom 0.5rem
-            font-size 0.75rem
+            padding-top .25rem
+            padding-bottom .5rem
+            font-size .75rem
             color cool-grey
             max-width fit-content
