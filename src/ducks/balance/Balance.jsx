@@ -1,5 +1,5 @@
 import React from 'react'
-import Table from 'components/Table'
+import { Table, TdSecondary } from 'components/Table'
 import { Figure, FigureBlock } from 'components/Figure'
 import { Topbar } from 'ducks/commons'
 import { connect } from 'react-redux'
@@ -8,8 +8,11 @@ import { translate } from 'cozy-ui/react/I18n'
 import styles from './Balance.styl'
 import { getAccountsFiltered, getAccountOrGroupType, getAccountOrGroup } from 'ducks/filters'
 import { BANK_ACCOUNTS_DOCTYPE, BANK_ACCOUNT_GROUPS_DOCTYPE } from 'actions'
+import breakpointsAware from 'utils/mobileAware'
+import { flowRight as compose } from 'lodash'
 
-const Balance = ({t, accounts, type, accountOrGroup}) => {
+const Balance = ({t, accounts, type, accountOrGroup, breakpoints}) => {
+  const isNotMobile = !breakpoints.mobile
   const label = accountOrGroup ? accountOrGroup.label : ''
   let trad
   switch (type) {
@@ -39,8 +42,8 @@ const Balance = ({t, accounts, type, accountOrGroup}) => {
           <tr>
             <td className={styles['account_name']}>{t('Balance.account_name')}</td>
             <td className={styles['solde']}>{t('Balance.solde')}</td>
-            <td className={styles['bank_name']}>{t('Balance.bank_name')}</td>
-            <td className={styles['account_number']}>{t('Balance.account_number')}</td>
+            {isNotMobile && <td className={styles['bank_name']}>{t('Balance.bank_name')}</td>}
+            {isNotMobile && <td className={styles['account_number']}>{t('Balance.account_number')}</td>}
           </tr>
         </thead>
         <tbody>
@@ -52,11 +55,11 @@ const Balance = ({t, accounts, type, accountOrGroup}) => {
                   {account.label}
                   {isAlert && <span className='coz-error coz-error--warning' />}
                 </td>
-                <td className={classNames(styles['solde'], { [styles.alert]: isAlert })}>
+                <TdSecondary className={classNames(styles['solde'], { [styles.alert]: isAlert })}>
                   <Figure total={account.balance} currency='€' coloredNegative signed />
-                </td>
-                <td className={styles['bank_name']}>{account.institutionLabel}</td>
-                <td className={styles['account_number']}>{account.number}</td>
+                </TdSecondary>
+                {isNotMobile && <TdSecondary className={styles['bank_name']}>{account.institutionLabel}</TdSecondary>}
+                {isNotMobile && <TdSecondary className={styles['account_number']}>{account.number}</TdSecondary>}
               </tr>
             )
           })}
@@ -72,4 +75,8 @@ const mapStateToProps = state => ({
   type: getAccountOrGroupType(state)
 })
 
-export default connect(mapStateToProps)(translate()(Balance))
+export default compose(
+  breakpointsAware(),
+  connect(mapStateToProps),
+  translate()
+)(Balance)
