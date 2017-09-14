@@ -8,6 +8,9 @@ import { getStartDate, getEndDate, addFilterByDates } from '.'
 import styles from './SelectDates.styl'
 import Icon from 'cozy-ui/react/Icon'
 import arrowLeft from 'assets/icons/icon-arrow-left.svg'
+import cx from 'classnames'
+import scrollAware from './scrollAware'
+import { flowRight as compose } from 'lodash'
 
 const createRange = (startDate, endDate) => ({ startDate, endDate })
 
@@ -82,11 +85,11 @@ class SelectDates extends Component {
     }
   }
 
-  render ({t, f, startDate, endDate}) {
+  render ({t, f, startDate, endDate, scrolling}) {
     const selected = this.getSelectedIndex()
     const options = this.getOptions()
     return (
-      <div className={styles['select-dates']}>
+      <div className={cx(styles['select-dates'], scrolling && styles['select-dates--scrolling'])}>
         <button disabled={selected === options.length - 1} className={styles['prev-button']} onClick={this.onChoosePrev}>
           <Icon height='1rem' icon={arrowLeft} />
         </button>
@@ -110,4 +113,10 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(translate()(SelectDates))
+const enhance = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  translate(),
+  scrollAware
+)
+
+export default enhance(SelectDates)
