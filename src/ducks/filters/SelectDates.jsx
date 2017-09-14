@@ -9,7 +9,8 @@ import styles from './SelectDates.styl'
 import Icon from 'cozy-ui/react/Icon'
 import arrowLeft from 'assets/icons/icon-arrow-left.svg'
 import cx from 'classnames'
-import { throttle } from 'lodash'
+import scrollAware from './scrollAware'
+import { flowRight as compose } from 'lodash'
 
 const createRange = (startDate, endDate) => ({ startDate, endDate })
 
@@ -32,32 +33,7 @@ const capitalizeFirstLetter = string => {
   return string.charAt(0).toUpperCase() + string.slice(1)
 }
 
-const getMain = function () {
-  return document.querySelector('main')
-}
-
 class SelectDates extends Component {
-  state = { scrolling: false }
-
-  componentDidMount () {
-    const main = getMain()
-    main.addEventListener('scroll', this.onParentScroll)
-  }
-
-  componentWillUnmount () {
-    const main = getMain()
-    main.removeEventListener(main, 'scroll', this.onParentScroll)
-  }
-
-  onParentScroll = throttle(ev => {
-    const scrollTop = ev.target.scrollTop
-    if (scrollTop > 0 && !this.state.scrolling) {
-      this.setState({ scrolling: true })
-    } else if (scrollTop === 0 && this.state.scrolling) {
-      this.setState({ scrolling: false })
-    }
-  }, 16)
-
   state = {
     datesRange: getDatesRange()
   }
@@ -109,7 +85,7 @@ class SelectDates extends Component {
     }
   }
 
-  render ({t, f, startDate, endDate}, {scrolling}) {
+  render ({t, f, startDate, endDate, scrolling}) {
     const selected = this.getSelectedIndex()
     const options = this.getOptions()
     return (
@@ -137,4 +113,10 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(translate()(SelectDates))
+const enhance = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  translate(),
+  scrollAware
+)
+
+export default enhance(SelectDates)
