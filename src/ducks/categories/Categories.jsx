@@ -7,7 +7,7 @@ import { Figure, FigureBlock } from 'components/Figure'
 import { SelectDates } from 'ducks/filters'
 import styles from './styles'
 import CategoriesChart from './CategoriesChart'
-import breakpointsAware from 'utils/mobileAware'
+import breakpointsAware from 'utils/breakpointsAware'
 import { flowRight as compose } from 'lodash'
 
 class Categories extends Component {

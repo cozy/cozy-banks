@@ -8,7 +8,7 @@ import { translate } from 'cozy-ui/react/I18n'
 import styles from './Balance.styl'
 import { getAccountsFiltered, getAccountOrGroupType, getAccountOrGroup } from 'ducks/filters'
 import { BANK_ACCOUNTS_DOCTYPE, BANK_ACCOUNT_GROUPS_DOCTYPE } from 'actions'
-import breakpointsAware from 'utils/mobileAware'
+import breakpointsAware from 'utils/breakpointsAware'
 import { flowRight as compose } from 'lodash'
 
 const Balance = ({t, accounts, type, accountOrGroup, breakpoints}) => {

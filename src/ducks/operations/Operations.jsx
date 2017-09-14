@@ -6,7 +6,7 @@ import { Figure } from 'components/Figure'
 import { Table, TdWithIcon, TdSecondary } from 'components/Table'
 import OperationMenu from './OperationMenu'
 import { OperationAction } from './OperationActions'
-import breakpointsAware from 'utils/mobileAware'
+import breakpointsAware from 'utils/breakpointsAware'
 import { flowRight as compose } from 'lodash'
 
 import styles from './Operations.styl'
