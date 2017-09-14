@@ -1,5 +1,6 @@
 @require 'cozy-ui'
 @require '../../styles/breakpoints.styl'
+@require '../../styles/mixins.styl'
 
 .coz-table
     position        relative
@@ -26,8 +27,8 @@
         align-items     center
         border-bottom   1px solid silver
 
-    tbody tr
-        &:hover
+    tbody
+        tr:hover
             background-color pale-grey
 
     th
@@ -85,7 +86,7 @@
             border-top 1px solid silver
 
         .mobile-row-main
-            flex-basis 100%
+            maxed-flex-basis 100%
             padding-top 0.5rem
             padding-bottom 0.25rem
             font-size 1rem
@@ -96,3 +97,4 @@
             padding-bottom 0.5rem
             font-size 0.75rem
             color cool-grey
+            max-width fit-content

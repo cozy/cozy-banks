@@ -13,7 +13,6 @@
             white-space nowrap
 
     &__libelle
-        flex-basis 25%
         maxed-flex-basis 25%
         composes mobile-row-main from '../../components/Table/styles.styl'
 
@@ -27,7 +26,7 @@
         maxed-flex-basis 15%
 
         +small-screen()
-            &
+            td& // increase selectivity with td
                 display none
 
     &__shared
