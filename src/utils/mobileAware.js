@@ -1,15 +1,25 @@
 import React, { Component } from 'react'
 import { throttle, mapValues, flowRight as compose, pick } from 'lodash'
 
-const breakpoints = {
-  'desktop': Infinity,
-  'tablet': 1024,
-  'mobile': 768
+const large = 1200
+const medium = 1023
+const small = 768
+const tiny = 543
+
+const interval = {
+  extraLarge: [large + 1],
+  large: [medium + 1, large],
+  medium: [small + 1, medium],
+  small: [tiny + 1, small],
+  tiny: [0, tiny],
+  desktop: [medium + 1],
+  tablet: [small + 1, medium],
+  mobile: [0, small]
 }
 
-const getBreakpointsStatus = function (breakpoints) {
+const getBreakpointsStatus = breakpoints => {
   const width = window.innerWidth
-  return mapValues(breakpoints, maxWidth => width < maxWidth)
+  return mapValues(breakpoints, ([min, max]) => width > min && (max === undefined || width < max))
 }
 
 /**
@@ -27,9 +37,9 @@ const getBreakpointsStatus = function (breakpoints) {
  * under 1000px
  *
  */
-const breakpointsAware = breakpoints => Wrapped =>
+const breakpointsAware = (bp = interval) => Wrapped =>
   class Aware extends Component {
-    state = { breakpoints: getBreakpointsStatus(breakpoints) }
+    state = { breakpoints: getBreakpointsStatus(bp) }
 
     componentDidMount () {
       window.addEventListener('resize', this.checkBreakpoints)
@@ -40,7 +50,7 @@ const breakpointsAware = breakpoints => Wrapped =>
     }
 
     checkBreakpoints = throttle(() => {
-      this.setState({ breakpoints: getBreakpointsStatus(breakpoints) })
+      this.setState({ breakpoints: getBreakpointsStatus(bp) })
     }, 100, { trailing: true })
 
     render (props, { breakpoints }) {
@@ -65,7 +75,7 @@ const renderOnlyIf = predicate => Wrapped => class extends Component {
  * rendered on mobile
  */
 export const onlyMobile = compose(
-  breakpointsAware(pick(breakpoints, 'mobile')),
+  breakpointsAware(pick(interval, 'mobile')),
   renderOnlyIf(props => props.breakpoints.mobile)
 )
 
@@ -74,7 +84,7 @@ export const onlyMobile = compose(
  * rendered on tablet
  */
 export const onlyTablet = compose(
-  breakpointsAware(pick(breakpoints, 'tablet')),
+  breakpointsAware(pick(interval, 'tablet')),
   renderOnlyIf(props => props.breakpoints.tablet)
 )
 
