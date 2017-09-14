@@ -24,18 +24,16 @@
 
     .bnk-cat-chart
         flex-basis 50%
+        margin-top -100px
 
-+medium-screen()
++small-screen()
     .bnk-cat-top
         .bnk-cat-form
             flex-basis 100%
 
-            .bnk-cat-filter
-            .bnk-cat-figure
-                padding 1rem 0 0
-
         .bnk-cat-chart
             flex-basis 100%
+            margin-top 0
 
 // Table
 .bnk-table-category
@@ -45,35 +43,29 @@
 
     .bnk-table-category-category
         maxed-flex-basis 30%
+        text-transform uppercase
 
     .bnk-table-percentage
         maxed-flex-basis 10%
-        text-align center
+        text-align right
 
     .bnk-table-operation
         maxed-flex-basis 10%
-        text-align center
-        padding 0
-        overflow hidden
-        text-overflow ellipsis
+        text-align right
 
     .bnk-table-amount
     .bnk-table-total
-        maxed-flex-basis 15%
+        maxed-flex-basis 14%
         text-align right
 
     .bnk-table-chevron
-        flex inherit
-        background-position left
+        maxed-flex-basis 5%
+        background-position center
         background-repeat no-repeat
         transition all .2s
-        padding 1em 2rem 1em 16px
 
     .bnk-table-row
     .bnk-table-row--uncollapsed
-        .bnk-table-chevron
-            background-image embedurl('../../assets/icons/icon-chevron-down.svg')
-
         .bnk-table-category-category
         .bnk-table-total
         .bnk-table-percentage
@@ -82,14 +74,28 @@
         .bnk-table-percentage
             font-weight bold
 
+    .bnk-table-row
+        .bnk-table-chevron
+            background-image embedurl('../../assets/icons/icon-chevron-down.svg')
+
+    .bnk-table-row--uncollapsed
     .bnk-table-row--uncollapsed:hover
         .bnk-table-chevron
             background-image embedurl('../../assets/icons/icon-chevron-down-active.svg')
             transform   rotate3d(1, 0, 0, 180deg)
 
     +medium-screen()
-        .bnk-table-amount
-            display none
+        .bnk-table-category-category
+            maxed-flex-basis 50%
+
+        .bnk-table-percentage
+            maxed-flex-basis 10%
+
+        .bnk-table-operation
+            maxed-flex-basis 10%
+
+        .bnk-table-total
+            maxed-flex-basis 30%
 
     +small-screen()
         .bnk-table-category-category
@@ -97,15 +103,9 @@
 
         .bnk-table-percentage
             maxed-flex-basis 10%
-            padding 1em 0
 
         .bnk-table-total
             maxed-flex-basis 30%
-
-        .bnk-table-operation
-        .bnk-table-amount
-        .bnk-table-chevron
-            display none
 
     // All icons and classes for categories types
 

@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'
 import Toggle from 'cozy-ui/react/Toggle'
-import { Table, TdWithIcon } from 'components/Table'
+import { Table, TdWithIcon, TdSecondary } from 'components/Table'
 import { Figure, FigureBlock } from 'components/Figure'
 import { SelectDates } from 'ducks/filters'
 import styles from './styles'
 import CategoriesChart from './CategoriesChart'
+import breakpointsAware from 'utils/mobileAware'
+import { flowRight as compose } from 'lodash'
 
 class Categories extends Component {
   toggle = categoryName => {
@@ -14,7 +16,7 @@ class Categories extends Component {
     selectedCategory ? selectCategory(undefined) : selectCategory(categoryName)
   }
 
-  render ({t, categories, selectedCategory, selectCategory, withIncome, filterWithInCome}) {
+  render ({t, categories, selectedCategory, selectCategory, withIncome, filterWithInCome, breakpoints}) {
     if (categories === undefined) categories = []
     const selectedCat = categories.find(category => category.name === selectedCategory)
     if (selectedCategory) {
@@ -66,6 +68,9 @@ class Categories extends Component {
       titleLabel = `${titleLabel} (${catName})`
     }
 
+    const isDesktop = breakpoints.desktop
+    const isTablet = breakpoints.tablet
+
     return (
       <div>
         <SelectDates />
@@ -93,11 +98,11 @@ class Categories extends Component {
               <tr>
                 <td className={styles['bnk-table-category-category']}>{t('Categories.headers.categories')}</td>
                 <td className={styles['bnk-table-percentage']}>%</td>
-                <td className={styles['bnk-table-operation']}>{t('Categories.headers.operations')}</td>
+                {(isDesktop || isTablet) && <td className={styles['bnk-table-operation']}>{t('Categories.headers.operations')}</td>}
                 <td className={styles['bnk-table-total']}>{t('Categories.headers.total')}</td>
-                <td className={styles['bnk-table-amount']}>{t('Categories.headers.credit')}</td>
-                <td className={styles['bnk-table-amount']}>{t('Categories.headers.debit')}</td>
-                <td className={styles['bnk-table-chevron']} />
+                {isDesktop && <td className={styles['bnk-table-amount']}>{t('Categories.headers.credit')}</td>}
+                {isDesktop && <td className={styles['bnk-table-amount']}>{t('Categories.headers.debit')}</td>}
+                {isDesktop && <td className={styles['bnk-table-chevron']} />}
               </tr>
             </thead>
             {categories.map(category => {
@@ -109,37 +114,39 @@ class Categories extends Component {
                     <TdWithIcon className={classNames(styles['bnk-table-category-category'], styles[`bnk-table-category--${category.name}`])}>
                       {t(`Data.categories.${category.name}`)}
                     </TdWithIcon>
-                    <td className={styles['bnk-table-percentage']}>
+                    <TdSecondary className={styles['bnk-table-percentage']}>
                       {selectedCategory ? '100 %' : `${category.percentage} %`}
-                    </td>
-                    <td className={styles['bnk-table-operation']}>{category.operationsNumber}</td>
-                    <td className={styles['bnk-table-total']}>
+                    </TdSecondary>
+                    {(isDesktop || isTablet) && <TdSecondary className={styles['bnk-table-operation']}>
+                      {category.operationsNumber}
+                    </TdSecondary>}
+                    <TdSecondary className={styles['bnk-table-total']}>
                       <Figure total={category.credit + category.debit} currency={category.currency} coloredPositive signed />
-                    </td>
-                    <td className={styles['bnk-table-amount']}>
+                    </TdSecondary>
+                    {isDesktop && <TdSecondary className={styles['bnk-table-amount']}>
                       {category.credit ? <Figure total={category.credit} currency={category.currency} signed /> : '－'}
-                    </td>
-                    <td className={styles['bnk-table-amount']}>
+                    </TdSecondary>}
+                    {isDesktop && <TdSecondary className={styles['bnk-table-amount']}>
                       {category.debit ? <Figure total={category.debit} currency={category.currency} signed /> : '－'}
-                    </td>
-                    <td className={styles['bnk-table-chevron']} />
+                    </TdSecondary>}
+                    {isDesktop && <td className={styles['bnk-table-chevron']} />}
                   </tr>
                   {!isCollapsed && category.subcategories.map(subcategory => (
                     <tr className={styles['bnk-table-row-subcategory']} onClick={() => this.toggle(category.name)}>
                       <td className={styles['bnk-table-category-category']}>
                         {t(`Data.subcategories.${subcategory.name}`)}
                       </td>
-                      <td className={styles['bnk-table-percentage']}>{`${subcategory.percentage} %`}</td>
-                      <td className={styles['bnk-table-operation']}>{subcategory.operationsNumber}</td>
-                      <td className={styles['bnk-table-total']}>
+                      <TdSecondary className={styles['bnk-table-percentage']}>{`${subcategory.percentage} %`}</TdSecondary>
+                      <TdSecondary className={styles['bnk-table-operation']}>{subcategory.operationsNumber}</TdSecondary>
+                      <TdSecondary className={styles['bnk-table-total']}>
                         <Figure total={subcategory.credit + subcategory.debit} currency={subcategory.currency} signed />
-                      </td>
-                      <td className={styles['bnk-table-amount']}>
+                      </TdSecondary>
+                      <TdSecondary className={styles['bnk-table-amount']}>
                         {subcategory.credit ? <Figure total={subcategory.credit} currency={subcategory.currency} signed /> : '－'}
-                      </td>
-                      <td className={styles['bnk-table-amount']}>
+                      </TdSecondary>
+                      <TdSecondary className={styles['bnk-table-amount']}>
                         {subcategory.debit ? <Figure total={subcategory.debit} currency={subcategory.currency} signed /> : '－'}
-                      </td>
+                      </TdSecondary>
                       <td className={styles['bnk-table-chevron']} />
                     </tr>
                   ))}
@@ -153,4 +160,7 @@ class Categories extends Component {
   }
 }
 
-export default translate()(Categories)
+export default compose(
+  breakpointsAware(),
+  translate()
+)(Categories)
