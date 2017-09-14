@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { throttle } from 'lodash'
 
-const getMain = function () {
-  return document.querySelector('main')
-}
+const getMain = () => document
+const getScrollingElement = node =>
+  node === document ? node.scrollingElement : node
 
 /**
  * HOC to provide info to the `Wrapped` component
@@ -26,8 +26,9 @@ export default Wrapped => class extends Component {
   }
 
   onScroll = throttle(ev => {
-    const scrollTop = ev.target.scrollTop
-    const { scrolling } = this.state.scrolling
+    const node = getScrollingElement(ev.target)
+    const scrollTop = node.scrollTop
+    const { scrolling } = this.state
     if (scrollTop > 0 && !scrolling) {
       this.setState({ scrolling: true })
     } else if (scrollTop === 0 && scrolling) {
