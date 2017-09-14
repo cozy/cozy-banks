@@ -5,6 +5,13 @@ const getMain = function () {
   return document.querySelector('main')
 }
 
+/**
+ * HOC to provide info to the `Wrapped` component
+ * about the scrolling state of `<main />`. If we are
+ * not at the top, the component will have its prop `scrolling`
+ * set to true. It is useful when the children wants to apply
+ * a class only we are not at the top.
+ */
 export default Wrapped => class extends Component {
   state = { scrolling: false }
 
