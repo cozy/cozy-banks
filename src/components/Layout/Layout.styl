@@ -45,13 +45,13 @@ padded-content(pad)
     padding pad
 
     .full-width
-        margin-left -(pad)
-        margin-right -(pad)
+        margin-left (- pad)
+        margin-right (- pad)
 
     .full-width-table
-        margin-left -(pad)
-        margin-right -(pad)
-        width calc(100% + 2*(pad))
+        margin-left (- pad)
+        margin-right (- pad)
+        width "calc(100% + %s)" % (2 * pad)
 
 content-padding = 2em
 content-padding-small = 1rem
