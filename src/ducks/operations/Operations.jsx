@@ -3,13 +3,16 @@ import classNames from 'classnames'
 import compareDesc from 'date-fns/compare_desc'
 import { translate } from 'cozy-ui/react/I18n'
 import { Figure } from 'components/Figure'
-import { Table, TdWithIcon } from 'components/Table'
+import { Table, TdWithIcon, TdSecondary } from 'components/Table'
 import OperationMenu from './OperationMenu'
 import { OperationAction } from './OperationActions'
+import breakpointsAware from 'utils/breakpointsAware'
+import { flowRight as compose } from 'lodash'
 
 import styles from './Operations.styl'
 
-const Operations = ({ f, operations, urls, selectOperation }) => {
+const Operations = ({ f, operations, urls, selectOperation, breakpoints }) => {
+  const isDesktop = breakpoints.desktop
   const operationsByDate = {}
   let dates = []
 
@@ -27,11 +30,11 @@ const Operations = ({ f, operations, urls, selectOperation }) => {
     <Table className={styles['bnk-op-table']}>
       <thead>
         <tr>
-          <td className={styles['bnk-op-date']}>Date</td>
+          {isDesktop && <td className={styles['bnk-op-date']}>Date</td>}
           <td className={styles['bnk-op-desc']}>Description</td>
           <td className={styles['bnk-op-amount']}>Montant</td>
-          <td className={styles['bnk-op-action']}>Action</td>
-          <td className={styles['bnk-op-actions']}>&nbsp;</td>
+          {isDesktop && <td className={styles['bnk-op-action']}>Action</td>}
+          {isDesktop && <td className={styles['bnk-op-actions']}>&nbsp;</td>}
         </tr>
       </thead>
       {dates.map(date => {
@@ -43,29 +46,33 @@ const Operations = ({ f, operations, urls, selectOperation }) => {
             </tr>
             {operationsOrdered.map(operation =>
               (<tr>
-                <td className={classNames(styles['bnk-op-date'], 'coz-desktop')}>
+                {isDesktop && <TdSecondary className={classNames(styles['bnk-op-date'])}>
                   {f(operation.date, 'DD MMMM YYYY')}
-                </td>
-                <TdWithIcon className={classNames(styles['bnk-op-desc'], styles[`bnk-table-desc--${operation.category}`], 'coz-desktop')}>
-                  {operation.label}
-                </TdWithIcon>
-                <TdWithIcon className={classNames(styles['bnk-op-desc'], styles[`bnk-table-desc--${operation.category}`], 'coz-mobile')}
-                  onClick={() => selectOperation(operation)}>
-                  {operation.label}
-                </TdWithIcon>
-                <td className={classNames(styles['bnk-op-amount'], 'coz-desktop')}>
-                  <Figure total={operation.amount} currency={operation.currency} coloredPositive signed />
-                </td>
-                <td className={classNames(styles['bnk-op-amount'], 'coz-mobile')}
-                  onClick={() => selectOperation(operation)}>
-                  <Figure total={operation.amount} currency={operation.currency} coloredPositive signed />
-                </td>
-                <td className={styles['bnk-op-action']}>
+                </TdSecondary>}
+                {isDesktop
+                  ? <TdWithIcon className={classNames(styles['bnk-op-desc'], styles[`bnk-table-desc--${operation.category}`])}>
+                    {operation.label}
+                  </TdWithIcon>
+                  : <TdWithIcon className={classNames(styles['bnk-op-desc'], styles[`bnk-table-desc--${operation.category}`])}
+                    onClick={() => selectOperation(operation)}>
+                    {operation.label}
+                  </TdWithIcon>
+                }
+                {isDesktop
+                  ? <TdSecondary className={classNames(styles['bnk-op-amount'])}>
+                    <Figure total={operation.amount} currency={operation.currency} coloredPositive signed />
+                  </TdSecondary>
+                  : <TdSecondary className={classNames(styles['bnk-op-amount'])}
+                    onClick={() => selectOperation(operation)}>
+                    <Figure total={operation.amount} currency={operation.currency} coloredPositive signed />
+                  </TdSecondary>
+                }
+                {isDesktop && <TdSecondary className={styles['bnk-op-action']}>
                   <OperationAction operation={operation} urls={urls} className={styles['bnk-table-actions-link']} />
-                </td>
-                <td className={classNames(styles['bnk-op-actions'], 'coz-desktop')}>
+                </TdSecondary>}
+                {isDesktop && <TdSecondary className={classNames(styles['bnk-op-actions'])}>
                   <OperationMenu operation={operation} urls={urls} />
-                </td>
+                </TdSecondary>}
               </tr>)
             )}
           </tbody>
@@ -75,4 +82,7 @@ const Operations = ({ f, operations, urls, selectOperation }) => {
   )
 }
 
-export default translate()(Operations)
+export default compose(
+  breakpointsAware(),
+  translate()
+)(Operations)

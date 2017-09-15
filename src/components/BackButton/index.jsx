@@ -2,7 +2,7 @@ import React from 'react'
 import { TopbarLeft } from 'ducks/commons/Topbar'
 import styles from './style.styl'
 import withBackSwipe from 'utils/backSwipe'
-import { onlyMobile } from 'utils/mobileAware'
+import { onlyMobile } from 'utils/breakpointsAware'
 import { flowRight as compose } from 'lodash'
 
 /**

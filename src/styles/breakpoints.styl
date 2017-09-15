@@ -1,9 +1,27 @@
 @require('cozy-ui')
 
+extralarge=1439
+large=1200
+medium=1023
+small=768
+tiny=543
+
+tiny-screen()
+    @media (max-width: (tiny/basefont)rem)
+        {block} // @stylint ignore
+
 small-screen()
-    @media (max-width: (768/basefont)rem)
-        {block} // stylint: ignore
+    @media (max-width: (small/basefont)rem)
+        {block} // @stylint ignore
 
 medium-screen()
-    @media (max-width: (1023/basefont)rem)
+    @media (max-width: (medium/basefont)rem)
+        {block} // @stylint ignore
+
+large-screen()
+    @media (max-width: (large/basefont)rem)
+        {block} // @stylint ignore
+
+extra-large-screen()
+    @media (max-width: (extralarge/basefont)rem)
         {block} // @stylint ignore
