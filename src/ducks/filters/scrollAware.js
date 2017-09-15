@@ -22,7 +22,7 @@ export default Wrapped => class extends Component {
 
   componentWillUnmount () {
     const main = getMain()
-    main.removeEventListener(main, 'scroll', this.onScroll)
+    main.removeEventListener('scroll', this.onScroll)
   }
 
   onScroll = throttle(ev => {
