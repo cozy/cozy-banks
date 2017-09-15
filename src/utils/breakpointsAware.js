@@ -6,7 +6,7 @@ const medium = 1023
 const small = 768
 const tiny = 543
 
-const interval = {
+const breakpoints = {
   extraLarge: [large + 1],
   large: [medium + 1, large],
   medium: [small + 1, medium],
@@ -37,7 +37,7 @@ const getBreakpointsStatus = breakpoints => {
  * under 1000px
  *
  */
-const breakpointsAware = (bp = interval) => Wrapped =>
+const breakpointsAware = (bp = breakpoints) => Wrapped =>
   class Aware extends Component {
     state = { breakpoints: getBreakpointsStatus(bp) }
 
@@ -75,7 +75,7 @@ const renderOnlyIf = predicate => Wrapped => class extends Component {
  * rendered on mobile
  */
 export const onlyMobile = compose(
-  breakpointsAware(pick(interval, 'mobile')),
+  breakpointsAware(pick(breakpoints, 'mobile')),
   renderOnlyIf(props => props.breakpoints.mobile)
 )
 
@@ -84,7 +84,7 @@ export const onlyMobile = compose(
  * rendered on tablet
  */
 export const onlyTablet = compose(
-  breakpointsAware(pick(interval, 'tablet')),
+  breakpointsAware(pick(breakpoints, 'tablet')),
   renderOnlyIf(props => props.breakpoints.tablet)
 )
 
