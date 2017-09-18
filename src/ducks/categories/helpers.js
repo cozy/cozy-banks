@@ -1,33 +1,47 @@
-import categoriesMap from './categoriesMap'
+import parentCategory from './categoriesMap'
+import categoryNames from './tree'
 
-// This function builds a map of categories and sub-categories, each containing a list of related transactions, a name and a color
+const getParent = parentCategory.get.bind(parentCategory)
+
+const makeCategory = parent => ({
+  name: parent.name,
+  color: parent.color,
+  transactions: [],
+  subcategories: {}
+})
+
+const makeSubcategory = catId => ({
+  name: categoryNames[catId],
+  transactions: []
+})
+
+// This function builds a map of categories and sub-categories, each containing
+// a list of related transactions, a name and a color
 export const transactionsByCategory = transactions => {
   let categories = {}
 
   for (const transaction of transactions) {
-    // Creates a map of categories, where each entry contains a list of related operations and a breakdown by sub-category
-    let category = categoriesMap.get(operation.category) || categoriesMap.get('uncategorized_others')
+    // Creates a map of categories, where each entry contains a list of
+    // related operations and a breakdown by sub-category
+    const catId = transaction.categoryId
+    const parent = getParent(catId) || getParent('0')
 
     // create a new parent category if necessary
-    if (!categories.hasOwnProperty(category.name)) {
-      categories[category.name] = {
-        name: category.name,
-        color: category.color,
+    if (!categories.hasOwnProperty(parent.name)) {
+      categories[parent.name] = {
+        name: parent.name,
+        color: parent.color,
         transactions: [],
         subcategories: {}
       }
     }
 
-    // create the subcategory if necessary
-    if (!categories[categoryId].subcategories.hasOwnProperty(transaction.category)) {
-      categories[categoryId].subcategories[categoryId] = {
-        name: categoriesMap.get(categoryId).name,
-        transactions: []
-      }
-    }
+    const category = categories[parent.name] || makeCategory(parent)
+    const subcategories = category.subcategories
+    const subcategory = subcategories[catId] || makeSubcategory(catId)
 
-    categories[categoryId].transactions.push(transaction)
-    categories[categoryId].subcategories[categoryId].transactions.push(transaction)
+    category.transactions.push(transaction)
+    subcategory.transactions.push(transaction)
   }
 
   return categories
