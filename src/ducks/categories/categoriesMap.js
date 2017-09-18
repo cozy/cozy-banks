@@ -4,18 +4,18 @@
   Categories
 */
 
-const children = {
-  name: 'children',
+const kids = {
+  name: 'kids',
   color: '#1FA8F1'
 }
 
 const dailyLife = {
-  name: 'daily-life',
+  name: 'dailyLife',
   color: '#FD7461'
 }
 
-const education = {
-  name: 'education',
+const educationAndTraining = {
+  name: 'educationAndTraining',
   color: '#FC6D00'
 }
 
@@ -34,13 +34,13 @@ const income = {
   color: '#35CE68'
 }
 
-const leasures = {
-  name: 'leasures',
+const activities = {
+  name: 'activities',
   color: '#FC4C83'
 }
 
-const outBudget = {
-  name: 'out-budget',
+const excludeFromBudgetCat = {
+  name: 'excludeFromBudgetCat',
   color: '#FF0D3D'
 }
 
@@ -59,7 +59,7 @@ const transportation = {
   color: '#4DCEC5'
 }
 
-const trips = {
+const goingOutAndTravel = {
   name: 'trips',
   color: '#40DE8E'
 }
@@ -70,14 +70,14 @@ const uncategorized = {
 }
 
 export const categoriesMap = new Map([
-  ['children_activities', children],
-  ['pocket_money', children],
-  ['school_insurance', children],
-  ['child-care', children],
-  ['toys', children],
-  ['child_support', children],
-  ['school_restaurant', children],
-  ['children_others', children],
+  ['children_activities', kids],
+  ['pocket_money', kids],
+  ['school_insurance', kids],
+  ['child-care', kids],
+  ['toys', kids],
+  ['child_support', kids],
+  ['school_restaurant', kids],
+  ['children_others', kids],
 
   ['regular_shopping', dailyLife],
   ['pets', dailyLife],
@@ -92,11 +92,11 @@ export const categoriesMap = new Map([
   ['press', dailyLife],
   ['daily_life_others', dailyLife],
 
-  ['lessons', education],
-  ['school_fees', education],
-  ['education_supplies', education],
-  ['student_load_refund', education],
-  ['education_others', education],
+  ['lessons', educationAndTraining],
+  ['school_fees', educationAndTraining],
+  ['education_supplies', educationAndTraining],
+  ['student_load_refund', educationAndTraining],
+  ['education_others', educationAndTraining],
 
   ['health_insurance', health],
   ['health_costs', health],
@@ -124,24 +124,24 @@ export const categoriesMap = new Map([
   ['salary', income],
   ['income_others', income],
 
-  ['leasures_subscription', leasures],
-  ['leasures_lessons', leasures],
-  ['electronic', leasures],
-  ['leasures_supplies', leasures],
-  ['multimedia', leasures],
-  ['hobbies', leasures],
-  ['leasures_others', leasures],
+  ['activities_subscription', activities],
+  ['activities_lessons', activities],
+  ['electronic', activities],
+  ['activities_supplies', activities],
+  ['multimedia', activities],
+  ['hobbies', activities],
+  ['activities_others', activities],
 
-  ['security_purchases', outBudget],
-  ['security_sales', outBudget],
-  ['advances', outBudget],
-  ['refunds', outBudget],
-  ['releasings', outBudget],
-  ['expenses_bill', outBudget],
-  ['deferred_debit', outBudget],
-  ['saving_transfer', outBudget],
-  ['internal_transfer', outBudget],
-  ['out-budget_others', outBudget],
+  ['security_purchases', excludeFromBudgetCat],
+  ['security_sales', excludeFromBudgetCat],
+  ['advances', excludeFromBudgetCat],
+  ['refunds', excludeFromBudgetCat],
+  ['releasings', excludeFromBudgetCat],
+  ['expenses_bill', excludeFromBudgetCat],
+  ['deferred_debit', excludeFromBudgetCat],
+  ['saving_transfer', excludeFromBudgetCat],
+  ['internal_transfer', excludeFromBudgetCat],
+  ['out-budget_others', excludeFromBudgetCat],
 
   ['home_help', services],
   ['financial_consulting', services],
@@ -168,12 +168,12 @@ export const categoriesMap = new Map([
   ['public_transportation', transportation],
   ['transportation_others', transportation],
 
-  ['trips_transportation', trips],
-  ['restaurants', trips],
-  ['cultural_trips', trips],
-  ['relaxation_trips', trips],
-  ['journeys', trips],
-  ['trips_others', trips],
+  ['trips_transportation', goingOutAndTravel],
+  ['restaurants', goingOutAndTravel],
+  ['cultural_trips', goingOutAndTravel],
+  ['relaxation_trips', goingOutAndTravel],
+  ['journeys', goingOutAndTravel],
+  ['trips_others', goingOutAndTravel],
 
   ['cheques', uncategorized],
   ['withdrawals', uncategorized],
