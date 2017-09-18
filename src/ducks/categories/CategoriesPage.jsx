@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react/I18n'
 import Loading from 'components/Loading'
 import { TopbarTitle } from 'ducks/commons/Topbar'
-import { getFilteredOperations } from 'ducks/filters'
-import { fetchOperations, indexOperationsByDate } from 'actions'
-import { operationsByCategory, computeCategorieData } from './helpers'
+import { getFilteredTransactions } from 'ducks/filters'
+import { fetchTransactions, indexTransactionsByDate } from 'actions'
+import { transactionsByCategory, computeCategorieData } from './helpers'
 import Categories from './Categories'
 import BackButton from 'components/BackButton'
 import styles from './CategoriesPage.styl'
@@ -27,7 +27,7 @@ class CategoriesPage extends Component {
 
   async componentDidMount () {
     try {
-      await this.props.fetchOperations()
+      await this.props.fetchTransactions()
     } finally {
       this.setState({isFetching: false})
     }
@@ -55,13 +55,13 @@ class CategoriesPage extends Component {
 }
 
 const mapStateToProps = state => ({
-  categories: computeCategorieData(operationsByCategory(getFilteredOperations(state)))
+  categories: computeCategorieData(transactionsByCategory(getFilteredTransactions(state)))
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchOperations: async () => {
-    const mangoIndex = await dispatch(indexOperationsByDate())
-    await dispatch(fetchOperations(mangoIndex))
+  fetchTransactions: async () => {
+    const mangoIndex = await dispatch(indexTransactionsByDate())
+    await dispatch(fetchTransactions(mangoIndex))
   }
 })
 

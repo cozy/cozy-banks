@@ -26,14 +26,14 @@ class Categories extends Component {
         categories = []
       }
     }
-    let operationsTotal = 0
+    let transactionsTotal = 0
     const globalCurrency = categories.length > 0 ? categories[0].currency : '€'
 
     if (categories.length !== 0) {
       // compute some global data
-      const absoluteOperationsTotal = categories.reduce((total, category) => (total + Math.abs(category.amount)), 0)
+      const absoluteTransactionsTotal = categories.reduce((total, category) => (total + Math.abs(category.amount)), 0)
       for (let category of categories) {
-        category.percentage = Math.round(Math.abs(category.amount) / absoluteOperationsTotal * 100)
+        category.percentage = Math.round(Math.abs(category.amount) / absoluteTransactionsTotal * 100)
         const absoluteSubcategoriesTotal = category.subcategories.reduce((total, category) => (total + Math.abs(category.amount)), 0)
         for (let subcategory of category.subcategories) {
           if (absoluteSubcategoriesTotal === 0) {
@@ -49,7 +49,7 @@ class Categories extends Component {
             return a.amount - b.amount
           }
         })
-        operationsTotal += category.amount
+        transactionsTotal += category.amount
       }
     }
 
@@ -85,7 +85,7 @@ class Categories extends Component {
             {categories.length > 0 && <FigureBlock
               className={styles['bnk-cat-figure']}
               label={titleLabel}
-              total={selectedCat ? selectedCat.amount : operationsTotal}
+              total={selectedCat ? selectedCat.amount : transactionsTotal}
               currency={globalCurrency}
               coloredPositive coloredNegative signed />}
           </div>
@@ -98,7 +98,7 @@ class Categories extends Component {
               <tr>
                 <td className={styles['bnk-table-category-category']}>{t('Categories.headers.categories')}</td>
                 <td className={styles['bnk-table-percentage']}>%</td>
-                {(isDesktop || isTablet) && <td className={styles['bnk-table-operation']}>{t('Categories.headers.operations')}</td>}
+                {(isDesktop || isTablet) && <td className={styles['bnk-table-transaction']}>{t('Categories.headers.transactions')}</td>}
                 <td className={styles['bnk-table-total']}>{t('Categories.headers.total')}</td>
                 {isDesktop && <td className={styles['bnk-table-amount']}>{t('Categories.headers.credit')}</td>}
                 {isDesktop && <td className={styles['bnk-table-amount']}>{t('Categories.headers.debit')}</td>}
@@ -117,8 +117,8 @@ class Categories extends Component {
                     <TdSecondary className={styles['bnk-table-percentage']}>
                       {selectedCategory ? '100 %' : `${category.percentage} %`}
                     </TdSecondary>
-                    {(isDesktop || isTablet) && <TdSecondary className={styles['bnk-table-operation']}>
-                      {category.operationsNumber}
+                    {(isDesktop || isTablet) && <TdSecondary className={styles['bnk-table-transaction']}>
+                      {category.transactionsNumber}
                     </TdSecondary>}
                     <TdSecondary className={styles['bnk-table-total']}>
                       <Figure total={category.credit + category.debit} currency={category.currency} coloredPositive signed />
@@ -137,7 +137,7 @@ class Categories extends Component {
                         {t(`Data.subcategories.${subcategory.name}`)}
                       </td>
                       <TdSecondary className={styles['bnk-table-percentage']}>{`${subcategory.percentage} %`}</TdSecondary>
-                      <TdSecondary className={styles['bnk-table-operation']}>{subcategory.operationsNumber}</TdSecondary>
+                      <TdSecondary className={styles['bnk-table-transaction']}>{subcategory.transactionsNumber}</TdSecondary>
                       <TdSecondary className={styles['bnk-table-total']}>
                         <Figure total={subcategory.credit + subcategory.debit} currency={subcategory.currency} signed />
                       </TdSecondary>

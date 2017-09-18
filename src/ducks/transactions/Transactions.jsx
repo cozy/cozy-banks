@@ -3,33 +3,33 @@ import classNames from 'classnames'
 import compareDesc from 'date-fns/compare_desc'
 import { translate } from 'cozy-ui/react/I18n'
 import { Figure } from 'components/Figure'
-import { Table, TdWithIcon, TdSecondary } from 'components/Table'
-import OperationMenu from './OperationMenu'
-import { OperationAction } from './OperationActions'
 import breakpointsAware from 'utils/breakpointsAware'
 import { flowRight as compose } from 'lodash'
+import { Table, TdWithIcon, TdSecondary } from 'components/Table'
+import TransactionMenu from './TransactionMenu'
+import { TransactionAction } from './TransactionActions'
 
-import styles from './Operations.styl'
-import categoryData from 'utils/linxo-categories.json'
+import styles from './Transactions.styl'
+import categoryData from 'ducks/categories/tree.json'
 
-const getCategory = function (operation) {
-  const categoryId = parseInt(operation.categoryId)
+const getCategory = function (transaction) {
+  const categoryId = parseInt(transaction.categoryId)
   const parentCategoryId = categoryId - (categoryId % 100)
   return categoryData[parentCategoryId.toString()]
 }
 
-const Operations = ({ f, operations, urls, selectOperation, breakpoints }) => {
+const Transactions = ({ f, transactions, urls, selectTransaction, breakpoints }) => {
   const isDesktop = breakpoints.desktop
-  const operationsByDate = {}
+  const transactionsByDate = {}
   let dates = []
 
-  for (const operation of operations) {
-    const date = f(operation.date, 'YYYY-MM-DD')
-    if (operationsByDate[date] === undefined) {
-      operationsByDate[date] = []
+  for (const transaction of transactions) {
+    const date = f(transaction.date, 'YYYY-MM-DD')
+    if (transactionsByDate[date] === undefined) {
+      transactionsByDate[date] = []
       dates.push(date)
     }
-    operationsByDate[date].push(operation)
+    transactionsByDate[date].push(transaction)
   }
   dates = dates.sort(compareDesc)
 
@@ -45,40 +45,40 @@ const Operations = ({ f, operations, urls, selectOperation, breakpoints }) => {
         </tr>
       </thead>
       {dates.map(date => {
-        const operationsOrdered = operationsByDate[date].sort((op1, op2) => compareDesc(op1.date, op2.date))
+        const transactionsOrdered = transactionsByDate[date].sort((op1, op2) => compareDesc(op1.date, op2.date))
         return (
           <tbody>
             <tr className={classNames(styles['bnk-op-date-header'], 'coz-mobile')}>
               <td colspan='6'>{f(date, 'dddd D MMMM')}</td>
             </tr>
-            {operationsOrdered.map(operation =>
+            {transactionsOrdered.map(transaction =>
               (<tr>
                 {isDesktop && <TdSecondary className={classNames(styles['bnk-op-date'])}>
-                  {f(operation.date, 'DD MMMM YYYY')}
+                  {f(transaction.date, 'DD MMMM YYYY')}
                 </TdSecondary>}
                 {isDesktop
-                  ? <TdWithIcon className={classNames(styles['bnk-op-desc'], styles[`bnk-table-desc--${getCategory(operation)}`])}>
-                    {operation.label}
+                  ? <TdWithIcon className={classNames(styles['bnk-op-desc'], styles[`bnk-table-desc--${getCategory(transaction)}`])}>
+                    {transaction.label}
                   </TdWithIcon>
-                  : <TdWithIcon className={classNames(styles['bnk-op-desc'], styles[`bnk-table-desc--${getCategory(operation)}`])}
-                    onClick={() => selectOperation(operation)}>
-                    {operation.label}
+                  : <TdWithIcon className={classNames(styles['bnk-op-desc'], styles[`bnk-table-desc--${getCategory(transaction)}`])}
+                    onClick={() => selectTransaction(transaction)}>
+                    {transaction.label}
                   </TdWithIcon>
                 }
                 {isDesktop
                   ? <TdSecondary className={classNames(styles['bnk-op-amount'])}>
-                    <Figure total={operation.amount} currency={operation.currency} coloredPositive signed />
+                    <Figure total={transaction.amount} currency={transaction.currency} coloredPositive signed />
                   </TdSecondary>
                   : <TdSecondary className={classNames(styles['bnk-op-amount'])}
-                    onClick={() => selectOperation(operation)}>
-                    <Figure total={operation.amount} currency={operation.currency} coloredPositive signed />
+                    onClick={() => selectTransaction(transaction)}>
+                    <Figure total={transaction.amount} currency={transaction.currency} coloredPositive signed />
                   </TdSecondary>
                 }
                 {isDesktop && <TdSecondary className={styles['bnk-op-action']}>
-                  <OperationAction operation={operation} urls={urls} className={styles['bnk-table-actions-link']} />
+                  <TransactionAction transaction={transaction} urls={urls} className={styles['bnk-table-actions-link']} />
                 </TdSecondary>}
                 {isDesktop && <TdSecondary className={classNames(styles['bnk-op-actions'])}>
-                  <OperationMenu operation={operation} urls={urls} />
+                  <TransactionMenu transaction={transaction} urls={urls} />
                 </TdSecondary>}
               </tr>)
             )}
@@ -92,4 +92,4 @@ const Operations = ({ f, operations, urls, selectOperation, breakpoints }) => {
 export default compose(
   breakpointsAware(),
   translate()
-)(Operations)
+)(Transactions)

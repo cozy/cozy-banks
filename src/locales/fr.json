@@ -70,7 +70,7 @@
     "title": "Mouvements",
     "no-movements": "Pas de mouvements à afficher",
     "total": "Total",
-    "operations": "Opérations",
+    "transactions": "Opérations",
     "debit": "Débit",
     "credit": "Crédit",
     "actions": {
@@ -103,7 +103,7 @@
     },
     "headers": {
       "categories": "Catégories",
-      "operations": "Opérations",
+      "transactions": "Opérations",
       "debit": "Débit",
       "credit": "Crédit",
       "total": "Total"
@@ -276,7 +276,7 @@
         }
       }
     },
-    "if_operation_greater": {
+    "if_transaction_greater": {
       "title": "Montant de mouvement",
       "description": "Vous recevrez une notification, si un mouvement est supérieur à",
       "notification": {
@@ -289,7 +289,7 @@
           "content": "%{label}"
         },
         "others": {
-          "title": "%{operationsLength} mouvements de plus de %{maxAmount}€",
+          "title": "%{transactionsLength} mouvements de plus de %{maxAmount}€",
           "debitContent": "Dépense de %{amount}%{currency} avec le libellé '%{label}'.",
           "creditContent": "Versement de %{amount}%{currency} avec le libellé '%{label}'."
         }

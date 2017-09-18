@@ -1,19 +1,19 @@
 import React from 'react'
 import { Menu } from 'ducks/menu'
 import { translate } from 'cozy-ui/react/I18n'
-import OperationActions from './OperationActions'
+import TransactionActions from './TransactionActions'
 
-import styles from './OperationMenu.styl'
+import styles from './TransactionMenu.styl'
 
-const OperationMenu = ({t, operation, urls}) => (
+const TransactionMenu = ({t, transaction, urls}) => (
   <Menu
     title={t('Movements.actions.more')}
     disabled={false}
     className={styles['fil-toolbar-menu']}
     buttonClassName={styles['fil-toolbar-more-btn']}
   >
-    <OperationActions operation={operation} urls={urls} withoutDefault />
+    <TransactionActions transaction={transaction} urls={urls} withoutDefault />
   </Menu>
 )
 
-export default translate()(OperationMenu)
+export default translate()(TransactionMenu)

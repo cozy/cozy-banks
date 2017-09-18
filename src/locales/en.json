@@ -200,7 +200,7 @@
       "debit": "Total excl. earnings"
     },
     "headers": {
-      "operations": "Operations",
+      "transactions": "Transactions",
       "credit": "Credit",
       "total": "Total",
       "categories": "Categories",
@@ -222,7 +222,7 @@
     "title": "Movements",
     "no-movements": "No movements to display",
     "total": "Total",
-    "operations": "Operations",
+    "transactions": "Transactions",
     "debit": "Debit",
     "credit": "Credit",
     "actions": {
@@ -265,7 +265,7 @@
   }
 }
     },
-    "if_operation_greater": {
+    "if_transaction_greater": {
       "description": "You will receive a notification if a movement is greater than",
       "title": "Movement amount",
       "notification": {
@@ -278,7 +278,7 @@
           "content": "%{label}"
         },
         "others": {
-          "title": "%{operationsLength} operations greater then %{maxAmount}€",
+          "title": "%{transactionsLength} transactions greater then %{maxAmount}€",
           "debitContent": "Debit of %{amount}%{currency} with label '%{label}'.",
           "creditContent": "Credit of %{amount}%{currency} with label '%{label}'."
         }

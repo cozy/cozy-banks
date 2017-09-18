@@ -38,9 +38,9 @@ class Notifications extends Component {
         description: 'Notifications.if_balance_lower.description'
       },
       {
-        title: 'Notifications.if_operation_greater.title',
-        name: 'operationGreater',
-        description: 'Notifications.if_operation_greater.description'
+        title: 'Notifications.if_transaction_greater.title',
+        name: 'transactionGreater',
+        description: 'Notifications.if_transaction_greater.description'
       },
       {
         title: 'Notifications.when_month_revenue.title',
