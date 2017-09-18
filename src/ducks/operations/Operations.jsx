@@ -10,6 +10,13 @@ import breakpointsAware from 'utils/breakpointsAware'
 import { flowRight as compose } from 'lodash'
 
 import styles from './Operations.styl'
+import categoryData from 'utils/linxo-categories.json'
+
+const getCategory = function (operation) {
+  const categoryId = parseInt(operation.categoryId)
+  const parentCategoryId = categoryId - (categoryId % 100)
+  return categoryData[parentCategoryId.toString()]
+}
 
 const Operations = ({ f, operations, urls, selectOperation, breakpoints }) => {
   const isDesktop = breakpoints.desktop
@@ -50,10 +57,10 @@ const Operations = ({ f, operations, urls, selectOperation, breakpoints }) => {
                   {f(operation.date, 'DD MMMM YYYY')}
                 </TdSecondary>}
                 {isDesktop
-                  ? <TdWithIcon className={classNames(styles['bnk-op-desc'], styles[`bnk-table-desc--${operation.category}`])}>
+                  ? <TdWithIcon className={classNames(styles['bnk-op-desc'], styles[`bnk-table-desc--${getCategory(operation)}`])}>
                     {operation.label}
                   </TdWithIcon>
-                  : <TdWithIcon className={classNames(styles['bnk-op-desc'], styles[`bnk-table-desc--${operation.category}`])}
+                  : <TdWithIcon className={classNames(styles['bnk-op-desc'], styles[`bnk-table-desc--${getCategory(operation)}`])}
                     onClick={() => selectOperation(operation)}>
                     {operation.label}
                   </TdWithIcon>
