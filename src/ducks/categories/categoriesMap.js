@@ -4,7 +4,7 @@
   Categories
 */
 
-const tree = require('./tree')
+import tree from './tree'
 
 const parentCategories = {
   kids: {
