@@ -4,7 +4,7 @@ import { Item } from 'ducks/menu'
 import { translate } from 'cozy-ui/react/I18n'
 import FileOpener from 'components/FileOpener'
 import Spinner from 'cozy-ui/react/Spinner'
-import styles from './OperationActions.styl'
+import styles from './TransactionActions.styl'
 import _ from 'lodash'
 import flash from 'ducks/flash'
 
@@ -15,26 +15,26 @@ const BILL_LINK = 'bill'
 const URL_LINK = 'url'
 
 // helpers
-const getAppName = (urls, operation) => {
+const getAppName = (urls, transaction) => {
   let appName
   Object.keys(urls).map(key => {
-    if (urls[key] !== undefined && operation.label.indexOf(key) !== -1) {
+    if (urls[key] !== undefined && transaction.label.indexOf(key) !== -1) {
       appName = key
     }
   })
   return appName
 }
 
-const getOperationBill = operation => _.get(operation, 'bills[0]')
+const getTransactionBill = transaction => _.get(transaction, 'bills[0]')
 
-const getLinkType = (operation, urls) => {
-  const action = operation.action
-  const appName = getAppName(urls, operation)
-  if (operation.category === 'health_costs' && urls['HEALTH']) {
+const getLinkType = (transaction, urls) => {
+  const action = transaction.action
+  const appName = getAppName(urls, transaction)
+  if (transaction.category === 'health_costs' && urls['HEALTH']) {
     return HEALTH_LINK
   } else if (appName) {
     return APP_LINK
-  } else if (getOperationBill(operation)) {
+  } else if (getTransactionBill(transaction)) {
     return BILL_LINK
   } else if (action && action.type === URL_LINK) {
     return URL_LINK
@@ -65,8 +65,8 @@ class BillAction extends Component {
   }
 
   fetchFile = () => {
-    const { operation } = this.props
-    const billRef = getOperationBill(operation)
+    const { transaction } = this.props
+    const billRef = getTransactionBill(transaction)
     const [doctype, id] = billRef.split(':')
     return cozy.client.data.find(doctype, id).then(doc => {
       const [doctype, id] = doc.invoice.split(':')
@@ -92,8 +92,8 @@ class BillAction extends Component {
   }
 }
 
-export const OperationAction = ({operation, urls, onClick, type, className}) => {
-  type = type || getLinkType(operation, urls)
+export const TransactionAction = ({transaction, urls, onClick, type, className}) => {
+  type = type || getLinkType(transaction, urls)
   if (type === undefined) {
     return
   }
@@ -109,11 +109,11 @@ export const OperationAction = ({operation, urls, onClick, type, className}) => 
   if (type === HEALTH_LINK) {
     options.href = urls['HEALTH'] + '/#/remboursements'
   } else if (type === APP_LINK) {
-    const appName = getAppName(urls, operation)
+    const appName = getAppName(urls, transaction)
     options.href = urls[appName]
     options.appName = appName
   } else if (type === URL_LINK) {
-    const action = operation.action
+    const action = transaction.action
     options.actionValue = action.trad
     options.target = action.target
     options.href = action.url
@@ -121,7 +121,7 @@ export const OperationAction = ({operation, urls, onClick, type, className}) => 
   }
 
   if (type === BILL_LINK) {
-    widget = <BillAction operation={operation} {...options} />
+    widget = <BillAction transaction={transaction} {...options} />
   } else {
     widget = <Action {...options} />
   }
@@ -129,13 +129,13 @@ export const OperationAction = ({operation, urls, onClick, type, className}) => 
   return widget ? <Item>{widget}</Item> : null
 }
 
-const OperationActions = ({operation, urls, withoutDefault, onClose}) => {
-  const type = getLinkType(operation, urls)
+const TransactionActions = ({transaction, urls, withoutDefault, onClose}) => {
+  const type = getLinkType(transaction, urls)
   const displayDefaultAction = !withoutDefault && type
   return (
     <div>
       {displayDefaultAction &&
-        <OperationAction operation={operation} urls={urls} onClick={onClose} />}
+        <TransactionAction transaction={transaction} urls={urls} onClick={onClose} />}
       <Item>
         <Action name='attach' onClick={onClose} />
       </Item>
@@ -149,4 +149,4 @@ const OperationActions = ({operation, urls, withoutDefault, onClose}) => {
   )
 }
 
-export default OperationActions
+export default TransactionActions

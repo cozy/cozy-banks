@@ -4,21 +4,21 @@ import { translate } from 'cozy-ui/react/I18n'
 import { FigureBlock } from 'components/Figure'
 import Loading from 'components/Loading'
 import { Topbar } from 'ducks/commons'
-import { SelectDates, getFilteredOperations } from 'ducks/filters'
-import { fetchOperations, indexOperationsByDate } from 'actions'
+import { SelectDates, getFilteredTransactions } from 'ducks/filters'
+import { fetchTransactions, indexTransactionsByDate } from 'actions'
 import { getUrlBySource, findApps } from 'ducks/apps'
 
-import OperationsWithSelection from './OperationsWithSelection'
-import styles from './OperationsPage.styl'
+import TransactionsWithSelection from './TransactionsWithSelection'
+import styles from './TransactionsPage.styl'
 
-class OperationsPage extends Component {
+class TransactionsPage extends Component {
   state = {
-    isFetching: this.props.filteredOperations.length === 0
+    isFetching: this.props.filteredTransactions.length === 0
   }
 
   async componentDidMount () {
     try {
-      await this.props.fetchOperations()
+      await this.props.fetchTransactions()
     } finally {
       this.setState({isFetching: false})
     }
@@ -26,17 +26,17 @@ class OperationsPage extends Component {
   }
 
   render () {
-    const { t, filteredOperations, urls } = this.props
+    const { t, filteredTransactions, urls } = this.props
     if (this.state.isFetching) {
       return <Loading loadingType='movements' />
     }
     let credits = 0
     let debits = 0
-    filteredOperations.forEach((operation) => {
-      if (operation.amount > 0) {
-        credits += operation.amount
+    filteredTransactions.forEach((transaction) => {
+      if (transaction.amount > 0) {
+        credits += transaction.amount
       } else {
-        debits += operation.amount
+        debits += transaction.amount
       }
     })
     return (
@@ -45,15 +45,15 @@ class OperationsPage extends Component {
           <h2>{t('Movements.title')}</h2>
         </Topbar>
         <SelectDates />
-        {filteredOperations.length !== 0 && <div className={styles['bnk-mov-figures']}>
+        {filteredTransactions.length !== 0 && <div className={styles['bnk-mov-figures']}>
           <FigureBlock label={t('Movements.total')} total={credits + debits} currency='€' coloredPositive coloredNegative signed />
-          <FigureBlock label={t('Movements.operations')} total={filteredOperations.length} decimalNumbers={0} />
+          <FigureBlock label={t('Movements.transactions')} total={filteredTransactions.length} decimalNumbers={0} />
           <FigureBlock label={t('Movements.debit')} total={debits} currency='€' signed />
           <FigureBlock label={t('Movements.credit')} total={credits} currency='€' signed />
         </div>}
-        {filteredOperations.length === 0
+        {filteredTransactions.length === 0
           ? <p>{t('Movements.no-movements')}</p>
-          : <OperationsWithSelection operations={filteredOperations} urls={urls} />}
+          : <TransactionsWithSelection transactions={filteredTransactions} urls={urls} />}
       </div>
     )
   }
@@ -61,22 +61,22 @@ class OperationsPage extends Component {
 
 const mapStateToProps = state => ({
   urls: {
-    // this keys are used on Operations.jsx to:
-    // - find operation label
+    // this keys are used on Transactions.jsx to:
+    // - find transaction label
     // - display appName in translate `Movements.actions.app`
     MAIF: getUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-maif'),
     HEALTH: getUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-sante'),
     EDF: getUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-edf')
   },
-  filteredOperations: getFilteredOperations(state)
+  filteredTransactions: getFilteredTransactions(state)
 })
 
 const mapDispatchToProps = dispatch => ({
   fetchApps: () => dispatch(findApps()),
-  fetchOperations: async () => {
-    const mangoIndex = await dispatch(indexOperationsByDate())
-    await dispatch(fetchOperations(mangoIndex))
+  fetchTransactions: async () => {
+    const mangoIndex = await dispatch(indexTransactionsByDate())
+    await dispatch(fetchTransactions(mangoIndex))
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(translate()(OperationsPage))
+export default connect(mapStateToProps, mapDispatchToProps)(translate()(TransactionsPage))

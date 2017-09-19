@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import { createSelector } from 'reselect'
 import { startOfMonth, endOfMonth, isAfter, isBefore, parse } from 'date-fns'
 import SelectDates from './SelectDates'
-import { getOperations, getGroups, getAccounts } from 'selectors'
+import { getTransactions, getGroups, getAccounts } from 'selectors'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import _ from 'lodash'
 
@@ -79,23 +79,23 @@ const getAccountIds = state => {
   return accountIds
 }
 
-export const getFilteredOperations = createSelector([getOperations, getAccountIds, getStartDate, getEndDate],
-  (operations, accountIds, startDate, endDate) => {
+export const getFilteredTransactions = createSelector([getTransactions, getAccountIds, getStartDate, getEndDate],
+  (transactions, accountIds, startDate, endDate) => {
     if (accountIds && accountIds.length > 0) {
-      operations = filterByAccountIds(operations, accountIds)
+      transactions = filterByAccountIds(transactions, accountIds)
     }
-    return filterByDates(operations, startDate, endDate)
+    return filterByDates(transactions, startDate, endDate)
   }
 )
 
 // filters
-const filterByDates = (operations, startDate, endDate) => operations.filter(operation => {
-  const date = parse(operation.date)
+const filterByDates = (transactions, startDate, endDate) => transactions.filter(transaction => {
+  const date = parse(transaction.date)
   return isAfter(date, startDate) && isBefore(date, endDate)
 })
 
-const filterByAccountIds = (operations, accountIds) => operations.filter(operation => {
-  return accountIds.indexOf(operation.account) !== -1
+const filterByAccountIds = (transactions, accountIds) => transactions.filter(transaction => {
+  return accountIds.indexOf(transaction.account) !== -1
 })
 
 // actions
@@ -103,9 +103,9 @@ export const addFilterByDates = (startDate, endDate) => ({ type: FILTER_BY_DATES
 export const resetAccountOrGroup = () => ({ type: RESET_ACCOUNT_OR_GROUP })
 export const filterByAccount = account => ({ type: FILTER_BY_ACCOUNT, id: account._id })
 export const filterByGroup = group => ({ type: FILTER_BY_GROUP, id: group._id })
-export const addFilterForMostRecentOperations = operations => {
-  const mostRecentOperation = _(operations).sortBy('date').last()
-  const date = mostRecentOperation ? mostRecentOperation.date : new Date()
+export const addFilterForMostRecentTransactions = transactions => {
+  const mostRecentTransaction = _(transactions).sortBy('date').last()
+  const date = mostRecentTransaction ? mostRecentTransaction.date : new Date()
   return addFilterByDates(startOfMonth(date), endOfMonth(date))
 }
 // components

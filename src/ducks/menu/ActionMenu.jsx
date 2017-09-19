@@ -4,21 +4,21 @@ import { translate } from 'cozy-ui/react/I18n'
 import Hammer from 'hammerjs'
 
 import styles from './ActionMenu.styl'
-import styles2 from '../operations/Operations.styl'
-import OperationActions from '../operations/OperationActions'
+import styles2 from '../transactions/Transactions.styl'
+import TransactionActions from '../transactions/TransactionActions'
 import Backdrop from './Backdrop'
 import { Figure } from 'components/Figure'
 
-const MenuHeaderOperation = translate()(({ f, operation }) => (
-  <div className={classNames(styles['menu-header'], styles2[`bnk-table-desc--${operation.category}`], styles2['coz-table-cell'])}>
+const MenuHeaderTransaction = translate()(({ f, transaction }) => (
+  <div className={classNames(styles['menu-header'], styles2[`bnk-table-desc--${transaction.category}`], styles2['coz-table-cell'])}>
     <div className={styles['menu-header-left']}>
-      <h3>{operation.label}</h3>
-      <span>{f(operation.date, 'dddd DD MMMM - h[h]mm')}</span>
+      <h3>{transaction.label}</h3>
+      <span>{f(transaction.date, 'dddd DD MMMM - h[h]mm')}</span>
     </div>
     <div className={styles['menu-header-right']}>
       <Figure
-        total={operation.amount}
-        currency={operation.currency}
+        total={transaction.amount}
+        currency={transaction.currency}
         signed
         coloredPositive
       />
@@ -26,11 +26,11 @@ const MenuHeaderOperation = translate()(({ f, operation }) => (
   </div>
 ))
 
-const Menu = ({ operation, urls, onClose }) => (
+const Menu = ({ transaction, urls, onClose }) => (
   <div className={styles['fil-actionmenu']}>
-    <MenuHeaderOperation operation={operation} />
+    <MenuHeaderTransaction transaction={transaction} />
     <hr />
-    <OperationActions onClose={onClose} operation={operation} urls={urls} />
+    <TransactionActions onClose={onClose} transaction={transaction} urls={urls} />
   </div>
 )
 

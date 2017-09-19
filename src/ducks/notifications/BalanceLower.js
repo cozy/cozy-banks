@@ -15,7 +15,7 @@ class BalanceLower {
     return accounts.filter(account => account.balance < this.lowerBalance)
   }
 
-  async sendNotification (accounts, operations) {
+  async sendNotification (accounts, transactions) {
     const accountsFiltered = this.filter(accounts)
     if (accountsFiltered.length === 0) return
 
@@ -24,19 +24,19 @@ class BalanceLower {
     if (accountsFiltered.length === 1) {
       translateKey += 'one'
       const account = accountsFiltered[0]
-      const operationsFiltered = operations.filter(op => op.account === account._id)
+      const transactionsFiltered = transactions.filter(op => op.account === account._id)
       notification.title = this.t(`${translateKey}.title`, {
         balance: account.balance,
         currency: '€',
         label: account.label
       })
       notification.content = ''
-      for (const operation of operationsFiltered) {
-        const key = operation.amount > 0 ? 'credit' : 'debit'
+      for (const transaction of transactionsFiltered) {
+        const key = transaction.amount > 0 ? 'credit' : 'debit'
         notification.content += this.t(`${translateKey}.${key}Content`, {
-          amount: operation.amount,
-          currency: operation.currency,
-          label: operation.label
+          amount: transaction.amount,
+          currency: transaction.currency,
+          label: transaction.label
         }) + '\n'
       }
     } else {

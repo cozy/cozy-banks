@@ -15,7 +15,7 @@ const DEFAULTS_SETTINGS = {
       value: 100,
       enabled: false
     },
-    operationGreater: {
+    transactionGreater: {
       value: 100,
       enabled: false
     },
