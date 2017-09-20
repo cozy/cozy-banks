@@ -8,6 +8,7 @@ import _ from 'lodash'
 import flash from 'ducks/flash'
 import classNames from 'classnames'
 import styles from './TransactionActions.styl'
+import palette from 'utils/palette.json'
 
 import bellIcon from 'assets/icons/actions/icon-bell-16.svg'
 import linkOutIcon from 'assets/icons/actions/icon-link-out.svg'
@@ -62,7 +63,7 @@ const getLinkType = (transaction, urls) => {
 }
 
 // components
-export const Action = translate()(({t, actionValue, name, appName, className, color = '#297ef2', ...rest}) => (
+export const Action = translate()(({t, actionValue, name, appName, className, color = palette['dodger-blue'], ...rest}) => (
   <a className={classNames(className, styles['action'])} {...rest}>
     {icons[name] && <Icon icon={icons[name]} color={color} />}
     {actionValue || t(`Movements.actions.${name}`, { appName: appName })}
@@ -157,13 +158,13 @@ const TransactionActions = ({transaction, urls, withoutDefault, onClose}) => {
       {displayDefaultAction &&
         <TransactionAction transaction={transaction} urls={urls} onClick={onClose} />}
       <Item>
-        <Action name={ATTACH_LINK} onClick={onClose} color='#95999D' />
+        <Action name={ATTACH_LINK} onClick={onClose} color={palette['cool-grey']} />
       </Item>
       <Item>
-        <Action name={COMMENT_LINK} onClick={onClose} color='#95999D' />
+        <Action name={COMMENT_LINK} onClick={onClose} color={palette['cool-grey']} />
       </Item>
       <Item>
-        <Action name={ALERT_LINK} onClick={onClose} color='#95999D' />
+        <Action name={ALERT_LINK} onClick={onClose} color={palette['cool-grey']} />
       </Item>
     </div>
   )
