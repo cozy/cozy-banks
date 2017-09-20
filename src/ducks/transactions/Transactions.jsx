@@ -8,6 +8,7 @@ import { flowRight as compose } from 'lodash'
 import { Table, TdWithIcon, TdSecondary } from 'components/Table'
 import TransactionMenu from './TransactionMenu'
 import { TransactionAction } from './TransactionActions'
+import { formatLabel } from './helpers'
 
 import styles from './Transactions.styl'
 import categoryData from 'ducks/categories/tree.json'
@@ -51,18 +52,18 @@ const Transactions = ({ f, transactions, urls, selectTransaction, breakpoints })
             <tr className={classNames(styles['bnk-op-date-header'], 'coz-mobile')}>
               <td colspan='6'>{f(date, 'dddd D MMMM')}</td>
             </tr>
-            {transactionsOrdered.map(transaction =>
-              (<tr>
+            {transactionsOrdered.map(transaction => (
+              <tr>
                 {isDesktop && <TdSecondary className={classNames(styles['bnk-op-date'])}>
                   {f(transaction.date, 'DD MMMM YYYY')}
                 </TdSecondary>}
                 {isDesktop
                   ? <TdWithIcon className={classNames(styles['bnk-op-desc'], styles[`bnk-table-desc--${getCategory(transaction)}`])}>
-                    {transaction.label}
+                    {formatLabel(transaction.label)}
                   </TdWithIcon>
                   : <TdWithIcon className={classNames(styles['bnk-op-desc'], styles[`bnk-table-desc--${getCategory(transaction)}`])}
                     onClick={() => selectTransaction(transaction)}>
-                    {transaction.label}
+                    {formatLabel(transaction.label)}
                   </TdWithIcon>
                 }
                 {isDesktop
@@ -80,8 +81,8 @@ const Transactions = ({ f, transactions, urls, selectTransaction, breakpoints })
                 {isDesktop && <TdSecondary className={classNames(styles['bnk-op-actions'])}>
                   <TransactionMenu transaction={transaction} urls={urls} />
                 </TdSecondary>}
-              </tr>)
-            )}
+              </tr>
+            ))}
           </tbody>
         )
       })}
