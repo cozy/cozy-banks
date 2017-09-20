@@ -93,7 +93,7 @@ class BillAction extends Component {
       const [doctype, id] = doc.invoice.split(':')
       this.setState({file: {doctype, id}})
     }).catch(() => {
-      flash('error', `Impossible de trouver la facture associée (${doctype}:${id}])`)
+      flash('error', `Impossible de trouver la facture associée (${doctype}:${id})`)
     })
   }
 
