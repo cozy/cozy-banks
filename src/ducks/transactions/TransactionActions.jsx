@@ -48,7 +48,7 @@ const getAppName = (urls, transaction) => {
 const getTransactionBill = transaction => _.get(transaction, 'bills[0]')
 
 const isHealthCategory = (categoryId) =>
-  categoryId == '400600' || categoryId == '400610' || categoryId == '400620'
+  categoryId === '400600' || categoryId === '400610' || categoryId === '400620'
 
 const getLinkType = (transaction, urls) => {
   const action = transaction.action
