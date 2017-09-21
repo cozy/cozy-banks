@@ -47,10 +47,13 @@ const getAppName = (urls, transaction) => {
 
 const getTransactionBill = transaction => _.get(transaction, 'bills[0]')
 
+const isHealthCategory = (categoryId) =>
+  categoryId == '400600' || categoryId == '400610' || categoryId == '400620'
+
 const getLinkType = (transaction, urls) => {
   const action = transaction.action
   const appName = getAppName(urls, transaction)
-  if (transaction.category === 'health_costs' && urls['HEALTH']) {
+  if (isHealthCategory(transaction.categoryId) && urls['HEALTH']) {
     return HEALTH_LINK
   } else if (appName) {
     return APP_LINK
