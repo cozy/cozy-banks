@@ -1760,9 +1760,9 @@ cozy-slug@^0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/cozy-slug/-/cozy-slug-0.2.2.tgz#dcb60025334b5bc045270d4dc078f0508b29590f"
 
-"cozy-ui@git://github.com/cozy/cozy-ui.git#3b3e711122392df5cc46fbe2662b55d7eee5af24":
-  version "3.0.0-beta45"
-  resolved "git://github.com/cozy/cozy-ui.git#3b3e711122392df5cc46fbe2662b55d7eee5af24"
+"cozy-ui@git://github.com/cozy/cozy-ui.git#9bbd5f0405b6151ea4a0a1585d93f66a67231d98":
+  version "3.0.0-beta46"
+  resolved "git://github.com/cozy/cozy-ui.git#9bbd5f0405b6151ea4a0a1585d93f66a67231d98"
   dependencies:
     classnames "^2.2.5"
     md5 "^2.2.0"
