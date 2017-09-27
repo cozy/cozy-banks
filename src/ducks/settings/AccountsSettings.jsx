@@ -3,7 +3,7 @@ import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import { translate, Button, Icon } from 'cozy-ui/react'
 import { getSharingInfo } from 'reducers'
-import { groupBy } from 'lodash'
+import { groupBy, flowRight as compose } from 'lodash'
 import Table from 'components/Table'
 import Loading from 'components/Loading'
 import { cozyConnect, fetchCollection } from 'redux-cozy-client'
@@ -19,7 +19,7 @@ import { ACCOUNT_DOCTYPE } from 'doctypes'
 import AccountSharingStatus from 'components/AccountSharingStatus'
 
 // TODO react-router v4
-const _AccountLine = ({account, router}) => (
+const _AccountLine = ({account, router, t}) => (
   <tr onClick={() => router.push(`/settings/accounts/${account.id}`)} className={styles.AcnsStg__accountRow}>
     <td className={styles.AcnsStg__libelle}>
       {account.label}
@@ -31,7 +31,7 @@ const _AccountLine = ({account, router}) => (
       {account.number}
     </td>
     <td className={styles.AcnsStg__type}>
-      {account.type}
+      {t(`AccountDetails.types.${account.type}`)}
     </td>
     <td className={styles.AcnsStg__shared}>
       {<AccountSharingStatus withText account={account} />}
@@ -40,7 +40,7 @@ const _AccountLine = ({account, router}) => (
   </tr>
 )
 
-const AccountLine = withRouter(_AccountLine)
+const AccountLine = compose(translate(), withRouter)(_AccountLine)
 
 const renderAccount = account => <AccountLine account={account} />
 

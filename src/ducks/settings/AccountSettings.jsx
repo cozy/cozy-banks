@@ -82,7 +82,7 @@ class _GeneralSettings extends Component {
           </tr>
           <tr>
             <td>{t('AccountDetails.type')}</td>
-            <td>{account.type}</td>
+            <td>{t(`AccountDetails.types.${account.type}`)}</td>
           </tr>
         </table>
         <div>

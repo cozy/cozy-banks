@@ -28,7 +28,13 @@
     "label": "Label",
     "institutionLabel": "Bank",
     "number": "Number",
-    "type": "Type"
+    "type": "Type",
+    "types": {
+      "Checkings": "Checkings",
+      "Savings": "Savings",
+      "CreditCard": "Credit card",
+      "Loan": "Loan"
+    }
   },
 
   "AccountSettings": {
