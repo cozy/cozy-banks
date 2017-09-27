@@ -32,17 +32,15 @@ export const transactionsByCategory = transactions => {
 
     // create a new parent category if necessary
     if (!categories.hasOwnProperty(parent.name)) {
-      categories[parent.name] = {
-        name: parent.name,
-        color: parent.color,
-        transactions: [],
-        subcategories: {}
-      }
+      categories[parent.name] = makeCategory(parent)
     }
+    const category = categories[parent.name]
 
-    const category = categories[parent.name] || makeCategory(parent)
-    const subcategories = category.subcategories
-    const subcategory = subcategories[catId] || makeSubcategory(catId)
+    // create a new subcategory if necessary
+    if (!category.subcategories.hasOwnProperty(catId)) {
+      category.subcategories[catId] = makeSubcategory(catId)
+    }
+    const subcategory = category.subcategories[catId]
 
     category.transactions.push(transaction)
     subcategory.transactions.push(transaction)
