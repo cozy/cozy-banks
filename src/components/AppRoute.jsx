@@ -25,7 +25,7 @@ const AppRoute = (
         <Route path='groups/:groupId' component={GroupSettings} />
         <Route path='accounts/:accountId' component={AccountSettings} />
         <Route component={Settings}>
-          <IndexRoute component={AccountsSettings} />
+          <IndexRoute component={Notifications} />
           <Route path='accounts' component={AccountsSettings} />
           <Route path='groups' component={GroupsSettings} />
           <Route path='notifications' component={Notifications} />
