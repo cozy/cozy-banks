@@ -36,7 +36,7 @@ class CategoriesPage extends Component {
   render ({t, categories}, {isFetching, withIncome, selectedCategory}) {
     // compute the filter to use
     if (!withIncome) {
-      categories = categories.filter(category => (category.name !== 'income'))
+      categories = categories.filter(category => (category.name !== 'incomeCat'))
     }
     return (
       <div className={styles['bnk-cat-page']}>

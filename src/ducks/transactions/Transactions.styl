@@ -19,6 +19,21 @@
     .bnk-op-actions
         maxed-flex-basis 10%
 
+    .bnk-transaction-mobile
+        .icon
+            flex 0 0 4em
+            padding-top 0
+            padding-bottom 0
+        .content
+            flex 1 0 auto
+            display flex
+            align-items center
+            padding-left 0
+            .label
+                flex 1 0 60%
+            .amount
+                flex 1 0 40%
+                text-align right
     tbody
         .bnk-op-amount
         .bnk-op-desc
@@ -31,9 +46,10 @@
         .bnk-op-amount
             cursor pointer
             maxed-flex-basis 40%
+        .bnk-op-actions
+            width 150px
         .bnk-op-date
         .bnk-op-action
-        .bnk-op-actions
             display none
 
         tbody:last-child
@@ -62,9 +78,6 @@
 
             > div
                 float right
-
-    .bnk-op-date-header
-        display none
 
 // For now, all mouvements from same category use the same icon
 categories = kids dailyLife educationAndTraining health homeAndRealEstate incomeCat activities excludeFromBudgetCat services tax transportation goingOutAndTravel uncategorized

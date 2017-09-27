@@ -42,17 +42,17 @@ class TransactionsPage extends Component {
     return (
       <div className={styles['bnk-mov-page']}>
         <Topbar>
-          <h2>{t('Movements.title')}</h2>
+          <h2>{t('Transactions.title')}</h2>
         </Topbar>
         <SelectDates />
         {filteredTransactions.length !== 0 && <div className={styles['bnk-mov-figures']}>
-          <FigureBlock label={t('Movements.total')} total={credits + debits} currency='€' coloredPositive coloredNegative signed />
-          <FigureBlock label={t('Movements.transactions')} total={filteredTransactions.length} decimalNumbers={0} />
-          <FigureBlock label={t('Movements.debit')} total={debits} currency='€' signed />
-          <FigureBlock label={t('Movements.credit')} total={credits} currency='€' signed />
+          <FigureBlock label={t('Transactions.total')} total={credits + debits} currency='€' coloredPositive coloredNegative signed />
+          <FigureBlock label={t('Transactions.transactions')} total={filteredTransactions.length} decimalNumbers={0} />
+          <FigureBlock label={t('Transactions.debit')} total={debits} currency='€' signed />
+          <FigureBlock label={t('Transactions.credit')} total={credits} currency='€' signed />
         </div>}
         {filteredTransactions.length === 0
-          ? <p>{t('Movements.no-movements')}</p>
+          ? <p>{t('Transactions.no-movements')}</p>
           : <TransactionsWithSelection transactions={filteredTransactions} urls={urls} />}
       </div>
     )
@@ -63,7 +63,7 @@ const mapStateToProps = state => ({
   urls: {
     // this keys are used on Transactions.jsx to:
     // - find transaction label
-    // - display appName in translate `Movements.actions.app`
+    // - display appName in translate `Transactions.actions.app`
     MAIF: getUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-maif'),
     HEALTH: getUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-sante'),
     EDF: getUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-edf')

@@ -15,6 +15,10 @@ const makeSubcategory = catId => ({
   transactions: []
 })
 
+export const getParentCategory = transaction => {
+  return getParent(transaction.categoryId)
+}
+
 // This function builds a map of categories and sub-categories, each containing
 // a list of related transactions, a name and a color
 export const transactionsByCategory = transactions => {
