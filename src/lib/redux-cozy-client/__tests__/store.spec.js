@@ -41,9 +41,9 @@ describe('Redux store tests', () => {
 
   const fakeFetchResponse = {
     data: [
-      { id: '33dda00f0eec15bc3b3c59a615001ac7', type: 'io.cozy.rockets', name: 'Falcon 9' },
-      { id: '33dda00f0eec15bc3b3c59a615001ac8', type: 'io.cozy.rockets', name: 'Falcon Heavy' },
-      { id: '33dda00f0eec15bc3b3c59a615001ac9', type: 'io.cozy.rockets', name: 'BFR' }
+      { id: '33dda00f0eec15bc3b3c59a615001ac7', _type: 'io.cozy.rockets', name: 'Falcon 9' },
+      { id: '33dda00f0eec15bc3b3c59a615001ac8', _type: 'io.cozy.rockets', name: 'Falcon Heavy' },
+      { id: '33dda00f0eec15bc3b3c59a615001ac9', _type: 'io.cozy.rockets', name: 'BFR' }
     ]
   }
 
@@ -66,7 +66,7 @@ describe('Redux store tests', () => {
     describe('When a document is successfully created on the server', () => {
       const fakeResponse = {
         data: [
-          { id: '33dda00f0eec15bc3b3c59a615001ac5', type: 'io.cozy.rockets', name: 'Saturn V' }
+          { id: '33dda00f0eec15bc3b3c59a615001ac5', _type: 'io.cozy.rockets', name: 'Saturn V' }
         ]
       }
 
@@ -76,7 +76,7 @@ describe('Redux store tests', () => {
 
       it('should update collections listed in the `updateCollections` option', () => {
         state = dispatchSuccessfulAction(
-          createDocument({ type: 'io.cozy.rockets', name: 'Saturn V' }, {
+          createDocument({ _type: 'io.cozy.rockets', name: 'Saturn V' }, {
             updateCollections: ['rockets']
           }),
           fakeResponse,

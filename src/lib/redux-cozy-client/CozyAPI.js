@@ -18,7 +18,7 @@ export default class CozyAPI {
       // WARN: looks like this route returns something looking like a couchDB design doc, we need to filter it:
       const rows = resp.rows.filter(row => !row.doc.hasOwnProperty('views'))
       // we normalize the data (note that we add _type so that cozy.client.data.listReferencedFiles works...)
-      const docs = rows.map(row => Object.assign({}, row.doc, { id: row.id, type: doctype, _type: doctype }))
+      const docs = rows.map(row => Object.assign({}, row.doc, { id: row.id, _type: doctype }))
       // we forge a correct JSONAPI response:
       return {
         data: docs,
@@ -47,7 +47,7 @@ export default class CozyAPI {
       wholeResponse: true, // WARN: mandatory to get the full JSONAPI response
       ...options,
       // TODO: type and class should not be necessary, it's just a temp fix for a stack bug
-      fields: [...fields, '_id', 'type', 'class'],
+      fields: [...fields, '_id', '_type', 'class'],
       skip,
       sort
     }
@@ -73,25 +73,25 @@ export default class CozyAPI {
   async fetchDocument (doctype, id) {
     const doc = await cozy.client.data.find(doctype, id)
     // we normalize again...
-    const normalized = { ...doc, id: doc._id, type: doc._type }
+    const normalized = { ...doc, id: doc._id, _type: doc._type }
     return { data: [normalized] }
   }
 
   async createDocument (doc) {
-    const created = await cozy.client.data.create(doc.type, doc)
+    const created = await cozy.client.data.create(doc._type, doc)
     // we forge a standard response with a 'data' property
     const normalized = { ...created, id: created._id }
     return { data: [normalized] }
   }
 
   async updateDocument (doc) {
-    const updated = await cozy.client.data.updateAttributes(doc.type, doc.id, doc)
+    const updated = await cozy.client.data.updateAttributes(doc._type, doc.id, doc)
     // we forge a standard response with a 'data' property
     return { data: [{...doc, _rev: updated._rev}] }
   }
 
   async deleteDocument (doc) {
-    /* const deleted = */ await cozy.client.data.delete(doc.type, doc)
+    /* const deleted = */ await cozy.client.data.delete(doc._type, doc)
     // we forge a standard response with a 'data' property
     return { data: [doc] }
   }
@@ -124,14 +124,14 @@ export default class CozyAPI {
 
   async fetchReferencedFiles (doc, skip = 0) {
     // WARN: _type and _id are needed by cozy.client.data.fetchReferencedFiles
-    const normalized = { ...doc, _type: doc.type, _id: doc.id }
+    const normalized = { ...doc, _id: doc.id }
     // WARN: the stack API is probably not ideal here: referencedFiles are in the 'included' property
     // (that should be used when fetching an entity AND its relations) and the 'data' property
     // only contains uplets { id, type }
     const { included, meta } = await cozy.client.data.fetchReferencedFiles(normalized, { skip, limit: FETCH_LIMIT })
     // we forge a standard response with a 'data' property
     return {
-      data: !included ? [] : included.map(file => ({ ...file, ...file.attributes, type: 'io.cozy.files' })),
+      data: !included ? [] : included.map(file => ({ ...file, ...file.attributes, _type: 'io.cozy.files' })),
       meta,
       next: meta.count > skip + FETCH_LIMIT,
       skip
@@ -145,10 +145,10 @@ export default class CozyAPI {
 
   async removeReferencedFiles (doc, ids) {
     // WARN: _type and _id are needed by cozy.client.data.removeReferencedFiles
-    const normalized = { ...doc, _type: doc.type, _id: doc.id }
+    const normalized = { ...doc, _id: doc.id }
     await cozy.client.data.removeReferencedFiles(normalized, ids)
     return ids
   }
 }
 
-const normalizeFile = (file) => ({ ...file, ...file.attributes, id: file._id, type: file._type })
+const normalizeFile = (file) => ({ ...file, ...file.attributes, id: file._id })

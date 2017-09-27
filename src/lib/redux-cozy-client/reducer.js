@@ -16,6 +16,7 @@ const ADD_REFERENCED_FILES = 'ADD_REFERENCED_FILES'
 const REMOVE_REFERENCED_FILES = 'REMOVE_REFERENCED_FILES'
 
 const documents = (state = {}, action) => {
+  let doctype
   switch (action.type) {
     case RECEIVE_DATA:
       const { data } = action.response
@@ -31,18 +32,20 @@ const documents = (state = {}, action) => {
     case RECEIVE_NEW_DOCUMENT:
     case RECEIVE_UPDATED_DOCUMENT:
       const doc = action.response.data[0]
+      doctype = doc._type
       return {
         ...state,
-        [doc.type]: {
-          ...state[doc.type],
+        [doctype]: {
+          ...state[doctype],
           [doc.id]: doc
         }
       }
     case RECEIVE_DELETED_DOCUMENT:
       const deleted = action.response.data[0]
+      doctype = doc._type
       return {
         ...state,
-        [deleted.type]: removeObjectProperty(state[deleted.type], deleted.id)
+        [doctype]: removeObjectProperty(state[doctype], deleted.id)
       }
     case ADD_REFERENCED_FILES:
       return {
@@ -76,8 +79,8 @@ const updateFilesReferences = (files, newlyReferencedIds, doc) => {
   newlyReferencedIds.forEach(id => {
     const file = files[id]
     file.relationships.referenced_by.data = file.relationships.referenced_by.data === null
-      ? [{ id: doc.id, type: doc.type }]
-      : [...file.relationships.referenced_by.data, { id: doc.id, type: doc.type }]
+      ? [{ id: doc.id, _type: doc._type }]
+      : [...file.relationships.referenced_by.data, { id: doc.id, _type: doc._type }]
     updated[id] = file
   })
   return updated
@@ -88,14 +91,14 @@ const removeFilesReferences = (files, removedIds, doc) => {
   removedIds.forEach(id => {
     const file = files[id]
     file.relationships.referenced_by.data =
-      file.relationships.referenced_by.data.filter(rel => rel.type !== doc.type && rel.id !== doc.id)
+      file.relationships.referenced_by.data.filter(rel => rel._type !== doc._type && rel.id !== doc.id)
     updated[id] = file
   })
   return updated
 }
 
 const getArrayDoctype = (documents) => {
-  const doctype = documents[0].type
+  const doctype = documents[0]._type
   // TODO: don't know why the stack returns 'file' here..
   if (doctype === 'file') {
     return 'io.cozy.files'
