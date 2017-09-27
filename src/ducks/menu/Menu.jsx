@@ -56,7 +56,7 @@ class Menu extends Component {
           disabled={disabled}
           onClick={this.toggle}
         >
-          <span className='coz-hidden'>{title}</span>
+          <span className='u-hidden'>{title}</span>
         </button>
         <div className={classNames(
           styles['coz-menu-inner'],
