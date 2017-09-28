@@ -67,9 +67,7 @@ const TableTrNoDesktop = ({f, transaction, urls, selectTransaction}) => (
   </tr>
 )
 
-const Transactions = ({ t, f, transactions, urls, selectTransaction, breakpoints }) => {
-  const isDesktop = breakpoints.desktop
-  const isExtraLarge = breakpoints.extraLarge
+const Transactions = ({ t, f, transactions, urls, selectTransaction, breakpoints: { isDesktop, isExtraLarge } }) => {
   const transactionsByDate = {}
   let dates = []
 

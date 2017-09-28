@@ -173,9 +173,8 @@ const mapDocumentsToProps = ownProps => ({
   groups: fetchCollection('groups', GROUP_DOCTYPE)
 })
 
-const enhance = compose(
+export default compose(
   cozyConnect(mapDocumentsToProps),
   connect(mapStateToProps, mapDispatchToProps),
   translate()
-)
-export default enhance(AccountSwitch)
+)(AccountSwitch)

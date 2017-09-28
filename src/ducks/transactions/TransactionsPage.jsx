@@ -7,6 +7,7 @@ import { Topbar } from 'ducks/commons'
 import { SelectDates, getFilteredTransactions } from 'ducks/filters'
 import { fetchTransactions, indexTransactionsByDate } from 'actions'
 import { getUrlBySource, findApps } from 'ducks/apps'
+import { flowRight as compose } from 'lodash'
 
 import TransactionsWithSelection from './TransactionsWithSelection'
 import styles from './TransactionsPage.styl'
@@ -79,4 +80,7 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(translate()(TransactionsPage))
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  translate()
+)(TransactionsPage)

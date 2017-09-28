@@ -31,7 +31,7 @@ class Categories extends Component {
     selectedCategory ? selectCategory(undefined) : selectCategory(categoryName)
   }
 
-  render ({t, categories, selectedCategory, selectCategory, withIncome, filterWithInCome, breakpoints}) {
+  render ({t, categories, selectedCategory, selectCategory, withIncome, filterWithInCome, breakpoints: { isDesktop, isTablet }}) {
     if (categories === undefined) categories = []
     const selectedCat = categories.find(category => category.name === selectedCategory)
     if (selectedCategory) {
@@ -82,9 +82,6 @@ class Categories extends Component {
       const catName = t(`Data.categories.${selectedCat.name}`)
       titleLabel = `${titleLabel} (${catName})`
     }
-
-    const isDesktop = breakpoints.desktop
-    const isTablet = breakpoints.tablet
 
     return (
       <div>

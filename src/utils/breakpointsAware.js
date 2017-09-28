@@ -7,14 +7,14 @@ const small = 768
 const tiny = 543
 
 const breakpoints = {
-  extraLarge: [large + 1],
-  large: [medium + 1, large],
-  medium: [small + 1, medium],
-  small: [tiny + 1, small],
-  tiny: [0, tiny],
-  desktop: [medium + 1],
-  tablet: [small + 1, medium],
-  mobile: [0, small]
+  isExtraLarge: [large + 1],
+  isLarge: [medium + 1, large],
+  isMedium: [small + 1, medium],
+  isSmall: [tiny + 1, small],
+  isTiny: [0, tiny],
+  isDesktop: [medium + 1],
+  isTablet: [small + 1, medium],
+  isMobile: [0, small]
 }
 
 const getBreakpointsStatus = breakpoints => {

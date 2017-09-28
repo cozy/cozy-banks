@@ -113,10 +113,8 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-const enhance = compose(
+export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   translate(),
   scrollAware
-)
-
-export default enhance(SelectDates)
+)(SelectDates)

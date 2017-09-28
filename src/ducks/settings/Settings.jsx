@@ -42,6 +42,7 @@ const Settings = ({ t, children, router }) => {
   )
 }
 
-const enhance = compose(withRouter, translate())
-
-export default enhance(Settings)
+export default compose(
+  withRouter,
+  translate()
+)(Settings)
