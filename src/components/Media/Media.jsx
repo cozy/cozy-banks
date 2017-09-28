@@ -5,7 +5,7 @@ import cx from 'classnames'
 /**
  * Useful to align image/icon and content.
  */
-export const Media = ({ children, className, align, ...rest }) => {
+export const Media = ({children, className, align, ...rest}) => {
   return (
     <div className={cx(styles.media, className, align ? styles['media--' + align] : null)} {...rest}>{
       children
@@ -13,17 +13,17 @@ export const Media = ({ children, className, align, ...rest }) => {
   )
 }
 
-export const Img = ({ children, className }) => {
+export const Img = ({children, className, style}) => {
   return (
-    <div className={cx(styles.img, className)}>{
+    <div className={cx(styles.img, className)} style={style}>{
       children
     }</div>
   )
 }
 
-export const Bd = ({ children, className }) => {
+export const Bd = ({children, className, style}) => {
   return (
-    <div className={cx(styles.bd, className)}>{
+    <div className={cx(styles.bd, className)} style={style}>{
       children
     }</div>
   )
