@@ -9,6 +9,7 @@ import { transactionsByCategory, computeCategorieData } from './helpers'
 import Categories from './Categories'
 import BackButton from 'components/BackButton'
 import styles from './CategoriesPage.styl'
+import { flowRight as compose } from 'lodash'
 
 class CategoriesPage extends Component {
   state = {
@@ -65,4 +66,7 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(translate()(CategoriesPage))
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  translate()
+)(CategoriesPage)

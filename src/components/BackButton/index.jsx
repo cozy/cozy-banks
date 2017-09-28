@@ -30,9 +30,7 @@ BackButton.propTypes = {
   router: React.PropTypes.object
 }
 
-const Enhanced = compose(
+export default compose(
   onlyMobile,
   withBackSwipe({ getLocation: ownProps => ownProps.to })
 )(BackButton)
-
-export default Enhanced
