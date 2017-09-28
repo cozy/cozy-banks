@@ -8,9 +8,10 @@ import styles2 from '../transactions/Transactions.styl'
 import TransactionActions from '../transactions/TransactionActions'
 import Backdrop from './Backdrop'
 import { Figure } from 'components/Figure'
+import { getParentCategory } from 'ducks/categories/categoriesMap'
 
 const MenuHeaderTransaction = translate()(({ f, transaction }) => (
-  <div className={classNames(styles['menu-header'], styles2[`bnk-table-desc--${transaction.category}`], styles2['coz-table-cell'])}>
+  <div className={classNames(styles['menu-header'], styles2[`bnk-table-desc--${getParentCategory(transaction.categoryId)}`], styles2['coz-table-cell'])}>
     <div className={styles['menu-header-left']}>
       <h3>{transaction.label}</h3>
       <span>{f(transaction.date, 'dddd DD MMMM - h[h]mm')}</span>
