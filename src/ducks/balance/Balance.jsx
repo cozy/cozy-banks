@@ -11,8 +11,7 @@ import { BANK_ACCOUNTS_DOCTYPE, BANK_ACCOUNT_GROUPS_DOCTYPE } from 'actions'
 import breakpointsAware from 'utils/breakpointsAware'
 import { flowRight as compose } from 'lodash'
 
-const Balance = ({t, accounts, type, accountOrGroup, breakpoints}) => {
-  const isNotMobile = !breakpoints.mobile
+const Balance = ({t, accounts, type, accountOrGroup, breakpoints: { isMobile }}) => {
   const label = accountOrGroup ? accountOrGroup.label : ''
   let trad
   switch (type) {
@@ -42,8 +41,8 @@ const Balance = ({t, accounts, type, accountOrGroup, breakpoints}) => {
           <tr>
             <td className={styles['account_name']}>{t('Balance.account_name')}</td>
             <td className={styles['solde']}>{t('Balance.solde')}</td>
-            {isNotMobile && <td className={styles['bank_name']}>{t('Balance.bank_name')}</td>}
-            {isNotMobile && <td className={styles['account_number']}>{t('Balance.account_number')}</td>}
+            {!isMobile && <td className={styles['bank_name']}>{t('Balance.bank_name')}</td>}
+            {!isMobile && <td className={styles['account_number']}>{t('Balance.account_number')}</td>}
           </tr>
         </thead>
         <tbody>
@@ -58,8 +57,8 @@ const Balance = ({t, accounts, type, accountOrGroup, breakpoints}) => {
                 <TdSecondary className={classNames(styles['solde'], { [styles.alert]: isAlert })}>
                   <Figure total={account.balance} currency='€' coloredNegative signed />
                 </TdSecondary>
-                {isNotMobile && <TdSecondary className={styles['bank_name']}>{account.institutionLabel}</TdSecondary>}
-                {isNotMobile && <TdSecondary className={styles['account_number']}>{account.number}</TdSecondary>}
+                {!isMobile && <TdSecondary className={styles['bank_name']}>{account.institutionLabel}</TdSecondary>}
+                {!isMobile && <TdSecondary className={styles['account_number']}>{account.number}</TdSecondary>}
               </tr>
             )
           })}
