@@ -7,7 +7,7 @@ import styles from './TransactionMenu.styl'
 
 const TransactionMenu = ({t, transaction, urls}) => (
   <Menu
-    title={t('Movements.actions.more')}
+    title={t('Transactions.actions.more')}
     disabled={false}
     className={styles['fil-toolbar-menu']}
     buttonClassName={styles['fil-toolbar-more-btn']}

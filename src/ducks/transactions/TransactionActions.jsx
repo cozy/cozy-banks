@@ -50,7 +50,7 @@ const getTransactionBill = transaction => _.get(transaction, 'bills[0]')
 const isHealthCategory = (categoryId) =>
   categoryId === '400600' || categoryId === '400610' || categoryId === '400620'
 
-const getLinkType = (transaction, urls) => {
+export const getLinkType = (transaction, urls) => {
   const action = transaction.action
   const appName = getAppName(urls, transaction)
   if (isHealthCategory(transaction.categoryId) && urls['HEALTH']) {
@@ -65,11 +65,17 @@ const getLinkType = (transaction, urls) => {
   return undefined
 }
 
+export const getIcon = (name, color = palette['dodger-blue']) => {
+  if (icons[name]) {
+    return <Icon icon={icons[name]} color={color} />
+  }
+}
+
 // components
 export const Action = translate()(({t, actionValue, name, appName, className, color = palette['dodger-blue'], ...rest}) => (
   <a className={classNames(className, styles['action'])} {...rest}>
-    {icons[name] && <Icon icon={icons[name]} color={color} />}
-    {actionValue || t(`Movements.actions.${name}`, { appName: appName })}
+    {getIcon(name, color)}
+    {actionValue || t(`Transactions.actions.${name}`, { appName: appName })}
   </a>
 ))
 

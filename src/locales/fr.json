@@ -72,13 +72,19 @@
     "account_number": "Numéro du compte"
   },
 
-  "Movements": {
+  "Transactions": {
     "title": "Mouvements",
     "no-movements": "Pas de mouvements à afficher",
     "total": "Total",
     "transactions": "Opérations",
     "debit": "Débit",
     "credit": "Crédit",
+    "header": {
+      "date": "Date",
+      "description": "Description",
+      "amount": "Montant",
+      "action": "Action"
+    },
     "actions": {
       "more": "Plus",
       "bill": "Afficher votre facture",
@@ -122,8 +128,8 @@
       "daily-life": "Vie quotidienne",
       "education": "Education, formation",
       "health": "Santé",
-      "housing": "Logement, immobilier",
-      "income": "Revenus",
+      "homeAndRealEstate": "Logement, immobilier",
+      "incomeCat": "Revenus",
       "leasures": "Loisirs, sports",
       "out-budget": "Hors budget",
       "services": "Services",

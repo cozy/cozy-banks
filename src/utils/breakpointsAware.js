@@ -39,7 +39,9 @@ const getBreakpointsStatus = breakpoints => {
  */
 const breakpointsAware = (bp = breakpoints) => Wrapped =>
   class Aware extends Component {
-    state = { breakpoints: getBreakpointsStatus(bp) }
+    state = {
+      breakpoints: getBreakpointsStatus(bp)
+    }
 
     componentDidMount () {
       window.addEventListener('resize', this.checkBreakpoints)
@@ -62,7 +64,7 @@ const breakpointsAware = (bp = breakpoints) => Wrapped =>
  * HOC that tries a predicate on props + state and
  * renders a component only if the predicate returns true
  */
-const renderOnlyIf = predicate => Wrapped => class extends Component {
+export const renderOnlyIf = predicate => Wrapped => class extends Component {
   render (props, state) {
     if (predicate(props, state)) {
       return <Wrapped {...props} />
@@ -86,6 +88,15 @@ export const onlyMobile = compose(
 export const onlyTablet = compose(
   breakpointsAware(pick(breakpoints, 'tablet')),
   renderOnlyIf(props => props.breakpoints.tablet)
+)
+
+/**
+ * Use this HOC if you only want your component to be
+ * rendered on desktop
+ */
+export const onlyDesktop = compose(
+  breakpointsAware(pick(breakpoints, 'desktop')),
+  renderOnlyIf(props => props.breakpoints.desktop)
 )
 
 export default breakpointsAware

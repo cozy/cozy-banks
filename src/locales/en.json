@@ -190,10 +190,10 @@
       "services": "Services",
       "education": "Education, training",
       "kids": "Children",
-      "housing": "Housing, real estate",
+      "homeAndRealEstate": "Housing, real estate",
       "tax": "Taxes, taxes",
       "health": "Health",
-      "income": "earnings",
+      "incomeCat": "earnings",
       "activities": "Leisure, sports",
       "goingOutAndTravel": "Outings, trips",
       "uncategorized": "To be categorized"
@@ -224,13 +224,19 @@
       "debit": "Net expenditure"
     }
   },
-  "Movements": {
+  "Transactions": {
     "title": "Movements",
     "no-movements": "No movements to display",
     "total": "Total",
     "transactions": "Transactions",
     "debit": "Debit",
     "credit": "Credit",
+    "header": {
+      "date": "Date",
+      "description": "Description",
+      "amount": "Amount",
+      "action": "Action"
+    },
     "actions": {
       "refund": "Check your refunds",
       "comment": "Add a comment",

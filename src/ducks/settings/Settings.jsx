@@ -6,11 +6,11 @@ import styles from './Settings.styl'
 import { withRouter } from 'react-router'
 import { flowRight as compose } from 'lodash'
 
-const tabNames = ['accounts', 'groups', 'notifications']
+const tabNames = ['notifications', 'accounts', 'groups']
 
 const Settings = ({ t, children, router }) => {
   let defaultTab = router.location.pathname.replace('/settings/', '')
-  if (tabNames.indexOf(defaultTab) === -1) defaultTab = 'accounts'
+  if (tabNames.indexOf(defaultTab) === -1) defaultTab = 'notifications'
 
   const goTo = url => () => {
     router.push(url)
@@ -22,14 +22,14 @@ const Settings = ({ t, children, router }) => {
       </Topbar>
       <Tabs className={styles['bnk-tabs']} initialActiveTab={defaultTab}>
         <TabList className={styles['bnk-coz-tab-list']}>
-          <Tab name={tabNames[0]} onClick={goTo('/settings/accounts')}>
+          <Tab name={tabNames[0]} onClick={goTo('/settings/notifications')}>
+            {t('Settings.notifications')}
+          </Tab>
+          <Tab name={tabNames[1]} onClick={goTo('/settings/accounts')}>
             {t('Settings.accounts')}
           </Tab>
-          <Tab name={tabNames[1]} onClick={goTo('/settings/groups')}>
+          <Tab name={tabNames[2]} onClick={goTo('/settings/groups')}>
             {t('Settings.groups')}
-          </Tab>
-          <Tab name={tabNames[2]} onClick={goTo('/settings/notifications')}>
-            {t('Settings.notifications')}
           </Tab>
         </TabList>
         <TabPanels>

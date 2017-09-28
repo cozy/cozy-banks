@@ -137,7 +137,7 @@ class Categories extends Component {
                         {t(`Data.subcategories.${subcategory.name}`)}
                       </td>
                       <TdSecondary className={styles['bnk-table-percentage']}>{`${subcategory.percentage} %`}</TdSecondary>
-                      <TdSecondary className={styles['bnk-table-transaction']}>{subcategory.transactionsNumber}</TdSecondary>
+                      {(isDesktop || isTablet) && <TdSecondary className={styles['bnk-table-transaction']}>{subcategory.transactionsNumber}</TdSecondary>}
                       <TdSecondary className={styles['bnk-table-total']}>
                         <Figure total={subcategory.credit + subcategory.debit} currency={subcategory.currency} signed />
                       </TdSecondary>
