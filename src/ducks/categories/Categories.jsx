@@ -150,7 +150,7 @@ class Categories extends Component {
             <Figure total={credit + debit} currency={currency} coloredPositive signed />
           </TdSecondary>
           {isDesktop && <TdSecondary className={stAmount}>
-            {credit ? <Figure total={credit} currency={currency} signed default='-'/> : '－'}
+            {credit ? <Figure total={credit} currency={currency} signed default='-' /> : '－'}
           </TdSecondary>}
           {isDesktop && <TdSecondary className={stAmount}>
             {debit ? <Figure total={debit} currency={currency} signed default='-' /> : '－'}
