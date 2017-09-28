@@ -1,0 +1,36 @@
+types = {
+    p: padding,
+    m: margin
+}
+sizes = {
+    half: 0.5rem,
+    '1': 1rem,
+    '1-half': 1.5rem,
+    '2': 2rem,
+    '2-half': 2.5rem,
+    '3': 3rem
+}
+
+directions = {
+    t: top,
+    b: bottom,
+    l: left,
+    r: right
+}
+
+:global
+    for kType, vType in types
+        for kSize, vSize in sizes
+            // all
+            .u-{kType}-{kSize}
+                {vType}: vSize
+            .u-{kType}h-{kSize}
+                {vType}-left: vSize
+                {vType}-right: vSize
+            .u-{kType}v-{kSize}
+                {vType}-top: vSize
+                {vType}-bottom: vSize
+            for kDir, vDir in directions
+                .u-{kType}{kDir}-{kSize}
+                    {vType}-{vDir}: vSize
+
