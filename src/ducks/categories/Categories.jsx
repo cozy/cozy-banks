@@ -141,13 +141,13 @@ class Categories extends Component {
                       <TdSecondary className={styles['bnk-table-total']}>
                         <Figure total={subcategory.credit + subcategory.debit} currency={subcategory.currency} signed />
                       </TdSecondary>
-                      <TdSecondary className={styles['bnk-table-amount']}>
+                      {isDesktop && <TdSecondary className={styles['bnk-table-amount']}>
                         {subcategory.credit ? <Figure total={subcategory.credit} currency={subcategory.currency} signed /> : '－'}
-                      </TdSecondary>
-                      <TdSecondary className={styles['bnk-table-amount']}>
+                      </TdSecondary>}
+                      {isDesktop && <TdSecondary className={styles['bnk-table-amount']}>
                         {subcategory.debit ? <Figure total={subcategory.debit} currency={subcategory.currency} signed /> : '－'}
-                      </TdSecondary>
-                      <td className={styles['bnk-table-chevron']} />
+                      </TdSecondary>}
+                      {isDesktop && <td className={styles['bnk-table-chevron']} />}
                     </tr>
                   ))}
                 </tbody>
