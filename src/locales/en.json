@@ -184,18 +184,18 @@
       "savings": "Savings"
     },
     "categories": {
-      "transportation": "Transportation, vehicles",
-      "dailyLife": "Everyday life",
-      "excludeFromBudgetTheme": "Out of budget",
-      "services": "Services",
-      "education": "Education, training",
-      "kids": "Children",
-      "homeAndRealEstate": "Housing, real estate",
-      "tax": "Taxes, taxes",
-      "health": "Health",
-      "incomeCat": "earnings",
       "activities": "Leisure, sports",
+      "dailyLife": "Everyday life",
+      "education": "Education, training",
+      "excludeFromBudgetTheme": "Out of budget",
       "goingOutAndTravel": "Outings, trips",
+      "health": "Health",
+      "homeAndRealEstate": "Housing, real estate",
+      "incomeCat": "earnings",
+      "kids": "Children",
+      "services": "Services",
+      "tax": "Taxes, taxes",
+      "transportation": "Transportation, vehicles",
       "uncategorized": "To be categorized"
     }
   },
