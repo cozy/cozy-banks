@@ -133,9 +133,9 @@ class Categories extends Component {
                   </tr>
                   {!isCollapsed && category.subcategories.map(subcategory => (
                     <tr className={styles['bnk-table-row-subcategory']} onClick={() => this.toggle(category.name)}>
-                      <td className={styles['bnk-table-category-category']}>
+                      <TdWithIcon className={styles['bnk-table-category-category']}>
                         {t(`Data.subcategories.${subcategory.name}`)}
-                      </td>
+                      </TdWithIcon>
                       <TdSecondary className={styles['bnk-table-percentage']}>{`${subcategory.percentage} %`}</TdSecondary>
                       {(isDesktop || isTablet) && <TdSecondary className={styles['bnk-table-transaction']}>{subcategory.transactionsNumber}</TdSecondary>}
                       <TdSecondary className={styles['bnk-table-total']}>
