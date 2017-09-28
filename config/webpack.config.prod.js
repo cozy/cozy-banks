@@ -6,7 +6,7 @@ module.exports = {
   output: {
     filename: 'app.[hash].min.js'
   },
-  devtool: '#cheap-module-source-map',
+  devtool: false,
   plugins: [
     new webpack.optimize.UglifyJsPlugin({
       mangle: true,
