@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react/I18n'
 import Loading from 'components/Loading'
@@ -14,12 +15,15 @@ import { flowRight as compose } from 'lodash'
 class CategoriesPage extends Component {
   state = {
     isFetching: this.props.categories.length === 0,
-    withIncome: true,
-    selectedCategory: undefined
+    withIncome: true
   }
 
   selectCategory = selectedCategory => {
-    this.setState({selectedCategory})
+    if (selectedCategory) {
+      this.props.router.push(`/categories/${selectedCategory}`)
+    } else {
+      this.props.router.push('/categories')
+    }
   }
 
   filterWithInCome = withIncome => {
@@ -34,7 +38,8 @@ class CategoriesPage extends Component {
     }
   }
 
-  render ({t, categories}, {isFetching, withIncome, selectedCategory}) {
+  render ({t, categories, router}, {isFetching, withIncome}) {
+    const selectedCategory = router.params.categoryName
     // compute the filter to use
     if (!withIncome) {
       categories = categories.filter(category => (category.name !== 'incomeCat'))
@@ -67,6 +72,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default compose(
+  withRouter,
   connect(mapStateToProps, mapDispatchToProps),
   translate()
 )(CategoriesPage)

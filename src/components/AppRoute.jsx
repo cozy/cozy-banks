@@ -17,7 +17,9 @@ const AppRoute = (
       <Redirect from='/' to='movements' />
       <Route path='currentBalance' component={Balance} />
       <Route path='movements' component={TransactionsPage} />
-      <Route path='categories' component={CategoriesPage} />
+      <Route path='categories' component={CategoriesPage}>
+        <Route path=':categoryName' component={CategoriesPage} />
+      </Route>
       <Route path='projections' component={ComingSoon} />
       <Route path='savings' component={ComingSoon} />
       <Route path='settings'>
