@@ -1,7 +1,6 @@
 import React from 'react'
-import classNames from 'classnames'
 import compareDesc from 'date-fns/compare_desc'
-import { translate } from 'cozy-ui/react'
+import { Icon, translate } from 'cozy-ui/react'
 import { Figure } from 'components/Figure'
 import breakpointsAware from 'utils/breakpointsAware'
 import { flowRight as compose } from 'lodash'
@@ -13,6 +12,9 @@ import { getParentCategory } from 'ducks/categories/categoriesMap'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 
 import styles from './Transactions.styl'
+import { Media, Bd, Img } from 'components/Media'
+import cx from 'classnames'
+
 const sDate = styles['bnk-op-date']
 const sDesc = styles['bnk-op-desc']
 const sAmount = styles['bnk-op-amount']
@@ -53,21 +55,24 @@ const TableTrDesktop = ({f, transaction, urls, isExtraLarge}) => (
 
 const TableTrNoDesktop = ({f, transaction, urls, selectTransaction}) => (
   <tr onClick={() => selectTransaction(transaction)} className={styles['bnk-transaction-mobile']}>
-    <td className={styles.icon}>
-      <CategoryIcon transaction={transaction} />
-    </td>
-    <td style='flex: 0 0 2em' className='coz-desktop'>
-      <div style='width: 1em'>
-        {getIcon(getLinkType(transaction, urls))}
-      </div>
-    </td>
-    <td className={styles.content}>
-      <div className={styles.label}>
-        {getLabel(transaction)}
-      </div>
-      <div className={styles.amount}>
-        <Figure total={transaction.amount} currency={transaction.currency} coloredPositive signed />
-      </div>
+    <td>
+      <Media>
+        <Img>
+          <CategoryIcon transaction={transaction} />
+        </Img>
+        <Bd className='u-ph-half'>
+          {getLabel(transaction)}
+        </Bd>
+        <Img className='u-pr-half'>
+          <Figure total={transaction.amount} currency={transaction.currency} coloredPositive signed />
+        </Img>
+        <Img style={{ flexBasis: '1rem' }}>
+          {getIcon(getLinkType(transaction, urls))}
+        </Img>
+        <Img className='u-ph-half'>
+          <Icon icon='dots' />
+        </Img>
+      </Media>
     </td>
   </tr>
 )
