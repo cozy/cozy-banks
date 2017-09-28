@@ -13,34 +13,39 @@ import { getParentCategory } from 'ducks/categories/categoriesMap'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 
 import styles from './Transactions.styl'
+const sDate = styles['bnk-op-date']
+const sDesc = styles['bnk-op-desc']
+const sAmount = styles['bnk-op-amount']
+const sAction = styles['bnk-op-action']
+const sActions = styles['bnk-op-actions']
 
 const TableHeadDesktop = ({t}) => (
   <thead>
     <tr>
-      <td className={styles['bnk-op-date']}>{t('Transactions.header.date')}</td>
-      <td className={styles['bnk-op-desc']}>{t('Transactions.header.description')}</td>
-      <td className={styles['bnk-op-amount']}>{t('Transactions.header.amount')}</td>
-      <td className={styles['bnk-op-action']}>{t('Transactions.header.action')}</td>
-      <td className={styles['bnk-op-actions']}>&nbsp;</td>
+      <td className={sDate}>{t('Transactions.header.date')}</td>
+      <td className={sDesc}>{t('Transactions.header.description')}</td>
+      <td className={sAmount}>{t('Transactions.header.amount')}</td>
+      <td className={sAction}>{t('Transactions.header.action')}</td>
+      <td className={sActions}>&nbsp;</td>
     </tr>
   </thead>
 )
 
 const TableTrDesktop = ({f, transaction, urls, isExtraLarge}) => (
   <tr>
-    <TdSecondary className={classNames(styles['bnk-op-date'])}>
+    <TdSecondary className={sDate}>
       {f(transaction.date, `DD ${isExtraLarge ? 'MMMM' : 'MMM'} YYYY`)}
     </TdSecondary>
-    <TdWithIcon className={classNames(styles['bnk-op-desc'], styles[`bnk-table-desc--${getParentCategory(transaction.categoryId)}`])}>
+    <TdWithIcon className={cx(sDesc, styles[`bnk-table-desc--${getParentCategory(transaction.categoryId)}`])}>
       {getLabel(transaction)}
     </TdWithIcon>
-    <TdSecondary className={classNames(styles['bnk-op-amount'])}>
+    <TdSecondary className={sAmount}>
       <Figure total={transaction.amount} currency={transaction.currency} coloredPositive signed />
     </TdSecondary>
-    <TdSecondary className={styles['bnk-op-action']}>
+    <TdSecondary className={sAction}>
       <TransactionAction transaction={transaction} urls={urls} className={styles['bnk-table-actions-link']} />
     </TdSecondary>
-    <TdSecondary className={classNames(styles['bnk-op-actions'])}>
+    <TdSecondary className={sActions}>
       <TransactionMenu transaction={transaction} urls={urls} />
     </TdSecondary>
   </tr>
@@ -90,7 +95,7 @@ const Transactions = ({ t, f, transactions, urls, selectTransaction, breakpoints
         const transactionsOrdered = transactionsByDate[date].sort((op1, op2) => compareDesc(op1.date, op2.date))
         return (
           <tbody>
-            {!isDesktop && <tr className={classNames(styles['bnk-op-date-header'])}>
+            {!isDesktop && <tr className={styles['bnk-op-date-header']}>
               <td colspan='2'>{f(date, 'dddd D MMMM')}</td>
             </tr>}
             {transactionsOrdered.map(transaction => {
