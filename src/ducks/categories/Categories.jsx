@@ -10,6 +10,21 @@ import CategoriesChart from './CategoriesChart'
 import breakpointsAware from 'utils/breakpointsAware'
 import { flowRight as compose } from 'lodash'
 
+const stAmount = styles['bnk-table-amount']
+const stCategory = styles['bnk-table-category-category']
+const stChevron = styles['bnk-table-chevron']
+const stFigure = styles['bnk-cat-figure']
+const stFilter = styles['bnk-cat-filter']
+const stForm = styles['bnk-cat-form']
+const stPercentage = styles['bnk-table-percentage']
+const stRow = styles['bnk-table-row']
+const stRowSub = styles['bnk-table-row-subcategory']
+const stTableCategory = styles['bnk-table-category']
+const stTop = styles['bnk-cat-top']
+const stTotal = styles['bnk-table-total']
+const stTransaction = styles['bnk-table-transaction']
+const stUncollapsed = styles['bnk-table-row--uncollapsed']
+
 class Categories extends Component {
   toggle = categoryName => {
     const { selectedCategory, selectCategory } = this.props
@@ -74,16 +89,16 @@ class Categories extends Component {
     return (
       <div>
         <SelectDates />
-        <div className={styles['bnk-cat-top']}>
-          <div className={styles['bnk-cat-form']}>
-            {selectedCategory === undefined && <div className={styles['bnk-cat-filter']}>
+        <div className={stTop}>
+          <div className={stForm}>
+            {selectedCategory === undefined && <div className={stFilter}>
               <Toggle id='withIncome' checked={withIncome} onToggle={checked => filterWithInCome(checked)} />
               <label htmlFor='withIncome'>
                 Inclure les revenus
               </label>
             </div>}
             {categories.length > 0 && <FigureBlock
-              className={styles['bnk-cat-figure']}
+              className={stFigure}
               label={titleLabel}
               total={selectedCat ? selectedCat.amount : transactionsTotal}
               currency={globalCurrency}
@@ -93,69 +108,81 @@ class Categories extends Component {
         </div>
         {categories.length === 0
           ? <p>{t('Categories.title.empty_text')}</p>
-          : <Table className={styles['bnk-table-category']}>
+          : <Table className={stTableCategory}>
             <thead>
               <tr>
-                <td className={styles['bnk-table-category-category']}>{t('Categories.headers.categories')}</td>
-                <td className={styles['bnk-table-percentage']}>%</td>
-                {(isDesktop || isTablet) && <td className={styles['bnk-table-transaction']}>{t('Categories.headers.transactions')}</td>}
-                <td className={styles['bnk-table-total']}>{t('Categories.headers.total')}</td>
-                {isDesktop && <td className={styles['bnk-table-amount']}>{t('Categories.headers.credit')}</td>}
-                {isDesktop && <td className={styles['bnk-table-amount']}>{t('Categories.headers.debit')}</td>}
-                {isDesktop && <td className={styles['bnk-table-chevron']} />}
+                <td className={stCategory}>{t('Categories.headers.categories')}</td>
+                <td className={stPercentage}>%</td>
+                {(isDesktop || isTablet) && <td className={stTransaction}>{t('Categories.headers.transactions')}</td>}
+                <td className={stTotal}>{t('Categories.headers.total')}</td>
+                {isDesktop && <td className={stAmount}>{t('Categories.headers.credit')}</td>}
+                {isDesktop && <td className={stAmount}>{t('Categories.headers.debit')}</td>}
+                {isDesktop && <td className={stChevron} />}
               </tr>
             </thead>
-            {categories.map(category => {
-              const isCollapsed = selectedCategory !== category.name
-              if (selectedCategory !== undefined && isCollapsed) return
-              return (
-                <tbody>
-                  <tr className={isCollapsed ? styles['bnk-table-row'] : styles['bnk-table-row--uncollapsed']} onClick={() => this.toggle(category.name)}>
-                    <TdWithIcon className={classNames(styles['bnk-table-category-category'], styles[`bnk-table-category--${category.name}`])}>
-                      {t(`Data.categories.${category.name}`)}
-                    </TdWithIcon>
-                    <TdSecondary className={styles['bnk-table-percentage']}>
-                      {selectedCategory ? '100 %' : `${category.percentage} %`}
-                    </TdSecondary>
-                    {(isDesktop || isTablet) && <TdSecondary className={styles['bnk-table-transaction']}>
-                      {category.transactionsNumber}
-                    </TdSecondary>}
-                    <TdSecondary className={styles['bnk-table-total']}>
-                      <Figure total={category.credit + category.debit} currency={category.currency} coloredPositive signed />
-                    </TdSecondary>
-                    {isDesktop && <TdSecondary className={styles['bnk-table-amount']}>
-                      {category.credit ? <Figure total={category.credit} currency={category.currency} signed /> : '－'}
-                    </TdSecondary>}
-                    {isDesktop && <TdSecondary className={styles['bnk-table-amount']}>
-                      {category.debit ? <Figure total={category.debit} currency={category.currency} signed /> : '－'}
-                    </TdSecondary>}
-                    {isDesktop && <td className={styles['bnk-table-chevron']} />}
-                  </tr>
-                  {!isCollapsed && category.subcategories.map(subcategory => (
-                    <tr className={styles['bnk-table-row-subcategory']} onClick={() => this.toggle(category.name)}>
-                      <TdWithIcon className={styles['bnk-table-category-category']}>
-                        {t(`Data.subcategories.${subcategory.name}`)}
-                      </TdWithIcon>
-                      <TdSecondary className={styles['bnk-table-percentage']}>{`${subcategory.percentage} %`}</TdSecondary>
-                      {(isDesktop || isTablet) && <TdSecondary className={styles['bnk-table-transaction']}>{subcategory.transactionsNumber}</TdSecondary>}
-                      <TdSecondary className={styles['bnk-table-total']}>
-                        <Figure total={subcategory.credit + subcategory.debit} currency={subcategory.currency} signed />
-                      </TdSecondary>
-                      {isDesktop && <TdSecondary className={styles['bnk-table-amount']}>
-                        {subcategory.credit ? <Figure total={subcategory.credit} currency={subcategory.currency} signed /> : '－'}
-                      </TdSecondary>}
-                      {isDesktop && <TdSecondary className={styles['bnk-table-amount']}>
-                        {subcategory.debit ? <Figure total={subcategory.debit} currency={subcategory.currency} signed /> : '－'}
-                      </TdSecondary>}
-                      {isDesktop && <td className={styles['bnk-table-chevron']} />}
-                    </tr>
-                  ))}
-                </tbody>
-              )
-            })}
+            {categories.map(category => this.renderCategory(category, selectedCategory))}
           </Table>
         }
       </div>
+    )
+  }
+
+  renderCategory (category, selectedCategory) {
+    const { t, breakpoints: { isDesktop, isTablet } } = this.props
+
+    const isCollapsed = selectedCategory !== category.name
+    if (selectedCategory !== undefined && isCollapsed) return
+
+    const { name, subcategories, credit, debit, percentage, currency, transactionsNumber } = category
+    return (
+      <tbody>
+        <tr className={isCollapsed ? stRow : stUncollapsed} onClick={() => this.toggle(category.name)}>
+          <TdWithIcon className={classNames(stCategory, styles[`bnk-table-category--${name}`])}>
+            {t(`Data.categories.${name}`)}
+          </TdWithIcon>
+          <TdSecondary className={stPercentage}>
+            {selectedCategory ? '100 %' : `${percentage} %`}
+          </TdSecondary>
+          {(isDesktop || isTablet) && <TdSecondary className={stTransaction}>
+            {transactionsNumber}
+          </TdSecondary>}
+          <TdSecondary className={stTotal}>
+            <Figure total={credit + debit} currency={currency} coloredPositive signed />
+          </TdSecondary>
+          {isDesktop && <TdSecondary className={stAmount}>
+            {credit ? <Figure total={credit} currency={currency} signed default='-'/> : '－'}
+          </TdSecondary>}
+          {isDesktop && <TdSecondary className={stAmount}>
+            {debit ? <Figure total={debit} currency={currency} signed default='-' /> : '－'}
+          </TdSecondary>}
+          {isDesktop && <td className={stChevron} />}
+        </tr>
+        {!isCollapsed && subcategories.map(subcategory => this.renderSubcategory(category, subcategory))}
+      </tbody>
+    )
+  }
+
+  renderSubcategory (category, subcategory) {
+    const { t, breakpoints: { isDesktop, isTablet } } = this.props
+    const { name, currency, credit, debit, transactionsNumber, percentage } = subcategory
+    return (
+      <tr className={stRowSub} onClick={() => this.toggle(category.name)}>
+        <TdWithIcon className={stCategory}>
+          {t(`Data.subcategories.${name}`)}
+        </TdWithIcon>
+        <TdSecondary className={stPercentage}>{percentage} %</TdSecondary>
+        {(isDesktop || isTablet) && <TdSecondary className={stTransaction}>{transactionsNumber}</TdSecondary>}
+        <TdSecondary className={stTotal}>
+          <Figure total={credit + debit} currency={currency} signed />
+        </TdSecondary>
+        {isDesktop && <TdSecondary className={stAmount}>
+          {credit ? <Figure total={credit} currency={currency} signed /> : '－'}
+        </TdSecondary>}
+        {isDesktop && <TdSecondary className={stAmount}>
+          {debit ? <Figure total={debit} currency={currency} signed /> : '－'}
+        </TdSecondary>}
+        {isDesktop && <td className={stChevron} />}
+      </tr>
     )
   }
 }
