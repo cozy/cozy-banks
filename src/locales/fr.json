@@ -124,21 +124,19 @@
 
   "Data": {
     "categories": {
-      "children": "Enfants",
+      "activities": "Activités",
       "dailyLife": "Vie quotidienne",
       "education": "Education, formation",
+      "excludeFromBudgetTheme": "Hors budget",
+      "goingOutAndTravel": "Sorties/voyages",
       "health": "Santé",
       "homeAndRealEstate": "Logement, immobilier",
       "incomeCat": "Revenus",
-      "leasures": "Loisirs, sports",
-      "out-budget": "Hors budget",
+      "kids": "Enfants",
       "services": "Services",
-      "taxes": "Impôts, taxes",
+      "tax": "Impôts, taxes",
       "transportation": "Transports, véhicules",
-      "trips": "Sorties, voyages",
-      "uncategorized": "À catégoriser",
-      "goingOutAndTravel": "Sorties/voyages",
-      "activities": "Activités"
+      "uncategorized": "À catégoriser"
     },
     "subcategories": {
       "taxi": "Taxi",
