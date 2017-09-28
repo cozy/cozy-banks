@@ -1,7 +1,6 @@
 import React from 'react'
-import classNames from 'classnames'
 import compareDesc from 'date-fns/compare_desc'
-import { translate } from 'cozy-ui/react'
+import { Icon, translate } from 'cozy-ui/react'
 import { Figure } from 'components/Figure'
 import breakpointsAware from 'utils/breakpointsAware'
 import { flowRight as compose } from 'lodash'
@@ -13,34 +12,42 @@ import { getParentCategory } from 'ducks/categories/categoriesMap'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 
 import styles from './Transactions.styl'
+import { Media, Bd, Img } from 'components/Media'
+import cx from 'classnames'
+
+const sDate = styles['bnk-op-date']
+const sDesc = styles['bnk-op-desc']
+const sAmount = styles['bnk-op-amount']
+const sAction = styles['bnk-op-action']
+const sActions = styles['bnk-op-actions']
 
 const TableHeadDesktop = ({t}) => (
   <thead>
     <tr>
-      <td className={styles['bnk-op-date']}>{t('Transactions.header.date')}</td>
-      <td className={styles['bnk-op-desc']}>{t('Transactions.header.description')}</td>
-      <td className={styles['bnk-op-amount']}>{t('Transactions.header.amount')}</td>
-      <td className={styles['bnk-op-action']}>{t('Transactions.header.action')}</td>
-      <td className={styles['bnk-op-actions']}>&nbsp;</td>
+      <td className={sDate}>{t('Transactions.header.date')}</td>
+      <td className={sDesc}>{t('Transactions.header.description')}</td>
+      <td className={sAmount}>{t('Transactions.header.amount')}</td>
+      <td className={sAction}>{t('Transactions.header.action')}</td>
+      <td className={sActions}>&nbsp;</td>
     </tr>
   </thead>
 )
 
 const TableTrDesktop = ({f, transaction, urls, isExtraLarge}) => (
   <tr>
-    <TdSecondary className={classNames(styles['bnk-op-date'])}>
+    <TdSecondary className={sDate}>
       {f(transaction.date, `DD ${isExtraLarge ? 'MMMM' : 'MMM'} YYYY`)}
     </TdSecondary>
-    <TdWithIcon className={classNames(styles['bnk-op-desc'], styles[`bnk-table-desc--${getParentCategory(transaction.categoryId)}`])}>
+    <TdWithIcon className={cx(sDesc, styles[`bnk-table-desc--${getParentCategory(transaction.categoryId)}`])}>
       {getLabel(transaction)}
     </TdWithIcon>
-    <TdSecondary className={classNames(styles['bnk-op-amount'])}>
+    <TdSecondary className={sAmount}>
       <Figure total={transaction.amount} currency={transaction.currency} coloredPositive signed />
     </TdSecondary>
-    <TdSecondary className={styles['bnk-op-action']}>
+    <TdSecondary className={sAction}>
       <TransactionAction transaction={transaction} urls={urls} className={styles['bnk-table-actions-link']} />
     </TdSecondary>
-    <TdSecondary className={classNames(styles['bnk-op-actions'])}>
+    <TdSecondary className={sActions}>
       <TransactionMenu transaction={transaction} urls={urls} />
     </TdSecondary>
   </tr>
@@ -48,21 +55,24 @@ const TableTrDesktop = ({f, transaction, urls, isExtraLarge}) => (
 
 const TableTrNoDesktop = ({f, transaction, urls, selectTransaction}) => (
   <tr onClick={() => selectTransaction(transaction)} className={styles['bnk-transaction-mobile']}>
-    <td className={styles.icon}>
-      <CategoryIcon transaction={transaction} />
-    </td>
-    <td style='flex: 0 0 2em' className='coz-desktop'>
-      <div style='width: 1em'>
-        {getIcon(getLinkType(transaction, urls))}
-      </div>
-    </td>
-    <td className={styles.content}>
-      <div className={styles.label}>
-        {getLabel(transaction)}
-      </div>
-      <div className={styles.amount}>
-        <Figure total={transaction.amount} currency={transaction.currency} coloredPositive signed />
-      </div>
+    <td>
+      <Media>
+        <Img>
+          <CategoryIcon transaction={transaction} />
+        </Img>
+        <Bd className='u-ph-half'>
+          {getLabel(transaction)}
+        </Bd>
+        <Img className='u-pr-half'>
+          <Figure total={transaction.amount} currency={transaction.currency} coloredPositive signed />
+        </Img>
+        <Img style={{ flexBasis: '1rem' }}>
+          {getIcon(getLinkType(transaction, urls))}
+        </Img>
+        <Img className='u-ph-half'>
+          <Icon icon='dots' />
+        </Img>
+      </Media>
     </td>
   </tr>
 )
@@ -88,7 +98,7 @@ const Transactions = ({ t, f, transactions, urls, selectTransaction, breakpoints
         const transactionsOrdered = transactionsByDate[date].sort((op1, op2) => compareDesc(op1.date, op2.date))
         return (
           <tbody>
-            {!isDesktop && <tr className={classNames(styles['bnk-op-date-header'])}>
+            {!isDesktop && <tr className={styles['bnk-op-date-header']}>
               <td colspan='2'>{f(date, 'dddd D MMMM')}</td>
             </tr>}
             {transactionsOrdered.map(transaction => {
