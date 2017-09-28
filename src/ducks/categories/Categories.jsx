@@ -120,41 +120,45 @@ class Categories extends Component {
                 {isDesktop && <td className={stChevron} />}
               </tr>
             </thead>
-            {categories.map(category => {
-              const isCollapsed = selectedCategory !== category.name
-              if (selectedCategory !== undefined && isCollapsed) return
-
-              const { name, subcategories, credit, debit, percentage, currency, transactionsNumber } = category
-              return (
-                <tbody>
-                  <tr className={isCollapsed ? stRow : stUncollapsed} onClick={() => this.toggle(category.name)}>
-                    <TdWithIcon className={classNames(stCategory, styles[`bnk-table-category--${name}`])}>
-                      {t(`Data.categories.${name}`)}
-                    </TdWithIcon>
-                    <TdSecondary className={stPercentage}>
-                      {selectedCategory ? '100 %' : `${percentage} %`}
-                    </TdSecondary>
-                    {(isDesktop || isTablet) && <TdSecondary className={stTransaction}>
-                      {transactionsNumber}
-                    </TdSecondary>}
-                    <TdSecondary className={stTotal}>
-                      <Figure total={credit + debit} currency={currency} coloredPositive signed />
-                    </TdSecondary>
-                    {isDesktop && <TdSecondary className={stAmount}>
-                      {credit ? <Figure total={credit} currency={currency} signed default='-'/> : '－'}
-                    </TdSecondary>}
-                    {isDesktop && <TdSecondary className={stAmount}>
-                      {debit ? <Figure total={debit} currency={currency} signed default='-' /> : '－'}
-                    </TdSecondary>}
-                    {isDesktop && <td className={stChevron} />}
-                  </tr>
-                  {!isCollapsed && subcategories.map(subcategory => this.renderSubcategory(category, subcategory))}
-                </tbody>
-              )
-            })}
+            {categories.map(category => this.renderCategory(category, selectedCategory))}
           </Table>
         }
       </div>
+    )
+  }
+
+  renderCategory (category, selectedCategory) {
+    const { t, breakpoints: { isDesktop, isTablet } } = this.props
+
+    const isCollapsed = selectedCategory !== category.name
+    if (selectedCategory !== undefined && isCollapsed) return
+
+    const { name, subcategories, credit, debit, percentage, currency, transactionsNumber } = category
+    return (
+      <tbody>
+        <tr className={isCollapsed ? stRow : stUncollapsed} onClick={() => this.toggle(category.name)}>
+          <TdWithIcon className={classNames(stCategory, styles[`bnk-table-category--${name}`])}>
+            {t(`Data.categories.${name}`)}
+          </TdWithIcon>
+          <TdSecondary className={stPercentage}>
+            {selectedCategory ? '100 %' : `${percentage} %`}
+          </TdSecondary>
+          {(isDesktop || isTablet) && <TdSecondary className={stTransaction}>
+            {transactionsNumber}
+          </TdSecondary>}
+          <TdSecondary className={stTotal}>
+            <Figure total={credit + debit} currency={currency} coloredPositive signed />
+          </TdSecondary>
+          {isDesktop && <TdSecondary className={stAmount}>
+            {credit ? <Figure total={credit} currency={currency} signed default='-'/> : '－'}
+          </TdSecondary>}
+          {isDesktop && <TdSecondary className={stAmount}>
+            {debit ? <Figure total={debit} currency={currency} signed default='-' /> : '－'}
+          </TdSecondary>}
+          {isDesktop && <td className={stChevron} />}
+        </tr>
+        {!isCollapsed && subcategories.map(subcategory => this.renderSubcategory(category, subcategory))}
+      </tbody>
     )
   }
 
