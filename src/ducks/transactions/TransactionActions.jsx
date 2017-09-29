@@ -65,17 +65,19 @@ export const getLinkType = (transaction, urls) => {
   return undefined
 }
 
-export const getIcon = (name, color = palette['dodger-blue']) => {
+const DEFAULT_COLOR = palette['dodger-blue']
+
+export const getIcon = (name, color = DEFAULT_COLOR) => {
   if (icons[name]) {
     return <Icon icon={icons[name]} color={color} />
   }
 }
 
 // components
-export const Action = translate()(({t, actionValue, name, appName, className, color = palette['dodger-blue'], ...rest}) => (
-  <a className={classNames(className, styles['action'])} {...rest}>
+export const Action = translate()(({t, actionValue, name, appName, className, color = DEFAULT_COLOR, style, ...rest}) => (
+  <a className={classNames(className, styles['action'])} {...rest} style={{ color, ...style }}>
     {getIcon(name, color)}
-    {actionValue || t(`Transactions.actions.${name}`, { appName: appName })}
+    {actionValue || t(`Transactions.actions.${name}`, { appName })}
   </a>
 ))
 
