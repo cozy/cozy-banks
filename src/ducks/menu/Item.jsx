@@ -1,25 +1,37 @@
 import React, { Component } from 'react'
 import Spinner from 'cozy-ui/react/Spinner'
-import classNames from 'classnames'
+import cx from 'classnames'
 import styles from './Item.styl'
+import flash from 'ducks/flash'
+import { translate } from 'cozy-ui/react'
 
 class Item extends Component {
   state = {
     working: false
   }
 
-  toggleSpinner = () => {
-    this.setState(state => ({ working: !state.working }))
+  toggleSpinner = (running) => {
+    this.setState(state => ({ working: running }))
   }
 
   handleClick = () => {
-    this.toggleSpinner()
-    this.props.onClick().then(() => this.toggleSpinner())
+    const { disabled, onClick } = this.props
+    if (disabled) {
+      return this.handleDisabled()
+    } else if (onClick) {
+      this.toggleSpinner(true)
+      onClick().then(() => this.toggleSpinner(false))
+    }
   }
 
-  render ({className, children, onClick, withSpinner}, { working }) {
+  handleDisabled = (ev) => {
+    const { t } = this.props
+    flash(t('ComingSoon.description'))
+  }
+
+  render ({className, children, withSpinner, disabled}, { working }) {
     return (
-      <div className={classNames(className, styles['coz-menu-item'])} onClick={onClick ? this.handleClick : ''}>
+      <div className={cx(className, styles['coz-menu-item'], disabled && styles['coz-menu-item--disabled'])} onClick={this.handleClick}>
         {children}
         {withSpinner && working && <Spinner />}
       </div>
@@ -27,4 +39,4 @@ class Item extends Component {
   }
 }
 
-export default Item
+export default translate()(Item)
