@@ -12,6 +12,7 @@ module.exports = {
   module: {
     rules: [
       {
+        include: path.dirname(require.resolve('cozy-ui')),
         test: /\.styl$/,
         loader: extractor.extract({
           fallback:'style-loader',
