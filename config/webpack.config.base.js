@@ -33,6 +33,17 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
+        include: SRC_DIR,
+        test: /\.styl$/,
+        loader: extractor.extract({
+          fallback:'style-loader',
+          use: [
+            'css-loader?importLoaders=2&modules&localIdentName=[name]_[local]_[hash:base64:5]',
+            'stylus-loader'
+          ]
+        })
+      },
+      {
         test: /\.css$/,
         loader: extractor.extract({
           fallback: 'style-loader',
