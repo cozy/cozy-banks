@@ -7,7 +7,7 @@ import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'
 import styles from './Balance.styl'
 import { getAccountsFiltered, getAccountOrGroupType, getAccountOrGroup } from 'ducks/filters'
-import { BANK_ACCOUNTS_DOCTYPE, BANK_ACCOUNT_GROUPS_DOCTYPE } from 'actions'
+import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import breakpointsAware from 'utils/breakpointsAware'
 import { flowRight as compose } from 'lodash'
 
@@ -15,10 +15,10 @@ const Balance = ({t, accounts, type, accountOrGroup, breakpoints: { isMobile }})
   const label = accountOrGroup ? accountOrGroup.label : ''
   let trad
   switch (type) {
-    case BANK_ACCOUNTS_DOCTYPE:
+    case ACCOUNT_DOCTYPE:
       trad = 'Balance.subtitle.account'
       break
-    case BANK_ACCOUNT_GROUPS_DOCTYPE:
+    case GROUP_DOCTYPE:
       trad = 'Balance.subtitle.group'
       break
     default:
