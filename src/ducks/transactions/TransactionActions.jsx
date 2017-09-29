@@ -166,13 +166,13 @@ const TransactionActions = ({transaction, urls, withoutDefault, onClose}) => {
     <div>
       {displayDefaultAction &&
         <TransactionAction transaction={transaction} urls={urls} onClick={onClose} />}
-      <Item>
+      <Item disabled>
         <Action name={ATTACH_LINK} onClick={onClose} color={palette['cool-grey']} />
       </Item>
-      <Item>
+      <Item disabled>
         <Action name={COMMENT_LINK} onClick={onClose} color={palette['cool-grey']} />
       </Item>
-      <Item>
+      <Item disabled>
         <Action name={ALERT_LINK} onClick={onClose} color={palette['cool-grey']} />
       </Item>
     </div>
