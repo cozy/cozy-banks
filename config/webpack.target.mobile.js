@@ -2,13 +2,17 @@
 
 const path = require('path')
 const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const {production} = require('./webpack.vars')
+const { production } = require('./webpack.vars')
 
+console.log(__dirname)
 module.exports = {
-  entry: [path.resolve(__dirname, '../mobile/src/main')],
+  entry: {
+    app: [path.resolve(__dirname, '../src/targets/mobile/main.js')]
+  },
   output: {
-    path: path.resolve(__dirname, '../mobile/www')
+    path: path.resolve(__dirname, '../src/targets/mobile/www')
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -19,6 +23,15 @@ module.exports = {
     new webpack.ProvidePlugin({
       'cozy.client': 'cozy-client-js/dist/cozy-client.js',
       'cozy.bar': 'cozy-bar/dist/cozy-bar.mobile.js'
+    }),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, `../src/targets/mobile/index.ejs`),
+      title: `cozy-bank`,
+      chunks: ['app'],
+      inject: 'head',
+      minify: {
+        collapseWhitespace: true
+      }
     })
   ]
 }

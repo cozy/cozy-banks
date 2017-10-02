@@ -30,19 +30,19 @@ desktop.ini
 
 
 # Mobile
-mobile/hooks
-mobile/platforms
-mobile/plugins
-mobile/www
-mobile/keys
+**/mobile/hooks
+**/mobile/platforms
+**/mobile/plugins
+**/mobile/www
+**/mobile/keys
 
 
 # fastlane
-mobile/fastlane/README.md
-mobile/fastlane/report.xml
-mobile/fastlane/Error*.png
-mobile/fastlane/Preview.html
-mobile/Preview.html
+**/mobile/fastlane/README.md
+**/mobile/fastlane/report.xml
+**/mobile/fastlane/Error*.png
+**/mobile/fastlane/Preview.html
+**/mobile/Preview.html
 
 
 # Default
