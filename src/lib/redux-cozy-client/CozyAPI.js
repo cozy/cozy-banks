@@ -56,12 +56,12 @@ export default class CozyAPI {
     let data, meta, next
     if (doctype === FILES_DOCTYPE) {
       const response = await cozy.client.files.query(index, queryOptions)
-      data = response.data.map(doc => Object.assign({ _id: doc.id }, doc, doc.attributes))
+      data = response.data.map(doc => Object.assign({ _id: doc.id, _type: doctype}, doc, doc.attributes))
       meta = response.meta
       next = meta.count > skip + FETCH_LIMIT
     } else {
       const response = await cozy.client.data.query(index, queryOptions)
-      data = response.docs.map(doc => Object.assign({id: doc._id}, doc))
+      data = response.docs.map(doc => Object.assign({id: doc._id, _type: doctype}, doc))
       meta = {}
       next = response.next
     }
