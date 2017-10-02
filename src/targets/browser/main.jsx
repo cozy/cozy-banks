@@ -7,7 +7,7 @@ import { Provider } from 'react-redux'
 import { Router, hashHistory } from 'react-router'
 import { I18n } from 'cozy-ui/react/I18n'
 import { shouldEnableTracking, getTracker } from 'cozy-ui/react/helpers/tracker'
-
+import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
 import { loadState, persistState } from 'store/persistedState'
 import configureStore from 'store/configureStore'
 import AppRoute from 'components/AppRoute'
@@ -23,8 +23,11 @@ const renderAppWithPersistedState = persistedState => {
 
   cozy.client.init({
     cozyURL: '//' + data.cozyDomain,
-    token: data.cozyToken
+    token: data.cozyToken,
+    offline: { doctypes: [ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE] }
   })
+
+  window.cozyClient = cozy.client
 
   cozy.bar.init({
     appName: data.cozyAppName,
