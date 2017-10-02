@@ -1,6 +1,9 @@
 import { getCollection } from 'redux-cozy-client'
 
-export const getTransactions = state => state.transactions
+export const getTransactions = state => {
+  const col = getCollection(state, 'transactions')
+  return (col && col.data) || []
+}
 export const getGroups = state => {
   const col = getCollection(state, 'groups')
   return (col && col.data) || []
