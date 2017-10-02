@@ -187,7 +187,7 @@
       "activities": "Leisure, sports",
       "dailyLife": "Everyday life",
       "education": "Education, training",
-      "excludeFromBudgetTheme": "Out of budget",
+      "excludeFromBudgetCat": "Out of budget",
       "goingOutAndTravel": "Outings, trips",
       "health": "Health",
       "homeAndRealEstate": "Housing, real estate",
