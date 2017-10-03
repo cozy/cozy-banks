@@ -34,7 +34,7 @@
     "type": "Type",
     "types": {
       "Checkings": "Compte courant",
-      "Savings": "Épargne",
+      "Savings": "Compte d'épargne",
       "CreditCard": "Carte de crédit",
       "Loan": "Prêt"
     }
