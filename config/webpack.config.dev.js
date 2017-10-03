@@ -17,6 +17,8 @@ module.exports = {
       __DEVELOPMENT__: true
     }),
     new webpack.ProvidePlugin({
+      'PouchDB': ['pouchdb', 'default'],
+      'pouchdbFind': 'pouchdb-find',
       'cozy.client': 'cozy-client-js/dist/cozy-client.js',
       'cozy.bar': 'cozy-bar/dist/cozy-bar.js'
     })
