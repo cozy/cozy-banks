@@ -2,7 +2,7 @@
 const FILES_DOCTYPE = 'io.cozy.files'
 const FETCH_LIMIT = 50
 
-export default class CozyAPI {
+export default class HttpAdapter {
   constructor (config) {
     cozy.client.init(config)
   }
@@ -96,8 +96,8 @@ export default class CozyAPI {
     return { data: [doc] }
   }
 
-  async createIndex (doctype, fields) {
-    return await cozy.client.data.defineIndex(doctype, fields)
+  createIndex (doctype, fields) {
+    return cozy.client.data.defineIndex(doctype, fields)
   }
 
   async fetchFileByPath (path) {
