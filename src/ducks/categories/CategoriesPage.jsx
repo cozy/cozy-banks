@@ -5,12 +5,13 @@ import { translate } from 'cozy-ui/react/I18n'
 import Loading from 'components/Loading'
 import { TopbarTitle } from 'ducks/commons/Topbar'
 import { getFilteredTransactions } from 'ducks/filters'
-import { fetchTransactions, indexTransactionsByDate } from 'actions'
+import { fetchTransactions } from 'actions'
 import { transactionsByCategory, computeCategorieData } from './helpers'
 import Categories from './Categories'
 import BackButton from 'components/BackButton'
 import styles from './CategoriesPage.styl'
 import { flowRight as compose } from 'lodash'
+import { cozyConnect } from 'redux-cozy-client'
 
 class CategoriesPage extends Component {
   state = {
@@ -65,14 +66,16 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchTransactions: async () => {
-    const mangoIndex = await dispatch(indexTransactionsByDate())
-    await dispatch(fetchTransactions(mangoIndex))
-  }
+  dispatch
+})
+
+const mapDocumentsToProps = ownProps => ({
+  transactions: fetchTransactions(ownProps.dispatch)
 })
 
 export default compose(
   withRouter,
   connect(mapStateToProps, mapDispatchToProps),
+  cozyConnect(mapDocumentsToProps),
   translate()
 )(CategoriesPage)

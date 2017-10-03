@@ -5,32 +5,30 @@ import { FigureBlock } from 'components/Figure'
 import Loading from 'components/Loading'
 import { Topbar } from 'ducks/commons'
 import { SelectDates, getFilteredTransactions } from 'ducks/filters'
-import { fetchTransactions, indexTransactionsByDate } from 'actions'
+import { fetchTransactions } from 'actions'
 import { getUrlBySource, findApps } from 'ducks/apps'
 import { flowRight as compose } from 'lodash'
+import { cozyConnect } from 'redux-cozy-client'
 
 import TransactionsWithSelection from './TransactionsWithSelection'
 import styles from './TransactionsPage.styl'
 
-class TransactionsPage extends Component {
-  state = {
-    isFetching: this.props.filteredTransactions.length === 0
-  }
+const isPendingOrLoading = function (col) {
+  return col.fetchStatus === 'pending' || col.fetchStatus === 'loading'
+}
 
+class TransactionsPage extends Component {
   async componentDidMount () {
-    try {
-      await this.props.fetchTransactions()
-    } finally {
-      this.setState({isFetching: false})
-    }
     this.props.fetchApps()
   }
 
   render () {
-    const { t, filteredTransactions, urls } = this.props
-    if (this.state.isFetching) {
+    const { t, urls, filteredTransactions, transactions } = this.props
+
+    if (isPendingOrLoading(transactions)) {
       return <Loading loadingType='movements' />
     }
+
     let credits = 0
     let debits = 0
     filteredTransactions.forEach((transaction) => {
@@ -74,13 +72,15 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchApps: () => dispatch(findApps()),
-  fetchTransactions: async () => {
-    const mangoIndex = await dispatch(indexTransactionsByDate())
-    await dispatch(fetchTransactions(mangoIndex))
-  }
+  dispatch
+})
+
+const mapDocumentsToProps = ownProps => ({
+  transactions: fetchTransactions(ownProps.dispatch)
 })
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
+  cozyConnect(mapDocumentsToProps),
   translate()
 )(TransactionsPage)
