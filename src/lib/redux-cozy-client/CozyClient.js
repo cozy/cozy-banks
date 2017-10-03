@@ -6,7 +6,7 @@ export default class CozyClient {
   constructor (config) {
     this.indexes = {}
     this.specialDirectories = {}
-    this.adapter = new HttpAdapter(config)
+    this.adapter = new PouchdbAdapter(config)
   }
 
   async fetchCollection (name, doctype, options = {}, skip = 0) {

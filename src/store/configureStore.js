@@ -4,6 +4,7 @@ import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import { shouldEnableTracking, getTracker, createTrackerMiddleware } from 'cozy-ui/react/helpers/tracker'
 
+import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
 import appReducers from 'reducers'
 import { cozyMiddleware, CozyClient } from 'redux-cozy-client'
 
@@ -12,7 +13,8 @@ const getCozyClient = function () {
   const data = root.dataset
   return new CozyClient({
     cozyURL: `//${data.cozyDomain}`,
-    token: data.cozyToken
+    token: data.cozyToken,
+    offline: { doctypes: [ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE] }
   })
 }
 

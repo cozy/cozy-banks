@@ -18,8 +18,14 @@ export default class PouchdbAdapter {
     return cozy.client.offline.getDatabase(doctype)
   }
 
-  fetchDocuments (doctype) {
-    return this.getDatabase(doctype).allDocs({ include_docs: true })
+  async fetchDocuments (doctype) {
+    const resp = await this.getDatabase(doctype).allDocs({ include_docs: true })
+    return {
+      data: resp.rows.map(row => ({...row.doc, id: row.id, _type: doctype})),
+      meta: { count: resp.total_rows },
+      skip: resp.offset,
+      next: false
+    }
   }
 
   queryDocuments (doctype, index, options) {
