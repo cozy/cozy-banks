@@ -5,7 +5,8 @@ export const persistState = store => {
     filters: {
       accountOrGroupType: store.getState().filters.accountOrGroupType,
       accountOrGroupId: store.getState().filters.accountOrGroupId
-    }
+    },
+    mobile: store.getState().mobile
   }))
 }
 

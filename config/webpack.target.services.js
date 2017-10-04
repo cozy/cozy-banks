@@ -6,7 +6,7 @@ const merge = require('webpack-merge')
 const base = require('./webpack.config.base')
 const ui = require('./webpack.config.cozy-ui')
 
-module.exports= merge.strategy({
+module.exports = merge.strategy({
   plugins: 'replace',
   output: 'replace',
   entry: 'replace'
