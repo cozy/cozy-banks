@@ -16,7 +16,7 @@ export default class PouchdbAdapter {
     return cozy.client.offline.getDatabase(doctype)
   }
 
-  synchronize () {
+  startSync () {
     return Promise.all(this.doctypes.map(doctype =>
       cozy.client.offline.replicateFromCozy(doctype).catch(err => {
         // TODO: A 404 error on some doctypes is perfectly normal when there is no data

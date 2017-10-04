@@ -1,5 +1,5 @@
 /* global cozy */
-import HttpAdapter from './adapters/HttpAdapter'
+import CozyStackAdapter from './adapters/CozyStackAdapter'
 import PouchdbAdapter from './adapters/PouchdbAdapter'
 
 export default class CozyClient {
@@ -12,48 +12,48 @@ export default class CozyClient {
   async fetchCollection (name, doctype, options = {}, skip = 0) {
     if (options.selector) {
       const index = await this.getCollectionIndex(name, doctype, options)
-      return await this.adapter.queryDocuments(doctype, index, {...options, skip})
+      return this.adapter.queryDocuments(doctype, index, {...options, skip})
     }
-    return await this.adapter.fetchDocuments(doctype)
+    return this.adapter.fetchDocuments(doctype)
   }
 
-  async fetchDocument (doctype, id) {
+  fetchDocument (doctype, id) {
     return this.adapter.fetchDocument(doctype, id)
   }
 
-  async fetchFile (id) {
+  fetchFile (id) {
     return this.adapter.fetchFile(id)
   }
 
-  async fetchReferencedFiles (doc, skip = 0) {
+  fetchReferencedFiles (doc, skip = 0) {
     return this.adapter.fetchReferencedFiles(doc, skip)
   }
 
-  async addReferencedFiles (doc, ids) {
+  addReferencedFiles (doc, ids) {
     return this.adapter.addReferencedFiles(doc, ids)
   }
 
-  async removeReferencedFiles (doc, ids) {
+  removeReferencedFiles (doc, ids) {
     return this.adapter.removeReferencedFiles(doc, ids)
   }
 
-  async createDocument (doc) {
+  createDocument (doc) {
     return this.adapter.createDocument(doc)
   }
 
-  async updateDocument (doc) {
+  updateDocument (doc) {
     return this.adapter.updateDocument(doc)
   }
 
-  async deleteDocument (doc) {
+  deleteDocument (doc) {
     return this.adapter.deleteDocument(doc)
   }
 
-  async createFile (file, dirID) {
+  createFile (file, dirID) {
     return this.adapter.createFile(file, dirID)
   }
 
-  async trashFile (file) {
+  trashFile (file) {
     return this.adapter.trashFile(file)
   }
 
@@ -92,12 +92,13 @@ export default class CozyClient {
   getIndexFields (options) {
     const { selector, sort } = options
     if (sort) {
+      // We filter possible duplicated fields 
       return [...Object.keys(selector), ...Object.keys(sort)].filter((f, i, arr) => arr.indexOf(f) === i)
     }
     return Object.keys(selector)
   }
 
-  synchronize () {
-    return this.adapter.synchronize()
+  startSync () {
+    return this.adapter.startSync()
   }
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { isSynched, synchronize } from 'redux-cozy-client'
+import { isSynced, startSync } from 'redux-cozy-client'
 import Loading from 'components/Loading'
 import styles from './Onboarding.styl'
 import { Content } from 'components/Layout'
@@ -10,12 +10,12 @@ import { Content } from 'components/Layout'
  */
 class Wrapper extends Component {
   componentDidMount () {
-    this.props.dispatch(synchronize())
+    this.props.dispatch(startSync())
   }
 
   render () {
-    const { isSynched, children } = this.props
-    if (!isSynched) {
+    const { isSynced, children } = this.props
+    if (!isSynced) {
       return (
         <Content>
           <div className={styles.Onboarding__loading}>
@@ -28,6 +28,6 @@ class Wrapper extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({ isSynched: isSynched(state) })
+const mapStateToProps = (state) => ({ isSynced: isSynced(state) })
 
 export default connect(mapStateToProps)(Wrapper)

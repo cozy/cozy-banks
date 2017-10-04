@@ -2,7 +2,7 @@
 const FILES_DOCTYPE = 'io.cozy.files'
 const FETCH_LIMIT = 50
 
-export default class HttpAdapter {
+export default class CozyStackAdapter {
   constructor (config) {
     cozy.client.init(config)
   }
@@ -150,7 +150,7 @@ export default class HttpAdapter {
     return ids
   }
 
-  synchronize () {
+  startSync () {
     return Promise.resolve()
   }
 }
