@@ -1,78 +1,113 @@
-/* global cozy */
+/* global cozy, PouchDB, pouchdbFind */
 const FILES_DOCTYPE = 'io.cozy.files'
 const FETCH_LIMIT = 50
 
-const REPLICATION_INTERVAL = 10
+const REPLICATION_INTERVAL = 30
 
 export default class PouchdbAdapter {
   constructor (config) {
+    // For now we let cozy-client-js creates PouchDB instances
     cozy.client.init(config)
-    config.offline.doctypes.forEach(doctype =>
-      cozy.client.offline.startRepeatedReplication(doctype, REPLICATION_INTERVAL, {
-        onComplete: (result) => console.log(result)
-      })
-    )
+    PouchDB.plugin(pouchdbFind)
+    this.doctypes = config.offline.doctypes
   }
 
   getDatabase (doctype) {
     return cozy.client.offline.getDatabase(doctype)
   }
 
+  synchronize () {
+    return Promise.all(this.doctypes.map(doctype =>
+      cozy.client.offline.replicateFromCozy(doctype).catch(err => {
+        // TODO: A 404 error on some doctypes is perfectly normal when there is no data
+        // We should handle all errors in the same place
+        if (err.status !== 404) {
+          throw err
+        }
+      })
+    )).then(() => {
+      this.doctypes.forEach(doctype =>
+        cozy.client.offline.startRepeatedReplication(doctype, REPLICATION_INTERVAL, {
+          onComplete: (result) => console.log(result)
+        })
+      )
+    })
+  }
+
   async fetchDocuments (doctype) {
     const resp = await this.getDatabase(doctype).allDocs({ include_docs: true })
     return {
-      data: resp.rows.map(row => ({...row.doc, id: row.id, _type: doctype})),
+      data: resp.rows.filter(row => !row.doc.hasOwnProperty('views'))
+        .map(row => ({...row.doc, id: row.id, _type: doctype})),
       meta: { count: resp.total_rows },
       skip: resp.offset,
       next: false
     }
   }
 
-  queryDocuments (doctype, index, options) {
-    return this.getDatabase(doctype).find(options)
+  async queryDocuments (doctype, index, options) {
+    const queryOptions = {
+      ...options,
+      fields: [...options.fields, '_id'],
+      sort: options.sort ? Object.keys(options.sort).map(k => ({[k]: options.sort[k]})) : undefined
+    }
+    const resp = await this.getDatabase(doctype).find(queryOptions)
+    
+    return {
+      data: resp.docs.map(doc => ({...doc, id: doc._id, _type:doctype})),
+      meta: { count: resp.docs.length },
+      skip: 0,
+      next: false
+    }
   }
 
-  fetchDocument (doctype, id) {
-    return this.getDatabase(doctype).get(id)
+  async fetchDocument (doctype, id) {
+    const resp = await this.getDatabase(doctype).get(id, { revs_info: true }) // We need the revs_info option to get the _rev property
+    return { data: [{...resp, id: resp.id, _id: resp.id, _type: doctype}] }
   }
 
-  createDocument (doc) {
-    return this.getDatabase(doc._type).put(doc)
+  async createDocument (doc) {
+    const resp = await this.getDatabase(doc._type || doc.type).post(doc)
+    return { data: [{...doc, id: resp.id, _id: resp.id}] }
   }
 
-  updateDocument (doc) {
-    return this.getDatabase(doc._type).put(doc)
+  async updateDocument (doc) {
+    // TODO: _* properties are reserved by CouchDB, so we can't send the doc with its _type property...
+    const { _type, ...safeDoc } = doc
+    const resp = await this.getDatabase(_type).put(safeDoc)
+    return { data: [{...doc, _rev: resp.rev}] }
   }
 
-  deleteDocument (doc) {
-    return this.getDatabase(doc._type).remove(doc)
+  async deleteDocument (doc) {
+    const resp = await this.getDatabase(doc._type).remove(doc)
+    return { data: [doc] }
   }
 
   createIndex (doctype, fields) {
     return this.getDatabase(doctype).createIndex({ index: { fields } })
   }
 
-  async fetchFileByPath (path) {
+  fetchFileByPath (path) {
     throw 'Not implemented'
   }
 
-  async createFile (file, dirID) {
+  createFile (file, dirID) {
     throw 'Not implemented'
   }
 
-  async trashFile (file) {
+  trashFile (file) {
     throw 'Not implemented'
   }
 
-  async fetchReferencedFiles (doc, skip = 0) {
+  fetchReferencedFiles (doc, skip = 0) {
     throw 'Not implemented'
   }
 
-  async addReferencedFiles (doc, ids) {
+  addReferencedFiles (doc, ids) {
     throw 'Not implemented'
   }
 
-  async removeReferencedFiles (doc, ids) {
+  removeReferencedFiles (doc, ids) {
     throw 'Not implemented'
   }
 }

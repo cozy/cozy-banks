@@ -12,7 +12,7 @@ const getCozyClient = function () {
   const root = document.querySelector('[role=application]')
   const data = root.dataset
   return new CozyClient({
-    cozyURL: `//${data.cozyDomain}`,
+    cozyURL: `${window.location.protocol}//${data.cozyDomain}`,
     token: data.cozyToken,
     offline: { doctypes: [ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE] }
   })

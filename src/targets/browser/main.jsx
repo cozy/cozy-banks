@@ -21,14 +21,6 @@ const renderAppWithPersistedState = persistedState => {
   // Force the French language for the translation of dates
   const lang = data.cozyLocale || 'en'
 
-  // cozy.client.init({
-  //   cozyURL: '//' + data.cozyDomain,
-  //   token: data.cozyToken
-  //   // offline: { doctypes: [ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE] }
-  // })
-
-  window.cozyClient = cozy.client
-
   cozy.bar.init({
     appName: data.cozyAppName,
     iconPath: data.cozyIconPath,

@@ -14,7 +14,6 @@ import BackButton from 'components/BackButton'
 import { Button, translate, Toggle } from 'cozy-ui/react'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { withRouter } from 'react-router'
-import { omit } from 'lodash'
 import Table from 'components/Table'
 import Spinner from 'cozy-ui/react/Spinner'
 import styles from './GroupsSettings.styl'
@@ -58,7 +57,7 @@ class GroupSettings extends Component {
     else if (!enabled && indexInSelectedAccounts >= 0) selectedAccounts.splice(indexInSelectedAccounts, 1)
 
     group.accounts = selectedAccounts
-    this.updateOrCreate(omit(group, '_rev'))
+    this.updateOrCreate(group)
   }
 
   renderAccountLine = (account) => {

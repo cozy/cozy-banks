@@ -149,6 +149,10 @@ export default class HttpAdapter {
     await cozy.client.data.removeReferencedFiles(normalized, ids)
     return ids
   }
+
+  synchronize () {
+    return Promise.resolve()
+  }
 }
 
 const normalizeFile = (file) => ({ ...file, ...file.attributes, id: file._id })

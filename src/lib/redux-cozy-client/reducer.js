@@ -14,6 +14,9 @@ const RECEIVE_DELETED_DOCUMENT = 'RECEIVE_DELETED_DOCUMENT'
 const FETCH_REFERENCED_FILES = 'FETCH_REFERENCED_FILES'
 const ADD_REFERENCED_FILES = 'ADD_REFERENCED_FILES'
 const REMOVE_REFERENCED_FILES = 'REMOVE_REFERENCED_FILES'
+const SYNCHRONIZE = 'SYNCHRONIZE'
+const RECEIVE_SYNC_DATA = 'RECEIVE_SYNC_DATA'
+const RECEIVE_SYNC_ERROR = 'RECEIVE_SYNC_ERROR'
 
 const documents = (state = {}, action) => {
   let doctype
@@ -205,9 +208,20 @@ const collections = (state = {}, action) => {
   }
 }
 
+const synched = (state = false, action) => {
+  if (action.type === RECEIVE_SYNC_DATA) return true
+  return state
+}
+
 export default combineReducers({
   collections,
-  documents
+  documents,
+  synched
+})
+
+export const synchronize = () => ({
+  types: [SYNCHRONIZE, RECEIVE_SYNC_DATA, RECEIVE_SYNC_ERROR],
+  promise: (client) => client.synchronize()
 })
 
 export const fetchCollection = (name, doctype, options = {}, skip = 0) => ({
@@ -314,3 +328,5 @@ export const getDocument = (state, doctype, id) => {
   }
   return documents[id]
 }
+
+export const isSynched = (state) => state.cozy.synched

@@ -6,7 +6,7 @@ export default class CozyClient {
   constructor (config) {
     this.indexes = {}
     this.specialDirectories = {}
-    this.adapter = new PouchdbAdapter(config)
+    this.adapter = config.offline ? new PouchdbAdapter(config) : new HttpAdapter(config)
   }
 
   async fetchCollection (name, doctype, options = {}, skip = 0) {
@@ -92,8 +92,12 @@ export default class CozyClient {
   getIndexFields (options) {
     const { selector, sort } = options
     if (sort) {
-      return [...Object.keys(selector), ...Object.keys(sort)]
+      return [...Object.keys(selector), ...Object.keys(sort)].filter((f, i, arr) => arr.indexOf(f) === i)
     }
     return Object.keys(selector)
+  }
+
+  synchronize () {
+    return this.adapter.synchronize()
   }
 }
