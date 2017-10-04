@@ -14,10 +14,6 @@ module.exports = {
         warnings: false
       }
     }),
-    new webpack.ProvidePlugin({
-      'PouchDB': ['pouchdb', 'default'],
-      'pouchdbFind': 'pouchdb-find'
-    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'), // to compile on production mode (redux)
       __DEVELOPMENT__: false,
