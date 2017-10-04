@@ -9,9 +9,9 @@ import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
 import appReducers from 'reducers'
 import { cozyMiddleware, CozyClient } from 'redux-cozy-client'
 
-const getCozyClient = function (persistedUrl) {
-  // bind PouchDB to window for cozy-client-js to find it
-  // PouchDB is provided by webpack through ProvidedPlugin
+const getCozyClient = function () {
+  // Bind `PouchDB` to window for `cozy-client-js` to find it
+  // PouchDB is provided here by `webpack` through `ProvidedPlugin`
   window.PouchDB = PouchDB
   window.pouchdbFind = pouchdbFind
 
