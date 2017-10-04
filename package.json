@@ -30,6 +30,7 @@
     "watch:mobile": "NODE_ENV=mobile:development npm run commons:watch -- --env.target=mobile",
     "watch:browser:standalone": "NODE_ENV=browser:development npm run commons:watch:standalone",
     "watch:mobile:standalone": "NODE_ENV=mobile:development npm run commons:watch:standalone",
+    "mobile:icon": "(cd src/targets/mobile && splashicon-generator --imagespath='./res/model')",
     "android:prepare": "(cd src/targets/mobile && cordova platform add android && cordova prepare)",
     "android:run": "(cd src/targets/mobile && cordova run android --device)",
     "android:run:emulator": "(cd src/targets/mobile && cordova run android --emulator)",
@@ -139,6 +140,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.1.0",
     "reselect": "^3.0.1",
+    "splashicon-generator": "^0.2.12",
     "velocity-animate": "^1.5.0"
   },
   "jest": {
