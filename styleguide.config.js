@@ -38,27 +38,27 @@ module.exports = {
       components: () => [
         'src/components/Table/index.jsx',
         'src/components/SharingIcon/SharingIcon.jsx'
-      ],
+      ]
     },
     {
       name: 'Forms',
       components: () => [
         'src/components/Field/Field.jsx',
-        'src/components/Select.jsx',
-      ],
+        'src/components/Select.jsx'
+      ]
     },
     {
       name: 'Bank',
       components: () => [
         'src/components/Figure/Figure.jsx',
         'src/components/Figure/FigureBlock.jsx'
-      ],
+      ]
     },
     {
       name: 'Loading',
       components: () => [
         'src/components/Loading/Loading.jsx'
-      ],
+      ]
     },
     {
       name: 'Misc',

@@ -1,16 +1,18 @@
-/* global cozy */
+import 'babel-polyfill'
 import 'styles/main'
 
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import { Router, hashHistory } from 'react-router'
+import { hashHistory } from 'react-router'
 import { I18n } from 'cozy-ui/react/I18n'
 import { shouldEnableTracking, getTracker } from 'cozy-ui/react/helpers/tracker'
 
 import { loadState, persistState } from 'store/persistedState'
 import configureStore from 'store/configureStore'
+import MobileRouter from 'ducks/authentication/MobileRouter'
 import AppRoute from 'components/AppRoute'
+import { setClient, setURL, initServices } from 'ducks/mobile'
 import 'number-to-locale-string'
 
 const renderAppWithPersistedState = persistedState => {
@@ -21,17 +23,21 @@ const renderAppWithPersistedState = persistedState => {
   // Force the French language for the translation of dates
   const lang = data.cozyLocale || 'en'
 
-  cozy.client.init({
-    cozyURL: '//' + data.cozyDomain,
-    token: data.cozyToken
-  })
+  initServices(store)
 
-  cozy.bar.init({
-    appName: data.cozyAppName,
-    iconPath: data.cozyIconPath,
-    lang: data.cozyLocale,
-    replaceTitleOnMobile: true
-  })
+  const isAuthenticated = () => {
+    return store.getState().mobile.client !== null
+  }
+
+  const isRevoked = () => {
+    return store.getState().mobile.revoked
+  }
+
+  const storeCredentials = ({ url, client, router }) => {
+    store.dispatch(setClient(client))
+    store.dispatch(setURL(url))
+    router.replace('/')
+  }
 
   const piwikEnabled = shouldEnableTracking() && getTracker()
   let history = hashHistory
@@ -44,7 +50,13 @@ const renderAppWithPersistedState = persistedState => {
   render(
     <I18n lang={lang} dictRequire={lang => require(`../../locales/${lang}`)}>
       <Provider store={store}>
-        <Router history={history} routes={AppRoute} />
+        <MobileRouter
+          history={history}
+          appRoutes={AppRoute}
+          isAuthenticated={isAuthenticated}
+          isRevoked={isRevoked}
+          onAuthenticated={storeCredentials}
+        />
       </Provider>
     </I18n>,
     document.querySelector('[role=application]')

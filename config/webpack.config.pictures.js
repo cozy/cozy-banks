@@ -7,12 +7,12 @@ module.exports = {
     rules: [
       {
         test: /\.svg$/,
-        include: /(sprites|icons)/,
+        include: /(sprites|assets\/icons)/,
         loader: 'svg-sprite-loader?name=[name]_[hash]'
       },
       {
         test: /\.(png|gif|jpe?g|svg)$/i,
-        exclude: /(sprites|icons)/,
+        exclude: /(sprites|assets\/icons)/,
         loader: `file-loader?path=img&name=[name]${production ? '.[hash]' : ''}.[ext]`
       }
     ]
