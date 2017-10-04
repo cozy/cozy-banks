@@ -1,3 +1,4 @@
+/* global PouchDB, pouchdbFind */
 /* global __DEVELOPMENT__ */
 import { compose, createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
@@ -10,6 +11,12 @@ import { cozyMiddleware, CozyClient } from 'redux-cozy-client'
 const getCozyClient = function () {
   const root = document.querySelector('[role=application]')
   const data = root.dataset
+
+  // bind PouchDB to window for cozy-client-js to find it
+  // PouchDB is provided by webpack through ProvidedPlugin
+  window.PouchDB = PouchDB
+  window.pouchdbFind = pouchdbFind
+
   return new CozyClient({
     cozyURL: `//${data.cozyDomain}`,
     token: data.cozyToken
