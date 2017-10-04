@@ -2,7 +2,7 @@
 const FILES_DOCTYPE = 'io.cozy.files'
 const FETCH_LIMIT = 50
 
-export default class CozyAPI {
+export default class CozyStackAdapter {
   constructor (config) {
     cozy.client.init(config)
   }
@@ -96,8 +96,8 @@ export default class CozyAPI {
     return { data: [doc] }
   }
 
-  async createIndex (doctype, fields) {
-    return await cozy.client.data.defineIndex(doctype, fields)
+  createIndex (doctype, fields) {
+    return cozy.client.data.defineIndex(doctype, fields)
   }
 
   async fetchFileByPath (path) {
@@ -148,6 +148,10 @@ export default class CozyAPI {
     const normalized = { ...doc, _id: doc.id }
     await cozy.client.data.removeReferencedFiles(normalized, ids)
     return ids
+  }
+
+  startSync () {
+    return Promise.resolve()
   }
 }
 

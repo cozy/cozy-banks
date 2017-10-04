@@ -1,59 +1,60 @@
 /* global cozy */
-import { CozyAPI } from '.'
+import CozyStackAdapter from './adapters/CozyStackAdapter'
+import PouchdbAdapter from './adapters/PouchdbAdapter'
 
 export default class CozyClient {
   constructor (config) {
     this.indexes = {}
     this.specialDirectories = {}
-    this.api = new CozyAPI(config)
+    this.adapter = config.offline ? new PouchdbAdapter(config) : new HttpAdapter(config)
   }
 
   async fetchCollection (name, doctype, options = {}, skip = 0) {
     if (options.selector) {
       const index = await this.getCollectionIndex(name, doctype, options)
-      return await this.api.queryDocuments(doctype, index, {...options, skip})
+      return this.adapter.queryDocuments(doctype, index, {...options, skip})
     }
-    return await this.api.fetchDocuments(doctype)
+    return this.adapter.fetchDocuments(doctype)
   }
 
-  async fetchDocument (doctype, id) {
-    return this.api.fetchDocument(doctype, id)
+  fetchDocument (doctype, id) {
+    return this.adapter.fetchDocument(doctype, id)
   }
 
-  async fetchFile (id) {
-    return this.api.fetchFile(id)
+  fetchFile (id) {
+    return this.adapter.fetchFile(id)
   }
 
-  async fetchReferencedFiles (doc, skip = 0) {
-    return this.api.fetchReferencedFiles(doc, skip)
+  fetchReferencedFiles (doc, skip = 0) {
+    return this.adapter.fetchReferencedFiles(doc, skip)
   }
 
-  async addReferencedFiles (doc, ids) {
-    return this.api.addReferencedFiles(doc, ids)
+  addReferencedFiles (doc, ids) {
+    return this.adapter.addReferencedFiles(doc, ids)
   }
 
-  async removeReferencedFiles (doc, ids) {
-    return this.api.removeReferencedFiles(doc, ids)
+  removeReferencedFiles (doc, ids) {
+    return this.adapter.removeReferencedFiles(doc, ids)
   }
 
-  async createDocument (doc) {
-    return this.api.createDocument(doc)
+  createDocument (doc) {
+    return this.adapter.createDocument(doc)
   }
 
-  async updateDocument (doc) {
-    return this.api.updateDocument(doc)
+  updateDocument (doc) {
+    return this.adapter.updateDocument(doc)
   }
 
-  async deleteDocument (doc) {
-    return this.api.deleteDocument(doc)
+  deleteDocument (doc) {
+    return this.adapter.deleteDocument(doc)
   }
 
-  async createFile (file, dirID) {
-    return this.api.createFile(file, dirID)
+  createFile (file, dirID) {
+    return this.adapter.createFile(file, dirID)
   }
 
-  async trashFile (file) {
-    return this.api.trashFile(file)
+  trashFile (file) {
+    return this.adapter.trashFile(file)
   }
 
   async ensureDirectoryExists (path) {
@@ -75,7 +76,7 @@ export default class CozyClient {
 
   async getCollectionIndex (name, doctype, options) {
     if (!this.indexes[name]) {
-      this.indexes[name] = await this.api.createIndex(doctype, this.getIndexFields(options))
+      this.indexes[name] = await this.adapter.createIndex(doctype, this.getIndexFields(options))
     }
     return this.indexes[name]
   }
@@ -83,7 +84,7 @@ export default class CozyClient {
   async getUniqueIndex (doctype, property) {
     const name = `${doctype}/${property}`
     if (!this.indexes[name]) {
-      this.indexes[name] = await this.api.createIndex(doctype, [property])
+      this.indexes[name] = await this.adapter.createIndex(doctype, [property])
     }
     return this.indexes[name]
   }
@@ -91,8 +92,13 @@ export default class CozyClient {
   getIndexFields (options) {
     const { selector, sort } = options
     if (sort) {
-      return [...Object.keys(selector), ...Object.keys(sort)]
+      // We filter possible duplicated fields 
+      return [...Object.keys(selector), ...Object.keys(sort)].filter((f, i, arr) => arr.indexOf(f) === i)
     }
     return Object.keys(selector)
+  }
+
+  startSync () {
+    return this.adapter.startSync()
   }
 }
