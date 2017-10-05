@@ -5,21 +5,28 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { Router, hashHistory } from 'react-router'
+import { CozyClient } from 'redux-cozy-client'
 import { I18n } from 'cozy-ui/react/I18n'
 import { shouldEnableTracking, getTracker } from 'cozy-ui/react/helpers/tracker'
-// import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
+import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
 import { loadState, persistState } from 'store/persistedState'
 import configureStore from 'store/configureStore'
 import AppRoute from 'components/AppRoute'
 import 'number-to-locale-string'
 
 const renderAppWithPersistedState = persistedState => {
-  const store = configureStore(persistedState)
-  persistState(store)
   const root = document.querySelector('[role=application]')
   const data = root.dataset
   // Force the French language for the translation of dates
   const lang = data.cozyLocale || 'en'
+
+  const client = new CozyClient({
+    cozyURL: `${window.location.protocol}//${data.cozyDomain}`,
+    token: data.cozyToken,
+    offline: { doctypes: [ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE] }
+  })
+  const store = configureStore(client, persistedState)
+  persistState(store)
 
   cozy.bar.init({
     appName: data.cozyAppName,

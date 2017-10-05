@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import Modal from 'cozy-ui/react/Modal'
 import { translate } from 'cozy-ui/react/I18n'
 
-import { resetClient, registerDevice } from './lib/client'
+import { resetClient } from './lib/client'
 import { AUTH_PATH } from './MobileRouter'
 
 class Revoked extends Component {
@@ -16,8 +16,9 @@ class Revoked extends Component {
   async logBackIn () {
     const url = cozy.client._url
     cozy.client._storage.clear()
-    const { client, token } = await registerDevice(url)
-    this.props.onLogBackIn({ url, client, token, router: this.props.router })
+    const cozyClient = this.context.client
+    const { client, token } = await cozyClient.register(url)
+    this.props.onLogBackIn({ url, clientInfo: client, token, router: this.props.router })
   }
 
   render () {

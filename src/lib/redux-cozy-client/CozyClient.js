@@ -1,13 +1,46 @@
 /* global cozy */
 import CozyStackAdapter from './adapters/CozyStackAdapter'
 import PouchdbAdapter from './adapters/PouchdbAdapter'
+import { authenticateWithCordova } from './authentication/mobile'
 
 export default class CozyClient {
   constructor (config) {
+    const { cozyURL, ...options } = config
+    this.options = options
     this.indexes = {}
     this.specialDirectories = {}
+    this.adapter = null
+    if (cozyURL) {
+      this.instantiateAdapter(cozyURL, options)
+    }
+  }
+
+  register (cozyUrl) {
+    this.instantiateAdapter(cozyUrl, {...this.options, oauth: {...this.options.oauth, onRegistered: (client, url) => authenticateWithCordova(url)}})
+    return cozy.client.authorize(true)
+  }
+
+  async isRegistered (clientInfos) {
+    if (!clientInfos) return false
+    try {
+      await cozy.client.auth.getClient(clientInfos)
+      return true
+    } catch (err) {
+      // this is the error sent if we are offline
+      if (err.message === 'Failed to fetch') {
+        return true
+      } else {
+        console.warn(err)
+        return false
+      }
+    }
+  }
+
+  instantiateAdapter (cozyUrl, options) {
+    const config = { cozyURL: cozyUrl, ...options }
     this.adapter = config.offline ? new PouchdbAdapter(config) : new HttpAdapter(config)
   }
+
 
   async fetchCollection (name, doctype, options = {}, skip = 0) {
     if (options.selector) {
@@ -92,7 +125,7 @@ export default class CozyClient {
   getIndexFields (options) {
     const { selector, sort } = options
     if (sort) {
-      // We filter possible duplicated fields 
+      // We filter possible duplicated fields
       return [...Object.keys(selector), ...Object.keys(sort)].filter((f, i, arr) => arr.indexOf(f) === i)
     }
     return Object.keys(selector)
