@@ -10,7 +10,7 @@ const SOFTWARE_ID = 'io.cozy.bank.mobile'
 const SOFTWARE_NAME = 'Cozy Bank'
 const getLang = () => (navigator && navigator.language) ? navigator.language.slice(0, 2) : 'en'
 
-export function resetClient () {
+export function resetClient (clientInfo) {
   // reset cozy-bar
   if (document.getElementById('coz-bar')) {
     document.getElementById('coz-bar').remove()
@@ -18,6 +18,10 @@ export function resetClient () {
   // reset pouchDB
   if (cozy.client.offline.destroyAllDatabase) {
     cozy.client.offline.destroyAllDatabase()
+  }
+  // unregister the client
+  if (clientInfo && cozy.client.auth.unregisterClient) {
+    cozy.client.auth.unregisterClient(clientInfo)
   }
   // reset cozy-client-js
   if (cozy.client._storage) {
