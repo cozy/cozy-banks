@@ -10,7 +10,7 @@ import appReducers from 'reducers'
 import { cozyMiddleware, CozyClient } from 'redux-cozy-client'
 import { get } from 'lodash'
 
-const getCozyClient = function () {
+const getCozyClient = function (persistedUrl) {
   // Bind `PouchDB` to window for `cozy-client-js` to find it
   // PouchDB is provided here by `webpack` through `ProvidedPlugin`
   window.PouchDB = PouchDB
