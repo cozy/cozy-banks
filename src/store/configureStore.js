@@ -8,6 +8,7 @@ import { shouldEnableTracking, getTracker, createTrackerMiddleware } from 'cozy-
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
 import appReducers from 'reducers'
 import { cozyMiddleware, CozyClient } from 'redux-cozy-client'
+import { get } from 'lodash'
 
 const getCozyClient = function () {
   // Bind `PouchDB` to window for `cozy-client-js` to find it
@@ -41,7 +42,7 @@ const configureStore = persistedState => {
   // middlewares
   const middlewares = [
     thunkMiddleware,
-    cozyMiddleware(getCozyClient(persistedState && persistedState.mobile.url ? persistedState.mobile.url : null))
+    cozyMiddleware(getCozyClient(get(persistedState, 'mobile.url', null)))
   ]
   if (shouldEnableTracking() && getTracker()) {
     middlewares.push(createTrackerMiddleware())
