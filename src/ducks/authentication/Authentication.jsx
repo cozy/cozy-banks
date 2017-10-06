@@ -30,8 +30,9 @@ class Authentication extends Component {
 
   connectToServer = async (url) => {
     try {
-      const { client, token } = await registerDevice(url)
-      this.props.onComplete({ url, client, token, router: this.props.router })
+      const cozyClient = this.context.client
+      const { client, token } = await cozyClient.register(url)
+      this.props.onComplete({ url, clientInfo: client, token, router: this.props.router })
     } catch (err) {
       this.setState({ globalError: err })
     }
