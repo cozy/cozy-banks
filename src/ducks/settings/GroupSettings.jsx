@@ -106,7 +106,7 @@ class GroupSettings extends Component {
             {t('Groups.back-to-groups')}
           </a>
         </p>
-        <form className={styles.GrpStg__form}>
+        <form className={styles.GrpStg__form} onSubmit={e => e.preventDefault()}>
           <label className={styles['coz-form-label']}>
             {t('Groups.label')}
           </label>
