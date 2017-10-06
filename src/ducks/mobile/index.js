@@ -1,5 +1,3 @@
-import { initClient, isClientRegistered, initBar } from 'ducks/authentication/lib/client'
-
 // action creators
 export const SET_CLIENT = 'SET_CLIENT'
 export const SET_URL = 'SET_URL'
@@ -30,23 +28,3 @@ const reducer = (state = initialState, action) => {
 }
 
 export default reducer
-
-// helpers
-export const initServices = (store) => {
-  if (store.getState().mobile.url) {
-    initClient(store.getState().mobile.url)
-  }
-
-  const client = store.getState().mobile.client
-  if (client) {
-    isClientRegistered(client)
-      .then((clientIsRegistered) => {
-        if (clientIsRegistered) {
-          initBar()
-        } else {
-          console.warn('Your device is not connected to your server anymore')
-          store.dispatch(revokeClient())
-        }
-      })
-  }
-}

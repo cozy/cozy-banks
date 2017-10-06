@@ -9,7 +9,7 @@ const pkg = require(path.resolve(__dirname, '../package.json'))
 
 module.exports = {
   entry: {
-    app: [path.resolve(__dirname, '../src/targets/mobile/main.js')]
+    app: [path.resolve(__dirname, '../src/targets/mobile/main.jsx')]
   },
   output: {
     path: path.resolve(__dirname, '../src/targets/mobile/www')

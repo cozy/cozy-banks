@@ -3,27 +3,39 @@ import 'styles/main'
 
 import React from 'react'
 import { render } from 'react-dom'
-import { Provider } from 'react-redux'
+import { CozyProvider } from 'redux-cozy-client'
 import { hashHistory } from 'react-router'
 import { I18n } from 'cozy-ui/react/I18n'
 import { shouldEnableTracking, getTracker } from 'cozy-ui/react/helpers/tracker'
+import { get } from 'lodash'
 
 import { loadState, persistState } from 'store/persistedState'
 import configureStore from 'store/configureStore'
 import MobileRouter from 'ducks/authentication/MobileRouter'
+import { initClient, initBar } from 'ducks/authentication/lib/client'
 import AppRoute from 'components/AppRoute'
-import { setClient, setURL, initServices } from 'ducks/mobile'
+import { setClient, setURL, revokeClient } from 'ducks/mobile'
 import 'number-to-locale-string'
 
 const renderAppWithPersistedState = persistedState => {
-  const store = configureStore(persistedState)
+  const hasPersistedMobileStore = persistedState && persistedState.mobile
+  const client = initClient(hasPersistedMobileStore ? persistedState.mobile.url : '')
+
+  const store = configureStore(client, persistedState)
   persistState(store)
+
+  // Force the French language for the translation of dates
   const root = document.querySelector('[role=application]')
   const data = root.dataset
-  // Force the French language for the translation of dates
   const lang = data.cozyLocale || 'en'
 
-  initServices(store)
+  client.isRegistered(get(persistedState, 'mobile.client', null)).then(isRegistered => {
+    if (isRegistered) {
+      initBar()
+    } else {
+      store.dispatch(revokeClient())
+    }
+  })
 
   const isAuthenticated = () => {
     return store.getState().mobile.client !== null
@@ -33,8 +45,8 @@ const renderAppWithPersistedState = persistedState => {
     return store.getState().mobile.revoked
   }
 
-  const storeCredentials = ({ url, client, router }) => {
-    store.dispatch(setClient(client))
+  const storeCredentials = ({ url, clientInfo, router }) => {
+    store.dispatch(setClient(clientInfo))
     store.dispatch(setURL(url))
     router.replace('/')
   }
@@ -49,7 +61,7 @@ const renderAppWithPersistedState = persistedState => {
 
   render(
     <I18n lang={lang} dictRequire={lang => require(`../../locales/${lang}`)}>
-      <Provider store={store}>
+      <CozyProvider store={store} client={client}>
         <MobileRouter
           history={history}
           appRoutes={AppRoute}
@@ -57,7 +69,7 @@ const renderAppWithPersistedState = persistedState => {
           isRevoked={isRevoked}
           onAuthenticated={storeCredentials}
         />
-      </Provider>
+      </CozyProvider>
     </I18n>,
     document.querySelector('[role=application]')
   )

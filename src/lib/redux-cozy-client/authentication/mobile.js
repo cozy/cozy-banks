@@ -7,7 +7,7 @@ const hasCordovaPlugin = () => {
 
 const REGISTRATION_ABORT = 'REGISTRATION_ABORT'
 
-export const onRegistered = (client, url) => {
+export const authenticateWithCordova = (url) => {
   if (hasCordovaPlugin()) {
     return new Promise((resolve, reject) => {
       const target = '_blank'

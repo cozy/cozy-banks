@@ -3,8 +3,6 @@ import React, { Component } from 'react'
 import Welcome from './steps/Welcome'
 import SelectServer from './steps/SelectServer'
 
-import { registerDevice } from './lib/client'
-
 const STEP_WELCOME = 'STEP_WELCOME'
 const STEP_EXISTING_SERVER = 'STEP_EXISTING_SERVER'
 
@@ -30,8 +28,9 @@ class Authentication extends Component {
   }
 
   connectToServer = async (url) => {
-    const { client, token } = await registerDevice(url)
-    this.props.onComplete({ url, client, token, router: this.props.router })
+    const cozyClient = this.context.client
+    const { client, token } = await cozyClient.register(url)
+    this.props.onComplete({ url, clientInfo: client, token, router: this.props.router })
   }
 
   render () {

@@ -1,7 +1,7 @@
 /* global cozy __APP_VERSION__ */
-
+import { CozyClient } from 'redux-cozy-client'
 import { LocalStorage as Storage } from 'cozy-client-js'
-import { onRegistered } from './registration'
+import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
 
 const isCordova = () => window.cordova !== undefined
 const hasDeviceCordovaPlugin = () => isCordova() && window.device !== undefined
@@ -25,29 +25,25 @@ export function resetClient () {
   }
 }
 
-export const initClient = (url, onRegister = null, deviceName) => {
-  if (url) {
-    console.log(`Cozy Client initializes a connection with ${url}`)
-    cozy.client.init({
-      cozyURL: url,
-      oauth: {
-        storage: new Storage(),
-        clientParams: {
-          redirectURI: 'http://localhost',
-          softwareID: SOFTWARE_ID,
-          clientName: `${SOFTWARE_NAME} (${deviceName})`,
-          softwareVersion: __APP_VERSION__,
-          clientKind: 'mobile',
-          clientURI: 'https://gitlab.cozycloud.cc/labs/cozy-bank',
-          logoURI: 'https://gitlab.cozycloud.cc/labs/cozy-bank/raw/master/src/targets/favicons/favicon-32x32.png',
-          policyURI: 'https://files.cozycloud.cc/cgu.pdf',
-          scopes: ['io.cozy.notifications', 'io.cozy.bank.settings', 'io.cozy.bank.accounts', 'io.cozy.bank.operations', 'io.cozy.bank.groups', 'io.cozy.bills', 'io.cozy.settings', 'io.cozy.mocks.sharings', 'io.cozy.mocks.recipients']
-        },
-        onRegistered: onRegister
-      },
-      offline: {doctypes: ['io.cozy.bank.settings', 'io.cozy.bank.accounts', 'io.cozy.bank.operations', 'io.cozy.bank.groups', 'io.cozy.bills', 'io.cozy.settings']}
-    })
-  }
+export const initClient = (url) => {
+  return new CozyClient({
+    cozyURL: url,
+    oauth: {
+      storage: new Storage(),
+      clientParams: {
+        redirectURI: 'http://localhost',
+        softwareID: SOFTWARE_ID,
+        clientName: `${SOFTWARE_NAME} (${getDeviceName()})`,
+        softwareVersion: __APP_VERSION__,
+        clientKind: 'mobile',
+        clientURI: 'https://gitlab.cozycloud.cc/labs/cozy-bank',
+        logoURI: 'https://gitlab.cozycloud.cc/labs/cozy-bank/raw/master/src/targets/favicons/favicon-32x32.png',
+        policyURI: 'https://files.cozycloud.cc/cgu.pdf',
+        scopes: ['io.cozy.notifications', 'io.cozy.bank.settings', 'io.cozy.bank.accounts', 'io.cozy.bank.operations', 'io.cozy.bank.groups', 'io.cozy.bills', 'io.cozy.settings', 'io.cozy.mocks.sharings', 'io.cozy.mocks.recipients']
+      }
+    },
+    offline: {doctypes: [ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE]}
+  })
 }
 
 export const initBar = () => {
@@ -58,28 +54,4 @@ export const initBar = () => {
     lang: getLang(),
     replaceTitleOnMobile: true
   })
-}
-
-const registrationCallback = (client, url) => {
-  return onRegistered(client, url)
-}
-
-export const registerDevice = (serverUrl) => {
-  initClient(serverUrl, registrationCallback, getDeviceName())
-  return cozy.client.authorize(true)
-}
-
-export const isClientRegistered = async (client) => {
-  try {
-    await cozy.client.auth.getClient(client)
-    return true
-  } catch (err) {
-    // this is the error sent if we are offline
-    if (err.message === 'Failed to fetch') {
-      return true
-    } else {
-      console.warn(err)
-      return false
-    }
-  }
 }

@@ -1,38 +1,13 @@
-/* global PouchDB, pouchdbFind */
-/* global __DEVELOPMENT__ __TARGET__ */
+/* global __DEVELOPMENT__ */
 import { compose, createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import { shouldEnableTracking, getTracker, createTrackerMiddleware } from 'cozy-ui/react/helpers/tracker'
 
-import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
 import appReducers from 'reducers'
-import { cozyMiddleware, CozyClient } from 'redux-cozy-client'
-import { get } from 'lodash'
+import { cozyMiddleware } from 'redux-cozy-client'
 
-const getCozyClient = function (persistedUrl) {
-  // Bind `PouchDB` to window for `cozy-client-js` to find it
-  // PouchDB is provided here by `webpack` through `ProvidedPlugin`
-  window.PouchDB = PouchDB
-  window.pouchdbFind = pouchdbFind
-
-  const cozyOptions = {
-    offline: { doctypes: [ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE] }
-  }
-
-  if (__TARGET__ === 'browser') {
-    const root = document.querySelector('[role=application]')
-    const data = root.dataset
-    cozyOptions.cozyURL = `${window.location.protocol}//${data.cozyDomain}`
-    cozyOptions.token = data.cozyToken
-  } else {
-    cozyOptions.cozyURL = persistedUrl
-  }
-
-  return new CozyClient(cozyOptions)
-}
-
-const configureStore = persistedState => {
+const configureStore = (cozyClient, persistedState) => {
   // Enable Redux dev tools
   const composeEnhancers = (__DEVELOPMENT__ && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
 
@@ -42,7 +17,7 @@ const configureStore = persistedState => {
   // middlewares
   const middlewares = [
     thunkMiddleware,
-    cozyMiddleware(getCozyClient(get(persistedState, 'mobile.url', null)))
+    cozyMiddleware(cozyClient)
   ]
   if (shouldEnableTracking() && getTracker()) {
     middlewares.push(createTrackerMiddleware())
