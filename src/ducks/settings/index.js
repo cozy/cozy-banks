@@ -5,6 +5,7 @@ import AccountSettings from './AccountSettings'
 import AccountsSettings from './AccountsSettings'
 import GroupSettings, { NewGroupSettings } from './GroupSettings'
 import GroupsSettings from './GroupsSettings'
+import AppSettings from './AppSettings'
 
 // constants
 const DOCTYPE = 'io.cozy.bank.settings'
@@ -32,7 +33,7 @@ const DEFAULTS_SETTINGS = {
 }
 
 // components
-export { Settings, AccountsSettings, AccountSettings, GroupsSettings, GroupSettings, NewGroupSettings }
+export { Settings, AccountsSettings, AccountSettings, GroupsSettings, GroupSettings, NewGroupSettings, AppSettings }
 
 // actions
 export const fetchSettingsCollection = () => fetchCollection(COLLECTION_NAME, DOCTYPE)

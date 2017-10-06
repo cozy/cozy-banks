@@ -265,17 +265,17 @@
     "if_balance_lower": {
       "description": "You will receive an email if your balance is less than",
       "title": "Balance threshold",
-"notification": {
-  "one": {
-    "title": "Balance alert: '%{label}' account is at %{balance}%{currency}",
-    "debitContent": "Debit of %{amount}%{currency}: '%{label}'.",
-    "creditContent": "Credit of %{amount}%{currency}: '%{label}'."
-  },
-  "several": {
-    "title": "%{accountsLength} accounts are below your threshold amount of %{lowerBalance}%{currency}",
-    "content": "Balance of %{balance}%{currency} on '%{label}' account."
-  }
-}
+      "notification": {
+        "one": {
+          "title": "Balance alert: '%{label}' account is at %{balance}%{currency}",
+          "debitContent": "Debit of %{amount}%{currency}: '%{label}'.",
+          "creditContent": "Credit of %{amount}%{currency}: '%{label}'."
+        },
+        "several": {
+          "title": "%{accountsLength} accounts are below your threshold amount of %{lowerBalance}%{currency}",
+          "content": "Balance of %{balance}%{currency} on '%{label}' account."
+        }
+      }
     },
     "if_transaction_greater": {
       "description": "You will receive a notification if a movement is greater than",
@@ -311,7 +311,19 @@
     "title": "Settings",
     "accounts": "Accounts",
     "groups": "Groups",
-    "notifications": "Notifications"
+    "notifications": "Notifications",
+    "app": "App"
+  },
+
+  "AppSettings": {
+    "reset": "reset",
+    "description": "By clicking Reset, you will be able to start your application over, and will only lose the data saved on your smartphone.",
+    "confirmation": {
+      "title": "Reset this application?",
+      "description": "By logging out of your Cozy, you will erase all data synchronized locally by your mobile application.",
+      "cancel": "Cancel",
+      "confirm": "Reset"
+    }
   },
 
   "Onboarding": {

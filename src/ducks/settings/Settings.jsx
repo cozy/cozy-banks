@@ -1,3 +1,4 @@
+/* global __TARGET__ */
 import React from 'react'
 import { translate } from 'cozy-ui/react/I18n'
 import { Topbar } from 'ducks/commons'
@@ -15,6 +16,27 @@ const Settings = ({ t, children, router }) => {
   const goTo = url => () => {
     router.push(url)
   }
+
+  const tabs = [
+    (<Tab name={tabNames[0]} onClick={goTo('/settings/notifications')}>
+      {t('Settings.notifications')}
+    </Tab>),
+    (<Tab name={tabNames[1]} onClick={goTo('/settings/accounts')}>
+      {t('Settings.accounts')}
+    </Tab>),
+    (<Tab name={tabNames[2]} onClick={goTo('/settings/groups')}>
+      {t('Settings.groups')}
+    </Tab>)
+  ]
+
+  if (__TARGET__ === 'mobile') {
+    tabs.push(
+      (<Tab name={tabNames[3]} onClick={goTo('/settings/app')}>
+        {t('Settings.app')}
+      </Tab>)
+    )
+  }
+
   return (
     <div>
       <Topbar>
@@ -22,15 +44,7 @@ const Settings = ({ t, children, router }) => {
       </Topbar>
       <Tabs className={styles['bnk-tabs']} initialActiveTab={defaultTab}>
         <TabList className={styles['bnk-coz-tab-list']}>
-          <Tab name={tabNames[0]} onClick={goTo('/settings/notifications')}>
-            {t('Settings.notifications')}
-          </Tab>
-          <Tab name={tabNames[1]} onClick={goTo('/settings/accounts')}>
-            {t('Settings.accounts')}
-          </Tab>
-          <Tab name={tabNames[2]} onClick={goTo('/settings/groups')}>
-            {t('Settings.groups')}
-          </Tab>
+          {tabs}
         </TabList>
         <TabPanels>
           <TabPanel active>
