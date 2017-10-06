@@ -87,7 +87,7 @@ export class SelectServer extends Component {
     return (
       <form className={classNames(styles['wizard'], styles['select-server'])} onSubmit={this.onSubmit}>
         <header className={styles['wizard-header']}>
-          <button onClick={previousStep}>
+          <button onClick={previousStep} type='button'>
             <Icon icon={'cross'} color={'#95999d'} />
           </button>
         </header>
@@ -119,6 +119,7 @@ export class SelectServer extends Component {
         <footer className={styles['wizard-footer']}>
           <button
             role='button'
+            type='submit'
             className={'coz-btn coz-btn--regular'}
             disabled={error || !value}
           >
