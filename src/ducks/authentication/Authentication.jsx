@@ -11,7 +11,8 @@ class Authentication extends Component {
     super(props)
 
     this.state = {
-      currentStepIndex: 0
+      currentStepIndex: 0,
+      globalError: null
     }
 
     this.steps = [STEP_WELCOME, STEP_EXISTING_SERVER]
@@ -28,20 +29,23 @@ class Authentication extends Component {
   }
 
   connectToServer = async (url) => {
-    const cozyClient = this.context.client
-    const { client, token } = await cozyClient.register(url)
-    this.props.onComplete({ url, clientInfo: client, token, router: this.props.router })
+    try {
+      const { client, token } = await registerDevice(url)
+      this.props.onComplete({ url, client, token, router: this.props.router })
+    } catch (err) {
+      this.setState({ globalError: err })
+    }
   }
 
   render () {
-    const { currentStepIndex } = this.state
+    const { currentStepIndex, globalError } = this.state
     const currentStep = this.steps[currentStepIndex]
 
     switch (currentStep) {
       case STEP_WELCOME:
         return <Welcome selectServer={() => this.nextStep()} />
       case STEP_EXISTING_SERVER:
-        return <SelectServer nextStep={this.connectToServer} previousStep={() => this.onAbort()} />
+        return <SelectServer nextStep={this.connectToServer} previousStep={() => this.onAbort()} connectionError={globalError} />
       default:
         return null
     }
