@@ -19,8 +19,12 @@ export class SelectServer extends Component {
 
     this.state = {
       value: '',
-      error: null
+      error: props.connectionError ? ERR_WRONG_ADDRESS : null
     }
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.connectionError) this.setState({ error: ERR_WRONG_ADDRESS })
   }
 
   componentDidMount () {
