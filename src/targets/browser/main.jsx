@@ -1,4 +1,7 @@
 /* global cozy */
+/* global PouchDB */
+/* global pouchdbFind */
+
 import 'styles/main'
 
 import React from 'react'
@@ -19,6 +22,11 @@ const renderAppWithPersistedState = persistedState => {
   const data = root.dataset
   // Force the French language for the translation of dates
   const lang = data.cozyLocale || 'en'
+
+  // Bind `PouchDB` to window for `cozy-client-js` to find it
+  // PouchDB is provided here by `webpack` through `ProvidedPlugin`
+  window.PouchDB = PouchDB
+  window.pouchdbFind = pouchdbFind
 
   const client = new CozyClient({
     cozyURL: `${window.location.protocol}//${data.cozyDomain}`,
