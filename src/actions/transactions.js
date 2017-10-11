@@ -4,7 +4,7 @@
 
 import { TRANSACTION_DOCTYPE } from 'doctypes'
 import { addFilterForMostRecentTransactions } from 'ducks/filters'
-import { fetchCollection } from 'redux-cozy-client'
+import { fetchCollection } from 'cozy-client'
 
 let firstFetch = true
 const fetchTransactions = (dispatch) => {

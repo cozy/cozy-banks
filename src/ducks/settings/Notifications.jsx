@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import classNames from 'classnames'
 import Toggle from 'cozy-ui/react/Toggle'
 import { translate } from 'cozy-ui/react/I18n'
-import { cozyConnect } from 'redux-cozy-client'
+import { cozyConnect } from 'cozy-client'
 import Loading from 'components/Loading'
 
 import { getSettings, fetchSettingsCollection, createSettings, updateSettings } from '.'

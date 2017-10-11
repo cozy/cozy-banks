@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { isSynced, startSync } from 'redux-cozy-client'
+import { isSynced, startSync } from 'cozy-client'
 import Loading from 'components/Loading'
 import styles from './Onboarding.styl'
 import { Content } from 'components/Layout'

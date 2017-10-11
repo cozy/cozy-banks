@@ -10,6 +10,8 @@ export {
   fetchReferencedFiles,
   addReferencedFiles,
   removeReferencedFiles,
+  applySelectorForAction,
+  enhancePropsForActions,
   getCollection,
   getDocument,
   createDocument,
@@ -21,5 +23,14 @@ export {
   isSynced,
   startSync
 } from './reducer'
+export {
+  fetchSharings,
+  getSharingDetails,
+  share,
+  unshare,
+  leave,
+  shareByLink,
+  revokeLink
+} from './slices/sharings'
 
 export { downloadArchive, downloadFile } from './helpers'

@@ -11,7 +11,7 @@ import Categories from './Categories'
 import BackButton from 'components/BackButton'
 import styles from './CategoriesPage.styl'
 import { flowRight as compose } from 'lodash'
-import { cozyConnect } from 'redux-cozy-client'
+import { cozyConnect } from 'cozy-client'
 
 class CategoriesPage extends Component {
   state = {

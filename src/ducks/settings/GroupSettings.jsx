@@ -8,7 +8,7 @@ import {
   fetchDocument,
   cozyConnect,
   fetchCollection
-} from 'redux-cozy-client'
+} from 'cozy-client'
 import Topbar from 'ducks/commons/Topbar'
 import BackButton from 'components/BackButton'
 import { Button, translate, Toggle } from 'cozy-ui/react'

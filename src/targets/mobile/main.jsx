@@ -3,7 +3,7 @@ import 'styles/main'
 
 import React from 'react'
 import { render } from 'react-dom'
-import { CozyProvider } from 'redux-cozy-client'
+import { CozyProvider } from 'cozy-client'
 import { hashHistory } from 'react-router'
 import { I18n } from 'cozy-ui/react/I18n'
 import { shouldEnableTracking, getTracker } from 'cozy-ui/react/helpers/tracker'

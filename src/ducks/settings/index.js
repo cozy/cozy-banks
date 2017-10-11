@@ -1,4 +1,4 @@
-import { fetchCollection, createDocument, updateDocument } from 'redux-cozy-client'
+import { fetchCollection, createDocument, updateDocument } from 'cozy-client'
 import { merge } from 'lodash'
 import Settings from './Settings'
 import AccountSettings from './AccountSettings'

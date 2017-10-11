@@ -9,7 +9,7 @@ import { Topbar } from 'ducks/commons'
 import Loading from 'components/Loading'
 import { withDispatch } from 'utils'
 import BackButton from 'components/BackButton'
-import { cozyConnect, fetchDocument, updateDocument, deleteDocument } from 'redux-cozy-client'
+import { cozyConnect, fetchDocument, updateDocument, deleteDocument } from 'cozy-client'
 import styles from './AccountsSettings.styl'
 
 const AccountSharingDetails = translate()(({ t }) =>

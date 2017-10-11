@@ -1,4 +1,4 @@
-import { getCollection } from 'redux-cozy-client'
+import { getCollection } from 'cozy-client'
 
 export const getTransactions = state => {
   const col = getCollection(state, 'transactions')

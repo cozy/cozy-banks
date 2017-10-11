@@ -10,27 +10,54 @@ export default class PouchdbAdapter {
     cozy.client.init(config)
     PouchDB.plugin(pouchdbFind)
     this.doctypes = config.offline.doctypes
+    this.instances = {}
   }
 
   getDatabase (doctype) {
     return cozy.client.offline.getDatabase(doctype)
   }
 
-  startSync () {
-    return Promise.all(this.doctypes.map(doctype =>
-      cozy.client.offline.replicateFromCozy(doctype).catch(err => {
-        // TODO: A 404 error on some doctypes is perfectly normal when there is no data
-        // We should handle all errors in the same place
-        if (err.status !== 404) {
-          throw err
-        }
+  getReplicationBaseUrl () {
+    return cozy.client.authorize()
+      .then(credentials => {
+        const basic = credentials.token.toBasicAuth()
+        return `${cozy.client._url}/data/`.replace('//', `//${basic}`)
       })
-    )).then(() => {
-      this.doctypes.forEach(doctype =>
-        cozy.client.offline.startRepeatedReplication(doctype, REPLICATION_INTERVAL, {
-          onComplete: (result) => console.log(result)
+  }
+
+  async startSync () {
+    const baseUrl = await this.getReplicationBaseUrl()
+    return Promise.all(this.doctypes.map(doctype =>
+      this.syncDoctype(doctype, `${baseUrl}${doctype}`)))
+
+    // return Promise.all(this.doctypes.map(doctype =>
+    //   cozy.client.offline.replicateFromCozy(doctype).catch(err => {
+    //     // TODO: A 404 error on some doctypes is perfectly normal when there is no data
+    //     // We should handle all errors in the same place
+    //     if (err.status !== 404) {
+    //       throw err
+    //     }
+    //   })
+    // )).then(() => {
+    //   this.doctypes.forEach(doctype =>
+    //     cozy.client.offline.startRepeatedReplication(doctype, REPLICATION_INTERVAL, {
+    //       onComplete: (result) => console.log(result)
+    //     })
+    //   )
+    // })
+  }
+
+  syncDoctype (doctype, replicationUrl) {
+    return new Promise((resolve, reject) => {
+      this.getDatabase(doctype).sync(replicationUrl)
+        .on('complete', (info) => resolve(info))
+        .on('error', (err) => {
+          if (err.error === 'code=400, message=Expired token') {
+            // TODO
+          } else if (err.status !== 404) { // A 404 error on some doctypes is perfectly normal when there is no data
+            reject(err)
+          }
         })
-      )
     })
   }
 

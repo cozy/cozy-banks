@@ -11,7 +11,7 @@ import { Backdrop } from 'ducks/menu'
 import styles from './AccountSwitch.styl'
 import { flowRight as compose } from 'lodash'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
-import { cozyConnect, fetchCollection } from 'redux-cozy-client'
+import { cozyConnect, fetchCollection } from 'cozy-client'
 
 const isLoading = function (collection) {
   return collection.fetchStatus === 'pending' || collection.fetchStatus === 'loading'

@@ -16,7 +16,7 @@ module.exports = {
     extensions: ['.js', '.json', '.css', '.jsx'],
     modules: ['node_modules', SRC_DIR],
     alias: {
-      'redux-cozy-client': path.resolve(SRC_DIR, './lib/redux-cozy-client')
+      'cozy-client': path.resolve(SRC_DIR, './lib/cozy-client')
     }
   },
   module: {
