@@ -1,4 +1,6 @@
 /* global cozy */
+/* global __TARGET__ */
+
 import React, { Component } from 'react'
 import { Item } from 'ducks/menu'
 import { translate, Icon } from 'cozy-ui/react'
@@ -92,8 +94,11 @@ class BillAction extends Component {
     })
   }
 
-  onCloseModal = () => {
+  onCloseModal = (err) => {
     this.setState({ file: null })
+    if (err) {
+      flash('error', JSON.stringify(err, null, 2))
+    }
   }
 
   fetchFile = () => {
@@ -102,9 +107,20 @@ class BillAction extends Component {
     const [doctype, id] = billRef.split(':')
     return cozy.client.data.find(doctype, id).then(doc => {
       const [doctype, id] = doc.invoice.split(':')
-      this.setState({file: {doctype, id}})
-    }).catch(() => {
+      if (!doctype || !id) {
+        throw new Error('Invoice is malformed. invoice: ' + doc.invoice)
+      }
+      if (__TARGET__ === 'browser') {
+        // Open in a modal
+        this.setState({file: {doctype, id}})
+      } else {
+        // Open drive in a new window
+        const baseUrl = 'http://grrecette-drive.cozy.works'
+        window.open(`${baseUrl}/#/show/${id}`, '_system')
+      }
+    }).catch(err => {
       flash('error', `Impossible de trouver la facture associée (${doctype}:${id})`)
+      console.warn(err)
     })
   }
 

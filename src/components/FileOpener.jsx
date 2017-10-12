@@ -19,7 +19,7 @@ class FileOpener extends Component {
 
   handleModalError = err => {
     this.setState({ intent: null, error: err })
-    this.props.onError && this.props.onError()
+    this.props.onError && this.props.onError(err)
   }
 
   componentDidMount () {
