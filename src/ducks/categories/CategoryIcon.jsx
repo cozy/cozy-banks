@@ -3,9 +3,7 @@ import { Icon } from 'cozy-ui/react'
 import { getParentCategory } from './categoriesMap'
 
 const CategoryIcon = ({transaction}) => {
-  console.log('transaction', transaction)
   let catName = getParentCategory(transaction.categoryId)
-  console.log(catName)
   let icon
   try {
     if (catName === undefined) catName = 'uncategorized'
