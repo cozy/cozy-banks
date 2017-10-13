@@ -1,6 +1,4 @@
 /* global cozy */
-/* global PouchDB */
-/* global pouchdbFind */
 
 import 'styles/main'
 
@@ -11,7 +9,6 @@ import { Router, hashHistory } from 'react-router'
 import { CozyClient } from 'redux-cozy-client'
 import { I18n } from 'cozy-ui/react/I18n'
 import { shouldEnableTracking, getTracker } from 'cozy-ui/react/helpers/tracker'
-import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
 import { loadState, persistState } from 'store/persistedState'
 import configureStore from 'store/configureStore'
 import AppRoute from 'components/AppRoute'
@@ -23,15 +20,9 @@ const renderAppWithPersistedState = persistedState => {
   // Force the French language for the translation of dates
   const lang = data.cozyLocale || 'en'
 
-  // Bind `PouchDB` to window for `cozy-client-js` to find it
-  // PouchDB is provided here by `webpack` through `ProvidedPlugin`
-  window.PouchDB = PouchDB
-  window.pouchdbFind = pouchdbFind
-
   const client = new CozyClient({
     cozyURL: `${window.location.protocol}//${data.cozyDomain}`,
-    token: data.cozyToken,
-    offline: { doctypes: [ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE] }
+    token: data.cozyToken
   })
   const store = configureStore(client, persistedState)
   persistState(store)

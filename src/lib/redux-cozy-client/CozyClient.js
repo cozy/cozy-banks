@@ -38,7 +38,7 @@ export default class CozyClient {
 
   instantiateAdapter (cozyUrl, options) {
     const config = { cozyURL: cozyUrl, ...options }
-    this.adapter = config.offline ? new PouchdbAdapter(config) : new HttpAdapter(config)
+    this.adapter = config.offline ? new PouchdbAdapter(config) : new CozyStackAdapter(config)
   }
 
 

@@ -52,7 +52,7 @@ export default class PouchdbAdapter {
       sort: options.sort ? Object.keys(options.sort).map(k => ({[k]: options.sort[k]})) : undefined
     }
     const resp = await this.getDatabase(doctype).find(queryOptions)
-    
+
     return {
       data: resp.docs.map(doc => ({...doc, id: doc._id, _type:doctype})),
       meta: { count: resp.docs.length },
