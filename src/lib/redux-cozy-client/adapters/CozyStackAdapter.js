@@ -78,7 +78,7 @@ export default class CozyStackAdapter {
   }
 
   async createDocument (doc) {
-    const created = await cozy.client.data.create(doc._type, doc)
+    const created = await cozy.client.data.create(doc._type || doc.type, doc)
     // we forge a standard response with a 'data' property
     const normalized = { ...created, id: created._id }
     return { data: [normalized] }
