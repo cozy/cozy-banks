@@ -10,6 +10,7 @@ import { fetchTransactions } from 'actions'
 import { getUrlBySource, findApps } from 'ducks/apps'
 import { flowRight as compose } from 'lodash'
 import { cozyConnect } from 'redux-cozy-client'
+import { getCategoryId } from 'ducks/categories/categoriesMap'
 
 import TransactionsWithSelection from './TransactionsWithSelection'
 import styles from './TransactionsPage.styl'
@@ -24,7 +25,13 @@ class TransactionsByCategory extends Component {
   }
 
   render () {
-    const { t, urls, filteredTransactions, transactions } = this.props
+    const { t, urls, transactions, router } = this.props
+    let { filteredTransactions } = this.props
+
+    // filter by category
+    const selectedCategory = router.params.categoryName
+    const categoryId = getCategoryId(selectedCategory)
+    filteredTransactions = filteredTransactions.filter(transaction => transaction.categoryId === categoryId)
 
     if (isPendingOrLoading(transactions)) {
       return <Loading loadingType='movements' />
