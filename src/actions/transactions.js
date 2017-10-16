@@ -13,7 +13,7 @@ const fetchTransactions = (dispatch) => {
     sort: {date: 'desc'},
     descending: true,
     limit: 100,
-    fields: ['date', 'categoryId', 'currency', 'amount', 'label', 'bills']
+    fields: ['date', 'categoryId', 'currency', 'amount', 'label', 'bills', 'account']
   })
 
   const promiser = action.promise
