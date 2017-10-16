@@ -2,7 +2,7 @@ import React from 'react'
 import { IndexRoute, Route, Redirect } from 'react-router'
 import App from 'components/App'
 
-import { TransactionsPage } from 'ducks/transactions'
+import { TransactionsPage, TransactionsByCategory } from 'ducks/transactions'
 import { CategoriesPage } from 'ducks/categories'
 import { Settings, AccountSettings, AccountsSettings, GroupsSettings, GroupSettings, NewGroupSettings, AppSettings } from 'ducks/settings'
 import Notifications from 'ducks/settings/Notifications'
@@ -17,7 +17,8 @@ const AppRoute = (
       <Route component={App}>
         <Redirect from='/' to='movements' />
         <Route path='currentBalance' component={Balance} />
-        <Route path='movements' component={TransactionsPage} />
+        <Route path='transactions' component={TransactionsPage} />
+        <Route path='categories/:categoryName/transactions' component={TransactionsByCategory} />
         <Route path='categories' component={CategoriesPage}>
           <Route path=':categoryName' component={CategoriesPage} />
         </Route>
