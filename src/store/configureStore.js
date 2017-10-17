@@ -5,7 +5,7 @@ import { createLogger } from 'redux-logger'
 import { shouldEnableTracking, getTracker, createTrackerMiddleware } from 'cozy-ui/react/helpers/tracker'
 
 import appReducers from 'reducers'
-import { cozyMiddleware } from 'redux-cozy-client'
+import { cozyMiddleware } from 'cozy-client'
 
 const configureStore = (cozyClient, persistedState) => {
   // Enable Redux dev tools

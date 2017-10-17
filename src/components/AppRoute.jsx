@@ -7,12 +7,12 @@ import { CategoriesPage } from 'ducks/categories'
 import { Settings, AccountSettings, AccountsSettings, GroupsSettings, GroupSettings, NewGroupSettings, AppSettings } from 'ducks/settings'
 import Notifications from 'ducks/settings/Notifications'
 import { Balance } from 'ducks/balance'
-import { EnsureHasAccounts, EnsureIsSynced } from 'ducks/onboarding'
+import { EnsureHasAccounts, EnsureIsFirstSynced } from 'ducks/onboarding'
 
 export const ComingSoon = () => (<p style='margin-left: 2em'>Coming soon!</p>)
 
 const AppRoute = (
-  <Route component={EnsureIsSynced}>
+  <Route component={EnsureIsFirstSynced}>
     <Route component={EnsureHasAccounts}>
       <Route component={App}>
         <Redirect from='/' to='movements' />

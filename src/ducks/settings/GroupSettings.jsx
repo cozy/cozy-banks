@@ -8,7 +8,7 @@ import {
   fetchDocument,
   cozyConnect,
   fetchCollection
-} from 'redux-cozy-client'
+} from 'cozy-client'
 import Topbar from 'ducks/commons/Topbar'
 import BackButton from 'components/BackButton'
 import { Button, translate, Toggle } from 'cozy-ui/react'
@@ -34,9 +34,10 @@ class GroupSettings extends Component {
 
   async updateOrCreate (group, cb) {
     const { dispatch, router } = this.props
-    const method = group.id ? updateDocument : createDocument
     try {
-      const response = await dispatch(method.apply(this, arguments))
+      const response = group.id
+        ? await dispatch(updateDocument(group))
+        : await dispatch(createDocument(GROUP_DOCTYPE, group))
       if (response && response.data) {
         const doc = response.data[0]
         if (group.id !== doc.id) {
@@ -141,8 +142,7 @@ class GroupSettings extends Component {
 
 const mkNewGroup = () => ({
   label: 'Nouveau groupe',
-  accounts: [],
-  type: GROUP_DOCTYPE
+  accounts: []
 })
 
 const mapDocumentsToProps = props => {

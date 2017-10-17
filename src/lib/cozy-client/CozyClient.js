@@ -1,7 +1,8 @@
 /* global cozy */
-import CozyStackAdapter from './adapters/CozyStackAdapter'
-import PouchdbAdapter from './adapters/PouchdbAdapter'
+import DataAccessFacade from './DataAccessFacade'
 import { authenticateWithCordova } from './authentication/mobile'
+
+const FILES_DOCTYPE = 'io.cozy.files'
 
 export default class CozyClient {
   constructor (config) {
@@ -9,14 +10,14 @@ export default class CozyClient {
     this.options = options
     this.indexes = {}
     this.specialDirectories = {}
-    this.adapter = null
+    this.facade = new DataAccessFacade()
     if (cozyURL) {
-      this.instantiateAdapter(cozyURL, options)
+      this.facade.setup(cozyURL, options)
     }
   }
 
   register (cozyUrl) {
-    this.instantiateAdapter(cozyUrl, {...this.options, oauth: {...this.options.oauth, onRegistered: (client, url) => authenticateWithCordova(url)}})
+    this.facade.setup(cozyUrl, {...this.options, oauth: {...this.options.oauth, onRegistered: (client, url) => authenticateWithCordova(url)}})
     return cozy.client.authorize(true)
   }
 
@@ -36,58 +37,60 @@ export default class CozyClient {
     }
   }
 
-  instantiateAdapter (cozyUrl, options) {
-    const config = { cozyURL: cozyUrl, ...options }
-    this.adapter = config.offline ? new PouchdbAdapter(config) : new CozyStackAdapter(config)
+  startSync (dispatch) {
+    return this.facade.startSync(dispatch)
   }
 
+  getAdapter (doctype) {
+    return this.facade.getAdapter(doctype)
+  }
 
   async fetchCollection (name, doctype, options = {}, skip = 0) {
     if (options.selector) {
       const index = await this.getCollectionIndex(name, doctype, options)
-      return this.adapter.queryDocuments(doctype, index, {...options, skip})
+      return this.getAdapter(doctype).queryDocuments(doctype, index, {...options, skip})
     }
-    return this.adapter.fetchDocuments(doctype)
+    return this.getAdapter(doctype).fetchDocuments(doctype)
   }
 
   fetchDocument (doctype, id) {
-    return this.adapter.fetchDocument(doctype, id)
+    return this.getAdapter(doctype).fetchDocument(doctype, id)
   }
 
   fetchFile (id) {
-    return this.adapter.fetchFile(id)
+    return this.getAdapter(FILES_DOCTYPE).fetchFile(id)
   }
 
   fetchReferencedFiles (doc, skip = 0) {
-    return this.adapter.fetchReferencedFiles(doc, skip)
+    return this.getAdapter(doc._type).fetchReferencedFiles(doc, skip)
   }
 
   addReferencedFiles (doc, ids) {
-    return this.adapter.addReferencedFiles(doc, ids)
+    return this.getAdapter(doc._type).addReferencedFiles(doc, ids)
   }
 
   removeReferencedFiles (doc, ids) {
-    return this.adapter.removeReferencedFiles(doc, ids)
+    return this.getAdapter(doc._type).removeReferencedFiles(doc, ids)
   }
 
-  createDocument (doc) {
-    return this.adapter.createDocument(doc)
+  createDocument (doctype, doc) {
+    return this.getAdapter(doctype).createDocument(doctype, doc)
   }
 
   updateDocument (doc) {
-    return this.adapter.updateDocument(doc)
+    return this.getAdapter(doc._type).updateDocument(doc)
   }
 
   deleteDocument (doc) {
-    return this.adapter.deleteDocument(doc)
+    return this.getAdapter(doc._type).deleteDocument(doc)
   }
 
   createFile (file, dirID) {
-    return this.adapter.createFile(file, dirID)
+    return this.getAdapter(FILES_DOCTYPE).createFile(file, dirID)
   }
 
   trashFile (file) {
-    return this.adapter.trashFile(file)
+    return this.getAdapter(FILES_DOCTYPE).trashFile(file)
   }
 
   async ensureDirectoryExists (path) {
@@ -109,7 +112,7 @@ export default class CozyClient {
 
   async getCollectionIndex (name, doctype, options) {
     if (!this.indexes[name]) {
-      this.indexes[name] = await this.adapter.createIndex(doctype, this.getIndexFields(options))
+      this.indexes[name] = await this.getAdapter(doctype).createIndex(doctype, this.getIndexFields(options))
     }
     return this.indexes[name]
   }
@@ -117,7 +120,7 @@ export default class CozyClient {
   async getUniqueIndex (doctype, property) {
     const name = `${doctype}/${property}`
     if (!this.indexes[name]) {
-      this.indexes[name] = await this.adapter.createIndex(doctype, [property])
+      this.indexes[name] = await this.getAdapter(doctype).createIndex(doctype, [property])
     }
     return this.indexes[name]
   }
@@ -129,9 +132,5 @@ export default class CozyClient {
       return [...Object.keys(selector), ...Object.keys(sort)].filter((f, i, arr) => arr.indexOf(f) === i)
     }
     return Object.keys(selector)
-  }
-
-  startSync () {
-    return this.adapter.startSync()
   }
 }

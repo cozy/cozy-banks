@@ -1,9 +1,9 @@
 import Onboarding from './Onboarding'
-import EnsureIsSynced from './ensureIsSynced'
 import EnsureHasAccounts from './ensureHasAccounts'
+import EnsureIsFirstSynced from './ensureIsFirstSynced'
 
 export {
   Onboarding,
-  EnsureHasAccounts,
-  EnsureIsSynced
+  EnsureIsFirstSynced,
+  EnsureHasAccounts
 }

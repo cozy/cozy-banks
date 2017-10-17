@@ -8,7 +8,7 @@ import { SelectDates, getFilteredTransactions } from 'ducks/filters'
 import { fetchTransactions } from 'actions'
 import { getUrlBySource, findApps } from 'ducks/apps'
 import { flowRight as compose } from 'lodash'
-import { cozyConnect } from 'redux-cozy-client'
+import { cozyConnect } from 'cozy-client'
 
 import TransactionsWithSelection from './TransactionsWithSelection'
 import styles from './TransactionsPage.styl'

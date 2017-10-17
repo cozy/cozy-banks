@@ -6,7 +6,7 @@ import { getSharingInfo } from 'reducers'
 import { groupBy, flowRight as compose } from 'lodash'
 import Table from 'components/Table'
 import Loading from 'components/Loading'
-import { cozyConnect, fetchCollection } from 'redux-cozy-client'
+import { cozyConnect, fetchCollection } from 'cozy-client'
 import plus from 'assets/icons/16/plus.svg'
 import styles from './AccountsSettings.styl'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
@@ -126,7 +126,7 @@ const mapStateToProps = state => ({
 // const fetchAccountsSharingInfo = props => {
 //   return Promise.resolve([])
 // const { accounts } = props
-// with redux-cozy-client
+// with cozy-client
 // return Promise.all(accounts.data.map(account => {
 //   return props.dispatch(fetchSharingInfo(ACCOUNT_DOCTYPE, account._id))
 // }))

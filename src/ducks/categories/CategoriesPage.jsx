@@ -11,11 +11,10 @@ import Categories from './Categories'
 import BackButton from 'components/BackButton'
 import styles from './CategoriesPage.styl'
 import { flowRight as compose } from 'lodash'
-import { cozyConnect } from 'redux-cozy-client'
+import { cozyConnect } from 'cozy-client'
 
 class CategoriesPage extends Component {
   state = {
-    isFetching: this.props.categories.length === 0,
     withIncome: true
   }
 
@@ -31,15 +30,8 @@ class CategoriesPage extends Component {
     this.setState({withIncome})
   }
 
-  async componentDidMount () {
-    try {
-      await this.props.fetchTransactions()
-    } finally {
-      this.setState({isFetching: false})
-    }
-  }
-
-  render ({t, categories, router}, {isFetching, withIncome}) {
+  render ({t, categories, transactions, router}, {withIncome}) {
+    const isFetching = transactions.fetchStatus !== 'loaded'
     const selectedCategory = router.params.categoryName
     // compute the filter to use
     if (!withIncome) {
@@ -65,17 +57,13 @@ const mapStateToProps = state => ({
   categories: computeCategorieData(transactionsByCategory(getFilteredTransactions(state)))
 })
 
-const mapDispatchToProps = dispatch => ({
-  dispatch
-})
-
 const mapDocumentsToProps = ownProps => ({
   transactions: fetchTransactions(ownProps.dispatch)
 })
 
 export default compose(
   withRouter,
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps),
   cozyConnect(mapDocumentsToProps),
   translate()
 )(CategoriesPage)

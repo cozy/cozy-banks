@@ -5,7 +5,7 @@ import * as sharingStatus from 'modules/SharingStatus'
 import filters from 'ducks/filters'
 import mobile, * as fromMobile from 'ducks/mobile'
 import apps from 'ducks/apps'
-import { reducer } from 'redux-cozy-client'
+import { reducer } from 'cozy-client'
 
 export const reducers = {
   alerts: alerterReducer,

@@ -3,10 +3,6 @@ const FILES_DOCTYPE = 'io.cozy.files'
 const FETCH_LIMIT = 50
 
 export default class CozyStackAdapter {
-  constructor (config) {
-    cozy.client.init(config)
-  }
-
   async fetchDocuments (doctype) {
     // WARN: cozy-client-js lacks a cozy.data.findAll method that uses this route
     try {
@@ -77,10 +73,10 @@ export default class CozyStackAdapter {
     return { data: [normalized] }
   }
 
-  async createDocument (doc) {
-    const created = await cozy.client.data.create(doc._type || doc.type, doc)
+  async createDocument (doctype, doc) {
+    const created = await cozy.client.data.create(doctype, doc)
     // we forge a standard response with a 'data' property
-    const normalized = { ...created, id: created._id }
+    const normalized = { ...created, id: created._id, _type: doctype }
     return { data: [normalized] }
   }
 

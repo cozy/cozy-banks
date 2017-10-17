@@ -1,5 +1,5 @@
 /* global cozy __APP_VERSION__ */
-import { CozyClient } from 'redux-cozy-client'
+import { CozyClient } from 'cozy-client'
 import { LocalStorage as Storage } from 'cozy-client-js'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
 
