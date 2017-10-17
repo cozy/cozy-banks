@@ -15,7 +15,7 @@ const AppRoute = (
   <Route component={EnsureIsFirstSynced}>
     <Route component={EnsureHasAccounts}>
       <Route component={App}>
-        <Redirect from='/' to='movements' />
+        <Redirect from='/' to='transactions' />
         <Route path='currentBalance' component={Balance} />
         <Route path='transactions' component={TransactionsPage} />
         <Route path='categories/:categoryName/transactions' component={TransactionsByCategory} />

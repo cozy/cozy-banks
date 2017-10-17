@@ -29,7 +29,7 @@ const Nav = ({ t }) => (
         </ActiveLink>
       </NavItem>
       <NavItem>
-        <ActiveLink to='movements'>
+        <ActiveLink to='transactions'>
           <Icon icon={arrows} /> {t('Nav.movements')}
         </ActiveLink>
       </NavItem>
