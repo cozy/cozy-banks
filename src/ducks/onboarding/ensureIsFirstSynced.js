@@ -20,11 +20,11 @@ class Wrapper extends Component {
 
   render () {
     const { hasSyncStarted } = this.state
-    const { isSynced, isFirstSync, children } = this.props
+    const { isSynced, /* isFirstSync, */ children } = this.props
     if (!hasSyncStarted) {
       return null
     }
-    if (!isSynced && isFirstSync) {
+    if (!isSynced /* && isFirstSync */) {
       return (
         <Content>
           <div className={styles.Onboarding__loading}>
