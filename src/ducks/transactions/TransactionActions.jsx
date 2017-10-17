@@ -1,22 +1,23 @@
-/* global cozy */
 /* global __TARGET__ */
 
 import React, { Component } from 'react'
-import { Item } from 'ducks/menu'
-import { translate, Icon } from 'cozy-ui/react'
-import FileOpener from 'components/FileOpener'
-import Spinner from 'cozy-ui/react/Spinner'
-import _ from 'lodash'
-import flash from 'ducks/flash'
 import classNames from 'classnames'
+import { connect } from 'react-redux'
+
+import { Item } from 'ducks/menu'
+import { translate, Icon, Spinner } from 'cozy-ui/react'
+import FileOpener from 'components/FileOpener'
 import styles from './TransactionActions.styl'
+import flash from 'ducks/flash'
 import palette from 'utils/palette.json'
+import commentIcon from 'assets/icons/actions/icon-comment.svg'
 
 import bellIcon from 'assets/icons/actions/icon-bell-16.svg'
 import linkOutIcon from 'assets/icons/actions/icon-link-out.svg'
 import linkIcon from 'assets/icons/actions/icon-link.svg'
 import fileIcon from 'assets/icons/actions/icon-file.svg'
-import commentIcon from 'assets/icons/actions/icon-comment.svg'
+import { getURL } from 'reducers'
+import { getInvoice, getBill } from './helpers'
 
 // constants
 const ALERT_LINK = 'alert'
@@ -36,6 +37,8 @@ const icons = {
   [URL_LINK]: linkOutIcon
 }
 
+const DEFAULT_COLOR = palette['dodger-blue']
+
 // helpers
 const getAppName = (urls, transaction) => {
   let appName
@@ -47,8 +50,6 @@ const getAppName = (urls, transaction) => {
   return appName
 }
 
-const getTransactionBill = transaction => _.get(transaction, 'bills[0]')
-
 const isHealthCategory = (categoryId) =>
   categoryId === '400600' || categoryId === '400610' || categoryId === '400620'
 
@@ -59,15 +60,13 @@ export const getLinkType = (transaction, urls) => {
     return HEALTH_LINK
   } else if (appName) {
     return APP_LINK
-  } else if (getTransactionBill(transaction)) {
+  } else if (getBill(transaction)) {
     return BILL_LINK
   } else if (action && action.type === URL_LINK) {
     return URL_LINK
   }
   return undefined
 }
-
-const DEFAULT_COLOR = palette['dodger-blue']
 
 export const getIcon = (name, color = DEFAULT_COLOR) => {
   if (icons[name]) {
@@ -84,14 +83,12 @@ export const Action = translate()(({t, actionValue, name, appName, className, co
 ))
 
 const billSpinnerStyle = { marginLeft: '-0.25rem', marginRight: '-1rem' }
-class BillAction extends Component {
+
+export const BillAction = connect(state => ({
+  cozyURL: getURL(state)
+}))(class extends Component {
   onClick = () => {
-    this.setState({ loading: true })
-    this.fetchFile().then(() => {
-      this.setState({ loading: false })
-    }).catch(() => {
-      this.setState({ loading: false })
-    })
+    return this.fetchFile()
   }
 
   onCloseModal = (err) => {
@@ -101,27 +98,24 @@ class BillAction extends Component {
     }
   }
 
-  fetchFile = () => {
+  fetchFile = async () => {
     const { transaction } = this.props
-    const billRef = getTransactionBill(transaction)
-    const [doctype, id] = billRef.split(':')
-    return cozy.client.data.find(doctype, id).then(doc => {
-      const [doctype, id] = doc.invoice.split(':')
-      if (!doctype || !id) {
-        throw new Error('Invoice is malformed. invoice: ' + doc.invoice)
-      }
+    try {
+      this.setState({ loading: true })
+      const [doctype, id] = await getInvoice(transaction)
       if (__TARGET__ === 'browser') {
         // Open in a modal
         this.setState({file: {doctype, id}})
       } else {
         // Open drive in a new window
-        const baseUrl = 'http://grrecette-drive.cozy.works'
-        window.open(`${baseUrl}/#/show/${id}`, '_system')
+        window.open(`${this.props.cozyURL}/#/file/${id}`, '_system')
       }
-    }).catch(err => {
-      flash('error', `Impossible de trouver la facture associée (${doctype}:${id})`)
-      console.warn(err)
-    })
+    } catch (err) {
+      flash('error', `Impossible de trouver la facture associée`)
+      console.warn(err, transaction)
+    } finally {
+      this.setState({ loading: false })
+    }
   }
 
   render (props, { loading, file }) {
@@ -138,7 +132,7 @@ class BillAction extends Component {
       </span>
     )
   }
-}
+})
 
 export const TransactionAction = ({transaction, urls, onClick, type, className}) => {
   type = type || getLinkType(transaction, urls)
