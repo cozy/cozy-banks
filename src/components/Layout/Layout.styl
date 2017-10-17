@@ -33,7 +33,10 @@ body
 
 // To move to Cozy-bar
 +medium-screen()
-    [role=banner]
+    // Double the selector to increase specificity since
+    // media queries do not increase specificity and we want
+    // to override the position: relative
+   [role=banner][role=banner]
         position fixed
         top 0
         left 0
