@@ -2,21 +2,21 @@
 /* global __TARGET__ */
 
 import React, { Component } from 'react'
-import { Item } from 'ducks/menu'
-import { translate, Icon } from 'cozy-ui/react'
-import FileOpener from 'components/FileOpener'
-import Spinner from 'cozy-ui/react/Spinner'
 import _ from 'lodash'
-import flash from 'ducks/flash'
 import classNames from 'classnames'
+
+import { Item } from 'ducks/menu'
+import { translate, Icon, Spinner } from 'cozy-ui/react'
+import FileOpener from 'components/FileOpener'
 import styles from './TransactionActions.styl'
+import flash from 'ducks/flash'
 import palette from 'utils/palette.json'
+import commentIcon from 'assets/icons/actions/icon-comment.svg'
 
 import bellIcon from 'assets/icons/actions/icon-bell-16.svg'
 import linkOutIcon from 'assets/icons/actions/icon-link-out.svg'
 import linkIcon from 'assets/icons/actions/icon-link.svg'
 import fileIcon from 'assets/icons/actions/icon-file.svg'
-import commentIcon from 'assets/icons/actions/icon-comment.svg'
 
 // constants
 const ALERT_LINK = 'alert'
