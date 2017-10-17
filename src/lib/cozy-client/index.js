@@ -19,9 +19,7 @@ export {
   deleteDocument,
   createFile,
   trashFile,
-  CREATE_DOCUMENT,
-  isSynced,
-  startSync
+  CREATE_DOCUMENT
 } from './reducer'
 export {
   fetchSharings,
@@ -32,5 +30,10 @@ export {
   shareByLink,
   revokeLink
 } from './slices/sharings'
+export {
+  startSync,
+  isFirstSync,
+  isSynced
+} from './slices/synchronization'
 
 export { downloadArchive, downloadFile } from './helpers'

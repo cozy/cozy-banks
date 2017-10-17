@@ -2,19 +2,23 @@
 const FILES_DOCTYPE = 'io.cozy.files'
 const FETCH_LIMIT = 50
 
-const REPLICATION_INTERVAL = 30
+const REPLICATION_INTERVAL = 30000
+
+import { startDoctypeSync, syncDoctypeOk, syncDoctypeError } from '../slices/synchronization'
 
 export default class PouchdbAdapter {
-  constructor (config) {
-    // For now we let cozy-client-js creates PouchDB instances
-    cozy.client.init(config)
+  constructor () {
     PouchDB.plugin(pouchdbFind)
-    this.doctypes = config.offline.doctypes
     this.instances = {}
+    this.doctypes = []
+  }
+
+  registerDoctypes (doctypes) {
+    this.doctypes = doctypes
   }
 
   getDatabase (doctype) {
-    return cozy.client.offline.getDatabase(doctype)
+    return cozy.client.offline.getDatabase(doctype) // For now we let cozy-client-js creates PouchDB instances
   }
 
   getReplicationBaseUrl () {
@@ -25,40 +29,47 @@ export default class PouchdbAdapter {
       })
   }
 
-  async startSync () {
-    const baseUrl = await this.getReplicationBaseUrl()
-    return Promise.all(this.doctypes.map(doctype =>
-      this.syncDoctype(doctype, `${baseUrl}${doctype}`)))
-
-    // return Promise.all(this.doctypes.map(doctype =>
-    //   cozy.client.offline.replicateFromCozy(doctype).catch(err => {
-    //     // TODO: A 404 error on some doctypes is perfectly normal when there is no data
-    //     // We should handle all errors in the same place
-    //     if (err.status !== 404) {
-    //       throw err
-    //     }
-    //   })
-    // )).then(() => {
-    //   this.doctypes.forEach(doctype =>
-    //     cozy.client.offline.startRepeatedReplication(doctype, REPLICATION_INTERVAL, {
-    //       onComplete: (result) => console.log(result)
-    //     })
-    //   )
-    // })
+  getSeqNumber (doctype) {
+    return this.getDatabase(doctype).info().then(result => result.update_seq)
   }
 
-  syncDoctype (doctype, replicationUrl) {
+  async sync (dispatch) {
+    const baseUrl = await this.getReplicationBaseUrl()
+    for (let doctype of this.doctypes) {
+      const seqNumber = await this.getSeqNumber(doctype)
+      await dispatch(startDoctypeSync(doctype, seqNumber))
+      this.syncDoctype(doctype, `${baseUrl}${doctype}`, dispatch)
+    }
+  }
+
+  syncDoctype (doctype, replicationUrl, dispatch) {
     return new Promise((resolve, reject) => {
       this.getDatabase(doctype).sync(replicationUrl)
-        .on('complete', (info) => resolve(info))
+        .on('complete', (info) => {
+          dispatch(syncDoctypeOk(doctype, info))
+          this.scheduleNextSync(doctype, replicationUrl, dispatch)
+          resolve(info)
+        })
         .on('error', (err) => {
           if (err.error === 'code=400, message=Expired token') {
-            // TODO
+            return cozy.client.authorize().then(({client, token}) => {
+              cozy.client.auth.refreshToken(cozy, client, token)
+                .then((newToken) => cozy.client.saveCredentials(client, newToken))
+                .then((credentials) => this.syncDoctype(doctype, replicationUrl))
+            })
           } else if (err.status !== 404) { // A 404 error on some doctypes is perfectly normal when there is no data
+            dispatch(syncDoctypeError(doctype, err))
+            this.scheduleNextSync(doctype, replicationUrl, dispatch)
             reject(err)
           }
         })
     })
+  }
+
+  scheduleNextSync (doctype, replicationUrl, dispatch) {
+    setTimeout(() => {
+      this.syncDoctype(doctype, replicationUrl, dispatch)
+    }, REPLICATION_INTERVAL)
   }
 
   async fetchDocuments (doctype) {
@@ -93,9 +104,9 @@ export default class PouchdbAdapter {
     return { data: [{...resp, id: resp.id, _id: resp.id, _type: doctype}] }
   }
 
-  async createDocument (doc) {
-    const resp = await this.getDatabase(doc._type || doc.type).post(doc)
-    return { data: [{...doc, id: resp.id, _id: resp.id}] }
+  async createDocument (doctype, doc) {
+    const resp = await this.getDatabase(doctype).post(doc)
+    return { data: [{...doc, id: resp.id, _id: resp.id, _type: doctype, _rev:resp.rev}] }
   }
 
   async updateDocument (doc) {

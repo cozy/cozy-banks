@@ -237,10 +237,10 @@ const createSharingLink = document => ({
 })
 
 const createContact = ({ email }) =>
-  createDocument({
-    type: 'io.cozy.contacts',
-    email: [{ address: email, primary: true }]
-  })
+  createDocument(
+    'io.cozy.contacts',
+    {email: [{ address: email, primary: true }]}
+  )
 
 const getPermissionsFor = (document, publicLink = false) => {
   const { _id, _type } = document

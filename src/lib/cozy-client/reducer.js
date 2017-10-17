@@ -1,5 +1,11 @@
 import { combineReducers } from 'redux'
-import { removeObjectProperty } from './utils'
+import { removeObjectProperty, mapValues } from './utils'
+import sharings, {
+  FETCH_SHARINGS,
+  getSharings,
+  getSharingDetails
+} from './slices/sharings'
+import synchronization from './slices/synchronization'
 
 const FETCH_DOCUMENT = 'FETCH_DOCUMENT'
 const FETCH_COLLECTION = 'FETCH_COLLECTION'
@@ -14,9 +20,6 @@ const RECEIVE_DELETED_DOCUMENT = 'RECEIVE_DELETED_DOCUMENT'
 const FETCH_REFERENCED_FILES = 'FETCH_REFERENCED_FILES'
 const ADD_REFERENCED_FILES = 'ADD_REFERENCED_FILES'
 const REMOVE_REFERENCED_FILES = 'REMOVE_REFERENCED_FILES'
-const START_SYNC = 'START_SYNC'
-const RECEIVE_SYNC_DATA = 'RECEIVE_SYNC_DATA'
-const RECEIVE_SYNC_ERROR = 'RECEIVE_SYNC_ERROR'
 
 const documents = (state = {}, action) => {
   switch (action.type) {
@@ -45,7 +48,7 @@ const documents = (state = {}, action) => {
       const deleted = action.response.data[0]
       return {
         ...state,
-        [doc._type]: removeObjectProperty(state[doc._type], deleted.id)
+        [deleted._type]: removeObjectProperty(state[deleted._type], deleted.id)
       }
     case ADD_REFERENCED_FILES:
       return {
@@ -137,6 +140,7 @@ const getArrayDoctype = documents => getDoctype(documents[0])
 // collection reducers
 const collectionInitialState = {
   type: null,
+  options: {},
   fetchStatus: 'pending',
   lastFetch: null,
   hasMore: false,
@@ -151,6 +155,7 @@ const collection = (state = collectionInitialState, action) => {
       return {
         ...state,
         type: action.doctype || 'io.cozy.files',
+        options: action.options,
         fetchStatus: action.skip > 0 ? 'loadingMore' : 'loading'
       }
     case RECEIVE_DATA:
@@ -239,31 +244,12 @@ const collections = (state = {}, action) => {
   }
 }
 
-const syncStatus = (state = 'pending', action) => {
-  switch (action.type) {
-    case START_SYNC:
-      return 'syncing'
-    case RECEIVE_SYNC_DATA:
-      return 'synced'
-    case RECEIVE_SYNC_ERROR:
-      return 'error'
-    default:
-      return state
-  }
-}
-
 export default combineReducers({
   collections,
   documents,
-  syncStatus
+  sharings,
+  synchronization
 })
-
-export const startSync = () => (dispatch, getState) => {
-  dispatch({
-    types: [START_SYNC, RECEIVE_SYNC_DATA, RECEIVE_SYNC_ERROR],
-    promise: (client) => client.startSync()
-  })
-}
 
 export const fetchCollection = (name, doctype, options = {}, skip = 0) => ({
   types: [FETCH_COLLECTION, RECEIVE_DATA, RECEIVE_ERROR],
@@ -290,10 +276,11 @@ export const fetchReferencedFiles = (doc, skip = 0) => ({
   promise: (client) => client.fetchReferencedFiles(doc, skip)
 })
 
-export const createDocument = (doc, actionOptions = {}) => ({
+export const createDocument = (doctype, doc, actionOptions = {}) => ({
   types: [CREATE_DOCUMENT, RECEIVE_NEW_DOCUMENT, RECEIVE_ERROR],
+  doctype,
   document: doc,
-  promise: (client) => client.createDocument(doc),
+  promise: (client) => client.createDocument(doctype, doc),
   ...actionOptions
 })
 
@@ -412,4 +399,6 @@ export const getDocument = (state, doctype, id) => {
   return documents[id]
 }
 
-export const isSynced = (state) => state.cozy.syncStatus === 'synced' || state.cozy.syncStatus === 'error'
+export const isCollectionFetched = (state, name) =>
+  state.cozy.collections[name] &&
+  state.cozy.collections[name].fetchStatus === 'loaded'

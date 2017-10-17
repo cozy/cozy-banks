@@ -37,7 +37,7 @@ export { Settings, AccountsSettings, AccountSettings, GroupsSettings, GroupSetti
 
 // actions
 export const fetchSettingsCollection = () => fetchCollection(COLLECTION_NAME, DOCTYPE)
-export const createSettings = settings => createDocument({ type: DOCTYPE, ...settings }, { updateCollections: [COLLECTION_NAME] })
+export const createSettings = settings => createDocument(DOCTYPE, settings, { updateCollections: [COLLECTION_NAME] })
 export const updateSettings = settings => updateDocument(settings)
 
 // utils
