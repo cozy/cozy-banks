@@ -84,6 +84,15 @@ export const Action = translate()(({t, actionValue, name, appName, className, co
 
 const billSpinnerStyle = { marginLeft: '-0.25rem', marginRight: '-1rem' }
 
+const buildAppURL = function (cozyURL, app, hash) {
+  const splitted = cozyURL.split('/')
+  const protocol = splitted[0]
+  const hostSplitted = splitted[2].split('.')
+  const slug = hostSplitted[0]
+  const domain = hostSplitted.slice(1).join('.')
+  return `${protocol}//${slug}-${app}.${domain}/#${hash}`
+}
+
 export const BillAction = connect(state => ({
   cozyURL: getURL(state)
 }))(class extends Component {
@@ -108,7 +117,8 @@ export const BillAction = connect(state => ({
         this.setState({file: {doctype, id}})
       } else {
         // Open drive in a new window
-        window.open(`${this.props.cozyURL}/#/file/${id}`, '_system')
+        const driveURL = buildAppURL(this.props.cozyURL, 'drive', `/file/${id}`)
+        window.open(driveURL, '_system')
       }
     } catch (err) {
       flash('error', `Impossible de trouver la facture associée`)
