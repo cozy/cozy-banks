@@ -18,8 +18,9 @@ const AppRoute = (
         <Redirect from='/' to='transactions' />
         <Route path='currentBalance' component={Balance} />
         <Route path='transactions' component={TransactionsPage} />
-        <Route path='categories/:categoryName/transactions' component={TransactionsByCategory} />
-        <Route path='categories' component={CategoriesPage}>
+        <Route path='categories'>
+          <IndexRoute component={CategoriesPage} />
+          <Route path=':categoryName/transactions' component={TransactionsByCategory} />
           <Route path=':categoryName' component={CategoriesPage} />
         </Route>
         <Route path='projections' component={ComingSoon} />
