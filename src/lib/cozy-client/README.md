@@ -1,16 +1,42 @@
-# redux-cozy-client
-A simple and declarative way of managing [cozy-stack](https://github.com/cozy/cozy-stack) API calls with Redux.
+# cozy-client
+A simple and declarative way of managing [cozy-stack](https://github.com/cozy/cozy-stack) API calls and resulting data.
 
 ## Introduction
+`cozy-client` is a convenient yet powerful way to bind `cozy-stack` queries to your React components, and may also be used without React. It uses `redux` internally to centralize the statuses of the various fetches and replications triggered by the library, and to store locally the data in a normalized way.
+
+`cozy-client` revolves around the following concepts:
+
+### Collections
+
+Collections are simply lists of documents of the same type: when you fetch a collection with `cozy-client`, you retrieve a paginated list of documents filtered by Mango selectors.
 
 ## Usage
+You first need to instantiate a client and for that [to retrieve the domain name of the cozy instance and a token](https://cozy.github.io/cozy-docs-v3/en/dev/app/#behind-the-magic):
+
+```js
+import { CozyClient } from 'cozy-client'
+const root = document.querySelector('[role=application]')
+const data = root.dataset
+
+const client = new CozyClient({
+  cozyURL: `${window.location.protocol}//${data.cozyDomain}`,
+  token: data.cozyToken
+})
+```
 
 ### Redux integration
 
-To integrate `redux-cozy-client` with your Redux store, you need to add a reducer and a middleware:
+To integrate `cozy-client` with your existing Redux store, you need to add a reducer and a middleware:
 
 ```js
-TODO
+import { cozyMiddleware, reducer } from 'cozy-client'
+import { combineReducers, createStore, applyMiddleware } from 'redux'
+import myReducers from './myapp'
+
+const store = createStore(
+  combineReducers({...myReducers, reducer}),
+  applyMiddleware(cozyMiddleware)
+)
 ```
 
 ### React integration
@@ -18,7 +44,9 @@ TODO
 To make it easier to integrate data fetching in your component, you can use a specific higher-order component called `cozyConnect`. Basic example of usage:
 
 ```jsx
-TODO
+const mapDocumentsToProps = (ownProps) => ({
+  todos: fetchCollection()
+})
 ```
 
 ### Sharing
