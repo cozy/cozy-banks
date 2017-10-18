@@ -77,8 +77,8 @@ export const renderOnlyIf = predicate => Wrapped => class extends Component {
  * rendered on mobile
  */
 export const onlyMobile = compose(
-  breakpointsAware(pick(breakpoints, 'mobile')),
-  renderOnlyIf(props => props.breakpoints.mobile)
+  breakpointsAware(pick(breakpoints, 'isMobile')),
+  renderOnlyIf(props => props.breakpoints.isMobile)
 )
 
 /**
@@ -86,8 +86,8 @@ export const onlyMobile = compose(
  * rendered on tablet
  */
 export const onlyTablet = compose(
-  breakpointsAware(pick(breakpoints, 'tablet')),
-  renderOnlyIf(props => props.breakpoints.tablet)
+  breakpointsAware(pick(breakpoints, 'isTablet')),
+  renderOnlyIf(props => props.breakpoints.isTablet)
 )
 
 /**
@@ -95,8 +95,8 @@ export const onlyTablet = compose(
  * rendered on desktop
  */
 export const onlyDesktop = compose(
-  breakpointsAware(pick(breakpoints, 'desktop')),
-  renderOnlyIf(props => props.breakpoints.desktop)
+  breakpointsAware(pick(breakpoints, 'isDesktop')),
+  renderOnlyIf(props => props.breakpoints.isDesktop)
 )
 
 export default breakpointsAware

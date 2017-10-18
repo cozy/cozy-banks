@@ -15,10 +15,12 @@ const AppRoute = (
   <Route component={EnsureIsFirstSynced}>
     <Route component={EnsureHasAccounts}>
       <Route component={App}>
-        <Redirect from='/' to='movements' />
+        <Redirect from='/' to='transactions' />
         <Route path='currentBalance' component={Balance} />
-        <Route path='movements' component={TransactionsPage} />
-        <Route path='categories' component={CategoriesPage}>
+        <Route path='transactions' component={TransactionsPage} />
+        <Route path='categories'>
+          <IndexRoute component={CategoriesPage} />
+          <Route path=':categoryName/:subcategoryName' component={TransactionsPage} />
           <Route path=':categoryName' component={CategoriesPage} />
         </Route>
         <Route path='projections' component={ComingSoon} />

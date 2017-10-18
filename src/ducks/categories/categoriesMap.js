@@ -78,4 +78,6 @@ export const getParentCategory = catId => {
   return parent && parent.name ? parent.name : 'uncategorized'
 }
 
+export const getCategoryId = name => Object.keys(tree).find(id => tree[id] === name)
+
 export default categoryToParent

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router'
 import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'
 import Toggle from 'cozy-ui/react/Toggle'
@@ -160,10 +161,10 @@ class Categories extends Component {
   }
 
   renderSubcategory (category, subcategory) {
-    const { t, breakpoints: { isDesktop, isTablet } } = this.props
+    const { t, breakpoints: { isDesktop, isTablet }, router } = this.props
     const { name, currency, credit, debit, transactionsNumber, percentage } = subcategory
     return (
-      <tr className={stRowSub} onClick={() => this.toggle(category.name)}>
+      <tr className={stRowSub} onClick={() => router.push(`/categories/${category.name}/${name}`)}>
         <TdWithIcon className={stCategory}>
           {t(`Data.subcategories.${name}`)}
         </TdWithIcon>
@@ -185,6 +186,7 @@ class Categories extends Component {
 }
 
 export default compose(
+  withRouter,
   breakpointsAware(),
   translate()
 )(Categories)
