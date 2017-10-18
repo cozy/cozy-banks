@@ -33,7 +33,7 @@ module.exports = {
     new webpack.LoaderOptionsPlugin({
       options: {
         stylus: {
-          use: [ require('cozy-ui/stylus')() ]
+          use: [require('cozy-ui/stylus')()]
         }
       }
     })
