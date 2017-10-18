@@ -12,7 +12,6 @@ const BreadcrumbSeparator = ({separator}) => (
 
 const BreadcrumbItem = ({item}) => {
   const Tag = item.tag
-  console.log('previewOnClick', item.previewOnClick)
   return (
     <span className={item.isLast ? styles.last : styles.notLast}>
       {item.previewOnClick && item.isLast && <BackButton onClick={item.previewOnClick} />}
