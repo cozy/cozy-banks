@@ -31,16 +31,26 @@ const BreadcrumbLink = ({item}) => {
   )
 }
 
-/*
-items = {
-  name,
-  onClick,
-  displaySeparator,
-  separator,
-  isLast,
-
-}
-*/
+/**
+ * Display a Breadcrumb
+ * - On browser like this: This > is > path
+ * - On mobile: path
+ *
+ * ```jsx
+ * <Breadcrumb
+ *   tag='h2'
+ *   separator='>'
+ *   onClick={() => console.log('back button' )}
+ *   items={[{name: 'this'},{name: 'is'}, {name: 'path'}]} />
+ * ```
+ *
+ * All parameter for item:
+ * - name: string
+ * - displaySeparator: boolean
+ * - separator: string
+ * - tag: string
+ * - onClick: function
+ */
 export const Breadcrumb = ({items, withLastSeparator = DEFAULT_LAST_SEPARATOR, separator = DEFAULT_SEPARATOR, tag = DEFAULT_TAG}) => {
   let previewOnClick = ''
   return (
