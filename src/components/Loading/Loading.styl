@@ -1,4 +1,5 @@
 @require 'cozy-ui'
+@require '../../styles/breakpoints.styl'
 
 .bnk-loading, .bnk-loading--no-margin
     text-align center
@@ -25,7 +26,7 @@
         margin 0
 
 
-@media (max-width: (1023/basefont)rem)
++medium-screen()
     .bnk-loading
         &:before
             width  3.4375rem

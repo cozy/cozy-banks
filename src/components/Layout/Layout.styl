@@ -67,7 +67,7 @@ content-padding-small = 1rem
         &
             padded-content(content-padding-small)
 
-    @media (max-width: (1023/basefont)rem)
+    +medium-screen()
         display block
 
 .coz-sidebar
@@ -75,6 +75,6 @@ content-padding-small = 1rem
     border-right     1px solid silver
     background-color pale-grey
 
-    @media (max-width: (1023/basefont)rem)
+    +medium-screen()
         border-top  1px solid silver
         border-left none
