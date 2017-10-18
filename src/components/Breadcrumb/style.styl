@@ -1,0 +1,27 @@
+@require 'cozy-ui'
+@require '../../styles/breakpoints.styl'
+
+.Breadcrumb
+  .title
+    display inline-block
+    color cool-grey
+
+  .last .title
+    color black
+
+  .separator
+    horizontally-padded .3em
+
+  .link
+    cursor pointer
+
+  .previewOnClick
+    display none
+
+  +small-screen()
+    .notLast
+      display none
+
+    .previewOnClick
+      display inherit
+      margin-right 8px

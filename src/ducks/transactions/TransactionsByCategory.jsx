@@ -10,7 +10,8 @@ import { fetchTransactions } from 'actions'
 import { getUrlBySource, findApps } from 'ducks/apps'
 import { flowRight as compose } from 'lodash'
 import { cozyConnect } from 'redux-cozy-client'
-import { getCategoryId } from 'ducks/categories/categoriesMap'
+import { getCategoryId, getParentCategory } from 'ducks/categories/categoriesMap'
+import { Breadcrumb } from 'components/Breadcrumb'
 
 import TransactionsWithSelection from './TransactionsWithSelection'
 import styles from './TransactionsPage.styl'
@@ -46,10 +47,24 @@ class TransactionsByCategory extends Component {
         debits += transaction.amount
       }
     })
+    const parentCategory = getParentCategory(getCategoryId(selectedCategory))
+    const breadcrumbItems = [
+      {
+        name: t('Categories.title.general'),
+        onClick: () => router.push('/categories')
+      },
+      {
+        name: t(`Data.categories.${parentCategory}`),
+        onClick: () => router.push(`/categories/${parentCategory}`)
+      },
+      {
+        name: t(`Data.subcategories.${selectedCategory}`)
+      }
+    ]
     return (
       <div className={styles['bnk-mov-page']}>
         <Topbar>
-          <h2>{t('Transactions.title')}</h2>
+          <Breadcrumb items={breadcrumbItems} tag='h2' />
         </Topbar>
         <SelectDates />
         {filteredTransactions.length !== 0 && <div className={styles['bnk-mov-figures']}>
