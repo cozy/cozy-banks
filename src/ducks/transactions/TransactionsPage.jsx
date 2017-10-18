@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react/I18n'
 import { FigureBlock } from 'components/Figure'
@@ -9,6 +10,8 @@ import { fetchTransactions } from 'actions'
 import { getUrlBySource, findApps } from 'ducks/apps'
 import { flowRight as compose } from 'lodash'
 import { cozyConnect } from 'cozy-client'
+import { getCategoryId, getParentCategory } from 'ducks/categories/categoriesMap'
+import { Breadcrumb } from 'components/Breadcrumb'
 
 import TransactionsWithSelection from './TransactionsWithSelection'
 import styles from './TransactionsPage.styl'
@@ -23,10 +26,18 @@ class TransactionsPage extends Component {
   }
 
   render () {
-    const { t, urls, filteredTransactions, transactions } = this.props
+    const { t, urls, transactions, router } = this.props
+    let { filteredTransactions } = this.props
 
     if (isPendingOrLoading(transactions)) {
       return <Loading loadingType='movements' />
+    }
+
+    // filter by category
+    const selectedCategory = router.params.categoryName
+    if (selectedCategory) {
+      const categoryId = getCategoryId(selectedCategory)
+      filteredTransactions = filteredTransactions.filter(transaction => transaction.categoryId === categoryId)
     }
 
     let credits = 0
@@ -38,10 +49,24 @@ class TransactionsPage extends Component {
         debits += transaction.amount
       }
     })
+
+    // Create Breadcrumb
+    const breadcrumbItems = [{name: t('Categories.title.general')}]
+    if (selectedCategory) {
+      const parentCategory = getParentCategory(getCategoryId(selectedCategory))
+      breadcrumbItems[0].onClick = () => router.push('/categories')
+      breadcrumbItems.push({
+        name: t(`Data.categories.${parentCategory}`),
+        onClick: () => router.push(`/categories/${parentCategory}`)
+      }, {
+        name: t(`Data.subcategories.${selectedCategory}`)
+      })
+    }
+
     return (
       <div className={styles['bnk-mov-page']}>
         <Topbar>
-          <h2>{t('Transactions.title')}</h2>
+          <Breadcrumb items={breadcrumbItems} tag='h2' />
         </Topbar>
         <SelectDates />
         {filteredTransactions.length !== 0 && <div className={styles['bnk-mov-figures']}>
@@ -80,6 +105,7 @@ const mapDocumentsToProps = ownProps => ({
 })
 
 export default compose(
+  withRouter,
   connect(mapStateToProps, mapDispatchToProps),
   cozyConnect(mapDocumentsToProps),
   translate()

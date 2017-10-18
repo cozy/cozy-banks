@@ -2,7 +2,7 @@ import React from 'react'
 import { IndexRoute, Route, Redirect } from 'react-router'
 import App from 'components/App'
 
-import { TransactionsPage, TransactionsByCategory } from 'ducks/transactions'
+import { TransactionsPage } from 'ducks/transactions'
 import { CategoriesPage } from 'ducks/categories'
 import { Settings, AccountSettings, AccountsSettings, GroupsSettings, GroupSettings, NewGroupSettings, AppSettings } from 'ducks/settings'
 import Notifications from 'ducks/settings/Notifications'
@@ -20,7 +20,7 @@ const AppRoute = (
         <Route path='transactions' component={TransactionsPage} />
         <Route path='categories'>
           <IndexRoute component={CategoriesPage} />
-          <Route path=':categoryName/transactions' component={TransactionsByCategory} />
+          <Route path=':categoryName/transactions' component={TransactionsPage} />
           <Route path=':categoryName' component={CategoriesPage} />
         </Route>
         <Route path='projections' component={ComingSoon} />
