@@ -21,7 +21,7 @@ class CategoriesPage extends Component {
 
   selectCategory = (selectedCategory, subcategory) => {
     if (subcategory) {
-      this.props.router.push(`/categories/${selectedCategory}/transactions`)
+      this.props.router.push(`/categories/${selectedCategory}/${subcategory}`)
     } else if (selectedCategory) {
       this.props.router.push(`/categories/${selectedCategory}`)
     } else {

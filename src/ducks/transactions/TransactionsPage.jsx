@@ -10,7 +10,7 @@ import { fetchTransactions } from 'actions'
 import { getUrlBySource, findApps } from 'ducks/apps'
 import { flowRight as compose } from 'lodash'
 import { cozyConnect } from 'cozy-client'
-import { getCategoryId, getParentCategory } from 'ducks/categories/categoriesMap'
+import { getCategoryId } from 'ducks/categories/categoriesMap'
 import { Breadcrumb } from 'components/Breadcrumb'
 
 import TransactionsWithSelection from './TransactionsWithSelection'
@@ -34,9 +34,9 @@ class TransactionsPage extends Component {
     }
 
     // filter by category
-    const selectedCategory = router.params.categoryName
-    if (selectedCategory) {
-      const categoryId = getCategoryId(selectedCategory)
+    const subcategoryName = router.params.subcategoryName
+    if (subcategoryName) {
+      const categoryId = getCategoryId(subcategoryName)
       filteredTransactions = filteredTransactions.filter(transaction => transaction.categoryId === categoryId)
     }
 
@@ -52,14 +52,14 @@ class TransactionsPage extends Component {
 
     // Create Breadcrumb
     const breadcrumbItems = [{name: t('Categories.title.general')}]
-    if (selectedCategory) {
-      const parentCategory = getParentCategory(getCategoryId(selectedCategory))
+    if (subcategoryName) {
+      const categoryName = router.params.categoryName
       breadcrumbItems[0].onClick = () => router.push('/categories')
       breadcrumbItems.push({
-        name: t(`Data.categories.${parentCategory}`),
-        onClick: () => router.push(`/categories/${parentCategory}`)
+        name: t(`Data.categories.${categoryName}`),
+        onClick: () => router.push(`/categories/${categoryName}`)
       }, {
-        name: t(`Data.subcategories.${selectedCategory}`)
+        name: t(`Data.subcategories.${subcategoryName}`)
       })
     }
 

@@ -20,7 +20,7 @@ const AppRoute = (
         <Route path='transactions' component={TransactionsPage} />
         <Route path='categories'>
           <IndexRoute component={CategoriesPage} />
-          <Route path=':categoryName/transactions' component={TransactionsPage} />
+          <Route path=':categoryName/:subcategoryName' component={TransactionsPage} />
           <Route path=':categoryName' component={CategoriesPage} />
         </Route>
         <Route path='projections' component={ComingSoon} />

@@ -164,7 +164,7 @@ class Categories extends Component {
     const { t, breakpoints: { isDesktop, isTablet }, router } = this.props
     const { name, currency, credit, debit, transactionsNumber, percentage } = subcategory
     return (
-      <tr className={stRowSub} onClick={() => router.push(`/categories/${name}/transactions`)}>
+      <tr className={stRowSub} onClick={() => router.push(`/categories/${category.name}/${name}`)}>
         <TdWithIcon className={stCategory}>
           {t(`Data.subcategories.${name}`)}
         </TdWithIcon>

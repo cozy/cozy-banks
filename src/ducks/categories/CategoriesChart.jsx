@@ -18,7 +18,7 @@ class CategoriesChart extends Component {
       selectCategory(categories[index].name)
     } else {
       const category = categories.find(cat => cat.name === selectedCategory)
-      selectCategory(category.subcategories[index].name, true)
+      selectCategory(category.name, category.subcategories[index].name)
     }
   }
 
