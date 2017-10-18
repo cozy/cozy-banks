@@ -5,7 +5,7 @@
     @extend    $app-2panes-sticky
 
     // To move to Cozy-UI
-    +medium-screen()
+    +small-screen()
         display block
 
         // Those pseudo-elements are "ghost" elements replacing bar and nav
@@ -32,11 +32,11 @@ body
 // END Cozy-UI
 
 // To move to Cozy-bar
-+medium-screen()
-    // Double the selector to increase specificity since
-    // media queries do not increase specificity and we want
-    // to override the position: relative
-   [role=banner][role=banner]
+// Double the selector to increase specificity since
+// media queries do not increase specificity and we want
+// to override the position: relative
+[role=banner][role=banner]
+    +small-screen()
         position fixed
         top 0
         left 0
