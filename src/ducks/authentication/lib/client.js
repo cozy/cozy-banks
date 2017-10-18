@@ -71,7 +71,8 @@ export const initBar = () => {
       token: token.accessToken,
       iconPath: require('targets/favicons/icon-bank.svg'),
       lang: getLang(),
-      replaceTitleOnMobile: true
+      replaceTitleOnMobile: true,
+      displayOnMobile: true
     })
   })
 }
