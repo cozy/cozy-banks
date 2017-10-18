@@ -9,7 +9,7 @@ import { SelectDates, getFilteredTransactions } from 'ducks/filters'
 import { fetchTransactions } from 'actions'
 import { getUrlBySource, findApps } from 'ducks/apps'
 import { flowRight as compose } from 'lodash'
-import { cozyConnect } from 'redux-cozy-client'
+import { cozyConnect } from 'cozy-client'
 import { getCategoryId, getParentCategory } from 'ducks/categories/categoriesMap'
 import { Breadcrumb } from 'components/Breadcrumb'
 
