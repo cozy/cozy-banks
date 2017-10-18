@@ -4,11 +4,11 @@
     @extend        $popover
     z-index        $file-action-menu
     position       fixed
-    bottom         em(9px)
+    bottom         0.5625rem
     left           0
-    width          "calc(100% - %s)" % em(16px)
-    margin         0 em(8px)
-    padding-bottom em(5px)
+    width          "calc(100% - %s)" % 1rem
+    margin         0 0.5rem
+    padding-bottom 0.3125rem
 
     &.with-transition
         transition transform .1s ease-out
@@ -17,13 +17,13 @@
         margin-top 0
 
 .fil-actionmenu-header
-    padding     em(20px) em(24px) em(20px) em(20px)
+    padding     1.25rem 1.5rem 1.25rem 1.25rem
     font-size   16px
     font-weight bold
 
 .fil-actionmenu-file
-    margin-left   em(19px)
-    padding-left  em(45px)
+    margin-left   1.1875rem
+    padding-left  2.8125rem
     background-position 0 center
     background-repeat no-repeat
 
@@ -42,13 +42,13 @@
 
     .menu-header-left
         flex 1 1 auto
-        padding em(18px) em(9px) em(18px) em(50px)
+        padding 1.125rem 0.5625rem 1.125rem 3.125rem
 
         h3
             align-self bottom
             margin 0
             font-size 1.2em
-            margin-bottom em(6px)
+            margin-bottom 0.375rem
 
         span
             font-size 1em
@@ -59,16 +59,16 @@
     .menu-header-right
         flex 0 1 auto
         align-self center
-        padding em(18px) em(18px) em(18px) em(9px)
+        padding 1.125rem 1.125rem 1.125rem 0.5625rem
 
 .action-bill
-    background embedurl('../../assets/icons/actions/icon-file.svg') em(16px) center no-repeat
+    background embedurl('../../assets/icons/actions/icon-file.svg') 1rem center no-repeat
 .action-attach
-    background embedurl('../../assets/icons/actions/icon-link.svg') em(16px) center no-repeat
+    background embedurl('../../assets/icons/actions/icon-link.svg') 1rem center no-repeat
 .action-comment
-    background embedurl('../../assets/icons/actions/icon-comment.svg') em(16px) center no-repeat
+    background embedurl('../../assets/icons/actions/icon-comment.svg') 1rem center no-repeat
 .action-app
 .action-refund
-    background embedurl('../../assets/icons/actions/icon-link-out.svg') em(16px) center no-repeat
+    background embedurl('../../assets/icons/actions/icon-link-out.svg') 1rem center no-repeat
 .action-alert
-    background embedurl('../../assets/icons/actions/icon-bell-16.svg') em(16px) center no-repeat
+    background embedurl('../../assets/icons/actions/icon-bell-16.svg') 1rem center no-repeat
