@@ -1,4 +1,5 @@
 import React from 'react'
+import cx from 'classnames'
 import BackButton from 'components/BackButton'
 import styles from './style.styl'
 
@@ -13,20 +14,12 @@ const BreadcrumbSeparator = ({separator}) => (
 const BreadcrumbItem = ({item}) => {
   const Tag = item.tag
   return (
-    <span className={item.isLast ? styles.last : styles.notLast}>
-      {item.previewOnClick && item.isLast && <BackButton onClick={item.previewOnClick} />}
+    <span onClick={item.onClick} className={cx(item.isLast ? styles.last : styles.notLast, [styles.link]: item.onClick)}>
+      {item.previousOnClick && item.isLast && <BackButton onClick={item.previousOnClick} />}
       <Tag className={styles.title}>
         {item.name}
         {item.displaySeparator && <BreadcrumbSeparator separator={item.separator} />}
       </Tag>
-    </span>
-  )
-}
-
-const BreadcrumbLink = ({item}) => {
-  return (
-    <span onClick={item.onClick} className={styles.link}>
-      <BreadcrumbItem item={item} />
     </span>
   )
 }
@@ -52,7 +45,7 @@ const BreadcrumbLink = ({item}) => {
  * - onClick: function
  */
 export const Breadcrumb = ({items, withLastSeparator = DEFAULT_LAST_SEPARATOR, separator = DEFAULT_SEPARATOR, tag = DEFAULT_TAG}) => {
-  let previewOnClick = ''
+  let previousOnClick
   return (
     <div className={styles.Breadcrumb}>{
       items.map((item, idx) => {
@@ -62,10 +55,10 @@ export const Breadcrumb = ({items, withLastSeparator = DEFAULT_LAST_SEPARATOR, s
         if (item.displaySeparator === undefined) item.displaySeparator = withLastSeparator || !isLastItem
         if (item.separator === undefined) item.separator = separator
         if (item.tag === undefined) item.tag = tag
-        if (previewOnClick) item.previewOnClick = previewOnClick
-        if (item.onClick) previewOnClick = item.onClick
+        if (previousOnClick) item.previousOnClick = previousOnClick
+        if (item.onClick) previousOnClick = item.onClick
 
-        return item.onClick ? <BreadcrumbLink item={item} /> : <BreadcrumbItem item={item} />
+        return <BreadcrumbItem item={item} />
       })
     }</div>
   )
