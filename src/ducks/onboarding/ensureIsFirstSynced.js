@@ -10,21 +10,23 @@ import { Content } from 'components/Layout'
  */
 class Wrapper extends Component {
   state = {
-    hasSyncStarted: false
+    hasSyncStarted: false,
+    isOffline: false
   }
 
   componentDidMount () {
     this.props.dispatch(startSync())
       .then(() => this.setState({ hasSyncStarted: true }))
+      .catch(() => this.setState({ isOffline: true }))
   }
 
   render () {
-    const { hasSyncStarted } = this.state
+    const { hasSyncStarted, isOffline } = this.state
     const { isSynced, /* isFirstSync, */ children } = this.props
-    if (!hasSyncStarted) {
+    if (!isOffline && !hasSyncStarted) {
       return null
     }
-    if (!isSynced /* && isFirstSync */) {
+    if (!isOffline && !isSynced /* && isFirstSync */) {
       return (
         <Content>
           <div className={styles.Onboarding__loading}>
