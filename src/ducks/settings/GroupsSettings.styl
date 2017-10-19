@@ -45,4 +45,12 @@
         @extend $form-text
 
         input[type=text]
-            width 100%
+            // to have the same height as the buttons
+            padding 0.625rem
+
+        +small-screen()
+            .save-button
+                margin-left 0
+                margin-top 0.25rem
+            input[type=text]
+                width 100%
