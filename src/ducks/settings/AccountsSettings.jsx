@@ -9,6 +9,8 @@ import Loading from 'components/Loading'
 import { cozyConnect, fetchCollection } from 'cozy-client'
 import plus from 'assets/icons/16/plus.svg'
 import styles from './AccountsSettings.styl'
+import btnStyles from 'styles/buttons'
+
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 
 // See comment below about sharings
@@ -88,7 +90,7 @@ const AccountsSettings = ({ t, accounts }) => {
   return (
     <div>
       <p>
-        <Button theme='regular'>
+        <Button className={btnStyles['btn--no-outline']}>
           <Icon icon={plus} />&nbsp;{t('Accounts.add-account')}
         </Button>
       </p>

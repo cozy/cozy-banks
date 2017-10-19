@@ -7,6 +7,7 @@ import { cozyConnect, fetchCollection } from 'cozy-client'
 import Loading from 'components/Loading'
 import plus from 'assets/icons/16/plus.svg'
 import styles from './GroupsSettings.styl'
+import btnStyles from 'styles/buttons'
 
 const isPending = (reduxObj) => {
   return reduxObj.fetchStatus === 'pending'
@@ -55,7 +56,7 @@ const Groups = withRouter(class extends Component {
     return (
       <div>
         <p>
-          <Button theme='regular' onClick={() => router.push('/settings/groups/new')}>
+          <Button className={btnStyles['btn--no-outline']} onClick={() => router.push('/settings/groups/new')}>
             <Icon icon={plus} /> {t('Groups.create')}
           </Button>
         </p>
