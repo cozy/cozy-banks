@@ -14,7 +14,7 @@ const BreadcrumbSeparator = ({separator}) => (
 const BreadcrumbItem = ({item}) => {
   const Tag = item.tag
   return (
-    <span onClick={item.onClick} className={cx(item.isLast ? styles.last : styles.notLast, [styles.link]: item.onClick)}>
+    <span onClick={item.onClick} className={cx(item.isLast ? styles.last : styles.notLast, {[styles.link]: item.onClick})}>
       {item.previousOnClick && item.isLast && <BackButton onClick={item.previousOnClick} />}
       <Tag className={styles.title}>
         {item.name}

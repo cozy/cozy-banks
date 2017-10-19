@@ -51,16 +51,20 @@ class TransactionsPage extends Component {
     })
 
     // Create Breadcrumb
-    const breadcrumbItems = [{name: t('Categories.title.general')}]
+    let breadcrumbItems
     if (subcategoryName) {
       const categoryName = router.params.categoryName
-      breadcrumbItems[0].onClick = () => router.push('/categories')
-      breadcrumbItems.push({
+      breadcrumbItems = [{
+        name: t('Transactions.title.general'),
+        onClick: () => router.push('/categories')
+      }, {
         name: t(`Data.categories.${categoryName}`),
         onClick: () => router.push(`/categories/${categoryName}`)
       }, {
         name: t(`Data.subcategories.${subcategoryName}`)
-      })
+      }]
+    } else {
+      breadcrumbItems = [{name: t('Transactions.title')}]
     }
 
     return (
