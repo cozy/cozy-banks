@@ -26,7 +26,9 @@ const Balance = ({t, accounts, type, accountOrGroup, breakpoints: { isMobile }})
   }
   let total = 0
   accounts.map(account => {
-    total += parseInt(account.balance, 10)
+    if (account.balance) {
+      total += parseInt(account.balance, 10)
+    }
   })
   return (
     <div className={styles['balance']}>
@@ -55,7 +57,7 @@ const Balance = ({t, accounts, type, accountOrGroup, breakpoints: { isMobile }})
                   {isAlert && <span className='coz-error coz-error--warning' />}
                 </td>
                 <TdSecondary className={classNames(styles['solde'], { [styles.alert]: isAlert })}>
-                  <Figure total={account.balance} currency='€' coloredNegative signed />
+                  {account.balance && <Figure total={account.balance} currency='€' coloredNegative signed />}
                 </TdSecondary>
                 {!isMobile && <TdSecondary className={styles['bank_name']}>{account.institutionLabel}</TdSecondary>}
                 {!isMobile && <TdSecondary className={styles['account_number']}>{account.number}</TdSecondary>}
