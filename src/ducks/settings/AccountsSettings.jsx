@@ -87,17 +87,14 @@ const AccountsSettings = ({ t, accounts }) => {
 
   return (
     <div>
-
-      {myAccounts
-        ? <AccountsTable accounts={myAccounts} t={t} />
-        : <p>{t('Accounts.no-accounts')}</p>}
-
       <p>
         <Button theme='regular'>
           <Icon icon={plus} />&nbsp;{t('Accounts.add-account')}
         </Button>
       </p>
-
+      {myAccounts
+        ? <AccountsTable accounts={myAccounts} t={t} />
+        : <p>{t('Accounts.no-accounts')}</p>}
 
       <h4>
         {t('Accounts.shared-accounts')}
