@@ -40,7 +40,7 @@ const Settings = ({ t, children, router }) => {
   return (
     <div>
       <Topbar>
-        <h2>{t('Settings.title')}</h2>
+        <h2 className={styles.settings__title}>{t('Settings.title')}</h2>
       </Topbar>
       <Tabs className={styles['bnk-tabs']} initialActiveTab={defaultTab}>
         <TabList className={styles['bnk-coz-tab-list']}>
