@@ -1,5 +1,6 @@
-@require 'cozy-ui'
+@require 'objects/layouts.styl'
 @require '../../styles/breakpoints.styl'
+@require '../../styles/variables.styl'
 
 .coz-layout
     @extend    $app-2panes-sticky
@@ -47,34 +48,22 @@ body
 padded-content(pad)
     padding pad
 
-    .full-width
-        margin-left (- pad)
-        margin-right (- pad)
-
-    .full-width-table
-        margin-left (- pad)
-        margin-right (- pad)
-        width "calc(100% + %s)" % (2 * pad)
-
-content-padding = 2em
-content-padding-small = 1rem
-
 .coz-content
     width 100%
-    padded-content(content-padding)
+    padding content-padding
 
     +small-screen()
         &
-            padded-content(content-padding-small)
+            padding content-padding-small
 
-    @media (max-width: (1023/basefont)rem)
+    +medium-screen()
         display block
 
 .coz-sidebar
-    width            em(220px)
+    width            13.75rem
     border-right     1px solid silver
     background-color pale-grey
 
-    @media (max-width: (1023/basefont)rem)
+    +medium-screen()
         border-top  1px solid silver
         border-left none

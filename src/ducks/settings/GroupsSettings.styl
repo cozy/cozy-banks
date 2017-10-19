@@ -1,10 +1,11 @@
-@require 'cozy-ui'
+@require 'settings/palette'
+@require 'components/forms.styl'
 @require '../../styles/breakpoints.styl'
 @require '../../styles/mixins.styl'
 
 .GrpsStg
     &__table
-        composes full-width-table from '../../components/Layout/Layout.styl'
+        @extend $full-width-table
 
         td
             text-overflow ellipsis
@@ -37,7 +38,7 @@
         maxed-flex-basis 20%
 
     &__table
-        composes full-width-table from '../../components/Layout/Layout.styl'
+        @extend $full-width-table
 
     &__form
         @extend $form

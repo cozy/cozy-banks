@@ -4,7 +4,7 @@ const path = require('path')
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 const PostCSSAssetsPlugin = require('postcss-assets-webpack-plugin')
 
-const {extractor, production} = require('./webpack.vars')
+const { extractor, production } = require('./webpack.vars')
 const SRC_DIR = path.resolve(__dirname, '../src')
 const webpack = require('webpack')
 
@@ -52,18 +52,14 @@ module.exports = {
             {
               loader: 'postcss-loader',
               options: {
-                plugins: (loader) => [
-                  require('autoprefixer')()
-                ]
+                plugins: loader => [require('autoprefixer')()]
               }
             }
           ]
         })
       }
     ],
-    noParse: [
-      /localforage\/dist/
-    ]
+    noParse: [/localforage\/dist/]
   },
   plugins: [
     // ChartJS uses moment :( To remove when we do not use it anymore
@@ -73,8 +69,8 @@ module.exports = {
       defaultAttribute: 'defer'
     }),
     new webpack.ProvidePlugin({
-      'PouchDB': ['pouchdb', 'default'],
-      'pouchdbFind': 'pouchdb-find',
+      PouchDB: ['pouchdb', 'default'],
+      pouchdbFind: 'pouchdb-find'
     }),
     extractor,
     new PostCSSAssetsPlugin({
@@ -85,7 +81,12 @@ module.exports = {
         require('postcss-discard-duplicates'),
         require('postcss-discard-empty')
       ].concat(
-        production ? require('csswring')({preservehacks: true, removeallcomments: true}) : []
+        production
+          ? require('csswring')({
+              preservehacks: true,
+              removeallcomments: true
+            })
+          : []
       )
     })
   ]

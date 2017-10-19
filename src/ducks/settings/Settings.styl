@@ -1,9 +1,9 @@
-@require 'cozy-ui'
 @require '../../styles/breakpoints.styl'
-@require '../../components/Layout/Layout.styl'
+@require '../../styles/variables.styl'
+@require '../../styles/mixins.styl'
 
 .bnk-coz-tab-list
-    composes full-width from '../../components/Layout/Layout.styl'
+    @extend $full-width
     padding-left content-padding
 
 .bnk-tabs .bnk-coz-tab-list

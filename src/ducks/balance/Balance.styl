@@ -1,8 +1,8 @@
-@require 'cozy-ui'
+@require '../../styles/breakpoints.styl'
 @require '../../styles/mixins.styl'
 
 .balance-table
-    composes full-width-table from '../../components/Layout/Layout.styl'
+    @extend $full-width-table
 
 .balance
     .kpi
@@ -35,7 +35,7 @@
                             vertical-align middle
                             margin-bottom 3px
 
-@media (max-width: (768/basefont)rem)
++small-screen()
     .balance
         .balance-table
             .account_name

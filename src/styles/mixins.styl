@@ -1,4 +1,5 @@
-@require '../../components/Layout/Layout.styl'
+@require './variables.styl'
+@require '../../styles/breakpoints.styl'
 
 /**
 Due to a IE11 bug, we need to specify max-width when using
@@ -8,3 +9,21 @@ https://github.com/philipwalton/flexbugs/issues/3
 maxed-flex-basis(n)
     flex-basis n
     max-width n
+
+$full-width
+    margin-left (- content-padding)
+    margin-right (- content-padding)
+
+    +small-screen()
+        margin-left (- content-padding-small)
+        margin-right (- content-padding-small)
+
+$full-width-table
+    margin-left (- content-padding)
+    margin-right (- content-padding)
+    width 'calc(100% + %s)' % (2 * content-padding)
+
+    +small-screen()
+        margin-left (- content-padding-small)
+        margin-right (- content-padding-small)
+        width 'calc(100% + %s)' % (2 * content-padding-small)

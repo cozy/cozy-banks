@@ -9,7 +9,7 @@
     "clean:browser": "rm -rf build/*",
     "clean:mobile": "rm -rf src/targets/mobile/www",
     "commons:build": "webpack --config webpack.config.js --bail",
-    "commons:watch": "webpack --config webpack.config.js --watch",
+    "commons:watch": "webpack --config webpack.config.js --watch --progress",
     "commons:watch:standalone": "webpack-dev-server --config webpack.config.js --port 8282 --inline --hot",
     "get-deploy-branch": "test $(git rev-parse --abbrev-ref HEAD) = 'prod' && echo latest || echo build",
     "deploy": "git-directory-deploy --directory build/ --branch ${DEPLOY_BRANCH:-$(npm run get-deploy-branch -s)} --repo git@gitlab.cozycloud.cc:labs/cozy-bank.git",
@@ -144,19 +144,12 @@
     "velocity-animate": "^1.5.0"
   },
   "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "jsx",
-      "json",
-      "styl"
-    ],
+    "moduleFileExtensions": ["js", "jsx", "json", "styl"],
     "moduleNameMapper": {
       "\\.(png|gif|jpe?g|svg)$": "<rootDir>/test/__mocks__/fileMock.js",
       "styles": "identity-obj-proxy"
     },
-    "transformIgnorePatterns": [
-      "node_modules/(?!cozy-ui)"
-    ],
+    "transformIgnorePatterns": ["node_modules/(?!cozy-ui)"],
     "globals": {
       "__ALLOW_HTTP__": false,
       "__TARGET__": "browser",
@@ -165,9 +158,6 @@
     }
   },
   "standard": {
-    "env": [
-      "browser",
-      "jest"
-    ]
+    "env": ["browser", "jest"]
   }
 }
