@@ -5,7 +5,7 @@
 
 .GrpsStg
     &__table
-        composes full-width-table from '../../components/Layout/Layout.styl'
+        @extend $full-width-table
 
         td
             text-overflow ellipsis
@@ -38,7 +38,7 @@
         maxed-flex-basis 20%
 
     &__table
-        composes full-width-table from '../../components/Layout/Layout.styl'
+        @extend $full-width-table
 
     &__form
         @extend $form

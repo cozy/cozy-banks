@@ -1,7 +1,8 @@
+@require '../../styles/breakpoints.styl'
 @require '../../styles/mixins.styl'
 
 .balance-table
-    composes full-width-table from '../../components/Layout/Layout.styl'
+    @extend $full-width-table
 
 .balance
     .kpi

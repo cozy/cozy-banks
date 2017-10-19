@@ -3,7 +3,7 @@
 
 .AcnsStg
     &__accounts
-        composes full-width-table from '../../components/Layout/Layout.styl'
+        @extend $full-width-table
 
         td
             text-overflow ellipsis
@@ -43,7 +43,7 @@
 
 .AcnStg
     &__tabList
-        composes full-width from '../../components/Layout/Layout.styl'
+        @extend $full-width
 
     +small-screen()
         &__tabList
