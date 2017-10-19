@@ -102,11 +102,6 @@ class GroupSettings extends Component {
         <Topbar>
           <h2>{group.label}</h2>
         </Topbar>
-        <p className='coz-desktop'>
-          <a href='#/settings/groups'>
-            {t('Groups.back-to-groups')}
-          </a>
-        </p>
         <form className={styles.GrpStg__form} onSubmit={e => e.preventDefault()}>
           <label className={styles['coz-form-label']}>
             {t('Groups.label')}

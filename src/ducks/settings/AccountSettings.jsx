@@ -115,11 +115,6 @@ const AccountSettings = function ({account, onClose, t}) {
           {account.label}
         </h2>
       </Topbar>
-      <p className='coz-desktop'>
-        <a href='#/settings/accounts'>
-          {t('AccountSettings.back-to-accounts')}
-        </a>
-      </p>
       <Tabs
         className={styles.AcnStg__tabs}
         initialActiveTab='details'>
