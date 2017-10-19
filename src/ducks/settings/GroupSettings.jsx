@@ -106,7 +106,6 @@ class GroupSettings extends Component {
 
         <h3>{t('Groups.label')}</h3>
         <form className={styles.GrpStg__form} onSubmit={e => e.preventDefault()}>
-          {accounts.fetchStatus === 'pending' ? <Loading /> : <Table className={styles.GrpStg__table}>
           <p>
             { !modifying
               ? group.label
@@ -122,6 +121,22 @@ class GroupSettings extends Component {
         <h3>
           {t('Groups.accounts')}
         </h3>
+        {accounts.fetchStatus === 'pending'
+          ? <Loading />
+          : <Table className={styles.GrpStg__table}>
+            <thead>
+              <tr>
+                <th className={styles.GrpStg__accntLabel}>
+                  {t('Groups.label')}
+                </th>
+                <th className={styles.GrpStg__accntNumber}>
+                  {t('Groups.number')}
+                </th>
+                <th className={styles.GrpStg__accntToggle}>
+                  {t('Groups.included')}
+                </th>
+              </tr>
+            </thead>
             <tbody>
               {accounts.data && accounts.data.map(this.renderAccountLine)}
             </tbody>
