@@ -109,7 +109,7 @@ const AccountSettings = function ({account, onClose, t}) {
   }
   return (
     <div>
-      <BackButton to='/settings/accounts' />
+      <BackButton to='/settings/accounts' arrow />
       <Topbar>
         <h2>
           {account.label}

@@ -99,7 +99,7 @@ class GroupSettings extends Component {
 
     return (
       <div>
-        <BackButton to='/settings/groups' />
+        <BackButton to='/settings/groups' arrow />
         <Topbar>
           <h2>{group.label}</h2>
         </Topbar>

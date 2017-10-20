@@ -17,15 +17,15 @@ import breakpointsAware from 'utils/breakpointsAware'
  * <BackButton to={ '/settings' } />
  * ```
  */
-const BackButton = ({ onClick, to, router, breakpoints }) => {
+const BackButton = ({ onClick, to, router, breakpoints, arrow = false }) => {
   const handleClick = onClick = onClick || (() => to && router.push(to))
   return breakpoints.isMobile ? (
     <TopbarLeft className={styles['back-button']}>
       <a onClick={handleClick} />
     </TopbarLeft>
-  ) : <a onClick={handleClick} className={styles['back-arrow']}>
+  ) : (arrow && <a onClick={handleClick} className={styles['back-arrow']}>
     <Icon icon={arrowLeft} />
-  </a>
+  </a>)
 }
 
 BackButton.propTypes = {
