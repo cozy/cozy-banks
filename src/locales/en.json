@@ -81,7 +81,9 @@
     "no-groups": "Using groups, you can easily gather several accounts, feel free to create one.",
     "back-to-groups": "Back to groups",
     "rename": "Rename",
-    "save": "Save"
+    "save": "Save",
+    "included": "Included",
+    "account-number": "Account number"
   },
   "Data": {
     "subcategories": {

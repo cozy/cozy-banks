@@ -130,7 +130,7 @@ class GroupSettings extends Component {
                   {t('Groups.label')}
                 </th>
                 <th className={styles.GrpStg__accntNumber}>
-                  {t('Groups.number')}
+                  {t('Groups.account-number')}
                 </th>
                 <th className={styles.GrpStg__accntToggle}>
                   {t('Groups.included')}
