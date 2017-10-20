@@ -2,8 +2,10 @@ import React from 'react'
 import { TopbarLeft } from 'ducks/commons/Topbar'
 import styles from './style.styl'
 import withBackSwipe from 'utils/backSwipe'
-import { onlyMobile } from 'utils/breakpointsAware'
 import { flowRight as compose } from 'lodash'
+import { Icon } from 'cozy-ui/react'
+import arrowLeft from 'assets/icons/icon-arrow-left.svg'
+import breakpointsAware from 'utils/breakpointsAware'
 
 /**
  * Display a BackButton on mobile. When it is displayed,
@@ -15,11 +17,16 @@ import { flowRight as compose } from 'lodash'
  * <BackButton to={ '/settings' } />
  * ```
  */
-const BackButton = ({ onClick, to, router }) => (
-  <TopbarLeft className={styles['back-button']}>
-    <a onClick={onClick || (() => to && router.push(to))} />
-  </TopbarLeft>
-)
+const BackButton = ({ onClick, to, router, breakpoints, arrow = false }) => {
+  const handleClick = onClick = onClick || (() => to && router.push(to))
+  return breakpoints.isMobile ? (
+    <TopbarLeft className={styles['back-button']}>
+      <a onClick={handleClick} />
+    </TopbarLeft>
+  ) : (arrow && <a onClick={handleClick} className={styles['back-arrow']}>
+    <Icon icon={arrowLeft} />
+  </a>)
+}
 
 BackButton.propTypes = {
   /** Location to go when clicking on the button. Uses react-router. */
@@ -31,6 +38,6 @@ BackButton.propTypes = {
 }
 
 export default compose(
-  onlyMobile,
+  breakpointsAware(),
   withBackSwipe({ getLocation: ownProps => ownProps.to })
 )(BackButton)

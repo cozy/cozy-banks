@@ -17,6 +17,7 @@ import { withRouter } from 'react-router'
 import Table from 'components/Table'
 import Spinner from 'cozy-ui/react/Spinner'
 import styles from './GroupsSettings.styl'
+import btnStyles from 'styles/buttons'
 
 const accountInGroup = (account, group) =>
   group.accounts.indexOf(account._id) > -1
@@ -98,38 +99,48 @@ class GroupSettings extends Component {
 
     return (
       <div>
-        <BackButton to='/settings/groups' />
+        <BackButton to='/settings/groups' arrow />
         <Topbar>
           <h2>{group.label}</h2>
         </Topbar>
-        <p className='coz-desktop'>
-          <a href='#/settings/groups'>
-            {t('Groups.back-to-groups')}
-          </a>
-        </p>
-        <form className={styles.GrpStg__form} onSubmit={e => e.preventDefault()}>
-          <label className={styles['coz-form-label']}>
-            {t('Groups.label')}
-          </label>
-          {!modifying && <p>{group.label}</p>}
-          {modifying && <p>
-            <input ref={this.saveInputRef} autofocus type='text' defaultValue={group.label} />
-          </p>}
-          {modifying ? <Button disabled={saving} theme='regular' onClick={this.rename}>
-            {t('Groups.save')} {saving && <Spinner />}
-          </Button> : <Button theme='regular' onClick={this.modifyName}>
-            {t('Groups.rename')}
-          </Button>}
 
-          <label className={styles['coz-form-label']}>
-            {t('Groups.accounts')}
-          </label>
-          {accounts.fetchStatus === 'pending' ? <Loading /> : <Table className={styles.GrpStg__table}>
+        <h3>{t('Groups.label')}</h3>
+        <form className={styles.GrpStg__form} onSubmit={e => e.preventDefault()}>
+          <p>
+            { !modifying
+              ? group.label
+              : <input ref={this.saveInputRef} autofocus type='text' defaultValue={group.label} />
+            }
+            {modifying ? <Button className={styles['save-button']} disabled={saving} theme='regular' onClick={this.rename}>
+              {t('Groups.save')} {saving && <Spinner />}
+            </Button> : <Button className={btnStyles['btn--no-outline']} onClick={this.modifyName}>
+              &nbsp;&nbsp;{t('Groups.rename')}
+            </Button>}
+          </p>
+        </form>
+        <h3>
+          {t('Groups.accounts')}
+        </h3>
+        {accounts.fetchStatus === 'pending'
+          ? <Loading />
+          : <Table className={styles.GrpStg__table}>
+            <thead>
+              <tr>
+                <th className={styles.GrpStg__accntLabel}>
+                  {t('Groups.label')}
+                </th>
+                <th className={styles.GrpStg__accntNumber}>
+                  {t('Groups.number')}
+                </th>
+                <th className={styles.GrpStg__accntToggle}>
+                  {t('Groups.included')}
+                </th>
+              </tr>
+            </thead>
             <tbody>
               {accounts.data && accounts.data.map(this.renderAccountLine)}
             </tbody>
           </Table>}
-        </form>
         <p>
           <Button theme='danger-outline' onClick={this.onRemove}>
             {t('Groups.delete')}

@@ -60,7 +60,7 @@ class Notifications extends Component {
     ]
 
     return (
-      <div>
+      <p>
         {notifications.map(notification => {
           const setting = settings.notifications[notification.name]
           const enabled = setting.enabled
@@ -88,7 +88,7 @@ class Notifications extends Component {
             </div>
           )
         })}
-      </div>
+      </p>
     )
   }
 }
