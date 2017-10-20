@@ -55,7 +55,7 @@ class TransactionsPage extends Component {
     if (subcategoryName) {
       const categoryName = router.params.categoryName
       breadcrumbItems = [{
-        name: t('Transactions.title.general'),
+        name: t('Categories.title.general'),
         onClick: () => router.push('/categories')
       }, {
         name: t(`Data.categories.${categoryName}`),
