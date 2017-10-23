@@ -1,4 +1,5 @@
 import React from 'react'
+import Types from 'prop-types'
 import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'
 import styles from './Field.styl'
@@ -31,8 +32,6 @@ const Field = ({ t, submitting, saved, errors, description, subtitle, className,
     ))}
   </div>
 )
-
-const Types = React.PropTypes
 
 Field.propTypes = {
   /** Name your field */
