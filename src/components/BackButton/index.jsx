@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { TopbarLeft } from 'ducks/commons/Topbar'
 import styles from './style.styl'
 import withBackSwipe from 'utils/backSwipe'
@@ -30,11 +31,11 @@ const BackButton = ({ onClick, to, router, breakpoints, arrow = false }) => {
 
 BackButton.propTypes = {
   /** Location to go when clicking on the button. Uses react-router. */
-  to: React.PropTypes.string,
+  to: PropTypes.string,
   /** onClick handler. Mutually exclusive with `to` */
-  onClick: React.PropTypes.func,
+  onClick: PropTypes.func,
   /** Provided by `withRouter` in `withBackSwipe` */
-  router: React.PropTypes.object
+  router: PropTypes.object
 }
 
 export default compose(

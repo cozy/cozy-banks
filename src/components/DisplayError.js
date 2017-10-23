@@ -1,4 +1,5 @@
-import React, { Component, PropTypes as Types } from 'react'
+import React, { Component } from 'react'
+import Types from 'prop-types'
 import { translate } from 'cozy-ui/react/I18n'
 
 const styles = {
