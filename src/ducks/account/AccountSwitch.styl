@@ -142,23 +142,29 @@
         margin 0
 
     .account-switch-button-mobile
-        width 100%
-        height 100%
         background embedurl('../../assets/icons/actions/filter.svg') center center no-repeat alpha(silver, 0.8)
         margin 0
 
         &.active
             background-image embedurl('../../assets/icons/actions/filter-active.svg')
 
-
 +small-screen()
     .account-switch
         top 0
-        right 0
+        padding 0
+        border 0
+        margin 0
+        width 0
+        height 0
 
     .account-switch-button-mobile
+        $size = 3rem // same height as cozy-bar
         background-color transparent
-
+        width $size
+        height $size
+        border 0
+        cursor pointer
+        outline 0
 
 @media (max-width: (421/basefont)rem)
     .account-switch-menu-content
