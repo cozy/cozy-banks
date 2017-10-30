@@ -49,7 +49,9 @@ const withGestures = eventHandlers => {
       }
 
       componentWillUnmount () {
-        this.hammer.destroy()
+        if (this.hammer) {
+          this.hammer.destroy()
+        }
       }
 
       onSwipe (e) {
