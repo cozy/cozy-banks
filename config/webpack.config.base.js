@@ -14,10 +14,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.json', '.css', '.jsx'],
-    modules: ['node_modules', SRC_DIR],
-    alias: {
-      'cozy-client': path.resolve(SRC_DIR, './lib/cozy-client')
-    }
+    modules: ['node_modules', SRC_DIR]
   },
   module: {
     rules: [
@@ -29,7 +26,7 @@ module.exports = {
       },
       {
         test: /\.jsx?$/,
-        exclude: /(node_modules|cozy-(bar|client-js))/,
+        include: [SRC_DIR, path.dirname(require.resolve('cozy-client'))],
         loader: 'babel-loader'
       },
       {
