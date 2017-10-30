@@ -66,7 +66,7 @@ module.exports = {
       defaultAttribute: 'defer'
     }),
     new webpack.ProvidePlugin({
-      PouchDB: ['pouchdb', 'default'],
+      PouchDB: 'pouchdb',
       pouchdbFind: 'pouchdb-find'
     }),
     extractor,
