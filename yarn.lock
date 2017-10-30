@@ -6254,7 +6254,7 @@ pouchdb-upsert@~2.0.1:
   dependencies:
     pouchdb-promise "^5.4.3"
 
-pouchdb@^6.1.1:
+pouchdb@6.3.4:
   version "6.3.4"
   resolved "https://registry.yarnpkg.com/pouchdb/-/pouchdb-6.3.4.tgz#e3c8596d19cc12f7474ca48d5d3800affaf701b1"
   dependencies:
