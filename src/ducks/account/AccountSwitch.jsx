@@ -132,7 +132,7 @@ class AccountSwitch extends Component {
     // the event that trigered the menu open propagates and eventually ends up here,
     // but in that case we don't wnt to close the menu. So if it's the same event,
     // we just ignore it.
-    if (e === this.lastOpenEvent) return
+    if (this.lastOpenEvent && (e === this.lastOpenEvent || e === this.lastOpenEvent.nativeEvent)) return
     this.close()
   }
 
