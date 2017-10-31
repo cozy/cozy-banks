@@ -27,7 +27,10 @@ module.exports = {
       {
         test: /\.jsx?$/,
         include: [SRC_DIR, path.dirname(require.resolve('cozy-client'))],
-        loader: 'babel-loader'
+        loader: 'babel-loader',
+        options: {
+          cacheDirectory: true
+        }
       },
       {
         include: SRC_DIR,
