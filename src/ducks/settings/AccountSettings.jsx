@@ -112,7 +112,7 @@ const AccountSettings = function ({account, onClose, t}) {
       <BackButton to='/settings/accounts' arrow />
       <Topbar>
         <h2>
-          {account.label}
+          {account.shortLabel || account.label}
         </h2>
       </Topbar>
       <Tabs
