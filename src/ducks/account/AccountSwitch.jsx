@@ -1,3 +1,5 @@
+/* global cozy */
+
 import React, { Component } from 'react'
 import { translate } from 'cozy-ui/react/I18n'
 import { connect } from 'react-redux'
@@ -12,6 +14,9 @@ import styles from './AccountSwitch.styl'
 import { flowRight as compose } from 'lodash'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { cozyConnect, fetchCollection } from 'cozy-client'
+import breakpointsAware from 'utils/breakpointsAware'
+
+const { BarRight } = cozy.bar
 
 const isLoading = function (collection) {
   return collection.fetchStatus === 'pending' || collection.fetchStatus === 'loading'
@@ -49,7 +54,6 @@ const AccountSwitchMobile = ({accountOrGroup, onClick}) => (
   <button
     className={classNames(
       styles['account-switch-button-mobile'],
-      'coz-mobile',
       {[styles['active']]: accountOrGroup}
     )}
     onClick={onClick} />
@@ -159,7 +163,7 @@ class AccountSwitch extends Component {
   }
 
   render () {
-    const { accountOrGroup, resetAccountOrGroup, filterByAccount, filterByGroup } = this.props
+    const { accountOrGroup, resetAccountOrGroup, filterByAccount, filterByGroup, breakpoints } = this.props
     const { open } = this.state
     let { accounts, groups } = this.props
     const isFetching = isLoading(accounts) || isLoading(groups)
@@ -168,13 +172,17 @@ class AccountSwitch extends Component {
 
     return (
       <div className={styles['account-switch']}>
-        <AccountSwitchMobile accountOrGroup={accountOrGroup} onClick={this.toggle} />
-        <AccountSwitchDesktop
-          isFetching={isFetching}
-          isOpen={open}
-          accountOrGroup={accountOrGroup}
-          accounts={accounts}
-          toggle={this.toggle} />
+        {breakpoints.isMobile
+          ? <BarRight>
+            <AccountSwitchMobile accountOrGroup={accountOrGroup} onClick={this.toggle} />
+          </BarRight>
+          : <AccountSwitchDesktop
+            isFetching={isFetching}
+            isOpen={open}
+            accountOrGroup={accountOrGroup}
+            accounts={accounts}
+            accountExists={this.accountExists}
+            toggle={this.toggle} />}
         {open && <Backdrop className='coz-mobile' onClose={this.close} />}
         {open &&
           <AccountSwitchMenu
@@ -208,5 +216,6 @@ const mapDocumentsToProps = ownProps => ({
 export default compose(
   cozyConnect(mapDocumentsToProps),
   connect(mapStateToProps, mapDispatchToProps),
-  translate()
+  translate(),
+  breakpointsAware()
 )(AccountSwitch)
