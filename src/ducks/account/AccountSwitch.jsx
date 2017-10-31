@@ -73,7 +73,7 @@ class AccountSwitch extends Component {
             : accountOrGroup
               ? <div>
                 <div className={styles['account-name']}>
-                  {accountOrGroup.label} {<AccountSharingStatus account={accountOrGroup} />}
+                  {accountOrGroup.shortLabel || accountOrGroup.label} {<AccountSharingStatus account={accountOrGroup} />}
                 </div>
                 <div className={styles['account-num']}>
                   {accountOrGroup.number && 'n°' + accountOrGroup.number}
@@ -137,7 +137,7 @@ class AccountSwitch extends Component {
                       className={classNames({[styles['active']]: accountOrGroup && account._id === accountOrGroup._id})}>
                       <Media>
                         <Bd>
-                          {account.label} - {account.institutionLabel}
+                          {account.shortLabel || account.label} - {account.institutionLabel}
                         </Bd>
                         <Img>
                           <AccountSharingStatus tooltip account={account} />
