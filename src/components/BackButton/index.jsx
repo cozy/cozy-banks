@@ -19,6 +19,10 @@ import breakpointsAware from 'utils/breakpointsAware'
  * ```
  */
 const BackButton = ({ onClick, to, router, breakpoints, arrow = false }) => {
+  const location = router.getCurrentLocation()
+  if (!onClick && !to) {
+    to = location.pathname.split('/').slice(0, -1).join('/')
+  }
   const handleClick = onClick = onClick || (() => to && router.push(to))
   return breakpoints.isMobile ? (
     <TopbarLeft className={styles['back-button']}>
