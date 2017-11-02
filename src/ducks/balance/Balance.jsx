@@ -53,7 +53,7 @@ const Balance = ({t, accounts, type, accountOrGroup, breakpoints: { isMobile }})
             return (
               <tr>
                 <td className={classNames(styles['account_name'], { [styles.alert]: isAlert })}>
-                  {account.label}
+                  {account.shortLabel || account.label}
                   {isAlert && <span className='coz-error coz-error--warning' />}
                 </td>
                 <TdSecondary className={classNames(styles['solde'], { [styles.alert]: isAlert })}>

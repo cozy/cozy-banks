@@ -28,7 +28,7 @@ class BalanceLower {
       notification.title = this.t(`${translateKey}.title`, {
         balance: account.balance,
         currency: '€',
-        label: account.label
+        label: account.shortLabel || account.label
       })
       notification.content = ''
       for (const transaction of transactionsFiltered) {

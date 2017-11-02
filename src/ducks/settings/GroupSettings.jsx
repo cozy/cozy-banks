@@ -67,7 +67,7 @@ class GroupSettings extends Component {
     return (
       <tr>
         <td className={styles.GrpStg__accntLabel}>
-          {account.label}
+          {account.shortLabel || account.label}
         </td>
         <td className={styles.GrpStg__accntNumber}>
           {account.number}
