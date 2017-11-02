@@ -24,7 +24,7 @@ import AccountSharingStatus from 'components/AccountSharingStatus'
 const _AccountLine = ({account, router, t}) => (
   <tr onClick={() => router.push(`/settings/accounts/${account.id}`)} className={styles.AcnsStg__accountRow}>
     <td className={styles.AcnsStg__libelle}>
-      {account.label}
+      {account.shortLabel || account.label}
     </td>
     <td className={styles.AcnsStg__bank}>
       {account.institutionLabel}

@@ -30,7 +30,7 @@ const AccountSwitchDesktop = translate()(
         : accountOrGroup
           ? <div>
             <div className={styles['account-name']}>
-              {accountOrGroup.label} {<AccountSharingStatus account={accountOrGroup} />}
+              {accountOrGroup.shortLabel || accountOrGroup.label} {<AccountSharingStatus account={accountOrGroup} />}
             </div>
             <div className={styles['account-num']}>
               {accountOrGroup.number && 'n°' + accountOrGroup.number}

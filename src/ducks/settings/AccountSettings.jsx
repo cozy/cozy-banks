@@ -23,7 +23,7 @@ class _GeneralSettings extends Component {
     this.setState({
       modifying: true,
       changes: {
-        label: account.label
+        shortLabel: account.shortLabel || account.label
       }
     })
   }
@@ -53,14 +53,6 @@ class _GeneralSettings extends Component {
     this.setState({changes})
   }
 
-  renderInputFor = (attribute) => {
-    return (
-      <input
-        value={this.state.changes[attribute]}
-        onChange={this.onInputChange.bind(null, attribute)} />
-    )
-  }
-
   render ({t, account}, {modifying}) {
     return (
       <div>
@@ -68,8 +60,11 @@ class _GeneralSettings extends Component {
           <tr>
             <td>{t('AccountDetails.label')}</td>
             <td>
-              {!modifying && account.label}
-              {modifying && this.renderInputFor('label')}
+              {!modifying && (account.shortLabel || account.label)}
+              {modifying &&
+                <input
+                  value={this.state.changes.shortLabel}
+                  onChange={this.onInputChange.bind(null, 'shortLabel')} />}
             </td>
           </tr>
           <tr>
