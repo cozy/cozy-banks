@@ -1,6 +1,6 @@
 // TODO understand why this is necessary
 // for the topbar to work on mobile
-@require 'objects/*'
+//@require 'objects/*'
 
 @require '../../styles/breakpoints.styl'
 
@@ -16,18 +16,12 @@ $coz-bar-size = 48px
 
 +small-screen()
     .Topbar-title
-        bottom-spaced(10px)
-        right-spaced(32px)
-        left-spaced(32px)
+        margin-bottom 10px
+        margin-right 32px
+        margin-left 32px
         display     flex
         align-items center
         margin   0
-        position fixed
-        top      0
-        left     40px
-        right    48px
-        z-index  $nav-index
-        height   $coz-bar-size
         text-overflow  ellipsis
         overflow       hidden
         white-space    nowrap
@@ -39,14 +33,7 @@ $coz-bar-size = 48px
             margin-left 1rem
 
     .Topbar-left
-        position fixed
-        top 0
-        left 0
         width 40px
-        height $coz-bar-size
-        z-index  $nav-index
         overflow hidden
-        background-color white
         display block
-        border-bottom 1px solid silver
         box-sizing border-box

@@ -12,6 +12,7 @@ import { flowRight as compose } from 'lodash'
 import { cozyConnect } from 'cozy-client'
 import { getCategoryId } from 'ducks/categories/categoriesMap'
 import { Breadcrumb } from 'components/Breadcrumb'
+import BackButton from 'components/BackButton'
 
 import TransactionsWithSelection from './TransactionsWithSelection'
 import styles from './TransactionsPage.styl'
@@ -69,6 +70,7 @@ class TransactionsPage extends Component {
 
     return (
       <div className={styles['bnk-mov-page']}>
+        {subcategoryName ? <BackButton /> : null}
         <Topbar>
           <Breadcrumb items={breadcrumbItems} tag='h2' />
         </Topbar>
