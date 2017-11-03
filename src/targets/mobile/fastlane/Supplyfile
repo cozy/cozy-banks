@@ -1,0 +1,3 @@
+package_name "io.cozy.bank.mobile2"
+json_key "./keys/android/key.json"
+apk "build/android/cozy-bank.apk"

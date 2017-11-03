@@ -40,6 +40,8 @@
     "ios:prepare": "(cd src/targets/mobile && cordova platform add ios && cordova prepare)",
     "ios:run": "(cd src/targets/mobile && cordova run ios --device)",
     "ios:run:emulator": "(cd src/targets/mobile && cordova run ios --emulator)",
+    "ios:publish": "npm run build:mobile && (cd src/targets/mobile && fastlane ios testflight)",
+
     "commons:services": "webpack --config config/webpack.target.services.js",
     "build:services": "NODE_ENV=services:production yarn run commons:services",
     "watch:services": "NODE_ENV=services:development yarn run commons:services -- --watch",
