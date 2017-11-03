@@ -12,7 +12,7 @@ import breakpointsAware from 'utils/breakpointsAware'
 import { flowRight as compose } from 'lodash'
 
 const Balance = ({t, accounts, type, accountOrGroup, breakpoints: { isMobile }}) => {
-  const label = accountOrGroup ? accountOrGroup.label : ''
+  const label = accountOrGroup ? (accountOrGroup.shortLabel || accountOrGroup.label) : ''
   let trad
   switch (type) {
     case ACCOUNT_DOCTYPE:
