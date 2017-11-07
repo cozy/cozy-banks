@@ -79,9 +79,7 @@ const AccountsSettings = ({ t, accounts }) => {
     return <Loading />
   }
   const accountBySharingDirection = groupBy(accounts.data, account => {
-    const sharingInfo = false // getSharingInfo(ACCOUNT_DOCTYPE, account._id)
-    const infos = (sharingInfo && sharingInfo.info) || {}
-    return !!(!infos.recipients || infos.recipients.length === 0 || infos.owner)
+    return account.shared === undefined
   })
 
   const myAccounts = accountBySharingDirection[true]
