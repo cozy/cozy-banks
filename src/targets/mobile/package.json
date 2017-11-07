@@ -9,6 +9,7 @@
     ],
     "plugins": {
       "cordova-plugin-whitelist": {},
+      "cordova-plugin-statusbar": {},
       "cordova-plugin-inappbrowser": {}
     }
   },
@@ -16,6 +17,7 @@
     "cordova-android": "6.3.0",
     "cordova-ios": "4.3.1",
     "cordova-plugin-inappbrowser": "1.7.1",
+    "cordova-plugin-statusbar": "2.2.3",
     "cordova-plugin-whitelist": "1"
   }
 }
