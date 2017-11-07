@@ -115,6 +115,7 @@
     "babel-polyfill": "^6.26.0",
     "chart.js": "^2.7.0",
     "classnames": "^2.2.0",
+    "cordova": "^7.1.0",
     "cozy-bar": "4.3",
     "cozy-client": "0.1.0",
     "cozy-client-js": "^0.3.19",
