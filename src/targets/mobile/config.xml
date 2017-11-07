@@ -70,7 +70,7 @@
         <splash height="2048" src="res/screens/ios/screen-ipad-landscape-ipadpro.png" width="2732" />
         <splash height="2732" src="res/screens/ios/screen-ipad-portrait-ipadpro.png" width="2048" />
     </platform>
-    <preference name="StatusBarBackgroundColor" value="#D6D8DA" />
+    <preference name="StatusBarBackgroundColor" value="#95999D" />
     <engine name="android" spec="6.3.0" />
     <engine name="ios" spec="4.3.1" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
