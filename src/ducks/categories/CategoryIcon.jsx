@@ -9,7 +9,7 @@ const CategoryIcon = ({category}) => {
   } catch (err) {
     icon = require(`assets/icons/categories/icon-cat-uncategorized.svg`)
   }
-  return <Icon icon={icon.default} width='2em' height='2em' />
+  return <Icon icon={icon.default} width='2rem' height='2rem' />
 }
 
 export default CategoryIcon

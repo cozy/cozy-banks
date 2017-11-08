@@ -41,35 +41,41 @@
     tbody tr
         cursor  pointer
 
+
     .bnk-table-category-category
-        maxed-flex-basis 30%
         text-transform capitalize
 
     .bnk-table-percentage
-        maxed-flex-basis 10%
         text-align right
 
     .bnk-table-operation
-        maxed-flex-basis 10%
         text-align right
 
     .bnk-table-amount
     .bnk-table-total
-        maxed-flex-basis 14%
         text-align right
 
     .bnk-table-chevron
-        maxed-flex-basis 5%
         background-position center
         background-repeat no-repeat
         transition all .2s
 
+    +small-screen('min')
+        .bnk-table-category-category
+            maxed-flex-basis 30%
+        .bnk-table-percentage
+            maxed-flex-basis 10%
+        .bnk-table-operation
+            maxed-flex-basis 10%
+        .bnk-table-amount
+        .bnk-table-total
+            maxed-flex-basis 14%
+        .bnk-table-chevron
+            maxed-flex-basis 5%
+
     .bnk-table-row
     .bnk-table-row--uncollapsed
-        .bnk-table-category-category
-        .bnk-table-total
-        .bnk-table-percentage
-            color charcoal-grey
+        color charcoal-grey
 
         .bnk-table-percentage
             font-weight bold
@@ -118,3 +124,6 @@
     for category in categories
         .bnk-table-category--{category}
             getCatBkg(category)
+
+.bnk-category-total-mobile
+    min-width 5.5rem // hel
