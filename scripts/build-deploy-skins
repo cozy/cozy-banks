@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Fails at first error
+set -e
+
 echo "Building vanilla"
 yarn run build
 yarn run build:services
