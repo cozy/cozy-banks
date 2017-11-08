@@ -22,7 +22,10 @@ module.exports = {
         test: /\.jsx?$/,
         include: SRC_DIR,
         loader: 'eslint-loader',
-        enforce: 'pre'
+        enforce: 'pre',
+        options: {
+          emitWarning: true
+        }
       },
       {
         test: /\.jsx?$/,

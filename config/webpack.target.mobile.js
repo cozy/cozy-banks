@@ -9,9 +9,10 @@ const pkg = require(path.resolve(__dirname, '../package.json'))
 
 module.exports = {
   entry: {
-    app: [path.resolve(__dirname, '../src/targets/mobile/main.jsx')]
+    app: [path.resolve(__dirname, '../src/main.jsx')]
   },
   output: {
+    publicPath: process.env.PUBLIC_PATH || '',
     path: path.resolve(__dirname, '../src/targets/mobile/www')
   },
   plugins: [
@@ -25,12 +26,12 @@ module.exports = {
       'cozy.bar': 'cozy-bar/dist/cozy-bar.mobile.js'
     }),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, `../src/targets/mobile/index.ejs`),
+      template: path.resolve(__dirname, `../src/index.ejs`),
       title: `cozy-bank`,
       chunks: ['app'],
       inject: 'head',
       minify: {
-        collapseWhitespace: true
+        collapseWhitespace: false
       }
     })
   ]
