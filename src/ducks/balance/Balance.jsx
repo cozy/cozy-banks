@@ -30,6 +30,7 @@ const Balance = ({t, accounts, type, accountOrGroup, breakpoints: { isMobile }})
       total += parseInt(account.balance, 10)
     }
   })
+
   return (
     <div className={styles['balance']}>
       <Topbar>

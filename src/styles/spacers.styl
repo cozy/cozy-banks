@@ -3,6 +3,7 @@ types = {
     m: margin
 }
 sizes = {
+    '0': 0,
     half: 0.5rem,
     '1': 1rem,
     '1-half': 1.5rem,
@@ -23,14 +24,17 @@ directions = {
         for kSize, vSize in sizes
             // all
             .u-{kType}-{kSize}
-                {vType}: vSize
+                {vType}: vSize !important
+            // horizontal
             .u-{kType}h-{kSize}
-                {vType}-left: vSize
-                {vType}-right: vSize
+                {vType}-left: vSize !important
+                {vType}-right: vSize  !important
+            // vertical
             .u-{kType}v-{kSize}
-                {vType}-top: vSize
-                {vType}-bottom: vSize
+                {vType}-top: vSize  !important
+                {vType}-bottom: vSize  !important
+            // each direction
             for kDir, vDir in directions
                 .u-{kType}{kDir}-{kSize}
-                    {vType}-{vDir}: vSize  // @stylint ignore
+                    {vType}-{vDir}: vSize  !important // @stylint ignore
 
