@@ -68,6 +68,7 @@ class TransactionsPage extends Component {
       breadcrumbItems = [{name: t('Transactions.title')}]
     }
 
+    const currency = filteredTransactions.length > 0 ? filteredTransactions[0].currency : null
     return (
       <div className={styles['bnk-mov-page']}>
         {subcategoryName ? <BackButton /> : null}
@@ -76,10 +77,10 @@ class TransactionsPage extends Component {
         </Topbar>
         <SelectDates />
         {filteredTransactions.length !== 0 && <div className={styles['bnk-mov-figures']}>
-          <FigureBlock label={t('Transactions.total')} total={credits + debits} currency='€' coloredPositive coloredNegative signed />
+          <FigureBlock label={t('Transactions.total')} total={credits + debits} currency={currency} coloredPositive coloredNegative signed />
           <FigureBlock label={t('Transactions.transactions')} total={filteredTransactions.length} decimalNumbers={0} />
-          <FigureBlock label={t('Transactions.debit')} total={debits} currency='€' signed />
-          <FigureBlock label={t('Transactions.credit')} total={credits} currency='€' signed />
+          <FigureBlock label={t('Transactions.debit')} total={debits} currency={currency} signed />
+          <FigureBlock label={t('Transactions.credit')} total={credits} currency={currency} signed />
         </div>}
         {filteredTransactions.length === 0
           ? <p>{t('Transactions.no-movements')}</p>

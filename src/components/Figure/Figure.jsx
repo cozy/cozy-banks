@@ -3,6 +3,11 @@ import Types from 'prop-types'
 import classNames from 'classnames'
 import styles from './Figure.styl'
 
+const currencySigns = {
+  'EUR': '€',
+  'USD': '$'
+}
+
 /**
  * Shows a number, typically a balance or an important financial
  * number in a bold way.
@@ -37,7 +42,7 @@ const Figure = props => {
       </span>
       {currency &&
         <span className={styles['bnk-figure-currency']}>
-          {currency}
+          {currencySigns[currency] || currency}
         </span>
       }
     </div>
