@@ -58,7 +58,7 @@ const TableTrNoDesktop = ({f, transaction, urls, selectTransaction}) => (
     <td>
       <Media>
         <Img>
-          <CategoryIcon transaction={transaction} />
+          <CategoryIcon category={getParentCategory(transaction.categoryId)} />
         </Img>
         <Bd className='u-ph-half'>
           {getLabel(transaction)}
