@@ -143,17 +143,28 @@ class Categories extends Component {
     )
   }
 
-  renderCategoryDesktopTablet (category) {
+  handleClick = (category, subcategory) => {
+    const { router } = this.props
+    if (subcategory) {
+      router.push(`/categories/${category.name}/${subcategory.name}`)
+    } else {
+      this.toggle(category.name)
+    }
+  }
+
+  renderCategoryDesktopTablet (category, subcategory) {
     const { t, selectedCategory, breakpoints: { isDesktop } } = this.props
-    const { name, subcategories, credit, debit, percentage, currency, transactionsNumber } = category
+    const { name, subcategories, credit, debit, percentage, currency, transactionsNumber } = subcategory || category
     const isCollapsed = selectedCategory !== category.name
+    const type = subcategory ? 'subcategories' : 'categories'
+    const rowClass = subcategory ? stRowSub : (isCollapsed ? stRow : stUncollapsed)
     return [
-      <tr key={category.name} className={isCollapsed ? stRow : stUncollapsed} onClick={() => this.handleClick(category)}>
-        <TdWithIcon className={cx(stCategory, styles[`bnk-table-category--${name}`])}>
-          {t(`Data.categories.${name}`)}
+      <tr key={category.name} className={rowClass} onClick={() => this.handleClick(category, subcategory)}>
+        <TdWithIcon className={cx(stCategory, !subcategory && styles[`bnk-table-category--${name}`])}>
+          {t(`Data.${type}.${name}`)}
         </TdWithIcon>
         <TdSecondary className={stPercentage}>
-          {selectedCategory ? '100 %' : `${percentage} %`}
+          {!subcategory && selectedCategory ? '100 %' : `${percentage} %`}
         </TdSecondary>
         <TdSecondary>{transactionsNumber}</TdSecondary>
         <TdSecondary className={stTotal}>
@@ -167,42 +178,9 @@ class Categories extends Component {
         </TdSecondary>}
         {isDesktop && <td className={stChevron} />}
       </tr>,
-      ...(isCollapsed ? [] : subcategories.map(subcategory =>
-        this.renderSubcategoryDesktopTablet(category, subcategory)))
+      ...((isCollapsed || subcategory) ? [] : subcategories.map(subcategory =>
+        this.renderCategoryDesktopTablet(category, subcategory)))
     ]
-  }
-
-  renderSubcategoryDesktopTablet (category, subcategory) {
-    const { t, breakpoints: { isDesktop } } = this.props
-    const { name, currency, credit, debit, transactionsNumber, percentage } = subcategory
-    return (
-      <tr key={name} className={stRowSub} onClick={() => this.handleClick(category, subcategory)}>
-        <TdWithIcon className={stCategory}>
-          {t(`Data.subcategories.${name}`)}
-        </TdWithIcon>
-        <TdSecondary className={stPercentage}>{percentage} %</TdSecondary>
-        <TdSecondary >{transactionsNumber}</TdSecondary>
-        <TdSecondary className={stTotal}>
-          <Figure total={credit + debit} currency={currency} signed />
-        </TdSecondary>
-        {isDesktop && <TdSecondary className={stAmount}>
-          {credit ? <Figure total={credit} currency={currency} signed /> : '－'}
-        </TdSecondary>}
-        {isDesktop && <TdSecondary className={stAmount}>
-          {debit ? <Figure total={debit} currency={currency} signed /> : '－'}
-        </TdSecondary>}
-        {isDesktop && <td className={stChevron} />}
-      </tr>
-    )
-  }
-
-  handleClick = (category, subcategory) => {
-    const { router } = this.props
-    if (subcategory) {
-      router.push(`/categories/${category.name}/${subcategory.name}`)
-    } else {
-      this.toggle(category.name)
-    }
   }
 
   renderCategoryMobile (category, subcategory) {
@@ -210,19 +188,19 @@ class Categories extends Component {
     const { name, subcategories, credit, debit, currency, percentage } = (subcategory || category)
 
     // subcategories are always collapsed
-    const isOpen = !subcategory && selectedCategory === category.name
-    const tKey = subcategory ? 'subcategories' : 'categories'
+    const isCollapsed = selectedCategory !== category.name
+    const type = subcategory ? 'subcategories' : 'categories'
     const categoryName = (subcategory || category).name
 
-    const out = [
-      <tr key={categoryName} className={isOpen ? stUncollapsed : (subcategory ? stRowSub : stRow)} onClick={() => this.handleClick(category, subcategory)}>
+    return [
+      <tr key={categoryName} className={subcategory ? stRowSub : (isCollapsed ? stRow : stUncollapsed)} onClick={() => this.handleClick(category, subcategory)}>
         <td className='u-ph-1 u-pv-half'>
           <Media>
             <Img className='u-pr-half' style={subcategory ? vHidden : null}>
               <CategoryIcon category={categoryName} style={!subcategory} />
             </Img>
             <Bd className={cx('u-ph-half', stCategory)}>
-              {t(`Data.${tKey}.${name}`)}
+              {t(`Data.${type}.${name}`)}
             </Bd>
             <Img className={cx('u-pl-half', stPercentage)}>
               {selectedCategory ? '100 %' : `${percentage} %`}
@@ -233,10 +211,8 @@ class Categories extends Component {
           </Media>
         </td>
       </tr>,
-      ...(isOpen ? subcategories.map(subcategory => this.renderCategoryMobile(category, subcategory)) : [])
+      ...((isCollapsed || subcategory) ? [] : subcategories.map(subcategory => this.renderCategoryMobile(category, subcategory)))
     ]
-
-    return out
   }
 }
 
