@@ -205,7 +205,7 @@ class Categories extends Component {
             <Img className={cx('u-pl-half', stPercentage)}>
               {selectedCategory ? '100 %' : `${percentage} %`}
             </Img>
-            <Img className={cx('u-pl-1', stAmount)}>
+            <Img className={cx('u-pl-half', stAmount)}>
               <Figure className={stCatTotalMobile} total={credit + debit} currency={currency} coloredPositive signed />
             </Img>
           </Media>
