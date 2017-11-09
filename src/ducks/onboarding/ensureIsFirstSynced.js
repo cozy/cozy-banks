@@ -1,6 +1,7 @@
+/* global __TARGET__ */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { isSynced, isFirstSync, startSync } from 'cozy-client'
+import { isSynced, isFirstSync, hasSyncStarted, startSync, refetchCollections } from 'cozy-client'
 import Loading from 'components/Loading'
 import styles from './Onboarding.styl'
 import { Content } from 'components/Layout'
@@ -10,23 +11,27 @@ import { Content } from 'components/Layout'
  */
 class Wrapper extends Component {
   state = {
-    hasSyncStarted: false,
     isOffline: false
   }
 
   componentDidMount () {
-    this.props.dispatch(startSync())
-      .then(() => this.setState({ hasSyncStarted: true }))
-      .catch(() => this.setState({ isOffline: true }))
+    if (__TARGET__ === 'mobile') {
+      this.props.dispatch(startSync())
+        .then(() => this.props.dispatch(refetchCollections()))
+        .catch(() => this.setState({ isOffline: true }))
+    }
   }
 
   render () {
-    const { hasSyncStarted, isOffline } = this.state
-    const { isSynced, /* isFirstSync, */ children } = this.props
+    if (__TARGET__ !== 'mobile') {
+      return this.props.children
+    }
+    const { isOffline } = this.state
+    const { isSynced, isFirstSync, hasSyncStarted, children } = this.props
     if (!isOffline && !hasSyncStarted) {
       return null
     }
-    if (!isOffline && !isSynced /* && isFirstSync */) {
+    if (!isOffline && !isSynced && isFirstSync) {
       return (
         <Content>
           <div className={styles.Onboarding__loading}>
@@ -41,7 +46,8 @@ class Wrapper extends Component {
 
 const mapStateToProps = (state) => ({
   isSynced: isSynced(state),
-  isFirstSync: isFirstSync(state)
+  isFirstSync: isFirstSync(state),
+  hasSyncStarted: hasSyncStarted(state)
 })
 
 export default connect(mapStateToProps)(Wrapper)

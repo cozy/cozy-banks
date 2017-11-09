@@ -71,10 +71,6 @@ module.exports = {
     new ScriptExtHtmlWebpackPlugin({
       defaultAttribute: 'defer'
     }),
-    new webpack.ProvidePlugin({
-      PouchDB: ['pouchdb', 'default'],
-      pouchdbFind: 'pouchdb-find'
-    }),
     extractor,
     new PostCSSAssetsPlugin({
       test: /\.css$/,
