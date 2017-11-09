@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { translate, Button } from 'cozy-ui/react'
 import { openCollect } from 'ducks/settings/collectLink'
 import { flowRight as compose } from 'lodash'
-import { getUrlBySource, findApps } from 'ducks/apps'
+import { getAppUrlBySource, findApps } from 'ducks/apps'
 
 import calculator from 'assets/icons/icon-calculator.svg'
 import watch from 'assets/icons/icon-watch.svg'
@@ -58,7 +58,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => ({
-  collectUrl: getUrlBySource(state, 'github.com/cozy/cozy-collect')
+  collectUrl: getAppUrlBySource(state, 'github.com/cozy/cozy-collect')
 })
 
 export default compose(
