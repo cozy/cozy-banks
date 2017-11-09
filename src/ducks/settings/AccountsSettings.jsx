@@ -1,15 +1,17 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import { translate, Button, Icon } from 'cozy-ui/react'
 import { getSharingInfo } from 'reducers'
 import { groupBy, flowRight as compose } from 'lodash'
+import { getUrlBySource, findApps } from 'ducks/apps'
 import Table from 'components/Table'
 import Loading from 'components/Loading'
 import { cozyConnect, fetchCollection } from 'cozy-client'
 import plus from 'assets/icons/16/plus.svg'
 import styles from './AccountsSettings.styl'
 import btnStyles from 'styles/buttons'
+import { openCollect } from './collectLink'
 
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 
@@ -42,7 +44,10 @@ const _AccountLine = ({account, router, t}) => (
   </tr>
 )
 
-const AccountLine = compose(translate(), withRouter)(_AccountLine)
+const AccountLine = compose(
+  translate(),
+  withRouter
+)(_AccountLine)
 
 const renderAccount = account => <AccountLine account={account} />
 
@@ -74,44 +79,57 @@ const AccountsTable = ({ accounts, t }) => (
   </Table>
 )
 
-const AccountsSettings = ({ t, accounts }) => {
-  if (accounts.fetchStatus === 'loading') {
-    return <Loading />
+class AccountsSettings extends Component {
+  componentDidMount () {
+    this.props.fetchApps()
   }
-  const accountBySharingDirection = groupBy(accounts.data, account => {
-    return account.shared === undefined
-  })
 
-  const myAccounts = accountBySharingDirection[true]
-  const sharedAccounts = accountBySharingDirection[false]
+  render () {
+    const { t, accounts, collectUrl } = this.props
 
-  return (
-    <div>
-      <p>
-        <Button className={btnStyles['btn--no-outline']}>
-          <Icon icon={plus} />&nbsp;{t('Accounts.add-account')}
-        </Button>
-      </p>
-      {myAccounts
-        ? <AccountsTable accounts={myAccounts} t={t} />
-        : <p>{t('Accounts.no-accounts')}</p>}
+    if (accounts.fetchStatus === 'loading') {
+      return <Loading />
+    }
+    const accountBySharingDirection = groupBy(accounts.data, account => {
+      return account.shared === undefined
+    })
 
-      <h4>
-        {t('Accounts.shared-accounts')}
-      </h4>
+    const myAccounts = accountBySharingDirection[true]
+    const sharedAccounts = accountBySharingDirection[false]
 
-      {sharedAccounts
-        ? <AccountsTable accounts={sharedAccounts} t={t} />
-        : <p>{t('Accounts.no-shared-accounts')}</p>}
-    </div>
-  )
+    return (
+      <div>
+        <p>
+          <Button className={btnStyles['btn--no-outline']} onClick={openCollect(collectUrl)}>
+            <Icon icon={plus} />&nbsp;{t('Accounts.add-account')}
+          </Button>
+        </p>
+        {myAccounts
+          ? <AccountsTable accounts={myAccounts} t={t} />
+          : <p>{t('Accounts.no-accounts')}</p>}
+
+        <h4>
+          {t('Accounts.shared-accounts')}
+        </h4>
+
+        {sharedAccounts
+          ? <AccountsTable accounts={sharedAccounts} t={t} />
+          : <p>{t('Accounts.no-shared-accounts')}</p>}
+      </div>
+    )
+  }
 }
 
 const mapDocumentsToProps = ownProps => ({
   accounts: fetchCollection('accounts', ACCOUNT_DOCTYPE)
 })
 
+const mapDispatchToProps = dispatch => ({
+  fetchApps: () => dispatch(findApps())
+})
+
 const mapStateToProps = state => ({
+  collectUrl: getUrlBySource(state, 'github.com/cozy/cozy-collect'),
   getSharingInfo: (doctype, id) => {
     return getSharingInfo(state, doctype, id)
   }
@@ -127,9 +145,8 @@ const mapStateToProps = state => ({
 // }))
 // }
 
-export default (
-  cozyConnect(mapDocumentsToProps)(
-    connect(mapStateToProps)(
-      translate()(
-        AccountsSettings))
-  ))
+export default compose(
+  cozyConnect(mapDocumentsToProps),
+  connect(mapStateToProps, mapDispatchToProps),
+  translate()
+)(AccountsSettings)

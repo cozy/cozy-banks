@@ -22,7 +22,7 @@ const isPendingOrLoading = function (col) {
 }
 
 class TransactionsPage extends Component {
-  async componentDidMount () {
+  componentDidMount () {
     this.props.fetchApps()
   }
 
@@ -103,8 +103,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchApps: () => dispatch(findApps()),
-  dispatch
+  fetchApps: () => dispatch(findApps())
 })
 
 const mapDocumentsToProps = ownProps => ({
