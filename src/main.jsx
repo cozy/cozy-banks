@@ -16,7 +16,7 @@ import { setupHistory, getClientMobile, getClientBrowser } from 'utils/initializ
 const renderAppWithPersistedState = persistedState => {
   const root = document.querySelector('[role=application]')
   const data = root.dataset
-  const lang = data.cozyLocale || 'en'
+  const lang = __TARGET__ === 'mobile' && navigator && navigator.language ? navigator.language.slice(0, 2) : data.cozyLocale || 'en'
 
   const history = setupHistory()
 
