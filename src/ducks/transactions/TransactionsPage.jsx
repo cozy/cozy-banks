@@ -7,7 +7,7 @@ import Loading from 'components/Loading'
 import { Topbar } from 'ducks/commons'
 import { SelectDates, getFilteredTransactions } from 'ducks/filters'
 import { fetchTransactions } from 'actions'
-import { getUrlBySource, findApps } from 'ducks/apps'
+import { getAppUrlBySource, findApps } from 'ducks/apps'
 import { flowRight as compose } from 'lodash'
 import { cozyConnect } from 'cozy-client'
 import { getCategoryId } from 'ducks/categories/categoriesMap'
@@ -22,7 +22,7 @@ const isPendingOrLoading = function (col) {
 }
 
 class TransactionsPage extends Component {
-  async componentDidMount () {
+  componentDidMount () {
     this.props.fetchApps()
   }
 
@@ -95,16 +95,15 @@ const mapStateToProps = state => ({
     // this keys are used on Transactions.jsx to:
     // - find transaction label
     // - display appName in translate `Transactions.actions.app`
-    MAIF: getUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-maif'),
-    HEALTH: getUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-sante'),
-    EDF: getUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-edf')
+    MAIF: getAppUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-maif'),
+    HEALTH: getAppUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-sante'),
+    EDF: getAppUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-edf')
   },
   filteredTransactions: getFilteredTransactions(state)
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchApps: () => dispatch(findApps()),
-  dispatch
+  fetchApps: () => dispatch(findApps())
 })
 
 const mapDocumentsToProps = ownProps => ({

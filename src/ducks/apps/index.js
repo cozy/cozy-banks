@@ -2,7 +2,7 @@
 
 // reducers
 export const getApps = state => state.apps
-export const getUrlBySource = (state, source) => {
+export const getAppUrlBySource = (state, source) => {
   const apps = getApps(state)
   for (const app of apps) {
     if (app.attributes.source.indexOf(source) !== -1) {
