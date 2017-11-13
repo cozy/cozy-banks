@@ -9,17 +9,18 @@
     .bnk-cat-form
         flex-basis 50%
 
-        .bnk-cat-filter
-        .bnk-cat-figure
-            padding 2rem 0 0
+    .bnk-cat-filter
+        padding 2rem 0 0
 
-        .bnk-cat-filter
-            > span
-                margin-right 1em
-            > label
-                font-size .8em
-                position absolute
-                line-height 24px
+        > span
+            margin-right 1em
+        > label
+            font-size .8em
+            position absolute
+            line-height 24px
+
+    .bnk-cat-figure
+        padding 2rem 0 0
 
     .bnk-cat-chart
         flex-basis 50%
@@ -27,6 +28,10 @@
 
 +small-screen()
     .bnk-cat-top
+        .bnk-cat-figure
+        .bnk-cat-filter
+            padding 0.65rem 0 0
+
         .bnk-cat-form
             flex-basis 100%
 
