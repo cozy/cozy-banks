@@ -1,16 +1,15 @@
 import React from 'react'
 import { Menu } from 'components/Menu'
-import { translate } from 'cozy-ui/react/I18n'
+import { translate, Icon } from 'cozy-ui/react'
 import TransactionActions from './TransactionActions'
 
-import styles from './TransactionMenu.styl'
+// check cozy-ui when it has removed color from its SVGs
+import dotsIcon from 'assets/icons/icon-dots.svg'
 
 const TransactionMenu = ({t, transaction, urls}) => (
   <Menu
-    title={t('Transactions.actions.more')}
+    title={<Icon icon={dotsIcon} color='#95999d' />}
     disabled={false}
-    className={styles['fil-toolbar-menu']}
-    buttonClassName={styles['fil-toolbar-more-btn']}
   >
     <TransactionActions transaction={transaction} urls={urls} withoutDefault />
   </Menu>

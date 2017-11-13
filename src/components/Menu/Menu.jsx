@@ -52,11 +52,11 @@ class Menu extends Component {
       >
         <button
           role='button'
-          className={classNames('coz-btn', buttonClassName)}
+          className={classNames('coz-btn', styles['coz-menu__btn'], buttonClassName)}
           disabled={disabled}
           onClick={this.toggle}
         >
-          <span className='u-hidden'>{title}</span>
+          {title}
         </button>
         <div className={classNames(
           styles['coz-menu-inner'],
