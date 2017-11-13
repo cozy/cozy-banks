@@ -60,7 +60,7 @@ class Menu extends Component {
         </button>
         <div className={classNames(
           styles['coz-menu-inner'],
-          { [styles['coz-menu-inner--opened']]: opened }
+          { [styles['coz-menu__inner--opened']]: opened }
         )}>
           {this.renderItems()}
         </div>
