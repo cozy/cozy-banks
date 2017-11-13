@@ -76,15 +76,15 @@ class PieChart extends Component {
     }
   }
 
-  render ({onClick}, { data, options }) {
+  render ({onClick, width, height}, { data, options }) {
     return (
       <div className={styles['bnk-chart-pie']}>
         <Pie
           data={data}
-          height={250}
-          width={250}
           options={options}
           onElementsClick={this.click}
+          width={width}
+          height={height}
         />
       </div>
     )

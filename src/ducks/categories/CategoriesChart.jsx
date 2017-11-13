@@ -22,7 +22,7 @@ class CategoriesChart extends Component {
     }
   }
 
-  render ({t, categories, selectedCategory, selectCategory}) {
+  render ({t, categories, selectedCategory, selectCategory, width, height}) {
     if (categories.length === 0) return
 
     const labels = []
@@ -54,6 +54,8 @@ class CategoriesChart extends Component {
           labels={labels}
           data={data}
           colors={colors}
+          width={width}
+          height={height}
         />
       </div>
     )

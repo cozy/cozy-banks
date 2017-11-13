@@ -1,5 +1,12 @@
+@require 'tools/mixins'
+@require 'settings/breakpoints'
+
 .bnk-chart-pie
+    margin 0.75rem auto
     canvas
-        transform scale(.8)
         max-width 100%
-        margin 0 auto
+        margin auto
+
++small-screen()
+    .bnk-chart-pie
+        margin-top 0
