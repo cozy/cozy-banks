@@ -107,7 +107,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapDocumentsToProps = ownProps => ({
-  transactions: fetchTransactions(ownProps.dispatch)
+  transactions: fetchTransactions()
 })
 
 export default compose(
