@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
 
-import { Item } from 'ducks/menu'
+import { Item } from 'components/Menu'
 import { translate, Icon, Spinner } from 'cozy-ui/react'
 import FileOpener from 'components/FileOpener'
 import styles from './TransactionActions.styl'

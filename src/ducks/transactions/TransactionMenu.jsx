@@ -1,5 +1,5 @@
 import React from 'react'
-import { Menu } from 'ducks/menu'
+import { Menu } from 'components/Menu'
 import { translate } from 'cozy-ui/react/I18n'
 import TransactionActions from './TransactionActions'
 
