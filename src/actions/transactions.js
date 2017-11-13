@@ -7,7 +7,7 @@ import { addFilterForMostRecentTransactions } from 'ducks/filters'
 import { fetchCollection } from 'cozy-client'
 
 let firstFetch = true
-const fetchTransactions = (dispatch) => {
+const fetchTransactions = () => {
   const action = fetchCollection('transactions', TRANSACTION_DOCTYPE, {
     selector: {date: {'$gt': null}},
     sort: {date: 'desc'},
@@ -17,7 +17,7 @@ const fetchTransactions = (dispatch) => {
   })
 
   const promiser = action.promise
-  action.promise = (client) => {
+  action.promise = (client, dispatch) => {
     return promiser(client).then(res => {
       if (firstFetch) {
         firstFetch = false
