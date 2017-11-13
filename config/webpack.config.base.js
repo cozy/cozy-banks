@@ -40,10 +40,20 @@ module.exports = {
         test: /\.styl$/,
         loader: extractor.extract({
           fallback: 'style-loader',
-          use: [
-            'css-loader?importLoaders=2&modules&localIdentName=[name]_[local]_[hash:base64:5]',
-            'stylus-loader'
-          ]
+          use: [{
+            loader: 'css-loader',
+            options: {
+              importLoaders: 2,
+              modules: true,
+              sourceMap: true,
+              localIdentName: '[name]_[local]_[hash:base64:5]'
+            }
+          }, {
+            loader: 'stylus-loader',
+            options: {
+              sourceMap: true
+            }
+          }]
         })
       },
       {
@@ -51,10 +61,16 @@ module.exports = {
         loader: extractor.extract({
           fallback: 'style-loader',
           use: [
-            'css-loader?importLoaders=1',
+            {
+              loader: 'css-loader',
+              options: {
+                importLoaders: 1
+              }
+            },
             {
               loader: 'postcss-loader',
               options: {
+                sourceMap: true,
                 plugins: loader => [require('autoprefixer')()]
               }
             }
