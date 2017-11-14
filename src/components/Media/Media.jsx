@@ -13,9 +13,9 @@ export const Media = ({children, className, align, ...rest}) => {
   )
 }
 
-export const Img = ({children, className, style}) => {
+export const Img = ({children, className, style, ...rest}) => {
   return (
-    <div className={cx(styles.img, className)} style={style}>{
+    <div className={cx(styles.img, className)} style={style} {...rest}>{
       children
     }</div>
   )
