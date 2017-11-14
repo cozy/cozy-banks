@@ -1,11 +1,15 @@
-@require '../../styles/mixins.styl'
-@require '../../styles/breakpoints.styl'
+@require '~components/Table/styles' // table need to be required before since we override some styles
+@require '~styles/mixins.styl'
+@require '~styles/breakpoints.styl'
 
 .bnk-op-table
     @extend $full-width-table
+    color charcoal-grey
 
     .bnk-op-date
         maxed-flex-basis 15%
+        color cool-grey
+
     .bnk-op-desc
         maxed-flex-basis 30%
 
@@ -23,11 +27,6 @@
             width 100%
         &:last-child
             border-bottom 0
-
-    tbody
-        .bnk-op-amount
-        .bnk-op-desc
-            color charcoal-grey
 
     +medium-screen()
         .bnk-op-desc

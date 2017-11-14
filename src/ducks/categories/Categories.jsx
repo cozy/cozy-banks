@@ -36,7 +36,7 @@ class Categories extends Component {
     selectedCategory ? selectCategory(undefined) : selectCategory(categoryName)
   }
 
-  render ({t, categories, selectedCategory, selectCategory, withIncome, filterWithInCome, breakpoints: { isDesktop, isTablet }}) {
+  render ({t, categories, selectedCategory, selectCategory, withIncome, filterWithInCome, breakpoints: { isDesktop, isTablet, isMobile }}) {
     if (categories === undefined) categories = []
     const selectedCat = categories.find(category => category.name === selectedCategory)
     if (selectedCategory) {
@@ -88,6 +88,7 @@ class Categories extends Component {
       titleLabel = `${titleLabel} (${catName})`
     }
 
+    const size = isMobile ? 140 : 200
     return (
       <div>
         <SelectDates />
@@ -106,7 +107,12 @@ class Categories extends Component {
               currency={globalCurrency}
               coloredPositive coloredNegative signed />}
           </div>
-          <CategoriesChart categories={categories} selectedCategory={selectedCategory} selectCategory={selectCategory} />
+          <CategoriesChart
+            width={size}
+            height={size}
+            categories={categories}
+            selectedCategory={selectedCategory}
+            selectCategory={selectCategory} />
         </div>
         {categories.length === 0
           ? <p>{t('Categories.title.empty_text')}</p>

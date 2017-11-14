@@ -1,5 +1,6 @@
-@require '../../styles/breakpoints.styl'
-@require '../../styles/mixins.styl'
+@require 'settings/palette.styl'
+@require '~styles/breakpoints.styl'
+@require '~styles/mixins.styl'
 
 .AcnsStg
     &__accounts
@@ -20,9 +21,11 @@
 
     &__number
         maxed-flex-basis 15%
+        color cool-grey
 
     &__type
         maxed-flex-basis 15%
+        color cool-grey
 
         +small-screen()
             td& // increase selectivity with td

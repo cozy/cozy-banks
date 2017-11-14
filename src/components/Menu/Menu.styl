@@ -14,10 +14,14 @@
     margin-top 1px
     min-width  220px
 
-.coz-menu-inner--opened
+.coz-menu__inner--opened
     display block
 
-.coz-menu-item:hover
-.coz-menu-item:focus
-    background-color pale-grey
-    outline          none
+.coz-menu__btn
+    font-size 1rem
+    border 0
+
+.coz-menu__btn:not([disabled]):not([aria-disabled=true]):hover
+.coz-menu__btn:not([disabled]):not([aria-disabled=true]):active
+.coz-menu__btn:not([disabled]):not([aria-disabled=true]):focus
+    background transparent

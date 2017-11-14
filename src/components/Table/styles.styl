@@ -1,5 +1,5 @@
-@require '../../styles/breakpoints.styl'
-@require '../../styles/mixins.styl'
+@require '~styles/breakpoints.styl'
+@require '~styles/mixins.styl'
 
 .coz-table
     position        relative
@@ -7,7 +7,6 @@
     flex-direction  column
     flex            1 1 100%
     text-align      left
-    color           cool-grey
 
     thead, tbody
         display   flex
@@ -40,6 +39,8 @@
             font-size       .75em
             text-transform  uppercase
             display block
+        color           cool-grey
+
 
     td, th
         box-sizing  border-box

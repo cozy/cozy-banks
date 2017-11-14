@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Transactions from './Transactions'
-import ActionMenu from '../menu/ActionMenu'
+import ActionMenu from 'ducks/menu/ActionMenu'
 
 class TransactionsWithSelection extends Component {
   state = {

@@ -4,9 +4,9 @@ import { translate } from 'cozy-ui/react/I18n'
 import Hammer from 'hammerjs'
 
 import styles from './ActionMenu.styl'
-import styles2 from '../transactions/Transactions.styl'
-import TransactionActions from '../transactions/TransactionActions'
-import Backdrop from './Backdrop'
+import styles2 from 'ducks/transactions/Transactions.styl'
+import TransactionActions from 'ducks/transactions/TransactionActions'
+import Backdrop from 'components/Menu/Backdrop'
 import { Figure } from 'components/Figure'
 import { getParentCategory } from 'ducks/categories/categoriesMap'
 

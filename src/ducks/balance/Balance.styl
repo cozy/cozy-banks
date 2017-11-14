@@ -1,5 +1,6 @@
-@require '../../styles/breakpoints.styl'
-@require '../../styles/mixins.styl'
+@require '~styles/breakpoints.styl'
+@require '~styles/mixins.styl'
+@require 'settings/palette.styl'
 
 .balance-table
     @extend $full-width-table
@@ -15,8 +16,10 @@
             text-align right
         .bank_name
             maxed-flex-basis 20%
+            color cool-grey
         .account_number
             maxed-flex-basis 20%
+            color cool-grey
 
         tbody
             .solde
