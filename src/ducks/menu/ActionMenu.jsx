@@ -3,15 +3,19 @@ import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'
 import Hammer from 'hammerjs'
 
-import styles from './ActionMenu.styl'
+import { Media, Bd, Img } from 'components/Media'
+import { Backdrop } from 'components/Menu'
+import { Figure } from 'components/Figure'
+
+import CategoryIcon from 'ducks/categories/CategoryIcon'
+import { getParentCategory } from 'ducks/categories/categoriesMap'
 import styles2 from 'ducks/transactions/Transactions.styl'
 import TransactionActions from 'ducks/transactions/TransactionActions'
-import Backdrop from 'components/Menu/Backdrop'
-import { Figure } from 'components/Figure'
-import { getParentCategory } from 'ducks/categories/categoriesMap'
+
+import styles from './ActionMenu.styl'
 
 const MenuHeaderTransaction = translate()(({ f, transaction }) => (
-  <div className={classNames(styles['menu-header'], styles2[`bnk-table-desc--${getParentCategory(transaction.categoryId)}`], styles2['coz-table-cell'])}>
+  <div className={classNames(styles['menu-header'], styles2['coz-table-cell'])}>
     <div className={styles['menu-header-left']}>
       <h3>{transaction.label}</h3>
       <span>{f(transaction.date, 'dddd DD MMMM - h[h]mm')}</span>
@@ -27,13 +31,25 @@ const MenuHeaderTransaction = translate()(({ f, transaction }) => (
   </div>
 ))
 
-const Menu = ({ transaction, urls, onClose }) => (
-  <div className={styles['fil-actionmenu']}>
-    <MenuHeaderTransaction transaction={transaction} />
-    <hr />
-    <TransactionActions onClose={onClose} transaction={transaction} urls={urls} />
-  </div>
-)
+const Menu = translate()(({ t, transaction, urls, onClose }) => {
+  const category = getParentCategory(transaction.categoryId)
+  return (
+    <div className={styles['fil-actionmenu']}>
+      <MenuHeaderTransaction transaction={transaction} />
+      <hr className='u-mv-0' />
+      <Media className='u-ph-1 u-pv-half'>
+        <Img style={{ height: '2rem' }}>
+          <CategoryIcon category={category} />
+        </Img>
+        <Bd className='u-pl-1 u-ellipsis'>
+          {t(`Data.categories.${category}`)}
+        </Bd>
+      </Media>
+      <hr />
+      <TransactionActions onClose={onClose} transaction={transaction} urls={urls} />
+    </div>
+  )
+})
 
 class FileActionMenu extends Component {
   componentDidMount () {
