@@ -7,6 +7,7 @@ import { flowRight as compose } from 'lodash'
 import { Icon } from 'cozy-ui/react'
 import arrowLeft from 'assets/icons/icon-arrow-left.svg'
 import breakpointsAware from 'utils/breakpointsAware'
+import palette from 'utils/palette.json'
 
 /**
  * Display a BackButton on mobile. When it is displayed,
@@ -26,7 +27,9 @@ const BackButton = ({ onClick, to, router, breakpoints, arrow = false }) => {
   const handleClick = onClick = onClick || (() => to && router.push(to))
   return breakpoints.isMobile ? (
     <TopbarLeft className={styles['back-button']}>
-      <a onClick={handleClick} />
+      <button onClick={handleClick}>
+        <Icon icon={arrowLeft} color={palette['cool-grey']} />
+      </button>
     </TopbarLeft>
   ) : (arrow && <a onClick={handleClick} className={styles['back-arrow']}>
     <Icon icon={arrowLeft} />

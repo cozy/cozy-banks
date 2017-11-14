@@ -1,3 +1,5 @@
+Inspired by https://philipwalton.github.io/solved-by-flexbox/demos/media-object/
+
 `align=middle` (default)
 
 ```jsx
