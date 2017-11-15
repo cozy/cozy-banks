@@ -3,14 +3,33 @@ import { withRouter } from 'react-router'
 import {
   translate,
   Button,
-  Tabs, TabPanels, TabPanel, TabList, Tab
+  Tabs, TabPanels, TabPanel, TabList, Tab,
+  Modal
 } from 'cozy-ui/react'
 import { Topbar } from 'ducks/commons'
 import Loading from 'components/Loading'
 import { withDispatch } from 'utils'
 import BackButton from 'components/BackButton'
-import { cozyConnect, fetchDocument, updateDocument, deleteDocument } from 'cozy-client'
+import { connect } from 'react-redux'
+import { cozyConnect, fetchDocument, updateDocument } from 'cozy-client'
 import styles from './AccountsSettings.styl'
+import { flowRight as compose } from 'lodash'
+import { destroyAccount } from 'actions'
+
+const DeleteConfirm = translate()(({ t, cancel, confirm, deleting }) => {
+  return (
+    <Modal
+      title={t('AccountSettings.confirm-deletion.title')}
+      description={t('AccountSettings.confirm-deletion.description')}
+      secondaryType='secondary'
+      secondaryText={t('General.cancel')}
+      secondaryAction={cancel}
+      primaryType='danger'
+      primaryText={deleting ? '...' : t('AccountSettings.confirm-deletion.confirm')}
+      primaryAction={confirm}
+    />
+  )
+})
 
 const AccountSharingDetails = translate()(({ t }) =>
   <div>{t('ComingSoon.title')}</div>)
@@ -28,13 +47,6 @@ class _GeneralSettings extends Component {
     })
   }
 
-  onClickRemove = () => {
-    const { dispatch, account, router } = this.props
-    dispatch(deleteDocument(account)).then(() => {
-      router.push('/settings/accounts')
-    })
-  }
-
   onClickSave = () => {
     const updatedDoc = {
       // Will disappear when the object come from redux-cozy
@@ -47,13 +59,32 @@ class _GeneralSettings extends Component {
     this.setState({modifying: false, changes: null})
   }
 
+  onClickDelete = () => {
+    this.setState({ showingDeleteConfirmation: true })
+  }
+
+  onClickCancelDelete = () => {
+    this.setState({ showingDeleteConfirmation: false })
+  }
+
+  onClickConfirmDelete = async () => {
+    const { destroyAccount, router } = this.props
+    try {
+      this.setState({ deleting: true })
+      await destroyAccount(this.props.account)
+      router.push('/settings/accounts')
+    } catch (e) {
+      this.setState({ deleting: false })
+    }
+  }
+
   onInputChange = (attribute, ev) => {
     const changes = this.state.changes
     changes[attribute] = ev.target.value
     this.setState({changes})
   }
 
-  render ({t, account}, {modifying}) {
+  render ({t, account}, {modifying, deleting, showingDeleteConfirmation}) {
     return (
       <div>
         <table className={styles.AcnStg__info}>
@@ -90,13 +121,32 @@ class _GeneralSettings extends Component {
           {modifying && <Button theme='regular' onClick={this.onClickSave}>
             Sauver
           </Button>}
+
+          {account.shared === undefined ? <Button disabled={deleting} theme='danger-outline' onClick={this.onClickDelete}>
+            {deleting ? t('General.deleting') : t('General.delete')}
+          </Button> : null}
+          {showingDeleteConfirmation?
+            <DeleteConfirm
+              deleting={deleting}
+              confirm={this.onClickConfirmDelete}
+              cancel={this.onClickCancelDelete}/> : null}
         </div>
       </div>
     )
   }
 }
 
-const GeneralSettings = withRouter(withDispatch(translate()(_GeneralSettings)))
+const mapDispatchToProps = dispatch => ({
+  destroyAccount: account => {
+    return dispatch(destroyAccount(account))
+  }
+})
+
+const GeneralSettings = compose(
+  withRouter,
+  withDispatch,
+  connect(null, mapDispatchToProps),
+  translate())(_GeneralSettings)
 
 const AccountSettings = function ({account, onClose, t}) {
   if (!account) {
@@ -140,9 +190,7 @@ const mapDocumentsToProps = function ({routeParams}) {
   }
 }
 
-export default (
-  cozyConnect(mapDocumentsToProps)(
-    withDispatch(
-      translate()(
-        AccountSettings
-      ))))
+export default compose(
+  cozyConnect(mapDocumentsToProps),
+  withDispatch,
+  translate())(AccountSettings)

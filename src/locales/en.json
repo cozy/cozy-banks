@@ -1,4 +1,10 @@
 {
+  "General": {
+    "delete": "Delete",
+    "deleting": "Deleting...",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
   "Loading": {
     "loading": "Loading...",
     "error": "An error occured while loading the data. Please try again later."
@@ -40,7 +46,12 @@
   "AccountSettings": {
     "details": "Details",
     "sharing": "Sharing",
-    "back-to-accounts": "Back to accounts"
+    "back-to-accounts": "Back to accounts",
+    "confirm-deletion": {
+      "description": "Please confirm account deletion. This will also remove associated transactions.",
+      "confirm": "Confirm account deletion",
+      "title": "Are you sure ?"
+    }
   },
 
   "Balance": {
