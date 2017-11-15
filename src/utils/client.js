@@ -1,22 +1,11 @@
-import { shouldEnableTracking, getTracker } from 'cozy-ui/react/helpers/tracker'
-import { hashHistory } from 'react-router'
+/* global __TARGET__ */
+
 import { initClient } from 'ducks/authentication/lib/client'
 import { CozyClient } from 'cozy-client'
 
 export const getClientMobile = persistedState => {
   const hasPersistedMobileStore = persistedState && persistedState.mobile
   return initClient(hasPersistedMobileStore ? persistedState.mobile.url : '')
-}
-
-export const setupHistory = () => {
-  const piwikEnabled = shouldEnableTracking() && getTracker()
-  let history = hashHistory
-  if (piwikEnabled) {
-    const trackerInstance = getTracker()
-    history = trackerInstance.connectToHistory(history)
-    trackerInstance.track(history.getCurrentLocation()) // when using a hash history, the initial visit is not tracked by piwik react router
-  }
-  return history
 }
 
 export const getClientBrowser = () => {
@@ -27,3 +16,17 @@ export const getClientBrowser = () => {
     token: data.cozyToken
   })
 }
+
+const memoize = fn => {
+  let res
+  return () => {
+    if (typeof res === 'undefined') {
+      res = fn()
+    }
+    return res
+  }
+}
+
+export const getClient = memoize(() => {
+  return __TARGET__ === 'mobile' ? getClientMobile() : getClientBrowser()
+})

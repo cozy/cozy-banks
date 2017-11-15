@@ -11,7 +11,8 @@ import configureStore from 'store/configureStore'
 import AppRoute from 'components/AppRoute'
 import 'number-to-locale-string'
 
-import { setupHistory, getClientMobile, getClientBrowser } from 'utils/initialization'
+import { setupHistory } from 'utils/history'
+import { getClient } from 'utils/client'
 
 const renderAppWithPersistedState = persistedState => {
   const root = document.querySelector('[role=application]')
@@ -20,7 +21,7 @@ const renderAppWithPersistedState = persistedState => {
 
   const history = setupHistory()
 
-  const client = __TARGET__ === 'mobile' ? getClientMobile(persistedState) : getClientBrowser()
+  const client = getClient()
   const store = configureStore(client, persistedState)
   persistState(store)
 
