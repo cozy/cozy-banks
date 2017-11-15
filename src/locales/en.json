@@ -48,7 +48,7 @@
     "sharing": "Sharing",
     "back-to-accounts": "Back to accounts",
     "confirm-deletion": {
-      "description": "Please confirm account deletion. This will also remove associated transactions.",
+      "description": "Please confirm account deletion. This will also remove associated transactions, theirs links with your bills and with your reimbursements in the Health application.",
       "confirm": "Confirm account deletion",
       "title": "Are you sure ?"
     }

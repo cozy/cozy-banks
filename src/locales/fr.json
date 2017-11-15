@@ -50,7 +50,7 @@
     "sharing": "Partage",
     "back-to-accounts": "Revenir aux comptes",
     "confirm-deletion": {
-      "description": "Merci de confirmer la suppression du compte. Cela supprimera aussi toutes les transactions associées.",
+      "description": "Merci de confirmer la suppression du compte. Cela supprimera aussi toutes les mouvements associés ainsi que les liens entre ces mouvements et vos factures ou remboursements.",
       "confirm": "Confirm account deletion",
       "title": "Vous êtes sur ?"
     }
