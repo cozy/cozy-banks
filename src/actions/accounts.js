@@ -1,5 +1,3 @@
-/* global cozy */
-
 import { updateDocuments, deleteDocument, deleteDocuments } from 'cozy-client'
 
 const removeAccountFromGroup = (group, account) => {
