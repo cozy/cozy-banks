@@ -2355,9 +2355,9 @@ cozy-client-js@^0.4.1:
     pouchdb-adapter-cordova-sqlite "https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a"
     pouchdb-find "0.10.4"
 
-cozy-client@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-0.2.1.tgz#44cfb044cc37d73ebe910c5889da552e65bc58a0"
+cozy-client@0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-0.3.0.tgz#4afd9cfef7cdc08350a7bcb7503e77d4cb79eed5"
   dependencies:
     pouchdb "^6.3.4"
     pouchdb-find "^6.3.4"
@@ -7732,9 +7732,9 @@ pouchdb-abstract-mapreduce@6.3.4:
     pouchdb-promise "6.3.4"
     pouchdb-utils "6.3.4"
 
-"pouchdb-adapter-cordova-sqlite@git+https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a":
+"pouchdb-adapter-cordova-sqlite@https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a":
   version "2.0.2"
-  resolved "git+https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a"
+  resolved "https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a"
   dependencies:
     pouchdb-adapter-websql-core "^6.1.1"
 
@@ -7802,20 +7802,6 @@ pouchdb-find@0.10.4:
     pouchdb-promise "5.4.0"
     pouchdb-upsert "~2.0.1"
     spark-md5 "0.0.5"
-
-pouchdb-find@^0.10.4:
-  version "0.10.5"
-  resolved "https://registry.yarnpkg.com/pouchdb-find/-/pouchdb-find-0.10.5.tgz#34f285b8a56496a98f9cef2e1a1f6a0aac4eae8b"
-  dependencies:
-    argsarray "0.0.1"
-    debug "^2.1.0"
-    inherits "^2.0.1"
-    is-array "^1.0.1"
-    pouchdb-collate "^1.2.0"
-    pouchdb-extend "^0.1.2"
-    pouchdb-promise "5.4.0"
-    pouchdb-upsert "~2.0.1"
-    spark-md5 "2.0.2"
 
 pouchdb-find@^6.3.4:
   version "6.3.4"
@@ -7922,7 +7908,7 @@ pouchdb@6.1.1:
     through2 "2.0.1"
     vuvuzela "1.0.3"
 
-pouchdb@6.3.4, pouchdb@^6.3.4:
+pouchdb@^6.3.4:
   version "6.3.4"
   resolved "https://registry.yarnpkg.com/pouchdb/-/pouchdb-6.3.4.tgz#e3c8596d19cc12f7474ca48d5d3800affaf701b1"
   dependencies:
@@ -9596,10 +9582,6 @@ source-map@^0.6.1, source-map@~0.6.1:
 spark-md5@0.0.5:
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/spark-md5/-/spark-md5-0.0.5.tgz#931da5e3b951d06527e9b7d90dfff578b6fcdc8e"
-
-spark-md5@2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/spark-md5/-/spark-md5-2.0.2.tgz#37b763847763ae7e7acef2ca5233d01e649a78b7"
 
 spark-md5@3.0.0:
   version "3.0.0"
