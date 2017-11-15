@@ -6,6 +6,7 @@ import Hammer from 'hammerjs'
 import { Media, Bd, Img } from 'components/Media'
 import { Backdrop } from 'components/Menu'
 import { Figure } from 'components/Figure'
+import { getLabel } from 'ducks/transactions'
 
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { getParentCategory } from 'ducks/categories/categoriesMap'
@@ -17,7 +18,7 @@ import styles from './ActionMenu.styl'
 const MenuHeaderTransaction = translate()(({ f, transaction }) => (
   <div className={classNames(styles['menu-header'], styles2['coz-table-cell'])}>
     <div className={styles['menu-header-left']}>
-      <h3>{transaction.label}</h3>
+      <h3>{getLabel(transaction)}</h3>
       <span>{f(transaction.date, 'dddd DD MMMM - h[h]mm')}</span>
     </div>
     <div className={styles['menu-header-right']}>
