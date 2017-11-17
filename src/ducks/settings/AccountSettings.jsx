@@ -125,11 +125,12 @@ class _GeneralSettings extends Component {
           {account.shared === undefined ? <Button disabled={deleting} theme='danger-outline' onClick={this.onClickDelete}>
             {deleting ? t('General.deleting') : t('General.delete')}
           </Button> : null}
-          {showingDeleteConfirmation?
-            <DeleteConfirm
+          {showingDeleteConfirmation
+            ? <DeleteConfirm
               deleting={deleting}
               confirm={this.onClickConfirmDelete}
-              cancel={this.onClickCancelDelete}/> : null}
+              cancel={this.onClickCancelDelete} />
+            : null}
         </div>
       </div>
     )
