@@ -5,6 +5,7 @@ import SelectDates from './SelectDates'
 import { getTransactions, getGroups, getAccounts } from 'selectors'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import _ from 'lodash'
+import { DESTROY_ACCOUNT } from 'actions/accounts'
 
 // constants
 const FILTER_BY_DATES = 'FILTER_BY_DATES'
@@ -101,8 +102,8 @@ const filterByAccountIds = (transactions, accountIds) => transactions.filter(tra
 // actions
 export const addFilterByDates = (startDate, endDate) => ({ type: FILTER_BY_DATES, startDate, endDate })
 export const resetAccountOrGroup = () => ({ type: RESET_ACCOUNT_OR_GROUP })
-export const filterByAccount = account => ({ type: FILTER_BY_ACCOUNT, id: account._id })
-export const filterByGroup = group => ({ type: FILTER_BY_GROUP, id: group._id })
+export const filterByAccount = account => ({ type: FILTER_BY_ACCOUNT, id: account.id })
+export const filterByGroup = group => ({ type: FILTER_BY_GROUP, id: group.id })
 export const addFilterForMostRecentTransactions = transactions => {
   const mostRecentTransaction = _(transactions).sortBy('date').last()
   const date = mostRecentTransaction ? mostRecentTransaction.date : new Date()
@@ -158,9 +159,27 @@ const accountOrGroupId = (state = null, action) => {
   }
 }
 
-export default combineReducers({
-  startDate,
-  endDate,
-  accountOrGroupType,
-  accountOrGroupId
-})
+const handleDestroyAccount = (state = {}, action) => {
+  const {type, account} = action
+  if (
+    type === DESTROY_ACCOUNT &&
+    state.accountOrGroupId === account.id
+  ) {
+    // reset the filter
+    return {...state, accountOrGroupId: null, accountOrGroupType: null}
+  }
+  return state
+}
+
+const composeReducers = (...reducers) => (state, action) =>
+  reducers.reduce((state, reducer) => reducer(state, action), state)
+
+export default composeReducers(
+  combineReducers({
+    startDate,
+    endDate,
+    accountOrGroupType,
+    accountOrGroupId
+  }),
+  handleDestroyAccount
+)

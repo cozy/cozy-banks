@@ -1,4 +1,9 @@
 {
+  "General": {
+    "delete": "Supprimer",
+    "deleting": "Suppression..."
+  },
+
   "Loading": {
     "loading": "Chargement...",
     "error": "Il y a eu une erreur pendant le chargement des données. Merci de réessayer plus tard."
@@ -43,7 +48,12 @@
   "AccountSettings": {
     "details": "Détails",
     "sharing": "Partage",
-    "back-to-accounts": "Revenir aux comptes"
+    "back-to-accounts": "Revenir aux comptes",
+    "confirm-deletion": {
+      "description": "Merci de confirmer la suppression du compte. Cela supprimera aussi toutes les mouvements associés ainsi que les liens entre ces mouvements et vos factures ou remboursements.",
+      "confirm": "Confirm account deletion",
+      "title": "Vous êtes sur ?"
+    }
   },
 
   "Accounts": {

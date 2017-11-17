@@ -73,13 +73,13 @@ const TableTrNoDesktop = ({f, transaction, urls, selectTransaction}) => (
         <Bd className='u-ph-half u-ellipsis'>
           {getLabel(transaction)}
         </Bd>
-        <Img className='u-pr-half'>
+        <Img>
           <Figure total={transaction.amount} currency={transaction.currency} coloredPositive signed />
         </Img>
         <Img style={{ flexBasis: '1rem' }}>
           {getIcon(getLinkType(transaction, urls))}
         </Img>
-        <Img className='u-ph-half'>
+        <Img>
           <Icon icon='dots' />
         </Img>
       </Media>

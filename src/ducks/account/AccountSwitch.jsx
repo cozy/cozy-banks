@@ -26,7 +26,7 @@ const AccountSwitchDesktop = translate()(
   ({ isFetching, isOpen, accountOrGroup, accounts, t, toggle, accountExists }) => (
     <button className={classNames(styles['account-switch-button'], {[styles['active']]: isOpen}, 'coz-desktop')} onClick={toggle}>
       {isFetching
-        ? `${t('Loading.loading')}...`
+        ? `${t('Loading.loading')}`
         : accountOrGroup
           ? <div>
             <div className={styles['account-name']}>
