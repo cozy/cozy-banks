@@ -13,33 +13,14 @@ import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { getParentCategory, getCategoryName } from 'ducks/categories/categoriesMap'
 import styles2 from 'ducks/transactions/Transactions.styl'
 import TransactionActions from 'ducks/transactions/TransactionActions'
-import CategoryChoice from 'ducks/categories/CategoryChoice'
+import { withUpdateCategory } from 'ducks/categories'
 
 import styles from './ActionMenu.styl'
 
 class Menu extends Component {
-  state = {
-    displayingCategoryChoice: false
-  }
-
-  showCategoryChoice = () => {
-    this.setState({displayingCategoryChoice: true})
-  }
-
-  hideCategoryChoice = () => {
-    this.setState({displayingCategoryChoice: false})
-  }
-
-  selectNewCategory = category => {
-    this.hideCategoryChoice()
-    let transaction = this.props.transaction
-    transaction.categoryId = category.id
-    this.props.dispatch(updateDocument(transaction))
-  }
-
   render () {
     const { t, f, transaction, urls, onClose } = this.props
-    const { displayingCategoryChoice } = this.state
+    const { showCategoryChoice } = this.props
     const category = getParentCategory(transaction.categoryId)
 
     return (
@@ -59,7 +40,7 @@ class Menu extends Component {
           </div>
         </div>
         <hr className='u-mv-0' />
-        <Media className='u-ph-1 u-pv-half' onClick={this.showCategoryChoice}>
+        <Media className='u-ph-1 u-pv-half' onClick={showCategoryChoice}>
           <Img style={{ height: '2rem' }}>
             <CategoryIcon category={category} />
           </Img>
@@ -67,12 +48,6 @@ class Menu extends Component {
             {t(`Data.subcategories.${getCategoryName(transaction.categoryId)}`)}
           </Bd>
         </Media>
-        {displayingCategoryChoice &&
-          <CategoryChoice
-            categoryId={transaction.categoryId}
-            onSelect={this.selectNewCategory}
-            onCancel={this.hideCategoryChoice}
-          />}
         <hr />
         <TransactionActions onClose={onClose} transaction={transaction} urls={urls} />
       </div>
@@ -80,7 +55,14 @@ class Menu extends Component {
   }
 }
 
+const updateCategory = (props, category) => {
+  let { transaction } = props
+  transaction.categoryId = category.id
+  props.dispatch(updateDocument(transaction))
+}
+
 export default compose(
   withDispatch,
+  withUpdateCategory({updateCategory, getCategoryId: ownProps => ownProps.transaction.categoryId}),
   translate()
 )(Menu)
