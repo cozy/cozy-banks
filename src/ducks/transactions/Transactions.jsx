@@ -9,7 +9,7 @@ import { Table, TdSecondary } from 'components/Table'
 import TransactionMenu from './TransactionMenu'
 import { TransactionAction, getIcon, getLinkType } from './TransactionActions'
 import { getLabel } from './helpers'
-import { getParentCategory } from 'ducks/categories/categoriesMap'
+import { getParentCategory, getCategoryName } from 'ducks/categories/categoriesMap'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 
 import styles from './Transactions.styl'
@@ -33,8 +33,11 @@ const TableHeadDesktop = ({t}) => (
   </thead>
 )
 
-const TableTrDesktop = ({ t, f, transaction, urls, isExtraLarge }) => {
-  const category = getParentCategory(transaction.categoryId)
+const TableTrDesktop = translate()(({ t, f, transaction, urls, isExtraLarge }) => {
+  const categoryName = getCategoryName(transaction.categoryId)
+  const categoryTitle = t(`Data.subcategories.${categoryName}`)
+  const parentCategory = getParentCategory(transaction.categoryId)
+
   return (
     <tr>
       <TdSecondary className={sDate}>
@@ -42,8 +45,8 @@ const TableTrDesktop = ({ t, f, transaction, urls, isExtraLarge }) => {
       </TdSecondary>
       <td className={cx(sDesc, 'u-pv-half', 'u-pl-1')}>
         <Media>
-          <Img style={{height: '2rem'}} title={t(`Data.categories.${category}`)}>
-            <CategoryIcon category={getParentCategory(transaction.categoryId)} />
+          <Img style={{height: '2rem'}} title={categoryTitle}>
+            <CategoryIcon category={parentCategory} />
           </Img>
           <Bd className='u-pl-1'>
             {getLabel(transaction)}
@@ -61,15 +64,15 @@ const TableTrDesktop = ({ t, f, transaction, urls, isExtraLarge }) => {
       </TdSecondary>
     </tr>
   )
-}
+})
 
-const TableTrNoDesktop = ({f, transaction, urls, selectTransaction}) => {
+const TableTrNoDesktop = ({t, f, transaction, urls, selectTransaction}) => {
   const icon = getIcon(getLinkType(transaction, urls))
   return (
     <tr onClick={() => selectTransaction(transaction)} className={styles['bnk-transaction-mobile']}>
       <td>
         <Media>
-          <Img className='u-mr-half'>
+          <Img className='u-mr-half' title={t(`Data.subcategories.${getCategoryName(transaction.categoryId)}`)}>
             <CategoryIcon category={getParentCategory(transaction.categoryId)} />
           </Img>
           <Bd className='u-mr-half u-ellipsis'>
@@ -116,8 +119,8 @@ const Transactions = ({ t, f, transactions, urls, selectTransaction, breakpoints
             </tr>}
             {transactionsOrdered.map(transaction => {
               return isDesktop
-                ? <TableTrDesktop transaction={transaction} urls={urls} f={f} t={t} isExtraLarge={isExtraLarge} />
-                : <TableTrNoDesktop transaction={transaction} urls={urls} f={f} selectTransaction={selectTransaction} />
+                ? <TableTrDesktop transaction={transaction} urls={urls} isExtraLarge={isExtraLarge} />
+                : <TableTrNoDesktop transaction={transaction} urls={urls} selectTransaction={selectTransaction} />
             })}
           </tbody>
         )

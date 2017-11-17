@@ -109,6 +109,9 @@
   },
 
   "Categories": {
+    "choice": {
+      "title": "Modifier la catégorie"
+    },
     "board": {
       "debit-header": "Dépense",
       "credit-header": "Revenu",
@@ -138,7 +141,7 @@
     "categories": {
       "activities": "Activités",
       "dailyLife": "Vie quotidienne",
-      "education": "Education, formation",
+      "educationAndTraining": "Education, formation",
       "excludeFromBudgetCat": "Hors budget",
       "goingOutAndTravel": "Sorties/voyages",
       "health": "Santé",

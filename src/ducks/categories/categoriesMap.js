@@ -48,9 +48,23 @@ export const categoriesStyle = {
   }
 }
 
+export const getCategoryId = name =>
+  Object.keys(tree).find(id => tree[id] === name)
+
 for (const key in categoriesStyle) {
   categoriesStyle[key].name = key
-  categoriesStyle[key].icon = require(`../../assets/icons/categories/icon-cat-${key}.svg`)
+  categoriesStyle[key].id = getCategoryId(key)
+  categoriesStyle[key].child = {}
+  categoriesStyle[key].icon =
+    require(`../../assets/icons/categories/icon-cat-${key}.svg`)
+}
+
+export const getCategories = () => {
+  return categoriesStyle
+}
+
+export const getCategoryName = id => {
+  return tree[id]
 }
 
 const getOptions = function (idStr) {
@@ -65,7 +79,7 @@ const getOptions = function (idStr) {
   return categoriesStyle[name]
 }
 
-const categoryToParent = new Map(
+export const categoryToParent = new Map(
   Object.keys(tree)
     .map(id => {
       const options = getOptions(id)
@@ -78,6 +92,16 @@ export const getParentCategory = catId => {
   return parent && parent.name ? parent.name : 'uncategorized'
 }
 
-export const getCategoryId = name => Object.keys(tree).find(id => tree[id] === name)
+Object.keys(tree).forEach(catId => {
+  const catName = tree[catId]
+  const parentName = getParentCategory(catId)
+  if (catName !== parentName && parentName !== 'uncategorized' && categoriesStyle[parentName]) {
+    categoriesStyle[parentName].child[catId] = {
+      name: catName,
+      color: categoriesStyle[parentName].color,
+      id: catId
+    }
+  }
+})
 
 export default categoryToParent
