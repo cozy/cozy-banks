@@ -63,29 +63,32 @@ const TableTrDesktop = ({ t, f, transaction, urls, isExtraLarge }) => {
   )
 }
 
-const TableTrNoDesktop = ({f, transaction, urls, selectTransaction}) => (
-  <tr onClick={() => selectTransaction(transaction)} className={styles['bnk-transaction-mobile']}>
-    <td>
-      <Media>
-        <Img>
-          <CategoryIcon category={getParentCategory(transaction.categoryId)} />
-        </Img>
-        <Bd className='u-ph-half u-ellipsis'>
-          {getLabel(transaction)}
-        </Bd>
-        <Img>
-          <Figure total={transaction.amount} currency={transaction.currency} coloredPositive signed />
-        </Img>
-        <Img style={{ flexBasis: '1rem' }}>
-          {getIcon(getLinkType(transaction, urls))}
-        </Img>
-        <Img>
-          <Icon icon='dots' />
-        </Img>
-      </Media>
-    </td>
-  </tr>
-)
+const TableTrNoDesktop = ({f, transaction, urls, selectTransaction}) => {
+  const icon = getIcon(getLinkType(transaction, urls))
+  return (
+    <tr onClick={() => selectTransaction(transaction)} className={styles['bnk-transaction-mobile']}>
+      <td>
+        <Media>
+          <Img>
+            <CategoryIcon category={getParentCategory(transaction.categoryId)} />
+          </Img>
+          <Bd className='u-ph-half u-ellipsis'>
+            {getLabel(transaction)}
+          </Bd>
+          <Img>
+            <Figure total={transaction.amount} currency={transaction.currency} coloredPositive signed />
+          </Img>
+          { icon ? <Img className='u-pl-half u-pr-half' style={{ flexBasis: '1rem' }}>
+            { icon }
+          </Img> : null }
+          <Img>
+            <Icon icon='dots' />
+          </Img>
+        </Media>
+      </td>
+    </tr>
+  )
+}
 
 const Transactions = ({ t, f, transactions, urls, selectTransaction, breakpoints: { isDesktop, isExtraLarge } }) => {
   const transactionsByDate = {}
