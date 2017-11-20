@@ -27,6 +27,8 @@ const getList = props => {
   return Object.keys(categories).map(catName => {
     const category = categories[catName]
     return {
+      id: category.id,
+      name: category.name,
       text: t(`Data.categories.${category.name}`),
       icon: <CategoryIcon category={category.name} />,
       selected: parentName === catName,
@@ -45,6 +47,10 @@ class CategoryChoice extends Component {
   }
 
   selectCategory = category => {
+    if (category.name === 'uncategorized') {
+      this.props.onSelect(category)
+      return
+    }
     this.setState({category})
   }
 
