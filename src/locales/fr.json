@@ -1,7 +1,9 @@
 {
   "General": {
     "delete": "Supprimer",
-    "deleting": "Suppression..."
+    "deleting": "Suppression...",
+    "cancel": "Annuler",
+    "confirm": "Confirmer"
   },
 
   "Loading": {
@@ -50,8 +52,8 @@
     "sharing": "Partage",
     "back-to-accounts": "Revenir aux comptes",
     "confirm-deletion": {
-      "description": "Merci de confirmer la suppression du compte. Cela supprimera aussi toutes les mouvements associés ainsi que les liens entre ces mouvements et vos factures ou remboursements.",
-      "confirm": "Confirm account deletion",
+      "description": "Merci de confirmer la suppression du compte. Cela supprimera aussi tous les mouvements associés, ainsi que les liens entre ces mouvements et vos factures ou remboursements.",
+      "confirm": "Confirmer la suppression du compte",
       "title": "Vous êtes sur ?"
     }
   },
