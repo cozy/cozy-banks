@@ -1,20 +1,22 @@
 @require '~styles/breakpoints.styl'
-@require 'objects/nav.styl'
+@require 'components/nav.styl'
 
 [role=application]// @stylint ignore
-    @extend $navigation
-
     .active
         svg
             color #297EF2
 
-    .coz-nav-link
+    .c-nav-item
+        flex-grow 1
+
+    .c-nav-link
         padding-left 1.5rem
 
         svg
             margin-right 1rem
 
         +small-screen()
+            padding-left 0
             padding-top 0
             min-width inherit
             svg
@@ -23,3 +25,4 @@
                 height 1.15rem
                 margin auto
                 margin-bottom 0.25rem
+

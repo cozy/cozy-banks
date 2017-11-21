@@ -33,7 +33,7 @@ class AppSettings extends Component {
         <p>
           {t('AppSettings.description')}
         </p>
-        <button onClick={this.promptConfirmation} className={'coz-btn coz-btn--danger'}>
+        <button onClick={this.promptConfirmation} className={'c-btn c-btn--danger'}>
           {t('AppSettings.reset')}
         </button>
         {

@@ -47,20 +47,20 @@ class Menu extends Component {
     const { opened } = this.state
     return (
       <div
-        className={classNames(styles['coz-menu'], className)}
+        className={classNames(styles['c-menu'], className)}
         ref={ref => { this.container = ref }}
       >
         <button
           role='button'
-          className={classNames('coz-btn', styles['coz-menu__btn'], buttonClassName)}
+          className={classNames('c-btn', styles['c-menu__btn'], buttonClassName)}
           disabled={disabled}
           onClick={this.toggle}
         >
           {title}
         </button>
         <div className={classNames(
-          styles['coz-menu-inner'],
-          { [styles['coz-menu__inner--opened']]: opened }
+          styles['c-menu-inner'],
+          { [styles['c-menu__inner--opened']]: opened }
         )}>
           {this.renderItems()}
         </div>

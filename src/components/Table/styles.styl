@@ -1,7 +1,7 @@
 @require '~styles/breakpoints.styl'
 @require '~styles/mixins.styl'
 
-.coz-table
+.c-table
     position        relative
     display         flex
     flex-direction  column
@@ -53,10 +53,10 @@
         &:last-child
             padding-right 2rem
 
-        &.coz-table-td-secondary
+        &.c-table-td-secondary
             font-size .875em
 
-        &.coz-table-td-fix
+        &.c-table-td-fix
             flex-grow 0
 
     +medium-screen()
@@ -78,7 +78,7 @@
             &:last-child
                 padding-right 1rem
 
-    .coz-table-td-with-icon
+    .c-table-td-with-icon
         background-repeat no-repeat
         padding-left calc(3rem + 32px)
         background-position 2rem
@@ -90,7 +90,7 @@
             background-size 26px
 
 +small-screen()
-    .coz-table
+    .c-table
         .mobile-row
             flex-wrap wrap
 

@@ -31,7 +31,7 @@ class Item extends Component {
 
   render ({className, children, withSpinner, disabled}, { working }) {
     return (
-      <div className={cx(className, styles['coz-menu__item'], disabled && styles['coz-menu-item--disabled'])} onClick={this.handleClick}>
+      <div className={cx(className, styles['c-menu__item'], disabled && styles['c-menu-item--disabled'])} onClick={this.handleClick}>
         {children}
         {withSpinner && working && <Spinner />}
       </div>

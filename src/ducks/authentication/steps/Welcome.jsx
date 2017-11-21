@@ -24,7 +24,7 @@ export class Welcome extends Component {
         </div>
         <footer className={styles['wizard-footer']}>
           <button role='button'
-            className='coz-btn coz-btn--regular'
+            className='c-btn c-btn--regular'
             onClick={selectServer}
           >
             {t('mobile.onboarding.welcome.button')}

@@ -1,10 +1,10 @@
 @require 'components/popover.styl'
 
-.coz-menu
+.c-menu
     position relative
     display  inline-block
 
-.coz-menu-inner
+.c-menu-inner
     display    none
     position   absolute
     @extend    $popover
@@ -14,14 +14,14 @@
     margin-top 1px
     min-width  220px
 
-.coz-menu__inner--opened
+.c-menu__inner--opened
     display block
 
-.coz-menu__btn
+.c-menu__btn
     font-size 1rem
     border 0
 
-.coz-menu__btn:not([disabled]):not([aria-disabled=true]):hover
-.coz-menu__btn:not([disabled]):not([aria-disabled=true]):active
-.coz-menu__btn:not([disabled]):not([aria-disabled=true]):focus
+.c-menu__btn:not([disabled]):not([aria-disabled=true]):hover
+.c-menu__btn:not([disabled]):not([aria-disabled=true]):active
+.c-menu__btn:not([disabled]):not([aria-disabled=true]):focus
     background transparent

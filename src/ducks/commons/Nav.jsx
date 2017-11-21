@@ -12,13 +12,13 @@ const ActiveLink = ({ to, children }) => (
   <Link
     to={to}
     activeClassName={styles['active']}
-    className={styles['coz-nav-link']}>
+    className={styles['c-nav-link']}>
     {children}
   </Link>
 )
 
-const NavList = mkComponent('ul', { className: styles['coz-nav'] })
-const NavItem = mkComponent('li', { className: styles['coz-nav-item'] })
+const NavList = mkComponent('ul', { className: styles['c-nav'] })
+const NavItem = mkComponent('li', { className: styles['c-nav-item'] })
 
 const Nav = ({ t }) => (
   <nav>
