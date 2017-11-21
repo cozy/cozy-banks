@@ -52,9 +52,9 @@
     "sharing": "Partage",
     "back-to-accounts": "Revenir aux comptes",
     "confirm-deletion": {
-      "description": "Merci de confirmer la suppression du compte. Cela supprimera aussi tous les mouvements associés, ainsi que les liens entre ces mouvements et vos factures ou remboursements.",
-      "confirm": "Confirmer la suppression du compte",
-      "title": "Vous êtes sur ?"
+      "description": "Merci de confirmer la suppression du compte. Cela supprimera tous les mouvements présents dans l'application Bank ainsi que les liens entre ces mouvements et vos factures ou remboursements.",
+      "confirm": "Confirmer la suppression",
+      "title": "Êtes-vous sur ?"
     }
   },
 

@@ -1,4 +1,5 @@
 @require './spacers.styl'
+@require 'settings/icons'
 
 :global
   // Global utils classes comes here
@@ -12,3 +13,6 @@
         text-overflow ellipsis
         overflow hidden
 
+    .u-spin
+        @extend $spin-anim
+        display inline-block

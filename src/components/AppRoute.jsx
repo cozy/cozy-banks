@@ -37,6 +37,7 @@ const AppRoute = (
             <Route path='app' component={AppSettings} />
           </Route>
         </Route>
+        <Redirect from='*' to='/transactions' />
       </Route>
     </Route>
   </Route>
