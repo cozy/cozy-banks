@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
-import { translate } from 'cozy-ui/react/I18n'
-import { updateDocument } from 'cozy-client'
+import { translate, Icon } from 'cozy-ui/react'
 import { withDispatch } from 'utils'
 import { flowRight as compose } from 'lodash'
 
@@ -14,6 +13,9 @@ import { getParentCategory, getCategoryName } from 'ducks/categories/categoriesM
 import styles2 from 'ducks/transactions/Transactions.styl'
 import TransactionActions from 'ducks/transactions/TransactionActions'
 import { withUpdateCategory } from 'ducks/categories'
+import { updateCategory } from '../helpers'
+import palette from 'utils/palette.json'
+import forward from 'assets/icons/icon-forward.svg'
 
 import styles from './ActionMenu.styl'
 
@@ -47,18 +49,15 @@ class Menu extends Component {
           <Bd className='u-pl-1 u-ellipsis'>
             {t(`Data.subcategories.${getCategoryName(transaction.categoryId)}`)}
           </Bd>
+          <Img className='u-pl-1'>
+            <Icon icon={forward} color={palette['cool-grey']} />
+          </Img>
         </Media>
         <hr />
         <TransactionActions onClose={onClose} transaction={transaction} urls={urls} />
       </div>
     )
   }
-}
-
-const updateCategory = (props, category) => {
-  let { transaction } = props
-  transaction.categoryId = category.id
-  props.dispatch(updateDocument(transaction))
 }
 
 export default compose(

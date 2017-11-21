@@ -49,9 +49,9 @@ class CategoryChoice extends Component {
   selectCategory = category => {
     if (category.name === 'uncategorized') {
       this.props.onSelect(category)
-      return
+    } else {
+      this.setState({category})
     }
-    this.setState({category})
   }
 
   selectSubcategory = subcategory => {
@@ -60,13 +60,12 @@ class CategoryChoice extends Component {
 
   render () {
     const { t, onCancel } = this.props
-    const { list, category } = this.state
 
     return (
       <PopupSelect
-        title={category ? category.text : t('Categories.choice.title')}
-        list={category ? category.child : list}
-        onSelect={category ? this.selectSubcategory : this.selectCategory}
+        title={t('Categories.choice.title')}
+        list={this.state.list}
+        onSelect={this.selectSubcategory}
         onCancel={onCancel}
       />
     )
