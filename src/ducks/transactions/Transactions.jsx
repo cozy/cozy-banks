@@ -69,16 +69,16 @@ const TableTrNoDesktop = ({f, transaction, urls, selectTransaction}) => {
     <tr onClick={() => selectTransaction(transaction)} className={styles['bnk-transaction-mobile']}>
       <td>
         <Media>
-          <Img>
+          <Img className='u-mr-half'>
             <CategoryIcon category={getParentCategory(transaction.categoryId)} />
           </Img>
-          <Bd className='u-ph-half u-ellipsis'>
+          <Bd className='u-mr-half u-ellipsis'>
             {getLabel(transaction)}
           </Bd>
-          <Img>
+          <Img className='u-mr-half'>
             <Figure total={transaction.amount} currency={transaction.currency} coloredPositive signed />
           </Img>
-          { icon ? <Img className='u-pl-half u-pr-half' style={{ flexBasis: '1rem' }}>
+          { icon ? <Img className='u-mr-half' style={{ flexBasis: '1rem' }}>
             { icon }
           </Img> : null }
           <Img>
