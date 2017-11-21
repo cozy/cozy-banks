@@ -3,69 +3,49 @@ import { translate } from 'cozy-ui/react'
 import PopupSelect from 'components/PopupSelect'
 import { getCategories, CategoryIcon, getParentCategory } from 'ducks/categories'
 
-const getChildList = (props, category) => {
-  const { t, categoryId } = props
-
-  return Object.keys(category.child).map(catId => {
-    const subcategory = category.child[catId]
-
-    return {
-      text: t(`Data.subcategories.${subcategory.name}`),
-      icon: <CategoryIcon category={category.name} />,
-      name: subcategory.name,
-      selected: categoryId === catId,
-      id: catId
-    }
-  })
-}
-
-const getList = props => {
-  const { t, categoryId } = props
-  const categories = getCategories()
-  const parentName = getParentCategory(categoryId)
-
-  return Object.keys(categories).map(catName => {
-    const category = categories[catName]
-    return {
-      id: category.id,
-      name: category.name,
-      text: t(`Data.categories.${category.name}`),
-      icon: <CategoryIcon category={category.name} />,
-      selected: parentName === catName,
-      child: getChildList(props, category)
-    }
-  })
-}
-
 class CategoryChoice extends Component {
   constructor (props) {
     super(props)
 
-    this.state = {
-      list: getList(props)
+    this.options = {
+      children: this.getOptions(getCategories()),
+      title: props.t('Categories.choice.title')
     }
   }
 
-  selectCategory = category => {
-    if (category.name === 'uncategorized') {
-      this.props.onSelect(category)
-    } else {
-      this.setState({category})
-    }
+  getOptions = (categories, subcategory = false) => {
+    return Object.keys(categories).map(catName => {
+      const option = categories[catName]
+
+      const translateKey = subcategory ? 'subcategories' : 'categories'
+      option.title = this.props.t(`Data.${translateKey}.${option.name}`)
+
+      const iconCategory = subcategory ? getParentCategory(option.id) : option.name
+      option.icon = <CategoryIcon category={iconCategory} />
+
+      if (!subcategory) {
+        option.children = this.getOptions(option.children, true)
+      }
+
+      return option
+    })
   }
 
-  selectSubcategory = subcategory => {
-    this.props.onSelect(subcategory)
+  isSelected = category => {
+    const { categoryId } = this.props
+    const parentName = getParentCategory(categoryId)
+    return parentName === category.name || categoryId === category.id
   }
 
   render () {
-    const { t, onCancel } = this.props
+    const { t, onCancel, onSelect } = this.props
 
     return (
       <PopupSelect
         title={t('Categories.choice.title')}
-        list={this.state.list}
-        onSelect={this.selectSubcategory}
+        options={this.options}
+        isSelected={this.isSelected}
+        onSelect={subcategory => onSelect(subcategory)}
         onCancel={onCancel}
       />
     )

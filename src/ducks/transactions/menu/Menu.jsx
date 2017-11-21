@@ -13,8 +13,8 @@ import { getParentCategory, getCategoryName } from 'ducks/categories/categoriesM
 import styles2 from 'ducks/transactions/Transactions.styl'
 import TransactionActions from 'ducks/transactions/TransactionActions'
 import { withUpdateCategory } from 'ducks/categories'
-import { updateCategory } from '../helpers'
 import palette from 'utils/palette.json'
+import { updateDocument } from 'cozy-client'
 import forward from 'assets/icons/icon-forward.svg'
 
 import styles from './ActionMenu.styl'
@@ -60,8 +60,17 @@ class Menu extends Component {
   }
 }
 
+const updateCategoryParams = {
+  updateCategory: (props, category) => {
+    const { dispatch, transaction } = props
+    transaction.categoryId = category.id
+    dispatch(updateDocument(transaction))
+  },
+  getCategoryId: ownProps => ownProps.transaction.categoryId
+}
+
 export default compose(
   withDispatch,
-  withUpdateCategory({updateCategory, getCategoryId: ownProps => ownProps.transaction.categoryId}),
+  withUpdateCategory(updateCategoryParams),
   translate()
 )(Menu)

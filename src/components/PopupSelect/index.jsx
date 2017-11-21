@@ -9,24 +9,26 @@ import palette from 'utils/palette.json'
 import styles from './styles.styl'
 
 class PopupSelect extends Component {
-  state = {
-    history: []
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      history: [props.options]
+    }
   }
 
   handleBack = () => {
     const [item, ...newHistory] = this.state.history
     this.setState({
-      history: newHistory,
-      list: newHistory.length > 0 ? newHistory[0] : this.props.list
+      history: newHistory
     })
     return item
   }
 
   handleSelect = item => {
-    if (item.child && item.child.length > 0) {
+    if (item.children && item.children.length > 0) {
       this.setState({
-        history: [item, ...this.state.history],
-        list: item.child
+        history: [item, ...this.state.history]
       })
     } else {
       this.props.onSelect(item)
@@ -34,22 +36,21 @@ class PopupSelect extends Component {
   }
 
   renderList = () => {
-    const list = this.state.list || this.props.list
     return (
       <div className={styles.content}>
-        {list.map(item => {
+        {this.state.history[0].children.map(item => {
           return (
             <Media
-              className={cx(styles.row, `u-ph-1 u-pv-half${item.selected ? ' u-text-bold' : ''}`)}
+              className={cx(styles.row, `u-ph-1 u-pv-half${this.props.isSelected(item) ? ' u-text-bold' : ''}`)}
               onClick={() => this.handleSelect(item)}
             >
               {item.icon && <Img className='u-pr-1'>
                 {item.icon}
               </Img>}
               <Bd className='u-ellipsis'>
-                {item.text}
+                {item.title}
               </Bd>
-              {item.child && item.child.length > 0 && <Img className='u-pl-1'>
+              {item.children && item.children.length > 0 && <Img className='u-pl-1'>
                 <Icon icon={forward} color={palette['cool-grey']} />
               </Img>}
             </Media>
@@ -64,12 +65,12 @@ class PopupSelect extends Component {
     const item = history[0]
     return (
       <Media>
-        {history && history.length > 0 &&
+        {history && history.length > 1 &&
           <Img className={styles.buttonIcon} onClick={this.handleBack}>
             <Icon icon={back} color={palette['cool-grey']} />
           </Img>}
         <Bd>
-          {item ? item.text : this.props.title}
+          {item.title}
         </Bd>
       </Media>
     )

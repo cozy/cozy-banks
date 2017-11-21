@@ -54,7 +54,7 @@ export const getCategoryId = name =>
 for (const key in categoriesStyle) {
   categoriesStyle[key].name = key
   categoriesStyle[key].id = getCategoryId(key)
-  categoriesStyle[key].child = {}
+  categoriesStyle[key].children = {}
   categoriesStyle[key].icon =
     require(`../../assets/icons/categories/icon-cat-${key}.svg`)
 }
@@ -96,7 +96,7 @@ Object.keys(tree).forEach(catId => {
   const catName = tree[catId]
   const parentName = getParentCategory(catId)
   if (catName !== parentName && parentName !== 'uncategorized' && categoriesStyle[parentName]) {
-    categoriesStyle[parentName].child[catId] = {
+    categoriesStyle[parentName].children[catId] = {
       name: catName,
       color: categoriesStyle[parentName].color,
       id: catId

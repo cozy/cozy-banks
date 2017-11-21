@@ -1,7 +1,6 @@
 /* global cozy */
 
 import { get } from 'lodash'
-import { updateDocument } from 'cozy-client'
 
 export const getLabel = transaction => transaction.label.toLowerCase().replace(/(?:^|\s)\S/g, a => a.toUpperCase())
 export const getBill = transaction => get(transaction, 'bills[0]')
@@ -14,10 +13,4 @@ export const getInvoice = async transaction => {
     throw new Error('Invoice is malformed. invoice: ' + doc.invoice)
   }
   return [doctype, id]
-}
-
-export const updateCategory = (props, category) => {
-  let { transaction } = props
-  transaction.categoryId = category.id
-  props.dispatch(updateDocument(transaction))
 }

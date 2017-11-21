@@ -8,10 +8,11 @@ import { flowRight as compose } from 'lodash'
 import { Table, TdSecondary } from 'components/Table'
 import TransactionMenu from './TransactionMenu'
 import { TransactionAction, getIcon, getLinkType } from './TransactionActions'
-import { getLabel, updateCategory } from './helpers'
+import { getLabel } from './helpers'
 import { getParentCategory, getCategoryName } from 'ducks/categories/categoriesMap'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { withUpdateCategory } from 'ducks/categories'
+import { updateDocument } from 'cozy-client'
 import { withDispatch } from 'utils'
 
 import styles from './Transactions.styl'
@@ -35,10 +36,19 @@ const TableHeadDesktop = ({t}) => (
   </thead>
 )
 
+const updateCategoryParams = {
+  updateCategory: (props, category) => {
+    const { dispatch, transaction } = props
+    transaction.categoryId = category.id
+    dispatch(updateDocument(transaction))
+  },
+  getCategoryId: ownProps => ownProps.transaction.categoryId
+}
+
 const TableTrDesktop = compose(
   translate(),
   withDispatch,
-  withUpdateCategory({updateCategory, getCategoryId: ownProps => ownProps.transaction.categoryId})
+  withUpdateCategory(updateCategoryParams)
 )(({ t, f, transaction, urls, isExtraLarge, showCategoryChoice }) => {
   const categoryName = getCategoryName(transaction.categoryId)
   const categoryTitle = t(`Data.subcategories.${categoryName}`)
