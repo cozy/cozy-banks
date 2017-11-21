@@ -30,6 +30,14 @@ const stCatTotalMobile = styles['bnk-category-total-mobile']
 
 const vHidden = { visibility: 'hidden' }
 
+const subCategorySort = (a, b) => {
+  if (b.percentage !== a.percentage) {
+    return b.percentage - a.percentage
+  } else {
+    return a.amount - b.amount
+  }
+}
+
 class Categories extends Component {
   toggle = categoryName => {
     const { selectedCategory, selectCategory } = this.props
@@ -62,13 +70,7 @@ class Categories extends Component {
             subcategory.percentage = Math.round(Math.abs(subcategory.amount) / absoluteSubcategoriesTotal * 100)
           }
         }
-        category.subcategories = category.subcategories.sort((a, b) => {
-          if (b.percentage !== a.percentage) {
-            return b.percentage - a.percentage
-          } else {
-            return a.amount - b.amount
-          }
-        })
+        category.subcategories = category.subcategories.sort(subCategorySort)
         transactionsTotal += category.amount
       }
     }
