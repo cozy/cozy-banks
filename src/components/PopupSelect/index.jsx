@@ -43,7 +43,7 @@ class PopupSelect extends Component {
               className={cx(styles.row, `u-ph-1 u-pv-half${item.selected ? ' u-text-bold' : ''}`)}
               onClick={() => this.handleSelect(item)}
             >
-              {item.icon && <Img className='u-pr-1' style={{ height: '2rem' }}>
+              {item.icon && <Img className='u-pr-1'>
                 {item.icon}
               </Img>}
               <Bd className='u-ellipsis'>

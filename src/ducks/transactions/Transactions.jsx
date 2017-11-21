@@ -51,7 +51,7 @@ const TableTrDesktop = compose(
       </TdSecondary>
       <td className={cx(sDesc, 'u-pv-half', 'u-pl-1')}>
         <Media>
-          <Img style={{height: '2rem'}} title={categoryTitle} onClick={showCategoryChoice}>
+          <Img title={categoryTitle} onClick={showCategoryChoice}>
             <CategoryIcon category={parentCategory} />
           </Img>
           <Bd className='u-pl-1'>

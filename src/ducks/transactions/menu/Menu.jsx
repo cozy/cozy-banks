@@ -43,7 +43,7 @@ class Menu extends Component {
         </div>
         <hr className='u-mv-0' />
         <Media className='u-ph-1 u-pv-half' onClick={showCategoryChoice}>
-          <Img style={{ height: '2rem' }}>
+          <Img>
             <CategoryIcon category={category} />
           </Img>
           <Bd className='u-pl-1 u-ellipsis'>
