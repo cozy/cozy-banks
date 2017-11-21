@@ -4,7 +4,8 @@ import {
   translate,
   Button,
   Tabs, TabPanels, TabPanel, TabList, Tab,
-  Modal
+  Modal,
+  Icon
 } from 'cozy-ui/react'
 import { Topbar } from 'ducks/commons'
 import Loading from 'components/Loading'
@@ -15,6 +16,7 @@ import { cozyConnect, fetchDocument, updateDocument } from 'cozy-client'
 import styles from './AccountsSettings.styl'
 import { flowRight as compose } from 'lodash'
 import { destroyAccount } from 'actions'
+import spinner from 'assets/icons/icon-spinner.svg'
 
 const DeleteConfirm = translate()(({ t, cancel, confirm, deleting }) => {
   return (
@@ -25,7 +27,7 @@ const DeleteConfirm = translate()(({ t, cancel, confirm, deleting }) => {
       secondaryText={t('General.cancel')}
       secondaryAction={cancel}
       primaryType='danger'
-      primaryText={deleting ? '...' : t('AccountSettings.confirm-deletion.confirm')}
+      primaryText={deleting ? <Icon icon={spinner} className='u-spin' color='white' /> : t('AccountSettings.confirm-deletion.confirm')}
       primaryAction={confirm}
     />
   )
