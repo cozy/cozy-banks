@@ -14,6 +14,9 @@ module.exports = {
         warnings: false
       }
     }),
+    new webpack.ProvidePlugin({
+      'cozy.client': 'cozy-client-js/dist/cozy-client.js'
+    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'), // to compile on production mode (redux)
       __DEVELOPMENT__: false,
