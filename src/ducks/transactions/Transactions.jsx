@@ -9,8 +9,11 @@ import { Table, TdSecondary } from 'components/Table'
 import TransactionMenu from './TransactionMenu'
 import { TransactionAction, getIcon, getLinkType } from './TransactionActions'
 import { getLabel } from './helpers'
-import { getParentCategory } from 'ducks/categories/categoriesMap'
+import { getParentCategory, getCategoryName } from 'ducks/categories/categoriesMap'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
+import { withUpdateCategory } from 'ducks/categories'
+import { updateDocument } from 'cozy-client'
+import { withDispatch } from 'utils'
 
 import styles from './Transactions.styl'
 import { Media, Bd, Img } from 'components/Media'
@@ -33,8 +36,24 @@ const TableHeadDesktop = ({t}) => (
   </thead>
 )
 
-const TableTrDesktop = ({ t, f, transaction, urls, isExtraLarge }) => {
-  const category = getParentCategory(transaction.categoryId)
+const updateCategoryParams = {
+  updateCategory: (props, category) => {
+    const { dispatch, transaction } = props
+    transaction.categoryId = category.id
+    dispatch(updateDocument(transaction))
+  },
+  getCategoryId: ownProps => ownProps.transaction.categoryId
+}
+
+const TableTrDesktop = compose(
+  translate(),
+  withDispatch,
+  withUpdateCategory(updateCategoryParams)
+)(({ t, f, transaction, urls, isExtraLarge, showCategoryChoice }) => {
+  const categoryName = getCategoryName(transaction.categoryId)
+  const categoryTitle = t(`Data.subcategories.${categoryName}`)
+  const parentCategory = getParentCategory(transaction.categoryId)
+
   return (
     <tr>
       <TdSecondary className={sDate}>
@@ -42,8 +61,8 @@ const TableTrDesktop = ({ t, f, transaction, urls, isExtraLarge }) => {
       </TdSecondary>
       <td className={cx(sDesc, 'u-pv-half', 'u-pl-1')}>
         <Media>
-          <Img style={{height: '2rem'}} title={t(`Data.categories.${category}`)}>
-            <CategoryIcon category={getParentCategory(transaction.categoryId)} />
+          <Img title={categoryTitle} onClick={showCategoryChoice}>
+            <CategoryIcon category={parentCategory} />
           </Img>
           <Bd className='u-pl-1'>
             {getLabel(transaction)}
@@ -61,15 +80,15 @@ const TableTrDesktop = ({ t, f, transaction, urls, isExtraLarge }) => {
       </TdSecondary>
     </tr>
   )
-}
+})
 
-const TableTrNoDesktop = ({f, transaction, urls, selectTransaction}) => {
+const TableTrNoDesktop = translate()(({t, f, transaction, urls, selectTransaction}) => {
   const icon = getIcon(getLinkType(transaction, urls))
   return (
     <tr onClick={() => selectTransaction(transaction)} className={styles['bnk-transaction-mobile']}>
       <td>
         <Media>
-          <Img className='u-mr-half'>
+          <Img className='u-mr-half' title={t(`Data.subcategories.${getCategoryName(transaction.categoryId)}`)}>
             <CategoryIcon category={getParentCategory(transaction.categoryId)} />
           </Img>
           <Bd className='u-mr-half u-ellipsis'>
@@ -88,7 +107,7 @@ const TableTrNoDesktop = ({f, transaction, urls, selectTransaction}) => {
       </td>
     </tr>
   )
-}
+})
 
 const Transactions = ({ t, f, transactions, urls, selectTransaction, breakpoints: { isDesktop, isExtraLarge } }) => {
   const transactionsByDate = {}
@@ -116,8 +135,8 @@ const Transactions = ({ t, f, transactions, urls, selectTransaction, breakpoints
             </tr>}
             {transactionsOrdered.map(transaction => {
               return isDesktop
-                ? <TableTrDesktop transaction={transaction} urls={urls} f={f} t={t} isExtraLarge={isExtraLarge} />
-                : <TableTrNoDesktop transaction={transaction} urls={urls} f={f} selectTransaction={selectTransaction} />
+                ? <TableTrDesktop transaction={transaction} urls={urls} isExtraLarge={isExtraLarge} />
+                : <TableTrNoDesktop transaction={transaction} urls={urls} selectTransaction={selectTransaction} />
             })}
           </tbody>
         )

@@ -199,7 +199,7 @@
     "categories": {
       "activities": "Leisure, sports",
       "dailyLife": "Everyday life",
-      "education": "Education, training",
+      "educationAndTraining": "Education, training",
       "excludeFromBudgetCat": "Out of budget",
       "goingOutAndTravel": "Outings, trips",
       "health": "Health",
@@ -213,6 +213,9 @@
     }
   },
   "Categories": {
+    "choice": {
+      "title": "Update category"
+    },
     "filter": {
       "credit": "earnings",
       "total": "Total",
