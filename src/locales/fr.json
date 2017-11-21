@@ -54,7 +54,7 @@
     "confirm-deletion": {
       "description": "Merci de confirmer la suppression du compte. Cela supprimera tous les mouvements présents dans l'application Bank ainsi que les liens entre ces mouvements et vos factures ou remboursements.",
       "confirm": "Confirmer la suppression",
-      "title": "Êtes-vous sur ?"
+      "title": "Êtes-vous sûr ?"
     }
   },
 
