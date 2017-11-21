@@ -145,7 +145,7 @@ class Categories extends Component {
 
     const renderer = (isDesktop || isTablet) ? 'renderCategoryDesktopTablet' : 'renderCategoryMobile'
     return (
-      <tbody>
+      <tbody key={category.name}>
         {this[renderer](category)}
       </tbody>
     )
