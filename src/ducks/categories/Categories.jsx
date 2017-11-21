@@ -166,8 +166,9 @@ class Categories extends Component {
     const isCollapsed = selectedCategory !== category.name
     const type = subcategory ? 'subcategories' : 'categories'
     const rowClass = subcategory ? stRowSub : (isCollapsed ? stRow : stUncollapsed)
+    const key = (subcategory || category).name
     return [
-      <tr key={category.name} className={rowClass} onClick={() => this.handleClick(category, subcategory)}>
+      <tr key={key} className={rowClass} onClick={() => this.handleClick(category, subcategory)}>
         <TdWithIcon className={cx(stCategory, !subcategory && styles[`bnk-table-category--${name}`])}>
           {t(`Data.${type}.${name}`)}
         </TdWithIcon>
