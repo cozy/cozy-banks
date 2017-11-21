@@ -7,14 +7,14 @@ const DEFAULT_LAST_SEPARATOR = false
 const DEFAULT_TAG = 'span'
 
 const BreadcrumbSeparator = ({separator}) => (
-  <span className={styles.separator}>{separator}</span>
+  <span className={styles.Breadcrumb__separator}>{separator}</span>
 )
 
 const BreadcrumbItem = ({item}) => {
   const Tag = item.tag
   return (
-    <span onClick={item.onClick} className={cx(item.isLast ? styles.last : styles.notLast, {[styles.link]: item.onClick})}>
-      <Tag className={styles.title}>
+    <span onClick={item.onClick} className={cx(styles.Breadcrumb__crumb, item.isLast && styles.Breadcrumb__last, {[styles.Breadcrumb__link]: item.onClick})}>
+      <Tag className={styles.Breadcrumb__title}>
         {item.name}
         {item.displaySeparator && <BreadcrumbSeparator separator={item.separator} />}
       </Tag>

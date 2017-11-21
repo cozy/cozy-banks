@@ -1,26 +1,22 @@
 @require '~styles/breakpoints.styl'
 
 .Breadcrumb
-  .title
+  &__title
     display inline-block
     color cool-grey
 
-  .last .title
+  &__crumb
+    display inline-block
+
+  &__last &__title
     color black
 
-  .separator
+  &__separator
     horizontally-padded .3em
 
-  .link
+  &__link
     cursor pointer
 
-  .previewOnClick
-    display none
-
   +small-screen()
-    .notLast
+    &__crumb:not(&__last)
       display none
-
-    .previewOnClick
-      display inherit
-      margin-right 8px
