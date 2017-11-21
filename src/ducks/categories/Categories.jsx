@@ -30,6 +30,14 @@ const stCatTotalMobile = styles['bnk-category-total-mobile']
 
 const vHidden = { visibility: 'hidden' }
 
+const subCategorySort = (a, b) => {
+  if (b.percentage !== a.percentage) {
+    return b.percentage - a.percentage
+  } else {
+    return a.amount - b.amount
+  }
+}
+
 class Categories extends Component {
   toggle = categoryName => {
     const { selectedCategory, selectCategory } = this.props
@@ -62,13 +70,7 @@ class Categories extends Component {
             subcategory.percentage = Math.round(Math.abs(subcategory.amount) / absoluteSubcategoriesTotal * 100)
           }
         }
-        category.subcategories = category.subcategories.sort((a, b) => {
-          if (b.percentage !== a.percentage) {
-            return b.percentage - a.percentage
-          } else {
-            return a.amount - b.amount
-          }
-        })
+        category.subcategories = category.subcategories.sort(subCategorySort)
         transactionsTotal += category.amount
       }
     }
@@ -143,7 +145,7 @@ class Categories extends Component {
 
     const renderer = (isDesktop || isTablet) ? 'renderCategoryDesktopTablet' : 'renderCategoryMobile'
     return (
-      <tbody>
+      <tbody key={category.name}>
         {this[renderer](category)}
       </tbody>
     )
@@ -164,8 +166,9 @@ class Categories extends Component {
     const isCollapsed = selectedCategory !== category.name
     const type = subcategory ? 'subcategories' : 'categories'
     const rowClass = subcategory ? stRowSub : (isCollapsed ? stRow : stUncollapsed)
+    const key = (subcategory || category).name
     return [
-      <tr key={category.name} className={rowClass} onClick={() => this.handleClick(category, subcategory)}>
+      <tr key={key} className={rowClass} onClick={() => this.handleClick(category, subcategory)}>
         <TdWithIcon className={cx(stCategory, !subcategory && styles[`bnk-table-category--${name}`])}>
           {t(`Data.${type}.${name}`)}
         </TdWithIcon>
