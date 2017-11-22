@@ -2,7 +2,6 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import cx from 'classnames'
 import styles from './style.styl'
 import withBackSwipe from 'utils/backSwipe'
 import { flowRight as compose } from 'lodash'
