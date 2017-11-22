@@ -1,28 +1,20 @@
 /* global cozy */
 
 import React from 'react'
-import classNames from 'classnames'
 import styles from './Topbar.styl'
 import withBreakpoints from 'utils/breakpointsAware'
 
-const { BarCenter, BarLeft } = cozy.bar
+const { BarCenter } = cozy.bar
 
-export const TopbarTitle = withBreakpoints()(({ children, breakpoints }) => {
-  return breakpoints.isMobile ? <BarCenter>
+export const Topbar = withBreakpoints()(({ children, breakpoints }) => {
+  const title = (
     <div className={styles['Topbar-title']}>
       {children}
     </div>
-  </BarCenter> : <div className={styles['Topbar-title']}>
-    {children}
-  </div>
+  )
+  return breakpoints.isMobile
+    ? <BarCenter children={title} />
+    : title
 })
 
-export const TopbarLeft = ({className, children}) => (
-  <BarLeft>
-    <div className={classNames(styles['Topbar-left'], className)}>
-      {children}
-    </div>
-  </BarLeft>
-)
-
-export default TopbarTitle
+export default Topbar

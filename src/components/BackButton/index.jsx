@@ -1,6 +1,8 @@
+/* global cozy */
+
 import React from 'react'
 import PropTypes from 'prop-types'
-import { TopbarLeft } from 'ducks/commons/Topbar'
+import cx from 'classnames'
 import styles from './style.styl'
 import withBackSwipe from 'utils/backSwipe'
 import { flowRight as compose } from 'lodash'
@@ -8,6 +10,8 @@ import { Icon } from 'cozy-ui/react'
 import arrowLeft from 'assets/icons/icon-arrow-left.svg'
 import breakpointsAware from 'utils/breakpointsAware'
 import palette from 'utils/palette.json'
+
+const { BarLeft } = cozy.bar
 
 /**
  * Display a BackButton on mobile. When it is displayed,
@@ -26,11 +30,11 @@ const BackButton = ({ onClick, to, router, breakpoints, arrow = false }) => {
   }
   const handleClick = onClick = onClick || (() => to && router.push(to))
   return breakpoints.isMobile ? (
-    <TopbarLeft className={styles['back-button']}>
-      <button onClick={handleClick}>
+    <BarLeft>
+      <button className='coz-bar-btn' onClick={handleClick}>
         <Icon icon={arrowLeft} color={palette['cool-grey']} />
       </button>
-    </TopbarLeft>
+    </BarLeft>
   ) : (arrow && <a onClick={handleClick} className={styles['back-arrow']}>
     <Icon icon={arrowLeft} />
   </a>)
