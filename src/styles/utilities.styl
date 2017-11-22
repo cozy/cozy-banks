@@ -1,5 +1,5 @@
 @require './spacers.styl'
-@require 'settings/icons'
+@require 'generic/animations'
 
 :global
   // Global utils classes comes here
@@ -14,7 +14,7 @@
         overflow hidden
 
     .u-spin
-        @extend $spin-anim
+        animation  spin 1s linear infinite
         display inline-block
 
     .u-text-bold

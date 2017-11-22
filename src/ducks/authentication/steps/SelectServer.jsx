@@ -124,7 +124,7 @@ export class SelectServer extends Component {
           <button
             role='button'
             type='submit'
-            className={'coz-btn coz-btn--regular'}
+            className={'c-btn c-btn--regular'}
             disabled={error || !value}
           >
             {t('mobile.onboarding.server_selection.button')}

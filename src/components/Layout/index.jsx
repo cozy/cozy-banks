@@ -10,6 +10,6 @@ import mkComponent from 'utils/mkComponent'
  * - `Content` adds sane padding for desktop/mobile
  *
  */
-export const Content = mkComponent('main', {className: styles['coz-content']})
-export const Layout = mkComponent('div', {className: styles['coz-layout']})
-export const Sidebar = mkComponent('aside', {className: styles['coz-sidebar']})
+export const Content = mkComponent('main', {className: styles['c-content']})
+export const Layout = mkComponent('div', {className: styles['c-layout']})
+export const Sidebar = mkComponent('aside', {className: styles['c-sidebar']})

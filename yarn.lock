@@ -2359,13 +2359,15 @@ cozy-slug@^0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/cozy-slug/-/cozy-slug-0.2.2.tgz#dcb60025334b5bc045270d4dc078f0508b29590f"
 
-"cozy-ui@git://github.com/cozy/cozy-ui.git#9bbd5f0405b6151ea4a0a1585d93f66a67231d98":
-  version "3.0.0-beta46"
-  resolved "git://github.com/cozy/cozy-ui.git#9bbd5f0405b6151ea4a0a1585d93f66a67231d98"
+cozy-ui@4:
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-4.0.5.tgz#e16cc21bc0a6b2dbf235a62c20500e9efdbd5ab6"
   dependencies:
     classnames "^2.2.5"
+    date-fns "^1.28.5"
     md5 "^2.2.0"
     normalize.css "^7.0.0"
+    stylus "^0.54.5"
 
 create-ecdh@^4.0.0:
   version "4.0.0"
@@ -2585,7 +2587,7 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
-date-fns@^1.28.2:
+date-fns@^1.28.2, date-fns@^1.28.5:
   version "1.29.0"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.29.0.tgz#12e609cdcb935127311d04d33334e2960a2a54e6"
 
@@ -9689,7 +9691,7 @@ stylus-loader@^3.0.1:
     lodash.clonedeep "^4.5.0"
     when "~3.6.x"
 
-stylus@^0.54.0:
+stylus@^0.54.0, stylus@^0.54.5:
   version "0.54.5"
   resolved "https://registry.yarnpkg.com/stylus/-/stylus-0.54.5.tgz#42b9560931ca7090ce8515a798ba9e6aa3d6dc79"
   dependencies:
