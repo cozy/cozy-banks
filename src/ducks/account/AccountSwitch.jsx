@@ -170,6 +170,10 @@ class AccountSwitch extends Component {
     accounts = accounts.data
     groups = groups.data
 
+    if (!accounts || accounts.length === 0) {
+      return
+    }
+
     return (
       <div className={styles['account-switch']}>
         {breakpoints.isMobile
