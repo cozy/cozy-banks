@@ -12,6 +12,7 @@ import plus from 'assets/icons/16/plus.svg'
 import styles from './AccountsSettings.styl'
 import btnStyles from 'styles/buttons'
 import { openCollect } from './collectLink'
+import AddAccount from './AddAccount'
 
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 
@@ -100,9 +101,12 @@ class AccountsSettings extends Component {
     return (
       <div>
         <p>
-          <Button className={btnStyles['btn--no-outline']} onClick={openCollect(collectUrl)}>
-            <Icon icon={plus} />&nbsp;{t('Accounts.add-account')}
-          </Button>
+          <AddAccount>
+            <Button className={btnStyles['btn--no-outline']} onClick={openCollect(collectUrl)}>
+              <Icon icon={plus} className='u-mr-half' />
+              {t('Accounts.add-account')}
+            </Button>
+          </AddAccount>
         </p>
         {myAccounts
           ? <AccountsTable accounts={myAccounts} t={t} />
