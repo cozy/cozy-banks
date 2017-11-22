@@ -57,7 +57,8 @@ const Groups = withRouter(class extends Component {
       <div>
         <p>
           <Button className={btnStyles['btn--no-outline']} onClick={() => router.push('/settings/groups/new')}>
-            <Icon icon={plus} /> {t('Groups.create')}
+            <Icon icon={plus} className='u-mr-half' />
+            {t('Groups.create')}
           </Button>
         </p>
         {groups.fetchStatus === 'loading'
