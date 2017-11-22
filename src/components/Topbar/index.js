@@ -1,19 +1,19 @@
 /* global cozy */
 
 import React from 'react'
-import styles from './Topbar.styl'
-import withBreakpoints from 'utils/breakpointsAware'
+import styles from './styles.styl'
+import withBreakpoints from 'cozy-ui/react/helpers/breakpoints'
 
 const { BarCenter } = cozy.bar
 
 export const Topbar = withBreakpoints()(({ children, breakpoints }) => {
   const title = (
-    <div className={styles['Topbar-title']}>
+    <div className={styles['Topbar']}>
       {children}
     </div>
   )
   return breakpoints.isMobile
-    ? <BarCenter children={title} />
+    ? <BarCenter children={ title } />
     : title
 })
 

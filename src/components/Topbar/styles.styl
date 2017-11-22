@@ -1,14 +1,12 @@
-@require '~styles/breakpoints.styl'
+@require 'settings/breakpoints'
 
-$coz-bar-size = 48px
-
-.Topbar-title
+.Topbar
     h2
         font-size 1.5rem
         margin 0 auto 2rem
 
 +small-screen()
-    .Topbar-title
+    .Topbar
         display     flex
         align-items center
         overflow hidden

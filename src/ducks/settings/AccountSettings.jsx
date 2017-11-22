@@ -7,7 +7,7 @@ import {
   Modal,
   Icon
 } from 'cozy-ui/react'
-import { Topbar } from 'ducks/commons'
+import Topbar from 'components/Topbar'
 import Loading from 'components/Loading'
 import { withDispatch } from 'utils'
 import BackButton from 'components/BackButton'
