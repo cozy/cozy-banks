@@ -12,9 +12,7 @@ class ActionMenu extends Component {
       recognizers: [[Hammer.Pan, { direction: Hammer.DIRECTION_VERTICAL }]]
     })
 
-    this.actionMenuNode = this.actionMenu.base
-
-    this.dismissHandler = this.dismiss.bind(this)
+    this.actionMenuNode = this.actionMenu.base.children[0]
 
     // to be completely accurate, `maximumGestureDelta` should be the difference between the top of the menu and the
     // bottom of the page; but using the height is much easier to compute and accurate enough.
@@ -68,7 +66,7 @@ class ActionMenu extends Component {
     this.actionMenuNode.style.transform = 'translateY(' + (progress * 100) + '%)'
   }
 
-  dismiss () {
+  dismissHandler = () => {
     this.props.onClose()
     // remove the event handler so subsequent transitions don't trigger dismissals
     this.actionMenuNode.removeEventListener('transitionend', this.dismissHandler)
