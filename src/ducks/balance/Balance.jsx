@@ -1,7 +1,7 @@
 import React from 'react'
 import { Table, TdSecondary } from 'components/Table'
 import { Figure, FigureBlock } from 'components/Figure'
-import { Topbar } from 'ducks/commons'
+import Topbar from 'components/Topbar'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
 import { translate } from 'cozy-ui/react/I18n'

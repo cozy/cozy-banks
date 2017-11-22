@@ -3,7 +3,7 @@ import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react/I18n'
 import Loading from 'components/Loading'
-import { TopbarTitle } from 'ducks/commons/Topbar'
+import Topbar from 'components/Topbar'
 import { getFilteredTransactions } from 'ducks/filters'
 import { fetchTransactions } from 'actions'
 import { transactionsByCategory, computeCategorieData } from './helpers'
@@ -49,9 +49,9 @@ class CategoriesPage extends Component {
     }
     return (
       <div className={styles['bnk-cat-page']}>
-        <TopbarTitle>
+        <Topbar>
           <Breadcrumb items={breadcrumbItems} tag='h2' />
-        </TopbarTitle>
+        </Topbar>
         {selectedCategory && <BackButton onClick={() => this.selectCategory(undefined)} />}
         {isFetching
           ? <Loading loadingType='categories' />

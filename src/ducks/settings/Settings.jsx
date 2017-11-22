@@ -1,7 +1,7 @@
 /* global __TARGET__ */
 import React from 'react'
 import { translate } from 'cozy-ui/react/I18n'
-import { Topbar } from 'ducks/commons'
+import Topbar from 'components/Topbar'
 import { Tabs, TabPanels, TabPanel, TabList, Tab } from 'cozy-ui/react'
 import styles from './Settings.styl'
 import { withRouter } from 'react-router'

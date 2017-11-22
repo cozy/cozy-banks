@@ -9,7 +9,7 @@ import {
   cozyConnect,
   fetchCollection
 } from 'cozy-client'
-import Topbar from 'ducks/commons/Topbar'
+import Topbar from 'components/Topbar'
 import BackButton from 'components/BackButton'
 import { Button, translate, Toggle } from 'cozy-ui/react'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
