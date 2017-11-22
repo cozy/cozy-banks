@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import classNames from 'classnames'
+import cx from 'classnames'
 import { translate, Icon } from 'cozy-ui/react'
 import { withDispatch } from 'utils'
 import { flowRight as compose } from 'lodash'
@@ -27,7 +27,7 @@ class Menu extends Component {
 
     return (
       <div className={styles['fil-actionmenu']}>
-        <div className={classNames(styles['menu-header'], styles2['coz-table-cell'])}>
+        <div className={cx(styles['menu-header'], styles2['coz-table-cell'])}>
           <div className={styles['menu-header-left']}>
             <h3>{getLabel(transaction)}</h3>
             <span>{f(transaction.date, 'dddd DD MMMM - h[h]mm')}</span>
@@ -42,7 +42,7 @@ class Menu extends Component {
           </div>
         </div>
         <hr className='u-mv-0' />
-        <Media className='u-ph-1 u-pv-half' onClick={showCategoryChoice}>
+        <Media className={cx(styles.hover, 'u-ph-1', 'u-pv-half')} onClick={showCategoryChoice}>
           <Img>
             <CategoryIcon category={category} />
           </Img>
