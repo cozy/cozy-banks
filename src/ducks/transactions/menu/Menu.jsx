@@ -15,7 +15,7 @@ import TransactionActions from 'ducks/transactions/TransactionActions'
 import { withUpdateCategory } from 'ducks/categories'
 import palette from 'utils/palette.json'
 import { updateDocument } from 'cozy-client'
-import forward from 'assets/icons/icon-forward.svg'
+import edit from 'assets/icons/icon-edit.svg'
 
 import styles from './ActionMenu.styl'
 
@@ -50,7 +50,7 @@ class Menu extends Component {
             {t(`Data.subcategories.${getCategoryName(transaction.categoryId)}`)}
           </Bd>
           <Img className='u-pl-1'>
-            <Icon icon={forward} color={palette['cool-grey']} />
+            <Icon icon={edit} color={palette['cool-grey']} />
           </Img>
         </Media>
         <hr />
