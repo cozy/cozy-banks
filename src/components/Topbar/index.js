@@ -13,7 +13,7 @@ export const Topbar = withBreakpoints()(({ children, breakpoints }) => {
     </div>
   )
   return breakpoints.isMobile
-    ? <BarCenter children={ title } />
+    ? <BarCenter children={title} />
     : title
 })
 
