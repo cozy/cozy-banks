@@ -35,11 +35,11 @@ class PopupSelect extends Component {
 
   renderList = () => {
     return (
-      <div className={styles.content}>
+      <div className={styles.PopupSelect__content}>
         {this.state.history[0].children.map(item => {
           return (
             <Media
-              className={cx(styles.row, `u-ph-1 u-pv-half${this.props.isSelected(item) ? ' u-text-bold' : ''}`)}
+              className={cx(styles.PopupSelect__row, `u-ph-1 u-pv-half${this.props.isSelected(item) ? ' u-text-bold' : ''}`)}
               onClick={() => this.handleSelect(item)}
             >
               {item.icon && <Img className='u-pr-1'>
