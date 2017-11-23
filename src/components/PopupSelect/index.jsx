@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import cx from 'classnames'
 import { Modal, Icon } from 'cozy-ui/react'
+import { ModalTitle, ModalDescription } from 'cozy-ui/react/Modal'
 import { Media, Bd, Img } from 'components/Media'
 import palette from 'utils/palette.json'
 
@@ -77,10 +78,15 @@ class PopupSelect extends Component {
   render () {
     return (
       <Modal
-        title={this.renderTitle()}
-        description={this.renderList()}
-        secondaryAction={this.props.onCancel}
-      />
+        overflowHidden={true}
+        secondaryAction={this.props.onCancel}>
+        <div className={styles.PopupSelect__title}>
+          <ModalTitle>{ this.renderTitle() }</ModalTitle>
+        </div>
+        <ModalDescription className='u-pb-0'>
+          { this.renderList() }
+        </ModalDescription>
+      </Modal>
     )
   }
 }
