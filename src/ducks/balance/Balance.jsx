@@ -3,13 +3,15 @@ import { Table, TdSecondary } from 'components/Table'
 import { Figure, FigureBlock } from 'components/Figure'
 import Topbar from 'components/Topbar'
 import { connect } from 'react-redux'
-import classNames from 'classnames'
-import { translate } from 'cozy-ui/react/I18n'
+import cx from 'classnames'
+import { translate, Button, Icon, withBreakpoints } from 'cozy-ui/react'
 import styles from './Balance.styl'
 import { getAccountsFiltered, getAccountOrGroupType, getAccountOrGroup } from 'ducks/filters'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
-import breakpointsAware from 'utils/breakpointsAware'
 import { flowRight as compose } from 'lodash'
+import btnStyles from 'styles/buttons'
+import CollectLink from 'ducks/settings/CollectLink'
+import plus from 'assets/icons/16/plus.svg'
 
 const Balance = ({t, accounts, type, accountOrGroup, breakpoints: { isMobile }}) => {
   const label = accountOrGroup ? (accountOrGroup.shortLabel || accountOrGroup.label) : ''
@@ -53,11 +55,11 @@ const Balance = ({t, accounts, type, accountOrGroup, breakpoints: { isMobile }})
             const isAlert = account.balance ? account.balance < 0 : false
             return (
               <tr>
-                <td className={classNames(styles['account_name'], { [styles.alert]: isAlert })}>
+                <td className={cx(styles['account_name'], { [styles.alert]: isAlert })}>
                   {account.shortLabel || account.label}
                   {isAlert && <span className='coz-error coz-error--warning' />}
                 </td>
-                <TdSecondary className={classNames(styles['solde'], { [styles.alert]: isAlert })}>
+                <TdSecondary className={cx(styles['solde'], { [styles.alert]: isAlert })}>
                   {account.balance && <Figure total={account.balance} currency='€' coloredNegative signed />}
                 </TdSecondary>
                 {!isMobile && <TdSecondary className={styles['bank_name']}>{account.institutionLabel}</TdSecondary>}
@@ -67,6 +69,12 @@ const Balance = ({t, accounts, type, accountOrGroup, breakpoints: { isMobile }})
           })}
         </tbody>
       </Table>
+      <CollectLink>
+        <Button className={cx(btnStyles['btn--no-outline'], 'u-pt-1')}>
+          <Icon icon={plus} className='u-mr-half' />
+          {t('Accounts.add-account')}
+        </Button>
+      </CollectLink>
     </div>
   )
 }
@@ -78,7 +86,7 @@ const mapStateToProps = state => ({
 })
 
 export default compose(
-  breakpointsAware(),
+  withBreakpoints(),
   connect(mapStateToProps),
   translate()
 )(Balance)

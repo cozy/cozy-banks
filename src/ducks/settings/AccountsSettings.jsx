@@ -4,15 +4,15 @@ import { connect } from 'react-redux'
 import { translate, Button, Icon } from 'cozy-ui/react'
 import { getSharingInfo } from 'reducers'
 import { groupBy, flowRight as compose } from 'lodash'
-import { getAppUrlBySource, findApps } from 'ducks/apps'
+import { getAppUrlBySource, fetchApps } from 'ducks/apps'
 import Table from 'components/Table'
 import Loading from 'components/Loading'
 import { cozyConnect, fetchCollection } from 'cozy-client'
 import plus from 'assets/icons/16/plus.svg'
 import styles from './AccountsSettings.styl'
 import btnStyles from 'styles/buttons'
-import { openCollect } from './collectLink'
-import AddAccount from './AddAccount'
+import CollectLink from 'ducks/settings/CollectLink'
+import cx from 'classnames'
 
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 
@@ -86,7 +86,7 @@ class AccountsSettings extends Component {
   }
 
   render () {
-    const { t, accounts, collectUrl } = this.props
+    const { t, accounts } = this.props
 
     if (accounts.fetchStatus === 'loading') {
       return <Loading />
@@ -100,14 +100,12 @@ class AccountsSettings extends Component {
 
     return (
       <div>
-        <p>
-          <AddAccount>
-            <Button className={btnStyles['btn--no-outline']} onClick={openCollect(collectUrl)}>
-              <Icon icon={plus} className='u-mr-half' />
-              {t('Accounts.add-account')}
-            </Button>
-          </AddAccount>
-        </p>
+        <CollectLink>
+          <Button className={cx(btnStyles['btn--no-outline'], 'u-pb-1')}>
+            <Icon icon={plus} className='u-mr-half' />
+            {t('Accounts.add-account')}
+          </Button>
+        </CollectLink>
         {myAccounts
           ? <AccountsTable accounts={myAccounts} t={t} />
           : <p>{t('Accounts.no-accounts')}</p>}
@@ -129,7 +127,7 @@ const mapDocumentsToProps = ownProps => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchApps: () => dispatch(findApps())
+  fetchApps: () => dispatch(fetchApps())
 })
 
 const mapStateToProps = state => ({

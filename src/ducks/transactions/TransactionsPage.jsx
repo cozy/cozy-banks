@@ -7,7 +7,7 @@ import Loading from 'components/Loading'
 import Topbar from 'components/Topbar'
 import { SelectDates, getFilteredTransactions } from 'ducks/filters'
 import { fetchTransactions } from 'actions'
-import { getAppUrlBySource, findApps } from 'ducks/apps'
+import { getAppUrlBySource, fetchApps } from 'ducks/apps'
 import { flowRight as compose } from 'lodash'
 import { cozyConnect } from 'cozy-client'
 import { getCategoryId } from 'ducks/categories/categoriesMap'
@@ -103,7 +103,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchApps: () => dispatch(findApps())
+  fetchApps: () => dispatch(fetchApps())
 })
 
 const mapDocumentsToProps = ownProps => ({

@@ -2,17 +2,17 @@
 
 import React from 'react'
 import styles from './styles.styl'
-import withBreakpoints from 'cozy-ui/react/helpers/breakpoints'
+import { withBreakpoints } from 'cozy-ui/react'
 
 const { BarCenter } = cozy.bar
 
-export const Topbar = withBreakpoints()(({ children, breakpoints }) => {
+export const Topbar = withBreakpoints()(({ children, breakpoints: { isMobile } }) => {
   const title = (
     <div className={styles['Topbar']}>
       {children}
     </div>
   )
-  return breakpoints.isMobile
+  return isMobile
     ? <BarCenter children={title} />
     : title
 })

@@ -1,7 +1,7 @@
 /* global cozy */
 
 import React, { Component } from 'react'
-import { translate } from 'cozy-ui/react/I18n'
+import { translate, withBreakpoints } from 'cozy-ui/react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import classNames from 'classnames'
@@ -14,7 +14,6 @@ import styles from './AccountSwitch.styl'
 import { flowRight as compose } from 'lodash'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { cozyConnect, fetchCollection } from 'cozy-client'
-import breakpointsAware from 'utils/breakpointsAware'
 
 const { BarRight } = cozy.bar
 
@@ -163,16 +162,20 @@ class AccountSwitch extends Component {
   }
 
   render () {
-    const { accountOrGroup, resetAccountOrGroup, filterByAccount, filterByGroup, breakpoints } = this.props
+    const { accountOrGroup, resetAccountOrGroup, filterByAccount, filterByGroup, breakpoints: { isMobile } } = this.props
     const { open } = this.state
     let { accounts, groups } = this.props
     const isFetching = isLoading(accounts) || isLoading(groups)
     accounts = accounts.data
     groups = groups.data
 
+    if (!accounts || accounts.length === 0) {
+      return
+    }
+
     return (
       <div className={styles['account-switch']}>
-        {breakpoints.isMobile
+        {isMobile
           ? <BarRight>
             <AccountSwitchMobile accountOrGroup={accountOrGroup} onClick={this.toggle} />
           </BarRight>
@@ -217,5 +220,5 @@ export default compose(
   cozyConnect(mapDocumentsToProps),
   connect(mapStateToProps, mapDispatchToProps),
   translate(),
-  breakpointsAware()
+  withBreakpoints()
 )(AccountSwitch)

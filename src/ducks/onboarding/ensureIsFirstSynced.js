@@ -4,7 +4,10 @@ import { connect } from 'react-redux'
 import { isSynced, isFirstSync, hasSyncStarted, isSyncInError, startSync, refetchCollections } from 'cozy-client'
 import Loading from 'components/Loading'
 import styles from './Onboarding.styl'
-import { Content } from 'components/Layout'
+import { Content, Layout } from 'components/Layout'
+import Topbar from 'components/Topbar'
+import { flowRight as compose } from 'lodash'
+import { translate } from 'cozy-ui/react'
 
 /**
  * Displays Loading until PouchDB has done its first replication.
@@ -21,17 +24,22 @@ class Wrapper extends Component {
     if (__TARGET__ !== 'mobile') {
       return this.props.children
     }
-    const { isOffline, isSynced, isFirstSync, hasSyncStarted, children } = this.props
+    const { t, isOffline, isSynced, isFirstSync, hasSyncStarted, children } = this.props
     if (!isOffline && !hasSyncStarted) {
       return null
     }
     if (!isOffline && !isSynced && isFirstSync) {
       return (
-        <Content>
-          <div className={styles.Onboarding__loading}>
-            <Loading />
-          </div>
-        </Content>
+        <Layout>
+          <Content>
+            <Topbar>
+              <h2>{t('Loading.loading')}</h2>
+            </Topbar>
+            <div className={styles.Onboarding__loading}>
+              <Loading />
+            </div>
+          </Content>
+        </Layout>
       )
     }
     return children
@@ -45,4 +53,7 @@ const mapStateToProps = (state) => ({
   isOffline: isSyncInError(state)
 })
 
-export default connect(mapStateToProps)(Wrapper)
+export default compose(
+  connect(mapStateToProps),
+  translate()
+)(Wrapper)

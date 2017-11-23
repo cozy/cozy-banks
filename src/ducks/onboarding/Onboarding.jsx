@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { translate, Button } from 'cozy-ui/react'
-import { openCollect } from 'ducks/settings/collectLink'
-import { flowRight as compose } from 'lodash'
-import { getAppUrlBySource, findApps } from 'ducks/apps'
+import Topbar from 'components/Topbar'
+import CollectLink from 'ducks/settings/CollectLink'
 
 import calculator from 'assets/icons/icon-calculator.svg'
 import watch from 'assets/icons/icon-watch.svg'
@@ -16,16 +14,14 @@ import {
 } from './Hero'
 
 class Onboarding extends Component {
-  componentDidMount () {
-    this.props.fetchApps()
-  }
-
   render () {
-    const { t, collectUrl } = this.props
+    const { t } = this.props
 
     return (
       <Hero>
-        <Title>{t('Onboarding.title')}</Title>
+        <Topbar>
+          <Title>{t('Onboarding.title')}</Title>
+        </Topbar>
         <Sections>
           <Section>
             <Icon color={palette.pomegranate} icon={calculator} />
@@ -44,24 +40,15 @@ class Onboarding extends Component {
           </Section>
         </Sections>
         <CTA>
-          <Button theme='regular' onClick={openCollect(collectUrl)}>
-            {t('Onboarding.connect-bank-account')}
-          </Button>
+          <CollectLink>
+            <Button theme='regular'>
+              {t('Onboarding.connect-bank-account')}
+            </Button>
+          </CollectLink>
         </CTA>
       </Hero>
     )
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  fetchApps: () => dispatch(findApps())
-})
-
-const mapStateToProps = state => ({
-  collectUrl: getAppUrlBySource(state, 'github.com/cozy/cozy-collect')
-})
-
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  translate()
-)(Onboarding)
+export default translate()(Onboarding)

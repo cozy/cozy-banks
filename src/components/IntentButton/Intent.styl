@@ -1,0 +1,12 @@
+@require 'settings/breakpoints'
+
+.intentViewer
+    iframe
+        border: none
+        height: 400px
+        border-radius: 0.5em
+        width: 100%
+
+        +medium-screen()
+            width: 800px
+            height: 610px // Magic height to show 3 row of konnectors on desktop
