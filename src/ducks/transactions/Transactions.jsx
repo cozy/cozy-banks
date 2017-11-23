@@ -1,9 +1,8 @@
 import React from 'react'
 import cx from 'classnames'
 import compareDesc from 'date-fns/compare_desc'
-import { Icon, translate } from 'cozy-ui/react'
+import { Icon, translate, withBreakpoints } from 'cozy-ui/react'
 import { Figure } from 'components/Figure'
-import breakpointsAware from 'utils/breakpointsAware'
 import { flowRight as compose } from 'lodash'
 import { Table, TdSecondary } from 'components/Table'
 import TransactionMenu from './TransactionMenu'
@@ -146,6 +145,6 @@ const Transactions = ({ t, f, transactions, urls, selectTransaction, breakpoints
 }
 
 export default compose(
-  breakpointsAware(),
+  withBreakpoints(),
   translate()
 )(Transactions)

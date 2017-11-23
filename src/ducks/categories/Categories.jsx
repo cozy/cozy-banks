@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import cx from 'classnames'
-import { translate } from 'cozy-ui/react/I18n'
+import { translate, withBreakpoints } from 'cozy-ui/react'
 import Toggle from 'cozy-ui/react/Toggle'
 import CategoryIcon from './CategoryIcon'
 import { Media, Bd, Img } from 'components/Media'
@@ -10,7 +10,6 @@ import { Figure, FigureBlock } from 'components/Figure'
 import { SelectDates } from 'ducks/filters'
 import styles from './styles'
 import CategoriesChart from './CategoriesChart'
-import breakpointsAware from 'utils/breakpointsAware'
 import { flowRight as compose } from 'lodash'
 
 const stAmount = styles['bnk-table-amount']
@@ -227,6 +226,6 @@ class Categories extends Component {
 
 export default compose(
   withRouter,
-  breakpointsAware(),
+  withBreakpoints(),
   translate()
 )(Categories)

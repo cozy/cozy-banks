@@ -4,11 +4,10 @@ import { Figure, FigureBlock } from 'components/Figure'
 import Topbar from 'components/Topbar'
 import { connect } from 'react-redux'
 import cx from 'classnames'
-import { translate, Button, Icon } from 'cozy-ui/react'
+import { translate, Button, Icon, withBreakpoints } from 'cozy-ui/react'
 import styles from './Balance.styl'
 import { getAccountsFiltered, getAccountOrGroupType, getAccountOrGroup } from 'ducks/filters'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
-import breakpointsAware from 'utils/breakpointsAware'
 import { flowRight as compose } from 'lodash'
 import btnStyles from 'styles/buttons'
 import CollectLink from 'ducks/settings/CollectLink'
@@ -87,7 +86,7 @@ const mapStateToProps = state => ({
 })
 
 export default compose(
-  breakpointsAware(),
+  withBreakpoints(),
   connect(mapStateToProps),
   translate()
 )(Balance)

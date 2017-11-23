@@ -5,9 +5,8 @@ import PropTypes from 'prop-types'
 import styles from './style.styl'
 import withBackSwipe from 'utils/backSwipe'
 import { flowRight as compose } from 'lodash'
-import { Icon } from 'cozy-ui/react'
+import { Icon, withBreakpoints } from 'cozy-ui/react'
 import arrowLeft from 'assets/icons/icon-arrow-left.svg'
-import breakpointsAware from 'utils/breakpointsAware'
 import palette from 'utils/palette.json'
 
 const { BarLeft } = cozy.bar
@@ -22,13 +21,13 @@ const { BarLeft } = cozy.bar
  * <BackButton to={ '/settings' } />
  * ```
  */
-const BackButton = ({ onClick, to, router, breakpoints, arrow = false }) => {
+const BackButton = ({ onClick, to, router, breakpoints: { isMobile }, arrow = false }) => {
   const location = router.getCurrentLocation()
   if (!onClick && !to) {
     to = location.pathname.split('/').slice(0, -1).join('/')
   }
   const handleClick = onClick = onClick || (() => to && router.push(to))
-  return breakpoints.isMobile ? (
+  return isMobile ? (
     <BarLeft>
       <button className='coz-bar-btn' onClick={handleClick}>
         <Icon icon={arrowLeft} color={palette['cool-grey']} />
@@ -49,6 +48,6 @@ BackButton.propTypes = {
 }
 
 export default compose(
-  breakpointsAware(),
+  withBreakpoints(),
   withBackSwipe({ getLocation: ownProps => ownProps.to })
 )(BackButton)
