@@ -1,4 +1,4 @@
-@require 'cozy-ui'
+@require 'settings/breakpoints'
 
 .intentViewer
     iframe
@@ -7,6 +7,6 @@
         border-radius: 0.5em
         width: 100%
 
-        @media screen and (min-width: 768px)
+        +medium-screen()
             width: 800px
-            height: 610px // Magic heigth to show 3 row of konnectors on desktop
+            height: 610px // Magic height to show 3 row of konnectors on desktop
