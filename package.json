@@ -114,6 +114,7 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
+    "babel-preset-cozy-app": "^0.3.1",
     "chart.js": "^2.7.0",
     "classnames": "^2.2.0",
     "cordova": "^7.1.0",
