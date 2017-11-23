@@ -65,7 +65,7 @@ class PopupSelect extends Component {
     return (
       <Media>
         {history && history.length > 1 &&
-          <Img className={styles.buttonIcon} onClick={this.handleBack}>
+          <Img className={styles.PopupSelect__back} onClick={this.handleBack}>
             <Icon icon='back' color={palette['cool-grey']} />
           </Img>}
         <Bd>
