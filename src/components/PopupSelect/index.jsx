@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import cx from 'classnames'
 import { Modal, Icon } from 'cozy-ui/react'
+import { ModalTitle, ModalDescription } from 'cozy-ui/react/Modal'
 import { Media, Bd, Img } from 'components/Media'
 import palette from 'utils/palette.json'
 
@@ -35,11 +36,11 @@ class PopupSelect extends Component {
 
   renderList = () => {
     return (
-      <div className={styles.content}>
+      <div className={styles.PopupSelect__content}>
         {this.state.history[0].children.map(item => {
           return (
             <Media
-              className={cx(styles.row, `u-ph-1 u-pv-half${this.props.isSelected(item) ? ' u-text-bold' : ''}`)}
+              className={cx(styles.PopupSelect__row, `u-ph-1 u-pv-half${this.props.isSelected(item) ? ' u-text-bold' : ''}`)}
               onClick={() => this.handleSelect(item)}
             >
               {item.icon && <Img className='u-pr-1'>
@@ -64,7 +65,7 @@ class PopupSelect extends Component {
     return (
       <Media>
         {history && history.length > 1 &&
-          <Img className={styles.buttonIcon} onClick={this.handleBack}>
+          <Img className={styles.PopupSelect__back} onClick={this.handleBack}>
             <Icon icon='back' color={palette['cool-grey']} />
           </Img>}
         <Bd>
@@ -77,10 +78,15 @@ class PopupSelect extends Component {
   render () {
     return (
       <Modal
-        title={this.renderTitle()}
-        description={this.renderList()}
-        secondaryAction={this.props.onCancel}
-      />
+        overflowHidden
+        secondaryAction={this.props.onCancel}>
+        <div className={styles.PopupSelect__title}>
+          <ModalTitle>{ this.renderTitle() }</ModalTitle>
+        </div>
+        <ModalDescription className='u-pb-0'>
+          { this.renderList() }
+        </ModalDescription>
+      </Modal>
     )
   }
 }

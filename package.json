@@ -114,6 +114,7 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
+    "babel-preset-cozy-app": "^0.3.1",
     "chart.js": "^2.7.0",
     "classnames": "^2.2.0",
     "cordova": "^7.1.0",
@@ -121,7 +122,7 @@
     "cozy-client": "0.3.0",
     "cozy-client-js": "0.3.19",
     "cozy-konnector-libs": "^2.5.6",
-    "cozy-ui": "cozy/cozy-ui#79930d216052d26bcd3dd681abb0fc3c7ebdc33e",
+    "cozy-ui": "git://github.com/cozy/cozy-ui.git",
     "date-fns": "^1.28.2",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-standard": "^3.0.1",

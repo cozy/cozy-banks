@@ -1,15 +1,24 @@
-.content
+@require 'settings/palette'
+
+.PopupSelect__content
     margin-left -1.5em
     width calc(100% + 3em)
-    border-top 1px solid silver
 
-.row
+.PopupSelect__title
+    border-bottom 1px solid silver
+
+.PopupSelect__row
     border-bottom 1px solid silver
 
     &:hover
         background-color pale-grey
         cursor pointer
 
-.buttonIcon
-    padding-right .5rem
+    &:last-child
+        border-bottom 0
+
+.PopupSelect__back
     cursor pointer
+    margin-right 1.25rem
+    margin-left -0.25rem
+    font-size 1.5rem
