@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { translate, Button, Icon } from 'cozy-ui/react'
 import { getSharingInfo } from 'reducers'
 import { groupBy, flowRight as compose } from 'lodash'
-import { getAppUrlBySource, findApps } from 'ducks/apps'
+import { getAppUrlBySource, fetchApps } from 'ducks/apps'
 import Table from 'components/Table'
 import Loading from 'components/Loading'
 import { cozyConnect, fetchCollection } from 'cozy-client'
@@ -127,7 +127,7 @@ const mapDocumentsToProps = ownProps => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchApps: () => dispatch(findApps())
+  fetchApps: () => dispatch(fetchApps())
 })
 
 const mapStateToProps = state => ({

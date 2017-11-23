@@ -1,37 +1,40 @@
 import React from 'react'
 import { Modal } from 'cozy-ui/react'
-import styles from './IntentButton.styl'
 import Intent from './Intent'
+
+/*
+ * This component aims to display intent modal
+ */
 
 class IntentButton extends React.Component {
   state = {
-    modalIsOpen: false
+    modalOpened: false
   }
 
   openModal = () => {
     this.setState({
-      modalIsOpen: true
+      modalOpened: true
     })
   }
 
   closeModal = () => {
     this.setState({
-      modalIsOpen: false
+      modalOpened: false
     })
   }
 
   render () {
     const { data, action, docType, children } = this.props
-    const { modalIsOpen } = this.state
+    const { modalOpened } = this.state
     return (
-      <span className={styles.intentButton}>
-        {modalIsOpen && (
-          <Modal secondaryAction={() => this.closeModal()}>
+      <span>
+        {modalOpened && (
+          <Modal secondaryAction={() => this.closeModal()} withCross={false}>
             <Intent
               action={action}
               docType={docType}
               data={data}
-              closeModal={this.closeModal}
+              callback={this.closeModal}
             />
           </Modal>
         )}

@@ -2,9 +2,13 @@
 import React from 'react'
 import styles from './Intent.styl'
 
+/*
+ * This component aims to create intent and call function on the end
+ */
+
 class Intent extends React.Component {
   componentDidMount () {
-    const { action, docType, data, closeModal } = this.props
+    const { action, docType, data, callback } = this.props
     cozy.client.intents
       .create(action, docType, {
         ...data,
@@ -12,14 +16,13 @@ class Intent extends React.Component {
       })
       .start(this.intentViewer)
       .then(() => {
-        closeModal()
+        callback()
       })
   }
 
   render () {
     return (
       <div
-        id='intentViewer'
         className={styles.intentViewer}
         ref={intentViewer => (this.intentViewer = intentViewer)}
       />

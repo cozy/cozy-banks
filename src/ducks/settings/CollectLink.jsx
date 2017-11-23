@@ -3,12 +3,20 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import IntentButton from 'components/IntentButton'
 import { flowRight as compose } from 'lodash'
-import { getAppUrlBySource, findApps } from 'ducks/apps'
+import { getAppUrlBySource, fetchApps } from 'ducks/apps'
+
+/*
+ * This component aims to open collect:
+ * - on browser, it displays collect intent
+ * - on mobile, it opens a new window with collect url
+ *
+ * TODO: remove this component when intents will work on mobile
+ */
 
 // Mobile
 
 const mapDispatchToProps = dispatch => ({
-  fetchApps: () => dispatch(findApps())
+  fetchApps: () => dispatch(fetchApps())
 })
 
 const mapStateToProps = state => ({
@@ -48,11 +56,11 @@ class BrowserLink extends Component {
   }
 }
 
-class CollectLink extends Component {
-  render () {
-    const Link = __TARGET__ === 'mobile' ? MobileLink : BrowserLink
-    return <Link {...this.props} />
-  }
+// Switch according to target
+
+const CollectLink = (props) => {
+  const Link = __TARGET__ === 'mobile' ? MobileLink : BrowserLink
+  return <Link {...props} />
 }
 
 export default CollectLink
