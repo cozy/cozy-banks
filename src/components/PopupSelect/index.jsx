@@ -78,7 +78,7 @@ class PopupSelect extends Component {
   render () {
     return (
       <Modal
-        overflowHidden={true}
+        overflowHidden
         secondaryAction={this.props.onCancel}>
         <div className={styles.PopupSelect__title}>
           <ModalTitle>{ this.renderTitle() }</ModalTitle>
