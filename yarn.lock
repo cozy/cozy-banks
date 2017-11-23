@@ -1001,18 +1001,6 @@ babel-preset-cozy-app@^0.3.1:
     babel-preset-react "^6.24.1"
     babel-runtime "^6.26.0"
 
-babel-preset-cozy-app@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/babel-preset-cozy-app/-/babel-preset-cozy-app-0.3.1.tgz#3b5d646b5038afad00b16f1c4eada4c4fa8b955f"
-  dependencies:
-    babel-plugin-transform-class-properties "^6.24.1"
-    babel-plugin-transform-object-rest-spread "^6.26.0"
-    babel-plugin-transform-react-jsx "^6.24.1"
-    babel-plugin-transform-runtime "^6.23.0"
-    babel-preset-env "^1.6.1"
-    babel-preset-react "^6.24.1"
-    babel-runtime "^6.26.0"
-
 babel-preset-env@^1.0.2, babel-preset-env@^1.6.1:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/babel-preset-env/-/babel-preset-env-1.6.1.tgz#a18b564cc9b9afdf4aae57ae3c1b0d99188e6f48"
@@ -2383,9 +2371,9 @@ cozy-slug@^0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/cozy-slug/-/cozy-slug-0.2.2.tgz#dcb60025334b5bc045270d4dc078f0508b29590f"
 
-cozy-ui@cozy/cozy-ui#79930d216052d26bcd3dd681abb0fc3c7ebdc33e:
+"cozy-ui@git://github.com/cozy/cozy-ui.git":
   version "4.0.5"
-  resolved "https://codeload.github.com/cozy/cozy-ui/tar.gz/79930d216052d26bcd3dd681abb0fc3c7ebdc33e"
+  resolved "git://github.com/cozy/cozy-ui.git#997754c0bc45e5f7fa4bfeb64deacba60eb4d1fe"
   dependencies:
     babel-preset-cozy-app "^0.3.1"
     classnames "^2.2.5"
