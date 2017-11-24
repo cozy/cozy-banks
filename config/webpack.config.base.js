@@ -76,6 +76,11 @@ module.exports = {
             }
           ]
         })
+      },
+      // Fonts
+      {
+        test: /\.woff2?$/,
+        loader: 'file-loader'
       }
     ],
     noParse: [/localforage\/dist/]
