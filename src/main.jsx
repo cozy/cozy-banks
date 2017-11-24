@@ -14,6 +14,10 @@ import 'number-to-locale-string'
 import { setupHistory } from 'utils/history'
 import { getClient } from 'utils/client'
 
+if (__TARGET__ === 'mobile') {
+  require('styles/mobile')
+}
+
 const renderAppWithPersistedState = persistedState => {
   const root = document.querySelector('[role=application]')
   const data = root.dataset
