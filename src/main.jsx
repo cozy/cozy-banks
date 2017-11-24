@@ -25,7 +25,7 @@ const renderAppWithPersistedState = persistedState => {
 
   const history = setupHistory()
 
-  const client = getClient()
+  const client = getClient(persistedState)
   const store = configureStore(client, persistedState)
   persistState(store)
 
