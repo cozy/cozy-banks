@@ -1,6 +1,5 @@
 /* global cozy */
 import React from 'react'
-import styles from './Intent.styl'
 
 /*
  * This component aims to create intent and call function on the end
@@ -22,10 +21,7 @@ class Intent extends React.Component {
 
   render () {
     return (
-      <div
-        className={styles.intentViewer}
-        ref={intentViewer => (this.intentViewer = intentViewer)}
-      />
+      <div ref={intentViewer => (this.intentViewer = intentViewer)} />
     )
   }
 }
