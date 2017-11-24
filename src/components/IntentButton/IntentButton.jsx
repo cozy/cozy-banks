@@ -1,6 +1,7 @@
 import React from 'react'
 import { Modal } from 'cozy-ui/react'
 import Intent from './Intent'
+import styles from './Intent.styl'
 
 /*
  * This component aims to display intent modal
@@ -29,7 +30,7 @@ class IntentButton extends React.Component {
     return (
       <span>
         {modalOpened && (
-          <Modal secondaryAction={() => this.closeModal()} withCross={false}>
+          <Modal className={styles.intentModal} secondaryAction={() => this.closeModal()} withCross={false}>
             <Intent
               action={action}
               docType={docType}
