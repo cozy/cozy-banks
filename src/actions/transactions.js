@@ -9,7 +9,6 @@ import { fetchCollection } from 'cozy-client'
 let firstFetch = true
 const fetchTransactions = () => {
   const action = fetchCollection('transactions', TRANSACTION_DOCTYPE, {
-    selector: {date: {'$gt': null}},
     sort: {date: 'desc'},
     descending: true,
     limit: 100,
