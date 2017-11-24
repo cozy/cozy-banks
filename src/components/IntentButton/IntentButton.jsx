@@ -30,7 +30,7 @@ class IntentButton extends React.Component {
     return (
       <span>
         {modalOpened && (
-          <Modal className={styles.intentModal} secondaryAction={() => this.closeModal()} withCross={false}>
+          <Modal overflowHidden className={styles.intentModal} secondaryAction={() => this.closeModal()} withCross={false}>
             <Intent
               action={action}
               docType={docType}
