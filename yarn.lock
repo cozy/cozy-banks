@@ -2371,9 +2371,9 @@ cozy-slug@^0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/cozy-slug/-/cozy-slug-0.2.2.tgz#dcb60025334b5bc045270d4dc078f0508b29590f"
 
-"cozy-ui@git://github.com/cozy/cozy-ui.git":
+"cozy-ui@git://github.com/cozy/cozy-ui.git#63ea0760c3106072ed7c50ad35df3ca16d76fc06":
   version "4.0.5"
-  resolved "git://github.com/cozy/cozy-ui.git#997754c0bc45e5f7fa4bfeb64deacba60eb4d1fe"
+  resolved "git://github.com/cozy/cozy-ui.git#63ea0760c3106072ed7c50ad35df3ca16d76fc06"
   dependencies:
     babel-preset-cozy-app "^0.3.1"
     classnames "^2.2.5"
