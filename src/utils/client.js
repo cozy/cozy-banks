@@ -19,14 +19,14 @@ export const getClientBrowser = () => {
 
 const memoize = fn => {
   let res
-  return () => {
+  return (...args) => {
     if (typeof res === 'undefined') {
-      res = fn()
+      res = fn(...args)
     }
     return res
   }
 }
 
-export const getClient = memoize(() => {
-  return __TARGET__ === 'mobile' ? getClientMobile() : getClientBrowser()
+export const getClient = memoize(persistedState => {
+  return __TARGET__ === 'mobile' ? getClientMobile(persistedState) : getClientBrowser()
 })
