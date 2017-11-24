@@ -97,7 +97,7 @@ module.exports = {
       test: /\.css$/,
       plugins: [
         require('autoprefixer')(['last 2 versions']),
-        require('css-mqpacker'),
+        require('css-mqpacker')({sort: true}),
         require('postcss-discard-duplicates'),
         require('postcss-discard-empty')
       ].concat(
