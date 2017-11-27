@@ -3,6 +3,7 @@
 const path = require('path')
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 const PostCSSAssetsPlugin = require('postcss-assets-webpack-plugin')
+const sortCSSmq = require('sort-css-media-queries');
 
 const { extractor, production } = require('./webpack.vars')
 const SRC_DIR = path.resolve(__dirname, '../src')
@@ -97,7 +98,7 @@ module.exports = {
       test: /\.css$/,
       plugins: [
         require('autoprefixer')(['last 2 versions']),
-        require('css-mqpacker'),
+        require('css-mqpacker')({sort: sortCSSmq}),
         require('postcss-discard-duplicates'),
         require('postcss-discard-empty')
       ].concat(

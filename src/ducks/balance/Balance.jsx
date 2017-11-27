@@ -70,7 +70,7 @@ const Balance = ({t, accounts, type, accountOrGroup, breakpoints: { isMobile }})
         </tbody>
       </Table>
       <CollectLink>
-        <Button className={cx(btnStyles['btn--no-outline'], 'u-pt-1')}>
+        <Button className={cx(btnStyles['btn--no-outline'], 'u-pv-1')}>
           <Icon icon={plus} className='u-mr-half' />
           {t('Accounts.add-account')}
         </Button>

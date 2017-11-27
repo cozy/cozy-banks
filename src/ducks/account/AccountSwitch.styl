@@ -3,6 +3,7 @@
 @require 'objects/*'
 
 @require 'tools/mixins.styl'
+@require 'settings/breakpoints'
 
 .account-switch
     position relative
@@ -151,8 +152,14 @@
         margin 0
 
     .account-switch-button-mobile
-        background embedurl('../../assets/icons/actions/filter.svg') center center no-repeat
+        $size = 3rem // same height as cozy-bar
+        background embedurl('../../assets/icons/actions/filter.svg') center center no-repeat alpha(silver, 0.8)
         margin 0
+        border 0
+        width $size
+        height $size
+        cursor pointer
+        outline 0
 
         &.active
             background-image embedurl('../../assets/icons/actions/filter-active.svg')
@@ -167,13 +174,7 @@
         height 0
 
     .account-switch-button-mobile
-        $size = 3rem // same height as cozy-bar
         background-color transparent
-        width $size
-        height $size
-        border 0
-        cursor pointer
-        outline 0
 
 @media (max-width: (421/basefont)rem)
     .account-switch-menu-content
