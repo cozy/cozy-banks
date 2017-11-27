@@ -1,0 +1,49 @@
+{{#extend "layout"}}
+  {{#content "appLogo"}}
+      <mj-table width="auto" css-class="header__title">
+        <tr>
+          <td width="30px">
+            <img align="left" width="30px" src="https://files.cozycloud.cc/bank/email-assets/logo-bank.png" alt="Cozy Bank" />
+          </td>
+          <td>
+            <h1 style="line-height: 32px">&nbsp;&nbsp;Bank</h1>
+          </td>
+        </tr>
+      </mj-table>
+  {{/content}}
+
+  {{#content "appName"}}
+    <h2>Bank</h2>
+  {{/content}}
+
+  {{#content "emailHeader"}}
+    <div class="header__desc__title txt--right">
+      Alerte Soldes de compte
+    </div>
+    <div class="header__desc__subtitle txt--right">
+      {{ date }}
+    </div>
+  {{/content}}
+
+  {{#content "content"}}
+    {{#each institutions as |institution| }}
+      <mj-section css-class="account" padding-top="0" padding-bottom="10px">
+        <mj-column>
+          <mj-text padding-top="0" padding-bottom="0">
+            <h3>{{ institution.name }}</h3>
+          </mj-text>
+          {{#each institution.accounts as |account|}}
+            <mj-table>
+            <tr class="account">
+              <td><span>{{ capitalize this.label }}</span></td>
+              <td width="150px" align='right'><span>{{ colored this.amount }}</span></td>
+            </tr>
+            </mj-table>
+              {{#unless @last}}<mj-divider padding-bottom="0" padding-top="0" border-width="1px" border-color="#d6d8da" />{{/unless}}
+          {{/each }}
+        </mj-text>
+        </mj-column>
+      </mj-section>
+    {{/each}}
+  {{/content}}
+{{/extend}}
