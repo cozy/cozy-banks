@@ -45,14 +45,16 @@
       <mj-wrapper background-color="white" border='1px solid #d6d6d8' border-top="none">
         <!-- header -->
         <mj-section padding-bottom="0" padding-top="0">
-          <mj-column width="50%">
-            {{#block 'appLogo' }}{{/block}}
-          </mj-column>
-          <mj-column width="50%"  css-class="emailHeader">
-            <mj-text padding-top="0" padding-bottom="0">
-              {{#block 'emailHeader' }}{{/block}}
-            </mj-text>
-          </mj-column>
+          <mj-group>
+            <mj-column>
+              {{#block 'appLogo' }}{{/block}}
+            </mj-column>
+            <mj-column css-class="emailHeader">
+              <mj-text padding-top="0" padding-bottom="0">
+                {{#block 'emailHeader' }}{{/block}}
+              </mj-text>
+            </mj-column>
+          </mj-group>
         </mj-section>
 
         <mj-section padding-top="8px" padding-bottom="8px">
@@ -65,13 +67,15 @@
         <!-- content -->
         {{#block 'content' }}{{/block}}
       </mj-wrapper>
-      <mj-section padding-top="0" css-class="footer">
-        <mj-column width="50%">
-          <mj-text padding-bottom="0" css-class="footer__settings">Gérer les alertes</mj-text>
-        </mj-column>
-        <mj-column width="50%">
-          <mj-text css-class="footer__help">Aide et support - Mentions légales</mj-text>
-        </mj-column>
+      <mj-section padding-top="0">
+        <mj-group>
+          <mj-column>
+            <mj-text padding-bottom="0" css-class="footer__settings">Gérer les alertes</mj-text>
+          </mj-column>
+          <mj-column>
+            <mj-text css-class="footer__help">Aide et support - Mentions légales</mj-text>
+          </mj-column>
+        </mj-group>
       </mj-section>
     </mj-container>
   </mj-body>
