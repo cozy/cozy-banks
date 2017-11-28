@@ -8,6 +8,7 @@ h1,h2,h3,h4,h5,h6{
   border-bottom: 1px #d6d8da solid;
   padding: 8px 0;
   line-height: 1.5;
+  letter-spacing: 0.5px;
 }
 
 .transaction:last-child {
@@ -24,10 +25,12 @@ h1,h2,h3,h4,h5,h6{
   font-weight: bold;
   font-size: 16px;
   margin-bottom: 4px;
+  letter-spacing: 0.5px;
 }
 .header__desc__subtitle {
   color: #95999d;
   font-size: 14px;
+  letter-spacing: 0.4px;
 }
 
 .account h3 {
@@ -35,12 +38,14 @@ h1,h2,h3,h4,h5,h6{
   font-weight: bold;
   color: #95999d;
   text-transform: uppercase;
+  letter-spacing: 0.6px;
 }
 .account h4 {
   font-size: 12px;
   font-weight: normal;
   color: #95999d;
   text-transform: uppercase;
+  letter-spacing: 0.6px;
 }
 /* amount */
 .amount {
@@ -54,7 +59,8 @@ h1,h2,h3,h4,h5,h6{
   color: #f52d2d;
 }
 /* footer */
-.footer {
+.footer__settings > td > div,
+.footer__help > td > div {
   font-size: 12px;
   letter-spacing: 0.6px;
 }
