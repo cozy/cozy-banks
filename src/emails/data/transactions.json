@@ -1,0 +1,72 @@
+[
+  {
+    "account": "compteisa1",
+    "amount": -60,
+    "categoryId": "400610",
+    "currency": "€",
+    "date": "2017-07-06T00:00:00Z",
+    "demo": true,
+    "label": "CABINET OSTEOKINESITHERAPIE",
+    "reimbursements": [
+      {
+        "amount": 60,
+        "operationId": "avrilop.sante.isa2",
+        "vendor": "Harmonie"
+      }
+    ]
+  },
+  {
+    "account": "compteisa1",
+    "amount": -60,
+    "categoryId": "400610",
+    "currency": "€",
+    "date": "2017-07-06T00:00:00Z",
+    "demo": true,
+    "label": "CABINET OSTEOKINESITHERAPIE",
+    "reimbursements": [
+      {
+        "amount": 60,
+        "operationId": "avrilop.sante.isa2",
+        "vendor": "Harmonie"
+      }
+    ]
+  },
+  {
+    "account": "comptecla1",
+    "amount": 28.7,
+    "bill": "io.cozy.bills:avrilrembourcla3",
+    "categoryId": "400610",
+    "currency": "€",
+    "date": "2017-07-11T00:00:00Z",
+    "demo": true,
+    "label": "CPAM PARIS"
+  },
+  {
+    "account": "compteisa3",
+    "amount": 400,
+    "categoryId": "600110",
+    "currency": "€",
+    "date": "2017-07-03T00:00:00Z",
+    "demo": true,
+    "label": "TRANSFERT LIVRET A"
+  },
+  {
+    "account": "comptegene1",
+    "amount": -42.3,
+    "categoryId": "400110",
+    "currency": "€",
+    "date": "2017-07-04T00:00:00Z",
+    "demo": true,
+    "label": "AUCHAN"
+  },
+  {
+    "account": "compteisa1",
+    "amount": 7.5,
+    "bill": "io.cozy.bills:rembourcomplisa1",
+    "categoryId": "400610",
+    "currency": "€",
+    "date": "2017-08-25T00:00:00Z",
+    "demo": true,
+    "label": "VIREMENT COMPL SANTE"
+  }
+]

@@ -1,0 +1,49 @@
+{{#extend "layout"}}
+  {{#content "appLogo"}}
+      <mj-table width="auto" css-class="header__title">
+        <tr>
+          <td width="30px">
+            <img align="left" width="30px" src="https://files.cozycloud.cc/bank/email-assets/logo-bank.png" alt="Cozy Bank" />
+          </td>
+          <td>
+            <h1 style="line-height: 32px">&nbsp;&nbsp;Bank</h1>
+          </td>
+        </tr>
+      </mj-table>
+  {{/content}}
+
+  {{#content "appName"}}
+    <h2>Bank</h2>
+  {{/content}}
+
+  {{#content "emailHeader"}}
+    <div class="header__desc__title txt--right">
+      Notification de transactions
+    </div>
+    <div class="header__desc__subtitle txt--right">
+      {{ date }}
+    </div>
+  {{/content}}
+
+  {{#content "content"}}
+    {{#each byAccounts as |transactionsByDate accountId| }}
+      <mj-section css-class="account" padding-top="0" padding-bottom="10px">
+        <mj-column>
+          <mj-text padding-top="0" padding-bottom="0">
+            <h3>{{ get ../accounts accountId 'label' }} - {{ get ../accounts accountId 'institutionLabel' }}</h3>
+          </mj-text>
+          {{#each transactionsByDate as |transactions date|}}
+            <mj-text padding-top="0" padding-bottom="0">
+              <h4 class="text"><span>{{ formatDate date }}</span></h4>
+            </mj-text>
+            {{#each transactions as |tr|}}
+              {{> transaction tr }}
+              {{#unless @last}}<mj-divider padding-bottom="0" padding-top="0" border-width="1px" border-color="#D0D2D5" />{{/unless}}
+            {{/each}}
+          {{/each }}
+        </mj-text>
+        </mj-column>
+      </mj-section>
+    {{/each}}
+  {{/content}}
+{{/extend}}
