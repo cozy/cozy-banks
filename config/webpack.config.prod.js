@@ -1,6 +1,7 @@
 'use strict'
 
 const webpack = require('webpack')
+const {target} = require('./webpack.vars')
 
 module.exports = {
   output: {
@@ -21,7 +22,7 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify('production'), // to compile on production mode (redux)
       __DEVELOPMENT__: false,
       __DEVTOOLS__: false,
-      __STACK_ASSETS__: true
+      __STACK_ASSETS__: target === 'mobile' ? false : true
     })
   ]
 }
