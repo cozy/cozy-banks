@@ -22,8 +22,8 @@ module.exports = {
       __APP_VERSION__: JSON.stringify(pkg.version)
     }),
     new webpack.ProvidePlugin({
-      'cozy.client': 'cozy-client-js/dist/cozy-client.js',
-      'cozy.bar': 'cozy-bar/dist/cozy-bar.mobile.js'
+      'cozy.client': production ? 'cozy-client-js/dist/cozy-client.min.js' : 'cozy-client-js/dist/cozy-client.js',
+      'cozy.bar': production ? 'cozy-bar/dist/cozy-bar.mobile.min.js' : 'cozy-bar/dist/cozy-bar.mobile.js'
     }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, `../src/index.ejs`),
