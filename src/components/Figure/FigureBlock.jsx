@@ -10,7 +10,7 @@ import styles from './FigureBlock.styl'
  * A part from `className` and `label`, takes same properties
  * as `Figure`.
  */
-const FigureBlock = ({className, label, total, currency, coloredPositive, coloredNegative, signed, decimalNumbers}) => (
+const FigureBlock = ({className, label, total, currency, coloredPositive, coloredNegative, signed, decimalNumbers = 0}) => (
   <div className={classNames(styles['bnk-figure-wrapper'], className)}>
     <h4 className={styles['bnk-figure-label']}>
       {label}
