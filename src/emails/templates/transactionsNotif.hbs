@@ -19,7 +19,13 @@
               <h4 class="text"><span>{{ formatDate date }}</span></h4>
             </mj-text>
             {{#each transactions as |tr|}}
-              {{> transaction tr }}
+              <mj-table>
+                <tr class="tableRow">
+                  <td width="40px"><img style="width: 32px; height: 32px" src='https://files.cozycloud.cc/bank/email-assets/icons/{{ this.categoryId }}.png' /></td>
+                  <td>{{ capitalize this.label }}</td>
+                  <td width="150px" align='right'><span>{{ colored this.amount }}</span></td>
+                </tr>
+              </mj-table>
               {{#unless @last}}<mj-divider padding-bottom="0" padding-top="0" border-width="1px" border-color="#D0D2D5" />{{/unless}}
             {{/each}}
           {{/each }}
