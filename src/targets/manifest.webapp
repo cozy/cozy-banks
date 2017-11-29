@@ -12,7 +12,38 @@
     "url": "https://cozy.io"
   },
   "default_locale": "en",
-  "locales": {},
+  "locales": {
+    "en": {
+      "name": "Bank",
+      "short_description": "The bank application for Cozy.",
+      "long_description": "Bank allows you to monitor your bank operations in your cozy.",
+      "changes": ""
+    },
+    "fr": {
+      "name": "Banque",
+      "short_description": "L'application banque pour Cozy.",
+      "long_description": "Banque vous permet visualiser très facilement vos opération bancaires directement dans votre Cozy.",
+      "changes": ""
+    }
+  },
+  "langs": ["en", "fr"],
+  "platforms": [
+    {
+      "type": "ios",
+      "url": "#"
+    },
+    {
+      "type": "android",
+      "url": "#"
+    }
+  ],
+  "editor": "Cozy",
+  "screenshots": ["screenshot1.png"],
+  "tags": [
+    "bank",
+    "money",
+    "account"
+  ],
   "routes": {
     "/": {
       "folder": "/",
