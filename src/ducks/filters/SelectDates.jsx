@@ -95,7 +95,7 @@ class SelectDates extends Component {
         </button>
         <Select className={styles['select-dates-select']} name='datesRange' value={selected} options={options} onChange={this.onChange} />
         <button disabled={selected === 0} className={styles['next-button']} onClick={this.onChooseNext}>
-          <Icon width='auto' height='auto' className={styles['next-icon']} icon={arrowLeft} />
+          <Icon height='1rem' className={styles['next-icon']} icon={arrowLeft} />
         </button>
       </div>
     )
