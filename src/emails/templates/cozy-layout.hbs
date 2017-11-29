@@ -47,11 +47,27 @@
         <mj-section padding-bottom="0" padding-top="0">
           <mj-group>
             <mj-column>
-              {{#block 'appLogo' }}{{/block}}
+              <mj-table width="auto" css-class="header__title" cellpadding='4px'>
+                <tr>
+                  <td width="30px">
+                    <img align="left" width="30px" src="{{#block 'logoUrl'}}{{/block}}" alt="{{#block 'appName'}}{{/block}}" />
+                  </td>
+                  <td>
+                    <h1 style="line-height: 32px">{{#block 'appName'}}{{/block}}</h1>
+                  </td>
+                </tr>
+              </mj-table>
             </mj-column>
             <mj-column css-class="emailHeader">
               <mj-text padding-top="0" padding-bottom="0">
-                {{#block 'emailHeader' }}{{/block}}
+                {{#block 'emailHeader' }}
+                  <div class="header__desc__title txt--right">
+                    {{#block 'emailTitle' }}{{/block}}
+                  </div>
+                  <div class="header__desc__subtitle txt--right">
+                    {{#block 'emailSubtitle' }}{{/block}}
+                  </div>
+                {{/block}}
               </mj-text>
             </mj-column>
           </mj-group>
@@ -70,10 +86,10 @@
       <mj-section padding-top="0">
         <mj-group>
           <mj-column>
-            <mj-text padding-bottom="0" css-class="footer__settings">Gérer les alertes</mj-text>
+            {{#block 'footerLeft' }}{{/block}}
           </mj-column>
           <mj-column>
-            <mj-text css-class="footer__help">Aide et support - Mentions légales</mj-text>
+            {{#block 'footerRight' }}{{/block}}
           </mj-column>
         </mj-group>
       </mj-section>
