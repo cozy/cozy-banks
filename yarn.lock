@@ -981,18 +981,6 @@ babel-polyfill@^6.26.0:
     core-js "^2.5.0"
     regenerator-runtime "^0.10.5"
 
-babel-preset-cozy-app@^0.2.0:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/babel-preset-cozy-app/-/babel-preset-cozy-app-0.2.1.tgz#f0133750f97d72365853d34b2279d77b233bbf42"
-  dependencies:
-    babel-plugin-transform-class-properties "^6.24.1"
-    babel-plugin-transform-object-rest-spread "^6.26.0"
-    babel-plugin-transform-react-jsx "^6.24.1"
-    babel-plugin-transform-runtime "^6.23.0"
-    babel-preset-env "^1.6.1"
-    babel-preset-react "^6.24.1"
-    babel-runtime "^6.26.0"
-
 babel-preset-cozy-app@^0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/babel-preset-cozy-app/-/babel-preset-cozy-app-0.3.1.tgz#3b5d646b5038afad00b16f1c4eada4c4fa8b955f"
@@ -2350,11 +2338,11 @@ cosmiconfig@^2.1.0, cosmiconfig@^2.1.1:
     parse-json "^2.2.0"
     require-from-string "^1.1.0"
 
-cozy-bar@^4.5.1:
-  version "4.5.1"
-  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-4.5.1.tgz#631385e15b67e878cd9cbb9488b450a7603942f2"
+cozy-bar@^4.5.3:
+  version "4.5.3"
+  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-4.5.3.tgz#0f8e131ed51332bc7bbeb08234e06f2c42e71c5d"
   dependencies:
-    babel-preset-cozy-app "^0.2.0"
+    babel-preset-cozy-app "^0.3.1"
     cozy-client-js "^0.3.19"
     node-polyglot "^2.2.2"
     piwik-react-router "^0.10.0"
@@ -2402,13 +2390,14 @@ cozy-slug@^0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/cozy-slug/-/cozy-slug-0.2.2.tgz#dcb60025334b5bc045270d4dc078f0508b29590f"
 
-"cozy-ui@git://github.com/cozy/cozy-ui.git#63ea0760c3106072ed7c50ad35df3ca16d76fc06":
-  version "4.0.5"
-  resolved "git://github.com/cozy/cozy-ui.git#63ea0760c3106072ed7c50ad35df3ca16d76fc06"
+"cozy-ui@git://github.com/cozy/cozy-ui.git#e86ab1680ff7a9f4fd7f4a134f8bf984a4bebe10":
+  version "4.1.0"
+  resolved "git://github.com/cozy/cozy-ui.git#e86ab1680ff7a9f4fd7f4a134f8bf984a4bebe10"
   dependencies:
     babel-preset-cozy-app "^0.3.1"
     classnames "^2.2.5"
     date-fns "^1.28.5"
+    hammerjs "^2.0.8"
     md5 "^2.2.0"
     normalize.css "^7.0.0"
     stylus "^0.54.5"
