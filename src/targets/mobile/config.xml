@@ -35,6 +35,7 @@
         <splash density="port-xxxhdpi" src="res/screens/android/screen-xxxhdpi-portrait.png" />
     </platform>
     <platform name="ios">
+        <preference name="StatusBarOverlaysWebView" value="false" />
         <preference name="Suppresses3DTouchGesture" value="true" />
         <preference name="DisallowOverscroll" value="true" />
         <allow-intent href="itms:*" />
