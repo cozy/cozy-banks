@@ -1,22 +1,24 @@
 @require 'settings/breakpoints'
 
 .Breadcrumb
-  &__title
-    display inline-block
-    color cool-grey
+    &__title
+        color cool-grey
 
-  &__crumb
-    display inline-block
+    &__crumb
+        float left
 
-  &__last &__title
-    color black
+    &__last &__title
+        color black
 
-  &__separator
-    horizontally-padded .3em
+    &__separator
+        horizontally-padded .3em
 
-  &__link
-    cursor pointer
+    &__link
+        cursor pointer
 
-  +small-screen()
-    &__crumb:not(&__last)
-      display none
+    +small-screen()
+        width 100% // for ellipsis to work correctly
+        &__crumb&__last
+            width 100% // for ellipsis to work correctly
+        &__crumb:not(&__last)
+              display none
