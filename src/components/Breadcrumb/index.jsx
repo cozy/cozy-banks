@@ -13,12 +13,12 @@ const BreadcrumbSeparator = ({separator}) => (
 const BreadcrumbItem = ({item}) => {
   const Tag = item.tag
   return (
-    <span onClick={item.onClick} className={cx(styles.Breadcrumb__crumb, item.isLast && styles.Breadcrumb__last, {[styles.Breadcrumb__link]: item.onClick})}>
+    <div onClick={item.onClick} className={cx(styles.Breadcrumb__crumb, item.isLast && styles.Breadcrumb__last, {[styles.Breadcrumb__link]: item.onClick})}>
       <Tag className={styles.Breadcrumb__title}>
         {item.name}
         {item.displaySeparator && <BreadcrumbSeparator separator={item.separator} />}
       </Tag>
-    </span>
+    </div>
   )
 }
 
