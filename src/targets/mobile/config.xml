@@ -35,6 +35,7 @@
         <splash density="port-xxxhdpi" src="res/screens/android/screen-xxxhdpi-portrait.png" />
     </platform>
     <platform name="ios">
+        <preference name="StatusBarOverlaysWebView" value="false" />
         <preference name="Suppresses3DTouchGesture" value="true" />
         <preference name="DisallowOverscroll" value="true" />
         <allow-intent href="itms:*" />
@@ -71,8 +72,8 @@
         <splash height="2732" src="res/screens/ios/screen-ipad-portrait-ipadpro.png" width="2048" />
     </platform>
     <preference name="StatusBarBackgroundColor" value="#95999D" />
-    <engine name="android" spec="6.3.0" />
-    <engine name="ios" spec="4.3.1" />
+    <engine name="android" spec="6.4.0" />
+    <engine name="ios" spec="4.5.4" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <plugin name="cordova-plugin-statusbar" spec="2.2.3" />
     <plugin name="cordova-plugin-inappbrowser" spec="1.7.1" />
