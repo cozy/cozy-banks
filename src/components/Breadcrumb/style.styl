@@ -1,6 +1,11 @@
 @require 'settings/breakpoints'
 
 .Breadcrumb
+    &::after
+        content ''
+        clear left
+        display block
+
     &__title
         color cool-grey
 
