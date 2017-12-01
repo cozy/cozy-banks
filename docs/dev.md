@@ -1,70 +1,27 @@
-Code organisation
-=================
+Develop easily on mobile
+=====================
 
-### Components
+It is a pain to always launch a `cordova build` to update the files
+on the device we are developing on.
 
-If components have an associated style, group the style with the component into
-a folder. Ex: `BackButton`
+Fortunately, we can take advantage of the `publicPath` option of webpack so that
+the `<script />`s added by `HTMLWebpackPlugin` have an `src` with the address
+of the computer we are developing in.
 
-### Ducks
+In `config/webpack.target.mobile.js`, the `publicPath` option is configured
+so that you can configure it with an environment variable: 
 
-* Ducks groups actions/reducers/views for a particular high-level function
-
-* Sometimes you can have a duck without views, typically when it concerns
-a particular doctype.
-
-Style
-=====
-
-### Constructor
-
-Avoid `constructor` if you can by leveraging `transform-class-properties`
-
-❌  Bad :
-
-```
-class MyComponent extends Component {
-  constructor () {
-    super()
-    this.state = { counter: 0 }
-  }
-}
+```javascript
+    publicPath: process.env.PUBLIC_PATH || '',
 ```
 
-✅  Good
+This lets you do :
 
-```
-class MyComponent extends Component {
-  this.state = { counter: 0 }
-}
-```
-
-### Binding event handlers
-
-Avoid binding event handlers in `constructor`, leverage `transform-class-properties` 
-and arrow functions.
-
-❌  Bad :
-
-```
-class MyComponent extends Component {
-  constructor () {
-    super()
-    this.onClick = this.onClick.bind(this)
-  }
-  
-  onClick (ev) {
-    ...
-  }
-}
-```
-
-✅  Good
-
-```
-class MyComponent extends Component {
-  this.onClick = (ev) => {
-    ...
-  }
-}
+```bash
+# note your ip address (on ios you can use 127.0.0.1 but on Android you must get
+# an address of a network interface reachable by the device)
+$ ifconfig
+$ # in another terminal, launch an http server in `build/`
+$ cd build && python -m SimpleHTTPServer 8005 (or http-server from npm's http-server)
+$ env PUBLIC_PATH=http://${IP_ADDRESS}:8005 yarn watch:mobile
 ```
