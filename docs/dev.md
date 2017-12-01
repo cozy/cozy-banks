@@ -8,6 +8,18 @@ Fortunately, we can take advantage of the `publicPath` option of webpack so that
 the `<script />`s added by `HTMLWebpackPlugin` have an `src` with the address
 of the computer we are developing in.
 
+Before
+
+```
+<script src='/build.js' />
+```
+
+After
+
+```
+<script src='http://192.168.1.36:8005/build.js' />
+```
+
 In `config/webpack.target.mobile.js`, the `publicPath` option is configured
 so that you can configure it with an environment variable: 
 
