@@ -21,6 +21,8 @@ const Figure = props => {
   decimalNumbers = isNaN(decimalNumbers) ? 2 : decimalNumbers
 
   const total = parseFloat(props.total.toFixed(decimalNumbers))
+
+  // TODO properly localize
   const totalLocalized = total.toLocaleString('fr-FR')
   const isTotalPositive = total > 0
   let totalCSSClass = ''
