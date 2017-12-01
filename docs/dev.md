@@ -22,6 +22,7 @@ This lets you do :
 # an address of a network interface reachable by the device)
 $ ifconfig
 $ # in another terminal, launch an http server in `build/`
-$ cd build && python -m SimpleHTTPServer 8005 (or http-server from npm's http-server)
+$ cd build && python -m SimpleHTTPServer 8005 (or http-server from npm\'s http-server)
+$ # finally you can launch your webpack with the proper PUBLIC_PATH env variable
 $ env PUBLIC_PATH=http://${IP_ADDRESS}:8005 yarn watch:mobile
 ```
