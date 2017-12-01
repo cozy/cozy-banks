@@ -42,7 +42,7 @@
     "ios:publish": "npm run build:mobile && (cd src/targets/mobile && fastlane ios testflight)",
     "commons:services": "webpack --config config/webpack.target.services.js",
     "build:services": "NODE_ENV=services:production yarn run commons:services",
-    "watch:services": "NODE_ENV=services:development yarn run commons:services -- --watch",
+    "watch:services": "NODE_ENV=services:development yarn run commons:services --watch",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build",
     "styleguide:deploy": "yarn git-directory-deploy -- --directory styleguide --branch master --repo docs"
