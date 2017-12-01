@@ -14,12 +14,16 @@ const currencySigns = {
  */
 const Figure = props => {
   const {
-    total, currency, coloredPositive, coloredNegative, signed, className
+    currency, coloredPositive, coloredNegative, signed, className
   } = props
 
   let { decimalNumbers } = props
   decimalNumbers = isNaN(decimalNumbers) ? 2 : decimalNumbers
 
+  const total = parseFloat(props.total.toFixed(decimalNumbers))
+
+  // TODO properly localize
+  const totalLocalized = total.toLocaleString('fr-FR')
   const isTotalPositive = total > 0
   let totalCSSClass = ''
   if (total !== 0) {
@@ -34,11 +38,7 @@ const Figure = props => {
     <div className={classNames(styles[totalCSSClass], className)}>
       <span className={styles['bnk-figure-total']}>
         {(isTotalPositive && signed) && '+'}
-        {total.toLocaleString(
-          'fr-FR',
-          {maximumFractionDigits: decimalNumbers,
-            minimumFractionDigits: decimalNumbers})
-        }
+        {totalLocalized}
       </span>
       {currency &&
         <span className={styles['bnk-figure-currency']}>
