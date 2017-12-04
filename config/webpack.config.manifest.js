@@ -7,7 +7,7 @@ const {skin} = require('./webpack.vars')
 module.exports = {
   plugins: [
     new CopyPlugin([
-      { from: 'src/targets/manifest.webapp', transform: transformManifest },
+      { from: 'manifest.webapp', transform: transformManifest },
       { from: 'src/targets/screenshots' },
       { from: 'README.md' },
       { from: 'LICENSE' }
