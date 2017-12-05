@@ -105,7 +105,7 @@ export const resetAccountOrGroup = () => ({ type: RESET_ACCOUNT_OR_GROUP })
 export const filterByAccount = account => ({ type: FILTER_BY_ACCOUNT, id: account.id })
 export const filterByGroup = group => ({ type: FILTER_BY_GROUP, id: group.id })
 export const addFilterForMostRecentTransactions = transactions => {
-  const mostRecentTransaction = last(sortBy(transactions))
+  const mostRecentTransaction = last(sortBy(transactions, 'date'))
   const date = mostRecentTransaction ? mostRecentTransaction.date : new Date()
   return addFilterByDates(startOfMonth(date), endOfMonth(date))
 }

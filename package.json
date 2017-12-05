@@ -114,6 +114,7 @@
     "webpack-merge": "^4.1.0"
   },
   "dependencies": {
+    "babel-plugin-lodash": "^3.3.2",
     "babel-polyfill": "^6.26.0",
     "babel-preset-cozy-app": "^0.3.1",
     "chart.js": "^2.7.0",
@@ -129,6 +130,7 @@
     "eslint-plugin-standard": "^3.0.1",
     "hammerjs": "^2.0.8",
     "localforage": "^1.5.0",
+    "lodash": "^4.17.4",
     "mjml": "^3.3.5",
     "node-polyglot": "^2.2.0",
     "number-to-locale-string": "^1.0.1",
