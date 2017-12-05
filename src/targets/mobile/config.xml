@@ -77,4 +77,5 @@
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <plugin name="cordova-plugin-statusbar" spec="2.2.3" />
     <plugin name="cordova-plugin-inappbrowser" spec="1.7.1" />
+    <plugin name="cordova-ios-plugin-no-export-compliance" spec="0.0.5" />
 </widget>
