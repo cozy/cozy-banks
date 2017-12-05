@@ -38,3 +38,17 @@ $ cd build && python -m SimpleHTTPServer 8005 (or http-server from npm\'s http-s
 $ # finally you can launch your webpack with the proper PUBLIC_PATH env variable
 $ env PUBLIC_PATH=http://${IP_ADDRESS}:8005 yarn watch:mobile
 ```
+
+Release
+=======
+
+When releasing a new version for mobile, you have to bump the version in those files.
+
+```
+- config.xml
+- package.json
+- manifest.webapp
+- package.json (généré par Cordova)
+```
+
+
