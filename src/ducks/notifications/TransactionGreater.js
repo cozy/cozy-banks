@@ -15,7 +15,7 @@ class TransactionGreater {
   filter (transactions) {
     const maxAmount = abs(this.maxAmount)
     // TODO: Find why op is undefined?
-    return transactions.filter(op => op && abs(op.amount) > maxAmount)
+    return transactions.filter(op => abs(op.amount) > maxAmount)
   }
 
   async sendNotification (accounts, transactions) {

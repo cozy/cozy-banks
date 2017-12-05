@@ -13,7 +13,7 @@ class BalanceLower {
 
   filter (accounts) {
     // TODO: Find why account is undefined?
-    return accounts.filter(account => account && account.balance < this.lowerBalance)
+    return accounts.filter(account => account.balance < this.lowerBalance)
   }
 
   async sendNotification (accounts, transactions) {

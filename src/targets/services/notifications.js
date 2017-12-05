@@ -13,7 +13,14 @@ const getTransactionsChanges = async lastSeq => {
     `/data/io.cozy.bank.operations/_changes?include_docs=true&since=${lastSeq}`
   )
   const newLastSeq = result.last_seq
-  const transactions = result.results.map(x => x.doc)
+  const transactions = result.results
+    .filter(x => x.doc)
+    .map(x => x.doc)
+
+  if (transactions.length < result.results.length) {
+    console.warn('Some transactions do not have any doc associated')
+    console.warn(results.results.filter(x => !x.doc))
+  }
 
   return { newLastSeq, transactions }
 }
@@ -25,7 +32,17 @@ const getAccountsOfTransactions = async transactions => {
     '/data/io.cozy.bank.accounts/_all_docs?include_docs=true',
     {keys: accountsIds}
   )
-  const accounts = result.rows.map(x => x.doc)
+
+  const rows = result.rows
+  const accounts = rows
+    .filter(x => !x.error) // filter document that have not been found
+    .map(x => x.doc)
+
+  if (accounts.length !== rows.length) {
+    console.warn('Some transactions\' account do not exist')
+    console.warn(rows.filter(x => x.error))
+  }
+
   return accounts
 }
 
