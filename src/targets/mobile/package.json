@@ -10,7 +10,8 @@
     "plugins": {
       "cordova-plugin-whitelist": {},
       "cordova-plugin-statusbar": {},
-      "cordova-plugin-inappbrowser": {}
+      "cordova-plugin-inappbrowser": {},
+      "cordova-ios-plugin-no-export-compliance": {}
     }
   },
   "dependencies": {
@@ -18,6 +19,7 @@
     "cordova-ios": "4.5.4",
     "cordova-plugin-inappbrowser": "1.7.1",
     "cordova-plugin-statusbar": "2.2.3",
-    "cordova-plugin-whitelist": "1"
+    "cordova-plugin-whitelist": "1",
+    "cordova-ios-plugin-no-export-compliance": "0.0.5"
   }
 }
