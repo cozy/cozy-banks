@@ -1,3 +1,4 @@
 {
-  "presets": ["cozy-app"]
+  "presets": ["cozy-app"],
+  "plugins": ["babel-plugin-lodash"]
 }

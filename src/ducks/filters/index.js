@@ -4,7 +4,7 @@ import { startOfMonth, endOfMonth, isAfter, isBefore, parse } from 'date-fns'
 import SelectDates from './SelectDates'
 import { getTransactions, getGroups, getAccounts } from 'selectors'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
-import _ from 'lodash'
+import { sortBy, last } from 'lodash'
 import { DESTROY_ACCOUNT } from 'actions/accounts'
 
 // constants
@@ -105,7 +105,7 @@ export const resetAccountOrGroup = () => ({ type: RESET_ACCOUNT_OR_GROUP })
 export const filterByAccount = account => ({ type: FILTER_BY_ACCOUNT, id: account.id })
 export const filterByGroup = group => ({ type: FILTER_BY_GROUP, id: group.id })
 export const addFilterForMostRecentTransactions = transactions => {
-  const mostRecentTransaction = _(transactions).sortBy('date').last()
+  const mostRecentTransaction = last(sortBy(transactions, 'date'))
   const date = mostRecentTransaction ? mostRecentTransaction.date : new Date()
   return addFilterByDates(startOfMonth(date), endOfMonth(date))
 }
