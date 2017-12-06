@@ -29,6 +29,15 @@ export function resetClient (clientInfo) {
   }
 }
 
+export const getToken = async () => {
+  try {
+    const response = await cozy.client.authorize()
+    return response.token
+  } catch (e) {
+    throw e
+  }
+}
+
 export const initClient = (url) => {
   return new CozyClient({
     cozyURL: url,
@@ -61,18 +70,19 @@ export const initClient = (url) => {
   })
 }
 
-export const initBar = () => {
-  // TODO there must be a better way to get the token and the URL
-  cozy.client.authorize().then(({ token }) => {
-    cozy.bar.init({
-      appName: 'Bank',
-      appEditor: 'Cozy',
-      cozyURL: cozy.client._url,
-      token: token.accessToken,
-      iconPath: require('targets/favicons/icon-bank.svg'),
-      lang: getLang(),
-      replaceTitleOnMobile: true,
-      displayOnMobile: true
-    })
+export const initBar = (url, accessToken) => {
+  cozy.bar.init({
+    appName: 'Bank',
+    appEditor: 'Cozy',
+    cozyURL: url,
+    token: accessToken,
+    iconPath: require('targets/favicons/icon-bank.svg'),
+    lang: getLang(),
+    replaceTitleOnMobile: true,
+    displayOnMobile: true
   })
+}
+
+export const updateAccessTokenBar = accessToken => {
+  cozy.bar.updateAccessToken(accessToken)
 }

@@ -1,12 +1,15 @@
 import { resetClient } from 'ducks/authentication/lib/client'
-// action creators
-export const SET_CLIENT = 'SET_CLIENT'
-export const SET_URL = 'SET_URL'
-export const REVOKE_CLIENT = 'REVOKE_CLIENT'
-export const UNLINK = 'UNLINK'
 
-export const setClient = client => ({ type: SET_CLIENT, client })
-export const setURL = url => ({ type: SET_URL, url })
+// constants
+const SET_TOKEN = 'SET_TOKEN'
+const REVOKE_CLIENT = 'REVOKE_CLIENT'
+const UNLINK = 'UNLINK'
+const STORE_CREDENTIALS = 'STORE_CREDENTIALS'
+
+// action creators
+export const setToken = token => ({ type: SET_TOKEN, token })
+export const storeCredentials = (url, client, token) =>
+  ({ type: STORE_CREDENTIALS, url, client, token })
 export const revokeClient = () => ({ type: REVOKE_CLIENT })
 export const unlink = (clientInfo) => {
   resetClient(clientInfo)
@@ -17,15 +20,16 @@ export const unlink = (clientInfo) => {
 export const initialState = {
   url: '',
   client: null,
+  token: null,
   revoked: false
 }
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_URL:
-      return { ...state, url: action.url }
-    case SET_CLIENT:
-      return { ...state, client: action.client, revoked: false }
+    case STORE_CREDENTIALS:
+      return { ...state, url: action.url, client: action.client, token: action.token, revoked: false }
+    case SET_TOKEN:
+      return { ...state, token: action.token }
     case REVOKE_CLIENT:
       return { ...state, revoked: true }
     case UNLINK:
@@ -39,3 +43,4 @@ export default reducer
 
 // selectors
 export const getURL = state => state.url
+export const getAccessToken = state => state.token ? state.token.accessToken : null
