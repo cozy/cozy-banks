@@ -21,7 +21,7 @@ After
 ```
 
 In `config/webpack.target.mobile.js`, the `publicPath` option is configured
-so that you can configure it with an environment variable: 
+so that you can configure it with an environment variable:
 
 ```javascript
     publicPath: process.env.PUBLIC_PATH || '',
@@ -51,4 +51,31 @@ When releasing a new version for mobile, you have to bump the version in those f
 - package.json (généré par Cordova)
 ```
 
+Notifications
+=============
 
+To debug notifications, you have to launch a watch on the notifications.js and then
+launch it with `cozy-konnector-dev`.
+
+⚠️ You have to temporarily add `io.cozy.accounts` to your manifest so that you can
+create a dev account to test the service.
+
+```diff
+       "type": "io.cozy.notifications",
+       "verbs": ["POST"]
+     },
++    "account": {
++      "description": "Used to send notifications",
++      "type": "io.cozy.accounts",
++      "verbs": ["POST"]
++    },
+     "bank.settings": {
+       "description": "Used to manage your bank settings",
+       "type": "io.cozy.bank.settings",
+```
+
+
+```bash
+$ yarn watch:services # will continuously build `build/notifications.js`
+$ yarn cozy-konnector-dev build/notifications.js -t /tmp/token.json -m manifest.webapp # will launch build/notifications.js with the right COZY_CREDENTIALS
+```
