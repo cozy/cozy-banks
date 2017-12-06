@@ -149,6 +149,7 @@
     "redux-thunk": "^2.1.0",
     "reselect": "^3.0.1",
     "splashicon-generator": "^0.2.12",
+    "stats-webpack-plugin": "^0.6.1",
     "velocity-animate": "^1.5.0"
   },
   "jest": {
