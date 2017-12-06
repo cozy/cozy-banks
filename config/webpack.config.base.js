@@ -3,12 +3,13 @@
 const path = require('path')
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 const PostCSSAssetsPlugin = require('postcss-assets-webpack-plugin')
-const sortCSSmq = require('sort-css-media-queries');
+const sortCSSmq = require('sort-css-media-queries')
 
 const { extractor, production } = require('./webpack.vars')
 const SRC_DIR = path.resolve(__dirname, '../src')
 const webpack = require('webpack')
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
+const StatsPlugin = require('stats-webpack-plugin')
 
 module.exports = {
   output: {
@@ -112,5 +113,10 @@ module.exports = {
           : []
       )
     })
-  ]
+  ].concat(process.env.WEBPACK_STATS_FILE
+    ? [ new StatsPlugin(process.env.WEBPACK_STATS_FILE, {
+        chunkModules: true,
+        exclude: [/node_modules[\\\/]react/]
+      }) ]
+    : [])
 }
