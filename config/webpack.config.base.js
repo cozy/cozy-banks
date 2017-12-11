@@ -10,6 +10,7 @@ const SRC_DIR = path.resolve(__dirname, '../src')
 const webpack = require('webpack')
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
 const StatsPlugin = require('stats-webpack-plugin')
+const StringReplacePlugin = require('string-replace-webpack-plugin')
 
 module.exports = {
   output: {
@@ -84,11 +85,45 @@ module.exports = {
       {
         test: /\.woff2?$/,
         loader: 'file-loader'
+      },
+      {
+        test: /\.js$/,
+        loader: StringReplacePlugin.replace({
+          replacements: [
+            // Fix for global is undefined find here: https://github.com/mozilla/nunjucks/issues/520
+            // TODO: Remove it when cozy-client-js remove poushdb dependancy
+            {
+              pattern: /global\.MutationObserver/g,
+              replacement: function () {
+                return "window.MutationObserver";
+              }
+            },
+            {
+              pattern: /global\.WebKitMutationObserver/g,
+              replacement: function () {
+                return "window.WebKitMutationObserver";
+              }
+            },
+            {
+              pattern: /global\.document/g,
+              replacement: function () {
+                return "window.document";
+              }
+            },
+            {
+              pattern: /global\.setImmediate/g,
+              replacement: function () {
+                return "window.setImmediate";
+              }
+            }
+          ]
+        })
       }
     ],
     noParse: [/localforage\/dist/]
   },
   plugins: [
+    new StringReplacePlugin(),
     // ChartJS uses moment :( To remove when we do not use it anymore
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|fr/),
     new webpack.ContextReplacementPlugin(/date-fns[\/\\]locale$/, /en|fr/),
