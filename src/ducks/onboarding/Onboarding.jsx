@@ -6,7 +6,7 @@ import CollectLink from 'ducks/settings/CollectLink'
 import calculator from 'assets/icons/icon-calculator.svg'
 import watch from 'assets/icons/icon-watch.svg'
 import cozy from 'assets/icons/icon-cozy.svg'
-import palette from 'utils/palette.json'
+import palette from 'cozy-ui/stylus/settings/palette.json'
 
 import {
   Hero, Sections, Section, Title, Subtitle,
@@ -34,7 +34,7 @@ class Onboarding extends Component {
             <Paragraph>{t('Onboarding.save-time.description')}</Paragraph>
           </Section>
           <Section>
-            <Icon color={palette['dodger-blue']} icon={cozy} />
+            <Icon color={palette['dodgerBlue']} icon={cozy} />
             <Subtitle>{t('Onboarding.cozy-assistant.title')}</Subtitle>
             <Paragraph>{t('Onboarding.cozy-assistant.description')}</Paragraph>
           </Section>

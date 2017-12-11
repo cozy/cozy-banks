@@ -3,7 +3,7 @@ import cx from 'classnames'
 import { Modal, Icon } from 'cozy-ui/react'
 import { ModalTitle, ModalDescription } from 'cozy-ui/react/Modal'
 import { Media, Bd, Img } from 'components/Media'
-import palette from 'utils/palette.json'
+import palette from 'cozy-ui/stylus/settings/palette.json'
 
 import styles from './styles.styl'
 
@@ -50,7 +50,7 @@ class PopupSelect extends Component {
                 {item.title}
               </Bd>
               {item.children && item.children.length > 0 && <Img className='u-pl-1'>
-                <Icon icon='forward' color={palette['cool-grey']} />
+                <Icon icon='forward' color={palette['coolGrey']} />
               </Img>}
             </Media>
           )
@@ -66,7 +66,7 @@ class PopupSelect extends Component {
       <Media>
         {history && history.length > 1 &&
           <Img className={styles.PopupSelect__back} onClick={this.handleBack}>
-            <Icon icon='back' color={palette['cool-grey']} />
+            <Icon icon='back' color={palette['coolGrey']} />
           </Img>}
         <Bd>
           {item.title}
