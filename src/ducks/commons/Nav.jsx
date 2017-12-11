@@ -1,50 +1,48 @@
 import React from 'react'
-import { translate, Icon } from 'cozy-ui/react'
+import { translate, Icon, Nav as UINav, NavLink as UINavLink, NavItem, NavIcon, NavText } from 'cozy-ui/react'
 import { Link } from 'react-router'
-import styles from './Nav.styl'
-import mkComponent from 'utils/mkComponent'
+
 import dashboard from 'assets/icons/icon-dashboard.svg'
 import arrows from 'assets/icons/icon-arrow-left-right.svg'
 import graph from 'assets/icons/icon-graph.svg'
 import people from 'assets/icons/icon-people.svg'
 
-const ActiveLink = ({ to, children }) => (
+const NavLink = ({ to, children }) => (
   <Link
     to={to}
-    activeClassName={styles['active']}
-    className={styles['c-nav-link']}>
+    activeClassName={UINavLink.activeClassName}
+    className={UINavLink.className}>
     {children}
   </Link>
 )
 
-const NavList = mkComponent('ul', { className: styles['c-nav'] })
-const NavItem = mkComponent('li', { className: styles['c-nav-item'] })
-
 const Nav = ({ t }) => (
-  <nav>
-    <NavList>
-      <NavItem>
-        <ActiveLink to='currentBalance'>
-          <Icon icon={dashboard} /> {t('Nav.balance')}
-        </ActiveLink>
-      </NavItem>
-      <NavItem>
-        <ActiveLink to='transactions'>
-          <Icon icon={arrows} /> {t('Nav.movements')}
-        </ActiveLink>
-      </NavItem>
-      <NavItem>
-        <ActiveLink to='categories'>
-          <Icon icon={graph} /> {t('Nav.categorisation')}
-        </ActiveLink>
-      </NavItem>
-      <NavItem>
-        <ActiveLink to='settings'>
-          <Icon icon={people} /> {t('Nav.settings')}
-        </ActiveLink>
-      </NavItem>
-    </NavList>
-  </nav>
+  <UINav>
+    <NavItem>
+      <NavLink to='currentBalance'>
+        <NavIcon icon={dashboard} />
+        <NavText>{t('Nav.balance')}</NavText>
+      </NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink to='transactions'>
+        <NavIcon icon={arrows} />
+        <NavText>{t('Nav.movements')}</NavText>
+      </NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink to='categories'>
+        <NavIcon icon={graph} />
+        <NavText>{t('Nav.categorisation')}</NavText>
+      </NavLink>
+    </NavItem>
+    <NavItem>
+      <NavLink to='settings'>
+        <NavIcon icon={people} />
+        <NavText>{t('Nav.settings')}</NavText>
+      </NavLink>
+    </NavItem>
+  </UINav>
 )
 
 export default translate()(Nav)
