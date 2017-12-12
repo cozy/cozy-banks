@@ -2541,9 +2541,9 @@ cozy-konnector-libs@^3.0.13:
     request-promise "^4.2.1"
     uuid "^3.1.0"
 
-"cozy-ui@git://github.com/cozy/cozy-ui.git#e86ab1680ff7a9f4fd7f4a134f8bf984a4bebe10":
-  version "4.1.0"
-  resolved "git://github.com/cozy/cozy-ui.git#e86ab1680ff7a9f4fd7f4a134f8bf984a4bebe10"
+cozy-ui@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-5.0.2.tgz#89c3712fb2645535e5a06e9ae7296cea572d4a9c"
   dependencies:
     babel-preset-cozy-app "^0.3.1"
     classnames "^2.2.5"

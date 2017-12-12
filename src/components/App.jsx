@@ -1,7 +1,8 @@
 import React from 'react'
 import ReactHint from 'react-hint'
 import 'react-hint/css/index.css'
-import { Layout, Sidebar, Content } from 'components/Layout'
+import { Layout, Content } from 'components/Layout'
+import { Sidebar } from 'cozy-ui/react'
 import { AccountSwitch } from 'ducks/account'
 import Nav from 'ducks/commons/Nav'
 

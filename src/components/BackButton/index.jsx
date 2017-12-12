@@ -7,7 +7,7 @@ import withBackSwipe from 'utils/backSwipe'
 import { flowRight as compose } from 'lodash'
 import { Icon, withBreakpoints } from 'cozy-ui/react'
 import arrowLeft from 'assets/icons/icon-arrow-left.svg'
-import palette from 'utils/palette.json'
+import palette from 'cozy-ui/stylus/settings/palette.json'
 
 const { BarLeft } = cozy.bar
 
@@ -30,7 +30,7 @@ const BackButton = ({ onClick, to, router, breakpoints: { isMobile }, arrow = fa
   return isMobile ? (
     <BarLeft>
       <button className='coz-bar-btn' onClick={handleClick}>
-        <Icon icon={arrowLeft} color={palette['cool-grey']} />
+        <Icon icon={arrowLeft} color={palette['coolGrey']} />
       </button>
     </BarLeft>
   ) : (arrow && <a onClick={handleClick} className={styles['back-arrow']}>

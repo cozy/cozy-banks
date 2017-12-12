@@ -9,7 +9,7 @@ import { translate, Icon, Spinner } from 'cozy-ui/react'
 import FileOpener from 'components/FileOpener'
 import styles from './TransactionActions.styl'
 import flash from 'ducks/flash'
-import palette from 'utils/palette.json'
+import palette from 'cozy-ui/stylus/settings/palette.json'
 import commentIcon from 'assets/icons/actions/icon-comment.svg'
 
 import bellIcon from 'assets/icons/actions/icon-bell-16.svg'
@@ -37,7 +37,7 @@ const icons = {
   [URL_LINK]: linkOutIcon
 }
 
-const DEFAULT_COLOR = palette['dodger-blue']
+const DEFAULT_COLOR = palette['dodgerBlue']
 
 // helpers
 const getAppName = (urls, transaction) => {
@@ -189,13 +189,13 @@ const TransactionActions = ({transaction, urls, withoutDefault, onClose}) => {
       {displayDefaultAction &&
         <TransactionAction transaction={transaction} urls={urls} onClick={onClose} />}
       <Item disabled>
-        <Action name={ATTACH_LINK} onClick={onClose} color={palette['cool-grey']} />
+        <Action name={ATTACH_LINK} onClick={onClose} color={palette['coolGrey']} />
       </Item>
       <Item disabled>
-        <Action name={COMMENT_LINK} onClick={onClose} color={palette['cool-grey']} />
+        <Action name={COMMENT_LINK} onClick={onClose} color={palette['coolGrey']} />
       </Item>
       <Item disabled>
-        <Action name={ALERT_LINK} onClick={onClose} color={palette['cool-grey']} />
+        <Action name={ALERT_LINK} onClick={onClose} color={palette['coolGrey']} />
       </Item>
     </div>
   )
