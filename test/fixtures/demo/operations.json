@@ -119,6 +119,15 @@
     },
     {
       "demo":true,
+      "categoryId": "{{ categoryId 'power' }}",
+      "account": "compteisa1",
+      "label": "EDF PARTICULIERS",
+      "currency": "€",
+      "amount": -77.50,
+      "date": "2017-08-26T00:00:00Z"
+    },
+    {
+      "demo":true,
       "categoryId": "{{ categoryId 'telecom' }}",
       "account": "compteisa1",
       "label": "FREEMOBILE",
@@ -148,7 +157,7 @@
       "label": "MAIF ASSURANCE HABITATION",
       "currency": "€",
       "amount": -243.57,
-      "date": "2017-08-26T00:00:00Z",
+      "date": "2017-08-20T00:00:00Z",
       "bills": [
         "io.cozy.bills:b4"
       ]
