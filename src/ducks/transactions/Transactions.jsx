@@ -13,6 +13,7 @@ import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { withUpdateCategory } from 'ducks/categories'
 import { updateDocument } from 'cozy-client'
 import { withDispatch } from 'utils'
+import flash from 'ducks/flash'
 
 import styles from './Transactions.styl'
 import { Media, Bd, Img } from 'components/Media'
@@ -44,6 +45,10 @@ const updateCategoryParams = {
   getCategoryId: ownProps => ownProps.transaction.categoryId
 }
 
+const showComingSoon = (t) => {
+  flash(t('ComingSoon.description'))
+}
+
 const TableTrDesktop = compose(
   translate(),
   withDispatch,
@@ -52,7 +57,10 @@ const TableTrDesktop = compose(
   const categoryName = getCategoryName(transaction.categoryId)
   const categoryTitle = t(`Data.subcategories.${categoryName}`)
   const parentCategory = getParentCategory(transaction.categoryId)
-
+  const onSelect = () => {}
+  const onSelectDisabled = () => {
+    showComingSoon(t)
+  }
   return (
     <tr>
       <TdSecondary className={sDate}>
@@ -72,10 +80,14 @@ const TableTrDesktop = compose(
         <Figure total={transaction.amount} currency={transaction.currency} coloredPositive signed />
       </TdSecondary>
       <TdSecondary className={sAction}>
-        <TransactionAction transaction={transaction} urls={urls} className={styles['bnk-table-actions-link']} />
+        <TransactionAction showIcon={true} transaction={transaction} urls={urls} className={styles['bnk-table-actions-link']} />
       </TdSecondary>
       <TdSecondary className={sActions}>
-        <TransactionMenu transaction={transaction} urls={urls} />
+        <TransactionMenu
+          onSelect={onSelect}
+          onSelectDisabled={onSelectDisabled}
+          transaction={transaction}
+          urls={urls} />
       </TdSecondary>
     </tr>
   )
