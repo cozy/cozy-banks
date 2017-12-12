@@ -3,24 +3,33 @@ import { Router, Route } from 'react-router'
 
 import Authentication from './Authentication'
 import Revoked from './Revoked'
-import { resetClient } from './lib/client'
-import { setClient, setURL, revokeClient } from 'ducks/mobile'
-import { initBar } from 'ducks/authentication/lib/client'
+import { resetClient, getToken } from './lib/client'
+import { storeCredentials, revokeClient, setToken, getURL, getAccessToken } from 'ducks/mobile'
+import { initBar, updateAccessTokenBar } from 'ducks/authentication/lib/client'
 export const AUTH_PATH = 'authentication'
 
 const withAuth = Wrapped => (props, { store }) => {
-  const storeCredentials = ({ url, clientInfo, router }) => {
-    store.dispatch(setClient(clientInfo))
-    store.dispatch(setURL(url))
-    router.replace('/')
-  }
-
-  const onAuthentication = function (res) {
+  const onAuthentication = async (res) => {
     if (res) {
-      const { url, clientInfo, router } = res
-      storeCredentials({ url, clientInfo, router })
+      // first authentication
+      const { url, clientInfo, router, token } = res
+      store.dispatch(storeCredentials(url, clientInfo, token))
+      router.replace('/')
     }
-    initBar()
+    initBar(getURL(store.getState().mobile), getAccessToken(store.getState().mobile))
+    if (!res) {
+      // when user is already authenticated
+      // token can expire so ask stack to replace it
+      try {
+        const token = await getToken()
+        if (token && token.accessToken !== getAccessToken(store.getState().mobile)) {
+          store.dispatch(setToken(token))
+          updateAccessTokenBar(token.accessToken)
+        }
+      } catch (e) {
+        console.warn(e)
+      }
+    }
   }
 
   const checkAuth = (isAuthenticated, router) => (nextState, replace) => {

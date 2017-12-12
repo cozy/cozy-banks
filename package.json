@@ -121,7 +121,7 @@
     "chart.js": "^2.7.0",
     "classnames": "^2.2.0",
     "cordova": "^7.1.0",
-    "cozy-bar": "^4.5.3",
+    "cozy-bar": "4.5.5",
     "cozy-client": "0.3.0",
     "cozy-client-js": "0.4.4",
     "cozy-konnector-libs": "^3.0.13",
