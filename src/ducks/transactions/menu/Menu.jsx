@@ -13,7 +13,7 @@ import { getParentCategory, getCategoryName } from 'ducks/categories/categoriesM
 import styles2 from 'ducks/transactions/Transactions.styl'
 import TransactionActions from 'ducks/transactions/TransactionActions'
 import { withUpdateCategory } from 'ducks/categories'
-import palette from 'utils/palette.json'
+import palette from 'cozy-ui/stylus/settings/palette.json'
 import { updateDocument } from 'cozy-client'
 import edit from 'assets/icons/icon-edit.svg'
 
