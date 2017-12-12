@@ -125,7 +125,7 @@
     "cozy-client": "0.3.0",
     "cozy-client-js": "0.4.4",
     "cozy-konnector-libs": "^3.0.13",
-    "cozy-ui": "^5.0.2",
+    "cozy-ui": "git://github.com/cozy/cozy-ui.git",
     "date-fns": "^1.28.2",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-standard": "^3.0.1",
