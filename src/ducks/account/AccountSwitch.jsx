@@ -1,19 +1,20 @@
 /* global cozy */
 
+import { flowRight as compose } from 'lodash'
 import React, { Component } from 'react'
-import { translate, withBreakpoints } from 'cozy-ui/react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import classNames from 'classnames'
 
-import AccountSharingStatus from 'components/AccountSharingStatus'
-import { Media, Bd, Img } from 'components/Media'
-import { filterByAccount, filterByGroup, getAccountOrGroup, resetAccountOrGroup } from 'ducks/filters'
-import { Backdrop } from 'components/Menu'
-import styles from './AccountSwitch.styl'
-import { flowRight as compose } from 'lodash'
-import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { cozyConnect, fetchCollection } from 'cozy-client'
+import { translate, withBreakpoints } from 'cozy-ui/react'
+import Overlay from 'cozy-ui/react/Overlay'
+import { Media, Bd, Img } from 'cozy-ui/react/Media'
+
+import AccountSharingStatus from 'components/AccountSharingStatus'
+import { filterByAccount, filterByGroup, getAccountOrGroup, resetAccountOrGroup } from 'ducks/filters'
+import styles from './AccountSwitch.styl'
+import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 
 const { BarRight } = cozy.bar
 
@@ -126,34 +127,17 @@ class AccountSwitch extends Component {
   state = {
     open: false
   }
-
-  onClickOutside = e => {
-    // the event that trigered the menu open propagates and eventually ends up here,
-    // but in that case we don't wnt to close the menu. So if it's the same event,
-    // we just ignore it.
-    if (this.lastOpenEvent && (e === this.lastOpenEvent || e === this.lastOpenEvent.nativeEvent)) return
-    this.close()
-  }
-
   close = () => {
     if (this.state.open) {
       this.setState({ open: false })
     }
   }
 
-  toggle = e => {
+  toggle = () => {
     let newState = !this.state.open
-
-    if (newState) this.lastOpenEvent = e
-
     this.setState({
       open: newState
     })
-  }
-
-  async componentDidMount () {
-    document.addEventListener('click', this.onClickOutside)
-    this.lastOpenEvent = null
   }
 
   accountExists = accountId => {
@@ -186,7 +170,7 @@ class AccountSwitch extends Component {
           accounts={accounts}
           accountExists={this.accountExists}
           toggle={this.toggle} />}
-        {open && <Backdrop className='coz-tablet' onClose={this.close} />}
+        {open && <Overlay className='coz-tablet' onClick={this.close} />}
         {open &&
           <AccountSwitchMenu
             resetAccountOrGroup={resetAccountOrGroup}

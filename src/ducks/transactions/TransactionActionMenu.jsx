@@ -51,7 +51,7 @@ class TransactionActionMenu extends Component {
           </Img>
         </Media>
         <hr className='u-mv-0' />
-        <Media className='u-ph-1 u-pv-half' onClick={showCategoryChoice}>
+        <Media className='u-ph-1 u-pv-half u-hover' onClick={showCategoryChoice}>
           <Img>
             <CategoryIcon category={category} />
           </Img>

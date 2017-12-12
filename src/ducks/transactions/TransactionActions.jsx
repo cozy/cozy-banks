@@ -77,16 +77,18 @@ export const getLinkType = (transaction, urls) => {
   return undefined
 }
 
-export const getIcon = (name, color = DEFAULT_COLOR) => {
-  if (icons[name]) {
-    return <Icon icon={icons[name]} color={color} />
+export const ActionIcon = ({action, color = DEFAULT_COLOR, ...rest}) => {
+  if (icons[action]) {
+    return <Icon icon={icons[action]} color={color} {...rest} />
+  } else {
+    return null
   }
 }
 
 // components
 export const Action = translate()(({t, actionValue, showIcon, name, appName, href, color = DEFAULT_COLOR, style, ...rest}) => (
   <a className='u-p-0' href={href} target='_blank' style={{ color, ...style }}>
-    { showIcon ? getIcon(name, color) : null }
+    { showIcon ? <ActionIcon name={name} color={color} /> : null }
     {actionValue || t(`Transactions.actions.${name}`, { appName })}
   </a>
 ))
@@ -141,13 +143,13 @@ export const BillAction = connect(state => ({
     const actionStyle = {}
     if (loading) { actionStyle.background = 'none' }
     return (
-      <span>
+      <span onClick={this.onClick}>
         {file && <FileOpener
           onClose={this.onCloseModal}
           onError={this.onCloseModal}
           file={file} autoopen />}
         {loading ? <Spinner style={billSpinnerStyle} /> : null}
-        <Action {...props} onClick={this.onClick} style={actionStyle} />
+        <Action {...props} style={actionStyle} />
       </span>
     )
   }
@@ -187,31 +189,30 @@ export const TransactionAction = ({transaction, showIcon, urls, onClick, type}) 
   }
 
   return widget ? <span>
-    {showIcon && getIcon(type)}&nbsp;
+    {showIcon && <ActionIcon action={type} className='u-mr-half' />}
     {widget}
   </span> : null
 }
 
-const ActionMenuItem = ({disabled, onClick, name, color}) => {
-  return <MenuItem disabled={disabled} onClick={onClick} icon={getIcon(name, color)}>
-    <Action name={name} color={color} />
+const ActionMenuItem = ({disabled, onClick, action, color}) => {
+  return <MenuItem disabled={disabled} onClick={onClick} icon={<ActionIcon action={action} color={color} />}>
+    <Action name={action} color={color} />
   </MenuItem>
 }
 
 /** This is used in Menu / ActionMenu */
 const TransactionActions = ({transaction, urls, withoutDefault, onSelect, onSelectDisabled}) => {
-  const type = getLinkType(transaction, urls)
-  const displayDefaultAction = !withoutDefault && type
-
-  const topAction = <TransactionAction transaction={transaction} urls={urls} onClick={onSelect} />
+  const defaultActionName = getLinkType(transaction, urls)
+  const displayDefaultAction = !withoutDefault && defaultActionName
+  const defaultAction = <TransactionAction transaction={transaction} urls={urls} onClick={onSelect} />
   return (
     <div>
-      { displayDefaultAction && topAction ? <MenuItem icon={getIcon(type)}>
-        { topAction }
-      </MenuItem> : null }
-      <ActionMenuItem name={ATTACH_LINK} disabled onClick={onSelectDisabled} color='black' />
-      <ActionMenuItem name={COMMENT_LINK} disabled onClick={onSelectDisabled} color='black' />
-      <ActionMenuItem name={ALERT_LINK} disabled onClick={onSelectDisabled} color='black' />
+      { displayDefaultAction && <MenuItem onClick={onSelect} icon={<ActionIcon action={defaultActionName} />}>
+        { defaultAction }
+      </MenuItem> }
+      <ActionMenuItem action={ATTACH_LINK} disabled onClick={onSelectDisabled} color='black' />
+      <ActionMenuItem action={COMMENT_LINK} disabled onClick={onSelectDisabled} color='black' />
+      <ActionMenuItem action={ALERT_LINK} disabled onClick={onSelectDisabled} color='black' />
     </div>
   )
 }

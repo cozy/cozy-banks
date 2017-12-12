@@ -6,7 +6,7 @@ import { Figure } from 'components/Figure'
 import { flowRight as compose } from 'lodash'
 import { Table, TdSecondary } from 'components/Table'
 import TransactionMenu from './TransactionMenu'
-import { TransactionAction, getIcon, getLinkType } from './TransactionActions'
+import { TransactionAction, ActionIcon, getLinkType } from './TransactionActions'
 import { getLabel } from './helpers'
 import { getParentCategory, getCategoryName } from 'ducks/categories/categoriesMap'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
@@ -94,7 +94,7 @@ const TableTrDesktop = compose(
 })
 
 const TableTrNoDesktop = translate()(({t, f, transaction, urls, selectTransaction}) => {
-  const icon = getIcon(getLinkType(transaction, urls))
+  const icon = <ActionIcon action={getLinkType(transaction, urls) } />
   return (
     <tr onClick={() => selectTransaction(transaction)} className={styles['bnk-transaction-mobile']}>
       <td>
@@ -108,9 +108,9 @@ const TableTrNoDesktop = translate()(({t, f, transaction, urls, selectTransactio
           <Img className='u-mr-half'>
             <Figure total={transaction.amount} currency={transaction.currency} coloredPositive signed />
           </Img>
-          { icon ? <Img className='u-mr-half' style={{ flexBasis: '1rem' }}>
-            { icon }
-          </Img> : null }
+          <Img style={{ flexBasis: '1rem' }}>
+            <ActionIcon className='u-mr-half' action={getLinkType(transaction, urls) } />
+          </Img>
           <Img>
             <Icon icon='dots' />
           </Img>
