@@ -1,3 +1,7 @@
+/**
+ * Is used in mobile/tablet mode when you click on the more button
+ */
+
 import React, { Component } from 'react'
 import cx from 'classnames'
 import { translate, Icon } from 'cozy-ui/react'

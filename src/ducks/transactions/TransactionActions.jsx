@@ -1,5 +1,14 @@
 /* global __TARGET__ */
 
+/**
+ * Is used in both TransactionActionMenu and TransactionMenu
+ * to show possible actions related to a transaction.
+ *
+ * The TransactionAction (the action the user is most susceptible
+ * to need) can also be shown in desktop mode, directly in the
+ * table.
+ */
+
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'

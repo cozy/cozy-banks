@@ -1,3 +1,7 @@
+/**
+ * Is used in Desktop mode when you click on the more button
+ */
+
 import React from 'react'
 import { translate, Icon } from 'cozy-ui/react'
 
