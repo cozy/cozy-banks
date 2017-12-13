@@ -4,8 +4,7 @@
 
 import React, { Component } from 'react'
 import cx from 'classnames'
-import { translate, Icon } from 'cozy-ui/react'
-import ActionMenu from 'cozy-ui/react/ActionMenu'
+import { translate, Icon, ActionMenu } from 'cozy-ui/react'
 import { withDispatch } from 'utils'
 import { flowRight as compose } from 'lodash'
 

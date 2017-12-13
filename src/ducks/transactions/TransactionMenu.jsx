@@ -3,9 +3,7 @@
  */
 
 import React from 'react'
-import { translate, Icon } from 'cozy-ui/react'
-
-import Menu from 'cozy-ui/react/Menu'
+import { translate, Icon, Menu } from 'cozy-ui/react'
 import TransactionActions from './TransactionActions'
 
 // TODO: check cozy-ui when it has removed color from its SVGs
