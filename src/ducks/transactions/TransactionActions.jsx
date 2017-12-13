@@ -105,10 +105,6 @@ const buildAppURL = function (cozyURL, app, hash) {
 export const BillAction = connect(state => ({
   cozyURL: getURL(state)
 }))(class extends Component {
-  onClick = () => {
-    return this.fetchFile()
-  }
-
   onCloseModal = (err) => {
     this.setState({ file: null })
     if (err) {
@@ -141,7 +137,7 @@ export const BillAction = connect(state => ({
     const actionStyle = {}
     if (loading) { actionStyle.background = 'none' }
     return (
-      <span onClick={this.onClick}>
+      <span onClick={this.fetchFile}>
         {file && <FileOpener
           onClose={this.onCloseModal}
           onError={this.onCloseModal}
