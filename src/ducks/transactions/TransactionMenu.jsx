@@ -1,17 +1,30 @@
+/**
+ * Is used in Desktop mode when you click on the more button
+ */
+
 import React from 'react'
-import { Menu } from 'components/Menu'
-import { translate, Icon } from 'cozy-ui/react'
+import { translate, Icon, Menu } from 'cozy-ui/react'
 import TransactionActions from './TransactionActions'
 
-// check cozy-ui when it has removed color from its SVGs
+// TODO: check cozy-ui when it has removed color from its SVGs
 import dotsIcon from 'assets/icons/icon-dots.svg'
 
-const TransactionMenu = ({t, transaction, urls}) => (
+// Must wrap Icon in a span else we can't attach onClick
+const menuOpener = (
+  <span>
+    <Icon icon={dotsIcon} color='#95999d' />
+  </span>
+)
+
+const TransactionMenu = ({t, transaction, urls, onSelect, onSelectDisabled}) => (
   <Menu
-    title={<Icon icon={dotsIcon} color='#95999d' />}
-    disabled={false}
+    position='right'
+    component={menuOpener}
   >
-    <TransactionActions transaction={transaction} urls={urls} withoutDefault />
+    <TransactionActions
+      onSelect={onSelect}
+      onSelectDisabled={onSelectDisabled}
+      transaction={transaction} urls={urls} withoutDefault />
   </Menu>
 )
 
