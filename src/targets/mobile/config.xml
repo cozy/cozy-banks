@@ -78,4 +78,6 @@
     <plugin name="cordova-plugin-statusbar" spec="2.2.3" />
     <plugin name="cordova-plugin-inappbrowser" spec="1.7.1" />
     <plugin name="cordova-ios-plugin-no-export-compliance" spec="0.0.5" />
+    <plugin name="com.lampa.startapp" spec="^0.1.4" />
+    <plugin name="cordova-plugin-queries-schemes" spec="git+https://github.com/cozy/cordova-plugin-queries-schemes.git" />
 </widget>

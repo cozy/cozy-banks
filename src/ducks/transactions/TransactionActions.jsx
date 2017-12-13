@@ -25,6 +25,7 @@ import linkIcon from 'assets/icons/actions/icon-link.svg'
 import fileIcon from 'assets/icons/actions/icon-file.svg'
 import { getURL } from 'reducers'
 import { getInvoice, getBill } from './helpers'
+import { checkApp, launchApp, DRIVE_INFO } from 'ducks/mobile/appAvailability'
 
 // constants
 const ALERT_LINK = 'alert'
@@ -121,9 +122,14 @@ export const BillAction = connect(state => ({
         // Open in a modal
         this.setState({file: {doctype, id}})
       } else {
-        // Open drive in a new window
-        const driveURL = buildAppURL(this.props.cozyURL, 'drive', `/file/${id}`)
-        window.open(driveURL, '_system')
+        const isInstalled = await checkApp(DRIVE_INFO)
+        if (isInstalled) {
+          launchApp(DRIVE_INFO)
+        } else {
+          // Open drive in a new window
+          const driveURL = buildAppURL(this.props.cozyURL, 'drive', `/file/${id}`)
+          window.open(driveURL, '_system')
+        }
       }
     } catch (err) {
       flash('error', `Impossible de trouver la facture associée`)
