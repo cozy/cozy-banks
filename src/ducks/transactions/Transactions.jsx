@@ -94,7 +94,6 @@ const TableTrDesktop = compose(
 })
 
 const TableTrNoDesktop = translate()(({t, f, transaction, urls, selectTransaction}) => {
-  const icon = <ActionIcon action={getLinkType(transaction, urls) } />
   return (
     <tr onClick={() => selectTransaction(transaction)} className={styles['bnk-transaction-mobile']}>
       <td>
@@ -109,7 +108,7 @@ const TableTrNoDesktop = translate()(({t, f, transaction, urls, selectTransactio
             <Figure total={transaction.amount} currency={transaction.currency} coloredPositive signed />
           </Img>
           <Img style={{ flexBasis: '1rem' }}>
-            <ActionIcon className='u-mr-half' action={getLinkType(transaction, urls) } />
+            <ActionIcon className='u-mr-half' action={getLinkType(transaction, urls)} />
           </Img>
           <Img>
             <Icon icon='dots' />

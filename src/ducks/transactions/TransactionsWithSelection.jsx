@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Transactions from './Transactions'
-import { ActionMenu } from 'cozy-ui/react'
 import TransactionActionMenu from './TransactionActionMenu'
 
 class TransactionsWithSelection extends Component {
@@ -24,8 +23,7 @@ class TransactionsWithSelection extends Component {
         {transaction &&
           <TransactionActionMenu
             requestClose={this.unselectTransaction}
-            transaction={transaction} {...props} />
-          }
+            transaction={transaction} {...props} />}
       </div>
     )
   }
