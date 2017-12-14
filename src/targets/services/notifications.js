@@ -23,7 +23,8 @@ const getTransactionsChanges = async lastSeq => {
 
   const newLastSeq = result.last_seq
   const transactions = result.results
-    .filter(x => x.doc) // do not take handle deleted documents
+    .filter(x => x.doc && x.doc._id.indexOf('_design') !== 0)
+    .filter(x => x.doc && !x.doc._deleted)
     .map(x => x.doc)
 
   const delta = result.results ? result.results.length - transactions.length : 0
