@@ -30,7 +30,7 @@ const getTransactionsChanges = async lastSeq => {
   const delta = result.results ? result.results.length - transactions.length : 0
   if (delta > 0) {
     console.warn(delta + ' transactions do not have any doc associated')
-    console.warn(results.results.filter(x => !x.doc))
+    console.warn(result.results.filter(x => !x.doc))
   }
 
   return { newLastSeq, transactions }
