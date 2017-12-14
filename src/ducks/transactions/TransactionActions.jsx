@@ -12,6 +12,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import cx from 'classnames'
 
 import { translate, Icon, Spinner, MenuItem } from 'cozy-ui/react'
 import FileOpener from 'components/FileOpener'
@@ -26,6 +27,7 @@ import fileIcon from 'assets/icons/actions/icon-file.svg'
 import { getURL } from 'reducers'
 import { getInvoice, getBill } from './helpers'
 import { checkApp, launchApp, DRIVE_INFO } from 'ducks/mobile/appAvailability'
+import styles from './TransactionActions.styl'
 
 // constants
 const ALERT_LINK = 'alert'
@@ -86,7 +88,7 @@ export const ActionIcon = ({action, color = DEFAULT_COLOR, ...rest}) => {
 
 /* Is used inside ActionMenu / Menu and also in the table (primary action) */
 export const Action = translate()(({t, onClick, actionValue, showIcon, name, appName, href, color = DEFAULT_COLOR, style, ...rest}) => (
-  <a className='u-p-0' onClick={onClick} href={href} target='_blank' style={{ color, ...style }}>
+  <a className={cx('u-p-0', styles.TransactionAction)} onClick={onClick} href={href} target='_blank' style={{ color, ...style }}>
     { showIcon ? <ActionIcon name={name} color={color} /> : null }
     {actionValue || t(`Transactions.actions.${name}`, { appName })}
   </a>
