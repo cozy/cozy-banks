@@ -26,7 +26,6 @@ import fileIcon from 'assets/icons/actions/icon-file.svg'
 import { getURL } from 'reducers'
 import { getInvoice, getBill } from './helpers'
 
-
 // constants
 const ALERT_LINK = 'alert'
 const APP_LINK = 'app'
@@ -194,9 +193,11 @@ export const TransactionAction = ({transaction, showIcon, urls, onClick, type}) 
 }
 
 const ActionMenuItem = ({disabled, onClick, action, color}) => {
-  return <MenuItem disabled={disabled} onClick={onClick} icon={<ActionIcon action={action} color={color} />}>
-    <Action name={action} color={color} />
-  </MenuItem>
+  return (
+    <MenuItem disabled={disabled} onClick={onClick} icon={<ActionIcon action={action} color={color} />}>
+      <Action name={action} color={color} />
+    </MenuItem>
+  )
 }
 
 /** This is used in Menu / ActionMenu */

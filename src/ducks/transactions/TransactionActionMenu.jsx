@@ -3,7 +3,6 @@
  */
 
 import React, { Component } from 'react'
-import cx from 'classnames'
 import { translate, Icon, ActionMenu } from 'cozy-ui/react'
 import { withDispatch } from 'utils'
 import { flowRight as compose } from 'lodash'
@@ -13,7 +12,6 @@ import { Figure } from 'components/Figure'
 import { getLabel } from 'ducks/transactions'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { getParentCategory, getCategoryName } from 'ducks/categories/categoriesMap'
-import styles2 from 'ducks/transactions/Transactions.styl'
 import TransactionActions from 'ducks/transactions/TransactionActions'
 import { withUpdateCategory } from 'ducks/categories'
 import palette from 'cozy-ui/stylus/settings/palette.json'
