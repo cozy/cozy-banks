@@ -23,26 +23,41 @@ const getParams = ({appId, uri}) => {
   }
 }
 
-export const checkApp = async (appInfo) => {
+const startAppMethod = method => async (appInfo) => {
   const params = getParams(appInfo)
   return new Promise((resolve, reject) => {
     if (cordovaPluginIsInstalled()) {
-      startApp.set(params).check(() => resolve(true), () => resolve(false))
+      startApp.set(params)[method](
+        infos => {
+          if (infos === 'OK') {
+            resolve(true)
+          } else {
+            // Check return infos example :
+            // {
+            //   versionName: "0.9.2",
+            //   packageName: "io.cozy.drive.mobile",
+            //   versionCode: 902,
+            //   applicationInfo: "ApplicationInfo{70aa0ef io.cozy.drive.mobile}"
+            // }
+            resolve(infos)
+          }
+        },
+        error => {
+          if (error === false || error.indexOf('NameNotFoundException') === 0) {
+            // Plugin returns an error 'NameNotFoundException' on Android and
+            // false on iOS when application is not found.
+            // We prefer to always return false
+            resolve(false)
+          } else {
+            reject(error)
+          }
+        }
+      )
     } else {
-      console.warn(`Cordova plugin 'com.lampa.startapp' is not installed.`)
-      resolve(false)
+      reject(new Error(`Cordova plugin 'com.lampa.startapp' is not installed.`))
     }
   })
 }
 
-export const launchApp = async (appInfo) => {
-  const params = getParams(appInfo)
-  return new Promise((resolve, reject) => {
-    if (cordovaPluginIsInstalled()) {
-      startApp.set(params).start(() => resolve(true), () => resolve(false))
-    } else {
-      console.warn(`Cordova plugin 'com.lampa.startapp' is not installed.`)
-      resolve(false)
-    }
-  })
-}
+export const checkApp = startAppMethod('check')
+export const launchApp = startAppMethod('start')

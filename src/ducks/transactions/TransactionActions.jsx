@@ -122,10 +122,16 @@ export const BillAction = connect(state => ({
         // Open in a modal
         this.setState({file: {doctype, id}})
       } else {
-        const isInstalled = await checkApp(DRIVE_INFO)
-        if (isInstalled) {
-          launchApp(DRIVE_INFO)
-        } else {
+        let isLaunched = false
+        try {
+          const isInstalled = await checkApp(DRIVE_INFO)
+          if (isInstalled) {
+            isLaunched = await launchApp(DRIVE_INFO)
+          }
+        } catch (e) {
+          console.warn(e)
+        }
+        if (!isLaunched) {
           // Open drive in a new window
           const driveURL = buildAppURL(this.props.cozyURL, 'drive', `/file/${id}`)
           window.open(driveURL, '_system')
