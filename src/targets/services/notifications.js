@@ -7,6 +7,14 @@ const dictRequire = lang => require(`../../locales/${lang}`)
 const translation = initTranslation(lang, dictRequire)
 const t = translation.t.bind(translation)
 
+process.on('uncaughtException', err => {
+  console.warn(err.stack)
+})
+
+process.on('unhandledRejection', err => {
+  console.warn(err.stack)
+})
+
 const getTransactionsChanges = async lastSeq => {
   const result = await cozyClient.fetchJSON(
     'GET',
