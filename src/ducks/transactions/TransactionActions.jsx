@@ -84,7 +84,7 @@ export const ActionIcon = ({action, color = DEFAULT_COLOR, ...rest}) => {
   }
 }
 
-// components
+/* Is used inside ActionMenu / Menu and also in the table (primary action) */
 export const Action = translate()(({t, onClick, actionValue, showIcon, name, appName, href, color = DEFAULT_COLOR, style, ...rest}) => (
   <a className='u-p-0' onClick={onClick} href={href} target='_blank' style={{ color, ...style }}>
     { showIcon ? <ActionIcon name={name} color={color} /> : null }
@@ -200,6 +200,7 @@ export const TransactionAction = ({transaction, showIcon, urls, onClick, type}) 
   </span> : null
 }
 
+/* Wraps the actions when they are displayed in Menu / ActionMenu */
 const ActionMenuItem = ({disabled, onClick, action, color}) => {
   return (
     <MenuItem disabled={disabled} onClick={onClick} icon={<ActionIcon action={action} color={color} />}>
