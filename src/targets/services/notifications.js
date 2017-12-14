@@ -26,8 +26,9 @@ const getTransactionsChanges = async lastSeq => {
     .filter(x => x.doc) // do not take handle deleted documents
     .map(x => x.doc)
 
-  if (transactions.length < result.results.length) {
-    console.warn('Some transactions do not have any doc associated')
+  const delta = result.results ? result.results.length - transactions.length : 0
+  if (delta > 0) {
+    console.warn(delta + ' transactions do not have any doc associated')
     console.warn(results.results.filter(x => !x.doc))
   }
 
@@ -44,11 +45,12 @@ const getAccountsOfTransactions = async transactions => {
 
   const rows = result.rows
   const accounts = rows
-    .filter(x => !x.error) // filter document that have not been found
+    .filter(x => !x.error) // filter accounts that have not been found
     .map(x => x.doc)
 
-  if (accounts.length !== rows.length) {
-    console.warn('Some transactions\' account do not exist')
+  const delta = rows.length - accounts.length
+  if (delta) {
+    console.warn(delta + ' accounts do not exist')
     console.warn(rows.filter(x => x.error))
   }
 
@@ -72,7 +74,10 @@ const saveLastSeqInConfig = async (config, lastSeq) => {
 
 const sendNotifications = async () => {
   const config = await getConfiguration()
-  if (!config) return
+  if (!config) {
+    console.warn('Notications are not configured. Please toggle options in the Bank application')
+    return
+  }
 
   const notifications = [
     new TransactionGreater({ ...config.notifications.transactionGreater, t }),
