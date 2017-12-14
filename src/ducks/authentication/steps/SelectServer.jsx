@@ -3,10 +3,8 @@ import React, { Component } from 'react'
 import ReactMarkdown from 'react-markdown'
 import classNames from 'classnames'
 
-import { translate } from 'cozy-ui/react/I18n'
-
 import styles from '../styles'
-import { Icon } from 'cozy-ui/react'
+import { translate, Icon, Button } from 'cozy-ui/react'
 
 const ERR_WRONG_ADDRESS = 'mobile.onboarding.server_selection.wrong_address'
 const ERR_EMAIL = 'mobile.onboarding.server_selection.wrong_address'
@@ -121,14 +119,10 @@ export class SelectServer extends Component {
           }
         </div>
         <footer className={styles['wizard-footer']}>
-          <button
-            role='button'
-            type='submit'
-            className={'c-btn c-btn--regular'}
-            disabled={error || !value}
-          >
+
+          <Button theme='regular' type='submit' disabled={error || !value}>
             {t('mobile.onboarding.server_selection.button')}
-          </button>
+          </Button>
         </footer>
       </form>
     )

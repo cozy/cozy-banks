@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
 import { connect } from 'react-redux'
-import { translate } from 'cozy-ui/react/I18n'
+import { translate, Button } from 'cozy-ui/react'
 
 import styles from '../styles'
 
@@ -23,12 +23,9 @@ export class Welcome extends Component {
           </h1>
         </div>
         <footer className={styles['wizard-footer']}>
-          <button role='button'
-            className='c-btn c-btn--regular'
-            onClick={selectServer}
-          >
+          <Button theme='regular' onClick={selectServer}>
             {t('mobile.onboarding.welcome.button')}
-          </button>
+          </Button>
           <a
             href={'https://cozy.io/fr/try-it?from=io.cozy.drive.mobile'}
             className={styles['link']}
