@@ -20,9 +20,10 @@ const getTransactionsChanges = async lastSeq => {
     'GET',
     `/data/io.cozy.bank.operations/_changes?include_docs=true&since=${lastSeq}`
   )
+
   const newLastSeq = result.last_seq
   const transactions = result.results
-    .filter(x => x.doc)
+    .filter(x => x.doc) // do not take handle deleted documents
     .map(x => x.doc)
 
   if (transactions.length < result.results.length) {
