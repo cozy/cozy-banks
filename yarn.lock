@@ -2545,8 +2545,8 @@ cozy-konnector-libs@^3.0.13:
     uuid "^3.1.0"
 
 "cozy-ui@git://github.com/cozy/cozy-ui.git":
-  version "6.0.0"
-  resolved "git://github.com/cozy/cozy-ui.git#c44def426c7f89508955f1e284ae0f9aa0b76a6f"
+  version "6.0.1"
+  resolved "git://github.com/cozy/cozy-ui.git#082a03bc29a7927123fa668ef869332241791813"
   dependencies:
     babel-preset-cozy-app "^0.3.1"
     classnames "^2.2.5"

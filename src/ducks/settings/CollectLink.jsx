@@ -1,9 +1,9 @@
 /* global __TARGET__ */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import IntentButton from 'components/IntentButton'
 import { flowRight as compose } from 'lodash'
 import { getAppUrlBySource, fetchApps } from 'ducks/apps'
+import { IntentOpener } from 'cozy-ui/react'
 
 /*
  * This component aims to open collect:
@@ -45,13 +45,13 @@ const MobileLink = compose(
 class BrowserLink extends Component {
   render () {
     return (
-      <IntentButton
+      <IntentOpener
         action='CREATE'
-        docType='io.cozy.accounts'
-        data={{dataType: 'bankAccounts'}}
+        doctype='io.cozy.accounts'
+        options={{dataType: 'bankAccounts'}}
       >
-        {this.props.children}
-      </IntentButton>
+        <span>{this.props.children}</span>
+      </IntentOpener>
     )
   }
 }
