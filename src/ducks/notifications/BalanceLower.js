@@ -3,22 +3,23 @@ import { cozyClient } from 'cozy-konnector-libs'
 class BalanceLower {
   constructor (config) {
     this.t = config.t
-    this.enabled = config.enabled
     this.lowerBalance = config.value
+
+    this.notification = this.buildNotification(config.data)
   }
 
-  isEnabled () {
-    return this.enabled
-  }
 
-  filter (accounts) {
+  filter (account) {
     // TODO: Find why account is undefined?
-    return accounts.filter(account => account.balance < this.lowerBalance)
+    return account.balance < this.lowerBalance
   }
 
-  async sendNotification (accounts, transactions) {
-    const accountsFiltered = this.filter(accounts)
-    if (accountsFiltered.length === 0) return
+  buildNotification ({accounts, transactions}) {
+    const accountsFiltered = accounts.filter(acc => this.filter(acc))
+    if (accountsFiltered.length === 0) {
+      console.log('BalanceLower: no matched transactions')
+      return
+    }
 
     const notification = { reference: 'balance_lower' }
     let translateKey = 'Notifications.if_balance_lower.notification.'
@@ -56,10 +57,16 @@ class BalanceLower {
         }) + '\n'
       }
     }
+
+    return notification
+  }
+
+  sendNotification () {
+    if (!this.notification) { return }
     return cozyClient.fetchJSON('POST', '/notifications', {
       data: {
         type: 'io.cozy.notifications',
-        attributes: notification
+        attributes: this.notification
       }
     })
   }

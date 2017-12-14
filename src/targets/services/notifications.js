@@ -36,6 +36,13 @@ const getTransactionsChanges = async lastSeq => {
   return { newLastSeq, transactions }
 }
 
+const configKeys = {
+  'BalanceLower': 'balanceLower',
+  'TransactionGreater': 'transactionGreater'
+}
+
+const notificationClasses = [BalanceLower, TransactionGreater]
+
 const getAccountsOfTransactions = async transactions => {
   const accountsIds = Array.from(new Set(transactions.map(x => x.account)))
   const result = await cozyClient.fetchJSON(
@@ -73,6 +80,21 @@ const saveLastSeqInConfig = async (config, lastSeq) => {
   await cozyClient.data.update('io.cozy.bank.settings', config, config)
 }
 
+const getClassConfig = (klass, config) => config.notifications[configKeys[klass.name]]
+
+const getEnabledNotificationClasses = config => {
+  return notificationClasses.filter(
+    klass => {
+      const klassConfig = getClassConfig(klass, config)
+      const enabled = klassConfig && klassConfig.enabled
+      if (!enabled) {
+        console.log(klass.name + ' is not enabled')
+      }
+      return enabled
+    }
+  )
+}
+
 const sendNotifications = async () => {
   const config = await getConfiguration()
   if (!config) {
@@ -80,19 +102,20 @@ const sendNotifications = async () => {
     return
   }
 
-  const notifications = [
-    new TransactionGreater({ ...config.notifications.transactionGreater, t }),
-    new BalanceLower({ ...config.notifications.balanceLower, t })
-  ]
-  const enabledNotifications = notifications.filter(notif => notif.isEnabled())
-  if (enabledNotifications.length === 0) return
+  const enabledNotificationClasses = getEnabledNotificationClasses(config)
+  if (enabledNotificationClasses.length === 0) {
+    console.log('No notification is enabled')
+    return
+  }
 
   const lastSeq = getLastSeqFromConfig(config)
   const { newLastSeq, transactions } = await getTransactionsChanges(lastSeq)
 
   if (transactions.length > 0) {
     const accounts = await getAccountsOfTransactions(transactions)
-    for (const notification of notifications) {
+    for (const klass of enabledNotificationClasses) {
+      const klassConfig = getClassConfig(klass, config)
+      const notification = new klass({ ...klassConfig, t, data: { accounts, transactions } })
       try {
         await notification.sendNotification(accounts, transactions)
       } catch (err) {

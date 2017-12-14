@@ -4,23 +4,23 @@ const abs = number => number < 0 ? -number : number
 class TransactionGreater {
   constructor (config) {
     this.t = config.t
-    this.enabled = config.enabled
     this.maxAmount = config.value
+    this.notification = this.buildNotification(config.data)
   }
 
-  isEnabled () {
-    return this.enabled
-  }
-
-  filter (transactions) {
+  filter (op) {
+    return Math.random() < 0.05
     const maxAmount = abs(this.maxAmount)
     // TODO: Find why op is undefined?
-    return transactions.filter(op => abs(op.amount) > maxAmount)
+    return abs(op.amount) > maxAmount
   }
 
-  async sendNotification (accounts, transactions) {
-    const transactionsFiltered = this.filter(transactions)
-    if (transactionsFiltered.length === 0) return
+  buildNotification ({ accounts, transactions }) {
+    const transactionsFiltered = transactions.filter(op => this.filter(op))
+    if (transactionsFiltered.length === 0) {
+      console.log('TransactionGreater: no matched transactions')
+      return
+    }
 
     const notification = { reference: 'transaction_greater' }
     let translateKey = 'Notifications.if_transaction_greater.notification.'
@@ -43,10 +43,16 @@ class TransactionGreater {
         }) + '\n'
       }
     }
+
+    return notification
+  }
+
+  sendNotification () {
+    if (!this.notification) { return }
     return cozyClient.fetchJSON('POST', '/notifications', {
       data: {
         type: 'io.cozy.notifications',
-        attributes: notification
+        attributes: this.notification
       }
     })
   }
