@@ -1,0 +1,13 @@
+{{#if onlyOne}}
+  {{#each transactions}}
+    {{#if (positive amount)}}
+{{ formatDate date }} {{{ t 'one.creditContent' this }}}
+    {{else}}
+{{ formatDate date }} {{{ t 'one.debitContent' this }}}
+    {{/if}}
+  {{/each}}
+{{else}}
+  {{#each accounts}}
+{{{ t 'several.content' this }}}
+  {{/each}}
+{{/if}}
