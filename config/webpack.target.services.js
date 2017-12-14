@@ -18,6 +18,14 @@ module.exports = merge.strategy({
     path: path.resolve(__dirname, '../build'),
     filename: 'notifications.js'
   },
+  module: {
+    rules: [
+      {
+        test: /\.hbs$/,
+        loader: 'raw-loader'
+      }
+    ]
+  },
   plugins: [
     new webpack.DefinePlugin({
       __TARGET__: JSON.stringify('services')

@@ -1,5 +1,7 @@
 import { cozyClient } from 'cozy-konnector-libs'
 import Handlebars from 'handlebars'
+import _textTemplate from './transaction-greater-text.hbs'
+
 const abs = number => number < 0 ? -number : number
 
 Handlebars.registerHelper({
@@ -11,25 +13,7 @@ Handlebars.registerHelper({
   }
 })
 
-const textTemplate = Handlebars.compile(`
-  {{# if onlyOne }}
-    {{# with transactions.[0] }}
-      {{# if positive amount }}
-{{ formatDate date }} {{{ t "debit" label }}}
-      {{else}}
-{{ formatDate date }} {{{ t "credit" label }}}
-      {{/if}}
-    {{/with}}
-  {{ else }}
-    {{#each transactions}}
-      {{#if (positive amount) }}
-{{ formatDate date }} {{{ t "others.creditContent" this }}}
-      {{else}}
-{{ formatDate date }} {{{ t "others.debitContent" this }}}
-      {{/if}}
-    {{/each}}
-  {{/if}}
-`)
+const textTemplate = Handlebars.compile(_textTemplate)
 
 class TransactionGreater {
   constructor (config) {

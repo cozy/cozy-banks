@@ -1,0 +1,17 @@
+{{# if onlyOne }}
+  {{# with transactions.[0] }}
+    {{# if positive amount }}
+{{ formatDate date }} {{{ t "debit" label }}}
+    {{else}}
+{{ formatDate date }} {{{ t "credit" label }}}
+    {{/if}}
+  {{/with}}
+{{ else }}
+  {{#each transactions}}
+    {{#if (positive amount) }}
+{{ formatDate date }} {{{ t "others.creditContent" this }}}
+    {{else}}
+{{ formatDate date }} {{{ t "others.debitContent" this }}}
+    {{/if}}
+  {{/each}}
+{{/if}}
