@@ -29,14 +29,6 @@ const Settings = ({ t, children, router }) => {
     </Tab>)
   ]
 
-  if (__TARGET__ === 'mobile') {
-    tabs.push(
-      (<Tab name={tabNames[3]} onClick={goTo('/settings/app')}>
-        {t('Settings.app')}
-      </Tab>)
-    )
-  }
-
   return (
     <div>
       <Topbar>
