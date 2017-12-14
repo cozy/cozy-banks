@@ -4,7 +4,7 @@ import App from 'components/App'
 
 import { TransactionsPage } from 'ducks/transactions'
 import { CategoriesPage } from 'ducks/categories'
-import { Settings, AccountSettings, AccountsSettings, GroupsSettings, GroupSettings, NewGroupSettings, AppSettings } from 'ducks/settings'
+import { Settings, AccountSettings, AccountsSettings, GroupsSettings, GroupSettings, NewGroupSettings } from 'ducks/settings'
 import Notifications from 'ducks/settings/Notifications'
 import { Balance } from 'ducks/balance'
 import { EnsureHasAccounts, EnsureIsFirstSynced } from 'ducks/onboarding'
@@ -34,7 +34,6 @@ const AppRoute = (
             <Route path='accounts' component={AccountsSettings} />
             <Route path='groups' component={GroupsSettings} />
             <Route path='notifications' component={Notifications} />
-            <Route path='app' component={AppSettings} />
           </Route>
         </Route>
         <Redirect from='*' to='/transactions' />
