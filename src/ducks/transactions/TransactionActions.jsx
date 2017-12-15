@@ -26,6 +26,7 @@ import fileIcon from 'assets/icons/actions/icon-file.svg'
 import { getInvoice, getBill } from './helpers'
 import { checkApp, launchApp, DRIVE_INFO } from 'ducks/mobile/appAvailability'
 import FileOpener from './FileOpener'
+import { findKey } from 'lodash'
 import { Action } from './Action'
 
 // constants
@@ -51,13 +52,8 @@ const DEFAULT_COLOR = palette['dodgerBlue']
 
 // helpers
 const getAppName = (urls, transaction) => {
-  let appName
-  Object.keys(urls).map(key => {
-    if (urls[key] !== undefined && transaction.label.indexOf(key) !== -1) {
-      appName = key
-    }
-  })
-  return appName
+  const label = transaction.label.toLowerCase()
+  return findKey(urls, (url, appName) => url && label.indexOf(appName) !== -1)
 }
 
 const isHealthCategory = (categoryId) =>
