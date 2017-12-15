@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getURL } from 'reducers'
+import FileIntentDisplay from 'components/FileIntentDisplay'
+import PropTypes from 'prop-types'
+import Spinner from 'cozy-ui/react/Spinner'
 
-const billSpinnerStyle = { marginLeft: '-0.25rem', marginRight: '-1rem' }
+const spinnerStyle = { marginLeft: '-0.25rem', marginRight: '-1rem' }
 
 const buildAppURL = function (cozyURL, app, hash) {
   const splitted = cozyURL.split('/')
@@ -13,7 +16,12 @@ const buildAppURL = function (cozyURL, app, hash) {
   return `${protocol}//${slug}-${app}.${domain}/#${hash}`
 }
 
-class BillAction extends Component {
+/*
+  Wraps a component so that onClick , it calls its fetchFile prop,
+  displays a Spinner while loading and displays the file, either via the
+  dedicated app or intent
+*/
+class FileOpener extends Component {
   onCloseModal = (err) => {
     this.setState({ file: null })
     if (err) {
@@ -21,14 +29,13 @@ class BillAction extends Component {
     }
   }
 
-  fetchFile = async () => {
-    const { transaction } = this.props
+  displayFile = async () => {
     try {
       this.setState({ loading: true })
-      const [doctype, id] = await getInvoice(transaction)
+      const fileId = await this.props.getFileId()
       if (__TARGET__ === 'browser') {
         // Open in a modal
-        this.setState({file: {doctype, id}})
+        this.setState({fileId})
       } else {
         let isLaunched = false
         try {
@@ -53,22 +60,26 @@ class BillAction extends Component {
     }
   }
 
-  render (props, { loading, file }) {
+  render (props, { loading, fileId }) {
     const actionStyle = {}
     if (loading) { actionStyle.background = 'none' }
     return (
       <span>
-        <Action onClick={this.fetchFile} {...props} style={actionStyle} />
-        {loading ? <Spinner style={billSpinnerStyle} /> : null}
-        {file && <FileOpener
+        {React.cloneElement(props.children, { onClick: this.displayFile })}
+        {loading ? <Spinner style={spinnerStyle} /> : null}
+        {fileId && <FileIntentDisplay
           onClose={this.onCloseModal}
           onError={this.onCloseModal}
-          file={file} autoopen />}
+          fileId={fileId} />}
       </span>
     )
   }
 }
 
+FileOpener.propTypes = {
+  children: PropTypes.element
+}
+
 export default connect(state => ({
   cozyURL: getURL(state)
-}))
+}))(FileOpener)

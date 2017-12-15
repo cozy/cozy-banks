@@ -15,7 +15,6 @@ import { connect } from 'react-redux'
 import cx from 'classnames'
 
 import { translate, Icon, Spinner, MenuItem } from 'cozy-ui/react'
-import FileOpener from 'components/FileOpener'
 import flash from 'ducks/flash'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import commentIcon from 'assets/icons/actions/icon-comment.svg'
@@ -24,11 +23,10 @@ import bellIcon from 'assets/icons/actions/icon-bell-16.svg'
 import linkOutIcon from 'assets/icons/actions/icon-link-out.svg'
 import linkIcon from 'assets/icons/actions/icon-link.svg'
 import fileIcon from 'assets/icons/actions/icon-file.svg'
-import { getURL } from 'reducers'
 import { getInvoice, getBill } from './helpers'
 import { checkApp, launchApp, DRIVE_INFO } from 'ducks/mobile/appAvailability'
-import BillAction from './BillAction'
-import styles from './TransactionActions.styl'
+import FileOpener from './FileOpener'
+import { Action } from './Action'
 
 // constants
 const ALERT_LINK = 'alert'
@@ -38,6 +36,7 @@ const BILL_LINK = 'bill'
 const COMMENT_LINK = 'comment'
 const HEALTH_LINK = 'refund'
 const URL_LINK = 'url'
+
 const icons = {
   [ALERT_LINK]: bellIcon,
   [APP_LINK]: linkOutIcon,
@@ -107,8 +106,6 @@ export const TransactionAction = ({transaction, showIcon, urls, onClick, type}) 
     actionName: type
   }
 
-  let widget
-
   if (type === HEALTH_LINK) {
     options.href = urls['HEALTH'] + '/#/remboursements'
   } else if (type === APP_LINK) {
@@ -125,7 +122,9 @@ export const TransactionAction = ({transaction, showIcon, urls, onClick, type}) 
 
   let widget
   if (type === BILL_LINK) {
-    widget = <BillAction transaction={transaction} {...options} />
+    widget = <FileOpener getFileId={ () => getInvoice(transaction) }>
+      <Action transaction={transaction} color={color} {...options} />
+    </FileOpener>
   } else {
     widget = <Action {...options} />
   }
