@@ -1,6 +1,7 @@
 import { cozyClient } from 'cozy-konnector-libs'
 import Handlebars from 'handlebars'
 import _textTemplate from './balance-lower-text.hbs'
+import htmlTemplate from './html/balance-lower-html'
 
 Handlebars.registerHelper({
   positive: amount => amount > 0,
@@ -64,6 +65,7 @@ class BalanceLower {
     const titleKey = `${translateKey}.${onlyOne ? 'one' : 'several'}.title`
     notification.title = this.t(titleKey, titleData)
     notification.content = textTemplate(templateData)
+    notification.content_html = htmlTemplate(templateData)
 
     return notification
   }

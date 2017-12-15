@@ -1,6 +1,7 @@
 import { cozyClient } from 'cozy-konnector-libs'
 import Handlebars from 'handlebars'
 import _textTemplate from './transaction-greater-text.hbs'
+import htmlTemplate from './html/transaction-greater-html'
 
 const abs = number => number < 0 ? -number : number
 
@@ -43,6 +44,7 @@ class TransactionGreater {
 
     const onlyOne = transactionsFiltered.length === 1
     const templateData = {
+      accounts: accounts,
       transactions: transactionsFiltered,
       onlyOne: transactionsFiltered.length === 1,
     }
@@ -62,6 +64,7 @@ class TransactionGreater {
     ) : `${translateKey}.others.title`
     notification.title = this.t(titleKey, titleData)
     notification.content = textTemplate(templateData)
+    notification.content_html = htmlTemplate(templateData)
 
     return notification
   }

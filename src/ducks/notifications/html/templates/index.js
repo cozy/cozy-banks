@@ -18,6 +18,10 @@ const capitalizeWord = str => {
   }
 }
 
+const embeds = {
+  'style.css': require('!!raw-loader!./style.css')
+}
+
 Handlebars.registerHelper({
   colored: amount => {
     return new Handlebars.SafeString(
@@ -29,7 +33,7 @@ ${Math.abs(amount)} €
     )
   },
   embedFile: filename => {
-    return read(filename)
+    return embeds[filename]
   },
   get: (a1, a2, a3)  => {
     return a1[a2][a3]
@@ -42,16 +46,15 @@ ${Math.abs(amount)} €
   }
 })
 
-
 layouts.register(Handlebars)
 
-const mapToObject = _.flow(_.map, _.fromPairs)
-const partials = mapToObject(
-  glob('./*.hbs', { cwd: __dirname }),
-  x => [
-    path.basename(x).replace(/\.hbs$/, ''),
-    Handlebars.compile(read(x))
-  ])
+const partials = {
+  'bank-layout': Handlebars.compile(require('./bank-layout.hbs')),
+  'cozy-layout': Handlebars.compile(require('./cozy-layout.hbs')),
+  'balance-lower': Handlebars.compile(require('./balance-lower.hbs')),
+  'transaction-greater': Handlebars.compile(require('./transaction-greater.hbs'))
+}
+
 Handlebars.registerPartial(partials)
 
 module.exports = Handlebars.partials
