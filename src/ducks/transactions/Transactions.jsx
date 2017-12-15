@@ -6,7 +6,7 @@ import { Figure } from 'components/Figure'
 import { flowRight as compose } from 'lodash'
 import { Table, TdSecondary } from 'components/Table'
 import TransactionMenu from './TransactionMenu'
-import { TransactionAction, ActionIcon, getLinkType } from './TransactionActions'
+import { PrimaryAction, PrimaryActionIcon, getLinkType } from './TransactionActions'
 import { getLabel } from './helpers'
 import { getParentCategory, getCategoryName } from 'ducks/categories/categoriesMap'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
@@ -80,7 +80,7 @@ const TableTrDesktop = compose(
         <Figure total={transaction.amount} currency={transaction.currency} coloredPositive signed />
       </TdSecondary>
       <TdSecondary className={sAction}>
-        <TransactionAction showIcon transaction={transaction} urls={urls} className={styles['bnk-table-actions-link']} />
+        <PrimaryAction showIcon={true} transaction={transaction} urls={urls} className={styles['bnk-table-actions-link']} />
       </TdSecondary>
       <TdSecondary className={sActions}>
         <TransactionMenu
@@ -108,7 +108,7 @@ const TableTrNoDesktop = translate()(({t, f, transaction, urls, selectTransactio
             <Figure total={transaction.amount} currency={transaction.currency} coloredPositive signed />
           </Img>
           <Img style={{ flexBasis: '1rem' }}>
-            <ActionIcon className='u-mr-half' action={getLinkType(transaction, urls)} />
+            <PrimaryActionIcon className='u-mr-half' type={getLinkType(transaction, urls)} />
           </Img>
           <Img>
             <Icon icon='dots' />

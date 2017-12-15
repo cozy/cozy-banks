@@ -27,7 +27,7 @@ import { getInvoice, getBill } from './helpers'
 import { checkApp, launchApp, DRIVE_INFO } from 'ducks/mobile/appAvailability'
 import FileOpener from './FileOpener'
 import { findKey } from 'lodash'
-import { Action } from './Action'
+import styles from './TransactionActions.styl'
 
 // constants
 const ALERT_LINK = 'alert'
@@ -48,7 +48,7 @@ const icons = {
   [URL_LINK]: linkOutIcon
 }
 
-const DEFAULT_COLOR = palette['dodgerBlue']
+const PRIMARY_ACTION_COLOR = palette['dodgerBlue']
 
 // helpers
 const getAppName = (urls, transaction) => {
@@ -74,68 +74,59 @@ export const getLinkType = (transaction, urls) => {
   return undefined
 }
 
-export const ActionIcon = ({action, color = DEFAULT_COLOR, ...rest}) => {
-  if (icons[action]) {
-    return <Icon icon={icons[action]} color={color} {...rest} />
-  } else {
-    return null
-  }
+export const ActionIcon = ({type, color, ...rest}) => {
+  const icon = icons[type]
+  return icon ? <Icon icon={icon} color={color} {...rest} /> : null
 }
 
-/* Is used inside ActionMenu / Menu and also in the table (primary action) */
-export const Action = translate()(({t, onClick, actionValue, showIcon, name, appName, href, color = DEFAULT_COLOR, style, ...rest}) => (
-  <a className={cx('u-p-0', styles.TransactionAction)} onClick={onClick} href={href} target='_blank' style={{ color, ...style }}>
-    { showIcon ? <ActionIcon name={name} color={color} /> : null }
-    {actionValue || t(`Transactions.actions.${name}`, { appName })}
-  </a>
-))
-
-
-export const TransactionAction = ({transaction, showIcon, urls, onClick, type}) => {
-  type = type || getLinkType(transaction, urls)
+export const Action = translate()(({t, transaction, showIcon, urls, onClick, type, color}) => {
+  type = type || (transaction && getLinkType(transaction, urls))
   if (type === undefined) {
     return
   }
 
-  const options = {
-    name: type,
-    actionName: type
-  }
-
+  let href, text, target
   if (type === HEALTH_LINK) {
-    options.href = urls['HEALTH'] + '/#/remboursements'
+    href = urls['HEALTH'] + '/#/remboursements'
+    text = t(`Transactions.actions.${type}`)
   } else if (type === APP_LINK) {
-    const appName = getAppName(urls, transaction)
-    options.href = urls[appName]
-    options.appName = appName
+    href = urls[appName]
+    text = t(`Transactions.actions.${type}`, { appName : getAppName(urls, transaction) })
   } else if (type === URL_LINK) {
     const action = transaction.action
-    options.actionValue = action.trad
-    options.target = action.target
-    options.href = action.url
-    options.onClick = onClick
+    text = action.trad
+    target = action.target
+    href = action.url
+  } else {
+    text = t(`Transactions.actions.${type}`)
   }
 
-  let widget
+  let widget = <a
+      href={href}
+      target={target}
+      href={href}
+      onClick={onClick}
+      style={{ color }}
+      className={styles.TransactionAction}>
+    {text}
+  </a>
   if (type === BILL_LINK) {
     widget = <FileOpener getFileId={ () => getInvoice(transaction) }>
-      <Action transaction={transaction} color={color} {...options} />
+      { widget }
     </FileOpener>
-  } else {
-    widget = <Action {...options} />
   }
 
   return <span>
-    {showIcon && <ActionIcon action={type} className='u-mr-half' color={color} />}
+    {showIcon && <ActionIcon type={type} className='u-mr-half' color={color} />}
     {widget}
   </span>
-}
+})
 
 /* Wraps the actions when they are displayed in Menu / ActionMenu */
-const ActionMenuItem = ({disabled, onClick, action, color}) => {
+const ActionMenuItem = ({disabled, onClick, type, color}) => {
   return (
-    <MenuItem disabled={disabled} onClick={onClick} icon={<ActionIcon action={action} color={color} />}>
-      <Action name={action} color={color} />
+    <MenuItem disabled={disabled} onClick={onClick} icon={<ActionIcon type={type} color={color} />}>
+      <Action type={type} color={color} />
     </MenuItem>
   )
 }
@@ -144,18 +135,27 @@ const ActionMenuItem = ({disabled, onClick, action, color}) => {
 const TransactionActions = ({transaction, urls, withoutDefault, onSelect, onSelectDisabled}) => {
   const defaultActionName = getLinkType(transaction, urls)
   const displayDefaultAction = !withoutDefault && defaultActionName
-  const defaultAction = <TransactionAction transaction={transaction} urls={urls} onClick={onSelect} />
   return (
     <div>
-      { displayDefaultAction && <MenuItem onClick={onSelect} icon={<ActionIcon action={defaultActionName} />}>
-        { defaultAction }
+      { displayDefaultAction && <MenuItem
+          onClick={onSelect}
+          icon={<PrimaryActionIcon type={defaultActionName}/>}>
+        <PrimaryTransactionAction transaction={transaction} urls={urls} onClick={onSelect} />
       </MenuItem> }
-      <ActionMenuItem action={ATTACH_LINK} disabled onClick={onSelectDisabled} color='black' />
-      <ActionMenuItem action={COMMENT_LINK} disabled onClick={onSelectDisabled} color='black' />
-      <ActionMenuItem action={ALERT_LINK} disabled onClick={onSelectDisabled} color='black' />
+      <ActionMenuItem type={ATTACH_LINK} disabled onClick={onSelectDisabled} />
+      <ActionMenuItem type={COMMENT_LINK} disabled onClick={onSelectDisabled} />
+      <ActionMenuItem type={ALERT_LINK} disabled onClick={onSelectDisabled} />
     </div>
   )
 }
+
+export const PrimaryAction = props => (
+  <Action {...props} color={PRIMARY_ACTION_COLOR}/>
+)
+
+export const PrimaryActionIcon = props => (
+  <ActionIcon {...props} color={PRIMARY_ACTION_COLOR}/>
+)
 
 TransactionActions.propTypes = {
   transaction: PropTypes.object.isRequired,
