@@ -169,7 +169,7 @@ export const TransactionAction = ({transaction, showIcon, urls, onClick, type}) 
     return
   }
 
-  let options = {
+  const options = {
     name: type,
     actionName: type
   }
@@ -190,16 +190,17 @@ export const TransactionAction = ({transaction, showIcon, urls, onClick, type}) 
     options.onClick = onClick
   }
 
+  let widget
   if (type === BILL_LINK) {
     widget = <BillAction transaction={transaction} {...options} />
   } else {
     widget = <Action {...options} />
   }
 
-  return widget ? <span>
-    {showIcon && <ActionIcon action={type} className='u-mr-half' />}
+  return <span>
+    {showIcon && <ActionIcon action={type} className='u-mr-half' color={color} />}
     {widget}
-  </span> : null
+  </span>
 }
 
 /* Wraps the actions when they are displayed in Menu / ActionMenu */
