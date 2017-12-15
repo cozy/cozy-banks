@@ -1,14 +1,6 @@
 const Handlebars = require('handlebars')
 const layouts = require('handlebars-layouts')
-const _ = require('lodash')
-const fs = require('fs')
-const path = require('path')
-const glob = require('glob').sync
 const { parse, format } = require('date-fns')
-
-const read = name  => {
-  return fs.readFileSync(path.join(__dirname, name), 'utf-8')
-}
 
 const capitalizeWord = str => {
   if (str.length > 3) {
@@ -19,7 +11,7 @@ const capitalizeWord = str => {
 }
 
 const embeds = {
-  'style.css': require('!!raw-loader!./style.css')
+  'style.css': require('!!raw-loader!./style.css') // eslint-disable-line import/no-webpack-loader-syntax
 }
 
 Handlebars.registerHelper({
@@ -35,7 +27,7 @@ ${Math.abs(amount)} €
   embedFile: filename => {
     return embeds[filename]
   },
-  get: (a1, a2, a3)  => {
+  get: (a1, a2, a3) => {
     return a1[a2][a3]
   },
   capitalize: (str) => {

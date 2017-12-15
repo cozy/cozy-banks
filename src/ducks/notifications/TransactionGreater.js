@@ -36,7 +36,7 @@ class TransactionGreater {
     }
 
     const notification = { reference: 'transaction_greater' }
-    let translateKey = 'Notifications.if_transaction_greater.notification'
+    const translateKey = 'Notifications.if_transaction_greater.notification'
 
     // Custom t bound to its part
     const t = (key, data) => this.t(translateKey + '.' + key, data)
@@ -46,22 +46,25 @@ class TransactionGreater {
     const templateData = {
       accounts: accounts,
       transactions: transactionsFiltered,
-      onlyOne: transactionsFiltered.length === 1,
+      onlyOne: transactionsFiltered.length === 1
     }
-    const titleData = onlyOne ? {
-      firstTransaction: firstTransaction,
-      amount: firstTransaction.amount,
-      currency: firstTransaction.currency
-    } : {
-      transactionsLength: transactionsFiltered.length,
-      maxAmount: this.maxAmount
-    }
+    const firstTransaction = transactionsFiltered[0]
+    const titleData = onlyOne
+      ? {
+        firstTransaction: firstTransaction,
+        amount: firstTransaction.amount,
+        currency: firstTransaction.currency
+      }
+      : {
+        transactionsLength: transactionsFiltered.length,
+        maxAmount: this.maxAmount
+      }
 
-    let titleKey = onlyOne ? (
-      firstTransaction.amount > 0 ?
-        `${translateKey}.credit.title` :
-        `${translateKey}.debit.title`
-    ) : `${translateKey}.others.title`
+    const titleKey = onlyOne
+      ? (firstTransaction.amount > 0
+        ? `${translateKey}.credit.title`
+        : `${translateKey}.debit.title`)
+      : `${translateKey}.others.title`
     notification.title = this.t(titleKey, titleData)
     notification.content = textTemplate(templateData)
     notification.content_html = htmlTemplate(templateData)

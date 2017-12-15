@@ -1,10 +1,5 @@
-const fs = require('fs')
 const _ = require('lodash')
 const templates = require('./templates')
-
-console.log(templates)
-
-const log = console.log.bind(console)
 const { mjml2html } = require('mjml')
 
 const prepareTransactions = function (transactions) {

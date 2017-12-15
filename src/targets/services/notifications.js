@@ -80,15 +80,15 @@ const saveLastSeqInConfig = async (config, lastSeq) => {
   await cozyClient.data.update('io.cozy.bank.settings', config, config)
 }
 
-const getClassConfig = (klass, config) => config.notifications[configKeys[klass.name]]
+const getClassConfig = (Klass, config) => config.notifications[configKeys[Klass.name]]
 
 const getEnabledNotificationClasses = config => {
   return notificationClasses.filter(
-    klass => {
-      const klassConfig = getClassConfig(klass, config)
+    Klass => {
+      const klassConfig = getClassConfig(Klass, config)
       const enabled = klassConfig && klassConfig.enabled
       if (!enabled) {
-        console.log(klass.name + ' is not enabled')
+        console.log(Klass.name + ' is not enabled')
       }
       return enabled
     }
@@ -113,9 +113,9 @@ const sendNotifications = async () => {
 
   if (transactions.length > 0) {
     const accounts = await getAccountsOfTransactions(transactions)
-    for (const klass of enabledNotificationClasses) {
-      const klassConfig = getClassConfig(klass, config)
-      const notification = new klass({ ...klassConfig, t, data: { accounts, transactions } })
+    for (const Klass of enabledNotificationClasses) {
+      const klassConfig = getClassConfig(Klass, config)
+      const notification = new Klass({ ...klassConfig, t, data: { accounts, transactions } })
       try {
         await notification.sendNotification(accounts, transactions)
       } catch (err) {
