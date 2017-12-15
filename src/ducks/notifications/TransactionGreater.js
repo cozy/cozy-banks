@@ -48,8 +48,8 @@ class TransactionGreater {
       transactions: transactionsFiltered,
       onlyOne: transactionsFiltered.length === 1,
     }
-    const firstTransaction = transactions[0]
     const titleData = onlyOne ? {
+      firstTransaction: firstTransaction,
       amount: firstTransaction.amount,
       currency: firstTransaction.currency
     } : {

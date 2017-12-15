@@ -1,5 +1,5 @@
 {{# if onlyOne }}
-  {{# with transactions.[0] }}
+  {{# with firstTransaction }}
     {{# if positive amount }}
 {{ formatDate date }} {{{ t "debit" label }}}
     {{else}}
