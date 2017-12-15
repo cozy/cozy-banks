@@ -25,6 +25,7 @@ import linkIcon from 'assets/icons/actions/icon-link.svg'
 import fileIcon from 'assets/icons/actions/icon-file.svg'
 import { getURL } from 'reducers'
 import { getInvoice, getBill } from './helpers'
+import { checkApp, launchApp, DRIVE_INFO } from 'ducks/mobile/appAvailability'
 
 // constants
 const ALERT_LINK = 'alert'
@@ -105,10 +106,6 @@ const buildAppURL = function (cozyURL, app, hash) {
 export const BillAction = connect(state => ({
   cozyURL: getURL(state)
 }))(class extends Component {
-  onClick = () => {
-    return this.fetchFile()
-  }
-
   onCloseModal = (err) => {
     this.setState({ file: null })
     if (err) {
@@ -125,9 +122,20 @@ export const BillAction = connect(state => ({
         // Open in a modal
         this.setState({file: {doctype, id}})
       } else {
-        // Open drive in a new window
-        const driveURL = buildAppURL(this.props.cozyURL, 'drive', `/file/${id}`)
-        window.open(driveURL, '_system')
+        let isLaunched = false
+        try {
+          const isInstalled = await checkApp(DRIVE_INFO)
+          if (isInstalled) {
+            isLaunched = await launchApp(DRIVE_INFO)
+          }
+        } catch (e) {
+          console.warn(e)
+        }
+        if (!isLaunched) {
+          // Open drive in a new window
+          const driveURL = buildAppURL(this.props.cozyURL, 'drive', `/file/${id}`)
+          window.open(driveURL, '_system')
+        }
       }
     } catch (err) {
       flash('error', `Impossible de trouver la facture associée`)
@@ -141,7 +149,7 @@ export const BillAction = connect(state => ({
     const actionStyle = {}
     if (loading) { actionStyle.background = 'none' }
     return (
-      <span onClick={this.onClick}>
+      <span onClick={this.fetchFile}>
         {file && <FileOpener
           onClose={this.onCloseModal}
           onError={this.onCloseModal}

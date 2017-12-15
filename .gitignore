@@ -39,6 +39,7 @@ desktop.ini
 **/mobile/res/screens
 **/mobile/store
 **/mobile/icon.png
+**/mobile/package.json
 
 
 # fastlane
