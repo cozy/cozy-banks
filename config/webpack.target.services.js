@@ -10,6 +10,9 @@ const SRC_DIR = path.resolve(__dirname, '../src')
 
 const mimerPath = require.resolve(path.join(SRC_DIR, 'ducks/notifications/vendor/mimer.min'))
 
+// Used to disable node modules we do not use
+const noop = require.resolve(path.join(SRC_DIR, 'ducks/notifications/noop'))
+
 module.exports = merge.strategy({
   plugins: 'replace',
   output: 'replace',
@@ -33,8 +36,24 @@ module.exports = merge.strategy({
         include: path.resolve('./node_modules'),
         loader: 'shebang-loader'
       }
-    ]
+    ],
+
+    // Dynamic requires produce warnings in webpack. Some of our dependencies
+    // use them for features we do not use, so we can disable them.
+    exprContextRegExp: /$^/,
+    exprContextCritical: false,
   },
+
+  resolve: {
+    alias: {
+      // Unminified Handlebars uses `require.extensions` and this causes
+      // warnings on Webpack. We should think of a way to precompile
+      // our Handlebars template. At the moment it is not possible
+      // since we pass helpers at runtime.
+      handlebars: 'handlebars/dist/handlebars.min.js'
+    }
+  },
+
   plugins: [
     new webpack.NormalModuleReplacementPlugin(
       /mimer/,
@@ -48,7 +67,7 @@ module.exports = merge.strategy({
     /* Does not work in a bundle, we do not use it */
     new webpack.NormalModuleReplacementPlugin(
       /image-size/,
-      require.resolve(path.join(SRC_DIR, 'ducks/notifications/noop'))
-    ),
+     noop
+    )
   ]
 })
