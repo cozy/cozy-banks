@@ -40,6 +40,7 @@ module.exports = merge.strategy({
 
     // Dynamic requires produce warnings in webpack. Some of our dependencies
     // use them for features we do not use, so we can disable them.
+    // More information : https://gitlab.cozycloud.cc/labs/cozy-bank/merge_requests/197#note_4018
     exprContextRegExp: /$^/,
     exprContextCritical: false,
   },
