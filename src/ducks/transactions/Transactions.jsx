@@ -80,7 +80,7 @@ const TableTrDesktop = compose(
         <Figure total={transaction.amount} currency={transaction.currency} coloredPositive signed />
       </TdSecondary>
       <TdSecondary className={sAction}>
-        <PrimaryAction showIcon={true} transaction={transaction} urls={urls} className={styles['bnk-table-actions-link']} />
+        <PrimaryAction showIcon transaction={transaction} urls={urls} className={styles['bnk-table-actions-link']} />
       </TdSecondary>
       <TdSecondary className={sActions}>
         <TransactionMenu

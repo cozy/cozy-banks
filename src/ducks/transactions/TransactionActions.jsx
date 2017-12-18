@@ -1,5 +1,3 @@
-/* global __TARGET__ */
-
 /**
  * Is used in both TransactionActionMenu and TransactionMenu
  * to show possible actions related to a transaction.
@@ -9,13 +7,10 @@
  * table.
  */
 
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import cx from 'classnames'
 
-import { translate, Icon, Spinner, MenuItem } from 'cozy-ui/react'
-import flash from 'ducks/flash'
+import { translate, Icon, MenuItem } from 'cozy-ui/react'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import commentIcon from 'assets/icons/actions/icon-comment.svg'
 
@@ -24,7 +19,6 @@ import linkOutIcon from 'assets/icons/actions/icon-link-out.svg'
 import linkIcon from 'assets/icons/actions/icon-link.svg'
 import fileIcon from 'assets/icons/actions/icon-file.svg'
 import { getInvoice, getBill } from './helpers'
-import { checkApp, launchApp, DRIVE_INFO } from 'ducks/mobile/appAvailability'
 import FileOpener from './FileOpener'
 import { findKey } from 'lodash'
 import styles from './TransactionActions.styl'
@@ -90,8 +84,9 @@ export const Action = translate()(({t, transaction, showIcon, urls, onClick, typ
     href = urls['HEALTH'] + '/#/remboursements'
     text = t(`Transactions.actions.${type}`)
   } else if (type === APP_LINK) {
+    const appName = getAppName(urls, transaction)
     href = urls[appName]
-    text = t(`Transactions.actions.${type}`, { appName : getAppName(urls, transaction) })
+    text = t(`Transactions.actions.${type}`, {appName})
   } else if (type === URL_LINK) {
     const action = transaction.action
     text = action.trad
@@ -101,25 +96,30 @@ export const Action = translate()(({t, transaction, showIcon, urls, onClick, typ
     text = t(`Transactions.actions.${type}`)
   }
 
-  let widget = <a
+  let widget = (
+    <a
       href={href}
       target={target}
-      href={href}
       onClick={onClick}
       style={{ color }}
       className={styles.TransactionAction}>
-    {text}
-  </a>
+      {text}
+    </a>
+  )
   if (type === BILL_LINK) {
-    widget = <FileOpener getFileId={ () => getInvoice(transaction) }>
-      { widget }
-    </FileOpener>
+    widget = (
+      <FileOpener getFileId={() => getInvoice(transaction)}>
+        { widget }
+      </FileOpener>
+    )
   }
 
-  return <span>
-    {showIcon && <ActionIcon type={type} className='u-mr-half' color={color} />}
-    {widget}
-  </span>
+  return (
+    <span>
+      {showIcon && <ActionIcon type={type} className='u-mr-half' color={color} />}
+      {widget}
+    </span>
+  )
 })
 
 /* Wraps the actions when they are displayed in Menu / ActionMenu */
@@ -137,11 +137,11 @@ const TransactionActions = ({transaction, urls, withoutDefault, onSelect, onSele
   const displayDefaultAction = !withoutDefault && defaultActionName
   return (
     <div>
-      { displayDefaultAction && <MenuItem
-          onClick={onSelect}
-          icon={<PrimaryActionIcon type={defaultActionName}/>}>
-        <PrimaryTransactionAction transaction={transaction} urls={urls} onClick={onSelect} />
-      </MenuItem> }
+      {displayDefaultAction && <MenuItem
+        onClick={onSelect}
+        icon={<PrimaryActionIcon type={defaultActionName} />}>
+        <PrimaryAction transaction={transaction} urls={urls} onClick={onSelect} />
+      </MenuItem>}
       <ActionMenuItem type={ATTACH_LINK} disabled onClick={onSelectDisabled} />
       <ActionMenuItem type={COMMENT_LINK} disabled onClick={onSelectDisabled} />
       <ActionMenuItem type={ALERT_LINK} disabled onClick={onSelectDisabled} />
@@ -150,11 +150,11 @@ const TransactionActions = ({transaction, urls, withoutDefault, onSelect, onSele
 }
 
 export const PrimaryAction = props => (
-  <Action {...props} color={PRIMARY_ACTION_COLOR}/>
+  <Action {...props} color={PRIMARY_ACTION_COLOR} />
 )
 
 export const PrimaryActionIcon = props => (
-  <ActionIcon {...props} color={PRIMARY_ACTION_COLOR}/>
+  <ActionIcon {...props} color={PRIMARY_ACTION_COLOR} />
 )
 
 TransactionActions.propTypes = {

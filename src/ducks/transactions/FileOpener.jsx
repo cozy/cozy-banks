@@ -1,9 +1,13 @@
+/* global __TARGET__ */
+
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getURL } from 'reducers'
 import FileIntentDisplay from 'components/FileIntentDisplay'
 import PropTypes from 'prop-types'
 import Spinner from 'cozy-ui/react/Spinner'
+import { checkApp, launchApp, DRIVE_INFO } from 'ducks/mobile/appAvailability'
+import flash from 'ducks/flash'
 
 const spinnerStyle = { marginLeft: '-0.25rem', marginRight: '-1rem' }
 
@@ -48,13 +52,13 @@ class FileOpener extends Component {
         }
         if (!isLaunched) {
           // Open drive in a new window
-          const driveURL = buildAppURL(this.props.cozyURL, 'drive', `/file/${id}`)
+          const driveURL = buildAppURL(this.props.cozyURL, 'drive', `/file/${fileId}`)
           window.open(driveURL, '_system')
         }
       }
     } catch (err) {
-      flash('error', `Impossible de trouver la facture associée`)
-      console.warn(err, transaction)
+      flash('error', `Unable to found file`)
+      console.warn(err)
     } finally {
       this.setState({ loading: false })
     }
