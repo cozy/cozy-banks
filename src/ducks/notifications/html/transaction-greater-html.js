@@ -21,7 +21,7 @@ export default ({accounts, transactions}) => {
   const data = {
     accounts: accountsById,
     byAccounts: transactionsByAccounts,
-    date: '20 novembre 2017'
+    date: new Date()
   }
 
   const obj = mjml2html(templates['transaction-greater'](data))

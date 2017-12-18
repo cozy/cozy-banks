@@ -5,15 +5,6 @@ import htmlTemplate from './html/transaction-greater-html'
 
 const abs = number => number < 0 ? -number : number
 
-Handlebars.registerHelper({
-  positive: function (n) {
-    return n > 0
-  },
-  formatDate: function (d) {
-    return d.substr(0, 10)
-  }
-})
-
 const textTemplate = Handlebars.compile(_textTemplate)
 
 class TransactionGreater {
