@@ -7,23 +7,41 @@ const dictRequire = lang => require(`../../locales/${lang}`)
 const translation = initTranslation(lang, dictRequire)
 const t = translation.t.bind(translation)
 
+process.on('uncaughtException', err => {
+  console.warn(err.stack)
+})
+
+process.on('unhandledRejection', err => {
+  console.warn(err.stack)
+})
+
 const getTransactionsChanges = async lastSeq => {
   const result = await cozyClient.fetchJSON(
     'GET',
     `/data/io.cozy.bank.operations/_changes?include_docs=true&since=${lastSeq}`
   )
+
   const newLastSeq = result.last_seq
   const transactions = result.results
-    .filter(x => x.doc)
+    .filter(x => x.doc && x.doc._id.indexOf('_design') !== 0)
+    .filter(x => x.doc && !x.doc._deleted)
     .map(x => x.doc)
 
-  if (transactions.length < result.results.length) {
-    console.warn('Some transactions do not have any doc associated')
-    console.warn(results.results.filter(x => !x.doc))
+  const delta = result.results ? result.results.length - transactions.length : 0
+  if (delta > 0) {
+    console.warn(delta + ' transactions do not have any doc associated')
+    console.warn(result.results.filter(x => !x.doc))
   }
 
   return { newLastSeq, transactions }
 }
+
+const configKeys = {
+  'BalanceLower': 'balanceLower',
+  'TransactionGreater': 'transactionGreater'
+}
+
+const notificationClasses = [BalanceLower, TransactionGreater]
 
 const getAccountsOfTransactions = async transactions => {
   const accountsIds = Array.from(new Set(transactions.map(x => x.account)))
@@ -35,11 +53,12 @@ const getAccountsOfTransactions = async transactions => {
 
   const rows = result.rows
   const accounts = rows
-    .filter(x => !x.error) // filter document that have not been found
+    .filter(x => !x.error) // filter accounts that have not been found
     .map(x => x.doc)
 
-  if (accounts.length !== rows.length) {
-    console.warn('Some transactions\' account do not exist')
+  const delta = rows.length - accounts.length
+  if (delta) {
+    console.warn(delta + ' accounts do not exist')
     console.warn(rows.filter(x => x.error))
   }
 
@@ -61,23 +80,42 @@ const saveLastSeqInConfig = async (config, lastSeq) => {
   await cozyClient.data.update('io.cozy.bank.settings', config, config)
 }
 
+const getClassConfig = (Klass, config) => config.notifications[configKeys[Klass.name]]
+
+const getEnabledNotificationClasses = config => {
+  return notificationClasses.filter(
+    Klass => {
+      const klassConfig = getClassConfig(Klass, config)
+      const enabled = klassConfig && klassConfig.enabled
+      if (!enabled) {
+        console.log(Klass.name + ' is not enabled')
+      }
+      return enabled
+    }
+  )
+}
+
 const sendNotifications = async () => {
   const config = await getConfiguration()
-  if (!config) return
+  if (!config) {
+    console.warn('Notications are not configured. Please toggle options in the Bank application')
+    return
+  }
 
-  const notifications = [
-    new TransactionGreater({ ...config.notifications.transactionGreater, t }),
-    new BalanceLower({ ...config.notifications.balanceLower, t })
-  ]
-  const enabledNotifications = notifications.filter(notif => notif.isEnabled())
-  if (enabledNotifications.length === 0) return
+  const enabledNotificationClasses = getEnabledNotificationClasses(config)
+  if (enabledNotificationClasses.length === 0) {
+    console.log('No notification is enabled')
+    return
+  }
 
   const lastSeq = getLastSeqFromConfig(config)
   const { newLastSeq, transactions } = await getTransactionsChanges(lastSeq)
 
   if (transactions.length > 0) {
     const accounts = await getAccountsOfTransactions(transactions)
-    for (const notification of notifications) {
+    for (const Klass of enabledNotificationClasses) {
+      const klassConfig = getClassConfig(Klass, config)
+      const notification = new Klass({ ...klassConfig, t, data: { accounts, transactions } })
       try {
         await notification.sendNotification(accounts, transactions)
       } catch (err) {

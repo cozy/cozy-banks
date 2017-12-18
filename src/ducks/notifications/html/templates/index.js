@@ -1,14 +1,6 @@
 const Handlebars = require('handlebars')
 const layouts = require('handlebars-layouts')
-const _ = require('lodash')
-const fs = require('fs')
-const path = require('path')
-const glob = require('glob').sync
 const { parse, format } = require('date-fns')
-
-const read = name  => {
-  return fs.readFileSync(path.join(__dirname, name), 'utf-8')
-}
 
 const capitalizeWord = str => {
   if (str.length > 3) {
@@ -16,6 +8,10 @@ const capitalizeWord = str => {
   } else {
     return str
   }
+}
+
+const embeds = {
+  'style.css': require('!!raw-loader!./style.css') // eslint-disable-line import/no-webpack-loader-syntax
 }
 
 Handlebars.registerHelper({
@@ -29,9 +25,9 @@ ${Math.abs(amount)} €
     )
   },
   embedFile: filename => {
-    return read(filename)
+    return embeds[filename]
   },
-  get: (a1, a2, a3)  => {
+  get: (a1, a2, a3) => {
     return a1[a2][a3]
   },
   capitalize: (str) => {
@@ -42,16 +38,15 @@ ${Math.abs(amount)} €
   }
 })
 
-
 layouts.register(Handlebars)
 
-const mapToObject = _.flow(_.map, _.fromPairs)
-const partials = mapToObject(
-  glob('./*.hbs', { cwd: __dirname }),
-  x => [
-    path.basename(x).replace(/\.hbs$/, ''),
-    Handlebars.compile(read(x))
-  ])
+const partials = {
+  'bank-layout': Handlebars.compile(require('./bank-layout.hbs')),
+  'cozy-layout': Handlebars.compile(require('./cozy-layout.hbs')),
+  'balance-lower': Handlebars.compile(require('./balance-lower.hbs')),
+  'transaction-greater': Handlebars.compile(require('./transaction-greater.hbs'))
+}
+
 Handlebars.registerPartial(partials)
 
 module.exports = Handlebars.partials

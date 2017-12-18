@@ -1,52 +1,83 @@
 import { cozyClient } from 'cozy-konnector-libs'
+import Handlebars from 'handlebars'
+import _textTemplate from './transaction-greater-text.hbs'
+import htmlTemplate from './html/transaction-greater-html'
+
 const abs = number => number < 0 ? -number : number
+
+Handlebars.registerHelper({
+  positive: function (n) {
+    return n > 0
+  },
+  formatDate: function (d) {
+    return d.substr(0, 10)
+  }
+})
+
+const textTemplate = Handlebars.compile(_textTemplate)
 
 class TransactionGreater {
   constructor (config) {
     this.t = config.t
-    this.enabled = config.enabled
     this.maxAmount = config.value
+    this.notification = this.buildNotification(config.data)
   }
 
-  isEnabled () {
-    return this.enabled
-  }
-
-  filter (transactions) {
+  filter (op) {
     const maxAmount = abs(this.maxAmount)
-    // TODO: Find why op is undefined?
-    return transactions.filter(op => abs(op.amount) > maxAmount)
+    return abs(op.amount) > maxAmount
   }
 
-  async sendNotification (accounts, transactions) {
-    const transactionsFiltered = this.filter(transactions)
-    if (transactionsFiltered.length === 0) return
+  buildNotification ({ accounts, transactions }) {
+    const transactionsFiltered = transactions.filter(op => this.filter(op))
+    if (transactionsFiltered.length === 0) {
+      console.log('TransactionGreater: no matched transactions')
+      return
+    }
 
     const notification = { reference: 'transaction_greater' }
-    let translateKey = 'Notifications.if_transaction_greater.notification.'
-    if (transactionsFiltered.length === 1) {
-      const transaction = transactionsFiltered[0]
-      translateKey += transaction.amount > 0 ? 'credit' : 'debit'
-      notification.title = this.t(`${translateKey}.title`, { amount: transaction.amount, currency: transaction.currency })
-      notification.content = this.t(`${translateKey}.content`, { label: transaction.label })
-    } else {
-      translateKey += 'others'
-      notification.title = this.t(`${translateKey}.title`, {
+    const translateKey = 'Notifications.if_transaction_greater.notification'
+
+    // Custom t bound to its part
+    const t = (key, data) => this.t(translateKey + '.' + key, data)
+    Handlebars.registerHelper({ t })
+
+    const onlyOne = transactionsFiltered.length === 1
+    const templateData = {
+      accounts: accounts,
+      transactions: transactionsFiltered,
+      onlyOne: transactionsFiltered.length === 1
+    }
+    const firstTransaction = transactionsFiltered[0]
+    const titleData = onlyOne
+      ? {
+        firstTransaction: firstTransaction,
+        amount: firstTransaction.amount,
+        currency: firstTransaction.currency
+      }
+      : {
         transactionsLength: transactionsFiltered.length,
         maxAmount: this.maxAmount
-      })
-      notification.content = ''
-      for (const transactionFiltered of transactionsFiltered) {
-        const key = transactionFiltered.amount > 0 ? 'credit' : 'debit'
-        notification.content += this.t(`${translateKey}.${key}Content`, {
-          amount: transactionFiltered.amount, currency: transactionFiltered.currency, label: transactionFiltered.label
-        }) + '\n'
       }
-    }
+
+    const titleKey = onlyOne
+      ? (firstTransaction.amount > 0
+        ? `${translateKey}.credit.title`
+        : `${translateKey}.debit.title`)
+      : `${translateKey}.others.title`
+    notification.title = this.t(titleKey, titleData)
+    notification.content = textTemplate(templateData)
+    notification.content_html = htmlTemplate(templateData)
+
+    return notification
+  }
+
+  sendNotification () {
+    if (!this.notification) { return }
     return cozyClient.fetchJSON('POST', '/notifications', {
       data: {
         type: 'io.cozy.notifications',
-        attributes: notification
+        attributes: this.notification
       }
     })
   }

@@ -23,7 +23,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /^((?!min).)*\.jsx?$/, // all js, jsx, exclude minified
         include: SRC_DIR,
         loader: 'eslint-loader',
         enforce: 'pre',

@@ -306,7 +306,7 @@
           "content": "%{label}"
         },
         "others": {
-          "title": "%{transactionsLength} transactions greater then %{maxAmount}€",
+          "title": "%{transactionsLength} transactions greater than %{maxAmount}€",
           "debitContent": "Debit of %{amount}%{currency} with label '%{label}'.",
           "creditContent": "Credit of %{amount}%{currency} with label '%{label}'."
         }
