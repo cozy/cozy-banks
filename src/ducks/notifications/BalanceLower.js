@@ -22,7 +22,6 @@ class BalanceLower {
     this.notification = this.buildNotification(config.data)
   }
 
-
   filter (account) {
     // TODO: Find why account is undefined?
     return account.balance < this.lowerBalance
