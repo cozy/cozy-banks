@@ -65,8 +65,6 @@ class FileOpener extends Component {
   }
 
   render (props, { loading, fileId }) {
-    const actionStyle = {}
-    if (loading) { actionStyle.background = 'none' }
     return (
       <span>
         {React.cloneElement(props.children, { onClick: this.displayFile })}
