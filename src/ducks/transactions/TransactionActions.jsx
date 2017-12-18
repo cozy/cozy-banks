@@ -84,9 +84,9 @@ export const ActionIcon = ({action, color = DEFAULT_COLOR, ...rest}) => {
   }
 }
 
-// components
-export const Action = translate()(({t, actionValue, showIcon, name, appName, href, color = DEFAULT_COLOR, style, ...rest}) => (
-  <a className='u-p-0' href={href} target='_blank' style={{ color, ...style }}>
+/* Is used inside ActionMenu / Menu and also in the table (primary action) */
+export const Action = translate()(({t, onClick, actionValue, showIcon, name, appName, href, color = DEFAULT_COLOR, style, ...rest}) => (
+  <a className='u-p-0' onClick={onClick} href={href} target='_blank' style={{ color, ...style }}>
     { showIcon ? <ActionIcon name={name} color={color} /> : null }
     {actionValue || t(`Transactions.actions.${name}`, { appName })}
   </a>
@@ -149,13 +149,13 @@ export const BillAction = connect(state => ({
     const actionStyle = {}
     if (loading) { actionStyle.background = 'none' }
     return (
-      <span onClick={this.fetchFile}>
+      <span>
+        <Action onClick={this.fetchFile} {...props} style={actionStyle} />
+        {loading ? <Spinner style={billSpinnerStyle} /> : null}
         {file && <FileOpener
           onClose={this.onCloseModal}
           onError={this.onCloseModal}
           file={file} autoopen />}
-        {loading ? <Spinner style={billSpinnerStyle} /> : null}
-        <Action {...props} style={actionStyle} />
       </span>
     )
   }
@@ -200,6 +200,7 @@ export const TransactionAction = ({transaction, showIcon, urls, onClick, type}) 
   </span> : null
 }
 
+/* Wraps the actions when they are displayed in Menu / ActionMenu */
 const ActionMenuItem = ({disabled, onClick, action, color}) => {
   return (
     <MenuItem disabled={disabled} onClick={onClick} icon={<ActionIcon action={action} color={color} />}>

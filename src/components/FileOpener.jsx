@@ -36,7 +36,7 @@ class FileOpener extends Component {
           ? <FullscreenIntentModal
             intent={intent}
             onIntentError={this.handleModalError}
-            secondaryAction={this.closeModal} />
+            dismissAction={this.closeModal} />
           : null}
       </span>
     )
