@@ -50,6 +50,16 @@ ${Math.abs(amount)} €
     }
   },
 
+  eachPair: function (context, options) {
+    let ret = ''
+
+    for (let i = 0, j = context.length; i < j; i++) {
+      ret = ret + options.fn(context[i], { blockParams: context[i] })
+    }
+
+    return ret
+  },
+
   positive: function (n) {
     return n > 0
   }
