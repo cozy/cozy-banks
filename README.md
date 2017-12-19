@@ -33,3 +33,7 @@ The application is built automatically by Jenkins.
 * `prod` -> `latest`
 
 The skins are also built into `build-$skin` or `latest-$skin`.
+
+## Get a working Android environment
+
+To be able to start the mobile app on an emulator or a real device, you can follow [this guide](https://gist.github.com/drazik/11dfe2014a6b967821df93b9e10353f4).
