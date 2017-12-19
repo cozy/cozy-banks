@@ -12,4 +12,3 @@ import mkComponent from 'utils/mkComponent'
  */
 export const Content = mkComponent('main', {className: styles['c-content']})
 export const Layout = mkComponent('div', {className: styles['c-layout']})
-export const Sidebar = mkComponent('aside', {className: styles['c-sidebar']})
