@@ -72,6 +72,9 @@ h1,h2,h3,h4,h5,h6{
   color: #95999d !important;
   text-align: right !important;
 }
+.footer__help a {
+  color: #95999d !important;
+}
 /* text */
 .txt--right {
   text-align: right;
