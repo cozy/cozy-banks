@@ -77,7 +77,7 @@ create a dev account to test the service.
 
 ```bash
 $ yarn watch:services # will continuously build `build/notifications.js`
-$ yarn cozy-konnector-dev build/notifications.js -t /tmp/token.json -m manifest.webapp # will launch build/notifications.js with the right COZY_CREDENTIALS
+$ nodemon --delay 1 -w build/notifications.js --exec "cozy-konnector-dev -t /tmp/token.json -m manifest.webapp build/notifications.js" # will launch build/notifications.js (and relaunch it when it changes) with the right COZY_CREDENTIALS
 ```
 
 To see the emails that the stack sends, launch a MailHog instance :
