@@ -1,11 +1,30 @@
 import { cozyClient } from 'cozy-konnector-libs'
 import Handlebars from 'handlebars'
-import _textTemplate from './balance-lower-text.hbs'
 import htmlTemplate from './html/balance-lower-html'
+import * as utils from './html/utils'
 
 const addCurrency = o => ({...o, currency: '€'})
 
-const textTemplate = Handlebars.compile(_textTemplate)
+const INSTITUTION_SEL = '.js-institution'
+const ACCOUNT_SEL = '.js-account'
+
+const toText = cozyHTMLEmail => {
+  const getContent = $ =>
+    $([ACCOUNT_SEL, INSTITUTION_SEL].join(', '))
+      .toArray().map(node => {
+        const $node = $(node)
+        if ($node.is(INSTITUTION_SEL)) {
+          return '\n ### ' + $node.text() + '\n'
+        }
+        else if ($node.is(ACCOUNT_SEL)) {
+          return '- ' + $node.find('td')
+            .map((i, td) => $(td).text().replace(/\n/g, '').replace(' €', '€').trim())
+            .toArray()
+            .join(' ')
+        }
+      }).join('\n')
+  return utils.toText(cozyHTMLEmail, getContent)
+}
 
 class BalanceLower {
   constructor (config) {
@@ -56,9 +75,8 @@ class BalanceLower {
 
     const titleKey = `${translateKey}.${onlyOne ? 'one' : 'several'}.title`
     notification.title = this.t(titleKey, titleData)
-    notification.content = textTemplate(templateData)
     notification.content_html = htmlTemplate(templateData)
-
+    notification.content = toText(notification.content_html)
     return notification
   }
 

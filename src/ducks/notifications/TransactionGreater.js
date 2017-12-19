@@ -1,11 +1,41 @@
 import { cozyClient } from 'cozy-konnector-libs'
 import Handlebars from 'handlebars'
-import _textTemplate from './transaction-greater-text.hbs'
 import htmlTemplate from './html/transaction-greater-html'
+import * as utils from './html/utils'
 
 const abs = number => number < 0 ? -number : number
 
-const textTemplate = Handlebars.compile(_textTemplate)
+const ACCOUNT_SEL = '.js-account'
+const DATE_SEL = '.js-date'
+const TRANSACTION_SEL = '.js-transaction'
+
+const toText = cozyHTMLEmail => {
+  const getTextTransactionRow = $row =>
+    $row.find('td')
+      .map((i, td) =>
+        $row.find(td).text().trim())
+      .toArray()
+      .join(' ')
+      .replace(/\n/g, '')
+      .replace(' €', '€')
+      .trim()
+
+  const getContent = $ =>
+    $([ACCOUNT_SEL, DATE_SEL, TRANSACTION_SEL].join(', '))
+      .toArray().map(node => {
+        const $node = $(node)
+        if ($node.is(ACCOUNT_SEL)) {
+          return '\n\n### ' + $node.text()
+        }
+        else if ($node.is(DATE_SEL)) {
+          return '\n' + $node.text() + '\n'
+        }
+        else if ($node.is(TRANSACTION_SEL)) {
+          return '- ' + getTextTransactionRow($node)
+        }
+      }).join('\n')
+  return utils.toText(cozyHTMLEmail, getContent)
+}
 
 class TransactionGreater {
   constructor (config) {
@@ -57,9 +87,8 @@ class TransactionGreater {
         : `${translateKey}.debit.title`)
       : `${translateKey}.others.title`
     notification.title = this.t(titleKey, titleData)
-    notification.content = textTemplate(templateData)
     notification.content_html = htmlTemplate(templateData)
-
+    notification.content = toText(notification.content_html)
     return notification
   }
 

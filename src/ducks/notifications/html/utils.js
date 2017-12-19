@@ -1,4 +1,19 @@
-import { groupBy, sortBy, toPairs, flow } from 'lodash'
+import cheerio from 'cheerio'
+import { groupBy, sortBy, fromPairs, toPairs, flow } from 'lodash'
+
+export const toText = (cozyHTMLEmail, getContent) => {
+  const $ = cheerio.load(cozyHTMLEmail)
+  const title = $('.header__title').text().trim()
+  const descTitle = $('.header__desc__title').text().trim()
+  const descSubtitle = $('.header__desc__subtitle').text().trim()
+  return `
+# Cozy - ${title}
+## ${descTitle} - ${descSubtitle}
+
+---------
+${getContent($)}
+`
+}
 
 const getDay = date => date.slice(0, 10)
 
