@@ -15,8 +15,7 @@ const toText = cozyHTMLEmail => {
         const $node = $(node)
         if ($node.is(INSTITUTION_SEL)) {
           return '\n ### ' + $node.text() + '\n'
-        }
-        else if ($node.is(ACCOUNT_SEL)) {
+        } else if ($node.is(ACCOUNT_SEL)) {
           return '- ' + $node.find('td')
             .map((i, td) => $(td).text().replace(/\n/g, '').replace(' €', '€').trim())
             .toArray()

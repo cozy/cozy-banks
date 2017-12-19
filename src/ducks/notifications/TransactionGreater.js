@@ -26,11 +26,9 @@ const toText = cozyHTMLEmail => {
         const $node = $(node)
         if ($node.is(ACCOUNT_SEL)) {
           return '\n\n### ' + $node.text()
-        }
-        else if ($node.is(DATE_SEL)) {
+        } else if ($node.is(DATE_SEL)) {
           return '\n' + $node.text() + '\n'
-        }
-        else if ($node.is(TRANSACTION_SEL)) {
+        } else if ($node.is(TRANSACTION_SEL)) {
           return '- ' + getTextTransactionRow($node)
         }
       }).join('\n')
