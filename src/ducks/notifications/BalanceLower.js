@@ -41,7 +41,7 @@ class BalanceLower {
   buildNotification ({accounts, transactions}) {
     const accountsFiltered = accounts.filter(acc => this.filter(acc)).map(addCurrency)
     if (accountsFiltered.length === 0) {
-      console.log('BalanceLower: no matched transactions')
+      console.log('BalanceLower: no matched accounts')
       return
     }
 
@@ -54,11 +54,7 @@ class BalanceLower {
     const onlyOne = accountsFiltered.length === 1
     const firstAccount = accountsFiltered[0]
 
-    const templateData = onlyOne ? {
-      onlyOne,
-      transactions: transactions.filter(op => op.account === firstAccount._id)
-    } : {
-      onlyOne,
+    const templateData = {
       accounts: accountsFiltered
     }
 
