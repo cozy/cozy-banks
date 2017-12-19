@@ -12,15 +12,15 @@
       <mj-section css-class="account" padding-top="0" padding-bottom="10px">
         <mj-column>
           <mj-text padding-top="0" padding-bottom="0">
-            <h3>{{ get ../accounts accountId 'label' }} - {{ get ../accounts accountId 'institutionLabel' }}</h3>
+            <h3 class="js-account">{{ get ../accounts accountId 'label' }} - {{ get ../accounts accountId 'institutionLabel' }}</h3>
           </mj-text>
           {{#eachPair transactionsByDate as |date transactions|}}
             <mj-text padding-top="0" padding-bottom="0">
-              <h4 class="text"><span>{{ formatDate date }}</span></h4>
+              <h4 class="js-date text"><span>{{ formatDate date }}</span></h4>
             </mj-text>
             {{#each transactions as |tr|}}
               <mj-table>
-                <tr class="tableRow">
+                <tr class="js-transaction tableRow">
                   <td width="40px"><img style="width: 32px; height: 32px" src='https://files.cozycloud.cc/bank/email-assets/icons/{{ this.categoryId }}.png' /></td>
                   <td>{{ capitalize this.label }}</td>
                   <td width="150px" align='right'><span>{{ colored this.amount }}</span></td>
