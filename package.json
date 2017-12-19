@@ -135,6 +135,7 @@
     "lodash": "^4.17.4",
     "mjml": "^3.3.5",
     "node-polyglot": "^2.2.0",
+    "null-loader": "^0.1.1",
     "number-to-locale-string": "^1.0.1",
     "piwik-react-router": "0.8.2",
     "preact": "^8.2.5",

@@ -35,6 +35,11 @@ module.exports = merge.strategy({
         test: /\.js$/,
         include: path.resolve('./node_modules'),
         loader: 'shebang-loader'
+      },
+      {
+        test: /\.svg$/,
+        include: SRC_DIR,
+        loader: 'null-loader'
       }
     ],
 

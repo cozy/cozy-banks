@@ -88,3 +88,5 @@ docker run -p 1025:1025 -p 8025:8025 mailhog/mailhog
 
 The stack will send the emails through the SMTP port of MailHog and you
 will be able to see the mails in its web interface on http://localhost:8025.
+
+🖼 The PNG icons that are included in the emails are generated manually from the SVG via `scripts/icons-to-png.sh` and uploaded automatically to files.cozycloud.cc via Jenkins (which follows the file `files.cozycloud.cc` at the root of the repo).
