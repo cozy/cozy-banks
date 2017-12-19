@@ -4,7 +4,7 @@
   {{/content}}
 
   {{#content "emailSubtitle"}}
-    {{ date }}
+    {{ formatDate date }}
   {{/content}}
 
   {{#content "content"}}
@@ -14,7 +14,7 @@
           <mj-text padding-top="0" padding-bottom="0">
             <h3>{{ get ../accounts accountId 'label' }} - {{ get ../accounts accountId 'institutionLabel' }}</h3>
           </mj-text>
-          {{#each transactionsByDate as |transactions date|}}
+          {{#eachPair transactionsByDate as |date transactions|}}
             <mj-text padding-top="0" padding-bottom="0">
               <h4 class="text"><span>{{ formatDate date }}</span></h4>
             </mj-text>
@@ -28,7 +28,7 @@
               </mj-table>
               {{#unless @last}}<mj-divider padding-bottom="0" padding-top="0" border-width="1px" border-color="#D0D2D5" />{{/unless}}
             {{/each}}
-          {{/each }}
+          {{/eachPair }}
         </mj-text>
         </mj-column>
       </mj-section>

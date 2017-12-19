@@ -3,13 +3,6 @@ import Handlebars from 'handlebars'
 import _textTemplate from './balance-lower-text.hbs'
 import htmlTemplate from './html/balance-lower-html'
 
-Handlebars.registerHelper({
-  positive: amount => amount > 0,
-  formatDate: function (d) {
-    return d.substr(0, 10)
-  }
-})
-
 const addCurrency = o => ({...o, currency: '€'})
 
 const textTemplate = Handlebars.compile(_textTemplate)

@@ -168,7 +168,9 @@
     "moduleNameMapper": {
       "\\.(png|gif|jpe?g|svg)$": "<rootDir>/test/__mocks__/fileMock.js",
       "styles": "identity-obj-proxy",
-      "styl$": "identity-obj-proxy"
+      "styl$": "identity-obj-proxy",
+      "css$": "identity-obj-proxy",
+      "hbs$": "identity-obj-proxy"
     },
     "transformIgnorePatterns": [
       "node_modules/(?!(cozy-ui|cozy-client))"

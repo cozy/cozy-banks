@@ -24,17 +24,44 @@ ${Math.abs(amount)} €
 `
     )
   },
+
   embedFile: filename => {
     return embeds[filename]
   },
+
   get: (a1, a2, a3) => {
     return a1[a2][a3]
   },
+
   capitalize: (str) => {
     return str.split(' ').map(capitalizeWord).join(' ')
   },
-  formatDate: date => {
-    return format(parse(date, 'YYYY-MM-DD'), 'D MMMM YYYY')
+
+  formatDate: (date, fmt, ctx) => {
+    if (ctx === undefined) {
+      ctx = fmt
+      fmt = 'DD/MM/YYYY'
+    }
+    if (date.getDay) {
+      return format(date, fmt)
+    } else {
+      const parsed = parse(date.substr(0, 10), 'YYYY-MM-DD')
+      return format(parsed, fmt)
+    }
+  },
+
+  eachPair: function (context, options) {
+    let ret = ''
+
+    for (let i = 0, j = context.length; i < j; i++) {
+      ret = ret + options.fn(context[i], { blockParams: context[i] })
+    }
+
+    return ret
+  },
+
+  positive: function (n) {
+    return n > 0
   }
 })
 
