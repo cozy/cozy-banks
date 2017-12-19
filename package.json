@@ -75,6 +75,7 @@
     "css-loader": "^0.28.7",
     "css-mqpacker": "^6.0.1",
     "csswring": "^6.0.1",
+    "dummy-json": "^2.0.0",
     "duplicate-package-checker-webpack-plugin": "^2.0.2",
     "eslint": "^4.6.1",
     "eslint-config-standard": "^10.2.1",
