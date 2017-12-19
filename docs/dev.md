@@ -79,3 +79,12 @@ create a dev account to test the service.
 $ yarn watch:services # will continuously build `build/notifications.js`
 $ yarn cozy-konnector-dev build/notifications.js -t /tmp/token.json -m manifest.webapp # will launch build/notifications.js with the right COZY_CREDENTIALS
 ```
+
+To see the emails that the stack sends, launch a MailHog instance :
+
+```
+docker run -p 1025:1025 -p 8025:8025 mailhog/mailhog
+```
+
+The stack will send the emails through the SMTP port of MailHog and you
+will be able to see the mails in its web interface on http://localhost:8025.
