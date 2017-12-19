@@ -64,8 +64,7 @@ class TransactionGreater {
     const onlyOne = transactionsFiltered.length === 1
     const templateData = {
       accounts: accounts,
-      transactions: transactionsFiltered,
-      onlyOne: transactionsFiltered.length === 1
+      transactions: transactionsFiltered
     }
     const firstTransaction = transactionsFiltered[0]
     const titleData = onlyOne

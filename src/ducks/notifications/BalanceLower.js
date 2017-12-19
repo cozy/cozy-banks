@@ -54,12 +54,7 @@ class BalanceLower {
     const onlyOne = accountsFiltered.length === 1
     const firstAccount = accountsFiltered[0]
 
-    const templateData = onlyOne ? {
-      onlyOne,
-      transactions: transactions.filter(op => op.account === firstAccount._id),
-      accounts: accountsFiltered
-    } : {
-      onlyOne,
+    const templateData = {
       accounts: accountsFiltered
     }
 

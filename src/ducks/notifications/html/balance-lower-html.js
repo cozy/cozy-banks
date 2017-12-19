@@ -8,7 +8,7 @@ const groupAccountsByInstitution = accounts => {
     (accounts, name) => ({ name, accounts }))
 }
 
-export default ({accounts, transactions}) => {
+export default ({accounts}) => {
   const data = {
     institutions: groupAccountsByInstitution(accounts),
     date: new Date()
