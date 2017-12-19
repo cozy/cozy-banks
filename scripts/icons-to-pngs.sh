@@ -26,10 +26,3 @@ optipng -quiet $output_dir/*.png
 
 echo "✨ Done: all icons are in $output_dir"
 
-echo "Converting to base64 JSON"
-echo "" > /tmp/results.json
-echo "{" >> results.json
-ls $output_dir/*.png | while read png; do
-  echo "\"$(basename $png)\": \"data:image/png;base64,$(cat $png | base64)\"," >> results.json
-done
-echo "}" >> results.json
