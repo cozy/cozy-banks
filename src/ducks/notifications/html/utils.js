@@ -1,5 +1,5 @@
 import cheerio from 'cheerio'
-import { groupBy, sortBy, fromPairs, toPairs, flow } from 'lodash'
+import { groupBy, sortBy, toPairs, flow } from 'lodash'
 
 export const toText = (cozyHTMLEmail, getContent) => {
   const $ = cheerio.load(cozyHTMLEmail)
