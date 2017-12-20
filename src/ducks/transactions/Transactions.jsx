@@ -1,7 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
 import compareDesc from 'date-fns/compare_desc'
-import { Icon, translate, withBreakpoints } from 'cozy-ui/react'
+import { translate, withBreakpoints } from 'cozy-ui/react'
 import { Figure } from 'components/Figure'
 import { flowRight as compose } from 'lodash'
 import { Table, TdSecondary } from 'components/Table'
@@ -109,9 +109,6 @@ const TableTrNoDesktop = translate()(({t, f, transaction, urls, selectTransactio
           </Img>
           <Img style={{ flexBasis: '1rem' }}>
             <ActionIcon className='u-mr-half' action={getLinkType(transaction, urls)} />
-          </Img>
-          <Img>
-            <Icon icon='dots' />
           </Img>
         </Media>
       </td>
