@@ -104,11 +104,11 @@ const TableTrNoDesktop = translate()(({t, f, transaction, urls, selectTransactio
           <Bd className='u-mr-half u-ellipsis'>
             {getLabel(transaction)}
           </Bd>
-          <Img className='u-mr-half'>
-            <Figure total={transaction.amount} currency={transaction.currency} coloredPositive signed />
-          </Img>
           <Img style={{ flexBasis: '1rem' }}>
             <ActionIcon className='u-mr-half' action={getLinkType(transaction, urls)} />
+          </Img>
+          <Img>
+            <Figure total={transaction.amount} currency={transaction.currency} coloredPositive signed />
           </Img>
         </Media>
       </td>
