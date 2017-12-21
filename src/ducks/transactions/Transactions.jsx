@@ -9,6 +9,7 @@ import TransactionMenu from './TransactionMenu'
 import { PrimaryAction, PrimaryActionIcon, getLinkType } from './TransactionActions'
 import { getLabel } from './helpers'
 import { getParentCategory, getCategoryName } from 'ducks/categories/categoriesMap'
+import { getCategoryId } from 'ducks/categories/helpers'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { withUpdateCategory } from 'ducks/categories'
 import { updateDocument } from 'cozy-client'
@@ -39,10 +40,10 @@ const TableHeadDesktop = ({t}) => (
 const updateCategoryParams = {
   updateCategory: (props, category) => {
     const { dispatch, transaction } = props
-    transaction.categoryId = category.id
+    transaction.manualCategoryId = category.id
     dispatch(updateDocument(transaction))
   },
-  getCategoryId: ownProps => ownProps.transaction.categoryId
+  getCategoryId: ownProps => getCategoryId(ownProps.transaction)
 }
 
 const showComingSoon = (t) => {
@@ -54,9 +55,9 @@ const TableTrDesktop = compose(
   withDispatch,
   withUpdateCategory(updateCategoryParams)
 )(({ t, f, transaction, urls, isExtraLarge, showCategoryChoice }) => {
-  const categoryName = getCategoryName(transaction.categoryId)
+  const categoryName = getCategoryName(getCategoryId(transaction))
   const categoryTitle = t(`Data.subcategories.${categoryName}`)
-  const parentCategory = getParentCategory(transaction.categoryId)
+  const parentCategory = getParentCategory(getCategoryId(transaction))
   const onSelect = () => {}
   const onSelectDisabled = () => {
     showComingSoon(t)
@@ -98,8 +99,8 @@ const TableTrNoDesktop = translate()(({t, f, transaction, urls, selectTransactio
     <tr onClick={() => selectTransaction(transaction)} className={styles['bnk-transaction-mobile']}>
       <td>
         <Media>
-          <Img className='u-mr-half' title={t(`Data.subcategories.${getCategoryName(transaction.categoryId)}`)}>
-            <CategoryIcon category={getParentCategory(transaction.categoryId)} />
+          <Img className='u-mr-half' title={t(`Data.subcategories.${getCategoryName(getCategoryId(transaction))}`)}>
+            <CategoryIcon category={getParentCategory(getCategoryId(transaction))} />
           </Img>
           <Bd className='u-mr-half u-ellipsis'>
             {getLabel(transaction)}

@@ -10,7 +10,8 @@ import { fetchTransactions } from 'actions'
 import { getAppUrlBySource, fetchApps } from 'ducks/apps'
 import { flowRight as compose } from 'lodash'
 import { cozyConnect } from 'cozy-client'
-import { getCategoryId } from 'ducks/categories/categoriesMap'
+import { getCategoryIdFromName } from 'ducks/categories/categoriesMap'
+import { getCategoryId } from 'ducks/categories/helpers'
 import { Breadcrumb } from 'components/Breadcrumb'
 import BackButton from 'components/BackButton'
 
@@ -37,8 +38,8 @@ class TransactionsPage extends Component {
     // filter by category
     const subcategoryName = router.params.subcategoryName
     if (subcategoryName) {
-      const categoryId = getCategoryId(subcategoryName)
-      filteredTransactions = filteredTransactions.filter(transaction => transaction.categoryId === categoryId)
+      const categoryId = getCategoryIdFromName(subcategoryName)
+      filteredTransactions = filteredTransactions.filter(transaction => getCategoryId(transaction) === categoryId)
     }
 
     let credits = 0

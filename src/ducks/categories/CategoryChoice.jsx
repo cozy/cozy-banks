@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { translate } from 'cozy-ui/react'
 import PopupSelect from 'components/PopupSelect'
 import { getCategories, CategoryIcon, getParentCategory } from 'ducks/categories'
+import { getCategoryId } from 'ducks/categories/helpers'
 
 class CategoryChoice extends Component {
   constructor (props) {
@@ -32,7 +33,7 @@ class CategoryChoice extends Component {
   }
 
   isSelected = category => {
-    const { categoryId } = this.props
+    const categoryId = getCategoryId(this.props)
     const parentName = getParentCategory(categoryId)
     return parentName === category.name || categoryId === category.id
   }

@@ -15,6 +15,10 @@ const makeSubcategory = catId => ({
   transactions: []
 })
 
+export const getCategoryId = transaction => {
+  return transaction.manualCategoryId || transaction.automaticCategoryId
+}
+
 export const getParentCategory = transaction => {
   return getParent(transaction.categoryId)
 }

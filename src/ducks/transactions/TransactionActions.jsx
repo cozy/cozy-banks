@@ -11,6 +11,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { translate, Icon, MenuItem } from 'cozy-ui/react'
+import { getCategoryId } from 'ducks/categories/helpers'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import commentIcon from 'assets/icons/actions/icon-comment.svg'
 
@@ -56,7 +57,7 @@ const isHealthCategory = (categoryId) =>
 export const getLinkType = (transaction, urls) => {
   const action = transaction.action
   const appName = getAppName(urls, transaction)
-  if (isHealthCategory(transaction.categoryId) && urls['HEALTH']) {
+  if (isHealthCategory(getCategoryId(transaction)) && urls['HEALTH']) {
     return HEALTH_LINK
   } else if (appName) {
     return APP_LINK

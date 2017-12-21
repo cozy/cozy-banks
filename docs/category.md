@@ -45,9 +45,9 @@ Solution
 
 There should be two category fields associated to each bank operation :
 
- - manualCategory
- - automaticCategory
+ - manualCategoryId
+ - automaticCategoryId
 
 Each of them can be undefined and when displaying a category, the bank application will calculated
-the resulting category by choosing manualCategory over automaticCategory. I do not see a need to
+the resulting category by choosing manualCategoryId over automaticCategoryId. I do not see a need to
 keep the result of this computation in database.
