@@ -80,7 +80,8 @@ const getAccountIds = state => {
   return accountIds
 }
 
-export const getFilteredTransactions = createSelector([getTransactions, getAccountIds, getStartDate, getEndDate],
+export const getFilteredTransactions = createSelector(
+  [getTransactions, getAccountIds, getStartDate, getEndDate],
   (transactions, accountIds, startDate, endDate) => {
     if (accountIds && accountIds.length > 0) {
       transactions = filterByAccountIds(transactions, accountIds)
