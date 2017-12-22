@@ -15,7 +15,6 @@ import { getParentCategory, getCategoryName } from 'ducks/categories/categoriesM
 import TransactionActions from 'ducks/transactions/TransactionActions'
 import { withUpdateCategory } from 'ducks/categories'
 import palette from 'cozy-ui/stylus/settings/palette.json'
-import { updateDocument } from 'cozy-client'
 import edit from 'assets/icons/icon-edit.svg'
 import PropTypes from 'prop-types'
 import flash from 'ducks/flash'
@@ -71,15 +70,6 @@ class TransactionActionMenu extends Component {
   }
 }
 
-const updateCategoryParams = {
-  updateCategory: (props, category) => {
-    const { dispatch, transaction } = props
-    transaction.manualCategoryId = category.id
-    dispatch(updateDocument(transaction))
-  },
-  getCategoryId: ownProps => getCategoryId(ownProps.transaction)
-}
-
 TransactionActionMenu.propTypes = {
   showCategoryChoice: PropTypes.func.isRequired,
   requestClose: PropTypes.func.isRequired
@@ -87,6 +77,6 @@ TransactionActionMenu.propTypes = {
 
 export default compose(
   withDispatch,
-  withUpdateCategory(updateCategoryParams),
+  withUpdateCategory(),
   translate()
 )(TransactionActionMenu)

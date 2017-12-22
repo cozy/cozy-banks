@@ -1,7 +1,17 @@
 import React, { Component } from 'react'
 import CategoryChoice from './CategoryChoice'
+import { updateDocument } from 'cozy-client'
+import { getCategoryId } from 'ducks/categories/helpers'
 
-export default ({updateCategory, getCategoryId}) => {
+const updateCategoryParams = {
+  updateCategory: (props, category) => {
+    const { dispatch, transaction } = props
+    transaction.manualCategoryId = category.id
+    dispatch(updateDocument(transaction))
+  }
+}
+
+export default ({updateCategory} = updateCategoryParams) => {
   return Wrapped => class extends Component {
     state = {
       displaying: false

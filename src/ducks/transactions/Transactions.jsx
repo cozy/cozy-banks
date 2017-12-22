@@ -12,7 +12,6 @@ import { getParentCategory, getCategoryName } from 'ducks/categories/categoriesM
 import { getCategoryId } from 'ducks/categories/helpers'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { withUpdateCategory } from 'ducks/categories'
-import { updateDocument } from 'cozy-client'
 import { withDispatch } from 'utils'
 import flash from 'ducks/flash'
 
@@ -37,15 +36,6 @@ const TableHeadDesktop = ({t}) => (
   </thead>
 )
 
-const updateCategoryParams = {
-  updateCategory: (props, category) => {
-    const { dispatch, transaction } = props
-    transaction.manualCategoryId = category.id
-    dispatch(updateDocument(transaction))
-  },
-  getCategoryId: ownProps => getCategoryId(ownProps.transaction)
-}
-
 const showComingSoon = (t) => {
   flash(t('ComingSoon.description'))
 }
@@ -53,11 +43,12 @@ const showComingSoon = (t) => {
 const TableTrDesktop = compose(
   translate(),
   withDispatch,
-  withUpdateCategory(updateCategoryParams)
+  withUpdateCategory()
 )(({ t, f, transaction, urls, isExtraLarge, showCategoryChoice }) => {
-  const categoryName = getCategoryName(getCategoryId(transaction))
+  const categoryId = getCategoryId(transaction)
+  const categoryName = getCategoryName(categoryId)
   const categoryTitle = t(`Data.subcategories.${categoryName}`)
-  const parentCategory = getParentCategory(getCategoryId(transaction))
+  const parentCategory = getParentCategory(categoryId)
   const onSelect = () => {}
   const onSelectDisabled = () => {
     showComingSoon(t)
