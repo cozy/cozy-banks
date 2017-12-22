@@ -9,9 +9,9 @@ import TransactionMenu from './TransactionMenu'
 import { PrimaryAction, PrimaryActionIcon, getLinkType } from './TransactionActions'
 import { getLabel } from './helpers'
 import { getParentCategory, getCategoryName } from 'ducks/categories/categoriesMap'
+import { getCategoryId } from 'ducks/categories/helpers'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { withUpdateCategory } from 'ducks/categories'
-import { updateDocument } from 'cozy-client'
 import { withDispatch } from 'utils'
 import flash from 'ducks/flash'
 
@@ -36,15 +36,6 @@ const TableHeadDesktop = ({t}) => (
   </thead>
 )
 
-const updateCategoryParams = {
-  updateCategory: (props, category) => {
-    const { dispatch, transaction } = props
-    transaction.categoryId = category.id
-    dispatch(updateDocument(transaction))
-  },
-  getCategoryId: ownProps => ownProps.transaction.categoryId
-}
-
 const showComingSoon = (t) => {
   flash(t('ComingSoon.description'))
 }
@@ -52,11 +43,12 @@ const showComingSoon = (t) => {
 const TableTrDesktop = compose(
   translate(),
   withDispatch,
-  withUpdateCategory(updateCategoryParams)
+  withUpdateCategory()
 )(({ t, f, transaction, urls, isExtraLarge, showCategoryChoice }) => {
-  const categoryName = getCategoryName(transaction.categoryId)
+  const categoryId = getCategoryId(transaction)
+  const categoryName = getCategoryName(categoryId)
   const categoryTitle = t(`Data.subcategories.${categoryName}`)
-  const parentCategory = getParentCategory(transaction.categoryId)
+  const parentCategory = getParentCategory(categoryId)
   const onSelect = () => {}
   const onSelectDisabled = () => {
     showComingSoon(t)
@@ -98,8 +90,8 @@ const TableTrNoDesktop = translate()(({t, f, transaction, urls, selectTransactio
     <tr onClick={() => selectTransaction(transaction)} className={styles['bnk-transaction-mobile']}>
       <td>
         <Media>
-          <Img className='u-mr-half' title={t(`Data.subcategories.${getCategoryName(transaction.categoryId)}`)}>
-            <CategoryIcon category={getParentCategory(transaction.categoryId)} />
+          <Img className='u-mr-half' title={t(`Data.subcategories.${getCategoryName(getCategoryId(transaction))}`)}>
+            <CategoryIcon category={getParentCategory(getCategoryId(transaction))} />
           </Img>
           <Bd className='u-mr-half u-ellipsis'>
             {getLabel(transaction)}

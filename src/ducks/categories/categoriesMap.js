@@ -48,12 +48,12 @@ export const categoriesStyle = {
   }
 }
 
-export const getCategoryId = name =>
+export const getCategoryIdFromName = name =>
   Object.keys(tree).find(id => tree[id] === name)
 
 for (const key in categoriesStyle) {
   categoriesStyle[key].name = key
-  categoriesStyle[key].id = getCategoryId(key)
+  categoriesStyle[key].id = getCategoryIdFromName(key)
   categoriesStyle[key].children = {}
   categoriesStyle[key].icon =
     require(`../../assets/icons/categories/icon-cat-${key}.svg`)

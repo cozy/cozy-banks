@@ -12,7 +12,7 @@ const fetchTransactions = () => {
     sort: {date: 'desc'},
     descending: true,
     limit: 100,
-    fields: ['date', 'categoryId', 'currency', 'amount', 'label', 'bills', 'account']
+    fields: ['date', 'manualCategoryId', 'automaticCategoryId', 'currency', 'amount', 'label', 'bills', 'account']
   })
 
   const promiser = action.promise

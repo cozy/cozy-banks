@@ -15,10 +15,10 @@ import { getParentCategory, getCategoryName } from 'ducks/categories/categoriesM
 import TransactionActions from 'ducks/transactions/TransactionActions'
 import { withUpdateCategory } from 'ducks/categories'
 import palette from 'cozy-ui/stylus/settings/palette.json'
-import { updateDocument } from 'cozy-client'
 import edit from 'assets/icons/icon-edit.svg'
 import PropTypes from 'prop-types'
 import flash from 'ducks/flash'
+import { getCategoryId } from 'ducks/categories/helpers'
 
 const showComingSoon = (t) => {
   flash(t('ComingSoon.description'))
@@ -28,7 +28,7 @@ class TransactionActionMenu extends Component {
   render () {
     const { t, f, transaction, urls, requestClose } = this.props
     const { showCategoryChoice } = this.props
-    const category = getParentCategory(transaction.categoryId)
+    const category = getParentCategory(getCategoryId(transaction))
     const onSelect = () => requestClose()
     const onSelectDisabled = () => { showComingSoon(t); requestClose() }
     return (
@@ -53,7 +53,7 @@ class TransactionActionMenu extends Component {
             <CategoryIcon category={category} />
           </Img>
           <Bd className='u-pl-1 u-ellipsis'>
-            {t(`Data.subcategories.${getCategoryName(transaction.categoryId)}`)}
+            {t(`Data.subcategories.${getCategoryName(getCategoryId(transaction))}`)}
           </Bd>
           <Img className='u-pl-1'>
             <Icon icon={edit} color={palette['coolGrey']} />
@@ -70,15 +70,6 @@ class TransactionActionMenu extends Component {
   }
 }
 
-const updateCategoryParams = {
-  updateCategory: (props, category) => {
-    const { dispatch, transaction } = props
-    transaction.categoryId = category.id
-    dispatch(updateDocument(transaction))
-  },
-  getCategoryId: ownProps => ownProps.transaction.categoryId
-}
-
 TransactionActionMenu.propTypes = {
   showCategoryChoice: PropTypes.func.isRequired,
   requestClose: PropTypes.func.isRequired
@@ -86,6 +77,6 @@ TransactionActionMenu.propTypes = {
 
 export default compose(
   withDispatch,
-  withUpdateCategory(updateCategoryParams),
+  withUpdateCategory(),
   translate()
 )(TransactionActionMenu)
