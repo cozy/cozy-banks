@@ -1,10 +1,10 @@
-Categorization implementation proposition
-=========================================
+Categorization implementation solution
+======================================
 
-We have now a problem about categization of bank operations since a [manual categorization is always replaced by
+We had a problem about categorization of bank operations since a [manual categorization is always replaced by
 automatic categorization in the next linxo connector run](https://trello.com/c/ZRlX36BZ/451-2-apr%C3%A8s-avoir-recat%C3%A9goris%C3%A9-une-transaction-au-prochain-import-dun-connecteur-la-cat%C3%A9gorisation-na-pas-chang%C3%A9)
 
-The goal here is to find a smart way of defining and merging automatic categorization and manual
+The goal here was to find a way of defining and merging automatic categorization and manual
 categorization with the following constraints :
 
  - 1) Manual categorization wins over automatic categorization and we do not want to spread this intelligence over all the actors
@@ -21,7 +21,7 @@ categorization with the following constraints :
 Solutions
 ========
 
-We see that we can't avoid to keep to separated categores : manual and automatic, even if manual
+We see that we can't avoid to keep to separated categories : manual and automatic, even if manual
 category can be null.
 
 As said in 4), bank application will only modify 'manual category' fields and the others will only
@@ -36,12 +36,12 @@ There is a case where this does not work, if the bank application user changes t
 we need to wait a run of the bank connector or service to see the result of the change.
 Or the bank application calculates the resulting category itself and we are in B).
 
-B) The bank application could,  for each operation choose itself the manual category, if any, over
+B) The bank application could, for each operation choose itself the manual category, if any, over
 the automatic category (via an accessor or a conditional on display)
 
 
-Solution
-========
+Chosen solution
+===============
 
 There should be two category fields associated to each bank operation :
 
