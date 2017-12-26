@@ -200,7 +200,7 @@
       "dailyLife": "Vie quotidienne",
       "dividends": "Dividendes",
       "supermarket": "Alimentation, supermarché",
-      "tuition": "Cours",
+      "tuition": "Inscription, scolarité",
       "water": "Eau",
       "homeHardware": "Quincaillerie",
       "consumerLoan": "Remb. prêt conso",
@@ -219,7 +219,7 @@
       "homeAndRealEstate": "Maison et immobilier",
       "homeCharges": "Frais à la maison",
       "personalCare": "Coiffeur, esthétique, cosmétique, soins",
-      "healthInsurance": "Assurance santé",
+      "healthInsurance": "Cotis mutuelle, prévoyance",
       "activityIncome": "Revenu d'activité",
       "kidsActivities": "Activités pour enfants",
       "legalCounsel": "Conseils juridiques",
@@ -244,7 +244,7 @@
       "uncategorized": "Non catégorisé",
       "friendBorrowing": "Prêt à un ami",
       "potentialTransfer": "Transfert potentiel",
-      "healthExpenses": "Frais de santé",
+      "healthExpenses": "Frais, remb santé",
       "additionalIncome": "Revenu supplémentaire",
       "journey": "Voyages",
       "services": "Prestations de service",
@@ -253,7 +253,8 @@
       "realEstateLoan": "Prêt immobilier",
       "homeInsurance": "Assurance habitation",
       "dailyLifeOthers": "Autres : Dépenses vie courante",
-      "educationAndTrainingOther": "Autres : Éducation, formation"
+      "educationAndTrainingOthers": "Autres : Éducation, formation",
+      "healthOthers": "Autres : Santé, prévoyance"
     }
   },
 

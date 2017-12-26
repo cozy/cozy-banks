@@ -196,7 +196,9 @@
       "investmentBuySell": "Investment buy sell",
       "friendBorrowing": "Friend borrowing",
       "savings": "Savings",
-      "dailyLifeOthers": "Others: Everyday life"
+      "dailyLifeOthers": "Others: Everyday life",
+      "educationAndTrainingOthers": "Others: Education, training",
+      "healthOthers": "Others : Health"
     },
     "categories": {
       "activities": "Leisure, sports",

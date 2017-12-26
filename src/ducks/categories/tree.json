@@ -73,6 +73,7 @@
   "400600": "health",
   "400610": "healthExpenses",
   "400620": "healthInsurance",
+  "400630": "healthOthers",
 
   "400700": "activities",
   "400710": "activityFees",
@@ -94,6 +95,7 @@
   "400920": "eduBooksAndSupplies",
   "400930": "studentLoan",
   "400940": "eduLessons",
+  "400950": "educationAndTrainingOthers",
 
   "401000": "homeAndRealEstate",
   "401010": "realEstateLoan",
