@@ -195,7 +195,8 @@
       "professionalExpenses": "Professional expenses",
       "investmentBuySell": "Investment buy sell",
       "friendBorrowing": "Friend borrowing",
-      "savings": "Savings"
+      "savings": "Savings",
+      "dailyLifeOthers": "Others: Everyday life"
     },
     "categories": {
       "activities": "Leisure, sports",
