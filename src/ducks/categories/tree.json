@@ -71,6 +71,7 @@
   "400520": "socialTax",
   "400530": "wealthTax",
   "400540": "realEstateTax",
+  "400550": "taxOthers",
 
   "400600": "health",
   "400610": "healthExpenses",

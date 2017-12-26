@@ -175,7 +175,7 @@
       "loanCredit": "Déblocage prêt, crédits, réserves",
       "activityEquipments": "Équipement sports, loisirs",
       "professionalExpenses": "Notes de frais (+/-)",
-      "wealthTax": "Impôt sur le patrimoine",
+      "wealthTax": "ISF",
       "activityFees": "Cotis. sports, loisirs",
       "allocations": "Aides et allocations",
       "schoolRestaurant": "Restaurant scolaire",
@@ -187,7 +187,7 @@
       "financialAdvisor": "Conseil financier",
       "goingOutEntertainment": "Sorties/divertissements",
       "homeAssistance": "Aide-à-domicile",
-      "socialTax": "Taxes sociales",
+      "socialTax": "Contributions sociales",
       "health": "Santé",
       "pets": "Animaux",
       "excludeFromBudgetCat": "Exclus du budget",
@@ -215,7 +215,7 @@
       "atm": "Distributeur de billets",
       "privateParking": "Parking privé",
       "vehiculeGas": "Gaz de véhicules",
-      "realEstateTax": "Taxe foncière",
+      "realEstateTax": "Taxes foncières, d'habitation",
       "homeAndRealEstate": "Maison et immobilier",
       "homeCharges": "Charges logement",
       "personalCare": "Coiffeur, esthétique, cosmétique, soins",
@@ -229,7 +229,7 @@
       "kidsOthers": "Autres : Enfants",
       "charity": "Dons caritatifs",
       "replacementIncome": "Revenus de remplacement",
-      "incomeTax": "Impôt sur le revenu",
+      "incomeTax": "Impôts sur le revenu",
       "creditCardPayment": "Prél. carte débit différé",
       "vehiculeLoan": "Prêt véhicule",
       "tax": "Impôts",
@@ -259,7 +259,8 @@
       "incomeCatOthers": "Autres : Revenus",
       "activitiesOthers": "Autres : Sports, loisirs",
       "excludeFromBudgetCatOthers": "Autres : Hors budget",
-      "servicesOthers": "Autres : Services"
+      "servicesOthers": "Autres : Services",
+      "taxOthers": "Autres : Impôts"
     }
   },
 

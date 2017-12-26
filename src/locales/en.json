@@ -203,7 +203,8 @@
       "incomeCatOthers": "Others: Earnings",
       "activitiesOthers": "Others: Leisure, sports",
       "excludeFromBudgetCatOthers": "Others: Out of budget",
-      "servicesOthers": "Others: Services"
+      "servicesOthers": "Others: Services",
+      "taxOthers": "Others: Taxes"
     },
     "categories": {
       "activities": "Leisure, sports",
@@ -216,7 +217,7 @@
       "incomeCat": "Earnings",
       "kids": "Children",
       "services": "Services",
-      "tax": "Taxes, taxes",
+      "tax": "Taxes",
       "transportation": "Transportation, vehicles",
       "uncategorized": "To be categorized"
     }
