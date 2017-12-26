@@ -184,9 +184,9 @@
       "toysAndGifts": "Jouets et cadeaux",
       "activityLessons": "Cours sports, loisirs",
       "vehiculePurchase": "Achat de véhicules",
-      "financialAdvisor": "Conseiller financier",
+      "financialAdvisor": "Conseil financier",
       "goingOutEntertainment": "Sorties/divertissements",
-      "homeAssistance": "Assistance à domicile",
+      "homeAssistance": "Aide-à-domicile",
       "socialTax": "Taxes sociales",
       "health": "Santé",
       "pets": "Animaux",
@@ -206,7 +206,7 @@
       "consumerLoan": "Remb. prêt conso",
       "publicTransportation": "Transports publics",
       "donationsReceived": "Cadeaux, dons reçus",
-      "post": "Service après-vente",
+      "post": "Poste, courrier",
       "electronicsAndMultimedia": "Électronique, multimédia",
       "studentLoan": "Remb. prêt étudiant",
       "kids": "Enfants",
@@ -222,7 +222,7 @@
       "healthInsurance": "Cotis mutuelle, prévoyance",
       "activityIncome": "Salaire/Revenus d'activité",
       "kidsActivities": "Activités pour enfants",
-      "legalCounsel": "Conseils juridiques",
+      "legalCounsel": "Conseil juridique",
       "interests": "Intérêts",
       "vehiculeMaintenance": "Entretien des véhicules",
       "kidsAllowance": "Argent de poche",
@@ -258,7 +258,8 @@
       "homeAndRealEstateOthers": "Autres : Logement, immobilier",
       "incomeCatOthers": "Autres : Revenus",
       "activitiesOthers": "Autres : Sports, loisirs",
-      "excludeFromBudgetCatOthers": "Autres : Hors budget"
+      "excludeFromBudgetCatOthers": "Autres : Hors budget",
+      "servicesOthers": "Autres : Services"
     }
   },
 

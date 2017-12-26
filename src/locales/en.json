@@ -202,7 +202,8 @@
       "homeAndRealEstateOthers": "Others : Housing, real estate",
       "incomeCatOthers": "Others: Earnings",
       "activitiesOthers": "Others: Leisure, sports",
-      "excludeFromBudgetCatOthers": "Others : Out of budget"
+      "excludeFromBudgetCatOthers": "Others: Out of budget",
+      "servicesOthers": "Others: Services"
     },
     "categories": {
       "activities": "Leisure, sports",
