@@ -201,7 +201,8 @@
       "healthOthers": "Others : Health",
       "homeAndRealEstateOthers": "Others : Housing, real estate",
       "incomeCatOthers": "Others: Earnings",
-      "activitiesOthers": "Others: Leisure, sports"
+      "activitiesOthers": "Others: Leisure, sports",
+      "excludeFromBudgetCatOthers": "Others : Out of budget"
     },
     "categories": {
       "activities": "Leisure, sports",

@@ -118,5 +118,6 @@
   "600140": "professionalExpenses",
   "600150": "investmentBuySell",
   "600160": "friendBorrowing",
-  "600170": "savings"
+  "600170": "savings",
+  "600180": "excludeFromBudgetCatOthers"
 }
