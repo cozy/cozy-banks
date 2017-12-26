@@ -140,16 +140,16 @@
   "Data": {
     "categories": {
       "activities": "Sports, loisirs",
-      "dailyLife": "Vie quotidienne",
+      "dailyLife": "Dépense vie courante",
       "educationAndTraining": "Education, formation",
       "excludeFromBudgetCat": "Hors budget",
-      "goingOutAndTravel": "Sorties/voyages",
-      "health": "Santé",
+      "goingOutAndTravel": "Sorties, voyages",
+      "health": "Santé, prévoyance",
       "homeAndRealEstate": "Logement, immobilier",
       "incomeCat": "Revenus",
       "kids": "Enfants",
       "services": "Services",
-      "tax": "Impôts, taxes",
+      "tax": "Impôts",
       "transportation": "Transports, véhicules",
       "uncategorized": "À catégoriser"
     },
