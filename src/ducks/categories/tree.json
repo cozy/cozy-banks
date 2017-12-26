@@ -4,7 +4,6 @@
   "100": "potentialTransfer",
 
   "200": "check",
-  "200000": "incomeTheme",
 
   "200100": "incomeCat",
   "200110": "activityIncome",
@@ -19,8 +18,7 @@
   "200191": "incomeCatOthers",
 
   "300": "atm",
-
-  "400000": "expenseTheme",
+  "400": "uncategorizedOthers",
 
   "400100": "dailyLife",
   "400110": "supermarket",
@@ -47,6 +45,7 @@
   "400270": "parkingAndToll",
   "400280": "publicTransportation",
   "400290": "taxi",
+  "400291": "transportationOthers",
 
   "400300": "services",
   "400310": "post",
@@ -91,8 +90,9 @@
   "400810": "restaurantsAndBars",
   "400820": "goingOutEntertainment",
   "400830": "goingOutCulture",
-  "400840": "travel",
-  "400850": "journey",
+  "400840": "travels",
+  "400850": "planeTrainBoat",
+  "400860": "goingOutAndTravelOthers",
 
   "400900": "educationAndTraining",
   "400910": "tuition",
@@ -112,7 +112,6 @@
   "401080": "power",
   "401090": "homeAndRealEstateOthers",
 
-  "600000": "excludeFromBudgetTheme",
   "600100": "excludeFromBudgetCat",
   "600110": "internalTransfer",
   "600120": "creditCardPayment",

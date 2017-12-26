@@ -95,7 +95,7 @@ export const getParentCategory = catId => {
 Object.keys(tree).forEach(catId => {
   const catName = tree[catId]
   const parentName = getParentCategory(catId)
-  if (catName !== parentName && parentName !== 'uncategorized' && categoriesStyle[parentName]) {
+  if (catName !== parentName && categoriesStyle[parentName]) {
     categoriesStyle[parentName].children[catId] = {
       name: catName,
       color: categoriesStyle[parentName].color,
