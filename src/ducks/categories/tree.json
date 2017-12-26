@@ -16,6 +16,7 @@
   "200170": "rentalIncome",
   "200180": "additionalIncome",
   "200190": "retirement",
+  "200191": "incomeCatOthers",
 
   "300": "atm",
 
@@ -82,6 +83,7 @@
   "400740": "electronicsAndMultimedia",
   "400750": "booksMoviesMusic",
   "400760": "hobbyAndPassion",
+  "400770": "activitiesOthers",
 
   "400800": "goingOutAndTravel",
   "400810": "restaurantsAndBars",
@@ -106,6 +108,7 @@
   "401060": "homeHardware",
   "401070": "water",
   "401080": "power",
+  "401090": "homeAndRealEstateOthers",
 
   "600000": "excludeFromBudgetTheme",
   "600100": "excludeFromBudgetCat",

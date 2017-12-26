@@ -198,7 +198,10 @@
       "savings": "Savings",
       "dailyLifeOthers": "Others: Everyday life",
       "educationAndTrainingOthers": "Others: Education, training",
-      "healthOthers": "Others : Health"
+      "healthOthers": "Others : Health",
+      "homeAndRealEstateOthers": "Others : Housing, real estate",
+      "incomeCatOthers": "Others: Earnings",
+      "activitiesOthers": "Others: Leisure, sports"
     },
     "categories": {
       "activities": "Leisure, sports",
