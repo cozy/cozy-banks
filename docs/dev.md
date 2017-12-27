@@ -1,3 +1,12 @@
+- [Develop easily on mobile](#develop-easily-on-mobile)
+- [Release](#release)
+      - [Signing](#signing)
+      - [Push iOS build](#push-ios-build)
+- [Notifications](#notifications)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
+
 Develop easily on mobile
 =====================
 
@@ -51,14 +60,26 @@ When releasing a new version for mobile, you have to bump the version in those f
 - package.json (généré par Cordova)
 ```
 
-### Signing
+#### Signing
 
 Uncheck manage automatically
 
 In "Signing (release)", use the Provisioning Profile io.cozy.bank.mobile2 AppStore.
 Signing certificate : 3AKXFMV43J
 
+#### Push iOS build
 
+To push an iOS build on Testflight, use the following command : 
+
+```
+yarn ios:publish
+```
+
+Use an environment variable if you do not want Fastlane to ask for your user each time
+
+```
+env FASTLANE_USER=ptbrowne@gmail.com yarn run ios:publish
+```
 
 Notifications
 =============
@@ -100,11 +121,3 @@ will be able to see the mails in its web interface on http://localhost:8025.
 
 🖼 The PNG icons that are included in the emails are generated manually from the SVG via `scripts/icons-to-png.sh` and uploaded automatically to files.cozycloud.cc via Jenkins (which follows the file `files.cozycloud.cc` at the root of the repo).
 
-iOS
-===
-
-To push an iOS build on Testflight, use the following command : 
-
-```
-yarn ios:pushtest
-```
