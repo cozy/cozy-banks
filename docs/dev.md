@@ -48,6 +48,9 @@ $ # finally you can launch your webpack with the proper PUBLIC_PATH env variable
 $ env PUBLIC_PATH=http://${IP_ADDRESS}:8005 yarn watch:mobile
 ```
 
+⚠️⚠️⚠️ If you watch a production build, you must edit the webpack config to have
+the filepath without the [hash] otherwise you will not hit the right JS file.
+
 Release
 =======
 
