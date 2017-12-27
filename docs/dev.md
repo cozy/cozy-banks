@@ -51,6 +51,15 @@ When releasing a new version for mobile, you have to bump the version in those f
 - package.json (généré par Cordova)
 ```
 
+### Signing
+
+Uncheck manage automatically
+
+In "Signing (release)", use the Provisioning Profile io.cozy.bank.mobile2 AppStore.
+Signing certificate : 3AKXFMV43J
+
+
+
 Notifications
 =============
 
