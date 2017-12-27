@@ -10,7 +10,6 @@ const SRC_DIR = path.resolve(__dirname, '../src')
 const webpack = require('webpack')
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
 const StatsPlugin = require('stats-webpack-plugin')
-const StringReplacePlugin = require('string-replace-webpack-plugin')
 
 module.exports = {
   output: {
@@ -90,7 +89,6 @@ module.exports = {
     noParse: [/localforage\/dist/]
   },
   plugins: [
-    new StringReplacePlugin(),
     // ChartJS uses moment :( To remove when we do not use it anymore
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|fr/),
     new webpack.ContextReplacementPlugin(/date-fns[\/\\]locale$/, /en|fr/),
