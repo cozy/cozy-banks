@@ -25,7 +25,7 @@ module.exports = {
       PouchDB: 'pouchdb',
       pouchdbFind: 'pouchdb-find',
       pouchdbAdapterCordovaSqlite: 'pouchdb-adapter-cordova-sqlite',
-      'cozy.bar': production ? 'cozy-bar/dist/cozy-bar.mobile.min.js' : 'cozy-bar/dist/cozy-bar.mobile.js'
+      'cozy.bar': 'cozy-bar/dist/cozy-bar.mobile.js'
     }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, `../src/index.ejs`),
