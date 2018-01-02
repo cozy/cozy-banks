@@ -1,18 +1,17 @@
 import React from 'react'
 import { Router, Route } from 'react-router'
 
-import Authentication from './Authentication'
-import Revoked from './Revoked'
-import { resetClient, getToken } from './lib/client'
+import { Authentication, Revoked } from 'cozy-authentication'
 import { storeCredentials, revokeClient, setToken, getURL, getAccessToken } from 'ducks/mobile'
-import { initBar, updateAccessTokenBar } from 'ducks/authentication/lib/client'
+import { initBar, updateAccessTokenBar, resetClient, getToken } from 'ducks/authentication/lib/client'
 export const AUTH_PATH = 'authentication'
 
-const withAuth = Wrapped => (props, { store }) => {
+const withAuth = Wrapped => (props, { store, router, client }) => {
   const onAuthentication = async (res) => {
     if (res) {
       // first authentication
       const { url, clientInfo, router, token } = res
+      console.log('onAuthentication !', clientInfo, url, token)
       store.dispatch(storeCredentials(url, clientInfo, token))
       router.replace('/')
     } else {
@@ -30,7 +29,13 @@ const withAuth = Wrapped => (props, { store }) => {
     }
   }
 
-  const checkAuth = (isAuthenticated, router) => (nextState, replace) => {
+  const onLogout = () => {
+    const mobile = store.getState().mobile
+    resetClient(mobile.client, client)
+    props.history.replace(`/${AUTH_PATH}`)
+  }
+
+  const setupAuth = (isAuthenticated, router) => (nextState, replace) => {
     if (!isAuthenticated()) {
       resetClient()
       replace({
@@ -39,6 +44,10 @@ const withAuth = Wrapped => (props, { store }) => {
       store.dispatch(revokeClient())
     } else {
       onAuthentication()
+      const mobile = store.getState().mobile
+      initBar(getURL(mobile), getAccessToken(mobile), {
+        onLogOut: onLogout
+      })
     }
   }
 
@@ -50,23 +59,32 @@ const withAuth = Wrapped => (props, { store }) => {
     return store.getState().mobile.revoked
   }
 
-  return <Wrapped {...props} {...{ isAuthenticated, isRevoked, onAuthentication, checkAuth }} />
+  return <Wrapped {...props} {...{ isAuthenticated, isRevoked, onAuthentication, setupAuth }} />
 }
 
-const MobileRouter = ({ router, history, routes, isAuthenticated, isRevoked, onAuthentication, checkAuth }, { store, client }) => {
+const logException = function () {
+  console.log('exception during auth')
+}
+
+const MobileRouter = ({ router, history, routes, isAuthenticated, isRevoked, onAuthentication, setupAuth }, { store, client }) => {
   return (
     <Router history={history}>
       <Route>
-        <Route path={AUTH_PATH} component={(props) => <Authentication {...props} onComplete={onAuthentication} />} />
-        <Route onEnter={checkAuth(isAuthenticated, router)} component={(props, context) => {
-          initBar(getURL(store.getState().mobile), getAccessToken(store.getState().mobile), {
-            onLogOut: () => {
-              resetClient(store.getState().mobile.client, client)
-              context.router.replace(`/${AUTH_PATH}`)
-            }
-          })
-
-          return <Revoked {...props} revoked={isRevoked()} onLogBackIn={onAuthentication} />
+        <Route path={AUTH_PATH} component={(props) =>
+          <Authentication {...props}
+            router={history}
+            onComplete={onAuthentication}
+            onException={logException}
+          />
+        }/>
+        <Route onEnter={setupAuth(isAuthenticated, router)} component={(props, context) => {
+          const revoked = isRevoked()
+          return revoked
+            ? <Revoked {...props}
+                router={history}
+                revoked={isRevoked()}
+                onLogBackIn={onAuthentication} />
+            : props.children
         }}>
           {routes}
         </Route>
