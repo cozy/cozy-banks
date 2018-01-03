@@ -6,6 +6,8 @@ const DATE_TAG = 'tag_date'
 const DATE_REGEX = /\d{1,2}\/\d{1,2}\/\d{2,4}|\d{1,2}\/\d{1,2}/g
 const UNNECESSARY_CHARS_REGEX = /[^a-zA-Z_ ]/g
 const MAX_WORD = 3
+const DEFAULT_CATEGORY = '0'
+const PROBA_LIMIT = 10 / 100
 
 export const format = label => {
   const stripAccents = label => {
@@ -65,7 +67,9 @@ export const categorize = label => {
   // Display likelihoods (statistic)
   // console.log(predicted.likelihoods)
 
-  const categoryId = predicted.predictedCategory
+  const categoryId = predicted.likelihoods[0].proba > PROBA_LIMIT
+   ? predicted.predictedCategory
+   : DEFAULT_CATEGORY
 
   // Display category name
   // console.log(categoryId, categorizesTree[categoryId])
