@@ -34,8 +34,6 @@ describe('categorize', () => {
   it('Should categorize transactions', ()=> {
     expect(categorize('traineline')).toEqual('400110')
     expect(categorize('trainline')).toEqual('400280')
-    expect(categorize('assurance habitation')).toEqual('400110')
-    expect(categorize('riendutout ndf')).toEqual('600110')
     expect(categorize('ndf cozy')).toEqual('600110')
     expect(categorize('cpam paris')).toEqual('400610')
     expect(categorize('argent de poche')).toEqual('400180')
@@ -52,11 +50,16 @@ describe('categorize', () => {
     expect(categorize('carte le kaiser tutu')).toEqual('400160')
     expect(categorize('malakoff nespresso ndf toutou')).toEqual('400110')
     // TODO: François fix it near futur
-    // expect(categorize('docteur weber tata')).toEqual('600110') // 400610
     // expect(categorize('titi')).toEqual('600110') // 400110
     // expect(categorize('toto')).toEqual('600110') // 400110
     // expect(categorize('tata titi')).toEqual('600110') // 400110
-    // expect(categorize('tutu tata toutou')).toEqual('600110') // 400110
-    // expect(categorize('toutou titi toto tutu')).toEqual('600110') // 400110
+  })
+
+  it('Should return default category when proba is too small', () => {
+    expect(categorize('docteur weber tata')).toEqual('0')
+    expect(categorize('tutu tata toutou')).toEqual('0')
+    expect(categorize('toutou titi toto tutu')).toEqual('0')
+    expect(categorize('assurance habitation')).toEqual('0')
+    expect(categorize('riendutout ndf')).toEqual('0')
   })
 })
