@@ -15,7 +15,7 @@ import { setupHistory } from 'utils/history'
 import { getClient } from 'utils/client'
 
 if (__TARGET__ === 'mobile') {
-  require('styles/mobile')
+  require('styles/mobile.styl')
 }
 
 const renderAppWithPersistedState = persistedState => {
