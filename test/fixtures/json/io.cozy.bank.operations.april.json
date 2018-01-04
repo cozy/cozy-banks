@@ -3,7 +3,7 @@
     {
       "account": "compteisa1",
       "amount": -1231,
-      "category": "mortgage_refund",
+      "automaticCategoryId": "mortgage_refund",
       "currency": "€",
       "date": "2017-04-25T00:00:00Z",
       "label": "REMBOURSEMENT PRET LCL"
@@ -11,7 +11,7 @@
     {
       "account": "compteisa1",
       "amount": -15.99,
-      "category": "telecom",
+      "automaticCategoryId": "telecom",
       "currency": "€",
       "date": "2017-04-25T00:00:00Z",
       "label": "FREEMOBILE",
@@ -20,7 +20,7 @@
     {
       "account": "compteisa1",
       "amount": 3860.44,
-      "category": "salary",
+      "automaticCategoryId": "salary",
       "currency": "€",
       "date": "2017-04-01T00:00:00Z",
       "label": "SALAIRE"
@@ -28,7 +28,7 @@
     {
       "account": "compteisa1",
       "amount": -122.4,
-      "category": "regular_shopping",
+      "automaticCategoryId": "regular_shopping",
       "currency": "€",
       "date": "2017-04-06T00:00:00Z",
       "label": "CARREFOUR MARKET"
@@ -36,7 +36,7 @@
     {
       "account": "compteisa1",
       "amount": -65.13,
-      "category": "regular_shopping",
+      "automaticCategoryId": "regular_shopping",
       "currency": "€",
       "date": "2017-04-12T00:00:00Z",
       "label": "CARREFOUR MARKET"
@@ -44,7 +44,7 @@
     {
       "account": "compteisa1",
       "amount": -48.12,
-      "category": "meals",
+      "automaticCategoryId": "meals",
       "currency": "€",
       "date": "2017-04-17T00:00:00Z",
       "label": "FRANPRIX"
@@ -52,7 +52,7 @@
     {
       "account": "compteisa1",
       "amount": -46.55,
-      "category": "meals",
+      "automaticCategoryId": "meals",
       "currency": "€",
       "date": "2017-04-21T00:00:00Z",
       "label": "FRANPRIX"
@@ -60,7 +60,7 @@
     {
       "account": "compteisa1",
       "amount": -32.89,
-      "category": "shopping",
+      "automaticCategoryId": "shopping",
       "currency": "€",
       "date": "2017-04-21T00:00:00Z",
       "label": "ZARA"
@@ -68,7 +68,7 @@
     {
       "account": "compteisa1",
       "amount": -18.12,
-      "category": "taxi",
+      "automaticCategoryId": "taxi",
       "currency": "€",
       "date": "2017-04-03T00:00:00Z",
       "label": "UBER"
@@ -76,7 +76,7 @@
     {
       "account": "compteisa1",
       "amount": -9.09,
-      "category": "taxi",
+      "automaticCategoryId": "taxi",
       "currency": "€",
       "date": "2017-04-23T00:00:00Z",
       "label": "UBER"
@@ -84,7 +84,7 @@
     {
       "account": "compteisa1",
       "amount": -43.54,
-      "category": "restaurants",
+      "automaticCategoryId": "restaurants",
       "currency": "€",
       "date": "2017-04-08T00:00:00Z",
       "label": "LE RICHER"
@@ -92,7 +92,7 @@
     {
       "account": "compteisa1",
       "amount": -12.1,
-      "category": "meals",
+      "automaticCategoryId": "meals",
       "currency": "€",
       "date": "2017-04-08T00:00:00Z",
       "label": "kAISER BOULANGERIE"
@@ -100,7 +100,7 @@
     {
       "account": "compteisa1",
       "amount": -9.40,
-      "category": "meals",
+      "automaticCategoryId": "meals",
       "currency": "€",
       "date": "2017-04-18T00:00:00Z",
       "label": "kAISER BOULANGERIE"
@@ -108,7 +108,7 @@
     {
       "account": "compteisa1",
       "amount": -120.11,
-      "category": "electricity",
+      "automaticCategoryId": "electricity",
       "currency": "€",
       "date": "2017-04-08T00:00:00Z",
       "label": "EDF CLIENTS PARTICULIERS",
@@ -117,7 +117,7 @@
     {
       "account": "compteisa1",
       "amount": -80,
-      "category": "pocket_money",
+      "automaticCategoryId": "pocket_money",
       "currency": "€",
       "date": "2017-04-01T00:00:00Z",
       "label": "ARGENT DE POCHE"
@@ -125,7 +125,7 @@
     {
       "account": "compteisa1",
       "amount": -400,
-      "category": "saving_transfer",
+      "automaticCategoryId": "saving_transfer",
       "currency": "€",
       "date": "2017-04-03T00:00:00Z",
       "label": "TRANSFERT LIVRET A"
@@ -133,7 +133,7 @@
     {
       "account": "compteisa3",
       "amount": 400,
-      "category": "saving_transfer",
+      "automaticCategoryId": "saving_transfer",
       "currency": "€",
       "date": "2017-04-03T00:00:00Z",
       "label": "TRANSFERT LIVRET A"
@@ -141,7 +141,7 @@
     {
       "account": "comptelou1",
       "amount": 80,
-      "category": "gift_incomes",
+      "automaticCategoryId": "gift_incomes",
       "currency": "€",
       "date": "2017-04-02T00:00:00Z",
       "label": "ARGENT DE POCHE"
@@ -149,7 +149,7 @@
     {
       "account": "comptelou1",
       "amount": -7.5,
-      "category": "multimedia",
+      "automaticCategoryId": "multimedia",
       "currency": "€",
       "date": "2017-04-08T00:00:00Z",
       "label": "UGCCINECITE"
@@ -157,7 +157,7 @@
     {
       "account": "comptelou1",
       "amount": -8.5,
-      "category": "restaurants",
+      "automaticCategoryId": "restaurants",
       "currency": "€",
       "date": "2017-04-22T00:00:00Z",
       "label": "KFC"
@@ -165,7 +165,7 @@
     {
       "account": "comptelou1",
       "amount": -20,
-      "category": "withdrawals",
+      "automaticCategoryId": "withdrawals",
       "currency": "€",
       "date": "2017-04-25T00:00:00Z",
       "label": "RETRAIT BNPPARIBAS"
@@ -173,7 +173,7 @@
     {
       "account": "comptelou1",
       "amount": -20,
-      "category": "withdrawals",
+      "automaticCategoryId": "withdrawals",
       "currency": "€",
       "date": "2017-04-04T00:00:00Z",
       "label": "RETRAIT BNPPARIBAS"
@@ -182,7 +182,7 @@
       "_id": "marsdepsanteisa2",
       "account": "compteisa1",
       "amount": -70,
-      "category": "health_costs",
+      "automaticCategoryId": "health_costs",
       "currency": "€",
       "date": "2017-03-06T00:00:00Z",
       "label": "DR CHOLLET CHQ 18708912"
@@ -192,7 +192,7 @@
       "account": "compteisa1",
       "amount": 70,
       "bill": "io.cozy.bills:marsrembourcomplisa2",
-      "category": "health_costs",
+      "automaticCategoryId": "health_costs",
       "currency": "€",
       "date": "2017-03-08T00:00:00Z",
       "label": "VIR COMPL SANTE"
@@ -201,7 +201,7 @@
       "_id": "marsdepsanteisa22",
       "account": "compteisa1",
       "amount": -70,
-      "category": "health_costs",
+      "automaticCategoryId": "health_costs",
       "currency": "€",
       "date": "2017-03-12T00:00:00Z",
       "label": "DR CHOLLET CHQ 18708913"
@@ -211,7 +211,7 @@
       "account": "compteisa1",
       "amount": 70,
       "bill": "io.cozy.bills:marsrembourcomplisa22",
-      "category": "health_costs",
+      "automaticCategoryId": "health_costs",
       "currency": "€",
       "date": "2017-03-14T00:00:00Z",
       "label": "VIR COMPL SANTE"
@@ -220,7 +220,7 @@
       "_id": "avrildepsanteisa2",
       "account": "compteisa1",
       "amount": -60,
-      "category": "health_costs",
+      "automaticCategoryId": "health_costs",
       "currency": "€",
       "date": "2017-04-06T00:00:00Z",
       "label": "CAB OSTEOKINESITHERAPIE"
@@ -230,7 +230,7 @@
       "account": "compteisa1",
       "amount": 60,
       "bill": "io.cozy.bills:avrilrembourcomplisa2",
-      "category": "health_costs",
+      "automaticCategoryId": "health_costs",
       "currency": "€",
       "date": "2017-04-08T00:00:00Z",
       "label": "VIR COMPL SANTE"
@@ -239,7 +239,7 @@
       "_id": "avrildepsanteisa22",
       "account": "compteisa1",
       "amount": -60,
-      "category": "health_costs",
+      "automaticCategoryId": "health_costs",
       "currency": "€",
       "date": "2017-04-12T00:00:00Z",
       "label": "CAB OSTEOKINESITHERAPIE"
@@ -249,7 +249,7 @@
       "account": "compteisa1",
       "amount": 60,
       "bill": "io.cozy.bills:avrilrembourcomplisa22",
-      "category": "health_costs",
+      "automaticCategoryId": "health_costs",
       "currency": "€",
       "date": "2017-04-14T00:00:00Z",
       "label": "VIR COMPL SANTE"
@@ -258,7 +258,7 @@
       "_id": "avrildepsanteisa23",
       "account": "compteisa1",
       "amount": -40,
-      "category": "health_costs",
+      "automaticCategoryId": "health_costs",
       "currency": "€",
       "date": "2017-04-21T00:00:00Z",
       "label": "KINE REUILLY"
@@ -268,7 +268,7 @@
       "account": "compteisa1",
       "amount": 40,
       "bill": "io.cozy.bills:avrilrembourcomplisa23",
-      "category": "health_costs",
+      "automaticCategoryId": "health_costs",
       "currency": "€",
       "date": "2017-04-23T00:00:00Z",
       "label": "VIR COMPL SANTE"
@@ -277,7 +277,7 @@
       "_id": "avrildepsantecla3",
       "account": "comptecla1",
       "amount": -41,
-      "category": "health_costs",
+      "automaticCategoryId": "health_costs",
       "currency": "€",
       "date": "2017-04-10T00:00:00Z",
       "label": "CAB CARDIOLOGIE CONSULT"
@@ -287,7 +287,7 @@
       "account": "comptecla1",
       "amount": 28.7,
       "bill": "io.cozy.bills:avrilrembourcla3",
-      "category": "health_costs",
+      "automaticCategoryId": "health_costs",
       "currency": "€",
       "date": "2017-04-11T00:00:00Z",
       "label": "CPAM PARIS"
@@ -297,7 +297,7 @@
       "account": "comptecla1",
       "amount": 12.3,
       "bill": "io.cozy.bills:avrilrembourcomplcla3",
-      "category": "health_costs",
+      "automaticCategoryId": "health_costs",
       "currency": "€",
       "date": "2017-04-12T00:00:00Z",
       "label": "VIR COMPL SANTE"
@@ -306,7 +306,7 @@
       "_id": "avrildepsantecla32",
       "account": "comptecla1",
       "amount": -50,
-      "category": "health_costs",
+      "automaticCategoryId": "health_costs",
       "currency": "€",
       "date": "2017-04-14T00:00:00Z",
       "label": "LABORATOIRE PUTEAUX"
@@ -316,7 +316,7 @@
       "account": "comptecla1",
       "amount": 30,
       "bill": "io.cozy.bills:avrilrembourcla32",
-      "category": "health_costs",
+      "automaticCategoryId": "health_costs",
       "currency": "€",
       "date": "2017-04-16T00:00:00Z",
       "label": "CPAM PARIS"
@@ -326,7 +326,7 @@
       "account": "comptecla1",
       "amount": 18,
       "bill": "io.cozy.bills:avrilrembourcomplcla32",
-      "category": "health_costs",
+      "automaticCategoryId": "health_costs",
       "currency": "€",
       "date": "2017-04-18T00:00:00Z",
       "label": "VIR COMPL SANTE"
@@ -334,7 +334,7 @@
     {
       "account": "comptegene1",
       "amount": -44.9,
-      "category": "telecom",
+      "automaticCategoryId": "telecom",
       "currency": "€",
       "date": "2017-04-30T00:00:00Z",
       "label": "BOUYGUES TELECOM",
@@ -343,7 +343,7 @@
     {
       "account": "comptegene1",
       "amount": 2110.81,
-      "category": "pension",
+      "automaticCategoryId": "pension",
       "currency": "€",
       "date": "2017-04-02T00:00:00Z",
       "label": "RETRAITE"
@@ -351,7 +351,7 @@
     {
       "account": "comptegene1",
       "amount": -80.44,
-      "category": "gifts",
+      "automaticCategoryId": "gifts",
       "currency": "€",
       "date": "2017-04-11T00:00:00Z",
       "label": "FNAC TERNES",
@@ -365,7 +365,7 @@
     {
       "account": "comptegene1",
       "amount": -42.3,
-      "category": "regular_shopping",
+      "automaticCategoryId": "regular_shopping",
       "currency": "€",
       "date": "2017-04-04T00:00:00Z",
       "label": "AUCHAN"
@@ -373,7 +373,7 @@
     {
       "account": "comptegene1",
       "amount": -65.3,
-      "category": "regular_shopping",
+      "automaticCategoryId": "regular_shopping",
       "currency": "€",
       "date": "2017-04-22T00:00:00Z",
       "label": "CARREFOUR CITY"
@@ -381,7 +381,7 @@
     {
       "account": "comptegene1",
       "amount": -18.22,
-      "category": "meals",
+      "automaticCategoryId": "meals",
       "currency": "€",
       "date": "2017-04-07T00:00:00Z",
       "label": "FRANPRIX"
@@ -389,7 +389,7 @@
     {
       "account": "comptegene1",
       "amount": -40,
-      "category": "home_help",
+      "automaticCategoryId": "home_help",
       "currency": "€",
       "date": "2017-04-20T00:00:00Z",
       "label": "FRANCE MENAGE"
@@ -397,7 +397,7 @@
     {
       "account": "comptegene1",
       "amount": -80,
-      "category": "withdrawals",
+      "automaticCategoryId": "withdrawals",
       "currency": "€",
       "date": "2017-04-04T00:00:00Z",
       "label": "RETRAIT CREDIT AGRICOLE"
@@ -405,7 +405,7 @@
     {
       "account": "comptegene1",
       "amount": -48.22,
-      "category": "meals",
+      "automaticCategoryId": "meals",
       "currency": "€",
       "date": "2017-04-21T00:00:00Z",
       "label": "FRANPRIX"
@@ -413,7 +413,7 @@
     {
       "account": "comptegene1",
       "amount": -42.89,
-      "category": "shopping",
+      "automaticCategoryId": "shopping",
       "currency": "€",
       "date": "2017-04-29T00:00:00Z",
       "label": "SOMEWHERE"
