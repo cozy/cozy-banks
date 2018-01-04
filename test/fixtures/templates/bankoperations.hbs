@@ -3,7 +3,7 @@
     {
       "account": "io.cozy.bank.accounts:{{accountId}}",
       "label": "Salaire de {{{mois}}}, de {{company}}",
-      "category": "salary",
+      "automaticCategoryId": "salary",
       "amount": {{float 2600 4000 round=0.01}},
       "date": "{{date '2017-03-01' '2017-03-31' 'YYYY-MM-DDTHH:mm:ssZ'}}",
       "dateImport": "{{date '2017-03-01' '2017-03-31' 'YYYY-MM-DDTHH:mm:ssZ'}}",
@@ -13,7 +13,7 @@
     {
       "account": "io.cozy.bank.accounts:{{accountId}}",
       "label": "{{lorem 5}}",
-      "category": "{{regularOperationsType}}",
+      "automaticCategoryId": "{{regularOperationsType}}",
       "amount": {{float -200 200 round=0.01}},
       "date": "{{date '2017-03-01' '2017-03-31' 'YYYY-MM-DDTHH:mm:ssZ'}}",
       "dateImport": "{{date '2017-03-01' '2017-03-31' 'YYYY-MM-DDTHH:mm:ssZ'}}",
