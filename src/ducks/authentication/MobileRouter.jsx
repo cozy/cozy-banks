@@ -15,9 +15,7 @@ const withAuth = Wrapped => (props, { store }) => {
       const { url, clientInfo, router, token } = res
       store.dispatch(storeCredentials(url, clientInfo, token))
       router.replace('/')
-    }
-    initBar(getURL(store.getState().mobile), getAccessToken(store.getState().mobile))
-    if (!res) {
+    } else {
       // when user is already authenticated
       // token can expire so ask stack to replace it
       try {
@@ -55,12 +53,21 @@ const withAuth = Wrapped => (props, { store }) => {
   return <Wrapped {...props} {...{ isAuthenticated, isRevoked, onAuthentication, checkAuth }} />
 }
 
-const MobileRouter = ({ router, history, routes, isAuthenticated, isRevoked, onAuthentication, checkAuth }) => {
+const MobileRouter = ({ router, history, routes, isAuthenticated, isRevoked, onAuthentication, checkAuth }, { store, client }) => {
   return (
     <Router history={history}>
       <Route>
         <Route path={AUTH_PATH} component={(props) => <Authentication {...props} onComplete={onAuthentication} />} />
-        <Route onEnter={checkAuth(isAuthenticated, router)} component={(props) => <Revoked {...props} revoked={isRevoked()} onLogBackIn={onAuthentication} />}>
+        <Route onEnter={checkAuth(isAuthenticated, router)} component={(props, context) => {
+          initBar(getURL(store.getState().mobile), getAccessToken(store.getState().mobile), {
+            onLogOut: () => {
+              resetClient(store.getState().mobile.client, client)
+              context.router.replace(`/${AUTH_PATH}`)
+            }
+          })
+
+          return <Revoked {...props} revoked={isRevoked()} onLogBackIn={onAuthentication} />
+        }}>
           {routes}
         </Route>
       </Route>
