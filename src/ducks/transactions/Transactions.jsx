@@ -6,10 +6,10 @@ import { Figure } from 'components/Figure'
 import { flowRight as compose } from 'lodash'
 import { Table, TdSecondary } from 'components/Table'
 import TransactionMenu from './TransactionMenu'
-import { PrimaryAction, PrimaryActionIcon, getLinkType } from './TransactionActions'
+import { PrimaryAction, PrimaryActionIcon, HealthExpenseStatusIcon, getLinkType } from './TransactionActions'
 import { getLabel } from './helpers'
 import { getParentCategory, getCategoryName } from 'ducks/categories/categoriesMap'
-import { getCategoryId } from 'ducks/categories/helpers'
+import { getCategoryId, isHealthExpense } from 'ducks/categories/helpers'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { withUpdateCategory } from 'ducks/categories'
 import { withDispatch } from 'utils'
@@ -97,7 +97,11 @@ const TableTrNoDesktop = translate()(({t, f, transaction, urls, selectTransactio
             {getLabel(transaction)}
           </Bd>
           <Img style={{ flexBasis: '1rem' }}>
-            <PrimaryActionIcon className='u-mr-half' type={getLinkType(transaction, urls)} />
+            {
+              isHealthExpense(transaction)
+                ? <HealthExpenseStatusIcon className='u-mr-half' type={getLinkType(transaction, urls)} transaction={transaction} />
+                : <PrimaryActionIcon className='u-mr-half' type={getLinkType(transaction, urls)} />
+            }
           </Img>
           <Img>
             <Figure total={transaction.amount} currency={transaction.currency} coloredPositive signed />
