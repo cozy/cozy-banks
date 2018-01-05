@@ -10,14 +10,14 @@ const SOFTWARE_ID = 'io.cozy.bank.mobile'
 const SOFTWARE_NAME = 'Cozy Bank'
 const getLang = () => (navigator && navigator.language) ? navigator.language.slice(0, 2) : 'en'
 
-export function resetClient (clientInfo) {
+export function resetClient (clientInfo, client) {
   // reset cozy-bar
   if (document.getElementById('coz-bar')) {
     document.getElementById('coz-bar').remove()
   }
   // reset pouchDB
-  if (cozy.client.offline.destroyAllDatabase) {
-    cozy.client.offline.destroyAllDatabase()
+  if (client && client.resetStore) {
+    client.resetStore()
   }
   // unregister the client
   if (clientInfo && cozy.client.auth.unregisterClient) {
@@ -70,7 +70,7 @@ export const initClient = (url) => {
   })
 }
 
-export const initBar = (url, accessToken) => {
+export const initBar = (url, accessToken, options = {}) => {
   cozy.bar.init({
     appName: 'Bank',
     appEditor: 'Cozy',
@@ -79,7 +79,8 @@ export const initBar = (url, accessToken) => {
     iconPath: require('targets/favicons/icon-bank.svg'),
     lang: getLang(),
     replaceTitleOnMobile: true,
-    displayOnMobile: true
+    displayOnMobile: true,
+    ...options
   })
 }
 

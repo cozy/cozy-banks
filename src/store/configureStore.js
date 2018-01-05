@@ -33,6 +33,8 @@ const configureStore = (cozyClient, persistedState) => {
     composeEnhancers(applyMiddleware.apply(null, middlewares))
   )
 
+  cozyClient.attachStore(store)
+
   return store
 }
 
