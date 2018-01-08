@@ -1,0 +1,64 @@
+{
+  "io.cozy.bank.operations": [
+    {
+      "_id": "paiementdocteur",
+      "account": "compteisa1",
+      "amount": -25,
+      "automaticCategoryId": "400610",
+      "currency": "€",
+      "date": "2018-01-03T00:00:00Z",
+      "label": "Docteur"
+    },
+    {
+      "_id": "remboursementcomplementaire",
+      "account": "compteisa1",
+      "amount": 7.5,
+      "automaticCategoryId": "400620",
+      "currency": "€",
+      "date": "2018-01-08T00:00:00Z",
+      "label": "Malakoff Mederic Prevoyance R172",
+      "bill": "io.cozy.bills:7a8cefd5a1ac1a5aecf862482df0235c"
+    },
+    {
+      "_id": "remboursementameli",
+      "account": "compteisa1",
+      "amount": 17.5,
+      "automaticCategoryId": "400620",
+      "currency": "€",
+      "date": "2018-01-06T00:00:00Z",
+      "label": "Cpam Des Yvelines 173470021068",
+      "bill": "io.cozy.bills:7a8cefd5a1ac1a5aecf862482df0225c"
+    }
+  ],
+  "io.cozy.bills": [
+    {
+      "_id": "janvremboursementisa2",
+      "date": "2018-01-08T00:00:00Z",
+      "originalDate": "2018-01-03T00:00:00Z",
+      "type": "health_costs",
+      "subtype": "VIR COMPL SANTE",
+      "vendor": "Malakoff Mederic",
+      "socialSecurityRefund": 17.5,
+      "isThirdPartyPayer": false,
+      "amount": 7.5,
+      "originalAmount": 25,
+      "isRefund": true,
+      "originalOperation": "io.cozy.bank.operations:paiementdocteur",
+      "invoice": "io.cozy.files:facturemalakoff"
+    },
+    {
+      "_id": "janvremboursementisa1",
+      "date": "2018-01-14T00:00:00Z",
+      "originalDate": "2018-01-03T00:00:00Z",
+      "type": "health_costs",
+      "subtype": "C GENERALISTE",
+      "vendor": "Ameli",
+      "isThirdPartyPayer": false,
+      "amount": 17.5,
+      "originalAmount": 25,
+      "originalOperation": "io.cozy.bank.operations:paiementdocteur",
+      "isRefund": true,
+      "invoice": "io.cozy.files:factureameli"
+    }
+  ]
+}
