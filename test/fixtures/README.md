@@ -21,4 +21,5 @@ ACH import test/fixtures/json/io.cozy.bank.operations.august.json
 ACH import test/fixtures/json/io.cozy.bank.operations.july.json
 ACH import test/fixtures/json/io.cozy.bank.operations.april.json
 ACH import test/fixtures/json/io.cozy.bank.operations.may.json
+ACH import test/fixtures/json/io.cozy.bank.operations.january.json
 ```
