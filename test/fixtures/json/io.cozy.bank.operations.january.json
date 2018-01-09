@@ -22,6 +22,16 @@
       ]
     },
     {
+      "_id": "paiementdocteur2",
+      "account": "compteisa1",
+      "amount": -25,
+      "automaticCategoryId": "400610",
+      "currency": "€",
+      "date": "2018-01-03T00:00:00Z",
+      "label": "Docteur 2",
+      "reimbursements": []
+    },
+    {
       "_id": "remboursementcomplementaire",
       "account": "compteisa1",
       "amount": 7.5,
