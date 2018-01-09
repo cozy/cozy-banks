@@ -7,7 +7,19 @@
       "automaticCategoryId": "400610",
       "currency": "€",
       "date": "2018-01-03T00:00:00Z",
-      "label": "Docteur"
+      "label": "Docteur",
+      "reimbursements": [
+        {
+          "billId": "io.cozy.bills:janvremboursementisa1",
+          "amount": 17.5,
+          "operationId": "remboursementameli"
+        },
+        {
+          "billId": "io.cozy.bills:janvremboursementisa2",
+          "amount": 7.5,
+          "operationId": "remboursementcomplementaire"
+        }
+      ]
     },
     {
       "_id": "remboursementcomplementaire",
@@ -17,7 +29,7 @@
       "currency": "€",
       "date": "2018-01-08T00:00:00Z",
       "label": "Malakoff Mederic Prevoyance R172",
-      "bill": "io.cozy.bills:7a8cefd5a1ac1a5aecf862482df0235c"
+      "bills": ["io.cozy.bills:7a8cefd5a1ac1a5aecf862482df0235c"]
     },
     {
       "_id": "remboursementameli",
@@ -27,7 +39,7 @@
       "currency": "€",
       "date": "2018-01-06T00:00:00Z",
       "label": "Cpam Des Yvelines 173470021068",
-      "bill": "io.cozy.bills:7a8cefd5a1ac1a5aecf862482df0225c"
+      "bills": ["io.cozy.bills:7a8cefd5a1ac1a5aecf862482df0225c"]
     }
   ],
   "io.cozy.bills": [
