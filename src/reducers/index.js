@@ -5,7 +5,6 @@ import * as sharingStatus from 'modules/SharingStatus'
 import filters from 'ducks/filters'
 import mobile, * as fromMobile from 'ducks/mobile'
 import apps from 'ducks/apps'
-import bills from 'ducks/bills'
 import { reducer } from 'cozy-client'
 
 export const reducers = {
@@ -14,8 +13,7 @@ export const reducers = {
   mobile,
   apps,
   sharingStatus: sharingStatus.reducer,
-  cozy: reducer,
-  bills
+  cozy: reducer
 }
 
 const combinedReducers = combineReducers(reducers)
