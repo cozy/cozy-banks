@@ -2487,6 +2487,10 @@ cosmiconfig@^2.1.0, cosmiconfig@^2.1.1:
     parse-json "^2.2.0"
     require-from-string "^1.1.0"
 
+cozy-authentication@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-1.0.6.tgz#42c2b7de32bc4c2f45291fb0d5404101ba1ad216"
+
 cozy-bar@4.7.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-4.7.0.tgz#c4ad0793a2f3c155ffe470f431664c7d33dccd83"

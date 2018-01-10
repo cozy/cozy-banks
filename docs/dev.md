@@ -45,11 +45,13 @@ $ ifconfig
 $ # in another terminal, launch an http server in `build/`
 $ cd src/targets/mobile/www && python -m SimpleHTTPServer 8005 (or http-server from npm\'s http-server)
 $ # finally you can launch your webpack with the proper PUBLIC_PATH env variable
-$ env PUBLIC_PATH=http://${IP_ADDRESS}:8005 yarn watch:mobile
+$ env PUBLIC_PATH=http://${IP_ADDRESS}:8005/ yarn watch:mobile
 ```
 
 ⚠️⚠️⚠️ If you watch a production build, you must edit the webpack config to have
 the filepath without the [hash] otherwise you will not hit the right JS file.
+
+⚠️ You need to have the final `/` at the end of the PUBLIC_PATH, otherwise some some CSS resources like fonts will not load
 
 Release
 =======
@@ -72,7 +74,7 @@ Signing certificate : 3AKXFMV43J
 
 #### Push iOS build
 
-To push an iOS build on Testflight, use the following command : 
+To push an iOS build on Testflight, use the following command :
 
 ```
 yarn ios:publish
