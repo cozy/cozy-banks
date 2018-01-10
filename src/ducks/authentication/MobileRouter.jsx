@@ -70,20 +70,20 @@ const MobileRouter = ({ router, history, routes, isAuthenticated, isRevoked, onA
   return (
     <Router history={history}>
       <Route>
-        <Route path={AUTH_PATH} component={(props) =>
+        <Route path={AUTH_PATH} component={(props) => (
           <Authentication {...props}
             router={history}
             onComplete={onAuthentication}
             onException={logException}
           />
-        }/>
+        )} />
         <Route onEnter={setupAuth(isAuthenticated, router)} component={(props, context) => {
           const revoked = isRevoked()
           return revoked
             ? <Revoked {...props}
-                router={history}
-                revoked={isRevoked()}
-                onLogBackIn={onAuthentication} />
+              router={history}
+              revoked={isRevoked()}
+              onLogBackIn={onAuthentication} />
             : props.children
         }}>
           {routes}
