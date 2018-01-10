@@ -64,7 +64,17 @@ export const getCategories = () => {
 }
 
 export const getCategoryName = id => {
-  return tree[id]
+  const undefinedId = 0
+  if (id === undefined) {
+    return tree[undefinedId]
+  }
+
+  const categoryName = tree[id]
+  if (categoryName === undefined) {
+    return tree[undefinedId]
+  }
+
+  return categoryName
 }
 
 const getOptions = function (idStr) {
