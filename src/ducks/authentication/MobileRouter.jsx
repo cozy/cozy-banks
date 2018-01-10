@@ -11,7 +11,6 @@ const withAuth = Wrapped => (props, { store, router, client }) => {
     if (res) {
       // first authentication
       const { url, clientInfo, router, token } = res
-      console.log('onAuthentication !', clientInfo, url, token)
       store.dispatch(storeCredentials(url, clientInfo, token))
       router.replace('/')
     } else {
@@ -62,7 +61,7 @@ const withAuth = Wrapped => (props, { store, router, client }) => {
   return <Wrapped {...props} {...{ isAuthenticated, isRevoked, onAuthentication, setupAuth }} />
 }
 
-const logException = function () {
+const logException = () => {
   console.log('exception during auth')
 }
 
