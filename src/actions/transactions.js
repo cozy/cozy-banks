@@ -36,9 +36,11 @@ const fetchTransactions = () => {
             return docIds
           }
 
+          const reimbursementsIds = transaction.reimbursements ? transaction.reimbursements
+            .map(reimbursement => reimbursement.billId.split(':')[1]) : []
           return [
             ...docIds,
-            ...transaction.reimbursements.map(reimbursement => reimbursement.billId.split(':')[1])
+            ...reimbursementsIds
           ]
         }, [])
 
