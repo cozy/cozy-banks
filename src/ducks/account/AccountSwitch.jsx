@@ -157,6 +157,11 @@ class AccountSwitch extends Component {
       return
     }
 
+    const closeAfterSelect = selection => param => {
+      selection(param)
+      this.close()
+    }
+
     return (
       <div className={styles['account-switch']}>
         {isMobile && <BarRight>
@@ -173,9 +178,9 @@ class AccountSwitch extends Component {
         {open && <Overlay className='coz-tablet' onClick={this.close} />}
         {open &&
           <AccountSwitchMenu
-            resetAccountOrGroup={resetAccountOrGroup}
-            filterByAccount={filterByAccount}
-            filterByGroup={filterByGroup}
+            resetAccountOrGroup={closeAfterSelect(resetAccountOrGroup)}
+            filterByAccount={closeAfterSelect(filterByAccount)}
+            filterByGroup={closeAfterSelect(filterByGroup)}
             groups={groups}
             accounts={accounts}
             accountExists={this.accountExists}
