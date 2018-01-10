@@ -14,7 +14,7 @@ const currencySigns = {
  */
 const Figure = props => {
   const {
-    currency, coloredPositive, coloredNegative, signed, className
+    currency, coloredPositive, coloredNegative, coloredWarning, warningLimit, signed, className
   } = props
 
   let { decimalNumbers } = props
@@ -25,12 +25,15 @@ const Figure = props => {
   // TODO properly localize
   const totalLocalized = total.toLocaleString('fr-FR')
   const isTotalPositive = total > 0
+  const isTotalInLimit = total > warningLimit
   let totalCSSClass = ''
   if (total !== 0) {
     if (isTotalPositive && coloredPositive) {
       totalCSSClass = 'bnk-figure-content--positive'
     } else if (!isTotalPositive && coloredNegative) {
       totalCSSClass = 'bnk-figure-content--negative'
+    } else if (!isTotalInLimit && coloredWarning) {
+      totalCSSClass = 'bnk-figure-content--warning'
     }
   }
 

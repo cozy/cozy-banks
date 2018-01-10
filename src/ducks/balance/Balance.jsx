@@ -11,9 +11,10 @@ import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { flowRight as compose } from 'lodash'
 import btnStyles from 'styles/buttons'
 import CollectLink from 'ducks/settings/CollectLink'
+import { getSettings, fetchSettingsCollection } from 'ducks/settings'
 import plus from 'assets/icons/16/plus.svg'
 
-const Balance = ({t, accounts, type, accountOrGroup, breakpoints: { isMobile }}) => {
+const Balance = ({t, accounts, type, accountOrGroup, settingsCollection, breakpoints: { isMobile }}) => {
   const label = accountOrGroup ? (accountOrGroup.shortLabel || accountOrGroup.label) : ''
   let trad
   switch (type) {
@@ -32,6 +33,8 @@ const Balance = ({t, accounts, type, accountOrGroup, breakpoints: { isMobile }})
       total += parseInt(account.balance, 10)
     }
   })
+
+  const balanceLower = getSettings(settingsCollection).notifications.balanceLower.value
 
   return (
     <div className={styles['balance']}>
@@ -52,15 +55,15 @@ const Balance = ({t, accounts, type, accountOrGroup, breakpoints: { isMobile }})
         </thead>
         <tbody>
           {accounts.map(account => {
+            const isWarning = account.balance ? account.balance < balanceLower : false
             const isAlert = account.balance ? account.balance < 0 : false
             return (
               <tr>
-                <td className={cx(styles['account_name'], { [styles.alert]: isAlert })}>
+                <td className={cx(styles['account_name'], { [styles.alert]: isAlert, [styles.warning]: isWarning })}>
                   {account.shortLabel || account.label}
-                  {isAlert && <span className='coz-error coz-error--warning' />}
                 </td>
-                <TdSecondary className={cx(styles['solde'], { [styles.alert]: isAlert })}>
-                  {account.balance && <Figure total={account.balance} currency='€' coloredNegative signed />}
+                <TdSecondary className={cx(styles['solde'], { [styles.alert]: isAlert, [styles.warning]: isWarning })}>
+                  {account.balance && <Figure total={account.balance} warningLimit={balanceLower} currency='€' coloredNegative coloredWarning signed />}
                 </TdSecondary>
                 {!isMobile && <TdSecondary className={styles['bank_name']}>{account.institutionLabel}</TdSecondary>}
                 {!isMobile && <TdSecondary className={styles['account_number']}>{account.number}</TdSecondary>}
@@ -82,7 +85,8 @@ const Balance = ({t, accounts, type, accountOrGroup, breakpoints: { isMobile }})
 const mapStateToProps = state => ({
   accountOrGroup: getAccountOrGroup(state),
   accounts: getAccountsFiltered(state),
-  type: getAccountOrGroupType(state)
+  type: getAccountOrGroupType(state),
+  settingsCollection: fetchSettingsCollection()
 })
 
 export default compose(
