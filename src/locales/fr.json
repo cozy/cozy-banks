@@ -104,7 +104,10 @@
       "app": "Accéder à votre espace %{appName}",
       "attach": "Attacher un document",
       "alert": "Créer une alerte",
-      "comment": "Ajouter un commentaire"
+      "comment": "Ajouter un commentaire",
+      "healthExpenseStatus": "Dépense traitée par %{vendors}",
+      "healthExpensePending": "Dépense non encore traitée par les assurances santé",
+      "vendorsGlue": "et"
     }
   },
 

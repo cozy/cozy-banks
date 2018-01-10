@@ -11,7 +11,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { translate, Icon, MenuItem } from 'cozy-ui/react'
-import { getCategoryId } from 'ducks/categories/helpers'
+import { getCategoryId, isHealthExpense } from 'ducks/categories/helpers'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import commentIcon from 'assets/icons/actions/icon-comment.svg'
 
@@ -19,10 +19,12 @@ import bellIcon from 'assets/icons/actions/icon-bell-16.svg'
 import linkOutIcon from 'assets/icons/actions/icon-link-out.svg'
 import linkIcon from 'assets/icons/actions/icon-link.svg'
 import fileIcon from 'assets/icons/actions/icon-file.svg'
+import hourglassIcon from 'assets/icons/icon-hourglass.svg'
 import { getInvoice, getBill } from './helpers'
 import FileOpener from './FileOpener'
 import { findKey } from 'lodash'
 import styles from './TransactionActions.styl'
+import { HealthExpenseStatus, getVendors } from 'ducks/health-expense'
 
 // constants
 const ALERT_LINK = 'alert'
@@ -31,6 +33,7 @@ const ATTACH_LINK = 'attach'
 const BILL_LINK = 'bill'
 const COMMENT_LINK = 'comment'
 const HEALTH_LINK = 'refund'
+const HEALTH_EXPENSE_STATUS = 'healthExpenseStatus'
 const URL_LINK = 'url'
 
 const icons = {
@@ -40,7 +43,8 @@ const icons = {
   [BILL_LINK]: fileIcon,
   [COMMENT_LINK]: commentIcon,
   [HEALTH_LINK]: linkOutIcon,
-  [URL_LINK]: linkOutIcon
+  [URL_LINK]: linkOutIcon,
+  [HEALTH_EXPENSE_STATUS]: hourglassIcon
 }
 
 const PRIMARY_ACTION_COLOR = palette['dodgerBlue']
@@ -57,7 +61,9 @@ const isHealthCategory = (categoryId) =>
 export const getLinkType = (transaction, urls) => {
   const action = transaction.action
   const appName = getAppName(urls, transaction)
-  if (isHealthCategory(getCategoryId(transaction)) && urls['HEALTH']) {
+  if (isHealthExpense(transaction)) {
+    return HEALTH_EXPENSE_STATUS
+  } else if (isHealthCategory(getCategoryId(transaction)) && urls['HEALTH']) {
     return HEALTH_LINK
   } else if (appName) {
     return APP_LINK
@@ -115,9 +121,27 @@ export const Action = translate()(({t, transaction, showIcon, urls, onClick, typ
     )
   }
 
+  let iconColor = color
+
+  if (type === HEALTH_EXPENSE_STATUS) {
+    const vendors = getVendors(transaction)
+
+    widget = (
+      <HealthExpenseStatus
+        className={styles.TransactionAction}
+        color={color}
+        vendors={vendors}
+      />
+    )
+
+    if (vendors.length === 0) {
+      iconColor = palette.pomegranate
+    }
+  }
+
   return (
     <span>
-      {showIcon && <ActionIcon type={type} className='u-mr-half' color={color} />}
+      {showIcon && <ActionIcon type={type} className='u-mr-half' color={iconColor} />}
       {widget}
     </span>
   )
@@ -140,7 +164,11 @@ const TransactionActions = ({transaction, urls, withoutDefault, onSelect, onSele
     <div>
       {displayDefaultAction && <MenuItem
         onClick={onSelect}
-        icon={<PrimaryActionIcon type={defaultActionName} />}>
+        icon={
+          isHealthExpense(transaction)
+            ? <HealthExpenseStatusIcon type={defaultActionName} transaction={transaction} />
+            : <PrimaryActionIcon type={defaultActionName} />
+        }>
         <PrimaryAction transaction={transaction} urls={urls} onClick={onSelect} />
       </MenuItem>}
       <ActionMenuItem type={ATTACH_LINK} disabled onClick={onSelectDisabled} />
@@ -157,6 +185,14 @@ export const PrimaryAction = props => (
 export const PrimaryActionIcon = props => (
   <ActionIcon {...props} color={PRIMARY_ACTION_COLOR} />
 )
+
+export const HealthExpenseStatusIcon = ({transaction, ...rest}) => {
+  const vendors = getVendors(transaction)
+
+  const color = vendors.length > 0 ? PRIMARY_ACTION_COLOR : palette.pomegranate
+
+  return <ActionIcon {...rest} color={color} />
+}
 
 TransactionActions.propTypes = {
   transaction: PropTypes.object.isRequired,

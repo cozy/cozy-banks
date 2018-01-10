@@ -11,7 +11,7 @@ import { getAppUrlBySource, fetchApps } from 'ducks/apps'
 import { flowRight as compose } from 'lodash'
 import { cozyConnect } from 'cozy-client'
 import { getCategoryIdFromName } from 'ducks/categories/categoriesMap'
-import { getCategoryId } from 'ducks/categories/helpers'
+import { getCategoryId, isHealthExpense } from 'ducks/categories/helpers'
 import { Breadcrumb } from 'components/Breadcrumb'
 import BackButton from 'components/BackButton'
 
@@ -91,6 +91,26 @@ class TransactionsPage extends Component {
   }
 }
 
+const getBillId = idWithDoctype => idWithDoctype.split(':')[1]
+
+const attachBillsToTransactions = (transactions, bills) => transactions.map(
+  transaction => {
+    if (!isHealthExpense(transaction)) {
+      return transaction
+    }
+
+    return {
+      ...transaction,
+      reimbursements: transaction.reimbursements.map(
+        reimbursement => ({
+          ...reimbursement,
+          bill: bills.get(getBillId(reimbursement.billId))
+        })
+      )
+    }
+  }
+)
+
 const mapStateToProps = state => ({
   urls: {
     // this keys are used on Transactions.jsx to:
@@ -100,7 +120,7 @@ const mapStateToProps = state => ({
     HEALTH: getAppUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-sante'),
     EDF: getAppUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-edf')
   },
-  filteredTransactions: getFilteredTransactions(state)
+  filteredTransactions: attachBillsToTransactions(getFilteredTransactions(state), state.bills)
 })
 
 const mapDispatchToProps = dispatch => ({

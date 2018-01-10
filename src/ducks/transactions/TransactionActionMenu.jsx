@@ -28,9 +28,11 @@ class TransactionActionMenu extends Component {
   render () {
     const { t, f, transaction, urls, requestClose } = this.props
     const { showCategoryChoice } = this.props
-    const category = getParentCategory(getCategoryId(transaction))
+    const categoryId = getCategoryId(transaction)
+    const category = getParentCategory(categoryId)
     const onSelect = () => requestClose()
     const onSelectDisabled = () => { showComingSoon(t); requestClose() }
+
     return (
       <ActionMenu onClose={requestClose}>
         <Media className='u-ph-1 u-pv-half'>

@@ -273,7 +273,10 @@
       "bill": "View your invoice",
       "alert": "Create an alert",
       "attach": "Attach a document",
-      "more": "More"
+      "more": "More",
+      "healthExpenseStatus": "Expenditure treated by %{vendors}",
+      "healthExpensePending": "Expenditure not yet treated by health insurances",
+      "vendorsGlue": "and"
     }
   },
 
