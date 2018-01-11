@@ -1,13 +1,6 @@
 import React from 'react'
 import { translate } from 'cozy-ui/react'
-
-const formatVendor = vendor => {
-  const vendorsMap = {
-    Ameli: 'CPAM'
-  }
-
-  return vendorsMap[vendor] || vendor
-}
+import { formatVendor } from './helpers'
 
 const HealthExpenseStatus = translate()(({
   className,
