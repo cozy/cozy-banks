@@ -100,14 +100,15 @@ const attachBillsToFilteredTransactions = state => getFilteredTransactions(state
       return transaction
     }
 
+    const reimbursements = transaction.reimbursements ? transaction.reimbursements.map(
+      reimbursement => ({
+        ...reimbursement,
+        bill: getDocument(state, BILLS_DOCTYPE, getBillId(reimbursement.billId))
+      })
+    ) : []
     return {
       ...transaction,
-      reimbursements: transaction.reimbursements.map(
-        reimbursement => ({
-          ...reimbursement,
-          bill: getDocument(state, BILLS_DOCTYPE, getBillId(reimbursement.billId))
-        })
-      )
+      reimbursements
     }
   }
 )
