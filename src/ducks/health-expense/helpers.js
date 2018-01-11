@@ -3,3 +3,11 @@ export const getVendors = transaction => {
     ? transaction.reimbursements.map(reimbursement => reimbursement && reimbursement.bill && reimbursement.bill.vendor).filter(Boolean)
     : []
 }
+
+export const formatVendor = vendor => {
+  const vendorsMap = {
+    Ameli: 'la CPAM'
+  }
+
+  return vendorsMap[vendor] || vendor
+}
