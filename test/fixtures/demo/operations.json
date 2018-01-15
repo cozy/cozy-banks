@@ -382,6 +382,7 @@
       "date": "2017-08-20T00:00:00Z",
       "reimbursements": [
         {
+          "billId": "io.cozy.bills:b1",
           "amount": 7.5,
           "vendor": "Harmonie",
           "operationId": "ope.sante.isa1"
@@ -421,6 +422,7 @@
       "date": "2017-08-11T00:00:00Z",
       "reimbursements": [
         {
+          "billId": "io.cozy.bills:b1",
           "amount": 70,
           "vendor": "Harmonie",
           "operationId": "op.sante.isa2"
@@ -438,6 +440,7 @@
       "date": "2017-08-10T00:00:00Z",
       "reimbursements": [
         {
+          "billId": "io.cozy.bills:b2",
           "amount": 28.7,
           "vendor": "CPAM",
           "operationId": "ope.sante.cla3"
@@ -760,6 +763,7 @@
       "date": "2017-06-06T00:00:00Z",
       "reimbursements": [
         {
+          "billId": "io.cozy.bills:b1",
           "amount": 70,
           "vendor": "Harmonie",
           "operationId": "marsop.sante.isa2"
@@ -788,6 +792,7 @@
       "date": "2017-06-12T00:00:00Z",
       "reimbursements": [
         {
+          "billId": "io.cozy.bills:b1",
           "amount": 70,
           "vendor": "Harmonie",
           "operationId": "marsop.sante.isa22"
@@ -816,6 +821,7 @@
       "date": "2017-07-06T00:00:00Z",
       "reimbursements": [
         {
+          "billId": "io.cozy.bills:b1",
           "amount": 60,
           "vendor": "Harmonie",
           "operationId": "avrilop.sante.isa2"
@@ -844,6 +850,7 @@
       "date": "2017-07-12T00:00:00Z",
       "reimbursements": [
         {
+          "billId": "io.cozy.bills:b1",
           "amount": 60,
           "vendor": "Harmonie",
           "operationId": "avrilop.sante.isa22"
@@ -872,6 +879,7 @@
       "date": "2017-07-21T00:00:00Z",
       "reimbursements": [
         {
+          "billId": "io.cozy.bills:b1",
           "amount": 40,
           "vendor": "Harmonie",
           "operationId": "avrilop.sante.isa23"
@@ -900,6 +908,7 @@
       "date": "2017-07-10T00:00:00Z",
       "reimbursements": [
         {
+          "billId": "io.cozy.bills:b2",
           "amount": 28.7,
           "vendor": "CPAM",
           "operationId": "avrilope.sante.cla3"
@@ -939,6 +948,7 @@
       "date": "2017-07-14T00:00:00Z",
       "reimbursements": [
         {
+          "billId": "io.cozy.bills:b0",
           "amount": 30,
           "vendor": "CPAM",
           "operationId": "avrilope.sante.cla32"
