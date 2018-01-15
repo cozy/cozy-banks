@@ -20,7 +20,7 @@ import linkOutIcon from 'assets/icons/actions/icon-link-out.svg'
 import linkIcon from 'assets/icons/actions/icon-link.svg'
 import fileIcon from 'assets/icons/actions/icon-file.svg'
 import hourglassIcon from 'assets/icons/icon-hourglass.svg'
-import { getInvoice, getBill } from './helpers'
+import { getInvoice, getBill, getBillInvoice } from './helpers'
 import FileOpener from './FileOpener'
 import { findKey } from 'lodash'
 import styles from './TransactionActions.styl'
@@ -34,6 +34,7 @@ const BILL_LINK = 'bill'
 const COMMENT_LINK = 'comment'
 const HEALTH_LINK = 'refund'
 const HEALTH_EXPENSE_STATUS = 'healthExpenseStatus'
+const HEALTH_EXPENSE_BILL_LINK = 'healthExpenseBill'
 const URL_LINK = 'url'
 
 const icons = {
@@ -44,7 +45,8 @@ const icons = {
   [COMMENT_LINK]: commentIcon,
   [HEALTH_LINK]: linkOutIcon,
   [URL_LINK]: linkOutIcon,
-  [HEALTH_EXPENSE_STATUS]: hourglassIcon
+  [HEALTH_EXPENSE_STATUS]: hourglassIcon,
+  [HEALTH_EXPENSE_BILL_LINK]: fileIcon
 }
 
 const PRIMARY_ACTION_COLOR = palette['dodgerBlue']
@@ -80,7 +82,8 @@ export const ActionIcon = ({type, color, ...rest}) => {
   return icon ? <Icon icon={icon} color={color} {...rest} /> : null
 }
 
-export const Action = translate()(({t, transaction, showIcon, urls, onClick, type, color}) => {
+// TODO : Action is doing way too much diffent things. We must split it
+export const Action = translate()(({t, transaction, showIcon, urls, onClick, type, color, bill}) => {
   type = type || (transaction && getLinkType(transaction, urls))
   if (type === undefined) {
     return
@@ -99,6 +102,8 @@ export const Action = translate()(({t, transaction, showIcon, urls, onClick, typ
     text = action.trad
     target = action.target
     href = action.url
+  } else if (type === HEALTH_EXPENSE_BILL_LINK) {
+    text = t(`Transactions.actions.${type}`).replace('%{vendor}', bill.vendor)
   } else {
     text = t(`Transactions.actions.${type}`)
   }
@@ -113,10 +118,19 @@ export const Action = translate()(({t, transaction, showIcon, urls, onClick, typ
       {text}
     </a>
   )
+
   if (type === BILL_LINK) {
     widget = (
       <FileOpener getFileId={() => getInvoice(transaction)}>
         { widget }
+      </FileOpener>
+    )
+  }
+
+  if (type === HEALTH_EXPENSE_BILL_LINK) {
+    widget = (
+      <FileOpener getFileId={() => getBillInvoice(bill)}>
+        {widget}
       </FileOpener>
     )
   }
@@ -148,10 +162,10 @@ export const Action = translate()(({t, transaction, showIcon, urls, onClick, typ
 })
 
 /* Wraps the actions when they are displayed in Menu / ActionMenu */
-const ActionMenuItem = ({disabled, onClick, type, color}) => {
+const ActionMenuItem = ({disabled, onClick, type, color, bill}) => {
   return (
     <MenuItem disabled={disabled} onClick={onClick} icon={<ActionIcon type={type} color={color} />}>
-      <Action type={type} color={color} />
+      <Action type={type} color={color} bill={bill} />
     </MenuItem>
   )
 }
@@ -171,6 +185,12 @@ const TransactionActions = ({transaction, urls, withoutDefault, onSelect, onSele
         }>
         <PrimaryAction transaction={transaction} urls={urls} onClick={onSelect} />
       </MenuItem>}
+      {isHealthExpense(transaction) &&
+        transaction.reimbursements &&
+        transaction.reimbursements.map(
+          reimbursement => reimbursement.bill && <ActionMenuItem type={HEALTH_EXPENSE_BILL_LINK} bill={reimbursement.bill} color='inherit' />
+        ).filter(Boolean)
+      }
       <ActionMenuItem type={ATTACH_LINK} disabled onClick={onSelectDisabled} />
       <ActionMenuItem type={COMMENT_LINK} disabled onClick={onSelectDisabled} />
       <ActionMenuItem type={ALERT_LINK} disabled onClick={onSelectDisabled} />

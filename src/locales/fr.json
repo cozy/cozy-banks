@@ -107,6 +107,7 @@
       "comment": "Ajouter un commentaire",
       "healthExpenseStatus": "Dépense traitée par %{vendors}",
       "healthExpensePending": "Dépense non encore traitée par les assurances santé",
+      "healthExpenseBill": "Relevé %{vendor}",
       "vendorsGlue": "et"
     }
   },
