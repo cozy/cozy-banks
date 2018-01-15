@@ -12,12 +12,14 @@
         {
           "billId": "io.cozy.bills:janvremboursementisa1",
           "amount": 17.5,
-          "operationId": "remboursementameli"
+          "operationId": "remboursementameli",
+          "vendor": "Ameli"
         },
         {
           "billId": "io.cozy.bills:janvremboursementisa2",
           "amount": 7.5,
-          "operationId": "remboursementcomplementaire"
+          "operationId": "remboursementcomplementaire",
+          "vendor": "Harmonie"
         }
       ]
     },

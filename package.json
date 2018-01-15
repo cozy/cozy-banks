@@ -182,6 +182,7 @@
     "globals": {
       "__ALLOW_HTTP__": false,
       "__TARGET__": "browser",
+      "__DEVELOPMENT__": false,
       "__SENTRY_TOKEN__": "token",
       "cozy": {}
     }

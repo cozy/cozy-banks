@@ -23,11 +23,11 @@ const getParams = ({appId, uri}) => {
   }
 }
 
-const startAppMethod = method => async (appInfo) => {
+export const checkApp = async (appInfo) => {
   const params = getParams(appInfo)
   return new Promise((resolve, reject) => {
     if (cordovaPluginIsInstalled()) {
-      startApp.set(params)[method](
+      startApp.set(params).check(
         infos => {
           if (infos === 'OK') {
             resolve(true)
@@ -58,6 +58,3 @@ const startAppMethod = method => async (appInfo) => {
     }
   })
 }
-
-export const checkApp = startAppMethod('check')
-export const launchApp = startAppMethod('start')
