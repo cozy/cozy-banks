@@ -36,11 +36,12 @@ const fetchTransactions = () => {
             return docIds
           }
 
-          const reimbursementsIds = transaction.reimbursements ? transaction.reimbursements
+          const billIds = transaction.reimbursements ? transaction.reimbursements
+            .filter(reimbursement => reimbursement.billId)
             .map(reimbursement => reimbursement.billId.split(':')[1]) : []
           return [
             ...docIds,
-            ...reimbursementsIds
+            ...billIds
           ]
         }, [])
 
