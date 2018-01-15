@@ -6,7 +6,7 @@ import { getURL } from 'reducers'
 import FileIntentDisplay from 'components/FileIntentDisplay'
 import PropTypes from 'prop-types'
 import Spinner from 'cozy-ui/react/Spinner'
-import { checkApp, launchApp, DRIVE_INFO } from 'ducks/mobile/appAvailability'
+import { checkApp, DRIVE_INFO } from 'ducks/mobile/appAvailability'
 import flash from 'ducks/flash'
 
 const spinnerStyle = { marginLeft: '-0.25rem', marginRight: '-1rem' }
@@ -37,24 +37,22 @@ class FileOpener extends Component {
     try {
       this.setState({ loading: true })
       const fileId = await this.props.getFileId()
+
       if (__TARGET__ === 'browser') {
         // Open in a modal
         this.setState({fileId})
       } else {
-        let isLaunched = false
+        let isInstalled = false
         try {
-          const isInstalled = await checkApp(DRIVE_INFO)
-          if (isInstalled) {
-            isLaunched = await launchApp(DRIVE_INFO)
-          }
+          isInstalled = await checkApp(DRIVE_INFO)
         } catch (e) {
           console.warn(e)
         }
-        if (!isLaunched) {
-          // Open drive in a new window
-          const driveURL = buildAppURL(this.props.cozyURL, 'drive', `/file/${fileId}`)
-          window.open(driveURL, '_system')
-        }
+        const baseUrl = isInstalled ? DRIVE_INFO.uri : buildAppURL(this.props.cozyURL, 'drive', '')
+        const url = baseUrl + `folder/files/${fileId[1]}`
+        // Open drive in a new window
+        console.log('Opening ' + url + ' in _system')
+        window.open(url, '_system')
       }
     } catch (err) {
       flash('error', `Unable to found file`)
