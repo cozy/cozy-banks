@@ -1,21 +1,21 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
+import { flowRight as compose } from 'lodash'
+import { cozyConnect } from 'cozy-client'
+
 import { translate } from 'cozy-ui/react/I18n'
-import { FigureBlock } from 'components/Figure'
-import Loading from 'components/Loading'
-import Topbar from 'components/Topbar'
 import { SelectDates, getFilteredTransactions } from 'ducks/filters'
 import { fetchTransactions } from 'actions'
 import { getAppUrlBySource, fetchApps } from 'ducks/apps'
-import { flowRight as compose } from 'lodash'
-import { cozyConnect, getDocument } from 'cozy-client'
 import { getCategoryIdFromName } from 'ducks/categories/categoriesMap'
-import { getCategoryId, isHealthExpense } from 'ducks/categories/helpers'
+import { getCategoryId } from 'ducks/categories/helpers'
+import { FigureBlock } from 'components/Figure'
+import Loading from 'components/Loading'
+import Topbar from 'components/Topbar'
 import { Breadcrumb } from 'components/Breadcrumb'
 import BackButton from 'components/BackButton'
-import { BILLS_DOCTYPE } from 'doctypes'
-
+import { hydrateTransaction } from 'documents/transaction'
 import TransactionsWithSelection from './TransactionsWithSelection'
 import styles from './TransactionsPage.styl'
 
@@ -92,27 +92,6 @@ class TransactionsPage extends Component {
   }
 }
 
-const getBillId = idWithDoctype => idWithDoctype.split(':')[1]
-
-const attachBillsToFilteredTransactions = state => getFilteredTransactions(state).map(
-  transaction => {
-    if (!isHealthExpense(transaction)) {
-      return transaction
-    }
-
-    const reimbursements = transaction.reimbursements ? transaction.reimbursements.map(
-      reimbursement => ({
-        ...reimbursement,
-        bill: getDocument(state, BILLS_DOCTYPE, getBillId(reimbursement.billId))
-      })
-    ) : []
-    return {
-      ...transaction,
-      reimbursements
-    }
-  }
-)
-
 const mapStateToProps = state => ({
   urls: {
     // this keys are used on Transactions.jsx to:
@@ -122,7 +101,7 @@ const mapStateToProps = state => ({
     HEALTH: getAppUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-sante'),
     EDF: getAppUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-edf')
   },
-  filteredTransactions: attachBillsToFilteredTransactions(state)
+  filteredTransactions: getFilteredTransactions(state).map(transaction => hydrateTransaction(state, transaction))
 })
 
 const mapDispatchToProps = dispatch => ({
