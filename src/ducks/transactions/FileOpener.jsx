@@ -40,7 +40,7 @@ class FileOpener extends Component {
 
       if (__TARGET__ === 'browser') {
         // Open in a modal
-        this.setState({fileId})
+        this.setState({fileId: fileId[1]})
       } else {
         let isInstalled = false
         try {

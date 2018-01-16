@@ -8,9 +8,19 @@ export const getInvoice = async transaction => {
   const billRef = getBill(transaction)
   const [billDoctype, billId] = billRef.split(':')
   const doc = await cozy.client.data.find(billDoctype, billId)
-  const [doctype, id] = doc.invoice.split(':')
-  if (!doctype || !id) {
-    throw new Error('Invoice is malformed. invoice: ' + doc.invoice)
+
+  return getBillInvoice(doc)
+}
+export const getBillInvoice = bill => {
+  if (!bill.invoice) {
+    throw new Error('This bill has no invoice : ', bill)
   }
+
+  const [doctype, id] = bill.invoice.split(':')
+
+  if (!doctype || !id) {
+    throw new Error('Invoice is malformed. invoice: ' + bill.invoice)
+  }
+
   return [doctype, id]
 }
