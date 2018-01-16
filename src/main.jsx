@@ -1,6 +1,5 @@
 /* global cozy, __TARGET__ */
 
-import 'babel-polyfill'
 import 'styles/main'
 
 import React from 'react'

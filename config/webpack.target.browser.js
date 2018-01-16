@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const pkg = require(path.resolve(__dirname, '../package.json'))
 
 module.exports = {
-  entry: [path.resolve(__dirname, '../src/main')],
+  entry: [require.resolve('babel-polyfill'), path.resolve(__dirname, '../src/main')],
   output: {
     path: path.resolve(__dirname, '../build')
   },

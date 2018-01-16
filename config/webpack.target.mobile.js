@@ -9,7 +9,7 @@ const pkg = require(path.resolve(__dirname, '../package.json'))
 
 module.exports = {
   entry: {
-    app: [path.resolve(__dirname, '../src/main.jsx')]
+    app: [require.resolve('babel-polyfill'), path.resolve(__dirname, '../src/main.jsx')]
   },
   output: {
     publicPath: process.env.PUBLIC_PATH || '',
