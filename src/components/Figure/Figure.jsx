@@ -14,16 +14,16 @@ const currencySigns = {
  */
 const Figure = props => {
   const {
-    currency, coloredPositive, coloredNegative, coloredWarning, warningLimit, signed, className
+    currency, coloredPositive, coloredNegative, coloredWarning, warningLimit, signed, className, total
   } = props
 
   let { decimalNumbers } = props
   decimalNumbers = isNaN(decimalNumbers) ? 2 : decimalNumbers
 
-  const total = parseFloat(props.total.toFixed(decimalNumbers))
-
-  // TODO properly localize
-  const totalLocalized = total.toLocaleString('fr-FR')
+  const totalLocalized = total.toLocaleString('fr-FR', {
+    minimumFractionDigits: decimalNumbers,
+    maximumFractionDigits: decimalNumbers
+  })
   const isTotalPositive = total > 0
   const isTotalInLimit = total > warningLimit
   let totalCSSClass = ''

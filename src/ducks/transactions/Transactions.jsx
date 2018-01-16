@@ -61,7 +61,7 @@ const TableTrDesktop = compose(
       <td className={cx(sDesc, 'u-pv-half', 'u-pl-1')}>
         <Media>
           <Img title={categoryTitle} onClick={showCategoryChoice}>
-            <CategoryIcon category={parentCategory} />
+            <CategoryIcon category={parentCategory} className={styles['bnk-op-caticon']} />
           </Img>
           <Bd className='u-pl-1'>
             {getLabel(transaction)}
