@@ -49,7 +49,7 @@ class FileOpener extends Component {
           console.warn(e)
         }
         const baseUrl = isInstalled ? DRIVE_INFO.uri : buildAppURL(this.props.cozyURL, 'drive', '')
-        const url = baseUrl + `folder/files/${fileId[1]}`
+        const url = baseUrl + `file/${fileId[1]}`
         // Open drive in a new window
         window.open(url, '_system')
       }
