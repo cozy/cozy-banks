@@ -3,8 +3,6 @@ import { translate } from 'cozy-ui/react'
 import { formatVendor } from './helpers'
 
 const HealthExpenseStatus = translate()(({
-  className,
-  color,
   t,
   vendors = []
 }) => {
@@ -12,9 +10,7 @@ const HealthExpenseStatus = translate()(({
   const formattedVendors = vendors.map(formatVendor)
 
   return (
-    <span
-      style={{ color }}
-      className={className}>
+    <span>
       {pending
         ? t('Transactions.actions.healthExpensePending')
         : t('Transactions.actions.healthExpenseStatus').replace('%{vendors}', formattedVendors.join(` ${t('Transactions.actions.vendorsGlue')} `))

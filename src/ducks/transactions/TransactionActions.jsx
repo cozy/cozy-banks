@@ -9,6 +9,7 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
+import cx from 'classnames'
 
 import { translate, Icon, MenuItem } from 'cozy-ui/react'
 import { getCategoryId, isHealthExpense } from 'ducks/categories/helpers'
@@ -49,6 +50,7 @@ const icons = {
   [HEALTH_EXPENSE_BILL_LINK]: fileIcon
 }
 
+// TODO delete or rename this variable (see https://gitlab.cozycloud.cc/labs/cozy-bank/merge_requests/237)
 const PRIMARY_ACTION_COLOR = palette['dodgerBlue']
 
 // helpers
@@ -142,8 +144,6 @@ export const Action = translate()(({t, transaction, showIcon, urls, onClick, typ
 
     widget = (
       <HealthExpenseStatus
-        className={styles.TransactionAction}
-        color={color}
         vendors={vendors}
       />
     )
@@ -174,21 +174,27 @@ const ActionMenuItem = ({disabled, onClick, type, color, bill}) => {
 const TransactionActions = ({transaction, urls, withoutDefault, onSelect, onSelectDisabled}) => {
   const defaultActionName = getLinkType(transaction, urls)
   const displayDefaultAction = !withoutDefault && defaultActionName
+  const isHealthExpenseTransaction = isHealthExpense(transaction)
+
   return (
     <div>
       {displayDefaultAction && <MenuItem
-        onClick={onSelect}
+        onClick={isHealthExpenseTransaction ? undefined : onSelect}
         icon={
-          isHealthExpense(transaction)
+          isHealthExpenseTransaction
             ? <HealthExpenseStatusIcon type={defaultActionName} transaction={transaction} />
             : <PrimaryActionIcon type={defaultActionName} />
-        }>
+        }
+        className={cx({
+          [styles['TransactionAction-disabled']]: isHealthExpenseTransaction
+        })}
+      >
         <PrimaryAction transaction={transaction} urls={urls} onClick={onSelect} />
       </MenuItem>}
-      {isHealthExpense(transaction) &&
+      {isHealthExpenseTransaction &&
         transaction.reimbursements &&
         transaction.reimbursements.map(
-          reimbursement => reimbursement.bill && <ActionMenuItem type={HEALTH_EXPENSE_BILL_LINK} bill={reimbursement.bill} color='inherit' />
+          reimbursement => reimbursement.bill && <ActionMenuItem type={HEALTH_EXPENSE_BILL_LINK} bill={reimbursement.bill} color={PRIMARY_ACTION_COLOR} />
         ).filter(Boolean)
       }
       <ActionMenuItem type={ATTACH_LINK} disabled onClick={onSelectDisabled} />
