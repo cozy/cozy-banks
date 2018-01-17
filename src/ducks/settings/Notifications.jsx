@@ -41,21 +41,6 @@ class Notifications extends Component {
         title: 'Notifications.if_transaction_greater.title',
         name: 'transactionGreater',
         description: 'Notifications.if_transaction_greater.description'
-      },
-      {
-        title: 'Notifications.when_month_revenue.title',
-        name: 'salaire',
-        description: 'Notifications.when_month_revenue.description'
-      },
-      {
-        title: 'Notifications.weekly_summary.title',
-        name: 'hebdo',
-        description: 'Notifications.weekly_summary.description'
-      },
-      {
-        title: 'Notifications.monthly_summary.title',
-        name: 'mensuel',
-        description: 'Notifications.monthly_summary.description'
       }
     ]
 
