@@ -1,10 +1,8 @@
 {
   "0": "uncategorized",
-
   "100": "potentialTransfer",
-
   "200": "check",
-
+  "300": "atm",
   "200100": "incomeCat",
   "200110": "activityIncome",
   "200120": "replacementIncome",
@@ -15,11 +13,6 @@
   "200170": "rentalIncome",
   "200180": "additionalIncome",
   "200190": "retirement",
-  "200191": "incomeCatOthers",
-
-  "300": "atm",
-  "400": "uncategorizedOthers",
-
   "400100": "dailyLife",
   "400110": "supermarket",
   "400111": "tobaccoPress",
@@ -32,8 +25,6 @@
   "400170": "charity",
   "400180": "giftsOffered",
   "400190": "personalCare",
-  "400191": "dailyLifeOthers",
-
   "400200": "transportation",
   "400205": "vehiculePurchase",
   "400210": "vehiculeLoan",
@@ -45,16 +36,12 @@
   "400270": "parkingAndToll",
   "400280": "publicTransportation",
   "400290": "taxi",
-  "400291": "transportationOthers",
-
   "400300": "services",
   "400310": "post",
   "400320": "legalCounsel",
   "400330": "homeAssistance",
   "400340": "bankFees",
   "400350": "financialAdvisor",
-  "400360": "servicesOthers",
-
   "400400": "kids",
   "400410": "kidsAllowance",
   "400420": "schoolRestaurant",
@@ -63,20 +50,14 @@
   "400450": "toysAndGifts",
   "400460": "pensionPaid",
   "400470": "kidsActivities",
-  "400480": "kidsOthers",
-
   "400500": "tax",
   "400510": "incomeTax",
   "400520": "socialTax",
   "400530": "wealthTax",
   "400540": "realEstateTax",
-  "400550": "taxOthers",
-
   "400600": "health",
   "400610": "healthExpenses",
   "400620": "healthInsurance",
-  "400630": "healthOthers",
-
   "400700": "activities",
   "400710": "activityFees",
   "400720": "activityEquipments",
@@ -84,23 +65,17 @@
   "400740": "electronicsAndMultimedia",
   "400750": "booksMoviesMusic",
   "400760": "hobbyAndPassion",
-  "400770": "activitiesOthers",
-
   "400800": "goingOutAndTravel",
   "400810": "restaurantsAndBars",
   "400820": "goingOutEntertainment",
   "400830": "goingOutCulture",
-  "400840": "travels",
-  "400850": "planeTrainBoat",
-  "400860": "goingOutAndTravelOthers",
-
+  "400840": "travel",
+  "400850": "journey",
   "400900": "educationAndTraining",
   "400910": "tuition",
   "400920": "eduBooksAndSupplies",
   "400930": "studentLoan",
   "400940": "eduLessons",
-  "400950": "educationAndTrainingOthers",
-
   "401000": "homeAndRealEstate",
   "401010": "realEstateLoan",
   "401020": "rent",
@@ -110,8 +85,6 @@
   "401060": "homeHardware",
   "401070": "water",
   "401080": "power",
-  "401090": "homeAndRealEstateOthers",
-
   "600100": "excludeFromBudgetCat",
   "600110": "internalTransfer",
   "600120": "creditCardPayment",
@@ -119,6 +92,5 @@
   "600140": "professionalExpenses",
   "600150": "investmentBuySell",
   "600160": "friendBorrowing",
-  "600170": "savings",
-  "600180": "excludeFromBudgetCatOthers"
+  "600170": "savings"
 }
