@@ -1,4 +1,4 @@
-import categoriesMap from './categoriesMap'
+import categoriesMap, { getCategories } from './categoriesMap'
 
 describe('categories map', function () {
   it('should map ids to categories', function () {
@@ -9,5 +9,21 @@ describe('categories map', function () {
   })
   it('should map ids to categories 2', function () {
     expect(Object.keys(categoriesMap.get('400750'))).toEqual(['color', 'name', 'icon'])
+  })
+
+  it('should add a "others" children to all categories', () => {
+    const categories = getCategories()
+
+    Object.keys(categories).forEach(categoryName => {
+      const category = categories[categoryName]
+
+      expect(categories[categoryName].children).toMatchObject({
+        [category.id]: {
+          name: `${category.name}Others`,
+          color: category.color,
+          id: category.id
+        }
+      })
+    })
   })
 })
