@@ -33,7 +33,8 @@ class FileOpener extends Component {
     }
   }
 
-  displayFile = async () => {
+  displayFile = async (ev) => {
+    ev.stopPropagation()
     try {
       this.setState({ loading: true })
       const fileId = await this.props.getFileId()
