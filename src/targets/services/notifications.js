@@ -16,6 +16,7 @@ process.on('unhandledRejection', err => {
 })
 
 const getTransactionsChanges = async lastSeq => {
+  // lastSeq = '0' // Useful for debug
   const result = await cozyClient.fetchJSON(
     'GET',
     `/data/io.cozy.bank.operations/_changes?include_docs=true&since=${lastSeq}`
