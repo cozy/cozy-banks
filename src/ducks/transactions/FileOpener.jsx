@@ -33,7 +33,8 @@ class FileOpener extends Component {
     }
   }
 
-  displayFile = async () => {
+  displayFile = async (ev) => {
+    ev.stopPropagation()
     try {
       this.setState({ loading: true })
       const fileId = await this.props.getFileId()
@@ -46,7 +47,7 @@ class FileOpener extends Component {
         try {
           isInstalled = await checkApp(DRIVE_INFO)
         } catch (e) {
-          console.warn(e)
+          console.warn('Could not check if app is installed. error: ' + e)
         }
         const baseUrl = isInstalled ? DRIVE_INFO.uri : buildAppURL(this.props.cozyURL, 'drive', '')
         const url = baseUrl + `file/${fileId[1]}`

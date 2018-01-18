@@ -1,5 +1,6 @@
 /* global cozy */
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import FullscreenIntentModal from 'components/FullscreenIntentModal'
 
 class FileIntentDisplay extends Component {
@@ -35,6 +36,12 @@ class FileIntentDisplay extends Component {
         dismissAction={this.closeModal} />
       : null
   }
+}
+
+FileIntentDisplay.propTypes = {
+  fileId: PropTypes.string.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onError: PropTypes.func.isRequired
 }
 
 export default FileIntentDisplay
