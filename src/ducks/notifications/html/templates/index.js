@@ -1,6 +1,7 @@
 const Handlebars = require('handlebars')
 const layouts = require('handlebars-layouts')
 const { parse, format } = require('date-fns')
+const { getCategoryId } = require('ducks/categories/helpers')
 const { getParentCategory } = require('ducks/categories/categoriesMap')
 
 const capitalizeWord = str => {
@@ -27,7 +28,7 @@ ${Math.abs(amount)} €
   },
 
   parentCategory: function (transaction) {
-    return getParentCategory(transaction.categoryId)
+    return getParentCategory(getCategoryId(transaction))
   },
 
   embedFile: filename => {

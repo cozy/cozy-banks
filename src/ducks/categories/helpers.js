@@ -20,7 +20,7 @@ export const getCategoryId = transaction => {
 }
 
 export const getParentCategory = transaction => {
-  return getParent(transaction.categoryId)
+  return getParent(getCategoryId(transaction))
 }
 
 // This function builds a map of categories and sub-categories, each containing
@@ -31,7 +31,7 @@ export const transactionsByCategory = transactions => {
   for (const transaction of transactions) {
     // Creates a map of categories, where each entry contains a list of
     // related operations and a breakdown by sub-category
-    const catId = transaction.categoryId
+    const catId = getCategoryId(transaction)
     const parent = getParent(catId) || getParent('0')
 
     // create a new parent category if necessary
