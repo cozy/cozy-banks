@@ -25,10 +25,14 @@ class CategoryChoice extends Component {
       option.icon = <CategoryIcon category={iconCategory} />
 
       if (!subcategory) {
-        // "other" category is always first because its id is the lowest
-        // since we want it to be the last subcategory, we invert it
-        const [childOther, ...children] = this.getOptions(option.children, true)
-        option.children = [...children, childOther].filter(Boolean)
+        // sort children so "others" is always the last
+        option.children = this.getOptions(option.children, true).sort((a, b) => {
+          if (a.id === option.id) {
+            return 1
+          }
+
+          return 0
+        })
       }
 
       return option

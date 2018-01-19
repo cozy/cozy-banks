@@ -105,9 +105,10 @@ export const getParentCategory = catId => {
 Object.keys(tree).forEach(catId => {
   const catName = tree[catId]
   const parentName = getParentCategory(catId)
+
   if (categoriesStyle[parentName]) {
     categoriesStyle[parentName].children[catId] = {
-      name: catName === parentName ? `${catName}Others` : catName,
+      name: catName,
       color: categoriesStyle[parentName].color,
       id: catId
     }
