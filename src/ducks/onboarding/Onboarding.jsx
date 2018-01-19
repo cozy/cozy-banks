@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { translate, Button } from 'cozy-ui/react'
+import { translate, Button, withBreakpoints } from 'cozy-ui/react'
+import { flowRight as compose } from 'lodash'
+
 import Topbar from 'components/Topbar'
 import CollectLink from 'ducks/settings/CollectLink'
 
@@ -15,12 +17,12 @@ import {
 
 class Onboarding extends Component {
   render () {
-    const { t } = this.props
+    const { t, breakpoints: { isMobile } } = this.props
 
     return (
       <Hero>
         <Topbar>
-          <Title>{t('Onboarding.title')}</Title>
+          <Title>{t(`Onboarding.title.${isMobile ? 'mobile' : 'desktop'}`)}</Title>
         </Topbar>
         <Sections>
           <Section>
@@ -51,4 +53,7 @@ class Onboarding extends Component {
   }
 }
 
-export default translate()(Onboarding)
+export default compose(
+  translate(),
+  withBreakpoints()
+)(Onboarding)

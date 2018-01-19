@@ -344,11 +344,14 @@
   },
 
   "Onboarding": {
-    "title": "Se connecter à son espace bancaire",
+    "title": {
+      "desktop": "Se connecter à son espace bancaire",
+      "mobile": "Cozy Banks"
+    },
     "connect-bank-account": "Connecter vos comptes bancaires",
     "manage-budget": {
       "title": "Maîtrisez votre budget",
-      "description": "La situation de tous vos comptes en 1 coup d'œil"
+      "description": "La situation de tous vos comptes en un coup d'œil"
     },
     "save-time": {
       "title": "Gagnez du temps",
@@ -356,7 +359,7 @@
     },
     "cozy-assistant": {
       "title": "Cozy travaille pour vous",
-      "description": "Les décomptes de santé de toute votre famille à jour automatiquement"
+      "description": "Suivi automatique du traitement de vos dépenses de santé"
     }
   }
 }
