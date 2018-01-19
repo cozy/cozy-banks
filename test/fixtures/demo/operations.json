@@ -1040,6 +1040,15 @@
       "date": "2018-01-06T00:00:00Z",
       "label": "Cpam Des Yvelines 173470021068",
       "bills": ["io.cozy.bills:7a8cefd5a1ac1a5aecf862482df0225c"]
+    },
+    {
+      "demo":true,
+      "automaticCategoryId": "{{ categoryId 'incomeCat' }}",
+      "account": "comptegene1",
+      "label": "Autre revenu",
+      "currency": "€",
+      "amount": 150,
+      "date": "2018-01-19T00:00:00Z"
     }
   ],
   "io.cozy.bills": [
