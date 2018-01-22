@@ -1,7 +1,7 @@
 {
   "name": "Banks",
   "slug": "banks",
-  "icon": "icon-bank.svg",
+  "icon": "icon-banks.svg",
   "description": "The banking application for Cozy",
   "category": "cozy",
   "version": "0.0.5",
