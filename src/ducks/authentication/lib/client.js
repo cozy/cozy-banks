@@ -6,8 +6,8 @@ import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
 const isCordova = () => window.cordova !== undefined
 const hasDeviceCordovaPlugin = () => isCordova() && window.device !== undefined
 export const getDeviceName = () => hasDeviceCordovaPlugin() ? window.device.model : 'Device'
-const SOFTWARE_ID = 'io.cozy.bank.mobile'
-const SOFTWARE_NAME = 'Cozy Bank'
+const SOFTWARE_ID = 'io.cozy.banks.mobile'
+const SOFTWARE_NAME = 'Cozy Banks'
 const getLang = () => (navigator && navigator.language) ? navigator.language.slice(0, 2) : 'en'
 
 export function resetClient (clientInfo, client) {
@@ -72,7 +72,7 @@ export const initClient = (url) => {
 
 export const initBar = (url, accessToken, options = {}) => {
   cozy.bar.init({
-    appName: 'Bank',
+    appName: 'Banks',
     appEditor: 'Cozy',
     cozyURL: url,
     token: accessToken,

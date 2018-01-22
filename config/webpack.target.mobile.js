@@ -29,7 +29,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, `../src/index.ejs`),
-      title: `cozy-bank`,
+      title: `cozy-banks`,
       chunks: ['app'],
       inject: 'head',
       minify: {

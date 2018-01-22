@@ -1,7 +1,7 @@
 default_platform :ios
 
-APP_NAME = "Cozy Bank"
-APP_FILENAME = "Cozy Bank"
+APP_NAME = "Cozy Banks"
+APP_FILENAME = "Cozy Banks"
 PLATFORM = { :ios => "platforms/ios", :android => "platforms/android" }
 SECURITY = { :ios => "keys/ios", :android => "keys/android" }
 BUILD = { :ios => "build/ios", :android => "build/android" }

@@ -1,4 +1,4 @@
-# Cozy Bank
+# Cozy Banks
 
 ## How to start developing
 
@@ -18,7 +18,7 @@ You can add fixtures by using [ACH](https://gitlab.cozycloud.cc/labs/ACH) and da
 
 ## Skins
 
-The Bank application can be "skinned" to MesInfos style.
+The Banks application can be "skinned" to MesInfos style.
 
 Use `env SKIN='mesinfos' yarn build` for example to build with the MesInfos icon and slug. To deploy to a branch different from build you can use `env DEPLOY_BRANCH='build-maif' yarn deploy`.
 

@@ -5,9 +5,9 @@ export const DRIVE_INFO = {
   uri: 'cozydrive://'
 }
 
-export const BANK_INFO = {
-  appId: 'io.cozy.bank.mobile2',
-  uri: 'cozybank://'
+export const BANKS_INFO = {
+  appId: 'io.cozy.banks.mobile',
+  uri: 'cozybanks://'
 }
 
 const cordovaPluginIsInstalled = () => startApp
