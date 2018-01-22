@@ -34,7 +34,6 @@ const renderAppWithPersistedState = persistedState => {
   if (__TARGET__ !== 'mobile') {
     cozy.bar.init({
       appName: data.cozyAppName,
-      appEditor: 'Cozy',
       iconPath: data.cozyIconPath,
       lang: data.cozyLocale,
       replaceTitleOnMobile: true
