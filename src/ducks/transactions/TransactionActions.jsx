@@ -56,7 +56,7 @@ const PRIMARY_ACTION_COLOR = palette['dodgerBlue']
 // helpers
 const getAppName = (urls, transaction) => {
   const label = transaction.label.toLowerCase()
-  return findKey(urls, (url, appName) => url && label.indexOf(appName) !== -1)
+  return findKey(urls, (url, appName) => url && label.indexOf(appName.toLowerCase()) !== -1)
 }
 
 const isHealthCategory = (categoryId) =>
