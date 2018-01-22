@@ -99,7 +99,7 @@ const getEnabledNotificationClasses = config => {
 const sendNotifications = async () => {
   const config = await getConfiguration()
   if (!config) {
-    console.warn('Notications are not configured. Please toggle options in the Bank application')
+    console.warn('Notications are not configured. Please toggle options in the Banks application')
     return
   }
 

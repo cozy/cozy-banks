@@ -1,8 +1,8 @@
 {
-  "name": "Bank",
-  "slug": "bank",
+  "name": "Banks",
+  "slug": "banks",
   "icon": "icon-bank.svg",
-  "description": "Bank application",
+  "description": "The banking application for Cozy",
   "category": "cozy",
   "version": "0.0.5",
   "licence": "AGPL-3.0",
@@ -14,15 +14,15 @@
   "default_locale": "en",
   "locales": {
     "en": {
-      "name": "Bank",
-      "short_description": "The bank application for Cozy.",
-      "long_description": "Bank allows you to monitor your bank operations in your cozy.",
+      "name": "Banks",
+      "short_description": "The banking application for Cozy.",
+      "long_description": "Banks allows you to monitor your banking transactions in your cozy.",
       "changes": ""
     },
     "fr": {
-      "name": "Banque",
-      "short_description": "L'application banque pour Cozy.",
-      "long_description": "Banque vous permet visualiser très facilement vos opération bancaires directement dans votre Cozy.",
+      "name": "Banks",
+      "short_description": "L'application bancaire pour Cozy.",
+      "long_description": "Banks vous permet de visualiser très facilement vos opérations bancaires directement dans votre Cozy.",
       "changes": ""
     }
   },
@@ -41,6 +41,7 @@
   "screenshots": ["screenshot1.png"],
   "tags": [
     "bank",
+    "banks",
     "money",
     "account"
   ],

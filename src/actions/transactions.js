@@ -1,5 +1,5 @@
 /**
-  Bank movements related features
+  Bank transactions related features
 **/
 
 import { TRANSACTION_DOCTYPE } from 'doctypes'

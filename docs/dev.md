@@ -69,7 +69,7 @@ When releasing a new version for mobile, you have to bump the version in those f
 
 Uncheck manage automatically
 
-In "Signing (release)", use the Provisioning Profile io.cozy.bank.mobile2 AppStore.
+In "Signing (release)", use the Provisioning Profile io.cozy.banks.mobile AppStore.
 Signing certificate : 3AKXFMV43J
 
 #### Push iOS build
@@ -125,4 +125,3 @@ The stack will send the emails through the SMTP port of MailHog and you
 will be able to see the mails in its web interface on http://localhost:8025.
 
 🖼 The PNG icons that are included in the emails are generated manually from the SVG via `scripts/icons-to-png.sh` and uploaded automatically to files.cozycloud.cc via Jenkins (which follows the file `files.cozycloud.cc` at the root of the repo).
-

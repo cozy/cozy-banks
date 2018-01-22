@@ -1,5 +1,5 @@
 {
-  "name": "cozy-bank",
+  "name": "cozy-banks",
   "version": "0.0.5",
   "main": "src/main.jsx",
   "scripts": {
@@ -23,7 +23,7 @@
     "lint": "npm-run-all --parallel 'lint:*'",
     "lint:js": "eslint --parser babel-eslint \"'src/**/*.js' 'src/**/*.jsx' 'test/**/*.js'\"",
     "lint:styles": "stylint src/styles --config ./.stylintrc",
-    "stack:docker": "docker run --rm -it -p 8080:8080 -p 8025:8025 -v \"$(pwd)/build/\":/data/cozy-app/bank cozy/cozy-app-dev",
+    "stack:docker": "docker run --rm -it -p 8080:8080 -p 8025:8025 -v \"$(pwd)/build/\":/data/cozy-app/banks cozy/cozy-app-dev",
     "test": "jest",
     "watch": "npm run watch:browser",
     "watch:browser": "NODE_ENV=browser:development npm run commons:watch",
@@ -49,15 +49,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/<USERNAME_GH>/<SLUG_GH>.git"
+    "url": "git+https://gitlab.cozycloud.cc:labs/cozy-bank.git"
   },
   "author": "Cozy Cloud <contact@cozycloud.cc> (https://cozy.io/)",
   "contributors": [],
   "license": "AGPL-3.0",
   "bugs": {
-    "url": "https://github.com/<USERNAME_GH>/<SLUG_GH>/issues"
+    "url": "https://gitlab.cozycloud.cc/labs/cozy-bank/issues"
   },
-  "homepage": "https://github.com/<USERNAME_GH>/<SLUG_GH>#readme",
+  "homepage": "https://gitlab.cozycloud.cc/labs/cozy-bank#readme",
   "devDependencies": {
     "autoprefixer": "^7.1.4",
     "babel-core": "^6.0.0",

@@ -48,7 +48,7 @@ module.exports = {
       ]
     },
     {
-      name: 'Bank',
+      name: 'Banks',
       components: () => [
         'src/components/Figure/Figure.jsx',
         'src/components/Figure/FigureBlock.jsx'
