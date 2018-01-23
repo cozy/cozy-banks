@@ -54,7 +54,7 @@
     },
 
       {
-        "_id": "b5",
+        "_id": "bill_cpam_demo",
         "date": "2018-01-17T00:00:00Z",
         "originalDate": "2018-01-16T00:00:00Z",
         "type": "health_costs",
@@ -68,7 +68,7 @@
         "invoice": "io.cozy.files:{{reference 'io.cozy.files' 5 '_id' }}"
       },
    {
-        "_id": "b6",
+        "_id": "bill_harmonie_demo",
         "date": "2018-01-19T00:00:00Z",
         "originalDate": "2018-01-16T00:00:00Z",
         "type": "health_costs",
@@ -88,7 +88,7 @@
       "_id": "4bbfe1f845ad1231c7d07aa3e04fd1eb",
       "account": "compteisa1",
       "amount": 17.5,
-      "bills": ["io.cozy.bills:b5"],
+      "bills": ["io.cozy.bills:bill_cpam_demo"],
       "automaticCategoryId": "400610",
       "currency": "€",
       "date": "2018-01-17T00:00:00Z",
@@ -98,7 +98,7 @@
       "_id": "4bbfe1f845ad1231c7d07aa3e04fd1eb",
       "account": "compteisa1",
       "amount": 7.5,
-      "bills": ["io.cozy.bills:b6"],
+      "bills": ["io.cozy.bills:bill_harmonie_demo"],
       "automaticCategoryId": "400610",
       "currency": "€",
       "date": "2018-01-19T00:00:00Z",
@@ -114,12 +114,12 @@
      "label": "Docteur Martin",
      "reimbursements": [
        {
-         "billId": "io.cozy.bills:b5",
+         "billId": "io.cozy.bills:bill_cpam_demo",
          "amount": 17.5,
          "operationId": "remboursementameli"
        },
        {
-         "billId": "io.cozy.bills:b6",
+         "billId": "io.cozy.bills:bill_harmonie_demo",
          "amount": 7.5,
          "operationId": "remboursementcomplementaire"
        }
