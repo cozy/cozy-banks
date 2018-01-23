@@ -16,7 +16,16 @@ Fichiers_de_démo/
 ```
 
 Usage
+=====
 
 ```
 ACH import operations.json helpers.js
 ```
+
+Other fixtures
+==============
+
+The reference file is `operations.json`. Other files should follow it.
+
+- [./operations-ben.json]
+- [./operations-isabelle.json]
