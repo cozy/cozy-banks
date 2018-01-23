@@ -76,7 +76,7 @@ export const initBar = (url, accessToken, options = {}) => {
     appEditor: 'Cozy',
     cozyURL: url,
     token: accessToken,
-    iconPath: require('targets/favicons/icon-bank.svg'),
+    iconPath: require('targets/favicons/icon-banks.svg'),
     lang: getLang(),
     replaceTitleOnMobile: true,
     displayOnMobile: true,
