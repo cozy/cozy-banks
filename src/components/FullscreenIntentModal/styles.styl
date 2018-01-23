@@ -1,3 +1,5 @@
+@require 'settings/breakpoints'
+
 .modal--fullscreen.modal--fullscreen // HACK to increase specificity
     // TODO fix this when we have a proper way to add a
     // custom class on Modal components
@@ -11,6 +13,9 @@
         .coz-intent
             width 85vw
             height 85vh
+
+            +small-screen()
+                width 100%
 
     iframe
         width 100%
