@@ -51,7 +51,7 @@
       "label": "Compte courant Isabelle",
       "institutionLabel": "BNPP",
       "number": "{{int 1000000 9999999}}",
-      "balance":3974.25
+      "balance": 3974.25
     },
     {
       "_id": "compteisa3",
@@ -109,7 +109,7 @@
   ],
   "io.cozy.bank.operations": [
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'realEstateLoan' }}",
       "account": "compteisa1",
       "label": "REMBOURSEMENT PRET LCL",
@@ -118,16 +118,16 @@
       "date": "2017-08-25T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'power' }}",
       "account": "compteisa1",
       "label": "EDF PARTICULIERS",
       "currency": "€",
-      "amount": -77.50,
+      "amount": -77.5,
       "date": "2017-08-26T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'telecom' }}",
       "account": "compteisa1",
       "label": "FREEMOBILE",
@@ -139,7 +139,7 @@
       ]
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'telecom' }}",
       "account": "compteisa1",
       "label": "FREEMOBILE",
@@ -151,7 +151,7 @@
       ]
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'homeInsurance' }}",
       "account": "compteisa1",
       "label": "MAIF ASSURANCE HABITATION",
@@ -163,7 +163,7 @@
       ]
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'activityIncome' }}",
       "account": "compteisa1",
       "label": "SALAIRE",
@@ -178,7 +178,7 @@
       }
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'schoolRestaurant' }}",
       "account": "compteisa1",
       "label": "CANTINE SCOLAIRE",
@@ -187,7 +187,7 @@
       "date": "2017-08-01T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'supermarket' }}",
       "account": "compteisa1",
       "label": "CARREFOUR MARKET",
@@ -196,7 +196,7 @@
       "date": "2017-08-06T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'supermarket' }}",
       "account": "compteisa1",
       "label": "CARREFOUR MARKET",
@@ -205,7 +205,7 @@
       "date": "2017-08-12T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'snaksAndworkMeals' }}",
       "account": "compteisa1",
       "label": "FRANPRIX",
@@ -214,7 +214,7 @@
       "date": "2017-08-17T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'snaksAndworkMeals' }}",
       "account": "compteisa1",
       "label": "FRANPRIX",
@@ -223,7 +223,7 @@
       "date": "2017-08-21T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'shoppingECommerce' }}",
       "account": "compteisa1",
       "label": "H&M",
@@ -232,7 +232,7 @@
       "date": "2017-08-21T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'taxi' }}",
       "account": "compteisa1",
       "label": "UBER",
@@ -241,7 +241,7 @@
       "date": "2017-08-03T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'taxi' }}",
       "account": "compteisa1",
       "label": "UBER",
@@ -250,7 +250,7 @@
       "date": "2017-08-23T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'dressing' }}",
       "account": "compteisa1",
       "label": "FRANCK PROVOST MONCEAU",
@@ -259,7 +259,7 @@
       "date": "2017-08-21T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'shoppingECommerce' }}",
       "account": "compteisa1",
       "label": "FNAC TERNES",
@@ -274,7 +274,7 @@
       }
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'restaurantsAndBars' }}",
       "account": "compteisa1",
       "label": "LA BELLE ASSIETTE",
@@ -283,7 +283,7 @@
       "date": "2017-08-08T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'snaksAndworkMeals' }}",
       "account": "compteisa1",
       "label": "KAISER BOULANGERIE",
@@ -292,7 +292,7 @@
       "date": "2017-08-08T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'snaksAndworkMeals' }}",
       "account": "compteisa1",
       "label": "KAISER BOULANGERIE",
@@ -301,7 +301,7 @@
       "date": "2017-08-18T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'kidsAllowance' }}",
       "account": "compteisa1",
       "label": "ARGENT DE POCHE",
@@ -310,7 +310,7 @@
       "date": "2017-08-01T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'dividends' }}",
       "account": "compteisa1",
       "label": "TRANSFERT LIVRET A",
@@ -319,7 +319,7 @@
       "date": "2017-08-03T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'dividends' }}",
       "account": "compteisa3",
       "label": "TRANSFERT LIVRET A",
@@ -328,7 +328,7 @@
       "date": "2017-08-03T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'giftsOffered' }}",
       "account": "comptelou1",
       "label": "ARGENT DE POCHE",
@@ -337,7 +337,7 @@
       "date": "2017-08-02T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'electronicsAndMultimedia' }}",
       "account": "comptelou1",
       "label": "GAUMONTPARNASSE",
@@ -346,7 +346,7 @@
       "date": "2017-08-12T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'restaurantsAndBars' }}",
       "account": "comptelou1",
       "label": "MC DONALDS",
@@ -355,7 +355,7 @@
       "date": "2017-08-12T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'uncategorized' }}",
       "account": "comptelou1",
       "label": "RETRAIT BNPPARIBAS",
@@ -364,7 +364,7 @@
       "date": "2017-08-25T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'uncategorized' }}",
       "account": "comptelou1",
       "label": "RETRAIT BNPPARIBAS",
@@ -373,7 +373,7 @@
       "date": "2017-08-04T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'healthExpenses' }}",
       "account": "comptelou1",
       "label": "DR MARTIN CONSULTATION",
@@ -383,7 +383,7 @@
       "_id": "depsantelou1"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'healthExpenses' }}",
       "account": "compteisa1",
       "bill": "io.cozy.bills:rembourcomplisa1",
@@ -394,7 +394,7 @@
       "_id": "ope.sante.isa1"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'healthExpenses' }}",
       "account": "compteisa1",
       "bill": "io.cozy.bills:rembourcomplisa2",
@@ -405,7 +405,7 @@
       "_id": "op.sante.isa2"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'healthExpenses' }}",
       "account": "compteisa1",
       "label": "DR CHOLLET CHQ 18708914",
@@ -415,7 +415,7 @@
       "_id": "depsanteisa2"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'healthExpenses' }}",
       "account": "comptecla1",
       "label": "CAB CARDIO CONSULT",
@@ -425,7 +425,7 @@
       "_id": "depsantecla3"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'healthExpenses' }}",
       "account": "comptecla1",
       "bill": "io.cozy.bills:rembourcla3",
@@ -436,7 +436,7 @@
       "_id": "ope.sante.cla3"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'healthExpenses' }}",
       "account": "comptecla1",
       "bill": "io.cozy.bills:rembourcomplcla3",
@@ -447,7 +447,7 @@
       "_id": "op.sante.compl.cla3"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'telecom' }}",
       "account": "comptegene1",
       "label": "BOUYGUES TELECOM",
@@ -459,7 +459,7 @@
       ]
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'pensionPaid' }}",
       "account": "comptegene1",
       "label": "RETRAITE",
@@ -468,7 +468,7 @@
       "date": "2017-08-02T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'giftsOffered' }}",
       "account": "comptegene1",
       "label": "FNAC TERNES",
@@ -477,7 +477,7 @@
       "date": "2017-08-11T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'supermarket' }}",
       "account": "comptegene1",
       "label": "AUCHAN",
@@ -486,7 +486,7 @@
       "date": "2017-08-04T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'supermarket' }}",
       "account": "comptegene1",
       "label": "CARREFOUR CITY",
@@ -495,7 +495,7 @@
       "date": "2017-08-22T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'snaksAndworkMeals' }}",
       "account": "comptegene1",
       "label": "FRANPRIX",
@@ -504,7 +504,7 @@
       "date": "2017-08-07T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'personalCare' }}",
       "account": "comptegene1",
       "label": "FRANCE MENAGE",
@@ -513,7 +513,7 @@
       "date": "2017-08-20T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'uncategorized' }}",
       "account": "comptegene1",
       "label": "RETRAIT CREDIT AGRICOLE",
@@ -522,7 +522,7 @@
       "date": "2017-08-04T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'snaksAndworkMeals' }}",
       "account": "comptegene1",
       "label": "FRANPRIX",
@@ -531,7 +531,7 @@
       "date": "2017-08-21T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'shoppingECommerce' }}",
       "account": "comptegene1",
       "label": "LA REDOUTE",
@@ -540,7 +540,7 @@
       "date": "2017-08-29T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'healthExpenses' }}",
       "account": "comptegene1",
       "label": "DOCTEUR LEFEBVRE",
@@ -550,7 +550,7 @@
       "_id": "depsantegene4"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'realEstateLoan' }}",
       "account": "compteisa1",
       "label": "REMBOURSEMENT PRET LCL",
@@ -559,7 +559,7 @@
       "date": "2017-07-25T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'activityIncome' }}",
       "account": "compteisa1",
       "label": "SALAIRE",
@@ -568,7 +568,7 @@
       "date": "2017-07-01T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'supermarket' }}",
       "account": "compteisa1",
       "label": "CARREFOUR MARKET",
@@ -577,7 +577,7 @@
       "date": "2017-07-06T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'supermarket' }}",
       "account": "compteisa1",
       "label": "CARREFOUR MARKET",
@@ -586,7 +586,7 @@
       "date": "2017-07-12T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'snaksAndworkMeals' }}",
       "account": "compteisa1",
       "label": "FRANPRIX",
@@ -595,7 +595,7 @@
       "date": "2017-07-17T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'snaksAndworkMeals' }}",
       "account": "compteisa1",
       "label": "FRANPRIX",
@@ -604,7 +604,7 @@
       "date": "2017-07-21T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'shoppingECommerce' }}",
       "account": "compteisa1",
       "label": "ZARA",
@@ -613,7 +613,7 @@
       "date": "2017-07-21T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'taxi' }}",
       "account": "compteisa1",
       "label": "UBER",
@@ -622,7 +622,7 @@
       "date": "2017-07-03T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'taxi' }}",
       "account": "compteisa1",
       "label": "UBER",
@@ -631,7 +631,7 @@
       "date": "2017-07-23T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'restaurantsAndBars' }}",
       "account": "compteisa1",
       "label": "LE RICHER",
@@ -640,7 +640,7 @@
       "date": "2017-07-08T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'snaksAndworkMeals' }}",
       "account": "compteisa1",
       "label": "kAISER BOULANGERIE",
@@ -649,7 +649,7 @@
       "date": "2017-07-08T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'snaksAndworkMeals' }}",
       "account": "compteisa1",
       "label": "kAISER BOULANGERIE",
@@ -658,7 +658,7 @@
       "date": "2017-07-18T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'kidsAllowance' }}",
       "account": "compteisa1",
       "label": "ARGENT DE POCHE",
@@ -667,7 +667,7 @@
       "date": "2017-07-01T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'dividends' }}",
       "account": "compteisa1",
       "label": "TRANSFERT LIVRET A",
@@ -676,7 +676,7 @@
       "date": "2017-07-03T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'dividends' }}",
       "account": "compteisa3",
       "label": "TRANSFERT LIVRET A",
@@ -685,7 +685,7 @@
       "date": "2017-07-03T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'giftsOffered' }}",
       "account": "comptelou1",
       "label": "ARGENT DE POCHE",
@@ -694,7 +694,7 @@
       "date": "2017-07-02T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'electronicsAndMultimedia' }}",
       "account": "comptelou1",
       "label": "UGCCINECITE",
@@ -703,7 +703,7 @@
       "date": "2017-07-08T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'restaurantsAndBars' }}",
       "account": "comptelou1",
       "label": "KFC",
@@ -712,7 +712,7 @@
       "date": "2017-07-22T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'uncategorized' }}",
       "account": "comptelou1",
       "label": "RETRAIT BNPPARIBAS",
@@ -721,7 +721,7 @@
       "date": "2017-07-25T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'uncategorized' }}",
       "account": "comptelou1",
       "label": "RETRAIT BNPPARIBAS",
@@ -730,7 +730,7 @@
       "date": "2017-07-04T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'healthExpenses' }}",
       "account": "compteisa1",
       "label": "DR CHOLLET CHQ 18708912",
@@ -740,7 +740,7 @@
       "_id": "marsdepsanteisa2"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'healthExpenses' }}",
       "account": "compteisa1",
       "bill": "io.cozy.bills:marsrembourcomplisa2",
@@ -751,7 +751,7 @@
       "_id": "marsop.sante.isa2"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'healthExpenses' }}",
       "account": "compteisa1",
       "label": "DR CHOLLET CHQ 18708913",
@@ -761,7 +761,7 @@
       "_id": "marsdepsanteisa22"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'healthExpenses' }}",
       "account": "compteisa1",
       "bill": "io.cozy.bills:marsrembourcomplisa22",
@@ -772,7 +772,7 @@
       "_id": "marsop.sante.isa22"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'healthExpenses' }}",
       "account": "compteisa1",
       "label": "CAB OSTEOKINESITHERAPIE",
@@ -782,7 +782,7 @@
       "_id": "avrildepsanteisa2"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'healthExpenses' }}",
       "account": "compteisa1",
       "bill": "io.cozy.bills:avrilrembourcomplisa2",
@@ -793,7 +793,7 @@
       "_id": "avrilop.sante.isa2"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'healthExpenses' }}",
       "account": "compteisa1",
       "label": "CAB OSTEOKINESITHERAPIE",
@@ -803,7 +803,7 @@
       "_id": "avrildepsanteisa22"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'healthExpenses' }}",
       "account": "compteisa1",
       "bill": "io.cozy.bills:avrilrembourcomplisa22",
@@ -814,7 +814,7 @@
       "_id": "avrilop.sante.isa22"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'healthExpenses' }}",
       "account": "compteisa1",
       "label": "KINE REUILLY",
@@ -824,7 +824,7 @@
       "_id": "avrildepsanteisa23"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'healthExpenses' }}",
       "account": "compteisa1",
       "bill": "io.cozy.bills:avrilrembourcomplisa23",
@@ -835,7 +835,7 @@
       "_id": "avrilop.sante.isa23"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'healthExpenses' }}",
       "account": "comptecla1",
       "label": "CAB CARDIOLOGIE CONSULT",
@@ -845,7 +845,7 @@
       "_id": "avrildepsantecla3"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'healthExpenses' }}",
       "account": "comptecla1",
       "bill": "io.cozy.bills:avrilrembourcla3",
@@ -856,7 +856,7 @@
       "_id": "avrilope.sante.cla3"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'healthExpenses' }}",
       "account": "comptecla1",
       "bill": "io.cozy.bills:avrilrembourcomplcla3",
@@ -867,7 +867,7 @@
       "_id": "avrilop.sante.compl.cla3"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'healthExpenses' }}",
       "account": "comptecla1",
       "label": "LABORATOIRE PUTEAUX",
@@ -877,7 +877,7 @@
       "_id": "avrildepsantecla32"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'healthExpenses' }}",
       "account": "comptecla1",
       "bill": "io.cozy.bills:avrilrembourcla32",
@@ -888,7 +888,7 @@
       "_id": "avrilope.sante.cla32"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'healthExpenses' }}",
       "account": "comptecla1",
       "bill": "io.cozy.bills:avrilrembourcomplcla32",
@@ -899,7 +899,7 @@
       "_id": "avrilop.sante.compl.cla32"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'telecom' }}",
       "account": "comptegene1",
       "label": "BOUYGUES TELECOM",
@@ -911,7 +911,7 @@
       ]
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'pensionPaid' }}",
       "account": "comptegene1",
       "label": "RETRAITE",
@@ -920,7 +920,7 @@
       "date": "2017-07-02T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'giftsOffered' }}",
       "account": "comptegene1",
       "label": "FNAC TERNES",
@@ -929,7 +929,7 @@
       "date": "2017-07-11T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'supermarket' }}",
       "account": "comptegene1",
       "label": "AUCHAN",
@@ -938,7 +938,7 @@
       "date": "2017-07-04T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'supermarket' }}",
       "account": "comptegene1",
       "label": "CARREFOUR CITY",
@@ -947,7 +947,7 @@
       "date": "2017-07-22T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'snaksAndworkMeals' }}",
       "account": "comptegene1",
       "label": "FRANPRIX",
@@ -956,7 +956,7 @@
       "date": "2017-07-07T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'personalCare' }}",
       "account": "comptegene1",
       "label": "FRANCE MENAGE",
@@ -965,7 +965,7 @@
       "date": "2017-07-20T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'uncategorized' }}",
       "account": "comptegene1",
       "label": "RETRAIT CREDIT AGRICOLE",
@@ -974,7 +974,7 @@
       "date": "2017-07-04T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'snaksAndworkMeals' }}",
       "account": "comptegene1",
       "label": "FRANPRIX",
@@ -983,7 +983,7 @@
       "date": "2017-07-21T00:00:00Z"
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'shoppingECommerce' }}",
       "account": "comptegene1",
       "label": "SOMEWHERE",
@@ -1029,7 +1029,9 @@
       "currency": "€",
       "date": "2018-01-08T00:00:00Z",
       "label": "Malakoff Mederic Prevoyance R172",
-      "bills": ["io.cozy.bills:7a8cefd5a1ac1a5aecf862482df0235c"]
+      "bills": [
+        "io.cozy.bills:7a8cefd5a1ac1a5aecf862482df0235c"
+      ]
     },
     {
       "_id": "remboursementameli",
@@ -1039,10 +1041,12 @@
       "currency": "€",
       "date": "2018-01-06T00:00:00Z",
       "label": "Cpam Des Yvelines 173470021068",
-      "bills": ["io.cozy.bills:7a8cefd5a1ac1a5aecf862482df0225c"]
+      "bills": [
+        "io.cozy.bills:7a8cefd5a1ac1a5aecf862482df0225c"
+      ]
     },
     {
-      "demo":true,
+      "demo": true,
       "automaticCategoryId": "{{ categoryId 'incomeCat' }}",
       "account": "comptegene1",
       "label": "Autre revenu",

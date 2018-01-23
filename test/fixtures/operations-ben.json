@@ -1,5 +1,4 @@
 {
-
   "io.cozy.files": [
     {
       "__SRC__": "{{ dir }}/Fichiers_de_démo/Free mobile/Demo_cozy-freemobile_15082017.pdf",
@@ -30,8 +29,7 @@
       "__DEST__": "/Fichiers_de_démo/Harmonie/Demo_cozy-Remboursement_Harmonie.pdf"
     }
   ],
-
-"io.cozy.bills": [
+  "io.cozy.bills": [
     {
       "_id": "b0",
       "invoice": "io.cozy.files:{{reference 'io.cozy.files' 0 '_id' }}"
@@ -52,43 +50,44 @@
       "_id": "b4",
       "invoice": "io.cozy.files:{{reference 'io.cozy.files' 4 '_id' }}"
     },
-
-      {
-        "_id": "b5",
-        "date": "2018-01-17T00:00:00Z",
-        "originalDate": "2018-01-16T00:00:00Z",
-        "type": "health_costs",
-        "subtype": "C GENERALISTE",
-        "vendor": "Ameli",
-        "isThirdPartyPayer": false,
-        "amount": 17.5,
-        "originalAmount": 25,
-        "originalOperation": "io.cozy.bank.operations:paiementdocteur",
-        "isRefund": true,
-        "invoice": "io.cozy.files:{{reference 'io.cozy.files' 5 '_id' }}"
-      },
-   {
-        "_id": "b6",
-        "date": "2018-01-19T00:00:00Z",
-        "originalDate": "2018-01-16T00:00:00Z",
-        "type": "health_costs",
-        "subtype": "VIR COMPL SANTE",
-        "vendor": "Harmonie",
-        "socialSecurityRefund": 17.5,
-        "isThirdPartyPayer": false,
-        "amount": 7.5,
-        "originalAmount": 25,
-        "isRefund": true,
-        "originalOperation": "io.cozy.bank.operations:paiementdocteur",
-        "invoice": "io.cozy.files:{{reference 'io.cozy.files' 6 '_id' }}"
-      }
-    ],
-"io.cozy.bank.operations": [
+    {
+      "_id": "b5",
+      "date": "2018-01-17T00:00:00Z",
+      "originalDate": "2018-01-16T00:00:00Z",
+      "type": "health_costs",
+      "subtype": "C GENERALISTE",
+      "vendor": "Ameli",
+      "isThirdPartyPayer": false,
+      "amount": 17.5,
+      "originalAmount": 25,
+      "originalOperation": "io.cozy.bank.operations:paiementdocteur",
+      "isRefund": true,
+      "invoice": "io.cozy.files:{{reference 'io.cozy.files' 5 '_id' }}"
+    },
+    {
+      "_id": "b6",
+      "date": "2018-01-19T00:00:00Z",
+      "originalDate": "2018-01-16T00:00:00Z",
+      "type": "health_costs",
+      "subtype": "VIR COMPL SANTE",
+      "vendor": "Harmonie",
+      "socialSecurityRefund": 17.5,
+      "isThirdPartyPayer": false,
+      "amount": 7.5,
+      "originalAmount": 25,
+      "isRefund": true,
+      "originalOperation": "io.cozy.bank.operations:paiementdocteur",
+      "invoice": "io.cozy.files:{{reference 'io.cozy.files' 6 '_id' }}"
+    }
+  ],
+  "io.cozy.bank.operations": [
     {
       "_id": "4bbfe1f845ad1231c7d07aa3e04fd1eb",
       "account": "compteisa1",
       "amount": 17.5,
-      "bills": ["io.cozy.bills:b5"],
+      "bills": [
+        "io.cozy.bills:b5"
+      ],
       "automaticCategoryId": "400610",
       "currency": "€",
       "date": "2018-01-17T00:00:00Z",
@@ -98,45 +97,47 @@
       "_id": "4bbfe1f845ad1231c7d07aa3e04fd1eb",
       "account": "compteisa1",
       "amount": 7.5,
-      "bills": ["io.cozy.bills:b6"],
+      "bills": [
+        "io.cozy.bills:b6"
+      ],
       "automaticCategoryId": "400610",
       "currency": "€",
       "date": "2018-01-19T00:00:00Z",
       "label": "VIREMENT COMPL SANTE"
     },
     {
-     "_id": "paiementdocteur",
-     "account": "compteisa1",
-     "amount": -25,
-     "automaticCategoryId": "400610",
-     "currency": "€",
-     "date": "2018-01-21T00:00:00Z",
-     "label": "Docteur Martin",
-     "reimbursements": [
-       {
-         "billId": "io.cozy.bills:b5",
-         "amount": 17.5,
-         "operationId": "remboursementameli"
-       },
-       {
-         "billId": "io.cozy.bills:b6",
-         "amount": 7.5,
-         "operationId": "remboursementcomplementaire"
-       }
-     ]
-   },
-{
-    "_id": "4bbfe1f845ad1231c7d07aa3e04fe8b3",
-    "account": "compteisa1",
-    "amount": -44.9,
-    "bills": [
-      "io.cozy.bills:b2"
-    ],
-    "automaticCategoryId": "400150",
-    "currency": "€",
-    "date": "2018-01-22T00:00:00Z",
-    "label": "BOUYGUES TELECOM"
-  },
+      "_id": "paiementdocteur",
+      "account": "compteisa1",
+      "amount": -25,
+      "automaticCategoryId": "400610",
+      "currency": "€",
+      "date": "2018-01-21T00:00:00Z",
+      "label": "Docteur Martin",
+      "reimbursements": [
+        {
+          "billId": "io.cozy.bills:b5",
+          "amount": 17.5,
+          "operationId": "remboursementameli"
+        },
+        {
+          "billId": "io.cozy.bills:b6",
+          "amount": 7.5,
+          "operationId": "remboursementcomplementaire"
+        }
+      ]
+    },
+    {
+      "_id": "4bbfe1f845ad1231c7d07aa3e04fe8b3",
+      "account": "compteisa1",
+      "amount": -44.9,
+      "bills": [
+        "io.cozy.bills:b2"
+      ],
+      "automaticCategoryId": "400150",
+      "currency": "€",
+      "date": "2018-01-22T00:00:00Z",
+      "label": "BOUYGUES TELECOM"
+    },
     {
       "_id": "c5d3364d147d8dc5da80fc9e354b0209",
       "account": "compteisa1",
@@ -144,7 +145,7 @@
       "automaticCategoryId": "400420",
       "currency": "€",
       "date": "2018-01-11T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "FRANPRIX"
     },
     {
@@ -154,7 +155,7 @@
       "automaticCategoryId": "400290",
       "currency": "€",
       "date": "2017-12-18T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "UBER"
     },
     {
@@ -164,7 +165,7 @@
       "automaticCategoryId": "400610",
       "currency": "€",
       "date": "2017-12-21T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "KINE REUILLY",
       "reimbursements": [
         {
@@ -182,7 +183,7 @@
       "automaticCategoryId": "400610",
       "currency": "€",
       "date": "2017-12-18T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "VIREMENT COMPL SANTE"
     },
     {
@@ -192,7 +193,7 @@
       "automaticCategoryId": "400420",
       "currency": "€",
       "date": "2018-01-21T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "FRANPRIX"
     },
     {
@@ -202,7 +203,7 @@
       "automaticCategoryId": "400290",
       "currency": "€",
       "date": "2018-01-03T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "UBER"
     },
     {
@@ -212,7 +213,7 @@
       "automaticCategoryId": "400330",
       "currency": "€",
       "date": "2018-01-20T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "FRANCE MENAGE"
     },
     {
@@ -222,7 +223,7 @@
       "automaticCategoryId": "400330",
       "currency": "€",
       "date": "2017-12-20T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "FRANCE MENAGE"
     },
     {
@@ -232,7 +233,7 @@
       "automaticCategoryId": "400420",
       "currency": "€",
       "date": "2018-01-08T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "KAISER BOULANGERIE"
     },
     {
@@ -242,7 +243,7 @@
       "automaticCategoryId": "400420",
       "currency": "€",
       "date": "2017-12-21T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "FRANPRIX"
     },
     {
@@ -255,7 +256,7 @@
       "automaticCategoryId": "400150",
       "currency": "€",
       "date": "2018-01-15T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "FREEMOBILE"
     },
     {
@@ -265,7 +266,7 @@
       "automaticCategoryId": "400420",
       "currency": "€",
       "date": "2017-12-17T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "FRANPRIX"
     },
     {
@@ -275,7 +276,7 @@
       "automaticCategoryId": "200110",
       "currency": "€",
       "date": "2017-12-01T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "SALAIRE"
     },
     {
@@ -285,7 +286,7 @@
       "automaticCategoryId": "400130",
       "currency": "€",
       "date": "2018-01-21T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "H&M"
     },
     {
@@ -296,7 +297,7 @@
       "automaticCategoryId": "400610",
       "currency": "€",
       "date": "2017-12-14T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "VIREMENT COMPL SANTE"
     },
     {
@@ -306,7 +307,7 @@
       "automaticCategoryId": "400180",
       "currency": "€",
       "date": "2018-01-02T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "ARGENT DE POCHE"
     },
     {
@@ -316,7 +317,7 @@
       "automaticCategoryId": "400110",
       "currency": "€",
       "date": "2017-12-12T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "CARREFOUR MARKET"
     },
     {
@@ -326,7 +327,7 @@
       "automaticCategoryId": "600110",
       "currency": "€",
       "date": "2018-01-03T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "TRANSFERT LIVRET A"
     },
     {
@@ -339,7 +340,7 @@
       "automaticCategoryId": "400150",
       "currency": "€",
       "date": "2017-12-30T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "BOUYGUES TELECOM"
     },
     {
@@ -349,7 +350,7 @@
       "automaticCategoryId": "400750",
       "currency": "€",
       "date": "2017-12-25T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "REMBOURSEMENT PRET LCL"
     },
     {
@@ -359,7 +360,7 @@
       "automaticCategoryId": "400110",
       "currency": "€",
       "date": "2018-01-04T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "AUCHAN"
     },
     {
@@ -369,7 +370,7 @@
       "automaticCategoryId": "400410",
       "currency": "€",
       "date": "2017-12-01T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "ARGENT DE POCHE"
     },
     {
@@ -379,7 +380,7 @@
       "automaticCategoryId": "600110",
       "currency": "€",
       "date": "2017-12-03T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "TRANSFERT LIVRET A"
     },
     {
@@ -389,7 +390,7 @@
       "automaticCategoryId": "400610",
       "currency": "€",
       "date": "2017-11-12T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "DR CHOLLET CHQ 18708913",
       "reimbursements": [
         {
@@ -406,7 +407,7 @@
       "automaticCategoryId": "400610",
       "currency": "€",
       "date": "2017-11-06T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "DR CHOLLET CHQ 18708912",
       "reimbursements": [
         {
@@ -424,7 +425,7 @@
       "automaticCategoryId": "400610",
       "currency": "€",
       "date": "2018-01-06T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "VIREMENT COMPL SANTE"
     },
     {
@@ -434,7 +435,7 @@
       "automaticCategoryId": "400130",
       "currency": "€",
       "date": "2018-01-13T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "LA REDOUTE"
     },
     {
@@ -445,7 +446,7 @@
       "automaticCategoryId": "400610",
       "currency": "€",
       "date": "2017-11-08T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "VIREMENT COMPL SANTE"
     },
     {
@@ -456,7 +457,7 @@
       "automaticCategoryId": "400610",
       "currency": "€",
       "date": "2018-01-20T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "VIREMENT COMPL SANTE"
     },
     {
@@ -466,7 +467,7 @@
       "automaticCategoryId": "400750",
       "currency": "€",
       "date": "2018-01-17T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "REMBOURSEMENT PRET LCL"
     },
     {
@@ -476,7 +477,7 @@
       "automaticCategoryId": "300",
       "currency": "€",
       "date": "2017-12-25T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "RETRAIT BNPPARIBAS"
     },
     {
@@ -486,7 +487,7 @@
       "automaticCategoryId": "400810",
       "currency": "€",
       "date": "2017-12-08T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "LE RICHER"
     },
     {
@@ -496,7 +497,7 @@
       "automaticCategoryId": "400420",
       "currency": "€",
       "date": "2017-12-08T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "kAISER BOULANGERIE"
     },
     {
@@ -506,7 +507,7 @@
       "automaticCategoryId": "400810",
       "currency": "€",
       "date": "2018-01-08T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "LA BELLE ASSIETTE"
     },
     {
@@ -516,7 +517,7 @@
       "automaticCategoryId": "300",
       "currency": "€",
       "date": "2017-12-04T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "RETRAIT CREDIT AGRICOLE"
     },
     {
@@ -526,7 +527,7 @@
       "automaticCategoryId": "400130",
       "currency": "€",
       "date": "2018-01-17T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "FRANCK PROVOST MONCEAU"
     },
     {
@@ -536,7 +537,7 @@
       "automaticCategoryId": "400610",
       "currency": "€",
       "date": "2017-12-14T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "LABORATOIRE PUTEAUX",
       "reimbursements": [
         {
@@ -553,7 +554,7 @@
       "automaticCategoryId": "400810",
       "currency": "€",
       "date": "2017-12-22T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "KFC"
     },
     {
@@ -564,7 +565,7 @@
       "automaticCategoryId": "400610",
       "currency": "€",
       "date": "2017-12-08T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "VIREMENT COMPL SANTE"
     },
     {
@@ -574,7 +575,7 @@
       "automaticCategoryId": "600110",
       "currency": "€",
       "date": "2017-12-03T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "TRANSFERT LIVRET A"
     },
     {
@@ -584,7 +585,7 @@
       "automaticCategoryId": "400610",
       "currency": "€",
       "date": "2017-12-06T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "CABINET OSTEOKINESITHERAPIE",
       "reimbursements": [
         {
@@ -601,7 +602,7 @@
       "automaticCategoryId": "400110",
       "currency": "€",
       "date": "2018-01-06T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "CARREFOUR MARKET"
     },
     {
@@ -612,7 +613,7 @@
       "automaticCategoryId": "400610",
       "currency": "€",
       "date": "2017-12-11T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "CPAM PARIS"
     },
     {
@@ -622,7 +623,7 @@
       "automaticCategoryId": "400460",
       "currency": "€",
       "date": "2017-12-02T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "RETRAITE"
     },
     {
@@ -632,7 +633,7 @@
       "automaticCategoryId": "400130",
       "currency": "€",
       "date": "2017-12-29T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "SOMEWHERE"
     },
     {
@@ -642,7 +643,7 @@
       "automaticCategoryId": "400740",
       "currency": "€",
       "date": "2018-01-12T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "GAUMONTPARNASSE"
     },
     {
@@ -652,7 +653,7 @@
       "automaticCategoryId": "400420",
       "currency": "€",
       "date": "2018-01-18T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "KAISER BOULANGERIE"
     },
     {
@@ -662,7 +663,7 @@
       "automaticCategoryId": "300",
       "currency": "€",
       "date": "2018-01-04T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "RETRAIT CREDIT AGRICOLE"
     },
     {
@@ -672,7 +673,7 @@
       "automaticCategoryId": "400180",
       "currency": "€",
       "date": "2017-12-02T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "ARGENT DE POCHE"
     },
     {
@@ -682,7 +683,7 @@
       "automaticCategoryId": "400420",
       "currency": "€",
       "date": "2017-12-18T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "kAISER BOULANGERIE"
     },
     {
@@ -692,7 +693,7 @@
       "automaticCategoryId": "200110",
       "currency": "€",
       "date": "2018-01-21T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "SALAIRE"
     },
     {
@@ -702,7 +703,7 @@
       "automaticCategoryId": "400610",
       "currency": "€",
       "date": "2018-01-11T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "DR CHOLLET CHQ 18708914",
       "reimbursements": [
         {
@@ -719,7 +720,7 @@
       "automaticCategoryId": "400610",
       "currency": "€",
       "date": "2018-01-10T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "CABINET CARDIO CONSULT",
       "reimbursements": [
         {
@@ -736,7 +737,7 @@
       "automaticCategoryId": "400610",
       "currency": "€",
       "date": "2018-01-20T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "DOCTEUR LEFEBVRE"
     },
     {
@@ -746,7 +747,7 @@
       "automaticCategoryId": "400610",
       "currency": "€",
       "date": "2017-12-12T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "CABINET OSTEOKINESITHERAPIE",
       "reimbursements": [
         {
@@ -764,7 +765,7 @@
       "automaticCategoryId": "400610",
       "currency": "€",
       "date": "2018-01-11T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "CPAM PARIS"
     },
     {
@@ -774,7 +775,7 @@
       "automaticCategoryId": "400420",
       "currency": "€",
       "date": "2017-12-07T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "FRANPRIX"
     },
     {
@@ -784,7 +785,7 @@
       "automaticCategoryId": "400740",
       "currency": "€",
       "date": "2017-12-08T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "UGCCINECITE"
     },
     {
@@ -794,7 +795,7 @@
       "automaticCategoryId": "400290",
       "currency": "€",
       "date": "2018-01-14T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "UBER"
     },
     {
@@ -804,7 +805,7 @@
       "automaticCategoryId": "400410",
       "currency": "€",
       "date": "2018-01-01T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "ARGENT DE POCHE"
     },
     {
@@ -814,7 +815,7 @@
       "automaticCategoryId": "400130",
       "currency": "€",
       "date": "2017-12-21T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "ZARA"
     },
     {
@@ -824,7 +825,7 @@
       "automaticCategoryId": "400420",
       "currency": "€",
       "date": "2018-01-11T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "FRANPRIX"
     },
     {
@@ -834,7 +835,7 @@
       "automaticCategoryId": "400610",
       "currency": "€",
       "date": "2017-12-10T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "CABINET CARDIOLOGIE CONSULT",
       "reimbursements": [
         {
@@ -851,7 +852,7 @@
       "automaticCategoryId": "400290",
       "currency": "€",
       "date": "2017-12-03T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "UBER"
     },
     {
@@ -864,7 +865,7 @@
       "automaticCategoryId": "400150",
       "currency": "€",
       "date": "2017-12-15T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "FREEMOBILE"
     },
     {
@@ -874,7 +875,7 @@
       "automaticCategoryId": "400110",
       "currency": "€",
       "date": "2018-01-14T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "CARREFOUR CITY"
     },
     {
@@ -884,7 +885,7 @@
       "automaticCategoryId": "300",
       "currency": "€",
       "date": "2018-01-19T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "RETRAIT BNPPARIBAS"
     },
     {
@@ -894,7 +895,7 @@
       "automaticCategoryId": "300",
       "currency": "€",
       "date": "2018-01-04T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "RETRAIT BNPPARIBAS"
     },
     {
@@ -904,7 +905,7 @@
       "automaticCategoryId": "600110",
       "currency": "€",
       "date": "2018-01-03T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "TRANSFERT LIVRET A"
     },
     {
@@ -914,7 +915,7 @@
       "automaticCategoryId": "400180",
       "currency": "€",
       "date": "2018-01-11T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "FNAC TERNES"
     },
     {
@@ -924,7 +925,7 @@
       "automaticCategoryId": "400110",
       "currency": "€",
       "date": "2018-01-12T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "CARREFOUR MARKET"
     },
     {
@@ -934,7 +935,7 @@
       "automaticCategoryId": "400180",
       "currency": "€",
       "date": "2017-12-11T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "FNAC TERNES"
     },
     {
@@ -944,7 +945,7 @@
       "automaticCategoryId": "400110",
       "currency": "€",
       "date": "2017-12-22T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "CARREFOUR CITY"
     },
     {
@@ -954,7 +955,7 @@
       "automaticCategoryId": "400420",
       "currency": "€",
       "date": "2018-01-07T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "FRANPRIX"
     },
     {
@@ -964,7 +965,7 @@
       "automaticCategoryId": "300",
       "currency": "€",
       "date": "2017-12-04T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "RETRAIT BNPPARIBAS"
     },
     {
@@ -975,7 +976,7 @@
       "automaticCategoryId": "400610",
       "currency": "€",
       "date": "2017-12-12T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "VIREMENT COMPL SANTE"
     },
     {
@@ -986,7 +987,7 @@
       "automaticCategoryId": "400610",
       "currency": "€",
       "date": "2017-12-16T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "CPAM PARIS"
     },
     {
@@ -997,7 +998,7 @@
       "automaticCategoryId": "400610",
       "currency": "€",
       "date": "2017-12-23T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "VIREMENT COMPL SANTE"
     },
     {
@@ -1010,7 +1011,7 @@
       "automaticCategoryId": "401040",
       "currency": "€",
       "date": "2018-01-20T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "MAIF ASSURANCE HABITATION"
     },
     {
@@ -1021,7 +1022,7 @@
       "automaticCategoryId": "400610",
       "currency": "€",
       "date": "2017-11-14T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "VIREMENT COMPL SANTE"
     },
     {
@@ -1032,7 +1033,7 @@
       "automaticCategoryId": "400610",
       "currency": "€",
       "date": "2018-01-12T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "VIREMENT COMPL SANTE"
     },
     {
@@ -1042,7 +1043,7 @@
       "automaticCategoryId": "400420",
       "currency": "€",
       "date": "2018-01-01T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "CANTINE SCOLAIRE"
     },
     {
@@ -1052,7 +1053,7 @@
       "automaticCategoryId": "400810",
       "currency": "€",
       "date": "2018-01-12T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "MC DONALDS"
     },
     {
@@ -1062,7 +1063,7 @@
       "automaticCategoryId": "400110",
       "currency": "€",
       "date": "2017-12-04T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "AUCHAN"
     },
     {
@@ -1072,7 +1073,7 @@
       "automaticCategoryId": "400110",
       "currency": "€",
       "date": "2017-12-06T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "CARREFOUR MARKET"
     },
     {
@@ -1082,7 +1083,7 @@
       "automaticCategoryId": "400460",
       "currency": "€",
       "date": "2018-01-02T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "RETRAITE"
     },
     {
@@ -1092,7 +1093,7 @@
       "automaticCategoryId": "400420",
       "currency": "€",
       "date": "2017-12-21T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "FRANPRIX"
     },
     {
@@ -1111,7 +1112,7 @@
       "automaticCategoryId": "400130",
       "currency": "€",
       "date": "2018-01-21T00:00:00Z",
-      "demo":false,
+      "demo": false,
       "label": "FNAC TERNES"
     }
   ],
