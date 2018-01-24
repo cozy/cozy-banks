@@ -39,7 +39,7 @@ export default ({updateCategory} = updateCategoryParams) => {
           />
           {displaying &&
             <CategoryChoice
-              categoryId={getCategoryId(this.props)}
+              categoryId={getCategoryId(this.props.transaction)}
               onSelect={this.handleSelect}
               onCancel={this.hide}
             />}
