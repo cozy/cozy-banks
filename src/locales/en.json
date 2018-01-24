@@ -408,5 +408,9 @@
       "loginagain": "Log in again",
       "logout": "Log out"
     }
+  },
+
+  "FileOpener": {
+    "error": "Unable to find the file. It may have been deleted in the Drive application."
   }
 }
