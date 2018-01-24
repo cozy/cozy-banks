@@ -361,5 +361,9 @@
       "title": "Cozy travaille pour vous",
       "description": "Suivi automatique du traitement de vos dépenses de santé"
     }
+  },
+
+  "FileOpener": {
+    "error": "Impossible de trouver le fichier, celui-ci a peut être été supprimé de l'application Drive."
   }
 }

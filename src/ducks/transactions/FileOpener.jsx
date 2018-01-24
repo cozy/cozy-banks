@@ -6,8 +6,10 @@ import { getURL } from 'reducers'
 import FileIntentDisplay from 'components/FileIntentDisplay'
 import PropTypes from 'prop-types'
 import Spinner from 'cozy-ui/react/Spinner'
+import { translate } from 'cozy-ui/react'
 import { checkApp, DRIVE_INFO } from 'ducks/mobile/appAvailability'
 import flash from 'ducks/flash'
+import { flowRight as compose } from 'lodash'
 
 const spinnerStyle = { marginLeft: '-0.25rem', marginRight: '-1rem' }
 
@@ -55,7 +57,7 @@ class FileOpener extends Component {
         window.open(url, '_system')
       }
     } catch (err) {
-      flash('error', `Unable to found file`)
+      flash('error', this.props.t('FileOpener.error'))
       console.warn(err)
     } finally {
       this.setState({ loading: false })
@@ -80,6 +82,7 @@ FileOpener.propTypes = {
   children: PropTypes.element
 }
 
-export default connect(state => ({
-  cozyURL: getURL(state)
-}))(FileOpener)
+export default compose(
+  connect(state => ({ cozyURL: getURL(state) })),
+  translate()
+)(FileOpener)
