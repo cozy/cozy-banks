@@ -29,7 +29,7 @@ export const categoriesStyle = {
     color: '#FC4C83'
   },
   excludeFromBudgetCat: {
-    color: '#FF0D3D'
+    color: '#6984CE'
   },
   services: {
     color: '#7F6BEE'
