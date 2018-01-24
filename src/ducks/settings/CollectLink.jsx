@@ -1,9 +1,8 @@
-/* global __TARGET__ */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { flowRight as compose } from 'lodash'
 import { getAppUrlBySource, fetchApps } from 'ducks/apps'
-import { IntentOpener } from 'cozy-ui/react'
+// import { IntentOpener } from 'cozy-ui/react'
 
 /*
  * This component aims to open collect:
@@ -20,10 +19,10 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => ({
-  collectUrl: getAppUrlBySource(state, 'github.com/cozy/cozy-collect')
+  collectUrl: getAppUrlBySource(state, 'cozy-collect')
 })
 
-const MobileLink = compose(
+const NewWindowLink = compose(
   connect(mapStateToProps, mapDispatchToProps)
 )(class extends Component {
   componentDidMount () {
@@ -42,25 +41,29 @@ const MobileLink = compose(
 
 // Browser
 
-class BrowserLink extends Component {
-  render () {
-    return (
-      <IntentOpener
-        action='CREATE'
-        doctype='io.cozy.accounts'
-        options={{dataType: 'bankAccounts'}}
-      >
-        <span>{this.props.children}</span>
-      </IntentOpener>
-    )
-  }
-}
+// For now we don't use intent anymore, but we will use it later
+// See https://gitlab.cozycloud.cc/labs/cozy-bank/merge_requests/256
+// class IntentLink extends Component {
+//   render () {
+//     return (
+//       <IntentOpener
+//         action='CREATE'
+//         doctype='io.cozy.accounts'
+//         options={{dataType: 'bankAccounts'}}
+//       >
+//         <span>{this.props.children}</span>
+//       </IntentOpener>
+//     )
+//   }
+// }
 
 // Switch according to target
 
 const CollectLink = (props) => {
-  const Link = __TARGET__ === 'mobile' ? MobileLink : BrowserLink
-  return <Link {...props} />
+  // For now we redirect on collect on both mobile app and browsers
+  // since this is not possible to show a waiting message
+  // const Link = __TARGET__ === 'mobile' ? NewWindowLink : IntentLink
+  return <NewWindowLink {...props} />
 }
 
 export default CollectLink
