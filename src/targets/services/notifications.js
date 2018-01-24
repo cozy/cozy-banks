@@ -26,7 +26,12 @@ const getTransactionsChanges = async lastSeq => {
   const transactions = result.results
     .filter(x => x.doc && x.doc._id.indexOf('_design') !== 0)
     .filter(x => x.doc && !x.doc._deleted)
-    .map(x => x.doc)
+    .map(x => {
+      if (!x.doc) {
+        console.warn(`This response row doesn't contain a doc. Why?`, JSON.stringify(x))
+      }
+      return x.doc
+    })
     .filter(Boolean) // TODO find out why some documents are not returned
 
   const delta = result.results ? result.results.length - transactions.length : 0
@@ -56,7 +61,12 @@ const getAccountsOfTransactions = async transactions => {
   const rows = result.rows
   const accounts = rows
     .filter(x => !x.error) // filter accounts that have not been found
-    .map(x => x.doc)
+    .map(x => {
+      if (!x.doc) {
+        console.warn(`This response row doesn't contain a doc, why?`, JSON.stringify(x))
+      }
+      return x.doc
+    })
     .filter(Boolean)
 
   const delta = rows.length - accounts.length
