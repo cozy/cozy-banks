@@ -12,6 +12,7 @@ import 'number-to-locale-string'
 
 import { setupHistory } from 'utils/history'
 import { getClient } from 'utils/client'
+import { fetchSettingsCollection, initSettings } from 'ducks/settings'
 
 if (__TARGET__ === 'mobile') {
   require('styles/mobile.styl')
@@ -26,6 +27,16 @@ const renderAppWithPersistedState = persistedState => {
 
   const client = getClient(persistedState)
   const store = configureStore(client, persistedState)
+
+  // Initialize settings
+  store.dispatch(fetchSettingsCollection()).then(
+    res => {
+      if (res.data.length === 0) {
+        store.dispatch(initSettings())
+      }
+    }
+  )
+
   persistState(store)
 
   const StoreProvider = __TARGET__ === 'mobile' ? require('cozy-client').CozyProvider : require('react-redux').Provider
