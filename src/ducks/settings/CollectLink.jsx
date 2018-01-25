@@ -19,10 +19,10 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => ({
-  collectUrl: getAppUrlBySource(state, 'cozy-collect')
+  collectUrl: getAppUrlBySource(state, 'github.com/cozy/cozy-collect')
 })
 
-const NewWindowLink = compose(
+const SameWindowLink = compose(
   connect(mapStateToProps, mapDispatchToProps)
 )(class extends Component {
   componentDidMount () {
@@ -32,7 +32,7 @@ const NewWindowLink = compose(
   render () {
     const url = this.props.collectUrl + '#/providers/banking'
     return (
-      <span onClick={() => window.open(url, '_system')}>
+      <span onClick={() => { window.location = url }}>
         {this.props.children}
       </span>
     )
@@ -63,7 +63,7 @@ const CollectLink = (props) => {
   // For now we redirect on collect on both mobile app and browsers
   // since this is not possible to show a waiting message
   // const Link = __TARGET__ === 'mobile' ? NewWindowLink : IntentLink
-  return <NewWindowLink {...props} />
+  return <SameWindowLink {...props} />
 }
 
 export default CollectLink
