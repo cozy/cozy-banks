@@ -1,3 +1,4 @@
+/* global __TARGET__, __APP_VERSION__ */
 import React from 'react'
 import { translate } from 'cozy-ui/react/I18n'
 import Topbar from 'components/Topbar'
@@ -5,6 +6,7 @@ import { Tabs, TabPanels, TabPanel, TabList, Tab } from 'cozy-ui/react'
 import styles from './Settings.styl'
 import { withRouter } from 'react-router'
 import { flowRight as compose } from 'lodash'
+import AppVersion from './AppVersion'
 
 const tabNames = ['notifications', 'accounts', 'groups']
 
@@ -43,6 +45,7 @@ const Settings = ({ t, children, router }) => {
           </TabPanel>
         </TabPanels>
       </Tabs>
+      {__TARGET__ === 'mobile' && <AppVersion version={__APP_VERSION__} />}
     </div>
   )
 }
