@@ -7,7 +7,7 @@
  * table.
  */
 
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
@@ -85,81 +85,153 @@ export const ActionIcon = ({type, color, ...rest}) => {
 }
 
 // TODO : Action is doing way too much diffent things. We must split it
-export const Action = translate()(({t, transaction, showIcon, urls, onClick, type, color, bill}) => {
-  type = type || (transaction && getLinkType(transaction, urls))
-  if (type === undefined) {
-    return
+class _Action extends Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {}
+    this.setType()
+    this.setInvoiceFileId()
   }
 
-  let href, text, target
-  if (type === HEALTH_LINK) {
-    href = urls['HEALTH'] + '/#/remboursements'
-    text = t(`Transactions.actions.${type}`)
-  } else if (type === APP_LINK) {
-    const appName = getAppName(urls, transaction)
-    href = urls[appName]
-    text = t(`Transactions.actions.${type}`, {appName})
-  } else if (type === URL_LINK) {
-    const action = transaction.action
-    text = action.trad
-    target = action.target
-    href = action.url
-  } else if (type === HEALTH_EXPENSE_BILL_LINK) {
-    text = t(`Transactions.actions.${type}`).replace('%{vendor}', bill.vendor)
-  } else {
-    text = t(`Transactions.actions.${type}`)
+  setType = newType => {
+    const { type, transaction, urls } = this.props
+    this.setState({type: newType || type || (transaction && getLinkType(transaction, urls))})
   }
 
-  let widget = (
-    <a
-      href={href}
-      target={target}
-      onClick={onClick}
-      style={{ color }}
-      className={styles.TransactionAction}>
-      {text}
-    </a>
-  )
-
-  if (type === BILL_LINK) {
-    widget = (
-      <FileOpener getFileId={() => getInvoice(transaction)}>
-        { widget }
-      </FileOpener>
-    )
-  }
-
-  if (type === HEALTH_EXPENSE_BILL_LINK) {
-    widget = (
-      <FileOpener getFileId={() => getBillInvoice(bill)}>
-        {widget}
-      </FileOpener>
-    )
-  }
-
-  let iconColor = color
-
-  if (type === HEALTH_EXPENSE_STATUS) {
-    const vendors = getVendors(transaction)
-
-    widget = (
-      <HealthExpenseStatus
-        vendors={vendors}
-      />
-    )
-
-    if (vendors.length === 0) {
-      iconColor = palette.pomegranate
+  setInvoiceFileId = async () => {
+    const { type } = this.state
+    const { bill, transaction } = this.props
+    if (!type) return
+    let invoiceFileId
+    try {
+      if (type === BILL_LINK) {
+        invoiceFileId = await getInvoice(transaction)
+      } else if (type === HEALTH_EXPENSE_BILL_LINK && bill) {
+        invoiceFileId = await getBillInvoice(bill)
+      }
+    } catch (e) {
+      // TODO: Add sentry to watch if it's always on production
+      console.log('no invoice', bill)
+    }
+    if (invoiceFileId) {
+      this.setState({invoiceFileId})
     }
   }
 
-  return (
-    <span>
-      {showIcon && <ActionIcon type={type} className='u-mr-half' color={iconColor} />}
-      {widget}
-    </span>
-  )
-})
+  getInfo = () => {
+    const { type } = this.state
+    const { t, urls, transaction, bill } = this.props
+
+    if (type === HEALTH_LINK) {
+      return {
+        href: urls['HEALTH'] + '/#/remboursements',
+        text: t(`Transactions.actions.${type}`)
+      }
+    } else if (type === APP_LINK) {
+      const appName = getAppName(urls, transaction)
+      return {
+        href: urls[appName],
+        text: t(`Transactions.actions.${type}`, {appName})
+      }
+    } else if (type === URL_LINK) {
+      const action = transaction.action
+      return {
+        text: action.trad,
+        target: action.target,
+        href: action.url
+      }
+    } else if (type === HEALTH_EXPENSE_BILL_LINK && bill) {
+      return {
+        text: t(`Transactions.actions.${type}`).replace('%{vendor}', bill.vendor)
+      }
+    } else {
+      return {
+        text: t(`Transactions.actions.${type}`)
+      }
+    }
+  }
+
+  getGenericWidget = () => {
+    const { onClick, color } = this.props
+    const { href, text, target } = this.getInfo()
+
+    return (
+      <a
+        href={href}
+        target={target}
+        onClick={onClick}
+        style={{ color }}
+        className={styles.TransactionAction}>
+        {text}
+      </a>
+    )
+  }
+
+  getWidget = () => {
+    const { type, vendors, invoiceFileId } = this.state
+
+    if (type === HEALTH_EXPENSE_STATUS) {
+      return <HealthExpenseStatus vendors={vendors} />
+    }
+
+    const genericWidget = this.getGenericWidget()
+
+    const isFileOpener = type === BILL_LINK || type === HEALTH_EXPENSE_BILL_LINK
+    if (isFileOpener) {
+      if (invoiceFileId) {
+        return (
+          <FileOpener getFileId={() => invoiceFileId}>
+            { genericWidget }
+          </FileOpener>
+        )
+      } else {
+        return
+      }
+    }
+
+    return genericWidget
+  }
+
+  getIconColor = () => {
+    const { type, vendors } = this.state
+
+    const isHealthExpense = type === HEALTH_EXPENSE_STATUS
+    const hasVendor = vendors && vendors.length > 0
+
+    if (isHealthExpense && !hasVendor) {
+      return palette.pomegranate
+    }
+
+    return this.props.color
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.type !== this.state.type) {
+      this.setType(nextProps.type)
+    }
+  }
+
+  render () {
+    const { type } = this.state
+    const { showIcon } = this.props
+
+    if (type === undefined) return
+
+    const widget = this.getWidget()
+    if (widget === undefined) return // invoice is not found
+    const iconColor = this.getIconColor()
+
+    return (
+      <span>
+        {showIcon && <ActionIcon type={type} className='u-mr-half' color={iconColor} />}
+        {widget}
+      </span>
+    )
+  }
+}
+
+export const Action = translate()(_Action)
 
 /* Wraps the actions when they are displayed in Menu / ActionMenu */
 const ActionMenuItem = ({disabled, onClick, type, color, bill}) => {
