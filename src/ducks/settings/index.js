@@ -16,7 +16,7 @@ const DEFAULTS_SETTINGS = {
       enabled: false
     },
     transactionGreater: {
-      value: 100,
+      value: 30,
       enabled: false
     },
     salaire: {
