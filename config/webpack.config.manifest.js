@@ -25,5 +25,19 @@ function transformManifest (buffer) {
     manifest.category = 'partners'
   }
 
+  if (skin === 'demo') {
+    manifest.permissions.sharings = {
+      description: 'Handle shared bank accounts',
+      type: 'io.cozy.mocks.sharings',
+      verbs: ['GET']
+    }
+
+    manifest.permissions.recipients = {
+      description: 'Get recipients for shared accounts',
+      type: 'io.cozy.mocks.recipients',
+      verbs: ['GET']
+    }
+  }
+
   return JSON.stringify(manifest, null, 2)
 }
