@@ -2,6 +2,7 @@
 
 import { flowRight as compose } from 'lodash'
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import classNames from 'classnames'
@@ -12,7 +13,7 @@ import Overlay from 'cozy-ui/react/Overlay'
 import { Media, Bd, Img } from 'cozy-ui/react/Media'
 
 import AccountSharingStatus from 'components/AccountSharingStatus'
-import { filterByAccount, filterByGroup, getAccountOrGroup, resetAccountOrGroup } from 'ducks/filters'
+import { filterByDoc, getFilteringDoc, resetFilterByDoc } from 'ducks/filters'
 import styles from './AccountSwitch.styl'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 
@@ -23,18 +24,18 @@ const isLoading = function (collection) {
 }
 
 const AccountSwitchDesktop = translate()(
-  ({ isFetching, isOpen, accountOrGroup, accounts, t, toggle, accountExists }) => (
+  ({ isFetching, isOpen, filteringDoc, accounts, t, toggle, accountExists }) => (
     <button className={classNames(styles['account-switch-button'], {[styles['active']]: isOpen}, 'coz-desktop')} onClick={toggle}>
       {isFetching
         ? `${t('Loading.loading')}`
-        : accountOrGroup
+        : filteringDoc
           ? <div>
             <div className={styles['account-name']}>
-              {accountOrGroup.shortLabel || accountOrGroup.label} {<AccountSharingStatus account={accountOrGroup} />}
+              {filteringDoc.shortLabel || filteringDoc.label} {<AccountSharingStatus account={filteringDoc} />}
             </div>
             <div className={styles['account-num']}>
-              {accountOrGroup.number && 'n°' + accountOrGroup.number}
-              {accountOrGroup.accounts && t('AccountSwitch.account_counter', accountOrGroup.accounts.filter(accountExists).length)}
+              {filteringDoc.number && 'n°' + filteringDoc.number}
+              {filteringDoc.accounts && t('AccountSwitch.account_counter', filteringDoc.accounts.filter(accountExists).length)}
             </div>
           </div>
           : <div>
@@ -50,16 +51,24 @@ const AccountSwitchDesktop = translate()(
   )
 )
 
-const AccountSwitchMobile = ({accountOrGroup, onClick}) => (
+AccountSwitchDesktop.propTypes = {
+  filteringDoc: PropTypes.object
+}
+
+const AccountSwitchMobile = ({filteringDoc, onClick}) => (
   <button
     className={classNames(
       styles['account-switch-button-mobile'],
-      {[styles['active']]: accountOrGroup}
+      {[styles['active']]: filteringDoc}
     )}
     onClick={onClick} />
 )
 
-const AccountSwitchMenu = translate()(({ accounts, groups, accountOrGroup, resetAccountOrGroup, filterByGroup, filterByAccount, t, accountExists }) => (
+AccountSwitchMobile.propTypes = {
+  filteringDoc: PropTypes.object
+}
+
+const AccountSwitchMenu = translate()(({ accounts, groups, filteringDoc, filterByDoc, resetFilterByDoc, t, accountExists }) => (
   <div className={styles['account-switch-menu-content']}>
     <div className={styles['account-switch-menu']}>
       <h4>
@@ -67,7 +76,7 @@ const AccountSwitchMenu = translate()(({ accounts, groups, accountOrGroup, reset
       </h4>
       <ul>
         <li>
-          <button onClick={() => { resetAccountOrGroup() }} className={classNames({[styles['active']]: accountOrGroup === undefined})}>
+          <button onClick={() => { resetFilterByDoc() }} className={classNames({[styles['active']]: filteringDoc === undefined})}>
             {t('AccountSwitch.all_accounts')}
             <span className={styles['account-count']}>
               ({t('AccountSwitch.account_counter', accounts.length)})
@@ -77,8 +86,8 @@ const AccountSwitchMenu = translate()(({ accounts, groups, accountOrGroup, reset
         {groups.map(group => (
           <li>
             <button
-              onClick={() => { filterByGroup(group) }}
-              className={classNames({[styles['active']]: accountOrGroup && group._id === accountOrGroup._id})}>
+              onClick={() => { filterByDoc(group) }}
+              className={classNames({[styles['active']]: filteringDoc && group._id === filteringDoc._id})}>
               {group.label}
               <span className={styles['account-count']}>
                 ({t('AccountSwitch.account_counter', group.accounts.filter(accountExists).length)})
@@ -100,8 +109,8 @@ const AccountSwitchMenu = translate()(({ accounts, groups, accountOrGroup, reset
         {accounts.map(account => (
           <li>
             <button
-              onClick={() => { filterByAccount(account) }}
-              className={classNames({[styles['active']]: accountOrGroup && account._id === accountOrGroup._id})}>
+              onClick={() => { filterByDoc(account) }}
+              className={classNames({[styles['active']]: filteringDoc && account._id === filteringDoc._id})}>
               <Media>
                 <Bd>
                   {account.shortLabel || account.label} - {account.institutionLabel}
@@ -120,6 +129,12 @@ const AccountSwitchMenu = translate()(({ accounts, groups, accountOrGroup, reset
     </div>
   </div>
 ))
+
+AccountSwitchMenu.propTypes = {
+  filterByDoc: PropTypes.func.isRequired,
+  resetFilterByDoc: PropTypes.func.isRequired,
+  filteringDoc: PropTypes.object
+}
 
 // Note that everything is set up to be able to combine filters (even the redux store).
 // It's only limited to one filter in a few places, because the UI can only accomodate one right now.
@@ -146,7 +161,7 @@ class AccountSwitch extends Component {
   }
 
   render () {
-    const { accountOrGroup, resetAccountOrGroup, filterByAccount, filterByGroup, breakpoints: { isMobile, isTablet, isDesktop } } = this.props
+    const { filteringDoc, filterByDoc, resetFilterByDoc, breakpoints: { isMobile, isTablet, isDesktop } } = this.props
     const { open } = this.state
     let { accounts, groups } = this.props
     const isFetching = isLoading(accounts) || isLoading(groups)
@@ -165,39 +180,44 @@ class AccountSwitch extends Component {
     return (
       <div className={styles['account-switch']}>
         {isMobile && <BarRight>
-          <AccountSwitchMobile accountOrGroup={accountOrGroup} onClick={this.toggle} />
+          <AccountSwitchMobile filteringDoc={filteringDoc} onClick={this.toggle} />
         </BarRight>}
-        {isTablet && <AccountSwitchMobile accountOrGroup={accountOrGroup} onClick={this.toggle} />}
+        {isTablet && <AccountSwitchMobile filteringDoc={filteringDoc} onClick={this.toggle} />}
         {isDesktop && <AccountSwitchDesktop
           isFetching={isFetching}
           isOpen={open}
-          accountOrGroup={accountOrGroup}
+          filteringDoc={filteringDoc}
           accounts={accounts}
           accountExists={this.accountExists}
           toggle={this.toggle} />}
         {open && <Overlay className='coz-tablet' onClick={this.close} />}
         {open &&
           <AccountSwitchMenu
-            resetAccountOrGroup={closeAfterSelect(resetAccountOrGroup)}
-            filterByAccount={closeAfterSelect(filterByAccount)}
-            filterByGroup={closeAfterSelect(filterByGroup)}
+            filteringDoc={filteringDoc}
+            filterByDoc={closeAfterSelect(filterByDoc)}
+            resetFilterByDoc={closeAfterSelect(resetFilterByDoc)}
             groups={groups}
             accounts={accounts}
             accountExists={this.accountExists}
-            accountOrGroup={accountOrGroup} />}
+          />}
       </div>
     )
   }
 }
 
+AccountSwitch.propTypes = {
+  filterByDoc: PropTypes.func.isRequired,
+  resetFilterByDoc: PropTypes.func.isRequired,
+  filteringDoc: PropTypes.object
+}
+
 const mapStateToProps = state => ({
-  accountOrGroup: getAccountOrGroup(state)
+  filteringDoc: getFilteringDoc(state)
 })
 
 const mapDispatchToProps = dispatch => ({
-  resetAccountOrGroup: () => dispatch(resetAccountOrGroup()),
-  filterByAccount: account => dispatch(filterByAccount(account)),
-  filterByGroup: group => dispatch(filterByGroup(group))
+  resetFilterByDoc: () => dispatch(resetFilterByDoc()),
+  filterByDoc: doc => dispatch(filterByDoc(doc))
 })
 
 const mapDocumentsToProps = ownProps => ({

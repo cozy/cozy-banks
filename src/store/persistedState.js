@@ -3,8 +3,7 @@ import localforage from 'localforage'
 export const persistState = store => {
   store.subscribe(() => saveState({
     filters: {
-      accountOrGroupType: store.getState().filters.accountOrGroupType,
-      accountOrGroupId: store.getState().filters.accountOrGroupId
+      filteringDoc: store.getState().filters.filteringDoc
     },
     mobile: store.getState().mobile
   }))
