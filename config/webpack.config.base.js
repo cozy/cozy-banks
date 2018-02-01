@@ -40,6 +40,10 @@ module.exports = {
         }
       },
       {
+        test: /\.webapp$/,
+        loader: 'json-loader'
+      },
+      {
         include: SRC_DIR,
         test: /\.styl$/,
         loader: extractor.extract({
