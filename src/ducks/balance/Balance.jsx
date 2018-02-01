@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import cx from 'classnames'
 import { translate, Button, Icon, withBreakpoints } from 'cozy-ui/react'
 import styles from './Balance.styl'
-import { getAccountsFiltered, getAccountOrGroupType, getAccountOrGroup } from 'ducks/filters'
+import { getAccountsFiltered, getFilteringDoc } from 'ducks/filters'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { flowRight as compose } from 'lodash'
 import btnStyles from 'styles/buttons'
@@ -14,9 +14,10 @@ import CollectLink from 'ducks/settings/CollectLink'
 import { getSettings, fetchSettingsCollection } from 'ducks/settings'
 import plus from 'assets/icons/16/plus.svg'
 
-const Balance = ({t, accounts, type, accountOrGroup, settingsCollection, breakpoints: { isMobile }}) => {
-  const label = accountOrGroup ? (accountOrGroup.shortLabel || accountOrGroup.label) : ''
+const Balance = ({t, accounts, filteringDoc, settingsCollection, breakpoints: { isMobile }}) => {
+  const label = filteringDoc ? (filteringDoc.shortLabel || filteringDoc.label) : ''
   let trad
+  const type = filteringDoc ? filteringDoc._type : null
   switch (type) {
     case ACCOUNT_DOCTYPE:
       trad = 'Balance.subtitle.account'
@@ -83,9 +84,8 @@ const Balance = ({t, accounts, type, accountOrGroup, settingsCollection, breakpo
 }
 
 const mapStateToProps = state => ({
-  accountOrGroup: getAccountOrGroup(state),
+  filteringDoc: getFilteringDoc(state),
   accounts: getAccountsFiltered(state),
-  type: getAccountOrGroupType(state),
   settingsCollection: fetchSettingsCollection()
 })
 
