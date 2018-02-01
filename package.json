@@ -186,7 +186,10 @@
       "__DEVELOPMENT__": false,
       "__SENTRY_TOKEN__": "token",
       "cozy": {}
-    }
+    },
+    "testMatch": [
+      "**/__tests__/**/*.js?(x)", "**/?(*.)(spec).js?(x)"
+    ]
   },
   "standard": {
     "env": [
