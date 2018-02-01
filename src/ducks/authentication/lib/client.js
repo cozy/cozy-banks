@@ -3,10 +3,37 @@ import { CozyClient } from 'cozy-client'
 import { LocalStorage as Storage } from 'cozy-client-js'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
 import manifest from '../../../../manifest.webapp'
+import { capitalize } from 'lodash'
 
 const isCordova = () => window.cordova !== undefined
 const hasDeviceCordovaPlugin = () => isCordova() && window.device !== undefined
-export const getDeviceName = () => hasDeviceCordovaPlugin() ? window.device.model : 'Device'
+
+const getAppleModel = identifier => {
+  const devices = ['iPhone', 'iPad']
+
+  for (const device of devices) {
+    if (identifier.match(new RegExp(device))) {
+      return device
+    }
+  }
+
+  return 'device'
+}
+
+export const getDeviceName = () => {
+  if (!hasDeviceCordovaPlugin()) {
+    return 'Device'
+  }
+
+  const {
+    manufacturer,
+    model: originalModel
+  } = window.device
+
+  const model = manufacturer === 'Apple' ? getAppleModel(originalModel) : originalModel
+
+  return `${capitalize(manufacturer)} ${model}`
+}
 const SOFTWARE_ID = 'io.cozy.banks.mobile'
 const SOFTWARE_NAME = 'Cozy Banks'
 const getLang = () => (navigator && navigator.language) ? navigator.language.slice(0, 2) : 'en'
