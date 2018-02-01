@@ -20,7 +20,7 @@ export const getFilteringDoc = state => state.filters.filteringDoc
 const getFilteredAccountIds = state => {
   const doc = getFilteringDoc(state)
   if (!doc) {
-    return []
+    return getAccounts(state).map(x => x._id)
   }
   const doctype = doc._type
   const id = doc.id
