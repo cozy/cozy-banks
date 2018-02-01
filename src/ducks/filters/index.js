@@ -4,7 +4,7 @@ import { startOfMonth, endOfMonth, isAfter, isBefore, parse } from 'date-fns'
 import SelectDates from './SelectDates'
 import { getTransactions, getGroups, getAccounts } from 'selectors'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
-import { sortBy, last, keyBy } from 'lodash'
+import { sortBy, last, keyBy, find } from 'lodash'
 import { DESTROY_ACCOUNT } from 'actions/accounts'
 
 // constants
@@ -18,29 +18,35 @@ export const getEndDate = state => state.filters.endDate
 export const getFilteringDoc = state => state.filters.filteringDoc
 
 const getFilteredAccountIds = state => {
+  const availableAccountIds = getAccounts(state).map(x => x._id)
   const doc = getFilteringDoc(state)
   if (!doc) {
-    return getAccounts(state).map(x => x._id)
+    return availableAccountIds
   }
   const doctype = doc._type
-  const id = doc.id
-  let accountIds = []
+  const id = doc._id
 
   if (doctype === ACCOUNT_DOCTYPE) {
-    accountIds.push(id)
+    if (availableAccountIds.indexOf(id) > -1) {
+      return [id]
+    } else {
+      console.warn('Filtering by unavailable account, returning all accounts')
+      return availableAccountIds
+    }
   } else if (doctype === GROUP_DOCTYPE) {
-    const group = getGroups(state).find(group => group._id === id)
+    const groups = getGroups(state)
+    const group = find(groups, { _id: id })
     if (group) {
-      accountIds = accountIds.concat(group.accounts)
+      return group.accounts
+    } else {
+      return availableAccountIds
     }
   }
-
-  return accountIds
 }
 
 export const getAccountsFiltered = state => {
   const ids = keyBy(getFilteredAccountIds(state))
-  return getAccounts(state).filter(account => ids[account.id])
+  return getAccounts(state).filter(account => ids[account._id])
 }
 
 export const getFilteredTransactions = createSelector(
