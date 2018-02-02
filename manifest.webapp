@@ -61,20 +61,10 @@
     }
   },
   "permissions": {
-    "apps": {
-      "description": "Required by the cozy-bar to display the icons of the apps",
-      "type": "io.cozy.apps",
-      "verbs": ["GET"]
-    },
-    "notifications": {
-      "description": "Used to send notifications",
-      "type": "io.cozy.notifications",
-      "verbs": ["POST"]
-    },
-    "bank.settings": {
-      "description": "Used to manage your bank settings",
-      "type": "io.cozy.bank.settings",
-      "verbs": ["GET", "POST", "PUT"]
+    "bank.groups": {
+      "description": "Manage groups of bank accounts",
+      "type": "io.cozy.bank.groups",
+      "verbs": ["GET", "POST", "PUT", "DELETE"]
     },
     "bank.accounts": {
       "description": "Used to list your bank accounts",
@@ -86,15 +76,25 @@
       "type": "io.cozy.bank.operations",
       "verbs": ["GET", "POST", "PUT"]
     },
-    "bank.groups": {
-      "description": "Manage groups of bank accounts",
-      "type": "io.cozy.bank.groups",
-      "verbs": ["GET", "POST", "PUT", "DELETE"]
-    },
     "bills": {
       "description": "Manage bills",
       "type": "io.cozy.bills",
       "verbs": ["GET", "POST", "PUT", "DELETE"]
+    },
+    "notifications": {
+      "description": "Used to send notifications",
+      "type": "io.cozy.notifications",
+      "verbs": ["POST"]
+    },
+    "apps": {
+      "description": "Required by the cozy-bar to display the icons of the apps",
+      "type": "io.cozy.apps",
+      "verbs": ["GET"]
+    },
+    "bank.settings": {
+      "description": "Used to manage your bank settings",
+      "type": "io.cozy.bank.settings",
+      "verbs": ["GET", "POST", "PUT"]
     },
     "settings": {
       "description": "Required by the cozy-bar to display Claudy and know which applications are coming soon",
