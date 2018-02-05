@@ -2,7 +2,7 @@
 import { CozyClient } from 'cozy-client'
 import { LocalStorage as Storage } from 'cozy-client-js'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
-import manifest from '../../../../manifest.webapp'
+import getPermissions from 'utils/getPermissions'
 import { capitalize } from 'lodash'
 
 const isCordova = () => window.cordova !== undefined
@@ -80,7 +80,7 @@ export const initClient = (url) => {
         clientURI: 'https://gitlab.cozycloud.cc/labs/cozy-bank',
         logoURI: 'https://gitlab.cozycloud.cc/labs/cozy-bank/raw/master/src/targets/favicons/favicon-32x32.png',
         policyURI: 'https://files.cozycloud.cc/cgu.pdf',
-        scopes: Object.keys(manifest.permissions).map(permission => manifest.permissions[permission].type)
+        scopes: getPermissions()
       }
     },
     offline: {doctypes: [ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE]}
