@@ -258,6 +258,7 @@
   "Groups": {
     "groups": "Groupes",
     "label": "Libellé",
+    "bank": "Banque",
     "accounts": "Comptes",
     "create": "créer",
     "edit": "éditer",
