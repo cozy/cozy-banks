@@ -18,6 +18,7 @@ import Table from 'components/Table'
 import Spinner from 'cozy-ui/react/Spinner'
 import styles from './GroupsSettings.styl'
 import btnStyles from 'styles/buttons'
+import { getAccountInstitutionLabel } from '../account/helpers'
 
 const accountInGroup = (account, group) =>
   group.accounts.indexOf(account._id) > -1
@@ -68,6 +69,9 @@ class GroupSettings extends Component {
       <tr>
         <td className={styles.GrpStg__accntLabel}>
           {account.shortLabel || account.label}
+        </td>
+        <td className={styles.GrpStg__accntBank}>
+          {getAccountInstitutionLabel(account)}
         </td>
         <td className={styles.GrpStg__accntNumber}>
           {account.number}
@@ -128,6 +132,9 @@ class GroupSettings extends Component {
               <tr>
                 <th className={styles.GrpStg__accntLabel}>
                   {t('Groups.label')}
+                </th>
+                <th className={styles.GrpStg__accntBank}>
+                  {t('Groups.bank')}
                 </th>
                 <th className={styles.GrpStg__accntNumber}>
                   {t('Groups.account-number')}

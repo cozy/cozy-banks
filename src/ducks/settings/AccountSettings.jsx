@@ -17,6 +17,7 @@ import styles from './AccountsSettings.styl'
 import { flowRight as compose } from 'lodash'
 import { destroyAccount } from 'actions'
 import spinner from 'assets/icons/icon-spinner.svg'
+import { getAccountInstitutionLabel } from '../account/helpers'
 
 const DeleteConfirm = translate()(({ t, cancel, confirm, deleting }) => {
   return (
@@ -102,7 +103,7 @@ class _GeneralSettings extends Component {
           </tr>
           <tr>
             <td>{t('AccountDetails.institutionLabel')}</td>
-            <td>{account.institutionLabel}</td>
+            <td>{getAccountInstitutionLabel(account)}</td>
           </tr>
           <tr>
             <td>{t('AccountDetails.number')}</td>

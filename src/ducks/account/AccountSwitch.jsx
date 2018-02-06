@@ -1,6 +1,6 @@
 /* global cozy */
 
-import { flowRight as compose } from 'lodash'
+import { flowRight as compose, sortBy } from 'lodash'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -16,6 +16,7 @@ import AccountSharingStatus from 'components/AccountSharingStatus'
 import { filterByDoc, getFilteringDoc, resetFilterByDoc } from 'ducks/filters'
 import styles from './AccountSwitch.styl'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
+import { getAccountInstitutionLabel } from './helpers.js'
 
 const { BarRight } = cozy.bar
 
@@ -78,7 +79,7 @@ const AccountSwitchMenu = translate()(({ accounts, groups, filteringDoc, filterB
         <li>
           <button onClick={() => { resetFilterByDoc() }} className={classNames({[styles['active']]: filteringDoc === undefined})}>
             {t('AccountSwitch.all_accounts')}
-            <span className={styles['account-count']}>
+            <span className={styles['account-secondary-info']}>
               ({t('AccountSwitch.account_counter', accounts.length)})
             </span>
           </button>
@@ -89,7 +90,7 @@ const AccountSwitchMenu = translate()(({ accounts, groups, filteringDoc, filterB
               onClick={() => { filterByDoc(group) }}
               className={classNames({[styles['active']]: filteringDoc && group._id === filteringDoc._id})}>
               {group.label}
-              <span className={styles['account-count']}>
+              <span className={styles['account-secondary-info']}>
                 ({t('AccountSwitch.account_counter', group.accounts.filter(accountExists).length)})
               </span>
             </button>
@@ -113,7 +114,7 @@ const AccountSwitchMenu = translate()(({ accounts, groups, filteringDoc, filterB
               className={classNames({[styles['active']]: filteringDoc && account._id === filteringDoc._id})}>
               <Media>
                 <Bd>
-                  {account.shortLabel || account.label} - {account.institutionLabel}
+                  {account.shortLabel || account.label}<span className={styles['account-secondary-info']}>- {getAccountInstitutionLabel(account)}</span>
                 </Bd>
                 <Img>
                   <AccountSharingStatus tooltip account={account} />
@@ -177,6 +178,8 @@ class AccountSwitch extends Component {
       this.close()
     }
 
+    const orderedGroups = sortBy(groups, 'label')
+
     return (
       <div className={styles['account-switch']}>
         {isMobile && <BarRight>
@@ -196,7 +199,7 @@ class AccountSwitch extends Component {
             filteringDoc={filteringDoc}
             filterByDoc={closeAfterSelect(filterByDoc)}
             resetFilterByDoc={closeAfterSelect(resetFilterByDoc)}
-            groups={groups}
+            groups={orderedGroups}
             accounts={accounts}
             accountExists={this.accountExists}
           />}

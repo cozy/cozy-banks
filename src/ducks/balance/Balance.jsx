@@ -13,6 +13,7 @@ import btnStyles from 'styles/buttons'
 import CollectLink from 'ducks/settings/CollectLink'
 import { getSettings, fetchSettingsCollection } from 'ducks/settings'
 import plus from 'assets/icons/16/plus.svg'
+import { getAccountInstitutionLabel } from '../account/helpers'
 
 const Balance = ({t, accounts, filteringDoc, settingsCollection, breakpoints: { isMobile }}) => {
   const label = filteringDoc ? (filteringDoc.shortLabel || filteringDoc.label) : ''
@@ -66,7 +67,7 @@ const Balance = ({t, accounts, filteringDoc, settingsCollection, breakpoints: { 
                 <TdSecondary className={cx(styles['solde'], { [styles.alert]: isAlert, [styles.warning]: isWarning })}>
                   {account.balance && <Figure total={account.balance} warningLimit={balanceLower} currency='€' coloredNegative coloredWarning signed />}
                 </TdSecondary>
-                {!isMobile && <TdSecondary className={styles['bank_name']}>{account.institutionLabel}</TdSecondary>}
+                {!isMobile && <TdSecondary className={styles['bank_name']}>{getAccountInstitutionLabel(account)}</TdSecondary>}
                 {!isMobile && <TdSecondary className={styles['account_number']}>{account.number}</TdSecondary>}
               </tr>
             )

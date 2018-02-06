@@ -13,6 +13,7 @@ import styles from './AccountsSettings.styl'
 import btnStyles from 'styles/buttons'
 import CollectLink from 'ducks/settings/CollectLink'
 import cx from 'classnames'
+import { getAccountInstitutionLabel } from '../account/helpers'
 
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 
@@ -30,7 +31,7 @@ const _AccountLine = ({account, router, t}) => (
       {account.shortLabel || account.label}
     </td>
     <td className={styles.AcnsStg__bank}>
-      {account.institutionLabel}
+      {getAccountInstitutionLabel(account)}
     </td>
     <td className={styles.AcnsStg__number}>
       {account.number}
