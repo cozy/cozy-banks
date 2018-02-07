@@ -157,6 +157,7 @@
     "splashicon-generator": "^0.2.12",
     "stats-webpack-plugin": "^0.6.1",
     "string-replace-webpack-plugin": "^0.1.3",
+    "timezone": "^1.0.13",
     "velocity-animate": "^1.5.0"
   },
   "jest": {
@@ -175,7 +176,8 @@
       "styles": "identity-obj-proxy",
       "styl$": "identity-obj-proxy",
       "css$": "identity-obj-proxy",
-      "hbs$": "identity-obj-proxy"
+      "hbs$": "identity-obj-proxy",
+      "webapp$": "identity-obj-proxy"
     },
     "transformIgnorePatterns": [
       "node_modules/(?!(cozy-ui|cozy-client))"
