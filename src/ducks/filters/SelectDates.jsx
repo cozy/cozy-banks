@@ -1,32 +1,30 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Select from 'components/Select'
-import { subMonths, startOfMonth, endOfMonth, differenceInDays, endOfDay } from 'date-fns'
+import { subMonths, format, endOfDay, parse } from 'date-fns'
 import { translate } from 'cozy-ui/react/I18n'
-import { getStartDate, getEndDate, addFilterByDates } from '.'
+import { getPeriod, addFilterByPeriod } from '.'
 
 import styles from './SelectDates.styl'
 import Icon from 'cozy-ui/react/Icon'
 import arrowLeft from 'assets/icons/icon-arrow-left.svg'
 import cx from 'classnames'
 import scrollAware from './scrollAware'
-import { flowRight as compose } from 'lodash'
+import { flowRight as compose, findIndex } from 'lodash'
 
-const createRange = (startDate, endDate) => ({ startDate, endDate })
-
-const getDatesRange = () => {
-  const datesRange = []
+const getPeriods = () => {
+  const periods = []
   const now = endOfDay(new Date())
 
   for (const monthNumber of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]) {
-    const month = subMonths(now, monthNumber)
-    datesRange.push(createRange(startOfMonth(month), endOfMonth(month)))
+    const month = format(subMonths(now, monthNumber), 'YYYY-MM')
+    periods.push(month)
   }
 
   // last year
-  datesRange.push(createRange(subMonths(now, 12), now))
+  periods.push(format(now, 'YYYY'))
 
-  return datesRange
+  return periods
 }
 
 const capitalizeFirstLetter = string => {
@@ -35,37 +33,34 @@ const capitalizeFirstLetter = string => {
 
 class SelectDates extends Component {
   state = {
-    datesRange: getDatesRange()
+    periods: getPeriods()
   }
 
   getSelectedIndex = () => {
-    const { datesRange } = this.state
-    const { startDate, endDate } = this.props
-    for (const [index, value] of datesRange.entries()) {
-      if (differenceInDays(value.startDate, startDate) === 0 && differenceInDays(value.endDate, endDate) === 0) {
-        return index
-      }
-    }
-    return 0
+    const { periods } = this.state
+    const { period } = this.props
+    const index = findIndex(periods, x => x === period)
+    return index > -1 ? index : 0
   }
 
   getOptions = () => {
     // create options
     const { t, f } = this.props
-    const { datesRange } = this.state
+    const { periods } = this.state
     const options = []
-    for (const [index, value] of datesRange.entries()) {
-      if (index === datesRange.length - 1) {
+    for (const [index, value] of periods.entries()) {
+      if (index === periods.length - 1) {
         options.push({value: index, name: t('SelectDates.last_12_months')})
       } else {
-        options.push({value: index, name: capitalizeFirstLetter(f(value.startDate, 'MMMM YYYY'))})
+        const date = parse(value, 'YYYY-MM')
+        options.push({value: index, name: capitalizeFirstLetter(f(date, 'MMMM YYYY'))})
       }
     }
     return options
   }
 
   onChange = (name, index) => {
-    this.props.onChange(this.state.datesRange[index])
+    this.props.onChange(this.state.periods[index])
   }
 
   onChooseNext = () => {
@@ -93,7 +88,7 @@ class SelectDates extends Component {
         <button disabled={selected === options.length - 1} className={styles['prev-button']} onClick={this.onChoosePrev}>
           <Icon height='1rem' icon={arrowLeft} />
         </button>
-        <Select className={styles['select-dates-select']} name='datesRange' value={selected} options={options} onChange={this.onChange} />
+        <Select className={styles['select-dates-select']} name='periods' value={selected} options={options} onChange={this.onChange} />
         <button disabled={selected === 0} className={styles['next-button']} onClick={this.onChooseNext}>
           <Icon height='1rem' className={styles['next-icon']} icon={arrowLeft} />
         </button>
@@ -103,13 +98,12 @@ class SelectDates extends Component {
 }
 
 const mapStateToProps = state => ({
-  startDate: getStartDate(state),
-  endDate: getEndDate(state)
+  period: getPeriod(state)
 })
 
 const mapDispatchToProps = dispatch => ({
-  onChange: (dateRange) => {
-    dispatch(addFilterByDates(dateRange.startDate, dateRange.endDate))
+  onChange: period => {
+    dispatch(addFilterByPeriod(period))
   }
 })
 

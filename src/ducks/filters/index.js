@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import { createSelector } from 'reselect'
-import { startOfMonth, endOfMonth, isAfter, isBefore, parse } from 'date-fns'
+import { parse, format } from 'date-fns'
 import SelectDates from './SelectDates'
 import { getTransactions, getGroups, getAccounts } from 'selectors'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
@@ -8,13 +8,12 @@ import { sortBy, last, keyBy, find } from 'lodash'
 import { DESTROY_ACCOUNT } from 'actions/accounts'
 
 // constants
-const FILTER_BY_DATES = 'FILTER_BY_DATES'
+const FILTER_BY_PERIOD = 'FILTER_BY_PERIOD'
 const FILTER_BY_DOC = 'FILTER_BY_DOC'
 const RESET_FILTER_BY_DOC = 'RESET_FILTER_BY_DOC'
 
 // selectors
-export const getStartDate = state => state.filters.startDate
-export const getEndDate = state => state.filters.endDate
+export const getPeriod = state => state.filters.period
 export const getFilteringDoc = state => state.filters.filteringDoc
 
 const getFilteredAccountIds = state => {
@@ -50,54 +49,64 @@ export const getAccountsFiltered = state => {
 }
 
 export const getFilteredTransactions = createSelector(
-  [getTransactions, getFilteredAccountIds, getStartDate, getEndDate],
-  (transactions, accountIds, startDate, endDate) => {
+  [getTransactions, getFilteredAccountIds, getPeriod],
+  (transactions, accountIds, period) => {
     if (accountIds && accountIds.length > 0) {
       transactions = filterByAccountIds(transactions, accountIds)
     }
-    return filterByDates(transactions, startDate, endDate)
+    return filterByPeriod(transactions, period)
   }
 )
 
+const monthFormat = date => {
+  return format(date, 'YYYY-MM')
+}
+
+const yearFormat = date => {
+  return format(date, 'YYYY')
+}
+
 // filters
-const filterByDates = (transactions, startDate, endDate) => transactions.filter(transaction => {
-  const date = parse(transaction.date)
-  return isAfter(date, startDate) && isBefore(date, endDate)
-})
+const filterByPeriod = (transactions, period) => {
+  let formatter
+  const l = period.length
+  if (l === 4) {
+    formatter = yearFormat
+  } else if (l === 7) {
+    formatter = monthFormat
+  } else {
+    throw new Error('Invalid period: ' + period)
+  }
+
+  return transactions.filter(transaction => {
+    const date = parse(transaction.date)
+    return formatter(date) === period
+  })
+}
 
 const filterByAccountIds = (transactions, accountIds) => transactions.filter(transaction => {
   return accountIds.indexOf(transaction.account) !== -1
 })
 
 // actions
-export const addFilterByDates = (startDate, endDate) => ({ type: FILTER_BY_DATES, startDate, endDate })
+export const addFilterByPeriod = period => ({ type: FILTER_BY_PERIOD, period })
 export const resetFilterByDoc = () => ({ type: RESET_FILTER_BY_DOC })
 export const filterByDoc = doc => ({ type: FILTER_BY_DOC, doc })
 
 export const addFilterForMostRecentTransactions = transactions => {
   const mostRecentTransaction = last(sortBy(transactions, 'date'))
   const date = mostRecentTransaction ? mostRecentTransaction.date : new Date()
-  return addFilterByDates(startOfMonth(date), endOfMonth(date))
+  return addFilterByPeriod(monthFormat(date))
 }
 // components
 export { SelectDates }
 
 // reducers
-const getDefaultStartDate = () => startOfMonth(new Date())
-const startDate = (state = getDefaultStartDate(), action) => {
+const getDefaultMonth = () => monthFormat(new Date())
+const period = (state = getDefaultMonth(), action) => {
   switch (action.type) {
-    case FILTER_BY_DATES:
-      return action.startDate
-    default:
-      return state
-  }
-}
-
-const getDefaultEndDate = () => endOfMonth(new Date())
-const endDate = (state = getDefaultEndDate(), action) => {
-  switch (action.type) {
-    case FILTER_BY_DATES:
-      return action.endDate
+    case FILTER_BY_PERIOD:
+      return action.period
     default:
       return state
   }
@@ -132,8 +141,7 @@ const composeReducers = (...reducers) => (state, action) =>
 
 export default composeReducers(
   combineReducers({
-    startDate,
-    endDate,
+    period,
     filteringDoc
   }),
   handleDestroyAccount
