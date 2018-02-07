@@ -50,17 +50,10 @@ const toDate = function (timestamp) {
   return new Date(timestamp)
 }
 
-const parisDateStr = function (dateStr) {
-  return eu(dateStr, '%F %T%Z', 'Europe/Paris')
-}
-
-const nyDateStr = function (dateStr) {
-  return us(dateStr, '%F %T%Z', 'America/New_York')
-}
-
-const tokyoDateStr = function (dateStr) {
-  return jp(dateStr, '%F %T%Z', 'Asia/Tokyo')
-}
+const ISO_FORMAT = '%F %T%Z'
+const parisDateStr = dateStr => eu(dateStr, ISO_FORMAT, 'Europe/Paris')
+const nyDateStr = dateStr => us(dateStr, ISO_FORMAT, 'America/New_York')
+const tokyoDateStr = dateStr => jp(dateStr, ISO_FORMAT, 'Asia/Tokyo')
 
 describe('filter selectors', () => {
   let state
