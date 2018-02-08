@@ -2,12 +2,19 @@ import reducer, {
   filterByDoc,
   getFilteredTransactions,
   getAccountsFiltered,
-  addFilterByDates,
+  addFilterByPeriod,
   resetFilterByDoc
 } from '.'
+
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { DESTROY_ACCOUNT } from 'actions/accounts'
 import { getTransactions, getGroups, getAccounts } from 'selectors'
+import tz from 'timezone'
+
+const eu = tz(require("timezone/Europe"))
+const jp = tz(require("timezone/Asia"))
+const us = tz(require("timezone/America"))
+
 
 jest.mock('selectors/index.js')
 
@@ -39,9 +46,14 @@ describe('filter reducer', function () {
   })
 })
 
-const isoDate = function (stringDate) {
-  return new Date(`${stringDate}T00:00:00Z`)
+const toDate = function (timestamp) {
+  return new Date(timestamp)
 }
+
+const ISO_FORMAT = '%F %T%Z'
+const parisDateStr = dateStr => eu(dateStr, ISO_FORMAT, 'Europe/Paris')
+const nyDateStr = dateStr => us(dateStr, ISO_FORMAT, 'America/New_York')
+const tokyoDateStr = dateStr => jp(dateStr, ISO_FORMAT, 'Asia/Tokyo')
 
 describe('filter selectors', () => {
   let state
@@ -56,17 +68,22 @@ describe('filter selectors', () => {
     }
     state.filters = reducer(
       state.filters,
-      addFilterByDates(isoDate('2018-01-01'), isoDate('2018-01-31')),
+      addFilterByPeriod('2018-01'),
     )
 
     getTransactions.mockReturnValue([
-      { _id: 't0', account: 'a0', label: 'Transaction 0', date: isoDate('2018-01-02')},
-      { _id: 't1', account: 'a1', label: 'Transaction 1', date: isoDate('2018-01-03')},
-      { _id: 't2', account: 'a1', label: 'Transaction 2', date: isoDate('2018-01-04')},
-      { _id: 't3', account: 'a2', label: 'Transaction 3', date: isoDate('2018-01-05')},
-      { _id: 't4', account: 'a0', label: 'Transaction 4', date: isoDate('2018-01-06')},
-      { _id: 't4', account: 'a6', label: 'Transaction 5', date: isoDate('2018-01-07')},
-      { _id: 't4', account: 'a6', label: 'Transaction 6', date: isoDate('2018-01-08')},
+      { _id: 't0', account: 'a0', label: 'Transaction 0', date: tokyoDateStr('2018-01-01')},
+      { _id: 't1', account: 'a1', label: 'Transaction 1', date: parisDateStr('2018-01-03')},
+      { _id: 't2', account: 'a1', label: 'Transaction 2', date: parisDateStr('2018-01-04')},
+      { _id: 't3', account: 'a2', label: 'Transaction 3', date: parisDateStr('2018-01-05')},
+      { _id: 't4', account: 'a0', label: 'Transaction 4', date: tokyoDateStr('2018-01-06')},
+      { _id: 't5', account: 'a6', label: 'Transaction 5', date: tokyoDateStr('2018-01-07')},
+      { _id: 't6', account: 'a6', label: 'Transaction 6', date: nyDateStr('2018-01-08')},
+      { _id: 't7', account: 'a0', label: 'Transaction 7', date: tokyoDateStr('2018-02-01')},
+      { _id: 't8', account: 'a1', label: 'Transaction 8', date: nyDateStr('2018-02-08')},
+      { _id: 't9', account: 'a1', label: 'Transaction 9', date: parisDateStr('2018-02-08')},
+      { _id: 't10', account: 'a1', label: 'Transaction 9', date: parisDateStr('2019-01-01')},
+      { _id: 't11', account: 'a1', label: 'Transaction 9', date: parisDateStr('2019-01-02')},
     ])
     getAccounts.mockReturnValue([
       { _id: 'a0', _type: ACCOUNT_DOCTYPE, label: 'Account 0'},
@@ -96,6 +113,16 @@ describe('filter selectors', () => {
   })
 
   describe('setting filter', () => {
+    it('should select transactions in a period', () => {
+      dispatchOnFilters(addFilterByPeriod('2018-02'))
+      expect(getFilteredTransactions(state).map(x => x._id)).toEqual(['t7', 't8', 't9'])
+      dispatchOnFilters(addFilterByPeriod('2018'))
+      // t5, t6 are orphan transactions
+      expect(getFilteredTransactions(state).map(x => x._id)).toEqual(['t0', 't1', 't2', 't3', 't4', 't7', 't8', 't9'])
+      dispatchOnFilters(addFilterByPeriod('2019'))
+      expect(getFilteredTransactions(state).map(x => x._id)).toEqual(['t10', 't11'])
+    })
+
     it('should select transactions belonging to an account', () => {
       dispatchOnFilters(filterByDoc({ _id: 'a0', _type: ACCOUNT_DOCTYPE }))
       expect(getAccountsFiltered(state).map(x => x._id)).toEqual(['a0'])
