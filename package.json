@@ -45,7 +45,10 @@
     "watch:services": "NODE_ENV=services:development yarn run commons:services --watch",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build",
-    "styleguide:deploy": "yarn git-directory-deploy -- --directory styleguide --branch master --repo docs"
+    "styleguide:deploy": "yarn git-directory-deploy -- --directory styleguide --branch master --repo docs",
+    "postmerge": "yarnhook",
+    "postcheckout": "yarnhook",
+    "postrewrite": "yarnhook"
   },
   "repository": {
     "type": "git",
@@ -89,6 +92,7 @@
     "git-directory-deploy": "^1.5.0",
     "handlebars-layouts": "^3.1.4",
     "html-webpack-plugin": "^2.24.0",
+    "husky": "^0.14.3",
     "identity-obj-proxy": "^3.0.0",
     "imports-loader": "^0.7.0",
     "jest": "^21.0.2",
@@ -113,7 +117,8 @@
     "svg-sprite-loader": "^3.2.5",
     "webpack": "3",
     "webpack-dev-server": "^2.7.1",
-    "webpack-merge": "^4.1.0"
+    "webpack-merge": "^4.1.0",
+    "yarnhook": "^0.1.1"
   },
   "dependencies": {
     "babel-plugin-lodash": "^3.3.2",
