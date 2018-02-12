@@ -1,48 +1,53 @@
 /* global __TARGET__ */
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { connect } from 'react-redux'
-import { isSynced, isFirstSync, hasSyncStarted, isSyncInError, startSync, refetchCollections } from 'cozy-client'
-import Loading from 'components/Loading'
-import styles from './Onboarding.styl'
-import { Content, Layout } from 'components/Layout'
-import Topbar from 'components/Topbar'
+import { isSynced, isFirstSync, hasSyncStarted, isSyncInError, startSync, fetchCollection } from 'cozy-client'
 import { flowRight as compose } from 'lodash'
 import { translate } from 'cozy-ui/react'
+import { PouchFirstStrategy, StackOnlyStrategy } from 'cozy-client/DataAccessFacade'
+import { fetchTransactions } from 'actions'
+import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
+import { isInitialSyncOK } from 'ducks/mobile'
 
 /**
  * Displays Loading until PouchDB has done its first replication.
  */
 class Wrapper extends Component {
-  componentDidMount () {
+  async componentDidMount () {
     if (__TARGET__ === 'mobile') {
-      this.props.dispatch(startSync())
-        .then(() => this.props.dispatch(refetchCollections()))
+      const { client } = this.context
+      const initialSyncOK = await isInitialSyncOK()
+
+      let promise
+
+      if (initialSyncOK) {
+        // If initial sync is OK, then do nothing special
+        promise = Promise.resolve()
+      } else {
+        // Otherwise, use the StackOnlyStrategy to fetch the data from the stack
+        // before dispatching the startSync action
+        client.facade.strategy = new StackOnlyStrategy()
+
+        promise = Promise.all([
+          this.props.dispatch(fetchCollection('onboarding_accounts', ACCOUNT_DOCTYPE)),
+          this.props.dispatch(fetchCollection('groups', GROUP_DOCTYPE)),
+          this.props.dispatch(fetchTransactions())
+        ])
+      }
+
+      try {
+        await promise
+        client.facade.strategy = new PouchFirstStrategy()
+      } catch (e) {
+        console.error('Error while fetching data from stack: ' + e)
+      } finally {
+        this.props.dispatch(startSync())
+      }
     }
   }
 
   render () {
-    if (__TARGET__ !== 'mobile') {
-      return this.props.children
-    }
-    const { t, isOffline, isSynced, isFirstSync, hasSyncStarted, children } = this.props
-    if (!isOffline && !hasSyncStarted) {
-      return null
-    }
-    if (!isOffline && !isSynced && isFirstSync) {
-      return (
-        <Layout>
-          <Content>
-            <Topbar>
-              <h2>{t('Loading.loading')}</h2>
-            </Topbar>
-            <div className={styles.Onboarding__loading}>
-              <Loading />
-            </div>
-          </Content>
-        </Layout>
-      )
-    }
-    return children
+    return this.props.children
   }
 }
 

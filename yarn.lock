@@ -2522,12 +2522,12 @@ cozy-client-js@^0.3.17, cozy-client-js@^0.3.19:
   version "0.3.21"
   resolved "https://registry.yarnpkg.com/cozy-client-js/-/cozy-client-js-0.3.21.tgz#d27d0288077ce95139333c41dfb537b8584ff254"
 
-cozy-client@0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-0.4.0.tgz#7a893c5eb8464747f1d9bcfa56a2a959936dbfd5"
+cozy-client@0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-0.4.2.tgz#041825d58265cf5e82538c653a001690c04e5402"
   dependencies:
-    pouchdb "^6.3.4"
-    pouchdb-find "^6.3.4"
+    pouchdb "6.3.4"
+    pouchdb-find "6.3.4"
 
 cozy-konnector-libs@^3.0.13:
   version "3.0.13"
@@ -8586,7 +8586,7 @@ pouchdb-find@0.10.4:
     pouchdb-upsert "~2.0.1"
     spark-md5 "0.0.5"
 
-pouchdb-find@^6.3.4:
+pouchdb-find@6.3.4:
   version "6.3.4"
   resolved "https://registry.yarnpkg.com/pouchdb-find/-/pouchdb-find-6.3.4.tgz#27163e3d9a82bab2cc6db1deb73447762e8bd705"
   dependencies:
@@ -8691,7 +8691,7 @@ pouchdb@6.1.1:
     through2 "2.0.1"
     vuvuzela "1.0.3"
 
-pouchdb@^6.3.4:
+pouchdb@6.3.4:
   version "6.3.4"
   resolved "https://registry.yarnpkg.com/pouchdb/-/pouchdb-6.3.4.tgz#e3c8596d19cc12f7474ca48d5d3800affaf701b1"
   dependencies:
