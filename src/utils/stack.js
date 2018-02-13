@@ -1,7 +1,5 @@
 /* global cozy.client */
 
-import pick from 'lodash/pick'
-
 const flagForDeletion = doc => {
   return {_id: doc._id, _rev: doc._rev, _deleted: true}
 }
@@ -16,8 +14,8 @@ export const deleteAll = async (doctype, docs) => {
 export const queryAll = function (mangoIndex, options = {}) {
   return new Promise((resolve, reject) => {
     const documents = []
-    var skip = options.skip || 0
-    const fetch = function () {
+    let skip = options.skip || 0
+    const fetch = () => {
       return cozy.client.data.query(mangoIndex, {
         ...options,
         wholeResponse: true,
@@ -26,7 +24,7 @@ export const queryAll = function (mangoIndex, options = {}) {
         .then(onSuccess)
         .catch(reject)
     }
-    const onSuccess = function (response) {
+    const onSuccess = response => {
       const docs = response.docs
       skip = skip + docs.length
       documents.push.apply(documents, docs)
