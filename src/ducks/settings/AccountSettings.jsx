@@ -27,6 +27,7 @@ const DeleteConfirm = translate()(({ t, cancel, confirm, deleting }) => {
       secondaryType='secondary'
       secondaryText={t('General.cancel')}
       secondaryAction={cancel}
+      dismissAction={cancel}
       primaryType='danger'
       primaryText={deleting ? <Icon icon={spinner} className='u-spin' color='white' /> : t('AccountSettings.confirm-deletion.confirm')}
       primaryAction={confirm}
