@@ -1,6 +1,6 @@
 {
   "name": "cozy-banks",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "main": "src/main.jsx",
   "scripts": {
     "build": "npm run build:browser",
