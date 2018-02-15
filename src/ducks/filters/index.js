@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import { createSelector } from 'reselect'
-import { format } from 'date-fns'
+import { format, isWithinRange } from 'date-fns'
 import SelectDates from './SelectDates'
 import { getTransactions, getGroups, getAccounts } from 'selectors'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
@@ -66,14 +66,29 @@ const yearFormat = date => {
   return date && date.substr(0, 4)
 }
 
+const isDate = date => date instanceof Date
+const isString = str => typeof str === 'string'
+
 // filters
 const filterByPeriod = (transactions, period) => {
-  let formatter
+  let pred
   const l = period.length
-  if (l === 4) {
-    formatter = yearFormat
-  } else if (l === 7) {
-    formatter = monthFormat
+  if (isString(period)) {
+    if (l === 4) {
+      const formatter = yearFormat
+      pred = date => formatter(date) === period
+    } else if (l === 7) {
+      const formatter = monthFormat
+      pred = date => formatter(date) === period
+    }
+  } else if (
+    period.length === 2 &&
+      isDate(period[0]) &&
+      isDate(period[1])
+  ) {
+    pred = date => {
+      return isWithinRange(new Date(date), period[0], period[1])
+    }
   } else {
     throw new Error('Invalid period: ' + period)
   }
@@ -81,8 +96,7 @@ const filterByPeriod = (transactions, period) => {
   return transactions.filter(transaction => {
     const date = transaction.date
     if (!date) { return false }
-    const fmted = formatter(date)
-    return fmted === period
+    return pred(date)
   })
 }
 
