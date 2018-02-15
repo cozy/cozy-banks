@@ -47,6 +47,5 @@ describe('transaction', () => {
       ].map(t => hydrateTransaction(store.getState(), t))
       expect(transactions[0].reimbursements[0].bill).toBe(undefined)
     })
-
   })
 })

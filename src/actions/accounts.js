@@ -1,3 +1,5 @@
+/* global cozy */
+
 import { deleteAll, queryAll } from 'utils/stack'
 import { updateDocuments, deleteDocument, deleteDocuments } from 'cozy-client'
 import { TRANSACTION_DOCTYPE } from 'doctypes'
@@ -11,7 +13,7 @@ const removeAccountFromGroup = (group, account) => {
 
 const deleteOrphanOperations = async ({ accountId }) => {
   const index = await cozy.client.data.defineIndex(TRANSACTION_DOCTYPE, ['account'])
-  const orphanOperations = await queryAll(index, { selector: { account: accountId }})
+  const orphanOperations = await queryAll(index, {selector: { account: accountId }})
   return deleteAll(TRANSACTION_DOCTYPE, orphanOperations)
 }
 

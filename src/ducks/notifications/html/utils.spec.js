@@ -2,13 +2,13 @@ const { prepareTransactions } = require('./utils')
 
 it('should prepare transactions for the template', function () {
   const transactions = [
-    { account: 'isa1', label: '4', date: '2012-08-10'},
-    { account: 'isa1', label: '2', date: '2012-08-08'},
-    { account: 'isa1', label: '3', date: '2012-08-08'},
-    { account: 'isa2', label: '7', date: '2012-08-06'},
-    { account: 'isa2', label: '6', date: '2012-08-17'},
-    { account: 'isa1', label: '5', date: '2012-08-14'},
-    { account: 'isa1', label: '1', date: '2012-08-02'}
+    { account: 'isa1', label: '4', date: '2012-08-10' },
+    { account: 'isa1', label: '2', date: '2012-08-08' },
+    { account: 'isa1', label: '3', date: '2012-08-08' },
+    { account: 'isa2', label: '7', date: '2012-08-06' },
+    { account: 'isa2', label: '6', date: '2012-08-17' },
+    { account: 'isa1', label: '5', date: '2012-08-14' },
+    { account: 'isa1', label: '1', date: '2012-08-02' }
   ]
 
   const prepared = prepareTransactions(transactions)

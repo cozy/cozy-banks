@@ -1,7 +1,7 @@
 import { format, tokenizer, categorize } from '.'
 
 describe('format', () => {
-  it('Should convert to lowercase', ()=> {
+  it('Should convert to lowercase', () => {
     expect(format('Ok')).toBe('ok')
     expect(format('KO')).toBe('ko')
   })
@@ -21,7 +21,7 @@ describe('format', () => {
 })
 
 describe('tokenizer', () => {
-  it('Should tokenizer transactions', ()=> {
+  it('Should tokenizer transactions', () => {
     expect(tokenizer('j ai une phrase comme ca')).toEqual([
       'ai une phrase', 'une phrase comme', 'phrase comme ca',
       'ai une', 'une phrase', 'phrase comme', 'comme ca',
@@ -31,7 +31,7 @@ describe('tokenizer', () => {
 })
 
 describe('categorize', () => {
-  it('Should categorize transactions', ()=> {
+  it('Should categorize transactions', () => {
     expect(categorize('traineline')).toEqual('400110')
     expect(categorize('trainline')).toEqual('400280')
     expect(categorize('ndf cozy')).toEqual('600110')
