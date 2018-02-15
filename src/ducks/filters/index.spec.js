@@ -87,7 +87,8 @@ describe('filter selectors', () => {
     ])
     getGroups.mockReturnValue([
       { _id: 'g0', _type: GROUP_DOCTYPE, label: 'Group 0', accounts: ['a1', 'a0'] },
-      { _id: 'g1', _type: GROUP_DOCTYPE, label: 'Group 1', accounts: ['a2'] }
+      { _id: 'g1', _type: GROUP_DOCTYPE, label: 'Group 1', accounts: ['a2'] },
+      { _id: 'g2', _type: GROUP_DOCTYPE, label: 'Group 2', accounts: [] }
     ])
   })
 
@@ -153,6 +154,12 @@ describe('filter selectors', () => {
       expect(getFilteredTransactions(state).map(x => x._id)).toEqual(['t0', 't1', 't2', 't3', 't4'])
 
       checkReset()
+    })
+
+    it('should not select transactions when a group is empty', () => {
+      dispatchOnFilters(filterByDoc({ _id: 'g2', _type: GROUP_DOCTYPE }))
+      expect(getAccountsFiltered(state).map(x => x._id)).toEqual([])
+      expect(getFilteredTransactions(state).map(x => x._id)).toEqual([])
     })
   })
 })

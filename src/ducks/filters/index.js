@@ -51,7 +51,7 @@ export const getAccountsFiltered = state => {
 export const getFilteredTransactions = createSelector(
   [getTransactions, getFilteredAccountIds, getPeriod],
   (transactions, accountIds, period) => {
-    if (accountIds && accountIds.length > 0) {
+    if (accountIds) {
       transactions = filterByAccountIds(transactions, accountIds)
     }
     return filterByPeriod(transactions, period)
