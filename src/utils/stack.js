@@ -1,4 +1,4 @@
-/* global cozy.client */
+/* global cozy */
 
 const flagForDeletion = doc => {
   return {_id: doc._id, _rev: doc._rev, _deleted: true}
