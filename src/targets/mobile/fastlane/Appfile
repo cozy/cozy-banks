@@ -1,3 +1,2 @@
-app_identifier "io.cozy.banks.mobile"
-team_name "Cozy Cloud"
-itc_team_name "Cozy Cloud"
+json_key_file "./keys/android/key.json"
+package_name "io.cozy.banks.mobile"
