@@ -28,7 +28,7 @@ export const format = label => {
 export const tokenizer = text => {
   const sanitized = format(text)
   const words = sanitized.split(/\s+/).filter(token => {
-    return token.length >= 2;
+    return token.length >= 2
   })
   let tokens = []
   let countWord = MAX_WORD
@@ -68,8 +68,8 @@ export const categorize = label => {
   // console.log(predicted.likelihoods)
 
   const categoryId = predicted.likelihoods[0].proba > PROBA_LIMIT
-   ? predicted.predictedCategory
-   : DEFAULT_CATEGORY
+    ? predicted.predictedCategory
+    : DEFAULT_CATEGORY
 
   // Display category name
   // console.log(categoryId, categorizesTree[categoryId])
