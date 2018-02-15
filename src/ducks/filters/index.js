@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import { createSelector } from 'reselect'
-import { parse, format } from 'date-fns'
+import { format } from 'date-fns'
 import SelectDates from './SelectDates'
 import { getTransactions, getGroups, getAccounts } from 'selectors'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
@@ -59,11 +59,11 @@ export const getFilteredTransactions = createSelector(
 )
 
 const monthFormat = date => {
-  return format(date, 'YYYY-MM')
+  return date && date.substr(0, 7)
 }
 
 const yearFormat = date => {
-  return format(date, 'YYYY')
+  return date && date.substr(0, 4)
 }
 
 // filters
@@ -79,8 +79,10 @@ const filterByPeriod = (transactions, period) => {
   }
 
   return transactions.filter(transaction => {
-    const date = parse(transaction.date)
-    return formatter(date) === period
+    const date = transaction.date
+    if (!date) { return false }
+    const fmted = formatter(date)
+    return fmted === period
   })
 }
 
@@ -102,7 +104,7 @@ export const addFilterForMostRecentTransactions = transactions => {
 export { SelectDates }
 
 // reducers
-const getDefaultMonth = () => monthFormat(new Date())
+const getDefaultMonth = () => monthFormat(format(new Date()))
 const period = (state = getDefaultMonth(), action) => {
   switch (action.type) {
     case FILTER_BY_PERIOD:
