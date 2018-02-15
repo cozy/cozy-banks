@@ -1,6 +1,7 @@
-import { cozyClient } from 'cozy-konnector-libs'
+import { cozyClient, log } from 'cozy-konnector-libs'
 import { initTranslation } from 'cozy-ui/react/I18n/translation'
 import { BalanceLower, TransactionGreater } from 'ducks/notifications'
+import startOfYesterday from 'date-fns/start_of_yesterday'
 
 const lang = process.env.COZY_LOCALE || 'en'
 const dictRequire = lang => require(`../../locales/${lang}`)
@@ -8,11 +9,11 @@ const translation = initTranslation(lang, dictRequire)
 const t = translation.t.bind(translation)
 
 process.on('uncaughtException', err => {
-  console.warn(err.stack)
+  log('warn', JSON.stringify(err.stack))
 })
 
 process.on('unhandledRejection', err => {
-  console.warn(err.stack)
+  log('warn', JSON.stringify(err.stack))
 })
 
 const getTransactionsChanges = async lastSeq => {
@@ -28,16 +29,17 @@ const getTransactionsChanges = async lastSeq => {
     .filter(x => x.doc && !x.doc._deleted)
     .map(x => {
       if (!x.doc) {
-        console.warn(`This response row doesn't contain a doc. Why?`, JSON.stringify(x))
+        log('warn', `This response row doesn't contain a doc. Why?`, JSON.stringify(x))
       }
       return x.doc
     })
     .filter(Boolean) // TODO find out why some documents are not returned
+    .filter(doc => new Date(doc.dateImport) > startOfYesterday())
 
   const delta = result.results ? result.results.length - transactions.length : 0
   if (delta > 0) {
-    console.warn(delta + ' transactions do not have any doc associated')
-    console.warn(result.results.filter(x => !x.doc))
+    log('warn', delta + ' transactions do not have any doc associated')
+    log('warn', JSON.stringify(result.results.filter(x => !x.doc)))
   }
 
   return { newLastSeq, transactions }
@@ -63,7 +65,7 @@ const getAccountsOfTransactions = async transactions => {
     .filter(x => !x.error) // filter accounts that have not been found
     .map(x => {
       if (!x.doc) {
-        console.warn(`This response row doesn't contain a doc, why?`, JSON.stringify(x))
+        log('warn', `This response row doesn't contain a doc, why?`, JSON.stringify(x))
       }
       return x.doc
     })
@@ -71,8 +73,8 @@ const getAccountsOfTransactions = async transactions => {
 
   const delta = rows.length - accounts.length
   if (delta) {
-    console.warn(delta + ' accounts do not exist')
-    console.warn(rows.filter(x => x.error))
+    log('warn', delta + ' accounts do not exist')
+    log('warn', JSON.stringify(rows.filter(x => x.error)))
   }
 
   return accounts
@@ -101,7 +103,7 @@ const getEnabledNotificationClasses = config => {
       const klassConfig = getClassConfig(Klass, config)
       const enabled = klassConfig && klassConfig.enabled
       if (!enabled) {
-        console.log(Klass.name + ' is not enabled')
+        log('info', Klass.name + ' is not enabled')
       }
       return enabled
     }
@@ -111,13 +113,13 @@ const getEnabledNotificationClasses = config => {
 const sendNotifications = async () => {
   const config = await getConfiguration()
   if (!config) {
-    console.warn('Notications are not configured. Please toggle options in the Banks application')
+    log('info', 'Notications are not configured. Please toggle options in the Banks application')
     return
   }
 
   const enabledNotificationClasses = getEnabledNotificationClasses(config)
   if (enabledNotificationClasses.length === 0) {
-    console.log('No notification is enabled')
+    log('info', 'No notification is enabled')
     return
   }
 
@@ -132,7 +134,7 @@ const sendNotifications = async () => {
       try {
         await notification.sendNotification(accounts, transactions)
       } catch (err) {
-        console.warn(err)
+        log('warn', JSON.stringify(err))
       }
     }
   }
