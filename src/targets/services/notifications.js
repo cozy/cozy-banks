@@ -1,6 +1,7 @@
 import { cozyClient } from 'cozy-konnector-libs'
 import { initTranslation } from 'cozy-ui/react/I18n/translation'
 import { BalanceLower, TransactionGreater } from 'ducks/notifications'
+import startOfYesterday from 'date-fns/start_of_yesterday'
 
 const lang = process.env.COZY_LOCALE || 'en'
 const dictRequire = lang => require(`../../locales/${lang}`)
@@ -33,6 +34,7 @@ const getTransactionsChanges = async lastSeq => {
       return x.doc
     })
     .filter(Boolean) // TODO find out why some documents are not returned
+    .filter(doc => new Date(doc.dateImport) > startOfYesterday())
 
   const delta = result.results ? result.results.length - transactions.length : 0
   if (delta > 0) {
