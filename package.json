@@ -35,7 +35,7 @@
     "android:run": "(cd src/targets/mobile && cordova run android --device)",
     "android:run:emulator": "(cd src/targets/mobile && cordova run android --emulator)",
     "android:release": "npm run build:mobile && (cd src/targets/mobile && cordova build android --release)",
-    "android:signed": "npm run android:release && (cd src/targets/mobile && apksigner sign --ks keys/android/<APP_NAME>-release-key.jks --out build/android/<APP_NAME>.apk platforms/android/build/outputs/apk/android-release-unsigned.apk)",
+    "android:signed": "npm run android:release && (cd src/targets/mobile && apksigner sign --ks keys/android/cozy-banks-release-key.jks --out build/android/cozy-banks.apk platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk)",
     "android:publish": "npm run android:signed && (cd src/targets/mobile && fastlane supply)",
     "ios:run": "(cd src/targets/mobile && cordova run ios --device)",
     "ios:run:emulator": "(cd src/targets/mobile && cordova run ios --emulator)",
