@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Select from 'components/Select'
-import { subMonths, format, endOfDay, parse } from 'date-fns'
+import { subDays, subMonths, format, endOfDay, parse } from 'date-fns'
 import { translate } from 'cozy-ui/react/I18n'
 import { getPeriod, addFilterByPeriod } from '.'
 
@@ -22,7 +22,8 @@ const getPeriods = () => {
   }
 
   // last year
-  periods.push(format(now, 'YYYY'))
+  const lastYear = subDays(now, 365)
+  periods.push([lastYear, now])
 
   return periods
 }

@@ -45,7 +45,7 @@ describe('filter reducer', function () {
   })
 })
 
-const ISO_FORMAT = '%F %T%Z'
+const ISO_FORMAT = '%F %T%^z'
 const parisDateStr = dateStr => eu(dateStr, ISO_FORMAT, 'Europe/Paris')
 const nyDateStr = dateStr => us(dateStr, ISO_FORMAT, 'America/New_York')
 const tokyoDateStr = dateStr => jp(dateStr, ISO_FORMAT, 'Asia/Tokyo')
@@ -77,8 +77,8 @@ describe('filter selectors', () => {
       { _id: 't7', account: 'a0', label: 'Transaction 7', date: tokyoDateStr('2018-02-01') },
       { _id: 't8', account: 'a1', label: 'Transaction 8', date: nyDateStr('2018-02-08') },
       { _id: 't9', account: 'a1', label: 'Transaction 9', date: parisDateStr('2018-02-08') },
-      { _id: 't10', account: 'a1', label: 'Transaction 9', date: parisDateStr('2019-01-01') },
-      { _id: 't11', account: 'a1', label: 'Transaction 9', date: parisDateStr('2019-01-02') }
+      { _id: 't10', account: 'a1', label: 'Transaction 10', date: parisDateStr('2019-01-01') },
+      { _id: 't11', account: 'a1', label: 'Transaction 11', date: parisDateStr('2019-01-02') }
     ])
     getAccounts.mockReturnValue([
       { _id: 'a0', _type: ACCOUNT_DOCTYPE, label: 'Account 0' },
@@ -87,7 +87,8 @@ describe('filter selectors', () => {
     ])
     getGroups.mockReturnValue([
       { _id: 'g0', _type: GROUP_DOCTYPE, label: 'Group 0', accounts: ['a1', 'a0'] },
-      { _id: 'g1', _type: GROUP_DOCTYPE, label: 'Group 1', accounts: ['a2'] }
+      { _id: 'g1', _type: GROUP_DOCTYPE, label: 'Group 1', accounts: ['a2'] },
+      { _id: 'g2', _type: GROUP_DOCTYPE, label: 'Group 2', accounts: [] }
     ])
   })
 
@@ -116,6 +117,10 @@ describe('filter selectors', () => {
       expect(getFilteredTransactions(state).map(x => x._id)).toEqual(['t0', 't1', 't2', 't3', 't4', 't7', 't8', 't9'])
       dispatchOnFilters(addFilterByPeriod('2019'))
       expect(getFilteredTransactions(state).map(x => x._id)).toEqual(['t10', 't11'])
+
+      // range
+      dispatchOnFilters(addFilterByPeriod([new Date(2018, 1, 1), new Date(2019, 0, 1)]))
+      expect(getFilteredTransactions(state).map(x => x._id)).toEqual(['t8', 't9', 't10'])
     })
 
     it('should select transactions belonging to an account', () => {
@@ -153,6 +158,12 @@ describe('filter selectors', () => {
       expect(getFilteredTransactions(state).map(x => x._id)).toEqual(['t0', 't1', 't2', 't3', 't4'])
 
       checkReset()
+    })
+
+    it('should not select transactions when a group is empty', () => {
+      dispatchOnFilters(filterByDoc({ _id: 'g2', _type: GROUP_DOCTYPE }))
+      expect(getAccountsFiltered(state).map(x => x._id)).toEqual([])
+      expect(getFilteredTransactions(state).map(x => x._id)).toEqual([])
     })
   })
 })
