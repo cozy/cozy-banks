@@ -18,6 +18,7 @@ process.on('unhandledRejection', err => {
 
 const getTransactionsChanges = async lastSeq => {
   // lastSeq = '0' // Useful for debug
+  const yesterday = startOfYesterday()
   const result = await cozyClient.fetchJSON(
     'GET',
     `/data/io.cozy.bank.operations/_changes?include_docs=true&since=${lastSeq}`
@@ -34,7 +35,7 @@ const getTransactionsChanges = async lastSeq => {
       return x.doc
     })
     .filter(Boolean) // TODO find out why some documents are not returned
-    .filter(doc => new Date(doc.dateImport) > startOfYesterday())
+    .filter(doc => new Date((doc.metadata && doc.metadata.dateImport) || doc.date) > yesterday)
 
   const delta = result.results ? result.results.length - transactions.length : 0
   if (delta > 0) {
