@@ -64,7 +64,9 @@ Figure.propTypes = {
   /** Displays the sign */
   signed: Types.bool,
   /** Numbers of decimals to show (default=2) */
-  decimalNumbers: Types.number
+  decimalNumbers: Types.number,
+  /** Whether to add a specific class to show warning */
+  warningLimit: Types.number
 }
 
 export default Figure
