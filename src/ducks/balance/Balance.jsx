@@ -16,9 +16,9 @@ import { Figure, FigureBlock } from 'components/Figure'
 
 import CollectLink from 'ducks/settings/CollectLink'
 import { getSettings, fetchSettingsCollection } from 'ducks/settings'
-import { filterByDoc } from 'ducks/filters'
+import { filterByDoc, resetFilterByDoc } from 'ducks/filters'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
-
+import flag from 'utils/flag'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 
 import styles from './Balance.styl'
@@ -76,6 +76,12 @@ class Balance extends React.Component {
   goToTransactionsFilteredBy = doc => {
     this.props.filterByDoc(doc)
     this.props.router.push('/transactions')
+  }
+
+  componentDidMount () {
+    if (flag('resetAccountFilterInBalance')) {
+      this.props.dispatch(resetFilterByDoc())
+    }
   }
 
   render () {
