@@ -129,7 +129,9 @@ class Categories extends Component {
                 {isDesktop && <td className={stChevron} />}
               </tr>
             </thead>
-            {categories.map(category => this.renderCategory(category, selectedCategory))}
+            <tbody>
+              {categories.map(category => this.renderCategory(category, selectedCategory))}
+            </tbody>
           </Table>
         }
       </div>
@@ -143,11 +145,7 @@ class Categories extends Component {
     if (selectedCategory !== undefined && isCollapsed) return
 
     const renderer = (isDesktop || isTablet) ? 'renderCategoryDesktopTablet' : 'renderCategoryMobile'
-    return (
-      <tbody key={category.name}>
-        {this[renderer](category)}
-      </tbody>
-    )
+    return this[renderer](category)
   }
 
   handleClick = (category, subcategory) => {
@@ -184,7 +182,7 @@ class Categories extends Component {
         {isDesktop && <TdSecondary className={stAmount}>
           {debit ? <Figure total={debit} currency={currency} signed default='-' /> : '－'}
         </TdSecondary>}
-        {isDesktop && <td className={stChevron} />}
+        {isDesktop && <td>Yo</td>}
       </tr>,
       ...((isCollapsed || subcategory) ? [] : subcategories.map(subcategory =>
         this.renderCategoryDesktopTablet(category, subcategory)))
