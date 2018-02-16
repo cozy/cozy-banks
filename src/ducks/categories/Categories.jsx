@@ -182,7 +182,7 @@ class Categories extends Component {
         {isDesktop && <TdSecondary className={stAmount}>
           {debit ? <Figure total={debit} currency={currency} signed default='-' /> : '－'}
         </TdSecondary>}
-        {isDesktop && <td>Yo</td>}
+        {isDesktop && <td className={stChevron} />}
       </tr>,
       ...((isCollapsed || subcategory) ? [] : subcategories.map(subcategory =>
         this.renderCategoryDesktopTablet(category, subcategory)))
