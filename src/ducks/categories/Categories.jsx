@@ -15,6 +15,7 @@ import { flowRight as compose } from 'lodash'
 const stAmount = styles['bnk-table-amount']
 const stCategory = styles['bnk-table-category-category']
 const stChevron = styles['bnk-table-chevron']
+const stChevronRight = styles['bnk-table-chevron--right']
 const stFigure = styles['bnk-cat-figure']
 const stFilter = styles['bnk-cat-filter']
 const stForm = styles['bnk-cat-form']
@@ -163,9 +164,10 @@ class Categories extends Component {
     const isCollapsed = selectedCategory !== category.name
     const type = subcategory ? 'subcategories' : 'categories'
     const rowClass = subcategory ? stRowSub : (isCollapsed ? stRow : stUncollapsed)
+    const onClick = subcategory || isCollapsed ? this.handleClick : () => {}
     const key = (subcategory || category).name
     return [
-      <tr key={key} className={rowClass} onClick={() => this.handleClick(category, subcategory)}>
+      <tr key={key} className={rowClass} onClick={() => onClick(category, subcategory)}>
         <TdWithIcon className={cx(stCategory, !subcategory && styles[`bnk-table-category--${name}`])}>
           {t(`Data.${type}.${name}`)}
         </TdWithIcon>
@@ -182,7 +184,10 @@ class Categories extends Component {
         {isDesktop && <TdSecondary className={stAmount}>
           {debit ? <Figure total={debit} currency={currency} signed default='-' /> : '－'}
         </TdSecondary>}
-        {isDesktop && <td className={stChevron} />}
+        {isDesktop && <td className={cx(
+          stChevron,
+          { [stChevronRight]: subcategory || isCollapsed }
+        )} />}
       </tr>,
       ...((isCollapsed || subcategory) ? [] : subcategories.map(subcategory =>
         this.renderCategoryDesktopTablet(category, subcategory)))
