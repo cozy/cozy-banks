@@ -1,19 +1,24 @@
 import React from 'react'
-import { Table, TdSecondary } from 'components/Table'
-import { Figure, FigureBlock } from 'components/Figure'
-import Topbar from 'components/Topbar'
+import { flowRight as compose } from 'lodash'
 import { connect } from 'react-redux'
 import cx from 'classnames'
+
 import { translate, Button, Icon, withBreakpoints } from 'cozy-ui/react'
-import styles from './Balance.styl'
-import { getAccountsFiltered, getFilteringDoc } from 'ducks/filters'
-import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
-import { flowRight as compose } from 'lodash'
-import btnStyles from 'styles/buttons'
+
+import Topbar from 'components/Topbar'
+import { Table, TdSecondary } from 'components/Table'
+import { Figure, FigureBlock } from 'components/Figure'
+
 import CollectLink from 'ducks/settings/CollectLink'
+import { getAccountsFiltered, getFilteringDoc } from 'ducks/filters'
 import { getSettings, fetchSettingsCollection } from 'ducks/settings'
+import { getAccountInstitutionLabel } from 'ducks/account/helpers'
+
+import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
+
+import styles from './Balance.styl'
+import btnStyles from 'styles/buttons'
 import plus from 'assets/icons/16/plus.svg'
-import { getAccountInstitutionLabel } from '../account/helpers'
 
 const Balance = ({t, accounts, filteringDoc, settingsCollection, breakpoints: { isMobile }}) => {
   const label = filteringDoc ? (filteringDoc.shortLabel || filteringDoc.label) : ''
