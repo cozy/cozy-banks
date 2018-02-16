@@ -168,7 +168,7 @@ class Categories extends Component {
     const key = (subcategory || category).name
     return [
       <tr key={key} className={rowClass} onClick={() => onClick(category, subcategory)}>
-        <TdWithIcon className={cx(stCategory, !subcategory && styles[`bnk-table-category--${name}`])}>
+        <TdWithIcon className={cx(stCategory, styles[`bnk-table-category--${category.name}`])}>
           {t(`Data.${type}.${name}`)}
         </TdWithIcon>
         <TdSecondary className={stPercentage}>
