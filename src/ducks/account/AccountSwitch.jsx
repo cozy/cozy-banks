@@ -203,6 +203,10 @@ class AccountSwitch extends Component {
 
   hide () {
     const node = ReactDOM.findDOMNode(this)
+    if (!node.style) {
+      // for text node when node is not yet ready
+      return
+    }
     requestAnimationFrame(() => {
       if (flag('grayOutAccountSwitch')) {
         node.style.opacity = 0.5
