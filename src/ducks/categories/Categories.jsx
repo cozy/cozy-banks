@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import cx from 'classnames'
-import { translate, withBreakpoints } from 'cozy-ui/react'
+import { translate, withBreakpoints, Icon } from 'cozy-ui/react'
+import palette from 'cozy-ui/stylus/settings/palette.json'
 import Toggle from 'cozy-ui/react/Toggle'
 import CategoryIcon from './CategoryIcon'
 import { Media, Bd, Img } from 'components/Media'
@@ -15,7 +16,6 @@ import { flowRight as compose } from 'lodash'
 const stAmount = styles['bnk-table-amount']
 const stCategory = styles['bnk-table-category-category']
 const stChevron = styles['bnk-table-chevron']
-const stChevronRight = styles['bnk-table-chevron--right']
 const stFigure = styles['bnk-cat-figure']
 const stFilter = styles['bnk-cat-filter']
 const stForm = styles['bnk-cat-form']
@@ -184,10 +184,9 @@ class Categories extends Component {
         {isDesktop && <TdSecondary className={stAmount}>
           {debit ? <Figure total={debit} currency={currency} signed default='-' /> : '－'}
         </TdSecondary>}
-        {isDesktop && <td className={cx(
-          stChevron,
-          { [stChevronRight]: subcategory || isCollapsed }
-        )} />}
+        {isDesktop && <td className={stChevron}>
+          {(subcategory || isCollapsed) && <Icon icon='forward' color={palette.coolGrey} />}
+        </td>}
       </tr>,
       ...((isCollapsed || subcategory) ? [] : subcategories.map(subcategory =>
         this.renderCategoryDesktopTablet(category, subcategory)))
