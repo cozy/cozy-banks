@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import cx from 'classnames'
-import { translate, withBreakpoints } from 'cozy-ui/react'
+import { translate, withBreakpoints, Icon } from 'cozy-ui/react'
+import palette from 'cozy-ui/stylus/settings/palette.json'
 import Toggle from 'cozy-ui/react/Toggle'
 import CategoryIcon from './CategoryIcon'
 import { Media, Bd, Img } from 'components/Media'
@@ -129,7 +130,9 @@ class Categories extends Component {
                 {isDesktop && <td className={stChevron} />}
               </tr>
             </thead>
-            {categories.map(category => this.renderCategory(category, selectedCategory))}
+            <tbody>
+              {categories.map(category => this.renderCategory(category, selectedCategory))}
+            </tbody>
           </Table>
         }
       </div>
@@ -143,11 +146,7 @@ class Categories extends Component {
     if (selectedCategory !== undefined && isCollapsed) return
 
     const renderer = (isDesktop || isTablet) ? 'renderCategoryDesktopTablet' : 'renderCategoryMobile'
-    return (
-      <tbody key={category.name}>
-        {this[renderer](category)}
-      </tbody>
-    )
+    return this[renderer](category)
   }
 
   handleClick = (category, subcategory) => {
@@ -165,10 +164,11 @@ class Categories extends Component {
     const isCollapsed = selectedCategory !== category.name
     const type = subcategory ? 'subcategories' : 'categories'
     const rowClass = subcategory ? stRowSub : (isCollapsed ? stRow : stUncollapsed)
+    const onClick = subcategory || isCollapsed ? this.handleClick : () => {}
     const key = (subcategory || category).name
     return [
-      <tr key={key} className={rowClass} onClick={() => this.handleClick(category, subcategory)}>
-        <TdWithIcon className={cx(stCategory, !subcategory && styles[`bnk-table-category--${name}`])}>
+      <tr key={key} className={rowClass} onClick={() => onClick(category, subcategory)}>
+        <TdWithIcon className={cx(stCategory, styles[`bnk-table-category--${category.name}`])}>
           {t(`Data.${type}.${name}`)}
         </TdWithIcon>
         <TdSecondary className={stPercentage}>
@@ -184,7 +184,9 @@ class Categories extends Component {
         {isDesktop && <TdSecondary className={stAmount}>
           {debit ? <Figure total={debit} currency={currency} signed default='-' /> : '－'}
         </TdSecondary>}
-        {isDesktop && <td className={stChevron} />}
+        {isDesktop && <td className={stChevron}>
+          {(subcategory || isCollapsed) && <Icon icon='forward' color={palette.coolGrey} />}
+        </td>}
       </tr>,
       ...((isCollapsed || subcategory) ? [] : subcategories.map(subcategory =>
         this.renderCategoryDesktopTablet(category, subcategory)))

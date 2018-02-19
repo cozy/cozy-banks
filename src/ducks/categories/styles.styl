@@ -60,11 +60,6 @@
     .bnk-table-total
         text-align right
 
-    .bnk-table-chevron
-        background-position center
-        background-repeat no-repeat
-        transition all .2s
-
     .bnk-table-row
     .bnk-table-row--uncollapsed
         color charcoalGrey
@@ -72,15 +67,13 @@
         .bnk-table-percentage
             font-weight bold
 
-    .bnk-table-row
-        .bnk-table-chevron
-            background-image embedurl('../../assets/icons/icon-chevron-down.svg')
-
     .bnk-table-row--uncollapsed
-    .bnk-table-row--uncollapsed:hover
-        .bnk-table-chevron
-            background-image embedurl('../../assets/icons/icon-chevron-down-active.svg')
-            transform   rotate3d(1, 0, 0, 180deg)
+        background-color paleGrey
+        cursor default
+
+        *
+            color coolGrey !important
+
 
     +small-screen('min')
         .bnk-table-category-category
