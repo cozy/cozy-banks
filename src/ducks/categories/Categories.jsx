@@ -163,11 +163,11 @@ class Categories extends Component {
     const { name, subcategories, credit, debit, percentage, currency, transactionsNumber } = subcategory || category
     const isCollapsed = selectedCategory !== category.name
     const type = subcategory ? 'subcategories' : 'categories'
-    const rowClass = subcategory ? stRowSub : (isCollapsed ? stRow : stUncollapsed)
+    const rowClass = subcategory ? stRowSub : stRow
     const onClick = subcategory || isCollapsed ? this.handleClick : () => {}
     const key = (subcategory || category).name
     return [
-      <tr key={key} className={rowClass} onClick={() => onClick(category, subcategory)}>
+      (subcategory || isCollapsed) && <tr key={key} className={rowClass} onClick={() => onClick(category, subcategory)}>
         <TdWithIcon className={cx(stCategory, styles[`bnk-table-category--${category.name}`])}>
           {t(`Data.${type}.${name}`)}
         </TdWithIcon>
@@ -185,7 +185,7 @@ class Categories extends Component {
           {debit ? <Figure total={debit} currency={currency} signed default='-' /> : '－'}
         </TdSecondary>}
         {isDesktop && <td className={stChevron}>
-          {(subcategory || isCollapsed) && <Icon icon='forward' color={palette.coolGrey} />}
+          <Icon icon='forward' color={palette.coolGrey} />
         </td>}
       </tr>,
       ...((isCollapsed || subcategory) ? [] : subcategories.map(subcategory =>
