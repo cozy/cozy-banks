@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import { createSelector } from 'reselect'
-import { format, isWithinRange } from 'date-fns'
+import { parse, format, isWithinRange } from 'date-fns'
 import SelectDates from './SelectDates'
 import { getTransactions, getGroups, getAccounts } from 'selectors'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
@@ -87,7 +87,7 @@ const filterByPeriod = (transactions, period) => {
       isDate(period[1])
   ) {
     pred = date => {
-      return isWithinRange(new Date(date), period[0], period[1])
+      return isWithinRange(parse(date), period[0], period[1])
     }
   } else {
     throw new Error('Invalid period: ' + period)
