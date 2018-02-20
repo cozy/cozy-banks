@@ -16,7 +16,7 @@ import { Figure, FigureBlock } from 'components/Figure'
 
 import CollectLink from 'ducks/settings/CollectLink'
 import { getSettings, fetchSettingsCollection } from 'ducks/settings'
-import { filterByDoc, resetFilterByDoc } from 'ducks/filters'
+import { filterByDoc, resetFilterByDoc, getFilteringDoc } from 'ducks/filters'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
 import flag from 'utils/flag'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
@@ -30,23 +30,40 @@ const getGroupBalance = (group, getAccount) => {
     (getAccount(accountId) || {}).balance || 0)
 }
 
+const sameId = (filteringDoc, accountOrGroup) => {
+  return filteringDoc && filteringDoc._id === accountOrGroup._id
+}
+
+const isAccountPartOf = (filteringDoc, account) => {
+  return filteringDoc &&
+    account &&
+    filteringDoc.accounts &&
+    filteringDoc.accounts.indexOf(account._id) > -1
+}
+
 // TODO should be using this everywhere, where to put it ?
 const getAccountLabel = account => account.shortLabel || account.label
 
 class _BalanceRow extends React.Component {
   render () {
-    const {account, group, warningLimit, isMobile, onClick} = this.props
+    const {account, group, warningLimit, isMobile, onClick, filteringDoc} = this.props
     const balance = account ? account.balance : getGroupBalance(group, this.props.getAccount)
     const isWarning = balance ? balance < warningLimit : false
     const isAlert = balance ? balance < 0 : false
     const label = account ? getAccountLabel(account) : group.label
     return (
-      <tr className={styles['balance-row']} onClick={onClick.bind(null, account || group)}>
+      <tr
+        className={cx(styles['balance-row'], {
+          [styles['balance-row--selected']]: sameId(filteringDoc, account || group),
+          [styles['balance-row--selected-account-from-group']]: isAccountPartOf(filteringDoc, account)
+        })}
+        onClick={onClick.bind(null, account || group)}
+      >
         <td className={cx(styles['account_name'], { [styles.alert]: isAlert, [styles.warning]: isWarning })}>
           {label}
         </td>
         <TdSecondary className={cx(styles['solde'], { [styles.alert]: isAlert, [styles.warning]: isWarning })}>
-          {balance && <Figure total={balance} warningLimit={warningLimit} currency='€' coloredNegative coloredWarning signed />}
+          {balance !== undefined && <Figure total={balance} warningLimit={warningLimit} currency='€' coloredNegative coloredWarning signed />}
         </TdSecondary>
         {!isMobile && <TdSecondary className={styles['bank_name']}>
           {account && getAccountInstitutionLabel(account)}
@@ -66,6 +83,7 @@ class _BalanceRow extends React.Component {
 }
 
 const BalanceRow = connect(state => ({
+  filteringDoc: getFilteringDoc(state),
   getAccount: id => getDocument(state, ACCOUNT_DOCTYPE, id)
 }))(_BalanceRow)
 
