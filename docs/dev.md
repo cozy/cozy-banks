@@ -76,7 +76,10 @@ Signing certificate : 3AKXFMV43J
 
 To push an iOS build on Testflight, use the following command :
 
-```
+```bash
+cd src/targets/mobile/
+bundle install
+cd ../../../
 yarn ios:publish
 ```
 
