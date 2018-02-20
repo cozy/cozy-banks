@@ -148,7 +148,7 @@ class Balance extends React.Component {
           <thead>
             <tr>
               <td className={styles['Balance__account_name']}>{t('Groups.label')}</td>
-              <td className={styles['Balance__solde']}>{t('Balance.solde')}</td>
+              <td className={styles['Balance__solde']}>{t('Groups.total-balance')}</td>
               <td className={styles['Balance__group-accounts']}>{t('Groups.accounts')}</td>
               <td className={styles['Balance__group-accounts']}>{t('Groups.bank')}</td>
             </tr>
