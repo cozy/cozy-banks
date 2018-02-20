@@ -161,7 +161,14 @@ class Balance extends React.Component {
               onClick={this.goToTransactionsFilteredBy.bind(null, group)} />))}
           </tbody>
         </Table> : null }
-
+        <p>
+          <Button
+            onClick={() => this.props.router.push('/settings/groups/new')}
+            className={cx(btnStyles['btn--no-outline'], 'u-pv-1')}>
+            <Icon icon={plus} className='u-mr-half' />
+            {t('Groups.create')}
+          </Button>
+        </p>
         <h3>{t('AccountSwitch.accounts')}</h3>
         <Table className={styles['Balance__table']}>
           <thead>
