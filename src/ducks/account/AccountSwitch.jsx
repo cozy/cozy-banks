@@ -1,8 +1,7 @@
-/* global cozy, requestAnimationFrame */
+/* global cozy */
 
 import { flowRight as compose, sortBy } from 'lodash'
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router'
@@ -18,7 +17,6 @@ import { filterByDoc, getFilteringDoc, resetFilterByDoc } from 'ducks/filters'
 import styles from './AccountSwitch.styl'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { getAccountInstitutionLabel } from './helpers.js'
-import flag from 'utils/flag'
 
 const { BarRight } = cozy.bar
 
@@ -139,18 +137,6 @@ AccountSwitchMenu.propTypes = {
   filteringDoc: PropTypes.object
 }
 
-const move = (node, t) => {
-  node.style.transition = 'opacity .3s ease, transform .3s ease, margin .3s ease'
-  node.style.transform = `translate(${t[0]}px, ${t[1]}px)`
-}
-
-const scaleY = (node, s) => {
-  node.style.transition = 'opacity .3s ease, transform .3s ease, margin .3s ease'
-  node.style.transform = `scaleY(${s})`
-}
-
-const isBalance = location => (location.pathname || location).indexOf('balances') > -1
-
 // Note that everything is set up to be able to combine filters (even the redux store).
 // It's only limited to one filter in a few places, because the UI can only accomodate one right now.
 class AccountSwitch extends Component {
@@ -173,54 +159,6 @@ class AccountSwitch extends Component {
   accountExists = accountId => {
     const accounts = this.props.accounts.data
     return accounts.find(account => account.id === accountId)
-  }
-
-  componentDidUpdate (prevProps) {
-    if (flag('hideAccountSwitchOnBalance') || flag('grayOutAccountSwitch')) {
-      if (isBalance(this.props.location)) {
-        this.hide()
-      } else if (isBalance(prevProps.location) && !isBalance(this.props.location)) {
-        this.show()
-      }
-    }
-  }
-
-  show () {
-    const node = ReactDOM.findDOMNode(this)
-
-    requestAnimationFrame(() => {
-      if (flag('grayOutAccountSwitch')) {
-        node.style.opacity = 1
-        node.querySelector('button').style.cursor = ''
-      }
-
-      if (flag('hideAccountSwitchOnBalance')) {
-        scaleY(node, 1)
-        this.props.breakpoints.isDesktop && move(node.nextSibling, [0, 0])
-      }
-    })
-  }
-
-  hide () {
-    const node = ReactDOM.findDOMNode(this)
-    if (!node.style) {
-      // for text node when node is not yet ready
-      return
-    }
-    requestAnimationFrame(() => {
-      if (flag('grayOutAccountSwitch')) {
-        node.style.opacity = 0.5
-        node.querySelector('button').style.cursor = 'not-allowed'
-      }
-
-      if (flag('hideAccountSwitchOnBalance')) {
-        if (!node.getBoundingClientRect) { return }
-        node.style.transformOrigin = 'center 0'
-        scaleY(node, 0)
-        const HEIGHT_SELECTOR = 111
-        this.props.breakpoints.isDesktop && move(node.nextSibling, [0, -HEIGHT_SELECTOR])
-      }
-    })
   }
 
   render () {
