@@ -173,7 +173,7 @@ class Balance extends React.Component {
         <Table className={styles['Balance__table']}>
           <thead>
             <tr>
-              <td className={styles['Balance__account_name']}>{t('Balance.account_name')}</td>
+              <td className={styles['Balance__account_name']}>{t('Accounts.label')}</td>
               <td className={styles['Balance__solde']}>{t('Balance.solde')}</td>
               {!isMobile && <td className={styles['Balance__account_number']}>{t('Balance.account_number')}</td>}
               {!isMobile && <td className={styles['Balance__bank']}>{t('Balance.bank_name')}</td>}
