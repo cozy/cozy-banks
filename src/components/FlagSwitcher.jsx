@@ -5,7 +5,7 @@ const FlagInput = ({ name }) => {
   return (<input
     type='checkbox'
     checked={flag(name)}
-    onChange={ev => flag(name, JSON.parse(ev.target.checked))} />)
+    onChange={ev => flag(name, JSON.parse(ev.target.checked)) && this.props.onChange()} />)
 }
 
 const style = {
@@ -26,10 +26,11 @@ const human = name => {
 export default class extends React.Component {
   render () {
     return (flag('switcher') && <div className='flag-switcher' style={style}>
-      <button onClick={() => this.setState({date: Date.now()})}>refresh</button>
+      <button onClick={() => this.setState({date: Date.now()})}>refresh</button>&nbsp;
+      <button onClick={() => flag.reset() && flag('switcher', true) && this.forceUpdate()}>reset</button>
       { flag.list().map(name => {
         return (<div>
-          { human(name) } : <FlagInput name={name} />
+          { human(name) } : <FlagInput onChange={() => this.forceUpdate()} name={name} />
         </div>)
       }) }
     </div>)
