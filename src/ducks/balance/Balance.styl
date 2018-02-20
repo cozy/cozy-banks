@@ -2,60 +2,82 @@
 @require '~styles/mixins.styl'
 @require 'settings/palette.styl'
 
-.balance-table
+.Balance__table
     @extend $full-width-table
 
-.balance
-    .kpi
-        margin 0 0 1em 0
 
-    .balance-row
-        cursor pointer
+.Balance__kpi
+    margin 0 0 1em 0
 
-    .balance-row--selected
-        border-left 0.25rem dodgerBlue solid
-        background alpha(dodgerBlue, 0.1)
+.Balance__row
+    cursor pointer
+    composes mobile-row from '../../components/Table/styles.styl'
+    composes nav-row from '../commons/mobile.styl'// @stylint ignore
 
-    .balance-row--selected-account-from-group
-        border-left 0.25rem #cdced2 solid
-        background alpha(silver, 0.1)
+    +small-screen()
+        &
+            padding-right 2.5rem
 
-    .balance-table
-        .account_name
-            maxed-flex-basis 30%
-        .solde
-            maxed-flex-basis 10%
-            text-align right
-        .bank_name
-            maxed-flex-basis 35%
-            color coolGrey
-        .account_number
-            maxed-flex-basis 25%
-            color coolGrey
+.Balance__row--selected
+    border-left 0.25rem dodgerBlue solid
+    background alpha(dodgerBlue, 0.1)
 
-        tbody
-            .solde
-            .account_name
-                color charcoalGrey
+.Balance__row--selected-account-from-group
+    border-left 0.25rem #cdced2 solid
+    background alpha(silver, 0.1)
 
-                &.warning
-                    font-weight bold
-                    color texasRose
+.Balance__account_name
+    maxed-flex-basis 25%
 
-                    span
-                        margin-left 5px
-                        heigth 1rem
+.Balance__solde
+    maxed-flex-basis 20%
+    text-align right
 
-                        &:before
-                            vertical-align middle
-                            margin-bottom 3px
-                &.alert
-                    color pomegranate
+.Balance__bank
+    maxed-flex-basis 30%
+    color coolGrey
+    composes mobile-row-label from '../../components/Table/styles.styl'
+
+.Balance__account_number
+    maxed-flex-basis 25%
+    color coolGrey
+    composes mobile-row-label from '../../components/Table/styles.styl'
+
+
+.Balance__table
+    @extend $full-width-table
+    tbody
+        .Balance__solde
+        .Balance__account_name
+            color charcoalGrey
+
+            &.warning
+                font-weight bold
+                color texasRose
+
+                span
+                    margin-left 5px
+                    heigth 1rem
+
+                    &:before
+                        vertical-align middle
+                        margin-bottom 3px
+            &.alert
+                color pomegranate
 
 +small-screen()
-    .balance
-        .balance-table
-            .account_name
-                maxed-flex-basis 60%
-            .solde
-                maxed-flex-basis 40%
+    td.Balance__account_name
+        maxed-flex-basis 60%
+        padding-top 0
+        padding-bottom 0
+
+    td.Balance__solde
+        maxed-flex-basis 40%
+
+    td.Balance__solde, td.Balance__account_name
+        padding-top .5rem
+        padding-bottom .5rem
+
+    .Balance__bank
+        maxed-flex-basis 60%
+

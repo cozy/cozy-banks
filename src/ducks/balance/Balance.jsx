@@ -1,5 +1,5 @@
 import React from 'react'
-import { flowRight as compose, sumBy } from 'lodash'
+import { flowRight as compose, sumBy, uniq } from 'lodash'
 import { connect } from 'react-redux'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
@@ -46,26 +46,35 @@ const getAccountLabel = account => account.shortLabel || account.label
 
 class _BalanceRow extends React.Component {
   render () {
-    const {account, group, warningLimit, isMobile, onClick, filteringDoc} = this.props
+    const {account, group, warningLimit, onClick, filteringDoc} = this.props
     const balance = account ? account.balance : getGroupBalance(group, this.props.getAccount)
     const isWarning = balance ? balance < warningLimit : false
     const isAlert = balance ? balance < 0 : false
     const label = account ? getAccountLabel(account) : group.label
     return (
       <tr
-        className={cx(styles['balance-row'], {
-          [styles['balance-row--selected']]: sameId(filteringDoc, account || group),
-          [styles['balance-row--selected-account-from-group']]: isAccountPartOf(filteringDoc, account)
+        className={cx(styles['Balance__row'], {
+          [styles['Balance__row--selected']]: sameId(filteringDoc, account || group),
+          [styles['Balance__row--selected-account-from-group']]: isAccountPartOf(filteringDoc, account)
         })}
         onClick={onClick.bind(null, account || group)}
       >
-        <td className={cx(styles['account_name'], { [styles.alert]: isAlert, [styles.warning]: isWarning })}>
+        <td className={cx(styles['Balance__account_name'], { [styles.alert]: isAlert, [styles.warning]: isWarning })}>
           {label}
         </td>
-        <TdSecondary className={cx(styles['solde'], { [styles.alert]: isAlert, [styles.warning]: isWarning })}>
+        <TdSecondary className={cx(styles['Balance__solde'], { [styles.alert]: isAlert, [styles.warning]: isWarning })}>
           {balance !== undefined && <Figure total={balance} warningLimit={warningLimit} currency='€' coloredNegative coloredWarning signed />}
         </TdSecondary>
-        {!isMobile && <TdSecondary className={styles['bank_name']}>
+        <TdSecondary className={styles['Balance__account_number']}>
+          {account && account.number}
+          {group &&
+            uniq(group.accounts
+              .map(this.props.getAccount)
+              .filter(account => account)
+              .map(getAccountInstitutionLabel)).join(', ')
+          }
+        </TdSecondary>
+        <TdSecondary className={styles['Balance__bank']}>
           {account && getAccountInstitutionLabel(account)}
           {group &&
             group.accounts
@@ -73,10 +82,7 @@ class _BalanceRow extends React.Component {
               .filter(account => account)
               .map(getAccountLabel).join(', ')
           }
-        </TdSecondary>}
-        {!isMobile && <TdSecondary className={styles['account_number']}>
-          {account && account.number}
-        </TdSecondary>}
+        </TdSecondary>
       </tr>
     )
   }
@@ -129,23 +135,22 @@ class Balance extends React.Component {
     const balanceLower = getSettings(settingsCollection).notifications.balanceLower.value
 
     return (
-      <div className={styles['balance']}>
+      <div className={styles['Balance']}>
         <Topbar>
           <h2>{t('Balance.title')}</h2>
         </Topbar>
-        <div className={styles['kpi']}>
+        <div className={styles['Balance__kpi']}>
           <FigureBlock label={t(trad, {label: label})} total={total} currency='€' coloredPositive coloredNegative signed />
         </div>
 
         { groups.length !== 0 ? <h3>{t('AccountSwitch.groups')}</h3> : null }
-        { groups.length !== 0 ? <Table className={styles['balance-table']}>
+        { groups.length !== 0 ? <Table className={styles['Balance__table']}>
           <thead>
             <tr>
-              <td className={styles['account_name']}>{t('Balance.account_name')}</td>
-              <td className={styles['solde']}>{t('Balance.solde')}</td>
-              <td className={styles['bank_name']}>{t('Groups.accounts')}</td>
-              {/* extra col to have same alignment as table below */}
-              <td className={styles['account_number']} />
+              <td className={styles['Balance__account_name']}>{t('Groups.label')}</td>
+              <td className={styles['Balance__solde']}>{t('Balance.solde')}</td>
+              <td className={styles['Balance__group-accounts']}>{t('Groups.accounts')}</td>
+              <td className={styles['Balance__group-accounts']}>{t('Groups.bank')}</td>
             </tr>
           </thead>
           <tbody>
@@ -158,13 +163,13 @@ class Balance extends React.Component {
         </Table> : null }
 
         <h3>{t('AccountSwitch.accounts')}</h3>
-        <Table className={styles['balance-table']}>
+        <Table className={styles['Balance__table']}>
           <thead>
             <tr>
-              <td className={styles['account_name']}>{t('Balance.account_name')}</td>
-              <td className={styles['solde']}>{t('Balance.solde')}</td>
-              {!isMobile && <td className={styles['bank_name']}>{t('Balance.bank_name')}</td>}
-              {!isMobile && <td className={styles['account_number']}>{t('Balance.account_number')}</td>}
+              <td className={styles['Balance__account_name']}>{t('Balance.account_name')}</td>
+              <td className={styles['Balance__solde']}>{t('Balance.solde')}</td>
+              {!isMobile && <td className={styles['Balance__account_number']}>{t('Balance.account_number')}</td>}
+              {!isMobile && <td className={styles['Balance__bank']}>{t('Balance.bank_name')}</td>}
             </tr>
           </thead>
           <tbody>
