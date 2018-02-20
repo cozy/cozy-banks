@@ -169,10 +169,10 @@ class _Action extends Component {
   }
 
   getWidget = () => {
-    const { type, vendors, invoiceFileId } = this.state
+    const { type, invoiceFileId } = this.state
 
     if (type === HEALTH_EXPENSE_STATUS) {
-      return <HealthExpenseStatus vendors={vendors} />
+      return <HealthExpenseStatus vendors={getVendors(this.props.transaction)} />
     }
 
     const genericWidget = this.getGenericWidget()
@@ -194,7 +194,8 @@ class _Action extends Component {
   }
 
   getIconColor = () => {
-    const { type, vendors } = this.state
+    const { type } = this.state
+    const vendors = getVendors(this.props.transaction)
 
     const isHealthExpense = type === HEALTH_EXPENSE_STATUS
     const hasVendor = vendors && vendors.length > 0
