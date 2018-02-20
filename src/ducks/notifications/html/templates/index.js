@@ -77,7 +77,8 @@ const partials = {
   'bank-layout': Handlebars.compile(require('./bank-layout.hbs')),
   'cozy-layout': Handlebars.compile(require('./cozy-layout.hbs')),
   'balance-lower': Handlebars.compile(require('./balance-lower.hbs')),
-  'transaction-greater': Handlebars.compile(require('./transaction-greater.hbs'))
+  'transaction-greater': Handlebars.compile(require('./transaction-greater.hbs')),
+  'health-bill-linked': Handlebars.compile(require('./health-bill-linked.hbs'))
 }
 
 Handlebars.registerPartial(partials)

@@ -9,7 +9,7 @@ import GroupsSettings from './GroupsSettings'
 // constants
 const DOCTYPE = 'io.cozy.bank.settings'
 const COLLECTION_NAME = 'settings'
-const DEFAULTS_SETTINGS = {
+export const DEFAULTS_SETTINGS = {
   notifications: {
     balanceLower: {
       value: 100,
@@ -17,6 +17,9 @@ const DEFAULTS_SETTINGS = {
     },
     transactionGreater: {
       value: 30,
+      enabled: false
+    },
+    healthBillLinked: {
       enabled: false
     },
     salaire: {
