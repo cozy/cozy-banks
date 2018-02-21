@@ -79,7 +79,7 @@ class _BalanceRow extends React.Component {
             uniq(group.accounts
               .map(this.props.getAccount)
               .filter(account => account)
-              .map(getAccountInstitutionLabel).join(', '))
+              .map(getAccountInstitutionLabel)).join(', ')
           }
         </TdSecondary>
       </tr>
