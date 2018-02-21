@@ -105,7 +105,7 @@ const BalanceGroups = enhanceGroups(({ groups, balanceLower, isMobile, onRowClic
   return (
     <div>
       <h3>{t('AccountSwitch.groups')}</h3>
-      { groups.length !== 0 ? <Table className={styles['Balance__table']}>
+      { groups.length !== 0 && <Table className={styles['Balance__table']}>
         <thead>
           <tr>
             <td className={styles['Balance__account_name']}>{t('Groups.label')}</td>
@@ -121,7 +121,7 @@ const BalanceGroups = enhanceGroups(({ groups, balanceLower, isMobile, onRowClic
             isMobile={isMobile}
             onClick={onRowClick.bind(null, group)} />))}
         </tbody>
-      </Table> : null }
+      </Table> }
       { groups.length === 0 ? <p>
         { t('Groups.no-groups') }<br />
         <Button
@@ -211,9 +211,9 @@ class Balance extends React.Component {
           <FigureBlock label={t(trad, {label: label})} total={total} currency='€' coloredPositive coloredNegative signed />
         </div>
 
-        { groups.length > 0 ? groupsC : null }
+        { groups.length > 0 && groupsC }
         <BalanceAccounts accounts={accounts} balanceLower={balanceLower} isMobile={isMobile} onRowClick={this.goToTransactionsFilteredBy} />
-        { groups.length === 0 ? groupsC : null }
+        { groups.length === 0 && groupsC }
       </div>
     )
   }
