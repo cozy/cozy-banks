@@ -19,7 +19,7 @@ const NavLink = ({ to, children }) => (
 const Nav = ({ t }) => (
   <UINav>
     <NavItem>
-      <NavLink to='currentBalance'>
+      <NavLink to='balances'>
         <NavIcon icon={dashboard} />
         <NavText>{t('Nav.balance')}</NavText>
       </NavLink>

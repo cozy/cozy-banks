@@ -95,7 +95,8 @@
     "rename": "Rename",
     "save": "Save",
     "included": "Included",
-    "account-number": "Account number"
+    "account-number": "Account number",
+    "total-balance": "Total"
   },
   "Data": {
     "categories": {

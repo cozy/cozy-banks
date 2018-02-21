@@ -13,6 +13,7 @@ import 'number-to-locale-string'
 import { setupHistory } from 'utils/history'
 import { getClient } from 'utils/client'
 import { fetchSettingsCollection, initSettings } from 'ducks/settings'
+import 'utils/flag'
 
 if (__TARGET__ === 'mobile') {
   require('styles/mobile.styl')

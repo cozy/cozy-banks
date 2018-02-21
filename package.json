@@ -4,7 +4,7 @@
   "main": "src/main.jsx",
   "scripts": {
     "build": "npm run build:browser",
-    "build:browser": "NODE_ENV=browser:production npm run commons:build",
+    "build:browser": "NODE_ENV=${NODE_ENV:-browser:production} npm run commons:build",
     "build:mobile": "NODE_ENV=mobile:production npm run commons:build -- --env.target=mobile",
     "clean:browser": "rm -rf build/*",
     "clean:mobile": "rm -rf src/targets/mobile/www",
@@ -121,6 +121,7 @@
     "yarnhook": "^0.1.1"
   },
   "dependencies": {
+    "airbnb-prop-types": "^2.8.1",
     "babel-plugin-lodash": "^3.3.2",
     "babel-polyfill": "^6.26.0",
     "babel-preset-cozy-app": "^0.3.1",

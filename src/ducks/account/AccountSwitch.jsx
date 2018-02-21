@@ -182,7 +182,6 @@ class AccountSwitch extends Component {
     // The document is removed in the store, but still referenced in the collection
     // So we may get an undefined group. We filter it before sorting
     const orderedGroups = sortBy(groups.filter(Boolean), x => x.label.toLowerCase())
-
     return (
       <div className={styles['account-switch']}>
         {isMobile && <BarRight>
