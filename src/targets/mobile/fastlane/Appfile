@@ -1,2 +1,8 @@
+# ios
+app_identifier "io.cozy.banks"
+apple_id "simon@cozycloud.cc"
+team_id "3AKXFMV43J"
+
+# android
 json_key_file "./keys/android/key.json"
 package_name "io.cozy.banks.mobile"

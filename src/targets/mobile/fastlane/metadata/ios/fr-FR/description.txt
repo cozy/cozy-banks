@@ -21,26 +21,6 @@ La presse en parle déjà
 
 Consultez la liste de près de 15 banques et types de comptes disponibles dans votre Cozy
 
-- Axa Banque
-- Banque Populaire
-- BforBank
-- BNP Paribas
-- Boursorama
-- Caisse d’Epargne
-- Casden
-- CIC
-- Compte Nickel
-- Crédit Agricole
-- Crédit du Nord & banques du groupe
-- HelloBank
-- HSBC
-- ING Direct
-- LCL
-- Monabanq
-- La Banque Postale
-- Société Générale
-
-
 Toute l’équipe de Cozy Cloud est là pour vous accompagner
 
 Si vous ne trouvez pas l’information recherchée (nous nous en excusons par avance), nous vous invitons à contacter directement notre dévoué Claude claude@cozycloud.cc en précisant “App Store”. Vous pouvez compter sur lui pour vous répondre !
