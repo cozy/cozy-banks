@@ -24,10 +24,8 @@
   "AccountSwitch": {
     "account_counter": "%{smart_count} account |||| %{smart_count} accounts",
     "all_accounts": "All accounts",
-    "manage_groups": "Manage my groups",
     "groups": "Groups",
-    "accounts": "Accounts",
-    "manage_accounts": "Manage my accounts"
+    "accounts": "Accounts"
   },
 
   "AccountDetails": {
@@ -55,7 +53,7 @@
   },
 
   "Balance": {
-    "bank_name": "Name of the bank",
+    "bank_name": "Bank",
     "subtitle": {
       "all": "Total of all your accounts",
       "group": "Total group %{label}",
@@ -79,14 +77,16 @@
     "add-account": "Add an account",
     "type": "Type",
     "bank": "Bank",
-    "label": "Label"
+    "label": "Label",
+    "manage-accounts": "Manage my accounts"
   },
   "Groups": {
     "edit_group": "Edit Group",
     "edit": "edit",
+    "manage-groups": "Manage my groups",
     "create": "Create a group",
     "label": "Label",
-    "bank": "Bank",
+    "banks": "Banks",
     "accounts": "Accounts",
     "groups": "Groups",
     "delete": "remove",

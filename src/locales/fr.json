@@ -20,8 +20,6 @@
     "all_accounts": "Tous les comptes",
     "accounts": "Comptes",
     "groups": "Groupes",
-    "manage_groups": "Gérer mes groupes",
-    "manage_accounts": "Gérer mes comptes",
     "account_counter": "%{smart_count} compte |||| %{smart_count} comptes"
   },
 
@@ -68,7 +66,8 @@
     "no-shared-accounts": "Vous n'avez pas encore de compte partagé.",
     "shared": "Partagé",
     "shared-accounts": "Comptes que l'on m'a partagé",
-    "type": "Type"
+    "type": "Type",
+    "manage-accounts": "Gérer mes comptes"
   },
 
   "Balance": {
@@ -258,10 +257,11 @@
   "Groups": {
     "groups": "Groupes",
     "label": "Libellé",
-    "bank": "Banque",
+    "banks": "Banques",
     "accounts": "Comptes",
     "create": "créer",
     "edit": "éditer",
+    "manage-groups": "Gérer mes groupes",
     "delete": "supprimer",
     "create": "Créer un groupe",
     "edit_group": "Editer le groupe",
