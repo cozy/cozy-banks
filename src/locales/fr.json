@@ -330,6 +330,10 @@
     "monthly_summary": {
       "title": "Synthèse mensuelle",
       "description": "Vous recevrez un récapitulatif de vos dépenses et de vos revenus tous les premiers de chaque mois."
+    },
+    "when_health_bill_linked": {
+      "title": "Remboursement de santé",
+      "description": "Vous recevrez une notification lorsq'un remboursement a été trouvé pour une de vos dépenses de santé. Cela nécessite d'activer la synchronisation d'un connecteur santé."
     }
   },
 

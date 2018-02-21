@@ -1,0 +1,41 @@
+{{#extend "bank-layout"}}
+  {{#content "emailTitle"}}
+    Cozy Banks
+  {{/content}}
+
+  {{#content "emailSubtitle"}}
+    Notification de remboursement de santé - {{ formatDate date }}
+  {{/content}}
+
+  {{#content "content"}}
+    {{#each byAccounts as |transactionsByDate accountId| }}
+      <mj-section css-class="account" padding-top="0" padding-bottom="10px">
+        <mj-column>
+          <mj-text padding-top="0" padding-bottom="0">
+            <h3 class="js-account">{{ get ../accounts accountId 'label' }} - {{ get ../accounts accountId 'institutionLabel' }}</h3>
+          </mj-text>
+          {{#eachPair transactionsByDate as |date transactions|}}
+            <mj-text padding-top="0" padding-bottom="0">
+              <h4 class="js-date text"><span>{{ formatDate date }}</span></h4>
+            </mj-text>
+            {{#each transactions as |tr reimbursements|}}
+              <mj-table>
+                <tr class="js-transaction tableRow">
+                  <td width="40px"><img style="width: 32px; height: 32px" src='https://files.cozycloud.cc/bank/email-assets/icons/icon-cat-{{ parentCategory this }}.png' /></td>
+                  <td>
+                    {{ capitalize this.label }}, dépense traitée par
+                    {{#each this.reimbursements as |reimbursement|}}
+                    {{get ../../../../bills this.billId 'vendor'}}{{#unless @last}}, {{/unless}}
+                    {{/each}}
+                  </td>
+                </tr>
+              </mj-table>
+              {{#unless @last}}<mj-divider padding-bottom="0" padding-top="0" border-width="1px" border-color="#D0D2D5" />{{/unless}}
+            {{/each}}
+          {{/eachPair }}
+        </mj-text>
+        </mj-column>
+      </mj-section>
+    {{/each}}
+  {{/content}}
+{{/extend}}

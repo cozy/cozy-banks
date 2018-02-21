@@ -318,6 +318,10 @@
     "no_revenue": {
       "description": "You will be notified if you have not received your salary at the %{input} of each month.",
       "title": "Salary Delay"
+    },
+    "when_health_bill_linked": {
+      "title": "Medical expenses coverage",
+      "description": "You will be notified when a reimbursement is found for a medical expense. This requires to connect your Cozy to your medical insurance."
     }
   },
 

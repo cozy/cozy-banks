@@ -1,7 +1,8 @@
 import { cozyClient, log } from 'cozy-konnector-libs'
 import { initTranslation } from 'cozy-ui/react/I18n/translation'
-import { BalanceLower, TransactionGreater } from 'ducks/notifications'
 import subDays from 'date-fns/sub_days'
+import { BalanceLower, TransactionGreater, HealthBillLinked } from 'ducks/notifications'
+import startOfYesterday from 'date-fns/start_of_yesterday'
 
 const lang = process.env.COZY_LOCALE || 'en'
 const dictRequire = lang => require(`../../locales/${lang}`)
@@ -49,10 +50,11 @@ const getTransactionsChanges = async lastSeq => {
 
 const configKeys = {
   'BalanceLower': 'balanceLower',
-  'TransactionGreater': 'transactionGreater'
+  'TransactionGreater': 'transactionGreater',
+  'HealthBillLinked': 'healthBillLinked'
 }
 
-const notificationClasses = [BalanceLower, TransactionGreater]
+const notificationClasses = [BalanceLower, TransactionGreater, HealthBillLinked]
 
 const getAccountsOfTransactions = async transactions => {
   const accountsIds = Array.from(new Set(transactions.map(x => x.account)))
