@@ -4,7 +4,7 @@ import { flowRight as compose, sortBy } from 'lodash'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Link, withRouter } from 'react-router'
+import { Link } from 'react-router'
 import classNames from 'classnames'
 
 import { cozyConnect, fetchCollection } from 'cozy-client'
@@ -234,6 +234,5 @@ export default compose(
   cozyConnect(mapDocumentsToProps),
   connect(mapStateToProps, mapDispatchToProps),
   translate(),
-  withRouter,
   withBreakpoints()
 )(AccountSwitch)
