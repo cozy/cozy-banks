@@ -1,7 +1,7 @@
 import { cozyClient, log } from 'cozy-konnector-libs'
 import { initTranslation } from 'cozy-ui/react/I18n/translation'
 import { BalanceLower, TransactionGreater } from 'ducks/notifications'
-import startOfYesterday from 'date-fns/start_of_yesterday'
+import subDays from 'date-fns/sub_days'
 
 const lang = process.env.COZY_LOCALE || 'en'
 const dictRequire = lang => require(`../../locales/${lang}`)
@@ -18,24 +18,25 @@ process.on('unhandledRejection', err => {
 
 const getTransactionsChanges = async lastSeq => {
   // lastSeq = '0' // Useful for debug
-  const yesterday = startOfYesterday()
   const result = await cozyClient.fetchJSON(
     'GET',
     `/data/io.cozy.bank.operations/_changes?include_docs=true&since=${lastSeq}`
   )
 
+  const fourDaysAgo = subDays(new Date(), 4)
   const newLastSeq = result.last_seq
   const transactions = result.results
-    .filter(x => x.doc && x.doc._id.indexOf('_design') !== 0)
-    .filter(x => x.doc && !x.doc._deleted)
     .map(x => {
       if (!x.doc) {
         log('warn', `This response row doesn't contain a doc. Why?`, JSON.stringify(x))
       }
       return x.doc
     })
+    .filter(doc => doc._id.indexOf('_design') !== 0)
+    .filter(doc => !doc._deleted)
+    .filter(doc => doc._rev.split('-').unshift() === '1') // only keep documents creations
+    .filter(doc => doc.date && new Date(doc.date) > fourDaysAgo) // only mail 4 days old operations
     .filter(Boolean) // TODO find out why some documents are not returned
-    .filter(doc => new Date((doc.metadata && doc.metadata.dateImport) || doc.date) > yesterday)
 
   const delta = result.results ? result.results.length - transactions.length : 0
   if (delta > 0) {
