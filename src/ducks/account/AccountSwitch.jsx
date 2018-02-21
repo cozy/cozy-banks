@@ -84,7 +84,7 @@ const AccountSwitchMenu = translate()(({ accounts, groups, filteringDoc, filterB
             </span>
           </button>
         </li>
-        {groups.map(group => (
+        {sortBy(groups, 'label').map(group => (
           <li>
             <button
               onClick={() => { filterByDoc(group) }}
@@ -107,7 +107,7 @@ const AccountSwitchMenu = translate()(({ accounts, groups, filteringDoc, filterB
         {t('AccountSwitch.accounts')}
       </h4>
       <ul>
-        {accounts.map(account => (
+        {sortBy(accounts, ['institutionLabel', 'label']).map(account => (
           <li>
             <button
               onClick={() => { filterByDoc(account) }}
