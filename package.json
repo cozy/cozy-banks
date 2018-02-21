@@ -4,7 +4,7 @@
   "main": "src/main.jsx",
   "scripts": {
     "build": "npm run build:browser",
-    "build:browser": "NODE_ENV=${NODE_ENV:-production} npm run commons:build",
+    "build:browser": "NODE_ENV=${NODE_ENV:-browser:production} npm run commons:build",
     "build:mobile": "NODE_ENV=mobile:production npm run commons:build -- --env.target=mobile",
     "clean:browser": "rm -rf build/*",
     "clean:mobile": "rm -rf src/targets/mobile/www",
