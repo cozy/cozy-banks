@@ -18,28 +18,33 @@ import { flowRight as compose } from 'lodash'
 import { destroyAccount } from 'actions'
 import spinner from 'assets/icons/icon-spinner.svg'
 import { getAccountInstitutionLabel } from '../account/helpers'
+import { getAppUrlBySource, fetchApps } from 'ducks/apps'
 
-const DeleteConfirm = translate()(({ t, cancel, confirm, deleting }) => {
+const DeleteConfirm = ({ cancel, confirm, title, description, secondaryText, primaryText }) => {
   return (
     <Modal
-      title={t('AccountSettings.confirm-deletion.title')}
-      description={t('AccountSettings.confirm-deletion.description')}
+      title={title}
+      description={<div dangerouslySetInnerHTML={{__html: description}} />}
       secondaryType='secondary'
-      secondaryText={t('General.cancel')}
+      secondaryText={secondaryText}
       secondaryAction={cancel}
       dismissAction={cancel}
       primaryType='danger'
-      primaryText={deleting ? <Icon icon={spinner} className='u-spin' color='white' /> : t('AccountSettings.confirm-deletion.confirm')}
+      primaryText={primaryText}
       primaryAction={confirm}
     />
   )
-})
+}
 
 const AccountSharingDetails = translate()(({ t }) =>
   <div>{t('ComingSoon.title')}</div>)
 
 class _GeneralSettings extends Component {
   state = { modifying: false }
+
+  componentDidMount () {
+    this.props.fetchApps()
+  }
 
   onClickModify = () => {
     const { account } = this.props
@@ -89,6 +94,10 @@ class _GeneralSettings extends Component {
   }
 
   render ({t, account}, {modifying, deleting, showingDeleteConfirmation}) {
+    const confirmPrimaryText = t('AccountSettings.confirm-deletion.description')
+      .replace('#{LINK}', `<a href="${this.props.collectUrl}" target="_blank">`)
+      .replace('#{/LINK}', '</a>')
+
     return (
       <div>
         <table className={styles.AcnStg__info}>
@@ -127,11 +136,14 @@ class _GeneralSettings extends Component {
           </Button>}
 
           {account.shared === undefined ? <Button disabled={deleting} theme='danger-outline' onClick={this.onClickDelete}>
-            {deleting ? t('General.deleting') : t('General.delete')}
+            {deleting ? t('AccountSettings.deleting') : t('AccountSettings.delete')}
           </Button> : null}
           {showingDeleteConfirmation
             ? <DeleteConfirm
-              deleting={deleting}
+              title={t('AccountSettings.confirm-deletion.title')}
+              description={confirmPrimaryText}
+              primaryText={deleting ? <Icon icon={spinner} className='u-spin' color='white' /> : t('AccountSettings.confirm-deletion.confirm')}
+              secondaryText={t('General.cancel')}
               confirm={this.onClickConfirmDelete}
               cancel={this.onClickCancelDelete} />
             : null}
@@ -144,13 +156,18 @@ class _GeneralSettings extends Component {
 const mapDispatchToProps = dispatch => ({
   destroyAccount: account => {
     return dispatch(destroyAccount(account))
-  }
+  },
+  fetchApps: () => dispatch(fetchApps())
+})
+
+const mapStateToProps = state => ({
+  collectUrl: getAppUrlBySource(state, 'github.com/cozy/cozy-collect')
 })
 
 const GeneralSettings = compose(
   withRouter,
   withDispatch,
-  connect(null, mapDispatchToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   translate())(_GeneralSettings)
 
 const AccountSettings = function ({account, onClose, t}) {

@@ -49,8 +49,10 @@
     "details": "Détails",
     "sharing": "Partage",
     "back-to-accounts": "Revenir aux comptes",
+    "delete": "Effacer",
+    "deleting": "Effacement...",
     "confirm-deletion": {
-      "description": "Merci de confirmer la suppression du compte. Cela supprimera tous les mouvements présents dans l'application Bank ainsi que les liens entre ces mouvements et vos factures ou remboursements.",
+      "description": "Cette action supprimera les mouvements déjà présents dans l'application Banks, ainsi que les liens avec vos factures. Supprimez également votre compte depuis #{LINK}l'app Cozy Collect#{/LINK}, si vous ne souhaitez pas réimporter vos données à la prochaine synchronisation.",
       "confirm": "Confirmer la suppression",
       "title": "Êtes-vous sûr ?"
     }
