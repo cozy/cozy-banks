@@ -79,7 +79,7 @@ class _BalanceRow extends React.Component {
             group.accounts
               .map(this.props.getAccount)
               .filter(account => account)
-              .map(getAccountLabel).join(', ')
+              .map(getAccountInstitutionLabel).join(', ')
           }
         </TdSecondary>
       </tr>
@@ -99,6 +99,80 @@ BalanceRow.propTypes = {
     group: PropTypes.object.isRequired
   }]).isRequired
 }
+
+const enhanceGroups = compose(withRouter, translate())
+const BalanceGroups = enhanceGroups(({ groups, balanceLower, isMobile, onRowClick, t, router }) => {
+  return (
+    <div>
+      <h3>{t('AccountSwitch.groups')}</h3>
+      { groups.length !== 0 && <Table className={styles['Balance__table']}>
+        <thead>
+          <tr>
+            <td className={styles['Balance__account_name']}>{t('Groups.label')}</td>
+            <td className={styles['Balance__solde']}>{t('Groups.total-balance')}</td>
+            <td className={styles['Balance__group-accounts']}>{t('Groups.accounts')}</td>
+            <td className={styles['Balance__bank']}>{t('Groups.banks')}</td>
+          </tr>
+        </thead>
+        <tbody>
+          {groups.map(group => (<BalanceRow
+            group={group}
+            warningLimit={balanceLower}
+            isMobile={isMobile}
+            onClick={onRowClick.bind(null, group)} />))}
+        </tbody>
+      </Table> }
+      { groups.length === 0 ? <p>
+        { t('Groups.no-groups') }<br />
+        <Button
+          onClick={() => router.push('/settings/groups/new')}
+          className={cx(btnStyles['btn--no-outline'], 'u-pv-1')}>
+          <Icon icon={plus} className='u-mr-half' />
+          {t('Groups.create')}
+        </Button>
+      </p> : <p>
+        <Button
+          onClick={() => router.push('/settings/groups')}
+          className={cx(btnStyles['btn--no-outline'], 'u-pv-1')}>
+          {t('Groups.manage-groups')}
+        </Button>
+      </p> }
+    </div>
+  )
+})
+
+const BalanceAccounts = translate()(({ accounts, balanceLower, isMobile, onRowClick, t }) => {
+  return (
+    <div>
+      <h3>{t('AccountSwitch.accounts')}</h3>
+      <Table className={styles['Balance__table']}>
+        <thead>
+          <tr>
+            <td className={styles['Balance__account_name']}>{t('Accounts.label')}</td>
+            <td className={styles['Balance__solde']}>{t('Balance.solde')}</td>
+            {!isMobile && <td className={styles['Balance__account_number']}>{t('Balance.account_number')}</td>}
+            {!isMobile && <td className={styles['Balance__bank']}>{t('Balance.bank_name')}</td>}
+          </tr>
+        </thead>
+        <tbody>
+          {accounts.map(account => (<BalanceRow
+            account={account}
+            warningLimit={balanceLower}
+            isMobile={isMobile}
+            onClick={onRowClick.bind(null, account)} />))}
+        </tbody>
+      </Table>
+      <p>
+        <CollectLink>
+          <Button className={cx(btnStyles['btn--no-outline'], 'u-pv-1')}>
+            <Icon icon={plus} className='u-mr-half' />
+            {t('Accounts.add-account')}
+          </Button>
+        </CollectLink>
+      </p>
+    </div>
+  )
+})
 
 class Balance extends React.Component {
   goToTransactionsFilteredBy = doc => {
@@ -127,6 +201,7 @@ class Balance extends React.Component {
 
     const balanceLower = getSettings(settingsCollection).notifications.balanceLower.value
 
+    const groupsC = <BalanceGroups groups={groups} balanceLower={balanceLower} isMobile={isMobile} onRowClick={this.goToTransactionsFilteredBy} />
     return (
       <div className={styles['Balance']}>
         <Topbar>
@@ -136,57 +211,9 @@ class Balance extends React.Component {
           <FigureBlock label={t(trad, {label: label})} total={total} currency='€' coloredPositive coloredNegative signed />
         </div>
 
-        { groups.length !== 0 ? <h3>{t('AccountSwitch.groups')}</h3> : null }
-        { groups.length !== 0 ? <Table className={styles['Balance__table']}>
-          <thead>
-            <tr>
-              <td className={styles['Balance__account_name']}>{t('Groups.label')}</td>
-              <td className={styles['Balance__solde']}>{t('Groups.total-balance')}</td>
-              <td className={styles['Balance__group-accounts']}>{t('Groups.accounts')}</td>
-              <td className={styles['Balance__bank']}>{t('Groups.bank')}</td>
-            </tr>
-          </thead>
-          <tbody>
-            {groups.map(group => (<BalanceRow
-              group={group}
-              warningLimit={balanceLower}
-              isMobile={isMobile}
-              onClick={this.goToTransactionsFilteredBy.bind(null, group)} />))}
-          </tbody>
-        </Table> : null }
-        <p>
-          <Button
-            onClick={() => this.props.router.push('/settings/groups/new')}
-            className={cx(btnStyles['btn--no-outline'], 'u-pv-1')}>
-            <Icon icon={plus} className='u-mr-half' />
-            {t('Groups.create')}
-          </Button>
-        </p>
-        <h3>{t('AccountSwitch.accounts')}</h3>
-        <Table className={styles['Balance__table']}>
-          <thead>
-            <tr>
-              <td className={styles['Balance__account_name']}>{t('Accounts.label')}</td>
-              <td className={styles['Balance__solde']}>{t('Balance.solde')}</td>
-              {!isMobile && <td className={styles['Balance__account_number']}>{t('Balance.account_number')}</td>}
-              {!isMobile && <td className={styles['Balance__bank']}>{t('Balance.bank_name')}</td>}
-            </tr>
-          </thead>
-          <tbody>
-            {accounts.map(account => (<BalanceRow
-              account={account}
-              warningLimit={balanceLower}
-              isMobile={isMobile}
-              onClick={this.goToTransactionsFilteredBy.bind(null, account)} />))}
-          </tbody>
-        </Table>
-
-        <CollectLink>
-          <Button className={cx(btnStyles['btn--no-outline'], 'u-pv-1')}>
-            <Icon icon={plus} className='u-mr-half' />
-            {t('Accounts.add-account')}
-          </Button>
-        </CollectLink>
+        { groups.length > 0 && groupsC }
+        <BalanceAccounts accounts={accounts} balanceLower={balanceLower} isMobile={isMobile} onRowClick={this.goToTransactionsFilteredBy} />
+        { groups.length === 0 && groupsC }
       </div>
     )
   }

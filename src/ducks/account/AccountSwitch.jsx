@@ -98,7 +98,7 @@ const AccountSwitchMenu = translate()(({ accounts, groups, filteringDoc, filterB
         ))}
       </ul>
       <Link to={'/settings/groups'}>
-        {t('AccountSwitch.manage_groups')}
+        {t('Groups.manage-groups')}
       </Link>
 
       <hr />
@@ -125,7 +125,7 @@ const AccountSwitchMenu = translate()(({ accounts, groups, filteringDoc, filterB
         ))}
       </ul>
       <Link to={'/settings/accounts'}>
-        {t('AccountSwitch.manage_accounts')}
+        {t('Accounts.manage-accounts')}
       </Link>
     </div>
   </div>

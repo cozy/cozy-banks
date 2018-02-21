@@ -55,15 +55,15 @@ const Groups = withRouter(class extends Component {
     }
     return (
       <div>
+        {groups.fetchStatus === 'loading'
+          ? <Loading />
+          : <GroupList accounts={accounts} groups={groups.data.filter(x => x)} />}
         <p>
           <Button className={btnStyles['btn--no-outline']} onClick={() => router.push('/settings/groups/new')}>
             <Icon icon={plus} className='u-mr-half' />
             {t('Groups.create')}
           </Button>
         </p>
-        {groups.fetchStatus === 'loading'
-          ? <Loading />
-          : <GroupList accounts={accounts} groups={groups.data.filter(x => x)} />}
 
       </div>
     )
