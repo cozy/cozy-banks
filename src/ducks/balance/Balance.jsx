@@ -64,7 +64,7 @@ class _BalanceRow extends React.Component {
         <TdSecondary className={cx(styles['Balance__solde'], { [styles.alert]: isAlert, [styles.warning]: isWarning })}>
           {balance !== undefined && <Figure total={balance} warningLimit={warningLimit} currency='€' coloredNegative coloredWarning signed />}
         </TdSecondary>
-        {(account || !isMobile) && <TdSecondary className={styles['Balance__account_number']}>
+        {!isMobile && <TdSecondary className={styles['Balance__account_number']}>
           {account && account.number}
           {group &&
             uniq(group.accounts
