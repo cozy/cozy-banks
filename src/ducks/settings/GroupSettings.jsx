@@ -19,6 +19,7 @@ import Spinner from 'cozy-ui/react/Spinner'
 import styles from './GroupsSettings.styl'
 import btnStyles from 'styles/buttons'
 import { getAccountInstitutionLabel } from '../account/helpers'
+import { sortBy } from 'lodash'
 
 const accountInGroup = (account, group) =>
   group.accounts.indexOf(account._id) > -1
@@ -145,7 +146,7 @@ class GroupSettings extends Component {
               </tr>
             </thead>
             <tbody>
-              {accounts.data && accounts.data.map(this.renderAccountLine)}
+              {accounts.data && sortBy(accounts.data, ['institutionLabel', 'label']).map(this.renderAccountLine)}
             </tbody>
           </Table>}
         <p>
