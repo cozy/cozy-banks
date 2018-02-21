@@ -8,6 +8,7 @@ import Loading from 'components/Loading'
 import plus from 'assets/icons/16/plus.svg'
 import styles from './GroupsSettings.styl'
 import btnStyles from 'styles/buttons'
+import { sortBy } from 'lodash'
 
 const isPending = (reduxObj) => {
   return reduxObj.fetchStatus === 'pending'
@@ -57,7 +58,7 @@ const Groups = withRouter(class extends Component {
       <div>
         {groups.fetchStatus === 'loading'
           ? <Loading />
-          : <GroupList accounts={accounts} groups={groups.data.filter(x => x)} />}
+          : <GroupList accounts={accounts} groups={sortBy(groups.data.filter(x => x), 'label')} />}
         <p>
           <Button className={btnStyles['btn--no-outline']} onClick={() => router.push('/settings/groups/new')}>
             <Icon icon={plus} className='u-mr-half' />
