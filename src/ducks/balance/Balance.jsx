@@ -1,5 +1,5 @@
 import React from 'react'
-import { flowRight as compose, sumBy, uniq } from 'lodash'
+import { flowRight as compose, sumBy, uniq, sortBy } from 'lodash'
 import { connect } from 'react-redux'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
@@ -45,7 +45,7 @@ const getAccountLabel = account => account.shortLabel || account.label
 
 class _BalanceRow extends React.Component {
   render () {
-    const {account, group, warningLimit, onClick, filteringDoc} = this.props
+    const {account, group, warningLimit, onClick, filteringDoc, isMobile} = this.props
     const balance = account ? account.balance : getGroupBalance(group, this.props.getAccount)
     const isWarning = balance ? balance < warningLimit : false
     const isAlert = balance ? balance < 0 : false
@@ -64,22 +64,22 @@ class _BalanceRow extends React.Component {
         <TdSecondary className={cx(styles['Balance__solde'], { [styles.alert]: isAlert, [styles.warning]: isWarning })}>
           {balance !== undefined && <Figure total={balance} warningLimit={warningLimit} currency='€' coloredNegative coloredWarning signed />}
         </TdSecondary>
-        <TdSecondary className={styles['Balance__account_number']}>
+        {(account || !isMobile) && <TdSecondary className={styles['Balance__account_number']}>
           {account && account.number}
           {group &&
             uniq(group.accounts
               .map(this.props.getAccount)
               .filter(account => account)
-              .map(getAccountInstitutionLabel)).join(', ')
+              .map(getAccountLabel)).join(', ')
           }
-        </TdSecondary>
+        </TdSecondary>}
         <TdSecondary className={styles['Balance__bank']}>
           {account && getAccountInstitutionLabel(account)}
           {group &&
-            group.accounts
+            uniq(group.accounts
               .map(this.props.getAccount)
               .filter(account => account)
-              .map(getAccountInstitutionLabel).join(', ')
+              .map(getAccountInstitutionLabel).join(', '))
           }
         </TdSecondary>
       </tr>
@@ -183,8 +183,8 @@ class Balance extends React.Component {
   render () {
     const {t, settingsCollection, breakpoints: { isMobile }} = this.props
     let {accounts, groups} = this.props
-    accounts = accounts.data
-    groups = groups.data
+    accounts = sortBy(accounts.data, ['institutionLabel', 'label'])
+    groups = sortBy(groups.data, 'label')
 
     if (accounts === null || groups === null) {
       return <Loading />
