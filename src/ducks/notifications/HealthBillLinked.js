@@ -1,6 +1,6 @@
 import Notification from './Notification'
 import { isHealthExpense } from '../categories/helpers'
-import { cozyClient, log } from 'cozy-konnector-libs'
+import { cozyClient } from 'cozy-konnector-libs'
 import htmlTemplate from './html/health-bill-linked-html'
 import { BILLS_DOCTYPE } from 'doctypes'
 import * as utils from './html/utils'
