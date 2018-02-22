@@ -35,7 +35,7 @@ const getTransactionsChanges = async lastSeq => {
     })
     .filter(doc => doc._id.indexOf('_design') !== 0)
     .filter(doc => !doc._deleted)
-    .filter(doc => doc._rev.split('-').unshift() === '1') // only keep documents creations
+    .filter(doc => doc._rev.split('-').shift() === '1') // only keep documents creations
     .filter(doc => doc.date && new Date(doc.date) > fourDaysAgo) // only mail 4 days old operations
     .filter(Boolean) // TODO find out why some documents are not returned
 
@@ -131,6 +131,7 @@ const sendNotifications = async () => {
   const { newLastSeq, transactions } = await getTransactionsChanges(lastSeq)
 
   if (transactions.length > 0) {
+    log('info', `${transactions.length} new transactions to notify `)
     const accounts = await getAccountsOfTransactions(transactions)
     for (const Klass of enabledNotificationClasses) {
       const klassConfig = getClassConfig(Klass, config)
@@ -141,6 +142,8 @@ const sendNotifications = async () => {
         log('warn', JSON.stringify(err))
       }
     }
+  } else {
+    log('info', 'No new transaction to notify')
   }
 
   if (lastSeq !== newLastSeq) {
