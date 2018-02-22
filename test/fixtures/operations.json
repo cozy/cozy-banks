@@ -27,7 +27,8 @@
       "institutionLabel": "HSBC",
       "number": "{{int 1000000 9999999}}",
       "balance": 1421.22,
-      "description": "Premier compte sans connaitre l id pour generer le doc"
+      "description": "Premier compte sans connaitre l id pour generer le doc",
+      "type": "Savings"
     },
     {
       "_id": "comptecla1",
@@ -36,6 +37,7 @@
       "number": "{{int 1000000 9999999}}",
       "balance": 4135.62,
       "shared": "true",
+      "type": "Checkings",
       "recipients": [
         {
           "status": "pending",
@@ -51,14 +53,16 @@
       "label": "Compte courant Isabelle",
       "institutionLabel": "BNPP",
       "number": "{{int 1000000 9999999}}",
-      "balance": 3974.25
+      "balance": 3974.25,
+      "type": "Checkings"
     },
     {
       "_id": "compteisa3",
       "label": "Livret A Isabelle",
       "institutionLabel": "La Banque Postale",
       "number": "{{int 1000000 9999999}}",
-      "balance": 11635.12
+      "balance": 11635.12,
+      "type": "Savings"
     },
     {
       "_id": "comptegene1",
@@ -67,6 +71,7 @@
       "number": "{{int 1000000 9999999}}",
       "balance": 22471.46,
       "shared": "true",
+      "type": "Checkings",
       "recipients": [
         {
           "status": "pending",
@@ -84,6 +89,7 @@
       "number": "{{int 1000000 9999999}}",
       "balance": 325.24,
       "shared": "true",
+      "type": "Savings",
       "recipients": [
         {
           "status": "pending",
