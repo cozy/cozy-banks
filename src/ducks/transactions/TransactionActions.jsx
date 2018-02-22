@@ -195,13 +195,15 @@ class _Action extends Component {
 
   getIconColor = () => {
     const { type } = this.state
-    const vendors = getVendors(this.props.transaction)
-
     const isHealthExpense = type === HEALTH_EXPENSE_STATUS
-    const hasVendor = vendors && vendors.length > 0
 
-    if (isHealthExpense && !hasVendor) {
-      return palette.pomegranate
+    if (isHealthExpense && this.props.transaction) {
+      const vendors = getVendors(this.props.transaction)
+      const hasVendor = vendors && vendors.length > 0
+
+      if (!hasVendor) {
+        return palette.pomegranate
+      }
     }
 
     return this.props.color
