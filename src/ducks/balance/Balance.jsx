@@ -64,7 +64,7 @@ class _BalanceRow extends React.Component {
         <TdSecondary className={cx(styles['Balance__solde'], { [styles.alert]: isAlert, [styles.warning]: isWarning })}>
           {balance !== undefined && <Figure total={balance} warningLimit={warningLimit} currency='€' coloredNegative coloredWarning signed />}
         </TdSecondary>
-        {!isMobile && <TdSecondary className={styles['Balance__account_number']}>
+        <TdSecondary className={styles['Balance__account_number']}>
           {account && account.number}
           {group &&
             uniq(group.accounts
@@ -72,8 +72,8 @@ class _BalanceRow extends React.Component {
               .filter(account => account)
               .map(getAccountLabel)).join(', ')
           }
-        </TdSecondary>}
-        <TdSecondary className={styles['Balance__bank']}>
+        </TdSecondary>
+        {!isMobile && <TdSecondary className={styles['Balance__bank']}>
           {account && getAccountInstitutionLabel(account)}
           {group &&
             uniq(group.accounts
@@ -81,7 +81,7 @@ class _BalanceRow extends React.Component {
               .filter(account => account)
               .map(getAccountInstitutionLabel)).join(', ')
           }
-        </TdSecondary>
+        </TdSecondary>}
       </tr>
     )
   }
