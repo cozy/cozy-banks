@@ -1,10 +1,10 @@
 {{#extend "bank-layout"}}
   {{#content "emailTitle"}}
-    Cozy Banks
+  {{t 'title'}}
   {{/content}}
 
   {{#content "emailSubtitle"}}
-    Notification de remboursement de santé - {{ formatDate date }}
+     {{ formatDate date }}
   {{/content}}
 
   {{#content "content"}}
@@ -23,7 +23,7 @@
                 <tr class="js-transaction tableRow">
                   <td width="40px"><img style="width: 32px; height: 32px" src='https://files.cozycloud.cc/bank/email-assets/icons/icon-cat-{{ parentCategory this }}.png' /></td>
                   <td>
-                    {{ capitalize this.label }}, dépense traitée par
+                    {{ capitalize this.label }}, {{t 'treatedBy'}}
                     {{#each this.reimbursements as |reimbursement|}}
                     {{get ../../../../bills this.billId 'vendor'}}{{#unless @last}}, {{/unless}}
                     {{/each}}

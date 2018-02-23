@@ -4,6 +4,7 @@ import { cozyClient } from 'cozy-konnector-libs'
 import htmlTemplate from './html/health-bill-linked-html'
 import { BILLS_DOCTYPE } from 'doctypes'
 import * as utils from './html/utils'
+import Handlebars from 'handlebars'
 
 const ACCOUNT_SEL = '.js-account'
 const DATE_SEL = '.js-date'
@@ -48,7 +49,7 @@ class HealthBillLinked extends Notification {
     )
 
     if (transactionsWithReimbursements.length === 0) {
-      return
+      return Promise.reject(new Error('No transactions with reimbursements'))
     }
 
     const billsPromises = []
@@ -59,6 +60,10 @@ class HealthBillLinked extends Notification {
         billsPromises.push(cozyClient.data.find(BILLS_DOCTYPE, billId))
       })
     })
+
+    const translateKey = 'Notifications.when_health_bill_linked.notification'
+    const t = (key) => this.t(translateKey + '.content.' + key)
+    Handlebars.registerHelper({ t })
 
     return Promise.all(billsPromises)
       .then(bills => {
@@ -72,7 +77,8 @@ class HealthBillLinked extends Notification {
 
         return {
           reference: 'health_bill_linked',
-          title: 'Nouveaux remboursements de santé',
+          title: this.t(`${translateKey}.title`),
+          content_html: htmlContent,
           content: toText(htmlContent)
         }
       })
@@ -81,14 +87,18 @@ class HealthBillLinked extends Notification {
   async sendNotification () {
     if (!this.data) { return }
 
-    const attributes = await this.buildNotification(this.data)
+    try {
+      const attributes = await this.buildNotification(this.data)
 
-    return cozyClient.fetchJSON('POST', '/notifications', {
-      data: {
-        type: 'io.cozy.notifications',
-        attributes: attributes
-      }
-    })
+      return cozyClient.fetchJSON('POST', '/notifications', {
+        data: {
+          type: 'io.cozy.notifications',
+          attributes: attributes
+        }
+      })
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
 
