@@ -333,7 +333,14 @@
     },
     "when_health_bill_linked": {
       "title": "Remboursement de santé",
-      "description": "Vous recevrez une notification lorsq'un remboursement a été trouvé pour une de vos dépenses de santé. Cela nécessite d'activer la synchronisation d'un connecteur santé."
+      "description": "Vous recevrez une notification lorsq'un remboursement a été trouvé pour une de vos dépenses de santé. Cela nécessite d'activer la synchronisation d'un connecteur santé.",
+      "notification": {
+        "title": "Nouveaux remboursement de santé",
+        "content": {
+          "title": "Notification de remboursement de santé",
+          "treatedBy": "dépense traitée par"
+        }
+      }
     }
   },
 

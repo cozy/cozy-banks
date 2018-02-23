@@ -49,7 +49,7 @@ class HealthBillLinked extends Notification {
     )
 
     if (transactionsWithReimbursements.length === 0) {
-      return
+      return Promise.reject(new Error('No transactions with reimbursements'))
     }
 
     const billsPromises = []
@@ -87,14 +87,18 @@ class HealthBillLinked extends Notification {
   async sendNotification () {
     if (!this.data) { return }
 
-    const attributes = await this.buildNotification(this.data)
+    try {
+      const attributes = await this.buildNotification(this.data)
 
-    return cozyClient.fetchJSON('POST', '/notifications', {
-      data: {
-        type: 'io.cozy.notifications',
-        attributes: attributes
-      }
-    })
+      return cozyClient.fetchJSON('POST', '/notifications', {
+        data: {
+          type: 'io.cozy.notifications',
+          attributes: attributes
+        }
+      })
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
 
