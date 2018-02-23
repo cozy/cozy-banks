@@ -100,11 +100,24 @@ BalanceRow.propTypes = {
   }]).isRequired
 }
 
+/**
+ * `SectionTitle` needs to be have a slight top margin.
+ * TODO check with Claire how to have default margins
+ * in components that work well together.
+ *
+ * @param  {React.Element} options.children
+ */
+const SectionTitle = ({ children }) => {
+  return (<h3 className={styles['Balance__section-title']}>
+    { children }
+  </h3>)
+}
+
 const enhanceGroups = compose(withRouter, translate())
 const BalanceGroups = enhanceGroups(({ groups, balanceLower, isMobile, onRowClick, t, router }) => {
   return (
     <div>
-      <h3>{t('AccountSwitch.groups')}</h3>
+      <SectionTitle>{t('AccountSwitch.groups')}</SectionTitle>
       { groups.length !== 0 && <Table className={styles['Balance__table']}>
         <thead>
           <tr>
@@ -144,7 +157,7 @@ const BalanceGroups = enhanceGroups(({ groups, balanceLower, isMobile, onRowClic
 const BalanceAccounts = translate()(({ accounts, balanceLower, isMobile, onRowClick, t }) => {
   return (
     <div>
-      <h3>{t('AccountSwitch.accounts')}</h3>
+      <SectionTitle>{t('AccountSwitch.accounts')}</SectionTitle>
       <Table className={styles['Balance__table']}>
         <thead>
           <tr>
