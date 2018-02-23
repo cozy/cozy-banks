@@ -43,10 +43,14 @@ class HealthBillLinked extends Notification {
     this.data = config.data
   }
 
-  buildNotification ({ accounts, transactions }) {
-    const transactionsWithReimbursements = transactions.filter(
+  filterTransactions (transactions) {
+    return transactions.filter(
       transaction => isHealthExpense(transaction) && transaction.reimbursements && transaction.reimbursements.length > 0
     )
+  }
+
+  buildNotification ({ accounts, transactions }) {
+    const transactionsWithReimbursements = this.filterTransactions(transactions)
 
     if (transactionsWithReimbursements.length === 0) {
       return Promise.reject(new Error('No transactions with reimbursements'))
@@ -82,23 +86,6 @@ class HealthBillLinked extends Notification {
           content: toText(htmlContent)
         }
       })
-  }
-
-  async sendNotification () {
-    if (!this.data) { return }
-
-    try {
-      const attributes = await this.buildNotification(this.data)
-
-      return cozyClient.fetchJSON('POST', '/notifications', {
-        data: {
-          type: 'io.cozy.notifications',
-          attributes: attributes
-        }
-      })
-    } catch (err) {
-      console.log(err)
-    }
   }
 }
 

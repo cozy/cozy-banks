@@ -1,6 +1,5 @@
 import { cozyClient, log } from 'cozy-konnector-libs'
 import { initTranslation } from 'cozy-ui/react/I18n/translation'
-import subDays from 'date-fns/sub_days'
 import { BalanceLower, TransactionGreater, HealthBillLinked } from 'ducks/notifications'
 import startOfYesterday from 'date-fns/start_of_yesterday'
 
@@ -24,7 +23,6 @@ const getTransactionsChanges = async lastSeq => {
     `/data/io.cozy.bank.operations/_changes?include_docs=true&since=${lastSeq}`
   )
 
-  const fourDaysAgo = subDays(new Date(), 4)
   const newLastSeq = result.last_seq
   const transactions = result.results
     .map(x => {
@@ -35,8 +33,6 @@ const getTransactionsChanges = async lastSeq => {
     })
     .filter(doc => doc._id.indexOf('_design') !== 0)
     .filter(doc => !doc._deleted)
-    .filter(doc => doc._rev.split('-').shift() === '1') // only keep documents creations
-    .filter(doc => doc.date && new Date(doc.date) > fourDaysAgo) // only mail 4 days old operations
     .filter(Boolean) // TODO find out why some documents are not returned
 
   const delta = result.results ? result.results.length - transactions.length : 0

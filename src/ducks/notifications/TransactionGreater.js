@@ -1,9 +1,9 @@
-import { cozyClient } from 'cozy-konnector-libs'
 import Handlebars from 'handlebars'
 import htmlTemplate from './html/transaction-greater-html'
 import * as utils from './html/utils'
-
-const abs = number => number < 0 ? -number : number
+import subDays from 'date-fns/sub_days'
+import { isCreatedDoc, isDocYoungerThan, isTransactionAmountGreaterThan } from './helpers'
+import Notification from './Notification'
 
 const ACCOUNT_SEL = '.js-account'
 const DATE_SEL = '.js-date'
@@ -35,20 +35,25 @@ const toText = cozyHTMLEmail => {
   return utils.toText(cozyHTMLEmail, getContent)
 }
 
-class TransactionGreater {
+class TransactionGreater extends Notification {
   constructor (config) {
-    this.t = config.t
+    super(config)
+
     this.maxAmount = config.value
-    this.notification = this.buildNotification(config.data)
   }
 
-  filter (op) {
-    const maxAmount = abs(this.maxAmount)
-    return abs(op.amount) > maxAmount
+  filterTransactions (transactions) {
+    const fourDaysAgo = subDays(new Date(), 4)
+
+    return transactions
+      .filter(isCreatedDoc)
+      .filter(isDocYoungerThan(fourDaysAgo))
+      .filter(isTransactionAmountGreaterThan(this.maxAmount))
   }
 
   buildNotification ({ accounts, transactions }) {
-    const transactionsFiltered = transactions.filter(op => this.filter(op))
+    const transactionsFiltered = this.filterTransactions(transactions)
+
     if (transactionsFiltered.length === 0) {
       console.log('TransactionGreater: no matched transactions')
       return
@@ -87,16 +92,6 @@ class TransactionGreater {
     notification.content_html = htmlTemplate(templateData)
     notification.content = toText(notification.content_html)
     return notification
-  }
-
-  sendNotification () {
-    if (!this.notification) { return }
-    return cozyClient.fetchJSON('POST', '/notifications', {
-      data: {
-        type: 'io.cozy.notifications',
-        attributes: this.notification
-      }
-    })
   }
 }
 
