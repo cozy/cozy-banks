@@ -45,10 +45,12 @@
     "details": "Details",
     "sharing": "Sharing",
     "back-to-accounts": "Back to accounts",
+    "delete": "Reset",
+    "deleting": "Resetting...",
     "confirm-deletion": {
-      "description": "Please confirm account deletion. This will also remove associated transactions, theirs links with your bills and with your reimbursements in the Health application.",
+      "description": "This action will delete your transactions in the Cozy Banks app along with the links set up with your bills. You can delete your bank account in #{LINK}the Cozy Collect app#{/LINK} if you do not wish to reimport your banking data at the next scheduled synchronization.",
       "confirm": "Confirm account deletion",
-      "title": "Are you sure ?"
+      "title": "Are you definitive ?"
     }
   },
 
