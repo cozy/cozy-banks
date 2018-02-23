@@ -4,6 +4,7 @@ import { cozyClient } from 'cozy-konnector-libs'
 import htmlTemplate from './html/health-bill-linked-html'
 import { BILLS_DOCTYPE } from 'doctypes'
 import * as utils from './html/utils'
+import Handlebars from 'handlebars'
 
 const ACCOUNT_SEL = '.js-account'
 const DATE_SEL = '.js-date'
@@ -60,6 +61,10 @@ class HealthBillLinked extends Notification {
       })
     })
 
+    const translateKey = 'Notifications.when_health_bill_linked.notification'
+    const t = (key) => this.t(translateKey + '.content.' + key)
+    Handlebars.registerHelper({ t })
+
     return Promise.all(billsPromises)
       .then(bills => {
         const templateData = {
@@ -72,7 +77,8 @@ class HealthBillLinked extends Notification {
 
         return {
           reference: 'health_bill_linked',
-          title: 'Nouveaux remboursements de santé',
+          title: this.t(`${translateKey}.title`),
+          content_html: htmlTemplate(templateData),
           content: toText(htmlContent)
         }
       })
