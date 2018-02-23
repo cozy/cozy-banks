@@ -78,7 +78,7 @@ class HealthBillLinked extends Notification {
         return {
           reference: 'health_bill_linked',
           title: this.t(`${translateKey}.title`),
-          content_html: htmlTemplate(templateData),
+          content_html: htmlContent,
           content: toText(htmlContent)
         }
       })
