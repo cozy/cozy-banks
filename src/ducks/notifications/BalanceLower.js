@@ -1,7 +1,7 @@
-import { cozyClient } from 'cozy-konnector-libs'
 import Handlebars from 'handlebars'
 import htmlTemplate from './html/balance-lower-html'
 import * as utils from './html/utils'
+import Notification from './Notification'
 
 const addCurrency = o => ({...o, currency: '€'})
 
@@ -25,12 +25,11 @@ const toText = cozyHTMLEmail => {
   return utils.toText(cozyHTMLEmail, getContent)
 }
 
-class BalanceLower {
+class BalanceLower extends Notification {
   constructor (config) {
-    this.t = config.t
-    this.lowerBalance = config.value
+    super(config)
 
-    this.notification = this.buildNotification(config.data)
+    this.lowerBalance = config.value
   }
 
   filter (account) {
@@ -38,7 +37,7 @@ class BalanceLower {
     return account.balance < this.lowerBalance
   }
 
-  buildNotification ({accounts, transactions}) {
+  buildNotification ({accounts}) {
     const accountsFiltered = accounts.filter(acc => this.filter(acc)).map(addCurrency)
     if (accountsFiltered.length === 0) {
       console.log('BalanceLower: no matched accounts')
@@ -73,16 +72,6 @@ class BalanceLower {
     notification.content_html = htmlTemplate(templateData)
     notification.content = toText(notification.content_html)
     return notification
-  }
-
-  sendNotification () {
-    if (!this.notification) { return }
-    return cozyClient.fetchJSON('POST', '/notifications', {
-      data: {
-        type: 'io.cozy.notifications',
-        attributes: this.notification
-      }
-    })
   }
 }
 
