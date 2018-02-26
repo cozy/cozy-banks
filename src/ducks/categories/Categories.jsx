@@ -213,7 +213,7 @@ class Categories extends Component {
               {t(`Data.${type}.${name}`)}
             </Bd>
             <Img className={cx('u-pl-half', stPercentage)}>
-              {selectedCategory ? '100 %' : `${percentage} %`}
+              {!subcategory && selectedCategory ? '100 %' : `${percentage} %`}
             </Img>
             <Img className={cx('u-pl-half', stAmount)}>
               <Figure className={stCatTotalMobile} total={credit + debit} currency={currency} coloredPositive signed />
