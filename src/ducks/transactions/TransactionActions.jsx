@@ -2,7 +2,7 @@
  * Is used in both TransactionActionMenu and TransactionMenu
  * to show possible actions related to a transaction.
  *
- * The TransactionAction (the action the user is most susceptible
+ * The TransactionAction (the action the user is most likely
  * to need) can also be shown in desktop mode, directly in the
  * table.
  */

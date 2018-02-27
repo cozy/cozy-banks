@@ -5,17 +5,20 @@ import { flowRight as compose } from 'lodash'
 import { cozyConnect } from 'cozy-client'
 
 import { translate } from 'cozy-ui/react/I18n'
-import { SelectDates, getFilteredTransactions } from 'ducks/filters'
+
 import { fetchTransactions } from 'actions'
+import { SelectDates, getFilteredTransactions, addFilterByPeriod } from 'ducks/filters'
 import { getAppUrlBySource, fetchApps } from 'ducks/apps'
 import { getCategoryIdFromName } from 'ducks/categories/categoriesMap'
 import { getCategoryId } from 'ducks/categories/helpers'
+
 import { FigureBlock } from 'components/Figure'
 import Loading from 'components/Loading'
 import Topbar from 'components/Topbar'
 import { Breadcrumb } from 'components/Breadcrumb'
 import BackButton from 'components/BackButton'
 import { hydrateTransaction } from 'documents/transaction'
+
 import TransactionsWithSelection from './TransactionsWithSelection'
 import styles from './TransactionsPage.styl'
 
@@ -26,6 +29,13 @@ const isPendingOrLoading = function (col) {
 class TransactionsPage extends Component {
   componentDidMount () {
     this.props.fetchApps()
+    if (this.props.params.period) {
+      this.props.filterByPeriod(this.props.params.period)
+    }
+  }
+
+  onSelectDate = period => {
+    this.props.router.push('/transactions/' + period)
   }
 
   render () {
@@ -77,7 +87,7 @@ class TransactionsPage extends Component {
         <Topbar>
           <Breadcrumb items={breadcrumbItems} tag='h2' />
         </Topbar>
-        <SelectDates />
+        <SelectDates onChange={this.onSelectDate} />
         {filteredTransactions.length !== 0 && <div className={styles['bnk-mov-figures']}>
           <FigureBlock label={t('Transactions.total')} total={credits + debits} currency={currency} coloredPositive coloredNegative signed />
           <FigureBlock label={t('Transactions.transactions')} total={filteredTransactions.length} />
@@ -105,7 +115,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchApps: () => dispatch(fetchApps())
+  fetchApps: () => dispatch(fetchApps()),
+  filterByPeriod: period => dispatch(addFilterByPeriod(period))
 })
 
 const mapDocumentsToProps = ownProps => ({

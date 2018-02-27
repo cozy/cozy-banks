@@ -16,6 +16,17 @@ const NavLink = ({ to, children }) => (
   </Link>
 )
 
+// Passed as the `to` property of the Link to transactions
+// so that the matching works correctly
+const rxTransactions = /^\/transactions.*/
+const currentTransactions = location => {
+  if (rxTransactions.exec(location.pathname)) {
+    return location.pathname
+  } else {
+    return '/transactions'
+  }
+}
+
 const Nav = ({ t }) => (
   <UINav>
     <NavItem>
@@ -25,7 +36,7 @@ const Nav = ({ t }) => (
       </NavLink>
     </NavItem>
     <NavItem>
-      <NavLink to='transactions'>
+      <NavLink to={currentTransactions}>
         <NavIcon icon={arrows} />
         <NavText>{t('Nav.movements')}</NavText>
       </NavLink>

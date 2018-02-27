@@ -17,7 +17,7 @@ const AppRoute = (
       <Route component={App}>
         <Redirect from='/' to='balances' />
         <Route path='balances' component={Balance} />
-        <Route path='transactions' component={TransactionsPage} />
+        <Route path='transactions(/:period)' component={TransactionsPage} />
         <Route path='categories'>
           <IndexRoute component={CategoriesPage} />
           <Route path=':categoryName/:subcategoryName' component={TransactionsPage} />

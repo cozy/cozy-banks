@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import { createSelector } from 'reselect'
-import { parse, format, isWithinRange } from 'date-fns'
+import { subDays, parse, endOfDay, format, isWithinRange } from 'date-fns'
 import SelectDates from './SelectDates'
 import { getTransactions, getGroups, getAccounts } from 'selectors'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
@@ -66,28 +66,23 @@ const yearFormat = date => {
   return date && date.substr(0, 4)
 }
 
-const isDate = date => date instanceof Date
-const isString = str => typeof str === 'string'
-
 // filters
 const filterByPeriod = (transactions, period) => {
   let pred
   const l = period.length
-  if (isString(period)) {
-    if (l === 4) {
-      const formatter = yearFormat
-      pred = date => formatter(date) === period
-    } else if (l === 7) {
-      const formatter = monthFormat
-      pred = date => formatter(date) === period
-    }
+  if (l === 4) {
+    const formatter = yearFormat
+    pred = date => formatter(date) === period
+  } else if (l === 7) {
+    const formatter = monthFormat
+    pred = date => formatter(date) === period
   } else if (
-    period.length === 2 &&
-      isDate(period[0]) &&
-      isDate(period[1])
+    period === 'lastYear'
   ) {
+    const now = endOfDay(new Date())
+    const lastYear = subDays(now, 365)
     pred = date => {
-      return isWithinRange(parse(date), period[0], period[1])
+      return isWithinRange(parse(date), lastYear, now)
     }
   } else {
     throw new Error('Invalid period: ' + period)
@@ -105,14 +100,14 @@ const filterByAccountIds = (transactions, accountIds) => transactions.filter(tra
 })
 
 // actions
-export const addFilterByPeriod = period => ({ type: FILTER_BY_PERIOD, period })
+export const addFilterByPeriod = (period, options = {}) => ({ type: FILTER_BY_PERIOD, period, ...options })
 export const resetFilterByDoc = () => ({ type: RESET_FILTER_BY_DOC })
 export const filterByDoc = doc => ({ type: FILTER_BY_DOC, doc })
 
 export const addFilterForMostRecentTransactions = transactions => {
   const mostRecentTransaction = last(sortBy(transactions, 'date'))
   const date = mostRecentTransaction ? mostRecentTransaction.date : new Date()
-  return addFilterByPeriod(monthFormat(date))
+  return addFilterByPeriod(monthFormat(date), { replace: false })
 }
 // components
 export { SelectDates }
@@ -122,6 +117,9 @@ const getDefaultMonth = () => monthFormat(format(new Date()))
 const period = (state = getDefaultMonth(), action) => {
   switch (action.type) {
     case FILTER_BY_PERIOD:
+      if (state !== getDefaultMonth() && action.replace === false) {
+        return state
+      }
       return action.period
     default:
       return state

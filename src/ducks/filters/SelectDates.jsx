@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Select from 'components/Select'
-import { subDays, subMonths, format, endOfDay, parse } from 'date-fns'
+import { subMonths, format, parse, endOfDay } from 'date-fns'
 import { translate } from 'cozy-ui/react/I18n'
 import { getPeriod, addFilterByPeriod } from '.'
 
@@ -22,8 +22,7 @@ const getPeriods = () => {
   }
 
   // last year
-  const lastYear = subDays(now, 365)
-  periods.push([lastYear, now])
+  periods.push('lastYear')
 
   return periods
 }
@@ -102,9 +101,12 @@ const mapStateToProps = state => ({
   period: getPeriod(state)
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch, ownProps) => ({
   onChange: period => {
     dispatch(addFilterByPeriod(period))
+    if (ownProps.onChange) {
+      ownProps.onChange(period)
+    }
   }
 })
 
