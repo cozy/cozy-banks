@@ -21,12 +21,12 @@
             {{#each transactions as |tr reimbursements|}}
               <mj-table>
                 <tr class="js-transaction tableRow">
-                  <td width="40px"><img style="width: 32px; height: 32px" src='https://files.cozycloud.cc/bank/email-assets/icons/icon-cat-{{ parentCategory this }}.png' /></td>
+                  <td width="40px"><img style="width: 32px; height: 32px" src='https://files.cozycloud.cc/banks/email-assets/icons/icon-cat-{{ parentCategory this }}.png' /></td>
                   <td>
                     {{ capitalize this.label }}
                   </td>
                   <td align="right">
-                    <img style="width: 16px; height: 16px; vertical-align: middle;" src='https://files.cozycloud.cc/bank/email-assets/icons/icon-hourglass-blue.svg' />
+                    <img style="width: 16px; height: 16px; vertical-align: middle;" src='https://files.cozycloud.cc/banks/email-assets/icons/icon-hourglass-blue.svg' />
                     {{ t 'treatedBy' }}
                     {{#each this.reimbursements as |reimbursement|}}
                     {{get ../../../../bills this.billId 'vendor'}}{{#unless @last}}, {{/unless}}
