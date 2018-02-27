@@ -6,7 +6,7 @@ import { Figure } from 'components/Figure'
 import { flowRight as compose } from 'lodash'
 import { Table, TdSecondary } from 'components/Table'
 import TransactionMenu from './TransactionMenu'
-import { PrimaryAction, PrimaryActionIcon, HealthExpenseStatusIcon, getLinkType } from './TransactionActions'
+import { PrimaryAction, PrimaryActionIcon, getLinkType } from './TransactionActions'
 import { getLabel } from './helpers'
 import { getParentCategory, getCategoryName } from 'ducks/categories/categoriesMap'
 import { getCategoryId, isHealthExpense } from 'ducks/categories/helpers'
@@ -17,6 +17,7 @@ import flash from 'ducks/flash'
 
 import styles from './Transactions.styl'
 import { Media, Bd, Img } from 'components/Media'
+import { HealthExpenseStatus, HealthExpenseStatusIcon, getVendors } from 'ducks/health-expense'
 
 const sDate = styles['bnk-op-date']
 const sDesc = styles['bnk-op-desc']
@@ -53,6 +54,7 @@ const TableTrDesktop = compose(
   const onSelectDisabled = () => {
     showComingSoon(t)
   }
+
   return (
     <tr>
       <TdSecondary className={sDate}>
@@ -72,7 +74,7 @@ const TableTrDesktop = compose(
         <Figure total={transaction.amount} currency={transaction.currency} coloredPositive signed />
       </TdSecondary>
       <TdSecondary className={sAction}>
-        <PrimaryAction showIcon transaction={transaction} urls={urls} className={styles['bnk-table-actions-link']} />
+        {isHealthExpense(transaction) ? <HealthExpenseStatus vendors={getVendors(transaction)} /> : <PrimaryAction showIcon transaction={transaction} urls={urls} className={styles['bnk-table-actions-link']} />}
       </TdSecondary>
       <TdSecondary className={sActions}>
         <TransactionMenu
@@ -99,7 +101,7 @@ const TableTrNoDesktop = translate()(({t, f, transaction, urls, selectTransactio
           <Img style={{ flexBasis: '1rem' }}>
             {
               isHealthExpense(transaction)
-                ? <HealthExpenseStatusIcon className='u-mr-half' type={getLinkType(transaction, urls)} transaction={transaction} />
+                ? <HealthExpenseStatusIcon className='u-mr-half' pending={getVendors(transaction).length === 0} />
                 : <PrimaryActionIcon className='u-mr-half' type={getLinkType(transaction, urls)} />
             }
           </Img>
