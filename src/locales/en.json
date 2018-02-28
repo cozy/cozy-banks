@@ -262,8 +262,8 @@
       "alert": "Create an alert",
       "attach": "Attach a document",
       "more": "More",
-      "healthExpenseStatus": "Expenditure treated by %{vendors}",
-      "healthExpensePending": "Expenditure not yet treated by health insurances",
+      "healthExpenseStatus": "Expense processed by %{vendors}",
+      "healthExpensePending": "Expense not yet processed by your medical insurances",
       "healthExpenseBill": "%{vendor} Statement",
       "vendorsGlue": "and"
     }
