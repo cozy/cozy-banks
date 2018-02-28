@@ -50,7 +50,8 @@
     "styleguide:deploy": "yarn git-directory-deploy -- --directory styleguide --branch master --repo docs",
     "postmerge": "yarnhook",
     "postcheckout": "yarnhook",
-    "postrewrite": "yarnhook"
+    "postrewrite": "yarnhook",
+    "fixtures": "ACH import test/fixtures/operations.json test/fixtures/helpers.js"
   },
   "repository": {
     "type": "git",
@@ -64,6 +65,7 @@
   },
   "homepage": "https://gitlab.cozycloud.cc/labs/cozy-bank#readme",
   "devDependencies": {
+    "ach": "git+ssh://git@gitlab.cozycloud.cc/labs/ACH.git",
     "autoprefixer": "^7.1.4",
     "babel-core": "^6.0.0",
     "babel-eslint": "^8.0.0",
