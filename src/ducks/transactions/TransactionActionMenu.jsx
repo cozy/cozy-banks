@@ -3,7 +3,7 @@
  */
 
 import React, { Component } from 'react'
-import { translate, Icon, ActionMenu } from 'cozy-ui/react'
+import { translate, Icon, ActionMenu, MenuItem } from 'cozy-ui/react'
 import { withDispatch } from 'utils'
 import { flowRight as compose } from 'lodash'
 
@@ -18,7 +18,8 @@ import palette from 'cozy-ui/stylus/settings/palette.json'
 import edit from 'assets/icons/icon-edit.svg'
 import PropTypes from 'prop-types'
 import flash from 'ducks/flash'
-import { getCategoryId } from 'ducks/categories/helpers'
+import { getCategoryId, isHealthExpense } from 'ducks/categories/helpers'
+import { HealthExpenseStatus, HealthExpenseStatusIcon, getVendors } from 'ducks/health-expense'
 
 const showComingSoon = (t) => {
   flash(t('ComingSoon.description'))
@@ -62,6 +63,13 @@ class TransactionActionMenu extends Component {
           </Img>
         </Media>
         <hr />
+        {isHealthExpense(transaction) &&
+          <MenuItem
+            icon={<HealthExpenseStatusIcon pending={getVendors(transaction).length === 0} />}
+          >
+            <HealthExpenseStatus showIcon={false} vendors={getVendors(transaction)} />
+          </MenuItem>
+        }
         <TransactionActions
           onSelect={onSelect}
           onSelectDisabled={onSelectDisabled}

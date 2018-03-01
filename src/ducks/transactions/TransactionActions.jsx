@@ -9,7 +9,6 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import cx from 'classnames'
 
 import { translate, Icon, MenuItem } from 'cozy-ui/react'
 import { getCategoryId, isHealthExpense } from 'ducks/categories/helpers'
@@ -20,12 +19,11 @@ import bellIcon from 'assets/icons/actions/icon-bell-16.svg'
 import linkOutIcon from 'assets/icons/actions/icon-link-out.svg'
 import linkIcon from 'assets/icons/actions/icon-link.svg'
 import fileIcon from 'assets/icons/actions/icon-file.svg'
-import hourglassIcon from 'assets/icons/icon-hourglass.svg'
 import { getInvoice, getBill, getBillInvoice } from './helpers'
 import FileOpener from './FileOpener'
 import { findKey } from 'lodash'
 import styles from './TransactionActions.styl'
-import { HealthExpenseStatus, getVendors } from 'ducks/health-expense'
+import { getVendors } from 'ducks/health-expense'
 
 // constants
 const ALERT_LINK = 'alert'
@@ -34,7 +32,6 @@ const ATTACH_LINK = 'attach'
 const BILL_LINK = 'bill'
 const COMMENT_LINK = 'comment'
 const HEALTH_LINK = 'refund'
-const HEALTH_EXPENSE_STATUS = 'healthExpenseStatus'
 const HEALTH_EXPENSE_BILL_LINK = 'healthExpenseBill'
 const URL_LINK = 'url'
 
@@ -46,7 +43,6 @@ const icons = {
   [COMMENT_LINK]: commentIcon,
   [HEALTH_LINK]: linkOutIcon,
   [URL_LINK]: linkOutIcon,
-  [HEALTH_EXPENSE_STATUS]: hourglassIcon,
   [HEALTH_EXPENSE_BILL_LINK]: fileIcon
 }
 
@@ -65,9 +61,7 @@ const isHealthCategory = (categoryId) =>
 export const getLinkType = (transaction, urls) => {
   const action = transaction.action
   const appName = getAppName(urls, transaction)
-  if (isHealthExpense(transaction)) {
-    return HEALTH_EXPENSE_STATUS
-  } else if (isHealthCategory(getCategoryId(transaction)) && urls['HEALTH']) {
+  if (isHealthCategory(getCategoryId(transaction)) && urls['HEALTH']) {
     return HEALTH_LINK
   } else if (appName) {
     return APP_LINK
@@ -171,10 +165,6 @@ class _Action extends Component {
   getWidget = () => {
     const { type, invoiceFileId } = this.state
 
-    if (type === HEALTH_EXPENSE_STATUS) {
-      return <HealthExpenseStatus vendors={getVendors(this.props.transaction)} />
-    }
-
     const genericWidget = this.getGenericWidget()
 
     const isFileOpener = type === BILL_LINK || type === HEALTH_EXPENSE_BILL_LINK
@@ -194,18 +184,6 @@ class _Action extends Component {
   }
 
   getIconColor = () => {
-    const { type } = this.state
-    const isHealthExpense = type === HEALTH_EXPENSE_STATUS
-
-    if (isHealthExpense && this.props.transaction) {
-      const vendors = getVendors(this.props.transaction)
-      const hasVendor = vendors && vendors.length > 0
-
-      if (!hasVendor) {
-        return palette.pomegranate
-      }
-    }
-
     return this.props.color
   }
 
@@ -253,16 +231,9 @@ const TransactionActions = ({transaction, urls, withoutDefault, onSelect, onSele
 
   return (
     <div>
-      {displayDefaultAction && <MenuItem
-        onClick={isHealthExpenseTransaction ? undefined : onSelect}
-        icon={
-          isHealthExpenseTransaction
-            ? <HealthExpenseStatusIcon type={defaultActionName} transaction={transaction} />
-            : <PrimaryActionIcon type={defaultActionName} />
-        }
-        className={cx({
-          [styles['TransactionAction-disabled']]: isHealthExpenseTransaction
-        })}
+      {displayDefaultAction && !isHealthExpenseTransaction && <MenuItem
+        onClick={onSelect}
+        icon={<PrimaryActionIcon type={defaultActionName} />}
       >
         <PrimaryAction transaction={transaction} urls={urls} onClick={onSelect} />
       </MenuItem>}
