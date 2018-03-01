@@ -19,6 +19,7 @@ describe('transaction', () => {
   beforeEach(() => {
     transaction = {
       automaticCategoryId: healthId,
+      amount: -10,
       reimbursements: [{ billId: `${BILLS_DOCTYPE}:${BILL_ID}` }]
     }
     bill = { _id: BILL_ID, invoice: 'io.cozy.files:4567' }
