@@ -33,7 +33,7 @@ desktop.ini
 **/mobile/hooks
 **/mobile/platforms
 **/mobile/plugins
-**/mobile/www
+**/mobile/www/*
 **/mobile/keys
 **/mobile/res/icons
 **/mobile/res/screens
