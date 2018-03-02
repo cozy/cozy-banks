@@ -1,3 +1,5 @@
+/* global PushNotification */
+
 import { resetClient } from 'ducks/authentication/lib/client'
 import localForage from 'localforage'
 
@@ -7,6 +9,8 @@ const REVOKE_CLIENT = 'REVOKE_CLIENT'
 const UNLINK = 'UNLINK'
 const STORE_CREDENTIALS = 'STORE_CREDENTIALS'
 const INITIAL_SYNC_OK = 'INITIAL_SYNC_OK'
+const REGISTER_PUSH_NOTIFICATIONS = 'REGISTER_PUSH_NOTIFICATIONS'
+const UNREGISTER_PUSH_NOTIFICATIONS = 'UNREGISTER_PUSH_NOTIFICATIONS'
 
 // action creators
 export const setToken = token => ({ type: SET_TOKEN, token })
@@ -17,13 +21,20 @@ export const unlink = (clientInfo) => {
   resetClient(clientInfo)
   return { type: UNLINK }
 }
+export const registerPushNotifications = () => ({
+  type: REGISTER_PUSH_NOTIFICATIONS
+})
+export const unregisterPushNotifications = () => ({
+  type: UNREGISTER_PUSH_NOTIFICATIONS
+})
 
 // reducers
 export const initialState = {
   url: '',
   client: null,
   token: null,
-  revoked: false
+  revoked: false,
+  push: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -39,6 +50,18 @@ const reducer = (state = initialState, action) => {
     case INITIAL_SYNC_OK:
       setInitialSyncStatus(true)
       return state
+    case REGISTER_PUSH_NOTIFICATIONS:
+      return {
+        ...state,
+        push: initPushNotifications()
+      }
+    case UNREGISTER_PUSH_NOTIFICATIONS:
+      stopPushNotifications(state.push)
+
+      return {
+        ...state,
+        push: null
+      }
     default:
       return state
   }
@@ -57,4 +80,29 @@ export const isInitialSyncOK = async () => {
   const status = await getInitialSyncStatus()
 
   return status === true
+}
+
+const initPushNotifications = () => {
+  const push = PushNotification.init({
+    android: {
+      forceShow: true
+    }
+  })
+
+  push.on('registration', ({registrationId, registrationType}) => {
+    console.log('-------- registered push notifs', registrationId, registrationType)
+  })
+
+  push.on('notification', data => console.log(data))
+
+  push.on('error', error => console.log(error))
+
+  return push
+}
+
+const stopPushNotifications = push => {
+  push.unregister(
+    () => console.log('unregistered push notifications'),
+    () => console.log('error while unregistering notifications')
+  )
 }
