@@ -2,6 +2,7 @@
 
 import { resetClient } from 'ducks/authentication/lib/client'
 import localForage from 'localforage'
+import { fetchSettingsCollection, getSettings, updateSettings } from 'ducks/settings'
 
 // constants
 const SET_TOKEN = 'SET_TOKEN'
@@ -21,12 +22,66 @@ export const unlink = (clientInfo) => {
   resetClient(clientInfo)
   return { type: UNLINK }
 }
-export const registerPushNotifications = () => ({
-  type: REGISTER_PUSH_NOTIFICATIONS
-})
-export const unregisterPushNotifications = () => ({
-  type: UNREGISTER_PUSH_NOTIFICATIONS
-})
+export const registerPushNotifications = deviceName => async (dispatch, getState) => {
+  if (getState().mobile.push) {
+    return
+  }
+
+  const push = initPushNotifications()
+
+  dispatch({
+    type: REGISTER_PUSH_NOTIFICATIONS,
+    push,
+    deviceName
+  })
+
+  const settingsCollection = await dispatch(fetchSettingsCollection())
+  const settings = getSettings(settingsCollection)
+
+  const currentDevices = settings.push.devices
+
+  push.on('registration', ({registrationId}) => {
+    const newDevices = {
+      ...currentDevices,
+      [deviceName]: registrationId
+    }
+
+    const newSettings = {
+      ...settings,
+      push: {
+        ...settings.push,
+        devices: newDevices
+      }
+    }
+
+    dispatch(updateSettings(newSettings))
+  })
+}
+
+export const unregisterPushNotifications = deviceName => async (dispatch, getState) => {
+  if (!getState().mobile.push) {
+    return
+  }
+
+  const settingsCollection = await dispatch(fetchSettingsCollection())
+  const settings = getSettings(settingsCollection)
+  const currentDevices = settings.push.devices
+  delete currentDevices[deviceName]
+
+  const newSettings = {
+    ...settings,
+    push: {
+      ...settings.push,
+      devices: currentDevices
+    }
+  }
+
+  dispatch(updateSettings(newSettings))
+
+  dispatch({
+    type: UNREGISTER_PUSH_NOTIFICATIONS
+  })
+}
 
 // reducers
 export const initialState = {
@@ -53,7 +108,8 @@ const reducer = (state = initialState, action) => {
     case REGISTER_PUSH_NOTIFICATIONS:
       return {
         ...state,
-        push: initPushNotifications()
+        deviceName: action.deviceName,
+        push: action.push
       }
     case UNREGISTER_PUSH_NOTIFICATIONS:
       stopPushNotifications(state.push)
@@ -82,19 +138,14 @@ export const isInitialSyncOK = async () => {
   return status === true
 }
 
-const initPushNotifications = () => {
+const initPushNotifications = deviceName => {
   const push = PushNotification.init({
     android: {
       forceShow: true
     }
   })
 
-  push.on('registration', ({registrationId, registrationType}) => {
-    console.log('-------- registered push notifs', registrationId, registrationType)
-  })
-
   push.on('notification', data => console.log(data))
-
   push.on('error', error => console.log(error))
 
   return push
@@ -102,7 +153,7 @@ const initPushNotifications = () => {
 
 const stopPushNotifications = push => {
   push.unregister(
-    () => console.log('unregistered push notifications'),
+    () => console.log('unregister push notifications'),
     () => console.log('error while unregistering notifications')
   )
 }

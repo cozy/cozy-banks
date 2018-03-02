@@ -31,7 +31,8 @@ export const DEFAULTS_SETTINGS = {
     mensuel: {
       enabled: false
     }
-  }
+  },
+  push: {}
 }
 
 // components
