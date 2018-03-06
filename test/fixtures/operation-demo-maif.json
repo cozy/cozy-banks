@@ -144,7 +144,7 @@
       "amount": -122.40,
       "automaticCategoryId": "400420",
       "currency": "€",
-      "date": "2018-01-21T00:00:00Z",
+      "date": "2018-01-22T00:00:00Z",
       "demo": false,
       "label": "trainline"
     },
@@ -853,16 +853,6 @@
       "date": "2017-12-21T00:00:00Z",
       "demo": false,
       "label": "ZARA"
-    },
-    {
-      "_id": "446ae26d705b2eb461ca264d384a6ee6",
-      "account": "comptegene1",
-      "amount": -48.22,
-      "automaticCategoryId": "400420",
-      "currency": "€",
-      "date": "2018-01-21T00:00:00Z",
-      "demo": false,
-      "label": "FRANPRIX"
     },
     {
       "_id": "446ae26d705b2eb461ca264d384a682f",
