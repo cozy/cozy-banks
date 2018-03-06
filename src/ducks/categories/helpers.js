@@ -89,4 +89,5 @@ export const computeCategorieData = transactionsByCategory => {
   })
 }
 
-export const isHealthExpense = transaction => getCategoryId(transaction) === '400610' && transaction.amount < 0
+export const isHealthExpense = transaction =>
+  getCategoryId(transaction) === '400610' && transaction.amount < 0

@@ -16,7 +16,7 @@ const RESET_FILTER_BY_DOC = 'RESET_FILTER_BY_DOC'
 export const getPeriod = state => state.filters.period
 export const getFilteringDoc = state => state.filters.filteringDoc
 
-const getFilteredAccountIds = state => {
+export const getFilteredAccountIds = state => {
   const availableAccountIds = getAccounts(state).map(x => x._id)
   const doc = getFilteringDoc(state)
   if (!doc) {
@@ -48,12 +48,23 @@ export const getAccountsFiltered = state => {
   return getAccounts(state).filter(account => ids[account._id])
 }
 
-export const getFilteredTransactions = createSelector(
-  [getTransactions, getFilteredAccountIds, getPeriod],
-  (transactions, accountIds, period) => {
+const filterByAccountIds = (transactions, accountIds) => transactions.filter(transaction => {
+  return accountIds.indexOf(transaction.account) !== -1
+})
+
+export const getTransactionsFilteredByAccount = createSelector(
+  [getTransactions, getFilteredAccountIds],
+  (transactions, accountIds) => {
     if (accountIds) {
       transactions = filterByAccountIds(transactions, accountIds)
     }
+    return transactions
+  }
+)
+
+export const getFilteredTransactions = createSelector(
+  [getTransactionsFilteredByAccount, getPeriod],
+  (transactions, period) => {
     return filterByPeriod(transactions, period)
   }
 )
@@ -100,19 +111,20 @@ const filterByPeriod = (transactions, period) => {
   })
 }
 
-const filterByAccountIds = (transactions, accountIds) => transactions.filter(transaction => {
-  return accountIds.indexOf(transaction.account) !== -1
-})
-
 // actions
 export const addFilterByPeriod = period => ({ type: FILTER_BY_PERIOD, period })
 export const resetFilterByDoc = () => ({ type: RESET_FILTER_BY_DOC })
 export const filterByDoc = doc => ({ type: FILTER_BY_DOC, doc })
 
-export const addFilterForMostRecentTransactions = transactions => {
+export const addFilterForMostRecentTransactions = () => (dispatch, getState) => {
+  const state = getState()
+  const transactions = getTransactionsFilteredByAccount(state)
   const mostRecentTransaction = last(sortBy(transactions, 'date'))
-  const date = mostRecentTransaction ? mostRecentTransaction.date : new Date()
-  return addFilterByPeriod(monthFormat(date))
+  if (mostRecentTransaction) {
+    const date = mostRecentTransaction.date
+    const period = monthFormat(date)
+    return dispatch(addFilterByPeriod(period))
+  }
 }
 // components
 export { SelectDates }

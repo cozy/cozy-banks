@@ -20,6 +20,7 @@ export const hydrateTransaction = (state, transaction) => {
   }
 
   transaction.reimbursements = transaction.reimbursements || []
-  transaction.reimbursements = transaction.reimbursements.map(r => hydrateReimbursementWithBill(state, r))
+  transaction.reimbursements = transaction.reimbursements
+    .map(r => hydrateReimbursementWithBill(state, r))
   return transaction
 }
