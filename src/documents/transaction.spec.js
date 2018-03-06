@@ -32,6 +32,7 @@ describe('transaction', () => {
       const transactions = [transaction].map(t =>
         hydrateTransaction(store.getState(), t)
       )
+      expect(transactions[0].reimbursements[0].bill).toBeTruthy()
       expect(transactions[0].reimbursements[0].bill._id).toBe(BILL_ID)
     })
 
