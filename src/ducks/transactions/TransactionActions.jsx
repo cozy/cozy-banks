@@ -134,7 +134,7 @@ class _Action extends Component {
         href: urls[appName],
         text: t(`Transactions.actions.${type}`, {appName})
       }
-    } else if (type === URL_LINK) {
+    } else if (type === URL_LINK && transaction.action) {
       const action = transaction.action
       return {
         text: action.trad,
