@@ -1028,19 +1028,6 @@
       "label": "VIREMENT COMPL SANTE"
     },
     {
-      "_id": "446ae26d705b2eb461ca264d3849df93",
-      "account": "compteisa1",
-      "amount": -243.57,
-      "bills": [
-        "io.cozy.bills:b4"
-      ],
-      "automaticCategoryId": "401040",
-      "currency": "€",
-      "date": "2018-12-19T00:00:00Z",
-      "demo": false,
-      "label": "MAIF ASSURANCE HABITATION"
-    },
-    {
       "_id": "446ae26d705b2eb461ca264d3849d350",
       "account": "compteisa1",
       "amount": 70,
