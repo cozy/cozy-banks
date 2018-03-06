@@ -19,6 +19,10 @@ if (__TARGET__ === 'mobile') {
   require('styles/mobile.styl')
 }
 
+if (process.env.NODE_ENV === 'development') {
+  require('preact/debug')
+}
+
 const renderAppWithPersistedState = persistedState => {
   const root = document.querySelector('[role=application]')
   const data = root.dataset
