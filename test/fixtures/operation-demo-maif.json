@@ -141,10 +141,10 @@
     {
       "_id": "maif1",
       "account": "compteisa1",
-      "amount": -122.40,
+      "amount": -58.70,
       "automaticCategoryId": "400420",
       "currency": "€",
-      "date": "2018-01-22T00:00:00Z",
+      "date": "2018-01-09T00:00:00Z",
       "demo": false,
       "label": "trainline"
     },
