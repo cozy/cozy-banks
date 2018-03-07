@@ -261,6 +261,7 @@
       "bill": "View your invoice",
       "alert": "Create an alert",
       "attach": "Attach a document",
+      "konnector": "Retrieve your bills '%{vendor}'",
       "more": "More",
       "healthExpenseStatus": "Expense processed by %{vendors}",
       "healthExpensePending": "Expense not yet processed by your medical insurances",
