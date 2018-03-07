@@ -40,11 +40,9 @@ class BalanceLower extends Notification {
   buildNotification ({accounts}) {
     const accountsFiltered = accounts.filter(acc => this.filter(acc)).map(addCurrency)
     if (accountsFiltered.length === 0) {
-      console.log('BalanceLower: no matched accounts')
-      return
+      return Promise.reject(new Error('BalanceLower: no matched accounts'))
     }
 
-    const notification = { reference: 'balance_lower' }
     const translateKey = 'Notifications.if_balance_lower.notification'
 
     const t = (key, data) => this.t(translateKey + '.' + key, data)
@@ -68,10 +66,21 @@ class BalanceLower extends Notification {
     }
 
     const titleKey = `${translateKey}.${onlyOne ? 'one' : 'several'}.title`
-    notification.title = this.t(titleKey, titleData)
-    notification.content_html = htmlTemplate(templateData)
-    notification.content = toText(notification.content_html)
-    return notification
+    const title = this.t(titleKey, titleData)
+
+    const contentHTML = htmlTemplate(templateData)
+
+    return {
+      reference: 'balance_lower',
+      mail: {
+        title,
+        content_html: contentHTML,
+        content: toText(contentHTML)
+      },
+      push: {
+        title
+      }
+    }
   }
 }
 

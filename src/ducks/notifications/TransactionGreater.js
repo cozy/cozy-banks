@@ -55,11 +55,9 @@ class TransactionGreater extends Notification {
     const transactionsFiltered = this.filterTransactions(transactions)
 
     if (transactionsFiltered.length === 0) {
-      console.log('TransactionGreater: no matched transactions')
-      return
+      return Promise.reject(new Error('TransactionGreater: no matched transactions'))
     }
 
-    const notification = { reference: 'transaction_greater' }
     const translateKey = 'Notifications.if_transaction_greater.notification'
 
     // Custom t bound to its part
@@ -88,10 +86,21 @@ class TransactionGreater extends Notification {
         ? `${translateKey}.credit.title`
         : `${translateKey}.debit.title`)
       : `${translateKey}.others.title`
-    notification.title = this.t(titleKey, titleData)
-    notification.content_html = htmlTemplate(templateData)
-    notification.content = toText(notification.content_html)
-    return notification
+    const title = this.t(titleKey, titleData)
+
+    const contentHTML = htmlTemplate(templateData)
+
+    return {
+      reference: 'transaction_greater',
+      mail: {
+        title,
+        content_html: contentHTML,
+        content: toText(contentHTML)
+      },
+      push: {
+        title
+      }
+    }
   }
 }
 

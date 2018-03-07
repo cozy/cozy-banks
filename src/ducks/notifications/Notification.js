@@ -13,8 +13,11 @@ class Notification {
       const attributes = await Promise.resolve(this.buildNotification(this.data))
 
       return Promise.all([
-        this.sendMail(attributes),
-        this.sendPush(attributes)
+        this.sendMail({
+          reference: attributes.reference,
+          ...attributes.mail
+        }),
+        this.sendPush(attributes.push)
       ])
     } catch (err) {
       console.log(err)
@@ -50,7 +53,8 @@ class Notification {
     return cozyClient.jobs.create('push', {
       platform: 'android',
       device_token: deviceToken,
-      message: attributes.title
+      title: attributes.title,
+      message: attributes.content
     })
   }
 }
