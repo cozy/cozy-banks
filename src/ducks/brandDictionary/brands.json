@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Ameli",
+    "regexp": "cpam",
+    "konnectorSlug": "ameli"
+  },
+  {
+    "name": "Harmonie Mutuelle",
+    "regexp": "harmonie",
+    "konnectorSlug": "harmonie"
+  },
+  {
+    "name": "Numéricable",
+    "regexp": "numericable",
+    "konnectorSlug": "numericable"
+  },
+  {
+    "name": "Free",
+    "regexp": "free (telecom|hautdebit)",
+    "konnectorSlug": "free"
+  },
+  {
+    "name": "Free",
+    "regexp": "free mobile",
+    "konnectorSlug": "freemobile"
+  },
+  {
+    "name": "Oui.sncf",
+    "regexp": "sncf",
+    "konnectorSlug": "sncf"
+  },
+  {
+    "name": "Trainline",
+    "regexp": "trainline",
+    "konnectorSlug": "trainline"
+  }
+]

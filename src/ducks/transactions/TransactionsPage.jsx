@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
-import { flowRight as compose, isEqual } from 'lodash'
-import { getCollection } from 'cozy-client'
+import { flowRight as compose, isEqual, includes } from 'lodash'
+import { getCollection, cozyConnect, fetchCollection } from 'cozy-client'
 
 import { translate } from 'cozy-ui/react/I18n'
 
@@ -26,6 +26,12 @@ import BackButton from 'components/BackButton'
 import { hydrateTransaction } from 'documents/transaction'
 import TransactionsWithSelection from './TransactionsWithSelection'
 import styles from './TransactionsPage.styl'
+import { TRIGGER_DOCTYPE } from 'doctypes'
+import { getBrands } from 'ducks/brandDictionary'
+
+const isPendingOrLoading = function (col) {
+  return col.fetchStatus === 'pending' || col.fetchStatus === 'loading'
+}
 
 class TransactionsPage extends Component {
   state = { fetching: false }
@@ -51,12 +57,26 @@ class TransactionsPage extends Component {
     }
   }
 
+  getKonnectorSlugs = triggers => {
+    return triggers
+      .filter(trigger => trigger.worker === 'konnector')
+      .map(trigger => trigger.message && trigger.message.konnector)
+      .filter(Boolean)
+  }
+
   render () {
-    const { t, urls, router } = this.props
+    const { t, urls, router, triggers } = this.props
     let { filteredTransactions } = this.props
 
     if (this.state.fetching) {
       return <Loading loadingType='movements' />
+    }
+
+    let brandsWithoutTrigger = []
+    if (!isPendingOrLoading(triggers)) {
+      const slugs = this.getKonnectorSlugs(triggers.data)
+      const isBrandKonnectorAbsent = brand => !includes(slugs, brand.konnectorSlug)
+      brandsWithoutTrigger = getBrands(isBrandKonnectorAbsent)
     }
 
     // filter by category
@@ -109,7 +129,7 @@ class TransactionsPage extends Component {
         </div>}
         {filteredTransactions.length === 0
           ? <p>{t('Transactions.no-movements')}</p>
-          : <TransactionsWithSelection transactions={filteredTransactions} urls={urls} />}
+          : <TransactionsWithSelection transactions={filteredTransactions} urls={urls} brands={brandsWithoutTrigger} />}
       </div>
     )
   }
@@ -146,8 +166,13 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   }
 })
 
+const mapDocumentsToProps = ownProps => ({
+  triggers: fetchCollection('triggers', TRIGGER_DOCTYPE)
+})
+
 export default compose(
   withRouter,
   connect(mapStateToProps, mapDispatchToProps),
+  cozyConnect(mapDocumentsToProps),
   translate()
 )(TransactionsPage)

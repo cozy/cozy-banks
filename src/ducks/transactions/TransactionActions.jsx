@@ -24,6 +24,10 @@ import FileOpener from './FileOpener'
 import { findKey } from 'lodash'
 import styles from './TransactionActions.styl'
 import { getVendors } from 'ducks/health-expense'
+import KonnectorAction, {
+  TYPE as KONNECTOR_LINK,
+  match as matchKonnectorAction
+} from './actions/KonnectorAction'
 
 // constants
 const ALERT_LINK = 'alert'
@@ -43,6 +47,7 @@ const icons = {
   [COMMENT_LINK]: commentIcon,
   [HEALTH_LINK]: linkOutIcon,
   [URL_LINK]: linkOutIcon,
+  [KONNECTOR_LINK]: linkOutIcon,
   [HEALTH_EXPENSE_BILL_LINK]: fileIcon
 }
 
@@ -90,7 +95,14 @@ class _Action extends Component {
 
   setType = newType => {
     const { type, transaction, urls } = this.props
-    this.setState({type: newType || type || (transaction && getLinkType(transaction, urls))})
+    this.setState(
+      {
+        type: newType ||
+          type ||
+          (matchKonnectorAction(this.props) && KONNECTOR_LINK) ||
+          (transaction && getLinkType(transaction, urls))
+      }
+    )
   }
 
   setInvoiceFileId = async () => {
@@ -164,6 +176,10 @@ class _Action extends Component {
 
   getWidget = () => {
     const { type, invoiceFileId } = this.state
+
+    if (type === KONNECTOR_LINK) {
+      return <KonnectorAction {...this.props} />
+    }
 
     const genericWidget = this.getGenericWidget()
 
@@ -269,6 +285,7 @@ export const HealthExpenseStatusIcon = ({transaction, ...rest}) => {
 TransactionActions.propTypes = {
   transaction: PropTypes.object.isRequired,
   urls: PropTypes.object.isRequired,
+  brands: PropTypes.array.isRequired,
   withoutDefault: PropTypes.bool,
   onSelect: PropTypes.func.isRequired,
   onSelectDisabled: PropTypes.func.isRequired

@@ -45,7 +45,7 @@ const TableTrDesktop = compose(
   translate(),
   withDispatch,
   withUpdateCategory()
-)(({ t, f, transaction, urls, isExtraLarge, showCategoryChoice }) => {
+)(({ t, f, transaction, isExtraLarge, showCategoryChoice, ...props }) => {
   const categoryId = getCategoryId(transaction)
   const categoryName = getCategoryName(categoryId)
   const categoryTitle = t(`Data.subcategories.${categoryName}`)
@@ -74,14 +74,14 @@ const TableTrDesktop = compose(
         <Figure total={transaction.amount} currency={transaction.currency} coloredPositive signed />
       </TdSecondary>
       <TdSecondary className={sAction}>
-        {isHealthExpense(transaction) ? <HealthExpenseStatus vendors={getVendors(transaction)} /> : <PrimaryAction showIcon transaction={transaction} urls={urls} className={styles['bnk-table-actions-link']} />}
+        {isHealthExpense(transaction) ? <HealthExpenseStatus vendors={getVendors(transaction)} /> : <PrimaryAction showIcon transaction={transaction} {...props} className={styles['bnk-table-actions-link']} />}
       </TdSecondary>
       <TdSecondary className={sActions}>
         <TransactionMenu
           onSelect={onSelect}
           onSelectDisabled={onSelectDisabled}
           transaction={transaction}
-          urls={urls} />
+          {...props} />
       </TdSecondary>
     </tr>
   )
@@ -114,7 +114,7 @@ const TableTrNoDesktop = translate()(({t, f, transaction, urls, selectTransactio
   )
 })
 
-const Transactions = ({ t, f, transactions, urls, selectTransaction, breakpoints: { isDesktop, isExtraLarge } }) => {
+const Transactions = ({ t, f, transactions, selectTransaction, breakpoints: { isDesktop, isExtraLarge }, ...props }) => {
   const transactionsByDate = {}
   let dates = []
 
@@ -140,8 +140,8 @@ const Transactions = ({ t, f, transactions, urls, selectTransaction, breakpoints
             </tr>}
             {transactionsOrdered.map(transaction => {
               return isDesktop
-                ? <TableTrDesktop transaction={transaction} urls={urls} isExtraLarge={isExtraLarge} />
-                : <TableTrNoDesktop transaction={transaction} urls={urls} selectTransaction={selectTransaction} />
+                ? <TableTrDesktop transaction={transaction} isExtraLarge={isExtraLarge} {...props} />
+                : <TableTrNoDesktop transaction={transaction} selectTransaction={selectTransaction} {...props} />
             })}
           </tbody>
         )
