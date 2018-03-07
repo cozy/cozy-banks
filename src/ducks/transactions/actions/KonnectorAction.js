@@ -3,16 +3,11 @@ import { flowRight as compose } from 'lodash'
 import { matchBrands, findMatchingBrand } from 'ducks/brandDictionary'
 import { IntentOpener, translate, withBreakpoints } from 'cozy-ui/react'
 import styles from '../TransactionActions.styl'
+import linkOutIcon from 'assets/icons/actions/icon-link-out.svg'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 const PRIMARY_ACTION_COLOR = palette['dodgerBlue']
 
-export const TYPE = 'konnector'
-
-export const match = ({ transaction, brands }) => {
-  return matchBrands(brands, transaction.label)
-}
-
-const Action = ({t, transaction, brands, urls, breakpoints: { isDesktop }}) => {
+const Action = ({t, transaction, actionProps: { brands, urls }, breakpoints: { isDesktop }}) => {
   const brand = findMatchingBrand(brands, transaction.label)
   if (!brand) return
 
@@ -42,7 +37,16 @@ const Action = ({t, transaction, brands, urls, breakpoints: { isDesktop }}) => {
   )
 }
 
-export default compose(
-  withBreakpoints(),
-  translate()
-)(Action)
+const action = {
+  name: 'KonnectorAction',
+  icon: linkOutIcon,
+  match: (transaction, { brands }) => {
+    return brands && matchBrands(brands, transaction.label)
+  },
+  Component: compose(
+    withBreakpoints(),
+    translate()
+  )(Action)
+}
+
+export default action
