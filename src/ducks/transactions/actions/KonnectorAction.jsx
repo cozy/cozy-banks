@@ -26,11 +26,10 @@ const Component = ({t, transaction, actionProps, breakpoints: { isDesktop }}) =>
     )
   }
 
-  const collectUrl = `${urls['COLLECT']}providers/all/${brand.konnectorSlug}`
-
+  const url = `${urls['COLLECT']}#/providers/all/${brand.konnectorSlug}`
   return (
     <GenericComponent
-      href={collectUrl}
+      href={url}
       text={t(`Transactions.actions.${name}`, {vendor: brand.name})}
     />
   )
@@ -39,8 +38,8 @@ const Component = ({t, transaction, actionProps, breakpoints: { isDesktop }}) =>
 const action = {
   name,
   icon,
-  match: (transaction, { brands }) => {
-    return brands && matchBrands(brands, transaction.label)
+  match: (transaction, { brands, urls }) => {
+    return brands && matchBrands(brands, transaction.label) && urls['COLLECT']
   },
   Component: compose(
     withBreakpoints(),
