@@ -2,12 +2,13 @@ import React from 'react'
 import { flowRight as compose } from 'lodash'
 import { matchBrands, findMatchingBrand } from 'ducks/brandDictionary'
 import { IntentOpener, translate, withBreakpoints } from 'cozy-ui/react'
-import styles from '../TransactionActions.styl'
 import linkOutIcon from 'assets/icons/actions/icon-link-out.svg'
-import palette from 'cozy-ui/stylus/settings/palette.json'
-const PRIMARY_ACTION_COLOR = palette['dodgerBlue']
+import GenericComponent from './GenericComponent'
 
-const Action = ({t, transaction, actionProps: { brands, urls }, breakpoints: { isDesktop }}) => {
+const name = 'konnector'
+
+const Component = ({t, transaction, actionProps, breakpoints: { isDesktop }}) => {
+  const { brands, urls } = actionProps
   const brand = findMatchingBrand(brands, transaction.label)
   if (!brand) return
 
@@ -18,10 +19,9 @@ const Action = ({t, transaction, actionProps: { brands, urls }, breakpoints: { i
         doctype='io.cozy.accounts'
         options={{slug: brand.konnectorSlug}}
       >
-        <a
-          style={{ color: PRIMARY_ACTION_COLOR }}
-          className={styles.TransactionAction}
-        >{t('Transactions.actions.konnector', {vendor: brand.name})}</a>
+        <GenericComponent
+          text={t('Transactions.actions.konnector', {vendor: brand.name})}
+        />
       </IntentOpener>
     )
   }
@@ -29,16 +29,15 @@ const Action = ({t, transaction, actionProps: { brands, urls }, breakpoints: { i
   const collectUrl = `${urls['COLLECT']}providers/all/${brand.konnectorSlug}`
 
   return (
-    <a
+    <GenericComponent
       href={collectUrl}
-      style={{ color: PRIMARY_ACTION_COLOR }}
-      className={styles.TransactionAction}
-    >{t('Transactions.actions.konnector', {vendor: brand.name})}</a>
+      text={t(`Transactions.actions.${name}`, {vendor: brand.name})}
+    />
   )
 }
 
 const action = {
-  name: 'KonnectorAction',
+  name,
   icon: linkOutIcon,
   match: (transaction, { brands }) => {
     return brands && matchBrands(brands, transaction.label)
@@ -46,7 +45,7 @@ const action = {
   Component: compose(
     withBreakpoints(),
     translate()
-  )(Action)
+  )(Component)
 }
 
 export default action

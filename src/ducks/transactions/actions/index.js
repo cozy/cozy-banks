@@ -1,8 +1,10 @@
 import { find, forEach } from 'lodash'
 import KonnectorAction from './KonnectorAction'
+import HealthLinkAction from './HealthLinkAction'
 
 const actions = [
-  KonnectorAction
+  KonnectorAction,
+  HealthLinkAction
 ]
 
 export const findMatchingAction = (transaction, actionProps) => {

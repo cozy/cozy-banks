@@ -11,7 +11,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { translate, Icon, MenuItem } from 'cozy-ui/react'
-import { getCategoryId, isHealthExpense } from 'ducks/categories/helpers'
+import { isHealthExpense } from 'ducks/categories/helpers'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import commentIcon from 'assets/icons/actions/icon-comment.svg'
 
@@ -32,7 +32,6 @@ const APP_LINK = 'app'
 const ATTACH_LINK = 'attach'
 const BILL_LINK = 'bill'
 const COMMENT_LINK = 'comment'
-const HEALTH_LINK = 'refund'
 const HEALTH_EXPENSE_BILL_LINK = 'healthExpenseBill'
 const URL_LINK = 'url'
 
@@ -42,7 +41,6 @@ const icons = {
   [ATTACH_LINK]: linkIcon,
   [BILL_LINK]: fileIcon,
   [COMMENT_LINK]: commentIcon,
-  [HEALTH_LINK]: linkOutIcon,
   [URL_LINK]: linkOutIcon,
   [HEALTH_EXPENSE_BILL_LINK]: fileIcon
 }
@@ -57,9 +55,6 @@ const getAppName = (urls, transaction) => {
   return findKey(urls, (url, appName) => url && label.indexOf(appName.toLowerCase()) !== -1)
 }
 
-const isHealthCategory = (categoryId) =>
-  categoryId === '400600' || categoryId === '400610' || categoryId === '400620'
-
 export const getLinkType = (transaction, urls, brands) => {
   const _action = transaction.action
   const appName = getAppName(urls, transaction)
@@ -68,9 +63,7 @@ export const getLinkType = (transaction, urls, brands) => {
   if (action) {
     return action.name
   }
-  if (isHealthCategory(getCategoryId(transaction)) && urls['HEALTH']) {
-    return HEALTH_LINK
-  } else if (appName) {
+  if (appName) {
     return APP_LINK
   } else if (getBill(transaction)) {
     return BILL_LINK
@@ -130,12 +123,7 @@ class _Action extends Component {
     const { type } = this.state
     const { t, urls, transaction, bill } = this.props
 
-    if (type === HEALTH_LINK) {
-      return {
-        href: urls['HEALTH'] + '/#/remboursements',
-        text: t(`Transactions.actions.${type}`)
-      }
-    } else if (type === APP_LINK) {
+    if (type === APP_LINK) {
       const appName = getAppName(urls, transaction)
       return {
         href: urls[appName],
@@ -177,15 +165,6 @@ class _Action extends Component {
 
   getWidget = () => {
     const { type, invoiceFileId } = this.state
-    const { transaction, urls, brands } = this.props
-    const actionProps = { urls, brands }
-    const action = findMatchingAction(transaction, actionProps)
-
-    if (action) {
-      const { Component } = action
-      return <Component transaction={transaction} actionProps={actionProps} />
-    }
-
     const genericWidget = this.getGenericWidget()
 
     const isFileOpener = type === BILL_LINK || type === HEALTH_EXPENSE_BILL_LINK
@@ -216,9 +195,21 @@ class _Action extends Component {
 
   render () {
     const { type } = this.state
-    const { showIcon } = this.props
-
     if (type === undefined) return
+
+    const { transaction, urls, brands, showIcon, color } = this.props
+    const actionProps = { urls, brands }
+    const action = findMatchingAction(transaction, actionProps)
+
+    if (action) {
+      const { Component } = action
+      return (
+        <span>
+          {showIcon && <ActionIcon type={action.name} className='u-mr-half' color={color} />}
+          <Component transaction={transaction} actionProps={actionProps} />
+        </span>
+      )
+    }
 
     const widget = this.getWidget()
     if (widget === undefined) return // invoice is not found
