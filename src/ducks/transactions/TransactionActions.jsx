@@ -180,17 +180,19 @@ class _Action extends Component {
     if (type === undefined) return
 
     const { transaction, urls, brands, showIcon, color } = this.props
-    const actionProps = { urls, brands }
-    const action = findMatchingAction(transaction, actionProps)
+    if (transaction) {
+      const actionProps = { urls, brands }
+      const action = findMatchingAction(transaction, actionProps)
 
-    if (action) {
-      const { Component } = action
-      return (
-        <span>
-          {showIcon && <ActionIcon type={action.name} className='u-mr-half' color={color} />}
-          <Component transaction={transaction} actionProps={actionProps} />
-        </span>
-      )
+      if (action) {
+        const { Component } = action
+        return (
+          <span>
+            {showIcon && <ActionIcon type={action.name} className='u-mr-half' color={color} />}
+            <Component transaction={transaction} actionProps={actionProps} />
+          </span>
+        )
+      }
     }
 
     const widget = this.getWidget()
