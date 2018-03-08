@@ -21,14 +21,12 @@ import linkIcon from 'assets/icons/actions/icon-link.svg'
 import fileIcon from 'assets/icons/actions/icon-file.svg'
 import { getInvoice, getBill, getBillInvoice } from './helpers'
 import FileOpener from './FileOpener'
-import { findKey } from 'lodash'
 import styles from './TransactionActions.styl'
 import { getVendors } from 'ducks/health-expense'
 import { findMatchingAction, addIcons } from './actions'
 
 // constants
 const ALERT_LINK = 'alert'
-const APP_LINK = 'app'
 const ATTACH_LINK = 'attach'
 const BILL_LINK = 'bill'
 const COMMENT_LINK = 'comment'
@@ -37,7 +35,6 @@ const URL_LINK = 'url'
 
 const icons = {
   [ALERT_LINK]: bellIcon,
-  [APP_LINK]: linkOutIcon,
   [ATTACH_LINK]: linkIcon,
   [BILL_LINK]: fileIcon,
   [COMMENT_LINK]: commentIcon,
@@ -49,23 +46,14 @@ addIcons(icons)
 // TODO delete or rename this variable (see https://gitlab.cozycloud.cc/labs/cozy-bank/merge_requests/237)
 const PRIMARY_ACTION_COLOR = palette['dodgerBlue']
 
-// helpers
-const getAppName = (urls, transaction) => {
-  const label = transaction.label.toLowerCase()
-  return findKey(urls, (url, appName) => url && label.indexOf(appName.toLowerCase()) !== -1)
-}
-
 export const getLinkType = (transaction, urls, brands) => {
   const _action = transaction.action
-  const appName = getAppName(urls, transaction)
   const actionProps = { urls, brands }
   const action = findMatchingAction(transaction, actionProps)
   if (action) {
     return action.name
   }
-  if (appName) {
-    return APP_LINK
-  } else if (getBill(transaction)) {
+  if (getBill(transaction)) {
     return BILL_LINK
   } else if (_action && _action.type === URL_LINK) {
     return URL_LINK
@@ -121,15 +109,9 @@ class _Action extends Component {
 
   getInfo = () => {
     const { type } = this.state
-    const { t, urls, transaction, bill } = this.props
+    const { t, transaction, bill } = this.props
 
-    if (type === APP_LINK) {
-      const appName = getAppName(urls, transaction)
-      return {
-        href: urls[appName],
-        text: t(`Transactions.actions.${type}`, {appName})
-      }
-    } else if (type === URL_LINK && transaction.action) {
+    if (type === URL_LINK && transaction.action) {
       const action = transaction.action
       return {
         text: action.trad,

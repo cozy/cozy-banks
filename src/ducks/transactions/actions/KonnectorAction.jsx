@@ -2,7 +2,7 @@ import React from 'react'
 import { flowRight as compose } from 'lodash'
 import { matchBrands, findMatchingBrand } from 'ducks/brandDictionary'
 import { IntentOpener, translate, withBreakpoints } from 'cozy-ui/react'
-import linkOutIcon from 'assets/icons/actions/icon-link-out.svg'
+import icon from 'assets/icons/actions/icon-link-out.svg'
 import GenericComponent from './GenericComponent'
 
 const name = 'konnector'
@@ -38,7 +38,7 @@ const Component = ({t, transaction, actionProps, breakpoints: { isDesktop }}) =>
 
 const action = {
   name,
-  icon: linkOutIcon,
+  icon,
   match: (transaction, { brands }) => {
     return brands && matchBrands(brands, transaction.label)
   },

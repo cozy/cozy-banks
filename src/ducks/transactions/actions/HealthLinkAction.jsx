@@ -1,6 +1,6 @@
 import React from 'react'
 import { translate } from 'cozy-ui/react'
-import linkOutIcon from 'assets/icons/actions/icon-link-out.svg'
+import icon from 'assets/icons/actions/icon-link-out.svg'
 import { isHealth } from 'ducks/categories/helpers'
 import GenericComponent from './GenericComponent'
 
@@ -18,7 +18,7 @@ const Component = ({t, actionProps: { urls }}) => {
 
 const action = {
   name,
-  icon: linkOutIcon,
+  icon,
   match: (transaction, {urls}) => {
     return isHealth(transaction) && urls['HEALTH']
   },
