@@ -40,6 +40,7 @@ class TransactionGreater extends Notification {
     super(config)
 
     this.maxAmount = config.value
+    this.route = '/transactions'
   }
 
   filterTransactions (transactions) {

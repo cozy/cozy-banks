@@ -30,6 +30,7 @@ class BalanceLower extends Notification {
     super(config)
 
     this.lowerBalance = config.value
+    this.route = '/balances'
   }
 
   filter (account) {

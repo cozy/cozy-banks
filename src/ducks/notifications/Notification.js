@@ -54,7 +54,10 @@ class Notification {
       platform: 'android',
       device_token: deviceToken,
       title: attributes.title,
-      message: attributes.content
+      message: attributes.content,
+      data: {
+        route: this.route
+      }
     })
   }
 }

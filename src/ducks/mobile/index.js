@@ -3,6 +3,7 @@
 import { resetClient } from 'ducks/authentication/lib/client'
 import localForage from 'localforage'
 import { fetchSettingsCollection, getSettings, updateSettings } from 'ducks/settings'
+import { hashHistory } from 'react-router'
 
 // constants
 const SET_TOKEN = 'SET_TOKEN'
@@ -27,7 +28,13 @@ export const registerPushNotifications = deviceName => async (dispatch, getState
     return
   }
 
-  const push = initPushNotifications()
+  const handleNotification = data => {
+    if (data.additionalData.route) {
+      hashHistory.push(data.additionalData.route)
+    }
+  }
+
+  const push = initPushNotifications(handleNotification)
 
   dispatch({
     type: REGISTER_PUSH_NOTIFICATIONS,
@@ -138,15 +145,14 @@ export const isInitialSyncOK = async () => {
   return status === true
 }
 
-const initPushNotifications = deviceName => {
+const initPushNotifications = onReceive => {
   const push = PushNotification.init({
     android: {
       forceShow: true
     }
   })
 
-  push.on('notification', data => console.log(data))
-  push.on('error', error => console.log(error))
+  push.on('notification', onReceive)
 
   return push
 }

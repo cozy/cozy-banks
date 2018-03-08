@@ -41,6 +41,7 @@ class HealthBillLinked extends Notification {
     super(config)
 
     this.data = config.data
+    this.route = '/transactions'
   }
 
   filterTransactions (transactions) {
