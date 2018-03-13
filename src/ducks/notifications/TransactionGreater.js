@@ -4,6 +4,7 @@ import * as utils from './html/utils'
 import subDays from 'date-fns/sub_days'
 import { isCreatedDoc, isDocYoungerThan, isTransactionAmountGreaterThan } from './helpers'
 import Notification from './Notification'
+import { sortBy } from 'lodash'
 
 const ACCOUNT_SEL = '.js-account'
 const DATE_SEL = '.js-date'
@@ -47,8 +48,8 @@ class TransactionGreater extends Notification {
     const fourDaysAgo = subDays(new Date(), 4)
 
     return transactions
-      .filter(isCreatedDoc)
-      .filter(isDocYoungerThan(fourDaysAgo))
+      // .filter(isCreatedDoc)
+      // .filter(isDocYoungerThan(fourDaysAgo))
       .filter(isTransactionAmountGreaterThan(this.maxAmount))
   }
 
@@ -99,9 +100,16 @@ class TransactionGreater extends Notification {
         content: toText(contentHTML)
       },
       push: {
-        title
+        title,
+        content: this.getPushContent(transactionsFiltered)
       }
     }
+  }
+
+  getPushContent (transactions) {
+    const [transaction] = sortBy(transactions, 'date').reverse()
+
+    return `${transaction.label} : ${transaction.amount} ${transaction.currency}`
   }
 }
 
