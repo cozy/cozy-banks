@@ -69,7 +69,7 @@ AccountSwitchMobile.propTypes = {
   filteringDoc: PropTypes.object
 }
 
-const AccountSwitchMenu = translate()(({ accounts, groups, filteringDoc, filterByDoc, resetFilterByDoc, t, accountExists }) => (
+const AccountSwitchMenu = translate()(({ accounts, groups, filteringDoc, filterByDoc, resetFilterByDoc, t, accountExists, close }) => (
   <div className={styles['account-switch-menu-content']}>
     <div className={styles['account-switch-menu']}>
       <h4>
@@ -97,7 +97,7 @@ const AccountSwitchMenu = translate()(({ accounts, groups, filteringDoc, filterB
           </li>
         ))}
       </ul>
-      <Link to={'/settings/groups'}>
+      <Link to={'/settings/groups'} onClick={close}>
         {t('Groups.manage-groups')}
       </Link>
 
@@ -124,7 +124,7 @@ const AccountSwitchMenu = translate()(({ accounts, groups, filteringDoc, filterB
           </li>
         ))}
       </ul>
-      <Link to={'/settings/accounts'}>
+      <Link to={'/settings/accounts'} onClick={close}>
         {t('Accounts.manage-accounts')}
       </Link>
     </div>
@@ -143,6 +143,7 @@ class AccountSwitch extends Component {
   state = {
     open: false
   }
+
   close = () => {
     if (this.state.open) {
       this.setState({ open: false })
@@ -201,6 +202,7 @@ class AccountSwitch extends Component {
             filteringDoc={filteringDoc}
             filterByDoc={closeAfterSelect(filterByDoc)}
             resetFilterByDoc={closeAfterSelect(resetFilterByDoc)}
+            close={this.close}
             groups={orderedGroups}
             accounts={accounts}
             accountExists={this.accountExists}
