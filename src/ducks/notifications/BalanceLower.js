@@ -79,9 +79,17 @@ class BalanceLower extends Notification {
         content: toText(contentHTML)
       },
       push: {
-        title
+        title,
+        content: this.getPushContent(accountsFiltered)
       }
     }
+  }
+
+  getPushContent (accounts) {
+    const [account] = accounts
+    const { balance } = account
+
+    return `${account.label} (${balance > 0 ? '+' : ''}${balance} ${account.currency})`
   }
 }
 
