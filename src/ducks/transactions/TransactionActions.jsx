@@ -63,9 +63,12 @@ const getAppName = (urls, transaction) => {
 const isHealthCategory = (categoryId) =>
   categoryId === '400600' || categoryId === '400610' || categoryId === '400620'
 
-export const getLinkType = (transaction, urls) => {
+export const getLinkType = (transaction, urls, brands) => {
   const action = transaction.action
   const appName = getAppName(urls, transaction)
+  if (brands && matchKonnectorAction({transaction, brands})) {
+    return KONNECTOR_LINK
+  }
   if (isHealthCategory(getCategoryId(transaction)) && urls['HEALTH']) {
     return HEALTH_LINK
   } else if (appName) {
@@ -94,13 +97,12 @@ class _Action extends Component {
   }
 
   setType = newType => {
-    const { type, transaction, urls } = this.props
+    const { type, transaction, urls, brands } = this.props
     this.setState(
       {
         type: newType ||
           type ||
-          (matchKonnectorAction(this.props) && KONNECTOR_LINK) ||
-          (transaction && getLinkType(transaction, urls))
+          (transaction && getLinkType(transaction, urls, brands))
       }
     )
   }
@@ -240,18 +242,24 @@ const ActionMenuItem = ({disabled, onClick, type, color, bill}) => {
 }
 
 /** This is used in Menu / ActionMenu */
-const TransactionActions = ({transaction, urls, withoutDefault, onSelect, onSelectDisabled}) => {
-  const defaultActionName = getLinkType(transaction, urls)
+const TransactionActions = ({transaction, urls, brands, withoutDefault, onSelect, onSelectDisabled}) => {
+  const defaultActionName = getLinkType(transaction, urls, brands)
   const displayDefaultAction = !withoutDefault && defaultActionName
   const isHealthExpenseTransaction = isHealthExpense(transaction)
+  const isKonnectorAction = defaultActionName && defaultActionName === KONNECTOR_LINK
 
   return (
     <div>
-      {displayDefaultAction && !isHealthExpenseTransaction && <MenuItem
+      {displayDefaultAction && !isHealthExpenseTransaction && !isKonnectorAction && <MenuItem
         onClick={onSelect}
         icon={<PrimaryActionIcon type={defaultActionName} />}
       >
-        <PrimaryAction transaction={transaction} urls={urls} onClick={onSelect} />
+        <PrimaryAction transaction={transaction} urls={urls} brands={brands} onClick={onSelect} />
+      </MenuItem>}
+      {isKonnectorAction && <MenuItem
+        icon={<PrimaryActionIcon type={defaultActionName} />}
+      >
+        <PrimaryAction transaction={transaction} urls={urls} brands={brands} />
       </MenuItem>}
       {isHealthExpenseTransaction &&
         transaction.reimbursements &&

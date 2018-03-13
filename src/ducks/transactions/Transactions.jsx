@@ -87,7 +87,7 @@ const TableTrDesktop = compose(
   )
 })
 
-const TableTrNoDesktop = translate()(({t, f, transaction, urls, selectTransaction}) => {
+const TableTrNoDesktop = translate()(({t, f, transaction, selectTransaction, urls, brands}) => {
   return (
     <tr onClick={() => selectTransaction(transaction)} className={styles['bnk-transaction-mobile']}>
       <td>
@@ -102,7 +102,7 @@ const TableTrNoDesktop = translate()(({t, f, transaction, urls, selectTransactio
             {
               isHealthExpense(transaction)
                 ? <HealthExpenseStatusIcon className='u-mr-half' pending={getVendors(transaction).length === 0} />
-                : <PrimaryActionIcon className='u-mr-half' type={getLinkType(transaction, urls)} />
+                : <PrimaryActionIcon className='u-mr-half' type={getLinkType(transaction, urls, brands)} />
             }
           </Img>
           <Img>

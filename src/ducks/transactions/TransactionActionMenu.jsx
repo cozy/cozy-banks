@@ -27,7 +27,7 @@ const showComingSoon = (t) => {
 
 class TransactionActionMenu extends Component {
   render () {
-    const { t, f, transaction, urls, requestClose } = this.props
+    const { t, f, transaction, urls, brands, requestClose } = this.props
     const { showCategoryChoice } = this.props
     const categoryId = getCategoryId(transaction)
     const category = getParentCategory(categoryId)
@@ -74,7 +74,8 @@ class TransactionActionMenu extends Component {
           onSelect={onSelect}
           onSelectDisabled={onSelectDisabled}
           transaction={transaction}
-          urls={urls} />
+          urls={urls}
+          brands={brands} />
       </ActionMenu>
     )
   }

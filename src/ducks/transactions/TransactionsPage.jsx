@@ -142,7 +142,8 @@ const mapStateToProps = (state, ownProps) => ({
     // - display appName in translate `Transactions.actions.app`
     MAIF: getAppUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-maif'),
     HEALTH: getAppUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-sante'),
-    EDF: getAppUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-edf')
+    EDF: getAppUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-edf'),
+    COLLECT: getAppUrlBySource(state, 'github.com/cozy/cozy-collect')
   },
   accountIds: getFilteredAccountIds(state),
   accounts: getCollection(state, 'accounts'),
