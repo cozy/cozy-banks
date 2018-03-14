@@ -89,5 +89,13 @@ export const computeCategorieData = transactionsByCategory => {
   })
 }
 
-export const isHealthExpense = transaction =>
-  getCategoryId(transaction) === '400610' && transaction.amount < 0
+export const isHealthExpense = transaction => {
+  return getCategoryId(transaction) === '400610' && transaction.amount < 0
+}
+
+export const isHealth = transaction => {
+  const categoryId = getCategoryId(transaction)
+  return categoryId === '400600' ||
+    categoryId === '400610' ||
+    categoryId === '400620'
+}

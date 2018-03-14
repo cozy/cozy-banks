@@ -11,7 +11,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { translate, Icon, MenuItem } from 'cozy-ui/react'
-import { getCategoryId, isHealthExpense } from 'ducks/categories/helpers'
+import { isHealthExpense } from 'ducks/categories/helpers'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import commentIcon from 'assets/icons/actions/icon-comment.svg'
 
@@ -21,61 +21,41 @@ import linkIcon from 'assets/icons/actions/icon-link.svg'
 import fileIcon from 'assets/icons/actions/icon-file.svg'
 import { getInvoice, getBill, getBillInvoice } from './helpers'
 import FileOpener from './FileOpener'
-import { findKey } from 'lodash'
 import styles from './TransactionActions.styl'
 import { getVendors } from 'ducks/health-expense'
-import KonnectorAction, {
-  TYPE as KONNECTOR_LINK,
-  match as matchKonnectorAction
-} from './actions/KonnectorAction'
+import { findMatchingAction, addIcons } from './actions'
 
 // constants
 const ALERT_LINK = 'alert'
-const APP_LINK = 'app'
 const ATTACH_LINK = 'attach'
 const BILL_LINK = 'bill'
 const COMMENT_LINK = 'comment'
-const HEALTH_LINK = 'refund'
 const HEALTH_EXPENSE_BILL_LINK = 'healthExpenseBill'
 const URL_LINK = 'url'
 
 const icons = {
   [ALERT_LINK]: bellIcon,
-  [APP_LINK]: linkOutIcon,
   [ATTACH_LINK]: linkIcon,
   [BILL_LINK]: fileIcon,
   [COMMENT_LINK]: commentIcon,
-  [HEALTH_LINK]: linkOutIcon,
   [URL_LINK]: linkOutIcon,
-  [KONNECTOR_LINK]: linkOutIcon,
   [HEALTH_EXPENSE_BILL_LINK]: fileIcon
 }
+addIcons(icons)
 
 // TODO delete or rename this variable (see https://gitlab.cozycloud.cc/labs/cozy-bank/merge_requests/237)
 const PRIMARY_ACTION_COLOR = palette['dodgerBlue']
 
-// helpers
-const getAppName = (urls, transaction) => {
-  const label = transaction.label.toLowerCase()
-  return findKey(urls, (url, appName) => url && label.indexOf(appName.toLowerCase()) !== -1)
-}
-
-const isHealthCategory = (categoryId) =>
-  categoryId === '400600' || categoryId === '400610' || categoryId === '400620'
-
 export const getLinkType = (transaction, urls, brands) => {
-  const action = transaction.action
-  const appName = getAppName(urls, transaction)
-  if (brands && matchKonnectorAction({transaction, brands})) {
-    return KONNECTOR_LINK
+  const _action = transaction.action
+  const actionProps = { urls, brands }
+  const action = findMatchingAction(transaction, actionProps)
+  if (action) {
+    return action.name
   }
-  if (isHealthCategory(getCategoryId(transaction)) && urls['HEALTH']) {
-    return HEALTH_LINK
-  } else if (appName) {
-    return APP_LINK
-  } else if (getBill(transaction)) {
+  if (getBill(transaction)) {
     return BILL_LINK
-  } else if (action && action.type === URL_LINK) {
+  } else if (_action && _action.type === URL_LINK) {
     return URL_LINK
   }
   return undefined
@@ -129,20 +109,9 @@ class _Action extends Component {
 
   getInfo = () => {
     const { type } = this.state
-    const { t, urls, transaction, bill } = this.props
+    const { t, transaction, bill } = this.props
 
-    if (type === HEALTH_LINK) {
-      return {
-        href: urls['HEALTH'] + '/#/remboursements',
-        text: t(`Transactions.actions.${type}`)
-      }
-    } else if (type === APP_LINK) {
-      const appName = getAppName(urls, transaction)
-      return {
-        href: urls[appName],
-        text: t(`Transactions.actions.${type}`, {appName})
-      }
-    } else if (type === URL_LINK && transaction.action) {
+    if (type === URL_LINK && transaction.action) {
       const action = transaction.action
       return {
         text: action.trad,
@@ -178,11 +147,6 @@ class _Action extends Component {
 
   getWidget = () => {
     const { type, invoiceFileId } = this.state
-
-    if (type === KONNECTOR_LINK) {
-      return <KonnectorAction {...this.props} />
-    }
-
     const genericWidget = this.getGenericWidget()
 
     const isFileOpener = type === BILL_LINK || type === HEALTH_EXPENSE_BILL_LINK
@@ -213,9 +177,23 @@ class _Action extends Component {
 
   render () {
     const { type } = this.state
-    const { showIcon } = this.props
-
     if (type === undefined) return
+
+    const { transaction, urls, brands, showIcon, color } = this.props
+    if (transaction) {
+      const actionProps = { urls, brands }
+      const action = findMatchingAction(transaction, actionProps)
+
+      if (action) {
+        const { Component } = action
+        return (
+          <span>
+            {showIcon && <ActionIcon type={action.name} className='u-mr-half' color={color} />}
+            <Component transaction={transaction} actionProps={actionProps} />
+          </span>
+        )
+      }
+    }
 
     const widget = this.getWidget()
     if (widget === undefined) return // invoice is not found
@@ -246,17 +224,19 @@ const TransactionActions = ({transaction, urls, brands, withoutDefault, onSelect
   const defaultActionName = getLinkType(transaction, urls, brands)
   const displayDefaultAction = !withoutDefault && defaultActionName
   const isHealthExpenseTransaction = isHealthExpense(transaction)
-  const isKonnectorAction = defaultActionName && defaultActionName === KONNECTOR_LINK
+
+  const actionProps = { urls, brands }
+  const action = findMatchingAction(transaction, actionProps)
 
   return (
     <div>
-      {displayDefaultAction && !isHealthExpenseTransaction && !isKonnectorAction && <MenuItem
+      {displayDefaultAction && !isHealthExpenseTransaction && !action && <MenuItem
         onClick={onSelect}
         icon={<PrimaryActionIcon type={defaultActionName} />}
       >
         <PrimaryAction transaction={transaction} urls={urls} brands={brands} onClick={onSelect} />
       </MenuItem>}
-      {isKonnectorAction && <MenuItem
+      {action && <MenuItem
         icon={<PrimaryActionIcon type={defaultActionName} />}
       >
         <PrimaryAction transaction={transaction} urls={urls} brands={brands} />
