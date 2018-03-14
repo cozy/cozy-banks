@@ -28,9 +28,9 @@ export const registerPushNotifications = deviceName => async (dispatch, getState
     return
   }
 
-  const handleNotification = data => {
-    if (data.additionalData.route) {
-      hashHistory.push(data.additionalData.route)
+  const handleNotification = notification => {
+    if (!notification.additionalData.foreground && notification.additionalData.route) {
+      hashHistory.push(notification.additionalData.route)
     }
   }
 
