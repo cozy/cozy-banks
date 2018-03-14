@@ -10,6 +10,16 @@
     "konnectorSlug": "harmonie"
   },
   {
+    "name": "Malakoff Mederic",
+    "regexp": "malakoff",
+    "konnectorSlug": "malakoffmederic"
+  },
+  {
+    "name": "MGEN",
+    "regexp": "mgen",
+    "konnectorSlug": "mgen"
+  },
+  {
     "name": "Numéricable",
     "regexp": "numericable",
     "konnectorSlug": "numericable"
