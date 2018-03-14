@@ -3,7 +3,7 @@ import { flowRight as compose } from 'lodash'
 import { matchBrands, findMatchingBrand } from 'ducks/brandDictionary'
 import { IntentOpener, translate, withBreakpoints } from 'cozy-ui/react'
 import icon from 'assets/icons/actions/icon-link-out.svg'
-import GenericComponent from './GenericComponent'
+import ActionLink from './ActionLink'
 
 const name = 'konnector'
 
@@ -19,7 +19,7 @@ const Component = ({t, transaction, actionProps, breakpoints: { isDesktop }}) =>
         doctype='io.cozy.accounts'
         options={{slug: brand.konnectorSlug}}
       >
-        <GenericComponent
+        <ActionLink
           text={t('Transactions.actions.konnector', {vendor: brand.name})}
         />
       </IntentOpener>
@@ -28,7 +28,7 @@ const Component = ({t, transaction, actionProps, breakpoints: { isDesktop }}) =>
 
   const url = `${urls['COLLECT']}#/providers/all/${brand.konnectorSlug}`
   return (
-    <GenericComponent
+    <ActionLink
       href={url}
       text={t(`Transactions.actions.${name}`, {vendor: brand.name})}
     />

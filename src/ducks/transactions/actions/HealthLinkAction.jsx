@@ -2,14 +2,14 @@ import React from 'react'
 import { translate } from 'cozy-ui/react'
 import icon from 'assets/icons/actions/icon-link-out.svg'
 import { isHealth } from 'ducks/categories/helpers'
-import GenericComponent from './GenericComponent'
+import ActionLink from './ActionLink'
 
 const name = 'refund'
 
 const Component = ({t, actionProps: { urls }}) => {
   const url = `${urls['HEALTH']}#/remboursements`
   return (
-    <GenericComponent
+    <ActionLink
       href={url}
       text={t(`Transactions.actions.${name}`)}
     />

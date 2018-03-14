@@ -4,7 +4,7 @@ import palette from 'cozy-ui/stylus/settings/palette.json'
 
 const DEFAULT_COLOR = palette['dodgerBlue']
 
-const GenericComponent = ({ href, text, target, onClick, color = DEFAULT_COLOR }) => (
+const ActionLink = ({ href, text, target, onClick, color = DEFAULT_COLOR }) => (
   <a
     href={href}
     target={target}
@@ -15,4 +15,4 @@ const GenericComponent = ({ href, text, target, onClick, color = DEFAULT_COLOR }
   </a>
 )
 
-export default GenericComponent
+export default ActionLink
