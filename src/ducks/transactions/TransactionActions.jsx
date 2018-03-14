@@ -72,7 +72,6 @@ class _Action extends Component {
     super(props)
 
     this.state = {}
-    this.setType()
     this.setInvoiceFileId()
   }
 
