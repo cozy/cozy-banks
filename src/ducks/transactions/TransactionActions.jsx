@@ -76,19 +76,13 @@ class _Action extends Component {
     this.setInvoiceFileId()
   }
 
-  setType = newType => {
+  getType = () => {
     const { type, transaction, urls, brands } = this.props
-    this.setState(
-      {
-        type: newType ||
-          type ||
-          (transaction && getLinkType(transaction, urls, brands))
-      }
-    )
+    return type || (transaction && getLinkType(transaction, urls, brands))
   }
 
   setInvoiceFileId = async () => {
-    const { type } = this.state
+    const type = this.getType()
     const { bill, transaction } = this.props
     if (!type) return
     let invoiceFileId
@@ -108,7 +102,7 @@ class _Action extends Component {
   }
 
   getInfo = () => {
-    const { type } = this.state
+    const type = this.getType()
     const { t, transaction, bill } = this.props
 
     if (type === URL_LINK && transaction.action) {
@@ -146,7 +140,8 @@ class _Action extends Component {
   }
 
   getWidget = () => {
-    const { type, invoiceFileId } = this.state
+    const type = this.getType()
+    const { invoiceFileId } = this.state
     const genericWidget = this.getGenericWidget()
 
     const isFileOpener = type === BILL_LINK || type === HEALTH_EXPENSE_BILL_LINK
@@ -169,14 +164,8 @@ class _Action extends Component {
     return this.props.color
   }
 
-  componentWillReceiveProps (nextProps) {
-    if (nextProps.type !== this.state.type) {
-      this.setType(nextProps.type)
-    }
-  }
-
   render () {
-    const { type } = this.state
+    const type = this.getType()
     if (type === undefined) return
 
     const { transaction, urls, brands, showIcon, color } = this.props
