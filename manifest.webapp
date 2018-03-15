@@ -60,6 +60,32 @@
       "debounce": "3m"
     }
   },
+  "notifications": {
+    "balance-lower": {
+      "description": "Alert the user when his account balance is lower than a certain value",
+      "collapsible": true,
+      "stateful": true,
+      "multiple": false,
+      "default_priority": "normal",
+      "templates": {}
+    },
+    "health-bill-linked": {
+      "description": "Alert the user when a health bill has been linked to a health expense",
+      "collapsible": false,
+      "stateful": false,
+      "multiple": false,
+      "default_priority": "normal",
+      "templates": {}
+    },
+    "transaction-greater": {
+      "description": "Alert the user when a transaction amount is greater than a certain value",
+      "collapsible": false,
+      "stateful": false,
+      "multiple": false,
+      "default_priority": "normal",
+      "templates": {}
+    }
+  },
   "permissions": {
     "bank.groups": {
       "description": "Manage groups of bank accounts",
@@ -84,11 +110,6 @@
     "notifications": {
       "description": "Used to send notifications",
       "type": "io.cozy.notifications",
-      "verbs": ["POST"]
-    },
-    "push-notification": {
-      "description": "Required to send notifications",
-      "type": "io.cozy.jobs",
       "verbs": ["POST"]
     },
     "apps": {
