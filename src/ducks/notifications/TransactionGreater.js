@@ -41,7 +41,6 @@ class TransactionGreater extends Notification {
     super(config)
 
     this.maxAmount = config.value
-    this.route = '/transactions'
   }
 
   filterTransactions (transactions) {
@@ -93,15 +92,14 @@ class TransactionGreater extends Notification {
     const contentHTML = htmlTemplate(templateData)
 
     return {
-      reference: 'transaction_greater',
-      mail: {
-        title,
-        content_html: contentHTML,
-        content: toText(contentHTML)
-      },
-      push: {
-        title,
-        content: this.getPushContent(transactionsFiltered)
+      category: 'transaction-greater',
+      title,
+      message: this.getPushContent(transactionsFiltered),
+      preferred_channels: ['mail', 'mobile'],
+      content: toText(contentHTML),
+      content_html: contentHTML,
+      data: {
+        route: '/transactions'
       }
     }
   }

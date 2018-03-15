@@ -30,7 +30,6 @@ class BalanceLower extends Notification {
     super(config)
 
     this.lowerBalance = config.value
-    this.route = '/balances'
   }
 
   filter (account) {
@@ -72,15 +71,14 @@ class BalanceLower extends Notification {
     const contentHTML = htmlTemplate(templateData)
 
     return {
-      reference: 'balance_lower',
-      mail: {
-        title,
-        content_html: contentHTML,
-        content: toText(contentHTML)
-      },
-      push: {
-        title,
-        content: this.getPushContent(accountsFiltered)
+      category: 'balance-lower',
+      title,
+      message: this.getPushContent(accountsFiltered),
+      preferred_channels: ['mail', 'mobile'],
+      content: toText(contentHTML),
+      content_html: contentHTML,
+      data: {
+        route: '/balances'
       }
     }
   }

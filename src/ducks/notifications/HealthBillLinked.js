@@ -42,7 +42,6 @@ class HealthBillLinked extends Notification {
     super(config)
 
     this.data = config.data
-    this.route = '/transactions'
   }
 
   filterTransactions (transactions) {
@@ -79,18 +78,17 @@ class HealthBillLinked extends Notification {
           bills: bills
         }
 
-        const htmlContent = htmlTemplate(templateData)
+        const contentHTML = htmlTemplate(templateData)
 
         return {
-          reference: 'health_bill_linked',
-          mail: {
-            title: this.t(`${translateKey}.title`),
-            content_html: htmlContent,
-            content: toText(htmlContent)
-          },
-          push: {
-            title: this.t(`${translateKey}.title`),
-            content: this.getPushContent(transactionsWithReimbursements, bills, translateKey)
+          category: 'health-bill-linked',
+          title: this.t(`${translateKey}.title`),
+          message: this.getPushContent(transactionsWithReimbursements, bills, translateKey),
+          preferred_channels: ['mail', 'mobile'],
+          content: toText(contentHTML),
+          content_html: contentHTML,
+          data: {
+            route: '/transactions'
           }
         }
       })
