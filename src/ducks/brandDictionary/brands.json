@@ -1,7 +1,7 @@
 [
   {
     "name": "Ameli",
-    "regexp": "cpam",
+    "regexp": "(cpam|c\\.p\\.a\\.m|caisse primaire)",
     "konnectorSlug": "ameli"
   },
   {

@@ -16,6 +16,9 @@ describe('brandDictionary', () => {
   describe('matchBrands', () => {
     it('Should return true if label match with regex', () => {
       expect(matchBrands(getBrands(), 'Cpam Des Yvelines')).toBeTruthy()
+      expect(matchBrands(getBrands(), 'C.P.A.M Des Yvelines')).toBeTruthy()
+      expect(matchBrands(getBrands(), 'C.P.AaM Des Yvelines')).toBeFalsy()
+      expect(matchBrands(getBrands(), 'caisse primaire Des Yvelines')).toBeTruthy()
       expect(matchBrands(getBrands(), 'Gandi Paris')).toBeFalsy()
     })
 
