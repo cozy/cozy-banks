@@ -1,8 +1,7 @@
-/* global PushNotification */
+/* global PushNotification, cozy */
 
 import { resetClient } from 'ducks/authentication/lib/client'
 import localForage from 'localforage'
-import { fetchSettingsCollection, getSettings, updateSettings } from 'ducks/settings'
 import { hashHistory } from 'react-router'
 
 // constants
@@ -23,7 +22,7 @@ export const unlink = (clientInfo) => {
   resetClient(clientInfo)
   return { type: UNLINK }
 }
-export const registerPushNotifications = deviceName => async (dispatch, getState) => {
+export const registerPushNotifications = () => async (dispatch, getState) => {
   if (getState().mobile.push) {
     return
   }
@@ -38,30 +37,11 @@ export const registerPushNotifications = deviceName => async (dispatch, getState
 
   dispatch({
     type: REGISTER_PUSH_NOTIFICATIONS,
-    push,
-    deviceName
+    push
   })
 
-  const settingsCollection = await dispatch(fetchSettingsCollection())
-  const settings = getSettings(settingsCollection)
-
-  const currentDevices = settings.push.devices
-
   push.on('registration', ({registrationId}) => {
-    const newDevices = {
-      ...currentDevices,
-      [deviceName]: registrationId
-    }
-
-    const newSettings = {
-      ...settings,
-      push: {
-        ...settings.push,
-        devices: newDevices
-      }
-    }
-
-    dispatch(updateSettings(newSettings))
+    // set new oauth device_token
   })
 }
 
@@ -70,20 +50,7 @@ export const unregisterPushNotifications = deviceName => async (dispatch, getSta
     return
   }
 
-  const settingsCollection = await dispatch(fetchSettingsCollection())
-  const settings = getSettings(settingsCollection)
-  const currentDevices = settings.push.devices
-  delete currentDevices[deviceName]
-
-  const newSettings = {
-    ...settings,
-    push: {
-      ...settings.push,
-      devices: currentDevices
-    }
-  }
-
-  dispatch(updateSettings(newSettings))
+  // unset oauth device token
 
   dispatch({
     type: UNREGISTER_PUSH_NOTIFICATIONS
@@ -115,7 +82,6 @@ const reducer = (state = initialState, action) => {
     case REGISTER_PUSH_NOTIFICATIONS:
       return {
         ...state,
-        deviceName: action.deviceName,
         push: action.push
       }
     case UNREGISTER_PUSH_NOTIFICATIONS:
