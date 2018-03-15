@@ -48,8 +48,8 @@ class TransactionGreater extends Notification {
     const fourDaysAgo = subDays(new Date(), 4)
 
     return transactions
-      // .filter(isCreatedDoc)
-      // .filter(isDocYoungerThan(fourDaysAgo))
+      .filter(isCreatedDoc)
+      .filter(isDocYoungerThan(fourDaysAgo))
       .filter(isTransactionAmountGreaterThan(this.maxAmount))
   }
 
