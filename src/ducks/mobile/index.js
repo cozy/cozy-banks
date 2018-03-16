@@ -41,7 +41,10 @@ export const registerPushNotifications = () => async (dispatch, getState) => {
   })
 
   push.on('registration', ({registrationId}) => {
-    // set new oauth device_token
+    cozy.client.auth.updateClient({
+      ...getState().mobile.client,
+      notificationDeviceToken: registrationId
+    })
   })
 }
 
@@ -50,7 +53,10 @@ export const unregisterPushNotifications = deviceName => async (dispatch, getSta
     return
   }
 
-  // unset oauth device token
+  cozy.client.auth.updateClient({
+    ...getState().mobile.client,
+    notificationDeviceToken: ''
+  })
 
   dispatch({
     type: UNREGISTER_PUSH_NOTIFICATIONS
@@ -119,6 +125,7 @@ const initPushNotifications = onReceive => {
   })
 
   push.on('notification', onReceive)
+  push.on('error', (err) => console.log(err))
 
   return push
 }

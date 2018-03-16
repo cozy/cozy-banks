@@ -34,6 +34,11 @@ export const getDeviceName = () => {
 
   return `${capitalize(manufacturer)} ${model}`
 }
+
+const getDevicePlatform = () => {
+  return window.device.platform.toLowerCase()
+}
+
 const SOFTWARE_ID = 'io.cozy.banks.mobile'
 const SOFTWARE_NAME = 'Cozy Banks'
 const getLang = () => (navigator && navigator.language) ? navigator.language.slice(0, 2) : 'en'
@@ -80,7 +85,8 @@ export const initClient = (url) => {
         clientURI: 'https://gitlab.cozycloud.cc/labs/cozy-bank',
         logoURI: 'https://gitlab.cozycloud.cc/labs/cozy-bank/raw/master/src/targets/favicons/favicon-32x32.png',
         policyURI: 'https://files.cozycloud.cc/cgu.pdf',
-        scopes: getPermissions()
+        scopes: getPermissions(),
+        notificationPlatform: getDevicePlatform()
       }
     },
     offline: {doctypes: [ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE]}
