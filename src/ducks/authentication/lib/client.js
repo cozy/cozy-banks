@@ -35,7 +35,7 @@ export const getDeviceName = () => {
   return `${capitalize(manufacturer)} ${model}`
 }
 
-const getDevicePlatform = () => {
+export const getDevicePlatform = () => {
   return window.device.platform.toLowerCase()
 }
 

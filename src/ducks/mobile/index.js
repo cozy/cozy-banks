@@ -1,6 +1,6 @@
 /* global PushNotification, cozy */
 
-import { resetClient } from 'ducks/authentication/lib/client'
+import { resetClient, getDevicePlatform } from 'ducks/authentication/lib/client'
 import localForage from 'localforage'
 import { hashHistory } from 'react-router'
 
@@ -23,7 +23,7 @@ export const unlink = (clientInfo) => {
   return { type: UNLINK }
 }
 export const registerPushNotifications = () => async (dispatch, getState) => {
-  if (getState().mobile.push) {
+  if (getState().mobile.push || !isAndroidDevice()) {
     return
   }
 
@@ -55,7 +55,7 @@ export const registerPushNotifications = () => async (dispatch, getState) => {
 }
 
 export const unregisterPushNotifications = deviceName => async (dispatch, getState) => {
-  if (!getState().mobile.push) {
+  if (!getState().mobile.push || !isAndroidDevice()) {
     return
   }
 
@@ -144,3 +144,5 @@ const stopPushNotifications = push => {
     }
   )
 }
+
+const isAndroidDevice = () => getDevicePlatform() === 'android'
