@@ -133,6 +133,8 @@ const initPushNotifications = onReceive => {
 const stopPushNotifications = push => {
   push.unregister(
     () => console.log('unregister push notifications'),
-    () => console.log('error while unregistering notifications')
+    error => {
+      throw new Error('error while unregistering notifications: ' + error)
+    }
   )
 }
