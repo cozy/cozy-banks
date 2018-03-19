@@ -27,6 +27,12 @@ export const registerPushNotifications = () => async (dispatch, getState) => {
     return
   }
 
+  /**
+   * When we receive a notification while the app is in foreground, all on('notification')
+   * handlers are executed. But we don't want to redirect the user without his consent.
+   * So we redirect only when the user taps on the notification in the notification center.
+   * In this case, the app is always in background.
+   */
   const handleNotification = notification => {
     if (!notification.additionalData.foreground && notification.additionalData.route) {
       hashHistory.push(notification.additionalData.route)
