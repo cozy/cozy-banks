@@ -3,8 +3,8 @@ import KonnectorAction from './KonnectorAction'
 import HealthLinkAction from './HealthLinkAction'
 
 const actions = [
-  KonnectorAction,
-  HealthLinkAction
+  HealthLinkAction,
+  KonnectorAction
 ]
 
 export const findMatchingAction = (transaction, actionProps) => {
