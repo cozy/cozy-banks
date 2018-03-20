@@ -16,7 +16,6 @@ import palette from 'cozy-ui/stylus/settings/palette.json'
 import commentIcon from 'assets/icons/actions/icon-comment.svg'
 
 import bellIcon from 'assets/icons/actions/icon-bell-16.svg'
-import linkOutIcon from 'assets/icons/actions/icon-link-out.svg'
 import linkIcon from 'assets/icons/actions/icon-link.svg'
 import fileIcon from 'assets/icons/actions/icon-file.svg'
 import { getInvoice, getBill, getBillInvoice } from './helpers'
@@ -31,14 +30,12 @@ const ATTACH_LINK = 'attach'
 const BILL_LINK = 'bill'
 const COMMENT_LINK = 'comment'
 const HEALTH_EXPENSE_BILL_LINK = 'healthExpenseBill'
-const URL_LINK = 'url'
 
 const icons = {
   [ALERT_LINK]: bellIcon,
   [ATTACH_LINK]: linkIcon,
   [BILL_LINK]: fileIcon,
   [COMMENT_LINK]: commentIcon,
-  [URL_LINK]: linkOutIcon,
   [HEALTH_EXPENSE_BILL_LINK]: fileIcon
 }
 addIcons(icons)
@@ -47,7 +44,6 @@ addIcons(icons)
 const PRIMARY_ACTION_COLOR = palette['dodgerBlue']
 
 export const getLinkType = (transaction, urls, brands) => {
-  const _action = transaction.action
   const actionProps = { urls, brands }
   const action = findMatchingAction(transaction, actionProps)
   if (action) {
@@ -55,8 +51,6 @@ export const getLinkType = (transaction, urls, brands) => {
   }
   if (getBill(transaction)) {
     return BILL_LINK
-  } else if (_action && _action.type === URL_LINK) {
-    return URL_LINK
   }
   return undefined
 }
@@ -102,16 +96,9 @@ class _Action extends Component {
 
   getInfo = () => {
     const type = this.getType()
-    const { t, transaction, bill } = this.props
+    const { t, bill } = this.props
 
-    if (type === URL_LINK && transaction.action) {
-      const action = transaction.action
-      return {
-        text: action.trad,
-        target: action.target,
-        href: action.url
-      }
-    } else if (type === HEALTH_EXPENSE_BILL_LINK && bill) {
+    if (type === HEALTH_EXPENSE_BILL_LINK && bill) {
       return {
         text: t(`Transactions.actions.${type}`).replace('%{vendor}', bill.vendor)
       }
