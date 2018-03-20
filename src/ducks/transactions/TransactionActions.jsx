@@ -18,23 +18,18 @@ import commentIcon from 'assets/icons/actions/icon-comment.svg'
 import bellIcon from 'assets/icons/actions/icon-bell-16.svg'
 import linkIcon from 'assets/icons/actions/icon-link.svg'
 import fileIcon from 'assets/icons/actions/icon-file.svg'
-import { getInvoice, getBill, getBillInvoice } from './helpers'
-import FileOpener from './FileOpener'
-import styles from './TransactionActions.styl'
 import { getVendors } from 'ducks/health-expense'
 import { findMatchingAction, addIcons } from './actions'
 
 // constants
 const ALERT_LINK = 'alert'
 const ATTACH_LINK = 'attach'
-const BILL_LINK = 'bill'
 const COMMENT_LINK = 'comment'
 const HEALTH_EXPENSE_BILL_LINK = 'healthExpenseBill'
 
 const icons = {
   [ALERT_LINK]: bellIcon,
   [ATTACH_LINK]: linkIcon,
-  [BILL_LINK]: fileIcon,
   [COMMENT_LINK]: commentIcon,
   [HEALTH_EXPENSE_BILL_LINK]: fileIcon
 }
@@ -49,10 +44,6 @@ export const getLinkType = (transaction, urls, brands) => {
   if (action) {
     return action.name
   }
-  if (getBill(transaction)) {
-    return BILL_LINK
-  }
-  return undefined
 }
 
 export const ActionIcon = ({type, color, ...rest}) => {
@@ -62,103 +53,24 @@ export const ActionIcon = ({type, color, ...rest}) => {
 
 // TODO : Action is doing way too much diffent things. We must split it
 class _Action extends Component {
-  constructor (props) {
-    super(props)
-
-    this.state = {}
-    this.setInvoiceFileId()
+  state = {
+    action: false
   }
 
-  getType = () => {
-    const { type, transaction, urls, brands } = this.props
-    return type || (transaction && getLinkType(transaction, urls, brands))
-  }
-
-  setInvoiceFileId = async () => {
-    const type = this.getType()
-    const { bill, transaction } = this.props
-    if (!type) return
-    let invoiceFileId
-    try {
-      if (type === BILL_LINK) {
-        invoiceFileId = await getInvoice(transaction)
-      } else if (type === HEALTH_EXPENSE_BILL_LINK && bill) {
-        invoiceFileId = await getBillInvoice(bill)
-      }
-    } catch (e) {
-      // TODO: Add sentry to watch if it's always on production
-      console.log('no invoice', bill)
+  async componentDidMount () {
+    const { transaction, urls, brands, bill } = this.props
+    if (transaction) {
+      const actionProps = { urls, brands, bill }
+      const action = await findMatchingAction(transaction, actionProps)
+      this.setState({action})
     }
-    if (invoiceFileId) {
-      this.setState({invoiceFileId})
-    }
-  }
-
-  getInfo = () => {
-    const type = this.getType()
-    const { t, bill } = this.props
-
-    if (type === HEALTH_EXPENSE_BILL_LINK && bill) {
-      return {
-        text: t(`Transactions.actions.${type}`).replace('%{vendor}', bill.vendor)
-      }
-    } else {
-      return {
-        text: t(`Transactions.actions.${type}`)
-      }
-    }
-  }
-
-  getGenericWidget = () => {
-    const { onClick, color } = this.props
-    const { href, text, target } = this.getInfo()
-
-    return (
-      <a
-        href={href}
-        target={target}
-        onClick={onClick}
-        style={{ color }}
-        className={styles.TransactionAction}>
-        {text}
-      </a>
-    )
-  }
-
-  getWidget = () => {
-    const type = this.getType()
-    const { invoiceFileId } = this.state
-    const genericWidget = this.getGenericWidget()
-
-    const isFileOpener = type === BILL_LINK || type === HEALTH_EXPENSE_BILL_LINK
-    if (isFileOpener) {
-      if (invoiceFileId) {
-        return (
-          <FileOpener getFileId={() => invoiceFileId}>
-            { genericWidget }
-          </FileOpener>
-        )
-      } else {
-        return
-      }
-    }
-
-    return genericWidget
-  }
-
-  getIconColor = () => {
-    return this.props.color
   }
 
   render () {
-    const type = this.getType()
-    if (type === undefined) return
-
-    const { transaction, urls, brands, showIcon, color } = this.props
+    const { transaction, showIcon, color, urls, brands, bill } = this.props
     if (transaction) {
-      const actionProps = { urls, brands }
-      const action = findMatchingAction(transaction, actionProps)
-
+      const { action } = this.state
+      const actionProps = { urls, brands, bill }
       if (action) {
         const { Component } = action
         return (
@@ -169,17 +81,6 @@ class _Action extends Component {
         )
       }
     }
-
-    const widget = this.getWidget()
-    if (widget === undefined) return // invoice is not found
-    const iconColor = this.getIconColor()
-
-    return (
-      <span>
-        {showIcon && <ActionIcon type={type} className='u-mr-half' color={iconColor} />}
-        {widget}
-      </span>
-    )
   }
 }
 
