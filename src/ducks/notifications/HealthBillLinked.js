@@ -5,6 +5,7 @@ import htmlTemplate from './html/health-bill-linked-html'
 import { BILLS_DOCTYPE } from 'doctypes'
 import * as utils from './html/utils'
 import Handlebars from 'handlebars'
+import { fromPairs } from 'lodash'
 
 const ACCOUNT_SEL = '.js-account'
 const DATE_SEL = '.js-date'
@@ -77,15 +78,32 @@ class HealthBillLinked extends Notification {
           bills: bills
         }
 
-        const htmlContent = htmlTemplate(templateData)
+        const contentHTML = htmlTemplate(templateData)
 
         return {
-          reference: 'health_bill_linked',
+          category: 'health-bill-linked',
           title: this.t(`${translateKey}.title`),
-          content_html: htmlContent,
-          content: toText(htmlContent)
+          message: this.getPushContent(transactionsWithReimbursements, bills, translateKey),
+          preferred_channels: ['mail', 'mobile'],
+          content: toText(contentHTML),
+          content_html: contentHTML,
+          data: {
+            route: '/transactions'
+          }
         }
       })
+  }
+
+  getPushContent (transactions, bills, translateKey) {
+    const [transaction] = transactions
+    const billsById = fromPairs(bills.map(bill => [`${BILLS_DOCTYPE}:${bill._id}`, bill]))
+    const vendors = transaction.reimbursements
+      .map(reimbursement => {
+        return billsById[reimbursement.billId].vendor
+      })
+      .join(', ')
+
+    return `${transaction.label} ${this.t(`${translateKey}.content.treatedBy`)} ${vendors}`
   }
 }
 

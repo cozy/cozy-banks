@@ -15,7 +15,7 @@ class Notification {
       return cozyClient.fetchJSON('POST', '/notifications', {
         data: {
           type: 'io.cozy.notifications',
-          attributes: attributes
+          attributes
         }
       })
     } catch (err) {

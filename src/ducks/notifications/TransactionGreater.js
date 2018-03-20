@@ -4,6 +4,7 @@ import * as utils from './html/utils'
 import subDays from 'date-fns/sub_days'
 import { isCreatedDoc, isDocYoungerThan, isTransactionAmountGreaterThan } from './helpers'
 import Notification from './Notification'
+import { sortBy } from 'lodash'
 
 const ACCOUNT_SEL = '.js-account'
 const DATE_SEL = '.js-date'
@@ -55,11 +56,9 @@ class TransactionGreater extends Notification {
     const transactionsFiltered = this.filterTransactions(transactions)
 
     if (transactionsFiltered.length === 0) {
-      console.log('TransactionGreater: no matched transactions')
-      return
+      return Promise.reject(new Error('TransactionGreater: no matched transactions'))
     }
 
-    const notification = { reference: 'transaction_greater' }
     const translateKey = 'Notifications.if_transaction_greater.notification'
 
     // Custom t bound to its part
@@ -88,10 +87,27 @@ class TransactionGreater extends Notification {
         ? `${translateKey}.credit.title`
         : `${translateKey}.debit.title`)
       : `${translateKey}.others.title`
-    notification.title = this.t(titleKey, titleData)
-    notification.content_html = htmlTemplate(templateData)
-    notification.content = toText(notification.content_html)
-    return notification
+    const title = this.t(titleKey, titleData)
+
+    const contentHTML = htmlTemplate(templateData)
+
+    return {
+      category: 'transaction-greater',
+      title,
+      message: this.getPushContent(transactionsFiltered),
+      preferred_channels: ['mail', 'mobile'],
+      content: toText(contentHTML),
+      content_html: contentHTML,
+      data: {
+        route: '/transactions'
+      }
+    }
+  }
+
+  getPushContent (transactions) {
+    const [transaction] = sortBy(transactions, 'date').reverse()
+
+    return `${transaction.label} : ${transaction.amount} ${transaction.currency}`
   }
 }
 
