@@ -1,16 +1,22 @@
-import { forEach } from 'lodash'
+import { find, forEach } from 'lodash'
 import KonnectorAction from './KonnectorAction'
 import HealthLinkAction from './HealthLinkAction'
 import AppLinkAction from './AppLinkAction'
 import UrlLinkAction from './UrlLinkAction'
 import BillAction from './BillAction'
+import AlertAction from './AlertAction'
+import CommentAction from './CommentAction'
+import AttachAction from './AttachAction'
 
 const actions = [
   HealthLinkAction,
   KonnectorAction,
   UrlLinkAction,
   BillAction,
-  AppLinkAction
+  AppLinkAction,
+  AlertAction,
+  CommentAction,
+  AttachAction
 ]
 
 export const findMatchingAction = async (transaction, actionProps) => {
@@ -21,6 +27,10 @@ export const findMatchingAction = async (transaction, actionProps) => {
     }
   }
   return false
+}
+
+export const getActionFromName = name => {
+  return find(actions, action => action.name === name)
 }
 
 export const addIcons = icons => {

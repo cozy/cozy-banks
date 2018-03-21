@@ -25,15 +25,12 @@ export const getBillInvoice = bill => {
 
 const getBill = async (transaction) => {
   const billRef = get(transaction, 'bills[0]')
-  console.log('kosssi0', transaction)
   if (billRef) {
-    console.log('kosssi1')
     const [billDoctype, billId] = billRef.split(':')
     if (!billCache[billId]) {
       const doc = await cozy.client.data.find(billDoctype, billId)
       billCache[billId] = doc
     }
-    console.log('kosssi')
     return billCache[billId]
   }
 }
