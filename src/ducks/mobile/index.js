@@ -34,6 +34,7 @@ export const registerPushNotifications = () => async (dispatch, getState) => {
    * In this case, the app is always in background.
    */
   const handleNotification = notification => {
+    console.log('Received notification', notification)
     if (!notification.additionalData.foreground && notification.additionalData.route) {
       hashHistory.push(notification.additionalData.route)
     }
@@ -126,7 +127,8 @@ export const isInitialSyncOK = async () => {
 const initPushNotifications = onReceive => {
   const push = PushNotification.init({
     android: {
-      forceShow: true
+      forceShow: true,
+      clearNotifications: false
     }
   })
 
