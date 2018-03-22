@@ -36,7 +36,12 @@ module.exports = {
       },
       {
         test: /\.jsx?$/,
-        include: [SRC_DIR, path.dirname(require.resolve('cozy-client'))],
+        include: [
+          SRC_DIR,
+          path.dirname(require.resolve('cozy-client')),
+          path.dirname(require.resolve('cozy-stack-client')),
+          path.dirname(require.resolve('cozy-pouch-link'))
+        ],
         loader: 'babel-loader',
         options: {
           cacheDirectory: true

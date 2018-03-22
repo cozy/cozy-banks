@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { isSynced, isFirstSync, hasSyncStarted, isSyncInError, startSync, fetchCollection } from 'cozy-client'
 import { flowRight as compose } from 'lodash'
 import { translate } from 'cozy-ui/react'
-import { PouchFirstStrategy, StackOnlyStrategy } from 'cozy-client/DataAccessFacade'
 import { fetchTransactions } from 'actions'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { isInitialSyncOK } from 'ducks/mobile'
@@ -15,34 +14,34 @@ import { isInitialSyncOK } from 'ducks/mobile'
 class Wrapper extends Component {
   async componentDidMount () {
     if (__TARGET__ === 'mobile') {
-      const { client } = this.context
-      const initialSyncOK = await isInitialSyncOK()
+      // const { client } = this.context
+      // const initialSyncOK = await isInitialSyncOK()
 
-      let promise
+      // let promise
 
-      if (initialSyncOK) {
-        // If initial sync is OK, then do nothing special
-        promise = Promise.resolve()
-      } else {
-        // Otherwise, use the StackOnlyStrategy to fetch the data from the stack
-        // before dispatching the startSync action
-        client.facade.strategy = new StackOnlyStrategy()
+      // if (initialSyncOK) {
+      //   // If initial sync is OK, then do nothing special
+      //   promise = Promise.resolve()
+      // } else {
+      //   // Otherwise, use the StackOnlyStrategy to fetch the data from the stack
+      //   // before dispatching the startSync action
+      //   client.facade.strategy = new StackOnlyStrategy()
 
-        promise = Promise.all([
-          this.props.dispatch(fetchCollection('onboarding_accounts', ACCOUNT_DOCTYPE)),
-          this.props.dispatch(fetchCollection('groups', GROUP_DOCTYPE)),
-          this.props.dispatch(fetchTransactions())
-        ])
-      }
+      //   promise = Promise.all([
+      //     this.props.dispatch(fetchCollection('onboarding_accounts', ACCOUNT_DOCTYPE)),
+      //     this.props.dispatch(fetchCollection('groups', GROUP_DOCTYPE)),
+      //     this.props.dispatch(fetchTransactions())
+      //   ])
+      // }
 
-      try {
-        await promise
-        client.facade.strategy = new PouchFirstStrategy()
-      } catch (e) {
-        console.error('Error while fetching data from stack: ' + e)
-      } finally {
-        this.props.dispatch(startSync())
-      }
+      // try {
+      //   await promise
+      //   client.facade.strategy = new PouchFirstStrategy()
+      // } catch (e) {
+      //   console.error('Error while fetching data from stack: ' + e)
+      // } finally {
+      //   this.props.dispatch(startSync())
+      // }
     }
   }
 
