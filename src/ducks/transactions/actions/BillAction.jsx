@@ -67,11 +67,7 @@ const action = {
   icon,
   match: async (transaction, {urls}) => {
     const bill = await getBill(transaction)
-    if (bill) {
-      console.log(transaction, bill)
-      return true
-    }
-    return false
+    return !!bill
   },
   Component: translate()(Component)
 }

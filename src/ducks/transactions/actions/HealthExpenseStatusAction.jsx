@@ -4,6 +4,7 @@ import icon from 'assets/icons/icon-hourglass.svg'
 import ActionLink from './ActionLink'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import { isHealthExpense } from 'ducks/categories/helpers'
+import allBrands from 'ducks/brandDictionary/brands.json'
 
 const name = 'HealthExpenseStatus'
 
@@ -50,7 +51,14 @@ const action = {
 
     return <Icon icon={icon} color={color} />
   },
-  match: (transaction) => isHealthExpense(transaction) && getVendors(transaction),
+  match: (transaction, { brands }) => {
+    const allBrandsHealth = allBrands.filter(brand => brand.health)
+    const brandsHealth = brands.filter(brand => brand.health)
+
+    return allBrandsHealth.length > brandsHealth.length &&
+      isHealthExpense(transaction) &&
+      getVendors(transaction)
+  },
   Component: translate()(Component)
 }
 

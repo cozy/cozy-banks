@@ -2,22 +2,32 @@
   {
     "name": "Ameli",
     "regexp": "(cpam|c\\.p\\.a\\.m|caisse primaire)",
-    "konnectorSlug": "ameli"
+    "konnectorSlug": "ameli",
+    "health": true
   },
   {
     "name": "Harmonie Mutuelle",
     "regexp": "harmonie",
-    "konnectorSlug": "harmonie"
+    "konnectorSlug": "harmonie",
+    "health": true
   },
   {
     "name": "Malakoff Mederic",
     "regexp": "malakoff",
-    "konnectorSlug": "malakoffmederic"
+    "konnectorSlug": "malakoffmederic",
+    "health": true
   },
   {
     "name": "MGEN",
     "regexp": "mgen",
-    "konnectorSlug": "mgen"
+    "konnectorSlug": "mgen",
+    "health": true
+  },
+  {
+    "name": "Generali",
+    "regexp": "generali",
+    "konnectorSlug": "generali",
+    "health": true
   },
   {
     "name": "Numéricable",
