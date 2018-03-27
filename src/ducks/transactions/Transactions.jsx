@@ -6,10 +6,10 @@ import { Figure } from 'components/Figure'
 import { flowRight as compose } from 'lodash'
 import { Table, TdSecondary } from 'components/Table'
 import TransactionMenu from './TransactionMenu'
-import { PrimaryAction, PrimaryActionIcon, getLinkType } from './TransactionActions'
+import TransactionActions from './TransactionActions'
 import { getLabel } from './helpers'
 import { getParentCategory, getCategoryName } from 'ducks/categories/categoriesMap'
-import { getCategoryId, isHealthExpense } from 'ducks/categories/helpers'
+import { getCategoryId } from 'ducks/categories/helpers'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { withUpdateCategory } from 'ducks/categories'
 import { withDispatch } from 'utils'
@@ -17,7 +17,7 @@ import flash from 'ducks/flash'
 
 import styles from './Transactions.styl'
 import { Media, Bd, Img } from 'components/Media'
-import { HealthExpenseStatus, HealthExpenseStatusIcon, getVendors } from 'ducks/health-expense'
+// import { HealthExpenseStatus, HealthExpenseStatusIcon, getVendors } from 'ducks/health-expense'
 
 const sDate = styles['bnk-op-date']
 const sDesc = styles['bnk-op-desc']
@@ -74,7 +74,7 @@ const TableTrDesktop = compose(
         <Figure total={transaction.amount} currency={transaction.currency} coloredPositive signed />
       </TdSecondary>
       <TdSecondary className={sAction}>
-        {isHealthExpense(transaction) ? <HealthExpenseStatus vendors={getVendors(transaction)} /> : <PrimaryAction showIcon transaction={transaction} {...props} className={styles['bnk-table-actions-link']} />}
+        <TransactionActions transaction={transaction} {...props} onlyDefault />
       </TdSecondary>
       <TdSecondary className={sActions}>
         <TransactionMenu
@@ -87,7 +87,7 @@ const TableTrDesktop = compose(
   )
 })
 
-const TableTrNoDesktop = translate()(({t, f, transaction, selectTransaction, urls, brands}) => {
+const TableTrNoDesktop = translate()(({t, f, transaction, selectTransaction, ...props}) => {
   return (
     <tr onClick={() => selectTransaction(transaction)} className={styles['bnk-transaction-mobile']}>
       <td>
@@ -99,11 +99,7 @@ const TableTrNoDesktop = translate()(({t, f, transaction, selectTransaction, url
             {getLabel(transaction)}
           </Bd>
           <Img style={{ flexBasis: '1rem' }}>
-            {
-              isHealthExpense(transaction)
-                ? <HealthExpenseStatusIcon className='u-mr-half' pending={getVendors(transaction).length === 0} />
-                : <PrimaryActionIcon className='u-mr-half' type={getLinkType(transaction, urls, brands)} />
-            }
+            <TransactionActions transaction={transaction} {...props} onlyDefault onlyIcon />
           </Img>
           <Img>
             <Figure total={transaction.amount} currency={transaction.currency} coloredPositive signed />

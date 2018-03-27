@@ -16,7 +16,7 @@ const menuOpener = (
   </span>
 )
 
-const TransactionMenu = ({t, transaction, urls, onSelect, onSelectDisabled}) => (
+const TransactionMenu = ({t, transaction, onSelect, onSelectDisabled, ...props}) => (
   <Menu
     position='right'
     component={menuOpener}
@@ -24,7 +24,7 @@ const TransactionMenu = ({t, transaction, urls, onSelect, onSelectDisabled}) => 
     <TransactionActions
       onSelect={onSelect}
       onSelectDisabled={onSelectDisabled}
-      transaction={transaction} urls={urls} withoutDefault />
+      transaction={transaction} {...props} withoutDefault />
   </Menu>
 )
 

@@ -5,7 +5,7 @@ import ActionLink from './ActionLink'
 
 const name = 'comment'
 
-const Component = ({ t, actionProps: { color } }) => {
+const Component = ({ t, color }) => {
   return (
     <ActionLink
       text={t('Transactions.actions.comment')}
@@ -17,7 +17,8 @@ const Component = ({ t, actionProps: { color } }) => {
 const action = {
   name,
   icon,
-  match: () => false,
+  disabled: true,
+  match: () => true,
   Component: translate()(Component)
 }
 
