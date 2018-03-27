@@ -11,8 +11,7 @@
     "commons:build": "webpack --config webpack.config.js --bail",
     "commons:watch": "webpack --config webpack.config.js --watch --progress",
     "commons:watch:standalone": "webpack-dev-server --progress --config webpack.config.js --port 8282 --inline --hot",
-    "get-deploy-branch": "test $(git rev-parse --abbrev-ref HEAD) = 'prod' && echo latest || echo build",
-    "deploy": "git-directory-deploy --directory build/ --branch ${DEPLOY_BRANCH:-$(npm run get-deploy-branch -s)} --repo git@gitlab.cozycloud.cc:labs/cozy-bank.git",
+    "deploy": "git-directory-deploy --directory build/ --branch=${DEPLOY_BRANCH:-build} --repo=${DEPLOY_REPOSITORY:-https://$GITHUB_TOKEN@github.com/cozy/cozy-banks.git}",
     "tx": "true || tx pull --all || true",
     "precommons:build": "npm-run-all lint tx",
     "prebuild:browser": "npm run clean:browser",
@@ -65,7 +64,7 @@
   },
   "homepage": "https://gitlab.cozycloud.cc/labs/cozy-bank#readme",
   "devDependencies": {
-    "ach": "git+ssh://git@gitlab.cozycloud.cc/labs/ACH.git",
+    "ach": "0.3.0",
     "autoprefixer": "^7.1.4",
     "babel-core": "^6.0.0",
     "babel-eslint": "^8.0.0",

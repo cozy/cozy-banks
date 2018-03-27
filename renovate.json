@@ -1,0 +1,7 @@
+{
+  "timezone": "Europe/Paris",
+  "schedule": "before 5am every monday",
+  "patch": {
+    "automerge": true
+  }
+}
