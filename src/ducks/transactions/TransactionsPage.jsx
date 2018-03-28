@@ -156,6 +156,10 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   fetchApps: () => dispatch(fetchApps()),
   fetchTransactions: () => {
     const onFetch = (dispatch) => {
+      const subcategoryName = ownProps.router.params.subcategoryName
+      if (subcategoryName) {
+        return
+      }
       dispatch(addFilterForMostRecentTransactions())
     }
     // We should use fetchTransactionsWithState
