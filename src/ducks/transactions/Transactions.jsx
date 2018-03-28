@@ -1,9 +1,9 @@
 import React from 'react'
 import cx from 'classnames'
-import compareDesc from 'date-fns/compare_desc'
+import format from 'date-fns/format'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import { Figure } from 'components/Figure'
-import { flowRight as compose } from 'lodash'
+import { flowRight as compose, toPairs, groupBy, sortBy } from 'lodash'
 import { Table, TdSecondary } from 'components/Table'
 import TransactionMenu from './TransactionMenu'
 import TransactionActions from './TransactionActions'
@@ -110,40 +110,84 @@ const TableTrNoDesktop = translate()(({t, f, transaction, selectTransaction, ...
   )
 })
 
-const Transactions = ({ t, f, transactions, selectTransaction, breakpoints: { isDesktop, isExtraLarge }, ...props }) => {
-  const transactionsByDate = {}
-  let dates = []
+const groupByDateAndSort = transactions => {
+  const byDate = groupBy(transactions, x => format(x.date, 'YYYY-MM-DD'))
+  Object.keys(byDate).forEach(date => {
+    byDate[date] = sortBy(byDate[date], x => x.date)
+  })
+  return sortBy(toPairs(byDate), x => x[0])
+}
 
-  for (const transaction of transactions) {
-    const date = f(transaction.date, 'YYYY-MM-DD')
-    if (transactionsByDate[date] === undefined) {
-      transactionsByDate[date] = []
-      dates.push(date)
+class Transactions extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      limit: 2, // nb of days shown, progressively increased
+      ...this.getDerivedStateFromProps(props)
     }
-    transactionsByDate[date].push(transaction)
   }
-  dates = dates.sort(compareDesc)
 
-  return (
-    <Table className={styles['bnk-op-table']}>
-      {isDesktop && <TableHeadDesktop t={t} />}
-      {dates.map(date => {
-        const transactionsOrdered = transactionsByDate[date].sort((op1, op2) => compareDesc(op1.date, op2.date))
-        return (
-          <tbody>
-            {!isDesktop && <tr className={styles['bnk-op-date-header']}>
-              <td colspan='2'>{f(date, 'dddd D MMMM')}</td>
-            </tr>}
-            {transactionsOrdered.map(transaction => {
-              return isDesktop
-                ? <TableTrDesktop transaction={transaction} isExtraLarge={isExtraLarge} {...props} />
-                : <TableTrNoDesktop transaction={transaction} selectTransaction={selectTransaction} {...props} />
-            })}
-          </tbody>
-        )
-      })}
-    </Table>
-  )
+  getDerivedStateFromProps (props) {
+    return {
+      transactionsOrdered: groupByDateAndSort(props.transactions)
+    }
+  }
+
+  componentDidUpdate (previousProps) {
+    if (this.props.transactions !== previousProps.transactions) {
+      this.setState({
+        limit: 2,
+        ...this.getDerivedStateFromProps(this.props)
+      }, () => {
+        this.scheduleLimitIncrease(0)
+      })
+    }
+  }
+
+  componentDidMount () {
+    this.scheduleLimitIncrease()
+  }
+
+  scheduleLimitIncrease (timeout = 1000, delay = 1000) {
+    this.limitTimeout = setTimeout(() => {
+      if (this.state.limit > this.state.transactionsOrdered.length) {
+        console.log('stopping increase', this.state.limit, this.state.transactionsOrdered.length)
+        return
+      }
+      this.setState({ limit: this.state.limit + 5 })
+      this.scheduleLimitIncrease(delay)
+    }, timeout)
+  }
+
+  componentWillUnmount () {
+    clearTimeout(this.limitTimeout)
+  }
+
+  render () {
+    const { t, f, selectTransaction, breakpoints: { isDesktop, isExtraLarge }, ...props } = this.props
+    const { transactionsOrdered, limit } = this.state
+    return (
+      <Table className={styles['bnk-op-table']}>
+        {isDesktop && <TableHeadDesktop t={t} />}
+        {transactionsOrdered.slice(0, limit).map(dateAndGroup => {
+          const date = dateAndGroup[0]
+          const transactionGroup = dateAndGroup[1]
+          return (
+            <tbody>
+              {!isDesktop && <tr className={styles['bnk-op-date-header']}>
+                <td colspan='2'>{f(date, 'dddd D MMMM')}</td>
+              </tr>}
+              {transactionGroup.map(transaction => {
+                return isDesktop
+                  ? <TableTrDesktop transaction={transaction} isExtraLarge={isExtraLarge} {...props} />
+                  : <TableTrNoDesktop transaction={transaction} selectTransaction={selectTransaction} {...props} />
+              })}
+            </tbody>
+          )
+        })}
+      </Table>
+    )
+  }
 }
 
 export default compose(
