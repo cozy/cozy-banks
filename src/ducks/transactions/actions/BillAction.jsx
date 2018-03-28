@@ -1,6 +1,6 @@
 /* global cozy */
 import React from 'react'
-import { get } from 'lodash'
+import { get, some } from 'lodash'
 import { translate } from 'cozy-ui/react'
 import icon from 'assets/icons/actions/icon-file.svg'
 import ActionLink from './ActionLink'
@@ -67,7 +67,19 @@ const action = {
   icon,
   match: async (transaction, {urls}) => {
     const bill = await getBill(transaction)
-    return !!bill
+    if (bill && bill._id) {
+      return !some(transaction.reimbursements, reimbursement => {
+        try {
+          if (reimbursement.billId) {
+            const [, billId] = reimbursement.billId.split(':')
+            return billId === bill._id
+          }
+        } catch (e) {
+        }
+        return false
+      })
+    }
+    return false
   },
   Component: translate()(Component)
 }
