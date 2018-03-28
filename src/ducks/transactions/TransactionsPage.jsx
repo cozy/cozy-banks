@@ -36,10 +36,10 @@ const isPendingOrLoading = function (col) {
 class TransactionsPage extends Component {
   state = { fetching: false }
 
-  async fetchTransactions (addFilter) {
+  async fetchTransactions () {
     this.setState({ fetching: true })
     try {
-      await this.props.fetchTransactions(addFilter)
+      await this.props.fetchTransactions()
     } finally {
       this.setState({ fetching: false })
     }
@@ -154,7 +154,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
   dispatch,
   fetchApps: () => dispatch(fetchApps()),
-  fetchTransactions: addFilter => {
+  fetchTransactions: () => {
     const onFetch = (dispatch) => {
       dispatch(addFilterForMostRecentTransactions())
     }
