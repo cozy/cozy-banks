@@ -2,7 +2,7 @@
 import React from 'react'
 import { get } from 'lodash'
 import { translate } from 'cozy-ui/react'
-import icon from 'assets/icons/actions/icon-link-out.svg'
+import icon from 'assets/icons/actions/icon-file.svg'
 import ActionLink from './ActionLink'
 import FileOpener from '../FileOpener'
 
