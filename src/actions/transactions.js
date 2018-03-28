@@ -9,7 +9,7 @@ import format from 'date-fns/format'
 import addMonths from 'date-fns/add_months'
 
 import { TRANSACTION_DOCTYPE } from 'doctypes'
-import { fetchCollection } from 'cozy-client'
+import { fetchCollection, getCollection } from 'cozy-client'
 import { isHealthExpense } from 'ducks/categories/helpers'
 import { fetchBill } from 'actions/bills'
 import assert from 'utils/assert'
@@ -52,7 +52,12 @@ const defer = cb => {
 }
 
 let firstFetch = true
-export const fetchTransactions = exports.fetchTransactions = (options = {}, onFetch) => {
+export const fetchTransactions = exports.fetchTransactions = (options = {}, onFetch) => (dispatch, getState) => {
+  const state = getState()
+  const collection = getCollection(state, COLLECTION_NAME)
+  if (collection && collection.fetchStatus === 'loaded' && collection.hasMore === false) {
+    return
+  }
   const action = fetchCollection(COLLECTION_NAME, TRANSACTION_DOCTYPE, {
     sort: {date: 'desc'},
     descending: true,
@@ -87,8 +92,10 @@ export const fetchTransactions = exports.fetchTransactions = (options = {}, onFe
       })
   }
 
-  return action
+  return dispatch(action)
 }
+
+export const getTransactions = state => getCollection(state, COLLECTION_NAME)
 
 const monthFormat = 'YYYY-MM'
 const parseMonth = s => parse(s, monthFormat)
