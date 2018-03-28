@@ -28,7 +28,10 @@ module.exports = {
         enforce: 'pre',
         options: {
           emitWarning: true,
-          fix: true
+          fix: true,
+          rules: {
+            'no-debugger': production ? 2 : 0
+          }
         }
       },
       {
