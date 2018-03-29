@@ -42,7 +42,7 @@ export const tokenizer = text => {
   return tokens
 }
 
-export const createClassifier = (data, options) => {
+export const createClassifier = (data, options = {}) => {
   // Use for automated tests only while we don't have a clean parameters JSON file
   // We can remove this when we have it, and update the tests to use it
   if (!data) {
@@ -57,20 +57,12 @@ export const createClassifier = (data, options) => {
     return classifier
   }
 
-  // The options property is required by the classificator library
-  // But it is useless because we have to JSON.stringify the data
-  // so we can't set a function. So we set it to an empty object
-  if (!data.options) {
-    data.options = {}
+  data.options = {
+    ...data.options,
+    ...options
   }
 
-  const classifier = bayes.fromJson(JSON.stringify(data))
-
-  // Then we apply the options by hand after the classifier is instantiated
-  Object.entries(options)
-    .forEach(([key, value]) => {
-      classifier[key] = value
-    })
+  const classifier = bayes.fromJson(data)
 
   // Display classifier to compare with python file
   // console.log('classifier', classifier.toJson())
