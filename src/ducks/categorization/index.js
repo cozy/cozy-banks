@@ -1,6 +1,4 @@
 import bayes from 'classificator'
-// import categorizesTree from 'ducks/categories/tree.json'
-import toLearn from './set_label_cat.json'
 
 const DATE_TAG = 'tag_date'
 const DATE_REGEX = /\d{1,2}\/\d{1,2}\/\d{2,4}|\d{1,2}\/\d{1,2}/g
@@ -44,14 +42,35 @@ export const tokenizer = text => {
   return tokens
 }
 
-export const createClassifier = () => {
-  const options = {
-    tokenizer
+export const createClassifier = (data, options) => {
+  // Use for automated tests only while we don't have a clean parameters JSON file
+  // We can remove this when we have it, and update the tests to use it
+  if (!data) {
+    const toLearn = require('./set_label_cat.json')
+
+    const classifier = bayes(options)
+
+    for (const {label, category} of toLearn) {
+      classifier.learn(label, category)
+    }
+
+    return classifier
   }
-  const classifier = bayes(options)
-  for (const {label, category} of toLearn) {
-    classifier.learn(label, category)
+
+  // The options property is required by the classificator library
+  // But it is useless because we have to JSON.stringify the data
+  // so we can't set a function. So we set it to an empty object
+  if (!data.options) {
+    data.options = {}
   }
+
+  const classifier = bayes.fromJson(JSON.stringify(data))
+
+  // Then we apply the options by hand after the classifier is instantiated
+  Object.entries(options)
+    .forEach(([key, value]) => {
+      classifier[key] = value
+    })
 
   // Display classifier to compare with python file
   // console.log('classifier', classifier.toJson())
@@ -59,9 +78,7 @@ export const createClassifier = () => {
   return classifier
 }
 
-const classifier = createClassifier()
-
-export const categorize = label => {
+export const categorize = (classifier, label) => {
   const predicted = classifier.categorize(label, true)
 
   // Display likelihoods (statistic)

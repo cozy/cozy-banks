@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "722165158181",
+    "firebase_url": "https://banks-2e87c.firebaseio.com",
+    "project_id": "banks-2e87c",
+    "storage_bucket": "banks-2e87c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:722165158181:android:6c8af6ff857d6fe0",
+        "android_client_info": {
+          "package_name": "io.cozy.banks.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "722165158181-6mgqchm3hilmio9nh61v7e7sptrci23i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-D7L2aYX0GMdr0YI5taB9Urj_by7b9sA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 0
+        },
+        "appinvite_service": {
+          "status": 0,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 0
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

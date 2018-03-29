@@ -18,11 +18,14 @@ module.exports = merge.strategy({
   output: 'replace',
   entry: 'replace'
 })(base, ui, {
-  entry: path.resolve(SRC_DIR, './targets/services/notifications'),
+  entry: {
+    notifications: path.resolve(SRC_DIR, './targets/services/notifications'),
+    categorization: path.resolve(SRC_DIR, './targets/services/categorization')
+  },
   target: 'node',
   output: {
     path: path.resolve(__dirname, '../build'),
-    filename: 'notifications.js'
+    filename: '[name].js'
   },
   module: {
     rules: [
