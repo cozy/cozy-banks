@@ -5,7 +5,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import classNames from 'classnames'
+import cx from 'classnames'
 
 import { cozyConnect, fetchCollection } from 'cozy-client'
 import { translate, withBreakpoints } from 'cozy-ui/react'
@@ -26,7 +26,7 @@ const isLoading = function (collection) {
 
 const AccountSwitchDesktop = translate()(
   ({ isFetching, isOpen, filteringDoc, accounts, t, toggle, accountExists }) => (
-    <button className={classNames(styles['account-switch-button'], {[styles['active']]: isOpen}, 'coz-desktop')} onClick={toggle}>
+    <button className={cx(styles['account-switch-button'], {[styles['active']]: isOpen}, 'coz-desktop')} onClick={toggle}>
       {isFetching
         ? `${t('Loading.loading')}`
         : filteringDoc
@@ -58,7 +58,7 @@ AccountSwitchDesktop.propTypes = {
 
 const AccountSwitchMobile = ({filteringDoc, onClick}) => (
   <button
-    className={classNames(
+    className={cx(
       styles['account-switch-button-mobile'],
       {[styles['active']]: filteringDoc}
     )}
@@ -77,7 +77,7 @@ const AccountSwitchMenu = translate()(({ accounts, groups, filteringDoc, filterB
       </h4>
       <ul>
         <li>
-          <button onClick={() => { resetFilterByDoc() }} className={classNames({[styles['active']]: filteringDoc === undefined})}>
+          <button onClick={() => { resetFilterByDoc() }} className={cx({[styles['active']]: filteringDoc === undefined})}>
             {t('AccountSwitch.all_accounts')}
             <span className={styles['account-secondary-info']}>
               ({t('AccountSwitch.account_counter', accounts.length)})
@@ -88,7 +88,7 @@ const AccountSwitchMenu = translate()(({ accounts, groups, filteringDoc, filterB
           <li>
             <button
               onClick={() => { filterByDoc(group) }}
-              className={classNames({[styles['active']]: filteringDoc && group._id === filteringDoc._id})}>
+              className={cx({[styles['active']]: filteringDoc && group._id === filteringDoc._id})}>
               {group.label}
               <span className={styles['account-secondary-info']}>
                 ({t('AccountSwitch.account_counter', group.accounts.filter(accountExists).length)})
@@ -111,7 +111,7 @@ const AccountSwitchMenu = translate()(({ accounts, groups, filteringDoc, filterB
           <li>
             <button
               onClick={() => { filterByDoc(account) }}
-              className={classNames({[styles['active']]: filteringDoc && account._id === filteringDoc._id})}>
+              className={cx({[styles['active']]: filteringDoc && account._id === filteringDoc._id})}>
               <Media>
                 <Bd>
                   {account.shortLabel || account.label}<span className={styles['account-secondary-info']}>- {getAccountInstitutionLabel(account)}</span>
