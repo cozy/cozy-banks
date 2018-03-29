@@ -3,7 +3,7 @@
   "version": "0.5.0",
   "main": "src/main.jsx",
   "scripts": {
-    "build": "npm run build:browser",
+    "build": "npm run build:browser && npm run build:services",
     "build:browser": "NODE_ENV=${NODE_ENV:-browser:production} npm run commons:build",
     "build:mobile": "NODE_ENV=mobile:production npm run commons:build -- --env.target=mobile",
     "clean:browser": "rm -rf build/*",

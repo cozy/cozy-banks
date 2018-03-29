@@ -6,6 +6,10 @@ env:
     # kosssi GITHUB_TOKEN
     # to generate yours : travis encrypt GITHUB_TOKEN=<your_GITHUB_TOKEN> -r cozy/cozy-banks
     - secure: "e9//FM2xEZScLWqLcm25HHvoZTROExVW255fvOlGsQjGB+7jcYFOwGpbvq+58syGowrbfles7rexaGe9AwSGtnHEHdEH0gPwCOYo5vEzdcb8L0w6wFti503Idzv8qC6bocLSGGymCozQTrFbtYZHk8gKVT6R71jR49/Vj0YVpczAHCu9JFpOmmJTwsHULlAOCDaQlRkVXqzVdIT1G+mKyexJo4kqYue82+kLIk5tVjV7TXWupg9x32WqbVz/EV4DZvGmGndvvEDIVwxeGcE1RYyr17QeKwNWUsDHIWXGClKitr6krR5zcDo57/nAbdWwUUzvItk1Osw1Sa0tuwInh5KCw+frDMmA9209IeDtWSJzdbGkfwtQVOAORJqaUoqJkrPwhFQIg5jTYcAKR6Xy0AYt2sm1Pc7AeaWG9Fu0z3lW9hGNDwOLKfuIuKCHK9FgE9YY75S1nH8AYUSZwCL2all8u4LH9tFtU8AzGv5ZEKwLCA/KyCUtxb11t0W6KofZIt6ripTfu5P3dhN9dEpJ8pYZ85BViBM3sl3+kyanEaxIo4Z8DVgy5ilPOgpZS/I3EiimI62CFlXT8lrao6df4coLjjHbdhWpZNFZ697heb+K2Ncd9kgjwaul1U2sJBrWjnZdcQ2KERq3q9+4TRj9EM6J006DxDO7h+d7Pa+BXz4="
+    # MATTERMOST_HOOK_URL
+    - secure: "i40PC82nF00ixRI/uArDG48tY99DYg4/gu9EpRXK8BeV/Uh6WVT5MpBbd8JEyf3fLZFXVwdbBPrsEUw4aX2fdfbueRqaigLbYz3rejNGL2YjE28ZBmFQeoPviHz8cOJepcjUrgggkiyD14qvAyoPJCEo/pPx1ZCsZ2UCQHu5SIw9Mtf2kvspgNyhpl3ktm/L4wh+8huRE7/Zn6SKStps5F7MWrUp5zZ6ZovHLl8ti71p2KhCCIJL30PGoh58O3aH3t7LY2bUetQS6p0a4OxWUF3AE5wakzffvqvrHqMI4ulkREYq/J6b7ITkHhxL9V1ndCvQyw4aC5OUR4Dl3GznSfkvby9NNyNcK4lxeOgjejvSrmPV5gEmCPjnpyijkMidy/5OMOCeQIXtWw7Cly+Mnj1kWz6bFnLncs1SBqdxUSUa+jTPZ8tklAiz4hdkGgtPxpovyo4iQdNQVmL8y2v7XWuXvpdGTEuZgGIubH3+HDOwa3dawC6BglnY1W0sp3hvYUaEKyPolP/mCV9HRSZ0Aa1zjjNW2brbUaEJ6w1UMT7XwQQQtb35K+zQSBCn9jfNyuDdotsh+mJEILk0tsB3aYcVnvLUKChpTt23bV5sMxga0F/Mmmwb8y8DWE8u7ADWDjzdDnoaqInSj9RAYVgFguhWpZhVs6yuGd16Bi7kvoU="
+    # RUNDECK_TOKEN
+    - secure: "rwvCE17fZRfx9wi692wU+ox/oKx8dSeit5WbPxq6c6Jj39IfaKaeXBgDVaG1HsvY6RhhXKJ6t1hrUGNzLOJdPDvfkQKEPDlKgbJoFstCke2aj3guOLx/aSzdoB2fUTWjaIKtrVZFtC60YK9dr1g9UzrFru0Fe6JP/XN2fIqqR3wwzWln1bYVINwWPj+HQNZO9YIejKei7ooSO+FSf/C9nqMkELNv89x8yAZASGejfhayPvRlbT2CF8Ym0GkqEBRNRqHfURGE4m9mUEPIv7vQ0uPnH9dwwQrZf6KXCHIoG+O5sH54V4M28FBMTHYF/3GflcJFm3qNnffoOcUl5/K3LQWKbeShw7W+BjuPbjXSLZICnENWeXHmvjYjUN4niUxwWewM+a5k+5LgcEd/ZLrWui6KFAjl1SGqu97hBRPCDelF/ssTfh0UwM4brSQ3Dgi3bLex49VDPmA63/vtH5HRQ+7EM+FcaEnFsaA5cUaGOQAExIySSzimyjSF5seOJcrH3QmmkTt8qsWrYMCqes6bMmx2gOgQQ2vAvxrtJyunhriiEKWTnLOGwdB7AyS5A6QF1K3FodLAqDYwQgkSYSS4isv2RNT5Bilk9hJ1IVs82ZgepOpwkhygae2/2n4ZUv9ynol0f083BG+vNVb6b79o4ZHrsfTQatu9Mlrorug6a0Y="
 cache:
   yarn: true
   directories:
@@ -17,12 +21,12 @@ deploy:
   - provider: script
     repo: cozy/cozy-banks
     skip-cleanup: true
-    script: yarn deploy
+    script: ./scripts/deploy-on-cozy
     on:
       branch: master
   - provider: script
     repo: cozy/cozy-banks
     skip-cleanup: true
-    script: DEPLOY_BRANCH=latest yarn deploy
+    script: DEPLOY_BRANCH=latest ./scripts/deploy-on-cozy
     on:
       branch: prod

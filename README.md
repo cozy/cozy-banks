@@ -27,7 +27,7 @@ the vanilla app and the skinned version of the app.
 
 ## Build
 
-The application is built automatically by Jenkins.
+The application is built automatically by Travis.
 
 * `master` -> `build`
 * `prod` -> `latest`
