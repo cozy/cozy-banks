@@ -1,7 +1,7 @@
 /* global __TARGET__ */
 import { Component } from 'react'
 import { connect } from 'react-redux'
-import { isSynced, isFirstSync, hasSyncStarted, isSyncInError, startSync, fetchCollection } from 'cozy-client'
+import { isSynced, isFirstSync, hasSyncStarted, isSyncInError, startSync } from 'cozy-client'
 import { flowRight as compose } from 'lodash'
 import { translate } from 'cozy-ui/react'
 import { fetchTransactions } from 'actions'
@@ -51,10 +51,10 @@ class Wrapper extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  isSynced: isSynced(state),
-  isFirstSync: isFirstSync(state),
-  hasSyncStarted: hasSyncStarted(state),
-  isOffline: isSyncInError(state)
+  // isSynced: isSynced(state),
+  // isFirstSync: isFirstSync(state),
+  // hasSyncStarted: hasSyncStarted(state),
+  // isOffline: isSyncInError(state)
 })
 
 export default compose(

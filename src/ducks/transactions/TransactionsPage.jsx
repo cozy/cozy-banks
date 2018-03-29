@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import { flowRight as compose, isEqual, includes } from 'lodash'
-import { getCollection, cozyConnect, fetchCollection } from 'cozy-client'
 
 import { translate } from 'cozy-ui/react/I18n'
 
@@ -26,8 +25,9 @@ import BackButton from 'components/BackButton'
 import { hydrateTransaction } from 'documents/transaction'
 import TransactionsWithSelection from './TransactionsWithSelection'
 import styles from './TransactionsPage.styl'
-import { TRIGGER_DOCTYPE } from 'doctypes'
+import { TRIGGER_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
 import { getBrands } from 'ducks/brandDictionary'
+import { queryConnect } from 'utils/client-compat'
 
 const isPendingOrLoading = function (col) {
   return col.fetchStatus === 'pending' || col.fetchStatus === 'loading'
@@ -146,7 +146,6 @@ const mapStateToProps = (state, ownProps) => ({
     COLLECT: getAppUrlBySource(state, 'github.com/cozy/cozy-collect')
   },
   accountIds: getFilteredAccountIds(state),
-  accounts: getCollection(state, 'accounts'),
   filteredTransactions: getFilteredTransactions(state)
     .map(transaction => hydrateTransaction(state, transaction))
 })
@@ -171,13 +170,12 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   }
 })
 
-const mapDocumentsToProps = ownProps => ({
-  triggers: fetchCollection('triggers', TRIGGER_DOCTYPE)
-})
-
 export default compose(
   withRouter,
+  queryConnect({
+    accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' },
+    triggers: { query: client => client.all(TRIGGER_DOCTYPE), as: 'triggers' }
+  }),
   connect(mapStateToProps, mapDispatchToProps),
-  cozyConnect(mapDocumentsToProps),
   translate()
 )(TransactionsPage)

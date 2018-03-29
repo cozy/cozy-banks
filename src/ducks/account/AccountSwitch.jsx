@@ -7,7 +7,6 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import cx from 'classnames'
 
-import { cozyConnect, fetchCollection } from 'cozy-client'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import Overlay from 'cozy-ui/react/Overlay'
 import { Media, Bd, Img } from 'cozy-ui/react/Media'
@@ -17,6 +16,7 @@ import { filterByDoc, getFilteringDoc, resetFilterByDoc } from 'ducks/filters'
 import styles from './AccountSwitch.styl'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { getAccountInstitutionLabel } from './helpers.js'
+import { queryConnect } from 'utils/client-compat'
 
 const { BarRight } = cozy.bar
 
@@ -227,13 +227,11 @@ const mapDispatchToProps = dispatch => ({
   filterByDoc: doc => dispatch(filterByDoc(doc))
 })
 
-const mapDocumentsToProps = ownProps => ({
-  accounts: fetchCollection('accounts', ACCOUNT_DOCTYPE),
-  groups: fetchCollection('groups', GROUP_DOCTYPE)
-})
-
 export default compose(
-  cozyConnect(mapDocumentsToProps),
+  queryConnect({
+    accounts: { as: 'accounts', query: client => client.all(ACCOUNT_DOCTYPE) },
+    groups: { as: 'groups', query: client => client.all(GROUP_DOCTYPE) }
+  }),
   connect(mapStateToProps, mapDispatchToProps),
   translate(),
   withBreakpoints()

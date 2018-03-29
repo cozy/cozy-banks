@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import classNames from 'classnames'
 import Toggle from 'cozy-ui/react/Toggle'
 import { translate } from 'cozy-ui/react/I18n'
-import { cozyConnect } from 'cozy-client'
 import Loading from 'components/Loading'
-
-import { getSettings, fetchSettingsCollection, createSettings, updateSettings, DEFAULTS_SETTINGS } from '.'
+import { queryConnect } from 'utils/client-compat'
+import compose from 'lodash/flowRight'
+import { getSettings, createSettings, updateSettings, COLLECTION_NAME, DEFAULTS_SETTINGS } from '.'
 import styles from './Notifications.styl'
 
 class Notifications extends Component {
@@ -99,8 +99,9 @@ class Notifications extends Component {
   }
 }
 
-const mapDocumentsToProps = () => ({
-  settingsCollection: fetchSettingsCollection()
-})
-
-export default cozyConnect(mapDocumentsToProps)(translate()(Notifications))
+export default compose(
+  queryConnect({
+    settings: { query: client => client.all(BANK_SETTINGS_DOCTYPE), as: COLLECTION_NAME }
+  }),
+  translate()
+)(Notifications)

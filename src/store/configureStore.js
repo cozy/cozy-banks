@@ -5,7 +5,6 @@ import { createLogger } from 'redux-logger'
 import { shouldEnableTracking, getTracker, createTrackerMiddleware } from 'cozy-ui/react/helpers/tracker'
 
 import appReducers from 'reducers'
-import { cozyMiddleware } from 'cozy-client'
 
 const configureStore = (cozyClient, persistedState) => {
   // Enable Redux dev tools
@@ -16,8 +15,7 @@ const configureStore = (cozyClient, persistedState) => {
 
   // middlewares
   const middlewares = [
-    thunkMiddleware,
-    cozyMiddleware(cozyClient)
+    thunkMiddleware
   ]
   if (shouldEnableTracking() && getTracker()) {
     middlewares.push(createTrackerMiddleware())
@@ -33,7 +31,7 @@ const configureStore = (cozyClient, persistedState) => {
     composeEnhancers(applyMiddleware.apply(null, middlewares))
   )
 
-  cozyClient.attachStore(store)
+  // cozyClient.attachStore(store) // TODO remove
 
   return store
 }

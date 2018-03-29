@@ -19,6 +19,7 @@ import { getSettings, fetchSettingsCollection } from 'ducks/settings'
 import { filterByDoc, getFilteringDoc } from 'ducks/filters'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
+import { queryConnect } from 'utils/client-compat'
 
 import styles from './Balance.styl'
 import btnStyles from 'styles/buttons'
@@ -236,11 +237,6 @@ const mapStateToProps = state => ({
   settingsCollection: fetchSettingsCollection()
 })
 
-const mapDocumentsToProps = ownProps => ({
-  accounts: fetchCollection('accounts', ACCOUNT_DOCTYPE),
-  groups: fetchCollection('groups', GROUP_DOCTYPE)
-})
-
 const mapDispatchToProps = dispatch => ({
   filterByDoc: doc => dispatch(filterByDoc(doc))
 })
@@ -248,7 +244,10 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
   withBreakpoints(),
   withRouter,
+  queryConnect({
+    accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' },
+    groups: { query: client => client.all(GROUP_DOCTYPE), as: 'groups' }
+  }),
   connect(mapStateToProps, mapDispatchToProps),
-  cozyConnect(mapDocumentsToProps),
   translate()
 )(Balance)

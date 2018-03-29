@@ -12,13 +12,14 @@ import Loading from 'components/Loading'
 import { withDispatch } from 'utils'
 import BackButton from 'components/BackButton'
 import { connect } from 'react-redux'
-import { cozyConnect, fetchDocument, updateDocument } from 'cozy-client'
+import { updateDocument } from 'cozy-client' // TODO cozy-client
 import styles from './AccountsSettings.styl'
 import { flowRight as compose } from 'lodash'
 import { destroyAccount } from 'actions'
 import spinner from 'assets/icons/icon-spinner.svg'
 import { getAccountInstitutionLabel } from '../account/helpers'
 import { getAppUrlBySource, fetchApps } from 'ducks/apps'
+import { queryConnect } from 'utils/client-compat'
 
 const DeleteConfirm = ({ cancel, confirm, title, description, secondaryText, primaryText }) => {
   return (
@@ -206,13 +207,10 @@ const AccountSettings = function ({account, onClose, t}) {
   )
 }
 
-const mapDocumentsToProps = function ({routeParams}) {
-  return {
-    account: fetchDocument('io.cozy.bank.accounts', routeParams.accountId)
-  }
-}
-
 export default compose(
-  cozyConnect(mapDocumentsToProps),
+  queryConnect({
+    account: ({routeParams}) =>
+      ({ query: client => client.get(ACCOUNT_DOCTYPE, routeParams.accountId) })
+  }),
   withDispatch,
   translate())(AccountSettings)

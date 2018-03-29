@@ -11,6 +11,7 @@ import Categories from './Categories'
 import BackButton from 'components/BackButton'
 import styles from './CategoriesPage.styl'
 import { flowRight as compose } from 'lodash'
+import { queryConnect } from 'utils/client-compat'
 import { Breadcrumb } from 'components/Breadcrumb'
 
 class CategoriesPage extends Component {
@@ -75,8 +76,12 @@ const mapDispatchToProps = dispatch => ({
   fetchTransactions: () => dispatch(fetchTransactions())
 })
 
+// const mapDocumentsToProps = ownProps => ({
+//   transactions: fetchTransactions(ownProps.dispatch)
+// })
+
 export default compose(
   withRouter,
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps /* mapDispatchToProps TODO */),
   translate()
 )(CategoriesPage)
