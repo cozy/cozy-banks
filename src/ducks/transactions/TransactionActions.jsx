@@ -23,10 +23,9 @@ const MenuIcon = withBreakpoints()(({action, transaction, actionProps, color, br
   return <Icon icon={action.icon} color={color} />
 })
 
-const MenuAction = ({ action, transaction, actionProps, className }) => {
+const MenuAction = ({ action, transaction, actionProps, className, displayComponent = true }) => {
   const { Component } = action
   const color = action.disabled ? palette.charcoalGrey : action.color || actionProps.color || PRIMARY_ACTION_COLOR
-  const displayComponent = actionProps.onlyIcon !== true
   return (
     <MenuItem
       className={className}
@@ -66,17 +65,20 @@ class TransactionActions extends Component {
     const { actions, actionProps } = this.state
 
     if (!actions) return
-    if (onlyIcon) {
-      actionProps.onlyIcon = onlyIcon
-    }
 
+    const props = { transaction, actionProps }
     return (
       <span>
         {(displayDefaultAction || onlyDefault) && actions.default &&
-          <MenuAction action={actions.default} transaction={transaction} actionProps={actionProps} className={onlyDefault || onlyIcon ? 'u-p-0' : ''} />
+          <MenuAction
+            action={actions.default}
+            className={onlyDefault || onlyIcon ? 'u-p-0' : ''}
+            displayComponent={!onlyIcon}
+            {...props}
+          />
         }
         {!onlyDefault && actions.others.map(action => (
-          <MenuAction action={action} transaction={transaction} actionProps={actionProps} />
+          <MenuAction action={action} {...props} />
         ))}
       </span>
     )
@@ -87,9 +89,7 @@ TransactionActions.propTypes = {
   transaction: PropTypes.object.isRequired,
   urls: PropTypes.object.isRequired,
   brands: PropTypes.array.isRequired,
-  withoutDefault: PropTypes.bool,
-  onSelect: PropTypes.func.isRequired,
-  onSelectDisabled: PropTypes.func.isRequired
+  withoutDefault: PropTypes.bool
 }
 
 export default TransactionActions
