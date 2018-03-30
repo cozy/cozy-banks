@@ -7,9 +7,7 @@ import { withDispatch } from 'utils'
 import {
   createDocument,
   updateDocument,
-  deleteDocument,
-  fetchDocument,
-  fetchCollection
+  deleteDocument
 } from 'cozy-client' // TODO cozy-client
 import { Button, translate, Toggle } from 'cozy-ui/react'
 import Spinner from 'cozy-ui/react/Spinner'
@@ -175,7 +173,7 @@ const enhance = Component =>
         const groupId = props.routeParams.groupId
         return (groupId === 'new' || !groupId)
           ? { doc: mkNewGroup() }
-          : { query: client.get(GROUP_DOCTYPE, groupId) }
+          : { query: client => client.get(GROUP_DOCTYPE, groupId) }
       },
       accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' }
     }),

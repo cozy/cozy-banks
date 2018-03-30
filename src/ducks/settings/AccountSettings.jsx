@@ -20,6 +20,7 @@ import spinner from 'assets/icons/icon-spinner.svg'
 import { getAccountInstitutionLabel } from '../account/helpers'
 import { getAppUrlBySource, fetchApps } from 'ducks/apps'
 import { queryConnect } from 'utils/client-compat'
+import { ACCOUNT_DOCTYPE } from 'doctypes'
 
 const DeleteConfirm = ({ cancel, confirm, title, description, secondaryText, primaryText }) => {
   return (

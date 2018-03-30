@@ -1,12 +1,17 @@
 /* global __TARGET__ */
 import { Component } from 'react'
 import { connect } from 'react-redux'
+
+/* TODO cozy-client-v2
 import { isSynced, isFirstSync, hasSyncStarted, isSyncInError, startSync } from 'cozy-client'
+*/
 import { flowRight as compose } from 'lodash'
 import { translate } from 'cozy-ui/react'
-import { fetchTransactions } from 'actions'
+/* import { fetchTransactions } from 'actions' */
+/*
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
-import { isInitialSyncOK } from 'ducks/mobile'
+*/
+/* import { isInitialSyncOK } from 'ducks/mobile' */
 
 /**
  * Displays Loading until PouchDB has done its first replication.
@@ -46,6 +51,7 @@ class Wrapper extends Component {
   }
 
   render () {
+    console.log('ensure is first synced')
     return this.props.children
   }
 }

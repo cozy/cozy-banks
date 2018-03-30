@@ -5,18 +5,15 @@ import * as sharingStatus from 'modules/SharingStatus'
 import filters from 'ducks/filters'
 import mobile, * as fromMobile from 'ducks/mobile'
 import apps from 'ducks/apps'
-import { reducer } from 'cozy-client'
 
-export const reducers = {
+const combinedReducers = client => combineReducers({
   alerts: alerterReducer,
   filters,
   mobile,
   apps,
   sharingStatus: sharingStatus.reducer,
-  cozy: reducer
-}
-
-const combinedReducers = combineReducers(reducers)
+  cozy: client.reducer()
+})
 
 export const getSharingInfo = (state, doctype, id) => {
   return sharingStatus.getSharingInfo(state.sharingStatus, doctype, id)

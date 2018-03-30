@@ -29,7 +29,9 @@ const enhance = Component => compose(
 
 export default enhance(({children, accounts, location}) => {
   const { fetchStatus } = accounts
+  console.log('accounts', accounts)
   if (fetchStatus === 'pending' || fetchStatus === 'loading') {
+    console.log('yoooo 1')
     return (
       <Layout>
         <Content>
@@ -43,7 +45,10 @@ export default enhance(({children, accounts, location}) => {
     (accounts.data && accounts.data.length === 0) ||
       hasParameter(location.query, 'onboarding')
   ) {
+    console.log('yoooo 2')
     return <Layout><Content><Onboarding /></Content></Layout>
   }
+  console.log('yoooo 3')
+
   return children
 })

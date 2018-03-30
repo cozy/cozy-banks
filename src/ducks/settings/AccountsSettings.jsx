@@ -147,7 +147,7 @@ const mapStateToProps = state => ({
 
 export default compose(
   queryConnect({
-    accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts'}
+    accounts: {query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts'}
   }),
   connect(mapStateToProps, mapDispatchToProps),
   translate()

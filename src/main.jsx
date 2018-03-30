@@ -12,7 +12,6 @@ import 'number-to-locale-string'
 import { CozyProvider } from 'cozy-client'
 import { setupHistory } from 'utils/history'
 import { getClient } from 'utils/client'
-import { fetchSettingsCollection, initSettings } from 'ducks/settings'
 import 'utils/flag'
 
 if (__TARGET__ === 'mobile') {
@@ -33,6 +32,7 @@ const renderAppWithPersistedState = persistedState => {
   const client = getClient(persistedState)
   const store = configureStore(client, persistedState)
 
+  // TODO cozy-client-v2
   // Initialize settings
   // store.dispatch(fetchSettingsCollection()).then(
   //   res => {
@@ -40,7 +40,7 @@ const renderAppWithPersistedState = persistedState => {
   //       store.dispatch(initSettings())
   //     }
   //   }
-  // ) // TODO
+  // )
 
   persistState(store)
 

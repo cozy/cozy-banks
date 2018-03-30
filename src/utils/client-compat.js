@@ -9,15 +9,20 @@ export const withQuery = (dest, queryOpts) => Component => (props, context) => {
   } else {
     if (!context.client) {
       console.warn('Context', context)
-      throw new Error('Query should be used with client in context')
+      throw new Error('Query should be used with client in context (use CozyProvider to set context)')
     }
     return (<Query {...queryOpts}>
-      { result => <Component {...{[dest]: result, ...props}} /> }
+      { result => {
+        console.log('query result', dest, result)
+        return <Component {...{[dest]: result, ...props}} />
+      }}
     </Query>)
   }
 }
 
 export const queryConnect = querySpecs => Component => {
-  const enhancers = Object.keys(querySpecs).map(dest => withQuery(dest, querySpecs[dest]))
+  const enhancers = Object
+    .keys(querySpecs)
+    .map(dest => withQuery(dest, querySpecs[dest]))
   return compose.apply(null, enhancers)(Component)
 }

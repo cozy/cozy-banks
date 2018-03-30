@@ -5,7 +5,6 @@ import { translate } from 'cozy-ui/react/I18n'
 import Loading from 'components/Loading'
 import Topbar from 'components/Topbar'
 import { getFilteredTransactions } from 'ducks/filters'
-import { fetchTransactions, getTransactions } from 'actions'
 import { transactionsByCategory, computeCategorieData } from './helpers'
 import Categories from './Categories'
 import BackButton from 'components/BackButton'
@@ -13,6 +12,7 @@ import styles from './CategoriesPage.styl'
 import { flowRight as compose } from 'lodash'
 import { queryConnect } from 'utils/client-compat'
 import { Breadcrumb } from 'components/Breadcrumb'
+import { TRANSACTION_DOCTYPE } from 'doctypes'
 
 class CategoriesPage extends Component {
   state = {
@@ -68,20 +68,14 @@ class CategoriesPage extends Component {
 }
 
 const mapStateToProps = state => ({
-  categories: computeCategorieData(transactionsByCategory(getFilteredTransactions(state))),
-  transactions: getTransactions(state)
+  categories: computeCategorieData(transactionsByCategory(getFilteredTransactions(state)))
 })
-
-const mapDispatchToProps = dispatch => ({
-  fetchTransactions: () => dispatch(fetchTransactions())
-})
-
-// const mapDocumentsToProps = ownProps => ({
-//   transactions: fetchTransactions(ownProps.dispatch)
-// })
 
 export default compose(
   withRouter,
+  queryConnect({
+    transactions: {query: client => client.all(TRANSACTION_DOCTYPE)}
+  }),
   connect(mapStateToProps /* mapDispatchToProps TODO */),
   translate()
 )(CategoriesPage)

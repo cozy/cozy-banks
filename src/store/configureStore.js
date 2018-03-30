@@ -11,7 +11,7 @@ const configureStore = (cozyClient, persistedState) => {
   const composeEnhancers = (__DEVELOPMENT__ && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
 
   // reducers
-  const reducers = [appReducers, persistedState]
+  const reducers = [appReducers(cozyClient), persistedState]
 
   // middlewares
   const middlewares = [

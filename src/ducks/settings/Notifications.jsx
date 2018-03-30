@@ -7,6 +7,7 @@ import { queryConnect } from 'utils/client-compat'
 import compose from 'lodash/flowRight'
 import { getSettings, createSettings, updateSettings, COLLECTION_NAME, DEFAULTS_SETTINGS } from '.'
 import styles from './Notifications.styl'
+import { BANK_SETTINGS_DOCTYPE } from 'doctypes'
 
 class Notifications extends Component {
   notifications = [
