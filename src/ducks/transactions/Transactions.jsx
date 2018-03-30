@@ -122,18 +122,19 @@ class Transactions extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      limit: 2, // nb of days shown, progressively increased
+      limit: 10000, // TODO fix this. nb of days shown, progressively increased
       ...this.getDerivedStateFromProps(props)
     }
   }
 
   getDerivedStateFromProps (props) {
     return {
-      transactionsOrdered: groupByDateAndSort(props.transactions)
+      // transactionsOrdered: groupByDateAndSort(props.transactions)
     }
   }
 
   componentDidUpdate (previousProps) {
+    /*
     if (this.props.transactions !== previousProps.transactions) {
       this.setState({
         limit: 2,
@@ -142,10 +143,11 @@ class Transactions extends React.Component {
         this.scheduleLimitIncrease(0)
       })
     }
+    */
   }
 
   componentDidMount () {
-    this.scheduleLimitIncrease()
+    // this.scheduleLimitIncrease()
   }
 
   scheduleLimitIncrease (timeout = 1000, delay = 1000) {
@@ -165,7 +167,8 @@ class Transactions extends React.Component {
 
   render () {
     const { t, f, selectTransaction, breakpoints: { isDesktop, isExtraLarge }, ...props } = this.props
-    const { transactionsOrdered, limit } = this.state
+    const { limit } = this.state
+    const transactionsOrdered = groupByDateAndSort(props.transactions)
     return (
       <Table className={styles['bnk-op-table']}>
         {isDesktop && <TableHeadDesktop t={t} />}
