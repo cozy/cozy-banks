@@ -9,10 +9,9 @@ import { loadState, persistState } from 'store/persistedState'
 import configureStore from 'store/configureStore'
 import AppRoute from 'components/AppRoute'
 import 'number-to-locale-string'
-
+import { CozyProvider } from 'cozy-client'
 import { setupHistory } from 'utils/history'
 import { getClient } from 'utils/client'
-import { fetchSettingsCollection, initSettings } from 'ducks/settings'
 import 'utils/flag'
 
 if (__TARGET__ === 'mobile') {
@@ -33,18 +32,18 @@ const renderAppWithPersistedState = persistedState => {
   const client = getClient(persistedState)
   const store = configureStore(client, persistedState)
 
+  // TODO cozy-client-v2
   // Initialize settings
-  store.dispatch(fetchSettingsCollection()).then(
-    res => {
-      if (res.data.length === 0) {
-        store.dispatch(initSettings())
-      }
-    }
-  )
+  // store.dispatch(fetchSettingsCollection()).then(
+  //   res => {
+  //     if (res.data.length === 0) {
+  //       store.dispatch(initSettings())
+  //     }
+  //   }
+  // )
 
   persistState(store)
 
-  const StoreProvider = __TARGET__ === 'mobile' ? require('cozy-client').CozyProvider : require('react-redux').Provider
   const Router = __TARGET__ === 'mobile' ? require('ducks/authentication/MobileRouter').default : require('react-router').Router
 
   if (__TARGET__ !== 'mobile') {
@@ -58,9 +57,9 @@ const renderAppWithPersistedState = persistedState => {
 
   render(
     <I18n lang={lang} dictRequire={lang => require(`locales/${lang}`)}>
-      <StoreProvider store={store} client={client}>
+      <CozyProvider store={store} client={client}>
         <Router history={history} routes={AppRoute} />
-      </StoreProvider>
+      </CozyProvider>
     </I18n>,
     document.querySelector('[role=application]')
   )

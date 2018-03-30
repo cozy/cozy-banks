@@ -2,10 +2,23 @@ import { combineReducers } from 'redux'
 import { createSelector } from 'reselect'
 import { parse, format, isWithinRange } from 'date-fns'
 import SelectDates from './SelectDates'
-import { getTransactions, getGroups, getAccounts } from 'selectors'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { sortBy, last, keyBy, find } from 'lodash'
 import { DESTROY_ACCOUNT } from 'actions/accounts'
+
+// base selectors
+export const getTransactions = state => {
+  const col = state.transactions
+  return (col && col.data) || []
+}
+export const getGroups = state => {
+  const col = state.groups
+  return (col && col.data) || []
+}
+export const getAccounts = state => {
+  const col = state.accounts
+  return (col && col.data) || []
+}
 
 // constants
 const FILTER_BY_PERIOD = 'FILTER_BY_PERIOD'

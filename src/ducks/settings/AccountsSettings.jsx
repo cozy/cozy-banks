@@ -7,14 +7,13 @@ import { groupBy, flowRight as compose, sortBy } from 'lodash'
 import { getAppUrlBySource, fetchApps } from 'ducks/apps'
 import Table from 'components/Table'
 import Loading from 'components/Loading'
-import { cozyConnect, fetchCollection } from 'cozy-client'
 import plus from 'assets/icons/16/plus.svg'
 import styles from './AccountsSettings.styl'
 import btnStyles from 'styles/buttons'
 import CollectLink from 'ducks/settings/CollectLink'
 import cx from 'classnames'
 import { getAccountInstitutionLabel } from '../account/helpers'
-
+import { queryConnect } from 'utils/client-compat'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 
 // See comment below about sharings
@@ -125,10 +124,6 @@ class AccountsSettings extends Component {
   }
 }
 
-const mapDocumentsToProps = ownProps => ({
-  accounts: fetchCollection('accounts', ACCOUNT_DOCTYPE)
-})
-
 const mapDispatchToProps = dispatch => ({
   fetchApps: () => dispatch(fetchApps())
 })
@@ -151,7 +146,9 @@ const mapStateToProps = state => ({
 // }
 
 export default compose(
-  cozyConnect(mapDocumentsToProps),
+  queryConnect({
+    accounts: {query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts'}
+  }),
   connect(mapStateToProps, mapDispatchToProps),
   translate()
 )(AccountsSettings)

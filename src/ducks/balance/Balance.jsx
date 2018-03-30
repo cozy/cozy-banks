@@ -1,5 +1,5 @@
 import React from 'react'
-import { flowRight as compose, sumBy, uniq, sortBy } from 'lodash'
+import { flowRight as compose, sumBy, uniq, sortBy, find } from 'lodash'
 import { connect } from 'react-redux'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
@@ -7,7 +7,6 @@ import { or } from 'airbnb-prop-types'
 
 import { withRouter } from 'react-router'
 import { translate, Button, Icon, withBreakpoints } from 'cozy-ui/react'
-import { cozyConnect, fetchCollection, getDocument } from 'cozy-client'
 
 import Topbar from 'components/Topbar'
 import Loading from 'components/Loading'
@@ -15,10 +14,11 @@ import { Table, TdSecondary } from 'components/Table'
 import { Figure, FigureBlock } from 'components/Figure'
 
 import CollectLink from 'ducks/settings/CollectLink'
-import { getSettings, fetchSettingsCollection } from 'ducks/settings'
+import { getSettings } from 'ducks/settings'
 import { filterByDoc, getFilteringDoc } from 'ducks/filters'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
-import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
+import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, BANK_SETTINGS_DOCTYPE } from 'doctypes'
+import { queryConnect } from 'utils/client-compat'
 
 import styles from './Balance.styl'
 import btnStyles from 'styles/buttons'
@@ -88,8 +88,7 @@ class _BalanceRow extends React.Component {
 }
 
 const BalanceRow = connect(state => ({
-  filteringDoc: getFilteringDoc(state),
-  getAccount: id => getDocument(state, ACCOUNT_DOCTYPE, id)
+  filteringDoc: getFilteringDoc(state)
 }))(_BalanceRow)
 
 BalanceRow.propTypes = {
@@ -114,7 +113,7 @@ const SectionTitle = ({ children }) => {
 }
 
 const enhanceGroups = compose(withRouter, translate())
-const BalanceGroups = enhanceGroups(({ groups, balanceLower, isMobile, onRowClick, t, router }) => {
+const BalanceGroups = enhanceGroups(({ groups, accounts, balanceLower, isMobile, onRowClick, t, router }) => {
   return (
     <div>
       <SectionTitle>{t('AccountSwitch.groups')}</SectionTitle>
@@ -130,6 +129,7 @@ const BalanceGroups = enhanceGroups(({ groups, balanceLower, isMobile, onRowClic
         <tbody>
           {groups.map(group => (<BalanceRow
             group={group}
+            getAccount={id => find(accounts, x => x._id === id)} // TODO index by id
             warningLimit={balanceLower}
             isMobile={isMobile}
             onClick={onRowClick.bind(null, group)} />))}
@@ -214,7 +214,7 @@ class Balance extends React.Component {
 
     const balanceLower = getSettings(settingsCollection).notifications.balanceLower.value
 
-    const groupsC = <BalanceGroups groups={groups} balanceLower={balanceLower} isMobile={isMobile} onRowClick={this.goToTransactionsFilteredBy} />
+    const groupsC = <BalanceGroups accounts={accounts} groups={groups} balanceLower={balanceLower} isMobile={isMobile} onRowClick={this.goToTransactionsFilteredBy} />
     return (
       <div className={styles['Balance']}>
         <Topbar>
@@ -232,15 +232,6 @@ class Balance extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  settingsCollection: fetchSettingsCollection()
-})
-
-const mapDocumentsToProps = ownProps => ({
-  accounts: fetchCollection('accounts', ACCOUNT_DOCTYPE),
-  groups: fetchCollection('groups', GROUP_DOCTYPE)
-})
-
 const mapDispatchToProps = dispatch => ({
   filterByDoc: doc => dispatch(filterByDoc(doc))
 })
@@ -248,7 +239,11 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
   withBreakpoints(),
   withRouter,
-  connect(mapStateToProps, mapDispatchToProps),
-  cozyConnect(mapDocumentsToProps),
+  queryConnect({
+    settings: { query: client => client.all(BANK_SETTINGS_DOCTYPE), as: 'settings' },
+    accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' },
+    groups: { query: client => client.all(GROUP_DOCTYPE), as: 'groups' }
+  }),
+  connect(null, mapDispatchToProps),
   translate()
 )(Balance)

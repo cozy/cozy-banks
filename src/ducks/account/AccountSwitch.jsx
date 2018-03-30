@@ -5,9 +5,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import classNames from 'classnames'
+import cx from 'classnames'
 
-import { cozyConnect, fetchCollection } from 'cozy-client'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import Overlay from 'cozy-ui/react/Overlay'
 import { Media, Bd, Img } from 'cozy-ui/react/Media'
@@ -17,6 +16,7 @@ import { filterByDoc, getFilteringDoc, resetFilterByDoc } from 'ducks/filters'
 import styles from './AccountSwitch.styl'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { getAccountInstitutionLabel } from './helpers.js'
+import { queryConnect } from 'utils/client-compat'
 
 const { BarRight } = cozy.bar
 
@@ -26,7 +26,7 @@ const isLoading = function (collection) {
 
 const AccountSwitchDesktop = translate()(
   ({ isFetching, isOpen, filteringDoc, accounts, t, toggle, accountExists }) => (
-    <button className={classNames(styles['account-switch-button'], {[styles['active']]: isOpen}, 'coz-desktop')} onClick={toggle}>
+    <button className={cx(styles['account-switch-button'], {[styles['active']]: isOpen}, 'coz-desktop')} onClick={toggle}>
       {isFetching
         ? `${t('Loading.loading')}`
         : filteringDoc
@@ -58,7 +58,7 @@ AccountSwitchDesktop.propTypes = {
 
 const AccountSwitchMobile = ({filteringDoc, onClick}) => (
   <button
-    className={classNames(
+    className={cx(
       styles['account-switch-button-mobile'],
       {[styles['active']]: filteringDoc}
     )}
@@ -77,7 +77,7 @@ const AccountSwitchMenu = translate()(({ accounts, groups, filteringDoc, filterB
       </h4>
       <ul>
         <li>
-          <button onClick={() => { resetFilterByDoc() }} className={classNames({[styles['active']]: filteringDoc === undefined})}>
+          <button onClick={() => { resetFilterByDoc() }} className={cx({[styles['active']]: filteringDoc === undefined})}>
             {t('AccountSwitch.all_accounts')}
             <span className={styles['account-secondary-info']}>
               ({t('AccountSwitch.account_counter', accounts.length)})
@@ -88,7 +88,7 @@ const AccountSwitchMenu = translate()(({ accounts, groups, filteringDoc, filterB
           <li>
             <button
               onClick={() => { filterByDoc(group) }}
-              className={classNames({[styles['active']]: filteringDoc && group._id === filteringDoc._id})}>
+              className={cx({[styles['active']]: filteringDoc && group._id === filteringDoc._id})}>
               {group.label}
               <span className={styles['account-secondary-info']}>
                 ({t('AccountSwitch.account_counter', group.accounts.filter(accountExists).length)})
@@ -111,7 +111,7 @@ const AccountSwitchMenu = translate()(({ accounts, groups, filteringDoc, filterB
           <li>
             <button
               onClick={() => { filterByDoc(account) }}
-              className={classNames({[styles['active']]: filteringDoc && account._id === filteringDoc._id})}>
+              className={cx({[styles['active']]: filteringDoc && account._id === filteringDoc._id})}>
               <Media>
                 <Bd>
                   {account.shortLabel || account.label}<span className={styles['account-secondary-info']}>- {getAccountInstitutionLabel(account)}</span>
@@ -170,6 +170,10 @@ class AccountSwitch extends Component {
     accounts = accounts.data
     groups = groups.data
 
+    if (isFetching) {
+      return null
+    }
+
     if (!accounts || accounts.length === 0) {
       return
     }
@@ -227,13 +231,11 @@ const mapDispatchToProps = dispatch => ({
   filterByDoc: doc => dispatch(filterByDoc(doc))
 })
 
-const mapDocumentsToProps = ownProps => ({
-  accounts: fetchCollection('accounts', ACCOUNT_DOCTYPE),
-  groups: fetchCollection('groups', GROUP_DOCTYPE)
-})
-
 export default compose(
-  cozyConnect(mapDocumentsToProps),
+  queryConnect({
+    accounts: { as: 'accounts', query: client => client.all(ACCOUNT_DOCTYPE) },
+    groups: { as: 'groups', query: client => client.all(GROUP_DOCTYPE) }
+  }),
   connect(mapStateToProps, mapDispatchToProps),
   translate(),
   withBreakpoints()

@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
+import compose from 'lodash/flowRight'
+
 import { translate, Button, Icon } from 'cozy-ui/react'
+
 import Table from 'components/Table'
-import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
-import { cozyConnect, fetchCollection } from 'cozy-client'
 import Loading from 'components/Loading'
+
+import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
+import { queryConnect } from 'utils/client-compat'
 import plus from 'assets/icons/16/plus.svg'
 import styles from './GroupsSettings.styl'
 import btnStyles from 'styles/buttons'
@@ -71,9 +75,10 @@ const Groups = withRouter(class extends Component {
   }
 })
 
-export default cozyConnect(ownProps => {
-  return {
-    accounts: fetchCollection('accounts', ACCOUNT_DOCTYPE),
-    groups: fetchCollection('groups', GROUP_DOCTYPE)
-  }
-})(translate()(Groups))
+export default compose(
+  queryConnect({
+    accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' },
+    groups: { query: client => client.all(GROUP_DOCTYPE), as: 'groups' }
+  }),
+  translate()
+)(Groups)

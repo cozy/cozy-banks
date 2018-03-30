@@ -1,5 +1,6 @@
 'use strict'
 
+const path = require('path')
 const merge = require('webpack-merge')
 const { production, target, hotReload } = require('./config/webpack.vars')
 
@@ -14,7 +15,11 @@ const common = merge(
   require('./config/webpack.config.piwik'),
   require('./config/webpack.config.string-replace'),
   hotReload ? require(`./config/webpack.config.hot-reload`) : null,
-  require(`./config/webpack.target.${target}`)
+  require(`./config/webpack.target.${target}`), {
+    resolve: {
+      modules: [path.resolve('./node_modules'), path.resolve('../node_modules')]
+    }
+  }
 )
 
 if (production) {

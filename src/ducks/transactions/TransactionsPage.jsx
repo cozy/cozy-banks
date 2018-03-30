@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import { flowRight as compose, isEqual, includes } from 'lodash'
-import { getCollection, cozyConnect, fetchCollection } from 'cozy-client'
 
 import { translate } from 'cozy-ui/react/I18n'
 
@@ -26,33 +25,27 @@ import BackButton from 'components/BackButton'
 import { hydrateTransaction } from 'documents/transaction'
 import TransactionsWithSelection from './TransactionsWithSelection'
 import styles from './TransactionsPage.styl'
-import { TRIGGER_DOCTYPE } from 'doctypes'
+import { TRIGGER_DOCTYPE, ACCOUNT_DOCTYPE, TRANSACTION_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { getBrands } from 'ducks/brandDictionary'
+import { queryConnect } from 'utils/client-compat'
 
 const isPendingOrLoading = function (col) {
   return col.fetchStatus === 'pending' || col.fetchStatus === 'loading'
 }
 
 class TransactionsPage extends Component {
-  state = { fetching: false }
-
-  async fetchTransactions () {
-    this.setState({ fetching: true })
-    try {
-      await this.props.fetchTransactions()
-    } finally {
-      this.setState({ fetching: false })
-    }
-  }
-
   componentDidMount () {
-    this.fetchTransactions(true)
     this.props.fetchApps()
   }
 
   componentDidUpdate (prevProps) {
     if (
       !isEqual(this.props.accountIds, prevProps.accountIds)) {
+      this.props.dispatch(addFilterForMostRecentTransactions())
+    }
+
+    if (this.props.transactions.data && !this.hasDispatchedMostRecent) {
+      this.hasDispatchedMostRecent = true
       this.props.dispatch(addFilterForMostRecentTransactions())
     }
   }
@@ -68,7 +61,7 @@ class TransactionsPage extends Component {
     const { t, urls, router, triggers } = this.props
     let { filteredTransactions } = this.props
 
-    if (this.state.fetching) {
+    if (isPendingOrLoading(this.props.transactions)) {
       return <Loading loadingType='movements' />
     }
 
@@ -135,21 +128,28 @@ class TransactionsPage extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  urls: {
-    // this keys are used on Transactions.jsx to:
-    // - find transaction label
-    // - display appName in translate `Transactions.actions.app`
-    MAIF: getAppUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-maif'),
-    HEALTH: getAppUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-sante'),
-    EDF: getAppUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-edf'),
-    COLLECT: getAppUrlBySource(state, 'github.com/cozy/cozy-collect')
-  },
-  accountIds: getFilteredAccountIds(state),
-  accounts: getCollection(state, 'accounts'),
-  filteredTransactions: getFilteredTransactions(state)
-    .map(transaction => hydrateTransaction(state, transaction))
-})
+const mapStateToProps = (state, ownProps) => {
+  const enhancedState = {
+    accounts: ownProps.accounts,
+    groups: ownProps.groups,
+    transactions: ownProps.transactions,
+    ...state
+  }
+  return {
+    urls: {
+      // this keys are used on Transactions.jsx to:
+      // - find transaction label
+      // - display appName in translate `Transactions.actions.app`
+      MAIF: getAppUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-maif'),
+      HEALTH: getAppUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-sante'),
+      EDF: getAppUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-edf'),
+      COLLECT: getAppUrlBySource(state, 'github.com/cozy/cozy-collect')
+    },
+    accountIds: getFilteredAccountIds(enhancedState),
+    filteredTransactions: getFilteredTransactions(enhancedState)
+      .map(transaction => hydrateTransaction(enhancedState, transaction))
+  }
+}
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   dispatch,
@@ -171,13 +171,14 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   }
 })
 
-const mapDocumentsToProps = ownProps => ({
-  triggers: fetchCollection('triggers', TRIGGER_DOCTYPE)
-})
-
 export default compose(
   withRouter,
+  queryConnect({
+    accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' },
+    triggers: { query: client => client.all(TRIGGER_DOCTYPE), as: 'triggers' },
+    groups: { query: client => client.all(GROUP_DOCTYPE), as: 'groups' },
+    transactions: { query: client => client.all(TRANSACTION_DOCTYPE), as: 'transactions' }
+  }),
   connect(mapStateToProps, mapDispatchToProps),
-  cozyConnect(mapDocumentsToProps),
   translate()
 )(TransactionsPage)

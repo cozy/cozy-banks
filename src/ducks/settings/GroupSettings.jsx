@@ -1,25 +1,27 @@
 import React, { Component } from 'react'
-import Loading from 'components/Loading'
+import { withRouter } from 'react-router'
+import compose from 'lodash/flowRight'
+import sortBy from 'lodash/sortBy'
+
 import { withDispatch } from 'utils'
 import {
   createDocument,
   updateDocument,
-  deleteDocument,
-  fetchDocument,
-  cozyConnect,
-  fetchCollection
-} from 'cozy-client'
+  deleteDocument
+} from 'cozy-client' // TODO cozy-client
+import { Button, translate, Toggle } from 'cozy-ui/react'
+import Spinner from 'cozy-ui/react/Spinner'
+
+import { queryConnect } from 'utils/client-compat'
+import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
+
+import Loading from 'components/Loading'
 import Topbar from 'components/Topbar'
 import BackButton from 'components/BackButton'
-import { Button, translate, Toggle } from 'cozy-ui/react'
-import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
-import { withRouter } from 'react-router'
 import Table from 'components/Table'
-import Spinner from 'cozy-ui/react/Spinner'
 import styles from './GroupsSettings.styl'
 import btnStyles from 'styles/buttons'
 import { getAccountInstitutionLabel } from '../account/helpers'
-import { sortBy } from 'lodash'
 
 const accountInGroup = (account, group) =>
   group.accounts.indexOf(account._id) > -1
@@ -164,19 +166,21 @@ const mkNewGroup = () => ({
   accounts: []
 })
 
-const mapDocumentsToProps = props => {
-  const groupId = props.routeParams.groupId
-  return {
-    group: (groupId === 'new' || !groupId) ? mkNewGroup() : fetchDocument(GROUP_DOCTYPE, groupId),
-    accounts: fetchCollection('accounts', ACCOUNT_DOCTYPE)
-  }
-}
-
 const enhance = Component =>
-  cozyConnect(mapDocumentsToProps)(
-    translate()(
-      withRouter(
-        withDispatch(Component))))
+  compose(
+    queryConnect({
+      group: props => {
+        const groupId = props.routeParams.groupId
+        return (groupId === 'new' || !groupId)
+          ? { doc: mkNewGroup() }
+          : { query: client => client.get(GROUP_DOCTYPE, groupId) }
+      },
+      accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' }
+    }),
+    translate(),
+    withRouter,
+    withDispatch
+  )
 
 const EnhancedGroupSettings = enhance(GroupSettings)
 export default EnhancedGroupSettings
