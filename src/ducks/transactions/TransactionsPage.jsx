@@ -130,10 +130,10 @@ class TransactionsPage extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   const enhancedState = {
+    ...state,
     accounts: ownProps.accounts,
     groups: ownProps.groups,
-    transactions: ownProps.transactions,
-    ...state
+    transactions: ownProps.transactions
   }
   return {
     urls: {
