@@ -30,3 +30,9 @@ const memoize = fn => {
 export const getClient = memoize(persistedState => {
   return __TARGET__ === 'mobile' ? getClientMobile(persistedState) : getClientBrowser()
 })
+
+export const getStackLink = () => {
+  const client = getClient()
+  // TODO when introducing PouchLink, it should change
+  return client.link
+}
