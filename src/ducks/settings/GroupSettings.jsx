@@ -3,12 +3,6 @@ import { withRouter } from 'react-router'
 import compose from 'lodash/flowRight'
 import sortBy from 'lodash/sortBy'
 
-import { withDispatch } from 'utils'
-import {
-  createDocument,
-  updateDocument,
-  deleteDocument
-} from 'cozy-client' // TODO cozy-client
 import { Button, translate, Toggle } from 'cozy-ui/react'
 import Spinner from 'cozy-ui/react/Spinner'
 
@@ -23,8 +17,9 @@ import styles from './GroupsSettings.styl'
 import btnStyles from 'styles/buttons'
 import { getAccountInstitutionLabel } from '../account/helpers'
 
-const accountInGroup = (account, group) =>
-  group.accounts.indexOf(account._id) > -1
+const accountInGroup = (account, group) => {
+  return group.accounts.indexOf(account._id) > -1
+}
 
 class GroupSettings extends Component {
   state = { modifying: false, saving: false }
@@ -38,13 +33,11 @@ class GroupSettings extends Component {
   }
 
   async updateOrCreate (group, cb) {
-    const { dispatch, router } = this.props
+    const { router, saveDocument } = this.props
     try {
-      const response = group.id
-        ? await dispatch(updateDocument(group))
-        : await dispatch(createDocument(GROUP_DOCTYPE, group))
+      const response = await saveDocument({ _type: GROUP_DOCTYPE, ...group })
       if (response && response.data) {
-        const doc = response.data[0]
+        const doc = response.data
         if (group.id !== doc.id) {
           router.push(`/settings/groups/${doc.id}`)
         }
@@ -55,7 +48,8 @@ class GroupSettings extends Component {
   }
 
   toggleAccount = (accountId, enabled) => {
-    const { group } = this.props
+    let { group } = this.props
+    group = group.data[0]
     let selectedAccounts = group.accounts
     let indexInSelectedAccounts = selectedAccounts.indexOf(accountId)
 
@@ -67,7 +61,8 @@ class GroupSettings extends Component {
   }
 
   renderAccountLine = (account) => {
-    const { group } = this.props
+    let { group } = this.props
+    group = group.data[0]
     return (
       <tr>
         <td className={styles.GrpStg__accntLabel}>
@@ -80,17 +75,19 @@ class GroupSettings extends Component {
           {account.number}
         </td>
         <td className={styles.GrpStg__accntToggle}>
-          <Toggle id={account._id} checked={accountInGroup(account, group)} onToggle={this.toggleAccount.bind(null, account._id)} />
+          <Toggle
+            id={account._id}
+            checked={accountInGroup(account, group)}
+            onToggle={this.toggleAccount.bind(null, account._id)} />
         </td>
       </tr>
     )
   }
 
-  onRemove = () => {
-    const { group, dispatch, router } = this.props
-    dispatch(deleteDocument(group)).then(() => {
-      router.push('/settings/groups')
-    })
+  onRemove = async () => {
+    const { group, router, deleteDocument } = this.props
+    await deleteDocument(group)
+    router.push('/settings/groups')
   }
 
   modifyName = () => {
@@ -100,7 +97,7 @@ class GroupSettings extends Component {
   saveInputRef = ref => { this.inputRef = ref }
 
   render ({ t, group, accounts, isNewGroup }, { modifying, saving }) {
-    if (!group) {
+    if (group.fetchStatus === 'loading' || group.fetchStatus === 'pending') {
       return <Loading />
     }
 
@@ -166,11 +163,12 @@ const mkNewGroup = () => ({
   accounts: []
 })
 
-const enhance = Component =>
+const enhance = (
   compose(
     queryConnect({
       group: props => {
         const groupId = props.routeParams.groupId
+
         return (groupId === 'new' || !groupId)
           ? { doc: mkNewGroup() }
           : { query: client => client.get(GROUP_DOCTYPE, groupId) }
@@ -178,9 +176,9 @@ const enhance = Component =>
       accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' }
     }),
     translate(),
-    withRouter,
-    withDispatch
+    withRouter
   )
+)
 
 const EnhancedGroupSettings = enhance(GroupSettings)
 export default EnhancedGroupSettings

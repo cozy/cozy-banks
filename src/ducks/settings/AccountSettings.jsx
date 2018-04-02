@@ -12,15 +12,14 @@ import Loading from 'components/Loading'
 import { withDispatch } from 'utils'
 import BackButton from 'components/BackButton'
 import { connect } from 'react-redux'
-import { updateDocument } from 'cozy-client' // TODO cozy-client
 import styles from './AccountsSettings.styl'
 import { flowRight as compose } from 'lodash'
-import { destroyAccount } from 'actions'
 import spinner from 'assets/icons/icon-spinner.svg'
 import { getAccountInstitutionLabel } from '../account/helpers'
 import { getAppUrlBySource, fetchApps } from 'ducks/apps'
-import { queryConnect } from 'utils/client-compat'
+import { queryConnect, withCrud } from 'utils/client-compat'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
+import flash from 'ducks/flash'
 
 const DeleteConfirm = ({ cancel, confirm, title, description, secondaryText, primaryText }) => {
   return (
@@ -58,15 +57,12 @@ class _GeneralSettings extends Component {
     })
   }
 
-  onClickSave = () => {
+  onClickSave = async () => {
     const updatedDoc = {
-      // Will disappear when the object come from redux-cozy
-      id: this.props.account._id,
-      type: 'io.cozy.bank.accounts',
       ...this.props.account,
       ...this.state.changes
     }
-    this.props.dispatch(updateDocument(updatedDoc))
+    await this.props.saveDocument(updatedDoc)
     this.setState({modifying: false, changes: null})
   }
 
@@ -79,12 +75,13 @@ class _GeneralSettings extends Component {
   }
 
   onClickConfirmDelete = async () => {
-    const { destroyAccount, router } = this.props
+    const { destroyDocument, router } = this.props
     try {
       this.setState({ deleting: true })
-      await destroyAccount(this.props.account)
+      await destroyDocument(this.props.account)
       router.push('/settings/accounts')
     } catch (e) {
+      flash('error', 'Error while deleting account')
       this.setState({ deleting: false })
     }
   }
@@ -156,9 +153,6 @@ class _GeneralSettings extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  destroyAccount: account => {
-    return dispatch(destroyAccount(account))
-  },
   fetchApps: () => dispatch(fetchApps())
 })
 
@@ -169,13 +163,16 @@ const mapStateToProps = state => ({
 const GeneralSettings = compose(
   withRouter,
   withDispatch,
+  withCrud,
   connect(mapStateToProps, mapDispatchToProps),
   translate())(_GeneralSettings)
 
 const AccountSettings = function ({account, onClose, t}) {
-  if (!account) {
+  if (account.fetchStatus === 'pending' || account.fetchStatus === 'loading') {
     return <Loading />
   }
+  account = account.data[0] // TODO why do we get a list
+
   return (
     <div>
       <BackButton to='/settings/accounts' arrow />

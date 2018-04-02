@@ -5,6 +5,7 @@ import { initClient } from 'ducks/authentication/lib/client'
 import CozyStackClient from 'cozy-stack-client'
 import CozyClient, { StackLink } from 'cozy-client'
 import PouchLink from 'cozy-pouch-link'
+import { schema } from 'doctypes'
 
 export const getClientMobile = persistedState => {
   const hasPersistedMobileStore = persistedState && persistedState.mobile
