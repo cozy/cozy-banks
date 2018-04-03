@@ -3,7 +3,7 @@
 # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -euo pipefail
 
-JOB_UPDATE_RECETTE="ad27f2f6-63d9-4a16-ab62-e25c957875b5"
+JOB_UPDATE_RECETTE="87a668f7-eff1-422d-aa84-92b3bcc62c8f"
 JOB_UPDATE_STAGING="ad27f2f6-63d9-4a16-ab62-e25c957875b5"
 function executeRundeck {
   INSTANCE=$1
