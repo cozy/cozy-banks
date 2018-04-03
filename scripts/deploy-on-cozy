@@ -51,6 +51,17 @@ if [ DEPLOY_BRANCH == 'latest' ]; then
 
   echo "Deploying on gangsters:"
   deploy "gangsters" $JOB_UPDATE_STAGING $APP_SLUG
+elif [ DEPLOY_BRANCH == 'preprod-build' ]; then
+  APP_SLUG="banks-preprod"
+
+  echo "Deploying on recette:"
+  deploy "recette" $JOB_UPDATE_RECETTE $APP_SLUG
+
+  echo "Deploying on grrecette:"
+  deploy "grrecette" $JOB_UPDATE_RECETTE $APP_SLUG
+
+  echo "Deploying on gangsters:"
+  deploy "gangsters" $JOB_UPDATE_STAGING $APP_SLUG
 else
   APP_SLUG="banks"
 
