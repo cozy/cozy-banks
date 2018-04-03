@@ -44,31 +44,31 @@ function deploy {
   sleep 5 # Cannot have the same rundeck job running twice
 }
 
-echo "Deploying built code on GitHub:"
+echo "Deploying built code on GitHub #$DEPLOY_BRANCH branch:"
 yarn deploy
 
 if [ DEPLOY_BRANCH == 'latest' ]; then
   APP_SLUG="banks"
 
-  echo "Deploying on gangsters:"
+  echo "Deploying $APP_SLUG on gangsters:"
   deploy "gangsters" $JOB_UPDATE_STAGING $APP_SLUG
 elif [ DEPLOY_BRANCH == 'preprod-build' ]; then
   APP_SLUG="banks-preprod"
 
-  echo "Deploying on recette:"
+  echo "Deploying $APP_SLUG on recette:"
   deploy "recette" $JOB_UPDATE_RECETTE $APP_SLUG
 
-  echo "Deploying on grrecette:"
+  echo "Deploying $APP_SLUG on grrecette:"
   deploy "grrecette" $JOB_UPDATE_RECETTE $APP_SLUG
 
-  echo "Deploying on gangsters:"
+  echo "Deploying $APP_SLUG on gangsters:"
   deploy "gangsters" $JOB_UPDATE_STAGING $APP_SLUG
-else
+elif [ DEPLOY_BRANCH == 'build' ]; then
   APP_SLUG="banks"
 
-  echo "Deploying on recette:"
+  echo "Deploying $APP_SLUG on recette:"
   deploy "recette" $JOB_UPDATE_RECETTE $APP_SLUG
 
-  echo "Deploying on grrecette:"
+  echo "Deploying $APP_SLUG on grrecette:"
   deploy "grrecette" $JOB_UPDATE_RECETTE $APP_SLUG
 fi
