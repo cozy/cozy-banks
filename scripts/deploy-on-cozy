@@ -3,13 +3,12 @@
 # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -euo pipefail
 
-APP_SLUG="banks"
-
 JOB_UPDATE_RECETTE="ad27f2f6-63d9-4a16-ab62-e25c957875b5"
 JOB_UPDATE_STAGING="ad27f2f6-63d9-4a16-ab62-e25c957875b5"
 function executeRundeck {
   INSTANCE=$1
   JOB=$2
+  APP_SLUG=$3
   curl --fail -X POST -H "X-Rundeck-Auth-Token: $RUNDECK_TOKEN" https://rundeck.cozycloud.cc/api/20/job/$JOB/run?argString=-instance+$INSTANCE+-slugs+$APP_SLUG
 
   echo ""
@@ -36,8 +35,9 @@ function sendMattermostMsg {
 function deploy {
   INSTANCE=$1
   JOB=$2
+  APP_SLUG=$3
 
-  executeRundeck $INSTANCE $JOB
+  executeRundeck $INSTANCE $JOB $APP_SLUG
   sendMattermostMsg $INSTANCE
 
   sleep 5 # Cannot have the same rundeck job running twice
@@ -47,12 +47,16 @@ echo "Deploying built code on GitHub:"
 yarn deploy
 
 if [ DEPLOY_BRANCH == 'latest' ]; then
+  APP_SLUG="banks"
+
   echo "Deploying on gangsters:"
-  deploy "gangsters" $JOB_UPDATE_STAGING
+  deploy "gangsters" $JOB_UPDATE_STAGING $APP_SLUG
 else
+  APP_SLUG="banks"
+
   echo "Deploying on recette:"
-  deploy "recette" $JOB_UPDATE_RECETTE
+  deploy "recette" $JOB_UPDATE_RECETTE $APP_SLUG
 
   echo "Deploying on grrecette:"
-  deploy "grrecette" $JOB_UPDATE_RECETTE
+  deploy "grrecette" $JOB_UPDATE_RECETTE $APP_SLUG
 fi
