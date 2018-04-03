@@ -30,3 +30,9 @@ deploy:
     script: DEPLOY_BRANCH=latest ./scripts/deploy-on-cozy
     on:
       branch: prod
+  - provider: script
+    repo: cozy/cozy-banks
+    skip-cleanup: true
+    script: DEPLOY_BRANCH=preprod-build ./scripts/deploy-on-cozy
+    on:
+      branch: preprod
