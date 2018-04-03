@@ -5,6 +5,8 @@ set -euo pipefail
 
 APP_SLUG="banks"
 
+JOB_UPDATE_RECETTE="ad27f2f6-63d9-4a16-ab62-e25c957875b5"
+JOB_UPDATE_STAGING="ad27f2f6-63d9-4a16-ab62-e25c957875b5"
 function executeRundeck {
   INSTANCE=$1
   JOB=$2
@@ -45,16 +47,12 @@ echo "Deploying built code on GitHub:"
 yarn deploy
 
 if [ DEPLOY_BRANCH == 'latest' ]; then
-  JOB="ad27f2f6-63d9-4a16-ab62-e25c957875b5"
-
   echo "Deploying on gangsters:"
-  deploy "gangsters" $JOB
+  deploy "gangsters" $JOB_UPDATE_STAGING
 else
-  JOB="87a668f7-eff1-422d-aa84-92b3bcc62c8f"
-
   echo "Deploying on recette:"
-  deploy "recette" $JOB
+  deploy "recette" $JOB_UPDATE_RECETTE
 
   echo "Deploying on grrecette:"
-  deploy "grrecette" $JOB
+  deploy "grrecette" $JOB_UPDATE_RECETTE
 fi
