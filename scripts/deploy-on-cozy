@@ -47,12 +47,12 @@ function deploy {
 echo "Deploying built code on GitHub #$DEPLOY_BRANCH branch:"
 yarn deploy
 
-if [ DEPLOY_BRANCH == 'latest' ]; then
+if [ "$DEPLOY_BRANCH" == "latest" ]; then
   APP_SLUG="banks"
 
   echo "Deploying $APP_SLUG on gangsters:"
   deploy "gangsters" $JOB_UPDATE_STAGING $APP_SLUG
-elif [ DEPLOY_BRANCH == 'preprod-build' ]; then
+elif [ "$DEPLOY_BRANCH" == "preprod-build" ]; then
   APP_SLUG="banks-preprod"
 
   echo "Deploying $APP_SLUG on recette:"
@@ -63,7 +63,7 @@ elif [ DEPLOY_BRANCH == 'preprod-build' ]; then
 
   echo "Deploying $APP_SLUG on gangsters:"
   deploy "gangsters" $JOB_UPDATE_STAGING $APP_SLUG
-elif [ DEPLOY_BRANCH == 'build' ]; then
+elif [ "$DEPLOY_BRANCH" == "build" ]; then
   APP_SLUG="banks"
 
   echo "Deploying $APP_SLUG on recette:"
