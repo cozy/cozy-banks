@@ -16,6 +16,7 @@ function executeRundeck {
 
 function sendMattermostMsg {
   INSTANCE=$1
+  APP_SLUG=$2
   MATTERMOST_ICON="https://travis-ci.com/images/logos/TravisCI-Mascot-1.png"
   MATTERMOST_USERNAME="Travis"
   MATTERMOST_CHANNEL="Gangsters-release"
@@ -38,7 +39,7 @@ function deploy {
   APP_SLUG=$3
 
   executeRundeck $INSTANCE $JOB $APP_SLUG
-  sendMattermostMsg $INSTANCE
+  sendMattermostMsg $INSTANCE $APP_SLUG
 
   sleep 5 # Cannot have the same rundeck job running twice
 }
