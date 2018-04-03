@@ -30,7 +30,7 @@
     "watch:mobile:production": "NODE_ENV=mobile:production npm run commons:watch -- --env.target=mobile",
     "serve:mobile": "cd src/targets/mobile/www && http-server -p 8005",
     "mobile:icon": "(cd src/targets/mobile && splashicon-generator --imagespath='./res/model')",
-    "mobile:prepare": "(cd src/targets/mobile && rm -r package.json node_modules platforms plugins && cordova prepare)",
+    "mobile:prepare": "(cd src/targets/mobile && rm -rf package.json node_modules platforms plugins && cordova prepare)",
     "android:run": "(cd src/targets/mobile && cordova run android --device)",
     "android:run:emulator": "(cd src/targets/mobile && cordova run android --emulator)",
     "android:release": "npm run mobile:prepare && npm run build:mobile && (cd src/targets/mobile && cordova build android --release)",
