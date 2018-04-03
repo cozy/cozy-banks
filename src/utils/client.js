@@ -1,7 +1,10 @@
 /* global __TARGET__ */
 
 import { initClient } from 'ducks/authentication/lib/client'
-import CozyClient from 'cozy-client'
+
+import CozyStackClient from 'cozy-stack-client'
+import CozyClient, { StackLink } from 'cozy-client'
+import PouchLink from 'cozy-pouch-link'
 
 export const getClientMobile = persistedState => {
   const hasPersistedMobileStore = persistedState && persistedState.mobile
@@ -11,9 +14,20 @@ export const getClientMobile = persistedState => {
 export const getClientBrowser = () => {
   const root = document.querySelector('[role=application]')
   const data = root.dataset
-  return new CozyClient({
+
+  const stackClient = new CozyStackClient({
     uri: `${window.location.protocol}//${data.cozyDomain}`,
     token: data.cozyToken
+  })
+  return new CozyClient({
+    link: [
+      new PouchLink({
+        doctypes: ['io.cozy.bank.operations'],
+        initialSync: true,
+        client: stackClient
+      }),
+      new StackLink({ client: stackClient })
+    ]
   })
 }
 
@@ -32,7 +46,5 @@ export const getClient = memoize(persistedState => {
 })
 
 export const getStackLink = () => {
-  const client = getClient()
-  // TODO when introducing PouchLink, it should change
-  return client.link
+  return getClient().getLink(StackLink)
 }
