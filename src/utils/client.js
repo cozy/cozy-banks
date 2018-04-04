@@ -22,19 +22,22 @@ export const getClientBrowser = () => {
     token: data.cozyToken
   })
 
-  links.pouch = new PouchLink({
-    doctypes: ['io.cozy.bank.operations'],
-    initialSync: true,
-    client: stackClient
-  })
+  if (__TARGET__ === 'mobile') {
+    links.pouch = new PouchLink({
+      doctypes: ['io.cozy.bank.operations'],
+      initialSync: true,
+      client: stackClient
+    })
+  }
 
   links.stack = new StackLink({ client: stackClient })
 
   const client = new CozyClient({
     link: [
-      links.pouch,
+      __TARGET__ === 'mobile' && links.pouch,
       links.stack
-    ],
+    ].filter(Boolean),
+    schema: schema
   })
 
   return client
