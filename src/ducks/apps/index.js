@@ -1,4 +1,4 @@
-import { getStackLink } from 'utils/client'
+import { links } from 'utils/client'
 
 // reducers
 export const getApps = state => state.apps
@@ -20,7 +20,7 @@ export const setApps = apps => ({ type: SET_APPS, apps })
 
 // actions async
 export const fetchApps = () => async dispatch => {
-  const stack = getStackLink()
+  const stack = links.stack
   const apps = await stack.client.fetch('GET', '/apps/')
   dispatch(setApps(apps && apps.data))
 }

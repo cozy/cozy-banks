@@ -11,6 +11,8 @@ export const getClientMobile = persistedState => {
   return initClient(hasPersistedMobileStore ? persistedState.mobile.url : '')
 }
 
+export const links = {}
+
 export const getClientBrowser = () => {
   const root = document.querySelector('[role=application]')
   const data = root.dataset
@@ -19,16 +21,23 @@ export const getClientBrowser = () => {
     uri: `${window.location.protocol}//${data.cozyDomain}`,
     token: data.cozyToken
   })
-  return new CozyClient({
-    link: [
-      new PouchLink({
-        doctypes: ['io.cozy.bank.operations'],
-        initialSync: true,
-        client: stackClient
-      }),
-      new StackLink({ client: stackClient })
-    ]
+
+  links.pouch = new PouchLink({
+    doctypes: ['io.cozy.bank.operations'],
+    initialSync: true,
+    client: stackClient
   })
+
+  links.stack = new StackLink({ client: stackClient })
+
+  const client = new CozyClient({
+    link: [
+      links.pouch,
+      links.stack
+    ],
+  })
+
+  return client
 }
 
 const memoize = fn => {
@@ -44,7 +53,3 @@ const memoize = fn => {
 export const getClient = memoize(persistedState => {
   return __TARGET__ === 'mobile' ? getClientMobile(persistedState) : getClientBrowser()
 })
-
-export const getStackLink = () => {
-  return getClient().getLink(StackLink)
-}
