@@ -7,6 +7,8 @@ export const findSharing = (cozy, doctype, id) => {
     sharing_type: 'master-slave'
   }
 
+  return Promise.resolve({})
+
   return cozy.data.find(doctype, id)
     .then(account => {
       // Temporary to be able to get the owner from the account label
@@ -14,11 +16,12 @@ export const findSharing = (cozy, doctype, id) => {
       sharing.owner = account.owner
       const { recipients } = account
       const hasRecipients = recipients && recipients.length
-      return hasRecipients
-        ? Promise.all(
-            recipients.map(recipient => cozy.data.find(RECIPIENT_DOCTYPE, recipient.recipient.id))
-          )
-         : []
+      return []
+      // return hasRecipients
+      //   ? Promise.all(
+      //       recipients.map(recipient => cozy.data.find(RECIPIENT_DOCTYPE, recipient.recipient.id))
+      //     )
+      //    : []
     }).then(recipients => {
       sharing.recipients = recipients
       return sharing
