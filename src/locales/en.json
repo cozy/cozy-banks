@@ -45,6 +45,8 @@
     "details": "Details",
     "sharing": "Sharing",
     "back-to-accounts": "Back to accounts",
+    "update": "Update",
+    "save": "Save",
     "delete": "Reset",
     "deleting": "Resetting...",
     "confirm-deletion": {
