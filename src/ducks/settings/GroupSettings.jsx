@@ -101,6 +101,8 @@ class GroupSettings extends Component {
       return <Loading />
     }
 
+    group = group.data[0]
+
     return (
       <div>
         <BackButton to='/settings/groups' arrow />
