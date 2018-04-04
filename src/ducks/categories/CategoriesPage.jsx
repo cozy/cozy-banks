@@ -17,10 +17,6 @@ class CategoriesPage extends Component {
     withIncome: true
   }
 
-  componentDidMount () {
-    this.props.fetchTransactions()
-  }
-
   selectCategory = (selectedCategory, subcategory) => {
     if (subcategory) {
       this.props.router.push(`/categories/${selectedCategory}/${subcategory}`)
