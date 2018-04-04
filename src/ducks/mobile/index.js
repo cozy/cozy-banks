@@ -1,7 +1,6 @@
 /* global PushNotification, cozy */
 
 import { resetClient, getDevicePlatform } from 'ducks/authentication/lib/client'
-import localForage from 'localforage'
 import { hashHistory } from 'react-router'
 
 // constants
@@ -73,6 +72,7 @@ export const initialState = {
   client: null,
   token: null,
   revoked: false,
+  syncOk: false,
   push: null
 }
 
@@ -87,8 +87,7 @@ const reducer = (state = initialState, action) => {
     case UNLINK:
       return initialState
     case INITIAL_SYNC_OK:
-      setInitialSyncStatus(true)
-      return state
+      return { ...state, syncOk: true }
     case REGISTER_PUSH_NOTIFICATIONS:
       return {
         ...state,
@@ -111,15 +110,7 @@ export default reducer
 // selectors
 export const getURL = state => state.url
 export const getAccessToken = state => state.token ? state.token.accessToken : null
-
-// utils
-export const setInitialSyncStatus = ok => localForage.setItem(INITIAL_SYNC_OK, ok)
-export const getInitialSyncStatus = () => localForage.getItem(INITIAL_SYNC_OK)
-export const isInitialSyncOK = async () => {
-  const status = await getInitialSyncStatus()
-
-  return status === true
-}
+export const isInitialSyncOK = state => state.syncOk === true
 
 const initPushNotifications = onReceive => {
   const push = PushNotification.init({

@@ -16,11 +16,10 @@ class Wrapper extends Component {
   async componentDidMount () {
     if (__TARGET__ === 'mobile') {
       const { client } = this.context
-      const initialSyncOK = await isInitialSyncOK()
 
       let promise
 
-      if (initialSyncOK) {
+      if (this.props.isInitialSyncOK) {
         // If initial sync is OK, then do nothing special
         promise = Promise.resolve()
       } else {
@@ -51,9 +50,10 @@ class Wrapper extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   isSynced: isSynced(state),
   isFirstSync: isFirstSync(state),
+  isInitialSyncOK: isInitialSyncOK(state),
   hasSyncStarted: hasSyncStarted(state),
   isOffline: isSyncInError(state)
 })

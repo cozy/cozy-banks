@@ -2,7 +2,7 @@ import React from 'react'
 import { Router, Route } from 'react-router'
 
 import { Authentication, Revoked } from 'cozy-authentication'
-import { storeCredentials, revokeClient, unlink, setToken, getURL, getAccessToken, setInitialSyncStatus, registerPushNotifications, unregisterPushNotifications } from 'ducks/mobile'
+import { storeCredentials, revokeClient, unlink, setToken, getURL, getAccessToken, registerPushNotifications, unregisterPushNotifications } from 'ducks/mobile'
 import { initBar, updateAccessTokenBar, resetClient, getToken } from 'ducks/authentication/lib/client'
 export const AUTH_PATH = 'authentication'
 
@@ -32,7 +32,6 @@ const withAuth = Wrapped => (props, { store, router, client }) => {
 
   const onLogout = () => {
     const mobile = store.getState().mobile
-    setInitialSyncStatus(false)
     store.dispatch(unregisterPushNotifications())
     store.dispatch(unlink())
     resetClient(mobile.client, client)
