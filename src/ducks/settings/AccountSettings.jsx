@@ -129,10 +129,10 @@ class _GeneralSettings extends Component {
             Supprimer
           </Button> */}
           {!modifying && <Button theme='regular' onClick={this.onClickModify}>
-            Modifier
+            {t('AccountSettings.update')}
           </Button>}
           {modifying && <Button theme='regular' onClick={this.onClickSave}>
-            Sauver
+            {t('AccountSettings.save')}
           </Button>}
 
           {account.shared === undefined ? <Button disabled={deleting} theme='danger-outline' onClick={this.onClickDelete}>
