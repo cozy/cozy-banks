@@ -18,10 +18,7 @@ export const setToken = token => ({ type: SET_TOKEN, token })
 export const storeCredentials = (url, client, token) =>
   ({ type: STORE_CREDENTIALS, url, client, token })
 export const revokeClient = () => ({ type: REVOKE_CLIENT })
-export const unlink = (clientInfo) => {
-  resetClient(clientInfo)
-  return { type: UNLINK }
-}
+export const unlink = () => ({ type: UNLINK })
 export const registerPushNotifications = () => async (dispatch, getState) => {
   if (getState().mobile.push || !isAndroidDevice()) {
     return
