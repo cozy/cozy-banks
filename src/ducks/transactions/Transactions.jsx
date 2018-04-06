@@ -112,10 +112,7 @@ const TableTrNoDesktop = translate()(({t, f, transaction, selectTransaction, ...
 
 const groupByDateAndSort = transactions => {
   const byDate = groupBy(transactions, x => format(x.date, 'YYYY-MM-DD'))
-  Object.keys(byDate).forEach(date => {
-    byDate[date] = sortBy(byDate[date], x => x.date)
-  })
-  return sortBy(toPairs(byDate), x => x[0])
+  return sortBy(toPairs(byDate), x => x[0]).reverse()
 }
 
 class Transactions extends React.Component {
