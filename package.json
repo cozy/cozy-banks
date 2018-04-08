@@ -78,7 +78,7 @@
     "babel-preset-react": "6.24.1",
     "babel-runtime": "6.26.0",
     "copy-webpack-plugin": "4.2.3",
-    "css-loader": "0.28.7",
+    "css-loader": "0.28.11",
     "css-mqpacker": "6.0.1",
     "csswring": "6.0.2",
     "dummy-json": "2.0.0",
