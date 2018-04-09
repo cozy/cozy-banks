@@ -53,10 +53,10 @@
     position fixed
     top 78px
     left 0
-    bottom 10px
     width 440px
     overflow auto
     z-index: 60
+    max-height: "calc(100vh - %s)" % @top
 
 .account-switch-menu
     margin 20px
@@ -137,11 +137,10 @@
         z-index 61
         position fixed
         top 58px
-        bottom 10px
         left 50%
         margin-left -200px
         width 400px
-        max-height inherit
+        max-height "calc(100vh - %s)" % @top
         overflow auto
 
     .account-switch-menu
