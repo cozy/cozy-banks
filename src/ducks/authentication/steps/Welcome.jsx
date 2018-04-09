@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { translate, Button } from 'cozy-ui/react'
 
 import styles from '../styles'
+import { getDevicePlatform } from '../lib/client'
 
 export class Welcome extends Component {
   render () {
@@ -27,7 +28,7 @@ export class Welcome extends Component {
             {t('mobile.onboarding.welcome.button')}
           </Button>
           <a
-            href={'https://cozy.io/fr/try-it?from=io.cozy.drive.mobile'}
+            href={`https://manager.cozycloud.cc/cozy/create?pk_campaign=banks-${getDevicePlatform()}`}
             className={styles['link']}
           >
             {t('mobile.onboarding.welcome.no_account_link')}
