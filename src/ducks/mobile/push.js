@@ -43,10 +43,12 @@ export const registerPushNotifications = () => async (dispatch, getState) => {
 }
 
 export const stopPushNotifications = () => {
-  push.unregister(
-    () => console.log('unregister push notifications'),
-    error => {
-      throw new Error('error while unregistering notifications: ' + error)
-    }
-  )
+  if (push) {
+    push.unregister(
+      () => console.log('unregister push notifications'),
+      error => {
+        throw new Error('error while unregistering notifications: ' + error)
+      }
+    )
+  }
 }
