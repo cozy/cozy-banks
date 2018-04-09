@@ -2546,13 +2546,15 @@ cozy-authentication@^1.1.0:
   dependencies:
     url-polyfill "^1.0.10"
 
-cozy-bar@4.8.4:
-  version "4.8.4"
-  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-4.8.4.tgz#4b87e727deed2c446667afea73f28bfce5135ccd"
+cozy-bar@4.10.0:
+  version "4.10.0"
+  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-4.10.0.tgz#a59dd1302633ccd272a364c700cd497e0af63933"
   dependencies:
     babel-preset-cozy-app "^0.3.1"
+    core-js "^2.5.3"
     cozy-client-js "^0.3.19"
     localforage "^1.5.5"
+    lodash.debounce "4.0.8"
     node-polyglot "^2.2.2"
     piwik-react-router "^0.10.0"
     preact "^8.2.7"
@@ -6459,6 +6461,10 @@ lodash.clonedeep@^4.5.0:
 lodash.cond@^4.3.0:
   version "4.5.2"
   resolved "https://registry.yarnpkg.com/lodash.cond/-/lodash.cond-4.5.2.tgz#f471a1da486be60f6ab955d17115523dd1d255d5"
+
+lodash.debounce@4.0.8:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
 
 lodash.debounce@^3.0.1:
   version "3.1.1"
