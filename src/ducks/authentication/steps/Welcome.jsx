@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { translate, Button } from 'cozy-ui/react'
 
 import styles from '../styles'
-import { getDevicePlatform } from '../lib/client';
+import { getDevicePlatform } from '../lib/client'
 
 export class Welcome extends Component {
   render () {
