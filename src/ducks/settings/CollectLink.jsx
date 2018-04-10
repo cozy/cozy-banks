@@ -23,7 +23,7 @@ const mapStateToProps = state => ({
 })
 
 const SameWindowLink = compose(connect(mapStateToProps, mapDispatchToProps))(
-  class extends Component {
+  class _SamewindowLink extends Component {
     componentDidMount() {
       this.props.fetchApps()
     }
