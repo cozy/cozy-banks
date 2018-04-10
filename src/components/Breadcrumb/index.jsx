@@ -71,7 +71,7 @@ export const Breadcrumb = ({
         if (previousOnClick) item.previousOnClick = previousOnClick
         if (item.onClick) previousOnClick = item.onClick
 
-        return <BreadcrumbItem item={item} />
+        return <BreadcrumbItem key={item.name} item={item} />
       })}
     </div>
   )
