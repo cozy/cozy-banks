@@ -3,7 +3,7 @@
  */
 
 import React from 'react'
-import { translate, Icon, Menu } from 'cozy-ui/react'
+import { Icon, Menu } from 'cozy-ui/react'
 import TransactionActions from './TransactionActions'
 
 // TODO: check cozy-ui when it has removed color from its SVGs
@@ -17,7 +17,6 @@ const menuOpener = (
 )
 
 const TransactionMenu = ({
-  t,
   transaction,
   onSelect,
   onSelectDisabled,
@@ -34,4 +33,4 @@ const TransactionMenu = ({
   </Menu>
 )
 
-export default translate()(TransactionMenu)
+export default TransactionMenu
