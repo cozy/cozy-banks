@@ -9,7 +9,7 @@ import DisplayError from 'components/DisplayError'
 export default fetch => WrappedComponent => {
   class Wrapper extends Component {
     componentDidMount() {
-      this.state = { hasData: false, hasError: false }
+      this.setState({ hasData: false, hasError: false })
       fetch(this.props).then(
         data => this.setState({ hasData: true, data }),
         error => this.setState({ hasError: true, error })
@@ -35,6 +35,7 @@ export default fetch => WrappedComponent => {
     Object.defineProperty(Wrapper, 'name', {
       value: `${Component.name} [from fetchData]`
     })
+    // eslint-disable-next-line no-empty
   } catch (e) {}
 
   return Wrapper
