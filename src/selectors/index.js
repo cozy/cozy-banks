@@ -1,4 +1,6 @@
 import { getCollection } from 'cozy-client'
+import { createSelector } from 'reselect'
+import groupBy from 'lodash/groupBy'
 
 export const getTransactions = state => {
   const col = getCollection(state, 'transactions')
@@ -12,3 +14,25 @@ export const getAccounts = state => {
   const col = getCollection(state, 'accounts')
   return (col && col.data) || []
 }
+
+export const getVirtualGroups = createSelector(
+  [getAccounts],
+  accounts => {
+    const accountsByType = groupBy(accounts, account => account.type)
+
+    const virtualGroups = Object
+      .entries(accountsByType)
+      .map(([type, accounts]) => ({
+        label: type.toLowerCase(),
+        accounts: accounts.map(account => account._id),
+        virtual: true
+      }))
+
+    return virtualGroups
+  }
+)
+
+export const getAllGroups = createSelector(
+  [getGroups, getVirtualGroups],
+  (groups, virtualGroups) => [...groups, ...virtualGroups]
+)

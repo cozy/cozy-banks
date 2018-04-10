@@ -103,6 +103,16 @@
     "total-balance": "Total"
   },
   "Data": {
+    "accountTypes": {
+      "asset": "Assets accounts",
+      "bank": "Bank accounts",
+      "cash": "Cash accounts",
+      "checkings": "Checkings accounts",
+      "credit card": "Credit card accounts",
+      "liability": "Liability accounts",
+      "none": "None",
+      "savings": "Savings accounts"
+    },
     "categories": {
       "uncategorized": "To be categorized",
       "incomeCat": "Earnings",
