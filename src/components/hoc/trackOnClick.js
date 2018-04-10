@@ -11,7 +11,7 @@ import { trackEvent } from 'actions'
  * @return {Component} - Wrapped component
  */
 export default getTrackingEvent => Component => {
-  const Wrapped = class extends Component {
+  const Wrapped = class _TrackOnClickWrapper extends Component {
     constructor(props) {
       super(props)
       this.onClick = this.onClick.bind(this)
