@@ -47,6 +47,7 @@ const Component = ({ t, transaction, color }) => {
 const action = {
   name,
   color: palette.charcoalGrey,
+  // eslint-disable-next-line react/display-name
   getIcon: ({ transaction }) => {
     const color = isPending(transaction)
       ? palette.pomegranate
