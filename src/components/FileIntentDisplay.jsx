@@ -28,7 +28,7 @@ class FileIntentDisplay extends Component {
     this.showModal()
   }
 
-  render({ children }, { intent }) {
+  render(props, { intent }) {
     return intent ? (
       <FullscreenIntentModal
         intent={intent}
