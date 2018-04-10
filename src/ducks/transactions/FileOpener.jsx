@@ -49,6 +49,7 @@ class FileOpener extends Component {
         try {
           isInstalled = await checkApp(DRIVE_INFO)
         } catch (e) {
+          // eslint-disable-next-line no-console
           console.warn('Could not check if app is installed. error: ' + e)
         }
         const baseUrl = isInstalled
@@ -60,6 +61,8 @@ class FileOpener extends Component {
       }
     } catch (err) {
       flash('error', this.props.t('FileOpener.error'))
+
+      // eslint-disable-next-line no-console
       console.warn(err)
     } finally {
       this.setState({ loading: false })
