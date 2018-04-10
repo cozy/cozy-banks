@@ -19,13 +19,25 @@ const Settings = ({ t, children, router }) => {
   }
 
   const tabs = [
-    <Tab name={tabNames[0]} onClick={goTo('/settings/notifications')}>
+    <Tab
+      key={tabNames[0]}
+      name={tabNames[0]}
+      onClick={goTo('/settings/notifications')}
+    >
       {t('Settings.notifications')}
     </Tab>,
-    <Tab name={tabNames[1]} onClick={goTo('/settings/accounts')}>
+    <Tab
+      key={tabNames[1]}
+      name={tabNames[1]}
+      onClick={goTo('/settings/accounts')}
+    >
       {t('Settings.accounts')}
     </Tab>,
-    <Tab name={tabNames[2]} onClick={goTo('/settings/groups')}>
+    <Tab
+      key={tabNames[2]}
+      name={tabNames[2]}
+      onClick={goTo('/settings/groups')}
+    >
       {t('Settings.groups')}
     </Tab>
   ]
