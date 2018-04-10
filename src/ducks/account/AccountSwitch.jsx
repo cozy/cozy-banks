@@ -123,7 +123,7 @@ const AccountSwitchMenu = translate()(
             </button>
           </li>
           {sortBy(groups, 'label').map(group => (
-            <li>
+            <li key={group.label}>
               <button
                 onClick={() => {
                   filterByDoc(group)
@@ -152,31 +152,33 @@ const AccountSwitchMenu = translate()(
 
         <h4>{t('AccountSwitch.accounts')}</h4>
         <ul>
-          {sortBy(accounts, ['institutionLabel', 'label']).map(account => (
-            <li>
-              <button
-                onClick={() => {
-                  filterByDoc(account)
-                }}
-                className={classNames({
-                  [styles['active']]:
-                    filteringDoc && account._id === filteringDoc._id
-                })}
-              >
-                <Media>
-                  <Bd>
-                    {account.shortLabel || account.label}
-                    <span className={styles['account-secondary-info']}>
-                      - {getAccountInstitutionLabel(account)}
-                    </span>
-                  </Bd>
-                  <Img>
-                    <AccountSharingStatus tooltip account={account} />
-                  </Img>
-                </Media>
-              </button>
-            </li>
-          ))}
+          {sortBy(accounts, ['institutionLabel', 'label']).map(
+            (account, index) => (
+              <li key={index}>
+                <button
+                  onClick={() => {
+                    filterByDoc(account)
+                  }}
+                  className={classNames({
+                    [styles['active']]:
+                      filteringDoc && account._id === filteringDoc._id
+                  })}
+                >
+                  <Media>
+                    <Bd>
+                      {account.shortLabel || account.label}
+                      <span className={styles['account-secondary-info']}>
+                        - {getAccountInstitutionLabel(account)}
+                      </span>
+                    </Bd>
+                    <Img>
+                      <AccountSharingStatus tooltip account={account} />
+                    </Img>
+                  </Media>
+                </button>
+              </li>
+            )
+          )}
         </ul>
         <Link to={'/settings/accounts'} onClick={close}>
           {t('Accounts.manage-accounts')}
@@ -303,7 +305,7 @@ const mapDispatchToProps = dispatch => ({
   filterByDoc: doc => dispatch(filterByDoc(doc))
 })
 
-const mapDocumentsToProps = ownProps => ({
+const mapDocumentsToProps = () => ({
   accounts: fetchCollection('accounts', ACCOUNT_DOCTYPE),
   groups: fetchCollection('groups', GROUP_DOCTYPE)
 })
