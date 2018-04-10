@@ -113,7 +113,7 @@ class AccountsSettings extends Component {
   }
 }
 
-const mapDocumentsToProps = ownProps => ({
+const mapDocumentsToProps = () => ({
   accounts: fetchCollection('accounts', ACCOUNT_DOCTYPE)
 })
 
