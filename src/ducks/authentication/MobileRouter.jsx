@@ -22,7 +22,7 @@ import {
 } from 'ducks/authentication/lib/client'
 export const AUTH_PATH = 'authentication'
 
-const withAuth = Wrapped => (props, { store, router, client }) => {
+const withAuth = Wrapped => (props, { store, client }) => {
   const onAuthentication = async res => {
     if (res) {
       // first authentication
@@ -42,6 +42,7 @@ const withAuth = Wrapped => (props, { store, router, client }) => {
           updateAccessTokenBar(token.accessToken)
         }
       } catch (e) {
+        // eslint-disable-next-line no-console
         console.warn(e)
       }
     }
@@ -57,7 +58,7 @@ const withAuth = Wrapped => (props, { store, router, client }) => {
     props.history.replace(`/${AUTH_PATH}`)
   }
 
-  const setupAuth = (isAuthenticated, router) => (nextState, replace) => {
+  const setupAuth = isAuthenticated => (nextState, replace) => {
     if (!isAuthenticated()) {
       resetClient()
       replace({
@@ -90,21 +91,19 @@ const withAuth = Wrapped => (props, { store, router, client }) => {
 }
 
 const logException = () => {
+  // eslint-disable-next-line no-console
   console.log('exception during auth')
 }
 
-const MobileRouter = (
-  {
-    router,
-    history,
-    routes,
-    isAuthenticated,
-    isRevoked,
-    onAuthentication,
-    setupAuth
-  },
-  { store, client }
-) => {
+const MobileRouter = ({
+  router,
+  history,
+  routes,
+  isAuthenticated,
+  isRevoked,
+  onAuthentication,
+  setupAuth
+}) => {
   return (
     <Router history={history}>
       <Route>
@@ -121,7 +120,7 @@ const MobileRouter = (
         />
         <Route
           onEnter={setupAuth(isAuthenticated, router)}
-          component={(props, context) => {
+          component={props => {
             const revoked = isRevoked()
             return revoked ? (
               <Revoked
