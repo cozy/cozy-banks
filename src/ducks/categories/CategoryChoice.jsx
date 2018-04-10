@@ -31,15 +31,13 @@ class CategoryChoice extends Component {
 
       if (!subcategory) {
         // sort children so "others" is always the last
-        option.children = this.getOptions(option.children, true).sort(
-          (a, b) => {
-            if (a.id === option.id) {
-              return 1
-            }
-
-            return 0
+        option.children = this.getOptions(option.children, true).sort(a => {
+          if (a.id === option.id) {
+            return 1
           }
-        )
+
+          return 0
+        })
       }
 
       return option
