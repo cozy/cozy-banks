@@ -26,7 +26,7 @@ const accountInGroup = (account, group) =>
 
 class GroupSettings extends Component {
   state = { modifying: false, saving: false }
-  rename = e => {
+  rename = () => {
     const { group } = this.props
     const label = this.inputRef.value
     this.setState({ saving: true })
@@ -102,7 +102,7 @@ class GroupSettings extends Component {
     this.inputRef = ref
   }
 
-  render({ t, group, accounts, isNewGroup }, { modifying, saving }) {
+  render({ t, group, accounts }, { modifying, saving }) {
     if (!group) {
       return <Loading />
     }
