@@ -29,7 +29,7 @@ export const prepareTransactions = function(transactions) {
   const groupAndSortByDate = flow(
     transactions => groupBy(transactions, tr => getDay(tr.date)),
     toPairs,
-    dt => sortBy(dt, ([date, transactions]) => date).reverse()
+    dt => sortBy(dt, ([date]) => date).reverse()
   )
   Object.keys(byAccounts).forEach(account => {
     byAccounts[account] = groupAndSortByDate(byAccounts[account])
