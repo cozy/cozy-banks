@@ -19,6 +19,7 @@ export const loadState = async () => {
     }
     return persistedState
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.warn(err)
     return undefined
   }
@@ -28,6 +29,7 @@ export const saveState = async state => {
   try {
     localforage.setItem('state', state)
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.warn(err)
     // Errors handling
   }
