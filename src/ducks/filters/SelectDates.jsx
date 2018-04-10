@@ -84,7 +84,7 @@ class SelectDates extends Component {
     }
   }
 
-  render({ t, f, startDate, endDate, scrolling }) {
+  render({ scrolling }) {
     const selected = this.getSelectedIndex()
     const options = this.getOptions()
     return (
