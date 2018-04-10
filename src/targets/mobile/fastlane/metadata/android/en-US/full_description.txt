@@ -1,41 +1,54 @@
-Cozy Banks is the budget manager for your bank accounts available on Cozy. The first digital home on the market, Cozy simplify and increase your digital life.
+Cozy Banks is the personal financial management application available on Cozy helping you gain understanding of your finances. As the first digital home on the market, Cozy helps all users with applications and connectors regain control, streamline and maximize their digital lives.
 
 With Cozy Banks, you can easily:
-• Group all your accounts even from different banks
-• Get an overview of all your expenses
-• Directly access the invoices of the services you have paid
+- Have all your bank accounts in one place
+- Get an comprehensive overview of all your expenses with one-click access to your bills
+- Directly access your health insurance reimbursements
+- Enjoy all the features for free
 
-As secure as your bank:
-• Cozy Cloud is a French company that develops Cozy Banks
-• servers are hosted in France
-• We use the technology of our provider Linxo
-• As secure as a bank's website
-• Your credentials and connections are always protected (encrypted)
-• Cozy Banks is only read only, no payment order is possible
+Main features:
+- No manual entry required: Banks automatically synchronises your bank accounts daily
+- Automatic categorization of your expenses and revenues
+- Privacy by design
+- Multi-bank synchronization
+- Smart notifications (coming soon)
 
-The press is already talking about it:
-• TechCrunch, Le Point, Le Figaro, Mashable, Assurbanque 2.0, 01.net, les Echos du Net, L’Usine Digitale…
+As secured as your bank:
+- Cozy Cloud is a French company that develops Cozy Banks which servers are hosted in France by OVH
+- We use the technology of our provider Linxo
+- As safe as your bank's website
+- Your credentials and connections are always protected (encrypted)
+- Cozy Banks is dedicated for read only, no payment order or wire transfers are possible
 
-Check out the list of nearly 15 banks and account types available in your Cozy:
-• Axa Banque
-• Banque Populaire
-• BforBank
-• BNP Paribas
-• Boursorama
-• Caisse d’Epargne
-• Casden
-• CIC
-• Compte Nickel
-• Crédit Agricole
-• Crédit du Nord & banques du groupe
-• HelloBank
-• HSBC
-• ING Direct
-• LCL
-• Monabanq
-• La Banque Postale
-• Société Générale
+The press has already mentioned Cozy:
+• TechCrunch, Le Point, Le Figaro, Mashable, Assurbanque 2.0, 01.net, Les Echos, L’Usine Digitale
+
+Check out the list of 23 banks and account types available in your Cozy;
+- Axa Banque
+- Banque Populaire
+- Barclays
+- BforBank
+- BNP Paribas
+- Boursorama
+- Bred
+- Caisse d’Epargne
+- Casden
+- CIC
+- Compte Nickel
+- Crédit Agricole
+- Crédit Coopératif
+- Crédit Mutuel
+- Crédit du Nord & banques du groupe
+- Crédit Mutuel
+- Fortuneo
+- HelloBank
+- HSBC
+- ING Direct
+- LCL
+- Monabanq
+- La Banque Postale
+- Société Générale
 
 The entire Cozy Cloud team is here to support you:
-• If you do not find the information you are looking for (we apologize in advance), we invite you to contact our dedicated Claude claude@cozycloud.cc directly, specifying "App Store". You can count on him to answer you!
-• Follow us on Twitter: https://twitter.com/cozycloud to read the latest news
+- If you do not find the information you are looking for (we apologize in advance), we invite you to contact our dedicated Claude claude@cozycloud.cc directly, specifying "App Store". You can count on him to answer you!
+- Follow us on Twitter: https://twitter.com/cozycloud to read the latest news
