@@ -29,6 +29,7 @@ export const getFilteredAccountIds = state => {
     if (availableAccountIds.indexOf(id) > -1) {
       return [id]
     } else {
+      // eslint-disable-next-line no-console
       console.warn('Filtering by unavailable account, returning all accounts')
       return availableAccountIds
     }
