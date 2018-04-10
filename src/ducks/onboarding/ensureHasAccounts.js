@@ -11,7 +11,7 @@ import { Content, Layout } from 'components/Layout'
  * HOC to wrap Layout. Replaces its children by Onboarding
  * if we have no accounts
  */
-const mapDocumentsToProps = props => ({
+const mapDocumentsToProps = () => ({
   // Must put things in another collection when there is a parent-child
   // relationships between components that fetch the same thing. Need
   // to see with goldoraf how to fetch only once so that we can use
