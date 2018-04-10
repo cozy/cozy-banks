@@ -23,6 +23,7 @@ export default ({ accounts, transactions, bills }) => {
 
   const obj = mjml2html(templates['health-bill-linked'](data))
   obj.errors.forEach(err => {
+    // eslint-disable-next-line no-console
     console.warn(err.formattedMessage)
   })
 
