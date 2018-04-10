@@ -28,6 +28,7 @@ const GroupList = withRouter(
         <tbody>
           {groups.map(group => (
             <tr
+              key={group.label}
               onClick={() => router.push(`/settings/groups/${group._id}`)}
               className={styles.GrpsStg__row}
             >
@@ -52,8 +53,8 @@ const GroupList = withRouter(
 )
 
 const Groups = withRouter(
-  class extends Component {
-    render({ t, groups, accounts, router }, { editingGroup }) {
+  class _Groups extends Component {
+    render({ t, groups, accounts, router }) {
       if (isPending(groups) || isPending(accounts)) {
         return <Loading />
       }
@@ -82,7 +83,7 @@ const Groups = withRouter(
   }
 )
 
-export default cozyConnect(ownProps => {
+export default cozyConnect(() => {
   return {
     accounts: fetchCollection('accounts', ACCOUNT_DOCTYPE),
     groups: fetchCollection('groups', GROUP_DOCTYPE)
