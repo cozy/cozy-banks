@@ -277,13 +277,10 @@ class Balance extends React.Component {
     const { t, settingsCollection, breakpoints: { isMobile } } = this.props
     let { accounts, groups } = this.props
     accounts = sortBy(accounts.data, ['institutionLabel', 'label'])
-    groups = groups.map(group => {
-      if (group.virtual) {
-        group.label = t(`Data.accountTypes.${group.label}`)
-      }
-
-      return group
-    })
+    groups = groups.map(group => ({
+      ...group,
+      label: group.virtual ? t(`Data.accountTypes.${group.label}`) : group.label
+    }))
 
     groups = sortBy(groups, 'label')
 

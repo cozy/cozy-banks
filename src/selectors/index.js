@@ -23,6 +23,7 @@ export const getVirtualGroups = createSelector(
     const virtualGroups = Object
       .entries(accountsByType)
       .map(([type, accounts]) => ({
+        _id: type,
         label: type.toLowerCase(),
         accounts: accounts.map(account => account._id),
         virtual: true
