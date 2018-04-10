@@ -9,7 +9,7 @@ const { BarCenter } = cozy.bar
 export const Topbar = withBreakpoints()(
   ({ children, breakpoints: { isMobile } }) => {
     const title = <div className={styles['Topbar']}>{children}</div>
-    return isMobile ? <BarCenter children={title} /> : title
+    return isMobile ? <BarCenter>{title}</BarCenter> : title
   }
 )
 
