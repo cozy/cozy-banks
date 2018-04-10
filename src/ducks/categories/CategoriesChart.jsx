@@ -22,7 +22,7 @@ class CategoriesChart extends Component {
     }
   }
 
-  render({ t, categories, selectedCategory, selectCategory, width, height }) {
+  render({ t, categories, selectedCategory, width, height }) {
     if (categories.length === 0) return
 
     const labels = []
