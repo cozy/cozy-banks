@@ -51,6 +51,7 @@ export const Component = ({
   if (!bill) {
     const billRef = get(transaction, 'bills[0]')
     if (!billRef) {
+      // eslint-disable-next-line no-console
       console.warn(`Why!`, transaction, urls, bill, text)
       return
     }
@@ -67,7 +68,7 @@ export const Component = ({
 const action = {
   name,
   icon,
-  match: async (transaction, { urls }) => {
+  match: async transaction => {
     const bill = await getBill(transaction)
     if (bill && bill._id) {
       return !some(transaction.reimbursements, reimbursement => {
@@ -76,6 +77,7 @@ const action = {
             const [, billId] = reimbursement.billId.split(':')
             return billId === bill._id
           }
+          // eslint-disable-next-line no-empty
         } catch (e) {}
         return false
       })
