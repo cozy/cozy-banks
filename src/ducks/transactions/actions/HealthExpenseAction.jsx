@@ -9,12 +9,13 @@ const name = 'healthExpenseBill'
 const Component = ({ t, transaction, actionProps }) => {
   return (
     <span>
-      {transaction.reimbursements.map(reimbursement => {
+      {transaction.reimbursements.map((reimbursement, index) => {
         if (!reimbursement.bill) {
           return
         }
         return (
           <BillComponent
+            key={index}
             t={t}
             actionProps={{
               ...actionProps,
