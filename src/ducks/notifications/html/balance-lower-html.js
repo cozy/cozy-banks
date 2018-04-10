@@ -17,6 +17,7 @@ export default ({ accounts }) => {
 
   const obj = mjml2html(templates['balance-lower'](data))
   obj.errors.forEach(err => {
+    // eslint-disable-next-line no-console
     console.warn(err.formattedMessage)
   })
 
