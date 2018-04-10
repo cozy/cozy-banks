@@ -34,7 +34,9 @@ const Field = ({
     {errors &&
       errors.length !== 0 &&
       errors.map(error => (
-        <p className={styles['coz-form-errors']}>{t(error)}</p>
+        <p key={error} className={styles['coz-form-errors']}>
+          {t(error)}
+        </p>
       ))}
   </div>
 )
