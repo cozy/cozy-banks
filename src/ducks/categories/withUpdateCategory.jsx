@@ -13,7 +13,7 @@ const updateCategoryParams = {
 
 export default ({ updateCategory } = updateCategoryParams) => {
   return Wrapped =>
-    class extends Component {
+    class WithUpdateCategoryWrapper extends Component {
       state = {
         displaying: false
       }
