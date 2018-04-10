@@ -53,7 +53,6 @@ export class SelectServer extends Component {
 
       if (parsedURL.protocol === 'http:' && !__ALLOW_HTTP__) {
         this.setState({ error: ERR_WRONG_ADDRESS })
-        console.warn('Only https protocol is allowed')
         return
       }
 
