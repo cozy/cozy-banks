@@ -23,7 +23,7 @@ class AccountSharingStatus extends Component {
     }
   }
 
-  render({ account, sharingInfo, withText, tooltip }) {
+  render({ sharingInfo, withText, tooltip }) {
     const info = (sharingInfo && sharingInfo.info) || {}
 
     const isShared = info.recipients && info.recipients.length > 0
@@ -63,7 +63,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, props) => ({
-  fetchSharingInfo: (doctype, id) => {
+  fetchSharingInfo: () => {
     dispatch(fetchSharingInfo(ACCOUNT_DOCTYPE, props.account._id))
   }
 })
