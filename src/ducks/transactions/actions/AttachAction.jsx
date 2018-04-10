@@ -6,12 +6,7 @@ import ActionLink from './ActionLink'
 const name = 'attach'
 
 const Component = ({ t, color }) => {
-  return (
-    <ActionLink
-      text={t('Transactions.actions.attach')}
-      color={color}
-    />
-  )
+  return <ActionLink text={t('Transactions.actions.attach')} color={color} />
 }
 
 const action = {

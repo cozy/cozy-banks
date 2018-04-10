@@ -13,17 +13,17 @@ export const BANKS_INFO = {
 const cordovaPluginIsInstalled = () => startApp
 
 // startApp does not take the same params on Android and iOS
-const getParams = ({appId, uri}) => {
+const getParams = ({ appId, uri }) => {
   if (cordova.platformId === 'android') {
     return {
-      'package': appId
+      package: appId
     }
   } else {
     return uri
   }
 }
 
-export const checkApp = async (appInfo) => {
+export const checkApp = async appInfo => {
   const params = getParams(appInfo)
   return new Promise((resolve, reject) => {
     if (cordovaPluginIsInstalled()) {

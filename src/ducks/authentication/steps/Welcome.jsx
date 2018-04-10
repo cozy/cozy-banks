@@ -7,7 +7,7 @@ import styles from '../styles'
 import { getDevicePlatform } from '../lib/client'
 
 export class Welcome extends Component {
-  render () {
+  render() {
     const { t, selectServer } = this.props
 
     return (
@@ -24,7 +24,7 @@ export class Welcome extends Component {
           </h1>
         </div>
         <footer className={styles['wizard-footer']}>
-          <Button theme='regular' onClick={selectServer}>
+          <Button theme="regular" onClick={selectServer}>
             {t('mobile.onboarding.welcome.button')}
           </Button>
           <a

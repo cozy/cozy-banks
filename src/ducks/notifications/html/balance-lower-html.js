@@ -3,12 +3,13 @@ const templates = require('./templates')
 const { mjml2html } = require('mjml')
 
 const groupAccountsByInstitution = accounts => {
-  return map(
-    groupBy(accounts, 'institutionLabel'),
-    (accounts, name) => ({ name, accounts }))
+  return map(groupBy(accounts, 'institutionLabel'), (accounts, name) => ({
+    name,
+    accounts
+  }))
 }
 
-export default ({accounts}) => {
+export default ({ accounts }) => {
   const data = {
     institutions: groupAccountsByInstitution(accounts),
     date: new Date()

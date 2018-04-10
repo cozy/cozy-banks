@@ -6,10 +6,12 @@ import assert from 'utils/assert'
 const getBillId = idWithDoctype => idWithDoctype && idWithDoctype.split(':')[1]
 const hydrateReimbursementWithBill = (state, reimbursement) => {
   const billId = getBillId(reimbursement.billId)
-  return !billId ? reimbursement : {
-    ...reimbursement,
-    bill: getDocument(state, BILLS_DOCTYPE, billId)
-  }
+  return !billId
+    ? reimbursement
+    : {
+        ...reimbursement,
+        bill: getDocument(state, BILLS_DOCTYPE, billId)
+      }
 }
 
 export const hydrateTransaction = (state, transaction) => {
@@ -20,7 +22,8 @@ export const hydrateTransaction = (state, transaction) => {
   }
 
   transaction.reimbursements = transaction.reimbursements || []
-  transaction.reimbursements = transaction.reimbursements
-    .map(r => hydrateReimbursementWithBill(state, r))
+  transaction.reimbursements = transaction.reimbursements.map(r =>
+    hydrateReimbursementWithBill(state, r)
+  )
   return transaction
 }

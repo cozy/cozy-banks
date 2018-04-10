@@ -19,7 +19,10 @@ export const registerPushNotifications = () => async (dispatch, getState) => {
    */
   const handleNotification = notification => {
     console.log('Received notification', notification)
-    if (!notification.additionalData.foreground && notification.additionalData.route) {
+    if (
+      !notification.additionalData.foreground &&
+      notification.additionalData.route
+    ) {
       hashHistory.push(notification.additionalData.route)
     }
   }
@@ -32,8 +35,8 @@ export const registerPushNotifications = () => async (dispatch, getState) => {
   })
 
   push.on('notification', handleNotification)
-  push.on('error', (err) => console.log(err))
-  push.on('registration', ({registrationId}) => {
+  push.on('error', err => console.log(err))
+  push.on('registration', ({ registrationId }) => {
     console.log('registration', registrationId)
     cozy.client.auth.updateClient({
       ...getState().mobile.client,

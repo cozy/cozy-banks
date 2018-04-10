@@ -9,19 +9,21 @@ import styles from './AccountSharingStatus.styl'
 
 const ownerRx = /\((.*)\)/ // find the word in parenthesis
 const getOwner = account => {
-  if (!account) { return }
+  if (!account) {
+    return
+  }
   const match = ownerRx.exec(account.label)
   return match ? match[1] : account.label.split(' ').slice(-1)[0]
 }
 
 class AccountSharingStatus extends Component {
-  componentDidMount () {
+  componentDidMount() {
     if (!this.props.sharingInfo) {
       this.props.fetchSharingInfo()
     }
   }
 
-  render ({ account, sharingInfo, withText, tooltip }) {
+  render({ account, sharingInfo, withText, tooltip }) {
     const info = (sharingInfo && sharingInfo.info) || {}
 
     const isShared = info.recipients && info.recipients.length > 0
@@ -35,16 +37,24 @@ class AccountSharingStatus extends Component {
 
     const owner = getOwner(info.account)
 
-    const rhProps = tooltip ? {
-      'data-rh-cls': styles['account-sharing-tooltip'],
-      'data-rh-at': 'top',
-      'data-rh': `Partagé par ${owner}`
-    } : {}
+    const rhProps = tooltip
+      ? {
+          'data-rh-cls': styles['account-sharing-tooltip'],
+          'data-rh-at': 'top',
+          'data-rh': `Partagé par ${owner}`
+        }
+      : {}
 
-    return isShared && <Media {...rhProps}>
-      <Img><SharingIcon {...iconProps} /></Img>
-      <Bd>{withText && <span>Partagé par {owner}</span>}</Bd>
-    </Media>
+    return (
+      isShared && (
+        <Media {...rhProps}>
+          <Img>
+            <SharingIcon {...iconProps} />
+          </Img>
+          <Bd>{withText && <span>Partagé par {owner}</span>}</Bd>
+        </Media>
+      )
+    )
   }
 }
 
@@ -58,4 +68,6 @@ const mapDispatchToProps = (dispatch, props) => ({
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(AccountSharingStatus)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  AccountSharingStatus
+)

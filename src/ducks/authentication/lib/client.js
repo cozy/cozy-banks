@@ -25,12 +25,10 @@ export const getDeviceName = () => {
     return 'Device'
   }
 
-  const {
-    manufacturer,
-    model: originalModel
-  } = window.device
+  const { manufacturer, model: originalModel } = window.device
 
-  const model = manufacturer === 'Apple' ? getAppleModel(originalModel) : originalModel
+  const model =
+    manufacturer === 'Apple' ? getAppleModel(originalModel) : originalModel
 
   return `${capitalize(manufacturer)} ${model}`
 }
@@ -41,9 +39,10 @@ export const getDevicePlatform = () => {
 
 const SOFTWARE_ID = 'io.cozy.banks.mobile'
 const SOFTWARE_NAME = 'Cozy Banks'
-const getLang = () => (navigator && navigator.language) ? navigator.language.slice(0, 2) : 'en'
+const getLang = () =>
+  navigator && navigator.language ? navigator.language.slice(0, 2) : 'en'
 
-export function resetClient (clientInfo, client) {
+export function resetClient(clientInfo, client) {
   // reset cozy-bar
   if (document.getElementById('coz-bar')) {
     document.getElementById('coz-bar').remove()
@@ -71,7 +70,7 @@ export const getToken = async () => {
   }
 }
 
-export const initClient = (url) => {
+export const initClient = url => {
   return new CozyClient({
     cozyURL: url,
     oauth: {
@@ -83,13 +82,14 @@ export const initClient = (url) => {
         softwareVersion: __APP_VERSION__,
         clientKind: 'mobile',
         clientURI: 'https://gitlab.cozycloud.cc/labs/cozy-bank',
-        logoURI: 'https://gitlab.cozycloud.cc/labs/cozy-bank/raw/master/src/targets/favicons/favicon-32x32.png',
+        logoURI:
+          'https://gitlab.cozycloud.cc/labs/cozy-bank/raw/master/src/targets/favicons/favicon-32x32.png',
         policyURI: 'https://files.cozycloud.cc/cgu.pdf',
         scopes: getPermissions(),
         notificationPlatform: getDevicePlatform()
       }
     },
-    offline: {doctypes: [ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE]}
+    offline: { doctypes: [ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE] }
   })
 }
 

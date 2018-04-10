@@ -8,7 +8,10 @@ import { Table, TdSecondary } from 'components/Table'
 import TransactionMenu from './TransactionMenu'
 import TransactionActions from './TransactionActions'
 import { getLabel } from './helpers'
-import { getParentCategory, getCategoryName } from 'ducks/categories/categoriesMap'
+import {
+  getParentCategory,
+  getCategoryName
+} from 'ducks/categories/categoriesMap'
 import { getCategoryId } from 'ducks/categories/helpers'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { withUpdateCategory } from 'ducks/categories'
@@ -25,7 +28,7 @@ const sAmount = styles['bnk-op-amount']
 const sAction = styles['bnk-op-action']
 const sActions = styles['bnk-op-actions']
 
-const TableHeadDesktop = ({t}) => (
+const TableHeadDesktop = ({ t }) => (
   <thead>
     <tr>
       <td className={sDate}>{t('Transactions.header.date')}</td>
@@ -37,78 +40,109 @@ const TableHeadDesktop = ({t}) => (
   </thead>
 )
 
-const showComingSoon = (t) => {
+const showComingSoon = t => {
   flash(t('ComingSoon.description'))
 }
 
-const TableTrDesktop = compose(
-  translate(),
-  withDispatch,
-  withUpdateCategory()
-)(({ t, f, transaction, isExtraLarge, showCategoryChoice, ...props }) => {
-  const categoryId = getCategoryId(transaction)
-  const categoryName = getCategoryName(categoryId)
-  const categoryTitle = t(`Data.subcategories.${categoryName}`)
-  const parentCategory = getParentCategory(categoryId)
-  const onSelect = () => {}
-  const onSelectDisabled = () => {
-    showComingSoon(t)
+const TableTrDesktop = compose(translate(), withDispatch, withUpdateCategory())(
+  ({ t, f, transaction, isExtraLarge, showCategoryChoice, ...props }) => {
+    const categoryId = getCategoryId(transaction)
+    const categoryName = getCategoryName(categoryId)
+    const categoryTitle = t(`Data.subcategories.${categoryName}`)
+    const parentCategory = getParentCategory(categoryId)
+    const onSelect = () => {}
+    const onSelectDisabled = () => {
+      showComingSoon(t)
+    }
+
+    return (
+      <tr>
+        <TdSecondary className={sDate}>
+          {f(transaction.date, `DD ${isExtraLarge ? 'MMMM' : 'MMM'} YYYY`)}
+        </TdSecondary>
+        <td className={cx(sDesc, 'u-pv-half', 'u-pl-1')}>
+          <Media>
+            <Img title={categoryTitle} onClick={showCategoryChoice}>
+              <CategoryIcon
+                category={parentCategory}
+                className={styles['bnk-op-caticon']}
+              />
+            </Img>
+            <Bd className="u-pl-1">{getLabel(transaction)}</Bd>
+          </Media>
+        </td>
+        <TdSecondary className={sAmount}>
+          <Figure
+            total={transaction.amount}
+            currency={transaction.currency}
+            coloredPositive
+            signed
+          />
+        </TdSecondary>
+        <TdSecondary className={sAction}>
+          <TransactionActions
+            transaction={transaction}
+            {...props}
+            onlyDefault
+          />
+        </TdSecondary>
+        <TdSecondary className={sActions}>
+          <TransactionMenu
+            onSelect={onSelect}
+            onSelectDisabled={onSelectDisabled}
+            transaction={transaction}
+            {...props}
+          />
+        </TdSecondary>
+      </tr>
+    )
   }
+)
 
-  return (
-    <tr>
-      <TdSecondary className={sDate}>
-        {f(transaction.date, `DD ${isExtraLarge ? 'MMMM' : 'MMM'} YYYY`)}
-      </TdSecondary>
-      <td className={cx(sDesc, 'u-pv-half', 'u-pl-1')}>
-        <Media>
-          <Img title={categoryTitle} onClick={showCategoryChoice}>
-            <CategoryIcon category={parentCategory} className={styles['bnk-op-caticon']} />
-          </Img>
-          <Bd className='u-pl-1'>
-            {getLabel(transaction)}
-          </Bd>
-        </Media>
-      </td>
-      <TdSecondary className={sAmount}>
-        <Figure total={transaction.amount} currency={transaction.currency} coloredPositive signed />
-      </TdSecondary>
-      <TdSecondary className={sAction}>
-        <TransactionActions transaction={transaction} {...props} onlyDefault />
-      </TdSecondary>
-      <TdSecondary className={sActions}>
-        <TransactionMenu
-          onSelect={onSelect}
-          onSelectDisabled={onSelectDisabled}
-          transaction={transaction}
-          {...props} />
-      </TdSecondary>
-    </tr>
-  )
-})
-
-const TableTrNoDesktop = translate()(({t, f, transaction, selectTransaction, ...props}) => {
-  return (
-    <tr onClick={() => selectTransaction(transaction)} className={styles['bnk-transaction-mobile']}>
-      <td>
-        <Media>
-          <Img className='u-mr-half' title={t(`Data.subcategories.${getCategoryName(getCategoryId(transaction))}`)}>
-            <CategoryIcon category={getParentCategory(getCategoryId(transaction))} />
-          </Img>
-          <Bd className='u-mr-half u-ellipsis'>
-            {getLabel(transaction)}
-          </Bd>
-          <Img style={{ flexBasis: '1rem' }}>
-            <TransactionActions transaction={transaction} {...props} onlyDefault onlyIcon />
-          </Img>
-          <Img>
-            <Figure total={transaction.amount} currency={transaction.currency} coloredPositive signed />
-          </Img>
-        </Media>
-      </td>
-    </tr>
-  )
-})
+const TableTrNoDesktop = translate()(
+  ({ t, f, transaction, selectTransaction, ...props }) => {
+    return (
+      <tr
+        onClick={() => selectTransaction(transaction)}
+        className={styles['bnk-transaction-mobile']}
+      >
+        <td>
+          <Media>
+            <Img
+              className="u-mr-half"
+              title={t(
+                `Data.subcategories.${getCategoryName(
+                  getCategoryId(transaction)
+                )}`
+              )}
+            >
+              <CategoryIcon
+                category={getParentCategory(getCategoryId(transaction))}
+              />
+            </Img>
+            <Bd className="u-mr-half u-ellipsis">{getLabel(transaction)}</Bd>
+            <Img style={{ flexBasis: '1rem' }}>
+              <TransactionActions
+                transaction={transaction}
+                {...props}
+                onlyDefault
+                onlyIcon
+              />
+            </Img>
+            <Img>
+              <Figure
+                total={transaction.amount}
+                currency={transaction.currency}
+                coloredPositive
+                signed
+              />
+            </Img>
+          </Media>
+        </td>
+      </tr>
+    )
+  }
+)
 
 const groupByDateAndSort = transactions => {
   const byDate = groupBy(transactions, x => format(x.date, 'YYYY-MM-DD'))
@@ -116,7 +150,7 @@ const groupByDateAndSort = transactions => {
 }
 
 class Transactions extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       limit: 10000, // TODO fix this. nb of days shown, progressively increased
@@ -124,13 +158,13 @@ class Transactions extends React.Component {
     }
   }
 
-  getDerivedStateFromProps (props) {
+  getDerivedStateFromProps(props) {
     return {
       // transactionsOrdered: groupByDateAndSort(props.transactions)
     }
   }
 
-  componentDidUpdate (previousProps) {
+  componentDidUpdate(previousProps) {
     /*
     if (this.props.transactions !== previousProps.transactions) {
       this.setState({
@@ -143,14 +177,18 @@ class Transactions extends React.Component {
     */
   }
 
-  componentDidMount () {
+  componentDidMount() {
     // this.scheduleLimitIncrease()
   }
 
-  scheduleLimitIncrease (timeout = 1000, delay = 1000) {
+  scheduleLimitIncrease(timeout = 1000, delay = 1000) {
     this.limitTimeout = setTimeout(() => {
       if (this.state.limit > this.state.transactionsOrdered.length) {
-        console.log('stopping increase', this.state.limit, this.state.transactionsOrdered.length)
+        console.log(
+          'stopping increase',
+          this.state.limit,
+          this.state.transactionsOrdered.length
+        )
         return
       }
       this.setState({ limit: this.state.limit + 5 })
@@ -158,12 +196,18 @@ class Transactions extends React.Component {
     }, timeout)
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     clearTimeout(this.limitTimeout)
   }
 
-  render () {
-    const { t, f, selectTransaction, breakpoints: { isDesktop, isExtraLarge }, ...props } = this.props
+  render() {
+    const {
+      t,
+      f,
+      selectTransaction,
+      breakpoints: { isDesktop, isExtraLarge },
+      ...props
+    } = this.props
     const { limit } = this.state
     const transactionsOrdered = groupByDateAndSort(props.transactions)
     return (
@@ -174,13 +218,25 @@ class Transactions extends React.Component {
           const transactionGroup = dateAndGroup[1]
           return (
             <tbody>
-              {!isDesktop && <tr className={styles['bnk-op-date-header']}>
-                <td colspan='2'>{f(date, 'dddd D MMMM')}</td>
-              </tr>}
+              {!isDesktop && (
+                <tr className={styles['bnk-op-date-header']}>
+                  <td colSpan="2">{f(date, 'dddd D MMMM')}</td>
+                </tr>
+              )}
               {transactionGroup.map(transaction => {
-                return isDesktop
-                  ? <TableTrDesktop transaction={transaction} isExtraLarge={isExtraLarge} {...props} />
-                  : <TableTrNoDesktop transaction={transaction} selectTransaction={selectTransaction} {...props} />
+                return isDesktop ? (
+                  <TableTrDesktop
+                    transaction={transaction}
+                    isExtraLarge={isExtraLarge}
+                    {...props}
+                  />
+                ) : (
+                  <TableTrNoDesktop
+                    transaction={transaction}
+                    selectTransaction={selectTransaction}
+                    {...props}
+                  />
+                )
               })}
             </tbody>
           )
@@ -190,7 +246,4 @@ class Transactions extends React.Component {
   }
 }
 
-export default compose(
-  withBreakpoints(),
-  translate()
-)(Transactions)
+export default compose(withBreakpoints(), translate())(Transactions)

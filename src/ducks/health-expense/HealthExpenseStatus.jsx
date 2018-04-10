@@ -4,33 +4,37 @@ import { formatVendor } from './helpers'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import hourglassIcon from 'assets/icons/icon-hourglass.svg'
 
-export const HealthExpenseStatusIcon = ({className = '', pending}) => {
+export const HealthExpenseStatusIcon = ({ className = '', pending }) => {
   const color = pending ? palette.pomegranate : palette.dodgerBlue
 
   return (
-    <span style={{display: 'inline-block'}} className={className}>
+    <span style={{ display: 'inline-block' }} className={className}>
       <Icon icon={hourglassIcon} color={color} />
     </span>
   )
 }
 
-const HealthExpenseStatus = translate()(({
-  t,
-  vendors = [],
-  showIcon = true
-}) => {
-  const pending = vendors.length === 0
-  const formattedVendors = vendors.map(formatVendor)
+const HealthExpenseStatus = translate()(
+  ({ t, vendors = [], showIcon = true }) => {
+    const pending = vendors.length === 0
+    const formattedVendors = vendors.map(formatVendor)
 
-  return (
-    <span>
-      {showIcon && <HealthExpenseStatusIcon className='u-mr-half' pending={pending} />}
-      {pending
-        ? t('Transactions.actions.healthExpensePending')
-        : t('Transactions.actions.healthExpenseStatus').replace('%{vendors}', formattedVendors.join(` ${t('Transactions.actions.vendorsGlue')} `))
-      }
-    </span>
-  )
-})
+    return (
+      <span>
+        {showIcon && (
+          <HealthExpenseStatusIcon className="u-mr-half" pending={pending} />
+        )}
+        {pending
+          ? t('Transactions.actions.healthExpensePending')
+          : t('Transactions.actions.healthExpenseStatus').replace(
+              '%{vendors}',
+              formattedVendors.join(
+                ` ${t('Transactions.actions.vendorsGlue')} `
+              )
+            )}
+      </span>
+    )
+  }
+)
 
 export default HealthExpenseStatus

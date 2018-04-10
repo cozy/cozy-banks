@@ -19,15 +19,15 @@ const Settings = ({ t, children, router }) => {
   }
 
   const tabs = [
-    (<Tab name={tabNames[0]} onClick={goTo('/settings/notifications')}>
+    <Tab name={tabNames[0]} onClick={goTo('/settings/notifications')}>
       {t('Settings.notifications')}
-    </Tab>),
-    (<Tab name={tabNames[1]} onClick={goTo('/settings/accounts')}>
+    </Tab>,
+    <Tab name={tabNames[1]} onClick={goTo('/settings/accounts')}>
       {t('Settings.accounts')}
-    </Tab>),
-    (<Tab name={tabNames[2]} onClick={goTo('/settings/groups')}>
+    </Tab>,
+    <Tab name={tabNames[2]} onClick={goTo('/settings/groups')}>
       {t('Settings.groups')}
-    </Tab>)
+    </Tab>
   ]
 
   return (
@@ -36,13 +36,9 @@ const Settings = ({ t, children, router }) => {
         <h2 className={styles.settings__title}>{t('Settings.title')}</h2>
       </Topbar>
       <Tabs className={styles['bnk-tabs']} initialActiveTab={defaultTab}>
-        <TabList className={styles['bnk-coz-tab-list']}>
-          {tabs}
-        </TabList>
+        <TabList className={styles['bnk-coz-tab-list']}>{tabs}</TabList>
         <TabPanels>
-          <TabPanel active>
-            {children}
-          </TabPanel>
+          <TabPanel active>{children}</TabPanel>
         </TabPanels>
       </Tabs>
       {__TARGET__ === 'mobile' && <AppVersion version={__APP_VERSION__} />}
@@ -50,7 +46,4 @@ const Settings = ({ t, children, router }) => {
   )
 }
 
-export default compose(
-  withRouter,
-  translate()
-)(Settings)
+export default compose(withRouter, translate())(Settings)

@@ -23,7 +23,7 @@ const getBillInvoice = bill => {
   return [doctype, id]
 }
 
-const getBill = async (transaction) => {
+const getBill = async transaction => {
   const billRef = get(transaction, 'bills[0]')
 
   if (!billRef) {
@@ -43,7 +43,11 @@ const getBill = async (transaction) => {
   return billCache[billId]
 }
 
-export const Component = ({t, transaction, actionProps: { urls, bill, text }}) => {
+export const Component = ({
+  t,
+  transaction,
+  actionProps: { urls, bill, text }
+}) => {
   if (!bill) {
     const billRef = get(transaction, 'bills[0]')
     if (!billRef) {
@@ -55,9 +59,7 @@ export const Component = ({t, transaction, actionProps: { urls, bill, text }}) =
   }
   return (
     <FileOpener getFileId={() => getBillInvoice(bill)}>
-      <ActionLink
-        text={text || t('Transactions.actions.bill')}
-      />
+      <ActionLink text={text || t('Transactions.actions.bill')} />
     </FileOpener>
   )
 }
@@ -65,7 +67,7 @@ export const Component = ({t, transaction, actionProps: { urls, bill, text }}) =
 const action = {
   name,
   icon,
-  match: async (transaction, {urls}) => {
+  match: async (transaction, { urls }) => {
     const bill = await getBill(transaction)
     if (bill && bill._id) {
       return !some(transaction.reimbursements, reimbursement => {
@@ -74,8 +76,7 @@ const action = {
             const [, billId] = reimbursement.billId.split(':')
             return billId === bill._id
           }
-        } catch (e) {
-        }
+        } catch (e) {}
         return false
       })
     }

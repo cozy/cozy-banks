@@ -45,7 +45,7 @@ describe('transaction', () => {
 
     it('should not be hydrated if bill does not exist in store', () => {
       const transactions = [
-        { ...transaction, reimbursements: [{billId: undefined}] }
+        { ...transaction, reimbursements: [{ billId: undefined }] }
       ].map(t => hydrateTransaction(store.getState(), t))
       expect(transactions[0].reimbursements[0].bill).toBe(undefined)
     })

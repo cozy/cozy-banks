@@ -3,7 +3,11 @@ import { withRouter } from 'react-router'
 import {
   translate,
   Button,
-  Tabs, TabPanels, TabPanel, TabList, Tab,
+  Tabs,
+  TabPanels,
+  TabPanel,
+  TabList,
+  Tab,
   Modal,
   Icon
 } from 'cozy-ui/react'
@@ -20,29 +24,37 @@ import spinner from 'assets/icons/icon-spinner.svg'
 import { getAccountInstitutionLabel } from '../account/helpers'
 import { getAppUrlBySource, fetchApps } from 'ducks/apps'
 
-const DeleteConfirm = ({ cancel, confirm, title, description, secondaryText, primaryText }) => {
+const DeleteConfirm = ({
+  cancel,
+  confirm,
+  title,
+  description,
+  secondaryText,
+  primaryText
+}) => {
   return (
     <Modal
       title={title}
-      description={<div dangerouslySetInnerHTML={{__html: description}} />}
-      secondaryType='secondary'
+      description={<div dangerouslySetInnerHTML={{ __html: description }} />}
+      secondaryType="secondary"
       secondaryText={secondaryText}
       secondaryAction={cancel}
       dismissAction={cancel}
-      primaryType='danger'
+      primaryType="danger"
       primaryText={primaryText}
       primaryAction={confirm}
     />
   )
 }
 
-const AccountSharingDetails = translate()(({ t }) =>
-  <div>{t('ComingSoon.title')}</div>)
+const AccountSharingDetails = translate()(({ t }) => (
+  <div>{t('ComingSoon.title')}</div>
+))
 
 class _GeneralSettings extends Component {
   state = { modifying: false }
 
-  componentDidMount () {
+  componentDidMount() {
     this.props.fetchApps()
   }
 
@@ -65,7 +77,7 @@ class _GeneralSettings extends Component {
       ...this.state.changes
     }
     this.props.dispatch(updateDocument(updatedDoc))
-    this.setState({modifying: false, changes: null})
+    this.setState({ modifying: false, changes: null })
   }
 
   onClickDelete = () => {
@@ -90,10 +102,10 @@ class _GeneralSettings extends Component {
   onInputChange = (attribute, ev) => {
     const changes = this.state.changes
     changes[attribute] = ev.target.value
-    this.setState({changes})
+    this.setState({ changes })
   }
 
-  render ({t, account}, {modifying, deleting, showingDeleteConfirmation}) {
+  render({ t, account }, { modifying, deleting, showingDeleteConfirmation }) {
     const confirmPrimaryText = t('AccountSettings.confirm-deletion.description')
       .replace('#{LINK}', `<a href="${this.props.collectUrl}" target="_blank">`)
       .replace('#{/LINK}', '</a>')
@@ -105,10 +117,12 @@ class _GeneralSettings extends Component {
             <td>{t('AccountDetails.label')}</td>
             <td>
               {!modifying && (account.shortLabel || account.label)}
-              {modifying &&
+              {modifying && (
                 <input
                   value={this.state.changes.shortLabel}
-                  onChange={this.onInputChange.bind(null, 'shortLabel')} />}
+                  onChange={this.onInputChange.bind(null, 'shortLabel')}
+                />
+              )}
             </td>
           </tr>
           <tr>
@@ -128,25 +142,44 @@ class _GeneralSettings extends Component {
           {/* <Button theme='danger-outline' onClick={this.onClickRemove}>
             Supprimer
           </Button> */}
-          {!modifying && <Button theme='regular' onClick={this.onClickModify}>
-            {t('AccountSettings.update')}
-          </Button>}
-          {modifying && <Button theme='regular' onClick={this.onClickSave}>
-            {t('AccountSettings.save')}
-          </Button>}
+          {!modifying && (
+            <Button theme="regular" onClick={this.onClickModify}>
+              {t('AccountSettings.update')}
+            </Button>
+          )}
+          {modifying && (
+            <Button theme="regular" onClick={this.onClickSave}>
+              {t('AccountSettings.save')}
+            </Button>
+          )}
 
-          {account.shared === undefined ? <Button disabled={deleting} theme='danger-outline' onClick={this.onClickDelete}>
-            {deleting ? t('AccountSettings.deleting') : t('AccountSettings.delete')}
-          </Button> : null}
-          {showingDeleteConfirmation
-            ? <DeleteConfirm
+          {account.shared === undefined ? (
+            <Button
+              disabled={deleting}
+              theme="danger-outline"
+              onClick={this.onClickDelete}
+            >
+              {deleting
+                ? t('AccountSettings.deleting')
+                : t('AccountSettings.delete')}
+            </Button>
+          ) : null}
+          {showingDeleteConfirmation ? (
+            <DeleteConfirm
               title={t('AccountSettings.confirm-deletion.title')}
               description={confirmPrimaryText}
-              primaryText={deleting ? <Icon icon={spinner} className='u-spin' color='white' /> : t('AccountSettings.confirm-deletion.confirm')}
+              primaryText={
+                deleting ? (
+                  <Icon icon={spinner} className="u-spin" color="white" />
+                ) : (
+                  t('AccountSettings.confirm-deletion.confirm')
+                )
+              }
               secondaryText={t('General.cancel')}
               confirm={this.onClickConfirmDelete}
-              cancel={this.onClickCancelDelete} />
-            : null}
+              cancel={this.onClickCancelDelete}
+            />
+          ) : null}
         </div>
       </div>
     )
@@ -168,36 +201,33 @@ const GeneralSettings = compose(
   withRouter,
   withDispatch,
   connect(mapStateToProps, mapDispatchToProps),
-  translate())(_GeneralSettings)
+  translate()
+)(_GeneralSettings)
 
-const AccountSettings = function ({account, onClose, t}) {
+const AccountSettings = function({ account, onClose, t }) {
   if (!account) {
     return <Loading />
   }
   return (
     <div>
-      <BackButton to='/settings/accounts' arrow />
+      <BackButton to="/settings/accounts" arrow />
       <Topbar>
-        <h2>
-          {account.shortLabel || account.label}
-        </h2>
+        <h2>{account.shortLabel || account.label}</h2>
       </Topbar>
-      <Tabs
-        className={styles.AcnStg__tabs}
-        initialActiveTab='details'>
-        <TabList className={styles.AcnStg__tabList} >
-          <Tab className={styles.AcnStg__tab} name='details'>
+      <Tabs className={styles.AcnStg__tabs} initialActiveTab="details">
+        <TabList className={styles.AcnStg__tabList}>
+          <Tab className={styles.AcnStg__tab} name="details">
             {t('AccountSettings.details')}
           </Tab>
-          <Tab className={styles.AcnStg__tab} name='sharing'>
+          <Tab className={styles.AcnStg__tab} name="sharing">
             {t('AccountSettings.sharing')}
           </Tab>
         </TabList>
         <TabPanels>
-          <TabPanel name='details'>
+          <TabPanel name="details">
             <GeneralSettings account={account} />
           </TabPanel>
-          <TabPanel name='sharing'>
+          <TabPanel name="sharing">
             <AccountSharingDetails account={account} />
           </TabPanel>
         </TabPanels>
@@ -206,7 +236,7 @@ const AccountSettings = function ({account, onClose, t}) {
   )
 }
 
-const mapDocumentsToProps = function ({routeParams}) {
+const mapDocumentsToProps = function({ routeParams }) {
   return {
     account: fetchDocument('io.cozy.bank.accounts', routeParams.accountId)
   }
@@ -215,4 +245,5 @@ const mapDocumentsToProps = function ({routeParams}) {
 export default compose(
   cozyConnect(mapDocumentsToProps),
   withDispatch,
-  translate())(AccountSettings)
+  translate()
+)(AccountSettings)

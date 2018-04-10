@@ -18,7 +18,7 @@ const getFlag = name => {
   }
 }
 
-const flag = function () {
+const flag = function() {
   if (!window.localStorage) {
     return
   }

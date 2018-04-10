@@ -10,66 +10,77 @@ import styles from './GroupsSettings.styl'
 import btnStyles from 'styles/buttons'
 import { sortBy } from 'lodash'
 
-const isPending = (reduxObj) => {
+const isPending = reduxObj => {
   return reduxObj.fetchStatus === 'pending'
 }
 
-const GroupList = withRouter(translate()(({groups, accounts, t, router}) => {
-  return groups.length ? <Table className={styles.GrpsStg__table}>
-    <thead>
-      <tr>
-        <th className={styles.GrpsStg__label}>
-          {t('Groups.label')}
-        </th>
-        <th className={styles.GrpsStg__accounts}>
-          {t('Groups.accounts')}
-        </th>
-      </tr>
-    </thead>
+const GroupList = withRouter(
+  translate()(({ groups, accounts, t, router }) => {
+    return groups.length ? (
+      <Table className={styles.GrpsStg__table}>
+        <thead>
+          <tr>
+            <th className={styles.GrpsStg__label}>{t('Groups.label')}</th>
+            <th className={styles.GrpsStg__accounts}>{t('Groups.accounts')}</th>
+          </tr>
+        </thead>
 
-    <tbody>
-      {groups.map(group => (
-        <tr onClick={() => router.push(`/settings/groups/${group._id}`)} className={styles.GrpsStg__row}>
-          <td className={styles.GrpsStg__label}>
-            {group.label}
-          </td>
-          <td className={styles.GrpsStg__accounts}>
-            {group.accounts
-              .map(accountId =>
-                accounts.data.find(account => (account._id === accountId))
-              ).filter(account => account)
-              .map(account => (account.shortLabel || account.label))
-              .join(', ')}
-          </td>
-        </tr>
-      ))}
-    </tbody>
-  </Table> : <p>
-    {t('Groups.no-groups')}
-  </p>
-}))
-
-const Groups = withRouter(class extends Component {
-  render ({ t, groups, accounts, router }, { editingGroup }) {
-    if (isPending(groups) || isPending(accounts)) {
-      return <Loading />
-    }
-    return (
-      <div>
-        {groups.fetchStatus === 'loading'
-          ? <Loading />
-          : <GroupList accounts={accounts} groups={sortBy(groups.data.filter(x => x), 'label')} />}
-        <p>
-          <Button className={btnStyles['btn--no-outline']} onClick={() => router.push('/settings/groups/new')}>
-            <Icon icon={plus} className='u-mr-half' />
-            {t('Groups.create')}
-          </Button>
-        </p>
-
-      </div>
+        <tbody>
+          {groups.map(group => (
+            <tr
+              onClick={() => router.push(`/settings/groups/${group._id}`)}
+              className={styles.GrpsStg__row}
+            >
+              <td className={styles.GrpsStg__label}>{group.label}</td>
+              <td className={styles.GrpsStg__accounts}>
+                {group.accounts
+                  .map(accountId =>
+                    accounts.data.find(account => account._id === accountId)
+                  )
+                  .filter(account => account)
+                  .map(account => account.shortLabel || account.label)
+                  .join(', ')}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    ) : (
+      <p>{t('Groups.no-groups')}</p>
     )
+  })
+)
+
+const Groups = withRouter(
+  class extends Component {
+    render({ t, groups, accounts, router }, { editingGroup }) {
+      if (isPending(groups) || isPending(accounts)) {
+        return <Loading />
+      }
+      return (
+        <div>
+          {groups.fetchStatus === 'loading' ? (
+            <Loading />
+          ) : (
+            <GroupList
+              accounts={accounts}
+              groups={sortBy(groups.data.filter(x => x), 'label')}
+            />
+          )}
+          <p>
+            <Button
+              className={btnStyles['btn--no-outline']}
+              onClick={() => router.push('/settings/groups/new')}
+            >
+              <Icon icon={plus} className="u-mr-half" />
+              {t('Groups.create')}
+            </Button>
+          </p>
+        </div>
+      )
+    }
   }
-})
+)
 
 export default cozyConnect(ownProps => {
   return {

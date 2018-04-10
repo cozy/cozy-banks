@@ -1,12 +1,14 @@
 import localforage from 'localforage'
 
 export const persistState = store => {
-  store.subscribe(() => saveState({
-    filters: {
-      filteringDoc: store.getState().filters.filteringDoc
-    },
-    mobile: store.getState().mobile
-  }))
+  store.subscribe(() =>
+    saveState({
+      filters: {
+        filteringDoc: store.getState().filters.filteringDoc
+      },
+      mobile: store.getState().mobile
+    })
+  )
 }
 
 export const loadState = async () => {
@@ -22,7 +24,7 @@ export const loadState = async () => {
   }
 }
 
-export const saveState = async (state) => {
+export const saveState = async state => {
   try {
     localforage.setItem('state', state)
   } catch (err) {

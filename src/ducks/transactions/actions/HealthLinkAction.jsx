@@ -7,21 +7,16 @@ import palette from 'cozy-ui/stylus/settings/palette.json'
 
 const name = 'refund'
 
-const Component = ({t, actionProps: { urls }}) => {
+const Component = ({ t, actionProps: { urls } }) => {
   const url = `${urls['HEALTH']}#/remboursements`
-  return (
-    <ActionLink
-      href={url}
-      text={t(`Transactions.actions.${name}`)}
-    />
-  )
+  return <ActionLink href={url} text={t(`Transactions.actions.${name}`)} />
 }
 
 const action = {
   name,
   icon,
   color: palette.dodgerBlue,
-  match: (transaction, {urls}) => {
+  match: (transaction, { urls }) => {
     return isHealth(transaction) && urls['HEALTH']
   },
   Component: translate()(Component)

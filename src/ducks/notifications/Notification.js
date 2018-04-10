@@ -1,16 +1,20 @@
 import { cozyClient } from 'cozy-konnector-libs'
 
 class Notification {
-  constructor (config) {
+  constructor(config) {
     this.t = config.t
     this.data = config.data
   }
 
-  async sendNotification () {
-    if (!this.data) { return }
+  async sendNotification() {
+    if (!this.data) {
+      return
+    }
 
     try {
-      const attributes = await Promise.resolve(this.buildNotification(this.data))
+      const attributes = await Promise.resolve(
+        this.buildNotification(this.data)
+      )
 
       return cozyClient.fetchJSON('POST', '/notifications', {
         data: {

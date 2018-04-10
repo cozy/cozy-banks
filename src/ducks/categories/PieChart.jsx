@@ -48,21 +48,23 @@ class PieChart extends Component {
     }
   }
 
-  componentWillMount () {
+  componentWillMount() {
     Chart.pluginService.register(pieceLabel)
   }
 
-  componentWillReceiveProps (nextProps) {
-    this.setState({data: {
-      labels: nextProps.labels,
-      datasets: [
-        {
-          data: nextProps.data,
-          backgroundColor: nextProps.colors,
-          borderWidth: 0
-        }
-      ]
-    }})
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      data: {
+        labels: nextProps.labels,
+        datasets: [
+          {
+            data: nextProps.data,
+            backgroundColor: nextProps.colors,
+            borderWidth: 0
+          }
+        ]
+      }
+    })
   }
 
   click = e => {
@@ -76,7 +78,7 @@ class PieChart extends Component {
     }
   }
 
-  render ({onClick, width, height}, { data, options }) {
+  render({ onClick, width, height }, { data, options }) {
     return (
       <div className={styles['bnk-chart-pie']}>
         <Pie

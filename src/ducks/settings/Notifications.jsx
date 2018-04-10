@@ -5,7 +5,13 @@ import { translate } from 'cozy-ui/react/I18n'
 import { cozyConnect } from 'cozy-client'
 import Loading from 'components/Loading'
 
-import { getSettings, fetchSettingsCollection, createSettings, updateSettings, DEFAULTS_SETTINGS } from '.'
+import {
+  getSettings,
+  fetchSettingsCollection,
+  createSettings,
+  updateSettings,
+  DEFAULTS_SETTINGS
+} from '.'
 import styles from './Notifications.styl'
 
 class Notifications extends Component {
@@ -53,7 +59,7 @@ class Notifications extends Component {
     dispatch(updateOrCreate(settings))
   }
 
-  renderLine (notification, setting) {
+  renderLine(notification, setting) {
     const { t } = this.props
     const { enabled, value } = setting
     const hasValue = value !== undefined
@@ -64,15 +70,26 @@ class Notifications extends Component {
         <div className={styles['notification']}>
           <p className={styles['notification-description']}>
             {t(notification.description)}
-            {hasValue && <input type='text'
-              onChange={e => this.onChangeValue(notification.name, e.target.value)}
-              value={value}
-              className={classNames(styles['notification-input'], styles['suffixed'])} />}
+            {hasValue && (
+              <input
+                type="text"
+                onChange={e =>
+                  this.onChangeValue(notification.name, e.target.value)
+                }
+                value={value}
+                className={classNames(
+                  styles['notification-input'],
+                  styles['suffixed']
+                )}
+              />
+            )}
             {hasValue && <span>€</span>}
           </p>
 
           <div className={styles['notification-toggle']}>
-            <Toggle id={notification.name} checked={enabled}
+            <Toggle
+              id={notification.name}
+              checked={enabled}
               onToggle={checked => this.onToggle(notification.name, checked)}
             />
           </div>
@@ -81,8 +98,11 @@ class Notifications extends Component {
     )
   }
 
-  render ({ t, settingsCollection }) {
-    if (settingsCollection.fetchStatus === 'loading' || settingsCollection.fetchStatus === 'pending') {
+  render({ t, settingsCollection }) {
+    if (
+      settingsCollection.fetchStatus === 'loading' ||
+      settingsCollection.fetchStatus === 'pending'
+    ) {
       return <Loading />
     }
 
@@ -91,7 +111,9 @@ class Notifications extends Component {
     return (
       <p>
         {this.notifications.map(notification => {
-          const setting = settings.notifications[notification.name] || DEFAULTS_SETTINGS.notifications[notification.name]
+          const setting =
+            settings.notifications[notification.name] ||
+            DEFAULTS_SETTINGS.notifications[notification.name]
           return this.renderLine(notification, setting)
         })}
       </p>

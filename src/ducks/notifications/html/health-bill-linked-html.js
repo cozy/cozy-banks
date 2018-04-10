@@ -4,9 +4,13 @@ const { mjml2html } = require('mjml')
 const { prepareTransactions } = require('./utils')
 const { BILLS_DOCTYPE } = require('../../../doctypes')
 
-export default ({accounts, transactions, bills}) => {
-  const accountsById = fromPairs(accounts.map(account => [account._id, account]))
-  const billsById = fromPairs(bills.map(bill => [`${BILLS_DOCTYPE}:${bill._id}`, bill]))
+export default ({ accounts, transactions, bills }) => {
+  const accountsById = fromPairs(
+    accounts.map(account => [account._id, account])
+  )
+  const billsById = fromPairs(
+    bills.map(bill => [`${BILLS_DOCTYPE}:${bill._id}`, bill])
+  )
 
   const transactionsByAccounts = prepareTransactions(transactions)
 

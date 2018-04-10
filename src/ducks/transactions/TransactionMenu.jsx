@@ -12,19 +12,25 @@ import dotsIcon from 'assets/icons/icon-dots.svg'
 // Must wrap Icon in a span else we can't attach onClick
 const menuOpener = (
   <span>
-    <Icon icon={dotsIcon} color='#95999d' />
+    <Icon icon={dotsIcon} color="#95999d" />
   </span>
 )
 
-const TransactionMenu = ({t, transaction, onSelect, onSelectDisabled, ...props}) => (
-  <Menu
-    position='right'
-    component={menuOpener}
-  >
+const TransactionMenu = ({
+  t,
+  transaction,
+  onSelect,
+  onSelectDisabled,
+  ...props
+}) => (
+  <Menu position="right" component={menuOpener}>
     <TransactionActions
       onSelect={onSelect}
       onSelectDisabled={onSelectDisabled}
-      transaction={transaction} {...props} withoutDefault />
+      transaction={transaction}
+      {...props}
+      withoutDefault
+    />
   </Menu>
 )
 

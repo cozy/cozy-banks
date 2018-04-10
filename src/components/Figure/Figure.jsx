@@ -4,8 +4,8 @@ import classNames from 'classnames'
 import styles from './Figure.styl'
 
 const currencySigns = {
-  'EUR': '€',
-  'USD': '$'
+  EUR: '€',
+  USD: '$'
 }
 
 /**
@@ -14,7 +14,14 @@ const currencySigns = {
  */
 const Figure = props => {
   const {
-    currency, coloredPositive, coloredNegative, coloredWarning, warningLimit, signed, className, total
+    currency,
+    coloredPositive,
+    coloredNegative,
+    coloredWarning,
+    warningLimit,
+    signed,
+    className,
+    total
   } = props
 
   let { decimalNumbers } = props
@@ -40,14 +47,14 @@ const Figure = props => {
   return (
     <div className={classNames(styles[totalCSSClass], className)}>
       <span className={styles['bnk-figure-total']}>
-        {(isTotalPositive && signed) && '+'}
+        {isTotalPositive && signed && '+'}
         {totalLocalized}
       </span>
-      {currency &&
+      {currency && (
         <span className={styles['bnk-figure-currency']}>
           {currencySigns[currency] || currency}
         </span>
-      }
+      )}
     </div>
   )
 }

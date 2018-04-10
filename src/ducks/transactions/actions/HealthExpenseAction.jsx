@@ -16,9 +16,13 @@ const Component = ({ t, transaction, actionProps }) => {
         return (
           <BillComponent
             t={t}
-            actionProps={{ ...actionProps,
+            actionProps={{
+              ...actionProps,
               bill: reimbursement.bill,
-              text: t(`Transactions.actions.${name}`).replace('%{vendor}', reimbursement.bill.vendor)
+              text: t(`Transactions.actions.${name}`).replace(
+                '%{vendor}',
+                reimbursement.bill.vendor
+              )
             }}
           />
         )
@@ -31,7 +35,8 @@ const action = {
   name,
   icon,
   defaultAction: false,
-  match: (transaction) => some(transaction.reimbursements, reimbursement => reimbursement.bill),
+  match: transaction =>
+    some(transaction.reimbursements, reimbursement => reimbursement.bill),
   Component: translate()(Component)
 }
 

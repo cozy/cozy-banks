@@ -23,9 +23,18 @@ describe('format', () => {
 describe('tokenizer', () => {
   it('Should tokenizer transactions', () => {
     expect(tokenizer('j ai une phrase comme ca')).toEqual([
-      'ai une phrase', 'une phrase comme', 'phrase comme ca',
-      'ai une', 'une phrase', 'phrase comme', 'comme ca',
-      'ai', 'une', 'phrase', 'comme', 'ca'
+      'ai une phrase',
+      'une phrase comme',
+      'phrase comme ca',
+      'ai une',
+      'une phrase',
+      'phrase comme',
+      'comme ca',
+      'ai',
+      'une',
+      'phrase',
+      'comme',
+      'ca'
     ])
   })
 })
@@ -50,7 +59,9 @@ describe('categorize', () => {
     expect(categorize(classifier, 'cheque edf titi')).toEqual('401080')
     expect(categorize(classifier, 'cpam cozy toto')).toEqual('400610')
     expect(categorize(classifier, 'carte le kaiser tutu')).toEqual('400160')
-    expect(categorize(classifier, 'malakoff nespresso ndf toutou')).toEqual('400110')
+    expect(categorize(classifier, 'malakoff nespresso ndf toutou')).toEqual(
+      '400110'
+    )
     // TODO: François fix it near futur
     // expect(categorize('titi')).toEqual('600110') // 400110
     // expect(categorize('toto')).toEqual('600110') // 400110

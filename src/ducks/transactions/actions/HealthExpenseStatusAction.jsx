@@ -10,7 +10,12 @@ const name = 'HealthExpenseStatus'
 
 const getVendors = transaction => {
   return transaction && transaction.reimbursements
-    ? transaction.reimbursements.map(reimbursement => reimbursement && reimbursement.bill && reimbursement.bill.vendor).filter(Boolean)
+    ? transaction.reimbursements
+        .map(
+          reimbursement =>
+            reimbursement && reimbursement.bill && reimbursement.bill.vendor
+        )
+        .filter(Boolean)
     : []
 }
 
@@ -32,13 +37,11 @@ const Component = ({ t, transaction, color }) => {
   const formattedVendors = vendors.map(formatVendor)
   const text = isPending(transaction)
     ? t('Transactions.actions.healthExpensePending')
-    : t('Transactions.actions.healthExpenseStatus').replace('%{vendors}', formattedVendors.join(` ${t('Transactions.actions.vendorsGlue')} `))
-  return (
-    <ActionLink
-      text={text}
-      color={color}
-    />
-  )
+    : t('Transactions.actions.healthExpenseStatus').replace(
+        '%{vendors}',
+        formattedVendors.join(` ${t('Transactions.actions.vendorsGlue')} `)
+      )
+  return <ActionLink text={text} color={color} />
 }
 
 const action = {
@@ -55,9 +58,11 @@ const action = {
     const allBrandsHealth = allBrands.filter(brand => brand.health)
     const brandsHealth = brands.filter(brand => brand.health)
 
-    return allBrandsHealth.length > brandsHealth.length &&
+    return (
+      allBrandsHealth.length > brandsHealth.length &&
       isHealthExpense(transaction) &&
       getVendors(transaction)
+    )
   },
   Component: translate()(Component)
 }

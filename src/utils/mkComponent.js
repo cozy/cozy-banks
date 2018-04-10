@@ -1,5 +1,3 @@
 import React from 'react'
 
-export default (Tag, extra = {}) => props => (
-  <Tag {...extra} {...props} />
-)
+export default (Tag, extra = {}) => props => <Tag {...extra} {...props} />

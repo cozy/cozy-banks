@@ -50,7 +50,7 @@ export const createClassifier = (data, options = {}) => {
 
     const classifier = bayes(options)
 
-    for (const {label, category} of toLearn) {
+    for (const { label, category } of toLearn) {
       classifier.learn(label, category)
     }
 
@@ -76,9 +76,10 @@ export const categorize = (classifier, label) => {
   // Display likelihoods (statistic)
   // console.log(predicted.likelihoods)
 
-  const categoryId = predicted.likelihoods[0].proba > PROBA_LIMIT
-    ? predicted.predictedCategory
-    : DEFAULT_CATEGORY
+  const categoryId =
+    predicted.likelihoods[0].proba > PROBA_LIMIT
+      ? predicted.predictedCategory
+      : DEFAULT_CATEGORY
 
   // Display category name
   // console.log(categoryId, categorizesTree[categoryId])

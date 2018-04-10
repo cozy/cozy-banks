@@ -9,21 +9,24 @@ const FETCH_DOC_SHARING_ERROR = 'FETCH_DOC_SHARING_ERROR'
 // ACTIONS
 export const fetchSharingInfo = (doctype, id) => dispatch => {
   dispatch({ type: FETCH_DOC_SHARING, doctype, id })
-  return findSharing(cozy.client, doctype, id).then(resp => {
-    return dispatch({
-      type: FETCH_DOC_SHARING_SUCCESS,
-      doctype,
-      id,
-      sharing: resp
-    })
-  }, error => {
-    return dispatch({
-      type: FETCH_DOC_SHARING_ERROR,
-      doctype,
-      id,
-      error
-    })
-  })
+  return findSharing(cozy.client, doctype, id).then(
+    resp => {
+      return dispatch({
+        type: FETCH_DOC_SHARING_SUCCESS,
+        doctype,
+        id,
+        sharing: resp
+      })
+    },
+    error => {
+      return dispatch({
+        type: FETCH_DOC_SHARING_ERROR,
+        doctype,
+        id,
+        error
+      })
+    }
+  )
 }
 
 const key = (doctype, id) => {
@@ -62,6 +65,6 @@ export const reducer = (state = initialState, action) => {
 }
 
 // SELECTORS
-export const getSharingInfo = function (state, doctype, id) {
+export const getSharingInfo = function(state, doctype, id) {
   return state[key(doctype, id)]
 }

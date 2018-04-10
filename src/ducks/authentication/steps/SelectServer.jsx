@@ -12,7 +12,7 @@ const ERR_V2 = 'mobile.onboarding.server_selection.wrong_address_v2'
 const ERR_COSY = 'mobile.onboarding.server_selection.wrong_address_cosy'
 
 export class SelectServer extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.state = {
@@ -21,19 +21,19 @@ export class SelectServer extends Component {
     }
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.connectionError) this.setState({ error: ERR_WRONG_ADDRESS })
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.serverInput.focus()
   }
 
-  validateValue = (e) => {
+  validateValue = e => {
     this.setState({ value: e.target.value, error: null })
   }
 
-  onSubmit = async (e) => {
+  onSubmit = async e => {
     e.preventDefault()
     if (!this.state.value) return
 
@@ -57,7 +57,8 @@ export class SelectServer extends Component {
         return
       }
 
-      if (/\..*cosy.*\..+$/.test(parsedURL.host)) { // if the hostname contains "cosy" in the part before the TLD
+      if (/\..*cosy.*\..+$/.test(parsedURL.host)) {
+        // if the hostname contains "cosy" in the part before the TLD
         this.setState({ error: ERR_COSY })
         return
       }
@@ -67,7 +68,7 @@ export class SelectServer extends Component {
     }
 
     let isV2Instance
-    const client = new cozy.client.Client({cozyURL: url})
+    const client = new cozy.client.Client({ cozyURL: url })
     try {
       isV2Instance = await client.isV2()
     } catch (err) {
@@ -83,44 +84,53 @@ export class SelectServer extends Component {
     this.props.nextStep(url)
   }
 
-  render () {
-    const {value, error} = this.state
+  render() {
+    const { value, error } = this.state
     const { t, previousStep } = this.props
     return (
-      <form className={classNames(styles['wizard'], styles['select-server'])} onSubmit={this.onSubmit}>
+      <form
+        className={classNames(styles['wizard'], styles['select-server'])}
+        onSubmit={this.onSubmit}
+      >
         <header className={styles['wizard-header']}>
-          <button onClick={previousStep} type='button'>
+          <button onClick={previousStep} type="button">
             <Icon icon={'cross'} color={'#95999d'} />
           </button>
         </header>
         <div className={styles['wizard-main']}>
           <div
-            className={classNames(styles['logo-wrapper'], error && styles['error'])}
+            className={classNames(
+              styles['logo-wrapper'],
+              error && styles['error']
+            )}
           >
             <div className={styles['cozy-logo-white']} />
           </div>
           <input
-            type='url'
+            type="url"
             className={classNames(styles['input'], error && styles['error'])}
-            placeholder={t('mobile.onboarding.server_selection.cozy_address_placeholder')}
-            ref={(input) => { this.serverInput = input }}
+            placeholder={t(
+              'mobile.onboarding.server_selection.cozy_address_placeholder'
+            )}
+            ref={input => {
+              this.serverInput = input
+            }}
             onChange={this.validateValue}
             value={value}
           />
-          {!error &&
+          {!error && (
             <p className={styles['description']}>
               {t('mobile.onboarding.server_selection.description')}
             </p>
-          }
-          {error &&
-            <p className={styles['description']} style={{color: 'red'}}>
+          )}
+          {error && (
+            <p className={styles['description']} style={{ color: 'red' }}>
               <ReactMarkdown source={t(error)} />
             </p>
-          }
+          )}
         </div>
         <footer className={styles['wizard-footer']}>
-
-          <Button theme='regular' type='submit' disabled={error || !value}>
+          <Button theme="regular" type="submit" disabled={error || !value}>
             {t('mobile.onboarding.server_selection.button')}
           </Button>
         </footer>

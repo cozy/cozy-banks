@@ -10,15 +10,13 @@ import FlagSwitcher from 'components/FlagSwitcher'
 
 export default ({ children }) => (
   <Layout>
-    { __DEVELOPMENT__ ? <FlagSwitcher /> : null }
+    {__DEVELOPMENT__ ? <FlagSwitcher /> : null}
     <Sidebar>
       <AccountSwitch />
       <Nav />
     </Sidebar>
 
-    <Content>
-      {children}
-    </Content>
+    <Content>{children}</Content>
 
     {/* Outside every other component to bypass overflow:hidden */}
     <ReactHint />
