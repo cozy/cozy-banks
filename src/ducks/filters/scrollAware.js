@@ -13,7 +13,7 @@ const getScrollingElement = node =>
  * a class only we are not at the top.
  */
 export default Wrapped =>
-  class extends Component {
+  class _ScrollAwareWrapper extends Component {
     state = { scrolling: false }
 
     componentDidMount() {
