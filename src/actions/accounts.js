@@ -22,7 +22,7 @@ const deleteOrphanOperations = async ({ accountId }) => {
 }
 
 export const DESTROY_ACCOUNT = 'DESTROY_ACCOUNT'
-export const destroyAccount = account => async (dispatch, getState) => {
+export const destroyAccount = account => async dispatch => {
   dispatch({ type: DESTROY_ACCOUNT, account })
   await dispatch(
     updateDocuments(
