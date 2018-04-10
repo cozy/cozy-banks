@@ -170,7 +170,7 @@ class TransactionsPage extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = state => ({
   urls: {
     // this keys are used on Transactions.jsx to:
     // - find transaction label
@@ -207,7 +207,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   }
 })
 
-const mapDocumentsToProps = ownProps => ({
+const mapDocumentsToProps = () => ({
   triggers: fetchCollection('triggers', TRIGGER_DOCTYPE)
 })
 
