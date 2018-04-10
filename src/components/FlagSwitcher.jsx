@@ -28,7 +28,7 @@ const human = name => {
   return name.replace(/[a-z][A-Z]/g, str => str[0] + ' ' + str[1].toLowerCase())
 }
 
-export default class extends React.Component {
+export default class FlagSwitcher extends React.Component {
   render() {
     return (
       flag('switcher') && (
@@ -45,7 +45,7 @@ export default class extends React.Component {
           </button>
           {flag.list().map(name => {
             return (
-              <div>
+              <div key={name}>
                 {human(name)} :{' '}
                 <FlagInput onChange={() => this.forceUpdate()} name={name} />
               </div>
