@@ -8,7 +8,7 @@ import { AccountSwitch } from 'ducks/account'
 import Nav from 'ducks/commons/Nav'
 import FlagSwitcher from 'components/FlagSwitcher'
 
-export default ({ children }) => (
+const App = ({ children }) => (
   <Layout>
     {__DEVELOPMENT__ ? <FlagSwitcher /> : null}
     <Sidebar>
@@ -22,3 +22,5 @@ export default ({ children }) => (
     <ReactHint />
   </Layout>
 )
+
+export default App
