@@ -17,6 +17,7 @@ export default ({ accounts, transactions }) => {
 
   const obj = mjml2html(templates['transaction-greater'](data))
   obj.errors.forEach(err => {
+    // eslint-disable-next-line no-console
     console.warn(err.formattedMessage)
   })
 
