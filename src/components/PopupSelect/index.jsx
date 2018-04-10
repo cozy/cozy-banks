@@ -37,9 +37,10 @@ class PopupSelect extends Component {
   renderList = () => {
     return (
       <div className={styles.PopupSelect__content}>
-        {this.state.history[0].children.map(item => {
+        {this.state.history[0].children.map((item, index) => {
           return (
             <Media
+              key={index}
               className={cx(
                 styles.PopupSelect__row,
                 `u-ph-1 u-pv-half${
