@@ -180,6 +180,7 @@ const BalanceGroups = enhanceGroups(
             <tbody>
               {groups.map(group => (
                 <BalanceRow
+                  key={group.label}
                   group={group}
                   warningLimit={balanceLower}
                   isMobile={isMobile}
@@ -241,8 +242,9 @@ const BalanceAccounts = translate()(
             </tr>
           </thead>
           <tbody>
-            {accounts.map(account => (
+            {accounts.map((account, index) => (
               <BalanceRow
+                key={index}
                 account={account}
                 warningLimit={balanceLower}
                 isMobile={isMobile}
@@ -329,11 +331,11 @@ class Balance extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = () => ({
   settingsCollection: fetchSettingsCollection()
 })
 
-const mapDocumentsToProps = ownProps => ({
+const mapDocumentsToProps = () => ({
   accounts: fetchCollection('accounts', ACCOUNT_DOCTYPE),
   groups: fetchCollection('groups', GROUP_DOCTYPE)
 })
