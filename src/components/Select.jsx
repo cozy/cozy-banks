@@ -2,7 +2,7 @@ import React from 'react'
 import { translate } from 'cozy-ui/react/I18n'
 import Field from 'components/Field'
 
-const Select = ({ t, name, value, options, onChange }) => (
+const Select = ({ name, value, options, onChange }) => (
   <select
     name={name}
     onChange={e =>
@@ -11,6 +11,7 @@ const Select = ({ t, name, value, options, onChange }) => (
   >
     {options.map(optionValue => (
       <option
+        key={optionValue.value || optionValue}
         value={
           optionValue.value !== undefined ? optionValue.value : optionValue
         }
