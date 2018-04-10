@@ -204,7 +204,7 @@ const GeneralSettings = compose(
   translate()
 )(_GeneralSettings)
 
-const AccountSettings = function({ account, onClose, t }) {
+const AccountSettings = function({ account, t }) {
   if (!account) {
     return <Loading />
   }
