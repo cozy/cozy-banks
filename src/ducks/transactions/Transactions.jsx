@@ -100,7 +100,7 @@ const TableTrDesktop = compose(translate(), withDispatch, withUpdateCategory())(
 )
 
 const TableTrNoDesktop = translate()(
-  ({ t, f, transaction, selectTransaction, ...props }) => {
+  ({ t, transaction, selectTransaction, ...props }) => {
     return (
       <tr
         onClick={() => selectTransaction(transaction)}
@@ -158,13 +158,13 @@ class Transactions extends React.Component {
     }
   }
 
-  getDerivedStateFromProps(props) {
+  getDerivedStateFromProps() {
     return {
       // transactionsOrdered: groupByDateAndSort(props.transactions)
     }
   }
 
-  componentDidUpdate(previousProps) {
+  componentDidUpdate() {
     /*
     if (this.props.transactions !== previousProps.transactions) {
       this.setState({
@@ -184,11 +184,6 @@ class Transactions extends React.Component {
   scheduleLimitIncrease(timeout = 1000, delay = 1000) {
     this.limitTimeout = setTimeout(() => {
       if (this.state.limit > this.state.transactionsOrdered.length) {
-        console.log(
-          'stopping increase',
-          this.state.limit,
-          this.state.transactionsOrdered.length
-        )
         return
       }
       this.setState({ limit: this.state.limit + 5 })
@@ -217,7 +212,7 @@ class Transactions extends React.Component {
           const date = dateAndGroup[0]
           const transactionGroup = dateAndGroup[1]
           return (
-            <tbody>
+            <tbody key={date}>
               {!isDesktop && (
                 <tr className={styles['bnk-op-date-header']}>
                   <td colSpan="2">{f(date, 'dddd D MMMM')}</td>
