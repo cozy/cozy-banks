@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
 import Toggle from 'cozy-ui/react/Toggle'
-import { translate } from 'cozy-ui/react/I18n'
 import { cozyConnect } from 'cozy-client'
 import Loading from 'components/Loading'
 
@@ -98,7 +97,7 @@ class Notifications extends Component {
     )
   }
 
-  render({ t, settingsCollection }) {
+  render({ settingsCollection }) {
     if (
       settingsCollection.fetchStatus === 'loading' ||
       settingsCollection.fetchStatus === 'pending'
@@ -125,4 +124,4 @@ const mapDocumentsToProps = () => ({
   settingsCollection: fetchSettingsCollection()
 })
 
-export default cozyConnect(mapDocumentsToProps)(translate()(Notifications))
+export default cozyConnect(mapDocumentsToProps)(Notifications)
