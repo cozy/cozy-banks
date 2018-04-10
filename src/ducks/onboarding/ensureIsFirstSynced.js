@@ -50,6 +50,7 @@ class Wrapper extends Component {
         await promise
         client.facade.strategy = new PouchFirstStrategy()
       } catch (e) {
+        // eslint-disable-next-line no-console
         console.error('Error while fetching data from stack: ' + e)
       } finally {
         this.props.dispatch(startSync())
