@@ -1,7 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
 import format from 'date-fns/format'
-import { translate, withBreakpoints } from 'cozy-ui/react'
+import { translate, withBreakpoints, ListItemText } from 'cozy-ui/react'
 import { Figure } from 'components/Figure'
 import { flowRight as compose, toPairs, groupBy, sortBy } from 'lodash'
 import { Table, TdSecondary } from 'components/Table'
@@ -68,7 +68,12 @@ const TableTrDesktop = compose(translate(), withDispatch, withUpdateCategory())(
                 className={styles['bnk-op-caticon']}
               />
             </Img>
-            <Bd className="u-pl-1">{getLabel(transaction)}</Bd>
+            <Bd className="u-pl-1">
+              <ListItemText
+                primaryText={getLabel(transaction)}
+                secondaryText={transaction.account.label}
+              />
+            </Bd>
           </Media>
         </td>
         <TdSecondary className={sAmount}>
@@ -120,7 +125,12 @@ const TableTrNoDesktop = translate()(
                 category={getParentCategory(getCategoryId(transaction))}
               />
             </Img>
-            <Bd className="u-mr-half u-ellipsis">{getLabel(transaction)}</Bd>
+            <Bd className="u-mr-half u-ellipsis">
+              <ListItemText
+                primaryText={getLabel(transaction)}
+                secondaryText={transaction.account.label}
+              />
+            </Bd>
             <Img style={{ flexBasis: '1rem' }}>
               <TransactionActions
                 transaction={transaction}
