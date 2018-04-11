@@ -1,7 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
 import format from 'date-fns/format'
-import { translate, withBreakpoints } from 'cozy-ui/react'
+import { translate, withBreakpoints, ListItemText } from 'cozy-ui/react'
 import { Figure } from 'components/Figure'
 import { flowRight as compose, toPairs, groupBy, sortBy } from 'lodash'
 import { Table, TdSecondary } from 'components/Table'
@@ -31,8 +31,8 @@ const sActions = styles['bnk-op-actions']
 const TableHeadDesktop = ({ t }) => (
   <thead>
     <tr>
-      <td className={sDate}>{t('Transactions.header.date')}</td>
       <td className={sDesc}>{t('Transactions.header.description')}</td>
+      <td className={sDate}>{t('Transactions.header.date')}</td>
       <td className={sAmount}>{t('Transactions.header.amount')}</td>
       <td className={sAction}>{t('Transactions.header.action')}</td>
       <td className={sActions}>&nbsp;</td>
@@ -45,7 +45,15 @@ const showComingSoon = t => {
 }
 
 const TableTrDesktop = compose(translate(), withDispatch, withUpdateCategory())(
-  ({ t, f, transaction, isExtraLarge, showCategoryChoice, ...props }) => {
+  ({
+    t,
+    f,
+    transaction,
+    isExtraLarge,
+    showCategoryChoice,
+    filteringOnAccount,
+    ...props
+  }) => {
     const categoryId = getCategoryId(transaction)
     const categoryName = getCategoryName(categoryId)
     const categoryTitle = t(`Data.subcategories.${categoryName}`)
@@ -57,9 +65,6 @@ const TableTrDesktop = compose(translate(), withDispatch, withUpdateCategory())(
 
     return (
       <tr>
-        <TdSecondary className={sDate}>
-          {f(transaction.date, `DD ${isExtraLarge ? 'MMMM' : 'MMM'} YYYY`)}
-        </TdSecondary>
         <td className={cx(sDesc, 'u-pv-half', 'u-pl-1')}>
           <Media>
             <Img title={categoryTitle} onClick={showCategoryChoice}>
@@ -68,9 +73,17 @@ const TableTrDesktop = compose(translate(), withDispatch, withUpdateCategory())(
                 className={styles['bnk-op-caticon']}
               />
             </Img>
-            <Bd className="u-pl-1">{getLabel(transaction)}</Bd>
+            <Bd className="u-pl-1">
+              <ListItemText
+                primaryText={getLabel(transaction)}
+                secondaryText={!filteringOnAccount && transaction.account.label}
+              />
+            </Bd>
           </Media>
         </td>
+        <TdSecondary className={sDate}>
+          {f(transaction.date, `DD ${isExtraLarge ? 'MMMM' : 'MMM'} YYYY`)}
+        </TdSecondary>
         <TdSecondary className={sAmount}>
           <Figure
             total={transaction.amount}
@@ -100,7 +113,7 @@ const TableTrDesktop = compose(translate(), withDispatch, withUpdateCategory())(
 )
 
 const TableTrNoDesktop = translate()(
-  ({ t, transaction, selectTransaction, ...props }) => {
+  ({ t, transaction, selectTransaction, filteringOnAccount, ...props }) => {
     return (
       <tr
         onClick={() => selectTransaction(transaction)}
@@ -120,7 +133,12 @@ const TableTrNoDesktop = translate()(
                 category={getParentCategory(getCategoryId(transaction))}
               />
             </Img>
-            <Bd className="u-mr-half u-ellipsis">{getLabel(transaction)}</Bd>
+            <Bd className="u-mr-half u-ellipsis">
+              <ListItemText
+                primaryText={getLabel(transaction)}
+                secondaryText={!filteringOnAccount && transaction.account.label}
+              />
+            </Bd>
             <Img style={{ flexBasis: '1rem' }}>
               <TransactionActions
                 transaction={transaction}
@@ -223,6 +241,7 @@ class Transactions extends React.Component {
                   <TableTrDesktop
                     transaction={transaction}
                     isExtraLarge={isExtraLarge}
+                    filteringOnAccount
                     {...props}
                   />
                 ) : (

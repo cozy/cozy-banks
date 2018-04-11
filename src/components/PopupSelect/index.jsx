@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import cx from 'classnames'
 import { Modal, Icon } from 'cozy-ui/react'
-import { ModalTitle, ModalDescription } from 'cozy-ui/react/Modal'
+import { ModalHeader, ModalDescription } from 'cozy-ui/react/Modal'
 import { Media, Bd, Img } from 'components/Media'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 
@@ -75,16 +75,18 @@ class PopupSelect extends Component {
               <Icon icon="back" color={palette['coolGrey']} />
             </Img>
           )}
-        <Bd>{item.title}</Bd>
+        <Bd>
+          <h2>{item.title}</h2>
+        </Bd>
       </Media>
     )
   }
 
   render() {
     return (
-      <Modal overflowHidden secondaryAction={this.props.onCancel}>
+      <Modal overflowHidden dismissAction={this.props.onCancel} into="body">
         <div className={styles.PopupSelect__title}>
-          <ModalTitle>{this.renderTitle()}</ModalTitle>
+          <ModalHeader>{this.renderTitle()}</ModalHeader>
         </div>
         <ModalDescription className="u-pb-0">
           {this.renderList()}

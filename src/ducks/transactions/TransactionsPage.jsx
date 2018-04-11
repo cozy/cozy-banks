@@ -26,7 +26,7 @@ import BackButton from 'components/BackButton'
 import { hydrateTransaction } from 'documents/transaction'
 import TransactionsWithSelection from './TransactionsWithSelection'
 import styles from './TransactionsPage.styl'
-import { TRIGGER_DOCTYPE } from 'doctypes'
+import { TRIGGER_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
 import { getBrands } from 'ducks/brandDictionary'
 
 const isPendingOrLoading = function(col) {
@@ -64,7 +64,7 @@ class TransactionsPage extends Component {
   }
 
   render() {
-    const { t, urls, router, triggers } = this.props
+    const { t, urls, router, triggers, filteringDoc } = this.props
     let { filteredTransactions } = this.props
 
     if (this.state.fetching) {
@@ -119,6 +119,9 @@ class TransactionsPage extends Component {
       breadcrumbItems = [{ name: t('Transactions.title') }]
     }
 
+    const filteringOnAccount =
+      filteringDoc && filteringDoc._type === ACCOUNT_DOCTYPE
+
     const currency =
       filteredTransactions.length > 0 ? filteredTransactions[0].currency : null
     return (
@@ -163,6 +166,7 @@ class TransactionsPage extends Component {
             transactions={filteredTransactions}
             urls={urls}
             brands={brandsWithoutTrigger}
+            filteringOnAccount={filteringOnAccount}
           />
         )}
       </div>
@@ -182,6 +186,7 @@ const mapStateToProps = state => ({
   },
   accountIds: getFilteredAccountIds(state),
   accounts: getCollection(state, 'accounts'),
+  filteringDoc: state.filters.filteringDoc,
   filteredTransactions: getFilteredTransactions(state).map(transaction =>
     hydrateTransaction(state, transaction)
   )
