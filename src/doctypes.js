@@ -25,6 +25,11 @@ export const schema = {
   groups: {
     doctype: GROUP_DOCTYPE,
     attributes: {},
-    relationships: {}
+    relationships: {
+      accounts: {
+        type: 'has-many-UNSAFE',
+        doctype: ACCOUNT_DOCTYPE
+      }
+    }
   }
 }

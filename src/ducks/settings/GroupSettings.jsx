@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
+import { Query, withMutations } from 'cozy-client'
 import compose from 'lodash/flowRight'
 import sortBy from 'lodash/sortBy'
 
 import { Button, translate, Toggle } from 'cozy-ui/react'
 import Spinner from 'cozy-ui/react/Spinner'
 
-import { queryConnect } from 'utils/client-compat'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 
 import Loading from 'components/Loading'
@@ -16,10 +16,6 @@ import Table from 'components/Table'
 import styles from './GroupsSettings.styl'
 import btnStyles from 'styles/buttons'
 import { getAccountInstitutionLabel } from '../account/helpers'
-
-const accountInGroup = (account, group) => {
-  return group.accounts.indexOf(account._id) > -1
-}
 
 class GroupSettings extends Component {
   state = { modifying: false, saving: false }
@@ -34,13 +30,11 @@ class GroupSettings extends Component {
 
   async updateOrCreate (group, cb) {
     const { router, saveDocument } = this.props
+    const isNew = !group.id
     try {
       const response = await saveDocument({ _type: GROUP_DOCTYPE, ...group })
-      if (response && response.data) {
-        const doc = response.data
-        if (group.id !== doc.id) {
-          router.push(`/settings/groups/${doc.id}`)
-        }
+      if (isNew) {
+        router.push(`/settings/groups/${response.data.id}`)
       }
     } finally {
       cb && cb()
@@ -48,21 +42,13 @@ class GroupSettings extends Component {
   }
 
   toggleAccount = (accountId, enabled) => {
-    let { group } = this.props
-    group = group.data[0]
-    let selectedAccounts = group.accounts
-    let indexInSelectedAccounts = selectedAccounts.indexOf(accountId)
-
-    if (enabled && indexInSelectedAccounts < 0) selectedAccounts.push(accountId)
-    else if (!enabled && indexInSelectedAccounts >= 0) selectedAccounts.splice(indexInSelectedAccounts, 1)
-
-    group.accounts = selectedAccounts
-    this.updateOrCreate(group)
+    const { group, getAssociation } = this.props
+    const accounts = getAssociation(group, 'accounts')
+    enabled ? accounts.addById(accountId) : accounts.removeById(accountId)
   }
 
   renderAccountLine = (account) => {
-    let { group } = this.props
-    group = group.data[0]
+    const { group, getAssociation } = this.props
     return (
       <tr>
         <td className={styles.GrpStg__accntLabel}>
@@ -75,10 +61,12 @@ class GroupSettings extends Component {
           {account.number}
         </td>
         <td className={styles.GrpStg__accntToggle}>
-          <Toggle
-            id={account._id}
-            checked={accountInGroup(account, group)}
-            onToggle={this.toggleAccount.bind(null, account._id)} />
+          {group
+            ? <Toggle
+              id={account._id}
+              checked={getAssociation(group, 'accounts').exists(account)}
+              onToggle={this.toggleAccount.bind(null, account._id)} />
+            : <Toggle disabled />}
         </td>
       </tr>
     )
@@ -96,13 +84,7 @@ class GroupSettings extends Component {
 
   saveInputRef = ref => { this.inputRef = ref }
 
-  render ({ t, group, accounts, isNewGroup }, { modifying, saving }) {
-    if (group.fetchStatus === 'loading' || group.fetchStatus === 'pending') {
-      return <Loading />
-    }
-
-    group = group.data[0]
-
+  render ({ t, group = mkNewGroup() }, { modifying, saving }) {
     return (
       <div>
         <BackButton to='/settings/groups' arrow />
@@ -124,32 +106,38 @@ class GroupSettings extends Component {
             </Button>}
           </p>
         </form>
-        <h3>
-          {t('Groups.accounts')}
-        </h3>
-        {accounts.fetchStatus === 'pending'
-          ? <Loading />
-          : <Table className={styles.GrpStg__table}>
-            <thead>
-              <tr>
-                <th className={styles.GrpStg__accntLabel}>
-                  {t('Groups.label')}
-                </th>
-                <th className={styles.GrpStg__accntBank}>
-                  {t('Groups.bank')}
-                </th>
-                <th className={styles.GrpStg__accntNumber}>
-                  {t('Groups.account-number')}
-                </th>
-                <th className={styles.GrpStg__accntToggle}>
-                  {t('Groups.included')}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {accounts.data && sortBy(accounts.data, ['institutionLabel', 'label']).map(this.renderAccountLine)}
-            </tbody>
-          </Table>}
+        <Query query={client => client.all(ACCOUNT_DOCTYPE)} as='accounts'>
+          {accounts => (
+            <div>
+              <h3>
+                {t('Groups.accounts')}
+              </h3>
+              {accounts.fetchStatus === 'pending'
+                ? <Loading />
+                : <Table className={styles.GrpStg__table}>
+                  <thead>
+                    <tr>
+                      <th className={styles.GrpStg__accntLabel}>
+                        {t('Groups.label')}
+                      </th>
+                      <th className={styles.GrpStg__accntBank}>
+                        {t('Groups.bank')}
+                      </th>
+                      <th className={styles.GrpStg__accntNumber}>
+                        {t('Groups.account-number')}
+                      </th>
+                      <th className={styles.GrpStg__accntToggle}>
+                        {t('Groups.included')}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {accounts.data && sortBy(accounts.data, ['institutionLabel', 'label']).map(this.renderAccountLine)}
+                  </tbody>
+                </Table>}
+            </div>
+          )}
+        </Query>
         <p>
           <Button theme='danger-outline' onClick={this.onRemove}>
             {t('Groups.delete')}
@@ -167,23 +155,26 @@ const mkNewGroup = () => ({
 
 const enhance = (
   compose(
-    queryConnect({
-      group: props => {
-        const groupId = props.routeParams.groupId
-
-        return (groupId === 'new' || !groupId)
-          ? { doc: mkNewGroup() }
-          : { query: client => client.get(GROUP_DOCTYPE, groupId) }
-      },
-      accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' }
-    }),
     translate(),
     withRouter
   )
 )
 
-const EnhancedGroupSettings = enhance(GroupSettings)
-export default EnhancedGroupSettings
+const ExistingGroupSettings = enhance(props => (
+  <Query query={client => client.get(GROUP_DOCTYPE, props.routeParams.groupId)}>
+    {({ data, fetchStatus }, { saveDocument, deleteDocument, getAssociation }) =>
+      fetchStatus === 'loading' || fetchStatus === 'pending'
+        ? <Loading />
+        : <GroupSettings
+          group={data[0]}
+          saveDocument={saveDocument}
+          deleteDocument={deleteDocument}
+          getAssociation={getAssociation}
+          {...props} />
+    }
+  </Query>
+))
+export default ExistingGroupSettings
 
 /**
  * We create NewGroupSettings else react-router will reuse
@@ -192,6 +183,6 @@ export default EnhancedGroupSettings
  * to refetch the group but it seems easier to do that to force the usage
  * of a brand new component
  */
-export const NewGroupSettings = enhance(class extends GroupSettings {
+export const NewGroupSettings = enhance(withMutations()(class extends GroupSettings {
   state = {...this.state, modifying: true}
-})
+}))
