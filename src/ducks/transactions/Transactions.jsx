@@ -45,7 +45,15 @@ const showComingSoon = t => {
 }
 
 const TableTrDesktop = compose(translate(), withDispatch, withUpdateCategory())(
-  ({ t, f, transaction, isExtraLarge, showCategoryChoice, ...props }) => {
+  ({
+    t,
+    f,
+    transaction,
+    isExtraLarge,
+    showCategoryChoice,
+    filteringOnAccount,
+    ...props
+  }) => {
     const categoryId = getCategoryId(transaction)
     const categoryName = getCategoryName(categoryId)
     const categoryTitle = t(`Data.subcategories.${categoryName}`)
@@ -68,7 +76,7 @@ const TableTrDesktop = compose(translate(), withDispatch, withUpdateCategory())(
             <Bd className="u-pl-1">
               <ListItemText
                 primaryText={getLabel(transaction)}
-                secondaryText={transaction.account.label}
+                secondaryText={!filteringOnAccount && transaction.account.label}
               />
             </Bd>
           </Media>
@@ -105,7 +113,7 @@ const TableTrDesktop = compose(translate(), withDispatch, withUpdateCategory())(
 )
 
 const TableTrNoDesktop = translate()(
-  ({ t, transaction, selectTransaction, ...props }) => {
+  ({ t, transaction, selectTransaction, filteringOnAccount, ...props }) => {
     return (
       <tr
         onClick={() => selectTransaction(transaction)}
@@ -128,7 +136,7 @@ const TableTrNoDesktop = translate()(
             <Bd className="u-mr-half u-ellipsis">
               <ListItemText
                 primaryText={getLabel(transaction)}
-                secondaryText={transaction.account.label}
+                secondaryText={!filteringOnAccount && transaction.account.label}
               />
             </Bd>
             <Img style={{ flexBasis: '1rem' }}>
@@ -233,6 +241,7 @@ class Transactions extends React.Component {
                   <TableTrDesktop
                     transaction={transaction}
                     isExtraLarge={isExtraLarge}
+                    filteringOnAccount
                     {...props}
                   />
                 ) : (
