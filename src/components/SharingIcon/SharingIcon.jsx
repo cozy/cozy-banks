@@ -3,11 +3,13 @@ import Types from 'prop-types'
 import classnames from 'classnames'
 import styles from './SharingIcon.styl'
 
-const SharingIcon = ({to, from}) => (
-  <i className={classnames(styles['sharing-icon'], {
-    [styles['sharing-icon--to']]: to,
-    [styles['sharing-icon--from']]: from
-  })} />
+const SharingIcon = ({ to, from }) => (
+  <i
+    className={classnames(styles['sharing-icon'], {
+      [styles['sharing-icon--to']]: to,
+      [styles['sharing-icon--from']]: from
+    })}
+  />
 )
 
 SharingIcon.propTypes = {

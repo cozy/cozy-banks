@@ -8,19 +8,19 @@ import { AccountSwitch } from 'ducks/account'
 import Nav from 'ducks/commons/Nav'
 import FlagSwitcher from 'components/FlagSwitcher'
 
-export default ({ children }) => (
+const App = ({ children }) => (
   <Layout>
-    { __DEVELOPMENT__ ? <FlagSwitcher /> : null }
+    {__DEVELOPMENT__ ? <FlagSwitcher /> : null}
     <Sidebar>
       <AccountSwitch />
       <Nav />
     </Sidebar>
 
-    <Content>
-      {children}
-    </Content>
+    <Content>{children}</Content>
 
     {/* Outside every other component to bypass overflow:hidden */}
     <ReactHint />
   </Layout>
 )
+
+export default App

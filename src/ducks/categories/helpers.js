@@ -57,23 +57,37 @@ export const transactionsByCategory = transactions => {
 // The result is used pretty much as is down the chain by other components, so changing property names here should be done with care.
 export const computeCategorieData = transactionsByCategory => {
   return Object.values(transactionsByCategory).map(category => {
-    let subcategories = Object.values(category.subcategories).map(subcategory => {
-      const debit = subcategory.transactions.reduce((total, op) => (op.amount < 0 ? total + op.amount : total), 0)
-      const credit = subcategory.transactions.reduce((total, op) => (op.amount > 0 ? total + op.amount : total), 0)
+    let subcategories = Object.values(category.subcategories).map(
+      subcategory => {
+        const debit = subcategory.transactions.reduce(
+          (total, op) => (op.amount < 0 ? total + op.amount : total),
+          0
+        )
+        const credit = subcategory.transactions.reduce(
+          (total, op) => (op.amount > 0 ? total + op.amount : total),
+          0
+        )
 
-      return {
-        name: subcategory.name,
-        amount: credit + debit,
-        debit: debit,
-        credit: credit,
-        percentage: 0,
-        currency: subcategory.transactions[0].currency,
-        transactionsNumber: subcategory.transactions.length
+        return {
+          name: subcategory.name,
+          amount: credit + debit,
+          debit: debit,
+          credit: credit,
+          percentage: 0,
+          currency: subcategory.transactions[0].currency,
+          transactionsNumber: subcategory.transactions.length
+        }
       }
-    })
+    )
 
-    const debit = category.transactions.reduce((total, op) => (op.amount < 0 ? total + op.amount : total), 0)
-    const credit = category.transactions.reduce((total, op) => (op.amount > 0 ? total + op.amount : total), 0)
+    const debit = category.transactions.reduce(
+      (total, op) => (op.amount < 0 ? total + op.amount : total),
+      0
+    )
+    const credit = category.transactions.reduce(
+      (total, op) => (op.amount > 0 ? total + op.amount : total),
+      0
+    )
 
     return {
       name: category.name,
@@ -95,7 +109,9 @@ export const isHealthExpense = transaction => {
 
 export const isHealth = transaction => {
   const categoryId = getCategoryId(transaction)
-  return categoryId === '400600' ||
+  return (
+    categoryId === '400600' ||
     categoryId === '400610' ||
     categoryId === '400620'
+  )
 }

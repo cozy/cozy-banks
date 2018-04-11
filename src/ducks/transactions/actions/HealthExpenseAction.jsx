@@ -9,16 +9,21 @@ const name = 'healthExpenseBill'
 const Component = ({ t, transaction, actionProps }) => {
   return (
     <span>
-      {transaction.reimbursements.map(reimbursement => {
+      {transaction.reimbursements.map((reimbursement, index) => {
         if (!reimbursement.bill) {
           return
         }
         return (
           <BillComponent
+            key={index}
             t={t}
-            actionProps={{ ...actionProps,
+            actionProps={{
+              ...actionProps,
               bill: reimbursement.bill,
-              text: t(`Transactions.actions.${name}`).replace('%{vendor}', reimbursement.bill.vendor)
+              text: t(`Transactions.actions.${name}`).replace(
+                '%{vendor}',
+                reimbursement.bill.vendor
+              )
             }}
           />
         )
@@ -31,7 +36,8 @@ const action = {
   name,
   icon,
   defaultAction: false,
-  match: (transaction) => some(transaction.reimbursements, reimbursement => reimbursement.bill),
+  match: transaction =>
+    some(transaction.reimbursements, reimbursement => reimbursement.bill),
   Component: translate()(Component)
 }
 

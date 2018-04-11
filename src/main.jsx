@@ -26,7 +26,10 @@ if (process.env.NODE_ENV === 'development') {
 const renderAppWithPersistedState = persistedState => {
   const root = document.querySelector('[role=application]')
   const data = root.dataset
-  const lang = __TARGET__ === 'mobile' && navigator && navigator.language ? navigator.language.slice(0, 2) : data.cozyLocale || 'en'
+  const lang =
+    __TARGET__ === 'mobile' && navigator && navigator.language
+      ? navigator.language.slice(0, 2)
+      : data.cozyLocale || 'en'
 
   const history = setupHistory()
 
@@ -34,18 +37,22 @@ const renderAppWithPersistedState = persistedState => {
   const store = configureStore(client, persistedState)
 
   // Initialize settings
-  store.dispatch(fetchSettingsCollection()).then(
-    res => {
-      if (res.data.length === 0) {
-        store.dispatch(initSettings())
-      }
+  store.dispatch(fetchSettingsCollection()).then(res => {
+    if (res.data.length === 0) {
+      store.dispatch(initSettings())
     }
-  )
+  })
 
   persistState(store)
 
-  const StoreProvider = __TARGET__ === 'mobile' ? require('cozy-client').CozyProvider : require('react-redux').Provider
-  const Router = __TARGET__ === 'mobile' ? require('ducks/authentication/MobileRouter').default : require('react-router').Router
+  const StoreProvider =
+    __TARGET__ === 'mobile'
+      ? require('cozy-client').CozyProvider
+      : require('react-redux').Provider
+  const Router =
+    __TARGET__ === 'mobile'
+      ? require('ducks/authentication/MobileRouter').default
+      : require('react-router').Router
 
   if (__TARGET__ !== 'mobile') {
     cozy.bar.init({

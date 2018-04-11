@@ -1,15 +1,17 @@
-const interlace = function (arr, delimiter) {
+const interlace = function(arr, delimiter) {
   const out = []
   const l = arr.length
   for (let i = 0; i < l; i++) {
     out.push(arr[i])
-    if (i < l - 1) { out.push(delimiter) }
+    if (i < l - 1) {
+      out.push(delimiter)
+    }
   }
   return out
 }
 
-const splitKeepingDelimiters = function (s, subs) {
-  subs.forEach(function (sub) {
+const splitKeepingDelimiters = function(s, subs) {
+  subs.forEach(function(sub) {
     s = s.split(sub)
     s = interlace(s, sub)
   })
@@ -18,7 +20,9 @@ const splitKeepingDelimiters = function (s, subs) {
 
 const mapKeys = (original, fn) => {
   const out = {}
-  Object.keys(original).forEach(k => { out[fn(k)] = original[k] })
+  Object.keys(original).forEach(k => {
+    out[fn(k)] = original[k]
+  })
   return out
 }
 

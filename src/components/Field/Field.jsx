@@ -10,26 +10,34 @@ import styles from './Field.styl'
  * - `saved` state
  * - `errors`
  */
-const Field = ({ t, submitting, saved, errors, description, subtitle, className, children }) => (
-  <div className={classNames(styles['coz-form'], styles['bnk-field'], className, {
-    [styles['bnk-field-loading']]: submitting,
-    [styles['bnk-field-saved']]: saved
-  })}>
-    {!!subtitle &&
-      <h3
-        className={styles['bnk-view-subtitle']}>
-        {subtitle}
-      </h3>
-    }
-    {!!description &&
-      <label className={styles['coz-form-desc']}>
-        {description}
-      </label>
-    }
+const Field = ({
+  t,
+  submitting,
+  saved,
+  errors,
+  description,
+  subtitle,
+  className,
+  children
+}) => (
+  <div
+    className={classNames(styles['coz-form'], styles['bnk-field'], className, {
+      [styles['bnk-field-loading']]: submitting,
+      [styles['bnk-field-saved']]: saved
+    })}
+  >
+    {!!subtitle && <h3 className={styles['bnk-view-subtitle']}>{subtitle}</h3>}
+    {!!description && (
+      <label className={styles['coz-form-desc']}>{description}</label>
+    )}
     {children}
-    {errors && errors.length !== 0 && errors.map(error => (
-      <p className={styles['coz-form-errors']}>{t(error)}</p>
-    ))}
+    {errors &&
+      errors.length !== 0 &&
+      errors.map(error => (
+        <p key={error} className={styles['coz-form-errors']}>
+          {t(error)}
+        </p>
+      ))}
   </div>
 )
 
@@ -47,10 +55,7 @@ Field.propTypes = {
   /** Extra classname */
   className: Types.string,
   /** `<input/>`s, `<select/>`s etc... */
-  children: Types.oneOfType([
-    Types.arrayOf(Types.node),
-    Types.node
-  ])
+  children: Types.oneOfType([Types.arrayOf(Types.node), Types.node])
 }
 
 export default translate()(Field)

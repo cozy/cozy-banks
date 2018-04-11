@@ -12,13 +12,17 @@ const removeAccountFromGroup = (group, account) => {
 }
 
 const deleteOrphanOperations = async ({ accountId }) => {
-  const index = await cozy.client.data.defineIndex(TRANSACTION_DOCTYPE, ['account'])
-  const orphanOperations = await queryAll(index, {selector: { account: accountId }})
+  const index = await cozy.client.data.defineIndex(TRANSACTION_DOCTYPE, [
+    'account'
+  ])
+  const orphanOperations = await queryAll(index, {
+    selector: { account: accountId }
+  })
   return deleteAll(TRANSACTION_DOCTYPE, orphanOperations)
 }
 
 export const DESTROY_ACCOUNT = 'DESTROY_ACCOUNT'
-export const destroyAccount = account => async (dispatch, getState) => {
+export const destroyAccount = account => async dispatch => {
   dispatch({ type: DESTROY_ACCOUNT, account })
   await dispatch(
     updateDocuments(
@@ -35,15 +39,23 @@ export const destroyAccount = account => async (dispatch, getState) => {
     )
   )
 
-  await dispatch(deleteDocuments(TRANSACTION_DOCTYPE, {
-    selector: { account: account.id }
-  }, {
-    updateCollections: ['transactions']
-  }))
+  await dispatch(
+    deleteDocuments(
+      TRANSACTION_DOCTYPE,
+      {
+        selector: { account: account.id }
+      },
+      {
+        updateCollections: ['transactions']
+      }
+    )
+  )
 
   await deleteOrphanOperations({ accountId: account.id })
 
-  return dispatch(deleteDocument(account, {
-    updateCollections: ['accounts', 'onboarding_accounts']
-  }))
+  return dispatch(
+    deleteDocument(account, {
+      updateCollections: ['accounts', 'onboarding_accounts']
+    })
+  )
 }

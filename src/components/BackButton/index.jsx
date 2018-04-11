@@ -21,21 +21,34 @@ const { BarLeft } = cozy.bar
  * <BackButton to={ '/settings' } />
  * ```
  */
-const BackButton = ({ onClick, to, router, breakpoints: { isMobile }, arrow = false }) => {
+const BackButton = ({
+  onClick,
+  to,
+  router,
+  breakpoints: { isMobile },
+  arrow = false
+}) => {
   const location = router.getCurrentLocation()
   if (!onClick && !to) {
-    to = location.pathname.split('/').slice(0, -1).join('/')
+    to = location.pathname
+      .split('/')
+      .slice(0, -1)
+      .join('/')
   }
-  const handleClick = onClick = onClick || (() => to && router.push(to))
+  const handleClick = (onClick = onClick || (() => to && router.push(to)))
   return isMobile ? (
     <BarLeft>
-      <button className='coz-bar-btn' onClick={handleClick}>
+      <button className="coz-bar-btn" onClick={handleClick}>
         <Icon icon={arrowLeft} color={palette['coolGrey']} />
       </button>
     </BarLeft>
-  ) : (arrow && <a onClick={handleClick} className={styles['back-arrow']}>
-    <Icon icon={arrowLeft} />
-  </a>)
+  ) : (
+    arrow && (
+      <a onClick={handleClick} className={styles['back-arrow']}>
+        <Icon icon={arrowLeft} />
+      </a>
+    )
+  )
 }
 
 BackButton.propTypes = {

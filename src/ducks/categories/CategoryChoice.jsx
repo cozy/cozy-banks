@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
 import { translate } from 'cozy-ui/react'
 import PopupSelect from 'components/PopupSelect'
-import { getCategories, CategoryIcon, getParentCategory } from 'ducks/categories'
+import {
+  getCategories,
+  CategoryIcon,
+  getParentCategory
+} from 'ducks/categories'
 
 class CategoryChoice extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.options = {
@@ -20,12 +24,14 @@ class CategoryChoice extends Component {
       const translateKey = subcategory ? 'subcategories' : 'categories'
       option.title = this.props.t(`Data.${translateKey}.${option.name}`)
 
-      const iconCategory = subcategory ? getParentCategory(option.id) : option.name
+      const iconCategory = subcategory
+        ? getParentCategory(option.id)
+        : option.name
       option.icon = <CategoryIcon category={iconCategory} />
 
       if (!subcategory) {
         // sort children so "others" is always the last
-        option.children = this.getOptions(option.children, true).sort((a, b) => {
+        option.children = this.getOptions(option.children, true).sort(a => {
           if (a.id === option.id) {
             return 1
           }
@@ -41,13 +47,14 @@ class CategoryChoice extends Component {
   isSelected = categoryToCheck => {
     const { categoryId: selectedCategoryId } = this.props
     const selectedCategoryParentName = getParentCategory(selectedCategoryId)
-    const isSelectedParentCategory = selectedCategoryParentName === categoryToCheck.name
+    const isSelectedParentCategory =
+      selectedCategoryParentName === categoryToCheck.name
     const isSelectedCategory = selectedCategoryId === categoryToCheck.id
 
     return isSelectedParentCategory || isSelectedCategory
   }
 
-  render () {
+  render() {
     const { t, onCancel, onSelect } = this.props
 
     return (

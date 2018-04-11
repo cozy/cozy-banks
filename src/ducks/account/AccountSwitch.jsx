@@ -20,34 +20,57 @@ import { getAccountInstitutionLabel } from './helpers.js'
 
 const { BarRight } = cozy.bar
 
-const isLoading = function (collection) {
-  return collection.fetchStatus === 'pending' || collection.fetchStatus === 'loading'
+const isLoading = function(collection) {
+  return (
+    collection.fetchStatus === 'pending' || collection.fetchStatus === 'loading'
+  )
 }
 
 const AccountSwitchDesktop = translate()(
-  ({ isFetching, isOpen, filteringDoc, accounts, t, toggle, accountExists }) => (
-    <button className={classNames(styles['account-switch-button'], {[styles['active']]: isOpen}, 'coz-desktop')} onClick={toggle}>
-      {isFetching
-        ? `${t('Loading.loading')}`
-        : filteringDoc
-          ? <div>
-            <div className={styles['account-name']}>
-              {filteringDoc.shortLabel || filteringDoc.label} {<AccountSharingStatus account={filteringDoc} />}
-            </div>
+  ({
+    isFetching,
+    isOpen,
+    filteringDoc,
+    accounts,
+    t,
+    toggle,
+    accountExists
+  }) => (
+    <button
+      className={classNames(
+        styles['account-switch-button'],
+        { [styles['active']]: isOpen },
+        'coz-desktop'
+      )}
+      onClick={toggle}
+    >
+      {isFetching ? (
+        `${t('Loading.loading')}`
+      ) : filteringDoc ? (
+        <div>
+          <div className={styles['account-name']}>
+            {filteringDoc.shortLabel || filteringDoc.label}{' '}
+            {<AccountSharingStatus account={filteringDoc} />}
+          </div>
+          <div className={styles['account-num']}>
+            {filteringDoc.number && 'n°' + filteringDoc.number}
+            {filteringDoc.accounts &&
+              t(
+                'AccountSwitch.account_counter',
+                filteringDoc.accounts.filter(accountExists).length
+              )}
+          </div>
+        </div>
+      ) : (
+        <div>
+          <div className={styles['account-name']}>
+            {t('AccountSwitch.all_accounts')}
             <div className={styles['account-num']}>
-              {filteringDoc.number && 'n°' + filteringDoc.number}
-              {filteringDoc.accounts && t('AccountSwitch.account_counter', filteringDoc.accounts.filter(accountExists).length)}
+              {t('AccountSwitch.account_counter', accounts.length)}
             </div>
           </div>
-          : <div>
-            <div className={styles['account-name']}>
-              {t('AccountSwitch.all_accounts')}
-              <div className={styles['account-num']}>
-                {t('AccountSwitch.account_counter', accounts.length)}
-              </div>
-            </div>
-          </div>
-      }
+        </div>
+      )}
     </button>
   )
 )
@@ -56,80 +79,114 @@ AccountSwitchDesktop.propTypes = {
   filteringDoc: PropTypes.object
 }
 
-const AccountSwitchMobile = ({filteringDoc, onClick}) => (
+const AccountSwitchMobile = ({ filteringDoc, onClick }) => (
   <button
-    className={classNames(
-      styles['account-switch-button-mobile'],
-      {[styles['active']]: filteringDoc}
-    )}
-    onClick={onClick} />
+    className={classNames(styles['account-switch-button-mobile'], {
+      [styles['active']]: filteringDoc
+    })}
+    onClick={onClick}
+  />
 )
 
 AccountSwitchMobile.propTypes = {
   filteringDoc: PropTypes.object
 }
 
-const AccountSwitchMenu = translate()(({ accounts, groups, filteringDoc, filterByDoc, resetFilterByDoc, t, accountExists, close }) => (
-  <div className={styles['account-switch-menu-content']}>
-    <div className={styles['account-switch-menu']}>
-      <h4>
-        {t('AccountSwitch.groups')}
-      </h4>
-      <ul>
-        <li>
-          <button onClick={() => { resetFilterByDoc() }} className={classNames({[styles['active']]: filteringDoc === undefined})}>
-            {t('AccountSwitch.all_accounts')}
-            <span className={styles['account-secondary-info']}>
-              ({t('AccountSwitch.account_counter', accounts.length)})
-            </span>
-          </button>
-        </li>
-        {sortBy(groups, 'label').map(group => (
+const AccountSwitchMenu = translate()(
+  ({
+    accounts,
+    groups,
+    filteringDoc,
+    filterByDoc,
+    resetFilterByDoc,
+    t,
+    accountExists,
+    close
+  }) => (
+    <div className={styles['account-switch-menu-content']}>
+      <div className={styles['account-switch-menu']}>
+        <h4>{t('AccountSwitch.groups')}</h4>
+        <ul>
           <li>
             <button
-              onClick={() => { filterByDoc(group) }}
-              className={classNames({[styles['active']]: filteringDoc && group._id === filteringDoc._id})}>
-              {group.label}
+              onClick={() => {
+                resetFilterByDoc()
+              }}
+              className={classNames({
+                [styles['active']]: filteringDoc === undefined
+              })}
+            >
+              {t('AccountSwitch.all_accounts')}
               <span className={styles['account-secondary-info']}>
-                ({t('AccountSwitch.account_counter', group.accounts.filter(accountExists).length)})
+                ({t('AccountSwitch.account_counter', accounts.length)})
               </span>
             </button>
           </li>
-        ))}
-      </ul>
-      <Link to={'/settings/groups'} onClick={close}>
-        {t('Groups.manage-groups')}
-      </Link>
+          {sortBy(groups, 'label').map(group => (
+            <li key={group.label}>
+              <button
+                onClick={() => {
+                  filterByDoc(group)
+                }}
+                className={classNames({
+                  [styles['active']]:
+                    filteringDoc && group._id === filteringDoc._id
+                })}
+              >
+                {group.label}
+                <span className={styles['account-secondary-info']}>
+                  ({t(
+                    'AccountSwitch.account_counter',
+                    group.accounts.filter(accountExists).length
+                  )})
+                </span>
+              </button>
+            </li>
+          ))}
+        </ul>
+        <Link to={'/settings/groups'} onClick={close}>
+          {t('Groups.manage-groups')}
+        </Link>
 
-      <hr />
+        <hr />
 
-      <h4>
-        {t('AccountSwitch.accounts')}
-      </h4>
-      <ul>
-        {sortBy(accounts, ['institutionLabel', 'label']).map(account => (
-          <li>
-            <button
-              onClick={() => { filterByDoc(account) }}
-              className={classNames({[styles['active']]: filteringDoc && account._id === filteringDoc._id})}>
-              <Media>
-                <Bd>
-                  {account.shortLabel || account.label}<span className={styles['account-secondary-info']}>- {getAccountInstitutionLabel(account)}</span>
-                </Bd>
-                <Img>
-                  <AccountSharingStatus tooltip account={account} />
-                </Img>
-              </Media>
-            </button>
-          </li>
-        ))}
-      </ul>
-      <Link to={'/settings/accounts'} onClick={close}>
-        {t('Accounts.manage-accounts')}
-      </Link>
+        <h4>{t('AccountSwitch.accounts')}</h4>
+        <ul>
+          {sortBy(accounts, ['institutionLabel', 'label']).map(
+            (account, index) => (
+              <li key={index}>
+                <button
+                  onClick={() => {
+                    filterByDoc(account)
+                  }}
+                  className={classNames({
+                    [styles['active']]:
+                      filteringDoc && account._id === filteringDoc._id
+                  })}
+                >
+                  <Media>
+                    <Bd>
+                      {account.shortLabel || account.label}
+                      <span className={styles['account-secondary-info']}>
+                        - {getAccountInstitutionLabel(account)}
+                      </span>
+                    </Bd>
+                    <Img>
+                      <AccountSharingStatus tooltip account={account} />
+                    </Img>
+                  </Media>
+                </button>
+              </li>
+            )
+          )}
+        </ul>
+        <Link to={'/settings/accounts'} onClick={close}>
+          {t('Accounts.manage-accounts')}
+        </Link>
+      </div>
     </div>
-  </div>
-))
+  )
+)
 
 AccountSwitchMenu.propTypes = {
   filterByDoc: PropTypes.func.isRequired,
@@ -162,8 +219,13 @@ class AccountSwitch extends Component {
     return accounts.find(account => account.id === accountId)
   }
 
-  render () {
-    const { filteringDoc, filterByDoc, resetFilterByDoc, breakpoints: { isMobile, isTablet, isDesktop } } = this.props
+  render() {
+    const {
+      filteringDoc,
+      filterByDoc,
+      resetFilterByDoc,
+      breakpoints: { isMobile, isTablet, isDesktop }
+    } = this.props
     const { open } = this.state
     let { accounts, groups } = this.props
     const isFetching = isLoading(accounts) || isLoading(groups)
@@ -182,22 +244,37 @@ class AccountSwitch extends Component {
     // It seems there is a bug in cozy-client when we delete a document
     // The document is removed in the store, but still referenced in the collection
     // So we may get an undefined group. We filter it before sorting
-    const orderedGroups = sortBy(groups.filter(Boolean), x => x.label.toLowerCase())
+    const orderedGroups = sortBy(groups.filter(Boolean), x =>
+      x.label.toLowerCase()
+    )
     return (
       <div className={styles['account-switch']}>
-        {isMobile && <BarRight>
-          <AccountSwitchMobile filteringDoc={filteringDoc} onClick={this.toggle} />
-        </BarRight>}
-        {isTablet && <AccountSwitchMobile filteringDoc={filteringDoc} onClick={this.toggle} />}
-        {isDesktop && <AccountSwitchDesktop
-          isFetching={isFetching}
-          isOpen={open}
-          filteringDoc={filteringDoc}
-          accounts={accounts}
-          accountExists={this.accountExists}
-          toggle={this.toggle} />}
-        {open && <Overlay className='coz-tablet' onClick={this.close} />}
-        {open &&
+        {isMobile && (
+          <BarRight>
+            <AccountSwitchMobile
+              filteringDoc={filteringDoc}
+              onClick={this.toggle}
+            />
+          </BarRight>
+        )}
+        {isTablet && (
+          <AccountSwitchMobile
+            filteringDoc={filteringDoc}
+            onClick={this.toggle}
+          />
+        )}
+        {isDesktop && (
+          <AccountSwitchDesktop
+            isFetching={isFetching}
+            isOpen={open}
+            filteringDoc={filteringDoc}
+            accounts={accounts}
+            accountExists={this.accountExists}
+            toggle={this.toggle}
+          />
+        )}
+        {open && <Overlay className="coz-tablet" onClick={this.close} />}
+        {open && (
           <AccountSwitchMenu
             filteringDoc={filteringDoc}
             filterByDoc={closeAfterSelect(filterByDoc)}
@@ -206,7 +283,8 @@ class AccountSwitch extends Component {
             groups={orderedGroups}
             accounts={accounts}
             accountExists={this.accountExists}
-          />}
+          />
+        )}
       </div>
     )
   }
@@ -227,7 +305,7 @@ const mapDispatchToProps = dispatch => ({
   filterByDoc: doc => dispatch(filterByDoc(doc))
 })
 
-const mapDocumentsToProps = ownProps => ({
+const mapDocumentsToProps = () => ({
   accounts: fetchCollection('accounts', ACCOUNT_DOCTYPE),
   groups: fetchCollection('groups', GROUP_DOCTYPE)
 })

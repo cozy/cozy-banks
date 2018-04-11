@@ -28,5 +28,7 @@ const memoize = fn => {
 }
 
 export const getClient = memoize(persistedState => {
-  return __TARGET__ === 'mobile' ? getClientMobile(persistedState) : getClientBrowser()
+  return __TARGET__ === 'mobile'
+    ? getClientMobile(persistedState)
+    : getClientBrowser()
 })

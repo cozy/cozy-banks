@@ -11,40 +11,40 @@ const updateCategoryParams = {
   }
 }
 
-export default ({updateCategory} = updateCategoryParams) => {
-  return Wrapped => class extends Component {
-    state = {
-      displaying: false
-    }
+export default ({ updateCategory } = updateCategoryParams) => {
+  return Wrapped =>
+    class WithUpdateCategoryWrapper extends Component {
+      state = {
+        displaying: false
+      }
 
-    show = () => {
-      this.setState({displaying: true})
-    }
+      show = () => {
+        this.setState({ displaying: true })
+      }
 
-    hide = () => {
-      this.setState({displaying: false})
-    }
+      hide = () => {
+        this.setState({ displaying: false })
+      }
 
-    handleSelect = category => {
-      this.hide()
-      updateCategory(this.props, category)
-    }
+      handleSelect = category => {
+        this.hide()
+        updateCategory(this.props, category)
+      }
 
-    render () {
-      const { displaying } = this.state
-      return (
-        <div>
-          <Wrapped {...this.props}
-            showCategoryChoice={this.show}
-          />
-          {displaying &&
-            <CategoryChoice
-              categoryId={getCategoryId(this.props.transaction)}
-              onSelect={this.handleSelect}
-              onCancel={this.hide}
-            />}
-        </div>
-      )
+      render() {
+        const { displaying } = this.state
+        return (
+          <div>
+            <Wrapped {...this.props} showCategoryChoice={this.show} />
+            {displaying && (
+              <CategoryChoice
+                categoryId={getCategoryId(this.props.transaction)}
+                onSelect={this.handleSelect}
+                onCancel={this.hide}
+              />
+            )}
+          </div>
+        )
+      }
     }
-  }
 }

@@ -1,10 +1,20 @@
 /* global __TARGET__ */
 import { Component } from 'react'
 import { connect } from 'react-redux'
-import { isSynced, isFirstSync, hasSyncStarted, isSyncInError, startSync, fetchCollection } from 'cozy-client'
+import {
+  isSynced,
+  isFirstSync,
+  hasSyncStarted,
+  isSyncInError,
+  startSync,
+  fetchCollection
+} from 'cozy-client'
 import { flowRight as compose } from 'lodash'
 import { translate } from 'cozy-ui/react'
-import { PouchFirstStrategy, StackOnlyStrategy } from 'cozy-client/DataAccessFacade'
+import {
+  PouchFirstStrategy,
+  StackOnlyStrategy
+} from 'cozy-client/DataAccessFacade'
 import { fetchTransactions } from 'actions'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { isInitialSyncOK } from 'ducks/mobile'
@@ -13,7 +23,7 @@ import { isInitialSyncOK } from 'ducks/mobile'
  * Displays Loading until PouchDB has done its first replication.
  */
 class Wrapper extends Component {
-  async componentDidMount () {
+  async componentDidMount() {
     if (__TARGET__ === 'mobile') {
       const { client } = this.context
 
@@ -28,7 +38,9 @@ class Wrapper extends Component {
         client.facade.strategy = new StackOnlyStrategy()
 
         promise = Promise.all([
-          this.props.dispatch(fetchCollection('onboarding_accounts', ACCOUNT_DOCTYPE)),
+          this.props.dispatch(
+            fetchCollection('onboarding_accounts', ACCOUNT_DOCTYPE)
+          ),
           this.props.dispatch(fetchCollection('groups', GROUP_DOCTYPE)),
           this.props.dispatch(fetchTransactions())
         ])
@@ -38,6 +50,7 @@ class Wrapper extends Component {
         await promise
         client.facade.strategy = new PouchFirstStrategy()
       } catch (e) {
+        // eslint-disable-next-line no-console
         console.error('Error while fetching data from stack: ' + e)
       } finally {
         this.props.dispatch(startSync())
@@ -45,7 +58,7 @@ class Wrapper extends Component {
     }
   }
 
-  render () {
+  render() {
     return this.props.children
   }
 }
@@ -58,7 +71,4 @@ const mapStateToProps = state => ({
   isOffline: isSyncInError(state)
 })
 
-export default compose(
-  connect(mapStateToProps),
-  translate()
-)(Wrapper)
+export default compose(connect(mapStateToProps), translate())(Wrapper)

@@ -35,17 +35,30 @@ export const DEFAULTS_SETTINGS = {
 }
 
 // components
-export { Settings, AccountsSettings, AccountSettings, GroupsSettings, GroupSettings, NewGroupSettings }
+export {
+  Settings,
+  AccountsSettings,
+  AccountSettings,
+  GroupsSettings,
+  GroupSettings,
+  NewGroupSettings
+}
 
 // actions
-export const fetchSettingsCollection = () => fetchCollection(COLLECTION_NAME, DOCTYPE)
-export const createSettings = settings => createDocument(DOCTYPE, settings, { updateCollections: [COLLECTION_NAME] })
+export const fetchSettingsCollection = () =>
+  fetchCollection(COLLECTION_NAME, DOCTYPE)
+export const createSettings = settings =>
+  createDocument(DOCTYPE, settings, { updateCollections: [COLLECTION_NAME] })
 export const updateSettings = settings => updateDocument(settings)
 export const initSettings = () => createSettings(DEFAULTS_SETTINGS)
 
 // utils
 export const getSettings = settingsCollection => {
-  if (settingsCollection && settingsCollection.data && settingsCollection.data.length > 0) {
+  if (
+    settingsCollection &&
+    settingsCollection.data &&
+    settingsCollection.data.length > 0
+  ) {
     const settings = settingsCollection.data[0]
     return merge(DEFAULTS_SETTINGS, settings)
   } else {

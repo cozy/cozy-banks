@@ -18,7 +18,9 @@ describe('brandDictionary', () => {
       expect(matchBrands(getBrands(), 'Cpam Des Yvelines')).toBeTruthy()
       expect(matchBrands(getBrands(), 'C.P.A.M Des Yvelines')).toBeTruthy()
       expect(matchBrands(getBrands(), 'C.P.AaM Des Yvelines')).toBeFalsy()
-      expect(matchBrands(getBrands(), 'caisse primaire Des Yvelines')).toBeTruthy()
+      expect(
+        matchBrands(getBrands(), 'caisse primaire Des Yvelines')
+      ).toBeTruthy()
       expect(matchBrands(getBrands(), 'Gandi Paris')).toBeFalsy()
     })
 
@@ -30,10 +32,18 @@ describe('brandDictionary', () => {
   describe('findMatchingBrand', () => {
     it('Should return brand information if label match with regex', () => {
       expect(findMatchingBrand(getBrands(), 'Gandi Paris')).toBeFalsy()
-      expect(findMatchingBrand(getBrands(), 'Cpam Des Yvelines').konnectorSlug).toBe('ameli')
-      expect(findMatchingBrand(getBrands(), 'Free Telecom').konnectorSlug).toBe('free')
-      expect(findMatchingBrand(getBrands(), 'Free HautDebit').konnectorSlug).toBe('free')
-      expect(findMatchingBrand(getBrands(), 'Free Mobile').konnectorSlug).toBe('freemobile')
+      expect(
+        findMatchingBrand(getBrands(), 'Cpam Des Yvelines').konnectorSlug
+      ).toBe('ameli')
+      expect(findMatchingBrand(getBrands(), 'Free Telecom').konnectorSlug).toBe(
+        'free'
+      )
+      expect(
+        findMatchingBrand(getBrands(), 'Free HautDebit').konnectorSlug
+      ).toBe('free')
+      expect(findMatchingBrand(getBrands(), 'Free Mobile').konnectorSlug).toBe(
+        'freemobile'
+      )
     })
   })
 })

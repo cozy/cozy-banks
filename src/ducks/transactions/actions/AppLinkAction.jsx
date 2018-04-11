@@ -8,15 +8,18 @@ const name = 'app'
 
 const getAppName = (urls, transaction) => {
   const label = transaction.label.toLowerCase()
-  return findKey(urls, (url, appName) => url && label.indexOf(appName.toLowerCase()) !== -1)
+  return findKey(
+    urls,
+    (url, appName) => url && label.indexOf(appName.toLowerCase()) !== -1
+  )
 }
 
-const Component = ({t, transaction, actionProps: { urls }}) => {
+const Component = ({ t, transaction, actionProps: { urls } }) => {
   const appName = getAppName(urls, transaction)
   return (
     <ActionLink
       href={urls[appName]}
-      text={t(`Transactions.actions.${name}`, {appName})}
+      text={t(`Transactions.actions.${name}`, { appName })}
     />
   )
 }
@@ -24,7 +27,7 @@ const Component = ({t, transaction, actionProps: { urls }}) => {
 const action = {
   name,
   icon,
-  match: (transaction, {urls}) => {
+  match: (transaction, { urls }) => {
     return getAppName(urls, transaction)
   },
   Component: translate()(Component)

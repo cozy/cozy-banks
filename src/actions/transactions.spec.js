@@ -8,9 +8,7 @@ xdescribe('transactions', () => {
   })
   it('should be able to fetch for a specific month', () => {
     const dispatch = () => {}
-    const getState = () => ({
-
-    })
+    const getState = () => ({})
     transactions.fetchTransactionsWithState()(dispatch, getState)
     expect(transactions.fetchTransactions).toHaveBeenCalledWith({
       selector: {

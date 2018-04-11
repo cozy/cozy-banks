@@ -6,12 +6,7 @@ import ActionLink from './ActionLink'
 const name = 'alert'
 
 const Component = ({ t, color }) => {
-  return (
-    <ActionLink
-      text={t('Transactions.actions.alert')}
-      color={color}
-    />
-  )
+  return <ActionLink text={t('Transactions.actions.alert')} color={color} />
 }
 
 const action = {

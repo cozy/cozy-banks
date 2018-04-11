@@ -51,10 +51,13 @@ class SelectDates extends Component {
     const options = []
     for (const [index, value] of periods.entries()) {
       if (index === periods.length - 1) {
-        options.push({value: index, name: t('SelectDates.last_12_months')})
+        options.push({ value: index, name: t('SelectDates.last_12_months') })
       } else {
         const date = parse(value, 'YYYY-MM')
-        options.push({value: index, name: capitalizeFirstLetter(f(date, 'MMMM YYYY'))})
+        options.push({
+          value: index,
+          name: capitalizeFirstLetter(f(date, 'MMMM YYYY'))
+        })
       }
     }
     return options
@@ -81,17 +84,40 @@ class SelectDates extends Component {
     }
   }
 
-  render ({t, f, startDate, endDate, scrolling}) {
+  render({ scrolling }) {
     const selected = this.getSelectedIndex()
     const options = this.getOptions()
     return (
-      <div className={cx(styles['select-dates'], scrolling && styles['select-dates--scrolling'])}>
-        <button disabled={selected === options.length - 1} className={styles['prev-button']} onClick={this.onChoosePrev}>
-          <Icon height='1rem' icon={arrowLeft} />
+      <div
+        className={cx(
+          styles['select-dates'],
+          scrolling && styles['select-dates--scrolling']
+        )}
+      >
+        <button
+          disabled={selected === options.length - 1}
+          className={styles['prev-button']}
+          onClick={this.onChoosePrev}
+        >
+          <Icon height="1rem" icon={arrowLeft} />
         </button>
-        <Select className={styles['select-dates-select']} name='periods' value={selected} options={options} onChange={this.onChange} />
-        <button disabled={selected === 0} className={styles['next-button']} onClick={this.onChooseNext}>
-          <Icon height='1rem' className={styles['next-icon']} icon={arrowLeft} />
+        <Select
+          className={styles['select-dates-select']}
+          name="periods"
+          value={selected}
+          options={options}
+          onChange={this.onChange}
+        />
+        <button
+          disabled={selected === 0}
+          className={styles['next-button']}
+          onClick={this.onChooseNext}
+        >
+          <Icon
+            height="1rem"
+            className={styles['next-icon']}
+            icon={arrowLeft}
+          />
         </button>
       </div>
     )
