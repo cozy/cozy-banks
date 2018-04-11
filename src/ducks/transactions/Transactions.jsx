@@ -31,8 +31,8 @@ const sActions = styles['bnk-op-actions']
 const TableHeadDesktop = ({ t }) => (
   <thead>
     <tr>
-      <td className={sDate}>{t('Transactions.header.date')}</td>
       <td className={sDesc}>{t('Transactions.header.description')}</td>
+      <td className={sDate}>{t('Transactions.header.date')}</td>
       <td className={sAmount}>{t('Transactions.header.amount')}</td>
       <td className={sAction}>{t('Transactions.header.action')}</td>
       <td className={sActions}>&nbsp;</td>
@@ -57,9 +57,6 @@ const TableTrDesktop = compose(translate(), withDispatch, withUpdateCategory())(
 
     return (
       <tr>
-        <TdSecondary className={sDate}>
-          {f(transaction.date, `DD ${isExtraLarge ? 'MMMM' : 'MMM'} YYYY`)}
-        </TdSecondary>
         <td className={cx(sDesc, 'u-pv-half', 'u-pl-1')}>
           <Media>
             <Img title={categoryTitle} onClick={showCategoryChoice}>
@@ -76,6 +73,9 @@ const TableTrDesktop = compose(translate(), withDispatch, withUpdateCategory())(
             </Bd>
           </Media>
         </td>
+        <TdSecondary className={sDate}>
+          {f(transaction.date, `DD ${isExtraLarge ? 'MMMM' : 'MMM'} YYYY`)}
+        </TdSecondary>
         <TdSecondary className={sAmount}>
           <Figure
             total={transaction.amount}
