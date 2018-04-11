@@ -1,6 +1,7 @@
 import { getCollection } from 'cozy-client'
 import { createSelector } from 'reselect'
 import groupBy from 'lodash/groupBy'
+import { GROUP_DOCTYPE } from 'doctypes'
 
 export const getTransactions = state => {
   const col = getCollection(state, 'transactions')
@@ -24,6 +25,7 @@ export const getVirtualGroups = createSelector(
       .entries(accountsByType)
       .map(([type, accounts]) => ({
         _id: type,
+        _type: GROUP_DOCTYPE,
         label: type.toLowerCase(),
         accounts: accounts.map(account => account._id),
         virtual: true
