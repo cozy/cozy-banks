@@ -42,7 +42,9 @@ export const getFilteredAccountIds = state => {
       return availableAccountIds
     }
   } else {
-    throw new Error('The filtering doc doesn\'t have any type. Please check it has a `_type` property')
+    throw new Error(
+      "The filtering doc doesn't have any type. Please check it has a `_type` property"
+    )
   }
 }
 

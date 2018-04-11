@@ -16,24 +16,21 @@ export const getAccounts = state => {
   return (col && col.data) || []
 }
 
-export const getVirtualGroups = createSelector(
-  [getAccounts],
-  accounts => {
-    const accountsByType = groupBy(accounts, account => account.type)
+export const getVirtualGroups = createSelector([getAccounts], accounts => {
+  const accountsByType = groupBy(accounts, account => account.type)
 
-    const virtualGroups = Object
-      .entries(accountsByType)
-      .map(([type, accounts]) => ({
-        _id: type,
-        _type: GROUP_DOCTYPE,
-        label: type.toLowerCase(),
-        accounts: accounts.map(account => account._id),
-        virtual: true
-      }))
+  const virtualGroups = Object.entries(accountsByType).map(
+    ([type, accounts]) => ({
+      _id: type,
+      _type: GROUP_DOCTYPE,
+      label: type.toLowerCase(),
+      accounts: accounts.map(account => account._id),
+      virtual: true
+    })
+  )
 
-    return virtualGroups
-  }
-)
+  return virtualGroups
+})
 
 export const getAllGroups = createSelector(
   [getGroups, getVirtualGroups],
