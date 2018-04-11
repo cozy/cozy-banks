@@ -146,6 +146,16 @@
   },
 
   "Data": {
+    "accountTypes": {
+      "asset": "Comptes d'actif",
+      "bank": "Comptes bancaires",
+      "cash": "Comptes de caisse",
+      "checkings": "Comptes courant",
+      "credit card": "Cartes de crédit",
+      "liability": "Comptes de dettes",
+      "none": "Aucun type",
+      "savings": "Comptes d'épargne"
+    },
     "categories": {
       "uncategorized": "A catégoriser",
       "incomeCat": "Revenus",

@@ -18,7 +18,8 @@ import CollectLink from 'ducks/settings/CollectLink'
 import { getSettings, fetchSettingsCollection } from 'ducks/settings'
 import { filterByDoc, getFilteringDoc } from 'ducks/filters'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
-import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
+import { ACCOUNT_DOCTYPE } from 'doctypes'
+import { getAllGroups } from 'selectors'
 
 import styles from './Balance.styl'
 import btnStyles from 'styles/buttons'
@@ -276,7 +277,12 @@ class Balance extends React.Component {
     const { t, settingsCollection, breakpoints: { isMobile } } = this.props
     let { accounts, groups } = this.props
     accounts = sortBy(accounts.data, ['institutionLabel', 'label'])
-    groups = sortBy(groups.data, 'label')
+    groups = groups.map(group => ({
+      ...group,
+      label: group.virtual ? t(`Data.accountTypes.${group.label}`) : group.label
+    }))
+
+    groups = sortBy(groups, 'label')
 
     if (accounts === null || groups === null) {
       return <Loading />
@@ -331,13 +337,13 @@ class Balance extends React.Component {
   }
 }
 
-const mapStateToProps = () => ({
-  settingsCollection: fetchSettingsCollection()
+const mapStateToProps = state => ({
+  settingsCollection: fetchSettingsCollection(),
+  groups: getAllGroups(state)
 })
 
 const mapDocumentsToProps = () => ({
-  accounts: fetchCollection('accounts', ACCOUNT_DOCTYPE),
-  groups: fetchCollection('groups', GROUP_DOCTYPE)
+  accounts: fetchCollection('accounts', ACCOUNT_DOCTYPE)
 })
 
 const mapDispatchToProps = dispatch => ({

@@ -17,6 +17,7 @@ import { filterByDoc, getFilteringDoc, resetFilterByDoc } from 'ducks/filters'
 import styles from './AccountSwitch.styl'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { getAccountInstitutionLabel } from './helpers.js'
+import { getAllGroups } from 'selectors'
 
 const { BarRight } = cozy.bar
 
@@ -221,16 +222,21 @@ class AccountSwitch extends Component {
 
   render() {
     const {
+      t,
       filteringDoc,
       filterByDoc,
       resetFilterByDoc,
       breakpoints: { isMobile, isTablet, isDesktop }
     } = this.props
     const { open } = this.state
-    let { accounts, groups } = this.props
-    const isFetching = isLoading(accounts) || isLoading(groups)
+    let { accounts, groups, groupsDocs } = this.props
+    const isFetching = isLoading(accounts) || isLoading(groupsDocs)
+
     accounts = accounts.data
-    groups = groups.data
+    groups = groups.map(group => ({
+      ...group,
+      label: group.virtual ? t(`Data.accountTypes.${group.label}`) : group.label
+    }))
 
     if (!accounts || accounts.length === 0) {
       return
@@ -297,7 +303,8 @@ AccountSwitch.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  filteringDoc: getFilteringDoc(state)
+  filteringDoc: getFilteringDoc(state),
+  groups: getAllGroups(state)
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -307,7 +314,7 @@ const mapDispatchToProps = dispatch => ({
 
 const mapDocumentsToProps = () => ({
   accounts: fetchCollection('accounts', ACCOUNT_DOCTYPE),
-  groups: fetchCollection('groups', GROUP_DOCTYPE)
+  groupsDocs: fetchCollection('groups', GROUP_DOCTYPE)
 })
 
 export default compose(

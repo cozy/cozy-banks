@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import { createSelector } from 'reselect'
 import { parse, format, isWithinRange } from 'date-fns'
 import SelectDates from './SelectDates'
-import { getTransactions, getGroups, getAccounts } from 'selectors'
+import { getTransactions, getAllGroups, getAccounts } from 'selectors'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { sortBy, last, keyBy, find } from 'lodash'
 import { DESTROY_ACCOUNT } from 'actions/accounts'
@@ -34,13 +34,17 @@ export const getFilteredAccountIds = state => {
       return availableAccountIds
     }
   } else if (doctype === GROUP_DOCTYPE) {
-    const groups = getGroups(state)
+    const groups = getAllGroups(state)
     const group = find(groups, { _id: id })
     if (group) {
       return group.accounts
     } else {
       return availableAccountIds
     }
+  } else {
+    throw new Error(
+      "The filtering doc doesn't have any type. Please check it has a `_type` property"
+    )
   }
 }
 
