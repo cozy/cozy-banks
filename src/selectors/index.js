@@ -20,7 +20,7 @@ export const getVirtualGroups = createSelector([getAccounts], accounts => {
   const accountsByType = groupBy(accounts, account => account.type)
 
   const virtualGroups = Object.entries(accountsByType)
-    .filter(([type, accounts]) => type !== undefined && accounts.length > 1)
+    .filter(([type, accounts]) => type !== 'undefined' && accounts.length > 1)
     .map(([type, accounts]) => ({
       _id: type,
       _type: GROUP_DOCTYPE,
