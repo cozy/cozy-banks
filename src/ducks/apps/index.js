@@ -1,4 +1,4 @@
-/* global cozy */
+import { links } from 'utils/client'
 
 // reducers
 export const getApps = state => state.apps
@@ -20,7 +20,9 @@ export const setApps = apps => ({ type: SET_APPS, apps })
 
 // actions async
 export const fetchApps = () => async dispatch => {
-  return cozy.client.fetchJSON('GET', '/apps/').then(apps => dispatch(setApps(apps)))
+  const stack = links.stack
+  const apps = await stack.client.fetch('GET', '/apps/')
+  dispatch(setApps(apps && apps.data))
 }
 
 // reducers

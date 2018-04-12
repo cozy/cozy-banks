@@ -2515,11 +2515,11 @@ cosmiconfig@^2.1.0, cosmiconfig@^2.1.1:
     parse-json "^2.2.0"
     require-from-string "^1.1.0"
 
-cozy-authentication@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-1.1.0.tgz#fc0cd512a7226398659641eb97d3f8aa6cecdb42"
+cozy-authentication@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-1.1.2.tgz#55515c713c0fe556b6e5a342fe5f2e0d176fe0ff"
   dependencies:
-    url-polyfill "^1.0.10"
+    url-polyfill "1.0.11"
 
 cozy-bar@4.8.4:
   version "4.8.4"
@@ -11635,7 +11635,7 @@ url-parse@^1.1.8:
     querystringify "~1.0.0"
     requires-port "~1.0.0"
 
-url-polyfill@^1.0.10:
+url-polyfill@1.0.11:
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/url-polyfill/-/url-polyfill-1.0.11.tgz#f3a76d3795f42a459c2df4a1a69a5713c5cfa6d4"
 

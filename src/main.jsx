@@ -22,14 +22,14 @@ if (process.env.NODE_ENV === 'development') {
   require('preact/debug')
 }
 
-const renderAppWithPersistedState = persistedState => {
+const renderAppWithPersistedState = async persistedState => {
   const root = document.querySelector('[role=application]')
   const data = root.dataset
   const lang = __TARGET__ === 'mobile' && navigator && navigator.language ? navigator.language.slice(0, 2) : data.cozyLocale || 'en'
 
   const history = setupHistory()
 
-  const client = getClient(persistedState)
+  const client = await getClient()
   const store = configureStore(client, persistedState)
 
   // TODO cozy-client-v2

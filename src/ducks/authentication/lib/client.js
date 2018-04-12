@@ -1,10 +1,13 @@
 /* global cozy __APP_VERSION__ */
-import { CozyClient } from 'cozy-client'
-import { LocalStorage as Storage } from 'cozy-client-js'
-import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
+import { OAuthClient } from 'cozy-stack-client'
+import localforage from 'localforage'
+
 import getPermissions from 'utils/getPermissions'
 import { capitalize } from 'lodash'
 
+const SOFTWARE_ID = 'io.cozy.banks.mobile'
+const SOFTWARE_NAME = 'Cozy Banks'
+const getLang = () => (navigator && navigator.language) ? navigator.language.slice(0, 2) : 'en'
 const isCordova = () => window.cordova !== undefined
 const hasDeviceCordovaPlugin = () => isCordova() && window.device !== undefined
 
@@ -39,44 +42,27 @@ export const getDevicePlatform = () => {
   return window.device.platform.toLowerCase()
 }
 
-const SOFTWARE_ID = 'io.cozy.banks.mobile'
-const SOFTWARE_NAME = 'Cozy Banks'
-const getLang = () => (navigator && navigator.language) ? navigator.language.slice(0, 2) : 'en'
-
-export function resetClient (clientInfo, client) {
-  // reset cozy-bar
-  if (document.getElementById('coz-bar')) {
-    document.getElementById('coz-bar').remove()
-  }
-  // reset pouchDB
-  if (client && client.resetStore) {
-    client.resetStore()
-  }
-  // unregister the client
-  if (clientInfo && cozy.client.auth.unregisterClient) {
-    cozy.client.auth.unregisterClient(clientInfo)
-  }
-  // reset cozy-client-js
-  if (cozy.client._storage) {
-    cozy.client._storage.clear()
-  }
+export const persistCredentials = (url, clientInfo, token) => {
+  return localforage.setItem('oauth', { url, clientInfo, token })
 }
 
-export const getToken = async () => {
-  try {
-    const response = await cozy.client.authorize()
-    return response.token
-  } catch (e) {
-    throw e
-  }
+export const getPersistedCredentials = () => {
+  return localforage.getItem('oauth')
 }
 
-export const initClient = (url) => {
-  return new CozyClient({
-    cozyURL: url,
+export const eraseCredentials = () => {
+  return localforage.setItem('oauth', null)
+}
+
+export const initMobileStackClient = async () => {
+  const credentials = await getPersistedCredentials() || {}
+  const { url, clientInfo, token } = credentials
+  return new OAuthClient({
+    uri: url,
+    scope: getPermissions(),
+    token,
     oauth: {
-      storage: new Storage(),
-      clientParams: {
+      ...{
         redirectURI: 'http://localhost',
         softwareID: SOFTWARE_ID,
         clientName: `${SOFTWARE_NAME} (${getDeviceName()})`,
@@ -85,11 +71,13 @@ export const initClient = (url) => {
         clientURI: 'https://gitlab.cozycloud.cc/labs/cozy-bank',
         logoURI: 'https://gitlab.cozycloud.cc/labs/cozy-bank/raw/master/src/targets/favicons/favicon-32x32.png',
         policyURI: 'https://files.cozycloud.cc/cgu.pdf',
-        scopes: getPermissions(),
-        notificationPlatform: getDevicePlatform()
-      }
-    },
-    offline: {doctypes: [ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE]}
+        notificationPlatform: getDevicePlatform(),
+        onTokenRefresh: accessToken => {
+          cozy.bar.updateAccessToken(accessToken)
+        }
+      },
+      ...clientInfo
+    }
   })
 }
 
@@ -105,8 +93,4 @@ export const initBar = (url, accessToken, options = {}) => {
     displayOnMobile: true,
     ...options
   })
-}
-
-export const updateAccessTokenBar = accessToken => {
-  cozy.bar.updateAccessToken(accessToken)
 }

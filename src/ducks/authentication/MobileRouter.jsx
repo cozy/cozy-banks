@@ -1,99 +1,97 @@
-import React from 'react'
-import { Router, Route } from 'react-router'
+import React, { Component } from 'react'
+import { Router } from 'react-router'
 
 import { Authentication, Revoked } from 'cozy-authentication'
-import { storeCredentials, revokeClient, setToken, getURL, getAccessToken, setInitialSyncStatus, registerPushNotifications, unregisterPushNotifications } from 'ducks/mobile'
-import { initBar, updateAccessTokenBar, resetClient, getToken } from 'ducks/authentication/lib/client'
-export const AUTH_PATH = 'authentication'
+import { setInitialSyncStatus, registerPushNotifications, unregisterPushNotifications } from 'ducks/mobile'
+import { initBar, persistCredentials, getPersistedCredentials, eraseCredentials } from 'ducks/authentication/lib/client'
 
-const withAuth = Wrapped => (props, { store, router, client }) => {
-  const onAuthentication = async (res) => {
-    if (res) {
-      // first authentication
-      const { url, clientInfo, router, token } = res
-      store.dispatch(storeCredentials(url, clientInfo, token))
-      router.replace('/')
-    } else {
-      // when user is already authenticated
-      // token can expire so ask stack to replace it
-      try {
-        const token = await getToken()
-        if (token && token.accessToken !== getAccessToken(store.getState().mobile)) {
-          store.dispatch(setToken(token))
-          updateAccessTokenBar(token.accessToken)
-        }
-      } catch (e) {
-        console.warn(e)
-      }
-    }
+const logException = (e) => {
+  console.log('exception during auth', e)
+}
 
-    store.dispatch(registerPushNotifications())
+export default class MobileRouter extends Component {
+  state = {
+    ready: false,
+    isAuthenticated: false,
+    hasCozyUrl: false
   }
 
-  const onLogout = () => {
-    const mobile = store.getState().mobile
-    resetClient(mobile.client, client)
+  async componentWillMount () {
+    const credentials = await getPersistedCredentials()
+    const hasCozyUrl = credentials !== null && credentials.url
+    const isAuthenticated = hasCozyUrl && credentials.clientInfo && credentials.token
+
+    if (isAuthenticated) {
+      this.onAuthOK(credentials.url, credentials.token)
+    }
+
+    this.setState(state => ({
+      ...state,
+      ready: true,
+      isAuthenticated: credentials !== null && credentials.clientInfo && credentials.token,
+      hasCozyUrl: credentials !== null && credentials.url
+    }))
+  }
+
+  onLogin = async (res) => {
+    const { url, clientInfo, token } = res
+    persistCredentials(url, clientInfo, token)
+
+    this.setState(state => ({ ...state, isAuthenticated: true, hasCozyUrl: true }))
+
+    this.onAuthOk(url, token)
+  }
+
+  onAuthOk = (url, token) => {
+    initBar(url, token, { onLogOut: this.onLogout })
+    this.context.store.dispatch(registerPushNotifications())
+  }
+
+  onLogout = () => {
+    const { client, store } = this.context
+    eraseCredentials()
+    // reset cozy-bar
+    if (document.getElementById('coz-bar')) {
+      document.getElementById('coz-bar').remove()
+    }
+    // reset pouchDB
+    if (client && client.resetStore) {
+      client.resetStore()
+    }
+    // unregister the client
+    client.getOrCreateStackClient().unregister()
+    // reset cozy-client-js
+    // if (cozy.client._storage) {
+    //   cozy.client._storage.clear()
+    // }
     setInitialSyncStatus(false)
     store.dispatch(unregisterPushNotifications())
-    props.history.replace(`/${AUTH_PATH}`)
+
+    this.setState(state => ({ ...state, isAuthenticated: false }))
   }
 
-  const setupAuth = (isAuthenticated, router) => (nextState, replace) => {
-    if (!isAuthenticated()) {
-      resetClient()
-      replace({
-        pathname: `/${AUTH_PATH}`
-      })
-      store.dispatch(revokeClient())
-    } else {
-      onAuthentication()
-      const mobile = store.getState().mobile
-      initBar(getURL(mobile), getAccessToken(mobile), {
-        onLogOut: onLogout
-      })
+  render () {
+    const { ready, isAuthenticated, hasCozyUrl } = this.state
+    const { history, routes, client } = this.props
+    console.log(this.state)
+    if (!ready) return null
+    if (isAuthenticated) {
+      return <Router history={history}>{routes}</Router>
     }
+    if (!hasCozyUrl) {
+      return (
+        <Authentication
+          router={history}
+          onComplete={this.onLogin}
+          onException={logException}
+        />
+      )
+    }
+    return (
+      <Revoked
+        url={client.options.uri}
+        router={history}
+        onLogBackIn={this.onLogin} />
+    )
   }
-
-  const isAuthenticated = () => {
-    return store.getState().mobile.client !== null
-  }
-
-  const isRevoked = () => {
-    return store.getState().mobile.revoked
-  }
-
-  return <Wrapped {...props} {...{ isAuthenticated, isRevoked, onAuthentication, setupAuth }} />
 }
-
-const logException = () => {
-  console.log('exception during auth')
-}
-
-const MobileRouter = ({ router, history, routes, isAuthenticated, isRevoked, onAuthentication, setupAuth }, { store, client }) => {
-  return (
-    <Router history={history}>
-      <Route>
-        <Route path={AUTH_PATH} component={(props) => (
-          <Authentication {...props}
-            router={history}
-            onComplete={onAuthentication}
-            onException={logException}
-          />
-        )} />
-        <Route onEnter={setupAuth(isAuthenticated, router)} component={(props, context) => {
-          const revoked = isRevoked()
-          return revoked
-            ? <Revoked {...props}
-              router={history}
-              revoked={isRevoked()}
-              onLogBackIn={onAuthentication} />
-            : props.children
-        }}>
-          {routes}
-        </Route>
-      </Route>
-    </Router>
-  )
-}
-
-export default withAuth(MobileRouter)

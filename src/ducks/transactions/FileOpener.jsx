@@ -1,15 +1,12 @@
 /* global __TARGET__ */
 
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { getURL } from 'reducers'
 import FileIntentDisplay from 'components/FileIntentDisplay'
 import PropTypes from 'prop-types'
 import Spinner from 'cozy-ui/react/Spinner'
 import { translate } from 'cozy-ui/react'
 import { checkApp, DRIVE_INFO } from 'ducks/mobile/appAvailability'
 import flash from 'ducks/flash'
-import { flowRight as compose } from 'lodash'
 
 const spinnerStyle = { marginLeft: '-0.25rem', marginRight: '-1rem' }
 
@@ -51,7 +48,7 @@ class FileOpener extends Component {
         } catch (e) {
           console.warn('Could not check if app is installed. error: ' + e)
         }
-        const baseUrl = isInstalled ? DRIVE_INFO.uri : buildAppURL(this.props.cozyURL, 'drive', '')
+        const baseUrl = isInstalled ? DRIVE_INFO.uri : buildAppURL(this.context.client.options.uri, 'drive', '')
         const url = baseUrl + `file/${fileId[1]}`
         // Open drive in a new window
         window.open(url, '_system')
@@ -82,7 +79,4 @@ FileOpener.propTypes = {
   children: PropTypes.element
 }
 
-export default compose(
-  connect(state => ({ cozyURL: getURL(state) })),
-  translate()
-)(FileOpener)
+export default translate()(FileOpener)

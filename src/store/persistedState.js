@@ -4,8 +4,7 @@ export const persistState = store => {
   store.subscribe(() => saveState({
     filters: {
       filteringDoc: store.getState().filters.filteringDoc
-    },
-    mobile: store.getState().mobile
+    }
   }))
 }
 

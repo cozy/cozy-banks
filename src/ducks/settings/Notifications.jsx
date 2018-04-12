@@ -5,7 +5,7 @@ import { translate } from 'cozy-ui/react/I18n'
 import Loading from 'components/Loading'
 import { queryConnect } from 'utils/client-compat'
 import compose from 'lodash/flowRight'
-import { getSettings, createSettings, updateSettings, COLLECTION_NAME, DEFAULTS_SETTINGS } from '.'
+import { getSettings, COLLECTION_NAME, DEFAULTS_SETTINGS } from '.'
 import styles from './Notifications.styl'
 import { BANK_SETTINGS_DOCTYPE } from 'doctypes'
 
@@ -29,29 +29,27 @@ class Notifications extends Component {
   ]
 
   onToggle = (setting, checked) => {
-    const { settingsCollection, dispatch } = this.props
+    const { settingsCollection } = this.props
     let settings = getSettings(settingsCollection)
-    const updateOrCreate = settings._id ? updateSettings : createSettings
 
     if (!settings.notifications[setting]) {
       settings.notifications[setting] = {}
     }
 
     settings.notifications[setting].enabled = checked
-    dispatch(updateOrCreate(settings))
+    this.props.saveDocument(settings)
   }
 
   onChangeValue = (setting, value) => {
-    const { settingsCollection, dispatch } = this.props
+    const { settingsCollection } = this.props
     let settings = getSettings(settingsCollection)
-    const updateOrCreate = settings._id ? updateSettings : createSettings
 
     if (!settings.notifications[setting]) {
       settings.notifications[setting] = {}
     }
 
     settings.notifications[setting].value = value.replace(/\D/i, '')
-    dispatch(updateOrCreate(settings))
+    this.props.saveDocument(settings)
   }
 
   renderLine (notification, setting) {
@@ -102,7 +100,7 @@ class Notifications extends Component {
 
 export default compose(
   queryConnect({
-    settings: { query: client => client.all(BANK_SETTINGS_DOCTYPE), as: COLLECTION_NAME }
+    settingsCollection: { query: client => client.all(BANK_SETTINGS_DOCTYPE), as: COLLECTION_NAME }
   }),
   translate()
 )(Notifications)

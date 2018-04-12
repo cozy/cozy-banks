@@ -4,23 +4,17 @@ import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react/I18n'
 import Loading from 'components/Loading'
 import Topbar from 'components/Topbar'
-import { getFilteredTransactions } from 'ducks/filters'
 import { transactionsByCategory, computeCategorieData } from './helpers'
 import Categories from './Categories'
 import BackButton from 'components/BackButton'
 import styles from './CategoriesPage.styl'
 import { flowRight as compose } from 'lodash'
-import { queryConnect } from 'utils/client-compat'
 import { Breadcrumb } from 'components/Breadcrumb'
-import { TRANSACTION_DOCTYPE } from 'doctypes'
+import withFilteredTransactions from 'ducks/commons/withFilteredTransactions'
 
 class CategoriesPage extends Component {
   state = {
     withIncome: true
-  }
-
-  componentDidMount () {
-    this.props.fetchTransactions()
   }
 
   selectCategory = (selectedCategory, subcategory) => {
@@ -38,6 +32,7 @@ class CategoriesPage extends Component {
   }
 
   render ({t, categories, transactions, router}, {withIncome}) {
+    console.log('transactions fetch status', transactions)
     const isFetching = transactions.fetchStatus !== 'loaded'
     const selectedCategory = router.params.categoryName
     // compute the filter to use
@@ -67,15 +62,13 @@ class CategoriesPage extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  categories: computeCategorieData(transactionsByCategory(getFilteredTransactions(state)))
+const mapStateToProps = (state, ownProps) => ({
+  categories: computeCategorieData(transactionsByCategory(ownProps.filteredTransactions))
 })
 
 export default compose(
   withRouter,
-  queryConnect({
-    transactions: {query: client => client.all(TRANSACTION_DOCTYPE)}
-  }),
+  withFilteredTransactions,
   connect(mapStateToProps /* mapDispatchToProps TODO */),
   translate()
 )(CategoriesPage)

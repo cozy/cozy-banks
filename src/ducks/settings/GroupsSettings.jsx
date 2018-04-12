@@ -38,7 +38,7 @@ const GroupList = withRouter(translate()(({groups, accounts, t, router}) => {
             {group.label}
           </td>
           <td className={styles.GrpsStg__accounts}>
-            {group.accounts
+            {group.accounts && group.accounts
               .map(accountId =>
                 accounts.data.find(account => (account._id === accountId))
               ).filter(account => account)

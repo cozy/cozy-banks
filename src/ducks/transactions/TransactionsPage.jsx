@@ -7,11 +7,8 @@ import { translate } from 'cozy-ui/react/I18n'
 
 import {
   SelectDates,
-  getFilteredTransactions,
-  addFilterForMostRecentTransactions,
-  getFilteredAccountIds
+  addFilterForMostRecentTransactions
 } from 'ducks/filters'
-import { fetchTransactions } from 'actions/transactions'
 import { getAppUrlBySource, fetchApps } from 'ducks/apps'
 import { getCategoryIdFromName } from 'ducks/categories/categoriesMap'
 import { getCategoryId } from 'ducks/categories/helpers'
@@ -22,11 +19,11 @@ import Topbar from 'components/Topbar'
 import { Breadcrumb } from 'components/Breadcrumb'
 import BackButton from 'components/BackButton'
 
-import { hydrateTransaction } from 'documents/transaction'
 import TransactionsWithSelection from './TransactionsWithSelection'
 import styles from './TransactionsPage.styl'
-import { TRIGGER_DOCTYPE, ACCOUNT_DOCTYPE, TRANSACTION_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
+import { TRIGGER_DOCTYPE } from 'doctypes'
 import { getBrands } from 'ducks/brandDictionary'
+import withFilteredTransactions from 'ducks/commons/withFilteredTransactions'
 import { queryConnect } from 'utils/client-compat'
 
 const isPendingOrLoading = function (col) {
@@ -129,12 +126,6 @@ class TransactionsPage extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const enhancedState = {
-    accounts: ownProps.accounts,
-    groups: ownProps.groups,
-    transactions: ownProps.transactions,
-    ...state
-  }
   return {
     urls: {
       // this keys are used on Transactions.jsx to:
@@ -144,40 +135,20 @@ const mapStateToProps = (state, ownProps) => {
       HEALTH: getAppUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-sante'),
       EDF: getAppUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-edf'),
       COLLECT: getAppUrlBySource(state, 'github.com/cozy/cozy-collect')
-    },
-    accountIds: getFilteredAccountIds(enhancedState),
-    filteredTransactions: getFilteredTransactions(enhancedState)
-      .map(transaction => hydrateTransaction(enhancedState, transaction))
+    }
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   dispatch,
-  fetchApps: () => dispatch(fetchApps()),
-  fetchTransactions: () => {
-    const onFetch = (dispatch) => {
-      const subcategoryName = ownProps.router.params.subcategoryName
-      if (subcategoryName) {
-        return
-      }
-      dispatch(addFilterForMostRecentTransactions())
-    }
-    // We should use fetchTransactionsWithState
-    // when https://github.com/cozy/cozy-drive/pull/800
-    // has been merged, it would only fetch transactions
-    // for the proper account(s) and period and thus would
-    // be more performant
-    return dispatch(fetchTransactions({}, onFetch))
-  }
+  fetchApps: () => dispatch(fetchApps())
 })
 
 export default compose(
   withRouter,
+  withFilteredTransactions,
   queryConnect({
-    accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' },
-    triggers: { query: client => client.all(TRIGGER_DOCTYPE), as: 'triggers' },
-    groups: { query: client => client.all(GROUP_DOCTYPE), as: 'groups' },
-    transactions: { query: client => client.all(TRANSACTION_DOCTYPE), as: 'transactions' }
+    triggers: { query: client => client.all(TRIGGER_DOCTYPE), as: 'triggers' }
   }),
   connect(mapStateToProps, mapDispatchToProps),
   translate()
