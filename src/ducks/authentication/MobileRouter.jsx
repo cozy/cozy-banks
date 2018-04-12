@@ -72,7 +72,7 @@ export default class MobileRouter extends Component {
 
   render () {
     const { ready, isAuthenticated, hasCozyUrl } = this.state
-    const { history, routes } = this.props
+    const { history, routes, client } = this.props
     console.log(this.state)
     if (!ready) return null
     if (isAuthenticated) {
@@ -89,6 +89,7 @@ export default class MobileRouter extends Component {
     }
     return (
       <Revoked
+        url={client.options.uri}
         router={history}
         onLogBackIn={this.onLogin} />
     )
