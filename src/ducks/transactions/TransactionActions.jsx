@@ -69,7 +69,7 @@ class TransactionActions extends Component {
     actionProps: false
   }
 
-  findActions = async () => {
+  async findMatchingActions() {
     const { transaction } = this.props
     if (transaction) {
       const { urls, brands, bill } = this.props
@@ -80,7 +80,7 @@ class TransactionActions extends Component {
   }
 
   componentDidMount() {
-    this.findActions()
+    this.findMatchingActions()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -96,7 +96,7 @@ class TransactionActions extends Component {
       nextProps.brands !== this.props.brands ||
       nextProps.bill !== this.props.bill
     ) {
-      this.findActions()
+      this.findMatchingActions()
     }
   }
 
@@ -109,9 +109,9 @@ class TransactionActions extends Component {
     } = this.props
     const { actions, actionProps } = this.state
 
-    if (!actions) return
+    if (!actions) return null
 
-    const props = { transaction, actionProps }
+    const menuProps = { transaction, actionProps }
     return (
       <span>
         {(displayDefaultAction || onlyDefault) &&
@@ -121,12 +121,12 @@ class TransactionActions extends Component {
               className={onlyDefault || onlyIcon ? 'u-p-0' : ''}
               displayComponent={!onlyIcon}
               isDefault
-              {...props}
+              {...menuProps}
             />
           )}
         {!onlyDefault &&
           actions.others.map((action, index) => (
-            <MenuAction key={index} action={action} {...props} />
+            <MenuAction key={index} action={action} {...menuProps} />
           ))}
       </span>
     )
