@@ -103,6 +103,7 @@
     "actions": {
       "more": "Plus",
       "bill": "1 facture",
+      "app": "Application %{appName}",
       "refund": "Vérifier vos remboursements",
       "attach": "Attacher un document",
       "konnector": "Récupérez vos factures %{vendor}",

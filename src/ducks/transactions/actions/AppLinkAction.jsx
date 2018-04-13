@@ -1,5 +1,6 @@
 import React from 'react'
 import { findKey } from 'lodash'
+import { translate } from 'cozy-ui/react'
 import icon from 'assets/icons/actions/icon-link-out.svg'
 import ButtonAction from 'cozy-ui/react/ButtonAction'
 import capitalize from 'lodash/capitalize'
@@ -14,11 +15,16 @@ const getAppName = (urls, transaction) => {
   )
 }
 
-const Component = ({ transaction, actionProps: { urls } }) => {
+const Component = ({ t, transaction, actionProps: { urls } }) => {
   const appName = getAppName(urls, transaction)
   return (
     <a href={urls[appName]}>
-      <ButtonAction label={capitalize(appName)} rightIcon="openwith" />
+      <ButtonAction
+        label={t(`Transactions.actions.${name}`, {
+          appName: capitalize(appName)
+        })}
+        rightIcon="openwith"
+      />
     </a>
   )
 }
@@ -29,7 +35,7 @@ const action = {
   match: (transaction, { urls }) => {
     return getAppName(urls, transaction)
   },
-  Component: Component
+  Component: translate()(Component)
 }
 
 export default action
