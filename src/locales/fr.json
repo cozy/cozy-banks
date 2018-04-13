@@ -102,7 +102,7 @@
     },
     "actions": {
       "more": "Plus",
-      "bill": "Afficher votre facture",
+      "bill": "1 facture",
       "refund": "Vérifier vos remboursements",
       "app": "Accéder à votre espace %{appName}",
       "attach": "Attacher un document",

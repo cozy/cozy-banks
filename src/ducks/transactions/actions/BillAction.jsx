@@ -5,6 +5,7 @@ import { translate } from 'cozy-ui/react'
 import icon from 'assets/icons/actions/icon-file.svg'
 import ActionLink from './ActionLink'
 import FileOpener from '../FileOpener'
+import ButtonAction from 'cozy-ui/react/ButtonAction'
 
 const name = 'bill'
 const billCache = {}
@@ -46,6 +47,7 @@ const getBill = async transaction => {
 export const Component = ({
   t,
   transaction,
+  isMenuItem = false,
   actionProps: { urls, bill, text }
 }) => {
   if (!bill) {
@@ -58,9 +60,16 @@ export const Component = ({
     const [, billId] = billRef.split(':')
     bill = billCache[billId]
   }
+
+  text = text || t('Transactions.actions.bill')
+
   return (
     <FileOpener getFileId={() => getBillInvoice(bill)}>
-      <ActionLink text={text || t('Transactions.actions.bill')} />
+      {isMenuItem ? (
+        <ActionLink text={text} />
+      ) : (
+        <ButtonAction label={text} rightIcon="file" />
+      )}
     </FileOpener>
   )
 }

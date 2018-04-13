@@ -65,6 +65,7 @@ const Component = ({ t, transaction }) => {
         return (
           <MenuItem key={reimbursement.bill.vendor}>
             <BillComponent
+              isMenuItem
               t={t}
               actionProps={{
                 bill: reimbursement.bill,

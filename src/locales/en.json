@@ -270,7 +270,7 @@
       "refund": "Check your refunds",
       "comment": "Add a comment",
       "app": "Access your space %{appName}",
-      "bill": "View your invoice",
+      "bill": "1 invoice",
       "alert": "Create an alert",
       "attach": "Attach a document",
       "konnector": "Retrieve your %{vendor} bills",
