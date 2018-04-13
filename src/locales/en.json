@@ -273,7 +273,7 @@
       "bill": "1 invoice",
       "alert": "Create an alert",
       "attach": "Attach a document",
-      "konnector": "Retrieve your %{vendor} bills",
+      "konnector": "My invoices",
       "more": "More",
       "healthExpenseProcessed": {
         "single": "1 reimbursement",
