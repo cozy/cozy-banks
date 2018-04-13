@@ -20,7 +20,6 @@ import flash from 'ducks/flash'
 
 import styles from './Transactions.styl'
 import { Media, Bd, Img } from 'components/Media'
-// import { HealthExpenseStatus, HealthExpenseStatusIcon, getVendors } from 'ducks/health-expense'
 
 const sDate = styles['bnk-op-date']
 const sDesc = styles['bnk-op-desc']
