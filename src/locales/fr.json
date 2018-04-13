@@ -109,8 +109,11 @@
       "konnector": "Récupérez vos factures %{vendor}",
       "alert": "Créer une alerte",
       "comment": "Ajouter un commentaire",
-      "healthExpenseStatus": "Dépense traitée par %{vendors}",
-      "healthExpensePending": "Dépense pas encore traitée par les assurances santé",
+      "healthExpenseProcessed": {
+        "single": "1 remboursement",
+        "plural": "%{nbReimbursements} remboursements"
+      },
+      "healthExpensePending": "Remboursements en attente",
       "healthExpenseBill": "Relevé %{vendor}",
       "vendorsGlue": "et"
     }

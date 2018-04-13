@@ -275,8 +275,11 @@
       "attach": "Attach a document",
       "konnector": "Retrieve your %{vendor} bills",
       "more": "More",
-      "healthExpenseStatus": "Expense processed by %{vendors}",
-      "healthExpensePending": "Expense not yet processed by your medical insurances",
+      "healthExpenseProcessed": {
+        "single": "1 reimbursement",
+        "plural": "%{nbReimbursements} reimbursements"
+      },
+      "healthExpensePending": "No reimbursement yet",
       "healthExpenseBill": "%{vendor} Statement",
       "vendorsGlue": "and"
     }
