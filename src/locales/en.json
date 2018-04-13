@@ -269,7 +269,6 @@
     "actions": {
       "refund": "Check your refunds",
       "comment": "Add a comment",
-      "app": "Access your space %{appName}",
       "bill": "1 invoice",
       "alert": "Create an alert",
       "attach": "Attach a document",
