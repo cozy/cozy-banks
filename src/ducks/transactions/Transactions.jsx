@@ -73,7 +73,7 @@ const TableTrDesktop = compose(translate(), withDispatch, withUpdateCategory())(
                 className={styles['bnk-op-caticon']}
               />
             </Img>
-            <Bd className={cx(styles['bnk-op-label'], 'u-pl-1')}>
+            <Bd className="u-pl-1">
               <ListItemText
                 primaryText={getLabel(transaction)}
                 secondaryText={!filteringOnAccount && transaction.account.label}
