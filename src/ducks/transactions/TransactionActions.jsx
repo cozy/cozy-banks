@@ -66,7 +66,7 @@ class TransactionActions extends Component {
     actionProps: false
   }
 
-  async componentDidMount() {
+  findActions = async () => {
     const { transaction } = this.props
     if (transaction) {
       const { urls, brands, bill } = this.props
@@ -74,6 +74,10 @@ class TransactionActions extends Component {
       const actions = await findMatchingActions(transaction, actionProps)
       this.setState({ actions, actionProps })
     }
+  }
+
+  componentDidMount () {
+    this.findActions()
   }
 
   componentWillReceiveProps (nextProps) {
@@ -89,7 +93,7 @@ class TransactionActions extends Component {
       nextProps.brands !== this.props.brands ||
       nextProps.bill !== this.props.bill
     ) {
-      this.componentDidMount()
+      this.findActions()
     }
   }
 
