@@ -136,8 +136,7 @@ class TransactionActions extends Component {
 TransactionActions.propTypes = {
   transaction: PropTypes.object.isRequired,
   urls: PropTypes.object.isRequired,
-  brands: PropTypes.array.isRequired,
-  withoutDefault: PropTypes.bool
+  brands: PropTypes.array.isRequired
 }
 
 export default TransactionActions
