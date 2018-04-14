@@ -10,12 +10,11 @@ const name = 'refund'
 const Component = ({ t, actionProps: { urls } }) => {
   const url = `${urls['HEALTH']}#/remboursements`
   return (
-    <a href={url}>
-      <ButtonAction
-        label={t(`Transactions.actions.${name}`)}
-        rightIcon="openwith"
-      />
-    </a>
+    <ButtonAction
+      onClick={() => open(url)}
+      label={t(`Transactions.actions.${name}`)}
+      rightIcon="openwith"
+    />
   )
 }
 

@@ -18,14 +18,13 @@ const getAppName = (urls, transaction) => {
 const Component = ({ t, transaction, actionProps: { urls } }) => {
   const appName = getAppName(urls, transaction)
   return (
-    <a href={urls[appName]}>
-      <ButtonAction
-        label={t(`Transactions.actions.${name}`, {
-          appName: capitalize(appName)
-        })}
-        rightIcon="openwith"
-      />
-    </a>
+    <ButtonAction
+      onClick={() => open(urls[appName])}
+      label={t(`Transactions.actions.${name}`, {
+        appName: capitalize(appName)
+      })}
+      rightIcon="openwith"
+    />
   )
 }
 

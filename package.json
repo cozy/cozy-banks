@@ -134,7 +134,7 @@
     "cozy-client": "0.4.2",
     "cozy-client-js": "0.8.0",
     "cozy-konnector-libs": "^3.0.13",
-    "cozy-ui": "https://github.com/GoOz/cozy-ui.git#feat/buttonAction",
+    "cozy-ui": "https://github.com/kosssi/cozy-ui.git#feat/buttonAction",
     "date-fns": "^1.28.2",
     "hammerjs": "^2.0.8",
     "localforage": "^1.5.0",

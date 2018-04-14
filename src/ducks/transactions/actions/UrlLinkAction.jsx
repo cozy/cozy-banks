@@ -7,9 +7,11 @@ const name = 'url'
 const Component = ({ transaction }) => {
   const action = transaction.action
   return (
-    <a href={action.url} target={action.target}>
-      <ButtonAction label={action.trad} rightIcon="openwith" />
-    </a>
+    <ButtonAction
+      onClick={() => open(action.url, action.target)}
+      label={action.trad}
+      rightIcon="openwith"
+    />
   )
 }
 
