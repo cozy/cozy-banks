@@ -4,7 +4,7 @@ import hourglassIcon from 'assets/icons/icon-hourglass.svg'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import { isHealthExpense } from 'ducks/categories/helpers'
 import allBrands from 'ducks/brandDictionary/brands.json'
-import { Component as BillComponent } from './BillAction'
+import { BillComponent } from './BillAction'
 import styles from '../TransactionActions.styl'
 
 const name = 'HealthExpenseStatus'
@@ -63,7 +63,7 @@ const Component = ({ t, transaction }) => {
           return
         }
         return (
-          <MenuItem key={reimbursement.bill.vendor}>
+          <MenuItem key={reimbursement.bill.vendor} onSelect={() => false}>
             <BillComponent
               isMenuItem
               t={t}

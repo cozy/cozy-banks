@@ -1,9 +1,8 @@
-/* global cozy */
-
-import React from 'react'
+import React, { Component } from 'react'
 import { Modal, Panel } from 'cozy-ui/react'
+import IntentIframe from 'cozy-ui/react/IntentModal/IntentIframe'
 import ventePrivee from 'assets/vente-privee.png'
-import format from 'date-fns/format'
+import styles from './AugmentedModal.styl'
 
 const { ModalBrandedHeader } = Modal
 
@@ -16,32 +15,28 @@ const Section = ({ title, children }) => (
   </div>
 )
 
-class Content extends React.Component {
-  componentDidMount() {
-    const [doctype, id] = this.props.bill.invoice.split(':')
-    const intent = cozy.client.intents.create('OPEN', doctype, { id })
-    intent.start(this.mainPanel).catch(err => {
-      this.setState({ error: err })
-    })
-  }
-
-  render(props) {
-    const { bill } = props
+class Content extends Component {
+  render() {
+    const { fileId } = this.props
     return (
       <Panel.Group>
-        <Panel.Main ref={ref => (this.mainPanel = ref)}>Loading...</Panel.Main>
+        <Panel.Main className={styles.AugemntedModalIntent}>
+          <IntentIframe
+            action="OPEN"
+            doctype="io.cozy.files"
+            options={{ id: fileId }}
+          />
+        </Panel.Main>
         <Panel.Side>
-          <Section title="Date">{format(bill.date, 'DD ddd MMM YYYY')}</Section>
-          <Section title="Montant">
-            {Math.abs(bill.amount).toLocaleString()}€
-          </Section>
+          <Section title="Date">Yop</Section>
+          <Section title="Montant">Ouf</Section>
         </Panel.Side>
       </Panel.Group>
     )
   }
 }
 
-const AugmentedModal = ({ onClose, bill, transaction }) => (
+const AugmentedModal = ({ onClose, fileId }) => (
   <Modal
     into="body"
     dismissAction={onClose}
@@ -53,7 +48,7 @@ const AugmentedModal = ({ onClose, bill, transaction }) => (
       logo={ventePrivee}
       style={{ marginBottom: 0 }}
     />
-    <Content bill={bill} transaction={transaction} />
+    <Content fileId={fileId} />
   </Modal>
 )
 
