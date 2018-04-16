@@ -16,8 +16,10 @@ const updateCategoryParams = {
       originalTransaction.manualCategoryId = category.id
 
       dispatch(updateDocument(originalTransaction))
-      // eslint-disable-next-line no-empty
-    } catch (err) {}
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log(err)
+    }
   }
 }
 
