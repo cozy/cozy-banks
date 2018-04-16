@@ -22,7 +22,7 @@ const AppRoute = (
   <Route component={EnsureIsFirstSynced}>
     <Route component={EnsureHasAccounts}>
       <Route component={App}>
-        <Redirect from="/" to="balances" />
+        <Redirect from="/" to="transactions" />
         <Route path="balances" component={Balance} />
         <Route path="transactions" component={TransactionsPage} />
         <Route path="categories">
