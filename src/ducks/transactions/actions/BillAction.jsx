@@ -1,13 +1,12 @@
-/* global cozy */
 import React, { Component } from 'react'
 import { get, some } from 'lodash'
 import { translate, ButtonAction, IntentOpener } from 'cozy-ui/react'
 import icon from 'assets/icons/actions/icon-file.svg'
 import ActionLink from './ActionLink'
 import AugmentedModal from 'components/AugmentedModal'
+import * as documentCache from 'utils/documentCache'
 
 const name = 'bill'
-const billCache = {}
 
 const isVentePrivee = transaction =>
   transaction && transaction.label.indexOf('Vente-Privée') > -1
@@ -37,12 +36,8 @@ const getBill = async (transaction, actionProps) => {
   }
 
   const [billDoctype, billId] = billRef.split(':')
-  if (!billCache[billId]) {
-    const doc = await cozy.client.data.find(billDoctype, billId)
-    billCache[billId] = doc
-  }
-
-  return billCache[billId]
+  const bill = await documentCache.get(billDoctype, billId)
+  return bill
 }
 
 class AugmentedModalButton extends React.Component {
