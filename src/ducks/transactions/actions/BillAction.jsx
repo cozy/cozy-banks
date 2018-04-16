@@ -103,7 +103,7 @@ export const Component = ({
   return (
     <FileOpener getFileId={() => getBillInvoice(bill)}>
       {isMenuItem ? (
-        <ActionLink text={text} />
+        <ActionLink icon="file" text={text} />
       ) : (
         <ButtonAction label={text} rightIcon="file" />
       )}
