@@ -269,7 +269,7 @@
     "actions": {
       "refund": "Check your refunds",
       "comment": "Add a comment",
-      "app": "%{appName} app",
+      "app": "%{appName}",
       "bill": "1 invoice",
       "alert": "Create an alert",
       "attach": "Attach a document",

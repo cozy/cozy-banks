@@ -14,13 +14,17 @@ const getAppName = (urls, transaction) => {
   )
 }
 
+const beautify = appName => {
+  return appName.toLowerCase() === 'edf' ? 'EDF' : capitalize(appName)
+}
+
 const Component = ({ t, transaction, actionProps: { urls } }) => {
   const appName = getAppName(urls, transaction)
   return (
     <ButtonAction
       onClick={() => open(urls[appName])}
       label={t(`Transactions.actions.${name}`, {
-        appName: capitalize(appName)
+        appName: beautify(appName)
       })}
       rightIcon="openwith"
     />
