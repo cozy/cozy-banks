@@ -5,6 +5,7 @@ import palette from 'cozy-ui/stylus/settings/palette.json'
 import { isHealthExpense } from 'ducks/categories/helpers'
 import allBrands from 'ducks/brandDictionary/brands.json'
 import { Component as BillComponent } from './BillAction'
+import styles from '../TransactionActions.styl'
 
 const name = 'HealthExpenseStatus'
 
@@ -48,6 +49,7 @@ const Component = ({ t, transaction }) => {
 
   return (
     <Menu
+      className={styles.TransactionActionMenu}
       component={
         <ButtonAction
           label={text}
