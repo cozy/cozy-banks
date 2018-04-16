@@ -76,17 +76,17 @@ class TransactionActions extends Component {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.findActions()
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.transaction !== this.props.transaction) {
-      this.setState({actions: false})
+      this.setState({ actions: false })
     }
   }
 
-  componentDidUpdate (nextProps) {
+  componentDidUpdate(nextProps) {
     if (
       nextProps.transaction !== this.props.transaction ||
       nextProps.urls !== this.props.urls ||
