@@ -17,7 +17,6 @@ import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { withUpdateCategory } from 'ducks/categories'
 import { withDispatch } from 'utils'
 import flash from 'ducks/flash'
-
 import styles from './Transactions.styl'
 import { Media, Bd, Img } from 'components/Media'
 // import { HealthExpenseStatus, HealthExpenseStatusIcon, getVendors } from 'ducks/health-expense'

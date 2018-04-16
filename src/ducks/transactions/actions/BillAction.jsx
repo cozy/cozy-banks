@@ -6,6 +6,7 @@ import icon from 'assets/icons/actions/icon-file.svg'
 import ActionLink from './ActionLink'
 import FileOpener from '../FileOpener'
 import ButtonAction from 'cozy-ui/react/ButtonAction'
+import AugmentedModal from 'components/AugmentedModal'
 
 const name = 'bill'
 const billCache = {}
@@ -23,6 +24,9 @@ const getBillInvoice = bill => {
 
   return [doctype, id]
 }
+
+const isVentePrivee = transaction =>
+  transaction.label.indexOf('Vente Privée') > -1
 
 const getBill = async transaction => {
   const billRef = get(transaction, 'bills[0]')
@@ -44,6 +48,35 @@ const getBill = async transaction => {
   return billCache[billId]
 }
 
+class AugmentedModalButton extends React.Component {
+  open() {
+    this.setState({ opened: true })
+  }
+
+  close() {
+    this.setState({ opened: false })
+  }
+
+  render() {
+    const { bill, transaction } = this.props
+    return (
+      <ButtonAction
+        onClick={() => this.open()}
+        label="Voir facture"
+        rightIcon="file"
+      >
+        {this.state.opened ? (
+          <AugmentedModal
+            bill={bill}
+            transaction={transaction}
+            onClose={() => this.close()}
+          />
+        ) : null}
+      </ButtonAction>
+    )
+  }
+}
+
 export const Component = ({
   t,
   transaction,
@@ -62,6 +95,10 @@ export const Component = ({
   }
 
   text = text || t('Transactions.actions.bill')
+
+  if (isVentePrivee(transaction)) {
+    return <AugmentedModalButton transaction={transaction} bill={bill} />
+  }
 
   return (
     <FileOpener getFileId={() => getBillInvoice(bill)}>
