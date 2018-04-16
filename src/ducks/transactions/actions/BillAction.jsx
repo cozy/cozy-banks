@@ -122,7 +122,7 @@ export class BillComponent extends Component {
         options={{ id: fileId }}
       >
         {isMenuItem ? (
-          <ActionLink text={text} />
+          <ActionLink text={text} icon="file" />
         ) : (
           <ButtonAction label={text} rightIcon="file" />
         )}
