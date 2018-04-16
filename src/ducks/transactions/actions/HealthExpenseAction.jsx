@@ -2,7 +2,7 @@ import React from 'react'
 // import { some } from 'lodash'
 import { translate } from 'cozy-ui/react'
 import icon from 'assets/icons/actions/icon-file.svg'
-import { Component as BillComponent } from './BillAction'
+import { BillComponent } from './BillAction'
 
 const name = 'healthExpenseBill'
 

@@ -1,5 +1,5 @@
 /* global cozy */
-import React from 'react'
+import React, { Component } from 'react'
 import { get, some } from 'lodash'
 import { translate, ButtonAction } from 'cozy-ui/react'
 import icon from 'assets/icons/actions/icon-file.svg'
@@ -76,38 +76,40 @@ class AugmentedModalButton extends React.Component {
   }
 }
 
-export const Component = ({
-  t,
-  transaction,
-  isMenuItem = false,
-  actionProps: { urls, bill, text }
-}) => {
-  if (!bill) {
-    const billRef = get(transaction, 'bills[0]')
-    if (!billRef) {
-      // eslint-disable-next-line no-console
-      console.warn(`Why!`, transaction, urls, bill, text)
-      return
+export class BillComponent extends Component {
+  render({
+    t,
+    transaction,
+    isMenuItem = false,
+    actionProps: { urls, bill, text }
+  }) {
+    if (!bill) {
+      const billRef = get(transaction, 'bills[0]')
+      if (!billRef) {
+        // eslint-disable-next-line no-console
+        console.warn(`Why!`, transaction, urls, bill, text)
+        return
+      }
+      const [, billId] = billRef.split(':')
+      bill = billCache[billId]
     }
-    const [, billId] = billRef.split(':')
-    bill = billCache[billId]
+
+    text = text || t('Transactions.actions.bill')
+
+    if (isVentePrivee(transaction)) {
+      return <AugmentedModalButton transaction={transaction} bill={bill} />
+    }
+
+    return (
+      <FileOpener getFileId={() => getBillInvoice(bill)}>
+        {isMenuItem ? (
+          <ActionLink text={text} />
+        ) : (
+          <ButtonAction label={text} rightIcon="file" />
+        )}
+      </FileOpener>
+    )
   }
-
-  text = text || t('Transactions.actions.bill')
-
-  if (isVentePrivee(transaction)) {
-    return <AugmentedModalButton transaction={transaction} bill={bill} />
-  }
-
-  return (
-    <FileOpener getFileId={() => getBillInvoice(bill)}>
-      {isMenuItem ? (
-        <ActionLink icon="file" text={text} />
-      ) : (
-        <ButtonAction label={text} rightIcon="file" />
-      )}
-    </FileOpener>
-  )
 }
 
 const action = {
@@ -129,7 +131,7 @@ const action = {
     }
     return false
   },
-  Component: translate()(Component)
+  Component: translate()(BillComponent)
 }
 
 export default action
