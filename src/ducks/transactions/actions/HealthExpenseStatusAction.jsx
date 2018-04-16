@@ -82,6 +82,7 @@ const Component = ({ t, transaction }) => {
   )
 }
 
+const allHealthBrands = allBrands.filter(brand => brand.health)
 const action = {
   name,
   color: palette.charcoalGrey,
@@ -94,11 +95,10 @@ const action = {
     return <Icon icon={hourglassIcon} color={color} />
   },
   match: (transaction, { brands }) => {
-    const allBrandsHealth = allBrands.filter(brand => brand.health)
-    const brandsHealth = brands.filter(brand => brand.health)
+    const installedHealthBrands = brands.filter(brand => brand.health)
 
     return (
-      allBrandsHealth.length > brandsHealth.length &&
+      allHealthBrands.length > installedHealthBrands.length &&
       isHealthExpense(transaction) &&
       getVendors(transaction)
     )
