@@ -6,13 +6,13 @@ import { getAccounts } from 'selectors'
 import find from 'lodash/find'
 
 const getBillId = idWithDoctype => idWithDoctype && idWithDoctype.split(':')[1]
-const hydrateReimbursementWithBill = (state, reimbursement) => {
+export const hydrateReimbursementWithBill = (reimbursement, getBill) => {
   const billId = getBillId(reimbursement.billId)
   return !billId
     ? reimbursement
     : {
         ...reimbursement,
-        bill: getDocument(state, BILLS_DOCTYPE, billId)
+        bill: getBill(billId)
       }
 }
 
@@ -39,9 +39,11 @@ export const hydrateTransaction = (state, originalTransaction) => {
     return transaction
   }
 
+  const getBill = billId => getDocument(state, BILLS_DOCTYPE, billId)
+
   transaction.reimbursements = transaction.reimbursements || []
   transaction.reimbursements = transaction.reimbursements.map(r =>
-    hydrateReimbursementWithBill(state, r)
+    hydrateReimbursementWithBill(r, getBill)
   )
 
   return transaction
