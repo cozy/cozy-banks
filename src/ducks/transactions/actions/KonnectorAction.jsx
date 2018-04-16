@@ -1,10 +1,14 @@
 import React from 'react'
 import { flowRight as compose } from 'lodash'
 import { matchBrands, findMatchingBrand } from 'ducks/brandDictionary'
-import { IntentOpener, translate, withBreakpoints } from 'cozy-ui/react'
+import {
+  IntentOpener,
+  translate,
+  withBreakpoints,
+  ButtonAction
+} from 'cozy-ui/react'
 import icon from 'assets/icons/actions/icon-link-out.svg'
 import ActionLink from './ActionLink'
-import ButtonAction from 'cozy-ui/react/ButtonAction'
 
 const name = 'konnector'
 

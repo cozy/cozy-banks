@@ -1,11 +1,9 @@
 import React from 'react'
-import { translate, Icon } from 'cozy-ui/react'
+import { translate, Icon, ButtonAction, Menu, MenuItem } from 'cozy-ui/react'
 import hourglassIcon from 'assets/icons/icon-hourglass.svg'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import { isHealthExpense } from 'ducks/categories/helpers'
 import allBrands from 'ducks/brandDictionary/brands.json'
-import ButtonAction from 'cozy-ui/react/ButtonAction'
-import { Menu, MenuItem } from 'cozy-ui/react'
 import { Component as BillComponent } from './BillAction'
 
 const name = 'HealthExpenseStatus'

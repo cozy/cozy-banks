@@ -1,8 +1,7 @@
 import React from 'react'
 import { findKey } from 'lodash'
-import { translate } from 'cozy-ui/react'
+import { translate, ButtonAction } from 'cozy-ui/react'
 import icon from 'assets/icons/actions/icon-link-out.svg'
-import ButtonAction from 'cozy-ui/react/ButtonAction'
 import capitalize from 'lodash/capitalize'
 
 const name = 'app'

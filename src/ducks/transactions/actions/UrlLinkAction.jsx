@@ -1,6 +1,6 @@
 import React from 'react'
 import icon from 'assets/icons/actions/icon-link-out.svg'
-import ButtonAction from 'cozy-ui/react/ButtonAction'
+import { ButtonAction } from 'cozy-ui/react'
 
 const name = 'url'
 
