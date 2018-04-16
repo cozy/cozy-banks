@@ -8,6 +8,7 @@ import { Table, TdSecondary } from 'components/Table'
 import TransactionMenu from './TransactionMenu'
 import TransactionActions from './TransactionActions'
 import { getLabel } from './helpers'
+import { getAccountLabel } from 'ducks/account/helpers'
 import {
   getParentCategory,
   getCategoryName
@@ -75,7 +76,9 @@ const TableTrDesktop = compose(translate(), withDispatch, withUpdateCategory())(
             <Bd className="u-pl-1">
               <ListItemText
                 primaryText={getLabel(transaction)}
-                secondaryText={!filteringOnAccount && transaction.account.label}
+                secondaryText={
+                  !filteringOnAccount && getAccountLabel(transaction.account)
+                }
               />
             </Bd>
           </Media>
@@ -135,7 +138,9 @@ const TableTrNoDesktop = translate()(
             <Bd className="u-mr-half u-ellipsis">
               <ListItemText
                 primaryText={getLabel(transaction)}
-                secondaryText={!filteringOnAccount && transaction.account.label}
+                secondaryText={
+                  !filteringOnAccount && getAccountLabel(transaction.account)
+                }
               />
             </Bd>
             <Img style={{ flexBasis: '1rem' }}>

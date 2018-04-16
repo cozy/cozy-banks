@@ -8,3 +8,5 @@ export const getAccountInstitutionLabel = account => {
 
   return label
 }
+
+export const getAccountLabel = account => account.shortLabel || account.label
