@@ -63,6 +63,42 @@ const MenuAction = ({
   )
 }
 
+MenuAction.propTypes = {
+  actionProps: PropTypes.object.isRequired
+}
+
+export const SyncTransactionActions = ({
+  transaction,
+  actions,
+  actionProps,
+  displayDefaultAction,
+  onlyDefault,
+  onlyIcon
+}) => (
+  <span>
+    {(displayDefaultAction || onlyDefault) &&
+      actions.default && (
+        <MenuAction
+          action={actions.default}
+          className={onlyDefault || onlyIcon ? 'u-p-0' : ''}
+          displayComponent={!onlyIcon}
+          isDefault
+          transaction={transaction}
+          actionProps={actionProps}
+        />
+      )}
+    {!onlyDefault &&
+      actions.others.map((action, index) => (
+        <MenuAction
+          key={index}
+          action={action}
+          transaction={transaction}
+          actionProps={actionProps}
+        />
+      ))}
+  </span>
+)
+
 class TransactionActions extends Component {
   state = {
     actions: false,
@@ -101,34 +137,16 @@ class TransactionActions extends Component {
   }
 
   render() {
-    const {
-      displayDefaultAction,
-      onlyDefault,
-      onlyIcon,
-      transaction
-    } = this.props
     const { actions, actionProps } = this.state
 
     if (!actions) return null
 
-    const menuProps = { transaction, actionProps }
     return (
-      <span>
-        {(displayDefaultAction || onlyDefault) &&
-          actions.default && (
-            <MenuAction
-              action={actions.default}
-              className={onlyDefault || onlyIcon ? 'u-p-0' : ''}
-              displayComponent={!onlyIcon}
-              isDefault
-              {...menuProps}
-            />
-          )}
-        {!onlyDefault &&
-          actions.others.map((action, index) => (
-            <MenuAction key={index} action={action} {...menuProps} />
-          ))}
-      </span>
+      <SyncTransactionActions
+        actions={actions}
+        actionProps={actionProps}
+        {...this.props}
+      />
     )
   }
 }
