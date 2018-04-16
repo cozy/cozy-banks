@@ -66,7 +66,7 @@ class TransactionActions extends Component {
     actionProps: false
   }
 
-  async componentDidMount() {
+  findActions = async () => {
     const { transaction } = this.props
     if (transaction) {
       const { urls, brands, bill } = this.props
@@ -76,13 +76,24 @@ class TransactionActions extends Component {
     }
   }
 
-  componentDidUpdate(nextProps) {
+  componentDidMount () {
+    this.findActions()
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.transaction !== this.props.transaction) {
+      this.setState({actions: false})
+    }
+  }
+
+  componentDidUpdate (nextProps) {
     if (
+      nextProps.transaction !== this.props.transaction ||
       nextProps.urls !== this.props.urls ||
       nextProps.brands !== this.props.brands ||
       nextProps.bill !== this.props.bill
     ) {
-      this.componentDidMount()
+      this.findActions()
     }
   }
 
