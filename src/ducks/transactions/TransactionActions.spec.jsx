@@ -39,7 +39,7 @@ jest.mock('utils/documentCache', () => ({
 }))
 
 jest.mock('cozy-ui/react/Icon', () => {
-  const Icon = ({ icon }) => <span className={`icon--${icon.id || icon}`} />
+  const Icon = ({ icon }) => <span data-icon-id={`${icon.id || icon}`} />
   return Icon
 })
 
@@ -60,7 +60,7 @@ const transactionsById = keyBy(hydratedTransactions, '_id')
 configure({ adapter: new Adapter() })
 
 /* eslint-disable */
-const testsOnDefault = [
+const tests = [
   // transaction id, class variant, text, icon, action name
   // TODO find a way to test for icons that are not in cozy-ui/
   // The transform option for jest seems be a good option but
@@ -71,10 +71,10 @@ const testsOnDefault = [
   ['depsantegene4', '.c-actionbtn--error', 'No reimbursement yet', null, 'HealthExpenseStatus'],
   ['depsanteisa2', '.c-actionbtn--error', 'No reimbursement yet', null, 'HealthExpenseStatus'],
   ['depsantecla3', '.c-actionbtn--error', 'No reimbursement yet', null, 'HealthExpenseStatus'],
-  // ['facturebouygues', null, '1 invoice', 'file', 'bill'],
-  // ['salaireisa1', null, 'Accéder à votre paie', 'openwith', 'url'],
-  // ['fnac', null, 'Accéder au site Fnac', 'openwith', 'url'],
-  // ['edf', null, 'Edf app', null, 'app'] // TODO change
+  ['facturebouygues', null, '1 invoice', 'file', 'bill'],
+  ['salaireisa1', null, 'Accéder à votre paie', 'openwith', 'url'],
+  ['fnac', null, 'Accéder au site Fnac', 'openwith', 'url'],
+  ['edf', null, 'Edf app', null, 'app'] // TODO change
 ]
 /* eslint-enable */
 
@@ -92,7 +92,7 @@ const actionProps = {
 }
 
 describe('transaction action defaults', () => {
-  for (let test of testsOnDefault) {
+  for (let test of tests) {
     const [id, variant, text, icon, actionName] = test
     describe(`${id}`, () => {
       let root, actions
@@ -117,21 +117,42 @@ describe('transaction action defaults', () => {
       })
 
       it('should render the correct text', () => {
-        const html = root.html()
-        expect(html.indexOf(text) > -1).toBe(true)
+        const btnText = root.find('.c-actionbtn').text()
+        expect(btnText).toEqual(expect.stringContaining(text))
       })
 
       if (icon) {
         it('should render the correct icon', () => {
-          expect(root.find(`.icon--${icon}`).length).not.toBe(0)
+          expect(root.find(`[data-icon-id="${icon}"]`)).toHaveLength(1)
         })
       }
 
       if (variant) {
         it('should render the correct button', () => {
-          expect(root.find(`.c-action--${variant}`)).not.toBe(undefined)
+          expect(root.find(variant)).toHaveLength(1)
         })
       }
+    })
+  }
+})
+
+describe('transaction action menu', () => {
+  for (let test of tests) {
+    const [id] = test
+    it(`should render correctly ${id}`, async () => {
+      const transaction = transactionsById[id]
+      const actions = await findMatchingActions(transaction, actionProps)
+      const root = mount(
+        <AppLike>
+          <SyncTransactionActions
+            transaction={transaction}
+            actions={actions}
+            actionProps={actionProps}
+          />
+        </AppLike>
+      )
+      const texts = root.find('.TransactionAction').map(x => x.text())
+      expect(texts).toMatchSnapshot()
     })
   }
 })
