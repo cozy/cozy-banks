@@ -1,12 +1,12 @@
 import React from 'react'
-import { some } from 'lodash'
+// import { some } from 'lodash'
 import { translate } from 'cozy-ui/react'
 import icon from 'assets/icons/actions/icon-file.svg'
-import { Component as BillComponent } from './BillAction'
+import { BillComponent } from './BillAction'
 
 const name = 'healthExpenseBill'
 
-const Component = ({ t, transaction, actionProps }) => {
+export const Component = ({ t, transaction, actionProps }) => {
   return (
     <span>
       {transaction.reimbursements.map((reimbursement, index) => {
@@ -36,8 +36,9 @@ const action = {
   name,
   icon,
   defaultAction: false,
-  match: transaction =>
-    some(transaction.reimbursements, reimbursement => reimbursement.bill),
+  // match: transaction =>
+  //   some(transaction.reimbursements, reimbursement => reimbursement.bill),
+  match: () => false, // We temporary need to hide these actions
   Component: translate()(Component)
 }
 

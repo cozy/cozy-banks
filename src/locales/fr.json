@@ -102,15 +102,18 @@
     },
     "actions": {
       "more": "Plus",
-      "bill": "Afficher votre facture",
+      "bill": "1 facture",
+      "app": "Application %{appName}",
       "refund": "Vérifier vos remboursements",
-      "app": "Accéder à votre espace %{appName}",
       "attach": "Attacher un document",
-      "konnector": "Récupérez vos factures %{vendor}",
+      "konnector": "Mes factures",
       "alert": "Créer une alerte",
       "comment": "Ajouter un commentaire",
-      "healthExpenseStatus": "Dépense traitée par %{vendors}",
-      "healthExpensePending": "Dépense pas encore traitée par les assurances santé",
+      "healthExpenseProcessed": {
+        "single": "1 remboursement",
+        "plural": "%{nbReimbursements} remboursements"
+      },
+      "healthExpensePending": "Remboursements en attente",
       "healthExpenseBill": "Relevé %{vendor}",
       "vendorsGlue": "et"
     }

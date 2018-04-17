@@ -1,13 +1,17 @@
 import React from 'react'
 import icon from 'assets/icons/actions/icon-link-out.svg'
-import ActionLink from './ActionLink'
+import { ButtonAction } from 'cozy-ui/react'
 
 const name = 'url'
 
 const Component = ({ transaction }) => {
   const action = transaction.action
   return (
-    <ActionLink target={action.target} href={action.url} text={action.trad} />
+    <ButtonAction
+      onClick={() => open(action.url, action.target)}
+      label={action.trad}
+      rightIcon="openwith"
+    />
   )
 }
 

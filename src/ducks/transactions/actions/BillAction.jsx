@@ -1,13 +1,16 @@
 /* global cozy */
-import React from 'react'
+import React, { Component } from 'react'
 import { get, some } from 'lodash'
-import { translate } from 'cozy-ui/react'
+import { translate, ButtonAction, IntentOpener } from 'cozy-ui/react'
 import icon from 'assets/icons/actions/icon-file.svg'
 import ActionLink from './ActionLink'
-import FileOpener from '../FileOpener'
+import AugmentedModal from 'components/AugmentedModal'
 
 const name = 'bill'
 const billCache = {}
+
+const isVentePrivee = transaction =>
+  transaction && transaction.label.indexOf('Vente-Privée') > -1
 
 const getBillInvoice = bill => {
   if (!bill.invoice) {
@@ -23,53 +26,116 @@ const getBillInvoice = bill => {
   return [doctype, id]
 }
 
-const getBill = async transaction => {
-  const billRef = get(transaction, 'bills[0]')
+const getBill = async (transaction, actionProps) => {
+  if (actionProps.bill) {
+    return actionProps.bill
+  }
 
+  const billRef = get(transaction, 'bills[0]')
   if (!billRef) {
     return
   }
 
   const [billDoctype, billId] = billRef.split(':')
   if (!billCache[billId]) {
-    try {
-      const doc = await cozy.client.data.find(billDoctype, billId)
-      billCache[billId] = doc
-    } catch (e) {
-      return
-    }
+    const doc = await cozy.client.data.find(billDoctype, billId)
+    billCache[billId] = doc
   }
 
   return billCache[billId]
 }
 
-export const Component = ({
-  t,
-  transaction,
-  actionProps: { urls, bill, text }
-}) => {
-  if (!bill) {
-    const billRef = get(transaction, 'bills[0]')
-    if (!billRef) {
+class AugmentedModalButton extends React.Component {
+  open() {
+    this.setState({ opened: true })
+  }
+
+  close() {
+    this.setState({ opened: false })
+  }
+
+  render() {
+    const { fileId, text } = this.props
+    return (
+      <ButtonAction onClick={() => this.open()} label={text} rightIcon="file">
+        {this.state.opened ? (
+          <AugmentedModal fileId={fileId} onClose={() => this.close()} />
+        ) : null}
+      </ButtonAction>
+    )
+  }
+}
+
+export class BillComponent extends Component {
+  state = {
+    fileId: false
+  }
+
+  findFileId = async () => {
+    const { transaction, actionProps } = this.props
+    try {
+      const bill = await getBill(transaction, actionProps)
+      const [, fileId] = getBillInvoice(bill)
       // eslint-disable-next-line no-console
-      console.warn(`Why!`, transaction, urls, bill, text)
+      console.log('fileId', fileId)
+      this.setState({ fileId })
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.log(e)
+    }
+  }
+
+  componentDidMount() {
+    this.findFileId()
+  }
+
+  componentDidUpdate(nextProps) {
+    if (nextProps.transaction !== this.props.transaction) {
+      this.findFileId()
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.transaction !== this.props.transaction) {
+      this.setState({ fileId: false })
+    }
+  }
+
+  render() {
+    const { t, transaction, isMenuItem = false, actionProps } = this.props
+
+    const { fileId } = this.state
+    if (!fileId) {
       return
     }
-    const [, billId] = billRef.split(':')
-    bill = billCache[billId]
+
+    const text = actionProps.text || t('Transactions.actions.bill')
+
+    if (isVentePrivee(transaction)) {
+      return <AugmentedModalButton fileId={fileId} text={text} />
+    }
+
+    return (
+      <IntentOpener
+        action="OPEN"
+        doctype="io.cozy.files"
+        options={{ id: fileId }}
+      >
+        {isMenuItem ? (
+          <ActionLink text={text} icon="file" />
+        ) : (
+          <ButtonAction label={text} rightIcon="file" />
+        )}
+      </IntentOpener>
+    )
   }
-  return (
-    <FileOpener getFileId={() => getBillInvoice(bill)}>
-      <ActionLink text={text || t('Transactions.actions.bill')} />
-    </FileOpener>
-  )
 }
 
 const action = {
   name,
   icon,
-  match: async transaction => {
-    const bill = await getBill(transaction)
+  match: async (transaction, actionProps) => {
+    const bill = await getBill(transaction, actionProps)
     if (bill && bill._id) {
       return !some(transaction.reimbursements, reimbursement => {
         try {
@@ -84,7 +150,7 @@ const action = {
     }
     return false
   },
-  Component: translate()(Component)
+  Component: translate()(BillComponent)
 }
 
 export default action

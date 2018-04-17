@@ -1,10 +1,11 @@
 import React from 'react'
-import { translate, Icon } from 'cozy-ui/react'
-import icon from 'assets/icons/icon-hourglass.svg'
-import ActionLink from './ActionLink'
+import { translate, Icon, ButtonAction, Menu, MenuItem } from 'cozy-ui/react'
+import hourglassIcon from 'assets/icons/icon-hourglass.svg'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import { isHealthExpense } from 'ducks/categories/helpers'
 import allBrands from 'ducks/brandDictionary/brands.json'
+import { BillComponent } from './BillAction'
+import styles from '../TransactionActions.styl'
 
 const name = 'HealthExpenseStatus'
 
@@ -19,29 +20,66 @@ const getVendors = transaction => {
     : []
 }
 
-const formatVendor = vendor => {
-  const vendorsMap = {
-    Ameli: 'la CPAM'
-  }
-
-  return vendorsMap[vendor] || vendor
-}
-
 const isPending = transaction => {
   const vendors = getVendors(transaction)
   return vendors.length === 0
 }
 
-const Component = ({ t, transaction, color }) => {
+const Component = ({ t, transaction }) => {
+  const pending = isPending(transaction)
   const vendors = getVendors(transaction)
-  const formattedVendors = vendors.map(formatVendor)
-  const text = isPending(transaction)
+  const text = pending
     ? t('Transactions.actions.healthExpensePending')
-    : t('Transactions.actions.healthExpenseStatus').replace(
-        '%{vendors}',
-        formattedVendors.join(` ${t('Transactions.actions.vendorsGlue')} `)
-      )
-  return <ActionLink text={text} color={color} />
+    : vendors.length > 1
+      ? t('Transactions.actions.healthExpenseProcessed.plural').replace(
+          '%{nbReimbursements}',
+          vendors.length
+        )
+      : t('Transactions.actions.healthExpenseProcessed.single')
+
+  // Normally, pending color is not error/red, but for now we handle this state like this
+  const type = pending ? 'error' : 'normal'
+  const icon = pending ? hourglassIcon : 'file'
+
+  if (pending) {
+    return (
+      <ButtonAction label={text} type={type} rightIcon={<Icon icon={icon} />} />
+    )
+  }
+
+  return (
+    <Menu
+      className={styles.TransactionActionMenu}
+      component={
+        <ButtonAction
+          label={text}
+          type={type}
+          rightIcon={<Icon icon={icon} />}
+        />
+      }
+    >
+      {transaction.reimbursements.map(reimbursement => {
+        if (!reimbursement.bill) {
+          return
+        }
+        return (
+          <MenuItem key={reimbursement.bill.vendor} onSelect={() => false}>
+            <BillComponent
+              isMenuItem
+              t={t}
+              actionProps={{
+                bill: reimbursement.bill,
+                text: t(`Transactions.actions.healthExpenseBill`).replace(
+                  '%{vendor}',
+                  reimbursement.bill.vendor
+                )
+              }}
+            />
+          </MenuItem>
+        )
+      })}
+    </Menu>
+  )
 }
 
 const action = {
@@ -53,7 +91,7 @@ const action = {
       ? palette.pomegranate
       : palette.dodgerBlue
 
-    return <Icon icon={icon} color={color} />
+    return <Icon icon={hourglassIcon} color={color} />
   },
   match: (transaction, { brands }) => {
     const allBrandsHealth = allBrands.filter(brand => brand.health)

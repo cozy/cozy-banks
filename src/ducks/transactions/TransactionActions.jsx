@@ -9,7 +9,7 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Icon, MenuItem } from 'cozy-ui/react'
+import { MenuItem, Icon } from 'cozy-ui/react'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import { findMatchingActions } from './actions'
 
@@ -28,6 +28,7 @@ const MenuAction = ({
   transaction,
   actionProps,
   className,
+  isDefault,
   displayComponent = true
 }) => {
   const { Component } = action
@@ -40,12 +41,14 @@ const MenuAction = ({
       disabled={action.disabled}
       onClick={actionProps.onClick}
       icon={
-        <MenuIcon
-          action={action}
-          transaction={transaction}
-          actionProps={actionProps}
-          color={color}
-        />
+        !isDefault && (
+          <MenuIcon
+            action={action}
+            transaction={transaction}
+            actionProps={actionProps}
+            color={color}
+          />
+        )
       }
     >
       {displayComponent && (
@@ -117,6 +120,7 @@ class TransactionActions extends Component {
               action={actions.default}
               className={onlyDefault || onlyIcon ? 'u-p-0' : ''}
               displayComponent={!onlyIcon}
+              isDefault
               {...props}
             />
           )}

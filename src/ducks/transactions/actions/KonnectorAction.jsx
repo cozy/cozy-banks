@@ -1,7 +1,12 @@
 import React from 'react'
 import { flowRight as compose } from 'lodash'
 import { matchBrands, findMatchingBrand } from 'ducks/brandDictionary'
-import { IntentOpener, translate, withBreakpoints } from 'cozy-ui/react'
+import {
+  IntentOpener,
+  translate,
+  withBreakpoints,
+  ButtonAction
+} from 'cozy-ui/react'
 import icon from 'assets/icons/actions/icon-link-out.svg'
 import ActionLink from './ActionLink'
 
@@ -24,8 +29,10 @@ const Component = ({
         doctype="io.cozy.accounts"
         options={{ slug: brand.konnectorSlug }}
       >
-        <ActionLink
-          text={t('Transactions.actions.konnector', { vendor: brand.name })}
+        <ButtonAction
+          label={t('Transactions.actions.konnector', { vendor: brand.name })}
+          leftIcon="plus"
+          type="new"
         />
       </IntentOpener>
     )
