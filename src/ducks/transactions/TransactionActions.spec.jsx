@@ -60,24 +60,25 @@ const transactionsById = keyBy(hydratedTransactions, '_id')
 configure({ adapter: new Adapter() })
 
 /* eslint-disable */
-const tests = [
+const testsOnDefault = [
   // transaction id, class variant, text, icon, action name
   // TODO find a way to test for icons that are not in cozy-ui/
   // The transform option for jest seems be a good option but
   // I could not get it to work
   ['paiementdocteur', null, '2 reimbursements', 'file', 'HealthExpenseStatus'],
-  ['paiementdocteur2', '--error', 'No reimbursement yet', null, 'HealthExpenseStatus'],
-  ['depsantelou1', '--error', 'No reimbursement yet', null, 'HealthExpenseStatus'],
-  ['depsantegene4', '--error', 'No reimbursement yet', null, 'HealthExpenseStatus'],
-  ['depsanteisa2', '--error', 'No reimbursement yet', null, 'HealthExpenseStatus'],
-  ['depsantecla3', '--error', 'No reimbursement yet', null, 'HealthExpenseStatus'],
-  ['facturebouygues', null, '1 invoice', 'file', 'bill'],
-  ['salaireisa1', null, 'Accéder à votre paie', 'openwith', 'url'],
-  ['fnac', null, 'Accéder au site Fnac', 'openwith', 'url']
+  ['paiementdocteur2', '.c-actionbtn--error', 'No reimbursement yet', null, 'HealthExpenseStatus'],
+  ['depsantelou1', '.c-actionbtn--error', 'No reimbursement yet', null, 'HealthExpenseStatus'],
+  ['depsantegene4', '.c-actionbtn--error', 'No reimbursement yet', null, 'HealthExpenseStatus'],
+  ['depsanteisa2', '.c-actionbtn--error', 'No reimbursement yet', null, 'HealthExpenseStatus'],
+  ['depsantecla3', '.c-actionbtn--error', 'No reimbursement yet', null, 'HealthExpenseStatus'],
+  // ['facturebouygues', null, '1 invoice', 'file', 'bill'],
+  // ['salaireisa1', null, 'Accéder à votre paie', 'openwith', 'url'],
+  // ['fnac', null, 'Accéder au site Fnac', 'openwith', 'url'],
+  // ['edf', null, 'Edf app', null, 'app'] // TODO change
 ]
 /* eslint-enable */
 
-const Wrapper = ({ children }) => (
+const AppLike = ({ children }) => (
   <I18n lang={'en'} dictRequire={() => langEn}>
     <Provider store={store}>{children}</Provider>
   </I18n>
@@ -90,8 +91,8 @@ const actionProps = {
   brands
 }
 
-describe(`transaction actions`, () => {
-  for (let test of tests) {
+describe('transaction action defaults', () => {
+  for (let test of testsOnDefault) {
     const [id, variant, text, icon, actionName] = test
     describe(`${id}`, () => {
       let root, actions
@@ -99,14 +100,14 @@ describe(`transaction actions`, () => {
         const transaction = transactionsById[test[0]]
         actions = await findMatchingActions(transaction, actionProps)
         root = mount(
-          <Wrapper>
+          <AppLike>
             <SyncTransactionActions
               onlyDefault
               transaction={transaction}
               actions={actions}
               actionProps={actionProps}
             />
-          </Wrapper>
+          </AppLike>
         )
       })
 
