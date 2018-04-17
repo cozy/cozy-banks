@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, Panel } from 'cozy-ui/react'
-import IntentIframe from 'cozy-ui/react/IntentModal/IntentIframe'
+import { Modal, Panel, IntentIframe } from 'cozy-ui/react'
 import ventePrivee from 'assets/vente-privee.png'
 import styles from './AugmentedModal.styl'
 import ventePriveeInfo from 'assets/venteprivee-info.png'
@@ -15,8 +14,8 @@ class Content extends Component {
         <Panel.Main className={styles.AugemntedModalIntent}>
           <IntentIframe
             action="OPEN"
-            doctype="io.cozy.files"
-            options={{ id: fileId }}
+            type="io.cozy.files"
+            data={{ id: fileId }}
           />
         </Panel.Main>
         <Panel.Side>
