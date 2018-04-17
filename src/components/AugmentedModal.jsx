@@ -3,17 +3,9 @@ import { Modal, Panel } from 'cozy-ui/react'
 import IntentIframe from 'cozy-ui/react/IntentModal/IntentIframe'
 import ventePrivee from 'assets/vente-privee.png'
 import styles from './AugmentedModal.styl'
+import ventePriveeInfo from 'assets/venteprivee-info.png'
 
 const { ModalBrandedHeader } = Modal
-
-const Section = ({ title, children }) => (
-  <div>
-    <h3 key="title" style={{ color: '#e2017b' }}>
-      {title}
-    </h3>
-    <p key="p">{children}</p>
-  </div>
-)
 
 class Content extends Component {
   render() {
@@ -28,8 +20,7 @@ class Content extends Component {
           />
         </Panel.Main>
         <Panel.Side>
-          <Section title="Date">Yop</Section>
-          <Section title="Montant">Ouf</Section>
+          <img src={ventePriveeInfo} />
         </Panel.Side>
       </Panel.Group>
     )

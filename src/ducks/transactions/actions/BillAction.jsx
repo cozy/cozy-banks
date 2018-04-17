@@ -10,7 +10,7 @@ const name = 'bill'
 const billCache = {}
 
 const isVentePrivee = transaction =>
-  transaction && transaction.label.indexOf('Vente Privée') > -1
+  transaction && transaction.label.indexOf('Vente-Privée') > -1
 
 const getBillInvoice = bill => {
   if (!bill.invoice) {
