@@ -8,6 +8,7 @@ import {
   ButtonAction
 } from 'cozy-ui/react'
 import icon from 'assets/icons/actions/icon-link-out.svg'
+import ActionLink from './ActionLink'
 
 const name = 'konnector'
 
@@ -16,11 +17,14 @@ const Component = ({
   transaction,
   actionProps,
   breakpoints: { isDesktop },
-  compact
+  compact,
+  itemsOnly
 }) => {
   const { brands, urls } = actionProps
   const brand = findMatchingBrand(brands, transaction.label)
   if (!brand) return
+
+  const label = t('Transactions.actions.konnector', { vendor: brand.name })
 
   if (isDesktop) {
     return (
@@ -32,7 +36,7 @@ const Component = ({
         options={{ slug: brand.konnectorSlug }}
       >
         <ButtonAction
-          label={t('Transactions.actions.konnector', { vendor: brand.name })}
+          label={label}
           leftIcon="plus"
           type="new"
           compact={compact}
@@ -42,6 +46,11 @@ const Component = ({
   }
 
   const url = `${urls['COLLECT']}#/providers/all/${brand.konnectorSlug}`
+
+  if (itemsOnly) {
+    return <ActionLink text={label} icon="plus" href={url} />
+  }
+
   return (
     <ButtonAction
       onClick={() => open(url)}
