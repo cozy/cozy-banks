@@ -10,7 +10,6 @@ import keyBy from 'lodash/keyBy'
 import { I18n } from 'cozy-ui/react'
 import { SyncTransactionActions } from './TransactionActions'
 import { hydrateReimbursementWithBill } from 'documents/transaction'
-import brands from 'ducks/brandDictionary/brands.json'
 import { findMatchingActions } from 'ducks/transactions/actions'
 import langEn from 'locales/en.json'
 
@@ -38,9 +37,20 @@ jest.mock('utils/documentCache', () => ({
   get: (doctype, id) => mockBillsById[id]
 }))
 
+// Find a way to better do that, here we have to copy the definition
+// of isProperIcon
 jest.mock('cozy-ui/react/Icon', () => {
-  const Icon = ({ icon }) => <span data-icon-id={`${icon.id || icon}`} />
-  return Icon
+  const isProperIcon = icon => {
+    const isSvgSymbol = icon && !!icon.id
+    const isIconIdentifier = typeof icon === 'string'
+    return isSvgSymbol || isIconIdentifier
+  }
+  const mockIcon = props => {
+    const icon = props.icon
+    return isProperIcon(icon) ? <span data-icon-id={ icon.id || icon} /> : icon
+  }
+  mockIcon.isProperIcon = isProperIcon
+  return mockIcon
 })
 
 const bills = data['io.cozy.bills']
@@ -74,7 +84,7 @@ const tests = [
   ['facturebouygues', null, '1 invoice', 'file', 'bill'],
   ['salaireisa1', null, 'Accéder à votre paie', 'openwith', 'url'],
   ['fnac', null, 'Accéder au site Fnac', 'openwith', 'url'],
-  ['edf', null, 'Edf app', null, 'app'] // TODO change
+  ['edf', null, 'EDF', null, 'app']
 ]
 /* eslint-enable */
 
@@ -88,7 +98,7 @@ const actionProps = {
   urls: {
     edf: 'edf-url://'
   },
-  brands
+  brands: []
 }
 
 describe('transaction action defaults', () => {
@@ -117,19 +127,21 @@ describe('transaction action defaults', () => {
       })
 
       it('should render the correct text', () => {
-        const btnText = root.find('.c-actionbtn').text()
+        root.update() // https://github.com/airbnb/enzyme/issues/1233#issuecomment-340017108
+        const btn = root.find('.c-actionbtn')
+        const btnText = btn.text()
         expect(btnText).toEqual(expect.stringContaining(text))
       })
 
       if (icon) {
         it('should render the correct icon', () => {
-          expect(root.find(`[data-icon-id="${icon}"]`)).toHaveLength(1)
+          expect(root.find(`[data-icon-id="${icon}"]`).length).toBe(1)
         })
       }
 
       if (variant) {
         it('should render the correct button', () => {
-          expect(root.find(variant)).toHaveLength(1)
+          expect(root.find(variant).length).toBe(1)
         })
       }
     })

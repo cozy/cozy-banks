@@ -101,7 +101,7 @@ export class BillComponent extends Component {
 
     const { fileId } = this.state
     if (!fileId) {
-      return
+      return null
     }
 
     const text = actionProps.text || t('Transactions.actions.bill')
@@ -115,6 +115,8 @@ export class BillComponent extends Component {
         action="OPEN"
         doctype="io.cozy.files"
         options={{ id: fileId }}
+        onComplete={() => {}}
+        onDismiss={() => {}}
       >
         {isMenuItem ? (
           <ActionLink text={text} icon="file" />
