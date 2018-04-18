@@ -4,13 +4,14 @@ import { ButtonAction } from 'cozy-ui/react'
 
 const name = 'url'
 
-const Component = ({ transaction }) => {
+const Component = ({ transaction, compact }) => {
   const action = transaction.action
   return (
     <ButtonAction
       onClick={() => open(action.url, action.target)}
       label={action.trad}
       rightIcon="openwith"
+      compact={compact}
     />
   )
 }

@@ -6,7 +6,7 @@ import { BillComponent } from './BillAction'
 
 const name = 'healthExpenseBill'
 
-export const Component = ({ t, transaction, actionProps }) => {
+export const Component = ({ t, transaction, actionProps }, compact) => {
   return (
     <span>
       {transaction.reimbursements.map((reimbursement, index) => {
@@ -25,6 +25,7 @@ export const Component = ({ t, transaction, actionProps }) => {
                 reimbursement.bill.vendor
               )
             }}
+            compact={compact}
           />
         )
       })}

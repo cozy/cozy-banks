@@ -16,7 +16,8 @@ const Component = ({
   t,
   transaction,
   actionProps,
-  breakpoints: { isDesktop }
+  breakpoints: { isDesktop },
+  compact
 }) => {
   const { brands, urls } = actionProps
   const brand = findMatchingBrand(brands, transaction.label)
@@ -35,6 +36,7 @@ const Component = ({
           label={t('Transactions.actions.konnector', { vendor: brand.name })}
           leftIcon="plus"
           type="new"
+          compact={compact}
         />
       </IntentOpener>
     )

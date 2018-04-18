@@ -18,7 +18,7 @@ const beautify = appName => {
   return appName.toLowerCase() === 'edf' ? 'EDF' : capitalize(appName)
 }
 
-const Component = ({ t, transaction, actionProps: { urls } }) => {
+const Component = ({ t, transaction, actionProps: { urls }, compact }) => {
   const appName = getAppName(urls, transaction)
   return (
     <ButtonAction
@@ -27,6 +27,7 @@ const Component = ({ t, transaction, actionProps: { urls } }) => {
         appName: beautify(appName)
       })}
       rightIcon="openwith"
+      compact={compact}
     />
   )
 }

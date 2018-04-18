@@ -117,7 +117,7 @@ const TableTrNoDesktop = translate()(
   ({ t, transaction, selectTransaction, filteringOnAccount, ...props }) => {
     return (
       <tr
-        onClick={() => selectTransaction(transaction)}
+        onClick={() => {} /*() => selectTransaction(transaction)*/}
         className={styles['bnk-transaction-mobile']}
       >
         <td>
@@ -142,20 +142,42 @@ const TableTrNoDesktop = translate()(
                 }
               />
             </Bd>
-            <Img style={{ flexBasis: '1rem' }}>
-              <TransactionActions
-                transaction={transaction}
-                {...props}
-                onlyDefault
-                onlyIcon
-              />
-            </Img>
             <Img>
               <Figure
                 total={transaction.amount}
                 currency={transaction.currency}
                 coloredPositive
                 signed
+              />
+            </Img>
+            <Img
+              style={{
+                position: 'relative',
+                flexBasis: '2rem',
+                flexShrink: '0',
+                flexGrow: '0',
+                minHeight: '2rem',
+                textAlign: 'right',
+                marginLeft: '1rem'
+              }}
+            >
+              <span
+                style={{
+                  position: 'absolute',
+                  height: '1.5rem',
+                  width: '0.0635rem',
+                  left: '-0.0635rem',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  backgroundColor: 'silver'
+                }}
+              />
+              <TransactionActions
+                transaction={transaction}
+                {...props}
+                onlyDefault
+                compact
+                menuPosition="right"
               />
             </Img>
           </Media>

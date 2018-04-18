@@ -97,7 +97,13 @@ export class BillComponent extends Component {
   }
 
   render() {
-    const { t, transaction, isMenuItem = false, actionProps } = this.props
+    const {
+      t,
+      transaction,
+      isMenuItem = false,
+      actionProps,
+      compact
+    } = this.props
 
     const { fileId } = this.state
     if (!fileId) {
@@ -125,7 +131,7 @@ export class BillComponent extends Component {
         {isMenuItem ? (
           <ActionLink text={text} icon="file" />
         ) : (
-          <ButtonAction label={text} rightIcon="file" />
+          <ButtonAction label={text} rightIcon="file" compact={compact} />
         )}
       </IntentOpener>
     )

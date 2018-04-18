@@ -24,7 +24,7 @@ const isPending = transaction => {
   return vendors.length === 0
 }
 
-const Component = ({ t, transaction }) => {
+const Component = ({ t, transaction, compact, menuPosition }) => {
   const pending = isPending(transaction)
   const vendors = getVendors(transaction)
   const text = pending
@@ -42,18 +42,25 @@ const Component = ({ t, transaction }) => {
 
   if (pending) {
     return (
-      <ButtonAction label={text} type={type} rightIcon={<Icon icon={icon} />} />
+      <ButtonAction
+        label={text}
+        type={type}
+        rightIcon={<Icon icon={icon} />}
+        compact={compact}
+      />
     )
   }
 
   return (
     <Menu
       className={styles.TransactionActionMenu}
+      position={menuPosition}
       component={
         <ButtonAction
           label={text}
           type={type}
           rightIcon={<Icon icon={icon} />}
+          compact={compact}
         />
       }
     >
@@ -62,7 +69,11 @@ const Component = ({ t, transaction }) => {
           return
         }
         return (
-          <MenuItem key={reimbursement.bill.vendor} onSelect={() => false}>
+          <MenuItem
+            key={reimbursement.bill.vendor}
+            onSelect={() => false}
+            className={styles.TransactionActionMenuItem}
+          >
             <BillComponent
               isMenuItem
               t={t}
