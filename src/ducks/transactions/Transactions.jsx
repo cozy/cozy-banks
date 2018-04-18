@@ -116,10 +116,7 @@ const TableTrDesktop = compose(translate(), withDispatch, withUpdateCategory())(
 const TableTrNoDesktop = translate()(
   ({ t, transaction, selectTransaction, filteringOnAccount, ...props }) => {
     return (
-      <tr
-        onClick={() => {} /*() => selectTransaction(transaction)*/}
-        className={styles['bnk-transaction-mobile']}
-      >
+      <tr className={styles['bnk-transaction-mobile']}>
         <td>
           <Media>
             <Img
@@ -129,20 +126,23 @@ const TableTrNoDesktop = translate()(
                   getCategoryId(transaction)
                 )}`
               )}
+              onClick={() => selectTransaction(transaction)}
             >
               <CategoryIcon
                 category={getParentCategory(getCategoryId(transaction))}
               />
             </Img>
             <Bd className="u-mr-half u-ellipsis">
-              <ListItemText
-                primaryText={getLabel(transaction)}
-                secondaryText={
-                  !filteringOnAccount && getAccountLabel(transaction.account)
-                }
-              />
+              <div onClick={() => selectTransaction(transaction)}>
+                <ListItemText
+                  primaryText={getLabel(transaction)}
+                  secondaryText={
+                    !filteringOnAccount && getAccountLabel(transaction.account)
+                  }
+                />
+              </div>
             </Bd>
-            <Img>
+            <Img onClick={() => selectTransaction(transaction)}>
               <Figure
                 total={transaction.amount}
                 currency={transaction.currency}
