@@ -3,6 +3,7 @@ import { findKey } from 'lodash'
 import { translate, ButtonAction } from 'cozy-ui/react'
 import icon from 'assets/icons/actions/icon-link-out.svg'
 import capitalize from 'lodash/capitalize'
+import ActionLink from './ActionLink'
 
 const name = 'app'
 
@@ -18,14 +19,27 @@ const beautify = appName => {
   return appName.toLowerCase() === 'edf' ? 'EDF' : capitalize(appName)
 }
 
-const Component = ({ t, transaction, actionProps: { urls }, compact }) => {
+const Component = ({
+  t,
+  transaction,
+  actionProps: { urls },
+  compact,
+  itemsOnly
+}) => {
   const appName = getAppName(urls, transaction)
+  const label = t(`Transactions.actions.${name}`, {
+    appName: beautify(appName)
+  })
+  const url = urls[appName]
+
+  if (itemsOnly) {
+    return <ActionLink text={label} href={url} icon="openwith" />
+  }
+
   return (
     <ButtonAction
-      onClick={() => open(urls[appName])}
-      label={t(`Transactions.actions.${name}`, {
-        appName: beautify(appName)
-      })}
+      onClick={() => open(url)}
+      label={label}
       rightIcon="openwith"
       compact={compact}
     />
