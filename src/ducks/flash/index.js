@@ -1,5 +1,5 @@
 import Velocity from 'velocity-animate'
-import styles from './style'
+import styles from './style.styl'
 
 // Temporary to show Coming soon
 

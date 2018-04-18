@@ -28,6 +28,9 @@ const buildAppURL = function(cozyURL, app, hash) {
   dedicated app or intent
 */
 class FileOpener extends Component {
+  state = {
+    loading: false
+  }
   onCloseModal = err => {
     this.setState({ file: null })
     if (err) {
@@ -69,7 +72,9 @@ class FileOpener extends Component {
     }
   }
 
-  render(props, { loading, fileId }) {
+  render() {
+    const props = this.props
+    const { loading, fileId } = this.state
     return (
       <span>
         {React.cloneElement(props.children, { onClick: this.displayFile })}

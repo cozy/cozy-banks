@@ -63,13 +63,49 @@ const MenuAction = ({
   )
 }
 
+MenuAction.propTypes = {
+  actionProps: PropTypes.object.isRequired
+}
+
+export const SyncTransactionActions = ({
+  transaction,
+  actions,
+  actionProps,
+  displayDefaultAction,
+  onlyDefault,
+  onlyIcon
+}) => (
+  <span>
+    {(displayDefaultAction || onlyDefault) &&
+      actions.default && (
+        <MenuAction
+          action={actions.default}
+          className={onlyDefault || onlyIcon ? 'u-p-0' : ''}
+          displayComponent={!onlyIcon}
+          isDefault
+          transaction={transaction}
+          actionProps={actionProps}
+        />
+      )}
+    {!onlyDefault &&
+      actions.others.map((action, index) => (
+        <MenuAction
+          key={index}
+          action={action}
+          transaction={transaction}
+          actionProps={actionProps}
+        />
+      ))}
+  </span>
+)
+
 class TransactionActions extends Component {
   state = {
     actions: false,
     actionProps: false
   }
 
-  findActions = async () => {
+  async findMatchingActions() {
     const { transaction } = this.props
     if (transaction) {
       const { urls, brands, bill } = this.props
@@ -80,7 +116,7 @@ class TransactionActions extends Component {
   }
 
   componentDidMount() {
-    this.findActions()
+    this.findMatchingActions()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -96,39 +132,21 @@ class TransactionActions extends Component {
       nextProps.brands !== this.props.brands ||
       nextProps.bill !== this.props.bill
     ) {
-      this.findActions()
+      this.findMatchingActions()
     }
   }
 
   render() {
-    const {
-      displayDefaultAction,
-      onlyDefault,
-      onlyIcon,
-      transaction
-    } = this.props
     const { actions, actionProps } = this.state
 
-    if (!actions) return
+    if (!actions) return null
 
-    const props = { transaction, actionProps }
     return (
-      <span>
-        {(displayDefaultAction || onlyDefault) &&
-          actions.default && (
-            <MenuAction
-              action={actions.default}
-              className={onlyDefault || onlyIcon ? 'u-p-0' : ''}
-              displayComponent={!onlyIcon}
-              isDefault
-              {...props}
-            />
-          )}
-        {!onlyDefault &&
-          actions.others.map((action, index) => (
-            <MenuAction key={index} action={action} {...props} />
-          ))}
-      </span>
+      <SyncTransactionActions
+        actions={actions}
+        actionProps={actionProps}
+        {...this.props}
+      />
     )
   }
 }
@@ -136,8 +154,7 @@ class TransactionActions extends Component {
 TransactionActions.propTypes = {
   transaction: PropTypes.object.isRequired,
   urls: PropTypes.object.isRequired,
-  brands: PropTypes.array.isRequired,
-  withoutDefault: PropTypes.bool
+  brands: PropTypes.array.isRequired
 }
 
 export default TransactionActions
