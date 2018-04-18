@@ -47,7 +47,7 @@ jest.mock('cozy-ui/react/Icon', () => {
   }
   const mockIcon = props => {
     const icon = props.icon
-    return isProperIcon(icon) ? <span data-icon-id={ icon.id || icon} /> : icon
+    return isProperIcon(icon) ? <span data-icon-id={icon.id || icon} /> : icon
   }
   mockIcon.isProperIcon = isProperIcon
   return mockIcon
