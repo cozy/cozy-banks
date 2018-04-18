@@ -102,7 +102,8 @@ export class BillComponent extends Component {
       transaction,
       isMenuItem = false,
       actionProps,
-      compact
+      compact,
+      itemsOnly
     } = this.props
 
     const { fileId } = this.state
@@ -129,7 +130,7 @@ export class BillComponent extends Component {
         onDismiss={() => {}}
         into="body"
       >
-        {isMenuItem ? (
+        {isMenuItem || itemsOnly ? (
           <ActionLink text={text} icon="file" />
         ) : (
           <ButtonAction label={text} rightIcon="file" compact={compact} />
