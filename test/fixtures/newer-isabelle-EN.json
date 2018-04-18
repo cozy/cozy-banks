@@ -27,6 +27,10 @@
     {
       "__SRC__": "{{ dir }}/Fichiers_de_démo/Harmonie/Demo_cozy-Remboursement_Harmonie.pdf",
       "__DEST__": "/Fichiers_de_démo/Harmonie/Demo_cozy-Remboursement_Harmonie.pdf"
+    },
+    {
+      "__SRC__": "{{ dir }}/Fichiers_de_démo/Vente Privée/facture.pdf",
+      "__DEST__": "/Fichiers_de_démo/Vente Privée/facture.pdf"
     }
   ],
   "io.cozy.bills": [
@@ -64,6 +68,15 @@
       "isRefund": true,
       "invoice": "io.cozy.files:{{reference 'io.cozy.files' 5 '_id' }}"
     },
+    {
+       "_id": "demo_venteprivee",
+       "amount": -78.35,
+       "date": "2018-01-18T22:00:00.000Z",
+       "invoice": "io.cozy.files:{{reference 'io.cozy.files' 7 '_id' }}",
+       "subtype": "Facture Vente Privée 18/03/2018",
+       "type": "shopping",
+       "vendor": "Vente Privée"
+     },
     {
       "_id": "bill_harmonie_demo",
       "date": "2018-01-19T00:00:00Z",
@@ -111,7 +124,7 @@
       "amount": -25,
       "automaticCategoryId": "400610",
       "currency": "€",
-      "date": "2018-01-20T00:00:00Z",
+      "date": "2018-01-19T00:00:00Z",
       "label": "Docteur Martin",
       "reimbursements": [
         {
@@ -127,6 +140,14 @@
       ]
     },
     {
+      "account": "compteisa1",
+      "amount": -34.9,
+      "automaticCategoryId": "400150",
+      "currency": "€",
+      "date": "2018-01-20T00:00:00Z",
+      "label": "Free Telecom january subs"
+    },
+    {
       "_id": "4bbfe1f845ad1231c7d07aa3e04fe8b3",
       "account": "compteisa1",
       "amount": -44.9,
@@ -135,7 +156,7 @@
       ],
       "automaticCategoryId": "400150",
       "currency": "€",
-      "date": "2018-01-22T00:00:00Z",
+      "date": "2018-01-19T00:00:00Z",
       "label": "BOUYGUES TELECOM MONTHLY SUBSCRIPTION"
     },
     {
@@ -215,6 +236,19 @@
       "demo": false,
       "label": "SNCF"
     },
+    {
+      "_id": "demo_venteprivee",
+      "account": "compteisa1",
+      "amount": -78.35,
+      "automaticCategoryId": "400112",
+      "bills": ["io.cozy.bills:demo_venteprivee"],
+      "currency": "EUR",
+      "date": "2018-01-18T22:00:00.000Z",
+      "dateOperation": null,
+      "label": "Vente-Privée.com",
+      "linxoId": "133337",
+      "type": "transfer"
+     },
     {
       "_id": "c5d3364d147d8dc5da80fc9e354ad158",
       "account": "comptegene1",
@@ -465,7 +499,7 @@
       "bill": "io.cozy.:rembourcomplisa1",
       "automaticCategoryId": "400610",
       "currency": "€",
-      "date": "2018-01-20T00:00:00Z",
+      "date": "2018-01-07T00:00:00Z",
       "demo": false,
       "label": "VIREMENT COMPL SANTE"
     },
@@ -487,7 +521,7 @@
       "currency": "€",
       "date": "2017-12-25T00:00:00Z",
       "demo": false,
-      "label": "RETRAIT BNPPARIBAS"
+      "label": "CASH WITHDRAWAL BNPPARIBAS"
     },
     {
       "_id": "4bbfe1f845ad1231c7d07aa3e050349e",
@@ -700,7 +734,7 @@
       "account": "compteisa1",
       "action": {
         "target": "_blank",
-        "trad": "payslip app",
+        "trad": "Tesla - HR",
         "type": "url",
         "url": "https://marvelapp.com/2ci574d/screen/30245778"
       },
@@ -709,7 +743,7 @@
       "currency": "€",
       "date": "2018-01-21T00:00:00Z",
       "demo": false,
-      "label": "PAYSLIP DURAND JANUARY 2018"
+      "label": "PAYSLIP TESLA DURAND JANUARY 2018"
     },
     {
       "_id": "4bbfe1f845ad1231c7d07aa3e04f7a6a",
@@ -751,7 +785,7 @@
       "amount": -43,
       "automaticCategoryId": "400610",
       "currency": "€",
-      "date": "2018-01-19T00:00:00Z",
+      "date": "2018-01-18T00:00:00Z",
       "demo": false,
       "label": "DOCTEUR LEFEBVRE"
     },
@@ -1025,7 +1059,7 @@
       ],
       "automaticCategoryId": "401040",
       "currency": "€",
-      "date": "2018-01-19T00:00:00Z",
+      "date": "2018-01-15T00:00:00Z",
       "demo": false,
       "label": "MAIF ASSURANCE HABITATION"
     },
@@ -1132,7 +1166,7 @@
       "amount": -26,
       "automaticCategoryId": "400130",
       "currency": "€",
-      "date": "2018-01-21T00:00:00Z",
+      "date": "2018-01-17T00:00:00Z",
       "demo": false,
       "label": "FNAC TERNES"
     }
@@ -1143,7 +1177,7 @@
       "balance": 325.24,
       "type": "Savings",
       "institutionLabel": "BNPP",
-      "label": "Compte jeune Louise",
+      "label": "Louise checkings",
       "number": "3515705",
       "recipients": [
         {
@@ -1161,7 +1195,7 @@
       "_id": "compteisa3",
       "balance": 11635.12,
       "institutionLabel": "La Banque Postale",
-      "label": "Livret A Isabelle",
+      "label": "Isabelle savngs",
       "number": "7546694"
     },
     {
@@ -1169,7 +1203,7 @@
       "_id": "compteisa1",
       "balance": 3974.25,
       "institutionLabel": "BNPP",
-      "label": "Compte chèque Isabelle",
+      "label": "Isabelle checkings",
       "number": "3652983"
     },
     {
@@ -1177,7 +1211,7 @@
       "balance": 22471.46,
       "id": "comptegene1",
       "institutionLabel": "CA",
-      "label": "Compte courant Genevieve",
+      "label": "Genevieve checkings",
       "number": "5652653",
       "recipients": [
         {
@@ -1196,7 +1230,7 @@
       "balance": 4135.62,
       "id": "comptecla1",
       "institutionLabel": "BNPP",
-      "label": "Compte courant Claude",
+      "label": "Claude checkings",
       "number": "5545979",
       "recipients": [
         {
@@ -1216,7 +1250,7 @@
       "balance": 1421.22,
       "description": "Premier compte sans connaitre l id pour generer le doc",
       "institutionLabel": "HSBC",
-      "label": "PEE Isabelle",
+      "label": "Isabelle employee savings",
       "number": "3649933"
     }
   ]
