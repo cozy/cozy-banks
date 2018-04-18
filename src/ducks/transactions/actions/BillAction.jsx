@@ -127,6 +127,7 @@ export class BillComponent extends Component {
         options={{ id: fileId }}
         onComplete={() => {}}
         onDismiss={() => {}}
+        into="body"
       >
         {isMenuItem ? (
           <ActionLink text={text} icon="file" />

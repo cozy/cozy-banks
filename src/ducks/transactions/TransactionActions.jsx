@@ -31,7 +31,8 @@ const MenuAction = ({
   isDefault,
   displayComponent = true,
   compact = false,
-  menuPosition
+  menuPosition,
+  itemsOnly
 }) => {
   const { Component } = action
   const color = action.disabled
@@ -61,6 +62,7 @@ const MenuAction = ({
           color={color}
           compact={compact}
           menuPosition={menuPosition}
+          itemsOnly={itemsOnly}
         />
       )}
     </MenuItem>

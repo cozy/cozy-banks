@@ -8,7 +8,6 @@ import {
   ButtonAction
 } from 'cozy-ui/react'
 import icon from 'assets/icons/actions/icon-link-out.svg'
-import ActionLink from './ActionLink'
 
 const name = 'konnector'
 
@@ -44,9 +43,11 @@ const Component = ({
 
   const url = `${urls['COLLECT']}#/providers/all/${brand.konnectorSlug}`
   return (
-    <ActionLink
-      href={url}
-      text={t(`Transactions.actions.${name}`, { vendor: brand.name })}
+    <ButtonAction
+      onClick={() => open(url)}
+      rightIcon="plus"
+      type="new"
+      compact={true}
     />
   )
 }

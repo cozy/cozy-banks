@@ -5,6 +5,7 @@ import { isHealthExpense } from 'ducks/categories/helpers'
 import allBrands from 'ducks/brandDictionary/brands.json'
 import { BillComponent } from './BillAction'
 import styles from '../TransactionActions.styl'
+import ActionLink from './ActionLink'
 
 const name = 'HealthExpenseStatus'
 
@@ -24,7 +25,7 @@ const isPending = transaction => {
   return vendors.length === 0
 }
 
-const Component = ({ t, transaction, compact, menuPosition }) => {
+const Component = ({ t, transaction, compact, menuPosition, itemsOnly }) => {
   const pending = isPending(transaction)
   const vendors = getVendors(transaction)
   const text = pending
@@ -41,6 +42,10 @@ const Component = ({ t, transaction, compact, menuPosition }) => {
   const icon = pending ? 'hourglass' : 'file'
 
   if (pending) {
+    if (itemsOnly) {
+      return <ActionLink text={text} icon={icon} color={palette.pomegranate} />
+    }
+
     return (
       <ButtonAction
         label={text}
@@ -49,6 +54,35 @@ const Component = ({ t, transaction, compact, menuPosition }) => {
         compact={compact}
       />
     )
+  }
+
+  const items = transaction.reimbursements.map(reimbursement => {
+    if (!reimbursement.bill) {
+      return
+    }
+    return (
+      <MenuItem
+        key={reimbursement.bill.vendor}
+        onSelect={() => false}
+        className={styles.TransactionActionMenuItem}
+      >
+        <BillComponent
+          isMenuItem
+          t={t}
+          actionProps={{
+            bill: reimbursement.bill,
+            text: t(`Transactions.actions.healthExpenseBill`).replace(
+              '%{vendor}',
+              reimbursement.bill.vendor
+            )
+          }}
+        />
+      </MenuItem>
+    )
+  })
+
+  if (itemsOnly) {
+    return <div>{items}</div>
   }
 
   return (
@@ -64,30 +98,7 @@ const Component = ({ t, transaction, compact, menuPosition }) => {
         />
       }
     >
-      {transaction.reimbursements.map(reimbursement => {
-        if (!reimbursement.bill) {
-          return
-        }
-        return (
-          <MenuItem
-            key={reimbursement.bill.vendor}
-            onSelect={() => false}
-            className={styles.TransactionActionMenuItem}
-          >
-            <BillComponent
-              isMenuItem
-              t={t}
-              actionProps={{
-                bill: reimbursement.bill,
-                text: t(`Transactions.actions.healthExpenseBill`).replace(
-                  '%{vendor}',
-                  reimbursement.bill.vendor
-                )
-              }}
-            />
-          </MenuItem>
-        )
-      })}
+      {items}
     </Menu>
   )
 }
