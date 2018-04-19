@@ -16,6 +16,8 @@ import langEn from 'locales/en.json'
 import dataTpl from '../../../test/fixtures/operations.json'
 import helpers from '../../../test/fixtures/helpers'
 
+configure({ adapter: new Adapter() })
+
 const data = JSON.parse(
   dummyjson.parse(
     JSON.stringify(dataTpl),
@@ -67,7 +69,6 @@ const hydratedTransactions = transactions.map(x => ({
 }))
 const transactionsById = keyBy(hydratedTransactions, '_id')
 
-configure({ adapter: new Adapter() })
 
 /* eslint-disable */
 const tests = [
