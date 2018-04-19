@@ -32,7 +32,7 @@ const MenuAction = ({
   displayComponent = true,
   compact = false,
   menuPosition,
-  itemsOnly
+  onlyItems
 }) => {
   const { Component } = action
   const color = action.disabled
@@ -62,7 +62,7 @@ const MenuAction = ({
           color={color}
           compact={compact}
           menuPosition={menuPosition}
-          itemsOnly={itemsOnly}
+          onlyItems={onlyItems}
         />
       )}
     </MenuItem>
@@ -81,7 +81,7 @@ export const SyncTransactionActions = ({
   onlyDefault,
   onlyIcon,
   menuPosition = 'left',
-  itemsOnly,
+  onlyItems,
   compact
 }) => (
   <span>
@@ -95,7 +95,7 @@ export const SyncTransactionActions = ({
           transaction={transaction}
           actionProps={actionProps}
           menuPosition={menuPosition}
-          itemsOnly={itemsOnly}
+          onlyItems={onlyItems}
           compact={compact}
         />
       )}

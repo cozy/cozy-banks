@@ -39,7 +39,7 @@ const Component = ({
   transaction,
   compact,
   menuPosition,
-  itemsOnly,
+  onlyItems,
   breakpoints: { isDesktop }
 }) => {
   const pending = isPending(transaction)
@@ -58,7 +58,7 @@ const Component = ({
   const icon = pending ? 'hourglass' : 'file'
 
   if (pending) {
-    if (itemsOnly) {
+    if (onlyItems) {
       return <ActionLink text={text} icon={icon} color={palette.pomegranate} />
     }
 
@@ -97,7 +97,7 @@ const Component = ({
     )
   })
 
-  if (itemsOnly) {
+  if (onlyItems) {
     return <div>{items}</div>
   }
 

@@ -5,10 +5,10 @@ import ActionLink from './ActionLink'
 
 const name = 'url'
 
-const Component = ({ transaction, compact, itemsOnly }) => {
+const Component = ({ transaction, compact, onlyItems }) => {
   const action = transaction.action
 
-  if (itemsOnly) {
+  if (onlyItems) {
     return (
       <ActionLink
         label={action.trad}

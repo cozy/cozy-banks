@@ -24,7 +24,7 @@ const Component = ({
   transaction,
   actionProps: { urls },
   compact,
-  itemsOnly
+  onlyItems
 }) => {
   const appName = getAppName(urls, transaction)
   const label = t(`Transactions.actions.${name}`, {
@@ -32,7 +32,7 @@ const Component = ({
   })
   const url = urls[appName]
 
-  if (itemsOnly) {
+  if (onlyItems) {
     return <ActionLink text={label} href={url} icon="openwith" />
   }
 

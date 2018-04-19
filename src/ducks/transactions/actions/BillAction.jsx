@@ -103,7 +103,7 @@ export class BillComponent extends Component {
       isMenuItem = false,
       actionProps,
       compact,
-      itemsOnly
+      onlyItems
     } = this.props
 
     const { fileId } = this.state
@@ -130,7 +130,7 @@ export class BillComponent extends Component {
         onDismiss={() => {}}
         into="body"
       >
-        {isMenuItem || itemsOnly ? (
+        {isMenuItem || onlyItems ? (
           <ActionLink text={text} icon="file" />
         ) : (
           <ButtonAction label={text} rightIcon="file" compact={compact} />

@@ -18,7 +18,7 @@ const Component = ({
   actionProps,
   breakpoints: { isDesktop },
   compact,
-  itemsOnly
+  onlyItems
 }) => {
   const { brands, urls } = actionProps
   const brand = findMatchingBrand(brands, transaction.label)
@@ -47,7 +47,7 @@ const Component = ({
 
   const url = `${urls['COLLECT']}#/providers/all/${brand.konnectorSlug}`
 
-  if (itemsOnly) {
+  if (onlyItems) {
     return <ActionLink text={label} icon="plus" href={url} />
   }
 
