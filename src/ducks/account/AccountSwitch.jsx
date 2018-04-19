@@ -88,10 +88,12 @@ AccountSwitchDesktop.propTypes = {
 
 const DownArrow = () => <Icon icon="bottom" />
 
-const AccountSwitchMobile = (
-  { filteredAccounts, filteringDoc, onClick },
-  { t }
-) => (
+const AccountSwitchMobile = ({
+  filteredAccounts,
+  filteringDoc,
+  onClick,
+  t
+}) => (
   <Media style={{ width: '100%' }}>
     <Bd>
       <h3 onClick={onClick}>
@@ -303,6 +305,7 @@ class AccountSwitch extends Component {
               filteredAccounts={filteredAccounts}
               filteringDoc={filteringDoc}
               onClick={this.toggle}
+              t={t}
             />
           </BarCenter>
         )}
