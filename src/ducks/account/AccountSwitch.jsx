@@ -86,7 +86,9 @@ AccountSwitchDesktop.propTypes = {
   filteringDoc: PropTypes.object
 }
 
-const DownArrow = () => <Icon icon="bottom" />
+const DownArrow = () => (
+  <Icon icon="bottom" style={{ transform: 'translate(5px, 2px)' }} />
+)
 
 const AccountSwitchMobile = ({
   filteredAccounts,
