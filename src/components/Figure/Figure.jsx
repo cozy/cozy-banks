@@ -15,6 +15,7 @@ const currencySigns = {
 const stylePositive = styles['Figure-content--positive']
 const styleNegative = styles['Figure-content--negative']
 const styleWarning = styles['Figure-content--warning']
+const styleBig = styles['Figure--big']
 const Figure = props => {
   const {
     currency,
@@ -24,7 +25,8 @@ const Figure = props => {
     warningLimit,
     signed,
     className,
-    total
+    total,
+    size
   } = props
 
   let { decimalNumbers } = props
@@ -46,6 +48,7 @@ const Figure = props => {
           [styleNegative]:
             total !== 0 && !isTotalPositive && !isWarning && coloredNegative,
           [styleWarning]: isWarning,
+          [styleBig]: size == 'big'
         },
         className
       )}

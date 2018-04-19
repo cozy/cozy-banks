@@ -23,6 +23,7 @@ const FigureBlock = ({
   <div className={classNames(styles['FigureBlock'], className)}>
     <h4 className={styles['FigureBlock-label']}>{label}</h4>
     <Figure
+      size="big"
       className={styles['FigureBlock-figure']}
       total={total}
       currency={currency}
