@@ -156,9 +156,9 @@ const TableTrNoDesktop = translate()(
                 flexBasis: '2rem',
                 flexShrink: '0',
                 flexGrow: '0',
-                minHeight: '2rem',
                 textAlign: 'right',
-                marginLeft: '1rem'
+                marginLeft: '1rem',
+                paddingLeft: '0.4rem'
               }}
             >
               <span

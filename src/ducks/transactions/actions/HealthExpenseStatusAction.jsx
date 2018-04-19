@@ -1,11 +1,20 @@
 import React from 'react'
-import { translate, Icon, ButtonAction, Menu, MenuItem } from 'cozy-ui/react'
+import {
+  translate,
+  Icon,
+  ButtonAction,
+  Menu,
+  MenuItem,
+  Badge,
+  withBreakpoints
+} from 'cozy-ui/react'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import { isHealthExpense } from 'ducks/categories/helpers'
 import allBrands from 'ducks/brandDictionary/brands.json'
 import { BillComponent } from './BillAction'
 import styles from '../TransactionActions.styl'
 import ActionLink from './ActionLink'
+import { flowRight as compose } from 'lodash'
 
 const name = 'HealthExpenseStatus'
 
@@ -25,7 +34,14 @@ const isPending = transaction => {
   return vendors.length === 0
 }
 
-const Component = ({ t, transaction, compact, menuPosition, itemsOnly }) => {
+const Component = ({
+  t,
+  transaction,
+  compact,
+  menuPosition,
+  itemsOnly,
+  breakpoints: { isDesktop }
+}) => {
   const pending = isPending(transaction)
   const vendors = getVendors(transaction)
   const text = pending
@@ -85,17 +101,38 @@ const Component = ({ t, transaction, compact, menuPosition, itemsOnly }) => {
     return <div>{items}</div>
   }
 
+  if (isDesktop) {
+    return (
+      <Menu
+        className={styles.TransactionActionMenu}
+        position={menuPosition}
+        component={
+          <ButtonAction
+            label={text}
+            type={type}
+            rightIcon={<Icon icon={icon} />}
+            compact={compact}
+          />
+        }
+      >
+        {items}
+      </Menu>
+    )
+  }
+
   return (
     <Menu
       className={styles.TransactionActionMenu}
       position={menuPosition}
       component={
-        <ButtonAction
-          label={text}
-          type={type}
-          rightIcon={<Icon icon={icon} />}
-          compact={compact}
-        />
+        <Badge content={transaction.reimbursements.length} type={type}>
+          <ButtonAction
+            label={text}
+            type={type}
+            rightIcon={<Icon icon={icon} />}
+            compact={compact}
+          />
+        </Badge>
       }
     >
       {items}
@@ -127,7 +164,7 @@ const action = {
       getVendors(transaction)
     )
   },
-  Component: translate()(Component)
+  Component: compose(withBreakpoints(), translate())(Component)
 }
 
 export default action
