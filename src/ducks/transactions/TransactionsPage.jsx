@@ -33,6 +33,51 @@ const isPendingOrLoading = function(col) {
   return col.fetchStatus === 'pending' || col.fetchStatus === 'loading'
 }
 
+const KPIs = ({ transactions }, { t }) => {
+  let credits = 0
+  let debits = 0
+  transactions.forEach(transaction => {
+    if (transaction.amount > 0) {
+      credits += transaction.amount
+    } else {
+      debits += transaction.amount
+    }
+  })
+  const currency = transactions.length > 0 ? transactions[0].currency : null
+  return (
+    <div className={styles['bnk-mov-figures']}>
+      <FigureBlock
+        label={t('Transactions.total')}
+        total={credits + debits}
+        currency={currency}
+        coloredPositive
+        coloredNegative
+        signed
+      />
+      <FigureBlock
+        label={t('Transactions.transactions')}
+        total={transactions.length}
+      />
+      <FigureBlock
+        label={t('Transactions.debit')}
+        total={debits}
+        currency={currency}
+        signed
+      />
+      <FigureBlock
+        label={t('Transactions.credit')}
+        total={credits}
+        currency={currency}
+        signed
+      />
+    </div>
+  )
+}
+
+const Separator = () => (
+  <hr style={{ fontSize: 0, border: 0, height: '0.5rem' }} />
+)
+
 class TransactionsPage extends Component {
   state = { fetching: false }
 
@@ -95,16 +140,6 @@ class TransactionsPage extends Component {
       )
     }
 
-    let credits = 0
-    let debits = 0
-    filteredTransactions.forEach(transaction => {
-      if (transaction.amount > 0) {
-        credits += transaction.amount
-      } else {
-        debits += transaction.amount
-      }
-    })
-
     // Create Breadcrumb
     let breadcrumbItems
     if (subcategoryName) {
@@ -129,40 +164,15 @@ class TransactionsPage extends Component {
     const filteringOnAccount =
       filteringDoc && filteringDoc._type === ACCOUNT_DOCTYPE
 
-    const currency =
-      filteredTransactions.length > 0 ? filteredTransactions[0].currency : null
     return (
       <div className={styles['bnk-mov-page']}>
         {subcategoryName ? <BackButton /> : null}
         {!isMobile ? <Breadcrumb items={breadcrumbItems} tag="h2" /> : null}
         <SelectDates onChange={this.handleChangeMonth} />
-        {filteredTransactions.length !== 0 && (
-          <div className={styles['bnk-mov-figures']}>
-            <FigureBlock
-              label={t('Transactions.total')}
-              total={credits + debits}
-              currency={currency}
-              coloredPositive
-              coloredNegative
-              signed
-            />
-            <FigureBlock
-              label={t('Transactions.transactions')}
-              total={filteredTransactions.length}
-            />
-            <FigureBlock
-              label={t('Transactions.debit')}
-              total={debits}
-              currency={currency}
-              signed
-            />
-            <FigureBlock
-              label={t('Transactions.credit')}
-              total={credits}
-              currency={currency}
-              signed
-            />
-          </div>
+        {filteredTransactions.length !== 0 && subcategoryName ? (
+          <KPIs transactions={filteredTransactions} />
+        ) : (
+          <Separator />
         )}
         {filteredTransactions.length === 0 ? (
           <p>{t('Transactions.no-movements')}</p>
