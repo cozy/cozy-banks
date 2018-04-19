@@ -2797,9 +2797,9 @@ cozy-konnector-libs@^3.0.13:
     request-promise "^4.2.1"
     uuid "^3.1.0"
 
-cozy-ui@7.13.0:
-  version "7.13.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-7.13.0.tgz#35aefeb066d09bec6e553fe31189cdf538451f8a"
+cozy-ui@^7.16.0:
+  version "7.16.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-7.16.0.tgz#d240331500989d7368f9a42868e8f4d72cf205b0"
   dependencies:
     babel-preset-cozy-app "^0.3.1"
     classnames "^2.2.5"

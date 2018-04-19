@@ -1,6 +1,7 @@
 /* global cozy */
 
 import { flowRight as compose, sortBy } from 'lodash'
+import sumBy from 'lodash/sumBy'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -8,18 +9,23 @@ import { Link } from 'react-router'
 import classNames from 'classnames'
 
 import { cozyConnect, fetchCollection } from 'cozy-client'
-import { translate, withBreakpoints } from 'cozy-ui/react'
+import { translate, withBreakpoints, Icon } from 'cozy-ui/react'
 import Overlay from 'cozy-ui/react/Overlay'
 import { Media, Bd, Img } from 'cozy-ui/react/Media'
-
+import { Figure } from 'components/Figure'
 import AccountSharingStatus from 'components/AccountSharingStatus'
-import { filterByDoc, getFilteringDoc, resetFilterByDoc } from 'ducks/filters'
+import {
+  filterByDoc,
+  getFilteringDoc,
+  resetFilterByDoc,
+  getFilteredAccounts
+} from 'ducks/filters'
 import styles from './AccountSwitch.styl'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { getAccountInstitutionLabel } from './helpers.js'
 import { getAllGroups } from 'selectors'
 
-const { BarRight } = cozy.bar
+const { BarCenter } = cozy.bar
 
 const isLoading = function(collection) {
   return (
@@ -80,7 +86,41 @@ AccountSwitchDesktop.propTypes = {
   filteringDoc: PropTypes.object
 }
 
-const AccountSwitchMobile = ({ filteringDoc, onClick }) => (
+const DownArrow = () => <Icon icon="bottom" />
+
+const AccountSwitchMobile = (
+  { filteredAccounts, filteringDoc, onClick },
+  { t }
+) => (
+  <Media style={{ width: '100%' }}>
+    <Bd>
+      <h3 onClick={onClick}>
+        {filteringDoc
+          ? filteringDoc.shortLabel || filteringDoc.label
+          : t('AccountSwitch.all_accounts')}&nbsp;
+        <DownArrow />
+      </h3>
+    </Bd>
+    <Img>
+      <Figure
+        size="big"
+        currency="€"
+        decimalNumbers={0}
+        coloredPositive={true}
+        coloredNegative={true}
+        total={sumBy(filteredAccounts, 'balance')}
+      />
+    </Img>
+  </Media>
+)
+
+AccountSwitchMobile.propTypes = {
+  filteringDoc: PropTypes.object,
+  onClick: PropTypes.func.isRequired,
+  accounts: PropTypes.object.isRequired
+}
+
+const AccountSwitchTablet = ({ filteringDoc, onClick }) => (
   <button
     className={classNames(styles['account-switch-button-mobile'], {
       [styles['active']]: filteringDoc
@@ -89,8 +129,9 @@ const AccountSwitchMobile = ({ filteringDoc, onClick }) => (
   />
 )
 
-AccountSwitchMobile.propTypes = {
-  filteringDoc: PropTypes.object
+AccountSwitchTablet.propTypes = {
+  filteringDoc: PropTypes.object,
+  onClick: PropTypes.func.isRequired
 }
 
 const AccountSwitchMenu = translate()(
@@ -124,7 +165,7 @@ const AccountSwitchMenu = translate()(
             </button>
           </li>
           {sortBy(groups, 'label').map(group => (
-            <li key={group.label}>
+            <li key={group._id}>
               <button
                 onClick={() => {
                   filterByDoc(group)
@@ -225,6 +266,7 @@ class AccountSwitch extends Component {
       t,
       filteringDoc,
       filterByDoc,
+      filteredAccounts,
       resetFilterByDoc,
       breakpoints: { isMobile, isTablet, isDesktop }
     } = this.props
@@ -256,15 +298,16 @@ class AccountSwitch extends Component {
     return (
       <div className={styles['account-switch']}>
         {isMobile && (
-          <BarRight>
+          <BarCenter>
             <AccountSwitchMobile
+              filteredAccounts={filteredAccounts}
               filteringDoc={filteringDoc}
               onClick={this.toggle}
             />
-          </BarRight>
+          </BarCenter>
         )}
         {isTablet && (
-          <AccountSwitchMobile
+          <AccountSwitchTablet
             filteringDoc={filteringDoc}
             onClick={this.toggle}
           />
@@ -304,7 +347,8 @@ AccountSwitch.propTypes = {
 
 const mapStateToProps = state => ({
   filteringDoc: getFilteringDoc(state),
-  groups: getAllGroups(state)
+  groups: getAllGroups(state),
+  filteredAccounts: getFilteredAccounts(state)
 })
 
 const mapDispatchToProps = dispatch => ({

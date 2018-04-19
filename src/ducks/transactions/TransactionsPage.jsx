@@ -5,6 +5,7 @@ import { flowRight as compose, isEqual, includes } from 'lodash'
 import { getCollection, cozyConnect, fetchCollection } from 'cozy-client'
 
 import { translate } from 'cozy-ui/react/I18n'
+import { withBreakpoints } from 'cozy-ui/react'
 
 import {
   SelectDates,
@@ -19,7 +20,6 @@ import { getCategoryId } from 'ducks/categories/helpers'
 
 import { FigureBlock } from 'components/Figure'
 import Loading from 'components/Loading'
-import Topbar from 'components/Topbar'
 import { Breadcrumb } from 'components/Breadcrumb'
 import BackButton from 'components/BackButton'
 
@@ -64,7 +64,14 @@ class TransactionsPage extends Component {
   }
 
   render() {
-    const { t, urls, router, triggers, filteringDoc } = this.props
+    const {
+      t,
+      urls,
+      router,
+      triggers,
+      filteringDoc,
+      breakpoints: { isMobile }
+    } = this.props
     let { filteredTransactions } = this.props
 
     if (this.state.fetching) {
@@ -127,9 +134,7 @@ class TransactionsPage extends Component {
     return (
       <div className={styles['bnk-mov-page']}>
         {subcategoryName ? <BackButton /> : null}
-        <Topbar>
-          <Breadcrumb items={breadcrumbItems} tag="h2" />
-        </Topbar>
+        {!isMobile ? <Breadcrumb items={breadcrumbItems} tag="h2" /> : null}
         <SelectDates onChange={this.handleChangeMonth} />
         {filteredTransactions.length !== 0 && (
           <div className={styles['bnk-mov-figures']}>
@@ -218,6 +223,7 @@ const mapDocumentsToProps = () => ({
 
 export default compose(
   withRouter,
+  withBreakpoints(),
   connect(mapStateToProps, mapDispatchToProps),
   cozyConnect(mapDocumentsToProps),
   translate()
