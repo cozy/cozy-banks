@@ -70,6 +70,7 @@ class FileOpener extends Component {
         {React.cloneElement(props.children, { onClick: this.displayFile })}
         {loading && <Spinner style={spinnerStyle} />}
         {fileId && <FileIntentDisplay
+          modalTitle={props.modalTitle}
           onClose={this.onCloseModal}
           onError={this.onCloseModal}
           fileId={fileId} />}

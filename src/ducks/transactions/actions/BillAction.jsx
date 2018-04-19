@@ -54,7 +54,7 @@ export const Component = ({t, transaction, actionProps: { urls, bill, text }}) =
     bill = billCache[billId]
   }
   return (
-    <FileOpener getFileId={() => getBillInvoice(bill)}>
+    <FileOpener modalTitle={transaction.label} getFileId={() => getBillInvoice(bill)}>
       <ActionLink
         text={text || t('Transactions.actions.bill')}
       />

@@ -28,9 +28,10 @@ class FileIntentDisplay extends Component {
     this.showModal()
   }
 
-  render ({ children }, { intent }) {
+  render ({ children, modalTitle }, { intent }) {
     return intent
       ? <FullscreenIntentModal
+        title={modalTitle}
         intent={intent}
         onIntentError={this.handleModalError}
         dismissAction={this.closeModal} />

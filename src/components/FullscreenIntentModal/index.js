@@ -15,11 +15,11 @@ class FullscreenIntentModal extends Component {
     this.target = ref
   }
 
-  render ({ style }) {
+  render ({ style, title }) {
     return (
       <Portal into='body'>
         <div style={style} className={styles['modal--fullscreen']} >
-          <Modal overflowHidden dismissAction={this.props.dismissAction}>
+          <Modal title={title} overflowHidden dismissAction={this.props.dismissAction}>
             <div className={styles.content} ref={this.saveRef} />
           </Modal>
         </div>
