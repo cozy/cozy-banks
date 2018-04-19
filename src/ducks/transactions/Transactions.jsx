@@ -133,14 +133,13 @@ const TableTrNoDesktop = translate()(
               />
             </Img>
             <Bd className="u-mr-half u-ellipsis">
-              <div onClick={() => selectTransaction(transaction)}>
-                <ListItemText
-                  primaryText={getLabel(transaction)}
-                  secondaryText={
-                    !filteringOnAccount && getAccountLabel(transaction.account)
-                  }
-                />
-              </div>
+              <ListItemText
+                primaryText={getLabel(transaction)}
+                secondaryText={
+                  !filteringOnAccount && getAccountLabel(transaction.account)
+                }
+                onClick={() => selectTransaction(transaction)}
+              />
             </Bd>
             <Img onClick={() => selectTransaction(transaction)}>
               <Figure
