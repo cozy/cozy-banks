@@ -1,5 +1,2 @@
-import Figure from './Figure'
-import FigureBlock from './FigureBlock'
-
-// components
-export { Figure, FigureBlock }
+export { default as Figure } from './Figure'
+export { default as FigureBlock } from './FigureBlock'
