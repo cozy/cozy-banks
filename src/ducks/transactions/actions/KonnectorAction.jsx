@@ -25,6 +25,8 @@ const Component = ({
   if (isDesktop) {
     return (
       <IntentOpener
+        onComplete={() => {}}
+        onDismiss={() => {}}
         action="CREATE"
         doctype="io.cozy.accounts"
         options={{ slug: brand.konnectorSlug }}

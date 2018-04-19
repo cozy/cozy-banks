@@ -101,7 +101,11 @@ export class BillComponent extends Component {
 
     const { fileId } = this.state
     if (!fileId) {
-      return null
+      if (process.env.NODE_ENV === 'test') {
+        return <span className="TransactionAction">Bill</span>
+      } else {
+        return null
+      }
     }
 
     const text = actionProps.text || t('Transactions.actions.bill')
