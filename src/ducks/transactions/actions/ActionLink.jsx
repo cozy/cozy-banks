@@ -18,7 +18,7 @@ const ActionLink = ({
     style={{ color }}
     className={styles.TransactionAction}
   >
-    {icon && <Icon icon={icon} style={{ marginRight: '5px' }} />}
+    {icon && <Icon icon={icon} style={{ marginRight: '10px' }} />}
     {text}
   </a>
 )

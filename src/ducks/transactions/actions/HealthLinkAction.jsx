@@ -6,13 +6,14 @@ import palette from 'cozy-ui/stylus/settings/palette.json'
 
 const name = 'refund'
 
-const Component = ({ t, actionProps: { urls } }) => {
+const Component = ({ t, actionProps: { urls }, compact }) => {
   const url = `${urls['HEALTH']}#/remboursements`
   return (
     <ButtonAction
       onClick={() => open(url)}
       label={t(`Transactions.actions.${name}`)}
       rightIcon="openwith"
+      compact={compact}
     />
   )
 }

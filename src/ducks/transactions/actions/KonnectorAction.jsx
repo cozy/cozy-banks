@@ -16,33 +16,47 @@ const Component = ({
   t,
   transaction,
   actionProps,
-  breakpoints: { isDesktop }
+  breakpoints: { isDesktop },
+  compact,
+  onlyItems
 }) => {
   const { brands, urls } = actionProps
   const brand = findMatchingBrand(brands, transaction.label)
   if (!brand) return
 
+  const label = t('Transactions.actions.konnector', { vendor: brand.name })
+
   if (isDesktop) {
     return (
       <IntentOpener
+        onComplete={() => {}}
+        onDismiss={() => {}}
         action="CREATE"
         doctype="io.cozy.accounts"
         options={{ slug: brand.konnectorSlug }}
       >
         <ButtonAction
-          label={t('Transactions.actions.konnector', { vendor: brand.name })}
+          label={label}
           leftIcon="plus"
           type="new"
+          compact={compact}
         />
       </IntentOpener>
     )
   }
 
   const url = `${urls['COLLECT']}#/providers/all/${brand.konnectorSlug}`
+
+  if (onlyItems) {
+    return <ActionLink text={label} icon="plus" href={url} />
+  }
+
   return (
-    <ActionLink
-      href={url}
-      text={t(`Transactions.actions.${name}`, { vendor: brand.name })}
+    <ButtonAction
+      onClick={() => open(url)}
+      rightIcon="plus"
+      type="new"
+      compact={true}
     />
   )
 }

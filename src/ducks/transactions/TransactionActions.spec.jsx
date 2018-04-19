@@ -15,6 +15,7 @@ import langEn from 'locales/en.json'
 
 import dataTpl from '../../../test/fixtures/operations.json'
 import helpers from '../../../test/fixtures/helpers'
+import brands from 'ducks/brandDictionary/brands'
 
 configure({ adapter: new Adapter() })
 
@@ -71,20 +72,24 @@ const transactionsById = keyBy(hydratedTransactions, '_id')
 
 /* eslint-disable */
 const tests = [
-  // transaction id, class variant, text, icon, action name
-  // TODO find a way to test for icons that are not in cozy-ui/
-  // The transform option for jest seems be a good option but
-  // I could not get it to work
+  // transaction id, class variant, text, icon, action name, [action props], [test name]
   ['paiementdocteur', null, '2 reimbursements', 'file', 'HealthExpenseStatus'],
-  ['paiementdocteur2', '.c-actionbtn--error', 'No reimbursement yet', null, 'HealthExpenseStatus'],
-  ['depsantelou1', '.c-actionbtn--error', 'No reimbursement yet', null, 'HealthExpenseStatus'],
-  ['depsantegene4', '.c-actionbtn--error', 'No reimbursement yet', null, 'HealthExpenseStatus'],
-  ['depsanteisa2', '.c-actionbtn--error', 'No reimbursement yet', null, 'HealthExpenseStatus'],
-  ['depsantecla3', '.c-actionbtn--error', 'No reimbursement yet', null, 'HealthExpenseStatus'],
+  ['paiementdocteur2', '.c-actionbtn--error', 'No reimbursement yet', 'hourglass', 'HealthExpenseStatus'],
+  ['depsantelou1', '.c-actionbtn--error', 'No reimbursement yet', 'hourglass', 'HealthExpenseStatus'],
+  ['depsantegene4', '.c-actionbtn--error', 'No reimbursement yet', 'hourglass', 'HealthExpenseStatus'],
+  ['depsanteisa2', '.c-actionbtn--error', 'No reimbursement yet', 'hourglass', 'HealthExpenseStatus'],
+  ['depsantecla3', '.c-actionbtn--error', 'No reimbursement yet', 'hourglass', 'HealthExpenseStatus'],
   ['facturebouygues', null, '1 invoice', 'file', 'bill'],
   ['salaireisa1', null, 'Accéder à votre paie', 'openwith', 'url'],
   ['fnac', null, 'Accéder au site Fnac', 'openwith', 'url'],
-  ['edf', null, 'EDF', null, 'app']
+  ['edf', null, 'EDF', null, 'app'],
+  ['remboursementcomplementaire', null, 'My invoices', 'plus', 'konnector', {
+    brands: brands.filter(x => x.name == 'Malakoff Mederic')
+  }, 'remboursementcomplementaire konnector not installed'],
+  ['remboursementcomplementaire', null, '1 invoice', null, 'bill', {
+    brands: []
+  }, 'remboursementcomplementaire konnector installed'],
+  ['normalshopping', null, 'toto', null]
 ]
 /* eslint-enable */
 
@@ -96,42 +101,64 @@ const AppLike = ({ children }) => (
 
 const actionProps = {
   urls: {
-    edf: 'edf-url://'
+    COLLECT: 'collect',
+    edf: 'edf-url://',
+    maif: 'maifurl'
   },
-  brands: []
+
+  // Brands represents the brands for which no konnector
+  // has been installed
+  brands: brands.filter(x => x.name == 'Malakoff Mederic')
 }
 
 describe('transaction action defaults', () => {
   for (let test of tests) {
-    const [id, variant, text, icon, actionName] = test
-    describe(`${id}`, () => {
+    const [
+      id,
+      variant,
+      text,
+      icon,
+      actionName,
+      specificActionProps = {},
+      extraName = ''
+    ] = test
+    describe(`${id} ${extraName}`, () => {
       let root, actions
       beforeAll(async () => {
         const transaction = transactionsById[test[0]]
-        actions = await findMatchingActions(transaction, actionProps)
+        const mergedActionProps = { ...actionProps, ...specificActionProps }
+        actions = await findMatchingActions(transaction, mergedActionProps)
         root = mount(
           <AppLike>
             <SyncTransactionActions
               onlyDefault
               transaction={transaction}
               actions={actions}
-              actionProps={actionProps}
+              actionProps={mergedActionProps}
             />
           </AppLike>
         )
       })
 
-      it('should render the correct action', () => {
-        expect(actions.default).not.toBe(undefined)
-        expect(actions.default.name).toBe(actionName)
-      })
+      if (actionName) {
+        it('should render the correct action', () => {
+          expect(actions.default).not.toBe(undefined)
+          expect(actions.default.name).toBe(actionName)
+        })
+      } else {
+        it('should not render an action', () => {
+          expect(actions.default).toBe(undefined)
+        })
+      }
 
-      it('should render the correct text', () => {
-        root.update() // https://github.com/airbnb/enzyme/issues/1233#issuecomment-340017108
-        const btn = root.find('.c-actionbtn')
-        const btnText = btn.text()
-        expect(btnText).toEqual(expect.stringContaining(text))
-      })
+      if (actionName) {
+        it('should render the correct text', () => {
+          root.update() // https://github.com/airbnb/enzyme/issues/1233#issuecomment-340017108
+          const btn = root.find('.c-actionbtn')
+          const btnText = btn.text()
+          expect(btnText).toEqual(expect.stringContaining(text))
+        })
+      }
 
       if (icon) {
         it('should render the correct icon', () => {
@@ -150,16 +177,17 @@ describe('transaction action defaults', () => {
 
 describe('transaction action menu', () => {
   for (let test of tests) {
-    const [id] = test
-    it(`should render correctly ${id}`, async () => {
+    const [id, , , , , specificActionProps = {}, extraName = ''] = test
+    it(`should render correctly ${id} ${extraName}`, async () => {
       const transaction = transactionsById[id]
-      const actions = await findMatchingActions(transaction, actionProps)
+      const mergedActionProps = { ...actionProps, ...specificActionProps }
+      const actions = await findMatchingActions(transaction, mergedActionProps)
       const root = mount(
         <AppLike>
           <SyncTransactionActions
             transaction={transaction}
             actions={actions}
-            actionProps={actionProps}
+            actionProps={mergedActionProps}
           />
         </AppLike>
       )
