@@ -1,3 +1,5 @@
+@require 'settings/breakpoints'
+
 .TransactionAction
     cursor pointer
     text-decoration none
@@ -12,3 +14,9 @@
 
 .TransactionActionMenu
     width 100%
+
+    +medium-screen()
+        text-align center
+
+.TransactionActionMenuItem
+    text-align left

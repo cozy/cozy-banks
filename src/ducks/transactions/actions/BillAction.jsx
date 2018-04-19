@@ -97,7 +97,14 @@ export class BillComponent extends Component {
   }
 
   render() {
-    const { t, transaction, isMenuItem = false, actionProps } = this.props
+    const {
+      t,
+      transaction,
+      isMenuItem = false,
+      actionProps,
+      compact,
+      onlyItems
+    } = this.props
 
     const { fileId } = this.state
     if (!fileId) {
@@ -121,11 +128,12 @@ export class BillComponent extends Component {
         options={{ id: fileId }}
         onComplete={() => {}}
         onDismiss={() => {}}
+        into="body"
       >
-        {isMenuItem ? (
+        {isMenuItem || onlyItems ? (
           <ActionLink text={text} icon="file" />
         ) : (
-          <ButtonAction label={text} rightIcon="file" />
+          <ButtonAction label={text} rightIcon="file" compact={compact} />
         )}
       </IntentOpener>
     )

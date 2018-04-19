@@ -116,10 +116,7 @@ const TableTrDesktop = compose(translate(), withDispatch, withUpdateCategory())(
 const TableTrNoDesktop = translate()(
   ({ t, transaction, selectTransaction, filteringOnAccount, ...props }) => {
     return (
-      <tr
-        onClick={() => selectTransaction(transaction)}
-        className={styles['bnk-transaction-mobile']}
-      >
+      <tr className={styles['bnk-transaction-mobile']}>
         <td>
           <Media>
             <Img
@@ -129,6 +126,7 @@ const TableTrNoDesktop = translate()(
                   getCategoryId(transaction)
                 )}`
               )}
+              onClick={() => selectTransaction(transaction)}
             >
               <CategoryIcon
                 category={getParentCategory(getCategoryId(transaction))}
@@ -140,22 +138,24 @@ const TableTrNoDesktop = translate()(
                 secondaryText={
                   !filteringOnAccount && getAccountLabel(transaction.account)
                 }
+                onClick={() => selectTransaction(transaction)}
               />
             </Bd>
-            <Img style={{ flexBasis: '1rem' }}>
-              <TransactionActions
-                transaction={transaction}
-                {...props}
-                onlyDefault
-                onlyIcon
-              />
-            </Img>
-            <Img>
+            <Img onClick={() => selectTransaction(transaction)}>
               <Figure
                 total={transaction.amount}
                 currency={transaction.currency}
                 coloredPositive
                 signed
+              />
+            </Img>
+            <Img className={styles['bnk-transaction-mobile-action']}>
+              <TransactionActions
+                transaction={transaction}
+                {...props}
+                onlyDefault
+                compact
+                menuPosition="right"
               />
             </Img>
           </Media>

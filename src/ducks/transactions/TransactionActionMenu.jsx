@@ -87,6 +87,7 @@ class TransactionActionMenu extends Component {
           transaction={transaction}
           {...props}
           displayDefaultAction
+          onlyItems
         />
       </ActionMenu>
     )
