@@ -10,9 +10,8 @@ import FlagSwitcher from 'components/FlagSwitcher'
 import { withBreakpoints } from 'cozy-ui/react'
 
 const _App = ({ children, location, breakpoints: { isMobile } }) => {
-  const showFilters =
-    (location.pathname === '/balances' && !isMobile) ||
-    location.pathname !== '/balances'
+  const onBalancePage = location.pathname === '/balances'
+  const showFilters = (onBalancePage && !isMobile) || !onBalancePage
 
   return (
     <Layout>
