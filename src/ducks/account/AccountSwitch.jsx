@@ -98,7 +98,7 @@ const AccountSwitchMobile = ({
 }) => (
   <Media style={{ width: '100%' }}>
     <Bd>
-      <h3 onClick={onClick}>
+      <h3 className="u-mt-0 u-mb-0" onClick={onClick}>
         {filteringDoc
           ? filteringDoc.shortLabel || filteringDoc.label
           : t('AccountSwitch.all_accounts')}&nbsp;
