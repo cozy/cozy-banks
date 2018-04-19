@@ -69,7 +69,6 @@ const hydratedTransactions = transactions.map(x => ({
 }))
 const transactionsById = keyBy(hydratedTransactions, '_id')
 
-
 /* eslint-disable */
 const tests = [
   // transaction id, class variant, text, icon, action name
