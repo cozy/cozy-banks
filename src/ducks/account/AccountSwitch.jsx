@@ -107,7 +107,7 @@ const AccountSwitchMobile = ({
     </Bd>
     <Img>
       <Figure
-        size="big"
+        className={styles['account-switch-figure']}
         currency="€"
         decimalNumbers={0}
         coloredPositive={true}
