@@ -150,28 +150,7 @@ const TableTrNoDesktop = translate()(
                 signed
               />
             </Img>
-            <Img
-              style={{
-                position: 'relative',
-                flexBasis: '2rem',
-                flexShrink: '0',
-                flexGrow: '0',
-                textAlign: 'right',
-                marginLeft: '1rem',
-                paddingLeft: '0.4rem'
-              }}
-            >
-              <span
-                style={{
-                  position: 'absolute',
-                  height: '1.5rem',
-                  width: '0.0635rem',
-                  left: '-0.0635rem',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  backgroundColor: 'silver'
-                }}
-              />
+            <Img className={styles['bnk-transaction-mobile-action']}>
               <TransactionActions
                 transaction={transaction}
                 {...props}
