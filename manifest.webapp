@@ -6,7 +6,7 @@
   "category": "cozy",
   "version": "0.5.0",
   "licence": "AGPL-3.0",
-  "source": "git://gitlab.cozycloud.cc/labs/cozy-bank.git",
+  "source": "git://github.com/cozy/cozy-banks.git",
   "developer": {
     "name": "Cozy",
     "url": "https://cozy.io"
