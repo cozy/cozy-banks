@@ -2,14 +2,13 @@ import React from 'react'
 import { translate, Icon } from 'cozy-ui/react'
 import { formatVendor } from './helpers'
 import palette from 'cozy-ui/stylus/settings/palette.json'
-import hourglassIcon from 'assets/icons/icon-hourglass.svg'
 
 export const HealthExpenseStatusIcon = ({ className = '', pending }) => {
   const color = pending ? palette.pomegranate : palette.dodgerBlue
 
   return (
     <span style={{ display: 'inline-block' }} className={className}>
-      <Icon icon={hourglassIcon} color={color} />
+      <Icon icon="hourglass" color={color} />
     </span>
   )
 }

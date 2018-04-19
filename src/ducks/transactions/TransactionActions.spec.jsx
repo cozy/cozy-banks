@@ -72,15 +72,12 @@ configure({ adapter: new Adapter() })
 /* eslint-disable */
 const tests = [
   // transaction id, class variant, text, icon, action name
-  // TODO find a way to test for icons that are not in cozy-ui/
-  // The transform option for jest seems be a good option but
-  // I could not get it to work
   ['paiementdocteur', null, '2 reimbursements', 'file', 'HealthExpenseStatus'],
-  ['paiementdocteur2', '.c-actionbtn--error', 'No reimbursement yet', null, 'HealthExpenseStatus'],
-  ['depsantelou1', '.c-actionbtn--error', 'No reimbursement yet', null, 'HealthExpenseStatus'],
-  ['depsantegene4', '.c-actionbtn--error', 'No reimbursement yet', null, 'HealthExpenseStatus'],
-  ['depsanteisa2', '.c-actionbtn--error', 'No reimbursement yet', null, 'HealthExpenseStatus'],
-  ['depsantecla3', '.c-actionbtn--error', 'No reimbursement yet', null, 'HealthExpenseStatus'],
+  ['paiementdocteur2', '.c-actionbtn--error', 'No reimbursement yet', 'hourglass', 'HealthExpenseStatus'],
+  ['depsantelou1', '.c-actionbtn--error', 'No reimbursement yet', 'hourglass', 'HealthExpenseStatus'],
+  ['depsantegene4', '.c-actionbtn--error', 'No reimbursement yet', 'hourglass', 'HealthExpenseStatus'],
+  ['depsanteisa2', '.c-actionbtn--error', 'No reimbursement yet', 'hourglass', 'HealthExpenseStatus'],
+  ['depsantecla3', '.c-actionbtn--error', 'No reimbursement yet', 'hourglass', 'HealthExpenseStatus'],
   ['facturebouygues', null, '1 invoice', 'file', 'bill'],
   ['salaireisa1', null, 'Accéder à votre paie', 'openwith', 'url'],
   ['fnac', null, 'Accéder au site Fnac', 'openwith', 'url'],

@@ -1,6 +1,5 @@
 import React from 'react'
 import { translate, Icon, ButtonAction, Menu, MenuItem } from 'cozy-ui/react'
-import hourglassIcon from 'assets/icons/icon-hourglass.svg'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import { isHealthExpense } from 'ducks/categories/helpers'
 import allBrands from 'ducks/brandDictionary/brands.json'
@@ -39,7 +38,7 @@ const Component = ({ t, transaction }) => {
 
   // Normally, pending color is not error/red, but for now we handle this state like this
   const type = pending ? 'error' : 'normal'
-  const icon = pending ? hourglassIcon : 'file'
+  const icon = pending ? 'hourglass' : 'file'
 
   if (pending) {
     return (
@@ -97,7 +96,7 @@ const action = {
       ? palette.pomegranate
       : palette.dodgerBlue
 
-    return <Icon icon={hourglassIcon} color={color} />
+    return <Icon icon="hourglass" color={color} />
   },
   match: (transaction, { brands }) => {
     return (
