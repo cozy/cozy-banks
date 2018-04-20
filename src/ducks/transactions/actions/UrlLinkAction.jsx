@@ -11,7 +11,7 @@ const Component = ({ transaction, compact, onlyItems }) => {
   if (onlyItems) {
     return (
       <ActionLink
-        label={action.trad}
+        text={action.trad}
         href={action.url}
         target={action.target}
         icon="openwith"
