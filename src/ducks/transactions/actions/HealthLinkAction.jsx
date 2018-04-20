@@ -3,11 +3,18 @@ import { translate, ButtonAction } from 'cozy-ui/react'
 import icon from 'assets/icons/actions/icon-link-out.svg'
 import { isHealth } from 'ducks/categories/helpers'
 import palette from 'cozy-ui/stylus/settings/palette.json'
+import ActionLink from './ActionLink'
 
 const name = 'refund'
 
-const Component = ({ t, actionProps: { urls }, compact }) => {
+const Component = ({ t, actionProps: { urls }, compact, onlyItems }) => {
   const url = `${urls['HEALTH']}#/remboursements`
+  const label = t(`Transactions.actions.${name}`)
+
+  if (onlyItems) {
+    return <ActionLink text={label} href={url} target="_blank" />
+  }
+
   return (
     <ButtonAction
       onClick={() => open(url)}

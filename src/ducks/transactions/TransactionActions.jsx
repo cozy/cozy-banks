@@ -106,6 +106,7 @@ export const SyncTransactionActions = ({
           action={action}
           transaction={transaction}
           actionProps={actionProps}
+          onlyItems={onlyItems}
         />
       ))}
   </span>
