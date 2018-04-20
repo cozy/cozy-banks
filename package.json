@@ -136,7 +136,7 @@
     "cozy-client": "0.4.2",
     "cozy-client-js": "0.8.1",
     "cozy-konnector-libs": "^3.0.13",
-    "cozy-ui": "7.17.0",
+    "cozy-ui": "https://github.com/drazik/cozy-ui.git#update-compact-button-action",
     "date-fns": "^1.28.2",
     "hammerjs": "^2.0.8",
     "localforage": "^1.5.0",
