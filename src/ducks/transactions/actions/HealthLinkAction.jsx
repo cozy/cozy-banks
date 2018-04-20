@@ -12,7 +12,9 @@ const Component = ({ t, actionProps: { urls }, compact, onlyItems }) => {
   const label = t(`Transactions.actions.${name}`)
 
   if (onlyItems) {
-    return <ActionLink text={label} href={url} target="_blank" />
+    return (
+      <ActionLink text={label} href={url} target="_blank" icon="openwith" />
+    )
   }
 
   return (
