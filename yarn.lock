@@ -10018,9 +10018,9 @@ react-group@^1.0.5:
   dependencies:
     prop-types "^15.6.0"
 
-react-hint@^1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/react-hint/-/react-hint-1.3.1.tgz#3e3c0f974d94aec21ed925063536b7929518d674"
+react-hint@^3.0.0:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/react-hint/-/react-hint-3.0.1.tgz#8ec6848708469d5da99a5035054bfb5b4257c050"
 
 react-icon-base@2.1.0:
   version "2.1.0"
