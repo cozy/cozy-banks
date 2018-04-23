@@ -2,6 +2,7 @@ import React from 'react'
 import icon from 'assets/icons/actions/icon-link-out.svg'
 import { ButtonAction } from 'cozy-ui/react'
 import ActionLink from './ActionLink'
+import styles from '../TransactionActions.styl'
 
 const name = 'url'
 
@@ -25,6 +26,7 @@ const Component = ({ transaction, compact, onlyItems }) => {
       label={action.trad}
       rightIcon="openwith"
       compact={compact}
+      className={styles.TransactionActionButton}
     />
   )
 }

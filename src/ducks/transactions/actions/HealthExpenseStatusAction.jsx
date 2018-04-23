@@ -100,25 +100,6 @@ const Component = ({
     return <div>{items}</div>
   }
 
-  if (isDesktop) {
-    return (
-      <Menu
-        className={styles.TransactionActionMenu}
-        position={menuPosition}
-        component={
-          <ButtonAction
-            label={text}
-            type={type}
-            rightIcon={<Icon icon={icon} />}
-            compact={compact}
-          />
-        }
-      >
-        {items}
-      </Menu>
-    )
-  }
-
   return (
     <Menu
       className={styles.TransactionActionMenu}
@@ -129,7 +110,10 @@ const Component = ({
           type={type}
           rightIcon={<Icon icon={icon} />}
           compact={compact}
-          badgeContent={transaction.reimbursements.length}
+          badgeContent={
+            isDesktop ? undefined : transaction.reimbursements.length
+          }
+          className={styles.TransactionActionButton}
         />
       }
     >

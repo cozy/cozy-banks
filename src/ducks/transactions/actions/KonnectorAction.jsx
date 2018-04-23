@@ -9,6 +9,7 @@ import {
 } from 'cozy-ui/react'
 import icon from 'assets/icons/actions/icon-link-out.svg'
 import ActionLink from './ActionLink'
+import styles from '../TransactionActions.styl'
 
 const name = 'konnector'
 
@@ -40,6 +41,7 @@ const Component = ({
           leftIcon="plus"
           type="new"
           compact={compact}
+          className={styles.TransactionActionButton}
         />
       </IntentOpener>
     )
