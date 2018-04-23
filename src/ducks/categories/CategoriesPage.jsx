@@ -12,6 +12,7 @@ import styles from './CategoriesPage.styl'
 import { flowRight as compose } from 'lodash'
 import { Breadcrumb } from 'components/Breadcrumb'
 import { withBreakpoints } from 'cozy-ui/react'
+import PageTitle from 'components/PageTitle'
 
 class CategoriesPage extends Component {
   state = {
@@ -61,7 +62,9 @@ class CategoriesPage extends Component {
     }
     return (
       <div className={styles['bnk-cat-page']}>
-        {!isMobile ? <Breadcrumb items={breadcrumbItems} tag="h2" /> : null}
+        {!isMobile ? (
+          <Breadcrumb items={breadcrumbItems} tag={PageTitle} />
+        ) : null}
         {selectedCategory && (
           <BackButton onClick={() => this.selectCategory(undefined)} />
         )}

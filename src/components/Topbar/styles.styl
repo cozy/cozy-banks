@@ -1,11 +1,6 @@
 @require 'tools/mixins'
 @require 'settings/breakpoints'
 
-.Topbar
-    h2
-        font-size 1.5rem
-        margin 0 auto 2rem
-
 +small-screen()
     .Topbar
         display     flex
@@ -13,15 +8,5 @@
         overflow hidden
 
         h2
-            // ellipsis
-            text-overflow  ellipsis
-            overflow       hidden
-            white-space    nowrap
             font-size 1.3125rem
-            line-height 1
-            margin    0
-            overflow hidden
-            position relative
-            // DIRTY why isn't the font correctly rendered
-            // vertically centered in the bounding box
-            top 2px
+            margin-bottom 0

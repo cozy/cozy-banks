@@ -7,6 +7,7 @@ import styles from './Settings.styl'
 import { withRouter } from 'react-router'
 import { flowRight as compose } from 'lodash'
 import AppVersion from './AppVersion'
+import PageTitle from 'components/PageTitle'
 
 const tabNames = ['notifications', 'accounts', 'groups']
 
@@ -45,7 +46,9 @@ const Settings = ({ t, children, router }) => {
   return (
     <div>
       <Topbar>
-        <h2 className={styles.settings__title}>{t('Settings.title')}</h2>
+        <PageTitle className={styles.settings__title}>
+          {t('Settings.title')}
+        </PageTitle>
       </Topbar>
       <Tabs className={styles['bnk-tabs']} initialActiveTab={defaultTab}>
         <TabList className={styles['bnk-coz-tab-list']}>{tabs}</TabList>

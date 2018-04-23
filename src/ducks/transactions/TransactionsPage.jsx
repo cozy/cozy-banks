@@ -28,6 +28,7 @@ import TransactionsWithSelection from './TransactionsWithSelection'
 import styles from './TransactionsPage.styl'
 import { TRIGGER_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
 import { getBrands } from 'ducks/brandDictionary'
+import PageTitle from 'components/PageTitle'
 
 const isPendingOrLoading = function(col) {
   return col.fetchStatus === 'pending' || col.fetchStatus === 'loading'
