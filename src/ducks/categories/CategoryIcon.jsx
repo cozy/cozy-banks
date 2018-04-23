@@ -10,7 +10,7 @@ const CategoryIcon = ({ category, className }) => {
     icon = require(`assets/icons/categories/icon-cat-uncategorized.svg`)
   }
   return (
-    <Icon icon={icon.default} width="2em" height="2em" className={className} />
+    <Icon icon={icon.default} width={32} height={32} className={className} />
   )
 }
 
