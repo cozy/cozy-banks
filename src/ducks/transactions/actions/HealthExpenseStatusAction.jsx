@@ -108,7 +108,7 @@ const Component = ({
         <ButtonAction
           label={text}
           type={type}
-          rightIcon={<Icon icon={icon} />}
+          rightIcon={<Icon icon={icon} width={16} />}
           compact={compact}
           badgeContent={
             isDesktop ? undefined : transaction.reimbursements.length
