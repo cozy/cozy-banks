@@ -141,8 +141,10 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  translate(),
-  scrollAware
+const SelectDates = compose(translate(), scrollAware)(SelectDatesDumb)
+
+export default SelectDates
+export const ConnectedSelectDates = connect(
+  mapStateToProps,
+  mapDispatchToProps
 )(SelectDates)

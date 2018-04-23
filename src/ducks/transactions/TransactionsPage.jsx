@@ -8,7 +8,7 @@ import { translate } from 'cozy-ui/react/I18n'
 import { withBreakpoints } from 'cozy-ui/react'
 
 import {
-  SelectDates,
+  ConnectedSelectDates as SelectDates,
   getFilteredTransactions,
   addFilterForMostRecentTransactions,
   getFilteredAccountIds
