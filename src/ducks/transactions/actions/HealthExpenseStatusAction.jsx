@@ -5,6 +5,7 @@ import {
   ButtonAction,
   Menu,
   MenuItem,
+  Badge,
   withBreakpoints
 } from 'cozy-ui/react'
 import palette from 'cozy-ui/stylus/settings/palette.json'
@@ -100,6 +101,15 @@ const Component = ({
     return <div>{items}</div>
   }
 
+  const rightIcon = <Icon icon={icon} width={16} />
+  const enhancedRightIcon = isDesktop ? (
+    rightIcon
+  ) : (
+    <Badge type={type} content={transaction.reimbursements.length}>
+      {rightIcon}
+    </Badge>
+  )
+
   return (
     <Menu
       className={styles.TransactionActionMenu}
@@ -108,11 +118,8 @@ const Component = ({
         <ButtonAction
           label={text}
           type={type}
-          rightIcon={<Icon icon={icon} width={16} />}
+          rightIcon={enhancedRightIcon}
           compact={compact}
-          badgeContent={
-            isDesktop ? undefined : transaction.reimbursements.length
-          }
           className={styles.TransactionActionButton}
         />
       }
