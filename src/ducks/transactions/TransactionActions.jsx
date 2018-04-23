@@ -9,26 +9,18 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { MenuItem, Icon } from 'cozy-ui/react'
+import { MenuItem } from 'cozy-ui/react'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import { findMatchingActions } from './actions'
 
 // TODO delete or rename this variable (see https://gitlab.cozycloud.cc/labs/cozy-bank/merge_requests/237)
 const PRIMARY_ACTION_COLOR = palette.dodgerBlue
 
-const MenuIcon = ({ action, transaction, actionProps, color }) => {
-  if (action.getIcon) {
-    return action.getIcon({ action, transaction, actionProps })
-  }
-  return <Icon icon={action.icon} color={color} />
-}
-
 const MenuAction = ({
   action,
   transaction,
   actionProps,
   className,
-  isDefault,
   displayComponent = true,
   compact = false,
   menuPosition,
@@ -43,16 +35,6 @@ const MenuAction = ({
       className={className}
       disabled={action.disabled}
       onClick={actionProps.onClick}
-      icon={
-        !isDefault && (
-          <MenuIcon
-            action={action}
-            transaction={transaction}
-            actionProps={actionProps}
-            color={color}
-          />
-        )
-      }
     >
       {displayComponent && (
         <Component
@@ -106,6 +88,7 @@ export const SyncTransactionActions = ({
           action={action}
           transaction={transaction}
           actionProps={actionProps}
+          onlyItems={onlyItems}
         />
       ))}
   </span>

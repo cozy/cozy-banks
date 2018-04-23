@@ -4,6 +4,7 @@ import { translate, ButtonAction } from 'cozy-ui/react'
 import icon from 'assets/icons/actions/icon-link-out.svg'
 import capitalize from 'lodash/capitalize'
 import ActionLink from './ActionLink'
+import styles from '../TransactionActions.styl'
 
 const name = 'app'
 
@@ -42,6 +43,7 @@ const Component = ({
       label={label}
       rightIcon="openwith"
       compact={compact}
+      className={styles.TransactionActionButton}
     />
   )
 }

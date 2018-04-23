@@ -29,6 +29,7 @@ const TransactionMenu = ({
       transaction={transaction}
       {...props}
       withoutDefault
+      onlyItems
     />
   </Menu>
 )
