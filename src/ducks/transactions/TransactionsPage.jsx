@@ -166,25 +166,39 @@ class TransactionsPage extends Component {
       filteringDoc && filteringDoc._type === ACCOUNT_DOCTYPE
 
     return (
-      <div className={styles['bnk-mov-page']}>
+      <div className={styles.TransactionPage}>
         {subcategoryName ? <BackButton /> : null}
-        {!isMobile ? <Breadcrumb items={breadcrumbItems} tag="h2" /> : null}
-        <SelectDates onChange={this.handleChangeMonth} />
-        {filteredTransactions.length !== 0 && subcategoryName ? (
-          <KPIs transactions={filteredTransactions} />
-        ) : (
-          <Separator />
-        )}
-        {filteredTransactions.length === 0 ? (
-          <p>{t('Transactions.no-movements')}</p>
-        ) : (
-          <TransactionsWithSelection
-            transactions={filteredTransactions}
-            urls={urls}
-            brands={brandsWithoutTrigger}
-            filteringOnAccount={filteringOnAccount}
+        <div className={styles.TransactionPage__top}>
+          {!isMobile ? (
+            <Breadcrumb items={breadcrumbItems} tag={PageTitle} />
+          ) : null}
+          {filteredTransactions.length !== 0 && subcategoryName ? (
+            <KPIs transactions={filteredTransactions} />
+          ) : (
+            <Separator />
+          )}
+          <SelectDates
+            onChange={this.handleChangeMonth}
           />
-        )}
+          <TransactionTableHead />
+        </div>
+        <div
+          className={
+            styles.TransactionPage__bottom + ' js-transactionPageBottom'
+          }
+        >
+          {filteredTransactions.length === 0 ? (
+            <p>{t('Transactions.no-movements')}</p>
+          ) : (
+            <TransactionsWithSelection
+              className={styles.TransactionPage__top}
+              transactions={filteredTransactions}
+              urls={urls}
+              brands={brandsWithoutTrigger}
+              filteringOnAccount={filteringOnAccount}
+            />
+          )}
+        </div>
       </div>
     )
   }

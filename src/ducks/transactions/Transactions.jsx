@@ -166,6 +166,21 @@ const TableTrNoDesktop = translate()(
   }
 )
 
+export const TransactionTableHead = (props, { t }) => (
+  <div
+    style={{
+      background: 'white',
+      marginTop: '1rem',
+      marginLeft: '-2rem',
+      marginRight: '-2rem'
+    }}
+  >
+    <Table className={styles['TransactionTable']}>
+      <TableHeadDesktop t={t} />
+    </Table>
+  </div>
+)
+
 const groupByDateAndSort = transactions => {
   const byDate = groupBy(transactions, x => format(x.date, 'YYYY-MM-DD'))
   return sortBy(toPairs(byDate), x => x[0]).reverse()
