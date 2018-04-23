@@ -200,11 +200,5 @@
       "**/__tests__/**/*.js?(x)",
       "**/?(*.)(spec).js?(x)"
     ]
-  },
-  "standard": {
-    "env": [
-      "browser",
-      "jest"
-    ]
   }
 }
