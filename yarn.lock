@@ -2756,9 +2756,9 @@ cozy-logger@^1.0.4:
   dependencies:
     json-stringify-safe "5.0.1"
 
-"cozy-ui@https://github.com/drazik/cozy-ui.git#update-compact-button-action":
-  version "7.17.0"
-  resolved "https://github.com/drazik/cozy-ui.git#c98dedaaa6c3267da275049e541365551ad85943"
+cozy-ui@7.18.0:
+  version "7.18.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-7.18.0.tgz#d32ae9b5ad6b1d609cc60a4572e3b290038d128d"
   dependencies:
     babel-preset-cozy-app "^0.3.1"
     classnames "^2.2.5"
