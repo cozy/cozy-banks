@@ -17,6 +17,8 @@ import dataTpl from '../../../test/fixtures/operations.json'
 import helpers from '../../../test/fixtures/helpers'
 import brands from 'ducks/brandDictionary/brands'
 
+configure({ adapter: new Adapter() })
+
 const data = JSON.parse(
   dummyjson.parse(
     JSON.stringify(dataTpl),
@@ -67,8 +69,6 @@ const hydratedTransactions = transactions.map(x => ({
     x.reimbursements.map(r => hydrateReimbursementWithBill(r, getBill))
 }))
 const transactionsById = keyBy(hydratedTransactions, '_id')
-
-configure({ adapter: new Adapter() })
 
 /* eslint-disable */
 const tests = [

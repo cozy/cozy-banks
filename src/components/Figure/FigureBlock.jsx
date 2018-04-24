@@ -20,10 +20,11 @@ const FigureBlock = ({
   signed,
   decimalNumbers = 0
 }) => (
-  <div className={classNames(styles['bnk-figure-wrapper'], className)}>
-    <h4 className={styles['bnk-figure-label']}>{label}</h4>
+  <div className={classNames(styles['FigureBlock'], className)}>
+    <h4 className={styles['FigureBlock-label']}>{label}</h4>
     <Figure
-      className={styles['bnk-figure']}
+      size="big"
+      className={styles['FigureBlock-figure']}
       total={total}
       currency={currency}
       coloredPositive={coloredPositive}

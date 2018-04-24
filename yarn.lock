@@ -2741,12 +2741,6 @@ cozy-konnector-libs@^3.0.13:
     request-promise "^4.2.1"
     uuid "^3.1.0"
 
-cozy-logger@^1.0.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/cozy-logger/-/cozy-logger-1.1.4.tgz#201132c8d47cc7b64452fe2bed4f24bbb5059a3c"
-  dependencies:
-    json-stringify-safe "5.0.1"
-
 cozy-ui@7.18.0:
   version "7.18.0"
   resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-7.18.0.tgz#d32ae9b5ad6b1d609cc60a4572e3b290038d128d"
@@ -2760,6 +2754,12 @@ cozy-ui@7.18.0:
     preact-portal "^1.1.2"
     react-select "2.0.0-alpha.7"
     stylus "^0.54.5"
+    
+cozy-logger@^1.0.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/cozy-logger/-/cozy-logger-1.1.4.tgz#201132c8d47cc7b64452fe2bed4f24bbb5059a3c"
+  dependencies:
+    json-stringify-safe "5.0.1"
 
 create-ecdh@^4.0.0:
   version "4.0.1"

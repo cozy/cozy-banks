@@ -1,7 +1,7 @@
 import reducer, {
   filterByDoc,
   getFilteredTransactions,
-  getAccountsFiltered,
+  getFilteredAccounts,
   addFilterByPeriod,
   resetFilterByDoc
 } from '.'
@@ -221,26 +221,26 @@ describe('filter selectors', () => {
 
     it('should select transactions belonging to an account', () => {
       dispatchOnFilters(filterByDoc({ _id: 'a0', _type: ACCOUNT_DOCTYPE }))
-      expect(getAccountsFiltered(state).map(x => x._id)).toEqual(['a0'])
+      expect(getFilteredAccounts(state).map(x => x._id)).toEqual(['a0'])
       expect(getFilteredTransactions(state).map(x => x._id)).toEqual([
         't0',
         't4'
       ])
 
       dispatchOnFilters(filterByDoc({ _id: 'a1', _type: ACCOUNT_DOCTYPE }))
-      expect(getAccountsFiltered(state).map(x => x._id)).toEqual(['a1'])
+      expect(getFilteredAccounts(state).map(x => x._id)).toEqual(['a1'])
       expect(getFilteredTransactions(state).map(x => x._id)).toEqual([
         't1',
         't2'
       ])
 
       dispatchOnFilters(filterByDoc({ _id: 'a2', _type: ACCOUNT_DOCTYPE }))
-      expect(getAccountsFiltered(state).map(x => x._id)).toEqual(['a2'])
+      expect(getFilteredAccounts(state).map(x => x._id)).toEqual(['a2'])
       expect(getFilteredTransactions(state).map(x => x._id)).toEqual(['t3'])
 
       // unavailable account
       dispatchOnFilters(filterByDoc({ _id: 'a6', _type: ACCOUNT_DOCTYPE }))
-      expect(getAccountsFiltered(state).map(x => x._id)).toEqual([
+      expect(getFilteredAccounts(state).map(x => x._id)).toEqual([
         'a0',
         'a1',
         'a2'
@@ -251,7 +251,7 @@ describe('filter selectors', () => {
 
     it('should select transactions belonging to a group', () => {
       dispatchOnFilters(filterByDoc({ _id: 'g0', _type: GROUP_DOCTYPE }))
-      expect(getAccountsFiltered(state).map(x => x._id)).toEqual(['a0', 'a1'])
+      expect(getFilteredAccounts(state).map(x => x._id)).toEqual(['a0', 'a1'])
       expect(getFilteredTransactions(state).map(x => x._id)).toEqual([
         't0',
         't1',
@@ -260,12 +260,12 @@ describe('filter selectors', () => {
       ])
 
       dispatchOnFilters(filterByDoc({ _id: 'g1', _type: GROUP_DOCTYPE }))
-      expect(getAccountsFiltered(state).map(x => x._id)).toEqual(['a2'])
+      expect(getFilteredAccounts(state).map(x => x._id)).toEqual(['a2'])
       expect(getFilteredTransactions(state).map(x => x._id)).toEqual(['t3'])
 
       // unavailable group
       dispatchOnFilters(filterByDoc({ _id: 'g7', _type: GROUP_DOCTYPE }))
-      expect(getAccountsFiltered(state).map(x => x._id)).toEqual([
+      expect(getFilteredAccounts(state).map(x => x._id)).toEqual([
         'a0',
         'a1',
         'a2'
@@ -283,7 +283,7 @@ describe('filter selectors', () => {
 
     it('should not select transactions when a group is empty', () => {
       dispatchOnFilters(filterByDoc({ _id: 'g2', _type: GROUP_DOCTYPE }))
-      expect(getAccountsFiltered(state).map(x => x._id)).toEqual([])
+      expect(getFilteredAccounts(state).map(x => x._id)).toEqual([])
       expect(getFilteredTransactions(state).map(x => x._id)).toEqual([])
     })
   })

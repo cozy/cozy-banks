@@ -48,7 +48,7 @@ export const getFilteredAccountIds = state => {
   }
 }
 
-export const getAccountsFiltered = state => {
+export const getFilteredAccounts = state => {
   const ids = keyBy(getFilteredAccountIds(state))
   return getAccounts(state).filter(account => ids[account._id])
 }
