@@ -274,7 +274,11 @@ class Balance extends React.Component {
   }
 
   render() {
-    const { t, settingsCollection, breakpoints: { isMobile } } = this.props
+    const {
+      t,
+      settingsCollection,
+      breakpoints: { isMobile }
+    } = this.props
     let { accounts, groups } = this.props
     accounts = sortBy(accounts.data, ['institutionLabel', 'label'])
     groups = groups.map(group => ({

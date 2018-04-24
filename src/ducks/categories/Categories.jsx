@@ -208,7 +208,11 @@ class Categories extends Component {
   }
 
   renderCategoryDesktopTablet(category, subcategory) {
-    const { t, selectedCategory, breakpoints: { isDesktop } } = this.props
+    const {
+      t,
+      selectedCategory,
+      breakpoints: { isDesktop }
+    } = this.props
     const {
       name,
       subcategories,
