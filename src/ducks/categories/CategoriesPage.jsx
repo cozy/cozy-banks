@@ -37,7 +37,13 @@ class CategoriesPage extends Component {
   }
 
   render(
-    { t, categories, transactions, router, breakpoints: { isMobile } },
+    {
+      t,
+      categories,
+      transactions,
+      router,
+      breakpoints: { isMobile }
+    },
     { withIncome }
   ) {
     const isFetching = transactions.fetchStatus !== 'loaded'
