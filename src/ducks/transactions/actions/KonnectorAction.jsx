@@ -59,6 +59,7 @@ const Component = ({
       rightIcon="plus"
       type="new"
       compact={true}
+      className={styles.TransactionActionButton}
     />
   )
 }
