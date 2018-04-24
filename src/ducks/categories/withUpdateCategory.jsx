@@ -30,7 +30,8 @@ export default ({ updateCategory } = updateCategoryParams) => {
         displaying: false
       }
 
-      show = () => {
+      show = ev => {
+        ev.stopPropagation() // otherwise the modal is closed immediately
         this.setState({ displaying: true })
       }
 
