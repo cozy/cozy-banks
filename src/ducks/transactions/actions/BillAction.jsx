@@ -52,11 +52,12 @@ class AugmentedModalButton extends React.Component {
   }
 
   render() {
-    const { fileId, text } = this.props
+    const { fileId, text, compact } = this.props
     return (
       <ButtonAction
         onClick={() => this.open()}
         label={text}
+        compact={compact}
         rightIcon="file"
         className={styles.TransactionActionButton}
       >
@@ -125,7 +126,9 @@ export class BillComponent extends Component {
     const text = actionProps.text || t('Transactions.actions.bill')
 
     if (flag('demo') && isVentePrivee(transaction)) {
-      return <AugmentedModalButton fileId={fileId} text={text} />
+      return <AugmentedModalButton
+        compact={compact}
+        fileId={fileId} text={text} />
     }
 
     return (
