@@ -5,6 +5,7 @@ import icon from 'assets/icons/actions/icon-file.svg'
 import ActionLink from './ActionLink'
 import AugmentedModal from 'components/AugmentedModal'
 import * as documentCache from 'utils/documentCache'
+import flag from 'utils/flag'
 
 const name = 'bill'
 
@@ -117,7 +118,7 @@ export class BillComponent extends Component {
 
     const text = actionProps.text || t('Transactions.actions.bill')
 
-    if (isVentePrivee(transaction)) {
+    if (flag('demo') && isVentePrivee(transaction)) {
       return <AugmentedModalButton fileId={fileId} text={text} />
     }
 

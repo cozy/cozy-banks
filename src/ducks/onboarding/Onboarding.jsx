@@ -23,7 +23,10 @@ import {
 
 class Onboarding extends Component {
   render() {
-    const { t, breakpoints: { isMobile } } = this.props
+    const {
+      t,
+      breakpoints: { isMobile }
+    } = this.props
 
     return (
       <Hero>

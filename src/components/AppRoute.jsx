@@ -15,6 +15,7 @@ import {
 import Notifications from 'ducks/settings/Notifications'
 import { Balance } from 'ducks/balance'
 import { EnsureHasAccounts, EnsureIsFirstSynced } from 'ducks/onboarding'
+import flag from 'utils/flag'
 
 export const ComingSoon = () => <p style="margin-left: 2em">Coming soon!</p>
 
@@ -22,7 +23,7 @@ const AppRoute = (
   <Route component={EnsureIsFirstSynced}>
     <Route component={EnsureHasAccounts}>
       <Route component={App}>
-        <Redirect from="/" to="transactions" />
+        <Redirect from="/" to={flag('demo') ? 'transactions' : 'balances'} />
         <Route path="balances" component={Balance} />
         <Route path="transactions" component={TransactionsPage} />
         <Route path="categories">
