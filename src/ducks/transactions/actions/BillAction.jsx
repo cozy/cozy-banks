@@ -126,9 +126,9 @@ export class BillComponent extends Component {
     const text = actionProps.text || t('Transactions.actions.bill')
 
     if (flag('demo') && isVentePrivee(transaction)) {
-      return <AugmentedModalButton
-        compact={compact}
-        fileId={fileId} text={text} />
+      return (
+        <AugmentedModalButton compact={compact} fileId={fileId} text={text} />
+      )
     }
 
     return (
