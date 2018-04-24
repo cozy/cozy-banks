@@ -6,6 +6,7 @@ import ActionLink from './ActionLink'
 import AugmentedModal from 'components/AugmentedModal'
 import * as documentCache from 'utils/documentCache'
 import flag from 'utils/flag'
+import styles from '../TransactionActions.styl'
 
 const name = 'bill'
 
@@ -53,7 +54,12 @@ class AugmentedModalButton extends React.Component {
   render() {
     const { fileId, text } = this.props
     return (
-      <ButtonAction onClick={() => this.open()} label={text} rightIcon="file">
+      <ButtonAction
+        onClick={() => this.open()}
+        label={text}
+        rightIcon="file"
+        className={styles.TransactionActionButton}
+      >
         {this.state.opened ? (
           <AugmentedModal fileId={fileId} onClose={() => this.close()} />
         ) : null}
@@ -134,7 +140,12 @@ export class BillComponent extends Component {
         {isMenuItem || onlyItems ? (
           <ActionLink text={text} icon="file" />
         ) : (
-          <ButtonAction label={text} rightIcon="file" compact={compact} />
+          <ButtonAction
+            label={text}
+            rightIcon="file"
+            compact={compact}
+            className={styles.TransactionActionButton}
+          />
         )}
       </IntentOpener>
     )
