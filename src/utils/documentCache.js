@@ -15,6 +15,4 @@ const get = async (doctype, id) => {
   return cache[key]
 }
 
-export default {
-  get
-}
+export { get }
