@@ -47,8 +47,9 @@ export const registerPushNotifications = () => async (dispatch, getState) => {
 export const stopPushNotifications = () => {
   if (push) {
     push.unregister(
-      // eslint-disable-next-line no-console
-      () => console.log('unregister push notifications'),
+      () => {
+        push = null
+      },
       error => {
         throw new Error('error while unregistering notifications: ' + error)
       }
