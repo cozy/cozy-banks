@@ -25,17 +25,18 @@ import { ACCOUNT_DOCTYPE } from 'doctypes'
 import AccountSharingStatus from 'components/AccountSharingStatus'
 
 // TODO react-router v4
-const _AccountLine = ({account, router, t}) => (
-  <tr onClick={() => router.push(`/settings/accounts/${account.id}`)} className={styles.AcnsStg__accountRow}>
+const _AccountLine = ({ account, router, t }) => (
+  <tr
+    onClick={() => router.push(`/settings/accounts/${account.id}`)}
+    className={styles.AcnsStg__accountRow}
+  >
     <td className={styles.AcnsStg__libelle}>
       {account.shortLabel || account.label}
     </td>
     <td className={styles.AcnsStg__bank}>
       {getAccountInstitutionLabel(account)}
     </td>
-    <td className={styles.AcnsStg__number}>
-      {account.number}
-    </td>
+    <td className={styles.AcnsStg__number}>{account.number}</td>
     <td className={styles.AcnsStg__type}>
       {t(`AccountDetails.types.${account.type}`)}
     </td>
@@ -46,10 +47,7 @@ const _AccountLine = ({account, router, t}) => (
   </tr>
 )
 
-const AccountLine = compose(
-  translate(),
-  withRouter
-)(_AccountLine)
+const AccountLine = compose(translate(), withRouter)(_AccountLine)
 
 const renderAccount = account => <AccountLine account={account} />
 
@@ -57,36 +55,24 @@ const AccountsTable = ({ accounts, t }) => (
   <Table className={styles.AcnsStg__accounts}>
     <thead>
       <tr>
-        <th className={styles.AcnsStg__libelle}>
-          {t('Accounts.label')}
-        </th>
-        <th className={styles.AcnsStg__bank}>
-          {t('Accounts.bank')}
-        </th>
-        <th className={styles.AcnsStg__number}>
-          {t('Accounts.account')}
-        </th>
-        <th className={styles.AcnsStg__type}>
-          {t('Accounts.type')}
-        </th>
-        <th className={styles.AcnsStg__shared}>
-          {t('Accounts.shared')}
-        </th>
+        <th className={styles.AcnsStg__libelle}>{t('Accounts.label')}</th>
+        <th className={styles.AcnsStg__bank}>{t('Accounts.bank')}</th>
+        <th className={styles.AcnsStg__number}>{t('Accounts.account')}</th>
+        <th className={styles.AcnsStg__type}>{t('Accounts.type')}</th>
+        <th className={styles.AcnsStg__shared}>{t('Accounts.shared')}</th>
         <th className={styles.AcnsStg__actions} />
       </tr>
     </thead>
-    <tbody>
-      {accounts.map(renderAccount)}
-    </tbody>
+    <tbody>{accounts.map(renderAccount)}</tbody>
   </Table>
 )
 
 class AccountsSettings extends Component {
-  componentDidMount () {
+  componentDidMount() {
     this.props.fetchApps()
   }
 
-  render () {
+  render() {
     const { t, accounts } = this.props
 
     if (accounts.fetchStatus === 'loading') {
@@ -105,27 +91,29 @@ class AccountsSettings extends Component {
       <div>
         <CollectLink>
           <Button className={cx(btnStyles['btn--no-outline'], 'u-pb-1')}>
-            <Icon icon={plus} className='u-mr-half' />
+            <Icon icon={plus} className="u-mr-half" />
             {t('Accounts.add-account')}
           </Button>
         </CollectLink>
-        {myAccounts
-          ? <AccountsTable accounts={myAccounts} t={t} />
-          : <p>{t('Accounts.no-accounts')}</p>}
+        {myAccounts ? (
+          <AccountsTable accounts={myAccounts} t={t} />
+        ) : (
+          <p>{t('Accounts.no-accounts')}</p>
+        )}
 
-        <h4>
-          {t('Accounts.shared-accounts')}
-        </h4>
+        <h4>{t('Accounts.shared-accounts')}</h4>
 
-        {sharedAccounts
-          ? <AccountsTable accounts={sharedAccounts} t={t} />
-          : <p>{t('Accounts.no-shared-accounts')}</p>}
+        {sharedAccounts ? (
+          <AccountsTable accounts={sharedAccounts} t={t} />
+        ) : (
+          <p>{t('Accounts.no-shared-accounts')}</p>
+        )}
       </div>
     )
   }
 }
 
-const mapDocumentsToProps = ownProps => ({
+const mapDocumentsToProps = () => ({
   accounts: fetchCollection('accounts', ACCOUNT_DOCTYPE)
 })
 

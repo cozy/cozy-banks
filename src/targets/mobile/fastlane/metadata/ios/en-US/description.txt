@@ -1,31 +1,44 @@
 With Cozy Banks, you can easily:
-• Group all your accounts even from different banks
-• Get an overview of all your expenses
-• Directly access the invoices of the services you have paid
+• Have all your bank accounts in one place
+• Get an comprehensive overview of all your expenses with one-click access to your bills
+• Directly access your health insurance reimbursements
+• Enjoy all the features for free
 
-As secure as your bank:
-• Cozy Cloud is a French company that develops Cozy Banks
-• Servers are hosted in France
+Main features:
+• No manual entry required: Banks automatically synchronises your bank accounts daily
+• Automatic categorization of your expenses and revenues
+• Privacy by design
+• Multi-bank synchronization
+• Smart notifications (coming soon)
+
+As secured as your bank:
+• Cozy Cloud is a French company that develops Cozy Banks which servers are hosted in France by OVH
 • We use the technology of our provider Linxo
-• As secure as a bank's website
+• As safe as your bank's website
 • Your credentials and connections are always protected (encrypted)
-• Cozy Banks is only read only, no payment order is possible
+• Cozy Banks is dedicated for read only, no payment order or wire transfers are possible
 
-The press is already talking about it:
-• TechCrunch, Le Point, Le Figaro, Mashable, Assurbanque 2.0, 01.net, les Echos du Net, L’Usine Digitale…
+The press has already mentioned Cozy:
+• TechCrunch, Le Point, Le Figaro, Mashable, Assurbanque 2.0, 01.net, Les Echos, L’Usine Digitale
 
-Check out the list of nearly 15 banks and account types available in your Cozy:
+Check out the list of 23 banks and account types available in your Cozy;
 • Axa Banque
 • Banque Populaire
+• Barclays
 • BforBank
 • BNP Paribas
 • Boursorama
+• Bred
 • Caisse d’Epargne
 • Casden
 • CIC
 • Compte Nickel
 • Crédit Agricole
+• Crédit Coopératif
+• Crédit Mutuel
 • Crédit du Nord & banques du groupe
+• Crédit Mutuel
+• Fortuneo
 • HelloBank
 • HSBC
 • ING Direct

@@ -1,22 +1,49 @@
 import React from 'react'
 import { findKey } from 'lodash'
-import { translate } from 'cozy-ui/react'
+import { translate, ButtonAction } from 'cozy-ui/react'
 import icon from 'assets/icons/actions/icon-link-out.svg'
+import capitalize from 'lodash/capitalize'
 import ActionLink from './ActionLink'
+import styles from '../TransactionActions.styl'
 
 const name = 'app'
 
 const getAppName = (urls, transaction) => {
   const label = transaction.label.toLowerCase()
-  return findKey(urls, (url, appName) => url && label.indexOf(appName.toLowerCase()) !== -1)
+  return findKey(
+    urls,
+    (url, appName) => url && label.indexOf(appName.toLowerCase()) !== -1
+  )
 }
 
-const Component = ({t, transaction, actionProps: { urls }}) => {
+const beautify = appName => {
+  return appName.toLowerCase() === 'edf' ? 'EDF' : capitalize(appName)
+}
+
+const Component = ({
+  t,
+  transaction,
+  actionProps: { urls },
+  compact,
+  onlyItems
+}) => {
   const appName = getAppName(urls, transaction)
+  const label = t(`Transactions.actions.${name}`, {
+    appName: beautify(appName)
+  })
+  const url = urls[appName]
+
+  if (onlyItems) {
+    return <ActionLink text={label} href={url} icon="openwith" />
+  }
+
   return (
-    <ActionLink
-      href={urls[appName]}
-      text={t(`Transactions.actions.${name}`, {appName})}
+    <ButtonAction
+      onClick={() => open(url)}
+      label={label}
+      rightIcon="openwith"
+      compact={compact}
+      className={styles.TransactionActionButton}
     />
   )
 }
@@ -24,7 +51,7 @@ const Component = ({t, transaction, actionProps: { urls }}) => {
 const action = {
   name,
   icon,
-  match: (transaction, {urls}) => {
+  match: (transaction, { urls }) => {
     return getAppName(urls, transaction)
   },
   Component: translate()(Component)

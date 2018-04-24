@@ -3,7 +3,6 @@ import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react/I18n'
 import Loading from 'components/Loading'
-import Topbar from 'components/Topbar'
 import { getFilteredTransactions } from 'ducks/filters'
 import { fetchTransactions, getTransactions } from 'actions'
 import { transactionsByCategory, computeCategorieData } from './helpers'
@@ -12,13 +11,14 @@ import BackButton from 'components/BackButton'
 import styles from './CategoriesPage.styl'
 import { flowRight as compose } from 'lodash'
 import { Breadcrumb } from 'components/Breadcrumb'
+import { withBreakpoints } from 'cozy-ui/react'
 
 class CategoriesPage extends Component {
   state = {
     withIncome: true
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.props.fetchTransactions()
   }
 
@@ -33,15 +33,24 @@ class CategoriesPage extends Component {
   }
 
   filterWithInCome = withIncome => {
-    this.setState({withIncome})
+    this.setState({ withIncome })
   }
 
-  render ({t, categories, transactions, router}, {withIncome}) {
+  render(
+    {
+      t,
+      categories,
+      transactions,
+      router,
+      breakpoints: { isMobile }
+    },
+    { withIncome }
+  ) {
     const isFetching = transactions.fetchStatus !== 'loaded'
     const selectedCategory = router.params.categoryName
     // compute the filter to use
     if (!withIncome) {
-      categories = categories.filter(category => (category.name !== 'incomeCat'))
+      categories = categories.filter(category => category.name !== 'incomeCat')
     }
     const breadcrumbItems = [{ name: t('Categories.title.general') }]
     if (selectedCategory) {
@@ -52,22 +61,30 @@ class CategoriesPage extends Component {
     }
     return (
       <div className={styles['bnk-cat-page']}>
-        <Topbar>
-          <Breadcrumb items={breadcrumbItems} tag='h2' />
-        </Topbar>
-        {selectedCategory && <BackButton onClick={() => this.selectCategory(undefined)} />}
-        {isFetching
-          ? <Loading loadingType='categories' />
-          : <Categories categories={categories}
-            selectedCategory={selectedCategory} selectCategory={this.selectCategory}
-            withIncome={withIncome} filterWithInCome={this.filterWithInCome} />}
+        {!isMobile ? <Breadcrumb items={breadcrumbItems} tag="h2" /> : null}
+        {selectedCategory && (
+          <BackButton onClick={() => this.selectCategory(undefined)} />
+        )}
+        {isFetching ? (
+          <Loading loadingType="categories" />
+        ) : (
+          <Categories
+            categories={categories}
+            selectedCategory={selectedCategory}
+            selectCategory={this.selectCategory}
+            withIncome={withIncome}
+            filterWithInCome={this.filterWithInCome}
+          />
+        )}
       </div>
     )
   }
 }
 
 const mapStateToProps = state => ({
-  categories: computeCategorieData(transactionsByCategory(getFilteredTransactions(state))),
+  categories: computeCategorieData(
+    transactionsByCategory(getFilteredTransactions(state))
+  ),
   transactions: getTransactions(state)
 })
 
@@ -77,6 +94,7 @@ const mapDispatchToProps = dispatch => ({
 
 export default compose(
   withRouter,
+  withBreakpoints(),
   connect(mapStateToProps, mapDispatchToProps),
   translate()
 )(CategoriesPage)

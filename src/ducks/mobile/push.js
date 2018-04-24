@@ -18,8 +18,10 @@ export const registerPushNotifications = () => async (dispatch, getState) => {
    * In this case, the app is always in background.
    */
   const handleNotification = notification => {
-    console.log('Received notification', notification)
-    if (!notification.additionalData.foreground && notification.additionalData.route) {
+    if (
+      !notification.additionalData.foreground &&
+      notification.additionalData.route
+    ) {
       hashHistory.push(notification.additionalData.route)
     }
   }
@@ -32,9 +34,9 @@ export const registerPushNotifications = () => async (dispatch, getState) => {
   })
 
   push.on('notification', handleNotification)
-  push.on('error', (err) => console.log(err))
-  push.on('registration', ({registrationId}) => {
-    console.log('registration', registrationId)
+  // eslint-disable-next-line no-console
+  push.on('error', err => console.log(err))
+  push.on('registration', ({ registrationId }) => {
     cozy.client.auth.updateClient({
       ...getState().mobile.client,
       notificationDeviceToken: registrationId
@@ -45,6 +47,7 @@ export const registerPushNotifications = () => async (dispatch, getState) => {
 export const stopPushNotifications = () => {
   if (push) {
     push.unregister(
+      // eslint-disable-next-line no-console
       () => console.log('unregister push notifications'),
       error => {
         throw new Error('error while unregistering notifications: ' + error)

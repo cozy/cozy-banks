@@ -1,20 +1,32 @@
 import React from 'react'
 import Types from 'prop-types'
-import classNames from 'classnames'
+import cx from 'classnames'
 import styles from './Figure.styl'
 
 const currencySigns = {
-  'EUR': '€',
-  'USD': '$'
+  EUR: '€',
+  USD: '$'
 }
 
 /**
  * Shows a number, typically a balance or an important financial
  * number in a bold way.
  */
+const stylePositive = styles['Figure-content--positive']
+const styleNegative = styles['Figure-content--negative']
+const styleWarning = styles['Figure-content--warning']
+const styleBig = styles['Figure--big']
 const Figure = props => {
   const {
-    currency, coloredPositive, coloredNegative, coloredWarning, warningLimit, signed, className, total
+    currency,
+    coloredPositive,
+    coloredNegative,
+    coloredWarning,
+    warningLimit,
+    signed,
+    className,
+    total,
+    size
   } = props
 
   let { decimalNumbers } = props
@@ -26,28 +38,30 @@ const Figure = props => {
   })
   const isTotalPositive = total > 0
   const isTotalInLimit = total > warningLimit
-  let totalCSSClass = ''
-  if (total !== 0) {
-    if (isTotalPositive && coloredPositive) {
-      totalCSSClass = 'bnk-figure-content--positive'
-    } else if (!isTotalPositive && coloredNegative) {
-      totalCSSClass = 'bnk-figure-content--negative'
-    } else if (!isTotalInLimit && coloredWarning) {
-      totalCSSClass = 'bnk-figure-content--warning'
-    }
-  }
+  const isWarning = !isTotalPositive && !isTotalInLimit && coloredWarning
 
   return (
-    <div className={classNames(styles[totalCSSClass], className)}>
-      <span className={styles['bnk-figure-total']}>
-        {(isTotalPositive && signed) && '+'}
+    <div
+      className={cx(
+        {
+          [stylePositive]: isTotalPositive && coloredPositive,
+          [styleNegative]:
+            total !== 0 && !isTotalPositive && !isWarning && coloredNegative,
+          [styleWarning]: isWarning,
+          [styleBig]: size == 'big'
+        },
+        className
+      )}
+    >
+      <span className={styles['Figure-total']}>
+        {isTotalPositive && signed && '+'}
         {totalLocalized}
       </span>
-      {currency &&
-        <span className={styles['bnk-figure-currency']}>
+      {currency && (
+        <span className={styles['Figure-currency']}>
           {currencySigns[currency] || currency}
         </span>
-      }
+      )}
     </div>
   )
 }

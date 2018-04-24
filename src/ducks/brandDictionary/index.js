@@ -5,7 +5,8 @@ const getRegexp = brand => {
   return new RegExp(brand.regexp, 'i')
 }
 
-export const getBrands = filterFct => filterFct ? brands.filter(filterFct) : brands
+export const getBrands = filterFct =>
+  filterFct ? brands.filter(filterFct) : brands
 
 export const findMatchingBrand = (brands, label) => {
   return find(brands, brand => getRegexp(brand).test(label))

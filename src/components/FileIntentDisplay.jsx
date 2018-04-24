@@ -24,17 +24,18 @@ class FileIntentDisplay extends Component {
     this.props.onError && this.props.onError(err)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.showModal()
   }
 
-  render ({ children }, { intent }) {
-    return intent
-      ? <FullscreenIntentModal
+  render(props, { intent }) {
+    return intent ? (
+      <FullscreenIntentModal
         intent={intent}
         onIntentError={this.handleModalError}
-        dismissAction={this.closeModal} />
-      : null
+        dismissAction={this.closeModal}
+      />
+    ) : null
   }
 }
 

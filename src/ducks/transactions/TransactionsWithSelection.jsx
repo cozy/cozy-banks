@@ -8,22 +8,25 @@ class TransactionsWithSelection extends Component {
   }
 
   selectTransaction = transaction => {
-    this.setState({transaction: transaction})
+    this.setState({ transaction: transaction })
   }
 
   unselectTransaction = () => {
-    this.setState({transaction: undefined})
+    this.setState({ transaction: undefined })
   }
 
-  render (props) {
+  render(props) {
     const { transaction } = this.state
     return (
       <div>
         <Transactions selectTransaction={this.selectTransaction} {...props} />
-        {transaction &&
+        {transaction && (
           <TransactionActionMenu
             requestClose={this.unselectTransaction}
-            transaction={transaction} {...props} />}
+            transaction={transaction}
+            {...props}
+          />
+        )}
       </div>
     )
   }

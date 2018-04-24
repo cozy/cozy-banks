@@ -8,9 +8,8 @@ import styles from './Loading.styl'
 export const Loading = ({ t, loadingType, noMargin }) => {
   return (
     <div
-      className={noMargin
-        ? styles['bnk-loading--no-margin']
-        : styles['bnk-loading']
+      className={
+        noMargin ? styles['bnk-loading--no-margin'] : styles['bnk-loading']
       }
     >
       {loadingType && <p>{t('Loading.loading')}</p>}

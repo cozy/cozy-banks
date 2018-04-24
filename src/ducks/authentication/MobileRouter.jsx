@@ -2,13 +2,28 @@ import React from 'react'
 import { Router, Route } from 'react-router'
 
 import { Authentication, Revoked } from 'cozy-authentication'
-import { storeCredentials, revokeClient, unlink, setToken, getURL, getAccessToken } from 'ducks/mobile'
-import { registerPushNotifications, stopPushNotifications } from 'ducks/mobile/push'
-import { initBar, updateAccessTokenBar, resetClient, getToken } from 'ducks/authentication/lib/client'
+import {
+  storeCredentials,
+  revokeClient,
+  unlink,
+  setToken,
+  getURL,
+  getAccessToken
+} from 'ducks/mobile'
+import {
+  registerPushNotifications,
+  stopPushNotifications
+} from 'ducks/mobile/push'
+import {
+  initBar,
+  updateAccessTokenBar,
+  resetClient,
+  getToken
+} from 'ducks/authentication/lib/client'
 export const AUTH_PATH = 'authentication'
 
-const withAuth = Wrapped => (props, { store, router, client }) => {
-  const onAuthentication = async (res) => {
+const withAuth = Wrapped => (props, { store, client }) => {
+  const onAuthentication = async res => {
     if (res) {
       // first authentication
       const { url, clientInfo, router, token } = res
@@ -19,11 +34,15 @@ const withAuth = Wrapped => (props, { store, router, client }) => {
       // token can expire so ask stack to replace it
       try {
         const token = await getToken()
-        if (token && token.accessToken !== getAccessToken(store.getState().mobile)) {
+        if (
+          token &&
+          token.accessToken !== getAccessToken(store.getState().mobile)
+        ) {
           store.dispatch(setToken(token))
           updateAccessTokenBar(token.accessToken)
         }
       } catch (e) {
+        // eslint-disable-next-line no-console
         console.warn(e)
       }
     }
@@ -39,7 +58,7 @@ const withAuth = Wrapped => (props, { store, router, client }) => {
     props.history.replace(`/${AUTH_PATH}`)
   }
 
-  const setupAuth = (isAuthenticated, router) => (nextState, replace) => {
+  const setupAuth = isAuthenticated => (nextState, replace) => {
     if (!isAuthenticated()) {
       resetClient()
       replace({
@@ -63,33 +82,58 @@ const withAuth = Wrapped => (props, { store, router, client }) => {
     return store.getState().mobile.revoked
   }
 
-  return <Wrapped {...props} {...{ isAuthenticated, isRevoked, onAuthentication, setupAuth }} />
+  return (
+    <Wrapped
+      {...props}
+      {...{ isAuthenticated, isRevoked, onAuthentication, setupAuth }}
+    />
+  )
 }
 
 const logException = () => {
+  // eslint-disable-next-line no-console
   console.log('exception during auth')
 }
 
-const MobileRouter = ({ router, history, routes, isAuthenticated, isRevoked, onAuthentication, setupAuth }, { store, client }) => {
+const MobileRouter = ({
+  router,
+  history,
+  routes,
+  isAuthenticated,
+  isRevoked,
+  onAuthentication,
+  setupAuth
+}) => {
   return (
     <Router history={history}>
       <Route>
-        <Route path={AUTH_PATH} component={(props) => (
-          <Authentication {...props}
-            router={history}
-            onComplete={onAuthentication}
-            onException={logException}
-          />
-        )} />
-        <Route onEnter={setupAuth(isAuthenticated, router)} component={(props, context) => {
-          const revoked = isRevoked()
-          return revoked
-            ? <Revoked {...props}
+        <Route
+          path={AUTH_PATH}
+          component={props => (
+            <Authentication
+              {...props}
               router={history}
-              revoked={isRevoked()}
-              onLogBackIn={onAuthentication} />
-            : props.children
-        }}>
+              onComplete={onAuthentication}
+              onException={logException}
+            />
+          )}
+        />
+        <Route
+          onEnter={setupAuth(isAuthenticated, router)}
+          component={props => {
+            const revoked = isRevoked()
+            return revoked ? (
+              <Revoked
+                {...props}
+                router={history}
+                revoked={isRevoked()}
+                onLogBackIn={onAuthentication}
+              />
+            ) : (
+              props.children
+            )
+          }}
+        >
           {routes}
         </Route>
       </Route>

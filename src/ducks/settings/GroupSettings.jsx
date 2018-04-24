@@ -26,16 +26,16 @@ const accountInGroup = (account, group) =>
 
 class GroupSettings extends Component {
   state = { modifying: false, saving: false }
-  rename = e => {
+  rename = () => {
     const { group } = this.props
     const label = this.inputRef.value
-    this.setState({saving: true})
-    this.updateOrCreate({...group, label}, () => {
-      this.setState({saving: false, modifying: false})
+    this.setState({ saving: true })
+    this.updateOrCreate({ ...group, label }, () => {
+      this.setState({ saving: false, modifying: false })
     })
   }
 
-  async updateOrCreate (group, cb) {
+  async updateOrCreate(group, cb) {
     const { dispatch, router } = this.props
     try {
       const response = group.id
@@ -58,13 +58,14 @@ class GroupSettings extends Component {
     let indexInSelectedAccounts = selectedAccounts.indexOf(accountId)
 
     if (enabled && indexInSelectedAccounts < 0) selectedAccounts.push(accountId)
-    else if (!enabled && indexInSelectedAccounts >= 0) selectedAccounts.splice(indexInSelectedAccounts, 1)
+    else if (!enabled && indexInSelectedAccounts >= 0)
+      selectedAccounts.splice(indexInSelectedAccounts, 1)
 
     group.accounts = selectedAccounts
     this.updateOrCreate(group)
   }
 
-  renderAccountLine = (account) => {
+  renderAccountLine = account => {
     const { group } = this.props
     return (
       <tr>
@@ -74,11 +75,13 @@ class GroupSettings extends Component {
         <td className={styles.GrpStg__accntBank}>
           {getAccountInstitutionLabel(account)}
         </td>
-        <td className={styles.GrpStg__accntNumber}>
-          {account.number}
-        </td>
+        <td className={styles.GrpStg__accntNumber}>{account.number}</td>
         <td className={styles.GrpStg__accntToggle}>
-          <Toggle id={account._id} checked={accountInGroup(account, group)} onToggle={this.toggleAccount.bind(null, account._id)} />
+          <Toggle
+            id={account._id}
+            checked={accountInGroup(account, group)}
+            onToggle={this.toggleAccount.bind(null, account._id)}
+          />
         </td>
       </tr>
     )
@@ -95,48 +98,68 @@ class GroupSettings extends Component {
     this.setState({ modifying: true })
   }
 
-  saveInputRef = ref => { this.inputRef = ref }
+  saveInputRef = ref => {
+    this.inputRef = ref
+  }
 
-  render ({ t, group, accounts, isNewGroup }, { modifying, saving }) {
+  render({ t, group, accounts }, { modifying, saving }) {
     if (!group) {
       return <Loading />
     }
 
     return (
       <div>
-        <BackButton to='/settings/groups' arrow />
+        <BackButton to="/settings/groups" arrow />
         <Topbar>
           <h2>{group.label}</h2>
         </Topbar>
 
         <h3>{t('Groups.label')}</h3>
-        <form className={styles.GrpStg__form} onSubmit={e => e.preventDefault()}>
+        <form
+          className={styles.GrpStg__form}
+          onSubmit={e => e.preventDefault()}
+        >
           <p>
-            { !modifying
-              ? group.label
-              : <input ref={this.saveInputRef} autofocus type='text' defaultValue={group.label} />
-            }
-            {modifying ? <Button className={styles['save-button']} disabled={saving} theme='regular' onClick={this.rename}>
-              {t('Groups.save')} {saving && <Spinner />}
-            </Button> : <Button className={btnStyles['btn--no-outline']} onClick={this.modifyName}>
-              &nbsp;&nbsp;{t('Groups.rename')}
-            </Button>}
+            {!modifying ? (
+              group.label
+            ) : (
+              <input
+                ref={this.saveInputRef}
+                autoFocus
+                type="text"
+                defaultValue={group.label}
+              />
+            )}
+            {modifying ? (
+              <Button
+                className={styles['save-button']}
+                disabled={saving}
+                theme="regular"
+                onClick={this.rename}
+              >
+                {t('Groups.save')} {saving && <Spinner />}
+              </Button>
+            ) : (
+              <Button
+                className={btnStyles['btn--no-outline']}
+                onClick={this.modifyName}
+              >
+                &nbsp;&nbsp;{t('Groups.rename')}
+              </Button>
+            )}
           </p>
         </form>
-        <h3>
-          {t('Groups.accounts')}
-        </h3>
-        {accounts.fetchStatus === 'pending'
-          ? <Loading />
-          : <Table className={styles.GrpStg__table}>
+        <h3>{t('Groups.accounts')}</h3>
+        {accounts.fetchStatus === 'pending' ? (
+          <Loading />
+        ) : (
+          <Table className={styles.GrpStg__table}>
             <thead>
               <tr>
                 <th className={styles.GrpStg__accntLabel}>
                   {t('Groups.label')}
                 </th>
-                <th className={styles.GrpStg__accntBank}>
-                  {t('Groups.bank')}
-                </th>
+                <th className={styles.GrpStg__accntBank}>{t('Groups.bank')}</th>
                 <th className={styles.GrpStg__accntNumber}>
                   {t('Groups.account-number')}
                 </th>
@@ -146,11 +169,15 @@ class GroupSettings extends Component {
               </tr>
             </thead>
             <tbody>
-              {accounts.data && sortBy(accounts.data, ['institutionLabel', 'label']).map(this.renderAccountLine)}
+              {accounts.data &&
+                sortBy(accounts.data, ['institutionLabel', 'label']).map(
+                  this.renderAccountLine
+                )}
             </tbody>
-          </Table>}
+          </Table>
+        )}
         <p>
-          <Button theme='danger-outline' onClick={this.onRemove}>
+          <Button theme="danger-outline" onClick={this.onRemove}>
             {t('Groups.delete')}
           </Button>
         </p>
@@ -167,16 +194,18 @@ const mkNewGroup = () => ({
 const mapDocumentsToProps = props => {
   const groupId = props.routeParams.groupId
   return {
-    group: (groupId === 'new' || !groupId) ? mkNewGroup() : fetchDocument(GROUP_DOCTYPE, groupId),
+    group:
+      groupId === 'new' || !groupId
+        ? mkNewGroup()
+        : fetchDocument(GROUP_DOCTYPE, groupId),
     accounts: fetchCollection('accounts', ACCOUNT_DOCTYPE)
   }
 }
 
 const enhance = Component =>
   cozyConnect(mapDocumentsToProps)(
-    translate()(
-      withRouter(
-        withDispatch(Component))))
+    translate()(withRouter(withDispatch(Component)))
+  )
 
 const EnhancedGroupSettings = enhance(GroupSettings)
 export default EnhancedGroupSettings
@@ -188,6 +217,8 @@ export default EnhancedGroupSettings
  * to refetch the group but it seems easier to do that to force the usage
  * of a brand new component
  */
-export const NewGroupSettings = enhance(class extends GroupSettings {
-  state = {...this.state, modifying: true}
-})
+export const NewGroupSettings = enhance(
+  class extends GroupSettings {
+    state = { ...this.state, modifying: true }
+  }
+)

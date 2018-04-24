@@ -11,20 +11,20 @@ import { trackEvent } from 'actions'
  * @return {Component} - Wrapped component
  */
 export default getTrackingEvent => Component => {
-  const Wrapped = class extends Component {
-    constructor (props) {
+  const Wrapped = class _TrackOnClickWrapper extends Component {
+    constructor(props) {
       super(props)
       this.onClick = this.onClick.bind(this)
     }
 
-    onClick (ev) {
+    onClick(ev) {
       this.props.dispatch(trackEvent(getTrackingEvent(this.props)))
       if (this.props.onClick) {
         this.props.onClick(ev)
       }
     }
 
-    render (props) {
+    render(props) {
       return <Component {...props} onClick={this.onClick} />
     }
   }

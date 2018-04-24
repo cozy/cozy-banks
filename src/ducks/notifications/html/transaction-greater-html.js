@@ -3,8 +3,10 @@ const templates = require('./templates')
 const { mjml2html } = require('mjml')
 const { prepareTransactions } = require('./utils')
 
-export default ({accounts, transactions}) => {
-  const accountsById = fromPairs(accounts.map(account => [account._id, account]))
+export default ({ accounts, transactions }) => {
+  const accountsById = fromPairs(
+    accounts.map(account => [account._id, account])
+  )
   const transactionsByAccounts = prepareTransactions(transactions)
 
   const data = {
@@ -15,6 +17,7 @@ export default ({accounts, transactions}) => {
 
   const obj = mjml2html(templates['transaction-greater'](data))
   obj.errors.forEach(err => {
+    // eslint-disable-next-line no-console
     console.warn(err.formattedMessage)
   })
 

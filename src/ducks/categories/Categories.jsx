@@ -44,9 +44,19 @@ class Categories extends Component {
     selectedCategory ? selectCategory(undefined) : selectCategory(categoryName)
   }
 
-  render ({t, categories, selectedCategory, selectCategory, withIncome, filterWithInCome, breakpoints: { isDesktop, isTablet, isMobile }}) {
+  render({
+    t,
+    categories,
+    selectedCategory,
+    selectCategory,
+    withIncome,
+    filterWithInCome,
+    breakpoints: { isDesktop, isTablet, isMobile }
+  }) {
     if (categories === undefined) categories = []
-    const selectedCat = categories.find(category => category.name === selectedCategory)
+    const selectedCat = categories.find(
+      category => category.name === selectedCategory
+    )
     if (selectedCategory) {
       if (selectedCat) {
         categories = [selectedCat]
@@ -59,15 +69,25 @@ class Categories extends Component {
 
     if (categories.length !== 0) {
       // compute some global data
-      const absoluteTransactionsTotal = categories.reduce((total, category) => (total + Math.abs(category.amount)), 0)
+      const absoluteTransactionsTotal = categories.reduce(
+        (total, category) => total + Math.abs(category.amount),
+        0
+      )
       for (let category of categories) {
-        category.percentage = Math.round(Math.abs(category.amount) / absoluteTransactionsTotal * 100)
-        const absoluteSubcategoriesTotal = category.subcategories.reduce((total, category) => (total + Math.abs(category.amount)), 0)
+        category.percentage = Math.round(
+          Math.abs(category.amount) / absoluteTransactionsTotal * 100
+        )
+        const absoluteSubcategoriesTotal = category.subcategories.reduce(
+          (total, category) => total + Math.abs(category.amount),
+          0
+        )
         for (let subcategory of category.subcategories) {
           if (absoluteSubcategoriesTotal === 0) {
             subcategory.percentage = 100
           } else {
-            subcategory.percentage = Math.round(Math.abs(subcategory.amount) / absoluteSubcategoriesTotal * 100)
+            subcategory.percentage = Math.round(
+              Math.abs(subcategory.amount) / absoluteSubcategoriesTotal * 100
+            )
           }
         }
         category.subcategories = category.subcategories.sort(subCategorySort)
@@ -84,7 +104,9 @@ class Categories extends Component {
       }
     })
 
-    let titleLabel = withIncome ? t('Categories.title.total') : t('Categories.title.debit')
+    let titleLabel = withIncome
+      ? t('Categories.title.total')
+      : t('Categories.title.debit')
     if (selectedCat) {
       const catName = t(`Data.categories.${selectedCat.name}`)
       titleLabel = `${titleLabel} (${catName})`
@@ -96,56 +118,83 @@ class Categories extends Component {
         <SelectDates />
         <div className={stTop}>
           <div className={stForm}>
-            {selectedCategory === undefined && <div className={stFilter}>
-              <Toggle id='withIncome' checked={withIncome} onToggle={checked => filterWithInCome(checked)} />
-              <label htmlFor='withIncome'>
-                Inclure les revenus
-              </label>
-            </div>}
-            {categories.length > 0 && <FigureBlock
-              className={stFigure}
-              label={titleLabel}
-              total={selectedCat ? selectedCat.amount : transactionsTotal}
-              currency={globalCurrency}
-              coloredPositive coloredNegative signed />}
+            {selectedCategory === undefined && (
+              <div className={stFilter}>
+                <Toggle
+                  id="withIncome"
+                  checked={withIncome}
+                  onToggle={checked => filterWithInCome(checked)}
+                />
+                <label htmlFor="withIncome">Inclure les revenus</label>
+              </div>
+            )}
+            {categories.length > 0 && (
+              <FigureBlock
+                className={stFigure}
+                label={titleLabel}
+                total={selectedCat ? selectedCat.amount : transactionsTotal}
+                currency={globalCurrency}
+                coloredPositive
+                coloredNegative
+                signed
+              />
+            )}
           </div>
           <CategoriesChart
             width={size}
             height={size}
             categories={categories}
             selectedCategory={selectedCategory}
-            selectCategory={selectCategory} />
+            selectCategory={selectCategory}
+          />
         </div>
-        {categories.length === 0
-          ? <p>{t('Categories.title.empty_text')}</p>
-          : <Table className={stTableCategory}>
+        {categories.length === 0 ? (
+          <p>{t('Categories.title.empty_text')}</p>
+        ) : (
+          <Table className={stTableCategory}>
             <thead>
               <tr>
-                <td className={stCategory}>{t('Categories.headers.categories')}</td>
+                <td className={stCategory}>
+                  {t('Categories.headers.categories')}
+                </td>
                 <td className={stPercentage}>%</td>
-                {(isDesktop || isTablet) && <td >{t('Categories.headers.transactions')}</td>}
+                {(isDesktop || isTablet) && (
+                  <td>{t('Categories.headers.transactions')}</td>
+                )}
                 <td className={stTotal}>{t('Categories.headers.total')}</td>
-                {isDesktop && <td className={stAmount}>{t('Categories.headers.credit')}</td>}
-                {isDesktop && <td className={stAmount}>{t('Categories.headers.debit')}</td>}
+                {isDesktop && (
+                  <td className={stAmount}>{t('Categories.headers.credit')}</td>
+                )}
+                {isDesktop && (
+                  <td className={stAmount}>{t('Categories.headers.debit')}</td>
+                )}
                 {isDesktop && <td className={stChevron} />}
               </tr>
             </thead>
             <tbody>
-              {categories.map(category => this.renderCategory(category, selectedCategory))}
+              {categories.map(category =>
+                this.renderCategory(category, selectedCategory)
+              )}
             </tbody>
           </Table>
-        }
+        )}
       </div>
     )
   }
 
-  renderCategory (category) {
-    const { selectedCategory, breakpoints: { isDesktop, isTablet } } = this.props
+  renderCategory(category) {
+    const {
+      selectedCategory,
+      breakpoints: { isDesktop, isTablet }
+    } = this.props
 
     const isCollapsed = selectedCategory !== category.name
     if (selectedCategory !== undefined && isCollapsed) return
 
-    const renderer = (isDesktop || isTablet) ? 'renderCategoryDesktopTablet' : 'renderCategoryMobile'
+    const renderer =
+      isDesktop || isTablet
+        ? 'renderCategoryDesktopTablet'
+        : 'renderCategoryMobile'
     return this[renderer](category)
   }
 
@@ -158,44 +207,91 @@ class Categories extends Component {
     }
   }
 
-  renderCategoryDesktopTablet (category, subcategory) {
-    const { t, selectedCategory, breakpoints: { isDesktop } } = this.props
-    const { name, subcategories, credit, debit, percentage, currency, transactionsNumber } = subcategory || category
+  renderCategoryDesktopTablet(category, subcategory) {
+    const {
+      t,
+      selectedCategory,
+      breakpoints: { isDesktop }
+    } = this.props
+    const {
+      name,
+      subcategories,
+      credit,
+      debit,
+      percentage,
+      currency,
+      transactionsNumber
+    } =
+      subcategory || category
     const isCollapsed = selectedCategory !== category.name
     const type = subcategory ? 'subcategories' : 'categories'
     const rowClass = subcategory ? stRowSub : stRow
     const onClick = subcategory || isCollapsed ? this.handleClick : () => {}
     const key = (subcategory || category).name
     return [
-      (subcategory || isCollapsed) && <tr key={key} className={rowClass} onClick={() => onClick(category, subcategory)}>
-        <TdWithIcon className={cx(stCategory, styles[`bnk-table-category--${category.name}`])}>
-          {t(`Data.${type}.${name}`)}
-        </TdWithIcon>
-        <TdSecondary className={stPercentage}>
-          {!subcategory && selectedCategory ? '100 %' : `${percentage} %`}
-        </TdSecondary>
-        <TdSecondary>{transactionsNumber}</TdSecondary>
-        <TdSecondary className={stTotal}>
-          <Figure total={credit + debit} currency={currency} coloredPositive signed />
-        </TdSecondary>
-        {isDesktop && <TdSecondary className={stAmount}>
-          {credit ? <Figure total={credit} currency={currency} signed default='-' /> : '－'}
-        </TdSecondary>}
-        {isDesktop && <TdSecondary className={stAmount}>
-          {debit ? <Figure total={debit} currency={currency} signed default='-' /> : '－'}
-        </TdSecondary>}
-        {isDesktop && <td className={stChevron}>
-          <Icon icon='forward' color={palette.coolGrey} />
-        </td>}
-      </tr>,
-      ...((isCollapsed || subcategory) ? [] : subcategories.map(subcategory =>
-        this.renderCategoryDesktopTablet(category, subcategory)))
+      (subcategory || isCollapsed) && (
+        <tr
+          key={key}
+          className={rowClass}
+          onClick={() => onClick(category, subcategory)}
+        >
+          <TdWithIcon
+            className={cx(
+              stCategory,
+              styles[`bnk-table-category--${category.name}`]
+            )}
+          >
+            {t(`Data.${type}.${name}`)}
+          </TdWithIcon>
+          <TdSecondary className={stPercentage}>
+            {!subcategory && selectedCategory ? '100 %' : `${percentage} %`}
+          </TdSecondary>
+          <TdSecondary>{transactionsNumber}</TdSecondary>
+          <TdSecondary className={stTotal}>
+            <Figure
+              total={credit + debit}
+              currency={currency}
+              coloredPositive
+              signed
+            />
+          </TdSecondary>
+          {isDesktop && (
+            <TdSecondary className={stAmount}>
+              {credit ? (
+                <Figure total={credit} currency={currency} signed default="-" />
+              ) : (
+                '－'
+              )}
+            </TdSecondary>
+          )}
+          {isDesktop && (
+            <TdSecondary className={stAmount}>
+              {debit ? (
+                <Figure total={debit} currency={currency} signed default="-" />
+              ) : (
+                '－'
+              )}
+            </TdSecondary>
+          )}
+          {isDesktop && (
+            <td className={stChevron}>
+              <Icon icon="forward" color={palette.coolGrey} />
+            </td>
+          )}
+        </tr>
+      ),
+      ...(isCollapsed || subcategory
+        ? []
+        : subcategories.map(subcategory =>
+            this.renderCategoryDesktopTablet(category, subcategory)
+          ))
     ]
   }
 
-  renderCategoryMobile (category, subcategory) {
+  renderCategoryMobile(category, subcategory) {
     const { t, selectedCategory } = this.props
-    const { name, subcategories, credit, debit, currency, percentage } = (subcategory || category)
+    const { name, subcategories, credit, debit, currency, percentage } =
+      subcategory || category
 
     // subcategories are always collapsed
     const isCollapsed = selectedCategory !== category.name
@@ -203,10 +299,14 @@ class Categories extends Component {
     const categoryName = (subcategory || category).name
 
     return [
-      <tr key={categoryName} className={subcategory ? stRowSub : (isCollapsed ? stRow : stUncollapsed)} onClick={() => this.handleClick(category, subcategory)}>
-        <td className='u-ph-1 u-pv-half'>
+      <tr
+        key={categoryName}
+        className={subcategory ? stRowSub : isCollapsed ? stRow : stUncollapsed}
+        onClick={() => this.handleClick(category, subcategory)}
+      >
+        <td className="u-ph-1 u-pv-half">
           <Media>
-            <Img className='u-pr-half' style={subcategory ? vHidden : null}>
+            <Img className="u-pr-half" style={subcategory ? vHidden : null}>
               <CategoryIcon category={categoryName} style={!subcategory} />
             </Img>
             <Bd className={cx('u-ph-half', stCategory)}>
@@ -216,18 +316,24 @@ class Categories extends Component {
               {!subcategory && selectedCategory ? '100 %' : `${percentage} %`}
             </Img>
             <Img className={cx('u-pl-half', stAmount)}>
-              <Figure className={stCatTotalMobile} total={credit + debit} currency={currency} coloredPositive signed />
+              <Figure
+                className={stCatTotalMobile}
+                total={credit + debit}
+                currency={currency}
+                coloredPositive
+                signed
+              />
             </Img>
           </Media>
         </td>
       </tr>,
-      ...((isCollapsed || subcategory) ? [] : subcategories.map(subcategory => this.renderCategoryMobile(category, subcategory)))
+      ...(isCollapsed || subcategory
+        ? []
+        : subcategories.map(subcategory =>
+            this.renderCategoryMobile(category, subcategory)
+          ))
     ]
   }
 }
 
-export default compose(
-  withRouter,
-  withBreakpoints(),
-  translate()
-)(Categories)
+export default compose(withRouter, withBreakpoints(), translate())(Categories)

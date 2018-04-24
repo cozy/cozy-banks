@@ -1,6 +1,4 @@
-const PARTS_TO_DELETE = [
-  '(sans Secure Key)'
-]
+const PARTS_TO_DELETE = ['(sans Secure Key)']
 
 export const getAccountInstitutionLabel = account => {
   const label = PARTS_TO_DELETE.reduce(
@@ -10,3 +8,5 @@ export const getAccountInstitutionLabel = account => {
 
   return label
 }
+
+export const getAccountLabel = account => account.shortLabel || account.label

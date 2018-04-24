@@ -27,21 +27,21 @@ const ident = c => c
   to display the stack trace
 */
 class DisplayError extends Component {
-  render ({error, t = ident}, {displayStack}) {
-    const toggleStack = () => this.setState({
-      displayStack: !displayStack
-    })
+  render({ error, t = ident }, { displayStack }) {
+    const toggleStack = () =>
+      this.setState({
+        displayStack: !displayStack
+      })
     return (
       <div style={styles.container}>
-        {error.message}<br />
+        {error.message}
+        <br />
         <a style={styles.btn} onClick={toggleStack}>
           {displayStack
             ? t('Error.less-information')
             : t('Error.more-information')}
         </a>
-        {displayStack && <pre style={styles.pre}>
-          {error.stack}
-        </pre>}
+        {displayStack && <pre style={styles.pre}>{error.stack}</pre>}
       </div>
     )
   }

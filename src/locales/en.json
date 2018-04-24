@@ -103,6 +103,16 @@
     "total-balance": "Total"
   },
   "Data": {
+    "accountTypes": {
+      "asset": "Assets accounts",
+      "bank": "Bank accounts",
+      "cash": "Cash accounts",
+      "checkings": "Checking accounts",
+      "credit card": "Credit card accounts",
+      "liability": "Liability accounts",
+      "none": "None",
+      "savings": "Savings accounts"
+    },
     "categories": {
       "uncategorized": "To be categorized",
       "incomeCat": "Earnings",
@@ -259,14 +269,17 @@
     "actions": {
       "refund": "Check your refunds",
       "comment": "Add a comment",
-      "app": "Access your space %{appName}",
-      "bill": "View your invoice",
+      "app": "%{appName}",
+      "bill": "1 invoice",
       "alert": "Create an alert",
       "attach": "Attach a document",
-      "konnector": "Retrieve your %{vendor} bills",
+      "konnector": "My invoices",
       "more": "More",
-      "healthExpenseStatus": "Expense processed by %{vendors}",
-      "healthExpensePending": "Expense not yet processed by your medical insurances",
+      "healthExpenseProcessed": {
+        "single": "1 reimbursement",
+        "plural": "%{nbReimbursements} reimbursements"
+      },
+      "healthExpensePending": "No reimbursement yet",
       "healthExpenseBill": "%{vendor} Statement",
       "vendorsGlue": "and"
     }

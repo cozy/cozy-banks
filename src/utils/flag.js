@@ -2,6 +2,7 @@
 
 const prefix = 'flag__'
 const getKey = name => prefix + name
+const some = require('lodash/some')
 
 const setFlag = (name, value) => {
   return localStorage.setItem(getKey(name), JSON.stringify(value))
@@ -18,7 +19,7 @@ const getFlag = name => {
   }
 }
 
-const flag = function () {
+const flag = function() {
   if (!window.localStorage) {
     return
   }
@@ -46,6 +47,25 @@ flag.reset = resetFlags
 
 if (__DEVELOPMENT__ && flag('switcher') === null) {
   flag('switcher', true)
+}
+
+const demoFqdns = ['stephaniedurand.cozy.rocks', 'isabelledurand.cozy.rocks']
+
+const locationMatchesFqdn = (location, fqdn) => {
+  const splitted = fqdn.split('.')
+  const slug = splitted[0]
+  const domain = splitted.slice(1).join('.')
+  const rx = new RegExp(slug + '.*' + domain.replace('.', '\\.'))
+  return rx.exec(location)
+}
+
+const isDemoCozy = () => {
+  const location = window.location.href
+  return some(demoFqdns.map(fqdn => locationMatchesFqdn(location, fqdn)))
+}
+
+if (isDemoCozy()) {
+  flag('demo', true)
 }
 
 window.flag = flag

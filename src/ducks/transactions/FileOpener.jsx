@@ -13,7 +13,7 @@ import { flowRight as compose } from 'lodash'
 
 const spinnerStyle = { marginLeft: '-0.25rem', marginRight: '-1rem' }
 
-const buildAppURL = function (cozyURL, app, hash) {
+const buildAppURL = function(cozyURL, app, hash) {
   const splitted = cozyURL.split('/')
   const protocol = splitted[0]
   const hostSplitted = splitted[2].split('.')
@@ -28,14 +28,17 @@ const buildAppURL = function (cozyURL, app, hash) {
   dedicated app or intent
 */
 class FileOpener extends Component {
-  onCloseModal = (err) => {
+  state = {
+    loading: false
+  }
+  onCloseModal = err => {
     this.setState({ file: null })
     if (err) {
       flash('error', JSON.stringify(err, null, 2))
     }
   }
 
-  displayFile = async (ev) => {
+  displayFile = async ev => {
     ev.stopPropagation()
     try {
       this.setState({ loading: true })
@@ -43,36 +46,46 @@ class FileOpener extends Component {
 
       if (__TARGET__ === 'browser') {
         // Open in a modal
-        this.setState({fileId: fileId[1]})
+        this.setState({ fileId: fileId[1] })
       } else {
         let isInstalled = false
         try {
           isInstalled = await checkApp(DRIVE_INFO)
         } catch (e) {
+          // eslint-disable-next-line no-console
           console.warn('Could not check if app is installed. error: ' + e)
         }
-        const baseUrl = isInstalled ? DRIVE_INFO.uri : buildAppURL(this.props.cozyURL, 'drive', '')
+        const baseUrl = isInstalled
+          ? DRIVE_INFO.uri
+          : buildAppURL(this.props.cozyURL, 'drive', '')
         const url = baseUrl + `file/${fileId[1]}`
         // Open drive in a new window
         window.open(url, '_system')
       }
     } catch (err) {
       flash('error', this.props.t('FileOpener.error'))
+
+      // eslint-disable-next-line no-console
       console.warn(err)
     } finally {
       this.setState({ loading: false })
     }
   }
 
-  render (props, { loading, fileId }) {
+  render() {
+    const props = this.props
+    const { loading, fileId } = this.state
     return (
       <span>
         {React.cloneElement(props.children, { onClick: this.displayFile })}
         {loading && <Spinner style={spinnerStyle} />}
-        {fileId && <FileIntentDisplay
-          onClose={this.onCloseModal}
-          onError={this.onCloseModal}
-          fileId={fileId} />}
+        {fileId && (
+          <FileIntentDisplay
+            onClose={this.onCloseModal}
+            onError={this.onCloseModal}
+            fileId={fileId}
+          />
+        )}
       </span>
     )
   }

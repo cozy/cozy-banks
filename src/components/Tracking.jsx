@@ -6,12 +6,15 @@ const DEFAULT_CATEGORY = 'interaction'
 
 const makeTrackingComponent = Tag => {
   return trackOnClick(({ action, category = DEFAULT_CATEGORY }) => ({
-    action, category
-  }))(class extends Component {
-    render ({ children, action, category, ...props }) {
-      return <Tag {...props}>{children}</Tag>
+    action,
+    category
+  }))(
+    class _Tracking extends Component {
+      render({ children, ...props }) {
+        return <Tag {...props}>{children}</Tag>
+      }
     }
-  })
+  )
 }
 
 export const TrackingButton = makeTrackingComponent(Button)

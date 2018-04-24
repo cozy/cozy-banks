@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import cx from 'classnames'
 import { Modal, Icon } from 'cozy-ui/react'
-import { ModalTitle, ModalDescription } from 'cozy-ui/react/Modal'
+import { ModalHeader, ModalDescription } from 'cozy-ui/react/Modal'
 import { Media, Bd, Img } from 'components/Media'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 
 import styles from './styles.styl'
 
 class PopupSelect extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.state = {
@@ -37,21 +37,26 @@ class PopupSelect extends Component {
   renderList = () => {
     return (
       <div className={styles.PopupSelect__content}>
-        {this.state.history[0].children.map(item => {
+        {this.state.history[0].children.map((item, index) => {
           return (
             <Media
-              className={cx(styles.PopupSelect__row, `u-ph-1 u-pv-half${this.props.isSelected(item) ? ' u-text-bold' : ''}`)}
+              key={index}
+              className={cx(
+                styles.PopupSelect__row,
+                `u-ph-1 u-pv-half${
+                  this.props.isSelected(item) ? ' u-text-bold' : ''
+                }`
+              )}
               onClick={() => this.handleSelect(item)}
             >
-              {item.icon && <Img className='u-pr-1'>
-                {item.icon}
-              </Img>}
-              <Bd className='u-ellipsis'>
-                {item.title}
-              </Bd>
-              {item.children && item.children.length > 0 && <Img className='u-pl-1'>
-                <Icon icon='forward' color={palette['coolGrey']} />
-              </Img>}
+              {item.icon && <Img className="u-pr-1">{item.icon}</Img>}
+              <Bd className="u-ellipsis">{item.title}</Bd>
+              {item.children &&
+                item.children.length > 0 && (
+                  <Img className="u-pl-1">
+                    <Icon icon="forward" color={palette['coolGrey']} />
+                  </Img>
+                )}
             </Media>
           )
         })}
@@ -64,27 +69,27 @@ class PopupSelect extends Component {
     const item = history[0]
     return (
       <Media>
-        {history && history.length > 1 &&
-          <Img className={styles.PopupSelect__back} onClick={this.handleBack}>
-            <Icon icon='back' color={palette['coolGrey']} />
-          </Img>}
+        {history &&
+          history.length > 1 && (
+            <Img className={styles.PopupSelect__back} onClick={this.handleBack}>
+              <Icon icon="back" color={palette['coolGrey']} />
+            </Img>
+          )}
         <Bd>
-          {item.title}
+          <h2>{item.title}</h2>
         </Bd>
       </Media>
     )
   }
 
-  render () {
+  render() {
     return (
-      <Modal
-        overflowHidden
-        secondaryAction={this.props.onCancel}>
+      <Modal overflowHidden dismissAction={this.props.onCancel} into="body">
         <div className={styles.PopupSelect__title}>
-          <ModalTitle>{ this.renderTitle() }</ModalTitle>
+          <ModalHeader>{this.renderTitle()}</ModalHeader>
         </div>
-        <ModalDescription className='u-pb-0'>
-          { this.renderList() }
+        <ModalDescription className="u-pb-0">
+          {this.renderList()}
         </ModalDescription>
       </Modal>
     )

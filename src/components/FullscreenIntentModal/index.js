@@ -4,7 +4,7 @@ import Modal from 'cozy-ui/react/Modal'
 import styles from './styles.styl'
 
 class FullscreenIntentModal extends Component {
-  componentDidMount () {
+  componentDidMount() {
     this.intent = this.props.intent
       .start(this.target)
       .then(this.props.onIntentSuccess)
@@ -15,10 +15,10 @@ class FullscreenIntentModal extends Component {
     this.target = ref
   }
 
-  render ({ style }) {
+  render({ style }) {
     return (
-      <Portal into='body'>
-        <div style={style} className={styles['modal--fullscreen']} >
+      <Portal into="body">
+        <div style={style} className={styles['modal--fullscreen']}>
           <Modal overflowHidden dismissAction={this.props.dismissAction}>
             <div className={styles.content} ref={this.saveRef} />
           </Modal>

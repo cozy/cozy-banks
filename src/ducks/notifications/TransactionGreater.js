@@ -2,7 +2,11 @@ import Handlebars from 'handlebars'
 import htmlTemplate from './html/transaction-greater-html'
 import * as utils from './html/utils'
 import subDays from 'date-fns/sub_days'
-import { isCreatedDoc, isDocYoungerThan, isTransactionAmountGreaterThan } from './helpers'
+import {
+  isCreatedDoc,
+  isDocYoungerThan,
+  isTransactionAmountGreaterThan
+} from './helpers'
 import Notification from './Notification'
 import { sortBy } from 'lodash'
 
@@ -12,9 +16,14 @@ const TRANSACTION_SEL = '.js-transaction'
 
 const toText = cozyHTMLEmail => {
   const getTextTransactionRow = $row =>
-    $row.find('td')
+    $row
+      .find('td')
       .map((i, td) =>
-        $row.find(td).text().trim())
+        $row
+          .find(td)
+          .text()
+          .trim()
+      )
       .toArray()
       .join(' ')
       .replace(/\n/g, '')
@@ -23,7 +32,8 @@ const toText = cozyHTMLEmail => {
 
   const getContent = $ =>
     $([ACCOUNT_SEL, DATE_SEL, TRANSACTION_SEL].join(', '))
-      .toArray().map(node => {
+      .toArray()
+      .map(node => {
         const $node = $(node)
         if ($node.is(ACCOUNT_SEL)) {
           return '\n\n### ' + $node.text()
@@ -32,18 +42,19 @@ const toText = cozyHTMLEmail => {
         } else if ($node.is(TRANSACTION_SEL)) {
           return '- ' + getTextTransactionRow($node)
         }
-      }).join('\n')
+      })
+      .join('\n')
   return utils.toText(cozyHTMLEmail, getContent)
 }
 
 class TransactionGreater extends Notification {
-  constructor (config) {
+  constructor(config) {
     super(config)
 
     this.maxAmount = config.value
   }
 
-  filterTransactions (transactions) {
+  filterTransactions(transactions) {
     const fourDaysAgo = subDays(new Date(), 4)
 
     return transactions
@@ -52,11 +63,13 @@ class TransactionGreater extends Notification {
       .filter(isTransactionAmountGreaterThan(this.maxAmount))
   }
 
-  buildNotification ({ accounts, transactions }) {
+  buildNotification({ accounts, transactions }) {
     const transactionsFiltered = this.filterTransactions(transactions)
 
     if (transactionsFiltered.length === 0) {
-      return Promise.reject(new Error('TransactionGreater: no matched transactions'))
+      return Promise.reject(
+        new Error('TransactionGreater: no matched transactions')
+      )
     }
 
     const translateKey = 'Notifications.if_transaction_greater.notification'
@@ -73,19 +86,19 @@ class TransactionGreater extends Notification {
     const firstTransaction = transactionsFiltered[0]
     const titleData = onlyOne
       ? {
-        firstTransaction: firstTransaction,
-        amount: firstTransaction.amount,
-        currency: firstTransaction.currency
-      }
+          firstTransaction: firstTransaction,
+          amount: firstTransaction.amount,
+          currency: firstTransaction.currency
+        }
       : {
-        transactionsLength: transactionsFiltered.length,
-        maxAmount: this.maxAmount
-      }
+          transactionsLength: transactionsFiltered.length,
+          maxAmount: this.maxAmount
+        }
 
     const titleKey = onlyOne
-      ? (firstTransaction.amount > 0
+      ? firstTransaction.amount > 0
         ? `${translateKey}.credit.title`
-        : `${translateKey}.debit.title`)
+        : `${translateKey}.debit.title`
       : `${translateKey}.others.title`
     const title = this.t(titleKey, titleData)
 
@@ -104,10 +117,12 @@ class TransactionGreater extends Notification {
     }
   }
 
-  getPushContent (transactions) {
+  getPushContent(transactions) {
     const [transaction] = sortBy(transactions, 'date').reverse()
 
-    return `${transaction.label} : ${transaction.amount} ${transaction.currency}`
+    return `${transaction.label} : ${transaction.amount} ${
+      transaction.currency
+    }`
   }
 }
 

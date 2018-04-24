@@ -11,18 +11,29 @@ import cozy from 'assets/icons/icon-cozy.svg'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 
 import {
-  Hero, Sections, Section, Title, Subtitle,
-  Paragraph, Icon, CTA
+  Hero,
+  Sections,
+  Section,
+  Title,
+  Subtitle,
+  Paragraph,
+  Icon,
+  CTA
 } from './Hero'
 
 class Onboarding extends Component {
-  render () {
-    const { t, breakpoints: { isMobile } } = this.props
+  render() {
+    const {
+      t,
+      breakpoints: { isMobile }
+    } = this.props
 
     return (
       <Hero>
         <Topbar>
-          <Title>{t(`Onboarding.title.${isMobile ? 'mobile' : 'desktop'}`)}</Title>
+          <Title>
+            {t(`Onboarding.title.${isMobile ? 'mobile' : 'desktop'}`)}
+          </Title>
         </Topbar>
         <Sections>
           <Section>
@@ -43,7 +54,7 @@ class Onboarding extends Component {
         </Sections>
         <CTA>
           <CollectLink>
-            <Button theme='regular'>
+            <Button theme="regular">
               {t('Onboarding.connect-bank-account')}
             </Button>
           </CollectLink>
@@ -53,7 +64,4 @@ class Onboarding extends Component {
   }
 }
 
-export default compose(
-  translate(),
-  withBreakpoints()
-)(Onboarding)
+export default compose(translate(), withBreakpoints())(Onboarding)

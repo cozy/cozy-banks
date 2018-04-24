@@ -23,7 +23,7 @@ module.exports = {
     rules: [
       {
         test: /^((?!min).)*\.jsx?$/, // all js, jsx, exclude minified
-        include: SRC_DIR,
+        include: [SRC_DIR],
         loader: 'eslint-loader',
         enforce: 'pre',
         options: {
@@ -36,7 +36,11 @@ module.exports = {
       },
       {
         test: /\.jsx?$/,
-        include: [SRC_DIR, path.dirname(require.resolve('cozy-client'))],
+        include: [
+          SRC_DIR,
+          path.dirname(require.resolve('cozy-client')),
+          path.dirname(require.resolve('cozy-konnector-libs'))
+        ],
         loader: 'babel-loader',
         options: {
           cacheDirectory: true

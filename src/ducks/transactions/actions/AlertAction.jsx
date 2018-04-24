@@ -10,6 +10,7 @@ const Component = ({ t, color }) => {
     <ActionLink
       text={t('Transactions.actions.alert')}
       color={color}
+      icon={icon}
     />
   )
 }

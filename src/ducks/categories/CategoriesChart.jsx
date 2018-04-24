@@ -22,7 +22,7 @@ class CategoriesChart extends Component {
     }
   }
 
-  render ({t, categories, selectedCategory, selectCategory, width, height}) {
+  render({ t, categories, selectedCategory, width, height }) {
     if (categories.length === 0) return
 
     const labels = []
@@ -36,7 +36,9 @@ class CategoriesChart extends Component {
         colors.push(category.color)
       }
     } else {
-      const category = categories.find(category => category.name === selectedCategory)
+      const category = categories.find(
+        category => category.name === selectedCategory
+      )
       let alpha = 1
       const alphaDiff = 0.7 / category.subcategories.length
       for (const subcategory of category.subcategories) {

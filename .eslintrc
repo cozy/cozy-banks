@@ -1,11 +1,6 @@
 {
-  "env": { "es6": true, "jasmine": true },
-  "parser": "babel-eslint",
-  "extends": ["standard", "standard-jsx"],
-  "rules": {
-    "react/jsx-wrap-multilines": 2,
-    "react/react-in-jsx-scope": 2
-  },
+  "env": { "jasmine": true },
+  "extends": ["cozy-app"],
   "globals": {
     "jest": true
   }

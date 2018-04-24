@@ -1,3 +1,5 @@
+@require 'settings/breakpoints'
+
 .TransactionAction
     cursor pointer
     text-decoration none
@@ -9,3 +11,23 @@
 
 .TransactionAction-disabled
     cursor: default
+
+.TransactionActionMenu
+    width 100%
+
+    +medium-screen()
+        text-align center
+
+.TransactionActionMenuItem
+    text-align left
+
+.TransactionActionButton
+    +medium-screen()
+        // This element increases the click area of the button
+        &:before
+            content ''
+            position absolute
+            top 0
+            bottom 0
+            width 1rem
+            right 100%

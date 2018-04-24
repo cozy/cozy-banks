@@ -33,10 +33,14 @@ export const findMatchingActions = async (transaction, actionProps) => {
     }
   }
 
-  const defaultAction = find(matchingActions, action =>
-    action.defaultAction !== false && action.disabled !== true
+  const defaultAction = find(
+    matchingActions,
+    action => action.defaultAction !== false && action.disabled !== true
   )
-  const othersAction = filter(matchingActions, action => action !== defaultAction)
+  const othersAction = filter(
+    matchingActions,
+    action => action !== defaultAction
+  )
 
   return {
     default: defaultAction,

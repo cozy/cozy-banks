@@ -55,8 +55,9 @@ for (const key in categoriesStyle) {
   categoriesStyle[key].name = key
   categoriesStyle[key].id = getCategoryIdFromName(key)
   categoriesStyle[key].children = {}
-  categoriesStyle[key].icon =
-    require(`../../assets/icons/categories/icon-cat-${key}.svg`)
+  categoriesStyle[
+    key
+  ].icon = require(`../../assets/icons/categories/icon-cat-${key}.svg`)
 }
 
 export const getCategories = () => {
@@ -77,12 +78,12 @@ export const getCategoryName = id => {
   return categoryName
 }
 
-const getOptions = function (idStr) {
+const getOptions = function(idStr) {
   let k = parseInt(idStr, 10)
   let m = 10
   let name = tree[k]
   while (!categoriesStyle.hasOwnProperty(name)) {
-    k = k - (k % m)
+    k = k - k % m
     name = tree[k]
     m = 10 * m
   }
@@ -90,11 +91,10 @@ const getOptions = function (idStr) {
 }
 
 export const categoryToParent = new Map(
-  Object.keys(tree)
-    .map(id => {
-      const options = getOptions(id)
-      return [id, options]
-    })
+  Object.keys(tree).map(id => {
+    const options = getOptions(id)
+    return [id, options]
+  })
 )
 
 export const getParentCategory = catId => {

@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux'
 
-import alerterReducer from 'cozy-ui/react/Alerter'
 import * as sharingStatus from 'modules/SharingStatus'
 import filters from 'ducks/filters'
 import mobile, * as fromMobile from 'ducks/mobile'
@@ -8,7 +7,6 @@ import apps from 'ducks/apps'
 import { reducer } from 'cozy-client'
 
 export const reducers = {
-  alerts: alerterReducer,
   filters,
   mobile,
   apps,

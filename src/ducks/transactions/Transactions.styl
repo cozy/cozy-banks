@@ -9,6 +9,7 @@
     .bnk-op-date
         maxed-flex-basis 15%
         color coolGrey
+        text-align right
 
     .bnk-op-desc
         maxed-flex-basis 30%
@@ -25,13 +26,34 @@
     .bnk-transaction-mobile
         & > td
             width 100%
+            padding-top .75rem
+            padding-bottom .75rem
         &:last-child
             border-bottom 0
+    .bnk-transaction-mobile-action
+        position relative
+        flex-basis 2.5rem
+        flex-shrink 0
+        flex-grow 0
+        margin-left 1rem
+
+        &:before
+            content ''
+            position absolute
+            top 50%
+            left -.0635rem
+            width: .0635rem
+            height 1.5rem
+            background-color silver
+            transform translateY(-50%)
 
     .bnk-op-caticon
         cursor pointer
 
     +medium-screen()
+        .bnk-transaction-mobile td:last-child
+            padding-right 0
+
         .bnk-op-desc
             cursor pointer
             maxed-flex-basis 60%
