@@ -56,6 +56,18 @@ the filepath without the [hash] otherwise you will not hit the right JS file.
 Release
 =======
 
+### Pre-requisites
+
+```
+pod setup
+sudo gem install cocoapods
+yarn mobile:icon
+```
+
+You must also have the `keys/` folder available from the internal password store.
+
+### Common
+
 When releasing a new version for mobile, you have to bump the version in those files.
 
 ```
@@ -64,6 +76,8 @@ When releasing a new version for mobile, you have to bump the version in those f
 - manifest.webapp
 - package.json (généré par Cordova)
 ```
+
+### iOS
 
 #### Signing
 
@@ -88,6 +102,17 @@ Use an environment variable if you do not want Fastlane to ask for your user eac
 ```
 env FASTLANE_USER=ptbrowne@gmail.com yarn run ios:publish
 ```
+
+### Android
+
+```
+yarn run android:publish
+```
+
+Two keys will be asked during publishing, they are available in the password store in `Gangsters/cozy-banks/keys/android` :
+
+- 1: `jks-pass.gpg`
+- 2: `cozy-banks-key-pass.gpg`
 
 Notifications
 =============
