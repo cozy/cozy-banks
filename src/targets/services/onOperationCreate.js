@@ -20,6 +20,7 @@ const onOperationCreate = async () => {
   const catLastSeq = setting.categorization.lastSeq
   const notifLastSeq = setting.notifications.lastSeq
   const notifChanges = await changesTransactions(catLastSeq)
+  const transactions = notifChanges.transactions
 
   if (
     catLastSeq === notifChanges.newLastSeq
@@ -49,7 +50,6 @@ const onOperationCreate = async () => {
     }
   }
 
-  const transactions = notifChanges.transactions
   await launchNotifications(setting, transactions)
 
   setting.notifications.lastSeq =
