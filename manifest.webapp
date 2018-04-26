@@ -53,9 +53,9 @@
     }
   },
   "services": {
-    "notifications": {
+    "onOperationCreate": {
       "type": "node",
-      "file": "notifications.js",
+      "file": "onOperationCreate.js",
       "trigger": "@event io.cozy.bank.operations:CREATED",
       "debounce": "3m"
     }

@@ -19,8 +19,7 @@ module.exports = merge.strategy({
   entry: 'replace'
 })(base, ui, {
   entry: {
-    notifications: path.resolve(SRC_DIR, './targets/services/notifications'),
-    categorization: path.resolve(SRC_DIR, './targets/services/categorization')
+    onOperationCreate: path.resolve(SRC_DIR, './targets/services/onOperationCreate')
   },
   target: 'node',
   output: {
