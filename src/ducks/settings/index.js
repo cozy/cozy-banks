@@ -5,34 +5,7 @@ import AccountSettings from './AccountSettings'
 import AccountsSettings from './AccountsSettings'
 import GroupSettings, { NewGroupSettings } from './GroupSettings'
 import GroupsSettings from './GroupsSettings'
-
-// constants
-const DOCTYPE = 'io.cozy.bank.settings'
-const COLLECTION_NAME = 'settings'
-export const DEFAULTS_SETTINGS = {
-  notifications: {
-    balanceLower: {
-      value: 100,
-      enabled: false
-    },
-    transactionGreater: {
-      value: 30,
-      enabled: false
-    },
-    healthBillLinked: {
-      enabled: false
-    },
-    salaire: {
-      enabled: false
-    },
-    hebdo: {
-      enabled: false
-    },
-    mensuel: {
-      enabled: false
-    }
-  }
-}
+import { DOCTYPE, COLLECTION_NAME, DEFAULTS_SETTINGS } from './constants'
 
 // components
 export {
