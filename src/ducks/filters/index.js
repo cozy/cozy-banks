@@ -58,13 +58,14 @@ const filterByAccountIds = (transactions, accountIds) =>
     return accountIds.indexOf(transaction.account) !== -1
   })
 
+const recentToAncient = transaction => -new Date(transaction.date)
 export const getTransactionsFilteredByAccount = createSelector(
   [getTransactions, getFilteredAccountIds],
   (transactions, accountIds) => {
     if (accountIds) {
       transactions = filterByAccountIds(transactions, accountIds)
     }
-    return transactions
+    return sortBy(transactions, recentToAncient)
   }
 )
 
