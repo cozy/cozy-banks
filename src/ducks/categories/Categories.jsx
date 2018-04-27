@@ -115,7 +115,7 @@ class Categories extends Component {
     const size = isMobile ? 140 : 200
     return (
       <div>
-        <SelectDates />
+        <SelectDates showTwelveMonths={true} />
         <div className={stTop}>
           <div className={stForm}>
             {selectedCategory === undefined && (

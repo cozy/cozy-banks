@@ -12,7 +12,7 @@ import cx from 'classnames'
 import scrollAware from './scrollAware'
 import { flowRight as compose, findIndex } from 'lodash'
 
-const getPeriods = () => {
+const getPeriods = options => {
   const periods = []
   const now = endOfDay(new Date())
 
@@ -21,9 +21,11 @@ const getPeriods = () => {
     periods.push(month)
   }
 
-  // last year
-  const lastYear = subDays(now, 365)
-  periods.push([lastYear, now])
+  if (options.withTwelveMonths) {
+    // last year
+    const lastYear = subDays(now, 365)
+    periods.push([lastYear, now])
+  }
 
   return periods
 }
@@ -32,9 +34,14 @@ const capitalizeFirstLetter = string => {
   return string.charAt(0).toUpperCase() + string.slice(1)
 }
 
-class SelectDates extends Component {
-  state = {
-    periods: getPeriods()
+class SelectDatesDumb extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      periods: getPeriods({
+        withTwelveMonths: this.props.showTwelveMonths
+      })
+    }
   }
 
   getSelectedIndex = () => {
@@ -50,7 +57,7 @@ class SelectDates extends Component {
     const { periods } = this.state
     const options = []
     for (const [index, value] of periods.entries()) {
-      if (index === periods.length - 1) {
+      if (index === periods.length - 1 && this.props.showTwelveMonths) {
         options.push({ value: index, name: t('SelectDates.last_12_months') })
       } else {
         const date = parse(value, 'YYYY-MM')
