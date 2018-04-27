@@ -105,20 +105,30 @@ env FASTLANE_USER=ptbrowne@gmail.com yarn run ios:publish
 
 ### Android
 
-```
-yarn run android:publish
-```
 
 Two keys will be asked during publishing, they are available in the password store in `Gangsters/cozy-banks/keys/android` :
 
 - 1: `jks-pass.gpg`
 - 2: `cozy-banks-key-pass.gpg`
 
+You will also have to have apksigner in your PATH. It is located in the Android SDK folder.
+
+```
+export PATH $PATH:$HOME/.android/sdk/tools
+export PATH $PATH:$HOME/.android/sdk/build-tools/26.0.2
+```
+
+Finally, to publish a new version on the store, you can use :
+
+```
+yarn run android:publish
+```
+
 Notifications
 =============
 
 To debug notifications, you have to launch a watch on the notifications.js and then
-launch it with `cozy-konnector-dev`.
+launch it with `cozy-run-dev`.
 
 ⚠️ You have to temporarily add `io.cozy.accounts` to your manifest so that you can
 create a dev account to test the service.
