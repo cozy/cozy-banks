@@ -90,17 +90,8 @@ Signing certificate : 3AKXFMV43J
 
 To push an iOS build on Testflight, use the following command :
 
-```bash
-cd src/targets/mobile/
-bundle install
-cd ../../../
-yarn ios:publish
 ```
-
-Use an environment variable if you do not want Fastlane to ask for your user each time
-
-```
-env FASTLANE_USER=ptbrowne@gmail.com yarn run ios:publish
+yarn run ios:publish
 ```
 
 ### Android
