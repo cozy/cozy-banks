@@ -3,17 +3,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getURL } from 'reducers'
-import FileIntentDisplay from 'components/FileIntentDisplay'
 import PropTypes from 'prop-types'
-import Spinner from 'cozy-ui/react/Spinner'
-import { translate } from 'cozy-ui/react'
 import { checkApp, DRIVE_INFO } from 'ducks/mobile/appAvailability'
-import flash from 'ducks/flash'
 import { flowRight as compose } from 'lodash'
+import { IntentOpener } from 'cozy-ui/react'
 
-const spinnerStyle = { marginLeft: '-0.25rem', marginRight: '-1rem' }
-
-const buildAppURL = function(cozyURL, app, hash) {
+const buildAppURL = (cozyURL, app, hash) => {
   const splitted = cozyURL.split('/')
   const protocol = splitted[0]
   const hostSplitted = splitted[2].split('.')
@@ -22,80 +17,60 @@ const buildAppURL = function(cozyURL, app, hash) {
   return `${protocol}//${slug}-${app}.${domain}/#${hash}`
 }
 
-/*
-  Wraps a component so that onClick , it calls its fetchFile prop,
-  displays a Spinner while loading and displays the file, either via the
-  dedicated app or intent
-*/
 class FileOpener extends Component {
   state = {
-    loading: false
-  }
-  onCloseModal = err => {
-    this.setState({ file: null })
-    if (err) {
-      flash('error', JSON.stringify(err, null, 2))
-    }
+    isInstalled: false
   }
 
-  displayFile = async ev => {
-    ev.stopPropagation()
+  updateIsInstalled = async () => {
     try {
-      this.setState({ loading: true })
-      const fileId = await this.props.getFileId()
-
-      if (__TARGET__ === 'browser') {
-        // Open in a modal
-        this.setState({ fileId: fileId[1] })
-      } else {
-        let isInstalled = false
-        try {
-          isInstalled = await checkApp(DRIVE_INFO)
-        } catch (e) {
-          // eslint-disable-next-line no-console
-          console.warn('Could not check if app is installed. error: ' + e)
-        }
-        const baseUrl = isInstalled
-          ? DRIVE_INFO.uri
-          : buildAppURL(this.props.cozyURL, 'drive', '')
-        const url = baseUrl + `file/${fileId[1]}`
-        // Open drive in a new window
-        window.open(url, '_system')
-      }
-    } catch (err) {
-      flash('error', this.props.t('FileOpener.error'))
-
+      const isInstalled = await checkApp(DRIVE_INFO)
+      this.setState({ isInstalled })
+    } catch (e) {
       // eslint-disable-next-line no-console
-      console.warn(err)
-    } finally {
-      this.setState({ loading: false })
+      console.warn('Could not check if app is installed. error: ' + e)
     }
+  }
+
+  componentDidMount() {
+    this.updateIsInstalled()
   }
 
   render() {
-    const props = this.props
-    const { loading, fileId } = this.state
+    const { children, fileId } = this.props
+    const { isInstalled } = this.state
+
+    if (__TARGET__ === 'mobile') {
+      const baseUrl = isInstalled
+        ? DRIVE_INFO.uri
+        : buildAppURL(this.props.cozyURL, 'drive', '')
+      const url = baseUrl + `file/${fileId}`
+      // Open drive in a new window
+      const openDriveOnNewWidow = () => window.open(url, '_system')
+
+      return <span onClick={openDriveOnNewWidow}>{children}</span>
+    }
+
     return (
-      <span>
-        {React.cloneElement(props.children, { onClick: this.displayFile })}
-        {loading && <Spinner style={spinnerStyle} />}
-        {fileId && (
-          <FileIntentDisplay
-            onClose={this.onCloseModal}
-            onError={this.onCloseModal}
-            fileId={fileId}
-          />
-        )}
-      </span>
+      <IntentOpener
+        action="OPEN"
+        doctype="io.cozy.files"
+        options={{ id: fileId }}
+        onComplete={() => {}}
+        onDismiss={() => {}}
+        into="body"
+      >
+        {children}
+      </IntentOpener>
     )
   }
 }
 
 FileOpener.propTypes = {
-  children: PropTypes.element
+  children: PropTypes.element.isRequired,
+  fileId: PropTypes.string.isRequired
 }
 
-export default compose(
-  connect(state => ({ cozyURL: getURL(state) })),
-  translate()
-)(FileOpener)
+export default compose(connect(state => ({ cozyURL: getURL(state) })))(
+  FileOpener
+)
