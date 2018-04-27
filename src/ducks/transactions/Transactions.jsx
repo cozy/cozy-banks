@@ -20,6 +20,7 @@ import { withDispatch } from 'utils'
 import flash from 'ducks/flash'
 import styles from './Transactions.styl'
 import { Media, Bd, Img } from 'components/Media'
+import TransactionActionMenu from './TransactionActionMenu'
 
 const sDate = styles['bnk-op-date']
 const sDesc = styles['bnk-op-desc']
@@ -170,7 +171,7 @@ const groupByDateAndSort = transactions => {
   return sortBy(toPairs(byDate), x => x[0]).reverse()
 }
 
-class Transactions extends React.Component {
+class TransactionsD extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -263,4 +264,34 @@ class Transactions extends React.Component {
   }
 }
 
-export default compose(withBreakpoints(), translate())(Transactions)
+const Transactions = compose(withBreakpoints(), translate())(TransactionsD)
+
+export class TransactionsWithSelection extends React.Component {
+  state = {
+    transaction: null
+  }
+
+  selectTransaction = transaction => {
+    this.setState({ transaction: transaction })
+  }
+
+  unselectTransaction = () => {
+    this.setState({ transaction: null })
+  }
+
+  render(props) {
+    const { transaction } = this.state
+    return (
+      <div>
+        <Transactions selectTransaction={this.selectTransaction} {...props} />
+        {transaction && (
+          <TransactionActionMenu
+            requestClose={this.unselectTransaction}
+            transaction={transaction}
+            {...props}
+          />
+        )}
+      </div>
+    )
+  }
+}

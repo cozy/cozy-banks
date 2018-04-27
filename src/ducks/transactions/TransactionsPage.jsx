@@ -24,7 +24,7 @@ import { Breadcrumb } from 'components/Breadcrumb'
 import BackButton from 'components/BackButton'
 
 import { hydrateTransaction } from 'documents/transaction'
-import TransactionsWithSelection from './TransactionsWithSelection'
+import { TransactionTableHead, TransactionsWithSelection } from './Transactions'
 import styles from './TransactionsPage.styl'
 import { TRIGGER_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
 import { getBrands } from 'ducks/brandDictionary'
