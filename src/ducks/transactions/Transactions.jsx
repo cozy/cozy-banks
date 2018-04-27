@@ -192,6 +192,35 @@ const groupByDateAndSort = transactions => {
   return sortBy(toPairs(byDate), x => x[0]).reverse()
 }
 
+class ScrollSpy {
+  constructor(getScrollingElement) {
+    this.getScrollingElement = getScrollingElement
+    this.nodes = {}
+  }
+
+  addNode(id, node) {
+    this.nodes[id] = node
+  }
+
+  getTopMostVisibleNodeId() {
+    const scrollEl = this.getScrollingElement()
+    const topRoot =
+      scrollEl === window ? 0 : scrollEl.getBoundingClientRect().top
+    const offsets = sortBy(
+      Object.entries(this.nodes).map(([tId, node]) => [
+        tId,
+        node ? node.getBoundingClientRect().top : Infinity
+      ]),
+      x => x[1]
+    )
+    const topMost = find(offsets, o => {
+      const offset = o[1]
+      return offset - topRoot > 0
+    })
+    return topMost ? topMost[0] : null
+  }
+}
+
 class TransactionsD extends React.Component {
   state = {
     infiniteScrollTop: false
@@ -199,21 +228,38 @@ class TransactionsD extends React.Component {
 
   constructor(props) {
     super(props)
+    this.scrollSpy = new ScrollSpy(this.getScrollingElement)
   }
 
+  componentWillMount() {
+    this.updateTransactions(this.props.transactions)
   }
 
+  updateTransactions(transactions) {
+    this.transactionsById = keyBy(transactions, '_id')
+    this.transactions = transactions
   }
 
+  updateTopMostVisibleTransaction() {
+    const topMostTransactionId = this.scrollSpy.getTopMostVisibleNodeId()
+    const topMostTransaction = this.transactionsById[topMostTransactionId]
+    if (topMostTransaction) {
+      this.props.onChangeTopMostTransaction(topMostTransaction)
+    }
   }
 
   handleScroll = throttle(
     getScrollInfo => {
       this.props.onScroll(getScrollInfo)
+      this.updateTopMostVisibleTransaction()
     },
     100,
     { leading: false, trailing: true }
   )
+
+  handleRefRow = (transactionId, ref) => {
+    const node = ReactDOM.findDOMNode(ref) // eslint-disable-line
+    this.scrollSpy.addNode(transactionId, node)
   }
 
   getScrollingElement = () => {
@@ -254,6 +300,8 @@ class TransactionsD extends React.Component {
               {transactionGroup.map(transaction => {
                 return isDesktop ? (
                   <TableTrDesktop
+                    key={transaction._id}
+                    ref={this.handleRefRow.bind(null, transaction._id)}
                     transaction={transaction}
                     isExtraLarge={isExtraLarge}
                     filteringOnAccount
@@ -261,6 +309,8 @@ class TransactionsD extends React.Component {
                   />
                 ) : (
                   <TableTrNoDesktop
+                    key={transaction._id}
+                    ref={this.handleRefRow.bind(null, transaction._id)}
                     transaction={transaction}
                     selectTransaction={selectTransaction}
                     {...props}
