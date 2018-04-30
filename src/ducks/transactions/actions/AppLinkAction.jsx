@@ -5,6 +5,7 @@ import icon from 'assets/icons/actions/icon-link-out.svg'
 import capitalize from 'lodash/capitalize'
 import ActionLink from './ActionLink'
 import styles from '../TransactionActions.styl'
+import { TransactionModalRow } from '../TransactionModal'
 
 const name = 'app'
 
@@ -25,7 +26,7 @@ const Component = ({
   transaction,
   actionProps: { urls },
   compact,
-  onlyItems
+  isModalItem
 }) => {
   const appName = getAppName(urls, transaction)
   const label = t(`Transactions.actions.${name}`, {
@@ -33,8 +34,14 @@ const Component = ({
   })
   const url = urls[appName]
 
-  if (onlyItems) {
-    return <ActionLink text={label} href={url} icon="openwith" />
+  if (isModalItem) {
+    return (
+      <TransactionModalRow
+        text={label}
+        onClick={() => open(url)}
+        iconLeft="openwith"
+      />
+    )
   }
 
   return (
