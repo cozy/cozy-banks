@@ -102,6 +102,8 @@ To push an iOS build on Testflight, use the following command :
 yarn run ios:publish
 ```
 
+To fully publish the app, go to iTunes Connect using the credentials in the password store and "submit for review".
+
 ### Android
 
 
