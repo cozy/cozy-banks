@@ -15,6 +15,7 @@ import Topbar from 'components/Topbar'
 import Loading from 'components/Loading'
 import { withDispatch } from 'utils'
 import BackButton from 'components/BackButton'
+import PageTitle from 'components/PageTitle'
 import { connect } from 'react-redux'
 import { cozyConnect, fetchDocument, updateDocument } from 'cozy-client'
 import styles from './AccountsSettings.styl'
@@ -23,7 +24,6 @@ import { destroyAccount } from 'actions'
 import spinner from 'assets/icons/icon-spinner.svg'
 import { getAccountInstitutionLabel } from '../account/helpers'
 import { getAppUrlBySource, fetchApps } from 'ducks/apps'
-
 const DeleteConfirm = ({
   cancel,
   confirm,
@@ -212,7 +212,7 @@ const AccountSettings = function({ account, t }) {
     <div>
       <BackButton to="/settings/accounts" arrow />
       <Topbar>
-        <h2>{account.shortLabel || account.label}</h2>
+        <PageTitle>{account.shortLabel || account.label}</PageTitle>
       </Topbar>
       <Tabs className={styles.AcnStg__tabs} initialActiveTab="details">
         <TabList className={styles.AcnStg__tabList}>
