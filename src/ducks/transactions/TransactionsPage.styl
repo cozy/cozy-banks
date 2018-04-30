@@ -1,11 +1,22 @@
 @require 'settings/breakpoints'
 @require '~ducks/filters/SelectDates.styl'
+@require '~styles/mixins.styl'
 
-.bnk-mov-page
+.TransactionPage
+    display flex
+    flex-direction column
+    height 100%
     +small-screen()
+        display block
+
         // SelectDate is fixed on mobile so we need to add some
         // padding
         padding-top select-date-height-small
+
+.TransactionPage__bottom
+    overflow auto // TODO remove in small screen
+    @extend $full-width-table
+    margin-bottom -2rem
 
 .bnk-mov-figures
     margin          1em 0
@@ -21,3 +32,4 @@
             &
                 margin 0
                 flex-basis 50%
+

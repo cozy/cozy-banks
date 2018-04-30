@@ -2,7 +2,13 @@
 @require 'elements/defaults.styl'
 @require './utilities.styl'
 @require './text.styl'
+@require 'settings/breakpoints'
 
 h4
     margin-top 0
     margin-bottom 1rem
+
+html, body
+    +small-screen()
+        overflow-y scroll // necessary for momentum scroll on ios
+        -webkit-overflow-scrolling touch // necessary for momentum scroll on ios

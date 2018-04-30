@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import { createSelector } from 'reselect'
 import { parse, format, isWithinRange } from 'date-fns'
-import SelectDates from './SelectDates'
+import SelectDates, { ConnectedSelectDates } from './SelectDates'
 import { getTransactions, getAllGroups, getAccounts } from 'selectors'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { sortBy, last, keyBy, find } from 'lodash'
@@ -58,13 +58,14 @@ const filterByAccountIds = (transactions, accountIds) =>
     return accountIds.indexOf(transaction.account) !== -1
   })
 
+const recentToAncient = transaction => -new Date(transaction.date)
 export const getTransactionsFilteredByAccount = createSelector(
   [getTransactions, getFilteredAccountIds],
   (transactions, accountIds) => {
     if (accountIds) {
       transactions = filterByAccountIds(transactions, accountIds)
     }
-    return transactions
+    return sortBy(transactions, recentToAncient)
   }
 )
 
@@ -134,7 +135,7 @@ export const addFilterForMostRecentTransactions = () => (
   }
 }
 // components
-export { SelectDates }
+export { SelectDates, ConnectedSelectDates }
 
 // reducers
 const getDefaultMonth = () => monthFormat(format(new Date()))

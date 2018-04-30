@@ -13,6 +13,7 @@ import Topbar from 'components/Topbar'
 import Loading from 'components/Loading'
 import { Table, TdSecondary } from 'components/Table'
 import { Figure, FigureBlock } from 'components/Figure'
+import PageTitle from 'components/PageTitle'
 
 import CollectLink from 'ducks/settings/CollectLink'
 import { getSettings, fetchSettingsCollection } from 'ducks/settings'
@@ -315,7 +316,7 @@ class Balance extends React.Component {
     return (
       <div className={styles['Balance']}>
         <Topbar>
-          <h2>{t('Balance.title')}</h2>
+          <PageTitle>{t('Balance.title')}</PageTitle>
         </Topbar>
         <div className={styles['Balance__kpi']}>
           <FigureBlock

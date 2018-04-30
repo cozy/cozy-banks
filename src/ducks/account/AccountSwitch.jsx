@@ -14,6 +14,7 @@ import Overlay from 'cozy-ui/react/Overlay'
 import { Media, Bd, Img } from 'cozy-ui/react/Media'
 import { Figure } from 'components/Figure'
 import AccountSharingStatus from 'components/AccountSharingStatus'
+import PageTitle from 'components/PageTitle'
 import {
   filterByDoc,
   getFilteringDoc,
@@ -98,12 +99,12 @@ const AccountSwitchMobile = ({
 }) => (
   <Media style={{ width: '100%' }}>
     <Bd>
-      <h3 className="u-mt-0 u-mb-0" onClick={onClick}>
+      <PageTitle onClick={onClick}>
         {filteringDoc
           ? filteringDoc.shortLabel || filteringDoc.label
           : t('AccountSwitch.all_accounts')}&nbsp;
         <DownArrow />
-      </h3>
+      </PageTitle>
     </Bd>
     <Img>
       <Figure

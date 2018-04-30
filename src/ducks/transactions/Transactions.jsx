@@ -1,9 +1,14 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import cx from 'classnames'
+import find from 'lodash/find'
+import sortBy from 'lodash/sortBy'
+import throttle from 'lodash/throttle'
+import keyBy from 'lodash/keyBy'
 import format from 'date-fns/format'
 import { translate, withBreakpoints, ListItemText } from 'cozy-ui/react'
 import { Figure } from 'components/Figure'
-import { flowRight as compose, toPairs, groupBy, sortBy } from 'lodash'
+import { flowRight as compose, toPairs, groupBy } from 'lodash'
 import { Table, TdSecondary } from 'components/Table'
 import TransactionMenu from './TransactionMenu'
 import TransactionActions from './TransactionActions'
@@ -20,6 +25,8 @@ import { withDispatch } from 'utils'
 import flash from 'ducks/flash'
 import styles from './Transactions.styl'
 import { Media, Bd, Img } from 'components/Media'
+import TransactionActionMenu from './TransactionActionMenu'
+import InfiniteScroll from './InfiniteScroll'
 
 const sDate = styles['bnk-op-date']
 const sDesc = styles['bnk-op-desc']
@@ -165,71 +172,122 @@ const TableTrNoDesktop = translate()(
   }
 )
 
+export const TransactionTableHead = (props, { t }) => (
+  <div
+    style={{
+      background: 'white',
+      marginTop: '1rem',
+      marginLeft: '-2rem',
+      marginRight: '-2rem'
+    }}
+  >
+    <Table className={styles['TransactionTable']}>
+      <TableHeadDesktop t={t} />
+    </Table>
+  </div>
+)
+
 const groupByDateAndSort = transactions => {
   const byDate = groupBy(transactions, x => format(x.date, 'YYYY-MM-DD'))
   return sortBy(toPairs(byDate), x => x[0]).reverse()
 }
 
-class Transactions extends React.Component {
+class ScrollSpy {
+  constructor(getScrollingElement) {
+    this.getScrollingElement = getScrollingElement
+    this.nodes = {}
+  }
+
+  addNode(id, node) {
+    this.nodes[id] = node
+  }
+
+  getTopMostVisibleNodeId() {
+    const scrollEl = this.getScrollingElement()
+    const topRoot =
+      scrollEl === window ? 0 : scrollEl.getBoundingClientRect().top
+    const offsets = sortBy(
+      Object.entries(this.nodes).map(([tId, node]) => [
+        tId,
+        node ? node.getBoundingClientRect().top : Infinity
+      ]),
+      x => x[1]
+    )
+    const topMost = find(offsets, o => {
+      const offset = o[1]
+      return offset - topRoot > 0
+    })
+    return topMost ? topMost[0] : null
+  }
+}
+
+class TransactionsD extends React.Component {
+  state = {
+    infiniteScrollTop: false
+  }
+
   constructor(props) {
     super(props)
-    this.state = {
-      limit: 10000, // TODO fix this. nb of days shown, progressively increased
-      ...this.getDerivedStateFromProps(props)
+    this.scrollSpy = new ScrollSpy(this.getScrollingElement)
+  }
+
+  componentWillMount() {
+    this.updateTransactions(this.props.transactions)
+  }
+
+  updateTransactions(transactions) {
+    this.transactionsById = keyBy(transactions, '_id')
+    this.transactions = transactions
+  }
+
+  updateTopMostVisibleTransaction() {
+    const topMostTransactionId = this.scrollSpy.getTopMostVisibleNodeId()
+    const topMostTransaction = this.transactionsById[topMostTransactionId]
+    if (topMostTransaction) {
+      this.props.onChangeTopMostTransaction(topMostTransaction)
     }
   }
 
-  getDerivedStateFromProps() {
-    return {
-      // transactionsOrdered: groupByDateAndSort(props.transactions)
-    }
+  handleScroll = throttle(
+    getScrollInfo => {
+      this.props.onScroll(getScrollInfo)
+      this.updateTopMostVisibleTransaction()
+    },
+    100,
+    { leading: false, trailing: true }
+  )
+
+  handleRefRow = (transactionId, ref) => {
+    const node = ReactDOM.findDOMNode(ref) // eslint-disable-line
+    this.scrollSpy.addNode(transactionId, node)
   }
 
-  componentDidUpdate() {
-    /*
-    if (this.props.transactions !== previousProps.transactions) {
-      this.setState({
-        limit: 2,
-        ...this.getDerivedStateFromProps(this.props)
-      }, () => {
-        this.scheduleLimitIncrease(0)
-      })
-    }
-    */
-  }
-
-  componentDidMount() {
-    // this.scheduleLimitIncrease()
-  }
-
-  scheduleLimitIncrease(timeout = 1000, delay = 1000) {
-    this.limitTimeout = setTimeout(() => {
-      if (this.state.limit > this.state.transactionsOrdered.length) {
-        return
-      }
-      this.setState({ limit: this.state.limit + 5 })
-      this.scheduleLimitIncrease(delay)
-    }, timeout)
-  }
-
-  componentWillUnmount() {
-    clearTimeout(this.limitTimeout)
-  }
-
-  render() {
+  getScrollingElement = () => {
     const {
-      t,
+      breakpoints: { isDesktop }
+    } = this.props
+    return isDesktop
+      ? document.querySelector('.js-transactionPageBottom')
+      : window
+  }
+
+  renderTransactions() {
+    const {
       f,
       selectTransaction,
+      limitMin,
+      limitMax,
       breakpoints: { isDesktop, isExtraLarge },
       ...props
     } = this.props
-    const { limit } = this.state
-    const transactionsOrdered = groupByDateAndSort(props.transactions)
+    const transactions = this.transactions.slice(limitMin, limitMax)
+    const transactionsOrdered = groupByDateAndSort(transactions)
     return (
-      <Table className={styles['bnk-op-table']}>
-        {isDesktop && <TableHeadDesktop t={t} />}
-        {transactionsOrdered.slice(0, limit).map(dateAndGroup => {
+      <Table
+        className={styles['TransactionTable']}
+        ref={ref => (this.transactionsRef = ref)}
+      >
+        {transactionsOrdered.map(dateAndGroup => {
           const date = dateAndGroup[0]
           const transactionGroup = dateAndGroup[1]
           return (
@@ -242,6 +300,8 @@ class Transactions extends React.Component {
               {transactionGroup.map(transaction => {
                 return isDesktop ? (
                   <TableTrDesktop
+                    key={transaction._id}
+                    ref={this.handleRefRow.bind(null, transaction._id)}
                     transaction={transaction}
                     isExtraLarge={isExtraLarge}
                     filteringOnAccount
@@ -249,6 +309,8 @@ class Transactions extends React.Component {
                   />
                 ) : (
                   <TableTrNoDesktop
+                    key={transaction._id}
+                    ref={this.handleRefRow.bind(null, transaction._id)}
                     transaction={transaction}
                     selectTransaction={selectTransaction}
                     {...props}
@@ -261,6 +323,55 @@ class Transactions extends React.Component {
       </Table>
     )
   }
+
+  render() {
+    const { limitMin, limitMax } = this.props
+    return (
+      <InfiniteScroll
+        canLoadAtTop={this.props.infiniteScrollTop && limitMin > 0}
+        canLoadAtBottom={limitMax < this.transactions.length}
+        limitMin={limitMin}
+        limitMax={limitMax}
+        onReachTop={this.props.onReachTop}
+        onReachBottom={this.props.onReachBottom}
+        getScrollingElement={this.getScrollingElement}
+        onScroll={this.handleScroll}
+        className={this.props.className}
+      >
+        {this.renderTransactions()}
+      </InfiniteScroll>
+    )
+  }
 }
 
-export default compose(withBreakpoints(), translate())(Transactions)
+const Transactions = compose(withBreakpoints(), translate())(TransactionsD)
+
+export class TransactionsWithSelection extends React.Component {
+  state = {
+    transaction: null
+  }
+
+  selectTransaction = transaction => {
+    this.setState({ transaction: transaction })
+  }
+
+  unselectTransaction = () => {
+    this.setState({ transaction: null })
+  }
+
+  render(props) {
+    const { transaction } = this.state
+    return (
+      <div>
+        <Transactions selectTransaction={this.selectTransaction} {...props} />
+        {transaction && (
+          <TransactionActionMenu
+            requestClose={this.unselectTransaction}
+            transaction={transaction}
+            {...props}
+          />
+        )}
+      </div>
+    )
+  }
+}
