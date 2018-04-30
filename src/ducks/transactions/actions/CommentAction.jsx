@@ -19,7 +19,7 @@ const action = {
   name,
   icon,
   disabled: true,
-  match: () => true,
+  match: () => false,
   Component: translate()(Component)
 }
 
