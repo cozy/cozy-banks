@@ -6,7 +6,6 @@ import React, { Component } from 'react'
 import {
   translate,
   Icon,
-  ActionMenu,
   Modal,
   ModalHeader,
   ModalContent
@@ -26,7 +25,6 @@ import {
 import TransactionActions from 'ducks/transactions/TransactionActions'
 import { withUpdateCategory } from 'ducks/categories'
 import palette from 'cozy-ui/stylus/settings/palette.json'
-import edit from 'assets/icons/icon-edit.svg'
 import PropTypes from 'prop-types'
 import flash from 'ducks/flash'
 import { getCategoryId } from 'ducks/categories/helpers'
@@ -69,7 +67,6 @@ class TransactionModal extends Component {
   render() {
     const {
       t,
-      f,
       transaction,
       requestClose,
       showCategoryChoice,
