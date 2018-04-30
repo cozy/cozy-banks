@@ -81,7 +81,7 @@ class TransactionModal extends Component {
     }
 
     return (
-      <Modal mobileFullscreen dismissAction={requestClose}>
+      <Modal mobileFullscreen dismissAction={requestClose} into="body">
         <ModalHeader>
           <h2 className={styles.TransactionModalHeading}>
             <Figure
