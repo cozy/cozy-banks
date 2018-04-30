@@ -1,7 +1,7 @@
 - [Develop easily on mobile](#develop-easily-on-mobile)
 - [Release](#release)
-      - [Signing](#signing)
-      - [Push iOS build](#push-ios-build)
+  + [Signing](#signing)
+  + [Push iOS build](#push-ios-build)
 - [Notifications](#notifications)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
@@ -53,8 +53,7 @@ the filepath without the [hash] otherwise you will not hit the right JS file.
 
 ⚠️ You need to have the final `/` at the end of the PUBLIC_PATH, otherwise some some CSS resources like fonts will not load
 
-Release
-=======
+## Release
 
 ### Pre-requisites
 
