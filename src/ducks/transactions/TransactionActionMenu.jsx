@@ -3,7 +3,7 @@
  */
 
 import React, { Component } from 'react'
-import { translate, Icon, ActionMenu } from 'cozy-ui/react'
+import { translate, Icon, ActionMenu, Modal } from 'cozy-ui/react'
 import { withDispatch } from 'utils'
 import { flowRight as compose } from 'lodash'
 
@@ -45,52 +45,54 @@ class TransactionActionMenu extends Component {
       requestClose()
     }
 
-    return (
-      <ActionMenu onClose={requestClose}>
-        <Media className="u-ph-1 u-pv-half">
-          <Bd>
-            <h3 className="u-m-0 u-mb-half">{getLabel(transaction)}</h3>
-            <span>{f(transaction.date, 'dddd DD MMMM - h[h]mm')}</span>
-          </Bd>
-          <Img>
-            <Figure
-              total={transaction.amount}
-              currency={transaction.currency}
-              signed
-              coloredPositive
-            />
-          </Img>
-        </Media>
-        <hr className="u-mv-0" />
-        <Media
-          className="u-ph-1 u-pv-half u-hover"
-          onClick={showCategoryChoice}
-        >
-          <Img>
-            <CategoryIcon category={category} />
-          </Img>
-          <Bd className="u-pl-1 u-ellipsis">
-            {t(
-              `Data.subcategories.${getCategoryName(
-                getCategoryId(transaction)
-              )}`
-            )}
-          </Bd>
-          <Img className="u-pl-1">
-            <Icon icon={edit} color={palette['coolGrey']} />
-          </Img>
-        </Media>
-        <hr />
-        <TransactionActions
-          onSelect={onSelect}
-          onSelectDisabled={onSelectDisabled}
-          transaction={transaction}
-          {...props}
-          displayDefaultAction
-          onlyItems
-        />
-      </ActionMenu>
-    )
+    return <Modal mobileFullscreen dismissAction={requestClose} />
+
+    // return (
+    //   <ActionMenu onClose={requestClose}>
+    //     <Media className="u-ph-1 u-pv-half">
+    //       <Bd>
+    //         <h3 className="u-m-0 u-mb-half">{getLabel(transaction)}</h3>
+    //         <span>{f(transaction.date, 'dddd DD MMMM - h[h]mm')}</span>
+    //       </Bd>
+    //       <Img>
+    //         <Figure
+    //           total={transaction.amount}
+    //           currency={transaction.currency}
+    //           signed
+    //           coloredPositive
+    //         />
+    //       </Img>
+    //     </Media>
+    //     <hr className="u-mv-0" />
+    //     <Media
+    //       className="u-ph-1 u-pv-half u-hover"
+    //       onClick={showCategoryChoice}
+    //     >
+    //       <Img>
+    //         <CategoryIcon category={category} />
+    //       </Img>
+    //       <Bd className="u-pl-1 u-ellipsis">
+    //         {t(
+    //           `Data.subcategories.${getCategoryName(
+    //             getCategoryId(transaction)
+    //           )}`
+    //         )}
+    //       </Bd>
+    //       <Img className="u-pl-1">
+    //         <Icon icon={edit} color={palette['coolGrey']} />
+    //       </Img>
+    //     </Media>
+    //     <hr />
+    //     <TransactionActions
+    //       onSelect={onSelect}
+    //       onSelectDisabled={onSelectDisabled}
+    //       transaction={transaction}
+    //       {...props}
+    //       displayDefaultAction
+    //       onlyItems
+    //     />
+    //   </ActionMenu>
+    // )
   }
 }
 
