@@ -28,7 +28,7 @@ const GroupList = withRouter(
         <tbody>
           {groups.map(group => (
             <tr
-              key={group.label}
+              key={group._id}
               onClick={() => router.push(`/settings/groups/${group._id}`)}
               className={styles.GrpsStg__row}
             >
