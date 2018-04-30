@@ -3,7 +3,7 @@
  */
 
 import React, { Component } from 'react'
-import { translate, Icon, ActionMenu, Modal } from 'cozy-ui/react'
+import { translate, Icon, ActionMenu, Modal, ModalHeader } from 'cozy-ui/react'
 import { withDispatch } from 'utils'
 import { flowRight as compose } from 'lodash'
 
@@ -22,6 +22,7 @@ import edit from 'assets/icons/icon-edit.svg'
 import PropTypes from 'prop-types'
 import flash from 'ducks/flash'
 import { getCategoryId } from 'ducks/categories/helpers'
+import styles from './TransactionModal.styl'
 
 const showComingSoon = t => {
   flash(t('ComingSoon.description'))
@@ -45,7 +46,19 @@ class TransactionActionMenu extends Component {
       requestClose()
     }
 
-    return <Modal mobileFullscreen dismissAction={requestClose} />
+    return (
+      <Modal mobileFullscreen dismissAction={requestClose}>
+        <ModalHeader>
+          <h2 className={styles.TransactionModalHeading}>
+            <Figure
+              total={transaction.amount}
+              currency={transaction.currency}
+              signed
+            />
+          </h2>
+        </ModalHeader>
+      </Modal>
+    )
 
     // return (
     //   <ActionMenu onClose={requestClose}>
