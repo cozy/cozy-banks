@@ -9,15 +9,24 @@ import Nav from 'ducks/commons/Nav'
 import FlagSwitcher from 'components/FlagSwitcher'
 import { withBreakpoints } from 'cozy-ui/react'
 
-const _App = ({ children, location, breakpoints: { isMobile } }) => {
-  const onBalancePage = location.pathname === '/balances'
-  const showFilters = (onBalancePage && !isMobile) || !onBalancePage
+const shouldShowAccountSwitch = (location, isMobile) => {
+  if (!isMobile) {
+    return true
+  } else {
+    return (
+      location.pathname.includes('/transactions') ||
+      location.pathname.includes('/categories')
+    )
+  }
+}
 
+const _App = ({ children, location, breakpoints: { isMobile } }) => {
+  const showAccountSwitch = shouldShowAccountSwitch(location, isMobile)
   return (
     <Layout>
       {__DEVELOPMENT__ ? <FlagSwitcher /> : null}
       <Sidebar>
-        {showFilters && <AccountSwitch />}
+        {showAccountSwitch && <AccountSwitch />}
         <Nav />
       </Sidebar>
 
