@@ -8,6 +8,7 @@ import AugmentedModal from 'components/AugmentedModal'
 import * as documentCache from 'utils/documentCache'
 import flag from 'utils/flag'
 import styles from '../TransactionActions.styl'
+import { TransactionModalRow } from '../TransactionModal'
 
 const name = 'bill'
 
@@ -110,7 +111,7 @@ export class BillComponent extends Component {
       isMenuItem = false,
       actionProps,
       compact,
-      onlyItems
+      isModalItem = false
     } = this.props
 
     const { fileId } = this.state
@@ -130,20 +131,24 @@ export class BillComponent extends Component {
       )
     }
 
-    return (
-      <FileOpener fileId={fileId}>
-        {isMenuItem || onlyItems ? (
-          <ActionLink text={text} icon="file" />
-        ) : (
-          <ButtonAction
-            label={text}
-            rightIcon="file"
-            compact={compact}
-            className={styles.TransactionActionButton}
-          />
-        )}
-      </FileOpener>
-    )
+    let component = null
+
+    if (isMenuItem) {
+      component = <ActionLink text={text} icon="file" />
+    } else if (isModalItem) {
+      component = <TransactionModalRow text={text} iconLeft="file" />
+    } else {
+      component = (
+        <ButtonAction
+          label={text}
+          rightIcon="file"
+          compact={compact}
+          className={styles.TransactionActionButton}
+        />
+      )
+    }
+
+    return <FileOpener fileId={fileId}>{component}</FileOpener>
   }
 }
 

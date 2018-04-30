@@ -40,7 +40,7 @@ const showComingSoon = t => {
 
 const Separator = () => <hr className={styles.TransactionModalSeparator} />
 
-const TransactionModalRow = ({
+export const TransactionModalRow = ({
   iconLeft,
   iconRight,
   disabled = false,
@@ -54,7 +54,11 @@ const TransactionModalRow = ({
     {...props}
   >
     <Img className={styles.TransactionModalRowIcon}>
-      <Icon icon={iconLeft} width={16} color={palette.slateGrey} />
+      {Icon.isProperIcon(iconLeft) ? (
+        <Icon icon={iconLeft} width={16} color={palette.slateGrey} />
+      ) : (
+        iconLeft
+      )}
     </Img>
     <Bd className={styles.TransactionModalRowContent}>{text}</Bd>
     {iconRight && <Img>{iconRight}</Img>}
@@ -107,6 +111,15 @@ class TransactionModal extends Component {
             iconLeft={iconComment}
             text="Commentaire - Bientôt disponible"
             disabled
+          />
+          <Separator />
+          <TransactionActions
+            onSelect={onSelect}
+            onSelectDisabled={onSelectDisabled}
+            transaction={transaction}
+            {...props}
+            displayDefaultAction
+            isModalItem
           />
         </ModalContent>
       </Modal>
