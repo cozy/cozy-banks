@@ -3,9 +3,17 @@
  */
 
 import React, { Component } from 'react'
-import { translate, Icon, ActionMenu, Modal, ModalHeader } from 'cozy-ui/react'
+import {
+  translate,
+  Icon,
+  ActionMenu,
+  Modal,
+  ModalHeader,
+  ModalContent
+} from 'cozy-ui/react'
 import { withDispatch } from 'utils'
 import { flowRight as compose } from 'lodash'
+import cx from 'classnames'
 
 import { Media, Bd, Img } from 'components/Media'
 import { Figure } from 'components/Figure'
@@ -23,10 +31,35 @@ import PropTypes from 'prop-types'
 import flash from 'ducks/flash'
 import { getCategoryId } from 'ducks/categories/helpers'
 import styles from './TransactionModal.styl'
+import iconGraph from 'assets/icons/icon-graph.svg'
+import iconComment from 'assets/icons/actions/icon-comment.svg'
 
 const showComingSoon = t => {
   flash(t('ComingSoon.description'))
 }
+
+const Separator = () => <hr className={styles.TransactionModalSeparator} />
+
+const TransactionModalRow = ({
+  iconLeft,
+  iconRight,
+  disabled = false,
+  text,
+  ...props
+}) => (
+  <Media
+    className={cx(styles.TransactionModalRow, {
+      [styles['TransactionModalRow-disabled']]: disabled
+    })}
+    {...props}
+  >
+    <Img className={styles.TransactionModalRowIcon}>
+      <Icon icon={iconLeft} width={16} color={palette.slateGrey} />
+    </Img>
+    <Bd className={styles.TransactionModalRowContent}>{text}</Bd>
+    {iconRight && <Img>{iconRight}</Img>}
+  </Media>
+)
 
 class TransactionModal extends Component {
   render() {
@@ -57,6 +90,25 @@ class TransactionModal extends Component {
             />
           </h2>
         </ModalHeader>
+        <ModalContent className={styles.TransactionModalContent}>
+          <Separator />
+          <TransactionModalRow
+            iconLeft={iconGraph}
+            iconRight={<CategoryIcon category={category} />}
+            text={t(
+              `Data.subcategories.${getCategoryName(
+                getCategoryId(transaction)
+              )}`
+            )}
+            onClick={showCategoryChoice}
+          />
+          <Separator />
+          <TransactionModalRow
+            iconLeft={iconComment}
+            text="Commentaire - Bientôt disponible"
+            disabled
+          />
+        </ModalContent>
       </Modal>
     )
 
