@@ -28,7 +28,7 @@ const showComingSoon = t => {
   flash(t('ComingSoon.description'))
 }
 
-class TransactionActionMenu extends Component {
+class TransactionModal extends Component {
   render() {
     const {
       t,
@@ -109,11 +109,11 @@ class TransactionActionMenu extends Component {
   }
 }
 
-TransactionActionMenu.propTypes = {
+TransactionModal.propTypes = {
   showCategoryChoice: PropTypes.func.isRequired,
   requestClose: PropTypes.func.isRequired
 }
 
 export default compose(withDispatch, withUpdateCategory(), translate())(
-  TransactionActionMenu
+  TransactionModal
 )
