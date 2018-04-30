@@ -9,7 +9,6 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { MenuItem } from 'cozy-ui/react'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import { findMatchingActions } from './actions'
 
@@ -76,6 +75,7 @@ export const SyncTransactionActions = ({
           action={action}
           transaction={transaction}
           actionProps={actionProps}
+          isModalItem={isModalItem}
         />
       ))}
   </span>
