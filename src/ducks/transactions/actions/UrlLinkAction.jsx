@@ -1,21 +1,20 @@
 import React from 'react'
 import icon from 'assets/icons/actions/icon-link-out.svg'
 import { ButtonAction } from 'cozy-ui/react'
-import ActionLink from './ActionLink'
 import styles from '../TransactionActions.styl'
+import { TransactionModalRow } from '../TransactionModal'
 
 const name = 'url'
 
-const Component = ({ transaction, compact, onlyItems }) => {
+const Component = ({ transaction, compact, isModalItem }) => {
   const action = transaction.action
 
-  if (onlyItems) {
+  if (isModalItem) {
     return (
-      <ActionLink
+      <TransactionModalRow
         text={action.trad}
-        href={action.url}
-        target={action.target}
-        icon="openwith"
+        onClick={() => open(action.url, action.target)}
+        iconLeft="openwith"
       />
     )
   }
