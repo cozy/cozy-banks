@@ -1,4 +1,5 @@
 - [Develop easily on mobile](#develop-easily-on-mobile)
+- [Important credentials](#important-credentials)
 - [Release](#release)
   + [Signing](#signing)
   + [Push iOS build](#push-ios-build)
@@ -52,6 +53,14 @@ $ env PUBLIC_PATH=http://${IP_ADDRESS}:8005/ yarn watch:mobile
 the filepath without the [hash] otherwise you will not hit the right JS file.
 
 ⚠️ You need to have the final `/` at the end of the PUBLIC_PATH, otherwise some some CSS resources like fonts will not load
+
+## Important credentials
+
+All important credentials are stored in Cozy internal [password store](pass).
+
+- `Mobile/Android/play-store`
+- `Mobile/iOS/itunes-connect`
+- `Gangsters/cozy-banks/keys/android/`
 
 ## Release
 
@@ -153,3 +162,5 @@ The stack will send the emails through the SMTP port of MailHog and you
 will be able to see the mails in its web interface on http://localhost:8025.
 
 🖼 The PNG icons that are included in the emails are generated manually from the SVG via `scripts/icons-to-png.sh` and uploaded automatically to files.cozycloud.cc via Jenkins (which follows the file `files.cozycloud.cc` at the root of the repo).
+
+[pass]: https://www.passwordstore.org/
