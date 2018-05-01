@@ -2426,6 +2426,14 @@ concat-stream@~1.5.0, concat-stream@~1.5.1:
     readable-stream "~2.0.0"
     typedarray "~0.0.5"
 
+condense-newlines@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/condense-newlines/-/condense-newlines-0.2.1.tgz#3de985553139475d32502c83b02f60684d24c55f"
+  dependencies:
+    extend-shallow "^2.0.1"
+    is-whitespace "^0.3.0"
+    kind-of "^3.0.2"
+
 config-chain@~1.1.10, config-chain@~1.1.5:
   version "1.1.11"
   resolved "https://registry.yarnpkg.com/config-chain/-/config-chain-1.1.11.tgz#aba09747dfbe4c3e70e766a6e41586e1859fc6f2"
@@ -2779,9 +2787,9 @@ cozy-logger@^1.0.4:
   dependencies:
     json-stringify-safe "5.0.1"
 
-cozy-ui@7.18.0:
-  version "7.18.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-7.18.0.tgz#d32ae9b5ad6b1d609cc60a4572e3b290038d128d"
+cozy-ui@^7.20.0:
+  version "7.20.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-7.20.0.tgz#71fecffd8fb643244c5584f9dccdfa9415b1723d"
   dependencies:
     babel-preset-cozy-app "^0.3.1"
     classnames "^2.2.5"
@@ -2790,6 +2798,7 @@ cozy-ui@7.18.0:
     md5 "^2.2.0"
     normalize.css "^7.0.0"
     preact-portal "^1.1.2"
+    pretty "^2.0.0"
     react-select "2.0.0-alpha.7"
     stylus "^0.54.5"
 
@@ -5866,6 +5875,10 @@ is-whitespace-character@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/is-whitespace-character/-/is-whitespace-character-1.0.1.tgz#9ae0176f3282b65457a1992cdb084f8a5f833e3b"
 
+is-whitespace@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/is-whitespace/-/is-whitespace-0.3.0.tgz#1639ecb1be036aec69a54cbb401cfbed7114ab7f"
+
 is-windows@^1.0.1, is-windows@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/is-windows/-/is-windows-1.0.2.tgz#d1850eb9791ecd18e6182ce12a30f396634bb19d"
@@ -6485,7 +6498,7 @@ js-base64@^2.1.9:
   version "2.4.3"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.4.3.tgz#2e545ec2b0f2957f41356510205214e98fad6582"
 
-js-beautify@^1.6.8:
+js-beautify@^1.6.12, js-beautify@^1.6.8:
   version "1.7.5"
   resolved "https://registry.yarnpkg.com/js-beautify/-/js-beautify-1.7.5.tgz#69d9651ef60dbb649f65527b53674950138a7919"
   dependencies:
@@ -9694,6 +9707,14 @@ pretty-format@^22.4.3:
 pretty-format@^3.5.1:
   version "3.8.0"
   resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-3.8.0.tgz#bfbed56d5e9a776645f4b1ff7aa1a3ac4fa3c385"
+
+pretty@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/pretty/-/pretty-2.0.0.tgz#adbc7960b7bbfe289a557dc5f737619a220d06a5"
+  dependencies:
+    condense-newlines "^0.2.1"
+    extend-shallow "^2.0.1"
+    js-beautify "^1.6.12"
 
 private@^0.1.6, private@^0.1.7, private@^0.1.8, private@~0.1.5:
   version "0.1.8"
