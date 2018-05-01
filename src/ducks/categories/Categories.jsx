@@ -50,7 +50,7 @@ class Categories extends Component {
     selectedCategory,
     selectCategory,
     withIncome,
-    filterWithInCome,
+    filterWithIncome,
     breakpoints: { isDesktop, isTablet, isMobile }
   }) {
     if (categories === undefined) categories = []
@@ -123,7 +123,7 @@ class Categories extends Component {
                 <Toggle
                   id="withIncome"
                   checked={withIncome}
-                  onToggle={checked => filterWithInCome(checked)}
+                  onToggle={checked => filterWithIncome(checked)}
                 />
                 <label htmlFor="withIncome">Inclure les revenus</label>
               </div>
