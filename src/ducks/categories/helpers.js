@@ -1,4 +1,4 @@
-import parentCategory from './categoriesMap'
+import parentCategory, { categoriesStyle } from './categoriesMap'
 import categoryNames from './tree'
 
 const getParent = parentCategory.get.bind(parentCategory)
@@ -27,6 +27,10 @@ export const getParentCategory = transaction => {
 // a list of related transactions, a name and a color
 export const transactionsByCategory = transactions => {
   let categories = {}
+  for (let catName of Object.keys(categoriesStyle)) {
+    const category = { name: catName, ...categoriesStyle[catName] }
+    categories[catName] = makeCategory(category)
+  }
 
   for (const transaction of transactions) {
     // Creates a map of categories, where each entry contains a list of
@@ -74,7 +78,10 @@ export const computeCategorieData = transactionsByCategory => {
           debit: debit,
           credit: credit,
           percentage: 0,
-          currency: subcategory.transactions[0].currency,
+          currency:
+            subcategory.transactions.length > 0
+              ? subcategory.transactions[0].currency
+              : '',
           transactionsNumber: subcategory.transactions.length
         }
       }
@@ -96,7 +103,10 @@ export const computeCategorieData = transactionsByCategory => {
       debit: debit,
       credit: credit,
       percentage: 0,
-      currency: category.transactions[0].currency,
+      currency:
+        category.transactions.length > 0
+          ? category.transactions[0].currency
+          : '',
       transactionsNumber: category.transactions.length,
       subcategories: subcategories
     }

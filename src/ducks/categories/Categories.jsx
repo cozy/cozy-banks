@@ -148,7 +148,7 @@ class Categories extends Component {
             selectCategory={selectCategory}
           />
         </div>
-        {categories.length === 0 ? (
+        {categories.length === 0 || categories[0].transactionsNumber === 0 ? (
           <p>{t('Categories.title.empty_text')}</p>
         ) : (
           <Table className={stTableCategory}>
