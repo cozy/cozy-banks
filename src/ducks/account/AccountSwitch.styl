@@ -8,7 +8,6 @@
 .account-switch
     position relative
     padding-bottom 20px
-    border-bottom 1px solid silver
 
     a
     a:visited
@@ -53,10 +52,19 @@
     position fixed
     top 78px
     left 0
+    right 0
     width 440px
     overflow auto
     z-index: 60
     max-height: "calc(100vh - %s)" % @top
+    margin-left auto
+    margin-right auto
+
+    +small-screen()
+        left 10px
+        right 10px
+        margin-left inherit
+        width auto
 
 .account-switch-menu
     margin 20px
@@ -121,65 +129,21 @@
         color coolGrey
         font-size .8em
 
-+medium-screen()
-    .account-switch
-        z-index 60
-        position fixed
-        top 68px
-        right 20px
-        height 47px
-        margin 0
-        padding 0
-        width 48px
-        border-width 0
+.account-switch
+    top 0
+    padding 0
+    border 0
+    margin 0
 
-    .account-switch-menu-content
-        z-index 61
-        position fixed
-        top 58px
-        left 50%
-        margin-left -200px
-        width 400px
-        max-height "calc(100vh - %s)" % @top
-        overflow auto
+.account-switch-button-mobile
+    background-color transparent
 
-    .account-switch-menu
-        top 0
-        left 0
-        right 0
-        max-height inherit
-        margin 0
+.AccountSwitch__Select
+    display inline-flex
+    margin-bottom 1rem
+    overflow hidden
+    cursor pointer
 
-    .account-switch-button-mobile
-        $size = 3rem // same height as cozy-bar
-        background embedurl('../../assets/icons/actions/filter.svg') center center no-repeat alpha(silver, 0.8)
-        margin 0
-        border 0
-        width $size
-        height $size
-        cursor pointer
-        outline 0
-
-        &.active
-            background-image embedurl('../../assets/icons/actions/filter-active.svg')
-
-+small-screen()
-    .account-switch
-        top 0
-        padding 0
-        border 0
-        margin 0
-        width 0
-        height 0
-
-    .account-switch-button-mobile
-        background-color transparent
-
-    .account-switch-menu-content
-        left 10px
-        right 10px
-        margin-left inherit
-        width auto
-
-.account-switch-figure
-    font-size 1.125rem
+    +small-screen()
+        margin-bottom 0
+        max-width 100%

@@ -35,7 +35,7 @@ import { TransactionTableHead, TransactionsWithSelection } from './Transactions'
 import styles from './TransactionsPage.styl'
 import { TRIGGER_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
 import { getBrands } from 'ducks/brandDictionary'
-import PageTitle from 'components/PageTitle'
+import { AccountSwitch } from 'ducks/account'
 
 const isPendingOrLoading = function(col) {
   return col.fetchStatus === 'pending' || col.fetchStatus === 'loading'
@@ -263,9 +263,8 @@ class TransactionsPage extends Component {
       <div className={styles.TransactionPage}>
         {subcategoryName ? <BackButton /> : null}
         <div className={styles.TransactionPage__top}>
-          {!isMobile ? (
-            <Breadcrumb items={breadcrumbItems} tag={PageTitle} />
-          ) : null}
+          {!isMobile ? <Breadcrumb items={breadcrumbItems} /> : null}
+          <AccountSwitch />
           {filteredTransactions.length !== 0 && subcategoryName ? (
             <KPIs transactions={filteredTransactions} />
           ) : (

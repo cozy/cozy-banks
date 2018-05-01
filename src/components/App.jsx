@@ -4,30 +4,21 @@ import ReactHint from 'react-hint'
 import 'react-hint/css/index.css'
 import { Layout, Content } from 'components/Layout'
 import { Sidebar } from 'cozy-ui/react'
-import { AccountSwitch } from 'ducks/account'
 import Nav from 'ducks/commons/Nav'
 import FlagSwitcher from 'components/FlagSwitcher'
-import { withBreakpoints } from 'cozy-ui/react'
 
-const _App = ({ children, location, breakpoints: { isMobile } }) => {
-  const onBalancePage = location.pathname === '/balances'
-  const showFilters = (onBalancePage && !isMobile) || !onBalancePage
+const App = ({ children }) => (
+  <Layout>
+    {__DEVELOPMENT__ ? <FlagSwitcher /> : null}
+    <Sidebar>
+      <Nav />
+    </Sidebar>
 
-  return (
-    <Layout>
-      {__DEVELOPMENT__ ? <FlagSwitcher /> : null}
-      <Sidebar>
-        {showFilters && <AccountSwitch />}
-        <Nav />
-      </Sidebar>
+    <Content>{children}</Content>
 
-      <Content>{children}</Content>
-
-      {/* Outside every other component to bypass overflow:hidden */}
-      <ReactHint />
-    </Layout>
-  )
-}
-const App = withBreakpoints()(_App)
+    {/* Outside every other component to bypass overflow:hidden */}
+    <ReactHint />
+  </Layout>
+)
 
 export default App
