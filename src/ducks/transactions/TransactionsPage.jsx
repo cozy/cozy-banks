@@ -275,16 +275,20 @@ class TransactionsPage extends Component {
             period={this.state.currentMonth}
             onChange={this.handleChangeMonth}
           />
-          <TransactionTableHead />
+          {filteredTransactions.length > 0 ? (
+            !isMobile ? (
+              <TransactionTableHead />
+            ) : null
+          ) : (
+            <p>{t('Transactions.no-movements')}</p>
+          )}
         </div>
         <div
           className={
             styles.TransactionPage__bottom + ' js-transactionPageBottom'
           }
         >
-          {filteredTransactions.length === 0 ? (
-            <p>{t('Transactions.no-movements')}</p>
-          ) : (
+          {filteredTransactions.length > 0 && (
             <TransactionsWithSelection
               className={styles.TransactionPage__top}
               limitMin={this.state.limitMin}
