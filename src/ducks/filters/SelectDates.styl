@@ -1,4 +1,5 @@
 @require 'settings/breakpoints'
+@require 'settings/palette'
 @require '~styles/variables.styl'
 
 // Due to discrepancies between Chrome and Firefox in
@@ -7,13 +8,13 @@ select-date-height=3rem
 select-date-width=20rem
 select-date-height-small = 2.5rem
 
-.select-dates
+.SelectDates
     display flex
     white-space nowrap
     width select-date-width
     height select-date-height
 
-    .prev-button, .next-button, .select-dates-select
+    .prev-button, .next-button, .SelectDates-select
         height 100%
         margin 0
 
@@ -25,7 +26,7 @@ select-date-height-small = 2.5rem
         svg
             margin-top 5px
 
-    .select-dates-select
+    .SelectDates-select
         display inline
         flex 1
 
@@ -36,38 +37,8 @@ select-date-height-small = 2.5rem
             height 100%
             vertical-align top // corrects a 1px bug on Windows' Chrome
 
-.prev-button, .next-button
-    background transparent
-    border-radius 4px
-    box-sizing border-box
-    border 1px solid silver
-    padding 1em
-    outline 0
-    cursor pointer
-    font-size 1.125rem
-
-    &:disabled
-        cursor not-allowed
-
-    svg
-        width 1rem
-        height 1rem
-
-.prev-button
-    border-top-right-radius 0
-    border-bottom-right-radius 0
-    border-right-width 0
-
-.next-button
-    border-top-left-radius 0
-    border-bottom-left-radius 0
-    border-left-width 0
-
-    .next-icon
-        transform rotate(180deg)
-
 +small-screen()
-    .select-dates
+    .SelectDates
         m = 0.75rem // size of the margin-top/bottom
         topbar-height = 3rem
         top topbar-height + m
@@ -93,3 +64,10 @@ select-date-height-small = 2.5rem
 
         .prev-button, .next-button
             width 2.5rem
+
+.SelectDates__Button
+    cursor pointer
+    color slateGrey
+
+.SelectDates__Icon
+    color slateGrey

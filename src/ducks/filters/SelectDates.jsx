@@ -1,30 +1,27 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import Select from 'components/Select'
-import { subDays, subMonths, format, endOfDay, parse } from 'date-fns'
+import uniqBy from 'lodash/uniqBy'
+import find from 'lodash/find'
+import findLast from 'lodash/findLast'
+import { subMonths, format, endOfDay, parse } from 'date-fns'
 import { translate } from 'cozy-ui/react/I18n'
 import { getPeriod, addFilterByPeriod } from '.'
 
 import styles from './SelectDates.styl'
 import Icon from 'cozy-ui/react/Icon'
-import arrowLeft from 'assets/icons/icon-arrow-left.svg'
+import Chip from 'cozy-ui/react/Chip'
+import Select from 'components/Select'
 import cx from 'classnames'
 import scrollAware from './scrollAware'
 import { flowRight as compose, findIndex } from 'lodash'
 
-const getPeriods = options => {
+const getPeriods = () => {
   const periods = []
   const now = endOfDay(new Date())
 
   for (const monthNumber of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]) {
     const month = format(subMonths(now, monthNumber), 'YYYY-MM')
     periods.push(month)
-  }
-
-  if (options.withTwelveMonths) {
-    // last year
-    const lastYear = subDays(now, 365)
-    periods.push([lastYear, now])
   }
 
   return periods
@@ -34,13 +31,68 @@ const capitalizeFirstLetter = string => {
   return string.charAt(0).toUpperCase() + string.slice(1)
 }
 
-class SelectDatesDumb extends Component {
+class DateYearSelector extends PureComponent {
+  onChangeMonth = month => {
+    this.onChange(this.props.selected.year + '-' + month)
+  }
+
+  onChangeYear = year => {
+    this.onChange(year + '-' + this.props.selected.month)
+  }
+
+  onChange = value => {
+    if (!find(this.props.options, x => x.value == value)) {
+      const past = x => x.value < value
+      const future = x => x.value > value
+      const findValue = searchInPast =>
+        searchInPast
+          ? find(this.props.options, past)
+          : findLast(this.props.options, future)
+
+      const searchInPast = value < this.props.selected.value
+      let nearest = findValue(searchInPast)
+      if (!nearest) {
+        nearest = findValue(!searchInPast)
+      }
+      value = nearest.value
+    }
+    this.props.onChange(value)
+  }
+
+  render() {
+    const { selected } = this.props
+    const selectedYear = selected.year
+    const selectedMonth = selected.month
+    const years = uniqBy(this.props.options, x => x.year)
+    const months = this.props.options.filter(x => x.year === selectedYear)
+
+    return (
+      <span>
+        <Chip>
+          <Select
+            name="year"
+            value={selectedYear}
+            options={years.map(x => ({ value: x.year, name: x.yearF }))}
+            onChange={this.onChangeYear}
+          />
+          <Chip.Separator />
+          <Select
+            name="month"
+            value={selectedMonth}
+            options={months.map(x => ({ value: x.month, name: x.monthF }))}
+            onChange={this.onChangeMonth}
+          />
+        </Chip>
+      </span>
+    )
+  }
+}
+
+class SelectDatesDumb extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      periods: getPeriods({
-        withTwelveMonths: this.props.showTwelveMonths
-      })
+      periods: getPeriods()
     }
   }
 
@@ -53,17 +105,20 @@ class SelectDatesDumb extends Component {
 
   getOptions = () => {
     // create options
-    const { t, f } = this.props
+    const { f } = this.props
     const { periods } = this.state
     const options = []
     for (const [index, value] of periods.entries()) {
       if (index === periods.length - 1 && this.props.showTwelveMonths) {
-        options.push({ value: index, name: t('SelectDates.last_12_months') })
+        // options.push({ value: index, name: t('SelectDates.last_12_months') })
       } else {
         const date = parse(value, 'YYYY-MM')
         options.push({
-          value: index,
-          name: capitalizeFirstLetter(f(date, 'MMMM YYYY'))
+          value: value,
+          year: format(date, 'YYYY'),
+          month: format(date, 'MM'),
+          yearF: capitalizeFirstLetter(f(date, 'YYYY')),
+          monthF: capitalizeFirstLetter(f(date, 'MMMM'))
         })
       }
     }
@@ -94,38 +149,32 @@ class SelectDatesDumb extends Component {
   render({ scrolling }) {
     const selected = this.getSelectedIndex()
     const options = this.getOptions()
+
     return (
       <div
         className={cx(
-          styles['select-dates'],
-          scrolling && styles['select-dates--scrolling']
+          styles.SelectDates,
+          scrolling && styles['SelectDates--scrolling']
         )}
       >
-        <button
-          disabled={selected === options.length - 1}
-          className={styles['prev-button']}
+        <DateYearSelector
+          options={options}
+          selected={options[selected]}
+          onChange={v => this.props.onChange(v)}
+        />
+        <Chip.Round
+          className={styles.SelectDates__Button}
           onClick={this.onChoosePrev}
         >
-          <Icon height="1rem" icon={arrowLeft} />
-        </button>
-        <Select
-          className={styles['select-dates-select']}
-          name="periods"
-          value={selected}
-          options={options}
-          onChange={this.onChange}
-        />
-        <button
-          disabled={selected === 0}
-          className={styles['next-button']}
+          <Icon icon="back" />
+        </Chip.Round>
+
+        <Chip.Round
+          className={styles.SelectDates__Button}
           onClick={this.onChooseNext}
         >
-          <Icon
-            height="1rem"
-            className={styles['next-icon']}
-            icon={arrowLeft}
-          />
-        </button>
+          <Icon icon="forward" />
+        </Chip.Round>
       </div>
     )
   }

@@ -1,0 +1,17 @@
+@require 'settings/palette'
+
+.Select
+    appearance none
+    border 0
+    outline 0
+
+    // So that you can click on arrow icon to open the select
+    padding-right 2rem
+    margin-right -2rem
+    cursor pointer
+
+.Select__icon
+    // Let click go through to the select
+    pointer-events none
+    cursor pointer
+    color slateGrey
