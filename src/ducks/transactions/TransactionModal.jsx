@@ -130,8 +130,9 @@ class TransactionModal extends Component {
         dismissAction={requestClose}
         into="body"
         crossClassName={styles.TransactionModalCross}
+        className={styles.TransactionModal}
       >
-        <ModalHeader>
+        <ModalHeader className={styles.TransactionModalHeader}>
           <h2 className={styles.TransactionModalHeading}>
             <Figure
               total={transaction.amount}

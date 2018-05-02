@@ -1,6 +1,18 @@
+@require 'settings/breakpoints'
+
+.TransactionModal
+    .TransactionModalHeader
+        +small-screen()
+            min-height 3rem
+            padding-top 0
+            margin-bottom 0
+
 .TransactionModalHeading
     text-align center
     padding-top 4px
+
+    +small-screen()
+        padding-top 14px
 
 .TransactionModalContent
     padding 0
@@ -58,3 +70,6 @@
 .TransactionModalCross
     width 16px
     height 16px
+
+    +small-screen()
+        top 0.35rem !important
