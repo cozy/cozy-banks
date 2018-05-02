@@ -19,8 +19,10 @@ const onOperationCreate = async () => {
   const setting = await readSetting()
   const catLastSeq = setting.categorization.lastSeq
   const notifLastSeq = setting.notifications.lastSeq
-  const notifChanges = await changesTransactions(catLastSeq)
-  const transactions = notifChanges.transactions
+  const notifChanges = await changesTransactions(notifLastSeq)
+  const catChanges = catLastSeq === notifLastSeq
+    ? notifChanges
+    : await changesTransactions(catLastSeq)
 
   if (
     catLastSeq === notifChanges.newLastSeq
@@ -30,13 +32,14 @@ const onOperationCreate = async () => {
     return process.exit()
   }
 
-  const toCategorize = transactions.filter(t => t.cozyCategoryId === undefined)
+  const toCategorize = catChanges.transactions
+    .filter(t => t.cozyCategoryId === undefined)
   try {
     if (toCategorize.length > 0) {
       const transactionsCategorized = await categorizes(toCategorize)
       const transactionSaved = await saveTransactions(transactionsCategorized)
-      const catChanges = await changesTransactions(notifChanges.newLastSeq)
-      setting.categorization.lastSeq = catChanges.newLastSeq
+      const newChanges = await changesTransactions(notifChanges.newLastSeq)
+      setting.categorization.lastSeq = newChanges.newLastSeq
     } else {
       setting.categorization.lastSeq = notifChanges.newLastSeq
     }
@@ -50,7 +53,7 @@ const onOperationCreate = async () => {
     }
   }
 
-  await launchNotifications(setting, transactions)
+  await launchNotifications(setting, notifChanges.transactions)
 
   setting.notifications.lastSeq =
     catLastSeq === setting.categorization.lastSeq
