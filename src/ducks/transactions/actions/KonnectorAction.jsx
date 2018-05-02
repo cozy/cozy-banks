@@ -10,6 +10,7 @@ import {
 import icon from 'assets/icons/actions/icon-link-out.svg'
 import styles from '../TransactionActions.styl'
 import { TransactionModalRow } from '../TransactionModal'
+import palette from 'cozy-ui/stylus/settings/palette.json'
 
 const name = 'konnector'
 
@@ -37,7 +38,12 @@ const Component = ({
         options={{ slug: brand.konnectorSlug }}
       >
         {isModalItem ? (
-          <TransactionModalRow iconLeft="plus">{label}</TransactionModalRow>
+          <TransactionModalRow
+            iconLeft="plus"
+            style={{ color: palette.dodgerBlue }}
+          >
+            {label}
+          </TransactionModalRow>
         ) : (
           <ButtonAction
             label={label}

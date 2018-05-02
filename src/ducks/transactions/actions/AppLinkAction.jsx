@@ -6,6 +6,7 @@ import capitalize from 'lodash/capitalize'
 import ActionLink from './ActionLink'
 import styles from '../TransactionActions.styl'
 import { TransactionModalRow } from '../TransactionModal'
+import palette from 'cozy-ui/stylus/settings/palette.json'
 
 const name = 'app'
 
@@ -36,7 +37,11 @@ const Component = ({
 
   if (isModalItem) {
     return (
-      <TransactionModalRow onClick={() => open(url)} iconLeft="openwith">
+      <TransactionModalRow
+        onClick={() => open(url)}
+        iconLeft="openwith"
+        style={{ color: palette.dodgerBlue }}
+      >
         {label}
       </TransactionModalRow>
     )

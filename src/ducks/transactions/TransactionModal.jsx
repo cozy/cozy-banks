@@ -63,7 +63,6 @@ export const TransactionModalRow = ({
         <Icon
           icon={iconLeft}
           width={16}
-          color={palette.slateGrey}
           className={cx({
             [styles['TransactionModalRowIcon-alignTop']]: props.align === 'top'
           })}

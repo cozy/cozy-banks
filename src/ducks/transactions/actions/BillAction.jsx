@@ -9,6 +9,7 @@ import * as documentCache from 'utils/documentCache'
 import flag from 'utils/flag'
 import styles from '../TransactionActions.styl'
 import { TransactionModalRow } from '../TransactionModal'
+import palette from 'cozy-ui/stylus/settings/palette.json'
 
 const name = 'bill'
 
@@ -137,7 +138,12 @@ export class BillComponent extends Component {
       component = <ActionLink text={text} icon="file" />
     } else if (isModalItem) {
       component = (
-        <TransactionModalRow iconLeft="file">{text}</TransactionModalRow>
+        <TransactionModalRow
+          iconLeft="file"
+          style={{ color: palette.dodgerBlue }}
+        >
+          {text}
+        </TransactionModalRow>
       )
     } else {
       component = (

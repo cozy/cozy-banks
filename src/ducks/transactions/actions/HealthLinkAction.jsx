@@ -17,6 +17,7 @@ const Component = ({ t, actionProps: { urls }, compact, isModalItem }) => {
       <TransactionModalRow
         onClick={() => open(url, '_blank')}
         iconLeft="openwith"
+        style={{ color: palette.dodgerBlue }}
       >
         {label}
       </TransactionModalRow>
