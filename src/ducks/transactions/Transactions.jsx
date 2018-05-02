@@ -23,8 +23,8 @@ import { withUpdateCategory } from 'ducks/categories'
 import { withDispatch } from 'utils'
 import styles from './Transactions.styl'
 import { Media, Bd, Img } from 'components/Media'
-import TransactionActionMenu from './TransactionActionMenu'
 import InfiniteScroll from './InfiniteScroll'
+import TransactionModal from './TransactionModal'
 
 const sDate = styles['bnk-op-date']
 const sDesc = styles['bnk-op-desc']
@@ -351,7 +351,7 @@ export class TransactionsWithSelection extends React.Component {
       <div>
         <Transactions selectTransaction={this.selectTransaction} {...props} />
         {transaction && (
-          <TransactionActionMenu
+          <TransactionModal
             requestClose={this.unselectTransaction}
             transaction={transaction}
             {...props}
