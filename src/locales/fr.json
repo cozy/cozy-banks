@@ -108,7 +108,7 @@
       "attach": "Attacher un document",
       "konnector": "Mes factures",
       "alert": "Créer une alerte",
-      "comment": "Ajouter un commentaire",
+      "comment": "Commentaire - Bientôt disponible",
       "healthExpenseProcessed": {
         "single": "1 remboursement",
         "plural": "%{nbReimbursements} remboursements"

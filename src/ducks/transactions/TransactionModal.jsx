@@ -161,7 +161,7 @@ class TransactionModal extends Component {
           </TransactionModalRow>
           <Separator />
           <TransactionModalRow iconLeft={iconComment} disabled>
-            Commentaire - Bientôt disponible
+            {t('Transactions.actions.comment')}
           </TransactionModalRow>
           <Separator />
           <TransactionActions
