@@ -24,19 +24,13 @@ import {
 } from 'ducks/categories/categoriesMap'
 import TransactionActions from 'ducks/transactions/TransactionActions'
 import { withUpdateCategory } from 'ducks/categories'
-import palette from 'cozy-ui/stylus/settings/palette.json'
 import PropTypes from 'prop-types'
-import flash from 'ducks/flash'
 import { getCategoryId } from 'ducks/categories/helpers'
 import styles from './TransactionModal.styl'
 import iconGraph from 'assets/icons/icon-graph.svg'
 import iconComment from 'assets/icons/actions/icon-comment.svg'
 import iconCredit from 'assets/icons/icon-credit.svg'
 import { getAccountLabel } from 'ducks/account/helpers'
-
-const showComingSoon = t => {
-  flash(t('ComingSoon.description'))
-}
 
 const Separator = () => <hr className={styles.TransactionModalSeparator} />
 
@@ -111,11 +105,6 @@ class TransactionModal extends Component {
     } = this.props
     const categoryId = getCategoryId(transaction)
     const category = getParentCategory(categoryId)
-    const onSelect = () => requestClose()
-    const onSelectDisabled = () => {
-      showComingSoon(t)
-      requestClose()
-    }
 
     const typeIcon = (
       <Icon
@@ -176,8 +165,6 @@ class TransactionModal extends Component {
           </TransactionModalRow>
           <Separator />
           <TransactionActions
-            onSelect={onSelect}
-            onSelectDisabled={onSelectDisabled}
             transaction={transaction}
             {...props}
             displayDefaultAction
@@ -186,53 +173,6 @@ class TransactionModal extends Component {
         </ModalContent>
       </Modal>
     )
-
-    // return (
-    //   <ActionMenu onClose={requestClose}>
-    //     <Media className="u-ph-1 u-pv-half">
-    //       <Bd>
-    //         <h3 className="u-m-0 u-mb-half">{getLabel(transaction)}</h3>
-    //         <span>{f(transaction.date, 'dddd DD MMMM - h[h]mm')}</span>
-    //       </Bd>
-    //       <Img>
-    //         <Figure
-    //           total={transaction.amount}
-    //           currency={transaction.currency}
-    //           signed
-    //           coloredPositive
-    //         />
-    //       </Img>
-    //     </Media>
-    //     <hr className="u-mv-0" />
-    //     <Media
-    //       className="u-ph-1 u-pv-half u-hover"
-    //       onClick={showCategoryChoice}
-    //     >
-    //       <Img>
-    //         <CategoryIcon category={category} />
-    //       </Img>
-    //       <Bd className="u-pl-1 u-ellipsis">
-    //         {t(
-    //           `Data.subcategories.${getCategoryName(
-    //             getCategoryId(transaction)
-    //           )}`
-    //         )}
-    //       </Bd>
-    //       <Img className="u-pl-1">
-    //         <Icon icon={edit} color={palette['coolGrey']} />
-    //       </Img>
-    //     </Media>
-    //     <hr />
-    //     <TransactionActions
-    //       onSelect={onSelect}
-    //       onSelectDisabled={onSelectDisabled}
-    //       transaction={transaction}
-    //       {...props}
-    //       displayDefaultAction
-    //       onlyItems
-    //     />
-    //   </ActionMenu>
-    // )
   }
 }
 

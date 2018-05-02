@@ -13,7 +13,6 @@ import { isHealthExpense } from 'ducks/categories/helpers'
 import allBrands from 'ducks/brandDictionary/brands.json'
 import { BillComponent } from './BillAction'
 import styles from '../TransactionActions.styl'
-import ActionLink from './ActionLink'
 import { flowRight as compose } from 'lodash'
 import { TransactionModalRow } from '../TransactionModal'
 
