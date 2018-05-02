@@ -33,7 +33,9 @@ class FileOpener extends Component {
   }
 
   componentDidMount() {
-    this.updateIsInstalled()
+    if (__TARGET__ === 'mobile') {
+      this.updateIsInstalled()
+    }
   }
 
   render() {
