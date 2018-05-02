@@ -8,8 +8,10 @@ import {
   Icon,
   Modal,
   ModalHeader,
-  ModalContent
+  ModalContent,
+  withBreakpoints
 } from 'cozy-ui/react'
+import palette from 'cozy-ui/stylus/settings/palette.json'
 import { withDispatch } from 'utils'
 import { flowRight as compose } from 'lodash'
 import cx from 'classnames'
@@ -30,6 +32,7 @@ import styles from './TransactionModal.styl'
 import iconGraph from 'assets/icons/icon-graph.svg'
 import iconComment from 'assets/icons/actions/icon-comment.svg'
 import iconCredit from 'assets/icons/icon-credit.svg'
+import iconArrowLeft from 'assets/icons/icon-arrow-left.svg'
 import { getAccountLabel } from 'ducks/account/helpers'
 
 const Separator = () => <hr className={styles.TransactionModalSeparator} />
@@ -93,6 +96,16 @@ const _TransactionInfos = ({ account, date, type, t }) => (
 
 const TransactionInfos = translate()(_TransactionInfos)
 
+const CloseButton = ({ onClick }) => (
+  <button
+    type="button"
+    onClick={onClick}
+    className={styles.TransactionModalCloseButton}
+  >
+    <Icon icon={iconArrowLeft} width={16} color={palette.coolGrey} />
+  </button>
+)
+
 class TransactionModal extends Component {
   render() {
     const {
@@ -101,6 +114,7 @@ class TransactionModal extends Component {
       transaction,
       requestClose,
       showCategoryChoice,
+      breakpoints: { isMobile },
       ...props
     } = this.props
     const categoryId = getCategoryId(transaction)
@@ -134,6 +148,7 @@ class TransactionModal extends Component {
           </h2>
         </ModalHeader>
         <ModalContent className={styles.TransactionModalContent}>
+          {isMobile && <CloseButton onClick={requestClose} />}
           <Separator />
           <TransactionModalRow
             iconLeft={typeIcon}
@@ -181,6 +196,9 @@ TransactionModal.propTypes = {
   requestClose: PropTypes.func.isRequired
 }
 
-export default compose(withDispatch, withUpdateCategory(), translate())(
-  TransactionModal
-)
+export default compose(
+  withDispatch,
+  withUpdateCategory(),
+  translate(),
+  withBreakpoints()
+)(TransactionModal)
