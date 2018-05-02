@@ -37,7 +37,7 @@ const Component = ({
         options={{ slug: brand.konnectorSlug }}
       >
         {isModalItem ? (
-          <TransactionModalRow text={label} iconLeft="plus" />
+          <TransactionModalRow iconLeft="plus">{label}</TransactionModalRow>
         ) : (
           <ButtonAction
             label={label}

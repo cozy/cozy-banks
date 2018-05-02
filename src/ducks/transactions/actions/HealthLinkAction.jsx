@@ -15,10 +15,11 @@ const Component = ({ t, actionProps: { urls }, compact, isModalItem }) => {
   if (isModalItem) {
     return (
       <TransactionModalRow
-        text={label}
         onClick={() => open(url, '_blank')}
         iconLeft="openwith"
-      />
+      >
+        {label}
+      </TransactionModalRow>
     )
   }
 

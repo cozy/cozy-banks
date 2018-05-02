@@ -7,11 +7,9 @@ const name = 'alert'
 
 const Component = ({ t }) => {
   return (
-    <TransactionModalRow
-      text={t('Transactions.actions.alert')}
-      iconLeft={icon}
-      disabled
-    />
+    <TransactionModalRow iconLeft={icon} disabled>
+      {t('Transactions.actions.alert')}
+    </TransactionModalRow>
   )
 }
 

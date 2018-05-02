@@ -7,11 +7,9 @@ const name = 'comment'
 
 const Component = ({ t }) => {
   return (
-    <TransactionModalRow
-      text={t('Transactions.actions.comment')}
-      iconLeft={icon}
-      disabled
-    />
+    <TransactionModalRow iconLeft={icon} disabled>
+      {t('Transactions.actions.comment')}
+    </TransactionModalRow>
   )
 }
 

@@ -12,10 +12,11 @@ const Component = ({ transaction, compact, isModalItem }) => {
   if (isModalItem) {
     return (
       <TransactionModalRow
-        text={action.trad}
         onClick={() => open(action.url, action.target)}
         iconLeft="openwith"
-      />
+      >
+        {action.trad}
+      </TransactionModalRow>
     )
   }
 

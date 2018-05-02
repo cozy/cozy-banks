@@ -62,12 +62,13 @@ const Component = ({
     if (isModalItem) {
       return (
         <TransactionModalRow
-          text={text}
           iconLeft={<Icon icon={icon} color={palette.pomegranate} />}
           style={{
             color: palette.pomegranate
           }}
-        />
+        >
+          {text}
+        </TransactionModalRow>
       )
     }
 

@@ -136,7 +136,9 @@ export class BillComponent extends Component {
     if (isMenuItem) {
       component = <ActionLink text={text} icon="file" />
     } else if (isModalItem) {
-      component = <TransactionModalRow text={text} iconLeft="file" />
+      component = (
+        <TransactionModalRow iconLeft="file">{text}</TransactionModalRow>
+      )
     } else {
       component = (
         <ButtonAction

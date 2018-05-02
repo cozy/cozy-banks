@@ -116,6 +116,10 @@
       "healthExpensePending": "Remboursements en attente",
       "healthExpenseBill": "Relevé %{vendor}",
       "vendorsGlue": "et"
+    },
+    "modal": {
+      "credit": "Crédité le",
+      "debit": "Débité le"
     }
   },
 

@@ -36,11 +36,9 @@ const Component = ({
 
   if (isModalItem) {
     return (
-      <TransactionModalRow
-        text={label}
-        onClick={() => open(url)}
-        iconLeft="openwith"
-      />
+      <TransactionModalRow onClick={() => open(url)} iconLeft="openwith">
+        {label}
+      </TransactionModalRow>
     )
   }
 

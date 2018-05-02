@@ -31,6 +31,8 @@ import { getCategoryId } from 'ducks/categories/helpers'
 import styles from './TransactionModal.styl'
 import iconGraph from 'assets/icons/icon-graph.svg'
 import iconComment from 'assets/icons/actions/icon-comment.svg'
+import iconCredit from 'assets/icons/icon-credit.svg'
+import { getAccountLabel } from 'ducks/account/helpers'
 
 const showComingSoon = t => {
   flash(t('ComingSoon.description'))
@@ -39,34 +41,67 @@ const showComingSoon = t => {
 const Separator = () => <hr className={styles.TransactionModalSeparator} />
 
 export const TransactionModalRow = ({
+  children,
   iconLeft,
   iconRight,
   disabled = false,
-  text,
+  className,
   ...props
 }) => (
   <Media
-    className={cx(styles.TransactionModalRow, {
-      [styles['TransactionModalRow-disabled']]: disabled
-    })}
+    className={cx(
+      styles.TransactionModalRow,
+      {
+        [styles['TransactionModalRow-disabled']]: disabled
+      },
+      className
+    )}
     {...props}
   >
     <Img className={styles.TransactionModalRowIcon}>
       {Icon.isProperIcon(iconLeft) ? (
-        <Icon icon={iconLeft} width={16} color={palette.slateGrey} />
+        <Icon
+          icon={iconLeft}
+          width={16}
+          color={palette.slateGrey}
+          className={cx({
+            [styles['TransactionModalRowIcon-alignTop']]: props.align === 'top'
+          })}
+        />
       ) : (
         iconLeft
       )}
     </Img>
-    <Bd className={styles.TransactionModalRowContent}>{text}</Bd>
+    <Bd className={styles.TransactionModalRowContent}>{children}</Bd>
     {iconRight && <Img>{iconRight}</Img>}
   </Media>
 )
+
+const TransactionLabel = ({ label }) => (
+  <div className={styles.TransactionLabel}>{label}</div>
+)
+
+const TransactionInfo = ({ label, value }) => (
+  <div className={styles.TransactionInfo}>
+    <span className={styles.TransactionInfoLabel}>{label} :</span>
+    {value}
+  </div>
+)
+
+const _TransactionInfos = ({ account, date, type, t }) => (
+  <div className={styles.TransactionInfos}>
+    <TransactionInfo label="Compte" value={account} />
+    <TransactionInfo label={t(`Transactions.modal.${type}`)} value={date} />
+  </div>
+)
+
+const TransactionInfos = translate()(_TransactionInfos)
 
 class TransactionModal extends Component {
   render() {
     const {
       t,
+      f,
       transaction,
       requestClose,
       showCategoryChoice,
@@ -79,6 +114,16 @@ class TransactionModal extends Component {
       showComingSoon(t)
       requestClose()
     }
+
+    const typeIcon = (
+      <Icon
+        icon={iconCredit}
+        width={16}
+        className={cx(styles['TransactionModalRowIcon-alignTop'], {
+          [styles['TransactionModalRowIcon-reversed']]: transaction.amount < 0
+        })}
+      />
+    )
 
     return (
       <Modal mobileFullscreen dismissAction={requestClose} into="body">
@@ -94,21 +139,33 @@ class TransactionModal extends Component {
         <ModalContent className={styles.TransactionModalContent}>
           <Separator />
           <TransactionModalRow
+            iconLeft={typeIcon}
+            className={styles['TransactionModalRow-multiline']}
+            align="top"
+          >
+            <TransactionLabel label={getLabel(transaction)} />
+            <TransactionInfos
+              account={getAccountLabel(transaction.account)}
+              date={f(transaction.date, 'dddd DD MMMM - h[h]mm')}
+              type={transaction.amount < 0 ? 'debit' : 'credit'}
+            />
+          </TransactionModalRow>
+          <Separator />
+          <TransactionModalRow
             iconLeft={iconGraph}
             iconRight={<CategoryIcon category={category} />}
-            text={t(
+            onClick={showCategoryChoice}
+          >
+            {t(
               `Data.subcategories.${getCategoryName(
                 getCategoryId(transaction)
               )}`
             )}
-            onClick={showCategoryChoice}
-          />
+          </TransactionModalRow>
           <Separator />
-          <TransactionModalRow
-            iconLeft={iconComment}
-            text="Commentaire - Bientôt disponible"
-            disabled
-          />
+          <TransactionModalRow iconLeft={iconComment} disabled>
+            Commentaire - Bientôt disponible
+          </TransactionModalRow>
           <Separator />
           <TransactionActions
             onSelect={onSelect}

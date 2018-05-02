@@ -7,11 +7,9 @@ const name = 'attach'
 
 const Component = ({ t }) => {
   return (
-    <TransactionModalRow
-      text={t('Transactions.actions.attach')}
-      iconLeft={icon}
-      disabled
-    />
+    <TransactionModalRow iconLeft={icon} disabled>
+      {t('Transactions.actions.attach')}
+    </TransactionModalRow>
   )
 }
 
