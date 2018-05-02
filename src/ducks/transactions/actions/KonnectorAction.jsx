@@ -62,10 +62,12 @@ const Component = ({
   if (isModalItem) {
     return (
       <TransactionModalRow
-        text={label}
         iconLeft="plus"
         onClick={() => open(url)}
-      />
+        style={{ color: palette.dodgerBlue }}
+      >
+        {label}
+      </TransactionModalRow>
     )
   }
 
