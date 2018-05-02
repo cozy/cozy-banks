@@ -30,6 +30,7 @@ const sDate = styles['bnk-op-date']
 const sDesc = styles['bnk-op-desc']
 const sAmount = styles['bnk-op-amount']
 const sAction = styles['bnk-op-action']
+const sClickableArea = styles['bnk-op-clickable-area']
 
 const TableHeadDesktop = ({ t }) => (
   <thead>
@@ -62,7 +63,7 @@ const TableTrDesktop = compose(translate(), withDispatch, withUpdateCategory())(
     return (
       <tr>
         <td className={cx(sDesc, 'u-pv-half', 'u-pl-1')}>
-          <Media>
+          <Media className={sClickableArea}>
             <Img title={categoryTitle} onClick={showCategoryChoice}>
               <CategoryIcon
                 category={parentCategory}
@@ -80,10 +81,16 @@ const TableTrDesktop = compose(translate(), withDispatch, withUpdateCategory())(
             </Bd>
           </Media>
         </td>
-        <TdSecondary className={sDate} onClick={onSelectTransaction}>
+        <TdSecondary
+          className={cx(sDate, sClickableArea)}
+          onClick={onSelectTransaction}
+        >
           {f(transaction.date, `DD ${isExtraLarge ? 'MMMM' : 'MMM'} YYYY`)}
         </TdSecondary>
-        <TdSecondary className={sAmount} onClick={onSelectTransaction}>
+        <TdSecondary
+          className={cx(sAmount, sClickableArea)}
+          onClick={onSelectTransaction}
+        >
           <Figure
             total={transaction.amount}
             currency={transaction.currency}
@@ -112,7 +119,7 @@ const TableTrNoDesktop = translate()(
         <td>
           <Media>
             <Img
-              className="u-mr-half"
+              className={cx(sClickableArea, 'u-mr-half')}
               title={t(
                 `Data.subcategories.${getCategoryName(
                   getCategoryId(transaction)
@@ -124,7 +131,7 @@ const TableTrNoDesktop = translate()(
                 category={getParentCategory(getCategoryId(transaction))}
               />
             </Img>
-            <Bd className="u-mr-half u-ellipsis">
+            <Bd className={cx(sClickableArea, 'u-mr-half u-ellipsis')}>
               <ListItemText
                 primaryText={getLabel(transaction)}
                 secondaryText={
@@ -133,7 +140,7 @@ const TableTrNoDesktop = translate()(
                 onClick={onSelectTransaction}
               />
             </Bd>
-            <Img onClick={onSelectTransaction}>
+            <Img onClick={onSelectTransaction} className={sClickableArea}>
               <Figure
                 total={transaction.amount}
                 currency={transaction.currency}
