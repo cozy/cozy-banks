@@ -125,7 +125,12 @@ class TransactionModal extends Component {
     )
 
     return (
-      <Modal mobileFullscreen dismissAction={requestClose} into="body">
+      <Modal
+        mobileFullscreen
+        dismissAction={requestClose}
+        into="body"
+        crossClassName={styles.TransactionModalCross}
+      >
         <ModalHeader>
           <h2 className={styles.TransactionModalHeading}>
             <Figure
