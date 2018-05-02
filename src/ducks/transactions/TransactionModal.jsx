@@ -46,16 +46,19 @@ export const TransactionModalRow = ({
   iconRight,
   disabled = false,
   className,
+  onClick,
   ...props
 }) => (
   <Media
     className={cx(
       styles.TransactionModalRow,
       {
-        [styles['TransactionModalRow-disabled']]: disabled
+        [styles['TransactionModalRow-disabled']]: disabled,
+        [styles['TransactionModalRow-clickable']]: onClick
       },
       className
     )}
+    onClick={onClick}
     {...props}
   >
     <Img className={styles.TransactionModalRowIcon}>
