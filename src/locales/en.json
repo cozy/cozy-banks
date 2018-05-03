@@ -283,9 +283,9 @@
       "healthExpenseBill": "%{vendor} Statement",
       "vendorsGlue": "and"
     },
-    "modal": {
-      "credit": "Credited at",
-      "debit": "Debited at"
+    "infos": {
+      "account": "Account",
+      "institution": "Bank"
     }
   },
 

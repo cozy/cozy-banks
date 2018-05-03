@@ -88,9 +88,11 @@ const TransactionInfo = ({ label, value }) => (
   </div>
 )
 
-const TransactionInfos = ({ account }) => (
+const TransactionInfos = ({ infos }) => (
   <div className={styles.TransactionInfos}>
-    <TransactionInfo label="Compte" value={account} />
+    {infos.map(({ label, value }) => (
+      <TransactionInfo key={label} label={label} value={value} />
+    ))}
   </div>
 )
 
@@ -154,7 +156,18 @@ class TransactionModal extends Component {
             align="top"
           >
             <TransactionLabel label={getLabel(transaction)} />
-            <TransactionInfos account={getAccountLabel(transaction.account)} />
+            <TransactionInfos
+              infos={[
+                {
+                  label: t('Transactions.infos.account'),
+                  value: getAccountLabel(transaction.account)
+                },
+                {
+                  label: t('Transactions.infos.institution'),
+                  value: transaction.account.institutionLabel
+                }
+              ]}
+            />
           </TransactionModalRow>
           <Separator />
           <TransactionModalRow iconLeft={iconCalendar}>
