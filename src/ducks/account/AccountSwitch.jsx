@@ -3,19 +3,20 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Link, withRouter } from 'react-router'
+import { Link } from 'react-router'
 
 import { flowRight as compose, sortBy } from 'lodash'
-import sumBy from 'lodash/sumBy'
 import classNames from 'classnames'
 
 import { cozyConnect, fetchCollection } from 'cozy-client'
 import { translate, withBreakpoints, Icon } from 'cozy-ui/react'
 import Overlay from 'cozy-ui/react/Overlay'
 import { Media, Bd, Img } from 'cozy-ui/react/Media'
-import { Figure } from 'components/Figure'
+
 import AccountSharingStatus from 'components/AccountSharingStatus'
+import BarItem from 'components/BarItem'
 import PageTitle from 'components/PageTitle'
+
 import {
   filterByDoc,
   getFilteringDoc,
@@ -86,17 +87,23 @@ const DownArrow = () => (
     width={12}
     height={12}
     icon="small-arrow"
-    style={{ transform: 'translate(5px, -1px)' }}
+    style={{ transform: 'translate(5px, -1px)', width: '2rem' }}
   />
 )
 
 const AccountSwitchSelect = ({ filteringDoc, onClick, t }) => (
-  <PageTitle onClick={onClick} style={{ marginBottom: '1rem' }}>
-    {filteringDoc
-      ? filteringDoc.shortLabel || filteringDoc.label
-      : t('AccountSwitch.all_accounts')}&nbsp;
-    <DownArrow />
-  </PageTitle>
+  <Media className={styles.AccountSwitch__Select} onClick={onClick}>
+    <Bd>
+      <PageTitle style={{ marginBottom: 0 }}>
+        {filteringDoc
+          ? filteringDoc.shortLabel || filteringDoc.label
+          : t('AccountSwitch.all_accounts')}&nbsp;
+      </PageTitle>
+    </Bd>
+    <Img>
+      <DownArrow />
+    </Img>
+  </Media>
 )
 
 const AccountSwitchMobile = ({
@@ -105,26 +112,12 @@ const AccountSwitchMobile = ({
   onClick,
   t
 }) => (
-  <Media style={{ width: '100%' }}>
-    <Bd>
-      <AccountSwitchSelect
-        filteringDoc={filteringDoc}
-        onClick={onClick}
-        filteringAccounts={filteredAccounts}
-        t={t}
-      />
-    </Bd>
-    <Img>
-      <Figure
-        className={styles['account-switch-figure']}
-        currency="€"
-        decimalNumbers={0}
-        coloredPositive={true}
-        coloredNegative={true}
-        total={sumBy(filteredAccounts, 'balance')}
-      />
-    </Img>
-  </Media>
+  <AccountSwitchSelect
+    filteringDoc={filteringDoc}
+    onClick={onClick}
+    filteringAccounts={filteredAccounts}
+    t={t}
+  />
 )
 
 AccountSwitchMobile.propTypes = {
@@ -311,12 +304,14 @@ class AccountSwitch extends Component {
       <div className={styles['account-switch']}>
         {isMobile && (
           <BarCenter>
-            <AccountSwitchMobile
-              filteredAccounts={filteredAccounts}
-              filteringDoc={filteringDoc}
-              onClick={this.toggle}
-              t={t}
-            />
+            <BarItem style={{ overflow: 'hidden', paddingRight: '1rem' }}>
+              <AccountSwitchMobile
+                filteredAccounts={filteredAccounts}
+                filteringDoc={filteringDoc}
+                onClick={this.toggle}
+                t={t}
+              />
+            </BarItem>
           </BarCenter>
         )}
         {(isDesktop || isTablet) && (

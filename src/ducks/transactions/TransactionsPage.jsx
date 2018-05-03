@@ -1,3 +1,5 @@
+/* global cozy */
+
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
@@ -11,7 +13,8 @@ import {
   maxBy
 } from 'lodash'
 import { getCollection, cozyConnect, fetchCollection } from 'cozy-client'
-
+import { getFilteredAccounts } from 'ducks/filters'
+import BarBalance from 'components/BarBalance'
 import { translate } from 'cozy-ui/react/I18n'
 import { withBreakpoints } from 'cozy-ui/react'
 
@@ -36,6 +39,8 @@ import styles from './TransactionsPage.styl'
 import { TRIGGER_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
 import { getBrands } from 'ducks/brandDictionary'
 import { AccountSwitch } from 'ducks/account'
+
+const { BarRight } = cozy.bar
 
 const isPendingOrLoading = function(col) {
   return col.fetchStatus === 'pending' || col.fetchStatus === 'loading'
@@ -210,6 +215,7 @@ class TransactionsPage extends Component {
       router,
       triggers,
       filteringDoc,
+      filteredAccounts,
       breakpoints: { isMobile }
     } = this.props
     let { filteredTransactions } = this.props
@@ -265,6 +271,11 @@ class TransactionsPage extends Component {
         <div className={styles.TransactionPage__top}>
           {!isMobile ? <Breadcrumb items={breadcrumbItems} /> : null}
           <AccountSwitch />
+          {isMobile ? (
+            <BarRight>
+              <BarBalance accounts={filteredAccounts} />
+            </BarRight>
+          ) : null}
           {filteredTransactions.length !== 0 && subcategoryName ? (
             <KPIs transactions={filteredTransactions} />
           ) : (
@@ -322,6 +333,7 @@ const mapStateToProps = state => ({
   accountIds: getFilteredAccountIds(state),
   accounts: getCollection(state, 'accounts'),
   filteringDoc: state.filters.filteringDoc,
+  filteredAccounts: getFilteredAccounts(state),
   filteredTransactions: getTransactionsFilteredByAccount(state).map(
     transaction => hydrateTransaction(state, transaction)
   )
