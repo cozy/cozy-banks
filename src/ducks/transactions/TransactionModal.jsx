@@ -33,6 +33,7 @@ import iconGraph from 'assets/icons/icon-graph.svg'
 import iconComment from 'assets/icons/actions/icon-comment.svg'
 import iconCredit from 'assets/icons/icon-credit.svg'
 import iconArrowLeft from 'assets/icons/icon-arrow-left.svg'
+import iconCalendar from 'assets/icons/icon-calendar.svg'
 import { getAccountLabel } from 'ducks/account/helpers'
 
 const Separator = () => <hr className={styles.TransactionModalSeparator} />
@@ -87,14 +88,11 @@ const TransactionInfo = ({ label, value }) => (
   </div>
 )
 
-const _TransactionInfos = ({ account, date, type, t }) => (
+const TransactionInfos = ({ account }) => (
   <div className={styles.TransactionInfos}>
     <TransactionInfo label="Compte" value={account} />
-    <TransactionInfo label={t(`Transactions.modal.${type}`)} value={date} />
   </div>
 )
-
-const TransactionInfos = translate()(_TransactionInfos)
 
 const CloseButton = ({ onClick }) => (
   <button
@@ -156,11 +154,11 @@ class TransactionModal extends Component {
             align="top"
           >
             <TransactionLabel label={getLabel(transaction)} />
-            <TransactionInfos
-              account={getAccountLabel(transaction.account)}
-              date={f(transaction.date, 'dddd DD MMMM - h[h]mm')}
-              type={transaction.amount < 0 ? 'debit' : 'credit'}
-            />
+            <TransactionInfos account={getAccountLabel(transaction.account)} />
+          </TransactionModalRow>
+          <Separator />
+          <TransactionModalRow iconLeft={iconCalendar}>
+            {f(transaction.date, 'dddd DD MMMM - h[h]mm')}
           </TransactionModalRow>
           <Separator />
           <TransactionModalRow
