@@ -1,4 +1,5 @@
 import React from 'react'
+import debounce from 'lodash/debounce'
 import throttle from 'lodash/throttle'
 import ReactDOM from 'react-dom'
 
@@ -14,11 +15,19 @@ class InfiniteScroll extends React.Component {
   constructor(props) {
     super(props)
     this.checkForLimits = throttle(this.checkForLimits, 100)
+    this.onWindowResize = debounce(this.onWindowResize, 500)
   }
 
   componentDidMount() {
     this.listenToScroll()
     this.checkForLimits()
+    window.addEventListener('resize', this.onWindowResize)
+  }
+
+  onWindowResize = () => {
+    // scrolling element may have changed
+    this.stopListeningToScroll()
+    this.listenToScroll()
   }
 
   getScrollingElement() {

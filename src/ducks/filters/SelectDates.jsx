@@ -89,6 +89,19 @@ class DateYearSelector extends PureComponent {
   }
 }
 
+const SelectDateButton = ({ children, disabled, className, ...props }) => {
+  return (
+    <Chip.Round
+      className={cx(styles.SelectDates__Button, className, {
+        [styles['SelectDates__Button--disabled']]: disabled
+      })}
+      {...props}
+    >
+      {children}
+    </Chip.Round>
+  )
+}
+
 class SelectDatesDumb extends React.PureComponent {
   constructor(props) {
     super(props)
@@ -163,19 +176,16 @@ class SelectDatesDumb extends React.PureComponent {
           selected={options[selected]}
           onChange={v => this.props.onChange(v)}
         />
-        <Chip.Round
-          className={styles.SelectDates__Button}
+        <SelectDateButton
           onClick={this.onChoosePrev}
+          disabled={selected === options.length - 1}
         >
           <Icon icon="back" />
-        </Chip.Round>
+        </SelectDateButton>
 
-        <Chip.Round
-          className={styles.SelectDates__Button}
-          onClick={this.onChooseNext}
-        >
+        <SelectDateButton onClick={this.onChooseNext} disabled={selected === 0}>
           <Icon icon="forward" />
-        </Chip.Round>
+        </SelectDateButton>
       </div>
     )
   }
