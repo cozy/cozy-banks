@@ -19,19 +19,14 @@ const Select = ({ name, value, options, onChange, className }) => (
     <select
       className={cx(styles.Select, className)}
       name={name}
+      value={value}
       onChange={e =>
         onChange(e.target.value, options.indexOf(e.target.value), name)
       }
     >
-      {options.map(optionValue => (
-        <option
-          key={optionValue.value || optionValue}
-          value={
-            optionValue.value !== undefined ? optionValue.value : optionValue
-          }
-          selected={value === optionValue.value || value === optionValue}
-        >
-          {optionValue.name || optionValue}
+      {options.map(option => (
+        <option key={option.value} value={option.value}>
+          {option.name}
         </option>
       ))}
     </select>
