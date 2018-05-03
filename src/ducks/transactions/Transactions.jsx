@@ -372,7 +372,9 @@ export class TransactionsWithSelection extends React.Component {
         {transaction && (
           <TransactionModal
             requestClose={this.unselectTransaction}
-            transaction={transaction}
+            transaction={props.transactions.find(
+              t => t._id === transaction._id
+            )}
             {...props}
           />
         )}
