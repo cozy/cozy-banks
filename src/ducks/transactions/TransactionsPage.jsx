@@ -269,15 +269,16 @@ class TransactionsPage extends Component {
       <div className={styles.TransactionPage}>
         {subcategoryName ? <BackButton /> : null}
         <div className={styles.TransactionPage__top}>
-          {!isMobile && breadcrumbItems.length > 1 ? (
-            <Breadcrumb items={breadcrumbItems} />
-          ) : null}
+          {!isMobile &&
+            breadcrumbItems.length > 1 && (
+              <Breadcrumb items={breadcrumbItems} />
+            )}
           <AccountSwitch />
-          {isMobile ? (
+          {isMobile && (
             <BarRight>
               <BarBalance accounts={filteredAccounts} />
             </BarRight>
-          ) : null}
+          )}
           {filteredTransactions.length !== 0 && subcategoryName ? (
             <KPIs transactions={filteredTransactions} />
           ) : (
@@ -288,9 +289,7 @@ class TransactionsPage extends Component {
             onChange={this.handleChangeMonth}
           />
           {filteredTransactions.length > 0 ? (
-            !isMobile ? (
-              <TransactionTableHead />
-            ) : null
+            !isMobile && <TransactionTableHead />
           ) : (
             <p>{t('Transactions.no-movements')}</p>
           )}
