@@ -2,6 +2,7 @@ import React from 'react'
 import { translate } from 'cozy-ui/react/I18n'
 import { Icon } from 'cozy-ui/react'
 import styles from './styles.styl'
+import cx from 'classnames'
 
 const SmallArrow = () => (
   <Icon
@@ -13,10 +14,10 @@ const SmallArrow = () => (
   />
 )
 
-const Select = ({ name, value, options, onChange }) => (
+const Select = ({ name, value, options, onChange, className }) => (
   <span>
     <select
-      className={styles.Select}
+      className={cx(styles.Select, className)}
       name={name}
       onChange={e =>
         onChange(e.target.value, options.indexOf(e.target.value), name)

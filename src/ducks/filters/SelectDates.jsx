@@ -78,6 +78,7 @@ class DateYearSelector extends PureComponent {
           <Chip.Separator />
           <Select
             name="month"
+            className={styles.SelectDates__month}
             value={selectedMonth}
             options={months.map(x => ({ value: x.month, name: x.monthF }))}
             onChange={this.onChangeMonth}
