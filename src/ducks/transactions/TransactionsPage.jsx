@@ -269,7 +269,9 @@ class TransactionsPage extends Component {
       <div className={styles.TransactionPage}>
         {subcategoryName ? <BackButton /> : null}
         <div className={styles.TransactionPage__top}>
-          {!isMobile ? <Breadcrumb items={breadcrumbItems} /> : null}
+          {!isMobile && breadcrumbItems.length > 1 ? (
+            <Breadcrumb items={breadcrumbItems} />
+          ) : null}
           <AccountSwitch />
           {isMobile ? (
             <BarRight>

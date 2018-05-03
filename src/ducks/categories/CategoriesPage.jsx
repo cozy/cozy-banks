@@ -62,7 +62,9 @@ class CategoriesPage extends Component {
     }
     return (
       <div className={styles['bnk-cat-page']}>
-        {!isMobile ? <Breadcrumb items={breadcrumbItems} /> : null}
+        {!isMobile && breadcrumbItems.length > 1 ? (
+          <Breadcrumb items={breadcrumbItems} />
+        ) : null}
         <AccountSwitch />
         {selectedCategory && (
           <BackButton onClick={() => this.selectCategory(undefined)} />
