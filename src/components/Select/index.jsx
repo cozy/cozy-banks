@@ -1,5 +1,4 @@
 import React from 'react'
-import { translate } from 'cozy-ui/react/I18n'
 import { Icon } from 'cozy-ui/react'
 import styles from './styles.styl'
 import cx from 'classnames'
@@ -34,4 +33,4 @@ const Select = ({ name, value, options, onChange, className }) => (
   </span>
 )
 
-export default translate()(props => <Select {...props} />)
+export default Select
