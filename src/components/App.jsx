@@ -8,11 +8,10 @@ import Nav from 'ducks/commons/Nav'
 import FlagSwitcher from 'components/FlagSwitcher'
 import styles from './App.styl'
 
-
 const App = ({ children }) => (
   <Layout>
     {__DEVELOPMENT__ ? <FlagSwitcher /> : null}
-     <Sidebar className={styles.AppSidebar}>
+    <Sidebar className={styles.AppSidebar}>
       <Nav />
     </Sidebar>
 

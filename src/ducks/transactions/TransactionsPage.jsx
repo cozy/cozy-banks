@@ -20,8 +20,10 @@ import { withBreakpoints } from 'cozy-ui/react'
 
 import {
   SelectDates,
+  ConnectedSelectDates,
   getTransactionsFilteredByAccount,
-  getFilteredAccountIds
+  getFilteredAccountIds,
+  getFilteredTransactions
 } from 'ducks/filters'
 import { fetchTransactions } from 'actions/transactions'
 import { getAppUrlBySource, fetchApps } from 'ducks/apps'
@@ -284,10 +286,14 @@ class TransactionsPage extends Component {
           ) : (
             <Separator />
           )}
-          <SelectDates
-            period={this.state.currentMonth}
-            onChange={this.handleChangeMonth}
-          />
+          {!subcategoryName ? (
+            <SelectDates
+              period={this.state.currentMonth}
+              onChange={this.handleChangeMonth}
+            />
+          ) : (
+            <ConnectedSelectDates />
+          )}
           {filteredTransactions.length > 0 ? (
             !isMobile && <TransactionTableHead />
           ) : (
@@ -321,7 +327,8 @@ class TransactionsPage extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const onSubcategory = ownProps => ownProps.router.params.subcategoryName
+const mapStateToProps = (state, ownProps) => ({
   urls: {
     // this keys are used on Transactions.jsx to:
     // - find transaction label
@@ -335,8 +342,10 @@ const mapStateToProps = state => ({
   accounts: getCollection(state, 'accounts'),
   filteringDoc: state.filters.filteringDoc,
   filteredAccounts: getFilteredAccounts(state),
-  filteredTransactions: getTransactionsFilteredByAccount(state).map(
-    transaction => hydrateTransaction(state, transaction)
+  filteredTransactions: (onSubcategory(ownProps)
+    ? getFilteredTransactions
+    : getTransactionsFilteredByAccount)(state).map(transaction =>
+    hydrateTransaction(state, transaction)
   )
 })
 
