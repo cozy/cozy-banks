@@ -91,10 +91,11 @@ class DateYearSelector extends PureComponent {
 const SelectDateButton = ({ children, disabled, className, ...props }) => {
   return (
     <Chip.Round
+      {...props}
+      onClick={!disabled && props.onClick}
       className={cx(styles.SelectDates__Button, className, {
         [styles['SelectDates__Button--disabled']]: disabled
       })}
-      {...props}
     >
       {children}
     </Chip.Round>
