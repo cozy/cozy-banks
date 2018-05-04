@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { get, some } from 'lodash'
-import { translate, ButtonAction, IntentOpener } from 'cozy-ui/react'
+import { translate, ButtonAction } from 'cozy-ui/react'
+import FileOpener from 'ducks/transactions/FileOpener'
 import icon from 'assets/icons/actions/icon-file.svg'
 import ActionLink from './ActionLink'
 import AugmentedModal from 'components/AugmentedModal'
@@ -79,8 +80,6 @@ export class BillComponent extends Component {
     try {
       const bill = await getBill(transaction, actionProps)
       const [, fileId] = getBillInvoice(bill)
-      // eslint-disable-next-line no-console
-      console.log('fileId', fileId)
       this.setState({ fileId })
     } catch (e) {
       // eslint-disable-next-line no-console
@@ -132,14 +131,7 @@ export class BillComponent extends Component {
     }
 
     return (
-      <IntentOpener
-        action="OPEN"
-        doctype="io.cozy.files"
-        options={{ id: fileId }}
-        onComplete={() => {}}
-        onDismiss={() => {}}
-        into="body"
-      >
+      <FileOpener fileId={fileId}>
         {isMenuItem || onlyItems ? (
           <ActionLink text={text} icon="file" />
         ) : (
@@ -150,7 +142,7 @@ export class BillComponent extends Component {
             className={styles.TransactionActionButton}
           />
         )}
-      </IntentOpener>
+      </FileOpener>
     )
   }
 }

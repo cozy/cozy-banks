@@ -1,6 +1,6 @@
 {
   "name": "cozy-banks",
-  "version": "0.6.5",
+  "version": "0.7.3",
   "main": "src/main.jsx",
   "scripts": {
     "build": "npm run build:browser && npm run build:services",
@@ -131,9 +131,9 @@
     "classificator": "0.2.2",
     "classnames": "^2.2.0",
     "cordova": "^7.1.0",
-    "cozy-authentication": "^1.1.0",
+    "cozy-authentication": "1.1.4",
     "cozy-bar": "4.10.2",
-    "cozy-client": "0.4.2",
+    "cozy-client": "0.4.3",
     "cozy-client-js": "0.8.3",
     "cozy-konnector-libs": "^3.0.13",
     "cozy-ui": "7.18.0",
