@@ -8,6 +8,7 @@ import { AccountSwitch } from 'ducks/account'
 import Nav from 'ducks/commons/Nav'
 import FlagSwitcher from 'components/FlagSwitcher'
 import { withBreakpoints } from 'cozy-ui/react'
+import styles from './App.styl'
 
 const shouldShowAccountSwitch = (location, isMobile) => {
   if (!isMobile) {
@@ -25,7 +26,7 @@ const _App = ({ children, location, breakpoints: { isMobile } }) => {
   return (
     <Layout>
       {__DEVELOPMENT__ ? <FlagSwitcher /> : null}
-      <Sidebar>
+      <Sidebar className={styles.AppSidebar}>
         {showAccountSwitch && <AccountSwitch />}
         <Nav />
       </Sidebar>

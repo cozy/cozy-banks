@@ -8,8 +8,9 @@ import {
   ButtonAction
 } from 'cozy-ui/react'
 import icon from 'assets/icons/actions/icon-link-out.svg'
-import ActionLink from './ActionLink'
 import styles from '../TransactionActions.styl'
+import { TransactionModalRow } from '../TransactionModal'
+import palette from 'cozy-ui/stylus/settings/palette.json'
 
 const name = 'konnector'
 
@@ -19,7 +20,7 @@ const Component = ({
   actionProps,
   breakpoints: { isDesktop },
   compact,
-  onlyItems
+  isModalItem
 }) => {
   const { brands, urls } = actionProps
   const brand = findMatchingBrand(brands, transaction.label)
@@ -36,21 +37,38 @@ const Component = ({
         doctype="io.cozy.accounts"
         options={{ slug: brand.konnectorSlug }}
       >
-        <ButtonAction
-          label={label}
-          leftIcon="plus"
-          type="new"
-          compact={compact}
-          className={styles.TransactionActionButton}
-        />
+        {isModalItem ? (
+          <TransactionModalRow
+            iconLeft="plus"
+            style={{ color: palette.dodgerBlue }}
+          >
+            {label}
+          </TransactionModalRow>
+        ) : (
+          <ButtonAction
+            label={label}
+            leftIcon="plus"
+            type="new"
+            compact={compact}
+            className={styles.TransactionActionButton}
+          />
+        )}
       </IntentOpener>
     )
   }
 
   const url = `${urls['COLLECT']}#/providers/all/${brand.konnectorSlug}`
 
-  if (onlyItems) {
-    return <ActionLink text={label} icon="plus" href={url} />
+  if (isModalItem) {
+    return (
+      <TransactionModalRow
+        iconLeft="plus"
+        onClick={() => open(url)}
+        style={{ color: palette.dodgerBlue }}
+      >
+        {label}
+      </TransactionModalRow>
+    )
   }
 
   return (
