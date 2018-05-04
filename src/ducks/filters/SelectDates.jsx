@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import uniqBy from 'lodash/uniqBy'
-import find from 'lodash/find'
-import findLast from 'lodash/findLast'
+
+import { uniqBy, find, findLast, flowRight as compose, findIndex } from 'lodash'
+
 import { subMonths, format, endOfDay, parse } from 'date-fns'
 import { translate } from 'cozy-ui/react/I18n'
 import { getPeriod, addFilterByPeriod } from '.'
@@ -13,7 +13,6 @@ import Chip from 'cozy-ui/react/Chip'
 import Select from 'components/Select'
 import cx from 'classnames'
 import scrollAware from './scrollAware'
-import { flowRight as compose, findIndex } from 'lodash'
 
 const getPeriods = () => {
   const periods = []
@@ -160,6 +159,14 @@ class SelectDatesDumb extends React.PureComponent {
     }
   }
 
+  handleChangeSelector = chosenValue => {
+    const options = this.getOptions()
+    const index = findIndex(options, x => x.value === chosenValue)
+    if (index > -1) {
+      this.props.onChange(this.state.periods[index])
+    }
+  }
+
   render({ scrolling }) {
     const selected = this.getSelectedIndex()
     const options = this.getOptions()
@@ -174,7 +181,7 @@ class SelectDatesDumb extends React.PureComponent {
         <DateYearSelector
           options={options}
           selected={options[selected]}
-          onChange={v => this.props.onChange(v)}
+          onChange={this.handleChangeSelector}
         />
         <SelectDateButton
           onClick={this.onChoosePrev}

@@ -188,10 +188,10 @@ class TransactionsPage extends Component {
       const found = find(monthsWithOperations, inRightDirection)
       if (found) {
         month = found
+        limitMin = findMonthIndex(month)
       } else {
-        return
+        limitMin = 0
       }
-      limitMin = findMonthIndex(month)
     }
     this.setState({
       limitMin: limitMin,
