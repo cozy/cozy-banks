@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
 import cx from 'classnames'
 import find from 'lodash/find'
@@ -43,22 +43,25 @@ const TableHeadDesktop = ({ t }) => (
   </thead>
 )
 
-const TableTrDesktop = compose(translate(), withDispatch, withUpdateCategory())(
-  ({
-    t,
-    f,
-    transaction,
-    isExtraLarge,
-    showCategoryChoice,
-    filteringOnAccount,
-    selectTransaction,
-    ...props
-  }) => {
+class _TableTrDesktop extends PureComponent {
+  onSelectTransaction = () =>
+    this.props.selectTransaction(this.props.transaction)
+
+  render() {
+    const {
+      t,
+      f,
+      transaction,
+      isExtraLarge,
+      showCategoryChoice,
+      filteringOnAccount,
+      ...props
+    } = this.props
+
     const categoryId = getCategoryId(transaction)
     const categoryName = getCategoryName(categoryId)
     const categoryTitle = t(`Data.subcategories.${categoryName}`)
     const parentCategory = getParentCategory(categoryId)
-    const onSelectTransaction = () => selectTransaction(transaction)
 
     return (
       <tr>
@@ -76,20 +79,20 @@ const TableTrDesktop = compose(translate(), withDispatch, withUpdateCategory())(
                 secondaryText={
                   !filteringOnAccount && getAccountLabel(transaction.account)
                 }
-                onClick={onSelectTransaction}
+                onClick={this.onSelectTransaction}
               />
             </Bd>
           </Media>
         </td>
         <TdSecondary
           className={cx(sDate, sClickableArea)}
-          onClick={onSelectTransaction}
+          onClick={this.onSelectTransaction}
         >
           {f(transaction.date, `DD ${isExtraLarge ? 'MMMM' : 'MMM'} YYYY`)}
         </TdSecondary>
         <TdSecondary
           className={cx(sAmount, sClickableArea)}
-          onClick={onSelectTransaction}
+          onClick={this.onSelectTransaction}
         >
           <Figure
             total={transaction.amount}
@@ -108,6 +111,10 @@ const TableTrDesktop = compose(translate(), withDispatch, withUpdateCategory())(
       </tr>
     )
   }
+}
+
+const TableTrDesktop = compose(translate(), withDispatch, withUpdateCategory())(
+  _TableTrDesktop
 )
 
 const TableTrNoDesktop = translate()(
