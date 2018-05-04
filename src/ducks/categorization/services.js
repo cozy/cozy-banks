@@ -39,7 +39,7 @@ const getAmountTag = amount => {
 }
 
 const getLabelWithTags = transaction => {
-  const label = getLabel(transaction)
+  const label = getLabel(transaction).toLowerCase()
 
   const amountSignTag = getAmountSignTag(transaction.amount)
   const amountTag = getAmountTag(transaction.amount)
