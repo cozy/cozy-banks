@@ -9,7 +9,6 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { MenuItem } from 'cozy-ui/react'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import { findMatchingActions } from './actions'
 
@@ -20,34 +19,25 @@ const MenuAction = ({
   action,
   transaction,
   actionProps,
-  className,
-  displayComponent = true,
   compact = false,
   menuPosition,
-  onlyItems
+  isModalItem
 }) => {
   const { Component } = action
   const color = action.disabled
     ? palette.charcoalGrey
     : action.color || actionProps.color || PRIMARY_ACTION_COLOR
+
   return (
-    <MenuItem
-      className={className}
-      disabled={action.disabled}
-      onClick={actionProps.onClick}
-    >
-      {displayComponent && (
-        <Component
-          action={action}
-          transaction={transaction}
-          actionProps={actionProps}
-          color={color}
-          compact={compact}
-          menuPosition={menuPosition}
-          onlyItems={onlyItems}
-        />
-      )}
-    </MenuItem>
+    <Component
+      action={action}
+      transaction={transaction}
+      actionProps={actionProps}
+      color={color}
+      compact={compact}
+      menuPosition={menuPosition}
+      isModalItem={isModalItem}
+    />
   )
 }
 
@@ -61,9 +51,8 @@ export const SyncTransactionActions = ({
   actionProps,
   displayDefaultAction,
   onlyDefault,
-  onlyIcon,
   menuPosition = 'left',
-  onlyItems,
+  isModalItem,
   compact
 }) => (
   <span>
@@ -71,13 +60,11 @@ export const SyncTransactionActions = ({
       actions.default && (
         <MenuAction
           action={actions.default}
-          className={onlyDefault || onlyIcon ? 'u-p-0' : ''}
-          displayComponent={!onlyIcon}
           isDefault
           transaction={transaction}
           actionProps={actionProps}
           menuPosition={menuPosition}
-          onlyItems={onlyItems}
+          isModalItem={isModalItem}
           compact={compact}
         />
       )}
@@ -88,7 +75,7 @@ export const SyncTransactionActions = ({
           action={action}
           transaction={transaction}
           actionProps={actionProps}
-          onlyItems={onlyItems}
+          isModalItem={isModalItem}
         />
       ))}
   </span>

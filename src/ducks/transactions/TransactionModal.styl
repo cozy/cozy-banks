@@ -1,0 +1,88 @@
+@require 'settings/breakpoints'
+
+.TransactionModal
+    .TransactionModalHeader
+        +small-screen()
+            min-height 3rem
+            padding-top 0
+            margin-bottom 0
+
+.TransactionModalHeading
+    text-align center
+    padding-top 4px
+
+    +small-screen()
+        padding-top 14px
+
+.TransactionModalContent
+    padding 0
+
+    &:last-child
+        padding 0
+
+.TransactionModalSeparator
+    margin-top 0
+    margin-bottom 0
+    border 0
+    border-top 1px solid silver
+
+.TransactionModalRow
+    padding-left 24px
+    padding-right 24px
+    min-height 57px
+
+.TransactionModalRow-disabled
+    color coolGrey
+    font-style italic
+    cursor default
+
+.TransactionModalRow-clickable
+    cursor pointer
+
+.TransactionModalRow-multiline
+    padding-top 12px
+    padding-bottom 12px
+
+.TransactionModalRowIcon
+    margin-right 24px
+
+.TransactionModalRowIcon-alignTop
+    margin-top 3px
+
+.TransactionModalRowIcon-reversed
+    transform rotate(180deg)
+
+.TransactionLabel
+    font-weight bold
+    line-height 1.5
+    color charcoalGrey
+
+.TransactionInfos
+    margin-top 8px
+
+.TransactionInfo
+    line-height 1.7
+    font-size 14px
+    color coolGrey
+
+.TransactionInfoLabel
+    display inline-block
+    margin-right 8px
+    color charcoalGrey
+
+.TransactionModalCross
+    width 16px
+    height 16px
+    z-index 1
+
+    +small-screen()
+        display none
+
+.TransactionModalCloseButton
+    background-color transparent
+    border-width 0
+    position fixed
+    top 1rem
+    left 1rem
+    padding 0
+    cursor pointer

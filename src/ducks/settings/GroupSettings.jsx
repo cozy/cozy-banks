@@ -9,13 +9,17 @@ import {
   cozyConnect,
   fetchCollection
 } from 'cozy-client'
-import Topbar from 'components/Topbar'
-import BackButton from 'components/BackButton'
-import { Button, translate, Toggle } from 'cozy-ui/react'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { withRouter } from 'react-router'
+
+import Topbar from 'components/Topbar'
+import BackButton from 'components/BackButton'
 import Table from 'components/Table'
+import PageTitle from 'components/PageTitle'
+
+import { Button, translate, Toggle } from 'cozy-ui/react'
 import Spinner from 'cozy-ui/react/Spinner'
+
 import styles from './GroupsSettings.styl'
 import btnStyles from 'styles/buttons'
 import { getAccountInstitutionLabel } from '../account/helpers'
@@ -111,7 +115,7 @@ class GroupSettings extends Component {
       <div>
         <BackButton to="/settings/groups" arrow />
         <Topbar>
-          <h2>{group.label}</h2>
+          <PageTitle>{group.label}</PageTitle>
         </Topbar>
 
         <h3>{t('Groups.label')}</h3>

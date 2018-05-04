@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
 import cx from 'classnames'
 import find from 'lodash/find'
@@ -10,7 +10,6 @@ import { translate, withBreakpoints, ListItemText } from 'cozy-ui/react'
 import { Figure } from 'components/Figure'
 import { flowRight as compose, toPairs, groupBy } from 'lodash'
 import { Table, TdSecondary } from 'components/Table'
-import TransactionMenu from './TransactionMenu'
 import TransactionActions from './TransactionActions'
 import { getLabel } from './helpers'
 import { getAccountLabel } from 'ducks/account/helpers'
@@ -22,17 +21,15 @@ import { getCategoryId } from 'ducks/categories/helpers'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { withUpdateCategory } from 'ducks/categories'
 import { withDispatch } from 'utils'
-import flash from 'ducks/flash'
 import styles from './Transactions.styl'
 import { Media, Bd, Img } from 'components/Media'
-import TransactionActionMenu from './TransactionActionMenu'
 import InfiniteScroll from './InfiniteScroll'
+import TransactionModal from './TransactionModal'
 
 const sDate = styles['bnk-op-date']
 const sDesc = styles['bnk-op-desc']
 const sAmount = styles['bnk-op-amount']
 const sAction = styles['bnk-op-action']
-const sActions = styles['bnk-op-actions']
 
 const TableHeadDesktop = ({ t }) => (
   <thead>
@@ -41,38 +38,34 @@ const TableHeadDesktop = ({ t }) => (
       <td className={sDate}>{t('Transactions.header.date')}</td>
       <td className={sAmount}>{t('Transactions.header.amount')}</td>
       <td className={sAction}>{t('Transactions.header.action')}</td>
-      <td className={sActions}>&nbsp;</td>
     </tr>
   </thead>
 )
 
-const showComingSoon = t => {
-  flash(t('ComingSoon.description'))
-}
+class _TableTrDesktop extends PureComponent {
+  onSelectTransaction = () =>
+    this.props.selectTransaction(this.props.transaction)
 
-const TableTrDesktop = compose(translate(), withDispatch, withUpdateCategory())(
-  ({
-    t,
-    f,
-    transaction,
-    isExtraLarge,
-    showCategoryChoice,
-    filteringOnAccount,
-    ...props
-  }) => {
+  render() {
+    const {
+      t,
+      f,
+      transaction,
+      isExtraLarge,
+      showCategoryChoice,
+      filteringOnAccount,
+      ...props
+    } = this.props
+
     const categoryId = getCategoryId(transaction)
     const categoryName = getCategoryName(categoryId)
     const categoryTitle = t(`Data.subcategories.${categoryName}`)
     const parentCategory = getParentCategory(categoryId)
-    const onSelect = () => {}
-    const onSelectDisabled = () => {
-      showComingSoon(t)
-    }
 
     return (
       <tr>
         <td className={cx(sDesc, 'u-pv-half', 'u-pl-1')}>
-          <Media>
+          <Media className="u-clickable">
             <Img title={categoryTitle} onClick={showCategoryChoice}>
               <CategoryIcon
                 category={parentCategory}
@@ -85,14 +78,21 @@ const TableTrDesktop = compose(translate(), withDispatch, withUpdateCategory())(
                 secondaryText={
                   !filteringOnAccount && getAccountLabel(transaction.account)
                 }
+                onClick={this.onSelectTransaction}
               />
             </Bd>
           </Media>
         </td>
-        <TdSecondary className={sDate}>
+        <TdSecondary
+          className={cx(sDate, 'u-clickable')}
+          onClick={this.onSelectTransaction}
+        >
           {f(transaction.date, `DD ${isExtraLarge ? 'MMMM' : 'MMM'} YYYY`)}
         </TdSecondary>
-        <TdSecondary className={sAmount}>
+        <TdSecondary
+          className={cx(sAmount, 'u-clickable')}
+          onClick={this.onSelectTransaction}
+        >
           <Figure
             total={transaction.amount}
             currency={transaction.currency}
@@ -107,48 +107,46 @@ const TableTrDesktop = compose(translate(), withDispatch, withUpdateCategory())(
             onlyDefault
           />
         </TdSecondary>
-        <TdSecondary className={sActions}>
-          <TransactionMenu
-            onSelect={onSelect}
-            onSelectDisabled={onSelectDisabled}
-            transaction={transaction}
-            {...props}
-          />
-        </TdSecondary>
       </tr>
     )
   }
+}
+
+const TableTrDesktop = compose(translate(), withDispatch, withUpdateCategory())(
+  _TableTrDesktop
 )
 
 const TableTrNoDesktop = translate()(
   ({ t, transaction, selectTransaction, filteringOnAccount, ...props }) => {
+    const onSelectTransaction = () => selectTransaction(transaction)
+
     return (
       <tr className={styles['bnk-transaction-mobile']}>
         <td>
           <Media>
             <Img
-              className="u-mr-half"
+              className={cx('u-clickable', 'u-mr-half')}
               title={t(
                 `Data.subcategories.${getCategoryName(
                   getCategoryId(transaction)
                 )}`
               )}
-              onClick={() => selectTransaction(transaction)}
+              onClick={onSelectTransaction}
             >
               <CategoryIcon
                 category={getParentCategory(getCategoryId(transaction))}
               />
             </Img>
-            <Bd className="u-mr-half u-ellipsis">
+            <Bd className={cx('u-clickable', 'u-mr-half u-ellipsis')}>
               <ListItemText
                 primaryText={getLabel(transaction)}
                 secondaryText={
                   !filteringOnAccount && getAccountLabel(transaction.account)
                 }
-                onClick={() => selectTransaction(transaction)}
+                onClick={onSelectTransaction}
               />
             </Bd>
-            <Img onClick={() => selectTransaction(transaction)}>
+            <Img onClick={onSelectTransaction} className="u-clickable">
               <Figure
                 total={transaction.amount}
                 currency={transaction.currency}
@@ -305,6 +303,7 @@ class TransactionsD extends React.Component {
                     transaction={transaction}
                     isExtraLarge={isExtraLarge}
                     filteringOnAccount
+                    selectTransaction={selectTransaction}
                     {...props}
                   />
                 ) : (
@@ -365,7 +364,7 @@ export class TransactionsWithSelection extends React.Component {
       <div>
         <Transactions selectTransaction={this.selectTransaction} {...props} />
         {transaction && (
-          <TransactionActionMenu
+          <TransactionModal
             requestClose={this.unselectTransaction}
             transaction={transaction}
             {...props}
