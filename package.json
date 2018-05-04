@@ -90,7 +90,7 @@
     "eslint-config-cozy-app": "^0.5.1",
     "eslint-loader": "2.0.0",
     "extract-text-webpack-plugin": "3.0.2",
-    "file-loader": "0.11.2",
+    "file-loader": "1.1.11",
     "git-directory-deploy": "1.5.1",
     "handlebars-layouts": "3.1.4",
     "html-webpack-plugin": "2.30.1",
