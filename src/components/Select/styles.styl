@@ -11,9 +11,18 @@
     margin-right -2rem
     cursor pointer
 
+.Select::-ms-expand
+    display none /* hide the default arrow in ie10 and ie11 */
+
+
 
 .Select__icon
     // Let click go through to the select
     pointer-events none
     cursor pointer
     color slateGrey
+
+/* target Internet Explorer 9 to undo the custom arrow */
+@media screen and (min-width:0\0)
+    .Select__icon
+        display none
