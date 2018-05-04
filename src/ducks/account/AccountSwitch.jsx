@@ -277,7 +277,7 @@ class AccountSwitch extends Component {
       breakpoints: { isMobile, isTablet, isDesktop }
     } = this.props
     const { open } = this.state
-    let { accounts, groups /* groupsDocs */ } = this.props
+    let { accounts, groups } = this.props
 
     accounts = accounts.data
     groups = groups.map(group => ({
