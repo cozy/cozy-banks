@@ -70,6 +70,7 @@
         <splash height="1536" src="res/screens/ios/screen-ipad-landscape-2x.png" width="2048" />
         <splash height="2048" src="res/screens/ios/screen-ipad-landscape-ipadpro.png" width="2732" />
         <splash height="2732" src="res/screens/ios/screen-ipad-portrait-ipadpro.png" width="2048" />
+        <resource-file src="keys/ios/GoogleService-Info.plist" />
     </platform>
     <preference name="StatusBarBackgroundColor" value="#95999D" />
     <engine name="android" spec="7.1.0" />

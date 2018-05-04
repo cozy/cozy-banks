@@ -86,7 +86,7 @@ export const initClient = url => {
           'https://gitlab.cozycloud.cc/labs/cozy-bank/raw/master/src/targets/favicons/favicon-32x32.png',
         policyURI: 'https://files.cozycloud.cc/cgu.pdf',
         scopes: getPermissions(),
-        notificationPlatform: getDevicePlatform()
+        notificationPlatform: 'firebase'
       }
     },
     offline: { doctypes: [ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE] }

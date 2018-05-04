@@ -1,13 +1,10 @@
 /* global PushNotification, cozy */
-import { getDevicePlatform } from 'ducks/authentication/lib/client'
 import { hashHistory } from 'react-router'
 
 let push
 
-const isAndroidDevice = () => getDevicePlatform() === 'android'
-
 export const registerPushNotifications = () => async (dispatch, getState) => {
-  if (push || !isAndroidDevice()) {
+  if (push) {
     return
   }
 
@@ -30,6 +27,11 @@ export const registerPushNotifications = () => async (dispatch, getState) => {
     android: {
       forceShow: true,
       clearNotifications: false
+    },
+    ios: {
+      alert: 'true',
+      badge: 'true',
+      sound: 'true'
     }
   })
 
