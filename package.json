@@ -136,7 +136,7 @@
     "cozy-client": "0.4.2",
     "cozy-client-js": "0.8.3",
     "cozy-konnector-libs": "^3.0.13",
-    "cozy-ui": "7.18.0",
+    "cozy-ui": "^7.20.0",
     "date-fns": "^1.28.2",
     "hammerjs": "^2.0.8",
     "localforage": "^1.5.0",

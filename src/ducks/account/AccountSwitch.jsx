@@ -1,20 +1,22 @@
 /* global cozy */
 
-import { flowRight as compose, sortBy } from 'lodash'
-import sumBy from 'lodash/sumBy'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
+
+import { flowRight as compose, sortBy } from 'lodash'
 import classNames from 'classnames'
 
 import { cozyConnect, fetchCollection } from 'cozy-client'
 import { translate, withBreakpoints, Icon } from 'cozy-ui/react'
 import Overlay from 'cozy-ui/react/Overlay'
 import { Media, Bd, Img } from 'cozy-ui/react/Media'
-import { Figure } from 'components/Figure'
+
 import AccountSharingStatus from 'components/AccountSharingStatus'
+import BarItem from 'components/BarItem'
 import PageTitle from 'components/PageTitle'
+
 import {
   filterByDoc,
   getFilteringDoc,
@@ -25,14 +27,7 @@ import styles from './AccountSwitch.styl'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { getAccountInstitutionLabel } from './helpers.js'
 import { getAllGroups } from 'selectors'
-
 const { BarCenter } = cozy.bar
-
-const isLoading = function(collection) {
-  return (
-    collection.fetchStatus === 'pending' || collection.fetchStatus === 'loading'
-  )
-}
 
 const AccountSwitchDesktop = translate()(
   ({
@@ -88,7 +83,27 @@ AccountSwitchDesktop.propTypes = {
 }
 
 const DownArrow = () => (
-  <Icon icon="bottom" style={{ transform: 'translate(5px, 2px)' }} />
+  <Icon
+    width={12}
+    height={12}
+    icon="small-arrow"
+    style={{ transform: 'translate(5px, -1px)', width: '2rem' }}
+  />
+)
+
+const AccountSwitchSelect = ({ filteringDoc, onClick, t }) => (
+  <Media className={styles.AccountSwitch__Select} onClick={onClick}>
+    <Bd>
+      <PageTitle style={{ marginBottom: 0 }}>
+        {filteringDoc
+          ? filteringDoc.shortLabel || filteringDoc.label
+          : t('AccountSwitch.all_accounts')}&nbsp;
+      </PageTitle>
+    </Bd>
+    <Img>
+      <DownArrow />
+    </Img>
+  </Media>
 )
 
 const AccountSwitchMobile = ({
@@ -97,26 +112,12 @@ const AccountSwitchMobile = ({
   onClick,
   t
 }) => (
-  <Media style={{ width: '100%' }}>
-    <Bd>
-      <PageTitle onClick={onClick}>
-        {filteringDoc
-          ? filteringDoc.shortLabel || filteringDoc.label
-          : t('AccountSwitch.all_accounts')}&nbsp;
-        <DownArrow />
-      </PageTitle>
-    </Bd>
-    <Img>
-      <Figure
-        className={styles['account-switch-figure']}
-        currency="€"
-        decimalNumbers={0}
-        coloredPositive={true}
-        coloredNegative={true}
-        total={sumBy(filteredAccounts, 'balance')}
-      />
-    </Img>
-  </Media>
+  <AccountSwitchSelect
+    filteringDoc={filteringDoc}
+    onClick={onClick}
+    filteringAccounts={filteredAccounts}
+    t={t}
+  />
 )
 
 AccountSwitchMobile.propTypes = {
@@ -276,8 +277,7 @@ class AccountSwitch extends Component {
       breakpoints: { isMobile, isTablet, isDesktop }
     } = this.props
     const { open } = this.state
-    let { accounts, groups, groupsDocs } = this.props
-    const isFetching = isLoading(accounts) || isLoading(groupsDocs)
+    let { accounts, groups } = this.props
 
     accounts = accounts.data
     groups = groups.map(group => ({
@@ -304,28 +304,22 @@ class AccountSwitch extends Component {
       <div className={styles['account-switch']}>
         {isMobile && (
           <BarCenter>
-            <AccountSwitchMobile
-              filteredAccounts={filteredAccounts}
-              filteringDoc={filteringDoc}
-              onClick={this.toggle}
-              t={t}
-            />
+            <BarItem style={{ overflow: 'hidden', paddingRight: '1rem' }}>
+              <AccountSwitchMobile
+                filteredAccounts={filteredAccounts}
+                filteringDoc={filteringDoc}
+                onClick={this.toggle}
+                t={t}
+              />
+            </BarItem>
           </BarCenter>
         )}
-        {isTablet && (
-          <AccountSwitchTablet
+        {(isDesktop || isTablet) && (
+          <AccountSwitchSelect
+            filteredAccounts={filteredAccounts}
             filteringDoc={filteringDoc}
             onClick={this.toggle}
-          />
-        )}
-        {isDesktop && (
-          <AccountSwitchDesktop
-            isFetching={isFetching}
-            isOpen={open}
-            filteringDoc={filteringDoc}
-            accounts={accounts}
-            accountExists={this.accountExists}
-            toggle={this.toggle}
+            t={t}
           />
         )}
         {open && <Overlay className="coz-tablet" onClick={this.close} />}

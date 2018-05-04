@@ -1,4 +1,5 @@
 import React from 'react'
+import debounce from 'lodash/debounce'
 import throttle from 'lodash/throttle'
 import ReactDOM from 'react-dom'
 
@@ -14,17 +15,19 @@ class InfiniteScroll extends React.Component {
   constructor(props) {
     super(props)
     this.checkForLimits = throttle(this.checkForLimits, 100)
+    this.onWindowResize = debounce(this.onWindowResize, 500)
   }
 
   componentDidMount() {
-    this.main = this.getScrollingElement()
-    if (!this.main) {
-      throw new Error(
-        'getScrollingElement returned null, make sure it returns a node.'
-      )
-    }
     this.listenToScroll()
     this.checkForLimits()
+    window.addEventListener('resize', this.onWindowResize)
+  }
+
+  onWindowResize = () => {
+    // scrolling element may have changed
+    this.stopListeningToScroll()
+    this.listenToScroll()
   }
 
   getScrollingElement() {
@@ -54,11 +57,15 @@ class InfiniteScroll extends React.Component {
   }
 
   listenToScroll() {
-    const node = this.getScrollingElement()
-    node.addEventListener('scroll', this.handleScroll, {
+    this.scrollingElement = this.getScrollingElement()
+    if (!this.scrollingElement) {
+      throw new Error(
+        'getScrollingElement returned null, make sure it returns a node.'
+      )
+    }
+    this.scrollingElement.addEventListener('scroll', this.handleScroll, {
       passive: true
     })
-    this.scrollingElement = node
   }
 
   stopListeningToScroll() {
@@ -75,10 +82,10 @@ class InfiniteScroll extends React.Component {
   }
 
   setScroll(scroll) {
-    if (this.main === window) {
-      this.main.scrollTo(0, scroll)
+    if (this.scrollingElement === window) {
+      this.scrollingElement.scrollTo(0, scroll)
     } else {
-      this.main.scrollTop = scroll
+      this.scrollingElement.scrollTop = scroll
     }
   }
 
@@ -97,10 +104,10 @@ class InfiniteScroll extends React.Component {
   }
 
   getScrollHeight() {
-    if (this.main === window) {
+    if (this.scrollingElement === window) {
       return window.document.scrollingElement.getBoundingClientRect().height
     } else {
-      return this.main.scrollHeight
+      return this.scrollingElement.scrollHeight
     }
   }
 

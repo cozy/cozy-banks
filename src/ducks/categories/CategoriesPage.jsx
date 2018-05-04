@@ -12,7 +12,7 @@ import styles from './CategoriesPage.styl'
 import { flowRight as compose } from 'lodash'
 import { Breadcrumb } from 'components/Breadcrumb'
 import { withBreakpoints } from 'cozy-ui/react'
-import PageTitle from 'components/PageTitle'
+import { AccountSwitch } from 'ducks/account'
 
 class CategoriesPage extends Component {
   state = {
@@ -62,9 +62,10 @@ class CategoriesPage extends Component {
     }
     return (
       <div className={styles['bnk-cat-page']}>
-        {!isMobile ? (
-          <Breadcrumb items={breadcrumbItems} tag={PageTitle} />
+        {!isMobile && breadcrumbItems.length > 1 ? (
+          <Breadcrumb items={breadcrumbItems} />
         ) : null}
+        <AccountSwitch />
         {selectedCategory && (
           <BackButton onClick={() => this.selectCategory(undefined)} />
         )}

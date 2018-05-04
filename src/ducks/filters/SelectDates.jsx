@@ -1,30 +1,26 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import Select from 'components/Select'
-import { subDays, subMonths, format, endOfDay, parse } from 'date-fns'
+
+import { uniqBy, find, findLast, flowRight as compose, findIndex } from 'lodash'
+
+import { subMonths, format, endOfDay, parse } from 'date-fns'
 import { translate } from 'cozy-ui/react/I18n'
 import { getPeriod, addFilterByPeriod } from '.'
 
 import styles from './SelectDates.styl'
 import Icon from 'cozy-ui/react/Icon'
-import arrowLeft from 'assets/icons/icon-arrow-left.svg'
+import Chip from 'cozy-ui/react/Chip'
+import Select from 'components/Select'
 import cx from 'classnames'
 import scrollAware from './scrollAware'
-import { flowRight as compose, findIndex } from 'lodash'
 
-const getPeriods = options => {
+const getPeriods = () => {
   const periods = []
   const now = endOfDay(new Date())
 
   for (const monthNumber of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]) {
     const month = format(subMonths(now, monthNumber), 'YYYY-MM')
     periods.push(month)
-  }
-
-  if (options.withTwelveMonths) {
-    // last year
-    const lastYear = subDays(now, 365)
-    periods.push([lastYear, now])
   }
 
   return periods
@@ -34,13 +30,83 @@ const capitalizeFirstLetter = string => {
   return string.charAt(0).toUpperCase() + string.slice(1)
 }
 
-class SelectDatesDumb extends Component {
+class DateYearSelector extends PureComponent {
+  onChangeMonth = month => {
+    this.onChange(this.props.selected.year + '-' + month)
+  }
+
+  onChangeYear = year => {
+    this.onChange(year + '-' + this.props.selected.month)
+  }
+
+  onChange = value => {
+    if (!find(this.props.options, x => x.value == value)) {
+      const past = x => x.value < value
+      const future = x => x.value > value
+      const findValue = searchInPast =>
+        searchInPast
+          ? find(this.props.options, past)
+          : findLast(this.props.options, future)
+
+      const searchInPast = value < this.props.selected.value
+      let nearest = findValue(searchInPast)
+      if (!nearest) {
+        nearest = findValue(!searchInPast)
+      }
+      value = nearest.value
+    }
+    this.props.onChange(value)
+  }
+
+  render() {
+    const { selected } = this.props
+    const selectedYear = selected.year
+    const selectedMonth = selected.month
+    const years = uniqBy(this.props.options, x => x.year)
+    const months = this.props.options.filter(x => x.year === selectedYear)
+
+    return (
+      <span>
+        <Chip>
+          <Select
+            name="year"
+            value={selectedYear}
+            options={years.map(x => ({ value: x.year, name: x.yearF }))}
+            onChange={this.onChangeYear}
+          />
+          <Chip.Separator />
+          <Select
+            name="month"
+            className={styles.SelectDates__month}
+            value={selectedMonth}
+            options={months.map(x => ({ value: x.month, name: x.monthF }))}
+            onChange={this.onChangeMonth}
+          />
+        </Chip>
+      </span>
+    )
+  }
+}
+
+const SelectDateButton = ({ children, disabled, className, ...props }) => {
+  return (
+    <Chip.Round
+      {...props}
+      onClick={!disabled && props.onClick}
+      className={cx(styles.SelectDates__Button, className, {
+        [styles['SelectDates__Button--disabled']]: disabled
+      })}
+    >
+      {children}
+    </Chip.Round>
+  )
+}
+
+class SelectDatesDumb extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      periods: getPeriods({
-        withTwelveMonths: this.props.showTwelveMonths
-      })
+      periods: getPeriods()
     }
   }
 
@@ -53,17 +119,20 @@ class SelectDatesDumb extends Component {
 
   getOptions = () => {
     // create options
-    const { t, f } = this.props
+    const { f } = this.props
     const { periods } = this.state
     const options = []
     for (const [index, value] of periods.entries()) {
       if (index === periods.length - 1 && this.props.showTwelveMonths) {
-        options.push({ value: index, name: t('SelectDates.last_12_months') })
+        // options.push({ value: index, name: t('SelectDates.last_12_months') })
       } else {
         const date = parse(value, 'YYYY-MM')
         options.push({
-          value: index,
-          name: capitalizeFirstLetter(f(date, 'MMMM YYYY'))
+          value: value,
+          year: format(date, 'YYYY'),
+          month: format(date, 'MM'),
+          yearF: capitalizeFirstLetter(f(date, 'YYYY')),
+          monthF: capitalizeFirstLetter(f(date, 'MMMM'))
         })
       }
     }
@@ -91,41 +160,40 @@ class SelectDatesDumb extends Component {
     }
   }
 
+  handleChangeSelector = chosenValue => {
+    const options = this.getOptions()
+    const index = findIndex(options, x => x.value === chosenValue)
+    if (index > -1) {
+      this.props.onChange(this.state.periods[index])
+    }
+  }
+
   render({ scrolling }) {
     const selected = this.getSelectedIndex()
     const options = this.getOptions()
+
     return (
       <div
         className={cx(
-          styles['select-dates'],
-          scrolling && styles['select-dates--scrolling']
+          styles.SelectDates,
+          scrolling && styles['SelectDates--scrolling']
         )}
       >
-        <button
-          disabled={selected === options.length - 1}
-          className={styles['prev-button']}
-          onClick={this.onChoosePrev}
-        >
-          <Icon height="1rem" icon={arrowLeft} />
-        </button>
-        <Select
-          className={styles['select-dates-select']}
-          name="periods"
-          value={selected}
+        <DateYearSelector
           options={options}
-          onChange={this.onChange}
+          selected={options[selected]}
+          onChange={this.handleChangeSelector}
         />
-        <button
-          disabled={selected === 0}
-          className={styles['next-button']}
-          onClick={this.onChooseNext}
+        <SelectDateButton
+          onClick={this.onChoosePrev}
+          disabled={selected === options.length - 1}
         >
-          <Icon
-            height="1rem"
-            className={styles['next-icon']}
-            icon={arrowLeft}
-          />
-        </button>
+          <Icon icon="back" />
+        </SelectDateButton>
+
+        <SelectDateButton onClick={this.onChooseNext} disabled={selected === 0}>
+          <Icon icon="forward" />
+        </SelectDateButton>
       </div>
     )
   }

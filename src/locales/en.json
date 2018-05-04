@@ -247,7 +247,7 @@
       "total-header": "Total"
     },
     "title": {
-      "empty_text": "No categories to display.",
+      "empty_text": "There is no transactions in this category.",
       "total": "Balance of the period",
       "general": "Categorization",
       "debit": "Net expenditure"

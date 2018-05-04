@@ -50,7 +50,7 @@ class Categories extends Component {
     selectedCategory,
     selectCategory,
     withIncome,
-    filterWithInCome,
+    filterWithIncome,
     breakpoints: { isDesktop, isTablet, isMobile }
   }) {
     if (categories === undefined) categories = []
@@ -115,7 +115,7 @@ class Categories extends Component {
     const size = isMobile ? 140 : 200
     return (
       <div>
-        <SelectDates showTwelveMonths={true} />
+        <SelectDates />
         <div className={stTop}>
           <div className={stForm}>
             {selectedCategory === undefined && (
@@ -123,7 +123,7 @@ class Categories extends Component {
                 <Toggle
                   id="withIncome"
                   checked={withIncome}
-                  onToggle={checked => filterWithInCome(checked)}
+                  onToggle={checked => filterWithIncome(checked)}
                 />
                 <label htmlFor="withIncome">Inclure les revenus</label>
               </div>
@@ -148,7 +148,7 @@ class Categories extends Component {
             selectCategory={selectCategory}
           />
         </div>
-        {categories.length === 0 ? (
+        {categories.length === 0 || categories[0].transactionsNumber === 0 ? (
           <p>{t('Categories.title.empty_text')}</p>
         ) : (
           <Table className={stTableCategory}>

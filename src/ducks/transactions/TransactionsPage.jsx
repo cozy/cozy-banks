@@ -1,3 +1,5 @@
+/* global cozy */
+
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
@@ -11,7 +13,8 @@ import {
   maxBy
 } from 'lodash'
 import { getCollection, cozyConnect, fetchCollection } from 'cozy-client'
-
+import { getFilteredAccounts } from 'ducks/filters'
+import BarBalance from 'components/BarBalance'
 import { translate } from 'cozy-ui/react/I18n'
 import { withBreakpoints } from 'cozy-ui/react'
 
@@ -35,7 +38,9 @@ import { TransactionTableHead, TransactionsWithSelection } from './Transactions'
 import styles from './TransactionsPage.styl'
 import { TRIGGER_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
 import { getBrands } from 'ducks/brandDictionary'
-import PageTitle from 'components/PageTitle'
+import { AccountSwitch } from 'ducks/account'
+
+const { BarRight } = cozy.bar
 
 const isPendingOrLoading = function(col) {
   return col.fetchStatus === 'pending' || col.fetchStatus === 'loading'
@@ -183,10 +188,10 @@ class TransactionsPage extends Component {
       const found = find(monthsWithOperations, inRightDirection)
       if (found) {
         month = found
+        limitMin = findMonthIndex(month)
       } else {
-        return
+        limitMin = 0
       }
-      limitMin = findMonthIndex(month)
     }
     this.setState({
       limitMin: limitMin,
@@ -210,6 +215,7 @@ class TransactionsPage extends Component {
       router,
       triggers,
       filteringDoc,
+      filteredAccounts,
       breakpoints: { isMobile }
     } = this.props
     let { filteredTransactions } = this.props
@@ -263,9 +269,16 @@ class TransactionsPage extends Component {
       <div className={styles.TransactionPage}>
         {subcategoryName ? <BackButton /> : null}
         <div className={styles.TransactionPage__top}>
-          {!isMobile ? (
-            <Breadcrumb items={breadcrumbItems} tag={PageTitle} />
-          ) : null}
+          {!isMobile &&
+            breadcrumbItems.length > 1 && (
+              <Breadcrumb items={breadcrumbItems} />
+            )}
+          <AccountSwitch />
+          {isMobile && (
+            <BarRight>
+              <BarBalance accounts={filteredAccounts} />
+            </BarRight>
+          )}
           {filteredTransactions.length !== 0 && subcategoryName ? (
             <KPIs transactions={filteredTransactions} />
           ) : (
@@ -275,16 +288,18 @@ class TransactionsPage extends Component {
             period={this.state.currentMonth}
             onChange={this.handleChangeMonth}
           />
-          <TransactionTableHead />
+          {filteredTransactions.length > 0 ? (
+            !isMobile && <TransactionTableHead />
+          ) : (
+            <p>{t('Transactions.no-movements')}</p>
+          )}
         </div>
         <div
           className={
             styles.TransactionPage__bottom + ' js-transactionPageBottom'
           }
         >
-          {filteredTransactions.length === 0 ? (
-            <p>{t('Transactions.no-movements')}</p>
-          ) : (
+          {filteredTransactions.length > 0 && (
             <TransactionsWithSelection
               className={styles.TransactionPage__top}
               limitMin={this.state.limitMin}
@@ -319,6 +334,7 @@ const mapStateToProps = state => ({
   accountIds: getFilteredAccountIds(state),
   accounts: getCollection(state, 'accounts'),
   filteringDoc: state.filters.filteringDoc,
+  filteredAccounts: getFilteredAccounts(state),
   filteredTransactions: getTransactionsFilteredByAccount(state).map(
     transaction => hydrateTransaction(state, transaction)
   )

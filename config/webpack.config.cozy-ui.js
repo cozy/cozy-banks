@@ -25,7 +25,10 @@ module.exports = {
       {
         test: /\.jsx?$/,
         include: path.dirname(require.resolve('cozy-ui')),
-        loader: 'babel-loader'
+        loader: 'babel-loader',
+        options: {
+          cacheDirectory: true
+        }
       }
     ]
   },
