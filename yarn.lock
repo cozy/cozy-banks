@@ -2717,9 +2717,9 @@ cozy-client-js@^0.3.19:
   version "0.3.21"
   resolved "https://registry.yarnpkg.com/cozy-client-js/-/cozy-client-js-0.3.21.tgz#d27d0288077ce95139333c41dfb537b8584ff254"
 
-cozy-client@0.4.2:
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-0.4.2.tgz#041825d58265cf5e82538c653a001690c04e5402"
+cozy-client@0.4.3:
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-0.4.3.tgz#0c6bdde63ccf2d24642217d96cf1c16aeacc70bd"
   dependencies:
     pouchdb "6.3.4"
     pouchdb-find "6.3.4"
