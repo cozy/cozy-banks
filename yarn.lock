@@ -2063,9 +2063,9 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-classificator@0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/classificator/-/classificator-0.2.2.tgz#079fe6874073b9a2410159a133a12e6b618d21fe"
+classificator@0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/classificator/-/classificator-0.2.3.tgz#3e017b4e1d424e787d8f0355ed6df2d424f56762"
 
 classnames@^2.2.0, classnames@^2.2.5:
   version "2.2.5"
