@@ -106,12 +106,11 @@ class _BalanceRow extends React.Component {
         <TdSecondary className={styles['Balance__account_number']}>
           {account && account.number}
           {group &&
-            uniq(
-              group.accounts
-                .map(this.props.getAccount)
-                .filter(account => account)
-                .map(getAccountLabel)
-            ).join(', ')}
+            group.accounts
+              .map(this.props.getAccount)
+              .filter(account => account)
+              .map(getAccountLabel)
+              .join(', ')}
         </TdSecondary>
         {!isMobile && (
           <TdSecondary className={styles['Balance__bank']}>
