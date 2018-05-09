@@ -6,7 +6,7 @@
 // how select height is computed, we set it directly
 select-date-height=3rem
 select-date-width=20rem
-select-date-height-small = 2.5rem
+select-date-height-small = 2.75rem
 
 .SelectDates
     display flex
@@ -44,29 +44,44 @@ select-date-height-small = 2.5rem
     .SelectDates
         m = 0.75rem // size of the margin-top/bottom
         topbar-height = 3rem
-        top topbar-height + m
-        left content-padding-small
-        right content-padding-small
+        top topbar-height
+        left 0
+        right 0
         width auto
+        height select-date-height-small
         position fixed
         background white
         z-index 2
+        display flex
+        justify-content center
+        align-content center
+        border-bottom: 1px solid silver
 
-        height select-date-height-small
-        box-shadow:
-            0 (m - content-padding-small) 0 content-padding-small white
+    .SelectDates__chip
+        background-color transparent
+        margin-bottom 0
+        margin-right 0
+        padding 0
+        height 100%
 
-        &--scrolling
-            shadow-height = 2 // px but we make calculations in rem underneath
+    .SelectDates__separator
+        height 1.5rem
+        margin-left 0.75rem
+        margin-right 0.75rem
 
-            // First box-shadow  is to cover content that is outside the component
-            // Second one is to have a subtle shadow underneath the component
-            box-shadow:
-                0 (m - content-padding-small) 0 content-padding-small white,
-                0 (m - content-padding-small + shadow-height/16) 0 content-padding-small rgba(0,0,0,.15)
+    .SelectDates__buttons
+        display flex
+        align-items center
 
-        .prev-button, .next-button
-            width 2.5rem
+    .SelectDates__Button
+        width auto
+        background-color transparent
+
+    .SelectDates__Button--prev
+        padding-right 0.75rem
+
+    .SelectDates__Button--next
+        padding-left 0.75rem
 
 .SelectDates__Button
     cursor pointer

@@ -7,6 +7,8 @@ import { subMonths, format, endOfDay, parse } from 'date-fns'
 import { translate } from 'cozy-ui/react/I18n'
 import { getPeriod, addFilterByPeriod } from '.'
 
+import { withBreakpoints } from 'cozy-ui/react'
+
 import styles from './SelectDates.styl'
 import Icon from 'cozy-ui/react/Icon'
 import Chip from 'cozy-ui/react/Chip'
@@ -29,6 +31,10 @@ const getPeriods = () => {
 const capitalizeFirstLetter = string => {
   return string.charAt(0).toUpperCase() + string.slice(1)
 }
+
+const Separator = () => (
+  <Chip.Separator className={styles.SelectDates__separator} />
+)
 
 class DateYearSelector extends PureComponent {
   onChangeMonth = month => {
@@ -67,14 +73,14 @@ class DateYearSelector extends PureComponent {
 
     return (
       <span>
-        <Chip>
+        <Chip className={cx(styles.SelectDates__chip)}>
           <Select
             name="year"
             value={selectedYear}
             options={years.map(x => ({ value: x.year, name: x.yearF }))}
             onChange={this.onChangeYear}
           />
-          <Chip.Separator />
+          <Separator />
           <Select
             name="month"
             className={styles.SelectDates__month}
@@ -93,9 +99,14 @@ const SelectDateButton = ({ children, disabled, className, ...props }) => {
     <Chip.Round
       {...props}
       onClick={!disabled && props.onClick}
-      className={cx(styles.SelectDates__Button, className, {
-        [styles['SelectDates__Button--disabled']]: disabled
-      })}
+      className={cx(
+        styles.SelectDates__Button,
+        styles.SelectDates__chip,
+        className,
+        {
+          [styles['SelectDates__Button--disabled']]: disabled
+        }
+      )}
     >
       {children}
     </Chip.Round>
@@ -168,7 +179,7 @@ class SelectDatesDumb extends React.PureComponent {
     }
   }
 
-  render({ scrolling }) {
+  render({ scrolling, breakpoints: { isMobile } }) {
     const selected = this.getSelectedIndex()
     const options = this.getOptions()
 
@@ -184,16 +195,24 @@ class SelectDatesDumb extends React.PureComponent {
           selected={options[selected]}
           onChange={this.handleChangeSelector}
         />
-        <SelectDateButton
-          onClick={this.onChoosePrev}
-          disabled={selected === options.length - 1}
-        >
-          <Icon icon="back" />
-        </SelectDateButton>
+        <span className={styles.SelectDates__buttons}>
+          {isMobile && <Separator />}
+          <SelectDateButton
+            onClick={this.onChoosePrev}
+            disabled={selected === options.length - 1}
+            className={styles['SelectDates__Button--prev']}
+          >
+            <Icon icon="back" />
+          </SelectDateButton>
 
-        <SelectDateButton onClick={this.onChooseNext} disabled={selected === 0}>
-          <Icon icon="forward" />
-        </SelectDateButton>
+          <SelectDateButton
+            onClick={this.onChooseNext}
+            disabled={selected === 0}
+            className={styles['SelectDates__Button--next']}
+          >
+            <Icon icon="forward" />
+          </SelectDateButton>
+        </span>
       </div>
     )
   }
@@ -209,7 +228,9 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-const SelectDates = compose(translate(), scrollAware)(SelectDatesDumb)
+const SelectDates = compose(translate(), scrollAware, withBreakpoints())(
+  SelectDatesDumb
+)
 
 export default SelectDates
 export const ConnectedSelectDates = connect(
