@@ -31,10 +31,10 @@ const sDesc = styles['bnk-op-desc']
 const sAmount = styles['bnk-op-amount']
 const sAction = styles['bnk-op-action']
 
-const TableHeadDesktop = ({ t }) => (
+const TableHeadDesktop = ({ t, mainColumnTitle }) => (
   <thead>
     <tr>
-      <td className={sDesc}>{t('Transactions.header.description')}</td>
+      <td className={sDesc}>{mainColumnTitle}</td>
       <td className={sDate}>{t('Transactions.header.date')}</td>
       <td className={sAmount}>{t('Transactions.header.amount')}</td>
       <td className={sAction}>{t('Transactions.header.action')}</td>
@@ -180,7 +180,7 @@ export const TransactionTableHead = (props, { t }) => (
     }}
   >
     <Table className={styles['TransactionTable']}>
-      <TableHeadDesktop t={t} />
+      <TableHeadDesktop t={t} mainColumnTitle={props.mainColumnTitle} />
     </Table>
   </div>
 )

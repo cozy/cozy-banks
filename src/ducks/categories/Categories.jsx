@@ -138,7 +138,11 @@ class Categories extends Component {
             <thead>
               <tr>
                 <td className={stCategory}>
-                  {t('Categories.headers.categories')}
+                  {t(
+                    `Categories.headers.${
+                      selectedCat ? 'subcategories' : 'categories'
+                    }`
+                  )}
                 </td>
                 <td className={stPercentage}>%</td>
                 {(isDesktop || isTablet) && (

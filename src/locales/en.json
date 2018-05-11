@@ -239,8 +239,10 @@
       "transactions": "Transactions",
       "credit": "Credit",
       "total": "Total",
-      "categories": "Categories",
-      "debit": "Debit"
+      "categories": "Category",
+      "subcategories": "Subcategory",
+      "debit": "Debit",
+      "movements": "Movements"
     },
     "board": {
       "debit-header": "Spent",

@@ -143,11 +143,13 @@
       "empty_text": "Il n'y a pas de mouvements bancaires dans cette catégorie."
     },
     "headers": {
-      "categories": "Catégories",
+      "categories": "Catégorie",
+      "subcategories": "Sous-catégorie",
       "transactions": "Opérations",
       "debit": "Débit",
       "credit": "Crédit",
-      "total": "Total"
+      "total": "Total",
+      "movements": "Mouvements"
     }
   },
 

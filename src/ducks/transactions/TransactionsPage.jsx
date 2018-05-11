@@ -297,7 +297,15 @@ class TransactionsPage extends Component {
             <ConnectedSelectDates />
           )}
           {filteredTransactions.length > 0 ? (
-            !isMobile && <TransactionTableHead />
+            !isMobile && (
+              <TransactionTableHead
+                mainColumnTitle={t(
+                  subcategoryName
+                    ? 'Categories.headers.movements'
+                    : 'Transactions.header.description'
+                )}
+              />
+            )
           ) : (
             <p>{t('Transactions.no-movements')}</p>
           )}
