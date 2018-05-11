@@ -7,7 +7,7 @@ import Toggle from 'cozy-ui/react/Toggle'
 import CategoryIcon from './CategoryIcon'
 import { Media, Bd, Img } from 'cozy-ui/react/Media'
 import { Table, TdWithIcon, TdSecondary } from 'components/Table'
-import { Figure, FigureBlock } from 'components/Figure'
+import { Figure } from 'components/Figure'
 import { ConnectedSelectDates as SelectDates } from 'components/SelectDates'
 import styles from './styles'
 import CategoriesChart from './CategoriesChart'
@@ -16,7 +16,6 @@ import { flowRight as compose } from 'lodash'
 const stAmount = styles['bnk-table-amount']
 const stCategory = styles['bnk-table-category-category']
 const stChevron = styles['bnk-table-chevron']
-const stFigure = styles['bnk-cat-figure']
 const stFilter = styles['bnk-cat-filter']
 const stForm = styles['bnk-cat-form']
 const stPercentage = styles['bnk-table-percentage']
@@ -128,17 +127,6 @@ class Categories extends Component {
                 <label htmlFor="withIncome">Inclure les revenus</label>
               </div>
             )}
-            {categories.length > 0 && (
-              <FigureBlock
-                className={stFigure}
-                label={titleLabel}
-                total={selectedCat ? selectedCat.amount : transactionsTotal}
-                currency={globalCurrency}
-                coloredPositive
-                coloredNegative
-                signed
-              />
-            )}
           </div>
           <CategoriesChart
             width={size}
@@ -146,6 +134,9 @@ class Categories extends Component {
             categories={categories}
             selectedCategory={selectedCategory}
             selectCategory={selectCategory}
+            total={selectedCat ? selectedCat.amount : transactionsTotal}
+            currency={globalCurrency}
+            label={titleLabel}
           />
         </div>
         {categories.length === 0 || categories[0].transactionsNumber === 0 ? (

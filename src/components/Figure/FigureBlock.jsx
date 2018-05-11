@@ -18,13 +18,14 @@ const FigureBlock = ({
   coloredPositive,
   coloredNegative,
   signed,
-  decimalNumbers = 0
+  decimalNumbers = 0,
+  figureClassName
 }) => (
   <div className={classNames(styles['FigureBlock'], className)}>
     <h4 className={styles['FigureBlock-label']}>{label}</h4>
     <Figure
       size="big"
-      className={styles['FigureBlock-figure']}
+      className={classNames(styles['FigureBlock-figure'], figureClassName)}
       total={total}
       currency={currency}
       coloredPositive={coloredPositive}
