@@ -139,8 +139,7 @@
     },
     "title": {
       "general": "Catégorisation",
-      "total": "Solde de la période",
-      "debit": "Dépense nette",
+      "total": "Sur la période",
       "empty_text": "Il n'y a pas de mouvements bancaires dans cette catégorie."
     },
     "headers": {

@@ -249,9 +249,8 @@
     },
     "title": {
       "empty_text": "There is no transactions in this category.",
-      "total": "Balance of the period",
-      "general": "Categorization",
-      "debit": "Net expenditure"
+      "total": "On the period",
+      "general": "Categorization"
     }
   },
   "Transactions": {

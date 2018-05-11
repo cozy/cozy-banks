@@ -103,14 +103,6 @@ class Categories extends Component {
       }
     })
 
-    let titleLabel = withIncome
-      ? t('Categories.title.total')
-      : t('Categories.title.debit')
-    if (selectedCat) {
-      const catName = t(`Data.categories.${selectedCat.name}`)
-      titleLabel = `${titleLabel} (${catName})`
-    }
-
     const size = 182
     return (
       <div>
@@ -136,7 +128,7 @@ class Categories extends Component {
             selectCategory={selectCategory}
             total={selectedCat ? selectedCat.amount : transactionsTotal}
             currency={globalCurrency}
-            label={titleLabel}
+            label={t('Categories.title.total')}
           />
         </div>
         {categories.length === 0 || categories[0].transactionsNumber === 0 ? (
