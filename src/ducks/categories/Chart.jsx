@@ -75,7 +75,7 @@ class Chart extends Component {
 
   render({ width, height }, { data, options }) {
     return (
-      <div className={styles['bnk-chart-pie']}>
+      <div className={styles['bnk-chart']}>
         <Doughnut
           data={data}
           options={options}
