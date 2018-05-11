@@ -51,7 +51,7 @@ class Categories extends Component {
     selectCategory,
     withIncome,
     filterWithIncome,
-    breakpoints: { isDesktop, isTablet, isMobile }
+    breakpoints: { isDesktop, isTablet }
   }) {
     if (categories === undefined) categories = []
     const selectedCat = categories.find(
@@ -112,7 +112,7 @@ class Categories extends Component {
       titleLabel = `${titleLabel} (${catName})`
     }
 
-    const size = isMobile ? 140 : 200
+    const size = 182
     return (
       <div>
         <SelectDates showFullYear />

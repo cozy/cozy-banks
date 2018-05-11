@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { translate } from 'cozy-ui/react/I18n'
-import PieChart from './PieChart'
+import Chart from './Chart'
 import styles from './styles'
 
 const hexToRGBA = (hex, a) => {
@@ -51,7 +51,7 @@ class CategoriesChart extends Component {
 
     return (
       <div className={styles['bnk-cat-chart']}>
-        <PieChart
+        <Chart
           onClick={this.click}
           labels={labels}
           data={data}
