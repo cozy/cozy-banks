@@ -2685,9 +2685,9 @@ cozy-authentication@1.1.4:
   dependencies:
     url-polyfill "1.0.11"
 
-cozy-bar@4.10.2:
-  version "4.10.2"
-  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-4.10.2.tgz#40c25604f2652b8fb691ca87c7c69f0f18309d0b"
+cozy-bar@4.10.4:
+  version "4.10.4"
+  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-4.10.4.tgz#240cae8a5b9422265a08f7552809f91400dab958"
   dependencies:
     babel-preset-cozy-app "^0.3.1"
     core-js "^2.5.3"
