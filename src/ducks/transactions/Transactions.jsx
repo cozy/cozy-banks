@@ -233,6 +233,12 @@ class TransactionsD extends React.Component {
     this.updateTransactions(this.props.transactions)
   }
 
+  componentWillUpdate(nextProps) {
+    if (this.props.transactions !== nextProps.transactions) {
+      this.updateTransactions(nextProps.transactions)
+    }
+  }
+
   updateTransactions(transactions) {
     this.transactionsById = keyBy(transactions, '_id')
     this.transactions = transactions
