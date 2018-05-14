@@ -20,7 +20,6 @@ const stFilter = styles['bnk-cat-filter']
 const stForm = styles['bnk-cat-form']
 const stPercentage = styles['bnk-table-percentage']
 const stRow = styles['bnk-table-row']
-const stRowSub = styles['bnk-table-row-subcategory']
 const stTableCategory = styles['bnk-table-category']
 const stTop = styles['bnk-cat-top']
 const stTotal = styles['bnk-table-total']
@@ -212,7 +211,7 @@ class Categories extends Component {
       subcategory || category
     const isCollapsed = selectedCategory !== category.name
     const type = subcategory ? 'subcategories' : 'categories'
-    const rowClass = subcategory ? stRowSub : stRow
+    const rowClass = stRow
     const onClick = subcategory || isCollapsed ? this.handleClick : () => {}
     const key = (subcategory || category).name
     return [
@@ -288,7 +287,7 @@ class Categories extends Component {
     return [
       <tr
         key={categoryName}
-        className={subcategory ? stRowSub : isCollapsed ? stRow : stUncollapsed}
+        className={isCollapsed ? stRow : stUncollapsed}
         onClick={() => this.handleClick(category, subcategory)}
       >
         <td className="u-ph-1 u-pv-half">
