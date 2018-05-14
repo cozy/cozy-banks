@@ -49,6 +49,8 @@ select-date-height-small = 2.75rem
         right 0
         width auto
         height select-date-height-small
+        padding-left 1rem
+        padding-right 0.875rem
         position fixed
         background white
         z-index 2
@@ -57,17 +59,28 @@ select-date-height-small = 2.75rem
         align-content center
         border-bottom: 1px solid silver
 
+    .SelectDates__DateYearSelector
+        flex-grow 1
+
     .SelectDates__chip
         background-color transparent
         margin-bottom 0
         margin-right 0
         padding 0
         height 100%
+        width 100%
+
+        > span:not([class])
+            flex-grow 1
+
+        select
+            width 100%
+            margin-right -1.3rem
 
     .SelectDates__separator
         height 1.5rem
-        margin-left 0.75rem
-        margin-right 0.75rem
+        margin-left 0.875rem
+        margin-right 0.875rem
 
     .SelectDates__buttons
         display flex
@@ -78,10 +91,10 @@ select-date-height-small = 2.75rem
         background-color transparent
 
     .SelectDates__Button--prev
-        padding-right 0.75rem
+        padding-right 0.875rem
 
     .SelectDates__Button--next
-        padding-left 0.75rem
+        padding-left 0.875rem
 
 .SelectDates__Button
     cursor pointer
