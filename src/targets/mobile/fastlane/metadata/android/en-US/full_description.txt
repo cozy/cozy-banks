@@ -26,7 +26,6 @@ The press has already mentioned Cozy:
 Check out the list of 23 banks and account types available in your Cozy;
 • Axa Banque
 • Banque Populaire
-• Barclays
 • BforBank
 • BNP Paribas
 • Boursorama
