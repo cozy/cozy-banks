@@ -13,8 +13,15 @@ const SmallArrow = () => (
   />
 )
 
-const Select = ({ name, value, options, onChange, className }) => (
-  <span>
+const Select = ({
+  name,
+  value,
+  options,
+  onChange,
+  className,
+  wrappedClassName
+}) => (
+  <span className={cx(wrappedClassName)}>
     <select
       className={cx(styles.Select, className)}
       name={name}
