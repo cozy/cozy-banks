@@ -264,6 +264,7 @@ class Categories extends Component {
               <Icon icon="forward" color={palette.coolGrey} />
             </td>
           )}
+          <PercentageLine value={percentage} color={category.color} />
         </tr>
       ),
       ...(isCollapsed || subcategory
@@ -312,6 +313,7 @@ class Categories extends Component {
             </Img>
           </Media>
         </td>
+        <PercentageLine value={percentage} color={category.color} />
       </tr>,
       ...(isCollapsed || subcategory
         ? []
@@ -321,5 +323,15 @@ class Categories extends Component {
     ]
   }
 }
+
+const PercentageLine = ({ value, color }) => (
+  <div
+    className={styles.PercentageLine}
+    style={{
+      width: `${value}%`,
+      backgroundColor: color
+    }}
+  />
+)
 
 export default compose(withRouter, withBreakpoints(), translate())(Categories)
