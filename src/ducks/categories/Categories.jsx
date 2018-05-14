@@ -38,7 +38,7 @@ class Categories extends Component {
   render({
     t,
     categories,
-    selectedCategory,
+    selectedCategoryName,
     selectCategory,
     withIncome,
     filterWithIncome,
@@ -46,9 +46,9 @@ class Categories extends Component {
   }) {
     if (categories === undefined) categories = []
     const selectedCat = categories.find(
-      category => category.name === selectedCategory
+      category => category.name === selectedCategoryName
     )
-    if (selectedCategory) {
+    if (selectedCategoryName) {
       if (selectedCat) {
         categories = [selectedCat]
       } else {
@@ -74,7 +74,7 @@ class Categories extends Component {
         <SelectDates showFullYear />
         <div className={stTop}>
           <div className={stForm}>
-            {selectedCategory === undefined && (
+            {selectedCategoryName === undefined && (
               <div className={stFilter}>
                 <Toggle
                   id="withIncome"
@@ -89,7 +89,7 @@ class Categories extends Component {
             width={size}
             height={size}
             categories={categories}
-            selectedCategory={selectedCategory}
+            selectedCategoryName={selectedCategoryName}
             selectCategory={selectCategory}
             total={selectedCat ? selectedCat.amount : transactionsTotal}
             currency={globalCurrency}
@@ -125,7 +125,7 @@ class Categories extends Component {
             </thead>
             <tbody>
               {categories.map(category =>
-                this.renderCategory(category, selectedCategory)
+                this.renderCategory(category, selectedCategoryName)
               )}
             </tbody>
           </Table>
@@ -136,12 +136,12 @@ class Categories extends Component {
 
   renderCategory(category) {
     const {
-      selectedCategory,
+      selectedCategoryName,
       breakpoints: { isDesktop, isTablet }
     } = this.props
 
-    const isCollapsed = selectedCategory !== category.name
-    if (selectedCategory !== undefined && isCollapsed) return
+    const isCollapsed = selectedCategoryName !== category.name
+    if (selectedCategoryName !== undefined && isCollapsed) return
 
     const renderer =
       isDesktop || isTablet
@@ -162,7 +162,7 @@ class Categories extends Component {
   renderCategoryDesktopTablet(category, subcategory) {
     const {
       t,
-      selectedCategory,
+      selectedCategoryName,
       breakpoints: { isDesktop }
     } = this.props
     const {
@@ -175,7 +175,7 @@ class Categories extends Component {
       transactionsNumber
     } =
       subcategory || category
-    const isCollapsed = selectedCategory !== category.name
+    const isCollapsed = selectedCategoryName !== category.name
     const type = subcategory ? 'subcategories' : 'categories'
     const rowClass = stRow
     const onClick = subcategory || isCollapsed ? this.handleClick : () => {}
@@ -196,7 +196,7 @@ class Categories extends Component {
             {t(`Data.${type}.${name}`)}
           </TdWithIcon>
           <TdSecondary className={stPercentage}>
-            {!subcategory && selectedCategory ? '100 %' : `${percentage} %`}
+            {!subcategory && selectedCategoryName ? '100 %' : `${percentage} %`}
           </TdSecondary>
           <TdSecondary>{transactionsNumber}</TdSecondary>
           <TdSecondary className={stTotal}>
@@ -242,12 +242,12 @@ class Categories extends Component {
   }
 
   renderCategoryMobile(category, subcategory) {
-    const { t, selectedCategory } = this.props
+    const { t, selectedCategoryName } = this.props
     const { name, subcategories, credit, debit, currency, percentage } =
       subcategory || category
 
     // subcategories are always collapsed
-    const isCollapsed = selectedCategory !== category.name
+    const isCollapsed = selectedCategoryName !== category.name
     const type = subcategory ? 'subcategories' : 'categories'
     const categoryName = (subcategory || category).name
 
@@ -266,7 +266,9 @@ class Categories extends Component {
               {t(`Data.${type}.${name}`)}
             </Bd>
             <Img className={cx('u-pl-half', stPercentage)}>
-              {!subcategory && selectedCategory ? '100 %' : `${percentage} %`}
+              {!subcategory && selectedCategoryName
+                ? '100 %'
+                : `${percentage} %`}
             </Img>
             <Img className={cx('u-pl-half', stAmount)}>
               <Figure

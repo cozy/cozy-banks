@@ -48,16 +48,16 @@ class CategoriesPage extends Component {
     { withIncome }
   ) {
     const isFetching = transactions.fetchStatus !== 'loaded'
-    const selectedCategory = router.params.categoryName
+    const selectedCategoryName = router.params.categoryName
     // compute the filter to use
     if (!withIncome) {
       categories = categories.filter(category => category.name !== 'incomeCat')
     }
     const breadcrumbItems = [{ name: t('Categories.title.general') }]
-    if (selectedCategory) {
+    if (selectedCategoryName) {
       breadcrumbItems[0].onClick = () => router.push('/categories')
       breadcrumbItems.push({
-        name: t(`Data.categories.${selectedCategory}`)
+        name: t(`Data.categories.${selectedCategoryName}`)
       })
     }
     return (
@@ -66,7 +66,7 @@ class CategoriesPage extends Component {
           <Breadcrumb items={breadcrumbItems} />
         ) : null}
         <AccountSwitch />
-        {selectedCategory && (
+        {selectedCategoryName && (
           <BackButton onClick={() => this.selectCategory(undefined)} />
         )}
         {isFetching ? (
@@ -74,7 +74,7 @@ class CategoriesPage extends Component {
         ) : (
           <Categories
             categories={categories}
-            selectedCategory={selectedCategory}
+            selectedCategoryName={selectedCategoryName}
             selectCategory={this.selectCategory}
             withIncome={withIncome}
             filterWithInCome={this.filterWithInCome}
