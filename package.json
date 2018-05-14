@@ -134,7 +134,7 @@
     "cozy-authentication": "1.1.4",
     "cozy-bar": "4.10.4",
     "cozy-client": "0.4.3",
-    "cozy-client-js": "0.8.3",
+    "cozy-client-js": "0.9.0",
     "cozy-konnector-libs": "^3.0.13",
     "cozy-ui": "^7.20.0",
     "date-fns": "^1.28.2",
