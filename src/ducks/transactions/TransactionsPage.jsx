@@ -9,6 +9,7 @@ import {
   includes,
   findIndex,
   find,
+  findLast,
   uniq,
   maxBy
 } from 'lodash'
@@ -180,14 +181,15 @@ class TransactionsPage extends Component {
          in the future, we check if the chosen month is before or after the
          current month.
       */
-      const monthsWithOperations = uniq(transactions.map(x => getMonth(x.date)))
-        .sort()
-        .reverse()
+      const monthsWithOperations = uniq(
+        transactions.map(x => getMonth(x.date))
+      ).sort()
       const beforeChosenMonth = x => x < month
       const afterChosenMonth = x => x > month
       const inRightDirection =
         month < this.state.currentMonth ? beforeChosenMonth : afterChosenMonth
-      const found = find(monthsWithOperations, inRightDirection)
+      const findFn = month < this.state.currentMonth ? findLast : find
+      const found = findFn(monthsWithOperations, inRightDirection)
       if (found) {
         month = found
         limitMin = findMonthIndex(month)
