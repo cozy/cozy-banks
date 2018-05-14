@@ -125,3 +125,48 @@ export const isHealth = transaction => {
     categoryId === '400620'
   )
 }
+
+const subCategorySort = (a, b) => {
+  if (b.percentage !== a.percentage) {
+    return b.percentage - a.percentage
+  } else {
+    return a.amount - b.amount
+  }
+}
+
+export const getTransactionsTotal = categories => {
+  let transactionsTotal = 0
+
+  if (categories.length !== 0) {
+    // compute some global data
+    const absoluteTransactionsTotal = categories.reduce(
+      (total, category) => total + Math.abs(category.amount),
+      0
+    )
+    for (let category of categories) {
+      category.percentage = Math.round(
+        Math.abs(category.amount) / absoluteTransactionsTotal * 100
+      )
+      const absoluteSubcategoriesTotal = category.subcategories.reduce(
+        (total, category) => total + Math.abs(category.amount),
+        0
+      )
+      for (let subcategory of category.subcategories) {
+        if (absoluteSubcategoriesTotal === 0) {
+          subcategory.percentage = 100
+        } else {
+          subcategory.percentage = Math.round(
+            Math.abs(subcategory.amount) / absoluteSubcategoriesTotal * 100
+          )
+        }
+      }
+      category.subcategories = category.subcategories.sort(subCategorySort)
+      transactionsTotal += category.amount
+    }
+  }
+
+  return transactionsTotal
+}
+
+export const getGlobalCurrency = categories =>
+  categories.length > 0 ? categories[0].currency : '€'
