@@ -9,11 +9,7 @@ import Toggle from 'cozy-ui/react/Toggle'
 import CategoriesChart from './CategoriesChart'
 import { getTransactionsTotal, getGlobalCurrency } from './helpers'
 import { flowRight as compose } from 'lodash'
-import styles from './styles'
-
-const stTop = styles['bnk-cat-top']
-const stForm = styles['bnk-cat-form']
-const stFilter = styles['bnk-cat-filter']
+import styles from './CategoriesHeader.styl'
 
 const CategoriesHeader = ({
   breadcrumbItems,
@@ -30,7 +26,7 @@ const CategoriesHeader = ({
   const transactionsTotal = getTransactionsTotal(categories)
 
   return (
-    <div>
+    <div className={styles.CategoriesHeader}>
       <div>
         {!isMobile && breadcrumbItems.length > 1 ? (
           <Breadcrumb items={breadcrumbItems} />
@@ -39,36 +35,28 @@ const CategoriesHeader = ({
         {selectedCategory && (
           <BackButton onClick={() => this.selectCategory(undefined)} />
         )}
-      </div>
-      <div>
         <SelectDates showFullYear />
-        <div className={stTop}>
-          <div className={stForm}>
-            {selectedCategory === undefined && (
-              <div className={stFilter}>
-                <Toggle
-                  id="withIncome"
-                  checked={withIncome}
-                  onToggle={checked => onWithIncomeToggle(checked)}
-                />
-                <label htmlFor="withIncome">Inclure les revenus</label>
-              </div>
-            )}
+        {selectedCategory === undefined && (
+          <div className={styles.CategoriesHeader__Toggle}>
+            <Toggle
+              id="withIncome"
+              checked={withIncome}
+              onToggle={checked => onWithIncomeToggle(checked)}
+            />
+            <label htmlFor="withIncome">Inclure les revenus</label>
           </div>
-          <CategoriesChart
-            width={chartSize}
-            height={chartSize}
-            categories={categories}
-            selectedCategoryName={selectedCategory && selectedCategory.name}
-            selectCategory={selectCategory}
-            total={
-              selectedCategory ? selectedCategory.amount : transactionsTotal
-            }
-            currency={globalCurrency}
-            label={t('Categories.title.total')}
-          />
-        </div>
+        )}
       </div>
+      <CategoriesChart
+        width={chartSize}
+        height={chartSize}
+        categories={categories}
+        selectedCategory={selectedCategory && selectedCategory.name}
+        selectCategory={selectCategory}
+        total={selectedCategory ? selectedCategory.amount : transactionsTotal}
+        currency={globalCurrency}
+        label={t('Categories.title.total')}
+      />
     </div>
   )
 }

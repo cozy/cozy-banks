@@ -1,0 +1,21 @@
+@require 'settings/breakpoints'
+
+.CategoriesHeader
+    display flex
+    justify-content space-between
+    align-items center
+    margin-bottom 1.5rem
+
+    +small-screen()
+        flex-direction column
+        align-items flex-start
+
+.CategoriesHeader__Toggle
+    padding 2rem 0 0
+
+    > span
+        margin-right 1em
+    > label
+        font-size .8em
+        position absolute
+        line-height 1.5rem

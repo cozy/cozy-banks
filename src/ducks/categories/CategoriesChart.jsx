@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { translate } from 'cozy-ui/react/I18n'
 import Chart from './Chart'
-import styles from './styles'
+import styles from './CategoriesChart.styl'
 import FigureBlock from 'components/Figure/FigureBlock'
 
 const hexToRGBA = (hex, a) => {
@@ -60,7 +60,7 @@ class CategoriesChart extends Component {
     }
 
     return (
-      <div className={styles['bnk-cat-chart']}>
+      <div className={styles.CategoriesChart}>
         <div className={styles.CategoriesChart__FigureBlockContainer}>
           <FigureBlock
             label={label}
