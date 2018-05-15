@@ -233,7 +233,8 @@
     "filter": {
       "credit": "earnings",
       "total": "Total",
-      "debit": "Total excl. earnings"
+      "debit": "Total excl. earnings",
+      "includeIncome": "Include incomes"
     },
     "headers": {
       "transactions": "Transactions",

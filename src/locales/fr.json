@@ -135,7 +135,8 @@
     "filter": {
       "debit": "Total hors categ. revenus",
       "credit": "Revenus",
-      "total": "Total"
+      "total": "Total",
+      "includeIncome": "Inclure les revenus"
     },
     "title": {
       "general": "Catégorisation",

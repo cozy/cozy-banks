@@ -43,7 +43,9 @@ const CategoriesHeader = ({
               checked={withIncome}
               onToggle={checked => onWithIncomeToggle(checked)}
             />
-            <label htmlFor="withIncome">Inclure les revenus</label>
+            <label htmlFor="withIncome">
+              {t('Categories.filter.includeIncome')}
+            </label>
           </div>
         )}
       </div>
