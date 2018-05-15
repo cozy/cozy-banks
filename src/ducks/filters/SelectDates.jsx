@@ -80,7 +80,7 @@ class DateYearSelector extends PureComponent {
             options={years.map(x => ({ value: x.year, name: x.yearF }))}
             onChange={this.onChangeYear}
             className={styles.SelectDates__Select}
-            wrappedClassName={styles.SelectDates__SelectRoot}
+            wrappedClassName={styles.SelectDates__SelectYear}
           />
           <Separator />
           <Select
@@ -89,7 +89,7 @@ class DateYearSelector extends PureComponent {
               styles.SelectDates__month,
               styles.SelectDates__Select
             )}
-            wrappedClassName={styles.SelectDates__SelectRoot}
+            wrappedClassName={styles.SelectDates__SelectMonth}
             value={selectedMonth}
             options={months.map(x => ({ value: x.month, name: x.monthF }))}
             onChange={this.onChangeMonth}
