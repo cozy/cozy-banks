@@ -31,7 +31,7 @@ const CategoriesHeader = ({
         {!isMobile && breadcrumbItems.length > 1 ? (
           <Breadcrumb items={breadcrumbItems} />
         ) : null}
-        <AccountSwitch />
+        <AccountSwitch small={selectedCategory !== undefined} />
         {selectedCategory && (
           <BackButton onClick={() => this.selectCategory(undefined)} />
         )}
