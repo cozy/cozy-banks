@@ -3,26 +3,19 @@ import { withRouter } from 'react-router'
 import cx from 'classnames'
 import { translate, withBreakpoints, Icon } from 'cozy-ui/react'
 import palette from 'cozy-ui/stylus/settings/palette.json'
-import Toggle from 'cozy-ui/react/Toggle'
 import CategoryIcon from './CategoryIcon'
 import { Media, Bd, Img } from 'cozy-ui/react/Media'
 import { Table, TdWithIcon, TdSecondary } from 'components/Table'
 import { Figure } from 'components/Figure'
-import { ConnectedSelectDates as SelectDates } from 'components/SelectDates'
 import styles from './styles'
-import CategoriesChart from './CategoriesChart'
 import { flowRight as compose } from 'lodash'
-import { getTransactionsTotal, getGlobalCurrency } from './helpers'
 
 const stAmount = styles['bnk-table-amount']
 const stCategory = styles['bnk-table-category-category']
 const stChevron = styles['bnk-table-chevron']
-const stFilter = styles['bnk-cat-filter']
-const stForm = styles['bnk-cat-form']
 const stPercentage = styles['bnk-table-percentage']
 const stRow = styles['bnk-table-row']
 const stTableCategory = styles['bnk-table-category']
-const stTop = styles['bnk-cat-top']
 const stTotal = styles['bnk-table-total']
 const stUncollapsed = styles['bnk-table-row--uncollapsed']
 const stCatTotalMobile = styles['bnk-category-total-mobile']
@@ -38,26 +31,13 @@ class Categories extends Component {
   render({
     t,
     categories,
-    selectedCategoryName,
-    selectCategory,
-    withIncome,
-    filterWithIncome,
+    selectedCategory,
     breakpoints: { isDesktop, isTablet }
   }) {
     if (categories === undefined) categories = []
-    const selectedCat = categories.find(
-      category => category.name === selectedCategoryName
-    )
-    if (selectedCategoryName) {
-      if (selectedCat) {
-        categories = [selectedCat]
-      } else {
-        categories = []
-      }
+    if (selectedCategory) {
+      categories = [selectedCategory]
     }
-
-    const globalCurrency = getGlobalCurrency(categories)
-    const transactionsTotal = getTransactionsTotal(categories)
 
     // sort the categories for display
     categories = categories.sort((a, b) => {
@@ -68,34 +48,8 @@ class Categories extends Component {
       }
     })
 
-    const size = 182
     return (
       <div>
-        <SelectDates showFullYear />
-        <div className={stTop}>
-          <div className={stForm}>
-            {selectedCategoryName === undefined && (
-              <div className={stFilter}>
-                <Toggle
-                  id="withIncome"
-                  checked={withIncome}
-                  onToggle={checked => filterWithIncome(checked)}
-                />
-                <label htmlFor="withIncome">Inclure les revenus</label>
-              </div>
-            )}
-          </div>
-          <CategoriesChart
-            width={size}
-            height={size}
-            categories={categories}
-            selectedCategoryName={selectedCategoryName}
-            selectCategory={selectCategory}
-            total={selectedCat ? selectedCat.amount : transactionsTotal}
-            currency={globalCurrency}
-            label={t('Categories.title.total')}
-          />
-        </div>
         {categories.length === 0 || categories[0].transactionsNumber === 0 ? (
           <p>{t('Categories.title.empty_text')}</p>
         ) : (
@@ -105,7 +59,7 @@ class Categories extends Component {
                 <td className={stCategory}>
                   {t(
                     `Categories.headers.${
-                      selectedCat ? 'subcategories' : 'categories'
+                      selectedCategory ? 'subcategories' : 'categories'
                     }`
                   )}
                 </td>
@@ -125,7 +79,10 @@ class Categories extends Component {
             </thead>
             <tbody>
               {categories.map(category =>
-                this.renderCategory(category, selectedCategoryName)
+                this.renderCategory(
+                  category,
+                  selectedCategory && selectedCategory.name
+                )
               )}
             </tbody>
           </Table>
@@ -136,9 +93,11 @@ class Categories extends Component {
 
   renderCategory(category) {
     const {
-      selectedCategoryName,
+      selectedCategory,
       breakpoints: { isDesktop, isTablet }
     } = this.props
+
+    const selectedCategoryName = selectedCategory && selectedCategory.name
 
     const isCollapsed = selectedCategoryName !== category.name
     if (selectedCategoryName !== undefined && isCollapsed) return
@@ -162,7 +121,7 @@ class Categories extends Component {
   renderCategoryDesktopTablet(category, subcategory) {
     const {
       t,
-      selectedCategoryName,
+      selectedCategory,
       breakpoints: { isDesktop }
     } = this.props
     const {
@@ -175,6 +134,7 @@ class Categories extends Component {
       transactionsNumber
     } =
       subcategory || category
+    const selectedCategoryName = selectedCategory && selectedCategory.name
     const isCollapsed = selectedCategoryName !== category.name
     const type = subcategory ? 'subcategories' : 'categories'
     const rowClass = stRow
@@ -242,9 +202,10 @@ class Categories extends Component {
   }
 
   renderCategoryMobile(category, subcategory) {
-    const { t, selectedCategoryName } = this.props
+    const { t, selectedCategory } = this.props
     const { name, subcategories, credit, debit, currency, percentage } =
       subcategory || category
+    const selectedCategoryName = selectedCategory && selectedCategory.name
 
     // subcategories are always collapsed
     const isCollapsed = selectedCategoryName !== category.name

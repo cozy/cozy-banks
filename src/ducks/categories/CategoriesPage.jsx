@@ -7,12 +7,10 @@ import { getFilteredTransactions } from 'ducks/filters'
 import { fetchTransactions, getTransactions } from 'actions'
 import { transactionsByCategory, computeCategorieData } from './helpers'
 import Categories from './Categories'
-import BackButton from 'components/BackButton'
 import styles from './CategoriesPage.styl'
 import { flowRight as compose } from 'lodash'
-import { Breadcrumb } from 'components/Breadcrumb'
 import { withBreakpoints } from 'cozy-ui/react'
-import { AccountSwitch } from 'ducks/account'
+import CategoriesHeader from './CategoriesHeader'
 
 class CategoriesPage extends Component {
   state = {
@@ -37,16 +35,7 @@ class CategoriesPage extends Component {
     this.setState({ withIncome })
   }
 
-  render(
-    {
-      t,
-      categories,
-      transactions,
-      router,
-      breakpoints: { isMobile }
-    },
-    { withIncome }
-  ) {
+  render({ t, categories, transactions, router }, { withIncome }) {
     const isFetching = transactions.fetchStatus !== 'loaded'
     const selectedCategoryName = router.params.categoryName
     // compute the filter to use
@@ -60,20 +49,25 @@ class CategoriesPage extends Component {
         name: t(`Data.categories.${selectedCategoryName}`)
       })
     }
+    const selectedCategory = categories.find(
+      category => category.name === selectedCategoryName
+    )
     return (
       <div className={styles['bnk-cat-page']}>
-        {!isMobile && breadcrumbItems.length > 1 ? (
-          <Breadcrumb items={breadcrumbItems} />
-        ) : null}
-        <AccountSwitch />
-        {selectedCategoryName && (
-          <BackButton onClick={() => this.selectCategory(undefined)} />
-        )}
+        <CategoriesHeader
+          breadcrumbItems={breadcrumbItems}
+          selectedCategory={selectedCategory}
+          withIncome={withIncome}
+          onWithIncomeToggle={this.filterWithInCome}
+          categories={categories}
+          selectCategory={this.selectCategory}
+        />
         {isFetching ? (
           <Loading loadingType="categories" />
         ) : (
           <Categories
             categories={categories}
+            selectedCategory={selectedCategory}
             selectedCategoryName={selectedCategoryName}
             selectCategory={this.selectCategory}
             withIncome={withIncome}
