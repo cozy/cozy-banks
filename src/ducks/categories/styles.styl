@@ -11,8 +11,18 @@
 .bnk-table-category
     @extend $full-width-table
 
-    tbody tr
-        cursor  pointer
+    thead
+        font-weight bold
+
+    tbody
+        tr
+            cursor  pointer
+
+        td
+            +small-screen()
+                vertical-padding = 0.625rem
+                padding-top vertical-padding
+                padding-bottom vertical-padding
 
     .bnk-table-percentage
         text-align right
@@ -24,6 +34,23 @@
     .bnk-table-total
         text-align right
 
+    tbody
+        .bnk-table-total
+        .bnk-table-percentage
+            font-size 1rem
+
+    .bnk-table-percentage-sign
+        display inline-block
+        margin-left 0.125em
+        color coolGrey
+
+    .bnk-table-amount-figure
+        color coolGrey
+        font-weight normal
+
+    .bnk-table-amount-figure-total
+        font-weight inherit
+
     .bnk-table-row
     .bnk-table-row--uncollapsed
         color charcoalGrey
@@ -31,6 +58,22 @@
 
         .bnk-table-percentage
             font-weight bold
+
+    .bnk-table-row-caption
+        margin-top 0
+
+    .bnk-table-percentage-caption
+        color charcoalGrey
+
+        &::after
+            content ''
+            display inline-block
+            height 1px
+            width 1px
+            background-color coolGrey
+            vertical-align middle
+            margin-left 5px
+            margin-right 4px
 
     +small-screen('min')
         .bnk-table-category-category
@@ -51,12 +94,10 @@
         .bnk-table-percentage
             maxed-flex-basis 10%
         .bnk-table-operation
-            maxed-flex-basis 10%
+            maxed-flex-basis 18%
         .bnk-table-amount
         .bnk-table-total
             maxed-flex-basis 14%
-        .bnk-table-chevron
-            maxed-flex-basis 5%
 
     // All icons and classes for categories types
 
@@ -72,3 +113,4 @@
 
 .bnk-category-total-mobile
     min-width 5rem
+    font-size 0.875rem

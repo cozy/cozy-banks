@@ -237,7 +237,10 @@
       "includeIncome": "Include incomes"
     },
     "headers": {
-      "transactions": "Transactions",
+      "transactions": {
+        "single": "transaction",
+        "plural": "transactions"
+      },
       "credit": "Credit",
       "total": "Total",
       "categories": "Category",

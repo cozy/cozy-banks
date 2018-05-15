@@ -1,8 +1,13 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import cx from 'classnames'
-import { translate, withBreakpoints, Icon } from 'cozy-ui/react'
-import palette from 'cozy-ui/stylus/settings/palette.json'
+import {
+  translate,
+  withBreakpoints,
+  Text,
+  Caption,
+  ListItemText
+} from 'cozy-ui/react'
 import CategoryIcon from './CategoryIcon'
 import { Media, Bd, Img } from 'cozy-ui/react/Media'
 import { Table, TdWithIcon, TdSecondary } from 'components/Table'
@@ -12,7 +17,6 @@ import { flowRight as compose } from 'lodash'
 
 const stAmount = styles['bnk-table-amount']
 const stCategory = styles['bnk-table-category-category']
-const stChevron = styles['bnk-table-chevron']
 const stPercentage = styles['bnk-table-percentage']
 const stRow = styles['bnk-table-row']
 const stTableCategory = styles['bnk-table-category']
@@ -63,18 +67,19 @@ class Categories extends Component {
                     }`
                   )}
                 </td>
-                <td className={stPercentage}>%</td>
                 {(isDesktop || isTablet) && (
-                  <td>{t('Categories.headers.transactions')}</td>
+                  <td className={styles['bnk-table-operation']}>
+                    {t('Categories.headers.transactions.plural')}
+                  </td>
                 )}
-                <td className={stTotal}>{t('Categories.headers.total')}</td>
                 {isDesktop && (
                   <td className={stAmount}>{t('Categories.headers.credit')}</td>
                 )}
                 {isDesktop && (
                   <td className={stAmount}>{t('Categories.headers.debit')}</td>
                 )}
-                {isDesktop && <td className={stChevron} />}
+                <td className={stTotal}>{t('Categories.headers.total')}</td>
+                <td className={stPercentage}>%</td>
               </tr>
             </thead>
             <tbody>
@@ -147,6 +152,7 @@ class Categories extends Component {
           className={rowClass}
           onClick={() => onClick(category, subcategory)}
         >
+          <PercentageLine value={percentage} color={category.color} />
           <TdWithIcon
             className={cx(
               stCategory,
@@ -155,22 +161,20 @@ class Categories extends Component {
           >
             {t(`Data.${type}.${name}`)}
           </TdWithIcon>
-          <TdSecondary className={stPercentage}>
-            {!subcategory && selectedCategoryName ? '100 %' : `${percentage} %`}
-          </TdSecondary>
-          <TdSecondary>{transactionsNumber}</TdSecondary>
-          <TdSecondary className={stTotal}>
-            <Figure
-              total={credit + debit}
-              currency={currency}
-              coloredPositive
-              signed
-            />
+          <TdSecondary className={styles['bnk-table-operation']}>
+            {transactionsNumber}
           </TdSecondary>
           {isDesktop && (
             <TdSecondary className={stAmount}>
               {credit ? (
-                <Figure total={credit} currency={currency} signed default="-" />
+                <Figure
+                  total={credit}
+                  currency={currency}
+                  signed
+                  default="-"
+                  className={styles['bnk-table-amount-figure']}
+                  totalClassName={styles['bnk-table-amount-figure-total']}
+                />
               ) : (
                 '－'
               )}
@@ -179,18 +183,31 @@ class Categories extends Component {
           {isDesktop && (
             <TdSecondary className={stAmount}>
               {debit ? (
-                <Figure total={debit} currency={currency} signed default="-" />
+                <Figure
+                  total={debit}
+                  currency={currency}
+                  signed
+                  default="-"
+                  className={styles['bnk-table-amount-figure']}
+                  totalClassName={styles['bnk-table-amount-figure-total']}
+                />
               ) : (
                 '－'
               )}
             </TdSecondary>
           )}
-          {isDesktop && (
-            <td className={stChevron}>
-              <Icon icon="forward" color={palette.coolGrey} />
-            </td>
-          )}
-          <PercentageLine value={percentage} color={category.color} />
+          <TdSecondary className={stTotal}>
+            <Figure
+              total={credit + debit}
+              currency={currency}
+              coloredPositive
+              signed
+            />
+          </TdSecondary>
+          <TdSecondary className={stPercentage}>
+            {!subcategory && selectedCategoryName ? '100' : `${percentage}`}
+            <span className={styles['bnk-table-percentage-sign']}>%</span>
+          </TdSecondary>
         </tr>
       ),
       ...(isCollapsed || subcategory
@@ -203,7 +220,15 @@ class Categories extends Component {
 
   renderCategoryMobile(category, subcategory) {
     const { t, selectedCategory } = this.props
-    const { name, subcategories, credit, debit, currency, percentage } =
+    const {
+      name,
+      subcategories,
+      credit,
+      debit,
+      currency,
+      percentage,
+      transactionsNumber
+    } =
       subcategory || category
     const selectedCategoryName = selectedCategory && selectedCategory.name
 
@@ -218,19 +243,30 @@ class Categories extends Component {
         className={isCollapsed ? stRow : stUncollapsed}
         onClick={() => this.handleClick(category, subcategory)}
       >
-        <td className="u-ph-1 u-pv-half">
+        <td className="u-ph-1">
           <Media>
             <Img className="u-pr-half" style={subcategory ? vHidden : null}>
               <CategoryIcon category={categoryName} style={!subcategory} />
             </Img>
             <Bd className={cx('u-ph-half', stCategory)}>
-              {t(`Data.${type}.${name}`)}
+              <ListItemText>
+                <Text>{t(`Data.${type}.${name}`)}</Text>
+                <Caption className={styles['bnk-table-row-caption']}>
+                  <span className={styles['bnk-table-percentage-caption']}>
+                    {!subcategory && selectedCategoryName
+                      ? '100%'
+                      : `${percentage}%`}
+                  </span>
+                  <span className={styles['bnk-table-operation-caption']}>
+                    {`${transactionsNumber} ${t(
+                      `Categories.headers.transactions.${
+                        transactionsNumber > 1 ? 'single' : 'plural'
+                      }`
+                    )}`}
+                  </span>
+                </Caption>
+              </ListItemText>
             </Bd>
-            <Img className={cx('u-pl-half', stPercentage)}>
-              {!subcategory && selectedCategoryName
-                ? '100 %'
-                : `${percentage} %`}
-            </Img>
             <Img className={cx('u-pl-half', stAmount)}>
               <Figure
                 className={stCatTotalMobile}
