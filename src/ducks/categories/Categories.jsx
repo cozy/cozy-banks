@@ -8,7 +8,7 @@ import CategoryIcon from './CategoryIcon'
 import { Media, Bd, Img } from 'cozy-ui/react/Media'
 import { Table, TdWithIcon, TdSecondary } from 'components/Table'
 import { Figure, FigureBlock } from 'components/Figure'
-import { ConnectedSelectDates as SelectDates } from 'ducks/filters/SelectDates'
+import { ConnectedSelectDates as SelectDates } from 'components/SelectDates'
 import styles from './styles'
 import CategoriesChart from './CategoriesChart'
 import { flowRight as compose } from 'lodash'
@@ -115,7 +115,7 @@ class Categories extends Component {
     const size = isMobile ? 140 : 200
     return (
       <div>
-        <SelectDates />
+        <SelectDates show12months={true} />
         <div className={stTop}>
           <div className={stForm}>
             {selectedCategory === undefined && (
