@@ -32,7 +32,7 @@
         <splash density="port-xxhdpi" src="res/screens/android/screen-xxhdpi-portrait.png" />
         <splash density="port-xxxhdpi" src="res/screens/android/screen-xxxhdpi-portrait.png" />
         <preference name="android-minSdkVersion" value="21" />
-        <resource-file src="google-services.json" target="app/google-services.json" />
+        <resource-file src="keys/android/google-services.json" target="app/google-services.json" />
     </platform>
     <platform name="ios">
         <preference name="StatusBarOverlaysWebView" value="false" />
