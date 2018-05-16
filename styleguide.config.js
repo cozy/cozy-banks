@@ -1,25 +1,5 @@
 const path = require('path')
 
-const docgen = require('react-docgen')
-const { findAllExportedComponentDefinitions } = docgen.resolver
-
-const customResolver = function (ast, recast) {
-  const definitions = findAllExportedComponentDefinitions(ast, recast)
-  recast.visit(ast, {
-    visitCallExpression: function (path) {
-      // Add mkComponent based components
-      if (path.node.callee.name == 'mkComponent') {
-        definitions.push(path.parent.parent)
-        return false
-      } else {
-        return this.traverse(path)
-      }
-    }
-  })
-  return definitions
-}
-
-let i = 0
 module.exports = {
   require: [
     path.resolve(__dirname, 'build/app.css'),
@@ -36,15 +16,8 @@ module.exports = {
     {
       name: 'General',
       components: () => [
-        'src/components/Table/index.jsx',
+        // 'src/components/Table/index.jsx',
         'src/components/SharingIcon/SharingIcon.jsx'
-      ]
-    },
-    {
-      name: 'Forms',
-      components: () => [
-        'src/components/Field/Field.jsx',
-        'src/components/Select.jsx'
       ]
     },
     {
@@ -64,10 +37,8 @@ module.exports = {
       name: 'Misc',
       components: () => [
         'src/components/DisplayError.js',
-        'src/components/BackButton/index.jsx',
         'src/components/Layout/index.jsx'
       ]
     }
-  ],
-  resolver: customResolver
+  ]
 }
