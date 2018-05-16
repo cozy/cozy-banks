@@ -37,7 +37,9 @@ export default Wrapped =>
       }
     }, 16)
 
-    render(props, { scrolling }) {
+    render() {
+      const props = this.props
+      const { scrolling } = this.state
       return <Wrapped {...props} scrolling={scrolling} />
     }
   }
