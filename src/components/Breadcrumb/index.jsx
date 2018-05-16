@@ -49,13 +49,13 @@ BreadcrumbItem.propTypes = {
   showSeparator: PropTypes.bool
 }
 
-export const Breadcrumb = ({ items }) => {
+export const Breadcrumb = ({ items, className }) => {
   const previousItems = items.slice(0, -1)
   const [lastPreviousItem] = previousItems.slice(-1)
   const [currentItem] = items.slice(-1)
 
   return (
-    <div className={styles.Breadcrumb}>
+    <div className={cx(styles.Breadcrumb, className)}>
       {items.length > 1 && (
         <Icon
           icon={arrowLeftIcon}
@@ -87,6 +87,7 @@ export const Breadcrumb = ({ items }) => {
 }
 
 Breadcrumb.propTypes = {
+  className: PropTypes.string,
   items: PropTypes.arrayOf(PropTypes.shape(itemPropTypes))
 }
 

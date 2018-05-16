@@ -28,14 +28,17 @@ const CategoriesHeader = ({
   return (
     <div className={styles.CategoriesHeader}>
       <div>
-        {!isMobile && breadcrumbItems.length > 1 ? (
-          <Breadcrumb items={breadcrumbItems} />
-        ) : null}
         <AccountSwitch small={selectedCategory !== undefined} />
         {selectedCategory && (
           <BackButton onClick={() => this.selectCategory(undefined)} />
         )}
         <SelectDates showFullYear />
+        {!isMobile && breadcrumbItems.length > 1 ? (
+          <Breadcrumb
+            items={breadcrumbItems}
+            className={styles.CategoriesHeader__Breadcrumb}
+          />
+        ) : null}
         {selectedCategory === undefined && (
           <div className={styles.CategoriesHeader__Toggle}>
             <Toggle
