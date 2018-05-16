@@ -11,7 +11,15 @@ import watch from 'assets/icons/icon-watch.svg'
 import cozy from 'assets/icons/icon-cozy.svg'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 
-import { Hero, Sections, Section, Subtitle, Paragraph, Icon, CTA } from './Hero'
+import {
+  Hero,
+  Sections,
+  Section,
+  Subtitle,
+  Paragraph,
+  Icon,
+  CTA
+} from 'cozy-ui/react/Hero'
 
 class Onboarding extends Component {
   render() {
