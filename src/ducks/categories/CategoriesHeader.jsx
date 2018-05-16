@@ -24,13 +24,14 @@ const CategoriesHeader = ({
 }) => {
   const globalCurrency = getGlobalCurrency(categories)
   const transactionsTotal = getTransactionsTotal(categories)
+  const [previousItem] = breadcrumbItems.slice(-2, 1)
 
   return (
     <div className={styles.CategoriesHeader}>
       <div>
         <AccountSwitch small={selectedCategory !== undefined} />
         {selectedCategory && (
-          <BackButton onClick={() => this.selectCategory(undefined)} />
+          <BackButton onClick={previousItem && previousItem.onClick} />
         )}
         <SelectDates showFullYear />
         {!isMobile && breadcrumbItems.length > 1 ? (
