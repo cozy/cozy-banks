@@ -24,8 +24,6 @@ const stTotal = styles['bnk-table-total']
 const stUncollapsed = styles['bnk-table-row--uncollapsed']
 const stCatTotalMobile = styles['bnk-category-total-mobile']
 
-const vHidden = { visibility: 'hidden' }
-
 class Categories extends Component {
   toggle = categoryName => {
     const { selectedCategory, selectCategory } = this.props
@@ -238,48 +236,50 @@ class Categories extends Component {
     const categoryName = (subcategory || category).name
 
     return [
-      <tr
-        key={categoryName}
-        className={isCollapsed ? stRow : stUncollapsed}
-        onClick={() => this.handleClick(category, subcategory)}
-      >
-        <td className="u-ph-1">
-          <Media>
-            <Img className="u-pr-half" style={subcategory ? vHidden : null}>
-              <CategoryIcon category={categoryName} style={!subcategory} />
-            </Img>
-            <Bd className={cx('u-ph-half', stCategory)}>
-              <ListItemText>
-                <Text>{t(`Data.${type}.${name}`)}</Text>
-                <Caption className={styles['bnk-table-row-caption']}>
-                  <span className={styles['bnk-table-percentage-caption']}>
-                    {!subcategory && selectedCategoryName
-                      ? '100%'
-                      : `${percentage}%`}
-                  </span>
-                  <span className={styles['bnk-table-operation-caption']}>
-                    {`${transactionsNumber} ${t(
-                      `Categories.headers.transactions.${
-                        transactionsNumber > 1 ? 'single' : 'plural'
-                      }`
-                    )}`}
-                  </span>
-                </Caption>
-              </ListItemText>
-            </Bd>
-            <Img className={cx('u-pl-half', stAmount)}>
-              <Figure
-                className={stCatTotalMobile}
-                total={credit + debit}
-                currency={currency}
-                coloredPositive
-                signed
-              />
-            </Img>
-          </Media>
-        </td>
-        <PercentageLine value={percentage} color={category.color} />
-      </tr>,
+      (subcategory || isCollapsed) && (
+        <tr
+          key={categoryName}
+          className={isCollapsed ? stRow : stUncollapsed}
+          onClick={() => this.handleClick(category, subcategory)}
+        >
+          <td className="u-ph-1">
+            <Media>
+              <Img className="u-pr-half">
+                <CategoryIcon category={category.name} />
+              </Img>
+              <Bd className={cx('u-ph-half', stCategory)}>
+                <ListItemText>
+                  <Text>{t(`Data.${type}.${name}`)}</Text>
+                  <Caption className={styles['bnk-table-row-caption']}>
+                    <span className={styles['bnk-table-percentage-caption']}>
+                      {!subcategory && selectedCategoryName
+                        ? '100%'
+                        : `${percentage}%`}
+                    </span>
+                    <span className={styles['bnk-table-operation-caption']}>
+                      {`${transactionsNumber} ${t(
+                        `Categories.headers.transactions.${
+                          transactionsNumber > 1 ? 'single' : 'plural'
+                        }`
+                      )}`}
+                    </span>
+                  </Caption>
+                </ListItemText>
+              </Bd>
+              <Img className={cx('u-pl-half', stAmount)}>
+                <Figure
+                  className={stCatTotalMobile}
+                  total={credit + debit}
+                  currency={currency}
+                  coloredPositive
+                  signed
+                />
+              </Img>
+            </Media>
+          </td>
+          <PercentageLine value={percentage} color={category.color} />
+        </tr>
+      ),
       ...(isCollapsed || subcategory
         ? []
         : subcategories.map(subcategory =>
