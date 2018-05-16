@@ -273,11 +273,7 @@ class TransactionsPage extends Component {
       <div className={styles.TransactionPage}>
         {subcategoryName ? <BackButton /> : null}
         <div className={styles.TransactionPage__top}>
-          {!isMobile &&
-            breadcrumbItems.length > 1 && (
-              <Breadcrumb items={breadcrumbItems} />
-            )}
-          <AccountSwitch />
+          <AccountSwitch small={subcategoryName !== undefined} />
           {isMobile && (
             <BarRight>
               <BarBalance accounts={filteredAccounts} />
@@ -296,6 +292,13 @@ class TransactionsPage extends Component {
           ) : (
             <ConnectedSelectDates />
           )}
+          {!isMobile &&
+            breadcrumbItems.length > 1 && (
+              <Breadcrumb
+                items={breadcrumbItems}
+                className={styles.TransactionPage__Breadcrumb}
+              />
+            )}
           {filteredTransactions.length > 0 ? (
             !isMobile && (
               <TransactionTableHead
