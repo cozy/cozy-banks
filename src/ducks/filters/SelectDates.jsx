@@ -72,18 +72,24 @@ class DateYearSelector extends PureComponent {
     const months = this.props.options.filter(x => x.year === selectedYear)
 
     return (
-      <span>
+      <span className={styles.SelectDates__DateYearSelector}>
         <Chip className={cx(styles.SelectDates__chip)}>
           <Select
             name="year"
             value={selectedYear}
             options={years.map(x => ({ value: x.year, name: x.yearF }))}
             onChange={this.onChangeYear}
+            className={styles.SelectDates__Select}
+            wrappedClassName={styles.SelectDates__SelectYear}
           />
           <Separator />
           <Select
             name="month"
-            className={styles.SelectDates__month}
+            className={cx(
+              styles.SelectDates__month,
+              styles.SelectDates__Select
+            )}
+            wrappedClassName={styles.SelectDates__SelectMonth}
             value={selectedMonth}
             options={months.map(x => ({ value: x.month, name: x.monthF }))}
             onChange={this.onChangeMonth}
@@ -202,7 +208,7 @@ class SelectDatesDumb extends React.PureComponent {
             disabled={selected === options.length - 1}
             className={styles['SelectDates__Button--prev']}
           >
-            <Icon icon="back" />
+            <Icon icon="back" width={16} />
           </SelectDateButton>
 
           <SelectDateButton
@@ -210,7 +216,7 @@ class SelectDatesDumb extends React.PureComponent {
             disabled={selected === 0}
             className={styles['SelectDates__Button--next']}
           >
-            <Icon icon="forward" />
+            <Icon icon="forward" width={16} />
           </SelectDateButton>
         </span>
       </div>

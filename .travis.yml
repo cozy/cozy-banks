@@ -10,10 +10,17 @@ env:
     - secure: "i40PC82nF00ixRI/uArDG48tY99DYg4/gu9EpRXK8BeV/Uh6WVT5MpBbd8JEyf3fLZFXVwdbBPrsEUw4aX2fdfbueRqaigLbYz3rejNGL2YjE28ZBmFQeoPviHz8cOJepcjUrgggkiyD14qvAyoPJCEo/pPx1ZCsZ2UCQHu5SIw9Mtf2kvspgNyhpl3ktm/L4wh+8huRE7/Zn6SKStps5F7MWrUp5zZ6ZovHLl8ti71p2KhCCIJL30PGoh58O3aH3t7LY2bUetQS6p0a4OxWUF3AE5wakzffvqvrHqMI4ulkREYq/J6b7ITkHhxL9V1ndCvQyw4aC5OUR4Dl3GznSfkvby9NNyNcK4lxeOgjejvSrmPV5gEmCPjnpyijkMidy/5OMOCeQIXtWw7Cly+Mnj1kWz6bFnLncs1SBqdxUSUa+jTPZ8tklAiz4hdkGgtPxpovyo4iQdNQVmL8y2v7XWuXvpdGTEuZgGIubH3+HDOwa3dawC6BglnY1W0sp3hvYUaEKyPolP/mCV9HRSZ0Aa1zjjNW2brbUaEJ6w1UMT7XwQQQtb35K+zQSBCn9jfNyuDdotsh+mJEILk0tsB3aYcVnvLUKChpTt23bV5sMxga0F/Mmmwb8y8DWE8u7ADWDjzdDnoaqInSj9RAYVgFguhWpZhVs6yuGd16Bi7kvoU="
     # RUNDECK_TOKEN
     - secure: "rwvCE17fZRfx9wi692wU+ox/oKx8dSeit5WbPxq6c6Jj39IfaKaeXBgDVaG1HsvY6RhhXKJ6t1hrUGNzLOJdPDvfkQKEPDlKgbJoFstCke2aj3guOLx/aSzdoB2fUTWjaIKtrVZFtC60YK9dr1g9UzrFru0Fe6JP/XN2fIqqR3wwzWln1bYVINwWPj+HQNZO9YIejKei7ooSO+FSf/C9nqMkELNv89x8yAZASGejfhayPvRlbT2CF8Ym0GkqEBRNRqHfURGE4m9mUEPIv7vQ0uPnH9dwwQrZf6KXCHIoG+O5sH54V4M28FBMTHYF/3GflcJFm3qNnffoOcUl5/K3LQWKbeShw7W+BjuPbjXSLZICnENWeXHmvjYjUN4niUxwWewM+a5k+5LgcEd/ZLrWui6KFAjl1SGqu97hBRPCDelF/ssTfh0UwM4brSQ3Dgi3bLex49VDPmA63/vtH5HRQ+7EM+FcaEnFsaA5cUaGOQAExIySSzimyjSF5seOJcrH3QmmkTt8qsWrYMCqes6bMmx2gOgQQ2vAvxrtJyunhriiEKWTnLOGwdB7AyS5A6QF1K3FodLAqDYwQgkSYSS4isv2RNT5Bilk9hJ1IVs82ZgepOpwkhygae2/2n4ZUv9ynol0f083BG+vNVb6b79o4ZHrsfTQatu9Mlrorug6a0Y="
+    # REGISTRY_TOKEN
+    - secure: "q0e3QfSHzD7u03W/uRmZ/1CgwLrdO2GuWD/9fPXTYXI9vnu0Z4xPLGHv0zzshgdH4qNyIJ+74KCfk2ev6FvG+8Z15qNkdbwLjQxn3TDK48dfjC8C1SWfa55r2hjMo/qYXgLhBpdaVeGLyvpvmmKB+MsqKVugr1V41iBLfXNustJ2smvCkjKiRWH7Jl6jeMWQ+paL5WccK6DF5GqoPc3RCdSoXNhhPOelmo2NI/XF1MFRNToc5Fl5yIquivJdb7nA1UTB+DKZOX0I4+6sJpecuseNFdnm938QuMRaRgiKChqH+lesMSDy9+m5qp/ftByXdZIUxqxeROxNF5sVG1IxC6CNnpqsltNAAnGOHT9laQaWrfjQHUMb7pC5fjR1JN5Y3N5ZspLlnDKeEpZc3muqbyRcJDDRl2lAxgtt1MDyOD3u2IuCwa8xKysZzDHBjIQDChr01mWmTb3tOt7iwSc7HekOnfa2VHvlQfiWD/JSKLRLGoX3GC/RljuIC7SxufUojV9vn2heROPk9b95wnHGce3rmHPuECfxuLAU2PN84S9j+j371AJ4/UsQhGV9Gyl3Bgua/6X82pooN4/Q/0RURJrQ8DUPkQ1wbDHCOeaDB97ZvcQi3bGUh+AiElSaHS+V7c6kne7QRmCPcn9NnlKmz7YPd141922WMIUunoc7guI="
 cache:
   yarn: true
   directories:
     - node_modules
+before_install:
+  - openssl aes-256-cbc -K $encrypted_5a663823105c_key -iv $encrypted_5a663823105c_iv -in ./scripts/id_rsa.enc -out /tmp/deploy_rsa -d
+  - eval "$(ssh-agent -s)"
+  - chmod 600 /tmp/deploy_rsa
+  - ssh-add /tmp/deploy_rsa
 script:
   - yarn lint
   - yarn build
@@ -21,9 +28,15 @@ deploy:
   - provider: script
     repo: cozy/cozy-banks
     skip-cleanup: true
-    script: DEPLOY_BRANCH=build ./scripts/deploy-on-cozy
+    script: export DEPLOY_BRANCH=build && ./scripts/deploy-on-cozy && yarn cozyPublish
     on:
       branch: master
+  - provider: script
+    repo: cozy/cozy-banks
+    skip-cleanup: true
+    script: export DEPLOY_BRANCH=latest && ./scripts/deploy-on-cozy && yarn cozyPublish
+    on:
+      tags: true
   - provider: script
     repo: cozy/cozy-banks
     skip-cleanup: true

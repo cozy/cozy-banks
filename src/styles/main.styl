@@ -12,3 +12,7 @@ html, body
     +small-screen()
         overflow-y scroll // necessary for momentum scroll on ios
         -webkit-overflow-scrolling touch // necessary for momentum scroll on ios
+
++small-screen()
+    [role='banner'][data-drawer-visible='true']
+        z-index 90
