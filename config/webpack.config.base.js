@@ -38,6 +38,7 @@ module.exports = {
         test: /\.jsx?$/,
         include: [
           SRC_DIR,
+          path.resolve(__dirname, '../docs'),
           path.dirname(require.resolve('cozy-client')),
           path.dirname(require.resolve('cozy-konnector-libs'))
         ],

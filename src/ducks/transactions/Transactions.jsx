@@ -22,7 +22,7 @@ import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { withUpdateCategory } from 'ducks/categories'
 import { withDispatch } from 'utils'
 import styles from './Transactions.styl'
-import { Media, Bd, Img } from 'components/Media'
+import { Media, Bd, Img } from 'cozy-ui/react/Media'
 import InfiniteScroll from './InfiniteScroll'
 import TransactionModal from './TransactionModal'
 

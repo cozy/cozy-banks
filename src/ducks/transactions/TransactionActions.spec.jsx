@@ -1,23 +1,19 @@
+/* global mount */
+
 import dummyjson from 'dummy-json'
-import { configure, mount } from 'enzyme'
-import Adapter from 'enzyme-adapter-react-15'
 import React from 'react'
-import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import merge from 'lodash/merge'
 import keyBy from 'lodash/keyBy'
 
-import { I18n } from 'cozy-ui/react'
 import { SyncTransactionActions } from './TransactionActions'
 import { hydrateReimbursementWithBill } from 'documents/transaction'
 import { findMatchingActions } from 'ducks/transactions/actions'
-import langEn from 'locales/en.json'
 
 import dataTpl from '../../../test/fixtures/operations.json'
 import helpers from '../../../test/fixtures/helpers'
 import brands from 'ducks/brandDictionary/brands'
-
-configure({ adapter: new Adapter() })
+import AppLike from '../../../test/AppLike'
 
 const data = JSON.parse(
   dummyjson.parse(
@@ -93,12 +89,6 @@ const tests = [
 ]
 /* eslint-enable */
 
-const AppLike = ({ children }) => (
-  <I18n lang={'en'} dictRequire={() => langEn}>
-    <Provider store={store}>{children}</Provider>
-  </I18n>
-)
-
 const actionProps = {
   urls: {
     COLLECT: 'collect',
@@ -129,7 +119,7 @@ describe('transaction action defaults', () => {
         const mergedActionProps = { ...actionProps, ...specificActionProps }
         actions = await findMatchingActions(transaction, mergedActionProps)
         root = mount(
-          <AppLike>
+          <AppLike store={store}>
             <SyncTransactionActions
               onlyDefault
               transaction={transaction}
