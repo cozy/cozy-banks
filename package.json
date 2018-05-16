@@ -196,6 +196,9 @@
       "__SENTRY_TOKEN__": "token",
       "cozy": {}
     },
+    "setupFiles": [
+      "./test/jest.setup.js"
+    ],
     "testMatch": [
       "**/__tests__/**/*.js?(x)",
       "**/?(*.)(spec).js?(x)"
