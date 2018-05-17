@@ -3,6 +3,7 @@
 // reducers
 export const getApps = state => state.apps
 
+/* TODO always use getAppUrlByID instead of getAppUrlBySource */
 export const getAppUrlById = (state, id) => {
   const apps = getApps(state)
   for (const app of apps) {
