@@ -29,14 +29,17 @@ const SameWindowLink = compose(connect(mapStateToProps, mapDispatchToProps))(
     }
 
     render() {
-      const url = this.props.collectUrl + '#/providers/banking'
+      const collectUrl = this.props.collectUrl
+      const url = collectUrl + '#/providers/banking'
       return (
         <span
           onClick={() => {
-            window.location = url
+            if (collectUrl) {
+              window.location = url
+            }
           }}
         >
-          {this.props.children}
+          {collectUrl && this.props.children}
         </span>
       )
     }
