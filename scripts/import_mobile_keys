@@ -1,0 +1,6 @@
+#!/bin/bash
+
+pass show Gangsters/cozy-banks/keys/android/cozy-banks-release-key.jks > ./src/targets/mobile/keys/android/cozy-banks-release-key.jks
+pass show Gangsters/cozy-banks/keys/android/key.json > ./src/targets/mobile/keys/android/key.json
+pass show Gangsters/cozy-banks/keys/android/google-services.json > ./src/targets/mobile/keys/android/google-services.json
+pass show Gangsters/cozy-banks/keys/ios/GoogleService-Info.plist > ./src/targets/mobile/keys/ios/GoogleService-Info.plist
