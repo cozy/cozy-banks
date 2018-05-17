@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { flowRight as compose } from 'lodash'
-import { getAppUrlBySource, fetchApps } from 'ducks/apps'
+import { getAppUrlById, fetchApps } from 'ducks/apps'
 // import { IntentOpener } from 'cozy-ui/react'
 
 /*
@@ -19,7 +19,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => ({
-  collectUrl: getAppUrlBySource(state, 'github.com/cozy/cozy-collect')
+  collectUrl: getAppUrlById(state, 'io.cozy.apps/collect')
 })
 
 const SameWindowLink = compose(connect(mapStateToProps, mapDispatchToProps))(
