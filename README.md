@@ -1,5 +1,9 @@
 # Cozy Banks
 
+[![Travis build status shield](https://img.shields.io/travis/cozy/cozy-banks.svg?branch=master)](https://travis-ci.org/cozy/cozy-banks)
+[![Github Release version shield](https://img.shields.io/github/tag/cozy/cozy-banks.svg)](https://github.com/cozy/cozy-banks/releases)
+[![NPM Licence shield](https://img.shields.io/github/license/cozy/cozy-banks.svg)](https://github.com/cozy/cozy-banks/blob/master/LICENSE)
+
 ## How to start developing
 
 ```bash
