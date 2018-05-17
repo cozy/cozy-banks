@@ -67,6 +67,7 @@ class Select extends React.Component {
         value={
           value ? find(options, option => option.value == value) : options[0]
         }
+        isSearchable={false}
         getOptionLabel={x => x.name}
         components={{
           DropdownIndicator: SmallArrow,
