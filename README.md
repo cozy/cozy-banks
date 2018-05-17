@@ -53,3 +53,7 @@ The skins are also built into `build-$skin` or `latest-$skin`.
 ## Get a working Android environment
 
 To be able to start the mobile app on an emulator or a real device, you can follow [this guide](https://gist.github.com/drazik/11dfe2014a6b967821df93b9e10353f4).
+
+## Maintainer
+
+Maintainers for Cozy Banks are [drazik](https://github.com/drazik), [ptbrowne](https://github.com/ptbrowne) and [kosssi](https://github.com/kosssi).
