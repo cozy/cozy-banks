@@ -4,6 +4,18 @@
 [![Github Release version shield](https://img.shields.io/github/tag/cozy/cozy-banks.svg)](https://github.com/cozy/cozy-banks/releases)
 [![NPM Licence shield](https://img.shields.io/github/license/cozy/cozy-banks.svg)](https://github.com/cozy/cozy-banks/blob/master/LICENSE)
 
+Cozy Banks is the personal financial management application available on Cozy
+helping you gain understanding of your finances. As the first digital home on
+the market, Cozy helps all users with applications and connectors regain
+control, streamline and maximize their digital lives.
+
+With Cozy Banks, you can easily:
+- Have all your bank accounts in one place
+- Get an comprehensive overview of all your expenses with one-click access to
+  your bills
+- Directly access your health insurance reimbursements
+- Enjoy all the features for free
+
 ## How to start developing
 
 ```bash
