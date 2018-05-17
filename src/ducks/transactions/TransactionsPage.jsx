@@ -14,7 +14,7 @@ import {
   getFilteredAccountIds
 } from 'ducks/filters'
 import { fetchTransactions } from 'actions/transactions'
-import { getAppUrlBySource, fetchApps } from 'ducks/apps'
+import { getAppUrlById, fetchApps } from 'ducks/apps'
 import { getCategoryIdFromName } from 'ducks/categories/categoriesMap'
 import { getCategoryId } from 'ducks/categories/helpers'
 
@@ -194,10 +194,10 @@ const mapStateToProps = state => ({
     // this keys are used on Transactions.jsx to:
     // - find transaction label
     // - display appName in translate `Transactions.actions.app`
-    MAIF: getAppUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-maif'),
-    HEALTH: getAppUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-sante'),
-    EDF: getAppUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-edf'),
-    COLLECT: getAppUrlBySource(state, 'github.com/cozy/cozy-collect')
+    MAIF: getAppUrlById(state, 'io.cozy.apps/maif'),
+    HEALTH: getAppUrlById(state, 'io.cozy.apps/sante'),
+    EDF: getAppUrlById(state, 'io.cozy.apps/edf'),
+    COLLECT: getAppUrlById(state, 'io.cozy.apps/collect')
   },
   accountIds: getFilteredAccountIds(state),
   accounts: getCollection(state, 'accounts'),

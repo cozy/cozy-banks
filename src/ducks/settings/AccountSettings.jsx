@@ -22,7 +22,7 @@ import { flowRight as compose } from 'lodash'
 import { destroyAccount } from 'actions'
 import spinner from 'assets/icons/icon-spinner.svg'
 import { getAccountInstitutionLabel } from '../account/helpers'
-import { getAppUrlBySource, fetchApps } from 'ducks/apps'
+import { getAppUrlById, fetchApps } from 'ducks/apps'
 
 const DeleteConfirm = ({
   cancel,
@@ -194,7 +194,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => ({
-  collectUrl: getAppUrlBySource(state, 'github.com/cozy/cozy-collect')
+  collectUrl: getAppUrlById(state, 'io.cozy.apps/collect')
 })
 
 const GeneralSettings = compose(
