@@ -67,6 +67,8 @@ const SelectDateButton = ({ children, disabled, className, ...props }) => {
   )
 }
 
+const isFullYearValue = value => value && value.length === 4
+
 class SelectDatesDumb extends React.PureComponent {
   getSelectedIndex = () => {
     const { periods, value } = this.props
@@ -171,7 +173,7 @@ class SelectDatesDumb extends React.PureComponent {
     const index = this.getSelectedIndex()
     const options = this.getOptions()
     const currentValue = this.props.value
-    if (!currentValue || currentValue.length == 7) {
+    if (!isFullYearValue(currentValue)) {
       const newIndex = index + inc
       if (newIndex > -1 && index < options.length) {
         const value = options[newIndex].value
@@ -180,8 +182,8 @@ class SelectDatesDumb extends React.PureComponent {
     } else {
       const availableYears = this.getAvailableYears()
       const current = availableYears.indexOf(currentValue)
-      const nextIndex = constrain(current + inc, 0, availableYears.length - 1)
-      this.props.onChange(availableYears[nextIndex])
+      const newIndex = constrain(current + inc, 0, availableYears.length - 1)
+      this.props.onChange(availableYears[newIndex])
     }
   }
 
@@ -192,7 +194,7 @@ class SelectDatesDumb extends React.PureComponent {
   render() {
     const {
       scrolling,
-      show12months,
+      showFullYear,
       value,
       t,
       breakpoints: { isMobile }
@@ -213,15 +215,15 @@ class SelectDatesDumb extends React.PureComponent {
       name: x.monthF
     }))
 
-    if (show12months) {
+    if (showFullYear) {
       monthsOptions.push({
         value: 'allyear',
-        name: t('SelectDates.last_12_months'),
+        name: t('SelectDates.all_year'),
         fixed: true
       })
     }
 
-    const yearMode = value && value.length === 4
+    const yearMode = isFullYearValue(value)
     let availableYears, yearIndex
     if (yearMode) {
       availableYears = this.getAvailableYears()
