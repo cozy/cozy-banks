@@ -21,7 +21,7 @@ import Select from 'components/Select'
 import cx from 'classnames'
 import scrollAware from './scrollAware'
 
-const start2016 = new Date(2016, 0, 1)
+const start2016 = new Date(2015, 11, 31)
 
 const getPeriods = () => {
   const periods = []
