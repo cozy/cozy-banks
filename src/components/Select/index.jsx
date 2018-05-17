@@ -30,13 +30,32 @@ const mkControlStyle = props => base => {
   }
 }
 
+const optionIsFixed = option => option.fixed
+
 class Select extends React.Component {
   constructor(props) {
     super(props)
-    this.Component = find(props.options, o => o.fixed)
+    this.updateComponent(props)
+    this.updateControlStyle(props)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.options !== nextProps.options) {
+      this.updateComponent(nextProps)
+    }
+    if (this.props.width !== nextProps.width) {
+      this.updateControlStyle(nextProps)
+    }
+  }
+
+  updateControlStyle(props) {
+    this.controlStyle = mkControlStyle(props)
+  }
+
+  updateComponent(props) {
+    this.Component = find(props.options, optionIsFixed)
       ? SelectBoxWithFixedOptions
       : SelectBox
-    this.controlStyle = mkControlStyle(props)
   }
 
   render() {
