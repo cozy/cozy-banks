@@ -1,3 +1,7 @@
+# Development
+
+## Table of Contents
+
 - [Develop easily on mobile](#develop-easily-on-mobile)
 - [Important credentials](#important-credentials)
 - [Release](#release)
@@ -5,11 +9,7 @@
   + [Push iOS build](#push-ios-build)
 - [Notifications](#notifications)
 
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
-
-Develop easily on mobile
-=====================
+## Develop easily on mobile
 
 It is a pain to always launch a `cordova build` to update the files
 on the device we are developing on.
@@ -57,12 +57,19 @@ the filepath without the [hash] otherwise you will not hit the right JS file.
 ## Important credentials
 
 All important credentials are stored in Cozy internal [password store](pass).
-
-- `Mobile/Android/play-store`
-- `Mobile/iOS/itunes-connect`
-- `Gangsters/cozy-banks/keys/android/`
+To import it execute `./scripts/import_mobile_keys`
 
 ## Release
+
+## On Cozy registry
+
+To publish on Cozy registry, you need a token also store in Cozy internal [password store](pass):
+
+```
+export REGISTRY_TOKEN=`pass registry/spaces/banks/banks.token`
+```
+
+## On mobile store
 
 ### Pre-requisites
 
@@ -125,8 +132,7 @@ Finally, to publish a new version on the store, you can use :
 yarn run android:publish
 ```
 
-Notifications
-=============
+## Notifications
 
 To debug notifications, you have to launch a watch on the notifications.js and then
 launch it with `cozy-run-dev`.
