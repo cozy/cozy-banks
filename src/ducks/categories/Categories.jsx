@@ -256,8 +256,8 @@ class Categories extends Component {
                         ? '100%'
                         : `${percentage}%`}
                     </span>
-                    <span className={styles['bnk-table-operation-caption']}>
-                      {`${transactionsNumber} ${t(
+                    <span>
+                      {`· ${transactionsNumber} ${t(
                         `Categories.headers.transactions.${
                           transactionsNumber > 1 ? 'single' : 'plural'
                         }`
