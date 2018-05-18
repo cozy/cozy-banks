@@ -2,10 +2,11 @@
 
 // reducers
 export const getApps = state => state.apps
-export const getAppUrlBySource = (state, source) => {
+
+export const getAppUrlById = (state, id) => {
   const apps = getApps(state)
   for (const app of apps) {
-    if (app.attributes.source.indexOf(source) !== -1) {
+    if (app._id === id) {
       return app.links.related
     }
   }

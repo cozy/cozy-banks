@@ -1,10 +1,10 @@
 {
   "name": "Banks",
   "slug": "banks",
+  "registry_namespace": "banks",
   "icon": "icon-banks.svg",
   "description": "The banking application for Cozy",
   "category": "cozy",
-  "version": "0.7.0",
   "licence": "AGPL-3.0",
   "source": "git://github.com/cozy/cozy-banks.git",
   "developer": {

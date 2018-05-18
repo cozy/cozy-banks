@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { flowRight as compose } from 'lodash'
-import { getAppUrlBySource, fetchApps } from 'ducks/apps'
+import { getAppUrlById, fetchApps } from 'ducks/apps'
 // import { IntentOpener } from 'cozy-ui/react'
 
 /*
@@ -19,7 +19,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => ({
-  collectUrl: getAppUrlBySource(state, 'github.com/cozy/cozy-collect')
+  collectUrl: getAppUrlById(state, 'io.cozy.apps/collect')
 })
 
 const SameWindowLink = compose(connect(mapStateToProps, mapDispatchToProps))(
@@ -29,14 +29,17 @@ const SameWindowLink = compose(connect(mapStateToProps, mapDispatchToProps))(
     }
 
     render() {
-      const url = this.props.collectUrl + '#/providers/banking'
+      const collectUrl = this.props.collectUrl
+      const url = collectUrl + '#/providers/banking'
       return (
         <span
           onClick={() => {
-            window.location = url
+            if (collectUrl) {
+              window.location = url
+            }
           }}
         >
-          {this.props.children}
+          {collectUrl && this.props.children}
         </span>
       )
     }

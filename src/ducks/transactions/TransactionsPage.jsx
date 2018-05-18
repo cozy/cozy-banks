@@ -9,6 +9,7 @@ import {
   includes,
   findIndex,
   find,
+  findLast,
   uniq,
   maxBy
 } from 'lodash'
@@ -26,7 +27,7 @@ import {
 
 import SelectDates, { ConnectedSelectDates } from 'components/SelectDates'
 import { fetchTransactions } from 'actions/transactions'
-import { getAppUrlBySource, fetchApps } from 'ducks/apps'
+import { getAppUrlById, fetchApps } from 'ducks/apps'
 import { getCategoryIdFromName } from 'ducks/categories/categoriesMap'
 import { getCategoryId } from 'ducks/categories/helpers'
 
@@ -180,14 +181,15 @@ class TransactionsPage extends Component {
          in the future, we check if the chosen month is before or after the
          current month.
       */
-      const monthsWithOperations = uniq(transactions.map(x => getMonth(x.date)))
-        .sort()
-        .reverse()
+      const monthsWithOperations = uniq(
+        transactions.map(x => getMonth(x.date))
+      ).sort()
       const beforeChosenMonth = x => x < month
       const afterChosenMonth = x => x > month
       const inRightDirection =
         month < this.state.currentMonth ? beforeChosenMonth : afterChosenMonth
-      const found = find(monthsWithOperations, inRightDirection)
+      const findFn = month < this.state.currentMonth ? findLast : find
+      const found = findFn(monthsWithOperations, inRightDirection)
       if (found) {
         month = found
         limitMin = findMonthIndex(month)
@@ -333,10 +335,10 @@ const mapStateToProps = (state, ownProps) => ({
     // this keys are used on Transactions.jsx to:
     // - find transaction label
     // - display appName in translate `Transactions.actions.app`
-    MAIF: getAppUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-maif'),
-    HEALTH: getAppUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-sante'),
-    EDF: getAppUrlBySource(state, 'gitlab.cozycloud.cc/labs/cozy-edf'),
-    COLLECT: getAppUrlBySource(state, 'github.com/cozy/cozy-collect')
+    MAIF: getAppUrlById(state, 'io.cozy.apps/maif'),
+    HEALTH: getAppUrlById(state, 'io.cozy.apps/sante'),
+    EDF: getAppUrlById(state, 'io.cozy.apps/edf'),
+    COLLECT: getAppUrlById(state, 'io.cozy.apps/collect')
   },
   accountIds: getFilteredAccountIds(state),
   accounts: getCollection(state, 'accounts'),

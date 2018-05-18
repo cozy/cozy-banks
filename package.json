@@ -1,6 +1,6 @@
 {
   "name": "cozy-banks",
-  "version": "0.7.0",
+  "version": "0.7.3",
   "main": "src/main.jsx",
   "scripts": {
     "build": "npm run build:browser && npm run build:services",
@@ -12,6 +12,7 @@
     "commons:watch": "webpack --config webpack.config.js --watch --progress",
     "commons:watch:standalone": "webpack-dev-server --progress --config webpack.config.js --port 8282 --inline --hot",
     "deploy": "git-directory-deploy --directory build/ --branch=${DEPLOY_BRANCH:-build} --repo=${DEPLOY_REPOSITORY:-https://$GITHUB_TOKEN@github.com/cozy/cozy-banks.git}",
+    "cozyPublish": "babel-node ./scripts/publish.js",
     "tx": "true || tx pull --all || true",
     "precommons:build": "npm-run-all lint tx",
     "prebuild:browser": "npm run clean:browser",
@@ -68,6 +69,7 @@
   "devDependencies": {
     "ach": "0.3.0",
     "autoprefixer": "8.5.0",
+    "babel-cli": "6.26.0",
     "babel-core": "6.26.3",
     "babel-eslint": "8.2.3",
     "babel-jest": "22.4.3",
@@ -80,6 +82,7 @@
     "babel-preset-react": "6.24.1",
     "babel-runtime": "6.26.0",
     "copy-webpack-plugin": "4.5.1",
+    "cozy-app-publish": "0.3.6",
     "css-loader": "0.28.11",
     "css-mqpacker": "6.0.2",
     "csswring": "6.0.3",
@@ -117,6 +120,7 @@
     "stylus": "0.54.5",
     "stylus-loader": "3.0.2",
     "svg-sprite-loader": "3.7.3",
+    "tar": "4.4.2",
     "webpack": "3.12.0",
     "webpack-dev-server": "2.11.2",
     "webpack-merge": "4.1.2",

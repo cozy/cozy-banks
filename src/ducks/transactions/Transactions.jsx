@@ -233,6 +233,12 @@ class TransactionsD extends React.Component {
     this.updateTransactions(this.props.transactions)
   }
 
+  componentWillUpdate(nextProps) {
+    if (this.props.transactions !== nextProps.transactions) {
+      this.updateTransactions(nextProps.transactions)
+    }
+  }
+
   updateTransactions(transactions) {
     this.transactionsById = keyBy(transactions, '_id')
     this.transactions = transactions
@@ -366,7 +372,9 @@ export class TransactionsWithSelection extends React.Component {
         {transaction && (
           <TransactionModal
             requestClose={this.unselectTransaction}
-            transaction={transaction}
+            transaction={props.transactions.find(
+              t => t._id === transaction._id
+            )}
             {...props}
           />
         )}

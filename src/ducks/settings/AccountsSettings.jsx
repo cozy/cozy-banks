@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { translate, Button, Icon } from 'cozy-ui/react'
 import { getSharingInfo } from 'reducers'
 import { groupBy, flowRight as compose, sortBy } from 'lodash'
-import { getAppUrlBySource, fetchApps } from 'ducks/apps'
+import { getAppUrlById, fetchApps } from 'ducks/apps'
 import Table from 'components/Table'
 import Loading from 'components/Loading'
 import { cozyConnect, fetchCollection } from 'cozy-client'
@@ -122,7 +122,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => ({
-  collectUrl: getAppUrlBySource(state, 'github.com/cozy/cozy-collect'),
+  collectUrl: getAppUrlById(state, 'io.cozy.apps/collect'),
   getSharingInfo: (doctype, id) => {
     return getSharingInfo(state, doctype, id)
   }
