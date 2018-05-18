@@ -19,7 +19,8 @@ const FigureBlock = ({
   coloredNegative,
   signed,
   decimalNumbers = 0,
-  figureClassName
+  figureClassName,
+  withCurrencySpacing
 }) => (
   <div className={classNames(styles['FigureBlock'], className)}>
     <h4 className={styles['FigureBlock-label']}>{label}</h4>
@@ -32,6 +33,7 @@ const FigureBlock = ({
       coloredNegative={coloredNegative}
       signed={signed}
       decimalNumbers={decimalNumbers}
+      withCurrencySpacing={withCurrencySpacing}
     />
   </div>
 )

@@ -19,6 +19,7 @@ const styleBig = styles['Figure--big']
 const Figure = props => {
   const {
     currency,
+    withCurrencySpacing = true,
     coloredPositive,
     coloredNegative,
     coloredWarning,
@@ -59,7 +60,11 @@ const Figure = props => {
         {totalLocalized}
       </span>
       {currency && (
-        <span className={styles['Figure-currency']}>
+        <span
+          className={cx(styles['Figure-currency'], {
+            [styles['Figure__currency--withSpacing']]: withCurrencySpacing
+          })}
+        >
           {currencySigns[currency] || currency}
         </span>
       )}
@@ -83,7 +88,9 @@ Figure.propTypes = {
   /** Numbers of decimals to show (default=2) */
   decimalNumbers: Types.number,
   /** Whether to add a specific class to show warning */
-  warningLimit: Types.number
+  warningLimit: Types.number,
+  /** Whether to add some spacing between the figure and the currency or not */
+  withCurrencySpacing: Types.boolean
 }
 
 export default Figure
