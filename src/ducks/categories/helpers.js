@@ -168,5 +168,16 @@ export const getTransactionsTotal = categories => {
   return transactionsTotal
 }
 
-export const getGlobalCurrency = categories =>
-  categories.length > 0 ? categories[0].currency : '€'
+export const getGlobalCurrency = categories => {
+  let currency
+
+  if (categories.length > 0) {
+    currency = categories[0].currency
+  }
+
+  if (!currency) {
+    currency = '€'
+  }
+
+  return currency
+}
