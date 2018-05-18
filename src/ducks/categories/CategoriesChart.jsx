@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { translate } from 'cozy-ui/react/I18n'
-import PieChart from './PieChart'
-import styles from './styles'
+import Chart from './Chart'
+import styles from './CategoriesChart.styl'
+import FigureBlock from 'components/Figure/FigureBlock'
 
 const hexToRGBA = (hex, a) => {
   const cutHex = hex.substring(1)
@@ -22,7 +23,16 @@ class CategoriesChart extends Component {
     }
   }
 
-  render({ t, categories, selectedCategory, width, height }) {
+  render({
+    t,
+    categories,
+    selectedCategory,
+    width,
+    height,
+    total,
+    currency,
+    label
+  }) {
     if (categories.length === 0) return
 
     const labels = []
@@ -50,8 +60,19 @@ class CategoriesChart extends Component {
     }
 
     return (
-      <div className={styles['bnk-cat-chart']}>
-        <PieChart
+      <div className={styles.CategoriesChart}>
+        <div className={styles.CategoriesChart__FigureBlockContainer}>
+          <FigureBlock
+            label={label}
+            total={total}
+            currency={currency}
+            signed
+            className={styles.CategoriesChart__FigureBlock}
+            figureClassName={styles.CategoriesChart__Figure}
+            withCurrencySpacing={false}
+          />
+        </div>
+        <Chart
           onClick={this.click}
           labels={labels}
           data={data}

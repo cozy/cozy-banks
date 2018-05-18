@@ -1,31 +1,32 @@
 @require 'settings/breakpoints'
 
 .Breadcrumb
-    margin-bottom 1rem
-    &::after
-        content ''
-        clear left
-        display block
+    display flex
+    align-items center
 
-    &__title
-        color coolGrey
 
-    &__crumb
-        float left
+.Breadcrumb__previousButton
+    margin-top 0.5rem
+    margin-right 1.5rem
+    cursor pointer
 
-    &__last &__title
-        color black
+.Breadcrumb__items
+    flex-grow 1
+    color charcoalGrey
 
-    &__separator
-        padding-left .3em
-        padding-right .3em
+.Breadcrumb__previousItems
+    display flex
 
-    &__link
-        cursor pointer
+.BreadcrumbItem
+    font-size 0.875rem
+    line-height 1
 
-    +small-screen()
-        width 100% // for ellipsis to work correctly
-        &__crumb&__last
-            width 100% // for ellipsis to work correctly
-        &__crumb:not(&__last)
-              display none
+.BreadcrumbItem--current
+    font-size 1.5rem
+    font-weight bold
+    line-height 1.67
+
+.BreadcrumbSeparator
+    display inline-block
+    margin-left 0.125rem
+    margin-right 0.125rem

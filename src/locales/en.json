@@ -233,14 +233,20 @@
     "filter": {
       "credit": "earnings",
       "total": "Total",
-      "debit": "Total excl. earnings"
+      "debit": "Total excl. earnings",
+      "includeIncome": "Include incomes"
     },
     "headers": {
-      "transactions": "Transactions",
+      "transactions": {
+        "single": "transaction",
+        "plural": "transactions"
+      },
       "credit": "Credit",
       "total": "Total",
-      "categories": "Categories",
-      "debit": "Debit"
+      "categories": "Category",
+      "subcategories": "Subcategory",
+      "debit": "Debit",
+      "movements": "Movements"
     },
     "board": {
       "debit-header": "Spent",
@@ -249,9 +255,8 @@
     },
     "title": {
       "empty_text": "There is no transactions in this category.",
-      "total": "Balance of the period",
-      "general": "Categorization",
-      "debit": "Net expenditure"
+      "total": "On the period",
+      "general": "Categorization"
     }
   },
   "Transactions": {

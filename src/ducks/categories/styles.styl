@@ -1,53 +1,32 @@
 @require 'settings/breakpoints'
 @require '~styles/mixins.styl'
 
-.bnk-cat-top
-    display         flex
-    flex-direction  row
-    flex-wrap wrap
-
-    .bnk-cat-form
-        flex-basis 50%
-
-    .bnk-cat-filter
-        padding 2rem 0 0
-
-        > span
-            margin-right 1em
-        > label
-            font-size .8em
-            position absolute
-            line-height 24px
-
-    .bnk-cat-figure
-        padding 2rem 0 0
-
-    .bnk-cat-chart
-        flex-basis 50%
-        margin-top -100px
-
-+small-screen()
-    .bnk-cat-top
-        .bnk-cat-figure
-        .bnk-cat-filter
-            padding 0.65rem 0 0
-
-        .bnk-cat-form
-            flex-basis 100%
-
-        .bnk-cat-chart
-            flex-basis 100%
-            margin-top 0
+.PercentageLine
+    position absolute
+    bottom -1px
+    left 0
+    height 2px
 
 // Table
 .bnk-table-category
     @extend $full-width-table
 
-    tbody tr
-        cursor  pointer
+    thead
+        font-weight bold
+
+    tbody
+        tr
+            cursor  pointer
+
+        td
+            +small-screen()
+                vertical-padding = 0.625rem
+                padding-top vertical-padding
+                padding-bottom vertical-padding
 
     .bnk-table-percentage
         text-align right
+        white-space nowrap
 
     .bnk-table-operation
         text-align right
@@ -56,12 +35,38 @@
     .bnk-table-total
         text-align right
 
+    tbody
+        .bnk-table-total
+        .bnk-table-percentage
+            font-size 1rem
+
+    .bnk-table-percentage-sign
+        display inline-block
+        margin-left 0.125em
+        color coolGrey
+
+    .bnk-table-amount-figure
+        color coolGrey
+        font-weight normal
+
+    .bnk-table-amount-figure-total
+        font-weight inherit
+
     .bnk-table-row
     .bnk-table-row--uncollapsed
         color charcoalGrey
+        position relative
 
         .bnk-table-percentage
             font-weight bold
+
+    .bnk-table-row-caption
+        margin-top 0
+
+    .bnk-table-percentage-caption
+        display inline-block
+        margin-right 0.1875rem
+        color charcoalGrey
 
     +small-screen('min')
         .bnk-table-category-category
@@ -82,12 +87,10 @@
         .bnk-table-percentage
             maxed-flex-basis 10%
         .bnk-table-operation
-            maxed-flex-basis 10%
+            maxed-flex-basis 18%
         .bnk-table-amount
         .bnk-table-total
             maxed-flex-basis 14%
-        .bnk-table-chevron
-            maxed-flex-basis 5%
 
     // All icons and classes for categories types
 
@@ -103,3 +106,4 @@
 
 .bnk-category-total-mobile
     min-width 5rem
+    font-size 0.875rem

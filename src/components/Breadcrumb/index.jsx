@@ -1,80 +1,94 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import cx from 'classnames'
 import styles from './style.styl'
+import arrowLeftIcon from 'assets/icons/icon-arrow-left.svg'
+import palette from 'cozy-ui/stylus/settings/palette.json'
+import { Icon } from 'cozy-ui/react'
 
-const DEFAULT_SEPARATOR = '/'
-const DEFAULT_LAST_SEPARATOR = false
-const DEFAULT_TAG = 'span'
-
-const BreadcrumbSeparator = ({ separator }) => (
-  <span className={styles.Breadcrumb__separator}>{separator}</span>
+const BreadcrumbSeparator = () => (
+  <span className={styles.BreadcrumbSeparator}>/</span>
 )
 
-const BreadcrumbItem = ({ item }) => {
-  const Tag = item.tag
+const BreadcrumbItem = ({
+  name,
+  onClick,
+  isCurrent = false,
+  tag = 'span',
+  showSeparator = false
+}) => {
+  const Tag = tag
   return (
     <div
-      onClick={item.onClick}
-      className={cx(
-        styles.Breadcrumb__crumb,
-        item.isLast && styles.Breadcrumb__last,
-        { [styles.Breadcrumb__link]: item.onClick }
-      )}
+      className={cx(styles.BreadcrumbItem, {
+        [styles['BreadcrumbItem--current']]: isCurrent
+      })}
     >
-      <Tag className={styles.Breadcrumb__title}>
-        {item.name}
-        {item.displaySeparator && (
-          <BreadcrumbSeparator separator={item.separator} />
-        )}
+      <Tag
+        onClick={onClick}
+        className={cx({
+          'u-clickable': onClick
+        })}
+      >
+        {name}
       </Tag>
+      {showSeparator && <BreadcrumbSeparator />}
     </div>
   )
 }
 
-/**
- * Display a Breadcrumb
- * - On browser like this: This > is > path
- * - On mobile: path
- *
- * ```jsx
- * <Breadcrumb
- *   tag='h2'
- *   separator='>'
- *   onClick={() => console.log('back button' )}
- *   items={[{name: 'this'},{name: 'is'}, {name: 'path'}]} />
- * ```
- *
- * All parameter for item:
- * - name: string
- * - displaySeparator: boolean
- * - separator: string
- * - tag: string
- * - onClick: function
- */
-export const Breadcrumb = ({
-  items,
-  withLastSeparator = DEFAULT_LAST_SEPARATOR,
-  separator = DEFAULT_SEPARATOR,
-  tag = DEFAULT_TAG
-}) => {
-  let previousOnClick
+const itemPropTypes = {
+  name: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
+  tag: PropTypes.element
+}
+
+BreadcrumbItem.propTypes = {
+  ...itemPropTypes,
+  isCurrent: PropTypes.bool,
+  showSeparator: PropTypes.bool
+}
+
+export const Breadcrumb = ({ items, className }) => {
+  const previousItems = items.slice(0, -1)
+  const [lastPreviousItem] = previousItems.slice(-1)
+  const [currentItem] = items.slice(-1)
+
   return (
-    <div className={styles.Breadcrumb}>
-      {items.map((item, idx) => {
-        const isLastItem = idx === items.length - 1
-        item.isLast = isLastItem
-
-        if (item.displaySeparator === undefined)
-          item.displaySeparator = withLastSeparator || !isLastItem
-        if (item.separator === undefined) item.separator = separator
-        if (item.tag === undefined) item.tag = tag
-        if (previousOnClick) item.previousOnClick = previousOnClick
-        if (item.onClick) previousOnClick = item.onClick
-
-        return <BreadcrumbItem key={item.name} item={item} />
-      })}
+    <div className={cx(styles.Breadcrumb, className)}>
+      {items.length > 1 && (
+        <Icon
+          icon={arrowLeftIcon}
+          color={palette.coolGrey}
+          className={styles.Breadcrumb__previousButton}
+          onClick={lastPreviousItem.onClick}
+        />
+      )}
+      <div className={styles.Breadcrumb__items}>
+        <div className={styles.Breadcrumb__previousItems}>
+          {previousItems.map(({ name, onClick, tag }, index) => (
+            <BreadcrumbItem
+              key={name}
+              name={name}
+              onClick={onClick}
+              tag={tag}
+              showSeparator={index < previousItems.length - 1}
+            />
+          ))}
+        </div>
+        <BreadcrumbItem
+          name={currentItem.name}
+          tag={currentItem.tag}
+          isCurrent
+        />
+      </div>
     </div>
   )
+}
+
+Breadcrumb.propTypes = {
+  className: PropTypes.string,
+  items: PropTypes.arrayOf(PropTypes.shape(itemPropTypes))
 }
 
 export default Breadcrumb

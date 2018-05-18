@@ -2,12 +2,12 @@
 Component to render a pie chart from data (size from props too)
 */
 
-import styles from './PieChart.styl'
+import styles from './Chart.styl'
 import React, { Component } from 'react'
-import { Pie, Chart } from 'react-chartjs-2'
+import { Doughnut, Chart as ReactChart } from 'react-chartjs-2'
 import pieceLabel from 'lib/chartjsPieLabels'
 
-class PieChart extends Component {
+class Chart extends Component {
   state = {
     data: {
       labels: this.props.labels,
@@ -20,6 +20,7 @@ class PieChart extends Component {
       ]
     },
     options: {
+      cutoutPercentage: 74,
       legend: {
         display: false
       },
@@ -38,18 +39,12 @@ class PieChart extends Component {
         },
         bodySpacing: 4,
         xPadding: 8
-      },
-      pieceLabel: {
-        mode: 'percentage',
-        fontSize: 16,
-        fontFamily: '"Lato"',
-        precision: 0
       }
     }
   }
 
   componentWillMount() {
-    Chart.pluginService.register(pieceLabel)
+    ReactChart.pluginService.register(pieceLabel)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -80,8 +75,8 @@ class PieChart extends Component {
 
   render({ width, height }, { data, options }) {
     return (
-      <div className={styles['bnk-chart-pie']}>
-        <Pie
+      <div className={styles['bnk-chart']}>
+        <Doughnut
           data={data}
           options={options}
           onElementsClick={this.click}
@@ -93,4 +88,4 @@ class PieChart extends Component {
   }
 }
 
-export default PieChart
+export default Chart

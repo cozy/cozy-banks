@@ -31,7 +31,6 @@ import { getAppUrlById, fetchApps } from 'ducks/apps'
 import { getCategoryIdFromName } from 'ducks/categories/categoriesMap'
 import { getCategoryId } from 'ducks/categories/helpers'
 
-import { FigureBlock } from 'components/Figure'
 import Loading from 'components/Loading'
 import { Breadcrumb } from 'components/Breadcrumb'
 import BackButton from 'components/BackButton'
@@ -47,47 +46,6 @@ const { BarRight } = cozy.bar
 
 const isPendingOrLoading = function(col) {
   return col.fetchStatus === 'pending' || col.fetchStatus === 'loading'
-}
-
-const KPIs = ({ transactions }, { t }) => {
-  let credits = 0
-  let debits = 0
-  transactions.forEach(transaction => {
-    if (transaction.amount > 0) {
-      credits += transaction.amount
-    } else {
-      debits += transaction.amount
-    }
-  })
-  const currency = transactions.length > 0 ? transactions[0].currency : null
-  return (
-    <div className={styles['bnk-mov-figures']}>
-      <FigureBlock
-        label={t('Transactions.total')}
-        total={credits + debits}
-        currency={currency}
-        coloredPositive
-        coloredNegative
-        signed
-      />
-      <FigureBlock
-        label={t('Transactions.transactions')}
-        total={transactions.length}
-      />
-      <FigureBlock
-        label={t('Transactions.debit')}
-        total={debits}
-        currency={currency}
-        signed
-      />
-      <FigureBlock
-        label={t('Transactions.credit')}
-        total={credits}
-        currency={currency}
-        signed
-      />
-    </div>
-  )
 }
 
 const Separator = () => (
@@ -273,21 +231,15 @@ class TransactionsPage extends Component {
       <div className={styles.TransactionPage}>
         {subcategoryName ? <BackButton /> : null}
         <div className={styles.TransactionPage__top}>
-          {!isMobile &&
-            breadcrumbItems.length > 1 && (
-              <Breadcrumb items={breadcrumbItems} />
-            )}
-          <AccountSwitch />
+          <AccountSwitch small={subcategoryName !== undefined} />
           {isMobile && (
             <BarRight>
               <BarBalance accounts={filteredAccounts} />
             </BarRight>
           )}
-          {filteredTransactions.length !== 0 && subcategoryName ? (
-            <KPIs transactions={filteredTransactions} />
-          ) : (
+          {filteredTransactions.length === 0 || !subcategoryName ? (
             <Separator />
-          )}
+          ) : null}
           {!subcategoryName ? (
             <SelectDates
               value={this.state.currentMonth}
@@ -296,8 +248,23 @@ class TransactionsPage extends Component {
           ) : (
             <ConnectedSelectDates />
           )}
+          {!isMobile &&
+            breadcrumbItems.length > 1 && (
+              <Breadcrumb
+                items={breadcrumbItems}
+                className={styles.TransactionPage__Breadcrumb}
+              />
+            )}
           {filteredTransactions.length > 0 ? (
-            !isMobile && <TransactionTableHead />
+            !isMobile && (
+              <TransactionTableHead
+                mainColumnTitle={t(
+                  subcategoryName
+                    ? 'Categories.headers.movements'
+                    : 'Transactions.header.description'
+                )}
+              />
+            )
           ) : (
             <p>{t('Transactions.no-movements')}</p>
           )}

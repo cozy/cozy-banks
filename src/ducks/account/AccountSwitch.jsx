@@ -87,23 +87,19 @@ const DownArrow = () => (
     width={12}
     height={12}
     icon="small-arrow"
-    style={{ transform: 'translate(5px, -1px)', width: '2rem' }}
+    className={styles.DownArrow}
   />
 )
 
 const AccountSwitchSelect = ({ filteringDoc, onClick, t }) => (
-  <Media className={styles.AccountSwitch__Select} onClick={onClick}>
-    <Bd>
-      <PageTitle style={{ marginBottom: 0 }}>
-        {filteringDoc
-          ? filteringDoc.shortLabel || filteringDoc.label
-          : t('AccountSwitch.all_accounts')}&nbsp;
-      </PageTitle>
-    </Bd>
-    <Img>
-      <DownArrow />
-    </Img>
-  </Media>
+  <div className={styles.AccountSwitch__Select} onClick={onClick}>
+    <PageTitle className={classNames(styles.AccountSwitch__SelectText)}>
+      {filteringDoc
+        ? filteringDoc.shortLabel || filteringDoc.label
+        : t('AccountSwitch.all_accounts')}
+    </PageTitle>
+    <DownArrow />
+  </div>
 )
 
 const AccountSwitchMobile = ({
@@ -274,7 +270,8 @@ class AccountSwitch extends Component {
       filterByDoc,
       filteredAccounts,
       resetFilterByDoc,
-      breakpoints: { isMobile, isTablet, isDesktop }
+      breakpoints: { isMobile, isTablet, isDesktop },
+      small
     } = this.props
     const { open } = this.state
     let { accounts, groups } = this.props
@@ -301,7 +298,11 @@ class AccountSwitch extends Component {
       x.label.toLowerCase()
     )
     return (
-      <div className={styles['account-switch']}>
+      <div
+        className={classNames(styles['account-switch'], {
+          [styles['AccountSwitch--small']]: small
+        })}
+      >
         {isMobile && (
           <BarCenter>
             <BarItem style={{ overflow: 'hidden', paddingRight: '1rem' }}>
@@ -343,6 +344,10 @@ AccountSwitch.propTypes = {
   filterByDoc: PropTypes.func.isRequired,
   resetFilterByDoc: PropTypes.func.isRequired,
   filteringDoc: PropTypes.object
+}
+
+AccountSwitch.defaultProps = {
+  small: false
 }
 
 const mapStateToProps = state => ({

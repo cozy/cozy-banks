@@ -19,6 +19,7 @@ const styleBig = styles['Figure--big']
 const Figure = props => {
   const {
     currency,
+    withCurrencySpacing = true,
     coloredPositive,
     coloredNegative,
     coloredWarning,
@@ -26,6 +27,7 @@ const Figure = props => {
     signed,
     className,
     total,
+    totalClassName,
     size
   } = props
 
@@ -53,12 +55,16 @@ const Figure = props => {
         className
       )}
     >
-      <span className={styles['Figure-total']}>
+      <span className={cx(styles['Figure-total'], totalClassName)}>
         {isTotalPositive && signed && '+'}
         {totalLocalized}
       </span>
       {currency && (
-        <span className={styles['Figure-currency']}>
+        <span
+          className={cx(styles['Figure-currency'], {
+            [styles['Figure__currency--withSpacing']]: withCurrencySpacing
+          })}
+        >
           {currencySigns[currency] || currency}
         </span>
       )}
@@ -69,6 +75,8 @@ const Figure = props => {
 Figure.propTypes = {
   /** Number to display */
   total: Types.number.isRequired,
+  /** Class name applied to the element wrapping the number */
+  totalClassName: Types.string,
   /** Currency to show */
   currency: Types.string,
   /** Colors positive numbers in green */
@@ -80,7 +88,9 @@ Figure.propTypes = {
   /** Numbers of decimals to show (default=2) */
   decimalNumbers: Types.number,
   /** Whether to add a specific class to show warning */
-  warningLimit: Types.number
+  warningLimit: Types.number,
+  /** Whether to add some spacing between the figure and the currency or not */
+  withCurrencySpacing: Types.boolean
 }
 
 export default Figure
