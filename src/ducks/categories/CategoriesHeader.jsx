@@ -20,7 +20,8 @@ const CategoriesHeader = ({
   categories,
   selectCategory,
   t,
-  breakpoints: { isMobile }
+  breakpoints: { isMobile },
+  isFetching
 }) => {
   const globalCurrency = getGlobalCurrency(categories)
   const transactionsTotal = getTransactionsTotal(categories)
@@ -53,16 +54,18 @@ const CategoriesHeader = ({
           </div>
         )}
       </div>
-      <CategoriesChart
-        width={chartSize}
-        height={chartSize}
-        categories={categories}
-        selectedCategory={selectedCategory && selectedCategory.name}
-        selectCategory={selectCategory}
-        total={selectedCategory ? selectedCategory.amount : transactionsTotal}
-        currency={globalCurrency}
-        label={t('Categories.title.total')}
-      />
+      {!isFetching && (
+        <CategoriesChart
+          width={chartSize}
+          height={chartSize}
+          categories={categories}
+          selectedCategory={selectedCategory && selectedCategory.name}
+          selectCategory={selectCategory}
+          total={selectedCategory ? selectedCategory.amount : transactionsTotal}
+          currency={globalCurrency}
+          label={t('Categories.title.total')}
+        />
+      )}
     </div>
   )
 }

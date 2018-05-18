@@ -61,6 +61,7 @@ class CategoriesPage extends Component {
           onWithIncomeToggle={this.filterWithInCome}
           categories={categories}
           selectCategory={this.selectCategory}
+          isFetching={isFetching}
         />
         {isFetching ? (
           <Loading loadingType="categories" />
