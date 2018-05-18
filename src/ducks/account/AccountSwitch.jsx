@@ -87,23 +87,19 @@ const DownArrow = () => (
     width={12}
     height={12}
     icon="small-arrow"
-    style={{ transform: 'translate(5px, -1px)', width: '2rem' }}
+    className={styles.DownArrow}
   />
 )
 
 const AccountSwitchSelect = ({ filteringDoc, onClick, t }) => (
-  <Media className={styles.AccountSwitch__Select} onClick={onClick}>
-    <Bd>
-      <PageTitle className={classNames(styles.AccountSwitch__SelectText)}>
-        {filteringDoc
-          ? filteringDoc.shortLabel || filteringDoc.label
-          : t('AccountSwitch.all_accounts')}&nbsp;
-      </PageTitle>
-    </Bd>
-    <Img>
-      <DownArrow />
-    </Img>
-  </Media>
+  <div className={styles.AccountSwitch__Select} onClick={onClick}>
+    <PageTitle className={classNames(styles.AccountSwitch__SelectText)}>
+      {filteringDoc
+        ? filteringDoc.shortLabel || filteringDoc.label
+        : t('AccountSwitch.all_accounts')}
+    </PageTitle>
+    <DownArrow />
+  </div>
 )
 
 const AccountSwitchMobile = ({
