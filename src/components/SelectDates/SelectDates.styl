@@ -14,7 +14,7 @@ select-date-height-small = 2.75rem
     width select-date-width
     height select-date-height
 
-    .prev-button, .next-button, .SelectDates-select
+    .prev-button, .next-button
         height 100%
         margin 0
 
@@ -26,16 +26,8 @@ select-date-height-small = 2.75rem
         svg
             margin-top 5px
 
-    .SelectDates-select
-        display inline
-        flex 1
-
-        select
-            padding 0 1rem
-            width 100%
-            border-radius 0
-            height 100%
-            vertical-align top // corrects a 1px bug on Windows' Chrome
+.SelectDates__Select
+    color slateGrey
 
 .SelectDates__month
     width 9rem
@@ -114,9 +106,9 @@ select-date-height-small = 2.75rem
 
 .SelectDates__Button
     cursor pointer
-    color slateGrey
     transition transform 0.3s ease
+    color coolGrey
 
 .SelectDates__Button--disabled
-    color coolGrey
+    color silver
     cursor not-allowed
