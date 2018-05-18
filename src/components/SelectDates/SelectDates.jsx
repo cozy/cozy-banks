@@ -49,7 +49,7 @@ const Separator = () => (
 const constrain = (val, min, max) => Math.min(Math.max(val, min), max)
 
 const selectYearContainerStyle = base => ({ ...base, flexGrow: 1 })
-const selectMonthContainerStyle = base => ({ ...base, flexGrow: 2 })
+const selectMonthContainerStyle = base => ({ ...base, flexGrow: 6 })
 
 const SelectDateButton = ({ children, disabled, className, ...props }) => {
   return (
