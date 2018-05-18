@@ -18,7 +18,8 @@ module.exports = {
       components: () => [
         // 'src/components/Table/index.jsx',
         'src/components/SharingIcon/SharingIcon.jsx',
-        'src/components/SelectDates/SelectDates.jsx'
+        'src/components/SelectDates/SelectDates.jsx',
+        'src/components/Select/index.jsx'
       ]
     },
     {

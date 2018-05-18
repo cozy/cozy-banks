@@ -22,13 +22,16 @@ const mkControlStyle = props => base => {
     border: 0,
     background: 'transparent',
     width: props.width || '10rem',
-    boxShadow: '',
+    boxShadow: 'none',
     '&:focus': {
       border: 0,
-      boxShadow: ''
-    }
+      boxShadow: 'none'
+    },
+    flexGrow: 1
   }
 }
+
+const valueContainerStyle = base => ({ ...base, paddingLeft: 0 })
 
 const optionIsFixed = option => option.fixed
 
@@ -59,7 +62,7 @@ class Select extends React.Component {
   }
 
   render() {
-    const { name, value, options, onChange } = this.props
+    const { name, value, options, onChange, styles = {} } = this.props
     const Component = this.Component
 
     return (
@@ -74,7 +77,9 @@ class Select extends React.Component {
           IndicatorSeparator
         }}
         styles={{
-          control: this.controlStyle
+          control: this.controlStyle,
+          valueContainer: valueContainerStyle,
+          ...styles
         }}
         name={name}
         onChange={option => {

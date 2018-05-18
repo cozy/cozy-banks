@@ -48,6 +48,9 @@ const Separator = () => (
 
 const constrain = (val, min, max) => Math.min(Math.max(val, min), max)
 
+const selectYearContainerStyle = base => ({ ...base, flexGrow: 1 })
+const selectMonthContainerStyle = base => ({ ...base, flexGrow: 2 })
+
 const SelectDateButton = ({ children, disabled, className, ...props }) => {
   return (
     <Chip.Round
@@ -236,25 +239,40 @@ class SelectDatesDumb extends React.PureComponent {
           scrolling && styles['SelectDates--scrolling']
         )}
       >
-        <span>
+        <span className={styles['SelectDates__DateYearSelector']}>
           <Chip className={cx(styles.SelectDates__chip)}>
             <Select
               name="year"
+              className={styles.SelectDates__SelectYear}
               searchable={false}
-              width="6rem"
+              width={isMobile ? '4rem' : '6rem'}
               value={selectedYear}
               options={years.map(x => ({ value: x.year, name: x.yearF }))}
               onChange={this.handleChangeYear}
+              styles={
+                isMobile
+                  ? {
+                      container: selectYearContainerStyle
+                    }
+                  : {}
+              }
             />
             <Separator />
             <Select
               searchable={false}
               name="month"
-              width="10rem"
-              className={styles.SelectDates__month}
+              width={isMobile ? 'auto' : '10rem'}
+              className={styles.SelectDates__SelectMonth}
               value={selectedMonth}
               options={monthsOptions}
               onChange={this.handleChangeMonth}
+              styles={
+                isMobile
+                  ? {
+                      container: selectMonthContainerStyle
+                    }
+                  : {}
+              }
             />
           </Chip>
         </span>
