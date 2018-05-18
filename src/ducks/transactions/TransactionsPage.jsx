@@ -20,12 +20,12 @@ import { translate } from 'cozy-ui/react/I18n'
 import { withBreakpoints } from 'cozy-ui/react'
 
 import {
-  SelectDates,
-  ConnectedSelectDates,
   getTransactionsFilteredByAccount,
   getFilteredAccountIds,
   getFilteredTransactions
 } from 'ducks/filters'
+
+import SelectDates, { ConnectedSelectDates } from 'components/SelectDates'
 import { fetchTransactions } from 'actions/transactions'
 import { getAppUrlById, fetchApps } from 'ducks/apps'
 import { getCategoryIdFromName } from 'ducks/categories/categoriesMap'
@@ -290,7 +290,7 @@ class TransactionsPage extends Component {
           )}
           {!subcategoryName ? (
             <SelectDates
-              period={this.state.currentMonth}
+              value={this.state.currentMonth}
               onChange={this.handleChangeMonth}
             />
           ) : (
