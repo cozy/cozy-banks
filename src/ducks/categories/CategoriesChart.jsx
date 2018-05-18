@@ -69,6 +69,7 @@ class CategoriesChart extends Component {
             signed
             className={styles.CategoriesChart__FigureBlock}
             figureClassName={styles.CategoriesChart__Figure}
+            withCurrencySpacing={false}
           />
         </div>
         <Chart
