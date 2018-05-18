@@ -6,7 +6,13 @@ import sortBy from 'lodash/sortBy'
 import throttle from 'lodash/throttle'
 import keyBy from 'lodash/keyBy'
 import format from 'date-fns/format'
-import { translate, withBreakpoints, ListItemText } from 'cozy-ui/react'
+import {
+  translate,
+  withBreakpoints,
+  ListItemText,
+  Caption,
+  Text
+} from 'cozy-ui/react'
 import { Figure } from 'components/Figure'
 import { flowRight as compose, toPairs, groupBy } from 'lodash'
 import { Table, TdSecondary } from 'components/Table'
@@ -73,13 +79,12 @@ class _TableTrDesktop extends PureComponent {
               />
             </Img>
             <Bd className="u-pl-1">
-              <ListItemText
-                primaryText={getLabel(transaction)}
-                secondaryText={
-                  !filteringOnAccount && getAccountLabel(transaction.account)
-                }
-                onClick={this.onSelectTransaction}
-              />
+              <ListItemText onClick={this.onSelectTransaction}>
+                <Text>{getLabel(transaction)}</Text>
+                <Caption className={styles['bnk-op-desc-caption']}>
+                  {!filteringOnAccount && getAccountLabel(transaction.account)}
+                </Caption>
+              </ListItemText>
             </Bd>
           </Media>
         </td>
@@ -138,13 +143,12 @@ const TableTrNoDesktop = translate()(
               />
             </Img>
             <Bd className={cx('u-clickable', 'u-mr-half u-ellipsis')}>
-              <ListItemText
-                primaryText={getLabel(transaction)}
-                secondaryText={
-                  !filteringOnAccount && getAccountLabel(transaction.account)
-                }
-                onClick={onSelectTransaction}
-              />
+              <ListItemText onClick={onSelectTransaction}>
+                <Text>{getLabel(transaction)}</Text>
+                <Caption className={styles['bnk-op-desc-caption']}>
+                  {!filteringOnAccount && getAccountLabel(transaction.account)}
+                </Caption>
+              </ListItemText>
             </Bd>
             <Img onClick={onSelectTransaction} className="u-clickable">
               <Figure
