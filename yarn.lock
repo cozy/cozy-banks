@@ -2131,9 +2131,11 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-classificator@0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/classificator/-/classificator-0.2.3.tgz#3e017b4e1d424e787d8f0355ed6df2d424f56762"
+classificator@0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/classificator/-/classificator-0.3.0.tgz#65682282988cb0d6e9a434c6eeda2c2b9a8c0fb0"
+  dependencies:
+    decimal.js "^10.0.0"
 
 classnames@^2.2.0, classnames@^2.2.5:
   version "2.2.5"
@@ -3178,6 +3180,10 @@ debuglog@^1.0.1:
 decamelize@^1.0.0, decamelize@^1.1.1, decamelize@^1.1.2:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/decamelize/-/decamelize-1.2.0.tgz#f6534d15148269b20352e7bee26f501f9a191290"
+
+decimal.js@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/decimal.js/-/decimal.js-10.0.0.tgz#f24855f7ee301d0dfaa458df0fdf4d5aaa182fdc"
 
 decode-uri-component@^0.2.0:
   version "0.2.0"
