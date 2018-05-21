@@ -139,6 +139,7 @@ class TransactionModal extends Component {
         className={styles.TransactionModal}
       >
         <ModalHeader className={styles.TransactionModalHeader}>
+          {isMobile && <CloseButton onClick={requestClose} />}
           <h2 className={styles.TransactionModalHeading}>
             <Figure
               total={transaction.amount}
@@ -148,7 +149,6 @@ class TransactionModal extends Component {
           </h2>
         </ModalHeader>
         <ModalContent className={styles.TransactionModalContent}>
-          {isMobile && <CloseButton onClick={requestClose} />}
           <Separator />
           <TransactionModalRow
             iconLeft={typeIcon}
