@@ -58,8 +58,10 @@ const CategoriesHeader = ({
         <CategoriesChart
           width={chartSize}
           height={chartSize}
-          categories={categories}
-          selectedCategory={selectedCategory && selectedCategory.name}
+          categories={
+            selectedCategory ? selectedCategory.subcategories : categories
+          }
+          selectedCategory={selectedCategory}
           selectCategory={selectCategory}
           total={selectedCategory ? selectedCategory.amount : transactionsTotal}
           currency={globalCurrency}

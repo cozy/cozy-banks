@@ -19,29 +19,15 @@ class CategoriesChart extends Component {
     if (!selectedCategory) {
       selectCategory(categories[index].name)
     } else {
-      const category = categories.find(cat => cat.name === selectedCategory)
-      selectCategory(category.name, category.subcategories[index].name)
+      selectCategory(
+        selectedCategory.name,
+        selectedCategory.subcategories[index].name
+      )
     }
-  }
-
-  getCategoriesToSort() {
-    const { categories, selectedCategory } = this.props
-
-    if (selectedCategory === undefined) {
-      return categories
-    }
-
-    const category = categories.find(
-      category => category.name === selectedCategory
-    )
-
-    return category.subcategories
   }
 
   getSortedCategories() {
-    let categoriesToSort = this.getCategoriesToSort()
-
-    const sortedCategories = sortBy(categoriesToSort, category =>
+    const sortedCategories = sortBy(this.props.categories, category =>
       Math.abs(category.amount)
     ).reverse()
 
@@ -58,7 +44,7 @@ class CategoriesChart extends Component {
     const alphaDiff = 0.7 / categories.length
 
     return categories.map((category, index) =>
-      hexToRGBA(category.color, 1 - alphaDiff * index)
+      hexToRGBA(selectedCategory.color, 1 - alphaDiff * index)
     )
   }
 
@@ -86,7 +72,7 @@ class CategoriesChart extends Component {
     const data = sortedCategories.map(category =>
       Math.abs(category.amount).toFixed(2)
     )
-    const colors = sortedCategories.map(category => category.color)
+    const colors = this.getCategoriesColors(sortedCategories)
 
     return (
       <div className={styles.CategoriesChart}>
