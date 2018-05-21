@@ -55,10 +55,14 @@ class CategoriesChart extends Component {
       return categories.map(category => category.color)
     }
 
+    const selectedCat = this.props.categories.find(
+      category => category.name === selectedCategory
+    )
+
     const alphaDiff = 0.7 / categories.length
 
     return categories.map((category, index) =>
-      hexToRGBA(category.color, 1 - alphaDiff * index)
+      hexToRGBA(selectedCat.color, 1 - alphaDiff * index)
     )
   }
 
@@ -86,7 +90,7 @@ class CategoriesChart extends Component {
     const data = sortedCategories.map(category =>
       Math.abs(category.amount).toFixed(2)
     )
-    const colors = sortedCategories.map(category => category.color)
+    const colors = this.getCategoriesColors(sortedCategories)
 
     return (
       <div className={styles.CategoriesChart}>
