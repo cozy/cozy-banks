@@ -26,20 +26,8 @@ class CategoriesChart extends Component {
     }
   }
 
-  getCategoriesToSort() {
-    const { categories, selectedCategory } = this.props
-
-    if (selectedCategory === undefined) {
-      return categories
-    }
-
-    return selectedCategory.subcategories
-  }
-
   getSortedCategories() {
-    let categoriesToSort = this.getCategoriesToSort()
-
-    const sortedCategories = sortBy(categoriesToSort, category =>
+    const sortedCategories = sortBy(this.props.categories, category =>
       Math.abs(category.amount)
     ).reverse()
 
