@@ -14,18 +14,11 @@ import { setupHistory } from 'utils/history'
 import { getClient } from 'utils/client'
 import { fetchSettingsCollection, initSettings } from 'ducks/settings'
 import { updateUserAgent } from 'ducks/mobile/userAgent'
+import { checkWarnings } from 'ducks/warnings'
 import 'utils/flag'
 
 if (__TARGET__ === 'mobile') {
   require('styles/mobile.styl')
-
-  document.addEventListener('deviceready', () => {
-    try {
-      updateUserAgent()
-    } catch (err) {
-      // We do nothing with this exception handling
-    }
-  })
 }
 
 if (process.env.NODE_ENV === 'development') {
@@ -71,6 +64,18 @@ const renderAppWithPersistedState = persistedState => {
       replaceTitleOnMobile: true
     })
   }
+
+  document.addEventListener('deviceready', () => {
+    checkWarnings()
+
+    try {
+      updateUserAgent()
+    } catch (err) {
+      // We do nothing with this exception handling
+    }
+  })
+
+  document.addEventListener('resume', checkWarnings)
 
   render(
     <I18n lang={lang} dictRequire={lang => require(`locales/${lang}`)}>
