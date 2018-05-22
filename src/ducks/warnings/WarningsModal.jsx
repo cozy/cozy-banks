@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import tosIcon from 'assets/icons/icon-tos.svg'
 import { Icon, Button } from 'cozy-ui/react'
-import styles from './WarningsPage.styl'
+import styles from './WarningsModal.styl'
 
-class WarningsPage extends Component {
+class WarningsModal extends Component {
   render() {
     return (
-      <div className={styles.WarningsPage}>
+      <div className={styles.WarningsModal}>
         <Icon icon={tosIcon} width={96} height={96} />
-        <h2 className={styles.WarningsPage__title}>
+        <h2 className={styles.WarningsModal__title}>
           De nouvelles CGU avec le RGPD
         </h2>
         <p>
@@ -27,4 +27,4 @@ class WarningsPage extends Component {
   }
 }
 
-export default WarningsPage
+export default WarningsModal
