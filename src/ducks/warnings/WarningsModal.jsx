@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import tosIcon from 'assets/icons/icon-tos.svg'
-import { Icon, Button } from 'cozy-ui/react'
+import { Icon, Button, translate } from 'cozy-ui/react'
 import styles from './WarningsModal.styl'
 
 class WarningsModal extends Component {
@@ -13,23 +13,19 @@ class WarningsModal extends Component {
   }
 
   render() {
-    const { code, title, detail, links } = this.props
+    const { code, title, detail, links, t } = this.props
     const isTOSUpdated = code === 'tos-updated'
 
     return (
       <div className={styles.WarningsModal}>
         {isTOSUpdated && <Icon icon={tosIcon} width={96} height={96} />}
         <h2 className={styles.WarningsModal__title}>
-          {isTOSUpdated ? 'De nouvelles CGU avec le RGPD' : title}
+          {isTOSUpdated ? t('Warnings.gdpr.title') : title}
         </h2>
-        <p>
-          {isTOSUpdated
-            ? "Dans le cadre du Règlement Général de la Protection des Données (RGPD), nos CGU sont actualisées et s'appliqueront pour vous à partir du 25 mai 2018"
-            : detail}
-        </p>
+        <p>{isTOSUpdated ? t('Warnings.gdpr.detail') : detail}</p>
         <Button
           extension="full"
-          label={isTOSUpdated ? 'Voir les nouvelles CGU' : 'OK'}
+          label={isTOSUpdated ? t('Warnings.gdpr.cta') : 'OK'}
           tag="a"
           href={links.self}
         />
@@ -38,4 +34,4 @@ class WarningsModal extends Component {
   }
 }
 
-export default WarningsModal
+export default translate()(WarningsModal)

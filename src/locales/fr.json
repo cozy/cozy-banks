@@ -406,5 +406,13 @@
 
   "FileOpener": {
     "error": "Impossible de trouver le fichier, celui-ci a peut être été supprimé de l'application Drive."
+  },
+
+  "Warnings": {
+    "gdpr": {
+      "title": "Du nouveau avec le RGPD !",
+      "detail": "Dans le cadre du Règlement Général de la Protection des Données (RGPD), nos CGU sont actualisées et s’appliquent pour vous à partir du 25 mai 2018.",
+      "cta": "Voir les nouvelles CGU"
+    }
   }
 }
