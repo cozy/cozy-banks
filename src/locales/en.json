@@ -453,5 +453,13 @@
 
   "FileOpener": {
     "error": "Unable to find the file. It may have been deleted in the Drive application."
+  },
+
+  "Warnings": {
+    "gdpr": {
+      "title": "GDPR comes into reality !",
+      "detail": "In the context of the General Data Protection Regulation, our Terms of Service have been updated and will apply to all our Cozy users on May 25, 2018.",
+      "cta": "Read the updates"
+    }
   }
 }

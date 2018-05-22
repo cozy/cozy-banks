@@ -5,6 +5,7 @@ import 'react-hint/css/index.css'
 import { Layout, Content } from 'components/Layout'
 import { Sidebar } from 'cozy-ui/react'
 import Nav from 'ducks/commons/Nav'
+import { Warnings } from 'ducks/warnings'
 import FlagSwitcher from 'components/FlagSwitcher'
 import styles from './App.styl'
 
@@ -21,6 +22,8 @@ const App = ({ children }) => (
 
     {/* Outside every other component to bypass overflow:hidden */}
     <ReactHint />
+
+    <Warnings />
   </Layout>
 )
 
