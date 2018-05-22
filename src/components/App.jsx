@@ -13,7 +13,7 @@ const ReactHint = ReactHintFactory(React)
 
 class App extends Component {
   state = {
-    warnings: []
+    warnings: null
   }
 
   componentDidMount() {
@@ -47,7 +47,17 @@ class App extends Component {
 
         {/* Outside every other component to bypass overflow:hidden */}
         <ReactHint />
-        {warnings.length > 0 && <WarningsModal warnings={warnings} />}
+
+        {warnings &&
+          warnings.map(warning => (
+            <WarningsModal
+              key={warning.code}
+              code={warning.code}
+              title={warning.title}
+              detail={warning.detail}
+              links={warning.links}
+            />
+          ))}
       </Layout>
     )
   }

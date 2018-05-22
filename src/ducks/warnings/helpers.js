@@ -5,7 +5,7 @@ export function checkWarnings() {
     cozy.client.fetchJSON &&
     cozy.client
       .fetchJSON('GET', '/settings/warnings')
-      .then(() => [])
+      .then(() => null)
       .catch(err => {
         if (err.status === 402) {
           try {
@@ -14,9 +14,11 @@ export function checkWarnings() {
 
             return warnings
           } catch (err) {
-            return []
+            return null
             // nothing to do
           }
+        } else {
+          return null
         }
       })
   )
