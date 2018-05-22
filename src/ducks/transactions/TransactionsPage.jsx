@@ -55,6 +55,32 @@ const Separator = () => (
 const SCROLL_THRESOLD_TO_ACTIVATE_TOP_INFINITE_SCROLL = 150
 const getMonth = date => date.slice(0, 7)
 
+// Performs successive `find`s until one of the find functions returns
+// a result
+const multiFind = (arr, findFns) => {
+  for (let findFn of findFns) {
+    const res = findFn(arr)
+    if (res) {
+      return res
+    }
+  }
+  return null
+}
+
+// The goal here is to find the first month having operations, closest
+// to the chosen month. To know if we have to search in the past or the
+// in the future, we check if the chosen month is before or after the
+// current month.
+const findNearestMonth = (chosenMonth, currentMonth, availableMonths) => {
+  const findBeforeChosenMonth = months => findLast(months, x => x < chosenMonth)
+  const findAfterChosenMonth = months => find(months, x => x > chosenMonth)
+  const findFns =
+    chosenMonth < currentMonth
+      ? [findBeforeChosenMonth, findAfterChosenMonth]
+      : [findAfterChosenMonth, findBeforeChosenMonth]
+  return multiFind(availableMonths, findFns)
+}
+
 class TransactionsPage extends Component {
   state = {
     fetching: false,
@@ -134,24 +160,19 @@ class TransactionsPage extends Component {
     let limitMin = findMonthIndex(month)
 
     if (limitMin == -1) {
-      /* The goal here is to find the first month having operations, closest
-         to the chosen month. To know if we have to search in the past or the
-         in the future, we check if the chosen month is before or after the
-         current month.
-      */
       const monthsWithOperations = uniq(
         transactions.map(x => getMonth(x.date))
       ).sort()
-      const beforeChosenMonth = x => x < month
-      const afterChosenMonth = x => x > month
-      const inRightDirection =
-        month < this.state.currentMonth ? beforeChosenMonth : afterChosenMonth
-      const findFn = month < this.state.currentMonth ? findLast : find
-      const found = findFn(monthsWithOperations, inRightDirection)
-      if (found) {
-        month = found
+      const nearestMonth = findNearestMonth(
+        month,
+        this.state.currentMonth,
+        monthsWithOperations
+      )
+      if (nearestMonth) {
+        month = nearestMonth
         limitMin = findMonthIndex(month)
       } else {
+        month = monthsWithOperations[0]
         limitMin = 0
       }
     }
