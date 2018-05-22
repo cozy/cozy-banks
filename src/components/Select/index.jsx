@@ -34,9 +34,6 @@ const mkControlStyle = props => base => {
 
 const singleValueStyle = base => ({ ...base, color: palette.slateGrey })
 
-// optionStyle can be removed as soon as cozy-ui gets the modification
-// https://github.com/cozy/cozy-ui/pull/507
-const optionStyle = base => ({ ...base, whiteSpace: 'normal' })
 const valueContainerStyle = base => ({ ...base, paddingLeft: 0 })
 
 const optionIsFixed = option => option.fixed
@@ -83,7 +80,6 @@ class Select extends React.Component {
           IndicatorSeparator
         }}
         styles={{
-          option: optionStyle,
           singleValue: singleValueStyle,
           control: this.controlStyle,
           valueContainer: valueContainerStyle,
