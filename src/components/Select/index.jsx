@@ -3,10 +3,11 @@ import Icon from 'cozy-ui/react/Icon'
 import styles from './styles.styl'
 import SelectBox, { SelectBoxWithFixedOptions } from 'cozy-ui/react/SelectBox'
 import find from 'lodash/find'
+import palette from 'cozy-ui/stylus/settings/palette.json'
 
 const SmallArrow = () => (
   <Icon
-    className={styles.Select__icon}
+    className={styles.Select__Icon}
     style={{ paddingLeft: '.5rem' }}
     icon="small-arrow"
     width={12}
@@ -30,6 +31,8 @@ const mkControlStyle = props => base => {
     flexGrow: 1
   }
 }
+
+const singleValueStyle = base => ({ ...base, color: palette.slateGrey })
 
 // optionStyle can be removed as soon as cozy-ui gets the modification
 // https://github.com/cozy/cozy-ui/pull/507
@@ -81,6 +84,7 @@ class Select extends React.Component {
         }}
         styles={{
           option: optionStyle,
+          singleValue: singleValueStyle,
           control: this.controlStyle,
           valueContainer: valueContainerStyle,
           ...styles
