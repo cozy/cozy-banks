@@ -25,7 +25,9 @@ platform :android do
   end
 
   lane :deploy do
-    cordova(platform: 'android')
-    supply()
+    supply(
+      apk: './build/android/cozy-banks.apk',
+      track: 'beta'
+    )
   end
 end
