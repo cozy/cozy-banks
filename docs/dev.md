@@ -61,7 +61,16 @@ To import it execute `./scripts/import_mobile_keys`
 
 ## Release
 
-## On Cozy registry
+## Git workflow
+
+When starting a release, create a branch `release-VERSION`, for example `release-0.7.5`. It separates the changes from the main branch and will contain all the changes necessary for the version (package.json, config.xml, changelogs, store metadata, screenshots).
+
+While the release is not completely ready, to publish on the Cozy Registry, tag with `X.Y.Z-beta.M` since there can only be one version at a time on the registry. The `M` number lets you deploy several beta versions until you're ready to publish the real one.
+
+After tagging the branch and pushing the tag, you can merge the release branch
+back into the main branch.
+
+## Cozy registry
 
 To publish on Cozy registry, you need a token also store in Cozy internal [password store](pass):
 
@@ -69,7 +78,15 @@ To publish on Cozy registry, you need a token also store in Cozy internal [passw
 export REGISTRY_TOKEN=`pass registry/spaces/banks/banks.token`
 ```
 
-## On mobile store
+Publishing on the registry is done automatically via git tags.
+
+* Each commit on `master` will upload a new dev version on the registry
+* `X.Y.Z-beta.M` tags will upload a new beta version
+* `X.Y.Z` tags will upload a prod version
+
+More information : https://github.com/cozy/cozy-stack/blob/master/docs/registry-publish.md
+
+## Mobile stores
 
 ### Pre-requisites
 
@@ -88,17 +105,21 @@ When releasing a new version for mobile, you have to bump the version in those f
 ```
 - config.xml
 - package.json
-- manifest.webapp
 - package.json (généré par Cordova)
 ```
+
+### Fastlane
+
+Fastlane is used to manage automatically the deployment process. Its configuration is localed in`src/targets/mobile/fastlane/Fastfile`.
 
 ### iOS
 
 #### Signing
 
-Uncheck manage automatically
+In XCode,
 
-In "Signing (release)", use the Provisioning Profile io.cozy.banks.mobile AppStore.
+* uncheck "Manage automatically"
+* In "Signing (release)", use the Provisioning Profile io.cozy.banks.mobile AppStore.
 Signing certificate : 3AKXFMV43J
 
 #### Push iOS build
@@ -126,11 +147,13 @@ export PATH $PATH:$HOME/.android/sdk/tools
 export PATH $PATH:$HOME/.android/sdk/build-tools/26.0.2
 ```
 
-Finally, to publish a new version on the store, you can use :
+When publishing a new version on the Play Store, you can use :
 
 ```
 yarn run android:publish
 ```
+
+This will upload create a new version in the store, in the `beta` track that you can review visually on the Play Store and then promote to the normal track.
 
 ## Notifications
 
