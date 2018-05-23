@@ -90,10 +90,18 @@ More information : https://github.com/cozy/cozy-stack/blob/master/docs/registry-
 
 ### Pre-requisites
 
+- Generate icons
+
 ```
-pod setup
-sudo gem install cocoapods
 yarn mobile:icon
+```
+
+- Manage iOS native libraries
+
+```
+sudo gem install cocoapods
+pod setup
+yarn ios:install_pods # Install pods according to the Podfile.lock
 ```
 
 You must also have the `keys/` folder available from the internal password store.
