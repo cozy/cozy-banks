@@ -86,7 +86,7 @@ Publishing on the registry is done automatically via git tags.
 
 More information : https://github.com/cozy/cozy-stack/blob/master/docs/registry-publish.md
 
-## On mobile store
+## Mobile stores
 
 ### Pre-requisites
 
@@ -105,17 +105,21 @@ When releasing a new version for mobile, you have to bump the version in those f
 ```
 - config.xml
 - package.json
-- manifest.webapp
 - package.json (généré par Cordova)
 ```
+
+### Fastlane
+
+Fastlane is used to manage automatically the deployment process. Its configuration is localed in`src/targets/mobile/fastlane/Fastfile`.
 
 ### iOS
 
 #### Signing
 
-Uncheck manage automatically
+In XCode,
 
-In "Signing (release)", use the Provisioning Profile io.cozy.banks.mobile AppStore.
+* uncheck "Manage automatically"
+* In "Signing (release)", use the Provisioning Profile io.cozy.banks.mobile AppStore.
 Signing certificate : 3AKXFMV43J
 
 #### Push iOS build
