@@ -27,7 +27,9 @@ platform :android do
   lane :deploy do
     supply(
       apk: './build/android/cozy-banks.apk',
-      track: 'beta'
+      track: 'beta',
+      skip_upload_screenshots: true,
+      skip_upload_images: true
     )
   end
 end
