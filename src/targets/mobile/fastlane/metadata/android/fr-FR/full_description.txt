@@ -16,7 +16,7 @@ Cozy Banks a été pensée avec la sécurité en premier plan :
 La presse en parle déjà :
 • TechCrunch, Le Point, Le Figaro, Mashable, Assurbanque 2.0, 01.net, les Echos du Net, L’Usine Digitale…
 
-Consultez la liste de près de 15 banques disponibles dans votre Cozy :
+Cozy Banks vous permet d'importer vos données des principales banques françaises et européennes dont :
 • Axa Banque
 • Banque Populaire
 • BforBank
