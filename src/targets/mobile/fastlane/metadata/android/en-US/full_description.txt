@@ -23,7 +23,7 @@ As secured as your bank:
 The press has already mentioned Cozy:
 • TechCrunch, Le Point, Le Figaro, Mashable, Assurbanque 2.0, 01.net, Les Echos, L’Usine Digitale
 
-Check out the list of 23 banks and account types available in your Cozy;
+With Cozy Banks you can easily import your banking historics from the major French & European banks including :
 • Axa Banque
 • Banque Populaire
 • BforBank
