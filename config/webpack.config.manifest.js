@@ -3,16 +3,17 @@
 const CopyPlugin = require('copy-webpack-plugin')
 const path = require('path')
 const merge = require('lodash/merge')
+const pkg = require('../package.json')
 
-const {skin} = require('./webpack.vars')
+const { skin } = require('./webpack.vars')
 
 const skinToProperties = {
-  'mesinfos': {
+  mesinfos: {
     slug: 'mesinfos-banques',
     name: 'Banques',
     category: 'partners'
   },
-  'demo': {
+  demo: {
     permissions: {
       sharings: {
         description: 'Handle shared bank accounts',
@@ -29,6 +30,7 @@ const skinToProperties = {
 }
 
 const additionalProperties = skinToProperties[skin] || {}
+additionalProperties.version = pkg.version
 
 module.exports = {
   module: {
@@ -51,7 +53,7 @@ module.exports = {
 }
 
 // Method to modify the manifest slug at build time
-function transformManifest (buffer) {
+function transformManifest(buffer) {
   const manifest = JSON.parse(buffer.toString())
 
   return JSON.stringify(merge(manifest, additionalProperties), null, 2)
