@@ -323,7 +323,12 @@ class AccountSwitch extends Component {
             t={t}
           />
         )}
-        {open && <Overlay className="coz-tablet" onClick={this.close} />}
+        {open && (
+          <Overlay
+            className={styles['account-switch-overlay']}
+            onClick={this.close}
+          />
+        )}
         {open && (
           <AccountSwitchMenu
             filteringDoc={filteringDoc}

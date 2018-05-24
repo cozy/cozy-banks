@@ -48,6 +48,11 @@
     &:focus
         background silver
 
+baseZ=80
+
+.account-switch-overlay
+    z-index baseZ
+
 .account-switch-menu-content
     position fixed
     top 78px
@@ -55,7 +60,7 @@
     right 0
     width 440px
     overflow auto
-    z-index: 60
+    z-index baseZ + 1
     max-height: "calc(100vh - %s)" % @top
     margin-left auto
     margin-right auto
@@ -65,6 +70,8 @@
         right 10px
         margin-left inherit
         width auto
+        bottom 0
+        top 0
 
 .account-switch-menu
     margin 20px
