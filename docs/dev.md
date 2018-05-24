@@ -61,6 +61,12 @@ To import it execute `./scripts/import_mobile_keys`
 
 ## Release
 
+When starting a release, start the checklist PR with :
+
+```
+./scripts/start-release.sh
+```
+
 ## Git workflow
 
 When starting a release, create a branch `release-VERSION`, for example `release-0.7.5`. It separates the changes from the main branch and will contain all the changes necessary for the version (package.json, config.xml, changelogs, store metadata, screenshots).
