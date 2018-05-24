@@ -26,6 +26,8 @@ const CategoriesHeader = ({
   const globalCurrency = getGlobalCurrency(categories)
   const transactionsTotal = getTransactionsTotal(categories)
   const [previousItem] = breadcrumbItems.slice(-2, 1)
+  const hasData = categories.length > 0 && categories[0].transactionsNumber > 0
+  const showIncomeToggle = hasData && selectedCategory === undefined
 
   return (
     <div className={styles.CategoriesHeader}>
@@ -41,7 +43,7 @@ const CategoriesHeader = ({
             className={styles.CategoriesHeader__Breadcrumb}
           />
         ) : null}
-        {selectedCategory === undefined && (
+        {showIncomeToggle && (
           <div className={styles.CategoriesHeader__Toggle}>
             <Toggle
               id="withIncome"
@@ -54,20 +56,23 @@ const CategoriesHeader = ({
           </div>
         )}
       </div>
-      {!isFetching && (
-        <CategoriesChart
-          width={chartSize}
-          height={chartSize}
-          categories={
-            selectedCategory ? selectedCategory.subcategories : categories
-          }
-          selectedCategory={selectedCategory}
-          selectCategory={selectCategory}
-          total={selectedCategory ? selectedCategory.amount : transactionsTotal}
-          currency={globalCurrency}
-          label={t('Categories.title.total')}
-        />
-      )}
+      {!isFetching &&
+        hasData && (
+          <CategoriesChart
+            width={chartSize}
+            height={chartSize}
+            categories={
+              selectedCategory ? selectedCategory.subcategories : categories
+            }
+            selectedCategory={selectedCategory}
+            selectCategory={selectCategory}
+            total={
+              selectedCategory ? selectedCategory.amount : transactionsTotal
+            }
+            currency={globalCurrency}
+            label={t('Categories.title.total')}
+          />
+        )}
     </div>
   )
 }

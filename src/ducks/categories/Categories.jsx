@@ -32,23 +32,14 @@ class Categories extends Component {
 
   render({
     t,
-    categories,
+    categories: categoriesProps,
     selectedCategory,
     breakpoints: { isDesktop, isTablet }
   }) {
-    if (categories === undefined) categories = []
+    let categories = categoriesProps || []
     if (selectedCategory) {
       categories = [selectedCategory]
     }
-
-    // sort the categories for display
-    categories = categories.sort((a, b) => {
-      if (b.percentage !== a.percentage) {
-        return b.percentage - a.percentage
-      } else {
-        return a.amount - b.amount
-      }
-    })
 
     return (
       <div>
