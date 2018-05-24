@@ -33,8 +33,8 @@ const mkControlStyle = props => base => {
 }
 
 const singleValueStyle = base => ({ ...base, color: palette.slateGrey })
-
 const valueContainerStyle = base => ({ ...base, paddingLeft: 0 })
+const menuStyle = base => ({ ...base, minWidth: '9.375rem' })
 
 const optionIsFixed = option => option.fixed
 
@@ -83,6 +83,7 @@ class Select extends React.Component {
           singleValue: singleValueStyle,
           control: this.controlStyle,
           valueContainer: valueContainerStyle,
+          menu: menuStyle,
           ...styles
         }}
         name={name}
