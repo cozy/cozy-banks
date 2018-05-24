@@ -61,6 +61,26 @@ To import it execute `./scripts/import_mobile_keys`
 
 ## Release
 
+PR template:
+
+- [ ] Create branch and the PR with the following content
+- [ ] Bump `package.json`, `config.xml`
+- [ ] Write changelogs
+  - [ ] Android: `src/targets/mobile/fastlane/metadata/android/{lang}/changelogs/ANDROID_VERSION.txt`
+  - [ ] iOS : `src/targets/mobile/fastlane/metadata/ios/{lang}/release_notes.txt`
+- [ ] Update metadata and screenshots
+- [ ] Commit and tag with a beta tag (X.Y.Z-beta.M)
+- [ ] Push the tag and wait for the CI to push the beta version to the registry
+- [ ] Push and check with a cozy from production (which has to be on the beta track for Banks)
+- [ ] Release the app on Testflight for iOS
+- [ ] Release the app on Play Store on `beta` track
+- [ ] Test well on the 3 platforms
+- [ ] Tag the branch as prod (X.Y.Z)
+- [ ] Push the tag, wait for the CI to push the build to the registry
+- [ ] Update cozies with the latest web version via Rundeck
+- [ ] Promote Android app to the production track
+- [ ] Promote iOS app to the production track
+
 ## Git workflow
 
 When starting a release, create a branch `release-VERSION`, for example `release-0.7.5`. It separates the changes from the main branch and will contain all the changes necessary for the version (package.json, config.xml, changelogs, store metadata, screenshots).
@@ -72,17 +92,19 @@ back into the main branch.
 
 ## Cozy registry
 
-To publish on Cozy registry, you need a token also stored in Cozy internal [password store](pass):
-
-```
-export REGISTRY_TOKEN=`pass registry/spaces/banks/banks.token`
-```
-
 Publishing on the registry is done automatically via git tags.
 
 * Each commit on `master` will upload a new dev version on the registry
 * `X.Y.Z-beta.M` tags will upload a new beta version
 * `X.Y.Z` tags will upload a prod version
+
+To publish manually on the Cozy registry, you need a token also stored in Cozy internal [password store](pass):
+
+```
+export REGISTRY_TOKEN=`pass registry/spaces/banks/banks.token`
+```
+
+After, you can use [cozy-app-publish](https://github.com/cozy/cozy-app-publish) to push the app to the registry.
 
 More information : https://github.com/cozy/cozy-stack/blob/master/docs/registry-publish.md
 
