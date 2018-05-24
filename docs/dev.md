@@ -72,7 +72,7 @@ back into the main branch.
 
 ## Cozy registry
 
-To publish on Cozy registry, you need a token also store in Cozy internal [password store](pass):
+To publish on Cozy registry, you need a token also stored in Cozy internal [password store](pass):
 
 ```
 export REGISTRY_TOKEN=`pass registry/spaces/banks/banks.token`
