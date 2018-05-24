@@ -41,16 +41,22 @@ class Onboarding extends Component {
             <Subtitle>{t('Onboarding.manage-budget.title')}</Subtitle>
             <Paragraph>{t('Onboarding.manage-budget.description')}</Paragraph>
           </Section>
-          <Section>
-            <Icon color={palette.portage} icon={watch} />
-            <Subtitle>{t('Onboarding.save-time.title')}</Subtitle>
-            <Paragraph>{t('Onboarding.save-time.description')}</Paragraph>
-          </Section>
-          <Section>
-            <Icon color={palette['dodgerBlue']} icon={cozy} />
-            <Subtitle>{t('Onboarding.cozy-assistant.title')}</Subtitle>
-            <Paragraph>{t('Onboarding.cozy-assistant.description')}</Paragraph>
-          </Section>
+          {!isMobile ? (
+            <Section>
+              <Icon color={palette.portage} icon={watch} />
+              <Subtitle>{t('Onboarding.save-time.title')}</Subtitle>
+              <Paragraph>{t('Onboarding.save-time.description')}</Paragraph>
+            </Section>
+          ) : null}
+          {!isMobile ? (
+            <Section>
+              <Icon color={palette['dodgerBlue']} icon={cozy} />
+              <Subtitle>{t('Onboarding.cozy-assistant.title')}</Subtitle>
+              <Paragraph>
+                {t('Onboarding.cozy-assistant.description')}
+              </Paragraph>
+            </Section>
+          ) : null}
         </Sections>
         <CTA>
           <CollectLink>
