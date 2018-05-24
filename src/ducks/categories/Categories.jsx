@@ -134,6 +134,7 @@ class Categories extends Component {
     const rowClass = stRow
     const onClick = subcategory || isCollapsed ? this.handleClick : () => {}
     const key = (subcategory || category).name
+    const total = credit + debit
     return [
       (subcategory || isCollapsed) && (
         <tr
@@ -187,8 +188,8 @@ class Categories extends Component {
           )}
           <TdSecondary className={stTotal}>
             <Figure
-              total={credit + debit}
-              currency={currency}
+              total={total || '－'}
+              currency={currency || '€'}
               coloredPositive
               signed
             />
@@ -225,6 +226,7 @@ class Categories extends Component {
     const isCollapsed = selectedCategoryName !== category.name
     const type = subcategory ? 'subcategories' : 'categories'
     const categoryName = (subcategory || category).name
+    const total = credit + debit
 
     return [
       (subcategory || isCollapsed) && (
@@ -260,8 +262,8 @@ class Categories extends Component {
               <Img className={cx('u-pl-half', stAmount)}>
                 <Figure
                   className={stCatTotalMobile}
-                  total={credit + debit}
-                  currency={currency}
+                  total={total || '－'}
+                  currency={currency || '€'}
                   coloredPositive
                   signed
                 />
