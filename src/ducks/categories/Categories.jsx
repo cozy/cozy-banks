@@ -259,7 +259,7 @@ class Categories extends Component {
                     <span>
                       {`· ${transactionsNumber} ${t(
                         `Categories.headers.transactions.${
-                          transactionsNumber > 1 ? 'single' : 'plural'
+                          transactionsNumber > 1 ? 'plural' : 'single'
                         }`
                       )}`}
                     </span>
