@@ -1,5 +1,8 @@
 @require 'settings/breakpoints'
 
+.TransactionModalHeader
+    position relative
+
 .TransactionModal
     .TransactionModalHeader
         +small-screen()
@@ -81,7 +84,7 @@
 .TransactionModalCloseButton
     background-color transparent
     border-width 0
-    position fixed
+    position absolute
     top 1rem
     left 1rem
     padding 0
