@@ -1,6 +1,6 @@
 # ios
 app_identifier "io.cozy.banks"
-apple_id "simon@cozycloud.cc"
+apple_id ENV["APPLE_ID"] || "simon@cozycloud.cc"
 team_id "3AKXFMV43J"
 
 # android
