@@ -34,10 +34,13 @@ const Figure = props => {
   let { decimalNumbers } = props
   decimalNumbers = isNaN(decimalNumbers) ? 2 : decimalNumbers
 
-  const totalLocalized = total.toLocaleString('fr-FR', {
-    minimumFractionDigits: decimalNumbers,
-    maximumFractionDigits: decimalNumbers
-  })
+  const totalLocalized =
+    typeof total === 'number'
+      ? total.toLocaleString('fr-FR', {
+          minimumFractionDigits: decimalNumbers,
+          maximumFractionDigits: decimalNumbers
+        })
+      : total
   const isTotalPositive = total > 0
   const isTotalInLimit = total > warningLimit
   const isWarning = !isTotalPositive && !isTotalInLimit && coloredWarning
@@ -74,7 +77,7 @@ const Figure = props => {
 
 Figure.propTypes = {
   /** Number to display */
-  total: Types.number.isRequired,
+  total: Types.oneOfType([Types.number, Types.string]).isRequired,
   /** Class name applied to the element wrapping the number */
   totalClassName: Types.string,
   /** Currency to show */

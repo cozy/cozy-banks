@@ -32,23 +32,14 @@ class Categories extends Component {
 
   render({
     t,
-    categories,
+    categories: categoriesProps,
     selectedCategory,
     breakpoints: { isDesktop, isTablet }
   }) {
-    if (categories === undefined) categories = []
+    let categories = categoriesProps || []
     if (selectedCategory) {
       categories = [selectedCategory]
     }
-
-    // sort the categories for display
-    categories = categories.sort((a, b) => {
-      if (b.percentage !== a.percentage) {
-        return b.percentage - a.percentage
-      } else {
-        return a.amount - b.amount
-      }
-    })
 
     return (
       <div>
@@ -143,6 +134,7 @@ class Categories extends Component {
     const rowClass = stRow
     const onClick = subcategory || isCollapsed ? this.handleClick : () => {}
     const key = (subcategory || category).name
+    const total = credit + debit
     return [
       (subcategory || isCollapsed) && (
         <tr
@@ -196,8 +188,8 @@ class Categories extends Component {
           )}
           <TdSecondary className={stTotal}>
             <Figure
-              total={credit + debit}
-              currency={currency}
+              total={total || '－'}
+              currency={currency || '€'}
               coloredPositive
               signed
             />
@@ -234,6 +226,7 @@ class Categories extends Component {
     const isCollapsed = selectedCategoryName !== category.name
     const type = subcategory ? 'subcategories' : 'categories'
     const categoryName = (subcategory || category).name
+    const total = credit + debit
 
     return [
       (subcategory || isCollapsed) && (
@@ -259,7 +252,7 @@ class Categories extends Component {
                     <span>
                       {`· ${transactionsNumber} ${t(
                         `Categories.headers.transactions.${
-                          transactionsNumber > 1 ? 'single' : 'plural'
+                          transactionsNumber > 1 ? 'plural' : 'single'
                         }`
                       )}`}
                     </span>
@@ -269,8 +262,8 @@ class Categories extends Component {
               <Img className={cx('u-pl-half', stAmount)}>
                 <Figure
                   className={stCatTotalMobile}
-                  total={credit + debit}
-                  currency={currency}
+                  total={total || '－'}
+                  currency={currency || '€'}
                   coloredPositive
                   signed
                 />

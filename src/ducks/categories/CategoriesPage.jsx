@@ -8,7 +8,7 @@ import { fetchTransactions, getTransactions } from 'actions'
 import { transactionsByCategory, computeCategorieData } from './helpers'
 import Categories from './Categories'
 import styles from './CategoriesPage.styl'
-import { flowRight as compose } from 'lodash'
+import { flowRight as compose, sortBy } from 'lodash'
 import { withBreakpoints } from 'cozy-ui/react'
 import CategoriesHeader from './CategoriesHeader'
 
@@ -35,13 +35,15 @@ class CategoriesPage extends Component {
     this.setState({ withIncome })
   }
 
-  render({ t, categories, transactions, router }, { withIncome }) {
+  render(
+    { t, categories: categoriesProps, transactions, router },
+    { withIncome }
+  ) {
     const isFetching = transactions.fetchStatus !== 'loaded'
     const selectedCategoryName = router.params.categoryName
-    // compute the filter to use
-    if (!withIncome) {
-      categories = categories.filter(category => category.name !== 'incomeCat')
-    }
+    const categories = withIncome
+      ? categoriesProps
+      : categoriesProps.filter(category => category.name !== 'incomeCat')
     const breadcrumbItems = [{ name: t('Categories.title.general') }]
     if (selectedCategoryName) {
       breadcrumbItems[0].onClick = () => router.push('/categories')
@@ -52,6 +54,11 @@ class CategoriesPage extends Component {
     const selectedCategory = categories.find(
       category => category.name === selectedCategoryName
     )
+
+    const sortedCategories = sortBy(categories, cat =>
+      Math.abs(cat.amount)
+    ).reverse()
+
     return (
       <div className={styles['bnk-cat-page']}>
         <CategoriesHeader
@@ -59,7 +66,7 @@ class CategoriesPage extends Component {
           selectedCategory={selectedCategory}
           withIncome={withIncome}
           onWithIncomeToggle={this.filterWithInCome}
-          categories={categories}
+          categories={sortedCategories}
           selectCategory={this.selectCategory}
           isFetching={isFetching}
         />
@@ -67,7 +74,7 @@ class CategoriesPage extends Component {
           <Loading loadingType="categories" />
         ) : (
           <Categories
-            categories={categories}
+            categories={sortedCategories}
             selectedCategory={selectedCategory}
             selectedCategoryName={selectedCategoryName}
             selectCategory={this.selectCategory}
