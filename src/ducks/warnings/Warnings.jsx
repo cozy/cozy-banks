@@ -9,15 +9,15 @@ class Warnings extends Component {
 
   componentDidMount() {
     if (__TARGET__ === 'mobile') {
-      document.addEventListener('deviceready', this.checkWarnings)
-      document.addEventListener('resume', this.checkWarnings)
+      // document.addEventListener('deviceready', this.checkWarnings)
+      // document.addEventListener('resume', this.checkWarnings)
     }
   }
 
   componentWillUnmount() {
     if (__TARGET__ === 'mobile') {
-      document.removeEventListener('deviceready', this.checkWarnings)
-      document.removeEventListener('resume', this.checkWarnings)
+      // document.removeEventListener('deviceready', this.checkWarnings)
+      // document.removeEventListener('resume', this.checkWarnings)
     }
   }
 
