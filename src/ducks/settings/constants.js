@@ -26,5 +26,6 @@ export const DEFAULTS_SETTINGS = {
   },
   categorization: {
     lastSeq: 0
-  }
+  },
+  showIncomeCategory: true
 }
