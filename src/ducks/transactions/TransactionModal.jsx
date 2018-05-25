@@ -35,6 +35,9 @@ import iconCredit from 'assets/icons/icon-credit.svg'
 import iconArrowLeft from 'assets/icons/icon-arrow-left.svg'
 import iconCalendar from 'assets/icons/icon-calendar.svg'
 import { getAccountLabel } from 'ducks/account/helpers'
+import { connect } from 'react-redux'
+import { getDocument } from 'cozy-client'
+import { TRANSACTION_DOCTYPE } from 'doctypes'
 
 const Separator = () => <hr className={styles.TransactionModalSeparator} />
 
@@ -206,10 +209,15 @@ class TransactionModal extends Component {
 
 TransactionModal.propTypes = {
   showCategoryChoice: PropTypes.func.isRequired,
-  requestClose: PropTypes.func.isRequired
+  requestClose: PropTypes.func.isRequired,
+  transactionId: PropTypes.string.isRequired,
+  transaction: PropTypes.object.isRequired
 }
 
 export default compose(
+  connect((state, ownProps) => ({
+    transaction: getDocument(state, TRANSACTION_DOCTYPE, ownProps.transactionId)
+  })),
   withDispatch,
   withUpdateCategory(),
   translate(),

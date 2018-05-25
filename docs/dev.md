@@ -78,17 +78,19 @@ back into the main branch.
 
 ## Cozy registry
 
-To publish on Cozy registry, you need a token also store in Cozy internal [password store](pass):
-
-```
-export REGISTRY_TOKEN=`pass registry/spaces/banks/banks.token`
-```
-
 Publishing on the registry is done automatically via git tags.
 
 * Each commit on `master` will upload a new dev version on the registry
 * `X.Y.Z-beta.M` tags will upload a new beta version
 * `X.Y.Z` tags will upload a prod version
+
+To publish manually on the Cozy registry, you need a token also stored in Cozy internal [password store](pass):
+
+```
+export REGISTRY_TOKEN=`pass registry/spaces/banks/banks.token`
+```
+
+After, you can use [cozy-app-publish](https://github.com/cozy/cozy-app-publish) to push the app to the registry.
 
 More information : https://github.com/cozy/cozy-stack/blob/master/docs/registry-publish.md
 
