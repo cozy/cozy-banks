@@ -102,6 +102,23 @@ More information : https://github.com/cozy/cozy-stack/blob/master/docs/registry-
 yarn mobile:icon
 ```
 
+- Install Ruby, Bundler and project dependencies
+
+See [Ruby installation page](https://www.ruby-lang.org/fr/documentation/installation/) to get the installation method for your system.
+
+Install Bundler :
+
+```
+gem install bundler
+```
+
+Then install the project dependencies :
+
+```
+cd <path_to_project_root>/src/targets/mobile
+bundler
+```
+
 - Manage iOS native libraries
 
 ```
