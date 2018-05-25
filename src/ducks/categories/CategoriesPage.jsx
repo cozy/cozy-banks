@@ -11,7 +11,12 @@ import styles from './CategoriesPage.styl'
 import { flowRight as compose, sortBy } from 'lodash'
 import { withBreakpoints } from 'cozy-ui/react'
 import CategoriesHeader from './CategoriesHeader'
-import { getSettings, fetchSettingsCollection } from 'ducks/settings'
+import {
+  getSettings,
+  fetchSettingsCollection,
+  updateSettings,
+  createSettings
+} from 'ducks/settings'
 import { cozyConnect } from 'cozy-client'
 
 class CategoriesPage extends Component {
@@ -29,8 +34,14 @@ class CategoriesPage extends Component {
     }
   }
 
-  filterWithInCome = withIncome => {
-    this.setState({ withIncome })
+  onWithIncomeToggle = checked => {
+    const { settingsCollection, dispatch } = this.props
+    const settings = getSettings(settingsCollection)
+    const updateOrCreate = settings._id ? updateSettings : createSettings
+
+    settings.showIncomeCategory = checked
+
+    dispatch(updateOrCreate(settings))
   }
 
   render({
@@ -67,7 +78,7 @@ class CategoriesPage extends Component {
           breadcrumbItems={breadcrumbItems}
           selectedCategory={selectedCategory}
           withIncome={showIncomeCategory}
-          onWithIncomeToggle={this.filterWithInCome}
+          onWithIncomeToggle={this.onWithIncomeToggle}
           categories={sortedCategories}
           selectCategory={this.selectCategory}
           isFetching={isFetching}
