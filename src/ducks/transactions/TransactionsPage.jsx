@@ -267,7 +267,7 @@ class TransactionsPage extends Component {
               onChange={this.handleChangeMonth}
             />
           ) : (
-            <ConnectedSelectDates />
+            <ConnectedSelectDates showFullYear />
           )}
           {!isMobile &&
             breadcrumbItems.length > 1 && (
