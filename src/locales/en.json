@@ -254,7 +254,7 @@
       "total-header": "Total"
     },
     "title": {
-      "empty_text": "There is no transactions in this category.",
+      "empty_text": "There is no transaction to analyze on this period",
       "total": "On the period",
       "general": "Categorization"
     }
