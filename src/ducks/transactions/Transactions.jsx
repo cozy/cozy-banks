@@ -361,24 +361,22 @@ export class TransactionsWithSelection extends React.Component {
   }
 
   selectTransaction = transaction => {
-    this.setState({ transaction: transaction })
+    this.setState({ transactionId: transaction._id })
   }
 
   unselectTransaction = () => {
-    this.setState({ transaction: null })
+    this.setState({ transactionId: null })
   }
 
   render(props) {
-    const { transaction } = this.state
+    const { transactionId } = this.state
     return (
       <div>
         <Transactions selectTransaction={this.selectTransaction} {...props} />
-        {transaction && (
+        {transactionId && (
           <TransactionModal
             requestClose={this.unselectTransaction}
-            transaction={props.transactions.find(
-              t => t._id === transaction._id
-            )}
+            transactionId={transactionId}
             {...props}
           />
         )}
