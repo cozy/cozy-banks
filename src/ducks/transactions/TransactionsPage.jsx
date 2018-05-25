@@ -48,10 +48,6 @@ const isPendingOrLoading = function(col) {
   return col.fetchStatus === 'pending' || col.fetchStatus === 'loading'
 }
 
-const Separator = () => (
-  <hr style={{ fontSize: 0, border: 0, height: '0.5rem' }} />
-)
-
 const SCROLL_THRESOLD_TO_ACTIVATE_TOP_INFINITE_SCROLL = 150
 const getMonth = date => date.slice(0, 7)
 
@@ -258,16 +254,13 @@ class TransactionsPage extends Component {
               <BarBalance accounts={filteredAccounts} />
             </BarRight>
           )}
-          {filteredTransactions.length === 0 || !subcategoryName ? (
-            <Separator />
-          ) : null}
           {!subcategoryName ? (
             <SelectDates
               value={this.state.currentMonth}
               onChange={this.handleChangeMonth}
             />
           ) : (
-            <ConnectedSelectDates />
+            <ConnectedSelectDates showFullYear />
           )}
           {!isMobile &&
             breadcrumbItems.length > 1 && (
