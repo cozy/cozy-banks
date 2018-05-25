@@ -1,4 +1,7 @@
 #!/bin/sh
+# This script is used to start the release process. It creates
+# a PR containing a checklist that you can follow to successfully
+# release Banks web/ios/android.
 
 set -e
 

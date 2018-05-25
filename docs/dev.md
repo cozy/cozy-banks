@@ -64,7 +64,7 @@ To import it execute `./scripts/import_mobile_keys`
 When starting a release, start the checklist PR with :
 
 ```
-./scripts/start-release.sh
+yarn release
 ```
 
 ## Git workflow

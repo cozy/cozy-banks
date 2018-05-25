@@ -54,7 +54,8 @@
     "postmerge": "yarnhook",
     "postcheckout": "yarnhook",
     "postrewrite": "yarnhook",
-    "fixtures": "ACH import test/fixtures/operations.json test/fixtures/helpers.js"
+    "fixtures": "ACH import test/fixtures/operations.json test/fixtures/helpers.js",
+    "release": "./scripts/release.sh"
   },
   "repository": {
     "type": "git",
