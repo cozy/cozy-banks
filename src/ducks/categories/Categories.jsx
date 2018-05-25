@@ -40,12 +40,13 @@ class Categories extends Component {
     if (selectedCategory) {
       categories = [selectedCategory]
     }
+    const hasData =
+      categories.length > 0 && categories[0].transactionsNumber > 0
 
     return (
       <div>
-        {categories.length === 0 || categories[0].transactionsNumber === 0 ? (
-          <p>{t('Categories.title.empty_text')}</p>
-        ) : (
+        {isDesktop && !hasData && <p>{t('Categories.title.empty_text')}</p>}
+        {hasData && (
           <Table className={stTableCategory}>
             <thead>
               <tr>
