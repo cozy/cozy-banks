@@ -44,7 +44,7 @@
     "ios:run": "(cd src/targets/mobile && cordova run ios --device)",
     "ios:run:emulator": "(cd src/targets/mobile && cordova run ios --emulator)",
     "ios:metadata": "(cd src/targets/mobile && bundle exec fastlane ios metadata)",
-    "ios:publish": "(cd src/targets/mobile/platforms/ios && pod install && cd ../.. && bundle exec fastlane ios deploy)",
+    "ios:publish": "npm run mobile:build && (cd src/targets/mobile/platforms/ios && pod install && cd ../.. && bundle exec fastlane ios deploy)",
     "commons:services": "webpack --config config/webpack.target.services.js",
     "build:services": "NODE_ENV=services:production yarn run commons:services",
     "watch:services": "NODE_ENV=services:development yarn run commons:services --watch",
