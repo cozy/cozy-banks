@@ -1,9 +1,0 @@
-@require 'settings/breakpoints'
-
-.AppSidebar
-    +small-screen()
-        // We want the navigation to be visible even when a fullscreen modal
-        // is open. So we set a higher z-index. The drawback is that we can't
-        // have a real fullscreen modal if we want one. The navigation will
-        // always be on top of it
-        z-index 80 !important
