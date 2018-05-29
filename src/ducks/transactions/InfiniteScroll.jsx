@@ -36,6 +36,7 @@ class InfiniteScroll extends React.Component {
 
   componentWillUnmount() {
     this.stopListeningToScroll()
+    this.unmounted = true
   }
 
   componentWillUpdate(nextProps) {
@@ -66,11 +67,29 @@ class InfiniteScroll extends React.Component {
     this.scrollingElement.addEventListener('scroll', this.handleScroll, {
       passive: true
     })
+    this.scrollingElement.addEventListener('touchmove', this.handleTouchMove, {
+      passive: true
+    })
+  }
+
+  handleTouchMove() {
+    this.handleScroll()
+    const laterOn = () => {
+      if (!this.unmounted) {
+        this.handleScroll()
+      }
+    }
+    setTimeout(laterOn, 1000)
+    setTimeout(laterOn, 2000)
   }
 
   stopListeningToScroll() {
     if (this.scrollingElement) {
       this.scrollingElement.removeEventListener('scroll', this.handleScroll)
+      this.scrollingElement.removeEventListener(
+        'touchmove',
+        this.handleTouchMove
+      )
     }
   }
 
