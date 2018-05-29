@@ -37,7 +37,7 @@ import iconCalendar from 'assets/icons/icon-calendar.svg'
 import { getAccountLabel } from 'ducks/account/helpers'
 import { connect } from 'react-redux'
 import { getDocument } from 'cozy-client'
-import { TRANSACTION_DOCTYPE } from 'doctypes'
+import { TRANSACTION_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
 
 const Separator = () => <hr className={styles.TransactionModalSeparator} />
 
@@ -115,6 +115,7 @@ class TransactionModal extends Component {
       t,
       f,
       transaction,
+      account,
       requestClose,
       showCategoryChoice,
       breakpoints: { isMobile },
@@ -163,11 +164,11 @@ class TransactionModal extends Component {
               infos={[
                 {
                   label: t('Transactions.infos.account'),
-                  value: getAccountLabel(transaction.account)
+                  value: getAccountLabel(account)
                 },
                 {
                   label: t('Transactions.infos.institution'),
-                  value: transaction.account.institutionLabel
+                  value: account.institutionLabel
                 }
               ]}
             />
@@ -211,13 +212,23 @@ TransactionModal.propTypes = {
   showCategoryChoice: PropTypes.func.isRequired,
   requestClose: PropTypes.func.isRequired,
   transactionId: PropTypes.string.isRequired,
-  transaction: PropTypes.object.isRequired
+  transaction: PropTypes.object.isRequired,
+  account: PropTypes.object.isRequired
+}
+
+const mapStateToProps = (state, ownProps) => {
+  const transaction = getDocument(
+    state,
+    TRANSACTION_DOCTYPE,
+    ownProps.transactionId
+  )
+  const account = getDocument(state, ACCOUNT_DOCTYPE, transaction.account)
+
+  return { transaction, account }
 }
 
 export default compose(
-  connect((state, ownProps) => ({
-    transaction: getDocument(state, TRANSACTION_DOCTYPE, ownProps.transactionId)
-  })),
+  connect(mapStateToProps),
   withDispatch,
   withUpdateCategory(),
   translate(),
