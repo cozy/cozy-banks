@@ -13,6 +13,7 @@ import { getClient } from 'utils/client'
 import { fetchSettingsCollection, initSettings } from 'ducks/settings'
 import { updateUserAgent } from 'ducks/mobile/userAgent'
 import 'utils/flag'
+import FastClick from 'fastclick'
 
 if (__TARGET__ === 'mobile') {
   require('styles/mobile.styl')
@@ -80,6 +81,7 @@ const setupApp = persistedState => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  FastClick.attach(document.body)
   loadState().then(setupApp)
 })
 
