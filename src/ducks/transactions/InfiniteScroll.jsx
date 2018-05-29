@@ -72,7 +72,7 @@ class InfiniteScroll extends React.Component {
     })
   }
 
-  handleTouchMove() {
+  handleTouchMove = () => {
     this.handleScroll()
     const laterOn = () => {
       if (!this.unmounted) {
