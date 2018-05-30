@@ -74,13 +74,15 @@ class InfiniteScroll extends React.Component {
 
   handleTouchMove = () => {
     this.handleScroll()
-    const laterOn = () => {
+    const handleScroll = () => {
       if (!this.unmounted) {
         this.handleScroll()
       }
     }
-    setTimeout(laterOn, 1000)
-    setTimeout(laterOn, 2000)
+    
+    // Execute during momentum scrolling
+    setTimeout(handleScroll, 1000)
+    setTimeout(handleScroll, 2000)
   }
 
   stopListeningToScroll() {
