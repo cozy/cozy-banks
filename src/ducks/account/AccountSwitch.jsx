@@ -119,7 +119,7 @@ const AccountSwitchMobile = ({
 AccountSwitchMobile.propTypes = {
   filteringDoc: PropTypes.object,
   onClick: PropTypes.func.isRequired,
-  accounts: PropTypes.object.isRequired
+  filteredAccounts: PropTypes.array.isRequired
 }
 
 const AccountSwitchTablet = ({ filteringDoc, onClick }) => (
