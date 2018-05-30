@@ -141,7 +141,7 @@
     "title": {
       "general": "Catégorisation",
       "total": "Sur la période",
-      "empty_text": "Il n'y a pas de mouvements bancaires dans cette catégorie."
+      "empty_text": "Aucun mouvement à analyser sur cette période"
     },
     "headers": {
       "categories": "Catégorie",

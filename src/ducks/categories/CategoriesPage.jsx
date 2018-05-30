@@ -11,12 +11,15 @@ import styles from './CategoriesPage.styl'
 import { flowRight as compose, sortBy } from 'lodash'
 import { withBreakpoints } from 'cozy-ui/react'
 import CategoriesHeader from './CategoriesHeader'
+import {
+  getSettings,
+  fetchSettingsCollection,
+  updateSettings,
+  createSettings
+} from 'ducks/settings'
+import { cozyConnect } from 'cozy-client'
 
 class CategoriesPage extends Component {
-  state = {
-    withIncome: true
-  }
-
   componentDidMount() {
     this.props.fetchTransactions()
   }
@@ -31,17 +34,27 @@ class CategoriesPage extends Component {
     }
   }
 
-  filterWithInCome = withIncome => {
-    this.setState({ withIncome })
+  onWithIncomeToggle = checked => {
+    const { settingsCollection, dispatch } = this.props
+    const settings = getSettings(settingsCollection)
+    const updateOrCreate = settings._id ? updateSettings : createSettings
+
+    settings.showIncomeCategory = checked
+
+    dispatch(updateOrCreate(settings))
   }
 
-  render(
-    { t, categories: categoriesProps, transactions, router },
-    { withIncome }
-  ) {
+  render({
+    t,
+    categories: categoriesProps,
+    transactions,
+    router,
+    settingsCollection
+  }) {
     const isFetching = transactions.fetchStatus !== 'loaded'
+    const { showIncomeCategory } = getSettings(settingsCollection)
     const selectedCategoryName = router.params.categoryName
-    const categories = withIncome
+    const categories = showIncomeCategory
       ? categoriesProps
       : categoriesProps.filter(category => category.name !== 'incomeCat')
     const breadcrumbItems = [{ name: t('Categories.title.general') }]
@@ -64,8 +77,8 @@ class CategoriesPage extends Component {
         <CategoriesHeader
           breadcrumbItems={breadcrumbItems}
           selectedCategory={selectedCategory}
-          withIncome={withIncome}
-          onWithIncomeToggle={this.filterWithInCome}
+          withIncome={showIncomeCategory}
+          onWithIncomeToggle={this.onWithIncomeToggle}
           categories={sortedCategories}
           selectCategory={this.selectCategory}
           isFetching={isFetching}
@@ -78,7 +91,7 @@ class CategoriesPage extends Component {
             selectedCategory={selectedCategory}
             selectedCategoryName={selectedCategoryName}
             selectCategory={this.selectCategory}
-            withIncome={withIncome}
+            withIncome={showIncomeCategory}
             filterWithInCome={this.filterWithInCome}
           />
         )}
@@ -98,9 +111,14 @@ const mapDispatchToProps = dispatch => ({
   fetchTransactions: () => dispatch(fetchTransactions())
 })
 
+const mapDocumentsToProps = () => ({
+  settingsCollection: fetchSettingsCollection()
+})
+
 export default compose(
   withRouter,
   withBreakpoints(),
   connect(mapStateToProps, mapDispatchToProps),
+  cozyConnect(mapDocumentsToProps),
   translate()
 )(CategoriesPage)

@@ -61,25 +61,11 @@ To import it execute `./scripts/import_mobile_keys`
 
 ## Release
 
-PR template:
+When starting a release, start the checklist PR with :
 
-- [ ] Create branch and the PR with the following content
-- [ ] Bump `package.json`, `config.xml`
-- [ ] Write changelogs
-  - [ ] Android: `src/targets/mobile/fastlane/metadata/android/{lang}/changelogs/ANDROID_VERSION.txt`
-  - [ ] iOS : `src/targets/mobile/fastlane/metadata/ios/{lang}/release_notes.txt`
-- [ ] Update metadata and screenshots
-- [ ] Commit and tag with a beta tag (X.Y.Z-beta.M)
-- [ ] Push the tag and wait for the CI to push the beta version to the registry
-- [ ] Push and check with a cozy from production (which has to be on the beta track for Banks)
-- [ ] Release the app on Testflight for iOS
-- [ ] Release the app on Play Store on `beta` track
-- [ ] Test well on the 3 platforms
-- [ ] Tag the branch as prod (X.Y.Z)
-- [ ] Push the tag, wait for the CI to push the build to the registry
-- [ ] Update cozies with the latest web version via Rundeck
-- [ ] Promote Android app to the production track
-- [ ] Promote iOS app to the production track
+```
+yarn release
+```
 
 ## Git workflow
 
@@ -116,6 +102,23 @@ More information : https://github.com/cozy/cozy-stack/blob/master/docs/registry-
 
 ```
 yarn mobile:icon
+```
+
+- Install Ruby, Bundler and project dependencies
+
+See [Ruby installation page](https://www.ruby-lang.org/fr/documentation/installation/) to get the installation method for your system.
+
+Install Bundler :
+
+```
+gem install bundler
+```
+
+Then install the project dependencies :
+
+```
+cd <path_to_project_root>/src/targets/mobile
+bundler
 ```
 
 - Manage iOS native libraries

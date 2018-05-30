@@ -8,6 +8,11 @@ export const registerPushNotifications = () => async (dispatch, getState) => {
     return
   }
 
+  // No push notification for now on iOS
+  if (window.device && window.device.platform == 'iOS') {
+    return
+  }
+
   /**
    * When we receive a notification while the app is in foreground, all on('notification')
    * handlers are executed. But we don't want to redirect the user without his consent.

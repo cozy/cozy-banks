@@ -56,23 +56,20 @@ const CategoriesHeader = ({
           </div>
         )}
       </div>
-      {!isFetching &&
-        hasData && (
-          <CategoriesChart
-            width={chartSize}
-            height={chartSize}
-            categories={
-              selectedCategory ? selectedCategory.subcategories : categories
-            }
-            selectedCategory={selectedCategory}
-            selectCategory={selectCategory}
-            total={
-              selectedCategory ? selectedCategory.amount : transactionsTotal
-            }
-            currency={globalCurrency}
-            label={t('Categories.title.total')}
-          />
-        )}
+      {!isFetching && (
+        <CategoriesChart
+          width={chartSize}
+          height={chartSize}
+          categories={
+            selectedCategory ? selectedCategory.subcategories : categories
+          }
+          selectedCategory={selectedCategory}
+          selectCategory={selectCategory}
+          total={selectedCategory ? selectedCategory.amount : transactionsTotal}
+          currency={globalCurrency}
+          label={t('Categories.title.total')}
+        />
+      )}
     </div>
   )
 }

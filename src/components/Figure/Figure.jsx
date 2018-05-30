@@ -93,7 +93,7 @@ Figure.propTypes = {
   /** Whether to add a specific class to show warning */
   warningLimit: Types.number,
   /** Whether to add some spacing between the figure and the currency or not */
-  withCurrencySpacing: Types.boolean
+  withCurrencySpacing: Types.bool
 }
 
 export default Figure

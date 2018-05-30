@@ -7,14 +7,13 @@ import { Sidebar } from 'cozy-ui/react'
 import Nav from 'ducks/commons/Nav'
 import { Warnings } from 'ducks/warnings'
 import FlagSwitcher from 'components/FlagSwitcher'
-import styles from './App.styl'
 
 const ReactHint = ReactHintFactory(React)
 
 const App = ({ children }) => (
   <Layout>
     {__DEVELOPMENT__ ? <FlagSwitcher /> : null}
-    <Sidebar className={styles.AppSidebar}>
+    <Sidebar>
       <Nav />
     </Sidebar>
 
