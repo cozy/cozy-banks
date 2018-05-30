@@ -11,7 +11,6 @@ import {
   ModalContent,
   withBreakpoints
 } from 'cozy-ui/react'
-import palette from 'cozy-ui/stylus/settings/palette.json'
 import { withDispatch } from 'utils'
 import { flowRight as compose } from 'lodash'
 import cx from 'classnames'
@@ -32,12 +31,12 @@ import styles from './TransactionModal.styl'
 import iconGraph from 'assets/icons/icon-graph.svg'
 import iconComment from 'assets/icons/actions/icon-comment.svg'
 import iconCredit from 'assets/icons/icon-credit.svg'
-import iconArrowLeft from 'assets/icons/icon-arrow-left.svg'
 import iconCalendar from 'assets/icons/icon-calendar.svg'
 import { getAccountLabel } from 'ducks/account/helpers'
 import { connect } from 'react-redux'
 import { getDocument } from 'cozy-client'
 import { TRANSACTION_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
+import Page from './Page'
 
 const Separator = () => <hr className={styles.TransactionModalSeparator} />
 
@@ -99,28 +98,10 @@ const TransactionInfos = ({ infos }) => (
   </div>
 )
 
-const CloseButton = ({ onClick }) => (
-  <button
-    type="button"
-    onClick={onClick}
-    className={styles.TransactionModalCloseButton}
-  >
-    <Icon icon={iconArrowLeft} width={16} color={palette.coolGrey} />
-  </button>
-)
-
 class TransactionModal extends Component {
-  render() {
-    const {
-      t,
-      f,
-      transaction,
-      account,
-      requestClose,
-      showCategoryChoice,
-      breakpoints: { isMobile },
-      ...props
-    } = this.props
+  renderContent() {
+    const { t, f, transaction, showCategoryChoice, ...props } = this.props
+
     const categoryId = getCategoryId(transaction)
     const category = getParentCategory(categoryId)
 
@@ -135,76 +116,103 @@ class TransactionModal extends Component {
     )
 
     return (
+      <div>
+        <TransactionModalRow
+          iconLeft={typeIcon}
+          className={styles['TransactionModalRow-multiline']}
+          align="top"
+        >
+          <TransactionLabel label={getLabel(transaction)} />
+          <TransactionInfos
+            infos={[
+              {
+                label: t('Transactions.infos.account'),
+                value: getAccountLabel(transaction.account)
+              },
+              {
+                label: t('Transactions.infos.institution'),
+                value: transaction.account.institutionLabel
+              }
+            ]}
+          />
+        </TransactionModalRow>
+        <Separator />
+        <TransactionModalRow iconLeft={iconCalendar}>
+          <span style={{ textTransform: 'capitalize' }}>
+            {f(transaction.date, 'dddd DD MMMM - h[h]mm')}
+          </span>
+        </TransactionModalRow>
+        <Separator />
+        <TransactionModalRow
+          iconLeft={iconGraph}
+          iconRight={<CategoryIcon category={category} />}
+          onClick={showCategoryChoice}
+        >
+          {t(
+            `Data.subcategories.${getCategoryName(getCategoryId(transaction))}`
+          )}
+        </TransactionModalRow>
+        <Separator />
+        <TransactionModalRow iconLeft={iconComment} disabled>
+          {t('Transactions.actions.comment')}
+        </TransactionModalRow>
+        <Separator />
+        <TransactionActions
+          transaction={transaction}
+          {...props}
+          displayDefaultAction
+          isModalItem
+        />
+      </div>
+    )
+  }
+
+  renderHeader() {
+    const { transaction } = this.props
+
+    return (
+      <h2 className={styles.TransactionModalHeading}>
+        <Figure
+          total={transaction.amount}
+          currency={transaction.currency}
+          signed
+        />
+      </h2>
+    )
+  }
+
+  renderMobile() {
+    const { requestClose } = this.props
+
+    return (
+      <Page dismissAction={requestClose} title={this.renderHeader()}>
+        {this.renderContent()}
+      </Page>
+    )
+  }
+
+  renderTabletDesktop() {
+    return (
       <Modal
-        mobileFullscreen
-        dismissAction={requestClose}
+        dismissAction={this.props.requestClose}
         into="body"
         crossClassName={styles.TransactionModalCross}
         className={styles.TransactionModal}
       >
         <ModalHeader className={styles.TransactionModalHeader}>
-          {isMobile && <CloseButton onClick={requestClose} />}
-          <h2 className={styles.TransactionModalHeading}>
-            <Figure
-              total={transaction.amount}
-              currency={transaction.currency}
-              signed
-            />
-          </h2>
+          {this.renderHeader()}
         </ModalHeader>
         <ModalContent className={styles.TransactionModalContent}>
-          <Separator />
-          <TransactionModalRow
-            iconLeft={typeIcon}
-            className={styles['TransactionModalRow-multiline']}
-            align="top"
-          >
-            <TransactionLabel label={getLabel(transaction)} />
-            <TransactionInfos
-              infos={[
-                {
-                  label: t('Transactions.infos.account'),
-                  value: getAccountLabel(account)
-                },
-                {
-                  label: t('Transactions.infos.institution'),
-                  value: account.institutionLabel
-                }
-              ]}
-            />
-          </TransactionModalRow>
-          <Separator />
-          <TransactionModalRow iconLeft={iconCalendar}>
-            <span style={{ textTransform: 'capitalize' }}>
-              {f(transaction.date, 'dddd DD MMMM - h[h]mm')}
-            </span>
-          </TransactionModalRow>
-          <Separator />
-          <TransactionModalRow
-            iconLeft={iconGraph}
-            iconRight={<CategoryIcon category={category} />}
-            onClick={showCategoryChoice}
-          >
-            {t(
-              `Data.subcategories.${getCategoryName(
-                getCategoryId(transaction)
-              )}`
-            )}
-          </TransactionModalRow>
-          <Separator />
-          <TransactionModalRow iconLeft={iconComment} disabled>
-            {t('Transactions.actions.comment')}
-          </TransactionModalRow>
-          <Separator />
-          <TransactionActions
-            transaction={transaction}
-            {...props}
-            displayDefaultAction
-            isModalItem
-          />
+          {this.renderContent()}
         </ModalContent>
       </Modal>
     )
+  }
+
+  render() {
+    return this.props.breakpoints.isMobile
+      ? this.renderMobile()
+      : this.renderTabletDesktop()
   }
 }
 

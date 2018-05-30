@@ -1,21 +1,20 @@
 @require 'settings/breakpoints'
 
-.TransactionModalHeader
-    position relative
-
 .TransactionModal
     .TransactionModalHeader
-        +small-screen()
-            min-height 3rem
-            padding-top 0
-            margin-bottom 0
+        position relative
+        border-bottom 1px solid silver
+        margin-bottom 0
+        padding-top 0
+        padding-bottom 0
+        height 5rem
+        display flex
+        align-items center
+        justify-content center
 
 .TransactionModalHeading
     text-align center
     padding-top 4px
-
-    +small-screen()
-        padding-top 14px
 
 .TransactionModalContent
     padding 0
@@ -77,15 +76,4 @@
     width 16px
     height 16px
     z-index 1
-
-    +small-screen()
-        display none
-
-.TransactionModalCloseButton
-    background-color transparent
-    border-width 0
-    position absolute
-    top 1rem
-    left 1rem
-    padding 0
-    cursor pointer
+    top 1.4rem
