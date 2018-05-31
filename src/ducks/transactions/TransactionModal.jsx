@@ -100,7 +100,14 @@ const TransactionInfos = ({ infos }) => (
 
 class TransactionModal extends Component {
   renderContent() {
-    const { t, f, transaction, showCategoryChoice, ...props } = this.props
+    const {
+      t,
+      f,
+      transaction,
+      account,
+      showCategoryChoice,
+      ...props
+    } = this.props
 
     const categoryId = getCategoryId(transaction)
     const category = getParentCategory(categoryId)
@@ -127,11 +134,11 @@ class TransactionModal extends Component {
             infos={[
               {
                 label: t('Transactions.infos.account'),
-                value: getAccountLabel(transaction.account)
+                value: getAccountLabel(account)
               },
               {
                 label: t('Transactions.infos.institution'),
-                value: transaction.account.institutionLabel
+                value: account.institutionLabel
               }
             ]}
           />
