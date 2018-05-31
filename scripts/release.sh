@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # This script is used to start the release process. It creates
 # a PR containing a checklist that you can follow to successfully
 # release Banks web/ios/android.
@@ -13,7 +13,7 @@ read -p "What is the next version ? " version
 
 branch_name="release-${version}"
 echo "Checking out to $branch_name"
-# git checkout -b $branch_name
+git checkout -b $branch_name
 git commit --allow-empty -m "chore: starting release ${version}"
 git push -u origin HEAD
 
