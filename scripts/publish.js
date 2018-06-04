@@ -12,6 +12,8 @@ const MANIFEST_FILE = 'manifest.webapp'
 const APP_NAME = require('../package.json').name
 const ARCHIVE_FILENAME = `${APP_NAME}.tar.gz`
 const REGISTRY_NAMESPACE = fs.readJsonSync(`./${MANIFEST_FILE}`)['registry_namespace']
+const registryUrlProd = 'https://apps-registry.cozycloud.cc'
+const registryUrlDev = 'https://staging-apps-registry.cozycloud.cc'
 
 // Test si le répertoire de build existe
 if (!fs.existsSync(BUILD_FOLDER)) {
@@ -103,12 +105,13 @@ const getRegistryVersion = async (manifestVersion, commitHash) => {
   }
 }
 
-const publish = async (manifestVersion, commitHash, registryVersion) => {
+const publish = async (manifestVersion, commitHash, registryVersion, registryUrl) => {
   const appBuildUrl = `https://${COZY_URL}/upload/${APP_NAME}/${manifestVersion}-${commitHash}/${ARCHIVE_FILENAME}`
   const override = { confirm: 'y' }
 
   return new Promise(async (resolve, reject) => {
     cozyPublishManual({
+      registryUrl,
       registryToken: process.env.REGISTRY_TOKEN,
       manualVersion: registryVersion,
       spaceName: REGISTRY_NAMESPACE,
@@ -152,7 +155,8 @@ const main = async () => {
   }
 
   try {
-    await publish(manifestVersion, commitHash, registryVersion)
+    await publish(manifestVersion, commitHash, registryVersion, registryUrlProd)
+    await publish(manifestVersion, commitHash, registryVersion, registryUrlDev)
   } catch (e) {
     const alreadyPublishStatus = 409
     if (e.status === alreadyPublishStatus) {
