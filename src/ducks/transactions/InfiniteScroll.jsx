@@ -79,7 +79,7 @@ class InfiniteScroll extends React.Component {
         this.handleScroll()
       }
     }
-    
+
     // Execute during momentum scrolling
     setTimeout(handleScroll, 1000)
     setTimeout(handleScroll, 2000)
