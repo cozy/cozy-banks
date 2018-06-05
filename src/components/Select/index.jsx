@@ -70,6 +70,7 @@ class Select extends React.Component {
 
     return (
       <Component
+        className={this.props.className}
         value={
           value ? find(options, option => option.value == value) : options[0]
         }

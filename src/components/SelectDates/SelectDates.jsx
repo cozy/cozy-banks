@@ -48,8 +48,8 @@ const Separator = () => (
 
 const constrain = (val, min, max) => Math.min(Math.max(val, min), max)
 
-const selectYearContainerStyle = base => ({ ...base, flexGrow: 1 })
-const selectMonthContainerStyle = base => ({ ...base, flexGrow: 6 })
+const selectYearContainerStyle = base => ({ ...base, zIndex: 51 })
+const selectMonthContainerStyle = base => ({ ...base, zIndex: 51 })
 
 const SelectDateButton = ({ children, disabled, className, ...props }) => {
   return (
@@ -126,11 +126,19 @@ class SelectDatesDumb extends React.PureComponent {
   }
 
   handleChangeMonth = month => {
+    if (month === undefined) {
+      return
+    }
+
     const selected = this.getSelected()
     this.onChangeYearMonth(selected.year, month)
   }
 
   handleChangeYear = year => {
+    if (year === undefined) {
+      return
+    }
+
     const selected = this.getSelected()
     this.onChangeYearMonth(year, selected.month)
   }

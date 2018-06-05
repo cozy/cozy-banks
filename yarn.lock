@@ -2900,9 +2900,9 @@ cozy-logger@^1.0.4:
   dependencies:
     json-stringify-safe "5.0.1"
 
-cozy-ui@9.1.0:
+"cozy-ui@https://github.com/drazik/cozy-ui.git#selectbox-overlay":
   version "9.1.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-9.1.0.tgz#479a7fba54614a62d6c2b4a94ae68ebc2b098a17"
+  resolved "https://github.com/drazik/cozy-ui.git#7d66f799247e8af0e4c923e591dede4753849493"
   dependencies:
     babel-preset-cozy-app "^0.3.1"
     classnames "^2.2.5"
