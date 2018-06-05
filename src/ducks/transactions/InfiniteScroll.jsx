@@ -129,7 +129,9 @@ class InfiniteScroll extends React.Component {
 
   getScrollHeight() {
     if (this.scrollingElement === window) {
-      return window.document.scrollingElement.getBoundingClientRect().height
+      const node =
+        window.document.scrollingElement || window.document.documentElement
+      return node.getBoundingClientRect().height
     } else {
       return this.scrollingElement.scrollHeight
     }
