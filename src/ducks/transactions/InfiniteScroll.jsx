@@ -4,6 +4,9 @@ import throttle from 'lodash/throttle'
 import ReactDOM from 'react-dom'
 
 function elementInViewport(el, thresold) {
+  if (!el) {
+    return false
+  }
   const bcr = el.getBoundingClientRect()
   const top = bcr.top + thresold
   const viewportTop = window.pageYOffset
