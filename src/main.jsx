@@ -15,6 +15,7 @@ import { getClient } from 'utils/client'
 import { fetchSettingsCollection, initSettings } from 'ducks/settings'
 import { updateUserAgent } from 'ducks/mobile/userAgent'
 import 'utils/flag'
+import FastClick from 'fastclick'
 
 if (__TARGET__ === 'mobile') {
   require('styles/mobile.styl')
@@ -31,6 +32,10 @@ if (__TARGET__ === 'mobile') {
 if (process.env.NODE_ENV === 'development') {
   require('preact/debug')
 }
+
+window.addEventListener('load', () => {
+  FastClick.attach(document.body)
+})
 
 const renderAppWithPersistedState = persistedState => {
   const root = document.querySelector('[role=application]')
