@@ -18,6 +18,7 @@ module.exports = {
       __TARGET__: JSON.stringify('browser')
     }),
     new HtmlWebpackPlugin({
+      alwaysWriteToDisk: true,
       template: path.resolve(__dirname, '../src/index.ejs'),
       title: pkg.name,
       inject: 'head',
