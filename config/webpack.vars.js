@@ -19,6 +19,9 @@ module.exports = {
   production: production,
   target: target,
   hotReload,
-  extractor: new ExtractTextPlugin({ filename: `app${production ? '.[hash].min' : ''}.css` }),
+  extractor: new ExtractTextPlugin({
+    disable: hotReload ? true : false,
+    filename: `app${production ? '.[hash].min' : ''}.css`
+  }),
   skin
 }
