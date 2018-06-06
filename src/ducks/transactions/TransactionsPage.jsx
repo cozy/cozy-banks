@@ -81,7 +81,7 @@ class TransactionsPage extends Component {
   state = {
     fetching: false,
     limitMin: 0,
-    limitMax: 5,
+    limitMax: 10,
     infiniteScrollTop: false
   }
 
@@ -143,9 +143,20 @@ class TransactionsPage extends Component {
     })
   }
 
-  handleDecreaseLimitMin = () => {
+  handleDecreaseLimitMin = (amount = 10) => {
+    const transactions = this.props.filteredTransactions
+    let goal = Math.max(this.state.limitMin - amount, 0)
+
+    // try not have a cut on the same day
+    while (
+      goal > 0 &&
+      transactions[goal].date.slice(0, 10) ===
+        transactions[goal - 1].date.slice(0, 10)
+    ) {
+      goal--
+    }
     this.setState({
-      limitMin: Math.max(this.state.limitMin - 5, 0)
+      limitMin: goal
     })
   }
 
