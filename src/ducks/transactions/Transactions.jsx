@@ -29,7 +29,7 @@ import { withUpdateCategory } from 'ducks/categories'
 import { withDispatch } from 'utils'
 import styles from './Transactions.styl'
 import { Media, Bd, Img } from 'cozy-ui/react/Media'
-import InfiniteScroll from './InfiniteScroll'
+import { InfiniteScroll, ScrollRestore } from './scroll'
 import TransactionModal from './TransactionModal'
 
 const sDate = styles['bnk-op-date']
@@ -228,6 +228,12 @@ class ScrollSpy {
   }
 }
 
+const shouldRestore = (oldProps, nextProps) => {
+  return (
+    oldProps.limitMin !== nextProps.limitMin &&
+    oldProps.limitMax === nextProps.limitMax
+  )
+}
 class TransactionsD extends React.Component {
   state = {
     infiniteScrollTop: false
@@ -352,7 +358,14 @@ class TransactionsD extends React.Component {
         onScroll={this.handleScroll}
         className={this.props.className}
       >
-        {this.renderTransactions()}
+        <ScrollRestore
+          limitMin={limitMin}
+          limitMax={limitMax}
+          getScrollingElement={this.getScrollingElement}
+          shouldRestore={shouldRestore}
+        >
+          {this.renderTransactions()}
+        </ScrollRestore>
       </InfiniteScroll>
     )
   }
