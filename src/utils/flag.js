@@ -49,7 +49,11 @@ if (__DEVELOPMENT__ && flag('switcher') === null) {
   flag('switcher', true)
 }
 
-const demoFqdns = ['stephaniedurand.cozy.rocks', 'isabelledurand.cozy.rocks']
+const demoFqdns = [
+  'stephaniedurand.cozy.rocks',
+  'isabelledurand.cozy.rocks',
+  'genevievedurand.cozy.rocks'
+]
 
 const locationMatchesFqdn = (location, fqdn) => {
   const splitted = fqdn.split('.')
