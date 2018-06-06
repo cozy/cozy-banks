@@ -41,6 +41,7 @@ import styles from './TransactionsPage.styl'
 import { TRIGGER_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
 import { getBrands } from 'ducks/brandDictionary'
 import { AccountSwitch } from 'ducks/account'
+import { onIOS } from 'utils/platform'
 
 const { BarRight } = cozy.bar
 
@@ -183,12 +184,21 @@ class TransactionsPage extends Component {
         limitMin = 0
       }
     }
-    this.setState({
-      limitMin: limitMin,
-      limitMax: limitMin + 5,
-      currentMonth: month,
-      infiniteScrollTop: false
-    })
+    this.setState(
+      {
+        limitMin: limitMin,
+        limitMax: limitMin + 10,
+        currentMonth: month,
+        infiniteScrollTop: false
+      },
+      () => {
+        // need to scroll past the LoadMore button
+        if (onIOS()) {
+          const scrollTo = limitMin > 0 ? 65 : 0
+          window.scrollTo(0, scrollTo)
+        }
+      }
+    )
   }
 
   checkToActivateTopInfiniteScroll = getScrollInfo => {
@@ -313,6 +323,7 @@ class TransactionsPage extends Component {
               urls={urls}
               brands={brandsWithoutTrigger}
               filteringOnAccount={filteringOnAccount}
+              manualLoadMore={onIOS()}
             />
           )}
         </div>

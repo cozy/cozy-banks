@@ -11,7 +11,8 @@ import {
   withBreakpoints,
   ListItemText,
   Caption,
-  Text
+  Text,
+  Button
 } from 'cozy-ui/react'
 import { Figure } from 'components/Figure'
 import { flowRight as compose, toPairs, groupBy } from 'lodash'
@@ -228,12 +229,26 @@ class ScrollSpy {
   }
 }
 
+const btnStyle = { width: '100%', padding: '0.75rem', margin: 0 }
+const LoadMoreButton = ({ children, onClick }) => (
+  <tbody>
+    <tr>
+      <td style={{ textAlign: 'center' }}>
+        <Button style={btnStyle} onClick={onClick} subtle>
+          {children}
+        </Button>
+      </td>
+    </tr>
+  </tbody>
+)
+
 const shouldRestore = (oldProps, nextProps) => {
   return (
     oldProps.limitMin !== nextProps.limitMin &&
     oldProps.limitMax === nextProps.limitMax
   )
 }
+
 class TransactionsD extends React.Component {
   state = {
     infiniteScrollTop: false
@@ -293,10 +308,12 @@ class TransactionsD extends React.Component {
   renderTransactions() {
     const {
       f,
+      t,
       selectTransaction,
       limitMin,
       limitMax,
       breakpoints: { isDesktop, isExtraLarge },
+      manualLoadMore,
       ...props
     } = this.props
     const transactions = this.transactions.slice(limitMin, limitMax)
@@ -306,6 +323,12 @@ class TransactionsD extends React.Component {
         className={styles['TransactionTable']}
         ref={ref => (this.transactionsRef = ref)}
       >
+        {manualLoadMore &&
+          limitMin > 0 && (
+            <LoadMoreButton onClick={() => this.props.onReachTop(20)}>
+              {t('Transactions.see-more')}
+            </LoadMoreButton>
+          )}
         {transactionsOrdered.map(dateAndGroup => {
           const date = dateAndGroup[0]
           const transactionGroup = dateAndGroup[1]
@@ -340,14 +363,21 @@ class TransactionsD extends React.Component {
             </tbody>
           )
         })}
+        {manualLoadMore &&
+          limitMax < this.transactions.length && (
+            <LoadMoreButton onClick={() => this.props.onReachBottom(20)}>
+              {t('Transactions.see-more')}
+            </LoadMoreButton>
+          )}
       </Table>
     )
   }
 
   render() {
-    const { limitMin, limitMax } = this.props
+    const { limitMin, limitMax, manualLoadMore } = this.props
     return (
       <InfiniteScroll
+        manual={manualLoadMore}
         canLoadAtTop={this.props.infiniteScrollTop && limitMin > 0}
         canLoadAtBottom={limitMax < this.transactions.length}
         limitMin={limitMin}
@@ -364,7 +394,7 @@ class TransactionsD extends React.Component {
           getScrollingElement={this.getScrollingElement}
           shouldRestore={shouldRestore}
         >
-          {this.renderTransactions()}
+          {this.renderTransactions(manualLoadMore)}
         </ScrollRestore>
       </InfiniteScroll>
     )
