@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-packageName="io.cozy.banks.mobile" android-versionCode="70703" ios-CFBundleIdentifier="io.cozy.banks" ios-CFBundleVersion="0.7.7.3" version="0.7.7" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-packageName="io.cozy.banks.mobile" android-versionCode="70704" ios-CFBundleIdentifier="io.cozy.banks" ios-CFBundleVersion="0.7.7.4" version="0.7.7" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Cozy Banks</name>
     <description>The banking application for Cozy</description>
     <author email="contact@cozycloud.cc" href="https://cozy.io">Cozy Cloud</author>
