@@ -28,4 +28,4 @@ Other fixtures
 The reference file is `operations.json`. Other files should follow it.
 
 - [./operations-ben.json]
-- [./operations-isabelle.json]
+- [./operations-isabelle.json] are the fixtures we use on demo instances
