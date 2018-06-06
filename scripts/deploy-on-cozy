@@ -44,10 +44,6 @@ function deploy {
   sleep 5 # Cannot have the same rundeck job running twice
 }
 
-echo "Deploying built code on GitHub #$DEPLOY_BRANCH branch:"
-yarn deploy
-
-
 APP_SLUG="banks"
 
 echo "Deploying $APP_SLUG on recette:"
