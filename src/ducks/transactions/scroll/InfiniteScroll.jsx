@@ -59,27 +59,11 @@ class InfiniteScroll extends React.Component {
     this.scrollingElement.addEventListener('scroll', this.handleScroll, {
       passive: true
     })
-    this.scrollingElement.addEventListener('touchmove', this.handleTouchMove, {
-      passive: true
-    })
-  }
-
-  handleTouchMove = () => {
-    this.handleScroll()
-    const handleScroll = () => {
-      if (!this.unmounted) {
-        this.handleScroll()
-      }
-    }
   }
 
   stopListeningToScroll() {
     if (this.scrollingElement) {
       this.scrollingElement.removeEventListener('scroll', this.handleScroll)
-      this.scrollingElement.removeEventListener(
-        'touchmove',
-        this.handleTouchMove
-      )
     }
   }
 
