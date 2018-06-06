@@ -2876,9 +2876,9 @@ cozy-client-js@^0.8.0:
     pouchdb-adapter-cordova-sqlite "https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a"
     pouchdb-find "0.10.4"
 
-cozy-client@0.4.3:
-  version "0.4.3"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-0.4.3.tgz#0c6bdde63ccf2d24642217d96cf1c16aeacc70bd"
+cozy-client@0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-0.5.0.tgz#af6512a57becf26dfd39d265a46b06985bf4d46c"
   dependencies:
     pouchdb "6.3.4"
     pouchdb-find "6.3.4"
