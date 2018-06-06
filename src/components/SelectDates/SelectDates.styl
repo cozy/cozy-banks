@@ -36,8 +36,6 @@ select-date-height-small = 2.75rem
     margin-right 0.5rem
 
 +small-screen()
-    elements-spacing = 0.875rem
-
     .SelectDates
         m = 0.75rem // size of the margin-top/bottom
         topbar-height = 3rem
@@ -46,8 +44,6 @@ select-date-height-small = 2.75rem
         right 0
         width auto
         height select-date-height-small
-        padding-left 1rem
-        padding-right elements-spacing
         position fixed
         background white
         z-index 2
@@ -78,26 +74,23 @@ select-date-height-small = 2.75rem
 
     .SelectDates__separator
         height 1.5rem
-        margin-left elements-spacing
-        margin-right elements-spacing
+        margin-left 0
+        margin-right 0
 
     .SelectDates__buttons
         display flex
         align-items center
+        margin-left 0.375rem
 
     .SelectDates__Button
         width auto
         background-color transparent
         color coolGrey
+        padding-left 0.875rem
+        padding-right 0.875rem
 
     .SelectDates__Button--disabled svg
         color silver
-
-    .SelectDates__Button--prev
-        padding-right elements-spacing
-
-    .SelectDates__Button--next
-        padding-left elements-spacing
 
     .SelectDates__Select
         color inherit

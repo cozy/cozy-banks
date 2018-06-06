@@ -38,7 +38,7 @@ const BackButton = ({
   const handleClick = (onClick = onClick || (() => to && router.push(to)))
   return isMobile ? (
     <BarLeft>
-      <button className="coz-bar-btn" onClick={handleClick}>
+      <button className="coz-bar-btn coz-bar-burger" onClick={handleClick}>
         <Icon icon={arrowLeft} color={palette['coolGrey']} />
       </button>
     </BarLeft>

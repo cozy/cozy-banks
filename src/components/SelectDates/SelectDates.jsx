@@ -48,8 +48,16 @@ const Separator = () => (
 
 const constrain = (val, min, max) => Math.min(Math.max(val, min), max)
 
-const selectYearContainerStyle = base => ({ ...base, flexGrow: 1 })
-const selectMonthContainerStyle = base => ({ ...base, flexGrow: 6 })
+const selectYearContainerStyle = base => ({
+  ...base,
+  flexGrow: 1,
+  paddingLeft: '0.875rem'
+})
+const selectMonthContainerStyle = base => ({
+  ...base,
+  flexGrow: 6,
+  paddingLeft: '0.875rem'
+})
 
 const SelectDateButton = ({ children, disabled, className, ...props }) => {
   return (
