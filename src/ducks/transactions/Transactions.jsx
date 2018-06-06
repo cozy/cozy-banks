@@ -121,10 +121,9 @@ const TableTrDesktop = compose(translate(), withDispatch, withUpdateCategory())(
   _TableTrDesktop
 )
 
-const TableTrNoDesktop = translate()(
-  ({ t, transaction, selectTransaction, filteringOnAccount, ...props }) => {
-    const onSelectTransaction = () => selectTransaction(transaction)
-
+class _TableTrNoDesktop extends React.PureComponent {
+  render() {
+    const { transaction, t, filteringOnAccount, ...props } = this.props
     return (
       <tr className={styles['bnk-transaction-mobile']}>
         <td>
@@ -136,21 +135,21 @@ const TableTrNoDesktop = translate()(
                   getCategoryId(transaction)
                 )}`
               )}
-              onClick={onSelectTransaction}
+              onClick={this.handleSelect}
             >
               <CategoryIcon
                 category={getParentCategory(getCategoryId(transaction))}
               />
             </Img>
             <Bd className={cx('u-clickable', 'u-mr-half u-ellipsis')}>
-              <ListItemText onClick={onSelectTransaction}>
+              <ListItemText onClick={this.handleSelect}>
                 <Text>{getLabel(transaction)}</Text>
                 <Caption className={styles['bnk-op-desc-caption']}>
                   {!filteringOnAccount && getAccountLabel(transaction.account)}
                 </Caption>
               </ListItemText>
             </Bd>
-            <Img onClick={onSelectTransaction} className="u-clickable">
+            <Img onClick={this.handleSelect} className="u-clickable">
               <Figure
                 total={transaction.amount}
                 currency={transaction.currency}
@@ -172,7 +171,13 @@ const TableTrNoDesktop = translate()(
       </tr>
     )
   }
-)
+
+  handleSelect = () => {
+    this.props.selectTransaction(this.props.transaction)
+  }
+}
+
+const TableTrNoDesktop = translate()(_TableTrNoDesktop)
 
 export const TransactionTableHead = (props, { t }) => (
   <div
