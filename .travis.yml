@@ -28,24 +28,12 @@ deploy:
   - provider: script
     repo: cozy/cozy-banks
     skip-cleanup: true
-    script: export DEPLOY_BRANCH=build && ./scripts/deploy-on-cozy && yarn cozyPublish
+    script: yarn cozyPublish && ./scripts/deploy-on-cozy
     on:
       branch: master
   - provider: script
     repo: cozy/cozy-banks
     skip-cleanup: true
-    script: export DEPLOY_BRANCH=latest && ./scripts/deploy-on-cozy && yarn cozyPublish
+    script: yarn cozyPublish && ./scripts/deploy-on-cozy
     on:
       tags: true
-  - provider: script
-    repo: cozy/cozy-banks
-    skip-cleanup: true
-    script: DEPLOY_BRANCH=latest ./scripts/deploy-on-cozy
-    on:
-      branch: prod
-  - provider: script
-    repo: cozy/cozy-banks
-    skip-cleanup: true
-    script: DEPLOY_BRANCH=preprod-build ./scripts/deploy-on-cozy
-    on:
-      branch: preprod
