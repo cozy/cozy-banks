@@ -43,7 +43,7 @@ the vanilla app and the skinned version of the app.
 
 ## Build
 
-The application is built automatically and publish on [Cozy Registry](https://apps-registry.cozycloud.cc/banks/registry) by Travis.
+The application is built automatically and published on [Cozy Registry](https://apps-registry.cozycloud.cc/banks/registry) by [Travis](https://travis-ci.org/cozy/cozy-banks).
 
 The skins are also built into `build-$skin` or `latest-$skin`.
 
