@@ -116,13 +116,18 @@ Fastlane is used to manage automatically the deployment process. Its configurati
 
 ### iOS
 
+
 #### Signing
 
-In XCode,
+⚠️ You need to have your device registered to iTunes Connect. If you have trouble deploying your app on your device, check that the Build settings in XCode are correct :
 
-* uncheck "Manage automatically"
-* In "Signing (release)", use the Provisioning Profile io.cozy.banks.mobile AppStore.
-Signing certificate : 3AKXFMV43J
+While developing, in XCode, in the "Signing" section :
+
+* Check "Manage automatically"
+* Team "Cozy Cloud"
+* Signing certificate : use a personal certificate belonging to the Cozy team (can be created when you have no matching certificate in the menu > Add an account).
+
+When deploying, Fastlane manages the certificate and may change it.
 
 #### Push iOS build
 
