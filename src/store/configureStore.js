@@ -2,6 +2,7 @@
 import { compose, createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
+import flag from 'utils/flag'
 import {
   shouldEnableTracking,
   getTracker,
@@ -24,7 +25,7 @@ const configureStore = (cozyClient, persistedState) => {
   if (shouldEnableTracking() && getTracker()) {
     middlewares.push(createTrackerMiddleware())
   }
-  if (false && __DEVELOPMENT__) { // eslint-disable-line
+  if (flag('logs') && __DEVELOPMENT__) { // eslint-disable-line
     // must be the last middleware in chain https://git.io/vHQpt
     const loggerMiddleware = createLogger()
     middlewares.push(loggerMiddleware)
