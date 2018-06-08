@@ -41,6 +41,7 @@ import styles from './TransactionsPage.styl'
 import { TRIGGER_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
 import { getBrands } from 'ducks/brandDictionary'
 import { AccountSwitch } from 'ducks/account'
+import { onIOS } from 'utils/platform'
 
 const { BarRight } = cozy.bar
 
@@ -81,7 +82,7 @@ class TransactionsPage extends Component {
   state = {
     fetching: false,
     limitMin: 0,
-    limitMax: 5,
+    limitMax: 10,
     infiniteScrollTop: false
   }
 
@@ -143,9 +144,20 @@ class TransactionsPage extends Component {
     })
   }
 
-  handleDecreaseLimitMin = () => {
+  handleDecreaseLimitMin = (amount = 10) => {
+    const transactions = this.props.filteredTransactions
+    let goal = Math.max(this.state.limitMin - amount, 0)
+
+    // try not have a cut on the same day
+    while (
+      goal > 0 &&
+      transactions[goal].date.slice(0, 10) ===
+        transactions[goal - 1].date.slice(0, 10)
+    ) {
+      goal--
+    }
     this.setState({
-      limitMin: Math.max(this.state.limitMin - 5, 0)
+      limitMin: goal
     })
   }
 
@@ -172,12 +184,27 @@ class TransactionsPage extends Component {
         limitMin = 0
       }
     }
-    this.setState({
-      limitMin: limitMin,
-      limitMax: limitMin + 5,
-      currentMonth: month,
-      infiniteScrollTop: false
-    })
+    this.setState(
+      {
+        limitMin: limitMin,
+        limitMax: limitMin + 10,
+        currentMonth: month,
+        infiniteScrollTop: false
+      },
+      () => {
+        // need to scroll past the LoadMore button
+        if (onIOS()) {
+          const LoadMoreBtn = document.querySelector('.js-LoadMore')
+          const padding = 15
+          const scrollTo = LoadMoreBtn
+            ? LoadMoreBtn.getBoundingClientRect().bottom +
+              window.scrollY -
+              padding
+            : 0
+          window.scrollTo(0, scrollTo)
+        }
+      }
+    )
   }
 
   checkToActivateTopInfiniteScroll = getScrollInfo => {
@@ -302,6 +329,7 @@ class TransactionsPage extends Component {
               urls={urls}
               brands={brandsWithoutTrigger}
               filteringOnAccount={filteringOnAccount}
+              manualLoadMore={onIOS()}
             />
           )}
         </div>

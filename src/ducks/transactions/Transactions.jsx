@@ -4,6 +4,7 @@ import cx from 'classnames'
 import find from 'lodash/find'
 import sortBy from 'lodash/sortBy'
 import throttle from 'lodash/throttle'
+import debounce from 'lodash/debounce'
 import keyBy from 'lodash/keyBy'
 import format from 'date-fns/format'
 import {
@@ -11,7 +12,8 @@ import {
   withBreakpoints,
   ListItemText,
   Caption,
-  Text
+  Text,
+  Button
 } from 'cozy-ui/react'
 import { Figure } from 'components/Figure'
 import { flowRight as compose, toPairs, groupBy } from 'lodash'
@@ -29,8 +31,9 @@ import { withUpdateCategory } from 'ducks/categories'
 import { withDispatch } from 'utils'
 import styles from './Transactions.styl'
 import { Media, Bd, Img } from 'cozy-ui/react/Media'
-import InfiniteScroll from './InfiniteScroll'
+import { InfiniteScroll, ScrollRestore } from './scroll'
 import TransactionModal from './TransactionModal'
+import { onIOS } from 'utils/platform'
 
 const sDate = styles['bnk-op-date']
 const sDesc = styles['bnk-op-desc']
@@ -121,10 +124,9 @@ const TableTrDesktop = compose(translate(), withDispatch, withUpdateCategory())(
   _TableTrDesktop
 )
 
-const TableTrNoDesktop = translate()(
-  ({ t, transaction, selectTransaction, filteringOnAccount, ...props }) => {
-    const onSelectTransaction = () => selectTransaction(transaction)
-
+class _TableTrNoDesktop extends React.PureComponent {
+  render() {
+    const { transaction, t, filteringOnAccount, ...props } = this.props
     return (
       <tr className={styles['bnk-transaction-mobile']}>
         <td>
@@ -136,21 +138,21 @@ const TableTrNoDesktop = translate()(
                   getCategoryId(transaction)
                 )}`
               )}
-              onClick={onSelectTransaction}
+              onClick={this.handleSelect}
             >
               <CategoryIcon
                 category={getParentCategory(getCategoryId(transaction))}
               />
             </Img>
             <Bd className={cx('u-clickable', 'u-mr-half u-ellipsis')}>
-              <ListItemText onClick={onSelectTransaction}>
+              <ListItemText onClick={this.handleSelect}>
                 <Text>{getLabel(transaction)}</Text>
                 <Caption className={styles['bnk-op-desc-caption']}>
                   {!filteringOnAccount && getAccountLabel(transaction.account)}
                 </Caption>
               </ListItemText>
             </Bd>
-            <Img onClick={onSelectTransaction} className="u-clickable">
+            <Img onClick={this.handleSelect} className="u-clickable">
               <Figure
                 total={transaction.amount}
                 currency={transaction.currency}
@@ -172,7 +174,13 @@ const TableTrNoDesktop = translate()(
       </tr>
     )
   }
-)
+
+  handleSelect = () => {
+    this.props.selectTransaction(this.props.transaction)
+  }
+}
+
+const TableTrNoDesktop = translate()(_TableTrNoDesktop)
 
 export const TransactionTableHead = (props, { t }) => (
   <div
@@ -223,6 +231,26 @@ class ScrollSpy {
   }
 }
 
+const btnStyle = { width: '100%', padding: '0.75rem', margin: 0 }
+const LoadMoreButton = ({ children, onClick }) => (
+  <tbody className="js-LoadMore">
+    <tr>
+      <td style={{ textAlign: 'center' }}>
+        <Button style={btnStyle} onClick={onClick} subtle>
+          {children}
+        </Button>
+      </td>
+    </tr>
+  </tbody>
+)
+
+const shouldRestore = (oldProps, nextProps) => {
+  return (
+    oldProps.limitMin !== nextProps.limitMin &&
+    oldProps.limitMax === nextProps.limitMax
+  )
+}
+
 class TransactionsD extends React.Component {
   state = {
     infiniteScrollTop: false
@@ -256,12 +284,12 @@ class TransactionsD extends React.Component {
     }
   }
 
-  handleScroll = throttle(
+  handleScroll = (onIOS() ? debounce : throttle)(
     getScrollInfo => {
       this.props.onScroll(getScrollInfo)
       this.updateTopMostVisibleTransaction()
     },
-    100,
+    300,
     { leading: false, trailing: true }
   )
 
@@ -282,10 +310,12 @@ class TransactionsD extends React.Component {
   renderTransactions() {
     const {
       f,
+      t,
       selectTransaction,
       limitMin,
       limitMax,
       breakpoints: { isDesktop, isExtraLarge },
+      manualLoadMore,
       ...props
     } = this.props
     const transactions = this.transactions.slice(limitMin, limitMax)
@@ -295,6 +325,12 @@ class TransactionsD extends React.Component {
         className={styles['TransactionTable']}
         ref={ref => (this.transactionsRef = ref)}
       >
+        {manualLoadMore &&
+          limitMin > 0 && (
+            <LoadMoreButton onClick={() => this.props.onReachTop(20)}>
+              {t('Transactions.see-more')}
+            </LoadMoreButton>
+          )}
         {transactionsOrdered.map(dateAndGroup => {
           const date = dateAndGroup[0]
           const transactionGroup = dateAndGroup[1]
@@ -329,14 +365,21 @@ class TransactionsD extends React.Component {
             </tbody>
           )
         })}
+        {manualLoadMore &&
+          limitMax < this.transactions.length && (
+            <LoadMoreButton onClick={() => this.props.onReachBottom(20)}>
+              {t('Transactions.see-more')}
+            </LoadMoreButton>
+          )}
       </Table>
     )
   }
 
   render() {
-    const { limitMin, limitMax } = this.props
+    const { limitMin, limitMax, manualLoadMore } = this.props
     return (
       <InfiniteScroll
+        manual={manualLoadMore}
         canLoadAtTop={this.props.infiniteScrollTop && limitMin > 0}
         canLoadAtBottom={limitMax < this.transactions.length}
         limitMin={limitMin}
@@ -347,7 +390,14 @@ class TransactionsD extends React.Component {
         onScroll={this.handleScroll}
         className={this.props.className}
       >
-        {this.renderTransactions()}
+        <ScrollRestore
+          limitMin={limitMin}
+          limitMax={limitMax}
+          getScrollingElement={this.getScrollingElement}
+          shouldRestore={shouldRestore}
+        >
+          {this.renderTransactions(manualLoadMore)}
+        </ScrollRestore>
       </InfiniteScroll>
     )
   }

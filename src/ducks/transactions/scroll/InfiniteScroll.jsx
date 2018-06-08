@@ -2,6 +2,7 @@ import React from 'react'
 import debounce from 'lodash/debounce'
 import throttle from 'lodash/throttle'
 import ReactDOM from 'react-dom'
+import { getScroll, getScrollHeight } from './utils'
 
 function elementInViewport(el, thresold) {
   if (!el) {
@@ -17,11 +18,12 @@ function elementInViewport(el, thresold) {
 class InfiniteScroll extends React.Component {
   constructor(props) {
     super(props)
-    this.checkForLimits = throttle(this.checkForLimits, 100)
+    this.checkForLimits = throttle(this.checkForLimits.bind(this), 100)
     this.onWindowResize = debounce(this.onWindowResize, 500)
   }
 
   componentDidMount() {
+    this.scrollingElement = this.getScrollingElement()
     this.listenToScroll()
     this.checkForLimits()
     window.addEventListener('resize', this.onWindowResize)
@@ -42,26 +44,13 @@ class InfiniteScroll extends React.Component {
     this.unmounted = true
   }
 
-  componentWillUpdate(nextProps) {
-    // If the top limit has changed (elements have been added at the top),
-    // we need to schedule a restore of the scroll position
-    if (this.props.limitMin !== nextProps.limitMin) {
-      this.restoreScroll = this.getRestoreScroll()
-    }
-  }
-
   componentDidUpdate(prevProps) {
-    if (this.restoreScroll) {
-      this.restoreScroll()
-      this.restoreScroll = null
-    }
     if (prevProps.children !== this.props.children) {
       this.checkForLimits()
     }
   }
 
   listenToScroll() {
-    this.scrollingElement = this.getScrollingElement()
     if (!this.scrollingElement) {
       throw new Error(
         'getScrollingElement returned null, make sure it returns a node.'
@@ -70,51 +59,20 @@ class InfiniteScroll extends React.Component {
     this.scrollingElement.addEventListener('scroll', this.handleScroll, {
       passive: true
     })
-    this.scrollingElement.addEventListener('touchmove', this.handleTouchMove, {
-      passive: true
-    })
-  }
-
-  handleTouchMove = () => {
-    this.handleScroll()
-    const handleScroll = () => {
-      if (!this.unmounted) {
-        this.handleScroll()
-      }
-    }
-
-    // Execute during momentum scrolling
-    setTimeout(handleScroll, 1000)
-    setTimeout(handleScroll, 2000)
   }
 
   stopListeningToScroll() {
     if (this.scrollingElement) {
       this.scrollingElement.removeEventListener('scroll', this.handleScroll)
-      this.scrollingElement.removeEventListener(
-        'touchmove',
-        this.handleTouchMove
-      )
     }
   }
 
   getScroll = () => {
     const node = this.getScrollingElement()
-    return node === window
-      ? window.pageYOffset || document.documentElement.scrollTop
-      : node.scrollTop
-  }
-
-  setScroll(scroll) {
-    if (this.scrollingElement === window) {
-      this.scrollingElement.scrollTo(0, scroll)
-    } else {
-      this.scrollingElement.scrollTop = scroll
-    }
+    return getScroll(node)
   }
 
   handleScroll = () => {
-    this.checkForLimits()
     if (this.props.onScroll) {
       this.props.onScroll(this.getScrollInfo)
     }
@@ -128,27 +86,13 @@ class InfiniteScroll extends React.Component {
   }
 
   getScrollHeight() {
-    if (this.scrollingElement === window) {
-      const node =
-        window.document.scrollingElement || window.document.documentElement
-      return node.getBoundingClientRect().height
-    } else {
-      return this.scrollingElement.scrollHeight
-    }
-  }
-
-  getRestoreScroll() {
-    // Save scroll position to restore it later
-    const height = this.getScrollHeight()
-    const scroll = this.getScroll()
-    return function() {
-      const newHeight = this.getScrollHeight()
-      const newScroll = scroll + (newHeight - height)
-      this.setScroll(newScroll)
-    }
+    return getScrollHeight(this.scrollingElement)
   }
 
   checkForLimits() {
+    if (this.props.manual) {
+      return
+    }
     const reachingTop = elementInViewport(
       this.limitMinRef,
       -this.props.thresoldTop

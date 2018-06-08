@@ -12,6 +12,7 @@ import { setupHistory } from 'utils/history'
 import { getClient } from 'utils/client'
 import { fetchSettingsCollection, initSettings } from 'ducks/settings'
 import 'utils/flag'
+import FastClick from 'fastclick'
 
 if (__TARGET__ === 'mobile') {
   require('styles/mobile.styl')
@@ -71,9 +72,22 @@ const setupApp = persistedState => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  FastClick.attach(document.body)
   loadState().then(setupApp)
 })
 
+const makeItShine = node => {
+  node.style.boxShadow = 'inset 0px 0px 20px yellow'
+  node.style.transition = 'box-shadow 0.3s ease'
+  setTimeout(() => {
+    node.style.boxShadow = 'inset 0 0 0'
+  }, 2000)
+}
 if (module.hot) {
-  module.hot.accept('./AppContainer', () => requestAnimationFrame(initRender))
+  module.hot.accept('./AppContainer', () =>
+    requestAnimationFrame(() => {
+      makeItShine(document.body)
+      initRender()
+    })
+  )
 }
