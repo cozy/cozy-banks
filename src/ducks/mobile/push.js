@@ -1,5 +1,6 @@
 /* global PushNotification, cozy */
 import { hashHistory } from 'react-router'
+import { onIOS } from 'utils/platform'
 
 let push
 
@@ -9,7 +10,7 @@ export const registerPushNotifications = () => async (dispatch, getState) => {
   }
 
   // No push notification for now on iOS
-  if (window.device && window.device.platform == 'iOS') {
+  if (onIOS()) {
     return
   }
 
