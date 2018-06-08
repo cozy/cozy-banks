@@ -194,7 +194,13 @@ class TransactionsPage extends Component {
       () => {
         // need to scroll past the LoadMore button
         if (onIOS()) {
-          const scrollTo = limitMin > 0 ? 65 : 0
+          const LoadMoreBtn = document.querySelector('.js-LoadMore')
+          const padding = 15
+          const scrollTo = LoadMoreBtn
+            ? LoadMoreBtn.getBoundingClientRect().bottom +
+              window.scrollY -
+              padding
+            : 0
           window.scrollTo(0, scrollTo)
         }
       }

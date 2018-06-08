@@ -231,7 +231,7 @@ class ScrollSpy {
 
 const btnStyle = { width: '100%', padding: '0.75rem', margin: 0 }
 const LoadMoreButton = ({ children, onClick }) => (
-  <tbody>
+  <tbody className="js-LoadMore">
     <tr>
       <td style={{ textAlign: 'center' }}>
         <Button style={btnStyle} onClick={onClick} subtle>
