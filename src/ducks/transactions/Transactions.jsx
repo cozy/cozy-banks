@@ -4,6 +4,7 @@ import cx from 'classnames'
 import find from 'lodash/find'
 import sortBy from 'lodash/sortBy'
 import throttle from 'lodash/throttle'
+import debounce from 'lodash/debounce'
 import keyBy from 'lodash/keyBy'
 import format from 'date-fns/format'
 import {
@@ -32,6 +33,7 @@ import styles from './Transactions.styl'
 import { Media, Bd, Img } from 'cozy-ui/react/Media'
 import { InfiniteScroll, ScrollRestore } from './scroll'
 import TransactionModal from './TransactionModal'
+import { onIOS } from 'utils/platform'
 
 const sDate = styles['bnk-op-date']
 const sDesc = styles['bnk-op-desc']
@@ -282,12 +284,12 @@ class TransactionsD extends React.Component {
     }
   }
 
-  handleScroll = throttle(
+  handleScroll = (onIOS() ? debounce : throttle)(
     getScrollInfo => {
       this.props.onScroll(getScrollInfo)
       this.updateTopMostVisibleTransaction()
     },
-    100,
+    300,
     { leading: false, trailing: true }
   )
 
