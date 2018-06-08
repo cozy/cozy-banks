@@ -60,6 +60,7 @@ At the **start** of the release process
 1. Bump the `version` number in `package.json` and `config.xml` according to semver.
 2. Copy this version to the `ios-CFBundleVersion` attribute and add a fourth number `.1` (then `.2` for the next beta version etc..)
 3. For `android-versionCode`, follow this formula `beta + patch*100 + minor * 10000 + major * 1000000`.
+4. Update the version number for the `AppendUserAgent` preference in `config.xml`.
 
 At the **end** of the release process
 
