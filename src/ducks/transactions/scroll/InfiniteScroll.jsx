@@ -73,9 +73,6 @@ class InfiniteScroll extends React.Component {
   }
 
   handleScroll = () => {
-    if (!this.props.manual) {
-      this.checkForLimits()
-    }
     if (this.props.onScroll) {
       this.props.onScroll(this.getScrollInfo)
     }
@@ -93,6 +90,9 @@ class InfiniteScroll extends React.Component {
   }
 
   checkForLimits() {
+    if (this.props.manual) {
+      return
+    }
     const reachingTop = elementInViewport(
       this.limitMinRef,
       -this.props.thresoldTop
