@@ -19,6 +19,7 @@ module.exports = {
   production: production,
   target: target,
   hotReload,
+  analyze: process.env.WEBPACK_ANALYZE,
   extractor: new ExtractTextPlugin({
     disable: hotReload ? true : false,
     filename: `app${production ? '.[hash].min' : ''}.css`
