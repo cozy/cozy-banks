@@ -188,7 +188,8 @@
     ],
     "moduleDirectories": [
       "node_modules",
-      "src"
+      "src",
+      "<rootDir>"
     ],
     "moduleNameMapper": {
       "\\.(png|gif|jpe?g|svg)$": "<rootDir>/test/__mocks__/fileMock.js",
