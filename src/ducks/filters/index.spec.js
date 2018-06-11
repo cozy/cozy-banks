@@ -8,7 +8,7 @@ import reducer, {
 
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { DESTROY_ACCOUNT } from 'actions/accounts'
-import { getTransactions, getGroups, getAccounts } from 'selectors'
+import { getTransactions, getAllGroups, getAccounts } from 'selectors'
 import tz from 'timezone'
 
 const eu = tz(require('timezone/Europe'))
@@ -142,7 +142,7 @@ describe('filter selectors', () => {
       { _id: 'a1', _type: ACCOUNT_DOCTYPE, label: 'Account 1' },
       { _id: 'a2', _type: ACCOUNT_DOCTYPE, label: 'Account 2' }
     ])
-    getGroups.mockReturnValue([
+    getAllGroups.mockReturnValue([
       {
         _id: 'g0',
         _type: GROUP_DOCTYPE,
@@ -157,22 +157,22 @@ describe('filter selectors', () => {
   const checkReset = () => {
     dispatchOnFilters(resetFilterByDoc())
     expect(getFilteredTransactions(state).map(x => x._id)).toEqual([
-      't0',
-      't1',
-      't2',
+      't4',
       't3',
-      't4'
+      't2',
+      't1',
+      't0'
     ])
   }
 
   describe('reset', function() {
     it('should get transactions that have an account', () => {
       expect(getFilteredTransactions(state).map(x => x._id)).toEqual([
-        't0',
-        't1',
-        't2',
+        't4',
         't3',
-        't4'
+        't2',
+        't1',
+        't0'
       ])
     })
 
@@ -186,26 +186,26 @@ describe('filter selectors', () => {
     it('should select transactions in a period', () => {
       dispatchOnFilters(addFilterByPeriod('2018-02'))
       expect(getFilteredTransactions(state).map(x => x._id)).toEqual([
-        't7',
         't8',
-        't9'
+        't9',
+        't7'
       ])
       dispatchOnFilters(addFilterByPeriod('2018'))
       // t5, t6 are orphan transactions
       expect(getFilteredTransactions(state).map(x => x._id)).toEqual([
-        't0',
-        't1',
-        't2',
-        't3',
-        't4',
-        't7',
         't8',
-        't9'
+        't9',
+        't7',
+        't4',
+        't3',
+        't2',
+        't1',
+        't0'
       ])
       dispatchOnFilters(addFilterByPeriod('2019'))
       expect(getFilteredTransactions(state).map(x => x._id)).toEqual([
-        't10',
-        't11'
+        't11',
+        't10'
       ])
 
       // range
@@ -213,9 +213,9 @@ describe('filter selectors', () => {
         addFilterByPeriod([new Date(2018, 1, 1), new Date(2019, 0, 1)])
       )
       expect(getFilteredTransactions(state).map(x => x._id)).toEqual([
+        't10',
         't8',
-        't9',
-        't10'
+        't9'
       ])
     })
 
@@ -223,15 +223,15 @@ describe('filter selectors', () => {
       dispatchOnFilters(filterByDoc({ _id: 'a0', _type: ACCOUNT_DOCTYPE }))
       expect(getFilteredAccounts(state).map(x => x._id)).toEqual(['a0'])
       expect(getFilteredTransactions(state).map(x => x._id)).toEqual([
-        't0',
-        't4'
+        't4',
+        't0'
       ])
 
       dispatchOnFilters(filterByDoc({ _id: 'a1', _type: ACCOUNT_DOCTYPE }))
       expect(getFilteredAccounts(state).map(x => x._id)).toEqual(['a1'])
       expect(getFilteredTransactions(state).map(x => x._id)).toEqual([
-        't1',
-        't2'
+        't2',
+        't1'
       ])
 
       dispatchOnFilters(filterByDoc({ _id: 'a2', _type: ACCOUNT_DOCTYPE }))
@@ -253,10 +253,10 @@ describe('filter selectors', () => {
       dispatchOnFilters(filterByDoc({ _id: 'g0', _type: GROUP_DOCTYPE }))
       expect(getFilteredAccounts(state).map(x => x._id)).toEqual(['a0', 'a1'])
       expect(getFilteredTransactions(state).map(x => x._id)).toEqual([
-        't0',
-        't1',
+        't4',
         't2',
-        't4'
+        't1',
+        't0'
       ])
 
       dispatchOnFilters(filterByDoc({ _id: 'g1', _type: GROUP_DOCTYPE }))
@@ -271,11 +271,11 @@ describe('filter selectors', () => {
         'a2'
       ])
       expect(getFilteredTransactions(state).map(x => x._id)).toEqual([
-        't0',
-        't1',
-        't2',
+        't4',
         't3',
-        't4'
+        't2',
+        't1',
+        't0'
       ])
 
       checkReset()
