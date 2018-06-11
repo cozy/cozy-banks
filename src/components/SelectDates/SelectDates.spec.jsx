@@ -8,7 +8,7 @@ describe('SelectDates', () => {
   it('should render correctly', () => {
     let root = shallow(
       <AppLike>
-        <SelectDates onChange={() => null}/>
+        <SelectDates onChange={() => null} />
       </AppLike>
     )
     expect(root.html()).toMatchSnapshot()

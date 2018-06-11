@@ -1,4 +1,3 @@
-
 import { getOptions } from './TransactionSelectDates'
 import fixtures from 'test/fixtures'
 
