@@ -7,7 +7,7 @@ import merge from 'lodash/merge'
 import keyBy from 'lodash/keyBy'
 
 import { SyncTransactionActions } from './TransactionActions'
-import { hydrateReimbursementWithBill } from 'documents/transaction'
+import { hydrateReimbursementWithBill } from 'ducks/transactions/helpers'
 import { findMatchingActions } from 'ducks/transactions/actions'
 
 import dataTpl from '../../../test/fixtures/operations.json'
