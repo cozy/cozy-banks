@@ -23,6 +23,7 @@ before_install:
   - ssh-add /tmp/deploy_rsa
 script:
   - yarn lint
+  - yarn test
   - yarn build
 deploy:
   - provider: script
