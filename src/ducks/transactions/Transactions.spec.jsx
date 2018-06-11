@@ -28,7 +28,7 @@ describe('transaction row', () => {
     account: find(allAccounts, a => a._id == rawTransaction.account)
   }
 
-  it('should render correctly', () => {
+  it('should render correctly on desktop', () => {
     root = mount(
       wrapRow(
         <TableTrDesktop transaction={transaction} urls={{}} brands={[]} />
@@ -37,7 +37,7 @@ describe('transaction row', () => {
     expect(root.find(Caption).text()).toBe('Compte courant Isabelle - BNPP')
   })
 
-  it('should render correctly', () => {
+  it('should render correctly on mobile', () => {
     root = mount(
       wrapRow(
         <TableTrNoDesktop transaction={transaction} urls={{}} brands={[]} />
