@@ -1,6 +1,6 @@
 import configureStore from 'store/configureStore'
 import { createDocument } from 'cozy-client'
-import { hydrateTransaction } from './transaction'
+import { hydrateTransaction } from './helpers'
 import { BILLS_DOCTYPE } from 'doctypes'
 
 const fakeCozyClient = {
