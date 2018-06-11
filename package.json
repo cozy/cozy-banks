@@ -197,6 +197,10 @@
       "hbs$": "identity-obj-proxy",
       "webapp$": "identity-obj-proxy"
     },
+    "testPathIgnorePatterns": [
+      "node_modules",
+      "src/targets/mobile/"
+    ],
     "transformIgnorePatterns": [
       "node_modules/(?!(cozy-ui|cozy-client))"
     ],

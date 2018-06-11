@@ -5,3 +5,9 @@ configure({ adapter: new Adapter() })
 
 global.mount = mount
 global.shallow = shallow
+global.cozy = {
+  bar: {
+    BarLeft: () => null,
+    BarRight: () => null
+  }
+}
