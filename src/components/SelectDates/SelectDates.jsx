@@ -115,6 +115,7 @@ class SelectDatesDumb extends React.PureComponent {
       return {
         value: option.yearMonth,
         year,
+        disabled: option.disabled,
         month: format(date, 'MM'),
         yearF: year,
         monthF: capitalizeFirstLetter(f(date, 'MMMM'))

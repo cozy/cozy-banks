@@ -25,7 +25,8 @@ import {
   getFilteredTransactions
 } from 'ducks/filters'
 
-import SelectDates, { ConnectedSelectDates } from 'components/SelectDates'
+import { ConnectedSelectDates } from 'components/SelectDates'
+import TransactionSelectDates from 'ducks/transactions/TransactionSelectDates'
 import { fetchTransactions } from 'actions/transactions'
 import { getAppUrlById, fetchApps } from 'ducks/apps'
 import { getCategoryIdFromName } from 'ducks/categories/categoriesMap'
@@ -282,7 +283,8 @@ class TransactionsPage extends Component {
             </BarRight>
           )}
           {!subcategoryName ? (
-            <SelectDates
+            <TransactionSelectDates
+              transactions={filteredTransactions}
               value={this.state.currentMonth}
               onChange={this.handleChangeMonth}
             />

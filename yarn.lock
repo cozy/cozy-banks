@@ -2994,9 +2994,9 @@ cozy-logger@^1.0.4:
   dependencies:
     json-stringify-safe "5.0.1"
 
-cozy-ui@^9.5.0:
-  version "9.5.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-9.5.0.tgz#1f73832d156e1fe03c1d20077a91b808281b2097"
+"cozy-ui@git://github.com/cozy/cozy-ui.git#disabled-option-style":
+  version "0.0.0-development"
+  resolved "git://github.com/cozy/cozy-ui.git#d99821d82a7161ece814b3b8085e6d12d3fd4e5b"
   dependencies:
     babel-preset-cozy-app "^0.3.1"
     classnames "^2.2.5"
