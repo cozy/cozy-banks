@@ -1,36 +1,17 @@
 /* global mount */
 
-import dummyjson from 'dummy-json'
 import React from 'react'
-import { createStore } from 'redux'
-import merge from 'lodash/merge'
+
 import keyBy from 'lodash/keyBy'
 
 import { SyncTransactionActions } from './TransactionActions'
 import { hydrateReimbursementWithBill } from 'documents/transaction'
 import { findMatchingActions } from 'ducks/transactions/actions'
 
-import dataTpl from '../../../test/fixtures/operations.json'
-import helpers from '../../../test/fixtures/helpers'
 import brands from 'ducks/brandDictionary/brands'
 import AppLike from '../../../test/AppLike'
-
-const data = JSON.parse(
-  dummyjson.parse(
-    JSON.stringify(dataTpl),
-    merge(helpers, {
-      helpers: {
-        reference: x => x
-      }
-    })
-  )
-)
-
-const store = createStore(() => ({
-  mobile: {
-    url: 'cozy-url://'
-  }
-}))
+import data from '../../../test/fixtures'
+import store from '../../../test/store'
 
 jest.mock('utils/documentCache', () => ({
   get: (doctype, id) => mockBillsById[id]
