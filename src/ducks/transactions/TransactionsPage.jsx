@@ -29,13 +29,13 @@ import SelectDates, { ConnectedSelectDates } from 'components/SelectDates'
 import { fetchTransactions } from 'actions/transactions'
 import { getAppUrlById, fetchApps } from 'ducks/apps'
 import { getCategoryIdFromName } from 'ducks/categories/categoriesMap'
+import { hydrateTransaction, getDate } from 'ducks/transactions/helpers'
 import { getCategoryId } from 'ducks/categories/helpers'
 
 import Loading from 'components/Loading'
 import { Breadcrumb } from 'components/Breadcrumb'
 import BackButton from 'components/BackButton'
 
-import { hydrateTransaction } from 'documents/transaction'
 import { TransactionTableHead, TransactionsWithSelection } from './Transactions'
 import styles from './TransactionsPage.styl'
 import { TRIGGER_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
@@ -49,6 +49,7 @@ const isPendingOrLoading = function(col) {
   return col.fetchStatus === 'pending' || col.fetchStatus === 'loading'
 }
 
+const STEP_INFINITE_SCROLL = 30
 const SCROLL_THRESOLD_TO_ACTIVATE_TOP_INFINITE_SCROLL = 150
 const getMonth = date => date.slice(0, 7)
 
@@ -82,7 +83,7 @@ class TransactionsPage extends Component {
   state = {
     fetching: false,
     limitMin: 0,
-    limitMax: 10,
+    limitMax: STEP_INFINITE_SCROLL,
     infiniteScrollTop: false
   }
 
@@ -140,19 +141,18 @@ class TransactionsPage extends Component {
 
   handleIncreaseLimitMax = () => {
     this.setState({
-      limitMax: this.state.limitMax + 10
+      limitMax: this.state.limitMax + STEP_INFINITE_SCROLL
     })
   }
 
-  handleDecreaseLimitMin = (amount = 10) => {
+  handleDecreaseLimitMin = (amount = STEP_INFINITE_SCROLL) => {
     const transactions = this.props.filteredTransactions
     let goal = Math.max(this.state.limitMin - amount, 0)
 
     // try not have a cut on the same day
     while (
       goal > 0 &&
-      transactions[goal].date.slice(0, 10) ===
-        transactions[goal - 1].date.slice(0, 10)
+      getDate(transactions[goal]) === getDate(transactions[goal - 1])
     ) {
       goal--
     }

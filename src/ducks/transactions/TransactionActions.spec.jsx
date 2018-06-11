@@ -5,7 +5,7 @@ import React from 'react'
 import keyBy from 'lodash/keyBy'
 
 import { SyncTransactionActions } from './TransactionActions'
-import { hydrateReimbursementWithBill } from 'documents/transaction'
+import { hydrateReimbursementWithBill } from 'ducks/transactions/helpers'
 import { findMatchingActions } from 'ducks/transactions/actions'
 
 import brands from 'ducks/brandDictionary/brands'

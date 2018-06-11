@@ -122,7 +122,7 @@ class InfiniteScroll extends React.Component {
 }
 
 InfiniteScroll.defaultProps = {
-  thresoldTop: 50,
+  thresoldTop: 100,
   thresoldBottom: -100,
   thresoldForInfiniteScrollTop: 150,
   getScrollingElement: function() {
