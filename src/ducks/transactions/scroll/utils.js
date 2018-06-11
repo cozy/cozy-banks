@@ -22,7 +22,7 @@ export const getScrollHeight = node => {
     const el =
       window.document.scrollingElement || window.document.documentElement
     return el.getBoundingClientRect().height
-  } else if (this.scrollingElement) {
+  } else if (node) {
     return node.scrollHeight
   } else {
     throw new Error('getScrollHeight: no scrolling element !')
