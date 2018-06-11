@@ -8,7 +8,7 @@ import reducer, {
 
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { DESTROY_ACCOUNT } from 'actions/accounts'
-import { getTransactions, getGroups, getAccounts } from 'selectors'
+import { getTransactions, getAllGroups, getAccounts } from 'selectors'
 import tz from 'timezone'
 
 const eu = tz(require('timezone/Europe'))
@@ -142,7 +142,7 @@ describe('filter selectors', () => {
       { _id: 'a1', _type: ACCOUNT_DOCTYPE, label: 'Account 1' },
       { _id: 'a2', _type: ACCOUNT_DOCTYPE, label: 'Account 2' }
     ])
-    getGroups.mockReturnValue([
+    getAllGroups.mockReturnValue([
       {
         _id: 'g0',
         _type: GROUP_DOCTYPE,
@@ -273,9 +273,9 @@ describe('filter selectors', () => {
       expect(getFilteredTransactions(state).map(x => x._id)).toEqual([
         't4',
         't3',
-        't0',
         't2',
-        't1'
+        't1',
+        't0'
       ])
 
       checkReset()
