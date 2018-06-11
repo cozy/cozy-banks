@@ -173,7 +173,7 @@ describe('transaction action menu', () => {
       const mergedActionProps = { ...actionProps, ...specificActionProps }
       const actions = await findMatchingActions(transaction, mergedActionProps)
       const root = mount(
-        <AppLike>
+        <AppLike store={store}>
           <SyncTransactionActions
             transaction={transaction}
             actions={actions}
