@@ -20,7 +20,10 @@ import { flowRight as compose, toPairs, groupBy } from 'lodash'
 import { Table, TdSecondary } from 'components/Table'
 import TransactionActions from './TransactionActions'
 import { getLabel } from './helpers'
-import { getAccountLabel } from 'ducks/account/helpers'
+import {
+  getAccountLabel,
+  getAccountInstitutionLabel
+} from 'ducks/account/helpers'
 import {
   getParentCategory,
   getCategoryName
@@ -84,9 +87,13 @@ class _TableTrDesktop extends PureComponent {
             <Bd className="u-pl-1">
               <ListItemText onClick={this.onSelectTransaction}>
                 <Text>{getLabel(transaction)}</Text>
-                <Caption className={styles['bnk-op-desc-caption']}>
-                  {!filteringOnAccount && getAccountLabel(transaction.account)}
-                </Caption>
+                {!filteringOnAccount && (
+                  <Caption className={styles['bnk-op-desc-caption']}>
+                    {getAccountLabel(transaction.account)}
+                    {' - '}
+                    {getAccountInstitutionLabel(transaction.account)}
+                  </Caption>
+                )}
               </ListItemText>
             </Bd>
           </Media>
@@ -120,9 +127,11 @@ class _TableTrDesktop extends PureComponent {
   }
 }
 
-const TableTrDesktop = compose(translate(), withDispatch, withUpdateCategory())(
-  _TableTrDesktop
-)
+export const TableTrDesktop = compose(
+  translate(),
+  withDispatch,
+  withUpdateCategory()
+)(_TableTrDesktop)
 
 class _TableTrNoDesktop extends React.PureComponent {
   render() {
@@ -147,9 +156,13 @@ class _TableTrNoDesktop extends React.PureComponent {
             <Bd className={cx('u-clickable', 'u-mr-half u-ellipsis')}>
               <ListItemText onClick={this.handleSelect}>
                 <Text>{getLabel(transaction)}</Text>
-                <Caption className={styles['bnk-op-desc-caption']}>
-                  {!filteringOnAccount && getAccountLabel(transaction.account)}
-                </Caption>
+                {!filteringOnAccount && (
+                  <Caption className={styles['bnk-op-desc-caption']}>
+                    {getAccountLabel(transaction.account)}
+                    {' - '}
+                    {getAccountInstitutionLabel(transaction.account)}
+                  </Caption>
+                )}
               </ListItemText>
             </Bd>
             <Img onClick={this.handleSelect} className="u-clickable">
@@ -180,7 +193,7 @@ class _TableTrNoDesktop extends React.PureComponent {
   }
 }
 
-const TableTrNoDesktop = translate()(_TableTrNoDesktop)
+export const TableTrNoDesktop = translate()(_TableTrNoDesktop)
 
 export const TransactionTableHead = (props, { t }) => (
   <div
