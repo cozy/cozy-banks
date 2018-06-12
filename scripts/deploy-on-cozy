@@ -3,7 +3,7 @@
 # https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -euo pipefail
 
-JOB_UPDATE_RECETTE="87a668f7-eff1-422d-aa84-92b3bcc62c8f"
+JOB_UPDATE_INT="87a668f7-eff1-422d-aa84-92b3bcc62c8f"
 JOB_UPDATE_STAGING="ad27f2f6-63d9-4a16-ab62-e25c957875b5"
 function executeRundeck {
   INSTANCE=$1
@@ -47,10 +47,10 @@ function deploy {
 APP_SLUG="banks"
 
 echo "Deploying $APP_SLUG on recette:"
-deploy "recette.cozy.works" $JOB_UPDATE_RECETTE $APP_SLUG
+deploy "recette.cozy.works" $JOB_UPDATE_INT $APP_SLUG
 
 echo "Deploying $APP_SLUG on grrecette:"
-deploy "grrecette.cozy.works" $JOB_UPDATE_RECETTE $APP_SLUG
+deploy "grrecette.cozy.works" $JOB_UPDATE_INT $APP_SLUG
 
 echo "Deploying $APP_SLUG on gangsters:"
 deploy "gangsters.cozy.rocks" $JOB_UPDATE_STAGING $APP_SLUG
