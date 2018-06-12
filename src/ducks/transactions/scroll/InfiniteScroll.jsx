@@ -76,6 +76,7 @@ class InfiniteScroll extends React.Component {
     if (this.props.onScroll) {
       this.props.onScroll(this.getScrollInfo)
     }
+    this.checkForLimits()
   }
 
   getScrollInfo = () => {
