@@ -21,7 +21,7 @@ export const getOptions = transactions => {
   const mAvailableMonths = new Set(availableMonths)
 
   const start = parse(availableMonths[0], 'YYYY-MM')
-  const end = parse(availableMonths[availableMonths.length - 1], 'YYYY-MM')
+  const end = new Date()
 
   return rangeMonth(start, end).map(month => {
     const fmted = format(month, 'YYYY-MM')
