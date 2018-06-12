@@ -2,7 +2,7 @@ import React from 'react'
 import { I18n } from 'cozy-ui/react'
 import { Provider } from 'react-redux'
 import langEn from 'locales/en.json'
-import PropTypes from 'prop-types'
+import store from 'test/store'
 
 const AppLike = ({ children, store }) => (
   <I18n lang={'en'} dictRequire={() => langEn}>
@@ -10,8 +10,8 @@ const AppLike = ({ children, store }) => (
   </I18n>
 )
 
-AppLike.propTypes = {
-  store: PropTypes.object.isRequired
+AppLike.defaultProps = {
+  store
 }
 
 export default AppLike

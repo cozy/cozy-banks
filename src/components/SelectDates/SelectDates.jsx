@@ -23,16 +23,18 @@ import scrollAware from './scrollAware'
 
 const start2016 = new Date(2015, 11, 31)
 
-const getPeriods = () => {
-  const periods = []
+const getDefaultOptions = () => {
+  const options = []
   const now = endOfDay(new Date())
 
   for (let i = 0; i < differenceInCalendarMonths(now, start2016); i++) {
     const month = format(subMonths(now, i), 'YYYY-MM')
-    periods.push(month)
+    options.push({
+      yearMonth: month
+    })
   }
 
-  return periods
+  return options
 }
 
 const isAllYear = value => value.includes('allyear')
@@ -82,8 +84,8 @@ const isFullYearValue = value => value && value.length === 4
 
 class SelectDatesDumb extends React.PureComponent {
   getSelectedIndex = () => {
-    const { periods, value } = this.props
-    return findIndex(periods, x => x === value)
+    const { options, value } = this.props
+    return findIndex(options, x => x.yearMonth === value)
   }
 
   getSelected() {
@@ -105,24 +107,20 @@ class SelectDatesDumb extends React.PureComponent {
 
   getOptions = () => {
     // create options
-    const { f, periods } = this.props
-    const options = []
+    const { f, options } = this.props
 
-    const years = {}
-    for (const value of periods) {
-      const date = parse(value, 'YYYY-MM')
+    return options.map(option => {
+      const date = parse(option.yearMonth, 'YYYY-MM')
       const year = format(date, 'YYYY')
-      years[year] = true
-      options.push({
-        value: value,
+      return {
+        value: option.yearMonth,
         year,
+        disabled: option.disabled,
         month: format(date, 'MM'),
         yearF: year,
         monthF: capitalizeFirstLetter(f(date, 'MMMM'))
-      })
-    }
-
-    return options
+      }
+    })
   }
 
   handleChooseNext = () => {
@@ -217,13 +215,16 @@ class SelectDatesDumb extends React.PureComponent {
     // divide options between year and months
     const years = uniqBy(options, x => x.year)
 
-    const selectedYear = selected.year
-    const selectedMonth = selected.month
+    const selectedYear = selected && selected.year
+    const selectedMonth = selected && selected.month
 
-    const months = options.filter(x => x.year === selectedYear)
+    const months = options.filter(
+      x => (selectedYear ? x.year === selectedYear : true)
+    )
     const monthsOptions = months.map(x => ({
       value: x.month,
-      name: x.monthF
+      name: x.monthF,
+      isDisabled: x.disabled
     }))
 
     if (showFullYear) {
@@ -317,7 +318,7 @@ const SelectDates = compose(translate(), scrollAware, withBreakpoints())(
 )
 
 SelectDates.defaultProps = {
-  periods: getPeriods()
+  options: getDefaultOptions()
 }
 
 SelectDates.propTypes = {

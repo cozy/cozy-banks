@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`options from select dates should compute correctly 1`] = `
+Array [
+  Object {
+    "disabled": false,
+    "yearMonth": "2018-01",
+  },
+  Object {
+    "disabled": true,
+    "yearMonth": "2017-12",
+  },
+  Object {
+    "disabled": true,
+    "yearMonth": "2017-11",
+  },
+  Object {
+    "disabled": true,
+    "yearMonth": "2017-10",
+  },
+  Object {
+    "disabled": true,
+    "yearMonth": "2017-09",
+  },
+  Object {
+    "disabled": false,
+    "yearMonth": "2017-08",
+  },
+  Object {
+    "disabled": false,
+    "yearMonth": "2017-07",
+  },
+]
+`;
