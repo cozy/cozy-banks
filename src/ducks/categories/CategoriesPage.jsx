@@ -44,13 +44,14 @@ class CategoriesPage extends Component {
     dispatch(updateOrCreate(settings))
   }
 
-  render({
-    t,
-    categories: categoriesProps,
-    transactions,
-    router,
-    settingsCollection
-  }) {
+  render() {
+    const {
+      t,
+      categories: categoriesProps,
+      transactions,
+      router,
+      settingsCollection
+    } = this.props
     const isFetching = transactions.fetchStatus !== 'loaded'
     const { showIncomeCategory } = getSettings(settingsCollection)
     const selectedCategoryName = router.params.categoryName

@@ -283,7 +283,7 @@ class AccountSwitch extends Component {
     }))
 
     if (!accounts || accounts.length === 0) {
-      return
+      return null
     }
 
     const closeAfterSelect = selection => param => {

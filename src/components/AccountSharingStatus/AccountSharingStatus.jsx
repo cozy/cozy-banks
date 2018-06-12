@@ -23,7 +23,8 @@ class AccountSharingStatus extends Component {
     }
   }
 
-  render({ sharingInfo, withText, tooltip }) {
+  render() {
+    const { sharingInfo, withText, tooltip } = this.props
     const info = (sharingInfo && sharingInfo.info) || {}
 
     const isShared = info.recipients && info.recipients.length > 0
@@ -45,16 +46,14 @@ class AccountSharingStatus extends Component {
         }
       : {}
 
-    return (
-      isShared && (
-        <Media {...rhProps}>
-          <Img>
-            <SharingIcon {...iconProps} />
-          </Img>
-          <Bd>{withText && <span>Partagé par {owner}</span>}</Bd>
-        </Media>
-      )
-    )
+    return isShared ? (
+      <Media {...rhProps}>
+        <Img>
+          <SharingIcon {...iconProps} />
+        </Img>
+        <Bd>{withText && <span>Partagé par {owner}</span>}</Bd>
+      </Media>
+    ) : null
   }
 }
 

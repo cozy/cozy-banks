@@ -3,6 +3,7 @@ import classNames from 'classnames'
 import Toggle from 'cozy-ui/react/Toggle'
 import { cozyConnect } from 'cozy-client'
 import Loading from 'components/Loading'
+import { translate } from 'cozy-ui/react'
 
 import {
   getSettings,
@@ -64,7 +65,7 @@ class Notifications extends Component {
     const hasValue = value !== undefined
 
     return (
-      <div>
+      <div key={notification.name}>
         <h5>{t(notification.title)}</h5>
         <div className={styles['notification']}>
           <p className={styles['notification-description']}>
@@ -97,7 +98,8 @@ class Notifications extends Component {
     )
   }
 
-  render({ settingsCollection }) {
+  render() {
+    const { settingsCollection } = this.props
     if (
       settingsCollection.fetchStatus === 'loading' ||
       settingsCollection.fetchStatus === 'pending'
@@ -124,4 +126,4 @@ const mapDocumentsToProps = () => ({
   settingsCollection: fetchSettingsCollection()
 })
 
-export default cozyConnect(mapDocumentsToProps)(Notifications)
+export default translate()(cozyConnect(mapDocumentsToProps)(Notifications))

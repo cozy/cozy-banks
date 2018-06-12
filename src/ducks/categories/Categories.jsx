@@ -30,12 +30,13 @@ class Categories extends Component {
     selectedCategory ? selectCategory(undefined) : selectCategory(categoryName)
   }
 
-  render({
-    t,
-    categories: categoriesProps,
-    selectedCategory,
-    breakpoints: { isDesktop, isTablet }
-  }) {
+  render() {
+    const {
+      t,
+      categories: categoriesProps,
+      selectedCategory,
+      breakpoints: { isDesktop, isTablet }
+    } = this.props
     let categories = categoriesProps || []
     if (selectedCategory) {
       categories = [selectedCategory]

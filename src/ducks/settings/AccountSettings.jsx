@@ -106,7 +106,9 @@ class _GeneralSettings extends Component {
     this.setState({ changes })
   }
 
-  render({ t, account }, { modifying, deleting, showingDeleteConfirmation }) {
+  render() {
+    const { t, account } = this.props
+    const { modifying, deleting, showingDeleteConfirmation } = this.state
     const confirmPrimaryText = t('AccountSettings.confirm-deletion.description')
       .replace('#{LINK}', `<a href="${this.props.collectUrl}" target="_blank">`)
       .replace('#{/LINK}', '</a>')

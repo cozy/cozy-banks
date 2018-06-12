@@ -54,7 +54,8 @@ const GroupList = withRouter(
 
 const Groups = withRouter(
   class _Groups extends Component {
-    render({ t, groups, accounts, router }) {
+    render() {
+      const { t, groups, accounts, router } = this.props
       if (isPending(groups) || isPending(accounts)) {
         return <Loading />
       }

@@ -27,7 +27,8 @@ export default ({ getLocation }) => Wrapped =>
         }
       }
 
-      render(props) {
+      render() {
+        const props = this.props
         return <Wrapped {...props} />
       }
     }

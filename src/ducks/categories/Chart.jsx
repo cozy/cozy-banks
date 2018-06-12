@@ -73,7 +73,9 @@ class Chart extends Component {
     }
   }
 
-  render({ width, height }, { data, options }) {
+  render() {
+    const { width, height } = this.props
+    const { data, options } = this.state
     return (
       <div className={styles['bnk-chart']}>
         <Doughnut
