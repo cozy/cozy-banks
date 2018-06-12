@@ -5,6 +5,8 @@ set -euo pipefail
 
 JOB_UPDATE_INT="87a668f7-eff1-422d-aa84-92b3bcc62c8f"
 JOB_UPDATE_STAGING="ad27f2f6-63d9-4a16-ab62-e25c957875b5"
+JOB_UPDATE_PROD="87a668f7-eff1-422d-aa84-92b3bcc62c8f"
+
 function executeRundeck {
   INSTANCE=$1
   JOB=$2
@@ -54,3 +56,7 @@ deploy "grrecette.cozy.works" $JOB_UPDATE_INT $APP_SLUG
 
 echo "Deploying $APP_SLUG on gangsters:"
 deploy "gangsters.cozy.rocks" $JOB_UPDATE_STAGING $APP_SLUG
+
+APP_SLUG_DEV=${APP_SLUG}"-dev"
+echo "Deploying $APP_SLUG_DEV on flo2:"
+deploy "flo2.mycozy.cloud" $JOB_UPDATE_PROD $APP_SLUG_DEV
