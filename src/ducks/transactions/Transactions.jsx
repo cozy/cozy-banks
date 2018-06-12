@@ -141,7 +141,7 @@ class _TableTrNoDesktop extends React.PureComponent {
         <td>
           <Media>
             <Img
-              className={cx('u-clickable', 'u-mr-half')}
+              className="u-clickable u-mr-half"
               title={t(
                 `Data.subcategories.${getCategoryName(
                   getCategoryId(transaction)
@@ -153,11 +153,13 @@ class _TableTrNoDesktop extends React.PureComponent {
                 category={getParentCategory(getCategoryId(transaction))}
               />
             </Img>
-            <Bd className={cx('u-clickable', 'u-mr-half u-ellipsis')}>
+            <Bd className="u-clickable u-mr-half">
               <ListItemText onClick={this.handleSelect}>
-                <Text>{getLabel(transaction)}</Text>
+                <Text className="u-ellipsis">{getLabel(transaction)}</Text>
                 {!filteringOnAccount && (
-                  <Caption className={styles['bnk-op-desc-caption']}>
+                  <Caption
+                    className={cx('u-ellipsis', styles['bnk-op-desc-caption'])}
+                  >
                     {getAccountLabel(transaction.account)}
                     {' - '}
                     {getAccountInstitutionLabel(transaction.account)}
