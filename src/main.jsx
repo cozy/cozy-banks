@@ -13,6 +13,7 @@ import { getClient } from 'utils/client'
 import { fetchSettingsCollection, initSettings } from 'ducks/settings'
 import 'utils/flag'
 import FastClick from 'fastclick'
+import { isReporterEnabled, configureReporter, setURLContext } from 'lib/sentry'
 
 if (__TARGET__ === 'mobile') {
   require('styles/mobile.styl')
@@ -66,6 +67,13 @@ const setupApp = persistedState => {
       lang: data.cozyLocale,
       replaceTitleOnMobile: true
     })
+  }
+
+  if (isReporterEnabled()) {
+    configureReporter()
+    if (__TARGET__ === 'browser') {
+      setURLContext(window.location.href)
+    }
   }
 
   initRender()

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Router, Route } from 'react-router'
-
+import { setURLContext, logException } from 'lib/sentry'
 import { Authentication, Revoked } from 'cozy-authentication'
 import {
   storeCredentials,
@@ -27,6 +27,7 @@ const withAuth = Wrapped => (props, { store, client }) => {
     if (res) {
       // first authentication
       const { url, clientInfo, router, token } = res
+      setURLContext(url)
       store.dispatch(storeCredentials(url, clientInfo, token))
       router.replace('/')
     } else {
@@ -68,7 +69,9 @@ const withAuth = Wrapped => (props, { store, client }) => {
     } else {
       onAuthentication()
       const mobile = store.getState().mobile
-      initBar(getURL(mobile), getAccessToken(mobile), {
+      const url = getURL(mobile)
+      setURLContext(url)
+      initBar(url, getAccessToken(mobile), {
         onLogOut: onLogout
       })
     }
@@ -88,11 +91,6 @@ const withAuth = Wrapped => (props, { store, client }) => {
       {...{ isAuthenticated, isRevoked, onAuthentication, setupAuth }}
     />
   )
-}
-
-const logException = () => {
-  // eslint-disable-next-line no-console
-  console.log('exception during auth')
 }
 
 const MobileRouter = ({

@@ -7,6 +7,7 @@ const sortCSSmq = require('sort-css-media-queries')
 
 const { extractor, production } = require('./webpack.vars')
 const SRC_DIR = path.resolve(__dirname, '../src')
+const pkg = require(path.resolve(__dirname, '../package.json'))
 const webpack = require('webpack')
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
 const StatsPlugin = require('stats-webpack-plugin')
@@ -98,6 +99,10 @@ module.exports = {
     noParse: [/localforage\/dist/]
   },
   plugins: [
+    new webpack.DefinePlugin({
+      __APP_VERSION__: JSON.stringify(pkg.version),
+      __SENTRY_URL__: JSON.stringify('https://ea2067ca88504d9cbc9115b55d0b2d55:e52e64f57486417bb1b5fa6529e1cfcb@sentry.cozycloud.cc/11'),
+    }),
     // ChartJS uses moment :( To remove when we do not use it anymore
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|fr/),
     new webpack.ContextReplacementPlugin(/date-fns[\/\\]locale$/, /en|fr/),
