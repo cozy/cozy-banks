@@ -254,7 +254,7 @@ class SelectDatesDumb extends React.PureComponent {
               name="year"
               className={styles.SelectDates__SelectYear}
               searchable={false}
-              width={isMobile ? '4rem' : '6rem'}
+              width={isMobile ? '4.5rem' : '6rem'}
               value={selectedYear}
               options={years.map(x => ({ value: x.year, name: x.yearF }))}
               onChange={this.handleChangeYear}
