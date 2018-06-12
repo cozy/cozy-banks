@@ -93,12 +93,18 @@ class TransactionActions extends Component {
       const { urls, brands, bill } = this.props
       const actionProps = { urls, brands, bill }
       const actions = await findMatchingActions(transaction, actionProps)
-      this.setState({ actions, actionProps })
+      if (!this.unmounted) {
+        this.setState({ actions, actionProps })
+      }
     }
   }
 
   componentDidMount() {
     this.findMatchingActions()
+  }
+
+  componentWillUnmount() {
+    this.unmounted = true
   }
 
   componentWillReceiveProps(nextProps) {
