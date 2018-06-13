@@ -20,7 +20,7 @@ import Chip from 'cozy-ui/react/Chip'
 import Select from 'components/Select'
 import cx from 'classnames'
 import scrollAware from './scrollAware'
-
+import { rangedSome } from './utils'
 const start2016 = new Date(2015, 11, 31)
 
 const getDefaultOptions = () => {
@@ -81,6 +81,11 @@ const SelectDateButton = ({ children, disabled, className, ...props }) => {
 }
 
 const isFullYearValue = value => value && value.length === 4
+
+const isOptionEnabled = option => option && !option.isDisabled
+const allDisabledFrom = (options, maxIndex) => {
+  return !rangedSome(options, isOptionEnabled, maxIndex, 0)
+}
 
 class SelectDatesDumb extends React.PureComponent {
   getSelectedIndex = () => {
@@ -241,6 +246,7 @@ class SelectDatesDumb extends React.PureComponent {
       availableYears = this.getAvailableYears()
       yearIndex = availableYears.indexOf(value)
     }
+
     return (
       <div
         className={cx(
@@ -302,7 +308,11 @@ class SelectDatesDumb extends React.PureComponent {
 
           <SelectDateButton
             onClick={this.handleChooseNext}
-            disabled={yearMode ? yearIndex === 0 : index === 0}
+            disabled={
+              yearMode
+                ? yearIndex === 0
+                : allDisabledFrom(monthsOptions, index - 1)
+            }
             className={styles['SelectDates__Button--next']}
           >
             <Icon icon="forward" />
