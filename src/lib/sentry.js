@@ -43,6 +43,7 @@ export const getReporterMiddleware = () => {
 
 export const configureReporter = () => {
   Raven.config(__SENTRY_URL__, getReporterConfiguration()).install()
+  Raven.setTagsContext({ target: __TARGET__ })
 }
 
 // Normalize
