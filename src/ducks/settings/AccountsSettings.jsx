@@ -27,6 +27,7 @@ import AccountSharingStatus from 'components/AccountSharingStatus'
 // TODO react-router v4
 const _AccountLine = ({ account, router, t }) => (
   <tr
+    key={account.id}
     onClick={() => router.push(`/settings/accounts/${account.id}`)}
     className={styles.AcnsStg__accountRow}
   >

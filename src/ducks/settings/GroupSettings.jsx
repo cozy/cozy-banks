@@ -106,7 +106,9 @@ class GroupSettings extends Component {
     this.inputRef = ref
   }
 
-  render({ t, group, accounts }, { modifying, saving }) {
+  render() {
+    const { t, group, accounts } = this.props
+    const { modifying, saving } = this.state
     if (!group) {
       return <Loading />
     }

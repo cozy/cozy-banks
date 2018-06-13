@@ -48,17 +48,18 @@ class CategoriesChart extends Component {
     )
   }
 
-  render({
-    t,
-    categories,
-    selectedCategory,
-    width,
-    height,
-    total,
-    currency,
-    label
-  }) {
-    if (categories.length === 0) return
+  render() {
+    const {
+      t,
+      categories,
+      selectedCategory,
+      width,
+      height,
+      total,
+      currency,
+      label
+    } = this.props
+    if (categories.length === 0) return null
 
     const sortedCategories = this.getSortedCategories()
 

@@ -197,7 +197,7 @@ class _TableTrNoDesktop extends React.PureComponent {
 
 export const TableTrNoDesktop = translate()(_TableTrNoDesktop)
 
-export const TransactionTableHead = (props, { t }) => (
+export const TransactionTableHead = translate()(props => (
   <div
     style={{
       background: 'white',
@@ -207,10 +207,10 @@ export const TransactionTableHead = (props, { t }) => (
     }}
   >
     <Table className={styles['TransactionTable']}>
-      <TableHeadDesktop t={t} mainColumnTitle={props.mainColumnTitle} />
+      <TableHeadDesktop t={props.t} mainColumnTitle={props.mainColumnTitle} />
     </Table>
   </div>
-)
+))
 
 const groupByDateAndSort = transactions => {
   const byDate = groupBy(transactions, x => format(x.date, 'YYYY-MM-DD'))
@@ -333,7 +333,9 @@ class TransactionsD extends React.Component {
       manualLoadMore,
       ...props
     } = this.props
-    const transactions = this.transactions.slice(limitMin, limitMax)
+    const transactions = this.transactions
+      ? this.transactions.slice(limitMin, limitMax)
+      : []
     const transactionsOrdered = groupByDateAndSort(transactions)
     return (
       <Table
@@ -396,7 +398,9 @@ class TransactionsD extends React.Component {
       <InfiniteScroll
         manual={manualLoadMore}
         canLoadAtTop={this.props.infiniteScrollTop && limitMin > 0}
-        canLoadAtBottom={limitMax < this.transactions.length}
+        canLoadAtBottom={
+          this.transactions && limitMax < this.transactions.length
+        }
         limitMin={limitMin}
         limitMax={limitMax}
         onReachTop={this.props.onReachTop}
@@ -433,7 +437,8 @@ export class TransactionsWithSelection extends React.Component {
     this.setState({ transactionId: null })
   }
 
-  render(props) {
+  render() {
+    const props = this.props
     const { transactionId } = this.state
     return (
       <div>
