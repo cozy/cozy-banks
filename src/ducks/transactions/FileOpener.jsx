@@ -61,6 +61,7 @@ class FileOpener extends Component {
         onComplete={() => {}}
         onDismiss={() => {}}
         into="body"
+        size="xxlarge"
       >
         {children}
       </IntentOpener>
