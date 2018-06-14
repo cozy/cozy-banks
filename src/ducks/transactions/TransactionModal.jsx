@@ -242,10 +242,14 @@ const mapStateToProps = (state, ownProps) => {
   return { transaction, account }
 }
 
+const DumbTransactionModal = compose(translate(), withBreakpoints())(
+  TransactionModal
+)
+
 export default compose(
   connect(mapStateToProps),
   withDispatch,
-  withUpdateCategory(),
-  translate(),
-  withBreakpoints()
-)(TransactionModal)
+  withUpdateCategory()
+)(DumbTransactionModal)
+
+export { DumbTransactionModal }

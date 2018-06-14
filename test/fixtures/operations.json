@@ -24,7 +24,7 @@
   "io.cozy.bank.accounts": [
     {
       "label": "PEE Isabelle",
-      "institutionLabel": "HSBC",
+      "institutionLabel": "HSBC (sans Secure Key)",
       "number": "{{int 1000000 9999999}}",
       "balance": 1421.22,
       "description": "Premier compte sans connaitre l id pour generer le doc",
