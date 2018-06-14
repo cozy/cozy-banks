@@ -32,7 +32,10 @@ import iconGraph from 'assets/icons/icon-graph.svg'
 import iconComment from 'assets/icons/actions/icon-comment.svg'
 import iconCredit from 'assets/icons/icon-credit.svg'
 import iconCalendar from 'assets/icons/icon-calendar.svg'
-import { getAccountLabel } from 'ducks/account/helpers'
+import {
+  getAccountLabel,
+  getAccountInstitutionLabel
+} from 'ducks/account/helpers'
 import { connect } from 'react-redux'
 import { getDocument } from 'cozy-client'
 import { TRANSACTION_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
@@ -138,7 +141,7 @@ class TransactionModal extends Component {
               },
               {
                 label: t('Transactions.infos.institution'),
-                value: account.institutionLabel
+                value: getAccountInstitutionLabel(account)
               }
             ]}
           />

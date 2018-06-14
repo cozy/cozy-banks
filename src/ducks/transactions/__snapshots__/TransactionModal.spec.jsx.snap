@@ -25,7 +25,7 @@ exports[`transaction modal should render correctly 1`] = `
                     <!-- /react-text -->
                   </div>
                   <div class=\\"TransactionInfo\\"><span class=\\"TransactionInfoLabel\\"><!-- react-text: 30 -->Bank<!-- /react-text --><!-- react-text: 31 --> :<!-- /react-text --></span>
-                    <!-- react-text: 32 -->HSBC (sans Secure Key)
+                    <!-- react-text: 32 -->HSBC
                     <!-- /react-text -->
                   </div>
                 </div>
