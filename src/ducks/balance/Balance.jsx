@@ -23,7 +23,7 @@ import { ACCOUNT_DOCTYPE } from 'doctypes'
 import { getAllGroups } from 'selectors'
 
 import styles from './Balance.styl'
-import btnStyles from 'styles/buttons'
+import btnStyles from 'styles/buttons.styl'
 import plus from 'assets/icons/16/plus.svg'
 
 const getGroupBalance = (group, getAccount) => {

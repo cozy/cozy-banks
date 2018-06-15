@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import ReactMarkdown from 'react-markdown'
 import classNames from 'classnames'
 
-import styles from '../styles'
+import styles from '../styles.styl'
 import { translate, Icon, Button } from 'cozy-ui/react'
 
 const ERR_WRONG_ADDRESS = 'mobile.onboarding.server_selection.wrong_address'
