@@ -3,7 +3,7 @@ const templates = require('./templates')
 const { mjml2html } = require('mjml')
 const { prepareTransactions } = require('./utils')
 
-export default ({ accounts, transactions }) => {
+export default ({ accounts, transactions, urls }) => {
   const accountsById = fromPairs(
     accounts.map(account => [account._id, account])
   )
@@ -12,7 +12,8 @@ export default ({ accounts, transactions }) => {
   const data = {
     accounts: accountsById,
     byAccounts: transactionsByAccounts,
-    date: new Date()
+    date: new Date(),
+    ...urls
   }
 
   const obj = mjml2html(templates['transaction-greater'](data))
