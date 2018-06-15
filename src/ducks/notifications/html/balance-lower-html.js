@@ -9,10 +9,11 @@ const groupAccountsByInstitution = accounts => {
   }))
 }
 
-export default ({ accounts }) => {
+export default ({ accounts, urls }) => {
   const data = {
     institutions: groupAccountsByInstitution(accounts),
-    date: new Date()
+    date: new Date(),
+    ...urls
   }
 
   const obj = mjml2html(templates['balance-lower'](data))

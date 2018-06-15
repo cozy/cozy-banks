@@ -66,7 +66,8 @@ class BalanceLower extends Notification {
     const firstAccount = accountsFiltered[0]
 
     const templateData = {
-      accounts: accountsFiltered
+      accounts: accountsFiltered,
+      urls: this.urls
     }
 
     const titleData = onlyOne

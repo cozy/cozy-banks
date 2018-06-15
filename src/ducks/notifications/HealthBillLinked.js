@@ -84,7 +84,8 @@ class HealthBillLinked extends Notification {
       const templateData = {
         accounts: accounts,
         transactions: transactionsWithReimbursements,
-        bills: bills
+        bills: bills,
+        urls: this.urls
       }
 
       const contentHTML = htmlTemplate(templateData)

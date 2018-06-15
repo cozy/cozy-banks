@@ -81,7 +81,8 @@ class TransactionGreater extends Notification {
     const onlyOne = transactionsFiltered.length === 1
     const templateData = {
       accounts: accounts,
-      transactions: transactionsFiltered
+      transactions: transactionsFiltered,
+      urls: this.urls
     }
     const firstTransaction = transactionsFiltered[0]
     const titleData = onlyOne
