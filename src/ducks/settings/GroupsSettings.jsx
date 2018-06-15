@@ -7,7 +7,7 @@ import { cozyConnect, fetchCollection } from 'cozy-client'
 import Loading from 'components/Loading'
 import plus from 'assets/icons/16/plus.svg'
 import styles from './GroupsSettings.styl'
-import btnStyles from 'styles/buttons'
+import btnStyles from 'styles/buttons.styl'
 import { sortBy } from 'lodash'
 
 const isPending = reduxObj => {

@@ -12,7 +12,7 @@ import CategoryIcon from './CategoryIcon'
 import { Media, Bd, Img } from 'cozy-ui/react/Media'
 import { Table, TdWithIcon, TdSecondary } from 'components/Table'
 import { Figure } from 'components/Figure'
-import styles from './styles'
+import styles from './styles.styl'
 import { flowRight as compose } from 'lodash'
 
 const stAmount = styles['bnk-table-amount']

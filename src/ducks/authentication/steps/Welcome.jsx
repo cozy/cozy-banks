@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import { connect } from 'react-redux'
 import { translate, Button } from 'cozy-ui/react'
 
-import styles from '../styles'
+import styles from '../styles.styl'
 import { getDevicePlatform } from '../lib/client'
 
 export class Welcome extends Component {

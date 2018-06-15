@@ -84,7 +84,7 @@ const isFullYearValue = value => value && value.length === 4
 
 const isOptionEnabled = option => option && !option.isDisabled
 const allDisabledFrom = (options, maxIndex) => {
-  return !rangedSome(options, isOptionEnabled, maxIndex, 0)
+  return !rangedSome(options, isOptionEnabled, maxIndex, -1)
 }
 
 class SelectDatesDumb extends React.PureComponent {
@@ -223,14 +223,15 @@ class SelectDatesDumb extends React.PureComponent {
     const selectedYear = selected && selected.year
     const selectedMonth = selected && selected.month
 
-    const months = options.filter(
-      x => (selectedYear ? x.year === selectedYear : true)
-    )
-    const monthsOptions = months.map(x => ({
+    const months = options
+    const allMonthsOptions = months.map(x => ({
       value: x.month,
       name: x.monthF,
-      isDisabled: x.disabled
+      isDisabled: x.disabled,
+      year: x.year
     }))
+    const forCurrentYear = x => (selectedYear ? x.year === selectedYear : true)
+    const monthsOptions = allMonthsOptions.filter(forCurrentYear)
 
     if (showFullYear) {
       monthsOptions.push({
@@ -246,6 +247,14 @@ class SelectDatesDumb extends React.PureComponent {
       availableYears = this.getAvailableYears()
       yearIndex = availableYears.indexOf(value)
     }
+
+    const isPrevButtonDisabled = yearMode
+      ? yearIndex === availableYears.length - 1
+      : index === options.length - 1
+
+    const isNextButtonDisabled = yearMode
+      ? yearIndex === 0
+      : index === 0 || allDisabledFrom(allMonthsOptions, index - 1)
 
     return (
       <div
@@ -296,11 +305,7 @@ class SelectDatesDumb extends React.PureComponent {
           {isMobile && <Separator />}
           <SelectDateButton
             onClick={this.handleChoosePrev}
-            disabled={
-              yearMode
-                ? yearIndex === availableYears.length - 1
-                : index === options.length - 1
-            }
+            disabled={isPrevButtonDisabled}
             className={styles['SelectDates__Button--prev']}
           >
             <Icon icon="back" />
@@ -308,11 +313,7 @@ class SelectDatesDumb extends React.PureComponent {
 
           <SelectDateButton
             onClick={this.handleChooseNext}
-            disabled={
-              yearMode
-                ? yearIndex === 0
-                : allDisabledFrom(monthsOptions, index - 1)
-            }
+            disabled={isNextButtonDisabled}
             className={styles['SelectDates__Button--next']}
           >
             <Icon icon="forward" />

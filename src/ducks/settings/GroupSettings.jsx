@@ -21,7 +21,7 @@ import { Button, translate, Toggle } from 'cozy-ui/react'
 import Spinner from 'cozy-ui/react/Spinner'
 
 import styles from './GroupsSettings.styl'
-import btnStyles from 'styles/buttons'
+import btnStyles from 'styles/buttons.styl'
 import { getAccountInstitutionLabel } from '../account/helpers'
 import { sortBy } from 'lodash'
 
