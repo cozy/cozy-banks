@@ -149,7 +149,7 @@ class TransactionModal extends Component {
         <Separator />
         <TransactionModalRow iconLeft={iconCalendar}>
           <span style={{ textTransform: 'capitalize' }}>
-            {f(transaction.date, 'dddd DD MMMM - h[h]mm')}
+            {f(transaction.date, 'dddd DD MMMM')}
           </span>
         </TransactionModalRow>
         <Separator />

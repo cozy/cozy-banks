@@ -36,7 +36,7 @@ exports[`transaction modal should render correctly 1`] = `
               <div class=\\"img TransactionModalRowIcon\\">
                 <!-- react-empty: 36 -->
               </div>
-              <div class=\\"bd TransactionModalRowContent\\"><span style=\\"text-transform: capitalize;\\">Friday 25 August - 2h00</span></div>
+              <div class=\\"bd TransactionModalRowContent\\"><span style=\\"text-transform: capitalize;\\">Friday 25 August</span></div>
             </div>
             <hr class=\\"TransactionModalSeparator\\">
             <div class=\\"media TransactionModalRow TransactionModalRow-clickable\\">
