@@ -154,7 +154,7 @@
     "html-webpack-harddisk-plugin": "^0.2.0",
     "localforage": "^1.5.0",
     "lodash": "^4.17.4",
-    "mjml": "^3.3.5",
+    "mjml": "^4.0.0",
     "node-polyglot": "^2.2.0",
     "null-loader": "^0.1.1",
     "number-to-locale-string": "^1.0.1",
