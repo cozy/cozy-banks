@@ -330,15 +330,15 @@
       "description": "Vous recevrez une notification, si un mouvement est supérieur à",
       "notification": {
         "debit": {
-          "title": "Dépense de %{amount}%{currency}",
+          "title": "Alerte : dépense de %{amount}%{currency}",
           "content": "%{label}"
         },
         "credit": {
-          "title": "Versement de %{amount}%{currency}",
+          "title": "Alerte : versement de %{amount}%{currency}",
           "content": "%{label}"
         },
         "others": {
-          "title": "%{transactionsLength} mouvements de plus de %{maxAmount}€",
+          "title": "Alerte : %{transactionsLength} mouvements de plus de %{maxAmount}€",
           "debitContent": "Dépense de %{amount}%{currency} avec le libellé '%{label}'.",
           "creditContent": "Versement de %{amount}%{currency} avec le libellé '%{label}'."
         }
