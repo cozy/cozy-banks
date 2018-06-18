@@ -370,6 +370,10 @@
           "treatedBy": "dépense traitée par"
         }
       }
+    },
+    "email": {
+      "settings": "Paramètres",
+      "support": "Aide et support"
     }
   },
 

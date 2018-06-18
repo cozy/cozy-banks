@@ -93,9 +93,11 @@
           <mj-column>
             {{#block 'footerRight' }}
             <mj-text css-class="footer__help">
-              <a css-class="footer__help" href="{{settingsUrl}}">Paramètres</a>
+              <a css-class="footer__help" href="{{settingsUrl}}">
+                {{tGlobal 'settings'}}
+              </a>
               <a css-class="footer__help" href="https://support.cozy.io/">
-                Aide et support
+                {{tGlobal 'support'}}
               </a>
             </mj-text>
             {{/block}}
