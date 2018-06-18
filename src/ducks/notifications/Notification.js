@@ -1,5 +1,6 @@
 import { cozyClient } from 'cozy-konnector-libs'
 import { getBanksUrl } from './helpers'
+import Handlebars from 'handlebars'
 
 class Notification {
   constructor(config) {
@@ -14,6 +15,9 @@ class Notification {
       transactionsUrl: getBanksUrl(cozyUrl, '/transactions'),
       settingsUrl: getBanksUrl(cozyUrl, '/settings/notifications')
     }
+
+    const tGlobal = (key, data) => this.t('Notifications.email.' + key, data)
+    Handlebars.registerHelper({ tGlobal })
   }
 
   async sendNotification() {

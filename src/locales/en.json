@@ -358,6 +358,10 @@
           "treatedBy": "expenditure treated by"
         }
       }
+    },
+    "email": {
+      "settings": "Settings",
+      "support": "Help and support"
     }
   },
 
