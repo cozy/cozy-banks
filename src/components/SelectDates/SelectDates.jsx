@@ -50,7 +50,7 @@ const Separator = () => (
 
 const constrain = (val, min, max) => Math.min(Math.max(val, min), max)
 
-const selectYearContainerStyle = base => ({
+const selectYearContainerMobileStyle = base => ({
   ...base,
   flexGrow: 1,
   paddingLeft: '0.875rem'
@@ -276,7 +276,7 @@ class SelectDatesDumb extends React.PureComponent {
               styles={
                 isMobile
                   ? {
-                      container: selectYearContainerStyle
+                      container: selectYearContainerMobileStyle
                     }
                   : {}
               }
