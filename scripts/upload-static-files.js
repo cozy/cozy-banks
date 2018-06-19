@@ -8,7 +8,7 @@ const COZY_URL = 'downcloud.cozycloud.cc'
 
 async function getPathsToUpload() {
   const fileContent = await fs.readFile(
-    path.resolve(__dirname, '../files.cozycloud.cc'),
+    path.resolve(__dirname, '../static-files.txt'),
     'utf-8'
   )
 
