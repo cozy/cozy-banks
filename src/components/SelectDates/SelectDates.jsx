@@ -53,6 +53,7 @@ const constrain = (val, min, max) => Math.min(Math.max(val, min), max)
 const selectYearContainerMobileStyle = base => ({
   ...base,
   flexGrow: 1,
+  flexBasis: '4.5rem',
   paddingLeft: '0.875rem'
 })
 const selectMonthContainerStyle = base => ({
@@ -269,7 +270,7 @@ class SelectDatesDumb extends React.PureComponent {
               name="year"
               className={styles.SelectDates__SelectYear}
               searchable={false}
-              width={isMobile ? '4.5rem' : '6rem'}
+              width={isMobile ? 'auto' : '6rem'}
               value={selectedYear}
               options={years.map(x => ({ value: x.year, name: x.yearF }))}
               onChange={this.handleChangeYear}
