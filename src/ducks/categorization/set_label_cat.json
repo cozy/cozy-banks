@@ -508,10 +508,6 @@
         "category": "400110"
     },
     {
-        "label": "LA CONSIGNE SC",
-        "category": "0"
-    },
-    {
         "label": "ATTENTE NDF",
         "category": "600110"
     },
@@ -1172,20 +1168,8 @@
         "category": "400510"
     },
     {
-        "label": "LRBB ALIMENTAT",
-        "category": "0"
-    },
-    {
-        "label": "LOHTA SERVICES",
-        "category": "0"
-    },
-    {
         "label": "HARMONIE MUTUELLE",
         "category": "400620"
-    },
-    {
-        "label": "PUNJAB EXPRESS",
-        "category": "0"
     },
     {
         "label": "TRAINLINE",
@@ -1206,10 +1190,6 @@
     {
         "label": "LE SUPRA BAILL",
         "category": "400110"
-    },
-    {
-        "label": "BUSHRA",
-        "category": "0"
     },
     {
         "label": "MARKET",
@@ -1238,10 +1218,6 @@
     {
         "label": "MINIMUM FORFAITAIRE TRIMESTRIEL D UTILISATION DU DECOUVERT",
         "category": "400340"
-    },
-    {
-        "label": "BUSHRA",
-        "category": "0"
     },
     {
         "label": "RETRAIT BELFIUS35100702 25.09.17 EUR 60,00 CARTE NO 294",
@@ -1384,10 +1360,6 @@
         "category": "400270"
     },
     {
-        "label": "HASYMAR S.A.",
-        "category": "0"
-    },
-    {
         "label": "RETRAIT BELFIUS35100703 13.11.17 060 60,00 CARTE NO 294",
         "category": "400300"
     },
@@ -1478,10 +1450,6 @@
     {
         "label": "RETRAIT BELFIUS35100704 18.12.17 EUR 60,00 CARTE NO 294",
         "category": "300"
-    },
-    {
-        "label": "BUSHRA",
-        "category": "0"
     },
     {
         "label": "HARMONIE MUTUELLE",
@@ -1700,10 +1668,6 @@
         "category": "400110"
     },
     {
-        "label": "ALICIA MARKET",
-        "category": "0"
-    },
-    {
         "label": "BlaBlaCar",
         "category": "400850"
     },
@@ -1892,20 +1856,12 @@
         "category": "400200"
     },
     {
-        "label": "RAISHA",
-        "category": "0"
-    },
-    {
         "label": "STRONGROOM BAR",
         "category": "400810"
     },
     {
         "label": "MLE BELLOT ZOE",
         "category": "600110"
-    },
-    {
-        "label": "RAISHA",
-        "category": "0"
     },
     {
         "label": "COMMISSION PAIEMENT PAR CARTE",
@@ -2038,10 +1994,6 @@
     {
         "label": "DIRECTION GENERAL ES FINANCES PUBL",
         "category": "400510"
-    },
-    {
-        "label": "BUSHRA",
-        "category": "0"
     },
     {
         "label": "COMPTE BELGE",
@@ -2364,10 +2316,6 @@
         "category": "400810"
     },
     {
-        "label": "RTE. LA RIBERA",
-        "category": "0"
-    },
-    {
         "label": "DELHAIZE FLAGE",
         "category": "400110"
     },
@@ -2492,10 +2440,6 @@
         "category": "400100"
     },
     {
-        "label": "RETRAIT MODULE LA CHASS 26.10.17 040 40,00 CARTE NO 294",
-        "category": "0"
-    },
-    {
         "label": "WWWEFARMZBE",
         "category": "400110"
     },
@@ -2514,10 +2458,6 @@
     {
         "label": "UBER TRIP 7LVQ",
         "category": "400290"
-    },
-    {
-        "label": "SARL ZORN",
-        "category": "0"
     },
     {
         "label": "COMPTE BELGE",
@@ -2544,10 +2484,6 @@
         "category": "400300"
     },
     {
-        "label": "RETRAIT BELFIUS35028001 31.10.17 060 60,00 CARTE NO 294",
-        "category": "0"
-    },
-    {
         "label": "Stam Co",
         "category": "400820"
     },
@@ -2562,10 +2498,6 @@
     {
         "label": "TABORDET Y ET",
         "category": "400110"
-    },
-    {
-        "label": "ASAF BELGIUM S",
-        "category": "0"
     },
     {
         "label": "LA MIE DE MAT",
@@ -2670,10 +2602,6 @@
     {
         "label": "PAIEMENT BOUYG",
         "category": "400112"
-    },
-    {
-        "label": "PVGF BRUT",
-        "category": "0"
     },
     {
         "label": "CAFEANTIQUAIRE",
@@ -3416,10 +3344,6 @@
         "category": "400170"
     },
     {
-        "label": "MR CHEJY HASSAN PARIS",
-        "category": "0"
-    },
-    {
         "label": "RAM PL PARIS VIREMENT DE RAM",
         "category": "400610"
     },
@@ -3474,10 +3398,6 @@
     {
         "label": "RICHARDET COLETT VIREMENT VIC",
         "category": "100"
-    },
-    {
-        "label": "VRST ESPECES AUTOMATE 18/02/17 15H54 0031735",
-        "category": "0"
     },
     {
         "label": "Vt vers : \u00c9pargne Pr\u00eat",
@@ -3880,10 +3800,6 @@
         "category": "100"
     },
     {
-        "label": "KOI MARTIAL ART",
-        "category": "0"
-    },
-    {
         "label": "PROXITHERM IDF",
         "category": "400110"
     },
@@ -3928,10 +3844,6 @@
         "category": "400112"
     },
     {
-        "label": "CARTAPAPA MONTPELLIER",
-        "category": "0"
-    },
-    {
         "label": "MC DONALD S PARIS",
         "category": "401080"
     },
@@ -3942,10 +3854,6 @@
     {
         "label": "RETRAIT DAB SOCIETE GENERALE",
         "category": "300"
-    },
-    {
-        "label": "KOI MARTIAL ART",
-        "category": "0"
     },
     {
         "label": "SM CASINO CS354 PARIS",
@@ -4236,10 +4144,6 @@
         "category": "400130"
     },
     {
-        "label": "CHEJY HASSAN PARIS",
-        "category": "0"
-    },
-    {
         "label": "STARBUCKS COFFE PARIS",
         "category": "400100"
     },
@@ -4466,10 +4370,6 @@
     {
         "label": "COTIS RIV' ET MOI",
         "category": "400340"
-    },
-    {
-        "label": "SARL S&Z",
-        "category": "0"
     },
     {
         "label": "SC-CHOCOLINE",
@@ -4722,10 +4622,6 @@
     {
         "label": "CHEQUE 3428071",
         "category": "200"
-    },
-    {
-        "label": "BAR KALYNA PARIS",
-        "category": "0"
     },
     {
         "label": "ITUNES.COM/BILL",
@@ -5108,10 +5004,6 @@
         "category": "600110"
     },
     {
-        "label": "KOI MARTIAL ART",
-        "category": "0"
-    },
-    {
         "label": "REMISE CHEQUES BORDEREAU 04840623",
         "category": "200"
     },
@@ -5292,10 +5184,6 @@
         "category": "401010"
     },
     {
-        "label": "LA BELL ITALIA VILLEPARISIS",
-        "category": "0"
-    },
-    {
         "label": "MLLE SWIERKOWSKI CLAIRE REMBO",
         "category": "100"
     },
@@ -5458,10 +5346,6 @@
     {
         "label": "SM CASINO CS354 PARIS",
         "category": "400110"
-    },
-    {
-        "label": "CHEJY HASSAN PARIS",
-        "category": "0"
     },
     {
         "label": "BURGER KING PARIS",
@@ -6192,10 +6076,6 @@
         "category": "401080"
     },
     {
-        "label": "KOI MARTIAL ART",
-        "category": "0"
-    },
-    {
         "label": "/DE LELOUP VICTOR /MOTIF PLUS OU MOINS S",
         "category": "600110"
     },
@@ -6226,10 +6106,6 @@
     {
         "label": "GREENPEACE FRANCE",
         "category": "400170"
-    },
-    {
-        "label": "MELVINHAMILTON",
-        "category": "0"
     },
     {
         "label": "SM CASINO CS354 PARIS",
@@ -6544,10 +6420,6 @@
         "category": "400850"
     },
     {
-        "label": "B - Predica De88265026449272/01/ucm932180217/pr Edicapredissime 9 Prime Period. Ucix 2ucix 2 Fr88zzz237434 00/73000996521/16072015/01",
-        "category": "0"
-    },
-    {
         "label": "Auto Lavage Les Clayes Sou",
         "category": "400240"
     },
@@ -6586,10 +6458,6 @@
     {
         "label": "Trainline Paris",
         "category": "400840"
-    },
-    {
-        "label": "Axa I0000257242341-Contrat0000005384063 104",
-        "category": "0"
     },
     {
         "label": "Cap Fraicheur Concarneau",
@@ -6732,10 +6600,6 @@
         "category": "400270"
     },
     {
-        "label": "Axa I0000261902324-Contrat0000005383978 104",
-        "category": "0"
-    },
-    {
         "label": "E.Leclerc Bois D Arcy",
         "category": "400110"
     },
@@ -6768,10 +6632,6 @@
         "category": "400310"
     },
     {
-        "label": "Arnaud Sandrine Ste Eulali",
-        "category": "0"
-    },
-    {
         "label": "Pharmacie Etienn Aubenas",
         "category": "400610"
     },
@@ -6798,10 +6658,6 @@
     {
         "label": "Vival Vallon Pont D Ar",
         "category": "400110"
-    },
-    {
-        "label": "Mgp*tipeee T696255 Paris 0",
-        "category": "0"
     },
     {
         "label": "Pharma Roussouly Narbonne",
@@ -7668,10 +7524,6 @@
         "category": "400130"
     },
     {
-        "label": "B - Predica De88265026449272/01/ucm932170717/pr Edicapredissime 9 Prime Period. Ucix 2ucix 2 Fr88zzz237434 00/73000996521/16072015/01",
-        "category": "0"
-    },
-    {
         "label": "Netflix.Com Courbevoie",
         "category": "400750"
     },
@@ -7800,14 +7652,6 @@
         "category": "400500"
     },
     {
-        "label": "B - Predica De88265026448691/01/ucm932170817/pr Edicapredissime 9 Prime Period. Ucix 2ucix 2 Fr88zzz237434 00/72000996191/16072015/01",
-        "category": "0"
-    },
-    {
-        "label": "B - Predica De88265026449272/01/ucm932170817/pr Edicapredissime 9 Prime Period. Ucix 2ucix 2 Fr88zzz237434 00/73000996521/16072015/01",
-        "category": "0"
-    },
-    {
         "label": "Station Carrefou Aubenas",
         "category": "400250"
     },
@@ -7838,10 +7682,6 @@
     {
         "label": "Maonis Vallon Pont D Ar",
         "category": "400820"
-    },
-    {
-        "label": "Hrc38343gidycour Gidy",
-        "category": "0"
     },
     {
         "label": "Credit Agricole De Paris Et Idf Cotisation D'assurance Pacifica Du Contrat Protection Juridique 551385 9907",
@@ -8732,10 +8572,6 @@
         "category": "400700"
     },
     {
-        "label": "Nlle Vision Coignieres",
-        "category": "0"
-    },
-    {
         "label": "Alinea 27 Les Clayes Sou",
         "category": "401060"
     },
@@ -8770,10 +8606,6 @@
     {
         "label": "Sarl Mau Maurepas",
         "category": "400110"
-    },
-    {
-        "label": "Axa I0000256384460-Contrat0000005383978 104",
-        "category": "0"
     },
     {
         "label": "Sdc Res De L Eglise Immeuble",
@@ -8826,10 +8658,6 @@
     {
         "label": "Flunch Plaisir",
         "category": "400810"
-    },
-    {
-        "label": "B - Predica De88265026448691/01/ucm932170717/pr Edicapredissime 9 Prime Period. Ucix 2ucix 2 Fr88zzz237434 00/72000996191/16072015/01",
-        "category": "0"
     },
     {
         "label": "Mcdonalds Maurepas",
@@ -8920,10 +8748,6 @@
         "category": "401080"
     },
     {
-        "label": "Axa I0000262762112-Contrat0000005384063 104",
-        "category": "0"
-    },
-    {
         "label": "Direct Energie Prelevement Direct Energie-Gaz-Refe Rence Client 103801448 Fr03zzz488157 Demp002306934",
         "category": "401080"
     },
@@ -8956,10 +8780,6 @@
         "category": "400160"
     },
     {
-        "label": "Gerbier De Jonc St Martial",
-        "category": "0"
-    },
-    {
         "label": "E.Leclerc Bois D Arcy",
         "category": "400110"
     },
@@ -8980,20 +8800,12 @@
         "category": "100"
     },
     {
-        "label": "Sema Balazuc",
-        "category": "0"
-    },
-    {
         "label": "Centre Leclerc St Etienne",
         "category": "400110"
     },
     {
         "label": "Christophe Thiriot Ptz",
         "category": "100"
-    },
-    {
-        "label": "Sema Balazuc",
-        "category": "0"
     },
     {
         "label": "Sodexo So442201 Vallon Pon",
@@ -9724,10 +9536,6 @@
         "category": "200"
     },
     {
-        "label": "B - Predica De88265026448691/01/ucm932180217/pr Edicapredissime 9 Prime Period. Ucix 2ucix 2 Fr88zzz237434 00/72000996191/16072015/01",
-        "category": "0"
-    },
-    {
         "label": "E.Leclerc Bois D Arcy",
         "category": "400110"
     },
@@ -9992,10 +9800,6 @@
         "category": "401020"
     },
     {
-        "label": "VILLI WAINO",
-        "category": "0"
-    },
-    {
         "label": "ORIGIMALL PARIS",
         "category": "400130"
     },
@@ -10018,10 +9822,6 @@
     {
         "label": "VIREMENT PERMANENT BOURSO",
         "category": "100"
-    },
-    {
-        "label": "MODUFIA OY RA",
-        "category": "0"
     },
     {
         "label": "VR HELSINKI AM",
@@ -10268,20 +10068,12 @@
         "category": "400112"
     },
     {
-        "label": "VILLI WAINO",
-        "category": "0"
-    },
-    {
         "label": "RETRAIT DAB SOCIETE GENERALE",
         "category": "300"
     },
     {
         "label": "NAVIGO ANNUEL - GIE COMUTITRES",
         "category": "400280"
-    },
-    {
-        "label": "OOO KONCEPCIYA",
-        "category": "0"
     },
     {
         "label": "SHOKOLADNITSA",
@@ -10436,10 +10228,6 @@
         "category": "200110"
     },
     {
-        "label": "L ESTIVAL AUDINGHEN",
-        "category": "0"
-    },
-    {
         "label": "PAYPAL EUROPE S.A.R.L. ET CIE S.C.A",
         "category": "400112"
     },
@@ -10458,10 +10246,6 @@
     {
         "label": "EDF CLIENTS PARTICULIERS",
         "category": "401080"
-    },
-    {
-        "label": "13 APR 2018 SE",
-        "category": "0"
     },
     {
         "label": "NAVIGO ANNUEL - GIE COMUTITRES",
@@ -10620,14 +10404,6 @@
         "category": "100"
     },
     {
-        "label": "CUMULUS CITY KA",
-        "category": "0"
-    },
-    {
-        "label": "HSL SORNAINEN",
-        "category": "0"
-    },
-    {
         "label": "RETRAIT DAB AIRPORT MANAS KG BISHK CARTE 49",
         "category": "300"
     },
@@ -10642,10 +10418,6 @@
     {
         "label": "MCDONALD S ROISSY EN FRA",
         "category": "400160"
-    },
-    {
-        "label": "RAVINTOLA KARL",
-        "category": "0"
     },
     {
         "label": "FREE TELECOM",
@@ -10804,10 +10576,6 @@
         "category": "400112"
     },
     {
-        "label": "MOJANG.COM 7,19 EUR SUEDE",
-        "category": "0"
-    },
-    {
         "label": "D.G.F.I.P. IMPOT 69060",
         "category": "400500"
     },
@@ -10874,10 +10642,6 @@
     {
         "label": "SM CASINO CS713",
         "category": "400110"
-    },
-    {
-        "label": "MAISON LONE",
-        "category": "0"
     },
     {
         "label": "FINDMYORDER.COM",
@@ -12104,10 +11868,6 @@
         "category": "600160"
     },
     {
-        "label": "CP CAIS SODRE 1,80 EUR PORTUGAL",
-        "category": "0"
-    },
-    {
         "label": "LOGITEL",
         "category": "600110"
     },
@@ -12928,10 +12688,6 @@
         "category": "401060"
     },
     {
-        "label": "HL HOSPITAL EUR0000008000",
-        "category": "0"
-    },
-    {
         "label": "BP ASSEVILLERS E",
         "category": "400250"
     },
@@ -12948,10 +12704,6 @@
         "category": "400130"
     },
     {
-        "label": "AUCAT BAEUR0000000399",
-        "category": "0"
-    },
-    {
         "label": "SELARL DR COHEN-",
         "category": "400610"
     },
@@ -12966,10 +12718,6 @@
     {
         "label": "LECOMPTOIRLOCAL",
         "category": "400110"
-    },
-    {
-        "label": "BENZINERA HOEUR0000004427",
-        "category": "0"
     },
     {
         "label": "BIOJUST",
@@ -13064,10 +12812,6 @@
         "category": "400750"
     },
     {
-        "label": "BROOKLYN DINUSD0000012400",
-        "category": "0"
-    },
-    {
         "label": "F-FRAIS CB ETRANGER 28/09 ONE",
         "category": "400340"
     },
@@ -13080,24 +12824,12 @@
         "category": "400340"
     },
     {
-        "label": "MACYS HERALEUR0000007033",
-        "category": "0"
-    },
-    {
         "label": "VIREMENT CC",
         "category": "100"
     },
     {
-        "label": "BROOKLYN CRAUSD0000010000",
-        "category": "0"
-    },
-    {
         "label": "F-FRAIS CB ETRANGER 29/09 BROO",
         "category": "400340"
-    },
-    {
-        "label": "SPICE USD0000008264",
-        "category": "0"
     },
     {
         "label": "POLE EMPLOI DR IDF ALLOCAT",
@@ -13204,16 +12936,8 @@
         "category": "400110"
     },
     {
-        "label": "BARCELONA AEEUR0000002250",
-        "category": "0"
-    },
-    {
         "label": "COOKNBOX.COM",
         "category": "400110"
-    },
-    {
-        "label": "MODA LUIS EUR0000003800",
-        "category": "0"
     },
     {
         "label": "MONOPRIX",
@@ -13580,10 +13304,6 @@
         "category": "400110"
     },
     {
-        "label": "HSO*babymarkEUR0000002362",
-        "category": "0"
-    },
-    {
         "label": "ALMABIO BIOCOOP",
         "category": "400110"
     },
@@ -13644,10 +13364,6 @@
         "category": "400270"
     },
     {
-        "label": "GUERIN RENT EUR0000047928",
-        "category": "0"
-    },
-    {
         "label": "CHEQUE N\u00b07967518",
         "category": "200"
     },
@@ -13670,10 +13386,6 @@
     {
         "label": "VIREMENT CC",
         "category": "100"
-    },
-    {
-        "label": "MASSIMO DUTTEUR0000019900",
-        "category": "0"
     },
     {
         "label": "A.C.E.S.A ALEUR0000000745",
@@ -13784,20 +13496,12 @@
         "category": "400760"
     },
     {
-        "label": "ANTHROPOLOGIUSD0000001307",
-        "category": "0"
-    },
-    {
         "label": "F-FRAIS CB ETRANGER 28/09 PJ C",
         "category": "400340"
     },
     {
         "label": "F-FRAIS CB ETRANGER 01/10 SPIC",
         "category": "400340"
-    },
-    {
-        "label": "MTA MVM*A010USD0000000300",
-        "category": "0"
     },
     {
         "label": "RETRAIT ETRANGER 28/09 NEW YORUSD0000010500",
@@ -13810,10 +13514,6 @@
     {
         "label": "F-FRAIS RETRAIT ETR 28/09 NEW",
         "category": "400340"
-    },
-    {
-        "label": "ONE WORLD OBUSD0000007400",
-        "category": "0"
     },
     {
         "label": "YOKO SUSHI",
@@ -13910,10 +13610,6 @@
     {
         "label": "CHEQUE N\u00b01983127",
         "category": "200"
-    },
-    {
-        "label": "CHEZ LORENZOEUR0000004495",
-        "category": "0"
     },
     {
         "label": "VIREMENT CC",
@@ -14344,10 +14040,6 @@
         "category": "400180"
     },
     {
-        "label": "AUCAT BAEUR0000000668",
-        "category": "0"
-    },
-    {
         "label": "METLIFE EUROPE D.A.C.",
         "category": "401010"
     },
@@ -14362,10 +14054,6 @@
     {
         "label": "MONOPRIX",
         "category": "400110"
-    },
-    {
-        "label": "Annulation VIR VIREMENT",
-        "category": "0"
     },
     {
         "label": "ORIGYN",
@@ -14394,10 +14082,6 @@
     {
         "label": "BW PUTEAUX",
         "category": "400110"
-    },
-    {
-        "label": "DE MEUTTER PEUR0000145669",
-        "category": "0"
     },
     {
         "label": "Filedanstachamb",
@@ -14484,24 +14168,8 @@
         "category": "400190"
     },
     {
-        "label": "PJ CLARKES OUSD0000017500",
-        "category": "0"
-    },
-    {
         "label": "F-FRAIS CB ETRANGER 29/09 MTA",
         "category": "400340"
-    },
-    {
-        "label": "ARGO TEA USD0000001366",
-        "category": "0"
-    },
-    {
-        "label": "INNSIDE NEW USD0000004821",
-        "category": "0"
-    },
-    {
-        "label": "DOODLE DOOS USD0000005988",
-        "category": "0"
     },
     {
         "label": "RR STATION SURF",
@@ -14616,10 +14284,6 @@
         "category": "400110"
     },
     {
-        "label": "BENZINERA HOEUR0000002500",
-        "category": "0"
-    },
-    {
         "label": "METLIFE EUROPE D.A.C.",
         "category": "401010"
     },
@@ -14630,10 +14294,6 @@
     {
         "label": "CHEQUE N\u00b01983129",
         "category": "200"
-    },
-    {
-        "label": "GATE GROUP IEUR0000000750",
-        "category": "0"
     },
     {
         "label": "ACHATS CARTE",
@@ -14792,10 +14452,6 @@
         "category": "400180"
     },
     {
-        "label": "SARL S&Z",
-        "category": "0"
-    },
-    {
         "label": "FNAC",
         "category": "400750"
     },
@@ -14930,10 +14586,6 @@
     {
         "label": "CHEQUE N\u00b01983142",
         "category": "400730"
-    },
-    {
-        "label": "COCO LAFAYETTE",
-        "category": "0"
     },
     {
         "label": "LE GRAND CERCLE",
@@ -15156,10 +14808,6 @@
         "category": "400112"
     },
     {
-        "label": "INDIGO0910603 EVRY",
-        "category": "0"
-    },
-    {
         "label": "CFGL MASSY",
         "category": "400110"
     },
@@ -15276,10 +14924,6 @@
         "category": "100"
     },
     {
-        "label": "LA GENERALE LIB IVRY SUR SEI",
-        "category": "0"
-    },
-    {
         "label": "Vt vers : PEL - M. TRAN VAN PAUL (****8692)",
         "category": "600110"
     },
@@ -15312,10 +14956,6 @@
         "category": "400150"
     },
     {
-        "label": "ZEKHNINI MOHAMM ECHIROLLES",
-        "category": "0"
-    },
-    {
         "label": "ZOO LA FLECHE LA FLECHE",
         "category": "400820"
     },
@@ -15334,10 +14974,6 @@
     {
         "label": "CORA MASSY",
         "category": "400110"
-    },
-    {
-        "label": "LE PHENIX MASSY",
-        "category": "0"
     },
     {
         "label": "REL.SARTHE SARG SARGE LES LE",
@@ -15376,10 +15012,6 @@
         "category": "400112"
     },
     {
-        "label": "GUY BOKOBZA PARIS 9",
-        "category": "0"
-    },
-    {
         "label": "SOGESTI RUNGIS CEDEX",
         "category": "400160"
     },
@@ -15390,10 +15022,6 @@
     {
         "label": "RELAY 323188PX PARIS",
         "category": "400750"
-    },
-    {
-        "label": "ARDOA MAITE TOULON",
-        "category": "0"
     },
     {
         "label": "Vt vers : LA of Pol",
@@ -15408,24 +15036,8 @@
         "category": "400810"
     },
     {
-        "label": "UNCLE ZAZ ST JEAN DE LU",
-        "category": "0"
-    },
-    {
-        "label": "NAPPE VEGETALE BIDART",
-        "category": "0"
-    },
-    {
-        "label": "S W GUETHARY GUETHARY",
-        "category": "0"
-    },
-    {
         "label": "SFR FIXE ADSL",
         "category": "400150"
-    },
-    {
-        "label": "SC-CHOCOLINE PARIS",
-        "category": "0"
     },
     {
         "label": "CASA COSA PARIS",
@@ -15920,10 +15532,6 @@
         "category": "400112"
     },
     {
-        "label": "LA GALETTIERE MASSY",
-        "category": "0"
-    },
-    {
         "label": "Vt de : Le CC de Pol",
         "category": "600110"
     },
@@ -16148,14 +15756,6 @@
         "category": "400160"
     },
     {
-        "label": "EARL DOMAINE CO PISSOTTE",
-        "category": "0"
-    },
-    {
-        "label": "VIRY CONTROLE VIRY CHATILLO",
-        "category": "0"
-    },
-    {
         "label": "EUROPA PARK GMB",
         "category": "400270"
     },
@@ -16238,10 +15838,6 @@
     {
         "label": "RELAY 350363PX ROISSY CDG CE",
         "category": "400750"
-    },
-    {
-        "label": "STO ANO KATO",
-        "category": "0"
     },
     {
         "label": "AU FOUR AU MOUL MASSY",
@@ -16584,10 +16180,6 @@
         "category": "400110"
     },
     {
-        "label": "COINBASE GB LONDO",
-        "category": "0"
-    },
-    {
         "label": "DR RATS MASSY",
         "category": "400610"
     },
@@ -16880,10 +16472,6 @@
         "category": "100"
     },
     {
-        "label": "TIAM EVRY",
-        "category": "0"
-    },
-    {
         "label": "PAYPAL 0800 942 890",
         "category": "400112"
     },
@@ -16926,10 +16514,6 @@
     {
         "label": "/DE TRAN VAN PAUL /MOTIF CACAHUETES /REF",
         "category": "600110"
-    },
-    {
-        "label": "RELAIS DE POELL LE VIEIL BAUG",
-        "category": "0"
     },
     {
         "label": "DIGITICK BILLET MARSEILLE",
@@ -16994,10 +16578,6 @@
     {
         "label": "SFR",
         "category": "400150"
-    },
-    {
-        "label": "SELECTA GAR NIO AUBERVILLIERS",
-        "category": "0"
     },
     {
         "label": "CONSTANTINOPLE VERSAILLES",
@@ -17112,10 +16692,6 @@
         "category": "400610"
     },
     {
-        "label": "APHRODITE S SEC",
-        "category": "0"
-    },
-    {
         "label": "Vt vers : Le CC de Pol",
         "category": "600110"
     },
@@ -17126,10 +16702,6 @@
     {
         "label": "MGP*ULULE P L - 2449 LUXE",
         "category": "400170"
-    },
-    {
-        "label": "SAS LE SCHONGAU COLMAR",
-        "category": "0"
     },
     {
         "label": "CARREFOURMARKET",
@@ -17496,10 +17068,6 @@
         "category": "400110"
     },
     {
-        "label": "EARL DOMAINE CO PISSOTTE",
-        "category": "0"
-    },
-    {
         "label": "/DE MLLE PAULINE JEANNEY--BREDILLET /MOT",
         "category": "100"
     },
@@ -17534,14 +17102,6 @@
     {
         "label": "RETRAIT DAB COINBASE BUZ71H GB LONDO CARTE",
         "category": "300"
-    },
-    {
-        "label": "LA GALETTIERE MASSY",
-        "category": "0"
-    },
-    {
-        "label": "LE PHENIX MASSY",
-        "category": "0"
     },
     {
         "label": "/DE MLLE PAULINE JEANNEY--BREDILLET /MOT",
@@ -18556,10 +18116,6 @@
         "category": "100"
     },
     {
-        "label": "SC-PH7 EQUILIBR PARIS",
-        "category": "0"
-    },
-    {
         "label": "DEPOT INITIAL DU COMPTE 30004006820000130886959",
         "category": "600110"
     },
@@ -18636,16 +18192,8 @@
         "category": "400150"
     },
     {
-        "label": "VIKING LINE, VI",
-        "category": "0"
-    },
-    {
         "label": "ITUNES.COM/BILL",
         "category": "400750"
-    },
-    {
-        "label": "CUMULUS CITY KA",
-        "category": "0"
     },
     {
         "label": "SCALEWAY PARIS",
@@ -18728,10 +18276,6 @@
         "category": "400130"
     },
     {
-        "label": "RETROCESSION DU 011017 AU 310818 CARTE NO 00049740182",
-        "category": "0"
-    },
-    {
         "label": "VIR CPTE A CPTE EMIS /MOTIF EPARGNE /BEN VANDEKERCKHOVE P /RE",
         "category": "100"
     },
@@ -18746,10 +18290,6 @@
     {
         "label": "/DE PAYPAL EUROPE SARL ET CIE SCA /MOTIF",
         "category": "400112"
-    },
-    {
-        "label": "REVOLUT*4656*",
-        "category": "0"
     },
     {
         "label": "ORIGIMALL PARIS",
@@ -18782,10 +18322,6 @@
     {
         "label": "ZOOM.EUR",
         "category": "400300"
-    },
-    {
-        "label": "REVOLUT*4656*",
-        "category": "0"
     },
     {
         "label": "SOPHIE VANDEKERCKHOVE /MOTIF",
@@ -19112,10 +18648,6 @@
         "category": "400160"
     },
     {
-        "label": "TALLINK SPA&CON",
-        "category": "0"
-    },
-    {
         "label": "MALAKOFF MEDERIC PREVOYANCE",
         "category": "400610"
     },
@@ -19166,10 +18698,6 @@
     {
         "label": "COZY CLOUD NDF FOURNITURES 09",
         "category": "100"
-    },
-    {
-        "label": "REVOLUT*4656*",
-        "category": "0"
     },
     {
         "label": "DARGOLS ALAIN D PARIS 13",
@@ -19228,16 +18756,8 @@
         "category": "400610"
     },
     {
-        "label": "REVOLUT*4656*",
-        "category": "0"
-    },
-    {
         "label": "COMMISSIONS D INTERVENTION",
         "category": "400340"
-    },
-    {
-        "label": "AU JOUR J PARIS",
-        "category": "0"
     },
     {
         "label": "LYDIA APP PARIS",
@@ -19254,10 +18774,6 @@
     {
         "label": "SPOTIFY FRANCE PARIS",
         "category": "400750"
-    },
-    {
-        "label": "REVOLUT*4656*",
-        "category": "0"
     },
     {
         "label": "MALAKOFF MEDERIC PREVOYANCE",
@@ -19636,10 +19152,6 @@
         "category": "400130"
     },
     {
-        "label": "REVOLUT*4656*",
-        "category": "0"
-    },
-    {
         "label": "LYDIA APP PARIS",
         "category": "400110"
     },
@@ -19682,10 +19194,6 @@
     {
         "label": "ITUNES.COM/BILL",
         "category": "400750"
-    },
-    {
-        "label": "REVOLUT*4656*",
-        "category": "0"
     },
     {
         "label": "BNP PARIBAS",
@@ -21432,10 +20940,6 @@
         "category": "400810"
     },
     {
-        "label": "SUMUP *LA KANT",
-        "category": "0"
-    },
-    {
         "label": "M ROMAIN QUECHON LOYER AVRIL",
         "category": "200170"
     },
@@ -22144,10 +21648,6 @@
         "category": "600150"
     },
     {
-        "label": "Virement \u00e9mis SEPA-VIRT Christian Alix AXA",
-        "category": "0"
-    },
-    {
         "label": "ACHAT 07/10 AMAZON PAYMENTS",
         "category": "600150"
     },
@@ -22170,10 +21670,6 @@
     {
         "label": "ACHAT 31/10 AMAZON PAYMENTS",
         "category": "600150"
-    },
-    {
-        "label": "LE TONIC 0",
-        "category": "0"
     },
     {
         "label": "Virement re\u00e7u SEPA-VIRT DE OVH",
@@ -22388,10 +21884,6 @@
         "category": "400750"
     },
     {
-        "label": "L'EPI DE BLE 0",
-        "category": "0"
-    },
-    {
         "label": "ACHAT 19/12 GOOGLE Art In Ga",
         "category": "400112"
     },
@@ -22416,10 +21908,6 @@
         "category": "400810"
     },
     {
-        "label": "Virement \u00e9mis SEPA-VIRT Christian Alix AXA",
-        "category": "0"
-    },
-    {
         "label": "VILLA D'OR",
         "category": "400810"
     },
@@ -22434,10 +21922,6 @@
     {
         "label": "ACHAT 07/01 SCALEWAY",
         "category": "600150"
-    },
-    {
-        "label": "LISECO 0",
-        "category": "0"
     },
     {
         "label": "ACHAT 09/01 PAYPAL",
@@ -22492,10 +21976,6 @@
         "category": "600150"
     },
     {
-        "label": "Virement \u00e9mis SEPA-VIRT Christian Alix AXA",
-        "category": "0"
-    },
-    {
         "label": "PIZZA HUT",
         "category": "400810"
     },
@@ -22508,24 +21988,12 @@
         "category": "400810"
     },
     {
-        "label": "CAVE A FLO 0",
-        "category": "0"
-    },
-    {
         "label": "LE TEMPLE DU JEU",
         "category": "400180"
     },
     {
-        "label": "CAVE A FLO 0",
-        "category": "0"
-    },
-    {
         "label": "PIZZA HUT",
         "category": "400810"
-    },
-    {
-        "label": "LE TONIC 0",
-        "category": "0"
     },
     {
         "label": "PHARM LA MADE",
@@ -22576,10 +22044,6 @@
         "category": "600150"
     },
     {
-        "label": "Virement \u00e9mis SEPA-VIRT Christian Alix AXA",
-        "category": "0"
-    },
-    {
         "label": "ACHAT 01/03 PAYPAL",
         "category": "600150"
     },
@@ -22588,16 +22052,8 @@
         "category": "600150"
     },
     {
-        "label": "Virement re\u00e7u SEPA-VIRT DE MALAKOFF MEDERIC",
-        "category": "0"
-    },
-    {
         "label": "Virement re\u00e7u SEPA-VIRT DE C.P.A.M. RENNES",
         "category": "400610"
-    },
-    {
-        "label": "LE TONIC 0",
-        "category": "0"
     },
     {
         "label": "Virement re\u00e7u SEPA-VIRT DE C.P.A.M. RENNES",
@@ -22612,10 +22068,6 @@
         "category": "600150"
     },
     {
-        "label": "L'EPI DE BLE 0",
-        "category": "0"
-    },
-    {
         "label": "Pr\u00e9l\u00e8vement SEPA-PRLV DE FREE MOBILE",
         "category": "400150"
     },
@@ -22626,14 +22078,6 @@
     {
         "label": "ACHAT 12/03 PAYPAL",
         "category": "600150"
-    },
-    {
-        "label": "CAVE A FLO 0",
-        "category": "0"
-    },
-    {
-        "label": "LE TONIC 0",
-        "category": "0"
     },
     {
         "label": "PIZZA HUT",
@@ -22662,10 +22106,6 @@
     {
         "label": "GOOGLE Kongregate",
         "category": "400112"
-    },
-    {
-        "label": "SCP DUC VALLINO",
-        "category": "0"
     },
     {
         "label": "GOOGLE Kongregate",
@@ -22748,10 +22188,6 @@
         "category": "400112"
     },
     {
-        "label": "SAS SAS LOMAJAC",
-        "category": "0"
-    },
-    {
         "label": "WESTERN UNION",
         "category": "400170"
     },
@@ -22786,10 +22222,6 @@
     {
         "label": "LE TONIC",
         "category": "400111"
-    },
-    {
-        "label": "SAS SAS LOMAJAC",
-        "category": "0"
     },
     {
         "label": "DELIVEROOFR",
@@ -22966,10 +22398,6 @@
     {
         "label": "PAYPAL",
         "category": "400112"
-    },
-    {
-        "label": "LEARNELIXIRTV",
-        "category": "0"
     },
     {
         "label": "PAYPAL",
@@ -23164,10 +22592,6 @@
         "category": "400112"
     },
     {
-        "label": "LUNETTES & YEUX",
-        "category": "0"
-    },
-    {
         "label": "GOOGLE Google Music",
         "category": "400112"
     },
@@ -23316,10 +22740,6 @@
         "category": "400112"
     },
     {
-        "label": "DUGAP.COM",
-        "category": "0"
-    },
-    {
         "label": "COZY CLOUD",
         "category": "100"
     },
@@ -23398,10 +22818,6 @@
     {
         "label": "Amazon Marketplace FR",
         "category": "400112"
-    },
-    {
-        "label": "DUGAP.COM",
-        "category": "0"
     },
     {
         "label": "GOOGLE",
@@ -23632,10 +23048,6 @@
         "category": "600150"
     },
     {
-        "label": "Virement \u00e9mis SEPA-VIRT Christian Alix AXA",
-        "category": "0"
-    },
-    {
         "label": "ACHAT 02/09 AMAZON PAYMENTS",
         "category": "600150"
     },
@@ -23840,10 +23252,6 @@
         "category": "400112"
     },
     {
-        "label": "Virement \u00e9mis SEPA-VIRT Christian Alix AXA",
-        "category": "0"
-    },
-    {
         "label": "ACHAT 30/11 AMAZON EU SARL",
         "category": "600150"
     },
@@ -23892,10 +23300,6 @@
         "category": "400290"
     },
     {
-        "label": "Virement re\u00e7u SEPA-VIRT DE MALAKOFF MEDERIC",
-        "category": "0"
-    },
-    {
         "label": "LA TOUR DE FLAND",
         "category": "400160"
     },
@@ -23940,16 +23344,8 @@
         "category": "600150"
     },
     {
-        "label": "L'EPI DE BLE 0",
-        "category": "0"
-    },
-    {
         "label": "ACHAT 19/12 GOOGLE Art In Ga",
         "category": "400112"
-    },
-    {
-        "label": "CREP.LA HUBLAIS0",
-        "category": "0"
     },
     {
         "label": "SAUGON",
@@ -24024,10 +23420,6 @@
         "category": "400300"
     },
     {
-        "label": "OLIVIER PHILIPPE",
-        "category": "0"
-    },
-    {
         "label": "ACHAT 23/01 G7",
         "category": "600150"
     },
@@ -24056,14 +23448,6 @@
         "category": "600140"
     },
     {
-        "label": "Virement \u00e9mis SEPA-VIRT Christophe Demaussio",
-        "category": "0"
-    },
-    {
-        "label": "LE TONIC 0",
-        "category": "0"
-    },
-    {
         "label": "ACHAT 17/01 G7",
         "category": "600150"
     },
@@ -24078,10 +23462,6 @@
     {
         "label": "PAYPAL",
         "category": "400112"
-    },
-    {
-        "label": "LE TEMPLE DU JE0",
-        "category": "0"
     },
     {
         "label": "ACHAT 06/02 SCP DUC VALLINO",
@@ -24116,24 +23496,8 @@
         "category": "600150"
     },
     {
-        "label": "CAVE A FLO 0",
-        "category": "0"
-    },
-    {
         "label": "AZUR",
         "category": "400610"
-    },
-    {
-        "label": "CAVE A FLO 0",
-        "category": "0"
-    },
-    {
-        "label": "CAVE A FLO 0",
-        "category": "0"
-    },
-    {
-        "label": "L'EPI DE BLE 0",
-        "category": "0"
     },
     {
         "label": "ACHAT 14/02 G7",
@@ -24164,10 +23528,6 @@
         "category": "600150"
     },
     {
-        "label": "CAVE A FLO 0",
-        "category": "0"
-    },
-    {
         "label": "ACHAT 28/02 G7",
         "category": "600150"
     },
@@ -24176,24 +23536,12 @@
         "category": "600150"
     },
     {
-        "label": "L'EPI DE BLE 0",
-        "category": "0"
-    },
-    {
         "label": "PIZZA HUT",
         "category": "400810"
     },
     {
-        "label": "CAVE A FLO 0",
-        "category": "0"
-    },
-    {
         "label": "ACHAT 28/02 SUSHI SHOP",
         "category": "600150"
-    },
-    {
-        "label": "Virement re\u00e7u SEPA-VIRT DE MALAKOFF MEDERIC",
-        "category": "0"
     },
     {
         "label": "ACHAT 07/03 G7",
@@ -24210,10 +23558,6 @@
     {
         "label": "ACHAT 13/03 G7",
         "category": "600150"
-    },
-    {
-        "label": "LE TONIC 0",
-        "category": "0"
     },
     {
         "label": "PIZZA HUT",
@@ -24336,10 +23680,6 @@
         "category": "400112"
     },
     {
-        "label": "SCP DUC VALLINO",
-        "category": "0"
-    },
-    {
         "label": "PAYPAL",
         "category": "400112"
     },
@@ -24354,10 +23694,6 @@
     {
         "label": "PAYPAL",
         "category": "400112"
-    },
-    {
-        "label": "SAS SAS LOMAJAC",
-        "category": "0"
     },
     {
         "label": "PAYPAL",
@@ -24376,20 +23712,12 @@
         "category": "400170"
     },
     {
-        "label": "SAS SAS LOMAJAC",
-        "category": "0"
-    },
-    {
         "label": "PAYPAL",
         "category": "400112"
     },
     {
         "label": "AU P TIT MARCHE",
         "category": "400110"
-    },
-    {
-        "label": "SAS SAS LOMAJAC",
-        "category": "0"
     },
     {
         "label": "SCALEWAY",
@@ -24584,10 +23912,6 @@
         "category": "400150"
     },
     {
-        "label": "Remboursement AMZ*Ange lica89",
-        "category": "0"
-    },
-    {
         "label": "ALIX FREDERIC",
         "category": "100"
     },
@@ -24756,10 +24080,6 @@
         "category": "400112"
     },
     {
-        "label": "DUGAP.COM",
-        "category": "0"
-    },
-    {
         "label": "Amazon Retail FR",
         "category": "400112"
     },
@@ -24856,10 +24176,6 @@
         "category": "400112"
     },
     {
-        "label": "Revolut*8451*",
-        "category": "0"
-    },
-    {
         "label": "Amazon Retail FR",
         "category": "400112"
     },
@@ -24932,10 +24248,6 @@
         "category": "400112"
     },
     {
-        "label": "Revolut*8451*",
-        "category": "0"
-    },
-    {
         "label": "PAYPAL",
         "category": "400112"
     },
@@ -24966,10 +24278,6 @@
     {
         "label": "Amazon Marketplace FR",
         "category": "400112"
-    },
-    {
-        "label": "EASELLY INFOGRAPHICS",
-        "category": "0"
     },
     {
         "label": "PAYPAL",
@@ -25058,10 +24366,6 @@
     {
         "label": "PAYPAL",
         "category": "400112"
-    },
-    {
-        "label": "DUGAP.COM",
-        "category": "0"
     },
     {
         "label": "PAYPAL",
@@ -25212,10 +24516,6 @@
         "category": "600150"
     },
     {
-        "label": "Virement \u00e9mis SEPA-VIRT Christian Alix AXA",
-        "category": "0"
-    },
-    {
         "label": "ACHAT 07/11 GOOGLE iDreams",
         "category": "400112"
     },
@@ -25306,10 +24606,6 @@
     {
         "label": "ACHAT 01/12 GOOGLE iDreams",
         "category": "400112"
-    },
-    {
-        "label": "L'EPI DE BLE 0",
-        "category": "0"
     },
     {
         "label": "ACHAT 04/12 GOOGLE iDreams",
@@ -25456,10 +24752,6 @@
         "category": "600150"
     },
     {
-        "label": "L'EPI DE BLE 0",
-        "category": "0"
-    },
-    {
         "label": "PIZZA HUT",
         "category": "400810"
     },
@@ -25492,10 +24784,6 @@
         "category": "600150"
     },
     {
-        "label": "CAVE A FLO 0",
-        "category": "0"
-    },
-    {
         "label": "ACHAT 07/02 G7",
         "category": "600150"
     },
@@ -25508,16 +24796,8 @@
         "category": "400610"
     },
     {
-        "label": "CAVE A FLO 0",
-        "category": "0"
-    },
-    {
         "label": "ACHAT 10/02 G7",
         "category": "600150"
-    },
-    {
-        "label": "CAVE A FLO 0",
-        "category": "0"
     },
     {
         "label": "Virement re\u00e7u SEPA-VIRT DE C.P.A.M. RENNES",
@@ -25530,10 +24810,6 @@
     {
         "label": "ACHAT 14/02 PAYPAL",
         "category": "600150"
-    },
-    {
-        "label": "Virement re\u00e7u SEPA-VIRT DE MALAKOFF MEDERIC",
-        "category": "0"
     },
     {
         "label": "ACHAT 14/02 G7",
@@ -25592,16 +24868,8 @@
         "category": "600150"
     },
     {
-        "label": "Virement \u00e9mis SEPA-VIRT Christophe Demaussio",
-        "category": "0"
-    },
-    {
         "label": "ACHAT 03/03 G7",
         "category": "600150"
-    },
-    {
-        "label": "CAVE A FLO 0",
-        "category": "0"
     },
     {
         "label": "ACHAT 08/03 PAYPAL",
@@ -25614,10 +24882,6 @@
     {
         "label": "ACHAT 09/03 G7",
         "category": "600150"
-    },
-    {
-        "label": "L'EPI DE BLE 0",
-        "category": "0"
     },
     {
         "label": "PIZZA HUT",
@@ -25650,10 +24914,6 @@
     {
         "label": "ACHAT 30/03 PAYPAL",
         "category": "600150"
-    },
-    {
-        "label": "Virement \u00e9mis SEPA-VIRT Christian Alix AXA",
-        "category": "0"
     },
     {
         "label": "PAYPAL",
@@ -25852,10 +25112,6 @@
         "category": "400112"
     },
     {
-        "label": "SAS SAS LOMAJAC",
-        "category": "0"
-    },
-    {
         "label": "GOOGLE Google",
         "category": "400112"
     },
@@ -25914,10 +25170,6 @@
     {
         "label": "MATERIEL.NET - MANAT",
         "category": "400740"
-    },
-    {
-        "label": "SCP DUC VALLINO",
-        "category": "0"
     },
     {
         "label": "CAMALOON",
@@ -26144,10 +25396,6 @@
         "category": "400112"
     },
     {
-        "label": "DEPOT CASH CARTE N\u00b0 84694",
-        "category": "0"
-    },
-    {
         "label": "FREE MOBILE",
         "category": "400150"
     },
@@ -26158,10 +25406,6 @@
     {
         "label": "Amazon Marketplace FR",
         "category": "400112"
-    },
-    {
-        "label": "ZEROTIER INC BASIC",
-        "category": "0"
     },
     {
         "label": "PIZZA HUT",
@@ -26256,20 +25500,12 @@
         "category": "400112"
     },
     {
-        "label": "DUGAP.COM",
-        "category": "0"
-    },
-    {
         "label": "PAYPAL",
         "category": "400112"
     },
     {
         "label": "LDLC COM",
         "category": "400740"
-    },
-    {
-        "label": "F C I C",
-        "category": "0"
     },
     {
         "label": "Amazon Marketplace FR",
@@ -26693,10 +25929,6 @@
     },
     {
         "label": "NUCLINO",
-        "category": "0"
-    },
-    {
-        "label": "NUCLINO",
         "category": "400300"
     },
     {
@@ -26784,10 +26016,6 @@
         "category": "100"
     },
     {
-        "label": "Reporters Sans",
-        "category": "0"
-    },
-    {
         "label": "Monoprix",
         "category": "400110"
     },
@@ -26862,10 +26090,6 @@
     {
         "label": "Paypal (europe) S.a.r.l. Et",
         "category": "400112"
-    },
-    {
-        "label": "Cbaeurqxyxywok",
-        "category": "0"
     },
     {
         "label": "Mezzo Di Pasta",
@@ -27044,10 +26268,6 @@
         "category": "400200"
     },
     {
-        "label": "Pay Systems B.v",
-        "category": "0"
-    },
-    {
         "label": "Paypal (europe) S.a.r.l. Et",
         "category": "400112"
     },
@@ -27062,10 +26282,6 @@
     {
         "label": "Domino's Pizza",
         "category": "400810"
-    },
-    {
-        "label": "F1802b 029",
-        "category": "0"
     },
     {
         "label": "Subway Flo 2005",
@@ -27202,10 +26418,6 @@
     {
         "label": "La Mie De Mat",
         "category": "400160"
-    },
-    {
-        "label": "Mgp*liberapay",
-        "category": "0"
     },
     {
         "label": "Mr Ou Me Abolivier Chri",
@@ -27372,10 +26584,6 @@
         "category": "400110"
     },
     {
-        "label": "Reporters Sans",
-        "category": "0"
-    },
-    {
         "label": "Bozova",
         "category": "400810"
     },
@@ -27476,10 +26684,6 @@
         "category": "400750"
     },
     {
-        "label": "De Oude Brug",
-        "category": "0"
-    },
-    {
         "label": "Trainline",
         "category": "400200"
     },
@@ -27552,10 +26756,6 @@
         "category": "400110"
     },
     {
-        "label": "Alpine Hearing",
-        "category": "0"
-    },
-    {
         "label": "Monoprix",
         "category": "400110"
     },
@@ -27574,10 +26774,6 @@
     {
         "label": "Lucien",
         "category": "400110"
-    },
-    {
-        "label": "Sarl S&z",
-        "category": "0"
     },
     {
         "label": "Smeba",
@@ -27692,10 +26888,6 @@
         "category": "400130"
     },
     {
-        "label": "Coinbase Gvawn7",
-        "category": "0"
-    },
-    {
         "label": "Magasin U",
         "category": "400110"
     },
@@ -27790,10 +26982,6 @@
     {
         "label": "Magasin U",
         "category": "400110"
-    },
-    {
-        "label": "Gentlemen Only",
-        "category": "0"
     },
     {
         "label": "Caisse 1",
@@ -27906,10 +27094,6 @@
     {
         "label": "FRAIS PAIE CB OP 10,80 USD",
         "category": "400340"
-    },
-    {
-        "label": "33675204130 SCALINGO SAS",
-        "category": "0"
     },
     {
         "label": "GMF ASSURANCES PT0030114550 04598R1",
@@ -28044,20 +27228,8 @@
         "category": "400340"
     },
     {
-        "label": "33645198989 VISUAL NOVELS ST",
-        "category": "0"
-    },
-    {
-        "label": "14,11 GBP TRANSFERWISE",
-        "category": "0"
-    },
-    {
         "label": "COMPTE COURANT JEUNE ACTIF",
         "category": "600110"
-    },
-    {
-        "label": "STRASBOURG PUB WORK",
-        "category": "0"
     },
     {
         "label": "STRANSBOURG NICOLAS 9181",
@@ -28100,16 +27272,8 @@
         "category": "400230"
     },
     {
-        "label": "STRASBOURG MARCHE 2000",
-        "category": "0"
-    },
-    {
         "label": "COMPTE COURANT JEUNE ACTIF",
         "category": "600110"
-    },
-    {
-        "label": "STRASBOURG PUB WORK",
-        "category": "0"
     },
     {
         "label": "10,80 USD VISIT PATREON.CO",
@@ -28636,10 +27800,6 @@
         "category": "400710"
     },
     {
-        "label": "PRLV EUROP PONCTUEL  1707145319 POUR CPTE DE:RESIDENCE DU CENTRE ID: FR80ZZZ81B941 REF: 160670XXXXXX650093520001",
-        "category": "0"
-    },
-    {
         "label": "EL RANCHO",
         "category": "400810"
     },
@@ -28750,10 +27910,6 @@
     {
         "label": "ChauffeurPrive",
         "category": "400290"
-    },
-    {
-        "label": "BEST OF WEB 2 TICKETS",
-        "category": "0"
     },
     {
         "label": "LOGITEL",
@@ -28942,10 +28098,6 @@
     {
         "label": "MMA IARD SA-MMA IARD",
         "category": "400340"
-    },
-    {
-        "label": "BIO TERRE  01",
-        "category": "0"
     },
     {
         "label": "INTERETS CREDITEURS",
@@ -29344,10 +28496,6 @@
         "category": "400150"
     },
     {
-        "label": "BIO TERRE  01",
-        "category": "0"
-    },
-    {
         "label": "SG SERVICES",
         "category": "400180"
     },
@@ -29358,10 +28506,6 @@
     {
         "label": "DEEZER",
         "category": "400750"
-    },
-    {
-        "label": "COINBASE 08848H9G",
-        "category": "0"
     },
     {
         "label": "SNCF",
@@ -29396,10 +28540,6 @@
         "category": "400740"
     },
     {
-        "label": "COINBASE F0BDMNX2",
-        "category": "0"
-    },
-    {
         "label": "SIMPLY FRANC MA",
         "category": "400110"
     },
@@ -29426,10 +28566,6 @@
     {
         "label": "CULTURA",
         "category": "400750"
-    },
-    {
-        "label": "COINBASE GU7M66E3",
-        "category": "0"
     },
     {
         "label": "ISOTONER",
@@ -29590,10 +28726,6 @@
     {
         "label": "CORA HYPER",
         "category": "400110"
-    },
-    {
-        "label": "BIO TERRE  01",
-        "category": "0"
     },
     {
         "label": "PRLV EUROP PONCTUEL  5014290869 POUR CPTE DE:D.G.F.I.P IMPOT 95057 ID: FR46ZZZ005002 MOTIF: 600095509341TLR1895004910403    TLR",
@@ -30244,20 +29376,8 @@
         "category": "400750"
     },
     {
-        "label": "Revolut*7528*",
-        "category": "0"
-    },
-    {
-        "label": "Revolut*7528*",
-        "category": "0"
-    },
-    {
         "label": "Macif Vdsp Production-Macif",
         "category": "401040"
-    },
-    {
-        "label": "Revolut*7528*",
-        "category": "0"
     },
     {
         "label": "*com Op Int Splitwise",
@@ -30404,20 +29524,8 @@
         "category": "400160"
     },
     {
-        "label": "Revolut*7528*",
-        "category": "0"
-    },
-    {
-        "label": "Revolut*7528*",
-        "category": "0"
-    },
-    {
         "label": "Virement Sepa Par Internet",
         "category": "100"
-    },
-    {
-        "label": "Revolut*7528*",
-        "category": "0"
     },
     {
         "label": "Mots Et Images",
@@ -30500,48 +29608,20 @@
         "category": "300"
     },
     {
-        "label": "Revolut*7528*",
-        "category": "0"
-    },
-    {
         "label": "* Cotisation Offre Futeo",
         "category": "400340"
-    },
-    {
-        "label": "Revolut*7528*",
-        "category": "0"
-    },
-    {
-        "label": "Revolut*7528*",
-        "category": "0"
     },
     {
         "label": "Cozy Cloud",
         "category": "100"
     },
     {
-        "label": "Splitwisebonneannee",
-        "category": "0"
-    },
-    {
         "label": "Librairie Signe",
         "category": "400750"
     },
     {
-        "label": "Revolut*7528*",
-        "category": "0"
-    },
-    {
-        "label": "Revolut*7528*",
-        "category": "0"
-    },
-    {
         "label": "Interets 2017",
         "category": "200130"
-    },
-    {
-        "label": "Revolut*7528*",
-        "category": "0"
     },
     {
         "label": "*com Op Int Fsprg.com",
@@ -30610,10 +29690,6 @@
     {
         "label": "* Cotisation Forfait Futeo",
         "category": "400340"
-    },
-    {
-        "label": "Revolut*7528*",
-        "category": "0"
     },
     {
         "label": "Un Mexicain A M",
