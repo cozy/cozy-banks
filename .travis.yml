@@ -29,12 +29,12 @@ deploy:
   - provider: script
     repo: cozy/cozy-banks
     skip-cleanup: true
-    script: yarn cozyPublish && ./scripts/deploy-on-cozy
+    script: yarn cozyPublish && ./scripts/deploy-on-cozy && yarn uploadStaticFiles
     on:
       branch: master
   - provider: script
     repo: cozy/cozy-banks
     skip-cleanup: true
-    script: yarn cozyPublish && ./scripts/deploy-on-cozy
+    script: yarn cozyPublish && ./scripts/deploy-on-cozy && yarn uploadStaticFiles
     on:
       tags: true
