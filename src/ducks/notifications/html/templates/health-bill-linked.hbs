@@ -21,13 +21,13 @@
             {{#each transactions as |tr reimbursements|}}
               <mj-table>
                 <tr class="js-transaction tableRow">
-                  <td width="40px"><a href="{{../../../transactionsUrl}}" style="color: inherit; text-decoration: none;"><img style="width: 32px; height: 32px" src='https://files.cozycloud.cc/banks/email-assets/icons/icon-cat-{{ parentCategory this }}.png' /></a></td>
+                  <td width="40px"><a href="{{../../../transactionsUrl}}" style="color: inherit; text-decoration: none;"><img style="width: 32px; height: 32px" src='https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-cat-{{ parentCategory this }}.png' /></a></td>
                   <td>
                     <a href="{{../../../transactionsUrl}}" style="color: inherit; text-decoration: none;">{{ capitalize this.label }}</a>
                   </td>
                   <td align="right">
                     <a href="{{../../../transactionsUrl}}" style="color: inherit; text-decoration: none;">
-                      <img style="width: 16px; height: 16px; vertical-align: middle;" src='https://files.cozycloud.cc/banks/email-assets/icons/icon-hourglass-blue.png' />
+                      <img style="width: 16px; height: 16px; vertical-align: middle;" src='https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-hourglass-blue.png' />
                       {{ t 'treatedBy' }}
                       {{#each this.reimbursements as |reimbursement|}}
                         {{get ../../../../bills this.billId 'vendor'}}{{#unless @last}}, {{/unless}}
