@@ -86,3 +86,9 @@ export const categorize = (classifier, label) => {
 
   return categoryId
 }
+
+export const predictProbaMax = (classifier, label) => {
+  const predicted = classifier.categorize(label, true)
+
+  return predicted.likelihoods[0].proba
+}
