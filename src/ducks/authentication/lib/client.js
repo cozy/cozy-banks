@@ -49,9 +49,9 @@ export const initClient = url => {
         clientName: `${SOFTWARE_NAME} (${getDeviceName()})`,
         softwareVersion: __APP_VERSION__,
         clientKind: 'mobile',
-        clientURI: 'https://gitlab.cozycloud.cc/labs/cozy-bank',
+        clientURI: 'https://github.com/cozy/cozy-banks',
         logoURI:
-          'https://gitlab.cozycloud.cc/labs/cozy-bank/raw/master/src/targets/favicons/favicon-32x32.png',
+          'https://raw.githubusercontent.com/cozy/cozy-banks/master/src/targets/favicons/favicon-32x32.png',
         policyURI: 'https://files.cozycloud.cc/cgu.pdf',
         scopes: getPermissions(),
         notificationPlatform: 'firebase'
