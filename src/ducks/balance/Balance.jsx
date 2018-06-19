@@ -19,7 +19,7 @@ import CollectLink from 'ducks/settings/CollectLink'
 import { getSettings, fetchSettingsCollection } from 'ducks/settings'
 import { filterByDoc, getFilteringDoc } from 'ducks/filters'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
-import { ACCOUNT_DOCTYPE } from 'doctypes'
+import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { getAllGroups } from 'selectors'
 
 import styles from './Balance.styl'
@@ -279,14 +279,17 @@ class Balance extends React.Component {
       settingsCollection,
       breakpoints: { isMobile }
     } = this.props
-    let { accounts, groups } = this.props
-    accounts = sortBy(accounts.data, ['institutionLabel', 'label'])
-    groups = groups.map(group => ({
-      ...group,
-      label: group.virtual ? t(`Data.accountTypes.${group.label}`) : group.label
-    }))
-
-    groups = sortBy(groups, 'label')
+    const { accounts: accountsProps, groups: groupsProps } = this.props
+    const accounts = sortBy(accountsProps.data, ['institutionLabel', 'label'])
+    const groups = sortBy(
+      groupsProps.map(group => ({
+        ...group,
+        label: group.virtual
+          ? t(`Data.accountTypes.${group.label}`)
+          : group.label
+      })),
+      group => group.label
+    )
 
     if (accounts === null || groups === null) {
       return <Loading />
@@ -347,7 +350,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDocumentsToProps = () => ({
-  accounts: fetchCollection('accounts', ACCOUNT_DOCTYPE)
+  accounts: fetchCollection('accounts', ACCOUNT_DOCTYPE),
+  groups: fetchCollection('groups', GROUP_DOCTYPE)
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -357,7 +361,7 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
   withBreakpoints(),
   withRouter,
-  connect(mapStateToProps, mapDispatchToProps),
   cozyConnect(mapDocumentsToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   translate()
 )(Balance)
