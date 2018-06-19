@@ -42,7 +42,7 @@ import styles from './TransactionsPage.styl'
 import { TRIGGER_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
 import { getBrands } from 'ducks/brandDictionary'
 import { AccountSwitch } from 'ducks/account'
-import { onIOS } from 'utils/platform'
+import { isIOSApp } from 'cozy-device-helper'
 
 const { BarRight } = cozy.bar
 
@@ -194,7 +194,7 @@ class TransactionsPage extends Component {
       },
       () => {
         // need to scroll past the LoadMore button
-        if (onIOS()) {
+        if (isIOSApp()) {
           const LoadMoreBtn = document.querySelector('.js-LoadMore')
           const padding = 15
           const scrollTo = LoadMoreBtn
@@ -331,7 +331,7 @@ class TransactionsPage extends Component {
               urls={urls}
               brands={brandsWithoutTrigger}
               filteringOnAccount={filteringOnAccount}
-              manualLoadMore={onIOS()}
+              manualLoadMore={isIOSApp()}
             />
           )}
         </div>

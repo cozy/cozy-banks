@@ -1,4 +1,5 @@
-/* global startApp, cordova */
+/* global startApp */
+import { isAndroidApp } from 'cozy-device-helper'
 
 export const DRIVE_INFO = {
   appId: 'io.cozy.drive.mobile',
@@ -14,7 +15,7 @@ const cordovaPluginIsInstalled = () => startApp
 
 // startApp does not take the same params on Android and iOS
 const getParams = ({ appId, uri }) => {
-  if (cordova.platformId === 'android') {
+  if (isAndroidApp()) {
     return {
       package: appId
     }
