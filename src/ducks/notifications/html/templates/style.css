@@ -78,7 +78,12 @@ h1,h2,h3,h4,h5,h6{
   text-align: right !important;
 }
 .footer__help a {
+  display: inline-block;
   color: #95999d !important;
+}
+
+.footer__help a + a {
+  margin-left: 16px;
 }
 /* text */
 .txt--right {
