@@ -33,5 +33,5 @@ nodemon --exec "node transactions-notification.js" -e js,css,hbs,json
 
 ### Assets
 
-TODO: Assets in `assets/` should be uploaded to `https://files.cozycloud.cc` with CI.
+Assets in `assets/` are uploaded to `https://downcloud.cozycloud.cc` on every deployment on CI. It can also be done manually with the `yarn uploadStaticFiles` script.
 
