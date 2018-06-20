@@ -50,7 +50,6 @@ const Separator = () => (
 
 const constrain = (val, min, max) => Math.min(Math.max(val, min), max)
 
-const mobileControlPaddingLeft = '0.875rem'
 const yearContainerMobileStyle = base => ({
   ...base,
   flexGrow: 1,
@@ -65,7 +64,7 @@ const mobileMonthContainerStyle = base => ({
 })
 
 const mobileControlStyle = () => ({
-  paddingLeft: mobileControlPaddingLeft
+  paddingLeft: '0.875rem'
 })
 
 const mobileMenuStyle = base => ({
