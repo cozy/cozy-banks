@@ -89,6 +89,7 @@ class Select extends React.Component {
           IndicatorSeparator,
           ValueContainer
         }}
+        classNamePrefix="cz"
         styles={{
           singleValue: singleValueStyle,
           control: this.controlStyle,

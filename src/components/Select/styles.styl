@@ -1,4 +1,7 @@
 @require 'settings/palette'
+@require 'settings/breakpoints'
+
+select-date-height-small=2.75rem
 
 .Select
     appearance none
@@ -14,8 +17,6 @@
 .Select::-ms-expand
     display none /* hide the default arrow in ie10 and ie11 */
 
-
-
 .Select__Icon
     // Let click go through to the select
     pointer-events none
@@ -26,3 +27,10 @@
 @media screen and (min-width:0\0)
     .Select__Icon
         display none
+
+:global
+    +small-screen()
+        .cz__indicators
+            height select-date-height-small
+            justify-content center
+            padding-right 1rem
