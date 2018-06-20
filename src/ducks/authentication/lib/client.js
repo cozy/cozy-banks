@@ -51,7 +51,7 @@ export const initClient = url => {
         clientKind: 'mobile',
         clientURI: 'https://github.com/cozy/cozy-banks',
         logoURI:
-          'https://raw.githubusercontent.com/cozy/cozy-banks/master/src/targets/favicons/favicon-32x32.png',
+          'https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/logo-cozy.png',
         policyURI: 'https://files.cozycloud.cc/cgu.pdf',
         scopes: getPermissions(),
         notificationPlatform: 'firebase'
