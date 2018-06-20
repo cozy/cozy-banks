@@ -330,15 +330,15 @@
       "title": "Movement amount",
       "notification": {
         "debit": {
-          "title": "Debit of %{amount}%{currency}",
+          "title": "Alert: debit of %{amount}%{currency}",
           "content": "%{label}"
         },
         "credit": {
-          "title": "Credit of %{amount}%{currency}",
+          "title": "Alert: credit of %{amount}%{currency}",
           "content": "%{label}"
         },
         "others": {
-          "title": "%{transactionsLength} transactions greater than %{maxAmount}€",
+          "title": "Alert: %{transactionsLength} transactions greater than %{maxAmount}€",
           "debitContent": "Debit of %{amount}%{currency} with label '%{label}'.",
           "creditContent": "Credit of %{amount}%{currency} with label '%{label}'."
         }
@@ -358,6 +358,10 @@
           "treatedBy": "expenditure treated by"
         }
       }
+    },
+    "email": {
+      "settings": "Settings",
+      "support": "Help and support"
     }
   },
 

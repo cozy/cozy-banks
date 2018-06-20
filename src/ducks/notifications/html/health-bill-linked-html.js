@@ -4,7 +4,7 @@ const { mjml2html } = require('mjml')
 const { prepareTransactions } = require('./utils')
 const { BILLS_DOCTYPE } = require('../../../doctypes')
 
-export default ({ accounts, transactions, bills }) => {
+export default ({ accounts, transactions, bills, urls }) => {
   const accountsById = fromPairs(
     accounts.map(account => [account._id, account])
   )
@@ -18,7 +18,8 @@ export default ({ accounts, transactions, bills }) => {
     accounts: accountsById,
     byAccounts: transactionsByAccounts,
     bills: billsById,
-    date: new Date()
+    date: new Date(),
+    ...urls
   }
 
   const obj = mjml2html(templates['health-bill-linked'](data))
