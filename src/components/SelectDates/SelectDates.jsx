@@ -50,16 +50,29 @@ const Separator = () => (
 
 const constrain = (val, min, max) => Math.min(Math.max(val, min), max)
 
-const selectYearContainerMobileStyle = base => ({
+const yearContainerMobileStyle = base => ({
   ...base,
   flexGrow: 1,
-  flexBasis: '4.5rem',
-  paddingLeft: '0.875rem'
+  flexBasis: '5.5rem',
+  flexShrink: 0,
+  padding: 0
 })
-const selectMonthContainerStyle = base => ({
+const mobileMonthContainerStyle = base => ({
   ...base,
   flexGrow: 6,
+  padding: 0
+})
+
+const mobileControlStyle = () => ({
   paddingLeft: '0.875rem'
+})
+
+const mobileMenuStyle = base => ({
+  ...base,
+  marginLeft: '0.5rem',
+  marginRight: '0.5rem',
+  width: '90%',
+  minWidth: 'auto'
 })
 
 const SelectDateButton = ({ children, disabled, className, ...props }) => {
@@ -277,7 +290,9 @@ class SelectDatesDumb extends React.PureComponent {
               styles={
                 isMobile
                   ? {
-                      container: selectYearContainerMobileStyle
+                      container: yearContainerMobileStyle,
+                      control: mobileControlStyle,
+                      menu: mobileMenuStyle
                     }
                   : {}
               }
@@ -294,7 +309,9 @@ class SelectDatesDumb extends React.PureComponent {
               styles={
                 isMobile
                   ? {
-                      container: selectMonthContainerStyle
+                      container: mobileMonthContainerStyle,
+                      control: mobileControlStyle,
+                      menu: mobileMenuStyle
                     }
                   : {}
               }
