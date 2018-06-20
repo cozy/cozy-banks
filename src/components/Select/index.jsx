@@ -5,6 +5,7 @@ import SelectBox, { SelectBoxWithFixedOptions } from 'cozy-ui/react/SelectBox'
 import find from 'lodash/find'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import { components } from 'react-select'
+import { mergeStyles } from './styleUtils'
 
 const ValueContainer = ({ children, ...props }) => {
   return (
@@ -90,13 +91,15 @@ class Select extends React.Component {
           ValueContainer
         }}
         classNamePrefix="cz"
-        styles={{
-          singleValue: singleValueStyle,
-          control: this.controlStyle,
-          valueContainer: valueContainerStyle,
-          menu: menuStyle,
-          ...styles
-        }}
+        styles={mergeStyles(
+          {
+            singleValue: singleValueStyle,
+            control: this.controlStyle,
+            valueContainer: valueContainerStyle,
+            menu: menuStyle
+          },
+          styles
+        )}
         name={name}
         onChange={option => {
           onChange(option.value, options.indexOf(option.value), name)
