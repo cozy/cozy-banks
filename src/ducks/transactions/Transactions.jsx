@@ -36,7 +36,7 @@ import styles from './Transactions.styl'
 import { Media, Bd, Img } from 'cozy-ui/react/Media'
 import { InfiniteScroll, ScrollRestore } from './scroll'
 import TransactionModal from './TransactionModal'
-import { onIOS } from 'utils/platform'
+import { isIOSApp } from 'cozy-device-helper'
 
 const sDate = styles['bnk-op-date']
 const sDesc = styles['bnk-op-desc']
@@ -299,7 +299,7 @@ class TransactionsD extends React.Component {
     }
   }
 
-  handleScroll = (onIOS() ? debounce : throttle)(
+  handleScroll = (isIOSApp() ? debounce : throttle)(
     getScrollInfo => {
       this.props.onScroll(getScrollInfo)
       this.updateTopMostVisibleTransaction()
