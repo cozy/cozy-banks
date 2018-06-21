@@ -118,6 +118,9 @@ class Component extends React.Component {
     if (!brand) return
 
     const label = t('Transactions.actions.konnector', { vendor: brand.name })
+    const translationKey = `Transactions.actions.informativeModal.${
+      brand.health ? 'health' : 'generic'
+    }`
 
     if (__TARGET__ === 'browser') {
       return (
@@ -144,16 +147,11 @@ class Component extends React.Component {
             <InformativeModal
               onCancel={this.hideInformativeModal}
               onConfirm={this.onInformativeModalConfirm}
-              title={t('Transactions.actions.informativeModal.generic.title')}
-              description={t(
-                'Transactions.actions.informativeModal.generic.description',
-                {
-                  brandName: brand.name
-                }
-              )}
-              caption={t(
-                'Transactions.actions.informativeModal.generic.caption'
-              )}
+              title={t(`${translationKey}.title`)}
+              description={t(`${translationKey}.description`, {
+                brandName: brand.name
+              })}
+              caption={t('Transactions.actions.informativeModal.caption')}
               cancelText={t('Transactions.actions.informativeModal.cancel')}
               confirmText={t('Transactions.actions.informativeModal.confirm')}
             />
