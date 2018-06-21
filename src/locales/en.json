@@ -279,7 +279,10 @@
       "bill": "1 invoice",
       "alert": "Create an alert",
       "attach": "Attach a document",
-      "konnector": "My invoices",
+      "konnector": {
+        "health": "My reimbursements",
+        "generic": "My invoices"
+      },
       "more": "More",
       "healthExpenseProcessed": {
         "single": "1 reimbursement",
@@ -289,11 +292,17 @@
       "healthExpenseBill": "%{vendor} Statement",
       "vendorsGlue": "and",
       "informativeModal": {
-        "title": "Automatic fetching of my bills",
-        "description": "Connect your %{brand} account to your Cozy to automatically fetch your bills.",
+        "health": {
+          "title": "Automatic monitoring of your reimbursements",
+          "description": "Connect your %{brandName} account to your Cozy to automatically fetch your reimbursements."
+        },
+        "generic": {
+          "title": "Automatic fetching of my bills",
+          "description": "Connect your %{brandName} account to your Cozy to automatically fetch your bills."
+        },
         "caption": "Your Cozy is totally private: nobody but you can access its content.",
         "cancel": "Cancel",
-        "confirm": "Start"
+        "confirm": "Connect"
       }
     },
     "infos": {

@@ -106,7 +106,10 @@
       "app": "Application %{appName}",
       "refund": "Vérifier vos remboursements",
       "attach": "Attacher un document",
-      "konnector": "Mes factures",
+      "konnector": {
+        "health": "Mes remboursements",
+        "generic": "Mes factures"
+      },
       "alert": "Créer une alerte",
       "comment": "Commentaire - Bientôt disponible",
       "healthExpenseProcessed": {
@@ -117,11 +120,17 @@
       "healthExpenseBill": "Relevé %{vendor}",
       "vendorsGlue": "et",
       "informativeModal": {
-        "title": "Récupération automatique de mes factures",
-        "description": "Connectez votre compte %{brand.name} à votre Cozy pour récupérer vos factures automatiquement.",
+        "health": {
+          "title": "Surveillance automatique de mes remboursements",
+          "description": "Connectez votre compte %{brandName} à votre Cozy pour récupérer vos remboursements automatiquement."
+        },
+        "generic": {
+          "title": "Récupération automatique de mes factures",
+          "description": "Connectez votre compte %{brandName} à votre Cozy pour récupérer vos factures automatiquement."
+        },
         "caption": "Votre Cozy est totalement privé : personne d'autre que vous ne peut accéder à son contenu.",
         "cancel": "Annuler",
-        "confirm": "Démarrer"
+        "confirm": "Connecter"
       }
     },
     "infos": {

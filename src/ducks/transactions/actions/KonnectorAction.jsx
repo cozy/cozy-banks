@@ -28,7 +28,15 @@ import iconCollectAccount from 'assets/icons/icon-collect-account.svg'
 
 const name = 'konnector'
 
-const _InformativeModal = ({ brand, onCancel, onConfirm, t }) => (
+const InformativeModal = ({
+  onCancel,
+  onConfirm,
+  title,
+  description,
+  caption,
+  cancelText,
+  confirmText
+}) => (
   <Modal into="body" mobileFullscreen dismissAction={onCancel}>
     <ModalDescription className={styles.InformativeModal__content}>
       <Icon
@@ -38,31 +46,33 @@ const _InformativeModal = ({ brand, onCancel, onConfirm, t }) => (
         className={styles.InformativeModal__illustration}
       />
       <Title tag="h2" className={cx('u-mt-1-half', 'u-mb-0', 'u-text-center')}>
-        {t('Transactions.actions.informativeModal.title')}
+        {title}
       </Title>
-      <Text tag="p">
-        {t('Transactions.actions.informativeModal.description', {
-          brand: brand.name
-        })}
-      </Text>
+      <Text tag="p">{description}</Text>
       <div className={styles.InformativeModal__bottom}>
         <Caption tag="p" className={cx('u-mt-0', 'u-mb-1')}>
-          {t('Transactions.actions.informativeModal.caption')}
+          {caption}
         </Caption>
         <div className={styles.InformativeModal__buttons}>
           <Button onClick={onCancel} theme="secondary">
-            {t('Transactions.actions.informativeModal.cancel')}
+            {cancelText}
           </Button>
-          <Button onClick={onConfirm}>
-            {t('Transactions.actions.informativeModal.confirm')}
-          </Button>
+          <Button onClick={onConfirm}>{confirmText}</Button>
         </div>
       </div>
     </ModalDescription>
   </Modal>
 )
 
-const InformativeModal = translate()(_InformativeModal)
+InformativeModal.propTypes = {
+  onCancel: PropTypes.func.isRequired,
+  onConfirm: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  caption: PropTypes.string.isRequired,
+  cancelText: PropTypes.string.isRequired,
+  confirmText: PropTypes.string.isRequired
+}
 
 class Component extends React.Component {
   state = {
@@ -107,7 +117,9 @@ class Component extends React.Component {
     const brand = findMatchingBrand(brands, transaction.label)
     if (!brand) return
 
-    const label = t('Transactions.actions.konnector', { vendor: brand.name })
+    const healthOrGeneric = brand.health ? 'health' : 'generic'
+    const label = t(`Transactions.actions.konnector.${healthOrGeneric}`)
+    const translationKey = `Transactions.actions.informativeModal.${healthOrGeneric}`
 
     if (__TARGET__ === 'browser') {
       return (
@@ -132,9 +144,15 @@ class Component extends React.Component {
           )}
           {this.state.showInformativeModal && (
             <InformativeModal
-              brand={brand}
               onCancel={this.hideInformativeModal}
               onConfirm={this.onInformativeModalConfirm}
+              title={t(`${translationKey}.title`)}
+              description={t(`${translationKey}.description`, {
+                brandName: brand.name
+              })}
+              caption={t('Transactions.actions.informativeModal.caption')}
+              cancelText={t('Transactions.actions.informativeModal.cancel')}
+              confirmText={t('Transactions.actions.informativeModal.confirm')}
             />
           )}
           {this.state.showIntentModal && (
