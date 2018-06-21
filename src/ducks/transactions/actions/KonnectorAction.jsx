@@ -142,9 +142,20 @@ class Component extends React.Component {
           )}
           {this.state.showInformativeModal && (
             <InformativeModal
-              brandName={brand.name}
               onCancel={this.hideInformativeModal}
               onConfirm={this.onInformativeModalConfirm}
+              title={t('Transactions.actions.informativeModal.generic.title')}
+              description={t(
+                'Transactions.actions.informativeModal.generic.description',
+                {
+                  brandName: brand.name
+                }
+              )}
+              caption={t(
+                'Transactions.actions.informativeModal.generic.caption'
+              )}
+              cancelText={t('Transactions.actions.informativeModal.cancel')}
+              confirmText={t('Transactions.actions.informativeModal.confirm')}
             />
           )}
           {this.state.showIntentModal && (

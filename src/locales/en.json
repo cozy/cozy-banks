@@ -289,9 +289,15 @@
       "healthExpenseBill": "%{vendor} Statement",
       "vendorsGlue": "and",
       "informativeModal": {
-        "title": "Automatic fetching of my bills",
-        "description": "Connect your %{brandName} account to your Cozy to automatically fetch your bills.",
-        "caption": "Your Cozy is totally private: nobody but you can access its content.",
+        "health": {
+          "title": "Automatic monitoring of your reimbursements",
+          "description": "Connect your %{brandName} account to your Cozy to automatically fetch your reimbursements."
+        },
+        "generic": {
+          "title": "Automatic fetching of my bills",
+          "description": "Connect your %{brandName} account to your Cozy to automatically fetch your bills.",
+          "caption": "Your Cozy is totally private: nobody but you can access its content."
+        },
         "cancel": "Cancel",
         "confirm": "Start"
       }

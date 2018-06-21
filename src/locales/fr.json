@@ -117,9 +117,15 @@
       "healthExpenseBill": "Relevé %{vendor}",
       "vendorsGlue": "et",
       "informativeModal": {
-        "title": "Récupération automatique de mes factures",
-        "description": "Connectez votre compte %{brandName} à votre Cozy pour récupérer vos factures automatiquement.",
-        "caption": "Votre Cozy est totalement privé : personne d'autre que vous ne peut accéder à son contenu.",
+        "health": {
+          "title": "Surveillance automatique de mes remboursements",
+          "description": "Connectez votre compte %{brandName} à votre Cozy pour récupérer vos remboursements automatiquement."
+        },
+        "generic": {
+          "title": "Récupération automatique de mes factures",
+          "description": "Connectez votre compte %{brandName} à votre Cozy pour récupérer vos factures automatiquement.",
+          "caption": "Votre Cozy est totalement privé : personne d'autre que vous ne peut accéder à son contenu."
+        },
         "cancel": "Annuler",
         "confirm": "Démarrer"
       }
