@@ -28,7 +28,7 @@ import iconCollectAccount from 'assets/icons/icon-collect-account.svg'
 
 const name = 'konnector'
 
-const _InformativeModal = ({ brand, onCancel, onConfirm, t }) => (
+const _InformativeModal = ({ brandName, onCancel, onConfirm, t }) => (
   <Modal into="body" mobileFullscreen dismissAction={onCancel}>
     <ModalDescription className={styles.InformativeModal__content}>
       <Icon
@@ -42,7 +42,7 @@ const _InformativeModal = ({ brand, onCancel, onConfirm, t }) => (
       </Title>
       <Text tag="p">
         {t('Transactions.actions.informativeModal.description', {
-          brand: brand.name
+          brandName
         })}
       </Text>
       <div className={styles.InformativeModal__bottom}>
@@ -61,6 +61,12 @@ const _InformativeModal = ({ brand, onCancel, onConfirm, t }) => (
     </ModalDescription>
   </Modal>
 )
+
+_InformativeModal.propTypes = {
+  brandName: PropTypes.string.isRequired,
+  onCancel: PropTypes.func.isRequired,
+  onConfirm: PropTypes.func.isRequired
+}
 
 const InformativeModal = translate()(_InformativeModal)
 
@@ -132,7 +138,7 @@ class Component extends React.Component {
           )}
           {this.state.showInformativeModal && (
             <InformativeModal
-              brand={brand}
+              brandName={brand.name}
               onCancel={this.hideInformativeModal}
               onConfirm={this.onInformativeModalConfirm}
             />
