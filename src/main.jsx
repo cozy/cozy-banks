@@ -53,7 +53,7 @@ const setupApp = persistedState => {
   store = configureStore(client, persistedState)
   // Initialize settings
   store.dispatch(fetchSettingsCollection()).then(res => {
-    if (res.data.length === 0) {
+    if (!res || res.data.length === 0) {
       store.dispatch(initSettings())
     }
   })

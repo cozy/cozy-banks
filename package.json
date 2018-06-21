@@ -64,15 +64,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.cozycloud.cc:labs/cozy-bank.git"
+    "url": "git+https://github.com/cozy/cozy-banks.git"
   },
   "author": "Cozy Cloud <contact@cozycloud.cc> (https://cozy.io/)",
   "contributors": [],
   "license": "AGPL-3.0",
   "bugs": {
-    "url": "https://gitlab.cozycloud.cc/labs/cozy-bank/issues"
+    "url": "https://github.com/cozy/cozy-banks/issues"
   },
-  "homepage": "https://gitlab.cozycloud.cc/labs/cozy-bank#readme",
+  "homepage": "https://github.com/cozy/cozy-banks#readme",
   "devDependencies": {
     "ach": "0.3.0",
     "autoprefixer": "8.6.2",
