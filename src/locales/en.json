@@ -291,7 +291,7 @@
       "informativeModal": {
         "title": "Automatic fetching of my bills",
         "description": "Connect your %{brand} account to your Cozy to automatically fetch your bills.",
-        "caption": "Your Cozy is totally private: nobody but you can access to its content.",
+        "caption": "Your Cozy is totally private: nobody but you can access its content.",
         "cancel": "Cancel",
         "confirm": "Start"
       }
