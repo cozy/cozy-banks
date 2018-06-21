@@ -28,7 +28,15 @@ import iconCollectAccount from 'assets/icons/icon-collect-account.svg'
 
 const name = 'konnector'
 
-const _InformativeModal = ({ brandName, onCancel, onConfirm, t }) => (
+const InformativeModal = ({
+  onCancel,
+  onConfirm,
+  title,
+  description,
+  caption,
+  cancelText,
+  confirmText
+}) => (
   <Modal into="body" mobileFullscreen dismissAction={onCancel}>
     <ModalDescription className={styles.InformativeModal__content}>
       <Icon
@@ -38,37 +46,33 @@ const _InformativeModal = ({ brandName, onCancel, onConfirm, t }) => (
         className={styles.InformativeModal__illustration}
       />
       <Title tag="h2" className={cx('u-mt-1-half', 'u-mb-0', 'u-text-center')}>
-        {t('Transactions.actions.informativeModal.title')}
+        {title}
       </Title>
-      <Text tag="p">
-        {t('Transactions.actions.informativeModal.description', {
-          brandName
-        })}
-      </Text>
+      <Text tag="p">{description}</Text>
       <div className={styles.InformativeModal__bottom}>
         <Caption tag="p" className={cx('u-mt-0', 'u-mb-1')}>
-          {t('Transactions.actions.informativeModal.caption')}
+          {caption}
         </Caption>
         <div className={styles.InformativeModal__buttons}>
           <Button onClick={onCancel} theme="secondary">
-            {t('Transactions.actions.informativeModal.cancel')}
+            {cancelText}
           </Button>
-          <Button onClick={onConfirm}>
-            {t('Transactions.actions.informativeModal.confirm')}
-          </Button>
+          <Button onClick={onConfirm}>{confirmText}</Button>
         </div>
       </div>
     </ModalDescription>
   </Modal>
 )
 
-_InformativeModal.propTypes = {
-  brandName: PropTypes.string.isRequired,
+InformativeModal.propTypes = {
   onCancel: PropTypes.func.isRequired,
-  onConfirm: PropTypes.func.isRequired
+  onConfirm: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  caption: PropTypes.string.isRequired,
+  cancelText: PropTypes.string.isRequired,
+  confirmText: PropTypes.string.isRequired
 }
-
-const InformativeModal = translate()(_InformativeModal)
 
 class Component extends React.Component {
   state = {
