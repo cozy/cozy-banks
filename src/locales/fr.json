@@ -121,7 +121,7 @@
       "vendorsGlue": "et",
       "informativeModal": {
         "health": {
-          "title": "Surveillance automatique de mes remboursements",
+          "title": "Suivi automatique de mes remboursements",
           "description": "Connectez votre compte %{brandName} à votre Cozy pour récupérer vos remboursements automatiquement."
         },
         "generic": {

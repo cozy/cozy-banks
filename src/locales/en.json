@@ -293,7 +293,7 @@
       "vendorsGlue": "and",
       "informativeModal": {
         "health": {
-          "title": "Automatic monitoring of your reimbursements",
+          "title": "Automatic tracking of your reimbursements",
           "description": "Connect your %{brandName} account to your Cozy to automatically fetch your reimbursements."
         },
         "generic": {
