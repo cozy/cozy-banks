@@ -117,10 +117,9 @@ class Component extends React.Component {
     const brand = findMatchingBrand(brands, transaction.label)
     if (!brand) return
 
-    const label = t('Transactions.actions.konnector', { vendor: brand.name })
-    const translationKey = `Transactions.actions.informativeModal.${
-      brand.health ? 'health' : 'generic'
-    }`
+    const healthOrGeneric = brand.health ? 'health' : 'generic'
+    const label = t(`Transactions.actions.konnector.${healthOrGeneric}`)
+    const translationKey = `Transactions.actions.informativeModal.${healthOrGeneric}`
 
     if (__TARGET__ === 'browser') {
       return (

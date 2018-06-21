@@ -279,7 +279,10 @@
       "bill": "1 invoice",
       "alert": "Create an alert",
       "attach": "Attach a document",
-      "konnector": "My invoices",
+      "konnector": {
+        "health": "My reimbursements",
+        "generic": "My invoices"
+      },
       "more": "More",
       "healthExpenseProcessed": {
         "single": "1 reimbursement",

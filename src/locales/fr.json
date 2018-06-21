@@ -106,7 +106,10 @@
       "app": "Application %{appName}",
       "refund": "Vérifier vos remboursements",
       "attach": "Attacher un document",
-      "konnector": "Mes factures",
+      "konnector": {
+        "health": "Mes remboursements",
+        "generic": "Mes factures"
+      },
       "alert": "Créer une alerte",
       "comment": "Commentaire - Bientôt disponible",
       "healthExpenseProcessed": {
