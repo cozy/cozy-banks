@@ -6,22 +6,84 @@
     "health": true
   },
   {
-    "name": "Harmonie Mutuelle",
-    "regexp": "harmonie",
-    "konnectorSlug": "harmonie",
-    "health": true
+    "name": "Auchan Drive",
+    "regexp": "auchan",
+    "konnectorSlug": "auchandrive"
   },
   {
-    "name": "Malakoff Mederic",
-    "regexp": "malakoff",
-    "konnectorSlug": "malakoffmederic",
-    "health": true
+    "name": "Autolib",
+    "regexp": "autolib",
+    "konnectorSlug": "autolib"
   },
   {
-    "name": "MGEN",
-    "regexp": "mgen",
-    "konnectorSlug": "mgen",
-    "health": true
+    "name": "Bipandgo",
+    "regexp": "bipandgo",
+    "konnectorSlug": "bipandgo"
+  },
+  {
+    "name": "Booking.com",
+    "regexp": "booking.com",
+    "konnectorSlug": "bookingdotcom"
+  },
+  {
+    "name": "Boulanger",
+    "regexp": "boulanger",
+    "konnectorSlug": "boulanger"
+  },
+  {
+    "name": "Bouygues Box",
+    "regexp": "bouyg",
+    "konnectorSlug": "bouyguesbox"
+  },
+  {
+    "name": "Bouygues Telecom",
+    "regexp": "bouyg",
+    "konnectorSlug": "bouyguestelecom"
+  },
+  {
+    "name": "Cdiscount",
+    "regexp": "cdiscount",
+    "konnectorSlug": "cdiscount"
+  },
+  {
+    "name": "Deliveroo",
+    "regexp": "deliveroo",
+    "konnectorSlug": "deliveroo"
+  },
+  {
+    "name": "Cultura",
+    "regexp": "cultura",
+    "konnectorSlug": "cultura"
+  },
+  {
+    "name": "Digitick",
+    "regexp": "digitick",
+    "konnectorSlug": "digitick"
+  },
+  {
+    "name": "Direct Energie",
+    "regexp": "direct energie",
+    "konnectorSlug": "directenergie"
+  },
+  {
+    "name": "Électricité de Strasbourg",
+    "regexp": "es energies strasbourg",
+    "konnectorSlug": "electricitestrasbourg"
+  },
+  {
+    "name": "Enercoop",
+    "regexp": "enercoop",
+    "konnectorSlug": "enercoop"
+  },
+  {
+    "name": "Free",
+    "regexp": "free (telecom|hautdebit)",
+    "konnectorSlug": "free"
+  },
+  {
+    "name": "Free Mobile",
+    "regexp": "free mobile",
+    "konnectorSlug": "freemobile"
   },
   {
     "name": "Generali",
@@ -30,19 +92,97 @@
     "health": true
   },
   {
+    "name": "Harmonie Mutuelle",
+    "regexp": "harmonie",
+    "konnectorSlug": "harmonie",
+    "health": true
+  },
+  {
+    "name": "Helloasso",
+    "regexp": "helloasso",
+    "konnectorSlug": "helloasso"
+  },
+  {
+    "name": "Inulogic",
+    "regexp": "inulogic",
+    "konnectorSlug": "inulogic"
+  },
+  {
+    "name": "JustEat",
+    "regexp": "just eat",
+    "konnectorSlug": "justeat"
+  },
+  {
+    "name": "LDLC",
+    "regexp": "ldlc",
+    "konnectorSlug": "ldlc"
+  },
+  {
+    "name": "Le Monde Diplomatique",
+    "regexp": "monde-diplomatique",
+    "konnectorSlug": "mondediplo"
+  },
+  {
+    "name": "Leclerc Drive",
+    "regexp": "leclerc",
+    "konnectorSlug": "leclercdrive"
+  },
+  {
+    "name": "Ma lentille",
+    "regexp": "digital eyewear",
+    "konnectorSlug": "malentille"
+  },
+  {
+    "name": "MACIF",
+    "regexp": "macif",
+    "konnectorSlug": "macif"
+  },
+  {
+    "name": "Maif - Echeancier",
+    "regexp": "maif",
+    "konnectorSlug": "maifecheancier"
+  },
+  {
+    "name": "Malakoff Mederic",
+    "regexp": "malakoff",
+    "konnectorSlug": "malakoffmederic",
+    "health": true
+  },
+  {
+    "name": "Médecins sans frontières",
+    "regexp": "(medecins sans frontieres|msf)",
+    "konnectorSlug": "msf"
+  },
+  {
+    "name": "Mediapart",
+    "regexp": "mediapart",
+    "konnectorSlug": "mediapart"
+  },
+  {
+    "name": "MGEN",
+    "regexp": "mgen",
+    "konnectorSlug": "mgen",
+    "health": true
+  },
+  {
+    "name": "Netflix",
+    "regexp": "netflix",
+    "konnectorSlug": "netflix"
+  },
+  {
     "name": "Numéricable",
     "regexp": "numericable",
     "konnectorSlug": "numericable"
   },
   {
-    "name": "Free",
-    "regexp": "free (telecom|hautdebit)",
-    "konnectorSlug": "free"
+    "name": "O2",
+    "regexp": "^o2 ",
+    "konnectorSlug": "o2"
   },
   {
-    "name": "Free",
-    "regexp": "free mobile",
-    "konnectorSlug": "freemobile"
+    "name": "Orange Factures",
+    "regexp": "orange",
+    "konnectorSlug": "orange"
   },
   {
     "name": "Oui.sncf",
@@ -50,8 +190,48 @@
     "konnectorSlug": "sncf"
   },
   {
+    "name": "Scaleway",
+    "regexp": "scaleway",
+    "konnectorSlug": "scaleway"
+  },
+  {
+    "name": "Sosh",
+    "regexp": "sosh",
+    "konnectorSlug": "sosh"
+  },
+  {
+    "name": "Stickers Discount",
+    "regexp": "akoufen angers",
+    "konnectorSlug": "stickersdiscount"
+  },
+  {
+    "name": "The Old Reader",
+    "regexp": "theoldreader",
+    "konnectorSlug": "theoldreader"
+  },
+  {
     "name": "Trainline",
     "regexp": "trainline",
     "konnectorSlug": "trainline"
+  },
+  {
+    "name": "Unibet",
+    "regexp": "unibet",
+    "konnectorSlug": "unibet"
+  },
+  {
+    "name": "Veolia Eau",
+    "regexp": "veolia",
+    "konnectorSlug": "veoliaeau"
+  },
+  {
+    "name": "Vinci autoroute télépéage",
+    "regexp": "(vinci|escota)",
+    "konnectorSlug": "vinciautoroute"
+  },
+  {
+    "name": "ZooPlus",
+    "regexp": "zooplus",
+    "konnectorSlug": "zooplus"
   }
 ]
