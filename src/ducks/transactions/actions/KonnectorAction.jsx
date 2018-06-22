@@ -1,4 +1,4 @@
-/* global __TARGET__ */
+/* global __TARGET__, cozy */
 
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -100,9 +100,23 @@ class Component extends React.Component {
       showIntentModal: false
     })
 
-  onInformativeModalConfirm = () => {
+  onInformativeModalConfirm = async () => {
     this.hideInformativeModal()
-    this.showIntentModal()
+
+    if (__TARGET__ === 'browser') {
+      this.showIntentModal()
+    } else if (__TARGET__ === 'mobile') {
+      const brand = this.findMatchingBrand()
+      const intentWindow = await cozy.client.intents.redirect(
+        'io.cozy.accounts',
+        {
+          konnector: brand.konnectorSlug
+        },
+        open
+      )
+
+      intentWindow.addEventListener('exit', this.props.fetchTriggers)
+    }
   }
 
   onIntentComplete = () => {
@@ -110,88 +124,67 @@ class Component extends React.Component {
     this.hideIntentModal()
   }
 
-  render() {
-    const { t, transaction, actionProps, compact, isModalItem } = this.props
+  findMatchingBrand() {
+    return findMatchingBrand(
+      this.props.actionProps.brands,
+      this.props.transaction.label
+    )
+  }
 
-    const { brands, urls } = actionProps
-    const brand = findMatchingBrand(brands, transaction.label)
+  render() {
+    const { t, compact, isModalItem } = this.props
+
+    const brand = this.findMatchingBrand()
     if (!brand) return
 
     const healthOrGeneric = brand.health ? 'health' : 'generic'
     const label = t(`Transactions.actions.konnector.${healthOrGeneric}`)
     const translationKey = `Transactions.actions.informativeModal.${healthOrGeneric}`
 
-    if (__TARGET__ === 'browser') {
-      return (
-        <div>
-          {isModalItem ? (
-            <TransactionModalRow
-              iconLeft="plus"
-              style={{ color: palette.dodgerBlue }}
-              onClick={this.showInformativeModal}
-            >
-              {label}
-            </TransactionModalRow>
-          ) : (
-            <ButtonAction
-              label={label}
-              leftIcon="plus"
-              type="new"
-              compact={compact}
-              className={styles.TransactionActionButton}
-              onClick={this.showInformativeModal}
-            />
-          )}
-          {this.state.showInformativeModal && (
-            <InformativeModal
-              onCancel={this.hideInformativeModal}
-              onConfirm={this.onInformativeModalConfirm}
-              title={t(`${translationKey}.title`)}
-              description={t(`${translationKey}.description`, {
-                brandName: brand.name
-              })}
-              caption={t('Transactions.actions.informativeModal.caption')}
-              cancelText={t('Transactions.actions.informativeModal.cancel')}
-              confirmText={t('Transactions.actions.informativeModal.confirm')}
-            />
-          )}
-          {this.state.showIntentModal && (
-            <IntentModal
-              dismissAction={this.hideIntentModal}
-              onComplete={this.onIntentComplete}
-              action="CREATE"
-              doctype="io.cozy.accounts"
-              options={{ slug: brand.konnectorSlug }}
-              mobileFullscreen
-              into="body"
-            />
-          )}
-        </div>
-      )
-    }
-
-    const url = `${urls['COLLECT']}#/providers/all/${brand.konnectorSlug}`
-
-    if (isModalItem) {
-      return (
-        <TransactionModalRow
-          iconLeft="plus"
-          onClick={() => open(url)}
-          style={{ color: palette.dodgerBlue }}
-        >
-          {label}
-        </TransactionModalRow>
-      )
-    }
-
     return (
-      <ButtonAction
-        onClick={() => open(url)}
-        rightIcon="plus"
-        type="new"
-        compact={true}
-        className={styles.TransactionActionButton}
-      />
+      <div>
+        {isModalItem ? (
+          <TransactionModalRow
+            iconLeft="plus"
+            style={{ color: palette.dodgerBlue }}
+            onClick={this.showInformativeModal}
+          >
+            {label}
+          </TransactionModalRow>
+        ) : (
+          <ButtonAction
+            label={label}
+            leftIcon="plus"
+            type="new"
+            compact={compact}
+            className={styles.TransactionActionButton}
+            onClick={this.showInformativeModal}
+          />
+        )}
+        {this.state.showInformativeModal && (
+          <InformativeModal
+            onCancel={this.hideInformativeModal}
+            onConfirm={this.onInformativeModalConfirm}
+            title={t(`${translationKey}.title`)}
+            description={t(`${translationKey}.description`, {
+              brandName: brand.name
+            })}
+            caption={t('Transactions.actions.informativeModal.caption')}
+            cancelText={t('Transactions.actions.informativeModal.cancel')}
+            confirmText={t('Transactions.actions.informativeModal.confirm')}
+          />
+        )}
+        {this.state.showIntentModal && (
+          <IntentModal
+            dismissAction={this.hideIntentModal}
+            onComplete={this.onIntentComplete}
+            action="CREATE"
+            doctype="io.cozy.accounts"
+            options={{ slug: brand.konnectorSlug }}
+            mobileFullscreen
+          />
+        )}
+      </div>
     )
   }
 }
