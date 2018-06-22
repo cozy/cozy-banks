@@ -163,6 +163,7 @@ class Component extends React.Component {
               doctype="io.cozy.accounts"
               options={{ slug: brand.konnectorSlug }}
               mobileFullscreen
+              into="body"
             />
           )}
         </div>
