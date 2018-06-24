@@ -75,7 +75,7 @@
   "homepage": "https://github.com/cozy/cozy-banks#readme",
   "devDependencies": {
     "ach": "0.3.0",
-    "autoprefixer": "8.6.2",
+    "autoprefixer": "8.6.3",
     "babel-cli": "6.26.0",
     "babel-core": "6.26.3",
     "babel-eslint": "8.2.3",
