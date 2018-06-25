@@ -1065,6 +1065,278 @@
       "currency": "€",
       "amount": 150,
       "date": "2018-01-19T00:00:00Z"
+    },
+    {
+      "automaticCategoryId": "{{ categoryId 'activityIncome' }}",
+      "account": "compteisa1",
+      "label": "Salaire juin 2018",
+      "currency": "€",
+      "amount": 3870.54,
+      "date": "2018-06-01T00:00:00Z"
+    },
+    {
+      "account": "compteisa1",
+      "amount": -80,
+      "automaticCategoryId": "400410",
+      "currency": "€",
+      "date": "2018-06-01T00:00:00Z",
+      "label": "ARGENT DE POCHE"
+    },
+    {
+      "account": "compteisa1",
+      "amount": -120.44,
+      "automaticCategoryId": "400420",
+      "currency": "€",
+      "date": "2018-06-01T00:00:00Z",
+      "label": "CANTINE SCOLAIRE"
+    },
+    {
+      "account": "comptelou1",
+      "amount": 80,
+      "automaticCategoryId": "400180",
+      "currency": "€",
+      "date": "2018-06-02T00:00:00Z",
+      "label": "ARGENT DE POCHE"
+    },
+    {
+      "account": "compteisa3",
+      "amount": 400,
+      "automaticCategoryId": "600110",
+      "currency": "€",
+      "date": "2018-06-03T00:00:00Z",
+      "label": "TRANSFERT LIVRET A"
+    },
+    {
+      "account": "compteisa1",
+      "amount": -22.12,
+      "automaticCategoryId": "400290",
+      "currency": "€",
+      "date": "2018-06-03T00:00:00Z",
+      "label": "UBER"
+    },
+    {
+      "account": "comptegene1",
+      "amount": -42.3,
+      "automaticCategoryId": "400110",
+      "currency": "€",
+      "date": "2018-06-04T00:00:00Z",
+      "label": "AUCHAN"
+    },
+    {
+      "account": "compteisa1",
+      "amount": -7.5,
+      "automaticCategoryId": "400620",
+      "currency": "€",
+      "date": "2018-06-04T00:00:00Z",
+      "label": "Generali remboursement médecin"
+    },
+    {
+      "account": "comptegene1",
+      "amount": -100,
+      "automaticCategoryId": "300",
+      "currency": "€",
+      "date": "2018-06-04T00:00:00Z",
+      "label": "RETRAIT CREDIT AGRICOLE"
+    },
+    {
+      "account": "comptelou1",
+      "amount": -20,
+      "automaticCategoryId": "300",
+      "currency": "€",
+      "date": "2018-06-04T00:00:00Z",
+      "label": "RETRAIT BNPPARIBAS"
+    },
+    {
+      "account": "compteisa1",
+      "amount": -400,
+      "automaticCategoryId": "600110",
+      "currency": "€",
+      "date": "2018-06-03T00:00:00Z",
+      "label": "TRANSFERT LIVRET A"
+    },
+    {
+      "account": "compteisa1",
+      "amount": -62.3,
+      "automaticCategoryId": "400110",
+      "currency": "€",
+      "date": "2018-06-06T00:00:00Z",
+      "label": "CARREFOUR MARKET"
+    },
+    {
+      "account": "compteisa1",
+      "amount": -78.54,
+      "automaticCategoryId": "400810",
+      "currency": "€",
+      "date": "2018-06-08T00:00:00Z",
+      "label": "LA BELLE ASSIETTE"
+    },
+    {
+      "account": "comptegene1",
+      "amount": -18.22,
+      "automaticCategoryId": "400420",
+      "currency": "€",
+      "date": "2018-06-07T00:00:00Z",
+      "label": "FRANPRIX"
+    },
+    {
+      "account": "compteisa1",
+      "amount": -117,
+      "automaticCategoryId": "{{ categoryId 'goingOutAndTravel' }}",
+      "currency": "€",
+      "date": "2018-06-08T00:00:00Z",
+      "label": "Sncf"
+    },
+    {
+      "account": "compteisa1",
+      "amount": -30,
+      "automaticCategoryId": "{{ categoryId 'telecom' }}",
+      "currency": "€",
+      "date": "2018-06-11T00:00:00Z",
+      "label": "Free Mobile"
+    },
+    {
+      "account": "comptegene1",
+      "amount": -80.44,
+      "automaticCategoryId": "400180",
+      "currency": "€",
+      "date": "2018-06-11T00:00:00Z",
+      "label": "FNAC TERNES"
+    },
+    {
+      "account": "compteisa1",
+      "amount": -98.22,
+      "automaticCategoryId": "400420",
+      "currency": "€",
+      "date": "2018-06-11T00:00:00Z",
+      "label": "FRANPRIX"
+    },
+    {
+      "account": "comptelou1",
+      "amount": -7.5,
+      "automaticCategoryId": "400740",
+      "currency": "€",
+      "date": "2018-06-12T00:00:00Z",
+      "label": "GAUMONTPARNASSE"
+    },
+    {
+      "account": "compteisa1",
+      "amount": -165.3,
+      "automaticCategoryId": "400110",
+      "currency": "€",
+      "date": "2018-06-12T00:00:00Z",
+      "label": "CARREFOUR MARKET"
+    },
+    {
+      "account": "comptelou1",
+      "amount": -8.5,
+      "automaticCategoryId": "400810",
+      "currency": "€",
+      "date": "2018-06-12T00:00:00Z",
+      "label": "MC DONALDS"
+    },
+    {
+      "account": "comptegene1",
+      "amount": -42.89,
+      "automaticCategoryId": "400130",
+      "currency": "€",
+      "date": "2018-06-13T00:00:00Z",
+      "label": "LA REDOUTE"
+    },
+    {
+      "account": "compteisa1",
+      "amount": -73.50,
+      "automaticCategoryId": "{{ categoryId 'shoppingECommerce' }}",
+      "currency": "€",
+      "date": "2018-06-13T00:00:00Z",
+      "label": "Leclerc Drive"
+    },
+    {
+      "account": "compteisa1",
+      "amount": -8.09,
+      "automaticCategoryId": "400290",
+      "currency": "€",
+      "date": "2018-06-14T00:00:00Z",
+      "label": "UBER"
+    },
+    {
+      "account": "comptegene1",
+      "amount": -65.3,
+      "automaticCategoryId": "400110",
+      "currency": "€",
+      "date": "2018-06-14T00:00:00Z",
+      "label": "CARREFOUR CITY"
+    },
+    {
+      "account": "compteisa1",
+      "amount": -27.90,
+      "automaticCategoryId": "{{ categoryId 'shoppingECommerce' }}",
+      "currency": "€",
+      "date": "2018-06-15T00:00:00Z",
+      "label": "Just Eat"
+    },
+    {
+      "account": "compteisa1",
+      "amount": -9.90,
+      "automaticCategoryId": "{{ categoryId 'telecom' }}",
+      "currency": "€",
+      "date": "2018-06-15T00:00:00Z",
+      "label": "Sosh"
+    },
+    {
+      "account": "compteisa1",
+      "amount": -36,
+      "automaticCategoryId": "400130",
+      "currency": "€",
+      "date": "2018-06-17T00:00:00Z",
+      "label": "FRANCK PROVOST MONCEAU"
+    },
+    {
+      "account": "compteisa1",
+      "amount": -1231,
+      "automaticCategoryId": "400750",
+      "currency": "€",
+      "date": "2018-06-17T00:00:00Z",
+      "label": "REMBOURSEMENT PRET LCL"
+    },
+    {
+      "account": "comptelou1",
+      "amount": -20,
+      "automaticCategoryId": "300",
+      "currency": "€",
+      "date": "2018-06-19T00:00:00Z",
+      "label": "RETRAIT BNPPARIBAS 2018-01-19"
+    },
+    {
+      "account": "compteisa1",
+      "amount": -11.90,
+      "automaticCategoryId": "{{ categoryId 'booksMoviesMusic' }}",
+      "currency": "€",
+      "date": "2018-06-20T00:00:00Z",
+      "label": "Netflix"
+    },
+    {
+      "account": "comptegene1",
+      "amount": -40,
+      "automaticCategoryId": "400330",
+      "currency": "€",
+      "date": "2018-06-20T00:00:00Z",
+      "label": "FRANCE MENAGE MONTLY SUBSCRIPTION"
+    },
+    {
+      "account": "compteisa1",
+      "amount": -42.89,
+      "automaticCategoryId": "400130",
+      "currency": "€",
+      "date": "2018-06-21T00:00:00Z",
+      "label": "H&M"
+    },
+    {
+      "account": "comptegene1",
+      "amount": -48.22,
+      "automaticCategoryId": "400420",
+      "currency": "€",
+      "date": "2018-06-21T00:00:00Z",
+      "label": "FRANPRIX ST LAZARE PR"
     }
   ],
   "io.cozy.bills": [
