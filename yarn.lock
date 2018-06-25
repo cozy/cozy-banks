@@ -2938,9 +2938,9 @@ cozy-app-publish@0.3.6:
     node-fetch "2.1.2"
     prompt "1.0.0"
 
-cozy-authentication@1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-1.1.4.tgz#5081351fa819f29629bc16072f3385bb206679c3"
+cozy-authentication@1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-1.3.0.tgz#ad3e7c34a1d93633a14f48601573c33987c4c6b7"
   dependencies:
     url-polyfill "1.0.11"
 
