@@ -145,7 +145,7 @@
     "cordova": "^7.1.0",
     "cozy-authentication": "1.1.4",
     "cozy-bar": "5.0.6",
-    "cozy-client": "0.5.0",
+    "cozy-client": "0.6.0",
     "cozy-client-js": "0.11.0",
     "cozy-device-helper": "1.0.0",
     "cozy-konnector-libs": "^3.0.13",
