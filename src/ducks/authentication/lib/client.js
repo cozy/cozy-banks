@@ -44,7 +44,7 @@ export const initClient = url => {
     oauth: {
       storage: new Storage(),
       clientParams: {
-        redirectURI: 'http://localhost',
+        redirectURI: 'cozybanks://auth',
         softwareID: SOFTWARE_ID,
         clientName: `${SOFTWARE_NAME} (${getDeviceName()})`,
         softwareVersion: __APP_VERSION__,
