@@ -50,5 +50,9 @@ Array [
     "disabled": false,
     "yearMonth": "2017-07",
   },
+  Object {
+    "disabled": false,
+    "yearMonth": "2017-06",
+  },
 ]
 `;

@@ -6,7 +6,7 @@ import { subMonths, format, parse, differenceInCalendarMonths } from 'date-fns'
 const rangeMonth = (startDate, endDate) => {
   const options = []
 
-  for (let i = 0; i < differenceInCalendarMonths(endDate, startDate); i++) {
+  for (let i = 0; i < differenceInCalendarMonths(endDate, startDate) + 1; i++) {
     options.push(subMonths(endDate, i))
   }
 
