@@ -137,6 +137,30 @@
       "description": "Premier compte sans connaitre l id pour generer le doc"
     }
   ],
+  "io.cozy.bank.groups": [
+    {
+      "_id": "f1d11eb324b64d604cbeee734e77de66",
+      "accounts": [
+        "compteisa1",
+        "comptelou1",
+        "comptecla1",
+        "comptegene1"
+      ],
+      "id": "f1d11eb324b64d604cbeee734e77de66",
+      "label": "Famille élargie",
+      "type": "io.cozy.bank.groups"
+    },
+    {
+      "_id": "b3e33d6cc334ed5ef49738a2be2880a2",
+      "accounts": [
+        "compteisa1",
+        "comptelou1",
+        "compteisa3"
+      ],
+      "id": "b3e33d6cc334ed5ef49738a2be2880a2",
+      "label": "Isabelle"
+    }
+  ],
   "io.cozy.mocks.recipients": [
     {
       "description": "Dummy recipient to ensure doctype exists.",
