@@ -1,16 +1,10 @@
 /* global PushNotification, cozy */
 import { hashHistory } from 'react-router'
-import { isIOSApp } from 'cozy-device-helper'
 
 let push
 
 export const registerPushNotifications = () => async (dispatch, getState) => {
   if (push) {
-    return
-  }
-
-  // No push notification for now on iOS
-  if (isIOSApp()) {
     return
   }
 
