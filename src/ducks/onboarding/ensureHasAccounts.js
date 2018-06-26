@@ -5,7 +5,8 @@ import Loading from 'components/Loading'
 import { withRouter } from 'react-router'
 import Onboarding from './Onboarding'
 import styles from './Onboarding.styl'
-import { Content, Layout } from 'components/Layout'
+import stylesLayout from 'styles/main.styl'
+import { Layout, Main, Content } from 'cozy-ui/react/Layout'
 
 /**
  * HOC to wrap Layout. Replaces its children by Onboarding
@@ -33,11 +34,13 @@ export default enhance(({ children, accounts, location }) => {
   if (fetchStatus === 'pending' || fetchStatus === 'loading') {
     return (
       <Layout>
-        <Content>
-          <div className={styles.Onboarding__loading}>
-            <Loading />
-          </div>
-        </Content>
+        <Main>
+          <Content className={stylesLayout['c-content']}>
+            <div className={styles.Onboarding__loading}>
+              <Loading />
+            </div>
+          </Content>
+        </Main>
       </Layout>
     )
   } else if (
@@ -46,9 +49,11 @@ export default enhance(({ children, accounts, location }) => {
   ) {
     return (
       <Layout>
-        <Content>
-          <Onboarding />
-        </Content>
+        <Main>
+          <Content className={stylesLayout['c-content']}>
+            <Onboarding />
+          </Content>
+        </Main>
       </Layout>
     )
   }

@@ -3,6 +3,7 @@
 @require './utilities.styl'
 @require './text.styl'
 @require 'settings/breakpoints'
+@require '~styles/variables.styl'
 
 h4
     margin-top 0
@@ -13,6 +14,22 @@ html, body
         overflow-y scroll // necessary for momentum scroll on ios
         -webkit-overflow-scrolling touch // necessary for momentum scroll on ios
 
+    +medium-screen()
+        min-height 100vh
+        overflow auto
+        overflow-x hidden
+
 +small-screen()
     [role='banner'][data-drawer-visible='true']
         z-index 90
+
+.c-content
+    width 100%
+    padding content-padding
+
+    +small-screen()
+        &
+            padding content-padding-small
+
+    +medium-screen()
+        display block
