@@ -585,8 +585,7 @@
       "currency": "€",
       "amount": -48.12,
       "date": "2018-04-17T00:00:00Z",
-      "_id": "c5d3364d147d8dc5da80fc9e354ab4a3",
-      "bill": "io.cozy.:avrilrembourcomplisa22"
+      "_id": "c5d3364d147d8dc5da80fc9e354ab4a3"
     },
     {
       "demo": false,
@@ -692,9 +691,6 @@
       "currency": "€",
       "date": "2018-04-21T00:00:00Z",
       "label": "FRANPRIX",
-      "bills": [
-        "io.cozy.bills:b2"
-      ],
       "demo": false
     },
     {
@@ -946,7 +942,6 @@
       "demo": false,
       "automaticCategoryId": "400420",
       "account": "comptegene1",
-      "bill": "io.cozy.:avrilrembourcla32",
       "label": "FRANPRIX",
       "currency": "€",
       "amount": -18.22,
@@ -1003,22 +998,6 @@
           "vendor": "CPAM"
         }
       ]
-    },
-    {
-      "_id": "c5d3364d147d8dc5da80fc9e354b0209",
-      "demo": false,
-      "automaticCategoryId": "400420",
-      "account": "compteisa1",
-      "label": "FRANPRIX",
-      "currency": "€",
-      "amount": -98.22,
-      "date": "2018-05-11T00:00:00Z",
-      "action": {
-        "url": "https://marvelapp.com/2ci574d/screen/30245778",
-        "trad": "Accéder à votre paie",
-        "type": "url",
-        "target": "_blank"
-      }
     },
     {
       "demo": false,
@@ -1379,16 +1358,16 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400420",
+      "automaticCategoryId": "400150",
       "account": "comptegene1",
       "bill": "io.cozy.bills:marsrembourcomplisa22",
-      "label": "FRANPRIX ST LAZARE PR",
+      "label": "Forfait internet",
       "currency": "€",
-      "amount": -48.22,
+      "amount": -44.90,
       "date": "2018-05-21T00:00:00Z",
       "_id": "446ae26d705b2eb461ca264d384a6ee6",
       "bills": [
-        "io.cozy.bills:b1"
+        "io.cozy.bills:b2"
       ]
     },
     {
@@ -1611,14 +1590,6 @@
     },
     {
       "account": "compteisa1",
-      "amount": -9.9,
-      "automaticCategoryId": "{{ categoryId 'telecom' }}",
-      "currency": "€",
-      "date": "2018-06-15T00:00:00Z",
-      "label": "Sosh"
-    },
-    {
-      "account": "compteisa1",
       "amount": -36,
       "automaticCategoryId": "400130",
       "currency": "€",
@@ -1672,6 +1643,14 @@
       "currency": "€",
       "date": "2018-06-21T00:00:00Z",
       "label": "FRANPRIX ST LAZARE PR"
+    },
+    {
+      "account": "compteisa1",
+      "amount": -9.9,
+      "automaticCategoryId": "{{ categoryId 'telecom' }}",
+      "currency": "€",
+      "date": "2018-06-23T00:00:00Z",
+      "label": "Sosh"
     }
   ],
   "io.cozy.bills": [
