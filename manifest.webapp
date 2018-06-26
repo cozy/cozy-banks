@@ -30,11 +30,11 @@
   "platforms": [
     {
       "type": "ios",
-      "url": "#"
+      "url": "https://itunes.apple.com/us/app/cozy-banks/id1349814380"
     },
     {
       "type": "android",
-      "url": "#"
+      "url": "https://play.google.com/store/apps/details?id=io.cozy.banks.mobile"
     }
   ],
   "editor": "Cozy",
