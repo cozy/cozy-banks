@@ -7,231 +7,231 @@
   },
   {
     "name": "Auchan Drive",
-    "regexp": "auchan",
+    "regexp": "\\bauchan\\b",
     "konnectorSlug": "auchandrive"
   },
   {
     "name": "Autolib",
-    "regexp": "autolib",
+    "regexp": "\\bautolib\\b",
     "konnectorSlug": "autolib"
   },
   {
     "name": "Bipandgo",
-    "regexp": "bipandgo",
+    "regexp": "\\bbipandgo\\b",
     "konnectorSlug": "bipandgo"
   },
   {
     "name": "Booking.com",
-    "regexp": "booking.com",
+    "regexp": "\\bbooking.com\\b",
     "konnectorSlug": "bookingdotcom"
   },
   {
     "name": "Boulanger",
-    "regexp": "boulanger",
+    "regexp": "\\bboulanger\\b",
     "konnectorSlug": "boulanger"
   },
   {
     "name": "Bouygues Box",
-    "regexp": "bouyg",
+    "regexp": "\\bbouyg",
     "konnectorSlug": "bouyguesbox"
   },
   {
     "name": "Bouygues Telecom",
-    "regexp": "bouyg",
+    "regexp": "\\bbouyg",
     "konnectorSlug": "bouyguestelecom"
   },
   {
     "name": "Cdiscount",
-    "regexp": "cdiscount",
+    "regexp": "\\bcdiscount\\b",
     "konnectorSlug": "cdiscount"
   },
   {
     "name": "Deliveroo",
-    "regexp": "deliveroo",
+    "regexp": "\\bdeliveroo\\b",
     "konnectorSlug": "deliveroo"
   },
   {
     "name": "Cultura",
-    "regexp": "cultura",
+    "regexp": "\\bcultura\\b",
     "konnectorSlug": "cultura"
   },
   {
     "name": "Digitick",
-    "regexp": "digitick",
+    "regexp": "\\bdigitick\\b",
     "konnectorSlug": "digitick"
   },
   {
     "name": "Direct Energie",
-    "regexp": "direct energie",
+    "regexp": "\\bdirect energie\\b",
     "konnectorSlug": "directenergie"
   },
   {
     "name": "Électricité de Strasbourg",
-    "regexp": "es energies strasbourg",
+    "regexp": "es energies strasbourg\\b",
     "konnectorSlug": "electricitestrasbourg"
   },
   {
     "name": "Enercoop",
-    "regexp": "enercoop",
+    "regexp": "\\benercoop\\b",
     "konnectorSlug": "enercoop"
   },
   {
     "name": "Free",
-    "regexp": "free (telecom|hautdebit)",
+    "regexp": "\\bfree (telecom|hautdebit)\\b",
     "konnectorSlug": "free"
   },
   {
     "name": "Free Mobile",
-    "regexp": "free mobile",
+    "regexp": "\\bfree mobile\\b",
     "konnectorSlug": "freemobile"
   },
   {
     "name": "Generali",
-    "regexp": "generali",
+    "regexp": "\\bgenerali\\b",
     "konnectorSlug": "generali",
     "health": true
   },
   {
     "name": "Harmonie Mutuelle",
-    "regexp": "harmonie",
+    "regexp": "\\bharmonie\\b",
     "konnectorSlug": "harmonie",
     "health": true
   },
   {
     "name": "Helloasso",
-    "regexp": "helloasso",
+    "regexp": "\\bhelloasso\\b",
     "konnectorSlug": "helloasso"
   },
   {
     "name": "Inulogic",
-    "regexp": "inulogic",
+    "regexp": "\\binulogic\\b",
     "konnectorSlug": "inulogic"
   },
   {
     "name": "JustEat",
-    "regexp": "just eat",
+    "regexp": "\\bjust eat\\b",
     "konnectorSlug": "justeat"
   },
   {
     "name": "LDLC",
-    "regexp": "ldlc",
+    "regexp": "\\bldlc\\b",
     "konnectorSlug": "ldlc"
   },
   {
     "name": "Le Monde Diplomatique",
-    "regexp": "monde-diplomatique",
+    "regexp": "\\bmonde-diplomatique\\b",
     "konnectorSlug": "mondediplo"
   },
   {
     "name": "Leclerc Drive",
-    "regexp": "leclerc",
+    "regexp": "\\bleclerc\\b",
     "konnectorSlug": "leclercdrive"
   },
   {
     "name": "Ma lentille",
-    "regexp": "digital eyewear",
+    "regexp": "\\bdigital eyewear\\b",
     "konnectorSlug": "malentille"
   },
   {
     "name": "MACIF",
-    "regexp": "macif",
+    "regexp": "\\bmacif\\b",
     "konnectorSlug": "macif"
   },
   {
     "name": "Maif - Echeancier",
-    "regexp": "maif",
+    "regexp": "\\bmaif\\b",
     "konnectorSlug": "maifecheancier"
   },
   {
     "name": "Malakoff Mederic",
-    "regexp": "malakoff",
+    "regexp": "\\bmalakoff\\b",
     "konnectorSlug": "malakoffmederic",
     "health": true
   },
   {
     "name": "Médecins sans frontières",
-    "regexp": "(medecins sans frontieres|msf)",
+    "regexp": "\\b(medecins sans frontieres|msf)\\b",
     "konnectorSlug": "msf"
   },
   {
     "name": "Mediapart",
-    "regexp": "mediapart",
+    "regexp": "\\bmediapart\\b",
     "konnectorSlug": "mediapart"
   },
   {
     "name": "MGEN",
-    "regexp": "mgen",
+    "regexp": "\\bmgen\\b",
     "konnectorSlug": "mgen",
     "health": true
   },
   {
     "name": "Netflix",
-    "regexp": "netflix",
+    "regexp": "\\bnetflix\\b",
     "konnectorSlug": "netflix"
   },
   {
     "name": "Numéricable",
-    "regexp": "numericable",
+    "regexp": "\\bnumericable\\b",
     "konnectorSlug": "numericable"
   },
   {
     "name": "O2",
-    "regexp": "^o2 ",
+    "regexp": "^o2\\b",
     "konnectorSlug": "o2"
   },
   {
     "name": "Orange Factures",
-    "regexp": "orange",
+    "regexp": "\\borange\\b",
     "konnectorSlug": "orange"
   },
   {
     "name": "Oui.sncf",
-    "regexp": "sncf",
+    "regexp": "\\bsncf\\b",
     "konnectorSlug": "sncf"
   },
   {
     "name": "Scaleway",
-    "regexp": "scaleway",
+    "regexp": "\\bscaleway\\b",
     "konnectorSlug": "scaleway"
   },
   {
     "name": "Sosh",
-    "regexp": "sosh",
+    "regexp": "\\bsosh\\b",
     "konnectorSlug": "sosh"
   },
   {
     "name": "Stickers Discount",
-    "regexp": "akoufen angers",
+    "regexp": "\\bakoufen angers\\b",
     "konnectorSlug": "stickersdiscount"
   },
   {
     "name": "The Old Reader",
-    "regexp": "theoldreader",
+    "regexp": "\\btheoldreader\\b",
     "konnectorSlug": "theoldreader"
   },
   {
     "name": "Trainline",
-    "regexp": "trainline",
+    "regexp": "\\btrainline\\b",
     "konnectorSlug": "trainline"
   },
   {
     "name": "Unibet",
-    "regexp": "unibet",
+    "regexp": "\\bunibet\\b",
     "konnectorSlug": "unibet"
   },
   {
     "name": "Veolia Eau",
-    "regexp": "veolia",
+    "regexp": "\\bveolia\\b",
     "konnectorSlug": "veoliaeau"
   },
   {
     "name": "Vinci autoroute télépéage",
-    "regexp": "(vinci|escota)",
+    "regexp": "\\b(vinci|escota)\\b",
     "konnectorSlug": "vinciautoroute"
   },
   {
     "name": "ZooPlus",
-    "regexp": "zooplus",
+    "regexp": "\\bzooplus\\b",
     "konnectorSlug": "zooplus"
   }
 ]
