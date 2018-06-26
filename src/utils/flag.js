@@ -52,7 +52,8 @@ if (__DEVELOPMENT__ && flag('switcher') === null) {
 const demoFqdns = [
   'stephaniedurand.cozy.rocks',
   'isabelledurand.cozy.rocks',
-  'genevievedurand.cozy.rocks'
+  'genevievedurand.cozy.rocks',
+  'isabelledurand.mycozy.cloud'
 ]
 
 const locationMatchesFqdn = (location, fqdn) => {
