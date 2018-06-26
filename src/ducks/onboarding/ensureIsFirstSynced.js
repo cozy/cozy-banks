@@ -1,5 +1,5 @@
 /* global __TARGET__ */
-import { Component } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
   isSynced,
@@ -18,6 +18,7 @@ import {
 import { fetchTransactions } from 'actions'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { isInitialSyncOK } from 'ducks/mobile'
+import UserActionRequired from 'components/UserActionRequired'
 
 /**
  * Displays Loading until PouchDB has done its first replication.
@@ -79,7 +80,12 @@ class Wrapper extends Component {
   }
 
   render() {
-    return this.props.children
+    return (
+      <div>
+        {__TARGET__ === 'mobile' && <UserActionRequired />}
+        {this.props.children}
+      </div>
+    )
   }
 }
 

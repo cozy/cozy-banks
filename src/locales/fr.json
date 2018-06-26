@@ -429,11 +429,13 @@
     "error": "Impossible de trouver le fichier, celui-ci a peut être été supprimé de l'application Drive."
   },
 
-  "Warnings": {
-    "gdpr": {
+  "TOS": {
+    "updated": {
       "title": "Du nouveau avec le RGPD !",
-      "detail": "Dans le cadre du Règlement Général de la Protection des Données (RGPD), nos CGU sont actualisées et s’appliquent pour vous à partir du 25 mai 2018.",
-      "cta": "Voir les nouvelles CGU"
+      "detail": "Dans le cadre du Règlement Général de la Protection des Données (RGPD), [nos CGU sont actualisées](%{link}) et s’appliquent pour vous à partir du 25 mai 2018.",
+      "cta": "Accepter les CGU et continuer",
+      "disconnect": "Refuser et se déconnecter",
+      "error": "Une erreur est survenue, merci de réessayer plus tard"
     }
   }
 }
