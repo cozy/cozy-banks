@@ -2995,9 +2995,9 @@ cozy-client@0.6.1:
     pouchdb "6.3.4"
     pouchdb-find "6.3.4"
 
-cozy-device-helper@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.2.0.tgz#0e29686055cff407995281cc86797a7249e56cf4"
+cozy-device-helper@1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.2.1.tgz#ae755349e71d120a3bbbcbedc0ed59b24b1fe223"
   dependencies:
     lodash "4.17.10"
 
