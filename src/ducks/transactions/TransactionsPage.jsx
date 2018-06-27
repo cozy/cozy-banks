@@ -43,6 +43,7 @@ import { TRIGGER_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
 import { getBrands } from 'ducks/brandDictionary'
 import { AccountSwitch } from 'ducks/account'
 import { isIOSApp } from 'cozy-device-helper'
+import { getKonnectorFromTrigger } from 'utils/triggers'
 
 const { BarRight } = cozy.bar
 
@@ -130,7 +131,7 @@ class TransactionsPage extends Component {
   getKonnectorSlugs = triggers => {
     return triggers
       .filter(trigger => trigger.worker === 'konnector')
-      .map(trigger => trigger.message && trigger.message.konnector)
+      .map(getKonnectorFromTrigger)
       .filter(Boolean)
   }
 
