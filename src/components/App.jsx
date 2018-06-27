@@ -2,11 +2,12 @@
 import React from 'react'
 import ReactHintFactory from 'react-hint'
 import 'react-hint/css/index.css'
-import { Layout, Content } from 'components/Layout'
+import { Layout, Main, Content } from 'cozy-ui/react/Layout'
 import { Sidebar } from 'cozy-ui/react'
 import Nav from 'ducks/commons/Nav'
 import { Warnings } from 'ducks/warnings'
 import FlagSwitcher from 'components/FlagSwitcher'
+import styles from 'styles/main.styl'
 
 const ReactHint = ReactHintFactory(React)
 
@@ -17,7 +18,9 @@ const App = ({ children }) => (
       <Nav />
     </Sidebar>
 
-    <Content>{children}</Content>
+    <Main>
+      <Content className={styles['c-content']}>{children}</Content>
+    </Main>
 
     {/* Outside every other component to bypass overflow:hidden */}
     <ReactHint />

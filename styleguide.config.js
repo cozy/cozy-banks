@@ -38,8 +38,7 @@ module.exports = {
     {
       name: 'Misc',
       components: () => [
-        'src/components/DisplayError.js',
-        'src/components/Layout/index.jsx'
+        'src/components/DisplayError.js'
       ]
     }
   ]
