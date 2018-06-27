@@ -14,8 +14,8 @@ Main features:
 • Smart notifications (coming soon)
 
 As secured as your bank:
-• Cozy Banks is developed in France and our servers are also hosted in France by OVH
-• We use the technology of our provider Linxo (currently being certified by the Banque de France)
+• Cozy Cloud is a French company that develops Cozy Banks which servers are hosted in France by OVH
+• We use the technology of our provider Linxo
 • As safe as your bank's website
 • Your credentials and connections are always protected (encrypted)
 • Cozy Banks is dedicated for read only, no payment order or wire transfers are possible
@@ -23,30 +23,33 @@ As secured as your bank:
 The press has already mentioned Cozy:
 • TechCrunch, Le Point, Le Figaro, Mashable, Assurbanque 2.0, 01.net, Les Echos, L’Usine Digitale
 
-With Cozy Banks you can easily import your banking historics from the major French & European banks including :
+heck out the list of 25+ banks and account types available in your Cozy:
 • Axa Banque
 • Banque Populaire
 • BforBank
 • BNP Paribas
 • Boursorama
 • Bred
+• Carrefour Banque
 • Caisse d’Epargne
 • Casden
 • CIC
 • Compte Nickel
 • Crédit Agricole
 • Crédit Coopératif
+• Crédit Maritime
 • Crédit Mutuel
 • Crédit du Nord & banques du groupe
 • Crédit Mutuel
 • Fortuneo
-• HelloBank
+• HelloBank!
 • HSBC
 • ING Direct
 • LCL
 • Monabanq
 • La Banque Postale
 • Société Générale
+• Société Marseillaise de Crédit
 
 The entire Cozy Cloud team is here to support you:
 • If you do not find the information you are looking for (we apologize in advance), we invite you to contact our dedicated Claude claude@cozycloud.cc directly, specifying "App Store". You can count on him to answer you!
