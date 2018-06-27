@@ -56,6 +56,10 @@
       "folder": "/",
       "index": "index.html",
       "public": false
+    },
+    "/safari-pinned-tab.svg": {
+      "folder": "/safari-pinned-tab.svg",
+      "public": true
     }
   },
   "services": {
