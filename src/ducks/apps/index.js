@@ -1,4 +1,5 @@
 /* global cozy */
+import { UNLINK } from 'ducks/apps'
 
 // reducers
 export const getApps = state => state.apps
@@ -28,10 +29,13 @@ export const fetchApps = () => async dispatch => {
 }
 
 // reducers
-const apps = (state = [], action) => {
+const initialState = []
+const apps = (state = initialState, action) => {
   switch (action.type) {
     case SET_APPS:
       return action.apps
+    case UNLINK:
+      return initialState
     default:
       return state
   }
