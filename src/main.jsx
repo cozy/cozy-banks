@@ -51,12 +51,15 @@ const setupApp = persistedState => {
 
   client = getClient(persistedState)
   store = configureStore(client, persistedState)
-  // Initialize settings
-  store.dispatch(fetchSettingsCollection()).then(res => {
-    if (!res || res.data.length === 0) {
-      store.dispatch(initSettings())
-    }
-  })
+
+  if (client.facade.url) {
+    // Initialize settings
+    store.dispatch(fetchSettingsCollection()).then(res => {
+      if (!res || res.data.length === 0) {
+        store.dispatch(initSettings())
+      }
+    })
+  }
 
   persistState(store)
 
