@@ -1,0 +1,176 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`balance lower should send balance lower 1`] = `
+Array [
+  Array [
+    "POST",
+    "/notifications",
+    Object {
+      "data": Object {
+        "attributes": Object {
+          "category": "balance-lower",
+          "content": "
+# Cozy - 
+## Alerte Soldes de compte - 28/06/2018
+
+---------
+
+ ### undefined
+
+- Account With no Money -0€
+",
+          "content_html": "<mjml>
+   <mj-head>
+      <mj-font name=\\"Lato\\" href=\\"https://fonts.googleapis.com/css?family=Lato:400,700\\" />
+      <mj-style inline=\\"inline\\">
+        
+      </mj-style>
+      <mj-style>
+        @media screen and (max-width: 420px) {
+          .header__desc__title {
+            text-align: center !important;
+          }
+          .header__desc__subtitle {
+            text-align: center !important;
+          }
+          .header__title > td {
+            text-align: center !important;
+          }
+          .header__title > td > table {
+            width: 100px;
+            margin: auto;
+          }
+
+          .footer__settings > td > div {
+            text-align: center !important;
+          }
+
+          .footer__help > td > div {
+            text-align: center !important;
+          }
+        }
+      </mj-style>
+      <mj-attributes>
+        <mj-all font-family=\\"Lato, Helvetica, Arial, sans-serif\\"></mj-all>
+      </mj-attributes>
+   </mj-head>
+  <mj-body>
+    <mj-container background-color=\\"#f5f6f7\\">
+      <mj-section padding-top=\\"0\\" padding-bottom=\\"0\\">
+        <mj-column>
+          <mj-image width=\\"100px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/logo-cozy.png\\" />
+        </mj-column>
+      </mj-section>
+
+      <!-- white sheet -->
+      <mj-wrapper background-color=\\"white\\" border='1px solid #d6d6d8' border-top=\\"none\\">
+        <!-- header -->
+        <mj-section padding-bottom=\\"0\\" padding-top=\\"0\\">
+          <mj-group>
+            <mj-column>
+              <mj-table width=\\"auto\\" css-class=\\"header__title\\" cellpadding='4px'>
+                <tr>
+                  <td width=\\"30px\\">
+                    <a href=\\"\\">
+                      <img align=\\"left\\" width=\\"30px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/logo-bank.png\\" alt=\\"    Banks
+\\" />
+                    </a>
+                  </td>
+                  <td>
+                    <h1 style=\\"line-height: 32px\\"><a href=\\"\\">    Banks
+</a></h1>
+                  </td>
+                </tr>
+              </mj-table>
+            </mj-column>
+            <mj-column css-class=\\"emailHeader\\">
+              <mj-text padding-top=\\"0\\" padding-bottom=\\"0\\">
+                  <div class=\\"header__desc__title txt--right\\">
+                          Alerte Soldes de compte
+
+                  </div>
+                  <div class=\\"header__desc__subtitle txt--right\\">
+                        28/06/2018
+
+                  </div>
+              </mj-text>
+            </mj-column>
+          </mj-group>
+        </mj-section>
+
+        <mj-section padding-top=\\"8px\\" padding-bottom=\\"8px\\">
+          <mj-column>
+            <mj-divider border-width=\\"1px\\" border-color=\\"#95999d\\" />
+          </mj-column>
+        </mj-section>
+
+
+        <!-- content -->
+            <mj-section>
+      <mj-column>
+        <mj-text>
+          <a href=\\"\\">Accéder à mes comptes</a>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+      <mj-section css-class=\\"account\\" padding-top=\\"0\\" padding-bottom=\\"10px\\">
+        <mj-column>
+          <mj-text padding-top=\\"0\\" padding-bottom=\\"0\\">
+            <h3 class='js-institution'>undefined</h3>
+          </mj-text>
+            <mj-table>
+              <tr class=\\"js-account tableRow\\">
+                <td>Account With no Money</td>
+                <td width=\\"150px\\" align='right'><span><span class='amount amount--neg'>
+-
+0 €
+</span>
+</span></td>
+              </tr>
+            </mj-table>
+              
+        </mj-text>
+        </mj-column>
+      </mj-section>
+
+      </mj-wrapper>
+      <mj-section padding-top=\\"0\\">
+        <mj-group>
+          <mj-column>
+            
+          </mj-column>
+          <mj-column>
+            <mj-text css-class=\\"footer__help\\">
+              <a css-class=\\"footer__help\\" href=\\"\\">
+                Notifications.email.settings
+              </a>
+              <a css-class=\\"footer__help\\" href=\\"https://support.cozy.io/\\">
+                Notifications.email.support
+              </a>
+            </mj-text>
+          </mj-column>
+        </mj-group>
+      </mj-section>
+    </mj-container>
+  </mj-body>
+</mjml>
+
+
+
+",
+          "data": Object {
+            "route": "/balances",
+          },
+          "message": "Account with no money (0 €)",
+          "preferred_channels": Array [
+            "mail",
+            "mobile",
+          ],
+          "title": "Notifications.if_balance_lower.notification.one.title",
+        },
+        "type": "io.cozy.notifications",
+      },
+    },
+  ],
+]
+`;

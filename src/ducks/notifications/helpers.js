@@ -9,7 +9,7 @@ export const isTransactionAmountGreaterThan = max => transaction => {
 }
 
 export const getBanksUrl = (cozyUrl, path = '/') =>
-  cozyUrl
+  cozyUrl && cozyUrl
     .split('.')
     .map((fragment, index) => {
       if (index === 0) {

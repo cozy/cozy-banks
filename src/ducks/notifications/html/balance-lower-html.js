@@ -1,6 +1,7 @@
 const { groupBy, map } = require('lodash')
 const templates = require('./templates')
-const { mjml2html } = require('mjml')
+const mjml = require('mjml')
+const log = require('cozy-logger')
 
 const groupAccountsByInstitution = accounts => {
   return map(groupBy(accounts, 'institutionLabel'), (accounts, name) => ({
@@ -16,10 +17,11 @@ export default ({ accounts, urls }) => {
     ...urls
   }
 
-  const obj = mjml2html(templates['balance-lower'](data))
+  const renderedMjml = templates['balance-lower'](data)
+  const obj = mjml.mjml2html(renderedMjml)
   obj.errors.forEach(err => {
     // eslint-disable-next-line no-console
-    console.warn(err.formattedMessage)
+    log('warn', err.formattedMessage)
   })
 
   if (obj.html) {

@@ -1,6 +1,7 @@
 import { cozyClient } from 'cozy-konnector-libs'
 import { getBanksUrl } from './helpers'
 import Handlebars from 'handlebars'
+import log from 'cozy-logger'
 
 class Notification {
   constructor(config) {
@@ -30,6 +31,9 @@ class Notification {
         this.buildNotification(this.data)
       )
 
+      if (!attributes) {
+        return
+      }
       return cozyClient.fetchJSON('POST', '/notifications', {
         data: {
           type: 'io.cozy.notifications',
@@ -38,7 +42,7 @@ class Notification {
       })
     } catch (err) {
       // eslint-disable-next-line no-console
-      console.log(err)
+      log('error', err)
     }
   }
 }
