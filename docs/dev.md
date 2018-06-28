@@ -172,10 +172,10 @@ $ yarn watch:services # will continuously build `build/notifications.js`1
 $ nodemon --delay 1 -w build/notifications.js --exec "scripts/run-services" # will launch build/notifications.js (and relaunch it when it changes) with the right COZY_CREDENTIALS
 ```
 
-To see the emails that the stack sends, launch a MailHog instance :
+To see the emails that the stack sends, launch a MailHog instance (with Docker) :
 
 ```
-docker run -p 1025:1025 -p 8025:8025 mailhog/mailhog
+yarn mailhog
 ```
 
 The stack will send the emails through the SMTP port of MailHog and you

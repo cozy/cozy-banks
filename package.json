@@ -61,7 +61,8 @@
     "postcheckout": "yarnhook",
     "postrewrite": "yarnhook",
     "fixtures": "ACH import test/fixtures/operations.json test/fixtures/helpers.js",
-    "release": "./scripts/release.sh"
+    "release": "./scripts/release.sh",
+    "mailhog": "docker run -p 1025:1025 -p 8025:8025 mailhog/mailhog"
   },
   "repository": {
     "type": "git",
