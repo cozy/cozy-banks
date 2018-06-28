@@ -2,7 +2,7 @@ import libs from 'cozy-konnector-libs'
 import BalanceLower from './BalanceLower'
 
 jest.mock('mjml', () => ({
-  mjml2html: x => ({ html: x, errors: []}) // mjml does not work in jest
+  mjml2html: x => ({ html: x, errors: [] }) // mjml does not work in jest
 }))
 
 describe('balance lower', () => {
