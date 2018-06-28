@@ -167,27 +167,9 @@ This will upload create a new version in the store, in the `beta` track that you
 To debug notifications, you have to launch a watch on the notifications.js and then
 launch it with `cozy-run-dev`.
 
-⚠️ You have to temporarily add `io.cozy.accounts` to your manifest so that you can
-create a dev account to test the service.
-
-```diff
-       "type": "io.cozy.notifications",
-       "verbs": ["POST"]
-     },
-+    "account": {
-+      "description": "Used to send notifications",
-+      "type": "io.cozy.accounts",
-+      "verbs": ["POST"]
-+    },
-     "bank.settings": {
-       "description": "Used to manage your bank settings",
-       "type": "io.cozy.bank.settings",
-```
-
-
 ```bash
-$ yarn watch:services # will continuously build `build/notifications.js`
-$ nodemon --delay 1 -w build/notifications.js --exec "cozy-konnector-dev -t /tmp/token.json -m manifest.webapp build/notifications.js" # will launch build/notifications.js (and relaunch it when it changes) with the right COZY_CREDENTIALS, /tmp/token.json is where the token will be stored
+$ yarn watch:services # will continuously build `build/notifications.js`1
+$ nodemon --delay 1 -w build/notifications.js --exec "scripts/run-services" # will launch build/notifications.js (and relaunch it when it changes) with the right COZY_CREDENTIALS
 ```
 
 To see the emails that the stack sends, launch a MailHog instance :

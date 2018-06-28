@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cat manifest.webapp | jq '. * {permissions: {"accounts": {"description": "temp", "type": "io.cozy.accounts"}}}' > /tmp/manifest.webapp
+yarn cozy-run-dev -t /tmp/token.json -m /tmp/manifest.webapp build/onOperationCreate.js
