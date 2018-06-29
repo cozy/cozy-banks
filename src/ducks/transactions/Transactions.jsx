@@ -102,7 +102,7 @@ class _TableTrDesktop extends PureComponent {
           className={cx(sDate, 'u-clickable')}
           onClick={this.onSelectTransaction}
         >
-          {f(transaction.date, `DD ${isExtraLarge ? 'MMMM' : 'MMM'} YYYY`)}
+          {f(transaction.date, `D ${isExtraLarge ? 'MMMM' : 'MMM'} YYYY`)}
         </TdSecondary>
         <TdSecondary
           className={cx(sAmount, 'u-clickable')}

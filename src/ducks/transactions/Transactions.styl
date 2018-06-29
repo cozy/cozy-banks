@@ -5,6 +5,12 @@
 .TransactionTable
     color charcoalGrey
 
+    thead
+        // Force to have the same alignment as the tbody
+        // otherwise the scroll track is only on the tbody and
+        // causes a misalignment between the thead and tbody
+        overflow-y scroll
+
     .bnk-op-date
         maxed-flex-basis 15%
         color coolGrey
@@ -12,6 +18,7 @@
 
     .bnk-op-desc
         maxed-flex-basis 40%
+        padding-left 4rem
 
     .bnk-op-desc-caption
         margin-top 0
