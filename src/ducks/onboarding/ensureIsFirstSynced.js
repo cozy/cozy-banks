@@ -89,12 +89,9 @@ class Wrapper extends Component {
 
   render() {
     return (
-      <div>
-        {__TARGET__ === 'mobile' && (
-          <UserActionRequired onAccept={this.fetchInitialData} />
-        )}
+      <UserActionRequired onAccept={this.fetchInitialData}>
         {this.props.children}
-      </div>
+      </UserActionRequired>
     )
   }
 }

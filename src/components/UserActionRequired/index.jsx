@@ -90,9 +90,9 @@ class UserActionRequired extends Component {
 
   render() {
     const { warnings } = this.state
-    if (warnings.length === 0) return null
+    if (warnings.length === 0) return this.props.children
     const tosUpdated = warnings.find(w => w.code === 'tos-updated')
-    if (tosUpdated) {
+    if (__TARGET__ === 'mobile' && tosUpdated) {
       return (
         <TosUpdatedModal
           newTosLink={tosUpdated.links.self}
@@ -101,6 +101,8 @@ class UserActionRequired extends Component {
         />
       )
     }
+
+    return this.props.children
   }
 }
 
