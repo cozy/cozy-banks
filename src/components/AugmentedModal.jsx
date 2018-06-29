@@ -11,7 +11,7 @@ class Content extends Component {
     const { fileId } = this.props
     return (
       <Panel.Group>
-        <Panel.Main className={styles.AugemntedModalIntent}>
+        <Panel.Main className={styles.AugmentedModalIntent}>
           <IntentIframe
             action="OPEN"
             type="io.cozy.files"
