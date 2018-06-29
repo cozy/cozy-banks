@@ -24,7 +24,7 @@ import UserActionRequired from 'components/UserActionRequired'
  * Displays Loading until PouchDB has done its first replication.
  */
 class Wrapper extends Component {
-  async componentDidMount() {
+  fetchInitialData = async () => {
     if (__TARGET__ === 'mobile') {
       const { client } = this.context
 
@@ -55,27 +55,35 @@ class Wrapper extends Component {
         console.error('Error while fetching data from stack: ' + e)
       } finally {
         this.props.dispatch(startSync())
-
-        document.addEventListener('pause', () => {
-          if (client.store.getState().mobile.syncOk) {
-            const nextSyncTimeout = client.facade.pouchAdapter.nextSyncTimeout
-            const intervalId = setInterval(() => {
-              if (
-                nextSyncTimeout !== client.facade.pouchAdapter.nextSyncTimeout
-              ) {
-                clearInterval(intervalId)
-                client.facade.pouchAdapter.clearNextSyncTimeout()
-              }
-            }, 10000)
-          }
-        })
-
-        document.addEventListener('resume', () => {
-          if (client.store.getState().mobile.syncOk) {
-            this.props.dispatch(startSync())
-          }
-        })
       }
+    }
+  }
+
+  async componentDidMount() {
+    this.fetchInitialData()
+
+    if (__TARGET__ === 'mobile') {
+      const { client } = this.context
+
+      document.addEventListener('pause', () => {
+        if (client.store.getState().mobile.syncOk) {
+          const nextSyncTimeout = client.facade.pouchAdapter.nextSyncTimeout
+          const intervalId = setInterval(() => {
+            if (
+              nextSyncTimeout !== client.facade.pouchAdapter.nextSyncTimeout
+            ) {
+              clearInterval(intervalId)
+              client.facade.pouchAdapter.clearNextSyncTimeout()
+            }
+          }, 10000)
+        }
+      })
+
+      document.addEventListener('resume', () => {
+        if (client.store.getState().mobile.syncOk) {
+          this.props.dispatch(startSync())
+        }
+      })
     }
   }
 
