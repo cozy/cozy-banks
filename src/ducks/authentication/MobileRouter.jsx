@@ -22,6 +22,14 @@ import {
 } from 'ducks/authentication/lib/client'
 export const AUTH_PATH = 'authentication'
 
+export const onLogout = (store, client, replaceFn) => {
+  const mobile = store.getState().mobile
+  store.dispatch(unlink())
+  stopPushNotifications()
+  resetClient(mobile.client, client)
+  replaceFn(`/${AUTH_PATH}`)
+}
+
 const withAuth = Wrapped => (props, { store, client }) => {
   const onAuthentication = async res => {
     if (res) {
@@ -51,14 +59,6 @@ const withAuth = Wrapped => (props, { store, client }) => {
     store.dispatch(registerPushNotifications())
   }
 
-  const onLogout = () => {
-    const mobile = store.getState().mobile
-    store.dispatch(unlink())
-    stopPushNotifications()
-    resetClient(mobile.client, client)
-    props.history.replace(`/${AUTH_PATH}`)
-  }
-
   const setupAuth = isAuthenticated => (nextState, replace) => {
     if (!isAuthenticated()) {
       resetClient()
@@ -72,7 +72,7 @@ const withAuth = Wrapped => (props, { store, client }) => {
       const url = getURL(mobile)
       setURLContext(url)
       initBar(url, getAccessToken(mobile), {
-        onLogOut: onLogout
+        onLogOut: () => onLogout(store, client, replace)
       })
     }
   }
