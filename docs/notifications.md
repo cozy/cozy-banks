@@ -1,15 +1,15 @@
 # Notifications
 
-When you launch Cozy Banks mobile application (iOS and Android), app ask the
+When you launch Cozy Banks mobile application (iOS and Android), the app asks the
 right to push notifications. You can configure notifications directly on your
-Settings. By example when movement amout is greater than 30€.
+Settings. By example when movement amount is greater than 30€.
 
 ## Technique
 
 We use [cordova plugin](https://github.com/phonegap/phonegap-plugin-push) to
 make this possible.
 
-When we connect app mobile on your cozy, your create an oauth client with
+When the mobile app connects to your Cozy, it creates an oauth client with
 `notificationPlatform: firebase` parameter. So Cozy Stack know you can receive
 notification on your mobile.
 
