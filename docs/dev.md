@@ -201,4 +201,17 @@ will be able to see the mails in its web interface on http://localhost:8025.
 
 🖼 The PNG icons that are included in the emails are generated manually from the SVG via `scripts/icons-to-png.sh` and uploaded automatically to files.cozycloud.cc via Jenkins (which follows the file `files.cozycloud.cc` at the root of the repo).
 
+If you want to test the notifications in a workflow that is very close to the real one, you can import some fixtures to trigger the service execution. For that, you must open the `test/fixtures/operations-notifs.json` file and edit the following :
+
+* the `_id` field of the documents, so they are unique and will create a new document
+* the `account` field of the `io.cozy.bank.operations` documents to match an account id that exist on the instance you will import the fixtures to
+* the dates and the labels to be able to see the imported documents easily
+
+Then you can use [ACH] to import the fixtures :
+
+```console
+ACH import test/fixtures/operations-notifs.json test/fixtures/helpers.js --url <instance_url>
+```
+
 [pass]: https://www.passwordstore.org/
+[ACH]: https://github.com/cozy/ACH

@@ -1,0 +1,90 @@
+{
+  "io.cozy.files": [
+    {
+      "__SRC__": "{{ dir }}/Fichiers_de_démo/Free mobile/Demo_cozy-freemobile_15082017.pdf",
+      "__DEST__": "/Fichiers_de_démo/Free mobile/Demo_cozy-freemobile_15082017.pdf"
+    },
+    {
+      "__SRC__": "{{ dir }}/Fichiers_de_démo/Free mobile/Demo_cozy-freemobile_15092017.pdf",
+      "__DEST__": "/Fichiers_de_démo/Free mobile/Demo_cozy-freemobile_15092017.pdf"
+    }
+  ],
+  "io.cozy.bank.operations": [
+    {
+      "_id": "pushnotif_201806291643_paiement",
+      "account": "f0426f54337d95f1155755ee7f4b1138",
+      "amount": -25,
+      "automaticCategoryId": "400610",
+      "currency": "€",
+      "date": "2018-06-29T00:00:00Z",
+      "label": "Docteur Push Notifs 2018-06-29 16:43",
+      "reimbursements": [
+        {
+          "billId": "io.cozy.bills:pushnotif_201806291643_bill_ameli",
+          "amount": 17.5,
+          "operationId": "pushnotif_201806291643_remboursementameli"
+        },
+        {
+          "billId": "io.cozy.bills:pushnotif_201806291643_bill_complementaire",
+          "amount": 7.5,
+          "operationId": "pushnotif_201806291643_remboursementcomplementaire"
+        }
+      ]
+    },
+    {
+      "_id": "pushnotif_201806291643_remboursementcomplementaire",
+      "account": "f0426f54337d95f1155755ee7f4b1138",
+      "amount": 7.5,
+      "automaticCategoryId": "400620",
+      "currency": "€",
+      "date": "2018-06-29T00:00:00Z",
+      "label": "Complementaire Push Notifs 2018-06-29 16:43",
+      "bills": [
+        "io.cozy.bills:b2"
+      ]
+    },
+    {
+      "_id": "pushnotif_201806291643_remboursementameli",
+      "account": "f0426f54337d95f1155755ee7f4b1138",
+      "amount": 17.5,
+      "automaticCategoryId": "400620",
+      "currency": "€",
+      "date": "2018-01-06T00:00:00Z",
+      "label": "Ameli Push Notifs 2018-06-29 16:43",
+      "bills": [
+        "io.cozy.bills:7a8cefd5a1ac1a5aecf862482df0225c"
+      ]
+    }
+  ],
+  "io.cozy.bills": [
+    {
+      "_id": "pushnotif_201806291643_bill_complementaire",
+      "date": "2018-06-29T00:00:00Z",
+      "originalDate": "2018-06-29T00:00:00Z",
+      "type": "health_costs",
+      "subtype": "VIR COMPL SANTE",
+      "vendor": "Malakoff Mederic",
+      "socialSecurityRefund": 17.5,
+      "isThirdPartyPayer": false,
+      "amount": 7.5,
+      "originalAmount": 25,
+      "isRefund": true,
+      "originalOperation": "io.cozy.bank.operations:pushnotif_201806291643_paiement",
+      "invoice": "io.cozy.files:{{reference 'io.cozy.files' 0 '_id' }}"
+    },
+    {
+      "_id": "pushnotif_201806291643_bill_ameli",
+      "date": "2018-06-29T00:00:00Z",
+      "originalDate": "2018-06-29T00:00:00Z",
+      "type": "health_costs",
+      "subtype": "C GENERALISTE",
+      "vendor": "Ameli",
+      "isThirdPartyPayer": false,
+      "amount": 17.5,
+      "originalAmount": 25,
+      "originalOperation": "io.cozy.bank.operations:pushnotif_201806291643_paiement",
+      "isRefund": true,
+      "invoice": "io.cozy.files:{{reference 'io.cozy.files' 1 '_id' }}"
+    }
+  ]
+}
