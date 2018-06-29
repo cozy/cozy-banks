@@ -1,5 +1,6 @@
 /* global __TARGET__, cozy */
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
 import tosIcon from 'assets/icons/icon-tos.svg'
 import { Modal, Icon, Button, translate, Alerter } from 'cozy-ui/react'
@@ -66,6 +67,11 @@ class UserActionRequired extends Component {
     }
   }
 
+  onAccept = async () => {
+    await this.acceptUpdatedTos()
+    this.props.onAccept()
+  }
+
   acceptUpdatedTos = async () => {
     try {
       await cozy.client.fetchJSON('PUT', '/settings/instance/sign_tos')
@@ -92,12 +98,16 @@ class UserActionRequired extends Component {
       return (
         <TosUpdatedModal
           newTosLink={tosUpdated.links.self}
-          onAccept={this.acceptUpdatedTos}
+          onAccept={this.onAccept}
           onRefuse={this.disconnect}
         />
       )
     }
   }
+}
+
+UserActionRequired.propTypes = {
+  onAccept: PropTypes.func.isRequired
 }
 
 export default UserActionRequired
