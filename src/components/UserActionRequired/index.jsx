@@ -58,7 +58,6 @@ class UserActionRequired extends Component {
       const wasBlocked = this.state.warnings.length !== 0
       if (wasBlocked) {
         this.setState({ warnings: [] })
-        this.context.router.replace('/')
       }
     } catch (e) {
       if (e.status === 402) {
@@ -78,7 +77,6 @@ class UserActionRequired extends Component {
       this.setState({
         warnings: this.state.warnings.filter(w => w.code !== 'tos-updated')
       })
-      this.context.router.replace('/')
     } catch (e) {
       Alerter.error('TOS.updated.error')
     }
