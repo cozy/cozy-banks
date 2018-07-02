@@ -1,5 +1,5 @@
 /* global cozy */
-import { UNLINK } from 'ducks/apps'
+import { UNLINK } from 'ducks/mobile'
 
 // reducers
 export const getApps = state => state.apps
