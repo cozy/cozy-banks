@@ -59,7 +59,7 @@ const withAuth = Wrapped => (props, { store, client }) => {
     store.dispatch(registerPushNotifications())
   }
 
-  const setupAuth = isAuthenticated => (nextState, replace) => {
+  const setupAuth = isAuthenticated => () => {
     if (!isAuthenticated()) {
       resetClient()
       props.history.replace(`/${AUTH_PATH}`)
