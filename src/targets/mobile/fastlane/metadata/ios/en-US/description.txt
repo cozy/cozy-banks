@@ -11,7 +11,7 @@ Main features:
 • Automatic categorization of your expenses and revenues
 • Privacy by design
 • Multi-bank synchronization
-• Smart notifications (coming soon)
+• Smart notifications
 
 As secured as your bank:
 • Cozy Cloud is a French company that develops Cozy Banks which servers are hosted in France by OVH
