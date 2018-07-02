@@ -62,9 +62,7 @@ const withAuth = Wrapped => (props, { store, client }) => {
   const setupAuth = isAuthenticated => (nextState, replace) => {
     if (!isAuthenticated()) {
       resetClient()
-      replace({
-        pathname: `/${AUTH_PATH}`
-      })
+      props.history.replace(`/${AUTH_PATH}`)
       store.dispatch(revokeClient())
     } else {
       onAuthentication()
@@ -72,7 +70,9 @@ const withAuth = Wrapped => (props, { store, client }) => {
       const url = getURL(mobile)
       setURLContext(url)
       initBar(url, getAccessToken(mobile), {
-        onLogOut: () => onLogout(store, client, replace)
+        onLogOut: () => {
+          onLogout(store, client, props.history.replace)
+        }
       })
     }
   }
