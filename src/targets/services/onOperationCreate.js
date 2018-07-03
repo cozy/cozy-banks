@@ -47,8 +47,6 @@ const onOperationCreate = async () => {
     if (e.message === PARAMETERS_NOT_FOUND) {
       log('info', PARAMETERS_NOT_FOUND)
     } else {
-      // eslint-disable-next-line no-console
-      console.log(e)
       log('warn', e)
     }
   }
