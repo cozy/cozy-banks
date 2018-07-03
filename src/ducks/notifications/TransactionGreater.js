@@ -9,6 +9,7 @@ import {
 } from './helpers'
 import Notification from './Notification'
 import { sortBy } from 'lodash'
+import log from 'cozy-logger'
 
 const ACCOUNT_SEL = '.js-account'
 const DATE_SEL = '.js-date'
@@ -67,9 +68,8 @@ class TransactionGreater extends Notification {
     const transactionsFiltered = this.filterTransactions(transactions)
 
     if (transactionsFiltered.length === 0) {
-      return Promise.reject(
-        new Error('TransactionGreater: no matched transactions')
-      )
+      log('info', 'TransactionGreater: no matched transactions')
+      return
     }
 
     const translateKey = 'Notifications.if_transaction_greater.notification'

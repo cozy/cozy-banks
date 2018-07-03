@@ -2,6 +2,7 @@ import Handlebars from 'handlebars'
 import htmlTemplate from './html/balance-lower-html'
 import * as utils from './html/utils'
 import Notification from './Notification'
+import log from 'cozy-logger'
 
 const addCurrency = o => ({ ...o, currency: '€' })
 
@@ -54,7 +55,8 @@ class BalanceLower extends Notification {
       .filter(acc => this.filter(acc))
       .map(addCurrency)
     if (accountsFiltered.length === 0) {
-      return Promise.reject(new Error('BalanceLower: no matched accounts'))
+      log('info', 'BalanceLower: no matched accounts')
+      return
     }
 
     const translateKey = 'Notifications.if_balance_lower.notification'
