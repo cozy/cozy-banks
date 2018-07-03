@@ -30,6 +30,10 @@ class Notification {
         this.buildNotification(this.data)
       )
 
+      if (!attributes) {
+        return
+      }
+
       return cozyClient.fetchJSON('POST', '/notifications', {
         data: {
           type: 'io.cozy.notifications',
