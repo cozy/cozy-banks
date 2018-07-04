@@ -8,7 +8,7 @@ import styles from './styles.styl'
 import { onLogout } from 'ducks/authentication/MobileRouter'
 
 const TosUpdatedModal = translate()(({ t, newTosLink, onAccept, onRefuse }) => (
-  <Modal closable={false}>
+  <Modal closable={false} into="body">
     <Modal.ModalHeader />
     <Modal.ModalDescription className={styles['tosupdated']}>
       <Icon icon={tosIcon} width={96} height={96} />
