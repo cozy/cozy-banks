@@ -1,7 +1,6 @@
+/* global cozy, __TARGET__ */
+
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { flowRight as compose } from 'lodash'
-import { getAppUrlById, fetchApps } from 'ducks/apps'
 // import { IntentOpener } from 'cozy-ui/react'
 
 /*
@@ -14,37 +13,26 @@ import { getAppUrlById, fetchApps } from 'ducks/apps'
 
 // Mobile
 
-const mapDispatchToProps = dispatch => ({
-  fetchApps: () => dispatch(fetchApps())
-})
+class SameWindowLink extends Component {
+  redirect = async () => {
+    const redirectionURL = await cozy.client.intents.getRedirectionURL(
+      'io.cozy.accounts',
+      {
+        dataType: 'bankAccounts'
+      }
+    )
 
-const mapStateToProps = state => ({
-  collectUrl: getAppUrlById(state, 'io.cozy.apps/collect')
-})
-
-const SameWindowLink = compose(connect(mapStateToProps, mapDispatchToProps))(
-  class _SamewindowLink extends Component {
-    componentDidMount() {
-      this.props.fetchApps()
-    }
-
-    render() {
-      const collectUrl = this.props.collectUrl
-      const url = collectUrl + '#/providers/banking'
-      return (
-        <span
-          onClick={() => {
-            if (collectUrl) {
-              window.location = url
-            }
-          }}
-        >
-          {collectUrl && this.props.children}
-        </span>
-      )
+    if (__TARGET__ === 'browser') {
+      window.location = redirectionURL
+    } else if (__TARGET__ === 'mobile') {
+      open(redirectionURL)
     }
   }
-)
+
+  render() {
+    return <span onClick={this.redirect}>{this.props.children}</span>
+  }
+}
 
 // Browser
 
