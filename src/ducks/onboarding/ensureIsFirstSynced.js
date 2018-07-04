@@ -67,15 +67,13 @@ class Wrapper extends Component {
 
       document.addEventListener('pause', () => {
         if (client.store.getState().mobile.syncOk) {
-          const nextSyncTimeout = client.facade.pouchAdapter.nextSyncTimeout
-          const intervalId = setInterval(() => {
-            if (
-              nextSyncTimeout !== client.facade.pouchAdapter.nextSyncTimeout
-            ) {
-              clearInterval(intervalId)
-              client.facade.pouchAdapter.clearNextSyncTimeout()
-            }
-          }, 10000)
+          const pouchAdapter = client.facade.pouchAdapter
+          // remove all sync
+          pouchAdapter.doctypes.map(doctype => {
+            pouchAdapter.unsyncDatabase(doctype)
+          })
+          // stop next sync
+          pouchAdapter.clearNextSyncTimeout()
         }
       })
 
