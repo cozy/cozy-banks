@@ -1,3 +1,4 @@
+import { defaultRoute } from 'components/AppRoute'
 import React from 'react'
 import { Router, Route } from 'react-router'
 import { setURLContext, logException } from 'lib/sentry'
@@ -37,7 +38,7 @@ const withAuth = Wrapped => (props, { store, client }) => {
       const { url, clientInfo, router, token } = res
       setURLContext(url)
       store.dispatch(storeCredentials(url, clientInfo, token))
-      router.replace('/')
+      router.replace(defaultRoute())
     } else {
       // when user is already authenticated
       // token can expire so ask stack to replace it

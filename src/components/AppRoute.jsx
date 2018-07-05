@@ -1,3 +1,4 @@
+/* global __TARGET__ */
 import React from 'react'
 import { IndexRoute, Route, Redirect } from 'react-router'
 import App from 'components/App'
@@ -19,11 +20,14 @@ import flag from 'utils/flag'
 
 export const ComingSoon = () => <p style="margin-left: 2em">Coming soon!</p>
 
+export const defaultRoute = () =>
+  flag('demo') && __TARGET__ === 'browser' ? 'transactions' : 'balances'
+
 const AppRoute = (
   <Route component={EnsureIsFirstSynced}>
     <Route component={EnsureHasAccounts}>
       <Route component={App}>
-        <Redirect from="/" to={flag('demo') ? 'transactions' : 'balances'} />
+        <Redirect from="/" to={defaultRoute()} />
         <Route path="balances" component={Balance} />
         <Route path="transactions" component={TransactionsPage} />
         <Route path="categories">
@@ -47,7 +51,7 @@ const AppRoute = (
             <Route path="notifications" component={Notifications} />
           </Route>
         </Route>
-        <Redirect from="*" to="/transactions" />
+        <Redirect from="*" to={defaultRoute()} />
       </Route>
     </Route>
   </Route>
