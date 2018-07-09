@@ -32,13 +32,12 @@ export const isNotificationEnabled = settings => {
   )
 }
 
+export const getSettingsFromCollection = col => get(col, 'data[0]')
+
 // selectors
 
-export const getSettingsFromState = state => {
-  const col = getCollection(state, 'settings')
-
-  return get(col, 'data[0]')
-}
+export const getSettingsFromState = state =>
+  getSettingsFromCollection(getCollection(state, 'settings'))
 
 export const getSettings = state => {
   const settings = getSettingsFromState(state)
