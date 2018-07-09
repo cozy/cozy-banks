@@ -32,7 +32,7 @@ export const isNotificationEnabled = settings => {
   )
 }
 
-export const getSettingsFromCollection = col => get(col, 'data[0]')
+const getSettingsFromCollection = col => get(col, 'data[0]')
 
 // selectors
 
