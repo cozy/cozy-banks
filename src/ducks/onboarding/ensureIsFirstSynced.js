@@ -80,6 +80,8 @@ class Wrapper extends Component {
       document.addEventListener('resume', () => {
         if (client.store.getState().mobile.syncOk) {
           this.props.dispatch(startSync())
+        } else {
+          this.fetchInitialData()
         }
       })
     }
