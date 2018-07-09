@@ -1371,16 +1371,6 @@
       ]
     },
     {
-      "demo": false,
-      "automaticCategoryId": "400330",
-      "account": "compteisa1",
-      "label": "SNCF",
-      "currency": "€",
-      "amount": -72,
-      "date": "2018-05-22T00:00:00Z",
-      "_id": "c5d3364d147d8dc5da80fc9e354ace64"
-    },
-    {
       "automaticCategoryId": "{{ categoryId 'activityIncome' }}",
       "account": "compteisa1",
       "label": "Salaire juin 2018",
