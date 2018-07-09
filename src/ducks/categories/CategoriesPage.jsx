@@ -8,11 +8,10 @@ import { fetchTransactions, getTransactions } from 'actions'
 import { transactionsByCategory, computeCategorieData } from './helpers'
 import Categories from './Categories'
 import styles from './CategoriesPage.styl'
-import { flowRight as compose, sortBy } from 'lodash'
+import { flowRight as compose, sortBy, get } from 'lodash'
 import { withBreakpoints } from 'cozy-ui/react'
 import CategoriesHeader from './CategoriesHeader'
 import {
-  getSettings,
   fetchSettingsCollection,
   updateSettings,
   createSettings
@@ -36,7 +35,7 @@ class CategoriesPage extends Component {
 
   onWithIncomeToggle = checked => {
     const { settingsCollection, dispatch } = this.props
-    const settings = getSettings(settingsCollection)
+    const settings = get(settingsCollection, 'data[0]')
     const updateOrCreate = settings._id ? updateSettings : createSettings
 
     settings.showIncomeCategory = checked
@@ -53,7 +52,7 @@ class CategoriesPage extends Component {
       settingsCollection
     } = this.props
     const isFetching = transactions.fetchStatus !== 'loaded'
-    const { showIncomeCategory } = getSettings(settingsCollection)
+    const { showIncomeCategory } = get(settingsCollection, 'data[0]')
     const selectedCategoryName = router.params.categoryName
     const categories = showIncomeCategory
       ? categoriesProps

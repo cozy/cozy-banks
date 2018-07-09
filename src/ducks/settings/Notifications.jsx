@@ -4,9 +4,10 @@ import Toggle from 'cozy-ui/react/Toggle'
 import { cozyConnect } from 'cozy-client'
 import Loading from 'components/Loading'
 import { translate } from 'cozy-ui/react'
+import { get } from 'lodash'
+import { registerPushNotifications } from 'ducks/mobile/push'
 
 import {
-  getSettings,
   fetchSettingsCollection,
   createSettings,
   updateSettings,
@@ -35,7 +36,7 @@ class Notifications extends Component {
 
   onToggle = (setting, checked) => {
     const { settingsCollection, dispatch } = this.props
-    let settings = getSettings(settingsCollection)
+    let settings = get(settingsCollection, 'data[0]')
     const updateOrCreate = settings._id ? updateSettings : createSettings
 
     if (!settings.notifications[setting]) {
@@ -44,11 +45,12 @@ class Notifications extends Component {
 
     settings.notifications[setting].enabled = checked
     dispatch(updateOrCreate(settings))
+    dispatch(registerPushNotifications())
   }
 
   onChangeValue = (setting, value) => {
     const { settingsCollection, dispatch } = this.props
-    let settings = getSettings(settingsCollection)
+    let settings = get(settingsCollection, 'data[0]')
     const updateOrCreate = settings._id ? updateSettings : createSettings
 
     if (!settings.notifications[setting]) {
@@ -107,7 +109,7 @@ class Notifications extends Component {
       return <Loading />
     }
 
-    const settings = getSettings(settingsCollection)
+    const settings = get(settingsCollection, 'data[0]')
 
     return (
       <p>

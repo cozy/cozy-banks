@@ -1,5 +1,5 @@
 import React from 'react'
-import { flowRight as compose, sumBy, uniq, sortBy } from 'lodash'
+import { flowRight as compose, sumBy, uniq, sortBy, get } from 'lodash'
 import { connect } from 'react-redux'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
@@ -16,7 +16,7 @@ import { Figure, FigureBlock } from 'components/Figure'
 import PageTitle from 'components/PageTitle'
 
 import CollectLink from 'ducks/settings/CollectLink'
-import { getSettings, fetchSettingsCollection } from 'ducks/settings'
+import { getSettingsFromState, fetchSettingsCollection } from 'ducks/settings'
 import { filterByDoc, getFilteringDoc } from 'ducks/filters'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
@@ -276,7 +276,7 @@ class Balance extends React.Component {
   render() {
     const {
       t,
-      settingsCollection,
+      settings,
       breakpoints: { isMobile }
     } = this.props
     const { accounts: accountsProps, groups: groupsProps } = this.props
@@ -304,8 +304,7 @@ class Balance extends React.Component {
       }
     })
 
-    const balanceLower = getSettings(settingsCollection).notifications
-      .balanceLower.value
+    const balanceLower = get(settings, 'notifications.balanceLower.value')
 
     const groupsC = (
       <BalanceGroups
@@ -346,6 +345,7 @@ class Balance extends React.Component {
 
 const mapStateToProps = state => ({
   settingsCollection: fetchSettingsCollection(),
+  settings: getSettingsFromState(state),
   groups: getAllGroups(state)
 })
 

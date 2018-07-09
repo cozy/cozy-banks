@@ -1,5 +1,10 @@
-import { fetchCollection, createDocument, updateDocument } from 'cozy-client'
-import { merge } from 'lodash'
+import {
+  getCollection,
+  fetchCollection,
+  createDocument,
+  updateDocument
+} from 'cozy-client'
+import { merge, get } from 'lodash'
 import Settings from './Settings'
 import AccountSettings from './AccountSettings'
 import AccountsSettings from './AccountsSettings'
@@ -17,6 +22,30 @@ export {
   NewGroupSettings
 }
 
+// helpers
+
+export const isNotificationEnabled = settings => {
+  return (
+    get(settings, 'notifications.balanceLower.enabled') ||
+    get(settings, 'notifications.transactionGreater.enabled') ||
+    get(settings, 'notifications.healthBillLinked.enabled')
+  )
+}
+
+// selectors
+
+export const getSettingsFromState = state => {
+  const col = getCollection(state, 'settings')
+
+  return get(col, 'data[0]')
+}
+
+export const getSettings = state => {
+  const settings = getSettingsFromState(state)
+
+  return merge(DEFAULTS_SETTINGS, settings)
+}
+
 // actions
 export const fetchSettingsCollection = () =>
   fetchCollection(COLLECTION_NAME, DOCTYPE)
@@ -25,16 +54,11 @@ export const createSettings = settings =>
 export const updateSettings = settings => updateDocument(settings)
 export const initSettings = () => createSettings(DEFAULTS_SETTINGS)
 
-// utils
-export const getSettings = settingsCollection => {
-  if (
-    settingsCollection &&
-    settingsCollection.data &&
-    settingsCollection.data.length > 0
-  ) {
-    const settings = settingsCollection.data[0]
-    return merge(DEFAULTS_SETTINGS, settings)
-  } else {
-    return DEFAULTS_SETTINGS
+// async actions
+export const setupSettings = () => async (dispatch, getState) => {
+  await dispatch(fetchSettingsCollection())
+  const settings = getSettingsFromState(getState())
+  if (!settings) {
+    await dispatch(initSettings())
   }
 }

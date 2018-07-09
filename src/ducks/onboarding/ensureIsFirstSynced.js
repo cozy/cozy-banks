@@ -19,6 +19,8 @@ import { fetchTransactions } from 'actions'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { isInitialSyncOK } from 'ducks/mobile'
 import UserActionRequired from 'components/UserActionRequired'
+import { registerPushNotifications } from 'ducks/mobile/push'
+import { setupSettings } from 'ducks/settings'
 
 /**
  * Displays Loading until PouchDB has done its first replication.
@@ -27,6 +29,7 @@ class Wrapper extends Component {
   fetchInitialData = async () => {
     if (__TARGET__ === 'mobile') {
       const { client } = this.context
+      const { dispatch } = this.props
 
       let promise
 
@@ -39,11 +42,9 @@ class Wrapper extends Component {
         client.facade.strategy = new StackOnlyStrategy()
 
         promise = Promise.all([
-          this.props.dispatch(
-            fetchCollection('onboarding_accounts', ACCOUNT_DOCTYPE)
-          ),
-          this.props.dispatch(fetchCollection('groups', GROUP_DOCTYPE)),
-          this.props.dispatch(fetchTransactions())
+          dispatch(fetchCollection('onboarding_accounts', ACCOUNT_DOCTYPE)),
+          dispatch(fetchCollection('groups', GROUP_DOCTYPE)),
+          dispatch(fetchTransactions())
         ])
       }
 
@@ -54,7 +55,9 @@ class Wrapper extends Component {
         // eslint-disable-next-line no-console
         console.error('Error while fetching data from stack: ' + e)
       } finally {
-        this.props.dispatch(startSync())
+        await dispatch(startSync())
+        await dispatch(setupSettings())
+        await dispatch(registerPushNotifications())
       }
     }
   }
