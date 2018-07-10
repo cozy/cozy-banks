@@ -1,10 +1,20 @@
-/* global PushNotification, cozy */
+/* global cozy */
 import { hashHistory } from 'react-router'
+import { getSettingsFromState, isNotificationEnabled } from 'ducks/settings'
 
 let push
 
 export const registerPushNotifications = () => async (dispatch, getState) => {
-  if (push) {
+  const state = getState()
+
+  const settings = getSettingsFromState(state)
+  const client = state.mobile.client
+
+  return startPushNotifications(settings, client)
+}
+
+export const startPushNotifications = (settings, client) => {
+  if (push || !isNotificationEnabled(settings)) {
     return
   }
 
@@ -23,7 +33,7 @@ export const registerPushNotifications = () => async (dispatch, getState) => {
     }
   }
 
-  push = PushNotification.init({
+  push = window.PushNotification.init({
     android: {
       forceShow: true,
       clearNotifications: false
@@ -40,7 +50,7 @@ export const registerPushNotifications = () => async (dispatch, getState) => {
   push.on('error', err => console.log(err))
   push.on('registration', ({ registrationId }) => {
     cozy.client.auth.updateClient({
-      ...getState().mobile.client,
+      ...client,
       notificationDeviceToken: registrationId
     })
   })

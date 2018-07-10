@@ -1,7 +1,7 @@
 /* global cozy __APP_VERSION__ */
 import { CozyClient } from 'cozy-client'
 import { LocalStorage as Storage } from 'cozy-client-js'
-import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
+import { offlineDoctypes as doctypes } from 'doctypes'
 import getPermissions from 'utils/getPermissions'
 import { getDeviceName } from 'cozy-device-helper'
 
@@ -57,7 +57,7 @@ export const initClient = url => {
         notificationPlatform: 'firebase'
       }
     },
-    offline: { doctypes: [ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE] }
+    offline: { doctypes }
   })
 }
 

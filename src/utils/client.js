@@ -32,3 +32,6 @@ export const getClient = memoize(persistedState => {
     ? getClientMobile(persistedState)
     : getClientBrowser()
 })
+
+export const isCollectionLoading = col =>
+  col.fetchStatus === 'loading' && col.fetchStatus === 'pending'

@@ -6,6 +6,7 @@ import { BILLS_DOCTYPE } from 'doctypes'
 import * as utils from './html/utils'
 import Handlebars from 'handlebars'
 import { fromPairs } from 'lodash'
+import log from 'cozy-logger'
 
 const ACCOUNT_SEL = '.js-account'
 const DATE_SEL = '.js-date'
@@ -64,7 +65,8 @@ class HealthBillLinked extends Notification {
     const transactionsWithReimbursements = this.filterTransactions(transactions)
 
     if (transactionsWithReimbursements.length === 0) {
-      return Promise.reject(new Error('No transactions with reimbursements'))
+      log('info', 'HealthBillLinked: no transactions with reimbursements')
+      return
     }
 
     const billsPromises = []

@@ -1,16 +1,18 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
-import Toggle from 'cozy-ui/react/Toggle'
 import { cozyConnect } from 'cozy-client'
+import { connect } from 'react-redux'
 import Loading from 'components/Loading'
-import { translate } from 'cozy-ui/react'
+import { translate, Toggle } from 'cozy-ui/react'
+import { registerPushNotifications } from 'ducks/mobile/push'
+import { flowRight as compose } from 'lodash'
+import { isCollectionLoading } from 'utils/client'
 
 import {
   getSettings,
   fetchSettingsCollection,
   createSettings,
-  updateSettings,
-  DEFAULTS_SETTINGS
+  updateSettings
 } from '.'
 import styles from './Notifications.styl'
 
@@ -34,26 +36,17 @@ class Notifications extends Component {
   ]
 
   onToggle = (setting, checked) => {
-    const { settingsCollection, dispatch } = this.props
-    let settings = getSettings(settingsCollection)
+    const { settings, dispatch } = this.props
     const updateOrCreate = settings._id ? updateSettings : createSettings
-
-    if (!settings.notifications[setting]) {
-      settings.notifications[setting] = {}
-    }
 
     settings.notifications[setting].enabled = checked
     dispatch(updateOrCreate(settings))
+    dispatch(registerPushNotifications())
   }
 
   onChangeValue = (setting, value) => {
-    const { settingsCollection, dispatch } = this.props
-    let settings = getSettings(settingsCollection)
+    const { settings, dispatch } = this.props
     const updateOrCreate = settings._id ? updateSettings : createSettings
-
-    if (!settings.notifications[setting]) {
-      settings.notifications[setting] = {}
-    }
 
     settings.notifications[setting].value = value.replace(/\D/i, '')
     dispatch(updateOrCreate(settings))
@@ -99,22 +92,16 @@ class Notifications extends Component {
   }
 
   render() {
-    const { settingsCollection } = this.props
-    if (
-      settingsCollection.fetchStatus === 'loading' ||
-      settingsCollection.fetchStatus === 'pending'
-    ) {
+    const { settingsCollection, settings } = this.props
+
+    if (isCollectionLoading(settingsCollection)) {
       return <Loading />
     }
-
-    const settings = getSettings(settingsCollection)
 
     return (
       <p>
         {this.notifications.map(notification => {
-          const setting =
-            settings.notifications[notification.name] ||
-            DEFAULTS_SETTINGS.notifications[notification.name]
+          const setting = settings.notifications[notification.name]
           return this.renderLine(notification, setting)
         })}
       </p>
@@ -122,8 +109,16 @@ class Notifications extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  settings: getSettings(state)
+})
+
 const mapDocumentsToProps = () => ({
   settingsCollection: fetchSettingsCollection()
 })
 
-export default translate()(cozyConnect(mapDocumentsToProps)(Notifications))
+export default compose(
+  translate(),
+  cozyConnect(mapDocumentsToProps),
+  connect(mapStateToProps)
+)(Notifications)

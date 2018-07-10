@@ -35,8 +35,7 @@ class CategoriesPage extends Component {
   }
 
   onWithIncomeToggle = checked => {
-    const { settingsCollection, dispatch } = this.props
-    const settings = getSettings(settingsCollection)
+    const { settings, dispatch } = this.props
     const updateOrCreate = settings._id ? updateSettings : createSettings
 
     settings.showIncomeCategory = checked
@@ -50,10 +49,10 @@ class CategoriesPage extends Component {
       categories: categoriesProps,
       transactions,
       router,
-      settingsCollection
+      settings
     } = this.props
     const isFetching = transactions.fetchStatus !== 'loaded'
-    const { showIncomeCategory } = getSettings(settingsCollection)
+    const { showIncomeCategory } = settings
     const selectedCategoryName = router.params.categoryName
     const categories = showIncomeCategory
       ? categoriesProps
@@ -105,7 +104,8 @@ const mapStateToProps = state => ({
   categories: computeCategorieData(
     transactionsByCategory(getFilteredTransactions(state))
   ),
-  transactions: getTransactions(state)
+  transactions: getTransactions(state),
+  settings: getSettings(state)
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -119,7 +119,7 @@ const mapDocumentsToProps = () => ({
 export default compose(
   withRouter,
   withBreakpoints(),
-  connect(mapStateToProps, mapDispatchToProps),
+  translate(),
   cozyConnect(mapDocumentsToProps),
-  translate()
+  connect(mapStateToProps, mapDispatchToProps)
 )(CategoriesPage)

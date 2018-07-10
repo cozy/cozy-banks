@@ -1,3 +1,4 @@
+import { defaultRoute } from 'components/AppRoute'
 import React from 'react'
 import { Router, Route } from 'react-router'
 import { setURLContext, logException } from 'lib/sentry'
@@ -37,7 +38,7 @@ const withAuth = Wrapped => (props, { store, client }) => {
       const { url, clientInfo, router, token } = res
       setURLContext(url)
       store.dispatch(storeCredentials(url, clientInfo, token))
-      router.replace('/')
+      router.replace(defaultRoute())
     } else {
       // when user is already authenticated
       // token can expire so ask stack to replace it
@@ -59,12 +60,10 @@ const withAuth = Wrapped => (props, { store, client }) => {
     store.dispatch(registerPushNotifications())
   }
 
-  const setupAuth = isAuthenticated => (nextState, replace) => {
+  const setupAuth = isAuthenticated => () => {
     if (!isAuthenticated()) {
       resetClient()
-      replace({
-        pathname: `/${AUTH_PATH}`
-      })
+      props.history.replace(`/${AUTH_PATH}`)
       store.dispatch(revokeClient())
     } else {
       onAuthentication()
@@ -72,7 +71,9 @@ const withAuth = Wrapped => (props, { store, client }) => {
       const url = getURL(mobile)
       setURLContext(url)
       initBar(url, getAccessToken(mobile), {
-        onLogOut: () => onLogout(store, client, replace)
+        onLogOut: () => {
+          onLogout(store, client, props.history.replace)
+        }
       })
     }
   }
