@@ -1,5 +1,5 @@
 import React from 'react'
-import { flowRight as compose, sumBy, uniq, sortBy } from 'lodash'
+import { flowRight as compose, sumBy, uniq, sortBy, get } from 'lodash'
 import { connect } from 'react-redux'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
@@ -8,6 +8,7 @@ import { or } from 'airbnb-prop-types'
 import { withRouter } from 'react-router'
 import { translate, Button, Icon, withBreakpoints } from 'cozy-ui/react'
 import { cozyConnect, fetchCollection, getDocument } from 'cozy-client'
+import { isCollectionLoading } from 'utils/client'
 
 import Topbar from 'components/Topbar'
 import Loading from 'components/Loading'
@@ -16,11 +17,11 @@ import { Figure, FigureBlock } from 'components/Figure'
 import PageTitle from 'components/PageTitle'
 
 import CollectLink from 'ducks/settings/CollectLink'
-import { getSettings, fetchSettingsCollection } from 'ducks/settings'
+import { getSettings } from 'ducks/settings'
 import { filterByDoc, getFilteringDoc } from 'ducks/filters'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
-import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
-import { getAllGroups } from 'selectors'
+import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
+import { getAllGroups, getAccounts } from 'selectors'
 
 import styles from './Balance.styl'
 import btnStyles from 'styles/buttons.styl'
@@ -276,13 +277,33 @@ class Balance extends React.Component {
   render() {
     const {
       t,
-      settingsCollection,
-      breakpoints: { isMobile }
+      breakpoints: { isMobile },
+      accounts,
+      accountsCollection,
+      groups,
+      groupsCollection,
+      settings,
+      settingsCollection
     } = this.props
-    const { accounts: accountsProps, groups: groupsProps } = this.props
-    const accounts = sortBy(accountsProps.data, ['institutionLabel', 'label'])
-    const groups = sortBy(
-      groupsProps.map(group => ({
+
+    if (
+      isCollectionLoading(accountsCollection) ||
+      isCollectionLoading(groupsCollection) ||
+      isCollectionLoading(settingsCollection)
+    ) {
+      return (
+        <div className={styles['Balance']}>
+          <Topbar>
+            <PageTitle>{t('Balance.title')}</PageTitle>
+          </Topbar>
+          <Loading />
+        </div>
+      )
+    }
+
+    const accountsSorted = sortBy(accounts, ['institutionLabel', 'label'])
+    const groupsSorted = sortBy(
+      groups.map(group => ({
         ...group,
         label: group.virtual
           ? t(`Data.accountTypes.${group.label}`)
@@ -291,12 +312,6 @@ class Balance extends React.Component {
       group => group.label
     )
 
-    if (accounts === null || groups === null) {
-      return <Loading />
-    }
-
-    const trad = 'Balance.subtitle.all'
-    const label = 'all'
     let total = 0
     accounts.map(account => {
       if (account.balance) {
@@ -304,12 +319,11 @@ class Balance extends React.Component {
       }
     })
 
-    const balanceLower = getSettings(settingsCollection).notifications
-      .balanceLower.value
+    const balanceLower = get(settings, 'notifications.balanceLower.value')
 
     const groupsC = (
       <BalanceGroups
-        groups={groups}
+        groups={groupsSorted}
         balanceLower={balanceLower}
         isMobile={isMobile}
         onRowClick={this.goToTransactionsFilteredBy}
@@ -322,7 +336,7 @@ class Balance extends React.Component {
         </Topbar>
         <div className={styles['Balance__kpi']}>
           <FigureBlock
-            label={t(trad, { label: label })}
+            label={t('Balance.subtitle.all')}
             total={total}
             currency="€"
             coloredPositive
@@ -330,28 +344,29 @@ class Balance extends React.Component {
             signed
           />
         </div>
-
-        {groups.length > 0 && groupsC}
+        {groupsSorted.length > 0 && groupsC}
         <BalanceAccounts
-          accounts={accounts}
+          accounts={accountsSorted}
           balanceLower={balanceLower}
           isMobile={isMobile}
           onRowClick={this.goToTransactionsFilteredBy}
         />
-        {groups.length === 0 && groupsC}
+        {groupsSorted.length === 0 && groupsC}
       </div>
     )
   }
 }
 
 const mapStateToProps = state => ({
-  settingsCollection: fetchSettingsCollection(),
-  groups: getAllGroups(state)
+  accounts: getAccounts(state),
+  groups: getAllGroups(state),
+  settings: getSettings(state)
 })
 
 const mapDocumentsToProps = () => ({
-  accounts: fetchCollection('accounts', ACCOUNT_DOCTYPE),
-  groups: fetchCollection('groups', GROUP_DOCTYPE)
+  accountsCollection: fetchCollection('accounts', ACCOUNT_DOCTYPE),
+  groupsCollection: fetchCollection('groups', GROUP_DOCTYPE),
+  settingsCollection: fetchCollection('settings', SETTINGS_DOCTYPE)
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -359,9 +374,9 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default compose(
-  withBreakpoints(),
   withRouter,
+  withBreakpoints(),
+  translate(),
   cozyConnect(mapDocumentsToProps),
-  connect(mapStateToProps, mapDispatchToProps),
-  translate()
+  connect(mapStateToProps, mapDispatchToProps)
 )(Balance)
