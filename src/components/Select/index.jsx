@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import cx from 'classnames'
 import Icon from 'cozy-ui/react/Icon'
 import styles from './styles.styl'
 import SelectBox, { SelectBoxWithFixedOptions } from 'cozy-ui/react/SelectBox'
@@ -114,21 +115,25 @@ class DesktopSelect extends React.Component {
 
 class MobileSelect extends Component {
   render() {
-    const { options, onChange, ...props } = this.props
+    const { options, onChange, className, ...props } = this.props
 
     return (
-      <select
-        onChange={event => {
-          onChange(event.target.value)
-        }}
-        {...props}
-      >
-        {options.map(opt => (
-          <option key={opt.value} value={opt.value} disabled={opt.isDisabled}>
-            {opt.name}
-          </option>
-        ))}
-      </select>
+      <div className={cx(styles.Select, className)}>
+        <select
+          className={cx(styles.Select__control)}
+          onChange={event => {
+            onChange(event.target.value)
+          }}
+          {...props}
+        >
+          {options.map(opt => (
+            <option key={opt.value} value={opt.value} disabled={opt.isDisabled}>
+              {opt.name}
+            </option>
+          ))}
+        </select>
+        <SmallArrow />
+      </div>
     )
   }
 }
