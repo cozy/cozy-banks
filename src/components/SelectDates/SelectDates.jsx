@@ -50,31 +50,6 @@ const Separator = () => (
 
 const constrain = (val, min, max) => Math.min(Math.max(val, min), max)
 
-const yearContainerMobileStyle = base => ({
-  ...base,
-  flexGrow: 1,
-  flexBasis: '5.5rem',
-  flexShrink: 0,
-  padding: 0
-})
-const mobileMonthContainerStyle = base => ({
-  ...base,
-  flexGrow: 6,
-  padding: 0
-})
-
-const mobileControlStyle = () => ({
-  paddingLeft: '0.875rem'
-})
-
-const mobileMenuStyle = base => ({
-  ...base,
-  marginLeft: '0.5rem',
-  marginRight: '0.5rem',
-  width: '90%',
-  minWidth: 'auto'
-})
-
 const SelectDateButton = ({ children, disabled, className, ...props }) => {
   return (
     <Chip.Round
@@ -283,38 +258,20 @@ class SelectDatesDumb extends React.PureComponent {
               name="year"
               className={styles.SelectDates__SelectYear}
               searchable={false}
-              width={isMobile ? 'auto' : '6rem'}
+              width="6rem"
               value={selectedYear}
               options={years.map(x => ({ value: x.year, name: x.yearF }))}
               onChange={this.handleChangeYear}
-              styles={
-                isMobile
-                  ? {
-                      container: yearContainerMobileStyle,
-                      control: mobileControlStyle,
-                      menu: mobileMenuStyle
-                    }
-                  : {}
-              }
             />
             <Separator />
             <Select
               searchable={false}
               name="month"
-              width={isMobile ? 'auto' : '10rem'}
+              width="10rem"
               className={styles.SelectDates__SelectMonth}
               value={selectedMonth}
               options={monthsOptions}
               onChange={this.handleChangeMonth}
-              styles={
-                isMobile
-                  ? {
-                      container: mobileMonthContainerStyle,
-                      control: mobileControlStyle,
-                      menu: mobileMenuStyle
-                    }
-                  : {}
-              }
             />
           </Chip>
         </span>
