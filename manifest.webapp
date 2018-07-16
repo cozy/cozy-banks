@@ -151,11 +151,6 @@
       "description": "Allow to report unexpected errors to the support team",
       "type": "cc.cozycloud.sentry",
       "verbs": ["POST"]
-    },
-    "ia.banks.localnb": {
-      "description": "Needed to apply local categorization",
-      "type": "io.cozy.ia.banks.localnb",
-      "verbs": ["GET", "POST", "PUT"]
     }
   }
 }

@@ -3,11 +3,54 @@ import { maxBy } from 'lodash'
 import { tokenizer, createClassifier } from '.'
 import bayes from 'classificator'
 import { getLabel } from 'ducks/transactions/helpers'
+import { TRANSACTION_DOCTYPE } from 'doctypes'
 
-export const GLOBAL_PARAMETERS_NOT_FOUND = 'Classifier files is not configured.'
-export const LOCAL_PARAMETERS_ERROR = "Can't fetch local parameters"
+export const PARAMETERS_NOT_FOUND = 'Classifier files is not configured.'
 
-const getGlobalParameters = async () => {
+const createLocalClassifier = async () => {
+  const getTransWithManualCat = async (transactions, index, limit, skip) => {
+    const query = {
+      selector: { manualCategoryId: { $exists: true } },
+      limit,
+      skip,
+      wholeResponse: true
+    }
+    const results = await cozyClient.data.query(index, query)
+    transactions = [...transactions, ...results.docs]
+
+    if (results.next) {
+      return getTransWithManualCat(transactions, index, limit, skip + limit)
+    }
+
+    return transactions
+  }
+
+  log('info', 'Instanciating a fresh classifier')
+  const options = { tokenizer, alpha: 0.1 }
+  const classifier = bayes(options)
+
+  log('info', 'Fetching manually categorized transactions')
+  const index = await cozyClient.data.defineIndex(TRANSACTION_DOCTYPE, [
+    'manualCategoryId'
+  ])
+  const transactions = await getTransWithManualCat([], index, 100)
+  log(
+    'info',
+    `Fetched ${transactions.length} manually categorized transactions`
+  )
+
+  log('info', 'Learning from manually categorized transactions')
+  for (const transaction of transactions) {
+    classifier.learn(
+      getLabelWithTags(transaction),
+      transaction.manualCategoryId
+    )
+  }
+
+  return classifier
+}
+
+const getParameters = async () => {
   try {
     const parameters = await cozyClient.fetchJSON(
       'GET',
@@ -15,22 +58,7 @@ const getGlobalParameters = async () => {
     )
     return parameters
   } catch (e) {
-    throw new Error(GLOBAL_PARAMETERS_NOT_FOUND)
-  }
-}
-
-const getLocalParameters = async () => {
-  try {
-    const parameters = await cozyClient.data.findAll('io.cozy.ia.banks.localnb')
-    return parameters[0]
-  } catch (e) {
-    if (e.message.includes('404')) {
-      log('info', "Local parameters don't exist")
-      return null
-    }
-
-    log('info', e.message)
-    throw new Error(LOCAL_PARAMETERS_ERROR)
+    throw new Error(PARAMETERS_NOT_FOUND)
   }
 }
 
@@ -64,106 +92,40 @@ const getLabelWithTags = transaction => {
   return `${amountSignTag} ${amountTag} ${label}`
 }
 
-const globalModel = async transactions => {
+export const categorizes = async transactions => {
   const options = { tokenizer }
 
-  log('info', 'Get global categorization model form the stack')
-  const parameters = await getGlobalParameters()
+  log('info', 'Get parameters from the stack')
+  const parameters = await getParameters()
 
-  log('info', 'Instanciating a classifier with the received parameters')
-  const classifier = createClassifier(parameters, options)
+  log('info', 'Instanciating a classifier with the parameters')
+  const cozyClassifier = createClassifier(parameters, options)
+  const localClassifier = await createLocalClassifier()
 
-  log('info', 'Categorizing transactions')
-  for (const transaction of transactions) {
-    log('info', 'Getting label of the transaction')
-    const label = getLabelWithTags(transaction)
-    log('info', 'Categorizing single transaction')
-    const { category, proba } = maxBy(
-      classifier.categorize(label).likelihoods,
-      'proba'
-    )
-
-    log('info', 'Categorized transaction with the global model :')
-    log('info', `label: ${label}`)
-    log('info', `cozyCategory: ${category}`)
-    log('info', `cozyProba: ${proba}`)
-    transaction.cozyCategoryId = category
-    transaction.cozyCategoryProba = proba
-  }
-
-  return transactions
-}
-
-const localModel = async transactions => {
-  log('info', 'Filtering manually categorized transactions')
-  const manuallyCategorizedTransactions = transactions.filter(
-    transaction => transaction.manualCategoryId != null
+  log(
+    'info',
+    'Applying global and local models to new and modified transactions'
   )
-
-  const classifierOptions = { tokenizer }
-
-  log('info', 'Fetching local parameters from stack')
-  const parameters = await getLocalParameters()
-
-  let classifier
-
-  if (parameters) {
-    log('info', 'Instanciating a classifier with the local parameters')
-    classifier = createClassifier(parameters, classifierOptions)
-  } else {
-    log('info', 'Instanciating a fresh classifier')
-    classifier = bayes(classifierOptions)
-  }
-
-  log('info', 'Learning from new manually categorized transactions')
-  for (const manuallyCategorizedTransaction of manuallyCategorizedTransactions) {
-    classifier.learn(
-      getLabelWithTags(manuallyCategorizedTransaction),
-      manuallyCategorizedTransaction.manualCategoryId
-    )
-  }
-
-  log('info', 'Applying local model to all new transactions')
   for (const transaction of transactions) {
     const label = getLabelWithTags(transaction)
-    const { category, proba } = maxBy(
-      classifier.categorize(label).likelihoods,
+    const { category: cozyCategory, proba: cozyProba } = maxBy(
+      cozyClassifier.categorize(label).likelihoods,
       'proba'
     )
-
-    log('info', 'Categorized transaction with the local model :')
+    const { category: localCategory, proba: localProba } = maxBy(
+      localClassifier.categorize(label).likelihoods,
+      'proba'
+    )
     log('info', `label: ${label}`)
-    log('info', `localCategory: ${category}`)
-    log('info', `localProba: ${proba}`)
-    transaction.localCategoryId = category
-    transaction.localCategoryProba = proba
+    log('info', `cozyCategory: ${cozyCategory}`)
+    log('info', `cozyProba: ${cozyProba}`)
+    log('info', `localCategory: ${localCategory}`)
+    log('info', `localProba: ${localProba}`)
+    transaction.cozyCategoryId = cozyCategory
+    transaction.cozyCategoryProba = cozyProba
+    transaction.localCategoryId = localCategory
+    transaction.localCategoryProba = localProba
   }
-
-  log('info', 'Updating model on server')
-  const newModel = JSON.parse(classifier.toJson())
-
-  try {
-    if (parameters) {
-      await cozyClient.data.update('io.cozy.ia.banks.localnb', parameters, {
-        _id: parameters._id,
-        ...newModel
-      })
-    } else {
-      await cozyClient.data.create('io.cozy.ia.banks.localnb', newModel)
-    }
-
-    log('info', 'Updated model on server')
-  } catch (e) {
-    log('info', 'Error while updating model on server')
-    throw e
-  }
-
-  return transactions
-}
-
-export const categorizes = async transactions => {
-  transactions = await globalModel(transactions)
-  transactions = await localModel(transactions)
 
   return transactions
 }
