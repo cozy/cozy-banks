@@ -1,9 +1,54 @@
 import { cozyClient, log } from 'cozy-konnector-libs'
 import { maxBy } from 'lodash'
 import { tokenizer, createClassifier } from '.'
+import bayes from 'classificator'
 import { getLabel } from 'ducks/transactions/helpers'
+import { TRANSACTION_DOCTYPE } from 'doctypes'
 
 export const PARAMETERS_NOT_FOUND = 'Classifier files is not configured.'
+
+const createLocalClassifier = async () => {
+  const getTransWithManualCat = async (transactions, index, limit, skip) => {
+    const query = {
+      selector: { manualCategoryId: { $exists: true } },
+      limit,
+      skip,
+      wholeResponse: true
+    }
+    const results = await cozyClient.data.query(index, query)
+    transactions = [...transactions, ...results.docs]
+
+    if (results.next) {
+      return getTransWithManualCat(transactions, index, limit, skip + limit)
+    }
+
+    return transactions
+  }
+
+  log('info', 'Instanciating a fresh classifier')
+  const options = { tokenizer, alpha: 0.1 }
+  const classifier = bayes(options)
+
+  log('info', 'Fetching manually categorized transactions')
+  const index = await cozyClient.data.defineIndex(TRANSACTION_DOCTYPE, [
+    'manualCategoryId'
+  ])
+  const transactions = await getTransWithManualCat([], index, 100)
+  log(
+    'info',
+    `Fetched ${transactions.length} manually categorized transactions`
+  )
+
+  log('info', 'Learning from manually categorized transactions')
+  for (const transaction of transactions) {
+    classifier.learn(
+      getLabelWithTags(transaction),
+      transaction.manualCategoryId
+    )
+  }
+
+  return classifier
+}
 
 const getParameters = async () => {
   try {
@@ -54,19 +99,32 @@ export const categorizes = async transactions => {
   const parameters = await getParameters()
 
   log('info', 'Instanciating a classifier with the parameters')
-  const classifier = createClassifier(parameters, options)
+  const cozyClassifier = createClassifier(parameters, options)
+  const localClassifier = await createLocalClassifier()
 
+  log(
+    'info',
+    'Applying global and local models to new and modified transactions'
+  )
   for (const transaction of transactions) {
     const label = getLabelWithTags(transaction)
-    const { category, proba } = maxBy(
-      classifier.categorize(label).likelihoods,
+    const { category: cozyCategory, proba: cozyProba } = maxBy(
+      cozyClassifier.categorize(label).likelihoods,
+      'proba'
+    )
+    const { category: localCategory, proba: localProba } = maxBy(
+      localClassifier.categorize(label).likelihoods,
       'proba'
     )
     log('info', `label: ${label}`)
-    log('info', `category: ${category}`)
-    log('info', `proba: ${proba}`)
-    transaction.cozyCategoryId = category
-    transaction.cozyCategoryProba = proba
+    log('info', `cozyCategory: ${cozyCategory}`)
+    log('info', `cozyProba: ${cozyProba}`)
+    log('info', `localCategory: ${localCategory}`)
+    log('info', `localProba: ${localProba}`)
+    transaction.cozyCategoryId = cozyCategory
+    transaction.cozyCategoryProba = cozyProba
+    transaction.localCategoryId = localCategory
+    transaction.localCategoryProba = localProba
   }
 
   return transactions

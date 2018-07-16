@@ -1,6 +1,6 @@
 import bayes from 'classificator'
 
-const DATE_TAG = 'tag_date'
+const DATE_TAG = ' tag_date '
 const DATE_REGEX = /\d{1,2}\/\d{1,2}\/\d{2,4}|\d{1,2}\/\d{1,2}/g
 const UNNECESSARY_CHARS_REGEX = /[^a-zA-Z_ ]/g
 const MAX_WORD = 3
@@ -85,4 +85,10 @@ export const categorize = (classifier, label) => {
   // console.log(categoryId, categorizesTree[categoryId])
 
   return categoryId
+}
+
+export const predictProbaMax = (classifier, label) => {
+  const predicted = classifier.categorize(label, true)
+
+  return predicted.likelihoods[0].proba
 }
