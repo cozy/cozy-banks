@@ -2288,9 +2288,9 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-classificator@cozy/classificator#42326fd38a9f9645d678bf40dd4985fc41d2ef2e:
-  version "0.3.1"
-  resolved "https://codeload.github.com/cozy/classificator/tar.gz/42326fd38a9f9645d678bf40dd4985fc41d2ef2e"
+classificator@0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/classificator/-/classificator-0.3.2.tgz#3fc4168ffbed92ab0fb15ec8873f1bd2159890ef"
   dependencies:
     decimal.js "^10.0.0"
 
