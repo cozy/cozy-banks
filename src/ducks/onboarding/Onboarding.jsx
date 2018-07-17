@@ -1,6 +1,9 @@
 import React from 'react'
 import { translate, Button, withBreakpoints } from 'cozy-ui/react'
-import { flowRight as compose } from 'lodash'
+import { some, flowRight as compose } from 'lodash'
+import { cozyConnect, fetchCollection } from 'cozy-client'
+import { TRIGGER_DOCTYPE } from 'doctypes'
+import { isCollectionLoading } from 'utils/client'
 
 import Topbar from 'components/Topbar'
 import PageTitle from 'components/PageTitle'
@@ -24,8 +27,15 @@ import {
 const Onboarding = props => {
   const {
     t,
+    triggers,
     breakpoints: { isMobile }
   } = props
+
+  const isTriggersLoaded = !isCollectionLoading(triggers)
+  const hasTriggers = some(
+    triggers.data,
+    trigger => trigger.worker === 'konnector'
+  )
 
   return (
     <Hero>
@@ -62,8 +72,22 @@ const Onboarding = props => {
           </Button>
         </CollectLink>
       </CTA>
+      {isTriggersLoaded &&
+        hasTriggers && (
+          <Paragraph style="text-align: center">
+            {t('Onboarding.wait-moments')}
+          </Paragraph>
+        )}
     </Hero>
   )
 }
 
-export default compose(translate(), withBreakpoints())(Onboarding)
+const mapDocumentsToProps = () => ({
+  triggers: fetchCollection('triggers', TRIGGER_DOCTYPE)
+})
+
+export default compose(
+  translate(),
+  withBreakpoints(),
+  cozyConnect(mapDocumentsToProps)
+)(Onboarding)

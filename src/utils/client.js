@@ -34,4 +34,4 @@ export const getClient = memoize(persistedState => {
 })
 
 export const isCollectionLoading = col =>
-  col.fetchStatus === 'loading' && col.fetchStatus === 'pending'
+  col && col.fetchStatus === 'loading' && col.fetchStatus === 'pending'

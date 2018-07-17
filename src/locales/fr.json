@@ -422,7 +422,8 @@
     "cozy-assistant": {
       "title": "Cozy travaille pour vous",
       "description": "Suivi automatique du traitement de vos dépenses de santé"
-    }
+    },
+    "wait-moments": "Patientez quelques minutes si vous venez de connecter votre banque. Vos données vont se charger automatiquement !"
   },
 
   "FileOpener": {

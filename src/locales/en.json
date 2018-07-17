@@ -422,7 +422,8 @@
     "cozy-assistant": {
       "description": "Automatic follow-up of your medical expenses",
       "title": "Cozy is working for you"
-    }
+    },
+    "wait-moments": "Please wait a few moments if you have just connected a bank. Your data will be displayed automatically !"
   },
 
   "mobile": {
