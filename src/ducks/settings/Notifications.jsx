@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import { cozyConnect } from 'cozy-client'
 import { connect } from 'react-redux'
 import Loading from 'components/Loading'
-import { translate, Toggle } from 'cozy-ui/react'
+import { translate, Toggle, Title } from 'cozy-ui/react'
 import { registerPushNotifications } from 'ducks/mobile/push'
 import { flowRight as compose } from 'lodash'
 import { isCollectionLoading } from 'utils/client'
@@ -92,19 +92,22 @@ class Notifications extends Component {
   }
 
   render() {
-    const { settingsCollection, settings } = this.props
+    const { settingsCollection, settings, t } = this.props
 
     if (isCollectionLoading(settingsCollection)) {
       return <Loading />
     }
 
     return (
-      <p>
-        {this.notifications.map(notification => {
-          const setting = settings.notifications[notification.name]
-          return this.renderLine(notification, setting)
-        })}
-      </p>
+      <div>
+        <Title>{t('Notifications.title')}</Title>
+        <p>
+          {this.notifications.map(notification => {
+            const setting = settings.notifications[notification.name]
+            return this.renderLine(notification, setting)
+          })}
+        </p>
+      </div>
     )
   }
 }
