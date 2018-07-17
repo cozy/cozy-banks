@@ -25,10 +25,6 @@ const createLocalClassifier = async () => {
     return transactions
   }
 
-  log('info', 'Instanciating a fresh classifier')
-  const options = { tokenizer, alpha: 0.1 }
-  const classifier = bayes(options)
-
   log('info', 'Fetching manually categorized transactions')
   const index = await cozyClient.data.defineIndex(TRANSACTION_DOCTYPE, [
     'manualCategoryId'
@@ -38,6 +34,14 @@ const createLocalClassifier = async () => {
     'info',
     `Fetched ${transactions.length} manually categorized transactions`
   )
+
+  if (transactions.length === 0) {
+    return null
+  }
+
+  log('info', 'Instanciating a fresh classifier')
+  const options = { tokenizer, alpha: 0.1 }
+  const classifier = bayes(options)
 
   log('info', 'Learning from manually categorized transactions')
   for (const transaction of transactions) {
@@ -112,19 +116,25 @@ export const categorizes = async transactions => {
       cozyClassifier.categorize(label).likelihoods,
       'proba'
     )
-    const { category: localCategory, proba: localProba } = maxBy(
-      localClassifier.categorize(label).likelihoods,
-      'proba'
-    )
+
+    transaction.cozyCategoryId = cozyCategory
+    transaction.cozyCategoryProba = cozyProba
+
     log('info', `label: ${label}`)
     log('info', `cozyCategory: ${cozyCategory}`)
     log('info', `cozyProba: ${cozyProba}`)
-    log('info', `localCategory: ${localCategory}`)
-    log('info', `localProba: ${localProba}`)
-    transaction.cozyCategoryId = cozyCategory
-    transaction.cozyCategoryProba = cozyProba
-    transaction.localCategoryId = localCategory
-    transaction.localCategoryProba = localProba
+
+    if (localClassifier) {
+      const { category: localCategory, proba: localProba } = maxBy(
+        localClassifier.categorize(label).likelihoods,
+        'proba'
+      )
+
+      log('info', `localCategory: ${localCategory}`)
+      log('info', `localProba: ${localProba}`)
+      transaction.localCategoryId = localCategory
+      transaction.localCategoryProba = localProba
+    }
   }
 
   return transactions
