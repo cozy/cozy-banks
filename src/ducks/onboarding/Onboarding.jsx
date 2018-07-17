@@ -40,7 +40,7 @@ const Onboarding = props => {
   return (
     <Hero>
       <Topbar>
-        <PageTitle>
+        <PageTitle style="text-align: center">
           {t(`Onboarding.title.${isMobile ? 'mobile' : 'desktop'}`)}
         </PageTitle>
       </Topbar>
