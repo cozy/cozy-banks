@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import cx from 'classnames'
 import Toggle from 'cozy-ui/react/Toggle'
 import styles from './ToggleRow.styl'
+import ReactMarkdown from 'react-markdown'
 
 class ToggleRow extends Component {
   render() {
@@ -23,7 +24,7 @@ class ToggleRow extends Component {
         <h5>{title}</h5>
         <div className={styles.ToggleRow__body}>
           <p className={styles.ToggleRow__description}>
-            {description}
+            <ReactMarkdown source={description} />
             {hasValue && (
               <input
                 type="text"

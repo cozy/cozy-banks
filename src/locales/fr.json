@@ -405,6 +405,14 @@
     "configuration": "Configuration"
   },
 
+  "CommunitySettings": {
+    "title": "Fonctions communautaires",
+    "auto_categorization": {
+      "title": "Catégorisation automatique des écritures",
+      "subtitle": "Participer à l'amélioration du modèle par le partage anonymisé de vos écritures catégorisées. [En savoir plus](https://support.cozy.io/article/181-collaboration-a-la-categorisation-bancaire)"
+    }
+  },
+
   "Onboarding": {
     "title": {
       "desktop": "Connecter vos comptes bancaires",

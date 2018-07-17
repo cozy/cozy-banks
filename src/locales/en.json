@@ -394,6 +394,14 @@
     "app": "App"
   },
 
+  "CommunitySettings": {
+    "title": "Community-based features",
+    "auto_categorization": {
+      "title": "Automatic categorization of your transactions",
+      "subtitle": "Help us improve the model by anonymously sharing your categorized transactions. [More](https://support.cozy.io/article/181-collaboration-a-la-categorisation-bancaire)"
+    }
+  },
+
   "AppSettings": {
     "reset": "reset",
     "description": "By clicking Reset, you will be able to start your application over, and will only lose the data saved on your smartphone.",
