@@ -1,6 +1,10 @@
 import { log } from 'cozy-konnector-libs'
 import { readSetting, saveSetting } from 'ducks/settings/services'
-import { categorizes, PARAMETERS_NOT_FOUND } from 'ducks/categorization/services'
+import {
+  categorizes,
+  PARAMETERS_NOT_FOUND,
+  sendTransactions
+} from 'ducks/categorization/services'
 import { launchNotifications } from 'ducks/notifications/services'
 import {
   changesTransactions,
@@ -39,6 +43,21 @@ const onOperationCreate = async () => {
       const transactionsCategorized = await categorizes(toCategorize)
       const transactionSaved = await saveTransactions(transactionsCategorized)
       const newChanges = await changesTransactions(notifChanges.newLastSeq)
+
+      if (setting.community.autoCategorization.enabled) {
+        log(
+          'info',
+          'Auto categorization setting is enabled, sending transactions to API'
+        )
+        await sendTransactions(transactionsCategorized)
+        log('info', `Sent ${transactionsCategorized.length} transactions to API`)
+      } else {
+        log(
+          'info',
+          'Auto categorization setting is disabled, skipping'
+        )
+      }
+
       setting.categorization.lastSeq = newChanges.newLastSeq
     } else {
       setting.categorization.lastSeq = notifChanges.newLastSeq
