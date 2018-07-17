@@ -10,6 +10,7 @@ import AccountSettings from './AccountSettings'
 import AccountsSettings from './AccountsSettings'
 import GroupSettings, { NewGroupSettings } from './GroupSettings'
 import GroupsSettings from './GroupsSettings'
+import Configuration from './Configuration'
 import { DOCTYPE, COLLECTION_NAME, DEFAULTS_SETTINGS } from './constants'
 
 // components
@@ -19,7 +20,8 @@ export {
   AccountSettings,
   GroupsSettings,
   GroupSettings,
-  NewGroupSettings
+  NewGroupSettings,
+  Configuration
 }
 
 // helpers

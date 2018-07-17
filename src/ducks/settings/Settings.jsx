@@ -9,39 +9,21 @@ import { flowRight as compose } from 'lodash'
 import AppVersion from './AppVersion'
 import PageTitle from 'components/PageTitle'
 
-const tabNames = ['notifications', 'accounts', 'groups']
+const tabNames = ['configuration', 'accounts', 'groups']
 
 const Settings = ({ t, children, router }) => {
   let defaultTab = router.location.pathname.replace('/settings/', '')
-  if (tabNames.indexOf(defaultTab) === -1) defaultTab = 'notifications'
+  if (tabNames.indexOf(defaultTab) === -1) defaultTab = 'configuration'
 
   const goTo = url => () => {
     router.push(url)
   }
 
-  const tabs = [
-    <Tab
-      key={tabNames[0]}
-      name={tabNames[0]}
-      onClick={goTo('/settings/notifications')}
-    >
-      {t('Settings.notifications')}
-    </Tab>,
-    <Tab
-      key={tabNames[1]}
-      name={tabNames[1]}
-      onClick={goTo('/settings/accounts')}
-    >
-      {t('Settings.accounts')}
-    </Tab>,
-    <Tab
-      key={tabNames[2]}
-      name={tabNames[2]}
-      onClick={goTo('/settings/groups')}
-    >
-      {t('Settings.groups')}
+  const tabs = tabNames.map(tabName => (
+    <Tab key={tabName} name={tabName} onClick={goTo(`/settings/${tabName}`)}>
+      {t(`Settings.${tabName}`)}
     </Tab>
-  ]
+  ))
 
   return (
     <div>
