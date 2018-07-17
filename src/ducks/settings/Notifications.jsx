@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import classNames from 'classnames'
 import { cozyConnect } from 'cozy-client'
 import { connect } from 'react-redux'
 import Loading from 'components/Loading'
-import { translate, Toggle, Title } from 'cozy-ui/react'
+import { translate, Title } from 'cozy-ui/react'
 import { registerPushNotifications } from 'ducks/mobile/push'
 import { flowRight as compose } from 'lodash'
 import { isCollectionLoading } from 'utils/client'
+import ToggleRow from './ToggleRow'
 
 import {
   getSettings,
@@ -14,7 +14,6 @@ import {
   createSettings,
   updateSettings
 } from '.'
-import styles from './Notifications.styl'
 
 class Notifications extends Component {
   notifications = [
@@ -54,40 +53,18 @@ class Notifications extends Component {
 
   renderLine(notification, setting) {
     const { t } = this.props
-    const { enabled, value } = setting
-    const hasValue = value !== undefined
 
     return (
-      <div key={notification.name}>
-        <h5>{t(notification.title)}</h5>
-        <div className={styles['notification']}>
-          <p className={styles['notification-description']}>
-            {t(notification.description)}
-            {hasValue && (
-              <input
-                type="text"
-                onChange={e =>
-                  this.onChangeValue(notification.name, e.target.value)
-                }
-                value={value}
-                className={classNames(
-                  styles['notification-input'],
-                  styles['suffixed']
-                )}
-              />
-            )}
-            {hasValue && <span>€</span>}
-          </p>
-
-          <div className={styles['notification-toggle']}>
-            <Toggle
-              id={notification.name}
-              checked={enabled}
-              onToggle={checked => this.onToggle(notification.name, checked)}
-            />
-          </div>
-        </div>
-      </div>
+      <ToggleRow
+        key={notification.name}
+        enabled={setting.enabled}
+        value={setting.value}
+        title={t(notification.title)}
+        description={t(notification.description)}
+        onChangeValue={this.onChangeValue}
+        name={notification.name}
+        onToggle={this.onToggle}
+      />
     )
   }
 
