@@ -1,10 +1,7 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import cx from 'classnames'
+import React from 'react'
 import Icon from 'cozy-ui/react/Icon'
 import styles from './styles.styl'
 import SelectBox, { SelectBoxWithFixedOptions } from 'cozy-ui/react/SelectBox'
-import withBreakpoints from 'cozy-ui/react/helpers/withBreakpoints'
 import find from 'lodash/find'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import { components } from 'react-select'
@@ -51,7 +48,7 @@ const menuStyle = base => ({ ...base, minWidth: '9.375rem' })
 
 const optionIsFixed = option => option.fixed
 
-class DesktopSelect extends React.Component {
+class Select extends React.Component {
   constructor(props) {
     super(props)
     this.updateComponent(props)
@@ -112,47 +109,5 @@ class DesktopSelect extends React.Component {
     )
   }
 }
-
-class MobileSelect extends Component {
-  render() {
-    const { options, onChange, className, ...props } = this.props
-
-    return (
-      <div className={cx(styles.Select, className)}>
-        <select
-          className={cx(styles.Select__control)}
-          onChange={event => {
-            onChange(event.target.value)
-          }}
-          {...props}
-        >
-          {options.map(opt => (
-            <option key={opt.value} value={opt.value} disabled={opt.isDisabled}>
-              {opt.name}
-            </option>
-          ))}
-        </select>
-        <SmallArrow />
-      </div>
-    )
-  }
-}
-
-MobileSelect.propTypes = {
-  onChange: PropTypes.func.isRequired,
-  name: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.string,
-      name: PropTypes.string,
-      isDisabled: PropTypes.bool
-    })
-  ).isRequired
-}
-
-const Select = withBreakpoints()(({ breakpoints: { isMobile }, ...props }) => {
-  const T = isMobile ? MobileSelect : DesktopSelect
-  return <T {...props} />
-})
 
 export default Select
