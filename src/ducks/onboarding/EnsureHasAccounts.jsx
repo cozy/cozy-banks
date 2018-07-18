@@ -34,28 +34,33 @@ const LayoutContent = props => (
  * Replaces its children by Onboarding if we have no accounts
  */
 class EnsureHasAccounts extends Component {
-  state = {
-    intervalId: false
-  }
+  intervalId = false
 
   startInterval = () => {
     const { accounts, fetchAccounts } = this.props
-    if (accounts.length === 0 && !this.state.intervalId) {
-      const intervalId = setInterval(() => fetchAccounts(), 30000)
-      this.setState({ intervalId })
+    if (accounts.length === 0 && !this.intervalId) {
+      this.intervalId = setInterval(() => fetchAccounts(), 30000)
     }
   }
 
   stopInterval = () => {
-    const { intervalId } = this.state
-    if (intervalId) {
-      clearInterval(intervalId)
-      this.setState({ intervalId: false })
+    if (this.intervalId) {
+      clearInterval(this.intervalId)
+      this.intervalId = false
     }
   }
 
   componentDidMount() {
     this.startInterval()
+  }
+
+  componentDidUpdate() {
+    const { accounts } = this.props
+    if (accounts.length === 0) {
+      this.startInterval()
+    } else {
+      this.stopInterval()
+    }
   }
 
   componentWillUnmount() {
@@ -85,8 +90,6 @@ class EnsureHasAccounts extends Component {
         </LayoutContent>
       )
     }
-
-    this.stopInterval()
 
     return children
   }
