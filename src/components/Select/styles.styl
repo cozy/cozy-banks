@@ -4,17 +4,14 @@
 select-date-height-small=2.75rem
 
 .Select
-    position relative
-
-.Select__control
     appearance none
     border 0
     outline 0
     background transparent
-    color inherit
 
     // So that you can click on arrow icon to open the select
     padding-right 2rem
+    margin-right -2rem
     cursor pointer
 
 .Select::-ms-expand
@@ -26,13 +23,14 @@ select-date-height-small=2.75rem
     cursor pointer
     color coolGrey
 
-.Select .Select__Icon
-    position absolute
-    top 50%
-    transform translateY(-50%)
-    right 0.875rem
-
 /* target Internet Explorer 9 to undo the custom arrow */
 @media screen and (min-width:0\0)
     .Select__Icon
         display none
+
+:global
+    +small-screen()
+        .cz__indicators
+            height select-date-height-small
+            justify-content center
+            padding-right 1rem
