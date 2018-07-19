@@ -398,7 +398,7 @@
     "title": "Community-based features",
     "auto_categorization": {
       "title": "Automatic categorization of your transactions",
-      "subtitle": "Help us improve the model by anonymously sharing your categorized transactions. [More](https://support.cozy.io/article/181-collaboration-a-la-categorisation-bancaire)"
+      "subtitle": "Help us improve the model by anonymously sharing your categorized transactions. <a href='https://support.cozy.io/article/181-collaboration-a-la-categorisation-bancaire' target='_blank'>More</a>)"
     }
   },
 

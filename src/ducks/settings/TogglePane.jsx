@@ -1,33 +1,24 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { cozyConnect } from 'cozy-client'
 import { connect } from 'react-redux'
 import { Title } from 'cozy-ui/react/Text'
 import { translate } from 'cozy-ui/react/I18n'
 import { flowRight as compose } from 'lodash'
+import ToggleRow from './ToggleRow'
 import {
   getSettings,
   fetchSettingsCollection,
   createSettings,
   updateSettings
 } from '.'
-import { isCollectionLoading } from 'utils/client'
-import Loading from 'components/Loading'
-import ToggleRow from './ToggleRow'
 
-class CommunitySettings extends Component {
-  rows = [
-    {
-      title: 'CommunitySettings.auto_categorization.title',
-      name: 'autoCategorization',
-      description: 'CommunitySettings.auto_categorization.subtitle'
-    }
-  ]
-
+class TogglePane extends Component {
   onToggle = (setting, checked) => {
     const { settings, dispatch } = this.props
     const updateOrCreate = settings._id ? updateSettings : createSettings
 
-    settings.community[setting].enabled = checked
+    settings[this.props.settingsKey][setting].enabled = checked
     dispatch(updateOrCreate(settings))
   }
 
@@ -35,23 +26,19 @@ class CommunitySettings extends Component {
     const { settings, dispatch } = this.props
     const updateOrCreate = settings._id ? updateSettings : createSettings
 
-    settings.community[setting].value = value.replace(/\D/i, '')
+    settings[this.props.settingsKey][setting].value = value.replace(/\D/i, '')
     dispatch(updateOrCreate(settings))
   }
 
   render() {
-    const { settingsCollection, settings, t } = this.props
-
-    if (isCollectionLoading(settingsCollection)) {
-      return <Loading />
-    }
+    const { rows, settings, settingsKey, t, title } = this.props
 
     return (
       <div>
-        <Title>{t('CommunitySettings.title')}</Title>
+        <Title>{title}</Title>
         <p>
-          {this.rows.map(row => {
-            const setting = settings.community[row.name]
+          {rows.map(row => {
+            const setting = settings[settingsKey][row.name]
 
             return (
               <ToggleRow
@@ -72,6 +59,18 @@ class CommunitySettings extends Component {
   }
 }
 
+TogglePane.propTypes = {
+  rows: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string,
+      name: PropTypes.string,
+      description: PropTypes.string
+    })
+  ).isRequired,
+  title: PropTypes.string.isRequired,
+  settingsKey: PropTypes.string.isRequired
+}
+
 const mapStateToProps = state => ({
   settings: getSettings(state)
 })
@@ -84,4 +83,4 @@ export default compose(
   translate(),
   cozyConnect(mapDocumentsToProps),
   connect(mapStateToProps)
-)(CommunitySettings)
+)(TogglePane)
