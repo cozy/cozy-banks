@@ -2983,6 +2983,17 @@ cozy-client@^0.6.1:
     pouchdb "6.3.4"
     pouchdb-find "6.3.4"
 
+cozy-client@^1.0.0-beta.16:
+  version "1.0.0-beta.16"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-1.0.0-beta.16.tgz#8b686261af07472a7dccf1c97aef367ffaade082"
+  dependencies:
+    cozy-stack-client "^1.0.0-beta.16"
+    lodash "^4.17.5"
+    prop-types "^15.6.0"
+    react "^16.2.0"
+    react-redux "^5.0.6"
+    redux "^3.7.2"
+
 cozy-device-helper@1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.2.1.tgz#ae755349e71d120a3bbbcbedc0ed59b24b1fe223"
@@ -3024,6 +3035,20 @@ cozy-logger@^1.0.4:
   resolved "https://registry.yarnpkg.com/cozy-logger/-/cozy-logger-1.1.4.tgz#201132c8d47cc7b64452fe2bed4f24bbb5059a3c"
   dependencies:
     json-stringify-safe "5.0.1"
+
+cozy-pouch-link@^1.0.0-beta.16:
+  version "1.0.0-beta.16"
+  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-1.0.0-beta.16.tgz#e2a2cfe11704cf3471abfa884d531ac780858127"
+  dependencies:
+    cozy-client "^1.0.0-beta.16"
+    pouchdb "^6.4.3"
+    pouchdb-find "^6.4.3"
+
+cozy-stack-client@^1.0.0-beta.16:
+  version "1.0.0-beta.16"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-1.0.0-beta.16.tgz#9731951d9dd322a673150d5c291d2c5f6af3633b"
+  dependencies:
+    mime-types "^2.1.18"
 
 cozy-ui@^10.0.1:
   version "10.0.1"
@@ -8078,11 +8103,21 @@ miller-rabin@^4.0.0:
   version "1.33.0"
   resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.33.0.tgz#a3492050a5cb9b63450541e39d9788d2272783db"
 
+mime-db@~1.35.0:
+  version "1.35.0"
+  resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.35.0.tgz#0569d657466491283709663ad379a99b90d9ab47"
+
 mime-types@^2.1.11, mime-types@^2.1.12, mime-types@~2.1.17, mime-types@~2.1.18, mime-types@~2.1.7:
   version "2.1.18"
   resolved "https://registry.yarnpkg.com/mime-types/-/mime-types-2.1.18.tgz#6f323f60a83d11146f831ff11fd66e2fe5503bb8"
   dependencies:
     mime-db "~1.33.0"
+
+mime-types@^2.1.18:
+  version "2.1.19"
+  resolved "https://registry.yarnpkg.com/mime-types/-/mime-types-2.1.19.tgz#71e464537a7ef81c15f2db9d97e913fc0ff606f0"
+  dependencies:
+    mime-db "~1.35.0"
 
 mime@1.4.1:
   version "1.4.1"
@@ -10137,7 +10172,7 @@ pouchdb-find@6.3.4:
     pouchdb-selector-core "6.3.4"
     pouchdb-utils "6.3.4"
 
-pouchdb-find@6.4.3:
+pouchdb-find@6.4.3, pouchdb-find@^6.4.3:
   version "6.4.3"
   resolved "https://registry.yarnpkg.com/pouchdb-find/-/pouchdb-find-6.4.3.tgz#1d0128306071434a5e397bb14ce69c831356c95e"
   dependencies:
@@ -10308,7 +10343,7 @@ pouchdb@6.3.4:
     uuid "^3.1.0"
     vuvuzela "1.0.3"
 
-pouchdb@6.4.3:
+pouchdb@6.4.3, pouchdb@^6.4.3:
   version "6.4.3"
   resolved "https://registry.yarnpkg.com/pouchdb/-/pouchdb-6.4.3.tgz#077e812a054ac44e13622a64e0c802325d1d44ad"
   dependencies:
@@ -11021,6 +11056,15 @@ react@15.6.2, react@^15.4.1, react@^15.4.2:
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
     prop-types "^15.5.10"
+
+react@^16.2.0:
+  version "16.4.1"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.4.1.tgz#de51ba5764b5dbcd1f9079037b862bd26b82fe32"
+  dependencies:
+    fbjs "^0.8.16"
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.0"
 
 read-all-stream@^3.0.0:
   version "3.1.0"

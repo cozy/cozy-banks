@@ -149,6 +149,8 @@
     "cozy-client-js": "0.11.0",
     "cozy-device-helper": "1.2.1",
     "cozy-konnector-libs": "^3.0.13",
+    "cozy-pouch-link": "^1.0.0-beta.16",
+    "cozy-stack-client": "^1.0.0-beta.16",
     "cozy-ui": "^10.0.1",
     "date-fns": "^1.28.2",
     "fastclick": "^1.0.6",
