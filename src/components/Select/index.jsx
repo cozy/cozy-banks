@@ -4,16 +4,7 @@ import styles from './styles.styl'
 import SelectBox, { SelectBoxWithFixedOptions } from 'cozy-ui/react/SelectBox'
 import find from 'lodash/find'
 import palette from 'cozy-ui/stylus/settings/palette.json'
-import { components } from 'react-select'
 import { mergeStyles } from './styleUtils'
-
-const ValueContainer = ({ children, ...props }) => {
-  return (
-    <components.ValueContainer {...props} className="needsclick">
-      {children}
-    </components.ValueContainer>
-  )
-}
 
 const SmallArrow = () => (
   <Icon
@@ -87,10 +78,9 @@ class Select extends React.Component {
         getOptionLabel={x => x.name}
         components={{
           DropdownIndicator: SmallArrow,
-          IndicatorSeparator,
-          ValueContainer
+          IndicatorSeparator
         }}
-        classNamePrefix="cz"
+        classNamePrefix="needsclick cz"
         styles={mergeStyles(
           {
             singleValue: singleValueStyle,
