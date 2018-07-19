@@ -16,7 +16,7 @@ import { Table, TdSecondary } from 'components/Table'
 import { Figure, FigureBlock } from 'components/Figure'
 import PageTitle from 'components/PageTitle'
 
-import CollectLink from 'ducks/settings/CollectLink'
+import AddAccountLink from 'ducks/settings/AddAccountLink'
 import { getSettings } from 'ducks/settings'
 import { filterByDoc, getFilteringDoc } from 'ducks/filters'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
@@ -256,12 +256,12 @@ const BalanceAccounts = translate()(
           </tbody>
         </Table>
         <p>
-          <CollectLink>
+          <AddAccountLink>
             <Button className={cx(btnStyles['btn--no-outline'], 'u-pv-1')}>
               <Icon icon={plus} className="u-mr-half" />
               {t('Accounts.add-account')}
             </Button>
-          </CollectLink>
+          </AddAccountLink>
         </p>
       </div>
     )

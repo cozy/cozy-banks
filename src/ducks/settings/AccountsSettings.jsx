@@ -11,7 +11,7 @@ import { cozyConnect, fetchCollection } from 'cozy-client'
 import plus from 'assets/icons/16/plus.svg'
 import styles from './AccountsSettings.styl'
 import btnStyles from 'styles/buttons.styl'
-import CollectLink from 'ducks/settings/CollectLink'
+import AddAccountLink from 'ducks/settings/AddAccountLink'
 import cx from 'classnames'
 import { getAccountInstitutionLabel } from '../account/helpers'
 
@@ -90,12 +90,12 @@ class AccountsSettings extends Component {
 
     return (
       <div>
-        <CollectLink>
+        <AddAccountLink>
           <Button className={cx(btnStyles['btn--no-outline'], 'u-pb-1')}>
             <Icon icon={plus} className="u-mr-half" />
             {t('Accounts.add-account')}
           </Button>
-        </CollectLink>
+        </AddAccountLink>
         {myAccounts ? (
           <AccountsTable accounts={myAccounts} t={t} />
         ) : (

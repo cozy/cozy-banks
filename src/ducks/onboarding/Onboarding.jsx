@@ -9,7 +9,7 @@ import { isCollectionLoading } from 'utils/client'
 
 import Topbar from 'components/Topbar'
 import PageTitle from 'components/PageTitle'
-import CollectLink from 'ducks/settings/CollectLink'
+import AddAccountLink from 'ducks/settings/AddAccountLink'
 
 import calculator from 'assets/icons/icon-calculator.svg'
 import watch from 'assets/icons/icon-watch.svg'
@@ -84,11 +84,11 @@ class Onboarding extends Component {
           )}
         </Sections>
         <CTA>
-          <CollectLink>
+          <AddAccountLink>
             <Button theme="regular">
               {t('Onboarding.connect-bank-account')}
             </Button>
-          </CollectLink>
+          </AddAccountLink>
         </CTA>
         {isTriggersLoaded &&
           hasTriggers && (
