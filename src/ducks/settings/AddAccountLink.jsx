@@ -54,11 +54,11 @@ class SameWindowLink extends Component {
 
 // Switch according to target
 
-const CollectLink = props => {
+const AddAccountLink = props => {
   // For now we redirect on collect on both mobile app and browsers
   // since this is not possible to show a waiting message
   // const Link = __TARGET__ === 'mobile' ? NewWindowLink : IntentLink
   return <SameWindowLink {...props} />
 }
 
-export default CollectLink
+export default AddAccountLink
