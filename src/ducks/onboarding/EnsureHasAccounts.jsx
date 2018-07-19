@@ -51,6 +51,7 @@ class EnsureHasAccounts extends Component {
   }
 
   componentDidMount() {
+    this.props.fetchAccounts()
     this.startInterval()
   }
 
