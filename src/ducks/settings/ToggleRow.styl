@@ -9,26 +9,26 @@ h5
     margin-top 0
     margin-bottom 5px
 
-.notification
+.ToggleRow__body
     display flex
     justify-content flex-start
     align-items center
     max-width 600px
     margin-bottom 20px
 
-.notification-description
+.ToggleRow__description
     color coolGrey
     flex-grow 1
     margin 0
     font-size .9em
 
-input[type='text'].notification-input
+input[type='text'].ToggleRow__input
     padding .5em .3em
     margin 0 5px
     width 4.5em
 
-    &.suffixed::-webkit-inner-spin-button
-    &.suffixed::-webkit-outer-spin-button
+    &.ToggleRow__input--suffixed::-webkit-inner-spin-button
+    &.ToggleRow__input--suffixed::-webkit-outer-spin-button
         -webkit-appearance none
 
     &::-webkit-contacts-auto-fill-button
@@ -36,7 +36,7 @@ input[type='text'].notification-input
         display        none
         pointer-events none
 
-    &.suffixed + span
+    &.ToggleRow__input--suffixed + span
         position absolute
         margin-left -1.5em
         margin-top .6em

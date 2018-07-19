@@ -24,6 +24,11 @@ export const DEFAULTS_SETTINGS = {
       enabled: false
     }
   },
+  community: {
+    autoCategorization: {
+      enabled: false
+    }
+  },
   categorization: {
     lastSeq: 0
   },

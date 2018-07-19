@@ -4,6 +4,7 @@ import { tokenizer, createClassifier } from '.'
 import bayes from 'classificator'
 import { getLabel } from 'ducks/transactions/helpers'
 import { TRANSACTION_DOCTYPE } from 'doctypes'
+import pick from 'lodash/pick'
 
 export const PARAMETERS_NOT_FOUND = 'Classifier files is not configured.'
 
@@ -138,4 +139,34 @@ export const categorizes = async transactions => {
   }
 
   return transactions
+}
+
+export const sendTransactions = async transactions => {
+  const transactionsToSend = transactions.map(transaction =>
+    pick(transaction, [
+      'amount',
+      'date',
+      'label',
+      'automaticCategoryId',
+      'metadata.version',
+      'manualCategoryId',
+      'cozyCategoryId',
+      'cozyCategoryProba',
+      'localCategoryId',
+      'localCategoryProba'
+    ])
+  )
+
+  try {
+    await cozyClient.fetchJSON(
+      'POST',
+      '/remote/cc.cozycloud.autocategorization',
+      {
+        data: JSON.stringify(transactionsToSend)
+      }
+    )
+  } catch (e) {
+    log('info', 'Error while sending transactions')
+    log('info', e)
+  }
 }
