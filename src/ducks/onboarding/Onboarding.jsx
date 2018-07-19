@@ -102,11 +102,12 @@ class Onboarding extends Component {
 }
 
 const mapStateToProps = state => ({
-  triggers: getCollection(state, 'triggers')
+  triggers: getCollection(state, 'onboarding_triggers')
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchTriggers: () => dispatch(fetchCollection('triggers', TRIGGER_DOCTYPE))
+  fetchTriggers: () =>
+    dispatch(fetchCollection('onboarding_triggers', TRIGGER_DOCTYPE))
 })
 
 export default compose(
