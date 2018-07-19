@@ -7,7 +7,7 @@ import { or } from 'airbnb-prop-types'
 
 import { withRouter } from 'react-router'
 import { translate, Button, Icon, withBreakpoints } from 'cozy-ui/react'
-import { cozyConnect, fetchCollection, getDocument } from 'cozy-client'
+import { cozyConnect, fetchCollection, getDocument } from 'old-cozy-client'
 import { isCollectionLoading } from 'utils/client'
 
 import Topbar from 'components/Topbar'

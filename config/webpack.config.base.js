@@ -18,13 +18,19 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.json', '.css', '.jsx'],
-    modules: ['node_modules', SRC_DIR]
+    modules: ['node_modules', SRC_DIR],
+    alias: {
+      'old-cozy-client': path.resolve(SRC_DIR, 'utils/old-cozy-client')
+    }
   },
   module: {
     rules: [
       {
         test: /^((?!min).)*\.jsx?$/, // all js, jsx, exclude minified
         include: [SRC_DIR],
+        exclude: [
+          path.dirname(path.resolve(SRC_DIR, 'utils/old-cozy-client')),
+        ],
         loader: 'eslint-loader',
         enforce: 'pre',
         options: {

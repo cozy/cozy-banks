@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { fetchCollection, getCollection } from 'cozy-client'
+import { fetchCollection, getCollection } from 'old-cozy-client'
 import { connect } from 'react-redux'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 import { flowRight as compose } from 'lodash'

@@ -4,7 +4,7 @@ import * as sharingStatus from 'modules/SharingStatus'
 import filters from 'ducks/filters'
 import mobile, * as fromMobile from 'ducks/mobile'
 import apps from 'ducks/apps'
-import { reducer } from 'cozy-client'
+import { reducer } from 'old-cozy-client'
 
 export const reducers = {
   filters,

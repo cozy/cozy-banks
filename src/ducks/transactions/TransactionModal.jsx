@@ -37,7 +37,7 @@ import {
   getAccountInstitutionLabel
 } from 'ducks/account/helpers'
 import { connect } from 'react-redux'
-import { getDocument } from 'cozy-client'
+import { getDocument } from 'old-cozy-client'
 import { TRANSACTION_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
 import Page from './Page'
 

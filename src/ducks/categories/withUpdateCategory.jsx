@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import CategoryChoice from './CategoryChoice'
-import { fetchDocument, updateDocument } from 'cozy-client'
+import { fetchDocument, updateDocument } from 'old-cozy-client'
 import { getCategoryId } from 'ducks/categories/helpers'
 
 const updateCategoryParams = {

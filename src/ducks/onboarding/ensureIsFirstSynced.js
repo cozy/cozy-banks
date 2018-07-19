@@ -8,13 +8,13 @@ import {
   isSyncInError,
   startSync,
   fetchCollection
-} from 'cozy-client'
+} from 'old-cozy-client'
 import { flowRight as compose } from 'lodash'
 import { translate } from 'cozy-ui/react'
 import {
   PouchFirstStrategy,
   StackOnlyStrategy
-} from 'cozy-client/DataAccessFacade'
+} from 'old-cozy-client/DataAccessFacade'
 import { fetchTransactions } from 'actions'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { isInitialSyncOK } from 'ducks/mobile'

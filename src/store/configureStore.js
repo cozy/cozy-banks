@@ -11,7 +11,7 @@ import {
 import { isReporterEnabled, getReporterMiddleware } from 'lib/sentry'
 
 import appReducers from 'reducers'
-import { cozyMiddleware } from 'cozy-client'
+import { cozyMiddleware } from 'old-cozy-client'
 
 const configureStore = (cozyClient, persistedState) => {
   // Enable Redux dev tools

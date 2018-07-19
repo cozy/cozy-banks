@@ -1,7 +1,11 @@
 /* global cozy */
 
 import { deleteAll, queryAll } from 'utils/stack'
-import { updateDocuments, deleteDocument, deleteDocuments } from 'cozy-client'
+import {
+  updateDocuments,
+  deleteDocument,
+  deleteDocuments
+} from 'old-cozy-client'
 import { TRANSACTION_DOCTYPE } from 'doctypes'
 
 const removeAccountFromGroup = (group, account) => {

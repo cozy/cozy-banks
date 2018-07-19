@@ -1,7 +1,7 @@
 /* global __TARGET__ */
 
 import { initClient } from 'ducks/authentication/lib/client'
-import { CozyClient } from 'cozy-client'
+import { CozyClient } from 'old-cozy-client'
 
 export const getClientMobile = persistedState => {
   const hasPersistedMobileStore = persistedState && persistedState.mobile
@@ -34,4 +34,4 @@ export const getClient = memoize(persistedState => {
 })
 
 export const isCollectionLoading = col =>
-  col && col.fetchStatus === 'loading' && col.fetchStatus === 'pending'
+  col && (col.fetchStatus === 'loading' || col.fetchStatus === 'pending')

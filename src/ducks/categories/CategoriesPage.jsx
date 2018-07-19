@@ -17,7 +17,7 @@ import {
   updateSettings,
   createSettings
 } from 'ducks/settings'
-import { cozyConnect } from 'cozy-client'
+import { cozyConnect } from 'old-cozy-client'
 
 class CategoriesPage extends Component {
   componentDidMount() {

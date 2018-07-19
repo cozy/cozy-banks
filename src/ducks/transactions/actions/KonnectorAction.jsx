@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { flowRight as compose } from 'lodash'
 import cx from 'classnames'
 import { connect } from 'react-redux'
-import { fetchCollection } from 'cozy-client'
+import { fetchCollection } from 'old-cozy-client'
 import { TRIGGER_DOCTYPE } from 'doctypes'
 import { matchBrands, findMatchingBrand } from 'ducks/brandDictionary'
 import {

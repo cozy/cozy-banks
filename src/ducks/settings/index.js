@@ -3,7 +3,7 @@ import {
   fetchCollection,
   createDocument,
   updateDocument
-} from 'cozy-client'
+} from 'old-cozy-client'
 import { merge, get } from 'lodash'
 import Settings from './Settings'
 import AccountSettings from './AccountSettings'

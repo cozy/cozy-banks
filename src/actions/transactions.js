@@ -9,7 +9,7 @@ import format from 'date-fns/format'
 import addMonths from 'date-fns/add_months'
 
 import { TRANSACTION_DOCTYPE } from 'doctypes'
-import { fetchCollection, getCollection } from 'cozy-client'
+import { fetchCollection, getCollection } from 'old-cozy-client'
 import { isHealthExpense } from 'ducks/categories/helpers'
 import { fetchBill } from 'actions/bills'
 import assert from 'utils/assert'

@@ -13,7 +13,7 @@ import {
   uniq,
   maxBy
 } from 'lodash'
-import { getCollection, cozyConnect, fetchCollection } from 'cozy-client'
+import { getCollection, cozyConnect, fetchCollection } from 'old-cozy-client'
 import { getFilteredAccounts } from 'ducks/filters'
 import BarBalance from 'components/BarBalance'
 import { translate } from 'cozy-ui/react/I18n'

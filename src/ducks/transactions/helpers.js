@@ -1,5 +1,5 @@
 import { BILLS_DOCTYPE } from 'doctypes'
-import { getDocument } from 'cozy-client'
+import { getDocument } from 'old-cozy-client'
 import { isHealthExpense } from 'ducks/categories/helpers'
 import assert from 'utils/assert'
 import { getAccounts } from 'selectors'

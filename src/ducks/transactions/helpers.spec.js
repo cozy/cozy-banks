@@ -1,5 +1,5 @@
 import configureStore from 'store/configureStore'
-import { createDocument } from 'cozy-client'
+import { createDocument } from 'old-cozy-client'
 import { hydrateTransaction } from './helpers'
 import { BILLS_DOCTYPE } from 'doctypes'
 

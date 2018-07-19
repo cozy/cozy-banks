@@ -8,7 +8,7 @@ import { Link } from 'react-router'
 import { flowRight as compose, sortBy } from 'lodash'
 import classNames from 'classnames'
 
-import { cozyConnect, fetchCollection } from 'cozy-client'
+import { cozyConnect, fetchCollection } from 'old-cozy-client'
 import { translate, withBreakpoints, Icon } from 'cozy-ui/react'
 import Overlay from 'cozy-ui/react/Overlay'
 import { Media, Bd, Img } from 'cozy-ui/react/Media'

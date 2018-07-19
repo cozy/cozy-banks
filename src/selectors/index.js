@@ -1,4 +1,4 @@
-import { getCollection } from 'cozy-client'
+import { getCollection } from 'old-cozy-client'
 import { createSelector } from 'reselect'
 import groupBy from 'lodash/groupBy'
 import { GROUP_DOCTYPE } from 'doctypes'

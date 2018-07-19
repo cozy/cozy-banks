@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { cozyConnect } from 'cozy-client'
+import { cozyConnect } from 'old-cozy-client'
 import { connect } from 'react-redux'
 import { Title } from 'cozy-ui/react/Text'
 import { translate } from 'cozy-ui/react/I18n'

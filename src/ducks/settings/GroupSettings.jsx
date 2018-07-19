@@ -8,7 +8,7 @@ import {
   fetchDocument,
   cozyConnect,
   fetchCollection
-} from 'cozy-client'
+} from 'old-cozy-client'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { withRouter } from 'react-router'
 
