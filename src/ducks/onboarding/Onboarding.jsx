@@ -1,7 +1,9 @@
+/* global __TARGET__ */
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { translate, Button, withBreakpoints } from 'cozy-ui/react'
 import { some, flowRight as compose } from 'lodash'
-import { cozyConnect, fetchCollection } from 'cozy-client'
+import { getCollection, fetchCollection } from 'cozy-client'
 import { TRIGGER_DOCTYPE } from 'doctypes'
 import { isCollectionLoading } from 'utils/client'
 
@@ -25,6 +27,19 @@ import {
 } from 'cozy-ui/react/Hero'
 
 class Onboarding extends Component {
+  componentDidMount() {
+    this.props.fetchTriggers()
+    if (__TARGET__ === 'mobile') {
+      document.addEventListener('resume', this.props.fetchTriggers, false)
+    }
+  }
+
+  componentWillUnmount() {
+    if (__TARGET__ === 'mobile') {
+      document.removeEventListener('resume', this.props.fetchTriggers, false)
+    }
+  }
+
   render() {
     const {
       t,
@@ -86,12 +101,16 @@ class Onboarding extends Component {
   }
 }
 
-const mapDocumentsToProps = () => ({
-  triggers: fetchCollection('triggers', TRIGGER_DOCTYPE)
+const mapStateToProps = state => ({
+  triggers: getCollection(state, 'triggers')
+})
+
+const mapDispatchToProps = dispatch => ({
+  fetchTriggers: () => dispatch(fetchCollection('triggers', TRIGGER_DOCTYPE))
 })
 
 export default compose(
   translate(),
   withBreakpoints(),
-  cozyConnect(mapDocumentsToProps)
+  connect(mapStateToProps, mapDispatchToProps)
 )(Onboarding)
