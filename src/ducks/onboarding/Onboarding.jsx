@@ -1,7 +1,9 @@
-import React from 'react'
+/* global __TARGET__ */
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { translate, Button, withBreakpoints } from 'cozy-ui/react'
 import { some, flowRight as compose } from 'lodash'
-import { cozyConnect, fetchCollection } from 'cozy-client'
+import { getCollection, fetchCollection } from 'cozy-client'
 import { TRIGGER_DOCTYPE } from 'doctypes'
 import { isCollectionLoading } from 'utils/client'
 
@@ -24,70 +26,91 @@ import {
   CTA
 } from 'cozy-ui/react/Hero'
 
-const Onboarding = props => {
-  const {
-    t,
-    triggers,
-    breakpoints: { isMobile }
-  } = props
+class Onboarding extends Component {
+  componentDidMount() {
+    this.props.fetchTriggers()
+    if (__TARGET__ === 'mobile') {
+      document.addEventListener('resume', this.props.fetchTriggers, false)
+    }
+  }
 
-  const isTriggersLoaded = !isCollectionLoading(triggers)
-  const hasTriggers = some(
-    triggers.data,
-    trigger => trigger.worker === 'konnector'
-  )
+  componentWillUnmount() {
+    if (__TARGET__ === 'mobile') {
+      document.removeEventListener('resume', this.props.fetchTriggers, false)
+    }
+  }
 
-  return (
-    <Hero>
-      <Topbar>
-        <PageTitle style="text-align: center">
-          {t(`Onboarding.title.${isMobile ? 'mobile' : 'desktop'}`)}
-        </PageTitle>
-      </Topbar>
-      <Sections>
-        <Section>
-          <Icon color={palette.pomegranate} icon={calculator} />
-          <Subtitle>{t('Onboarding.manage-budget.title')}</Subtitle>
-          <Paragraph>{t('Onboarding.manage-budget.description')}</Paragraph>
-        </Section>
-        {!isMobile ? (
+  render() {
+    const {
+      t,
+      triggers,
+      breakpoints: { isMobile }
+    } = this.props
+
+    const isTriggersLoaded = !isCollectionLoading(triggers)
+    const hasTriggers = some(
+      triggers.data,
+      trigger => trigger.worker === 'konnector'
+    )
+
+    return (
+      <Hero>
+        <Topbar>
+          <PageTitle style="text-align: center">
+            {t(`Onboarding.title.${isMobile ? 'mobile' : 'desktop'}`)}
+          </PageTitle>
+        </Topbar>
+        <Sections>
           <Section>
-            <Icon color={palette.portage} icon={watch} />
-            <Subtitle>{t('Onboarding.save-time.title')}</Subtitle>
-            <Paragraph>{t('Onboarding.save-time.description')}</Paragraph>
+            <Icon color={palette.pomegranate} icon={calculator} />
+            <Subtitle>{t('Onboarding.manage-budget.title')}</Subtitle>
+            <Paragraph>{t('Onboarding.manage-budget.description')}</Paragraph>
           </Section>
-        ) : null}
-        {!isMobile ? (
-          <Section>
-            <Icon color={palette['dodgerBlue']} icon={cozy} />
-            <Subtitle>{t('Onboarding.cozy-assistant.title')}</Subtitle>
-            <Paragraph>{t('Onboarding.cozy-assistant.description')}</Paragraph>
-          </Section>
-        ) : null}
-      </Sections>
-      <CTA>
-        <CollectLink>
-          <Button theme="regular">
-            {t('Onboarding.connect-bank-account')}
-          </Button>
-        </CollectLink>
-      </CTA>
-      {isTriggersLoaded &&
-        hasTriggers && (
-          <Paragraph style="text-align: center">
-            {t('Onboarding.wait-moments')}
-          </Paragraph>
-        )}
-    </Hero>
-  )
+          {!isMobile && (
+            <Section>
+              <Icon color={palette.portage} icon={watch} />
+              <Subtitle>{t('Onboarding.save-time.title')}</Subtitle>
+              <Paragraph>{t('Onboarding.save-time.description')}</Paragraph>
+            </Section>
+          )}
+          {!isMobile && (
+            <Section>
+              <Icon color={palette['dodgerBlue']} icon={cozy} />
+              <Subtitle>{t('Onboarding.cozy-assistant.title')}</Subtitle>
+              <Paragraph>
+                {t('Onboarding.cozy-assistant.description')}
+              </Paragraph>
+            </Section>
+          )}
+        </Sections>
+        <CTA>
+          <CollectLink>
+            <Button theme="regular">
+              {t('Onboarding.connect-bank-account')}
+            </Button>
+          </CollectLink>
+        </CTA>
+        {isTriggersLoaded &&
+          hasTriggers && (
+            <Paragraph style="text-align: center">
+              {t('Onboarding.wait-moments')}
+            </Paragraph>
+          )}
+      </Hero>
+    )
+  }
 }
 
-const mapDocumentsToProps = () => ({
-  triggers: fetchCollection('triggers', TRIGGER_DOCTYPE)
+const mapStateToProps = state => ({
+  triggers: getCollection(state, 'triggers')
+})
+
+const mapDispatchToProps = dispatch => ({
+  fetchTriggers: () => dispatch(fetchCollection('triggers', TRIGGER_DOCTYPE))
 })
 
 export default compose(
   translate(),
   withBreakpoints(),
-  cozyConnect(mapDocumentsToProps)
+  connect(mapStateToProps, mapDispatchToProps)
 )(Onboarding)
