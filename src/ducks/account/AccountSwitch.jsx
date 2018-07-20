@@ -8,7 +8,6 @@ import { Link } from 'react-router'
 import { flowRight as compose, sortBy } from 'lodash'
 import classNames from 'classnames'
 
-import { cozyConnect, fetchCollection } from 'old-cozy-client'
 import { translate, withBreakpoints, Icon } from 'cozy-ui/react'
 import Overlay from 'cozy-ui/react/Overlay'
 import { Media, Bd, Img } from 'cozy-ui/react/Media'
@@ -26,7 +25,8 @@ import {
 import styles from './AccountSwitch.styl'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { getAccountInstitutionLabel } from './helpers.js'
-import { getAllGroups } from 'selectors'
+import { queryConnect } from 'utils/client-compat'
+
 const { BarCenter } = cozy.bar
 
 const AccountSwitchDesktop = translate()(
@@ -277,7 +277,7 @@ class AccountSwitch extends Component {
     let { accounts, groups } = this.props
 
     accounts = accounts.data
-    groups = groups.map(group => ({
+    groups = groups.data.map(group => ({
       ...group,
       label: group.virtual ? t(`Data.accountTypes.${group.label}`) : group.label
     }))
@@ -355,25 +355,29 @@ AccountSwitch.defaultProps = {
   small: false
 }
 
-const mapStateToProps = state => ({
-  filteringDoc: getFilteringDoc(state),
-  groups: getAllGroups(state),
-  filteredAccounts: getFilteredAccounts(state)
-})
+const mapStateToProps = (state, ownProps) => {
+  const enhancedState = {
+    ...state,
+    accounts: ownProps.accounts,
+    groups: ownProps.groups
+  }
+  return {
+    filteringDoc: getFilteringDoc(state),
+    filteredAccounts: getFilteredAccounts(enhancedState)
+  }
+}
 
 const mapDispatchToProps = dispatch => ({
   resetFilterByDoc: () => dispatch(resetFilterByDoc()),
   filterByDoc: doc => dispatch(filterByDoc(doc))
 })
 
-const mapDocumentsToProps = () => ({
-  accounts: fetchCollection('accounts', ACCOUNT_DOCTYPE),
-  groupsDocs: fetchCollection('groups', GROUP_DOCTYPE)
-})
-
 export default compose(
-  cozyConnect(mapDocumentsToProps),
-  connect(mapStateToProps, mapDispatchToProps),
+  queryConnect({
+    accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' },
+    groups: { query: client => client.all(GROUP_DOCTYPE), as: 'groups' }
+  }),
   translate(),
-  withBreakpoints()
+  withBreakpoints(),
+  connect(mapStateToProps, mapDispatchToProps)
 )(AccountSwitch)

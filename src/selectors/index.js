@@ -1,7 +1,15 @@
-import { getCollection } from 'old-cozy-client'
 import { createSelector } from 'reselect'
 import groupBy from 'lodash/groupBy'
 import { GROUP_DOCTYPE } from 'doctypes'
+
+const getCollection = (state, attr) => {
+  const col = state[attr]
+  if (!col) {
+    debugger
+    throw new Error(`Collection ${attr} is not in state`)
+  }
+  return col
+}
 
 export const getTransactions = state => {
   const col = getCollection(state, 'transactions')
@@ -13,6 +21,10 @@ export const getGroups = state => {
 }
 export const getAccounts = state => {
   const col = getCollection(state, 'accounts')
+  return (col && col.data) || []
+}
+export const getBills = state => {
+  const col = getCollection(state, 'bills')
   return (col && col.data) || []
 }
 
