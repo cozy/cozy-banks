@@ -1,14 +1,8 @@
 import React, { Component } from 'react'
 import Loading from 'components/Loading'
 import { withDispatch } from 'utils'
-import {
-  createDocument,
-  updateDocument,
-  deleteDocument,
-  fetchDocument,
-  cozyConnect,
-  fetchCollection
-} from 'old-cozy-client'
+import { createDocument, updateDocument, deleteDocument } from 'old-cozy-client'
+import { Query } from 'cozy-client'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { withRouter } from 'react-router'
 
@@ -27,6 +21,11 @@ import { sortBy } from 'lodash'
 
 const accountInGroup = (account, group) =>
   group.accounts.indexOf(account._id) > -1
+
+const mkNewGroup = () => ({
+  label: 'Nouveau groupe',
+  accounts: []
+})
 
 class GroupSettings extends Component {
   state = { modifying: false, saving: false }
@@ -69,8 +68,7 @@ class GroupSettings extends Component {
     this.updateOrCreate(group)
   }
 
-  renderAccountLine = account => {
-    const { group } = this.props
+  renderAccountLine = (account, group) => {
     return (
       <tr>
         <td className={styles.GrpStg__accntLabel}>
@@ -107,111 +105,109 @@ class GroupSettings extends Component {
   }
 
   render() {
-    const { t, group, accounts } = this.props
+    const { t, routeParams } = this.props
     const { modifying, saving } = this.state
-    if (!group) {
-      return <Loading />
-    }
 
     return (
-      <div>
-        <BackButton to="/settings/groups" arrow />
-        <Topbar>
-          <PageTitle>{group.label}</PageTitle>
-        </Topbar>
+      <Query query={client => client.get(GROUP_DOCTYPE, routeParams.groupId)}>
+        {({ data, fetchStatus }) => {
+          if (fetchStatus === 'loading') {
+            return <Loading />
+          }
 
-        <h3>{t('Groups.label')}</h3>
-        <form
-          className={styles.GrpStg__form}
-          onSubmit={e => e.preventDefault()}
-        >
-          <p>
-            {!modifying ? (
-              group.label
-            ) : (
-              <input
-                ref={this.saveInputRef}
-                autoFocus
-                type="text"
-                defaultValue={group.label}
-              />
-            )}
-            {modifying ? (
-              <Button
-                className={styles['save-button']}
-                disabled={saving}
-                theme="regular"
-                onClick={this.rename}
+          const group = data[0] || mkNewGroup()
+
+          return (
+            <div>
+              <BackButton to="/settings/groups" arrow />
+              <Topbar>
+                <PageTitle>{group.label}</PageTitle>
+              </Topbar>
+
+              <h3>{t('Groups.label')}</h3>
+              <form
+                className={styles.GrpStg__form}
+                onSubmit={e => e.preventDefault()}
               >
-                {t('Groups.save')} {saving && <Spinner />}
-              </Button>
-            ) : (
-              <Button
-                className={btnStyles['btn--no-outline']}
-                onClick={this.modifyName}
-              >
-                &nbsp;&nbsp;{t('Groups.rename')}
-              </Button>
-            )}
-          </p>
-        </form>
-        <h3>{t('Groups.accounts')}</h3>
-        {accounts.fetchStatus === 'pending' ? (
-          <Loading />
-        ) : (
-          <Table className={styles.GrpStg__table}>
-            <thead>
-              <tr>
-                <th className={styles.GrpStg__accntLabel}>
-                  {t('Groups.label')}
-                </th>
-                <th className={styles.GrpStg__accntBank}>{t('Groups.bank')}</th>
-                <th className={styles.GrpStg__accntNumber}>
-                  {t('Groups.account-number')}
-                </th>
-                <th className={styles.GrpStg__accntToggle}>
-                  {t('Groups.included')}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {accounts.data &&
-                sortBy(accounts.data, ['institutionLabel', 'label']).map(
-                  this.renderAccountLine
-                )}
-            </tbody>
-          </Table>
-        )}
-        <p>
-          <Button theme="danger-outline" onClick={this.onRemove}>
-            {t('Groups.delete')}
-          </Button>
-        </p>
-      </div>
+                <p>
+                  {!modifying ? (
+                    group.label
+                  ) : (
+                    <input
+                      ref={this.saveInputRef}
+                      autoFocus
+                      type="text"
+                      defaultValue={group.label}
+                    />
+                  )}
+                  {modifying ? (
+                    <Button
+                      className={styles['save-button']}
+                      disabled={saving}
+                      theme="regular"
+                      onClick={this.rename}
+                    >
+                      {t('Groups.save')} {saving && <Spinner />}
+                    </Button>
+                  ) : (
+                    <Button
+                      className={btnStyles['btn--no-outline']}
+                      onClick={this.modifyName}
+                    >
+                      &nbsp;&nbsp;{t('Groups.rename')}
+                    </Button>
+                  )}
+                </p>
+              </form>
+              <h3>{t('Groups.accounts')}</h3>
+              <Query query={client => client.all(ACCOUNT_DOCTYPE)}>
+                {({ data: accounts, fetchStatus }) => {
+                  if (fetchStatus === 'loading') {
+                    return <Loading />
+                  }
+
+                  return (
+                    <Table className={styles.GrpStg__table}>
+                      <thead>
+                        <tr>
+                          <th className={styles.GrpStg__accntLabel}>
+                            {t('Groups.label')}
+                          </th>
+                          <th className={styles.GrpStg__accntBank}>
+                            {t('Groups.bank')}
+                          </th>
+                          <th className={styles.GrpStg__accntNumber}>
+                            {t('Groups.account-number')}
+                          </th>
+                          <th className={styles.GrpStg__accntToggle}>
+                            {t('Groups.included')}
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {accounts &&
+                          sortBy(accounts, ['institutionLabel', 'label']).map(
+                            account => this.renderAccountLine(account, group)
+                          )}
+                      </tbody>
+                    </Table>
+                  )
+                }}
+              </Query>
+              <p>
+                <Button theme="danger-outline" onClick={this.onRemove}>
+                  {t('Groups.delete')}
+                </Button>
+              </p>
+            </div>
+          )
+        }}
+      </Query>
     )
   }
 }
 
-const mkNewGroup = () => ({
-  label: 'Nouveau groupe',
-  accounts: []
-})
-
-const mapDocumentsToProps = props => {
-  const groupId = props.routeParams.groupId
-  return {
-    group:
-      groupId === 'new' || !groupId
-        ? mkNewGroup()
-        : fetchDocument(GROUP_DOCTYPE, groupId),
-    accounts: fetchCollection('accounts', ACCOUNT_DOCTYPE)
-  }
-}
-
-const enhance = Component =>
-  cozyConnect(mapDocumentsToProps)(
-    translate()(withRouter(withDispatch(Component)))
-  )
+const enhance = Component => translate()(withRouter(withDispatch(Component)))
 
 const EnhancedGroupSettings = enhance(GroupSettings)
 export default EnhancedGroupSettings
