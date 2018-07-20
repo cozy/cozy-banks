@@ -37,9 +37,10 @@ import {
   getAccountInstitutionLabel
 } from 'ducks/account/helpers'
 import { connect } from 'react-redux'
-import { getDocument } from 'old-cozy-client'
+import { Query } from 'cozy-client'
 import { TRANSACTION_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
 import Page from './Page'
+import { isCollectionLoading } from 'utils/client'
 
 const Separator = () => <hr className={styles.TransactionModalSeparator} />
 
@@ -234,25 +235,51 @@ TransactionModal.propTypes = {
   account: PropTypes.object.isRequired
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const transaction = getDocument(
-    state,
-    TRANSACTION_DOCTYPE,
-    ownProps.transactionId
-  )
-  const account = getDocument(state, ACCOUNT_DOCTYPE, transaction.account)
-
-  return { transaction, account }
-}
-
 const DumbTransactionModal = compose(translate(), withBreakpoints())(
   TransactionModal
 )
 
+const LoadingQuery = props => {
+  const { children: renderFun, ...restProps } = props
+  return (
+    <Query {...restProps}>
+      {collection => {
+        if (isCollectionLoading(collection)) {
+          return <span>Loading...</span>
+        } else {
+          console.log('Loading loaded', collection.data)
+          return renderFun(collection)
+        }
+      }}
+    </Query>
+  )
+}
+
+const findOne = (doctype, id) => client =>
+  client.find(doctype).where({ _id: id })
+
+const withTransactionAndAccount = Component => props => {
+  return (
+    <LoadingQuery query={findOne(TRANSACTION_DOCTYPE, props.transactionId)}>
+      {({ data: transactions }) => (
+        <LoadingQuery query={findOne(ACCOUNT_DOCTYPE, transactions[0].account)}>
+          {({ data: accounts }) => (
+            <Component
+              {...props}
+              transaction={transactions[0]}
+              account={accounts[0]}
+            />
+          )}
+        </LoadingQuery>
+      )}
+    </LoadingQuery>
+  )
+}
+
 export default compose(
-  connect(mapStateToProps),
   withDispatch,
-  withUpdateCategory()
+  withUpdateCategory(),
+  withTransactionAndAccount
 )(DumbTransactionModal)
 
 export { DumbTransactionModal }
