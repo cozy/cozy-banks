@@ -44,12 +44,9 @@ import { getBrands } from 'ducks/brandDictionary'
 import { AccountSwitch } from 'ducks/account'
 import { isIOSApp } from 'cozy-device-helper'
 import { getKonnectorFromTrigger } from 'utils/triggers'
+import { isCollectionLoading } from 'utils/client'
 
 const { BarRight } = cozy.bar
-
-const isPendingOrLoading = function(col) {
-  return col.fetchStatus === 'pending' || col.fetchStatus === 'loading'
-}
 
 const STEP_INFINITE_SCROLL = 30
 const SCROLL_THRESOLD_TO_ACTIVATE_TOP_INFINITE_SCROLL = 150
@@ -233,7 +230,7 @@ class TransactionsPage extends Component {
     }
 
     let brandsWithoutTrigger = []
-    if (!isPendingOrLoading(triggers)) {
+    if (!isCollectionLoading(triggers)) {
       const slugs = this.getKonnectorSlugs(triggers.data)
       const isBrandKonnectorAbsent = brand =>
         !includes(slugs, brand.konnectorSlug)
