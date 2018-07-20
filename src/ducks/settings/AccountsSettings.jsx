@@ -7,7 +7,7 @@ import { groupBy, flowRight as compose, sortBy } from 'lodash'
 import { getAppUrlById, fetchApps } from 'ducks/apps'
 import Table from 'components/Table'
 import Loading from 'components/Loading'
-import { cozyConnect, fetchCollection } from 'old-cozy-client'
+import { queryConnect } from 'utils/client-compat'
 import plus from 'assets/icons/16/plus.svg'
 import styles from './AccountsSettings.styl'
 import btnStyles from 'styles/buttons.styl'
@@ -74,13 +74,16 @@ class AccountsSettings extends Component {
   }
 
   render() {
-    const { t, accounts } = this.props
+    const { t, accountsCollection } = this.props
 
-    if (accounts.fetchStatus === 'loading') {
+    if (accountsCollection.fetchStatus === 'loading') {
       return <Loading />
     }
 
-    const sortedAccounts = sortBy(accounts.data, ['institutionLabel', 'label'])
+    const sortedAccounts = sortBy(accountsCollection.data, [
+      'institutionLabel',
+      'label'
+    ])
     const accountBySharingDirection = groupBy(sortedAccounts, account => {
       return account.shared === undefined
     })
@@ -114,10 +117,6 @@ class AccountsSettings extends Component {
   }
 }
 
-const mapDocumentsToProps = () => ({
-  accounts: fetchCollection('accounts', ACCOUNT_DOCTYPE)
-})
-
 const mapDispatchToProps = dispatch => ({
   fetchApps: () => dispatch(fetchApps())
 })
@@ -140,7 +139,12 @@ const mapStateToProps = state => ({
 // }
 
 export default compose(
-  cozyConnect(mapDocumentsToProps),
+  queryConnect({
+    accountsCollection: {
+      query: client => client.all(ACCOUNT_DOCTYPE),
+      as: 'accounts'
+    }
+  }),
   connect(mapStateToProps, mapDispatchToProps),
   translate()
 )(AccountsSettings)
