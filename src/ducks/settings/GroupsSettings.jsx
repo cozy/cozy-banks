@@ -3,12 +3,12 @@ import { withRouter } from 'react-router'
 import { translate, Button, Icon } from 'cozy-ui/react'
 import Table from 'components/Table'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
-import { cozyConnect, fetchCollection } from 'old-cozy-client'
+import { queryConnect } from 'utils/client-compat'
 import Loading from 'components/Loading'
 import plus from 'assets/icons/16/plus.svg'
 import styles from './GroupsSettings.styl'
 import btnStyles from 'styles/buttons.styl'
-import { sortBy } from 'lodash'
+import { sortBy, flowRight as compose } from 'lodash'
 
 const isPending = reduxObj => {
   return reduxObj.fetchStatus === 'pending'
@@ -84,9 +84,16 @@ const Groups = withRouter(
   }
 )
 
-export default cozyConnect(() => {
-  return {
-    accounts: fetchCollection('accounts', ACCOUNT_DOCTYPE),
-    groups: fetchCollection('groups', GROUP_DOCTYPE)
-  }
-})(translate()(Groups))
+export default compose(
+  queryConnect({
+    accounts: {
+      query: client => client.all(ACCOUNT_DOCTYPE),
+      as: 'accounts'
+    },
+    groups: {
+      query: client => client.all(GROUP_DOCTYPE),
+      as: 'groups'
+    }
+  }),
+  translate()
+)(Groups)
