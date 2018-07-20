@@ -17,13 +17,15 @@ import { withDispatch } from 'utils'
 import BackButton from 'components/BackButton'
 import PageTitle from 'components/PageTitle'
 import { connect } from 'react-redux'
-import { cozyConnect, fetchDocument, updateDocument } from 'old-cozy-client'
+import { updateDocument } from 'old-cozy-client'
 import styles from './AccountsSettings.styl'
 import { flowRight as compose } from 'lodash'
 import { destroyAccount } from 'actions'
 import spinner from 'assets/icons/icon-spinner.svg'
 import { getAccountInstitutionLabel } from '../account/helpers'
 import { getAppUrlById, fetchApps } from 'ducks/apps'
+import { Query } from 'cozy-client'
+import { ACCOUNT_DOCTYPE } from 'doctypes'
 
 const DeleteConfirm = ({
   cancel,
@@ -207,46 +209,45 @@ const GeneralSettings = compose(
   translate()
 )(_GeneralSettings)
 
-const AccountSettings = function({ account, t }) {
-  if (!account) {
-    return <Loading />
-  }
+const AccountSettings = function({ routeParams, t }) {
   return (
-    <div>
-      <BackButton to="/settings/accounts" arrow />
-      <Topbar>
-        <PageTitle>{account.shortLabel || account.label}</PageTitle>
-      </Topbar>
-      <Tabs className={styles.AcnStg__tabs} initialActiveTab="details">
-        <TabList className={styles.AcnStg__tabList}>
-          <Tab className={styles.AcnStg__tab} name="details">
-            {t('AccountSettings.details')}
-          </Tab>
-          <Tab className={styles.AcnStg__tab} name="sharing">
-            {t('AccountSettings.sharing')}
-          </Tab>
-        </TabList>
-        <TabPanels>
-          <TabPanel name="details">
-            <GeneralSettings account={account} />
-          </TabPanel>
-          <TabPanel name="sharing">
-            <AccountSharingDetails account={account} />
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
-    </div>
+    <Query query={client => client.get(ACCOUNT_DOCTYPE, routeParams.accountId)}>
+      {({ data, fetchStatus }) => {
+        if (fetchStatus === 'loading') {
+          return <Loading />
+        }
+
+        const [account] = data
+
+        return (
+          <div>
+            <BackButton to="/settings/accounts" arrow />
+            <Topbar>
+              <PageTitle>{account.shortLabel || account.label}</PageTitle>
+            </Topbar>
+            <Tabs className={styles.AcnStg__tabs} initialActiveTab="details">
+              <TabList className={styles.AcnStg__tabList}>
+                <Tab className={styles.AcnStg__tab} name="details">
+                  {t('AccountSettings.details')}
+                </Tab>
+                <Tab className={styles.AcnStg__tab} name="sharing">
+                  {t('AccountSettings.sharing')}
+                </Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel name="details">
+                  <GeneralSettings account={account} />
+                </TabPanel>
+                <TabPanel name="sharing">
+                  <AccountSharingDetails account={account} />
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
+          </div>
+        )
+      }}
+    </Query>
   )
 }
 
-const mapDocumentsToProps = function({ routeParams }) {
-  return {
-    account: fetchDocument('io.cozy.bank.accounts', routeParams.accountId)
-  }
-}
-
-export default compose(
-  cozyConnect(mapDocumentsToProps),
-  withDispatch,
-  translate()
-)(AccountSettings)
+export default compose(withDispatch, translate())(AccountSettings)
