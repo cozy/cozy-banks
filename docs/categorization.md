@@ -22,9 +22,17 @@ results in the `localCategoryId` and `localCategoryProba` properties of the
 Currently, the local categorization model fetches all the manually categorized
 transactions from the stack on every run. We decided it's the best for now to
 compute the entire model everytime because the pros/cons balance of saving the
-model in a specific doctype is not good for this model. If we need to update
-the model, we will need to do some risky migrations. This, for a somewhat
-negligable CPU time because the model is simple and fast to compute entirely.
+model in a specific doctype is not good for this model.
+
+Pros:
+
+* Don't need to regenerate the whole model everytime the service is ran
+
+Cons:
+
+* Need to do some migrations if we want to update the model algorythm
+
+Since the CPU time needed to compute the whole model is low (users will never recategorize the majority of their transactions since it's already almost accurately categorized by Linxo), the main advantage is weak in front of the disadvantage.
 
 The solution of saving the model in the DB has already been implemented and
 reverted following this decision. If we finally need to use this solution, we
