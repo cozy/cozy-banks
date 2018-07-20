@@ -34,7 +34,7 @@ export const isNotificationEnabled = settings => {
   )
 }
 
-const getSettingsFromCollection = col => get(col, 'data[0]')
+export const getSettingsFromCollection = col => get(col, 'data[0]')
 
 // selectors
 

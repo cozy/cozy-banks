@@ -1,21 +1,18 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { cozyConnect } from 'old-cozy-client'
 import { connect } from 'react-redux'
 import { Title } from 'cozy-ui/react/Text'
 import { translate } from 'cozy-ui/react/I18n'
 import { flowRight as compose } from 'lodash'
 import ToggleRow from './ToggleRow'
-import {
-  getSettings,
-  fetchSettingsCollection,
-  createSettings,
-  updateSettings
-} from '.'
+import { createSettings, updateSettings, getSettingsFromCollection } from '.'
+import { queryConnect } from 'utils/client-compat'
+import { SETTINGS_DOCTYPE } from 'doctypes'
 
 class TogglePane extends Component {
   onToggle = (setting, checked) => {
-    const { settings, dispatch } = this.props
+    const { settingsCollection, dispatch } = this.props
+    const settings = getSettingsFromCollection(settingsCollection)
     const updateOrCreate = settings._id ? updateSettings : createSettings
 
     settings[this.props.settingsKey][setting].enabled = checked
@@ -23,7 +20,8 @@ class TogglePane extends Component {
   }
 
   onChangeValue = (setting, value) => {
-    const { settings, dispatch } = this.props
+    const { settingsCollection, dispatch } = this.props
+    const settings = getSettingsFromCollection(settingsCollection)
     const updateOrCreate = settings._id ? updateSettings : createSettings
 
     settings[this.props.settingsKey][setting].value = value.replace(/\D/i, '')
@@ -31,7 +29,13 @@ class TogglePane extends Component {
   }
 
   render() {
-    const { rows, settings, settingsKey, t, title } = this.props
+    const { rows, settingsCollection, settingsKey, t, title } = this.props
+
+    if (settingsCollection.fetchStatus === 'loading') {
+      return null
+    }
+
+    const settings = getSettingsFromCollection(settingsCollection)
 
     return (
       <div>
@@ -71,16 +75,15 @@ TogglePane.propTypes = {
   settingsKey: PropTypes.string.isRequired
 }
 
-const mapStateToProps = state => ({
-  settings: getSettings(state)
-})
-
-const mapDocumentsToProps = () => ({
-  settingsCollection: fetchSettingsCollection()
-})
-
 export default compose(
   translate(),
-  cozyConnect(mapDocumentsToProps),
-  connect(mapStateToProps)
+  // We keep `connect` just so the component still receive the `dispatch` function as prop
+  // This has to be removed when we handle the mutations with the new cozy-client
+  connect(),
+  queryConnect({
+    settingsCollection: {
+      query: client => client.all(SETTINGS_DOCTYPE),
+      as: 'settings'
+    }
+  })
 )(TogglePane)
