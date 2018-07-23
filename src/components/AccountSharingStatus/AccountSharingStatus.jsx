@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { getSharingInfo } from 'reducers'
 import SharingIcon from 'components/SharingIcon'
 import { fetchSharingInfo } from 'modules/SharingStatus'
-import { Media, Bd, Img } from 'cozy-ui/react/Media'
+import { Media, Bd, Img } from 'cozy-ui/react'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 import styles from './AccountSharingStatus.styl'
 

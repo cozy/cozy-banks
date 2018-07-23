@@ -9,13 +9,15 @@ import {
   Modal,
   ModalHeader,
   ModalContent,
+  Media,
+  Bd,
+  Img,
   withBreakpoints
 } from 'cozy-ui/react'
 import { withDispatch } from 'utils'
 import { flowRight as compose } from 'lodash'
 import cx from 'classnames'
 
-import { Media, Bd, Img } from 'cozy-ui/react/Media'
 import { Figure } from 'components/Figure'
 import { getLabel } from 'ducks/transactions'
 import CategoryIcon from 'ducks/categories/CategoryIcon'

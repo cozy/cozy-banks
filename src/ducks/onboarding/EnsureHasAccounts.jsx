@@ -8,7 +8,7 @@ import { withRouter } from 'react-router'
 import Onboarding from './Onboarding'
 import styles from './Onboarding.styl'
 import stylesLayout from 'styles/main.styl'
-import { Layout, Main, Content } from 'cozy-ui/react/Layout'
+import { Layout, Main, Content } from 'cozy-ui/react'
 import { isCollectionLoading } from 'utils/client'
 
 export const getAccounts = state => {

@@ -11,8 +11,7 @@ import BackButton from 'components/BackButton'
 import Table from 'components/Table'
 import PageTitle from 'components/PageTitle'
 
-import { Button, translate, Toggle } from 'cozy-ui/react'
-import Spinner from 'cozy-ui/react/Spinner'
+import { Button, translate, Toggle, Spinner } from 'cozy-ui/react'
 
 import styles from './GroupsSettings.styl'
 import btnStyles from 'styles/buttons.styl'

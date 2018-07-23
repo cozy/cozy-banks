@@ -15,8 +15,7 @@ import {
 } from 'lodash'
 import { getFilteredAccounts } from 'ducks/filters'
 import BarBalance from 'components/BarBalance'
-import { translate } from 'cozy-ui/react/I18n'
-import { withBreakpoints } from 'cozy-ui/react'
+import { translate, withBreakpoints } from 'cozy-ui/react'
 
 import {
   getTransactionsFilteredByAccount,

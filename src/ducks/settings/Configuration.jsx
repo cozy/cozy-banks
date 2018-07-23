@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import TogglePane from './TogglePane'
-import { translate } from 'cozy-ui/react/I18n'
+import { translate } from 'cozy-ui/react'
 
 class Configuration extends Component {
   render() {

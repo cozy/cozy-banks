@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { translate } from 'cozy-ui/react/I18n'
+import { translate } from 'cozy-ui/react'
 import Chart from './Chart'
 import styles from './CategoriesChart.styl'
 import FigureBlock from 'components/Figure/FigureBlock'

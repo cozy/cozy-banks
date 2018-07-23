@@ -6,10 +6,12 @@ import {
   withBreakpoints,
   Text,
   Caption,
-  ListItemText
+  ListItemText,
+  Media,
+  Bd,
+  Img
 } from 'cozy-ui/react'
 import CategoryIcon from './CategoryIcon'
-import { Media, Bd, Img } from 'cozy-ui/react/Media'
 import { Table, TdWithIcon, TdSecondary } from 'components/Table'
 import { Figure } from 'components/Figure'
 import styles from './styles.styl'

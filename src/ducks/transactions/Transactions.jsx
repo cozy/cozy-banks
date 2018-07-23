@@ -15,6 +15,9 @@ import { format } from 'date-fns'
 import {
   translate,
   withBreakpoints,
+  Media,
+  Bd,
+  Img,
   ListItemText,
   Caption,
   Text,
@@ -37,7 +40,6 @@ import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { withUpdateCategory } from 'ducks/categories'
 import { withDispatch } from 'utils'
 import styles from './Transactions.styl'
-import { Media, Bd, Img } from 'cozy-ui/react/Media'
 import { InfiniteScroll, ScrollRestore } from './scroll'
 import TransactionModal from './TransactionModal'
 import { isIOSApp } from 'cozy-device-helper'

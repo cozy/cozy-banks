@@ -1,6 +1,6 @@
 /* global __TARGET__ */
 
-import { I18n } from 'cozy-ui/react/I18n'
+import { I18n } from 'cozy-ui/react'
 import React from 'react'
 import CozyClient, { CozyProvider } from 'cozy-client'
 

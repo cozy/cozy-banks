@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
-import { translate } from 'cozy-ui/react/I18n'
+import { translate, withBreakpoints } from 'cozy-ui/react'
 import Loading from 'components/Loading'
 import { getFilteredTransactions } from 'ducks/filters'
 import { fetchTransactions, getTransactions } from 'actions'
@@ -9,7 +9,6 @@ import { transactionsByCategory, computeCategorieData } from './helpers'
 import Categories from './Categories'
 import styles from './CategoriesPage.styl'
 import { flowRight as compose, sortBy } from 'lodash'
-import { withBreakpoints } from 'cozy-ui/react'
 import CategoriesHeader from './CategoriesHeader'
 import {
   getSettings,
