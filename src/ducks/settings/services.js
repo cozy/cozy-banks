@@ -1,6 +1,6 @@
 import { cozyClient, log } from 'cozy-konnector-libs'
 import { DEFAULTS_SETTINGS, DOCTYPE } from './constants'
-import merge from 'lodash/merge'
+import { merge } from 'lodash'
 
 const createSetting = setting => {
   log('info', 'Create setting')

@@ -1,6 +1,5 @@
 import React from 'react'
-import debounce from 'lodash/debounce'
-import throttle from 'lodash/throttle'
+import { debounce, throttle } from 'lodash'
 import ReactDOM from 'react-dom'
 import { getScroll, getScrollHeight } from './utils'
 

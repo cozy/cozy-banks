@@ -1,5 +1,5 @@
 import React from 'react'
-import { flowRight as compose, sumBy, uniq, sortBy, get } from 'lodash'
+import { flowRight as compose, sumBy, uniq, sortBy, get, keyBy } from 'lodash'
 import { connect } from 'react-redux'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
@@ -7,7 +7,6 @@ import { or } from 'airbnb-prop-types'
 
 import { withRouter } from 'react-router'
 import { translate, Button, Icon, withBreakpoints } from 'cozy-ui/react'
-import { keyBy } from 'lodash'
 import { isCollectionLoading } from 'utils/client'
 
 import Topbar from 'components/Topbar'

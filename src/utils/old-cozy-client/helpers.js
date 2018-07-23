@@ -1,5 +1,5 @@
 /* global cozy */
-import omit from 'lodash/omit'
+import { omit } from 'lodash'
 import { retry } from './utils'
 
 const slugify = text =>

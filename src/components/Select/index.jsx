@@ -2,7 +2,7 @@ import React from 'react'
 import Icon from 'cozy-ui/react/Icon'
 import styles from './styles.styl'
 import SelectBox, { SelectBoxWithFixedOptions } from 'cozy-ui/react/SelectBox'
-import find from 'lodash/find'
+import { find } from 'lodash'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import { mergeStyles } from './styleUtils'
 

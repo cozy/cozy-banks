@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect'
-import groupBy from 'lodash/groupBy'
+import { groupBy } from 'lodash'
 import { GROUP_DOCTYPE } from 'doctypes'
 
 const getCollection = (state, attr) => {

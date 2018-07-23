@@ -3,7 +3,7 @@ import { translate } from 'cozy-ui/react/I18n'
 import Chart from './Chart'
 import styles from './CategoriesChart.styl'
 import FigureBlock from 'components/Figure/FigureBlock'
-import sortBy from 'lodash/sortBy'
+import { sortBy } from 'lodash'
 
 const hexToRGBA = (hex, a) => {
   const cutHex = hex.substring(1)
