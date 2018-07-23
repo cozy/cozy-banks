@@ -26,7 +26,7 @@ import {
 
 import { ConnectedSelectDates } from 'components/SelectDates'
 import TransactionSelectDates from 'ducks/transactions/TransactionSelectDates'
-import { getAppUrlById, fetchApps } from 'ducks/apps'
+import { getAppUrlById } from 'selectors'
 import { getCategoryIdFromName } from 'ducks/categories/categoriesMap'
 import { hydrateTransaction, getDate } from 'ducks/transactions/helpers'
 import { getCategoryId } from 'ducks/categories/helpers'
@@ -38,7 +38,9 @@ import BackButton from 'components/BackButton'
 import { TransactionTableHead, TransactionsWithSelection } from './Transactions'
 import styles from './TransactionsPage.styl'
 import {
+  APP_DOCTYPE,
   BILLS_DOCTYPE,
+  GROUP_DOCTYPE,
   TRIGGER_DOCTYPE,
   ACCOUNT_DOCTYPE,
   TRANSACTION_DOCTYPE
@@ -88,10 +90,6 @@ class TransactionsPage extends Component {
     limitMin: 0,
     limitMax: STEP_INFINITE_SCROLL,
     infiniteScrollTop: false
-  }
-
-  componentDidMount() {
-    this.props.fetchApps()
   }
 
   setCurrentMonthFollowingMostRecentTransaction() {
@@ -341,6 +339,8 @@ const mapStateToProps = (state, ownProps) => {
   const enhancedState = {
     ...state,
     accounts: ownProps.accounts,
+    apps: ownProps.apps,
+    groups: ownProps.groups,
     transactions: ownProps.transactions,
     bills: ownProps.bills,
     triggers: ownProps.triggers
@@ -350,10 +350,10 @@ const mapStateToProps = (state, ownProps) => {
       // this keys are used on Transactions.jsx to:
       // - find transaction label
       // - display appName in translate `Transactions.actions.app`
-      MAIF: getAppUrlById(state, 'io.cozy.apps/maif'),
-      HEALTH: getAppUrlById(state, 'io.cozy.apps/sante'),
-      EDF: getAppUrlById(state, 'io.cozy.apps/edf'),
-      COLLECT: getAppUrlById(state, 'io.cozy.apps/collect')
+      MAIF: getAppUrlById(enhancedState, 'io.cozy.apps/maif'),
+      HEALTH: getAppUrlById(enhancedState, 'io.cozy.apps/sante'),
+      EDF: getAppUrlById(enhancedState, 'io.cozy.apps/edf'),
+      COLLECT: getAppUrlById(enhancedState, 'io.cozy.apps/collect')
     },
     accountIds: getFilteredAccountIds(enhancedState),
     filteringDoc: state.filters.filteringDoc,
@@ -366,15 +366,12 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  dispatch,
-  fetchApps: () => dispatch(fetchApps())
-})
-
 export default compose(
   withRouter,
   queryConnect({
+    apps: { query: client => client.all(APP_DOCTYPE), as: 'apps' },
     accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' },
+    groups: { query: client => client.all(GROUP_DOCTYPE), as: 'groups' },
     triggers: { query: client => client.all(TRIGGER_DOCTYPE), as: 'triggers' },
     bills: { query: client => client.all(BILLS_DOCTYPE), as: 'bills' },
     transactions: {
@@ -383,6 +380,6 @@ export default compose(
     }
   }),
   withBreakpoints(),
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps),
   translate()
 )(TransactionsPage)

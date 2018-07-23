@@ -23,9 +23,10 @@ import { flowRight as compose } from 'lodash'
 import { destroyAccount } from 'actions'
 import spinner from 'assets/icons/icon-spinner.svg'
 import { getAccountInstitutionLabel } from '../account/helpers'
-import { getAppUrlById, fetchApps } from 'ducks/apps'
+import { getAppUrlById } from 'selectors'
 import { Query } from 'cozy-client'
-import { ACCOUNT_DOCTYPE } from 'doctypes'
+import { queryConnect } from 'utils/client-compat'
+import { ACCOUNT_DOCTYPE, APP_DOCTYPE } from 'doctypes'
 
 const DeleteConfirm = ({
   cancel,
@@ -50,16 +51,8 @@ const DeleteConfirm = ({
   )
 }
 
-const AccountSharingDetails = translate()(({ t }) => (
-  <div>{t('ComingSoon.title')}</div>
-))
-
 class _GeneralSettings extends Component {
   state = { modifying: false }
-
-  componentDidMount() {
-    this.props.fetchApps()
-  }
 
   onClickModify = () => {
     const { account } = this.props
@@ -109,11 +102,15 @@ class _GeneralSettings extends Component {
   }
 
   render() {
-    const { t, account } = this.props
+    const { t, account, collectUrl } = this.props
     const { modifying, deleting, showingDeleteConfirmation } = this.state
+
     const confirmPrimaryText = t('AccountSettings.confirm-deletion.description')
-      .replace('#{LINK}', `<a href="${this.props.collectUrl}" target="_blank">`)
-      .replace('#{/LINK}', '</a>')
+      .replace(
+        '#{LINK}',
+        collectUrl ? `<a href="${collectUrl}" target="_blank">` : ''
+      )
+      .replace('#{/LINK}', collectUrl ? '</a>' : '')
 
     return (
       <div>
@@ -194,16 +191,18 @@ class _GeneralSettings extends Component {
 const mapDispatchToProps = dispatch => ({
   destroyAccount: account => {
     return dispatch(destroyAccount(account))
-  },
-  fetchApps: () => dispatch(fetchApps())
+  }
 })
 
-const mapStateToProps = state => ({
-  collectUrl: getAppUrlById(state, 'io.cozy.apps/collect')
+const mapStateToProps = (state, ownProps) => ({
+  collectUrl: getAppUrlById(ownProps, 'io.cozy.apps/collect')
 })
 
 const GeneralSettings = compose(
   withRouter,
+  queryConnect({
+    apps: { query: client => client.all(APP_DOCTYPE), as: 'apps' }
+  }),
   withDispatch,
   connect(mapStateToProps, mapDispatchToProps),
   translate()
@@ -239,7 +238,7 @@ const AccountSettings = function({ routeParams, t }) {
                   <GeneralSettings account={account} />
                 </TabPanel>
                 <TabPanel name="sharing">
-                  <AccountSharingDetails account={account} />
+                  <div>{t('ComingSoon.title')}</div>
                 </TabPanel>
               </TabPanels>
             </Tabs>
