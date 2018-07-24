@@ -1,7 +1,7 @@
 import { isHealthExpense } from 'ducks/categories/helpers'
 import assert from 'utils/assert'
 import { getAccounts, getBills } from 'selectors'
-import find from 'lodash/find'
+import { find } from 'lodash'
 
 const getBillId = idWithDoctype => idWithDoctype && idWithDoctype.split(':')[1]
 export const hydrateReimbursementWithBill = (reimbursement, getBill) => {

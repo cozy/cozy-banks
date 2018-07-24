@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Spinner from 'cozy-ui/react/Spinner'
+import { Spinner } from 'cozy-ui/react'
 import DisplayError from 'components/DisplayError'
 
 /**

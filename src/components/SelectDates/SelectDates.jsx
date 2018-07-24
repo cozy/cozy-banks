@@ -10,13 +10,9 @@ import {
   parse,
   differenceInCalendarMonths
 } from 'date-fns'
-import { translate } from 'cozy-ui/react/I18n'
-
-import withBreakpoints from 'cozy-ui/react/helpers/withBreakpoints'
+import { Icon, Chip, translate, withBreakpoints } from 'cozy-ui/react'
 
 import styles from './SelectDates.styl'
-import Icon from 'cozy-ui/react/Icon'
-import Chip from 'cozy-ui/react/Chip'
 import Select from 'components/Select'
 import cx from 'classnames'
 import scrollAware from './scrollAware'

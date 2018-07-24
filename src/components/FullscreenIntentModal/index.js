@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Portal from 'preact-portal'
-import Modal from 'cozy-ui/react/Modal'
+import { Modal } from 'cozy-ui/react'
 import styles from './styles.styl'
 
 class FullscreenIntentModal extends Component {

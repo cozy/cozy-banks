@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
-import Toggle from 'cozy-ui/react/Toggle'
+import { Toggle } from 'cozy-ui/react'
 import styles from './ToggleRow.styl'
 
 class ToggleRow extends Component {

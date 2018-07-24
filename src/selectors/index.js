@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect'
-import groupBy from 'lodash/groupBy'
+import { groupBy } from 'lodash'
 import { GROUP_DOCTYPE } from 'doctypes'
 
 const getCollection = (state, attr) => {
@@ -48,3 +48,15 @@ export const getAllGroups = createSelector(
   [getGroups, getVirtualGroups],
   (groups, virtualGroups) => [...groups, ...virtualGroups]
 )
+
+export const getAppUrlById = (state, id) => {
+  const apps = state.apps
+  if (apps && apps.data && apps.data.length > 0) {
+    for (const app of apps.data) {
+      if (app._id === id) {
+        return app.links.related
+      }
+    }
+  }
+  return
+}

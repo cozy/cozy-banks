@@ -4,13 +4,17 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-
 import { flowRight as compose, sortBy } from 'lodash'
 import classNames from 'classnames'
-
-import { translate, withBreakpoints, Icon } from 'cozy-ui/react'
-import Overlay from 'cozy-ui/react/Overlay'
-import { Media, Bd, Img } from 'cozy-ui/react/Media'
+import {
+  translate,
+  withBreakpoints,
+  Icon,
+  Media,
+  Bd,
+  Img,
+  Overlay
+} from 'cozy-ui/react'
 
 import AccountSharingStatus from 'components/AccountSharingStatus'
 import BarItem from 'components/BarItem'

@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Title } from 'cozy-ui/react/Text'
-import { translate } from 'cozy-ui/react/I18n'
+import { Title, translate } from 'cozy-ui/react'
 import { flowRight as compose } from 'lodash'
 import ToggleRow from './ToggleRow'
 import { createSettings, updateSettings, getSettingsFromCollection } from '.'
@@ -11,20 +10,20 @@ import { SETTINGS_DOCTYPE } from 'doctypes'
 
 class TogglePane extends Component {
   onToggle = (setting, checked) => {
-    const { settingsCollection, dispatch } = this.props
+    const { settingsCollection, dispatch, settingsKey } = this.props
     const settings = getSettingsFromCollection(settingsCollection)
     const updateOrCreate = settings._id ? updateSettings : createSettings
 
-    settings[this.props.settingsKey][setting].enabled = checked
+    settings[settingsKey][setting].enabled = checked
     dispatch(updateOrCreate(settings))
   }
 
   onChangeValue = (setting, value) => {
-    const { settingsCollection, dispatch } = this.props
+    const { settingsCollection, dispatch, settingsKey } = this.props
     const settings = getSettingsFromCollection(settingsCollection)
     const updateOrCreate = settings._id ? updateSettings : createSettings
 
-    settings[this.props.settingsKey][setting].value = value.replace(/\D/i, '')
+    settings[settingsKey][setting].value = value.replace(/\D/i, '')
     dispatch(updateOrCreate(settings))
   }
 

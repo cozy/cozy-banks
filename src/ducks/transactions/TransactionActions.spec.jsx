@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-import keyBy from 'lodash/keyBy'
+import { keyBy } from 'lodash'
 
 import { SyncTransactionActions } from './TransactionActions'
 import { hydrateReimbursementWithBill } from 'ducks/transactions/helpers'

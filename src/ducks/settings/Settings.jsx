@@ -1,8 +1,14 @@
 /* global __TARGET__, __APP_VERSION__ */
 import React from 'react'
-import { translate } from 'cozy-ui/react/I18n'
 import Topbar from 'components/Topbar'
-import { Tabs, TabPanels, TabPanel, TabList, Tab } from 'cozy-ui/react'
+import {
+  translate,
+  Tabs,
+  TabPanels,
+  TabPanel,
+  TabList,
+  Tab
+} from 'cozy-ui/react'
 import styles from './Settings.styl'
 import { withRouter } from 'react-router'
 import { flowRight as compose } from 'lodash'

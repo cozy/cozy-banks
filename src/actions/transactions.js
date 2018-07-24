@@ -1,13 +1,8 @@
 /**
   Bank transactions related features
 **/
-
-import flatten from 'lodash/flatten'
-import uniq from 'lodash/uniq'
-import parse from 'date-fns/parse'
-import format from 'date-fns/format'
-import addMonths from 'date-fns/add_months'
-
+import { flatten, uniq } from 'lodash'
+import { parse, format, addMonths } from 'date-fns'
 import { TRANSACTION_DOCTYPE } from 'doctypes'
 import { fetchCollection, getCollection } from 'old-cozy-client'
 import { isHealthExpense } from 'ducks/categories/helpers'

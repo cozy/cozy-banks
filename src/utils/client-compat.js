@@ -1,5 +1,5 @@
 import React from 'react'
-import compose from 'lodash/flowRight'
+import { flowRight as compose } from 'lodash'
 import { Query } from 'cozy-client'
 
 export const withQuery = (dest, queryOpts) => Component => (props, context) => {

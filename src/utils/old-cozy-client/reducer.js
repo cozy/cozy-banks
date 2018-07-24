@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux'
 import { mapValues } from './utils'
-import omit from 'lodash/omit'
-import uniq from 'lodash/uniqBy'
+import { omit, uniq } from 'lodash'
 import sharings, {
   FETCH_SHARINGS,
   getSharings,

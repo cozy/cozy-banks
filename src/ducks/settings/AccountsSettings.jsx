@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { translate, Button, Icon } from 'cozy-ui/react'
 import { getSharingInfo } from 'reducers'
 import { groupBy, flowRight as compose, sortBy } from 'lodash'
-import { getAppUrlById, fetchApps } from 'ducks/apps'
+import { getAppUrlById } from 'selectors'
 import Table from 'components/Table'
 import Loading from 'components/Loading'
 import { queryConnect } from 'utils/client-compat'
@@ -15,7 +15,7 @@ import AddAccountLink from 'ducks/settings/AddAccountLink'
 import cx from 'classnames'
 import { getAccountInstitutionLabel } from '../account/helpers'
 
-import { ACCOUNT_DOCTYPE } from 'doctypes'
+import { ACCOUNT_DOCTYPE, APP_DOCTYPE } from 'doctypes'
 
 // See comment below about sharings
 // import { ACCOUNT_DOCTYPE } from 'doctypes'
@@ -69,10 +69,6 @@ const AccountsTable = ({ accounts, t }) => (
 )
 
 class AccountsSettings extends Component {
-  componentDidMount() {
-    this.props.fetchApps()
-  }
-
   render() {
     const { t, accountsCollection } = this.props
 
@@ -117,10 +113,6 @@ class AccountsSettings extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  fetchApps: () => dispatch(fetchApps())
-})
-
 const mapStateToProps = state => ({
   collectUrl: getAppUrlById(state, 'io.cozy.apps/collect'),
   getSharingInfo: (doctype, id) => {
@@ -143,8 +135,9 @@ export default compose(
     accountsCollection: {
       query: client => client.all(ACCOUNT_DOCTYPE),
       as: 'accounts'
-    }
+    },
+    apps: { query: client => client.all(APP_DOCTYPE), as: 'apps' }
   }),
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps),
   translate()
 )(AccountsSettings)
