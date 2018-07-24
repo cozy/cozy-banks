@@ -18,7 +18,12 @@ import { withDispatch } from 'utils'
 import { flowRight as compose } from 'lodash'
 import cx from 'classnames'
 
+import { Query } from 'cozy-client'
+
 import { Figure } from 'components/Figure'
+import Loading from 'components/Loading'
+import Page from './Page'
+
 import { getLabel } from 'ducks/transactions'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import {
@@ -30,6 +35,7 @@ import { withUpdateCategory } from 'ducks/categories'
 import PropTypes from 'prop-types'
 import { getCategoryId } from 'ducks/categories/helpers'
 import styles from './TransactionModal.styl'
+
 import iconGraph from 'assets/icons/icon-graph.svg'
 import iconComment from 'assets/icons/actions/icon-comment.svg'
 import iconCredit from 'assets/icons/icon-credit.svg'
@@ -38,10 +44,7 @@ import {
   getAccountLabel,
   getAccountInstitutionLabel
 } from 'ducks/account/helpers'
-import { connect } from 'react-redux'
-import { Query } from 'cozy-client'
 import { TRANSACTION_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
-import Page from './Page'
 import { isCollectionLoading } from 'utils/client'
 
 const Separator = () => <hr className={styles.TransactionModalSeparator} />
@@ -247,9 +250,8 @@ const LoadingQuery = props => {
     <Query {...restProps}>
       {collection => {
         if (isCollectionLoading(collection)) {
-          return <span>Loading...</span>
+          return <Loading />
         } else {
-          console.log('Loading loaded', collection.data)
           return renderFun(collection)
         }
       }}
@@ -257,25 +259,29 @@ const LoadingQuery = props => {
   )
 }
 
-const findOne = (doctype, id) => client =>
-  client.find(doctype).where({ _id: id })
+const findOne = (doctype, id) => client => client.get(doctype, id)
 
-const withTransactionAndAccount = Component => props => {
-  return (
-    <LoadingQuery query={findOne(TRANSACTION_DOCTYPE, props.transactionId)}>
-      {({ data: transactions }) => (
-        <LoadingQuery query={findOne(ACCOUNT_DOCTYPE, transactions[0].account)}>
-          {({ data: accounts }) => (
-            <Component
-              {...props}
-              transaction={transactions[0]}
-              account={accounts[0]}
-            />
-          )}
-        </LoadingQuery>
-      )}
-    </LoadingQuery>
-  )
+const withTransactionAndAccount = Component => {
+  const Wrapped = props => {
+    return (
+      <LoadingQuery query={findOne(TRANSACTION_DOCTYPE, props.transactionId)}>
+        {({ data: transactions }) => (
+          <LoadingQuery
+            query={findOne(ACCOUNT_DOCTYPE, transactions[0].account)}
+          >
+            {({ data: accounts }) => (
+              <Component
+                {...props}
+                transaction={transactions[0]}
+                account={accounts[0]}
+              />
+            )}
+          </LoadingQuery>
+        )}
+      </LoadingQuery>
+    )
+  }
+  return Wrapped
 }
 
 export default compose(
