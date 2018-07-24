@@ -10,19 +10,15 @@ import Categories from './Categories'
 import styles from './CategoriesPage.styl'
 import { flowRight as compose, sortBy } from 'lodash'
 import CategoriesHeader from './CategoriesHeader'
+import { queryConnect } from 'utils/client-compat'
 import {
-  getSettings,
-  fetchSettingsCollection,
-  updateSettings,
-  createSettings
-} from 'ducks/settings'
-import { cozyConnect } from 'old-cozy-client'
+  TRANSACTION_DOCTYPE,
+  SETTINGS_DOCTYPE,
+  ACCOUNT_DOCTYPE
+} from 'doctypes'
+import { isCollectionLoading } from 'utils/client'
 
 class CategoriesPage extends Component {
-  componentDidMount() {
-    this.props.fetchTransactions()
-  }
-
   selectCategory = (selectedCategory, subcategory) => {
     if (subcategory) {
       this.props.router.push(`/categories/${selectedCategory}/${subcategory}`)
@@ -50,7 +46,8 @@ class CategoriesPage extends Component {
       router,
       settings
     } = this.props
-    const isFetching = transactions.fetchStatus !== 'loaded'
+    const isFetching =
+      isCollectionLoading(transactions) || isCollectionLoading(settings)
     const { showIncomeCategory } = settings
     const selectedCategoryName = router.params.categoryName
     const categories = showIncomeCategory
@@ -99,26 +96,39 @@ class CategoriesPage extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  categories: computeCategorieData(
-    transactionsByCategory(getFilteredTransactions(state))
-  ),
-  transactions: getTransactions(state),
-  settings: getSettings(state)
-})
+const mapStateToProps = (state, ownProps) => {
+  const { transactions, accounts } = ownProps
+  const enhancedState = {
+    ...state,
+    transactions,
+    accounts
+  }
 
-const mapDispatchToProps = dispatch => ({
-  fetchTransactions: () => dispatch(fetchTransactions())
-})
-
-const mapDocumentsToProps = () => ({
-  settingsCollection: fetchSettingsCollection()
-})
+  const filteredTransactions = getFilteredTransactions(enhancedState)
+  return {
+    categories: computeCategorieData(
+      transactionsByCategory(filteredTransactions)
+    )
+  }
+}
 
 export default compose(
   withRouter,
   withBreakpoints(),
   translate(),
-  cozyConnect(mapDocumentsToProps),
-  connect(mapStateToProps, mapDispatchToProps)
+  queryConnect({
+    accounts: {
+      query: client => client.all(ACCOUNT_DOCTYPE),
+      as: 'accounts'
+    },
+    transactions: {
+      query: client => client.all(TRANSACTION_DOCTYPE),
+      as: 'transactions'
+    },
+    settings: {
+      query: client => client.all(SETTINGS_DOCTYPE),
+      as: 'settings'
+    }
+  }),
+  connect(mapStateToProps)
 )(CategoriesPage)
