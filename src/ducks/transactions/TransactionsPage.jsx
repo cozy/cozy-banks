@@ -48,7 +48,7 @@ import { getBrands } from 'ducks/brandDictionary'
 import { AccountSwitch } from 'ducks/account'
 import { isIOSApp } from 'cozy-device-helper'
 import { getKonnectorFromTrigger } from 'utils/triggers'
-import { queryConnect } from 'utils/client-compat'
+import { queryConnect } from 'utils/client'
 import { isCollectionLoading } from 'utils/client'
 
 const { BarRight } = cozy.bar

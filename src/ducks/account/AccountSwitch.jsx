@@ -29,7 +29,7 @@ import {
 import styles from './AccountSwitch.styl'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { getAccountInstitutionLabel } from './helpers.js'
-import { queryConnect } from 'utils/client-compat'
+import { queryConnect } from 'utils/client'
 
 const { BarCenter } = cozy.bar
 

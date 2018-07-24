@@ -10,7 +10,7 @@ import Categories from './Categories'
 import styles from './CategoriesPage.styl'
 import { flowRight as compose, sortBy } from 'lodash'
 import CategoriesHeader from './CategoriesHeader'
-import { queryConnect } from 'utils/client-compat'
+import { queryConnect } from 'utils/client'
 import {
   TRANSACTION_DOCTYPE,
   SETTINGS_DOCTYPE,

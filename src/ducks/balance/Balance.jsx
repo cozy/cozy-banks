@@ -23,7 +23,7 @@ import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
 import styles from './Balance.styl'
 import btnStyles from 'styles/buttons.styl'
 import plus from 'assets/icons/16/plus.svg'
-import { queryConnect } from 'utils/client-compat'
+import { queryConnect } from 'utils/client'
 
 const getGroupBalance = (group, getAccount) => {
   return sumBy(
