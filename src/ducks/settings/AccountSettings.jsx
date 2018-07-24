@@ -17,7 +17,6 @@ import { withDispatch } from 'utils'
 import BackButton from 'components/BackButton'
 import PageTitle from 'components/PageTitle'
 import { connect } from 'react-redux'
-import { updateDocument } from 'old-cozy-client'
 import styles from './AccountsSettings.styl'
 import { flowRight as compose } from 'lodash'
 import { destroyAccount } from 'actions'
@@ -64,16 +63,22 @@ class _GeneralSettings extends Component {
     })
   }
 
-  onClickSave = () => {
+  onClickSave = async () => {
+    const { saveDocument } = this.props
     const updatedDoc = {
       // Will disappear when the object come from redux-cozy
       id: this.props.account._id,
-      type: 'io.cozy.bank.accounts',
+      type: ACCOUNT_DOCTYPE,
       ...this.props.account,
       ...this.state.changes
     }
-    this.props.dispatch(updateDocument(updatedDoc))
-    this.setState({ modifying: false, changes: null })
+    try {
+      await saveDocument(updatedDoc)
+    } catch (e) {
+      console.error('Could not update document', e)
+    } finally {
+      this.setState({ modifying: false, changes: null })
+    }
   }
 
   onClickDelete = () => {
@@ -85,12 +90,14 @@ class _GeneralSettings extends Component {
   }
 
   onClickConfirmDelete = async () => {
-    const { destroyAccount, router } = this.props
+    const { destroyDocument, router } = this.props
     try {
       this.setState({ deleting: true })
-      await destroyAccount(this.props.account)
+      await destroyDocument(this.props.account)
       router.push('/settings/accounts')
     } catch (e) {
+      console.error('Could not confirm delete', e)
+    } finally {
       this.setState({ deleting: false })
     }
   }

@@ -4,36 +4,31 @@ import { connect } from 'react-redux'
 import { Title, translate } from 'cozy-ui/react'
 import { flowRight as compose } from 'lodash'
 import ToggleRow from './ToggleRow'
-import { createSettings, updateSettings, getSettingsFromCollection } from '.'
-import { queryConnect } from 'utils/client-compat'
+import { getSettingsFromCollection } from '.'
+import { queryConnect } from 'utils/client'
 import { SETTINGS_DOCTYPE } from 'doctypes'
 
 class TogglePane extends Component {
   onToggle = (setting, checked) => {
-    const { settingsCollection, dispatch, settingsKey } = this.props
+    const { settingsCollection, settingsKey } = this.props
     const settings = getSettingsFromCollection(settingsCollection)
-    const updateOrCreate = settings._id ? updateSettings : createSettings
-
     settings[settingsKey][setting].enabled = checked
-    dispatch(updateOrCreate(settings))
+    this.props.saveDocument(settings, {
+      updateCollections: ['settings']
+    })
   }
 
   onChangeValue = (setting, value) => {
-    const { settingsCollection, dispatch, settingsKey } = this.props
+    const { settingsCollection, settingsKey } = this.props
     const settings = getSettingsFromCollection(settingsCollection)
-    const updateOrCreate = settings._id ? updateSettings : createSettings
-
     settings[settingsKey][setting].value = value.replace(/\D/i, '')
-    dispatch(updateOrCreate(settings))
+    this.props.saveDocument(settings, {
+      updateCollections: ['settings']
+    })
   }
 
   render() {
     const { rows, settingsCollection, settingsKey, t, title } = this.props
-
-    if (settingsCollection.fetchStatus === 'loading') {
-      return null
-    }
-
     const settings = getSettingsFromCollection(settingsCollection)
 
     return (
@@ -71,18 +66,14 @@ TogglePane.propTypes = {
     })
   ).isRequired,
   title: PropTypes.string.isRequired,
-  settingsKey: PropTypes.string.isRequired
+  settingsKey: PropTypes.string.isRequired,
+  settingsCollection: PropTypes.object.isRequired,
+  saveDocument: PropTypes.func.isRequired
 }
 
 export default compose(
   translate(),
   // We keep `connect` just so the component still receive the `dispatch` function as prop
   // This has to be removed when we handle the mutations with the new cozy-client
-  connect(),
-  queryConnect({
-    settingsCollection: {
-      query: client => client.all(SETTINGS_DOCTYPE),
-      as: 'settings'
-    }
-  })
+  connect()
 )(TogglePane)

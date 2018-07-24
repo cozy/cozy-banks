@@ -1,12 +1,9 @@
 /* global cozy */
 
-import { deleteAll, queryAll } from 'utils/stack'
-import {
-  updateDocuments,
-  deleteDocument,
-  deleteDocuments
-} from 'old-cozy-client'
-import { TRANSACTION_DOCTYPE } from 'doctypes'
+import { deleteAll } from 'utils/stack'
+import CozyClient from 'cozy-client'
+import { GROUP_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
+import { links } from 'utils/client'
 
 const removeAccountFromGroup = (group, account) => {
   return {
@@ -15,51 +12,34 @@ const removeAccountFromGroup = (group, account) => {
   }
 }
 
-const deleteOrphanOperations = async ({ accountId }) => {
-  const index = await cozy.client.data.defineIndex(TRANSACTION_DOCTYPE, [
-    'account'
-  ])
-  const orphanOperations = await queryAll(index, {
-    selector: { account: accountId }
-  })
-  return deleteAll(TRANSACTION_DOCTYPE, orphanOperations)
+const getStackCollection = doctype => {
+  return links.stack.client.collection(doctype)
+}
+
+const deleteOrphanOperations = async account => {
+  const accountCollection = getStackCollection(ACCOUNT_DOCTYPE)
+  const orphanOperations = (await accountCollection.find({
+    account: account._id
+  })).data
+  if (orphanOperations.length > 0) {
+    const stackClient = links.stack.client
+    return deleteAll(stackClient, orphanOperations)
+  }
+}
+
+const removeAccountFromGroups = async account => {
+  const groupCollection = getStackCollection(GROUP_DOCTYPE)
+  const groups = (await groupCollection.all(GROUP_DOCTYPE)).data
+  const ugroups = groups.map(group => removeAccountFromGroup(group, account))
+  for (let ugroup of ugroups) {
+    await groupCollection.update(ugroup)
+  }
 }
 
 export const DESTROY_ACCOUNT = 'DESTROY_ACCOUNT'
-export const destroyAccount = account => async dispatch => {
-  dispatch({ type: DESTROY_ACCOUNT, account })
-  await dispatch(
-    updateDocuments(
-      'io.cozy.bank.groups',
-      {
-        // If necessary we could perform a more performant
-        // query by only fetching groups that contains the account
-        selector: { _id: { $gt: null } }
-      },
-      group => removeAccountFromGroup(group, account),
-      {
-        updateCollections: ['groups']
-      }
-    )
-  )
-
-  await dispatch(
-    deleteDocuments(
-      TRANSACTION_DOCTYPE,
-      {
-        selector: { account: account.id }
-      },
-      {
-        updateCollections: ['transactions']
-      }
-    )
-  )
-
-  await deleteOrphanOperations({ accountId: account.id })
-
-  return dispatch(
-    deleteDocument(account, {
-      updateCollections: ['accounts', 'onboarding_accounts']
-    })
-  )
+export const destroyReferences = async (client, account) => {
+  await deleteOrphanOperations(account)
+  await removeAccountFromGroups(account)
 }
+
+CozyClient.registerHook(ACCOUNT_DOCTYPE, 'before:destroy', destroyReferences)

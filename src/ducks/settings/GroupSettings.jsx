@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Loading from 'components/Loading'
 import { withDispatch } from 'utils'
-import { createDocument, updateDocument, deleteDocument } from 'old-cozy-client'
 import { Query } from 'cozy-client'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { withRouter } from 'react-router'
@@ -17,9 +16,6 @@ import styles from './GroupsSettings.styl'
 import btnStyles from 'styles/buttons.styl'
 import { getAccountInstitutionLabel } from '../account/helpers'
 import { sortBy } from 'lodash'
-
-const accountInGroup = (account, group) =>
-  group.accounts.indexOf(account._id) > -1
 
 const mkNewGroup = () => ({
   label: 'Nouveau groupe',
@@ -38,14 +34,13 @@ class GroupSettings extends Component {
   }
 
   async updateOrCreate(group, cb) {
-    const { dispatch, router } = this.props
+    const { router, saveDocument } = this.props
+    const isNew = !group.id
     try {
-      const response = group.id
-        ? await dispatch(updateDocument(group))
-        : await dispatch(createDocument(GROUP_DOCTYPE, group))
+      const response = await saveDocument({ _type: GROUP_DOCTYPE, ...group })
       if (response && response.data) {
-        const doc = response.data[0]
-        if (group.id !== doc.id) {
+        const doc = response.data
+        if (isNew) {
           router.push(`/settings/groups/${doc.id}`)
         }
       }
@@ -55,19 +50,17 @@ class GroupSettings extends Component {
   }
 
   toggleAccount = (accountId, enabled) => {
-    const { group } = this.props
-    let selectedAccounts = group.accounts
-    let indexInSelectedAccounts = selectedAccounts.indexOf(accountId)
-
-    if (enabled && indexInSelectedAccounts < 0) selectedAccounts.push(accountId)
-    else if (!enabled && indexInSelectedAccounts >= 0)
-      selectedAccounts.splice(indexInSelectedAccounts, 1)
-
-    group.accounts = selectedAccounts
-    this.updateOrCreate(group)
+    const { group, getAssociation } = this.props
+    const accounts = getAssociation(group, 'accounts')
+    if (enabled) {
+      accounts.addById(accountId)
+    } else {
+      accounts.removeById(accountId)
+    }
   }
 
-  renderAccountLine = (account, group) => {
+  renderAccountLine = account => {
+    const { group, getAssociation } = this.props
     return (
       <tr>
         <td className={styles.GrpStg__accntLabel}>
@@ -78,21 +71,24 @@ class GroupSettings extends Component {
         </td>
         <td className={styles.GrpStg__accntNumber}>{account.number}</td>
         <td className={styles.GrpStg__accntToggle}>
-          <Toggle
-            id={account._id}
-            checked={accountInGroup(account, group)}
-            onToggle={this.toggleAccount.bind(null, account._id)}
-          />
+          {group ? (
+            <Toggle
+              id={account._id}
+              checked={getAssociation(group, 'accounts').exists(account)}
+              onToggle={this.toggleAccount.bind(null, account._id)}
+            />
+          ) : (
+            <Toggle disabled />
+          )}
         </td>
       </tr>
     )
   }
 
-  onRemove = () => {
-    const { group, dispatch, router } = this.props
-    dispatch(deleteDocument(group)).then(() => {
-      router.push('/settings/groups')
-    })
+  onRemove = async () => {
+    const { group, router, destroyDocument } = this.props
+    await destroyDocument(group)
+    router.push('/settings/groups')
   }
 
   modifyName = () => {
@@ -186,7 +182,7 @@ class GroupSettings extends Component {
                       <tbody>
                         {accounts &&
                           sortBy(accounts, ['institutionLabel', 'label']).map(
-                            account => this.renderAccountLine(account, group)
+                            this.renderAccountLine
                           )}
                       </tbody>
                     </Table>
