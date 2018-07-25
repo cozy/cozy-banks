@@ -4,8 +4,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { flowRight as compose } from 'lodash'
 import cx from 'classnames'
-import { connect } from 'react-redux'
-import { TRIGGER_DOCTYPE } from 'doctypes'
 import { matchBrands, findMatchingBrand } from 'ducks/brandDictionary'
 import {
   IntentModal,
@@ -25,6 +23,7 @@ import { TransactionModalRow } from '../TransactionModal'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import iconCollectAccount from 'assets/icons/icon-collect-account.svg'
 import { queryConnect } from 'utils/client'
+import { triggersConn } from 'doctypes'
 const name = 'konnector'
 
 const InformativeModal = ({
@@ -205,7 +204,7 @@ const action = {
   },
   Component: compose(
     queryConnect({
-      triggers: { query: client => client.all(TRIGGER_DOCTYPE), as: 'triggers' }
+      triggers: triggersConn
     }),
     translate()
   )(Component)

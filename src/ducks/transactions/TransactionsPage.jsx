@@ -37,13 +37,14 @@ import BackButton from 'components/BackButton'
 import { TransactionTableHead, TransactionsWithSelection } from './Transactions'
 import styles from './TransactionsPage.styl'
 import {
-  APP_DOCTYPE,
-  BILLS_DOCTYPE,
-  GROUP_DOCTYPE,
-  TRIGGER_DOCTYPE,
   ACCOUNT_DOCTYPE,
-  TRANSACTION_DOCTYPE
+  appsConn,
+  accountsConn,
+  groupsConn,
+  triggersConn,
+  transactionsConn
 } from 'doctypes'
+
 import { getBrands } from 'ducks/brandDictionary'
 import { AccountSwitch } from 'ducks/account'
 import { isIOSApp } from 'cozy-device-helper'
@@ -368,15 +369,11 @@ const mapStateToProps = (state, ownProps) => {
 export default compose(
   withRouter,
   queryConnect({
-    apps: { query: client => client.all(APP_DOCTYPE), as: 'apps' },
-    accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' },
-    groups: { query: client => client.all(GROUP_DOCTYPE), as: 'groups' },
-    triggers: { query: client => client.all(TRIGGER_DOCTYPE), as: 'triggers' },
-    bills: { query: client => client.all(BILLS_DOCTYPE), as: 'bills' },
-    transactions: {
-      query: client => client.all(TRANSACTION_DOCTYPE),
-      as: 'transactions'
-    }
+    apps: appsConn,
+    accounts: accountsConn,
+    groups: groupsConn,
+    triggers: triggersConn,
+    transactions: transactionsConn
   }),
   withBreakpoints(),
   connect(mapStateToProps),

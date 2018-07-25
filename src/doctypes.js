@@ -34,10 +34,40 @@ export const schema = {
     doctype: GROUP_DOCTYPE,
     attributes: {},
     relationships: {
-      accounts: {
-        type: 'has-many-UNSAFE',
-        doctype: ACCOUNT_DOCTYPE
-      }
+      // accounts: {
+      //   type: 'has-many-UNSAFE',
+      //   doctype: ACCOUNT_DOCTYPE
+      // }
     }
   }
+}
+
+export const accountsConn = {
+  query: client => client.all(ACCOUNT_DOCTYPE),
+  as: 'accounts'
+}
+
+export const groupsConn = {
+  query: client => client.all(GROUP_DOCTYPE),
+  as: 'groups'
+}
+
+export const triggersConn = {
+  query: client => client.all(TRIGGER_DOCTYPE),
+  as: 'triggers'
+}
+
+export const transactionsConn = {
+  query: client => client.all(TRANSACTION_DOCTYPE),
+  as: 'transactions'
+}
+
+export const appsConn = {
+  query: client => client.all(APP_DOCTYPE),
+  as: 'apps'
+}
+
+export const settingsConn = {
+  query: client => client.all(SETTINGS_DOCTYPE),
+  as: 'settings'
 }

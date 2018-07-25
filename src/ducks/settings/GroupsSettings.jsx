@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import { translate, Button, Icon } from 'cozy-ui/react'
 import Table from 'components/Table'
-import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
+import { accountsConn, groupsConn } from 'doctypes'
 import { queryConnect } from 'utils/client'
 import Loading from 'components/Loading'
 import plus from 'assets/icons/16/plus.svg'
@@ -86,14 +86,8 @@ const Groups = withRouter(
 
 export default compose(
   queryConnect({
-    accounts: {
-      query: client => client.all(ACCOUNT_DOCTYPE),
-      as: 'accounts'
-    },
-    groups: {
-      query: client => client.all(GROUP_DOCTYPE),
-      as: 'groups'
-    }
+    accounts: accountsConn,
+    groups: groupsConn
   }),
   translate()
 )(Groups)

@@ -11,11 +11,7 @@ import styles from './CategoriesPage.styl'
 import { flowRight as compose, sortBy } from 'lodash'
 import CategoriesHeader from './CategoriesHeader'
 import { queryConnect } from 'utils/client'
-import {
-  TRANSACTION_DOCTYPE,
-  SETTINGS_DOCTYPE,
-  ACCOUNT_DOCTYPE
-} from 'doctypes'
+import { accountsConn, settingsConn, transactionsConn } from 'doctypes'
 import { isCollectionLoading } from 'utils/client'
 
 class CategoriesPage extends Component {
@@ -117,18 +113,9 @@ export default compose(
   withBreakpoints(),
   translate(),
   queryConnect({
-    accounts: {
-      query: client => client.all(ACCOUNT_DOCTYPE),
-      as: 'accounts'
-    },
-    transactions: {
-      query: client => client.all(TRANSACTION_DOCTYPE),
-      as: 'transactions'
-    },
-    settings: {
-      query: client => client.all(SETTINGS_DOCTYPE),
-      as: 'settings'
-    }
+    accounts: accountsConn,
+    transactions: transactionsConn,
+    settings: settingsConn
   }),
   connect(mapStateToProps)
 )(CategoriesPage)
