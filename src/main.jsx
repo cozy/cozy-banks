@@ -10,7 +10,6 @@ import 'number-to-locale-string'
 
 import { setupHistory } from 'utils/history'
 import { getClient } from 'utils/client'
-import { fetchSettingsCollection, initSettings } from 'ducks/settings'
 import 'utils/flag'
 import FastClick from 'fastclick'
 import { isReporterEnabled, configureReporter, setURLContext } from 'lib/sentry'
@@ -27,7 +26,6 @@ let store, client, history, lang, root
 
 const initRender = () => {
   const AppContainer = require('./AppContainer').default
-
   root = render(
     <AppContainer
       store={store}
@@ -39,7 +37,7 @@ const initRender = () => {
   )
 }
 
-const setupApp = persistedState => {
+const setupApp = async persistedState => {
   const root = document.querySelector('[role=application]')
   const data = root.dataset
   lang =
@@ -49,17 +47,17 @@ const setupApp = persistedState => {
 
   history = setupHistory()
 
-  client = getClient(persistedState)
+  client = await getClient(persistedState)
   store = configureStore(client, persistedState)
 
-  if (client.facade.url) {
-    // Initialize settings
-    store.dispatch(fetchSettingsCollection()).then(res => {
-      if (!res || res.data.length === 0) {
-        store.dispatch(initSettings())
-      }
-    })
-  }
+  // if (client.facade.url) {
+  //   // Initialize settings
+  //   store.dispatch(fetchSettingsCollection()).then(res => {
+  //     if (!res || res.data.length === 0) {
+  //       store.dispatch(initSettings())
+  //     }
+  //   })
+  // }
 
   persistState(store)
 
