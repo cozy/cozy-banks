@@ -5,7 +5,6 @@ import { GROUP_DOCTYPE } from 'doctypes'
 const getCollection = (state, attr) => {
   const col = state[attr]
   if (!col) {
-    debugger
     throw new Error(`Collection ${attr} is not in state`)
   }
   return col

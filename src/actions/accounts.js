@@ -1,5 +1,3 @@
-/* global cozy */
-
 import { deleteAll } from 'utils/stack'
 import CozyClient from 'cozy-client'
 import { GROUP_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
