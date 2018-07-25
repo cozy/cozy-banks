@@ -84,7 +84,7 @@ class EnsureHasAccounts extends Component {
     }
 
     if (
-      (accounts && accounts.length === 0) ||
+      (accounts && accounts.data && accounts.data.length === 0) ||
       hasParameter(location.query, 'onboarding')
     ) {
       return (
