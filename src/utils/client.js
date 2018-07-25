@@ -12,7 +12,12 @@ import React from 'react'
 
 export const links = {}
 
+let client
+
 export const getClient = async () => {
+  if (client) {
+    return client
+  }
   const root = document.querySelector('[role=application]')
   const data = root.dataset
 
@@ -34,7 +39,7 @@ export const getClient = async () => {
 
   links.stack = new StackLink({ client: stackClient })
 
-  const client = new CozyClient({
+  client = new CozyClient({
     link: [
       __TARGET__ === 'mobile' && links.pouch,
       links.stack
@@ -82,5 +87,17 @@ export const queryConnect = querySpecs => Component => {
   )
   enhancers.push(withCrud)
   return compose.apply(null, enhancers)(Component)
+}
+
+export const isCollectionLoading = col => {
+  if (!col) {
+    console.warn('isCollectionLoading called on falsy value.')
+    return false
+  }
+  console.log(col)
+  return (
+    col.fetchStatus === 'loading' ||
+    col.fetchStatus === 'pending'
+  )
 }
 
