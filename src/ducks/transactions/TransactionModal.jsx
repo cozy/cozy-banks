@@ -244,13 +244,13 @@ const DumbTransactionModal = compose(translate(), withBreakpoints())(
   TransactionModal
 )
 
-const LoadingQuery = props => {
+const NeedResult = props => {
   const { children: renderFun, ...restProps } = props
   return (
     <Query {...restProps}>
       {collection => {
         if (isCollectionLoading(collection)) {
-          return <Loading />
+          return null
         } else {
           return renderFun(collection)
         }
@@ -264,11 +264,9 @@ const findOne = (doctype, id) => client => client.get(doctype, id)
 const withTransactionAndAccount = Component => {
   const Wrapped = props => {
     return (
-      <LoadingQuery query={findOne(TRANSACTION_DOCTYPE, props.transactionId)}>
+      <NeedResult query={findOne(TRANSACTION_DOCTYPE, props.transactionId)}>
         {({ data: transactions }) => (
-          <LoadingQuery
-            query={findOne(ACCOUNT_DOCTYPE, transactions[0].account)}
-          >
+          <NeedResult query={findOne(ACCOUNT_DOCTYPE, transactions[0].account)}>
             {({ data: accounts }) => (
               <Component
                 {...props}
@@ -276,9 +274,9 @@ const withTransactionAndAccount = Component => {
                 account={accounts[0]}
               />
             )}
-          </LoadingQuery>
+          </NeedResult>
         )}
-      </LoadingQuery>
+      </NeedResult>
     )
   }
   return Wrapped
@@ -286,8 +284,8 @@ const withTransactionAndAccount = Component => {
 
 export default compose(
   withDispatch,
-  withUpdateCategory(),
-  withTransactionAndAccount
+  withTransactionAndAccount,
+  withUpdateCategory()
 )(DumbTransactionModal)
 
 export { DumbTransactionModal }

@@ -8,14 +8,14 @@ const updateCategoryParams = {
     const { dispatch, transaction } = props
 
     try {
-      const res = await dispatch(
-        fetchDocument('io.cozy.bank.operations', transaction._id)
+      const res = await client.get(TRANSACTION_DOCTYPE, transaction._id)
+      const newTransaction = {
+        ...res.data[0],
+        manualCategoryId: category.id
+      }
+      await client.mutate(
+        client.update(TRANSACTION_DOCTYPE, originalTransaction)
       )
-      const originalTransaction = res.data[0]
-
-      originalTransaction.manualCategoryId = category.id
-
-      dispatch(updateDocument(originalTransaction))
     } catch (err) {
       // eslint-disable-next-line no-console
       console.log(err)
