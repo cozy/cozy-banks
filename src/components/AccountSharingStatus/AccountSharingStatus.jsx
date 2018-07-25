@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { getSharingInfo } from 'reducers'
 import SharingIcon from 'components/SharingIcon'
-import { fetchSharingInfo } from 'modules/SharingStatus'
 import { Media, Bd, Img } from 'cozy-ui/react'
-import { ACCOUNT_DOCTYPE } from 'doctypes'
 import styles from './AccountSharingStatus.styl'
 
 const ownerRx = /\((.*)\)/ // find the word in parenthesis
@@ -17,12 +13,6 @@ const getOwner = account => {
 }
 
 class AccountSharingStatus extends Component {
-  componentDidMount() {
-    if (!this.props.sharingInfo) {
-      this.props.fetchSharingInfo()
-    }
-  }
-
   render() {
     const { sharingInfo, withText, tooltip } = this.props
     const info = (sharingInfo && sharingInfo.info) || {}
@@ -57,16 +47,4 @@ class AccountSharingStatus extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  sharingInfo: getSharingInfo(state, ACCOUNT_DOCTYPE, ownProps.account._id)
-})
-
-const mapDispatchToProps = (dispatch, props) => ({
-  fetchSharingInfo: () => {
-    dispatch(fetchSharingInfo(ACCOUNT_DOCTYPE, props.account._id))
-  }
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(
-  AccountSharingStatus
-)
+export default AccountSharingStatus
