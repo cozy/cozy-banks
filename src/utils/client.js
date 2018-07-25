@@ -87,6 +87,8 @@ export const withCrud = withMutations(client => ({
   destroyDocument: document => client.destroy(document)
 }))
 
+export const withClient = Component => (props, context) => <Component {...props} client={context.client} />
+
 export const queryConnect = querySpecs => Component => {
   const enhancers = Object.keys(querySpecs).map(dest =>
     withQuery(dest, querySpecs[dest], Component)
