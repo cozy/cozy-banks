@@ -11,7 +11,12 @@ import styles from './CategoriesPage.styl'
 import { flowRight as compose, sortBy } from 'lodash'
 import CategoriesHeader from './CategoriesHeader'
 import { queryConnect } from 'utils/client'
-import { accountsConn, settingsConn, transactionsConn } from 'doctypes'
+import {
+  accountsConn,
+  settingsConn,
+  transactionsConn,
+  groupsConn
+} from 'doctypes'
 import { isCollectionLoading } from 'utils/client'
 
 class CategoriesPage extends Component {
@@ -93,11 +98,12 @@ class CategoriesPage extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { transactions, accounts } = ownProps
+  const { transactions, accounts, groups } = ownProps
   const enhancedState = {
     ...state,
     transactions,
-    accounts
+    accounts,
+    groups
   }
 
   const filteredTransactions = getFilteredTransactions(enhancedState)
@@ -115,7 +121,8 @@ export default compose(
   queryConnect({
     accounts: accountsConn,
     transactions: transactionsConn,
-    settings: settingsConn
+    settings: settingsConn,
+    groups: groupsConn
   }),
   connect(mapStateToProps)
 )(CategoriesPage)
