@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import CategoryChoice from './CategoryChoice'
-import { fetchDocument, updateDocument } from 'old-cozy-client'
 import { getCategoryId } from 'ducks/categories/helpers'
+import { TRANSACTION_DOCTYPE } from 'doctypes'
 
 const updateCategoryParams = {
   updateCategory: async (props, category) => {
-    const { dispatch, transaction } = props
+    const { transaction, client } = props
 
     try {
       const res = await client.get(TRANSACTION_DOCTYPE, transaction._id)
@@ -14,7 +14,7 @@ const updateCategoryParams = {
         manualCategoryId: category.id
       }
       await client.mutate(
-        client.update(TRANSACTION_DOCTYPE, originalTransaction)
+        client.update(TRANSACTION_DOCTYPE, newTransaction)
       )
     } catch (err) {
       // eslint-disable-next-line no-console

@@ -5,8 +5,7 @@ import { Title, translate } from 'cozy-ui/react'
 import { flowRight as compose } from 'lodash'
 import ToggleRow from './ToggleRow'
 import { getSettingsFromCollection } from '.'
-import { queryConnect } from 'utils/client'
-import { SETTINGS_DOCTYPE } from 'doctypes'
+
 
 class TogglePane extends Component {
   onToggle = (setting, checked) => {

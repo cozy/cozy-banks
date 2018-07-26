@@ -1,9 +1,7 @@
 /* global __TARGET__ */
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { translate, Button, withBreakpoints } from 'cozy-ui/react'
 import { some, flowRight as compose } from 'lodash'
-import { getCollection, fetchCollection } from 'old-cozy-client'
 
 import Topbar from 'components/Topbar'
 import PageTitle from 'components/PageTitle'

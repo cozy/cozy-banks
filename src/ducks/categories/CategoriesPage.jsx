@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import Loading from 'components/Loading'
 import { getFilteredTransactions } from 'ducks/filters'
-import { fetchTransactions, getTransactions } from 'actions'
 import { transactionsByCategory, computeCategorieData } from './helpers'
 import Categories from './Categories'
 import styles from './CategoriesPage.styl'
@@ -31,12 +30,11 @@ class CategoriesPage extends Component {
   }
 
   onWithIncomeToggle = checked => {
-    const { settings, dispatch } = this.props
-    const updateOrCreate = settings._id ? updateSettings : createSettings
+    const { settings, updateDocument } = this.props
 
     settings.showIncomeCategory = checked
 
-    dispatch(updateOrCreate(settings))
+    updateDocument(settings)
   }
 
   render() {

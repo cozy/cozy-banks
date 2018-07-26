@@ -9,7 +9,6 @@ import Loading from 'components/Loading'
 class Configuration extends Component {
   saveDocument = async doc => {
     const { saveDocument } = this.props
-    console.log('saving document')
     await saveDocument(doc)
     this.setState({})
   }

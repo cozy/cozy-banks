@@ -21,7 +21,6 @@ import cx from 'classnames'
 import { Query } from 'cozy-client'
 
 import { Figure } from 'components/Figure'
-import Loading from 'components/Loading'
 import Page from './Page'
 
 import { getLabel } from 'ducks/transactions'

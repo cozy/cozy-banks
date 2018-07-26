@@ -41,9 +41,7 @@ class EnsureHasAccounts extends Component {
     if (!client) {
       return
     }
-    client.query(accountsConn.query).then(data => {
-      console.log('fetched accounts', data)
-    })
+    client.query(accountsConn.query)
   }
 
   stopInterval = () => {
