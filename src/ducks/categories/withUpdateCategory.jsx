@@ -13,9 +13,7 @@ const updateCategoryParams = {
         ...res.data[0],
         manualCategoryId: category.id
       }
-      await client.mutate(
-        client.update(TRANSACTION_DOCTYPE, newTransaction)
-      )
+      await client.mutate(client.update(TRANSACTION_DOCTYPE, newTransaction))
     } catch (err) {
       // eslint-disable-next-line no-console
       console.log(err)

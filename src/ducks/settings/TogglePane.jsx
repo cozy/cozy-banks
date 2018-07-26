@@ -6,7 +6,6 @@ import { flowRight as compose } from 'lodash'
 import ToggleRow from './ToggleRow'
 import { getSettingsFromCollection } from '.'
 
-
 class TogglePane extends Component {
   onToggle = (setting, checked) => {
     const { settingsCollection, settingsKey } = this.props

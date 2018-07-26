@@ -75,6 +75,7 @@ class _GeneralSettings extends Component {
     try {
       await saveDocument(updatedDoc)
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.error('Could not update document', e)
     } finally {
       this.setState({ modifying: false, changes: null })
@@ -96,6 +97,7 @@ class _GeneralSettings extends Component {
       await destroyDocument(this.props.account)
       router.push('/settings/accounts')
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.error('Could not confirm delete', e)
     } finally {
       this.setState({ deleting: false })
