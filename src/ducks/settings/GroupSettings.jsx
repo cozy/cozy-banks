@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Loading from 'components/Loading'
 import { withDispatch } from 'utils'
-import { Query } from 'cozy-client'
+import { Query, withMutations } from 'cozy-client'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { withRouter } from 'react-router'
 
@@ -15,7 +15,7 @@ import { Button, translate, Toggle, Spinner } from 'cozy-ui/react'
 import styles from './GroupsSettings.styl'
 import btnStyles from 'styles/buttons.styl'
 import { getAccountInstitutionLabel } from '../account/helpers'
-import { sortBy } from 'lodash'
+import { sortBy, flowRight as compose } from 'lodash'
 
 const mkNewGroup = () => ({
   label: 'Nouveau groupe',
@@ -49,8 +49,8 @@ class GroupSettings extends Component {
     }
   }
 
-  toggleAccount = (accountId, enabled) => {
-    const { group, getAssociation } = this.props
+  toggleAccount = (accountId, group, enabled) => {
+    const { getAssociation } = this.props
     const accounts = getAssociation(group, 'accounts')
     if (enabled) {
       accounts.addById(accountId)
@@ -59,8 +59,7 @@ class GroupSettings extends Component {
     }
   }
 
-  renderAccountLine = account => {
-    const { group, getAssociation } = this.props
+  renderAccountLine = (account, group, getAssociation) => {
     return (
       <tr>
         <td className={styles.GrpStg__accntLabel}>
@@ -75,7 +74,7 @@ class GroupSettings extends Component {
             <Toggle
               id={account._id}
               checked={getAssociation(group, 'accounts').exists(account)}
-              onToggle={this.toggleAccount.bind(null, account._id)}
+              onToggle={this.toggleAccount.bind(null, account._id, group)}
             />
           ) : (
             <Toggle id={account._id} disabled />
@@ -105,7 +104,7 @@ class GroupSettings extends Component {
 
     return (
       <Query query={client => client.get(GROUP_DOCTYPE, routeParams.groupId)}>
-        {({ data, fetchStatus }) => {
+        {({ data, fetchStatus }, { getAssociation }) => {
           if (fetchStatus === 'loading') {
             return <Loading />
           }
@@ -182,7 +181,12 @@ class GroupSettings extends Component {
                       <tbody>
                         {accounts &&
                           sortBy(accounts, ['institutionLabel', 'label']).map(
-                            this.renderAccountLine
+                            account =>
+                              this.renderAccountLine(
+                                account,
+                                group,
+                                getAssociation
+                              )
                           )}
                       </tbody>
                     </Table>
@@ -202,10 +206,31 @@ class GroupSettings extends Component {
   }
 }
 
-const enhance = Component => translate()(withRouter(withDispatch(Component)))
+const enhance = Component =>
+  compose(translate(), withRouter, withDispatch)(Component)
 
-const EnhancedGroupSettings = enhance(GroupSettings)
-export default EnhancedGroupSettings
+const ExistingGroupSettings = enhance(props => (
+  <Query query={client => client.get(GROUP_DOCTYPE, props.routeParams.groupId)}>
+    {(
+      { data, fetchStatus },
+      { saveDocument, deleteDocument, getAssociation }
+    ) =>
+      fetchStatus === 'loading' || fetchStatus === 'pending' ? (
+        <Loading />
+      ) : (
+        <GroupSettings
+          group={data[0]}
+          saveDocument={saveDocument}
+          deleteDocument={deleteDocument}
+          getAssociation={getAssociation}
+          {...props}
+        />
+      )
+    }
+  </Query>
+))
+
+export default ExistingGroupSettings
 
 /**
  * We create NewGroupSettings else react-router will reuse
@@ -215,7 +240,9 @@ export default EnhancedGroupSettings
  * of a brand new component
  */
 export const NewGroupSettings = enhance(
-  class extends GroupSettings {
-    state = { ...this.state, modifying: true }
-  }
+  withMutations()(
+    class extends GroupSettings {
+      state = { ...this.state, modifying: true }
+    }
+  )
 )

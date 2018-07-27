@@ -14,8 +14,11 @@ const isPending = reduxObj => {
   return reduxObj.fetchStatus === 'pending'
 }
 
-const GroupList = withRouter(
-  translate()(({ groups, accounts, t, router }) => {
+const GroupList = compose(
+  withRouter,
+  translate(),
+  ({ groups, accounts, t, router }) => {
+    const getAssociation = groups.getAssociation.bind(groups)
     return groups.length ? (
       <Table className={styles.GrpsStg__table}>
         <thead>
@@ -34,7 +37,7 @@ const GroupList = withRouter(
             >
               <td className={styles.GrpsStg__label}>{group.label}</td>
               <td className={styles.GrpsStg__accounts}>
-                {group.accounts
+                {getAssociation(group, 'accounts')
                   .map(accountId =>
                     accounts.data.find(account => account._id === accountId)
                   )
@@ -49,7 +52,7 @@ const GroupList = withRouter(
     ) : (
       <p>{t('Groups.no-groups')}</p>
     )
-  })
+  }
 )
 
 const Groups = withRouter(
@@ -59,6 +62,8 @@ const Groups = withRouter(
       if (isPending(groups) || isPending(accounts)) {
         return <Loading />
       }
+
+      debugger
       return (
         <div>
           {groups.fetchStatus === 'loading' ? (
