@@ -57,7 +57,7 @@ class UserActionRequired extends Component {
       await cozy.client.fetchJSON('GET', '/data/')
       const wasBlocked = this.state.warnings.length !== 0
       if (wasBlocked) {
-        this.setState({ warnings: [] })
+        this.setState({ warnings: this.state.warnings })
       }
     } catch (e) {
       if (e.status === 402) {
@@ -68,7 +68,6 @@ class UserActionRequired extends Component {
 
   onAccept = async () => {
     await this.acceptUpdatedTos()
-    this.props.onAccept()
   }
 
   acceptUpdatedTos = async () => {
@@ -104,10 +103,6 @@ class UserActionRequired extends Component {
 
     return this.props.children
   }
-}
-
-UserActionRequired.propTypes = {
-  onAccept: PropTypes.func.isRequired
 }
 
 export default UserActionRequired
