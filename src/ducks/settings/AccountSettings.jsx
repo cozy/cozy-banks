@@ -64,7 +64,7 @@ class _GeneralSettings extends Component {
   }
 
   onClickSave = async () => {
-    const { saveDocument } = this.props
+    const { saveAccount } = this.props
     const updatedDoc = {
       // Will disappear when the object come from redux-cozy
       id: this.props.account._id,
@@ -73,7 +73,7 @@ class _GeneralSettings extends Component {
       ...this.state.changes
     }
     try {
-      await saveDocument(updatedDoc)
+      await saveAccount(updatedDoc)
     } catch (e) {
       // eslint-disable-next-line no-console
       console.error('Could not update document', e)
@@ -217,10 +217,17 @@ const GeneralSettings = compose(
   translate()
 )(_GeneralSettings)
 
+const createMutations = query => ({
+  saveAccount: account => query.save(account)
+})
+
 const AccountSettings = function({ routeParams, t }) {
   return (
-    <Query query={client => client.get(ACCOUNT_DOCTYPE, routeParams.accountId)}>
-      {({ data, fetchStatus }) => {
+    <Query
+      query={client => client.get(ACCOUNT_DOCTYPE, routeParams.accountId)}
+      mutations={createMutations}
+    >
+      {({ data, fetchStatus }, { saveAccount }) => {
         if (fetchStatus === 'loading') {
           return <Loading />
         }
@@ -244,7 +251,10 @@ const AccountSettings = function({ routeParams, t }) {
               </TabList>
               <TabPanels>
                 <TabPanel name="details">
-                  <GeneralSettings account={account} />
+                  <GeneralSettings
+                    saveAccount={saveAccount}
+                    account={account}
+                  />
                 </TabPanel>
                 <TabPanel name="sharing">
                   <div>{t('ComingSoon.title')}</div>
