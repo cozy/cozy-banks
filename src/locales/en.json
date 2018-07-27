@@ -91,6 +91,7 @@
     "create": "Create a group",
     "label": "Label",
     "banks": "Banks",
+    "bank": "Bank",
     "accounts": "Accounts",
     "groups": "Groups",
     "delete": "remove",
