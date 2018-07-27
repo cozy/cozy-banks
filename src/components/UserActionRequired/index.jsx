@@ -1,6 +1,5 @@
 /* global __TARGET__, cozy */
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
 import tosIcon from 'assets/icons/icon-tos.svg'
 import { Modal, Icon, Button, translate, Alerter } from 'cozy-ui/react'
