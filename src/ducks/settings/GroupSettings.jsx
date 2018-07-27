@@ -78,7 +78,7 @@ class GroupSettings extends Component {
               onToggle={this.toggleAccount.bind(null, account._id)}
             />
           ) : (
-            <Toggle disabled />
+            <Toggle id={account._id} disabled />
           )}
         </td>
       </tr>
