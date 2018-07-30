@@ -6,6 +6,26 @@ import palette from 'cozy-ui/stylus/settings/palette.json'
 
 import styles from './styles.styl'
 
+const PopupRow = ({ isSelected, icon, title, hasArrow, onClick }) =>
+  console.log('popup row', title) || (
+    <Media
+      className={cx(
+        styles.PopupSelect__row,
+        'u-ph-1 u-pv-half',
+        isSelected ? ' u-text-bold' : ''
+      )}
+      onClick={onClick}
+    >
+      {icon && <Img className="u-pr-1">{icon}</Img>}
+      <Bd className="u-ellipsis">{title}</Bd>
+      {hasArrow && (
+        <Img className="u-pl-1">
+          <Icon icon="forward" color={palette['coolGrey']} />
+        </Img>
+      )}
+    </Media>
+  )
+
 class PopupSelect extends Component {
   constructor(props) {
     super(props)
@@ -34,31 +54,19 @@ class PopupSelect extends Component {
   }
 
   renderList = () => {
+    const children = this.state.history[0].children
     return (
       <div className={styles.PopupSelect__content}>
-        {this.state.history[0].children.map((item, index) => {
-          return (
-            <Media
-              key={index}
-              className={cx(
-                styles.PopupSelect__row,
-                `u-ph-1 u-pv-half${
-                  this.props.isSelected(item) ? ' u-text-bold' : ''
-                }`
-              )}
-              onClick={() => this.handleSelect(item)}
-            >
-              {item.icon && <Img className="u-pr-1">{item.icon}</Img>}
-              <Bd className="u-ellipsis">{item.title}</Bd>
-              {item.children &&
-                item.children.length > 0 && (
-                  <Img className="u-pl-1">
-                    <Icon icon="forward" color={palette['coolGrey']} />
-                  </Img>
-                )}
-            </Media>
-          )
-        })}
+        {children.map(item => (
+          <PopupRow
+            key={item.title}
+            isSelected={this.props.isSelected(item)}
+            icon={item.icon}
+            title={item.title}
+            onClick={() => this.handleSelect(item)}
+            hasArrow={item.children && item.children.length > 0}
+          />
+        ))}
       </div>
     )
   }
