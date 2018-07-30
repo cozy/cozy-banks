@@ -51,7 +51,6 @@ const Groups = withRouter(
         return <Loading />
       }
 
-      debugger
       return (
         <div>
           {groups.fetchStatus === 'loading' ? (
