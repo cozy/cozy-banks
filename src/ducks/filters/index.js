@@ -35,8 +35,9 @@ export const getFilteredAccountIds = state => {
   } else if (doctype === GROUP_DOCTYPE) {
     const groups = getAllGroups(state)
     const group = find(groups, { _id: id })
-    if (group) {
-      return group.accounts
+    if (group && group.accounts && group.accounts.target) {
+      // TODO FIND A BETTER WAY TO GET IDS
+      return group.accounts.target.accounts
     } else {
       return availableAccountIds
     }
@@ -116,9 +117,17 @@ const filterByPeriod = (transactions, period) => {
 }
 
 // actions
+const dehydrate = doc => {
+  if (doc._type == GROUP_DOCTYPE) {
+    // TODO find a better way to "dehydrate" the document
+    return doc.accounts.target
+  } else {
+    return doc
+  }
+}
 export const addFilterByPeriod = period => ({ type: FILTER_BY_PERIOD, period })
 export const resetFilterByDoc = () => ({ type: RESET_FILTER_BY_DOC })
-export const filterByDoc = doc => ({ type: FILTER_BY_DOC, doc })
+export const filterByDoc = doc => ({ type: FILTER_BY_DOC, doc: dehydrate(doc) })
 
 export const addFilterForMostRecentTransactions = () => (
   dispatch,
