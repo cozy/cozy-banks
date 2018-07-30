@@ -18,7 +18,13 @@ import PageTitle from 'components/PageTitle'
 import AddAccountLink from 'ducks/settings/AddAccountLink'
 import { filterByDoc, getFilteringDoc } from 'ducks/filters'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
-import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
+import {
+  ACCOUNT_DOCTYPE,
+  GROUP_DOCTYPE,
+  SETTINGS_DOCTYPE,
+  TRANSACTION_DOCTYPE
+} from 'doctypes'
+import { getBalanceHistories } from './helpers'
 
 import styles from './Balance.styl'
 import btnStyles from 'styles/buttons.styl'
@@ -279,7 +285,8 @@ class Balance extends React.Component {
       breakpoints: { isMobile },
       accounts: accountsCollection,
       groups: groupsCollection,
-      settings: settingsCollection
+      settings: settingsCollection,
+      transactions: transactionsCollection
     } = this.props
     if (
       isCollectionLoading(accountsCollection) ||
@@ -299,6 +306,11 @@ class Balance extends React.Component {
     const accounts = accountsCollection.data
     const groups = groupsCollection.data
     const settings = settingsCollection.data
+    const transactions = transactionsCollection.data
+
+    const balanceHistories = getBalanceHistories(accounts, transactions)
+    // eslint-disable-next-line
+    console.log(balanceHistories)
 
     const accountsSorted = sortBy(accounts, ['institutionLabel', 'label'])
     const groupsSorted = sortBy(
@@ -369,6 +381,10 @@ export default compose(
   queryConnect({
     accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' },
     groups: { query: client => client.all(GROUP_DOCTYPE), as: 'groups' },
-    settings: { query: client => client.all(SETTINGS_DOCTYPE), as: 'settings' }
+    settings: { query: client => client.all(SETTINGS_DOCTYPE), as: 'settings' },
+    transactions: {
+      query: client => client.all(TRANSACTION_DOCTYPE),
+      as: 'transactions'
+    }
   })
 )(Balance)
