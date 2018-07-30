@@ -19,7 +19,7 @@ const PopupTitle = ({ showBack, onClickBack, title }) => (
   </Media>
 )
 
-const PopupRow = ({ isSelected, icon, title, hasArrow, onClick }) => (
+const PopupRow = ({ isSelected, icon, label, hasArrow, onClick }) => (
   <Media
     className={cx(
       styles.PopupSelect__row,
@@ -29,7 +29,7 @@ const PopupRow = ({ isSelected, icon, title, hasArrow, onClick }) => (
     onClick={onClick}
   >
     {icon && <Img className="u-pr-1">{icon}</Img>}
-    <Bd className="u-ellipsis">{title}</Bd>
+    <Bd className="u-ellipsis">{label}</Bd>
     {hasArrow && (
       <Img className="u-pl-1">
         <Icon icon="forward" color={palette['coolGrey']} />
@@ -41,7 +41,6 @@ const PopupRow = ({ isSelected, icon, title, hasArrow, onClick }) => (
 class PopupSelect extends Component {
   constructor(props) {
     super(props)
-
     this.state = {
       history: [props.options]
     }
@@ -56,10 +55,10 @@ class PopupSelect extends Component {
   }
 
   handleSelect = item => {
-    console.log('handleSelect', handleSelect)
     if (item.children && item.children.length > 0) {
+      const newHistory = [item, ...this.state.history]
       this.setState({
-        history: [item, ...this.state.history]
+        history: newHistory
       })
     } else {
       this.props.onSelect(item)
@@ -88,7 +87,7 @@ class PopupSelect extends Component {
                 key={item.title}
                 isSelected={this.props.isSelected(item)}
                 icon={item.icon}
-                title={item.title}
+                label={item.title}
                 onClick={() => this.handleSelect(item)}
                 hasArrow={item.children && item.children.length > 0}
               />
