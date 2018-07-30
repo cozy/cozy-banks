@@ -1,17 +1,11 @@
 /**
   Bank transactions related features
 **/
-
-import flatten from 'lodash/flatten'
-import uniq from 'lodash/uniq'
-import parse from 'date-fns/parse'
-import format from 'date-fns/format'
-import addMonths from 'date-fns/add_months'
-
-import { TRANSACTION_DOCTYPE } from 'doctypes'
-import { fetchCollection, getCollection } from 'cozy-client'
+import { flatten, uniq } from 'lodash'
+import { parse, format, addMonths } from 'date-fns'
+import { TRANSACTION_DOCTYPE, BILL_DOCTYPE } from 'doctypes'
+import { fetchCollection, getCollection } from 'old-cozy-client'
 import { isHealthExpense } from 'ducks/categories/helpers'
-import { fetchBill } from 'actions/bills'
 import assert from 'utils/assert'
 import {
   getFilteredAccountIds,
@@ -29,7 +23,7 @@ const getBillIds = transaction => {
     : 0
 }
 
-const fetchBillsForHealthExpenses = (dispatch, transactions) => {
+const fetchBillsForHealthExpenses = (client, transactions) => {
   const docIds = uniq(
     flatten(
       transactions
@@ -39,15 +33,15 @@ const fetchBillsForHealthExpenses = (dispatch, transactions) => {
     )
   )
 
-  docIds.forEach(id => dispatch(fetchBill(id)))
+  docIds.forEach(id => client.get(BILL_DOCTYPE, id))
 
   return transactions
 }
 
-const parseTransactions = (dispatch, res) => {
+const parseTransactions = (client, res) => {
   const transactions = res.data
 
-  fetchBillsForHealthExpenses(dispatch, transactions)
+  fetchBillsForHealthExpenses(client, transactions)
   return res
 }
 

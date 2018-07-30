@@ -1,7 +1,7 @@
 import Handlebars from 'handlebars'
 import htmlTemplate from './html/transaction-greater-html'
 import * as utils from './html/utils'
-import subDays from 'date-fns/sub_days'
+import { subDays } from 'date-fns'
 import {
   isCreatedDoc,
   isDocYoungerThan,

@@ -1,29 +1,24 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
-import { translate } from 'cozy-ui/react/I18n'
+import { translate, withBreakpoints } from 'cozy-ui/react'
 import Loading from 'components/Loading'
 import { getFilteredTransactions } from 'ducks/filters'
-import { fetchTransactions, getTransactions } from 'actions'
 import { transactionsByCategory, computeCategorieData } from './helpers'
 import Categories from './Categories'
 import styles from './CategoriesPage.styl'
 import { flowRight as compose, sortBy } from 'lodash'
-import { withBreakpoints } from 'cozy-ui/react'
 import CategoriesHeader from './CategoriesHeader'
+import { queryConnect } from 'utils/client'
 import {
-  getSettings,
-  fetchSettingsCollection,
-  updateSettings,
-  createSettings
-} from 'ducks/settings'
-import { cozyConnect } from 'cozy-client'
+  accountsConn,
+  settingsConn,
+  transactionsConn,
+  groupsConn
+} from 'doctypes'
+import { isCollectionLoading } from 'utils/client'
 
 class CategoriesPage extends Component {
-  componentDidMount() {
-    this.props.fetchTransactions()
-  }
-
   selectCategory = (selectedCategory, subcategory) => {
     if (subcategory) {
       this.props.router.push(`/categories/${selectedCategory}/${subcategory}`)
@@ -35,12 +30,11 @@ class CategoriesPage extends Component {
   }
 
   onWithIncomeToggle = checked => {
-    const { settings, dispatch } = this.props
-    const updateOrCreate = settings._id ? updateSettings : createSettings
+    const { settings, updateDocument } = this.props
 
     settings.showIncomeCategory = checked
 
-    dispatch(updateOrCreate(settings))
+    updateDocument(settings)
   }
 
   render() {
@@ -51,7 +45,8 @@ class CategoriesPage extends Component {
       router,
       settings
     } = this.props
-    const isFetching = transactions.fetchStatus !== 'loaded'
+    const isFetching =
+      isCollectionLoading(transactions) || isCollectionLoading(settings)
     const { showIncomeCategory } = settings
     const selectedCategoryName = router.params.categoryName
     const categories = showIncomeCategory
@@ -100,26 +95,32 @@ class CategoriesPage extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  categories: computeCategorieData(
-    transactionsByCategory(getFilteredTransactions(state))
-  ),
-  transactions: getTransactions(state),
-  settings: getSettings(state)
-})
+const mapStateToProps = (state, ownProps) => {
+  const { transactions, accounts, groups } = ownProps
+  const enhancedState = {
+    ...state,
+    transactions,
+    accounts,
+    groups
+  }
 
-const mapDispatchToProps = dispatch => ({
-  fetchTransactions: () => dispatch(fetchTransactions())
-})
-
-const mapDocumentsToProps = () => ({
-  settingsCollection: fetchSettingsCollection()
-})
+  const filteredTransactions = getFilteredTransactions(enhancedState)
+  return {
+    categories: computeCategorieData(
+      transactionsByCategory(filteredTransactions)
+    )
+  }
+}
 
 export default compose(
   withRouter,
   withBreakpoints(),
   translate(),
-  cozyConnect(mapDocumentsToProps),
-  connect(mapStateToProps, mapDispatchToProps)
+  queryConnect({
+    accounts: accountsConn,
+    transactions: transactionsConn,
+    settings: settingsConn,
+    groups: groupsConn
+  }),
+  connect(mapStateToProps)
 )(CategoriesPage)

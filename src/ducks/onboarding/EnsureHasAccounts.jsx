@@ -1,20 +1,13 @@
 import React, { Component } from 'react'
-import { fetchCollection, getCollection } from 'cozy-client'
-import { connect } from 'react-redux'
-import { ACCOUNT_DOCTYPE } from 'doctypes'
 import { flowRight as compose } from 'lodash'
 import Loading from 'components/Loading'
 import { withRouter } from 'react-router'
 import Onboarding from './Onboarding'
 import styles from './Onboarding.styl'
 import stylesLayout from 'styles/main.styl'
-import { Layout, Main, Content } from 'cozy-ui/react/Layout'
-import { isCollectionLoading } from 'utils/client'
-
-export const getAccounts = state => {
-  const col = getCollection(state, 'onboarding_accounts')
-  return (col && col.data) || []
-}
+import { Layout, Main, Content } from 'cozy-ui/react'
+import { queryConnect, isCollectionLoading, getClient } from 'utils/client'
+import { accountsConn } from 'doctypes'
 
 const hasParameter = (qs, param) => {
   // result of querystring parsing is created without prototype
@@ -37,10 +30,18 @@ class EnsureHasAccounts extends Component {
   intervalId = false
 
   startInterval = () => {
-    const { accounts, fetchAccounts } = this.props
-    if (accounts.length === 0 && !this.intervalId) {
-      this.intervalId = setInterval(() => fetchAccounts(), 30000)
+    const { accounts } = this.props
+    if (accounts && accounts.length === 0 && !this.intervalId) {
+      this.intervalId = setInterval(() => this.fetchAccounts(), 30000)
     }
+  }
+
+  fetchAccounts = () => {
+    const client = getClient()
+    if (!client) {
+      return
+    }
+    client.query(accountsConn.query)
   }
 
   stopInterval = () => {
@@ -51,7 +52,6 @@ class EnsureHasAccounts extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchAccounts()
     this.startInterval()
   }
 
@@ -69,9 +69,9 @@ class EnsureHasAccounts extends Component {
   }
 
   render() {
-    const { children, accounts, accountsCollection, location } = this.props
+    const { children, accounts, location } = this.props
 
-    if (isCollectionLoading(accountsCollection)) {
+    if (isCollectionLoading(accounts)) {
       return (
         <LayoutContent>
           <div className={styles.Onboarding__loading}>
@@ -82,7 +82,7 @@ class EnsureHasAccounts extends Component {
     }
 
     if (
-      (accounts && accounts.length === 0) ||
+      (accounts && accounts.data && accounts.data.length === 0) ||
       hasParameter(location.query, 'onboarding')
     ) {
       return (
@@ -96,16 +96,9 @@ class EnsureHasAccounts extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  accounts: getAccounts(state)
-})
-
-const mapDispatchToProps = dispatch => ({
-  fetchAccounts: () =>
-    dispatch(fetchCollection('onboarding_accounts', ACCOUNT_DOCTYPE))
-})
-
 export default compose(
   withRouter,
-  connect(mapStateToProps, mapDispatchToProps)
+  queryConnect({
+    accounts: { ...accountsConn, as: 'onboarding' }
+  })
 )(EnsureHasAccounts)

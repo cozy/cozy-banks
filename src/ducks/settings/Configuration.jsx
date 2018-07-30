@@ -1,14 +1,30 @@
 import React, { Component } from 'react'
 import TogglePane from './TogglePane'
-import { translate } from 'cozy-ui/react/I18n'
+import { translate } from 'cozy-ui/react'
+import { queryConnect, isCollectionLoading } from 'utils/client'
+import { settingsConn } from 'doctypes'
+import { flowRight as compose } from 'lodash'
+import Loading from 'components/Loading'
 
 class Configuration extends Component {
+  saveDocument = async doc => {
+    const { saveDocument } = this.props
+    await saveDocument(doc)
+    this.setState({})
+  }
+
   render() {
-    const { t } = this.props
+    const { t, settingsCollection } = this.props
+
+    if (isCollectionLoading(settingsCollection)) {
+      return <Loading />
+    }
 
     return (
       <div>
         <TogglePane
+          settingsCollection={settingsCollection}
+          saveDocument={this.saveDocument}
           rows={[
             {
               title: 'Notifications.if_balance_lower.title',
@@ -37,6 +53,8 @@ class Configuration extends Component {
               description: 'CommunitySettings.auto_categorization.subtitle'
             }
           ]}
+          saveDocument={this.saveDocument}
+          settingsCollection={settingsCollection}
           title={t('CommunitySettings.title')}
           settingsKey="community"
         />
@@ -45,4 +63,9 @@ class Configuration extends Component {
   }
 }
 
-export default translate()(Configuration)
+export default compose(
+  queryConnect({
+    settingsCollection: settingsConn
+  }),
+  translate()
+)(Configuration)

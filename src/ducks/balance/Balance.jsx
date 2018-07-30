@@ -1,5 +1,5 @@
 import React from 'react'
-import { flowRight as compose, sumBy, uniq, sortBy, get } from 'lodash'
+import { flowRight as compose, sumBy, uniq, sortBy, get, keyBy } from 'lodash'
 import { connect } from 'react-redux'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
@@ -7,7 +7,6 @@ import { or } from 'airbnb-prop-types'
 
 import { withRouter } from 'react-router'
 import { translate, Button, Icon, withBreakpoints } from 'cozy-ui/react'
-import { cozyConnect, fetchCollection, getDocument } from 'cozy-client'
 import { isCollectionLoading } from 'utils/client'
 
 import Topbar from 'components/Topbar'
@@ -17,15 +16,14 @@ import { Figure, FigureBlock } from 'components/Figure'
 import PageTitle from 'components/PageTitle'
 
 import AddAccountLink from 'ducks/settings/AddAccountLink'
-import { getSettings } from 'ducks/settings'
 import { filterByDoc, getFilteringDoc } from 'ducks/filters'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
-import { getAllGroups, getAccounts } from 'selectors'
 
 import styles from './Balance.styl'
 import btnStyles from 'styles/buttons.styl'
 import plus from 'assets/icons/16/plus.svg'
+import { queryConnect } from 'utils/client'
 
 const getGroupBalance = (group, getAccount) => {
   return sumBy(
@@ -131,8 +129,7 @@ class _BalanceRow extends React.Component {
 }
 
 const BalanceRow = connect(state => ({
-  filteringDoc: getFilteringDoc(state),
-  getAccount: id => getDocument(state, ACCOUNT_DOCTYPE, id)
+  filteringDoc: getFilteringDoc(state)
 }))(_BalanceRow)
 
 BalanceRow.propTypes = {
@@ -158,8 +155,9 @@ const SectionTitle = ({ children }) => {
 }
 
 const enhanceGroups = compose(withRouter, translate())
+
 const BalanceGroups = enhanceGroups(
-  ({ groups, balanceLower, isMobile, onRowClick, t, router }) => {
+  ({ groups, accountsById, balanceLower, isMobile, onRowClick, t, router }) => {
     return (
       <div>
         <SectionTitle>{t('AccountSwitch.groups')}</SectionTitle>
@@ -182,6 +180,7 @@ const BalanceGroups = enhanceGroups(
             <tbody>
               {groups.map(group => (
                 <BalanceRow
+                  getAccount={id => accountsById[id]}
                   key={group.label}
                   group={group}
                   warningLimit={balanceLower}
@@ -278,14 +277,10 @@ class Balance extends React.Component {
     const {
       t,
       breakpoints: { isMobile },
-      accounts,
-      accountsCollection,
-      groups,
-      groupsCollection,
-      settings,
-      settingsCollection
+      accounts: accountsCollection,
+      groups: groupsCollection,
+      settings: settingsCollection
     } = this.props
-
     if (
       isCollectionLoading(accountsCollection) ||
       isCollectionLoading(groupsCollection) ||
@@ -300,6 +295,10 @@ class Balance extends React.Component {
         </div>
       )
     }
+
+    const accounts = accountsCollection.data
+    const groups = groupsCollection.data
+    const settings = settingsCollection.data
 
     const accountsSorted = sortBy(accounts, ['institutionLabel', 'label'])
     const groupsSorted = sortBy(
@@ -323,6 +322,7 @@ class Balance extends React.Component {
 
     const groupsC = (
       <BalanceGroups
+        accountsById={keyBy(accounts, x => x._id)}
         groups={groupsSorted}
         balanceLower={balanceLower}
         isMobile={isMobile}
@@ -357,18 +357,6 @@ class Balance extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  accounts: getAccounts(state),
-  groups: getAllGroups(state),
-  settings: getSettings(state)
-})
-
-const mapDocumentsToProps = () => ({
-  accountsCollection: fetchCollection('accounts', ACCOUNT_DOCTYPE),
-  groupsCollection: fetchCollection('groups', GROUP_DOCTYPE),
-  settingsCollection: fetchCollection('settings', SETTINGS_DOCTYPE)
-})
-
 const mapDispatchToProps = dispatch => ({
   filterByDoc: doc => dispatch(filterByDoc(doc))
 })
@@ -377,6 +365,10 @@ export default compose(
   withRouter,
   withBreakpoints(),
   translate(),
-  cozyConnect(mapDocumentsToProps),
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(null, mapDispatchToProps),
+  queryConnect({
+    accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' },
+    groups: { query: client => client.all(GROUP_DOCTYPE), as: 'groups' },
+    settings: { query: client => client.all(SETTINGS_DOCTYPE), as: 'settings' }
+  })
 )(Balance)

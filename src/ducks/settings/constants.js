@@ -1,6 +1,7 @@
 export const DOCTYPE = 'io.cozy.bank.settings'
 export const COLLECTION_NAME = 'settings'
 export const DEFAULTS_SETTINGS = {
+  _type: 'io.cozy.bank.settings',
   notifications: {
     lastSeq: 0,
     balanceLower: {

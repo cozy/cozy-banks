@@ -1,10 +1,9 @@
 import { cozyClient, log } from 'cozy-konnector-libs'
-import { maxBy } from 'lodash'
+import { maxBy, pick } from 'lodash'
 import { tokenizer, createClassifier } from '.'
 import bayes from 'classificator'
 import { getLabel } from 'ducks/transactions/helpers'
 import { TRANSACTION_DOCTYPE } from 'doctypes'
-import pick from 'lodash/pick'
 
 export const PARAMETERS_NOT_FOUND = 'Classifier files is not configured.'
 

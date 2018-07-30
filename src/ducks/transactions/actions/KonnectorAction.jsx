@@ -4,9 +4,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { flowRight as compose } from 'lodash'
 import cx from 'classnames'
-import { connect } from 'react-redux'
-import { fetchCollection } from 'cozy-client'
-import { TRIGGER_DOCTYPE } from 'doctypes'
 import { matchBrands, findMatchingBrand } from 'ducks/brandDictionary'
 import {
   IntentModal,
@@ -25,7 +22,8 @@ import styles from '../TransactionActions.styl'
 import { TransactionModalRow } from '../TransactionModal'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import iconCollectAccount from 'assets/icons/icon-collect-account.svg'
-
+import { queryConnect } from 'utils/client'
+import { triggersConn } from 'doctypes'
 const name = 'konnector'
 
 const InformativeModal = ({
@@ -198,17 +196,18 @@ Component.propTypes = {
   fetchTriggers: PropTypes.func.isRequired
 }
 
-const mapDispatchToProps = dispatch => ({
-  fetchTriggers: () => dispatch(fetchCollection('triggers', TRIGGER_DOCTYPE))
-})
-
 const action = {
   name,
   icon,
   match: (transaction, { brands, urls }) => {
     return brands && matchBrands(brands, transaction.label) && urls['COLLECT']
   },
-  Component: compose(connect(null, mapDispatchToProps), translate())(Component)
+  Component: compose(
+    queryConnect({
+      triggers: triggersConn
+    }),
+    translate()
+  )(Component)
 }
 
 export default action

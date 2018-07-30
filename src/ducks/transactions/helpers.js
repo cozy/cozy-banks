@@ -1,9 +1,7 @@
-import { BILLS_DOCTYPE } from 'doctypes'
-import { getDocument } from 'cozy-client'
 import { isHealthExpense } from 'ducks/categories/helpers'
 import assert from 'utils/assert'
-import { getAccounts } from 'selectors'
-import find from 'lodash/find'
+import { getAccounts, getBills } from 'selectors'
+import { find } from 'lodash'
 
 const getBillId = idWithDoctype => idWithDoctype && idWithDoctype.split(':')[1]
 export const hydrateReimbursementWithBill = (reimbursement, getBill) => {
@@ -39,7 +37,8 @@ export const hydrateTransaction = (state, originalTransaction) => {
     return transaction
   }
 
-  const getBill = billId => getDocument(state, BILLS_DOCTYPE, billId)
+  // TODO perf, index bills by id
+  const getBill = billId => getBills(state).find(bill => billId == bill._id)
 
   transaction.reimbursements = transaction.reimbursements || []
   transaction.reimbursements = transaction.reimbursements.map(r =>

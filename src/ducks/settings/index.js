@@ -3,7 +3,7 @@ import {
   fetchCollection,
   createDocument,
   updateDocument
-} from 'cozy-client'
+} from 'old-cozy-client'
 import { merge, get } from 'lodash'
 import Settings from './Settings'
 import AccountSettings from './AccountSettings'
@@ -34,18 +34,13 @@ export const isNotificationEnabled = settings => {
   )
 }
 
-const getSettingsFromCollection = col => get(col, 'data[0]')
+export const getSettingsFromCollection = col =>
+  merge(DEFAULTS_SETTINGS, get(col, 'data[0]'))
 
 // selectors
 
-export const getSettingsFromState = state =>
+const getSettingsFromState = state =>
   getSettingsFromCollection(getCollection(state, 'settings'))
-
-export const getSettings = state => {
-  const settings = getSettingsFromState(state)
-
-  return merge(DEFAULTS_SETTINGS, settings)
-}
 
 // actions
 export const fetchSettingsCollection = () =>

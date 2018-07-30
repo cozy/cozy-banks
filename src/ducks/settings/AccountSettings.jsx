@@ -17,13 +17,15 @@ import { withDispatch } from 'utils'
 import BackButton from 'components/BackButton'
 import PageTitle from 'components/PageTitle'
 import { connect } from 'react-redux'
-import { cozyConnect, fetchDocument, updateDocument } from 'cozy-client'
 import styles from './AccountsSettings.styl'
 import { flowRight as compose } from 'lodash'
 import { destroyAccount } from 'actions'
 import spinner from 'assets/icons/icon-spinner.svg'
 import { getAccountInstitutionLabel } from '../account/helpers'
-import { getAppUrlById, fetchApps } from 'ducks/apps'
+import { getAppUrlById } from 'selectors'
+import { Query } from 'cozy-client'
+import { queryConnect } from 'utils/client'
+import { ACCOUNT_DOCTYPE, APP_DOCTYPE } from 'doctypes'
 
 const DeleteConfirm = ({
   cancel,
@@ -48,16 +50,8 @@ const DeleteConfirm = ({
   )
 }
 
-const AccountSharingDetails = translate()(({ t }) => (
-  <div>{t('ComingSoon.title')}</div>
-))
-
 class _GeneralSettings extends Component {
   state = { modifying: false }
-
-  componentDidMount() {
-    this.props.fetchApps()
-  }
 
   onClickModify = () => {
     const { account } = this.props
@@ -69,16 +63,23 @@ class _GeneralSettings extends Component {
     })
   }
 
-  onClickSave = () => {
+  onClickSave = async () => {
+    const { saveDocument } = this.props
     const updatedDoc = {
       // Will disappear when the object come from redux-cozy
       id: this.props.account._id,
-      type: 'io.cozy.bank.accounts',
+      type: ACCOUNT_DOCTYPE,
       ...this.props.account,
       ...this.state.changes
     }
-    this.props.dispatch(updateDocument(updatedDoc))
-    this.setState({ modifying: false, changes: null })
+    try {
+      await saveDocument(updatedDoc)
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error('Could not update document', e)
+    } finally {
+      this.setState({ modifying: false, changes: null })
+    }
   }
 
   onClickDelete = () => {
@@ -90,12 +91,15 @@ class _GeneralSettings extends Component {
   }
 
   onClickConfirmDelete = async () => {
-    const { destroyAccount, router } = this.props
+    const { destroyDocument, router } = this.props
     try {
       this.setState({ deleting: true })
-      await destroyAccount(this.props.account)
+      await destroyDocument(this.props.account)
       router.push('/settings/accounts')
     } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error('Could not confirm delete', e)
+    } finally {
       this.setState({ deleting: false })
     }
   }
@@ -107,11 +111,15 @@ class _GeneralSettings extends Component {
   }
 
   render() {
-    const { t, account } = this.props
+    const { t, account, collectUrl } = this.props
     const { modifying, deleting, showingDeleteConfirmation } = this.state
+
     const confirmPrimaryText = t('AccountSettings.confirm-deletion.description')
-      .replace('#{LINK}', `<a href="${this.props.collectUrl}" target="_blank">`)
-      .replace('#{/LINK}', '</a>')
+      .replace(
+        '#{LINK}',
+        collectUrl ? `<a href="${collectUrl}" target="_blank">` : ''
+      )
+      .replace('#{/LINK}', collectUrl ? '</a>' : '')
 
     return (
       <div>
@@ -192,61 +200,62 @@ class _GeneralSettings extends Component {
 const mapDispatchToProps = dispatch => ({
   destroyAccount: account => {
     return dispatch(destroyAccount(account))
-  },
-  fetchApps: () => dispatch(fetchApps())
+  }
 })
 
-const mapStateToProps = state => ({
-  collectUrl: getAppUrlById(state, 'io.cozy.apps/collect')
+const mapStateToProps = (state, ownProps) => ({
+  collectUrl: getAppUrlById(ownProps, 'io.cozy.apps/collect')
 })
 
 const GeneralSettings = compose(
   withRouter,
+  queryConnect({
+    apps: { query: client => client.all(APP_DOCTYPE), as: 'apps' }
+  }),
   withDispatch,
   connect(mapStateToProps, mapDispatchToProps),
   translate()
 )(_GeneralSettings)
 
-const AccountSettings = function({ account, t }) {
-  if (!account) {
-    return <Loading />
-  }
+const AccountSettings = function({ routeParams, t }) {
   return (
-    <div>
-      <BackButton to="/settings/accounts" arrow />
-      <Topbar>
-        <PageTitle>{account.shortLabel || account.label}</PageTitle>
-      </Topbar>
-      <Tabs className={styles.AcnStg__tabs} initialActiveTab="details">
-        <TabList className={styles.AcnStg__tabList}>
-          <Tab className={styles.AcnStg__tab} name="details">
-            {t('AccountSettings.details')}
-          </Tab>
-          <Tab className={styles.AcnStg__tab} name="sharing">
-            {t('AccountSettings.sharing')}
-          </Tab>
-        </TabList>
-        <TabPanels>
-          <TabPanel name="details">
-            <GeneralSettings account={account} />
-          </TabPanel>
-          <TabPanel name="sharing">
-            <AccountSharingDetails account={account} />
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
-    </div>
+    <Query query={client => client.get(ACCOUNT_DOCTYPE, routeParams.accountId)}>
+      {({ data, fetchStatus }) => {
+        if (fetchStatus === 'loading') {
+          return <Loading />
+        }
+
+        const [account] = data
+
+        return (
+          <div>
+            <BackButton to="/settings/accounts" arrow />
+            <Topbar>
+              <PageTitle>{account.shortLabel || account.label}</PageTitle>
+            </Topbar>
+            <Tabs className={styles.AcnStg__tabs} initialActiveTab="details">
+              <TabList className={styles.AcnStg__tabList}>
+                <Tab className={styles.AcnStg__tab} name="details">
+                  {t('AccountSettings.details')}
+                </Tab>
+                <Tab className={styles.AcnStg__tab} name="sharing">
+                  {t('AccountSettings.sharing')}
+                </Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel name="details">
+                  <GeneralSettings account={account} />
+                </TabPanel>
+                <TabPanel name="sharing">
+                  <div>{t('ComingSoon.title')}</div>
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
+          </div>
+        )
+      }}
+    </Query>
   )
 }
 
-const mapDocumentsToProps = function({ routeParams }) {
-  return {
-    account: fetchDocument('io.cozy.bank.accounts', routeParams.accountId)
-  }
-}
-
-export default compose(
-  cozyConnect(mapDocumentsToProps),
-  withDispatch,
-  translate()
-)(AccountSettings)
+export default compose(withDispatch, translate())(AccountSettings)

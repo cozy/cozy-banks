@@ -18,13 +18,19 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.json', '.css', '.jsx'],
-    modules: ['node_modules', SRC_DIR]
+    modules: ['node_modules', SRC_DIR],
+    alias: {
+      'old-cozy-client': path.resolve(SRC_DIR, 'utils/old-cozy-client')
+    }
   },
   module: {
     rules: [
       {
         test: /^((?!min).)*\.jsx?$/, // all js, jsx, exclude minified
         include: [SRC_DIR],
+        exclude: [
+          path.dirname(path.resolve(SRC_DIR, 'utils/old-cozy-client')),
+        ],
         loader: 'eslint-loader',
         enforce: 'pre',
         options: {
@@ -42,7 +48,9 @@ module.exports = {
           path.resolve(__dirname, '../docs'),
           path.dirname(require.resolve('cozy-client')),
           path.dirname(require.resolve('cozy-device-helper')),
-          path.dirname(require.resolve('cozy-konnector-libs'))
+          path.dirname(require.resolve('cozy-konnector-libs')),
+          path.dirname(require.resolve('cozy-stack-client')),
+          path.dirname(require.resolve('cozy-pouch-link'))
         ],
         loader: 'babel-loader',
         options: {

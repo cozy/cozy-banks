@@ -1,5 +1,5 @@
 import React from 'react'
-import sumBy from 'lodash/sumBy'
+import { sumBy } from 'lodash'
 import styles from './styles.styl'
 import { Figure } from 'components/Figure'
 import BarItem from 'components/BarItem'

@@ -13,11 +13,9 @@ import {
   uniq,
   maxBy
 } from 'lodash'
-import { getCollection, cozyConnect, fetchCollection } from 'cozy-client'
 import { getFilteredAccounts } from 'ducks/filters'
 import BarBalance from 'components/BarBalance'
-import { translate } from 'cozy-ui/react/I18n'
-import { withBreakpoints } from 'cozy-ui/react'
+import { translate, withBreakpoints } from 'cozy-ui/react'
 
 import {
   getTransactionsFilteredByAccount,
@@ -27,8 +25,7 @@ import {
 
 import { ConnectedSelectDates } from 'components/SelectDates'
 import TransactionSelectDates from 'ducks/transactions/TransactionSelectDates'
-import { fetchTransactions } from 'actions/transactions'
-import { getAppUrlById, fetchApps } from 'ducks/apps'
+import { getAppUrlById } from 'selectors'
 import { getCategoryIdFromName } from 'ducks/categories/categoriesMap'
 import { hydrateTransaction, getDate } from 'ducks/transactions/helpers'
 import { getCategoryId } from 'ducks/categories/helpers'
@@ -39,17 +36,23 @@ import BackButton from 'components/BackButton'
 
 import { TransactionTableHead, TransactionsWithSelection } from './Transactions'
 import styles from './TransactionsPage.styl'
-import { TRIGGER_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
+import {
+  ACCOUNT_DOCTYPE,
+  appsConn,
+  accountsConn,
+  groupsConn,
+  triggersConn,
+  transactionsConn
+} from 'doctypes'
+
 import { getBrands } from 'ducks/brandDictionary'
 import { AccountSwitch } from 'ducks/account'
 import { isIOSApp } from 'cozy-device-helper'
 import { getKonnectorFromTrigger } from 'utils/triggers'
+import { queryConnect } from 'utils/client'
+import { isCollectionLoading } from 'utils/client'
 
 const { BarRight } = cozy.bar
-
-const isPendingOrLoading = function(col) {
-  return col.fetchStatus === 'pending' || col.fetchStatus === 'loading'
-}
 
 const STEP_INFINITE_SCROLL = 30
 const SCROLL_THRESOLD_TO_ACTIVATE_TOP_INFINITE_SCROLL = 150
@@ -87,22 +90,6 @@ class TransactionsPage extends Component {
     limitMin: 0,
     limitMax: STEP_INFINITE_SCROLL,
     infiniteScrollTop: false
-  }
-
-  async fetchTransactions() {
-    this.setState({ fetching: true })
-    try {
-      await this.props.fetchTransactions()
-    } finally {
-      this.setState({
-        fetching: false
-      })
-    }
-  }
-
-  componentDidMount() {
-    this.fetchTransactions()
-    this.props.fetchApps()
   }
 
   setCurrentMonthFollowingMostRecentTransaction() {
@@ -224,8 +211,14 @@ class TransactionsPage extends Component {
       triggers,
       filteringDoc,
       filteredAccounts,
+      transactions,
       breakpoints: { isMobile }
     } = this.props
+
+    if (isCollectionLoading(transactions)) {
+      return <Loading loadingType="movements" />
+    }
+
     let { filteredTransactions } = this.props
 
     if (this.state.fetching) {
@@ -233,7 +226,7 @@ class TransactionsPage extends Component {
     }
 
     let brandsWithoutTrigger = []
-    if (!isPendingOrLoading(triggers)) {
+    if (!isCollectionLoading(triggers)) {
       const slugs = this.getKonnectorSlugs(triggers.data)
       const isBrandKonnectorAbsent = brand =>
         !includes(slugs, brand.konnectorSlug)
@@ -342,54 +335,47 @@ class TransactionsPage extends Component {
 }
 
 const onSubcategory = ownProps => ownProps.router.params.subcategoryName
-const mapStateToProps = (state, ownProps) => ({
-  urls: {
-    // this keys are used on Transactions.jsx to:
-    // - find transaction label
-    // - display appName in translate `Transactions.actions.app`
-    MAIF: getAppUrlById(state, 'io.cozy.apps/maif'),
-    HEALTH: getAppUrlById(state, 'io.cozy.apps/sante'),
-    EDF: getAppUrlById(state, 'io.cozy.apps/edf'),
-    COLLECT: getAppUrlById(state, 'io.cozy.apps/collect')
-  },
-  accountIds: getFilteredAccountIds(state),
-  accounts: getCollection(state, 'accounts'),
-  filteringDoc: state.filters.filteringDoc,
-  filteredAccounts: getFilteredAccounts(state),
-  filteredTransactions: (onSubcategory(ownProps)
-    ? getFilteredTransactions
-    : getTransactionsFilteredByAccount)(state).map(transaction =>
-    hydrateTransaction(state, transaction)
-  )
-})
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  dispatch,
-  fetchApps: () => dispatch(fetchApps()),
-  fetchTransactions: () => {
-    const onFetch = () => {
-      const subcategoryName = ownProps.router.params.subcategoryName
-      if (subcategoryName) {
-        return
-      }
-    }
-    // We should use fetchTransactionsWithState
-    // when https://github.com/cozy/cozy-drive/pull/800
-    // has been merged, it would only fetch transactions
-    // for the proper account(s) and period and thus would
-    // be more performant
-    return dispatch(fetchTransactions({}, onFetch))
+const mapStateToProps = (state, ownProps) => {
+  const enhancedState = {
+    ...state,
+    accounts: ownProps.accounts,
+    apps: ownProps.apps,
+    groups: ownProps.groups,
+    transactions: ownProps.transactions,
+    bills: ownProps.bills,
+    triggers: ownProps.triggers
   }
-})
-
-const mapDocumentsToProps = () => ({
-  triggers: fetchCollection('triggers', TRIGGER_DOCTYPE)
-})
+  return {
+    urls: {
+      // this keys are used on Transactions.jsx to:
+      // - find transaction label
+      // - display appName in translate `Transactions.actions.app`
+      MAIF: getAppUrlById(enhancedState, 'io.cozy.apps/maif'),
+      HEALTH: getAppUrlById(enhancedState, 'io.cozy.apps/sante'),
+      EDF: getAppUrlById(enhancedState, 'io.cozy.apps/edf'),
+      COLLECT: getAppUrlById(enhancedState, 'io.cozy.apps/collect')
+    },
+    accountIds: getFilteredAccountIds(enhancedState),
+    filteringDoc: state.filters.filteringDoc,
+    filteredAccounts: getFilteredAccounts(enhancedState),
+    filteredTransactions: (onSubcategory(ownProps)
+      ? getFilteredTransactions
+      : getTransactionsFilteredByAccount)(enhancedState).map(transaction =>
+      hydrateTransaction(enhancedState, transaction)
+    )
+  }
+}
 
 export default compose(
   withRouter,
+  queryConnect({
+    apps: appsConn,
+    accounts: accountsConn,
+    groups: groupsConn,
+    triggers: triggersConn,
+    transactions: transactionsConn
+  }),
   withBreakpoints(),
-  connect(mapStateToProps, mapDispatchToProps),
-  cozyConnect(mapDocumentsToProps),
+  connect(mapStateToProps),
   translate()
 )(TransactionsPage)

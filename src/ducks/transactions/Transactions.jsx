@@ -1,22 +1,29 @@
 import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
 import cx from 'classnames'
-import find from 'lodash/find'
-import sortBy from 'lodash/sortBy'
-import throttle from 'lodash/throttle'
-import debounce from 'lodash/debounce'
-import keyBy from 'lodash/keyBy'
-import format from 'date-fns/format'
+import {
+  find,
+  sortBy,
+  throttle,
+  debounce,
+  keyBy,
+  flowRight as compose,
+  toPairs,
+  groupBy
+} from 'lodash'
+import { format } from 'date-fns'
 import {
   translate,
   withBreakpoints,
+  Media,
+  Bd,
+  Img,
   ListItemText,
   Caption,
   Text,
   Button
 } from 'cozy-ui/react'
 import { Figure } from 'components/Figure'
-import { flowRight as compose, toPairs, groupBy } from 'lodash'
 import { Table, TdSecondary } from 'components/Table'
 import TransactionActions from './TransactionActions'
 import { getLabel } from './helpers'
@@ -33,7 +40,6 @@ import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { withUpdateCategory } from 'ducks/categories'
 import { withDispatch } from 'utils'
 import styles from './Transactions.styl'
-import { Media, Bd, Img } from 'cozy-ui/react/Media'
 import { InfiniteScroll, ScrollRestore } from './scroll'
 import TransactionModal from './TransactionModal'
 import { isIOSApp } from 'cozy-device-helper'

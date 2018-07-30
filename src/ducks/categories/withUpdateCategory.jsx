@@ -1,21 +1,19 @@
 import React, { Component } from 'react'
 import CategoryChoice from './CategoryChoice'
-import { fetchDocument, updateDocument } from 'cozy-client'
 import { getCategoryId } from 'ducks/categories/helpers'
+import { TRANSACTION_DOCTYPE } from 'doctypes'
 
 const updateCategoryParams = {
   updateCategory: async (props, category) => {
-    const { dispatch, transaction } = props
+    const { transaction, client } = props
 
     try {
-      const res = await dispatch(
-        fetchDocument('io.cozy.bank.operations', transaction._id)
-      )
-      const originalTransaction = res.data[0]
-
-      originalTransaction.manualCategoryId = category.id
-
-      dispatch(updateDocument(originalTransaction))
+      const res = await client.get(TRANSACTION_DOCTYPE, transaction._id)
+      const newTransaction = {
+        ...res.data[0],
+        manualCategoryId: category.id
+      }
+      await client.mutate(client.update(TRANSACTION_DOCTYPE, newTransaction))
     } catch (err) {
       // eslint-disable-next-line no-console
       console.log(err)

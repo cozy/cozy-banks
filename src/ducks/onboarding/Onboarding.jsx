@@ -1,11 +1,7 @@
 /* global __TARGET__ */
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { translate, Button, withBreakpoints } from 'cozy-ui/react'
 import { some, flowRight as compose } from 'lodash'
-import { getCollection, fetchCollection } from 'cozy-client'
-import { TRIGGER_DOCTYPE } from 'doctypes'
-import { isCollectionLoading } from 'utils/client'
 
 import Topbar from 'components/Topbar'
 import PageTitle from 'components/PageTitle'
@@ -15,6 +11,8 @@ import calculator from 'assets/icons/icon-calculator.svg'
 import watch from 'assets/icons/icon-watch.svg'
 import cozy from 'assets/icons/icon-cozy.svg'
 import palette from 'cozy-ui/stylus/settings/palette.json'
+import { triggersConn } from 'doctypes'
+import { queryConnect, isCollectionLoading, withClient } from 'utils/client'
 
 import {
   Hero,
@@ -28,16 +26,19 @@ import {
 
 class Onboarding extends Component {
   componentDidMount() {
-    this.props.fetchTriggers()
     if (__TARGET__ === 'mobile') {
-      document.addEventListener('resume', this.props.fetchTriggers, false)
+      document.addEventListener('resume', this.fetchTriggers, false)
     }
   }
 
   componentWillUnmount() {
     if (__TARGET__ === 'mobile') {
-      document.removeEventListener('resume', this.props.fetchTriggers, false)
+      document.removeEventListener('resume', this.fetchTriggers, false)
     }
+  }
+
+  async fetchTriggers() {
+    await triggersConn.query(this.props.client)
   }
 
   render() {
@@ -101,17 +102,11 @@ class Onboarding extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  triggers: getCollection(state, 'onboarding_triggers')
-})
-
-const mapDispatchToProps = dispatch => ({
-  fetchTriggers: () =>
-    dispatch(fetchCollection('onboarding_triggers', TRIGGER_DOCTYPE))
-})
-
 export default compose(
   translate(),
   withBreakpoints(),
-  connect(mapStateToProps, mapDispatchToProps)
+  withClient,
+  queryConnect({
+    triggers: { ...triggersConn, as: 'onboarding_triggers' }
+  })
 )(Onboarding)

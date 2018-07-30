@@ -1,37 +1,33 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { cozyConnect } from 'cozy-client'
 import { connect } from 'react-redux'
-import { Title } from 'cozy-ui/react/Text'
-import { translate } from 'cozy-ui/react/I18n'
+import { Title, translate } from 'cozy-ui/react'
 import { flowRight as compose } from 'lodash'
 import ToggleRow from './ToggleRow'
-import {
-  getSettings,
-  fetchSettingsCollection,
-  createSettings,
-  updateSettings
-} from '.'
+import { getSettingsFromCollection } from '.'
 
 class TogglePane extends Component {
   onToggle = (setting, checked) => {
-    const { settings, dispatch } = this.props
-    const updateOrCreate = settings._id ? updateSettings : createSettings
-
-    settings[this.props.settingsKey][setting].enabled = checked
-    dispatch(updateOrCreate(settings))
+    const { settingsCollection, settingsKey } = this.props
+    const settings = getSettingsFromCollection(settingsCollection)
+    settings[settingsKey][setting].enabled = checked
+    this.props.saveDocument(settings, {
+      updateCollections: ['settings']
+    })
   }
 
   onChangeValue = (setting, value) => {
-    const { settings, dispatch } = this.props
-    const updateOrCreate = settings._id ? updateSettings : createSettings
-
-    settings[this.props.settingsKey][setting].value = value.replace(/\D/i, '')
-    dispatch(updateOrCreate(settings))
+    const { settingsCollection, settingsKey } = this.props
+    const settings = getSettingsFromCollection(settingsCollection)
+    settings[settingsKey][setting].value = value.replace(/\D/i, '')
+    this.props.saveDocument(settings, {
+      updateCollections: ['settings']
+    })
   }
 
   render() {
-    const { rows, settings, settingsKey, t, title } = this.props
+    const { rows, settingsCollection, settingsKey, t, title } = this.props
+    const settings = getSettingsFromCollection(settingsCollection)
 
     return (
       <div>
@@ -68,19 +64,14 @@ TogglePane.propTypes = {
     })
   ).isRequired,
   title: PropTypes.string.isRequired,
-  settingsKey: PropTypes.string.isRequired
+  settingsKey: PropTypes.string.isRequired,
+  settingsCollection: PropTypes.object.isRequired,
+  saveDocument: PropTypes.func.isRequired
 }
-
-const mapStateToProps = state => ({
-  settings: getSettings(state)
-})
-
-const mapDocumentsToProps = () => ({
-  settingsCollection: fetchSettingsCollection()
-})
 
 export default compose(
   translate(),
-  cozyConnect(mapDocumentsToProps),
-  connect(mapStateToProps)
+  // We keep `connect` just so the component still receive the `dispatch` function as prop
+  // This has to be removed when we handle the mutations with the new cozy-client
+  connect()
 )(TogglePane)
