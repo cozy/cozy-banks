@@ -166,7 +166,7 @@ export const dehydrateDoc = obj => {
   const res = {}
   Object.entries(obj).forEach(([attr, value]) => {
     if (value instanceof Relationship) {
-      res[attr] = value.raw
+      res[attr] = value.raw()
     } else if (ccRelationships.isRelationship(value)) {
       res[attr] = ccRelationships.getRaw(value)
     } else {
