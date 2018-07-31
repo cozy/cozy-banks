@@ -1,4 +1,4 @@
-import { groupBy, sumBy } from 'lodash'
+import { groupBy, memoize, sumBy } from 'lodash'
 import {
   min as getEarliestDate,
   isAfter as isDateAfter,
@@ -8,7 +8,7 @@ import {
   format as formatDate
 } from 'date-fns'
 
-export const getBalanceHistories = (accounts, transactions) => {
+const _getBalanceHistories = (accounts, transactions) => {
   if (accounts.length === 0 || transactions.length === 0) {
     return null
   }
@@ -25,6 +25,8 @@ export const getBalanceHistories = (accounts, transactions) => {
 
   return balances
 }
+
+export const getBalanceHistories = memoize(_getBalanceHistories)
 
 const getTransactionsForAccount = (account, transactions) =>
   transactions.filter(t => t.account === account.id)
