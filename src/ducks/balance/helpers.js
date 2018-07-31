@@ -1,11 +1,12 @@
-import groupBy from 'lodash/groupBy'
-import sumBy from 'lodash/sumBy'
-import getEarliestDate from 'date-fns/min'
-import isDateAfter from 'date-fns/is_after'
-import isDateEqual from 'date-fns/is_equal'
-import subDays from 'date-fns/sub_days'
-import startOfToday from 'date-fns/start_of_today'
-import formatDate from 'date-fns/format'
+import { groupBy, sumBy } from 'lodash'
+import {
+  min as getEarliestDate,
+  isAfter as isDateAfter,
+  isEqual as isDateEqual,
+  subDays,
+  startOfToday,
+  format as formatDate
+} from 'date-fns'
 
 export const getBalanceHistories = (accounts, transactions) => {
   if (accounts.length === 0 || transactions.length === 0) {
