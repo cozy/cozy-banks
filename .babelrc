@@ -1,4 +1,4 @@
 {
   "presets": ["cozy-app"],
-  "plugins": ["babel-plugin-lodash"]
+  "plugins": ["babel-plugin-lodash", "babel-plugin-date-fns"]
 }

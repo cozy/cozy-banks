@@ -81,6 +81,7 @@
     "babel-eslint": "8.2.6",
     "babel-jest": "23.0.1",
     "babel-loader": "7.1.5",
+    "babel-plugin-date-fns": "^0.2.1",
     "babel-plugin-transform-class-properties": "6.24.1",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
     "babel-plugin-transform-react-jsx": "6.24.1",
