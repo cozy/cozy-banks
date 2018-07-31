@@ -103,26 +103,38 @@ export const categorizes = async transactions => {
   const parameters = await getParameters()
 
   log('info', 'Instanciating a classifier with the parameters')
-  const cozyClassifier = createClassifier(parameters, options)
+  let cozyClassifier
+
+  try {
+    cozyClassifier = createClassifier(parameters, options)
+  } catch (e) {
+    log('info', `Error while instanciating global classifier : ${e}`)
+  }
+
   const localClassifier = await createLocalClassifier()
 
-  log(
-    'info',
-    'Applying global and local models to new and modified transactions'
-  )
+  if (!cozyClassifier && !localClassifier) {
+    log('info', 'No classifiers, aborting categorization')
+  }
+
   for (const transaction of transactions) {
     const label = getLabelWithTags(transaction)
-    const { category: cozyCategory, proba: cozyProba } = maxBy(
-      cozyClassifier.categorize(label).likelihoods,
-      'proba'
-    )
 
-    transaction.cozyCategoryId = cozyCategory
-    transaction.cozyCategoryProba = cozyProba
+    log('info', 'Applying global model to new and modified transactions')
 
-    log('info', `label: ${label}`)
-    log('info', `cozyCategory: ${cozyCategory}`)
-    log('info', `cozyProba: ${cozyProba}`)
+    if (cozyClassifier) {
+      const { category: cozyCategory, proba: cozyProba } = maxBy(
+        cozyClassifier.categorize(label).likelihoods,
+        'proba'
+      )
+
+      transaction.cozyCategoryId = cozyCategory
+      transaction.cozyCategoryProba = cozyProba
+
+      log('info', `Result of the global model applied to ${label}`)
+      log('info', `cozyCategory: ${cozyCategory}`)
+      log('info', `cozyProba: ${cozyProba}`)
+    }
 
     if (localClassifier) {
       const { category: localCategory, proba: localProba } = maxBy(
@@ -130,6 +142,7 @@ export const categorizes = async transactions => {
         'proba'
       )
 
+      log('info', `Result of the local model applied to ${label}`)
       log('info', `localCategory: ${localCategory}`)
       log('info', `localProba: ${localProba}`)
       transaction.localCategoryId = localCategory
