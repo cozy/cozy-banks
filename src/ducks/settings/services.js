@@ -16,6 +16,7 @@ export const readSetting = async () => {
     return merge({}, DEFAULTS_SETTINGS, settings[0])
   }
 
+  log('info', 'Default setting')
   return DEFAULTS_SETTINGS
 }
 
