@@ -4,7 +4,6 @@
 import { flatten, uniq } from 'lodash'
 import { parse, format, addMonths } from 'date-fns'
 import { TRANSACTION_DOCTYPE, BILL_DOCTYPE } from 'doctypes'
-import { fetchCollection, getCollection } from 'old-cozy-client'
 import { isHealthExpense } from 'ducks/categories/helpers'
 import assert from 'utils/assert'
 import {

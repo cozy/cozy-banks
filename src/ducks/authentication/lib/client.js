@@ -1,5 +1,5 @@
 /* global cozy __APP_VERSION__ */
-import { CozyClient } from 'old-cozy-client'
+import CozyClient from 'cozy-client'
 import { LocalStorage as Storage } from 'cozy-client-js'
 import { offlineDoctypes as doctypes } from 'doctypes'
 import getPermissions from 'utils/getPermissions'
