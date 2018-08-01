@@ -7,7 +7,6 @@ import { or } from 'airbnb-prop-types'
 
 import { withRouter } from 'react-router'
 import { translate, Button, Icon, withBreakpoints } from 'cozy-ui/react'
-import { isCollectionLoading } from 'utils/client'
 
 import Topbar from 'components/Topbar'
 import Loading from 'components/Loading'
@@ -29,13 +28,10 @@ import { getBalanceHistories } from './helpers'
 import styles from './Balance.styl'
 import btnStyles from 'styles/buttons.styl'
 import plus from 'assets/icons/16/plus.svg'
-import { queryConnect } from 'utils/client'
+import { isCollectionLoading, queryConnect } from 'utils/client'
 
-const getGroupBalance = (group, getAccount) => {
-  return sumBy(
-    group.accounts,
-    accountId => (getAccount(accountId) || {}).balance || 0
-  )
+const getGroupBalance = group => {
+  return sumBy(group.accounts.data, account => account.balance || 0)
 }
 
 const sameId = (filteringDoc, accountOrGroup) => {
@@ -64,9 +60,7 @@ class _BalanceRow extends React.Component {
       filteringDoc,
       isMobile
     } = this.props
-    const balance = account
-      ? account.balance
-      : getGroupBalance(group, this.props.getAccount)
+    const balance = account ? account.balance : getGroupBalance(group)
     const isWarning = balance ? balance < warningLimit : false
     const isAlert = balance ? balance < 0 : false
     const label = account ? getAccountLabel(account) : group.label
@@ -111,8 +105,7 @@ class _BalanceRow extends React.Component {
         <TdSecondary className={styles['Balance__account_number']}>
           {account && account.number}
           {group &&
-            group.accounts
-              .map(this.props.getAccount)
+            group.accounts.data
               .filter(account => account)
               .map(getAccountLabel)
               .join(', ')}
@@ -122,8 +115,7 @@ class _BalanceRow extends React.Component {
             {account && getAccountInstitutionLabel(account)}
             {group &&
               uniq(
-                group.accounts
-                  .map(this.props.getAccount)
+                group.accounts.data
                   .filter(account => account)
                   .map(getAccountInstitutionLabel)
               ).join(', ')}

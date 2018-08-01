@@ -2993,6 +2993,17 @@ cozy-client@^1.0.0-beta.21:
     react-redux "^5.0.6"
     redux "^3.7.2"
 
+cozy-client@^1.0.0-beta.26:
+  version "1.0.0-beta.26"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-1.0.0-beta.26.tgz#8c0c6368c323b78aa337d5646aa9d2c5e33829db"
+  dependencies:
+    cozy-stack-client "^1.0.0-beta.21"
+    lodash "^4.17.5"
+    prop-types "^15.6.0"
+    react "^16.2.0"
+    react-redux "^5.0.6"
+    redux "^3.7.2"
+
 cozy-device-helper@1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.2.1.tgz#ae755349e71d120a3bbbcbedc0ed59b24b1fe223"
@@ -3049,9 +3060,9 @@ cozy-stack-client@^1.0.0-beta.21:
   dependencies:
     mime-types "^2.1.18"
 
-cozy-ui@^10.4.1:
-  version "10.4.1"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-10.4.1.tgz#180ea2fd3ceeb6cc379ee4c3cbac1bde5c2e643f"
+cozy-ui@^10.4.4:
+  version "10.4.4"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-10.4.4.tgz#7181cdac814210da37d78735ec63cbde33d920ec"
   dependencies:
     babel-preset-cozy-app "^0.3.1"
     classnames "^2.2.5"

@@ -5,6 +5,7 @@ import { getTransactions, getAllGroups, getAccounts } from 'selectors'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { sortBy, last, keyBy, find } from 'lodash'
 import { DESTROY_ACCOUNT } from 'actions/accounts'
+import { dehydrateDoc } from 'utils/client'
 
 // constants
 const FILTER_BY_PERIOD = 'FILTER_BY_PERIOD'
@@ -35,8 +36,9 @@ export const getFilteredAccountIds = state => {
   } else if (doctype === GROUP_DOCTYPE) {
     const groups = getAllGroups(state)
     const group = find(groups, { _id: id })
-    if (group) {
-      return group.accounts
+    if (group && group.accounts && group.accounts.target) {
+      // TODO FIND A BETTER WAY TO GET IDS
+      return group.accounts.target.accounts
     } else {
       return availableAccountIds
     }
@@ -118,7 +120,10 @@ const filterByPeriod = (transactions, period) => {
 // actions
 export const addFilterByPeriod = period => ({ type: FILTER_BY_PERIOD, period })
 export const resetFilterByDoc = () => ({ type: RESET_FILTER_BY_DOC })
-export const filterByDoc = doc => ({ type: FILTER_BY_DOC, doc })
+export const filterByDoc = doc => ({
+  type: FILTER_BY_DOC,
+  doc: dehydrateDoc(doc)
+})
 
 export const addFilterForMostRecentTransactions = () => (
   dispatch,

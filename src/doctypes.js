@@ -34,10 +34,10 @@ export const schema = {
     doctype: GROUP_DOCTYPE,
     attributes: {},
     relationships: {
-      // accounts: {
-      //   type: 'has-many-UNSAFE',
-      //   doctype: ACCOUNT_DOCTYPE
-      // }
+      accounts: {
+        type: 'has-many-UNSAFE',
+        doctype: ACCOUNT_DOCTYPE
+      }
     }
   }
 }

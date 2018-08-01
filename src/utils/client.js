@@ -1,4 +1,4 @@
-/* global __TARGET__ */
+/* global __TARGET__, cozy */
 
 import { initMobileStackClient } from 'ducks/authentication/lib/client'
 
@@ -21,11 +21,19 @@ export const getClient = async () => {
   const root = document.querySelector('[role=application]')
   const data = root.dataset
 
+  const protocol = window.location.protocol
+  const cozyURL = `${protocol}//${data.cozyDomain}`
+
+  cozy.client.init({
+    cozyURL: cozyURL,
+    token: data.cozyToken
+  })
+
   const stackClient =
     __TARGET__ === 'mobile'
       ? await initMobileStackClient()
       : new CozyStackClient({
-          uri: `${window.location.protocol}//${data.cozyDomain}`,
+          uri: cozyURL,
           token: data.cozyToken
         })
 
@@ -61,7 +69,6 @@ export const withQuery = (dest, queryOpts, Original) => {
   return Component => {
     const Wrapped = (props, context) => {
       if (!context.client) {
-        console.warn('Context', context) // eslint-disable-line no-console
         throw new Error(
           'Query should be used with client in context (use CozyProvider to set context)'
         )
@@ -75,7 +82,6 @@ export const withQuery = (dest, queryOpts, Original) => {
       return (
         <Query {...queryOpts}>
           {result => {
-            console.log('query result', dest, result) // eslint-disable-line no-console
             return <Component {...{ [dest]: result, ...props }} />
           }}
         </Query>
@@ -111,4 +117,67 @@ export const isCollectionLoading = col => {
     return false
   }
   return col.fetchStatus === 'loading' || col.fetchStatus === 'pending'
+}
+
+class Relationship {}
+
+export class UnsavedHasManyRelationship extends Relationship {
+  constructor() {
+    super()
+    this.data = []
+  }
+
+  addById(id) {
+    if (this.data.indexOf(id)) {
+      this.data.push(id)
+    }
+  }
+
+  removeById(id) {
+    const i = this.data.indexOf(id)
+    if (i > -1) {
+      this.data.splice(i, 1)
+    }
+  }
+
+  exists(obj) {
+    return this.data.indexOf(obj.id) > -1
+  }
+
+  raw() {
+    return this.data
+  }
+}
+
+export const mkEmptyDocFromSchema = schema => {
+  const obj = {}
+  Object.entries(schema.relationships).forEach(([attr, options]) => {
+    if (options.type === 'has-many-UNSAFE') {
+      obj[attr] = new UnsavedHasManyRelationship()
+    } else {
+      throw new Error('mkNewObject: Cannot understand ' + attr)
+    }
+  })
+  return obj
+}
+
+const ccRelationships = {
+  // TODO export Relationship from cozy-client to check this
+  isRelationship: value => !!value.target,
+  // TODO add raw method to Relationships from cozy-client
+  getRaw: value => value.target
+}
+
+export const dehydrateDoc = obj => {
+  const res = {}
+  Object.entries(obj).forEach(([attr, value]) => {
+    if (value instanceof Relationship) {
+      res[attr] = value.raw()
+    } else if (ccRelationships.isRelationship(value)) {
+      res[attr] = ccRelationships.getRaw(value)
+    } else {
+      res[attr] = value
+    }
+  })
+  return res
 }
