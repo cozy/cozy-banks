@@ -108,7 +108,7 @@ class Component extends React.Component {
       const intentWindow = await cozy.client.intents.redirect(
         'io.cozy.accounts',
         {
-          konnector: brand.konnectorSlug
+          slug: brand.konnectorSlug
         },
         open
       )
