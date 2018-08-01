@@ -61,7 +61,6 @@ class GroupSettings extends Component {
     }
     if (!group.id) {
       this.updateOrCreate(dehydrateDoc(group))
-      this.setState({})
     }
   }
 
