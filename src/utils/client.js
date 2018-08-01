@@ -21,9 +21,11 @@ export const getClient = async () => {
   const root = document.querySelector('[role=application]')
   const data = root.dataset
 
-  const protocol = window.location.href.split('://')[0]
+  const protocol = window.location.protocol
+  const cozyURL = `${protocol}//${data.cozyDomain}`
+
   cozy.client.init({
-    cozyURL: protocol + '://' + data.cozyDomain,
+    cozyURL: cozyURL,
     token: data.cozyToken
   })
 
@@ -31,7 +33,7 @@ export const getClient = async () => {
     __TARGET__ === 'mobile'
       ? await initMobileStackClient()
       : new CozyStackClient({
-          uri: `${window.location.protocol}//${data.cozyDomain}`,
+          uri: cozyURL,
           token: data.cozyToken
         })
 
