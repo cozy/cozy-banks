@@ -1,4 +1,4 @@
-/* global __TARGET__ */
+/* global __TARGET__, cozy */
 
 import { initMobileStackClient } from 'ducks/authentication/lib/client'
 
@@ -20,6 +20,12 @@ export const getClient = async () => {
   }
   const root = document.querySelector('[role=application]')
   const data = root.dataset
+
+  const protocol = window.location.href.split('://')[0]
+  cozy.client.init({
+    cozyURL: protocol + '://' + data.cozyDomain,
+    token: data.cozyToken
+  })
 
   const stackClient =
     __TARGET__ === 'mobile'
