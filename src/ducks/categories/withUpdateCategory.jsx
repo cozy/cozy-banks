@@ -1,28 +1,10 @@
 import React, { Component } from 'react'
 import CategoryChoice from './CategoryChoice'
 import { getCategoryId } from 'ducks/categories/helpers'
-import { TRANSACTION_DOCTYPE } from 'doctypes'
+import { withCrud } from 'utils/client'
 
-const updateCategoryParams = {
-  updateCategory: async (props, category) => {
-    const { transaction, client } = props
-
-    try {
-      const res = await client.get(TRANSACTION_DOCTYPE, transaction._id)
-      const newTransaction = {
-        ...res.data[0],
-        manualCategoryId: category.id
-      }
-      await client.mutate(client.update(TRANSACTION_DOCTYPE, newTransaction))
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.log(err)
-    }
-  }
-}
-
-export default ({ updateCategory } = updateCategoryParams) => {
-  return Wrapped =>
+export default (options = {}) => Wrapped =>
+  withCrud(
     class WithUpdateCategoryWrapper extends Component {
       state = {
         displaying: false
@@ -39,14 +21,31 @@ export default ({ updateCategory } = updateCategoryParams) => {
 
       handleSelect = category => {
         this.hide()
-        updateCategory(this.props, category)
+        this.updateCategory(category)
+      }
+
+      updateCategory = async category => {
+        const { transaction, saveDocument } = this.props
+
+        try {
+          const newTransaction = {
+            ...transaction,
+            manualCategoryId: category.id
+          }
+          await saveDocument(newTransaction)
+        } catch (err) {
+          // eslint-disable-next-line no-console
+          console.log(err)
+        }
       }
 
       render() {
         const { displaying } = this.state
         return (
           <div>
-            <Wrapped {...this.props} showCategoryChoice={this.show} />
+            {!displaying && options.hideDisplaying ? null : (
+              <Wrapped {...this.props} showCategoryChoice={this.show} />
+            )}
             {displaying && (
               <CategoryChoice
                 categoryId={getCategoryId(this.props.transaction)}
@@ -58,4 +57,4 @@ export default ({ updateCategory } = updateCategoryParams) => {
         )
       }
     }
-}
+  )
