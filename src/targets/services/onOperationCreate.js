@@ -19,6 +19,8 @@ process.on('unhandledRejection', err => {
   log('warn', JSON.stringify(err.stack))
 })
 
+log('info', `COZY_URL: ${process.env.COZY_URL}`)
+
 const onOperationCreate = async () => {
   const setting = await readSetting()
   const catLastSeq = setting.categorization.lastSeq

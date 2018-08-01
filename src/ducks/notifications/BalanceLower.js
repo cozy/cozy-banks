@@ -41,7 +41,7 @@ const toText = cozyHTMLEmail => {
 class BalanceLower extends Notification {
   constructor(config) {
     super(config)
-
+    log('info', `value of lowerBalance: ${config.value}`)
     this.lowerBalance = config.value
   }
 
@@ -58,6 +58,8 @@ class BalanceLower extends Notification {
       log('info', 'BalanceLower: no matched accounts')
       return
     }
+
+    log('info', `BalanceLower: ${accountsFiltered.length} accountsFiltered`)
 
     const translateKey = 'Notifications.if_balance_lower.notification'
 

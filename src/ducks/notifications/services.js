@@ -58,17 +58,18 @@ const getEnabledNotificationClasses = config => {
   return notificationClasses.filter(Klass => {
     const klassConfig = getClassConfig(Klass, config)
     const enabled = klassConfig && klassConfig.enabled
-    if (!enabled) {
-      log('info', Klass.name + ' is not enabled')
-    }
+    log('info', `${Klass.name} is ${enabled ? '' : 'not'} enabled`)
     return enabled
   })
 }
 
 export const launchNotifications = async (config, transactions) => {
   const enabledNotificationClasses = getEnabledNotificationClasses(config)
-  log('info', `${transactions.length} new transactions to notify.`)
   const accounts = await getAccountsOfTransactions(transactions)
+  log(
+    'info',
+    `${transactions.length} new transactions on ${accounts.length} accounts.`
+  )
   for (const Klass of enabledNotificationClasses) {
     const klassConfig = getClassConfig(Klass, config)
     const notification = new Klass({
