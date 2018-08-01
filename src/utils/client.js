@@ -61,7 +61,6 @@ export const withQuery = (dest, queryOpts, Original) => {
   return Component => {
     const Wrapped = (props, context) => {
       if (!context.client) {
-        console.warn('Context', context) // eslint-disable-line no-console
         throw new Error(
           'Query should be used with client in context (use CozyProvider to set context)'
         )
@@ -75,7 +74,6 @@ export const withQuery = (dest, queryOpts, Original) => {
       return (
         <Query {...queryOpts}>
           {result => {
-            console.log('query result', dest, result) // eslint-disable-line no-console
             return <Component {...{ [dest]: result, ...props }} />
           }}
         </Query>
