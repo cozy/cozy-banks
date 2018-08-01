@@ -78,7 +78,7 @@ export const launchNotifications = async (config, transactions) => {
       data: { accounts, transactions }
     })
     try {
-      await notification.sendNotification(accounts, transactions)
+      await notification.sendNotification()
     } catch (err) {
       log('warn', JSON.stringify(err))
     }
