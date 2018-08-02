@@ -28,7 +28,7 @@ describe('transaction row', () => {
     account: find(allAccounts, a => a._id == rawTransaction.account)
   }
 
-  it('should render correctly on desktop', () => {
+  xit('should render correctly on desktop', () => {
     root = mount(
       wrapRow(
         <TableTrDesktop transaction={transaction} urls={{}} brands={[]} />
