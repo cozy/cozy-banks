@@ -198,9 +198,13 @@ Component.propTypes = {
 
 const mkFetchTriggers = client => () =>
   client.query(triggersConn.query(client), { as: triggersConn.as })
-const addFetchTriggers = Component => (props, context) => (
-  <Component {...props} fetchTriggers={mkFetchTriggers(context.client)} />
-)
+const addFetchTriggers = Component => {
+  const res = (props, context) => (
+    <Component {...props} fetchTriggers={mkFetchTriggers(context.client)} />
+  )
+  res.displayName = `withAddTrigger(${Component.displayName})`
+  return res
+}
 
 const action = {
   name,
