@@ -62,8 +62,8 @@ class History extends Component {
             height={150}
             data={chartData}
             margin={{
-              top: 0,
-              bottom: 20,
+              top: 20,
+              bottom: 40,
               left: 10,
               right: 10
             }}
@@ -71,6 +71,8 @@ class History extends Component {
             tickFormat={d3.timeFormat('%b')}
             xScale={d3.scaleTime}
             lineColor="white"
+            axisColor="white"
+            labelsColor="#a2c4f9"
           />
         </div>
       </div>
