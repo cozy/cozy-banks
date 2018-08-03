@@ -1,4 +1,4 @@
-import { groupBy, memoize, sumBy } from 'lodash'
+import { flatten, groupBy, sumBy, uniq } from 'lodash'
 import {
   min as getEarliestDate,
   isAfter as isDateAfter,
@@ -8,7 +8,7 @@ import {
   format as formatDate
 } from 'date-fns'
 
-const _getBalanceHistories = (accounts, transactions) => {
+export const getBalanceHistories = (accounts, transactions) => {
   if (accounts.length === 0 || transactions.length === 0) {
     return null
   }
@@ -23,10 +23,10 @@ const _getBalanceHistories = (accounts, transactions) => {
     return balances
   }, {})
 
+  balances.all = sumAllBalancesByDate(balances)
+
   return balances
 }
-
-export const getBalanceHistories = memoize(_getBalanceHistories)
 
 const getTransactionsForAccount = (account, transactions) =>
   transactions.filter(t => t.account === account.id)
@@ -42,7 +42,7 @@ export const getBalanceHistory = (account, transactions, from) => {
       ? getEarliestDate(...Object.keys(transactionsByDate))
       : from
 
-  const balances = []
+  const balances = {}
 
   for (
     let day = from, balance = account.balance;
@@ -54,10 +54,25 @@ export const getBalanceHistory = (account, transactions, from) => {
       ? balance - sumBy(transactions, t => t.amount)
       : balance
 
-    balances.push({
-      date: formatDate(day, DATE_FORMAT),
-      balance
-    })
+    balances[formatDate(day, DATE_FORMAT)] = balance
+  }
+
+  return balances
+}
+
+const sumAllBalancesByDate = accountsBalances => {
+  const allDates = uniq(
+    flatten(Object.values(accountsBalances).map(item => Object.keys(item)))
+  )
+
+  const balances = {}
+
+  for (const date of allDates) {
+    for (const accountBalances of Object.values(accountsBalances)) {
+      const balance = balances[date] || 0
+      const accountBalance = accountBalances[date] || 0
+      balances[date] = balance + accountBalance
+    }
   }
 
   return balances

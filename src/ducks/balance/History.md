@@ -1,3 +1,3 @@
 ```jsx
-<History currentBalance={8655.58}/>
+<History currentBalance={8655.58} />
 ```
