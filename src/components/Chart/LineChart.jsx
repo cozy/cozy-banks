@@ -29,7 +29,9 @@ class LineChart extends Component {
       tickFormat,
       tickPadding,
       xScale,
-      yScale
+      yScale,
+      axisColor,
+      labelsColor
     } = this.props
 
     const innerWidth = width - margin.left - margin.right
@@ -69,10 +71,19 @@ class LineChart extends Component {
       xAxisGenerator.tickFormat(tickFormat)
     }
 
-    svg
+    const axis = svg
       .append('g')
       .attr('transform', `translate(0, ${innerHeight})`)
       .call(xAxisGenerator)
+
+    axis.selectAll('.domain').attr('stroke', axisColor)
+    axis.selectAll('.tick line').attr('stroke', axisColor)
+    axis
+      .selectAll('.tick text')
+      .attr('fill', labelsColor)
+      .attr('font-family', 'Lato, sans-serif')
+      .attr('font-size', '0.75rem')
+      .attr('style', 'text-transform: uppercase')
   }
 
   render() {
@@ -99,7 +110,8 @@ LineChart.propTypes = {
   tickFormat: PropTypes.func,
   tickPadding: PropTypes.number,
   xScale: PropTypes.func,
-  yScale: PropTypes.func
+  yScale: PropTypes.func,
+  axisColor: PropTypes.string
 }
 
 LineChart.defaultProps = {
@@ -107,7 +119,9 @@ LineChart.defaultProps = {
   lineWidth: 2,
   lineColor: 'black',
   xScale: d3.scaleLinear,
-  yScale: d3.scaleLinear
+  yScale: d3.scaleLinear,
+  axisColor: 'black',
+  labelsColor: 'black'
 }
 
 export default LineChart
