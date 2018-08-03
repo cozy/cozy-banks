@@ -36,6 +36,12 @@ module.exports = {
       ]
     },
     {
+      name: 'Balance',
+      components: () => [
+        'src/ducks/balance/History.jsx'
+      ]
+    },
+    {
       name: 'Loading',
       components: () => [
         'src/components/Loading/Loading.jsx'
