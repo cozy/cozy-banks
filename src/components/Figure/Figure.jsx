@@ -28,6 +28,7 @@ const Figure = props => {
     className,
     total,
     totalClassName,
+    currencyClassName,
     size
   } = props
 
@@ -64,9 +65,13 @@ const Figure = props => {
       </span>
       {currency && (
         <span
-          className={cx(styles['Figure-currency'], {
-            [styles['Figure__currency--withSpacing']]: withCurrencySpacing
-          })}
+          className={cx(
+            styles['Figure-currency'],
+            {
+              [styles['Figure__currency--withSpacing']]: withCurrencySpacing
+            },
+            currencyClassName
+          )}
         >
           {currencySigns[currency] || currency}
         </span>
@@ -82,6 +87,7 @@ Figure.propTypes = {
   totalClassName: Types.string,
   /** Currency to show */
   currency: Types.string,
+  currencyClassName: Types.string,
   /** Colors positive numbers in green */
   coloredPositive: Types.bool,
   /** Colors negative numbers in red */
