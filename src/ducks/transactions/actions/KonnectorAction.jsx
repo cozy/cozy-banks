@@ -22,8 +22,8 @@ import styles from '../TransactionActions.styl'
 import { TransactionModalRow } from '../TransactionModal'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import iconCollectAccount from 'assets/icons/icon-collect-account.svg'
-import { queryConnect } from 'utils/client'
 import { triggersConn } from 'doctypes'
+
 const name = 'konnector'
 
 const InformativeModal = ({
@@ -196,18 +196,23 @@ Component.propTypes = {
   fetchTriggers: PropTypes.func.isRequired
 }
 
+const mkFetchTriggers = client => () =>
+  client.query(triggersConn.query(client), { as: triggersConn.as })
+const addFetchTriggers = Component => {
+  const res = (props, context) => (
+    <Component {...props} fetchTriggers={mkFetchTriggers(context.client)} />
+  )
+  res.displayName = `withAddTrigger(${Component.displayName})`
+  return res
+}
+
 const action = {
   name,
   icon,
   match: (transaction, { brands, urls }) => {
     return brands && matchBrands(brands, transaction.label) && urls['COLLECT']
   },
-  Component: compose(
-    queryConnect({
-      triggers: triggersConn
-    }),
-    translate()
-  )(Component)
+  Component: compose(translate(), addFetchTriggers)(Component)
 }
 
 export default action

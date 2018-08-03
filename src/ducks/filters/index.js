@@ -5,7 +5,7 @@ import { getTransactions, getAllGroups, getAccounts } from 'selectors'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { sortBy, last, keyBy, find } from 'lodash'
 import { DESTROY_ACCOUNT } from 'actions/accounts'
-import { dehydrateDoc } from 'utils/client'
+import { dehydrateDoc, getIdsFromRelationship } from 'utils/client'
 
 // constants
 const FILTER_BY_PERIOD = 'FILTER_BY_PERIOD'
@@ -36,9 +36,9 @@ export const getFilteredAccountIds = state => {
   } else if (doctype === GROUP_DOCTYPE) {
     const groups = getAllGroups(state)
     const group = find(groups, { _id: id })
-    if (group && group.accounts && group.accounts.target) {
-      // TODO FIND A BETTER WAY TO GET IDS
-      return group.accounts.target.accounts
+    const accountIds = getIdsFromRelationship(group, 'accounts')
+    if (accountIds) {
+      return accountIds
     } else {
       return availableAccountIds
     }
@@ -153,7 +153,7 @@ const period = (state = getDefaultMonth(), action) => {
 const filteringDoc = (state = null, action) => {
   switch (action.type) {
     case FILTER_BY_DOC:
-      return action.doc
+      return action.doc || state
     case RESET_FILTER_BY_DOC:
       return null
     default:

@@ -2,12 +2,10 @@ import { combineReducers } from 'redux'
 
 import filters from 'ducks/filters'
 import mobile, * as fromMobile from 'ducks/mobile'
-import { reducer } from 'old-cozy-client'
 
 export const reducers = {
   filters,
-  mobile,
-  cozy: reducer
+  mobile
 }
 
 const combinedReducers = combineReducers(reducers)

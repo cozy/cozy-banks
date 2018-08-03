@@ -169,7 +169,11 @@ const ccRelationships = {
 }
 
 export const dehydrateDoc = obj => {
+  if (!obj) {
+    return
+  }
   const res = {}
+
   Object.entries(obj).forEach(([attr, value]) => {
     if (value instanceof Relationship) {
       res[attr] = value.raw()
@@ -180,4 +184,11 @@ export const dehydrateDoc = obj => {
     }
   })
   return res
+}
+
+export const getIdsFromRelationship = (obj, relationshipName) => {
+  if (!obj || !obj[relationshipName]) {
+    return null
+  }
+  return obj[relationshipName].target[relationshipName]
 }
