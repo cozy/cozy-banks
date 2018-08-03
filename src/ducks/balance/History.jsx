@@ -11,6 +11,8 @@ import { getBalanceHistories } from './helpers'
 import styles from './History.styl'
 
 class History extends Component {
+  INTERVAL_BETWEEN_TICKS = 57
+
   getCurrentBalance() {
     return sumBy(this.props.accounts, a => a.balance)
   }
@@ -56,9 +58,9 @@ class History extends Component {
         <div className={styles.History__subtitle}>
           {t('BalanceHistory.subtitle')}
         </div>
-        <div>
+        <div className={styles.History__chartContainer}>
           <LineChart
-            width={800}
+            width={nbTicks * this.INTERVAL_BETWEEN_TICKS}
             height={150}
             data={chartData}
             margin={{
