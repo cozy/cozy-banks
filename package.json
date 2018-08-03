@@ -153,6 +153,7 @@
     "cozy-pouch-link": "^1.0.0-beta.21",
     "cozy-stack-client": "^1.0.0-beta.21",
     "cozy-ui": "^10.4.4",
+    "d3": "^5.5.0",
     "date-fns": "^1.28.2",
     "fastclick": "^1.0.6",
     "hammerjs": "^2.0.8",

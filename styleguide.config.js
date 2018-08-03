@@ -30,6 +30,12 @@ module.exports = {
       ]
     },
     {
+      name: 'Chart',
+      components: () => [
+        'src/components/Chart/LineChart.jsx'
+      ]
+    },
+    {
       name: 'Loading',
       components: () => [
         'src/components/Loading/Loading.jsx'
