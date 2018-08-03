@@ -3,7 +3,7 @@ import { parse as parseDate } from 'date-fns'
 
 describe('getBalanceHistory', () => {
   it('should return only the current balance if there is no transactions', () => {
-    const account = { id: 'test', balance: 8000 }
+    const account = { _id: 'test', balance: 8000 }
     const transactions = []
     const date = '2018-08-01'
     const from = parseDate(date)
@@ -14,7 +14,7 @@ describe('getBalanceHistory', () => {
   })
 
   it('should return the right balances if there are transactions', () => {
-    const account = { id: 'test', balance: 8000 }
+    const account = { _id: 'test', balance: 8000 }
     const dates = [
       '2018-06-26',
       '2018-06-25',

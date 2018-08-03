@@ -14,7 +14,7 @@ export const getBalanceHistories = (accounts, transactions) => {
   }
 
   const balances = accounts.reduce((balances, account) => {
-    balances[account.id] = getBalanceHistory(
+    balances[account._id] = getBalanceHistory(
       account,
       getTransactionsForAccount(account, transactions),
       startOfToday()
@@ -29,7 +29,7 @@ export const getBalanceHistories = (accounts, transactions) => {
 }
 
 const getTransactionsForAccount = (account, transactions) =>
-  transactions.filter(t => t.account === account.id)
+  transactions.filter(t => t.account === account._id)
 
 export const getBalanceHistory = (account, transactions, from) => {
   const DATE_FORMAT = 'YYYY-MM-DD'
