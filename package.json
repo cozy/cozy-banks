@@ -129,7 +129,7 @@
     "stylus": "0.54.5",
     "stylus-loader": "3.0.2",
     "svg-sprite-loader": "3.8.0",
-    "tar": "4.4.4",
+    "tar": "4.4.6",
     "webpack": "3.12.0",
     "webpack-dev-server": "2.11.2",
     "webpack-merge": "4.1.3",
