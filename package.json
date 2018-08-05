@@ -147,7 +147,7 @@
     "cozy-authentication": "1.3.0",
     "cozy-bar": "5.0.8",
     "cozy-client": "^1.0.0-beta.26",
-    "cozy-client-js": "0.11.0",
+    "cozy-client-js": "0.12.0",
     "cozy-device-helper": "1.2.1",
     "cozy-konnector-libs": "^3.0.13",
     "cozy-pouch-link": "^1.0.0-beta.21",
