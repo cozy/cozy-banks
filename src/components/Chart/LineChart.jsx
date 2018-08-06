@@ -150,6 +150,12 @@ class LineChart extends Component {
 }
 
 LineChart.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      x: PropTypes.any,
+      y: PropTypes.any
+    })
+  ).isRequired,
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
   margin: PropTypes.shape({
