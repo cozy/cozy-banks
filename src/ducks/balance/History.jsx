@@ -81,6 +81,7 @@ class History extends Component {
             onUpdate={() =>
               this.chartContainer.scrollTo(this.chartContainer.scrollWidth, 0)
             }
+            axisMargin={10}
           />
         </div>
       </div>

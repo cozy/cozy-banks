@@ -32,7 +32,8 @@ class LineChart extends Component {
       yScale,
       axisColor,
       labelsColor,
-      onUpdate
+      onUpdate,
+      axisMargin
     } = this.props
 
     const innerWidth = width - margin.left - margin.right
@@ -74,7 +75,7 @@ class LineChart extends Component {
 
     const axis = svg
       .append('g')
-      .attr('transform', `translate(0, ${innerHeight})`)
+      .attr('transform', `translate(0, ${innerHeight + axisMargin})`)
       .call(xAxisGenerator)
 
     axis.selectAll('.domain').attr('stroke', axisColor)
@@ -117,7 +118,8 @@ LineChart.propTypes = {
   xScale: PropTypes.func,
   yScale: PropTypes.func,
   axisColor: PropTypes.string,
-  onUpdate: PropTypes.func
+  onUpdate: PropTypes.func,
+  axisMargin: PropTypes.number
 }
 
 LineChart.defaultProps = {
@@ -127,7 +129,8 @@ LineChart.defaultProps = {
   xScale: d3.scaleLinear,
   yScale: d3.scaleLinear,
   axisColor: 'black',
-  labelsColor: 'black'
+  labelsColor: 'black',
+  axisMargin: 0
 }
 
 export default LineChart
