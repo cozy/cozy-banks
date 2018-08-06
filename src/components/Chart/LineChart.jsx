@@ -25,7 +25,7 @@ class LineChart extends Component {
       margin,
       lineWidth,
       lineColor,
-      nbTicks = data.length,
+      nbTicks,
       tickFormat,
       tickPadding,
       xScale,
@@ -63,7 +63,11 @@ class LineChart extends Component {
       .attr('fill', 'none')
       .attr('d', line)
 
-    const xAxisGenerator = d3.axisBottom(x).ticks(nbTicks)
+    const xAxisGenerator = d3.axisBottom(x)
+
+    if (nbTicks !== undefined) {
+      xAxisGenerator.ticks(nbTicks)
+    }
 
     if (tickPadding !== undefined) {
       xAxisGenerator.tickPadding(tickPadding)
