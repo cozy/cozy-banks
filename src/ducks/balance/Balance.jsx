@@ -13,17 +13,14 @@ import Loading from 'components/Loading'
 import { Table, TdSecondary } from 'components/Table'
 import { Figure, FigureBlock } from 'components/Figure'
 import PageTitle from 'components/PageTitle'
+import flag from 'cozy-flags'
 
 import AddAccountLink from 'ducks/settings/AddAccountLink'
 import { filterByDoc, getFilteringDoc } from 'ducks/filters'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
-import {
-  ACCOUNT_DOCTYPE,
-  GROUP_DOCTYPE,
-  SETTINGS_DOCTYPE,
-  TRANSACTION_DOCTYPE
-} from 'doctypes'
-import { getBalanceHistories } from './helpers'
+import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
+import History from './History'
+import historyData from './history_data.json'
 
 import styles from './Balance.styl'
 import btnStyles from 'styles/buttons.styl'
@@ -277,8 +274,7 @@ class Balance extends React.Component {
       breakpoints: { isMobile },
       accounts: accountsCollection,
       groups: groupsCollection,
-      settings: settingsCollection,
-      transactions: transactionsCollection
+      settings: settingsCollection
     } = this.props
     if (
       isCollectionLoading(accountsCollection) ||
@@ -298,11 +294,6 @@ class Balance extends React.Component {
     const accounts = accountsCollection.data
     const groups = groupsCollection.data
     const settings = settingsCollection.data
-    const transactions = transactionsCollection.data
-
-    const balanceHistories = getBalanceHistories(accounts, transactions)
-    // eslint-disable-next-line
-    console.log(balanceHistories)
 
     const accountsSorted = sortBy(accounts, ['institutionLabel', 'label'])
     const groupsSorted = sortBy(
@@ -338,16 +329,26 @@ class Balance extends React.Component {
         <Topbar>
           <PageTitle>{t('Balance.title')}</PageTitle>
         </Topbar>
-        <div className={styles['Balance__kpi']}>
-          <FigureBlock
-            label={t('Balance.subtitle.all')}
-            total={total}
-            currency="€"
-            coloredPositive
-            coloredNegative
-            signed
+        {flag('balance-history') ? (
+          <History
+            className={styles.Balance__history}
+            accounts={historyData['io.cozy.bank.accounts']}
+            transactions={historyData['io.cozy.bank.operations']}
           />
-        </div>
+        ) : (
+          <div className={styles['Balance__kpi']}>
+            <FigureBlock
+              label={t('Balance.subtitle.all')}
+              accounts={historyData['io.cozy.bank.accounts']}
+              total={total}
+              transactions={historyData['io.cozy.bank.operations']}
+              currency="€"
+              coloredPositive
+              coloredNegative
+              signed
+            />
+          </div>
+        )}
         {groupsSorted.length > 0 && groupsC}
         <BalanceAccounts
           accounts={accountsSorted}
@@ -373,10 +374,6 @@ export default compose(
   queryConnect({
     accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' },
     groups: { query: client => client.all(GROUP_DOCTYPE), as: 'groups' },
-    settings: { query: client => client.all(SETTINGS_DOCTYPE), as: 'settings' },
-    transactions: {
-      query: client => client.all(TRANSACTION_DOCTYPE),
-      as: 'transactions'
-    }
+    settings: { query: client => client.all(SETTINGS_DOCTYPE), as: 'settings' }
   })
 )(Balance)

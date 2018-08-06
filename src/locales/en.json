@@ -494,5 +494,9 @@
       "disconnect": "Refuse and disconnect",
       "error": "Something went wrong, please try again later"
     }
+  },
+
+  "BalanceHistory": {
+    "subtitle": "Total balance"
   }
 }

@@ -447,5 +447,9 @@
       "disconnect": "Refuser et se déconnecter",
       "error": "Une erreur est survenue, merci de réessayer plus tard"
     }
+  },
+
+  "BalanceHistory": {
+    "subtitle": "Solde total"
   }
 }

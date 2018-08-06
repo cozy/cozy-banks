@@ -11,9 +11,6 @@
 .Balance__section-title
     margin-top 2rem
 
-.Balance__kpi
-    margin 0 0 1em 0
-
 .Balance__row
     cursor pointer
     composes mobile-row from '../../components/Table/styles.styl'
@@ -79,6 +76,15 @@
             &.alert
                 color pomegranate
 
+.Balance__history
+    margin-left -2rem
+    margin-right -2rem
+
+    +small-screen()
+        margin-left -1rem
+        margin-right -1rem
+        margin-top -1rem
+
 +small-screen()
     td.Balance__account_name
         maxed-flex-basis 60%
@@ -94,4 +100,3 @@
 
     .Balance__bank
         maxed-flex-basis 60%
-

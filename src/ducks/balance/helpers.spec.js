@@ -1,31 +1,41 @@
 import { getBalanceHistory } from './helpers'
+import { parse as parseDate } from 'date-fns'
 
 describe('getBalanceHistory', () => {
   it('should return only the current balance if there is no transactions', () => {
-    const account = { id: 'test', balance: 8000 }
+    const account = { _id: 'test', balance: 8000 }
     const transactions = []
-    const history = getBalanceHistory(account, transactions, new Date())
+    const date = '2018-08-01'
+    const from = parseDate(date)
+    const history = getBalanceHistory(account, transactions, from)
 
-    expect(history).toHaveLength(1)
-    expect(history[0].balance).toBe(8000)
+    expect(Object.keys(history)).toEqual([date])
+    expect(history[date]).toBe(8000)
   })
 
   it('should return the right balances if there are transactions', () => {
-    const account = { id: 'test', balance: 8000 }
+    const account = { _id: 'test', balance: 8000 }
+    const dates = [
+      '2018-06-26',
+      '2018-06-25',
+      '2018-06-24',
+      '2018-06-23',
+      '2018-06-22'
+    ]
     const transactions = [
-      { date: new Date(2018, 5, 25), amount: 100 },
-      { date: new Date(2018, 5, 24), amount: 10 },
-      { date: new Date(2018, 5, 23), amount: -300 },
-      { date: new Date(2018, 5, 22), amount: -15 }
+      { date: parseDate(dates[1]), amount: 100 },
+      { date: parseDate(dates[2]), amount: 10 },
+      { date: parseDate(dates[3]), amount: -300 },
+      { date: parseDate(dates[4]), amount: -15 }
     ]
 
     const history = getBalanceHistory(
       account,
       transactions,
-      new Date(2018, 5, 26)
+      parseDate(dates[0])
     )
 
-    expect(history).toHaveLength(5)
-    expect(history.map(h => h.balance)).toEqual([8000, 7900, 7890, 8190, 8205])
+    expect(Object.keys(history)).toEqual(dates)
+    expect(Object.values(history)).toEqual([8000, 7900, 7890, 8190, 8205])
   })
 })
