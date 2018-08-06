@@ -1,5 +1,13 @@
 import React from 'react'
-import { flowRight as compose, sumBy, uniq, sortBy, get, keyBy } from 'lodash'
+import {
+  flowRight as compose,
+  sumBy,
+  uniq,
+  sortBy,
+  get,
+  keyBy,
+  groupBy
+} from 'lodash'
 import { connect } from 'react-redux'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
@@ -23,7 +31,7 @@ import History from './History'
 import historyData from './history_data.json'
 import { getBalanceHistories } from './helpers'
 import sma from 'sma'
-import { parse as parseDate } from 'date-fns'
+import { parse as parseDate, format as formatDate } from 'date-fns'
 
 import styles from './Balance.styl'
 import btnStyles from 'styles/buttons.styl'
@@ -361,6 +369,13 @@ class Balance extends React.Component {
         onRowClick={this.goToTransactionsFilteredBy}
       />
     )
+
+    const chartData = this.getChartData()
+    const chartNbTicks = uniq(
+      Object.keys(groupBy(chartData, i => formatDate(i.x, 'YYYY-MM')))
+    ).length
+    const chartIntervalBetweenPoints = 57
+
     return (
       <div className={styles['Balance']}>
         <Topbar>
@@ -371,7 +386,10 @@ class Balance extends React.Component {
             className={styles.Balance__history}
             accounts={historyData['io.cozy.bank.accounts']}
             transactions={historyData['io.cozy.bank.operations']}
-            chartData={this.getChartData()}
+            chartProps={{
+              data: chartData,
+              width: chartNbTicks * chartIntervalBetweenPoints
+            }}
           />
         ) : (
           <div className={styles['Balance__kpi']}>
