@@ -4,11 +4,9 @@ import cx from 'classnames'
 import * as d3 from 'd3'
 import { translate } from 'cozy-ui/react'
 import { Figure } from 'components/Figure'
-import { groupBy, sortBy, sumBy, uniq } from 'lodash'
-import { format as formatDate, parse as parseDate } from 'date-fns'
-import sma from 'sma'
+import { groupBy, sumBy, uniq } from 'lodash'
+import { format as formatDate } from 'date-fns'
 import LineChart from 'components/Chart/LineChart'
-import { getBalanceHistories } from './helpers'
 import styles from './History.styl'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 
@@ -19,41 +17,8 @@ class History extends Component {
     return sumBy(this.props.accounts, a => a.balance)
   }
 
-  sortBalanceHistoryByDate(history) {
-    const balanceHistory = sortBy(Object.entries(history), ([date]) => date)
-      .reverse()
-      .map(([date, balance]) => ({
-        x: parseDate(date),
-        y: balance
-      }))
-
-    return balanceHistory
-  }
-
-  getBalanceHistory() {
-    const { accounts, transactions } = this.props
-    const balanceHistories = getBalanceHistories(accounts, transactions)
-    const balanceHistory = this.sortBalanceHistoryByDate(balanceHistories.all)
-
-    return balanceHistory
-  }
-
-  getChartData() {
-    const history = this.getBalanceHistory()
-    const WINDOW_SIZE = 15
-
-    const balancesSma = sma(history.map(h => h.y), WINDOW_SIZE, n => n)
-    const data = balancesSma.map((balance, i) => ({
-      ...history[i],
-      y: balance
-    }))
-
-    return data
-  }
-
   render() {
-    const { className, t } = this.props
-    const chartData = this.getChartData()
+    const { chartData, className, t } = this.props
     const nbTicks = uniq(
       Object.keys(groupBy(chartData, i => formatDate(i.x, 'YYYY-MM')))
     ).length
@@ -83,7 +48,6 @@ class History extends Component {
               left: 10,
               right: 10
             }}
-            nbTicks={nbTicks}
             tickFormat={d3.timeFormat('%b')}
             xScale={d3.scaleTime}
             lineColor="white"
@@ -106,6 +70,7 @@ class History extends Component {
 
 History.propTypes = {
   accounts: PropTypes.array.isRequired,
+  chartData: LineChart.propTypes.data,
   className: PropTypes.string,
   transactions: PropTypes.array.isRequired
 }
