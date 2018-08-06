@@ -31,7 +31,8 @@ class LineChart extends Component {
       xScale,
       yScale,
       axisColor,
-      labelsColor
+      labelsColor,
+      onUpdate
     } = this.props
 
     const innerWidth = width - margin.left - margin.right
@@ -84,6 +85,10 @@ class LineChart extends Component {
       .attr('font-family', 'Lato, sans-serif')
       .attr('font-size', '0.75rem')
       .attr('style', 'text-transform: uppercase')
+
+    if (onUpdate && typeof onUpdate === 'function') {
+      this.props.onUpdate()
+    }
   }
 
   render() {
@@ -111,7 +116,8 @@ LineChart.propTypes = {
   tickPadding: PropTypes.number,
   xScale: PropTypes.func,
   yScale: PropTypes.func,
-  axisColor: PropTypes.string
+  axisColor: PropTypes.string,
+  onUpdate: PropTypes.func
 }
 
 LineChart.defaultProps = {
