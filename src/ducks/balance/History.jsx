@@ -10,6 +10,7 @@ import sma from 'sma'
 import LineChart from 'components/Chart/LineChart'
 import { getBalanceHistories } from './helpers'
 import styles from './History.styl'
+import palette from 'cozy-ui/stylus/settings/palette.json'
 
 class History extends Component {
   INTERVAL_BETWEEN_TICKS = 57
@@ -92,6 +93,10 @@ class History extends Component {
               this.chartContainer.scrollTo(this.chartContainer.scrollWidth, 0)
             }
             axisMargin={10}
+            gradient={{
+              '0%': 'rgba(255, 255, 255, 0.7)',
+              '100%': palette.dodgerBlue
+            }}
           />
         </div>
       </div>
