@@ -4,7 +4,7 @@ import cx from 'classnames'
 import * as d3 from 'd3'
 import { translate } from 'cozy-ui/react'
 import { Figure } from 'components/Figure'
-import { groupBy, sumBy, uniq } from 'lodash'
+import { groupBy, sortBy, sumBy, uniq } from 'lodash'
 import { format as formatDate, parse as parseDate } from 'date-fns'
 import sma from 'sma'
 import LineChart from 'components/Chart/LineChart'
@@ -18,25 +18,21 @@ class History extends Component {
     return sumBy(this.props.accounts, a => a.balance)
   }
 
-  getBalanceHistory() {
-    const { accounts, transactions } = this.props
-    const balanceHistories = getBalanceHistories(accounts, transactions)
-    const balanceHistory = Object.entries(balanceHistories.all)
-      .sort((a, b) => {
-        if (a[0] < b[0]) {
-          return 1
-        }
-
-        if (a[0] > b[0]) {
-          return -1
-        }
-
-        return 0
-      })
+  sortBalanceHistoryByDate(history) {
+    const balanceHistory = sortBy(Object.entries(history), ([date]) => date)
+      .reverse()
       .map(([date, balance]) => ({
         x: parseDate(date),
         y: balance
       }))
+
+    return balanceHistory
+  }
+
+  getBalanceHistory() {
+    const { accounts, transactions } = this.props
+    const balanceHistories = getBalanceHistories(accounts, transactions)
+    const balanceHistory = this.sortBalanceHistoryByDate(balanceHistories.all)
 
     return balanceHistory
   }
