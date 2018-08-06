@@ -58,7 +58,10 @@ class History extends Component {
         <div className={styles.History__subtitle}>
           {t('BalanceHistory.subtitle')}
         </div>
-        <div className={styles.History__chartContainer}>
+        <div
+          className={styles.History__chartContainer}
+          ref={node => (this.chartContainer = node)}
+        >
           <LineChart
             width={nbTicks * this.INTERVAL_BETWEEN_TICKS}
             height={150}
@@ -75,6 +78,9 @@ class History extends Component {
             lineColor="white"
             axisColor="white"
             labelsColor="#a2c4f9"
+            onUpdate={() =>
+              this.chartContainer.scrollTo(this.chartContainer.scrollWidth, 0)
+            }
           />
         </div>
       </div>
