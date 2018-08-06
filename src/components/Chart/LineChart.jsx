@@ -25,7 +25,8 @@ class LineChart extends Component {
       xScale,
       yScale,
       onUpdate,
-      axisMargin
+      axisMargin,
+      gradient
     } = this.props
 
     const innerWidth = width - margin.left - margin.right
@@ -68,6 +69,29 @@ class LineChart extends Component {
       .append('g')
       .attr('transform', `translate(0, ${innerHeight + axisMargin})`)
 
+    if (gradient) {
+      this.areaGenerator = d3
+        .area()
+        .x(d => this.x(d.x))
+        .y0(() => this.y(0))
+        .y1(d => this.y(d.y))
+
+      this.mask = this.svg
+        .append('mask')
+        .attr('id', 'maskurl')
+        .append('path')
+        .attr('fill', 'white')
+
+      this.svg
+        .append('rect')
+        .attr('x', 0)
+        .attr('y', 0)
+        .attr('width', innerWidth)
+        .attr('height', innerHeight)
+        .attr('mask', 'url(#maskurl)')
+        .attr('fill', 'url(#gradient)')
+    }
+
     this.setData(data)
 
     if (onUpdate && typeof onUpdate === 'function') {
@@ -80,6 +104,10 @@ class LineChart extends Component {
     this.y.domain([d3.min(data, d => d.y), d3.max(data, d => d.y)])
 
     this.line.datum(data).attr('d', this.lineGenerator)
+
+    if (this.mask) {
+      this.mask.datum(data).attr('d', this.areaGenerator)
+    }
 
     this.updateAxis()
   }
@@ -103,10 +131,20 @@ class LineChart extends Component {
   }
 
   render() {
-    const { width, height } = this.props
+    const { width, height, gradient } = this.props
 
     return (
-      <svg ref={node => (this.root = node)} width={width} height={height} />
+      <svg ref={node => (this.root = node)} width={width} height={height}>
+        {gradient && (
+          <defs>
+            <linearGradient id="gradient" x2="0%" y2="100%">
+              {Object.entries(gradient).map(([offset, color]) => (
+                <stop key={offset} offset={offset} stopColor={color} />
+              ))}
+            </linearGradient>
+          </defs>
+        )}
+      </svg>
     )
   }
 }
@@ -129,7 +167,8 @@ LineChart.propTypes = {
   yScale: PropTypes.func,
   axisColor: PropTypes.string,
   onUpdate: PropTypes.func,
-  axisMargin: PropTypes.number
+  axisMargin: PropTypes.number,
+  gradient: PropTypes.object
 }
 
 LineChart.defaultProps = {
