@@ -4,24 +4,18 @@ import cx from 'classnames'
 import * as d3 from 'd3'
 import { translate } from 'cozy-ui/react'
 import { Figure } from 'components/Figure'
-import { groupBy, sumBy, uniq } from 'lodash'
-import { format as formatDate } from 'date-fns'
+import { sumBy } from 'lodash'
 import LineChart from 'components/Chart/LineChart'
 import styles from './History.styl'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 
 class History extends Component {
-  INTERVAL_BETWEEN_TICKS = 57
-
   getCurrentBalance() {
     return sumBy(this.props.accounts, a => a.balance)
   }
 
   render() {
-    const { chartData, className, t } = this.props
-    const nbTicks = uniq(
-      Object.keys(groupBy(chartData, i => formatDate(i.x, 'YYYY-MM')))
-    ).length
+    const { chartProps, className, t } = this.props
 
     return (
       <div className={cx(styles.History, className)}>
@@ -39,9 +33,7 @@ class History extends Component {
           ref={node => (this.chartContainer = node)}
         >
           <LineChart
-            width={nbTicks * this.INTERVAL_BETWEEN_TICKS}
             height={150}
-            data={chartData}
             margin={{
               top: 20,
               bottom: 40,
@@ -61,6 +53,7 @@ class History extends Component {
               '0%': 'rgba(255, 255, 255, 0.7)',
               '100%': palette.dodgerBlue
             }}
+            {...chartProps}
           />
         </div>
       </div>
@@ -70,7 +63,7 @@ class History extends Component {
 
 History.propTypes = {
   accounts: PropTypes.array.isRequired,
-  chartData: LineChart.propTypes.data,
+  chartProps: PropTypes.object,
   className: PropTypes.string,
   transactions: PropTypes.array.isRequired
 }
