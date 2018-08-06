@@ -8,16 +8,10 @@ class LineChart extends Component {
   }
 
   componentDidUpdate() {
-    this.createChart()
-  }
-
-  empty() {
-    this.root.innerHTML = ''
+    this.updateData()
   }
 
   createChart() {
-    this.empty()
-
     const {
       data,
       width,
@@ -30,8 +24,6 @@ class LineChart extends Component {
       tickPadding,
       xScale,
       yScale,
-      axisColor,
-      labelsColor,
       onUpdate,
       axisMargin
     } = this.props
@@ -39,61 +31,75 @@ class LineChart extends Component {
     const innerWidth = width - margin.left - margin.right
     const innerHeight = height - margin.top - margin.bottom
 
-    const x = xScale().range([0, innerWidth])
-    const y = yScale().range([innerHeight, 0])
+    this.x = xScale().range([0, innerWidth])
+    this.y = yScale().range([innerHeight, 0])
 
-    x.domain([d3.min(data, d => d.x), d3.max(data, d => d.x)])
-    y.domain([d3.min(data, d => d.y), d3.max(data, d => d.y)])
-
-    const svg = d3
+    this.svg = d3
       .select(this.root)
       .append('g')
       .attr('transform', `translate(${margin.left}, ${margin.top})`)
 
-    const line = d3
+    this.lineGenerator = d3
       .line()
-      .x(d => x(d.x))
-      .y(d => y(d.y))
+      .x(d => this.x(d.x))
+      .y(d => this.y(d.y))
 
-    svg
+    this.line = this.svg
       .append('path')
-      .datum(data)
       .attr('stroke', lineColor)
       .attr('stroke-width', lineWidth)
       .attr('fill', 'none')
-      .attr('d', line)
 
-    const xAxisGenerator = d3.axisBottom(x)
+    this.xAxisGenerator = d3.axisBottom(this.x)
 
     if (nbTicks !== undefined) {
-      xAxisGenerator.ticks(nbTicks)
+      this.xAxisGenerator.ticks(nbTicks)
     }
 
     if (tickPadding !== undefined) {
-      xAxisGenerator.tickPadding(tickPadding)
+      this.xAxisGenerator.tickPadding(tickPadding)
     }
 
     if (tickFormat) {
-      xAxisGenerator.tickFormat(tickFormat)
+      this.xAxisGenerator.tickFormat(tickFormat)
     }
 
-    const axis = svg
+    this.axis = this.svg
       .append('g')
       .attr('transform', `translate(0, ${innerHeight + axisMargin})`)
-      .call(xAxisGenerator)
 
-    axis.selectAll('.domain').attr('stroke', axisColor)
-    axis.selectAll('.tick line').attr('stroke', axisColor)
-    axis
+    this.setData(data)
+
+    if (onUpdate && typeof onUpdate === 'function') {
+      this.props.onUpdate()
+    }
+  }
+
+  setData(data) {
+    this.x.domain([d3.min(data, d => d.x), d3.max(data, d => d.x)])
+    this.y.domain([d3.min(data, d => d.y), d3.max(data, d => d.y)])
+
+    this.line.datum(data).attr('d', this.lineGenerator)
+
+    this.updateAxis()
+  }
+
+  updateAxis() {
+    const { axisColor, labelsColor } = this.props
+
+    this.axis.call(this.xAxisGenerator)
+    this.axis.selectAll('.domain').attr('stroke', axisColor)
+    this.axis.selectAll('.tick line').attr('stroke', axisColor)
+    this.axis
       .selectAll('.tick text')
       .attr('fill', labelsColor)
       .attr('font-family', 'Lato, sans-serif')
       .attr('font-size', '0.75rem')
       .attr('style', 'text-transform: uppercase')
+  }
 
-    if (onUpdate && typeof onUpdate === 'function') {
-      this.props.onUpdate()
-    }
+  updateData() {
+    this.setData(this.props.data)
   }
 
   render() {
