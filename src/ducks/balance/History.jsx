@@ -6,6 +6,7 @@ import { translate } from 'cozy-ui/react'
 import { Figure } from 'components/Figure'
 import { groupBy, sumBy, uniq } from 'lodash'
 import { format as formatDate, parse as parseDate } from 'date-fns'
+import sma from 'sma'
 import LineChart from 'components/Chart/LineChart'
 import { getBalanceHistories } from './helpers'
 import styles from './History.styl'
@@ -40,9 +41,22 @@ class History extends Component {
     return balanceHistory
   }
 
+  getChartData() {
+    const history = this.getBalanceHistory()
+    const WINDOW_SIZE = 15
+
+    const balancesSma = sma(history.map(h => h.y), WINDOW_SIZE, n => n)
+    const data = balancesSma.map((balance, i) => ({
+      ...history[i],
+      y: balance
+    }))
+
+    return data
+  }
+
   render() {
     const { className, t } = this.props
-    const chartData = this.getBalanceHistory()
+    const chartData = this.getChartData()
     const nbTicks = uniq(
       Object.keys(groupBy(chartData, i => formatDate(i.x, 'YYYY-MM')))
     ).length

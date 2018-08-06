@@ -181,6 +181,7 @@
     "redux-thunk": "^2.1.0",
     "reselect": "^3.0.1",
     "shebang-loader": "^0.0.1",
+    "sma": "^0.1.0",
     "splashicon-generator": "^0.2.12",
     "stats-webpack-plugin": "^0.6.1",
     "string-replace-webpack-plugin": "^0.1.3",
