@@ -36,7 +36,7 @@ const d3 = require('d3');
     right: 10
   }}
   nbTicks={2}
-  tickFormat={d3.timeFormat('%b')}
+  tickFormat={d3.timeFormat('%x')}
   xScale={d3.scaleTime}
 />
 ```
@@ -61,7 +61,7 @@ const d3 = require('d3');
     right: 10
   }}
   nbTicks={2}
-  tickFormat={d3.timeFormat('%b')}
+  tickFormat={d3.timeFormat('%x')}
   xScale={d3.scaleTime}
   gradient={{
     '0%': 'steelblue',
