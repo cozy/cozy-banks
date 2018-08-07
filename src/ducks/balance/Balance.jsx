@@ -47,12 +47,8 @@ const sameId = (filteringDoc, accountOrGroup) => {
 }
 
 const isAccountPartOf = (filteringDoc, account) => {
-  return (
-    filteringDoc &&
-    account &&
-    filteringDoc.accounts &&
-    filteringDoc.accounts.indexOf(account._id) > -1
-  )
+  const accounts = get(filteringDoc, 'accounts.accounts')
+  return accounts && account && accounts.indexOf(account._id) > -1
 }
 
 // TODO should be using this everywhere, where to put it ?
