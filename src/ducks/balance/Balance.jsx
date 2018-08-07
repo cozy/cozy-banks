@@ -1,5 +1,13 @@
 import React from 'react'
-import { flowRight as compose, sumBy, uniq, sortBy, get, keyBy } from 'lodash'
+import {
+  flowRight as compose,
+  sumBy,
+  uniq,
+  sortBy,
+  get,
+  keyBy,
+  groupBy
+} from 'lodash'
 import { connect } from 'react-redux'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
@@ -21,6 +29,9 @@ import { getAccountInstitutionLabel } from 'ducks/account/helpers'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
 import History from './History'
 import historyData from './history_data.json'
+import { getBalanceHistories } from './helpers'
+import sma from 'sma'
+import { parse as parseDate, format as formatDate } from 'date-fns'
 
 import styles from './Balance.styl'
 import btnStyles from 'styles/buttons.styl'
@@ -268,6 +279,40 @@ class Balance extends React.Component {
     this.props.router.push('/transactions')
   }
 
+  sortBalanceHistoryByDate(history) {
+    const balanceHistory = sortBy(Object.entries(history), ([date]) => date)
+      .reverse()
+      .map(([date, balance]) => ({
+        x: parseDate(date),
+        y: balance
+      }))
+
+    return balanceHistory
+  }
+
+  getBalanceHistory() {
+    const balanceHistories = getBalanceHistories(
+      historyData['io.cozy.bank.accounts'],
+      historyData['io.cozy.bank.operations']
+    )
+    const balanceHistory = this.sortBalanceHistoryByDate(balanceHistories.all)
+
+    return balanceHistory
+  }
+
+  getChartData() {
+    const history = this.getBalanceHistory()
+    const WINDOW_SIZE = 15
+
+    const balancesSma = sma(history.map(h => h.y), WINDOW_SIZE, n => n)
+    const data = balancesSma.map((balance, i) => ({
+      ...history[i],
+      y: balance
+    }))
+
+    return data
+  }
+
   render() {
     const {
       t,
@@ -324,6 +369,13 @@ class Balance extends React.Component {
         onRowClick={this.goToTransactionsFilteredBy}
       />
     )
+
+    const chartData = this.getChartData()
+    const chartNbTicks = uniq(
+      Object.keys(groupBy(chartData, i => formatDate(i.x, 'YYYY-MM')))
+    ).length
+    const chartIntervalBetweenPoints = 57
+
     return (
       <div className={styles['Balance']}>
         <Topbar>
@@ -331,9 +383,12 @@ class Balance extends React.Component {
         </Topbar>
         {flag('balance-history') ? (
           <History
-            className={styles.Balance__history}
             accounts={historyData['io.cozy.bank.accounts']}
             transactions={historyData['io.cozy.bank.operations']}
+            chartProps={{
+              data: chartData,
+              width: chartNbTicks * chartIntervalBetweenPoints
+            }}
           />
         ) : (
           <div className={styles['Balance__kpi']}>
