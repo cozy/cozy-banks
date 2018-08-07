@@ -135,14 +135,14 @@ class LineChart extends Component {
         .attr('stroke-dashoffset', totalLength)
         .transition()
         .duration(this.props.enterAnimationDuration)
-        .ease(d3.easeLinear)
+        .ease(d3.easeExpInOut)
         .attr('stroke-dashoffset', 0)
         .on('end', () => {
           if (this.mask) {
             this.mask
               .transition()
-              .duration(500)
-              .ease(d3.easeExpIn)
+              .duration(250)
+              .ease(d3.easeLinear)
               .attr('opacity', 1)
           }
         })
@@ -226,7 +226,7 @@ LineChart.defaultProps = {
   axisColor: 'black',
   labelsColor: 'black',
   axisMargin: 0,
-  enterAnimationDuration: 2000
+  enterAnimationDuration: 1000
 }
 
 export default LineChart
