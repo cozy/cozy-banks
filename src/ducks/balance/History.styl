@@ -1,9 +1,18 @@
+@require '~styles/mixins.styl'
+
 .History
     background-color dodgerBlue
     padding-top: 1.5rem
     padding-bottom: 1.5rem
     text-align center
     color white
+    margin-left -2rem
+    margin-right -2rem
+
+    +small-screen()
+        margin-left -1rem
+        margin-right -1rem
+        margin-top -1rem
 
 .History__currentBalance
     text-align center

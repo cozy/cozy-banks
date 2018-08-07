@@ -11,11 +11,21 @@ import {
   find,
   findLast,
   uniq,
-  maxBy
+  maxBy,
+  sortBy
 } from 'lodash'
 import { getFilteredAccounts } from 'ducks/filters'
 import BarBalance from 'components/BarBalance'
 import { translate, withBreakpoints } from 'cozy-ui/react'
+import flag from 'cozy-flags'
+import {
+  isBefore as isDateBefore,
+  isAfter as isDateAfter,
+  endOfToday,
+  parse as parseDate,
+  subMonths
+} from 'date-fns'
+import * as d3 from 'd3'
 
 import {
   getTransactionsFilteredByAccount,
@@ -33,6 +43,10 @@ import { getCategoryId } from 'ducks/categories/helpers'
 import Loading from 'components/Loading'
 import { Breadcrumb } from 'components/Breadcrumb'
 import BackButton from 'components/BackButton'
+
+import History from 'ducks/balance/History'
+import historyData from 'ducks/balance/history_data.json'
+import { getBalanceHistories } from 'ducks/balance/helpers'
 
 import { TransactionTableHead, TransactionsWithSelection } from './Transactions'
 import styles from './TransactionsPage.styl'
@@ -203,6 +217,38 @@ class TransactionsPage extends Component {
     }
   }
 
+  sortBalanceHistoryByDate(history) {
+    const balanceHistory = sortBy(Object.entries(history), ([date]) => date)
+      .reverse()
+      .map(([date, balance]) => ({
+        x: parseDate(date),
+        y: balance
+      }))
+
+    return balanceHistory
+  }
+
+  getBalanceHistory() {
+    const balanceHistories = getBalanceHistories(
+      historyData['io.cozy.bank.accounts'],
+      historyData['io.cozy.bank.operations']
+    )
+    const balanceHistory = this.sortBalanceHistoryByDate(balanceHistories.all)
+
+    return balanceHistory
+  }
+
+  getChartData() {
+    const history = this.getBalanceHistory()
+    const today = endOfToday()
+    const twoMonthsAgo = subMonths(today, 2)
+    const data = history.filter(
+      h => isDateBefore(h.x, today) && isDateAfter(h.x, twoMonthsAgo)
+    )
+
+    return data
+  }
+
   render() {
     const {
       t,
@@ -266,9 +312,26 @@ class TransactionsPage extends Component {
     const filteringOnAccount =
       filteringDoc && filteringDoc._type === ACCOUNT_DOCTYPE
 
+    const chartData = this.getChartData()
+    const chartNbTicks = chartData.length
+    const chartIntervalBetweenPoints = 10
+
     return (
-      <div className={styles.TransactionPage}>
+      <div className={styles.TransactionPage} ref={node => (this.root = node)}>
         {subcategoryName ? <BackButton /> : null}
+        {flag('balance-history') && (
+          <History
+            accounts={historyData['io.cozy.bank.accounts']}
+            transactions={historyData['io.cozy.bank.operations']}
+            chartProps={{
+              data: chartData,
+              width: isMobile
+                ? chartNbTicks * chartIntervalBetweenPoints
+                : '100%',
+              tickFormat: d3.timeFormat('%x')
+            }}
+          />
+        )}
         <div className={styles.TransactionPage__top}>
           <AccountSwitch small={subcategoryName !== undefined} />
           {isMobile && (

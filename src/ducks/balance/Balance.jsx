@@ -383,7 +383,6 @@ class Balance extends React.Component {
         </Topbar>
         {flag('balance-history') ? (
           <History
-            className={styles.Balance__history}
             accounts={historyData['io.cozy.bank.accounts']}
             transactions={historyData['io.cozy.bank.operations']}
             chartProps={{
