@@ -142,8 +142,8 @@ const globalModel = async (classifierOptions, transactions) => {
     transaction.cozyCategoryProba = proba
 
     log('info', `[Global categorization model] Results for ${label} :`)
-    log('info', `cozyCategory: ${category}`)
-    log('info', `cozyProba: ${proba}`)
+    log('info', `[Global categorization model] cozyCategory: ${category}`)
+    log('info', `[Global categorization model] cozyProba: ${proba}`)
   }
 }
 
@@ -171,8 +171,8 @@ const localModel = async (classifierOptions, transactions) => {
     transaction.localCategoryProba = proba
 
     log('info', `[Local categorization model] Results for ${label} :`)
-    log('info', `localCategory: ${category}`)
-    log('info', `localProba: ${proba}`)
+    log('info', `[Local categorization model] localCategory: ${category}`)
+    log('info', `[Local categorization model] localProba: ${proba}`)
   }
 }
 
