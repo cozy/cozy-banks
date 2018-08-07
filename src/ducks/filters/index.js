@@ -36,6 +36,9 @@ export const getFilteredAccountIds = state => {
   } else if (doctype === GROUP_DOCTYPE) {
     const groups = getAllGroups(state)
     const group = find(groups, { _id: id })
+    if (!group) {
+      return availableAccountIds
+    }
     const accountIds = getIdsFromRelationship(group, 'accounts')
     if (accountIds) {
       return accountIds

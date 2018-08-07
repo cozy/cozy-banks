@@ -187,7 +187,7 @@ export const dehydrateDoc = obj => {
 }
 
 export const getIdsFromRelationship = (obj, relationshipName) => {
-  if (!obj || !obj[relationshipName]) {
+  if (!obj || !obj[relationshipName] || !obj[relationshipName].target) {
     return null
   }
   return obj[relationshipName].target[relationshipName]

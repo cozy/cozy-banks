@@ -29,7 +29,7 @@ import {
 import styles from './AccountSwitch.styl'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { getAccountInstitutionLabel } from './helpers.js'
-import { queryConnect } from 'utils/client'
+import { queryConnect, getIdsFromRelationship } from 'utils/client'
 
 const { BarCenter } = cozy.bar
 
@@ -64,7 +64,9 @@ const AccountSwitchDesktop = translate()(
             {filteringDoc.accounts &&
               t(
                 'AccountSwitch.account_counter',
-                filteringDoc.accounts.filter(accountExists).length
+                getIdsFromRelationship(filteringDoc, 'accounts').filter(
+                  accountExists
+                ).length
               )}
           </div>
         </div>
@@ -185,7 +187,9 @@ const AccountSwitchMenu = translate()(
                 <span className={styles['account-secondary-info']}>
                   ({t(
                     'AccountSwitch.account_counter',
-                    group.accounts.filter(accountExists).length
+                    getIdsFromRelationship(group, 'accounts').filter(
+                      accountExists
+                    ).length
                   )})
                 </span>
               </button>
