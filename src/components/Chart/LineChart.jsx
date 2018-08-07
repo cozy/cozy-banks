@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import * as d3 from 'd3'
+import { sortBy } from 'lodash'
 
 class LineChart extends Component {
   componentDidMount() {
@@ -51,6 +52,29 @@ class LineChart extends Component {
       .append('g')
       .attr('transform', `translate(${margin.left}, ${margin.top})`)
 
+    if (gradient) {
+      this.areaGenerator = d3
+        .area()
+        .x(d => this.x(d.x))
+        .y0(() => this.y(0))
+        .y1(d => this.y(d.y))
+
+      this.mask = this.svg
+        .append('mask')
+        .attr('id', 'maskurl')
+        .append('path')
+        .attr('fill', 'white')
+
+      this.svg
+        .append('rect')
+        .attr('x', 0)
+        .attr('y', 0)
+        .attr('width', innerWidth)
+        .attr('height', innerHeight)
+        .attr('mask', 'url(#maskurl)')
+        .attr('fill', 'url(#gradient)')
+    }
+
     this.lineGenerator = d3
       .line()
       .x(d => this.x(d.x))
@@ -80,44 +104,48 @@ class LineChart extends Component {
       .append('g')
       .attr('transform', `translate(0, ${innerHeight + axisMargin})`)
 
-    if (gradient) {
-      this.areaGenerator = d3
-        .area()
-        .x(d => this.x(d.x))
-        .y0(() => this.y(0))
-        .y1(d => this.y(d.y))
-
-      this.mask = this.svg
-        .append('mask')
-        .attr('id', 'maskurl')
-        .append('path')
-        .attr('fill', 'white')
-
-      this.svg
-        .append('rect')
-        .attr('x', 0)
-        .attr('y', 0)
-        .attr('width', innerWidth)
-        .attr('height', innerHeight)
-        .attr('mask', 'url(#maskurl)')
-        .attr('fill', 'url(#gradient)')
-    }
-
-    this.setData(data)
+    this.setData(data, true)
 
     if (onUpdate && typeof onUpdate === 'function') {
       this.props.onUpdate()
     }
   }
 
-  setData(data) {
+  setData(data, animate) {
+    const sortedData = sortBy(data, d => d.x)
+
     this.x.domain([d3.min(data, d => d.x), d3.max(data, d => d.x)])
     this.y.domain([d3.min(data, d => d.y), d3.max(data, d => d.y)])
 
-    this.line.datum(data).attr('d', this.lineGenerator)
+    this.line.datum(sortedData).attr('d', this.lineGenerator)
 
     if (this.mask) {
-      this.mask.datum(data).attr('d', this.areaGenerator)
+      this.mask.datum(sortedData).attr('d', this.areaGenerator)
+    }
+
+    if (animate) {
+      const totalLength = this.line.node().getTotalLength()
+
+      if (this.mask) {
+        this.mask.attr('opacity', 0)
+      }
+
+      this.line
+        .attr('stroke-dasharray', `${totalLength} ${totalLength}`)
+        .attr('stroke-dashoffset', totalLength)
+        .transition()
+        .duration(this.props.enterAnimationDuration)
+        .ease(d3.easeLinear)
+        .attr('stroke-dashoffset', 0)
+        .on('end', () => {
+          if (this.mask) {
+            this.mask
+              .transition()
+              .duration(500)
+              .ease(d3.easeExpIn)
+              .attr('opacity', 1)
+          }
+        })
     }
 
     this.updateAxis()
@@ -138,7 +166,7 @@ class LineChart extends Component {
   }
 
   updateData() {
-    this.setData(this.props.data)
+    this.setData(this.props.data, false)
   }
 
   render() {
@@ -185,7 +213,8 @@ LineChart.propTypes = {
   axisColor: PropTypes.string,
   onUpdate: PropTypes.func,
   axisMargin: PropTypes.number,
-  gradient: PropTypes.object
+  gradient: PropTypes.object,
+  enterAnimationDuration: PropTypes.number
 }
 
 LineChart.defaultProps = {
@@ -196,7 +225,8 @@ LineChart.defaultProps = {
   yScale: d3.scaleLinear,
   axisColor: 'black',
   labelsColor: 'black',
-  axisMargin: 0
+  axisMargin: 0,
+  enterAnimationDuration: 2000
 }
 
 export default LineChart

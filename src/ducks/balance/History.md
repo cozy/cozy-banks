@@ -3,6 +3,14 @@ const data = require('./history_data.json');
 
 <History
   accounts={data['io.cozy.bank.accounts']}
-  transactions={data['io.cozy.bank.operations']}
+  chartProps={{
+    data: [
+      { x: new Date(2018, 7, 3), y: 0 },
+      { x: new Date(2018, 7, 2), y: 2 },
+      { x: new Date(2018, 7, 1), y: 4 },
+      { x: new Date(2018, 6, 31), y: 6 }
+    ],
+    width: '100%'
+  }}
 />
 ```

@@ -64,8 +64,7 @@ class History extends Component {
 History.propTypes = {
   accounts: PropTypes.array.isRequired,
   chartProps: PropTypes.object,
-  className: PropTypes.string,
-  transactions: PropTypes.array.isRequired
+  className: PropTypes.string
 }
 
 export default translate()(History)
