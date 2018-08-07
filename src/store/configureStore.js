@@ -2,7 +2,7 @@
 import { compose, createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
-import flag from 'utils/flag'
+import flag from 'cozy-flags'
 import {
   shouldEnableTracking,
   getTracker,
