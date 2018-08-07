@@ -16,7 +16,7 @@ import {
 } from 'ducks/settings'
 import { Balance } from 'ducks/balance'
 import { EnsureHasAccounts, EnsureIsFirstSynced } from 'ducks/onboarding'
-import flag from 'utils/flag'
+import flag from 'cozy-flags'
 
 export const ComingSoon = () => <p style="margin-left: 2em">Coming soon!</p>
 
