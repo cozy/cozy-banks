@@ -52,6 +52,29 @@ class LineChart extends Component {
       .append('g')
       .attr('transform', `translate(${margin.left}, ${margin.top})`)
 
+    if (gradient) {
+      this.areaGenerator = d3
+        .area()
+        .x(d => this.x(d.x))
+        .y0(() => this.y(0))
+        .y1(d => this.y(d.y))
+
+      this.mask = this.svg
+        .append('mask')
+        .attr('id', 'maskurl')
+        .append('path')
+        .attr('fill', 'white')
+
+      this.svg
+        .append('rect')
+        .attr('x', 0)
+        .attr('y', 0)
+        .attr('width', innerWidth)
+        .attr('height', innerHeight)
+        .attr('mask', 'url(#maskurl)')
+        .attr('fill', 'url(#gradient)')
+    }
+
     this.lineGenerator = d3
       .line()
       .x(d => this.x(d.x))
@@ -80,29 +103,6 @@ class LineChart extends Component {
     this.axis = this.svg
       .append('g')
       .attr('transform', `translate(0, ${innerHeight + axisMargin})`)
-
-    if (gradient) {
-      this.areaGenerator = d3
-        .area()
-        .x(d => this.x(d.x))
-        .y0(() => this.y(0))
-        .y1(d => this.y(d.y))
-
-      this.mask = this.svg
-        .append('mask')
-        .attr('id', 'maskurl')
-        .append('path')
-        .attr('fill', 'white')
-
-      this.svg
-        .append('rect')
-        .attr('x', 0)
-        .attr('y', 0)
-        .attr('width', innerWidth)
-        .attr('height', innerHeight)
-        .attr('mask', 'url(#maskurl)')
-        .attr('fill', 'url(#gradient)')
-    }
 
     this.setData(data, true)
 
