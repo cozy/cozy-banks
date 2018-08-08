@@ -12,6 +12,7 @@ import { connect } from 'react-redux'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import { or } from 'airbnb-prop-types'
+import * as d3 from 'd3'
 
 import { withRouter } from 'react-router'
 import { translate, Button, Icon, withBreakpoints } from 'cozy-ui/react'
@@ -371,6 +372,7 @@ class Balance extends React.Component {
       Object.keys(groupBy(chartData, i => formatDate(i.x, 'YYYY-MM')))
     ).length
     const chartIntervalBetweenPoints = 57
+    const TICK_FORMAT = d3.timeFormat('%b')
 
     return (
       <div className={styles['Balance']}>
@@ -380,10 +382,19 @@ class Balance extends React.Component {
         {flag('balance-history') ? (
           <History
             accounts={historyData['io.cozy.bank.accounts']}
-            transactions={historyData['io.cozy.bank.operations']}
             chartProps={{
               data: chartData,
-              width: chartNbTicks * chartIntervalBetweenPoints
+              width: chartNbTicks * chartIntervalBetweenPoints,
+              height: 103,
+              margin: {
+                top: 10,
+                bottom: 35,
+                left: 16,
+                right: 16
+              },
+              showAxis: true,
+              axisMargin: 10,
+              tickFormat: TICK_FORMAT
             }}
           />
         ) : (

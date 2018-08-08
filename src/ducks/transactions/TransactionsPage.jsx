@@ -25,7 +25,6 @@ import {
   parse as parseDate,
   subMonths
 } from 'date-fns'
-import * as d3 from 'd3'
 
 import {
   getTransactionsFilteredByAccount,
@@ -44,7 +43,7 @@ import Loading from 'components/Loading'
 import { Breadcrumb } from 'components/Breadcrumb'
 import BackButton from 'components/BackButton'
 
-import History from 'ducks/balance/History'
+import { HistoryChart } from 'ducks/balance/History'
 import historyData from 'ducks/balance/history_data.json'
 import { getBalanceHistories } from 'ducks/balance/helpers'
 
@@ -320,15 +319,17 @@ class TransactionsPage extends Component {
       <div className={styles.TransactionPage} ref={node => (this.root = node)}>
         {subcategoryName ? <BackButton /> : null}
         {flag('balance-history') && (
-          <History
-            accounts={historyData['io.cozy.bank.accounts']}
-            transactions={historyData['io.cozy.bank.operations']}
-            chartProps={{
-              data: chartData,
-              width: isMobile
-                ? chartNbTicks * chartIntervalBetweenPoints
-                : '100%',
-              tickFormat: d3.timeFormat('%x')
+          <HistoryChart
+            data={chartData}
+            width={
+              isMobile ? chartNbTicks * chartIntervalBetweenPoints : '100%'
+            }
+            height={72}
+            margin={{
+              top: 10,
+              bottom: 10,
+              left: 16,
+              right: 16
             }}
           />
         )}

@@ -32,11 +32,14 @@ class LineChart extends Component {
       nbTicks,
       tickFormat,
       tickPadding,
+      tickSizeOuter,
+      tickSizeInner,
       xScale,
       yScale,
       onUpdate,
       axisMargin,
-      gradient
+      gradient,
+      showAxis
     } = this.props
 
     const width = this.getRootWidth()
@@ -86,23 +89,25 @@ class LineChart extends Component {
       .attr('stroke-width', lineWidth)
       .attr('fill', 'none')
 
-    this.xAxisGenerator = d3.axisBottom(this.x)
+    this.xAxisGenerator = d3
+      .axisBottom(this.x)
+      .tickSizeOuter(tickSizeOuter)
+      .tickSizeInner(tickSizeInner)
+      .tickPadding(tickPadding)
 
     if (nbTicks !== undefined) {
       this.xAxisGenerator.ticks(nbTicks)
-    }
-
-    if (tickPadding !== undefined) {
-      this.xAxisGenerator.tickPadding(tickPadding)
     }
 
     if (tickFormat) {
       this.xAxisGenerator.tickFormat(tickFormat)
     }
 
-    this.axis = this.svg
-      .append('g')
-      .attr('transform', `translate(0, ${innerHeight + axisMargin})`)
+    if (showAxis) {
+      this.axis = this.svg
+        .append('g')
+        .attr('transform', `translate(0, ${innerHeight + axisMargin})`)
+    }
 
     this.setData(data, true)
 
@@ -114,8 +119,8 @@ class LineChart extends Component {
   setData(data, animate) {
     const sortedData = sortBy(data, d => d.x)
 
-    this.x.domain([d3.min(data, d => d.x), d3.max(data, d => d.x)])
-    this.y.domain([d3.min(data, d => d.y), d3.max(data, d => d.y)])
+    this.x.domain(d3.extent(data, d => d.x))
+    this.y.domain(d3.extent(data, d => d.y))
 
     this.line.datum(sortedData).attr('d', this.lineGenerator)
 
@@ -148,7 +153,9 @@ class LineChart extends Component {
         })
     }
 
-    this.updateAxis()
+    if (this.props.showAxis) {
+      this.updateAxis()
+    }
   }
 
   updateAxis() {
@@ -214,7 +221,8 @@ LineChart.propTypes = {
   onUpdate: PropTypes.func,
   axisMargin: PropTypes.number,
   gradient: PropTypes.object,
-  enterAnimationDuration: PropTypes.number
+  enterAnimationDuration: PropTypes.number,
+  showAxis: PropTypes.bool
 }
 
 LineChart.defaultProps = {
@@ -226,7 +234,11 @@ LineChart.defaultProps = {
   axisColor: 'black',
   labelsColor: 'black',
   axisMargin: 0,
-  enterAnimationDuration: 1000
+  enterAnimationDuration: 1000,
+  showAxis: false,
+  tickPadding: 8,
+  tickSizeOuter: 0,
+  tickSizeInner: 5
 }
 
 export default LineChart
