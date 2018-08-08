@@ -50,7 +50,7 @@ class History extends Component {
             }
             axisMargin={10}
             gradient={{
-              '0%': 'rgba(255, 255, 255, 0.7)',
+              '0%': '#76b9f3',
               '100%': palette.dodgerBlue
             }}
             {...chartProps}
