@@ -28,34 +28,7 @@ class History extends Component {
         <div className={styles.History__subtitle}>
           {t('BalanceHistory.subtitle')}
         </div>
-        <div
-          className={styles.History__chartContainer}
-          ref={node => (this.chartContainer = node)}
-        >
-          <LineChart
-            height={150}
-            margin={{
-              top: 20,
-              bottom: 40,
-              left: 10,
-              right: 10
-            }}
-            tickFormat={d3.timeFormat('%b')}
-            xScale={d3.scaleTime}
-            lineColor="white"
-            axisColor="white"
-            labelsColor="#a2c4f9"
-            onUpdate={() =>
-              this.chartContainer.scrollTo(this.chartContainer.scrollWidth, 0)
-            }
-            axisMargin={10}
-            gradient={{
-              '0%': '#76b9f3',
-              '100%': palette.dodgerBlue
-            }}
-            {...chartProps}
-          />
-        </div>
+        <HistoryChart {...chartProps} />
       </div>
     )
   }
@@ -65,6 +38,32 @@ History.propTypes = {
   accounts: PropTypes.array.isRequired,
   chartProps: PropTypes.object,
   className: PropTypes.string
+}
+
+export class HistoryChart extends Component {
+  render() {
+    return (
+      <div
+        className={styles.HistoryChart}
+        ref={node => (this.container = node)}
+      >
+        <LineChart
+          xScale={d3.scaleTime}
+          lineColor="white"
+          axisColor="white"
+          labelsColor="#a2c4f9"
+          onUpdate={() =>
+            this.container.scrollTo(this.container.scrollWidth, 0)
+          }
+          gradient={{
+            '0%': '#76b9f3',
+            '100%': palette.dodgerBlue
+          }}
+          {...this.props}
+        />
+      </div>
+    )
+  }
 }
 
 export default translate()(History)
