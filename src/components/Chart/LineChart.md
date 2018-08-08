@@ -14,6 +14,7 @@
     left: 10,
     right: 10
   }}
+  showAxis
 />
 ```
 
@@ -38,6 +39,7 @@ const d3 = require('d3');
   nbTicks={2}
   tickFormat={d3.timeFormat('%x')}
   xScale={d3.scaleTime}
+  showAxis
 />
 ```
 
@@ -67,5 +69,6 @@ const d3 = require('d3');
     '0%': 'steelblue',
     '100%': 'white'
   }}
+  showAxis
 />
 ```

@@ -36,7 +36,8 @@ class LineChart extends Component {
       yScale,
       onUpdate,
       axisMargin,
-      gradient
+      gradient,
+      showAxis
     } = this.props
 
     const width = this.getRootWidth()
@@ -100,9 +101,11 @@ class LineChart extends Component {
       this.xAxisGenerator.tickFormat(tickFormat)
     }
 
-    this.axis = this.svg
-      .append('g')
-      .attr('transform', `translate(0, ${innerHeight + axisMargin})`)
+    if (showAxis) {
+      this.axis = this.svg
+        .append('g')
+        .attr('transform', `translate(0, ${innerHeight + axisMargin})`)
+    }
 
     this.setData(data, true)
 
@@ -148,7 +151,9 @@ class LineChart extends Component {
         })
     }
 
-    this.updateAxis()
+    if (this.props.showAxis) {
+      this.updateAxis()
+    }
   }
 
   updateAxis() {
@@ -214,7 +219,8 @@ LineChart.propTypes = {
   onUpdate: PropTypes.func,
   axisMargin: PropTypes.number,
   gradient: PropTypes.object,
-  enterAnimationDuration: PropTypes.number
+  enterAnimationDuration: PropTypes.number,
+  showAxis: PropTypes.bool
 }
 
 LineChart.defaultProps = {
@@ -226,7 +232,8 @@ LineChart.defaultProps = {
   axisColor: 'black',
   labelsColor: 'black',
   axisMargin: 0,
-  enterAnimationDuration: 1000
+  enterAnimationDuration: 1000,
+  showAxis: false
 }
 
 export default LineChart
