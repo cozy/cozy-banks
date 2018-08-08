@@ -1,6 +1,15 @@
 'use strict'
 
 const webpack = require('webpack')
+const { target } = require('./webpack.vars')
+
+const provided = {
+  'cozy.client': 'cozy-client-js/dist/cozy-client.js',
+}
+
+if (target != 'mobile') {
+  provided['cozy.bar'] = 'cozy-bar/dist/cozy-bar.js'
+}
 
 module.exports = {
   devtool: 'cheap-source-map',
@@ -21,10 +30,7 @@ module.exports = {
         NODE_ENV: JSON.stringify('development')
       }
     }),
-    new webpack.ProvidePlugin({
-      'cozy.client': 'cozy-client-js/dist/cozy-client.js',
-      'cozy.bar': 'cozy-bar/dist/cozy-bar.js'
-    })
+    new webpack.ProvidePlugin(provided)
   ],
   stats: {
     children: false
