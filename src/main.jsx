@@ -13,6 +13,12 @@ import { getClient } from 'utils/client'
 import 'utils/flag'
 import FastClick from 'fastclick'
 import { isReporterEnabled, configureReporter, setURLContext } from 'lib/sentry'
+import * as d3 from 'd3'
+
+const D3_LOCALES_MAP = {
+  fr: 'fr-FR',
+  en: 'en-GB'
+}
 
 if (__TARGET__ === 'mobile') {
   require('styles/mobile.styl')
@@ -44,6 +50,10 @@ const setupApp = async persistedState => {
     __TARGET__ === 'mobile' && navigator && navigator.language
       ? navigator.language.slice(0, 2)
       : data.cozyLocale || 'en'
+
+  d3.timeFormatDefaultLocale(
+    require(`d3-time-format/locale/${D3_LOCALES_MAP[lang]}.json`)
+  )
 
   history = setupHistory()
 
