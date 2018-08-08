@@ -114,8 +114,8 @@ class LineChart extends Component {
   setData(data, animate) {
     const sortedData = sortBy(data, d => d.x)
 
-    this.x.domain([d3.min(data, d => d.x), d3.max(data, d => d.x)])
-    this.y.domain([d3.min(data, d => d.y), d3.max(data, d => d.y)])
+    this.x.domain(d3.extent(data, d => d.x))
+    this.y.domain(d3.extent(data, d => d.y))
 
     this.line.datum(sortedData).attr('d', this.lineGenerator)
 
