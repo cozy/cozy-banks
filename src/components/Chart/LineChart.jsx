@@ -32,6 +32,8 @@ class LineChart extends Component {
       nbTicks,
       tickFormat,
       tickPadding,
+      tickSizeOuter,
+      tickSizeInner,
       xScale,
       yScale,
       onUpdate,
@@ -87,14 +89,14 @@ class LineChart extends Component {
       .attr('stroke-width', lineWidth)
       .attr('fill', 'none')
 
-    this.xAxisGenerator = d3.axisBottom(this.x)
+    this.xAxisGenerator = d3
+      .axisBottom(this.x)
+      .tickSizeOuter(tickSizeOuter)
+      .tickSizeInner(tickSizeInner)
+      .tickPadding(tickPadding)
 
     if (nbTicks !== undefined) {
       this.xAxisGenerator.ticks(nbTicks)
-    }
-
-    if (tickPadding !== undefined) {
-      this.xAxisGenerator.tickPadding(tickPadding)
     }
 
     if (tickFormat) {
@@ -233,7 +235,10 @@ LineChart.defaultProps = {
   labelsColor: 'black',
   axisMargin: 0,
   enterAnimationDuration: 1000,
-  showAxis: false
+  showAxis: false,
+  tickPadding: 8,
+  tickSizeOuter: 0,
+  tickSizeInner: 5
 }
 
 export default LineChart
