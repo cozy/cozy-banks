@@ -59,6 +59,12 @@ export class HistoryChart extends Component {
             '0%': '#76b9f3',
             '100%': palette.dodgerBlue
           }}
+          margin={{
+            top: 10,
+            bottom: 10,
+            left: 16,
+            right: 16
+          }}
           {...this.props}
         />
       </div>
