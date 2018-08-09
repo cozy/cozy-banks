@@ -223,8 +223,8 @@ class LineChart extends Component {
   onLineClick = () => {
     const [mouseX] = d3.mouse(this.clickLine.node())
     const item = this.getNearestItem(this.x.invert(mouseX))
-    // eslint-disable-next-line
-    console.log(item)
+
+    this.movePointTo(this.x(item.x), this.y(item.y))
   }
 
   getNearestItem(x) {
