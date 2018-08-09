@@ -1,17 +1,11 @@
 /* global cozy */
 import { hashHistory } from 'react-router'
-import {
-  getSettingsFromState,
-  isNotificationEnabled
-} from 'ducks/settings/helpers'
+import { getSettings, isNotificationEnabled } from 'ducks/settings/helpers'
 
 let push
 
-export const registerPushNotifications = () => async (dispatch, getState) => {
-  const state = getState()
-
-  const settings = getSettingsFromState(state)
-  const client = state.mobile && state.mobile.client
+export const registerPushNotifications = async client => {
+  const settings = getSettings(client)
 
   return startPushNotifications(settings, client)
 }
@@ -52,10 +46,14 @@ export const startPushNotifications = (settings, client) => {
   // eslint-disable-next-line no-console
   push.on('error', err => console.log(err))
   push.on('registration', ({ registrationId }) => {
+    console.log('registrationId', registrationId)
+    // TODO: Update notification client
+    /*
     cozy.client.auth.updateClient({
       ...client,
       notificationDeviceToken: registrationId
     })
+    */
   })
 }
 

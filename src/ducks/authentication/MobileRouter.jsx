@@ -21,6 +21,8 @@ import {
   resetClient,
   getToken
 } from 'ducks/authentication/lib/client'
+import { withClient } from 'utils/client'
+
 export const AUTH_PATH = 'authentication'
 
 export const onLogout = (store, client, replaceFn) => {
@@ -57,7 +59,7 @@ const withAuth = Wrapped => (props, { store, client }) => {
       }
     }
 
-    store.dispatch(registerPushNotifications())
+    await registerPushNotifications(props.client)
   }
 
   const setupAuth = isAuthenticated => () => {
@@ -140,4 +142,4 @@ const MobileRouter = ({
   )
 }
 
-export default withAuth(MobileRouter)
+export default withClient(withAuth(MobileRouter))
