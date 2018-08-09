@@ -94,6 +94,12 @@ class LineChart extends Component {
       .attr('stroke-width', pointStrokeWidth)
       .attr('stroke', pointStrokeColor)
 
+    this.pointLine = this.svg
+      .append('line')
+      .attr('stroke-width', 1)
+      .attr('stroke', 'white')
+      .attr('stroke-dasharray', '3,2')
+
     this.line = this.svg
       .append('path')
       .attr('stroke', lineColor)
@@ -151,17 +157,18 @@ class LineChart extends Component {
     }
 
     if (animate) {
-      const totalLength = this.line.node().getTotalLength()
+      const lineTotalLength = this.line.node().getTotalLength()
 
       this.point.attr('r', 0).attr('stroke-width', 0)
+      this.pointLine.attr('opacity', 0)
 
       if (this.mask) {
         this.mask.attr('opacity', 0)
       }
 
       this.line
-        .attr('stroke-dasharray', `${totalLength} ${totalLength}`)
-        .attr('stroke-dashoffset', totalLength)
+        .attr('stroke-dasharray', `${lineTotalLength} ${lineTotalLength}`)
+        .attr('stroke-dashoffset', lineTotalLength)
         .transition()
         .duration(this.props.enterAnimationDuration)
         .ease(d3.easeExpInOut)
@@ -180,6 +187,12 @@ class LineChart extends Component {
               .ease(d3.easeLinear)
               .attr('r', this.props.pointRadius)
               .attr('stroke-width', this.props.pointStrokeWidth)
+
+            this.pointLine
+              .transition()
+              .duration(400)
+              .ease(d3.easeExpIn)
+              .attr('opacity', 1)
           }
         })
     }
@@ -230,6 +243,11 @@ class LineChart extends Component {
 
   movePointTo(x, y) {
     this.point.attr('cx', x).attr('cy', y)
+    this.pointLine
+      .attr('x1', x)
+      .attr('y1', 0)
+      .attr('x2', x)
+      .attr('y2', this.props.height - this.props.margin.bottom)
   }
 
   render() {
