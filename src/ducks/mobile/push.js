@@ -1,6 +1,9 @@
 /* global cozy */
 import { hashHistory } from 'react-router'
-import { getSettingsFromState, isNotificationEnabled } from 'ducks/settings'
+import {
+  getSettingsFromState,
+  isNotificationEnabled
+} from 'ducks/settings/helpers'
 
 let push
 

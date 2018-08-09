@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Title, translate } from 'cozy-ui/react'
 import { flowRight as compose } from 'lodash'
 import ToggleRow from './ToggleRow'
-import { getSettingsFromCollection } from '.'
+import { getSettingsFromCollection } from './helpers'
 
 class TogglePane extends Component {
   onToggle = (setting, checked) => {
