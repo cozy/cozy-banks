@@ -16,7 +16,7 @@ import {
   transactionsConn,
   groupsConn
 } from 'doctypes'
-import { isCollectionLoading } from 'utils/client'
+import { isCollectionLoading, withCrud } from 'utils/client'
 
 class CategoriesPage extends Component {
   selectCategory = (selectedCategory, subcategory) => {
@@ -30,11 +30,11 @@ class CategoriesPage extends Component {
   }
 
   onWithIncomeToggle = checked => {
-    const { settings, updateDocument } = this.props
+    const { settings, saveDocument } = this.props
 
-    settings.showIncomeCategory = checked
+    settings.data[0].showIncomeCategory = checked
 
-    updateDocument(settings)
+    saveDocument(settings.data[0])
   }
 
   render() {
@@ -47,7 +47,7 @@ class CategoriesPage extends Component {
     } = this.props
     const isFetching =
       isCollectionLoading(transactions) || isCollectionLoading(settings)
-    const { showIncomeCategory } = settings
+    const { showIncomeCategory } = (settings.data && settings.data[0]) || false
     const selectedCategoryName = router.params.categoryName
     const categories = showIncomeCategory
       ? categoriesProps
@@ -122,5 +122,6 @@ export default compose(
     settings: settingsConn,
     groups: groupsConn
   }),
+  withCrud,
   connect(mapStateToProps)
 )(CategoriesPage)
