@@ -4,6 +4,8 @@ import * as d3 from 'd3'
 import { maxBy, sortBy } from 'lodash'
 
 class LineChart extends Component {
+  dragging = false
+
   componentDidMount() {
     this.createChart()
   }
@@ -54,6 +56,8 @@ class LineChart extends Component {
     this.x = xScale().range([0, innerWidth])
     this.y = yScale().range([innerHeight, 0])
 
+    const drag = d3.drag()
+
     this.svg = d3
       .select(this.root)
       .append('g')
@@ -87,13 +91,6 @@ class LineChart extends Component {
       .x(d => this.x(d.x))
       .y(d => this.y(d.y))
 
-    this.point = this.svg
-      .append('circle')
-      .attr('r', pointRadius)
-      .attr('fill', pointFillColor)
-      .attr('stroke-width', pointStrokeWidth)
-      .attr('stroke', pointStrokeColor)
-
     this.pointLine = this.svg
       .append('line')
       .attr('stroke-width', 1)
@@ -112,6 +109,16 @@ class LineChart extends Component {
       .attr('stroke-width', 32)
       .attr('fill', 'none')
       .on('click', this.onLineClick)
+
+    this.point = this.svg
+      .append('circle')
+      .attr('r', pointRadius)
+      .attr('fill', pointFillColor)
+      .attr('stroke-width', pointStrokeWidth)
+      .attr('stroke', pointStrokeColor)
+      .call(drag.on('start', this.startPointDrag))
+      .call(drag.on('drag', this.pointDrag))
+      .call(drag.on('end', this.stopPointDrag))
 
     this.xAxisGenerator = d3
       .axisBottom(this.x)
@@ -248,6 +255,25 @@ class LineChart extends Component {
       .attr('y1', 0)
       .attr('x2', x)
       .attr('y2', this.props.height - this.props.margin.bottom)
+  }
+
+  startPointDrag = () => {
+    this.dragging = true
+  }
+
+  pointDrag = () => {
+    if (!this.dragging) {
+      return
+    }
+
+    const [mouseX] = d3.mouse(this.svg.node())
+    const item = this.getNearestItem(this.x.invert(mouseX))
+
+    this.movePointTo(this.x(item.x), this.y(item.y))
+  }
+
+  stopPointDrag = () => {
+    this.dragging = false
   }
 
   render() {
