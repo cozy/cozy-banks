@@ -65,6 +65,8 @@ export class HistoryChart extends Component {
             left: 16,
             right: 16
           }}
+          pointFillColor="white"
+          pointStrokeColor="rgba(255, 255, 255, 0.3)"
           {...this.props}
         />
       </div>
