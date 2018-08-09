@@ -185,8 +185,20 @@ class LineChart extends Component {
   }
 
   onLineClick = () => {
+    const [mouseX] = d3.mouse(this.clickLine.node())
+    const item = this.getNearestItem(this.x.invert(mouseX))
     // eslint-disable-next-line
-    console.log('clicked on line')
+    console.log(item)
+  }
+
+  getNearestItem(x) {
+    const { data } = this.props
+
+    const distances = data.map(i => Math.abs(x - i.x))
+    const minDistance = Math.min(...distances)
+    const nearestIndex = distances.findIndex(d => d === minDistance)
+
+    return data[nearestIndex]
   }
 
   render() {
