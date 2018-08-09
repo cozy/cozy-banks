@@ -11,7 +11,7 @@ export const registerPushNotifications = () => async (dispatch, getState) => {
   const state = getState()
 
   const settings = getSettingsFromState(state)
-  const client = state.mobile.client
+  const client = state.mobile && state.mobile.client
 
   return startPushNotifications(settings, client)
 }
