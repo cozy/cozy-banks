@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import * as d3 from 'd3'
-import { sortBy } from 'lodash'
+import { maxBy, sortBy } from 'lodash'
 
 class LineChart extends Component {
   componentDidMount() {
@@ -39,7 +39,11 @@ class LineChart extends Component {
       onUpdate,
       axisMargin,
       gradient,
-      showAxis
+      showAxis,
+      pointRadius,
+      pointFillColor,
+      pointStrokeWidth,
+      pointStrokeColor
     } = this.props
 
     const width = this.getRootWidth()
@@ -83,6 +87,13 @@ class LineChart extends Component {
       .x(d => this.x(d.x))
       .y(d => this.y(d.y))
 
+    this.point = this.svg
+      .append('circle')
+      .attr('r', pointRadius)
+      .attr('fill', pointFillColor)
+      .attr('stroke-width', pointStrokeWidth)
+      .attr('stroke', pointStrokeColor)
+
     this.line = this.svg
       .append('path')
       .attr('stroke', lineColor)
@@ -118,6 +129,9 @@ class LineChart extends Component {
 
     this.setData(data, true)
 
+    const lastItem = maxBy(data, d => d.x)
+    this.selectItem(lastItem)
+
     if (onUpdate && typeof onUpdate === 'function') {
       this.props.onUpdate()
     }
@@ -139,6 +153,8 @@ class LineChart extends Component {
     if (animate) {
       const totalLength = this.line.node().getTotalLength()
 
+      this.point.attr('r', 0).attr('stroke-width', 0)
+
       if (this.mask) {
         this.mask.attr('opacity', 0)
       }
@@ -157,6 +173,13 @@ class LineChart extends Component {
               .duration(250)
               .ease(d3.easeLinear)
               .attr('opacity', 1)
+
+            this.point
+              .transition()
+              .duration(200)
+              .ease(d3.easeLinear)
+              .attr('r', this.props.pointRadius)
+              .attr('stroke-width', this.props.pointStrokeWidth)
           }
         })
     }
@@ -199,6 +222,14 @@ class LineChart extends Component {
     const nearestIndex = distances.findIndex(d => d === minDistance)
 
     return data[nearestIndex]
+  }
+
+  selectItem(item) {
+    this.movePointTo(this.x(item.x), this.y(item.y))
+  }
+
+  movePointTo(x, y) {
+    this.point.attr('cx', x).attr('cy', y)
   }
 
   render() {
@@ -247,7 +278,11 @@ LineChart.propTypes = {
   axisMargin: PropTypes.number,
   gradient: PropTypes.object,
   enterAnimationDuration: PropTypes.number,
-  showAxis: PropTypes.bool
+  showAxis: PropTypes.bool,
+  pointRadius: PropTypes.number,
+  pointFillColor: PropTypes.string,
+  pointStrokeWidth: PropTypes.number,
+  pointStrokeColor: PropTypes.string
 }
 
 LineChart.defaultProps = {
@@ -263,7 +298,11 @@ LineChart.defaultProps = {
   showAxis: false,
   tickPadding: 8,
   tickSizeOuter: 0,
-  tickSizeInner: 5
+  tickSizeInner: 5,
+  pointRadius: 4,
+  pointFillColor: 'black',
+  pointStrokeWidth: 10,
+  pointStrokeColor: 'rgba(0, 0, 0, 0.3)'
 }
 
 export default LineChart
