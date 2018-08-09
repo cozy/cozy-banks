@@ -7,7 +7,7 @@ const provided = {
   'cozy.client': 'cozy-client-js/dist/cozy-client.js',
 }
 
-if (target != 'mobile') {
+if (target !== 'mobile') {
   provided['cozy.bar'] = 'cozy-bar/dist/cozy-bar.js'
 }
 
