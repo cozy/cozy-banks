@@ -89,6 +89,13 @@ class LineChart extends Component {
       .attr('stroke-width', lineWidth)
       .attr('fill', 'none')
 
+    this.clickLine = this.svg
+      .append('path')
+      .attr('stroke', 'transparent')
+      .attr('stroke-width', 32)
+      .attr('fill', 'none')
+      .on('click', this.onLineClick)
+
     this.xAxisGenerator = d3
       .axisBottom(this.x)
       .tickSizeOuter(tickSizeOuter)
@@ -123,6 +130,7 @@ class LineChart extends Component {
     this.y.domain(d3.extent(data, d => d.y))
 
     this.line.datum(sortedData).attr('d', this.lineGenerator)
+    this.clickLine.datum(sortedData).attr('d', this.lineGenerator)
 
     if (this.mask) {
       this.mask.datum(sortedData).attr('d', this.areaGenerator)
@@ -174,6 +182,11 @@ class LineChart extends Component {
 
   updateData() {
     this.setData(this.props.data, false)
+  }
+
+  onLineClick = () => {
+    // eslint-disable-next-line
+    console.log('clicked on line')
   }
 
   render() {
