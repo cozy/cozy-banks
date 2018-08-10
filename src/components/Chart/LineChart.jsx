@@ -2,9 +2,15 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import * as d3 from 'd3'
 import { maxBy, sortBy } from 'lodash'
+import styles from './LineChart.styl'
 
 class LineChart extends Component {
   dragging = false
+
+  state = {
+    selectedItem: null,
+    x: null
+  }
 
   componentDidMount() {
     this.createChart()
@@ -12,6 +18,10 @@ class LineChart extends Component {
 
   componentDidUpdate() {
     this.updateData()
+  }
+
+  componentWillUnmount() {
+    this.tooltip.remove()
   }
 
   getRootWidth() {
@@ -231,7 +241,7 @@ class LineChart extends Component {
     const [mouseX] = d3.mouse(this.clickLine.node())
     const item = this.getNearestItem(this.x.invert(mouseX))
 
-    this.movePointTo(this.x(item.x), this.y(item.y))
+    this.selectItem(item)
   }
 
   getNearestItem(x) {
@@ -245,7 +255,15 @@ class LineChart extends Component {
   }
 
   selectItem(item) {
-    this.movePointTo(this.x(item.x), this.y(item.y))
+    const x = this.x(item.x)
+    const y = this.y(item.y)
+
+    this.setState({
+      selectedItem: item,
+      x
+    })
+
+    this.movePointTo(x, y)
   }
 
   movePointTo(x, y) {
@@ -255,6 +273,10 @@ class LineChart extends Component {
       .attr('y1', 0)
       .attr('x2', x)
       .attr('y2', this.props.height - this.props.margin.bottom)
+  }
+
+  setTooltipContent(content) {
+    this.tooltip.html(content)
   }
 
   startPointDrag = () => {
@@ -269,28 +291,49 @@ class LineChart extends Component {
     const [mouseX] = d3.mouse(this.svg.node())
     const item = this.getNearestItem(this.x.invert(mouseX))
 
-    this.movePointTo(this.x(item.x), this.y(item.y))
+    this.selectItem(item)
   }
 
   stopPointDrag = () => {
     this.dragging = false
   }
 
+  getTooltipContent = () => {
+    const { selectedItem } = this.state
+    const { getTooltipContent } = this.props
+
+    if (getTooltipContent && selectedItem) {
+      return getTooltipContent(selectedItem)
+    }
+
+    if (selectedItem) {
+      return <div>{selectedItem.y}</div>
+    }
+
+    return null
+  }
+
   render() {
-    const { width, height, gradient } = this.props
+    const { width, height, gradient, margin } = this.props
+    const { selectedItem, x } = this.state
 
     return (
-      <svg ref={node => (this.root = node)} width={width} height={height}>
-        {gradient && (
-          <defs>
-            <linearGradient id="gradient" x2="0%" y2="100%">
-              {Object.entries(gradient).map(([offset, color]) => (
-                <stop key={offset} offset={offset} stopColor={color} />
-              ))}
-            </linearGradient>
-          </defs>
+      <div className={styles.LineChart}>
+        {selectedItem && (
+          <Tooltip x={x + margin.left}>{this.getTooltipContent()}</Tooltip>
         )}
-      </svg>
+        <svg ref={node => (this.root = node)} width={width} height={height}>
+          {gradient && (
+            <defs>
+              <linearGradient id="gradient" x2="0%" y2="100%">
+                {Object.entries(gradient).map(([offset, color]) => (
+                  <stop key={offset} offset={offset} stopColor={color} />
+                ))}
+              </linearGradient>
+            </defs>
+          )}
+        </svg>
+      </div>
     )
   }
 }
@@ -326,7 +369,8 @@ LineChart.propTypes = {
   pointRadius: PropTypes.number,
   pointFillColor: PropTypes.string,
   pointStrokeWidth: PropTypes.number,
-  pointStrokeColor: PropTypes.string
+  pointStrokeColor: PropTypes.string,
+  getTooltipContent: PropTypes.func
 }
 
 LineChart.defaultProps = {
@@ -347,6 +391,24 @@ LineChart.defaultProps = {
   pointFillColor: 'black',
   pointStrokeWidth: 10,
   pointStrokeColor: 'rgba(0, 0, 0, 0.3)'
+}
+
+class Tooltip extends Component {
+  render() {
+    const { children, x } = this.props
+
+    return (
+      <div
+        ref={node => (this.node = node)}
+        className={styles.LineChartTooltip}
+        style={{
+          left: x + 'px'
+        }}
+      >
+        {children}
+      </div>
+    )
+  }
 }
 
 export default LineChart
