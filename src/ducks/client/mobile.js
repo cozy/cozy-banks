@@ -1,6 +1,6 @@
 /* global __APP_VERSION__ */
 import CozyClient from 'cozy-client'
-import merge from 'lodash/merge'
+import { merge, get } from 'lodash'
 
 import { offlineDoctypes } from 'doctypes'
 import manifest from '../../../manifest.webapp'
@@ -8,8 +8,8 @@ import { getManifestOptions } from 'utils/mobileClient'
 
 const SOFTWARE_ID = 'io.cozy.banks.mobile'
 
-export const getCozyURL = state => state.mobile && state.mobile.url
-export const getToken = state => state.mobile && state.mobile.token
+export const getCozyURL = state => get(state, 'mobile.url')
+export const getToken = state => get(state, 'mobile.token')
 
 export const getClient = (uri, token) => {
   const manifestOptions = getManifestOptions(manifest)
