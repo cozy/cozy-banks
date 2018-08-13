@@ -13,8 +13,5 @@ export const getClient = state => {
   const token = lib.getToken(state)
   client = lib.getClient(cozyURL, token)
 
-  // eslint-disable-next-line no-console
-  console.log('client', client)
-
   return client
 }
