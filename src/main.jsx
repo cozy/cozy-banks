@@ -9,7 +9,7 @@ import configureStore from 'store/configureStore'
 import 'number-to-locale-string'
 
 import { setupHistory } from 'utils/history'
-import { getClient } from 'utils/client'
+import { getClient } from 'ducks/client'
 import 'utils/flag'
 import FastClick from 'fastclick'
 import { isReporterEnabled, configureReporter, setURLContext } from 'lib/sentry'

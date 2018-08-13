@@ -1,64 +1,9 @@
-/* global __TARGET__, cozy */
-
-import { initMobileStackClient } from 'ducks/authentication/lib/client'
-
-import CozyStackClient from 'cozy-stack-client'
-import CozyClient, { StackLink, withMutations, Query } from 'cozy-client'
-import PouchLink from 'cozy-pouch-link'
-import { schema } from 'doctypes'
-import { flowRight as compose } from 'lodash'
-
 import React from 'react'
 
+import { flowRight as compose } from 'lodash'
+import { withMutations, Query } from 'cozy-client'
+
 export const links = {}
-
-let client
-
-export const getClient = async () => {
-  if (client) {
-    return client
-  }
-  const root = document.querySelector('[role=application]')
-  const data = root.dataset
-
-  const protocol = window.location.protocol
-  const cozyURL = `${protocol}//${data.cozyDomain}`
-
-  cozy.client.init({
-    cozyURL: cozyURL,
-    token: data.cozyToken
-  })
-
-  const stackClient =
-    __TARGET__ === 'mobile'
-      ? await initMobileStackClient()
-      : new CozyStackClient({
-          uri: cozyURL,
-          token: data.cozyToken
-        })
-
-  if (__TARGET__ === 'mobile') {
-    links.pouch = new PouchLink({
-      doctypes: ['io.cozy.bank.operations'],
-      // doctypes: [ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE]
-      initialSync: true,
-      client: stackClient
-    })
-  }
-
-  links.stack = new StackLink({ client: stackClient })
-
-  client = new CozyClient({
-    link: [__TARGET__ === 'mobile' && links.pouch, links.stack].filter(Boolean),
-    schema: schema,
-    // TODO: we need to pass the stack client to the client so that
-    // OAuth register() call can be forwarded to the right stack client...
-    // Definitely not good...
-    client: stackClient
-  })
-
-  return client
-}
 
 export const withQuery = (dest, queryOpts, Original) => {
   if (!queryOpts) {
