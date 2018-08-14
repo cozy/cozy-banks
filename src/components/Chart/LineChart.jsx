@@ -394,7 +394,7 @@ class Tooltip extends Component {
         ref={node => (this.node = node)}
         className={styles.LineChartTooltip}
         style={{
-          left: x + 'px'
+          transform: `translateX(${x}px)`
         }}
       >
         {children}
