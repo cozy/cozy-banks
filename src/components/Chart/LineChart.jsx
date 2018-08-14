@@ -20,10 +20,6 @@ class LineChart extends Component {
     this.updateData()
   }
 
-  componentWillUnmount() {
-    this.tooltip.remove()
-  }
-
   getRootWidth() {
     if (typeof this.props.width === 'number') {
       return this.props.width
@@ -273,10 +269,6 @@ class LineChart extends Component {
       .attr('y1', 0)
       .attr('x2', x)
       .attr('y2', this.props.height - this.props.margin.bottom)
-  }
-
-  setTooltipContent(content) {
-    this.tooltip.html(content)
   }
 
   startPointDrag = () => {
