@@ -80,7 +80,6 @@ class CategoriesPage extends Component {
           withIncome={showIncomeCategory}
           onWithIncomeToggle={this.onWithIncomeToggle}
           categories={sortedCategories}
-          selectCategory={this.selectCategory}
           isFetching={isFetching}
         />
         {isFetching ? (
