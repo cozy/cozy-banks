@@ -14,18 +14,6 @@ const hexToRGBA = (hex, a) => {
 }
 
 class CategoriesChart extends Component {
-  click = index => {
-    const { selectedCategory, categories, selectCategory } = this.props
-    if (!selectedCategory) {
-      selectCategory(categories[index].name)
-    } else {
-      selectCategory(
-        selectedCategory.name,
-        selectedCategory.subcategories[index].name
-      )
-    }
-  }
-
   getSortedCategories() {
     const sortedCategories = sortBy(this.props.categories, category =>
       Math.abs(category.amount)
@@ -89,7 +77,6 @@ class CategoriesChart extends Component {
           />
         </div>
         <Chart
-          onClick={this.click}
           labels={labels}
           data={data}
           colors={colors}

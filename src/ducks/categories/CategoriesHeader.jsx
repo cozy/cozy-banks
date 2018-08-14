@@ -17,7 +17,6 @@ const CategoriesHeader = ({
   onWithIncomeToggle,
   chartSize = 182,
   categories,
-  selectCategory,
   t,
   breakpoints: { isMobile },
   isFetching
@@ -63,7 +62,6 @@ const CategoriesHeader = ({
             selectedCategory ? selectedCategory.subcategories : categories
           }
           selectedCategory={selectedCategory}
-          selectCategory={selectCategory}
           total={selectedCategory ? selectedCategory.amount : transactionsTotal}
           currency={globalCurrency}
           label={t('Categories.title.total')}
@@ -80,7 +78,6 @@ CategoriesHeader.propTypes = {
   onWithIncomeToggle: PropTypes.func.isRequired,
   chartSize: PropTypes.number,
   categories: PropTypes.array.isRequired,
-  selectCategory: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
   breakpoints: PropTypes.object.isRequired
 }
