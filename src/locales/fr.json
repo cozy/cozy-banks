@@ -327,9 +327,10 @@
 
   "Notifications": {
     "title": "Notifications",
+    "description": "Vous recevrez les notifications par email, ainsi que par notification mobile si vous installez l'app Cozy Banks sur votre mobile",
     "if_balance_lower": {
       "title": "Seuil de solde",
-      "description": "Vous recevrez un email, si votre solde est inférieur à",
+      "description": "Vous recevrez une notification, si votre solde est inférieur à",
       "notification": {
         "one": {
           "title": "Alerte solde : le compte '%{label}' est à %{balance}%{currency}",

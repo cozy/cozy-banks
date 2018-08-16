@@ -315,6 +315,7 @@
 
   "Notifications": {
     "title": "Notifications",
+    "description": "You will receive your notifications via email and via a mobile notification if you have the Cozy Banks mobile app on your device",
     "weekly_summary": {
       "description": "You will receive a summary of your expenses and revenues every Monday of every week.",
       "title": "Weekly Synthesis"
@@ -328,7 +329,7 @@
       "title": "Monthly summary"
     },
     "if_balance_lower": {
-      "description": "You will receive an email if your balance is less than",
+      "description": "You will receive a notification if your balance is less than",
       "title": "Balance threshold",
       "notification": {
         "one": {

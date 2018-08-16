@@ -6,6 +6,10 @@ import { flowRight as compose } from 'lodash'
 import ToggleRow from './ToggleRow'
 import { getSettingsFromCollection } from './helpers'
 
+const ToogleDescription = ({ children }) => (
+  <p className="u-coolGrey">{children}</p>
+)
+
 class TogglePane extends Component {
   onToggle = (setting, checked) => {
     const { settingsCollection, settingsKey } = this.props
@@ -25,31 +29,40 @@ class TogglePane extends Component {
     })
   }
 
-  render() {
-    const { rows, settingsCollection, settingsKey, t, title } = this.props
+  renderRows = () => {
+    const { rows, settingsCollection, settingsKey, t } = this.props
     const settings = getSettingsFromCollection(settingsCollection)
 
     return (
-      <div>
-        <Title>{title}</Title>
-        <p>
-          {rows.map(row => {
-            const setting = settings[settingsKey][row.name]
+      <p>
+        {rows.map(row => {
+          const setting = settings[settingsKey][row.name]
 
-            return (
-              <ToggleRow
-                key={row.name}
-                enabled={setting.enabled}
-                value={setting.value}
-                title={t(row.title)}
-                description={t(row.description)}
-                onChangeValue={this.onChangeValue}
-                name={row.name}
-                onToggle={this.onToggle}
-              />
-            )
-          })}
-        </p>
+          return (
+            <ToggleRow
+              key={row.name}
+              enabled={setting.enabled}
+              value={setting.value}
+              title={t(row.title)}
+              description={t(row.description)}
+              onChangeValue={this.onChangeValue}
+              name={row.name}
+              onToggle={this.onToggle}
+            />
+          )
+        })}
+      </p>
+    )
+  }
+
+  render() {
+    const { title, description } = this.props
+
+    return (
+      <div className="u-pb-2-half">
+        <Title>{title}</Title>
+        {description && <ToogleDescription>{description}</ToogleDescription>}
+        {this.renderRows()}
       </div>
     )
   }

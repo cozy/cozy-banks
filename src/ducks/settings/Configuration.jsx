@@ -44,6 +44,7 @@ class Configuration extends Component {
           ]}
           title={t('Notifications.title')}
           settingsKey="notifications"
+          description={t('Notifications.description')}
         />
         <TogglePane
           rows={[
