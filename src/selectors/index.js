@@ -1,7 +1,14 @@
-import { getCollection } from 'cozy-client'
 import { createSelector } from 'reselect'
-import groupBy from 'lodash/groupBy'
+import { groupBy } from 'lodash'
 import { GROUP_DOCTYPE } from 'doctypes'
+
+const getCollection = (state, attr) => {
+  const col = state[attr]
+  if (!col) {
+    throw new Error(`Collection ${attr} is not in state`)
+  }
+  return col
+}
 
 export const getTransactions = state => {
   const col = getCollection(state, 'transactions')
@@ -13,6 +20,10 @@ export const getGroups = state => {
 }
 export const getAccounts = state => {
   const col = getCollection(state, 'accounts')
+  return (col && col.data) || []
+}
+export const getBills = state => {
+  const col = getCollection(state, 'bills')
   return (col && col.data) || []
 }
 
@@ -36,3 +47,15 @@ export const getAllGroups = createSelector(
   [getGroups, getVirtualGroups],
   (groups, virtualGroups) => [...groups, ...virtualGroups]
 )
+
+export const getAppUrlById = (state, id) => {
+  const apps = state.apps
+  if (apps && apps.data && apps.data.length > 0) {
+    for (const app of apps.data) {
+      if (app._id === id) {
+        return app.links.related
+      }
+    }
+  }
+  return
+}

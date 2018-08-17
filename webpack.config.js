@@ -1,7 +1,12 @@
 'use strict'
 
 const merge = require('webpack-merge')
-const { production, target, hotReload, analyze } = require('./config/webpack.vars')
+const {
+  production,
+  target,
+  hotReload,
+  analyze
+} = require('./config/webpack.vars')
 
 const common = merge(
   require('./config/webpack.config.base'),
@@ -18,8 +23,8 @@ const common = merge(
   require(`./config/webpack.target.${target}`)
 )
 
-if (production) {
-  module.exports = merge(common, require('./config/webpack.config.prod'))
-} else {
-  module.exports = merge(common, require('./config/webpack.config.dev'))
-}
+const modeConfig = production
+  ? require('./config/webpack.config.prod')
+  : require('./config/webpack.config.dev')
+
+module.exports = merge(common, modeConfig)

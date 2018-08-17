@@ -9,11 +9,16 @@ import configureStore from 'store/configureStore'
 import 'number-to-locale-string'
 
 import { setupHistory } from 'utils/history'
-import { getClient } from 'utils/client'
-import { fetchSettingsCollection, initSettings } from 'ducks/settings'
+import { getClient } from 'ducks/client'
 import 'utils/flag'
 import FastClick from 'fastclick'
 import { isReporterEnabled, configureReporter, setURLContext } from 'lib/sentry'
+import * as d3 from 'd3'
+
+const D3_LOCALES_MAP = {
+  fr: 'fr-FR',
+  en: 'en-GB'
+}
 
 if (__TARGET__ === 'mobile') {
   require('styles/mobile.styl')
@@ -27,7 +32,6 @@ let store, client, history, lang, root
 
 const initRender = () => {
   const AppContainer = require('./AppContainer').default
-
   root = render(
     <AppContainer
       store={store}
@@ -39,7 +43,7 @@ const initRender = () => {
   )
 }
 
-const setupApp = persistedState => {
+const setupApp = async persistedState => {
   const root = document.querySelector('[role=application]')
   const data = root.dataset
   lang =
@@ -47,19 +51,23 @@ const setupApp = persistedState => {
       ? navigator.language.slice(0, 2)
       : data.cozyLocale || 'en'
 
+  d3.timeFormatDefaultLocale(
+    require(`d3-time-format/locale/${D3_LOCALES_MAP[lang]}.json`)
+  )
+
   history = setupHistory()
 
-  client = getClient(persistedState)
+  client = await getClient(persistedState)
   store = configureStore(client, persistedState)
 
-  if (client.facade.url) {
-    // Initialize settings
-    store.dispatch(fetchSettingsCollection()).then(res => {
-      if (!res || res.data.length === 0) {
-        store.dispatch(initSettings())
-      }
-    })
-  }
+  // if (client.facade.url) {
+  //   // Initialize settings
+  //   store.dispatch(fetchSettingsCollection()).then(res => {
+  //     if (!res || res.data.length === 0) {
+  //       store.dispatch(initSettings())
+  //     }
+  //   })
+  // }
 
   persistState(store)
 

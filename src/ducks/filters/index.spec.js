@@ -6,10 +6,11 @@ import reducer, {
   resetFilterByDoc
 } from '.'
 
-import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
+import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
 import { DESTROY_ACCOUNT } from 'actions/accounts'
 import { getTransactions, getAllGroups, getAccounts } from 'selectors'
 import tz from 'timezone'
+import find from 'lodash/find'
 
 const eu = tz(require('timezone/Europe'))
 const jp = tz(require('timezone/Asia'))
@@ -50,8 +51,16 @@ const parisDateStr = dateStr => eu(dateStr, ISO_FORMAT, 'Europe/Paris')
 const nyDateStr = dateStr => us(dateStr, ISO_FORMAT, 'America/New_York')
 const tokyoDateStr = dateStr => jp(dateStr, ISO_FORMAT, 'Asia/Tokyo')
 
+const mockRelationship = (values, relationshipName) => {
+  return {
+    target: {
+      [relationshipName]: values
+    }
+  }
+}
+
 describe('filter selectors', () => {
-  let state
+  let state, findDoc
 
   const dispatchOnFilters = action => {
     state = { ...state, filters: reducer(state.filters, action) }
@@ -63,7 +72,7 @@ describe('filter selectors', () => {
     }
     state.filters = reducer(state.filters, addFilterByPeriod('2018-01'))
 
-    getTransactions.mockReturnValue([
+    const transactions = [
       {
         _id: 't0',
         account: 'a0',
@@ -136,22 +145,48 @@ describe('filter selectors', () => {
         label: 'Transaction 11',
         date: parisDateStr('2019-01-02')
       }
-    ])
-    getAccounts.mockReturnValue([
+    ]
+    const accounts = [
       { _id: 'a0', _type: ACCOUNT_DOCTYPE, label: 'Account 0' },
       { _id: 'a1', _type: ACCOUNT_DOCTYPE, label: 'Account 1' },
       { _id: 'a2', _type: ACCOUNT_DOCTYPE, label: 'Account 2' }
-    ])
-    getAllGroups.mockReturnValue([
+    ]
+    const groups = [
       {
         _id: 'g0',
         _type: GROUP_DOCTYPE,
         label: 'Group 0',
-        accounts: ['a1', 'a0']
+        accounts: mockRelationship(['a1', 'a0'], 'accounts')
       },
-      { _id: 'g1', _type: GROUP_DOCTYPE, label: 'Group 1', accounts: ['a2'] },
-      { _id: 'g2', _type: GROUP_DOCTYPE, label: 'Group 2', accounts: [] }
-    ])
+      {
+        _id: 'g1',
+        _type: GROUP_DOCTYPE,
+        label: 'Group 1',
+        accounts: mockRelationship(['a2'], 'accounts')
+      },
+      {
+        _id: 'g2',
+        _type: GROUP_DOCTYPE,
+        label: 'Group 2',
+        accounts: mockRelationship([], 'accounts')
+      }
+    ]
+
+    const docStore = {
+      [TRANSACTION_DOCTYPE]: transactions,
+      [GROUP_DOCTYPE]: groups,
+      [ACCOUNT_DOCTYPE]: accounts
+    }
+
+    getTransactions.mockReturnValue(docStore['io.cozy.bank.operations'])
+    getAccounts.mockReturnValue(docStore[ACCOUNT_DOCTYPE])
+    getAllGroups.mockReturnValue(docStore['io.cozy.bank.groups'])
+
+    findDoc = attrs => {
+      const docs = docStore[attrs._type]
+      const res = find(docs, x => x._id == attrs._id)
+      return res
+    }
   })
 
   const checkReset = () => {
@@ -220,26 +255,36 @@ describe('filter selectors', () => {
     })
 
     it('should select transactions belonging to an account', () => {
-      dispatchOnFilters(filterByDoc({ _id: 'a0', _type: ACCOUNT_DOCTYPE }))
+      const doc = findDoc({ _id: 'a0', _type: ACCOUNT_DOCTYPE })
+      dispatchOnFilters(filterByDoc(doc))
       expect(getFilteredAccounts(state).map(x => x._id)).toEqual(['a0'])
       expect(getFilteredTransactions(state).map(x => x._id)).toEqual([
         't4',
         't0'
       ])
+    })
 
-      dispatchOnFilters(filterByDoc({ _id: 'a1', _type: ACCOUNT_DOCTYPE }))
+    it('should select transactions belonging to an account 2', () => {
+      const doc = findDoc({ _id: 'a1', _type: ACCOUNT_DOCTYPE })
+      dispatchOnFilters(filterByDoc(doc))
       expect(getFilteredAccounts(state).map(x => x._id)).toEqual(['a1'])
       expect(getFilteredTransactions(state).map(x => x._id)).toEqual([
         't2',
         't1'
       ])
+    })
 
-      dispatchOnFilters(filterByDoc({ _id: 'a2', _type: ACCOUNT_DOCTYPE }))
+    it('should select transactions belonging to an account 3', () => {
+      const doc = findDoc({ _id: 'a2', _type: ACCOUNT_DOCTYPE })
+      dispatchOnFilters(filterByDoc(doc))
       expect(getFilteredAccounts(state).map(x => x._id)).toEqual(['a2'])
       expect(getFilteredTransactions(state).map(x => x._id)).toEqual(['t3'])
+    })
 
+    it('should select transactions belonging to an account (unavailable account)', () => {
       // unavailable account
-      dispatchOnFilters(filterByDoc({ _id: 'a6', _type: ACCOUNT_DOCTYPE }))
+      const doc = findDoc({ _id: 'a6', _type: ACCOUNT_DOCTYPE })
+      dispatchOnFilters(filterByDoc(doc))
       expect(getFilteredAccounts(state).map(x => x._id)).toEqual([
         'a0',
         'a1',

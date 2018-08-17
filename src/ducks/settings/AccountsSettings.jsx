@@ -4,18 +4,18 @@ import { connect } from 'react-redux'
 import { translate, Button, Icon } from 'cozy-ui/react'
 import { getSharingInfo } from 'reducers'
 import { groupBy, flowRight as compose, sortBy } from 'lodash'
-import { getAppUrlById, fetchApps } from 'ducks/apps'
+import { getAppUrlById } from 'selectors'
 import Table from 'components/Table'
 import Loading from 'components/Loading'
-import { cozyConnect, fetchCollection } from 'cozy-client'
+import { queryConnect } from 'utils/client'
 import plus from 'assets/icons/16/plus.svg'
 import styles from './AccountsSettings.styl'
 import btnStyles from 'styles/buttons.styl'
-import CollectLink from 'ducks/settings/CollectLink'
+import AddAccountLink from 'ducks/settings/AddAccountLink'
 import cx from 'classnames'
 import { getAccountInstitutionLabel } from '../account/helpers'
 
-import { ACCOUNT_DOCTYPE } from 'doctypes'
+import { ACCOUNT_DOCTYPE, APP_DOCTYPE } from 'doctypes'
 
 // See comment below about sharings
 // import { ACCOUNT_DOCTYPE } from 'doctypes'
@@ -69,18 +69,17 @@ const AccountsTable = ({ accounts, t }) => (
 )
 
 class AccountsSettings extends Component {
-  componentDidMount() {
-    this.props.fetchApps()
-  }
-
   render() {
-    const { t, accounts } = this.props
+    const { t, accountsCollection } = this.props
 
-    if (accounts.fetchStatus === 'loading') {
+    if (accountsCollection.fetchStatus === 'loading') {
       return <Loading />
     }
 
-    const sortedAccounts = sortBy(accounts.data, ['institutionLabel', 'label'])
+    const sortedAccounts = sortBy(accountsCollection.data, [
+      'institutionLabel',
+      'label'
+    ])
     const accountBySharingDirection = groupBy(sortedAccounts, account => {
       return account.shared === undefined
     })
@@ -90,12 +89,12 @@ class AccountsSettings extends Component {
 
     return (
       <div>
-        <CollectLink>
+        <AddAccountLink>
           <Button className={cx(btnStyles['btn--no-outline'], 'u-pb-1')}>
             <Icon icon={plus} className="u-mr-half" />
             {t('Accounts.add-account')}
           </Button>
-        </CollectLink>
+        </AddAccountLink>
         {myAccounts ? (
           <AccountsTable accounts={myAccounts} t={t} />
         ) : (
@@ -113,14 +112,6 @@ class AccountsSettings extends Component {
     )
   }
 }
-
-const mapDocumentsToProps = () => ({
-  accounts: fetchCollection('accounts', ACCOUNT_DOCTYPE)
-})
-
-const mapDispatchToProps = dispatch => ({
-  fetchApps: () => dispatch(fetchApps())
-})
 
 const mapStateToProps = state => ({
   collectUrl: getAppUrlById(state, 'io.cozy.apps/collect'),
@@ -140,7 +131,13 @@ const mapStateToProps = state => ({
 // }
 
 export default compose(
-  cozyConnect(mapDocumentsToProps),
-  connect(mapStateToProps, mapDispatchToProps),
+  queryConnect({
+    accountsCollection: {
+      query: client => client.all(ACCOUNT_DOCTYPE),
+      as: 'accounts'
+    },
+    apps: { query: client => client.all(APP_DOCTYPE), as: 'apps' }
+  }),
+  connect(mapStateToProps),
   translate()
 )(AccountsSettings)

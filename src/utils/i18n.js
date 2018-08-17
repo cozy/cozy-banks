@@ -53,7 +53,7 @@ export const objectT = (t, key, subs) => {
     if (subs[item]) {
       splitted[i] = subs[item]
     } else {
-      splitted[i] = splitted[i]
+      splitted[i] = item
     }
   }
   return splitted

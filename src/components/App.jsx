@@ -2,11 +2,10 @@
 import React from 'react'
 import ReactHintFactory from 'react-hint'
 import 'react-hint/css/index.css'
-import { Layout, Main, Content } from 'cozy-ui/react/Layout'
-import { Sidebar } from 'cozy-ui/react'
+import { Layout, Main, Content, Sidebar } from 'cozy-ui/react'
 import Nav from 'ducks/commons/Nav'
 import { Warnings } from 'ducks/warnings'
-import FlagSwitcher from 'components/FlagSwitcher'
+import { FlagSwitcher } from 'cozy-flags'
 import styles from 'styles/main.styl'
 
 const ReactHint = ReactHintFactory(React)

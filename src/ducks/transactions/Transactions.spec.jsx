@@ -1,7 +1,7 @@
 /* global mount */
 
 import React from 'react'
-import find from 'lodash/find'
+import { find } from 'lodash'
 import { TableTrDesktop, TableTrNoDesktop } from './Transactions'
 import data from '../../../test/fixtures'
 import store from '../../../test/store'
@@ -28,7 +28,7 @@ describe('transaction row', () => {
     account: find(allAccounts, a => a._id == rawTransaction.account)
   }
 
-  it('should render correctly on desktop', () => {
+  xit('should render correctly on desktop', () => {
     root = mount(
       wrapRow(
         <TableTrDesktop transaction={transaction} urls={{}} brands={[]} />

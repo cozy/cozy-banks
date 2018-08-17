@@ -327,9 +327,10 @@
 
   "Notifications": {
     "title": "Notifications",
+    "description": "Vous recevrez les notifications par email, ainsi que par notification mobile si vous installez l'app Cozy Banks sur votre mobile",
     "if_balance_lower": {
       "title": "Seuil de solde",
-      "description": "Vous recevrez un email, si votre solde est inférieur à",
+      "description": "Vous recevrez une notification, si votre solde est inférieur à",
       "notification": {
         "one": {
           "title": "Alerte solde : le compte '%{label}' est à %{balance}%{currency}",
@@ -403,7 +404,15 @@
     "title": "Paramètres",
     "accounts": "Comptes",
     "groups": "Groupes",
-    "notifications": "Notifications"
+    "configuration": "Configuration"
+  },
+
+  "CommunitySettings": {
+    "title": "Fonctions communautaires",
+    "auto_categorization": {
+      "title": "Catégorisation automatique des écritures",
+      "subtitle": "Participer à l'amélioration du modèle par le partage anonymisé de vos écritures catégorisées. <a href='https://support.cozy.io/article/181-collaboration-a-la-categorisation-bancaire' target='_blank'>En savoir plus</a>"
+    }
   },
 
   "Onboarding": {
@@ -423,7 +432,8 @@
     "cozy-assistant": {
       "title": "Cozy travaille pour vous",
       "description": "Suivi automatique du traitement de vos dépenses de santé"
-    }
+    },
+    "wait-moments": "Patientez quelques minutes si vous venez de connecter votre banque. Vos données vont se charger automatiquement !"
   },
 
   "FileOpener": {
@@ -438,5 +448,9 @@
       "disconnect": "Refuser et se déconnecter",
       "error": "Une erreur est survenue, merci de réessayer plus tard"
     }
+  },
+
+  "BalanceHistory": {
+    "subtitle": "Tous les comptes"
   }
 }

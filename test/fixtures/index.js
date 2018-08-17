@@ -1,4 +1,4 @@
-import merge from 'lodash/merge'
+import { merge } from 'lodash'
 import dummyjson from 'dummy-json'
 import dataTpl from './operations.json'
 import helpers from './helpers'

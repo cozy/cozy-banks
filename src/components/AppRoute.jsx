@@ -11,12 +11,12 @@ import {
   AccountsSettings,
   GroupsSettings,
   GroupSettings,
-  NewGroupSettings
+  NewGroupSettings,
+  Configuration
 } from 'ducks/settings'
-import Notifications from 'ducks/settings/Notifications'
 import { Balance } from 'ducks/balance'
 import { EnsureHasAccounts, EnsureIsFirstSynced } from 'ducks/onboarding'
-import flag from 'utils/flag'
+import flag from 'cozy-flags'
 
 export const ComingSoon = () => <p style="margin-left: 2em">Coming soon!</p>
 
@@ -45,10 +45,10 @@ const AppRoute = (
           <Route path="groups/:groupId" component={GroupSettings} />
           <Route path="accounts/:accountId" component={AccountSettings} />
           <Route component={Settings}>
-            <IndexRoute component={Notifications} />
+            <IndexRoute component={Configuration} />
             <Route path="accounts" component={AccountsSettings} />
             <Route path="groups" component={GroupsSettings} />
-            <Route path="notifications" component={Notifications} />
+            <Route path="configuration" component={Configuration} />
           </Route>
         </Route>
         <Redirect from="*" to={defaultRoute()} />

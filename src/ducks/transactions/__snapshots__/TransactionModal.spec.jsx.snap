@@ -5,7 +5,7 @@ exports[`transaction modal should render correctly 1`] = `
   <div class=\\"c-overlay\\">
     <div class=\\"c-modal-wrapper\\">
       <div class=\\"c-modal c-modal--small TransactionModal c-modal--closable\\">
-        <button type=\\"submit\\" role=\\"button\\" class=\\"c-modal-close TransactionModalCross c-btn c-btn--close c-btn--narrow\\"><span><svg class=\\"icon\\" width=\\"24\\" height=\\"24\\" style=\\"fill: #95999D;\\"><use xlink:href=\\"test-file-stub\\"></use></svg></span></button>
+        <button type=\\"submit\\" role=\\"button\\" class=\\"c-modal-close TransactionModalCross c-modal-close--notitle c-btn c-btn--close c-btn--narrow\\"><span><svg class=\\"icon\\" width=\\"24\\" height=\\"24\\" style=\\"fill: #95999D;\\"><use xlink:href=\\"test-file-stub\\"></use></svg></span></button>
         <div class=\\"c-modal-header TransactionModalHeader\\">
           <h2 class=\\"TransactionModalHeading\\">
             <div class=\\"\\"><span class=\\"Figure-total\\"><!-- react-text: 13 -->-1,231.00<!-- /react-text --></span><span class=\\"Figure-currency Figure__currency--withSpacing\\">€</span></div>

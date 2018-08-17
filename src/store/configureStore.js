@@ -2,7 +2,7 @@
 import { compose, createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
-import flag from 'utils/flag'
+import flag from 'cozy-flags'
 import {
   shouldEnableTracking,
   getTracker,
@@ -11,7 +11,6 @@ import {
 import { isReporterEnabled, getReporterMiddleware } from 'lib/sentry'
 
 import appReducers from 'reducers'
-import { cozyMiddleware } from 'cozy-client'
 
 const configureStore = (cozyClient, persistedState) => {
   // Enable Redux dev tools
@@ -22,7 +21,7 @@ const configureStore = (cozyClient, persistedState) => {
   const reducers = [appReducers, persistedState]
 
   // middlewares
-  const middlewares = [thunkMiddleware, cozyMiddleware(cozyClient)]
+  const middlewares = [thunkMiddleware]
   if (shouldEnableTracking() && getTracker()) {
     middlewares.push(createTrackerMiddleware())
   }
@@ -39,8 +38,6 @@ const configureStore = (cozyClient, persistedState) => {
     ...reducers,
     composeEnhancers(applyMiddleware.apply(null, middlewares))
   )
-
-  cozyClient.attachStore(store)
 
   return store
 }

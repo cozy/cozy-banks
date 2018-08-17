@@ -1,6 +1,6 @@
 {
   "env": { "jasmine": true },
-  "extends": ["cozy-app"],
+  "extends": ["cozy-app/react"],
   "globals": {
     "jest": true
   }

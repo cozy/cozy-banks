@@ -1,7 +1,6 @@
 import React from 'react'
 import { configure, shallow } from 'enzyme'
-import flatten from 'lodash/flatten'
-import merge from 'lodash/merge'
+import { flatten, merge } from 'lodash'
 import Figure from './Figure'
 import Adapter from 'enzyme-adapter-react-15'
 

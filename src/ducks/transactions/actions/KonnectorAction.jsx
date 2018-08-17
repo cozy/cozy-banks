@@ -4,9 +4,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { flowRight as compose } from 'lodash'
 import cx from 'classnames'
-import { connect } from 'react-redux'
-import { fetchCollection } from 'cozy-client'
-import { TRIGGER_DOCTYPE } from 'doctypes'
 import { matchBrands, findMatchingBrand } from 'ducks/brandDictionary'
 import {
   IntentModal,
@@ -25,6 +22,7 @@ import styles from '../TransactionActions.styl'
 import { TransactionModalRow } from '../TransactionModal'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import iconCollectAccount from 'assets/icons/icon-collect-account.svg'
+import { triggersConn } from 'doctypes'
 
 const name = 'konnector'
 
@@ -110,7 +108,7 @@ class Component extends React.Component {
       const intentWindow = await cozy.client.intents.redirect(
         'io.cozy.accounts',
         {
-          konnector: brand.konnectorSlug
+          slug: brand.konnectorSlug
         },
         open
       )
@@ -198,9 +196,15 @@ Component.propTypes = {
   fetchTriggers: PropTypes.func.isRequired
 }
 
-const mapDispatchToProps = dispatch => ({
-  fetchTriggers: () => dispatch(fetchCollection('triggers', TRIGGER_DOCTYPE))
-})
+const mkFetchTriggers = client => () =>
+  client.query(triggersConn.query(client), { as: triggersConn.as })
+const addFetchTriggers = Component => {
+  const res = (props, context) => (
+    <Component {...props} fetchTriggers={mkFetchTriggers(context.client)} />
+  )
+  res.displayName = `withAddTrigger(${Component.displayName})`
+  return res
+}
 
 const action = {
   name,
@@ -208,7 +212,7 @@ const action = {
   match: (transaction, { brands, urls }) => {
     return brands && matchBrands(brands, transaction.label) && urls['COLLECT']
   },
-  Component: compose(connect(null, mapDispatchToProps), translate())(Component)
+  Component: compose(translate(), addFetchTriggers)(Component)
 }
 
 export default action

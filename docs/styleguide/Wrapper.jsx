@@ -1,4 +1,4 @@
-const { I18n } = require('cozy-ui/react/I18n')
+const { I18n } = require('cozy-ui/react')
 const tr = require('locales/fr.json')
 const React = require('react')
 

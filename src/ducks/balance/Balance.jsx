@@ -1,37 +1,46 @@
 import React from 'react'
-import { flowRight as compose, sumBy, uniq, sortBy, get } from 'lodash'
+import {
+  flowRight as compose,
+  sumBy,
+  uniq,
+  sortBy,
+  get,
+  keyBy,
+  groupBy
+} from 'lodash'
 import { connect } from 'react-redux'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import { or } from 'airbnb-prop-types'
+import * as d3 from 'd3'
 
 import { withRouter } from 'react-router'
 import { translate, Button, Icon, withBreakpoints } from 'cozy-ui/react'
-import { cozyConnect, fetchCollection, getDocument } from 'cozy-client'
-import { isCollectionLoading } from 'utils/client'
 
 import Topbar from 'components/Topbar'
 import Loading from 'components/Loading'
 import { Table, TdSecondary } from 'components/Table'
 import { Figure, FigureBlock } from 'components/Figure'
 import PageTitle from 'components/PageTitle'
+import flag from 'cozy-flags'
 
-import CollectLink from 'ducks/settings/CollectLink'
-import { getSettings } from 'ducks/settings'
+import AddAccountLink from 'ducks/settings/AddAccountLink'
 import { filterByDoc, getFilteringDoc } from 'ducks/filters'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
-import { getAllGroups, getAccounts } from 'selectors'
+import History from './History'
+import historyData from './history_data.json'
+import { getBalanceHistories } from './helpers'
+import sma from 'sma'
+import { parse as parseDate, format as formatDate } from 'date-fns'
 
 import styles from './Balance.styl'
 import btnStyles from 'styles/buttons.styl'
 import plus from 'assets/icons/16/plus.svg'
+import { isCollectionLoading, queryConnect } from 'utils/client'
 
-const getGroupBalance = (group, getAccount) => {
-  return sumBy(
-    group.accounts,
-    accountId => (getAccount(accountId) || {}).balance || 0
-  )
+const getGroupBalance = group => {
+  return sumBy(group.accounts.data, account => account.balance || 0)
 }
 
 const sameId = (filteringDoc, accountOrGroup) => {
@@ -39,12 +48,8 @@ const sameId = (filteringDoc, accountOrGroup) => {
 }
 
 const isAccountPartOf = (filteringDoc, account) => {
-  return (
-    filteringDoc &&
-    account &&
-    filteringDoc.accounts &&
-    filteringDoc.accounts.indexOf(account._id) > -1
-  )
+  const accounts = get(filteringDoc, 'accounts.accounts')
+  return accounts && account && accounts.indexOf(account._id) > -1
 }
 
 // TODO should be using this everywhere, where to put it ?
@@ -60,9 +65,7 @@ class _BalanceRow extends React.Component {
       filteringDoc,
       isMobile
     } = this.props
-    const balance = account
-      ? account.balance
-      : getGroupBalance(group, this.props.getAccount)
+    const balance = account ? account.balance : getGroupBalance(group)
     const isWarning = balance ? balance < warningLimit : false
     const isAlert = balance ? balance < 0 : false
     const label = account ? getAccountLabel(account) : group.label
@@ -107,8 +110,7 @@ class _BalanceRow extends React.Component {
         <TdSecondary className={styles['Balance__account_number']}>
           {account && account.number}
           {group &&
-            group.accounts
-              .map(this.props.getAccount)
+            group.accounts.data
               .filter(account => account)
               .map(getAccountLabel)
               .join(', ')}
@@ -118,8 +120,7 @@ class _BalanceRow extends React.Component {
             {account && getAccountInstitutionLabel(account)}
             {group &&
               uniq(
-                group.accounts
-                  .map(this.props.getAccount)
+                group.accounts.data
                   .filter(account => account)
                   .map(getAccountInstitutionLabel)
               ).join(', ')}
@@ -131,8 +132,7 @@ class _BalanceRow extends React.Component {
 }
 
 const BalanceRow = connect(state => ({
-  filteringDoc: getFilteringDoc(state),
-  getAccount: id => getDocument(state, ACCOUNT_DOCTYPE, id)
+  filteringDoc: getFilteringDoc(state)
 }))(_BalanceRow)
 
 BalanceRow.propTypes = {
@@ -158,8 +158,9 @@ const SectionTitle = ({ children }) => {
 }
 
 const enhanceGroups = compose(withRouter, translate())
+
 const BalanceGroups = enhanceGroups(
-  ({ groups, balanceLower, isMobile, onRowClick, t, router }) => {
+  ({ groups, accountsById, balanceLower, isMobile, onRowClick, t, router }) => {
     return (
       <div>
         <SectionTitle>{t('AccountSwitch.groups')}</SectionTitle>
@@ -182,6 +183,7 @@ const BalanceGroups = enhanceGroups(
             <tbody>
               {groups.map(group => (
                 <BalanceRow
+                  getAccount={id => accountsById[id]}
                   key={group.label}
                   group={group}
                   warningLimit={balanceLower}
@@ -256,12 +258,12 @@ const BalanceAccounts = translate()(
           </tbody>
         </Table>
         <p>
-          <CollectLink>
+          <AddAccountLink>
             <Button className={cx(btnStyles['btn--no-outline'], 'u-pv-1')}>
               <Icon icon={plus} className="u-mr-half" />
               {t('Accounts.add-account')}
             </Button>
-          </CollectLink>
+          </AddAccountLink>
         </p>
       </div>
     )
@@ -274,18 +276,48 @@ class Balance extends React.Component {
     this.props.router.push('/transactions')
   }
 
+  sortBalanceHistoryByDate(history) {
+    const balanceHistory = sortBy(Object.entries(history), ([date]) => date)
+      .reverse()
+      .map(([date, balance]) => ({
+        x: parseDate(date),
+        y: balance
+      }))
+
+    return balanceHistory
+  }
+
+  getBalanceHistory() {
+    const balanceHistories = getBalanceHistories(
+      historyData['io.cozy.bank.accounts'],
+      historyData['io.cozy.bank.operations']
+    )
+    const balanceHistory = this.sortBalanceHistoryByDate(balanceHistories.all)
+
+    return balanceHistory
+  }
+
+  getChartData() {
+    const history = this.getBalanceHistory()
+    const WINDOW_SIZE = 15
+
+    const balancesSma = sma(history.map(h => h.y), WINDOW_SIZE, n => n)
+    const data = balancesSma.map((balance, i) => ({
+      ...history[i],
+      y: balance
+    }))
+
+    return data
+  }
+
   render() {
     const {
       t,
       breakpoints: { isMobile },
-      accounts,
-      accountsCollection,
-      groups,
-      groupsCollection,
-      settings,
-      settingsCollection
+      accounts: accountsCollection,
+      groups: groupsCollection,
+      settings: settingsCollection
     } = this.props
-
     if (
       isCollectionLoading(accountsCollection) ||
       isCollectionLoading(groupsCollection) ||
@@ -300,6 +332,10 @@ class Balance extends React.Component {
         </div>
       )
     }
+
+    const accounts = accountsCollection.data
+    const groups = groupsCollection.data
+    const settings = settingsCollection.data
 
     const accountsSorted = sortBy(accounts, ['institutionLabel', 'label'])
     const groupsSorted = sortBy(
@@ -323,27 +359,58 @@ class Balance extends React.Component {
 
     const groupsC = (
       <BalanceGroups
+        accountsById={keyBy(accounts, x => x._id)}
         groups={groupsSorted}
         balanceLower={balanceLower}
         isMobile={isMobile}
         onRowClick={this.goToTransactionsFilteredBy}
       />
     )
+
+    const chartData = this.getChartData()
+    const chartNbTicks = uniq(
+      Object.keys(groupBy(chartData, i => formatDate(i.x, 'YYYY-MM')))
+    ).length
+    const chartIntervalBetweenPoints = 57
+    const TICK_FORMAT = d3.timeFormat('%b')
+
     return (
       <div className={styles['Balance']}>
         <Topbar>
           <PageTitle>{t('Balance.title')}</PageTitle>
         </Topbar>
-        <div className={styles['Balance__kpi']}>
-          <FigureBlock
-            label={t('Balance.subtitle.all')}
-            total={total}
-            currency="€"
-            coloredPositive
-            coloredNegative
-            signed
+        {flag('balance-history') ? (
+          <History
+            accounts={historyData['io.cozy.bank.accounts']}
+            chartProps={{
+              data: chartData,
+              width: chartNbTicks * chartIntervalBetweenPoints,
+              height: 103,
+              margin: {
+                top: 10,
+                bottom: 35,
+                left: 16,
+                right: 16
+              },
+              showAxis: true,
+              axisMargin: 10,
+              tickFormat: TICK_FORMAT
+            }}
           />
-        </div>
+        ) : (
+          <div className={styles['Balance__kpi']}>
+            <FigureBlock
+              label={t('Balance.subtitle.all')}
+              accounts={historyData['io.cozy.bank.accounts']}
+              total={total}
+              transactions={historyData['io.cozy.bank.operations']}
+              currency="€"
+              coloredPositive
+              coloredNegative
+              signed
+            />
+          </div>
+        )}
         {groupsSorted.length > 0 && groupsC}
         <BalanceAccounts
           accounts={accountsSorted}
@@ -357,18 +424,6 @@ class Balance extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  accounts: getAccounts(state),
-  groups: getAllGroups(state),
-  settings: getSettings(state)
-})
-
-const mapDocumentsToProps = () => ({
-  accountsCollection: fetchCollection('accounts', ACCOUNT_DOCTYPE),
-  groupsCollection: fetchCollection('groups', GROUP_DOCTYPE),
-  settingsCollection: fetchCollection('settings', SETTINGS_DOCTYPE)
-})
-
 const mapDispatchToProps = dispatch => ({
   filterByDoc: doc => dispatch(filterByDoc(doc))
 })
@@ -377,6 +432,10 @@ export default compose(
   withRouter,
   withBreakpoints(),
   translate(),
-  cozyConnect(mapDocumentsToProps),
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(null, mapDispatchToProps),
+  queryConnect({
+    accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' },
+    groups: { query: client => client.all(GROUP_DOCTYPE), as: 'groups' },
+    settings: { query: client => client.all(SETTINGS_DOCTYPE), as: 'settings' }
+  })
 )(Balance)

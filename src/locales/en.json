@@ -315,6 +315,7 @@
 
   "Notifications": {
     "title": "Notifications",
+    "description": "You will receive your notifications via email and via a mobile notification if you have the Cozy Banks mobile app on your device",
     "weekly_summary": {
       "description": "You will receive a summary of your expenses and revenues every Monday of every week.",
       "title": "Weekly Synthesis"
@@ -328,7 +329,7 @@
       "title": "Monthly summary"
     },
     "if_balance_lower": {
-      "description": "You will receive an email if your balance is less than",
+      "description": "You will receive a notification if your balance is less than",
       "title": "Balance threshold",
       "notification": {
         "one": {
@@ -391,8 +392,16 @@
     "title": "Settings",
     "accounts": "Accounts",
     "groups": "Groups",
-    "notifications": "Notifications",
+    "configuration": "Configuration",
     "app": "App"
+  },
+
+  "CommunitySettings": {
+    "title": "Community-based features",
+    "auto_categorization": {
+      "title": "Automatic categorization of your transactions",
+      "subtitle": "Help us improve the model by anonymously sharing your categorized transactions. <a href='https://support.cozy.io/article/181-collaboration-a-la-categorisation-bancaire' target='_blank'>More</a>"
+    }
   },
 
   "AppSettings": {
@@ -423,7 +432,8 @@
     "cozy-assistant": {
       "description": "Automatic follow-up of your medical expenses",
       "title": "Cozy is working for you"
-    }
+    },
+    "wait-moments": "Please wait a few moments if you have just connected a bank. Your data will be displayed automatically !"
   },
 
   "mobile": {
@@ -485,5 +495,9 @@
       "disconnect": "Refuse and disconnect",
       "error": "Something went wrong, please try again later"
     }
+  },
+
+  "BalanceHistory": {
+    "subtitle": "All accounts"
   }
 }

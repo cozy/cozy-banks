@@ -1,6 +1,6 @@
 import React from 'react'
 import SelectDates from 'components/SelectDates'
-import uniq from 'lodash/uniq'
+import { uniq } from 'lodash'
 import { subMonths, format, parse, differenceInCalendarMonths } from 'date-fns'
 
 const rangeMonth = (startDate, endDate) => {
