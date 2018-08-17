@@ -14,7 +14,7 @@ read -p "What is the next version ? " version
 branch_name="release-${version}"
 echo "Checking out to $branch_name"
 git checkout -b $branch_name
-git commit --allow-empty -m "chore: starting release ${version}"
+git commit --allow-empty -m "chore: Starting release ${version}"
 git push -u origin HEAD
 
 release_pr_template="./scripts/release-pr-template.txt"
@@ -29,4 +29,3 @@ else
     hub pull-request -F "$versioned_release_template"
     echo "Nice, you can follow the checklist on the PR now"
 fi
-
