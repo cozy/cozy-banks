@@ -156,7 +156,7 @@
     "cozy-device-helper": "1.4.5",
     "cozy-flags": "1.2.2",
     "cozy-konnector-libs": "^3.0.13",
-    "cozy-pouch-link": "^1.0.0-beta.21",
+    "cozy-pouch-link": "^2.0.0",
     "cozy-stack-client": "^1.0.0-beta.21",
     "cozy-ui": "^10.4.4",
     "d3": "^5.5.0",
