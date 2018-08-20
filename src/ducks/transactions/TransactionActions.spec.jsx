@@ -13,10 +13,6 @@ import AppLike from '../../../test/AppLike'
 import data from '../../../test/fixtures'
 import store from '../../../test/store'
 
-jest.mock('utils/documentCache', () => ({
-  get: (doctype, id) => mockBillsById[id]
-}))
-
 // Find a way to better do that, here we have to copy the definition
 // of isProperIcon
 jest.mock('cozy-ui/react/Icon', () => {
