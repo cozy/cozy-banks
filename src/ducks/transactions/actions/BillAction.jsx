@@ -30,18 +30,16 @@ const getBillInvoice = bill => {
   return [doctype, id]
 }
 
-const getBill = async (transaction, actionProps) => {
+const getBill = (transaction, actionProps) => {
   if (actionProps.bill) {
     return actionProps.bill
   }
 
-  const billRef = get(transaction, 'bills[0]')
-  if (!billRef) {
+  const bill = get(transaction, 'bills.data[0]')
+  if (!bill) {
     return
   }
 
-  const [billDoctype, billId] = billRef.split(':')
-  const bill = await documentCache.get(billDoctype, billId)
   return bill
 }
 
@@ -164,7 +162,7 @@ const action = {
   name,
   icon,
   match: async (transaction, actionProps) => {
-    const bill = await getBill(transaction, actionProps)
+    const bill = getBill(transaction, actionProps)
     if (bill && bill._id) {
       return !some(transaction.reimbursements, reimbursement => {
         try {
