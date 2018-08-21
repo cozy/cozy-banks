@@ -1,3 +1,5 @@
+import { QueryDefinition } from 'cozy-client'
+
 export const RECIPIENT_DOCTYPE = 'io.cozy.mocks.recipients'
 export const ACCOUNT_DOCTYPE = 'io.cozy.bank.accounts'
 export const GROUP_DOCTYPE = 'io.cozy.bank.groups'
@@ -14,11 +16,29 @@ export const offlineDoctypes = [
   SETTINGS_DOCTYPE
 ]
 
+const batchGetQuery = (client, assoc) => doc => {
+  if (!doc[assoc.name]) {
+    return null
+  }
+  const included = doc[assoc.name]
+  const ids = included.indexOf(':')
+    ? included.map(x => x.split(':')[1])
+    : included
+
+  return new QueryDefinition({ doctype: assoc.doctype, ids })
+}
+
 export const schema = {
   transactions: {
     doctype: TRANSACTION_DOCTYPE,
     attributes: {},
-    relationships: {}
+    relationships: {
+      bills: {
+        type: 'has-many',
+        doctype: BILLS_DOCTYPE,
+        query: batchGetQuery
+      }
+    }
   },
   settings: {
     doctype: SETTINGS_DOCTYPE,
@@ -58,7 +78,7 @@ export const triggersConn = {
 }
 
 export const transactionsConn = {
-  query: client => client.all(TRANSACTION_DOCTYPE),
+  query: client => client.all(TRANSACTION_DOCTYPE).include(['bills']),
   as: 'transactions'
 }
 

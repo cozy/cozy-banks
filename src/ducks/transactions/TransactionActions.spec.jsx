@@ -13,10 +13,6 @@ import AppLike from '../../../test/AppLike'
 import data from '../../../test/fixtures'
 import store from '../../../test/store'
 
-jest.mock('utils/documentCache', () => ({
-  get: (doctype, id) => mockBillsById[id]
-}))
-
 // Find a way to better do that, here we have to copy the definition
 // of isProperIcon
 jest.mock('cozy-ui/react/Icon', () => {
@@ -34,17 +30,27 @@ jest.mock('cozy-ui/react/Icon', () => {
 })
 
 const bills = data['io.cozy.bills']
+const idFromReference = reference => reference && reference.split(':')[1]
 // prefixed by mock to be used inside documentCache mock
 const mockBillsById = keyBy(bills, x => x._id)
 const transactions = data['io.cozy.bank.operations']
 const getBill = billId => mockBillsById[billId]
-const hydratedTransactions = transactions.map(x => ({
-  ...x,
-  bill: mockBillsById[x.billId],
-  reimbursements:
-    x.reimbursements &&
-    x.reimbursements.map(r => hydrateReimbursementWithBill(r, getBill))
-}))
+
+const hydratedTransactions = transactions.map(transaction => {
+  const bills = (transaction.bills || []).map(
+    ref => mockBillsById[idFromReference(ref)]
+  )
+  return {
+    ...transaction,
+    bills: { data: bills },
+    reimbursements:
+      transaction.reimbursements &&
+      transaction.reimbursements.map(r =>
+        hydrateReimbursementWithBill(r, getBill)
+      )
+  }
+})
+
 const transactionsById = keyBy(hydratedTransactions, '_id')
 
 /* eslint-disable */
