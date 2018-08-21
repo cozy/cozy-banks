@@ -21,7 +21,7 @@ import {
   resetClient,
   getToken
 } from 'ducks/authentication/lib/client'
-import { withClient } from 'utils/client'
+import { withClient } from 'cozy-client'
 
 export const AUTH_PATH = 'authentication'
 

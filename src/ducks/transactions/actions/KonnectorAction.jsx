@@ -1,9 +1,10 @@
-/* global __TARGET__, cozy */
+/* global __TARGET__ */
 
 import React from 'react'
 import PropTypes from 'prop-types'
 import { flowRight as compose } from 'lodash'
 import cx from 'classnames'
+import { Intents } from 'cozy-interapp'
 import { matchBrands, findMatchingBrand } from 'ducks/brandDictionary'
 import {
   IntentModal,
@@ -23,6 +24,7 @@ import { TransactionModalRow } from '../TransactionModal'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import iconCollectAccount from 'assets/icons/icon-collect-account.svg'
 import { triggersConn } from 'doctypes'
+import { withClient } from 'cozy-client'
 
 const name = 'konnector'
 
@@ -72,10 +74,14 @@ InformativeModal.propTypes = {
   confirmText: PropTypes.string.isRequired
 }
 
-class Component extends React.Component {
-  state = {
-    showInformativeModal: false,
-    showIntentModal: false
+class _Component extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      showInformativeModal: false,
+      showIntentModal: false
+    }
+    this.intents = new Intents({ client: props.client })
   }
 
   showInformativeModal = () =>
@@ -105,7 +111,7 @@ class Component extends React.Component {
       this.showIntentModal()
     } else if (__TARGET__ === 'mobile') {
       const brand = this.findMatchingBrand()
-      const intentWindow = await cozy.client.intents.redirect(
+      const intentWindow = await this.intents.redirect(
         'io.cozy.accounts',
         {
           slug: brand.konnectorSlug
@@ -187,7 +193,7 @@ class Component extends React.Component {
   }
 }
 
-Component.propTypes = {
+_Component.propTypes = {
   t: PropTypes.func.isRequired,
   transaction: PropTypes.object.isRequired,
   actionProps: PropTypes.object.isRequired,
@@ -195,6 +201,8 @@ Component.propTypes = {
   isModalItem: PropTypes.bool,
   fetchTriggers: PropTypes.func.isRequired
 }
+
+const Component = withClient(_Component)
 
 const mkFetchTriggers = client => () =>
   client.query(triggersConn.query(client), { as: triggersConn.as })

@@ -3289,6 +3289,10 @@ cozy-flags@1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-1.2.2.tgz#0535473ff691970af4023bc0b5420b54b496ad19"
 
+cozy-interapp@0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.2.2.tgz#cd274e00dc112d4d5fbd608624b65d226360516b"
+
 cozy-konnector-libs@^3.0.13:
   version "3.8.1"
   resolved "https://registry.yarnpkg.com/cozy-konnector-libs/-/cozy-konnector-libs-3.8.1.tgz#c4f9d6c2df742023897691c8d0e257a516ec00cd"
