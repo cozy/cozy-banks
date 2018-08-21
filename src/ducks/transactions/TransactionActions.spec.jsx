@@ -37,14 +37,17 @@ const transactions = data['io.cozy.bank.operations']
 const getBill = billId => mockBillsById[billId]
 
 const hydratedTransactions = transactions.map(transaction => {
-  const bills = (transaction.bills || [])
-    .map(ref => mockBillsById[idFromReference(ref)])
+  const bills = (transaction.bills || []).map(
+    ref => mockBillsById[idFromReference(ref)]
+  )
   return {
     ...transaction,
     bills: { data: bills },
     reimbursements:
       transaction.reimbursements &&
-      transaction.reimbursements.map(r => hydrateReimbursementWithBill(r, getBill))
+      transaction.reimbursements.map(r =>
+        hydrateReimbursementWithBill(r, getBill)
+      )
   }
 })
 
