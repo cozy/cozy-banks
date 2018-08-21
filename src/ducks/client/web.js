@@ -1,6 +1,7 @@
 import CozyClient from 'cozy-client'
 import { Intents } from 'cozy-interapp'
 import { schema } from 'doctypes'
+import { getLinks } from './links'
 
 export const getToken = () => {
   const root = document.querySelector('[role=application]')
@@ -18,7 +19,8 @@ export const getCozyURL = () => {
 }
 
 export const getClient = (uri, token) => {
-  const client = new CozyClient({ uri, token, schema })
+  const client = new CozyClient({ uri, token, schema, links: getLinks() })
+
   const intents = new Intents({ client })
   client.intents = intents
 

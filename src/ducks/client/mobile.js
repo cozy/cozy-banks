@@ -1,10 +1,9 @@
 /* global __APP_VERSION__ */
-import CozyClient, { StackLink } from 'cozy-client'
-import PouchLink from 'cozy-pouch-link'
-import { OAuthClient } from 'cozy-stack-client'
+import CozyClient from 'cozy-client'
 import { merge, get } from 'lodash'
+import { getLinks } from './links'
 
-import { offlineDoctypes, schema } from 'doctypes'
+import { schema } from 'doctypes'
 import manifest from '../../../manifest.webapp'
 import { getManifestOptions } from 'utils/mobileClient'
 
@@ -29,20 +28,8 @@ export const getClient = (uri, token) => {
         'https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/logo-bank.png',
       notificationPlatform: 'firebase'
     },
-    link: [pouchLink, stackLink]
+    links: getLinks()
   }
-  const options = merge(manifestOptions, banksOptions)
 
-  const oAuthClient = new OAuthClient(options)
-  const stackLink = new StackLink({ client: oAuthClient })
-  const pouchLink = new PouchLink({
-    doctypes: offlineDoctypes,
-    client: oAuthClient
-  })
-
-  const client = new CozyClient(merge(options, { client: oAuthClient }))
-  pouchLink.syncAll()
-  window.c = client
-
-  return client
+  return new CozyClient(merge(manifestOptions, banksOptions))
 }
