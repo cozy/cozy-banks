@@ -1,8 +1,9 @@
-import { defaultRoute } from 'components/AppRoute'
 import React from 'react'
 import { Router, Route } from 'react-router'
-import { setURLContext, logException } from 'lib/sentry'
+import { withClient } from 'cozy-client'
 import { Authentication, Revoked } from 'cozy-authentication'
+import { defaultRoute } from 'components/AppRoute'
+import { setURLContext, logException } from 'lib/sentry'
 import {
   storeCredentials,
   revokeClient,
@@ -21,7 +22,6 @@ import {
   resetClient,
   getToken
 } from 'ducks/authentication/lib/client'
-import { withClient } from 'utils/client'
 
 export const AUTH_PATH = 'authentication'
 

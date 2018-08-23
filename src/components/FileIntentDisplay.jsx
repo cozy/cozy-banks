@@ -1,13 +1,15 @@
-/* global cozy */
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { withClient } from 'cozy-client'
+
 import FullscreenIntentModal from 'components/FullscreenIntentModal'
 
 class FileIntentDisplay extends Component {
   createIntent = () => {
     const id = this.props.fileId
     const doctype = 'io.cozy.files'
-    return cozy.client.intents.create('OPEN', doctype, { id })
+    const cozyClient = this.props.client
+    return cozyClient.intents.create('OPEN', doctype, { id })
   }
 
   showModal = () => {
@@ -45,4 +47,4 @@ FileIntentDisplay.propTypes = {
   onError: PropTypes.func.isRequired
 }
 
-export default FileIntentDisplay
+export default withClient(FileIntentDisplay)

@@ -1,9 +1,10 @@
-/* global __TARGET__, cozy */
+/* global __TARGET__ */
 
 import React from 'react'
 import PropTypes from 'prop-types'
 import { flowRight as compose } from 'lodash'
 import cx from 'classnames'
+import { withClient } from 'cozy-client'
 import { matchBrands, findMatchingBrand } from 'ducks/brandDictionary'
 import {
   IntentModal,
@@ -72,7 +73,7 @@ InformativeModal.propTypes = {
   confirmText: PropTypes.string.isRequired
 }
 
-class Component extends React.Component {
+class _Component extends React.Component {
   state = {
     showInformativeModal: false,
     showIntentModal: false
@@ -105,7 +106,8 @@ class Component extends React.Component {
       this.showIntentModal()
     } else if (__TARGET__ === 'mobile') {
       const brand = this.findMatchingBrand()
-      const intentWindow = await cozy.client.intents.redirect(
+      const cozyClient = this.props.client
+      const intentWindow = await cozyClient.intents.redirect(
         'io.cozy.accounts',
         {
           slug: brand.konnectorSlug
@@ -187,7 +189,7 @@ class Component extends React.Component {
   }
 }
 
-Component.propTypes = {
+_Component.propTypes = {
   t: PropTypes.func.isRequired,
   transaction: PropTypes.object.isRequired,
   actionProps: PropTypes.object.isRequired,
@@ -195,6 +197,8 @@ Component.propTypes = {
   isModalItem: PropTypes.bool,
   fetchTriggers: PropTypes.func.isRequired
 }
+
+const Component = withClient(_Component)
 
 const mkFetchTriggers = client => () =>
   client.query(triggersConn.query(client), { as: triggersConn.as })

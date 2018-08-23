@@ -1,6 +1,8 @@
-/* global cozy, __TARGET__ */
+/* global __TARGET__ */
 
 import React, { Component } from 'react'
+import { withClient } from 'cozy-client'
+
 // import { IntentOpener } from 'cozy-ui/react'
 
 /*
@@ -15,7 +17,8 @@ import React, { Component } from 'react'
 
 class SameWindowLink extends Component {
   redirect = async () => {
-    const redirectionURL = await cozy.client.intents.getRedirectionURL(
+    const cozyClient = this.props.client
+    const redirectionURL = await cozyClient.intents.getRedirectionURL(
       'io.cozy.apps',
       {
         category: 'banking'
@@ -61,4 +64,4 @@ const AddAccountLink = props => {
   return <SameWindowLink {...props} />
 }
 
-export default AddAccountLink
+export default withClient(AddAccountLink)

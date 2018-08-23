@@ -155,6 +155,7 @@
     "cozy-client-js": "0.12.0",
     "cozy-device-helper": "1.4.5",
     "cozy-flags": "1.2.2",
+    "cozy-interapp": "0.2.2",
     "cozy-konnector-libs": "^3.0.13",
     "cozy-pouch-link": "^1.0.0-beta.21",
     "cozy-stack-client": "^1.0.0-beta.21",
