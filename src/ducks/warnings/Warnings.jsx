@@ -1,5 +1,6 @@
 /* global __TARGET__ */
 import React, { Component } from 'react'
+import { withClient } from 'cozy-client'
 import { WarningsModal, checkWarnings } from 'ducks/warnings'
 
 class Warnings extends Component {
@@ -22,7 +23,8 @@ class Warnings extends Component {
   }
 
   checkWarnings = () => {
-    checkWarnings().then(warnings => {
+    const cozyClient = this.props.client
+    checkWarnings(cozyClient).then(warnings => {
       this.setState({ warnings })
     })
   }
@@ -50,4 +52,4 @@ class Warnings extends Component {
   }
 }
 
-export default Warnings
+export default withClient(Warnings)

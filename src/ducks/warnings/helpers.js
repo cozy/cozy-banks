@@ -1,9 +1,7 @@
-/* global cozy */
-
-export function checkWarnings() {
+export function checkWarnings(cozyClient) {
   return (
-    cozy.client.fetchJSON &&
-    cozy.client
+    cozyClient.client.fetchJSON &&
+    cozyClient.client
       .fetchJSON('GET', '/settings/warnings')
       .then(() => null)
       .catch(err => {
