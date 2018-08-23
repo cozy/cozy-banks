@@ -81,7 +81,7 @@ const setupApp = async persistedState => {
   }
 
   if (isReporterEnabled()) {
-    configureReporter()
+    configureReporter(client)
     if (__TARGET__ === 'browser') {
       setURLContext(window.location.href)
     }

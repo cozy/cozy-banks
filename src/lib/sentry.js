@@ -1,4 +1,4 @@
-/* global cozy, __SENTRY_URL__, __TARGET__, __DEVELOPMENT__, __APP_VERSION__ */
+/* global __SENTRY_URL__, __TARGET__, __DEVELOPMENT__, __APP_VERSION__ */
 import Raven from 'raven-js'
 import RavenMiddleWare from 'redux-raven-middleware'
 import { getDomain, getSlug } from 'lib/cozyUrl'
@@ -10,7 +10,7 @@ let slug
 
 export const isReporterEnabled = () => typeof __SENTRY_URL__ !== 'undefined'
 
-const getReporterConfiguration = () => {
+const getReporterConfiguration = (cozyClient) => {
   const config = {
     shouldSendCallback: true,
     environment: __DEVELOPMENT__ ? 'development' : 'production',
@@ -23,7 +23,7 @@ const getReporterConfiguration = () => {
     config.transport = options => {
       const { auth, data } = options
       const parameters = {...auth, ...{project: data.project}, ...{data: JSON.stringify(data)}}
-      cozy.client.fetchJSON('POST', '/remote/cc.cozycloud.sentry', parameters)
+      cozyClient.client.fetchJSON('POST', '/remote/cc.cozycloud.sentry', parameters)
         .catch(options.onError)
         .then(options.onSuccess)
     }
@@ -37,12 +37,12 @@ export const setURLContext = url => {
   slug = getSlug(url)
 }
 
-export const getReporterMiddleware = () => {
-  return RavenMiddleWare(__SENTRY_URL__, getReporterConfiguration())
+export const getReporterMiddleware = (cozyClient) => {
+  return RavenMiddleWare(__SENTRY_URL__, getReporterConfiguration(cozyClient))
 }
 
-export const configureReporter = () => {
-  Raven.config(__SENTRY_URL__, getReporterConfiguration()).install()
+export const configureReporter = (cozyClient) => {
+  Raven.config(__SENTRY_URL__, getReporterConfiguration(cozyClient)).install()
   Raven.setTagsContext({ target: __TARGET__ })
 }
 

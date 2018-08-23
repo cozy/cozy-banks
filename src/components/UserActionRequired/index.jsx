@@ -1,8 +1,9 @@
-/* global __TARGET__, cozy */
+/* global __TARGET__ */
 import React, { Component } from 'react'
 import ReactMarkdown from 'react-markdown'
 import tosIcon from 'assets/icons/icon-tos.svg'
 import { Modal, Icon, Button, translate, Alerter } from 'cozy-ui/react'
+import { withClient } from 'cozy-client'
 import styles from './styles.styl'
 import { onLogout } from 'ducks/authentication/MobileRouter'
 
@@ -52,8 +53,9 @@ class UserActionRequired extends Component {
   }
 
   checkIfUserActionIsRequired = async () => {
+    const cozyClient = this.props.client
     try {
-      await cozy.client.fetchJSON('GET', '/data/')
+      await cozyClient.client.fetchJSON('GET', '/data/')
       const wasBlocked = this.state.warnings.length !== 0
       if (wasBlocked) {
         this.setState({ warnings: this.state.warnings })
@@ -70,8 +72,9 @@ class UserActionRequired extends Component {
   }
 
   acceptUpdatedTos = async () => {
+    const cozyClient = this.props.client
     try {
-      await cozy.client.fetchJSON('PUT', '/settings/instance/sign_tos')
+      await cozyClient.client.fetchJSON('PUT', '/settings/instance/sign_tos')
       this.setState({
         warnings: this.state.warnings.filter(w => w.code !== 'tos-updated')
       })
@@ -104,4 +107,4 @@ class UserActionRequired extends Component {
   }
 }
 
-export default UserActionRequired
+export default withClient(UserActionRequired)

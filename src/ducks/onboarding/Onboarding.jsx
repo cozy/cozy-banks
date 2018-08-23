@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import { translate, Button, withBreakpoints } from 'cozy-ui/react'
 import { some, flowRight as compose } from 'lodash'
+import { withClient } from 'cozy-client'
 
 import Topbar from 'components/Topbar'
 import PageTitle from 'components/PageTitle'
@@ -12,7 +13,7 @@ import watch from 'assets/icons/icon-watch.svg'
 import cozy from 'assets/icons/icon-cozy.svg'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import { triggersConn } from 'doctypes'
-import { queryConnect, isCollectionLoading, withClient } from 'utils/client'
+import { queryConnect, isCollectionLoading } from 'utils/client'
 
 import {
   Hero,

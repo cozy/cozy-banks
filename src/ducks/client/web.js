@@ -1,4 +1,3 @@
-/* global cozy */
 import CozyClient from 'cozy-client'
 import { Intents } from 'cozy-interapp'
 import { schema } from 'doctypes'
@@ -19,7 +18,6 @@ export const getCozyURL = () => {
 }
 
 export const getClient = (uri, token) => {
-  cozy.client.init({ cozyURL: uri, token })
   const client = new CozyClient({ uri, token, schema })
   const intents = new Intents({ client })
   client.intents = intents
