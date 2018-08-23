@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import { flowRight as compose } from 'lodash'
 import cx from 'classnames'
 import { Intents } from 'cozy-interapp'
+import { withClient } from 'cozy-client'
 import { matchBrands, findMatchingBrand } from 'ducks/brandDictionary'
 import {
   IntentModal,
@@ -24,7 +25,6 @@ import { TransactionModalRow } from '../TransactionModal'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import iconCollectAccount from 'assets/icons/icon-collect-account.svg'
 import { triggersConn } from 'doctypes'
-import { withClient } from 'cozy-client'
 
 const name = 'konnector'
 

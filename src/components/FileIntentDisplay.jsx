@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Intents } from 'cozy-interapp'
+import { withClient } from 'cozy-client'
 
 import FullscreenIntentModal from 'components/FullscreenIntentModal'
-import { withClient } from 'cozy-client'
 
 class FileIntentDisplay extends Component {
   constructor(props) {

@@ -2,8 +2,8 @@
 
 import React, { Component } from 'react'
 import { Intents } from 'cozy-interapp'
-
 import { withClient } from 'cozy-client'
+
 // import { IntentOpener } from 'cozy-ui/react'
 
 /*
