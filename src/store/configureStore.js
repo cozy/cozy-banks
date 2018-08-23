@@ -31,7 +31,7 @@ const configureStore = (cozyClient, persistedState) => {
     middlewares.push(loggerMiddleware)
   }
   if (isReporterEnabled()) {
-    middlewares.push(getReporterMiddleware())
+    middlewares.push(getReporterMiddleware(cozyClient))
   }
 
   const store = createStore(
