@@ -14,14 +14,14 @@ const getStackCollection = doctype => {
   return links.stack.client.collection(doctype)
 }
 
-const deleteOrphanOperations = async account => {
+const deleteOrphanOperations = async (client, account) => {
   const accountCollection = getStackCollection(ACCOUNT_DOCTYPE)
   const orphanOperations = (await accountCollection.find({
     account: account._id
   })).data
   if (orphanOperations.length > 0) {
     const stackClient = links.stack.client
-    return deleteAll(stackClient, orphanOperations)
+    return deleteAll(client, stackClient, orphanOperations)
   }
 }
 
@@ -36,7 +36,7 @@ const removeAccountFromGroups = async account => {
 
 export const DESTROY_ACCOUNT = 'DESTROY_ACCOUNT'
 export const destroyReferences = async (client, account) => {
-  await deleteOrphanOperations(account)
+  await deleteOrphanOperations(client, account)
   await removeAccountFromGroups(account)
 }
 
