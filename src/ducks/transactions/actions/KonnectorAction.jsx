@@ -4,7 +4,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { flowRight as compose } from 'lodash'
 import cx from 'classnames'
-import { Intents } from 'cozy-interapp'
 import { withClient } from 'cozy-client'
 import { matchBrands, findMatchingBrand } from 'ducks/brandDictionary'
 import {
@@ -75,13 +74,9 @@ InformativeModal.propTypes = {
 }
 
 class _Component extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      showInformativeModal: false,
-      showIntentModal: false
-    }
-    this.intents = new Intents({ client: props.client })
+  state = {
+    showInformativeModal: false,
+    showIntentModal: false
   }
 
   showInformativeModal = () =>
@@ -111,7 +106,8 @@ class _Component extends React.Component {
       this.showIntentModal()
     } else if (__TARGET__ === 'mobile') {
       const brand = this.findMatchingBrand()
-      const intentWindow = await this.intents.redirect(
+      const cozyClient = this.props.client
+      const intentWindow = await cozyClient.intents.redirect(
         'io.cozy.accounts',
         {
           slug: brand.konnectorSlug

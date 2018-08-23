@@ -1,7 +1,6 @@
 /* global __TARGET__ */
 
 import React, { Component } from 'react'
-import { Intents } from 'cozy-interapp'
 import { withClient } from 'cozy-client'
 
 // import { IntentOpener } from 'cozy-ui/react'
@@ -17,13 +16,9 @@ import { withClient } from 'cozy-client'
 // Mobile
 
 class SameWindowLink extends Component {
-  constructor(props) {
-    super(props)
-    this.intents = new Intents({ client: props.client })
-  }
-
   redirect = async () => {
-    const redirectionURL = await this.intents.getRedirectionURL(
+    const cozyClient = this.props.client
+    const redirectionURL = await cozyClient.intents.getRedirectionURL(
       'io.cozy.apps',
       {
         category: 'banking'
