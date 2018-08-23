@@ -31,6 +31,7 @@ import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
 import History from './History'
 import historyData from './history_data.json'
 import { getBalanceHistories } from './helpers'
+import { buildVirtualGroups } from 'ducks/groups/helpers'
 import sma from 'sma'
 import { parse as parseDate, format as formatDate } from 'date-fns'
 
@@ -334,7 +335,7 @@ class Balance extends React.Component {
     }
 
     const accounts = accountsCollection.data
-    const groups = groupsCollection.data
+    const groups = [...groupsCollection.data, ...buildVirtualGroups(accounts)]
     const settings = settingsCollection.data
 
     const accountsSorted = sortBy(accounts, ['institutionLabel', 'label'])
