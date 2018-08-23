@@ -1,8 +1,9 @@
 /* global __APP_VERSION__ */
 import CozyClient from 'cozy-client'
 import { merge, get } from 'lodash'
+import { getLinks } from './links'
 
-import { offlineDoctypes } from 'doctypes'
+import { schema } from 'doctypes'
 import manifest from '../../../manifest.webapp'
 import { getManifestOptions } from 'utils/mobileClient'
 
@@ -16,6 +17,7 @@ export const getClient = (uri, token) => {
   const banksOptions = {
     uri,
     token,
+    schema,
     oauth: {
       redirectURI: 'cozybanks://auth',
       softwareID: SOFTWARE_ID,
@@ -26,11 +28,8 @@ export const getClient = (uri, token) => {
         'https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/logo-bank.png',
       notificationPlatform: 'firebase'
     },
-    offline: {
-      doctypes: offlineDoctypes
-    }
+    links: getLinks()
   }
-  const options = merge(manifestOptions, banksOptions)
 
-  return new CozyClient(options)
+  return new CozyClient(merge(manifestOptions, banksOptions))
 }
