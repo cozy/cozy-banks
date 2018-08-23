@@ -3,9 +3,7 @@
 const webpack = require('webpack')
 const { target } = require('./webpack.vars')
 
-const provided = {
-  'cozy.client': 'cozy-client-js/dist/cozy-client.js',
-}
+const provided = {}
 
 if (target !== 'mobile') {
   provided['cozy.bar'] = 'cozy-bar/dist/cozy-bar.js'
