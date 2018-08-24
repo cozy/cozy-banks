@@ -1,4 +1,5 @@
 /* global __TARGET__ */
+import { Intents } from 'cozy-interapp'
 
 let client
 
@@ -12,6 +13,9 @@ export const getClient = state => {
   const cozyURL = lib.getCozyURL(state)
   const token = lib.getToken(state)
   client = lib.getClient(cozyURL, token)
+
+  const intents = new Intents({ client })
+  client.intents = intents
 
   return client
 }
