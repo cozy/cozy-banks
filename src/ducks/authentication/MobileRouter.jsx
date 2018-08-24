@@ -64,7 +64,8 @@ const withAuth = Wrapped => (props, { store, client }) => {
 
   const setupAuth = isAuthenticated => () => {
     if (!isAuthenticated()) {
-      resetClient()
+      // TODO: Remove old data, we remove it because it use old cozy-client-js
+      // resetClient()
       props.history.replace(`/${AUTH_PATH}`)
       store.dispatch(revokeClient())
     } else {

@@ -9,10 +9,13 @@ import { getManifestOptions } from 'utils/mobileClient'
 
 const SOFTWARE_ID = 'io.cozy.banks.mobile'
 
-export const getCozyURL = state => get(state, 'mobile.url')
+export const getCozyURI = state => get(state, 'mobile.url')
 export const getToken = state => get(state, 'mobile.token')
 
-export const getClient = (uri, token) => {
+export const getClient = state => {
+  const uri = getCozyURI(state)
+  const token = getToken(state)
+
   const manifestOptions = getManifestOptions(manifest)
   const banksOptions = {
     uri,

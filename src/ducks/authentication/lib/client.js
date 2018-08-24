@@ -1,12 +1,4 @@
-/* global cozy __APP_VERSION__ */
-import CozyClient from 'cozy-client'
-import { LocalStorage as Storage } from 'cozy-client-js'
-import { offlineDoctypes as doctypes } from 'doctypes'
-import getPermissions from 'utils/getPermissions'
-import { getDeviceName } from 'cozy-device-helper'
-
-const SOFTWARE_ID = 'io.cozy.banks.mobile'
-const SOFTWARE_NAME = 'Cozy Banks'
+/* global cozy */
 const getLang = () =>
   navigator && navigator.language ? navigator.language.slice(0, 2) : 'en'
 
@@ -36,29 +28,6 @@ export const getToken = async () => {
   } catch (e) {
     throw e
   }
-}
-
-export const initClient = url => {
-  return new CozyClient({
-    cozyURL: url,
-    oauth: {
-      storage: new Storage(),
-      clientParams: {
-        redirectURI: 'cozybanks://auth',
-        softwareID: SOFTWARE_ID,
-        clientName: `${SOFTWARE_NAME} (${getDeviceName()})`,
-        softwareVersion: __APP_VERSION__,
-        clientKind: 'mobile',
-        clientURI: 'https://github.com/cozy/cozy-banks',
-        logoURI:
-          'https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/logo-bank.png',
-        policyURI: 'https://files.cozycloud.cc/cgu.pdf',
-        scopes: getPermissions(),
-        notificationPlatform: 'firebase'
-      }
-    },
-    offline: { doctypes }
-  })
 }
 
 export const initBar = (url, accessToken, options = {}) => {
