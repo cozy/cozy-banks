@@ -8,6 +8,7 @@ import { sumBy } from 'lodash'
 import LineChart from 'components/Chart/LineChart'
 import styles from './History.styl'
 import palette from 'cozy-ui/stylus/settings/palette.json'
+import { format as formatDate } from 'date-fns'
 
 class History extends Component {
   getCurrentBalance() {
@@ -41,6 +42,20 @@ History.propTypes = {
 }
 
 export class HistoryChart extends Component {
+  getTooltipContent = item => {
+    const date = formatDate(item.x, 'DD  MMM')
+    const balance = item.y.toFixed(2)
+
+    return (
+      <div>
+        {date}
+        <strong className={styles.HistoryChart__tooltipBalance}>
+          {balance}€
+        </strong>
+      </div>
+    )
+  }
+
   render() {
     return (
       <div
@@ -60,11 +75,14 @@ export class HistoryChart extends Component {
             '100%': palette.dodgerBlue
           }}
           margin={{
-            top: 10,
+            top: 20,
             bottom: 10,
             left: 16,
             right: 16
           }}
+          pointFillColor="white"
+          pointStrokeColor="rgba(255, 255, 255, 0.3)"
+          getTooltipContent={this.getTooltipContent}
           {...this.props}
         />
       </div>

@@ -387,7 +387,7 @@ class Balance extends React.Component {
               width: chartNbTicks * chartIntervalBetweenPoints,
               height: 103,
               margin: {
-                top: 10,
+                top: 20,
                 bottom: 35,
                 left: 16,
                 right: 16

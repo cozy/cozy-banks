@@ -1,9 +1,17 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import * as d3 from 'd3'
-import { sortBy } from 'lodash'
+import { maxBy, sortBy } from 'lodash'
+import styles from './LineChart.styl'
 
 class LineChart extends Component {
+  dragging = false
+
+  state = {
+    selectedItem: null,
+    x: null
+  }
+
   componentDidMount() {
     this.createChart()
   }
@@ -39,7 +47,11 @@ class LineChart extends Component {
       onUpdate,
       axisMargin,
       gradient,
-      showAxis
+      showAxis,
+      pointRadius,
+      pointFillColor,
+      pointStrokeWidth,
+      pointStrokeColor
     } = this.props
 
     const width = this.getRootWidth()
@@ -49,6 +61,8 @@ class LineChart extends Component {
 
     this.x = xScale().range([0, innerWidth])
     this.y = yScale().range([innerHeight, 0])
+
+    const drag = d3.drag()
 
     this.svg = d3
       .select(this.root)
@@ -83,11 +97,34 @@ class LineChart extends Component {
       .x(d => this.x(d.x))
       .y(d => this.y(d.y))
 
+    this.pointLine = this.svg
+      .append('line')
+      .attr('stroke-width', 1)
+      .attr('stroke', 'white')
+      .attr('stroke-dasharray', '3,2')
+
     this.line = this.svg
       .append('path')
       .attr('stroke', lineColor)
       .attr('stroke-width', lineWidth)
       .attr('fill', 'none')
+
+    this.clickLine = this.svg
+      .append('path')
+      .attr('stroke', 'transparent')
+      .attr('stroke-width', 32)
+      .attr('fill', 'none')
+      .on('click', this.onLineClick)
+
+    this.point = this.svg
+      .append('circle')
+      .attr('r', pointRadius)
+      .attr('fill', pointFillColor)
+      .attr('stroke-width', pointStrokeWidth)
+      .attr('stroke', pointStrokeColor)
+      .call(drag.on('start', this.startPointDrag))
+      .call(drag.on('drag', this.pointDrag))
+      .call(drag.on('end', this.stopPointDrag))
 
     this.xAxisGenerator = d3
       .axisBottom(this.x)
@@ -111,6 +148,9 @@ class LineChart extends Component {
 
     this.setData(data, true)
 
+    const lastItem = maxBy(data, d => d.x)
+    this.selectItem(lastItem)
+
     if (onUpdate && typeof onUpdate === 'function') {
       this.props.onUpdate()
     }
@@ -123,21 +163,25 @@ class LineChart extends Component {
     this.y.domain(d3.extent(data, d => d.y))
 
     this.line.datum(sortedData).attr('d', this.lineGenerator)
+    this.clickLine.datum(sortedData).attr('d', this.lineGenerator)
 
     if (this.mask) {
       this.mask.datum(sortedData).attr('d', this.areaGenerator)
     }
 
     if (animate) {
-      const totalLength = this.line.node().getTotalLength()
+      const lineTotalLength = this.line.node().getTotalLength()
+
+      this.point.attr('r', 0).attr('stroke-width', 0)
+      this.pointLine.attr('opacity', 0)
 
       if (this.mask) {
         this.mask.attr('opacity', 0)
       }
 
       this.line
-        .attr('stroke-dasharray', `${totalLength} ${totalLength}`)
-        .attr('stroke-dashoffset', totalLength)
+        .attr('stroke-dasharray', `${lineTotalLength} ${lineTotalLength}`)
+        .attr('stroke-dashoffset', lineTotalLength)
         .transition()
         .duration(this.props.enterAnimationDuration)
         .ease(d3.easeExpInOut)
@@ -148,6 +192,19 @@ class LineChart extends Component {
               .transition()
               .duration(250)
               .ease(d3.easeLinear)
+              .attr('opacity', 1)
+
+            this.point
+              .transition()
+              .duration(200)
+              .ease(d3.easeLinear)
+              .attr('r', this.props.pointRadius)
+              .attr('stroke-width', this.props.pointStrokeWidth)
+
+            this.pointLine
+              .transition()
+              .duration(400)
+              .ease(d3.easeExpIn)
               .attr('opacity', 1)
           }
         })
@@ -176,21 +233,99 @@ class LineChart extends Component {
     this.setData(this.props.data, false)
   }
 
+  onLineClick = () => {
+    const [mouseX] = d3.mouse(this.clickLine.node())
+    const item = this.getNearestItem(this.x.invert(mouseX))
+
+    this.selectItem(item)
+  }
+
+  getNearestItem(x) {
+    const { data } = this.props
+
+    const distances = data.map(i => Math.abs(x - i.x))
+    const minDistance = Math.min(...distances)
+    const nearestIndex = distances.findIndex(d => d === minDistance)
+
+    return data[nearestIndex]
+  }
+
+  selectItem(item) {
+    const x = this.x(item.x)
+    const y = this.y(item.y)
+
+    this.setState({
+      selectedItem: item,
+      x
+    })
+
+    this.movePointTo(x, y)
+  }
+
+  movePointTo(x, y) {
+    this.point.attr('cx', x).attr('cy', y)
+    this.pointLine
+      .attr('x1', x)
+      .attr('y1', 0)
+      .attr('x2', x)
+      .attr('y2', this.props.height - this.props.margin.bottom)
+  }
+
+  startPointDrag = () => {
+    this.dragging = true
+  }
+
+  pointDrag = () => {
+    if (!this.dragging) {
+      return
+    }
+
+    const [mouseX] = d3.mouse(this.svg.node())
+    const item = this.getNearestItem(this.x.invert(mouseX))
+
+    this.selectItem(item)
+  }
+
+  stopPointDrag = () => {
+    this.dragging = false
+  }
+
+  getTooltipContent = () => {
+    const { selectedItem } = this.state
+    const { getTooltipContent } = this.props
+
+    if (getTooltipContent && selectedItem) {
+      return getTooltipContent(selectedItem)
+    }
+
+    if (selectedItem) {
+      return <div>{selectedItem.y}</div>
+    }
+
+    return null
+  }
+
   render() {
-    const { width, height, gradient } = this.props
+    const { width, height, gradient, margin } = this.props
+    const { selectedItem, x } = this.state
 
     return (
-      <svg ref={node => (this.root = node)} width={width} height={height}>
-        {gradient && (
-          <defs>
-            <linearGradient id="gradient" x2="0%" y2="100%">
-              {Object.entries(gradient).map(([offset, color]) => (
-                <stop key={offset} offset={offset} stopColor={color} />
-              ))}
-            </linearGradient>
-          </defs>
+      <div className={styles.LineChart}>
+        {selectedItem && (
+          <Tooltip x={x + margin.left}>{this.getTooltipContent()}</Tooltip>
         )}
-      </svg>
+        <svg ref={node => (this.root = node)} width={width} height={height}>
+          {gradient && (
+            <defs>
+              <linearGradient id="gradient" x2="0%" y2="100%">
+                {Object.entries(gradient).map(([offset, color]) => (
+                  <stop key={offset} offset={offset} stopColor={color} />
+                ))}
+              </linearGradient>
+            </defs>
+          )}
+        </svg>
+      </div>
     )
   }
 }
@@ -222,7 +357,12 @@ LineChart.propTypes = {
   axisMargin: PropTypes.number,
   gradient: PropTypes.object,
   enterAnimationDuration: PropTypes.number,
-  showAxis: PropTypes.bool
+  showAxis: PropTypes.bool,
+  pointRadius: PropTypes.number,
+  pointFillColor: PropTypes.string,
+  pointStrokeWidth: PropTypes.number,
+  pointStrokeColor: PropTypes.string,
+  getTooltipContent: PropTypes.func
 }
 
 LineChart.defaultProps = {
@@ -238,7 +378,29 @@ LineChart.defaultProps = {
   showAxis: false,
   tickPadding: 8,
   tickSizeOuter: 0,
-  tickSizeInner: 5
+  tickSizeInner: 5,
+  pointRadius: 4,
+  pointFillColor: 'black',
+  pointStrokeWidth: 10,
+  pointStrokeColor: 'rgba(0, 0, 0, 0.3)'
+}
+
+class Tooltip extends Component {
+  render() {
+    const { children, x } = this.props
+
+    return (
+      <div
+        ref={node => (this.node = node)}
+        className={styles.LineChartTooltip}
+        style={{
+          transform: `translateX(${x}px)`
+        }}
+      >
+        {children}
+      </div>
+    )
+  }
 }
 
 export default LineChart
