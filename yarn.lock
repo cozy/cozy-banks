@@ -3198,9 +3198,9 @@ cosmiconfig@^4.0.0:
     parse-json "^4.0.0"
     require-from-string "^2.0.1"
 
-cozy-app-publish@0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/cozy-app-publish/-/cozy-app-publish-0.5.1.tgz#15b32bb90ba4ea2f74136b60e8850b9da519c9c0"
+cozy-app-publish@0.5.3:
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/cozy-app-publish/-/cozy-app-publish-0.5.3.tgz#b485912d4abca5ae8eeb25e7a087c2973e7a1327"
   dependencies:
     chalk "2.4.1"
     commander "2.17.1"
