@@ -41,6 +41,10 @@ Use `env SKIN='mesinfos' yarn build` for example to build with the MesInfos icon
 You can use `scripts/build-deploy-skins` to automatically build and deploy
 the vanilla app and the skinned version of the app.
 
+## Doctypes
+
+The doctypes used in Banks are described in the [cozy-doctypes](https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.bank.md) repository.
+
 ## Build
 
 The application is built automatically and published on [Cozy Registry](https://apps-registry.cozycloud.cc/banks/registry) by [Travis](https://travis-ci.org/cozy/cozy-banks).
