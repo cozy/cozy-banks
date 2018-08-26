@@ -2786,9 +2786,9 @@ commander@~2.13.0:
   version "2.13.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.13.0.tgz#6964bca67685df7c1f1430c584f07d7597885b9c"
 
-commitlint-config-cozy@0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/commitlint-config-cozy/-/commitlint-config-cozy-0.2.2.tgz#e87331ef4ec39931ad99f80f42065b7b2d43e838"
+commitlint-config-cozy@0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/commitlint-config-cozy/-/commitlint-config-cozy-0.2.3.tgz#2388d09c38d06e0d0d9050a8219145a4ac823fe9"
 
 common-dir@^1.0.1:
   version "1.0.1"
