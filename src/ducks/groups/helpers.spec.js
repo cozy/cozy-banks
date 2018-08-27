@@ -1,4 +1,6 @@
 import { buildVirtualGroups } from './helpers'
+import { associateDocuments } from 'utils/client'
+import { ACCOUNT_DOCTYPE } from 'doctypes'
 
 describe('buildVirtualGroups', () => {
   it('should generate a virtual group if there are two accounts with the same type', () => {
@@ -8,19 +10,17 @@ describe('buildVirtualGroups', () => {
     ]
 
     const virtualGroups = buildVirtualGroups(accounts)
-    const expected = [
-      {
-        _id: 'checkings',
-        _type: 'io.cozy.bank.groups',
-        label: 'checkings',
-        accounts: {
-          data: accounts
-        },
-        virtual: true
-      }
-    ]
+    const expected = {
+      _id: 'checkings',
+      _type: 'io.cozy.bank.groups',
+      label: 'checkings',
+      virtual: true
+    }
 
-    expect(virtualGroups).toEqual(expected)
+    associateDocuments(expected, 'accounts', ACCOUNT_DOCTYPE, accounts)
+
+    expect(virtualGroups).toHaveLength(1)
+    expect(virtualGroups[0]).toEqual(expected)
   })
 
   it('should generate nothing if there a less than two accounts with the same type', () => {

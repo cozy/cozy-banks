@@ -137,3 +137,22 @@ export const getIdsFromRelationship = (obj, relationshipName) => {
   }
   return obj[relationshipName].target[relationshipName]
 }
+
+export const associateDocuments = (
+  originalDocument,
+  associationName,
+  associationDoctype,
+  documentsToAssociate
+) => {
+  originalDocument[associationName] = {
+    data: documentsToAssociate,
+    doctype: associationDoctype,
+    name: associationName,
+    target: {
+      ...originalDocument,
+      [associationName]: documentsToAssociate.map(doc => doc.id)
+    }
+  }
+
+  return originalDocument
+}
