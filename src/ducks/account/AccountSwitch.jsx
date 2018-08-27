@@ -31,6 +31,8 @@ import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { getAccountInstitutionLabel } from './helpers.js'
 import { queryConnect, getIdsFromRelationship } from 'utils/client'
 
+import { buildVirtualGroups } from 'ducks/groups/helpers'
+
 const { BarCenter } = cozy.bar
 
 const AccountSwitchDesktop = translate()(
@@ -187,8 +189,8 @@ const AccountSwitchMenu = translate()(
                 <span className={styles['account-secondary-info']}>
                   ({t(
                     'AccountSwitch.account_counter',
-                    getIdsFromRelationship(group, 'accounts').filter(
-                      accountExists
+                    group.accounts.data.filter(account =>
+                      accountExists(account.id)
                     ).length
                   )})
                 </span>
@@ -279,13 +281,17 @@ class AccountSwitch extends Component {
       filteredAccounts,
       resetFilterByDoc,
       breakpoints: { isMobile, isTablet, isDesktop },
-      small
+      small,
+      accounts: accountsCollection,
+      groups: groupsCollection
     } = this.props
     const { open } = this.state
-    let { accounts, groups } = this.props
 
-    accounts = accounts.data
-    groups = groups.data.map(group => ({
+    const accounts = accountsCollection.data
+    const groups = [
+      ...groupsCollection.data,
+      ...buildVirtualGroups(accounts)
+    ].map(group => ({
       ...group,
       label: group.virtual ? t(`Data.accountTypes.${group.label}`) : group.label
     }))
