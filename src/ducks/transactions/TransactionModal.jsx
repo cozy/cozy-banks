@@ -264,13 +264,13 @@ const withTransactionAndAccount = Component => {
   const Wrapped = props => {
     return (
       <NeedResult query={findOne(TRANSACTION_DOCTYPE, props.transactionId)}>
-        {({ data: transactions }) => (
-          <NeedResult query={findOne(ACCOUNT_DOCTYPE, transactions[0].account)}>
-            {({ data: accounts }) => (
+        {({ data: transaction }) => (
+          <NeedResult query={findOne(ACCOUNT_DOCTYPE, transaction.account)}>
+            {({ data: account }) => (
               <Component
                 {...props}
-                transaction={transactions[0]}
-                account={accounts[0]}
+                transaction={transaction}
+                account={account}
               />
             )}
           </NeedResult>
