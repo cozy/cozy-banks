@@ -59,6 +59,16 @@ export const schema = {
         doctype: ACCOUNT_DOCTYPE
       }
     }
+  },
+  triggers: {
+    doctype: TRIGGER_DOCTYPE,
+    attributes: {},
+    relationships: {}
+  },
+  apps: {
+    doctype: APP_DOCTYPE,
+    attributes: {},
+    relationships: {}
   }
 }
 
