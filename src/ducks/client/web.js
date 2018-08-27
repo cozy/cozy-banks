@@ -2,14 +2,14 @@ import CozyClient from 'cozy-client'
 import { schema } from 'doctypes'
 import { getLinks } from './links'
 
-export const getToken = () => {
+const getToken = () => {
   const root = document.querySelector('[role=application]')
   const data = root.dataset
 
   return data.cozyToken
 }
 
-export const getCozyURI = () => {
+const getCozyURI = () => {
   const root = document.querySelector('[role=application]')
   const data = root.dataset
   const protocol = window.location.protocol
