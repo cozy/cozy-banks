@@ -3272,6 +3272,17 @@ cozy-client@^2.1.6:
     react-redux "^5.0.6"
     redux "^3.7.2"
 
+cozy-client@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-2.2.3.tgz#61ec954e9f9edec5c7cdc9dae75b1fba2f060f7b"
+  dependencies:
+    cozy-stack-client "^2.1.7"
+    lodash "^4.17.5"
+    prop-types "^15.6.0"
+    react "^16.2.0"
+    react-redux "^5.0.6"
+    redux "^3.7.2"
+
 cozy-device-helper@1.4.5:
   version "1.4.5"
   resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.4.5.tgz#8960065d4ed2c4345b7bb63314dddfbb80701740"
@@ -3339,6 +3350,12 @@ cozy-pouch-link@^2.1.6:
 cozy-stack-client@^2.1.6:
   version "2.1.6"
   resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-2.1.6.tgz#7ddcf160c0ecf50c2ecf34a81b2fc4ae7c23aa9e"
+  dependencies:
+    mime-types "^2.1.18"
+
+cozy-stack-client@^2.1.7:
+  version "2.1.7"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-2.1.7.tgz#42f21bf7e15328d512f7f17fd7c30c5af100761f"
   dependencies:
     mime-types "^2.1.18"
 
