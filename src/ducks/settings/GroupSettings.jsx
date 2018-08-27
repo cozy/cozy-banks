@@ -207,7 +207,7 @@ const ExistingGroupSettings = enhance(props => (
         <Loading />
       ) : (
         <GroupSettings
-          group={data[0]}
+          group={data}
           saveDocument={saveDocument}
           deleteDocument={deleteDocument}
           getAssociation={getAssociation}
