@@ -1,4 +1,4 @@
-/* global __APP_VERSION__ */
+/* global cozy, __APP_VERSION__ */
 import CozyClient from 'cozy-client'
 import { merge, get } from 'lodash'
 import { getLinks } from './links'
@@ -30,6 +30,9 @@ export const getClient = state => {
       logoURI:
         'https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/logo-bank.png',
       notificationPlatform: 'firebase'
+    },
+    onTokenRefresh: accessToken => {
+      cozy.bar.updateAccessToken(accessToken)
     },
     links: getLinks()
   }
