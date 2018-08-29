@@ -2,31 +2,14 @@
 const getLang = () =>
   navigator && navigator.language ? navigator.language.slice(0, 2) : 'en'
 
-export function resetClient(clientInfo, client) {
+export function resetClient(clientInfo, cozyClient) {
   // reset cozy-bar
   if (document.getElementById('coz-bar')) {
     document.getElementById('coz-bar').remove()
   }
-  // reset pouchDB
-  if (client && client.resetStore) {
-    client.resetStore()
-  }
-  // unregister the client
-  if (clientInfo && cozy.client.auth.unregisterClient) {
-    cozy.client.auth.unregisterClient(clientInfo)
-  }
-  // reset cozy-client-js
-  if (cozy.client._storage) {
-    cozy.client._storage.clear()
-  }
-}
 
-export const getToken = async () => {
-  try {
-    const response = await cozy.client.authorize()
-    return response.token
-  } catch (e) {
-    throw e
+  if (cozyClient) {
+    cozyClient.logout()
   }
 }
 

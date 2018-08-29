@@ -8,7 +8,7 @@ import {
   storeCredentials,
   revokeClient,
   unlink,
-  setToken,
+  // setToken,
   getURL,
   getAccessToken
 } from 'ducks/mobile'
@@ -18,22 +18,23 @@ import {
 } from 'ducks/mobile/push'
 import {
   initBar,
-  updateAccessTokenBar,
-  resetClient,
-  getToken
+  // updateAccessTokenBar,
+  resetClient
 } from 'ducks/authentication/lib/client'
 
 export const AUTH_PATH = 'authentication'
 
-export const onLogout = (store, client, replaceFn) => {
+export const onLogout = (store, cozyClient, replaceFn) => {
   const mobile = store.getState().mobile
   store.dispatch(unlink())
   stopPushNotifications()
-  resetClient(mobile.client, client)
+  resetClient(mobile.client, cozyClient)
   replaceFn(`/${AUTH_PATH}`)
 }
 
-const withAuth = Wrapped => (props, { store, client }) => {
+const withAuth = Wrapped => (props, { store }) => {
+  const cozyClient = props.client
+  let clientInfos
   const onAuthentication = async res => {
     if (res) {
       // first authentication
@@ -44,8 +45,11 @@ const withAuth = Wrapped => (props, { store, client }) => {
     } else {
       // when user is already authenticated
       // token can expire so ask stack to replace it
+      clientInfos = store.getState().mobile.client
       try {
-        const token = await getToken()
+        /*
+        // TODO A
+        const { token, infos } = cozyClient.startOAuthFlow(openURL)
         if (
           token &&
           token.accessToken !== getAccessToken(store.getState().mobile)
@@ -53,13 +57,14 @@ const withAuth = Wrapped => (props, { store, client }) => {
           store.dispatch(setToken(token))
           updateAccessTokenBar(token.accessToken)
         }
+        */
       } catch (e) {
         // eslint-disable-next-line no-console
         console.warn(e)
       }
     }
 
-    await registerPushNotifications(props.client)
+    await registerPushNotifications(cozyClient, clientInfos)
   }
 
   const setupAuth = isAuthenticated => () => {
@@ -70,12 +75,12 @@ const withAuth = Wrapped => (props, { store, client }) => {
       store.dispatch(revokeClient())
     } else {
       onAuthentication()
-      const mobile = store.getState().mobile
-      const url = getURL(mobile)
+      const mobileState = store.getState().mobile
+      const url = getURL(mobileState)
       setURLContext(url)
-      initBar(url, getAccessToken(mobile), {
+      initBar(url, getAccessToken(mobileState), {
         onLogOut: () => {
-          onLogout(store, client, props.history.replace)
+          onLogout(store, cozyClient, props.history.replace)
         }
       })
     }

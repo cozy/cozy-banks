@@ -3,13 +3,13 @@ import { getSettings, isNotificationEnabled } from 'ducks/settings/helpers'
 
 let push
 
-export const registerPushNotifications = async client => {
-  const settings = getSettings(client)
+export const registerPushNotifications = async (cozyClient, clientInfos) => {
+  const settings = await getSettings(cozyClient)
 
-  return startPushNotifications(settings, client)
+  return startPushNotifications(cozyClient, settings, clientInfos)
 }
 
-export const startPushNotifications = (settings /*, client*/) => {
+export const startPushNotifications = (cozyClient, settings, clientInfos) => {
   if (push || !isNotificationEnabled(settings)) {
     return
   }
@@ -44,16 +44,11 @@ export const startPushNotifications = (settings /*, client*/) => {
   push.on('notification', handleNotification)
   // eslint-disable-next-line no-console
   push.on('error', err => console.log(err))
-  push.on('registration', ({ registrationId }) => {
-    // eslint-disable-next-line no-console
-    console.log('registrationId', registrationId)
-    // TODO: Update notification client
-    /*
-    cozy.client.auth.updateClient({
-      ...client,
+  push.on('registration', async ({ registrationId }) => {
+    cozyClient.client.updateInformation({
+      ...clientInfos,
       notificationDeviceToken: registrationId
     })
-    */
   })
 }
 
