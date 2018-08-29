@@ -9,13 +9,14 @@ import { getManifestOptions } from 'utils/mobileClient'
 
 const SOFTWARE_ID = 'io.cozy.banks.mobile'
 
-const getCozyURI = state => get(state, 'mobile.url')
-const getToken = state => get(state, 'mobile.token')
+const getCozyURIFromState = state => get(state, 'mobile.url')
+const getTokenFromState = state => get(state, 'mobile.token')
+const getClientInfosFromState = state => get(state, 'mobile.client')
 
 export const getClient = state => {
-  const uri = getCozyURI(state)
-  const token = getToken(state)
-
+  const uri = getCozyURIFromState(state)
+  const token = getTokenFromState(state)
+  const clientInfos = getClientInfosFromState(state)
   const manifestOptions = getManifestOptions(manifest)
   const banksOptions = {
     uri,
@@ -29,7 +30,8 @@ export const getClient = state => {
       clientURI: 'https://github.com/cozy/cozy-banks',
       logoURI:
         'https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/logo-bank.png',
-      notificationPlatform: 'firebase'
+      notificationPlatform: 'firebase',
+      ...clientInfos
     },
     onTokenRefresh: accessToken => {
       cozy.bar.updateAccessToken(accessToken)

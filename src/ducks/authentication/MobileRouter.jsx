@@ -57,13 +57,14 @@ const withAuth = Wrapped => (props, { store }) => {
           store.dispatch(setToken(token))
           updateAccessTokenBar(token.accessToken)
         }
+        */
       } catch (e) {
         // eslint-disable-next-line no-console
         console.warn(e)
       }
     }
 
-    await registerPushNotifications(props.client)
+    await registerPushNotifications(cozyClient, clientInfos)
   }
 
   const setupAuth = isAuthenticated => () => {
