@@ -8,7 +8,7 @@ import {
   storeCredentials,
   revokeClient,
   unlink,
-  setToken,
+  // setToken,
   getURL,
   getAccessToken
 } from 'ducks/mobile'
@@ -18,7 +18,7 @@ import {
 } from 'ducks/mobile/push'
 import {
   initBar,
-  updateAccessTokenBar,
+  // updateAccessTokenBar,
   resetClient
 } from 'ducks/authentication/lib/client'
 

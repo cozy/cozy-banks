@@ -1,5 +1,4 @@
 /* global cozy */
-import { getRedirectURI } from 'ducks/client/mobile'
 const getLang = () =>
   navigator && navigator.language ? navigator.language.slice(0, 2) : 'en'
 
