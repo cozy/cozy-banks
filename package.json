@@ -94,7 +94,7 @@
     "babel-runtime": "6.26.0",
     "commitlint-config-cozy": "0.2.3",
     "copy-webpack-plugin": "4.5.2",
-    "cozy-app-publish": "0.5.3",
+    "cozy-app-publish": "0.5.5",
     "css-loader": "0.28.11",
     "css-mqpacker": "7.0.0",
     "csswring": "6.0.3",
