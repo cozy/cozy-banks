@@ -23,7 +23,6 @@ import {
   // updateAccessTokenBar,
   resetClient
 } from 'ducks/authentication/lib/client'
-import { getLinks } from 'ducks/client/links'
 
 export const AUTH_PATH = 'authentication'
 
@@ -73,7 +72,6 @@ const withAuth = Wrapped => (props, { store }) => {
     } else {
       // when user is already authenticated
       // token can expire so ask stack to replace it
-      cozyClient.registerClientOnLinks(getLinks())
       clientInfos = store.getState().mobile.client
       try {
         /*
@@ -93,6 +91,7 @@ const withAuth = Wrapped => (props, { store }) => {
       }
     }
 
+    cozyClient.login()
     await registerPushNotifications(cozyClient, clientInfos)
   }
 
