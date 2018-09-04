@@ -40,6 +40,9 @@ export const schema = {
       }
     }
   },
+  bills: {
+    doctype: BILLS_DOCTYPE
+  },
   settings: {
     doctype: SETTINGS_DOCTYPE,
     attributes: {},
@@ -95,6 +98,11 @@ export const transactionsConn = {
 export const appsConn = {
   query: client => client.all(APP_DOCTYPE),
   as: 'apps'
+}
+
+export const billsConn = {
+  query: client => client.all(BILLS_DOCTYPE),
+  as: 'bills'
 }
 
 export const settingsConn = {
