@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 import { checkApp, DRIVE_INFO } from 'ducks/mobile/appAvailability'
 import { flowRight as compose } from 'lodash'
 import { IntentOpener } from 'cozy-ui/react'
+import { withClient } from 'cozy-client'
 
 const buildAppURL = (cozyURL, app, hash) => {
   const splitted = cozyURL.split('/')
@@ -39,7 +40,7 @@ class FileOpener extends Component {
   }
 
   render() {
-    const { children, fileId } = this.props
+    const { children, fileId, client } = this.props
     const { isInstalled } = this.state
 
     if (__TARGET__ === 'mobile') {
@@ -53,9 +54,12 @@ class FileOpener extends Component {
       return <span onClick={openDriveOnNewWidow}>{children}</span>
     }
 
+    const createIntent = client.intents.create.bind(client.intents)
+
     return (
       <IntentOpener
         action="OPEN"
+        create={createIntent}
         doctype="io.cozy.files"
         options={{ id: fileId }}
         onComplete={() => {}}
@@ -74,6 +78,6 @@ FileOpener.propTypes = {
   fileId: PropTypes.string.isRequired
 }
 
-export default compose(connect(state => ({ cozyURL: getURL(state) })))(
-  FileOpener
+export default withClient(
+  compose(connect(state => ({ cozyURL: getURL(state) })))(FileOpener)
 )
