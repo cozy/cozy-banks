@@ -4,6 +4,10 @@ exports[`options from select dates should compute correctly 1`] = `
 Array [
   Object {
     "disabled": true,
+    "yearMonth": "2018-09",
+  },
+  Object {
+    "disabled": true,
     "yearMonth": "2018-08",
   },
   Object {
