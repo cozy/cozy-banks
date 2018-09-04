@@ -4,7 +4,7 @@ import { buildVirtualGroups } from 'ducks/groups/helpers'
 const getCollection = (state, attr) => {
   const col = state[attr]
   if (!col) {
-    throw new Error(`Collection ${attr} is not in state`)
+    console.warn(`Collection ${attr} is not in state`) // eslint-disable-line no-console
   }
   return col
 }
