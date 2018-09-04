@@ -76,7 +76,7 @@
   },
   "homepage": "https://github.com/cozy/cozy-banks#readme",
   "devDependencies": {
-    "@commitlint/cli": "7.0.0",
+    "@commitlint/cli": "7.1.2",
     "ach": "0.3.0",
     "autoprefixer": "8.6.5",
     "babel-cli": "6.26.0",
