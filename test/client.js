@@ -10,6 +10,13 @@ export const getClient = ({ uri, token, fetchJSONReturn } = defaultOptions) => {
   if (fetchJSONReturn) {
     client.client.fetchJSON = jest.fn().mockReturnValue(fetchJSONReturn)
   }
+  client.intents = {
+    create: () => {
+      return {
+        start: () => Promise.resolve()
+      }
+    }
+  }
   return client
 }
 
