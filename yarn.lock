@@ -3295,9 +3295,9 @@ cozy-device-helper@^1.4.4:
   dependencies:
     lodash "4.17.10"
 
-cozy-flags@1.2.3:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-1.2.3.tgz#55ee8b584a0124d7b3f966a74ad0bf1c3cafaa09"
+cozy-flags@1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-1.2.4.tgz#b5dbde7d0ef813c4bf9e6f3ff76a8c2def932257"
 
 cozy-interapp@0.2.2:
   version "0.2.2"
