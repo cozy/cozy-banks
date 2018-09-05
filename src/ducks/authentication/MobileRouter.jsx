@@ -18,11 +18,7 @@ import {
   registerPushNotifications,
   stopPushNotifications
 } from 'ducks/mobile/push'
-import {
-  initBar,
-  // updateAccessTokenBar,
-  resetClient
-} from 'ducks/authentication/lib/client'
+import { initBar, resetClient } from 'ducks/authentication/lib/client'
 
 export const AUTH_PATH = 'authentication'
 
@@ -71,24 +67,7 @@ const withAuth = Wrapped => (props, { store }) => {
       router.replace(defaultRoute())
     } else {
       // when user is already authenticated
-      // token can expire so ask stack to replace it
       clientInfos = store.getState().mobile.client
-      try {
-        /*
-        // TODO A
-        const { token, infos } = cozyClient.startOAuthFlow(openURL)
-        if (
-          token &&
-          token.accessToken !== getAccessToken(store.getState().mobile)
-        ) {
-          store.dispatch(setToken(token))
-          updateAccessTokenBar(token.accessToken)
-        }
-        */
-      } catch (e) {
-        // eslint-disable-next-line no-console
-        console.warn(e)
-      }
     }
 
     cozyClient.login()
