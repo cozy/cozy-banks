@@ -52,15 +52,21 @@ export const startPushNotifications = (cozyClient, settings, clientInfos) => {
   })
 }
 
-export const stopPushNotifications = () => {
-  if (push) {
-    push.unregister(
-      () => {
-        push = null
-      },
-      error => {
-        throw new Error('error while unregistering notifications: ' + error)
-      }
-    )
-  }
-}
+export const stopPushNotifications = () =>
+  new Promise((resolve, reject) => {
+    if (push) {
+      push.unregister(
+        () => {
+          push = null
+          resolve()
+        },
+        error => {
+          reject(new Error('error while unregistering notifications: ' + error))
+        }
+      )
+    } else {
+      reject(
+        new Error("Can't stop push notifications because they were not started")
+      )
+    }
+  })
