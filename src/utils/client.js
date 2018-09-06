@@ -88,7 +88,9 @@ export class UnsavedHasManyRelationship extends Relationship {
 }
 
 export const mkEmptyDocFromSchema = schema => {
-  const obj = {}
+  const obj = {
+    _type: schema.doctype
+  }
   Object.entries(schema.relationships).forEach(([attr, options]) => {
     if (options.type === 'has-many-UNSAFE') {
       obj[attr] = new UnsavedHasManyRelationship()
