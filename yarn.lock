@@ -3261,22 +3261,22 @@ cozy-client-js@^0.8.0:
     pouchdb-adapter-cordova-sqlite "https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a"
     pouchdb-find "0.10.4"
 
-cozy-client@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-2.3.0.tgz#bfb85ac9b20410ee21df56e13504e7e3d559cb40"
+cozy-client@^2.13.1:
+  version "2.13.1"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-2.13.1.tgz#5f5d83ee88bf367e1bb783910c68d87769a53bb5"
   dependencies:
-    cozy-stack-client "^2.3.0"
+    cozy-stack-client "^2.10.4"
     lodash "^4.17.5"
     prop-types "^15.6.0"
     react "^16.2.0"
     react-redux "^5.0.6"
     redux "^3.7.2"
 
-cozy-client@^2.7.3:
-  version "2.7.3"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-2.7.3.tgz#2098628644c216b50f2fee7bf59086c220655c6a"
+cozy-client@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-2.3.0.tgz#bfb85ac9b20410ee21df56e13504e7e3d559cb40"
   dependencies:
-    cozy-stack-client "^2.7.3"
+    cozy-stack-client "^2.3.0"
     lodash "^4.17.5"
     prop-types "^15.6.0"
     react "^16.2.0"
@@ -3347,15 +3347,15 @@ cozy-pouch-link@^2.4.0:
     pouchdb "^7.0.0"
     pouchdb-find "^7.0.0"
 
-cozy-stack-client@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-2.3.0.tgz#2be13dbf8cba70bc1eff15f756136c450158b66e"
+cozy-stack-client@^2.10.4:
+  version "2.10.4"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-2.10.4.tgz#7801af0a0e0f46151cf4d2b53969447efe582195"
   dependencies:
     mime-types "^2.1.18"
 
-cozy-stack-client@^2.7.3:
-  version "2.7.3"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-2.7.3.tgz#08b7fb534929425104f81d62d8bd3fb8278b0787"
+cozy-stack-client@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-2.3.0.tgz#2be13dbf8cba70bc1eff15f756136c450158b66e"
   dependencies:
     mime-types "^2.1.18"
 
