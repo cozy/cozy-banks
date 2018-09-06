@@ -64,7 +64,7 @@ class _GeneralSettings extends Component {
   }
 
   onClickSave = async () => {
-    const { saveAccount } = this.props
+    const { saveDocument } = this.props
     const updatedDoc = {
       // Will disappear when the object come from redux-cozy
       id: this.props.account._id,
@@ -73,7 +73,7 @@ class _GeneralSettings extends Component {
       ...this.state.changes
     }
     try {
-      await saveAccount(updatedDoc)
+      await saveDocument(updatedDoc)
     } catch (e) {
       // eslint-disable-next-line no-console
       console.error('Could not update document', e)
@@ -94,6 +94,7 @@ class _GeneralSettings extends Component {
     const { destroyDocument, router } = this.props
     try {
       this.setState({ deleting: true })
+      // TODO remove from groups and delete operations, see actions/accounts.js
       await destroyDocument(this.props.account)
       router.push('/settings/accounts')
     } catch (e) {
@@ -217,17 +218,10 @@ const GeneralSettings = compose(
   translate()
 )(_GeneralSettings)
 
-const createMutations = query => ({
-  saveAccount: account => query.save(account)
-})
-
 const AccountSettings = function({ routeParams, t }) {
   return (
-    <Query
-      query={client => client.get(ACCOUNT_DOCTYPE, routeParams.accountId)}
-      mutations={createMutations}
-    >
-      {({ data, fetchStatus }, { saveAccount }) => {
+    <Query query={client => client.get(ACCOUNT_DOCTYPE, routeParams.accountId)}>
+      {({ data, fetchStatus }) => {
         if (fetchStatus === 'loading') {
           return <Loading />
         }
@@ -251,10 +245,7 @@ const AccountSettings = function({ routeParams, t }) {
               </TabList>
               <TabPanels>
                 <TabPanel name="details">
-                  <GeneralSettings
-                    saveAccount={saveAccount}
-                    account={account}
-                  />
+                  <GeneralSettings account={account} />
                 </TabPanel>
                 <TabPanel name="sharing">
                   <div>{t('ComingSoon.title')}</div>
