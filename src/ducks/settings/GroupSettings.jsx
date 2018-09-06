@@ -60,7 +60,7 @@ class GroupSettings extends Component {
       accounts.removeById(accountId)
     }
     if (!group.id) {
-      this.updateOrCreate(dehydrateDoc(group))
+      this.updateOrCreate(group)
     }
   }
 
