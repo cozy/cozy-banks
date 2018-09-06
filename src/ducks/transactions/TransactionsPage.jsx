@@ -410,6 +410,14 @@ const mapStateToProps = (state, ownProps) => {
     bills: ownProps.bills,
     triggers: ownProps.triggers
   }
+
+  const filteredTransactions = onSubcategory(ownProps)
+    ? getFilteredTransactions(enhancedState)
+    : getTransactionsFilteredByAccount(enhancedState)
+  const hydratedTransactions = filteredTransactions.map(transaction =>
+    hydrateTransaction(enhancedState, transaction)
+  )
+
   return {
     urls: {
       // this keys are used on Transactions.jsx to:
@@ -423,11 +431,7 @@ const mapStateToProps = (state, ownProps) => {
     accountIds: getFilteredAccountIds(enhancedState),
     filteringDoc: state.filters.filteringDoc,
     filteredAccounts: getFilteredAccounts(enhancedState),
-    filteredTransactions: (onSubcategory(ownProps)
-      ? getFilteredTransactions
-      : getTransactionsFilteredByAccount)(enhancedState).map(transaction =>
-      hydrateTransaction(enhancedState, transaction)
-    )
+    filteredTransactions: hydratedTransactions
   }
 }
 
