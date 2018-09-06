@@ -232,7 +232,7 @@ const AccountSettings = function({ routeParams, t }) {
           return <Loading />
         }
 
-        const [account] = data
+        const account = data
 
         return (
           <div>
