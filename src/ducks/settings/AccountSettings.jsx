@@ -91,11 +91,11 @@ class _GeneralSettings extends Component {
   }
 
   onClickConfirmDelete = async () => {
-    const { destroyDocument, router } = this.props
+    const { deleteDocument, router } = this.props
     try {
       this.setState({ deleting: true })
       // TODO remove from groups and delete operations, see actions/accounts.js
-      await destroyDocument(this.props.account)
+      await deleteDocument(this.props.account)
       router.push('/settings/accounts')
     } catch (e) {
       // eslint-disable-next-line no-console

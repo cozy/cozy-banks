@@ -16,7 +16,7 @@ import {
   transactionsConn,
   groupsConn
 } from 'doctypes'
-import { isCollectionLoading, withCrud } from 'utils/client'
+import { isCollectionLoading } from 'utils/client'
 
 class CategoriesPage extends Component {
   selectCategory = (selectedCategory, subcategory) => {
@@ -121,6 +121,5 @@ export default compose(
     settings: settingsConn,
     groups: groupsConn
   }),
-  withCrud,
   connect(mapStateToProps)
 )(CategoriesPage)
