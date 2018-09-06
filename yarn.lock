@@ -3328,9 +3328,9 @@ cozy-logger@^1.0.4:
   dependencies:
     json-stringify-safe "5.0.1"
 
-cozy-pouch-link@2.10.4:
-  version "2.10.4"
-  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-2.10.4.tgz#8f6ee578b31b37f35b6f1ed44719f90e5580590e"
+cozy-pouch-link@2.10.5:
+  version "2.10.5"
+  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-2.10.5.tgz#c10df3a83b1d8d6241de1120ba411e005e13834f"
   dependencies:
     cozy-client "^2.10.4"
     pouchdb "^7.0.0"
