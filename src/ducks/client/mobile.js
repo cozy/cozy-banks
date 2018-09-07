@@ -2,6 +2,7 @@
 import CozyClient from 'cozy-client'
 import { merge, get } from 'lodash'
 import { getLinks } from './links'
+import PouchLink from 'cozy-pouch-link'
 
 import { schema } from 'doctypes'
 import manifest from '../../../manifest.webapp'
@@ -39,5 +40,14 @@ export const getClient = state => {
     links: getLinks()
   }
 
-  return new CozyClient(merge(manifestOptions, banksOptions))
+  const client = new CozyClient(merge(manifestOptions, banksOptions))
+  const pouchLink = client.links.find(link => link instanceof PouchLink)
+
+  if (pouchLink) {
+    pouchLink.options.onSync = function(data) {
+      client.setData(data)
+    }
+  }
+
+  return client
 }
