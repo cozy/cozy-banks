@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import CategoryChoice from './CategoryChoice'
 import { getCategoryId } from 'ducks/categories/helpers'
-import { withCrud } from 'utils/client'
+import { withClient } from 'cozy-client'
 
 export default (options = {}) => Wrapped =>
-  withCrud(
+  withClient(
     class WithUpdateCategoryWrapper extends Component {
       state = {
         displaying: false
@@ -25,14 +25,14 @@ export default (options = {}) => Wrapped =>
       }
 
       updateCategory = async category => {
-        const { transaction, saveDocument } = this.props
+        const { transaction, client } = this.props
 
         try {
           const newTransaction = {
             ...transaction,
             manualCategoryId: category.id
           }
-          await saveDocument(newTransaction)
+          await client.save(newTransaction)
         } catch (err) {
           // eslint-disable-next-line no-console
           console.log(err)

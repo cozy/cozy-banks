@@ -16,7 +16,7 @@ import styles from './GroupsSettings.styl'
 import btnStyles from 'styles/buttons.styl'
 import { getAccountInstitutionLabel } from '../account/helpers'
 import { sortBy, flowRight as compose } from 'lodash'
-import { mkEmptyDocFromSchema, dehydrateDoc } from 'utils/client'
+import { mkEmptyDocFromSchema } from 'utils/client'
 import { schema } from 'doctypes'
 
 const mkNewGroup = () => {
@@ -40,7 +40,7 @@ class GroupSettings extends Component {
     const { router, saveDocument } = this.props
     const isNew = !group.id
     try {
-      const response = await saveDocument({ _type: GROUP_DOCTYPE, ...group })
+      const response = await saveDocument(group)
       if (response && response.data) {
         const doc = response.data
         if (isNew) {
@@ -60,7 +60,7 @@ class GroupSettings extends Component {
       accounts.removeById(accountId)
     }
     if (!group.id) {
-      this.updateOrCreate(dehydrateDoc(group))
+      this.updateOrCreate(group)
     }
   }
 
@@ -200,14 +200,14 @@ const enhance = Component =>
 const ExistingGroupSettings = enhance(props => (
   <Query query={client => client.get(GROUP_DOCTYPE, props.routeParams.groupId)}>
     {(
-      { data, fetchStatus },
+      { data: group, fetchStatus },
       { saveDocument, deleteDocument, getAssociation }
     ) =>
       fetchStatus === 'loading' || fetchStatus === 'pending' ? (
         <Loading />
       ) : (
         <GroupSettings
-          group={data}
+          group={group}
           saveDocument={saveDocument}
           deleteDocument={deleteDocument}
           getAssociation={getAssociation}

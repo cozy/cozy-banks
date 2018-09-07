@@ -36,16 +36,11 @@ export const withQuery = (dest, queryOpts, Original) => {
   }
 }
 
-export const withCrud = withMutations(client => ({
-  saveDocument: document => client.save(document),
-  destroyDocument: document => client.destroy(document)
-}))
-
 export const queryConnect = querySpecs => Component => {
   const enhancers = Object.keys(querySpecs).map(dest =>
     withQuery(dest, querySpecs[dest], Component)
   )
-  enhancers.push(withCrud)
+  enhancers.push(withMutations())
   return compose.apply(null, enhancers)(Component)
 }
 
@@ -88,7 +83,9 @@ export class UnsavedHasManyRelationship extends Relationship {
 }
 
 export const mkEmptyDocFromSchema = schema => {
-  const obj = {}
+  const obj = {
+    _type: schema.doctype
+  }
   Object.entries(schema.relationships).forEach(([attr, options]) => {
     if (options.type === 'has-many-UNSAFE') {
       obj[attr] = new UnsavedHasManyRelationship()
