@@ -43,6 +43,7 @@ export const getClient = state => {
   const client = new CozyClient(merge(manifestOptions, banksOptions))
   const pouchLink = client.links.find(link => link instanceof PouchLink)
 
+  // TODO find a way to provide the client inside the PouchLink in a cleaner way
   if (pouchLink) {
     pouchLink.options.onSync = function(data) {
       client.setData(data)
