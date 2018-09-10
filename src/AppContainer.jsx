@@ -9,7 +9,7 @@ const AppContainer = ({ store, lang, history, client }) => {
   const AppRoute = require('components/AppRoute').default
   const Router =
     __TARGET__ === 'mobile'
-      ? require('ducks/authentication/MobileRouter').default
+      ? require('ducks/mobile/MobileRouter').default
       : require('react-router').Router
   return (
     <Provider store={store}>

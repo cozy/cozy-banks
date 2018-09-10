@@ -18,7 +18,7 @@ import {
   registerPushNotifications,
   stopPushNotifications
 } from 'ducks/mobile/push'
-import { initBar, resetClient } from 'ducks/authentication/lib/client'
+import { initBar, resetClient } from 'ducks/mobile/utils'
 
 export const AUTH_PATH = 'authentication'
 
