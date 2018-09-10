@@ -1,9 +1,9 @@
-/* global __DEVELOPMENT__ */
+/* global __DEV__ */
 
 import flag from 'cozy-flags'
 import { some } from 'lodash'
 
-if (__DEVELOPMENT__ && flag('switcher') === null) {
+if (__DEV__ && flag('switcher') === null) {
   flag('switcher', true)
 }
 

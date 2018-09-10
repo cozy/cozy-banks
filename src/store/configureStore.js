@@ -1,4 +1,4 @@
-/* global __DEVELOPMENT__ */
+/* global __DEV__ */
 import { compose, createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
@@ -15,7 +15,7 @@ import appReducers from 'reducers'
 const configureStore = (cozyClient, persistedState) => {
   // Enable Redux dev tools
   const composeEnhancers =
-    (__DEVELOPMENT__ && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
+    (__DEV__ && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
 
   // reducers
   const reducers = [appReducers, persistedState]
@@ -25,7 +25,7 @@ const configureStore = (cozyClient, persistedState) => {
   if (shouldEnableTracking() && getTracker()) {
     middlewares.push(createTrackerMiddleware())
   }
-  if (flag('logs') && __DEVELOPMENT__) { // eslint-disable-line
+  if (flag('logs') && __DEV__) { // eslint-disable-line
     // must be the last middleware in chain https://git.io/vHQpt
     const loggerMiddleware = createLogger()
     middlewares.push(loggerMiddleware)

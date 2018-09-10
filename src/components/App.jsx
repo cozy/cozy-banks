@@ -1,4 +1,4 @@
-/* global __DEVELOPMENT__ */
+/* global __DEV__ */
 import React from 'react'
 import ReactHintFactory from 'react-hint'
 import 'react-hint/css/index.css'
@@ -12,7 +12,7 @@ const ReactHint = ReactHintFactory(React)
 
 const App = ({ children }) => (
   <Layout>
-    {__DEVELOPMENT__ ? <FlagSwitcher /> : null}
+    {__DEV__ ? <FlagSwitcher /> : null}
     <Sidebar>
       <Nav />
     </Sidebar>
