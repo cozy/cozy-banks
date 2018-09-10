@@ -152,7 +152,7 @@
     "cozy-authentication": "1.3.0",
     "cozy-bar": "^5.1.0",
     "cozy-client": "^2.13.1",
-    "cozy-client-js": "0.12.0",
+    "cozy-client-js": "0.12.1",
     "cozy-device-helper": "1.4.7",
     "cozy-flags": "1.2.4",
     "cozy-interapp": "0.2.3",
