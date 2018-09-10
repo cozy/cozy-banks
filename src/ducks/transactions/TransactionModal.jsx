@@ -44,7 +44,7 @@ import {
   getAccountInstitutionLabel
 } from 'ducks/account/helpers'
 import { TRANSACTION_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
-import { isCollectionLoading } from 'utils/client'
+import { isCollectionLoading } from 'ducks/client/utils'
 
 const Separator = () => <hr className={styles.TransactionModalSeparator} />
 

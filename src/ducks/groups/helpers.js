@@ -1,6 +1,6 @@
 import { groupBy } from 'lodash'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
-import { associateDocuments } from 'utils/client.js'
+import { associateDocuments } from 'ducks/client/utils'
 
 export const buildVirtualGroups = accounts => {
   const accountsByType = groupBy(accounts, account => account.type)

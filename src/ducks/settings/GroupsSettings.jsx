@@ -3,13 +3,13 @@ import { withRouter } from 'react-router'
 import { translate, Button, Icon } from 'cozy-ui/react'
 import Table from 'components/Table'
 import { groupsConn } from 'doctypes'
-import { queryConnect } from 'utils/client'
+import { queryConnect } from 'ducks/client/utils'
 import Loading from 'components/Loading'
 import plus from 'assets/icons/16/plus.svg'
 import styles from './GroupsSettings.styl'
 import btnStyles from 'styles/buttons.styl'
 import { sortBy, flowRight as compose } from 'lodash'
-import { isCollectionLoading } from 'utils/client'
+import { isCollectionLoading } from 'ducks/client/utils'
 
 const GroupList = compose(withRouter, translate())(({ groups, t, router }) => {
   return groups.length ? (

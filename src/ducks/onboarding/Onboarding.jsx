@@ -13,7 +13,7 @@ import watch from 'assets/icons/icon-watch.svg'
 import cozy from 'assets/icons/icon-cozy.svg'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import { triggersConn } from 'doctypes'
-import { queryConnect, isCollectionLoading } from 'utils/client'
+import { queryConnect, isCollectionLoading } from 'ducks/client/utils'
 
 import {
   Hero,

@@ -1,7 +1,7 @@
 import { deleteAll } from 'utils/stack'
 import CozyClient from 'cozy-client'
 import { GROUP_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
-import { links } from 'utils/client'
+import { links } from 'ducks/client/utils'
 
 const removeAccountFromGroup = (group, account) => {
   return {

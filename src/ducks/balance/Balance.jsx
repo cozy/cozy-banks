@@ -38,7 +38,7 @@ import { parse as parseDate, format as formatDate } from 'date-fns'
 import styles from './Balance.styl'
 import btnStyles from 'styles/buttons.styl'
 import plus from 'assets/icons/16/plus.svg'
-import { isCollectionLoading, queryConnect } from 'utils/client'
+import { isCollectionLoading, queryConnect } from 'ducks/client/utils'
 
 const getGroupBalance = group => {
   return sumBy(group.accounts.data, account => account.balance || 0)

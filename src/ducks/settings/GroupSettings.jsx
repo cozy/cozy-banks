@@ -16,7 +16,7 @@ import styles from './GroupsSettings.styl'
 import btnStyles from 'styles/buttons.styl'
 import { getAccountInstitutionLabel } from '../account/helpers'
 import { sortBy, flowRight as compose } from 'lodash'
-import { mkEmptyDocFromSchema } from 'utils/client'
+import { mkEmptyDocFromSchema } from 'ducks/client/utils'
 import { schema } from 'doctypes'
 
 const mkNewGroup = () => {
