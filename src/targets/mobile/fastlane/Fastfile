@@ -9,6 +9,8 @@ platform :ios do
 
   lane :deploy do
     match(
+      shallow_clone: true,
+      clone_branch_directly: true,
       type: "appstore",
       git_url: "git@gitlab.cozycloud.cc:labs/mobile-certificates.git"
     )
