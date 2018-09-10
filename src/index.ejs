@@ -19,7 +19,7 @@
   <% } else if (__STACK_ASSETS__) { %>
   {{.CozyBar}}
   <% } %>
-  <%  if (__STACK_ASSETS__ || (__DEVELOPMENT__ && __TARGET__ !== 'mobile')) { %>
+  <%  if (__STACK_ASSETS__ || (__DEV__ && __TARGET__ !== 'mobile')) { %>
   <script src="//{{.Domain}}/assets/js/piwik.js" defer></script>
   <% } %>
 </head>
