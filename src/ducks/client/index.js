@@ -1,4 +1,4 @@
-/* global __DEVELOPMENT__, __TARGET__ */
+/* global __DEV__, __TARGET__ */
 import { Intents } from 'cozy-interapp'
 
 let client
@@ -15,7 +15,7 @@ export const getClient = state => {
   const intents = new Intents({ client })
   client.intents = intents
 
-  if (__DEVELOPMENT__) {
+  if (__DEV__) {
     window.cozyClient = client
   }
 

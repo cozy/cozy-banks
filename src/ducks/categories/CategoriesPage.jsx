@@ -9,14 +9,14 @@ import Categories from './Categories'
 import styles from './CategoriesPage.styl'
 import { flowRight as compose, sortBy } from 'lodash'
 import CategoriesHeader from './CategoriesHeader'
-import { queryConnect } from 'utils/client'
+import { queryConnect } from 'ducks/client/utils'
 import {
   accountsConn,
   settingsConn,
   transactionsConn,
   groupsConn
 } from 'doctypes'
-import { isCollectionLoading } from 'utils/client'
+import { isCollectionLoading } from 'ducks/client/utils'
 
 class CategoriesPage extends Component {
   selectCategory = (selectedCategory, subcategory) => {

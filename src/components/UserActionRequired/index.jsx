@@ -5,7 +5,7 @@ import tosIcon from 'assets/icons/icon-tos.svg'
 import { Modal, Icon, Button, translate, Alerter } from 'cozy-ui/react'
 import { withClient } from 'cozy-client'
 import styles from './styles.styl'
-import { onLogout } from 'ducks/authentication/MobileRouter'
+import { onLogout } from 'ducks/mobile/MobileRouter'
 
 const TosUpdatedModal = translate()(({ t, newTosLink, onAccept, onRefuse }) => (
   <Modal closable={false} into="body">

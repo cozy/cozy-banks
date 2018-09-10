@@ -1,5 +1,5 @@
 import { buildVirtualGroups } from './helpers'
-import { associateDocuments } from 'utils/client'
+import { associateDocuments } from 'ducks/client/utils'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 
 describe('buildVirtualGroups', () => {

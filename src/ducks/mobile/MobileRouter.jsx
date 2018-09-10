@@ -1,4 +1,4 @@
-/* global __DEVELOPMENT__ */
+/* global __DEV__ */
 
 import React from 'react'
 import { Router, Route } from 'react-router'
@@ -18,7 +18,7 @@ import {
   registerPushNotifications,
   stopPushNotifications
 } from 'ducks/mobile/push'
-import { initBar, resetClient } from 'ducks/authentication/lib/client'
+import { initBar, resetClient } from 'ducks/mobile/utils'
 
 export const AUTH_PATH = 'authentication'
 
@@ -26,12 +26,12 @@ export const onLogout = async (store, cozyClient, replaceFn) => {
   try {
     await stopPushNotifications()
 
-    if (__DEVELOPMENT__) {
+    if (__DEV__) {
       // eslint-disable-next-line no-console
       console.info('Stopped push notifications')
     }
   } catch (e) {
-    if (__DEVELOPMENT__) {
+    if (__DEV__) {
       // eslint-disable-next-line no-console
       console.warn('Error while stopping push notification', e)
     }
@@ -40,12 +40,12 @@ export const onLogout = async (store, cozyClient, replaceFn) => {
   try {
     await resetClient(cozyClient)
 
-    if (__DEVELOPMENT__) {
+    if (__DEV__) {
       // eslint-disable-next-line no-console
       console.warn('Resetted client')
     }
   } catch (e) {
-    if (__DEVELOPMENT__) {
+    if (__DEV__) {
       // eslint-disable-next-line no-console
       console.warn('Error while resetting client', e)
     }

@@ -5,7 +5,7 @@ import { getTransactions, getAllGroups, getAccounts } from 'selectors'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { sortBy, last, keyBy, find } from 'lodash'
 import { DESTROY_ACCOUNT } from 'actions/accounts'
-import { dehydrateDoc, getIdsFromRelationship } from 'utils/client'
+import { dehydrateDoc, getIdsFromRelationship } from 'ducks/client/utils'
 
 // constants
 const FILTER_BY_PERIOD = 'FILTER_BY_PERIOD'
