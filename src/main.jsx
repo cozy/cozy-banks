@@ -1,5 +1,6 @@
 /* global cozy, __TARGET__ */
 
+import 'whatwg-fetch'
 import 'styles/main'
 
 import React from 'react'
