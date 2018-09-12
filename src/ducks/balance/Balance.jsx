@@ -271,6 +271,11 @@ const BalanceAccounts = translate()(
   }
 )
 
+BalanceAccounts.PropTypes = {
+  balanceLower: PropTypes.number.isRequired,
+  accounts: PropTypes.array.isRequired
+}
+
 class Balance extends React.Component {
   goToTransactionsFilteredBy = doc => {
     this.props.filterByDoc(doc)
@@ -336,7 +341,7 @@ class Balance extends React.Component {
 
     const accounts = accountsCollection.data
     const groups = [...groupsCollection.data, ...buildVirtualGroups(accounts)]
-    const settings = settingsCollection.data
+    const settings = settingsCollection.data[0]
 
     const accountsSorted = sortBy(accounts, ['institutionLabel', 'label'])
     const groupsSorted = sortBy(
