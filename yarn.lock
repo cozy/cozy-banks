@@ -3347,7 +3347,7 @@ cozy-pouch-link@^2.18.0:
     pouchdb "^7.0.0"
     pouchdb-find "^7.0.0"
 
-cozy-stack-client@2.10.4, cozy-stack-client@^2.10.4:
+cozy-stack-client@^2.10.4:
   version "2.10.4"
   resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-2.10.4.tgz#7801af0a0e0f46151cf4d2b53969447efe582195"
   dependencies:
@@ -3356,6 +3356,12 @@ cozy-stack-client@2.10.4, cozy-stack-client@^2.10.4:
 cozy-stack-client@^2.17.0:
   version "2.17.0"
   resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-2.17.0.tgz#80f8df247700fb39e5996db6a8e2f9092e78863b"
+  dependencies:
+    mime-types "^2.1.18"
+
+cozy-stack-client@^2.18.1:
+  version "2.18.1"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-2.18.1.tgz#1a50b93262536ccd86f68f9eea38cf3a5d6c7a6e"
   dependencies:
     mime-types "^2.1.18"
 
