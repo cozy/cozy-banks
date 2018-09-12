@@ -1,7 +1,6 @@
 /* global mount */
 
 import React from 'react'
-import { find } from 'lodash'
 import { TableTrDesktop, TableTrNoDesktop } from './Transactions'
 import data from '../../../test/fixtures'
 import store from '../../../test/store'
