@@ -144,6 +144,7 @@ export const TableTrDesktop = compose(
 class _TableTrNoDesktop extends React.PureComponent {
   render() {
     const { transaction, t, filteringOnAccount, ...props } = this.props
+    const account = transaction.account.data
     return (
       <tr className={styles['bnk-transaction-mobile']}>
         <td>
@@ -168,9 +169,9 @@ class _TableTrNoDesktop extends React.PureComponent {
                   <Caption
                     className={cx('u-ellipsis', styles['bnk-op-desc-caption'])}
                   >
-                    {getAccountLabel(transaction.account)}
+                    {getAccountLabel(account)}
                     {' - '}
-                    {getAccountInstitutionLabel(transaction.account)}
+                    {getAccountInstitutionLabel(account)}
                   </Caption>
                 )}
               </ListItemText>

@@ -6,7 +6,7 @@ export const getAccountInstitutionLabel = account => {
   }
   const label = PARTS_TO_DELETE.reduce(
     (label, partToDelete) => label.replace(partToDelete, ''),
-    account.institutionLabel
+    account.institutionLabel || ''
   )
 
   return label
