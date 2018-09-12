@@ -3,7 +3,7 @@ import { throttle } from 'lodash'
 
 const getMain = () => document
 const getScrollingElement = node =>
-  node === document ? node.scrollingElement : node
+  node === document && node.scrollingElement ? node.scrollingElement : node
 
 /**
  * HOC to provide info to the `Wrapped` component
