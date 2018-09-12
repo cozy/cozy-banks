@@ -3272,6 +3272,17 @@ cozy-client@^2.13.1:
     react-redux "^5.0.6"
     redux "^3.7.2"
 
+cozy-client@^2.16.0:
+  version "2.16.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-2.16.0.tgz#61df62dc34b1f7dd3ba2e04b0d24151a795e4705"
+  dependencies:
+    cozy-stack-client "^2.10.4"
+    lodash "^4.17.5"
+    prop-types "^15.6.0"
+    react "^16.2.0"
+    react-redux "^5.0.6"
+    redux "^3.7.2"
+
 cozy-device-helper@1.4.7:
   version "1.4.7"
   resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.4.7.tgz#ce34328a2eafd41ef5d15397dbec1b1474320dd1"
