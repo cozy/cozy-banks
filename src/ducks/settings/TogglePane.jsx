@@ -23,7 +23,7 @@ class TogglePane extends Component {
   onChangeValue = (setting, value) => {
     const { settingsCollection, settingsKey } = this.props
     const settings = getSettingsFromCollection(settingsCollection)
-    settings[settingsKey][setting].value = value.replace(/\D/i, '')
+    settings[settingsKey][setting].value = value
     this.props.saveDocument(settings, {
       updateCollections: ['settings']
     })

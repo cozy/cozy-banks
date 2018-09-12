@@ -4,6 +4,10 @@ import cx from 'classnames'
 import { Toggle } from 'cozy-ui/react'
 import styles from './ToggleRow.styl'
 
+const parseNumber = val => {
+  return parseInt(val.replace(/\D/i, ''), 10)
+}
+
 class ToggleRow extends Component {
   render() {
     const {
@@ -26,8 +30,8 @@ class ToggleRow extends Component {
             <span dangerouslySetInnerHTML={{ __html: description }} />
             {hasValue && (
               <input
-                type="text"
-                onChange={e => onChangeValue(name, e.target.value)}
+                type="number"
+                onChange={e => onChangeValue(name, parseNumber(e.target.value))}
                 value={value}
                 className={cx(
                   styles.ToggleRow__input,
