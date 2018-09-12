@@ -7,6 +7,7 @@ import data from '../../../test/fixtures'
 import store from '../../../test/store'
 import AppLike from '../../../test/AppLike'
 import { Caption } from 'cozy-ui/react'
+import { hydrateTransaction } from 'ducks/transactions/helpers'
 
 const allTransactions = data['io.cozy.bank.operations']
 const allAccounts = data['io.cozy.bank.accounts']
@@ -23,10 +24,10 @@ describe('transaction row', () => {
   let root
 
   const rawTransaction = allTransactions[0]
-  const transaction = {
-    ...rawTransaction,
-    account: find(allAccounts, a => a._id == rawTransaction.account)
+  const state = {
+    accounts: { data: allAccounts }
   }
+  const transaction = hydrateTransaction(state, rawTransaction)
 
   xit('should render correctly on desktop', () => {
     root = mount(
