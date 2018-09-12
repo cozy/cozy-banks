@@ -80,6 +80,8 @@ class _TableTrDesktop extends PureComponent {
     const categoryTitle = t(`Data.subcategories.${categoryName}`)
     const parentCategory = getParentCategory(categoryId)
 
+    const account = transaction.account.data
+
     return (
       <tr>
         <td className={cx(sDesc, 'u-pv-half', 'u-pl-1')}>
@@ -95,9 +97,9 @@ class _TableTrDesktop extends PureComponent {
                 <Text>{getLabel(transaction)}</Text>
                 {!filteringOnAccount && (
                   <Caption className={styles['bnk-op-desc-caption']}>
-                    {getAccountLabel(transaction.account)}
+                    {getAccountLabel(account)}
                     {' - '}
-                    {getAccountInstitutionLabel(transaction.account)}
+                    {getAccountInstitutionLabel(account)}
                   </Caption>
                 )}
               </ListItemText>

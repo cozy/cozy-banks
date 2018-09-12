@@ -2,6 +2,15 @@ import { isHealthExpense } from 'ducks/categories/helpers'
 import assert from 'utils/assert'
 import { getAccounts, getBills } from 'selectors'
 import { find } from 'lodash'
+import { Association } from 'cozy-client'
+
+class HasOne extends Association {
+  constructor(raw, data) {
+    super()
+    this.raw = raw
+    this.data = data
+  }
+}
 
 const getBillId = idWithDoctype => idWithDoctype && idWithDoctype.split(':')[1]
 export const hydrateReimbursementWithBill = (reimbursement, getBill) => {
@@ -20,7 +29,7 @@ const hydrateTransactionWithAccount = (state, transaction) => {
 
   return {
     ...transaction,
-    account
+    account: new HasOne(account._id, account)
   }
 }
 
