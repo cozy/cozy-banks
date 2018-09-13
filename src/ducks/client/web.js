@@ -1,6 +1,7 @@
 import CozyClient from 'cozy-client'
 import { schema } from 'doctypes'
 import { getLinks } from './links'
+import flag from 'cozy-flags'
 
 const getToken = () => {
   const root = document.querySelector('[role=application]')
@@ -18,8 +19,8 @@ const getCozyURI = () => {
 }
 
 export const getClient = () => {
-  const uri = getCozyURI()
-  const token = getToken()
+  const uri = flag('cozyURL') || getCozyURI()
+  const token = flag('cozyToken') || getToken()
 
   return new CozyClient({ uri, token, schema, links: getLinks() })
 }
