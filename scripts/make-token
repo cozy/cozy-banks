@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -eu
+cozyDomain=$1
+make-token $cozyDomain $(cat manifest.webapp | jq -r '[.permissions[] | .type] | join(" ")')
