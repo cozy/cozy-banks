@@ -3359,9 +3359,9 @@ cozy-stack-client@^2.17.0:
   dependencies:
     mime-types "^2.1.18"
 
-cozy-stack-client@^2.18.1:
-  version "2.18.1"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-2.18.1.tgz#1a50b93262536ccd86f68f9eea38cf3a5d6c7a6e"
+cozy-stack-client@^2.19.1:
+  version "2.19.1"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-2.19.1.tgz#63654467a03d8f20e005fc51141827a835cb5be7"
   dependencies:
     mime-types "^2.1.18"
 
