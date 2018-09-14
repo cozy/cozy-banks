@@ -1839,6 +1839,11 @@ bluebird@^3.0.5, bluebird@^3.4.7, bluebird@^3.5.0, bluebird@^3.5.1, bluebird@~3.
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.1.tgz#d9551f9de98f1fcda1e683d17ee91a0602ee2eb9"
   integrity sha512-MKiLiV+I1AA596t9w1sQJ8jkiSr5+ZKi0WKrYGUn6d1Fx+Ij4tIj+m2WMQSGczs5jZVxV339chE8iwk6F64wjA==
 
+bluebird@^3.5.2:
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.2.tgz#1be0908e054a751754549c270489c1505d4ab15a"
+  integrity sha512-dhHTWMI7kMx5whMQntl7Vr9C6BvV10lFXDAasnqnrMYhXVCzzk6IO9Fo2L75jXHT07WrOngL1WDXOp+yYS91Yg==
+
 bn.js@^4.0.0, bn.js@^4.1.0, bn.js@^4.1.1, bn.js@^4.4.0:
   version "4.11.8"
   resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-4.11.8.tgz#2cde09eb5ee341f484746bb0309b3253b1b1442f"
@@ -1859,6 +1864,11 @@ body-parser@1.18.2:
     qs "6.5.1"
     raw-body "2.3.2"
     type-is "~1.6.15"
+
+bolgia@>=2.7.4:
+  version "2.8.3"
+  resolved "https://registry.yarnpkg.com/bolgia/-/bolgia-2.8.3.tgz#bae607317a33fbda0c322297b43afd239ea739d2"
+  integrity sha512-BEmes/GII/02PNOHWlFUpXfuGPCV7kN4ABw6vmctoctix1PO+55D5GmjdSFAxwee58TC7r9nFm5gNvVE8scv1Q==
 
 bonjour@^3.5.0:
   version "3.5.0"
@@ -5663,6 +5673,13 @@ gauge@~2.7.3:
     string-width "^1.0.1"
     strip-ansi "^3.0.1"
     wide-align "^1.1.0"
+
+geco@^0.11.1:
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/geco/-/geco-0.11.1.tgz#2dec107202a37bbfbb480892446a94a6ffc41411"
+  integrity sha512-RuZ2QWImhVLwaSCuhS9+iPIEL/kemh2xOa4ovnWXaR86GWWZndMXerMUpAjPyR4WHwnWn8pjY0kmy2iX2a4rwg==
+  dependencies:
+    toni ">=0.6.2"
 
 generate-function@^2.0.0:
   version "2.0.0"
@@ -15150,6 +15167,13 @@ to-string-x@^1.4.2, to-string-x@^1.4.5:
   dependencies:
     cached-constructors-x "^1.0.0"
     is-symbol "^1.0.1"
+
+toni@>=0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/toni/-/toni-0.6.2.tgz#a6af3bd70ae64de5ab1856e7036fb3b3e5e73cf8"
+  integrity sha1-pq871wrmTeWrGFbnA2+zs+XnPPg=
+  dependencies:
+    bolgia ">=2.7.4"
 
 toposort@^1.0.0:
   version "1.0.6"
