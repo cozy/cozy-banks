@@ -17,7 +17,8 @@ const isVentePrivee = transaction =>
 
 const getBillInvoice = bill => {
   if (!bill.invoice) {
-    throw new Error('This bill has no invoice : ', bill)
+    console.warn('Bill without invoice', bill)
+    throw new Error('Bill without invoice')
   }
 
   const [doctype, id] = bill.invoice.split(':')
