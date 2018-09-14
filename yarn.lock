@@ -2169,7 +2169,7 @@ bluebird-retry@0.11.0, bluebird-retry@^0.11.0:
   resolved "https://registry.yarnpkg.com/bluebird-retry/-/bluebird-retry-0.11.0.tgz#1289ab22cbbc3a02587baad35595351dd0c1c047"
   integrity sha1-EomrIsu8OgJYe6rTVZU1HdDBwEc=
 
-bluebird@3.5.2:
+bluebird@3.5.2, bluebird@^3.5.2:
   version "3.5.2"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.2.tgz#1be0908e054a751754549c270489c1505d4ab15a"
   integrity sha512-dhHTWMI7kMx5whMQntl7Vr9C6BvV10lFXDAasnqnrMYhXVCzzk6IO9Fo2L75jXHT07WrOngL1WDXOp+yYS91Yg==
@@ -6722,7 +6722,7 @@ gauge@~2.7.3:
     strip-ansi "^3.0.1"
     wide-align "^1.1.0"
 
-geco@0.11.1:
+geco@0.11.1, geco@^0.11.1:
   version "0.11.1"
   resolved "https://registry.yarnpkg.com/geco/-/geco-0.11.1.tgz#2dec107202a37bbfbb480892446a94a6ffc41411"
   integrity sha512-RuZ2QWImhVLwaSCuhS9+iPIEL/kemh2xOa4ovnWXaR86GWWZndMXerMUpAjPyR4WHwnWn8pjY0kmy2iX2a4rwg==
