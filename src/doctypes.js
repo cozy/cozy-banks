@@ -16,16 +16,46 @@ export const offlineDoctypes = [
   SETTINGS_DOCTYPE
 ]
 
-const batchGetQuery = (client, assoc) => doc => {
-  if (!doc[assoc.name]) {
-    return null
   }
-  const included = doc[assoc.name]
-  const ids = included.indexOf(':')
-    ? included.map(x => x.split(':')[1])
-    : included
 
-  return new QueryDefinition({ doctype: assoc.doctype, ids })
+class HasManyBills extends Association {
+  get raw() {
+    return this.target[this.name]
+  }
+
+  get data() {
+    return this.raw
+      ? this.raw.map(doctypeId => {
+          const [doctype, id] = doctypeId.split(':')
+          return this.get(doctype, id)
+        })
+      : []
+  }
+
+  static query(doc, client, assoc) {
+    const included = doc[assoc.name]
+    if (!included || !included.length) {
+      return null
+    }
+
+    const ids = included.indexOf(':')
+      ? included.map(x => x.split(':')[1])
+      : included
+
+    const docs = fromPairs(
+      ids.map(id => {
+        return [id, client.getDocumentFromState(assoc.doctype, id)]
+      })
+    )
+
+    const missingIds = Object.keys(docs).filter(id => !docs[id])
+    if (!missingIds || !missingIds.length) {
+      return Object.values(docs)
+    } else {
+      return new QueryDefinition({ doctype: assoc.doctype, ids: missingIds })
+    }
+  }
+}
 }
 
 export const schema = {
@@ -34,9 +64,9 @@ export const schema = {
     attributes: {},
     relationships: {
       bills: {
-        type: 'has-many',
-        doctype: BILLS_DOCTYPE,
-        query: batchGetQuery
+        type: HasManyBills,
+        doctype: BILLS_DOCTYPE
+      },
       }
     }
   },
