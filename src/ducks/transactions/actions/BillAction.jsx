@@ -35,12 +35,7 @@ const getBill = (transaction, actionProps) => {
     return actionProps.bill
   }
 
-  const bill = get(transaction, 'bills.data[0]')
-  if (!bill) {
-    return
-  }
-
-  return bill
+  return get(transaction, 'bills.data[0]')
 }
 
 class AugmentedModalButton extends React.Component {
