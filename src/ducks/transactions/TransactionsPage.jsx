@@ -36,7 +36,7 @@ import { ConnectedSelectDates } from 'components/SelectDates'
 import TransactionSelectDates from 'ducks/transactions/TransactionSelectDates'
 import { getAppUrlById } from 'selectors'
 import { getCategoryIdFromName } from 'ducks/categories/categoriesMap'
-import { hydrateTransaction, getDate } from 'ducks/transactions/helpers'
+import { getDate } from 'ducks/transactions/helpers'
 import { getCategoryId } from 'ducks/categories/helpers'
 
 import Loading from 'components/Loading'
@@ -414,9 +414,6 @@ const mapStateToProps = (state, ownProps) => {
   const filteredTransactions = onSubcategory(ownProps)
     ? getFilteredTransactions(enhancedState)
     : getTransactionsFilteredByAccount(enhancedState)
-  const hydratedTransactions = filteredTransactions.map(transaction =>
-    hydrateTransaction(enhancedState, transaction)
-  )
 
   return {
     urls: {
@@ -431,7 +428,7 @@ const mapStateToProps = (state, ownProps) => {
     accountIds: getFilteredAccountIds(enhancedState),
     filteringDoc: state.filters.filteringDoc,
     filteredAccounts: getFilteredAccounts(enhancedState),
-    filteredTransactions: hydratedTransactions
+    filteredTransactions: filteredTransactions
   }
 }
 

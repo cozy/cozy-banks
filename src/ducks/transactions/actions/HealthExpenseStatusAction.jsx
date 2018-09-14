@@ -19,8 +19,10 @@ import { TransactionModalRow } from '../TransactionModal'
 const name = 'HealthExpenseStatus'
 
 const getVendors = transaction => {
-  return transaction && transaction.reimbursements
-    ? transaction.reimbursements
+  const reimbursements =
+    transaction && transaction.reimbursements && transaction.reimbursements.data
+  return reimbursements
+    ? reimbursements
         .map(
           reimbursement =>
             reimbursement && reimbursement.bill && reimbursement.bill.vendor

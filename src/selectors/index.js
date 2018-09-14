@@ -21,10 +21,6 @@ export const getAccounts = state => {
   const col = getCollection(state, 'accounts')
   return (col && col.data) || []
 }
-export const getBills = state => {
-  const col = getCollection(state, 'bills')
-  return (col && col.data) || []
-}
 
 export const getVirtualGroups = createSelector([getAccounts], accounts => {
   return buildVirtualGroups(accounts)

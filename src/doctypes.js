@@ -1,4 +1,5 @@
-import { QueryDefinition } from 'cozy-client'
+import fromPairs from 'lodash/fromPairs'
+import { QueryDefinition, Association, HasManyAssociation } from 'cozy-client'
 
 export const RECIPIENT_DOCTYPE = 'io.cozy.mocks.recipients'
 export const ACCOUNT_DOCTYPE = 'io.cozy.bank.accounts'
@@ -16,7 +17,21 @@ export const offlineDoctypes = [
   SETTINGS_DOCTYPE
 ]
 
+class BelongsToAccount extends Association {
+  get raw() {
+    return this.target[this.name]
   }
+
+  get data() {
+    return this.get(this.doctype, this.raw)
+  }
+
+  static query(doc, client, assoc) {
+    const id = doc[assoc.name]
+    debugger
+    return client.getDocumentFromState(assoc.doctype, id)
+  }
+}
 
 class HasManyBills extends Association {
   get raw() {
@@ -56,6 +71,27 @@ class HasManyBills extends Association {
     }
   }
 }
+
+class HasManyReimbursements extends Association {
+  get raw() {
+    return this.target[this.name]
+  }
+
+  get data() {
+    return (this.raw || []).map(reimbursement => ({
+      ...reimbursement,
+      bill: this.get('io.cozy.bills', reimbursement.billId)
+    }))
+  }
+
+  static query(doc, client, assoc) {
+    const included = doc[assoc.name]
+    if (!included || !included.length) {
+      return null
+    }
+    const missingIds = included.map(doc => doc.billId)
+    return new QueryDefinition({ doctype: assoc.doctype, ids: missingIds })
+  }
 }
 
 export const schema = {
@@ -63,10 +99,17 @@ export const schema = {
     doctype: TRANSACTION_DOCTYPE,
     attributes: {},
     relationships: {
+      account: {
+        type: BelongsToAccount,
+        doctype: ACCOUNT_DOCTYPE
+      },
       bills: {
         type: HasManyBills,
         doctype: BILLS_DOCTYPE
       },
+      reimbursements: {
+        type: HasManyReimbursements,
+        doctype: BILLS_DOCTYPE
       }
     }
   },
@@ -121,7 +164,10 @@ export const triggersConn = {
 }
 
 export const transactionsConn = {
-  query: client => client.all(TRANSACTION_DOCTYPE).include(['bills']),
+  query: client =>
+    client
+      .all(TRANSACTION_DOCTYPE)
+      .include(['bills', 'account', 'reimbursements']),
   as: 'transactions'
 }
 
