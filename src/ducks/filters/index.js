@@ -5,7 +5,7 @@ import { getTransactions, getAllGroups, getAccounts } from 'selectors'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { sortBy, last, keyBy, find } from 'lodash'
 import { DESTROY_ACCOUNT } from 'actions/accounts'
-import { dehydrateDoc, getIdsFromRelationship } from 'ducks/client/utils'
+import { dehydrateDoc } from 'ducks/client/utils'
 
 // constants
 const FILTER_BY_PERIOD = 'FILTER_BY_PERIOD'
@@ -39,7 +39,7 @@ export const getFilteredAccountIds = state => {
     if (!group) {
       return availableAccountIds
     }
-    const accountIds = getIdsFromRelationship(group, 'accounts')
+    const accountIds = group.accounts.raw
     if (accountIds) {
       return accountIds
     } else {
