@@ -5,7 +5,7 @@ import { getTransactions, getAllGroups, getAccounts } from 'selectors'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { sortBy, last, keyBy, find } from 'lodash'
 import { DESTROY_ACCOUNT } from 'actions/accounts'
-import { dehydrateDoc } from 'ducks/client/utils'
+import { dehydrate } from 'cozy-client'
 
 // constants
 const FILTER_BY_PERIOD = 'FILTER_BY_PERIOD'
@@ -125,7 +125,7 @@ export const addFilterByPeriod = period => ({ type: FILTER_BY_PERIOD, period })
 export const resetFilterByDoc = () => ({ type: RESET_FILTER_BY_DOC })
 export const filterByDoc = doc => ({
   type: FILTER_BY_DOC,
-  doc: dehydrateDoc(doc)
+  doc: dehydrate(doc)
 })
 
 export const addFilterForMostRecentTransactions = () => (

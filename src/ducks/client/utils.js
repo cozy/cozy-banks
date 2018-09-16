@@ -50,31 +50,6 @@ export const mkEmptyDocFromSchema = schema => {
   return obj
 }
 
-const ccRelationships = {
-  // TODO export Relationship from cozy-client to check this
-  isRelationship: value => !!value.target,
-  // TODO add raw method to Relationships from cozy-client
-  getRaw: value => value.target
-}
-
-export const dehydrateDoc = obj => {
-  if (!obj) {
-    return
-  }
-  const res = {}
-
-  Object.entries(obj).forEach(([attr, value]) => {
-    if (value instanceof Relationship) {
-      res[attr] = value.raw()
-    } else if (ccRelationships.isRelationship(value)) {
-      res[attr] = ccRelationships.getRaw(value)
-    } else {
-      res[attr] = value
-    }
-  })
-  return res
-}
-
 export const associateDocuments = (
   originalDocument,
   associationName,
