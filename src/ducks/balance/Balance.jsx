@@ -16,6 +16,7 @@ import * as d3 from 'd3'
 
 import { withRouter } from 'react-router'
 import { translate, Button, Icon, withBreakpoints } from 'cozy-ui/react'
+import { queryConnect } from 'cozy-client'
 
 import Topbar from 'components/Topbar'
 import Loading from 'components/Loading'
@@ -38,7 +39,7 @@ import { parse as parseDate, format as formatDate } from 'date-fns'
 import styles from './Balance.styl'
 import btnStyles from 'styles/buttons.styl'
 import plus from 'assets/icons/16/plus.svg'
-import { isCollectionLoading, queryConnect } from 'ducks/client/utils'
+import { isCollectionLoading } from 'ducks/client/utils'
 
 const getGroupBalance = group => {
   return sumBy(group.accounts.data, account => account.balance || 0)

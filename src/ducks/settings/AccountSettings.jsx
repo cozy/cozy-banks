@@ -24,7 +24,7 @@ import spinner from 'assets/icons/icon-spinner.svg'
 import { getAccountInstitutionLabel } from '../account/helpers'
 import { getAppUrlById } from 'selectors'
 import { Query } from 'cozy-client'
-import { queryConnect } from 'ducks/client/utils'
+import { queryConnect } from 'cozy-client'
 import { ACCOUNT_DOCTYPE, APP_DOCTYPE } from 'doctypes'
 
 const DeleteConfirm = ({

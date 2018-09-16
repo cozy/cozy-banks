@@ -29,7 +29,7 @@ import {
 import styles from './AccountSwitch.styl'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { getAccountInstitutionLabel } from './helpers.js'
-import { queryConnect } from 'ducks/utils/client'
+import { queryConnect } from 'cozy-client'
 
 import { buildVirtualGroups } from 'ducks/groups/helpers'
 
