@@ -1,5 +1,5 @@
 import fromPairs from 'lodash/fromPairs'
-import { QueryDefinition, Association, HasManyAssociation } from 'cozy-client'
+import { QueryDefinition, Association } from 'cozy-client'
 
 export const RECIPIENT_DOCTYPE = 'io.cozy.mocks.recipients'
 export const ACCOUNT_DOCTYPE = 'io.cozy.bank.accounts'
@@ -115,7 +115,7 @@ export const schema = {
     attributes: {},
     relationships: {
       accounts: {
-        type: 'has-many-UNSAFE',
+        type: 'has-many',
         doctype: ACCOUNT_DOCTYPE
       }
     }
