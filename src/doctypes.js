@@ -17,22 +17,6 @@ export const offlineDoctypes = [
   SETTINGS_DOCTYPE
 ]
 
-class BelongsToAccount extends Association {
-  get raw() {
-    return this.target[this.name]
-  }
-
-  get data() {
-    return this.get(this.doctype, this.raw)
-  }
-
-  static query(doc, client, assoc) {
-    const id = doc[assoc.name]
-    debugger
-    return client.getDocumentFromState(assoc.doctype, id)
-  }
-}
-
 class HasManyBills extends Association {
   get raw() {
     return this.target[this.name]
@@ -100,7 +84,7 @@ export const schema = {
     attributes: {},
     relationships: {
       account: {
-        type: BelongsToAccount,
+        type: 'belongs-to',
         doctype: ACCOUNT_DOCTYPE
       },
       bills: {
