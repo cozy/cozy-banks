@@ -55,9 +55,7 @@ class GroupSettings extends Component {
     } else {
       accounts.removeById(accountId)
     }
-    if (!group.id) {
-      this.updateOrCreate(group)
-    }
+    this.updateOrCreate(group)
   }
 
   renderAccountLine = (account, group) => {
