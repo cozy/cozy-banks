@@ -1,3 +1,5 @@
+/* global __DEV__ */
+
 import React, { Component } from 'react'
 import { get, some } from 'lodash'
 import { translate, ButtonAction } from 'cozy-ui/react'
@@ -17,7 +19,9 @@ const isVentePrivee = transaction =>
 
 const getBillInvoice = bill => {
   if (!bill.invoice) {
-    console.warn('Bill without invoice', bill)
+    if (__DEV__) {
+      console.warn('Bill without invoice', bill) // eslint-disable-line no-console
+    }
     throw new Error('Bill without invoice')
   }
 
