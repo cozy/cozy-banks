@@ -4,9 +4,14 @@ import { StackLink } from 'cozy-client'
 import PouchLink from 'cozy-pouch-link'
 import { offlineDoctypes } from 'doctypes'
 
+let links = null
 export const getLinks = () => {
+  if (links) {
+    return links
+  }
+
   const stackLink = new StackLink()
-  let links = [stackLink]
+  links = [stackLink]
 
   if (__TARGET__ === 'mobile') {
     const pouchLink = new PouchLink({

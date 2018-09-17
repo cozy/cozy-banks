@@ -1,5 +1,3 @@
-export const links = {}
-
 export const isCollectionLoading = col => {
   if (!col) {
     console.warn('isCollectionLoading called on falsy value.') // eslint-disable-line no-console

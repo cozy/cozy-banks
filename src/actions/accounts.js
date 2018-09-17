@@ -1,7 +1,7 @@
 import { deleteAll } from 'utils/stack'
 import CozyClient from 'cozy-client'
 import { GROUP_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
-import { links } from 'ducks/client/utils'
+import { getLinks } from 'ducks/client/links'
 
 const removeAccountFromGroup = (group, account) => {
   return {
@@ -11,10 +11,12 @@ const removeAccountFromGroup = (group, account) => {
 }
 
 const getStackCollection = doctype => {
+  const links = getLinks()
   return links.stack.client.collection(doctype)
 }
 
 const deleteOrphanOperations = async (client, account) => {
+  const links = getLinks()
   const accountCollection = getStackCollection(ACCOUNT_DOCTYPE)
   const orphanOperations = (await accountCollection.find({
     account: account._id
