@@ -38,13 +38,14 @@ const onOperationCreate = async () => {
     return process.exit()
   }
 
+  // On filtre les transactions qui n'ont pas encore de catégorisation cozy
   const toCategorize = catChanges.transactions
     .filter(t => t.cozyCategoryId === undefined)
   try {
     if (toCategorize.length > 0) {
       const transactionsCategorized = await categorizes(toCategorize)
       const transactionSaved = await saveTransactions(transactionsCategorized)
-      const newChanges = await changesTransactions(notifChanges.newLastSeq)
+      const newChanges = await changesTransactions(catChanges.newLastSeq)
 
       if (setting.community.autoCategorization.enabled) {
         log(
