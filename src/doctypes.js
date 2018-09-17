@@ -1,5 +1,5 @@
 import fromPairs from 'lodash/fromPairs'
-import { QueryDefinition, Association } from 'cozy-client'
+import { QueryDefinition, Association, HasManyInPlace } from 'cozy-client'
 
 export const RECIPIENT_DOCTYPE = 'io.cozy.mocks.recipients'
 export const ACCOUNT_DOCTYPE = 'io.cozy.bank.accounts'
@@ -17,11 +17,7 @@ export const offlineDoctypes = [
   SETTINGS_DOCTYPE
 ]
 
-class HasManyBills extends Association {
-  get raw() {
-    return this.target[this.name]
-  }
-
+class HasManyBills extends HasManyInPlace {
   get data() {
     return this.raw
       ? this.raw.map(doctypeId => {
@@ -56,7 +52,7 @@ class HasManyBills extends Association {
   }
 }
 
-class HasManyReimbursements extends Association {
+class HasManyReimbursements extends HasManyInPlace {
   get raw() {
     return this.target[this.name]
   }
@@ -84,7 +80,7 @@ export const schema = {
     attributes: {},
     relationships: {
       account: {
-        type: 'belongs-to',
+        type: 'belongs-to-in-place',
         doctype: ACCOUNT_DOCTYPE
       },
       bills: {
@@ -115,7 +111,7 @@ export const schema = {
     attributes: {},
     relationships: {
       accounts: {
-        type: 'has-many',
+        type: 'has-many-in-place',
         doctype: ACCOUNT_DOCTYPE
       }
     }
