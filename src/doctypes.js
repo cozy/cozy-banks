@@ -1,5 +1,5 @@
 import fromPairs from 'lodash/fromPairs'
-import { QueryDefinition, Association, HasManyInPlace } from 'cozy-client'
+import { QueryDefinition, HasManyInPlace } from 'cozy-client'
 
 export const RECIPIENT_DOCTYPE = 'io.cozy.mocks.recipients'
 export const ACCOUNT_DOCTYPE = 'io.cozy.bank.accounts'

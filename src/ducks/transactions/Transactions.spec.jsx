@@ -10,8 +10,6 @@ import { getClient } from 'test/client'
 import { normalizeData } from 'test/store'
 
 const allTransactions = data['io.cozy.bank.operations']
-const allAccounts = data['io.cozy.bank.accounts']
-
 
 describe('transaction row', () => {
   let root, client, transaction
@@ -33,9 +31,11 @@ describe('transaction row', () => {
     const datastore = normalizeData({
       'io.cozy.bank.accounts': data['io.cozy.bank.accounts']
     })
-    jest.spyOn(client, 'getDocumentFromState').mockImplementation((doctype, id) => {
-      return datastore[doctype][id]
-    })
+    jest
+      .spyOn(client, 'getDocumentFromState')
+      .mockImplementation((doctype, id) => {
+        return datastore[doctype][id]
+      })
     transaction = client.hydrateDocument(rawTransaction)
   })
 

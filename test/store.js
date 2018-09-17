@@ -1,5 +1,4 @@
 import { createStore } from 'redux'
-import pick from 'lodash/pick'
 import mapValues from 'lodash/mapValues'
 import keyBy from 'lodash/keyBy'
 
@@ -16,9 +15,9 @@ const normalizeDoc = (doc, _type) => ({
   _type
 })
 
-export const normalizeData = data => mapValues(
-  data,
-  (docs, doctype) => keyBy(docs.map(doc => normalizeDoc(doc, doctype)), '_id')
-)
+export const normalizeData = data =>
+  mapValues(data, (docs, doctype) =>
+    keyBy(docs.map(doc => normalizeDoc(doc, doctype)), '_id')
+  )
 
 export default store
