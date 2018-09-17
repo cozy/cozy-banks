@@ -15,9 +15,9 @@ import { getAccountInstitutionLabel } from '../account/helpers'
 import styles from './GroupsSettings.styl'
 import btnStyles from 'styles/buttons.styl'
 
-const makeNewGroup = client => {
+const makeNewGroup = (client, t) => {
   const obj = client.makeNewDocument('io.cozy.bank.groups')
-  obj.label = 'Nouveau groupe'
+  obj.label = t('Groups.new-group')
   return obj
 }
 
@@ -225,6 +225,6 @@ export default ExistingGroupSettings
  */
 export const NewGroupSettings = withMutations()(
   enhance(props => (
-    <GroupSettings {...props} group={makeNewGroup(props.client)} />
+    <GroupSettings {...props} group={makeNewGroup(props.client, props.t)} />
   ))
 )
