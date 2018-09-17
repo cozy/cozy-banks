@@ -1,5 +1,5 @@
 import {
-  filterByIdentifiers,
+  filterByBrand,
   filterByDates,
   filterByAmounts,
   filterByCategory,
@@ -8,13 +8,24 @@ import {
 } from './operationsFilters'
 
 describe('operations filters', () => {
-  test('filtering by identifiers', () => {
-    const identifiers = ['tRaInLiNe']
-    const fByIdentifiers = filterByIdentifiers(identifiers)
+  describe('filtering by brand', () => {
+    it('should use the regexp from the dictionnary if the brand exists in it', () => {
+      const bill = { vendor: 'Trainline' }
+      const fByBrand = filterByBrand(bill)
 
-    expect(fByIdentifiers({ label: 'Trainline !!!' })).toBeTruthy()
-    expect(fByIdentifiers({ label: 'Yes Trainline' })).toBeTruthy()
-    expect(fByIdentifiers({ label: 'CapitainTrain' })).toBeFalsy()
+      expect(fByBrand({ label: 'Trainline !!!' })).toBeTruthy()
+      expect(fByBrand({ label: 'Yes Trainline' })).toBeTruthy()
+      expect(fByBrand({ label: 'CapitainTrain' })).toBeFalsy()
+    })
+
+    it("should generate a regexp with the bill vendor if the brand doesn't exist in the dictionnary", () => {
+      const bill = { vendor: 'Tartanpion' }
+      const fByBrand = filterByBrand(bill)
+
+      expect(fByBrand({ label: 'Chez Tartanpion !!!' })).toBeTruthy()
+      expect(fByBrand({ label: 'tartanpion 17/09' })).toBeTruthy()
+      expect(fByBrand({ label: 'Rien à voir' })).toBeFalsy()
+    })
   })
 
   test('filtering by date period', () => {

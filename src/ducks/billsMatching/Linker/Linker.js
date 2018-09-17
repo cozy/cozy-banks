@@ -132,16 +132,6 @@ export default class Linker {
   getOptions(opts = {}) {
     const options = { ...opts }
 
-    if (typeof options.identifiers === 'string') {
-      options.identifiers = [options.identifiers.toLowerCase()]
-    } else if (Array.isArray(options.identifiers)) {
-      options.identifiers = options.identifiers.map(id => id.toLowerCase())
-    } else {
-      throw new Error(
-        'linkBankOperations cannot be called without "identifiers" option'
-      )
-    }
-
     defaults(options, { amountDelta: DEFAULT_AMOUNT_DELTA })
     defaults(options, {
       minAmountDelta: options.amountDelta,
