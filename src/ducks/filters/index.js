@@ -30,7 +30,6 @@ export const getFilteredAccountIds = state => {
       return [id]
     } else {
       // eslint-disable-next-line no-console
-      console.warn('Filtering by unavailable account, returning all accounts')
       return availableAccountIds
     }
   } else if (doctype === GROUP_DOCTYPE) {
@@ -125,7 +124,7 @@ export const addFilterByPeriod = period => ({ type: FILTER_BY_PERIOD, period })
 export const resetFilterByDoc = () => ({ type: RESET_FILTER_BY_DOC })
 export const filterByDoc = doc => ({
   type: FILTER_BY_DOC,
-  doc: dehydrate(doc)
+  doc: doc && dehydrate(doc)
 })
 
 export const addFilterForMostRecentTransactions = () => (

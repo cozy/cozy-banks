@@ -15,7 +15,7 @@ export const Component = ({
 }) => {
   return (
     <span>
-      {transaction.reimbursements.map((reimbursement, index) => {
+      {transaction.reimbursements.data.map((reimbursement, index) => {
         if (!reimbursement.bill) {
           return
         }

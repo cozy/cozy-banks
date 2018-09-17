@@ -2,16 +2,18 @@
 
 import React from 'react'
 
-import { keyBy } from 'lodash'
-
+import keyBy from 'lodash/keyBy'
+import pick from 'lodash/pick'
+import mapValues from 'lodash/mapValues'
 import { SyncTransactionActions } from './TransactionActions'
 import { hydrateReimbursementWithBill } from 'ducks/transactions/helpers'
 import { findMatchingActions } from 'ducks/transactions/actions'
 
 import brands from 'ducks/brandDictionary/brands'
-import AppLike from '../../../test/AppLike'
-import data from '../../../test/fixtures'
-import store from '../../../test/store'
+import AppLike from 'test/AppLike'
+import data from 'test/fixtures'
+import store, { normalizeData } from 'test/store'
+import getClient from 'test/client'
 
 // Find a way to better do that, here we have to copy the definition
 // of isProperIcon
@@ -33,25 +35,7 @@ const bills = data['io.cozy.bills']
 const idFromReference = reference => reference && reference.split(':')[1]
 // prefixed by mock to be used inside documentCache mock
 const mockBillsById = keyBy(bills, x => x._id)
-const transactions = data['io.cozy.bank.operations']
 const getBill = billId => mockBillsById[billId]
-
-const hydratedTransactions = transactions.map(transaction => {
-  const bills = (transaction.bills || []).map(
-    ref => mockBillsById[idFromReference(ref)]
-  )
-  return {
-    ...transaction,
-    bills: { data: bills },
-    reimbursements:
-      transaction.reimbursements &&
-      transaction.reimbursements.map(r =>
-        hydrateReimbursementWithBill(r, getBill)
-      )
-  }
-})
-
-const transactionsById = keyBy(hydratedTransactions, '_id')
 
 /* eslint-disable */
 const tests = [
@@ -87,6 +71,24 @@ const actionProps = {
   // has been installed
   brands: brands.filter(x => x.name == 'Malakoff Mederic')
 }
+
+
+let client, transactionsById
+beforeAll(() => {
+  client = getClient()
+
+  // the store is not a real one so we fake the getDocumentFromState
+  const datastore = normalizeData(
+    pick(data, 'io.cozy.bank.operations', 'io.cozy.bank.accounts', 'io.cozy.bills')
+  )
+  jest.spyOn(client, 'getDocumentFromState').mockImplementation((doctype, id) => {
+    return datastore[doctype][id]
+  })
+  transactionsById = mapValues(
+    datastore['io.cozy.bank.operations'],
+    transaction => client.hydrateDocument(transaction)
+  )
+})
 
 describe('transaction action defaults', () => {
   for (let test of tests) {

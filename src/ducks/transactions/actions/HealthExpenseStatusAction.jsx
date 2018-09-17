@@ -58,6 +58,7 @@ const Component = ({
   // Normally, pending color is not error/red, but for now we handle this state like this
   const type = pending ? 'error' : 'normal'
   const icon = pending ? 'hourglass' : 'file'
+  const reimbursements = transaction.reimbursements.data
 
   if (pending) {
     if (isModalItem) {
@@ -84,7 +85,7 @@ const Component = ({
   }
 
   if (isModalItem) {
-    const items = transaction.reimbursements.map(reimbursement => {
+    const items = reimbursements.map(reimbursement => {
       if (!reimbursement.bill) {
         return
       }
@@ -108,10 +109,11 @@ const Component = ({
   }
 
   const rightIcon = <Icon icon={icon} width={16} />
+
   const enhancedRightIcon = isDesktop ? (
     rightIcon
   ) : (
-    <Badge type={type} content={transaction.reimbursements.length}>
+    <Badge type={type} content={reimbursements.length}>
       {rightIcon}
     </Badge>
   )
@@ -130,7 +132,7 @@ const Component = ({
         />
       }
     >
-      {transaction.reimbursements.map(reimbursement => {
+      {reimbursements.map(reimbursement => {
         if (!reimbursement.bill) {
           return
         }

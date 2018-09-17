@@ -64,7 +64,7 @@ class HasManyReimbursements extends Association {
   get data() {
     return (this.raw || []).map(reimbursement => ({
       ...reimbursement,
-      bill: this.get('io.cozy.bills', reimbursement.billId)
+      bill: this.get('io.cozy.bills', reimbursement.billId.split(':')[1])
     }))
   }
 

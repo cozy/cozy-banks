@@ -6,27 +6,38 @@ import data from '../../../test/fixtures'
 import store from '../../../test/store'
 import AppLike from '../../../test/AppLike'
 import { Caption } from 'cozy-ui/react'
-import { hydrateTransaction } from 'ducks/transactions/helpers'
+import { getClient } from 'test/client'
+import { normalizeData } from 'test/store'
 
 const allTransactions = data['io.cozy.bank.operations']
 const allAccounts = data['io.cozy.bank.accounts']
 
-const wrapRow = row => (
-  <AppLike store={store}>
-    <table>
-      <tbody>{row}</tbody>
-    </table>
-  </AppLike>
-)
 
 describe('transaction row', () => {
-  let root
+  let root, client, transaction
+
+  const wrapRow = row => (
+    <AppLike store={store} client={client}>
+      <table>
+        <tbody>{row}</tbody>
+      </table>
+    </AppLike>
+  )
 
   const rawTransaction = allTransactions[0]
-  const state = {
-    accounts: { data: allAccounts }
-  }
-  const transaction = hydrateTransaction(state, rawTransaction)
+  rawTransaction._type = 'io.cozy.bank.operations'
+
+  beforeEach(() => {
+    client = getClient()
+    client.ensureStore()
+    const datastore = normalizeData({
+      'io.cozy.bank.accounts': data['io.cozy.bank.accounts']
+    })
+    jest.spyOn(client, 'getDocumentFromState').mockImplementation((doctype, id) => {
+      return datastore[doctype][id]
+    })
+    transaction = client.hydrateDocument(rawTransaction)
+  })
 
   xit('should render correctly on desktop', () => {
     root = mount(
