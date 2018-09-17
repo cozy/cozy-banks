@@ -2,6 +2,7 @@ const includes = require('lodash/includes')
 const some = require('lodash/some')
 const sumBy = require('lodash/sumBy')
 const isWithinRange = require('date-fns/is_within_range')
+const { getBrands } = require('ducks/brandDictionary')
 
 const {
   getIdentifiers,
@@ -51,14 +52,14 @@ const isHealthBill = bill => {
 }
 
 // filters
+const filterByBrand = bill => {
+  const [brand] = getBrands(brand => brand.name === bill.vendor)
+  const regexp = new RegExp(brand ? brand.regexp : `\\b${bill.vendor}\\b`, 'i')
 
-const filterByIdentifiers = identifiers => {
-  identifiers = identifiers.map(i => i.toLowerCase())
-  const identifierFilter = operation => {
+  return operation => {
     const label = operation.label.toLowerCase()
-    return some(identifiers, identifier => includes(label, identifier))
+    return label.match(regexp)
   }
-  return identifierFilter
 }
 
 const filterByDates = ({ minDate, maxDate }) => {
@@ -130,15 +131,15 @@ const operationsFilters = (bill, operations, options) => {
   // - we search a credit operation
   // - or when is bill is in the health category
   if (options.credit || !isHealthBill(bill)) {
-    const fbyIdentifiers = filterByIdentifiers(getIdentifiers(options))
-    conditions.push(fbyIdentifiers)
+    const fbyBrand = filterByBrand(bill)
+    conditions.push(fbyBrand)
   }
 
   return operations.filter(filterByConditions(conditions))
 }
 
 module.exports = {
-  filterByIdentifiers,
+  filterByBrand,
   filterByDates,
   filterByAmounts,
   filterByCategory,
