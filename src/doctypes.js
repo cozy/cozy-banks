@@ -111,7 +111,7 @@ export const schema = {
     attributes: {},
     relationships: {
       accounts: {
-        type: 'has-many-in-place',
+        type: HasManyInPlace,
         doctype: ACCOUNT_DOCTYPE
       }
     }
