@@ -1,6 +1,6 @@
 import { cozyClient, log } from 'cozy-konnector-libs'
 
-export default async function getDoctypeChanges(doctype, since) {
+export default async function getDoctypeChanges(doctype, since, filterFn) {
   // lastSeq = '0' // Useful for debug
   log('info', `Get ${doctype} updates since ${since}`)
   const result = await cozyClient.fetchJSON(
@@ -22,6 +22,7 @@ export default async function getDoctypeChanges(doctype, since) {
     })
     .filter(doc => doc._id.indexOf('_design') !== 0)
     .filter(doc => !doc._deleted)
+    .filter(doc => (filterFn ? filterFn(doc) : true))
     .filter(Boolean) // TODO find out why some documents are not returned
 
   return { newLastSeq, documents }
