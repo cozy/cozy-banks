@@ -1,30 +1,9 @@
-import { cozyClient, log } from 'cozy-konnector-libs'
+import { cozyClient } from 'cozy-konnector-libs'
+import getDoctypeChanges from 'utils/getDoctypeChanges'
+import { TRANSACTION_DOCTYPE } from 'doctypes'
 
-export const changesTransactions = async lastSeq => {
-  // lastSeq = '0' // Useful for debug
-  log('info', `Get transactions since ${lastSeq}`)
-  const result = await cozyClient.fetchJSON(
-    'GET',
-    `/data/io.cozy.bank.operations/_changes?include_docs=true&since=${lastSeq}`
-  )
-
-  const newLastSeq = result.last_seq
-  const transactions = result.results
-    .map(x => {
-      if (!x.doc) {
-        log(
-          'warn',
-          `This response row doesn't contain a doc. Why?`,
-          JSON.stringify(x)
-        )
-      }
-      return x.doc
-    })
-    .filter(doc => doc._id.indexOf('_design') !== 0)
-    .filter(doc => !doc._deleted)
-    .filter(Boolean) // TODO find out why some documents are not returned
-
-  return { newLastSeq, transactions }
+export const changesTransactions = lastSeq => {
+  return getDoctypeChanges(TRANSACTION_DOCTYPE, lastSeq)
 }
 
 const saveTransaction = transaction => {
