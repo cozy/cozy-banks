@@ -350,7 +350,8 @@ const mapStateToProps = (state, ownProps) => ({
     MAIF: getAppUrlById(state, 'io.cozy.apps/maif'),
     HEALTH: getAppUrlById(state, 'io.cozy.apps/sante'),
     EDF: getAppUrlById(state, 'io.cozy.apps/edf'),
-    COLLECT: getAppUrlById(state, 'io.cozy.apps/collect')
+    COLLECT: getAppUrlById(state, 'io.cozy.apps/collect'),
+    HOME: getAppUrlById(state, 'io.cozy.apps/home')
   },
   accountIds: getFilteredAccountIds(state),
   accounts: getCollection(state, 'accounts'),
