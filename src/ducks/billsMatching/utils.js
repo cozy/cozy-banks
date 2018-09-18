@@ -251,11 +251,14 @@ const batchDelete = async (doctype, documents) => {
   return result
 }
 
+const getBillDate = bill => bill.originalDate || bill.date
+
 module.exports = {
   fetchAll,
   queryAll,
   findDuplicates,
   sortBillsByLinkedOperationNumber,
   batchUpdateAttributes,
-  batchDelete
+  batchDelete,
+  getBillDate
 }
