@@ -15,8 +15,8 @@ const { getBillDate } = require('../utils')
 
 const DOCTYPE_OPERATIONS = 'io.cozy.bank.operations'
 const DEFAULT_AMOUNT_DELTA = 0.001
-const DEFAULT_PAST_WINDOW = 15
-const DEFAULT_FUTURE_WINDOW = 29
+export const DEFAULT_PAST_WINDOW = 15
+export const DEFAULT_FUTURE_WINDOW = 29
 
 const fmtDate = function(x) {
   return new Date(x).toISOString().substr(0, 10)
