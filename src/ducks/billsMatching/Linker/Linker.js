@@ -203,11 +203,19 @@ export default class Linker {
    *   - their matching banking operation (debit)
    *   - to their reimbursement (credit)
    */
-  async linkBillsToOperations(bills, options) {
+  async linkBillsToOperations(bills, operations, options) {
     options = this.getOptions(options)
     const result = {}
 
-    const allOperations = await fetchAll('io.cozy.bank.operations')
+    let allOperations = operations
+
+    if (!allOperations) {
+      log(
+        'info',
+        'No operations given to linkBillsToOperations, fetching all operations.'
+      )
+      allOperations = await fetchAll('io.cozy.bank.operations')
+    }
 
     if (options.billsToRemove && options.billsToRemove.length) {
       this.removeBillsFromOperations(options.billsToRemove, allOperations)
