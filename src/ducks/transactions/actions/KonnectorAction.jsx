@@ -138,6 +138,7 @@ class Component extends React.Component {
     const healthOrGeneric = brand.health ? 'health' : 'generic'
     const label = t(`Transactions.actions.konnector.${healthOrGeneric}`)
     const translationKey = `Transactions.actions.informativeModal.${healthOrGeneric}`
+    const cozyClient = this.props.client
 
     return (
       <div>
@@ -179,6 +180,7 @@ class Component extends React.Component {
             action="CREATE"
             doctype="io.cozy.accounts"
             options={{ slug: brand.konnectorSlug }}
+            create={cozyClient.intents.create.bind(cozyClient.intents)}
             mobileFullscreen
           />
         )}
@@ -210,7 +212,11 @@ const action = {
   name,
   icon,
   match: (transaction, { brands, urls }) => {
-    return brands && matchBrands(brands, transaction.label) && urls['COLLECT']
+    return (
+      brands &&
+      matchBrands(brands, transaction.label) &&
+      (urls['COLLECT'] || urls['HOME'])
+    )
   },
   Component: compose(translate(), addFetchTriggers)(Component)
 }
