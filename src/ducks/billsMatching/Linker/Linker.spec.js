@@ -622,7 +622,11 @@ describe('linker', () => {
         // Add specific test options
         const options = { ...defaultOptions, ...test.options }
 
-        const result = await linker.linkBillsToOperations(test.bills, options)
+        const result = await linker.linkBillsToOperations(
+          test.bills,
+          null,
+          options
+        )
 
         if (test.result) {
           test.result = parseResultLines(test.result, operationsById)
@@ -648,9 +652,9 @@ describe('linker', () => {
       const test = tests[0]
       const options = { ...defaultOptions, ...test.options }
       expect(operationsById.medecin.reimbursements).toBe(undefined)
-      await linker.linkBillsToOperations(test.bills, options)
+      await linker.linkBillsToOperations(test.bills, null, options)
       expect(operationsById.medecin.reimbursements.length).toBe(1)
-      await linker.linkBillsToOperations(test.bills, options)
+      await linker.linkBillsToOperations(test.bills, null, options)
       expect(operationsById.medecin.reimbursements.length).toBe(1)
     })
   })
