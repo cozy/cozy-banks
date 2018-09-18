@@ -11,6 +11,7 @@ const sumBy = require('lodash/sumBy')
 const geco = require('geco')
 const format = require('date-fns/format')
 const { cozyClient, log } = require('cozy-konnector-libs')
+const { getBillDate } = require('../utils')
 
 const DOCTYPE_OPERATIONS = 'io.cozy.bank.operations'
 const DEFAULT_AMOUNT_DELTA = 0.001
@@ -20,8 +21,6 @@ const DEFAULT_FUTURE_WINDOW = 29
 const fmtDate = function(x) {
   return new Date(x).toISOString().substr(0, 10)
 }
-
-const getBillDate = bill => bill.originalDate || bill.date
 
 export default class Linker {
   constructor(cozyClient) {
