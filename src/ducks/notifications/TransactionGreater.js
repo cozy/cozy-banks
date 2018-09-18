@@ -2,11 +2,8 @@ import Handlebars from 'handlebars'
 import htmlTemplate from './html/transaction-greater-html'
 import * as utils from './html/utils'
 import { subDays } from 'date-fns'
-import {
-  isCreatedDoc,
-  isDocYoungerThan,
-  isTransactionAmountGreaterThan
-} from './helpers'
+import { isDocYoungerThan, isTransactionAmountGreaterThan } from './helpers'
+import isCreatedDoc from 'utils/isCreatedDoc'
 import Notification from './Notification'
 import { sortBy } from 'lodash'
 import log from 'cozy-logger'
