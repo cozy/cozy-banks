@@ -9,7 +9,7 @@ import Categories from './Categories'
 import styles from './CategoriesPage.styl'
 import { flowRight as compose, sortBy } from 'lodash'
 import CategoriesHeader from './CategoriesHeader'
-import { queryConnect } from 'ducks/client/utils'
+import { queryConnect } from 'cozy-client'
 import {
   accountsConn,
   settingsConn,

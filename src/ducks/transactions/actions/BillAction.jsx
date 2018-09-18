@@ -1,3 +1,5 @@
+/* global __DEV__ */
+
 import React, { Component } from 'react'
 import { get, some } from 'lodash'
 import { translate, ButtonAction } from 'cozy-ui/react'
@@ -17,7 +19,10 @@ const isVentePrivee = transaction =>
 
 const getBillInvoice = bill => {
   if (!bill.invoice) {
-    throw new Error('This bill has no invoice : ', bill)
+    if (__DEV__) {
+      console.warn('Bill without invoice', bill) // eslint-disable-line no-console
+    }
+    throw new Error('Bill without invoice')
   }
 
   const [doctype, id] = bill.invoice.split(':')
@@ -34,12 +39,7 @@ const getBill = (transaction, actionProps) => {
     return actionProps.bill
   }
 
-  const bill = get(transaction, 'bills.data[0]')
-  if (!bill) {
-    return
-  }
-
-  return bill
+  return get(transaction, 'bills.data[0]')
 }
 
 class AugmentedModalButton extends React.Component {

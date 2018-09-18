@@ -43,7 +43,7 @@ import {
   getAccountLabel,
   getAccountInstitutionLabel
 } from 'ducks/account/helpers'
-import { TRANSACTION_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
+import { TRANSACTION_DOCTYPE } from 'doctypes'
 import { isCollectionLoading } from 'ducks/client/utils'
 
 const Separator = () => <hr className={styles.TransactionModalSeparator} />
@@ -108,17 +108,11 @@ const TransactionInfos = ({ infos }) => (
 
 class TransactionModal extends Component {
   renderContent() {
-    const {
-      t,
-      f,
-      transaction,
-      account,
-      showCategoryChoice,
-      ...props
-    } = this.props
+    const { t, f, transaction, showCategoryChoice, ...props } = this.props
 
     const categoryId = getCategoryId(transaction)
     const category = getParentCategory(categoryId)
+    const account = transaction.account.data
 
     const typeIcon = (
       <Icon
@@ -235,8 +229,7 @@ TransactionModal.propTypes = {
   showCategoryChoice: PropTypes.func.isRequired,
   requestClose: PropTypes.func.isRequired,
   transactionId: PropTypes.string.isRequired,
-  transaction: PropTypes.object.isRequired,
-  account: PropTypes.object.isRequired
+  transaction: PropTypes.object.isRequired
 }
 
 const DumbTransactionModal = compose(translate(), withBreakpoints())(
@@ -258,33 +251,27 @@ const NeedResult = props => {
   )
 }
 
-const findOne = (doctype, id) => client => client.get(doctype, id)
-
-const withTransactionAndAccount = Component => {
+const withTransaction = Component => {
   const Wrapped = props => {
     return (
-      <NeedResult query={findOne(TRANSACTION_DOCTYPE, props.transactionId)}>
-        {({ data: transaction }) => (
-          <NeedResult query={findOne(ACCOUNT_DOCTYPE, transaction.account)}>
-            {({ data: account }) => (
-              <Component
-                {...props}
-                transaction={transaction}
-                account={account}
-              />
-            )}
-          </NeedResult>
-        )}
+      <NeedResult
+        query={client =>
+          client
+            .get(TRANSACTION_DOCTYPE, props.transactionId)
+            .include(['account'])
+        }
+      >
+        {({ data: transaction }) => {
+          return <Component {...props} transaction={transaction} />
+        }}
       </NeedResult>
     )
   }
   return Wrapped
 }
 
-export default compose(
-  withDispatch,
-  withTransactionAndAccount,
-  withUpdateCategory()
-)(DumbTransactionModal)
+export default compose(withDispatch, withTransaction, withUpdateCategory())(
+  DumbTransactionModal
+)
 
 export { DumbTransactionModal }

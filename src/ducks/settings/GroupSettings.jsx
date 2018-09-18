@@ -1,27 +1,23 @@
 import React, { Component } from 'react'
-import Loading from 'components/Loading'
-import { withDispatch } from 'utils'
-import { Query, withMutations } from 'cozy-client'
-import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { withRouter } from 'react-router'
+import { sortBy, flowRight as compose } from 'lodash'
+import { Query, withMutations, withClient } from 'cozy-client'
+import { Button, translate, Toggle, Spinner } from 'cozy-ui/react'
 
+import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
+import Loading from 'components/Loading'
 import Topbar from 'components/Topbar'
 import BackButton from 'components/BackButton'
 import Table from 'components/Table'
 import PageTitle from 'components/PageTitle'
-
-import { Button, translate, Toggle, Spinner } from 'cozy-ui/react'
+import { getAccountInstitutionLabel } from '../account/helpers'
 
 import styles from './GroupsSettings.styl'
 import btnStyles from 'styles/buttons.styl'
-import { getAccountInstitutionLabel } from '../account/helpers'
-import { sortBy, flowRight as compose } from 'lodash'
-import { mkEmptyDocFromSchema } from 'ducks/client/utils'
-import { schema } from 'doctypes'
 
-const mkNewGroup = () => {
-  const obj = mkEmptyDocFromSchema(schema.groups)
-  obj.label = 'Nouveau groupe'
+const makeNewGroup = (client, t) => {
+  const obj = client.makeNewDocument('io.cozy.bank.groups')
+  obj.label = t('Groups.new-group')
   return obj
 }
 
@@ -59,9 +55,7 @@ class GroupSettings extends Component {
     } else {
       accounts.removeById(accountId)
     }
-    if (!group.id) {
-      this.updateOrCreate(group)
-    }
+    this.updateOrCreate(group)
   }
 
   renderAccountLine = (account, group) => {
@@ -78,7 +72,7 @@ class GroupSettings extends Component {
           {group ? (
             <Toggle
               id={account._id}
-              checked={group.accounts.exists(account)}
+              checked={group.accounts.existsById(account)}
               onToggle={this.toggleAccount.bind(null, account._id, group)}
             />
           ) : (
@@ -195,7 +189,7 @@ class GroupSettings extends Component {
 }
 
 const enhance = Component =>
-  compose(translate(), withRouter, withDispatch)(Component)
+  compose(translate(), withRouter, withClient)(Component)
 
 const ExistingGroupSettings = enhance(props => (
   <Query query={client => client.get(GROUP_DOCTYPE, props.routeParams.groupId)}>
@@ -228,5 +222,7 @@ export default ExistingGroupSettings
  * of a brand new component
  */
 export const NewGroupSettings = withMutations()(
-  enhance(props => <GroupSettings {...props} group={mkNewGroup()} />)
+  enhance(props => (
+    <GroupSettings {...props} group={makeNewGroup(props.client, props.t)} />
+  ))
 )

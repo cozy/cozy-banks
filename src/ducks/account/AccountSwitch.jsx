@@ -29,7 +29,7 @@ import {
 import styles from './AccountSwitch.styl'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { getAccountInstitutionLabel } from './helpers.js'
-import { queryConnect, getIdsFromRelationship } from 'ducks/client/utils'
+import { queryConnect } from 'cozy-client'
 
 import { buildVirtualGroups } from 'ducks/groups/helpers'
 
@@ -66,9 +66,7 @@ const AccountSwitchDesktop = translate()(
             {filteringDoc.accounts &&
               t(
                 'AccountSwitch.account_counter',
-                getIdsFromRelationship(filteringDoc, 'accounts').filter(
-                  accountExists
-                ).length
+                filteringDoc.accounts.raw.filter(accountExists).length
               )}
           </div>
         </div>

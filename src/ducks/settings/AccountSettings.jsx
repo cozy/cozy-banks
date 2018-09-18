@@ -24,7 +24,7 @@ import spinner from 'assets/icons/icon-spinner.svg'
 import { getAccountInstitutionLabel } from '../account/helpers'
 import { getAppUrlById } from 'selectors'
 import { Query } from 'cozy-client'
-import { queryConnect } from 'ducks/client/utils'
+import { queryConnect, withClient } from 'cozy-client'
 import { ACCOUNT_DOCTYPE, APP_DOCTYPE } from 'doctypes'
 
 const DeleteConfirm = ({
@@ -64,7 +64,7 @@ class _GeneralSettings extends Component {
   }
 
   onClickSave = async () => {
-    const { saveDocument } = this.props
+    const { client } = this.props
     const updatedDoc = {
       // Will disappear when the object come from redux-cozy
       id: this.props.account._id,
@@ -73,7 +73,7 @@ class _GeneralSettings extends Component {
       ...this.state.changes
     }
     try {
-      await saveDocument(updatedDoc)
+      await client.save(updatedDoc)
     } catch (e) {
       // eslint-disable-next-line no-console
       console.error('Could not update document', e)
@@ -91,11 +91,11 @@ class _GeneralSettings extends Component {
   }
 
   onClickConfirmDelete = async () => {
-    const { deleteDocument, router } = this.props
+    const { client, router } = this.props
     try {
       this.setState({ deleting: true })
       // TODO remove from groups and delete operations, see actions/accounts.js
-      await deleteDocument(this.props.account)
+      await client.destroy(this.props.account)
       router.push('/settings/accounts')
     } catch (e) {
       // eslint-disable-next-line no-console
@@ -213,6 +213,7 @@ const GeneralSettings = compose(
   queryConnect({
     apps: { query: client => client.all(APP_DOCTYPE), as: 'apps' }
   }),
+  withClient,
   withDispatch,
   connect(mapStateToProps, mapDispatchToProps),
   translate()

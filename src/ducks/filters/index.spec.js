@@ -53,6 +53,7 @@ const tokyoDateStr = dateStr => jp(dateStr, ISO_FORMAT, 'Asia/Tokyo')
 
 const mockRelationship = (values, relationshipName) => {
   return {
+    raw: values,
     target: {
       [relationshipName]: values
     }
@@ -75,73 +76,73 @@ describe('filter selectors', () => {
     const transactions = [
       {
         _id: 't0',
-        account: 'a0',
+        account: mockRelationship('a0', 'account'),
         label: 'Transaction 0',
         date: tokyoDateStr('2018-01-01')
       },
       {
         _id: 't1',
-        account: 'a1',
+        account: mockRelationship('a1', 'account'),
         label: 'Transaction 1',
         date: parisDateStr('2018-01-03')
       },
       {
         _id: 't2',
-        account: 'a1',
+        account: mockRelationship('a1', 'account'),
         label: 'Transaction 2',
         date: parisDateStr('2018-01-04')
       },
       {
         _id: 't3',
-        account: 'a2',
+        account: mockRelationship('a2', 'account'),
         label: 'Transaction 3',
         date: parisDateStr('2018-01-05')
       },
       {
         _id: 't4',
-        account: 'a0',
+        account: mockRelationship('a0', 'account'),
         label: 'Transaction 4',
         date: tokyoDateStr('2018-01-06')
       },
       {
         _id: 't5',
-        account: 'a6',
+        account: mockRelationship('a6', 'account'),
         label: 'Transaction 5',
         date: tokyoDateStr('2018-01-07')
       },
       {
         _id: 't6',
-        account: 'a6',
+        account: mockRelationship('a6', 'account'),
         label: 'Transaction 6',
         date: nyDateStr('2018-01-08')
       },
       {
         _id: 't7',
-        account: 'a0',
+        account: mockRelationship('a0', 'account'),
         label: 'Transaction 7',
         date: tokyoDateStr('2018-02-01')
       },
       {
         _id: 't8',
-        account: 'a1',
+        account: mockRelationship('a1', 'account'),
         label: 'Transaction 8',
         date: nyDateStr('2018-02-08')
       },
       {
         _id: 't9',
-        account: 'a1',
+        account: mockRelationship('a1', 'account'),
         label: 'Transaction 9',
         date: parisDateStr('2018-02-08')
       },
       {
         _id: 't10',
-        account: 'a1',
+        account: mockRelationship('a1', 'account'),
         label: 'Transaction 10',
         date: parisDateStr('2019-01-01')
       },
       {
         _id: 't11',
-        account: 'a1',
+        account: mockRelationship('a1', 'account'),
         label: 'Transaction 11',
         date: parisDateStr('2019-01-02')
       }

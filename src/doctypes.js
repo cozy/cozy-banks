@@ -1,4 +1,5 @@
-import { QueryDefinition } from 'cozy-client'
+import fromPairs from 'lodash/fromPairs'
+import { QueryDefinition, HasManyInPlace } from 'cozy-client'
 
 export const RECIPIENT_DOCTYPE = 'io.cozy.mocks.recipients'
 export const ACCOUNT_DOCTYPE = 'io.cozy.bank.accounts'
@@ -16,16 +17,61 @@ export const offlineDoctypes = [
   SETTINGS_DOCTYPE
 ]
 
-const batchGetQuery = (client, assoc) => doc => {
-  if (!doc[assoc.name]) {
-    return null
+class HasManyBills extends HasManyInPlace {
+  get data() {
+    return this.raw
+      ? this.raw.map(doctypeId => {
+          const [doctype, id] = doctypeId.split(':')
+          return this.get(doctype, id)
+        })
+      : []
   }
-  const included = doc[assoc.name]
-  const ids = included.indexOf(':')
-    ? included.map(x => x.split(':')[1])
-    : included
 
-  return new QueryDefinition({ doctype: assoc.doctype, ids })
+  static query(doc, client, assoc) {
+    const included = doc[assoc.name]
+    if (!included || !included.length) {
+      return null
+    }
+
+    const ids = included.indexOf(':')
+      ? included.map(x => x.split(':')[1])
+      : included
+
+    const docs = fromPairs(
+      ids.map(id => {
+        return [id, client.getDocumentFromState(assoc.doctype, id)]
+      })
+    )
+
+    const missingIds = Object.keys(docs).filter(id => !docs[id])
+    if (!missingIds || !missingIds.length) {
+      return Object.values(docs)
+    } else {
+      return new QueryDefinition({ doctype: assoc.doctype, ids: missingIds })
+    }
+  }
+}
+
+class HasManyReimbursements extends HasManyInPlace {
+  get raw() {
+    return this.target[this.name]
+  }
+
+  get data() {
+    return (this.raw || []).map(reimbursement => ({
+      ...reimbursement,
+      bill: this.get('io.cozy.bills', reimbursement.billId.split(':')[1])
+    }))
+  }
+
+  static query(doc, client, assoc) {
+    const included = doc[assoc.name]
+    if (!included || !included.length) {
+      return null
+    }
+    const missingIds = included.map(doc => doc.billId)
+    return new QueryDefinition({ doctype: assoc.doctype, ids: missingIds })
+  }
 }
 
 export const schema = {
@@ -33,10 +79,17 @@ export const schema = {
     doctype: TRANSACTION_DOCTYPE,
     attributes: {},
     relationships: {
+      account: {
+        type: 'belongs-to-in-place',
+        doctype: ACCOUNT_DOCTYPE
+      },
       bills: {
-        type: 'has-many',
-        doctype: BILLS_DOCTYPE,
-        query: batchGetQuery
+        type: HasManyBills,
+        doctype: BILLS_DOCTYPE
+      },
+      reimbursements: {
+        type: HasManyReimbursements,
+        doctype: BILLS_DOCTYPE
       }
     }
   },
@@ -58,7 +111,7 @@ export const schema = {
     attributes: {},
     relationships: {
       accounts: {
-        type: 'has-many-UNSAFE',
+        type: HasManyInPlace,
         doctype: ACCOUNT_DOCTYPE
       }
     }
@@ -91,7 +144,10 @@ export const triggersConn = {
 }
 
 export const transactionsConn = {
-  query: client => client.all(TRANSACTION_DOCTYPE).include(['bills']),
+  query: client =>
+    client
+      .all(TRANSACTION_DOCTYPE)
+      .include(['bills', 'account', 'reimbursements']),
   as: 'transactions'
 }
 

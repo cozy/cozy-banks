@@ -21,11 +21,11 @@ exports[`transaction modal should render correctly 1`] = `
                 <div class=\\"TransactionLabel\\">Remboursement Pret Lcl</div>
                 <div class=\\"TransactionInfos\\">
                   <div class=\\"TransactionInfo\\"><span class=\\"TransactionInfoLabel\\"><!-- react-text: 25 -->Account<!-- /react-text --><!-- react-text: 26 --> :<!-- /react-text --></span>
-                    <!-- react-text: 27 -->PEE Isabelle
+                    <!-- react-text: 27 -->Compte courant Isabelle
                     <!-- /react-text -->
                   </div>
                   <div class=\\"TransactionInfo\\"><span class=\\"TransactionInfoLabel\\"><!-- react-text: 30 -->Bank<!-- /react-text --><!-- react-text: 31 --> :<!-- /react-text --></span>
-                    <!-- react-text: 32 -->HSBC
+                    <!-- react-text: 32 -->BNPP
                     <!-- /react-text -->
                   </div>
                 </div>
