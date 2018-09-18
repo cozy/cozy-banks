@@ -3261,22 +3261,22 @@ cozy-client-js@^0.8.0:
     pouchdb-adapter-cordova-sqlite "https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a"
     pouchdb-find "0.10.4"
 
-cozy-client@^2.16.0:
-  version "2.16.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-2.16.0.tgz#61df62dc34b1f7dd3ba2e04b0d24151a795e4705"
+cozy-client@^2.17.0:
+  version "2.17.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-2.17.0.tgz#fd115654206b561f6ba6b454512321a35cf3ba45"
   dependencies:
-    cozy-stack-client "^2.10.4"
+    cozy-stack-client "^2.17.0"
     lodash "^4.17.5"
     prop-types "^15.6.0"
     react "^16.2.0"
     react-redux "^5.0.6"
     redux "^3.7.2"
 
-cozy-client@^2.17.0:
-  version "2.17.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-2.17.0.tgz#fd115654206b561f6ba6b454512321a35cf3ba45"
+cozy-client@^2.20.1:
+  version "2.20.1"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-2.20.1.tgz#2cfc6db553a2a01ac82b4ebc14cb1cd65cfd7a90"
   dependencies:
-    cozy-stack-client "^2.17.0"
+    cozy-stack-client "^2.19.2"
     lodash "^4.17.5"
     prop-types "^15.6.0"
     react "^16.2.0"
@@ -3347,12 +3347,6 @@ cozy-pouch-link@^2.18.0:
     pouchdb "^7.0.0"
     pouchdb-find "^7.0.0"
 
-cozy-stack-client@^2.10.4:
-  version "2.10.4"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-2.10.4.tgz#7801af0a0e0f46151cf4d2b53969447efe582195"
-  dependencies:
-    mime-types "^2.1.18"
-
 cozy-stack-client@^2.17.0:
   version "2.17.0"
   resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-2.17.0.tgz#80f8df247700fb39e5996db6a8e2f9092e78863b"
@@ -3362,6 +3356,12 @@ cozy-stack-client@^2.17.0:
 cozy-stack-client@^2.19.1:
   version "2.19.1"
   resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-2.19.1.tgz#63654467a03d8f20e005fc51141827a835cb5be7"
+  dependencies:
+    mime-types "^2.1.18"
+
+cozy-stack-client@^2.19.2:
+  version "2.19.2"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-2.19.2.tgz#80a8b639553b38a1138b4c1cf27ca481e19a9339"
   dependencies:
     mime-types "^2.1.18"
 
