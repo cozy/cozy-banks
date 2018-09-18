@@ -33,7 +33,7 @@ const onOperationCreate = async () => {
   }
 
   // On filtre les transactions qui n'ont pas encore de catégorisation cozy
-  const toCategorize = catChanges.transactions
+  const toCategorize = catChanges.documents
     .filter(t => t.cozyCategoryId === undefined)
   try {
     if (toCategorize.length > 0) {
@@ -67,7 +67,7 @@ const onOperationCreate = async () => {
     }
   }
 
-  await launchNotifications(setting, notifChanges.transactions)
+  await launchNotifications(setting, notifChanges.documents)
 
   setting.notifications.lastSeq =
     catLastSeq === setting.categorization.lastSeq
