@@ -14,17 +14,11 @@ import {
   maxBy,
   sortBy
 } from 'lodash'
+import { parse as parseDate } from 'date-fns'
 import { getFilteredAccounts } from 'ducks/filters'
 import BarBalance from 'components/BarBalance'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import flag from 'cozy-flags'
-import {
-  isBefore as isDateBefore,
-  isAfter as isDateAfter,
-  endOfToday,
-  parse as parseDate,
-  subMonths
-} from 'date-fns'
 
 import {
   getTransactionsFilteredByAccount,
@@ -44,8 +38,6 @@ import { Breadcrumb } from 'components/Breadcrumb'
 import BackButton from 'components/BackButton'
 
 import { HistoryChart } from 'ducks/balance/History'
-import historyData from 'ducks/balance/history_data.json'
-import { getBalanceHistories } from 'ducks/balance/helpers'
 
 import { TransactionTableHead, TransactionsWithSelection } from './Transactions'
 import styles from './TransactionsPage.styl'
@@ -228,27 +220,6 @@ class TransactionsPage extends Component {
     return balanceHistory
   }
 
-  getBalanceHistory() {
-    const balanceHistories = getBalanceHistories(
-      historyData['io.cozy.bank.accounts'],
-      historyData['io.cozy.bank.operations']
-    )
-    const balanceHistory = this.sortBalanceHistoryByDate(balanceHistories.all)
-
-    return balanceHistory
-  }
-
-  getChartData() {
-    const history = this.getBalanceHistory()
-    const today = endOfToday()
-    const twoMonthsAgo = subMonths(today, 2)
-    const data = history.filter(
-      h => isDateBefore(h.x, today) && isDateAfter(h.x, twoMonthsAgo)
-    )
-
-    return data
-  }
-
   render() {
     const {
       t,
@@ -312,20 +283,11 @@ class TransactionsPage extends Component {
     const filteringOnAccount =
       filteringDoc && filteringDoc._type === ACCOUNT_DOCTYPE
 
-    const chartData = this.getChartData()
-    const chartNbTicks = chartData.length
-    const chartIntervalBetweenPoints = 10
-
     return (
       <div className={styles.TransactionPage} ref={node => (this.root = node)}>
         {subcategoryName ? <BackButton /> : null}
         {flag('balance-history') && (
           <HistoryChart
-            data={chartData}
-            width={
-              isMobile ? chartNbTicks * chartIntervalBetweenPoints : '100%'
-            }
-            height={72}
             margin={{
               top: 10,
               bottom: 10,

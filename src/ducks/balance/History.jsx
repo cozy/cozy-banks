@@ -2,13 +2,21 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import * as d3 from 'd3'
-import { translate } from 'cozy-ui/react'
+import { translate, withBreakpoints } from 'cozy-ui/react'
 import { Figure } from 'components/Figure'
 import { sumBy } from 'lodash'
 import LineChart from 'components/Chart/LineChart'
 import styles from './History.styl'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import { format as formatDate } from 'date-fns'
+import historyData from 'ducks/balance/history_data.json'
+import { getBalanceHistories } from 'ducks/balance/helpers'
+import {
+  isBefore as isDateBefore,
+  isAfter as isDateAfter,
+  endOfToday,
+  subMonths
+} from 'date-fns'
 
 class History extends Component {
   getCurrentBalance() {
@@ -56,7 +64,36 @@ export class HistoryChart extends Component {
     )
   }
 
+  getBalanceHistory() {
+    const balanceHistories = getBalanceHistories(
+      historyData['io.cozy.bank.accounts'],
+      historyData['io.cozy.bank.operations']
+    )
+    const balanceHistory = this.sortBalanceHistoryByDate(balanceHistories.all)
+
+    return balanceHistory
+  }
+
+  getChartData() {
+    const history = this.getBalanceHistory()
+    const today = endOfToday()
+    const twoMonthsAgo = subMonths(today, 2)
+    const data = history.filter(
+      h => isDateBefore(h.x, today) && isDateAfter(h.x, twoMonthsAgo)
+    )
+
+    return data
+  }
+
   render() {
+    const data = this.getChartData()
+    const chartData = this.getChartData()
+    const chartNbTicks = chartData.length
+    const chartIntervalBetweenPoints = 10
+    const width = this.props.breakpoints.isMobile
+      ? chartNbTicks * chartIntervalBetweenPoints
+      : '100%'
+    const height = 72
     return (
       <div
         className={styles.HistoryChart}
@@ -74,15 +111,12 @@ export class HistoryChart extends Component {
             '0%': '#76b9f3',
             '100%': palette.dodgerBlue
           }}
-          margin={{
-            top: 20,
-            bottom: 10,
-            left: 16,
-            right: 16
-          }}
           pointFillColor="white"
           pointStrokeColor="rgba(255, 255, 255, 0.3)"
           getTooltipContent={this.getTooltipContent}
+          data={data}
+          width={width}
+          height={height}
           {...this.props}
         />
       </div>
@@ -90,4 +124,4 @@ export class HistoryChart extends Component {
   }
 }
 
-export default translate()(History)
+export default withBreakpoints()(translate()(History))
