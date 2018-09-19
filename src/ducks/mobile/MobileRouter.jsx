@@ -42,7 +42,7 @@ export const onLogout = async (store, cozyClient, replaceFn) => {
 
     if (__DEV__) {
       // eslint-disable-next-line no-console
-      console.warn('Resetted client')
+      console.info('Resetted client')
     }
   } catch (e) {
     if (__DEV__) {
