@@ -27,14 +27,12 @@ async function billsMatching() {
   const billsLastSeq = setting.billsMatching.billsLastSeq
   const billsChanges = await getDoctypeChanges(BILLS_DOCTYPE, billsLastSeq, isCreatedDoc)
 
-  if (billsLastSeq === billsChanges.newLastSeq) {
+  if (billsChanges.documents.length === 0) {
     log('info', 'No new bills since last execution')
   } else {
     log('info', `${billsChanges.documents.length} new bills since last execution. Trying to find transactions for them`)
 
     await matchFromBills(billsChanges.documents)
-
-    setting.billsMatching.billsLastSeq = billsChanges.newLastSeq
   }
 
   const transactionsLastSeq = setting.billsMatching.transactionsLastSeq
@@ -44,16 +42,16 @@ async function billsMatching() {
     isCreatedDoc
   )
 
-  if (transactionsLastSeq === transactionsChanges.newLastSeq) {
+  if (transactionsChanges.documents.length === 0) {
     log('info', 'No new operations since last execution')
   } else {
     log('info', `${transactionsChanges.documents.length} new transactions since last execution. Trying to find bills for them`)
 
     await matchFromTransactions(transactionsChanges.documents)
-
-    setting.billsMatching.transactionsLastSeq = transactionsChanges.newLastSeq
   }
 
+  setting.billsMatching.billsLastSeq = billsChanges.newLastSeq
+  setting.billsMatching.transactionsLastSeq = transactionsChanges.newLastSeq
   await saveSetting(setting)
 }
 
