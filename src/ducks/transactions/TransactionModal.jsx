@@ -45,6 +45,7 @@ import {
 } from 'ducks/account/helpers'
 import { TRANSACTION_DOCTYPE } from 'doctypes'
 import { isCollectionLoading } from 'ducks/client/utils'
+import flag from 'cozy-flags'
 
 const Separator = () => <hr className={styles.TransactionModalSeparator} />
 
@@ -141,8 +142,13 @@ class TransactionModal extends Component {
               {
                 label: t('Transactions.infos.institution'),
                 value: getAccountInstitutionLabel(account)
+              },
+              {
+                label: t('Transactions.infos.originalBankLabel'),
+                value:
+                  flag('originalBankLabel') && transaction.originalBankLabel
               }
-            ]}
+            ].filter(x => x.value)}
           />
         </TransactionModalRow>
         <Separator />

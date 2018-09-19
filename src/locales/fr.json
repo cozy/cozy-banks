@@ -135,7 +135,8 @@
     },
     "infos": {
       "account": "Compte",
-      "institution": "Banque"
+      "institution": "Banque",
+      "originalBankLabel": "Libellé original"
     },
     "see-more": "Voir plus..."
   },
