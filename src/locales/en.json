@@ -309,7 +309,8 @@
     },
     "infos": {
       "account": "Account",
-      "institution": "Bank"
+      "institution": "Bank",
+      "originalBankLabel": "Original label"
     },
     "see-more": "See more..."
   },
