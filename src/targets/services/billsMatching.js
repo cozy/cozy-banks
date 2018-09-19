@@ -9,6 +9,7 @@ import isCreatedDoc from 'utils/isCreatedDoc'
 import { BILLS_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
 import { flatten } from 'lodash'
 import matchFromBills from 'ducks/billsMatching/matchFromBills'
+import matchFromTransactions from 'ducks/billsMatching/matchFromTransactions'
 
 process.on('uncaughtException', err => {
   log('warn', JSON.stringify(err.stack))
@@ -34,6 +35,23 @@ async function billsMatching() {
     await matchFromBills(billsChanges.documents)
 
     setting.billsMatching.billsLastSeq = billsChanges.newLastSeq
+  }
+
+  const transactionsLastSeq = setting.billsMatching.transactionsLastSeq
+  const transactionsChanges = await getDoctypeChanges(
+    TRANSACTION_DOCTYPE,
+    transactionsLastSeq,
+    isCreatedDoc
+  )
+
+  if (transactionsLastSeq === transactionsChanges.newLastSeq) {
+    log('info', 'No new operations since last execution')
+  } else {
+    log('info', `${transactionsChanges.documents.length} new transactions since last execution. Trying to find bills for them`)
+
+    await matchFromTransactions(transactionsChanges.documents)
+
+    setting.billsMatching.transactionsLastSeq = transactionsChanges.newLastSeq
   }
 
   await saveSetting(setting)
