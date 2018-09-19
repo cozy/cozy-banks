@@ -17,6 +17,7 @@ export const initBar = (url, accessToken, options = {}) => {
   cozy.bar.init({
     appName: 'Banks',
     appEditor: 'Cozy',
+    appSlug: 'banks',
     cozyURL: url,
     token: accessToken,
     iconPath: require('targets/favicons/icon-banks.svg'),
