@@ -63,7 +63,7 @@ class MyComponent extends Component {
 
 ```
 class MyComponent extends Component {
-  this.onClick = (ev) => {
+  onClick = (ev) => {
     ...
   }
 }
