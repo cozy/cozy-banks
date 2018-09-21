@@ -35,7 +35,7 @@ class MyComponent extends Component {
 
 ```
 class MyComponent extends Component {
-  this.state = { counter: 0 }
+  state = { counter: 0 }
 }
 ```
 
