@@ -81,7 +81,7 @@
     "babel-cli": "6.26.0",
     "babel-core": "6.26.3",
     "babel-eslint": "8.2.6",
-    "babel-jest": "23.0.1",
+    "babel-jest": "23.6.0",
     "babel-loader": "7.1.5",
     "babel-plugin-date-fns": "^0.2.1",
     "babel-plugin-transform-class-properties": "6.24.1",
