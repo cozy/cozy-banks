@@ -57,6 +57,8 @@ deploy "grrecette.cozy.works" $JOB_UPDATE_INT $APP_SLUG
 echo "Deploying $APP_SLUG on gangsters:"
 deploy "gangsters.cozy.rocks" $JOB_UPDATE_STAGING $APP_SLUG
 
-APP_SLUG_DEV=${APP_SLUG}"-dev"
-echo "Deploying $APP_SLUG_DEV on flo2:"
-deploy "flo2.mycozy.cloud" $JOB_UPDATE_PROD $APP_SLUG_DEV
+echo "Deploying $APP_SLUG on flo2:"
+deploy "flo2.mycozy.cloud" $JOB_UPDATE_PROD $APP_SLUG
+
+echo "Deploying $APP_SLUG on flottt:"
+deploy "flottt.cozy.rocks" $JOB_UPDATE_PROD $APP_SLUG
