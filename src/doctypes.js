@@ -14,7 +14,8 @@ export const offlineDoctypes = [
   ACCOUNT_DOCTYPE,
   GROUP_DOCTYPE,
   TRANSACTION_DOCTYPE,
-  SETTINGS_DOCTYPE
+  SETTINGS_DOCTYPE,
+  BILLS_DOCTYPE
 ]
 
 class HasManyBills extends HasManyInPlace {
