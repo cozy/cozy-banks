@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import cx from 'classnames'
 import styles from './style.styl'
 import arrowLeftIcon from 'assets/icons/icon-arrow-left.svg'
-import palette from 'cozy-ui/stylus/settings/palette.json'
+import palette from 'cozy-ui/react/palette'
 import { Icon } from 'cozy-ui/react'
 
 const BreadcrumbSeparator = () => (

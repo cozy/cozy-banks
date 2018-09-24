@@ -3,7 +3,7 @@ import * as d3 from 'd3'
 import { withBreakpoints } from 'cozy-ui/react'
 import LineChart from 'components/Chart/LineChart'
 import styles from './History.styl'
-import palette from 'cozy-ui/stylus/settings/palette.json'
+import palette from 'cozy-ui/react/palette'
 import { format as formatDate } from 'date-fns'
 import historyData from 'ducks/balance/history_data.json'
 import {

@@ -11,7 +11,7 @@ import AddAccountLink from 'ducks/settings/AddAccountLink'
 import calculator from 'assets/icons/icon-calculator.svg'
 import watch from 'assets/icons/icon-watch.svg'
 import cozy from 'assets/icons/icon-cozy.svg'
-import palette from 'cozy-ui/stylus/settings/palette.json'
+import palette from 'cozy-ui/react/palette'
 import { triggersConn } from 'doctypes'
 import { isCollectionLoading } from 'ducks/client/utils'
 

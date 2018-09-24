@@ -8,7 +8,7 @@ import {
   Badge,
   withBreakpoints
 } from 'cozy-ui/react'
-import palette from 'cozy-ui/stylus/settings/palette.json'
+import palette from 'cozy-ui/react/palette'
 import { isHealthExpense } from 'ducks/categories/helpers'
 import allBrands from 'ducks/brandDictionary/brands.json'
 import { BillComponent } from './BillAction'

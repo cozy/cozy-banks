@@ -9,7 +9,7 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import palette from 'cozy-ui/stylus/settings/palette.json'
+import palette from 'cozy-ui/react/palette'
 import { findMatchingActions } from './actions'
 
 // TODO delete or rename this variable (see https://gitlab.cozycloud.cc/labs/cozy-bank/merge_requests/237)

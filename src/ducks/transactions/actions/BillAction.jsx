@@ -10,7 +10,7 @@ import AugmentedModal from 'components/AugmentedModal'
 import flag from 'cozy-flags'
 import styles from '../TransactionActions.styl'
 import { TransactionModalRow } from '../TransactionModal'
-import palette from 'cozy-ui/stylus/settings/palette.json'
+import palette from 'cozy-ui/react/palette'
 
 const name = 'bill'
 
