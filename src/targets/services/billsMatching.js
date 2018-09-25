@@ -24,7 +24,14 @@ log('info', `COZY_URL: ${process.env.COZY_URL}`)
 async function billsMatching() {
   const setting = await readSetting()
 
-  const billsLastSeq = setting.billsMatching.billsLastSeq
+  if (!setting.billsMatching) {
+    setting.billsMatching = {
+      billsLastSeq: '0',
+      transactionsLastSeq: '0'
+    }
+  }
+
+  const billsLastSeq = setting.billsMatching.billsLastSeq || '0'
   const billsChanges = await getDoctypeChanges(BILLS_DOCTYPE, billsLastSeq, isCreatedDoc)
 
   if (billsChanges.documents.length === 0) {
@@ -35,7 +42,7 @@ async function billsMatching() {
     await matchFromBills(billsChanges.documents)
   }
 
-  const transactionsLastSeq = setting.billsMatching.transactionsLastSeq
+  const transactionsLastSeq = setting.billsMatching.transactionsLastSeq || '0'
   const transactionsChanges = await getDoctypeChanges(
     TRANSACTION_DOCTYPE,
     transactionsLastSeq,
