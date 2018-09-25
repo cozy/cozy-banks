@@ -1,14 +1,9 @@
 const includes = require('lodash/includes')
-const some = require('lodash/some')
 const sumBy = require('lodash/sumBy')
 const isWithinRange = require('date-fns/is_within_range')
 const { getBrands } = require('ducks/brandDictionary')
 
-const {
-  getIdentifiers,
-  getDateRangeFromBill,
-  getAmountRangeFromBill
-} = require('./helpers')
+const { getDateRangeFromBill, getAmountRangeFromBill } = require('./helpers')
 
 // constants
 
