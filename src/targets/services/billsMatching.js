@@ -10,6 +10,7 @@ import { BILLS_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
 import { flatten } from 'lodash'
 import matchFromBills from 'ducks/billsMatching/matchFromBills'
 import matchFromTransactions from 'ducks/billsMatching/matchFromTransactions'
+import { logResult } from 'ducks/billsMatching/utils'
 
 process.on('uncaughtException', err => {
   log('warn', JSON.stringify(err.stack))
@@ -35,11 +36,12 @@ async function billsMatching() {
   const billsChanges = await getDoctypeChanges(BILLS_DOCTYPE, billsLastSeq, isCreatedDoc)
 
   if (billsChanges.documents.length === 0) {
-    log('info', 'No new bills since last execution')
+    log('info', '[matching service] No new bills since last execution')
   } else {
-    log('info', `${billsChanges.documents.length} new bills since last execution. Trying to find transactions for them`)
+    log('info', `[matching service] ${billsChanges.documents.length} new bills since last execution. Trying to find transactions for them`)
 
-    await matchFromBills(billsChanges.documents)
+    const result = await matchFromBills(billsChanges.documents)
+    logResult(result)
   }
 
   const transactionsLastSeq = setting.billsMatching.transactionsLastSeq || '0'
@@ -50,11 +52,16 @@ async function billsMatching() {
   )
 
   if (transactionsChanges.documents.length === 0) {
-    log('info', 'No new operations since last execution')
+    log('info', '[matching service] No new operations since last execution')
   } else {
-    log('info', `${transactionsChanges.documents.length} new transactions since last execution. Trying to find bills for them`)
+    log('info', `[matching service] ${transactionsChanges.documents.length} new transactions since last execution. Trying to find bills for them`)
 
-    await matchFromTransactions(transactionsChanges.documents)
+    try {
+      const result = await matchFromTransactions(transactionsChanges.documents)
+      logResult(result)
+    } catch (e) {
+      log('error', `[matching service] ${e}`)
+    }
   }
 
   setting.billsMatching.billsLastSeq = billsChanges.newLastSeq
