@@ -30,7 +30,7 @@
  *
  * @module filterData
  */
-const { cozyClient } = require('cozy-konnector-libs')
+const { cozyClient, log } = require('cozy-konnector-libs')
 const groupBy = require('lodash/groupBy')
 const keyBy = require('lodash/keyBy')
 const sortBy = require('lodash/sortBy')
@@ -253,6 +253,28 @@ const batchDelete = async (doctype, documents) => {
 
 const getBillDate = bill => bill.originalDate || bill.date
 
+const logResult = matchingResult => {
+  Object.entries(matchingResult).forEach(([key, value]) => {
+    if (value.debitOperation) {
+      log(
+        'info',
+        `Bill ${key} matched with transaction ${
+          value.debitOperation._id
+        } (debit)`
+      )
+    }
+
+    if (value.creditOperation) {
+      log(
+        'info',
+        `Bill ${key} matched with transaction ${
+          value.creditOperation._id
+        } (credit)`
+      )
+    }
+  })
+}
+
 module.exports = {
   fetchAll,
   queryAll,
@@ -260,5 +282,6 @@ module.exports = {
   sortBillsByLinkedOperationNumber,
   batchUpdateAttributes,
   batchDelete,
-  getBillDate
+  getBillDate,
+  logResult
 }
