@@ -158,7 +158,7 @@
     "cozy-konnector-libs": "^3.0.13",
     "cozy-pouch-link": "^2.22.1",
     "cozy-stack-client": "^2.22.1",
-    "cozy-ui": "^10.4.4",
+    "cozy-ui": "^11.0.0",
     "d3": "^5.5.0",
     "date-fns": "^1.28.2",
     "fastclick": "^1.0.6",
