@@ -31,10 +31,10 @@ import { getAccountInstitutionLabel } from 'ducks/account/helpers'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
 import History from './History'
 import historyData from './history_data.json'
-import { getBalanceHistories } from './helpers'
+import { getBalanceHistories, sortBalanceHistoryByDate } from './helpers'
 import { buildVirtualGroups } from 'ducks/groups/helpers'
 import sma from 'sma'
-import { parse as parseDate, format as formatDate } from 'date-fns'
+import { format as formatDate } from 'date-fns'
 
 import styles from './Balance.styl'
 import btnStyles from 'styles/buttons.styl'
@@ -283,23 +283,12 @@ class Balance extends React.Component {
     this.props.router.push('/transactions')
   }
 
-  sortBalanceHistoryByDate(history) {
-    const balanceHistory = sortBy(Object.entries(history), ([date]) => date)
-      .reverse()
-      .map(([date, balance]) => ({
-        x: parseDate(date),
-        y: balance
-      }))
-
-    return balanceHistory
-  }
-
   getBalanceHistory() {
     const balanceHistories = getBalanceHistories(
       historyData['io.cozy.bank.accounts'],
       historyData['io.cozy.bank.operations']
     )
-    const balanceHistory = this.sortBalanceHistoryByDate(balanceHistories.all)
+    const balanceHistory = sortBalanceHistoryByDate(balanceHistories.all)
 
     return balanceHistory
   }

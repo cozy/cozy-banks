@@ -1,10 +1,11 @@
-import { flatten, groupBy, sumBy, uniq } from 'lodash'
+import { flatten, groupBy, sumBy, uniq, sortBy } from 'lodash'
 import {
   min as getEarliestDate,
   isAfter as isDateAfter,
   isEqual as isDateEqual,
   subDays,
   startOfToday,
+  parse as parseDate,
   format as formatDate
 } from 'date-fns'
 
@@ -76,4 +77,15 @@ const sumAllBalancesByDate = accountsBalances => {
   }
 
   return balances
+}
+
+export const sortBalanceHistoryByDate = history => {
+  const balanceHistory = sortBy(Object.entries(history), ([date]) => date)
+    .reverse()
+    .map(([date, balance]) => ({
+      x: parseDate(date),
+      y: balance
+    }))
+
+  return balanceHistory
 }

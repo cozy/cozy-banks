@@ -11,10 +11,8 @@ import {
   find,
   findLast,
   uniq,
-  maxBy,
-  sortBy
+  maxBy
 } from 'lodash'
-import { parse as parseDate } from 'date-fns'
 import { getFilteredAccounts } from 'ducks/filters'
 import BarBalance from 'components/BarBalance'
 import { translate, withBreakpoints } from 'cozy-ui/react'
@@ -37,7 +35,7 @@ import Loading from 'components/Loading'
 import { Breadcrumb } from 'components/Breadcrumb'
 import BackButton from 'components/BackButton'
 
-import { HistoryChart } from 'ducks/balance/History'
+import HistoryChart from 'ducks/balance/HistoryChart'
 
 import { TransactionTableHead, TransactionsWithSelection } from './Transactions'
 import styles from './TransactionsPage.styl'
@@ -207,17 +205,6 @@ class TransactionsPage extends Component {
     if (scrollInfo.scroll > SCROLL_THRESOLD_TO_ACTIVATE_TOP_INFINITE_SCROLL) {
       this.setState({ infiniteScrollTop: true })
     }
-  }
-
-  sortBalanceHistoryByDate(history) {
-    const balanceHistory = sortBy(Object.entries(history), ([date]) => date)
-      .reverse()
-      .map(([date, balance]) => ({
-        x: parseDate(date),
-        y: balance
-      }))
-
-    return balanceHistory
   }
 
   render() {
