@@ -23,7 +23,7 @@ process.on('unhandledRejection', err => {
 log('info', `COZY_URL: ${process.env.COZY_URL}`)
 
 async function billsMatching() {
-  const setting = await readSetting()
+  let setting = await readSetting()
 
   if (!setting.billsMatching) {
     setting.billsMatching = {
@@ -35,6 +35,9 @@ async function billsMatching() {
   const billsLastSeq = setting.billsMatching.billsLastSeq || '0'
   const billsChanges = await getDoctypeChanges(BILLS_DOCTYPE, billsLastSeq, isCreatedDoc)
 
+  setting.billsMatching.billsLastSeq = billsChanges.newLastSeq
+  await saveSetting(setting)
+
   if (billsChanges.documents.length === 0) {
     log('info', '[matching service] No new bills since last execution')
   } else {
@@ -45,11 +48,17 @@ async function billsMatching() {
   }
 
   const transactionsLastSeq = setting.billsMatching.transactionsLastSeq || '0'
+
   const transactionsChanges = await getDoctypeChanges(
     TRANSACTION_DOCTYPE,
     transactionsLastSeq,
     isCreatedDoc
   )
+
+  setting = await readSetting()
+  setting.billsMatching.transactionsLastSeq = transactionsChanges.newLastSeq
+
+  await saveSetting(setting)
 
   if (transactionsChanges.documents.length === 0) {
     log('info', '[matching service] No new operations since last execution')
@@ -63,10 +72,6 @@ async function billsMatching() {
       log('error', `[matching service] ${e}`)
     }
   }
-
-  setting.billsMatching.billsLastSeq = billsChanges.newLastSeq
-  setting.billsMatching.transactionsLastSeq = transactionsChanges.newLastSeq
-  await saveSetting(setting)
 }
 
 billsMatching()
