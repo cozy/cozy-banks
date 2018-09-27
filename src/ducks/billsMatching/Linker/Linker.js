@@ -18,10 +18,6 @@ const DEFAULT_AMOUNT_DELTA = 0.001
 export const DEFAULT_PAST_WINDOW = 15
 export const DEFAULT_FUTURE_WINDOW = 29
 
-const fmtDate = function(x) {
-  return new Date(x).toISOString().substr(0, 10)
-}
-
 export default class Linker {
   constructor(cozyClient) {
     this.cozyClient = cozyClient
@@ -63,21 +59,55 @@ export default class Linker {
     }
   }
 
-  addBillToOperation(bill, operation) {
+  async getBillsSum(operation) {
+    if (!operation.bills) {
+      return 0
+    }
+
+    const billIds = operation.bills.map(bill => bill.split(':')[1])
+    const bills = await Promise.all(
+      billIds.map(billId => cozyClient.data.find('io.cozy.bills', billId))
+    )
+
+    const sum = sumBy(bills, bill => bill.amount)
+
+    return sum
+  }
+
+  async isBillAmountOverflowingOperationAmount(bill, operation) {
+    const currentBillsSum = await this.getBillsSum(operation)
+    const newSum = currentBillsSum + bill.amount
+    const isOverflowing = newSum > Math.abs(operation.amount)
+
+    return isOverflowing
+  }
+
+  async addBillToOperation(bill, operation) {
     if (!bill._id) {
       log('warn', 'bill has no id, impossible to add it to an operation')
-      return Promise.resolve()
+      return false
     }
     const billId = `io.cozy.bills:${bill._id}`
     if (operation.bills && operation.bills.indexOf(billId) > -1) {
-      return Promise.resolve()
+      return false
+    }
+
+    const isOverflowing = await this.isBillAmountOverflowingOperationAmount(
+      bill,
+      operation
+    )
+
+    if (isOverflowing) {
+      return false
     }
 
     const billIds = operation.bills || []
     billIds.push(billId)
     const attributes = { bills: billIds }
 
-    return this.updateAttributes(DOCTYPE_OPERATIONS, operation, attributes)
+    this.updateAttributes(DOCTYPE_OPERATIONS, operation, attributes)
+
+    return true
   }
 
   addReimbursementToOperation(bill, debitOperation, matchingOperation) {
@@ -160,13 +190,6 @@ export default class Linker {
       promises.push(this.addBillToOperation(bill, creditOperation))
     }
     if (creditOperation && debitOperation) {
-      log(
-        'debug',
-        `reimbursement: Matching bill ${bill.subtype ||
-          bill.filename} (${fmtDate(bill.date)}) with credit operation ${
-          creditOperation.label
-        } (${fmtDate(creditOperation.date)})`
-      )
       promises.push(
         this.addReimbursementToOperation(bill, debitOperation, creditOperation)
       )
@@ -185,15 +208,9 @@ export default class Linker {
       allOperations
     ).then(operation => {
       if (operation) {
-        log(
-          'debug',
-          `bills: Matching bill ${bill.subtype || bill.filename} (${fmtDate(
-            bill.date
-          )}) with debit operation ${operation.label} (${fmtDate(
-            operation.date
-          )})`
+        return this.addBillToOperation(bill, operation).then(
+          addResult => addResult && operation
         )
-        return this.addBillToOperation(bill, operation).then(() => operation)
       }
     })
   }

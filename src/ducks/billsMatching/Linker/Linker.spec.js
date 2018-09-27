@@ -191,11 +191,66 @@ describe('linker', () => {
     })
   })
 
+  describe('getBillsSum', () => {
+    it('should return the right sum', async () => {
+      const operation = {
+        bills: ['io.cozy.bills:b1', 'io.cozy.bills:b2']
+      }
+
+      const b1 = { amount: 10 }
+      const b2 = { amount: 20 }
+
+      cozyClient.data.find
+        .mockReturnValueOnce(Promise.resolve(b1))
+        .mockReturnValueOnce(Promise.resolve(b2))
+
+      const sum = await linker.getBillsSum(operation)
+
+      expect(sum).toBe(30)
+    })
+  })
+
+  describe('isBillAmountOverflowingOperationAmount', () => {
+    test('return false if the bills sum does not overflow the operation amount', async () => {
+      const operation = { amount: -20 }
+      linker.getBillsSum = jest.fn().mockReturnValue(0)
+
+      const bill = { amount: 10 }
+
+      const result = await linker.isBillAmountOverflowingOperationAmount(
+        bill,
+        operation
+      )
+
+      expect(result).toBe(false)
+    })
+
+    test('return true if the bills sum overflows the operation amount', async () => {
+      const operation = { amount: -20 }
+      linker.getBillsSum = jest.fn().mockReturnValue(15)
+
+      const bill = { amount: 10 }
+
+      const result = await linker.isBillAmountOverflowingOperationAmount(
+        bill,
+        operation
+      )
+
+      expect(result).toBe(true)
+    })
+  })
+
   describe('addBillToOperation', () => {
-    test('operation without bills', () => {
+    beforeEach(() => {
+      linker.isBillAmountOverflowingOperationAmount = jest
+        .fn()
+        .mockReturnValue(false)
+    })
+
+    test('operation without bills', async () => {
       const operation = { _id: 123456 }
 
-      linker.addBillToOperation(bill, operation)
+      await linker.addBillToOperation(bill, operation)
 
       expect(linker.updateAttributes).lastCalledWith(
         'io.cozy.bank.operations',
@@ -206,10 +261,10 @@ describe('linker', () => {
       )
     })
 
-    test('operation with bills', () => {
+    test('operation with bills', async () => {
       const operation = { _id: 12345, bills: ['bill1'] }
 
-      linker.addBillToOperation(bill, operation)
+      await linker.addBillToOperation(bill, operation)
 
       expect(linker.updateAttributes).lastCalledWith(
         'io.cozy.bank.operations',
@@ -290,6 +345,12 @@ describe('linker', () => {
   })
 
   describe('linkBillsToOperations', () => {
+    beforeEach(() => {
+      linker.isBillAmountOverflowingOperationAmount = jest
+        .fn()
+        .mockReturnValue(false)
+    })
+
     const tests = [
       {
         description: 'health bills with both credit and debit',
