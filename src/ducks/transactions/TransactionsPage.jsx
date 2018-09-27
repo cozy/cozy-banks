@@ -24,20 +24,16 @@ import {
   getFilteredTransactions
 } from 'ducks/filters'
 
-import { ConnectedSelectDates } from 'components/SelectDates'
-import TransactionSelectDates from 'ducks/transactions/TransactionSelectDates'
 import { getAppUrlById } from 'selectors'
 import { getCategoryIdFromName } from 'ducks/categories/categoriesMap'
 import { getDate } from 'ducks/transactions/helpers'
 import { getCategoryId } from 'ducks/categories/helpers'
 
 import Loading from 'components/Loading'
-import { Breadcrumb } from 'components/Breadcrumb'
-import BackButton from 'components/BackButton'
-
 import HistoryChart from 'ducks/balance/HistoryChart'
 
 import { TransactionTableHead, TransactionsWithSelection } from './Transactions'
+import TransactionHeader from './TransactionHeader'
 import styles from './TransactionsPage.styl'
 import {
   ACCOUNT_DOCTYPE,
@@ -50,7 +46,6 @@ import {
 } from 'doctypes'
 
 import { getBrands } from 'ducks/brandDictionary'
-import { AccountSwitch } from 'ducks/account'
 import { isIOSApp } from 'cozy-device-helper'
 import { getKonnectorFromTrigger } from 'utils/triggers'
 import { queryConnect } from 'cozy-client'
@@ -207,142 +202,136 @@ class TransactionsPage extends Component {
     }
   }
 
-  render() {
+  getTransactions = () => {
     const {
-      t,
-      urls,
-      router,
-      triggers,
-      filteringDoc,
-      filteredAccounts,
-      transactions,
-      breakpoints: { isMobile }
+      filteredTransactions,
+      router: {
+        params: { subcategoryName }
+      }
     } = this.props
 
-    if (isCollectionLoading(transactions)) {
-      return <Loading loadingType="movements" />
+    if (!subcategoryName) {
+      return filteredTransactions
     }
 
-    let { filteredTransactions } = this.props
+    const categoryId = getCategoryIdFromName(subcategoryName)
+    return filteredTransactions.filter(
+      transaction => getCategoryId(transaction) === categoryId
+    )
+  }
 
-    if (this.state.fetching) {
-      return <Loading loadingType="movements" />
+  getBrandsWithoutTrigger = () => {
+    const { triggers } = this.props
+
+    if (isCollectionLoading(triggers)) {
+      return []
     }
 
-    let brandsWithoutTrigger = []
-    if (!isCollectionLoading(triggers)) {
-      const slugs = this.getKonnectorSlugs(triggers.data)
-      const isBrandKonnectorAbsent = brand =>
-        !includes(slugs, brand.konnectorSlug)
-      brandsWithoutTrigger = getBrands(isBrandKonnectorAbsent)
-    }
+    const slugs = this.getKonnectorSlugs(triggers.data)
+    const isBrandKonnectorAbsent = brand =>
+      !includes(slugs, brand.konnectorSlug)
 
-    // filter by category TODO
-    const subcategoryName = router.params.subcategoryName
-    if (subcategoryName) {
-      const categoryId = getCategoryIdFromName(subcategoryName)
-      filteredTransactions = filteredTransactions.filter(
-        transaction => getCategoryId(transaction) === categoryId
-      )
-    }
+    return getBrands(isBrandKonnectorAbsent)
+  }
 
-    // Create Breadcrumb
-    let breadcrumbItems
-    if (subcategoryName) {
-      const categoryName = router.params.categoryName
-      breadcrumbItems = [
-        {
-          name: t('Categories.title.general'),
-          onClick: () => router.push('/categories')
-        },
-        {
-          name: t(`Data.categories.${categoryName}`),
-          onClick: () => router.push(`/categories/${categoryName}`)
-        },
-        {
-          name: t(`Data.subcategories.${subcategoryName}`)
-        }
-      ]
-    } else {
-      breadcrumbItems = [{ name: t('Transactions.title') }]
-    }
+  getFilteringOnAccount = () => {
+    const { filteringDoc } = this.props
 
-    const filteringOnAccount =
-      filteringDoc && filteringDoc._type === ACCOUNT_DOCTYPE
+    return filteringDoc && filteringDoc._type === ACCOUNT_DOCTYPE
+  }
+
+  displayBalanceHistory = () => {
+    if (!flag('balance-history')) {
+      return
+    }
 
     return (
-      <div className={styles.TransactionPage} ref={node => (this.root = node)}>
-        {subcategoryName ? <BackButton /> : null}
-        {flag('balance-history') && (
-          <HistoryChart
-            margin={{
-              top: 10,
-              bottom: 10,
-              left: 16,
-              right: 16
-            }}
+      <HistoryChart
+        margin={{
+          top: 10,
+          bottom: 10,
+          left: 16,
+          right: 16
+        }}
+      />
+    )
+  }
+
+  displayTransactions = () => {
+    const { limitMin, limitMax, infiniteScrollTop } = this.state
+    const { t, urls, breakpoints, router } = this.props
+    const transations = this.getTransactions()
+
+    if (transations.length === 0) {
+      return <p>{t('Transactions.no-movements')}</p>
+    }
+
+    return (
+      <div>
+        {!breakpoints.isMobile && (
+          <TransactionTableHead
+            mainColumnTitle={t(
+              router.params.subcategoryName
+                ? 'Categories.headers.movements'
+                : 'Transactions.header.description'
+            )}
           />
         )}
-        <div className={styles.TransactionPage__top}>
-          <AccountSwitch small={subcategoryName !== undefined} />
-          {isMobile && (
-            <BarRight>
-              <BarBalance accounts={filteredAccounts} />
-            </BarRight>
-          )}
-          {!subcategoryName ? (
-            <TransactionSelectDates
-              transactions={filteredTransactions}
-              value={this.state.currentMonth}
-              onChange={this.handleChangeMonth}
-            />
-          ) : (
-            <ConnectedSelectDates showFullYear />
-          )}
-          {!isMobile &&
-            breadcrumbItems.length > 1 && (
-              <Breadcrumb
-                items={breadcrumbItems}
-                className={styles.TransactionPage__Breadcrumb}
-              />
-            )}
-          {filteredTransactions.length > 0 ? (
-            !isMobile && (
-              <TransactionTableHead
-                mainColumnTitle={t(
-                  subcategoryName
-                    ? 'Categories.headers.movements'
-                    : 'Transactions.header.description'
-                )}
-              />
-            )
-          ) : (
-            <p>{t('Transactions.no-movements')}</p>
-          )}
-        </div>
         <div
           className={
             styles.TransactionPage__bottom + ' js-transactionPageBottom'
           }
         >
-          {filteredTransactions.length > 0 && (
-            <TransactionsWithSelection
-              className={styles.TransactionPage__top}
-              limitMin={this.state.limitMin}
-              limitMax={this.state.limitMax}
-              onReachTop={this.handleDecreaseLimitMin}
-              onReachBottom={this.handleIncreaseLimitMax}
-              infiniteScrollTop={this.state.infiniteScrollTop}
-              onChangeTopMostTransaction={this.handleChangeTopmostTransaction}
-              onScroll={this.checkToActivateTopInfiniteScroll}
-              transactions={filteredTransactions}
-              urls={urls}
-              brands={brandsWithoutTrigger}
-              filteringOnAccount={filteringOnAccount}
-              manualLoadMore={isIOSApp()}
-            />
-          )}
+          {this.displayBalanceHistory()}
+          <TransactionsWithSelection
+            className={styles.TransactionPage__top}
+            limitMin={limitMin}
+            limitMax={limitMax}
+            onReachTop={this.handleDecreaseLimitMin}
+            onReachBottom={this.handleIncreaseLimitMax}
+            infiniteScrollTop={infiniteScrollTop}
+            onChangeTopMostTransaction={this.handleChangeTopmostTransaction}
+            onScroll={this.checkToActivateTopInfiniteScroll}
+            transactions={transations}
+            urls={urls}
+            brands={this.getBrandsWithoutTrigger()}
+            filteringOnAccount={this.getFilteringOnAccount()}
+            manualLoadMore={isIOSApp()}
+          />
         </div>
+      </div>
+    )
+  }
+
+  render() {
+    const {
+      accounts,
+      transactions,
+      breakpoints: { isMobile },
+      filteredAccounts
+    } = this.props
+
+    const isFetching = isCollectionLoading(transactions) || this.state.fetching
+    const filteredTransactions = this.getTransactions()
+
+    return (
+      <div className={styles.TransactionPage}>
+        <TransactionHeader
+          transactions={filteredTransactions}
+          handleChangeMonth={this.handleChangeMonth}
+          currentMonth={this.state.currentMonth}
+        />
+        {isMobile &&
+          !isCollectionLoading(accounts) && (
+            <BarRight>
+              <BarBalance accounts={filteredAccounts} />
+            </BarRight>
+          )}
+        {isFetching ? (
+          <Loading loadingType="movements" />
+        ) : (
+          this.displayTransactions()
+        )}
       </div>
     )
   }
