@@ -98,6 +98,7 @@ export default class Linker {
     )
 
     if (isOverflowing) {
+      // TODO send event to piwik
       log(
         'info',
         `Impossible to match bill ${bill._id} with transation ${
