@@ -272,10 +272,6 @@ const logResult = matchingResult => {
         } (credit)`
       )
     }
-
-    if (!value.debitOperation && !value.creditOperation) {
-      log('info', `Can't find a matching transaction for bill ${key}`)
-    }
   })
 }
 
