@@ -74,12 +74,17 @@ const onOperationCreate = async () => {
     }
   }
 
-  await launchNotifications(setting, notifChanges.documents)
+  // Send notifications
+  try {
+    await launchNotifications(setting, notifChanges.documents)
 
-  setting.notifications.lastSeq =
-    catLastSeq === setting.categorization.lastSeq
+    setting.notifications.lastSeq =
+      catLastSeq === setting.categorization.lastSeq
       ? notifChanges.newLastSeq
       : setting.categorization.lastSeq
+  } catch (e) {
+    log('warn', 'Error while sending notifications : ' + e)
+  }
 
   await saveSetting(setting)
 }
