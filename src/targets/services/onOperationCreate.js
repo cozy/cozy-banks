@@ -32,7 +32,8 @@ const onOperationCreate = async () => {
     return process.exit()
   }
 
-  // On filtre les transactions qui n'ont pas encore de catégorisation cozy
+  // Apply categorization models and send categorized transactions to
+  // the remote API if the user authorized it
   const toCategorize = catChanges.documents
     .filter(t => t.cozyCategoryId === undefined)
   try {
