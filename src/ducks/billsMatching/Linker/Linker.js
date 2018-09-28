@@ -98,6 +98,12 @@ export default class Linker {
     )
 
     if (isOverflowing) {
+      log(
+        'info',
+        `Impossible to match bill ${bill._id} with transation ${
+          operation._id
+        } because the linked bills amount would overflow the transaction amount`
+      )
       return false
     }
 
