@@ -563,7 +563,7 @@ agentkeepalive@^3.3.0:
 
 airbnb-prop-types@2.9.0:
   version "2.9.0"
-  resolved "http://registry.npmjs.org/airbnb-prop-types/-/airbnb-prop-types-2.9.0.tgz#fd440594b1b0cdddf487f62e007d0dba909f6beb"
+  resolved "https://registry.yarnpkg.com/airbnb-prop-types/-/airbnb-prop-types-2.9.0.tgz#fd440594b1b0cdddf487f62e007d0dba909f6beb"
   integrity sha512-f1zkSuIa6roqOIFcexOa5RPwxnA2n/OETPRXl4jtK2wx7LgcySISbXSVQ1v5O6DhW0xNIPWoWbvy4mndt0BWxQ==
   dependencies:
     array.prototype.find "^2.0.4"
@@ -3959,7 +3959,7 @@ cozy-jobs-cli@^1.5.1:
 
 cozy-konnector-libs@3.8.1:
   version "3.8.1"
-  resolved "http://registry.npmjs.org/cozy-konnector-libs/-/cozy-konnector-libs-3.8.1.tgz#c4f9d6c2df742023897691c8d0e257a516ec00cd"
+  resolved "https://registry.yarnpkg.com/cozy-konnector-libs/-/cozy-konnector-libs-3.8.1.tgz#c4f9d6c2df742023897691c8d0e257a516ec00cd"
   integrity sha512-mth70H1PwYc3xPPKNqzp/vKI3KarXwJZrAXOwsLLCwKBe/KjX7KBgvkUF0pVL2NzYd0TGvTiSShjni9NhSndIw==
   dependencies:
     babel-plugin-transform-object-rest-spread "^6.26.0"
@@ -14148,7 +14148,7 @@ react-redux@5.0.7, react-redux@^5.0.6:
 
 react-router@3.2.1:
   version "3.2.1"
-  resolved "http://registry.npmjs.org/react-router/-/react-router-3.2.1.tgz#b9a3279962bdfbe684c8bd0482b81ef288f0f244"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-3.2.1.tgz#b9a3279962bdfbe684c8bd0482b81ef288f0f244"
   integrity sha512-SXkhC0nr3G0ltzVU07IN8jYl0bB6FsrDIqlLC9dK3SITXqyTJyM7yhXlUqs89w3Nqi5OkXsfRUeHX+P874HQrg==
   dependencies:
     create-react-class "^15.5.1"
