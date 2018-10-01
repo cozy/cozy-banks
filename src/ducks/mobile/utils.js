@@ -15,6 +15,7 @@ export function resetClient(cozyClient) {
 
 export const initBar = (url, accessToken, options = {}) => {
   cozy.bar.init({
+    appNamePrefix: 'Cozy',
     appName: 'Banks',
     appEditor: 'Cozy',
     appSlug: 'banks',
