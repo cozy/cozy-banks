@@ -4604,22 +4604,23 @@ entities@^1.1.1, "entities@~ 1.1.1", entities@~1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/entities/-/entities-1.1.1.tgz#6e5c2d0a5621b5dadaecef80b90edfb5cd7772f0"
 
-enzyme-adapter-react-15@1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/enzyme-adapter-react-15/-/enzyme-adapter-react-15-1.0.6.tgz#c5748f5fb0746211d6e051f416e314ddeec488f1"
+enzyme-adapter-react-15@1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/enzyme-adapter-react-15/-/enzyme-adapter-react-15-1.1.1.tgz#6147557bbccf04a56094240ed3e3f2f7d3310acc"
   dependencies:
-    enzyme-adapter-utils "^1.4.0"
+    enzyme-adapter-utils "^1.8.0"
     object.assign "^4.1.0"
     object.values "^1.0.4"
-    prop-types "^15.6.0"
-    react-is "^16.4.1"
+    prop-types "^15.6.2"
+    react-is "^16.5.2"
 
-enzyme-adapter-utils@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/enzyme-adapter-utils/-/enzyme-adapter-utils-1.4.0.tgz#c403b81e8eb9953658569e539780964bdc98de62"
+enzyme-adapter-utils@^1.8.0:
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/enzyme-adapter-utils/-/enzyme-adapter-utils-1.8.1.tgz#a927d840ce2c14b42892a533aec836809d4e022b"
   dependencies:
+    function.prototype.name "^1.1.0"
     object.assign "^4.1.0"
-    prop-types "^15.6.0"
+    prop-types "^15.6.2"
 
 enzyme@3.6.0:
   version "3.6.0"
@@ -11729,7 +11730,7 @@ prop-types-exact@^1.1.2:
     has "^1.0.1"
     object.assign "^4.1.0"
 
-prop-types@15.6.2:
+prop-types@15.6.2, prop-types@^15.6.2:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
   dependencies:
@@ -12098,9 +12099,9 @@ react-input-autosize@^2.2.1:
   dependencies:
     prop-types "^15.5.8"
 
-react-is@^16.4.1:
-  version "16.4.1"
-  resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.4.1.tgz#d624c4650d2c65dbd52c72622bbf389435d9776e"
+react-is@^16.5.2:
+  version "16.5.2"
+  resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.5.2.tgz#e2a7b7c3f5d48062eb769fcb123505eb928722e3"
 
 react-markdown@^2.5.0:
   version "2.5.1"
