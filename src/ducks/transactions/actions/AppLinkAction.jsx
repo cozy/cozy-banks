@@ -1,5 +1,5 @@
 import React from 'react'
-import { capitalize, findKey } from 'lodash'
+import { capitalize, findKey, omit } from 'lodash'
 import { translate, ButtonAction } from 'cozy-ui/react'
 import icon from 'assets/icons/actions/icon-link-out.svg'
 import styles from '../TransactionActions.styl'
@@ -9,9 +9,11 @@ import palette from 'cozy-ui/stylus/settings/palette.json'
 const name = 'app'
 
 const getAppName = (urls, transaction) => {
+  const filteredUrls = omit(urls, ['COLLECT'])
+
   const label = transaction.label.toLowerCase()
   return findKey(
-    urls,
+    filteredUrls,
     (url, appName) => url && label.indexOf(appName.toLowerCase()) !== -1
   )
 }
