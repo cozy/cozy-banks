@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { Modal, Panel, IntentIframe } from 'cozy-ui/react'
+import { Modal, ModalDescription, Panel, IntentIframe } from 'cozy-ui/react'
 import ventePrivee from 'assets/vente-privee.png'
 import styles from './AugmentedModal.styl'
 import ventePriveeInfo from 'assets/venteprivee-info.png'
+import ventePriveeInfo2x from 'assets/venteprivee-info@2x.png'
 
 const { ModalBrandedHeader } = Modal
 
@@ -19,7 +20,21 @@ class Content extends Component {
           />
         </Panel.Main>
         <Panel.Side>
-          <img src={ventePriveeInfo} />
+          <div className={styles.FakeInfos}>
+            <a
+              href="https://secure.fr.vente-privee.com/authentication/portal/FR"
+              className={styles.FakeInfosLinkVendor}
+            />
+            <a
+              href="https://isabelledurand-drive.mycozy.cloud/#/folder/7aadd73f48591c0df263640687052a2d"
+              className={styles.FakeInfosLinkDrive}
+            />
+            <img
+              src={ventePriveeInfo}
+              srcSet={`${ventePriveeInfo2x} 2x`}
+              alt=""
+            />
+          </div>
         </Panel.Side>
       </Panel.Group>
     )
@@ -38,7 +53,9 @@ const AugmentedModal = ({ onClose, fileId }) => (
       logo={ventePrivee}
       style={{ marginBottom: 0 }}
     />
-    <Content fileId={fileId} />
+    <ModalDescription className={styles.AugmentedModalDescription}>
+      <Content fileId={fileId} />
+    </ModalDescription>
   </Modal>
 )
 
