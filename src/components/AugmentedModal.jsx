@@ -24,10 +24,14 @@ class Content extends Component {
             <a
               href="https://secure.fr.vente-privee.com/authentication/portal/FR"
               className={styles.FakeInfosLinkVendor}
+              target="_blank"
+              rel="noreferrer noopener"
             />
             <a
               href="https://isabelledurand-drive.mycozy.cloud/#/folder/7aadd73f48591c0df263640687052a2d"
               className={styles.FakeInfosLinkDrive}
+              target="_blank"
+              rel="noreferrer noopener"
             />
             <img
               src={ventePriveeInfo}
