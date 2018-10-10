@@ -2,12 +2,28 @@
 
 ## Table of Contents
 
+<!-- MarkdownTOC autolink=true -->
+
 - [Develop easily on mobile](#develop-easily-on-mobile)
 - [Important credentials](#important-credentials)
 - [Release](#release)
-  + [Signing](#signing)
-  + [Push iOS build](#push-ios-build)
+- [Git workflow](#git-workflow)
+- [Cozy registry](#cozy-registry)
+- [Mobile stores](#mobile-stores)
+    - [Pre-requisites](#pre-requisites)
+    - [Common](#common)
+    - [Fastlane](#fastlane)
+    - [iOS](#ios)
+        - [Signing](#signing)
+        - [Push iOS build](#push-ios-build)
+    - [Android](#android)
 - [Notifications](#notifications)
+    - [Developing the templates](#developing-the-templates)
+    - [Debug notification triggers](#debug-notification-triggers)
+    - [When creating a notification](#when-creating-a-notification)
+    - [Misc](#misc)
+
+<!-- /MarkdownTOC -->
 
 ## Develop easily on mobile
 
