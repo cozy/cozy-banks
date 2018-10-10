@@ -164,6 +164,12 @@ This will upload create a new version in the store, in the `beta` track that you
 
 ## Notifications
 
+### Developing the templates
+
+Check the following [README](../src/ducks/notifications/html)
+
+### Debug notification triggers
+
 To debug notifications, you have to launch a watch on the notifications.js and then
 launch it with `cozy-run-dev`.
 
@@ -199,7 +205,10 @@ docker run -p 1025:1025 -p 8025:8025 mailhog/mailhog
 The stack will send the emails through the SMTP port of MailHog and you
 will be able to see the mails in its web interface on http://localhost:8025.
 
-🖼 The PNG icons that are included in the emails are generated manually from the SVG via `scripts/icons-to-png.sh` and uploaded automatically to files.cozycloud.cc via Jenkins (which follows the file `files.cozycloud.cc` at the root of the repo).
+
+https://github.com/cozy/cozy-banks/tree/master/src/ducks/notifications/html
+
+### When creating a notification
 
 If you want to test the notifications in a workflow that is very close to the real one, you can import some fixtures to trigger the service execution. For that, you must open the `test/fixtures/operations-notifs.json` file and edit the following :
 
@@ -212,6 +221,11 @@ Then you can use [ACH] to import the fixtures :
 ```console
 ACH import test/fixtures/operations-notifs.json test/fixtures/helpers.js --url <instance_url>
 ```
+
+### Misc
+
+🖼 The PNG icons that are included in the emails are generated manually from the SVG via `scripts/icons-to-png.sh` and uploaded automatically to files.cozycloud.cc via Jenkins (which follows the file `files.cozycloud.cc` at the root of the repo).
+
 
 [pass]: https://www.passwordstore.org/
 [ACH]: https://github.com/cozy/ACH
