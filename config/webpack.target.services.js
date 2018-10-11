@@ -13,14 +13,20 @@ const mimerPath = require.resolve(path.join(SRC_DIR, 'ducks/notifications/vendor
 // Used to disable node modules we do not use
 const noop = require.resolve(path.join(SRC_DIR, 'ducks/notifications/noop'))
 
+const entries = {
+  onOperationCreate: path.resolve(SRC_DIR, './targets/services/onOperationCreate')
+}
+
+if (process.env.TEST_TEMPLATES) {
+  entries.testTemplates = path.resolve(SRC_DIR, './ducks/notifications/html/testTemplates.js')
+}
+
 module.exports = merge.strategy({
   plugins: 'replace',
   output: 'replace',
   entry: 'replace'
 })(base, ui, {
-  entry: {
-    onOperationCreate: path.resolve(SRC_DIR, './targets/services/onOperationCreate')
-  },
+  entry: entries,
   target: 'node',
   output: {
     path: path.resolve(__dirname, '../build'),
