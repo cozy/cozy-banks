@@ -1,22 +1,20 @@
-How to develop
+How to develop on templates
 ==============
 
-You can use `nodemon` to watch your development files as you develop the templates.
+With the `TEST_TEMPLATES` environment variable, a special CLI will be built
+that allows to test the templates with custom data.
 
-Example :
-
-```bash
-$ nodemon --exec "node accounts-notification.js" -e js,css,hbs,json
+```
+$ env TEST_TEMPLATES=true yarn watch:services
+# Will continuously build `build/testTemplates.js`
+$ node build/testTemplates.js -t balanceLower -d /tmp/balanceLowerData.json
+index.html written !
 ```
 
-This will launch `accounts-notifications.js` and relaunch it each time a
-Javascript file (`templates/index.js`), a CSS file (`style.css`), Handlebars
-files (every partial or template file) or JSON file (example data files in `data/`)
-is changed.
+You can open the generated HTML file in your browser or use the Preview feature
+in Mailchimp to check that everything is correctly rendered on the various email clients.
 
-The `accounts-notifications.js` runs the template `templates/accountsNotif.hbs` with
-some example data to create `index.html`. You can copy/paste `index.html` into Mailchimp
-and use its Preview feature to know how it will look on several email clients.
+### Under the covers
 
 The templates are [Handlebars](handlebarsjs.com) templates using the
 [mjml](https://mjml.io/documentation) language. `mjml` greatly reduces the pains to develop an

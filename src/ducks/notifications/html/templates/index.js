@@ -1,3 +1,7 @@
+/**
+ * Compiles the templates with helpers and partials
+ */
+
 const Handlebars = require('handlebars')
 const layouts = require('handlebars-layouts')
 const { parse, format } = require('date-fns')
