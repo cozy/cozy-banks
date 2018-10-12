@@ -5,7 +5,7 @@
         {{{ embedFile 'style.css' }}}
       </mj-style>
       <mj-style>
-        @media screen and (max-width: 420px) {
+        @media screen and (max-width: 480px) {
           .header__desc__title {
             text-align: center !important;
           }
@@ -24,8 +24,14 @@
             text-align: center !important;
           }
 
-          .footer__help > td > div {
+          .footer__help > td > div,
+          td.footer__help > div,
+          emailHeader {
             text-align: center !important;
+          }
+          .header__title table {
+            margin: 0 auto;
+            text-align: center;
           }
         }
       </mj-style>
@@ -45,34 +51,32 @@
       <mj-wrapper background-color="white" border='1px solid #d6d6d8' border-top="none">
         <!-- header -->
         <mj-section padding-bottom="0" padding-top="0">
-          <mj-group>
-            <mj-column>
-              <mj-table width="auto" css-class="header__title" cellpadding='4px'>
-                <tr>
-                  <td width="30px">
-                    <a href="{{banksUrl}}">
-                      <img align="left" width="30px" src="{{#block 'logoUrl'}}{{/block}}" alt="{{#block 'appName'}}{{/block}}" />
-                    </a>
-                  </td>
-                  <td>
-                    <h1 style="line-height: 32px"><a href="{{banksUrl}}">{{#block 'appName'}}{{/block}}</a></h1>
-                  </td>
-                </tr>
-              </mj-table>
-            </mj-column>
-            <mj-column css-class="emailHeader">
-              <mj-text padding-top="0" padding-bottom="0">
-                {{#block 'emailHeader' }}
-                  <div class="header__desc__title txt--right">
-                    {{#block 'emailTitle' }}{{/block}}
-                  </div>
-                  <div class="header__desc__subtitle txt--right">
-                    {{#block 'emailSubtitle' }}{{/block}}
-                  </div>
-                {{/block}}
-              </mj-text>
-            </mj-column>
-          </mj-group>
+          <mj-column>
+            <mj-table width="auto" css-class="header__title" cellpadding='4px'>
+              <tr>
+                <td width="30px">
+                  <a href="{{banksUrl}}">
+                    <img align="left" width="30px" src="{{#block 'logoUrl'}}{{/block}}" alt="{{#block 'appName'}}{{/block}}" />
+                  </a>
+                </td>
+                <td>
+                  <h1 style="line-height: 32px"><a href="{{banksUrl}}">{{#block 'appName'}}{{/block}}</a></h1>
+                </td>
+              </tr>
+            </mj-table>
+          </mj-column>
+          <mj-column css-class="emailHeader">
+            <mj-text padding-top="0" padding-bottom="0">
+              {{#block 'emailHeader' }}
+                <div class="header__desc__title txt--right">
+                  {{#block 'emailTitle' }}{{/block}}
+                </div>
+                <div class="header__desc__subtitle txt--right">
+                  {{#block 'emailSubtitle' }}{{/block}}
+                </div>
+              {{/block}}
+            </mj-text>
+          </mj-column>
         </mj-section>
 
         <mj-section padding-top="8px" padding-bottom="8px">
@@ -86,23 +90,21 @@
         {{#block 'content' }}{{/block}}
       </mj-wrapper>
       <mj-section padding-top="0">
-        <mj-group>
-          <mj-column>
-            {{#block 'footerLeft' }}{{/block}}
-          </mj-column>
-          <mj-column>
-            {{#block 'footerRight' }}
-            <mj-text css-class="footer__help">
-              <a css-class="footer__help" href="{{settingsUrl}}">
-                {{tGlobal 'settings'}}
-              </a>
-              <a css-class="footer__help" href="https://support.cozy.io/">
-                {{tGlobal 'support'}}
-              </a>
-            </mj-text>
-            {{/block}}
-          </mj-column>
-        </mj-group>
+        <mj-column>
+          {{#block 'footerLeft' }}{{/block}}
+        </mj-column>
+        <mj-column>
+          {{#block 'footerRight' }}
+          <mj-text css-class="footer__help">
+            <a css-class="footer__help" href="{{settingsUrl}}">
+              {{tGlobal 'settings'}}
+            </a>
+            <a css-class="footer__help" href="https://support.cozy.io/">
+              {{tGlobal 'support'}}
+            </a>
+          </mj-text>
+          {{/block}}
+        </mj-column>
       </mj-section>
     </mj-container>
   </mj-body>
