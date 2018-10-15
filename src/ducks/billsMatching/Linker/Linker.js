@@ -12,6 +12,7 @@ const geco = require('geco')
 const format = require('date-fns/format')
 const { cozyClient, log } = require('cozy-konnector-libs')
 const { getBillDate } = require('../utils')
+const { getNodeTracker } = require('ducks/tracking')
 
 const DOCTYPE_OPERATIONS = 'io.cozy.bank.operations'
 const DEFAULT_AMOUNT_DELTA = 0.001
@@ -23,6 +24,37 @@ export default class Linker {
     this.cozyClient = cozyClient
     this.toUpdate = []
     this.groupVendors = ['Numéricable']
+
+    try {
+      this.tracker = getNodeTracker()
+    } catch (e) {
+      log('error', "Can't initialize Linker tracker")
+    }
+  }
+
+  trackEvent(eventOpts) {
+    if (!this.tracker) {
+      log(
+        'warn',
+        `Can't track event ${eventOpts} since no tracker is initialized`
+      )
+      return
+    }
+
+    const defaultTrackingOptions = {
+      url: process.env.COZY_URL,
+      e_c: 'Banks',
+      e_a: 'BillsMatching'
+    }
+
+    const event = {
+      ...defaultTrackingOptions,
+      ...eventOpts
+    }
+
+    log('info', `Send event to Piwik ${JSON.stringify(event)}`)
+
+    this.tracker.track(event)
   }
 
   async removeBillsFromOperations(bills, operations) {
@@ -84,6 +116,10 @@ export default class Linker {
 
   async addBillToOperation(bill, operation) {
     if (!bill._id) {
+      this.trackEvent({
+        e_n: 'BillWithoutId'
+      })
+
       log('warn', 'bill has no id, impossible to add it to an operation')
       return false
     }
@@ -98,9 +134,12 @@ export default class Linker {
     )
 
     if (isOverflowing) {
-      // TODO send event to piwik
+      this.trackEvent({
+        e_n: 'BillAmountOverflowingOperationAmount'
+      })
+
       log(
-        'info',
+        'warn',
         `Impossible to match bill ${bill._id} with transation ${
           operation._id
         } because the linked bills amount would overflow the transaction amount`
@@ -119,6 +158,10 @@ export default class Linker {
 
   addReimbursementToOperation(bill, debitOperation, matchingOperation) {
     if (!bill._id) {
+      this.trackEvent({
+        e_n: 'BillWithoutId'
+      })
+
       log('warn', 'bill has no id, impossible to add it as a reimbursement')
       return Promise.resolve()
     }

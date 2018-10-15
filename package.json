@@ -159,6 +159,7 @@
     "html-webpack-harddisk-plugin": "^0.2.0",
     "localforage": "^1.5.0",
     "lodash": "^4.17.4",
+    "matomo-tracker": "^2.2.0",
     "mjml": "^3.3.5",
     "node-polyglot": "^2.2.0",
     "null-loader": "^0.1.1",
