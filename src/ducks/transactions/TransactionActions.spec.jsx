@@ -72,6 +72,7 @@ const tests = [
 
 const actionProps = {
   urls: {
+    HOME: 'home',
     COLLECT: 'collect',
     edf: 'edf-url://',
     maif: 'maifurl'
