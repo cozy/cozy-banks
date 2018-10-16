@@ -3883,7 +3883,7 @@ cozy-client-js@^0.8.0:
     pouchdb-adapter-cordova-sqlite "https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a"
     pouchdb-find "0.10.4"
 
-cozy-client@2.22.1, cozy-client@^2.22.1:
+cozy-client@^2.22.1:
   version "2.22.1"
   resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-2.22.1.tgz#69ef4ba27bca57183d436d989dd4c9dfaf5ceffc"
   integrity sha512-2cNYQz3wQI/P7adQd5FfJnBnwkWVQAByfmERhdosn5kfKCQlqK2yjZkxAFk/BgOfiB5/ExsUUk+klKD1ezlTkg==
@@ -3894,6 +3894,18 @@ cozy-client@2.22.1, cozy-client@^2.22.1:
     react "^16.2.0"
     react-redux "^5.0.6"
     redux "^3.7.2"
+
+cozy-client@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-3.0.6.tgz#112c101e12cc29dd34e1d6339845bca3f8df50e0"
+  integrity sha512-7SHbRbHgw9Stt1TOkovRgQs6OFCdY4EQsEZRlAI4xv1yPrS++UFDM9khEBOfQv6q/SMxeVAT/mIPKJxG/FY7SA==
+  dependencies:
+    cozy-stack-client "^3.0.3"
+    lodash "4.17.11"
+    prop-types "15.6.2"
+    react "16.4.2"
+    react-redux "5.0.7"
+    redux "3.7.2"
 
 cozy-device-helper@1.4.7:
   version "1.4.7"
@@ -4028,6 +4040,13 @@ cozy-stack-client@2.22.1, cozy-stack-client@^2.22.1:
   integrity sha512-veM9afy8cdC+itnhQF1pvMD/lz5ZIT1g5+PxxGXe9cmCx1z82Js9Ur7vWccy98G3eHBV8GRF/dnZPeRVvbTTTA==
   dependencies:
     mime-types "^2.1.18"
+
+cozy-stack-client@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-3.0.3.tgz#12f807a76ed710ac3b8c42aea3cb948135ad208f"
+  integrity sha512-Ugw7DwPkyfGdOhTdUY1SLNqy/QN1t2gK4grlgBp1mKKWUxwzCOMyx5FaTlpZzOx/5+JlIWGCt0WTJeBwWuc1GA==
+  dependencies:
+    mime-types "2.1.20"
 
 cozy-ui@13.1.5:
   version "13.1.5"
@@ -10642,6 +10661,13 @@ mime-db@~1.36.0:
   resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.36.0.tgz#5020478db3c7fe93aad7bbcc4dcf869c43363397"
   integrity sha512-L+xvyD9MkoYMXb1jAmzI/lWYAxAMCPvIBSWur0PZ5nOf5euahRLVqH//FKW9mWp2lkqUgYiXPgkzfMUFi4zVDw==
 
+mime-types@2.1.20, mime-types@~2.1.19:
+  version "2.1.20"
+  resolved "https://registry.yarnpkg.com/mime-types/-/mime-types-2.1.20.tgz#930cb719d571e903738520f8470911548ca2cc19"
+  integrity sha512-HrkrPaP9vGuWbLK1B1FfgAkbqNjIuy4eHlIYnFi7kamZyLLrGlo2mpcx0bBmNpKqBtYtAfGbodDddIgddSJC2A==
+  dependencies:
+    mime-db "~1.36.0"
+
 mime-types@^2.1.11, mime-types@^2.1.12, mime-types@~2.1.17, mime-types@~2.1.18, mime-types@~2.1.7:
   version "2.1.18"
   resolved "https://registry.yarnpkg.com/mime-types/-/mime-types-2.1.18.tgz#6f323f60a83d11146f831ff11fd66e2fe5503bb8"
@@ -10655,13 +10681,6 @@ mime-types@^2.1.18:
   integrity sha512-P1tKYHVSZ6uFo26mtnve4HQFE3koh1UWVkp8YUC+ESBHe945xWSoXuHHiGarDqcEZ+whpCDnlNw5LON0kLo+sw==
   dependencies:
     mime-db "~1.35.0"
-
-mime-types@~2.1.19:
-  version "2.1.20"
-  resolved "https://registry.yarnpkg.com/mime-types/-/mime-types-2.1.20.tgz#930cb719d571e903738520f8470911548ca2cc19"
-  integrity sha512-HrkrPaP9vGuWbLK1B1FfgAkbqNjIuy4eHlIYnFi7kamZyLLrGlo2mpcx0bBmNpKqBtYtAfGbodDddIgddSJC2A==
-  dependencies:
-    mime-db "~1.36.0"
 
 mime@1.4.1:
   version "1.4.1"
@@ -14233,6 +14252,16 @@ react@15.6.2, react@^15.4.1, react@^15.4.2:
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
     prop-types "^15.5.10"
+
+react@16.4.2:
+  version "16.4.2"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.4.2.tgz#2cd90154e3a9d9dd8da2991149fdca3c260e129f"
+  integrity sha512-dMv7YrbxO4y2aqnvA7f/ik9ibeLSHQJTI6TrYAenPSaQ6OXfb+Oti+oJiy8WBxgRzlKatYqtCjphTgDSCEiWFg==
+  dependencies:
+    fbjs "^0.8.16"
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.0"
 
 react@^16.2.0:
   version "16.4.1"
