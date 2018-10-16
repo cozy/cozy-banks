@@ -107,11 +107,16 @@ class _GeneralSettings extends Component {
   }
 
   render() {
-    const { t, account } = this.props
+    const { t, account, collectUrl, homeUrl } = this.props
     const { modifying, deleting, showingDeleteConfirmation } = this.state
+
+    const url = homeUrl ? homeUrl : collectUrl
+    const name = homeUrl ? 'Cozy Home' : 'Cozy Collect'
+
     const confirmPrimaryText = t('AccountSettings.confirm-deletion.description')
-      .replace('#{LINK}', `<a href="${this.props.collectUrl}" target="_blank">`)
-      .replace('#{/LINK}', '</a>')
+      .replace('#{LINK}', url ? `<a href="${url}" target="_blank">` : '')
+      .replace('#{/LINK}', url ? '</a>' : '')
+      .replace('#{APP_NAME}', name)
 
     return (
       <div>
@@ -196,8 +201,9 @@ const mapDispatchToProps = dispatch => ({
   fetchApps: () => dispatch(fetchApps())
 })
 
-const mapStateToProps = state => ({
-  collectUrl: getAppUrlById(state, 'io.cozy.apps/collect')
+const mapStateToProps = (state, ownProps) => ({
+  collectUrl: getAppUrlById(state, 'io.cozy.apps/collect'),
+  homeUrl: getAppUrlById(state, 'io.cozy.apps/home')
 })
 
 const GeneralSettings = compose(
