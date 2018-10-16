@@ -1,6 +1,12 @@
-'use strict'
+const webpack = require('webpack')
 
-module.exports = {
+module.exports = process.env.USE_REACT ? {
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.USE_REACT': 'true',
+    })
+  ]
+} : {
   resolve: {
     extensions: ['.jsx'],
     alias: {
