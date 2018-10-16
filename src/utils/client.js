@@ -2,6 +2,7 @@
 
 import { initClient } from 'ducks/authentication/lib/client'
 import { CozyClient } from 'cozy-client'
+import flag from 'utils/flag'
 
 export const getClientMobile = persistedState => {
   const hasPersistedMobileStore = persistedState && persistedState.mobile
@@ -12,8 +13,9 @@ export const getClientBrowser = () => {
   const root = document.querySelector('[role=application]')
   const data = root.dataset
   return new CozyClient({
-    cozyURL: `${window.location.protocol}//${data.cozyDomain}`,
-    token: data.cozyToken
+    cozyURL:
+      flag('cozyURL') || `${window.location.protocol}//${data.cozyDomain}`,
+    token: flag('cozyToken') || data.cozyToken
   })
 }
 
