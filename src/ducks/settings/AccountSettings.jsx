@@ -201,7 +201,7 @@ const mapDispatchToProps = dispatch => ({
   fetchApps: () => dispatch(fetchApps())
 })
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = state => ({
   collectUrl: getAppUrlById(state, 'io.cozy.apps/collect'),
   homeUrl: getAppUrlById(state, 'io.cozy.apps/home')
 })
