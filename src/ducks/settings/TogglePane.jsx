@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Title, translate } from 'cozy-ui/react'
-import { flowRight as compose } from 'lodash'
 import ToggleRow from './ToggleRow'
 import { getSettingsFromCollection } from './helpers'
 
@@ -82,9 +81,4 @@ TogglePane.propTypes = {
   saveDocument: PropTypes.func.isRequired
 }
 
-export default compose(
-  translate(),
-  // We keep `connect` just so the component still receive the `dispatch` function as prop
-  // This has to be removed when we handle the mutations with the new cozy-client
-  connect()
-)(TogglePane)
+export default translate()(TogglePane)
