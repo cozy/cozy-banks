@@ -138,7 +138,7 @@ class Component extends React.Component {
     const healthOrGeneric = brand.health ? 'health' : 'generic'
     const label = t(`Transactions.actions.konnector.${healthOrGeneric}`)
     const translationKey = `Transactions.actions.informativeModal.${healthOrGeneric}`
-    const cozyClient = this.props.client
+    const cozyClient = cozy.client
 
     return (
       <div>
