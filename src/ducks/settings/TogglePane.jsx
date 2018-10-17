@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 import { Title, translate } from 'cozy-ui/react'
 import ToggleRow from './ToggleRow'
 import { getSettingsFromCollection } from './helpers'

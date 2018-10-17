@@ -35,7 +35,8 @@ export default class FlagSwitcher extends React.Component {
         <div className="flag-switcher" style={style}>
           <button onClick={() => this.setState({ date: Date.now() })}>
             refresh
-          </button>&nbsp;
+          </button>
+          &nbsp;
           <button
             onClick={() =>
               flag.reset() && flag('switcher', true) && this.forceUpdate()

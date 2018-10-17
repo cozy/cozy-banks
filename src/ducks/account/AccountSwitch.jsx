@@ -185,12 +185,14 @@ const AccountSwitchMenu = translate()(
               >
                 {group.label}
                 <span className={styles['account-secondary-info']}>
-                  ({t(
+                  (
+                  {t(
                     'AccountSwitch.account_counter',
                     group.accounts.data.filter(account =>
                       accountExists(account.id)
                     ).length
-                  )})
+                  )}
+                  )
                 </span>
               </button>
             </li>
