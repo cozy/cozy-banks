@@ -1,4 +1,5 @@
 const { getDateRangeFromBill, getAmountRangeFromBill } = require('./helpers')
+const { log } = require('../../utils')
 
 // cozy-stack limit to 100 elements max
 const COZY_STACK_QUERY_LIMIT = 100
@@ -37,6 +38,11 @@ const getQueryOptions = (bill, options, ids) => {
   if (ids.length > 0) {
     queryOptions.skip = ids.length
   }
+
+  log(
+    'debug',
+    `Query options for bill ${bill._id}: ${JSON.stringify(queryOptions)}`
+  )
 
   return queryOptions
 }
