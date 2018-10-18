@@ -10,8 +10,8 @@ const flatten = require('lodash/flatten')
 const sumBy = require('lodash/sumBy')
 const geco = require('geco')
 const format = require('date-fns/format')
-const { cozyClient, log } = require('cozy-konnector-libs')
-const { getBillDate } = require('../utils')
+const { cozyClient } = require('cozy-konnector-libs')
+const { getBillDate, log } = require('../utils')
 const { getNodeTracker } = require('ducks/tracking')
 
 const DOCTYPE_OPERATIONS = 'io.cozy.bank.operations'
@@ -115,6 +115,8 @@ export default class Linker {
   }
 
   async addBillToOperation(bill, operation) {
+    log('debug', `Adding bill ${bill._id} to operation ${operation._id}`)
+
     if (!bill._id) {
       this.trackEvent({
         e_n: 'BillWithoutId'
@@ -125,6 +127,12 @@ export default class Linker {
     }
     const billId = `io.cozy.bills:${bill._id}`
     if (operation.bills && operation.bills.indexOf(billId) > -1) {
+      log(
+        'warn',
+        `Tried to add bill ${bill._id} to operation ${
+          operation._id
+        } but it's already linked`
+      )
       return false
     }
 
@@ -157,6 +165,13 @@ export default class Linker {
   }
 
   addReimbursementToOperation(bill, debitOperation, matchingOperation) {
+    log(
+      'debug',
+      `Adding bill ${bill._id} as a reimbursement to operation ${
+        debitOperation._id
+      }`
+    )
+
     if (!bill._id) {
       this.trackEvent({
         e_n: 'BillWithoutId'
@@ -170,6 +185,12 @@ export default class Linker {
       debitOperation.reimbursements &&
       debitOperation.reimbursements.map(b => b.billId).indexOf(billId) > -1
     ) {
+      log(
+        'warn',
+        `Tried to add bill ${bill._id} as a reimbursement to operation ${
+          debitOperation._id
+        } but it's already linked`
+      )
       return Promise.resolve()
     }
 
@@ -237,7 +258,13 @@ export default class Linker {
 
     const promises = []
     if (creditOperation) {
+      log(
+        'debug',
+        `Found credit operation ${creditOperation._id} for bill ${bill._id}`
+      )
       promises.push(this.addBillToOperation(bill, creditOperation))
+    } else {
+      log('debug', `Can't find credit operation for bill ${bill._id}`)
     }
     if (creditOperation && debitOperation) {
       promises.push(
@@ -258,9 +285,15 @@ export default class Linker {
       allOperations
     ).then(operation => {
       if (operation) {
+        log(
+          'debug',
+          `Found debit operation ${operation._id} for bill ${bill._id}`
+        )
         return this.addBillToOperation(bill, operation).then(
           addResult => addResult && operation
         )
+      } else {
+        log('debug', `Can't find debit operation for bill ${bill._id}`)
       }
     })
   }
@@ -284,6 +317,13 @@ export default class Linker {
       allOperations = await fetchAll('io.cozy.bank.operations')
     }
 
+    log(
+      'debug',
+      `Trying to find matchings between ${bills.length} bills and ${
+        allOperations.length
+      } operations`
+    )
+
     if (options.billsToRemove && options.billsToRemove.length) {
       this.removeBillsFromOperations(options.billsToRemove, allOperations)
     }
@@ -298,6 +338,7 @@ export default class Linker {
       // the bills combination phase is very time consuming. We can avoid it when we run the
       // connector in standalone mode
       if (allOperations.length === 0) {
+        log('info', `No operations to match against bill ${bill._id}`)
         return result
       }
 

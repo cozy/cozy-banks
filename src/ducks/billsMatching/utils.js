@@ -275,6 +275,14 @@ const logResult = matchingResult => {
   })
 }
 
+const formatOperationLog = operation =>
+  `${operation._id} (${operation.date} - ${operation.amount} - ${
+    operation.label
+  })`
+
+const formatBillLog = bill =>
+  `${bill._id} (${bill.date} - ${bill.amount} - ${bill.vendor})`
+
 module.exports = {
   fetchAll,
   queryAll,
@@ -283,5 +291,8 @@ module.exports = {
   batchUpdateAttributes,
   batchDelete,
   getBillDate,
-  logResult
+  logResult,
+  log: require('cozy-logger').namespace('bills-matching'),
+  formatOperationLog,
+  formatBillLog
 }
