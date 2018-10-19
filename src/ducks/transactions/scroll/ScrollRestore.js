@@ -8,6 +8,10 @@ class ScrollRestore extends React.Component {
     }
   }
 
+  UNSAFE_componentWillUpdate(nextProps) {
+    this.componentWillUpdate(nextProps)
+  }
+
   componentDidUpdate() {
     if (this.restoreScroll) {
       this.restoreScroll()

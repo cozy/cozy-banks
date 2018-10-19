@@ -1,10 +1,7 @@
 import React from 'react'
-import { configure, shallow } from 'enzyme'
+import { shallow } from 'enzyme'
 import { flatten, merge } from 'lodash'
 import Figure from './Figure'
-import Adapter from 'enzyme-adapter-react-15'
-
-configure({ adapter: new Adapter() })
 
 const combine = (...iterables) => {
   if (iterables.length === 1) {

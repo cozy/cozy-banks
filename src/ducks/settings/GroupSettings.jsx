@@ -138,7 +138,8 @@ class GroupSettings extends Component {
                 className={btnStyles['btn--no-outline']}
                 onClick={this.modifyName}
               >
-                &nbsp;&nbsp;{t('Groups.rename')}
+                &nbsp;&nbsp;
+                {t('Groups.rename')}
               </Button>
             )}
           </p>

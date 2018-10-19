@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import TogglePane from './TogglePane'
 import { translate } from 'cozy-ui/react'
 import { isCollectionLoading } from 'ducks/client/utils'
-import { queryConnect } from 'cozy-client'
+import { queryConnect, withMutations } from 'cozy-client'
 import { settingsConn } from 'doctypes'
 import { flowRight as compose } from 'lodash'
 import Loading from 'components/Loading'
@@ -66,6 +66,7 @@ class Configuration extends Component {
 }
 
 export default compose(
+  withMutations(),
   queryConnect({
     settingsCollection: settingsConn
   }),

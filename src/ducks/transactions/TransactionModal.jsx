@@ -211,7 +211,7 @@ class TransactionModal extends Component {
       <Modal
         dismissAction={this.props.requestClose}
         into="body"
-        crossClassName={styles.TransactionModalCross}
+        closeBtnClassName={styles.TransactionModalCross}
         className={styles.TransactionModal}
       >
         <ModalHeader className={styles.TransactionModalHeader}>

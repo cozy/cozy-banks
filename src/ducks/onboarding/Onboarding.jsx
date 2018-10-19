@@ -58,7 +58,7 @@ class Onboarding extends Component {
     return (
       <Hero>
         <Topbar>
-          <PageTitle style="text-align: center">
+          <PageTitle style={{ textAlign: 'center' }}>
             {t(`Onboarding.title.${isMobile ? 'mobile' : 'desktop'}`)}
           </PageTitle>
         </Topbar>
@@ -94,7 +94,7 @@ class Onboarding extends Component {
         </CTA>
         {isTriggersLoaded &&
           hasTriggers && (
-            <Paragraph style="text-align: center">
+            <Paragraph style={{ textAlign: 'center' }}>
               {t('Onboarding.wait-moments')}
             </Paragraph>
           )}
