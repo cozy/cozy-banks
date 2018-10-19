@@ -97,7 +97,7 @@
     "cozy-jobs-cli": "^1.5.1",
     "css-loader": "0.28.11",
     "css-mqpacker": "7.0.0",
-    "csswring": "6.0.3",
+    "csswring": "7.0.0",
     "dummy-json": "2.0.0",
     "duplicate-package-checker-webpack-plugin": "2.1.0",
     "enzyme": "3.6.0",
