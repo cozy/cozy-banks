@@ -2,7 +2,7 @@
 import React from 'react'
 import ReactHintFactory from 'react-hint'
 import 'react-hint/css/index.css'
-import { Layout, Main, Content, Sidebar } from 'cozy-ui/react'
+import { Layout, Main, Content, Sidebar, IconSprite } from 'cozy-ui/react'
 import Nav from 'ducks/commons/Nav'
 import { Warnings } from 'ducks/warnings'
 import { FlagSwitcher } from 'cozy-flags'
@@ -25,6 +25,7 @@ const App = ({ children }) => (
     <ReactHint />
 
     <Warnings />
+    <IconSprite />
   </Layout>
 )
 
