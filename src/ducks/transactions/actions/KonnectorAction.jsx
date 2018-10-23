@@ -211,7 +211,7 @@ const action = {
     return (
       brands &&
       matchBrands(brands, transaction.label) &&
-      (urls['COLLECT'] || urls['HOME'])
+      (urls['COLLECT'] || urls['STORE'])
     )
   },
   Component: compose(connect(null, mapDispatchToProps), translate())(Component)
