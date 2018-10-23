@@ -16,9 +16,10 @@ import React, { Component } from 'react'
 class SameWindowLink extends Component {
   redirect = async () => {
     const redirectionURL = await cozy.client.intents.getRedirectionURL(
-      'io.cozy.accounts',
+      'io.cozy.apps',
       {
-        dataType: 'bankAccounts'
+        type: 'konnector',
+        category: 'banking'
       }
     )
 

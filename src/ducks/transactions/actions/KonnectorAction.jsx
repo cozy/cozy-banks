@@ -108,9 +108,10 @@ class Component extends React.Component {
     } else if (__TARGET__ === 'mobile') {
       const brand = this.findMatchingBrand()
       const intentWindow = await cozy.client.intents.redirect(
-        'io.cozy.accounts',
+        'io.cozy.apps',
         {
-          konnector: brand.konnectorSlug
+          slug: brand.konnectorSlug,
+          type: 'konnector'
         },
         open
       )
@@ -179,8 +180,8 @@ class Component extends React.Component {
           <IntentModal
             dismissAction={this.hideIntentModal}
             onComplete={this.onIntentComplete}
-            action="CREATE"
-            doctype="io.cozy.accounts"
+            action="INSTALL"
+            doctype="io.cozy.apps"
             options={{ slug: brand.konnectorSlug }}
             create={cozyClient.intents.create.bind(cozyClient.intents)}
             mobileFullscreen
