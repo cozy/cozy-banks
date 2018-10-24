@@ -206,15 +206,14 @@ class _TableTrNoDesktop extends React.PureComponent {
 
 export const TableTrNoDesktop = translate()(_TableTrNoDesktop)
 
+const transactionTableHeadStyle = {
+  background: 'white',
+  marginTop: '1rem',
+  marginLeft: '-2rem',
+  marginRight: '-2rem'
+}
 export const TransactionTableHead = translate()(props => (
-  <div
-    style={{
-      background: 'white',
-      marginTop: '1rem',
-      marginLeft: '-2rem',
-      marginRight: '-2rem'
-    }}
-  >
+  <div style={transactionTableHeadStyle}>
     <Table className={styles['TransactionTable']}>
       <TableHeadDesktop t={props.t} mainColumnTitle={props.mainColumnTitle} />
     </Table>
@@ -255,11 +254,12 @@ class ScrollSpy {
   }
 }
 
+const tdStyle = { textAlign: 'center' }
 const btnStyle = { width: '100%', padding: '0.75rem', margin: 0 }
 const LoadMoreButton = ({ children, onClick }) => (
   <tbody className="js-LoadMore">
     <tr>
-      <td style={{ textAlign: 'center' }}>
+      <td style={tdStyle}>
         <Button style={btnStyle} onClick={onClick} subtle>
           {children}
         </Button>

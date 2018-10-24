@@ -22,6 +22,7 @@ const beautify = appName => {
   return appName.toLowerCase() === 'edf' ? 'EDF' : capitalize(appName)
 }
 
+const transactionModalRowStyle = { color: palette.dodgerBlue }
 const Component = ({
   t,
   transaction,
@@ -40,7 +41,7 @@ const Component = ({
       <TransactionModalRow
         onClick={() => open(url)}
         iconLeft="openwith"
-        style={{ color: palette.dodgerBlue }}
+        style={transactionModalRowStyle}
       >
         {label}
       </TransactionModalRow>

@@ -73,6 +73,7 @@ InformativeModal.propTypes = {
   confirmText: PropTypes.string.isRequired
 }
 
+const transactionModalRowStyle = { color: palette.dodgerBlue }
 class _Component extends React.Component {
   state = {
     showInformativeModal: false,
@@ -147,7 +148,7 @@ class _Component extends React.Component {
         {isModalItem ? (
           <TransactionModalRow
             iconLeft="plus"
-            style={{ color: palette.dodgerBlue }}
+            style={transactionModalRowStyle}
             onClick={this.showInformativeModal}
           >
             {label}

@@ -17,6 +17,11 @@ import {
   subMonths
 } from 'date-fns'
 
+const gradientStyle = {
+  '0%': '#76b9f3',
+  '100%': palette.dodgerBlue
+}
+
 class HistoryChart extends Component {
   getTooltipContent = item => {
     const date = formatDate(item.x, 'DD  MMM')
@@ -75,10 +80,7 @@ class HistoryChart extends Component {
           onUpdate={() =>
             this.container.scrollTo(this.container.scrollWidth, 0)
           }
-          gradient={{
-            '0%': '#76b9f3',
-            '100%': palette.dodgerBlue
-          }}
+          gradient={gradientStyle}
           pointFillColor="white"
           pointStrokeColor="rgba(255, 255, 255, 0.3)"
           getTooltipContent={this.getTooltipContent}

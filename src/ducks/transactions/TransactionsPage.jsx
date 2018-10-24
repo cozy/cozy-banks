@@ -83,6 +83,12 @@ const findNearestMonth = (chosenMonth, currentMonth, availableMonths) => {
   return multiFind(availableMonths, findFns)
 }
 
+const historyChartMargin = {
+  top: 10,
+  bottom: 10,
+  left: 16,
+  right: 16
+}
 class TransactionsPage extends Component {
   state = {
     fetching: false,
@@ -245,16 +251,7 @@ class TransactionsPage extends Component {
       return
     }
 
-    return (
-      <HistoryChart
-        margin={{
-          top: 10,
-          bottom: 10,
-          left: 16,
-          right: 16
-        }}
-      />
-    )
+    return <HistoryChart margin={historyChartMargin} />
   }
 
   displayTransactions = () => {

@@ -25,6 +25,7 @@ import {
   CTA
 } from 'cozy-ui/react/Hero'
 
+const centerStyle = { textAlign: 'center' }
 class Onboarding extends Component {
   componentDidMount() {
     if (__TARGET__ === 'mobile') {
@@ -58,7 +59,7 @@ class Onboarding extends Component {
     return (
       <Hero>
         <Topbar>
-          <PageTitle style={{ textAlign: 'center' }}>
+          <PageTitle style={centerStyle}>
             {t(`Onboarding.title.${isMobile ? 'mobile' : 'desktop'}`)}
           </PageTitle>
         </Topbar>
@@ -94,7 +95,7 @@ class Onboarding extends Component {
         </CTA>
         {isTriggersLoaded &&
           hasTriggers && (
-            <Paragraph style={{ textAlign: 'center' }}>
+            <Paragraph style={centerStyle}>
               {t('Onboarding.wait-moments')}
             </Paragraph>
           )}

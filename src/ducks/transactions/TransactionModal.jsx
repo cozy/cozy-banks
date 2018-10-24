@@ -107,6 +107,7 @@ const TransactionInfos = ({ infos }) => (
   </div>
 )
 
+const transactionModalRowStyle = { textTransform: 'capitalize' }
 class TransactionModal extends Component {
   renderContent() {
     const { t, f, transaction, showCategoryChoice, ...props } = this.props
@@ -153,7 +154,7 @@ class TransactionModal extends Component {
         </TransactionModalRow>
         <Separator />
         <TransactionModalRow iconLeft={iconCalendar}>
-          <span style={{ textTransform: 'capitalize' }}>
+          <span style={transactionModalRowStyle}>
             {f(transaction.date, 'dddd DD MMMM')}
           </span>
         </TransactionModalRow>
