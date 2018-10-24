@@ -7,6 +7,7 @@ import palette from 'cozy-ui/stylus/settings/palette.json'
 
 const name = 'url'
 
+const transactionModalRowStyle = { color: palette.dodgerBlue }
 const Component = ({ transaction, compact, isModalItem }) => {
   const action = transaction.action
 
@@ -15,7 +16,7 @@ const Component = ({ transaction, compact, isModalItem }) => {
       <TransactionModalRow
         onClick={() => open(action.url, action.target)}
         iconLeft="openwith"
-        style={{ color: palette.dodgerBlue }}
+        style={transactionModalRowStyle}
       >
         {action.trad}
       </TransactionModalRow>

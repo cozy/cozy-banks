@@ -36,6 +36,8 @@ const isPending = transaction => {
   return vendors.length === 0
 }
 
+const transactionModalRowStyle = { color: palette.pomegranate }
+
 const Component = ({
   t,
   transaction,
@@ -65,9 +67,7 @@ const Component = ({
       return (
         <TransactionModalRow
           iconLeft={<Icon icon={icon} color={palette.pomegranate} />}
-          style={{
-            color: palette.pomegranate
-          }}
+          style={transactionModalRowStyle}
         >
           {text}
         </TransactionModalRow>

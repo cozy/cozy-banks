@@ -8,6 +8,7 @@ import { TransactionModalRow } from '../TransactionModal'
 
 const name = 'refund'
 
+const transactionModalRowStyle = { color: palette.dodgerBlue }
 const Component = ({ t, actionProps: { urls }, compact, isModalItem }) => {
   const url = `${urls['HEALTH']}#/remboursements`
   const label = t(`Transactions.actions.${name}`)
@@ -17,7 +18,7 @@ const Component = ({ t, actionProps: { urls }, compact, isModalItem }) => {
       <TransactionModalRow
         onClick={() => open(url, '_blank')}
         iconLeft="openwith"
-        style={{ color: palette.dodgerBlue }}
+        style={transactionModalRowStyle}
       >
         {label}
       </TransactionModalRow>

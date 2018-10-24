@@ -5,17 +5,21 @@ import { find } from 'lodash'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import { mergeStyles } from './styleUtils'
 
+const smallArrowStyle = { paddingLeft: '.5rem' }
+const IndicatorSeparator = () => null
 const SmallArrow = () => (
   <Icon
     className={styles.Select__Icon}
-    style={{ paddingLeft: '.5rem' }}
+    style={smallArrowStyle}
     icon="small-arrow"
     width={12}
     height={12}
   />
 )
-
-const IndicatorSeparator = () => null
+const componentsOptions = {
+  DropdownIndicator: SmallArrow,
+  IndicatorSeparator
+}
 
 const mkControlStyle = props => base => {
   return {
@@ -75,10 +79,7 @@ class Select extends React.Component {
         }
         isSearchable={false}
         getOptionLabel={x => x.name}
-        components={{
-          DropdownIndicator: SmallArrow,
-          IndicatorSeparator
-        }}
+        components={componentsOptions}
         classNamePrefix="needsclick cz"
         styles={mergeStyles(
           {

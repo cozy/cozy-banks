@@ -69,6 +69,7 @@ class AugmentedModalButton extends React.Component {
   }
 }
 
+const transactionModalRowStyle = { color: palette.dodgerBlue }
 export class BillComponent extends Component {
   state = {
     fileId: false
@@ -135,10 +136,7 @@ export class BillComponent extends Component {
       component = <ActionLink text={text} icon="file" />
     } else if (isModalItem) {
       component = (
-        <TransactionModalRow
-          iconLeft="file"
-          style={{ color: palette.dodgerBlue }}
-        >
+        <TransactionModalRow iconLeft="file" style={transactionModalRowStyle}>
           {text}
         </TransactionModalRow>
       )

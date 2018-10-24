@@ -248,6 +248,8 @@ AccountSwitchMenu.propTypes = {
   filteringDoc: PropTypes.object
 }
 
+const barItemStyle = { overflow: 'hidden', paddingRight: '1rem' }
+
 // Note that everything is set up to be able to combine filters (even the redux store).
 // It's only limited to one filter in a few places, because the UI can only accomodate one right now.
 class AccountSwitch extends Component {
@@ -319,7 +321,7 @@ class AccountSwitch extends Component {
       >
         {isMobile && (
           <BarCenter>
-            <BarItem style={{ overflow: 'hidden', paddingRight: '1rem' }}>
+            <BarItem style={barItemStyle}>
               <AccountSwitchMobile
                 filteredAccounts={filteredAccounts}
                 filteringDoc={filteringDoc}

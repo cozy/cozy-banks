@@ -3,6 +3,7 @@ import styles from '../TransactionActions.styl'
 import palette from 'cozy-ui/stylus/settings/palette.json'
 import { Icon } from 'cozy-ui/react'
 
+const iconStyle = { marginRight: '10px' }
 const ActionLink = ({
   href,
   text,
@@ -18,7 +19,7 @@ const ActionLink = ({
     style={{ color }}
     className={styles.TransactionAction}
   >
-    {icon && <Icon icon={icon} style={{ marginRight: '10px' }} />}
+    {icon && <Icon icon={icon} style={iconStyle} />}
     {text}
   </a>
 )

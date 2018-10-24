@@ -45,6 +45,7 @@ class Content extends Component {
   }
 }
 
+const modalBrandedHeaderStyle = { marginBottom: 0 }
 const AugmentedModal = ({ onClose, fileId }) => (
   <Modal
     into="body"
@@ -55,7 +56,7 @@ const AugmentedModal = ({ onClose, fileId }) => (
     <ModalBrandedHeader
       bg="#eee"
       logo={ventePrivee}
-      style={{ marginBottom: 0 }}
+      style={modalBrandedHeaderStyle}
     />
     <ModalDescription className={styles.AugmentedModalDescription}>
       <Content fileId={fileId} />
