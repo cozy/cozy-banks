@@ -368,6 +368,17 @@ export default class Linker {
 
     await this.findCombinations(result, options, allOperations)
 
+    const nbBillsLinked = Object.values(result).filter(
+      bill => bill.creditOperation || bill.debitOperation
+    ).length
+
+    if (nbBillsLinked > 0) {
+      this.trackEvent({
+        e_n: 'BillsMatched',
+        e_v: nbBillsLinked
+      })
+    }
+
     await this.commitChanges()
 
     return result
