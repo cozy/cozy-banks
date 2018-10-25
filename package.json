@@ -133,8 +133,8 @@
     "stylus": "0.54.5",
     "stylus-loader": "3.0.2",
     "svg-sprite-loader": "3.9.2",
-    "tar": "4.4.7",
-    "webpack": "3.12.0",
+    "tar": "4.4.6",
+    "webpack": "4.23.1",
     "webpack-dev-server": "2.11.3",
     "webpack-merge": "4.1.4",
     "yarnhook": "0.3.0"
