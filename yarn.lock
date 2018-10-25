@@ -4034,7 +4034,7 @@ cozy-pouch-link@2.22.1:
     pouchdb "^7.0.0"
     pouchdb-find "^7.0.0"
 
-cozy-stack-client@2.22.1, cozy-stack-client@^2.22.1:
+cozy-stack-client@^2.22.1:
   version "2.22.1"
   resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-2.22.1.tgz#4cd10b636161491368c27156cb0a60a142699d0b"
   integrity sha512-veM9afy8cdC+itnhQF1pvMD/lz5ZIT1g5+PxxGXe9cmCx1z82Js9Ur7vWccy98G3eHBV8GRF/dnZPeRVvbTTTA==
