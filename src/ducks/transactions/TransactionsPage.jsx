@@ -41,8 +41,7 @@ import {
   accountsConn,
   groupsConn,
   triggersConn,
-  transactionsConn,
-  billsConn
+  transactionsConn
 } from 'doctypes'
 
 import { getBrands } from 'ducks/brandDictionary'
@@ -342,7 +341,6 @@ const mapStateToProps = (state, ownProps) => {
     apps: ownProps.apps,
     groups: ownProps.groups,
     transactions: ownProps.transactions,
-    bills: ownProps.bills,
     triggers: ownProps.triggers
   }
 
@@ -375,8 +373,7 @@ export default compose(
     accounts: accountsConn,
     groups: groupsConn,
     triggers: triggersConn,
-    transactions: transactionsConn,
-    bills: billsConn
+    transactions: transactionsConn
   }),
   withBreakpoints(),
   connect(mapStateToProps),
