@@ -10,7 +10,7 @@ const getTarget = () => {
   }
 }
 
-const production = /:production$/.test(process.env.NODE_ENV)
+const production = /production$/.test(process.env.NODE_ENV)
 const target = getTarget()
 const hotReload = !!process.env.HOT_RELOAD
 const skin = process.env.SKIN
