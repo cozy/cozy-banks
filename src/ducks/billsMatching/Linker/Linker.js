@@ -98,10 +98,21 @@ export default class Linker {
 
     const billIds = operation.bills.map(bill => bill.split(':')[1])
     const bills = await Promise.all(
-      billIds.map(billId => cozyClient.data.find('io.cozy.bills', billId))
+      billIds.map(billId =>
+        cozyClient.data.find('io.cozy.bills', billId).catch(err => {
+          log(
+            'warn',
+            `Error while fetching bill ${billId} linked to transaction ${
+              operation._id
+            } : ${err}. This bill will be ignored.`
+          )
+
+          return null
+        })
+      )
     )
 
-    const sum = sumBy(bills, bill => bill.amount)
+    const sum = sumBy(bills.filter(Boolean), bill => bill.amount)
 
     return sum
   }
