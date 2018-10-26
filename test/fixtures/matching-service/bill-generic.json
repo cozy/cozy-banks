@@ -1,0 +1,16 @@
+{
+  "io.cozy.files": [
+    {
+      "__SRC__": "{{ dir }}/../Fichiers_de_démo/Free mobile/Demo_cozy-freemobile_15082017.pdf",
+      "__DEST__": "/Fichiers_de_démo/Free mobile/Demo_cozy-freemobile_15082017.pdf"
+    }
+  ],
+  "io.cozy.bills": [
+    {
+      "vendor": "Ikea",
+      "amount": 15,
+      "date": "2018-10-17T00:00:00Z",
+      "invoice": "io.cozy.files:{{reference 'io.cozy.files' 0 '_id' }}"
+    }
+  ]
+}

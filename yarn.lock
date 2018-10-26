@@ -563,7 +563,7 @@ agentkeepalive@^3.3.0:
 
 airbnb-prop-types@2.9.0:
   version "2.9.0"
-  resolved "http://registry.npmjs.org/airbnb-prop-types/-/airbnb-prop-types-2.9.0.tgz#fd440594b1b0cdddf487f62e007d0dba909f6beb"
+  resolved "https://registry.yarnpkg.com/airbnb-prop-types/-/airbnb-prop-types-2.9.0.tgz#fd440594b1b0cdddf487f62e007d0dba909f6beb"
   integrity sha512-f1zkSuIa6roqOIFcexOa5RPwxnA2n/OETPRXl4jtK2wx7LgcySISbXSVQ1v5O6DhW0xNIPWoWbvy4mndt0BWxQ==
   dependencies:
     array.prototype.find "^2.0.4"
@@ -2169,7 +2169,7 @@ bluebird-retry@0.11.0, bluebird-retry@^0.11.0:
   resolved "https://registry.yarnpkg.com/bluebird-retry/-/bluebird-retry-0.11.0.tgz#1289ab22cbbc3a02587baad35595351dd0c1c047"
   integrity sha1-EomrIsu8OgJYe6rTVZU1HdDBwEc=
 
-bluebird@3.5.2:
+bluebird@3.5.2, bluebird@^3.5.2:
   version "3.5.2"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.2.tgz#1be0908e054a751754549c270489c1505d4ab15a"
   integrity sha512-dhHTWMI7kMx5whMQntl7Vr9C6BvV10lFXDAasnqnrMYhXVCzzk6IO9Fo2L75jXHT07WrOngL1WDXOp+yYS91Yg==
@@ -3959,7 +3959,7 @@ cozy-jobs-cli@^1.5.1:
 
 cozy-konnector-libs@3.8.1:
   version "3.8.1"
-  resolved "http://registry.npmjs.org/cozy-konnector-libs/-/cozy-konnector-libs-3.8.1.tgz#c4f9d6c2df742023897691c8d0e257a516ec00cd"
+  resolved "https://registry.yarnpkg.com/cozy-konnector-libs/-/cozy-konnector-libs-3.8.1.tgz#c4f9d6c2df742023897691c8d0e257a516ec00cd"
   integrity sha512-mth70H1PwYc3xPPKNqzp/vKI3KarXwJZrAXOwsLLCwKBe/KjX7KBgvkUF0pVL2NzYd0TGvTiSShjni9NhSndIw==
   dependencies:
     babel-plugin-transform-object-rest-spread "^6.26.0"
@@ -6722,7 +6722,7 @@ gauge@~2.7.3:
     strip-ansi "^3.0.1"
     wide-align "^1.1.0"
 
-geco@0.11.1:
+geco@0.11.1, geco@^0.11.1:
   version "0.11.1"
   resolved "https://registry.yarnpkg.com/geco/-/geco-0.11.1.tgz#2dec107202a37bbfbb480892446a94a6ffc41411"
   integrity sha512-RuZ2QWImhVLwaSCuhS9+iPIEL/kemh2xOa4ovnWXaR86GWWZndMXerMUpAjPyR4WHwnWn8pjY0kmy2iX2a4rwg==
@@ -10444,6 +10444,11 @@ math-sign-x@^3.0.0:
     is-nan-x "^1.0.1"
     to-number-x "^2.0.0"
 
+matomo-tracker@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/matomo-tracker/-/matomo-tracker-2.2.0.tgz#f1064977a7e96e6737f213bf8503b5390aaccfe3"
+  integrity sha512-kZIN4zRmuWRyG4S42kkMawMcsT6BQ/FYPK8IjeLNXAbN/CwPSlxlt7SdSyK/5k8F+S8nlmjXeUXf5SNFAXi8dA==
+
 max-safe-integer@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/max-safe-integer/-/max-safe-integer-1.0.1.tgz#f38060be2c563d8c02e6d48af39122fd83b6f410"
@@ -14148,7 +14153,7 @@ react-redux@5.0.7, react-redux@^5.0.6:
 
 react-router@3.2.1:
   version "3.2.1"
-  resolved "http://registry.npmjs.org/react-router/-/react-router-3.2.1.tgz#b9a3279962bdfbe684c8bd0482b81ef288f0f244"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-3.2.1.tgz#b9a3279962bdfbe684c8bd0482b81ef288f0f244"
   integrity sha512-SXkhC0nr3G0ltzVU07IN8jYl0bB6FsrDIqlLC9dK3SITXqyTJyM7yhXlUqs89w3Nqi5OkXsfRUeHX+P874HQrg==
   dependencies:
     create-react-class "^15.5.1"
