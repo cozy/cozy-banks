@@ -18,7 +18,7 @@ class InfiniteScroll extends React.Component {
   constructor(props) {
     super(props)
     this.checkForLimits = throttle(this.checkForLimits.bind(this), 100)
-    this.onWindowResize = debounce(this.onWindowResize, 500)
+    this.onWindowResize = debounce(this.onWindowResize.bind(this), 500)
   }
 
   componentDidMount() {
@@ -28,7 +28,13 @@ class InfiniteScroll extends React.Component {
     window.addEventListener('resize', this.onWindowResize)
   }
 
-  onWindowResize = () => {
+  componentWillUnmount() {
+    this.stopListeningToScroll()
+    window.removeEventListener('resize', this.onWindowResize)
+    this.unmounted = true
+  }
+
+  onWindowResize() {
     // scrolling element may have changed
     this.stopListeningToScroll()
     this.listenToScroll()
@@ -36,12 +42,6 @@ class InfiniteScroll extends React.Component {
 
   getScrollingElement() {
     return this.props.getScrollingElement.apply(this)
-  }
-
-  componentWillUnmount() {
-    this.stopListeningToScroll()
-    window.removeEventListener('resize', this.onWindowResize)
-    this.unmounted = true
   }
 
   componentDidUpdate(prevProps) {

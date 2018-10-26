@@ -96,6 +96,20 @@ class TransactionsPage extends Component {
     infiniteScrollTop: false
   }
 
+  constructor(props) {
+    super(props)
+    this.displayTransactions = this.displayTransactions.bind(this)
+    this.handleDecreaseLimitMin = this.handleDecreaseLimitMin.bind(this)
+    this.handleIncreaseLimitMax = this.handleIncreaseLimitMax.bind(this)
+    this.handleChangeMonth = this.handleChangeMonth.bind(this)
+    this.handleChangeTopmostTransaction = this.handleChangeTopmostTransaction.bind(
+      this
+    )
+    this.checkToActivateTopInfiniteScroll = this.checkToActivateTopInfiniteScroll.bind(
+      this
+    )
+  }
+
   setCurrentMonthFollowingMostRecentTransaction() {
     const transactions = this.props.filteredTransactions
     if (!transactions || transactions.length === 0) {
@@ -126,19 +140,19 @@ class TransactionsPage extends Component {
       .filter(Boolean)
   }
 
-  handleChangeTopmostTransaction = transaction => {
+  handleChangeTopmostTransaction(transaction) {
     this.setState({
       currentMonth: getMonth(transaction.date)
     })
   }
 
-  handleIncreaseLimitMax = () => {
+  handleIncreaseLimitMax() {
     this.setState({
       limitMax: this.state.limitMax + STEP_INFINITE_SCROLL
     })
   }
 
-  handleDecreaseLimitMin = (amount = STEP_INFINITE_SCROLL) => {
+  handleDecreaseLimitMin(amount = STEP_INFINITE_SCROLL) {
     const transactions = this.props.filteredTransactions
     let goal = Math.max(this.state.limitMin - amount, 0)
 
@@ -154,7 +168,7 @@ class TransactionsPage extends Component {
     })
   }
 
-  handleChangeMonth = month => {
+  handleChangeMonth(month) {
     const transactions = this.props.filteredTransactions
     const findMonthIndex = month =>
       findIndex(transactions, t => t.date.indexOf(month) === 0)
@@ -200,7 +214,7 @@ class TransactionsPage extends Component {
     )
   }
 
-  checkToActivateTopInfiniteScroll = getScrollInfo => {
+  checkToActivateTopInfiniteScroll(getScrollInfo) {
     const scrollInfo = getScrollInfo()
     if (scrollInfo.scroll > SCROLL_THRESOLD_TO_ACTIVATE_TOP_INFINITE_SCROLL) {
       this.setState({ infiniteScrollTop: true })
@@ -253,7 +267,7 @@ class TransactionsPage extends Component {
     return <HistoryChart margin={historyChartMargin} />
   }
 
-  displayTransactions = () => {
+  displayTransactions() {
     const { limitMin, limitMax, infiniteScrollTop } = this.state
     const { t, urls, breakpoints, router } = this.props
     const transations = this.getTransactions()

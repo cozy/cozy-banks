@@ -283,6 +283,11 @@ class TransactionsD extends React.Component {
   constructor(props) {
     super(props)
     this.scrollSpy = new ScrollSpy(this.getScrollingElement)
+    this.handleScroll = (isIOSApp() ? debounce : throttle)(
+      this.handleScroll.bind(this),
+      300,
+      { leading: false, trailing: true }
+    )
   }
 
   componentWillMount() {
@@ -308,14 +313,13 @@ class TransactionsD extends React.Component {
     }
   }
 
-  handleScroll = (isIOSApp() ? debounce : throttle)(
-    getScrollInfo => {
-      this.props.onScroll(getScrollInfo)
-      this.updateTopMostVisibleTransaction()
-    },
-    300,
-    { leading: false, trailing: true }
-  )
+  /**
+   * Debounced in the constructor
+   */
+  handleScroll(getScrollInfo) {
+    this.props.onScroll(getScrollInfo)
+    this.updateTopMostVisibleTransaction()
+  }
 
   handleRefRow = (transactionId, ref) => {
     const node = ReactDOM.findDOMNode(ref) // eslint-disable-line
