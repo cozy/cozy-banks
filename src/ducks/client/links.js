@@ -5,7 +5,7 @@ import { offlineDoctypes } from 'doctypes'
 
 let PouchLink
 if (__TARGET__ == 'mobile') {
-  PouchLink = require('cozy-pouch-link')
+  PouchLink = require('cozy-pouch-link').default
 }
 
 const setupPouchLink = () => {
