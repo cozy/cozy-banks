@@ -5,7 +5,7 @@
   "scripts": {
     "build": "npm run build:browser && npm run build:services",
     "build:browser": "NODE_ENV=${NODE_ENV:-production} npm run commons:build",
-    "build:mobile": "NODE_ENV=production npm run commons:build -- --env.target=mobile",
+    "build:mobile": "NODE_ENV=mobile:production npm run commons:build",
     "build:mobile:hot": "npm run util:check-dev-server && HOT_RELOAD=1 NODE_ENV=mobile:development npm run commons:build -- --env.target=mobile",
     "clean:browser": "rm -rf build/*",
     "clean:mobile": "rm -rf src/targets/mobile/www",
