@@ -75,7 +75,7 @@ const SelectDateButton = ({ children, disabled, className, ...props }) => {
   return (
     <Chip.Round
       {...props}
-      onClick={!disabled && props.onClick}
+      onClick={!disabled ? props.onClick : null}
       className={cx(
         styles.SelectDates__Button,
         styles.SelectDates__chip,
