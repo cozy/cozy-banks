@@ -10,26 +10,31 @@ import AttachAction from './AttachAction'
 import HealthExpenseAction from './HealthExpenseAction'
 import HealthExpenseStatusAction from './HealthExpenseStatusAction'
 
-const actions = [
-  HealthExpenseStatusAction,
-  HealthExpenseAction,
-  HealthLinkAction,
-  KonnectorAction,
-  UrlLinkAction,
-  BillAction,
-  AppLinkAction,
-  AttachAction,
-  CommentAction,
-  AlertAction
-]
+const actions = {
+  HealthExpenseStatusAction: HealthExpenseStatusAction,
+  HealthExpenseAction: HealthExpenseAction,
+  HealthLinkAction: HealthLinkAction,
+  KonnectorAction: KonnectorAction,
+  UrlLinkAction: UrlLinkAction,
+  BillAction: BillAction,
+  AppLinkAction: AppLinkAction,
+  AttachAction: AttachAction,
+  CommentAction: CommentAction,
+  AlertAction: AlertAction
+}
 
 export const findMatchingActions = async (transaction, actionProps) => {
   const matchingActions = []
 
-  for (const action of actions) {
-    const matching = await action.match(transaction, actionProps)
-    if (matching) {
-      matchingActions.push(action)
+  for (const [actionName, action] of Object.entries(actions)) {
+    try {
+      const matching = await action.match(transaction, actionProps)
+      if (matching) {
+        matchingActions.push(action)
+      }
+    } catch (e) {
+      console.log('action failed', actionName)
+      console.warn(e)
     }
   }
 
