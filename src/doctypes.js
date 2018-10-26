@@ -28,6 +28,10 @@ class HasManyBills extends HasManyInPlace {
       : []
   }
 
+  /**
+   * Query is redefined since the ids are prepended with their doctype.
+   * Also does not refetch if documents have already been fetched once.
+   */
   static query(doc, client, assoc) {
     const included = doc[assoc.name]
     if (!included || !included.length) {
