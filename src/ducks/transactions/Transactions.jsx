@@ -43,6 +43,7 @@ import styles from './Transactions.styl'
 import { InfiniteScroll, ScrollRestore } from './scroll'
 import TransactionModal from './TransactionModal'
 import { isIOSApp } from 'cozy-device-helper'
+import PropTypes from 'prop-types'
 
 const sDate = styles['bnk-op-date']
 const sDesc = styles['bnk-op-desc']
@@ -126,7 +127,8 @@ class _TableTrDesktop extends PureComponent {
         <TdSecondary className={sAction}>
           <TransactionActions
             transaction={transaction}
-            {...props}
+            urls={props.urls}
+            brands={props.brands}
             onlyDefault
           />
         </TdSecondary>
@@ -187,7 +189,8 @@ class _TableTrNoDesktop extends React.PureComponent {
             <Img className={styles['bnk-transaction-mobile-action']}>
               <TransactionActions
                 transaction={transaction}
-                {...props}
+                urls={props.urls}
+                brands={props.brands}
                 onlyDefault
                 compact
                 menuPosition="right"
@@ -202,6 +205,12 @@ class _TableTrNoDesktop extends React.PureComponent {
   handleSelect = () => {
     this.props.selectTransaction(this.props.transaction)
   }
+}
+
+_TableTrNoDesktop.propTypes = {
+  transaction: PropTypes.object.isRequired,
+  urls: PropTypes.object.isRequired,
+  brands: PropTypes.array.isRequired
 }
 
 export const TableTrNoDesktop = translate()(_TableTrNoDesktop)
@@ -283,6 +292,11 @@ class TransactionsD extends React.Component {
   constructor(props) {
     super(props)
     this.scrollSpy = new ScrollSpy(this.getScrollingElement)
+    this.handleScroll = (isIOSApp() ? debounce : throttle)(
+      this.handleScroll.bind(this),
+      300,
+      { leading: false, trailing: true }
+    )
   }
 
   componentWillMount() {
@@ -308,14 +322,13 @@ class TransactionsD extends React.Component {
     }
   }
 
-  handleScroll = (isIOSApp() ? debounce : throttle)(
-    getScrollInfo => {
-      this.props.onScroll(getScrollInfo)
-      this.updateTopMostVisibleTransaction()
-    },
-    300,
-    { leading: false, trailing: true }
-  )
+  /**
+   * Debounced in the constructor
+   */
+  handleScroll(getScrollInfo) {
+    this.props.onScroll(getScrollInfo)
+    this.updateTopMostVisibleTransaction()
+  }
 
   handleRefRow = (transactionId, ref) => {
     const node = ReactDOM.findDOMNode(ref) // eslint-disable-line
@@ -340,7 +353,8 @@ class TransactionsD extends React.Component {
       limitMax,
       breakpoints: { isDesktop, isExtraLarge },
       manualLoadMore,
-      ...props
+      brands,
+      urls
     } = this.props
     const transactions = this.transactions
       ? this.transactions.slice(limitMin, limitMax)
@@ -373,18 +387,20 @@ class TransactionsD extends React.Component {
                     key={transaction._id}
                     ref={this.handleRefRow.bind(null, transaction._id)}
                     transaction={transaction}
+                    brands={brands}
+                    urls={urls}
                     isExtraLarge={isExtraLarge}
                     filteringOnAccount
                     selectTransaction={selectTransaction}
-                    {...props}
                   />
                 ) : (
                   <TableTrNoDesktop
+                    brands={brands}
+                    urls={urls}
                     key={transaction._id}
                     ref={this.handleRefRow.bind(null, transaction._id)}
                     transaction={transaction}
                     selectTransaction={selectTransaction}
-                    {...props}
                   />
                 )
               })}
