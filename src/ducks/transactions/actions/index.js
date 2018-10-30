@@ -34,7 +34,7 @@ export const findMatchingActions = async (transaction, actionProps) => {
       }
     } catch (e) {
       if (process.env.NODE_ENV !== 'production') {
-        console.log('action failed', actionName) // eslint-disable-line no-console
+        console.log('action matching failed', actionName) // eslint-disable-line no-console
         console.warn(e) // eslint-disable-line no-console
       }
     }
