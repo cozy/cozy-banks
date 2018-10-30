@@ -3883,18 +3883,6 @@ cozy-client-js@^0.8.0:
     pouchdb-adapter-cordova-sqlite "https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a"
     pouchdb-find "0.10.4"
 
-cozy-client@^2.22.1:
-  version "2.22.1"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-2.22.1.tgz#69ef4ba27bca57183d436d989dd4c9dfaf5ceffc"
-  integrity sha512-2cNYQz3wQI/P7adQd5FfJnBnwkWVQAByfmERhdosn5kfKCQlqK2yjZkxAFk/BgOfiB5/ExsUUk+klKD1ezlTkg==
-  dependencies:
-    cozy-stack-client "^2.22.1"
-    lodash "^4.17.5"
-    prop-types "^15.6.0"
-    react "^16.2.0"
-    react-redux "^5.0.6"
-    redux "^3.7.2"
-
 cozy-client@^3.4.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-3.4.0.tgz#f78d15886adca60a578ee4a201c33751b2d6ad5c"
@@ -3906,6 +3894,19 @@ cozy-client@^3.4.0:
     react "16.4.2"
     react-redux "5.0.7"
     redux "3.7.2"
+
+cozy-client@^3.6.1:
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-3.6.1.tgz#68a3b7f4035d4a4ddb6d0acc51b1047af0ecb871"
+  integrity sha512-pKRjUzl+FuIzvK6QaPbXBJG0TvSHJNacL/eJFNka/Im6UNfeI1PiAnnWq44crYUgVxSJ9fsKe6utcum6YxUGcg==
+  dependencies:
+    cozy-stack-client "^3.4.0"
+    lodash "4.17.11"
+    prop-types "15.6.2"
+    react "16.4.2"
+    react-redux "5.0.7"
+    redux "3.7.2"
+    sift "^7.0.1"
 
 cozy-device-helper@1.4.7:
   version "1.4.7"
@@ -4024,22 +4025,15 @@ cozy-logger@^1.2.0:
   dependencies:
     json-stringify-safe "5.0.1"
 
-cozy-pouch-link@2.22.1:
-  version "2.22.1"
-  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-2.22.1.tgz#29a248eaac738146c70f8c6d6234b6ab13064010"
-  integrity sha512-URqM1NuNgSxc/cfgqQTVasXUtbLTjvC50Vh61jyJAe5XP4/MyHXEKnVD7LSSOvyziLGS2/YSidu7yMJ/mNvi9g==
+cozy-pouch-link@3.6.3:
+  version "3.6.3"
+  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-3.6.3.tgz#19fdc75b91c1aad532ba831d2ebf492e7925f25a"
+  integrity sha512-/BIXqYvd3ELQjLdmXeuuKmaZRQ4PwY58K0g9s9hktk1mU9d4LLKIPCkSmawbxCbkyyjZOf52Kxuv9z57vHiLAw==
   dependencies:
-    cozy-client "^2.22.1"
+    cozy-client "^3.6.1"
     cozy-device-helper "1.4.8"
-    pouchdb "^7.0.0"
-    pouchdb-find "^7.0.0"
-
-cozy-stack-client@^2.22.1:
-  version "2.22.1"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-2.22.1.tgz#4cd10b636161491368c27156cb0a60a142699d0b"
-  integrity sha512-veM9afy8cdC+itnhQF1pvMD/lz5ZIT1g5+PxxGXe9cmCx1z82Js9Ur7vWccy98G3eHBV8GRF/dnZPeRVvbTTTA==
-  dependencies:
-    mime-types "^2.1.18"
+    pouchdb "7.0.0"
+    pouchdb-find "7.0.0"
 
 cozy-stack-client@^3.4.0:
   version "3.4.0"
@@ -10659,11 +10653,6 @@ miller-rabin@^4.0.0:
   resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.33.0.tgz#a3492050a5cb9b63450541e39d9788d2272783db"
   integrity sha512-BHJ/EKruNIqJf/QahvxwQZXKygOQ256myeN/Ew+THcAa5q+PjyTTMMeNQC4DZw5AwfvelsUrA6B67NKMqXDbzQ==
 
-mime-db@~1.35.0:
-  version "1.35.0"
-  resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.35.0.tgz#0569d657466491283709663ad379a99b90d9ab47"
-  integrity sha512-JWT/IcCTsB0Io3AhWUMjRqucrHSPsSf2xKLaRldJVULioggvkJvggZ3VXNNSRkCddE6D+BUI4HEIZIA2OjwIvg==
-
 mime-db@~1.36.0:
   version "1.36.0"
   resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.36.0.tgz#5020478db3c7fe93aad7bbcc4dcf869c43363397"
@@ -10682,13 +10671,6 @@ mime-types@^2.1.11, mime-types@^2.1.12, mime-types@~2.1.17, mime-types@~2.1.18, 
   integrity sha512-lc/aahn+t4/SWV/qcmumYjymLsWfN3ELhpmVuUFjgsORruuZPVSwAQryq+HHGvO/SI2KVX26bx+En+zhM8g8hQ==
   dependencies:
     mime-db "~1.33.0"
-
-mime-types@^2.1.18:
-  version "2.1.19"
-  resolved "https://registry.yarnpkg.com/mime-types/-/mime-types-2.1.19.tgz#71e464537a7ef81c15f2db9d97e913fc0ff606f0"
-  integrity sha512-P1tKYHVSZ6uFo26mtnve4HQFE3koh1UWVkp8YUC+ESBHe945xWSoXuHHiGarDqcEZ+whpCDnlNw5LON0kLo+sw==
-  dependencies:
-    mime-db "~1.35.0"
 
 mime@1.4.1:
   version "1.4.1"
@@ -13184,7 +13166,7 @@ pouchdb-find@6.4.3:
     pouchdb-selector-core "6.4.3"
     pouchdb-utils "6.4.3"
 
-pouchdb-find@^7.0.0:
+pouchdb-find@7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/pouchdb-find/-/pouchdb-find-7.0.0.tgz#f390c3f7a9455e700eb178eb89b235aaf7dc3beb"
   integrity sha512-nqAdnbmmxcIrWF//k5LKDGXaDZScgvhqVoyGjXhiUan35ASI0KYn1R8Z0nGsl0PD/DRK1kveQjbC9+50QgdTRg==
@@ -13368,7 +13350,7 @@ pouchdb@6.4.3:
     uuid "3.2.1"
     vuvuzela "1.0.3"
 
-pouchdb@^7.0.0:
+pouchdb@7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/pouchdb/-/pouchdb-7.0.0.tgz#e95df9ef87127d0ea90222d073794bcb47c38648"
   integrity sha512-vVZyn6SmVxYLbUmzQwU5nW1APIq/sAJ13DlYZqIJRJUUUtGy3X0F79G9/3d9StvJwfWBA/aMGPnRV2eQAp+MKA==
@@ -14295,16 +14277,6 @@ react@^15.4.1, react@^15.4.2:
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
     prop-types "^15.5.10"
-
-react@^16.2.0:
-  version "16.4.1"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.4.1.tgz#de51ba5764b5dbcd1f9079037b862bd26b82fe32"
-  integrity sha512-3GEs0giKp6E0Oh/Y9ZC60CmYgUPnp7voH9fbjWsvXtYFb4EWtgQub0ADSq0sJR0BbHc4FThLLtzlcFaFXIorwg==
-  dependencies:
-    fbjs "^0.8.16"
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    prop-types "^15.6.0"
 
 read-all-stream@^3.0.0:
   version "3.1.0"
@@ -15673,6 +15645,11 @@ shellwords@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/shellwords/-/shellwords-0.1.1.tgz#d6b9181c1a48d397324c84871efbcfc73fc0654b"
   integrity sha512-vFwSUfQvqybiICwZY5+DAWIPLKsWO31Q91JSKl3UYv+K5c2QRPzn0qzec6QPu1Qc9eHYItiP3NdJqNVqetYAww==
+
+sift@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/sift/-/sift-7.0.1.tgz#47d62c50b159d316f1372f8b53f9c10cd21a4b08"
+  integrity sha512-oqD7PMJ+uO6jV9EQCl0LrRw1OwsiPsiFQR5AR30heR+4Dl7jBBbDLnNvWiak20tzZlSE1H7RB30SX/1j/YYT7g==
 
 sigmund@^1.0.1:
   version "1.0.1"
