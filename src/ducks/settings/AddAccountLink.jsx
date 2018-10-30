@@ -21,6 +21,7 @@ class SameWindowLink extends Component {
     const redirectionURL = await cozyClient.intents.getRedirectionURL(
       'io.cozy.apps',
       {
+        type: 'konnector',
         category: 'banking'
       }
     )
