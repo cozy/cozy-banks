@@ -40,6 +40,7 @@ class InfiniteScroll extends React.Component {
 
   componentWillUnmount() {
     this.stopListeningToScroll()
+    window.removeEventListener('resize', this.onWindowResize)
     this.unmounted = true
   }
 
