@@ -109,9 +109,10 @@ class _Component extends React.Component {
       const brand = this.findMatchingBrand()
       const cozyClient = this.props.client
       const intentWindow = await cozyClient.intents.redirect(
-        'io.cozy.accounts',
+        'io.cozy.apps',
         {
-          slug: brand.konnectorSlug
+          slug: brand.konnectorSlug,
+          type: 'konnector'
         },
         open
       )
@@ -180,8 +181,8 @@ class _Component extends React.Component {
           <IntentModal
             dismissAction={this.hideIntentModal}
             onComplete={this.onIntentComplete}
-            action="CREATE"
-            doctype="io.cozy.accounts"
+            action="INSTALL"
+            doctype="io.cozy.apps"
             options={{ slug: brand.konnectorSlug }}
             create={cozyClient.intents.create.bind(cozyClient.intents)}
             mobileFullscreen
