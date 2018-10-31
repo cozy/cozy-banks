@@ -64,9 +64,9 @@
     }
   },
   "services": {
-    "onOperationCreate": {
+    "onOperationOrBillCreate": {
       "type": "node",
-      "file": "onOperationCreate.js",
+      "file": "onOperationOrBillCreate.js",
       "trigger": "@event io.cozy.bank.operations:CREATED io.cozy.bills:CREATED",
       "debounce": "3m"
     }

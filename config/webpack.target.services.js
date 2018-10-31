@@ -14,7 +14,10 @@ const mimerPath = require.resolve(path.join(SRC_DIR, 'ducks/notifications/vendor
 const noop = require.resolve(path.join(SRC_DIR, 'ducks/notifications/noop'))
 
 const entries = {
-  onOperationCreate: path.resolve(SRC_DIR, './targets/services/onOperationCreate')
+  onOperationOrBillCreate: path.resolve(
+    SRC_DIR,
+    './targets/services/onOperationOrBillCreate'
+  )
 }
 
 if (process.env.TEST_TEMPLATES) {
