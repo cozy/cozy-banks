@@ -72,7 +72,7 @@ class GroupSettings extends Component {
           {group ? (
             <Toggle
               id={account._id}
-              checked={group.accounts.existsById(account)}
+              checked={group.accounts.existsById(account._id)}
               onToggle={this.toggleAccount.bind(null, account._id, group)}
             />
           ) : (
