@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PureComponent } from 'react'
 import { withRouter } from 'react-router'
 import { sortBy, flowRight as compose } from 'lodash'
 import { Query, withMutations, withClient } from 'cozy-client'
@@ -21,7 +21,72 @@ const makeNewGroup = (client, t) => {
   return obj
 }
 
-class GroupSettings extends Component {
+export class AccountLine extends PureComponent {
+  render() {
+    const { account, group, toggleAccount } = this.props
+
+    return (
+      <tr>
+        <td className={styles.GrpStg__accntLabel}>
+          {account.shortLabel || account.label}
+        </td>
+        <td className={styles.GrpStg__accntBank}>
+          {getAccountInstitutionLabel(account)}
+        </td>
+        <td className={styles.GrpStg__accntNumber}>{account.number}</td>
+        <td className={styles.GrpStg__accntToggle}>
+          {group ? (
+            <Toggle
+              id={account._id}
+              checked={group.accounts.existsById(account._id)}
+              onToggle={toggleAccount.bind(null, account._id, group)}
+            />
+          ) : (
+            <Toggle id={account._id} disabled />
+          )}
+        </td>
+      </tr>
+    )
+  }
+}
+
+class _AccountsList extends PureComponent {
+  render() {
+    const { accounts, group, t, toggleAccount } = this.props
+
+    return (
+      <Table className={styles.GrpStg__table}>
+        <thead>
+          <tr>
+            <th className={styles.GrpStg__accntLabel}>{t('Groups.label')}</th>
+            <th className={styles.GrpStg__accntBank}>{t('Groups.bank')}</th>
+            <th className={styles.GrpStg__accntNumber}>
+              {t('Groups.account-number')}
+            </th>
+            <th className={styles.GrpStg__accntToggle}>
+              {t('Groups.included')}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {accounts &&
+            sortBy(accounts, ['institutionLabel', 'label']).map(account => (
+              <AccountLine
+                account={account}
+                group={group}
+                toggleAccount={toggleAccount}
+                key={account._id}
+              />
+            ))}
+        </tbody>
+      </Table>
+    )
+  }
+}
+
+const AccountsList = translate()(_AccountsList)
+
+class DumbGroupSettings extends Component {
   state = { modifying: false, saving: false }
   rename = () => {
     const { group } = this.props
@@ -72,7 +137,7 @@ class GroupSettings extends Component {
           {group ? (
             <Toggle
               id={account._id}
-              checked={group.accounts.existsById(account)}
+              checked={group.accounts.existsById(account._id)}
               onToggle={this.toggleAccount.bind(null, account._id, group)}
             />
           ) : (
@@ -152,30 +217,11 @@ class GroupSettings extends Component {
             }
 
             return (
-              <Table className={styles.GrpStg__table}>
-                <thead>
-                  <tr>
-                    <th className={styles.GrpStg__accntLabel}>
-                      {t('Groups.label')}
-                    </th>
-                    <th className={styles.GrpStg__accntBank}>
-                      {t('Groups.bank')}
-                    </th>
-                    <th className={styles.GrpStg__accntNumber}>
-                      {t('Groups.account-number')}
-                    </th>
-                    <th className={styles.GrpStg__accntToggle}>
-                      {t('Groups.included')}
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {accounts &&
-                    sortBy(accounts, ['institutionLabel', 'label']).map(
-                      account => this.renderAccountLine(account, group)
-                    )}
-                </tbody>
-              </Table>
+              <AccountsList
+                accounts={accounts}
+                group={group}
+                toggleAccount={this.toggleAccount}
+              />
             )
           }}
         </Query>
@@ -189,8 +235,9 @@ class GroupSettings extends Component {
   }
 }
 
-const enhance = Component =>
-  compose(translate(), withRouter, withClient)(Component)
+export const GroupSettings = translate()(DumbGroupSettings)
+
+const enhance = Component => compose(withRouter, withClient)(Component)
 
 const ExistingGroupSettings = enhance(props => (
   <Query query={client => client.get(GROUP_DOCTYPE, props.routeParams.groupId)}>
