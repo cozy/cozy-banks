@@ -12,13 +12,16 @@ export const associateDocuments = (
   associationDoctype,
   documentsToAssociate
 ) => {
+  const ids = documentsToAssociate.map(doc => doc.id)
+
   originalDocument[associationName] = {
     data: documentsToAssociate,
     doctype: associationDoctype,
     name: associationName,
+    raw: ids,
     target: {
       ...originalDocument,
-      [associationName]: documentsToAssociate.map(doc => doc.id)
+      [associationName]: ids
     }
   }
 
