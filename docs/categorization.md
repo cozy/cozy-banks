@@ -12,7 +12,7 @@ This model analyzes the transactions recategorized by the user to get his
 categorization habits and predict the category of some transactions based on
 this.
 
-This model is applied to transactions when the `onOperationCreate` service is
+This model is applied to transactions when the `onOperationOrBillCreate` service is
 ran. For now, it doesn't replace the Linxo categorization. We just write its
 results in the `localCategoryId` and `localCategoryProba` properties of the
 `io.cozy.bank.operations` documents.
@@ -53,7 +53,7 @@ and
 The remote asset name used for this is `bank_classifier_nb_and_voc`. Its value
 should be an URL to a JSON file.
 
-This model is applied to transactions when the `onOperationCreate` service is
+This model is applied to transactions when the `onOperationOrBillCreate` service is
 ran. For now, it doesn't replace the Linxo categorization. We just write its
 results in the `cozyCategoryId` and `cozyCategoryProba` properties of the
 `io.cozy.bank.operations` documents.
@@ -64,7 +64,7 @@ In banks, there is a setting that the user can enable (it is disabled by
 default) if he wants to share his bank transactions with us to improve our
 global categorization model.
 
-If this setting is enabled, when the `onOperationCreate` service is ran and the
+If this setting is enabled, when the `onOperationOrBillCreate` service is ran and the
 new transactions have been categorized using the global and local models, we
 anonymize the transactions and then send them to an API using the
 [`cc.cozycloud.autocategorization`](https://github.com/cozy/cozy-doctypes/blob/master/docs/cc.cozycloud.autocategorization.md)
