@@ -9,9 +9,9 @@ Release $VERSION
 - [ ] Commit and tag with a beta tag (X.Y.Z-beta.M)
 - [ ] Push the tag and wait for the CI to push the beta version to the registry
 - [ ] Push and check with a cozy from production (which has to be on the beta track for Banks)
-- [ ] Release the app on Testflight for iOS. `yarn android:publish`
-- [ ] Release the app on Play Store on `beta` track. `yarn ios:publish`
-- [ ] Upload the APK on Trello
+- [ ] Release the app on Testflight for iOS. `yarn ios:publish`
+- [ ] Release the app on Play Store on `beta` track. `yarn android:publish`
+- [ ] Upload the APK (`src/targets/mobile/build/android/cozy-banks.apk`) on [the APK card in Trello](https://trello.com/c/wtToK7IN/1192-apks)
 - [ ] Test well on the 3 platforms
 - [ ] Tag the branch as prod (X.Y.Z)
 - [ ] Push the tag, wait for the CI to push the build to the registry
