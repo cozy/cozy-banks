@@ -19,7 +19,10 @@ module.exports = merge.strategy({
   entry: 'replace'
 })(base, ui, {
   entry: {
-    onOperationCreate: path.resolve(SRC_DIR, './targets/services/onOperationCreate')
+    onOperationOrBillCreate: path.resolve(
+      SRC_DIR,
+      './targets/services/onOperationOrBillCreate'
+    )
   },
   target: 'node',
   output: {

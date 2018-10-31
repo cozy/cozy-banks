@@ -21,7 +21,9 @@ process.on('unhandledRejection', err => {
   log('warn', JSON.stringify(err.stack))
 })
 
-const onOperationCreate = async () => {
+log('info', `COZY_URL: ${process.env.COZY_URL}`)
+
+const onOperationOrBillCreate = async () => {
   const setting = await readSetting()
 
   // We fetch the notifChanges before anything else because we need to know if
@@ -132,4 +134,4 @@ const onOperationCreate = async () => {
   await saveSetting(setting)
 }
 
-onOperationCreate()
+onOperationOrBillCreate()
