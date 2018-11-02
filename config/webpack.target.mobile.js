@@ -27,6 +27,7 @@ module.exports = {
     new webpack.DefinePlugin({
       __ALLOW_HTTP__: !production,
       __TARGET__: JSON.stringify('mobile'),
+      __POUCH__: JSON.stringify(true)
     }),
     new webpack.ProvidePlugin({
       PouchDB: 'pouchdb',

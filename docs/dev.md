@@ -22,6 +22,7 @@
     - [Debug notification triggers](#debug-notification-triggers)
     - [When creating a notification](#when-creating-a-notification)
     - [Misc](#misc)
+- [Pouch On Web](#pouch-on-web)
 
 <!-- /MarkdownTOC -->
 
@@ -242,6 +243,29 @@ ACH import test/fixtures/operations-notifs.json test/fixtures/helpers.js --url <
 
 🖼 The PNG icons that are included in the emails are generated manually from the SVG via `scripts/icons-to-png.sh` and uploaded automatically to files.cozycloud.cc via Jenkins (which follows the file `files.cozycloud.cc` at the root of the repo).
 
+## Pouch On Web
+
+If you want activate Pouch on web app, you need:
+- a token
+- launch your build with `FORCE_POUCH`
+
+```
+cozy-stack instances token-cli cozy.tools:8080 $(cat manifest.webapp | jq -r '[.permissions[] | .type] | join(" ")')
+env FORCE_POUCH=true yarn watch
+```
+
+Launch your web application and in console javascript fill in the token and refresh the page:
+
+```
+flag('cozyToken', <your token>)
+```
+
+Now you can play with replication:
+
+```
+cozyClient.links[0].startReplication()
+cozyClient.links[0].stopReplication()
+```
 
 [pass]: https://www.passwordstore.org/
 [ACH]: https://github.com/cozy/ACH

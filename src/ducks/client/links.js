@@ -1,10 +1,10 @@
-/* global __TARGET__ */
+/* global __POUCH__ */
 
 import { StackLink } from 'cozy-client'
 import { offlineDoctypes } from 'doctypes'
 
 let PouchLink
-if (__TARGET__ == 'mobile') {
+if (__POUCH__) {
   PouchLink = require('cozy-pouch-link').default
 }
 
@@ -26,7 +26,7 @@ export const getLinks = () => {
   const stackLink = new StackLink()
   links = [stackLink]
 
-  if (__TARGET__ === 'mobile') {
+  if (__POUCH__) {
     const pouchLink = setupPouchLink()
     links = [pouchLink, ...links]
   }
