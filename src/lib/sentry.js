@@ -23,7 +23,7 @@ const getReporterConfiguration = (cozyClient) => {
     config.transport = options => {
       const { auth, data } = options
       const parameters = {...auth, ...{project: data.project}, ...{data: JSON.stringify(data)}}
-      cozyClient.client.fetchJSON('POST', '/remote/cc.cozycloud.sentry', parameters)
+      cozyClient.stackClient.fetchJSON('POST', '/remote/cc.cozycloud.sentry', parameters)
         .catch(options.onError)
         .then(options.onSuccess)
     }

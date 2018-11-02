@@ -55,7 +55,7 @@ class UserActionRequired extends Component {
   checkIfUserActionIsRequired = async () => {
     const cozyClient = this.props.client
     try {
-      await cozyClient.client.fetchJSON('GET', '/data/')
+      await cozyClient.stackClient.fetchJSON('GET', '/data/')
       const wasBlocked = this.state.warnings.length !== 0
       if (wasBlocked) {
         this.setState({ warnings: this.state.warnings })
@@ -74,7 +74,10 @@ class UserActionRequired extends Component {
   acceptUpdatedTos = async () => {
     const cozyClient = this.props.client
     try {
-      await cozyClient.client.fetchJSON('PUT', '/settings/instance/sign_tos')
+      await cozyClient.stackClient.fetchJSON(
+        'PUT',
+        '/settings/instance/sign_tos'
+      )
       this.setState({
         warnings: this.state.warnings.filter(w => w.code !== 'tos-updated')
       })

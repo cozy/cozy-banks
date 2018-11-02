@@ -45,7 +45,7 @@ export const startPushNotifications = (cozyClient, settings, clientInfos) => {
   // eslint-disable-next-line no-console
   push.on('error', err => console.log(err))
   push.on('registration', async ({ registrationId }) => {
-    cozyClient.client.updateInformation({
+    cozyClient.stackClient.updateInformation({
       ...clientInfos,
       notificationDeviceToken: registrationId
     })
