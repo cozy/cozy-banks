@@ -447,7 +447,10 @@ class TransactionsD extends React.Component {
   }
 }
 
-const Transactions = compose(withBreakpoints(), translate())(TransactionsD)
+const Transactions = compose(
+  withBreakpoints(),
+  translate()
+)(TransactionsD)
 
 export class TransactionsWithSelection extends React.Component {
   state = {

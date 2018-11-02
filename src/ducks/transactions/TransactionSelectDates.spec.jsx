@@ -7,19 +7,13 @@ import includes from 'lodash/includes'
 
 const transactions = fixtures['io.cozy.bank.operations']
 
-const enabledMonth = [
-  '2018-06',
-  '2018-01',
-  '2017-08',
-  '2017-07',
-  '2017-06'
-]
+const enabledMonth = ['2018-06', '2018-01', '2017-08', '2017-07', '2017-06']
 
 const generateOption = date => {
   const month = format(date, 'YYYY-MM')
   return {
-    "disabled": !includes(enabledMonth, month),
-    "yearMonth": month,
+    disabled: !includes(enabledMonth, month),
+    yearMonth: month
   }
 }
 

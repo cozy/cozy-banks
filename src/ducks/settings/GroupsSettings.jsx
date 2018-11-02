@@ -11,7 +11,10 @@ import btnStyles from 'styles/buttons.styl'
 import { sortBy, flowRight as compose } from 'lodash'
 import { isCollectionLoading } from 'ducks/client/utils'
 
-const GroupList = compose(withRouter, translate())(({ groups, t, router }) => {
+const GroupList = compose(
+  withRouter,
+  translate()
+)(({ groups, t, router }) => {
   return groups.length ? (
     <Table className={styles.GrpsStg__table}>
       <thead>

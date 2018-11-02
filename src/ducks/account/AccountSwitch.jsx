@@ -395,5 +395,8 @@ export default compose(
   }),
   translate(),
   withBreakpoints(),
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
 )(AccountSwitch)

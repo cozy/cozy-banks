@@ -83,7 +83,7 @@ const getOptions = function(idStr) {
   let m = 10
   let name = tree[k]
   while (!categoriesStyle.hasOwnProperty(name)) {
-    k = k - k % m
+    k = k - (k % m)
     name = tree[k]
     m = 10 * m
   }

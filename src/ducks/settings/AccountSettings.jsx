@@ -217,7 +217,10 @@ const GeneralSettings = compose(
   }),
   withClient,
   withDispatch,
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
   translate()
 )(_GeneralSettings)
 
@@ -262,4 +265,7 @@ const AccountSettings = function({ routeParams, t }) {
   )
 }
 
-export default compose(withDispatch, translate())(AccountSettings)
+export default compose(
+  withDispatch,
+  translate()
+)(AccountSettings)

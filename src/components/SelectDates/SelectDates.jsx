@@ -338,9 +338,11 @@ class SelectDatesDumb extends React.PureComponent {
   }
 }
 
-const SelectDates = compose(translate(), scrollAware, withBreakpoints())(
-  SelectDatesDumb
-)
+const SelectDates = compose(
+  translate(),
+  scrollAware,
+  withBreakpoints()
+)(SelectDatesDumb)
 
 SelectDates.defaultProps = {
   options: getDefaultOptions()

@@ -184,7 +184,10 @@ const action = {
       getVendors(transaction)
     )
   },
-  Component: compose(withBreakpoints(), translate())(Component)
+  Component: compose(
+    withBreakpoints(),
+    translate()
+  )(Component)
 }
 
 export default action

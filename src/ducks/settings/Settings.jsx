@@ -49,4 +49,7 @@ const Settings = ({ t, children, router }) => {
   )
 }
 
-export default compose(withRouter, translate())(Settings)
+export default compose(
+  withRouter,
+  translate()
+)(Settings)

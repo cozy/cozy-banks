@@ -130,8 +130,7 @@ class Categories extends Component {
       percentage,
       currency,
       transactionsNumber
-    } =
-      subcategory || category
+    } = subcategory || category
     const selectedCategoryName = selectedCategory && selectedCategory.name
     const isCollapsed = selectedCategoryName !== category.name
     const type = subcategory ? 'subcategories' : 'categories'
@@ -222,8 +221,7 @@ class Categories extends Component {
       currency,
       percentage,
       transactionsNumber
-    } =
-      subcategory || category
+    } = subcategory || category
     const selectedCategoryName = selectedCategory && selectedCategory.name
 
     // subcategories are always collapsed
@@ -296,4 +294,8 @@ const PercentageLine = ({ value, color }) => (
   />
 )
 
-export default compose(withRouter, withBreakpoints(), translate())(Categories)
+export default compose(
+  withRouter,
+  withBreakpoints(),
+  translate()
+)(Categories)

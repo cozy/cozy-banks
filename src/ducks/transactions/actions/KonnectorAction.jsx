@@ -224,7 +224,10 @@ const action = {
       (urls['COLLECT'] || urls['HOME'])
     )
   },
-  Component: compose(translate(), addFetchTriggers)(Component)
+  Component: compose(
+    translate(),
+    addFetchTriggers
+  )(Component)
 }
 
 export default action

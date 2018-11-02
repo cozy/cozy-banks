@@ -82,4 +82,7 @@ CategoriesHeader.propTypes = {
   breakpoints: PropTypes.object.isRequired
 }
 
-export default compose(translate(), withBreakpoints())(CategoriesHeader)
+export default compose(
+  translate(),
+  withBreakpoints()
+)(CategoriesHeader)

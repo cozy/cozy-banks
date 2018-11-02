@@ -237,7 +237,11 @@ class DumbGroupSettings extends Component {
 
 export const GroupSettings = translate()(DumbGroupSettings)
 
-const enhance = Component => compose(withRouter, withClient)(Component)
+const enhance = Component =>
+  compose(
+    withRouter,
+    withClient
+  )(Component)
 
 const ExistingGroupSettings = enhance(props => (
   <Query query={client => client.get(GROUP_DOCTYPE, props.routeParams.groupId)}>

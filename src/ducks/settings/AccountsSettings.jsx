@@ -48,7 +48,10 @@ const _AccountLine = ({ account, router, t }) => (
   </tr>
 )
 
-const AccountLine = compose(translate(), withRouter)(_AccountLine)
+const AccountLine = compose(
+  translate(),
+  withRouter
+)(_AccountLine)
 
 const renderAccount = account => <AccountLine account={account} />
 

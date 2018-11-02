@@ -86,6 +86,8 @@ class TransactionHeader extends Component {
   }
 }
 
-export default compose(withRouter, withBreakpoints(), translate())(
-  TransactionHeader
-)
+export default compose(
+  withRouter,
+  withBreakpoints(),
+  translate()
+)(TransactionHeader)

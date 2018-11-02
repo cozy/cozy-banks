@@ -145,7 +145,7 @@ export const getTransactionsTotal = categories => {
     )
     for (let category of categories) {
       category.percentage = Math.round(
-        Math.abs(category.amount) / absoluteTransactionsTotal * 100
+        (Math.abs(category.amount) / absoluteTransactionsTotal) * 100
       )
       const absoluteSubcategoriesTotal = category.subcategories.reduce(
         (total, category) => total + Math.abs(category.amount),
@@ -156,7 +156,7 @@ export const getTransactionsTotal = categories => {
           subcategory.percentage = 100
         } else {
           subcategory.percentage = Math.round(
-            Math.abs(subcategory.amount) / absoluteSubcategoriesTotal * 100
+            (Math.abs(subcategory.amount) / absoluteSubcategoriesTotal) * 100
           )
         }
       }

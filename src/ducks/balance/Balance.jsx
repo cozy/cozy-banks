@@ -159,7 +159,10 @@ const SectionTitle = ({ children }) => {
   return <h3 className={styles['Balance__section-title']}>{children}</h3>
 }
 
-const enhanceGroups = compose(withRouter, translate())
+const enhanceGroups = compose(
+  withRouter,
+  translate()
+)
 
 const BalanceGroups = enhanceGroups(
   ({ groups, accountsById, balanceLower, isMobile, onRowClick, t, router }) => {
@@ -428,7 +431,10 @@ export default compose(
   withRouter,
   withBreakpoints(),
   translate(),
-  connect(null, mapDispatchToProps),
+  connect(
+    null,
+    mapDispatchToProps
+  ),
   queryConnect({
     accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' },
     groups: { query: client => client.all(GROUP_DOCTYPE), as: 'groups' },

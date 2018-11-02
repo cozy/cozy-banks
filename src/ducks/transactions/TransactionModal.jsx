@@ -239,9 +239,10 @@ TransactionModal.propTypes = {
   transaction: PropTypes.object.isRequired
 }
 
-const DumbTransactionModal = compose(translate(), withBreakpoints())(
-  TransactionModal
-)
+const DumbTransactionModal = compose(
+  translate(),
+  withBreakpoints()
+)(TransactionModal)
 
 const NeedResult = props => {
   const { children: renderFun, ...restProps } = props
@@ -277,8 +278,10 @@ const withTransaction = Component => {
   return Wrapped
 }
 
-export default compose(withDispatch, withTransaction, withUpdateCategory())(
-  DumbTransactionModal
-)
+export default compose(
+  withDispatch,
+  withTransaction,
+  withUpdateCategory()
+)(DumbTransactionModal)
 
 export { DumbTransactionModal }
