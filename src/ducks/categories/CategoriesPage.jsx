@@ -4,12 +4,14 @@ import { connect } from 'react-redux'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import Loading from 'components/Loading'
 import { getFilteredTransactions } from 'ducks/filters'
+import { getSettingsFromCollection } from 'ducks/settings/helpers'
 import { transactionsByCategory, computeCategorieData } from './helpers'
 import Categories from './Categories'
 import styles from './CategoriesPage.styl'
 import { flowRight as compose, sortBy } from 'lodash'
 import CategoriesHeader from './CategoriesHeader'
 import { queryConnect } from 'cozy-client'
+import { withMutations } from 'cozy-client'
 import {
   accountsConn,
   settingsConn,
@@ -30,11 +32,18 @@ class CategoriesPage extends Component {
   }
 
   onWithIncomeToggle = checked => {
-    const { settings, saveDocument } = this.props
+    const { saveDocument } = this.props
+    const settings = this.getSettings()
 
-    settings.data[0].showIncomeCategory = checked
+    settings.showIncomeCategory = checked
 
-    saveDocument(settings.data[0])
+    saveDocument(settings)
+  }
+
+  getSettings = () => {
+    const { settings: settingsCollection } = this.props
+
+    return getSettingsFromCollection(settingsCollection)
   }
 
   render() {
@@ -47,7 +56,7 @@ class CategoriesPage extends Component {
     } = this.props
     const isFetching =
       isCollectionLoading(transactions) || isCollectionLoading(settings)
-    const { showIncomeCategory } = (settings.data && settings.data[0]) || false
+    const { showIncomeCategory } = this.getSettings()
     const selectedCategoryName = router.params.categoryName
     const categories = showIncomeCategory
       ? categoriesProps
@@ -115,6 +124,7 @@ export default compose(
   withRouter,
   withBreakpoints(),
   translate(),
+  withMutations(),
   queryConnect({
     accounts: accountsConn,
     transactions: transactionsConn,
