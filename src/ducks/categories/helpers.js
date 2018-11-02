@@ -16,7 +16,21 @@ const makeSubcategory = catId => ({
 })
 
 export const getCategoryId = transaction => {
-  return transaction.manualCategoryId || transaction.automaticCategoryId
+  if (transaction.manualCategoryId) {
+    return transaction.manualCategoryId
+  }
+
+  const LOCAL_MODEL_USAGE_THRESHOLD = 0.8
+
+  if (
+    transaction.localCategoryId &&
+    transaction.localCategoryProba &&
+    transaction.localCategoryProba > LOCAL_MODEL_USAGE_THRESHOLD
+  ) {
+    return transaction.localCategoryId
+  }
+
+  return transaction.automaticCategoryId
 }
 
 export const getParentCategory = transaction => {
