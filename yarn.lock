@@ -4551,17 +4551,6 @@ cozy-bar@6.4.4:
     redux-persist "5.4.0"
     redux-thunk "2.2.0"
 
-cozy-client-js@0.12.1:
-  version "0.12.1"
-  resolved "https://registry.yarnpkg.com/cozy-client-js/-/cozy-client-js-0.12.1.tgz#947898e979dea7f73b8ebb5a74c9d67a4c733162"
-  integrity sha512-JPthcN0M31W8zyC5QvixfAFlrMOy+sybSF3AxSX5Gw0jKL8iVvTZDQVOejManuk42YjZo3F/gjLXkOWp+lI8dw==
-  dependencies:
-    core-js "^2.5.3"
-    isomorphic-fetch "^2.2.1"
-    pouchdb "6.4.3"
-    pouchdb-adapter-cordova-sqlite "https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a"
-    pouchdb-find "6.4.3"
-
 cozy-client-js@0.13.0:
   version "0.13.0"
   resolved "https://registry.yarnpkg.com/cozy-client-js/-/cozy-client-js-0.13.0.tgz#3ccb46b79ec1b72495d079e90203d534938e7c75"
