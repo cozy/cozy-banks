@@ -147,7 +147,7 @@
     "babel-polyfill": "6.26.0",
     "babel-preset-cozy-app": "1.1.0",
     "bluebird": "3.5.2",
-    "chart.js": "2.7.2",
+    "chart.js": "2.7.3",
     "classificator": "0.3.2",
     "classnames": "2.2.5",
     "cordova": "7.1.0",
