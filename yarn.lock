@@ -4617,10 +4617,10 @@ cozy-flags@1.2.11:
   resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-1.2.11.tgz#6d4ca1540bed28ea0ff617e6adcf82ffa2b510fb"
   integrity sha512-wCsWO4h6H2bKX5hCPID5PX9ghMzTTx7e8K9RXl6qbBKb6AvFtKeO8gakQrHUdZu67Dy2L9/GO7Rx2WrKiN/oQQ==
 
-cozy-interapp@0.2.6:
-  version "0.2.6"
-  resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.2.6.tgz#2681cfd5c062c6d4abb82c8af042450bba9e36c3"
-  integrity sha512-oIEUEbMgBREQ7nBxwvtneKEQ6TEfdtzpiQFg0cBefC3br5AhkygNLu9UpvYZbPTCxNvhiEF3OGSQV2ku9rmXuA==
+cozy-interapp@0.2.13:
+  version "0.2.13"
+  resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.2.13.tgz#5735b9d769c3cd195daac8f21d7b654859b76f5b"
+  integrity sha512-Fe5KPJF9UOAPkKSGZhnpi7qXM4czP4fi3bDKRSrShGBJjuqLQfChMY1+rD5o+FRFcJbTZK7EG+OSDCUQ5phPkw==
 
 cozy-jobs-cli@1.5.1:
   version "1.5.1"
