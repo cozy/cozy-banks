@@ -11,7 +11,7 @@
     "serve:watch": "nodemon -w '../../src' -x 'yarn serve'"
   },
   "dependencies": {
-    "cors": "2.8.4",
+    "cors": "2.8.5",
     "express": "4.16.4",
     "parcel": "1.10.3"
   }
