@@ -168,7 +168,7 @@
     "geco": "0.11.1",
     "hammerjs": "2.0.8",
     "html-webpack-harddisk-plugin": "0.2.0",
-    "localforage": "1.7.1",
+    "localforage": "1.7.3",
     "lodash": "4.17.5",
     "matomo-tracker": "2.2.0",
     "mjml": "3.3.5",
