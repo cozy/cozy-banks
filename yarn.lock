@@ -4572,23 +4572,10 @@ cozy-client-js@^0.8.0:
     pouchdb-adapter-cordova-sqlite "https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a"
     pouchdb-find "0.10.4"
 
-cozy-client@3.7.5:
+cozy-client@3.7.5, cozy-client@^3.7.5:
   version "3.7.5"
   resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-3.7.5.tgz#c72f9830ad6ee13fcc58f1bee660deb5f19ca805"
   integrity sha512-gtzZNUk3MDvmoED7si/T/j648AE8sCg5VPCaUxDS4R3qiwX1CMTe9G0OPyh3f2L0HaVjuECSuLVTtMNCuG9tvg==
-  dependencies:
-    cozy-stack-client "^3.4.0"
-    lodash "4.17.11"
-    prop-types "15.6.2"
-    react "16.4.2"
-    react-redux "5.0.7"
-    redux "3.7.2"
-    sift "7.0.1"
-
-cozy-client@^3.6.4:
-  version "3.6.4"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-3.6.4.tgz#6d77045d4af51336ec968a2c886123ae251a7b16"
-  integrity sha512-Gu8liXK7JbHTlx9VRyt9pHdv7JsTZ0pn56rzn2sm2zkzQvfnR3565DIlyJouMDqLGyTT8Bfd+ngS5SwNmDW1IQ==
   dependencies:
     cozy-stack-client "^3.4.0"
     lodash "4.17.11"
@@ -4708,12 +4695,12 @@ cozy-logger@^1.2.0:
   dependencies:
     json-stringify-safe "5.0.1"
 
-cozy-pouch-link@3.7.1:
-  version "3.7.1"
-  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-3.7.1.tgz#5ec87c1bf228cefcf602ca412d220d066315b3b8"
-  integrity sha512-zHOVsLcEkMlDbMHPGbjZEUv3eEVpln62c/l51MNtyXYxGRyoqDjNXCQpA7RaRdm8hVqPyxDTUArS/6A8Ld1SCw==
+cozy-pouch-link@3.8.0:
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-3.8.0.tgz#e4f139bc35bf04eaed72267a5233a3931ea262fc"
+  integrity sha512-XA4v7qmgD+iqPKqn9OmhQAOGiZ8YD7kk+8uJoRvWKbTs1il1V7oJyHlgf/U8jLTIPjEk8d9KMQ8Ziq2PAfjkuQ==
   dependencies:
-    cozy-client "^3.6.4"
+    cozy-client "^3.7.5"
     cozy-device-helper "1.4.8"
     pouchdb "7.0.0"
     pouchdb-find "7.0.0"

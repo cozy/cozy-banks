@@ -159,7 +159,7 @@
     "cozy-flags": "1.2.11",
     "cozy-interapp": "0.2.13",
     "cozy-konnector-libs": "3.8.1",
-    "cozy-pouch-link": "3.7.1",
+    "cozy-pouch-link": "3.8.0",
     "cozy-ui": "13.1.5",
     "d3": "5.5.0",
     "date-fns": "1.29.0",
