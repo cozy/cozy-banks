@@ -43,10 +43,5 @@ class NodeTracker {
 }
 
 export function getTracker(target, opts = {}) {
-  switch (target) {
-    case 'services':
-      return new NodeTracker(opts)
-    default:
-      return
-  }
+  return new NodeTracker(opts)
 }
