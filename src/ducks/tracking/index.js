@@ -1,26 +1,52 @@
 /* global __PIWIK_SITEID__, __PIWIK_TRACKER_URL__ */
 
 import MatomoTracker from 'matomo-tracker'
+import logger from 'cozy-logger'
 
-let nodeTracker
+const log = logger.namespace('matomo-node-tracker')
 
-/**
- * Get a Matomo/Piwik tracker to be used in node processes (tipically services)
- * @return {MatomoTracker}
- */
-export function getNodeTracker() {
-  if (nodeTracker) {
-    return nodeTracker
+class NodeTracker {
+  constructor(defaultOpts) {
+    this.tracker = new MatomoTracker(__PIWIK_SITEID__, __PIWIK_TRACKER_URL__)
+
+    this.tracker.on('error', err => {
+      log('error', err)
+    })
+
+    this.opts = Object.assign(
+      {
+        url: process.env.COZY_URL,
+        e_c: 'Banks'
+      },
+      defaultOpts
+    )
   }
 
-  const tracker = new MatomoTracker(__PIWIK_SITEID__, __PIWIK_TRACKER_URL__)
+  trackEvent(eventOpts) {
+    const event = {
+      ...this.opts,
+      ...eventOpts
+    }
 
-  tracker.on('error', err => {
-    // eslint-disable-next-line
-    console.log('error tracking request: ', err)
-  })
+    const stringifiedEvent = JSON.stringify(event)
 
-  nodeTracker = tracker
+    if (process.env.NODE_ENV === 'production') {
+      log('info', `Send event to Piwik ${stringifiedEvent}`)
+      this.tracker.track(event)
+    } else {
+      log(
+        'info',
+        `Not in production env, the following event was not sent to Matomo: ${stringifiedEvent}`
+      )
+    }
+  }
+}
 
-  return tracker
+export function getTracker(target, opts = {}) {
+  switch (target) {
+    case 'services':
+      return new NodeTracker(opts)
+    default:
+      return
+  }
 }
