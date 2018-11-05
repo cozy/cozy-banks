@@ -146,6 +146,7 @@ const localModel = async (classifierOptions, transactions) => {
       'info',
       'No classifier, impossible to categorize transactions'
     )
+    return
   }
 
   for (const transaction of transactions) {
