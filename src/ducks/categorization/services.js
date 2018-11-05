@@ -1,3 +1,5 @@
+/* global __TARGET__ */
+
 import { cozyClient } from 'cozy-konnector-libs'
 import logger from 'cozy-logger'
 import { maxBy, pick } from 'lodash'
@@ -5,6 +7,8 @@ import { tokenizer, createClassifier } from '.'
 import bayes from 'classificator'
 import { getLabel } from 'ducks/transactions/helpers'
 import { TRANSACTION_DOCTYPE } from 'doctypes'
+import { LOCAL_MODEL_USAGE_THRESHOLD } from 'ducks/categories/helpers'
+import { getTracker } from 'ducks/tracking'
 
 const localModelLog = logger.namespace('local-categorization-model')
 const globalModelLog = logger.namespace('global-categorization-model')
@@ -165,6 +169,23 @@ const localModel = async (classifierOptions, transactions) => {
     localModelLog('info', `localCategory: ${category}`)
     localModelLog('info', `localProba: ${proba}`)
   }
+
+  const tracker = getTracker(__TARGET__, { e_a: 'LocalCategorization' })
+  const nbTransactionsAboveThreshold = transactions.reduce(
+    (sum, transaction) => {
+      if (transaction.localCategoryProba > LOCAL_MODEL_USAGE_THRESHOLD) {
+        return sum + 1
+      }
+
+      return sum
+    },
+    0
+  )
+
+  tracker.trackEvent({
+    e_n: 'TransactionsUsingLocalCategory',
+    e_v: nbTransactionsAboveThreshold
+  })
 }
 
 export const categorizes = async transactions => {
