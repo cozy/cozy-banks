@@ -24,7 +24,6 @@ export const initBar = (url, accessToken, options = {}) => {
     iconPath: require('targets/favicons/icon-banks.svg'),
     lang: getLang(),
     replaceTitleOnMobile: true,
-    displayOnMobile: true,
     ...options
   })
 }
