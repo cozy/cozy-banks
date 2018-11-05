@@ -172,7 +172,7 @@
     "lodash": "4.17.5",
     "matomo-tracker": "2.2.0",
     "mjml": "3.3.5",
-    "node-polyglot": "2.2.2",
+    "node-polyglot": "2.3.0",
     "null-loader": "0.1.1",
     "number-to-locale-string": "1.2.0",
     "piwik-react-router": "0.8.2",
