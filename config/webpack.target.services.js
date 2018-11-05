@@ -75,7 +75,7 @@ module.exports = merge.strategy({
       __TARGET__: JSON.stringify('services'),
       __PIWIK_SITEID__: 8,
       __PIWIK_TRACKER_URL__: JSON.stringify(
-        'https://piwik.cozycloud.cc/piwik.php'
+        'https://matomo.cozycloud.cc/piwik.php'
       )
     }),
 
