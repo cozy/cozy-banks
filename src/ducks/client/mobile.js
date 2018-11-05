@@ -1,6 +1,5 @@
 /* global cozy, __APP_VERSION__ */
 import CozyClient from 'cozy-client'
-import PouchLink from 'cozy-pouch-link'
 import { getDeviceName } from 'cozy-device-helper'
 
 import { merge, get } from 'lodash'
@@ -75,14 +74,6 @@ export const getClient = state => {
   }
 
   const client = new CozyClient(merge(manifestOptions, banksOptions))
-  const pouchLink = client.links.find(link => link instanceof PouchLink)
-
-  // TODO find a way to provide the client inside the PouchLink in a cleaner way
-  if (pouchLink) {
-    pouchLink.options.onSync = function(data) {
-      client.setData(data)
-    }
-  }
 
   return client
 }

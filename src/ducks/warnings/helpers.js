@@ -1,7 +1,7 @@
 export function checkWarnings(cozyClient) {
   return (
-    cozyClient.client.fetchJSON &&
-    cozyClient.client
+    cozyClient.stackClient.fetchJSON &&
+    cozyClient.stackClient
       .fetchJSON('GET', '/settings/warnings')
       .then(() => null)
       .catch(err => {

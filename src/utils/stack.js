@@ -3,7 +3,11 @@ const flagForDeletion = doc => {
 }
 
 export const deleteAll = async (cozyClient, doctype, docs) => {
-  return cozyClient.client.fetchJSON('POST', `/data/${doctype}/_bulk_docs`, {
-    docs: docs.map(flagForDeletion)
-  })
+  return cozyClient.stackClient.fetchJSON(
+    'POST',
+    `/data/${doctype}/_bulk_docs`,
+    {
+      docs: docs.map(flagForDeletion)
+    }
+  )
 }
