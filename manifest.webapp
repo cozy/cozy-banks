@@ -15,13 +15,11 @@
   "default_locale": "en",
   "locales": {
     "en": {
-      "name": "Banks",
       "short_description": "Cozy Banks is the personal financial management application available on Cozy.",
       "long_description": "With Cozy Banks, you can easily:\n- Have all your bank accounts in one place\n- Get an comprehensive overview of all your expenses with one-click access to your bills\n- Directly access your health insurance reimbursements\n- Categorize automaticaly all your expenses: income, leisure, health, rent,...\n\nAs secured as your bank:\n• Cozy Cloud is a French company that develops Cozy Banks and our servers are also hosted in France by OVH\n• We use the technology of our provider Linxo\n• As safe as your bank's website\n• Your credentials and connections are always protected (encrypted)\n• Cozy Banks is dedicated for read only, no payment order or wire transfers are possible\nRead more about Security: https://help.cozy.io/category/93-security",
       "changes": ""
     },
     "fr": {
-      "name": "Banks",
       "short_description": "Cozy Banks est l’application gratuite et sécurisée pour gérer votre argent et tous vos comptes bancaires.",
       "long_description": "Avec Cozy Banks, vous pouvez facilement :\n- Regrouper tous vos comptes même issus de banques différentes. Plus de 100 banques disponibles\n- Obtenir une vision d’ensemble sur toutes vos dépenses\n- Accéder directement aux factures des services que vous avez payés\n- Suivre vos dépenses et remboursements de santé\n- Catégoriser automatiquement vos dépenses : revenus, loisirs, santé, logement...\n\nCozy Banks a été pensée avec la sécurité en premier plan :\n- L'application Cozy Banks est développée en France, et les serveurs sont également hébergés en France\n- Nous utilisons la technologie de notre prestataire Linxo\n- Aussi sécurisée que le site internet de votre banque\n- Vos identifiants et connexions sont toujours chiffrés\n- Cozy Banks ne s’utilise qu’en lecture seule, aucun ordre de paiement n’est possible\n- Pour plus d'informations sur la sécurité : https://support.cozy.io/category/5-securite\n\nL'application Cozy Banks est connectée à plus de 100 institutions financières :\nCaisse d’Epargne, Crédit Agricole, Société Générale, Boursorama, Crédit Mutuel, La Banque Postale, Compte Nickel, LCL, Banque Populaire, HSBC, Axa Banque, Bred, CIC, BforBank, Hello Bank, Fortuneo Banque, ING Direct, Monabanq, Barclays, BNP Paribas...",
       "changes": ""
