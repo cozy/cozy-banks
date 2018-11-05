@@ -21,20 +21,36 @@ before_deploy:
   - eval "$(ssh-agent -s)"
   - chmod 600 /tmp/deploy_rsa
   - ssh-add /tmp/deploy_rsa
-script:
-  - yarn lint
-  - yarn test
-  - yarn build
-deploy:
-  - provider: script
-    repo: cozy/cozy-banks
-    skip-cleanup: true
-    script: yarn cozyPublish && ./scripts/deploy-on-cozy && yarn uploadStaticFiles
-    on:
-      branch: master
-  - provider: script
-    repo: cozy/cozy-banks
-    skip-cleanup: true
-    script: yarn cozyPublish && ./scripts/deploy-on-cozy && yarn uploadStaticFiles
-    on:
-      tags: true
+stages:
+  - test
+  - build
+jobs:
+  include:
+    - &test_unit
+      stage: test
+      script: yarn test
+      name: Unit tests
+      os: linux
+    - &test_lint
+      stage: test
+      script: yarn lint
+      name: Lint tests
+      os: linux
+    - &build_web
+      stage: build
+      script: yarn build
+      name: Web build
+      os: linux
+      deploy:
+        - provider: script
+          repo: cozy/cozy-banks
+          skip-cleanup: true
+          script: yarn cozyPublish && ./scripts/deploy-on-cozy && yarn uploadStaticFiles
+          on:
+            branch: master
+        - provider: script
+          repo: cozy/cozy-banks
+          skip-cleanup: true
+          script: yarn cozyPublish && ./scripts/deploy-on-cozy && yarn uploadStaticFiles
+          on:
+            tags: true
