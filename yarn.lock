@@ -4567,12 +4567,12 @@ cozy-client-js@^0.8.0:
     pouchdb-adapter-cordova-sqlite "https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a"
     pouchdb-find "0.10.4"
 
-cozy-client@3.7.5, cozy-client@^3.7.5:
-  version "3.7.5"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-3.7.5.tgz#c72f9830ad6ee13fcc58f1bee660deb5f19ca805"
-  integrity sha512-gtzZNUk3MDvmoED7si/T/j648AE8sCg5VPCaUxDS4R3qiwX1CMTe9G0OPyh3f2L0HaVjuECSuLVTtMNCuG9tvg==
+cozy-client@4.0.0, cozy-client@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-4.0.0.tgz#c519451c5262d5b8f47038cfeb33375df8705f70"
+  integrity sha512-ndkd9ThBllHcJpXDvljXnTICOYBnhrwkurj7ylsyBvAguFpy1swujQGMbd9X5UTNewuVrQ+p4t9O8M5P/1h8SA==
   dependencies:
-    cozy-stack-client "^3.4.0"
+    cozy-stack-client "^4.0.0"
     lodash "4.17.11"
     prop-types "15.6.2"
     react "16.4.2"
@@ -4690,12 +4690,12 @@ cozy-logger@^1.2.0:
   dependencies:
     json-stringify-safe "5.0.1"
 
-cozy-pouch-link@3.8.0:
-  version "3.8.0"
-  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-3.8.0.tgz#e4f139bc35bf04eaed72267a5233a3931ea262fc"
-  integrity sha512-XA4v7qmgD+iqPKqn9OmhQAOGiZ8YD7kk+8uJoRvWKbTs1il1V7oJyHlgf/U8jLTIPjEk8d9KMQ8Ziq2PAfjkuQ==
+cozy-pouch-link@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-4.0.0.tgz#719b55add88c81ed4872c2b1a6851cf3570938ce"
+  integrity sha512-FEcR2t7meoZ/zQKQitPdrTR+isOOmMWyOOs6SCrjINRO/wK7chjGM7gzSK6b6jaFHKwe6n7mpAGhRMcoCHqrgQ==
   dependencies:
-    cozy-client "^3.7.5"
+    cozy-client "^4.0.0"
     cozy-device-helper "1.4.8"
     pouchdb "7.0.0"
     pouchdb-find "7.0.0"
@@ -4705,10 +4705,10 @@ cozy-realtime@1.2.0:
   resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-1.2.0.tgz#8f0e5a2c02df94674f0a96381a51bce71d327602"
   integrity sha512-VM03YzeWt0D3dlVeGFLFLgraDs78PS1OY9FxA7TVxt95Q17a0OaVqqUViwfYY84+DxzfFl1pzw2BSzhThAqYJw==
 
-cozy-stack-client@^3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-3.4.0.tgz#6500db6eba44eaded428fef5e0e0075e805eaa81"
-  integrity sha512-iKOeY/B0hWQ4xydTBBmq0oZ6pYddC2WlEKi6w8xEZoCLgp0aKwd4QTTljkpLnrPUoYw5SxK3io7xCuKcg9XeZA==
+cozy-stack-client@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-4.0.0.tgz#986c9bf1a3cd5e2a2631c4162f129e4c92b17814"
+  integrity sha512-m5seJDEnaTzhqruFbDlYyKqZWDOiYXIM4Jilb3fmpWRvg+UHGnQ6ean4NVqQlX+XMpVjrV+BU85h3VPSL5wPQQ==
   dependencies:
     mime-types "2.1.20"
 
