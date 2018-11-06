@@ -274,7 +274,9 @@ export default ExistingGroupSettings
  * of a brand new component
  */
 export const NewGroupSettings = withMutations()(
-  enhance(props => (
-    <GroupSettings {...props} group={makeNewGroup(props.client, props.t)} />
-  ))
+  enhance(
+    translate()(props => (
+      <GroupSettings {...props} group={makeNewGroup(props.client, props.t)} />
+    ))
+  )
 )
