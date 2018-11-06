@@ -14827,10 +14827,10 @@ react-group@^1.0.5:
   dependencies:
     prop-types "^15.6.0"
 
-react-hint@3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/react-hint/-/react-hint-3.0.1.tgz#8ec6848708469d5da99a5035054bfb5b4257c050"
-  integrity sha512-5DgCYzWjkx0kA/PO1X6KXxCNsPVDkqIxhuKaFQ5rsfeLu41oC6yBQ7lIjaH7Q3NZBkDrGDXaEZBTG8/GjePqsg==
+react-hint@3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/react-hint/-/react-hint-3.1.1.tgz#d4040f4120429652ae464a359b59dbb517d325be"
+  integrity sha512-Fn+TzTbBba1pdrxZG9R/qheGVb7J51f5AFNUUPHfXO8S503ATN5qYU/5spe2vA7+z4nf1gdbWgNLfjKYKTFCXA==
 
 react-icon-base@2.1.0:
   version "2.1.0"
