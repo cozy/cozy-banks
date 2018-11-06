@@ -15,12 +15,12 @@ const makeSubcategory = catId => ({
   transactions: []
 })
 
+export const LOCAL_MODEL_USAGE_THRESHOLD = 0.8
+
 export const getCategoryId = transaction => {
   if (transaction.manualCategoryId) {
     return transaction.manualCategoryId
   }
-
-  const LOCAL_MODEL_USAGE_THRESHOLD = 0.8
 
   if (
     transaction.localCategoryId &&

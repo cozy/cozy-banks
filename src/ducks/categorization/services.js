@@ -1,9 +1,17 @@
-import { cozyClient, log } from 'cozy-konnector-libs'
+/* global __TARGET__ */
+
+import { cozyClient } from 'cozy-konnector-libs'
+import logger from 'cozy-logger'
 import { maxBy, pick } from 'lodash'
 import { tokenizer, createClassifier } from '.'
 import bayes from 'classificator'
 import { getLabel } from 'ducks/transactions/helpers'
 import { TRANSACTION_DOCTYPE } from 'doctypes'
+import { LOCAL_MODEL_USAGE_THRESHOLD } from 'ducks/categories/helpers'
+import { getTracker } from 'ducks/tracking'
+
+const localModelLog = logger.namespace('local-categorization-model')
+const globalModelLog = logger.namespace('global-categorization-model')
 
 export const PARAMETERS_NOT_FOUND = 'Classifier files is not configured.'
 
@@ -25,37 +33,29 @@ const createLocalClassifier = async () => {
     return transactions
   }
 
-  log(
-    'info',
-    '[Local categorization model] Fetching manually categorized transactions'
-  )
+  localModelLog('info', 'Fetching manually categorized transactions')
   const index = await cozyClient.data.defineIndex(TRANSACTION_DOCTYPE, [
     'manualCategoryId'
   ])
   const transactions = await getTransWithManualCat([], index, 100)
-  log(
+  localModelLog(
     'info',
-    `[Local categorization model] Fetched ${
-      transactions.length
-    } manually categorized transactions`
+    `Fetched ${transactions.length} manually categorized transactions`
   )
 
   if (transactions.length === 0) {
-    log(
+    localModelLog(
       'info',
-      '[Local categorization model] Impossible to instanciate a classifier since there is no manually categorized transactions to learn from'
+      'Impossible to instanciate a classifier since there is no manually categorized transactions to learn from'
     )
     return null
   }
 
-  log('info', '[Local categorization model] Instanciating a fresh classifier')
+  localModelLog('info', 'Instanciating a fresh classifier')
   const options = { tokenizer, alpha: 0.1 }
   const classifier = bayes(options)
 
-  log(
-    'info',
-    '[Local categorization model] Learning from manually categorized transactions'
-  )
+  localModelLog('info', 'Learning from manually categorized transactions')
   for (const transaction of transactions) {
     classifier.learn(
       getLabelWithTags(transaction),
@@ -109,29 +109,23 @@ const getLabelWithTags = transaction => {
 }
 
 const globalModel = async (classifierOptions, transactions) => {
-  log(
-    'info',
-    '[Global categorization model] Fetching parameters from the stack'
-  )
+  globalModelLog('info', 'Fetching parameters from the stack')
   let parameters
 
   try {
     parameters = await getParameters()
-    log(
-      'info',
-      '[Global categorization model] Successfully fetched parameters from the stack'
-    )
+    globalModelLog('info', 'Successfully fetched parameters from the stack')
   } catch (e) {
-    log('info', `[Global model] ${e}`)
+    globalModelLog('info', e)
     return
   }
 
-  log('info', '[Global categorization model] Instanciating a new classifier')
+  globalModelLog('info', 'Instanciating a new classifier')
   const classifier = createClassifier(parameters, classifierOptions)
 
   for (const transaction of transactions) {
     const label = getLabelWithTags(transaction)
-    log('info', `[Global categorization model] Applying model to ${label}`)
+    globalModelLog('info', `Applying model to ${label}`)
 
     const { category, proba } = maxBy(
       classifier.categorize(label).likelihoods,
@@ -141,26 +135,27 @@ const globalModel = async (classifierOptions, transactions) => {
     transaction.cozyCategoryId = category
     transaction.cozyCategoryProba = proba
 
-    log('info', `[Global categorization model] Results for ${label} :`)
-    log('info', `[Global categorization model] cozyCategory: ${category}`)
-    log('info', `[Global categorization model] cozyProba: ${proba}`)
+    globalModelLog('info', `Results for ${label} :`)
+    globalModelLog('info', `cozyCategory: ${category}`)
+    globalModelLog('info', `cozyProba: ${proba}`)
   }
 }
 
 const localModel = async (classifierOptions, transactions) => {
-  log('info', '[Local categorization model] Instanciating a new classifier')
+  localModelLog('info', 'Instanciating a new classifier')
   const classifier = await createLocalClassifier()
 
   if (!classifier) {
-    log(
+    localModelLog(
       'info',
-      '[Local categorization model] No classifier, impossible to categorize transactions'
+      'No classifier, impossible to categorize transactions'
     )
+    return
   }
 
   for (const transaction of transactions) {
     const label = getLabelWithTags(transaction)
-    log('info', `[Local categorization model] Applying model to ${label}`)
+    localModelLog('info', `Applying model to ${label}`)
 
     const { category, proba } = maxBy(
       classifier.categorize(label).likelihoods,
@@ -170,10 +165,27 @@ const localModel = async (classifierOptions, transactions) => {
     transaction.localCategoryId = category
     transaction.localCategoryProba = proba
 
-    log('info', `[Local categorization model] Results for ${label} :`)
-    log('info', `[Local categorization model] localCategory: ${category}`)
-    log('info', `[Local categorization model] localProba: ${proba}`)
+    localModelLog('info', `Results for ${label} :`)
+    localModelLog('info', `localCategory: ${category}`)
+    localModelLog('info', `localProba: ${proba}`)
   }
+
+  const tracker = getTracker(__TARGET__, { e_a: 'LocalCategorization' })
+  const nbTransactionsAboveThreshold = transactions.reduce(
+    (sum, transaction) => {
+      if (transaction.localCategoryProba > LOCAL_MODEL_USAGE_THRESHOLD) {
+        return sum + 1
+      }
+
+      return sum
+    },
+    0
+  )
+
+  tracker.trackEvent({
+    e_n: 'TransactionsUsingLocalCategory',
+    e_v: nbTransactionsAboveThreshold
+  })
 }
 
 export const categorizes = async transactions => {
@@ -188,6 +200,8 @@ export const categorizes = async transactions => {
 }
 
 export const sendTransactions = async transactions => {
+  const log = logger.namespace('categorization-send-transactions')
+
   const transactionsToSend = transactions.map(transaction =>
     pick(transaction, [
       'amount',

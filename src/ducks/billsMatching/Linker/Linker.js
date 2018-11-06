@@ -1,3 +1,5 @@
+/* global __TARGET__ */
+
 const bluebird = require('bluebird')
 const {
   findDebitOperation,
@@ -12,7 +14,7 @@ const geco = require('geco')
 const format = require('date-fns/format')
 const { cozyClient } = require('cozy-konnector-libs')
 const { getBillDate, log } = require('../utils')
-const { getNodeTracker } = require('ducks/tracking')
+const { getTracker } = require('ducks/tracking')
 
 const DOCTYPE_OPERATIONS = 'io.cozy.bank.operations'
 const DEFAULT_AMOUNT_DELTA = 0.001
@@ -25,36 +27,7 @@ export default class Linker {
     this.toUpdate = []
     this.groupVendors = ['Numéricable']
 
-    try {
-      this.tracker = getNodeTracker()
-    } catch (e) {
-      log('error', "Can't initialize Linker tracker")
-    }
-  }
-
-  trackEvent(eventOpts) {
-    if (!this.tracker) {
-      log(
-        'warn',
-        `Can't track event ${eventOpts} since no tracker is initialized`
-      )
-      return
-    }
-
-    const defaultTrackingOptions = {
-      url: process.env.COZY_URL,
-      e_c: 'Banks',
-      e_a: 'BillsMatching'
-    }
-
-    const event = {
-      ...defaultTrackingOptions,
-      ...eventOpts
-    }
-
-    log('info', `Send event to Piwik ${JSON.stringify(event)}`)
-
-    this.tracker.track(event)
+    this.tracker = getTracker(__TARGET__, { e_a: 'BillsMatching' })
   }
 
   async removeBillsFromOperations(bills, operations) {
@@ -129,7 +102,7 @@ export default class Linker {
     log('debug', `Adding bill ${bill._id} to operation ${operation._id}`)
 
     if (!bill._id) {
-      this.trackEvent({
+      this.tracker.trackEvent({
         e_n: 'BillWithoutId'
       })
 
@@ -153,7 +126,7 @@ export default class Linker {
     )
 
     if (isOverflowing) {
-      this.trackEvent({
+      this.tracker.trackEvent({
         e_n: 'BillAmountOverflowingOperationAmount'
       })
 
@@ -184,7 +157,7 @@ export default class Linker {
     )
 
     if (!bill._id) {
-      this.trackEvent({
+      this.tracker.trackEvent({
         e_n: 'BillWithoutId'
       })
 
@@ -384,7 +357,7 @@ export default class Linker {
     ).length
 
     if (nbBillsLinked > 0) {
-      this.trackEvent({
+      this.tracker.trackEvent({
         e_n: 'BillsMatched',
         e_v: nbBillsLinked
       })
