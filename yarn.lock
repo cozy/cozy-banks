@@ -4700,10 +4700,10 @@ cozy-logger@^1.2.0:
   dependencies:
     json-stringify-safe "5.0.1"
 
-cozy-pouch-link@4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-4.0.0.tgz#719b55add88c81ed4872c2b1a6851cf3570938ce"
-  integrity sha512-FEcR2t7meoZ/zQKQitPdrTR+isOOmMWyOOs6SCrjINRO/wK7chjGM7gzSK6b6jaFHKwe6n7mpAGhRMcoCHqrgQ==
+cozy-pouch-link@4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-4.1.0.tgz#1c820a98e6015ea7839efb55f21ed5a8cb78e81d"
+  integrity sha512-GWUUeBCizpt0xL0m1kT6RxsSIKRDIqP8HcvFQlqDmbS+QQ3YCAlmpfx+iHys4GL0ru36k82GKDdvb1T4RKxAZw==
   dependencies:
     cozy-client "^4.0.0"
     cozy-device-helper "1.4.8"
@@ -13763,6 +13763,13 @@ pouchdb-abstract-mapreduce@7.0.0:
     pouchdb-md5 "7.0.0"
     pouchdb-utils "7.0.0"
 
+pouchdb-adapter-cordova-sqlite@2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/pouchdb-adapter-cordova-sqlite/-/pouchdb-adapter-cordova-sqlite-2.0.5.tgz#de7af31ee5c969922d5ff009d3e3ef00e2cc0a14"
+  integrity sha512-K7eIQzFYfuYOo4Nwn8r96Pq01t5mPOppO+n31U7IM/fPJTIGS/juJyNYYY9ePrlrz8icHEDl35cgHLMq40xFyA==
+  dependencies:
+    pouchdb-adapter-websql-core "^6.4.3"
+
 "pouchdb-adapter-cordova-sqlite@https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a":
   version "2.0.2"
   resolved "https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a"
@@ -13782,7 +13789,7 @@ pouchdb-adapter-utils@6.4.3:
     pouchdb-promise "6.4.3"
     pouchdb-utils "6.4.3"
 
-pouchdb-adapter-websql-core@^6.1.1:
+pouchdb-adapter-websql-core@^6.1.1, pouchdb-adapter-websql-core@^6.4.3:
   version "6.4.3"
   resolved "https://registry.yarnpkg.com/pouchdb-adapter-websql-core/-/pouchdb-adapter-websql-core-6.4.3.tgz#8f992a46ca8a6870440d0c8699cfaa7ac1c382c4"
   integrity sha512-AmmHVksmx6w9mv/YYETx9ZWjzqco4TNSHujfsozUFxUu8OPLHYPkZjiTZhxMvnEB0LAJJZL2Iswp+9avVyuG1Q==
