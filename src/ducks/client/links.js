@@ -2,19 +2,27 @@
 
 import { StackLink } from 'cozy-client'
 import { offlineDoctypes } from 'doctypes'
+import { isMobileApp, isIOSApp } from 'cozy-device-helper'
 
 let PouchLink
-if (__POUCH__) {
-  PouchLink = require('cozy-pouch-link').default
+
+const pouchLinkOptions = {
+  doctypes: offlineDoctypes,
+  initialSync: true
 }
 
-const setupPouchLink = () => {
-  const pouchLink = new PouchLink({
-    doctypes: offlineDoctypes,
-    initialSync: true
-  })
+if (__POUCH__) {
+  PouchLink = require('cozy-pouch-link').default
 
-  return pouchLink
+  if (isMobileApp() && isIOSApp()) {
+    pouchLinkOptions.pouch = {
+      plugins: [require('pouchdb-adapter-cordova-sqlite')],
+      options: {
+        adapter: 'cordova-sqlite',
+        location: 'default'
+      }
+    }
+  }
 }
 
 let links = null
@@ -27,7 +35,7 @@ export const getLinks = () => {
   links = [stackLink]
 
   if (__POUCH__) {
-    const pouchLink = setupPouchLink()
+    const pouchLink = new PouchLink(pouchLinkOptions)
     links = [pouchLink, ...links]
   }
 

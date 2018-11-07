@@ -93,4 +93,5 @@
         <variable name="ANDROID_PATHPREFIX" value="/" />
     </plugin>
     <plugin name="cordova-plugin-safariviewcontroller" spec="https://github.com/rdesimone/cordova-plugin-safariviewcontroller" />
+    <plugin name="cordova-sqlite-storage" spec="2.5.1" />
 </widget>
