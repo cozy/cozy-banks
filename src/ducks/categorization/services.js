@@ -141,6 +141,8 @@ const globalModel = async (classifierOptions, transactions) => {
   }
 }
 
+// The local model is disabled for now because we found an issue with it
+// eslint-disable-next-line no-unused-vars
 const localModel = async (classifierOptions, transactions) => {
   localModelLog('info', 'Instanciating a new classifier')
   const classifier = await createLocalClassifier()
@@ -192,8 +194,8 @@ export const categorizes = async transactions => {
   const classifierOptions = { tokenizer }
 
   await Promise.all([
-    globalModel(classifierOptions, transactions),
-    localModel(classifierOptions, transactions)
+    globalModel(classifierOptions, transactions)
+    // localModel(classifierOptions, transactions)
   ])
 
   return transactions
