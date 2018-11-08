@@ -4700,10 +4700,10 @@ cozy-logger@^1.2.0:
   dependencies:
     json-stringify-safe "5.0.1"
 
-cozy-pouch-link@4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-4.1.0.tgz#1c820a98e6015ea7839efb55f21ed5a8cb78e81d"
-  integrity sha512-GWUUeBCizpt0xL0m1kT6RxsSIKRDIqP8HcvFQlqDmbS+QQ3YCAlmpfx+iHys4GL0ru36k82GKDdvb1T4RKxAZw==
+cozy-pouch-link@4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-4.2.0.tgz#40a54d9f462c68067efc215a66ca8bf9c0e1c31c"
+  integrity sha512-6xC15viyWqpxmpvyqTTCXWDSMJz+fBehFaWddJCe1pVPWNMLVEQ9RnwihhU+1kcYjo6HUwbmWnCMtQGjbZjV7g==
   dependencies:
     cozy-client "^4.0.0"
     cozy-device-helper "1.4.8"
