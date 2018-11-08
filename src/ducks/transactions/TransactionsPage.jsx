@@ -16,7 +16,6 @@ import {
 import { getFilteredAccounts } from 'ducks/filters'
 import BarBalance from 'components/BarBalance'
 import { translate, withBreakpoints } from 'cozy-ui/react'
-import flag from 'cozy-flags'
 
 import {
   getTransactionsFilteredByAccount,
@@ -30,9 +29,8 @@ import { getDate } from 'ducks/transactions/helpers'
 import { getCategoryId } from 'ducks/categories/helpers'
 
 import Loading from 'components/Loading'
-import HistoryChart from 'ducks/balance/HistoryChart'
 
-import { TransactionTableHead, TransactionsWithSelection } from './Transactions'
+import { TransactionsWithSelection } from './Transactions'
 import TransactionHeader from './TransactionHeader'
 import styles from './TransactionsPage.styl'
 import {
@@ -82,12 +80,6 @@ const findNearestMonth = (chosenMonth, currentMonth, availableMonths) => {
   return multiFind(availableMonths, findFns)
 }
 
-const historyChartMargin = {
-  top: 10,
-  bottom: 10,
-  left: 16,
-  right: 16
-}
 class TransactionsPage extends Component {
   state = {
     fetching: false,
@@ -270,17 +262,9 @@ class TransactionsPage extends Component {
     return filteringDoc && filteringDoc._type === ACCOUNT_DOCTYPE
   }
 
-  displayBalanceHistory = () => {
-    if (!flag('balance-history')) {
-      return
-    }
-
-    return <HistoryChart margin={historyChartMargin} />
-  }
-
   displayTransactions() {
     const { limitMin, limitMax, infiniteScrollTop } = this.state
-    const { t, urls, breakpoints, router } = this.props
+    const { t, urls } = this.props
     const transations = this.getTransactions()
 
     if (transations.length === 0) {
@@ -288,38 +272,24 @@ class TransactionsPage extends Component {
     }
 
     return (
-      <div>
-        {!breakpoints.isMobile && (
-          <TransactionTableHead
-            mainColumnTitle={t(
-              router.params.subcategoryName
-                ? 'Categories.headers.movements'
-                : 'Transactions.header.description'
-            )}
-          />
-        )}
-        <div
-          className={
-            styles.TransactionPage__bottom + ' js-transactionPageBottom'
-          }
-        >
-          {this.displayBalanceHistory()}
-          <TransactionsWithSelection
-            className={styles.TransactionPage__top}
-            limitMin={limitMin}
-            limitMax={limitMax}
-            onReachTop={this.handleDecreaseLimitMin}
-            onReachBottom={this.handleIncreaseLimitMax}
-            infiniteScrollTop={infiniteScrollTop}
-            onChangeTopMostTransaction={this.handleChangeTopmostTransaction}
-            onScroll={this.checkToActivateTopInfiniteScroll}
-            transactions={transations}
-            urls={urls}
-            brands={this.getBrandsWithoutTrigger()}
-            filteringOnAccount={this.getFilteringOnAccount()}
-            manualLoadMore={isIOSApp()}
-          />
-        </div>
+      <div
+        className={styles.TransactionPage__bottom + ' js-transactionPageBottom'}
+      >
+        <TransactionsWithSelection
+          className={styles.TransactionPage__top}
+          limitMin={limitMin}
+          limitMax={limitMax}
+          onReachTop={this.handleDecreaseLimitMin}
+          onReachBottom={this.handleIncreaseLimitMax}
+          infiniteScrollTop={infiniteScrollTop}
+          onChangeTopMostTransaction={this.handleChangeTopmostTransaction}
+          onScroll={this.checkToActivateTopInfiniteScroll}
+          transactions={transations}
+          urls={urls}
+          brands={this.getBrandsWithoutTrigger()}
+          filteringOnAccount={this.getFilteringOnAccount()}
+          manualLoadMore={isIOSApp()}
+        />
       </div>
     )
   }
