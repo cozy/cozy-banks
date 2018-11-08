@@ -328,6 +328,7 @@ class TransactionsD extends React.Component {
       limitMax,
       breakpoints: { isDesktop, isExtraLarge },
       manualLoadMore,
+      filteringOnAccount,
       brands,
       urls
     } = this.props
@@ -365,7 +366,7 @@ class TransactionsD extends React.Component {
                     brands={brands}
                     urls={urls}
                     isExtraLarge={isExtraLarge}
-                    filteringOnAccount
+                    filteringOnAccount={filteringOnAccount}
                     selectTransaction={selectTransaction}
                   />
                 ) : (
@@ -375,6 +376,7 @@ class TransactionsD extends React.Component {
                     key={transaction._id}
                     ref={this.handleRefRow.bind(null, transaction._id)}
                     transaction={transaction}
+                    filteringOnAccount={filteringOnAccount}
                     selectTransaction={selectTransaction}
                   />
                 )
