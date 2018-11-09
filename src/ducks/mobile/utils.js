@@ -2,14 +2,14 @@
 const getLang = () =>
   navigator && navigator.language ? navigator.language.slice(0, 2) : 'en'
 
-export function resetClient(cozyClient) {
+export async function resetClient(cozyClient) {
+  if (cozyClient) {
+    await cozyClient.logout()
+  }
+
   // reset cozy-bar
   if (document.getElementById('coz-bar')) {
     document.getElementById('coz-bar').remove()
-  }
-
-  if (cozyClient) {
-    cozyClient.logout()
   }
 }
 
