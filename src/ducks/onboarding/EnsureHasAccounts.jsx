@@ -33,8 +33,18 @@ class EnsureHasAccounts extends Component {
 
   startInterval = () => {
     const { accounts } = this.props
-    if (accounts && accounts.length === 0 && !this.intervalId) {
-      this.intervalId = setInterval(() => this.fetchAccounts(), 30000)
+    const shouldStartInterval =
+      accounts &&
+      accounts.data &&
+      accounts.data.length === 0 &&
+      !this.intervalId
+
+    if (shouldStartInterval) {
+      const INTERVAL_DURATION = 30000
+      this.intervalId = setInterval(
+        () => this.fetchAccounts(),
+        INTERVAL_DURATION
+      )
     }
   }
 
@@ -43,7 +53,7 @@ class EnsureHasAccounts extends Component {
     if (!client) {
       return
     }
-    client.query(accountsConn.query)
+    client.query(accountsConn.query(client), { as: accountsConn.as })
   }
 
   stopInterval = () => {
@@ -59,7 +69,7 @@ class EnsureHasAccounts extends Component {
 
   componentDidUpdate() {
     const { accounts } = this.props
-    if (accounts.length === 0) {
+    if (accounts.data.length === 0) {
       this.startInterval()
     } else {
       this.stopInterval()
