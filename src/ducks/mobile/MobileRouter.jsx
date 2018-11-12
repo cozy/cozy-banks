@@ -19,10 +19,11 @@ import {
   stopPushNotifications
 } from 'ducks/mobile/push'
 import { initBar, resetClient } from 'ducks/mobile/utils'
+import LogoutModal from 'components/LogoutModal'
 
 export const AUTH_PATH = 'authentication'
 
-export const onLogout = async (store, cozyClient, replaceFn) => {
+export const onLogout = async (store, cozyClient) => {
   try {
     await stopPushNotifications()
 
@@ -52,62 +53,88 @@ export const onLogout = async (store, cozyClient, replaceFn) => {
   }
 
   store.dispatch(unlink())
-  replaceFn(`/${AUTH_PATH}`)
 }
 
-const withAuth = Wrapped => (props, { store }) => {
-  const cozyClient = props.client
-  let clientInfos
-  const onAuthentication = async res => {
-    if (res) {
-      // first authentication
-      const { url, clientInfo, router, token } = res
-      setURLContext(url)
-      store.dispatch(storeCredentials(url, clientInfo, token))
-      router.replace(defaultRoute())
-    } else {
-      // when user is already authenticated
-      clientInfos = store.getState().mobile.client
+const withAuth = Wrapped =>
+  class WithAuth extends React.Component {
+    state = {
+      isLoggingOut: false
     }
 
-    cozyClient.login()
-    await registerPushNotifications(cozyClient, clientInfos)
-  }
+    onAuthentication = async res => {
+      let clientInfos
+      const cozyClient = this.props.client
 
-  const setupAuth = isAuthenticated => () => {
-    if (!isAuthenticated()) {
-      // TODO: Remove old data, we remove it because it use old cozy-client-js
-      // resetClient()
-      props.history.replace(`/${AUTH_PATH}`)
-      store.dispatch(revokeClient())
-    } else {
-      onAuthentication()
-      const mobileState = store.getState().mobile
-      const url = getURL(mobileState)
-      setURLContext(url)
-      initBar(url, getAccessToken(mobileState), {
-        onLogOut: () => {
-          onLogout(store, cozyClient, props.history.replace)
-        }
-      })
+      if (res) {
+        // first authentication
+        const { url, clientInfo, router, token } = res
+        setURLContext(url)
+        this.context.store.dispatch(storeCredentials(url, clientInfo, token))
+        router.replace(defaultRoute())
+      } else {
+        // when user is already authenticated
+        clientInfos = this.context.store.getState().mobile.client
+      }
+
+      cozyClient.login()
+      await registerPushNotifications(cozyClient, clientInfos)
+    }
+
+    setupAuth = isAuthenticated => () => {
+      if (!isAuthenticated()) {
+        // TODO: Remove old data, we remove it because it use old cozy-client-js
+        // resetClient()
+        this.props.history.replace(`/${AUTH_PATH}`)
+        this.context.store.dispatch(revokeClient())
+      } else {
+        this.onAuthentication()
+        const mobileState = this.context.store.getState().mobile
+        const url = getURL(mobileState)
+        const cozyClient = this.props.client
+        setURLContext(url)
+        initBar(url, getAccessToken(mobileState), {
+          onLogOut: () => {
+            this.setState({ isLoggingOut: true }, async () => {
+              await onLogout(
+                this.context.store,
+                cozyClient,
+                this.props.history.replace
+              )
+
+              this.setState({ isLoggingOut: false })
+              this.props.history.replace(`/${AUTH_PATH}`)
+            })
+          }
+        })
+      }
+    }
+
+    isAuthenticated = () => {
+      return this.context.store.getState().mobile.client !== null
+    }
+
+    isRevoked = () => {
+      return this.context.store.getState().mobile.revoked
+    }
+
+    render() {
+      if (this.state.isLoggingOut) {
+        return <LogoutModal />
+      }
+
+      return (
+        <Wrapped
+          {...this.props}
+          {...{
+            isAuthenticated: this.isAuthenticated,
+            isRevoked: this.isRevoked,
+            onAuthentication: this.onAuthentication,
+            setupAuth: this.setupAuth
+          }}
+        />
+      )
     }
   }
-
-  const isAuthenticated = () => {
-    return store.getState().mobile.client !== null
-  }
-
-  const isRevoked = () => {
-    return store.getState().mobile.revoked
-  }
-
-  return (
-    <Wrapped
-      {...props}
-      {...{ isAuthenticated, isRevoked, onAuthentication, setupAuth }}
-    />
-  )
-}
 
 const MobileRouter = ({
   router,

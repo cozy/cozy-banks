@@ -37,4 +37,7 @@
   data-cozy-tracking="{{.Tracking}}"
   data-cozy-app-slug="{{.AppSlug}}"
   <% } %>
->
+></div>
+<% if (__TARGET__ === 'mobile') { %>
+<div id="logout-modal" style="position: relative; z-index: 100;"></div>
+<% } %>
