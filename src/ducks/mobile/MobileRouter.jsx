@@ -19,10 +19,11 @@ import {
   stopPushNotifications
 } from 'ducks/mobile/push'
 import { initBar, resetClient } from 'ducks/mobile/utils'
+import LogoutModal from 'components/LogoutModal'
 
 export const AUTH_PATH = 'authentication'
 
-export const onLogout = async (store, cozyClient, replaceFn) => {
+export const onLogout = async (store, cozyClient) => {
   try {
     await stopPushNotifications()
 
@@ -52,11 +53,14 @@ export const onLogout = async (store, cozyClient, replaceFn) => {
   }
 
   store.dispatch(unlink())
-  replaceFn(`/${AUTH_PATH}`)
 }
 
 const withAuth = Wrapped =>
   class WithAuth extends React.Component {
+    state = {
+      isLoggingOut: false
+    }
+
     onAuthentication = async res => {
       let clientInfos
       const cozyClient = this.props.client
@@ -90,7 +94,16 @@ const withAuth = Wrapped =>
         setURLContext(url)
         initBar(url, getAccessToken(mobileState), {
           onLogOut: () => {
-            onLogout(this.context.store, cozyClient, this.props.history.replace)
+            this.setState({ isLoggingOut: true }, async () => {
+              await onLogout(
+                this.context.store,
+                cozyClient,
+                this.props.history.replace
+              )
+
+              this.setState({ isLoggingOut: false })
+              this.props.history.replace(`/${AUTH_PATH}`)
+            })
           }
         })
       }
@@ -105,6 +118,10 @@ const withAuth = Wrapped =>
     }
 
     render() {
+      if (this.state.isLoggingOut) {
+        return <LogoutModal />
+      }
+
       return (
         <Wrapped
           {...this.props}

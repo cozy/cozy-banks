@@ -501,5 +501,9 @@
 
   "BalanceHistory": {
     "subtitle": "All accounts"
+  },
+
+  "LogoutModal": {
+    "message": "Logout in progress..."
   }
 }

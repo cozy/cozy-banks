@@ -454,5 +454,9 @@
 
   "BalanceHistory": {
     "subtitle": "Tous les comptes"
+  },
+
+  "LogoutModal": {
+    "message": "Déconnexion en cours..."
   }
 }
