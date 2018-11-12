@@ -109,7 +109,10 @@ export class EnsureHasAccounts extends Component {
 
   render() {
     return (
-      <EnsureHasAccountsView accounts={this.props.accounts} location={this.props.location}>
+      <EnsureHasAccountsView
+        accounts={this.props.accounts}
+        location={this.props.location}
+      >
         {this.props.children}
       </EnsureHasAccountsView>
     )
