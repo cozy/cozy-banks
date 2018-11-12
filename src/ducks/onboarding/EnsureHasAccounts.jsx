@@ -25,10 +25,37 @@ const LayoutContent = props => (
   </Layout>
 )
 
+export function EnsureHasAccountsView(props) {
+  const { children, accounts, location } = props
+
+  if (isCollectionLoading(accounts)) {
+    return (
+      <LayoutContent>
+        <div className={styles.Onboarding__loading}>
+          <Loading />
+        </div>
+      </LayoutContent>
+    )
+  }
+
+  if (
+    (accounts && accounts.data && accounts.data.length === 0) ||
+    (location && hasParameter(location.query, 'onboarding'))
+  ) {
+    return (
+      <LayoutContent>
+        <Onboarding />
+      </LayoutContent>
+    )
+  }
+
+  return children
+}
+
 /**
  * Replaces its children by Onboarding if we have no accounts
  */
-class EnsureHasAccounts extends Component {
+export class EnsureHasAccounts extends Component {
   intervalId = false
 
   startInterval = () => {
@@ -48,7 +75,7 @@ class EnsureHasAccounts extends Component {
     }
   }
 
-  fetchAccounts = () => {
+  fetchAccounts() {
     const client = getClient()
     if (!client) {
       return
@@ -81,30 +108,11 @@ class EnsureHasAccounts extends Component {
   }
 
   render() {
-    const { children, accounts, location } = this.props
-
-    if (isCollectionLoading(accounts)) {
-      return (
-        <LayoutContent>
-          <div className={styles.Onboarding__loading}>
-            <Loading />
-          </div>
-        </LayoutContent>
-      )
-    }
-
-    if (
-      (accounts && accounts.data && accounts.data.length === 0) ||
-      hasParameter(location.query, 'onboarding')
-    ) {
-      return (
-        <LayoutContent>
-          <Onboarding />
-        </LayoutContent>
-      )
-    }
-
-    return children
+    return (
+      <EnsureHasAccountsView accounts={this.props.accounts} location={this.props.location}>
+        {this.props.children}
+      </EnsureHasAccountsView>
+    )
   }
 }
 
