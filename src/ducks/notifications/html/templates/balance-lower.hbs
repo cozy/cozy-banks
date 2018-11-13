@@ -7,13 +7,6 @@
   {{/content}}
 
   {{#content "content"}}
-    <mj-section>
-      <mj-column>
-        <mj-text>
-          <a href="{{ balancesUrl }}">Accéder à mes comptes</a>
-        </mj-text>
-      </mj-column>
-    </mj-section>
     {{#each institutions as |institution| }}
       <mj-section css-class="account" padding-top="0" padding-bottom="10px">
         <mj-column>
@@ -33,5 +26,12 @@
         </mj-column>
       </mj-section>
     {{/each}}
+    <mj-section>
+      <mj-column>
+        <mj-text>
+          <a href="{{ balancesUrl }}">{{t 'Notifications.if_balance_lower.email.access_accounts'}}</a>
+        </mj-text>
+      </mj-column>
+    </mj-section>
   {{/content}}
 {{/extend}}

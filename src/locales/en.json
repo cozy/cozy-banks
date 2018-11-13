@@ -333,6 +333,9 @@
     "if_balance_lower": {
       "description": "You will receive a notification if your balance is less than",
       "title": "Balance threshold",
+      "email": {
+        "access_accounts": "Access my accounts"
+      },
       "notification": {
         "one": {
           "title": "Balance alert: '%{label}' account is at %{balance}%{currency}",
