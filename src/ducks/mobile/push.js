@@ -1,10 +1,10 @@
 import { hashHistory } from 'react-router'
-import { getSettings, isNotificationEnabled } from 'ducks/settings/helpers'
+import { fetchSettings, isNotificationEnabled } from 'ducks/settings/helpers'
 
 let push
 
 export const registerPushNotifications = async (cozyClient, clientInfos) => {
-  const settings = await getSettings(cozyClient)
+  const settings = await fetchSettings(cozyClient)
 
   return startPushNotifications(cozyClient, settings, clientInfos)
 }
