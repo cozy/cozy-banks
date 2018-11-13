@@ -5,7 +5,10 @@ import GroupSettings, { NewGroupSettings } from './GroupSettings'
 import GroupsSettings from './GroupsSettings'
 import Configuration from './Configuration'
 
-export { isNotificationEnabled, getDefaultedSettingsFromCollection } from './helpers'
+export {
+  isNotificationEnabled,
+  getDefaultedSettingsFromCollection
+} from './helpers'
 
 // components
 export {

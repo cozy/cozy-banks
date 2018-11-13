@@ -6,14 +6,16 @@ fdescribe('defaulted settings', () => {
       find: () => {},
       query: () => {
         return Promise.resolve({
-          data: [{
-            notifications: {
-              balanceLower: {
-                value: 600,
-                enabled: false
+          data: [
+            {
+              notifications: {
+                balanceLower: {
+                  value: 600,
+                  enabled: false
+                }
               }
             }
-          }]
+          ]
         })
       }
     }
