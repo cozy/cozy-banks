@@ -19,6 +19,7 @@ const main = _argv => {
 
 Example: $ node build/testTemplate.js  -t balanceLower -d /tmp/data.json
 
+
 The JSON file contains the data necessary to render the template, check the templates
 for more information.
 `)
@@ -53,9 +54,17 @@ for more information.
     return
   }
 
+  const lang = argv.lang || 'en'
+  const localeStrings = require(`../../../locales/${lang}`)
+  const { initTranslation } = require('cozy-ui/react/I18n/translation')
+  const translation = initTranslation(lang, () => localeStrings)
+  const t = translation.t.bind(translation)
+
   Handlebars.registerHelper({
-    tGlobal: key => key
+    tGlobal: key => t('Notifications.email.' + key),
+    t
   })
+
   const data = JSON.parse(fs.readFileSync(argv.d))
 
   const outputFile = argv.o || 'index.html'
