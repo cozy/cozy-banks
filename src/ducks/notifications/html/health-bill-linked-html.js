@@ -1,17 +1,12 @@
-const { fromPairs } = require('lodash')
+const keyBy = require('lodash/keyBy')
 const templates = require('./templates')
 const { mjml2html } = require('mjml')
 const { prepareTransactions } = require('./utils')
 const { BILLS_DOCTYPE } = require('../../../doctypes')
 
 export default ({ accounts, transactions, bills, urls }) => {
-  const accountsById = fromPairs(
-    accounts.map(account => [account._id, account])
-  )
-  const billsById = fromPairs(
-    bills.map(bill => [`${BILLS_DOCTYPE}:${bill._id}`, bill])
-  )
-
+  const accountsById = keyBy(accounts, '_id')
+  const billsById = keyBy(bills, '_id')
   const transactionsByAccounts = prepareTransactions(transactions)
 
   const data = {
