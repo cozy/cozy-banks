@@ -175,7 +175,6 @@
     "number-to-locale-string": "1.2.0",
     "piwik-react-router": "0.8.2",
     "pouchdb-adapter-cordova-sqlite": "2.0.5",
-    "preact-portal": "1.1.3",
     "raven-js": "3.26.4",
     "raw-loader": "0.5.1",
     "react": "16.6.3",
