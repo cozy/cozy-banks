@@ -1,6 +1,6 @@
 const { fetchSettings } = require('./helpers')
 
-fdescribe('defaulted settings', () => {
+describe('defaulted settings', () => {
   it('should return defaulted settings', async () => {
     const fakeClient = {
       find: () => {},
