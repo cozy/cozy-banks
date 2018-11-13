@@ -2,7 +2,6 @@ const keyBy = require('lodash/keyBy')
 const templates = require('./templates')
 const { mjml2html } = require('mjml')
 const { prepareTransactions } = require('./utils')
-const { BILLS_DOCTYPE } = require('../../../doctypes')
 
 export default ({ accounts, transactions, bills, urls }) => {
   const accountsById = keyBy(accounts, '_id')
