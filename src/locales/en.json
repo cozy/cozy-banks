@@ -375,7 +375,7 @@
         "title": "New health reimbursements found",
         "content": {
           "title": "Health reimbursement notification",
-          "treatedBy": "expenditure treated by"
+          "treated_by": "Treated by"
         }
       }
     },

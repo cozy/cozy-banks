@@ -122,7 +122,7 @@ class HealthBillLinked extends Notification {
       .join(', ')
 
     return `${transaction.label} ${this.t(
-      `${translateKey}.content.treatedBy`
+      `${translateKey}.content.treated_by`
     )} ${vendors}`
   }
 }

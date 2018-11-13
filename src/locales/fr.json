@@ -387,7 +387,7 @@
         "title": "Nouveaux remboursement de santé",
         "content": {
           "title": "Notification de remboursement de santé",
-          "treatedBy": "dépense traitée par"
+          "treated_by": "dépense traitée par"
         }
       }
     },
