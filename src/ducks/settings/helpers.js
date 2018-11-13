@@ -9,10 +9,16 @@ export const isNotificationEnabled = settings => {
   )
 }
 
-export const getSettings = async client => {
-  const settingsCol = await client.query(client.find(DOCTYPE))
-  return getSettingsFromCollection(settingsCol)
+export const getDefaultedSettings = incompleteSettings => {
+  return merge({}, DEFAULTS_SETTINGS, incompleteSettings)
 }
 
-export const getSettingsFromCollection = col =>
-  merge(DEFAULTS_SETTINGS, get(col, 'data[0]'))
+export const fetchSettings = async client => {
+  const settingsCol = await client.query(client.find(DOCTYPE))
+  return getDefaultedSettingsFromCollection(settingsCol)
+}
+
+export const getDefaultedSettingsFromCollection = col => {
+  const settings = get(col, 'data[0]')
+  return getDefaultedSettings(settings)
+}

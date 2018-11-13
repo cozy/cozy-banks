@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Title, translate } from 'cozy-ui/react'
 import ToggleRow from './ToggleRow'
-import { getSettingsFromCollection } from './helpers'
+import { getDefaultedSettingsFromCollection } from './helpers'
 
 const ToogleDescription = ({ children }) => (
   <p className="u-coolGrey">{children}</p>
@@ -11,7 +11,7 @@ const ToogleDescription = ({ children }) => (
 class TogglePane extends Component {
   onToggle = (setting, checked) => {
     const { settingsCollection, settingsKey } = this.props
-    const settings = getSettingsFromCollection(settingsCollection)
+    const settings = getDefaultedSettingsFromCollection(settingsCollection)
     settings[settingsKey][setting].enabled = checked
     this.props.saveDocument(settings, {
       updateCollections: ['settings']
@@ -20,7 +20,7 @@ class TogglePane extends Component {
 
   onChangeValue = (setting, value) => {
     const { settingsCollection, settingsKey } = this.props
-    const settings = getSettingsFromCollection(settingsCollection)
+    const settings = getDefaultedSettingsFromCollection(settingsCollection)
     settings[settingsKey][setting].value = value
     this.props.saveDocument(settings, {
       updateCollections: ['settings']
@@ -29,7 +29,7 @@ class TogglePane extends Component {
 
   renderRows = () => {
     const { rows, settingsCollection, settingsKey, t } = this.props
-    const settings = getSettingsFromCollection(settingsCollection)
+    const settings = getDefaultedSettingsFromCollection(settingsCollection)
 
     return (
       <p>

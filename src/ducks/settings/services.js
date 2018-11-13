@@ -1,6 +1,6 @@
 import { cozyClient, log } from 'cozy-konnector-libs'
-import { DEFAULTS_SETTINGS, DOCTYPE } from './constants'
-import { merge } from 'lodash'
+import { DOCTYPE } from './constants'
+import { getDefaultedSettings } from './helpers'
 
 const createSetting = setting => {
   log('info', 'Create setting')
@@ -10,14 +10,14 @@ const createSetting = setting => {
 
 export const readSetting = async () => {
   log('info', 'Read setting')
-  const settings = await cozyClient.data.findAll(DOCTYPE)
+  const settingDocuments = await cozyClient.data.findAll(DOCTYPE)
+  const settings = settingDocuments[0]
 
-  if (settings.length > 0) {
-    return merge({}, DEFAULTS_SETTINGS, settings[0])
+  if (!settings) {
+    log('info', 'No settings yet, default settings are used')
   }
 
-  log('info', 'Default setting')
-  return DEFAULTS_SETTINGS
+  return getDefaultedSettings(settings)
 }
 
 const updateSetting = setting => {
@@ -28,6 +28,5 @@ const updateSetting = setting => {
 
 export const saveSetting = setting => {
   const updateOrCreate = setting._id ? updateSetting : createSetting
-
   return updateOrCreate(setting)
 }

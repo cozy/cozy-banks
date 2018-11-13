@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import Loading from 'components/Loading'
 import { getFilteredTransactions } from 'ducks/filters'
-import { getSettingsFromCollection } from 'ducks/settings/helpers'
+import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import { transactionsByCategory, computeCategorieData } from './helpers'
 import Categories from './Categories'
 import styles from './CategoriesPage.styl'
@@ -43,7 +43,7 @@ class CategoriesPage extends Component {
   getSettings = () => {
     const { settings: settingsCollection } = this.props
 
-    return getSettingsFromCollection(settingsCollection)
+    return getDefaultedSettingsFromCollection(settingsCollection)
   }
 
   render() {
