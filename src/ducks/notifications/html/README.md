@@ -7,7 +7,7 @@ that allows to test the templates with custom data.
 ```
 $ env TEST_TEMPLATES=true yarn watch:services
 # Will continuously build `build/testTemplates.js`
-$ node build/testTemplates.js -t balanceLower -d /src/ducks/notifications/html/data/accounts.json
+$ node build/testTemplates.js -t balanceLower -d src/ducks/notifications/html/data/accounts.json
 index.html written !
 ```
 
