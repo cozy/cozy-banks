@@ -1,5 +1,6 @@
 /* global cozy, __TARGET__ */
 
+import 'utils/react-exposer'
 import 'whatwg-fetch'
 import 'styles/main'
 
@@ -15,7 +16,6 @@ import 'utils/flag'
 import FastClick from 'fastclick'
 import { isReporterEnabled, configureReporter, setURLContext } from 'lib/sentry'
 import * as d3 from 'd3'
-import 'utils/react-exposer'
 
 const D3_LOCALES_MAP = {
   fr: 'fr-FR',
