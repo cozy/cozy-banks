@@ -4526,7 +4526,7 @@ cozy-authentication@1.3.0:
   dependencies:
     url-polyfill "1.0.11"
 
-cozy-bar@^6.7.2:
+cozy-bar@6.7.2:
   version "6.7.2"
   resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-6.7.2.tgz#b5196a6563058c4d4d6692a919fd407dfbdcff0a"
   integrity sha512-E909E3vX8z720nkOnHpY5zCr7KvSHO4K2f94G03HnaotBsX5FzNhSr0qbCbFP7D3OsSkTIEjPtfNV1q5xZ7pvA==
