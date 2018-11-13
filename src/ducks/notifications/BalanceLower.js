@@ -47,7 +47,9 @@ class BalanceLower extends Notification {
 
   filter(account) {
     // TODO: Find why account is undefined?
-    return account.balance < this.lowerBalance
+    return (
+      account.balance < this.lowerBalance && account.type !== 'CreditCard' // CreditCard are always in negative balance
+    )
   }
 
   buildNotification({ accounts }) {

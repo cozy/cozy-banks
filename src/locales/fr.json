@@ -331,11 +331,15 @@
     "title": "Notifications",
     "description": "Vous recevrez les notifications par email, ainsi que par notification mobile si vous installez l'app Cozy Banks sur votre mobile",
     "if_balance_lower": {
-      "title": "Seuil de solde",
+      "title": "Solde bas",
+      "email": {
+        "title": "Notification de solde bas",
+        "access_accounts": "Accéder à mes comptes"
+      },
       "description": "Vous recevrez une notification, si votre solde est inférieur à",
       "notification": {
         "one": {
-          "title": "Alerte solde : le compte '%{label}' est à %{balance}%{currency}",
+          "title": "Solde bas : le compte '%{label}' est à %{balance}%{currency}",
           "debitContent": "Dépense de %{amount}%{currency} : '%{label}'.",
           "creditContent": "Versement de %{amount}%{currency} : '%{label}'."
         },
@@ -346,15 +350,18 @@
       }
     },
     "if_transaction_greater": {
-      "title": "Montant de mouvement",
+      "title": "Mouvements",
       "description": "Vous recevrez une notification, si un mouvement est supérieur à",
+      "email": {
+        "title": "Notification de mouvement"
+      },
       "notification": {
         "debit": {
-          "title": "Alerte : dépense de %{amount}%{currency}",
+          "title": "Dépense de %{amount}%{currency}",
           "content": "%{label}"
         },
         "credit": {
-          "title": "Alerte : versement de %{amount}%{currency}",
+          "title": "Versement de %{amount}%{currency}",
           "content": "%{label}"
         },
         "others": {
@@ -383,11 +390,14 @@
     "when_health_bill_linked": {
       "title": "Remboursement de santé",
       "description": "Vous recevrez une notification lorsqu'un remboursement a été trouvé pour une de vos dépenses de santé. Cela nécessite d'avoir connecté une assurance santé à votre Cozy.",
+      "email": {
+        "title": "Remboursement de santé"
+      },
       "notification": {
         "title": "Nouveaux remboursement de santé",
         "content": {
-          "title": "Notification de remboursement de santé",
-          "treatedBy": "dépense traitée par"
+          "title": "Remboursement de santé",
+          "treated_by": "dépense traitée par"
         }
       }
     },

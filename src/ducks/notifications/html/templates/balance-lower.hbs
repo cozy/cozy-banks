@@ -1,29 +1,28 @@
 {{#extend "bank-layout"}}
   {{#content "emailTitle"}}
-      Alerte Soldes de compte
+    {{t 'Notifications.if_balance_lower.email.title'}}
   {{/content}}
   {{#content "emailSubtitle"}}
     {{ formatDate date }}
   {{/content}}
 
   {{#content "content"}}
-    <mj-section>
-      <mj-column>
-        <mj-text>
-          <a href="{{ balancesUrl }}">Accéder à mes comptes</a>
-        </mj-text>
-      </mj-column>
-    </mj-section>
     {{#each institutions as |institution| }}
       <mj-section css-class="account" padding-top="0" padding-bottom="10px">
         <mj-column>
           <mj-text padding-top="0" padding-bottom="0">
-            <h3 class='js-institution'>{{ institution.name }}</h3>
+            <h3 class='js-institution'>
+              {{ institution.name }}
+            </h3>
           </mj-text>
           {{#each institution.accounts as |account|}}
             <mj-table>
               <tr class="js-account tableRow">
-                <td>{{ capitalize this.label }}</td>
+                <td>
+                  <a href="{{ balancesUrl }}">
+                  {{ capitalize this.label }}
+                  </a>
+                </td>
                 <td width="150px" align='right'><span>{{ colored this.balance }}</span></td>
               </tr>
             </mj-table>
@@ -33,5 +32,12 @@
         </mj-column>
       </mj-section>
     {{/each}}
+    <mj-section>
+      <mj-column>
+        <mj-text>
+          <a href="{{ balancesUrl }}">{{t 'Notifications.if_balance_lower.email.access_accounts'}}</a>
+        </mj-text>
+      </mj-column>
+    </mj-section>
   {{/content}}
 {{/extend}}

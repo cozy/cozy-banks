@@ -4,9 +4,9 @@ import { cozyClient } from 'cozy-konnector-libs'
 import htmlTemplate from './html/health-bill-linked-html'
 import { BILLS_DOCTYPE } from 'doctypes'
 import * as utils from './html/utils'
-import Handlebars from 'handlebars'
-import { fromPairs } from 'lodash'
+import keyBy from 'lodash/keyBy'
 import log from 'cozy-logger'
+import { treatedByFormat } from './html/utils'
 
 const ACCOUNT_SEL = '.js-account'
 const DATE_SEL = '.js-date'
@@ -78,10 +78,6 @@ class HealthBillLinked extends Notification {
       })
     })
 
-    const translateKey = 'Notifications.when_health_bill_linked.notification'
-    const t = key => this.t(translateKey + '.content.' + key)
-    Handlebars.registerHelper({ t })
-
     return Promise.all(billsPromises).then(bills => {
       const templateData = {
         accounts: accounts,
@@ -94,12 +90,10 @@ class HealthBillLinked extends Notification {
 
       return {
         category: 'health-bill-linked',
-        title: this.t(`${translateKey}.title`),
-        message: this.getPushContent(
-          transactionsWithReimbursements,
-          bills,
-          translateKey
+        title: this.t(
+          `Notifications.when_health_bill_linked.notification.content.title`
         ),
+        message: this.getPushContent(transactionsWithReimbursements, bills),
         preferred_channels: ['mail', 'mobile'],
         content: toText(contentHTML),
         content_html: contentHTML,
@@ -110,19 +104,13 @@ class HealthBillLinked extends Notification {
     })
   }
 
-  getPushContent(transactions, bills, translateKey) {
+  getPushContent(transactions, bills) {
     const [transaction] = transactions
-    const billsById = fromPairs(
-      bills.map(bill => [`${BILLS_DOCTYPE}:${bill._id}`, bill])
-    )
-    const vendors = transaction.reimbursements
-      .map(reimbursement => {
-        return billsById[reimbursement.billId].vendor
-      })
-      .join(', ')
+    const billsById = keyBy(bills, x => x._id)
+    const vendors = treatedByFormat(transaction.reimbursements, billsById)
 
     return `${transaction.label} ${this.t(
-      `${translateKey}.content.treatedBy`
+      `Notifications.when_health_bill_linked.notification.content.treated_by`
     )} ${vendors}`
   }
 }

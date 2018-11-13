@@ -95,3 +95,8 @@ h1,h2,h3,h4,h5,h6{
 table {
   border-spacing: 0;
 }
+
+.tableRow a, .tableRow a:visited {
+  color: inherit;
+  text-decoration: none;
+}

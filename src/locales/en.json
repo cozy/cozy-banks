@@ -332,7 +332,11 @@
     },
     "if_balance_lower": {
       "description": "You will receive a notification if your balance is less than",
-      "title": "Balance threshold",
+      "title": "Low balances",
+      "email": {
+        "title": "Low balances notification",
+        "access_accounts": "Access my accounts"
+      },
       "notification": {
         "one": {
           "title": "Balance alert: '%{label}' account is at %{balance}%{currency}",
@@ -347,14 +351,17 @@
     },
     "if_transaction_greater": {
       "description": "You will receive a notification if a movement is greater than",
-      "title": "Movement amount",
+      "title": "Transaction",
+      "email": {
+        "title": "Transaction notification"
+      },
       "notification": {
         "debit": {
-          "title": "Alert: debit of %{amount}%{currency}",
+          "title": "Debit of %{amount}%{currency}",
           "content": "%{label}"
         },
         "credit": {
-          "title": "Alert: credit of %{amount}%{currency}",
+          "title": "Credit of %{amount}%{currency}",
           "content": "%{label}"
         },
         "others": {
@@ -370,12 +377,15 @@
     },
     "when_health_bill_linked": {
       "title": "Medical expenses coverage",
+      "email": {
+        "title": "Medical expense coverage notification"
+      },
       "description": "You will be notified when a reimbursement is found for a medical expense. This requires to connect your Cozy to your medical insurance.",
       "notification": {
-        "title": "New health reimbursements found",
+        "title": "Medical expense coverage notification",
         "content": {
           "title": "Health reimbursement notification",
-          "treatedBy": "expenditure treated by"
+          "treated_by": "Treated by"
         }
       }
     },

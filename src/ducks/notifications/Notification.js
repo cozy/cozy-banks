@@ -14,7 +14,7 @@ class Notification {
       banksUrl: getBanksUrl(cozyUrl),
       balancesUrl: getBanksUrl(cozyUrl, '/balances'),
       transactionsUrl: getBanksUrl(cozyUrl, '/transactions'),
-      settingsUrl: getBanksUrl(cozyUrl, '/settings/notifications')
+      settingsUrl: getBanksUrl(cozyUrl, '/settings/configuration')
     }
 
     const tGlobal = (key, data) => this.t('Notifications.email.' + key, data)

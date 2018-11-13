@@ -7,6 +7,7 @@ const layouts = require('handlebars-layouts')
 const { parse, format } = require('date-fns')
 const { getCategoryId } = require('ducks/categories/helpers')
 const { getParentCategory } = require('ducks/categories/categoriesMap')
+const utils = require('../utils')
 
 const capitalizeWord = str => {
   if (str.length > 3) {
@@ -75,7 +76,9 @@ ${Math.abs(amount)} €
 
   positive: function(n) {
     return n > 0
-  }
+  },
+
+  treatedByFormat: utils.treatedByFormat
 })
 
 layouts.register(Handlebars)
