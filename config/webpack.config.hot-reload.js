@@ -14,9 +14,6 @@ module.exports = {
   },
   plugins: [
     new webpack.NamedModulesPlugin(),
-    new webpack.ProvidePlugin({
-      'window.React': 'preact-compat'
-    }),
     new HtmlWebpackHarddiskPlugin()
   ],
   devServer: {
