@@ -1,6 +1,6 @@
 'use strict'
 
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const getTarget = () => {
   try {
@@ -20,9 +20,5 @@ module.exports = {
   target: target,
   hotReload,
   analyze: process.env.WEBPACK_ANALYZE,
-  extractor: new ExtractTextPlugin({
-    disable: hotReload ? true : false,
-    filename: `app${production ? '.[hash].min' : ''}.css`
-  }),
   skin
 }

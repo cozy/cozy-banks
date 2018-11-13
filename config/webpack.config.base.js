@@ -11,6 +11,7 @@ const pkg = require(path.resolve(__dirname, '../package.json'))
 const webpack = require('webpack')
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
 const StatsPlugin = require('stats-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   output: {
@@ -54,9 +55,10 @@ module.exports = {
       {
         include: SRC_DIR,
         test: /\.styl$/,
-        loader: extractor.extract({
-          fallback: 'style-loader',
-          use: [{
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader
+          }, {
             loader: 'css-loader',
             options: {
               importLoaders: 2,
@@ -70,28 +72,27 @@ module.exports = {
               sourceMap: true
             }
           }]
-        })
       },
       {
         test: /\.css$/,
-        loader: extractor.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                importLoaders: 1
-              }
-            },
-            {
-              loader: 'postcss-loader',
-              options: {
-                sourceMap: true,
-                plugins: loader => [require('autoprefixer')()]
-              }
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1
             }
-          ]
-        })
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: true,
+              plugins: loader => [require('autoprefixer')()]
+            }
+          }
+        ]
       },
       // Fonts
       {
@@ -112,7 +113,11 @@ module.exports = {
     new ScriptExtHtmlWebpackPlugin({
       defaultAttribute: 'defer'
     }),
-    extractor,
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: `app${production ? '.[hash].min' : ''}.css`
+    }),
     new DuplicatePackageCheckerPlugin({ verbose: true }),
     new PostCSSAssetsPlugin({
       test: /\.css$/,

@@ -1,6 +1,6 @@
 'use strict'
 
-const { extractor } = require('./webpack.vars')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const webpack = require('webpack')
 const autoprefixer = require('autoprefixer')
 const path = require('path')
@@ -14,13 +14,13 @@ module.exports = {
       {
         include: path.dirname(require.resolve('cozy-ui')),
         test: /\.styl$/,
-        loader: extractor.extract({
-          fallback: 'style-loader',
-          use: [
-            'css-loader?importLoaders=2&modules&localIdentName=[name]_[local]_[hash:base64:5]',
-            'stylus-loader'
-          ]
-        })
+        use: [
+         {
+            loader: MiniCssExtractPlugin.loader
+          },
+          'css-loader?importLoaders=2&modules&localIdentName=[name]_[local]_[hash:base64:5]',
+          'stylus-loader'
+        ]
       },
       {
         test: /\.jsx?$/,

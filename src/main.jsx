@@ -1,5 +1,6 @@
 /* global cozy, __TARGET__ */
 
+import 'utils/react-exposer'
 import 'whatwg-fetch'
 import 'styles/main'
 
