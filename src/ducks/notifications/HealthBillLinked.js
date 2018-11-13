@@ -90,11 +90,10 @@ class HealthBillLinked extends Notification {
 
       return {
         category: 'health-bill-linked',
-        title: this.t(`Notifications.when_health_bill_linked.notification.content.title`),
-        message: this.getPushContent(
-          transactionsWithReimbursements,
-          bills
+        title: this.t(
+          `Notifications.when_health_bill_linked.notification.content.title`
         ),
+        message: this.getPushContent(transactionsWithReimbursements, bills),
         preferred_channels: ['mail', 'mobile'],
         content: toText(contentHTML),
         content_html: contentHTML,

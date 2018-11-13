@@ -52,7 +52,6 @@ export const treatedByFormat = function(reimbursements, billsById) {
     (reimbursements || [])
       .map(reimbursement => {
         const billId = billIdFromReimbursement(reimbursement)
-        console.log('billsById', billsById, billId)
         return get(billsById, billId + '.vendor')
       })
       .filter(x => x && x !== '')
