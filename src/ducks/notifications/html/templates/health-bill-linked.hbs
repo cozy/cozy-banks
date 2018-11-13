@@ -1,10 +1,10 @@
 {{#extend "bank-layout"}}
   {{#content "emailTitle"}}
-  {{t 'title'}}
+    {{t 'Notifications.when_health_bill_linked.email.title'}}
   {{/content}}
 
   {{#content "emailSubtitle"}}
-     {{ formatDate date }}
+    {{ formatDate date }}
   {{/content}}
 
   {{#content "content"}}
@@ -28,10 +28,8 @@
                   <td align="right">
                     <a href="{{../../../transactionsUrl}}" style="color: inherit; text-decoration: none;">
                       <img style="width: 16px; height: 16px; vertical-align: middle;" src='https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-hourglass-blue.png' />
-                      {{ t 'treatedBy' }}
-                      {{#each this.reimbursements as |reimbursement|}}
-                        {{get ../../../../bills this.billId 'vendor'}}{{#unless @last}}, {{/unless}}
-                      {{/each}}
+                      {{ t 'Notifications.when_health_bill_linked.notification.content.treated_by' }}
+                      {{ treatedByFormat this.reimbursements ../../../../bills }}
                       </a>
                   </td>
                 </tr>

@@ -386,6 +386,9 @@
     "when_health_bill_linked": {
       "title": "Remboursement de santé",
       "description": "Vous recevrez une notification lorsqu'un remboursement a été trouvé pour une de vos dépenses de santé. Cela nécessite d'avoir connecté une assurance santé à votre Cozy.",
+      "email": {
+        "title": "Notification de remboursement de santé"
+      },
       "notification": {
         "title": "Nouveaux remboursement de santé",
         "content": {

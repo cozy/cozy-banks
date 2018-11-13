@@ -78,10 +78,6 @@ class HealthBillLinked extends Notification {
       })
     })
 
-    const translateKey = 'Notifications.when_health_bill_linked.notification'
-    const t = key => this.t(translateKey + '.content.' + key)
-    Handlebars.registerHelper({ t })
-
     return Promise.all(billsPromises).then(bills => {
       const templateData = {
         accounts: accounts,
@@ -94,7 +90,7 @@ class HealthBillLinked extends Notification {
 
       return {
         category: 'health-bill-linked',
-        title: this.t(`${translateKey}.title`),
+        title: this.t(`Notifications.when_health_bill_linked.notification.content.title`),
         message: this.getPushContent(
           transactionsWithReimbursements,
           bills,
@@ -110,7 +106,7 @@ class HealthBillLinked extends Notification {
     })
   }
 
-  getPushContent(transactions, bills, translateKey) {
+  getPushContent(transactions, bills) {
     const [transaction] = transactions
     const billsById = fromPairs(
       bills.map(bill => [`${BILLS_DOCTYPE}:${bill._id}`, bill])
@@ -122,7 +118,7 @@ class HealthBillLinked extends Notification {
       .join(', ')
 
     return `${transaction.label} ${this.t(
-      `${translateKey}.content.treated_by`
+      `Notifications.when_health_bill_linked.notification.content.treated_by`
     )} ${vendors}`
   }
 }

@@ -373,6 +373,9 @@
     },
     "when_health_bill_linked": {
       "title": "Medical expenses coverage",
+      "email": {
+        "title": "Medical expense coverage notification"
+      },
       "description": "You will be notified when a reimbursement is found for a medical expense. This requires to connect your Cozy to your medical insurance.",
       "notification": {
         "title": "New health reimbursements found",
