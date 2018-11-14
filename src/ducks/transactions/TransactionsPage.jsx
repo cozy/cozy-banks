@@ -116,17 +116,6 @@ class TransactionsPage extends Component {
     })
   }
 
-  preventRecycling() {
-    this.nextBase = null
-  }
-
-  componentWillUnmount() {
-    // prevents node from being recycled, helping with potential
-    // memory leaks
-    // https://github.com/developit/preact/issues/957
-    setTimeout(() => this.preventRecycling(), 1)
-  }
-
   componentDidUpdate(prevProps, prevState) {
     if (!isEqual(this.props.accountIds, prevProps.accountIds)) {
       this.setCurrentMonthFollowingMostRecentTransaction()

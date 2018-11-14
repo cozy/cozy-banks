@@ -2,7 +2,6 @@
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const webpack = require('webpack')
-const autoprefixer = require('autoprefixer')
 const path = require('path')
 
 module.exports = {
@@ -33,6 +32,9 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env.USE_REACT': 'true',
+    }),
     new webpack.LoaderOptionsPlugin({
       options: {
         stylus: {
