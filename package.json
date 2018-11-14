@@ -95,7 +95,7 @@
     "copy-webpack-plugin": "4.6.0",
     "cozy-app-publish": "0.9.0",
     "cozy-jobs-cli": "1.5.5",
-    "css-loader": "0.28.11",
+    "css-loader": "1.0.1",
     "css-mqpacker": "7.0.0",
     "csswring": "7.0.0",
     "dummy-json": "2.0.0",
