@@ -7,7 +7,6 @@ const PORT = process.env.DEV_SERVER_PORT
   : 8282
 
 module.exports = {
-  entry: ['preact/devtools'],
   output: {
     filename: 'app.js',
     publicPath: `http://${HOST}:${PORT}/`

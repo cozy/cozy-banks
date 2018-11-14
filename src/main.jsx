@@ -26,10 +26,6 @@ if (__TARGET__ === 'mobile') {
   require('styles/mobile.styl')
 }
 
-if (process.env.NODE_ENV === 'development') {
-  require('preact/debug')
-}
-
 let store, client, history, lang, root
 
 const initRender = () => {
