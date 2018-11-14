@@ -41,6 +41,7 @@ module.exports = {
           SRC_DIR,
           path.resolve(__dirname, '../docs'),
           path.dirname(require.resolve('cozy-client')),
+          path.dirname(require.resolve('cozy-bar')),
           path.dirname(require.resolve('cozy-device-helper')),
           path.dirname(require.resolve('cozy-konnector-libs')),
           path.dirname(require.resolve('cozy-stack-client')),
