@@ -1,6 +1,7 @@
 /* global __DEV__ */
 
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Router, Route } from 'react-router'
 import { withClient } from 'cozy-client'
 import { Authentication, Revoked } from 'cozy-authentication'
@@ -59,6 +60,10 @@ const withAuth = Wrapped =>
   class WithAuth extends React.Component {
     state = {
       isLoggingOut: false
+    }
+
+    static contextTypes = {
+      store: PropTypes.object.isRequired
     }
 
     onAuthentication = async res => {

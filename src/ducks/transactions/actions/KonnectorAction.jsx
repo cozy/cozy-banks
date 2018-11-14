@@ -210,6 +210,9 @@ const addFetchTriggers = Component => {
   const res = (props, context) => (
     <Component {...props} fetchTriggers={mkFetchTriggers(context.client)} />
   )
+  res.contextTypes = {
+    client: PropTypes.object.isRequired
+  }
   res.displayName = `withAddTrigger(${Component.displayName})`
   return res
 }
