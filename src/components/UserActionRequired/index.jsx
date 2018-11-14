@@ -1,5 +1,6 @@
 /* global __TARGET__ */
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
 import tosIcon from 'assets/icons/icon-tos.svg'
 import { Modal, Icon, Button, translate, Alerter } from 'cozy-ui/react'
@@ -35,6 +36,12 @@ const TosUpdatedModal = translate()(({ t, newTosLink, onAccept, onRefuse }) => (
 ))
 
 class UserActionRequired extends Component {
+  static contextTypes = {
+    store: PropTypes.object.isRequired,
+    client: PropTypes.object.isRequired,
+    router: PropTypes.object.isRequired
+  }
+
   state = {
     warnings: []
   }
