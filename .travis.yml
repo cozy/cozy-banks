@@ -49,3 +49,18 @@ jobs:
           script: yarn cozyPublish && ./scripts/deploy-on-cozy && yarn uploadStaticFiles
           on:
             tags: true
+    - &build_android
+      stage: build
+      script: yarn android:build
+      name: Android build
+      os: linux
+      language: android
+      android:
+        components:
+          - build-tools-26.0.2
+      before_script:
+        - curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+        - sudo apt-get install nodejs
+        - sudo apt-get install build-essential
+        - yarn
+        - yarn mobile:icon
