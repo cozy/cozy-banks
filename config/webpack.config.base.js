@@ -36,11 +36,7 @@ module.exports = {
         include: [
           SRC_DIR,
           path.resolve(__dirname, '../docs'),
-          path.dirname(require.resolve('cozy-client')),
-          path.dirname(require.resolve('cozy-device-helper')),
           path.dirname(require.resolve('cozy-konnector-libs')),
-          path.dirname(require.resolve('cozy-stack-client')),
-          path.dirname(require.resolve('cozy-pouch-link'))
         ],
         loader: 'babel-loader',
         options: {
