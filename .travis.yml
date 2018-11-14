@@ -31,11 +31,6 @@ jobs:
       script: yarn test
       name: Unit tests
       os: linux
-    - &test_lint
-      stage: test
-      script: yarn lint
-      name: Lint tests
-      os: linux
     - &build_web
       stage: build
       script: yarn build
