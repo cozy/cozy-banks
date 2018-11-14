@@ -8,7 +8,7 @@ import Loading from 'components/Loading'
 import plus from 'assets/icons/16/plus.svg'
 import styles from './GroupsSettings.styl'
 import btnStyles from 'styles/buttons.styl'
-import { sortBy, flowRight as compose } from 'lodash'
+import { sortBy, flowRight as compose, get } from 'lodash'
 import { isCollectionLoading } from 'ducks/client/utils'
 
 const GroupList = compose(
@@ -34,7 +34,8 @@ const GroupList = compose(
             <td className={styles.GrpsStg__label}>{group.label}</td>
             <td className={styles.GrpsStg__accounts}>
               {group.accounts.data
-                .map(account => account.shortLabel || account.label)
+                .map(account => get(account, 'shortLabel') || get(account, 'label'))
+                .filter(Boolean)
                 .join(', ')}
             </td>
           </tr>

@@ -189,7 +189,7 @@ const AccountSwitchMenu = translate()(
                   {t(
                     'AccountSwitch.account_counter',
                     group.accounts.data.filter(account =>
-                      accountExists(account.id)
+                      account && accountExists(account.id)
                     ).length
                   )}
                   )
