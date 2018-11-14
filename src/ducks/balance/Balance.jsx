@@ -42,7 +42,7 @@ import plus from 'assets/icons/16/plus.svg'
 import { isCollectionLoading } from 'ducks/client/utils'
 
 const getGroupBalance = group => {
-  return sumBy(group.accounts.data, account => account.balance || 0)
+  return sumBy(group.accounts.data, account => get(account, 'balance') || 0)
 }
 
 const sameId = (filteringDoc, accountOrGroup) => {
