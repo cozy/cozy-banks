@@ -1,13 +1,12 @@
 'use strict'
 
 const path = require('path')
+const webpack = require('webpack')
+const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 
 const { production, SRC_DIR } = require('./webpack.vars')
 const pkg = require(path.resolve(__dirname, '../package.json'))
-const webpack = require('webpack')
-const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
-const StatsPlugin = require('stats-webpack-plugin')
 
 module.exports = {
   output: {
@@ -68,10 +67,5 @@ module.exports = {
       defaultAttribute: 'defer'
     }),
     new DuplicatePackageCheckerPlugin({ verbose: true }),
-  ].concat(process.env.WEBPACK_STATS_FILE
-    ? [ new StatsPlugin(process.env.WEBPACK_STATS_FILE, {
-        chunkModules: true,
-        exclude: [/node_modules[\\\/]react/]
-      }) ]
-    : [])
+  ]
 }
