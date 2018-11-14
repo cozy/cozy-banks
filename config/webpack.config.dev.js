@@ -12,6 +12,7 @@ if (target !== 'mobile') {
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
   externals: ['cozy'],
+  mode: 'development',
   module: {
     rules: [
       {
