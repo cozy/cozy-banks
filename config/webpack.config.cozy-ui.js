@@ -2,7 +2,6 @@
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const webpack = require('webpack')
-const autoprefixer = require('autoprefixer')
 const path = require('path')
 
 module.exports = {
