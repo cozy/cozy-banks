@@ -4586,10 +4586,10 @@ cozy-authentication@1.3.0:
   dependencies:
     url-polyfill "1.0.11"
 
-cozy-bar@^6.7.7:
-  version "6.7.7"
-  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-6.7.7.tgz#5f581c7b01434effd40073a98cece19b57d6dcd3"
-  integrity sha512-dAJmOkFy3T+v7fjA5QNMQoUKnQlPHT/rU1xUeXv7bcRiyoHJWxo24ttEZ8+Ez72taXQsXai43hYQKJhnAV2dFA==
+cozy-bar@^6.8.0:
+  version "6.8.0"
+  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-6.8.0.tgz#58cc080d4d0bb097c144d31737a2cfca161f71ff"
+  integrity sha512-43R/lRqzeC0lGwVeckWarKXrefCg4Gqiz7Aj+WI1BYYHQ/LBQuj9n3h83dhImRkEdkMxexNr000i6gaZouk+nA==
   dependencies:
     "@babel/core" "7.1.6"
     babel-core "7.0.0-bridge.0"
