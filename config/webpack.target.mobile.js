@@ -19,6 +19,7 @@ module.exports = {
   entry: {
     app: [
       require.resolve('babel-polyfill'),
+      path.resolve(__dirname, '../src/utils/react-exposer'),
       path.resolve(__dirname, '../src/main.jsx')
     ]
   },
