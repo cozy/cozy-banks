@@ -30,8 +30,8 @@ Object {
       "enabled": false,
     },
     "transactionGreater": Object {
-      "enabled": false,
-      "value": 30,
+      "enabled": true,
+      "value": 600,
     },
   },
   "showIncomeCategory": true,
