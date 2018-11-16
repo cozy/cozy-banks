@@ -4771,12 +4771,13 @@ cozy-client@4.7.0:
     redux "3.7.2"
     sift "7.0.1"
 
-cozy-client@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-4.0.0.tgz#c519451c5262d5b8f47038cfeb33375df8705f70"
-  integrity sha512-ndkd9ThBllHcJpXDvljXnTICOYBnhrwkurj7ylsyBvAguFpy1swujQGMbd9X5UTNewuVrQ+p4t9O8M5P/1h8SA==
+cozy-client@^4.7.0:
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-4.7.0.tgz#49344d7208bffdca704675c530a58592d4a15fc1"
+  integrity sha512-TNRvFrDl8mwP7YUkTz515xORZhqcQjojZcftcRCYmYvfDbyI8MbCUjYzbfdUw1QTM42KrWj0oMlV2tRfGnW8nA==
   dependencies:
-    cozy-stack-client "^4.0.0"
+    cozy-device-helper "1.4.14"
+    cozy-stack-client "^4.5.0"
     lodash "4.17.11"
     prop-types "15.6.2"
     react "16.4.2"
@@ -4894,12 +4895,12 @@ cozy-logger@^1.2.0:
   dependencies:
     json-stringify-safe "5.0.1"
 
-cozy-pouch-link@4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-4.2.0.tgz#40a54d9f462c68067efc215a66ca8bf9c0e1c31c"
-  integrity sha512-6xC15viyWqpxmpvyqTTCXWDSMJz+fBehFaWddJCe1pVPWNMLVEQ9RnwihhU+1kcYjo6HUwbmWnCMtQGjbZjV7g==
+cozy-pouch-link@4.7.0:
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-4.7.0.tgz#29c1e9340309600d10822dd3bf6402c4101fcc95"
+  integrity sha512-xqXL7HMUFUgyqx8hlCgJ4F00U2DcyDV7sUkrCAwHzCq7x/2iJIGQw2DIVXV2Ef4vCHeFJLE1LhPmzvYS079Kkg==
   dependencies:
-    cozy-client "^4.0.0"
+    cozy-client "^4.7.0"
     cozy-device-helper "1.4.8"
     pouchdb "7.0.0"
     pouchdb-find "7.0.0"
@@ -4908,13 +4909,6 @@ cozy-realtime@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-1.2.0.tgz#8f0e5a2c02df94674f0a96381a51bce71d327602"
   integrity sha512-VM03YzeWt0D3dlVeGFLFLgraDs78PS1OY9FxA7TVxt95Q17a0OaVqqUViwfYY84+DxzfFl1pzw2BSzhThAqYJw==
-
-cozy-stack-client@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-4.0.0.tgz#986c9bf1a3cd5e2a2631c4162f129e4c92b17814"
-  integrity sha512-m5seJDEnaTzhqruFbDlYyKqZWDOiYXIM4Jilb3fmpWRvg+UHGnQ6ean4NVqQlX+XMpVjrV+BU85h3VPSL5wPQQ==
-  dependencies:
-    mime-types "2.1.20"
 
 cozy-stack-client@^4.5.0:
   version "4.5.0"
