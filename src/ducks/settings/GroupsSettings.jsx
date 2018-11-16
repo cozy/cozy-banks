@@ -34,7 +34,9 @@ const GroupList = compose(
             <td className={styles.GrpsStg__label}>{group.label}</td>
             <td className={styles.GrpsStg__accounts}>
               {group.accounts.data
-                .map(account => get(account, 'shortLabel') || get(account, 'label'))
+                .map(
+                  account => get(account, 'shortLabel') || get(account, 'label')
+                )
                 .filter(Boolean)
                 .join(', ')}
             </td>
