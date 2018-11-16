@@ -388,10 +388,10 @@
       "description": "Vous recevrez un récapitulatif de vos dépenses et de vos revenus tous les premiers de chaque mois."
     },
     "when_health_bill_linked": {
-      "title": "Remboursement de santé",
+      "title": "Remboursements de santé",
       "description": "Vous recevrez une notification lorsqu'un remboursement a été trouvé pour une de vos dépenses de santé. Cela nécessite d'avoir connecté une assurance santé à votre Cozy.",
       "email": {
-        "title": "Remboursement de santé"
+        "title": "Remboursements de santé"
       },
       "notification": {
         "title": "Nouveaux remboursement de santé",
