@@ -13755,6 +13755,7 @@ postcss-discard-comments@^2.0.4:
 postcss-discard-duplicates@4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/postcss-discard-duplicates/-/postcss-discard-duplicates-4.0.2.tgz#3fe133cd3c82282e550fc9b239176a9207b784eb"
+  integrity sha512-ZNQfR1gPNAiXZhgENFfEglF93pciw0WxMkJeVmw8eF+JZBbMD7jp6C67GqJAXVZP2BWbOztKfbsdmMp/k8c6oQ==
   dependencies:
     postcss "^7.0.0"
 
@@ -14142,13 +14143,6 @@ pouchdb-adapter-cordova-sqlite@2.0.5:
   integrity sha512-K7eIQzFYfuYOo4Nwn8r96Pq01t5mPOppO+n31U7IM/fPJTIGS/juJyNYYY9ePrlrz8icHEDl35cgHLMq40xFyA==
   dependencies:
     pouchdb-adapter-websql-core "^6.4.3"
-
-"pouchdb-adapter-cordova-sqlite@git+https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a":
-  version "2.0.2"
-  uid f3ee23009b70209c611435d57491aa77fb88802a
-  resolved "git+https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a"
-  dependencies:
-    pouchdb-adapter-websql-core "^6.1.1"
 
 "pouchdb-adapter-cordova-sqlite@https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a":
   version "2.0.2"
@@ -18038,10 +18032,10 @@ timers-browserify@^2.0.4:
   dependencies:
     setimmediate "^1.0.4"
 
-timezone@1.0.13:
-  version "1.0.13"
-  resolved "https://registry.yarnpkg.com/timezone/-/timezone-1.0.13.tgz#38d3c2e4ff7947b1f4bd6ac6e000c2461483f8b3"
-  integrity sha1-ONPC5P95R7H0vWrG4ADCRhSD+LM=
+timezone@1.0.20:
+  version "1.0.20"
+  resolved "https://registry.yarnpkg.com/timezone/-/timezone-1.0.20.tgz#46ea7acfd4a19b55a4a201e01db6e9474d8017f9"
+  integrity sha512-kkWubi6xir5szYkGNpCVtfkeNp68EnHYP4XDa246mj/xWbJTvWtq99XWjfdYle6qwSK9axQ9vAsabSbue+lWvA==
 
 tiny-inflate@^1.0.0, tiny-inflate@^1.0.2:
   version "1.0.2"
