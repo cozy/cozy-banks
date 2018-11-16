@@ -5,12 +5,12 @@ export const DEFAULTS_SETTINGS = {
   notifications: {
     lastSeq: 0,
     balanceLower: {
-      value: 600,
-      enabled: true
+      value: 100,
+      enabled: false
     },
     transactionGreater: {
-      value: 30,
-      enabled: false
+      value: 600,
+      enabled: true
     },
     healthBillLinked: {
       enabled: true
