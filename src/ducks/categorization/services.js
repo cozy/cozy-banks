@@ -70,7 +70,6 @@ const createLocalClassifier = async () => {
     return null
   }
 
-  localModelLog('info', 'Instanciating a fresh classifier')
   const uniqueCategories = getUniqueCategories(transactions)
   const nbUniqueCategories = uniqueCategories.length
   const alpha = getAlphaParameter(
@@ -80,6 +79,9 @@ const createLocalClassifier = async () => {
     ALPHA_MAX_SMOOTHING
   )
   const options = { tokenizer, alpha }
+
+  localModelLog('info', 'Instanciating a fresh classifier')
+  localModelLog('debug', 'Alpha parameter value is ' + alpha)
   const classifier = bayes(options)
 
   localModelLog('info', 'Learning from manually categorized transactions')
