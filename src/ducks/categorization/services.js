@@ -71,7 +71,15 @@ const createLocalClassifier = async () => {
   }
 
   localModelLog('info', 'Instanciating a fresh classifier')
-  const options = { tokenizer, alpha: 0.1 }
+  const uniqueCategories = getUniqueCategories(transactions)
+  const nbUniqueCategories = uniqueCategories.length
+  const alpha = getAlphaParameter(
+    nbUniqueCategories,
+    ALPHA_MIN,
+    ALPHA_MAX,
+    ALPHA_MAX_SMOOTHING
+  )
+  const options = { tokenizer, alpha }
   const classifier = bayes(options)
 
   localModelLog('info', 'Learning from manually categorized transactions')
