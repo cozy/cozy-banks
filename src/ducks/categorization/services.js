@@ -15,8 +15,23 @@ const globalModelLog = logger.namespace('global-categorization-model')
 
 export const PARAMETERS_NOT_FOUND = 'Classifier files is not configured.'
 
+const ALPHA_MIN = 0.1
+const ALPHA_MAX = 10
+const ALPHA_MAX_SMOOTHING = 20
+
 export const getUniqueCategories = transactions => {
   return uniq(transactions.map(t => t.manualCategoryId))
+}
+
+export const getAlphaParameter = (
+  nbUniqueCategories,
+  min,
+  max,
+  maxSmoothing
+) => {
+  const alpha = maxSmoothing / nbUniqueCategories
+
+  return Math.max(min, Math.min(max, alpha))
 }
 
 const createLocalClassifier = async () => {
