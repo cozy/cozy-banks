@@ -39,7 +39,7 @@ const transactionTableHeadStyle = {
 }
 export const TransactionTableHead = translate()(props => (
   <div style={transactionTableHeadStyle}>
-    <Table className={styles['TransactionTable']}>
+    <Table className={transactionsStyles['TransactionTable']}>
       <TableHeadDesktop t={props.t} mainColumnTitle={props.mainColumnTitle} />
     </Table>
   </div>
