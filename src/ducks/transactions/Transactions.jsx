@@ -50,7 +50,7 @@ const sDesc = styles['bnk-op-desc']
 const sAmount = styles['bnk-op-amount']
 const sAction = styles['bnk-op-action']
 
-class _TableTrDesktop extends PureComponent {
+class _RowDesktop extends PureComponent {
   onSelectTransaction = () =>
     this.props.selectTransaction(this.props.transaction)
 
@@ -126,68 +126,66 @@ class _TableTrDesktop extends PureComponent {
   }
 }
 
-export const TableTrDesktop = compose(
+export const RowDesktop = compose(
   translate(),
   withDispatch,
   withUpdateCategory()
-)(_TableTrDesktop)
+)(_RowDesktop)
 
-class _TableTrNoDesktop extends React.PureComponent {
+class _RowMobile extends React.PureComponent {
   render() {
     const { transaction, t, filteringOnAccount, ...props } = this.props
     const account = transaction.account.data
     return (
-      <tr className={styles['bnk-transaction-mobile']}>
-        <td>
-          <Media>
-            <Img
-              className="u-clickable u-mr-half"
-              title={t(
-                `Data.subcategories.${getCategoryName(
-                  getCategoryId(transaction)
-                )}`
+      <div className={styles['bnk-transaction-mobile']}>
+        <Media>
+          <Img
+            className="u-clickable u-mr-half"
+            title={t(
+              `Data.subcategories.${getCategoryName(
+                getCategoryId(transaction)
+              )}`
+            )}
+            onClick={this.handleSelect}
+          >
+            <CategoryIcon
+              category={getParentCategory(getCategoryId(transaction))}
+            />
+          </Img>
+          <Bd className="u-clickable u-mr-half">
+            <ListItemText onClick={this.handleSelect}>
+              <Text className="u-ellipsis">{getLabel(transaction)}</Text>
+              {!filteringOnAccount && (
+                <Caption
+                  className={cx('u-ellipsis', styles['bnk-op-desc-caption'])}
+                >
+                  {getAccountLabel(account)}
+                  {' - '}
+                  {getAccountInstitutionLabel(account)}
+                </Caption>
               )}
-              onClick={this.handleSelect}
-            >
-              <CategoryIcon
-                category={getParentCategory(getCategoryId(transaction))}
-              />
-            </Img>
-            <Bd className="u-clickable u-mr-half">
-              <ListItemText onClick={this.handleSelect}>
-                <Text className="u-ellipsis">{getLabel(transaction)}</Text>
-                {!filteringOnAccount && (
-                  <Caption
-                    className={cx('u-ellipsis', styles['bnk-op-desc-caption'])}
-                  >
-                    {getAccountLabel(account)}
-                    {' - '}
-                    {getAccountInstitutionLabel(account)}
-                  </Caption>
-                )}
-              </ListItemText>
-            </Bd>
-            <Img onClick={this.handleSelect} className="u-clickable">
-              <Figure
-                total={transaction.amount}
-                currency={transaction.currency}
-                coloredPositive
-                signed
-              />
-            </Img>
-            <Img className={styles['bnk-transaction-mobile-action']}>
-              <TransactionActions
-                transaction={transaction}
-                urls={props.urls}
-                brands={props.brands}
-                onlyDefault
-                compact
-                menuPosition="right"
-              />
-            </Img>
-          </Media>
-        </td>
-      </tr>
+            </ListItemText>
+          </Bd>
+          <Img onClick={this.handleSelect} className="u-clickable">
+            <Figure
+              total={transaction.amount}
+              currency={transaction.currency}
+              coloredPositive
+              signed
+            />
+          </Img>
+          <Img className={styles['bnk-transaction-mobile-action']}>
+            <TransactionActions
+              transaction={transaction}
+              urls={props.urls}
+              brands={props.brands}
+              onlyDefault
+              compact
+              menuPosition="right"
+            />
+          </Img>
+        </Media>
+      </div>
     )
   }
 
@@ -196,13 +194,13 @@ class _TableTrNoDesktop extends React.PureComponent {
   }
 }
 
-_TableTrNoDesktop.propTypes = {
+_RowMobile.propTypes = {
   transaction: PropTypes.object.isRequired,
   urls: PropTypes.object.isRequired,
   brands: PropTypes.array.isRequired
 }
 
-export const TableTrNoDesktop = translate()(_TableTrNoDesktop)
+export const RowMobile = translate()(_RowMobile)
 
 const groupByDateAndSort = transactions => {
   const byDate = groupBy(transactions, x => format(x.date, 'YYYY-MM-DD'))
@@ -238,19 +236,50 @@ class ScrollSpy {
   }
 }
 
-const tdStyle = { textAlign: 'center' }
-const btnStyle = { width: '100%', padding: '0.75rem', margin: 0 }
+const loadMoreStyle = { textAlign: 'center' }
+const loadMoreBtnStyle = { width: '100%', padding: '0.75rem', margin: 0 }
 const LoadMoreButton = ({ children, onClick }) => (
-  <tbody className="js-LoadMore">
+  <Button style={loadMoreBtnStyle} onClick={onClick} subtle className="js-LoadMore">
+    {children}
+  </Button>
+)
+
+const LoadMoreDesktop =  ({ children, onClick }) => (
+  <tbody>
     <tr>
-      <td style={tdStyle}>
-        <Button style={btnStyle} onClick={onClick} subtle>
-          {children}
-        </Button>
+      <td style={loadMoreStyle}>
+        <LoadMoreButton onClick={ onClick } >{ children }</LoadMoreButton>
       </td>
     </tr>
   </tbody>
 )
+
+const LoadMoreMobile =  ({ children, onClick }) => (
+  <div style={loadMoreStyle}>
+    <LoadMoreButton onClick={ onClick } >{ children }</LoadMoreButton>
+  </div>
+)
+
+const _SectionMobile = props => {
+  const { date, f, children } = props
+  return (
+    <div>
+      <div className={styles['bnk-op-date-header']}>
+        {f(date, 'dddd D MMMM')}
+      </div>
+    { children }
+    </div>
+  )
+}
+const SectionMobile = translate()(_SectionMobile)
+
+const SectionDesktop = props => {
+  return <tbody {...props } />
+}
+
+const TransactionContainerMobile = props => {
+  return <div {...props} />
+}
 
 const shouldRestore = (oldProps, nextProps) => {
   return (
@@ -336,9 +365,14 @@ class TransactionsD extends React.Component {
       ? this.transactions.slice(limitMin, limitMax)
       : []
     const transactionsOrdered = groupByDateAndSort(transactions)
+    const Section = isDesktop ? SectionDesktop : SectionMobile
+    const LoadMoreButton = isDesktop ? LoadMoreDesktop : LoadMoreMobile
+    const TransactionContainer = isDesktop ? Table : TransactionContainerMobile
+    const Row = isDesktop ? RowDesktop : RowMobile
+
     return (
-      <Table
-        className={styles['TransactionTable']}
+      <TransactionContainer
+        className={styles.TransactionTable}
         ref={ref => (this.transactionsRef = ref)}
       >
         {manualLoadMore &&
@@ -351,15 +385,10 @@ class TransactionsD extends React.Component {
           const date = dateAndGroup[0]
           const transactionGroup = dateAndGroup[1]
           return (
-            <tbody key={date}>
-              {!isDesktop && (
-                <tr className={styles['bnk-op-date-header']}>
-                  <td colSpan="2">{f(date, 'dddd D MMMM')}</td>
-                </tr>
-              )}
+            <Section date={date} key={date}>
               {transactionGroup.map(transaction => {
-                return isDesktop ? (
-                  <TableTrDesktop
+                return (
+                  <Row
                     key={transaction._id}
                     ref={this.handleRefRow.bind(null, transaction._id)}
                     transaction={transaction}
@@ -369,19 +398,9 @@ class TransactionsD extends React.Component {
                     filteringOnAccount={filteringOnAccount}
                     selectTransaction={selectTransaction}
                   />
-                ) : (
-                  <TableTrNoDesktop
-                    brands={brands}
-                    urls={urls}
-                    key={transaction._id}
-                    ref={this.handleRefRow.bind(null, transaction._id)}
-                    transaction={transaction}
-                    filteringOnAccount={filteringOnAccount}
-                    selectTransaction={selectTransaction}
-                  />
                 )
               })}
-            </tbody>
+            </Section>
           )
         })}
         {manualLoadMore &&
@@ -390,7 +409,7 @@ class TransactionsD extends React.Component {
               {t('Transactions.see-more')}
             </LoadMoreButton>
           )}
-      </Table>
+      </TransactionContainer>
     )
   }
 
