@@ -2,7 +2,7 @@
 
 import { cozyClient } from 'cozy-konnector-libs'
 import logger from 'cozy-logger'
-import { maxBy, pick } from 'lodash'
+import { maxBy, pick, uniq } from 'lodash'
 import { tokenizer, createClassifier } from '.'
 import bayes from 'classificator'
 import { getLabel } from 'ducks/transactions/helpers'
@@ -14,6 +14,10 @@ const localModelLog = logger.namespace('local-categorization-model')
 const globalModelLog = logger.namespace('global-categorization-model')
 
 export const PARAMETERS_NOT_FOUND = 'Classifier files is not configured.'
+
+export const getUniqueCategories = transactions => {
+  return uniq(transactions.map(t => t.manualCategoryId))
+}
 
 const createLocalClassifier = async () => {
   const getTransWithManualCat = async (transactions, index, limit, skip) => {
