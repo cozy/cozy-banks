@@ -18,12 +18,12 @@ import {
   Media,
   Bd,
   Img,
-  ListItemText,
   Caption,
   Text,
   Button
 } from 'cozy-ui/react'
 import { Figure } from 'components/Figure'
+import * as List from 'components/List'
 import { Table, TdSecondary } from 'components/Table'
 import TransactionActions from './TransactionActions'
 import { getLabel } from './helpers'
@@ -83,7 +83,7 @@ class _RowDesktop extends PureComponent {
               />
             </Img>
             <Bd className="u-pl-1">
-              <ListItemText onClick={this.onSelectTransaction}>
+              <List.Content onClick={this.onSelectTransaction}>
                 <Text>{getLabel(transaction)}</Text>
                 {!filteringOnAccount && (
                   <Caption className={styles['bnk-op-desc-caption']}>
@@ -92,7 +92,7 @@ class _RowDesktop extends PureComponent {
                     {getAccountInstitutionLabel(account)}
                   </Caption>
                 )}
-              </ListItemText>
+              </List.Content>
             </Bd>
           </Media>
         </td>
@@ -137,8 +137,8 @@ class _RowMobile extends React.PureComponent {
     const { transaction, t, filteringOnAccount, ...props } = this.props
     const account = transaction.account.data
     return (
-      <div className={styles['bnk-transaction-mobile']}>
-        <Media>
+      <List.Row>
+        <Media className='u-full-width'>
           <Img
             className="u-clickable u-mr-half"
             title={t(
@@ -153,7 +153,7 @@ class _RowMobile extends React.PureComponent {
             />
           </Img>
           <Bd className="u-clickable u-mr-half">
-            <ListItemText onClick={this.handleSelect}>
+            <List.Content onClick={this.handleSelect}>
               <Text className="u-ellipsis">{getLabel(transaction)}</Text>
               {!filteringOnAccount && (
                 <Caption
@@ -164,7 +164,7 @@ class _RowMobile extends React.PureComponent {
                   {getAccountInstitutionLabel(account)}
                 </Caption>
               )}
-            </ListItemText>
+            </List.Content>
           </Bd>
           <Img onClick={this.handleSelect} className="u-clickable">
             <Figure
@@ -185,7 +185,7 @@ class _RowMobile extends React.PureComponent {
             />
           </Img>
         </Media>
-      </div>
+      </List.Row>
     )
   }
 
@@ -263,12 +263,12 @@ const LoadMoreMobile =  ({ children, onClick }) => (
 const _SectionMobile = props => {
   const { date, f, children } = props
   return (
-    <div>
-      <div className={styles['bnk-op-date-header']}>
+    <React.Fragment>
+      <List.Header>
         {f(date, 'dddd D MMMM')}
-      </div>
+      </List.Header>
     { children }
-    </div>
+    </React.Fragment>
   )
 }
 const SectionMobile = translate()(_SectionMobile)
@@ -465,7 +465,7 @@ export class TransactionsWithSelection extends React.Component {
     const props = this.props
     const { transactionId } = this.state
     return (
-      <div>
+      <React.Fragment>
         <Transactions selectTransaction={this.selectTransaction} {...props} />
         {transactionId && (
           <TransactionModal
@@ -474,7 +474,7 @@ export class TransactionsWithSelection extends React.Component {
             {...props}
           />
         )}
-      </div>
+      </React.Fragment>
     )
   }
 }
