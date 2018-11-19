@@ -18027,10 +18027,10 @@ timers-browserify@^2.0.4:
   dependencies:
     setimmediate "^1.0.4"
 
-timezone@1.0.13:
-  version "1.0.13"
-  resolved "https://registry.yarnpkg.com/timezone/-/timezone-1.0.13.tgz#38d3c2e4ff7947b1f4bd6ac6e000c2461483f8b3"
-  integrity sha1-ONPC5P95R7H0vWrG4ADCRhSD+LM=
+timezone@1.0.20:
+  version "1.0.20"
+  resolved "https://registry.yarnpkg.com/timezone/-/timezone-1.0.20.tgz#46ea7acfd4a19b55a4a201e01db6e9474d8017f9"
+  integrity sha512-kkWubi6xir5szYkGNpCVtfkeNp68EnHYP4XDa246mj/xWbJTvWtq99XWjfdYle6qwSK9axQ9vAsabSbue+lWvA==
 
 tiny-inflate@^1.0.0, tiny-inflate@^1.0.2:
   version "1.0.2"
