@@ -382,7 +382,7 @@
       },
       "description": "You will be notified when a reimbursement is found for a medical expense. This requires to connect your Cozy to your medical insurance.",
       "notification": {
-        "title": "Medical expense coverage notification",
+        "title": "New medical expenses coverage",
         "content": {
           "title": "Health reimbursement notification",
           "treated_by": "Treated by"
