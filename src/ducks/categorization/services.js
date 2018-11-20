@@ -173,8 +173,13 @@ const localModel = async (classifierOptions, transactions) => {
   )
 
   localModelLog('info', 'Instanciating a new classifier')
-  const uniqueCategories = getUniqueCategories(transactions)
+  const uniqueCategories = getUniqueCategories(transactionsWithManualCat)
   const nbUniqueCategories = uniqueCategories.length
+  localModelLog(
+    'debug',
+    'Number of unique categories in transactions with manual categories: ' +
+      nbUniqueCategories
+  )
   const alpha = getAlphaParameter(
     nbUniqueCategories,
     ALPHA_MIN,
