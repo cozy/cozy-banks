@@ -34,24 +34,24 @@ export const getAlphaParameter = (
   return Math.max(min, Math.min(max, alpha))
 }
 
-const createLocalClassifier = async () => {
-  const getTransWithManualCat = async (transactions, index, limit, skip) => {
-    const query = {
-      selector: { manualCategoryId: { $exists: true } },
-      limit,
-      skip,
-      wholeResponse: true
-    }
-    const results = await cozyClient.data.query(index, query)
-    transactions = [...transactions, ...results.docs]
+const getTransWithManualCat = async (transactions, index, limit, skip) => {
+  const query = {
+    selector: { manualCategoryId: { $exists: true } },
+    limit,
+    skip,
+    wholeResponse: true
+  }
+  const results = await cozyClient.data.query(index, query)
+  transactions = [...transactions, ...results.docs]
 
-    if (results.next) {
-      return getTransWithManualCat(transactions, index, limit, skip + limit)
-    }
-
-    return transactions
+  if (results.next) {
+    return getTransWithManualCat(transactions, index, limit, skip + limit)
   }
 
+  return transactions
+}
+
+const createLocalClassifier = async () => {
   localModelLog('info', 'Fetching manually categorized transactions')
   const index = await cozyClient.data.defineIndex(TRANSACTION_DOCTYPE, [
     'manualCategoryId'
