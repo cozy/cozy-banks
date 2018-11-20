@@ -51,6 +51,13 @@ const getTransWithManualCat = async (transactions, index, limit, skip) => {
   return transactions
 }
 
+/**
+ * Create a ready to use classifier for the local categorization model
+ * @param {Array} transactionsToLearn - Transactions to learn from
+ * @param {Object} classifierOptions - Options to pass to the classifier initialization
+ * @param {Object} options
+ * @param {Number} learnSampleWeight - The weight of the transactionsToLearn parameter
+ */
 export const createLocalClassifier = (
   transactionsToLearn,
   classifierOptions,
