@@ -334,7 +334,7 @@
       "description": "You will receive a notification if your balance is less than",
       "settingTitle": "Low balances",
       "email": {
-        "title": "Low balances notification",
+        "innerTitle": "Low balances notification",
         "access_accounts": "Access my accounts"
       },
       "notification": {
@@ -353,7 +353,7 @@
       "description": "You will receive a notification if a movement is greater than",
       "settingTitle": "Transactions",
       "email": {
-        "title": "Transaction notification"
+        "innerTitle": "Transaction notification"
       },
       "notification": {
         "debit": {
@@ -378,7 +378,7 @@
     "when_health_bill_linked": {
       "settingTitle": "Medical expenses coverage",
       "email": {
-        "title": "Medical expense coverage notification"
+        "innerTitle": "New medical expenses coverage"
       },
       "description": "You will be notified when a reimbursement is found for a medical expense. This requires to connect your Cozy to your medical insurance.",
       "notification": {
