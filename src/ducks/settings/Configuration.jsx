@@ -28,17 +28,17 @@ class Configuration extends Component {
           saveDocument={this.saveDocument}
           rows={[
             {
-              title: 'Notifications.if_balance_lower.title',
+              title: 'Notifications.if_balance_lower.settingTitle',
               name: 'balanceLower',
               description: 'Notifications.if_balance_lower.description'
             },
             {
-              title: 'Notifications.if_transaction_greater.title',
+              title: 'Notifications.if_transaction_greater.settingTitle',
               name: 'transactionGreater',
               description: 'Notifications.if_transaction_greater.description'
             },
             {
-              title: 'Notifications.when_health_bill_linked.title',
+              title: 'Notifications.when_health_bill_linked.settingTitle',
               name: 'healthBillLinked',
               description: 'Notifications.when_health_bill_linked.description'
             }

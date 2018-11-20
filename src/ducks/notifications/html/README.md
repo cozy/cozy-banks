@@ -1,18 +1,16 @@
 How to develop on templates
 ==============
 
-With the `TEST_TEMPLATES` environment variable, a special CLI will be built
-that allows to test the templates with custom data.
+With the `TEST_TEMPLATES` environment variable, an express server serving the HTML emails will be built.
 
 ```
 $ env TEST_TEMPLATES=true yarn watch:services
-# Will continuously build `build/testTemplates.js`
-$ node build/testTemplates.js -t balanceLower -d src/ducks/notifications/html/data/accounts.json
-index.html written !
+$ node build/testTemplates.js
+Rendering emails at http://localhost:8081!
 ```
 
-You can open the generated HTML file in your browser or use the Preview feature
-in Mailchimp to check that everything is correctly rendered on the various email clients.
+You can open your browser to check the emails. The Preview feature
+in Mailchimp is also useful to check that everything is correctly rendered on the various email clients (just copy/paste the content of the page).
 
 ### Under the covers
 
