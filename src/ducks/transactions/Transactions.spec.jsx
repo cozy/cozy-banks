@@ -1,7 +1,7 @@
 /* global mount */
 
 import React from 'react'
-import { TableTrDesktop, TableTrNoDesktop } from './Transactions'
+import { RowDekstop, RowMobile } from './TransactionRow'
 import data from '../../../test/fixtures'
 import store from '../../../test/store'
 import AppLike from '../../../test/AppLike'
@@ -42,7 +42,7 @@ describe('transaction row', () => {
   xit('should render correctly on desktop', () => {
     root = mount(
       wrapRow(
-        <TableTrDesktop transaction={transaction} urls={{}} brands={[]} />
+        <RowDekstop transaction={transaction} urls={{}} brands={[]} />
       )
     )
     expect(root.find(Caption).text()).toBe('Compte courant Isabelle - BNPP')
@@ -51,7 +51,7 @@ describe('transaction row', () => {
   it('should render correctly on mobile', () => {
     root = mount(
       wrapRow(
-        <TableTrNoDesktop transaction={transaction} urls={{}} brands={[]} />
+        <RowMobile transaction={transaction} urls={{}} brands={[]} />
       )
     )
     expect(root.find(Caption).text()).toBe('Compte courant Isabelle - BNPP')
