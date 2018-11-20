@@ -51,18 +51,8 @@ const getTransWithManualCat = async (transactions, index, limit, skip) => {
   return transactions
 }
 
-const createLocalClassifier = async () => {
-  localModelLog('info', 'Fetching manually categorized transactions')
-  const index = await cozyClient.data.defineIndex(TRANSACTION_DOCTYPE, [
-    'manualCategoryId'
-  ])
-  const transactions = await getTransWithManualCat([], index, 100)
-  localModelLog(
-    'info',
-    `Fetched ${transactions.length} manually categorized transactions`
-  )
-
-  if (transactions.length === 0) {
+export const createLocalClassifier = (transactionsToLearn, options) => {
+  if (transactionsToLearn.length === 0) {
     localModelLog(
       'info',
       'Impossible to instanciate a classifier since there is no manually categorized transactions to learn from'
@@ -70,22 +60,10 @@ const createLocalClassifier = async () => {
     return null
   }
 
-  const uniqueCategories = getUniqueCategories(transactions)
-  const nbUniqueCategories = uniqueCategories.length
-  const alpha = getAlphaParameter(
-    nbUniqueCategories,
-    ALPHA_MIN,
-    ALPHA_MAX,
-    ALPHA_MAX_SMOOTHING
-  )
-  const options = { tokenizer, alpha }
-
-  localModelLog('info', 'Instanciating a fresh classifier')
-  localModelLog('debug', 'Alpha parameter value is ' + alpha)
   const classifier = bayes(options)
 
   localModelLog('info', 'Learning from manually categorized transactions')
-  for (const transaction of transactions) {
+  for (const transaction of transactionsToLearn) {
     classifier.learn(
       getLabelWithTags(transaction),
       transaction.manualCategoryId
@@ -171,8 +149,28 @@ const globalModel = async (classifierOptions, transactions) => {
 }
 
 const localModel = async (classifierOptions, transactions) => {
+  localModelLog('info', 'Fetching manually categorized transactions')
+  const index = await cozyClient.data.defineIndex(TRANSACTION_DOCTYPE, [
+    'manualCategoryId'
+  ])
+  const transactionsWithManualCat = await getTransWithManualCat([], index, 100)
+  localModelLog(
+    'info',
+    `Fetched ${transactions.length} manually categorized transactions`
+  )
+
   localModelLog('info', 'Instanciating a new classifier')
-  const classifier = await createLocalClassifier()
+  const uniqueCategories = getUniqueCategories(transactions)
+  const nbUniqueCategories = uniqueCategories.length
+  const alpha = getAlphaParameter(
+    nbUniqueCategories,
+    ALPHA_MIN,
+    ALPHA_MAX,
+    ALPHA_MAX_SMOOTHING
+  )
+  localModelLog('debug', 'Alpha parameter value is ' + alpha)
+  const options = { tokenizer, alpha }
+  const classifier = createLocalClassifier(transactionsWithManualCat, options)
 
   if (!classifier) {
     localModelLog(
