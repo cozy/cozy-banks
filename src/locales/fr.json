@@ -328,10 +328,10 @@
   },
 
   "Notifications": {
-    "title": "Notifications",
+    "settingTitle": "Notifications",
     "description": "Vous recevrez les notifications par email, ainsi que par notification mobile si vous installez l'app Cozy Banks sur votre mobile",
     "if_balance_lower": {
-      "title": "Solde bas",
+      "settingTitle": "Solde bas",
       "email": {
         "title": "Notification de solde bas",
         "access_accounts": "Accéder à mes comptes"
@@ -350,7 +350,7 @@
       }
     },
     "if_transaction_greater": {
-      "title": "Mouvements",
+      "settingTitle": "Mouvements",
       "description": "Vous recevrez une notification, si un mouvement est supérieur à",
       "email": {
         "title": "Notification de mouvement"
@@ -388,7 +388,7 @@
       "description": "Vous recevrez un récapitulatif de vos dépenses et de vos revenus tous les premiers de chaque mois."
     },
     "when_health_bill_linked": {
-      "title": "Remboursements de santé",
+      "settingTitle": "Remboursements de santé",
       "description": "Vous recevrez une notification lorsqu'un remboursement a été trouvé pour une de vos dépenses de santé. Cela nécessite d'avoir connecté une assurance santé à votre Cozy.",
       "email": {
         "title": "Remboursements de santé"

@@ -332,7 +332,7 @@
     },
     "if_balance_lower": {
       "description": "You will receive a notification if your balance is less than",
-      "title": "Low balances",
+      "settingTitle": "Low balances",
       "email": {
         "title": "Low balances notification",
         "access_accounts": "Access my accounts"
@@ -351,7 +351,7 @@
     },
     "if_transaction_greater": {
       "description": "You will receive a notification if a movement is greater than",
-      "title": "Transactions",
+      "settingTitle": "Transactions",
       "email": {
         "title": "Transaction notification"
       },
@@ -376,7 +376,7 @@
       "title": "Salary Delay"
     },
     "when_health_bill_linked": {
-      "title": "Medical expenses coverage",
+      "settingTitle": "Medical expenses coverage",
       "email": {
         "title": "Medical expense coverage notification"
       },
