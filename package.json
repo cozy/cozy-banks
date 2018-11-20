@@ -103,6 +103,7 @@
     "enzyme": "3.7.0",
     "eslint-config-cozy-app": "1.1.4",
     "eslint-loader": "2.1.1",
+    "express": "4.16.4",
     "file-loader": "2.0.0",
     "git-directory-deploy": "1.5.1",
     "handlebars-layouts": "3.1.4",

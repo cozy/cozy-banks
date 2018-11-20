@@ -5,72 +5,61 @@
 const fs = require('fs')
 const Handlebars = require('handlebars').default
 
-const TEMPLATES = {
-  balanceLower: require('./balance-lower-html').default,
-  healthBillLinked: require('./health-bill-linked-html').default,
-  transactionGreater: require('./transaction-greater-html').default
+const readJSONSync = filename => {
+  return JSON.parse(fs.readFileSync(filename))
 }
 
-const main = _argv => {
-  const argv = require('minimist')(_argv.slice(2))
+const EMAILS = {
+  balanceLower: {
+    template: require('./balance-lower-html').default,
+    data: readJSONSync('src/ducks/notifications/html/data/transactions-greater.json')
+  },
 
-  if (argv.h || argv.help) {
-    console.log(`Usage: node testTemplate.js -t <TEMPLATE_NAME> -d <DATA> -o <OUTPUT_FILE>
+  healthBillLinked: {
+    template: require('./health-bill-linked-html').default,
+    data: readJSONSync('src/ducks/notifications/html/data/health-bill-linked.json')
+  },
 
-Example: $ node build/testTemplate.js  -t balanceLower -d /tmp/data.json
-
-
-The JSON file contains the data necessary to render the template, check the templates
-for more information.
-`)
-    return
+  transactionGreater: {
+    template: require('./transaction-greater-html').default,
+    data: readJSONSync('src/ducks/notifications/html/data/health-bill-linked.json')
   }
+}
 
-  if (!argv.t) {
-    console.error(
-      `Use -t to specify the template. Available templates: ${Object.keys(
-        TEMPLATES
-      )}`
-    )
-    return
-  }
-
-  let tpl = TEMPLATES[argv.t]
-  if (!tpl) {
-    console.error(
-      `Unavailable template ${argv.t}, Available templates: ${Object.keys(
-        TEMPLATES
-      )}`
-    )
-    return
-  }
-
-  if (!argv.d || !fs.existsSync(argv.d)) {
-    console.error(
-      `You must specify an existing file for JSON data to pass to the template, you passed ${
-        argv.d
-      }`
-    )
-    return
-  }
-
-  const lang = argv.lang || 'en'
+const renderTemplate = (templateName, lang) => {
   const localeStrings = require(`../../../locales/${lang}`)
   const { initTranslation } = require('cozy-ui/react/I18n/translation')
   const translation = initTranslation(lang, () => localeStrings)
   const t = translation.t.bind(translation)
-
   Handlebars.registerHelper({
     tGlobal: key => t('Notifications.email.' + key),
     t
   })
+  const data = EMAILS[templateName].data
+  const tpl = EMAILS[templateName].template
+  return tpl(data)
+}
 
-  const data = JSON.parse(fs.readFileSync(argv.d))
+const main = () => {
+  const express = require('express')
+  const app = express()
 
-  const outputFile = argv.o || 'index.html'
-  fs.writeFileSync(outputFile, tpl(data))
+  app.get('/:templateName/:lang', function (req, res) {
+    const { templateName, lang } = req.params
+    const nav = `
+    <div>
+      ${Object.keys(EMAILS).map(name => `${name}: <a href="/${name}/fr">fr</a>, <a href="/${name}/en">en</a><br/>`).join('  ')}
+    </div>
+    `
+    res.send(nav + '<br/><br/>' + renderTemplate(templateName, lang))
+  })
 
-  console.log(`${outputFile} written !`)
+  app.get('/', function (req, res) {
+    res.redirect(`/${Object.keys(EMAILS)[0]}/fr`)
+  })
+
+  const port = 8081
+  app.listen(port, () => console.log(`Rendering emails at http://localhost:${port}!`))
 }
 
 main(process.argv)
