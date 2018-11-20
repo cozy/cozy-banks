@@ -51,7 +51,11 @@ const getTransWithManualCat = async (transactions, index, limit, skip) => {
   return transactions
 }
 
-export const createLocalClassifier = (transactionsToLearn, options) => {
+export const createLocalClassifier = (
+  transactionsToLearn,
+  classifierOptions,
+  options
+) => {
   if (transactionsToLearn.length === 0) {
     localModelLog(
       'info',
@@ -60,14 +64,16 @@ export const createLocalClassifier = (transactionsToLearn, options) => {
     return null
   }
 
-  const classifier = bayes(options)
+  const classifier = bayes(classifierOptions)
 
   localModelLog('info', 'Learning from manually categorized transactions')
-  for (const transaction of transactionsToLearn) {
-    classifier.learn(
-      getLabelWithTags(transaction),
-      transaction.manualCategoryId
-    )
+  for (let i = 0; i < options.learnSampleWeight; ++i) {
+    for (const transaction of transactionsToLearn) {
+      classifier.learn(
+        getLabelWithTags(transaction),
+        transaction.manualCategoryId
+      )
+    }
   }
 
   return classifier
@@ -169,8 +175,21 @@ const localModel = async (classifierOptions, transactions) => {
     ALPHA_MAX_SMOOTHING
   )
   localModelLog('debug', 'Alpha parameter value is ' + alpha)
-  const options = { tokenizer, alpha }
-  const classifier = createLocalClassifier(transactionsWithManualCat, options)
+
+  const MIN_SAMPLE_WEIGHT = 1
+  const MAX_SAMPLE_WEIGHT = 3
+  const MIN_WEIGHT_LIMIT = 2
+  const learnSampleWeight =
+    transactionsWithManualCat.length > MIN_WEIGHT_LIMIT
+      ? MIN_SAMPLE_WEIGHT
+      : MAX_SAMPLE_WEIGHT
+  localModelLog('debug', 'Learn sample weight is ' + learnSampleWeight)
+
+  const classifier = createLocalClassifier(
+    transactionsWithManualCat,
+    { ...classifierOptions, alpha },
+    { learnSampleWeight }
+  )
 
   if (!classifier) {
     localModelLog(
