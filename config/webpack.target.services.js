@@ -5,6 +5,7 @@ const webpack = require('webpack')
 const merge = require('webpack-merge')
 const base = require('./webpack.config.base')
 const ui = require('./webpack.config.cozy-ui')
+const { production } = require('./webpack.vars')
 
 const SRC_DIR = path.resolve(__dirname, '../src')
 
@@ -30,6 +31,7 @@ module.exports = merge.strategy({
   entry: 'replace'
 })(base, ui, {
   entry: entries,
+  mode: production ? 'production' : 'development',
   target: 'node',
   output: {
     path: path.resolve(__dirname, '../build'),
