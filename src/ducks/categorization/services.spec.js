@@ -1,4 +1,13 @@
-import { getUniqueCategories, getAlphaParameter } from './services'
+import {
+  getUniqueCategories,
+  getAlphaParameter,
+  createLocalClassifier
+} from './services'
+import bayes from 'classificator'
+import { tokenizer } from '.'
+
+const mockLearn = jest.fn()
+jest.mock('classificator', () => jest.fn(() => ({ learn: mockLearn })))
 
 describe('getUniqueCategories', () => {
   it('Should return the list of unique categories for the given transactions', () => {
@@ -40,5 +49,43 @@ describe('getAlphaParemeter', () => {
     expect(getAlphaParameter(10, MIN, MAX, MAX_SMOOTHING)).toBe(2)
     expect(getAlphaParameter(20, MIN, MAX, MAX_SMOOTHING)).toBe(1)
     expect(getAlphaParameter(40, MIN, MAX, MAX_SMOOTHING)).toBe(0.5)
+  })
+})
+
+describe('createLocalClassifier', () => {
+  const options = {
+    tokenizer,
+    alpha: 1
+  }
+
+  const transactions = [
+    { label: 'a', manualCategoryId: '200100' },
+    { label: 'b', manualCategoryId: '200100' },
+    { label: 'c', manualCategoryId: '200100' },
+    { label: 'd', manualCategoryId: '200100' },
+    { label: 'e', manualCategoryId: '200100' },
+    { label: 'f', manualCategoryId: '200100' }
+  ]
+
+  beforeEach(() => {
+    mockLearn.mockReset()
+  })
+
+  it('Should return null when passed no transaction', () => {
+    const classifier = createLocalClassifier([])
+
+    expect(classifier).toBeNull()
+  })
+
+  it('Should create a classifier with the right options', () => {
+    createLocalClassifier(transactions, options)
+
+    expect(bayes).toHaveBeenLastCalledWith(options)
+  })
+
+  it('Should learn from passed transactions', () => {
+    createLocalClassifier(transactions, options)
+
+    expect(mockLearn).toHaveBeenCalledTimes(transactions.length)
   })
 })
