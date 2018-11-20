@@ -1,6 +1,3 @@
-Du neuf pour vos pages mouvements et catégories !
-• Le défilement infini pour remonter votre historique en toute simplicité sur la page "mouvements";
-• Un nouveau design et un nouveau sélecteur de date pour la page "catégories" : pour une analyse plus facile et plus rapide de votre budget;
-• De nouvelles banques sont disponibles;
-• Nous avons amélioré la synchronisation;
-• Désormais, le nom de la banque s'affiche sur chaque opération.
+Merci d'utiliser Cozy Banks!
+Dans cette version nous avons ajouté notre nouveau menu mobile pour naviguer facilement entre vos app Cozy et vers la Home. 
+Nous avons également beaucoup travaillé sur les performance et la stabilité générale de l'application.
