@@ -18,6 +18,10 @@ export const PARAMETERS_NOT_FOUND = 'Classifier files is not configured.'
 const ALPHA_MIN = 0.1
 const ALPHA_MAX = 10
 const ALPHA_MAX_SMOOTHING = 20
+const FAKE_TRANSACTION = {
+  label: 'thisisafaketransaction',
+  manualCategoryId: '0'
+}
 
 export const getUniqueCategories = transactions => {
   return uniq(transactions.map(t => t.manualCategoryId))
@@ -187,6 +191,14 @@ const localModel = async (classifierOptions, transactions) => {
     ALPHA_MAX_SMOOTHING
   )
   localModelLog('debug', 'Alpha parameter value is ' + alpha)
+
+  if (nbUniqueCategories === 1) {
+    localModelLog(
+      'info',
+      'Not enough different categories, adding a fake transaction to balance the weight of the categories'
+    )
+    transactionsWithManualCat.push(FAKE_TRANSACTION)
+  }
 
   const MIN_SAMPLE_WEIGHT = 1
   const MAX_SAMPLE_WEIGHT = 3
