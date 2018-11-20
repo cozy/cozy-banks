@@ -12,11 +12,7 @@ import {
 import { format } from 'date-fns'
 import { isIOSApp } from 'cozy-device-helper'
 
-import {
-  translate,
-  withBreakpoints,
-  Button
-} from 'cozy-ui/react'
+import { translate, withBreakpoints, Button } from 'cozy-ui/react'
 import * as List from 'components/List'
 import { Table } from 'components/Table'
 
@@ -33,24 +29,29 @@ const groupByDateAndSort = transactions => {
 const loadMoreStyle = { textAlign: 'center' }
 const loadMoreBtnStyle = { width: '100%', padding: '0.75rem', margin: 0 }
 const LoadMoreButton = ({ children, onClick }) => (
-  <Button style={loadMoreBtnStyle} onClick={onClick} subtle className="js-LoadMore">
+  <Button
+    style={loadMoreBtnStyle}
+    onClick={onClick}
+    subtle
+    className="js-LoadMore"
+  >
     {children}
   </Button>
 )
 
-const LoadMoreDesktop =  ({ children, onClick }) => (
+const LoadMoreDesktop = ({ children, onClick }) => (
   <tbody>
     <tr>
       <td style={loadMoreStyle}>
-        <LoadMoreButton onClick={ onClick } >{ children }</LoadMoreButton>
+        <LoadMoreButton onClick={onClick}>{children}</LoadMoreButton>
       </td>
     </tr>
   </tbody>
 )
 
-const LoadMoreMobile =  ({ children, onClick }) => (
+const LoadMoreMobile = ({ children, onClick }) => (
   <div style={loadMoreStyle}>
-    <LoadMoreButton onClick={ onClick } >{ children }</LoadMoreButton>
+    <LoadMoreButton onClick={onClick}>{children}</LoadMoreButton>
   </div>
 )
 
@@ -58,17 +59,15 @@ const _SectionMobile = props => {
   const { date, f, children } = props
   return (
     <React.Fragment>
-      <List.Header>
-        {f(date, 'dddd D MMMM')}
-      </List.Header>
-    { children }
+      <List.Header>{f(date, 'dddd D MMMM')}</List.Header>
+      {children}
     </React.Fragment>
   )
 }
 const SectionMobile = translate()(_SectionMobile)
 
 const SectionDesktop = props => {
-  return <tbody {...props } />
+  return <tbody {...props} />
 }
 
 const TransactionContainerMobile = props => {

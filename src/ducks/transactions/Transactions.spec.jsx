@@ -41,18 +41,14 @@ describe('transaction row', () => {
 
   xit('should render correctly on desktop', () => {
     root = mount(
-      wrapRow(
-        <RowDekstop transaction={transaction} urls={{}} brands={[]} />
-      )
+      wrapRow(<RowDekstop transaction={transaction} urls={{}} brands={[]} />)
     )
     expect(root.find(Caption).text()).toBe('Compte courant Isabelle - BNPP')
   })
 
   it('should render correctly on mobile', () => {
     root = mount(
-      wrapRow(
-        <RowMobile transaction={transaction} urls={{}} brands={[]} />
-      )
+      wrapRow(<RowMobile transaction={transaction} urls={{}} brands={[]} />)
     )
     expect(root.find(Caption).text()).toBe('Compte courant Isabelle - BNPP')
   })

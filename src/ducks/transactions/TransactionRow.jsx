@@ -3,14 +3,7 @@ import PropTypes from 'prop-types'
 import cx from 'classnames'
 import compose from 'lodash/flowRight'
 
-import {
-  translate,
-  Media,
-  Bd,
-  Img,
-  Caption,
-  Text
-} from 'cozy-ui/react'
+import { translate, Media, Bd, Img, Caption, Text } from 'cozy-ui/react'
 
 import { Figure } from 'components/Figure'
 import { TdSecondary } from 'components/Table'
@@ -126,7 +119,7 @@ class _RowMobile extends React.PureComponent {
     const account = transaction.account.data
     return (
       <List.Row>
-        <Media className='u-full-width'>
+        <Media className="u-full-width">
           <Img
             className="u-clickable u-mr-half"
             title={t(
