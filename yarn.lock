@@ -4757,13 +4757,13 @@ cozy-client-js@^0.8.0:
     pouchdb-adapter-cordova-sqlite "https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a"
     pouchdb-find "0.10.4"
 
-cozy-client@4.7.0, cozy-client@^4.7.0:
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-4.7.0.tgz#49344d7208bffdca704675c530a58592d4a15fc1"
-  integrity sha512-TNRvFrDl8mwP7YUkTz515xORZhqcQjojZcftcRCYmYvfDbyI8MbCUjYzbfdUw1QTM42KrWj0oMlV2tRfGnW8nA==
+cozy-client@4.11.0, cozy-client@^4.11.0:
+  version "4.11.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-4.11.0.tgz#76aeabce890a74f16bde765838973c5fec7a453d"
+  integrity sha512-r1f3lCbQ5ZsWVd1DnQB0bfRLj18xV0NQmajHdpXusmVLlNB8LSrtdb/a7bHp3X6C7XBEq25JdrPS9gXuYcoQtg==
   dependencies:
     cozy-device-helper "1.4.14"
-    cozy-stack-client "^4.5.0"
+    cozy-stack-client "^4.8.0"
     lodash "4.17.11"
     prop-types "15.6.2"
     react "16.4.2"
@@ -4881,12 +4881,12 @@ cozy-logger@^1.2.0:
   dependencies:
     json-stringify-safe "5.0.1"
 
-cozy-pouch-link@4.7.0:
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-4.7.0.tgz#29c1e9340309600d10822dd3bf6402c4101fcc95"
-  integrity sha512-xqXL7HMUFUgyqx8hlCgJ4F00U2DcyDV7sUkrCAwHzCq7x/2iJIGQw2DIVXV2Ef4vCHeFJLE1LhPmzvYS079Kkg==
+cozy-pouch-link@4.12.1:
+  version "4.12.1"
+  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-4.12.1.tgz#0c3d3b92462678aaa657224a3599fa9a9a41a9aa"
+  integrity sha512-wkgahpArhGbtaCF5y7wk5hy82UjRAF6kvvOXXe8fcXnezeFHVtCr6NdeVvznea0gIr0LttVz02pWUH6A/ggIeg==
   dependencies:
-    cozy-client "^4.7.0"
+    cozy-client "^4.11.0"
     cozy-device-helper "1.4.8"
     pouchdb "7.0.0"
     pouchdb-find "7.0.0"
@@ -4896,10 +4896,10 @@ cozy-realtime@1.2.0:
   resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-1.2.0.tgz#8f0e5a2c02df94674f0a96381a51bce71d327602"
   integrity sha512-VM03YzeWt0D3dlVeGFLFLgraDs78PS1OY9FxA7TVxt95Q17a0OaVqqUViwfYY84+DxzfFl1pzw2BSzhThAqYJw==
 
-cozy-stack-client@^4.5.0:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-4.5.0.tgz#0999ce1778b4d1577596ed6f94c14209e4f55368"
-  integrity sha512-++R/bUGOJ8hf2wT1tgNxxyzEG6GUkYivM8F8OMAvYlFma9MB6N9kv/WMOlRzOOmpZn9LeWV+bLLViwTvIIEObA==
+cozy-stack-client@^4.8.0:
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-4.8.0.tgz#a639650de5d0311cdf4360b1b2115b973c4d41f0"
+  integrity sha512-95Y7qTMjA9QJGy0FDGpkSDxzIAsQVbf18cuHeADxd8EQZYkP7IEV0epLnEVvt1ezXf8B6kB9f5ixfLBBblzN3A==
   dependencies:
     mime-types "2.1.20"
 
@@ -6872,6 +6872,42 @@ expose-loader@0.7.5:
   resolved "https://registry.yarnpkg.com/expose-loader/-/expose-loader-0.7.5.tgz#e29ea2d9aeeed3254a3faa1b35f502db9f9c3f6f"
   integrity sha512-iPowgKUZkTPX5PznYsmifVj9Bob0w2wTHVkt/eYNPSzyebkUgIedmskf/kcfEIWpiWjg3JRjnW+a17XypySMuw==
 
+express@4.16.4, express@^4.16.3:
+  version "4.16.4"
+  resolved "https://registry.yarnpkg.com/express/-/express-4.16.4.tgz#fddef61926109e24c515ea97fd2f1bdbf62df12e"
+  integrity sha512-j12Uuyb4FMrd/qQAm6uCHAkPtO8FDTRJZBDd5D2KOL2eLaz1yUNdUB/NOIyq0iU4q4cFarsUCrnFDPBcnksuOg==
+  dependencies:
+    accepts "~1.3.5"
+    array-flatten "1.1.1"
+    body-parser "1.18.3"
+    content-disposition "0.5.2"
+    content-type "~1.0.4"
+    cookie "0.3.1"
+    cookie-signature "1.0.6"
+    debug "2.6.9"
+    depd "~1.1.2"
+    encodeurl "~1.0.2"
+    escape-html "~1.0.3"
+    etag "~1.8.1"
+    finalhandler "1.1.1"
+    fresh "0.5.2"
+    merge-descriptors "1.0.1"
+    methods "~1.1.2"
+    on-finished "~2.3.0"
+    parseurl "~1.3.2"
+    path-to-regexp "0.1.7"
+    proxy-addr "~2.0.4"
+    qs "6.5.2"
+    range-parser "~1.2.0"
+    safe-buffer "5.1.2"
+    send "0.16.2"
+    serve-static "1.13.2"
+    setprototypeof "1.1.0"
+    statuses "~1.4.0"
+    type-is "~1.6.16"
+    utils-merge "1.0.1"
+    vary "~1.1.2"
+
 express@^4.13.3, express@^4.16.2:
   version "4.16.3"
   resolved "https://registry.yarnpkg.com/express/-/express-4.16.3.tgz#6af8a502350db3246ecc4becf6b5a34d22f7ed53"
@@ -6900,42 +6936,6 @@ express@^4.13.3, express@^4.16.2:
     qs "6.5.1"
     range-parser "~1.2.0"
     safe-buffer "5.1.1"
-    send "0.16.2"
-    serve-static "1.13.2"
-    setprototypeof "1.1.0"
-    statuses "~1.4.0"
-    type-is "~1.6.16"
-    utils-merge "1.0.1"
-    vary "~1.1.2"
-
-express@^4.16.3, express@^4.16.4:
-  version "4.16.4"
-  resolved "https://registry.yarnpkg.com/express/-/express-4.16.4.tgz#fddef61926109e24c515ea97fd2f1bdbf62df12e"
-  integrity sha512-j12Uuyb4FMrd/qQAm6uCHAkPtO8FDTRJZBDd5D2KOL2eLaz1yUNdUB/NOIyq0iU4q4cFarsUCrnFDPBcnksuOg==
-  dependencies:
-    accepts "~1.3.5"
-    array-flatten "1.1.1"
-    body-parser "1.18.3"
-    content-disposition "0.5.2"
-    content-type "~1.0.4"
-    cookie "0.3.1"
-    cookie-signature "1.0.6"
-    debug "2.6.9"
-    depd "~1.1.2"
-    encodeurl "~1.0.2"
-    escape-html "~1.0.3"
-    etag "~1.8.1"
-    finalhandler "1.1.1"
-    fresh "0.5.2"
-    merge-descriptors "1.0.1"
-    methods "~1.1.2"
-    on-finished "~2.3.0"
-    parseurl "~1.3.2"
-    path-to-regexp "0.1.7"
-    proxy-addr "~2.0.4"
-    qs "6.5.2"
-    range-parser "~1.2.0"
-    safe-buffer "5.1.2"
     send "0.16.2"
     serve-static "1.13.2"
     setprototypeof "1.1.0"
