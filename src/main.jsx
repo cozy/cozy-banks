@@ -59,15 +59,6 @@ const setupApp = async persistedState => {
   client = await getClient(persistedState)
   store = configureStore(client, persistedState)
 
-  // if (client.facade.url) {
-  //   // Initialize settings
-  //   store.dispatch(fetchSettingsCollection()).then(res => {
-  //     if (!res || res.data.length === 0) {
-  //       store.dispatch(initSettings())
-  //     }
-  //   })
-  // }
-
   persistState(store)
 
   if (__TARGET__ !== 'mobile') {
