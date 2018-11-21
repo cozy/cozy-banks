@@ -101,7 +101,8 @@ const onOperationOrBillCreate = async () => {
   const catChanges = await changesTransactions(catLastSeq)
 
   const toCategorize = catChanges.documents
-    .filter(t => t.cozyCategoryId === undefined)
+    .filter(isCreatedDoc)
+
   try {
     if (toCategorize.length > 0) {
       const transactionsCategorized = await categorizes(toCategorize)

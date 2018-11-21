@@ -29,13 +29,6 @@
     .bnk-op-action
         maxed-flex-basis 25%
 
-    .bnk-transaction-mobile
-        & > td
-            width 100%
-            padding-top .75rem
-            padding-bottom .75rem
-        &:last-child
-            border-bottom 0
     .bnk-transaction-mobile-action
         position relative
         flex-basis 2.5rem
@@ -57,38 +50,19 @@
         cursor pointer
 
     +medium-screen()
-        .bnk-transaction-mobile td:last-child
-            padding-right 0
-
         .bnk-op-desc
             cursor pointer
             maxed-flex-basis 60%
+            padding-left 3.25rem
         .bnk-op-amount
             cursor pointer
             maxed-flex-basis 40%
+            padding-right 3.5rem
         .bnk-op-actions
             width 150px
         .bnk-op-date
         .bnk-op-action
             display none
-
-        tbody:last-child
-            tr:last-child
-                border-bottom-width 1px
-
-        .bnk-op-date-header
-            display inherit
-            background-color paleGrey
-            border-width 0
-
-            td
-                background-color paleGrey
-                color coolGrey
-                font-size 0.75rem
-                text-transform uppercase
-                font-weight bold
-                padding 0.125rem 1rem
-                line-height 1rem
 
     tbody
         overflow inherit!important

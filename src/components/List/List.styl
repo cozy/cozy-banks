@@ -1,0 +1,26 @@
+@require '../../stylus/components/list'
+
+.c-list-row
+    min-height 3rem
+    padding .375rem .75rem
+    border-bottom silver 1px solid
+    display flex
+    align-items center
+    &:last-child
+        border-bottom 0
+
+.c-list-header
+    background-color paleGrey
+    border-width 0
+    color coolGrey
+    font-size 0.75rem
+    text-transform uppercase
+    font-weight bold
+    padding 0.125rem 1rem
+    line-height 1rem
+
+    .c-list-row + &
+        position relative
+        top -1px
+        border-top 1px solid white
+

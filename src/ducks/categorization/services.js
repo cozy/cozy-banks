@@ -2,7 +2,7 @@
 
 import { cozyClient } from 'cozy-konnector-libs'
 import logger from 'cozy-logger'
-import { maxBy, pick } from 'lodash'
+import { maxBy, pick, uniq } from 'lodash'
 import { tokenizer, createClassifier } from '.'
 import bayes from 'classificator'
 import { getLabel } from 'ducks/transactions/helpers'
@@ -15,35 +15,59 @@ const globalModelLog = logger.namespace('global-categorization-model')
 
 export const PARAMETERS_NOT_FOUND = 'Classifier files is not configured.'
 
-const createLocalClassifier = async () => {
-  const getTransWithManualCat = async (transactions, index, limit, skip) => {
-    const query = {
-      selector: { manualCategoryId: { $exists: true } },
-      limit,
-      skip,
-      wholeResponse: true
-    }
-    const results = await cozyClient.data.query(index, query)
-    transactions = [...transactions, ...results.docs]
+const ALPHA_MIN = 0.1
+const ALPHA_MAX = 10
+const ALPHA_MAX_SMOOTHING = 20
+const FAKE_TRANSACTION = {
+  label: 'thisisafaketransaction',
+  manualCategoryId: '0'
+}
 
-    if (results.next) {
-      return getTransWithManualCat(transactions, index, limit, skip + limit)
-    }
+export const getUniqueCategories = transactions => {
+  return uniq(transactions.map(t => t.manualCategoryId))
+}
 
-    return transactions
+export const getAlphaParameter = (
+  nbUniqueCategories,
+  min,
+  max,
+  maxSmoothing
+) => {
+  const alpha = maxSmoothing / nbUniqueCategories
+
+  return Math.max(min, Math.min(max, alpha))
+}
+
+const getTransWithManualCat = async (transactions, index, limit, skip) => {
+  const query = {
+    selector: { manualCategoryId: { $exists: true } },
+    limit,
+    skip,
+    wholeResponse: true
+  }
+  const results = await cozyClient.data.query(index, query)
+  transactions = [...transactions, ...results.docs]
+
+  if (results.next) {
+    return getTransWithManualCat(transactions, index, limit, skip + limit)
   }
 
-  localModelLog('info', 'Fetching manually categorized transactions')
-  const index = await cozyClient.data.defineIndex(TRANSACTION_DOCTYPE, [
-    'manualCategoryId'
-  ])
-  const transactions = await getTransWithManualCat([], index, 100)
-  localModelLog(
-    'info',
-    `Fetched ${transactions.length} manually categorized transactions`
-  )
+  return transactions
+}
 
-  if (transactions.length === 0) {
+/**
+ * Create a ready to use classifier for the local categorization model
+ * @param {Array} transactionsToLearn - Transactions to learn from
+ * @param {Object} classifierOptions - Options to pass to the classifier initialization
+ * @param {Object} options
+ * @param {Number} learnSampleWeight - The weight of the transactionsToLearn parameter
+ */
+export const createLocalClassifier = (
+  transactionsToLearn,
+  classifierOptions,
+  options
+) => {
+  if (transactionsToLearn.length === 0) {
     localModelLog(
       'info',
       'Impossible to instanciate a classifier since there is no manually categorized transactions to learn from'
@@ -51,16 +75,16 @@ const createLocalClassifier = async () => {
     return null
   }
 
-  localModelLog('info', 'Instanciating a fresh classifier')
-  const options = { tokenizer, alpha: 0.1 }
-  const classifier = bayes(options)
+  const classifier = bayes(classifierOptions)
 
   localModelLog('info', 'Learning from manually categorized transactions')
-  for (const transaction of transactions) {
-    classifier.learn(
-      getLabelWithTags(transaction),
-      transaction.manualCategoryId
-    )
+  for (let i = 0; i < options.learnSampleWeight; ++i) {
+    for (const transaction of transactionsToLearn) {
+      classifier.learn(
+        getLabelWithTags(transaction),
+        transaction.manualCategoryId
+      )
+    }
   }
 
   return classifier
@@ -141,11 +165,55 @@ const globalModel = async (classifierOptions, transactions) => {
   }
 }
 
-// The local model is disabled for now because we found an issue with it
-// eslint-disable-next-line no-unused-vars
 const localModel = async (classifierOptions, transactions) => {
+  localModelLog('info', 'Fetching manually categorized transactions')
+  const index = await cozyClient.data.defineIndex(TRANSACTION_DOCTYPE, [
+    'manualCategoryId'
+  ])
+  const transactionsWithManualCat = await getTransWithManualCat([], index, 100)
+  localModelLog(
+    'info',
+    `Fetched ${transactions.length} manually categorized transactions`
+  )
+
   localModelLog('info', 'Instanciating a new classifier')
-  const classifier = await createLocalClassifier()
+  const uniqueCategories = getUniqueCategories(transactionsWithManualCat)
+  const nbUniqueCategories = uniqueCategories.length
+  localModelLog(
+    'debug',
+    'Number of unique categories in transactions with manual categories: ' +
+      nbUniqueCategories
+  )
+  const alpha = getAlphaParameter(
+    nbUniqueCategories,
+    ALPHA_MIN,
+    ALPHA_MAX,
+    ALPHA_MAX_SMOOTHING
+  )
+  localModelLog('debug', 'Alpha parameter value is ' + alpha)
+
+  if (nbUniqueCategories === 1) {
+    localModelLog(
+      'info',
+      'Not enough different categories, adding a fake transaction to balance the weight of the categories'
+    )
+    transactionsWithManualCat.push(FAKE_TRANSACTION)
+  }
+
+  const MIN_SAMPLE_WEIGHT = 1
+  const MAX_SAMPLE_WEIGHT = 3
+  const MIN_WEIGHT_LIMIT = 2
+  const learnSampleWeight =
+    transactionsWithManualCat.length > MIN_WEIGHT_LIMIT
+      ? MIN_SAMPLE_WEIGHT
+      : MAX_SAMPLE_WEIGHT
+  localModelLog('debug', 'Learn sample weight is ' + learnSampleWeight)
+
+  const classifier = createLocalClassifier(
+    transactionsWithManualCat,
+    { ...classifierOptions, alpha },
+    { learnSampleWeight }
+  )
 
   if (!classifier) {
     localModelLog(
@@ -194,8 +262,8 @@ export const categorizes = async transactions => {
   const classifierOptions = { tokenizer }
 
   await Promise.all([
-    globalModel(classifierOptions, transactions)
-    // localModel(classifierOptions, transactions)
+    globalModel(classifierOptions, transactions),
+    localModel(classifierOptions, transactions)
   ])
 
   return transactions

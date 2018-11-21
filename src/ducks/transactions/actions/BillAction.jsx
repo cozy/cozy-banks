@@ -43,11 +43,15 @@ const getBill = (transaction, actionProps) => {
 }
 
 class AugmentedModalButton extends React.Component {
-  open() {
+  state = { opened: false }
+
+  open = event => {
+    event.stopPropagation()
     this.setState({ opened: true })
   }
 
-  close() {
+  close = event => {
+    event.stopPropagation()
     this.setState({ opened: false })
   }
 
@@ -55,15 +59,15 @@ class AugmentedModalButton extends React.Component {
     const { fileId, text, compact } = this.props
     return (
       <ButtonAction
-        onClick={() => this.open()}
+        onClick={this.open}
         label={text}
         compact={compact}
         rightIcon="file"
         className={styles.TransactionActionButton}
       >
-        {this.state.opened ? (
-          <AugmentedModal fileId={fileId} onClose={() => this.close()} />
-        ) : null}
+        {this.state.opened && (
+          <AugmentedModal fileId={fileId} onClose={this.close} />
+        )}
       </ButtonAction>
     )
   }

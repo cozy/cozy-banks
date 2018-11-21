@@ -1,13 +1,25 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Modal, ModalDescription, Panel, IntentIframe } from 'cozy-ui/react'
 import ventePrivee from 'assets/vente-privee.png'
 import styles from './AugmentedModal.styl'
 import ventePriveeInfo from 'assets/venteprivee-info.png'
 import ventePriveeInfo2x from 'assets/venteprivee-info@2x.png'
+import { Intents } from 'cozy-interapp'
 
 const { ModalBrandedHeader } = Modal
 
 class Content extends Component {
+  static contextTypes = {
+    client: PropTypes.object.isRequired
+  }
+
+  constructor(props, context) {
+    super(props, context)
+
+    this.intents = new Intents({ client: this.context.client })
+  }
+
   render() {
     const { fileId } = this.props
     return (
@@ -17,6 +29,7 @@ class Content extends Component {
             action="OPEN"
             type="io.cozy.files"
             data={{ id: fileId }}
+            create={this.intents.create}
           />
         </Panel.Main>
         <Panel.Side>

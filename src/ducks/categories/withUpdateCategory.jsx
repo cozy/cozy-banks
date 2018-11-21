@@ -42,7 +42,7 @@ export default (options = {}) => Wrapped =>
       render() {
         const { displaying } = this.state
         return (
-          <div>
+          <React.Fragment>
             {!displaying && options.hideDisplaying ? null : (
               <Wrapped {...this.props} showCategoryChoice={this.show} />
             )}
@@ -53,7 +53,7 @@ export default (options = {}) => Wrapped =>
                 onCancel={this.hide}
               />
             )}
-          </div>
+          </React.Fragment>
         )
       }
     }
