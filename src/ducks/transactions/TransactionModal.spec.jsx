@@ -9,8 +9,6 @@ import pretty from 'pretty'
 import getClient from 'test/client'
 import pick from 'lodash/pick'
 
-// jest.mock('preact-portal', () => ({ children }) => children)
-
 const allTransactions = data['io.cozy.bank.operations']
 
 describe('transaction modal', () => {
