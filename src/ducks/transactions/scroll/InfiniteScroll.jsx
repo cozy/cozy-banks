@@ -113,11 +113,11 @@ class InfiniteScroll extends React.Component {
 
   render() {
     return (
-      <div className={this.props.className}>
+      <React.Fragment>
         <div ref={ref => (this.limitMinRef = ref)} />
         {this.props.children}
         <div ref={ref => (this.limitMaxRef = ref)} />
-      </div>
+      </React.Fragment>
     )
   }
 }
