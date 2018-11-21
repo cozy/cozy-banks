@@ -43,6 +43,8 @@ const getBill = (transaction, actionProps) => {
 }
 
 class AugmentedModalButton extends React.Component {
+  state = { opened: false }
+
   open() {
     this.setState({ opened: true })
   }
