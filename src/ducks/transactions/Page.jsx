@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import { Icon, Modal, ModalHeader, ModalContent } from 'cozy-ui/react'
-import palette from 'cozy-ui/stylus/settings/palette.json'
+import palette from 'cozy-ui/react/palette'
 import styles from './Page.styl'
 import iconArrowLeft from 'assets/icons/icon-arrow-left.svg'
 

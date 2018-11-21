@@ -21,7 +21,7 @@ import {
 import icon from 'assets/icons/actions/icon-link-out.svg'
 import styles from '../TransactionActions.styl'
 import { TransactionModalRow } from '../TransactionModal'
-import palette from 'cozy-ui/stylus/settings/palette.json'
+import palette from 'cozy-ui/react/palette'
 import iconCollectAccount from 'assets/icons/icon-collect-account.svg'
 import { triggersConn } from 'doctypes'
 

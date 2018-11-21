@@ -7,7 +7,7 @@ import withBackSwipe from 'utils/backSwipe'
 import { flowRight as compose } from 'lodash'
 import { Icon, withBreakpoints } from 'cozy-ui/react'
 import arrowLeft from 'assets/icons/icon-arrow-left.svg'
-import palette from 'cozy-ui/stylus/settings/palette.json'
+import palette from 'cozy-ui/react/palette'
 
 const { BarLeft } = cozy.bar
 

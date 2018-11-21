@@ -4,7 +4,7 @@ import { translate, ButtonAction } from 'cozy-ui/react'
 import icon from 'assets/icons/actions/icon-link-out.svg'
 import styles from '../TransactionActions.styl'
 import { TransactionModalRow } from '../TransactionModal'
-import palette from 'cozy-ui/stylus/settings/palette.json'
+import palette from 'cozy-ui/react/palette'
 
 const name = 'app'
 

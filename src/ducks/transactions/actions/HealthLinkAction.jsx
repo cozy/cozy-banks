@@ -2,7 +2,7 @@ import React from 'react'
 import { translate, ButtonAction } from 'cozy-ui/react'
 import icon from 'assets/icons/actions/icon-link-out.svg'
 import { isHealth } from 'ducks/categories/helpers'
-import palette from 'cozy-ui/stylus/settings/palette.json'
+import palette from 'cozy-ui/react/palette'
 import styles from '../TransactionActions.styl'
 import { TransactionModalRow } from '../TransactionModal'
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { translate, Icon } from 'cozy-ui/react'
 import { formatVendor } from './helpers'
-import palette from 'cozy-ui/stylus/settings/palette.json'
+import palette from 'cozy-ui/react/palette'
 
 const healthExpenseStatusIconStyle = { display: 'inline-block' }
 export const HealthExpenseStatusIcon = ({ className = '', pending }) => {

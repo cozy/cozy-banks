@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from '../TransactionActions.styl'
-import palette from 'cozy-ui/stylus/settings/palette.json'
+import palette from 'cozy-ui/react/palette'
 import { Icon } from 'cozy-ui/react'
 
 const iconStyle = { marginRight: '10px' }
