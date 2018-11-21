@@ -6,8 +6,8 @@ exports[`transaction modal should render correctly 1`] = `
     <div class=\\"c-modal-wrapper\\">
       <div class=\\"c-modal c-modal--small TransactionModal c-modal--closable\\" role=\\"dialog\\" aria-modal=\\"true\\">
         <button type=\\"button\\" class=\\"c-modal-close TransactionModalCross c-modal-close--notitle c-btn c-btn--close c-btn--narrow\\" title=\\"Close\\"><span><span class=\\"u-visuallyhidden\\">Close</span>
-          <svg class=\\"icon\\" style=\\"fill: #95999D;\\" width=\\"24\\" height=\\"24\\">
-            <use xlink:href=\\"test-file-stub\\"></use>
+          <svg class=\\"icon\\" style=\\"fill: var(--coolGrey);\\" width=\\"24\\" height=\\"24\\">
+            <use xlink:href=\\"#cross\\"></use>
           </svg>
           </span>
         </button>
@@ -19,7 +19,11 @@ exports[`transaction modal should render correctly 1`] = `
         <div class=\\"c-modal-content TransactionModalContent\\">
           <div>
             <div class=\\"media TransactionModalRow TransactionModalRow-multiline media--top\\">
-              <div class=\\"img TransactionModalRowIcon\\"></div>
+              <div class=\\"img TransactionModalRowIcon\\">
+                <svg class=\\"TransactionModalRowIcon-alignTop TransactionModalRowIcon-reversed icon\\" width=\\"16\\" height=\\"16\\">
+                  <use xlink:href=\\"#test-file-stub\\"></use>
+                </svg>
+              </div>
               <div class=\\"bd TransactionModalRowContent\\">
                 <div class=\\"TransactionLabel\\">Remboursement Pret Lcl</div>
                 <div class=\\"TransactionInfos\\">
@@ -30,18 +34,30 @@ exports[`transaction modal should render correctly 1`] = `
             </div>
             <hr class=\\"TransactionModalSeparator\\">
             <div class=\\"media TransactionModalRow\\">
-              <div class=\\"img TransactionModalRowIcon\\"></div>
+              <div class=\\"img TransactionModalRowIcon\\">
+                <svg class=\\"icon\\" width=\\"16\\" height=\\"16\\">
+                  <use xlink:href=\\"#test-file-stub\\"></use>
+                </svg>
+              </div>
               <div class=\\"bd TransactionModalRowContent\\"><span style=\\"text-transform: capitalize;\\">Friday 25 August</span></div>
             </div>
             <hr class=\\"TransactionModalSeparator\\">
             <div class=\\"media TransactionModalRow TransactionModalRow-clickable\\">
-              <div class=\\"img TransactionModalRowIcon\\"></div>
+              <div class=\\"img TransactionModalRowIcon\\">
+                <svg class=\\"icon\\" width=\\"16\\" height=\\"16\\">
+                  <use xlink:href=\\"#test-file-stub\\"></use>
+                </svg>
+              </div>
               <div class=\\"bd TransactionModalRowContent\\">Real estate loan</div>
               <div class=\\"img\\"></div>
             </div>
             <hr class=\\"TransactionModalSeparator\\">
             <div class=\\"media TransactionModalRow TransactionModalRow-disabled\\">
-              <div class=\\"img TransactionModalRowIcon\\"></div>
+              <div class=\\"img TransactionModalRowIcon\\">
+                <svg class=\\"icon\\" width=\\"16\\" height=\\"16\\">
+                  <use xlink:href=\\"#test-file-stub\\"></use>
+                </svg>
+              </div>
               <div class=\\"bd TransactionModalRowContent\\">Comment - available soon</div>
             </div>
             <hr class=\\"TransactionModalSeparator\\">
