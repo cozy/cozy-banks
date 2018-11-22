@@ -38,6 +38,13 @@ export const getBalanceHistories = (accounts, transactions) => {
 export const getTransactionsForAccount = (accountId, transactions) =>
   transactions.filter(t => t.account === accountId)
 
+/**
+ * Get balance history for an account
+ * @param {Object} account - The account we want to get the balance history
+ * @param {Object[]} transactions - The transactions of the account
+ * @param {Date} from - The date from which we want to get balance history
+ * @returns {Object} The balance history indexed by dates (YYYY-MM-DD)
+ */
 export const getBalanceHistory = (account, transactions, from) => {
   const DATE_FORMAT = 'YYYY-MM-DD'
 
