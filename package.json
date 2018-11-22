@@ -174,7 +174,7 @@
     "localforage": "1.7.3",
     "lodash": "4.17.11",
     "matomo-tracker": "2.2.0",
-    "mjml": "3.3.5",
+    "mjml": "4.2.1",
     "node-polyglot": "2.3.0",
     "null-loader": "0.1.1",
     "number-to-locale-string": "1.2.0",
