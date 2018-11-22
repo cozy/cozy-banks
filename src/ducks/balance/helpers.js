@@ -9,7 +9,11 @@ import {
   format as formatDate
 } from 'date-fns'
 
-export const getBalanceHistories = (accounts, transactions) => {
+export const getBalanceHistories = (
+  accounts,
+  transactions,
+  from = startOfToday()
+) => {
   if (accounts.length === 0 || transactions.length === 0) {
     return null
   }
@@ -18,7 +22,7 @@ export const getBalanceHistories = (accounts, transactions) => {
     balances[account._id] = getBalanceHistory(
       account,
       getTransactionsForAccount(account._id, transactions),
-      startOfToday()
+      from
     )
 
     return balances
