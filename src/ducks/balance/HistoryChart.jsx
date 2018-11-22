@@ -77,9 +77,10 @@ class HistoryChart extends Component {
           lineColor="white"
           axisColor="white"
           labelsColor="#a2c4f9"
-          onUpdate={() =>
-            this.container.scrollTo(this.container.scrollWidth, 0)
-          }
+          onUpdate={() => {
+            // FIXME the ref is undefined on first render
+            // this.container.scrollTo(this.container.scrollWidth, 0)
+          }}
           gradient={gradientStyle}
           pointFillColor="white"
           pointStrokeColor="rgba(255, 255, 255, 0.3)"
