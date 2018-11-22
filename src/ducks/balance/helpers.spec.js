@@ -1,7 +1,8 @@
 import {
   getTransactionsForAccount,
   getBalanceHistory,
-  getBalanceHistories
+  getBalanceHistories,
+  sumBalancesByDate
 } from './helpers'
 import { parse as parseDate } from 'date-fns'
 
@@ -64,6 +65,26 @@ describe('getBalanceHistory', () => {
 
     expect(Object.keys(history)).toEqual(expectedKeys)
     expect(Object.values(history)).toEqual(expectedValues)
+  })
+})
+
+describe('sumBalancesByDate', () => {
+  it('should return an object indexed by dates with balances sum as values', () => {
+    const histories = {
+      1: { '2018-11-22': 8000, '2018-11-21': 9000 },
+      2: { '2018-11-22': 5000 },
+      3: { '2018-11-22': 1000, '2018-11-21': 500, '2018-11-20': 600 }
+    }
+
+    const expectedSum = {
+      '2018-11-22': 14000,
+      '2018-11-21': 9500,
+      '2018-11-20': 600
+    }
+
+    const balancesSum = sumBalancesByDate(histories)
+
+    expect(balancesSum).toEqual(expectedSum)
   })
 })
 

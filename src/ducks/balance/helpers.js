@@ -28,7 +28,7 @@ export const getBalanceHistories = (
     return balances
   }, {})
 
-  balances.all = sumAllBalancesByDate(balances)
+  balances.all = sumBalancesByDate(balances)
 
   return balances
 }
@@ -78,7 +78,7 @@ export const getBalanceHistory = (account, transactions, from) => {
   return balances
 }
 
-const sumAllBalancesByDate = accountsBalances => {
+export const sumBalancesByDate = accountsBalances => {
   const allDates = uniq(
     flatten(Object.values(accountsBalances).map(item => Object.keys(item)))
   )
