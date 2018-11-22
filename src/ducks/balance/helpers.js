@@ -9,6 +9,13 @@ import {
   format as formatDate
 } from 'date-fns'
 
+/**
+ * Get balance histories for a set of accounts
+ * @param {Object[]} accounts - The accounts we want to get the balance histories
+ * @param {Object[]} transactions - The transactions
+ * @param {Date} from - The date from which we want to get balance history
+ * @returns {Object} The balance histories
+ */
 export const getBalanceHistories = (
   accounts,
   transactions,
