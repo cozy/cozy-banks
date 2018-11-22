@@ -1,5 +1,25 @@
-import { getBalanceHistory } from './helpers'
+import { getTransactionsForAccount, getBalanceHistory } from './helpers'
 import { parse as parseDate } from 'date-fns'
+
+describe('getTransactionsForAccount', () => {
+  it('should return transactions of a particular account', () => {
+    const transactions = [
+      { account: '1' },
+      { account: '2' },
+      { account: '1' },
+      { account: '3' },
+      { account: '4' },
+      { account: '1' },
+      { account: '5' }
+    ]
+
+    expect(getTransactionsForAccount('1', transactions)).toEqual([
+      transactions[0],
+      transactions[2],
+      transactions[5]
+    ])
+  })
+})
 
 describe('getBalanceHistory', () => {
   it('should return only the current balance if there is no transactions', () => {

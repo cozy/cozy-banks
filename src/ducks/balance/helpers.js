@@ -17,7 +17,7 @@ export const getBalanceHistories = (accounts, transactions) => {
   const balances = accounts.reduce((balances, account) => {
     balances[account._id] = getBalanceHistory(
       account,
-      getTransactionsForAccount(account, transactions),
+      getTransactionsForAccount(account._id, transactions),
       startOfToday()
     )
 
@@ -29,8 +29,14 @@ export const getBalanceHistories = (accounts, transactions) => {
   return balances
 }
 
-const getTransactionsForAccount = (account, transactions) =>
-  transactions.filter(t => t.account === account._id)
+/**
+ * Get transactions that match an account id in a set of transactions
+ * @param {number} accountId - The ID of the account
+ * @param {Object[]} transactions - The transactions to filter
+ * @returns {Object[]}
+ */
+export const getTransactionsForAccount = (accountId, transactions) =>
+  transactions.filter(t => t.account === accountId)
 
 export const getBalanceHistory = (account, transactions, from) => {
   const DATE_FORMAT = 'YYYY-MM-DD'
