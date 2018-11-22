@@ -153,7 +153,7 @@
     "classificator": "0.3.2",
     "classnames": "2.2.6",
     "cordova": "7.1.0",
-    "cozy-authentication": "1.4.0-beta1",
+    "cozy-authentication": "1.4.0",
     "cozy-bar": "6.8.3",
     "cozy-client": "4.11.0",
     "cozy-client-js": "0.14.2",
