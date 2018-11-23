@@ -98,12 +98,12 @@ const onOperationOrBillCreate = async () => {
 
   // Categorization
   const catLastSeq = setting.categorization.lastSeq
-  const catChanges = await changesTransactions(catLastSeq)
-
-  const toCategorize = catChanges.documents
-    .filter(isCreatedDoc)
 
   try {
+    const catChanges = await changesTransactions(catLastSeq)
+    const toCategorize = catChanges.documents
+      .filter(isCreatedDoc)
+
     if (toCategorize.length > 0) {
       const transactionsCategorized = await categorizes(toCategorize)
       const transactionSaved = await saveTransactions(transactionsCategorized)
