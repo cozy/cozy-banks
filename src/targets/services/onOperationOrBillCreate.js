@@ -46,45 +46,45 @@ const onOperationOrBillCreate = async () => {
   }
 
   const billsLastSeq = setting.billsMatching.billsLastSeq || '0'
-  const billsChanges = await getDoctypeChanges(BILLS_DOCTYPE, billsLastSeq, isCreatedDoc)
 
-  if (billsChanges.documents.length === 0) {
-    log('info', '[matching service] No new bills since last execution')
-  } else {
-    log('info', `[matching service] ${billsChanges.documents.length} new bills since last execution. Trying to find transactions for them`)
+  try {
+    const billsChanges = await getDoctypeChanges(BILLS_DOCTYPE, billsLastSeq, isCreatedDoc)
+    setting.billsMatching.billsLastSeq = billsChanges.newLastSeq
 
-    try {
-      const result = await matchFromBills(billsChanges.documents)
-      logResult(result)
-    } catch (e) {
-      log('error', `[matching service] ${e}`)
+    if (billsChanges.documents.length === 0) {
+      log('info', '[matching service] No new bills since last execution')
+    } else {
+      log('info', `[matching service] ${billsChanges.documents.length} new bills since last execution. Trying to find transactions for them`)
     }
+    const result = await matchFromBills(billsChanges.documents)
+    logResult(result)
+  } catch (e) {
+    log('error', `[matching service] ${e}`)
   }
 
-  setting.billsMatching.billsLastSeq = billsChanges.newLastSeq
 
   const transactionsLastSeq = setting.billsMatching.transactionsLastSeq || '0'
 
-  const transactionsChanges = await getDoctypeChanges(
-    TRANSACTION_DOCTYPE,
-    transactionsLastSeq,
-    isCreatedDoc
-  )
+  try {
+    const transactionsChanges = await getDoctypeChanges(
+      TRANSACTION_DOCTYPE,
+      transactionsLastSeq,
+      isCreatedDoc
+    )
+    setting.billsMatching.transactionsLastSeq = transactionsChanges.newLastSeq
 
-  if (transactionsChanges.documents.length === 0) {
-    log('info', '[matching service] No new operations since last execution')
-  } else {
-    log('info', `[matching service] ${transactionsChanges.documents.length} new transactions since last execution. Trying to find bills for them`)
+    if (transactionsChanges.documents.length === 0) {
+      log('info', '[matching service] No new operations since last execution')
+    } else {
+      log('info', `[matching service] ${transactionsChanges.documents.length} new transactions since last execution. Trying to find bills for them`)
 
-    try {
       const result = await matchFromTransactions(transactionsChanges.documents)
       logResult(result)
-    } catch (e) {
-      log('error', `[matching service] ${e}`)
     }
+  } catch (e) {
+    log('error', `[matching service] ${e}`)
   }
 
-  setting.billsMatching.transactionsLastSeq = transactionsChanges.newLastSeq
 
   // Send notifications
   try {
@@ -98,12 +98,12 @@ const onOperationOrBillCreate = async () => {
 
   // Categorization
   const catLastSeq = setting.categorization.lastSeq
-  const catChanges = await changesTransactions(catLastSeq)
-
-  const toCategorize = catChanges.documents
-    .filter(isCreatedDoc)
 
   try {
+    const catChanges = await changesTransactions(catLastSeq)
+    const toCategorize = catChanges.documents
+      .filter(isCreatedDoc)
+
     if (toCategorize.length > 0) {
       const transactionsCategorized = await categorizes(toCategorize)
       const transactionSaved = await saveTransactions(transactionsCategorized)
