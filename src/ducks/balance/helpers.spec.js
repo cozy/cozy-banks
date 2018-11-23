@@ -7,22 +7,44 @@ import {
 import { parse as parseDate } from 'date-fns'
 
 describe('getTransactionsForAccount', () => {
-  it('should return transactions of a particular account', () => {
-    const transactions = [
-      { account: '1' },
-      { account: '2' },
-      { account: '1' },
-      { account: '3' },
-      { account: '4' },
-      { account: '1' },
-      { account: '5' }
-    ]
+  describe('With included relationship', () => {
+    it('should return transactions of a particular account', () => {
+      const transactions = [
+        { account: { data: { _id: '1' } } },
+        { account: { data: { _id: '2' } } },
+        { account: { data: { _id: '1' } } },
+        { account: { data: { _id: '3' } } },
+        { account: { data: { _id: '4' } } },
+        { account: { data: { _id: '1' } } },
+        { account: { data: { _id: '5' } } }
+      ]
 
-    expect(getTransactionsForAccount('1', transactions)).toEqual([
-      transactions[0],
-      transactions[2],
-      transactions[5]
-    ])
+      expect(getTransactionsForAccount('1', transactions)).toEqual([
+        transactions[0],
+        transactions[2],
+        transactions[5]
+      ])
+    })
+  })
+
+  describe('Without included relationship', () => {
+    it('should return transactions of a particular account', () => {
+      const transactions = [
+        { account: '1' },
+        { account: '2' },
+        { account: '1' },
+        { account: '3' },
+        { account: '4' },
+        { account: '1' },
+        { account: '5' }
+      ]
+
+      expect(getTransactionsForAccount('1', transactions)).toEqual([
+        transactions[0],
+        transactions[2],
+        transactions[5]
+      ])
+    })
   })
 })
 

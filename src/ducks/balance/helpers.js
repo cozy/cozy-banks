@@ -46,8 +46,13 @@ export const getBalanceHistories = (
  * @param {Object[]} transactions - The transactions to filter
  * @returns {Object[]}
  */
-export const getTransactionsForAccount = (accountId, transactions) =>
-  transactions.filter(t => t.account === accountId)
+export const getTransactionsForAccount = (accountId, transactions) => {
+  return transactions.filter(t => {
+    const toCompare = t.account.data ? t.account.data._id : t.account
+
+    return accountId === toCompare
+  })
+}
 
 /**
  * Get balance history for an account
