@@ -29,9 +29,13 @@ import AddAccountLink from 'ducks/settings/AddAccountLink'
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import { filterByDoc, getFilteringDoc } from 'ducks/filters'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
-import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
+import {
+  ACCOUNT_DOCTYPE,
+  GROUP_DOCTYPE,
+  SETTINGS_DOCTYPE,
+  transactionsConn
+} from 'doctypes'
 import History from './History'
-import historyData from './history_data.json'
 import { getBalanceHistories, sortBalanceHistoryByDate } from './helpers'
 import { buildVirtualGroups } from 'ducks/groups/helpers'
 import sma from 'sma'
@@ -282,27 +286,74 @@ class Balance extends React.Component {
     this.props.router.push('/transactions')
   }
 
-  getBalanceHistory() {
-    const balanceHistories = getBalanceHistories(
-      historyData['io.cozy.bank.accounts'],
-      historyData['io.cozy.bank.operations']
-    )
+  getBalanceHistory(accounts, transactions) {
+    const balanceHistories = getBalanceHistories(accounts, transactions)
     const balanceHistory = sortBalanceHistoryByDate(balanceHistories.all)
 
     return balanceHistory
   }
 
-  getChartData() {
-    const history = this.getBalanceHistory()
+  getChartData(balanceHistory) {
     const WINDOW_SIZE = 15
 
-    const balancesSma = sma(history.map(h => h.y), WINDOW_SIZE, n => n)
+    const balancesSma = sma(balanceHistory.map(h => h.y), WINDOW_SIZE, n => n)
     const data = balancesSma.map((balance, i) => ({
-      ...history[i],
+      ...balanceHistory[i],
       y: balance
     }))
 
     return data
+  }
+
+  renderHistory() {
+    const {
+      transactions: transactionsCollection,
+      accounts: accountsCollection
+    } = this.props
+
+    if (
+      isCollectionLoading(transactionsCollection) ||
+      isCollectionLoading(accountsCollection)
+    ) {
+      return 'Loading'
+    }
+
+    if (transactionsCollection.hasMore) {
+      transactionsCollection.fetchMore()
+      return 'Loading'
+    }
+
+    const history = this.getBalanceHistory(
+      accountsCollection.data,
+      transactionsCollection.data
+    )
+    const data = this.getChartData(history)
+    const nbTicks = uniq(
+      Object.keys(groupBy(data, i => formatDate(i.x, 'YYYY-MM')))
+    ).length
+    const intervalBetweenPoints = 57
+    const TICK_FORMAT = d3.timeFormat('%b')
+
+    return (
+      <History
+        accounts={accountsCollection.data}
+        chartProps={{
+          data,
+          nbTicks,
+          width: nbTicks * intervalBetweenPoints,
+          height: 103,
+          margin: {
+            top: 20,
+            bottom: 35,
+            left: 16,
+            right: 16
+          },
+          showAxis: true,
+          axisMargin: 10,
+          tickFormat: TICK_FORMAT
+        }}
+      />
+    )
   }
 
   render() {
@@ -362,43 +413,18 @@ class Balance extends React.Component {
       />
     )
 
-    const chartData = this.getChartData()
-    const chartNbTicks = uniq(
-      Object.keys(groupBy(chartData, i => formatDate(i.x, 'YYYY-MM')))
-    ).length
-    const chartIntervalBetweenPoints = 57
-    const TICK_FORMAT = d3.timeFormat('%b')
-
     return (
       <Padded>
         <Topbar>
           <PageTitle>{t('Balance.title')}</PageTitle>
         </Topbar>
         {flag('balance-history') ? (
-          <History
-            accounts={historyData['io.cozy.bank.accounts']}
-            chartProps={{
-              data: chartData,
-              width: chartNbTicks * chartIntervalBetweenPoints,
-              height: 103,
-              margin: {
-                top: 20,
-                bottom: 35,
-                left: 16,
-                right: 16
-              },
-              showAxis: true,
-              axisMargin: 10,
-              tickFormat: TICK_FORMAT
-            }}
-          />
+          this.renderHistory()
         ) : (
           <div className={styles['Balance__kpi']}>
             <FigureBlock
               label={t('Balance.subtitle.all')}
-              accounts={historyData['io.cozy.bank.accounts']}
               total={total}
-              transactions={historyData['io.cozy.bank.operations']}
               currency="€"
               coloredPositive
               coloredNegative
@@ -434,6 +460,7 @@ export default compose(
   queryConnect({
     accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' },
     groups: { query: client => client.all(GROUP_DOCTYPE), as: 'groups' },
-    settings: { query: client => client.all(SETTINGS_DOCTYPE), as: 'settings' }
+    settings: { query: client => client.all(SETTINGS_DOCTYPE), as: 'settings' },
+    transactions: transactionsConn
   })
 )(Balance)
