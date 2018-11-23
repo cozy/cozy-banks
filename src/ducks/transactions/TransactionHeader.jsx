@@ -145,7 +145,7 @@ class TransactionHeader extends Component {
   render() {
     return (
       <div className={styles.TransactionPage__top}>
-        {this.displayBalanceHistory()}
+        {/*this.displayBalanceHistory()*/}
         {this.displayAccountSwitch()}
         {this.displaySelectDates()}
         {this.displayBreadcrumb()}
