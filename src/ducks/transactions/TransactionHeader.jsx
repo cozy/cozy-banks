@@ -119,7 +119,7 @@ class TransactionHeader extends Component {
   displayTableHead() {
     const { t, breakpoints, router } = this.props
 
-    if (breakpoints.isMobile) {
+    if (breakpoints.isMobile || breakpoints.isTablet) {
       return null
     }
 
