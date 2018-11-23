@@ -6,6 +6,17 @@
     "health": true
   },
   {
+    "name": "APRR",
+    "regexp": "\\baprr\\b",
+    "konnectorSlug": "aprr"
+  },
+  {
+    "name": "Ascore Santé Prévoyance",
+    "regexp": "\\baxiome\\b",
+    "konnectorSlug": "ascoresante",
+    "health": true
+  },
+  {
     "name": "Auchan Drive",
     "regexp": "\\bauchan\\b",
     "konnectorSlug": "auchandrive"
@@ -56,6 +67,16 @@
     "konnectorSlug": "cultura"
   },
   {
+    "name": "Darty",
+    "regexp": "\\bdarty\\b",
+    "konnectorSlug": "darty"
+  },
+  {
+    "name": "Deezer",
+    "regexp": "\\bdeezer\\b",
+    "konnectorSlug": "deezer"
+  },
+  {
     "name": "Digitick",
     "regexp": "\\bdigitick\\b",
     "konnectorSlug": "digitick"
@@ -74,6 +95,11 @@
     "name": "Enercoop",
     "regexp": "\\benercoop\\b",
     "konnectorSlug": "enercoop"
+  },
+  {
+    "name": "Engie",
+    "regexp": "\\bengie\\b",
+    "konnectorSlug": "engie"
   },
   {
     "name": "Free",
@@ -128,6 +154,11 @@
     "konnectorSlug": "leclercdrive"
   },
   {
+    "name": "Materiel.net",
+    "regexp": "\\bmateriel\.net\\b",
+    "konnectorSlug": "materielnet"
+  },
+  {
     "name": "Ma lentille",
     "regexp": "\\bdigital eyewear\\b",
     "konnectorSlug": "malentille"
@@ -165,6 +196,16 @@
     "health": true
   },
   {
+    "name": "Mister Auto",
+    "regexp": "\\bmister auto\\b",
+    "konnectorSlug": "misterauto"
+  },
+  {
+    "name": "Nespresso",
+    "regexp": "\\bnespresso\\b",
+    "konnectorSlug": "nespresso"
+  },
+  {
     "name": "Netflix",
     "regexp": "\\bnetflix\\b",
     "konnectorSlug": "netflix"
@@ -180,6 +221,11 @@
     "konnectorSlug": "o2"
   },
   {
+    "name": "Opngo",
+    "regexp": "\\bopngo\\b",
+    "konnectorSlug": "opngo"
+  },
+  {
     "name": "Orange Factures",
     "regexp": "\\borange\\b",
     "konnectorSlug": "orange"
@@ -188,6 +234,21 @@
     "name": "Oui.sncf",
     "regexp": "\\bsncf\\b",
     "konnectorSlug": "sncf"
+  },
+  {
+    "name": "OVH",
+    "regexp": "\\bovh\\b",
+    "konnectorSlug": "ovh"
+  },
+  {
+    "name": "Probikeshop",
+    "regexp": "\\bprobikeshop\\b",
+    "konnectorSlug": "probikeshop"
+  },
+  {
+    "name": "ProductBoard",
+    "regexp": "\\bproductboard\\b",
+    "konnectorSlug": "productboard"
   },
   {
     "name": "Scaleway",
@@ -220,6 +281,11 @@
     "konnectorSlug": "unibet"
   },
   {
+    "name": "Vente Privée",
+    "regexp": "\\bVente\-privee\.com\\b",
+    "konnectorSlug": "venteprivee"
+  },
+  {
     "name": "Veolia Eau",
     "regexp": "\\bveolia\\b",
     "konnectorSlug": "veoliaeau"
@@ -228,6 +294,11 @@
     "name": "Vinci autoroute télépéage",
     "regexp": "\\b(vinci|escota)\\b",
     "konnectorSlug": "vinciautoroute"
+  },
+  {
+    "name": "Zalando",
+    "regexp": "\\bzalando\\b",
+    "konnectorSlug": "zalando"
   },
   {
     "name": "ZooPlus",
