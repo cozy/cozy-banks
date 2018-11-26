@@ -155,7 +155,7 @@
   },
   {
     "name": "Materiel.net",
-    "regexp": "\\bmateriel\.net\\b",
+    "regexp": "\\bmateriel\\.net\\b",
     "konnectorSlug": "materielnet"
   },
   {
@@ -282,7 +282,7 @@
   },
   {
     "name": "Vente Privée",
-    "regexp": "\\bVente\-privee\.com\\b",
+    "regexp": "\\bVente\\-privee\\.com\\b",
     "konnectorSlug": "venteprivee"
   },
   {
