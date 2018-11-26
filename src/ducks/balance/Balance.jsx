@@ -311,49 +311,51 @@ class Balance extends React.Component {
       accounts: accountsCollection
     } = this.props
 
+    let accounts
+
+    if (!isCollectionLoading(accountsCollection)) {
+      accounts = accountsCollection.data
+    }
+
+    let chartProps
+
     if (
-      isCollectionLoading(transactionsCollection) ||
-      isCollectionLoading(accountsCollection)
+      !isCollectionLoading(transactionsCollection) &&
+      !transactionsCollection.hasMore
     ) {
-      return 'Loading'
+      const history = this.getBalanceHistory(
+        accountsCollection.data,
+        transactionsCollection.data
+      )
+      const data = this.getChartData(history)
+      const nbTicks = uniq(
+        Object.keys(groupBy(data, i => formatDate(i.x, 'YYYY-MM')))
+      ).length
+      const intervalBetweenPoints = 57
+      const TICK_FORMAT = d3.timeFormat('%b')
+
+      chartProps = {
+        data,
+        nbTicks,
+        width: nbTicks * intervalBetweenPoints,
+        height: 103,
+        margin: {
+          top: 20,
+          bottom: 35,
+          left: 16,
+          right: 16
+        },
+        showAxis: true,
+        axisMargin: 10,
+        tickFormat: TICK_FORMAT
+      }
     }
 
     if (transactionsCollection.hasMore) {
       transactionsCollection.fetchMore()
-      return 'Loading'
     }
 
-    const history = this.getBalanceHistory(
-      accountsCollection.data,
-      transactionsCollection.data
-    )
-    const data = this.getChartData(history)
-    const nbTicks = uniq(
-      Object.keys(groupBy(data, i => formatDate(i.x, 'YYYY-MM')))
-    ).length
-    const intervalBetweenPoints = 57
-    const TICK_FORMAT = d3.timeFormat('%b')
-
-    return (
-      <History
-        accounts={accountsCollection.data}
-        chartProps={{
-          data,
-          nbTicks,
-          width: nbTicks * intervalBetweenPoints,
-          height: 103,
-          margin: {
-            top: 20,
-            bottom: 35,
-            left: 16,
-            right: 16
-          },
-          showAxis: true,
-          axisMargin: 10,
-          tickFormat: TICK_FORMAT
-        }}
-      />
-    )
+    return <History accounts={accounts} chartProps={chartProps} />
   }
 
   render() {
