@@ -26,7 +26,11 @@ const multiFind = (arr, findFns) => {
  * To know if we have to search in the past or the in the future, we check
  * if the chosen month is before or after the current month.
  */
-export const findNearestMonth = (chosenMonth, currentMonth, availableMonths) => {
+export const findNearestMonth = (
+  chosenMonth,
+  currentMonth,
+  availableMonths
+) => {
   const findBeforeChosenMonth = months => findLast(months, x => x < chosenMonth)
   const findAfterChosenMonth = months => find(months, x => x > chosenMonth)
   const findFns =
