@@ -88,7 +88,7 @@ class TransactionsD extends React.Component {
 
   constructor(props) {
     super(props)
-    this.scrollSpy = new TopMost(this.getScrollingElement)
+    this.topmost = new TopMost(this.getScrollingElement)
     this.handleScroll = (isIOSApp() ? debounce : throttle)(
       this.handleScroll.bind(this),
       300,
@@ -112,7 +112,7 @@ class TransactionsD extends React.Component {
   }
 
   updateTopMostVisibleTransaction() {
-    const topMostTransactionId = this.scrollSpy.getTopMostVisibleNodeId()
+    const topMostTransactionId = this.topmost.getTopMostVisibleNodeId()
     const topMostTransaction = this.transactionsById[topMostTransactionId]
     if (topMostTransaction) {
       this.props.onChangeTopMostTransaction(topMostTransaction)
@@ -129,7 +129,7 @@ class TransactionsD extends React.Component {
 
   handleRefRow = (transactionId, ref) => {
     const node = ReactDOM.findDOMNode(ref) // eslint-disable-line
-    this.scrollSpy.addNode(transactionId, node)
+    this.topmost.addNode(transactionId, node)
   }
 
   getScrollingElement = () => {
