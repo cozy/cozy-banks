@@ -33,13 +33,13 @@ import {
   ACCOUNT_DOCTYPE,
   GROUP_DOCTYPE,
   SETTINGS_DOCTYPE,
-  transactionsConn
+  TRANSACTION_DOCTYPE
 } from 'doctypes'
 import History from './History'
 import { getBalanceHistories, sortBalanceHistoryByDate } from './helpers'
 import { buildVirtualGroups } from 'ducks/groups/helpers'
 import sma from 'sma'
-import { format as formatDate } from 'date-fns'
+import { format as formatDate, subYears } from 'date-fns'
 
 import styles from './Balance.styl'
 import btnStyles from 'styles/buttons.styl'
@@ -463,6 +463,14 @@ export default compose(
     accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' },
     groups: { query: client => client.all(GROUP_DOCTYPE), as: 'groups' },
     settings: { query: client => client.all(SETTINGS_DOCTYPE), as: 'settings' },
-    transactions: transactionsConn
+    transactions: {
+      query: client => {
+        const today = new Date()
+        const oneYearBefore = subYears(today, 1)
+        const minDate = formatDate(oneYearBefore, 'YYYY-MM-DD')
+
+        return client.all(TRANSACTION_DOCTYPE).where({ date: { $gt: minDate } })
+      }
+    }
   })
 )(Balance)
