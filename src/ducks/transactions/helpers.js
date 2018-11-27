@@ -6,8 +6,10 @@ export const getLabel = transaction =>
 
 export const getDate = transaction => transaction.date.slice(0, 10)
 
-// Performs successive `find`s until one of the find functions returns
-// a result
+/**
+ * Performs successive `find`s until one of the find functions returns
+ * a result
+ */
 const multiFind = (arr, findFns) => {
   for (let findFn of findFns) {
     const res = findFn(arr)
