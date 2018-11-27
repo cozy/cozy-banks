@@ -32,8 +32,14 @@ const sAmount = styles['bnk-op-amount']
 const sAction = styles['bnk-op-action']
 
 class _RowDesktop extends React.PureComponent {
-  onSelectTransaction = () =>
+  constructor(props) {
+    super(props)
+    this.onSelectTransaction = this.onSelectTransaction.bind(this)
+  }
+
+  onSelectTransaction() {
     this.props.selectTransaction(this.props.transaction)
+  }
 
   render() {
     const {

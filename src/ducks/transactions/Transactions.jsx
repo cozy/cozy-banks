@@ -89,6 +89,7 @@ class TransactionsD extends React.Component {
   constructor(props) {
     super(props)
     this.topmost = new TopMost(this.getScrollingElement)
+    this.handleRefRow = this.handleRefRow.bind(this)
     this.handleScroll = (isIOSApp() ? debounce : throttle)(
       this.handleScroll.bind(this),
       300,
@@ -127,7 +128,7 @@ class TransactionsD extends React.Component {
     this.updateTopMostVisibleTransaction()
   }
 
-  handleRefRow = (transactionId, ref) => {
+  handleRefRow(transactionId, ref) {
     const node = ReactDOM.findDOMNode(ref) // eslint-disable-line
     this.topmost.addNode(transactionId, node)
   }
