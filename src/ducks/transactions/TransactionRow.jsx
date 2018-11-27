@@ -43,7 +43,8 @@ class _RowDesktop extends React.PureComponent {
       isExtraLarge,
       showCategoryChoice,
       filteringOnAccount,
-      ...props
+      urls,
+      brands
     } = this.props
 
     const categoryId = getCategoryId(transaction)
@@ -97,8 +98,8 @@ class _RowDesktop extends React.PureComponent {
         <TdSecondary className={sAction}>
           <TransactionActions
             transaction={transaction}
-            urls={props.urls}
-            brands={props.brands}
+            urls={urls}
+            brands={brands}
             onlyDefault
           />
         </TdSecondary>
@@ -115,7 +116,13 @@ export const RowDesktop = compose(
 
 class _RowMobile extends React.PureComponent {
   render() {
-    const { transaction, t, filteringOnAccount, ...props } = this.props
+    const {
+      transaction,
+      t,
+      filteringOnAccount,
+      brands,
+      urls,
+    } = this.props
     const account = transaction.account.data
     return (
       <List.Row>
@@ -158,8 +165,8 @@ class _RowMobile extends React.PureComponent {
           <Img className={styles['bnk-transaction-mobile-action']}>
             <TransactionActions
               transaction={transaction}
-              urls={props.urls}
-              brands={props.brands}
+              urls={urls}
+              brands={brands}
               onlyDefault
               compact
               menuPosition="right"
