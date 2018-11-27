@@ -183,7 +183,7 @@ class TransactionsD extends React.Component {
                 return (
                   <Row
                     key={transaction._id}
-                    ref={this.handleRefRow.bind(null, transaction._id)}
+                    onRef={this.handleRefRow.bind(null, transaction._id)}
                     transaction={transaction}
                     brands={brands}
                     urls={urls}

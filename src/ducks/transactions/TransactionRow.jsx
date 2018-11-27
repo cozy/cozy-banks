@@ -49,6 +49,7 @@ class _RowDesktop extends React.PureComponent {
       isExtraLarge,
       showCategoryChoice,
       filteringOnAccount,
+      onRef,
       urls,
       brands
     } = this.props
@@ -59,9 +60,8 @@ class _RowDesktop extends React.PureComponent {
     const parentCategory = getParentCategory(categoryId)
 
     const account = transaction.account.data
-
     return (
-      <tr>
+      <tr ref={onRef}>
         <td className={cx(sDesc, 'u-pv-half', 'u-pl-1')}>
           <Media className="u-clickable">
             <Img title={categoryTitle} onClick={showCategoryChoice}>
@@ -128,10 +128,11 @@ class _RowMobile extends React.PureComponent {
       filteringOnAccount,
       brands,
       urls,
+      onRef
     } = this.props
     const account = transaction.account.data
     return (
-      <List.Row>
+      <List.Row onRef={onRef}>
         <Media className="u-full-width">
           <Img
             className="u-clickable u-mr-half"
