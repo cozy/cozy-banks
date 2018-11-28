@@ -152,6 +152,7 @@ export const transactionsConn = {
   query: client =>
     client
       .all(TRANSACTION_DOCTYPE)
+      .UNSAFE_noLimit()
       .include(['bills', 'account', 'reimbursements']),
   as: 'transactions'
 }
