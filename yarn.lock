@@ -4948,10 +4948,10 @@ cozy-stack-client@^4.8.0:
   dependencies:
     mime-types "2.1.20"
 
-cozy-ui@17.0.2:
-  version "17.0.2"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-17.0.2.tgz#c9718da6b511cee56691a34dae28f4e978b5f85f"
-  integrity sha512-dCkwMKHyZv6Rd2iqj3W1Ntwbn0cFBRaa8jqccWLTiBhcV8DWaUHve2F25EFXeBPcl6iJwqipu+cBiFs+/0thNA==
+cozy-ui@17.2.1:
+  version "17.2.1"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-17.2.1.tgz#54f8c235e6ce1037c3e1ba6a7151edb62d4ad261"
+  integrity sha512-fHx/MCLv9XA5IsiVl7SqsvMT9a3xxxE+MH9SBP72aVfLPCYHDuUOAUWwr4IzEJsBIJZKLoaGxYd7JbLWZUXcwQ==
   dependencies:
     body-scroll-lock "^2.5.8"
     classnames "^2.2.5"
@@ -4959,7 +4959,8 @@ cozy-ui@17.0.2:
     hammerjs "^2.0.8"
     node-polyglot "^2.2.2"
     normalize.css "^7.0.0"
-    react-dom "^16.5.2"
+    preact "^8.3.1"
+    preact-portal "^1.1.3"
     react-hot-loader "^4.3.11"
     react-select "2.1.1"
 
@@ -14558,6 +14559,16 @@ pouchdb@7.0.0:
     uuid "3.2.1"
     vuvuzela "1.0.3"
 
+preact-portal@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/preact-portal/-/preact-portal-1.1.3.tgz#22cdd3ecf6ad9aaa3f830607a9c6591de90aedb7"
+  integrity sha512-rE0KG2b7ggIly4VVsSm7+WmQmG/EoUZzBOed2IbycyaFIArOvz+yab/8RBoDogA0JWZuTsbMTStR41Ghc+5m7Q==
+
+preact@^8.3.1:
+  version "8.3.1"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-8.3.1.tgz#ed34f79d09edc5efd32a378a3416ef5dc531e3ac"
+  integrity sha512-s8H1Y8O9e+mOBo3UP1jvWqArPmjCba2lrrGLlq/0kN1XuIINUbYtf97iiXKxCuG3eYwmppPKnyW2DBrNj/TuTg==
+
 prebuild-install@^2.1.0:
   version "2.5.3"
   resolved "https://registry.yarnpkg.com/prebuild-install/-/prebuild-install-2.5.3.tgz#9f65f242782d370296353710e9bc843490c19f69"
@@ -15216,7 +15227,7 @@ react-docgen@^3.0.0-beta9:
     node-dir "^0.1.10"
     recast "^0.12.6"
 
-react-dom@16.6.3, react-dom@^16.5.2:
+react-dom@16.6.3:
   version "16.6.3"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.6.3.tgz#8fa7ba6883c85211b8da2d0efeffc9d3825cccc0"
   integrity sha512-8ugJWRCWLGXy+7PmNh8WJz3g1TaTUt1XyoIcFN+x0Zbkoz+KKdUyx1AQLYJdbFXjuF41Nmjn5+j//rxvhFjgSQ==
