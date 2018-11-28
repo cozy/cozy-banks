@@ -21,9 +21,21 @@
             {{#each transactions as |tr|}}
               <mj-table>
                 <tr class="js-transaction tableRow">
-                  <td width="40px"><a href="{{../../../transactionsUrl}}"><img style="width: 32px; height: 32px" src='https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-cat-{{ parentCategory this }}.png' /></a></td>
-                  <td><a href="{{../../../transactionsUrl}}" style="color: inherit; text-decoration: none;">{{ capitalize this.label }}</a></td>
-                  <td width="150px" align='right'><a href="{{../../../transactionsUrl}}" style="text-decoration: none;">{{ colored this.amount }}</a></td>
+                  <td width="40px">
+                    <a href="{{../../../transactionsUrl}}">
+                      <img style="width: 32px; height: 32px" src='https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-cat-{{ parentCategory this }}.png' />
+                    </a>
+                  </td>
+                  <td>
+                    <a href="{{../../../transactionsUrl}}" style="color: inherit; text-decoration: none;">
+                      {{ capitalize this.label }}
+                    </a>
+                  </td>
+                  <td width="150px" align='right'>
+                    <a href="{{../../../transactionsUrl}}" style="text-decoration: none;">
+                      {{ colored this.amount }}
+                    </a>
+                  </td>
                 </tr>
               </mj-table>
               {{#unless @last}}<mj-divider padding-bottom="0" padding-top="0" border-width="1px" border-color="#D0D2D5" />{{/unless}}
