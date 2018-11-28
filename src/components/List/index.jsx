@@ -8,8 +8,10 @@ export const Header = ({ children }) => (
   <div className={styles['c-list-header']}>{children}</div>
 )
 
-export const Row = ({ children }) => (
-  <div className={styles['c-list-row']}>{children}</div>
+export const Row = props => (
+  <div ref={props.onRef} className={styles['c-list-row']}>
+    {props.children}
+  </div>
 )
 
 export const Content = ListItemText

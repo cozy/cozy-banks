@@ -1,4 +1,5 @@
 import sortBy from 'lodash/sortBy'
+import find from 'lodash/find'
 
 /**
  * TopMost stores DOM nodes and computes the top most
@@ -27,7 +28,7 @@ class TopMost {
     )
     const topMost = find(offsets, o => {
       const offset = o[1]
-      return offset - topRoot > 0
+      return offset - topRoot >= 0
     })
     return topMost ? topMost[0] : null
   }

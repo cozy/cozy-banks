@@ -88,7 +88,8 @@ class TransactionsD extends React.Component {
 
   constructor(props) {
     super(props)
-    this.scrollSpy = new TopMost(this.getScrollingElement)
+    this.topmost = new TopMost(this.getScrollingElement)
+    this.handleRefRow = this.handleRefRow.bind(this)
     this.handleScroll = (isIOSApp() ? debounce : throttle)(
       this.handleScroll.bind(this),
       300,
@@ -112,7 +113,7 @@ class TransactionsD extends React.Component {
   }
 
   updateTopMostVisibleTransaction() {
-    const topMostTransactionId = this.scrollSpy.getTopMostVisibleNodeId()
+    const topMostTransactionId = this.topmost.getTopMostVisibleNodeId()
     const topMostTransaction = this.transactionsById[topMostTransactionId]
     if (topMostTransaction) {
       this.props.onChangeTopMostTransaction(topMostTransaction)
@@ -127,9 +128,9 @@ class TransactionsD extends React.Component {
     this.updateTopMostVisibleTransaction()
   }
 
-  handleRefRow = (transactionId, ref) => {
+  handleRefRow(transactionId, ref) {
     const node = ReactDOM.findDOMNode(ref) // eslint-disable-line
-    this.scrollSpy.addNode(transactionId, node)
+    this.topmost.addNode(transactionId, node)
   }
 
   getScrollingElement = () => {
@@ -182,7 +183,7 @@ class TransactionsD extends React.Component {
                 return (
                   <Row
                     key={transaction._id}
-                    ref={this.handleRefRow.bind(null, transaction._id)}
+                    onRef={this.handleRefRow.bind(null, transaction._id)}
                     transaction={transaction}
                     brands={brands}
                     urls={urls}

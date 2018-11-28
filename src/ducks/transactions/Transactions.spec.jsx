@@ -1,7 +1,7 @@
 /* global mount */
 
 import React from 'react'
-import { RowDekstop, RowMobile } from './TransactionRow'
+import { RowDesktop, RowMobile } from './TransactionRow'
 import data from '../../../test/fixtures'
 import store from '../../../test/store'
 import AppLike from '../../../test/AppLike'
@@ -14,11 +14,15 @@ const allTransactions = data['io.cozy.bank.operations']
 describe('transaction row', () => {
   let root, client, transaction
 
-  const wrapRow = row => (
+  const wrapRow = (row, withTable) => (
     <AppLike store={store} client={client}>
-      <table>
-        <tbody>{row}</tbody>
-      </table>
+      {withTable ? (
+        <table>
+          <tbody>{row}</tbody>
+        </table>
+      ) : (
+        row
+      )}
     </AppLike>
   )
 
@@ -39,17 +43,30 @@ describe('transaction row', () => {
     transaction = client.hydrateDocument(rawTransaction)
   })
 
-  xit('should render correctly on desktop', () => {
+  it('should render correctly on desktop', () => {
     root = mount(
-      wrapRow(<RowDekstop transaction={transaction} urls={{}} brands={[]} />)
+      wrapRow(
+        <RowDesktop transaction={transaction} urls={{}} brands={[]} />,
+        true
+      )
     )
     expect(root.find(Caption).text()).toBe('Compte courant Isabelle - BNPP')
   })
 
   it('should render correctly on mobile', () => {
+    const handleRef = jest.fn()
     root = mount(
-      wrapRow(<RowMobile transaction={transaction} urls={{}} brands={[]} />)
+      wrapRow(
+        <RowMobile
+          onRef={handleRef}
+          transaction={transaction}
+          urls={{}}
+          brands={[]}
+        />,
+        false
+      )
     )
     expect(root.find(Caption).text()).toBe('Compte courant Isabelle - BNPP')
+    expect(handleRef).toHaveBeenCalled()
   })
 })

@@ -3,13 +3,12 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
+import { isIOSApp } from 'cozy-device-helper'
 import {
   flowRight as compose,
   isEqual,
   includes,
   findIndex,
-  find,
-  findLast,
   uniq,
   maxBy
 } from 'lodash'
@@ -43,42 +42,16 @@ import {
 } from 'doctypes'
 
 import { getBrands } from 'ducks/brandDictionary'
-import { isIOSApp } from 'cozy-device-helper'
 import { getKonnectorFromTrigger } from 'utils/triggers'
 import { queryConnect } from 'cozy-client'
 import { isCollectionLoading } from 'ducks/client/utils'
+import { findNearestMonth } from './helpers'
 
 const { BarRight } = cozy.bar
 
 const STEP_INFINITE_SCROLL = 30
 const SCROLL_THRESOLD_TO_ACTIVATE_TOP_INFINITE_SCROLL = 150
 const getMonth = date => date.slice(0, 7)
-
-// Performs successive `find`s until one of the find functions returns
-// a result
-const multiFind = (arr, findFns) => {
-  for (let findFn of findFns) {
-    const res = findFn(arr)
-    if (res) {
-      return res
-    }
-  }
-  return null
-}
-
-// The goal here is to find the first month having operations, closest
-// to the chosen month. To know if we have to search in the past or the
-// in the future, we check if the chosen month is before or after the
-// current month.
-const findNearestMonth = (chosenMonth, currentMonth, availableMonths) => {
-  const findBeforeChosenMonth = months => findLast(months, x => x < chosenMonth)
-  const findAfterChosenMonth = months => find(months, x => x > chosenMonth)
-  const findFns =
-    chosenMonth < currentMonth
-      ? [findBeforeChosenMonth, findAfterChosenMonth]
-      : [findAfterChosenMonth, findBeforeChosenMonth]
-  return multiFind(availableMonths, findFns)
-}
 
 class TransactionsPage extends Component {
   state = {

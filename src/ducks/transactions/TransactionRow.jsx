@@ -32,8 +32,14 @@ const sAmount = styles['bnk-op-amount']
 const sAction = styles['bnk-op-action']
 
 class _RowDesktop extends React.PureComponent {
-  onSelectTransaction = () =>
+  constructor(props) {
+    super(props)
+    this.onSelectTransaction = this.onSelectTransaction.bind(this)
+  }
+
+  onSelectTransaction() {
     this.props.selectTransaction(this.props.transaction)
+  }
 
   render() {
     const {
@@ -43,7 +49,9 @@ class _RowDesktop extends React.PureComponent {
       isExtraLarge,
       showCategoryChoice,
       filteringOnAccount,
-      ...props
+      onRef,
+      urls,
+      brands
     } = this.props
 
     const categoryId = getCategoryId(transaction)
@@ -52,9 +60,8 @@ class _RowDesktop extends React.PureComponent {
     const parentCategory = getParentCategory(categoryId)
 
     const account = transaction.account.data
-
     return (
-      <tr>
+      <tr ref={onRef}>
         <td className={cx(sDesc, 'u-pv-half', 'u-pl-1')}>
           <Media className="u-clickable">
             <Img title={categoryTitle} onClick={showCategoryChoice}>
@@ -97,8 +104,8 @@ class _RowDesktop extends React.PureComponent {
         <TdSecondary className={sAction}>
           <TransactionActions
             transaction={transaction}
-            urls={props.urls}
-            brands={props.brands}
+            urls={urls}
+            brands={brands}
             onlyDefault
           />
         </TdSecondary>
@@ -115,10 +122,17 @@ export const RowDesktop = compose(
 
 class _RowMobile extends React.PureComponent {
   render() {
-    const { transaction, t, filteringOnAccount, ...props } = this.props
+    const {
+      transaction,
+      t,
+      filteringOnAccount,
+      brands,
+      urls,
+      onRef
+    } = this.props
     const account = transaction.account.data
     return (
-      <List.Row>
+      <List.Row onRef={onRef}>
         <Media className="u-full-width">
           <Img
             className="u-clickable u-mr-half"
@@ -158,8 +172,8 @@ class _RowMobile extends React.PureComponent {
           <Img className={styles['bnk-transaction-mobile-action']}>
             <TransactionActions
               transaction={transaction}
-              urls={props.urls}
-              brands={props.brands}
+              urls={urls}
+              brands={brands}
               onlyDefault
               compact
               menuPosition="right"
