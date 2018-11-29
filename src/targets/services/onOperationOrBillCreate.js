@@ -1,17 +1,12 @@
-import { log } from 'cozy-konnector-libs'
-import { readSetting, saveSetting } from 'ducks/settings/services'
+import { cozyClient, log } from 'cozy-konnector-libs'
 import {
   categorizes,
   PARAMETERS_NOT_FOUND,
-  sendTransactions
+  AutoCategorization
 } from 'ducks/categorization/services'
-import { launchNotifications } from 'ducks/notifications/services'
-import {
-  changesTransactions,
-  saveTransactions
-} from 'ducks/transactions/services'
-import getDoctypeChanges from 'utils/getDoctypeChanges'
-import { BILLS_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
+import { sendNotifications } from 'ducks/notifications/services'
+import { Document } from 'cozy-doctypes'
+import { Transaction, Bill, Settings } from 'models'
 import isCreatedDoc from 'utils/isCreatedDoc'
 import matchFromBills from 'ducks/billsMatching/matchFromBills'
 import matchFromTransactions from 'ducks/billsMatching/matchFromTransactions'
@@ -25,19 +20,21 @@ process.on('unhandledRejection', err => {
   log('warn', JSON.stringify(err.stack))
 })
 
-log('info', `COZY_URL: ${process.env.COZY_URL}`)
-
 const onOperationOrBillCreate = async () => {
-  const setting = await readSetting()
+  log('info', `COZY_URL: ${process.env.COZY_URL}`)
+  log('info', 'Fetching settings...')
+  const setting = await Settings.fetchWithDefault()
 
   // We fetch the notifChanges before anything else because we need to know if
   // some transactions are totally new in `TransactionGreater` notification.
   // These transactions may be updated by the matching algorithm, and thus
   // may be missed by `TransactionGreater` because their `_rev` don't start with `1`
   const notifLastSeq = setting.notifications.lastSeq
-  const notifChanges = await changesTransactions(notifLastSeq)
+  log('info', 'Fetching transaction changes...')
+  const notifChanges = await Transaction.fetchChanges(notifLastSeq)
 
   // Bills matching
+  log('info', 'Bills matching')
   if (!setting.billsMatching) {
     setting.billsMatching = {
       billsLastSeq: '0',
@@ -48,7 +45,10 @@ const onOperationOrBillCreate = async () => {
   const billsLastSeq = setting.billsMatching.billsLastSeq || '0'
 
   try {
-    const billsChanges = await getDoctypeChanges(BILLS_DOCTYPE, billsLastSeq, isCreatedDoc)
+    log('info', 'Fetching bills changes...')
+    const billsChanges = await Bill.fetchChanges(billsLastSeq)
+    billsChanges.documents = billsChanges.documents.filter(isCreatedDoc)
+
     setting.billsMatching.billsLastSeq = billsChanges.newLastSeq
 
     if (billsChanges.documents.length === 0) {
@@ -66,11 +66,9 @@ const onOperationOrBillCreate = async () => {
   const transactionsLastSeq = setting.billsMatching.transactionsLastSeq || '0'
 
   try {
-    const transactionsChanges = await getDoctypeChanges(
-      TRANSACTION_DOCTYPE,
-      transactionsLastSeq,
-      isCreatedDoc
-    )
+    log('info', 'Fetching transactions changes...')
+    const transactionsChanges = await Transaction.fetchChanges(transactionsLastSeq)
+    transactionsChanges.documents = transactionsChanges.documents.filter(isCreatedDoc)
     setting.billsMatching.transactionsLastSeq = transactionsChanges.newLastSeq
 
     if (transactionsChanges.documents.length === 0) {
@@ -85,12 +83,10 @@ const onOperationOrBillCreate = async () => {
     log('error', `[matching service] ${e}`)
   }
 
-
   // Send notifications
   try {
     const transactionsToNotify = notifChanges.documents
-    await launchNotifications(setting, transactionsToNotify)
-
+    await sendNotifications(setting, transactionsToNotify, cozyClient)
     setting.notifications.lastSeq = setting.billsMatching.transactionsLastSeq
   } catch (e) {
     log('warn', 'Error while sending notifications : ' + e)
@@ -100,21 +96,21 @@ const onOperationOrBillCreate = async () => {
   const catLastSeq = setting.categorization.lastSeq
 
   try {
-    const catChanges = await changesTransactions(catLastSeq)
+    const catChanges = await Transaction.fetchChanges(catLastSeq)
     const toCategorize = catChanges.documents
       .filter(isCreatedDoc)
 
     if (toCategorize.length > 0) {
       const transactionsCategorized = await categorizes(toCategorize)
-      const transactionSaved = await saveTransactions(transactionsCategorized)
-      const newChanges = await changesTransactions(catChanges.newLastSeq)
+      const transactionSaved = await Transaction.updateAll( transactionsCategorized)
+      const newChanges = await Transaction.fetchChanges(catChanges.newLastSeq)
 
       if (setting.community.autoCategorization.enabled) {
         log(
           'info',
           'Auto categorization setting is enabled, sending transactions to API'
         )
-        await sendTransactions(transactionsCategorized)
+        await AutoCategorization.sendTransactions(transactionsCategorized)
         log('info', `Sent ${transactionsCategorized.length} transactions to API`)
       } else {
         log(
@@ -136,7 +132,8 @@ const onOperationOrBillCreate = async () => {
     }
   }
 
-  await saveSetting(setting)
+  await Settings.createOrUpdate( setting)
 }
 
+Document.registerClient(cozyClient)
 onOperationOrBillCreate()

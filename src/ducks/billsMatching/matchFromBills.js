@@ -1,11 +1,9 @@
-import { cozyClient } from 'cozy-konnector-libs'
 import Linker from './Linker/Linker'
 import { DEFAULT_PAST_WINDOW, DEFAULT_FUTURE_WINDOW } from './Linker/Linker'
 import { getBillDate } from './utils'
 import { max, min } from 'lodash'
 import { format as formatDate, subDays, addDays } from 'date-fns'
-import { queryAll } from './utils'
-import { TRANSACTION_DOCTYPE } from 'doctypes'
+import { Transaction } from 'models'
 
 const DATE_FORMAT = 'YYYY-MM-DD'
 
@@ -21,9 +19,9 @@ export default async function matchFromBills(bills) {
     }
   }
 
-  const transactions = await queryAll(TRANSACTION_DOCTYPE, selector)
+  const transactions = await Transaction.queryAll(selector)
 
-  const linker = new Linker(cozyClient)
+  const linker = new Linker()
   const results = await linker.linkBillsToOperations(bills, transactions)
 
   return results

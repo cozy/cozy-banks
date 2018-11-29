@@ -1,32 +1,22 @@
-import { cozyClient, log } from 'cozy-konnector-libs'
-import { DOCTYPE } from './constants'
+import { log } from 'cozy-konnector-libs'
 import { getDefaultedSettings } from './helpers'
+import { Document } from 'cozy-doctypes'
+import { DOCTYPE } from './constants'
 
-const createSetting = setting => {
-  log('info', 'Create setting')
+class Settings extends Document {
+  static async fetchWithDefault() {
+    const settingDocuments = await this.fetchAll()
+    const settings = settingDocuments[0]
 
-  cozyClient.data.create(DOCTYPE, setting)
-}
+    if (!settings) {
+      log('info', 'No settings yet, default settings are used')
+    }
 
-export const readSetting = async () => {
-  log('info', 'Read setting')
-  const settingDocuments = await cozyClient.data.findAll(DOCTYPE)
-  const settings = settingDocuments[0]
-
-  if (!settings) {
-    log('info', 'No settings yet, default settings are used')
+    return getDefaultedSettings(settings)
   }
-
-  return getDefaultedSettings(settings)
 }
 
-const updateSetting = setting => {
-  log('info', 'Update setting')
+Settings.doctype = DOCTYPE
+Settings.idAttributes = ['_id']
 
-  return cozyClient.data.update(DOCTYPE, setting, setting)
-}
-
-export const saveSetting = setting => {
-  const updateOrCreate = setting._id ? updateSetting : createSetting
-  return updateOrCreate(setting)
-}
+export { Settings }

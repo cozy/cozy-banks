@@ -1,4 +1,3 @@
-import { cozyClient } from 'cozy-konnector-libs'
 import log from 'cozy-logger'
 import { getBanksUrl } from './helpers'
 import Handlebars from 'handlebars'
@@ -7,8 +6,9 @@ class Notification {
   constructor(config) {
     this.t = config.t
     this.data = config.data
+    this.cozyClient = config.cozyClient
 
-    const cozyUrl = cozyClient._url
+    const cozyUrl = this.cozyClient._url
 
     this.urls = {
       banksUrl: getBanksUrl(cozyUrl),
@@ -28,7 +28,6 @@ class Notification {
     }
 
     try {
-      log('info', `data: ${JSON.stringify(this.data)}`)
       const attributes = await Promise.resolve(
         this.buildNotification(this.data)
       )
@@ -39,6 +38,7 @@ class Notification {
       }
 
       log('info', `Send notifications with category: ${attributes.category}`)
+      const cozyClient = this.cozyClient
       return cozyClient.fetchJSON('POST', '/notifications', {
         data: {
           type: 'io.cozy.notifications',

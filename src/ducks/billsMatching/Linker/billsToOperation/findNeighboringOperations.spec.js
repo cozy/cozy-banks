@@ -62,11 +62,8 @@ xdescribe('findNeighboringOperations', () => {
     cozyClient.data.query.mockReturnValueOnce(asyncResolve(ops3))
     const bill = {}
     const options = {}
-    return findNeighboringOperations(cozyClient, bill, options).then(
-      operations => {
-        expect(cozyClient.data.query.mock.calls.length).toBe(3)
-        expect(operations.length).toBe(ops1.length + ops2.length + ops3.length)
-      }
-    )
+    return findNeighboringOperations(bill, options).then(operations => {
+      expect(operations.length).toBe(ops1.length + ops2.length + ops3.length)
+    })
   })
 })

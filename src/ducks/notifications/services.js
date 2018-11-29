@@ -1,10 +1,11 @@
-import { cozyClient, log } from 'cozy-konnector-libs'
+import { log } from 'cozy-konnector-libs'
 import { initTranslation } from 'cozy-ui/react/I18n/translation'
 import {
   BalanceLower,
   TransactionGreater,
   HealthBillLinked
 } from 'ducks/notifications'
+import { BankAccount } from 'models'
 
 const lang = process.env.COZY_LOCALE || 'en'
 const dictRequire = lang => require(`../../locales/${lang}`)
@@ -19,33 +20,17 @@ const configKeys = {
 
 const notificationClasses = [BalanceLower, TransactionGreater, HealthBillLinked]
 
-const getAccountsOfTransactions = async transactions => {
+const fetchTransactionAccounts = async transactions => {
   const accountsIds = Array.from(new Set(transactions.map(x => x.account)))
-  const result = await cozyClient.fetchJSON(
-    'POST',
-    '/data/io.cozy.bank.accounts/_all_docs?include_docs=true',
-    { keys: accountsIds }
+  const accounts = await BankAccount.getAll(accountsIds)
+  const existingAccountIds = new Set(accounts.map(x => x._Id))
+  const absentAccountIds = accountsIds.filter(_id =>
+    existingAccountIds.has(_id)
   )
-
-  const rows = result.rows
-  const accounts = rows
-    .filter(x => !x.error) // filter accounts that have not been found
-    .map(x => {
-      if (!x.doc) {
-        log(
-          'warn',
-          `This response row doesn't contain a doc, why?`,
-          JSON.stringify(x)
-        )
-      }
-      return x.doc
-    })
-    .filter(Boolean)
-
-  const delta = rows.length - accounts.length
+  const delta = accountsIds.length - accounts.length
   if (delta) {
     log('warn', delta + ' accounts do not exist')
-    log('warn', JSON.stringify(rows.filter(x => x.error)))
+    log('warn', JSON.stringify(absentAccountIds))
   }
 
   return accounts
@@ -63,9 +48,9 @@ const getEnabledNotificationClasses = config => {
   })
 }
 
-export const launchNotifications = async (config, transactions) => {
+export const sendNotifications = async (config, transactions, cozyClient) => {
   const enabledNotificationClasses = getEnabledNotificationClasses(config)
-  const accounts = await getAccountsOfTransactions(transactions)
+  const accounts = await fetchTransactionAccounts(transactions)
   log(
     'info',
     `${transactions.length} new transactions on ${accounts.length} accounts.`
@@ -74,6 +59,7 @@ export const launchNotifications = async (config, transactions) => {
     const klassConfig = getClassConfig(Klass, config)
     const notification = new Klass({
       ...klassConfig,
+      cozyClient,
       t,
       data: { accounts, transactions }
     })

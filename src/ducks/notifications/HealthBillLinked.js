@@ -1,10 +1,11 @@
 import Notification from './Notification'
 import { isHealthExpense } from '../categories/helpers'
-import { cozyClient } from 'cozy-konnector-libs'
 import htmlTemplate from './html/health-bill-linked-html'
-import { BILLS_DOCTYPE } from 'doctypes'
+import { Bill } from 'models'
 import * as utils from './html/utils'
 import keyBy from 'lodash/keyBy'
+import uniq from 'lodash/uniq'
+import flatten from 'lodash/flatten'
 import log from 'cozy-logger'
 import { treatedByFormat } from './html/utils'
 
@@ -69,16 +70,18 @@ class HealthBillLinked extends Notification {
       return
     }
 
-    const billsPromises = []
+    const billIds = uniq(
+      flatten(
+        transactionsWithReimbursements.map(transaction => {
+          transaction.reimbursements.map(reimbursement => {
+            const [, billId] = reimbursement.billId.split(':')
+            return billId
+          })
+        })
+      )
+    )
 
-    transactionsWithReimbursements.forEach(transaction => {
-      transaction.reimbursements.forEach(reimbursement => {
-        const [, billId] = reimbursement.billId.split(':')
-        billsPromises.push(cozyClient.data.find(BILLS_DOCTYPE, billId))
-      })
-    })
-
-    return Promise.all(billsPromises).then(bills => {
+    return Bill.getAll(billIds).then(bills => {
       const templateData = {
         accounts: accounts,
         transactions: transactionsWithReimbursements,

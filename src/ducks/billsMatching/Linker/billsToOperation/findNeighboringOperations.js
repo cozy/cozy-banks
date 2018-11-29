@@ -76,12 +76,7 @@ const findByMangoQuerySimple = (docs, query) => {
   return docs.filter(and(filters))
 }
 
-const findNeighboringOperations = async (
-  cozyClient,
-  bill,
-  options,
-  allOperations
-) => {
+const findNeighboringOperations = async (bill, options, allOperations) => {
   const queryOptions = getQueryOptions(bill, options, [])
   const neighboringOperations = findByMangoQuerySimple(
     allOperations,

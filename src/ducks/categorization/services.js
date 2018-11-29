@@ -1,12 +1,12 @@
 /* global __TARGET__ */
 
-import { cozyClient } from 'cozy-konnector-libs'
 import logger from 'cozy-logger'
 import { maxBy, pick, uniq } from 'lodash'
 import { tokenizer, createClassifier } from '.'
 import bayes from 'classificator'
 import { getLabel } from 'ducks/transactions/helpers'
-import { TRANSACTION_DOCTYPE } from 'doctypes'
+import { Document } from 'cozy-doctypes'
+import { Transaction } from 'models'
 import { LOCAL_MODEL_USAGE_THRESHOLD } from 'ducks/categories/helpers'
 import { getTracker } from 'ducks/tracking'
 
@@ -36,23 +36,6 @@ export const getAlphaParameter = (
   const alpha = maxSmoothing / nbUniqueCategories
 
   return Math.max(min, Math.min(max, alpha))
-}
-
-const getTransWithManualCat = async (transactions, index, limit, skip) => {
-  const query = {
-    selector: { manualCategoryId: { $exists: true } },
-    limit,
-    skip,
-    wholeResponse: true
-  }
-  const results = await cozyClient.data.query(index, query)
-  transactions = [...transactions, ...results.docs]
-
-  if (results.next) {
-    return getTransWithManualCat(transactions, index, limit, skip + limit)
-  }
-
-  return transactions
 }
 
 /**
@@ -90,15 +73,17 @@ export const createLocalClassifier = (
   return classifier
 }
 
-const getParameters = async () => {
-  try {
-    const parameters = await cozyClient.fetchJSON(
-      'GET',
-      '/remote/assets/bank_classifier_nb_and_voc'
-    )
-    return parameters
-  } catch (e) {
-    throw new Error(PARAMETERS_NOT_FOUND)
+class BankClassifier extends Document {
+  static async fetchParameters() {
+    try {
+      const parameters = await this.cozyClient.fetchJSON(
+        'GET',
+        '/remote/assets/bank_classifier_nb_and_voc'
+      )
+      return parameters
+    } catch (e) {
+      throw new Error(PARAMETERS_NOT_FOUND)
+    }
   }
 }
 
@@ -137,7 +122,7 @@ const globalModel = async (classifierOptions, transactions) => {
   let parameters
 
   try {
-    parameters = await getParameters()
+    parameters = await BankClassifier.fetchParameters()
     globalModelLog('info', 'Successfully fetched parameters from the stack')
   } catch (e) {
     globalModelLog('info', e)
@@ -167,10 +152,9 @@ const globalModel = async (classifierOptions, transactions) => {
 
 const localModel = async (classifierOptions, transactions) => {
   localModelLog('info', 'Fetching manually categorized transactions')
-  const index = await cozyClient.data.defineIndex(TRANSACTION_DOCTYPE, [
-    'manualCategoryId'
-  ])
-  const transactionsWithManualCat = await getTransWithManualCat([], index, 100)
+  const transactionsWithManualCat = await Transaction.queryAll({
+    manualCategoryId: { $exists: true }
+  })
   localModelLog(
     'info',
     `Fetched ${transactions.length} manually categorized transactions`
@@ -269,34 +253,36 @@ export const categorizes = async transactions => {
   return transactions
 }
 
-export const sendTransactions = async transactions => {
-  const log = logger.namespace('categorization-send-transactions')
+export class AutoCategorization extends Document {
+  async sendTransactions(transactions) {
+    const log = logger.namespace('categorization-send-transactions')
 
-  const transactionsToSend = transactions.map(transaction =>
-    pick(transaction, [
-      'amount',
-      'date',
-      'label',
-      'automaticCategoryId',
-      'metadata.version',
-      'manualCategoryId',
-      'cozyCategoryId',
-      'cozyCategoryProba',
-      'localCategoryId',
-      'localCategoryProba'
-    ])
-  )
-
-  try {
-    await cozyClient.fetchJSON(
-      'POST',
-      '/remote/cc.cozycloud.autocategorization',
-      {
-        data: JSON.stringify(transactionsToSend)
-      }
+    const transactionsToSend = transactions.map(transaction =>
+      pick(transaction, [
+        'amount',
+        'date',
+        'label',
+        'automaticCategoryId',
+        'metadata.version',
+        'manualCategoryId',
+        'cozyCategoryId',
+        'cozyCategoryProba',
+        'localCategoryId',
+        'localCategoryProba'
+      ])
     )
-  } catch (e) {
-    log('info', 'Error while sending transactions')
-    log('info', e)
+
+    try {
+      await this.cozyClient.fetchJSON(
+        'POST',
+        '/remote/cc.cozycloud.autocategorization',
+        {
+          data: JSON.stringify(transactionsToSend)
+        }
+      )
+    } catch (e) {
+      log('info', 'Error while sending transactions')
+      log('info', e)
+    }
   }
 }
