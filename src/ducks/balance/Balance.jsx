@@ -21,6 +21,7 @@ import { queryConnect } from 'cozy-client'
 import Topbar from 'components/Topbar'
 import Loading from 'components/Loading'
 import { Table, TdSecondary } from 'components/Table'
+import { Padded } from 'components/Spacing'
 import { Figure, FigureBlock } from 'components/Figure'
 import PageTitle from 'components/PageTitle'
 import flag from 'cozy-flags'
@@ -323,12 +324,12 @@ class Balance extends React.Component {
       isCollectionLoading(settingsCollection)
     ) {
       return (
-        <div className={styles['Balance']}>
+        <Padded>
           <Topbar>
             <PageTitle>{t('Balance.title')}</PageTitle>
           </Topbar>
           <Loading />
-        </div>
+        </Padded>
       )
     }
 
@@ -374,7 +375,7 @@ class Balance extends React.Component {
     const TICK_FORMAT = d3.timeFormat('%b')
 
     return (
-      <div className={styles['Balance']}>
+      <Padded>
         <Topbar>
           <PageTitle>{t('Balance.title')}</PageTitle>
         </Topbar>
@@ -418,7 +419,7 @@ class Balance extends React.Component {
           onRowClick={this.goToTransactionsFilteredBy}
         />
         {groupsSorted.length === 0 && groupsC}
-      </div>
+      </Padded>
     )
   }
 }

@@ -14,6 +14,7 @@ import { withRouter } from 'react-router'
 import { flowRight as compose } from 'lodash'
 import AppVersion from './AppVersion'
 import PageTitle from 'components/PageTitle'
+import { Padded } from 'components/Spacing'
 
 const tabNames = ['configuration', 'accounts', 'groups']
 
@@ -32,7 +33,7 @@ const Settings = ({ t, children, router }) => {
   ))
 
   return (
-    <div>
+    <Padded>
       <Topbar>
         <PageTitle className={styles.settings__title}>
           {t('Settings.title')}
@@ -45,7 +46,7 @@ const Settings = ({ t, children, router }) => {
         </TabPanels>
       </Tabs>
       {__TARGET__ === 'mobile' && <AppVersion version={__APP_VERSION__} />}
-    </div>
+    </Padded>
   )
 }
 

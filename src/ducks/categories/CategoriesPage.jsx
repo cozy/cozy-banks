@@ -3,6 +3,7 @@ import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import Loading from 'components/Loading'
+import { Padded } from 'components/Spacing'
 import { getFilteredTransactions } from 'ducks/filters'
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import { transactionsByCategory, computeCategorieData } from './helpers'
@@ -78,26 +79,28 @@ class CategoriesPage extends Component {
 
     return (
       <div className={styles['bnk-cat-page']}>
-        <CategoriesHeader
-          breadcrumbItems={breadcrumbItems}
-          selectedCategory={selectedCategory}
-          withIncome={showIncomeCategory}
-          onWithIncomeToggle={this.onWithIncomeToggle}
-          categories={sortedCategories}
-          isFetching={isFetching}
-        />
-        {isFetching ? (
-          <Loading loadingType="categories" />
-        ) : (
-          <Categories
-            categories={sortedCategories}
+        <Padded>
+          <CategoriesHeader
+            breadcrumbItems={breadcrumbItems}
             selectedCategory={selectedCategory}
-            selectedCategoryName={selectedCategoryName}
-            selectCategory={this.selectCategory}
             withIncome={showIncomeCategory}
-            filterWithInCome={this.filterWithInCome}
+            onWithIncomeToggle={this.onWithIncomeToggle}
+            categories={sortedCategories}
+            isFetching={isFetching}
           />
-        )}
+          {isFetching ? (
+            <Loading loadingType="categories" />
+          ) : (
+            <Categories
+              categories={sortedCategories}
+              selectedCategory={selectedCategory}
+              selectedCategoryName={selectedCategoryName}
+              selectCategory={this.selectCategory}
+              withIncome={showIncomeCategory}
+              filterWithInCome={this.filterWithInCome}
+            />
+          )}
+        </Padded>
       </div>
     )
   }

@@ -14,6 +14,7 @@ import {
 } from 'lodash'
 import { getFilteredAccounts } from 'ducks/filters'
 import BarBalance from 'components/BarBalance'
+import { Padded } from 'components/Spacing'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 
 import {
@@ -268,24 +269,26 @@ class TransactionsPage extends Component {
     const filteredTransactions = this.getTransactions()
 
     return (
-      <div className={styles.TransactionPage}>
-        <TransactionHeader
-          transactions={filteredTransactions}
-          handleChangeMonth={this.handleChangeMonth}
-          currentMonth={this.state.currentMonth}
-        />
-        {isMobile &&
-          !isCollectionLoading(accounts) && (
-            <BarRight>
-              <BarBalance accounts={filteredAccounts} />
-            </BarRight>
+      <Padded>
+        <div className={styles.TransactionPage}>
+          <TransactionHeader
+            transactions={filteredTransactions}
+            handleChangeMonth={this.handleChangeMonth}
+            currentMonth={this.state.currentMonth}
+          />
+          {isMobile &&
+            !isCollectionLoading(accounts) && (
+              <BarRight>
+                <BarBalance accounts={filteredAccounts} />
+              </BarRight>
+            )}
+          {isFetching ? (
+            <Loading loadingType="movements" />
+          ) : (
+            this.displayTransactions()
           )}
-        {isFetching ? (
-          <Loading loadingType="movements" />
-        ) : (
-          this.displayTransactions()
-        )}
-      </div>
+        </div>
+      </Padded>
     )
   }
 }
