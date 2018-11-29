@@ -47,6 +47,13 @@ import { getKonnectorFromTrigger } from 'utils/triggers'
 import { queryConnect } from 'cozy-client'
 import { isCollectionLoading } from 'ducks/client/utils'
 import { findNearestMonth } from './helpers'
+import {
+  getBalanceHistories,
+  sumBalanceHistories,
+  balanceHistoryToChartData
+} from 'ducks/balance/helpers'
+
+import { subMonths } from 'date-fns'
 
 const { BarRight } = cozy.bar
 
@@ -257,6 +264,40 @@ class TransactionsPage extends Component {
     )
   }
 
+  getBalanceHistory(accounts, transactions) {
+    const today = new Date()
+    const twoMonthsBefore = subMonths(today, 2)
+
+    const balanceHistories = getBalanceHistories(
+      accounts,
+      transactions,
+      today,
+      twoMonthsBefore
+    )
+    const balanceHistory = sumBalanceHistories(Object.values(balanceHistories))
+
+    return balanceHistory
+  }
+
+  getChartData() {
+    const isLoading =
+      isCollectionLoading(this.props.transactions) ||
+      isCollectionLoading(this.props.accounts) ||
+      this.state.fetching
+
+    if (isLoading) {
+      return null
+    }
+
+    const transactions = this.getTransactions()
+    const accounts = this.props.filteredAccounts
+
+    const history = this.getBalanceHistory(accounts, transactions)
+    const data = balanceHistoryToChartData(history)
+
+    return data
+  }
+
   render() {
     const {
       accounts,
@@ -268,6 +309,8 @@ class TransactionsPage extends Component {
     const isFetching = isCollectionLoading(transactions) || this.state.fetching
     const filteredTransactions = this.getTransactions()
 
+    const chartData = this.getChartData()
+
     return (
       <Padded>
         <div className={styles.TransactionPage}>
@@ -275,6 +318,7 @@ class TransactionsPage extends Component {
             transactions={filteredTransactions}
             handleChangeMonth={this.handleChangeMonth}
             currentMonth={this.state.currentMonth}
+            chartData={chartData}
           />
           {isMobile &&
             !isCollectionLoading(accounts) && (

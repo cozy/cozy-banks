@@ -135,17 +135,24 @@ class TransactionHeader extends Component {
   }
 
   displayBalanceHistory() {
-    if (!flag('balance-history')) {
+    if (!flag('balance-history') || !this.props.chartData) {
       return
     }
 
-    return <HistoryChart margin={historyChartMargin} />
+    return (
+      <HistoryChart
+        margin={historyChartMargin}
+        data={this.props.chartData}
+        height={72}
+        width="100%"
+      />
+    )
   }
 
   render() {
     return (
       <div className={styles.TransactionPage__top}>
-        {/*this.displayBalanceHistory()*/}
+        {this.displayBalanceHistory()}
         {this.displayAccountSwitch()}
         {this.displaySelectDates()}
         {this.displayBreadcrumb()}
