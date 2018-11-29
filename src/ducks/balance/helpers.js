@@ -35,7 +35,7 @@ export const getBalanceHistories = (
     return balances
   }, {})
 
-  balances.all = sumBalancesByDate(balances)
+  balances.all = sumBalanceHistories(Object.values(balances))
 
   return balances
 }
@@ -90,22 +90,30 @@ export const getBalanceHistory = (account, transactions, from) => {
   return balances
 }
 
-export const sumBalancesByDate = accountsBalances => {
-  const allDates = uniq(
-    flatten(Object.values(accountsBalances).map(item => Object.keys(item)))
-  )
+/**
+ * Returns all the unique dates for a given array of balance histories
+ * @param {Object[]} histories - The array of balance histories
+ * @returns {String[]} The dates
+ */
+export const getAllDates = histories => {
+  return uniq(flatten(histories.map(Object.keys)))
+}
 
-  const balances = {}
+/**
+ * Sums a given array of balance histories on date
+ * @param {Object[]} histories - The array of balance histories
+ * @returns {Object} The summed balance history
+ */
+export const sumBalanceHistories = histories => {
+  const allDates = getAllDates(histories)
+
+  const history = {}
 
   for (const date of allDates) {
-    for (const accountBalances of Object.values(accountsBalances)) {
-      const balance = balances[date] || 0
-      const accountBalance = accountBalances[date] || 0
-      balances[date] = balance + accountBalance
-    }
+    history[date] = sumBy(histories, h => h[date])
   }
 
-  return balances
+  return history
 }
 
 export const sortBalanceHistoryByDate = history => {
