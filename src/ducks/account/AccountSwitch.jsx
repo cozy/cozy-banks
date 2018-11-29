@@ -15,6 +15,7 @@ import {
   Img,
   Overlay
 } from 'cozy-ui/react'
+import Portal from 'cozy-ui/react/Portal'
 
 import AccountSharingStatus from 'components/AccountSharingStatus'
 import BarItem from 'components/BarItem'
@@ -340,21 +341,19 @@ class AccountSwitch extends Component {
           />
         )}
         {open && (
-          <Overlay
-            className={styles['account-switch-overlay']}
-            onClick={this.close}
-          />
-        )}
-        {open && (
-          <AccountSwitchMenu
-            filteringDoc={filteringDoc}
-            filterByDoc={closeAfterSelect(filterByDoc)}
-            resetFilterByDoc={closeAfterSelect(resetFilterByDoc)}
-            close={this.close}
-            groups={orderedGroups}
-            accounts={accounts}
-            accountExists={this.accountExists}
-          />
+          <Portal into="body">
+            <Overlay onClick={this.close}>
+              <AccountSwitchMenu
+                filteringDoc={filteringDoc}
+                filterByDoc={closeAfterSelect(filterByDoc)}
+                resetFilterByDoc={closeAfterSelect(resetFilterByDoc)}
+                close={this.close}
+                groups={orderedGroups}
+                accounts={accounts}
+                accountExists={this.accountExists}
+              />
+            </Overlay>
+          </Portal>
         )}
       </div>
     )
