@@ -144,7 +144,6 @@
     "yarnhook": "0.3.0"
   },
   "dependencies": {
-    "airbnb-prop-types": "2.11.0",
     "babel-plugin-lodash": "3.3.4",
     "babel-polyfill": "6.26.0",
     "babel-preset-cozy-app": "1.1.0",
