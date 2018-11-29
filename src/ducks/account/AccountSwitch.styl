@@ -7,16 +7,10 @@
 
 .account-switch
     position relative
-    padding-bottom 20px
-
-    a
-    a:visited
-        color            dodgerBlue
-        text-decoration  none
-
-    a:hover
-    a:active
-        text-decoration  underline
+    top 0
+    padding 0
+    border 0
+    margin 0
 
 .account-switch-button
     cursor pointer
@@ -48,11 +42,6 @@
     &:focus
         background silver
 
-baseZ=80
-
-.account-switch-overlay
-    z-index baseZ
-
 .account-switch-menu-content
     position fixed
     top 78px
@@ -60,7 +49,6 @@ baseZ=80
     right 0
     width 440px
     overflow auto
-    z-index baseZ + 1
     max-height: "calc(100vh - %s)" % @top
     margin-left auto
     margin-right auto
@@ -115,6 +103,15 @@ baseZ=80
             background silver
 
     a
+    a:visited
+        color            dodgerBlue
+        text-decoration  none
+
+    a:hover
+    a:active
+        text-decoration  underline
+
+    a
         display block
         text-transform uppercase
         padding 8px 19px
@@ -133,12 +130,6 @@ baseZ=80
         padding-left .5em
         color coolGrey
         font-size .8em
-
-.account-switch
-    top 0
-    padding 0
-    border 0
-    margin 0
 
 .account-switch-button-mobile
     background-color transparent
