@@ -6,7 +6,7 @@ import {
   getAllDates,
   balanceHistoryToChartData
 } from './helpers'
-import { parse as parseDate, format as formatDate } from 'date-fns'
+import { format as formatDate } from 'date-fns'
 
 describe('getTransactionsForAccount', () => {
   describe('With included relationship', () => {
@@ -51,18 +51,32 @@ describe('getTransactionsForAccount', () => {
 })
 
 describe('getBalanceHistory', () => {
-  it('should return only the current balance if there is no transactions', () => {
+  it('should return only the latest balance if there is no transaction and from is not specified', () => {
     const account = { _id: 'test', balance: 8000 }
     const transactions = []
-    const date = '2018-08-01'
-    const from = parseDate(date)
-    const history = getBalanceHistory(account, transactions, from)
+    const to = new Date()
+    const date = formatDate(to, 'YYYY-MM-DD')
+    const history = getBalanceHistory(account, transactions, to)
 
     expect(Object.keys(history)).toEqual([date])
     expect(history[date]).toBe(8000)
   })
 
-  it('should return the right balances if there are transactions', () => {
+  it('should return the same balance for all dates if there is no transaction and from is specified', () => {
+    const account = { _id: 'test', balance: 8000 }
+    const transactions = []
+    const to = new Date(2018, 5, 26)
+    const from = new Date(2018, 5, 24)
+    const history = getBalanceHistory(account, transactions, to, from)
+
+    const expectedKeys = ['2018-06-26', '2018-06-25', '2018-06-24']
+    const expectedValues = [8000, 8000, 8000]
+
+    expect(Object.keys(history)).toEqual(expectedKeys)
+    expect(Object.values(history)).toEqual(expectedValues)
+  })
+
+  it('should return history from the earliest transaction date if from is not specified', () => {
     const account = { _id: 'test', balance: 8000 }
     const transactions = [
       { date: '2018-06-25T00:00:00Z', amount: 100 },
@@ -70,12 +84,8 @@ describe('getBalanceHistory', () => {
       { date: '2018-06-23T00:00:00Z', amount: -300 },
       { date: '2018-06-22T00:00:00Z', amount: -15 }
     ]
-
-    const history = getBalanceHistory(
-      account,
-      transactions,
-      new Date(2018, 5, 26)
-    )
+    const to = new Date(2018, 5, 26)
+    const history = getBalanceHistory(account, transactions, to)
 
     const expectedKeys = [
       '2018-06-26',
@@ -86,6 +96,25 @@ describe('getBalanceHistory', () => {
     ]
 
     const expectedValues = [8000, 7900, 7890, 8190, 8205]
+
+    expect(Object.keys(history)).toEqual(expectedKeys)
+    expect(Object.values(history)).toEqual(expectedValues)
+  })
+
+  it('should return history from the specified date if from is specified', () => {
+    const account = { _id: 'test', balance: 8000 }
+    const transactions = [
+      { date: '2018-06-25T00:00:00Z', amount: 100 },
+      { date: '2018-06-24T00:00:00Z', amount: 10 },
+      { date: '2018-06-23T00:00:00Z', amount: -300 },
+      { date: '2018-06-22T00:00:00Z', amount: -15 }
+    ]
+    const to = new Date(2018, 5, 26)
+    const from = new Date(2018, 5, 24)
+    const history = getBalanceHistory(account, transactions, to, from)
+
+    const expectedKeys = ['2018-06-26', '2018-06-25', '2018-06-24']
+    const expectedValues = [8000, 7900, 7890]
 
     expect(Object.keys(history)).toEqual(expectedKeys)
     expect(Object.values(history)).toEqual(expectedValues)
@@ -132,37 +161,76 @@ describe('getBalanceHistories', () => {
     expect(getBalanceHistories([], [{ amount: 42 }])).toBeNull()
   })
 
-  it('should return null if there is no transaction', () => {
-    expect(getBalanceHistories([{ balance: 8000 }], [])).toBeNull()
-  })
-
   it('should return an object with a property for each account id', () => {
     const accounts = [
-      { _id: '1', balance: 8000 },
-      { _id: '2', balance: 5000 },
-      { _id: '3', balance: 2000 }
+      { _id: 'acc1', balance: 8000 },
+      { _id: 'acc2', balance: 5000 },
+      { _id: 'acc3', balance: 2000 }
     ]
 
-    const transactions = [{ account: '1', amount: 10 }]
-    const from = new Date(2018, 10, 22)
+    const transactions = []
+    const to = new Date(2018, 5, 26)
+    const histories = getBalanceHistories(accounts, transactions, to)
 
-    const histories = getBalanceHistories(accounts, transactions, from)
-
-    expect(Object.keys(histories)).toEqual(['1', '2', '3'])
+    expect(Object.keys(histories)).toEqual(['acc1', 'acc2', 'acc3'])
   })
 
-  it('should return the right histories', () => {
-    const accounts = [{ _id: '1', balance: 8000 }, { _id: '2', balance: 1000 }]
-    const transactions = [
-      { account: '1', amount: -1000, date: '2018-11-21' },
-      { account: '2', amount: 1000, date: '2018-11-20' }
+  it('should return the right histories if there is no transaction', () => {
+    const accounts = [
+      { _id: 'acc1', balance: 8000 },
+      { _id: 'acc2', balance: 5000 },
+      { _id: 'acc3', balance: 2000 }
     ]
-    const from = new Date(2018, 10, 22)
 
-    const histories = getBalanceHistories(accounts, transactions, from)
+    const transactions = []
 
-    expect(histories[1]).toEqual({ '2018-11-22': 8000, '2018-11-21': 9000 })
-    expect(histories[2]).toEqual({
+    const to = new Date(2018, 5, 26)
+    const from = new Date(2018, 5, 24)
+
+    const histories = getBalanceHistories(accounts, transactions, to, from)
+
+    expect(histories['acc1']).toEqual({
+      '2018-06-26': 8000,
+      '2018-06-25': 8000,
+      '2018-06-24': 8000
+    })
+
+    expect(histories['acc2']).toEqual({
+      '2018-06-26': 5000,
+      '2018-06-25': 5000,
+      '2018-06-24': 5000
+    })
+
+    expect(histories['acc3']).toEqual({
+      '2018-06-26': 2000,
+      '2018-06-25': 2000,
+      '2018-06-24': 2000
+    })
+  })
+
+  it('should return the right histories if there is transactions', () => {
+    const accounts = [
+      { _id: 'acc1', balance: 8000 },
+      { _id: 'acc2', balance: 1000 }
+    ]
+
+    const transactions = [
+      { account: 'acc1', amount: -1000, date: '2018-11-21' },
+      { account: 'acc2', amount: 1000, date: '2018-11-20' }
+    ]
+
+    const to = new Date(2018, 10, 22)
+    const from = new Date(2018, 10, 20)
+
+    const histories = getBalanceHistories(accounts, transactions, to, from)
+
+    expect(histories['acc1']).toEqual({
+      '2018-11-22': 8000,
+      '2018-11-21': 9000,
+      '2018-11-20': 9000
+    })
+
+    expect(histories['acc2']).toEqual({
       '2018-11-22': 1000,
       '2018-11-21': 1000,
       '2018-11-20': 0

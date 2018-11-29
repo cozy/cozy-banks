@@ -1,27 +1,25 @@
 import { flatten, groupBy, sumBy, uniq } from 'lodash'
 import {
   min as getEarliestDate,
+  max as getLatestDate,
   isAfter as isDateAfter,
   isEqual as isDateEqual,
   subDays,
-  startOfToday,
   parse as parseDate,
-  format as formatDate
+  format as formatDate,
+  isValid as isDateValid
 } from 'date-fns'
 
 /**
  * Get balance histories for a set of accounts
  * @param {Object[]} accounts - The accounts we want to get the balance histories
  * @param {Object[]} transactions - The transactions
- * @param {Date} from - The date from which we want to get balance history
- * @returns {Object} The balance histories
+ * @param {Date} to - The date to which you want the history
+ * @param {Date} from - The date from which you want the history
+ * @returns {Object} The balance histories indexed by the account ID
  */
-export const getBalanceHistories = (
-  accounts,
-  transactions,
-  from = startOfToday()
-) => {
-  if (accounts.length === 0 || transactions.length === 0) {
+export const getBalanceHistories = (accounts, transactions, to, from) => {
+  if (accounts.length === 0) {
     return null
   }
 
@@ -29,6 +27,7 @@ export const getBalanceHistories = (
     balances[account._id] = getBalanceHistory(
       account,
       getTransactionsForAccount(account._id, transactions),
+      to,
       from
     )
 
@@ -52,37 +51,51 @@ export const getTransactionsForAccount = (accountId, transactions) => {
   })
 }
 
+export const getDateRange = dates => {
+  return {
+    from: getEarliestDate(...dates),
+    to: getLatestDate(...dates)
+  }
+}
+
 /**
  * Get balance history for an account
  * @param {Object} account - The account we want to get the balance history
  * @param {Object[]} transactions - The transactions of the account
- * @param {Date} from - The date from which we want to get balance history
+ * @param {Date} to - The date to which you want the history
+ * @param {Date} from - The date from you want the history
  * @returns {Object} The balance history indexed by dates (YYYY-MM-DD)
  */
-export const getBalanceHistory = (account, transactions, from) => {
+export const getBalanceHistory = (account, transactions, to, from) => {
   const DATE_FORMAT = 'YYYY-MM-DD'
 
   const transactionsByDate = groupBy(transactions, t =>
     formatDate(t.date, DATE_FORMAT)
   )
-  const mostDistantDay =
-    Object.keys(transactionsByDate).length > 0
-      ? getEarliestDate(...Object.keys(transactionsByDate))
-      : from
+
+  // const dateRange = getDateRange(Object.keys(transactionsByDate))
+
+  if (!from) {
+    const earliestTransactionDate = getEarliestDate(
+      ...Object.keys(transactionsByDate)
+    )
+    from = isDateValid(earliestTransactionDate) ? earliestTransactionDate : to
+  }
 
   const balances = {}
 
   for (
-    let day = from, balance = account.balance;
-    isDateAfter(day, mostDistantDay) || isDateEqual(day, mostDistantDay);
+    let day = to, balance = account.balance;
+    isDateAfter(day, from) || isDateEqual(day, from);
     day = subDays(day, 1)
   ) {
-    const transactions = transactionsByDate[formatDate(day, DATE_FORMAT)]
+    const date = formatDate(day, DATE_FORMAT)
+    const transactions = transactionsByDate[date]
     balance = transactions
       ? balance - sumBy(transactions, t => t.amount)
       : balance
 
-    balances[formatDate(day, DATE_FORMAT)] = balance
+    balances[date] = balance
   }
 
   return balances

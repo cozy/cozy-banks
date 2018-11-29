@@ -291,7 +291,11 @@ class Balance extends React.Component {
   }
 
   getBalanceHistory(accounts, transactions) {
-    const balanceHistories = getBalanceHistories(accounts, transactions)
+    const balanceHistories = getBalanceHistories(
+      accounts,
+      transactions,
+      new Date()
+    )
     const balanceHistory = sumBalanceHistories(Object.values(balanceHistories))
 
     return balanceHistory
