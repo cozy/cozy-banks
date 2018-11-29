@@ -36,7 +36,11 @@ import {
   TRANSACTION_DOCTYPE
 } from 'doctypes'
 import History from './History'
-import { getBalanceHistories, sortBalanceHistoryByDate } from './helpers'
+import {
+  getBalanceHistories,
+  sumBalanceHistories,
+  balanceHistoryToChartData
+} from './helpers'
 import { buildVirtualGroups } from 'ducks/groups/helpers'
 import sma from 'sma'
 import { format as formatDate, subYears } from 'date-fns'
@@ -288,17 +292,18 @@ class Balance extends React.Component {
 
   getBalanceHistory(accounts, transactions) {
     const balanceHistories = getBalanceHistories(accounts, transactions)
-    const balanceHistory = sortBalanceHistoryByDate(balanceHistories.all)
+    const balanceHistory = sumBalanceHistories(Object.values(balanceHistories))
 
     return balanceHistory
   }
 
-  getChartData(balanceHistory) {
+  getChartData(history) {
+    const originalData = balanceHistoryToChartData(history)
     const WINDOW_SIZE = 15
 
-    const balancesSma = sma(balanceHistory.map(h => h.y), WINDOW_SIZE, n => n)
-    const data = balancesSma.map((balance, i) => ({
-      ...balanceHistory[i],
+    const windowedData = sma(originalData.map(h => h.y), WINDOW_SIZE, n => n)
+    const data = windowedData.map((balance, i) => ({
+      ...originalData[i],
       y: balance
     }))
 

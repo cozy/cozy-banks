@@ -3,9 +3,10 @@ import {
   getBalanceHistory,
   getBalanceHistories,
   sumBalanceHistories,
-  getAllDates
+  getAllDates,
+  balanceHistoryToChartData
 } from './helpers'
-import { parse as parseDate } from 'date-fns'
+import { parse as parseDate, format as formatDate } from 'date-fns'
 
 describe('getTransactionsForAccount', () => {
   describe('With included relationship', () => {
@@ -135,7 +136,7 @@ describe('getBalanceHistories', () => {
     expect(getBalanceHistories([{ balance: 8000 }], [])).toBeNull()
   })
 
-  it('should return an object with a property for each account id, and a "all" property', () => {
+  it('should return an object with a property for each account id', () => {
     const accounts = [
       { _id: '1', balance: 8000 },
       { _id: '2', balance: 5000 },
@@ -147,7 +148,7 @@ describe('getBalanceHistories', () => {
 
     const histories = getBalanceHistories(accounts, transactions, from)
 
-    expect(Object.keys(histories)).toEqual(['1', '2', '3', 'all'])
+    expect(Object.keys(histories)).toEqual(['1', '2', '3'])
   })
 
   it('should return the right histories', () => {
@@ -166,10 +167,25 @@ describe('getBalanceHistories', () => {
       '2018-11-21': 1000,
       '2018-11-20': 0
     })
-    expect(histories.all).toEqual({
-      '2018-11-22': 9000,
-      '2018-11-21': 10000,
-      '2018-11-20': 0
-    })
+  })
+})
+
+describe('balanceHistoryToChartData', () => {
+  it('should sort by date desc', () => {
+    const history = { '2018-11-22': 1000, '2018-11-21': 500, '2018-11-20': 600 }
+    const expected = ['2018-11-22', '2018-11-21', '2018-11-20']
+    const chartData = balanceHistoryToChartData(history)
+    const dates = chartData.map(item => formatDate(item.x, 'YYYY-MM-DD'))
+
+    expect(dates).toEqual(expected)
+  })
+
+  it('should return the right data', () => {
+    const history = { '2018-11-22': 1000, '2018-11-21': 500, '2018-11-20': 600 }
+    const expected = [1000, 500, 600]
+    const chartData = balanceHistoryToChartData(history)
+    const values = chartData.map(item => item.y)
+
+    expect(values).toEqual(expected)
   })
 })

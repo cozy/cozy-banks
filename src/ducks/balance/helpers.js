@@ -1,4 +1,4 @@
-import { flatten, groupBy, sumBy, uniq, sortBy } from 'lodash'
+import { flatten, groupBy, sumBy, uniq } from 'lodash'
 import {
   min as getEarliestDate,
   isAfter as isDateAfter,
@@ -34,8 +34,6 @@ export const getBalanceHistories = (
 
     return balances
   }, {})
-
-  balances.all = sumBalanceHistories(Object.values(balances))
 
   return balances
 }
@@ -116,13 +114,20 @@ export const sumBalanceHistories = histories => {
   return history
 }
 
-export const sortBalanceHistoryByDate = history => {
-  const balanceHistory = sortBy(Object.entries(history), ([date]) => date)
+/**
+ * Transforms a balance history to displayable chart data
+ * @param {Object} history - The balance history to transform
+ * @returns {Object[]}
+ */
+export const balanceHistoryToChartData = history => {
+  const dates = getAllDates([history])
+    .sort()
     .reverse()
-    .map(([date, balance]) => ({
-      x: parseDate(date),
-      y: balance
-    }))
 
-  return balanceHistory
+  const data = dates.map(date => ({
+    x: parseDate(date),
+    y: history[date]
+  }))
+
+  return data
 }
