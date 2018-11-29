@@ -88,9 +88,10 @@ class Onboarding extends Component {
         </Sections>
         <CTA>
           <AddAccountLink>
-            <Button theme="regular">
-              {t('Onboarding.connect-bank-account')}
-            </Button>
+            <Button
+              theme="regular"
+              label={t('Onboarding.connect-bank-account')}
+            />
           </AddAccountLink>
         </CTA>
         {isTriggersLoaded &&
