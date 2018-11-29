@@ -11,11 +11,10 @@ import {
 import { connect } from 'react-redux'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import { or } from 'airbnb-prop-types'
 import * as d3 from 'd3'
 
 import { withRouter } from 'react-router'
-import { translate, Button, Icon, withBreakpoints } from 'cozy-ui/react'
+import { translate, Button, withBreakpoints } from 'cozy-ui/react'
 import { queryConnect } from 'cozy-client'
 
 import Topbar from 'components/Topbar'
@@ -26,6 +25,7 @@ import PageTitle from 'components/PageTitle'
 import flag from 'cozy-flags'
 
 import AddAccountLink from 'ducks/settings/AddAccountLink'
+import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import { filterByDoc, getFilteringDoc } from 'ducks/filters'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
@@ -38,7 +38,6 @@ import { format as formatDate } from 'date-fns'
 
 import styles from './Balance.styl'
 import btnStyles from 'styles/buttons.styl'
-import plus from 'assets/icons/16/plus.svg'
 import { isCollectionLoading } from 'ducks/client/utils'
 
 const getGroupBalance = group => {
@@ -138,14 +137,11 @@ const BalanceRow = connect(state => ({
 }))(_BalanceRow)
 
 BalanceRow.propTypes = {
-  accountOrGroup: or([
-    {
-      account: PropTypes.object.isRequired
-    },
-    {
-      group: PropTypes.object.isRequired
+  accountOrGroup: props => {
+    if (props.group === undefined && props.account === undefined) {
+      return new Error('Missing value for account or group. Validation failed.')
     }
-  ]).isRequired
+  }
 }
 
 /**
@@ -206,19 +202,17 @@ const BalanceGroups = enhanceGroups(
             <Button
               onClick={() => router.push('/settings/groups/new')}
               className={cx(btnStyles['btn--no-outline'], 'u-pv-1')}
-            >
-              <Icon icon={plus} className="u-mr-half" />
-              {t('Groups.create')}
-            </Button>
+              label={t('Groups.create')}
+              icon="plus"
+            />
           </p>
         ) : (
           <p>
             <Button
               onClick={() => router.push('/settings/groups')}
               className={cx(btnStyles['btn--no-outline'], 'u-pv-1')}
-            >
-              {t('Groups.manage-groups')}
-            </Button>
+              label={t('Groups.manage-groups')}
+            />
           </p>
         )}
       </div>
@@ -264,10 +258,11 @@ const BalanceAccounts = translate()(
         </Table>
         <p>
           <AddAccountLink>
-            <Button className={cx(btnStyles['btn--no-outline'], 'u-pv-1')}>
-              <Icon icon={plus} className="u-mr-half" />
-              {t('Accounts.add-account')}
-            </Button>
+            <Button
+              className={cx(btnStyles['btn--no-outline'], 'u-pv-1')}
+              icon="plus"
+              label={t('Accounts.add-account')}
+            />
           </AddAccountLink>
         </p>
       </div>
@@ -275,7 +270,7 @@ const BalanceAccounts = translate()(
   }
 )
 
-BalanceAccounts.PropTypes = {
+BalanceAccounts.propTypes = {
   balanceLower: PropTypes.number.isRequired,
   accounts: PropTypes.array.isRequired
 }
@@ -334,7 +329,7 @@ class Balance extends React.Component {
 
     const accounts = accountsCollection.data
     const groups = [...groupsCollection.data, ...buildVirtualGroups(accounts)]
-    const settings = settingsCollection.data[0]
+    const settings = getDefaultedSettingsFromCollection(settingsCollection)
 
     const accountsSorted = sortBy(accounts, ['institutionLabel', 'label'])
     const groupsSorted = sortBy(
