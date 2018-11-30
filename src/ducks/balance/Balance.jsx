@@ -42,7 +42,6 @@ import {
   balanceHistoryToChartData
 } from './helpers'
 import { buildVirtualGroups } from 'ducks/groups/helpers'
-import sma from 'sma'
 import { format as formatDate, subYears } from 'date-fns'
 
 import styles from './Balance.styl'
@@ -301,15 +300,9 @@ class Balance extends React.Component {
     return balanceHistory
   }
 
-  getChartData(history) {
-    const originalData = balanceHistoryToChartData(history)
-    const WINDOW_SIZE = 15
-
-    const windowedData = sma(originalData.map(h => h.y), WINDOW_SIZE, n => n)
-    const data = windowedData.map((balance, i) => ({
-      ...originalData[i],
-      y: balance
-    }))
+  getChartData(accounts, transactions) {
+    const history = this.getBalanceHistory(accounts, transactions)
+    const data = balanceHistoryToChartData(history)
 
     return data
   }
@@ -332,11 +325,10 @@ class Balance extends React.Component {
       !isCollectionLoading(transactionsCollection) &&
       !transactionsCollection.hasMore
     ) {
-      const history = this.getBalanceHistory(
+      const data = this.getChartData(
         accountsCollection.data,
         transactionsCollection.data
       )
-      const data = this.getChartData(history)
       const nbTicks = uniq(
         Object.keys(groupBy(data, i => formatDate(i.x, 'YYYY-MM')))
       ).length
