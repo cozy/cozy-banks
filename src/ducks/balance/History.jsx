@@ -3,23 +3,85 @@ import PropTypes from 'prop-types'
 import cx from 'classnames'
 import { translate, withBreakpoints, Spinner } from 'cozy-ui/react'
 import { Figure } from 'components/Figure'
-import { sumBy } from 'lodash'
+import { sumBy, uniq, groupBy } from 'lodash'
 import styles from './History.styl'
 import HistoryChart from './HistoryChart'
+import { isCollectionLoading } from 'ducks/client/utils'
+import { format as formatDate } from 'date-fns'
+import * as d3 from 'd3'
+import {
+  getBalanceHistories,
+  sumBalanceHistories,
+  balanceHistoryToChartData
+} from './helpers'
 
 class History extends Component {
   getCurrentBalance() {
-    return sumBy(this.props.accounts, a => a.balance)
+    return sumBy(this.props.accounts.data, a => a.balance)
+  }
+
+  getBalanceHistory(accounts, transactions) {
+    const balanceHistories = getBalanceHistories(
+      accounts,
+      transactions,
+      new Date()
+    )
+    const balanceHistory = sumBalanceHistories(Object.values(balanceHistories))
+
+    return balanceHistory
+  }
+
+  getChartData() {
+    const { accounts, transactions } = this.props
+    const history = this.getBalanceHistory(accounts.data, transactions.data)
+    const data = balanceHistoryToChartData(history)
+
+    return data
+  }
+
+  getChartProps() {
+    const data = this.getChartData()
+    const nbTicks = uniq(
+      Object.keys(groupBy(data, i => formatDate(i.x, 'YYYY-MM')))
+    ).length
+
+    const intervalBetweenPoints = 57
+    const TICK_FORMAT = d3.timeFormat('%b')
+
+    const chartProps = {
+      data,
+      nbTicks,
+      width: nbTicks * intervalBetweenPoints,
+      height: 103,
+      margin: {
+        top: 20,
+        bottom: 35,
+        left: 16,
+        right: 16
+      },
+      showAxis: true,
+      axisMargin: 10,
+      tickFormat: TICK_FORMAT
+    }
+
+    return chartProps
   }
 
   render() {
-    const { accounts, chartProps, className, t } = this.props
+    const { accounts, transactions, className, t } = this.props
 
-    const showSpinner = !accounts || !chartProps
+    const isAccountsLoading = isCollectionLoading(accounts)
+    const isTransactionsLoading =
+      isCollectionLoading(transactions) || transactions.hasMore
+    const showSpinner = isAccountsLoading || isTransactionsLoading
+
+    if (transactions.hasMore) {
+      transactions.fetchMore()
+    }
 
     return (
       <div className={cx(styles.History, className)}>
-        {accounts && (
+        {!isAccountsLoading && (
           <React.Fragment>
             <Figure
               className={styles.History__currentBalance}
@@ -32,7 +94,7 @@ class History extends Component {
             </div>
           </React.Fragment>
         )}
-        {chartProps && <HistoryChart {...chartProps} />}
+        {!isTransactionsLoading && <HistoryChart {...this.getChartProps()} />}
         {showSpinner && <Spinner size="xxlarge" color="white" />}
       </div>
     )
@@ -40,11 +102,9 @@ class History extends Component {
 }
 
 History.propTypes = {
-  accounts: PropTypes.array.isRequired,
-  chartProps: PropTypes.object,
+  accounts: PropTypes.object.isRequired,
   className: PropTypes.string,
-  isAccountsLoading: PropTypes.bool,
-  isChartLoading: PropTypes.bool
+  transactions: PropTypes.object.isRequired
 }
 
 export default withBreakpoints()(translate()(History))

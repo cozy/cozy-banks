@@ -1,17 +1,8 @@
 import React from 'react'
-import {
-  flowRight as compose,
-  sumBy,
-  uniq,
-  sortBy,
-  get,
-  keyBy,
-  groupBy
-} from 'lodash'
+import { flowRight as compose, sumBy, uniq, sortBy, get, keyBy } from 'lodash'
 import { connect } from 'react-redux'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import * as d3 from 'd3'
 
 import { withRouter } from 'react-router'
 import { translate, Button, withBreakpoints } from 'cozy-ui/react'
@@ -36,11 +27,6 @@ import {
   TRANSACTION_DOCTYPE
 } from 'doctypes'
 import History from './History'
-import {
-  getBalanceHistories,
-  sumBalanceHistories,
-  balanceHistoryToChartData
-} from './helpers'
 import { buildVirtualGroups } from 'ducks/groups/helpers'
 import { format as formatDate, subYears } from 'date-fns'
 
@@ -289,83 +275,14 @@ class Balance extends React.Component {
     this.props.router.push('/transactions')
   }
 
-  getBalanceHistory(accounts, transactions) {
-    const balanceHistories = getBalanceHistories(
-      accounts,
-      transactions,
-      new Date()
-    )
-    const balanceHistory = sumBalanceHistories(Object.values(balanceHistories))
-
-    return balanceHistory
-  }
-
-  getChartData(accounts, transactions) {
-    const history = this.getBalanceHistory(accounts, transactions)
-    const data = balanceHistoryToChartData(history)
-
-    return data
-  }
-
-  renderHistory() {
-    const {
-      transactions: transactionsCollection,
-      accounts: accountsCollection
-    } = this.props
-
-    let accounts
-
-    if (!isCollectionLoading(accountsCollection)) {
-      accounts = accountsCollection.data
-    }
-
-    let chartProps
-
-    if (
-      !isCollectionLoading(transactionsCollection) &&
-      !transactionsCollection.hasMore
-    ) {
-      const data = this.getChartData(
-        accountsCollection.data,
-        transactionsCollection.data
-      )
-      const nbTicks = uniq(
-        Object.keys(groupBy(data, i => formatDate(i.x, 'YYYY-MM')))
-      ).length
-      const intervalBetweenPoints = 57
-      const TICK_FORMAT = d3.timeFormat('%b')
-
-      chartProps = {
-        data,
-        nbTicks,
-        width: nbTicks * intervalBetweenPoints,
-        height: 103,
-        margin: {
-          top: 20,
-          bottom: 35,
-          left: 16,
-          right: 16
-        },
-        showAxis: true,
-        axisMargin: 10,
-        tickFormat: TICK_FORMAT
-      }
-    }
-
-    if (transactionsCollection.hasMore) {
-      transactionsCollection.fetchMore()
-    }
-
-    return <History accounts={accounts} chartProps={chartProps} />
-  }
-
   render() {
     const {
       t,
       breakpoints: { isMobile },
       accounts: accountsCollection,
       groups: groupsCollection,
-      settings: settingsCollection
+      settings: settingsCollection,
+      transactions: transactionsCollection
     } = this.props
     if (
       isCollectionLoading(accountsCollection) ||
@@ -422,7 +339,10 @@ class Balance extends React.Component {
           <PageTitle>{t('Balance.title')}</PageTitle>
         </Topbar>
         {flag('balance-history') ? (
-          this.renderHistory()
+          <History
+            accounts={accountsCollection}
+            transactions={transactionsCollection}
+          />
         ) : (
           <div className={styles['Balance__kpi']}>
             <FigureBlock
