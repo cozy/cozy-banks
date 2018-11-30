@@ -12,9 +12,7 @@ const readJSONSync = filename => {
 const EMAILS = {
   balanceLower: {
     template: require('./balance-lower-html').default,
-    data: readJSONSync(
-      'src/ducks/notifications/html/data/transactions-greater.json'
-    )
+    data: readJSONSync('src/ducks/notifications/html/data/balance-lower.json')
   },
 
   healthBillLinked: {
@@ -27,7 +25,7 @@ const EMAILS = {
   transactionGreater: {
     template: require('./transaction-greater-html').default,
     data: readJSONSync(
-      'src/ducks/notifications/html/data/health-bill-linked.json'
+      'src/ducks/notifications/html/data/transactions-greater.json'
     )
   }
 }
