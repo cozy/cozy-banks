@@ -173,7 +173,9 @@ const localModel = async (classifierOptions, transactions) => {
   const transactionsWithManualCat = await getTransWithManualCat([], index, 100)
   localModelLog(
     'info',
-    `Fetched ${transactions.length} manually categorized transactions`
+    `Fetched ${
+      transactionsWithManualCat.length
+    } manually categorized transactions`
   )
 
   localModelLog('info', 'Instanciating a new classifier')
