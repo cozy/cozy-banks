@@ -1,7 +1,6 @@
 import { flatten, groupBy, sumBy, uniq } from 'lodash'
 import {
   min as getEarliestDate,
-  max as getLatestDate,
   isAfter as isDateAfter,
   isEqual as isDateEqual,
   subDays,
@@ -52,13 +51,6 @@ export const filterTransactionsByAccount = (accountId, transactions) => {
   })
 }
 
-export const getDateRange = dates => {
-  return {
-    from: getEarliestDate(...dates),
-    to: getLatestDate(...dates)
-  }
-}
-
 /**
  * Get balance history for an account
  * @param {Object} account - The account we want to get the balance history
@@ -73,8 +65,6 @@ export const getBalanceHistory = (account, transactions, to, from) => {
   const transactionsByDate = groupBy(transactions, t =>
     formatDate(t.date, DATE_FORMAT)
   )
-
-  // const dateRange = getDateRange(Object.keys(transactionsByDate))
 
   if (!from) {
     const earliestTransactionDate = getEarliestDate(
