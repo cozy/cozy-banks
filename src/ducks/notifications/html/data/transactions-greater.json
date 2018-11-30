@@ -93,7 +93,7 @@
     },
     {
       "account": "comptecla1",
-      "amount": 28.7,
+      "amount": -120.7,
       "bill": "io.cozy.bills:avrilrembourcla3",
       "automaticCategoryId": "400610",
       "currency": "€",
@@ -121,7 +121,7 @@
     },
     {
       "account": "compteisa1",
-      "amount": 7.5,
+      "amount": -90,
       "bill": "io.cozy.bills:rembourcomplisa1",
       "automaticCategoryId": "400610",
       "currency": "€",
