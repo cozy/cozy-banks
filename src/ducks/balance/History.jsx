@@ -104,7 +104,8 @@ class History extends Component {
 History.propTypes = {
   accounts: PropTypes.object.isRequired,
   className: PropTypes.string,
-  transactions: PropTypes.object.isRequired
+  transactions: PropTypes.object.isRequired,
+  t: PropTypes.func.isRequired
 }
 
 export default withBreakpoints()(translate()(History))
