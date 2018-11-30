@@ -6,7 +6,7 @@ import {
   getAllDates,
   balanceHistoryToChartData
 } from './helpers'
-import { format as formatDate } from 'date-fns'
+import { format as formatDate, parse as parseDate } from 'date-fns'
 
 describe('getTransactionsForAccount', () => {
   describe('With included relationship', () => {
@@ -65,15 +65,15 @@ describe('getBalanceHistory', () => {
   it('should return the same balance for all dates if there is no transaction and from is specified', () => {
     const account = { _id: 'test', balance: 8000 }
     const transactions = []
-    const to = new Date(2018, 5, 26)
-    const from = new Date(2018, 5, 24)
+    const to = parseDate('2018-06-26')
+    const from = parseDate('2018-06-24')
     const history = getBalanceHistory(account, transactions, to, from)
 
-    const expectedKeys = ['2018-06-26', '2018-06-25', '2018-06-24']
-    const expectedValues = [8000, 8000, 8000]
-
-    expect(Object.keys(history)).toEqual(expectedKeys)
-    expect(Object.values(history)).toEqual(expectedValues)
+    expect(history).toEqual({
+      '2018-06-26': 8000,
+      '2018-06-25': 8000,
+      '2018-06-24': 8000
+    })
   })
 
   it('should return history from the earliest transaction date if from is not specified', () => {
@@ -84,21 +84,16 @@ describe('getBalanceHistory', () => {
       { date: '2018-06-23T00:00:00Z', amount: -300 },
       { date: '2018-06-22T00:00:00Z', amount: -15 }
     ]
-    const to = new Date(2018, 5, 26)
+    const to = parseDate('2018-06-26')
     const history = getBalanceHistory(account, transactions, to)
 
-    const expectedKeys = [
-      '2018-06-26',
-      '2018-06-25',
-      '2018-06-24',
-      '2018-06-23',
-      '2018-06-22'
-    ]
-
-    const expectedValues = [8000, 7900, 7890, 8190, 8205]
-
-    expect(Object.keys(history)).toEqual(expectedKeys)
-    expect(Object.values(history)).toEqual(expectedValues)
+    expect(history).toEqual({
+      '2018-06-26': 8000,
+      '2018-06-25': 7900,
+      '2018-06-24': 7890,
+      '2018-06-23': 8190,
+      '2018-06-22': 8205
+    })
   })
 
   it('should return history from the specified date if from is specified', () => {
@@ -109,15 +104,15 @@ describe('getBalanceHistory', () => {
       { date: '2018-06-23T00:00:00Z', amount: -300 },
       { date: '2018-06-22T00:00:00Z', amount: -15 }
     ]
-    const to = new Date(2018, 5, 26)
-    const from = new Date(2018, 5, 24)
+    const to = parseDate('2018-06-26')
+    const from = parseDate('2018-06-24')
     const history = getBalanceHistory(account, transactions, to, from)
 
-    const expectedKeys = ['2018-06-26', '2018-06-25', '2018-06-24']
-    const expectedValues = [8000, 7900, 7890]
-
-    expect(Object.keys(history)).toEqual(expectedKeys)
-    expect(Object.values(history)).toEqual(expectedValues)
+    expect(history).toEqual({
+      '2018-06-26': 8000,
+      '2018-06-25': 7900,
+      '2018-06-24': 7890
+    })
   })
 })
 
@@ -169,7 +164,7 @@ describe('getBalanceHistories', () => {
     ]
 
     const transactions = []
-    const to = new Date(2018, 5, 26)
+    const to = parseDate('2018-06-26')
     const histories = getBalanceHistories(accounts, transactions, to)
 
     expect(Object.keys(histories)).toEqual(['acc1', 'acc2', 'acc3'])
@@ -184,8 +179,8 @@ describe('getBalanceHistories', () => {
 
     const transactions = []
 
-    const to = new Date(2018, 5, 26)
-    const from = new Date(2018, 5, 24)
+    const to = parseDate('2018-06-26')
+    const from = parseDate('2018-06-24')
 
     const histories = getBalanceHistories(accounts, transactions, to, from)
 
@@ -219,8 +214,8 @@ describe('getBalanceHistories', () => {
       { account: 'acc2', amount: 1000, date: '2018-11-20' }
     ]
 
-    const to = new Date(2018, 10, 22)
-    const from = new Date(2018, 10, 20)
+    const to = parseDate('2018-11-22')
+    const from = parseDate('2018-11-20')
 
     const histories = getBalanceHistories(accounts, transactions, to, from)
 
