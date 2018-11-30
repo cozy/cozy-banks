@@ -1,5 +1,5 @@
 import {
-  getTransactionsForAccount,
+  filterTransactionsByAccount,
   getBalanceHistory,
   getBalanceHistories,
   sumBalanceHistories,
@@ -8,7 +8,7 @@ import {
 } from './helpers'
 import { format as formatDate, parse as parseDate } from 'date-fns'
 
-describe('getTransactionsForAccount', () => {
+describe('filterTransactionsByAccount', () => {
   describe('With included relationship', () => {
     it('should return transactions of a particular account', () => {
       const transactions = [
@@ -21,7 +21,7 @@ describe('getTransactionsForAccount', () => {
         { account: { data: { _id: '5' } } }
       ]
 
-      expect(getTransactionsForAccount('1', transactions)).toEqual([
+      expect(filterTransactionsByAccount('1', transactions)).toEqual([
         transactions[0],
         transactions[2],
         transactions[5]
@@ -41,7 +41,7 @@ describe('getTransactionsForAccount', () => {
         { account: '5' }
       ]
 
-      expect(getTransactionsForAccount('1', transactions)).toEqual([
+      expect(filterTransactionsByAccount('1', transactions)).toEqual([
         transactions[0],
         transactions[2],
         transactions[5]

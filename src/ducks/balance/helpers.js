@@ -26,7 +26,7 @@ export const getBalanceHistories = (accounts, transactions, to, from) => {
   const balances = accounts.reduce((balances, account) => {
     balances[account._id] = getBalanceHistory(
       account,
-      getTransactionsForAccount(account._id, transactions),
+      filterTransactionsByAccount(account._id, transactions),
       to,
       from
     )
@@ -38,12 +38,13 @@ export const getBalanceHistories = (accounts, transactions, to, from) => {
 }
 
 /**
- * Get transactions that match an account id in a set of transactions
+ * Get transactions that match an account id in a set of transactions.
+ * The transactions can have their relationship to accounts resolved or not, both cases are handled
  * @param {number} accountId - The ID of the account
  * @param {Object[]} transactions - The transactions to filter
  * @returns {Object[]}
  */
-export const getTransactionsForAccount = (accountId, transactions) => {
+export const filterTransactionsByAccount = (accountId, transactions) => {
   return transactions.filter(t => {
     const toCompare = t.account.data ? t.account.data._id : t.account
 
