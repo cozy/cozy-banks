@@ -10,6 +10,7 @@ import Topbar from 'components/Topbar'
 import BackButton from 'components/BackButton'
 import Table from 'components/Table'
 import PageTitle from 'components/PageTitle'
+import { Padded } from 'components/Spacing'
 import { getAccountInstitutionLabel } from '../account/helpers'
 
 import styles from './GroupsSettings.styl'
@@ -167,7 +168,7 @@ class DumbGroupSettings extends Component {
     const { modifying, saving } = this.state
 
     return (
-      <div>
+      <Padded>
         <BackButton to="/settings/groups" arrow />
         <Topbar>
           <PageTitle>{group.label}</PageTitle>
@@ -230,7 +231,7 @@ class DumbGroupSettings extends Component {
             {t('Groups.delete')}
           </Button>
         </p>
-      </div>
+      </Padded>
     )
   }
 }
