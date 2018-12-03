@@ -11,6 +11,7 @@ import TransactionSelectDates from 'ducks/transactions/TransactionSelectDates'
 import flag from 'cozy-flags'
 import HistoryChart from 'ducks/balance/HistoryChart'
 import { Table } from 'components/Table'
+import { Padded } from 'components/Spacing'
 
 import styles from './TransactionsPage.styl'
 import transactionsStyles from './Transactions.styl'
@@ -152,10 +153,12 @@ class TransactionHeader extends Component {
   render() {
     return (
       <div className={styles.TransactionPage__top}>
-        {this.displayBalanceHistory()}
-        {this.displayAccountSwitch()}
-        {this.displaySelectDates()}
-        {this.displayBreadcrumb()}
+        <Padded>
+          {this.displayBalanceHistory()}
+          {this.displayAccountSwitch()}
+          {this.displaySelectDates()}
+          {this.displayBreadcrumb()}
+        </Padded>
         {this.displayTableHead()}
       </div>
     )
