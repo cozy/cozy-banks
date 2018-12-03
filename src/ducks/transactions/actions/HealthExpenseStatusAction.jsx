@@ -10,7 +10,6 @@ import {
 } from 'cozy-ui/react'
 import palette from 'cozy-ui/react/palette'
 import { isHealthExpense } from 'ducks/categories/helpers'
-import allBrands from 'ducks/brandDictionary/brands.json'
 import { BillComponent } from './BillAction'
 import styles from '../TransactionActions.styl'
 import { flowRight as compose } from 'lodash'
@@ -160,12 +159,6 @@ const Component = ({
   )
 }
 
-const allHealthBrands = allBrands.filter(brand => brand.health)
-const userCanInstallHealthKonnector = brands => {
-  const installedHealthBrands = brands.filter(brand => brand.health)
-  return allHealthBrands.length > installedHealthBrands.length
-}
-
 const action = {
   name,
   color: palette.charcoalGrey,
@@ -179,7 +172,7 @@ const action = {
   },
   match: (transaction, { brands }) => {
     return (
-      userCanInstallHealthKonnector(brands) &&
+      brands.filter(brand => brand.hasTrigger && brand.health).length > 0 &&
       isHealthExpense(transaction) &&
       getVendors(transaction)
     )
