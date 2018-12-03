@@ -61,7 +61,12 @@ const doBillsMatching = async setting => {
     if (billsChanges.documents.length === 0) {
       log('info', '[matching service] No new bills since last execution')
     } else {
-      log('info', `[matching service] ${billsChanges.documents.length} new bills since last execution. Trying to find transactions for them`)
+      log(
+        'info',
+        `[matching service] ${
+          billsChanges.documents.length
+        } new bills since last execution. Trying to find transactions for them`
+      )
     }
     const result = await matchFromBills(billsChanges.documents)
     logResult(result)
@@ -87,7 +92,12 @@ const doTransactionsMatching = async setting => {
     if (transactionsChanges.documents.length === 0) {
       log('info', '[matching service] No new operations since last execution')
     } else {
-      log('info', `[matching service] ${transactionsChanges.documents.length} new transactions since last execution. Trying to find bills for them`)
+      log(
+        'info',
+        `[matching service] ${
+          transactionsChanges.documents.length
+        } new transactions since last execution. Trying to find bills for them`
+      )
 
       const result = await matchFromTransactions(transactionsChanges.documents)
       logResult(result)
@@ -128,12 +138,12 @@ const doCategorization = async setting => {
           'Auto categorization setting is enabled, sending transactions to API'
         )
         await AutoCategorization.sendTransactions(transactionsCategorized)
-        log('info', `Sent ${transactionsCategorized.length} transactions to API`)
-      } else {
         log(
           'info',
-          'Auto categorization setting is disabled, skipping'
+          `Sent ${transactionsCategorized.length} transactions to API`
         )
+      } else {
+        log('info', 'Auto categorization setting is disabled, skipping')
       }
 
       setting.categorization.lastSeq = newChanges.newLastSeq
@@ -171,7 +181,7 @@ const onOperationOrBillCreate = async () => {
   await doSendNotifications(setting, notifChanges)
   await doCategorization(setting)
 
-  await Settings.createOrUpdate( setting)
+  await Settings.createOrUpdate(setting)
 }
 
 Document.registerClient(cozyClient)
