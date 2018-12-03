@@ -1,17 +1,8 @@
 import React from 'react'
-import {
-  flowRight as compose,
-  sumBy,
-  uniq,
-  sortBy,
-  get,
-  keyBy,
-  groupBy
-} from 'lodash'
+import { flowRight as compose, sumBy, uniq, sortBy, get, keyBy } from 'lodash'
 import { connect } from 'react-redux'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import * as d3 from 'd3'
 
 import { withRouter } from 'react-router'
 import { translate, Button, withBreakpoints } from 'cozy-ui/react'
@@ -29,13 +20,15 @@ import AddAccountLink from 'ducks/settings/AddAccountLink'
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import { filterByDoc, getFilteringDoc } from 'ducks/filters'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
-import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
+import {
+  ACCOUNT_DOCTYPE,
+  GROUP_DOCTYPE,
+  SETTINGS_DOCTYPE,
+  TRANSACTION_DOCTYPE
+} from 'doctypes'
 import History from './History'
-import historyData from './history_data.json'
-import { getBalanceHistories, sortBalanceHistoryByDate } from './helpers'
 import { buildVirtualGroups } from 'ducks/groups/helpers'
-import sma from 'sma'
-import { format as formatDate } from 'date-fns'
+import { format as formatDate, subYears } from 'date-fns'
 
 import styles from './Balance.styl'
 import btnStyles from 'styles/buttons.styl'
@@ -282,36 +275,14 @@ class Balance extends React.Component {
     this.props.router.push('/transactions')
   }
 
-  getBalanceHistory() {
-    const balanceHistories = getBalanceHistories(
-      historyData['io.cozy.bank.accounts'],
-      historyData['io.cozy.bank.operations']
-    )
-    const balanceHistory = sortBalanceHistoryByDate(balanceHistories.all)
-
-    return balanceHistory
-  }
-
-  getChartData() {
-    const history = this.getBalanceHistory()
-    const WINDOW_SIZE = 15
-
-    const balancesSma = sma(history.map(h => h.y), WINDOW_SIZE, n => n)
-    const data = balancesSma.map((balance, i) => ({
-      ...history[i],
-      y: balance
-    }))
-
-    return data
-  }
-
   render() {
     const {
       t,
       breakpoints: { isMobile },
       accounts: accountsCollection,
       groups: groupsCollection,
-      settings: settingsCollection
+      settings: settingsCollection,
+      transactions: transactionsCollection
     } = this.props
     if (
       isCollectionLoading(accountsCollection) ||
@@ -362,13 +333,6 @@ class Balance extends React.Component {
       />
     )
 
-    const chartData = this.getChartData()
-    const chartNbTicks = uniq(
-      Object.keys(groupBy(chartData, i => formatDate(i.x, 'YYYY-MM')))
-    ).length
-    const chartIntervalBetweenPoints = 57
-    const TICK_FORMAT = d3.timeFormat('%b')
-
     return (
       <Padded>
         <Topbar>
@@ -376,29 +340,14 @@ class Balance extends React.Component {
         </Topbar>
         {flag('balance-history') ? (
           <History
-            accounts={historyData['io.cozy.bank.accounts']}
-            chartProps={{
-              data: chartData,
-              width: chartNbTicks * chartIntervalBetweenPoints,
-              height: 103,
-              margin: {
-                top: 20,
-                bottom: 35,
-                left: 16,
-                right: 16
-              },
-              showAxis: true,
-              axisMargin: 10,
-              tickFormat: TICK_FORMAT
-            }}
+            accounts={accountsCollection}
+            transactions={transactionsCollection}
           />
         ) : (
           <div className={styles['Balance__kpi']}>
             <FigureBlock
               label={t('Balance.subtitle.all')}
-              accounts={historyData['io.cozy.bank.accounts']}
               total={total}
-              transactions={historyData['io.cozy.bank.operations']}
               currency="€"
               coloredPositive
               coloredNegative
@@ -434,6 +383,15 @@ export default compose(
   queryConnect({
     accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' },
     groups: { query: client => client.all(GROUP_DOCTYPE), as: 'groups' },
-    settings: { query: client => client.all(SETTINGS_DOCTYPE), as: 'settings' }
+    settings: { query: client => client.all(SETTINGS_DOCTYPE), as: 'settings' },
+    transactions: {
+      query: client => {
+        const today = new Date()
+        const oneYearBefore = subYears(today, 1)
+        const minDate = formatDate(oneYearBefore, 'YYYY-MM-DD')
+
+        return client.all(TRANSACTION_DOCTYPE).where({ date: { $gt: minDate } })
+      }
+    }
   })
 )(Balance)

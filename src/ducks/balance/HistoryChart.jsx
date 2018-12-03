@@ -5,17 +5,6 @@ import LineChart from 'components/Chart/LineChart'
 import styles from './History.styl'
 import palette from 'cozy-ui/react/palette'
 import { format as formatDate } from 'date-fns'
-import historyData from 'ducks/balance/history_data.json'
-import {
-  getBalanceHistories,
-  sortBalanceHistoryByDate
-} from 'ducks/balance/helpers'
-import {
-  isBefore as isDateBefore,
-  isAfter as isDateAfter,
-  endOfToday,
-  subMonths
-} from 'date-fns'
 
 const gradientStyle = {
   '0%': '#76b9f3',
@@ -37,36 +26,8 @@ class HistoryChart extends Component {
     )
   }
 
-  getBalanceHistory() {
-    const balanceHistories = getBalanceHistories(
-      historyData['io.cozy.bank.accounts'],
-      historyData['io.cozy.bank.operations']
-    )
-    const balanceHistory = sortBalanceHistoryByDate(balanceHistories.all)
-
-    return balanceHistory
-  }
-
-  getChartData() {
-    const history = this.getBalanceHistory()
-    const today = endOfToday()
-    const twoMonthsAgo = subMonths(today, 2)
-    const data = history.filter(
-      h => isDateBefore(h.x, today) && isDateAfter(h.x, twoMonthsAgo)
-    )
-
-    return data
-  }
-
   render() {
-    const data = this.getChartData()
-    const chartData = this.getChartData()
-    const chartNbTicks = chartData.length
-    const chartIntervalBetweenPoints = 10
-    const width = this.props.breakpoints.isMobile
-      ? chartNbTicks * chartIntervalBetweenPoints
-      : '100%'
-    const height = 72
+    const { data, height, width } = this.props
     return (
       <div
         className={styles.HistoryChart}
