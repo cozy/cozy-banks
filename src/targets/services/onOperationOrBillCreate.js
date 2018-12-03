@@ -20,6 +20,25 @@ process.on('unhandledRejection', err => {
   log('warn', JSON.stringify(err.stack))
 })
 
+
+/**
+ * If lastSeq is 0, it's more efficient to fetch all documents.
+ */
+const fetchChangesOrAll = async (Model, lastSeq) => {
+  if (lastSeq === '0') {
+    log('info', 'Shortcut for changes, using fetchAll since no lastSeq')
+    const documents = await Model.fetchAll()
+    // fetch last change to have the last_seq
+    const lastChanges = await Model.fetchChanges('', {
+      descending: true,
+      limit: 1
+    })
+    return { documents, newLastSeq: lastChanges.last_seq }
+  } else {
+    return Model.fetchChanges(lastSeq)
+  }
+}
+
 const doBillsMatching = async setting => {
   // Bills matching
   log('info', 'Bills matching')
@@ -34,7 +53,7 @@ const doBillsMatching = async setting => {
 
   try {
     log('info', 'Fetching bills changes...')
-    const billsChanges = await Bill.fetchChanges(billsLastSeq)
+    const billsChanges = await fetchChangesOrAll(Bill, billsLastSeq)
     billsChanges.documents = billsChanges.documents.filter(isCreatedDoc)
 
     setting.billsMatching.billsLastSeq = billsChanges.newLastSeq
@@ -56,8 +75,13 @@ const doTransactionsMatching = async setting => {
 
   try {
     log('info', 'Fetching transactions changes...')
-    const transactionsChanges = await Transaction.fetchChanges(transactionsLastSeq)
-    transactionsChanges.documents = transactionsChanges.documents.filter(isCreatedDoc)
+    const transactionsChanges = await fetchChangesOrAll(
+      Transaction,
+      transactionsLastSeq
+    )
+    transactionsChanges.documents = transactionsChanges.documents.filter(
+      isCreatedDoc
+    )
     setting.billsMatching.transactionsLastSeq = transactionsChanges.newLastSeq
 
     if (transactionsChanges.documents.length === 0) {
@@ -87,14 +111,16 @@ const doCategorization = async setting => {
   const catLastSeq = setting.categorization.lastSeq
 
   try {
-    const catChanges = await Transaction.fetchChanges(catLastSeq)
-    const toCategorize = catChanges.documents
-      .filter(isCreatedDoc)
+    const catChanges = await fetchChangesOrAll(Transaction, catLastSeq)
+    const toCategorize = catChanges.documents.filter(isCreatedDoc)
 
     if (toCategorize.length > 0) {
       const transactionsCategorized = await categorizes(toCategorize)
       await Transaction.updateAll(transactionsCategorized)
-      const newChanges = await Transaction.fetchChanges(catChanges.newLastSeq)
+      const newChanges = await fetchChangesOrAll(
+        Transaction,
+        catChanges.newLastSeq
+      )
 
       if (setting.community.autoCategorization.enabled) {
         log(
@@ -138,7 +164,7 @@ const onOperationOrBillCreate = async () => {
   log('info', 'Fetching transaction changes...')
 
   log('debug', `notifLastSeq: ${notifLastSeq}`)
-  const notifChanges = await Transaction.fetchChanges(notifLastSeq)
+  const notifChanges = await fetchChangesOrAll(Transaction, notifLastSeq)
 
   await doBillsMatching(setting)
   await doTransactionsMatching(setting)
