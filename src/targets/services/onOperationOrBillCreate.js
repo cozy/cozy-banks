@@ -20,19 +20,7 @@ process.on('unhandledRejection', err => {
   log('warn', JSON.stringify(err.stack))
 })
 
-const onOperationOrBillCreate = async () => {
-  log('info', `COZY_URL: ${process.env.COZY_URL}`)
-  log('info', 'Fetching settings...')
-  const setting = await Settings.fetchWithDefault()
-
-  // We fetch the notifChanges before anything else because we need to know if
-  // some transactions are totally new in `TransactionGreater` notification.
-  // These transactions may be updated by the matching algorithm, and thus
-  // may be missed by `TransactionGreater` because their `_rev` don't start with `1`
-  const notifLastSeq = setting.notifications.lastSeq
-  log('info', 'Fetching transaction changes...')
-  const notifChanges = await Transaction.fetchChanges(notifLastSeq)
-
+const doBillsMatching = async setting => {
   // Bills matching
   log('info', 'Bills matching')
   if (!setting.billsMatching) {
@@ -61,8 +49,9 @@ const onOperationOrBillCreate = async () => {
   } catch (e) {
     log('error', `[matching service] ${e}`)
   }
+}
 
-
+const doTransactionsMatching = async setting => {
   const transactionsLastSeq = setting.billsMatching.transactionsLastSeq || '0'
 
   try {
@@ -82,8 +71,9 @@ const onOperationOrBillCreate = async () => {
   } catch (e) {
     log('error', `[matching service] ${e}`)
   }
+}
 
-  // Send notifications
+const doSendNotifications = async (setting, notifChanges) => {
   try {
     const transactionsToNotify = notifChanges.documents
     await sendNotifications(setting, transactionsToNotify, cozyClient)
@@ -91,8 +81,9 @@ const onOperationOrBillCreate = async () => {
   } catch (e) {
     log('warn', 'Error while sending notifications : ' + e)
   }
+}
 
-  // Categorization
+const doCategorization = async setting => {
   const catLastSeq = setting.categorization.lastSeq
 
   try {
@@ -102,7 +93,7 @@ const onOperationOrBillCreate = async () => {
 
     if (toCategorize.length > 0) {
       const transactionsCategorized = await categorizes(toCategorize)
-      const transactionSaved = await Transaction.updateAll( transactionsCategorized)
+      await Transaction.updateAll(transactionsCategorized)
       const newChanges = await Transaction.fetchChanges(catChanges.newLastSeq)
 
       if (setting.community.autoCategorization.enabled) {
@@ -131,6 +122,28 @@ const onOperationOrBillCreate = async () => {
       log('warn', e)
     }
   }
+}
+
+const onOperationOrBillCreate = async () => {
+  log('info', `COZY_CREDENTIALS: ${process.env.COZY_CREDENTIALS}`)
+  log('info', `COZY_URL: ${process.env.COZY_URL}`)
+  log('info', 'Fetching settings...')
+  const setting = await Settings.fetchWithDefault()
+
+  // We fetch the notifChanges before anything else because we need to know if
+  // some transactions are totally new in `TransactionGreater` notification.
+  // These transactions may be updated by the matching algorithm, and thus
+  // may be missed by `TransactionGreater` because their `_rev` don't start with `1`
+  const notifLastSeq = setting.notifications.lastSeq
+  log('info', 'Fetching transaction changes...')
+
+  log('debug', `notifLastSeq: ${notifLastSeq}`)
+  const notifChanges = await Transaction.fetchChanges(notifLastSeq)
+
+  await doBillsMatching(setting)
+  await doTransactionsMatching(setting)
+  await doSendNotifications(setting, notifChanges)
+  await doCategorization(setting)
 
   await Settings.createOrUpdate( setting)
 }
