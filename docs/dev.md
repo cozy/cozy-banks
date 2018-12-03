@@ -23,6 +23,7 @@
     - [When creating a notification](#when-creating-a-notification)
     - [Misc](#misc)
 - [Pouch On Web](#pouch-on-web)
+- [Fixtures](#fixtures)
 
 <!-- /MarkdownTOC -->
 
@@ -266,6 +267,20 @@ Now you can play with replication:
 cozyClient.links[0].startReplication()
 cozyClient.links[0].stopReplication()
 ```
+
+## Fixtures
+
+To get some initial data, you can import some fixtures:
+
+```
+yarn fixtures
+```
+
+There are also fixtures for specific things:
+
+- [Matching service](/test/fixtures/matching-service/README.md): transactions and bills that must match when passed in the matching algorithm
+
+All fixtures are located in [`test/fixtures`](/test/fixtures).
 
 [pass]: https://www.passwordstore.org/
 [ACH]: https://github.com/cozy/ACH
