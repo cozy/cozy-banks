@@ -124,31 +124,6 @@ class DumbGroupSettings extends Component {
     this.updateOrCreate(group)
   }
 
-  renderAccountLine = (account, group) => {
-    return (
-      <tr>
-        <td className={styles.GrpStg__accntLabel}>
-          {account.shortLabel || account.label}
-        </td>
-        <td className={styles.GrpStg__accntBank}>
-          {getAccountInstitutionLabel(account)}
-        </td>
-        <td className={styles.GrpStg__accntNumber}>{account.number}</td>
-        <td className={styles.GrpStg__accntToggle}>
-          {group ? (
-            <Toggle
-              id={account._id}
-              checked={group.accounts.existsById(account._id)}
-              onToggle={this.toggleAccount.bind(null, account._id, group)}
-            />
-          ) : (
-            <Toggle id={account._id} disabled />
-          )}
-        </td>
-      </tr>
-    )
-  }
-
   onRemove = async () => {
     const { group, router, deleteDocument } = this.props
     await deleteDocument(group)
