@@ -1,16 +1,15 @@
-/* global mount */
-
 import React from 'react'
+import { shallow } from 'enzyme'
 import Padded from './Padded'
 
 describe('Padded', () => {
   it(`should display children`, () => {
-    expect(mount(<Padded>content</Padded>)).toMatchSnapshot()
+    expect(shallow(<Padded>content</Padded>).getElement()).toMatchSnapshot()
   })
 
   it(`should extend className`, () => {
     expect(
-      mount(<Padded className="noPaddingBottom">content</Padded>)
+      shallow(<Padded className="noPaddingBottom">content</Padded>).getElement()
     ).toMatchSnapshot()
   })
 })
