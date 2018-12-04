@@ -2,30 +2,32 @@
 @require '~styles/variables.styl'
 
 .History
-    background-color dodgerBlue
     padding-top: 1.5rem
-    padding-bottom: 1.5rem
+    padding-bottom: 1rem
     text-align center
     color white
-    margin-left -2rem
-    margin-right -2rem
 
     +small-screen()
-        margin-left -1rem
-        margin-right -1rem
-        margin-top -1rem
+        padding-top: .5rem
+        padding-bottom: .5rem
 
 .History__currentBalance
     text-align center
-    font-size 1.5rem
+    font-size 2rem
+    line-height 2.5rem
+
+    +small-screen()
+        font-size 1.5rem
+        line-height 2rem
 
 .History__currentBalanceCurrency
     color inherit
 
 .History__subtitle
-    margin-top 0.25rem
+    margin-bottom .5rem
     text-transform uppercase
     font-size 0.75rem
+    line-height 1rem
     font-weight bold
     color #a2c4f9
 

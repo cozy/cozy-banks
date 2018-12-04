@@ -40,6 +40,10 @@ class History extends Component {
   }
 
   getChartProps() {
+    const {
+      breakpoints: { isMobile }
+    } = this.props
+
     const data = this.getChartData()
     const nbTicks = uniq(
       Object.keys(groupBy(data, i => formatDate(i.x, 'YYYY-MM')))
@@ -52,12 +56,12 @@ class History extends Component {
       data,
       nbTicks,
       width: nbTicks * intervalBetweenPoints,
-      height: 103,
+      height: isMobile ? 95 : 141,
       margin: {
         top: 20,
         bottom: 35,
-        left: 16,
-        right: 16
+        left: isMobile ? 16 : 32,
+        right: isMobile ? 16 : 32
       },
       showAxis: true,
       axisMargin: 10,
