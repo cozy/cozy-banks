@@ -170,12 +170,8 @@ const action = {
 
     return <Icon icon="hourglass" color={color} />
   },
-  match: (transaction, { brands }) => {
-    return (
-      brands.filter(brand => brand.hasTrigger && brand.health).length > 0 &&
-      isHealthExpense(transaction) &&
-      getVendors(transaction)
-    )
+  match: transaction => {
+    return isHealthExpense(transaction) && getVendors(transaction)
   },
   Component: compose(
     withBreakpoints(),

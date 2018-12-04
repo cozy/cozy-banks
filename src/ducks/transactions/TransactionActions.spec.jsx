@@ -38,7 +38,9 @@ const tests = [
   ['depsantegene4', '.c-actionbtn--error', 'No reimbursement yet', 'hourglass', 'HealthExpenseStatus'],
   ['depsanteisa2', '.c-actionbtn--error', 'No reimbursement yet', 'hourglass', 'HealthExpenseStatus'],
   ['depsantecla3', '.c-actionbtn--error', 'No reimbursement yet', 'hourglass', 'HealthExpenseStatus'],
-  ['facturebouygues', null, '1 invoice', 'file', 'bill'],
+  ['facturebouygues', null, '1 invoice', 'file', 'bill', {
+    brands: brands.filter(x => x.name === 'Bouygues Telecom').map(b => ({ ...b, hasTrigger: true }))
+  }],
   ['salaireisa1', null, 'Accéder à votre paie', 'openwith', 'url'],
   ['fnac', null, 'Accéder au site Fnac', 'openwith', 'url'],
   ['edf', null, 'EDF', null, 'app'],
@@ -46,7 +48,7 @@ const tests = [
     brands: brands.filter(x => x.name == 'Malakoff Mederic')
   }, 'remboursementcomplementaire konnector not installed'],
   ['remboursementcomplementaire', null, '1 invoice', null, 'bill', {
-    brands: []
+    brands: brands.filter(x => x.name == 'Malakoff Mederic').map(b => ({ ...b, hasTrigger: true }))
   }, 'remboursementcomplementaire konnector installed'],
   ['normalshopping', null, 'toto', null]
 ]
@@ -58,10 +60,7 @@ const actionProps = {
     edf: 'edf-url://',
     maif: 'maifurl'
   },
-
-  // Brands represents the brands for which no konnector
-  // has been installed
-  brands: brands.filter(x => x.name == 'Malakoff Mederic')
+  brands: brands
 }
 
 let client, transactionsById
