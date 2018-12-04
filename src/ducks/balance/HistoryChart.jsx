@@ -12,6 +12,11 @@ const gradientStyle = {
 }
 
 class HistoryChart extends Component {
+  constructor(props) {
+    super(props)
+    this.container = React.createRef()
+  }
+
   getTooltipContent = item => {
     const date = formatDate(item.x, 'DD  MMM')
     const balance = item.y.toFixed(2)
@@ -34,10 +39,7 @@ class HistoryChart extends Component {
   render() {
     const { data, height, width } = this.props
     return (
-      <div
-        className={styles.HistoryChart}
-        ref={node => (this.container = node)}
-      >
+      <div className={styles.HistoryChart} ref={this.container}>
         <LineChart
           xScale={d3.scaleTime}
           lineColor="white"

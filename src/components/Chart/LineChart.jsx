@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import * as d3 from 'd3'
 import { maxBy, sortBy } from 'lodash'
 import styles from './LineChart.styl'
+import Tooltip from './Tooltip'
 
 class LineChart extends Component {
   dragging = false
@@ -304,12 +305,23 @@ class LineChart extends Component {
     const { width, height, gradient, margin } = this.props
     const { selectedItem, x } = this.state
 
+    const isLeftPosition = x < width / 2
+    const position = isLeftPosition ? 'left' : 'right'
+    const tooltipX = (isLeftPosition ? 0 : -width) + x + margin[position]
+
     return (
       <div className={styles.LineChart}>
         {selectedItem && (
-          <Tooltip x={x + margin.left}>{this.getTooltipContent()}</Tooltip>
+          <Tooltip x={tooltipX} position={position}>
+            {this.getTooltipContent()}
+          </Tooltip>
         )}
-        <svg ref={node => (this.root = node)} width={width} height={height}>
+        <svg
+          ref={node => (this.root = node)}
+          width={width}
+          height={height}
+          className={styles.LineChartSVG}
+        >
           {gradient && (
             <defs>
               <linearGradient id="gradient" x2="0%" y2="100%">
@@ -377,24 +389,6 @@ LineChart.defaultProps = {
   pointFillColor: 'black',
   pointStrokeWidth: 10,
   pointStrokeColor: 'rgba(0, 0, 0, 0.3)'
-}
-
-class Tooltip extends Component {
-  render() {
-    const { children, x } = this.props
-
-    return (
-      <div
-        ref={node => (this.node = node)}
-        className={styles.LineChartTooltip}
-        style={{
-          transform: `translateX(${x}px)`
-        }}
-      >
-        {children}
-      </div>
-    )
-  }
 }
 
 export default LineChart
