@@ -105,8 +105,14 @@ class TransactionsPage extends Component {
     }
   }
 
-  getKonnectorSlugs = triggers => {
-    return triggers
+  getInstalledKonnectorsSlugs() {
+    const { triggers } = this.props
+
+    if (isCollectionLoading(triggers)) {
+      return []
+    }
+
+    return triggers.data
       .filter(trigger => trigger.worker === 'konnector')
       .map(getKonnectorFromTrigger)
       .filter(Boolean)
@@ -211,18 +217,14 @@ class TransactionsPage extends Component {
     )
   }
 
-  getBrandsWithoutTrigger = () => {
-    const { triggers } = this.props
+  getBrands() {
+    const installedKonnectorsSlugs = this.getInstalledKonnectorsSlugs()
+    const brands = getBrands().map(brand => ({
+      ...brand,
+      hasTrigger: includes(installedKonnectorsSlugs, brand.konnectorSlug)
+    }))
 
-    if (isCollectionLoading(triggers)) {
-      return []
-    }
-
-    const slugs = this.getKonnectorSlugs(triggers.data)
-    const isBrandKonnectorAbsent = brand =>
-      !includes(slugs, brand.konnectorSlug)
-
-    return getBrands(isBrandKonnectorAbsent)
+    return brands
   }
 
   getFilteringOnAccount = () => {
@@ -255,7 +257,7 @@ class TransactionsPage extends Component {
           onScroll={this.checkToActivateTopInfiniteScroll}
           transactions={transations}
           urls={urls}
-          brands={this.getBrandsWithoutTrigger()}
+          brands={this.getBrands()}
           filteringOnAccount={this.getFilteringOnAccount()}
           manualLoadMore={isIOSApp()}
         />

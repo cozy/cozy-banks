@@ -27,6 +27,10 @@ import { triggersConn } from 'doctypes'
 
 const name = 'konnector'
 
+function getBrandsWithoutTrigger(brands) {
+  return brands.filter(brand => !brand.hasTrigger)
+}
+
 const InformativeModal = ({
   onCancel,
   onConfirm,
@@ -127,10 +131,11 @@ class _Component extends React.Component {
   }
 
   findMatchingBrand() {
-    return findMatchingBrand(
-      this.props.actionProps.brands,
-      this.props.transaction.label
+    const brandsWithoutTrigger = getBrandsWithoutTrigger(
+      this.props.actionProps.brands
     )
+
+    return findMatchingBrand(brandsWithoutTrigger, this.props.transaction.label)
   }
 
   render() {
@@ -221,9 +226,11 @@ const action = {
   name,
   icon,
   match: (transaction, { brands, urls }) => {
+    const brandsWithoutTrigger = getBrandsWithoutTrigger(brands)
+
     return (
-      brands &&
-      matchBrands(brands, transaction.label) &&
+      brandsWithoutTrigger &&
+      matchBrands(brandsWithoutTrigger, transaction.label) &&
       (urls['COLLECT'] || urls['HOME'])
     )
   },
