@@ -30,9 +30,11 @@
  *
  * @module filterData
  */
-const { log } = require('cozy-konnector-libs')
+const logger = require('cozy-logger')
 const keyBy = require('lodash/keyBy')
 const sortBy = require('lodash/sortBy')
+
+const log = logger.namespace('billsmatching-utils')
 
 const sortBillsByLinkedOperationNumber = (bills, operations) => {
   bills = bills.map(bill => {

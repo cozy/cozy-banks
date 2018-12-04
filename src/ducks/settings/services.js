@@ -1,7 +1,9 @@
-import { log } from 'cozy-konnector-libs'
+import logger from 'cozy-logger'
 import { getDefaultedSettings } from './helpers'
 import { Document } from 'cozy-doctypes'
 import { DOCTYPE } from './constants'
+
+const log = logger.namespace('settings-doctype')
 
 class Settings extends Document {
   static async fetchWithDefault() {

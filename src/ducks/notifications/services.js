@@ -1,4 +1,4 @@
-import { log } from 'cozy-konnector-libs'
+import logger from 'cozy-logger'
 import { initTranslation } from 'cozy-ui/react/I18n/translation'
 import {
   BalanceLower,
@@ -6,6 +6,8 @@ import {
   HealthBillLinked
 } from 'ducks/notifications'
 import { BankAccount } from 'models'
+
+const log = logger.namespace('notification-service')
 
 const lang = process.env.COZY_LOCALE || 'en'
 const dictRequire = lang => require(`../../locales/${lang}`)

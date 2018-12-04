@@ -1,4 +1,5 @@
-import { cozyClient, log } from 'cozy-konnector-libs'
+import { cozyClient } from 'cozy-konnector-libs'
+import logger from 'cozy-logger'
 import {
   categorizes,
   PARAMETERS_NOT_FOUND,
@@ -11,6 +12,8 @@ import isCreatedDoc from 'utils/isCreatedDoc'
 import matchFromBills from 'ducks/billsMatching/matchFromBills'
 import matchFromTransactions from 'ducks/billsMatching/matchFromTransactions'
 import { logResult } from 'ducks/billsMatching/utils'
+
+const log = logger.namespace('onOperationOrBillCreate')
 
 process.on('uncaughtException', err => {
   log('warn', JSON.stringify(err.stack))
