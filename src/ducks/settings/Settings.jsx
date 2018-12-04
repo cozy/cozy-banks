@@ -1,6 +1,5 @@
 /* global __TARGET__, __APP_VERSION__ */
 import React from 'react'
-import Topbar from 'components/Topbar'
 import {
   translate,
   Tabs,
@@ -13,7 +12,7 @@ import styles from './Settings.styl'
 import { withRouter } from 'react-router'
 import { flowRight as compose } from 'lodash'
 import AppVersion from './AppVersion'
-import PageTitle from 'components/PageTitle'
+import { PageTitle } from 'components/Title'
 import { Padded } from 'components/Spacing'
 
 const tabNames = ['configuration', 'accounts', 'groups']
@@ -34,11 +33,9 @@ const Settings = ({ t, children, router }) => {
 
   return (
     <Padded>
-      <Topbar>
-        <PageTitle className={styles.settings__title}>
-          {t('Settings.title')}
-        </PageTitle>
-      </Topbar>
+      <PageTitle className={styles.settings__title}>
+        {t('Settings.title')}
+      </PageTitle>
       <Tabs className={styles['bnk-tabs']} initialActiveTab={defaultTab}>
         <TabList className={styles['bnk-coz-tab-list']}>{tabs}</TabList>
         <TabPanels>

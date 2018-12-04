@@ -8,13 +8,12 @@ import { withRouter } from 'react-router'
 import { translate, Button, withBreakpoints } from 'cozy-ui/react'
 import { queryConnect } from 'cozy-client'
 
-import Topbar from 'components/Topbar'
 import Loading from 'components/Loading'
 import { Table, TdSecondary } from 'components/Table'
 import { Padded } from 'components/Spacing'
 import Header from 'components/Header'
 import { Figure, FigureBlock } from 'components/Figure'
-import PageTitle from 'components/PageTitle'
+import { PageTitle } from 'components/Title'
 import flag from 'cozy-flags'
 
 import AddAccountLink from 'ducks/settings/AddAccountLink'
@@ -291,6 +290,10 @@ class Balance extends React.Component {
     const headerClassName = cx(styles.Balance_Header, {
       [styles.Balance_Header_WithChart]: withChart
     })
+    const titleColorProps = {
+      color: withChart && !isMobile ? 'primary' : 'default'
+    }
+    const titlePaddedClass = isMobile ? 'u-p-0' : 'u-pb-0'
 
     if (
       isCollectionLoading(accountsCollection) ||
@@ -302,7 +305,7 @@ class Balance extends React.Component {
           <Header className={headerClassName} {...headerColorProps}>
             {(isMobile || !withChart) && (
               <Padded className={titlePaddedClass}>
-                <PageTitle {...titleColorProp}>{t('Balance.title')}</PageTitle>
+                <PageTitle {...titleColorProps}>{t('Balance.title')}</PageTitle>
               </Padded>
             )}
           </Header>
@@ -350,7 +353,7 @@ class Balance extends React.Component {
         <Header className={headerClassName} {...headerColorProps}>
           {(isMobile || !withChart) && (
             <Padded className={titlePaddedClass}>
-              <PageTitle {...titleColorProp}>{t('Balance.title')}</PageTitle>
+              <PageTitle {...titleColorProps}>{t('Balance.title')}</PageTitle>
             </Padded>
           )}
           {withChart ? (
@@ -368,19 +371,8 @@ class Balance extends React.Component {
                 coloredNegative
                 signed
               />
-            ) : (
-              <div className={styles['Balance__kpi']}>
-                <FigureBlock
-                  label={t('Balance.subtitle.all')}
-                  total={total}
-                  currency="€"
-                  coloredPositive
-                  coloredNegative
-                  signed
-                  />
-              </div>
-            )}
-          </Padded>
+            </Padded>
+          )}
         </Header>
         <Padded>
           {groupsSorted.length > 0 && groupsC}

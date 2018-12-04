@@ -6,10 +6,9 @@ import { Button, translate, Toggle, Spinner } from 'cozy-ui/react'
 
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import Loading from 'components/Loading'
-import Topbar from 'components/Topbar'
 import BackButton from 'components/BackButton'
 import Table from 'components/Table'
-import PageTitle from 'components/PageTitle'
+import { PageTitle } from 'components/Title'
 import { Padded } from 'components/Spacing'
 import { getAccountInstitutionLabel } from '../account/helpers'
 
@@ -145,9 +144,7 @@ class DumbGroupSettings extends Component {
     return (
       <Padded>
         <BackButton to="/settings/groups" arrow />
-        <Topbar>
-          <PageTitle>{group.label}</PageTitle>
-        </Topbar>
+        <PageTitle>{group.label}</PageTitle>
 
         <h3>{t('Groups.label')}</h3>
         <form

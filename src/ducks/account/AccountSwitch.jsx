@@ -19,7 +19,7 @@ import Portal from 'cozy-ui/react/Portal'
 
 import AccountSharingStatus from 'components/AccountSharingStatus'
 import BarItem from 'components/BarItem'
-import PageTitle from 'components/PageTitle'
+import Title from 'components/Title'
 
 import {
   filterByDoc,
@@ -100,11 +100,11 @@ const DownArrow = () => (
 
 const AccountSwitchSelect = ({ filteringDoc, onClick, t }) => (
   <div className={styles.AccountSwitch__Select} onClick={onClick}>
-    <PageTitle className={classNames(styles.AccountSwitch__SelectText)}>
+    <Title className={classNames(styles.AccountSwitch__SelectText)}>
       {filteringDoc
         ? filteringDoc.shortLabel || filteringDoc.label
         : t('AccountSwitch.all_accounts')}
-    </PageTitle>
+    </Title>
     <DownArrow />
   </div>
 )

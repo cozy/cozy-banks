@@ -4,8 +4,7 @@ import { translate, Button, withBreakpoints } from 'cozy-ui/react'
 import { some, flowRight as compose } from 'lodash'
 import { withClient, queryConnect } from 'cozy-client'
 
-import Topbar from 'components/Topbar'
-import PageTitle from 'components/PageTitle'
+import { PageTitle } from 'components/Title'
 import AddAccountLink from 'ducks/settings/AddAccountLink'
 
 import calculator from 'assets/icons/icon-calculator.svg'
@@ -58,11 +57,9 @@ class Onboarding extends Component {
 
     return (
       <Hero>
-        <Topbar>
-          <PageTitle style={centerStyle}>
-            {t(`Onboarding.title.${isMobile ? 'mobile' : 'desktop'}`)}
-          </PageTitle>
-        </Topbar>
+        <PageTitle style={centerStyle}>
+          {t(`Onboarding.title.${isMobile ? 'mobile' : 'desktop'}`)}
+        </PageTitle>
         <Sections>
           <Section>
             <Icon color={palette.pomegranate} icon={calculator} />
