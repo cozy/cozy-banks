@@ -64,20 +64,24 @@ const prompt = qs => {
 const dot2dash = x => x.replace(/\./g, '-')
 
 const couch = {
+  URL: 'http://localhost:5984',
+  doctypeMatchesDatabase: (dbName, doctype) => {
+    return endsWith(dbName, dot2dash(doctype))
+  },
   listDatabases: () => {
-    return fetch('http://localhost:5984/_all_dbs').then(response =>
-      response.json()
-    )
+    return fetch(`${couch.URL}/_all_dbs`).then(response => response.json())
   },
 
   dropDatabases: async doctypes => {
     const allDbs = await couch.listDatabases()
     const dbs = allDbs.filter(dbName =>
-      any(doctypes.map(doctype => endsWith(dbName, dot2dash(doctype))))
+      any(
+        doctypes.map(doctype => couch.doctypeMatchesDatabase(dbName, doctype))
+      )
     )
     for (let db of dbs) {
       log('info', `Deleting ${db}...`)
-      await fetch(`http://localhost:5984/${encodeURIComponent(db)}`, {
+      await fetch(`${couch.URL}/${encodeURIComponent(db)}`, {
         method: 'DELETE'
       })
     }
