@@ -1,5 +1,6 @@
 export const DOCTYPE = 'io.cozy.bank.settings'
 export const COLLECTION_NAME = 'settings'
+
 export const DEFAULTS_SETTINGS = {
   _type: 'io.cozy.bank.settings',
   notifications: {
@@ -24,6 +25,10 @@ export const DEFAULTS_SETTINGS = {
     mensuel: {
       enabled: false
     }
+  },
+  billsMatching: {
+    billsLastSeq: '0',
+    transactionsLastSeq: '0'
   },
   community: {
     autoCategorization: {

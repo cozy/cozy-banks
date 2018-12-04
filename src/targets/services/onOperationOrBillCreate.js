@@ -45,13 +45,6 @@ const fetchChangesOrAll = async (Model, lastSeq) => {
 const doBillsMatching = async setting => {
   // Bills matching
   log('info', 'Bills matching')
-  if (!setting.billsMatching) {
-    setting.billsMatching = {
-      billsLastSeq: '0',
-      transactionsLastSeq: '0'
-    }
-  }
-
   const billsLastSeq = setting.billsMatching.billsLastSeq || '0'
 
   try {
