@@ -23,7 +23,6 @@ process.on('unhandledRejection', err => {
   log('warn', JSON.stringify(err.stack))
 })
 
-
 /**
  * If lastSeq is 0, it's more efficient to fetch all documents.
  */
@@ -156,7 +155,15 @@ const doCategorization = async setting => {
   }
 }
 
-const onOperationOrBillCreate = async () => {
+const getOptions = argv => {
+  try {
+    return JSON.parse(argv.slice(-1)[0])
+  } catch (e) {
+    return {}
+  }
+}
+
+const onOperationOrBillCreate = async options => {
   log('info', `COZY_CREDENTIALS: ${process.env.COZY_CREDENTIALS}`)
   log('info', `COZY_URL: ${process.env.COZY_URL}`)
   log('info', 'Fetching settings...')
@@ -169,16 +176,32 @@ const onOperationOrBillCreate = async () => {
   const notifLastSeq = setting.notifications.lastSeq
   log('info', 'Fetching transaction changes...')
 
-  log('debug', `notifLastSeq: ${notifLastSeq}`)
   const notifChanges = await fetchChangesOrAll(Transaction, notifLastSeq)
 
-  await doBillsMatching(setting)
-  await doTransactionsMatching(setting)
+  if (options.billMatching !== false) {
+    log('info', 'Do bills matching...')
+    await doBillsMatching(setting)
+  }
+
+  if (options.transactionMatching !== false) {
+    log('info', 'Do transaction matching...')
+    await doTransactionsMatching(setting)
+  }
+
+  log('info', 'Do send notifications...')
   await doSendNotifications(setting, notifChanges)
+
+  log('info', 'Do categorization...')
   await doCategorization(setting)
 
+  log('info', 'Saving settings...')
   await Settings.createOrUpdate(setting)
 }
 
-Document.registerClient(cozyClient)
-onOperationOrBillCreate()
+const main = argv => {
+  Document.registerClient(cozyClient)
+  const options = getOptions(argv)
+  onOperationOrBillCreate(options)
+}
+
+main(process.argv)

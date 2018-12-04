@@ -26,6 +26,7 @@
     "lint:styles": "stylint src/styles --config ./.stylintrc",
     "stack:docker": "docker run --rm -it -p 8080:8080 -p 8025:8025 -v \"$(pwd)/build/\":/data/cozy-app/banks cozy/cozy-app-dev",
     "test": "env USE_REACT=true jest src",
+    "test:e2e": "node test/e2e/onOperationOrBillCreate.js",
     "posttest": "madge -b src/ --webpack-config webpack.config.js -c --extensions js,jsx src/main.jsx",
     "watch": "npm run watch:browser",
     "watch:browser": "NODE_ENV=browser:development npm run commons:watch:hot",

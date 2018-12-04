@@ -11,6 +11,7 @@
   ],
   "io.cozy.bank.operations": [
     {
+      "_id": "ikea_operation",
       "account": "compteisa1",
       "amount": -15,
       "automaticCategoryId": "401060",
