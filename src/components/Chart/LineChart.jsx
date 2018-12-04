@@ -44,7 +44,6 @@ class LineChart extends Component {
       tickSizeInner,
       xScale,
       yScale,
-      onUpdate,
       axisMargin,
       gradient,
       showAxis,
@@ -150,10 +149,6 @@ class LineChart extends Component {
 
     const lastItem = maxBy(data, d => d.x)
     this.selectItem(lastItem)
-
-    if (onUpdate && typeof onUpdate === 'function') {
-      this.props.onUpdate()
-    }
   }
 
   setData(data, animate) {
@@ -353,7 +348,6 @@ LineChart.propTypes = {
   xScale: PropTypes.func,
   yScale: PropTypes.func,
   axisColor: PropTypes.string,
-  onUpdate: PropTypes.func,
   axisMargin: PropTypes.number,
   gradient: PropTypes.object,
   enterAnimationDuration: PropTypes.number,

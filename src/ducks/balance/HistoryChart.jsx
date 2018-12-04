@@ -26,6 +26,11 @@ class HistoryChart extends Component {
     )
   }
 
+  componentDidMount() {
+    const container = this.container.current
+    container.scrollTo(container.scrollWidth, 0)
+  }
+
   render() {
     const { data, height, width } = this.props
     return (
@@ -38,10 +43,6 @@ class HistoryChart extends Component {
           lineColor="white"
           axisColor="white"
           labelsColor="#a2c4f9"
-          onUpdate={() => {
-            // FIXME the ref is undefined on first render
-            // this.container.scrollTo(this.container.scrollWidth, 0)
-          }}
           gradient={gradientStyle}
           pointFillColor="white"
           pointStrokeColor="rgba(255, 255, 255, 0.3)"
