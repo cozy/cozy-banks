@@ -116,7 +116,7 @@ class TransactionHeader extends Component {
           {this.displaySelectDates()}
           {this.displayBreadcrumb()}
         </Padded>
-        <TableHead isSubcategory={isSubcategory} />
+        <TableHead isSubcategory={isSubcategory} {...colorProps} />
       </Header>
     )
   }
