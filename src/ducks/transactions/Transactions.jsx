@@ -164,10 +164,7 @@ class TransactionsD extends React.Component {
     const Row = isDesktop ? RowDesktop : RowMobile
 
     return (
-      <TransactionContainer
-        className={styles.TransactionTable}
-        ref={ref => (this.transactionsRef = ref)}
-      >
+      <TransactionContainer className={styles.TransactionTable}>
         {manualLoadMore &&
           limitMin > 0 && (
             <LoadMoreButton onClick={() => this.props.onReachTop(20)}>
