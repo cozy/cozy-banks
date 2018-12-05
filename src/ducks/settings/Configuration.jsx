@@ -28,19 +28,21 @@ class Configuration extends Component {
           saveDocument={this.saveDocument}
           rows={[
             {
-              title: 'Notifications.if_balance_lower.settingTitle',
+              title: t('Notifications.if_balance_lower.settingTitle'),
               name: 'balanceLower',
-              description: 'Notifications.if_balance_lower.description'
+              description: t('Notifications.if_balance_lower.description')
             },
             {
-              title: 'Notifications.if_transaction_greater.settingTitle',
+              title: t('Notifications.if_transaction_greater.settingTitle'),
               name: 'transactionGreater',
-              description: 'Notifications.if_transaction_greater.description'
+              description: t('Notifications.if_transaction_greater.description')
             },
             {
-              title: 'Notifications.when_health_bill_linked.settingTitle',
+              title: t('Notifications.when_health_bill_linked.settingTitle'),
               name: 'healthBillLinked',
-              description: 'Notifications.when_health_bill_linked.description'
+              description: t(
+                'Notifications.when_health_bill_linked.description'
+              )
             }
           ]}
           title={t('Notifications.title')}
@@ -50,9 +52,9 @@ class Configuration extends Component {
         <TogglePane
           rows={[
             {
-              title: 'CommunitySettings.auto_categorization.title',
+              title: t('CommunitySettings.auto_categorization.title'),
               name: 'autoCategorization',
-              description: 'CommunitySettings.auto_categorization.subtitle'
+              description: t('CommunitySettings.auto_categorization.subtitle')
             }
           ]}
           saveDocument={this.saveDocument}

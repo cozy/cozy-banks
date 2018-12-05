@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Title, translate } from 'cozy-ui/react'
+import { Title } from 'cozy-ui/react'
 import ToggleRow from './ToggleRow'
 import { getDefaultedSettingsFromCollection } from './helpers'
 
@@ -28,7 +28,7 @@ class TogglePane extends Component {
   }
 
   renderRows = () => {
-    const { rows, settingsCollection, settingsKey, t } = this.props
+    const { rows, settingsCollection, settingsKey } = this.props
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
 
     return (
@@ -41,8 +41,8 @@ class TogglePane extends Component {
               key={row.name}
               enabled={setting.enabled}
               value={setting.value}
-              title={t(row.title)}
-              description={t(row.description)}
+              title={row.title}
+              description={row.description}
               onChangeValue={this.onChangeValue}
               name={row.name}
               onToggle={this.onToggle}
@@ -80,4 +80,4 @@ TogglePane.propTypes = {
   saveDocument: PropTypes.func.isRequired
 }
 
-export default translate()(TogglePane)
+export default TogglePane
