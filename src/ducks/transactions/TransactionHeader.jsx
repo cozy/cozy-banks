@@ -158,8 +158,8 @@ class TransactionHeader extends Component {
     return (
       <Header {...colorProps}>
         <Padded>
-          {this.displayBalanceHistory()}
           {this.displayAccountSwitch()}
+          {this.displayBalanceHistory()}
           {this.displaySelectDates()}
           {this.displayBreadcrumb()}
         </Padded>
