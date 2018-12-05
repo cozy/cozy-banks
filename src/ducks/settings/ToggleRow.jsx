@@ -24,7 +24,7 @@ class ToggleRow extends Component {
 
     return (
       <div>
-        <h5>{title}</h5>
+        {title && <h5>{title}</h5>}
         <div className={styles.ToggleRow__body}>
           <p className={styles.ToggleRow__description}>
             <span dangerouslySetInnerHTML={{ __html: description }} />
@@ -58,7 +58,7 @@ class ToggleRow extends Component {
 ToggleRow.propTypes = {
   enabled: PropTypes.bool.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   description: PropTypes.string.isRequired,
   onChangeValue: PropTypes.func,
   name: PropTypes.string.isRequired,
