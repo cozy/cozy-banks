@@ -136,7 +136,7 @@ class TransactionHeader extends Component {
   }
 
   displayBalanceHistory() {
-    if (!flag('balance-history') || !this.props.chartData) {
+    if (!flag('transaction-history') || !this.props.chartData) {
       return
     }
 
