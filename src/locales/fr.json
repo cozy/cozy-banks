@@ -422,8 +422,11 @@
   "CommunitySettings": {
     "title": "Fonctions communautaires",
     "auto_categorization": {
-      "title": "Catégorisation automatique des écritures",
       "subtitle": "Participer à l'amélioration du modèle par le partage anonymisé de vos écritures catégorisées. <a href='https://support.cozy.io/article/181-collaboration-a-la-categorisation-bancaire' target='_blank'>En savoir plus</a>"
+    },
+    "local_model_override": {
+      "title": "Catégorisation automatique des écritures",
+      "subtitle": "Apprendre de mes catégorisations manuelles"
     }
   },
 

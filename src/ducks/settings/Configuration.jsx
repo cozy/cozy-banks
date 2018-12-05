@@ -52,7 +52,11 @@ class Configuration extends Component {
         <TogglePane
           rows={[
             {
-              title: t('CommunitySettings.auto_categorization.title'),
+              title: t('CommunitySettings.local_model_override.title'),
+              name: 'localModelOverride',
+              description: t('CommunitySettings.local_model_override.subtitle')
+            },
+            {
               name: 'autoCategorization',
               description: t('CommunitySettings.auto_categorization.subtitle')
             }
