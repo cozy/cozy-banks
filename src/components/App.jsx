@@ -5,27 +5,34 @@ import 'react-hint/css/index.css'
 import { Layout, Main, Content, Sidebar, IconSprite } from 'cozy-ui/react'
 import Nav from 'ducks/commons/Nav'
 import { Warnings } from 'ducks/warnings'
-import { FlagSwitcher } from 'cozy-flags'
+import flag, { FlagSwitcher } from 'cozy-flags'
+import { settingsConn } from 'doctypes'
+import { queryConnect } from 'cozy-client'
+import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 
 const ReactHint = ReactHintFactory(React)
 
-const App = ({ children }) => (
-  <Layout>
-    {__DEV__ ? <FlagSwitcher /> : null}
-    <Sidebar>
-      <Nav />
-    </Sidebar>
+const App = props => {
+  const settings = getDefaultedSettingsFromCollection(props.settingsCollection)
+  flag('local-model-override', settings.community.localModelOverride.enabled)
 
-    <Main>
-      <Content>{children}</Content>
-    </Main>
+  return (
+    <Layout>
+      {__DEV__ ? <FlagSwitcher /> : null}
+      <Sidebar>
+        <Nav />
+      </Sidebar>
 
-    {/* Outside every other component to bypass overflow:hidden */}
-    <ReactHint />
+      <Main>
+        <Content>{props.children}</Content>
+      </Main>
 
-    <Warnings />
-    <IconSprite />
-  </Layout>
-)
+      {/* Outside every other component to bypass overflow:hidden */}
+      <ReactHint />
 
-export default App
+      <Warnings />
+      <IconSprite />
+    </Layout>
+  )
+}
+export default queryConnect({ settingsCollection: settingsConn })(App)
