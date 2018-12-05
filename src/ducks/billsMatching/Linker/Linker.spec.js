@@ -3,11 +3,14 @@ jest.mock('../../tracking')
 
 import Linker from './Linker'
 import { cozyClient } from 'cozy-konnector-libs'
+import { Document } from 'cozy-doctypes'
 
 const indexBy = require('lodash/keyBy')
 const { parseTable, wrapAsFetchJSONResult } = require('../testUtils')
 
 let linker
+
+Document.registerClient(cozyClient)
 
 beforeEach(function() {
   // We mock defineIndex/query so that fetchOperations returns the right operations
@@ -201,9 +204,9 @@ describe('linker', () => {
       const b1 = { amount: 10 }
       const b2 = { amount: 20 }
 
-      cozyClient.data.find
-        .mockReturnValueOnce(Promise.resolve(b1))
-        .mockReturnValueOnce(Promise.resolve(b2))
+      cozyClient.fetchJSON.mockReturnValueOnce({
+        rows: [{ doc: b1 }, { doc: b2 }]
+      })
 
       const sum = await linker.getBillsSum(operation)
 

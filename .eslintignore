@@ -1,3 +1,4 @@
 src/lib
-src/targets
+src/targets/mobile
+src/targets/favicons
 *.min.js

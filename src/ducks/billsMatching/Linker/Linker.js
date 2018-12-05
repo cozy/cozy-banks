@@ -5,16 +5,15 @@ const {
   findDebitOperation,
   findCreditOperation
 } = require('./billsToOperation')
-const { fetchAll } = require('../utils')
 const defaults = require('lodash/defaults')
 const groupBy = require('lodash/groupBy')
 const flatten = require('lodash/flatten')
 const sumBy = require('lodash/sumBy')
 const geco = require('geco')
 const format = require('date-fns/format')
-const { cozyClient } = require('cozy-konnector-libs')
 const { getBillDate, log } = require('../utils')
 const { getTracker } = require('ducks/tracking')
+const { Transaction, Bill } = require('models')
 
 const DOCTYPE_OPERATIONS = 'io.cozy.bank.operations'
 const DEFAULT_AMOUNT_DELTA = 0.001
@@ -22,8 +21,7 @@ export const DEFAULT_PAST_WINDOW = 15
 export const DEFAULT_FUTURE_WINDOW = 29
 
 export default class Linker {
-  constructor(cozyClient) {
-    this.cozyClient = cozyClient
+  constructor() {
     this.toUpdate = []
     this.groupVendors = ['Numéricable']
 
@@ -70,21 +68,7 @@ export default class Linker {
     }
 
     const billIds = operation.bills.map(bill => bill.split(':')[1])
-    const bills = await Promise.all(
-      billIds.map(billId =>
-        cozyClient.data.find('io.cozy.bills', billId).catch(err => {
-          log(
-            'warn',
-            `Error while fetching bill ${billId} linked to transaction ${
-              operation._id
-            } : ${err}. This bill will be ignored.`
-          )
-
-          return null
-        })
-      )
-    )
-
+    const bills = await Bill.getAll(billIds)
     const sum = sumBy(bills.filter(Boolean), bill => bill.amount)
 
     return sum
@@ -204,13 +188,7 @@ export default class Linker {
       'debug',
       `linkBankOperations: commiting ${this.toUpdate.length} changes`
     )
-    return cozyClient.fetchJSON(
-      'POST',
-      `/data/${DOCTYPE_OPERATIONS}/_bulk_docs`,
-      {
-        docs: this.toUpdate
-      }
-    )
+    return Transaction.updateAll(this.toUpdate)
   }
 
   getOptions(opts = {}) {
@@ -234,7 +212,6 @@ export default class Linker {
     options
   ) {
     const creditOperation = await findCreditOperation(
-      this.cozyClient,
       bill,
       options,
       allOperations
@@ -262,12 +239,7 @@ export default class Linker {
   }
 
   async linkBillToDebitOperation(bill, allOperations, options) {
-    return findDebitOperation(
-      this.cozyClient,
-      bill,
-      options,
-      allOperations
-    ).then(operation => {
+    return findDebitOperation(bill, options, allOperations).then(operation => {
       if (operation) {
         log(
           'debug',
@@ -298,7 +270,7 @@ export default class Linker {
         'info',
         'No operations given to linkBillsToOperations, fetching all operations.'
       )
-      allOperations = await fetchAll('io.cozy.bank.operations')
+      allOperations = await Transaction.fetchAll()
     }
 
     log(
@@ -397,7 +369,6 @@ export default class Linker {
 
       for (const combinedBill of combinedBills) {
         const debitOperation = await findDebitOperation(
-          this.cozyClient,
           combinedBill,
           options,
           allOperations

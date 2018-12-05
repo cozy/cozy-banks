@@ -11,6 +11,7 @@
   ],
   "io.cozy.bank.operations": [
     {
+      "_id": "visite_medecin",
       "account": "compteisa1",
       "amount": -20,
       "automaticCategoryId": "400610",
@@ -19,6 +20,7 @@
       "label": "Visite chez le médecin"
     },
     {
+      "_id": "remboursement_cpam",
       "account": "compteisa1",
       "amount": 5,
       "automaticCategoryId": "400610",
