@@ -13,6 +13,12 @@ describe('Header', () => {
     ).toMatchSnapshot()
   })
 
+  it(`should set position fixed`, () => {
+    expect(
+      shallow(<Header fixed>content</Header>).getElement()
+    ).toMatchSnapshot()
+  })
+
   it(`should set color default`, () => {
     expect(
       shallow(<Header color="default">content</Header>).getElement()

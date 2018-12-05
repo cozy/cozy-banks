@@ -31,3 +31,11 @@ exports[`Header should set color primary 1`] = `
   content
 </div>
 `;
+
+exports[`Header should set position fixed 1`] = `
+<div
+  className="HeaderColor_default HeaderFixed"
+>
+  content
+</div>
+`;
