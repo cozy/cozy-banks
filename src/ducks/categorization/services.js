@@ -123,7 +123,7 @@ const getAmountTag = amount => {
   }
 }
 
-const getLabelWithTags = transaction => {
+export const getLabelWithTags = transaction => {
   const label = getLabel(transaction).toLowerCase()
 
   const amountSignTag = getAmountSignTag(transaction.amount)
@@ -259,6 +259,77 @@ const localModel = async (classifierOptions, transactions) => {
     e_n: 'TransactionsUsingLocalCategory',
     e_v: nbTransactionsAboveThreshold
   })
+}
+
+
+export const localModelManualTrain = (classifierOptions, transactionsWithManualCat, transactions) => {
+  localModelLog('info', 'Instanciating a new classifier')
+  const uniqueCategories = getUniqueCategories(transactionsWithManualCat)
+  const nbUniqueCategories = uniqueCategories.length
+  localModelLog(
+    'debug',
+    'Number of unique categories in transactions with manual categories: ' +
+      nbUniqueCategories
+  )
+  const alpha = getAlphaParameter(
+    nbUniqueCategories,
+    ALPHA_MIN,
+    ALPHA_MAX,
+    ALPHA_MAX_SMOOTHING
+  )
+  localModelLog('debug', 'Alpha parameter value is ' + alpha)
+
+  if (nbUniqueCategories === 1) {
+    localModelLog(
+      'info',
+      'Not enough different categories, adding a fake transaction to balance the weight of the categories'
+    )
+    transactionsWithManualCat.push(FAKE_TRANSACTION)
+  }
+
+  const MIN_SAMPLE_WEIGHT = 1
+  const MAX_SAMPLE_WEIGHT = 3
+  const MIN_WEIGHT_LIMIT = 2
+  const learnSampleWeight =
+    transactionsWithManualCat.length > MIN_WEIGHT_LIMIT
+      ? MIN_SAMPLE_WEIGHT
+      : MAX_SAMPLE_WEIGHT
+  localModelLog('debug', 'Learn sample weight is ' + learnSampleWeight)
+
+  const classifier = createLocalClassifier(
+    transactionsWithManualCat,
+    { ...classifierOptions, alpha },
+    { learnSampleWeight }
+  )
+
+  if (!classifier) {
+    localModelLog(
+      'info',
+      'No classifier, impossible to categorize transactions'
+    )
+    return
+  }
+
+  console.log(classifier)
+
+  localModelLog('info', `Applying model to ${transactions.length} transactions`)
+  for (const transaction of transactions) {
+    const label = getLabelWithTags(transaction)
+    localModelLog('info', `Applying model to ${label}`)
+
+    const { category, proba } = maxBy(
+      classifier.categorize(label).likelihoods,
+      'proba'
+    )
+    console.log(label, '-->', category, '(', proba, ')')
+
+    transaction.localCategoryId = category
+    transaction.localCategoryProba = proba
+
+    localModelLog('info', `Results for ${label} :`)
+    localModelLog('info', `localCategory: ${category}`)
+    localModelLog('info', `localProba: ${proba}`)
+  }
 }
 
 export const categorizes = async transactions => {
