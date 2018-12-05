@@ -152,7 +152,7 @@ class TransactionHeader extends Component {
 
   render() {
     return (
-      <div className={styles.TransactionPage__top}>
+      <React.Fragment>
         <Padded>
           {this.displayBalanceHistory()}
           {this.displayAccountSwitch()}
@@ -160,7 +160,7 @@ class TransactionHeader extends Component {
           {this.displayBreadcrumb()}
         </Padded>
         {this.displayTableHead()}
-      </div>
+      </React.Fragment>
     )
   }
 }

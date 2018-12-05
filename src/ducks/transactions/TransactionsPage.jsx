@@ -247,7 +247,6 @@ class TransactionsPage extends Component {
         className={styles.TransactionPage__bottom + ' js-transactionPageBottom'}
       >
         <TransactionsWithSelection
-          className={styles.TransactionPage__top}
           limitMin={limitMin}
           limitMax={limitMax}
           onReachTop={this.handleDecreaseLimitMin}
