@@ -5,12 +5,6 @@
 .Balance__table
     @extend $full-width-table
 
-
-// TODO shouldn't this be the default ?
-// See https://github.com/cozy/cozy-ui/issues/358
-.Balance__section-title
-    margin-top 2rem
-
 .Balance__row
     cursor pointer
     composes mobile-row from '../../components/Table/styles.styl'
@@ -90,3 +84,9 @@
 
     .Balance__bank
         maxed-flex-basis 60%
+
+.Balance_Header_WithChart
+    min-height 245px
+
+    +small-screen()
+        min-height 167px

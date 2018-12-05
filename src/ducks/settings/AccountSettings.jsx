@@ -11,11 +11,10 @@ import {
   Modal,
   Icon
 } from 'cozy-ui/react'
-import Topbar from 'components/Topbar'
 import Loading from 'components/Loading'
 import { withDispatch } from 'utils'
 import BackButton from 'components/BackButton'
-import PageTitle from 'components/PageTitle'
+import { PageTitle } from 'components/Title'
 import { connect } from 'react-redux'
 import styles from './AccountsSettings.styl'
 import { flowRight as compose } from 'lodash'
@@ -237,9 +236,7 @@ const AccountSettings = function({ routeParams, t }) {
         return (
           <div>
             <BackButton to="/settings/accounts" arrow />
-            <Topbar>
-              <PageTitle>{account.shortLabel || account.label}</PageTitle>
-            </Topbar>
+            <PageTitle>{account.shortLabel || account.label}</PageTitle>
             <Tabs className={styles.AcnStg__tabs} initialActiveTab="details">
               <TabList className={styles.AcnStg__tabList}>
                 <Tab className={styles.AcnStg__tab} name="details">

@@ -8,12 +8,12 @@ import { withRouter } from 'react-router'
 import { translate, Button, withBreakpoints } from 'cozy-ui/react'
 import { queryConnect } from 'cozy-client'
 
-import Topbar from 'components/Topbar'
 import Loading from 'components/Loading'
 import { Table, TdSecondary } from 'components/Table'
 import { Padded } from 'components/Spacing'
+import Header from 'components/Header'
 import { Figure, FigureBlock } from 'components/Figure'
-import PageTitle from 'components/PageTitle'
+import { PageTitle } from 'components/Title'
 import flag from 'cozy-flags'
 
 import AddAccountLink from 'ducks/settings/AddAccountLink'
@@ -284,18 +284,33 @@ class Balance extends React.Component {
       settings: settingsCollection,
       transactions: transactionsCollection
     } = this.props
+
+    const withChart = flag('balance-history')
+    const headerColorProps = { color: withChart ? 'primary' : 'default' }
+    const headerClassName = cx(styles.Balance_Header, {
+      [styles.Balance_Header_WithChart]: withChart
+    })
+    const titleColorProps = {
+      color: withChart && !isMobile ? 'primary' : 'default'
+    }
+    const titlePaddedClass = isMobile ? 'u-p-0' : 'u-pb-0'
+
     if (
       isCollectionLoading(accountsCollection) ||
       isCollectionLoading(groupsCollection) ||
       isCollectionLoading(settingsCollection)
     ) {
       return (
-        <Padded>
-          <Topbar>
-            <PageTitle>{t('Balance.title')}</PageTitle>
-          </Topbar>
+        <React.Fragment>
+          <Header className={headerClassName} {...headerColorProps}>
+            {(isMobile || !withChart) && (
+              <Padded className={titlePaddedClass}>
+                <PageTitle {...titleColorProps}>{t('Balance.title')}</PageTitle>
+              </Padded>
+            )}
+          </Header>
           <Loading />
-        </Padded>
+        </React.Fragment>
       )
     }
 
@@ -334,36 +349,42 @@ class Balance extends React.Component {
     )
 
     return (
-      <Padded>
-        <Topbar>
-          <PageTitle>{t('Balance.title')}</PageTitle>
-        </Topbar>
-        {flag('balance-history') ? (
-          <History
-            accounts={accountsCollection}
-            transactions={transactionsCollection}
-          />
-        ) : (
-          <div className={styles['Balance__kpi']}>
-            <FigureBlock
-              label={t('Balance.subtitle.all')}
-              total={total}
-              currency="€"
-              coloredPositive
-              coloredNegative
-              signed
+      <React.Fragment>
+        <Header className={headerClassName} {...headerColorProps}>
+          {(isMobile || !withChart) && (
+            <Padded className={titlePaddedClass}>
+              <PageTitle {...titleColorProps}>{t('Balance.title')}</PageTitle>
+            </Padded>
+          )}
+          {withChart ? (
+            <History
+              accounts={accountsCollection}
+              transactions={transactionsCollection}
             />
-          </div>
-        )}
-        {groupsSorted.length > 0 && groupsC}
-        <BalanceAccounts
-          accounts={accountsSorted}
-          balanceLower={balanceLower}
-          isMobile={isMobile}
-          onRowClick={this.goToTransactionsFilteredBy}
-        />
-        {groupsSorted.length === 0 && groupsC}
-      </Padded>
+          ) : (
+            <Padded className="u-pb-0">
+              <FigureBlock
+                label={t('Balance.subtitle.all')}
+                total={total}
+                currency="€"
+                coloredPositive
+                coloredNegative
+                signed
+              />
+            </Padded>
+          )}
+        </Header>
+        <Padded>
+          {groupsSorted.length > 0 && groupsC}
+          <BalanceAccounts
+            accounts={accountsSorted}
+            balanceLower={balanceLower}
+            isMobile={isMobile}
+            onRowClick={this.goToTransactionsFilteredBy}
+          />
+          {groupsSorted.length === 0 && groupsC}
+        </Padded>
+      </React.Fragment>
     )
   }
 }
