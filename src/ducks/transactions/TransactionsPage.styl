@@ -1,17 +1,5 @@
 @require 'settings/breakpoints'
-@require '~components/SelectDates/SelectDates.styl'
 @require '~styles/mixins.styl'
-
-.TransactionPage
-    display flex
-    flex-direction column
-    height 100%
-    +small-screen()
-        display block
-
-        // SelectDate is fixed on mobile so we need to add some
-        // padding
-        padding-top select-date-height-small
 
 .TransactionPage__bottom
     overflow auto // TODO remove in small screen

@@ -103,14 +103,17 @@ class TransactionHeader extends Component {
   }
 
   render() {
-    const { router } = this.props
+    const {
+      router,
+      breakpoints: { isMobile, isTablet }
+    } = this.props
     const isSubcategory = !!router.params.subcategoryName
     const withChart = flag('transaction-history')
     const colorProps = { color: withChart ? 'primary' : 'default' }
 
     return (
-      <Header {...colorProps}>
-        <Padded>
+      <Header {...colorProps} fixed>
+        <Padded className={isMobile || isTablet ? 'u-p-0' : ''}>
           {this.displayAccountSwitch()}
           {this.displayBalanceHistory()}
           {this.displaySelectDates()}
