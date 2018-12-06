@@ -1,5 +1,6 @@
 import { cozyClient } from 'cozy-konnector-libs'
 import logger from 'cozy-logger'
+import flag from 'cozy-flags'
 import {
   categorizes,
   PARAMETERS_NOT_FOUND,
@@ -168,6 +169,9 @@ const onOperationOrBillCreate = async options => {
   log('info', `COZY_URL: ${process.env.COZY_URL}`)
   log('info', 'Fetching settings...')
   const setting = await Settings.fetchWithDefault()
+
+  // The flag is needed to use local model when getting a transaction category ID
+  flag('local-model-override', setting.community.localModelOverride.enabled)
 
   // We fetch the notifChanges before anything else because we need to know if
   // some transactions are totally new in `TransactionGreater` notification.
