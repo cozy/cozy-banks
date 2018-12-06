@@ -17,7 +17,7 @@ export const PARAMETERS_NOT_FOUND = 'Classifier files is not configured.'
 
 const ALPHA_MIN = 0.1
 const ALPHA_MAX = 10
-const ALPHA_MAX_SMOOTHING = 20
+const ALPHA_MAX_SMOOTHING = 2
 const FAKE_TRANSACTION = {
   label: 'thisisafaketransaction',
   manualCategoryId: '0'
@@ -85,6 +85,12 @@ export const createLocalClassifier = (
         transaction.manualCategoryId
       )
     }
+  }
+
+  if (options.addFakeTransaction) {
+    classifier.learn(
+      FAKE_TRANSACTION.label, 
+      FAKE_TRANSACTION.manualCategoryId)
   }
 
   return classifier
@@ -194,16 +200,19 @@ const localModel = async (classifierOptions, transactions) => {
   )
   localModelLog('debug', 'Alpha parameter value is ' + alpha)
 
+  var addFakeTransaction = false
   if (nbUniqueCategories === 1) {
     localModelLog(
       'info',
       'Not enough different categories, adding a fake transaction to balance the weight of the categories'
     )
-    transactionsWithManualCat.push(FAKE_TRANSACTION)
-  }
+    addFakeTransaction = true
+    // transactionsWithManualCat.push(FAKE_TRANSACTION)
+  } 
 
+  // With these constants (1, 1, 2) it is actually useless but let's keep them
   const MIN_SAMPLE_WEIGHT = 1
-  const MAX_SAMPLE_WEIGHT = 3
+  const MAX_SAMPLE_WEIGHT = 1
   const MIN_WEIGHT_LIMIT = 2
   const learnSampleWeight =
     transactionsWithManualCat.length > MIN_WEIGHT_LIMIT
@@ -214,7 +223,7 @@ const localModel = async (classifierOptions, transactions) => {
   const classifier = createLocalClassifier(
     transactionsWithManualCat,
     { ...classifierOptions, alpha },
-    { learnSampleWeight }
+    { learnSampleWeight, addFakeTransaction }
   )
 
   if (!classifier) {
@@ -279,16 +288,18 @@ export const localModelManualTrain = (classifierOptions, transactionsWithManualC
   )
   localModelLog('debug', 'Alpha parameter value is ' + alpha)
 
+  var addFakeTransaction = false
   if (nbUniqueCategories === 1) {
     localModelLog(
       'info',
       'Not enough different categories, adding a fake transaction to balance the weight of the categories'
     )
-    transactionsWithManualCat.push(FAKE_TRANSACTION)
-  }
+    addFakeTransaction = true
+    // transactionsWithManualCat.push(FAKE_TRANSACTION)
+  } 
 
   const MIN_SAMPLE_WEIGHT = 1
-  const MAX_SAMPLE_WEIGHT = 3
+  const MAX_SAMPLE_WEIGHT = 1
   const MIN_WEIGHT_LIMIT = 2
   const learnSampleWeight =
     transactionsWithManualCat.length > MIN_WEIGHT_LIMIT
@@ -299,7 +310,7 @@ export const localModelManualTrain = (classifierOptions, transactionsWithManualC
   const classifier = createLocalClassifier(
     transactionsWithManualCat,
     { ...classifierOptions, alpha },
-    { learnSampleWeight }
+    { learnSampleWeight, addFakeTransaction }
   )
 
   if (!classifier) {
@@ -310,7 +321,6 @@ export const localModelManualTrain = (classifierOptions, transactionsWithManualC
     return
   }
 
-  console.log(classifier)
 
   localModelLog('info', `Applying model to ${transactions.length} transactions`)
   for (const transaction of transactions) {
@@ -321,7 +331,6 @@ export const localModelManualTrain = (classifierOptions, transactionsWithManualC
       classifier.categorize(label).likelihoods,
       'proba'
     )
-    console.log(label, '-->', category, '(', proba, ')')
 
     transaction.localCategoryId = category
     transaction.localCategoryProba = proba
