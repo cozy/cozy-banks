@@ -1,15 +1,9 @@
 import {
-  predictProbaMax,
   tokenizer
 } from './index'
 import {
-  createLocalClassifier,
-  getAlphaParameter,
   localModelManualTrain,
-  getUniqueCategories,
-  getLabelWithTags
 } from './services'
-import { maxBy } from 'lodash'
 
 
 const transactionsWithManualCat = [
@@ -130,6 +124,26 @@ var transactions = [
   },
   {
       "account": "afd888f20400810977a4741855619832",
+      "amount": 387.71,
+      "automaticCategoryId": "100",
+      "cozyCategoryId": "100",
+      "cozyCategoryProba": 0.9935233620362633,
+      "currency": "EUR",
+      "date": "2018-11-30T00:00:00+02:00",
+      "dateOperation": null,
+      "label": "NDF Cozy cloud",
+      "linxoId": "1224414598",
+      "metadata": {
+          "dateImport": "2018-10-05T13:15:23.045Z",
+          "version": 1
+      },
+      "originalBankLabel": "VIR COZY CLOUD",
+      "type": "transfer",
+      "vendorAccountId": "58870804",
+      "vendorId": "1224414598"
+  },
+  {
+      "account": "afd888f20400810977a4741855619832",
       "amount": -907.71,
       "automaticCategoryId": "100",
       "cozyCategoryId": "100",
@@ -155,10 +169,11 @@ describe('estimate local proba with toolchain', () => {
   // Use main script
   localModelManualTrain({ tokenizer }, transactionsWithManualCat, transactions)
 
-  console.log('#####################')
-  console.log('#####################')
-
   it('Should give correct local probas', () => {
-    expect(1.0).toEqual(1.0)
+    expect(transactions[0].localCategoryProba).toBeCloseTo(0.8311, 3)
+    expect(transactions[1].localCategoryProba).toBeCloseTo(0.6666, 3)
+    expect(transactions[2].localCategoryProba).toBeCloseTo(0.6666, 3)
+    expect(transactions[3].localCategoryProba).toBeCloseTo(0.7490, 3)
+    expect(transactions[4].localCategoryProba).toBeCloseTo(0.6666, 3)
   })
 })
