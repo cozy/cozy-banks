@@ -7,39 +7,48 @@ import { Table } from 'components/Table'
 import transactionsStyles from '../Transactions.styl'
 import styles from './TableHead.styl'
 
-const TableHead = ({ t, breakpoints, isSubcategory, color }) => {
-  if (breakpoints.isMobile || breakpoints.isTablet) {
-    return null
-  }
+class TableHead extends React.PureComponent {
+  render() {
+    const { t, breakpoints, isSubcategory, color } = this.props
 
-  return (
-    <Table className={styles[`TableHead_${color}`]}>
-      <thead>
-        <tr>
-          <td className={transactionsStyles.ColumnSizeDesc}>
-            {t(
-              isSubcategory
-                ? 'Categories.headers.movements'
-                : 'Transactions.header.description'
-            )}
-          </td>
-          <td className={transactionsStyles.ColumnSizeDate}>
-            {t('Transactions.header.date')}
-          </td>
-          <td className={transactionsStyles.ColumnSizeAmount}>
-            {t('Transactions.header.amount')}
-          </td>
-          <td className={transactionsStyles.ColumnSizeAction}>
-            {t('Transactions.header.action')}
-          </td>
-        </tr>
-      </thead>
-    </Table>
-  )
+    if (breakpoints.isMobile || breakpoints.isTablet) {
+      return null
+    }
+
+    return (
+      <Table className={styles[`TableHead_${color}`]}>
+        <thead>
+          <tr>
+            <td className={transactionsStyles.ColumnSizeDesc}>
+              {t(
+                isSubcategory
+                  ? 'Categories.headers.movements'
+                  : 'Transactions.header.description'
+              )}
+            </td>
+            <td className={transactionsStyles.ColumnSizeDate}>
+              {t('Transactions.header.date')}
+            </td>
+            <td className={transactionsStyles.ColumnSizeAmount}>
+              {t('Transactions.header.amount')}
+            </td>
+            <td className={transactionsStyles.ColumnSizeAction}>
+              {t('Transactions.header.action')}
+            </td>
+          </tr>
+        </thead>
+      </Table>
+    )
+  }
 }
 
 TableHead.propTypes = {
   color: PropTypes.oneOf(['default', 'primary'])
+}
+
+TableHead.defaultProps = {
+  color: 'default',
+  isSubcategory: false
 }
 
 export default compose(

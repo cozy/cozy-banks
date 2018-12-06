@@ -105,7 +105,7 @@ class TransactionHeader extends Component {
   render() {
     const {
       router,
-      breakpoints: { isMobile, isTablet }
+      breakpoints: { isMobile }
     } = this.props
     const isSubcategory = !!router.params.subcategoryName
     const withChart = flag('transaction-history')
@@ -113,7 +113,7 @@ class TransactionHeader extends Component {
 
     return (
       <Header {...colorProps} fixed>
-        <Padded className={isMobile || isTablet ? 'u-p-0' : ''}>
+        <Padded className={isMobile ? 'u-p-0' : ''}>
           {this.displayAccountSwitch()}
           {this.displayBalanceHistory()}
           {this.displaySelectDates()}
