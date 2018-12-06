@@ -4,17 +4,23 @@ import cx from 'classnames'
 
 import styles from './Header.styl'
 
-const Header = ({ children, className, color, fixed }) => (
-  <div
-    className={cx(
-      styles[`HeaderColor_${color}`],
-      { [styles.HeaderFixed]: fixed },
-      className
-    )}
-  >
-    {children}
-  </div>
-)
+class Header extends React.PureComponent {
+  render() {
+    const { children, className, color, fixed } = this.props
+
+    return (
+      <div
+        className={cx(
+          styles[`HeaderColor_${color}`],
+          { [styles.HeaderFixed]: fixed },
+          className
+        )}
+      >
+        {children}
+      </div>
+    )
+  }
+}
 
 Header.propTypes = {
   children: PropTypes.node.isRequired,
