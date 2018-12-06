@@ -1,13 +1,10 @@
 import {
   getUniqueCategories,
   getAlphaParameter,
-  createLocalClassifier
+  createLocalClassifier,
+  localModel
 } from './services'
-import bayes from 'classificator'
 import { tokenizer } from '.'
-
-const mockLearn = jest.fn()
-jest.mock('classificator', () => jest.fn(() => ({ learn: mockLearn })))
 
 describe('getUniqueCategories', () => {
   it('Should return the list of unique categories for the given transactions', () => {
@@ -53,29 +50,12 @@ describe('getAlphaParemeter', () => {
 })
 
 describe('createLocalClassifier', () => {
-  const initializationOptions = {
-    tokenizer,
-    alpha: 1
-  }
-
-  const transactions = [
-    { label: 'a', manualCategoryId: '200100' },
-    { label: 'b', manualCategoryId: '200100' },
-    { label: 'c', manualCategoryId: '200100' },
-    { label: 'd', manualCategoryId: '200100' },
-    { label: 'e', manualCategoryId: '200100' },
-    { label: 'f', manualCategoryId: '200100' }
-  ]
-
-  beforeEach(() => {
-    mockLearn.mockReset()
-  })
-
   it('Should return null when passed no transaction', () => {
     const classifier = createLocalClassifier([])
 
     expect(classifier).toBeNull()
   })
+})
 
   it('Should create a classifier with the right options', () => {
     const configurationOptions = { learnSampleWeight: 1 }
