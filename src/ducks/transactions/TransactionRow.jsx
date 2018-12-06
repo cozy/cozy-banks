@@ -26,11 +26,6 @@ import { withUpdateCategory } from 'ducks/categories'
 import { getLabel } from './helpers'
 import styles from './Transactions.styl'
 
-const sDate = styles['bnk-op-date']
-const sDesc = styles['bnk-op-desc']
-const sAmount = styles['bnk-op-amount']
-const sAction = styles['bnk-op-action']
-
 class _RowDesktop extends React.PureComponent {
   constructor(props) {
     super(props)
@@ -62,7 +57,7 @@ class _RowDesktop extends React.PureComponent {
     const account = transaction.account.data
     return (
       <tr ref={onRef}>
-        <td className={cx(sDesc, 'u-pv-half', 'u-pl-1')}>
+        <td className={cx(styles.ColumnSizeDesc, 'u-pv-half', 'u-pl-1')}>
           <Media className="u-clickable">
             <Img title={categoryTitle} onClick={showCategoryChoice}>
               <CategoryIcon
@@ -85,13 +80,13 @@ class _RowDesktop extends React.PureComponent {
           </Media>
         </td>
         <TdSecondary
-          className={cx(sDate, 'u-clickable')}
+          className={cx(styles.ColumnSizeDate, 'u-clickable')}
           onClick={this.onSelectTransaction}
         >
           {f(transaction.date, `D ${isExtraLarge ? 'MMMM' : 'MMM'} YYYY`)}
         </TdSecondary>
         <TdSecondary
-          className={cx(sAmount, 'u-clickable')}
+          className={cx(styles.ColumnSizeAmount, 'u-clickable')}
           onClick={this.onSelectTransaction}
         >
           <Figure
@@ -101,7 +96,7 @@ class _RowDesktop extends React.PureComponent {
             signed
           />
         </TdSecondary>
-        <TdSecondary className={sAction}>
+        <TdSecondary className={styles.ColumnSizeAction}>
           <TransactionActions
             transaction={transaction}
             urls={urls}

@@ -137,9 +137,7 @@ class TransactionsD extends React.Component {
     const {
       breakpoints: { isDesktop }
     } = this.props
-    return isDesktop
-      ? document.querySelector('.js-transactionPageBottom')
-      : window
+    return isDesktop ? document.querySelector('.js-scrolling-element') : window
   }
 
   renderTransactions() {
@@ -164,10 +162,7 @@ class TransactionsD extends React.Component {
     const Row = isDesktop ? RowDesktop : RowMobile
 
     return (
-      <TransactionContainer
-        className={styles.TransactionTable}
-        ref={ref => (this.transactionsRef = ref)}
-      >
+      <TransactionContainer className={styles.TransactionTable}>
         {manualLoadMore &&
           limitMin > 0 && (
             <LoadMoreButton onClick={() => this.props.onReachTop(20)}>
@@ -258,7 +253,7 @@ export class TransactionsWithSelection extends React.Component {
     const props = this.props
     const { transactionId } = this.state
     return (
-      <React.Fragment>
+      <div className="js-scrolling-element">
         <Transactions selectTransaction={this.selectTransaction} {...props} />
         {transactionId && (
           <TransactionModal
@@ -267,7 +262,7 @@ export class TransactionsWithSelection extends React.Component {
             {...props}
           />
         )}
-      </React.Fragment>
+      </div>
     )
   }
 }

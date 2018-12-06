@@ -31,7 +31,6 @@ import Loading from 'components/Loading'
 
 import { TransactionsWithSelection } from './Transactions'
 import TransactionHeader from './TransactionHeader'
-import styles from './TransactionsPage.styl'
 import {
   ACCOUNT_DOCTYPE,
   appsConn,
@@ -243,25 +242,20 @@ class TransactionsPage extends Component {
     }
 
     return (
-      <div
-        className={styles.TransactionPage__bottom + ' js-transactionPageBottom'}
-      >
-        <TransactionsWithSelection
-          className={styles.TransactionPage__top}
-          limitMin={limitMin}
-          limitMax={limitMax}
-          onReachTop={this.handleDecreaseLimitMin}
-          onReachBottom={this.handleIncreaseLimitMax}
-          infiniteScrollTop={infiniteScrollTop}
-          onChangeTopMostTransaction={this.handleChangeTopmostTransaction}
-          onScroll={this.checkToActivateTopInfiniteScroll}
-          transactions={transations}
-          urls={urls}
-          brands={this.getBrands()}
-          filteringOnAccount={this.getFilteringOnAccount()}
-          manualLoadMore={isIOSApp()}
-        />
-      </div>
+      <TransactionsWithSelection
+        limitMin={limitMin}
+        limitMax={limitMax}
+        onReachTop={this.handleDecreaseLimitMin}
+        onReachBottom={this.handleIncreaseLimitMax}
+        infiniteScrollTop={infiniteScrollTop}
+        onChangeTopMostTransaction={this.handleChangeTopmostTransaction}
+        onScroll={this.checkToActivateTopInfiniteScroll}
+        transactions={transations}
+        urls={urls}
+        brands={this.getBrands()}
+        filteringOnAccount={this.getFilteringOnAccount()}
+        manualLoadMore={isIOSApp()}
+      />
     )
   }
 
@@ -313,7 +307,7 @@ class TransactionsPage extends Component {
     const chartData = this.getChartData()
 
     return (
-      <div className={styles.TransactionPage}>
+      <React.Fragment>
         <TransactionHeader
           transactions={filteredTransactions}
           handleChangeMonth={this.handleChangeMonth}
@@ -331,7 +325,7 @@ class TransactionsPage extends Component {
         ) : (
           this.displayTransactions()
         )}
-      </div>
+      </React.Fragment>
     )
   }
 }

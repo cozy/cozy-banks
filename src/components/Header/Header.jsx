@@ -4,8 +4,14 @@ import cx from 'classnames'
 
 import styles from './Header.styl'
 
-const Header = ({ children, className, color }) => (
-  <div className={cx(styles[`HeaderColor_${color}`], className)}>
+const Header = ({ children, className, color, fixed }) => (
+  <div
+    className={cx(
+      styles[`HeaderColor_${color}`],
+      { [styles.HeaderFixed]: fixed },
+      className
+    )}
+  >
     {children}
   </div>
 )
@@ -17,7 +23,8 @@ Header.propTypes = {
 }
 
 Header.defaultProps = {
-  color: 'default'
+  color: 'default',
+  fixed: false
 }
 
 export default Header

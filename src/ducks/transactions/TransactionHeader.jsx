@@ -10,41 +10,11 @@ import { AccountSwitch } from 'ducks/account'
 import TransactionSelectDates from 'ducks/transactions/TransactionSelectDates'
 import flag from 'cozy-flags'
 import HistoryChart from 'ducks/balance/HistoryChart'
-import { Table } from 'components/Table'
+import Header from 'components/Header'
 import { Padded } from 'components/Spacing'
 
+import TableHead from './header/TableHead'
 import styles from './TransactionsPage.styl'
-import transactionsStyles from './Transactions.styl'
-
-const sDate = transactionsStyles['bnk-op-date']
-const sDesc = transactionsStyles['bnk-op-desc']
-const sAmount = transactionsStyles['bnk-op-amount']
-const sAction = transactionsStyles['bnk-op-action']
-
-const TableHeadDesktop = ({ t, mainColumnTitle }) => (
-  <thead>
-    <tr>
-      <td className={sDesc}>{mainColumnTitle}</td>
-      <td className={sDate}>{t('Transactions.header.date')}</td>
-      <td className={sAmount}>{t('Transactions.header.amount')}</td>
-      <td className={sAction}>{t('Transactions.header.action')}</td>
-    </tr>
-  </thead>
-)
-
-const transactionTableHeadStyle = {
-  background: 'white',
-  marginTop: '1rem',
-  marginLeft: '-2rem',
-  marginRight: '-2rem'
-}
-export const TransactionTableHead = translate()(props => (
-  <div style={transactionTableHeadStyle}>
-    <Table className={transactionsStyles['TransactionTable']}>
-      <TableHeadDesktop t={props.t} mainColumnTitle={props.mainColumnTitle} />
-    </Table>
-  </div>
-))
 
 const historyChartMargin = {
   top: 10,
@@ -117,26 +87,8 @@ class TransactionHeader extends Component {
     )
   }
 
-  displayTableHead() {
-    const { t, breakpoints, router } = this.props
-
-    if (breakpoints.isMobile || breakpoints.isTablet) {
-      return null
-    }
-
-    return (
-      <TransactionTableHead
-        mainColumnTitle={t(
-          router.params.subcategoryName
-            ? 'Categories.headers.movements'
-            : 'Transactions.header.description'
-        )}
-      />
-    )
-  }
-
   displayBalanceHistory() {
-    if (!flag('balance-history') || !this.props.chartData) {
+    if (!flag('transaction-history') || !this.props.chartData) {
       return
     }
 
@@ -151,16 +103,24 @@ class TransactionHeader extends Component {
   }
 
   render() {
+    const {
+      router,
+      breakpoints: { isMobile, isTablet }
+    } = this.props
+    const isSubcategory = !!router.params.subcategoryName
+    const withChart = flag('transaction-history')
+    const colorProps = { color: withChart ? 'primary' : 'default' }
+
     return (
-      <div className={styles.TransactionPage__top}>
-        <Padded>
-          {this.displayBalanceHistory()}
+      <Header {...colorProps} fixed>
+        <Padded className={isMobile || isTablet ? 'u-p-0' : ''}>
           {this.displayAccountSwitch()}
+          {this.displayBalanceHistory()}
           {this.displaySelectDates()}
           {this.displayBreadcrumb()}
         </Padded>
-        {this.displayTableHead()}
-      </div>
+        <TableHead isSubcategory={isSubcategory} {...colorProps} />
+      </Header>
     )
   }
 }

@@ -2,6 +2,22 @@
 @require '~styles/mixins.styl'
 @require 'settings/breakpoints'
 
+.ColumnSizeDesc
+    maxed-flex-basis 40%
+    padding-left 4rem
+
+.ColumnSizeDate
+    maxed-flex-basis 15%
+    color coolGrey
+    text-align right
+
+.ColumnSizeAmount
+    maxed-flex-basis 20%
+    text-align right
+
+.ColumnSizeAction
+    maxed-flex-basis 25%
+
 .TransactionTable
     color charcoalGrey
 
@@ -11,23 +27,8 @@
         // causes a misalignment between the thead and tbody
         overflow-y scroll
 
-    .bnk-op-date
-        maxed-flex-basis 15%
-        color coolGrey
-        text-align right
-
-    .bnk-op-desc
-        maxed-flex-basis 40%
-        padding-left 4rem
-
     .bnk-op-desc-caption
         margin-top 0
-
-    .bnk-op-amount
-        maxed-flex-basis 20%
-        text-align right
-    .bnk-op-action
-        maxed-flex-basis 25%
 
     .bnk-transaction-mobile-action
         position relative
