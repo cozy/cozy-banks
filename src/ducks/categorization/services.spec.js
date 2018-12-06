@@ -53,7 +53,7 @@ describe('getAlphaParemeter', () => {
 })
 
 describe('createLocalClassifier', () => {
-  const classifierOptions = {
+  const initializationOptions = {
     tokenizer,
     alpha: 1
   }
@@ -78,14 +78,18 @@ describe('createLocalClassifier', () => {
   })
 
   it('Should create a classifier with the right options', () => {
-    const options = { learnSampleWeight: 1 }
-    createLocalClassifier(transactions, classifierOptions, options)
+    const configurationOptions = { learnSampleWeight: 1 }
+    createLocalClassifier(
+      transactions,
+      initializationOptions,
+      configurationOptions
+    )
 
-    expect(bayes).toHaveBeenLastCalledWith(classifierOptions)
+    expect(bayes).toHaveBeenLastCalledWith(initializationOptions)
   })
 
   it('Should learn from passed transactions according to the given weight', () => {
-    createLocalClassifier(transactions, classifierOptions, {
+    createLocalClassifier(transactions, initializationOptions, {
       learnSampleWeight: 1
     })
 
@@ -93,7 +97,7 @@ describe('createLocalClassifier', () => {
 
     mockLearn.mockReset()
 
-    createLocalClassifier(transactions, classifierOptions, {
+    createLocalClassifier(transactions, initializationOptions, {
       learnSampleWeight: 4
     })
 

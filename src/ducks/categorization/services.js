@@ -41,14 +41,13 @@ export const getAlphaParameter = (
 /**
  * Create a ready to use classifier for the local categorization model
  * @param {Array} transactionsToLearn - Transactions to learn from
- * @param {Object} classifierOptions - Options to pass to the classifier initialization
- * @param {Object} options
- * @param {Number} learnSampleWeight - The weight of the transactionsToLearn parameter
+ * @param {Object} intializationOptions - Options to pass to the classifier initialization
+ * @param {Object} configurationOptions - Options used to configure the classifier
  */
 export const createLocalClassifier = (
   transactionsToLearn,
-  classifierOptions,
-  options
+  initializationOptions,
+  configurationOptions
 ) => {
   if (transactionsToLearn.length === 0) {
     localModelLog(
@@ -58,10 +57,10 @@ export const createLocalClassifier = (
     return null
   }
 
-  const classifier = bayes(classifierOptions)
+  const classifier = bayes(initializationOptions)
 
   localModelLog('info', 'Learning from manually categorized transactions')
-  for (let i = 0; i < options.learnSampleWeight; ++i) {
+  for (let i = 0; i < configurationOptions.learnSampleWeight; ++i) {
     for (const transaction of transactionsToLearn) {
       classifier.learn(
         getLabelWithTags(transaction),
@@ -70,10 +69,8 @@ export const createLocalClassifier = (
     }
   }
 
-  if (options.addFakeTransaction) {
-    classifier.learn(
-      FAKE_TRANSACTION.label,
-      FAKE_TRANSACTION.manualCategoryId)
+  if (configurationOptions.addFakeTransaction) {
+    classifier.learn(FAKE_TRANSACTION.label, FAKE_TRANSACTION.manualCategoryId)
   }
 
   return classifier
