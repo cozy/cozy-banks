@@ -194,7 +194,7 @@ const getLocalClassifierOptions = transactionsWithManualCat => {
   }
 }
 
-const localModel = async (classifierOptions, transactions) => {
+export const localModel = async (classifierOptions, transactions) => {
   localModelLog('info', 'Fetching manually categorized transactions')
   const transactionsWithManualCat = await Transaction.queryAll({
     manualCategoryId: { $exists: true }
@@ -240,6 +240,15 @@ const localModel = async (classifierOptions, transactions) => {
     localModelLog('info', `localCategory: ${category}`)
     localModelLog('info', `localProba: ${proba}`)
   }
+}
+
+export const categorizes = async transactions => {
+  const classifierOptions = { tokenizer }
+
+  await Promise.all([
+    globalModel(classifierOptions, transactions),
+    localModel(classifierOptions, transactions)
+  ])
 
   const tracker = getTracker(__TARGET__, { e_a: 'LocalCategorization' })
   const nbTransactionsAboveThreshold = transactions.reduce(
@@ -257,15 +266,6 @@ const localModel = async (classifierOptions, transactions) => {
     e_n: 'TransactionsUsingLocalCategory',
     e_v: nbTransactionsAboveThreshold
   })
-}
-
-export const categorizes = async transactions => {
-  const classifierOptions = { tokenizer }
-
-  await Promise.all([
-    globalModel(classifierOptions, transactions),
-    localModel(classifierOptions, transactions)
-  ])
 
   return transactions
 }

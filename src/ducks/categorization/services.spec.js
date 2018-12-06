@@ -5,6 +5,22 @@ import {
   localModel
 } from './services'
 import { tokenizer } from '.'
+import { Transaction } from '../../models'
+
+jest
+  .spyOn(Transaction, 'queryAll')
+  .mockResolvedValue([
+    { label: 'AAAA BBBB', manualCategoryId: '200110' },
+    { label: 'AAAA BBBB', manualCategoryId: '200110' }
+  ])
+
+const transactions = [
+  { amount: 3001.71, label: 'AAAA BBBB' },
+  { amount: -37.71, label: 'CCCC DDDD' },
+  { amount: -387.71, label: 'EEEE' },
+  { amount: 387.71, label: 'HHHH AAAA BBBB' },
+  { amount: -907.71, label: 'FFFF GGGG' }
+]
 
 describe('getUniqueCategories', () => {
   it('Should return the list of unique categories for the given transactions', () => {
@@ -57,30 +73,14 @@ describe('createLocalClassifier', () => {
   })
 })
 
-  it('Should create a classifier with the right options', () => {
-    const configurationOptions = { learnSampleWeight: 1 }
-    createLocalClassifier(
-      transactions,
-      initializationOptions,
-      configurationOptions
-    )
+describe('localModel', () => {
+  it('Should give correct local probas', async () => {
+    await localModel({ tokenizer }, transactions)
 
-    expect(bayes).toHaveBeenLastCalledWith(initializationOptions)
-  })
-
-  it('Should learn from passed transactions according to the given weight', () => {
-    createLocalClassifier(transactions, initializationOptions, {
-      learnSampleWeight: 1
-    })
-
-    expect(mockLearn).toHaveBeenCalledTimes(transactions.length)
-
-    mockLearn.mockReset()
-
-    createLocalClassifier(transactions, initializationOptions, {
-      learnSampleWeight: 4
-    })
-
-    expect(mockLearn).toHaveBeenCalledTimes(4 * transactions.length)
+    expect(transactions[0].localCategoryProba).toBeCloseTo(0.8311, 3)
+    expect(transactions[1].localCategoryProba).toBeCloseTo(0.6666, 3)
+    expect(transactions[2].localCategoryProba).toBeCloseTo(0.6666, 3)
+    expect(transactions[3].localCategoryProba).toBeCloseTo(0.749, 3)
+    expect(transactions[4].localCategoryProba).toBeCloseTo(0.6666, 3)
   })
 })
