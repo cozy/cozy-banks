@@ -3749,10 +3749,10 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-classificator@0.3.2:
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/classificator/-/classificator-0.3.2.tgz#3fc4168ffbed92ab0fb15ec8873f1bd2159890ef"
-  integrity sha512-B69pTuf/CEmvBXQ5XRpoHDJi9wHrQMwzSsq1y8W2MF/ltGyksUbvvN6TbNvc0amuG4DNq9d7E8r5bFx7M6pCdg==
+classificator@0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/classificator/-/classificator-0.3.3.tgz#b344cf1dfe90a292c4e507ed221aa72eff45b9d5"
+  integrity sha512-IXJYTuoxUdKENDjYZ9PqMr4lrwI6cp4JX4Og7XKkNwgvvogrroP97POpK2zvs3spm4Fg3TY0kcy4sKtBFSyb4g==
   dependencies:
     decimal.js "^10.0.0"
 
