@@ -13,6 +13,9 @@ Object {
     "autoCategorization": Object {
       "enabled": false,
     },
+    "localModelOverride": Object {
+      "enabled": false,
+    },
   },
   "notifications": Object {
     "balanceLower": Object {

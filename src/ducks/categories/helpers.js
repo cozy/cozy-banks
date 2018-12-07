@@ -1,3 +1,4 @@
+import flag from 'cozy-flags'
 import parentCategory, { categoriesStyle } from './categoriesMap'
 import categoryNames from './tree'
 
@@ -17,12 +18,20 @@ const makeSubcategory = catId => ({
 
 export const LOCAL_MODEL_USAGE_THRESHOLD = 0.8
 
+/**
+ * Return the category id of the transaction
+ * @param {Object} transaction
+ * @return {String}
+ */
 export const getCategoryId = transaction => {
   if (transaction.manualCategoryId) {
     return transaction.manualCategoryId
   }
 
+  const localModelOverride = flag('local-model-override')
+
   if (
+    localModelOverride &&
     transaction.localCategoryId &&
     transaction.localCategoryProba &&
     transaction.localCategoryProba > LOCAL_MODEL_USAGE_THRESHOLD

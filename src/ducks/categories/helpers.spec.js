@@ -1,6 +1,13 @@
+jest.mock('cozy-flags')
+
+import flag from 'cozy-flags'
 import { getCategoryId } from './helpers'
 
 describe('getCategoryId', () => {
+  beforeEach(() => {
+    flag.mockReturnValue(true)
+  })
+
   it("Should return the manualCategoryId if there's one", () => {
     const transaction = {
       manualCategoryId: '200110',
@@ -10,16 +17,6 @@ describe('getCategoryId', () => {
     }
 
     expect(getCategoryId(transaction)).toBe(transaction.manualCategoryId)
-  })
-
-  it("Should return the localCategoryId if there's no manualCategoryId and localCategoryProba is higher than the threshold", () => {
-    const transaction = {
-      automaticCategoryId: '200120',
-      localCategoryId: '200130',
-      localCategoryProba: 0.9
-    }
-
-    expect(getCategoryId(transaction)).toBe(transaction.localCategoryId)
   })
 
   it('Should return the automaticCategoryId if the localCategoryProba is lower than the threshold', () => {
@@ -37,6 +34,19 @@ describe('getCategoryId', () => {
       automaticCategoryId: '200120'
     }
 
+    expect(getCategoryId(transaction)).toBe(transaction.automaticCategoryId)
+  })
+
+  it('Should use local model properties according to "use-local-model" flag', () => {
+    const transaction = {
+      automaticCategoryId: '200120',
+      localCategoryId: '200130',
+      localCategoryProba: 0.9
+    }
+
+    expect(getCategoryId(transaction)).toBe(transaction.localCategoryId)
+
+    flag.mockReturnValueOnce(false)
     expect(getCategoryId(transaction)).toBe(transaction.automaticCategoryId)
   })
 })

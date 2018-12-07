@@ -32,6 +32,9 @@ export const DEFAULTS_SETTINGS = {
   community: {
     autoCategorization: {
       enabled: false
+    },
+    localModelOverride: {
+      enabled: false
     }
   },
   categorization: {
