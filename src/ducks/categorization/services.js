@@ -17,7 +17,7 @@ export const PARAMETERS_NOT_FOUND = 'Classifier files is not configured.'
 
 const ALPHA_MIN = 0.1
 const ALPHA_MAX = 10
-const ALPHA_MAX_SMOOTHING = 20
+const ALPHA_MAX_SMOOTHING = 2
 const FAKE_TRANSACTION = {
   label: 'thisisafaketransaction',
   manualCategoryId: '0'
@@ -41,14 +41,13 @@ export const getAlphaParameter = (
 /**
  * Create a ready to use classifier for the local categorization model
  * @param {Array} transactionsToLearn - Transactions to learn from
- * @param {Object} classifierOptions - Options to pass to the classifier initialization
- * @param {Object} options
- * @param {Number} learnSampleWeight - The weight of the transactionsToLearn parameter
+ * @param {Object} intializationOptions - Options to pass to the classifier initialization
+ * @param {Object} configurationOptions - Options used to configure the classifier
  */
 export const createLocalClassifier = (
   transactionsToLearn,
-  classifierOptions,
-  options
+  initializationOptions,
+  configurationOptions
 ) => {
   if (transactionsToLearn.length === 0) {
     localModelLog(
@@ -58,16 +57,20 @@ export const createLocalClassifier = (
     return null
   }
 
-  const classifier = bayes(classifierOptions)
+  const classifier = bayes(initializationOptions)
 
   localModelLog('info', 'Learning from manually categorized transactions')
-  for (let i = 0; i < options.learnSampleWeight; ++i) {
+  for (let i = 0; i < configurationOptions.learnSampleWeight; ++i) {
     for (const transaction of transactionsToLearn) {
       classifier.learn(
         getLabelWithTags(transaction),
         transaction.manualCategoryId
       )
     }
+  }
+
+  if (configurationOptions.addFakeTransaction) {
+    classifier.learn(FAKE_TRANSACTION.label, FAKE_TRANSACTION.manualCategoryId)
   }
 
   return classifier
@@ -150,19 +153,7 @@ const globalModel = async (classifierOptions, transactions) => {
   }
 }
 
-const localModel = async (classifierOptions, transactions) => {
-  localModelLog('info', 'Fetching manually categorized transactions')
-  const transactionsWithManualCat = await Transaction.queryAll({
-    manualCategoryId: { $exists: true }
-  })
-  localModelLog(
-    'info',
-    `Fetched ${
-      transactionsWithManualCat.length
-    } manually categorized transactions`
-  )
-
-  localModelLog('info', 'Instanciating a new classifier')
+const getLocalClassifierOptions = transactionsWithManualCat => {
   const uniqueCategories = getUniqueCategories(transactionsWithManualCat)
   const nbUniqueCategories = uniqueCategories.length
   localModelLog(
@@ -178,16 +169,18 @@ const localModel = async (classifierOptions, transactions) => {
   )
   localModelLog('debug', 'Alpha parameter value is ' + alpha)
 
+  let addFakeTransaction = false
   if (nbUniqueCategories === 1) {
     localModelLog(
       'info',
       'Not enough different categories, adding a fake transaction to balance the weight of the categories'
     )
-    transactionsWithManualCat.push(FAKE_TRANSACTION)
+    addFakeTransaction = true
   }
 
+  // With these constants (1, 1, 2) it is actually useless but let's keep them
   const MIN_SAMPLE_WEIGHT = 1
-  const MAX_SAMPLE_WEIGHT = 3
+  const MAX_SAMPLE_WEIGHT = 1
   const MIN_WEIGHT_LIMIT = 2
   const learnSampleWeight =
     transactionsWithManualCat.length > MIN_WEIGHT_LIMIT
@@ -195,10 +188,31 @@ const localModel = async (classifierOptions, transactions) => {
       : MAX_SAMPLE_WEIGHT
   localModelLog('debug', 'Learn sample weight is ' + learnSampleWeight)
 
+  return {
+    initialization: { alpha },
+    configuration: { learnSampleWeight, addFakeTransaction }
+  }
+}
+
+export const localModel = async (classifierOptions, transactions) => {
+  localModelLog('info', 'Fetching manually categorized transactions')
+  const transactionsWithManualCat = await Transaction.queryAll({
+    manualCategoryId: { $exists: true }
+  })
+  localModelLog(
+    'info',
+    `Fetched ${
+      transactionsWithManualCat.length
+    } manually categorized transactions`
+  )
+
+  localModelLog('info', 'Instanciating a new classifier')
+
+  const options = getLocalClassifierOptions(transactionsWithManualCat)
   const classifier = createLocalClassifier(
     transactionsWithManualCat,
-    { ...classifierOptions, alpha },
-    { learnSampleWeight }
+    { ...classifierOptions, ...options.initialization },
+    options.configuration
   )
 
   if (!classifier) {
@@ -226,6 +240,15 @@ const localModel = async (classifierOptions, transactions) => {
     localModelLog('info', `localCategory: ${category}`)
     localModelLog('info', `localProba: ${proba}`)
   }
+}
+
+export const categorizes = async transactions => {
+  const classifierOptions = { tokenizer }
+
+  await Promise.all([
+    globalModel(classifierOptions, transactions),
+    localModel(classifierOptions, transactions)
+  ])
 
   const tracker = getTracker(__TARGET__, { e_a: 'LocalCategorization' })
   const nbTransactionsAboveThreshold = transactions.reduce(
@@ -243,15 +266,6 @@ const localModel = async (classifierOptions, transactions) => {
     e_n: 'TransactionsUsingLocalCategory',
     e_v: nbTransactionsAboveThreshold
   })
-}
-
-export const categorizes = async transactions => {
-  const classifierOptions = { tokenizer }
-
-  await Promise.all([
-    globalModel(classifierOptions, transactions),
-    localModel(classifierOptions, transactions)
-  ])
 
   return transactions
 }

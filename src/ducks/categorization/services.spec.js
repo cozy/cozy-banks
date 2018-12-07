@@ -1,13 +1,26 @@
 import {
   getUniqueCategories,
   getAlphaParameter,
-  createLocalClassifier
+  createLocalClassifier,
+  localModel
 } from './services'
-import bayes from 'classificator'
 import { tokenizer } from '.'
+import { Transaction } from '../../models'
 
-const mockLearn = jest.fn()
-jest.mock('classificator', () => jest.fn(() => ({ learn: mockLearn })))
+jest
+  .spyOn(Transaction, 'queryAll')
+  .mockResolvedValue([
+    { amount: 3001.71, label: 'AAAA BBBB', manualCategoryId: '200110' },
+    { amount: 3001.71, label: 'AAAA BBBB', manualCategoryId: '200110' }
+  ])
+
+const transactions = [
+  { amount: 3001.71, label: 'AAAA BBBB' },
+  { amount: -37.71, label: 'CCCC DDDD' },
+  { amount: -387.71, label: 'EEEE' },
+  { amount: 387.71, label: 'HHHH AAAA BBBB' },
+  { amount: -907.71, label: 'FFFF GGGG' }
+]
 
 describe('getUniqueCategories', () => {
   it('Should return the list of unique categories for the given transactions', () => {
@@ -53,50 +66,21 @@ describe('getAlphaParemeter', () => {
 })
 
 describe('createLocalClassifier', () => {
-  const classifierOptions = {
-    tokenizer,
-    alpha: 1
-  }
-
-  const transactions = [
-    { label: 'a', manualCategoryId: '200100' },
-    { label: 'b', manualCategoryId: '200100' },
-    { label: 'c', manualCategoryId: '200100' },
-    { label: 'd', manualCategoryId: '200100' },
-    { label: 'e', manualCategoryId: '200100' },
-    { label: 'f', manualCategoryId: '200100' }
-  ]
-
-  beforeEach(() => {
-    mockLearn.mockReset()
-  })
-
   it('Should return null when passed no transaction', () => {
     const classifier = createLocalClassifier([])
 
     expect(classifier).toBeNull()
   })
+})
 
-  it('Should create a classifier with the right options', () => {
-    const options = { learnSampleWeight: 1 }
-    createLocalClassifier(transactions, classifierOptions, options)
+describe('localModel', () => {
+  it('Should give correct local probas', async () => {
+    await localModel({ tokenizer }, transactions)
 
-    expect(bayes).toHaveBeenLastCalledWith(classifierOptions)
-  })
-
-  it('Should learn from passed transactions according to the given weight', () => {
-    createLocalClassifier(transactions, classifierOptions, {
-      learnSampleWeight: 1
-    })
-
-    expect(mockLearn).toHaveBeenCalledTimes(transactions.length)
-
-    mockLearn.mockReset()
-
-    createLocalClassifier(transactions, classifierOptions, {
-      learnSampleWeight: 4
-    })
-
-    expect(mockLearn).toHaveBeenCalledTimes(4 * transactions.length)
+    expect(transactions[0].localCategoryProba).toBeCloseTo(0.8311, 3)
+    expect(transactions[1].localCategoryProba).toBeCloseTo(0.6666, 3)
+    expect(transactions[2].localCategoryProba).toBeCloseTo(0.6666, 3)
+    expect(transactions[3].localCategoryProba).toBeCloseTo(0.749, 3)
+    expect(transactions[4].localCategoryProba).toBeCloseTo(0.6666, 3)
   })
 })
