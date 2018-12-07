@@ -10,8 +10,8 @@ import { Transaction } from '../../models'
 jest
   .spyOn(Transaction, 'queryAll')
   .mockResolvedValue([
-    { label: 'AAAA BBBB', manualCategoryId: '200110' },
-    { label: 'AAAA BBBB', manualCategoryId: '200110' }
+    { amount: 3001.71, label: 'AAAA BBBB', manualCategoryId: '200110' },
+    { amount: 3001.71, label: 'AAAA BBBB', manualCategoryId: '200110' }
   ])
 
 const transactions = [
