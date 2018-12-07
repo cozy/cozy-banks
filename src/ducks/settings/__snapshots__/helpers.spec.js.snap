@@ -2,7 +2,6 @@
 
 exports[`defaulted settings should return defaulted settings 1`] = `
 Object {
-  "_type": "io.cozy.bank.settings",
   "billsMatching": Object {
     "billsLastSeq": "0",
     "transactionsLastSeq": "0",
