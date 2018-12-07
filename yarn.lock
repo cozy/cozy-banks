@@ -11165,10 +11165,10 @@ min-document@^2.19.0:
   dependencies:
     dom-walk "^0.1.0"
 
-mini-css-extract-plugin@0.4.4:
-  version "0.4.4"
-  resolved "https://registry.yarnpkg.com/mini-css-extract-plugin/-/mini-css-extract-plugin-0.4.4.tgz#c10410a004951bd3cedac1da69053940fccb625d"
-  integrity sha512-o+Jm+ocb0asEngdM6FsZWtZsRzA8koFUudIDwYUfl94M3PejPHG7Vopw5hN9V8WsMkSFpm3tZP3Fesz89EyrfQ==
+mini-css-extract-plugin@0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/mini-css-extract-plugin/-/mini-css-extract-plugin-0.5.0.tgz#ac0059b02b9692515a637115b0cc9fed3a35c7b0"
+  integrity sha512-IuaLjruM0vMKhUUT51fQdQzBYTX49dLj8w68ALEAe2A4iYNpIC4eMac67mt3NzycvjOlf07/kYxJDc0RTl1Wqw==
   dependencies:
     loader-utils "^1.1.0"
     schema-utils "^1.0.0"
@@ -13591,13 +13591,6 @@ pouchdb-adapter-cordova-sqlite@2.0.5:
   integrity sha512-K7eIQzFYfuYOo4Nwn8r96Pq01t5mPOppO+n31U7IM/fPJTIGS/juJyNYYY9ePrlrz8icHEDl35cgHLMq40xFyA==
   dependencies:
     pouchdb-adapter-websql-core "^6.4.3"
-
-"pouchdb-adapter-cordova-sqlite@git+https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a":
-  version "2.0.2"
-  uid f3ee23009b70209c611435d57491aa77fb88802a
-  resolved "git+https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a"
-  dependencies:
-    pouchdb-adapter-websql-core "^6.1.1"
 
 "pouchdb-adapter-cordova-sqlite@https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a":
   version "2.0.2"
