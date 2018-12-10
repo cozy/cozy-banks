@@ -1,280 +1,32 @@
 import React from 'react'
-import { flowRight as compose, sumBy, uniq, sortBy, get, keyBy } from 'lodash'
-import { connect } from 'react-redux'
+import { flowRight as compose, sortBy, get, keyBy } from 'lodash'
 import cx from 'classnames'
-import PropTypes from 'prop-types'
-
-import { withRouter } from 'react-router'
-import { translate, Button, withBreakpoints } from 'cozy-ui/react'
+import { format as formatDate, subYears } from 'date-fns'
+import { translate, withBreakpoints } from 'cozy-ui/react'
 import { queryConnect } from 'cozy-client'
-
-import Loading from 'components/Loading'
-import { Table, TdSecondary } from 'components/Table'
-import { Padded } from 'components/Spacing'
-import Header from 'components/Header'
-import { Figure, FigureBlock } from 'components/Figure'
-import { PageTitle } from 'components/Title'
 import flag from 'cozy-flags'
-
-import AddAccountLink from 'ducks/settings/AddAccountLink'
-import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
-import { filterByDoc, getFilteringDoc } from 'ducks/filters'
-import { getAccountInstitutionLabel } from 'ducks/account/helpers'
 import {
   ACCOUNT_DOCTYPE,
   GROUP_DOCTYPE,
   SETTINGS_DOCTYPE,
   TRANSACTION_DOCTYPE
 } from 'doctypes'
-import History from './History'
-import { buildVirtualGroups } from 'ducks/groups/helpers'
-import { format as formatDate, subYears } from 'date-fns'
 
-import styles from './Balance.styl'
-import btnStyles from 'styles/buttons.styl'
+import Loading from 'components/Loading'
+import { Padded } from 'components/Spacing'
+import Header from 'components/Header'
+import { FigureBlock } from 'components/Figure'
+import { PageTitle } from 'components/Title'
+
+import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
+import { buildVirtualGroups } from 'ducks/groups/helpers'
 import { isCollectionLoading } from 'ducks/client/utils'
 
-const getGroupBalance = group => {
-  return sumBy(group.accounts.data, account => get(account, 'balance') || 0)
-}
+import History from './History'
+import styles from './Balance.styl'
+import { BalanceAccounts, BalanceGroups } from './components'
 
-const sameId = (filteringDoc, accountOrGroup) => {
-  return filteringDoc && filteringDoc._id === accountOrGroup._id
-}
-
-const isAccountPartOf = (filteringDoc, account) => {
-  const accounts = get(filteringDoc, 'accounts.accounts')
-  return accounts && account && accounts.indexOf(account._id) > -1
-}
-
-// TODO should be using this everywhere, where to put it ?
-const getAccountLabel = account => account.shortLabel || account.label
-
-class _BalanceRow extends React.Component {
-  render() {
-    const {
-      account,
-      group,
-      warningLimit,
-      onClick,
-      filteringDoc,
-      isMobile
-    } = this.props
-    const balance = account ? account.balance : getGroupBalance(group)
-    const isWarning = balance ? balance < warningLimit : false
-    const isAlert = balance ? balance < 0 : false
-    const label = account ? getAccountLabel(account) : group.label
-    return (
-      <tr
-        className={cx(styles['Balance__row'], {
-          [styles['Balance__row--selected']]: sameId(
-            filteringDoc,
-            account || group
-          ),
-          [styles[
-            'Balance__row--selected-account-from-group'
-          ]]: isAccountPartOf(filteringDoc, account)
-        })}
-        onClick={onClick.bind(null, account || group)}
-      >
-        <td
-          className={cx(styles['Balance__account_name'], {
-            [styles.alert]: isAlert,
-            [styles.warning]: isWarning
-          })}
-        >
-          {label}
-        </td>
-        <TdSecondary
-          className={cx(styles['Balance__solde'], {
-            [styles.alert]: isAlert,
-            [styles.warning]: isWarning
-          })}
-        >
-          {balance !== undefined && (
-            <Figure
-              total={balance}
-              warningLimit={warningLimit}
-              currency="€"
-              coloredNegative
-              coloredWarning
-              signed
-            />
-          )}
-        </TdSecondary>
-        <TdSecondary className={styles['Balance__account_number']}>
-          {account && account.number}
-          {group &&
-            group.accounts.data
-              .filter(account => account)
-              .map(getAccountLabel)
-              .join(', ')}
-        </TdSecondary>
-        {!isMobile && (
-          <TdSecondary className={styles['Balance__bank']}>
-            {account && getAccountInstitutionLabel(account)}
-            {group &&
-              uniq(
-                group.accounts.data
-                  .filter(account => account)
-                  .map(getAccountInstitutionLabel)
-              ).join(', ')}
-          </TdSecondary>
-        )}
-      </tr>
-    )
-  }
-}
-
-const BalanceRow = connect(state => ({
-  filteringDoc: getFilteringDoc(state)
-}))(_BalanceRow)
-
-BalanceRow.propTypes = {
-  accountOrGroup: props => {
-    if (props.group === undefined && props.account === undefined) {
-      return new Error('Missing value for account or group. Validation failed.')
-    }
-  }
-}
-
-/**
- * `SectionTitle` needs to be have a slight top margin.
- * TODO check with Claire how to have default margins
- * in components that work well together.
- *
- * @param  {React.Element} options.children
- */
-const SectionTitle = ({ children }) => {
-  return <h3 className={styles['Balance__section-title']}>{children}</h3>
-}
-
-const enhanceGroups = compose(
-  withRouter,
-  translate()
-)
-
-const BalanceGroups = enhanceGroups(
-  ({ groups, accountsById, balanceLower, isMobile, onRowClick, t, router }) => {
-    return (
-      <div>
-        <SectionTitle>{t('AccountSwitch.groups')}</SectionTitle>
-        {groups.length !== 0 && (
-          <Table className={styles['Balance__table']}>
-            <thead>
-              <tr>
-                <td className={styles['Balance__account_name']}>
-                  {t('Groups.label')}
-                </td>
-                <td className={styles['Balance__solde']}>
-                  {t('Groups.total-balance')}
-                </td>
-                <td className={styles['Balance__group-accounts']}>
-                  {t('Groups.accounts')}
-                </td>
-                <td className={styles['Balance__bank']}>{t('Groups.banks')}</td>
-              </tr>
-            </thead>
-            <tbody>
-              {groups.map(group => (
-                <BalanceRow
-                  getAccount={id => accountsById[id]}
-                  key={group.label}
-                  group={group}
-                  warningLimit={balanceLower}
-                  isMobile={isMobile}
-                  onClick={onRowClick.bind(null, group)}
-                />
-              ))}
-            </tbody>
-          </Table>
-        )}
-        {groups.length === 0 ? (
-          <p>
-            {t('Groups.no-groups')}
-            <br />
-            <Button
-              onClick={() => router.push('/settings/groups/new')}
-              className={cx(btnStyles['btn--no-outline'], 'u-pv-1')}
-              label={t('Groups.create')}
-              icon="plus"
-            />
-          </p>
-        ) : (
-          <p>
-            <Button
-              onClick={() => router.push('/settings/groups')}
-              className={cx(btnStyles['btn--no-outline'], 'u-pv-1')}
-              label={t('Groups.manage-groups')}
-            />
-          </p>
-        )}
-      </div>
-    )
-  }
-)
-
-const BalanceAccounts = translate()(
-  ({ accounts, balanceLower, isMobile, onRowClick, t }) => {
-    return (
-      <div>
-        <SectionTitle>{t('AccountSwitch.accounts')}</SectionTitle>
-        <Table className={styles['Balance__table']}>
-          <thead>
-            <tr>
-              <td className={styles['Balance__account_name']}>
-                {t('Accounts.label')}
-              </td>
-              <td className={styles['Balance__solde']}>{t('Balance.solde')}</td>
-              {!isMobile && (
-                <td className={styles['Balance__account_number']}>
-                  {t('Balance.account_number')}
-                </td>
-              )}
-              {!isMobile && (
-                <td className={styles['Balance__bank']}>
-                  {t('Balance.bank_name')}
-                </td>
-              )}
-            </tr>
-          </thead>
-          <tbody>
-            {accounts.map((account, index) => (
-              <BalanceRow
-                key={index}
-                account={account}
-                warningLimit={balanceLower}
-                isMobile={isMobile}
-                onClick={onRowClick.bind(null, account)}
-              />
-            ))}
-          </tbody>
-        </Table>
-        <p>
-          <AddAccountLink>
-            <Button
-              className={cx(btnStyles['btn--no-outline'], 'u-pv-1')}
-              icon="plus"
-              label={t('Accounts.add-account')}
-            />
-          </AddAccountLink>
-        </p>
-      </div>
-    )
-  }
-)
-
-BalanceAccounts.propTypes = {
-  balanceLower: PropTypes.number.isRequired,
-  accounts: PropTypes.array.isRequired
-}
-
-class Balance extends React.Component {
-  goToTransactionsFilteredBy = doc => {
-    this.props.filterByDoc(doc)
-    this.props.router.push('/transactions')
-  }
-
+class Balance extends React.PureComponent {
   render() {
     const {
       t,
@@ -343,8 +95,6 @@ class Balance extends React.Component {
         accountsById={keyBy(accounts, x => x._id)}
         groups={groupsSorted}
         balanceLower={balanceLower}
-        isMobile={isMobile}
-        onRowClick={this.goToTransactionsFilteredBy}
       />
     )
 
@@ -379,8 +129,6 @@ class Balance extends React.Component {
           <BalanceAccounts
             accounts={accountsSorted}
             balanceLower={balanceLower}
-            isMobile={isMobile}
-            onRowClick={this.goToTransactionsFilteredBy}
           />
           {groupsSorted.length === 0 && groupsC}
         </Padded>
@@ -389,18 +137,9 @@ class Balance extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  filterByDoc: doc => dispatch(filterByDoc(doc))
-})
-
 export default compose(
-  withRouter,
   withBreakpoints(),
   translate(),
-  connect(
-    null,
-    mapDispatchToProps
-  ),
   queryConnect({
     accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' },
     groups: { query: client => client.all(GROUP_DOCTYPE), as: 'groups' },
