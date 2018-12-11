@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { Toggle, translate, withBreakpoints } from 'cozy-ui/react'
 import { Breadcrumb } from 'components/Breadcrumb'
@@ -10,65 +10,69 @@ import { getTransactionsTotal, getGlobalCurrency } from './helpers'
 import { flowRight as compose } from 'lodash'
 import styles from './CategoriesHeader.styl'
 
-const CategoriesHeader = ({
-  breadcrumbItems,
-  selectedCategory,
-  withIncome,
-  onWithIncomeToggle,
-  chartSize = 182,
-  categories,
-  t,
-  breakpoints: { isMobile },
-  isFetching
-}) => {
-  const globalCurrency = getGlobalCurrency(categories)
-  const transactionsTotal = getTransactionsTotal(categories)
-  const [previousItem] = breadcrumbItems.slice(-2, 1)
-  const hasData = categories.length > 0 && categories[0].transactionsNumber > 0
-  const showIncomeToggle = hasData && selectedCategory === undefined
+class CategoriesHeader extends PureComponent {
+  render() {
+    const {
+      breadcrumbItems,
+      selectedCategory,
+      withIncome,
+      onWithIncomeToggle,
+      chartSize = 182,
+      categories,
+      t,
+      breakpoints: { isMobile },
+      isFetching
+    } = this.props
 
-  return (
-    <div className={styles.CategoriesHeader}>
-      <div>
-        <AccountSwitch small={selectedCategory !== undefined} />
-        {selectedCategory && (
-          <BackButton onClick={previousItem && previousItem.onClick} />
-        )}
-        <SelectDates showFullYear />
-        {!isMobile && breadcrumbItems.length > 1 ? (
-          <Breadcrumb
-            items={breadcrumbItems}
-            className={styles.CategoriesHeader__Breadcrumb}
-          />
-        ) : null}
-        {showIncomeToggle && (
-          <div className={styles.CategoriesHeader__Toggle}>
-            <Toggle
-              id="withIncome"
-              checked={withIncome}
-              onToggle={checked => onWithIncomeToggle(checked)}
+    const globalCurrency = getGlobalCurrency(categories)
+    const transactionsTotal = getTransactionsTotal(categories)
+    const [previousItem] = breadcrumbItems.slice(-2, 1)
+    const hasData = categories.length > 0 && categories[0].transactionsNumber > 0
+    const showIncomeToggle = hasData && selectedCategory === undefined
+
+    return (
+      <div className={styles.CategoriesHeader}>
+        <div>
+          <AccountSwitch small={selectedCategory !== undefined} />
+          {selectedCategory && (
+            <BackButton onClick={previousItem && previousItem.onClick} />
+          )}
+          <SelectDates showFullYear />
+          {!isMobile && breadcrumbItems.length > 1 ? (
+            <Breadcrumb
+              items={breadcrumbItems}
+              className={styles.CategoriesHeader__Breadcrumb}
             />
-            <label htmlFor="withIncome">
-              {t('Categories.filter.includeIncome')}
-            </label>
-          </div>
+          ) : null}
+          {showIncomeToggle && (
+            <div className={styles.CategoriesHeader__Toggle}>
+              <Toggle
+                id="withIncome"
+                checked={withIncome}
+                onToggle={checked => onWithIncomeToggle(checked)}
+              />
+              <label htmlFor="withIncome">
+                {t('Categories.filter.includeIncome')}
+              </label>
+            </div>
+          )}
+        </div>
+        {!isFetching && (
+          <CategoriesChart
+            width={chartSize}
+            height={chartSize}
+            categories={
+              selectedCategory ? selectedCategory.subcategories : categories
+            }
+            selectedCategory={selectedCategory}
+            total={selectedCategory ? selectedCategory.amount : transactionsTotal}
+            currency={globalCurrency}
+            label={t('Categories.title.total')}
+          />
         )}
       </div>
-      {!isFetching && (
-        <CategoriesChart
-          width={chartSize}
-          height={chartSize}
-          categories={
-            selectedCategory ? selectedCategory.subcategories : categories
-          }
-          selectedCategory={selectedCategory}
-          total={selectedCategory ? selectedCategory.amount : transactionsTotal}
-          currency={globalCurrency}
-          label={t('Categories.title.total')}
-        />
-      )}
-    </div>
-  )
+    )
+  }
 }
 
 CategoriesHeader.propTypes = {
