@@ -1,5 +1,6 @@
 import React, { PureComponent, Fragment } from 'react'
 import PropTypes from 'prop-types'
+import cx from 'classnames'
 import { Toggle, translate, withBreakpoints } from 'cozy-ui/react'
 import { Breadcrumb } from 'components/Breadcrumb'
 import { AccountSwitch } from 'ducks/account'
@@ -97,12 +98,27 @@ class CategoriesHeader extends PureComponent {
     const incomeToggle = this.renderIncomeToggle()
     const chart = this.renderChart()
 
+    if (isMobile) {
+      return (
+        <Fragment>
+          <Header fixed>
+            <SelectDates showFullYear />
+          </Header>
+          {accountSwitch}
+          <Padded>
+            {incomeToggle}
+            {chart}
+          </Padded>
+        </Fragment>
+      )
+    }
+
     return (
-      <div className={styles.CategoriesHeader}>
+      <Padded className={cx(styles.CategoriesHeader, 'u-pb-0')}>
         <div>
           {accountSwitch}
           <SelectDates showFullYear />
-          {!isMobile && breadcrumbItems.length > 1 && (
+          {breadcrumbItems.length > 1 && (
             <Breadcrumb
               items={breadcrumbItems}
               className={styles.CategoriesHeader__Breadcrumb}
@@ -111,7 +127,7 @@ class CategoriesHeader extends PureComponent {
           {incomeToggle}
         </div>
         {chart}
-      </div>
+      </Padded>
     )
   }
 }
