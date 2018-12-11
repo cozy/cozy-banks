@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import { translate, withBreakpoints } from 'cozy-ui/react'
@@ -8,7 +8,6 @@ import { getFilteredTransactions } from 'ducks/filters'
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import { transactionsByCategory, computeCategorieData } from './helpers'
 import Categories from './Categories'
-import styles from './CategoriesPage.styl'
 import { flowRight as compose, sortBy } from 'lodash'
 import CategoriesHeader from './CategoriesHeader'
 import { queryConnect } from 'cozy-client'
@@ -78,16 +77,16 @@ class CategoriesPage extends Component {
     ).reverse()
 
     return (
-      <div className={styles['bnk-cat-page']}>
+      <Fragment>
+        <CategoriesHeader
+          breadcrumbItems={breadcrumbItems}
+          selectedCategory={selectedCategory}
+          withIncome={showIncomeCategory}
+          onWithIncomeToggle={this.onWithIncomeToggle}
+          categories={sortedCategories}
+          isFetching={isFetching}
+        />
         <Padded>
-          <CategoriesHeader
-            breadcrumbItems={breadcrumbItems}
-            selectedCategory={selectedCategory}
-            withIncome={showIncomeCategory}
-            onWithIncomeToggle={this.onWithIncomeToggle}
-            categories={sortedCategories}
-            isFetching={isFetching}
-          />
           {isFetching ? (
             <Loading loadingType="categories" />
           ) : (
@@ -101,7 +100,7 @@ class CategoriesPage extends Component {
             />
           )}
         </Padded>
-      </div>
+      </Fragment>
     )
   }
 }
