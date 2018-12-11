@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
-import { translate, withBreakpoints, Spinner } from 'cozy-ui/react'
-import { Figure } from 'components/Figure'
-import { sumBy, uniq, groupBy } from 'lodash'
+import { queryConnect } from 'cozy-client'
+import { TRANSACTION_DOCTYPE } from 'doctypes'
+import { withBreakpoints, Spinner } from 'cozy-ui/react'
+import { flowRight as compose, sumBy, uniq, groupBy, max } from 'lodash'
 import styles from './History.styl'
 import HistoryChart from './HistoryChart'
 import { isCollectionLoading } from 'ducks/client/utils'
@@ -14,6 +15,7 @@ import {
   sumBalanceHistories,
   balanceHistoryToChartData
 } from './helpers'
+import { withSize } from 'react-sizeme'
 
 class History extends Component {
   getCurrentBalance() {
@@ -43,7 +45,8 @@ class History extends Component {
 
   getChartProps() {
     const {
-      breakpoints: { isMobile }
+      breakpoints: { isMobile },
+      size: { width }
     } = this.props
 
     const data = this.getChartData()
@@ -57,12 +60,12 @@ class History extends Component {
     const chartProps = {
       data,
       nbTicks,
-      width: nbTicks * intervalBetweenPoints,
+      width: max([width, nbTicks * intervalBetweenPoints]),
       height: isMobile ? 95 : 141,
       margin: {
         top: 20,
         bottom: 35,
-        left: isMobile ? 16 : 32,
+        left: 0,
         right: isMobile ? 16 : 32
       },
       showAxis: true,
@@ -74,12 +77,10 @@ class History extends Component {
   }
 
   render() {
-    const { accounts, transactions, className, t } = this.props
+    const { transactions, className } = this.props
 
-    const isAccountsLoading = isCollectionLoading(accounts)
     const isTransactionsLoading =
       isCollectionLoading(transactions) || transactions.hasMore
-    const showSpinner = isAccountsLoading || isTransactionsLoading
 
     if (transactions.hasMore) {
       transactions.fetchMore()
@@ -87,21 +88,11 @@ class History extends Component {
 
     return (
       <div className={cx(styles.History, className)}>
-        {!isAccountsLoading && (
-          <React.Fragment>
-            <Figure
-              className={styles.History__currentBalance}
-              currencyClassName={styles.History__currentBalanceCurrency}
-              total={this.getCurrentBalance()}
-              currency="€"
-            />
-            <div className={styles.History__subtitle}>
-              {t('BalanceHistory.subtitle')}
-            </div>
-          </React.Fragment>
+        {isTransactionsLoading ? (
+          <Spinner size="xxlarge" color="white" />
+        ) : (
+          <HistoryChart {...this.getChartProps()} />
         )}
-        {!isTransactionsLoading && <HistoryChart {...this.getChartProps()} />}
-        {showSpinner && <Spinner size="xxlarge" color="white" />}
       </div>
     )
   }
@@ -110,8 +101,21 @@ class History extends Component {
 History.propTypes = {
   accounts: PropTypes.object.isRequired,
   className: PropTypes.string,
-  transactions: PropTypes.object.isRequired,
-  t: PropTypes.func.isRequired
+  transactions: PropTypes.object.isRequired
 }
 
-export default withBreakpoints()(translate()(History))
+export default compose(
+  withBreakpoints(),
+  withSize(),
+  queryConnect({
+    transactions: {
+      query: client => {
+        const today = new Date()
+        const oneYearBefore = subYears(today, 1)
+        const minDate = formatDate(oneYearBefore, 'YYYY-MM-DD')
+
+        return client.all(TRANSACTION_DOCTYPE).where({ date: { $gt: minDate } })
+      }
+    }
+  })
+)(History)

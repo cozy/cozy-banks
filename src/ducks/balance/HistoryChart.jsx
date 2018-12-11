@@ -19,13 +19,16 @@ class HistoryChart extends Component {
 
   getTooltipContent = item => {
     const date = formatDate(item.x, 'DD  MMM')
-    const balance = item.y.toFixed(2)
+    const balance = item.y.toLocaleString('fr-FR', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    })
 
     return (
       <div>
         {date}
         <strong className={styles.HistoryChart__tooltipBalance}>
-          {balance}€
+          {balance} €
         </strong>
       </div>
     )

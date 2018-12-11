@@ -317,7 +317,7 @@ class LineChart extends Component {
 
     const isLeftPosition = x < width / 2
     const position = isLeftPosition ? 'left' : 'right'
-    const tooltipX = (isLeftPosition ? 0 : -width) + x + margin[position]
+    const tooltipX = (isLeftPosition ? 0 : -width) + x + margin.left
 
     return (
       <div className={styles.LineChart}>
