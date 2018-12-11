@@ -1,5 +1,5 @@
-import React from 'react'
-import { flowRight as compose, sortBy, get, keyBy } from 'lodash'
+import React, { PureComponent, Fragment } from 'react'
+import { flowRight as compose, sortBy, get, keyBy, sumBy } from 'lodash'
 import cx from 'classnames'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import { queryConnect } from 'cozy-client'
@@ -9,7 +9,7 @@ import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
 import Loading from 'components/Loading'
 import { Padded } from 'components/Spacing'
 import Header from 'components/Header'
-import { FigureBlock } from 'components/Figure'
+import { Figure, FigureBlock } from 'components/Figure'
 import { PageTitle } from 'components/Title'
 
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
@@ -20,7 +20,7 @@ import History from './History'
 import styles from './Balance.styl'
 import { BalanceAccounts, BalanceGroups } from './components'
 
-class Balance extends React.PureComponent {
+class Balance extends PureComponent {
   render() {
     const {
       t,
@@ -39,6 +39,9 @@ class Balance extends React.PureComponent {
       color: withChart && !isMobile ? 'primary' : 'default'
     }
     const titlePaddedClass = isMobile ? 'u-p-0' : 'u-pb-0'
+    const currentBalance = isCollectionLoading(accounts)
+      ? 0
+      : sumBy(this.props.accounts.data, a => a.balance)
 
     if (
       isCollectionLoading(accountsCollection) ||
@@ -46,16 +49,30 @@ class Balance extends React.PureComponent {
       isCollectionLoading(settingsCollection)
     ) {
       return (
-        <React.Fragment>
+        <Fragment>
           <Header className={headerClassName} {...headerColorProps}>
             {(isMobile || !withChart) && (
               <Padded className={titlePaddedClass}>
                 <PageTitle {...titleColorProps}>{t('Balance.title')}</PageTitle>
               </Padded>
             )}
+            {withChart && (
+              <Fragment>
+                <Figure
+                  className={styles.Balance__currentBalance}
+                  currencyClassName={styles.Balance__currentBalanceCurrency}
+                  total={currentBalance}
+                  currency="€"
+                />
+                <div className={styles.Balance__subtitle}>
+                  {t('BalanceHistory.subtitle')}
+                </div>
+                <History accounts={accountsCollection} />
+              </Fragment>
+            )}
           </Header>
           <Loading />
-        </React.Fragment>
+        </Fragment>
       )
     }
 
@@ -92,7 +109,7 @@ class Balance extends React.PureComponent {
     )
 
     return (
-      <React.Fragment>
+      <Fragment>
         <Header className={headerClassName} {...headerColorProps}>
           {(isMobile || !withChart) && (
             <Padded className={titlePaddedClass}>
@@ -100,7 +117,18 @@ class Balance extends React.PureComponent {
             </Padded>
           )}
           {withChart ? (
-            <History accounts={accountsCollection} />
+            <Fragment>
+              <Figure
+                className={styles.Balance__currentBalance}
+                currencyClassName={styles.Balance__currentBalanceCurrency}
+                total={currentBalance}
+                currency="€"
+              />
+              <div className={styles.Balance__subtitle}>
+                {t('BalanceHistory.subtitle')}
+              </div>
+              <History accounts={accountsCollection} />
+            </Fragment>
           ) : (
             <Padded className="u-pb-0">
               <FigureBlock
@@ -122,7 +150,7 @@ class Balance extends React.PureComponent {
           />
           {groupsSorted.length === 0 && groupsC}
         </Padded>
-      </React.Fragment>
+      </Fragment>
     )
   }
 }

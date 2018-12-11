@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 import cx from 'classnames'
 import { queryConnect } from 'cozy-client'
 import { TRANSACTION_DOCTYPE } from 'doctypes'
-import { translate, withBreakpoints, Spinner } from 'cozy-ui/react'
-import { Figure } from 'components/Figure'
+import { withBreakpoints, Spinner } from 'cozy-ui/react'
 import { flowRight as compose, sumBy, uniq, groupBy } from 'lodash'
 import styles from './History.styl'
 import HistoryChart from './HistoryChart'
@@ -76,12 +75,10 @@ class History extends Component {
   }
 
   render() {
-    const { accounts, transactions, className, t } = this.props
+    const { transactions, className } = this.props
 
-    const isAccountsLoading = isCollectionLoading(accounts)
     const isTransactionsLoading =
       isCollectionLoading(transactions) || transactions.hasMore
-    const showSpinner = isAccountsLoading || isTransactionsLoading
 
     if (transactions.hasMore) {
       transactions.fetchMore()
@@ -89,21 +86,11 @@ class History extends Component {
 
     return (
       <div className={cx(styles.History, className)}>
-        {!isAccountsLoading && (
-          <React.Fragment>
-            <Figure
-              className={styles.History__currentBalance}
-              currencyClassName={styles.History__currentBalanceCurrency}
-              total={this.getCurrentBalance()}
-              currency="€"
-            />
-            <div className={styles.History__subtitle}>
-              {t('BalanceHistory.subtitle')}
-            </div>
-          </React.Fragment>
+        {isTransactionsLoading ? (
+          <Spinner size="xxlarge" color="white" />
+        ) : (
+          <HistoryChart {...this.getChartProps()} />
         )}
-        {!isTransactionsLoading && <HistoryChart {...this.getChartProps()} />}
-        {showSpinner && <Spinner size="xxlarge" color="white" />}
       </div>
     )
   }
@@ -112,13 +99,11 @@ class History extends Component {
 History.propTypes = {
   accounts: PropTypes.object.isRequired,
   className: PropTypes.string,
-  transactions: PropTypes.object.isRequired,
-  t: PropTypes.func.isRequired
+  transactions: PropTypes.object.isRequired
 }
 
 export default compose(
   withBreakpoints(),
-  translate(),
   queryConnect({
     transactions: {
       query: client => {

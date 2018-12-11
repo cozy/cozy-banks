@@ -1,7 +1,38 @@
 @require 'settings/breakpoints'
 
-.Balance_Header_WithChart
-    min-height 245px
+.Balance_Header
+    padding-top: 1.5rem
+    padding-bottom .5rem
+    text-align center
+    color white
 
     +small-screen()
-        min-height 167px
+        padding-top: .5rem
+        padding-bottom 0
+
+.Balance_Header_WithChart
+    min-height 213px
+
+    +small-screen()
+        min-height 159px
+
+.Balance__currentBalance
+    text-align center
+    font-size 2rem
+    line-height 2.5rem
+
+    +small-screen()
+        font-size 1.5rem
+        line-height 2rem
+
+.Balance__currentBalanceCurrency
+    color inherit
+
+.Balance__subtitle
+    margin-bottom .5rem
+    text-transform uppercase
+    font-size 0.75rem
+    line-height 1rem
+    min-height 1rem
+    font-weight bold
+    color #a2c4f9
