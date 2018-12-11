@@ -1,16 +1,10 @@
 import React from 'react'
 import { flowRight as compose, sortBy, get, keyBy } from 'lodash'
 import cx from 'classnames'
-import { format as formatDate, subYears } from 'date-fns'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import { queryConnect } from 'cozy-client'
 import flag from 'cozy-flags'
-import {
-  ACCOUNT_DOCTYPE,
-  GROUP_DOCTYPE,
-  SETTINGS_DOCTYPE,
-  TRANSACTION_DOCTYPE
-} from 'doctypes'
+import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
 
 import Loading from 'components/Loading'
 import { Padded } from 'components/Spacing'
@@ -33,8 +27,7 @@ class Balance extends React.PureComponent {
       breakpoints: { isMobile },
       accounts: accountsCollection,
       groups: groupsCollection,
-      settings: settingsCollection,
-      transactions: transactionsCollection
+      settings: settingsCollection
     } = this.props
 
     const withChart = flag('balance-history')
@@ -107,10 +100,7 @@ class Balance extends React.PureComponent {
             </Padded>
           )}
           {withChart ? (
-            <History
-              accounts={accountsCollection}
-              transactions={transactionsCollection}
-            />
+            <History accounts={accountsCollection} />
           ) : (
             <Padded className="u-pb-0">
               <FigureBlock
@@ -143,15 +133,6 @@ export default compose(
   queryConnect({
     accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' },
     groups: { query: client => client.all(GROUP_DOCTYPE), as: 'groups' },
-    settings: { query: client => client.all(SETTINGS_DOCTYPE), as: 'settings' },
-    transactions: {
-      query: client => {
-        const today = new Date()
-        const oneYearBefore = subYears(today, 1)
-        const minDate = formatDate(oneYearBefore, 'YYYY-MM-DD')
-
-        return client.all(TRANSACTION_DOCTYPE).where({ date: { $gt: minDate } })
-      }
-    }
+    settings: { query: client => client.all(SETTINGS_DOCTYPE), as: 'settings' }
   })
 )(Balance)

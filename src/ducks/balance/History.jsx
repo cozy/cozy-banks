@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
+import { queryConnect } from 'cozy-client'
+import { TRANSACTION_DOCTYPE } from 'doctypes'
 import { translate, withBreakpoints, Spinner } from 'cozy-ui/react'
 import { Figure } from 'components/Figure'
-import { sumBy, uniq, groupBy } from 'lodash'
+import { flowRight as compose, sumBy, uniq, groupBy } from 'lodash'
 import styles from './History.styl'
 import HistoryChart from './HistoryChart'
 import { isCollectionLoading } from 'ducks/client/utils'
@@ -114,4 +116,18 @@ History.propTypes = {
   t: PropTypes.func.isRequired
 }
 
-export default withBreakpoints()(translate()(History))
+export default compose(
+  withBreakpoints(),
+  translate(),
+  queryConnect({
+    transactions: {
+      query: client => {
+        const today = new Date()
+        const oneYearBefore = subYears(today, 1)
+        const minDate = formatDate(oneYearBefore, 'YYYY-MM-DD')
+
+        return client.all(TRANSACTION_DOCTYPE).where({ date: { $gt: minDate } })
+      }
+    }
+  })
+)(History)
