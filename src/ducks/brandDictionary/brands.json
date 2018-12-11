@@ -92,6 +92,12 @@
     "konnectorSlug": "engie"
   },
   {
+    "name": "Eovi MCD Particuliers",
+    "regexp": "\\beovi mcd mutuelle\\b",
+    "konnectorSlug": "eovimcdparticuliers"
+  },
+
+  {
     "name": "Free",
     "regexp": "\\bfree (telecom|hautdebit)\\b",
     "konnectorSlug": "free"
