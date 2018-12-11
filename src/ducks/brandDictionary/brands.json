@@ -77,19 +77,9 @@
     "konnectorSlug": "deezer"
   },
   {
-    "name": "Digitick",
-    "regexp": "\\bdigitick\\b",
-    "konnectorSlug": "digitick"
-  },
-  {
     "name": "Direct Energie",
     "regexp": "\\bdirect energie\\b",
     "konnectorSlug": "directenergie"
-  },
-  {
-    "name": "Électricité de Strasbourg",
-    "regexp": "es energies strasbourg\\b",
-    "konnectorSlug": "electricitestrasbourg"
   },
   {
     "name": "Enercoop",
@@ -124,11 +114,6 @@
     "health": true
   },
   {
-    "name": "Helloasso",
-    "regexp": "\\bhelloasso\\b",
-    "konnectorSlug": "helloasso"
-  },
-  {
     "name": "Inulogic",
     "regexp": "\\binulogic\\b",
     "konnectorSlug": "inulogic"
@@ -137,11 +122,6 @@
     "name": "JustEat",
     "regexp": "\\bjust eat\\b",
     "konnectorSlug": "justeat"
-  },
-  {
-    "name": "LDLC",
-    "regexp": "\\bldlc\\b",
-    "konnectorSlug": "ldlc"
   },
   {
     "name": "Le Monde Diplomatique",
@@ -154,19 +134,9 @@
     "konnectorSlug": "leclercdrive"
   },
   {
-    "name": "Materiel.net",
-    "regexp": "\\bmateriel\\.net\\b",
-    "konnectorSlug": "materielnet"
-  },
-  {
     "name": "Ma lentille",
     "regexp": "\\bdigital eyewear\\b",
     "konnectorSlug": "malentille"
-  },
-  {
-    "name": "MACIF",
-    "regexp": "\\bmacif\\b",
-    "konnectorSlug": "macif"
   },
   {
     "name": "Maif - Echeancier",
@@ -201,11 +171,6 @@
     "konnectorSlug": "misterauto"
   },
   {
-    "name": "Nespresso",
-    "regexp": "\\bnespresso\\b",
-    "konnectorSlug": "nespresso"
-  },
-  {
     "name": "Netflix",
     "regexp": "\\bnetflix\\b",
     "konnectorSlug": "netflix"
@@ -229,11 +194,6 @@
     "name": "Orange Factures",
     "regexp": "\\borange\\b",
     "konnectorSlug": "orange"
-  },
-  {
-    "name": "Oui.sncf",
-    "regexp": "\\bsncf\\b",
-    "konnectorSlug": "sncf"
   },
   {
     "name": "OVH",
