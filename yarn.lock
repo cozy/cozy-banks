@@ -4562,7 +4562,7 @@ cozy-app-publish@0.9.0:
     prompt "1.0.0"
     tar "4.4.6"
 
-cozy-authentication@^1.4.0-beta1:
+cozy-authentication@1.4.0-beta1:
   version "1.4.0-beta1"
   resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-1.4.0-beta1.tgz#8e7be13e14d415d9181387814a67907e64038680"
   integrity sha512-WEaoy768oduftxnBvmsOZuvXBzqzFuqEwdBcFjpBJ3u0w/MoruoBtT/NjFI6gwTP8UohvO0LBGaUqmDlgIY1lA==
@@ -4764,7 +4764,7 @@ cozy-stack-client@^4.8.0:
   dependencies:
     mime-types "2.1.20"
 
-cozy-ui@^17.3.3:
+cozy-ui@17.3.3:
   version "17.3.3"
   resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-17.3.3.tgz#53b1ce0267003f8a234f6557085de0a0b7a2cce0"
   integrity sha512-tvvmm6w3zglohTh3cNKfe2oid5Mbg/yOFQlCyItH4/GrAuBhY8t/gGsrwJ0jcyNRKanCyqfJKY6t6dkHktNdJA==
