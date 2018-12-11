@@ -4,7 +4,7 @@ import cx from 'classnames'
 import { queryConnect } from 'cozy-client'
 import { TRANSACTION_DOCTYPE } from 'doctypes'
 import { withBreakpoints, Spinner } from 'cozy-ui/react'
-import { flowRight as compose, sumBy, uniq, groupBy } from 'lodash'
+import { flowRight as compose, sumBy, uniq, groupBy, max } from 'lodash'
 import styles from './History.styl'
 import HistoryChart from './HistoryChart'
 import { isCollectionLoading } from 'ducks/client/utils'
@@ -15,6 +15,7 @@ import {
   sumBalanceHistories,
   balanceHistoryToChartData
 } from './helpers'
+import { withSize } from 'react-sizeme'
 
 class History extends Component {
   getCurrentBalance() {
@@ -44,7 +45,8 @@ class History extends Component {
 
   getChartProps() {
     const {
-      breakpoints: { isMobile }
+      breakpoints: { isMobile },
+      size: { width }
     } = this.props
 
     const data = this.getChartData()
@@ -58,12 +60,12 @@ class History extends Component {
     const chartProps = {
       data,
       nbTicks,
-      width: nbTicks * intervalBetweenPoints,
+      width: max([width, nbTicks * intervalBetweenPoints]),
       height: isMobile ? 95 : 141,
       margin: {
         top: 20,
         bottom: 35,
-        left: isMobile ? 16 : 32,
+        left: 0,
         right: isMobile ? 16 : 32
       },
       showAxis: true,
@@ -104,6 +106,7 @@ History.propTypes = {
 
 export default compose(
   withBreakpoints(),
+  withSize(),
   queryConnect({
     transactions: {
       query: client => {
