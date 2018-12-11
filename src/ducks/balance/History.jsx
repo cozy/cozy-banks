@@ -7,7 +7,7 @@ import { sumBy, uniq, groupBy } from 'lodash'
 import styles from './History.styl'
 import HistoryChart from './HistoryChart'
 import { isCollectionLoading } from 'ducks/client/utils'
-import { format as formatDate } from 'date-fns'
+import { format as formatDate, subYears } from 'date-fns'
 import * as d3 from 'd3'
 import {
   getBalanceHistories,
@@ -21,10 +21,12 @@ class History extends Component {
   }
 
   getBalanceHistory(accounts, transactions) {
+    const today = new Date()
     const balanceHistories = getBalanceHistories(
       accounts,
       transactions,
-      new Date()
+      today,
+      subYears(today, 1)
     )
     const balanceHistory = sumBalanceHistories(Object.values(balanceHistories))
 

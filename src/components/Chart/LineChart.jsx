@@ -156,7 +156,17 @@ class LineChart extends Component {
     const sortedData = sortBy(data, d => d.x)
 
     this.x.domain(d3.extent(data, d => d.x))
-    this.y.domain(d3.extent(data, d => d.y))
+
+    let yDomain = d3.extent(data, d => d.y)
+
+    // If min === max, the line will be drawn on the bottom, like
+    // all values are the min. We want to opposite, so we set the
+    // min to 0. This way the line will be drawn on the top
+    if (yDomain[0] === yDomain[1]) {
+      yDomain[0] = 0
+    }
+
+    this.y.domain(yDomain)
 
     this.line.datum(sortedData).attr('d', this.lineGenerator)
     this.clickLine.datum(sortedData).attr('d', this.lineGenerator)
