@@ -2,6 +2,7 @@ import logger from 'cozy-logger'
 import { getDefaultedSettings } from './helpers'
 import { Document } from 'cozy-doctypes'
 import { DOCTYPE } from './constants'
+import { omit } from 'lodash'
 
 const log = logger.namespace('settings-doctype')
 
@@ -14,7 +15,7 @@ class Settings extends Document {
       log('info', 'No settings yet, default settings are used')
     }
 
-    return getDefaultedSettings(settings)
+    return omit(getDefaultedSettings(settings), ['_type'])
   }
 }
 

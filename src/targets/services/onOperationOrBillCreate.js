@@ -36,7 +36,7 @@ const fetchChangesOrAll = async (Model, lastSeq) => {
       descending: true,
       limit: 1
     })
-    return { documents, newLastSeq: lastChanges.last_seq }
+    return { documents, newLastSeq: lastChanges.newLastSeq }
   } else {
     return Model.fetchChanges(lastSeq)
   }
