@@ -2,7 +2,7 @@ import React, { Component, PureComponent } from 'react'
 import { withRouter } from 'react-router'
 import { sortBy, flowRight as compose } from 'lodash'
 import { Query, withMutations, withClient } from 'cozy-client'
-import { Button, translate, Toggle, Spinner } from 'cozy-ui/react'
+import { Button, translate, Toggle } from 'cozy-ui/react'
 
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import Loading from 'components/Loading'
