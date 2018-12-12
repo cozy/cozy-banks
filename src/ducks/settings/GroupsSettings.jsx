@@ -66,12 +66,11 @@ const Groups = withRouter(
           )}
           <p>
             <Button
+              icon={<Icon icon={plus} className="u-mr-half" />}
+              label={t('Groups.create')}
               className={btnStyles['btn--no-outline']}
               onClick={() => router.push('/settings/groups/new')}
-            >
-              <Icon icon={plus} className="u-mr-half" />
-              {t('Groups.create')}
-            </Button>
+            />
           </p>
         </div>
       )
