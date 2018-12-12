@@ -1,6 +1,6 @@
 /* global cozy */
 
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import { isIOSApp } from 'cozy-device-helper'
@@ -95,11 +95,14 @@ class TransactionsPage extends Component {
     })
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (!isEqual(this.props.accountIds, prevProps.accountIds)) {
       this.setCurrentMonthFollowingMostRecentTransaction()
     }
-    if (prevState.fetching && !this.state.fetching) {
+    if (
+      isCollectionLoading(prevProps.transactions) &&
+      !isCollectionLoading(this.props.transactions)
+    ) {
       this.setCurrentMonthFollowingMostRecentTransaction()
     }
   }
@@ -307,7 +310,7 @@ class TransactionsPage extends Component {
     const chartData = this.getChartData()
 
     return (
-      <React.Fragment>
+      <Fragment>
         <TransactionHeader
           transactions={filteredTransactions}
           handleChangeMonth={this.handleChangeMonth}
@@ -325,7 +328,7 @@ class TransactionsPage extends Component {
         ) : (
           this.displayTransactions()
         )}
-      </React.Fragment>
+      </Fragment>
     )
   }
 }
