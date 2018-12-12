@@ -168,17 +168,15 @@ class DumbGroupSettings extends Component {
                 disabled={saving}
                 theme="regular"
                 onClick={this.rename}
-              >
-                {t('Groups.save')} {saving && <Spinner />}
-              </Button>
+                label={t('Groups.save')}
+                busy={saving}
+              />
             ) : (
               <Button
                 className={btnStyles['btn--no-outline']}
                 onClick={this.modifyName}
-              >
-                &nbsp;&nbsp;
-                {t('Groups.rename')}
-              </Button>
+                label={t('Groups.rename')}
+              />
             )}
           </p>
         </form>
@@ -199,9 +197,11 @@ class DumbGroupSettings extends Component {
           }}
         </Query>
         <p>
-          <Button theme="danger-outline" onClick={this.onRemove}>
-            {t('Groups.delete')}
-          </Button>
+          <Button
+            theme="danger-outline"
+            onClick={this.onRemove}
+            label={t('Groups.delete')}
+          />
         </p>
       </Padded>
     )
