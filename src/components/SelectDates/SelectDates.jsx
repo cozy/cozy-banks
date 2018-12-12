@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 import { uniqBy, find, findLast, flowRight as compose, findIndex } from 'lodash'
@@ -40,9 +40,11 @@ const capitalizeFirstLetter = string => {
   return string.charAt(0).toUpperCase() + string.slice(1)
 }
 
-const Separator = () => (
-  <Chip.Separator className={styles.SelectDates__separator} />
-)
+class Separator extends PureComponent {
+  render() {
+    return <Chip.Separator className={styles.SelectDates__separator} />
+  }
+}
 
 const constrain = (val, min, max) => Math.min(Math.max(val, min), max)
 
@@ -71,33 +73,36 @@ const mobileMenuStyle = base => ({
   minWidth: 'auto'
 })
 
-const SelectDateButton = ({ children, disabled, className, ...props }) => {
-  return (
-    <Chip.Round
-      {...props}
-      onClick={!disabled ? props.onClick : null}
-      className={cx(
-        styles.SelectDates__Button,
-        styles.SelectDates__chip,
-        className,
-        {
-          [styles['SelectDates__Button--disabled']]: disabled
-        }
-      )}
-    >
-      {children}
-    </Chip.Round>
-  )
+class SelectDateButton extends PureComponent {
+  render() {
+    const { children, disabled, className, ...props } = this.props
+
+    return (
+      <Chip.Round
+        {...props}
+        onClick={!disabled ? props.onClick : null}
+        className={cx(
+          styles.SelectDates__Button,
+          styles.SelectDates__chip,
+          className,
+          {
+            [styles['SelectDates__Button--disabled']]: disabled
+          }
+        )}
+      >
+        {children}
+      </Chip.Round>
+    )
+  }
 }
 
 const isFullYearValue = value => value && value.length === 4
-
 const isOptionEnabled = option => option && !option.isDisabled
 const allDisabledFrom = (options, maxIndex) => {
   return !rangedSome(options, isOptionEnabled, maxIndex, -1)
 }
 
-class SelectDatesDumb extends React.PureComponent {
+class SelectDates extends PureComponent {
   getSelectedIndex = () => {
     const { options, value } = this.props
     return findIndex(options, x => x.yearMonth === value)
@@ -338,12 +343,6 @@ class SelectDatesDumb extends React.PureComponent {
   }
 }
 
-const SelectDates = compose(
-  translate(),
-  scrollAware,
-  withBreakpoints()
-)(SelectDatesDumb)
-
 SelectDates.defaultProps = {
   options: getDefaultOptions()
 }
@@ -352,4 +351,8 @@ SelectDates.propTypes = {
   onChange: PropTypes.func.isRequired
 }
 
-export default SelectDates
+export default compose(
+  translate(),
+  scrollAware,
+  withBreakpoints()
+)(SelectDates)
