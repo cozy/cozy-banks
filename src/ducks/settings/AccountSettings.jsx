@@ -246,10 +246,8 @@ const AccountSettings = function({ routeParams, t }) {
 
         return (
           <Padded>
-            <PageTitle>
-              <BackButton to="/settings/accounts" arrow />
-              {account.shortLabel || account.label}
-            </PageTitle>
+            <BackButton to="/settings/accounts" arrow />
+            <PageTitle>{account.shortLabel || account.label}</PageTitle>
             <Tabs className={styles.AcnStg__tabs} initialActiveTab="details">
               <TabList className={styles.AcnStg__tabList}>
                 <Tab className={styles.AcnStg__tab} name="details">
