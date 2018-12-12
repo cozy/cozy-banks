@@ -27,6 +27,7 @@ import { Query } from 'cozy-client'
 import { queryConnect, withClient } from 'cozy-client'
 import { ACCOUNT_DOCTYPE, APP_DOCTYPE } from 'doctypes'
 import { Padded } from 'components/Spacing'
+import { logException } from 'lib/sentry'
 
 const DeleteConfirm = ({
   cancel,
@@ -99,6 +100,7 @@ class _GeneralSettings extends Component {
       await client.destroy(this.props.account)
       router.push('/settings/accounts')
     } catch (e) {
+      logException(e)
       Alerter.error(t('AccountSettings.deletion_error'))
       this.setState({ deleting: false })
     }
