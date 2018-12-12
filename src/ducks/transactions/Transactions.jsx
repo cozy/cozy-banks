@@ -10,6 +10,7 @@ import {
   groupBy
 } from 'lodash'
 import { format } from 'date-fns'
+import cx from 'classnames'
 import { isIOSApp } from 'cozy-device-helper'
 
 import { translate, withBreakpoints, Button } from 'cozy-ui/react'
@@ -253,7 +254,7 @@ export class TransactionsWithSelection extends React.Component {
     const props = this.props
     const { transactionId } = this.state
     return (
-      <div className="js-scrolling-element">
+      <div className={cx(styles.ScrollingElement, 'js-scrolling-element')}>
         <Transactions selectTransaction={this.selectTransaction} {...props} />
         {transactionId && (
           <TransactionModal
