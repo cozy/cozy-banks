@@ -95,11 +95,14 @@ class TransactionsPage extends Component {
     })
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (!isEqual(this.props.accountIds, prevProps.accountIds)) {
       this.setCurrentMonthFollowingMostRecentTransaction()
     }
-    if (prevState.fetching && !this.state.fetching) {
+    if (
+      isCollectionLoading(prevProps.transactions) &&
+      !isCollectionLoading(this.props.transactions)
+    ) {
       this.setCurrentMonthFollowingMostRecentTransaction()
     }
   }
