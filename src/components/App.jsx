@@ -9,6 +9,7 @@ import flag, { FlagSwitcher } from 'cozy-flags'
 import { settingsConn } from 'doctypes'
 import { queryConnect } from 'cozy-client'
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
+import { Alerter } from 'cozy-ui/react'
 
 const ReactHint = ReactHintFactory(React)
 
@@ -32,6 +33,7 @@ const App = props => {
 
       <Warnings />
       <IconSprite />
+      <Alerter />
     </Layout>
   )
 }

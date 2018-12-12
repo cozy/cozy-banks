@@ -9,7 +9,8 @@ import {
   TabList,
   Tab,
   Modal,
-  Icon
+  Icon,
+  Alerter
 } from 'cozy-ui/react'
 import Loading from 'components/Loading'
 import { withDispatch } from 'utils'
@@ -25,6 +26,8 @@ import { getAppUrlById } from 'selectors'
 import { Query } from 'cozy-client'
 import { queryConnect, withClient } from 'cozy-client'
 import { ACCOUNT_DOCTYPE, APP_DOCTYPE } from 'doctypes'
+import { Padded } from 'components/Spacing'
+import { logException } from 'lib/sentry'
 
 const DeleteConfirm = ({
   cancel,
@@ -90,16 +93,15 @@ class _GeneralSettings extends Component {
   }
 
   onClickConfirmDelete = async () => {
-    const { client, router } = this.props
+    const { client, router, t } = this.props
     try {
       this.setState({ deleting: true })
       // TODO remove from groups and delete operations, see actions/accounts.js
       await client.destroy(this.props.account)
       router.push('/settings/accounts')
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error('Could not confirm delete', e)
-    } finally {
+      logException(e)
+      Alerter.error(t('AccountSettings.deletion_error'))
       this.setState({ deleting: false })
     }
   }
@@ -125,44 +127,47 @@ class _GeneralSettings extends Component {
     return (
       <div>
         <table className={styles.AcnStg__info}>
-          <tr>
-            <td>{t('AccountDetails.label')}</td>
-            <td>
-              {!modifying && (account.shortLabel || account.label)}
-              {modifying && (
-                <input
-                  value={this.state.changes.shortLabel}
-                  onChange={this.onInputChange.bind(null, 'shortLabel')}
-                />
-              )}
-            </td>
-          </tr>
-          <tr>
-            <td>{t('AccountDetails.institutionLabel')}</td>
-            <td>{getAccountInstitutionLabel(account)}</td>
-          </tr>
-          <tr>
-            <td>{t('AccountDetails.number')}</td>
-            <td>{account.number}</td>
-          </tr>
-          <tr>
-            <td>{t('AccountDetails.type')}</td>
-            <td>{t(`AccountDetails.types.${account.type}`)}</td>
-          </tr>
+          <tbody>
+            <tr>
+              <td>{t('AccountDetails.label')}</td>
+              <td>
+                {!modifying && (account.shortLabel || account.label)}
+                {modifying && (
+                  <input
+                    value={this.state.changes.shortLabel}
+                    onChange={this.onInputChange.bind(null, 'shortLabel')}
+                  />
+                )}
+              </td>
+            </tr>
+            <tr>
+              <td>{t('AccountDetails.institutionLabel')}</td>
+              <td>{getAccountInstitutionLabel(account)}</td>
+            </tr>
+            <tr>
+              <td>{t('AccountDetails.number')}</td>
+              <td>{account.number}</td>
+            </tr>
+            <tr>
+              <td>{t('AccountDetails.type')}</td>
+              <td>{t(`AccountDetails.types.${account.type}`)}</td>
+            </tr>
+          </tbody>
         </table>
         <div>
-          {/* <Button theme='danger-outline' onClick={this.onClickRemove}>
-            Supprimer
-          </Button> */}
           {!modifying && (
-            <Button theme="regular" onClick={this.onClickModify}>
-              {t('AccountSettings.update')}
-            </Button>
+            <Button
+              theme="regular"
+              onClick={this.onClickModify}
+              label={t('AccountSettings.update')}
+            />
           )}
           {modifying && (
-            <Button theme="regular" onClick={this.onClickSave}>
-              {t('AccountSettings.save')}
-            </Button>
+            <Button
+              theme="regular"
+              onClick={this.onClickSave}
+              label={t('AccountSettings.save')}
+            />
           )}
 
           {account.shared === undefined ? (
@@ -170,11 +175,12 @@ class _GeneralSettings extends Component {
               disabled={deleting}
               theme="danger-outline"
               onClick={this.onClickDelete}
-            >
-              {deleting
-                ? t('AccountSettings.deleting')
-                : t('AccountSettings.delete')}
-            </Button>
+              label={
+                deleting
+                  ? t('AccountSettings.deleting')
+                  : t('AccountSettings.delete')
+              }
+            />
           ) : null}
           {showingDeleteConfirmation ? (
             <DeleteConfirm
@@ -231,12 +237,19 @@ const AccountSettings = function({ routeParams, t }) {
           return <Loading />
         }
 
+        // When deleting the account, there's a re-render between the deletion and the redirection. So we need to handle this case
+        if (!data) {
+          return null
+        }
+
         const account = data
 
         return (
-          <div>
-            <BackButton to="/settings/accounts" arrow />
-            <PageTitle>{account.shortLabel || account.label}</PageTitle>
+          <Padded>
+            <PageTitle>
+              <BackButton to="/settings/accounts" arrow />
+              {account.shortLabel || account.label}
+            </PageTitle>
             <Tabs className={styles.AcnStg__tabs} initialActiveTab="details">
               <TabList className={styles.AcnStg__tabList}>
                 <Tab className={styles.AcnStg__tab} name="details">
@@ -255,7 +268,7 @@ const AccountSettings = function({ routeParams, t }) {
                 </TabPanel>
               </TabPanels>
             </Tabs>
-          </div>
+          </Padded>
         )
       }}
     </Query>

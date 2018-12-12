@@ -32,7 +32,7 @@ class TogglePane extends Component {
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
 
     return (
-      <p>
+      <div>
         {rows.map(row => {
           const setting = settings[settingsKey][row.name]
 
@@ -49,7 +49,7 @@ class TogglePane extends Component {
             />
           )
         })}
-      </p>
+      </div>
     )
   }
 

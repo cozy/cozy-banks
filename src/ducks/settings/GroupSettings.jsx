@@ -2,15 +2,16 @@ import React, { Component, PureComponent } from 'react'
 import { withRouter } from 'react-router'
 import { sortBy, flowRight as compose } from 'lodash'
 import { Query, withMutations, withClient } from 'cozy-client'
-import { Button, translate, Toggle, Spinner } from 'cozy-ui/react'
+import { Button, translate, Toggle, Alerter } from 'cozy-ui/react'
 
-import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
+import { GROUP_DOCTYPE, accountsConn } from 'doctypes'
 import Loading from 'components/Loading'
 import BackButton from 'components/BackButton'
 import Table from 'components/Table'
 import { PageTitle } from 'components/Title'
 import { Padded } from 'components/Spacing'
 import { getAccountInstitutionLabel } from '../account/helpers'
+import { logException } from 'lib/sentry'
 
 import styles from './GroupsSettings.styl'
 import btnStyles from 'styles/buttons.styl'
@@ -124,9 +125,15 @@ class DumbGroupSettings extends Component {
   }
 
   onRemove = async () => {
-    const { group, router, deleteDocument } = this.props
-    await deleteDocument(group)
-    router.push('/settings/groups')
+    const { group, router, deleteDocument, t } = this.props
+
+    try {
+      await deleteDocument(group)
+      router.push('/settings/groups')
+    } catch (err) {
+      logException(err)
+      Alerter.error(t('Groups.deletion_error'))
+    }
   }
 
   modifyName = () => {
@@ -141,10 +148,17 @@ class DumbGroupSettings extends Component {
     const { t, group } = this.props
     const { modifying, saving } = this.state
 
+    // When deleting the group, there's a re-render between the deletion and the redirection. So we need to handle this case
+    if (!group) {
+      return null
+    }
+
     return (
       <Padded>
-        <BackButton to="/settings/groups" arrow />
-        <PageTitle>{group.label}</PageTitle>
+        <PageTitle>
+          <BackButton to="/settings/groups" arrow />
+          {group.label}
+        </PageTitle>
 
         <h3>{t('Groups.label')}</h3>
         <form
@@ -168,22 +182,20 @@ class DumbGroupSettings extends Component {
                 disabled={saving}
                 theme="regular"
                 onClick={this.rename}
-              >
-                {t('Groups.save')} {saving && <Spinner />}
-              </Button>
+                label={t('Groups.save')}
+                busy={saving}
+              />
             ) : (
               <Button
                 className={btnStyles['btn--no-outline']}
                 onClick={this.modifyName}
-              >
-                &nbsp;&nbsp;
-                {t('Groups.rename')}
-              </Button>
+                label={t('Groups.rename')}
+              />
             )}
           </p>
         </form>
         <h3>{t('Groups.accounts')}</h3>
-        <Query query={client => client.all(ACCOUNT_DOCTYPE)}>
+        <Query query={accountsConn.query} as={accountsConn.as}>
           {({ data: accounts, fetchStatus }) => {
             if (fetchStatus === 'loading') {
               return <Loading />
@@ -199,9 +211,11 @@ class DumbGroupSettings extends Component {
           }}
         </Query>
         <p>
-          <Button theme="danger-outline" onClick={this.onRemove}>
-            {t('Groups.delete')}
-          </Button>
+          <Button
+            theme="danger-outline"
+            onClick={this.onRemove}
+            label={t('Groups.delete')}
+          />
         </p>
       </Padded>
     )

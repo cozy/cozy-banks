@@ -53,7 +53,9 @@ const AccountLine = compose(
   withRouter
 )(_AccountLine)
 
-const renderAccount = account => <AccountLine account={account} />
+const renderAccount = account => (
+  <AccountLine account={account} key={account._id} />
+)
 
 const AccountsTable = ({ accounts, t }) => (
   <Table className={styles.AcnsStg__accounts}>
@@ -93,10 +95,11 @@ class AccountsSettings extends Component {
     return (
       <div>
         <AddAccountLink>
-          <Button className={cx(btnStyles['btn--no-outline'], 'u-pb-1')}>
-            <Icon icon={plus} className="u-mr-half" />
-            {t('Accounts.add-account')}
-          </Button>
+          <Button
+            className={cx(btnStyles['btn--no-outline'], 'u-pb-1')}
+            icon={<Icon icon={plus} className="u-mr-half" />}
+            label={t('Accounts.add-account')}
+          />
         </AddAccountLink>
         {myAccounts ? (
           <AccountsTable accounts={myAccounts} t={t} />
