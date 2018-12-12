@@ -9,7 +9,8 @@ import {
   TabList,
   Tab,
   Modal,
-  Icon
+  Icon,
+  Alerter
 } from 'cozy-ui/react'
 import Loading from 'components/Loading'
 import { withDispatch } from 'utils'
@@ -91,16 +92,15 @@ class _GeneralSettings extends Component {
   }
 
   onClickConfirmDelete = async () => {
-    const { client, router } = this.props
+    const { client, router, t } = this.props
     try {
       this.setState({ deleting: true })
       // TODO remove from groups and delete operations, see actions/accounts.js
       await client.destroy(this.props.account)
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error('Could not confirm delete', e)
-    } finally {
       router.push('/settings/accounts')
+    } catch (e) {
+      Alerter.error(t('AccountSettings.deletion_error'))
+      this.setState({ deleting: false })
     }
   }
 

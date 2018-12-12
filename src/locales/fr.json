@@ -57,7 +57,8 @@
       "description": "Cette action supprimera les mouvements déjà présents dans l'application Banks, ainsi que les liens avec vos factures. Supprimez également votre compte depuis #{LINK}l'app #{APP_NAME}#{/LINK}, si vous ne souhaitez pas réimporter vos données à la prochaine synchronisation.",
       "confirm": "Confirmer la suppression",
       "title": "Êtes-vous sûr ?"
-    }
+    },
+    "deletion_error": "Une erreur est survenue lors de la suppression du compte."
   },
 
   "Accounts": {
