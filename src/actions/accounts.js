@@ -13,7 +13,7 @@ const removeAccountFromGroup = (group, account) => {
 const getStackCollection = doctype => {
   const links = getLinks()
   const stackLink = links.find(x => x.constructor.name.indexOf('Stack') > -1)
-  return stackLink.client.collection(doctype)
+  return stackLink.stackClient.collection(doctype)
 }
 
 const deleteOrphanOperations = async (client, account) => {
