@@ -42,8 +42,11 @@ class TransactionHeader extends Component {
   }
 
   displaySelectDates = () => {
+    const colorProps = {
+      color: flag('transaction-history') ? 'primary' : 'default'
+    }
     if (this.isSubcategory()) {
-      return <ConnectedSelectDates showFullYear />
+      return <ConnectedSelectDates showFullYear {...colorProps} />
     }
 
     const { transactions, handleChangeMonth, currentMonth } = this.props
@@ -53,6 +56,7 @@ class TransactionHeader extends Component {
         transactions={transactions}
         value={currentMonth}
         onChange={handleChangeMonth}
+        {...colorProps}
       />
     )
   }

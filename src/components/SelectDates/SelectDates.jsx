@@ -225,6 +225,7 @@ class SelectDates extends PureComponent {
       scrolling,
       showFullYear,
       value,
+      color,
       t,
       breakpoints: { isMobile }
     } = this.props
@@ -275,6 +276,7 @@ class SelectDates extends PureComponent {
       <div
         className={cx(
           styles.SelectDates,
+          styles[`SelectDatesColor_${color}`],
           scrolling && styles['SelectDates--scrolling']
         )}
       >
@@ -344,10 +346,12 @@ class SelectDates extends PureComponent {
 }
 
 SelectDates.defaultProps = {
+  color: 'default',
   options: getDefaultOptions()
 }
 
 SelectDates.propTypes = {
+  color: PropTypes.oneOf(['default', 'primary']),
   onChange: PropTypes.func.isRequired
 }
 
