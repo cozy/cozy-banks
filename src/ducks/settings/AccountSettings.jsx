@@ -96,12 +96,11 @@ class _GeneralSettings extends Component {
       this.setState({ deleting: true })
       // TODO remove from groups and delete operations, see actions/accounts.js
       await client.destroy(this.props.account)
-      router.push('/settings/accounts')
     } catch (e) {
       // eslint-disable-next-line no-console
       console.error('Could not confirm delete', e)
     } finally {
-      this.setState({ deleting: false })
+      router.push('/settings/accounts')
     }
   }
 
@@ -234,6 +233,10 @@ const AccountSettings = function({ routeParams, t }) {
       {({ data, fetchStatus }) => {
         if (fetchStatus === 'loading') {
           return <Loading />
+        }
+
+        if (!data) {
+          return null
         }
 
         const account = data
