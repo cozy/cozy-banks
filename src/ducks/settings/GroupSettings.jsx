@@ -146,6 +146,7 @@ class DumbGroupSettings extends Component {
     const { t, group } = this.props
     const { modifying, saving } = this.state
 
+    // When deleting the group, there's a re-render between the deletion and the redirection. So we need to handle this case
     if (!group) {
       return null
     }

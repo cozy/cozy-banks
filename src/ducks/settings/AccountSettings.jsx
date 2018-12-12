@@ -235,6 +235,7 @@ const AccountSettings = function({ routeParams, t }) {
           return <Loading />
         }
 
+        // When deleting the account, there's a re-render between the deletion and the redirection. So we need to handle this case
         if (!data) {
           return null
         }
