@@ -63,10 +63,15 @@ class HasManyReimbursements extends HasManyInPlace {
   }
 
   get data() {
-    return (this.raw || []).map(reimbursement => ({
-      ...reimbursement,
-      bill: this.get('io.cozy.bills', reimbursement.billId.split(':')[1])
-    }))
+    return (this.raw || []).map(reimbursement => {
+      if (!reimbursement.billId) {
+        return reimbursement
+      }
+      return {
+        ...reimbursement,
+        bill: this.get('io.cozy.bills', reimbursement.billId.split(':')[1])
+      }
+    })
   }
 
   static query(doc, client, assoc) {
