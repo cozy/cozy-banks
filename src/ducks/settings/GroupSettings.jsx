@@ -4,7 +4,7 @@ import { sortBy, flowRight as compose } from 'lodash'
 import { Query, withMutations, withClient } from 'cozy-client'
 import { Button, translate, Toggle } from 'cozy-ui/react'
 
-import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
+import { GROUP_DOCTYPE, accountsConn } from 'doctypes'
 import Loading from 'components/Loading'
 import BackButton from 'components/BackButton'
 import Table from 'components/Table'
@@ -186,7 +186,7 @@ class DumbGroupSettings extends Component {
           </p>
         </form>
         <h3>{t('Groups.accounts')}</h3>
-        <Query query={client => client.all(ACCOUNT_DOCTYPE)}>
+        <Query query={accountsConn.query} as={accountsConn.as}>
           {({ data: accounts, fetchStatus }) => {
             if (fetchStatus === 'loading') {
               return <Loading />
