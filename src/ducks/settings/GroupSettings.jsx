@@ -125,7 +125,12 @@ class DumbGroupSettings extends Component {
 
   onRemove = async () => {
     const { group, router, deleteDocument } = this.props
-    await deleteDocument(group)
+    try {
+      await deleteDocument(group)
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.warn(`Impossible to remove the group: ${err}`)
+    }
     router.push('/settings/groups')
   }
 
