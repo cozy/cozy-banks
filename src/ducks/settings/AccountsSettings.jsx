@@ -53,7 +53,9 @@ const AccountLine = compose(
   withRouter
 )(_AccountLine)
 
-const renderAccount = account => <AccountLine account={account} />
+const renderAccount = account => (
+  <AccountLine account={account} key={account._id} />
+)
 
 const AccountsTable = ({ accounts, t }) => (
   <Table className={styles.AcnsStg__accounts}>
