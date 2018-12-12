@@ -25,6 +25,7 @@ import { getAppUrlById } from 'selectors'
 import { Query } from 'cozy-client'
 import { queryConnect, withClient } from 'cozy-client'
 import { ACCOUNT_DOCTYPE, APP_DOCTYPE } from 'doctypes'
+import { Padded } from 'components/Spacing'
 
 const DeleteConfirm = ({
   cancel,
@@ -238,7 +239,7 @@ const AccountSettings = function({ routeParams, t }) {
         const account = data
 
         return (
-          <div>
+          <Padded>
             <BackButton to="/settings/accounts" arrow />
             <PageTitle>{account.shortLabel || account.label}</PageTitle>
             <Tabs className={styles.AcnStg__tabs} initialActiveTab="details">
@@ -259,7 +260,7 @@ const AccountSettings = function({ routeParams, t }) {
                 </TabPanel>
               </TabPanels>
             </Tabs>
-          </div>
+          </Padded>
         )
       }}
     </Query>
