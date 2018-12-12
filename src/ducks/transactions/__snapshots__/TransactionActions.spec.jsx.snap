@@ -22,10 +22,6 @@ exports[`transaction action menu should render correctly paiementdocteur2  1`] =
 
 exports[`transaction action menu should render correctly remboursementcomplementaire remboursementcomplementaire konnector installed 1`] = `Array []`;
 
-exports[`transaction action menu should render correctly remboursementcomplementaire remboursementcomplementaire konnector not installed 1`] = `
-Array [
-  "Bill",
-]
-`;
+exports[`transaction action menu should render correctly remboursementcomplementaire remboursementcomplementaire konnector not installed 1`] = `Array []`;
 
 exports[`transaction action menu should render correctly salaireisa1  1`] = `Array []`;
