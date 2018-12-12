@@ -155,10 +155,8 @@ class DumbGroupSettings extends Component {
 
     return (
       <Padded>
-        <PageTitle>
-          <BackButton to="/settings/groups" arrow />
-          {group.label}
-        </PageTitle>
+        <BackButton to="/settings/groups" arrow />
+        <PageTitle>{group.label}</PageTitle>
 
         <h3>{t('Groups.label')}</h3>
         <form
