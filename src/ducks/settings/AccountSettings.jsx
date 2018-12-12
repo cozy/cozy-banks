@@ -155,14 +155,18 @@ class _GeneralSettings extends Component {
             Supprimer
           </Button> */}
           {!modifying && (
-            <Button theme="regular" onClick={this.onClickModify}>
-              {t('AccountSettings.update')}
-            </Button>
+            <Button
+              theme="regular"
+              onClick={this.onClickModify}
+              label={t('AccountSettings.update')}
+            />
           )}
           {modifying && (
-            <Button theme="regular" onClick={this.onClickSave}>
-              {t('AccountSettings.save')}
-            </Button>
+            <Button
+              theme="regular"
+              onClick={this.onClickSave}
+              label={t('AccountSettings.save')}
+            />
           )}
 
           {account.shared === undefined ? (
@@ -170,11 +174,12 @@ class _GeneralSettings extends Component {
               disabled={deleting}
               theme="danger-outline"
               onClick={this.onClickDelete}
-            >
-              {deleting
-                ? t('AccountSettings.deleting')
-                : t('AccountSettings.delete')}
-            </Button>
+              label={
+                deleting
+                  ? t('AccountSettings.deleting')
+                  : t('AccountSettings.delete')
+              }
+            />
           ) : null}
           {showingDeleteConfirmation ? (
             <DeleteConfirm
