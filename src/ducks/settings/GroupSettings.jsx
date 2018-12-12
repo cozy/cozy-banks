@@ -146,6 +146,10 @@ class DumbGroupSettings extends Component {
     const { t, group } = this.props
     const { modifying, saving } = this.state
 
+    if (!group) {
+      return null
+    }
+
     return (
       <Padded>
         <BackButton to="/settings/groups" arrow />
