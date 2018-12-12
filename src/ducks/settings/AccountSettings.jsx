@@ -125,30 +125,32 @@ class _GeneralSettings extends Component {
     return (
       <div>
         <table className={styles.AcnStg__info}>
-          <tr>
-            <td>{t('AccountDetails.label')}</td>
-            <td>
-              {!modifying && (account.shortLabel || account.label)}
-              {modifying && (
-                <input
-                  value={this.state.changes.shortLabel}
-                  onChange={this.onInputChange.bind(null, 'shortLabel')}
-                />
-              )}
-            </td>
-          </tr>
-          <tr>
-            <td>{t('AccountDetails.institutionLabel')}</td>
-            <td>{getAccountInstitutionLabel(account)}</td>
-          </tr>
-          <tr>
-            <td>{t('AccountDetails.number')}</td>
-            <td>{account.number}</td>
-          </tr>
-          <tr>
-            <td>{t('AccountDetails.type')}</td>
-            <td>{t(`AccountDetails.types.${account.type}`)}</td>
-          </tr>
+          <tbody>
+            <tr>
+              <td>{t('AccountDetails.label')}</td>
+              <td>
+                {!modifying && (account.shortLabel || account.label)}
+                {modifying && (
+                  <input
+                    value={this.state.changes.shortLabel}
+                    onChange={this.onInputChange.bind(null, 'shortLabel')}
+                  />
+                )}
+              </td>
+            </tr>
+            <tr>
+              <td>{t('AccountDetails.institutionLabel')}</td>
+              <td>{getAccountInstitutionLabel(account)}</td>
+            </tr>
+            <tr>
+              <td>{t('AccountDetails.number')}</td>
+              <td>{account.number}</td>
+            </tr>
+            <tr>
+              <td>{t('AccountDetails.type')}</td>
+              <td>{t(`AccountDetails.types.${account.type}`)}</td>
+            </tr>
+          </tbody>
         </table>
         <div>
           {!modifying && (
