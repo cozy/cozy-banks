@@ -11,6 +11,7 @@ import Table from 'components/Table'
 import { PageTitle } from 'components/Title'
 import { Padded } from 'components/Spacing'
 import { getAccountInstitutionLabel } from '../account/helpers'
+import { logException } from 'lib/sentry'
 
 import styles from './GroupsSettings.styl'
 import btnStyles from 'styles/buttons.styl'
@@ -130,6 +131,7 @@ class DumbGroupSettings extends Component {
       await deleteDocument(group)
       router.push('/settings/groups')
     } catch (err) {
+      logException(err)
       Alerter.error(t('Groups.deletion_error'))
     }
   }
