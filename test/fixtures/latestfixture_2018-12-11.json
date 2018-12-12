@@ -1244,9 +1244,6 @@
       "currency": "€",
       "amount": -25,
       "date": "2018-10-19T00:00:00Z",
-      "bills": [
-        "io.cozy.bills:b0"
-      ],
       "_id": "paiementdocteur",
       "reimbursements": [
         {
