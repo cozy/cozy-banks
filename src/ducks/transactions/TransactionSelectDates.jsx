@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import SelectDates from 'components/SelectDates'
 import { uniq } from 'lodash'
 import { subMonths, format, parse, differenceInCalendarMonths } from 'date-fns'
@@ -32,14 +32,13 @@ export const getOptions = transactions => {
   })
 }
 
-const TransactionSelectDates = ({ onChange, transactions, value }) => {
-  return (
-    <SelectDates
-      onChange={onChange}
-      options={getOptions(transactions)}
-      value={value}
-    />
-  )
+class TransactionSelectDates extends PureComponent {
+  render() {
+    const { onChange, transactions, value } = this.props
+    const options = getOptions(transactions)
+
+    return <SelectDates onChange={onChange} options={options} value={value} />
+  }
 }
 
 export default TransactionSelectDates
