@@ -57,7 +57,7 @@ class HasManyBills extends HasManyInPlace {
   }
 }
 
-class HasManyReimbursements extends HasManyInPlace {
+export class HasManyReimbursements extends HasManyInPlace {
   get raw() {
     return this.target[this.name]
   }
@@ -74,7 +74,10 @@ class HasManyReimbursements extends HasManyInPlace {
     if (!included || !included.length) {
       return null
     }
-    const missingIds = included.map(doc => doc.billId)
+    const missingIds = included
+      .map(doc => doc.billId && doc.billId.split(':')[1])
+      .filter(Boolean)
+
     return new QueryDefinition({ doctype: assoc.doctype, ids: missingIds })
   }
 }
