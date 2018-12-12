@@ -102,7 +102,8 @@
     "save": "Save",
     "included": "Included",
     "account-number": "Account number",
-    "total-balance": "Total"
+    "total-balance": "Total",
+    "deletion_error": "An error occurred while group deletion."
   },
   "Data": {
     "accountTypes": {

@@ -2,7 +2,7 @@ import React, { Component, PureComponent } from 'react'
 import { withRouter } from 'react-router'
 import { sortBy, flowRight as compose } from 'lodash'
 import { Query, withMutations, withClient } from 'cozy-client'
-import { Button, translate, Toggle } from 'cozy-ui/react'
+import { Button, translate, Toggle, Alerter } from 'cozy-ui/react'
 
 import { GROUP_DOCTYPE, accountsConn } from 'doctypes'
 import Loading from 'components/Loading'
@@ -124,14 +124,14 @@ class DumbGroupSettings extends Component {
   }
 
   onRemove = async () => {
-    const { group, router, deleteDocument } = this.props
+    const { group, router, deleteDocument, t } = this.props
+
     try {
       await deleteDocument(group)
+      router.push('/settings/groups')
     } catch (err) {
-      // eslint-disable-next-line no-console
-      console.warn(`Impossible to remove the group: ${err}`)
+      Alerter.error(t('Groups.deletion_error'))
     }
-    router.push('/settings/groups')
   }
 
   modifyName = () => {
