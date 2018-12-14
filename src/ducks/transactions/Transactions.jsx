@@ -35,9 +35,8 @@ const LoadMoreButton = ({ children, onClick }) => (
     onClick={onClick}
     subtle
     className="js-LoadMore"
-  >
-    {children}
-  </Button>
+    label={children}
+  />
 )
 
 const LoadMoreDesktop = ({ children, onClick }) => (
