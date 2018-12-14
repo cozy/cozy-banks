@@ -105,7 +105,7 @@
     "csswring": "7.0.0",
     "dummy-json": "2.0.0",
     "duplicate-package-checker-webpack-plugin": "2.1.0",
-    "enzyme": "3.7.0",
+    "enzyme": "3.8.0",
     "eslint-config-cozy-app": "1.1.5",
     "eslint-loader": "2.1.1",
     "express": "4.16.4",
