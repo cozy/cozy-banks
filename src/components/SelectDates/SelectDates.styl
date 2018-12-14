@@ -11,24 +11,74 @@ select-date-height-small = 2.75rem
 .SelectDates
     display flex
     white-space nowrap
-    width select-date-width
-    height select-date-height
 
     .prev-button, .next-button
         height 100%
         margin 0
-
-    .prev-button, .next-button
-        width select-date-height
         margin 0
         padding 0
 
         svg
             margin-top 5px
 
-.SelectDatesColor_primary
+.SelectDatesColor_default
+    width select-date-width
+    height select-date-height
+
+    .prev-button, .next-button
+        width select-date-height
+
+    .SelectDates__separator
+        border-left: 0.063rem solid var(--silver)
+
     .SelectDates__chip
-         background-color var(--primary-light)
+        svg
+            color var(--coolGrey)
+
+    +small-screen()
+        border-bottom: 1px solid var(--silver)
+        background var(--white)
+        width auto
+        height select-date-height-small
+        color slateGrey
+
+        .SelectDates__chip
+            height select-date-height-small
+
+.SelectDatesColor_primary
+    border-bottom 0
+
+    .SelectDates__separator
+        border-left: 0.063rem solid var(--primary)
+
+    .SelectDates__chip
+        background-color var(--primary-light)
+        margin 0
+
+        svg
+            color var(--white)
+
+        &.SelectDates__Button
+            margin-left .5rem
+
+        &.SelectDatesButtonDisabled
+            background-color #3e8bef
+
+            .SelectDatesButtonColor
+                color #6fa8f2
+
+        .SelectDatesButtonColor
+            color var(--white)
+
+    +small-screen()
+        padding .5rem
+
+        .SelectDates__chip
+            height 2rem
+
+            &.SelectDates__Button
+                width 2rem
+                padding 0
 
 .SelectDates__Select
     color slateGrey
@@ -38,16 +88,10 @@ select-date-height-small = 2.75rem
 
 +small-screen()
     .SelectDates
-        m = 0.75rem // size of the margin-top/bottom
-        width auto
-        height select-date-height-small
-        background white
         z-index 2
         display flex
         justify-content center
         align-content center
-        border-bottom: 1px solid silver
-        color slateGrey
 
     .SelectDates__DateYearSelector
         flex-grow 1
@@ -58,15 +102,11 @@ select-date-height-small = 2.75rem
         margin-right 0
         padding 0
         border 0
-        height select-date-height-small
         width 100%
 
         select
             width 100%
             margin-right -1.3rem
-
-        svg
-            color coolGrey
 
     .SelectDates__separator
         height 1.5rem

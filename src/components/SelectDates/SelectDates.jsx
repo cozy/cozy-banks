@@ -48,7 +48,7 @@ class Separator extends PureComponent {
 
 const constrain = (val, min, max) => Math.min(Math.max(val, min), max)
 
-const yearContainerMobileStyle = base => ({
+const mobileYearContainerStyle = base => ({
   ...base,
   flexGrow: 1,
   flexBasis: '5.5rem',
@@ -57,7 +57,7 @@ const yearContainerMobileStyle = base => ({
 })
 const mobileMonthContainerStyle = base => ({
   ...base,
-  flexGrow: 6,
+  flexGrow: 3,
   padding: 0
 })
 
@@ -72,6 +72,34 @@ const mobileMenuStyle = base => ({
   width: '90%',
   minWidth: 'auto'
 })
+
+const textStyle = () => ({
+  color: 'var(--primary-contrast-text)'
+})
+
+const getSelectStyle = (isMobile, isPrimary, type) => {
+  const deviceStyle = isMobile
+    ? {
+        container:
+          type === 'Month'
+            ? mobileMonthContainerStyle
+            : mobileYearContainerStyle,
+        control: mobileControlStyle,
+        menu: mobileMenuStyle
+      }
+    : {}
+  const colorStyle = isPrimary
+    ? {
+        control: () => ({ paddingLeft: '0.875rem', minHeight: '2rem' }),
+        indicatorsContainer: base => ({ ...base, height: '2rem' }),
+        valueContainer: base => ({ ...base, padding: 'inherit' }),
+        singleValue: textStyle,
+        placeholder: textStyle
+      }
+    : {}
+
+  return { ...deviceStyle, ...colorStyle }
+}
 
 class SelectDateButton extends PureComponent {
   render() {
@@ -272,6 +300,17 @@ class SelectDates extends PureComponent {
       ? yearIndex === 0
       : index === 0 || allDisabledFrom(allMonthsOptions, index - 1)
 
+    const selectMonthStyle = getSelectStyle(
+      isMobile,
+      color === 'primary',
+      'Month'
+    )
+    const selectYearStyle = getSelectStyle(
+      isMobile,
+      color === 'primary',
+      'Year'
+    )
+
     return (
       <div
         className={cx(
@@ -290,15 +329,7 @@ class SelectDates extends PureComponent {
               value={selectedYear}
               options={years.map(x => ({ value: x.year, name: x.yearF }))}
               onChange={this.handleChangeYear}
-              styles={
-                isMobile
-                  ? {
-                      container: yearContainerMobileStyle,
-                      control: mobileControlStyle,
-                      menu: mobileMenuStyle
-                    }
-                  : {}
-              }
+              styles={selectYearStyle}
             />
             <Separator />
             <Select
@@ -309,35 +340,31 @@ class SelectDates extends PureComponent {
               value={selectedMonth}
               options={monthsOptions}
               onChange={this.handleChangeMonth}
-              styles={
-                isMobile
-                  ? {
-                      container: mobileMonthContainerStyle,
-                      control: mobileControlStyle,
-                      menu: mobileMenuStyle
-                    }
-                  : {}
-              }
+              styles={selectMonthStyle}
             />
           </Chip>
         </span>
 
         <span className={styles.SelectDates__buttons}>
-          {isMobile && <Separator />}
+          {isMobile && color !== 'primary' && <Separator />}
           <SelectDateButton
             onClick={this.handleChoosePrev}
             disabled={isPrevButtonDisabled}
-            className={styles['SelectDates__Button--prev']}
+            className={cx(styles['SelectDates__Button--prev'], {
+              [styles.SelectDatesButtonDisabled]: isPrevButtonDisabled
+            })}
           >
-            <Icon icon="back" />
+            <Icon icon="back" className={styles.SelectDatesButtonColor} />
           </SelectDateButton>
 
           <SelectDateButton
             onClick={this.handleChooseNext}
             disabled={isNextButtonDisabled}
-            className={styles['SelectDates__Button--next']}
+            className={cx(styles['SelectDates__Button--next'], {
+              [styles.SelectDatesButtonDisabled]: isNextButtonDisabled
+            })}
           >
-            <Icon icon="forward" />
+            <Icon icon="forward" className={styles.SelectDatesButtonColor} />
           </SelectDateButton>
         </span>
       </div>
