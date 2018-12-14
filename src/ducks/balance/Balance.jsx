@@ -1,6 +1,5 @@
 import React, { PureComponent, Fragment } from 'react'
 import { flowRight as compose, sortBy, get, keyBy, sumBy } from 'lodash'
-import cx from 'classnames'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import { queryConnect } from 'cozy-client'
 import flag from 'cozy-flags'
@@ -31,10 +30,9 @@ class Balance extends PureComponent {
     } = this.props
 
     const withChart = flag('balance-history')
-    const headerColorProps = { color: withChart ? 'primary' : 'default' }
-    const headerClassName = cx(styles.Balance_Header, {
-      [styles.Balance_Header_WithChart]: withChart
-    })
+    const color = withChart ? 'primary' : 'default'
+    const headerColorProps = { color }
+    const headerClassName = styles[`Balance_HeaderColor_${color}`]
     const titleColorProps = {
       color: withChart && !isMobile ? 'primary' : 'default'
     }
