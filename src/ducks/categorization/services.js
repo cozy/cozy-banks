@@ -15,9 +15,9 @@ const globalModelLog = logger.namespace('global-categorization-model')
 
 export const PARAMETERS_NOT_FOUND = 'Classifier files is not configured.'
 
-const ALPHA_MIN = 0.1
-const ALPHA_MAX = 10
-const ALPHA_MAX_SMOOTHING = 2
+const ALPHA_MIN = 2
+const ALPHA_MAX = 4
+const ALPHA_MAX_SMOOTHING = 12
 const FAKE_TRANSACTION = {
   label: 'thisisafaketransaction',
   manualCategoryId: '0'
@@ -33,9 +33,12 @@ export const getAlphaParameter = (
   max,
   maxSmoothing
 ) => {
-  const alpha = maxSmoothing / nbUniqueCategories
-
-  return Math.max(min, Math.min(max, alpha))
+  if (nbUniqueCategories === 1) {
+    return 1
+  } else {
+    const alpha = maxSmoothing / (nbUniqueCategories + 1)
+    return Math.max(min, Math.min(max, alpha))
+  }
 }
 
 /**
@@ -60,13 +63,11 @@ export const createLocalClassifier = (
   const classifier = bayes(initializationOptions)
 
   localModelLog('info', 'Learning from manually categorized transactions')
-  for (let i = 0; i < configurationOptions.learnSampleWeight; ++i) {
-    for (const transaction of transactionsToLearn) {
-      classifier.learn(
-        getLabelWithTags(transaction),
-        transaction.manualCategoryId
-      )
-    }
+  for (const transaction of transactionsToLearn) {
+    classifier.learn(
+      getLabelWithTags(transaction),
+      transaction.manualCategoryId
+    )
   }
 
   if (configurationOptions.addFakeTransaction) {
@@ -178,19 +179,9 @@ const getLocalClassifierOptions = transactionsWithManualCat => {
     addFakeTransaction = true
   }
 
-  // With these constants (1, 1, 2) it is actually useless but let's keep them
-  const MIN_SAMPLE_WEIGHT = 1
-  const MAX_SAMPLE_WEIGHT = 1
-  const MIN_WEIGHT_LIMIT = 2
-  const learnSampleWeight =
-    transactionsWithManualCat.length > MIN_WEIGHT_LIMIT
-      ? MIN_SAMPLE_WEIGHT
-      : MAX_SAMPLE_WEIGHT
-  localModelLog('debug', 'Learn sample weight is ' + learnSampleWeight)
-
   return {
-    initialization: { alpha },
-    configuration: { learnSampleWeight, addFakeTransaction }
+    initialization: { alpha, fitPrior: false },
+    configuration: { addFakeTransaction }
   }
 }
 
