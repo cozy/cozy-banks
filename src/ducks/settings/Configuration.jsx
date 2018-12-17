@@ -66,6 +66,18 @@ class Configuration extends Component {
           title={t('CommunitySettings.title')}
           settingsKey="community"
         />
+        <TogglePane
+          settingsCollection={settingsCollection}
+          saveDocument={this.saveDocument}
+          rows={[
+            {
+              name: 'balanceHistory',
+              description: t('ExperimentalFeatures.balance_history.subtitle')
+            }
+          ]}
+          title={t('ExperimentalFeatures.title')}
+          settingsKey="experimentalFeatures"
+        />
       </div>
     )
   }

@@ -41,5 +41,10 @@ export const DEFAULTS_SETTINGS = {
   categorization: {
     lastSeq: 0
   },
-  showIncomeCategory: true
+  showIncomeCategory: true,
+  experimentalFeatures: {
+    balanceHistory: {
+      enabled: false
+    }
+  }
 }

@@ -520,5 +520,12 @@
 
   "LogoutModal": {
     "message": "Logout in progress..."
+  },
+
+  "ExperimentalFeatures": {
+    "title": "Experimental features",
+    "balance_history": {
+      "subtitle": "Balance history chart"
+    }
   }
 }

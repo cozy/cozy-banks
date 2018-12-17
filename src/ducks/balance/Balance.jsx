@@ -1,8 +1,7 @@
 import React, { PureComponent, Fragment } from 'react'
 import { flowRight as compose, sortBy, get, keyBy, sumBy } from 'lodash'
-import { translate, withBreakpoints } from 'cozy-ui/react'
+import { translate, withBreakpoints, Spinner } from 'cozy-ui/react'
 import { queryConnect } from 'cozy-client'
-import flag from 'cozy-flags'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
 
 import Loading from 'components/Loading'
@@ -29,7 +28,12 @@ class Balance extends PureComponent {
       settings: settingsCollection
     } = this.props
 
-    const withChart = flag('balance-history')
+    if (isCollectionLoading(settingsCollection)) {
+      return <Spinner />
+    }
+
+    const settings = getDefaultedSettingsFromCollection(settingsCollection)
+    const withChart = settings.experimentalFeatures.balanceHistory
     const color = withChart ? 'primary' : 'default'
     const headerColorProps = { color }
     const headerClassName = styles[`Balance_HeaderColor_${color}`]
@@ -43,8 +47,7 @@ class Balance extends PureComponent {
 
     if (
       isCollectionLoading(accountsCollection) ||
-      isCollectionLoading(groupsCollection) ||
-      isCollectionLoading(settingsCollection)
+      isCollectionLoading(groupsCollection)
     ) {
       return (
         <Fragment>
@@ -76,7 +79,6 @@ class Balance extends PureComponent {
 
     const accounts = accountsCollection.data
     const groups = [...groupsCollection.data, ...buildVirtualGroups(accounts)]
-    const settings = getDefaultedSettingsFromCollection(settingsCollection)
 
     const accountsSorted = sortBy(accounts, ['institutionLabel', 'label'])
     const groupsSorted = sortBy(

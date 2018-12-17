@@ -473,5 +473,12 @@
 
   "LogoutModal": {
     "message": "Déconnexion en cours..."
+  },
+
+  "ExperimentalFeatures": {
+    "title": "Fonctions expérimentales",
+    "balance_history": {
+      "subtitle": "Courbe d'historique de solde"
+    }
   }
 }

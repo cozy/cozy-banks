@@ -18,6 +18,11 @@ Object {
       "enabled": false,
     },
   },
+  "experimentalFeatures": Object {
+    "balanceHistory": Object {
+      "enabled": false,
+    },
+  },
   "notifications": Object {
     "balanceLower": Object {
       "enabled": false,
