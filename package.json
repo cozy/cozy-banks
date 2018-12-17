@@ -113,7 +113,7 @@
     "git-directory-deploy": "1.5.1",
     "handlebars-layouts": "3.1.4",
     "html-webpack-plugin": "4.0.0-beta.4",
-    "husky": "1.2.0",
+    "husky": "1.2.1",
     "identity-obj-proxy": "3.0.0",
     "imports-loader": "0.8.0",
     "jest": "23.6.0",
