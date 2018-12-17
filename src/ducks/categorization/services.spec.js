@@ -40,9 +40,16 @@ describe('getUniqueCategories', () => {
 })
 
 describe('getAlphaParemeter', () => {
-  const MIN = 0.1
-  const MAX = 10
-  const MAX_SMOOTHING = 20
+  const MIN = 2
+  const MAX = 4
+  const MAX_SMOOTHING = 12
+
+  it('Should answer 1 if only one unique category is used', () => {
+    const nbUniqueCategories = 1
+    const alpha = getAlphaParameter(nbUniqueCategories, MIN, MAX, MAX_SMOOTHING)
+
+    expect(alpha).toBe(1)
+  })
 
   it('Should never be lesser than the passed min parameter', () => {
     const nbUniqueCategories = 500
@@ -52,7 +59,7 @@ describe('getAlphaParemeter', () => {
   })
 
   it('Should never be higher than the passed max parameter', () => {
-    const nbUniqueCategories = 1
+    const nbUniqueCategories = 2
     const alpha = getAlphaParameter(nbUniqueCategories, MIN, MAX, MAX_SMOOTHING)
 
     expect(alpha).toBe(MAX)
@@ -60,8 +67,8 @@ describe('getAlphaParemeter', () => {
 
   it('Should return the right value between MIN and MAX', () => {
     expect(getAlphaParameter(10, MIN, MAX, MAX_SMOOTHING)).toBe(2)
-    expect(getAlphaParameter(20, MIN, MAX, MAX_SMOOTHING)).toBe(1)
-    expect(getAlphaParameter(40, MIN, MAX, MAX_SMOOTHING)).toBe(0.5)
+    expect(getAlphaParameter(20, MIN, MAX, MAX_SMOOTHING)).toBe(2)
+    expect(getAlphaParameter(3, MIN, MAX, MAX_SMOOTHING)).toBe(3)
   })
 })
 
@@ -77,10 +84,10 @@ describe('localModel', () => {
   it('Should give correct local probas', async () => {
     await localModel({ tokenizer }, transactions)
 
-    expect(transactions[0].localCategoryProba).toBeCloseTo(0.8311, 3)
-    expect(transactions[1].localCategoryProba).toBeCloseTo(0.6666, 3)
-    expect(transactions[2].localCategoryProba).toBeCloseTo(0.6666, 3)
-    expect(transactions[3].localCategoryProba).toBeCloseTo(0.749, 3)
-    expect(transactions[4].localCategoryProba).toBeCloseTo(0.6666, 3)
+    expect(transactions[0].localCategoryProba).toBeCloseTo(0.8143, 3)
+    expect(transactions[1].localCategoryProba).toBeCloseTo(0.5, 3)
+    expect(transactions[2].localCategoryProba).toBeCloseTo(0.5, 3)
+    expect(transactions[3].localCategoryProba).toBeCloseTo(0.6586, 3)
+    expect(transactions[4].localCategoryProba).toBeCloseTo(0.5, 3)
   })
 })
