@@ -57,10 +57,8 @@ const InformativeModal = ({
           {caption}
         </Caption>
         <div className={styles.InformativeModal__buttons}>
-          <Button onClick={onCancel} theme="secondary">
-            {cancelText}
-          </Button>
-          <Button onClick={onConfirm}>{confirmText}</Button>
+          <Button onClick={onCancel} theme="secondary" label={cancelText} />
+          <Button onClick={onConfirm} label={confirmText} />
         </div>
       </div>
     </ModalDescription>
