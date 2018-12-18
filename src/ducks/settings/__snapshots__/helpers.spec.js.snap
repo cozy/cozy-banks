@@ -3,6 +3,9 @@
 exports[`defaulted settings should return defaulted settings 1`] = `
 Object {
   "_type": "io.cozy.bank.settings",
+  "balanceHistory": Object {
+    "enabled": false,
+  },
   "billsMatching": Object {
     "billsLastSeq": "0",
     "transactionsLastSeq": "0",
@@ -15,11 +18,6 @@ Object {
       "enabled": false,
     },
     "localModelOverride": Object {
-      "enabled": false,
-    },
-  },
-  "experimentalFeatures": Object {
-    "balanceHistory": Object {
       "enabled": false,
     },
   },

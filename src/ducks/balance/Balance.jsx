@@ -33,7 +33,7 @@ class Balance extends PureComponent {
     }
 
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
-    const withChart = settings.experimentalFeatures.balanceHistory
+    const withChart = settings.balanceHistory.enabled
     const color = withChart ? 'primary' : 'default'
     const headerColorProps = { color }
     const headerClassName = styles[`Balance_HeaderColor_${color}`]
