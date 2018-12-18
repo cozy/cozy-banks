@@ -122,7 +122,7 @@
     "mini-css-extract-plugin": "0.4.4",
     "npm-run-all": "4.1.5",
     "postcss": "7.0.7",
-    "postcss-assets-webpack-plugin": "1.1.0",
+    "postcss-assets-webpack-plugin": "3.0.0",
     "postcss-discard-duplicates": "4.0.2",
     "postcss-loader": "3.0.0",
     "pretty": "2.0.0",
