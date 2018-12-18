@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import TogglePane, {
   TogglePaneTitle,
   TogglePaneSubtitle,
@@ -13,7 +13,7 @@ import { flowRight as compose, set } from 'lodash'
 import Loading from 'components/Loading'
 import { getDefaultedSettingsFromCollection } from './helpers'
 
-class Configuration extends Component {
+class Configuration extends React.PureComponent {
   saveDocument = async doc => {
     const { saveDocument } = this.props
     await saveDocument(doc)
