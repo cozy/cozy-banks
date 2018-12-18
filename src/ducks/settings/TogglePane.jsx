@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Title } from 'cozy-ui/react'
 import ToggleRow from './ToggleRow'
@@ -8,7 +8,7 @@ const ToogleDescription = ({ children }) => (
   <p className="u-coolGrey">{children}</p>
 )
 
-class TogglePane extends Component {
+class TogglePane extends React.PureComponent {
   onToggle = (setting, checked) => {
     const { settingsCollection, settingsKey } = this.props
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
