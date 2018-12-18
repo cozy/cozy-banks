@@ -410,17 +410,6 @@
     "app": "App"
   },
 
-  "CommunitySettings": {
-    "title": "Community-based features",
-    "auto_categorization": {
-      "subtitle": "Help us improve the model by anonymously sharing your categorized transactions. <a href='https://support.cozy.io/article/181-collaboration-a-la-categorisation-bancaire' target='_blank'>More</a>"
-    },
-    "local_model_override": {
-      "title": "Automatic categorization of your transactions",
-      "subtitle": "Learn from my manual categorizations"
-    }
-  },
-
   "AppSettings": {
     "reset": "reset",
     "description": "By clicking Reset, you will be able to start your application over, and will only lose the data saved on your smartphone.",
@@ -520,5 +509,24 @@
 
   "LogoutModal": {
     "message": "Logout in progress..."
+  },
+
+  "AdvancedFeaturesSettings": {
+    "title": "Advanced features",
+    "automatic_categorization": {
+      "title" :"Automatic categorization",
+      "local_model_override": {
+        "description": "Learn from my manual categorizations"
+      },
+      "auto_categorization": {
+        "description": "Help us improve the model by anonymously sharing your categorized transactions. <a href='https://support.cozy.io/article/181-collaboration-a-la-categorisation-bancaire' target='_blank'>More</a>"
+      }
+    },
+    "balance_history": {
+      "title": "Balance history chart",
+      "show_chart": {
+        "description": "Build my balance history chart"
+      }
+    }
   }
 }

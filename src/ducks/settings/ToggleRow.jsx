@@ -31,7 +31,7 @@ class ToggleRow extends Component {
             {hasValue && (
               <input
                 type="number"
-                onChange={e => onChangeValue(name, parseNumber(e.target.value))}
+                onChange={e => onChangeValue(parseNumber(e.target.value))}
                 value={value}
                 className={cx(
                   styles.ToggleRow__input,
@@ -46,7 +46,7 @@ class ToggleRow extends Component {
             <Toggle
               id={name}
               checked={enabled}
-              onToggle={checked => onToggle(name, checked)}
+              onToggle={checked => onToggle(checked)}
             />
           </div>
         </div>
