@@ -223,7 +223,7 @@
   },
   {
     "name": "Sosh",
-    "regexp": "\\bsosh\\b",
+    "regexp": "\\b(sosh|orange)\\b",
     "konnectorSlug": "sosh"
   },
   {
