@@ -5,46 +5,49 @@
 */
 
 import tree from './tree'
+import { getCssVariableValue } from 'cozy-ui/react/utils/color'
 
 export const categoriesStyle = {
   kids: {
-    color: '#1FA8F1'
+    color: getCssVariableValue('azure')
   },
   dailyLife: {
-    color: '#FD7461'
+    color: getCssVariableValue('melon')
   },
   educationAndTraining: {
-    color: '#FC6D00'
+    color: getCssVariableValue('blazeOrange')
   },
   health: {
-    color: '#F62C2C'
+    color: getCssVariableValue('pomegranate')
   },
   homeAndRealEstate: {
-    color: '#FF962F'
+    color: getCssVariableValue('mango')
   },
   incomeCat: {
-    color: '#35CE68'
+    color: getCssVariableValue('emerald')
   },
   activities: {
-    color: '#FC4C83'
+    // TODO: remove value after fuchsia is not overload by cozy-authentication
+    // https://github.com/cozy/cozy-ui/issues/762
+    color: getCssVariableValue('fuchsia') || '#FC4C83'
   },
   excludeFromBudgetCat: {
-    color: '#6984CE'
+    color: getCssVariableValue('darkPeriwinkle')
   },
   services: {
-    color: '#7F6BEE'
+    color: getCssVariableValue('purpley')
   },
   tax: {
-    color: '#B449E7'
+    color: getCssVariableValue('lightishPurple')
   },
   transportation: {
-    color: '#4DCEC5'
+    color: getCssVariableValue('puertoRico')
   },
   goingOutAndTravel: {
-    color: '#40DE8E'
+    color: getCssVariableValue('weirdGreen')
   },
   uncategorized: {
-    color: '#95999D'
+    color: getCssVariableValue('coolGrey')
   }
 }
 
