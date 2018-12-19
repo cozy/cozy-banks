@@ -14,12 +14,6 @@ const dictRequire = lang => require(`../../locales/${lang}`)
 const translation = initTranslation(lang, dictRequire)
 const t = translation.t.bind(translation)
 
-const configKeys = {
-  BalanceLower: 'balanceLower',
-  TransactionGreater: 'transactionGreater',
-  HealthBillLinked: 'healthBillLinked'
-}
-
 const notificationClasses = [BalanceLower, TransactionGreater, HealthBillLinked]
 
 const fetchTransactionAccounts = async transactions => {
@@ -38,14 +32,13 @@ const fetchTransactionAccounts = async transactions => {
   return accounts
 }
 
-const getClassConfig = (Klass, config) =>
-  config.notifications[configKeys[Klass.name]]
+const getClassConfig = (Klass, config) => config.notifications[Klass.settingKey]
 
 const getEnabledNotificationClasses = config => {
   return notificationClasses.filter(Klass => {
     const klassConfig = getClassConfig(Klass, config)
     const enabled = klassConfig && klassConfig.enabled
-    log('info', `${Klass.name} is ${enabled ? '' : 'not'} enabled`)
+    log('info', `${Klass.settingKey} is ${enabled ? '' : 'not'} enabled`)
     return enabled
   })
 }
