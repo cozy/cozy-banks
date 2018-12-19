@@ -69,7 +69,14 @@ class Select extends React.Component {
   }
 
   render() {
-    const { name, value, options, onChange, styles = {} } = this.props
+    const {
+      name,
+      value,
+      options,
+      onChange,
+      styles = {},
+      placeholder
+    } = this.props
     const Component = this.Component
 
     return (
@@ -91,6 +98,7 @@ class Select extends React.Component {
           styles
         )}
         name={name}
+        placeholder={placeholder}
         onChange={option => {
           onChange(option.value, options.indexOf(option.value), name)
         }}

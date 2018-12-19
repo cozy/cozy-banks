@@ -326,7 +326,9 @@
 
 
   "SelectDates": {
-    "all_year": "Toute l'année"
+    "all_year": "Toute l'année",
+    "year": "Année",
+    "month": "Mois"
   },
 
   "Notifications": {

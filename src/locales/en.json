@@ -70,7 +70,9 @@
     "account_name": "Account name"
   },
   "SelectDates": {
-    "all_year": "All year"
+    "all_year": "All year",
+    "year": "Year",
+    "month": "Month"
   },
   "Accounts": {
     "account": "Account",

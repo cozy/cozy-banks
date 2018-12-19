@@ -323,6 +323,7 @@ class SelectDates extends PureComponent {
           <Chip className={cx(styles.SelectDates__chip)}>
             <Select
               name="year"
+              placeholder={t('SelectDates.year')}
               className={styles.SelectDates__SelectYear}
               searchable={false}
               width={isMobile ? 'auto' : '6rem'}
@@ -335,6 +336,7 @@ class SelectDates extends PureComponent {
             <Select
               searchable={false}
               name="month"
+              placeholder={t('SelectDates.month')}
               width={isMobile ? 'auto' : '10rem'}
               className={styles.SelectDates__SelectMonth}
               value={selectedMonth}
