@@ -3,11 +3,13 @@ import * as d3 from 'd3'
 import { withBreakpoints } from 'cozy-ui/react'
 import LineChart from 'components/Chart/LineChart'
 import styles from './History.styl'
+import palette from 'cozy-ui/react/palette'
 import { format as formatDate } from 'date-fns'
 
+// on iOS white transparency on SVG failed so we should calculate hexa color
 const gradientStyle = {
-  '0%': 'rgba(255, 255, 255, 0.48)',
-  '100%': 'rgba(255, 255, 255, 0)'
+  '0%': '#76b9f3', // TODO: replace with lighten(dodgerBlue, 48)
+  '100%': palette.dodgerBlue // TODO: replace with lighten(dodgerBlue, 0)
 }
 
 class HistoryChart extends Component {

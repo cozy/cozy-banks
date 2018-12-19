@@ -38,7 +38,7 @@ const Settings = ({ t, children, router }) => {
       </PageTitle>
       <Tabs className={styles['bnk-tabs']} initialActiveTab={defaultTab}>
         <TabList className={styles['bnk-coz-tab-list']}>{tabs}</TabList>
-        <TabPanels>
+        <TabPanels className={styles.TabPanels}>
           <TabPanel active>{children}</TabPanel>
         </TabPanels>
       </Tabs>
