@@ -4693,10 +4693,10 @@ cozy-doctypes@1.18.1:
     es6-promise-pool "2.5.0"
     lodash "4.17.11"
 
-cozy-flags@1.3.4:
-  version "1.3.4"
-  resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-1.3.4.tgz#b106cdf968c0cf267bb8a6686ce86b73b00333ac"
-  integrity sha512-V5WvKzCxAGzZxeMm2hTCmvFUEq0pQHK26uyDIJCfyJwF85QCiGIR66/cTrQx2tZL8yx+xDsleZWz9+7DfkX7wA==
+cozy-flags@1.3.5:
+  version "1.3.5"
+  resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-1.3.5.tgz#63ae4841aab3b516b87b73d889041437dd7b1b3d"
+  integrity sha512-QMWYG/1VvWXBfJtW5uZAa5d6CvslxmdmcmQ5kEtd1ZbLlKZ1B6PoczLd4XJsCtYo8Qo2vj1bQSJo/qrHvlC8sQ==
   dependencies:
     detect-node "2.0.4"
 
