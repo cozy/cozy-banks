@@ -3,12 +3,11 @@ import * as d3 from 'd3'
 import { withBreakpoints } from 'cozy-ui/react'
 import LineChart from 'components/Chart/LineChart'
 import styles from './History.styl'
-import palette from 'cozy-ui/react/palette'
 import { format as formatDate } from 'date-fns'
 
 const gradientStyle = {
-  '0%': '#76b9f3',
-  '100%': palette.dodgerBlue
+  '0%': 'rgba(255, 255, 255, 0.48)',
+  '100%': 'rgba(255, 255, 255, 0)'
 }
 
 class HistoryChart extends Component {
@@ -47,7 +46,7 @@ class HistoryChart extends Component {
           xScale={d3.scaleTime}
           lineColor="white"
           axisColor="white"
-          labelsColor="#a2c4f9"
+          labelsColor="rgba(255, 255, 255, 0.64)"
           gradient={gradientStyle}
           pointFillColor="white"
           pointStrokeColor="rgba(255, 255, 255, 0.3)"
