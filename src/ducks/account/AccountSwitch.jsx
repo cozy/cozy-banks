@@ -89,25 +89,39 @@ AccountSwitchDesktop.propTypes = {
   filteringDoc: PropTypes.object
 }
 
-const DownArrow = () => (
+const DownArrow = ({ color }) => (
   <Icon
     width={12}
     height={12}
     icon="small-arrow"
-    className={styles.DownArrow}
+    className={cx(styles.DownArrow, styles[`DownArrowColor_${color}`])}
   />
 )
 
-const AccountSwitchSelect = ({ filteringDoc, onClick, t }) => (
-  <div className={styles.AccountSwitch__Select} onClick={onClick}>
-    <Title className={classNames(styles.AccountSwitch__SelectText)}>
+const AccountSwitchSelect = ({ filteringDoc, onClick, t, color }) => (
+  <div
+    className={cx(
+      styles.AccountSwitch__Select,
+      styles[`AccountSwitchColor_${color}`]
+    )}
+    onClick={onClick}
+  >
+    <Title className={styles.AccountSwitch__SelectText} color={color}>
       {filteringDoc
         ? filteringDoc.shortLabel || filteringDoc.label
         : t('AccountSwitch.all_accounts')}
     </Title>
-    <DownArrow />
+    <DownArrow color={color} />
   </div>
 )
+
+AccountSwitchSelect.propTypes = {
+  color: PropTypes.oneOf(['default', 'primary'])
+}
+
+AccountSwitchSelect.defaultProps = {
+  color: 'default'
+}
 
 const AccountSwitchMobile = ({
   filteredAccounts,
@@ -283,8 +297,9 @@ class AccountSwitch extends Component {
       filterByDoc,
       filteredAccounts,
       resetFilterByDoc,
-      breakpoints: { isMobile, isTablet, isDesktop },
+      breakpoints: { isMobile },
       small,
+      color,
       accounts: accountsCollection,
       groups: groupsCollection
     } = this.props
@@ -320,7 +335,7 @@ class AccountSwitch extends Component {
           [styles['AccountSwitch--small']]: small
         })}
       >
-        {isMobile && (
+        {isMobile ? (
           <BarCenter>
             <BarItem style={barItemStyle}>
               <AccountSwitchMobile
@@ -331,12 +346,12 @@ class AccountSwitch extends Component {
               />
             </BarItem>
           </BarCenter>
-        )}
-        {(isDesktop || isTablet) && (
+        ) : (
           <AccountSwitchSelect
             filteredAccounts={filteredAccounts}
             filteringDoc={filteringDoc}
             onClick={this.toggle}
+            color={color}
             t={t}
           />
         )}
@@ -363,11 +378,13 @@ class AccountSwitch extends Component {
 AccountSwitch.propTypes = {
   filterByDoc: PropTypes.func.isRequired,
   resetFilterByDoc: PropTypes.func.isRequired,
-  filteringDoc: PropTypes.object
+  filteringDoc: PropTypes.object,
+  color: PropTypes.oneOf(['default', 'primary'])
 }
 
 AccountSwitch.defaultProps = {
-  small: false
+  small: false,
+  color: 'default'
 }
 
 const mapStateToProps = (state, ownProps) => {

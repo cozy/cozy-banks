@@ -32,11 +32,14 @@ class TransactionHeader extends Component {
 
   displayAccountSwitch = () => {
     const isSubcategory = this.isSubcategory()
+    const colorProps = {
+      color: flag('transaction-history') ? 'primary' : 'default'
+    }
 
     return (
       <div>
         {isSubcategory && <BackButton />}
-        <AccountSwitch small={isSubcategory} />
+        <AccountSwitch small={isSubcategory} {...colorProps} />
       </div>
     )
   }
