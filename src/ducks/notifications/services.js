@@ -34,7 +34,7 @@ const fetchTransactionAccounts = async transactions => {
 
 const getClassConfig = (Klass, config) => config.notifications[Klass.settingKey]
 
-const getEnabledNotificationClasses = config => {
+export const getEnabledNotificationClasses = config => {
   return notificationClasses.filter(Klass => {
     const klassConfig = getClassConfig(Klass, config)
     const enabled = klassConfig && klassConfig.enabled
