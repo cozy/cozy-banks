@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
-import { flowRight as compose } from 'lodash'
+import { flowRight as compose, max } from 'lodash'
 import { translate, withBreakpoints } from 'cozy-ui/react'
+import { withSize } from 'react-sizeme'
 
 import BackButton from 'components/BackButton'
 import { Breadcrumb } from 'components/Breadcrumb'
@@ -95,16 +96,18 @@ class TransactionHeader extends Component {
   }
 
   displayBalanceHistory() {
-    if (!flag('transaction-history') || !this.props.chartData) {
+    const { chartData, size, breakpoints: { isMobile } } = this.props
+    if (!flag('transaction-history') || !chartData || !size) {
       return
     }
+    const intervalBetweenPoints = 10
 
     return (
       <HistoryChart
         margin={historyChartMargin}
-        data={this.props.chartData}
-        height={72}
-        width="100%"
+        data={chartData}
+        height={isMobile ? 95 : 141}
+        width={max([size.width, intervalBetweenPoints * chartData.length])}
       />
     )
   }
@@ -135,5 +138,6 @@ class TransactionHeader extends Component {
 export default compose(
   withRouter,
   withBreakpoints(),
+  withSize(),
   translate()
 )(TransactionHeader)
