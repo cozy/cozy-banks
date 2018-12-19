@@ -1,6 +1,6 @@
 import React, { PureComponent, Fragment } from 'react'
 import { flowRight as compose, sortBy, get, keyBy, sumBy } from 'lodash'
-import { translate, withBreakpoints, Spinner } from 'cozy-ui/react'
+import { translate, withBreakpoints } from 'cozy-ui/react'
 import { queryConnect } from 'cozy-client'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
 
@@ -29,7 +29,7 @@ class Balance extends PureComponent {
     } = this.props
 
     if (isCollectionLoading(settingsCollection)) {
-      return <Spinner />
+      return null
     }
 
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
