@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import { flowRight as compose, sortBy } from 'lodash'
-import classNames from 'classnames'
+import cx from 'classnames'
 import {
   translate,
   withBreakpoints,
@@ -47,7 +47,7 @@ const AccountSwitchDesktop = translate()(
     accountExists
   }) => (
     <button
-      className={classNames(
+      className={cx(
         styles['account-switch-button'],
         { [styles['active']]: isOpen },
         'coz-desktop'
@@ -131,7 +131,7 @@ AccountSwitchMobile.propTypes = {
 
 const AccountSwitchTablet = ({ filteringDoc, onClick }) => (
   <button
-    className={classNames(styles['account-switch-button-mobile'], {
+    className={cx(styles['account-switch-button-mobile'], {
       [styles['active']]: filteringDoc
     })}
     onClick={onClick}
@@ -163,7 +163,7 @@ const AccountSwitchMenu = translate()(
               onClick={() => {
                 resetFilterByDoc()
               }}
-              className={classNames({
+              className={cx({
                 [styles['active']]: filteringDoc === undefined
               })}
             >
@@ -179,7 +179,7 @@ const AccountSwitchMenu = translate()(
                 onClick={() => {
                   filterByDoc(group)
                 }}
-                className={classNames({
+                className={cx({
                   [styles['active']]:
                     filteringDoc && group._id === filteringDoc._id
                 })}
@@ -214,7 +214,7 @@ const AccountSwitchMenu = translate()(
                   onClick={() => {
                     filterByDoc(account)
                   }}
-                  className={classNames({
+                  className={cx({
                     [styles['active']]:
                       filteringDoc && account._id === filteringDoc._id
                   })}
@@ -316,7 +316,7 @@ class AccountSwitch extends Component {
     )
     return (
       <div
-        className={classNames(styles['account-switch'], {
+        className={cx(styles['account-switch'], {
           [styles['AccountSwitch--small']]: small
         })}
       >
