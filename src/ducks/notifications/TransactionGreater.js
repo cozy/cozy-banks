@@ -124,4 +124,6 @@ class TransactionGreater extends Notification {
   }
 }
 
+TransactionGreater.settingKey = 'transactionGreater'
+
 export default TransactionGreater

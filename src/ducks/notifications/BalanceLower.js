@@ -116,4 +116,6 @@ class BalanceLower extends Notification {
   }
 }
 
+BalanceLower.settingKey = 'balanceLower'
+
 export default BalanceLower

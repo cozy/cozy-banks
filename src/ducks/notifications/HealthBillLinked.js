@@ -118,4 +118,6 @@ class HealthBillLinked extends Notification {
   }
 }
 
+HealthBillLinked.settingKey = 'healthBillLinked'
+
 export default HealthBillLinked
