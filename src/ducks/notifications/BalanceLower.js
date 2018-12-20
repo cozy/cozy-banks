@@ -63,10 +63,7 @@ class BalanceLower extends Notification {
 
     log('info', `BalanceLower: ${accountsFiltered.length} accountsFiltered`)
 
-    const translateKey = 'Notifications.if_balance_lower.notification'
-
-    const t = (key, data) => this.t(translateKey + '.' + key, data)
-    Handlebars.registerHelper({ t })
+    Handlebars.registerHelper({ t: this.t })
 
     const onlyOne = accountsFiltered.length === 1
     const firstAccount = accountsFiltered[0]
@@ -88,7 +85,7 @@ class BalanceLower extends Notification {
           currency: '€'
         }
 
-    const titleKey = `${translateKey}.${onlyOne ? 'one' : 'several'}.title`
+    const titleKey = `Notifications.if_balance_lower.notification.${onlyOne ? 'one' : 'several'}.title`
     const title = this.t(titleKey, titleData)
 
     const contentHTML = htmlTemplate(templateData)
