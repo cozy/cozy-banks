@@ -3,7 +3,7 @@ import { AccountLine } from './GroupSettings'
 import { Toggle } from 'cozy-ui/react'
 import { mount } from 'enzyme'
 import AppLike from 'test/AppLike'
-import fixtures from 'test/fixtures/operations.json'
+import fixtures from 'test/fixtures'
 import { keyBy } from 'lodash'
 
 describe('GroupSettings', () => {
