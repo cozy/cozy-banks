@@ -19,13 +19,15 @@ Usage
 =====
 
 ```
-ACH import operations.json helpers.js
+ACH import demo.json helpers.js
 ```
 
 Other fixtures
 ==============
 
-The reference file is `operations.json`. Other files should follow it.
+The reference file is `demo.json`. Other files should follow it.
 
-- [./operations-ben.json]
-- [./operations-isabelle.json] are the fixtures we use on demo instances
+There are also more focused files that can be used to test specific usecases. See:
+
+* [Matching service](matching-service/README.md)
+* [Notifications service](notifications-service/README.md)
