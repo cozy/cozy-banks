@@ -4709,30 +4709,7 @@ cozy-jobs-cli@1.6.1:
     regenerator-runtime "0.12.1"
     replay "2.4.0"
 
-cozy-konnector-libs@4.11.8:
-  version "4.11.8"
-  resolved "https://registry.yarnpkg.com/cozy-konnector-libs/-/cozy-konnector-libs-4.11.8.tgz#47799803af0ec8bb3e91d093a5ce5c99c6088bc6"
-  integrity sha512-lGQB/R4ysYx/zcJk8HvrG5+udidHZdDV25lF7U0h1wcXC7x3jb8VqJYzmVn5IzeSgkkGpopqKNRqTA9cDAycWQ==
-  dependencies:
-    bluebird "3.5.3"
-    bluebird-retry "0.11.0"
-    btoa "1.2.1"
-    cheerio "1.0.0-rc.2"
-    cozy-client-js "0.9.0"
-    cozy-logger "^1.2.0"
-    date-fns "1.29.0"
-    geco "0.11.1"
-    isomorphic-fetch "^2.2.1"
-    lodash "4.17.11"
-    lodash-id "^0.14.0"
-    lowdb "1.0.0"
-    pdfjs "2.1.0"
-    raven "2.6.4"
-    request "2.88.0"
-    request-debug "0.2.0"
-    request-promise "4.2.2"
-
-cozy-konnector-libs@^4.12.1:
+cozy-konnector-libs@4.12.1, cozy-konnector-libs@^4.12.1:
   version "4.12.1"
   resolved "https://registry.yarnpkg.com/cozy-konnector-libs/-/cozy-konnector-libs-4.12.1.tgz#be8daacc9f3b16286a24a3d87825bce5d587d231"
   integrity sha512-Cgdv+clQm6/24S+ZYIRikkqXJ/CIxkum7vxb1upRYsNT1ROfqUg8dv2q9LE2KNPK9SjVvjTWVD4TbUd84lFWmA==
@@ -4761,13 +4738,6 @@ cozy-logger@1.3.0, cozy-logger@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/cozy-logger/-/cozy-logger-1.3.0.tgz#21cd10a9e0ebffbdeefdd89d57e021717986ba38"
   integrity sha512-FLqMjnB6YYymotyAeDbWd1tZ06EE/u1QUstHFbTBPI2XNUoJXfnYEx7B+Uj93eU2o2zzjWHYb+2+lA0TvgsQqA==
-  dependencies:
-    json-stringify-safe "5.0.1"
-
-cozy-logger@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/cozy-logger/-/cozy-logger-1.2.0.tgz#45826ec57612a653009531f45cfdd0cf0557e435"
-  integrity sha512-SirVcL9jeO0H/WNVu2U0q/P2dZBmGQglud2nnyxxQ6i3AgJy8DkWon5Uv4rnIGlWD4XCN25sdPcLlEJPAxTIdg==
   dependencies:
     json-stringify-safe "5.0.1"
 
@@ -5396,15 +5366,15 @@ datauri@^1.0.4:
     mimer "^0.3.2"
     semver "^5.5.0"
 
-date-fns@1.29.0, date-fns@^1.28.5:
-  version "1.29.0"
-  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.29.0.tgz#12e609cdcb935127311d04d33334e2960a2a54e6"
-  integrity sha512-lbTXWZ6M20cWH8N9S6afb0SBm6tMk+uUg6z3MqHPKE9atmsY3kJkTm8vKe93izJ2B2+q5MV990sM2CHgtAZaOw==
-
 date-fns@1.30.1:
   version "1.30.1"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
   integrity sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==
+
+date-fns@^1.28.5:
+  version "1.29.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.29.0.tgz#12e609cdcb935127311d04d33334e2960a2a54e6"
+  integrity sha512-lbTXWZ6M20cWH8N9S6afb0SBm6tMk+uUg6z3MqHPKE9atmsY3kJkTm8vKe93izJ2B2+q5MV990sM2CHgtAZaOw==
 
 date-now@^0.1.4:
   version "0.1.4"
