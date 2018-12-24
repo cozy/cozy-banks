@@ -85,7 +85,9 @@ class BalanceLower extends Notification {
           currency: '€'
         }
 
-    const titleKey = `Notifications.if_balance_lower.notification.${onlyOne ? 'one' : 'several'}.title`
+    const titleKey = `Notifications.if_balance_lower.notification.${
+      onlyOne ? 'one' : 'several'
+    }.title`
     const title = this.t(titleKey, titleData)
 
     const contentHTML = htmlTemplate(templateData)
