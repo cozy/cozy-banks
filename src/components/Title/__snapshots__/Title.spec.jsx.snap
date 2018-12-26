@@ -12,7 +12,7 @@ exports[`Title should display children 1`] = `
 
 exports[`Title should extend className 1`] = `
 <MainTitle
-  className="Title TitleColor_default"
+  className="Title TitleColor_default noPaddingBottom"
   ellipsis={true}
   tag="h1"
 >

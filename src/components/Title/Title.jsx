@@ -6,13 +6,13 @@ import styles from './Title.styl'
 
 class Title extends React.PureComponent {
   render() {
-    const { children, color } = this.props
+    const { children, color, className } = this.props
 
     return (
       <MainTitle
         tag="h1"
         ellipsis={true}
-        className={cx(styles.Title, styles[`TitleColor_${color}`])}
+        className={cx(styles.Title, styles[`TitleColor_${color}`], className)}
       >
         {children}
       </MainTitle>
