@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styles from './Tooltip.styl'
+import cx from 'classnames'
 
 const Tooltip = ({ children, x, position }) => (
   <div
-    className={styles.Tooltip}
+    className={cx(styles.Tooltip, styles[`Tooltip_${position}`])}
     style={{ transform: `translateX(${x}px)`, [position]: 0 }}
   >
     {children}

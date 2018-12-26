@@ -59,7 +59,7 @@ class History extends Component {
       width: max([width, nbTicks * intervalBetweenMonths]),
       height: isMobile ? 95 : 141,
       margin: {
-        top: 20,
+        top: 26,
         bottom: 35,
         left: 0,
         right: isMobile ? 16 : 32

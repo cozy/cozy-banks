@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { withRouter } from 'react-router'
 import { flowRight as compose, max } from 'lodash'
 import { translate, withBreakpoints } from 'cozy-ui/react'
@@ -17,13 +17,6 @@ import { Padded } from 'components/Spacing'
 import TableHead from './header/TableHead'
 import styles from './TransactionsPage.styl'
 
-const historyChartMargin = {
-  top: 10,
-  bottom: 10,
-  left: 16,
-  right: 16
-}
-
 class TransactionHeader extends Component {
   isSubcategory = () => {
     const { router } = this.props
@@ -38,10 +31,10 @@ class TransactionHeader extends Component {
     }
 
     return (
-      <div>
+      <Fragment>
         {isSubcategory && <BackButton />}
         <AccountSwitch small={isSubcategory} {...colorProps} />
-      </div>
+      </Fragment>
     )
   }
 
@@ -101,12 +94,18 @@ class TransactionHeader extends Component {
       return
     }
     const intervalBetweenPoints = 10
+    const historyChartMargin = {
+      top: 26,
+      bottom: 0,
+      left: 0,
+      right: isMobile ? 16 : 32
+    }
 
     return (
       <HistoryChart
         margin={historyChartMargin}
         data={chartData}
-        height={isMobile ? 95 : 141}
+        height={72}
         width={max([size.width, intervalBetweenPoints * chartData.length])}
       />
     )
@@ -125,7 +124,9 @@ class TransactionHeader extends Component {
       <Header {...colorProps} fixed>
         <Padded className={isMobile ? 'u-p-0' : ''}>
           {this.displayAccountSwitch()}
-          {this.displayBalanceHistory()}
+        </Padded>
+        {this.displayBalanceHistory()}
+        <Padded className={isMobile ? 'u-p-0' : ''}>
           {this.displaySelectDates()}
           {this.displayBreadcrumb()}
         </Padded>
