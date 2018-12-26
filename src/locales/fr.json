@@ -481,5 +481,11 @@
         "description": "Voir mon historique de soldes"
       }
     }
+  },
+
+  "KonnectorUpdateInfo": {
+    "title": "Nouveaux connecteurs bancaires",
+    "content": "De nouvelles versions des connecteurs sont disponibles et nécessitent une mise à jour de leurs CGUs. <a href='https://support.cozy.io/article/302-budget' target='_blank'>En savoir plus</a>.",
+    "cta": "Mettre à jour mes banques"
   }
 }
