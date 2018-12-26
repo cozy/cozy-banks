@@ -93,7 +93,7 @@ class TransactionHeader extends Component {
     if (!flag('transaction-history') || !chartData || !size) {
       return
     }
-    const intervalBetweenPoints = 10
+    const intervalBetweenPoints = 2
     const historyChartMargin = {
       top: 26,
       bottom: 0,
