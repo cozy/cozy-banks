@@ -69,11 +69,7 @@ class TransactionGreater extends Notification {
       return
     }
 
-    const translateKey = 'Notifications.if_transaction_greater.notification'
-
-    // Custom t bound to its part
-    const t = (key, data) => this.t(translateKey + '.' + key, data)
-    Handlebars.registerHelper({ t })
+    Handlebars.registerHelper({ t: this.t })
 
     const onlyOne = transactionsFiltered.length === 1
     const templateData = {
@@ -93,6 +89,7 @@ class TransactionGreater extends Notification {
           maxAmount: this.maxAmount
         }
 
+    const translateKey = 'Notifications.if_transaction_greater.notification'
     const titleKey = onlyOne
       ? firstTransaction.amount > 0
         ? `${translateKey}.credit.title`
