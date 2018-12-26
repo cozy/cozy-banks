@@ -54,13 +54,13 @@ class History extends Component {
       Object.keys(groupBy(data, i => formatDate(i.x, 'YYYY-MM')))
     ).length
 
-    const intervalBetweenPoints = 57
+    const intervalBetweenMonths = isMobile ? 52 : 89
     const TICK_FORMAT = d3.timeFormat('%b')
 
     const chartProps = {
       data,
       nbTicks,
-      width: max([width, nbTicks * intervalBetweenPoints]),
+      width: max([width, nbTicks * intervalBetweenMonths]),
       height: isMobile ? 95 : 141,
       margin: {
         top: 20,
