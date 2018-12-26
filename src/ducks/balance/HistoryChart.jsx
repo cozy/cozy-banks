@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import * as d3 from 'd3'
 import { withBreakpoints } from 'cozy-ui/react'
 import LineChart from 'components/Chart/LineChart'
@@ -26,12 +26,12 @@ class HistoryChart extends Component {
     })
 
     return (
-      <div>
+      <Fragment>
         {date}
         <strong className={styles.HistoryChart__tooltipBalance}>
           {balance} €
         </strong>
-      </div>
+      </Fragment>
     )
   }
 
