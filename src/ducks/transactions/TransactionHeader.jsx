@@ -126,7 +126,7 @@ class TransactionHeader extends Component {
 
     return (
       <Header {...colorProps} fixed>
-        <Padded className={isMobile ? 'u-p-0' : ''}>
+        <Padded className={isMobile ? 'u-p-0' : withChart ? 'u-pb-0' : ''}>
           {this.displayAccountSwitch()}
         </Padded>
         {this.displayBalanceHistory()}
