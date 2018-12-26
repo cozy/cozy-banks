@@ -12,6 +12,13 @@
     border 0
     margin 0
 
+.account-switch_default
+    .AccountSwitch__Select
+        margin-bottom 1rem
+
+        +small-screen()
+            margin-bottom 0
+
 .account-switch-button
     cursor pointer
     margin 10px 0
@@ -136,13 +143,11 @@
 
 .AccountSwitch__Select
     display inline-flex
-    margin-bottom 1rem
     overflow hidden
     cursor pointer
     align-items center
 
     +small-screen()
-        margin-bottom 0
         max-width 100%
 
 .AccountSwitch__SelectText

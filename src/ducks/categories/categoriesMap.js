@@ -29,7 +29,7 @@ export const categoriesStyle = {
   activities: {
     // TODO: remove value after fuchsia is not overload by cozy-authentication
     // https://github.com/cozy/cozy-ui/issues/762
-    color: getCssVariableValue('fuchsia') || '#FC4C83'
+    color: getCssVariableValue('fuchsia') || '#FC4C83'
   },
   excludeFromBudgetCat: {
     color: getCssVariableValue('darkPeriwinkle')

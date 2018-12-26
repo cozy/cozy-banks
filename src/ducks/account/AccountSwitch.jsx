@@ -331,9 +331,13 @@ class AccountSwitch extends Component {
     )
     return (
       <div
-        className={cx(styles['account-switch'], {
-          [styles['AccountSwitch--small']]: small
-        })}
+        className={cx(
+          styles['account-switch'],
+          styles[`account-switch_${color}`],
+          {
+            [styles['AccountSwitch--small']]: small
+          }
+        )}
       >
         {isMobile ? (
           <BarCenter>

@@ -9,7 +9,12 @@ import styles from './TableHead.styl'
 
 class TableHead extends React.PureComponent {
   render() {
-    const { t, breakpoints: { isDesktop }, isSubcategory, color } = this.props
+    const {
+      t,
+      breakpoints: { isDesktop },
+      isSubcategory,
+      color
+    } = this.props
 
     if (!isDesktop) {
       return null

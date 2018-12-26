@@ -89,8 +89,12 @@ class TransactionHeader extends Component {
   }
 
   displayBalanceHistory() {
-    const { chartData, size, breakpoints: { isMobile } } = this.props
-    if (!flag('transaction-history') || !chartData || !size) {
+    const {
+      chartData,
+      size,
+      breakpoints: { isMobile }
+    } = this.props
+    if (!flag('transaction-history') || !chartData || !size) {
       return
     }
     const intervalBetweenPoints = 2
