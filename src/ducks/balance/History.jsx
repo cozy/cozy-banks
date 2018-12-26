@@ -18,10 +18,6 @@ import {
 import { withSize } from 'react-sizeme'
 
 class History extends Component {
-  getCurrentBalance() {
-    return sumBy(this.props.accounts.data, a => a.balance)
-  }
-
   getBalanceHistory(accounts, transactions) {
     const today = new Date()
     const balanceHistories = getBalanceHistories(
