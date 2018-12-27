@@ -1,8 +1,9 @@
 const path = require('path')
+const glob = require('glob')
 
 module.exports = {
   require: [
-    path.resolve(__dirname, 'build/app.ab4e1d10a4abc83429a9.min.css'),
+    ...glob.sync(path.resolve(__dirname, 'build/app.*.css')),
     path.resolve(__dirname, 'docs/styleguide/style.css'),
     path.resolve(__dirname, 'docs/styleguide/setup.js')
   ],
