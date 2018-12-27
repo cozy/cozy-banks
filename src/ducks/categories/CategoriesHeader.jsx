@@ -46,9 +46,11 @@ class CategoriesHeader extends PureComponent {
     if (!showIncomeToggle) {
       return null
     }
+    const withChart = flag('transaction-history')
+    const color = withChart ? 'primary' : 'default'
 
     return (
-      <div className={styles.CategoriesHeader__Toggle}>
+      <div className={cx(styles.CategoriesHeader__Toggle, styles[color])}>
         <Toggle
           id="withIncome"
           checked={withIncome}
