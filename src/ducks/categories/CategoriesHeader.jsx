@@ -18,10 +18,12 @@ class CategoriesHeader extends PureComponent {
   renderAccountSwitch = () => {
     const { selectedCategory, breadcrumbItems } = this.props
     const [previousItem] = breadcrumbItems.slice(-2, 1)
+    const withChart = flag('transaction-history')
+    const colorProps = { color: withChart ? 'primary' : 'default' }
 
     return (
       <Fragment>
-        <AccountSwitch small={selectedCategory !== undefined} />
+        <AccountSwitch small={selectedCategory !== undefined} {...colorProps} />
         {selectedCategory && (
           <BackButton onClick={previousItem && previousItem.onClick} />
         )}
