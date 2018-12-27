@@ -78,6 +78,9 @@ class CategoriesHeader extends PureComponent {
       return null
     }
 
+    const withChart = flag('transaction-history')
+    const color = { color: withChart ? 'primary' : 'default' }
+
     return (
       <CategoriesChart
         width={chartSize}
@@ -89,6 +92,7 @@ class CategoriesHeader extends PureComponent {
         total={selectedCategory ? selectedCategory.amount : transactionsTotal}
         currency={globalCurrency}
         label={t('Categories.title.total')}
+        {...color}
       />
     )
   }
@@ -123,7 +127,7 @@ class CategoriesHeader extends PureComponent {
 
     return (
       <Header {...colorProps}>
-        <Padded className={cx(styles.CategoriesHeader, 'u-pb-0')}>
+        <Padded className={styles.CategoriesHeader}>
           <div>
             {accountSwitch}
             <Padded className="u-pv-1 u-ph-0">

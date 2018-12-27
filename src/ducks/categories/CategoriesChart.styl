@@ -2,9 +2,15 @@
 
 .CategoriesChart
     height 182px
+    width 182px
     margin-left auto
     position relative
     z-index 1
+
+    &.primary
+        background-color white
+        border-radius 50%
+        border 2px solid white
 
     +small-screen()
         margin-right auto
@@ -14,8 +20,8 @@
     position absolute
     top 25px
     bottom 25px
-    left 30px
-    right 30px
+    left 25px
+    right 25px
     border-radius 50%
     display flex
     flex-direction column
