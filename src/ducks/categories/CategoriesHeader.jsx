@@ -124,7 +124,9 @@ class CategoriesHeader extends PureComponent {
         <Padded className={cx(styles.CategoriesHeader, 'u-pb-0')}>
           <div>
             {accountSwitch}
-            <SelectDates showFullYear />
+            <Padded className="u-pv-1 u-ph-0">
+              <SelectDates showFullYear {...colorProps} />
+            </Padded>
             {breadcrumbItems.length > 1 && (
               <Breadcrumb
                 items={breadcrumbItems}
