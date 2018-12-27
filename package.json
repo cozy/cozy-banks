@@ -183,7 +183,7 @@
     "piwik-react-router": "0.8.2",
     "pouchdb-adapter-cordova-sqlite": "2.0.5",
     "raven-js": "3.26.4",
-    "raw-loader": "0.5.1",
+    "raw-loader": "1.0.0",
     "react": "16.7.0",
     "react-chartjs-2": "2.7.4",
     "react-dom": "16.7.0",
