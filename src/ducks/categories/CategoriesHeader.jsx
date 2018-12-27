@@ -2,6 +2,7 @@ import React, { PureComponent, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import { Toggle, translate, withBreakpoints } from 'cozy-ui/react'
+import flag from 'cozy-flags'
 import { Breadcrumb } from 'components/Breadcrumb'
 import { AccountSwitch } from 'ducks/account'
 import BackButton from 'components/BackButton'
@@ -113,21 +114,26 @@ class CategoriesHeader extends PureComponent {
       )
     }
 
+    const withChart = flag('transaction-history')
+    const colorProps = { color: withChart ? 'primary' : 'default' }
+
     return (
-      <Padded className={cx(styles.CategoriesHeader, 'u-pb-0')}>
-        <div>
-          {accountSwitch}
-          <SelectDates showFullYear />
-          {breadcrumbItems.length > 1 && (
-            <Breadcrumb
-              items={breadcrumbItems}
-              className={styles.CategoriesHeader__Breadcrumb}
-            />
-          )}
-          {incomeToggle}
-        </div>
-        {chart}
-      </Padded>
+      <Header {...colorProps}>
+        <Padded className={cx(styles.CategoriesHeader, 'u-pb-0')}>
+          <div>
+            {accountSwitch}
+            <SelectDates showFullYear />
+            {breadcrumbItems.length > 1 && (
+              <Breadcrumb
+                items={breadcrumbItems}
+                className={styles.CategoriesHeader__Breadcrumb}
+              />
+            )}
+            {incomeToggle}
+          </div>
+          {chart}
+        </Padded>
+      </Header>
     )
   }
 }
