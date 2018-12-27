@@ -1,13 +1,13 @@
 const path = require('path')
+const glob = require('glob')
 
 module.exports = {
   require: [
-    path.resolve(__dirname, 'build/app.css'),
+    ...glob.sync(path.resolve(__dirname, 'build/app.*.css')),
     path.resolve(__dirname, 'docs/styleguide/style.css'),
     path.resolve(__dirname, 'docs/styleguide/setup.js')
   ],
   serverPort: 6061,
-  showUsage: true,
   styleguideDir: 'docs/build/styleguide',
   styleguideComponents: {
     Wrapper: path.resolve(__dirname, 'docs/styleguide/Wrapper')

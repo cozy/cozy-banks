@@ -1,5 +1,5 @@
 ```jsx
-const data = require('./history_data.json');
+const data = require('../../../test/fixtures/unit-tests.json');
 
 <History
   accounts={data['io.cozy.bank.accounts']}
