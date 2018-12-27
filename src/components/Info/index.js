@@ -31,4 +31,4 @@ Infos.propTypes = {
   icon: PropTypes.any,
   title: PropTypes.node
 }
-export default Infos
+export default React.memo(Infos)
