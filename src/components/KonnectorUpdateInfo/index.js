@@ -1,7 +1,13 @@
 import React from 'react'
 import Info from '../Info'
 import styles from './styles.styl'
-import { Text, ButtonLink, Icon, translate } from 'cozy-ui/react'
+import {
+  Text,
+  ButtonLink,
+  Icon,
+  translate,
+  withBreakpoints
+} from 'cozy-ui/react'
 import { withClient } from 'cozy-client'
 import { flowRight as compose } from 'lodash'
 import { Intents } from 'cozy-interapp'
@@ -34,7 +40,7 @@ class KonnectorUpdateInfo extends React.PureComponent {
       return null
     }
 
-    const { t } = this.props
+    const { t, breakpoints } = this.props
 
     return (
       <Info variant="error" title={t('KonnectorUpdateInfo.title')}>
@@ -50,7 +56,9 @@ class KonnectorUpdateInfo extends React.PureComponent {
           label={t('KonnectorUpdateInfo.cta')}
           theme="secondary"
           href={url}
-          extension="full"
+          extension={
+            breakpoints.isDesktop || breakpoints.isTablet ? 'narrow' : 'full'
+          }
         />
       </Info>
     )
@@ -59,5 +67,6 @@ class KonnectorUpdateInfo extends React.PureComponent {
 
 export default compose(
   translate(),
-  withClient
+  withClient,
+  withBreakpoints()
 )(KonnectorUpdateInfo)
