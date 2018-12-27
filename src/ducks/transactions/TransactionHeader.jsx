@@ -3,7 +3,6 @@ import { withRouter } from 'react-router'
 import { flowRight as compose, max } from 'lodash'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import { withSize } from 'react-sizeme'
-import cx from 'classnames'
 
 import BackButton from 'components/BackButton'
 import { Breadcrumb } from 'components/Breadcrumb'
@@ -127,11 +126,11 @@ class TransactionHeader extends Component {
 
     return (
       <Header {...colorProps} fixed>
-        <Padded className={isMobile ? 'u-p-0' : 'u-pb-0'}>
+        <Padded className={isMobile ? 'u-p-0' : 'u-pb-half'}>
           {this.displayAccountSwitch()}
         </Padded>
         {!isSubcategory && this.displayBalanceHistory()}
-        <Padded className={cx({ 'u-p-0': isMobile })}>
+        <Padded className={isMobile ? 'u-p-0' : 'u-pv-1'}>
           {this.displaySelectDates()}
           {this.displayBreadcrumb()}
         </Padded>
