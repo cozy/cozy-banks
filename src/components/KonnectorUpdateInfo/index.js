@@ -71,9 +71,7 @@ class KonnectorUpdateInfo extends React.PureComponent {
           label={t('KonnectorUpdateInfo.cta')}
           theme="secondary"
           href={url}
-          extension={
-            breakpoints.isDesktop || breakpoints.isTablet ? 'narrow' : 'full'
-          }
+          extension={breakpoints.isMobile ? 'full' : 'narrow'}
         />
       </Info>
     )
