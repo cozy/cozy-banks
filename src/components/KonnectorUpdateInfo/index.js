@@ -2,9 +2,38 @@ import React from 'react'
 import Info from '../Info'
 import styles from './styles.styl'
 import { Text, ButtonLink, Icon, translate } from 'cozy-ui/react'
+import { withClient } from 'cozy-client'
+import { flowRight as compose } from 'lodash'
+import { Intents } from 'cozy-interapp'
 
 class KonnectorUpdateInfo extends React.PureComponent {
+  intents = new Intents({ client: this.props.client })
+
+  state = {
+    url: null
+  }
+
+  async componentDidMount() {
+    try {
+      const url = await this.intents.getRedirectionURL('io.cozy.apps', {
+        type: 'konnector',
+        pendingUpdate: true
+      })
+
+      this.setState({ url })
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log(err)
+    }
+  }
+
   render() {
+    const { url } = this.state
+
+    if (!url) {
+      return null
+    }
+
     const { t } = this.props
 
     return (
@@ -20,7 +49,7 @@ class KonnectorUpdateInfo extends React.PureComponent {
           icon={<Icon icon="openwith" />}
           label={t('KonnectorUpdateInfo.cta')}
           theme="secondary"
-          href="#"
+          href={url}
           extension="full"
         />
       </Info>
@@ -28,4 +57,7 @@ class KonnectorUpdateInfo extends React.PureComponent {
   }
 }
 
-export default translate()(KonnectorUpdateInfo)
+export default compose(
+  translate(),
+  withClient
+)(KonnectorUpdateInfo)
