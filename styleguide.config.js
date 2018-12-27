@@ -2,12 +2,11 @@ const path = require('path')
 
 module.exports = {
   require: [
-    path.resolve(__dirname, 'build/app.css'),
+    path.resolve(__dirname, 'build/app.ab4e1d10a4abc83429a9.min.css'),
     path.resolve(__dirname, 'docs/styleguide/style.css'),
     path.resolve(__dirname, 'docs/styleguide/setup.js')
   ],
   serverPort: 6061,
-  showUsage: true,
   styleguideDir: 'docs/build/styleguide',
   styleguideComponents: {
     Wrapper: path.resolve(__dirname, 'docs/styleguide/Wrapper')
