@@ -129,7 +129,7 @@ class TransactionHeader extends Component {
         <Padded className={isMobile ? 'u-p-0' : 'u-pb-0'}>
           {this.displayAccountSwitch()}
         </Padded>
-        {this.displayBalanceHistory()}
+        {!isSubcategory && this.displayBalanceHistory()}
         <Padded className={isMobile ? 'u-p-0' : ''}>
           {this.displaySelectDates()}
           {this.displayBreadcrumb()}
