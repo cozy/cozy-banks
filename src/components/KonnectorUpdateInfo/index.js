@@ -11,6 +11,9 @@ import {
 import { withClient } from 'cozy-client'
 import { flowRight as compose } from 'lodash'
 import { Intents } from 'cozy-interapp'
+import { queryConnect } from 'cozy-client'
+import { KONNECTOR_DOCTYPE } from 'doctypes'
+import { isCollectionLoading } from 'ducks/client/utils'
 
 class KonnectorUpdateInfo extends React.PureComponent {
   intents = new Intents({ client: this.props.client })
@@ -40,7 +43,19 @@ class KonnectorUpdateInfo extends React.PureComponent {
       return null
     }
 
-    const { t, breakpoints } = this.props
+    const { t, breakpoints, konnectorsCollection } = this.props
+
+    if (isCollectionLoading(konnectorsCollection)) {
+      return null
+    }
+
+    if (konnectorsCollection.hasMore) {
+      konnectorsCollection.fetchMore()
+    }
+
+    if (konnectorsCollection.data.length === 0) {
+      return null
+    }
 
     return (
       <Info variant="error" title={t('KonnectorUpdateInfo.title')}>
@@ -68,5 +83,13 @@ class KonnectorUpdateInfo extends React.PureComponent {
 export default compose(
   translate(),
   withClient,
-  withBreakpoints()
+  withBreakpoints(),
+  queryConnect({
+    konnectorsCollection: {
+      query: client =>
+        client
+          .all(KONNECTOR_DOCTYPE)
+          .where({ available_version: { $exists: true } })
+    }
+  })
 )(KonnectorUpdateInfo)
