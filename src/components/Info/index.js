@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import styles from './styles.styl'
 import { Icon, SubTitle } from 'cozy-ui/react'
 
-const Infos = ({ icon, children, className, title }) => {
+export const Infos = ({ icon, children, className, title }) => {
   return (
     <div className={cx(styles['infos'], 'u-p-1', className)}>
       <div className={styles['infos--container']}>
