@@ -130,11 +130,7 @@ class TransactionHeader extends Component {
 
     return (
       <Header {...colorProps} fixed>
-        <Padded
-          className={
-            isMobile ? 'u-p-0' : isSubcategory ? 'u-pb-0' : 'u-pb-half'
-          }
-        >
+        <Padded className={isMobile ? 'u-p-0' : 'u-pb-half'}>
           {this.displayAccountSwitch()}
         </Padded>
         {!isSubcategory && this.displayBalanceHistory()}

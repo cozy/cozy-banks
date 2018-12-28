@@ -131,7 +131,7 @@ class CategoriesHeader extends PureComponent {
       <Header {...colorProps}>
         <Padded className={styles.CategoriesHeader}>
           <div>
-            {accountSwitch}
+            <Padded className="u-ph-0 u-pt-0 u-pb-half">{accountSwitch}</Padded>
             <Padded className="u-pv-1 u-ph-0">
               <SelectDates showFullYear {...colorProps} />
             </Padded>
