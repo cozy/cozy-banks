@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import cx from 'classnames'
 import { Toggle, translate, withBreakpoints } from 'cozy-ui/react'
 import flag from 'cozy-flags'
-import { Breadcrumb } from 'components/Breadcrumb'
+import Breadcrumb from 'components/Breadcrumb'
 import { AccountSwitch } from 'ducks/account'
 import BackButton from 'components/BackButton'
 import Header from 'components/Header'
@@ -138,7 +138,11 @@ class CategoriesHeader extends PureComponent {
             {breadcrumbItems.length > 1 && (
               <Breadcrumb
                 items={breadcrumbItems}
-                className={styles.CategoriesHeader__Breadcrumb}
+                className={cx(
+                  styles.CategoriesHeader__Breadcrumb,
+                  styles[colorProps.color]
+                )}
+                {...colorProps}
               />
             )}
             {incomeToggle}

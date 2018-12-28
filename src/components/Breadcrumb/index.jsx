@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import cx from 'classnames'
 import styles from './style.styl'
 import arrowLeftIcon from 'assets/icons/icon-arrow-left.svg'
-import palette from 'cozy-ui/react/palette'
+import { coolGrey } from 'cozy-ui/react/palette'
 import { Icon } from 'cozy-ui/react'
 
 const BreadcrumbSeparator = () => (
@@ -49,7 +49,7 @@ BreadcrumbItem.propTypes = {
   showSeparator: PropTypes.bool
 }
 
-export const Breadcrumb = ({ items, className }) => {
+const Breadcrumb = ({ items, className, color }) => {
   const previousItems = items.slice(0, -1)
   const [lastPreviousItem] = previousItems.slice(-1)
   const [currentItem] = items.slice(-1)
@@ -59,12 +59,14 @@ export const Breadcrumb = ({ items, className }) => {
       {items.length > 1 && (
         <Icon
           icon={arrowLeftIcon}
-          color={palette.coolGrey}
-          className={styles.Breadcrumb__previousButton}
+          color={
+            color === 'primary' ? 'var(--primary-contrast-text)' : coolGrey
+          }
+          className={cx(styles.Breadcrumb__previousButton, styles[color])}
           onClick={lastPreviousItem.onClick}
         />
       )}
-      <div className={styles.Breadcrumb__items}>
+      <div className={cx(styles.Breadcrumb__items, styles[color])}>
         <div className={styles.Breadcrumb__previousItems}>
           {previousItems.map(({ name, onClick, tag }, index) => (
             <BreadcrumbItem
@@ -88,6 +90,7 @@ export const Breadcrumb = ({ items, className }) => {
 
 Breadcrumb.propTypes = {
   className: PropTypes.string,
+  color: PropTypes.oneOf(['default', 'primary']),
   items: PropTypes.arrayOf(PropTypes.shape(itemPropTypes))
 }
 

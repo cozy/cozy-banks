@@ -5,7 +5,7 @@ import { translate, withBreakpoints } from 'cozy-ui/react'
 import { withSize } from 'react-sizeme'
 
 import BackButton from 'components/BackButton'
-import { Breadcrumb } from 'components/Breadcrumb'
+import Breadcrumb from 'components/Breadcrumb'
 import { ConnectedSelectDates } from 'components/SelectDates'
 import { AccountSwitch } from 'ducks/account'
 import TransactionSelectDates from 'ducks/transactions/TransactionSelectDates'
