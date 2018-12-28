@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './styles.styl'
-import classNames from 'classnames'
+import cx from 'classnames'
 
 /**
  * Used to display tabular data.
@@ -8,26 +8,20 @@ import classNames from 'classnames'
  *
  * https://github.com/philipwalton/flexbugs/issues/3
  */
-export const Table = ({ children, className, ...rest }) => (
-  <table className={classNames(styles['c-table'], className)} {...rest}>
+export const Table = ({ children, className, color, ...rest }) => (
+  <table className={cx(styles['c-table'], styles[color], className)} {...rest}>
     {children}
   </table>
 )
 
 export const TdSecondary = ({ children, className, ...rest }) => (
-  <td
-    className={classNames(styles['c-table-td-secondary'], className)}
-    {...rest}
-  >
+  <td className={cx(styles['c-table-td-secondary'], className)} {...rest}>
     {children}
   </td>
 )
 
 export const TdWithIcon = ({ children, className, ...rest }) => (
-  <td
-    className={classNames(styles['c-table-td-with-icon'], className)}
-    {...rest}
-  >
+  <td className={cx(styles['c-table-td-with-icon'], className)} {...rest}>
     {children}
   </td>
 )

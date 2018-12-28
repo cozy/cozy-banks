@@ -4,6 +4,7 @@ import Chart from './Chart'
 import styles from './CategoriesChart.styl'
 import FigureBlock from 'components/Figure/FigureBlock'
 import { sortBy } from 'lodash'
+import cx from 'classnames'
 
 const hexToRGBA = (hex, a) => {
   const cutHex = hex.substring(1)
@@ -45,6 +46,7 @@ class CategoriesChart extends Component {
       height,
       total,
       currency,
+      color,
       label
     } = this.props
     if (categories.length === 0) return null
@@ -64,7 +66,7 @@ class CategoriesChart extends Component {
     const colors = this.getCategoriesColors(sortedCategories)
 
     return (
-      <div className={styles.CategoriesChart}>
+      <div className={cx(styles.CategoriesChart, styles[color])}>
         <div className={styles.CategoriesChart__FigureBlockContainer}>
           <FigureBlock
             label={label}

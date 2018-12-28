@@ -3,10 +3,9 @@ import { withRouter } from 'react-router'
 import { flowRight as compose, max } from 'lodash'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import { withSize } from 'react-sizeme'
-import cx from 'classnames'
 
 import BackButton from 'components/BackButton'
-import { Breadcrumb } from 'components/Breadcrumb'
+import Breadcrumb from 'components/Breadcrumb'
 import { ConnectedSelectDates } from 'components/SelectDates'
 import { AccountSwitch } from 'ducks/account'
 import TransactionSelectDates from 'ducks/transactions/TransactionSelectDates'
@@ -81,10 +80,14 @@ class TransactionHeader extends Component {
       }
     ]
 
+    const withChart = flag('transaction-history')
+    const colorProps = { color: withChart ? 'primary' : 'default' }
+
     return (
       <Breadcrumb
         items={breadcrumbItems}
         className={styles.TransactionPage__Breadcrumb}
+        {...colorProps}
       />
     )
   }
@@ -127,14 +130,18 @@ class TransactionHeader extends Component {
 
     return (
       <Header {...colorProps} fixed>
-        <Padded className={isMobile ? 'u-p-0' : 'u-pb-0'}>
+        <Padded className={isMobile ? 'u-p-0' : 'u-pb-half'}>
           {this.displayAccountSwitch()}
         </Padded>
         {!isSubcategory && this.displayBalanceHistory()}
-        <Padded className={cx({ 'u-p-0': isMobile })}>
+        <Padded className={isMobile ? 'u-p-0' : 'u-pv-1'}>
           {this.displaySelectDates()}
-          {this.displayBreadcrumb()}
         </Padded>
+        {isSubcategory && (
+          <Padded className={isMobile ? 'u-p-0' : 'u-pt-0'}>
+            {this.displayBreadcrumb()}
+          </Padded>
+        )}
         <TableHead isSubcategory={isSubcategory} {...colorProps} />
       </Header>
     )

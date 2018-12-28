@@ -2,7 +2,8 @@ import React, { PureComponent, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import { Toggle, translate, withBreakpoints } from 'cozy-ui/react'
-import { Breadcrumb } from 'components/Breadcrumb'
+import flag from 'cozy-flags'
+import Breadcrumb from 'components/Breadcrumb'
 import { AccountSwitch } from 'ducks/account'
 import BackButton from 'components/BackButton'
 import Header from 'components/Header'
@@ -17,10 +18,12 @@ class CategoriesHeader extends PureComponent {
   renderAccountSwitch = () => {
     const { selectedCategory, breadcrumbItems } = this.props
     const [previousItem] = breadcrumbItems.slice(-2, 1)
+    const withChart = flag('transaction-history')
+    const colorProps = { color: withChart ? 'primary' : 'default' }
 
     return (
       <Fragment>
-        <AccountSwitch small={selectedCategory !== undefined} />
+        <AccountSwitch small={selectedCategory !== undefined} {...colorProps} />
         {selectedCategory && (
           <BackButton onClick={previousItem && previousItem.onClick} />
         )}
@@ -43,9 +46,11 @@ class CategoriesHeader extends PureComponent {
     if (!showIncomeToggle) {
       return null
     }
+    const withChart = flag('transaction-history')
+    const color = withChart ? 'primary' : 'default'
 
     return (
-      <div className={styles.CategoriesHeader__Toggle}>
+      <div className={cx(styles.CategoriesHeader__Toggle, styles[color])}>
         <Toggle
           id="withIncome"
           checked={withIncome}
@@ -73,6 +78,9 @@ class CategoriesHeader extends PureComponent {
       return null
     }
 
+    const withChart = flag('transaction-history')
+    const color = { color: withChart ? 'primary' : 'default' }
+
     return (
       <CategoriesChart
         width={chartSize}
@@ -84,6 +92,7 @@ class CategoriesHeader extends PureComponent {
         total={selectedCategory ? selectedCategory.amount : transactionsTotal}
         currency={globalCurrency}
         label={t('Categories.title.total')}
+        {...color}
       />
     )
   }
@@ -98,36 +107,49 @@ class CategoriesHeader extends PureComponent {
     const incomeToggle = this.renderIncomeToggle()
     const chart = this.renderChart()
 
+    const withChart = flag('transaction-history')
+    const colorProps = { color: withChart ? 'primary' : 'default' }
+
     if (isMobile) {
       return (
         <Fragment>
-          <Header fixed>
-            <SelectDates showFullYear />
+          <Header fixed {...colorProps}>
+            <SelectDates showFullYear {...colorProps} />
           </Header>
           {accountSwitch}
-          <Padded>
-            {incomeToggle}
-            {chart}
-          </Padded>
+          <Header {...colorProps}>
+            <Padded>
+              {incomeToggle}
+              {chart}
+            </Padded>
+          </Header>
         </Fragment>
       )
     }
 
     return (
-      <Padded className={cx(styles.CategoriesHeader, 'u-pb-0')}>
-        <div>
-          {accountSwitch}
-          <SelectDates showFullYear />
-          {breadcrumbItems.length > 1 && (
-            <Breadcrumb
-              items={breadcrumbItems}
-              className={styles.CategoriesHeader__Breadcrumb}
-            />
-          )}
-          {incomeToggle}
-        </div>
-        {chart}
-      </Padded>
+      <Header {...colorProps}>
+        <Padded className={styles.CategoriesHeader}>
+          <div>
+            <Padded className="u-ph-0 u-pt-0 u-pb-half">{accountSwitch}</Padded>
+            <Padded className="u-pv-1 u-ph-0">
+              <SelectDates showFullYear {...colorProps} />
+            </Padded>
+            {breadcrumbItems.length > 1 && (
+              <Breadcrumb
+                items={breadcrumbItems}
+                className={cx(
+                  styles.CategoriesHeader__Breadcrumb,
+                  styles[colorProps.color]
+                )}
+                {...colorProps}
+              />
+            )}
+            {incomeToggle}
+          </div>
+          {chart}
+        </Padded>
+      </Header>
     )
   }
 }

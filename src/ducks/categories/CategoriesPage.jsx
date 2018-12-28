@@ -86,7 +86,7 @@ class CategoriesPage extends Component {
           categories={sortedCategories}
           isFetching={isFetching}
         />
-        <Padded>
+        <Padded className="u-pt-0">
           {isFetching ? (
             <Loading loadingType="categories" />
           ) : (

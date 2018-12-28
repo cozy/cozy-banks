@@ -8,6 +8,23 @@
     flex            1 1 100%
     text-align      left
 
+    &.primary
+        thead
+            background-color var(--primary-light)
+            color var(--primary-contrast-text)
+            padding .5rem 0
+            tr
+                border-bottom-width 0
+            td
+                padding 0 1rem
+                line-height 1rem
+                &:last-child
+                    padding-right 2rem
+                &:first-child
+                    padding-left 2rem
+            td + td
+                border-left 1px solid var(--primary)
+
     thead, tbody
         display   flex
         flex-direction column

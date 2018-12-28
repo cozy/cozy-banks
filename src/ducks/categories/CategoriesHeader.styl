@@ -11,8 +11,6 @@
         align-items flex-start
 
 .CategoriesHeader__Toggle
-    padding 2rem 0 0
-
     > span
         margin-right 1em
     > label
@@ -20,8 +18,17 @@
         position absolute
         line-height 1.5rem
 
-    +small-screen()
-        padding-top 0
+    &.default
+        padding-top 2rem
 
-.CategoriesHeader__Breadcrumb
-    margin-top 2.375rem
+    &.primary
+        padding-top 1rem
+        padding-bottom 1rem
+        color var(--primary-contrast-text)
+
+        input:checked + label
+            background-color var(--primary-light)
+
+    +small-screen()
+        &.default, &.primary
+            padding-top 0

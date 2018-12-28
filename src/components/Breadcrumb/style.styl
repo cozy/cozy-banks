@@ -1,18 +1,22 @@
-@require 'settings/breakpoints'
-
 .Breadcrumb
     display flex
     align-items center
-
+    margin-top 1rem
 
 .Breadcrumb__previousButton
-    margin-top 0.5rem
     margin-right 1.5rem
     cursor pointer
+    &.default
+        margin-top 0.5rem
+    &.primary
+        margin-top 1rem
 
 .Breadcrumb__items
     flex-grow 1
-    color charcoalGrey
+    &.default
+        color charcoalGrey
+    &.primary
+        color var(--primary-contrast-text)
 
 .Breadcrumb__previousItems
     display flex
