@@ -4,7 +4,7 @@ import cx from 'classnames'
 import { queryConnect } from 'cozy-client'
 import { TRANSACTION_DOCTYPE } from 'doctypes'
 import { withBreakpoints, Spinner } from 'cozy-ui/react'
-import { flowRight as compose, sumBy, uniq, groupBy, max } from 'lodash'
+import { flowRight as compose, uniq, groupBy, max } from 'lodash'
 import styles from './History.styl'
 import HistoryChart from './HistoryChart'
 import { isCollectionLoading } from 'ducks/client/utils'
@@ -18,10 +18,6 @@ import {
 import { withSize } from 'react-sizeme'
 
 class History extends Component {
-  getCurrentBalance() {
-    return sumBy(this.props.accounts.data, a => a.balance)
-  }
-
   getBalanceHistory(accounts, transactions) {
     const today = new Date()
     const balanceHistories = getBalanceHistories(
@@ -54,16 +50,16 @@ class History extends Component {
       Object.keys(groupBy(data, i => formatDate(i.x, 'YYYY-MM')))
     ).length
 
-    const intervalBetweenPoints = 57
+    const intervalBetweenMonths = isMobile ? 52 : 89
     const TICK_FORMAT = d3.timeFormat('%b')
 
     const chartProps = {
       data,
       nbTicks,
-      width: max([width, nbTicks * intervalBetweenPoints]),
+      width: max([width, nbTicks * intervalBetweenMonths]),
       height: isMobile ? 95 : 141,
       margin: {
-        top: 20,
+        top: 26,
         bottom: 35,
         left: 0,
         right: isMobile ? 16 : 32

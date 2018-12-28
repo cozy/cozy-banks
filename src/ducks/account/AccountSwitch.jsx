@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import { flowRight as compose, sortBy } from 'lodash'
-import classNames from 'classnames'
+import cx from 'classnames'
 import {
   translate,
   withBreakpoints,
@@ -47,7 +47,7 @@ const AccountSwitchDesktop = translate()(
     accountExists
   }) => (
     <button
-      className={classNames(
+      className={cx(
         styles['account-switch-button'],
         { [styles['active']]: isOpen },
         'coz-desktop'
@@ -89,25 +89,43 @@ AccountSwitchDesktop.propTypes = {
   filteringDoc: PropTypes.object
 }
 
-const DownArrow = () => (
+const DownArrow = ({ color }) => (
   <Icon
     width={12}
     height={12}
     icon="small-arrow"
-    className={styles.DownArrow}
+    className={cx(styles.DownArrow, styles[`DownArrowColor_${color}`])}
   />
 )
 
-const AccountSwitchSelect = ({ filteringDoc, onClick, t }) => (
-  <div className={styles.AccountSwitch__Select} onClick={onClick}>
-    <Title className={classNames(styles.AccountSwitch__SelectText)}>
+DownArrow.propTypes = {
+  color: PropTypes.oneOf(['default', 'primary'])
+}
+
+const AccountSwitchSelect = ({ filteringDoc, onClick, t, color }) => (
+  <div
+    className={cx(
+      styles.AccountSwitch__Select,
+      styles[`AccountSwitchColor_${color}`]
+    )}
+    onClick={onClick}
+  >
+    <Title className={styles.AccountSwitch__SelectText} color={color}>
       {filteringDoc
         ? filteringDoc.shortLabel || filteringDoc.label
         : t('AccountSwitch.all_accounts')}
     </Title>
-    <DownArrow />
+    <DownArrow color={color} />
   </div>
 )
+
+AccountSwitchSelect.propTypes = {
+  color: PropTypes.oneOf(['default', 'primary'])
+}
+
+AccountSwitchSelect.defaultProps = {
+  color: 'default'
+}
 
 const AccountSwitchMobile = ({
   filteredAccounts,
@@ -131,7 +149,7 @@ AccountSwitchMobile.propTypes = {
 
 const AccountSwitchTablet = ({ filteringDoc, onClick }) => (
   <button
-    className={classNames(styles['account-switch-button-mobile'], {
+    className={cx(styles['account-switch-button-mobile'], {
       [styles['active']]: filteringDoc
     })}
     onClick={onClick}
@@ -163,7 +181,7 @@ const AccountSwitchMenu = translate()(
               onClick={() => {
                 resetFilterByDoc()
               }}
-              className={classNames({
+              className={cx({
                 [styles['active']]: filteringDoc === undefined
               })}
             >
@@ -179,7 +197,7 @@ const AccountSwitchMenu = translate()(
                 onClick={() => {
                   filterByDoc(group)
                 }}
-                className={classNames({
+                className={cx({
                   [styles['active']]:
                     filteringDoc && group._id === filteringDoc._id
                 })}
@@ -214,7 +232,7 @@ const AccountSwitchMenu = translate()(
                   onClick={() => {
                     filterByDoc(account)
                   }}
-                  className={classNames({
+                  className={cx({
                     [styles['active']]:
                       filteringDoc && account._id === filteringDoc._id
                   })}
@@ -283,8 +301,9 @@ class AccountSwitch extends Component {
       filterByDoc,
       filteredAccounts,
       resetFilterByDoc,
-      breakpoints: { isMobile, isTablet, isDesktop },
+      breakpoints: { isMobile },
       small,
+      color,
       accounts: accountsCollection,
       groups: groupsCollection
     } = this.props
@@ -316,11 +335,15 @@ class AccountSwitch extends Component {
     )
     return (
       <div
-        className={classNames(styles['account-switch'], {
-          [styles['AccountSwitch--small']]: small
-        })}
+        className={cx(
+          styles['account-switch'],
+          styles[`account-switch_${color}`],
+          {
+            [styles['AccountSwitch--small']]: small
+          }
+        )}
       >
-        {isMobile && (
+        {isMobile ? (
           <BarCenter>
             <BarItem style={barItemStyle}>
               <AccountSwitchMobile
@@ -331,12 +354,12 @@ class AccountSwitch extends Component {
               />
             </BarItem>
           </BarCenter>
-        )}
-        {(isDesktop || isTablet) && (
+        ) : (
           <AccountSwitchSelect
             filteredAccounts={filteredAccounts}
             filteringDoc={filteringDoc}
             onClick={this.toggle}
+            color={color}
             t={t}
           />
         )}
@@ -363,11 +386,13 @@ class AccountSwitch extends Component {
 AccountSwitch.propTypes = {
   filterByDoc: PropTypes.func.isRequired,
   resetFilterByDoc: PropTypes.func.isRequired,
-  filteringDoc: PropTypes.object
+  filteringDoc: PropTypes.object,
+  color: PropTypes.oneOf(['default', 'primary'])
 }
 
 AccountSwitch.defaultProps = {
-  small: false
+  small: false,
+  color: 'default'
 }
 
 const mapStateToProps = (state, ownProps) => {

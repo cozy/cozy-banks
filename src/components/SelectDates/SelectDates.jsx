@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 import { uniqBy, find, findLast, flowRight as compose, findIndex } from 'lodash'
@@ -40,13 +40,15 @@ const capitalizeFirstLetter = string => {
   return string.charAt(0).toUpperCase() + string.slice(1)
 }
 
-const Separator = () => (
-  <Chip.Separator className={styles.SelectDates__separator} />
-)
+class Separator extends PureComponent {
+  render() {
+    return <Chip.Separator className={styles.SelectDates__separator} />
+  }
+}
 
 const constrain = (val, min, max) => Math.min(Math.max(val, min), max)
 
-const yearContainerMobileStyle = base => ({
+const mobileYearContainerStyle = base => ({
   ...base,
   flexGrow: 1,
   flexBasis: '5.5rem',
@@ -55,7 +57,7 @@ const yearContainerMobileStyle = base => ({
 })
 const mobileMonthContainerStyle = base => ({
   ...base,
-  flexGrow: 6,
+  flexGrow: 3,
   padding: 0
 })
 
@@ -71,33 +73,64 @@ const mobileMenuStyle = base => ({
   minWidth: 'auto'
 })
 
-const SelectDateButton = ({ children, disabled, className, ...props }) => {
-  return (
-    <Chip.Round
-      {...props}
-      onClick={!disabled ? props.onClick : null}
-      className={cx(
-        styles.SelectDates__Button,
-        styles.SelectDates__chip,
-        className,
-        {
-          [styles['SelectDates__Button--disabled']]: disabled
-        }
-      )}
-    >
-      {children}
-    </Chip.Round>
-  )
+const textStyle = () => ({
+  color: 'var(--primary-contrast-text)'
+})
+
+const getSelectStyle = (isMobile, isPrimary, type) => {
+  const deviceStyle = isMobile
+    ? {
+        container:
+          type === 'Month'
+            ? mobileMonthContainerStyle
+            : mobileYearContainerStyle,
+        control: mobileControlStyle,
+        menu: mobileMenuStyle
+      }
+    : {}
+  const colorStyle = isPrimary
+    ? {
+        control: () => ({ paddingLeft: '0.875rem', minHeight: '2rem' }),
+        indicatorsContainer: base => ({ ...base, height: '2rem' }),
+        valueContainer: base => ({ ...base, padding: 'inherit' }),
+        singleValue: textStyle,
+        placeholder: textStyle
+      }
+    : {}
+
+  return { ...deviceStyle, ...colorStyle }
+}
+
+class SelectDateButton extends PureComponent {
+  render() {
+    const { children, disabled, className, ...props } = this.props
+
+    return (
+      <Chip.Round
+        {...props}
+        onClick={!disabled ? props.onClick : null}
+        className={cx(
+          styles.SelectDates__Button,
+          styles.SelectDates__chip,
+          className,
+          {
+            [styles['SelectDates__Button--disabled']]: disabled
+          }
+        )}
+      >
+        {children}
+      </Chip.Round>
+    )
+  }
 }
 
 const isFullYearValue = value => value && value.length === 4
-
 const isOptionEnabled = option => option && !option.isDisabled
 const allDisabledFrom = (options, maxIndex) => {
   return !rangedSome(options, isOptionEnabled, maxIndex, -1)
 }
 
-class SelectDatesDumb extends React.PureComponent {
+class SelectDates extends PureComponent {
   getSelectedIndex = () => {
     const { options, value } = this.props
     return findIndex(options, x => x.yearMonth === value)
@@ -220,6 +253,7 @@ class SelectDatesDumb extends React.PureComponent {
       scrolling,
       showFullYear,
       value,
+      color,
       t,
       breakpoints: { isMobile }
     } = this.props
@@ -266,10 +300,22 @@ class SelectDatesDumb extends React.PureComponent {
       ? yearIndex === 0
       : index === 0 || allDisabledFrom(allMonthsOptions, index - 1)
 
+    const selectMonthStyle = getSelectStyle(
+      isMobile,
+      color === 'primary',
+      'Month'
+    )
+    const selectYearStyle = getSelectStyle(
+      isMobile,
+      color === 'primary',
+      'Year'
+    )
+
     return (
       <div
         className={cx(
           styles.SelectDates,
+          styles[`SelectDatesColor_${color}`],
           scrolling && styles['SelectDates--scrolling']
         )}
       >
@@ -277,60 +323,50 @@ class SelectDatesDumb extends React.PureComponent {
           <Chip className={cx(styles.SelectDates__chip)}>
             <Select
               name="year"
+              placeholder={t('SelectDates.year')}
               className={styles.SelectDates__SelectYear}
               searchable={false}
               width={isMobile ? 'auto' : '6rem'}
               value={selectedYear}
               options={years.map(x => ({ value: x.year, name: x.yearF }))}
               onChange={this.handleChangeYear}
-              styles={
-                isMobile
-                  ? {
-                      container: yearContainerMobileStyle,
-                      control: mobileControlStyle,
-                      menu: mobileMenuStyle
-                    }
-                  : {}
-              }
+              styles={selectYearStyle}
             />
             <Separator />
             <Select
               searchable={false}
               name="month"
+              placeholder={t('SelectDates.month')}
               width={isMobile ? 'auto' : '10rem'}
               className={styles.SelectDates__SelectMonth}
               value={selectedMonth}
               options={monthsOptions}
               onChange={this.handleChangeMonth}
-              styles={
-                isMobile
-                  ? {
-                      container: mobileMonthContainerStyle,
-                      control: mobileControlStyle,
-                      menu: mobileMenuStyle
-                    }
-                  : {}
-              }
+              styles={selectMonthStyle}
             />
           </Chip>
         </span>
 
         <span className={styles.SelectDates__buttons}>
-          {isMobile && <Separator />}
+          {isMobile && color !== 'primary' && <Separator />}
           <SelectDateButton
             onClick={this.handleChoosePrev}
             disabled={isPrevButtonDisabled}
-            className={styles['SelectDates__Button--prev']}
+            className={cx(styles['SelectDates__Button--prev'], {
+              [styles.SelectDatesButtonDisabled]: isPrevButtonDisabled
+            })}
           >
-            <Icon icon="back" />
+            <Icon icon="back" className={styles.SelectDatesButtonColor} />
           </SelectDateButton>
 
           <SelectDateButton
             onClick={this.handleChooseNext}
             disabled={isNextButtonDisabled}
-            className={styles['SelectDates__Button--next']}
+            className={cx(styles['SelectDates__Button--next'], {
+              [styles.SelectDatesButtonDisabled]: isNextButtonDisabled
+            })}
           >
-            <Icon icon="forward" />
+            <Icon icon="forward" className={styles.SelectDatesButtonColor} />
           </SelectDateButton>
         </span>
       </div>
@@ -338,18 +374,18 @@ class SelectDatesDumb extends React.PureComponent {
   }
 }
 
-const SelectDates = compose(
-  translate(),
-  scrollAware,
-  withBreakpoints()
-)(SelectDatesDumb)
-
 SelectDates.defaultProps = {
+  color: 'default',
   options: getDefaultOptions()
 }
 
 SelectDates.propTypes = {
+  color: PropTypes.oneOf(['default', 'primary']),
   onChange: PropTypes.func.isRequired
 }
 
-export default SelectDates
+export default compose(
+  translate(),
+  scrollAware,
+  withBreakpoints()
+)(SelectDates)

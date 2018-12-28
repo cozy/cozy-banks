@@ -1,7 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { withRouter } from 'react-router'
-import { flowRight as compose } from 'lodash'
+import { flowRight as compose, max } from 'lodash'
 import { translate, withBreakpoints } from 'cozy-ui/react'
+import { withSize } from 'react-sizeme'
+import cx from 'classnames'
 
 import BackButton from 'components/BackButton'
 import { Breadcrumb } from 'components/Breadcrumb'
@@ -16,13 +18,6 @@ import { Padded } from 'components/Spacing'
 import TableHead from './header/TableHead'
 import styles from './TransactionsPage.styl'
 
-const historyChartMargin = {
-  top: 10,
-  bottom: 10,
-  left: 16,
-  right: 16
-}
-
 class TransactionHeader extends Component {
   isSubcategory = () => {
     const { router } = this.props
@@ -32,18 +27,24 @@ class TransactionHeader extends Component {
 
   displayAccountSwitch = () => {
     const isSubcategory = this.isSubcategory()
+    const colorProps = {
+      color: flag('transaction-history') ? 'primary' : 'default'
+    }
 
     return (
-      <div>
+      <Fragment>
         {isSubcategory && <BackButton />}
-        <AccountSwitch small={isSubcategory} />
-      </div>
+        <AccountSwitch small={isSubcategory} {...colorProps} />
+      </Fragment>
     )
   }
 
   displaySelectDates = () => {
+    const colorProps = {
+      color: flag('transaction-history') ? 'primary' : 'default'
+    }
     if (this.isSubcategory()) {
-      return <ConnectedSelectDates showFullYear />
+      return <ConnectedSelectDates showFullYear {...colorProps} />
     }
 
     const { transactions, handleChangeMonth, currentMonth } = this.props
@@ -53,6 +54,7 @@ class TransactionHeader extends Component {
         transactions={transactions}
         value={currentMonth}
         onChange={handleChangeMonth}
+        {...colorProps}
       />
     )
   }
@@ -88,16 +90,28 @@ class TransactionHeader extends Component {
   }
 
   displayBalanceHistory() {
-    if (!flag('transaction-history') || !this.props.chartData) {
+    const {
+      chartData,
+      size,
+      breakpoints: { isMobile }
+    } = this.props
+    if (!flag('transaction-history') || !chartData || !size) {
       return
+    }
+    const intervalBetweenPoints = 2
+    const historyChartMargin = {
+      top: 26,
+      bottom: 0,
+      left: 0,
+      right: isMobile ? 16 : 32
     }
 
     return (
       <HistoryChart
         margin={historyChartMargin}
-        data={this.props.chartData}
+        data={chartData}
         height={72}
-        width="100%"
+        width={max([size.width, intervalBetweenPoints * chartData.length])}
       />
     )
   }
@@ -113,9 +127,11 @@ class TransactionHeader extends Component {
 
     return (
       <Header {...colorProps} fixed>
-        <Padded className={isMobile ? 'u-p-0' : ''}>
+        <Padded className={isMobile ? 'u-p-0' : 'u-pb-0'}>
           {this.displayAccountSwitch()}
-          {this.displayBalanceHistory()}
+        </Padded>
+        {!isSubcategory && this.displayBalanceHistory()}
+        <Padded className={cx({ 'u-p-0': isMobile })}>
           {this.displaySelectDates()}
           {this.displayBreadcrumb()}
         </Padded>
@@ -128,5 +144,6 @@ class TransactionHeader extends Component {
 export default compose(
   withRouter,
   withBreakpoints(),
+  withSize(),
   translate()
 )(TransactionHeader)

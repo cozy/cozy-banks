@@ -9,10 +9,20 @@
     line-height 1.45
     white-space nowrap
 
-    // &::after
-    //     content ''
-    //     position absolute
-    //     top 100%
-    //     right 2px
-    //     border 3px solid transparent
-    //     border-top-color white
+    &:before
+        content ''
+        position absolute
+        bottom -3px
+        width 0
+        height 0
+        border-top 5px solid white
+        border-left 0 solid transparent
+        border-right 0 solid transparent
+
+.Tooltip_right:before
+    right 0
+    border-left-width 5px
+
+.Tooltip_left:before
+    left 0
+    border-right-width 5px

@@ -34,10 +34,17 @@ export const getOptions = transactions => {
 
 class TransactionSelectDates extends PureComponent {
   render() {
-    const { onChange, transactions, value } = this.props
+    const { onChange, transactions, value, color } = this.props
     const options = getOptions(transactions)
 
-    return <SelectDates onChange={onChange} options={options} value={value} />
+    return (
+      <SelectDates
+        onChange={onChange}
+        options={options}
+        value={value}
+        color={color}
+      />
+    )
   }
 }
 

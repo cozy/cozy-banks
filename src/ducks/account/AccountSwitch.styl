@@ -136,13 +136,11 @@
 
 .AccountSwitch__Select
     display inline-flex
-    margin-bottom 1rem
     overflow hidden
     cursor pointer
     align-items center
 
     +small-screen()
-        margin-bottom 0
         max-width 100%
 
 .AccountSwitch__SelectText
@@ -153,6 +151,12 @@
 
 .DownArrow
     margin-left 0.5rem
+
+.DownArrowColor_default
+    color black
+
+.DownArrowColor_primary
+    color var(--primary-contrast-text)
 
 .AccountSwitch--small .DownArrow
     margin-left 0.375rem

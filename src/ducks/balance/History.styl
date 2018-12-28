@@ -1,19 +1,10 @@
-@require '~styles/mixins.styl'
-@require '~styles/variables.styl'
-
 .HistoryChart
-    padding-bottom .5rem
     overflow-y auto
     background-color dodgerBlue
-    @extend $full-width
-
-    +small-screen()
-        margin-top (- content-padding-small)
+    margin 0
 
 .History .HistoryChart
-    margin-left 0
-    margin-right 0
-    margin-top 0
+    padding-bottom .5rem
 
 .HistoryChartTooltip
     display flex
