@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './styles.styl'
-import classNames from 'classnames'
+import cx from 'classnames'
 
 /**
  * Used to display tabular data.
@@ -9,14 +9,14 @@ import classNames from 'classnames'
  * https://github.com/philipwalton/flexbugs/issues/3
  */
 export const Table = ({ children, className, ...rest }) => (
-  <table className={classNames(styles['c-table'], className)} {...rest}>
+  <table className={cx(styles['c-table'], className)} {...rest}>
     {children}
   </table>
 )
 
 export const TdSecondary = ({ children, className, ...rest }) => (
   <td
-    className={classNames(styles['c-table-td-secondary'], className)}
+    className={cx(styles['c-table-td-secondary'], className)}
     {...rest}
   >
     {children}
@@ -25,7 +25,7 @@ export const TdSecondary = ({ children, className, ...rest }) => (
 
 export const TdWithIcon = ({ children, className, ...rest }) => (
   <td
-    className={classNames(styles['c-table-td-with-icon'], className)}
+    className={cx(styles['c-table-td-with-icon'], className)}
     {...rest}
   >
     {children}
