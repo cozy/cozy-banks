@@ -528,5 +528,11 @@
         "description": "Build my balance history chart"
       }
     }
+  },
+
+  "KonnectorUpdateInfo": {
+    "title": "Update of your banking connections",
+    "content": "A latest version of our banking connection has been released. You need to sign the new terms of service. <a href='https://support.cozy.io/article/302-budget' target='_blank'>Learn more</a>.",
+    "cta": "Update my banks"
   }
 }

@@ -149,6 +149,11 @@
       "description": "Allow to anonymously send categorized transactions",
       "type": "cc.cozycloud.autocategorization",
       "verbs": ["POST"]
+    },
+    "konnectors": {
+      "description": "Required to know if a konnector is waiting for a manual update",
+      "type": "io.cozy.konnectors",
+      "verbs": ["GET"]
     }
   }
 }

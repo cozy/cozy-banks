@@ -9,6 +9,7 @@ export const SETTINGS_DOCTYPE = 'io.cozy.bank.settings'
 export const BILLS_DOCTYPE = 'io.cozy.bills'
 export const TRIGGER_DOCTYPE = 'io.cozy.triggers'
 export const APP_DOCTYPE = 'io.cozy.apps'
+export const KONNECTOR_DOCTYPE = 'io.cozy.konnectors'
 
 export const offlineDoctypes = [
   ACCOUNT_DOCTYPE,
@@ -136,6 +137,11 @@ export const schema = {
   },
   apps: {
     doctype: APP_DOCTYPE,
+    attributes: {},
+    relationships: {}
+  },
+  konnectors: {
+    doctype: KONNECTOR_DOCTYPE,
     attributes: {},
     relationships: {}
   }
