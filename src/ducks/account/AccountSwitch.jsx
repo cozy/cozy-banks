@@ -98,6 +98,10 @@ const DownArrow = ({ color }) => (
   />
 )
 
+DownArrow.propTypes = {
+  color: PropTypes.oneOf(['default', 'primary'])
+}
+
 const AccountSwitchSelect = ({ filteringDoc, onClick, t, color }) => (
   <div
     className={cx(
