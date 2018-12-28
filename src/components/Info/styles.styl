@@ -1,9 +1,13 @@
 @require 'tools/mixins'
 
 .infos
-    background paleGrey
     display flex
     align-items center
+
+.infos--normal
+    background-color var(--paleGrey)
+
+.infos--error
     background-color var(--chablis)
 
 .infos--icon
@@ -19,5 +23,5 @@
     display flex
     width 100%
 
-.infos--title
+.infos--error .infos--title
     color var(--monza)

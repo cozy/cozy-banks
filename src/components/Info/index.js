@@ -4,9 +4,16 @@ import PropTypes from 'prop-types'
 import styles from './styles.styl'
 import { Icon, SubTitle } from 'cozy-ui/react'
 
-export const Infos = ({ icon, children, className, title }) => {
+export const Infos = ({ icon, children, className, title, variant }) => {
   return (
-    <div className={cx(styles['infos'], 'u-p-1', className)}>
+    <div
+      className={cx(
+        styles['infos'],
+        'u-p-1',
+        styles[`infos--${variant}`],
+        className
+      )}
+    >
       <div className={styles['infos--container']}>
         {icon && <Icon icon={icon} className={styles['infos--icon']} />}
         <div
@@ -25,10 +32,13 @@ export const Infos = ({ icon, children, className, title }) => {
 }
 
 Infos.defaultProps = {
-  icon: null
+  icon: null,
+  variant: 'normal'
 }
+
 Infos.propTypes = {
   icon: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  title: PropTypes.node
+  title: PropTypes.node,
+  variant: PropTypes.oneOf(['normal', 'error'])
 }
 export default React.memo(Infos)

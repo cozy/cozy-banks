@@ -18,4 +18,10 @@ describe('Info', () => {
       shallow(<Infos icon="openwith">Children</Infos>).getElement()
     ).toMatchSnapshot()
   })
+
+  it('should render with the right variant', () => {
+    expect(
+      shallow(<Infos variant="error">Children</Infos>).getElement()
+    ).toMatchSnapshot()
+  })
 })
