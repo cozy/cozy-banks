@@ -80,10 +80,14 @@ class TransactionHeader extends Component {
       }
     ]
 
+    const withChart = flag('transaction-history')
+    const colorProps = { color: withChart ? 'primary' : 'default' }
+
     return (
       <Breadcrumb
         items={breadcrumbItems}
         className={styles.TransactionPage__Breadcrumb}
+        {...colorProps}
       />
     )
   }
@@ -126,14 +130,22 @@ class TransactionHeader extends Component {
 
     return (
       <Header {...colorProps} fixed>
-        <Padded className={isMobile ? 'u-p-0' : 'u-pb-half'}>
+        <Padded
+          className={
+            isMobile ? 'u-p-0' : isSubcategory ? 'u-pb-0' : 'u-pb-half'
+          }
+        >
           {this.displayAccountSwitch()}
         </Padded>
         {!isSubcategory && this.displayBalanceHistory()}
         <Padded className={isMobile ? 'u-p-0' : 'u-pv-1'}>
           {this.displaySelectDates()}
-          {this.displayBreadcrumb()}
         </Padded>
+        {isSubcategory && (
+          <Padded className={isMobile ? 'u-p-0' : 'u-pt-0'}>
+            {this.displayBreadcrumb()}
+          </Padded>
+        )}
         <TableHead isSubcategory={isSubcategory} {...colorProps} />
       </Header>
     )
