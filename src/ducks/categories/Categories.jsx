@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import cx from 'classnames'
+import flag from 'cozy-flags'
 import {
   translate,
   withBreakpoints,
@@ -37,7 +38,7 @@ class Categories extends Component {
       t,
       categories: categoriesProps,
       selectedCategory,
-      breakpoints: { isDesktop, isTablet }
+      breakpoints: { isDesktop, isTablet, isMobile }
     } = this.props
     let categories = categoriesProps || []
     if (selectedCategory) {
@@ -46,35 +47,44 @@ class Categories extends Component {
     const hasData =
       categories.length > 0 && categories[0].transactionsNumber > 0
 
+    const withChart = flag('transaction-history')
+    const colorProps = { color: withChart ? 'primary' : 'default' }
+
     return (
       <div>
         {isDesktop && !hasData && <p>{t('Categories.title.empty_text')}</p>}
         {hasData && (
           <Table className={stTableCategory}>
-            <thead>
-              <tr>
-                <td className={stCategory}>
-                  {t(
-                    `Categories.headers.${
-                      selectedCategory ? 'subcategories' : 'categories'
-                    }`
-                  )}
-                </td>
-                {(isDesktop || isTablet) && (
-                  <td className={styles['bnk-table-operation']}>
-                    {t('Categories.headers.transactions.plural')}
+            {!isMobile && (
+              <thead>
+                <tr>
+                  <td className={stCategory}>
+                    {t(
+                      `Categories.headers.${
+                        selectedCategory ? 'subcategories' : 'categories'
+                      }`
+                    )}
                   </td>
-                )}
-                {isDesktop && (
-                  <td className={stAmount}>{t('Categories.headers.credit')}</td>
-                )}
-                {isDesktop && (
-                  <td className={stAmount}>{t('Categories.headers.debit')}</td>
-                )}
-                <td className={stTotal}>{t('Categories.headers.total')}</td>
-                <td className={stPercentage}>%</td>
-              </tr>
-            </thead>
+                  {(isDesktop || isTablet) && (
+                    <td className={styles['bnk-table-operation']}>
+                      {t('Categories.headers.transactions.plural')}
+                    </td>
+                  )}
+                  {isDesktop && (
+                    <td className={stAmount}>
+                      {t('Categories.headers.credit')}
+                    </td>
+                  )}
+                  {isDesktop && (
+                    <td className={stAmount}>
+                      {t('Categories.headers.debit')}
+                    </td>
+                  )}
+                  <td className={stTotal}>{t('Categories.headers.total')}</td>
+                  <td className={stPercentage}>%</td>
+                </tr>
+              </thead>
+            )}
             <tbody>
               {categories.map(category =>
                 this.renderCategory(
