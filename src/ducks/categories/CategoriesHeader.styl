@@ -18,18 +18,16 @@
         position absolute
         line-height 1.5rem
 
-    +small-screen()
-        padding-top 0
-
     &.default
         padding-top 2rem
-
-        +small-screen()
-            padding-top 0
 
     &.primary
         padding-top 1rem
         color var(--primary-contrast-text)
+
+    +small-screen()
+        &.default, &.primary
+            padding-top 0
 
 .CategoriesHeader__Breadcrumb
     margin-top 2.375rem

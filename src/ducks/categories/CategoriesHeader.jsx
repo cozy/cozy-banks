@@ -107,23 +107,25 @@ class CategoriesHeader extends PureComponent {
     const incomeToggle = this.renderIncomeToggle()
     const chart = this.renderChart()
 
+    const withChart = flag('transaction-history')
+    const colorProps = { color: withChart ? 'primary' : 'default' }
+
     if (isMobile) {
       return (
         <Fragment>
-          <Header fixed>
-            <SelectDates showFullYear />
+          <Header fixed {...colorProps}>
+            <SelectDates showFullYear {...colorProps} />
           </Header>
           {accountSwitch}
-          <Padded>
-            {incomeToggle}
-            {chart}
-          </Padded>
+          <Header {...colorProps}>
+            <Padded>
+              {incomeToggle}
+              {chart}
+            </Padded>
+          </Header>
         </Fragment>
       )
     }
-
-    const withChart = flag('transaction-history')
-    const colorProps = { color: withChart ? 'primary' : 'default' }
 
     return (
       <Header {...colorProps}>
