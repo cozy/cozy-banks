@@ -28,7 +28,7 @@ Infos.defaultProps = {
   icon: null
 }
 Infos.propTypes = {
-  icon: PropTypes.any,
+  icon: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   title: PropTypes.node
 }
 export default React.memo(Infos)
