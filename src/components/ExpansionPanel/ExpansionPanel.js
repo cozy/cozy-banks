@@ -7,6 +7,7 @@ export default withStyles(() => ({
     borderRadius: '6px !important',
     boxShadow: 'none',
     border: '1px solid var(--silver)',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    marginBottom: '16px !important'
   }
 }))(ExpansionPanel)
