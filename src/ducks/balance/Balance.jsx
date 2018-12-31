@@ -1,7 +1,8 @@
 import React, { PureComponent, Fragment } from 'react'
-import { flowRight as compose, sortBy, get, keyBy, sumBy } from 'lodash'
+import { flowRight as compose, get, sumBy } from 'lodash'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import { queryConnect } from 'cozy-client'
+import flag from 'cozy-flags'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
 
 import Loading from 'components/Loading'
@@ -16,7 +17,8 @@ import { isCollectionLoading } from 'ducks/client/utils'
 
 import History from './History'
 import styles from './Balance.styl'
-import { BalanceAccounts, BalanceGroups } from './components'
+import OldAccountsList from './OldAccountsList'
+import NewAccountsList from './NewAccountsList'
 
 class Balance extends PureComponent {
   render() {
@@ -80,17 +82,6 @@ class Balance extends PureComponent {
     const accounts = accountsCollection.data
     const groups = [...groupsCollection.data, ...buildVirtualGroups(accounts)]
 
-    const accountsSorted = sortBy(accounts, ['institutionLabel', 'label'])
-    const groupsSorted = sortBy(
-      groups.map(group => ({
-        ...group,
-        label: group.virtual
-          ? t(`Data.accountTypes.${group.label}`)
-          : group.label
-      })),
-      group => group.label
-    )
-
     let total = 0
     accounts.map(account => {
       if (account.balance) {
@@ -99,14 +90,6 @@ class Balance extends PureComponent {
     })
 
     const balanceLower = get(settings, 'notifications.balanceLower.value')
-
-    const groupsC = (
-      <BalanceGroups
-        accountsById={keyBy(accounts, x => x._id)}
-        groups={groupsSorted}
-        balanceLower={balanceLower}
-      />
-    )
 
     return (
       <Fragment>
@@ -143,12 +126,15 @@ class Balance extends PureComponent {
           )}
         </Header>
         <Padded>
-          {groupsSorted.length > 0 && groupsC}
-          <BalanceAccounts
-            accounts={accountsSorted}
-            balanceLower={balanceLower}
-          />
-          {groupsSorted.length === 0 && groupsC}
+          {flag('new-balance-page') ? (
+            <NewAccountsList groups={groups} />
+          ) : (
+            <OldAccountsList
+              groups={groups}
+              accounts={accounts}
+              balanceLower={balanceLower}
+            />
+          )}
         </Padded>
       </Fragment>
     )
