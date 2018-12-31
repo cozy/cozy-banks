@@ -4,9 +4,9 @@ import { withStyles } from '@material-ui/core/styles'
 export default withStyles(() => ({
   root: {
     // Added !important because no matter first/last-child, we want the border radius
-    borderRadius: '10px !important',
+    borderRadius: '6px !important',
     boxShadow: 'none',
-    border: '1px solid #d5d5d5',
+    border: '1px solid var(--silver)',
     overflow: 'hidden'
   }
 }))(ExpansionPanel)
