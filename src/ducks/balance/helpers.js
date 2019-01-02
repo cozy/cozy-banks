@@ -142,9 +142,11 @@ export const balanceHistoryToChartData = history => {
  * @returns {number}
  */
 export const getGroupBalance = group => {
-  if (!group || !group.accounts || !group.accounts.data) {
+  const accounts = get(group, 'accounts.data')
+
+  if (!accounts) {
     return 0
   }
 
-  return sumBy(group.accounts.data, account => get(account, 'balance') || 0)
+  return sumBy(accounts, account => get(account, 'balance') || 0)
 }
