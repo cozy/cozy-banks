@@ -3,11 +3,11 @@ import { withStyles } from '@material-ui/core/styles'
 
 export default withStyles(() => ({
   root: {
-    // Added !important because no matter first/last-child, we want the border radius
+    // We want the border radius to be the same for all instances (no difference between first-child, last-child and others)
     borderRadius: '6px !important',
     boxShadow: 'none',
     border: '1px solid var(--silver)',
     overflow: 'hidden',
-    marginBottom: '16px !important'
+    marginBottom: '16px'
   }
 }))(ExpansionPanel)

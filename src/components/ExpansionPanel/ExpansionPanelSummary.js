@@ -7,13 +7,13 @@ export default withStyles(() => ({
     textTransform: 'uppercase',
     fontWeight: 'bold',
     fontSize: '14px',
-    // Had to !important it instead of using `expanded` class because it's applied to both `root` and `content` when `expanded=true`
+    // We want the min height to be the same no matter the expanded state
     minHeight: '56px !important',
     padding: '0',
     color: 'var(--charcoalGrey)'
   },
   content: {
-    // Added !important because I don't know how to select `content` only when `expanded=true`
+    // We want the margin to be the same no matter the expanded state
     margin: '12px 0 !important',
     paddingLeft: '36px',
     paddingRight: '8px',
