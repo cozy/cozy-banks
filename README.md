@@ -26,6 +26,8 @@ $ yarn build:browser # to build
 
 When watching, you still need to have a cozy-stack running to serve the files of the app (do not use the webpack-dev-server directly). This is important as the stack injects through template variables the *token* and *domain* used to connect to the cozy. See [how to run a cozy application](https://docs.cozy.io/en/howTos/dev/runCozyDocker/#ephemeral-instance) for more information.
 
+⚠️ CSPs must be disabled when working with the development server (as the `index.html` is served via the stack but the JS assets are served via webpack-dev-server). You can do this via a browser extension or you can tell the stack to disable CSPs via its config file (`disable_csp: true`). See an example config file [here](https://github.com/CPatchane/create-cozy-app/blob/8329c7161a400119076a7e2734191607437f0dcc/packages/cozy-scripts/stack/disableCSP.yaml#L6). 
+
 ## Components
 
 Check out the documentation for components on [Styleguidist](https://ptbrowne.github.io/cozy-bank/).
