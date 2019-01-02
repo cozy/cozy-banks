@@ -1,4 +1,4 @@
-import { flatten, groupBy, sumBy, uniq } from 'lodash'
+import { flatten, groupBy, sumBy, uniq, get } from 'lodash'
 import {
   min as getEarliestDate,
   isAfter as isDateAfter,
@@ -134,4 +134,17 @@ export const balanceHistoryToChartData = history => {
   }))
 
   return data
+}
+
+/**
+ * Returns a group balance (all its accounts balance sumed)
+ * @param {Object} group
+ * @returns {number}
+ */
+export const getGroupBalance = group => {
+  if (!group || !group.accounts || !group.accounts.data) {
+    return 0
+  }
+
+  return sumBy(group.accounts.data, account => get(account, 'balance') || 0)
 }

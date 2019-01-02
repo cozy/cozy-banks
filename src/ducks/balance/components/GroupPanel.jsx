@@ -6,7 +6,7 @@ import ExpansionPanel from 'components/ExpansionPanel/ExpansionPanel'
 import ExpansionPanelSummary from 'components/ExpansionPanel/ExpansionPanelSummary'
 import ExpansionPanelDetails from 'components/ExpansionPanel/ExpansionPanelDetails'
 import AccountsList from './AccountsList'
-import { sumBy } from 'lodash'
+import { getGroupBalance } from '../helpers'
 import styles from './GroupPanel.styl'
 
 class GroupPanel extends React.PureComponent {
@@ -25,7 +25,7 @@ class GroupPanel extends React.PureComponent {
           {group.label}
           <Figure
             currency="€"
-            total={sumBy(group.accounts.data, a => a.balance)}
+            total={getGroupBalance(group)}
             className={styles.GroupPannelSummary__figure}
             currencyClassName={styles.GroupPannelSummary__figureCurrency}
           />
