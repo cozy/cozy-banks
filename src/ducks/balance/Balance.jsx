@@ -17,8 +17,8 @@ import { isCollectionLoading } from 'ducks/client/utils'
 
 import History from './History'
 import styles from './Balance.styl'
-import OldAccountsList from './OldAccountsList'
-import NewAccountsList from './NewAccountsList'
+import BalanceTables from './BalanceTables'
+import BalancePanels from './BalancePanels'
 
 class Balance extends PureComponent {
   render() {
@@ -126,10 +126,10 @@ class Balance extends PureComponent {
           )}
         </Header>
         <Padded>
-          {flag('new-balance-page') ? (
-            <NewAccountsList groups={groups} />
+          {flag('balance-panels') ? (
+            <BalancePanels groups={groups} />
           ) : (
-            <OldAccountsList
+            <BalanceTables
               groups={groups}
               accounts={accounts}
               balanceLower={balanceLower}

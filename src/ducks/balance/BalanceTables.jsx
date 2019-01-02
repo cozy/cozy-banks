@@ -3,7 +3,7 @@ import { keyBy, sortBy } from 'lodash'
 import { translate } from 'cozy-ui/react'
 import { BalanceAccounts, BalanceGroups } from './components'
 
-class OldAccountsList extends React.PureComponent {
+class BalanceTables extends React.PureComponent {
   render() {
     const { accounts, balanceLower, groups, t } = this.props
 
@@ -39,4 +39,4 @@ class OldAccountsList extends React.PureComponent {
   }
 }
 
-export default translate()(OldAccountsList)
+export default translate()(BalanceTables)
