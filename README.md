@@ -24,6 +24,8 @@ $ yarn watch:browser # to dev
 $ yarn build:browser # to build
 ```
 
+When watching, you still need to have a cozy-stack running to serve the files of the app (do not use the webpack-dev-server directly). This is important as the stack injects through template variables the *token* and *domain* used to connect to the cozy. See [how to run a cozy application](https://docs.cozy.io/en/howTos/dev/runCozyDocker/#ephemeral-instance) for more information.
+
 ## Components
 
 Check out the documentation for components on [Styleguidist](https://ptbrowne.github.io/cozy-bank/).
