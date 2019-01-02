@@ -1,12 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { sortBy } from 'lodash'
+import { sortBy, flowRight as compose } from 'lodash'
+import { withRouter } from 'react-router'
 import { Figure } from 'components/Figure'
+import withFilteringDoc from 'components/withFilteringDoc'
 import styles from './AccountsList.styl'
 
 class AccountsList extends React.PureComponent {
   static propTypes = {
     accounts: PropTypes.arrayOf(PropTypes.object).isRequired
+  }
+
+  goToTransactionsFilteredByDoc = account => () => {
+    this.props.filterByDoc(account)
+    this.props.router.push('/transactions')
   }
 
   render() {
@@ -15,7 +22,11 @@ class AccountsList extends React.PureComponent {
     return (
       <ol className={styles.AccountsList}>
         {sortBy(accounts, a => a.balance).map(a => (
-          <li key={a._id} className={styles.AccountsList__item}>
+          <li
+            key={a._id}
+            className={styles.AccountsList__item}
+            onClick={this.goToTransactionsFilteredByDoc(a)}
+          >
             <span>{a.label}</span>
             <Figure
               currency="€"
@@ -31,4 +42,7 @@ class AccountsList extends React.PureComponent {
   }
 }
 
-export default AccountsList
+export default compose(
+  withFilteringDoc,
+  withRouter
+)(AccountsList)
