@@ -6,23 +6,23 @@ export default withStyles(() => ({
     backgroundColor: 'var(--paleGrey)',
     textTransform: 'uppercase',
     fontWeight: 'bold',
-    fontSize: '14px',
+    fontSize: '0.875rem',
     // We want the min height to be the same no matter the expanded state
-    minHeight: '56px !important',
+    minHeight: '3.5rem !important',
     padding: '0',
     color: 'var(--charcoalGrey)'
   },
   content: {
     // We want the margin to be the same no matter the expanded state
-    margin: '12px 0 !important',
-    paddingLeft: '36px',
-    paddingRight: '8px',
+    margin: '0.75rem 0 !important',
+    paddingLeft: '2.25rem',
+    paddingRight: '0.5rem',
     display: 'flex',
     justifyContent: 'space-between',
     flex: '1'
   },
   expandIcon: {
-    left: '6px',
+    left: '0.375rem',
     right: 'auto'
   }
 }))(ExpansionPanelSummary)

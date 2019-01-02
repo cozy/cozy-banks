@@ -6,8 +6,8 @@ export default withStyles(() => ({
     // We want the border radius to be the same for all instances (no difference between first-child, last-child and others)
     borderRadius: '6px !important',
     boxShadow: 'none',
-    border: '1px solid var(--silver)',
+    border: '0.0625rem solid var(--silver)',
     overflow: 'hidden',
-    marginBottom: '16px'
+    marginBottom: '1rem'
   }
 }))(ExpansionPanel)

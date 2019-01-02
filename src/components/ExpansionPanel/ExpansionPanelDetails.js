@@ -3,6 +3,6 @@ import { withStyles } from '@material-ui/core/styles'
 
 export default withStyles(() => ({
   root: {
-    padding: '0'
+    padding: 0
   }
 }))(ExpansionPanelDetails)
