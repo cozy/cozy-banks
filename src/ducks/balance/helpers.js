@@ -148,5 +148,5 @@ export const getGroupBalance = group => {
     return 0
   }
 
-  return sumBy(accounts, account => get(account, 'balance') || 0)
+  return sumBy(accounts, account => get(account, 'balance', 0))
 }
