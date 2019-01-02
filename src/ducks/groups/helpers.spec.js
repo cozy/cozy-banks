@@ -3,34 +3,51 @@ import { associateDocuments } from 'ducks/client/utils'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 
 describe('buildVirtualGroups', () => {
-  it('should generate a virtual group if there are two accounts with the same type', () => {
+  it('should generate a virtual group for every account types', () => {
     const accounts = [
       { _id: '1', type: 'checkings' },
-      { _id: '2', type: 'checkings' }
+      { _id: '2', type: 'savings' }
     ]
 
     const virtualGroups = buildVirtualGroups(accounts)
-    const expected = {
+
+    const checkingsGroup = {
       _id: 'checkings',
       _type: 'io.cozy.bank.groups',
       label: 'checkings',
       virtual: true
     }
 
-    associateDocuments(expected, 'accounts', ACCOUNT_DOCTYPE, accounts)
+    const savingsGroup = {
+      _id: 'savings',
+      _type: 'io.cozy.bank.groups',
+      label: 'savings',
+      virtual: true
+    }
 
-    expect(virtualGroups).toHaveLength(1)
-    expect(virtualGroups[0]).toEqual(expected)
+    associateDocuments(checkingsGroup, 'accounts', ACCOUNT_DOCTYPE, [
+      accounts[0]
+    ])
+    associateDocuments(savingsGroup, 'accounts', ACCOUNT_DOCTYPE, [accounts[1]])
+
+    const expected = [checkingsGroup, savingsGroup]
+
+    expect(virtualGroups).toEqual(expected)
   })
 
-  it('should generate nothing if there a less than two accounts with the same type', () => {
-    const accounts = [
-      { _id: '1', type: 'checkings' },
-      { _id: '2', type: 'epargne' }
-    ]
-
+  it('should generate a group for accounts that have no type', () => {
+    const accounts = [{ _id: '1' }]
     const virtualGroups = buildVirtualGroups(accounts)
 
-    expect(virtualGroups).toHaveLength(0)
+    const expectedGroup = {
+      _id: 'undefined',
+      _type: 'io.cozy.bank.groups',
+      label: 'undefined',
+      virtual: true
+    }
+
+    associateDocuments(expectedGroup, 'accounts', ACCOUNT_DOCTYPE, accounts)
+
+    expect(virtualGroups).toEqual([expectedGroup])
   })
 })
