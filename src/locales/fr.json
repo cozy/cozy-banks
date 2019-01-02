@@ -186,7 +186,8 @@
       "credit card": "Cartes de crédit",
       "liability": "Comptes de dettes",
       "none": "Aucun type",
-      "savings": "Comptes d'épargne"
+      "savings": "Comptes d'épargne",
+      "undefined": "Autres comptes"
     },
     "categories": {
       "uncategorized": "A catégoriser",

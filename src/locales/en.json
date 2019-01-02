@@ -118,7 +118,8 @@
       "credit card": "Credit card accounts",
       "liability": "Liability accounts",
       "none": "None",
-      "savings": "Savings accounts"
+      "savings": "Savings accounts",
+      "undefined": "Other accounts"
     },
     "categories": {
       "uncategorized": "To be categorized",

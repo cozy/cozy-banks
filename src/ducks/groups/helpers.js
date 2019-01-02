@@ -5,9 +5,8 @@ import { associateDocuments } from 'ducks/client/utils'
 export const buildVirtualGroups = accounts => {
   const accountsByType = groupBy(accounts, account => account.type)
 
-  const virtualGroups = Object.entries(accountsByType)
-    .filter(([type, accounts]) => type !== 'undefined' && accounts.length > 1)
-    .map(([type, accounts]) => {
+  const virtualGroups = Object.entries(accountsByType).map(
+    ([type, accounts]) => {
       const group = {
         _id: type,
         _type: GROUP_DOCTYPE,
@@ -18,7 +17,8 @@ export const buildVirtualGroups = accounts => {
       associateDocuments(group, 'accounts', ACCOUNT_DOCTYPE, accounts)
 
       return group
-    })
+    }
+  )
 
   return virtualGroups
 }
