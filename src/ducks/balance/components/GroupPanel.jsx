@@ -22,13 +22,14 @@ class GroupPanel extends React.PureComponent {
         <ExpansionPanelSummary
           expandIcon={<Icon icon="bottom" color="black" width={12} />}
         >
-          {group.label}
-          <Figure
-            currency="€"
-            total={getGroupBalance(group)}
-            className={styles.GroupPannelSummary__figure}
-            currencyClassName={styles.GroupPannelSummary__figureCurrency}
-          />
+          <div className={styles.GroupPanelSummary__content}>
+            {group.label}
+            <Figure
+              currency="€"
+              total={getGroupBalance(group)}
+              currencyClassName={styles.GroupPanelSummary__figureCurrency}
+            />
+          </div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <AccountsList accounts={group.accounts.data} />
