@@ -198,7 +198,7 @@
     "redux-logger": "3.0.6",
     "redux-raven-middleware": "1.2.0",
     "redux-thunk": "2.3.0",
-    "reselect": "3.0.1",
+    "reselect": "4.0.0",
     "shebang-loader": "0.0.1",
     "splashicon-generator": "0.2.12",
     "string-replace-webpack-plugin": "0.1.3",
