@@ -36,6 +36,9 @@ class GroupPanel extends React.PureComponent {
       <ExpansionPanel defaultExpanded>
         <ExpansionPanelSummary
           expandIcon={<Icon icon="bottom" color="black" width={12} />}
+          IconButtonProps={{
+            disableRipple: true
+          }}
         >
           <div
             onClick={this.handleSummaryContentClick}
