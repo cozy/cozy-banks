@@ -17,9 +17,9 @@ export default withStyles(theme => ({
     margin: `${theme.typography.pxToRem(12)} 0 !important`,
     paddingLeft: theme.typography.pxToRem(36),
     paddingRight: theme.typography.pxToRem(8),
-    display: 'flex',
-    justifyContent: 'space-between',
-    flex: '1'
+    '& > :last-child': {
+      paddingRight: 0
+    }
   },
   expandIcon: {
     left: theme.typography.pxToRem(6),
