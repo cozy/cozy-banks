@@ -5,49 +5,53 @@
 */
 
 import tree from './tree'
+import isNode from 'detect-node'
+import palette from 'cozy-ui/react/palette'
 import { getCssVariableValue } from 'cozy-ui/react/utils/color'
+
+const getColor = color => isNode ? palette[color] : getCssVariableValue(color)
 
 export const categoriesStyle = {
   kids: {
-    color: getCssVariableValue('azure')
+    color: getColor('azure')
   },
   dailyLife: {
-    color: getCssVariableValue('melon')
+    color: getColor('melon')
   },
   educationAndTraining: {
-    color: getCssVariableValue('blazeOrange')
+    color: getColor('blazeOrange')
   },
   health: {
-    color: getCssVariableValue('pomegranate')
+    color: getColor('pomegranate')
   },
   homeAndRealEstate: {
-    color: getCssVariableValue('mango')
+    color: getColor('mango')
   },
   incomeCat: {
-    color: getCssVariableValue('emerald')
+    color: getColor('emerald')
   },
   activities: {
     // TODO: remove value after fuchsia is not overload by cozy-authentication
     // https://github.com/cozy/cozy-ui/issues/762
-    color: getCssVariableValue('fuchsia') || '#FC4C83'
+    color: getColor('fuchsia') || '#FC4C83'
   },
   excludeFromBudgetCat: {
-    color: getCssVariableValue('darkPeriwinkle')
+    color: getColor('darkPeriwinkle')
   },
   services: {
-    color: getCssVariableValue('purpley')
+    color: getColor('purpley')
   },
   tax: {
-    color: getCssVariableValue('lightishPurple')
+    color: getColor('lightishPurple')
   },
   transportation: {
-    color: getCssVariableValue('puertoRico')
+    color: getColor('puertoRico')
   },
   goingOutAndTravel: {
-    color: getCssVariableValue('weirdGreen')
+    color: getColor('weirdGreen')
   },
   uncategorized: {
-    color: getCssVariableValue('coolGrey')
+    color: getColor('coolGrey')
   }
 }
 
