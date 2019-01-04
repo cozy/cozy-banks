@@ -6460,17 +6460,17 @@ escodegen@^1.9.0:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-cozy-app@1.1.5:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/eslint-config-cozy-app/-/eslint-config-cozy-app-1.1.5.tgz#99b2bbdeb970a632b71a79ca54145bcd6cb6e48d"
-  integrity sha512-IWwjI8yTOoOlgRwrKhrPaOoNdjAUxIGZvVNOS1Y31TTXJE32RsIuj6iqI7fphVtCHEBEmDpU63bjlaFtNSSRGg==
+eslint-config-cozy-app@1.1.7:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/eslint-config-cozy-app/-/eslint-config-cozy-app-1.1.7.tgz#db4870039b5d2c77a91d8db5121a0163944296e4"
+  integrity sha512-shzhb8zgpzVOLdPcdrxpo3DCfzjEM4b8C5+2DRIk/3x4/uvGd6N50yvske8hNEMmXLW724h5LH23WGUXOuSmcA==
   dependencies:
     babel-eslint "8.2.6"
     eslint "5.3.0"
     eslint-config-prettier "2.9.0"
-    eslint-plugin-prettier "3.0.0"
+    eslint-plugin-prettier "3.0.1"
     eslint-plugin-react "7.10.0"
-    eslint-plugin-vue "5.0.0"
+    eslint-plugin-vue "5.1.0"
     prettier "1.14.2"
 
 eslint-config-prettier@2.9.0:
@@ -6491,10 +6491,10 @@ eslint-loader@2.1.1:
     object-hash "^1.1.4"
     rimraf "^2.6.1"
 
-eslint-plugin-prettier@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-prettier/-/eslint-plugin-prettier-3.0.0.tgz#f6b823e065f8c36529918cdb766d7a0e975ec30c"
-  integrity sha512-4g11opzhqq/8+AMmo5Vc2Gn7z9alZ4JqrbZ+D4i8KlSyxeQhZHlmIrY8U9Akf514MoEhogPa87Jgkq87aZ2Ohw==
+eslint-plugin-prettier@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-prettier/-/eslint-plugin-prettier-3.0.1.tgz#19d521e3981f69dd6d14f64aec8c6a6ac6eb0b0d"
+  integrity sha512-/PMttrarPAY78PLvV3xfWibMOdMDl57hmlQ2XqFeA37wd+CJ7WSxV7txqjVPHi/AAFKd2lX0ZqfsOc/i5yFCSQ==
   dependencies:
     prettier-linter-helpers "^1.0.0"
 
@@ -6508,10 +6508,10 @@ eslint-plugin-react@7.10.0:
     jsx-ast-utils "^2.0.1"
     prop-types "^15.6.2"
 
-eslint-plugin-vue@5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-5.0.0.tgz#4a2cc1c0e71ea45e1bd9c1a60f925bfe68bb5710"
-  integrity sha512-mSv2Ebz3RaPP+XJO/mu7F+SdR9lrMyGISSExnarLFqqf3pF5wTmwWNrhHW1o9zKzKI811UVTIIkWJJvgO6SsUQ==
+eslint-plugin-vue@5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-5.1.0.tgz#d0d373334be8140d698ec4e1fb83f09faa48081b"
+  integrity sha512-C7avvbGLb9J1PyGiFolPcGR4ljUc+dKm5ZJdrUKXwXFxHHx4SqOmRI29AsFyW7PbCGcnOvIlaq7NJS6HDIak+g==
   dependencies:
     vue-eslint-parser "^4.0.2"
 
