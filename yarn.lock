@@ -4739,7 +4739,21 @@ cozy-client-js@^0.3.4:
   resolved "https://registry.yarnpkg.com/cozy-client-js/-/cozy-client-js-0.3.21.tgz#d27d0288077ce95139333c41dfb537b8584ff254"
   integrity sha1-0n0CiAd86VE5MzxB37U3uFhP8lQ=
 
-cozy-client@5.2.1, cozy-client@^5.2.1:
+cozy-client@5.2.2:
+  version "5.2.2"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-5.2.2.tgz#1ac33dba4cce208f59ea9aa9b834e9f948ccf64a"
+  integrity sha512-n1arlcyIL3k3EYTaDeDt5Pa09yz66egDXU67w7AJCLreKi8xV/hFvbeXHB+ylF83PUHbTqcV1wHDFPtVuD2wiA==
+  dependencies:
+    cozy-device-helper "1.4.14"
+    cozy-stack-client "^5.2.1"
+    lodash "4.17.11"
+    prop-types "15.6.2"
+    react "16.7.0"
+    react-redux "5.0.7"
+    redux "3.7.2"
+    sift "7.0.1"
+
+cozy-client@^5.2.1:
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-5.2.1.tgz#82f9527a18f72e1720f74151f252dc534b9433be"
   integrity sha512-zlGk4OGo7ytuSBi0dF6EwUfoc9wWcQAaIbFbND15OSGviNi74LMODkUrjc59rwoFkWsAQOWQ2WAdOzxkHv++3g==
