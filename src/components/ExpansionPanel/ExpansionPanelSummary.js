@@ -21,8 +21,13 @@ export default withStyles(theme => ({
       paddingRight: 0
     }
   },
+  expanded: {},
   expandIcon: {
     left: theme.typography.pxToRem(6),
-    right: 'auto'
+    right: 'auto',
+    transform: 'translateY(-50%) rotate(-90deg)',
+    '&$expanded': {
+      transform: 'translateY(-50%) rotate(0)'
+    }
   }
 }))(ExpansionPanelSummary)
