@@ -217,6 +217,11 @@
     "konnectorSlug": "productboard"
   },
   {
+    "name": "SAUR",
+    "regexp": "\\bsaur\\b",
+    "konnectorSlug": "saur"
+  },
+  {
     "name": "Scaleway",
     "regexp": "\\bscaleway\\b",
     "konnectorSlug": "scaleway"
