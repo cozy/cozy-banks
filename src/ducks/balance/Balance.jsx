@@ -4,6 +4,7 @@ import { translate, withBreakpoints } from 'cozy-ui/react'
 import { queryConnect } from 'cozy-client'
 import flag from 'cozy-flags'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
+import cx from 'classnames'
 
 import Loading from 'components/Loading'
 import { Padded } from 'components/Spacing'
@@ -90,6 +91,7 @@ class Balance extends PureComponent {
     })
 
     const balanceLower = get(settings, 'notifications.balanceLower.value')
+    const showPanels = flag('balance-panels')
 
     return (
       <Fragment>
@@ -125,8 +127,12 @@ class Balance extends PureComponent {
             </Padded>
           )}
         </Header>
-        <Padded>
-          {flag('balance-panels') ? (
+        <Padded
+          className={cx({
+            [styles.Balance__panelsContainer]: showPanels && withChart
+          })}
+        >
+          {showPanels ? (
             <BalancePanels groups={groups} />
           ) : (
             <BalanceTables
