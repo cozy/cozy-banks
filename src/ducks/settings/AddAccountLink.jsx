@@ -34,7 +34,7 @@ class SameWindowLink extends Component {
   }
 
   render() {
-    return <span onClick={this.redirect}>{this.props.children}</span>
+    return React.cloneElement(this.props.children, { onClick: this.redirect })
   }
 }
 
