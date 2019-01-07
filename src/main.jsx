@@ -1,4 +1,4 @@
-/* global cozy, __TARGET__, __ENABLED_FLAGS__ */
+/* global cozy, __TARGET__ */
 
 import 'utils/react-exposer'
 import 'whatwg-fetch'
@@ -17,9 +17,6 @@ import FastClick from 'fastclick'
 import { isReporterEnabled, configureReporter, setURLContext } from 'lib/sentry'
 import * as d3 from 'd3'
 import 'cozy-ui/transpiled/stylesheet.css'
-import flag from 'cozy-flags'
-
-__ENABLED_FLAGS__.forEach(flagName => flag(flagName, true))
 
 const D3_LOCALES_MAP = {
   fr: 'fr-FR',
