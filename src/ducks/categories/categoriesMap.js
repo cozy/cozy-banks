@@ -9,7 +9,7 @@ import isNode from 'detect-node'
 import palette from 'cozy-ui/react/palette'
 import { getCssVariableValue } from 'cozy-ui/react/utils/color'
 
-const getColor = color => isNode ? palette[color] : getCssVariableValue(color)
+const getColor = color => (isNode ? palette[color] : getCssVariableValue(color))
 
 export const categoriesStyle = {
   kids: {
