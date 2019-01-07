@@ -162,7 +162,7 @@
     "cozy-client-js": "0.14.2",
     "cozy-device-helper": "1.6.2",
     "cozy-doctypes": "1.19.0",
-    "cozy-flags": "1.3.7",
+    "cozy-flags": "1.5.0",
     "cozy-interapp": "0.2.17",
     "cozy-konnector-libs": "4.12.1",
     "cozy-pouch-link": "5.2.2",
