@@ -25,16 +25,16 @@ class AccountsList extends React.PureComponent {
         {sortBy(accounts, a => a.balance).map(a => (
           <li
             key={a._id}
-            className={styles.AccountsList__item}
+            className={styles.AccountsListItem}
             onClick={this.goToTransactionsFilteredByDoc(a)}
           >
             <span>{getAccountLabel(a)}</span>
             <Figure
               currency="€"
               total={a.balance}
-              className={styles.AccountsList__itemFigure}
-              totalClassName={styles.AccountsList__itemFigure}
-              currencyClassName={styles.AccountsList__itemFigure}
+              className={styles.AccountsListItem__figure}
+              totalClassName={styles.AccountsListItem__figure}
+              currencyClassName={styles.AccountsListItem__figure}
             />
           </li>
         ))}
