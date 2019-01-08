@@ -269,12 +269,13 @@ class LineChart extends Component {
   }
 
   movePointTo(x, y) {
+    const { height, margin, tickPadding } = this.props
     this.point.attr('cx', x).attr('cy', y)
     this.pointLine
       .attr('x1', x)
       .attr('y1', 0)
       .attr('x2', x)
-      .attr('y2', this.props.height - this.props.margin.bottom)
+      .attr('y2', height - margin.top - margin.bottom + tickPadding)
   }
 
   startPointDrag = () => {
