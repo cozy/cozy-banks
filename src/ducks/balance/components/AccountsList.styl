@@ -5,10 +5,11 @@
     list-style none
 
 .AccountsListItem
-    display flex
+    display grid
+    grid-template-columns 1fr auto
+    grid-column-gap 21px
     height 4rem
     align-items center
-    justify-content space-between
     border-top 0.0625rem solid var(--silver)
     padding-left 1rem
     padding-right 0.5rem
@@ -20,3 +21,8 @@
     font-size 0.875rem
     font-weight normal
     color inherit
+
+.AccountsListItem__column
+    white-space nowrap
+    overflow hidden
+    text-overflow ellipsis

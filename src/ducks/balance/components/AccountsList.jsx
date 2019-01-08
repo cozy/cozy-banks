@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { sortBy, flowRight as compose } from 'lodash'
 import { withRouter } from 'react-router'
+import cx from 'classnames'
 import { Figure } from 'components/Figure'
 import withFilteringDoc from 'components/withFilteringDoc'
 import { getAccountLabel } from 'ducks/account/helpers'
@@ -28,11 +29,16 @@ class AccountsList extends React.PureComponent {
             className={styles.AccountsListItem}
             onClick={this.goToTransactionsFilteredByDoc(a)}
           >
-            <span>{getAccountLabel(a)}</span>
+            <span className={styles.AccountsListItem__column}>
+              {getAccountLabel(a)}
+            </span>
             <Figure
               currency="€"
               total={a.balance}
-              className={styles.AccountsListItem__figure}
+              className={cx(
+                styles.AccountsListItem__figure,
+                styles.AccountsListItem__column
+              )}
               totalClassName={styles.AccountsListItem__figure}
               currencyClassName={styles.AccountsListItem__figure}
             />
