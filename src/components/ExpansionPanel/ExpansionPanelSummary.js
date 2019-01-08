@@ -15,7 +15,7 @@ export default withStyles(theme => ({
   content: {
     // We want the margin to be the same no matter the expanded state
     margin: `${theme.typography.pxToRem(12)} 0 !important`,
-    paddingLeft: theme.typography.pxToRem(36),
+    paddingLeft: theme.typography.pxToRem(48),
     paddingRight: theme.typography.pxToRem(8),
     '& > :last-child': {
       paddingRight: 0
