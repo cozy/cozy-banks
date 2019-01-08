@@ -6,6 +6,10 @@
     padding-right 4px
     margin-top 2rem
 
+    +small-screen('min')
+        padding-left 0
+        padding-right 0
+
 .BalancePanels__action
     flex 1
     text-align center
@@ -25,3 +29,10 @@
         > span
             padding-right 0
             white-space normal
+
+    +small-screen('min')
+        &:first-child
+            margin-left 0
+
+        &:last-child
+            margin-right 0
