@@ -5,7 +5,7 @@ import { flowRight as compose } from 'lodash'
 import { translate, ButtonAction } from 'cozy-ui/react'
 import { withRouter } from 'react-router'
 import AddAccountLink from 'ducks/settings/AddAccountLink'
-import { sortGroups } from 'ducks/groups/helpers'
+import { translateAndSortGroups } from 'ducks/groups/helpers'
 import styles from './BalancePanels.styl'
 
 class BalancePanels extends React.PureComponent {
@@ -19,7 +19,7 @@ class BalancePanels extends React.PureComponent {
   render() {
     const { groups, t } = this.props
 
-    const groupsSorted = sortGroups(groups, t)
+    const groupsSorted = translateAndSortGroups(groups, t)
 
     return (
       <div>

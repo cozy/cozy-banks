@@ -1,4 +1,4 @@
-import { buildVirtualGroups, translateGroup, sortGroups } from './helpers'
+import { buildVirtualGroups, translateGroup, translateAndSortGroups } from './helpers'
 import { associateDocuments } from 'ducks/client/utils'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 
@@ -78,7 +78,7 @@ describe('translateGroup', () => {
   })
 })
 
-describe('sortGroups', () => {
+describe('translateAndSortGroups', () => {
   const translate = jest.fn(key => key)
 
   afterEach(() => {
@@ -98,7 +98,7 @@ describe('sortGroups', () => {
       { virtual: true, label: 'Data.accountTypes.C' }
     ]
 
-    expect(sortGroups(groups, translate)).toEqual(expected)
+    expect(translateAndSortGroups(groups, translate)).toEqual(expected)
   })
 
   it('should put group with label "undefined" at the end', () => {
@@ -116,6 +116,6 @@ describe('sortGroups', () => {
       { virtual: true, label: 'Data.accountTypes.undefined' }
     ]
 
-    expect(sortGroups(groups, translate)).toEqual(expected)
+    expect(translateAndSortGroups(groups, translate)).toEqual(expected)
   })
 })

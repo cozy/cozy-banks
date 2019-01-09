@@ -38,12 +38,12 @@ export const translateGroup = (group, translate) => {
   }
 }
 /**
- * Sort groups on their translated label. But always put "others accounts" last
+ * Translate groups labels then sort them on their translated label. But always put "others accounts" last
  * @param {Object[]} groups - The groups to sort
  * @param {Function} translate - The translation function
  * @returns {Object[]} The sorted groups
  */
-export const sortGroups = (groups, translate) => {
+export const translateAndSortGroups = (groups, translate) => {
   const [othersGroup] = groups.filter(g => g.virtual && g.label === 'undefined')
 
   const sortedGroups = sortBy(
