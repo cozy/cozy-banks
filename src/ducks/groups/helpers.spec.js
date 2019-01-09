@@ -1,4 +1,8 @@
-import { buildVirtualGroups, translateGroup, translateAndSortGroups } from './helpers'
+import {
+  buildVirtualGroups,
+  translateGroup,
+  translateAndSortGroups
+} from './helpers'
 import { associateDocuments } from 'ducks/client/utils'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 
@@ -40,9 +44,9 @@ describe('buildVirtualGroups', () => {
     const virtualGroups = buildVirtualGroups(accounts)
 
     const expectedGroup = {
-      _id: 'undefined',
+      _id: 'other',
       _type: 'io.cozy.bank.groups',
-      label: 'undefined',
+      label: 'other',
       virtual: true
     }
 
@@ -53,7 +57,7 @@ describe('buildVirtualGroups', () => {
 })
 
 describe('translateGroup', () => {
-  const translate = jest.fn().mockReturnValue('translated')
+  const translate = jest.fn(key => key)
 
   afterEach(() => {
     translate.mockReset()
@@ -72,7 +76,7 @@ describe('translateGroup', () => {
 
     expect(translateGroup(virtualGroup, translate)).toEqual({
       ...virtualGroup,
-      label: 'translated'
+      label: 'Data.accountTypes.label'
     })
     expect(translateGroup(normalGroup, translate)).toEqual(normalGroup)
   })
@@ -103,17 +107,17 @@ describe('translateAndSortGroups', () => {
 
   it('should put group with label "undefined" at the end', () => {
     const groups = [
-      { virtual: true, label: 'C' },
-      { virtual: false, label: 'A' },
       { virtual: false, label: 'B' },
-      { virtual: true, label: 'undefined' }
+      { virtual: false, label: 'A' },
+      { virtual: true, label: 'other' },
+      { virtual: true, label: 'Z' }
     ]
 
     const expected = [
       { virtual: false, label: 'A' },
       { virtual: false, label: 'B' },
-      { virtual: true, label: 'Data.accountTypes.C' },
-      { virtual: true, label: 'Data.accountTypes.undefined' }
+      { virtual: true, label: 'Data.accountTypes.Z' },
+      { virtual: true, label: 'Data.accountTypes.other' }
     ]
 
     expect(translateAndSortGroups(groups, translate)).toEqual(expected)

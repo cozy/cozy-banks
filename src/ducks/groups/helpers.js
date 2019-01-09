@@ -3,7 +3,7 @@ import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { associateDocuments } from 'ducks/client/utils'
 
 export const buildVirtualGroups = accounts => {
-  const accountsByType = groupBy(accounts, account => account.type)
+  const accountsByType = groupBy(accounts, account => account.type || 'other')
 
   const virtualGroups = Object.entries(accountsByType).map(
     ([type, accounts]) => {
@@ -44,7 +44,7 @@ export const translateGroup = (group, translate) => {
  * @returns {Object[]} The sorted groups
  */
 export const translateAndSortGroups = (groups, translate) => {
-  const othersGroup = groups.find(g => g.virtual && g.label === 'undefined')
+  const othersGroup = groups.find(g => g.virtual && g.label === 'other')
 
   const sortedGroups = sortBy(
     groups
