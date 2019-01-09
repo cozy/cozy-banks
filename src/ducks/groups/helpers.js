@@ -37,6 +37,9 @@ export const translateGroup = (group, translate) => {
       : group.label
   }
 }
+
+const isOtherVirtualGroup = group => group.virtual && group.label === 'other'
+
 /**
  * Translate groups labels then sort them on their translated label. But always put "others accounts" last
  * @param {Object[]} groups - The groups to sort
@@ -44,17 +47,16 @@ export const translateGroup = (group, translate) => {
  * @returns {Object[]} The sorted groups
  */
 export const translateAndSortGroups = (groups, translate) => {
-  const othersGroup = groups.find(g => g.virtual && g.label === 'other')
+  const groupsToSort = groups
+    .filter(group => !isOtherVirtualGroup(group))
+    .map(group => translateGroup(group, translate))
 
-  const sortedGroups = sortBy(
-    groups
-      .filter(g => g !== othersGroup)
-      .map(g => translateGroup(g, translate)),
-    g => g.label
-  )
+  const sortedGroups = sortBy(groupsToSort, group => group.label)
 
-  if (othersGroup) {
-    sortedGroups.push(translateGroup(othersGroup, translate))
+  const otherGroup = groups.find(isOtherVirtualGroup)
+
+  if (otherGroup) {
+    sortedGroups.push(translateGroup(otherGroup, translate))
   }
 
   return sortedGroups
