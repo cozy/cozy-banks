@@ -9,6 +9,7 @@
     +small-screen('min')
         padding-left 0
         padding-right 0
+        justify-content flex-end
 
 .BalancePanels__action
     flex 1
@@ -30,7 +31,13 @@
             padding-right 0
             white-space normal
 
+            +small-screen('min')
+                white-space nowrap
+
     +small-screen('min')
+        flex-grow 0
+        min-width unset
+
         &:first-child
             margin-left 0
 
