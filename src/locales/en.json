@@ -119,7 +119,7 @@
       "liability": "Liability accounts",
       "none": "None",
       "savings": "Savings accounts",
-      "undefined": "Other accounts"
+      "other": "Other accounts"
     },
     "categories": {
       "uncategorized": "To be categorized",
