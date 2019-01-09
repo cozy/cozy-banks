@@ -44,7 +44,7 @@ export const translateGroup = (group, translate) => {
  * @returns {Object[]} The sorted groups
  */
 export const translateAndSortGroups = (groups, translate) => {
-  const [othersGroup] = groups.filter(g => g.virtual && g.label === 'undefined')
+  const othersGroup = groups.find(g => g.virtual && g.label === 'undefined')
 
   const sortedGroups = sortBy(
     groups
