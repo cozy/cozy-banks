@@ -22,7 +22,7 @@ class BalancePanels extends React.PureComponent {
     const groupsSorted = translateAndSortGroups(groups, t)
 
     return (
-      <div>
+      <div className={styles.BalancePanels}>
         {groupsSorted.map(group => (
           <GroupPanel key={group._id} group={group} />
         ))}
