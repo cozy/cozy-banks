@@ -5002,10 +5002,10 @@ cozy-stack-client@^5.2.1:
   dependencies:
     mime-types "2.1.20"
 
-cozy-ui@17.17.0:
-  version "17.17.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-17.17.0.tgz#54b82e500f2fa2206e1fb62b39f313bbc0a32caf"
-  integrity sha512-ZjfgY+5qcUbbKg2GoCUYt4S5A25V7IM+hsqMSd7Qi7L7zYmHCLUlOgsjogkd6zVLbWq7ayUP1q/r7WJGRodTCg==
+cozy-ui@17.17.2:
+  version "17.17.2"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-17.17.2.tgz#f57a7fd4ce3d413a71fd77654488156ba9a9daab"
+  integrity sha512-oyrKYb5vMKboFYHgtHpBF3DLu0lb3jooY3LGyWicsotv7oed5ayWPbO7zxHq2meeC397emctz6Y2rHanY9bJXQ==
   dependencies:
     body-scroll-lock "^2.5.8"
     classnames "^2.2.5"
