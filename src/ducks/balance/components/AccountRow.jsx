@@ -83,4 +83,7 @@ class AccountRow extends React.PureComponent {
   }
 }
 
-export default compose(withBreakpoints(), translate())(AccountRow)
+export default compose(
+  withBreakpoints(),
+  translate()
+)(AccountRow)
