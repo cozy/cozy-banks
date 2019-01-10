@@ -40,7 +40,11 @@ class AccountRow extends React.PureComponent {
           <div className={styles.AccountRow__label}>
             {getAccountLabel(account)}
           </div>
-          <div className={styles.AccountRow__updatedAt}>
+          <div
+            className={cx(styles.AccountRow__updatedAt, {
+              [styles['AccountRow__updatedAt--old']]: updateDistance > 1
+            })}
+          >
             <Icon
               icon="sync"
               width="10"
