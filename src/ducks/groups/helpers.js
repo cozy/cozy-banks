@@ -33,7 +33,7 @@ export const translateGroup = (group, translate) => {
   return {
     ...group,
     label: group.virtual
-      ? translate(`Data.accountTypes.${group.label}`)
+      ? translate(`Data.accountTypes.${group.label}`, { _: 'other' })
       : group.label
   }
 }
