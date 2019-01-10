@@ -8,7 +8,8 @@ import { Figure } from 'components/Figure'
 import {
   getAccountLabel,
   getAccountUpdateDateDistance,
-  distanceInWords
+  distanceInWords,
+  getAccountInstitutionLabel
 } from 'ducks/account/helpers'
 import styles from './AccountRow.styl'
 
@@ -72,7 +73,7 @@ class AccountRow extends React.PureComponent {
               styles['AccountRow__column--secondary']
             )}
           >
-            {account.institutionLabel}
+            {getAccountInstitutionLabel(account)}
           </div>
         )}
         <Figure
