@@ -30,14 +30,14 @@ class BalancePanels extends React.PureComponent {
           <AddAccountLink>
             <ButtonAction
               type="new"
-              label={t('Accounts.add-account')}
+              label={t('Balance.add_bank')}
               className={styles.BalancePanels__action}
             />
           </AddAccountLink>
           <ButtonAction
             onClick={this.goToGroupsSettings}
             type="normal"
-            label={t('Groups.manage-groups')}
+            label={t('Balance.manage_accounts')}
             className={styles.BalancePanels__action}
           />
         </div>

@@ -67,7 +67,9 @@
     "title": "Current balance",
     "solde": "Balance",
     "account_number": "Account number",
-    "account_name": "Account name"
+    "account_name": "Account name",
+    "add_bank": "Add a bank",
+    "manage_accounts": "Manage my accounts"
   },
   "SelectDates": {
     "all_year": "All year",
