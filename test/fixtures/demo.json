@@ -51,7 +51,10 @@
           "status": "pending"
         }
       ],
-      "shared": "true"
+      "shared": "true",
+      "cozyMetadata": {
+        "updatedAt": "2019-01-10T00:00:00Z"
+      }
     },
     {
       "_id": "compteisa3",
@@ -69,7 +72,10 @@
             "type": "io.cozy.mocks.recipients"
           }
         }
-      ]
+      ],
+      "cozyMetadata": {
+        "updatedAt": "2019-01-09T00:00:00Z"
+      }
     },
     {
       "_id": "compteisa1",
@@ -77,7 +83,10 @@
       "institutionLabel": "BNPP",
       "number": "3652983",
       "balance": 3974.25,
-      "type": "Checkings"
+      "type": "Checkings",
+      "cozyMetadata": {
+        "updatedAt": "2019-01-08T00:00:00Z"
+      }
     },
     {
       "_id": "comptegene1",
@@ -96,7 +105,10 @@
           "status": "pending"
         }
       ],
-      "shared": "true"
+      "shared": "true",
+      "cozyMetadata": {
+        "updatedAt": "2018-12-24T00:00:00Z"
+      }
     },
     {
       "_id": "comptecla1",
@@ -115,7 +127,10 @@
           }
         }
       ],
-      "id": "comptecla1"
+      "id": "comptecla1",
+      "cozyMetadata": {
+        "updatedAt": "2018-12-03T00:00:00Z"
+      }
     },
     {
       "_id": "8d7471cb575e147fc4c3888bf2f8647c",

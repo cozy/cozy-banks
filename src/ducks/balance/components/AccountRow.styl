@@ -1,0 +1,51 @@
+@require 'settings/breakpoints'
+
+.AccountRow
+    display grid
+    grid-template-columns 1fr auto
+    grid-column-gap 21px
+    height 4rem
+    align-items center
+    border-top 0.0625rem solid var(--silver)
+    padding-left 1rem
+    padding-right 0.5rem
+    background-color white
+    color var(--charcoalGrey)
+    cursor pointer
+
+    +small-screen('min')
+        grid-template-columns 3fr 1fr 1fr 1fr
+        grid-column-gap 67px
+
+.AccountRow__figure
+    font-size 0.875rem
+    font-weight normal
+    color inherit
+    justify-self end
+
+.AccountRow__column
+    white-space nowrap
+    overflow hidden
+    text-overflow ellipsis
+
+.AccountRow__column--secondary
+    font-size 0.875rem
+    color var(--coolGrey)
+
+.AccountRow__label
+    text-overflow ellipsis
+    overflow hidden
+    line-height 1.25
+    margin-bottom 0.125rem
+
+.AccountRow__updatedAt
+    font-size 0.75rem
+    color var(--coolGrey)
+    line-height 1.5
+
+.AccountRow__updatedAt--old
+    color var(--pomegranate)
+
+.AccountRow__updatedAtIcon
+    vertical-align top
+    margin-right 0.25rem
