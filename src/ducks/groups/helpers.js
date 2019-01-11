@@ -10,7 +10,7 @@ export const buildVirtualGroups = accounts => {
       const group = {
         _id: type,
         _type: GROUP_DOCTYPE,
-        label: type.toLowerCase(),
+        label: type,
         virtual: true
       }
 
