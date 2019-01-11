@@ -27,6 +27,8 @@
     white-space nowrap
     overflow hidden
     text-overflow ellipsis
+    display flex
+    align-items center
 
 .AccountRow__column--secondary
     font-size 0.875rem
@@ -57,3 +59,17 @@
 .AccountRow__updatedAtIcon
     vertical-align top
     margin-right 0.25rem
+
+.AccountRow__labelUpdatedAtWrapper
+    flex 1
+    overflow hidden
+
+.AccountRow__logo
+    flex-basis 1.5rem
+    flex-shrink 0
+    flex-grow 0
+    max-height 1.5rem
+    margin-right 1rem
+
+    +small-screen('min')
+        margin-right 1.6875rem
