@@ -178,15 +178,32 @@
 
   "Data": {
     "accountTypes": {
+      "article83": "Article83",
       "asset": "Comptes d'actif",
       "bank": "Comptes bancaires",
+      "capitalisation": "Comptes de capitalisation",
       "cash": "Comptes de caisse",
       "checkings": "Comptes courants",
+      "consumercredit": "Crédits à la consommation",
       "creditcard": "Cartes de crédit",
       "credit card": "Cartes de crédit",
+      "deposit": "Comptes de dépôt",
+      "joint": "Comptes joints",
       "liability": "Comptes de dettes",
+      "lifeinsurance": "Assurances vie",
+      "loan": "Emprunts",
+      "madelin": "Contrats Madelin",
+      "market": "Market",
+      "mortgage": "Prêts immobiliers",
       "none": "Aucun type",
+      "pea": "PEA",
+      "pee": "PEE",
+      "perco": "PERCO",
+      "perp": "PERP",
+      "resolvingcredit": "Crédits renouvelables",
+      "rsp": "RSP",
       "savings": "Comptes d'épargne",
+      "unknown": "Inconnu",
       "other": "Autres comptes"
     },
     "categories": {
