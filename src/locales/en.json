@@ -112,10 +112,10 @@
   },
   "Data": {
     "accountTypes": {
-      "Article83": "Article83",
+      "Article83": "Article 83",
       "Asset": "Assets accounts",
       "Bank": "Bank accounts",
-      "Capitalisation": "Capitalisatio accounts",
+      "Capitalisation": "Capitalisation accounts",
       "Cash": "Cash accounts",
       "Checkings": "Checking accounts",
       "ConsumerCredit": "Consumer credits",
@@ -134,7 +134,7 @@
       "PEE": "PEE",
       "Perco": "PERCO",
       "Perp": "PERP",
-      "ResolvingCredit": "Resolving credits",
+      "RevolvingCredit": "Revolving credits",
       "RSP": "RSP",
       "Savings": "Savings accounts",
       "Unknown": "Unknown",
