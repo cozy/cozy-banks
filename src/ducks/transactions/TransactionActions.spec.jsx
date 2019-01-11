@@ -13,19 +13,18 @@ import data from 'test/fixtures'
 import store, { normalizeData } from 'test/store'
 import getClient from 'test/client'
 
-// Find a way to better do that, here we have to copy the definition
-// of isProperIcon
 jest.mock('cozy-ui/react/Icon', () => {
-  const isProperIcon = icon => {
-    const isSvgSymbol = icon && !!icon.id
-    const isIconIdentifier = typeof icon === 'string'
-    return isSvgSymbol || isIconIdentifier
-  }
+  const OriginalIcon = jest.requireActual('cozy-ui/react/Icon')
   const mockIcon = props => {
     const icon = props.icon
-    return isProperIcon(icon) ? <span data-icon-id={icon.id || icon} /> : icon
+    return OriginalIcon.default.isProperIcon(icon) ? (
+      <span data-icon-id={icon.id || icon} />
+    ) : (
+      icon
+    )
   }
-  mockIcon.isProperIcon = isProperIcon
+  mockIcon.isProperIcon = OriginalIcon.default.isProperIcon
+  mockIcon.iconPropType = OriginalIcon.iconPropType
   return mockIcon
 })
 
