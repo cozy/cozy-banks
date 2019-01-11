@@ -36,13 +36,7 @@
     "label": "Libellé",
     "institutionLabel": "Banque",
     "number": "Numéro",
-    "type": "Type",
-    "types": {
-      "Checkings": "Compte courant",
-      "Savings": "Compte d'épargne",
-      "CreditCard": "Carte de crédit",
-      "Loan": "Prêt"
-    }
+    "type": "Type"
   },
 
   "AccountSettings": {
@@ -180,16 +174,33 @@
 
   "Data": {
     "accountTypes": {
-      "asset": "Comptes d'actif",
-      "bank": "Comptes bancaires",
-      "cash": "Comptes de caisse",
-      "checkings": "Comptes courants",
-      "creditcard": "Cartes de crédit",
-      "credit card": "Cartes de crédit",
-      "liability": "Comptes de dettes",
-      "none": "Aucun type",
-      "savings": "Comptes d'épargne",
-      "other": "Autres comptes"
+      "Article83": "Article83",
+      "Asset": "Comptes d'actif",
+      "Bank": "Comptes bancaires",
+      "Capitalisation": "Comptes de capitalisation",
+      "Cash": "Comptes de caisse",
+      "Checkings": "Comptes courants",
+      "ConsumerCredit": "Crédits à la consommation",
+      "CreditCard": "Cartes de crédit",
+      "Credit Card": "Cartes de crédit",
+      "Deposit": "Comptes de dépôt",
+      "Joint": "Comptes joints",
+      "Liability": "Comptes de dettes",
+      "LifeInsurance": "Assurances vie",
+      "Loan": "Emprunts",
+      "Madelin": "Contrats Madelin",
+      "Market": "Market",
+      "Mortgage": "Prêts immobiliers",
+      "None": "Aucun type",
+      "PEA": "PEA",
+      "PEE": "PEE",
+      "Perco": "PERCO",
+      "Perp": "PERP",
+      "ResolvingCredit": "Crédits renouvelables",
+      "RSP": "RSP",
+      "Savings": "Comptes d'épargne",
+      "Unknown": "Inconnu",
+      "Other": "Autres comptes"
     },
     "categories": {
       "uncategorized": "A catégoriser",

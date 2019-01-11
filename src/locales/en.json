@@ -32,13 +32,7 @@
     "label": "Label",
     "institutionLabel": "Bank",
     "number": "Number",
-    "type": "Type",
-    "types": {
-      "Checkings": "Checkings",
-      "Savings": "Savings",
-      "CreditCard": "Credit card",
-      "Loan": "Loan"
-    }
+    "type": "Type"
   },
 
   "AccountSettings": {
@@ -112,16 +106,33 @@
   },
   "Data": {
     "accountTypes": {
-      "asset": "Assets accounts",
-      "bank": "Bank accounts",
-      "cash": "Cash accounts",
-      "checkings": "Checking accounts",
-      "creditcard": "Credit card accounts",
-      "credit card": "Credit card accounts",
-      "liability": "Liability accounts",
-      "none": "None",
-      "savings": "Savings accounts",
-      "other": "Other accounts"
+      "Article83": "Article83",
+      "Asset": "Assets accounts",
+      "Bank": "Bank accounts",
+      "Capitalisation": "Capitalisatio accounts",
+      "Cash": "Cash accounts",
+      "Checkings": "Checking accounts",
+      "ConsumerCredit": "Consumer credits",
+      "CreditCard": "Credit card accounts",
+      "Credit Card": "Credit card accounts",
+      "Deposit": "Deposit accounts",
+      "Joint": "Joint accounts",
+      "Liability": "Liability accounts",
+      "LifeInsurance": "Life insurances",
+      "Loan": "Loan accounts",
+      "Madelin": "Madelin contracts",
+      "Market": "Markets",
+      "Mortgage": "Mortgages",
+      "None": "None",
+      "PEA": "PEA",
+      "PEE": "PEE",
+      "Perco": "PERCO",
+      "Perp": "PERP",
+      "ResolvingCredit": "Resolving credits",
+      "RSP": "RSP",
+      "Savings": "Savings accounts",
+      "Unknown": "Unknown",
+      "Other": "Other accounts"
     },
     "categories": {
       "uncategorized": "To be categorized",
