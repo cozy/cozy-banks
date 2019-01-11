@@ -36,13 +36,7 @@
     "label": "Libellé",
     "institutionLabel": "Banque",
     "number": "Numéro",
-    "type": "Type",
-    "types": {
-      "Checkings": "Compte courant",
-      "Savings": "Compte d'épargne",
-      "CreditCard": "Carte de crédit",
-      "Loan": "Prêt"
-    }
+    "type": "Type"
   },
 
   "AccountSettings": {
