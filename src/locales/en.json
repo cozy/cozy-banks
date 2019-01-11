@@ -63,7 +63,13 @@
     "account_number": "Account number",
     "account_name": "Account name",
     "add_bank": "Add a bank",
-    "manage_accounts": "Manage my accounts"
+    "manage_accounts": "Manage my accounts",
+    "updated_at": {
+      "yesterday": "Yesterday",
+      "today": "Today",
+      "n_days_ago": "%{nbDays} days ago",
+      "unknown": "NC"
+    }
   },
   "SelectDates": {
     "all_year": "All year",
