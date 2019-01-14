@@ -138,7 +138,8 @@
       "RSP": "RSP",
       "Savings": "Savings accounts",
       "Unknown": "Unknown",
-      "Other": "Other accounts"
+      "Other": "Other accounts",
+      "RetirementPlan": "PERP & PERCO"
     },
     "categories": {
       "uncategorized": "To be categorized",

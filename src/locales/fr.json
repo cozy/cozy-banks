@@ -206,7 +206,8 @@
       "RSP": "RSP",
       "Savings": "Comptes d'épargne",
       "Unknown": "Inconnu",
-      "Other": "Autres comptes"
+      "Other": "Autres comptes",
+      "RetirementPlan": "Plans Épargne Retraite"
     },
     "categories": {
       "uncategorized": "A catégoriser",
