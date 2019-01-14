@@ -112,7 +112,6 @@
   },
   "Data": {
     "accountTypes": {
-      "Article83": "Article 83",
       "Asset": "Assets accounts",
       "Bank": "Bank accounts",
       "Capitalisation": "Capitalisation accounts",
@@ -129,15 +128,11 @@
       "Madelin": "Madelin contracts",
       "Market": "Markets",
       "Mortgage": "Mortgages",
-      "None": "None",
       "PEA": "PEA",
       "PEE": "PEE",
-      "Perco": "PERCO",
-      "Perp": "PERP",
       "RevolvingCredit": "Revolving credits",
       "RSP": "RSP",
       "Savings": "Savings accounts",
-      "Unknown": "Unknown",
       "Other": "Other accounts",
       "RetirementPlan": "PERP & PERCO"
     },
