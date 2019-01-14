@@ -18,7 +18,8 @@ class AccountRow extends React.PureComponent {
     account: PropTypes.object.isRequired,
     onClick: PropTypes.func.isRequired,
     breakpoints: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired
+    t: PropTypes.func.isRequired,
+    warningLimit: PropTypes.number.isRequired
   }
 
   render() {
@@ -26,7 +27,8 @@ class AccountRow extends React.PureComponent {
       account,
       onClick,
       breakpoints: { isMobile },
-      t
+      t,
+      warningLimit
     } = this.props
 
     const today = new Date()
@@ -35,8 +37,17 @@ class AccountRow extends React.PureComponent {
       nbDays: updateDistance
     })
 
+    const hasWarning = account.balance < warningLimit
+    const hasAlert = account.balance < 0
+
     return (
-      <li className={styles.AccountRow} onClick={onClick}>
+      <li
+        className={cx(styles.AccountRow, {
+          [styles['AccountRow--hasWarning']]: hasWarning,
+          [styles['AccountRow--hasAlert']]: hasAlert
+        })}
+        onClick={onClick}
+      >
         <div className={styles.AccountRow__column}>
           <div className={styles.AccountRow__label}>
             {getAccountLabel(account)}

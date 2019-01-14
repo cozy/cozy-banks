@@ -8,7 +8,8 @@ import styles from './AccountsList.styl'
 
 class AccountsList extends React.PureComponent {
   static propTypes = {
-    accounts: PropTypes.arrayOf(PropTypes.object).isRequired
+    accounts: PropTypes.arrayOf(PropTypes.object).isRequired,
+    warningLimit: PropTypes.number.isRequired
   }
 
   goToTransactionsFilteredByDoc = account => () => {
@@ -17,7 +18,7 @@ class AccountsList extends React.PureComponent {
   }
 
   render() {
-    const { accounts } = this.props
+    const { accounts, warningLimit } = this.props
 
     return (
       <ol className={styles.AccountsList}>
@@ -26,6 +27,7 @@ class AccountsList extends React.PureComponent {
             key={a._id}
             account={a}
             onClick={this.goToTransactionsFilteredByDoc(a)}
+            warningLimit={warningLimit}
           />
         ))}
       </ol>
