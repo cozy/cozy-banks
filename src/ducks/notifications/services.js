@@ -37,7 +37,10 @@ const getClassConfig = (Klass, config) => config.notifications[Klass.settingKey]
 export const getEnabledNotificationClasses = config => {
   return notificationClasses.filter(Klass => {
     const klassConfig = getClassConfig(Klass, config)
-    const enabled = klassConfig && klassConfig.enabled
+    let enabled = klassConfig && klassConfig.enabled
+    if (enabled && Klass.isValidConfig) {
+      enabled = Klass.isValidConfig(klassConfig)
+    }
     log('info', `${Klass.settingKey} is ${enabled ? '' : 'not'} enabled`)
     return enabled
   })

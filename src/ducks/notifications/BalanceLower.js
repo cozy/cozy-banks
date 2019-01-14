@@ -116,5 +116,6 @@ class BalanceLower extends Notification {
 }
 
 BalanceLower.settingKey = 'balanceLower'
+BalanceLower.isValidConfig = config => Number.isFinite(config.value)
 
 export default BalanceLower
