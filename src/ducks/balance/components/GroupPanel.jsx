@@ -16,7 +16,8 @@ class GroupPanel extends React.PureComponent {
   static propTypes = {
     group: PropTypes.object.isRequired,
     filterByDoc: PropTypes.func.isRequired,
-    router: PropTypes.object.isRequired
+    router: PropTypes.object.isRequired,
+    warningLimit: PropTypes.number.isRequired
   }
 
   goToTransactionsFilteredByDoc = () => {
@@ -30,7 +31,7 @@ class GroupPanel extends React.PureComponent {
   }
 
   render() {
-    const { group } = this.props
+    const { group, warningLimit } = this.props
 
     return (
       <ExpansionPanel defaultExpanded>
@@ -53,7 +54,10 @@ class GroupPanel extends React.PureComponent {
           </div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <AccountsList accounts={group.accounts.data} />
+          <AccountsList
+            accounts={group.accounts.data}
+            warningLimit={warningLimit}
+          />
         </ExpansionPanelDetails>
       </ExpansionPanel>
     )

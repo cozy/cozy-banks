@@ -133,7 +133,7 @@ class Balance extends PureComponent {
           })}
         >
           {showPanels ? (
-            <BalancePanels groups={groups} />
+            <BalancePanels groups={groups} warningLimit={balanceLower} />
           ) : (
             <BalanceTables
               groups={groups}

@@ -11,20 +11,25 @@ import styles from './BalancePanels.styl'
 class BalancePanels extends React.PureComponent {
   static propTypes = {
     groups: PropTypes.arrayOf(PropTypes.object).isRequired,
-    router: PropTypes.object.isRequired
+    router: PropTypes.object.isRequired,
+    warningLimit: PropTypes.number.isRequired
   }
 
   goToGroupsSettings = () => this.props.router.push('/settings/groups')
 
   render() {
-    const { groups, t } = this.props
+    const { groups, t, warningLimit } = this.props
 
     const groupsSorted = translateAndSortGroups(groups, t)
 
     return (
       <div className={styles.BalancePanels}>
         {groupsSorted.map(group => (
-          <GroupPanel key={group._id} group={group} />
+          <GroupPanel
+            key={group._id}
+            group={group}
+            warningLimit={warningLimit}
+          />
         ))}
         <div className={styles.BalancePanels__actions}>
           <AddAccountLink>
