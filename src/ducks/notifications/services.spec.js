@@ -1,6 +1,7 @@
 // Mocking handlersbars since we don't want to test HTML rendering here and it fails in the tests context
 jest.mock('handlebars')
 
+import merge from 'lodash/merge'
 import { getEnabledNotificationClasses } from './services'
 import BalanceLower from './BalanceLower'
 import TransactionGreater from './TransactionGreater'
@@ -10,8 +11,8 @@ describe('getEnabledNotificationClasses', () => {
   it('should return the right classes', () => {
     const config = {
       notifications: {
-        balanceLower: { enabled: true },
-        transactionGreater: { enabled: true },
+        balanceLower: { enabled: true, value: 100 },
+        transactionGreater: { enabled: true, value: 600 },
         healthBillLinked: { enabled: true }
       }
     }
@@ -22,16 +23,51 @@ describe('getEnabledNotificationClasses', () => {
       HealthBillLinked
     ])
 
-    config.notifications.transactionGreater.enabled = false
-    expect(getEnabledNotificationClasses(config)).toEqual([
-      BalanceLower,
-      HealthBillLinked
-    ])
+    expect(
+      getEnabledNotificationClasses(
+        merge(config, {
+          notifications: { transactionGreater: { enabled: false } }
+        })
+      )
+    ).toEqual([BalanceLower, HealthBillLinked])
 
-    config.notifications.balanceLower.enabled = false
-    expect(getEnabledNotificationClasses(config)).toEqual([HealthBillLinked])
+    expect(
+      getEnabledNotificationClasses(
+        merge(config, {
+          notifications: { transactionGreater: { value: null } }
+        })
+      )
+    ).toEqual([BalanceLower, HealthBillLinked])
 
-    config.notifications.healthBillLinked.enabled = false
-    expect(getEnabledNotificationClasses(config)).toHaveLength(0)
+    expect(
+      getEnabledNotificationClasses(
+        merge(config, {
+          notifications: { transactionGreater: { value: undefined } }
+        })
+      )
+    ).toEqual([BalanceLower, HealthBillLinked])
+
+    expect(
+      getEnabledNotificationClasses(
+        merge(config, {
+          notifications: {
+            transactionGreater: { enabled: false },
+            balanceLower: { enabled: false }
+          }
+        })
+      )
+    ).toEqual([HealthBillLinked])
+
+    expect(
+      getEnabledNotificationClasses(
+        merge(config, {
+          notifications: {
+            transactionGreater: { enabled: false },
+            balanceLower: { enabled: false },
+            healthBillLinked: { enabled: false }
+          }
+        })
+      )
+    ).toHaveLength(0)
   })
 })

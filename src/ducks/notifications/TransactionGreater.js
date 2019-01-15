@@ -122,5 +122,6 @@ class TransactionGreater extends Notification {
 }
 
 TransactionGreater.settingKey = 'transactionGreater'
+TransactionGreater.isValidConfig = config => Number.isFinite(config.value)
 
 export default TransactionGreater
