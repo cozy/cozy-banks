@@ -14,8 +14,17 @@ import { getGroupBalance } from '../helpers'
 import styles from './GroupPanel.styl'
 
 const GroupPanelSummary = withStyles(() => ({
+  expanded: {},
   content: {
     paddingLeft: '3rem'
+  },
+  expandIcon: {
+    left: '0.375rem',
+    right: 'auto',
+    transform: 'translateY(-50%) rotate(-90deg)',
+    '&$expanded': {
+      transform: 'translateY(-50%) rotate(0)'
+    }
   }
 }))(ExpansionPanelSummary)
 
