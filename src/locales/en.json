@@ -112,10 +112,9 @@
   },
   "Data": {
     "accountTypes": {
-      "Article83": "Article83",
       "Asset": "Assets accounts",
       "Bank": "Bank accounts",
-      "Capitalisation": "Capitalisatio accounts",
+      "Capitalisation": "Capitalisation accounts",
       "Cash": "Cash accounts",
       "Checkings": "Checking accounts",
       "ConsumerCredit": "Consumer credits",
@@ -129,16 +128,13 @@
       "Madelin": "Madelin contracts",
       "Market": "Markets",
       "Mortgage": "Mortgages",
-      "None": "None",
       "PEA": "PEA",
       "PEE": "PEE",
-      "Perco": "PERCO",
-      "Perp": "PERP",
-      "ResolvingCredit": "Resolving credits",
+      "RevolvingCredit": "Revolving credits",
       "RSP": "RSP",
       "Savings": "Savings accounts",
-      "Unknown": "Unknown",
-      "Other": "Other accounts"
+      "Other": "Other accounts",
+      "RetirementPlan": "PERP & PERCO"
     },
     "categories": {
       "uncategorized": "To be categorized",

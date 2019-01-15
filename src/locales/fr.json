@@ -180,11 +180,10 @@
 
   "Data": {
     "accountTypes": {
-      "Article83": "Article83",
-      "Asset": "Comptes d'actif",
+      "Asset": "Comptes d'actifs",
       "Bank": "Comptes bancaires",
       "Capitalisation": "Comptes de capitalisation",
-      "Cash": "Comptes de caisse",
+      "Cash": "Liquidités",
       "Checkings": "Comptes courants",
       "ConsumerCredit": "Crédits à la consommation",
       "CreditCard": "Cartes de crédit",
@@ -195,18 +194,15 @@
       "LifeInsurance": "Assurances vie",
       "Loan": "Emprunts",
       "Madelin": "Contrats Madelin",
-      "Market": "Market",
+      "Market": "Comptes titres",
       "Mortgage": "Prêts immobiliers",
-      "None": "Aucun type",
       "PEA": "PEA",
       "PEE": "PEE",
-      "Perco": "PERCO",
-      "Perp": "PERP",
-      "ResolvingCredit": "Crédits renouvelables",
+      "RevolvingCredit": "Crédits renouvelables",
       "RSP": "RSP",
       "Savings": "Comptes d'épargne",
-      "Unknown": "Inconnu",
-      "Other": "Autres comptes"
+      "Other": "Autres comptes",
+      "RetirementPlan": "Plans Épargne Retraite"
     },
     "categories": {
       "uncategorized": "A catégoriser",

@@ -1,9 +1,12 @@
 import { groupBy, sortBy } from 'lodash'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { associateDocuments } from 'ducks/client/utils'
+import { getAccountType } from 'ducks/account/helpers'
 
-export const buildVirtualGroups = accounts => {
-  const accountsByType = groupBy(accounts, account => account.type || 'other')
+export const buildVirtualGroups = (accounts, translate) => {
+  const accountsByType = groupBy(accounts, account =>
+    getAccountType(account, translate)
+  )
 
   const virtualGroups = Object.entries(accountsByType).map(
     ([type, accounts]) => {
@@ -38,7 +41,7 @@ export const translateGroup = (group, translate) => {
   }
 }
 
-const isOtherVirtualGroup = group => group.virtual && group.label === 'other'
+const isOtherVirtualGroup = group => group.virtual && group.label === 'Other'
 
 /**
  * Translate groups labels then sort them on their translated label. But always put "others accounts" last

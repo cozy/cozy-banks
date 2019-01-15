@@ -46,3 +46,47 @@ export const distanceInWords = distance => {
 
   return 'Balance.updated_at.n_days_ago'
 }
+
+export const accountTypesWithTranslation = [
+  'Asset',
+  'Bank',
+  'Capitalisation',
+  'Cash',
+  'Checkings',
+  'ConsumerCredit',
+  'CreditCard',
+  'Credit Card',
+  'Deposit',
+  'Joint',
+  'Liability',
+  'LifeInsurance',
+  'Loan',
+  'Madelin',
+  'Market',
+  'Mortgage',
+  'PEA',
+  'PEE',
+  'RevolvingCredit',
+  'RSP',
+  'Savings',
+  'Other',
+  'RetirementPlan'
+]
+
+export const getAccountType = account => {
+  const accountTypesMap = {
+    Unkown: 'Other',
+    None: 'Other',
+    'Credit card': 'CreditCard',
+    Perco: 'RetirementPlan',
+    Perp: 'RetirementPlan',
+    Article83: 'RetirementPlan'
+  }
+
+  const mappedType = accountTypesMap[account.type] || account.type || 'Other'
+  const type = accountTypesWithTranslation.includes(mappedType)
+    ? mappedType
+    : 'Other'
+
+  return type
+}
