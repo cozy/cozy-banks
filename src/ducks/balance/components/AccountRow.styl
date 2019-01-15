@@ -6,7 +6,6 @@
     grid-column-gap 21px
     height 4rem
     align-items center
-    border-top 0.0625rem solid var(--silver)
     padding-left 1rem
     padding-right 0.5rem
     background-color white
@@ -16,6 +15,9 @@
     +small-screen('min')
         grid-template-columns 3fr 1fr 1fr 1fr
         grid-column-gap 67px
+
+    & + &
+        border-top 0.0625rem solid var(--silver)
 
 .AccountRow__figure
     font-size 0.875rem
