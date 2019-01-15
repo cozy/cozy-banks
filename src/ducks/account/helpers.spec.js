@@ -1,4 +1,8 @@
-import { getAccountUpdateDateDistance, distanceInWords } from './helpers'
+import {
+  getAccountUpdateDateDistance,
+  distanceInWords,
+  getAccountType
+} from './helpers'
 
 describe('getAccountUpdateDateDistance', () => {
   it('should return null if an argument is missing', () => {
@@ -25,5 +29,27 @@ describe('distanceInWords', () => {
     expect(distanceInWords(2)).toBe('Balance.updated_at.n_days_ago')
     expect(distanceInWords(10)).toBe('Balance.updated_at.n_days_ago')
     expect(distanceInWords()).toBe('Balance.updated_at.unknown')
+  })
+})
+
+describe('getAccountType', () => {
+  it('should map Unkown/None to Other', () => {
+    const accounts = [{ type: 'Unkown' }, { type: 'None' }, { type: 'Other' }]
+
+    expect(getAccountType(accounts[0])).toBe('Other')
+    expect(getAccountType(accounts[1])).toBe('Other')
+    expect(getAccountType(accounts[2])).toBe('Other')
+  })
+
+  it('should map PERCO/PERP/Article83 to RetirementPlan', () => {
+    const accounts = [
+      { type: 'Perco' },
+      { type: 'Perp' },
+      { type: 'Article83' }
+    ]
+
+    expect(getAccountType(accounts[0])).toBe('RetirementPlan')
+    expect(getAccountType(accounts[1])).toBe('RetirementPlan')
+    expect(getAccountType(accounts[2])).toBe('RetirementPlan')
   })
 })

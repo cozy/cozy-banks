@@ -9,23 +9,33 @@ import { ACCOUNT_DOCTYPE } from 'doctypes'
 describe('buildVirtualGroups', () => {
   it('should generate a virtual group for every account types', () => {
     const accounts = [
-      { _id: '1', type: 'checkings' },
-      { _id: '2', type: 'savings' }
+      { _id: '1', type: 'Checkings' },
+      { _id: '2', type: 'Savings' },
+      { _id: '3', type: 'Other' },
+      { _id: '4', type: 'TotallyUnkownType' },
+      { _id: '5' }
     ]
 
     const virtualGroups = buildVirtualGroups(accounts)
 
     const checkingsGroup = {
-      _id: 'checkings',
+      _id: 'Checkings',
       _type: 'io.cozy.bank.groups',
-      label: 'checkings',
+      label: 'Checkings',
       virtual: true
     }
 
     const savingsGroup = {
-      _id: 'savings',
+      _id: 'Savings',
       _type: 'io.cozy.bank.groups',
-      label: 'savings',
+      label: 'Savings',
+      virtual: true
+    }
+
+    const otherGroup = {
+      _id: 'Other',
+      _type: 'io.cozy.bank.groups',
+      label: 'Other',
       virtual: true
     }
 
@@ -33,26 +43,15 @@ describe('buildVirtualGroups', () => {
       accounts[0]
     ])
     associateDocuments(savingsGroup, 'accounts', ACCOUNT_DOCTYPE, [accounts[1]])
+    associateDocuments(otherGroup, 'accounts', ACCOUNT_DOCTYPE, [
+      accounts[2],
+      accounts[3],
+      accounts[4]
+    ])
 
-    const expected = [checkingsGroup, savingsGroup]
+    const expected = [checkingsGroup, savingsGroup, otherGroup]
 
     expect(virtualGroups).toEqual(expected)
-  })
-
-  it('should generate a group for accounts that have no type', () => {
-    const accounts = [{ _id: '1' }]
-    const virtualGroups = buildVirtualGroups(accounts)
-
-    const expectedGroup = {
-      _id: 'other',
-      _type: 'io.cozy.bank.groups',
-      label: 'other',
-      virtual: true
-    }
-
-    associateDocuments(expectedGroup, 'accounts', ACCOUNT_DOCTYPE, accounts)
-
-    expect(virtualGroups).toEqual([expectedGroup])
   })
 })
 
@@ -105,11 +104,11 @@ describe('translateAndSortGroups', () => {
     expect(translateAndSortGroups(groups, translate)).toEqual(expected)
   })
 
-  it('should put group with label "undefined" at the end', () => {
+  it('should put group with label "Other" at the end', () => {
     const groups = [
       { virtual: false, label: 'B' },
       { virtual: false, label: 'A' },
-      { virtual: true, label: 'other' },
+      { virtual: true, label: 'Other' },
       { virtual: true, label: 'Z' }
     ]
 
@@ -117,7 +116,7 @@ describe('translateAndSortGroups', () => {
       { virtual: false, label: 'A' },
       { virtual: false, label: 'B' },
       { virtual: true, label: 'Data.accountTypes.Z' },
-      { virtual: true, label: 'Data.accountTypes.other' }
+      { virtual: true, label: 'Data.accountTypes.Other' }
     ]
 
     expect(translateAndSortGroups(groups, translate)).toEqual(expected)

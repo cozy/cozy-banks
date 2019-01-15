@@ -46,3 +46,71 @@ export const distanceInWords = distance => {
 
   return 'Balance.updated_at.n_days_ago'
 }
+
+/**
+ * Get the translated type of an account
+ * @param {Object} account
+ * @param {Function} translate
+ * @returns {String}
+ */
+export const getAccountTranslatedType = (account, translate) => {
+  const accountTypesMap = {
+    Unkown: 'Other',
+    None: 'Other',
+    'Credit card': 'CreditCard',
+    Perco: 'RetirementPlan',
+    Perp: 'RetirementPlan',
+    Article83: 'RetirementPlan'
+  }
+
+  const mappedType = accountTypesMap[account.type] || account.type || 'Other'
+  const type = translate(`Data.accountTypes.${mappedType}`, {
+    _: translate('Data.accountTypes.Other')
+  })
+
+  return type
+}
+
+export const accountTypesWithTranslation = [
+  'Asset',
+  'Bank',
+  'Capitalisation',
+  'Cash',
+  'Checkings',
+  'ConsumerCredit',
+  'CreditCard',
+  'Credit Card',
+  'Deposit',
+  'Joint',
+  'Liability',
+  'LifeInsurance',
+  'Loan',
+  'Madelin',
+  'Market',
+  'Mortgage',
+  'PEA',
+  'PEE',
+  'RevolvingCredit',
+  'RSP',
+  'Savings',
+  'Other',
+  'RetirementPlan'
+]
+
+export const getAccountType = account => {
+  const accountTypesMap = {
+    Unkown: 'Other',
+    None: 'Other',
+    'Credit card': 'CreditCard',
+    Perco: 'RetirementPlan',
+    Perp: 'RetirementPlan',
+    Article83: 'RetirementPlan'
+  }
+
+  const mappedType = accountTypesMap[account.type] || account.type || 'Other'
+  const type = accountTypesWithTranslation.includes(mappedType)
+    ? mappedType
+    : 'Other'
+
+  return type
+}
