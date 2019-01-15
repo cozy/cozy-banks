@@ -4,13 +4,20 @@ import { Icon } from 'cozy-ui/react'
 import { flowRight as compose } from 'lodash'
 import { withRouter } from 'react-router'
 import { Figure } from 'components/Figure'
-import ExpansionPanel from 'components/ExpansionPanel/ExpansionPanel'
-import ExpansionPanelSummary from 'components/ExpansionPanel/ExpansionPanelSummary'
-import ExpansionPanelDetails from 'components/ExpansionPanel/ExpansionPanelDetails'
+import ExpansionPanel from '@material-ui/core/ExpansionPanel'
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
+import { withStyles } from '@material-ui/core/styles'
 import withFilteringDoc from 'components/withFilteringDoc'
 import AccountsList from './AccountsList'
 import { getGroupBalance } from '../helpers'
 import styles from './GroupPanel.styl'
+
+const GroupPanelSummary = withStyles(() => ({
+  content: {
+    paddingLeft: '3rem'
+  }
+}))(ExpansionPanelSummary)
 
 class GroupPanel extends React.PureComponent {
   static propTypes = {
@@ -35,7 +42,7 @@ class GroupPanel extends React.PureComponent {
 
     return (
       <ExpansionPanel defaultExpanded>
-        <ExpansionPanelSummary
+        <GroupPanelSummary
           expandIcon={<Icon icon="bottom" color="black" width={12} />}
           IconButtonProps={{
             disableRipple: true
@@ -52,7 +59,7 @@ class GroupPanel extends React.PureComponent {
               currencyClassName={styles.GroupPanelSummary__figureCurrency}
             />
           </div>
-        </ExpansionPanelSummary>
+        </GroupPanelSummary>
         <ExpansionPanelDetails>
           <AccountsList
             accounts={group.accounts.data}
