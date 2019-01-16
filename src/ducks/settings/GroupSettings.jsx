@@ -2,7 +2,13 @@ import React, { Component, PureComponent } from 'react'
 import { withRouter } from 'react-router'
 import { sortBy, flowRight as compose } from 'lodash'
 import { Query, withMutations, withClient } from 'cozy-client'
-import { Button, translate, Toggle, Alerter } from 'cozy-ui/react'
+import {
+  Button,
+  translate,
+  Toggle,
+  Alerter,
+  withBreakpoints
+} from 'cozy-ui/react'
 
 import { GROUP_DOCTYPE, accountsConn } from 'doctypes'
 import Loading from 'components/Loading'
@@ -145,7 +151,11 @@ class DumbGroupSettings extends Component {
   }
 
   render() {
-    const { t, group } = this.props
+    const {
+      t,
+      group,
+      breakpoints: { isMobile }
+    } = this.props
     const { modifying, saving } = this.state
 
     // When deleting the group, there's a re-render between the deletion and the redirection. So we need to handle this case
@@ -155,8 +165,11 @@ class DumbGroupSettings extends Component {
 
     return (
       <Padded>
-        <BackButton to="/settings/groups" arrow />
-        <PageTitle>{group.label}</PageTitle>
+        {isMobile && <BackButton to="/settings/groups" arrow />}
+        <PageTitle>
+          {!isMobile && <BackButton to="/settings/groups" arrow />}
+          {group.label}
+        </PageTitle>
 
         <h3>{t('Groups.label')}</h3>
         <form
@@ -220,7 +233,10 @@ class DumbGroupSettings extends Component {
   }
 }
 
-export const GroupSettings = translate()(DumbGroupSettings)
+export const GroupSettings = compose(
+  translate(),
+  withBreakpoints()
+)(DumbGroupSettings)
 
 const enhance = Component =>
   compose(

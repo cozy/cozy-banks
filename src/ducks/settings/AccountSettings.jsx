@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import {
   translate,
+  withBreakpoints,
   Button,
   Tabs,
   TabPanels,
@@ -229,7 +230,11 @@ const GeneralSettings = compose(
   translate()
 )(_GeneralSettings)
 
-const AccountSettings = function({ routeParams, t }) {
+const AccountSettings = function({
+  routeParams,
+  t,
+  breakpoints: { isMobile }
+}) {
   return (
     <Query query={client => client.get(ACCOUNT_DOCTYPE, routeParams.accountId)}>
       {({ data, fetchStatus }) => {
@@ -246,8 +251,11 @@ const AccountSettings = function({ routeParams, t }) {
 
         return (
           <Padded>
-            <BackButton to="/settings/accounts" arrow />
-            <PageTitle>{account.shortLabel || account.label}</PageTitle>
+            {isMobile && <BackButton to="/settings/accounts" arrow />}
+            <PageTitle>
+              {!isMobile && <BackButton to="/settings/accounts" arrow />}
+              {account.shortLabel || account.label}
+            </PageTitle>
             <Tabs className={styles.AcnStg__tabs} initialActiveTab="details">
               <TabList className={styles.AcnStg__tabList}>
                 <Tab className={styles.AcnStg__tab} name="details">
@@ -275,5 +283,6 @@ const AccountSettings = function({ routeParams, t }) {
 
 export default compose(
   withDispatch,
-  translate()
+  translate(),
+  withBreakpoints()
 )(AccountSettings)

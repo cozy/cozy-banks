@@ -3,8 +3,11 @@
 @require '~styles/mixins.styl'
 
 .bnk-coz-tab-list
-    @extend $full-width
     padding-left content-padding
+
+.bnk-tabs
+    +small-screen()
+        padding-top 1rem
 
 .bnk-tabs .bnk-coz-tab-list
     +small-screen()
@@ -16,11 +19,11 @@
             text-align center
 
 
-.settings__title.settings__title
-    margin-bottom 0.9375rem
+.settings__title
+    padding 1.5rem 2rem
 
     +small-screen()
-        margin-bottom 0
+        padding 0
 
 .TabPanels
     overflow-y auto
