@@ -35,15 +35,11 @@ const Settings = ({ t, children, router, breakpoints: { isMobile } }) => {
 
   return (
     <React.Fragment>
-      <Padded className={cx({['u-p-0']: isMobile})}>
-        <PageTitle>
-          {t('Settings.title')}
-        </PageTitle>
+      <Padded className={cx({ ['u-p-0']: isMobile })}>
+        <PageTitle>{t('Settings.title')}</PageTitle>
       </Padded>
       <Tabs className={styles['bnk-tabs']} initialActiveTab={defaultTab}>
-        <TabList className={styles['bnk-coz-tab-list']}>
-          {tabs}
-        </TabList>
+        <TabList className={styles['bnk-coz-tab-list']}>{tabs}</TabList>
         <TabPanels className={styles.TabPanels}>
           <Padded>
             <TabPanel active>{children}</TabPanel>
