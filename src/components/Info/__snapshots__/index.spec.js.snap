@@ -2,7 +2,7 @@
 
 exports[`Info should render its children 1`] = `
 <div
-  className="infos u-p-1 infos--normal"
+  className="u-p-1 infos--normal"
 >
   <div
     className="infos--container"
@@ -18,7 +18,7 @@ exports[`Info should render its children 1`] = `
 
 exports[`Info should render with a title 1`] = `
 <div
-  className="infos u-p-1 infos--normal"
+  className="u-p-1 infos--normal"
 >
   <div
     className="infos--container"
@@ -41,7 +41,7 @@ exports[`Info should render with a title 1`] = `
 
 exports[`Info should render with an icon 1`] = `
 <div
-  className="infos u-p-1 infos--normal"
+  className="u-p-1 infos--normal"
 >
   <div
     className="infos--container"
@@ -62,7 +62,7 @@ exports[`Info should render with an icon 1`] = `
 
 exports[`Info should render with the right variant 1`] = `
 <div
-  className="infos u-p-1 infos--error"
+  className="u-p-1 infos--error"
 >
   <div
     className="infos--container"

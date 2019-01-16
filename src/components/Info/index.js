@@ -6,14 +6,7 @@ import { Icon, SubTitle } from 'cozy-ui/react'
 
 export const Infos = ({ icon, children, className, title, variant }) => {
   return (
-    <div
-      className={cx(
-        styles['infos'],
-        'u-p-1',
-        styles[`infos--${variant}`],
-        className
-      )}
-    >
+    <div className={cx('u-p-1', styles[`infos--${variant}`], className)}>
       <div className={styles['infos--container']}>
         {icon && <Icon icon={icon} className={styles['infos--icon']} />}
         <div
