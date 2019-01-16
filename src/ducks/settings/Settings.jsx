@@ -46,7 +46,11 @@ const Settings = ({ t, children, router, breakpoints: { isMobile } }) => {
           </Padded>
         </TabPanels>
       </Tabs>
-      {__TARGET__ === 'mobile' && <AppVersion version={__APP_VERSION__} />}
+      {__TARGET__ === 'mobile' && (
+        <Padded>
+          <AppVersion version={__APP_VERSION__} />
+        </Padded>
+      )}
     </React.Fragment>
   )
 }
