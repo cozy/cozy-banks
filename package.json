@@ -96,7 +96,7 @@
     "babel-preset-env": "1.7.0",
     "babel-preset-react": "6.24.1",
     "babel-runtime": "6.26.0",
-    "commitlint-config-cozy": "0.3.15",
+    "commitlint-config-cozy": "0.3.16",
     "copy-webpack-plugin": "4.6.0",
     "cozy-ach": "1.9.0",
     "cozy-app-publish": "0.10.3",
