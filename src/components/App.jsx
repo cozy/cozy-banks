@@ -27,7 +27,7 @@ const App = props => {
 
       <Main>
         <Content>
-          {flag('konnector-update-info') && <KonnectorUpdateInfo />}
+          <KonnectorUpdateInfo />
           {props.children}
         </Content>
       </Main>
