@@ -92,17 +92,21 @@ export class EnsureHasAccounts extends Component {
     }
   }
 
-  componentDidMount() {
-    this.startInterval()
-  }
-
-  componentDidUpdate() {
+  intervalHandler = () => {
     const { accounts } = this.props
-    if (accounts.data.length === 0) {
+    if (!isCollectionLoading(accounts) && accounts.data.length === 0) {
       this.startInterval()
     } else {
       this.stopInterval()
     }
+  }
+
+  componentDidMount() {
+    this.intervalHandler()
+  }
+
+  componentDidUpdate() {
+    this.intervalHandler()
   }
 
   componentWillUnmount() {
