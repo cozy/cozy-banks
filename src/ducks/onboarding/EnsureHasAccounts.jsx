@@ -11,6 +11,8 @@ import { isCollectionLoading } from 'ducks/client/utils'
 import { getClient } from 'ducks/client'
 import { accountsConn } from 'doctypes'
 
+const queryName = 'onboarding'
+
 const hasParameter = (qs, param) => {
   // result of querystring parsing is created without prototype
   // thus we need to use Object.prototype.hasOwnProperty
@@ -80,7 +82,7 @@ export class EnsureHasAccounts extends Component {
     if (!client) {
       return
     }
-    client.query(accountsConn.query(client), { as: accountsConn.as })
+    client.query(accountsConn.query(client), { as: queryName })
   }
 
   stopInterval = () => {
@@ -122,6 +124,6 @@ export class EnsureHasAccounts extends Component {
 export default compose(
   withRouter,
   queryConnect({
-    accounts: { ...accountsConn, as: 'onboarding' }
+    accounts: { ...accountsConn, as: queryName }
   })
 )(EnsureHasAccounts)
