@@ -7,6 +7,7 @@ import { Figure } from 'components/Figure'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
+import Switch from '@material-ui/core/Switch'
 import { withStyles } from '@material-ui/core/styles'
 import withFilteringDoc from 'components/withFilteringDoc'
 import AccountsList from './AccountsList'
@@ -15,6 +16,9 @@ import styles from './GroupPanel.styl'
 
 const GroupPanelSummary = withStyles(() => ({
   expanded: {},
+  root: {
+    maxHeight: '3.5rem'
+  },
   content: {
     paddingLeft: '3rem'
   },
@@ -46,6 +50,10 @@ class GroupPanel extends React.PureComponent {
     this.goToTransactionsFilteredByDoc()
   }
 
+  handleSwitchClick = e => {
+    e.stopPropagation()
+  }
+
   render() {
     const { group, warningLimit } = this.props
 
@@ -57,15 +65,23 @@ class GroupPanel extends React.PureComponent {
             disableRipple: true
           }}
         >
-          <div
-            onClick={this.handleSummaryContentClick}
-            className={styles.GroupPanelSummary__content}
-          >
-            {group.label}
-            <Figure
-              currency="€"
-              total={getGroupBalance(group)}
-              currencyClassName={styles.GroupPanelSummary__figureCurrency}
+          <div className={styles.GroupPanelSummary__content}>
+            <div
+              className={styles.GroupPanelSummary__labelBalanceWrapper}
+              onClick={this.handleSummaryContentClick}
+            >
+              {group.label}
+              <Figure
+                currency="€"
+                total={getGroupBalance(group)}
+                currencyClassName={styles.GroupPanelSummary__figureCurrency}
+              />
+            </div>
+            <Switch
+              defaultChecked
+              color="primary"
+              onClick={this.handleSwitchClick}
+              className={styles.GroupPanelSummary__switch}
             />
           </div>
         </GroupPanelSummary>
