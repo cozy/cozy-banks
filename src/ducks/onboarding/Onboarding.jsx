@@ -5,6 +5,7 @@ import { some, flowRight as compose } from 'lodash'
 import { withClient, queryConnect } from 'cozy-client'
 
 import { PageTitle } from 'components/Title'
+import { Padded } from 'components/Spacing'
 import AddAccountLink from 'ducks/settings/AddAccountLink'
 
 import calculator from 'assets/icons/icon-calculator.svg'
@@ -57,32 +58,38 @@ class Onboarding extends Component {
 
     return (
       <Hero>
-        <PageTitle style={centerStyle}>
-          {t(`Onboarding.title.${isMobile ? 'mobile' : 'desktop'}`)}
-        </PageTitle>
-        <Sections>
-          <Section>
-            <Icon color={palette.pomegranate} icon={calculator} />
-            <Subtitle>{t('Onboarding.manage-budget.title')}</Subtitle>
-            <Paragraph>{t('Onboarding.manage-budget.description')}</Paragraph>
-          </Section>
-          {!isMobile && (
+        <Padded>
+          <div style={centerStyle}>
+            <PageTitle>
+              {t(`Onboarding.title.${isMobile ? 'mobile' : 'desktop'}`)}
+            </PageTitle>
+          </div>
+        </Padded>
+        <Padded>
+          <Sections>
             <Section>
-              <Icon color={palette.portage} icon={watch} />
-              <Subtitle>{t('Onboarding.save-time.title')}</Subtitle>
-              <Paragraph>{t('Onboarding.save-time.description')}</Paragraph>
+              <Icon color={palette.pomegranate} icon={calculator} />
+              <Subtitle>{t('Onboarding.manage-budget.title')}</Subtitle>
+              <Paragraph>{t('Onboarding.manage-budget.description')}</Paragraph>
             </Section>
-          )}
-          {!isMobile && (
-            <Section>
-              <Icon color={palette['dodgerBlue']} icon={cozy} />
-              <Subtitle>{t('Onboarding.cozy-assistant.title')}</Subtitle>
-              <Paragraph>
-                {t('Onboarding.cozy-assistant.description')}
-              </Paragraph>
-            </Section>
-          )}
-        </Sections>
+            {!isMobile && (
+              <Section>
+                <Icon color={palette.portage} icon={watch} />
+                <Subtitle>{t('Onboarding.save-time.title')}</Subtitle>
+                <Paragraph>{t('Onboarding.save-time.description')}</Paragraph>
+              </Section>
+            )}
+            {!isMobile && (
+              <Section>
+                <Icon color={palette['dodgerBlue']} icon={cozy} />
+                <Subtitle>{t('Onboarding.cozy-assistant.title')}</Subtitle>
+                <Paragraph>
+                  {t('Onboarding.cozy-assistant.description')}
+                </Paragraph>
+              </Section>
+            )}
+          </Sections>
+        </Padded>
         <CTA>
           <AddAccountLink>
             <Button
@@ -93,9 +100,11 @@ class Onboarding extends Component {
         </CTA>
         {isTriggersLoaded &&
           hasTriggers && (
-            <Paragraph style={centerStyle}>
-              {t('Onboarding.wait-moments')}
-            </Paragraph>
+            <Padded>
+              <Paragraph style={centerStyle}>
+                {t('Onboarding.wait-moments')}
+              </Paragraph>
+            </Padded>
           )}
       </Hero>
     )
