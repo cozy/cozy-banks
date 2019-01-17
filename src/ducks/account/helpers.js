@@ -90,3 +90,6 @@ export const getAccountType = account => {
 
   return type
 }
+
+export const getAccountInstitutionSlug = account =>
+  get(account, 'cozyMetadata.createdByApp')
