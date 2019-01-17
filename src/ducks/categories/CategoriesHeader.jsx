@@ -25,7 +25,13 @@ class CategoriesHeader extends PureComponent {
       <Fragment>
         <AccountSwitch small={selectedCategory !== undefined} {...colorProps} />
         {selectedCategory && (
-          <BackButton onClick={previousItem && previousItem.onClick} />
+          <BackButton
+            onClick={
+              previousItem && previousItem.onClick
+                ? previousItem.onClick
+                : undefined
+            }
+          />
         )}
       </Fragment>
     )
