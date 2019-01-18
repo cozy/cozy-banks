@@ -13,7 +13,7 @@
     cursor pointer
 
     +small-screen('min')
-        grid-template-columns 3fr 1fr 1fr 1fr
+        grid-template-columns 2fr 1fr 1fr 1fr
         grid-column-gap 67px
 
     & + &
@@ -23,7 +23,6 @@
     font-size 0.875rem
     font-weight normal
     color inherit
-    justify-self end
 
 .AccountRow__column
     white-space nowrap
@@ -75,3 +74,13 @@
 
     +small-screen('min')
         margin-right 1.6875rem
+
+.AccountRow__figureSwitchWrapper
+    display flex
+    justify-content flex-end
+
+.AccountRow__switch
+    margin-left 0.5rem
+
+    +small-screen('min')
+        margin-left 0.8125rem

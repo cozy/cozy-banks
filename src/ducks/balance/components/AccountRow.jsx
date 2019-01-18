@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { withBreakpoints } from 'cozy-ui/react'
 import cx from 'classnames'
 import { flowRight as compose } from 'lodash'
+import Switch from '@material-ui/core/Switch'
 import { translate, Icon } from 'cozy-ui/react'
 import AppIcon from 'cozy-ui/react/AppIcon'
 import { Figure } from 'components/Figure'
@@ -23,6 +24,10 @@ class AccountRow extends React.PureComponent {
     breakpoints: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired,
     warningLimit: PropTypes.number.isRequired
+  }
+
+  handleSwitchClick = e => {
+    e.stopPropagation()
   }
 
   render() {
@@ -104,13 +109,26 @@ class AccountRow extends React.PureComponent {
             {getAccountInstitutionLabel(account)}
           </div>
         )}
-        <Figure
-          currency="€"
-          total={account.balance}
-          className={cx(styles.AccountRow__figure, styles.AccountRow__column)}
-          totalClassName={styles.AccountRow__figure}
-          currencyClassName={styles.AccountRow__figure}
-        />
+        <div
+          className={cx(
+            styles.AccountRow__column,
+            styles.AccountRow__figureSwitchWrapper
+          )}
+        >
+          <Figure
+            currency="€"
+            total={account.balance}
+            className={cx(styles.AccountRow__figure)}
+            totalClassName={styles.AccountRow__figure}
+            currencyClassName={styles.AccountRow__figure}
+          />
+          <Switch
+            defaultChecked
+            color="primary"
+            onClick={this.handleSwitchClick}
+            className={styles.AccountRow__switch}
+          />
+        </div>
       </li>
     )
   }
