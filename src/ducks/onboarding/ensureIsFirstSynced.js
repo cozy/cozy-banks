@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { translate } from 'cozy-ui/react'
 import UserActionRequired from 'components/UserActionRequired'
 
 /**
@@ -11,4 +10,4 @@ class Wrapper extends Component {
   }
 }
 
-export default translate()(Wrapper)
+export default Wrapper
