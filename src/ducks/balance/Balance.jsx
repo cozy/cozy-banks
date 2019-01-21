@@ -21,7 +21,55 @@ import styles from './Balance.styl'
 import BalanceTables from './BalanceTables'
 import BalancePanels from './BalancePanels'
 
+function getSwitchesState(groups, currentSwitchesState) {
+  const switchesState = groups.reduce((acc, group) => {
+    acc[group._id] = {
+      enabled: get(currentSwitchesState, `[${group._id}].enabled`, true),
+      accounts: get(group, 'accounts.data', []).reduce((acc2, account) => {
+        acc2[account._id] = {
+          enabled: get(
+            currentSwitchesState,
+            `[${group._id}][${account.id}]`,
+            true
+          )
+        }
+
+        return acc2
+      }, {})
+    }
+
+    return acc
+  }, {})
+
+  return switchesState
+}
+
 class Balance extends PureComponent {
+  state = {
+    switchesState: {}
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    const { groups: groupsCollection, accounts: accountsCollection } = props
+
+    if (!groupsCollection || !accountsCollection) {
+      return null
+    }
+
+    const groups = [
+      ...groupsCollection.data,
+      ...buildVirtualGroups(accountsCollection.data)
+    ]
+
+    const { switchesState: currentSwitchesState } = state
+
+    const newSwitchesState = getSwitchesState(groups, currentSwitchesState)
+
+    return {
+      switches: newSwitchesState
+    }
+  }
+
   render() {
     const {
       t,
