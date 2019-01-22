@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import * as d3 from 'd3'
-import { maxBy, sortBy } from 'lodash'
+import { maxBy, sortBy, minBy } from 'lodash'
 import styles from './LineChart.styl'
 import Tooltip from './Tooltip'
 
@@ -70,10 +70,11 @@ class LineChart extends Component {
       .attr('transform', `translate(${margin.left}, ${margin.top})`)
 
     if (gradient) {
+      const minY = minBy(data, e => e.y)
       this.areaGenerator = d3
         .area()
         .x(d => this.x(d.x))
-        .y0(() => this.y(0))
+        .y0(() => this.y(minY.y))
         .y1(d => this.y(d.y))
 
       this.mask = this.svg
