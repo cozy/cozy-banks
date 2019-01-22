@@ -47,7 +47,7 @@ class History extends Component {
   getChartData() {
     const { accounts } = this.props
     const transactions = this.getTransactionsFiltered()
-    const history = this.getBalanceHistory(accounts.data, transactions.data)
+    const history = this.getBalanceHistory(accounts, transactions.data)
     const data = balanceHistoryToChartData(history)
 
     return data
@@ -104,7 +104,7 @@ class History extends Component {
 }
 
 History.propTypes = {
-  accounts: PropTypes.object.isRequired,
+  accounts: PropTypes.array.isRequired,
   className: PropTypes.string,
   transactions: PropTypes.object.isRequired
 }

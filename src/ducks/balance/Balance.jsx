@@ -149,7 +149,7 @@ class Balance extends PureComponent {
               <div className={styles.Balance__subtitle}>
                 {t('BalanceHistory.subtitle')}
               </div>
-              <History accounts={accountsCollection} />
+              <History accounts={accountsCollection.data} />
             </Fragment>
           ) : (
             <Padded className="u-pb-0">
