@@ -26,8 +26,8 @@ class AccountRow extends React.PureComponent {
     warningLimit: PropTypes.number.isRequired,
     checked: PropTypes.bool.isRequired,
     disabled: PropTypes.bool.isRequired,
-    switchIdPrefix: PropTypes.string.isRequired,
-    onSwitchChange: PropTypes.func.isRequired
+    onSwitchChange: PropTypes.func.isRequired,
+    id: PropTypes.string.isRequired
   }
 
   handleSwitchClick = e => {
@@ -43,8 +43,8 @@ class AccountRow extends React.PureComponent {
       warningLimit,
       checked,
       disabled,
-      switchIdPrefix,
-      onSwitchChange
+      onSwitchChange,
+      id
     } = this.props
 
     const today = new Date()
@@ -137,7 +137,7 @@ class AccountRow extends React.PureComponent {
             color="primary"
             onClick={this.handleSwitchClick}
             className={styles.AccountRow__switch}
-            id={`${switchIdPrefix}.accounts[${account._id}]`}
+            id={id}
             onChange={onSwitchChange}
           />
         </div>

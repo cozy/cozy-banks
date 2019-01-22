@@ -98,10 +98,9 @@ class GroupPanel extends React.PureComponent {
         </GroupPanelSummary>
         <ExpansionPanelDetails>
           <AccountsList
-            accounts={group.accounts.data}
+            group={group}
             warningLimit={warningLimit}
             switches={switches}
-            switchesIdPrefix={`[${group._id}]`}
             onSwitchChange={onSwitchChange}
           />
         </ExpansionPanelDetails>

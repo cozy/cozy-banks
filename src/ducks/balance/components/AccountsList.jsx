@@ -8,10 +8,9 @@ import styles from './AccountsList.styl'
 
 class AccountsList extends React.PureComponent {
   static propTypes = {
-    accounts: PropTypes.arrayOf(PropTypes.object).isRequired,
+    group: PropTypes.object.isRequired,
     warningLimit: PropTypes.number.isRequired,
     switches: PropTypes.object.isRequired,
-    switchesIdPrefix: PropTypes.string.isRequired,
     onSwitchChange: PropTypes.func.isRequired
   }
 
@@ -21,13 +20,8 @@ class AccountsList extends React.PureComponent {
   }
 
   render() {
-    const {
-      accounts,
-      warningLimit,
-      switches,
-      switchesIdPrefix,
-      onSwitchChange
-    } = this.props
+    const { group, warningLimit, switches, onSwitchChange } = this.props
+    const accounts = group.accounts.data || []
 
     return (
       <ol className={styles.AccountsList}>
@@ -35,11 +29,12 @@ class AccountsList extends React.PureComponent {
           <AccountRow
             key={a._id}
             account={a}
+            group={group}
             onClick={this.goToTransactionsFilteredByDoc(a)}
             warningLimit={warningLimit}
             checked={switches[a._id].checked}
             disabled={switches[a._id].disabled}
-            switchIdPrefix={switchesIdPrefix}
+            id={`${group._id}.accounts.${a._id}`}
             onSwitchChange={onSwitchChange}
           />
         ))}
