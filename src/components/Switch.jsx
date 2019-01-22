@@ -39,7 +39,11 @@ export default withStyles(() => ({
   },
   disabled: {
     '&$switchBase': {
-      color: 'white'
+      color: 'white',
+      '& + $bar': {
+        backgroundColor: 'var(--silver)',
+        opacity: 1
+      }
     }
   }
 }))(Switch)
