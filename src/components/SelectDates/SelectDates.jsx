@@ -321,29 +321,33 @@ class SelectDates extends PureComponent {
       >
         <span className={styles['SelectDates__DateYearSelector']}>
           <Chip className={cx(styles.SelectDates__chip)}>
-            <Select
-              name="year"
-              placeholder={t('SelectDates.year')}
-              className={styles.SelectDates__SelectYear}
-              searchable={false}
-              width={isMobile ? 'auto' : '6rem'}
-              value={selectedYear}
-              options={years.map(x => ({ value: x.year, name: x.yearF }))}
-              onChange={this.handleChangeYear}
-              styles={selectYearStyle}
-            />
+            <div className={styles['SelectDates__SelectYearContainer']}>
+              <Select
+                name="year"
+                placeholder={t('SelectDates.year')}
+                className={styles.SelectDates__SelectYear}
+                searchable={false}
+                width={isMobile ? 'auto' : '6rem'}
+                value={selectedYear}
+                options={years.map(x => ({ value: x.year, name: x.yearF }))}
+                onChange={this.handleChangeYear}
+                styles={selectYearStyle}
+              />
+            </div>
             <Separator />
-            <Select
-              searchable={false}
-              name="month"
-              placeholder={t('SelectDates.month')}
-              width={isMobile ? 'auto' : '10rem'}
-              className={styles.SelectDates__SelectMonth}
-              value={selectedMonth}
-              options={monthsOptions}
-              onChange={this.handleChangeMonth}
-              styles={selectMonthStyle}
-            />
+            <div className={styles['SelectDates__SelectMonthContainer']}>
+              <Select
+                searchable={false}
+                name="month"
+                placeholder={t('SelectDates.month')}
+                width={isMobile ? 'auto' : '10rem'}
+                className={styles.SelectDates__SelectMonth}
+                value={selectedMonth}
+                options={monthsOptions}
+                onChange={this.handleChangeMonth}
+                styles={selectMonthStyle}
+              />
+            </div>
           </Chip>
         </span>
 
