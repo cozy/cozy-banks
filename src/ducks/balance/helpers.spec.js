@@ -5,7 +5,8 @@ import {
   sumBalanceHistories,
   getAllDates,
   balanceHistoryToChartData,
-  getGroupBalance
+  getGroupBalance,
+  getSwitchesState
 } from './helpers'
 import { format as formatDate, parse as parseDate } from 'date-fns'
 
@@ -269,5 +270,45 @@ describe('getGroupBalance', () => {
     const group = { accounts: { data: accounts } }
 
     expect(getGroupBalance(group)).toBe(8900)
+  })
+})
+
+fdescribe('getSwitchesState', () => {
+  it('should initialize switches state to true', () => {
+    const groups = [{ _id: 'g1', accounts: { data: [{ _id: 'a1' }] } }]
+    const currentSwitchesState = {}
+
+    expect(getSwitchesState(groups, currentSwitchesState)).toEqual({
+      g1: {
+        checked: true,
+        accounts: {
+          a1: {
+            checked: true,
+            disabled: false
+          }
+        }
+      }
+    })
+  })
+
+  it('should disable an account if its group is unchecked', () => {
+    const groups = [{ _id: 'g1', accounts: { data: [{ _id: 'a1' }] } }]
+    const currentSwitchesState = {
+      g1: {
+        checked: false
+      }
+    }
+
+    expect(getSwitchesState(groups, currentSwitchesState)).toEqual({
+      g1: {
+        checked: false,
+        accounts: {
+          a1: {
+            checked: true,
+            disabled: true
+          }
+        }
+      }
+    })
   })
 })
