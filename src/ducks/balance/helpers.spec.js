@@ -273,7 +273,7 @@ describe('getGroupBalance', () => {
   })
 })
 
-fdescribe('getSwitchesState', () => {
+describe('getSwitchesState', () => {
   it('should initialize switches state to true', () => {
     const groups = [{ _id: 'g1', accounts: { data: [{ _id: 'a1' }] } }]
     const currentSwitchesState = {}
