@@ -25,6 +25,7 @@ class AccountRow extends React.PureComponent {
     t: PropTypes.func.isRequired,
     warningLimit: PropTypes.number.isRequired,
     checked: PropTypes.bool.isRequired,
+    disabled: PropTypes.bool.isRequired,
     switchIdPrefix: PropTypes.string.isRequired,
     onSwitchChange: PropTypes.func.isRequired
   }
@@ -41,6 +42,7 @@ class AccountRow extends React.PureComponent {
       t,
       warningLimit,
       checked,
+      disabled,
       switchIdPrefix,
       onSwitchChange
     } = this.props
@@ -129,6 +131,7 @@ class AccountRow extends React.PureComponent {
             currencyClassName={styles.AccountRow__figure}
           />
           <Switch
+            disabled={disabled}
             checked={checked}
             color="primary"
             onClick={this.handleSwitchClick}

@@ -38,6 +38,7 @@ class AccountsList extends React.PureComponent {
             onClick={this.goToTransactionsFilteredByDoc(a)}
             warningLimit={warningLimit}
             checked={switches[a._id].checked}
+            disabled={switches[a._id].disabled}
             switchIdPrefix={switchesIdPrefix}
             onSwitchChange={onSwitchChange}
           />
