@@ -55,7 +55,7 @@ class GroupPanel extends React.PureComponent {
   }
 
   render() {
-    const { group, warningLimit } = this.props
+    const { group, warningLimit, switches } = this.props
 
     return (
       <ExpansionPanel defaultExpanded>
@@ -78,7 +78,7 @@ class GroupPanel extends React.PureComponent {
               />
             </div>
             <Switch
-              defaultChecked
+              checked={switches.enabled}
               color="primary"
               onClick={this.handleSwitchClick}
               className={styles.GroupPanelSummary__switch}
@@ -89,6 +89,7 @@ class GroupPanel extends React.PureComponent {
           <AccountsList
             accounts={group.accounts.data}
             warningLimit={warningLimit}
+            switches={switches.accounts}
           />
         </ExpansionPanelDetails>
       </ExpansionPanel>

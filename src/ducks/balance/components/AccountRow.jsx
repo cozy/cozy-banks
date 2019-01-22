@@ -36,7 +36,8 @@ class AccountRow extends React.PureComponent {
       onClick,
       breakpoints: { isMobile },
       t,
-      warningLimit
+      warningLimit,
+      enabled
     } = this.props
 
     const today = new Date()
@@ -123,7 +124,7 @@ class AccountRow extends React.PureComponent {
             currencyClassName={styles.AccountRow__figure}
           />
           <Switch
-            defaultChecked
+            checked={enabled}
             color="primary"
             onClick={this.handleSwitchClick}
             className={styles.AccountRow__switch}

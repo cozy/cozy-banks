@@ -18,7 +18,7 @@ class BalancePanels extends React.PureComponent {
   goToGroupsSettings = () => this.props.router.push('/settings/groups')
 
   render() {
-    const { groups, t, warningLimit } = this.props
+    const { groups, t, warningLimit, switches } = this.props
 
     const groupsSorted = translateAndSortGroups(groups, t)
 
@@ -29,6 +29,7 @@ class BalancePanels extends React.PureComponent {
             key={group._id}
             group={group}
             warningLimit={warningLimit}
+            switches={switches[group._id]}
           />
         ))}
         <div className={styles.BalancePanels__actions}>

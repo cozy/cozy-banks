@@ -18,7 +18,7 @@ class AccountsList extends React.PureComponent {
   }
 
   render() {
-    const { accounts, warningLimit } = this.props
+    const { accounts, warningLimit, switches } = this.props
 
     return (
       <ol className={styles.AccountsList}>
@@ -28,6 +28,7 @@ class AccountsList extends React.PureComponent {
             account={a}
             onClick={this.goToTransactionsFilteredByDoc(a)}
             warningLimit={warningLimit}
+            enabled={switches[a._id]}
           />
         ))}
       </ol>

@@ -46,7 +46,7 @@ function getSwitchesState(groups, currentSwitchesState) {
 
 class Balance extends PureComponent {
   state = {
-    switchesState: {}
+    switches: {}
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -181,7 +181,11 @@ class Balance extends PureComponent {
           })}
         >
           {showPanels ? (
-            <BalancePanels groups={groups} warningLimit={balanceLower} />
+            <BalancePanels
+              groups={groups}
+              warningLimit={balanceLower}
+              switches={this.state.switches}
+            />
           ) : (
             <BalanceTables
               groups={groups}
