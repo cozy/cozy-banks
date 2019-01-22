@@ -108,9 +108,6 @@ class Balance extends PureComponent {
       color: withChart && !isMobile ? 'primary' : 'default'
     }
     const titlePaddedClass = isMobile ? 'u-p-0' : 'u-pb-0'
-    const currentBalance = isCollectionLoading(accounts)
-      ? 0
-      : sumBy(this.props.accounts.data, a => a.balance)
 
     if (
       isCollectionLoading(accountsCollection) ||
@@ -123,20 +120,6 @@ class Balance extends PureComponent {
               <Padded className={titlePaddedClass}>
                 <PageTitle {...titleColorProps}>{t('Balance.title')}</PageTitle>
               </Padded>
-            )}
-            {withChart && (
-              <Fragment>
-                <Figure
-                  className={styles.Balance__currentBalance}
-                  currencyClassName={styles.Balance__currentBalanceCurrency}
-                  total={currentBalance}
-                  currency="€"
-                />
-                <div className={styles.Balance__subtitle}>
-                  {t('BalanceHistory.subtitle')}
-                </div>
-                <History accounts={accountsCollection} />
-              </Fragment>
             )}
           </Header>
           <Loading />
@@ -158,6 +141,9 @@ class Balance extends PureComponent {
     const showPanels = flag('balance-panels')
 
     const checkedAccounts = this.getCheckedAccounts()
+    const checkedAccountsBalance = isCollectionLoading(accounts)
+      ? 0
+      : sumBy(checkedAccounts, a => a.balance)
 
     return (
       <Fragment>
@@ -172,7 +158,7 @@ class Balance extends PureComponent {
               <Figure
                 className={styles.Balance__currentBalance}
                 currencyClassName={styles.Balance__currentBalanceCurrency}
-                total={currentBalance}
+                total={checkedAccountsBalance}
                 currency="€"
               />
               <div className={styles.Balance__subtitle}>
