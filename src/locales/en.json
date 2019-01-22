@@ -522,7 +522,8 @@
   },
 
   "BalanceHistory": {
-    "subtitle": "All accounts"
+    "all_accounts": "All accounts",
+    "checked_accounts": "%{nbCheckedAccounts}/%{nbAccounts} accounts"
   },
 
   "LogoutModal": {

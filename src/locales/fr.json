@@ -475,7 +475,8 @@
   },
 
   "BalanceHistory": {
-    "subtitle": "Tous les comptes"
+    "all_accounts": "Tous les comptes",
+    "checked_accounts": "%{nbCheckedAccounts}/%{nbAccounts} comptes"
   },
 
   "LogoutModal": {

@@ -162,7 +162,12 @@ class Balance extends PureComponent {
                 currency="€"
               />
               <div className={styles.Balance__subtitle}>
-                {t('BalanceHistory.subtitle')}
+                {checkedAccounts.length === accounts.length
+                  ? t('BalanceHistory.all_accounts')
+                  : t('BalanceHistory.checked_accounts', {
+                      nbCheckedAccounts: checkedAccounts.length,
+                      nbAccounts: accounts.length
+                    })}
               </div>
               <History accounts={checkedAccounts} />
             </Fragment>
