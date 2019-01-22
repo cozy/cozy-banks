@@ -9,7 +9,10 @@ import styles from './AccountsList.styl'
 class AccountsList extends React.PureComponent {
   static propTypes = {
     accounts: PropTypes.arrayOf(PropTypes.object).isRequired,
-    warningLimit: PropTypes.number.isRequired
+    warningLimit: PropTypes.number.isRequired,
+    switches: PropTypes.object.isRequired,
+    switchesIdPrefix: PropTypes.string.isRequired,
+    onSwitchChange: PropTypes.func.isRequired
   }
 
   goToTransactionsFilteredByDoc = account => () => {
@@ -18,7 +21,13 @@ class AccountsList extends React.PureComponent {
   }
 
   render() {
-    const { accounts, warningLimit, switches } = this.props
+    const {
+      accounts,
+      warningLimit,
+      switches,
+      switchesIdPrefix,
+      onSwitchChange
+    } = this.props
 
     return (
       <ol className={styles.AccountsList}>
@@ -28,7 +37,9 @@ class AccountsList extends React.PureComponent {
             account={a}
             onClick={this.goToTransactionsFilteredByDoc(a)}
             warningLimit={warningLimit}
-            enabled={switches[a._id]}
+            checked={switches[a._id].checked}
+            switchIdPrefix={switchesIdPrefix}
+            onSwitchChange={onSwitchChange}
           />
         ))}
       </ol>

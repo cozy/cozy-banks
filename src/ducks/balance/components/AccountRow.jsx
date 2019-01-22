@@ -23,7 +23,10 @@ class AccountRow extends React.PureComponent {
     onClick: PropTypes.func.isRequired,
     breakpoints: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired,
-    warningLimit: PropTypes.number.isRequired
+    warningLimit: PropTypes.number.isRequired,
+    checked: PropTypes.bool.isRequired,
+    switchIdPrefix: PropTypes.string.isRequired,
+    onSwitchChange: PropTypes.func.isRequired
   }
 
   handleSwitchClick = e => {
@@ -37,7 +40,9 @@ class AccountRow extends React.PureComponent {
       breakpoints: { isMobile },
       t,
       warningLimit,
-      enabled
+      checked,
+      switchIdPrefix,
+      onSwitchChange
     } = this.props
 
     const today = new Date()
@@ -124,10 +129,12 @@ class AccountRow extends React.PureComponent {
             currencyClassName={styles.AccountRow__figure}
           />
           <Switch
-            checked={enabled}
+            checked={checked}
             color="primary"
             onClick={this.handleSwitchClick}
             className={styles.AccountRow__switch}
+            id={`${switchIdPrefix}.accounts[${account._id}]`}
+            onChange={onSwitchChange}
           />
         </div>
       </li>

@@ -37,7 +37,10 @@ class GroupPanel extends React.PureComponent {
     group: PropTypes.object.isRequired,
     filterByDoc: PropTypes.func.isRequired,
     router: PropTypes.object.isRequired,
-    warningLimit: PropTypes.number.isRequired
+    warningLimit: PropTypes.number.isRequired,
+    switches: PropTypes.object.isRequired,
+    checked: PropTypes.bool.isRequired,
+    onSwitchChange: PropTypes.func.isRequired
   }
 
   goToTransactionsFilteredByDoc = () => {
@@ -55,7 +58,13 @@ class GroupPanel extends React.PureComponent {
   }
 
   render() {
-    const { group, warningLimit, switches } = this.props
+    const {
+      group,
+      warningLimit,
+      switches,
+      onSwitchChange,
+      checked
+    } = this.props
 
     return (
       <ExpansionPanel defaultExpanded>
@@ -78,10 +87,12 @@ class GroupPanel extends React.PureComponent {
               />
             </div>
             <Switch
-              checked={switches.enabled}
+              checked={checked}
               color="primary"
               onClick={this.handleSwitchClick}
               className={styles.GroupPanelSummary__switch}
+              id={`[${group._id}]`}
+              onChange={onSwitchChange}
             />
           </div>
         </GroupPanelSummary>
@@ -89,7 +100,9 @@ class GroupPanel extends React.PureComponent {
           <AccountsList
             accounts={group.accounts.data}
             warningLimit={warningLimit}
-            switches={switches.accounts}
+            switches={switches}
+            switchesIdPrefix={`[${group._id}]`}
+            onSwitchChange={onSwitchChange}
           />
         </ExpansionPanelDetails>
       </ExpansionPanel>

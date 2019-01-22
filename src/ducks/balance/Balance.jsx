@@ -1,5 +1,5 @@
 import React, { PureComponent, Fragment } from 'react'
-import { flowRight as compose, get, sumBy } from 'lodash'
+import { flowRight as compose, get, sumBy, set } from 'lodash'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import { queryConnect } from 'cozy-client'
 import flag from 'cozy-flags'
@@ -24,12 +24,12 @@ import BalancePanels from './BalancePanels'
 function getSwitchesState(groups, currentSwitchesState) {
   const switchesState = groups.reduce((acc, group) => {
     acc[group._id] = {
-      enabled: get(currentSwitchesState, `[${group._id}].enabled`, true),
+      checked: get(currentSwitchesState, `[${group._id}].checked`, true),
       accounts: get(group, 'accounts.data', []).reduce((acc2, account) => {
         acc2[account._id] = {
-          enabled: get(
+          checked: get(
             currentSwitchesState,
-            `[${group._id}][${account.id}]`,
+            `[${group._id}].accounts[${account.id}].checked`,
             true
           )
         }
@@ -61,13 +61,24 @@ class Balance extends PureComponent {
       ...buildVirtualGroups(accountsCollection.data)
     ]
 
-    const { switchesState: currentSwitchesState } = state
+    const { switches: currentSwitchesState } = state
 
     const newSwitchesState = getSwitchesState(groups, currentSwitchesState)
 
     return {
       switches: newSwitchesState
     }
+  }
+
+  handleSwitchChange = (event, checked) => {
+    const path = event.target.id + '.checked'
+
+    this.setState(prevState => {
+      const nextState = { ...prevState }
+      set(nextState.switches, path, checked)
+
+      return nextState
+    })
   }
 
   render() {
@@ -185,6 +196,7 @@ class Balance extends PureComponent {
               groups={groups}
               warningLimit={balanceLower}
               switches={this.state.switches}
+              onSwitchChange={this.handleSwitchChange}
             />
           ) : (
             <BalanceTables
