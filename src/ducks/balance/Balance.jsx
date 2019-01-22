@@ -59,6 +59,33 @@ class Balance extends PureComponent {
     })
   }
 
+  getAccountOccurrencesInState(account) {
+    const { switches } = this.state
+
+    return Object.values(switches).reduce((occurrences, group) => {
+      const occurrence = group.accounts[account._id]
+
+      if (occurrence) {
+        return [...occurrences, occurrence]
+      }
+
+      return occurrences
+    }, [])
+  }
+
+  getCheckedAccounts() {
+    const { accounts: accountsCollection } = this.props
+    const accounts = accountsCollection.data
+
+    return accounts.filter(account => {
+      const occurrences = this.getAccountOccurrencesInState(account)
+
+      return occurrences.some(
+        occurrence => occurrence.checked && !occurrence.disabled
+      )
+    })
+  }
+
   render() {
     const {
       t,
@@ -130,6 +157,8 @@ class Balance extends PureComponent {
     const balanceLower = get(settings, 'notifications.balanceLower.value')
     const showPanels = flag('balance-panels')
 
+    const checkedAccounts = this.getCheckedAccounts()
+
     return (
       <Fragment>
         <Header className={headerClassName} {...headerColorProps}>
@@ -149,7 +178,7 @@ class Balance extends PureComponent {
               <div className={styles.Balance__subtitle}>
                 {t('BalanceHistory.subtitle')}
               </div>
-              <History accounts={accountsCollection.data} />
+              <History accounts={checkedAccounts} />
             </Fragment>
           ) : (
             <Padded className="u-pb-0">
