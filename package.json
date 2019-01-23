@@ -123,7 +123,7 @@
     "madge": "3.4.3",
     "mini-css-extract-plugin": "0.5.0",
     "npm-run-all": "4.1.5",
-    "postcss": "7.0.13",
+    "postcss": "7.0.14",
     "postcss-assets-webpack-plugin": "3.0.0",
     "postcss-discard-duplicates": "4.0.2",
     "postcss-loader": "3.0.0",
