@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import { queryConnect } from 'cozy-client'
-import { TRANSACTION_DOCTYPE } from 'doctypes'
+import { transactionsConn } from 'doctypes'
 import { withBreakpoints, Spinner } from 'cozy-ui/react'
 import { flowRight as compose, uniq, groupBy, max } from 'lodash'
 import styles from './History.styl'
 import HistoryChart from './HistoryChart'
 import { isCollectionLoading } from 'ducks/client/utils'
-import { format as formatDate, subYears } from 'date-fns'
+import { format as formatDate, subYears, isAfter } from 'date-fns'
 import * as d3 from 'd3'
 import {
   getBalanceHistories,
@@ -17,22 +17,36 @@ import {
 } from './helpers'
 import { withSize } from 'react-sizeme'
 
+const today = new Date()
+const oneYearBefore = subYears(today, 1)
+
 class History extends Component {
   getBalanceHistory(accounts, transactions) {
-    const today = new Date()
     const balanceHistories = getBalanceHistories(
       accounts,
       transactions,
       today,
-      subYears(today, 1)
+      oneYearBefore
     )
     const balanceHistory = sumBalanceHistories(Object.values(balanceHistories))
 
     return balanceHistory
   }
 
+  getTransactionsFiltered() {
+    const { transactions } = this.props
+
+    return {
+      ...transactions,
+      data: transactions.data.filter(t => {
+        return isAfter(new Date(t.date), oneYearBefore)
+      })
+    }
+  }
+
   getChartData() {
-    const { accounts, transactions } = this.props
+    const { accounts } = this.props
+    const transactions = this.getTransactionsFiltered()
     const history = this.getBalanceHistory(accounts.data, transactions.data)
     const data = balanceHistoryToChartData(history)
 
@@ -75,12 +89,7 @@ class History extends Component {
   render() {
     const { transactions, className } = this.props
 
-    const isTransactionsLoading =
-      isCollectionLoading(transactions) || transactions.hasMore
-
-    if (transactions.hasMore) {
-      transactions.fetchMore()
-    }
+    const isTransactionsLoading = isCollectionLoading(transactions)
 
     return (
       <div className={cx(styles.History, className)}>
@@ -104,14 +113,6 @@ export default compose(
   withBreakpoints(),
   withSize(),
   queryConnect({
-    transactions: {
-      query: client => {
-        const today = new Date()
-        const oneYearBefore = subYears(today, 1)
-        const minDate = formatDate(oneYearBefore, 'YYYY-MM-DD')
-
-        return client.all(TRANSACTION_DOCTYPE).where({ date: { $gt: minDate } })
-      }
-    }
+    transactions: transactionsConn
   })
 )(History)
