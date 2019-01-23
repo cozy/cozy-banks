@@ -4818,10 +4818,10 @@ cozy-client-js@^0.3.4:
   resolved "https://registry.yarnpkg.com/cozy-client-js/-/cozy-client-js-0.3.21.tgz#d27d0288077ce95139333c41dfb537b8584ff254"
   integrity sha1-0n0CiAd86VE5MzxB37U3uFhP8lQ=
 
-cozy-client@5.6.6:
-  version "5.6.6"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-5.6.6.tgz#fb77158c08b0e4bc489500d80cafbbf06b700adb"
-  integrity sha512-moINsyJYvRyhUMsfg64c1giW4lbGzClgOfFtQiNPyv2VLYZ1giVaMpWj+QOsgx33GcpCJZn8IPQJJXR+/5S2TA==
+cozy-client@5.7.1:
+  version "5.7.1"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-5.7.1.tgz#13562f16369d4da29f4a3da4fa324985b9a133ee"
+  integrity sha512-Phvs5bLfDxDfbJ570e9IjFDdM/ExNVAY+MdzTlg/kGkiJG3LnztHsggMOL3bg5mWMHSet8sHtq5BCYhqmcx7dA==
   dependencies:
     cozy-device-helper "1.6.3"
     cozy-stack-client "^5.6.1"
