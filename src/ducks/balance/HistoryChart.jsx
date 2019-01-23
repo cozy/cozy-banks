@@ -13,10 +13,7 @@ const gradientStyle = {
 }
 
 class HistoryChart extends Component {
-  constructor(props) {
-    super(props)
-    this.container = React.createRef()
-  }
+  container = React.createRef()
 
   getTooltipContent = item => {
     const date = formatDate(item.x, 'DD  MMM')
