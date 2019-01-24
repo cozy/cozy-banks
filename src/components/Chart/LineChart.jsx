@@ -21,16 +21,6 @@ class LineChart extends Component {
     this.updateData()
   }
 
-  getRootWidth() {
-    if (typeof this.props.width === 'number') {
-      return this.props.width
-    }
-
-    const { width } = getComputedStyle(this.root)
-
-    return parseInt(width)
-  }
-
   createChart() {
     const {
       data,
@@ -51,10 +41,9 @@ class LineChart extends Component {
       pointRadius,
       pointFillColor,
       pointStrokeWidth,
-      pointStrokeColor
+      pointStrokeColor,
+      width
     } = this.props
-
-    const width = this.getRootWidth()
 
     const innerWidth = width - margin.left - margin.right
     const innerHeight = height - margin.top - margin.bottom
@@ -354,7 +343,7 @@ LineChart.propTypes = {
       y: PropTypes.any
     })
   ).isRequired,
-  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
   margin: PropTypes.shape({
     top: PropTypes.number,
