@@ -25,8 +25,6 @@ class LineChart extends Component {
 
     this.updateData()
     this.enterAnimation()
-
-    this.forceUpdate()
   }
 
   componentDidUpdate() {
