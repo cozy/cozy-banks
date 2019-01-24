@@ -6,11 +6,16 @@ import styles from './LineChart.styl'
 import Tooltip from './Tooltip'
 
 class LineChart extends Component {
-  dragging = false
+  constructor(props) {
+    super(props)
 
-  state = {
-    selectedItem: null,
-    x: null
+    this.createScales()
+    this.updateDomains()
+
+    this.dragging = false
+    this.state = {
+      x: this.x(maxBy(this.props.data, d => d.x).x)
+    }
   }
 
   componentDidMount() {
@@ -21,8 +26,7 @@ class LineChart extends Component {
     this.updateData()
     this.enterAnimation()
 
-    const lastItem = maxBy(this.props.data, d => d.x)
-    this.selectItem(lastItem)
+    this.forceUpdate()
   }
 
   componentDidUpdate() {
@@ -207,6 +211,7 @@ class LineChart extends Component {
     const minY = this.getDataMin()
     this.areaGenerator.y0(() => this.y(minY.y))
   }
+
   updateData() {
     const { data } = this.props
 
@@ -223,6 +228,8 @@ class LineChart extends Component {
     if (this.props.showAxis) {
       this.updateAxis()
     }
+
+    this.movePointTo(this.getItemAt(this.state.x))
   }
 
   enterAnimation() {
@@ -282,36 +289,30 @@ class LineChart extends Component {
 
   onLineClick = () => {
     const [mouseX] = d3.mouse(this.clickLine.node())
-    const item = this.getNearestItem(this.x.invert(mouseX))
-
-    this.selectItem(item)
+    this.setState({ x: mouseX })
   }
 
-  getNearestItem(x) {
+  getItemAt(x) {
     const { data } = this.props
 
-    const distances = data.map(i => Math.abs(x - i.x))
+    const distances = data.map(i => Math.abs(this.x.invert(x) - i.x))
     const minDistance = Math.min(...distances)
     const nearestIndex = distances.findIndex(d => d === minDistance)
 
     return data[nearestIndex]
   }
 
-  selectItem(item) {
+  movePointTo(item) {
+    if (!this.point) {
+      return
+    }
+
+    const { height, margin, tickPadding } = this.props
     const x = this.x(item.x)
     const y = this.y(item.y)
 
-    this.setState({
-      selectedItem: item,
-      x
-    })
-
-    this.movePointTo(x, y)
-  }
-
-  movePointTo(x, y) {
-    const { height, margin, tickPadding } = this.props
     this.point.attr('cx', x).attr('cy', y)
+
     this.pointLine
       .attr('x1', x)
       .attr('y1', 0)
@@ -329,33 +330,19 @@ class LineChart extends Component {
     }
 
     const [mouseX] = d3.mouse(this.svg.node())
-    const item = this.getNearestItem(this.x.invert(mouseX))
-
-    this.selectItem(item)
+    this.setState({ x: mouseX })
   }
 
   stopPointDrag = () => {
     this.dragging = false
   }
 
-  getTooltipContent = () => {
-    const { selectedItem } = this.state
-    const { getTooltipContent } = this.props
-
-    if (getTooltipContent && selectedItem) {
-      return getTooltipContent(selectedItem)
-    }
-
-    if (selectedItem) {
-      return <div>{selectedItem.y}</div>
-    }
-
-    return null
-  }
-
   render() {
-    const { width, height, gradient, margin } = this.props
-    const { selectedItem, x } = this.state
+    const { width, height, gradient, margin, getTooltipContent } = this.props
+    const { x } = this.state
+
+    const selectedItem = this.getItemAt(x)
+    this.movePointTo(selectedItem)
 
     const isLeftPosition = x < width / 2
     const position = isLeftPosition ? 'left' : 'right'
@@ -363,11 +350,12 @@ class LineChart extends Component {
 
     return (
       <div className={styles.LineChart}>
-        {selectedItem && (
-          <Tooltip x={tooltipX} position={position}>
-            {this.getTooltipContent()}
-          </Tooltip>
-        )}
+        {selectedItem &&
+          getTooltipContent && (
+            <Tooltip x={tooltipX} position={position}>
+              {getTooltipContent(selectedItem)}
+            </Tooltip>
+          )}
         <svg
           ref={node => (this.root = node)}
           width={width}
