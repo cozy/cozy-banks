@@ -17528,10 +17528,10 @@ timers-browserify@^2.0.4:
   dependencies:
     setimmediate "^1.0.4"
 
-timezone@1.0.21:
-  version "1.0.21"
-  resolved "https://registry.yarnpkg.com/timezone/-/timezone-1.0.21.tgz#2454e478d86a530d63b08729c7502ce52b8f81e0"
-  integrity sha512-mloYlWmIL9Mw6IGAl9C8a/XedsughkEk5hmGSBUuWUGS0aB0VzRnhsg4WR418w9mU7nIlm/GOVN0BTvlH4sUKg==
+timezone@1.0.22:
+  version "1.0.22"
+  resolved "https://registry.yarnpkg.com/timezone/-/timezone-1.0.22.tgz#a1e23d4250a8810fcf0d122f1c9b41e50e5c633c"
+  integrity sha512-xDkfblPtNhzU0fYm5FhWNzqECX2mzvpBgd+Pf5F8yAQmbxeWL4+6f496iGqdu0WllF7TxSlE6mmRH4uFnACVuQ==
 
 timezone@^1.0.13:
   version "1.0.20"
