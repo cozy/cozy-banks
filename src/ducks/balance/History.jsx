@@ -4,7 +4,7 @@ import cx from 'classnames'
 import { queryConnect } from 'cozy-client'
 import { transactionsConn } from 'doctypes'
 import { withBreakpoints, Spinner } from 'cozy-ui/react'
-import { flowRight as compose, uniq, groupBy, max } from 'lodash'
+import { flowRight as compose, uniq, groupBy, max, isEqual } from 'lodash'
 import styles from './History.styl'
 import HistoryChart from './HistoryChart'
 import { isCollectionLoading } from 'ducks/client/utils'
@@ -16,9 +16,28 @@ import {
   balanceHistoryToChartData
 } from './helpers'
 import { withSize } from 'react-sizeme'
+import { createSelectorCreator, defaultMemoize } from 'reselect'
 
 const today = new Date()
 const oneYearBefore = subYears(today, 1)
+
+const createDeepEqualSelector = createSelectorCreator(
+  defaultMemoize,
+  isEqual
+)
+
+const selector = createDeepEqualSelector(
+  props => props.transactions,
+  transactions => {
+    console.log('on passe par la')
+    return {
+      ...transactions,
+      data: transactions.data.filter(t => {
+        return isAfter(new Date(t.date), oneYearBefore)
+      })
+    }
+  }
+)
 
 class History extends Component {
   getBalanceHistory(accounts, transactions) {
@@ -34,14 +53,7 @@ class History extends Component {
   }
 
   getTransactionsFiltered() {
-    const { transactions } = this.props
-
-    return {
-      ...transactions,
-      data: transactions.data.filter(t => {
-        return isAfter(new Date(t.date), oneYearBefore)
-      })
-    }
+    return selector(this.props)
   }
 
   getChartData() {
