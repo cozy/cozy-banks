@@ -330,7 +330,7 @@ class LineChart extends Component {
     }
 
     const [mouseX] = d3.mouse(this.svg.node())
-    this.setState({ x: mouseX })
+    this.setState({ x: Math.min(mouseX, this.getInnerWidth()) })
   }
 
   stopPointDrag = () => {
