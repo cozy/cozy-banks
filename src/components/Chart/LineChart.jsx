@@ -14,84 +14,94 @@ class LineChart extends Component {
   }
 
   componentDidMount() {
-    this.createChart()
+    this.createScales()
+    this.createLineGenerator()
+    this.createElements()
+
+    this.updateData()
+    this.enterAnimation()
+
+    const lastItem = maxBy(this.props.data, d => d.x)
+    this.selectItem(lastItem)
   }
 
   componentDidUpdate() {
     this.updateData()
   }
 
-  createChart() {
-    const {
-      data,
-      height,
-      margin,
-      lineWidth,
-      lineColor,
-      nbTicks,
-      tickFormat,
-      tickPadding,
-      tickSizeOuter,
-      tickSizeInner,
-      xScale,
-      yScale,
-      axisMargin,
-      gradient,
-      showAxis,
-      pointRadius,
-      pointFillColor,
-      pointStrokeWidth,
-      pointStrokeColor,
-      width
-    } = this.props
+  createScales() {
+    const { xScale, yScale } = this.props
 
-    const innerWidth = width - margin.left - margin.right
-    const innerHeight = height - margin.top - margin.bottom
+    this.x = xScale().range([0, this.getInnerWidth()])
+    this.y = yScale().range([this.getInnerHeight(), 0])
+  }
 
-    this.x = xScale().range([0, innerWidth])
-    this.y = yScale().range([innerHeight, 0])
+  createLineGenerator() {
+    this.lineGenerator = d3
+      .line()
+      .x(d => this.x(d.x))
+      .y(d => this.y(d.y))
+  }
 
-    const drag = d3.drag()
+  getInnerWidth() {
+    const { width, margin } = this.props
+    return width - margin.left - margin.right
+  }
+
+  getInnerHeight() {
+    const { height, margin } = this.props
+    return height - margin.top - margin.bottom
+  }
+
+  createRoot() {
+    const { margin } = this.props
 
     this.svg = d3
       .select(this.root)
       .append('g')
       .attr('transform', `translate(${margin.left}, ${margin.top})`)
+  }
 
-    if (gradient) {
-      const minY = minBy(data, e => e.y)
-      this.areaGenerator = d3
-        .area()
-        .x(d => this.x(d.x))
-        .y0(() => this.y(minY.y))
-        .y1(d => this.y(d.y))
+  createGradient() {
+    const { gradient } = this.props
 
-      this.mask = this.svg
-        .append('mask')
-        .attr('id', 'maskurl')
-        .append('path')
-        .attr('fill', 'white')
-
-      this.svg
-        .append('rect')
-        .attr('x', 0)
-        .attr('y', 0)
-        .attr('width', innerWidth)
-        .attr('height', innerHeight)
-        .attr('mask', 'url(#maskurl)')
-        .attr('fill', 'url(#gradient)')
+    if (!gradient) {
+      return
     }
 
-    this.lineGenerator = d3
-      .line()
+    const minY = this.getDataMin()
+    this.areaGenerator = d3
+      .area()
       .x(d => this.x(d.x))
-      .y(d => this.y(d.y))
+      .y0(() => this.y(minY.y))
+      .y1(d => this.y(d.y))
 
+    this.mask = this.svg
+      .append('mask')
+      .attr('id', 'maskurl')
+      .append('path')
+      .attr('fill', 'white')
+
+    this.svg
+      .append('rect')
+      .attr('x', 0)
+      .attr('y', 0)
+      .attr('width', this.getInnerWidth())
+      .attr('height', this.getInnerHeight())
+      .attr('mask', 'url(#maskurl)')
+      .attr('fill', 'url(#gradient)')
+  }
+
+  createPointLine() {
     this.pointLine = this.svg
       .append('line')
       .attr('stroke-width', 1)
       .attr('stroke', 'white')
       .attr('stroke-dasharray', '3,2')
+  }
+
+  createLine() {
+    const { lineColor, lineWidth } = this.props
 
     this.line = this.svg
       .append('path')
@@ -105,6 +115,17 @@ class LineChart extends Component {
       .attr('stroke-width', 32)
       .attr('fill', 'none')
       .on('click', this.onLineClick)
+  }
+
+  createPoint() {
+    const {
+      pointRadius,
+      pointFillColor,
+      pointStrokeColor,
+      pointStrokeWidth
+    } = this.props
+
+    const drag = d3.drag()
 
     this.point = this.svg
       .append('circle')
@@ -115,6 +136,18 @@ class LineChart extends Component {
       .call(drag.on('start', this.startPointDrag))
       .call(drag.on('drag', this.pointDrag))
       .call(drag.on('end', this.stopPointDrag))
+  }
+
+  createAxis() {
+    const {
+      tickSizeOuter,
+      tickSizeInner,
+      tickPadding,
+      nbTicks,
+      tickFormat,
+      showAxis,
+      axisMargin
+    } = this.props
 
     this.xAxisGenerator = d3
       .axisBottom(this.x)
@@ -133,16 +166,25 @@ class LineChart extends Component {
     if (showAxis) {
       this.axis = this.svg
         .append('g')
-        .attr('transform', `translate(0, ${innerHeight + axisMargin})`)
+        .attr(
+          'transform',
+          `translate(0, ${this.getInnerHeight() + axisMargin})`
+        )
     }
-
-    this.setData(data, true)
-
-    const lastItem = maxBy(data, d => d.x)
-    this.selectItem(lastItem)
   }
 
-  setData(data, animate) {
+  createElements() {
+    this.createRoot()
+    this.createGradient()
+    this.createPointLine()
+    this.createLine()
+    this.createPoint()
+    this.createAxis()
+  }
+
+  updateDomains() {
+    const { data } = this.props
+
     this.x.domain(d3.extent(data, d => d.x))
 
     let yDomain = d3.extent(data, d => d.y)
@@ -155,6 +197,21 @@ class LineChart extends Component {
     }
 
     this.y.domain(yDomain)
+  }
+
+  getDataMin() {
+    return minBy(this.props.data, d => d.y)
+  }
+
+  updateGradient() {
+    const minY = this.getDataMin()
+    this.areaGenerator.y0(() => this.y(minY.y))
+  }
+  updateData() {
+    const { data } = this.props
+
+    this.updateDomains()
+    this.updateGradient()
 
     this.line.datum(data).attr('d', this.lineGenerator)
     this.clickLine.datum(data).attr('d', this.lineGenerator)
@@ -163,50 +220,50 @@ class LineChart extends Component {
       this.mask.datum(data).attr('d', this.areaGenerator)
     }
 
-    if (animate) {
-      const lineTotalLength = this.line.node().getTotalLength()
-
-      this.point.attr('r', 0).attr('stroke-width', 0)
-      this.pointLine.attr('opacity', 0)
-
-      if (this.mask) {
-        this.mask.attr('opacity', 0)
-      }
-
-      this.line
-        .attr('stroke-dasharray', `${lineTotalLength} ${lineTotalLength}`)
-        .attr('stroke-dashoffset', lineTotalLength)
-        .transition()
-        .duration(this.props.enterAnimationDuration)
-        .ease(d3.easeExpInOut)
-        .attr('stroke-dashoffset', 0)
-        .on('end', () => {
-          if (this.mask) {
-            this.mask
-              .transition()
-              .duration(250)
-              .ease(d3.easeLinear)
-              .attr('opacity', 1)
-
-            this.point
-              .transition()
-              .duration(200)
-              .ease(d3.easeLinear)
-              .attr('r', this.props.pointRadius)
-              .attr('stroke-width', this.props.pointStrokeWidth)
-
-            this.pointLine
-              .transition()
-              .duration(400)
-              .ease(d3.easeExpIn)
-              .attr('opacity', 1)
-          }
-        })
-    }
-
     if (this.props.showAxis) {
       this.updateAxis()
     }
+  }
+
+  enterAnimation() {
+    const lineTotalLength = this.line.node().getTotalLength()
+
+    this.point.attr('r', 0).attr('stroke-width', 0)
+    this.pointLine.attr('opacity', 0)
+
+    if (this.mask) {
+      this.mask.attr('opacity', 0)
+    }
+
+    this.line
+      .attr('stroke-dasharray', `${lineTotalLength} ${lineTotalLength}`)
+      .attr('stroke-dashoffset', lineTotalLength)
+      .transition()
+      .duration(this.props.enterAnimationDuration)
+      .ease(d3.easeExpInOut)
+      .attr('stroke-dashoffset', 0)
+      .on('end', () => {
+        if (this.mask) {
+          this.mask
+            .transition()
+            .duration(250)
+            .ease(d3.easeLinear)
+            .attr('opacity', 1)
+
+          this.point
+            .transition()
+            .duration(200)
+            .ease(d3.easeLinear)
+            .attr('r', this.props.pointRadius)
+            .attr('stroke-width', this.props.pointStrokeWidth)
+
+          this.pointLine
+            .transition()
+            .duration(400)
+            .ease(d3.easeExpIn)
+            .attr('opacity', 1)
+        }
+      })
   }
 
   updateAxis() {
@@ -221,10 +278,6 @@ class LineChart extends Component {
       .attr('font-family', 'Lato, sans-serif')
       .attr('font-size', '0.75rem')
       .attr('style', 'text-transform: uppercase')
-  }
-
-  updateData() {
-    this.setData(this.props.data, false)
   }
 
   onLineClick = () => {
