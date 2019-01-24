@@ -124,9 +124,7 @@ export const sumBalanceHistories = histories => {
  * @returns {Object[]}
  */
 export const balanceHistoryToChartData = history => {
-  const dates = getAllDates([history])
-    .sort()
-    .reverse()
+  const dates = getAllDates([history]).sort()
 
   const data = dates.map(date => ({
     x: parseDate(date),

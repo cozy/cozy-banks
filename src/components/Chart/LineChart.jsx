@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import * as d3 from 'd3'
-import { maxBy, sortBy, minBy } from 'lodash'
+import { maxBy, minBy } from 'lodash'
 import styles from './LineChart.styl'
 import Tooltip from './Tooltip'
 
@@ -154,8 +154,6 @@ class LineChart extends Component {
   }
 
   setData(data, animate) {
-    const sortedData = sortBy(data, d => d.x)
-
     this.x.domain(d3.extent(data, d => d.x))
 
     let yDomain = d3.extent(data, d => d.y)
@@ -169,11 +167,11 @@ class LineChart extends Component {
 
     this.y.domain(yDomain)
 
-    this.line.datum(sortedData).attr('d', this.lineGenerator)
-    this.clickLine.datum(sortedData).attr('d', this.lineGenerator)
+    this.line.datum(data).attr('d', this.lineGenerator)
+    this.clickLine.datum(data).attr('d', this.lineGenerator)
 
     if (this.mask) {
-      this.mask.datum(sortedData).attr('d', this.areaGenerator)
+      this.mask.datum(data).attr('d', this.areaGenerator)
     }
 
     if (animate) {
