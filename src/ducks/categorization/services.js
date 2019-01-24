@@ -86,6 +86,7 @@ class BankClassifier extends Document {
       )
       return parameters
     } catch (e) {
+      globalModelLog('info', e.message)
       throw new Error(PARAMETERS_NOT_FOUND)
     }
   }
