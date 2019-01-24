@@ -32,7 +32,7 @@ class KonnectorUpdateInfo extends React.PureComponent {
       this.setState({ url })
     } catch (err) {
       // eslint-disable-next-line no-console
-      console.warning('Error while retrieving redirection URL', err)
+      console.warn('Error while retrieving redirection URL', err)
     }
   }
 
