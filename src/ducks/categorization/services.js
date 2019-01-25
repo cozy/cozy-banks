@@ -263,7 +263,7 @@ export const categorizes = async transactions => {
 }
 
 export class AutoCategorization extends Document {
-  async sendTransactions(transactions) {
+  static async sendTransactions(transactions) {
     const log = logger.namespace('categorization-send-transactions')
 
     const transactionsToSend = transactions.map(transaction =>
