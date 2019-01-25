@@ -24,13 +24,24 @@ import { getPanelsState } from './helpers'
 
 class Balance extends PureComponent {
   state = {
-    panels: {}
+    panels: null
   }
 
   static getDerivedStateFromProps(props, state) {
-    const { groups, accounts } = props
+    const { groups, accounts, settings: settingsCollection } = props
+
+    const isLoading =
+      isCollectionLoading(groups) ||
+      isCollectionLoading(accounts) ||
+      isCollectionLoading(settingsCollection)
+
+    if (isLoading) {
+      return null
+    }
+
+    const settings = getDefaultedSettingsFromCollection(settingsCollection)
     const allGroups = [...groups.data, ...buildVirtualGroups(accounts.data)]
-    const { panels: currentPanelsState } = state
+    const currentPanelsState = state.panels || settings.panelsState || {}
     const newPanelsState = getPanelsState(allGroups, currentPanelsState)
 
     return {
