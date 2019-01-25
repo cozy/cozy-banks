@@ -19,7 +19,14 @@ import {
  */
 export const getBalanceHistories = (accounts, transactions, to, from) => {
   if (accounts.length === 0) {
-    return null
+    return {
+      __no_accounts__: getBalanceHistory(
+        { _id: '__no_accounts__', balance: 0 },
+        [],
+        to,
+        from
+      )
+    }
   }
 
   const balances = accounts.reduce((balances, account) => {
@@ -124,9 +131,7 @@ export const sumBalanceHistories = histories => {
  * @returns {Object[]}
  */
 export const balanceHistoryToChartData = history => {
-  const dates = getAllDates([history])
-    .sort()
-    .reverse()
+  const dates = getAllDates([history]).sort()
 
   const data = dates.map(date => ({
     x: parseDate(date),

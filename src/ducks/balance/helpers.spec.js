@@ -154,8 +154,20 @@ describe('sumBalanceHistories', () => {
 })
 
 describe('getBalanceHistories', () => {
-  it('should return null if there is no account', () => {
-    expect(getBalanceHistories([], [{ amount: 42 }])).toBeNull()
+  it('should an empty history if there is no account', () => {
+    expect(
+      getBalanceHistories(
+        [],
+        [],
+        parseDate('2019-01-02'),
+        parseDate('2019-01-01')
+      )
+    ).toEqual({
+      __no_accounts__: {
+        '2019-01-01': 0,
+        '2019-01-02': 0
+      }
+    })
   })
 
   it('should return an object with a property for each account id', () => {
@@ -238,7 +250,7 @@ describe('getBalanceHistories', () => {
 describe('balanceHistoryToChartData', () => {
   it('should sort by date desc', () => {
     const history = { '2018-11-22': 1000, '2018-11-21': 500, '2018-11-20': 600 }
-    const expected = ['2018-11-22', '2018-11-21', '2018-11-20']
+    const expected = ['2018-11-20', '2018-11-21', '2018-11-22']
     const chartData = balanceHistoryToChartData(history)
     const dates = chartData.map(item => formatDate(item.x, 'YYYY-MM-DD'))
 
@@ -247,7 +259,7 @@ describe('balanceHistoryToChartData', () => {
 
   it('should return the right data', () => {
     const history = { '2018-11-22': 1000, '2018-11-21': 500, '2018-11-20': 600 }
-    const expected = [1000, 500, 600]
+    const expected = [600, 500, 1000]
     const chartData = balanceHistoryToChartData(history)
     const values = chartData.map(item => item.y)
 

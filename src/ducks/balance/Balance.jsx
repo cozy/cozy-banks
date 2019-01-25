@@ -59,6 +59,27 @@ class Balance extends PureComponent {
     })
   }
 
+  getAccountOccurrencesInState(account) {
+    const { switches } = this.state
+
+    return Object.values(switches)
+      .map(group => group.accounts[account._id])
+      .filter(Boolean)
+  }
+
+  getCheckedAccounts() {
+    const { accounts: accountsCollection } = this.props
+    const accounts = accountsCollection.data
+
+    return accounts.filter(account => {
+      const occurrences = this.getAccountOccurrencesInState(account)
+
+      return occurrences.some(
+        occurrence => occurrence.checked && !occurrence.disabled
+      )
+    })
+  }
+
   render() {
     const {
       t,
@@ -81,9 +102,6 @@ class Balance extends PureComponent {
       color: withChart && !isMobile ? 'primary' : 'default'
     }
     const titlePaddedClass = isMobile ? 'u-p-0' : 'u-pb-0'
-    const currentBalance = isCollectionLoading(accounts)
-      ? 0
-      : sumBy(this.props.accounts.data, a => a.balance)
 
     if (
       isCollectionLoading(accountsCollection) ||
@@ -96,20 +114,6 @@ class Balance extends PureComponent {
               <Padded className={titlePaddedClass}>
                 <PageTitle {...titleColorProps}>{t('Balance.title')}</PageTitle>
               </Padded>
-            )}
-            {withChart && (
-              <Fragment>
-                <Figure
-                  className={styles.Balance__currentBalance}
-                  currencyClassName={styles.Balance__currentBalanceCurrency}
-                  total={currentBalance}
-                  currency="€"
-                />
-                <div className={styles.Balance__subtitle}>
-                  {t('BalanceHistory.subtitle')}
-                </div>
-                <History accounts={accountsCollection} />
-              </Fragment>
             )}
           </Header>
           <Loading />
@@ -130,6 +134,11 @@ class Balance extends PureComponent {
     const balanceLower = get(settings, 'notifications.balanceLower.value')
     const showPanels = flag('balance-panels')
 
+    const checkedAccounts = this.getCheckedAccounts()
+    const checkedAccountsBalance = isCollectionLoading(accounts)
+      ? 0
+      : sumBy(checkedAccounts, a => a.balance)
+
     return (
       <Fragment>
         <Header className={headerClassName} {...headerColorProps}>
@@ -143,13 +152,18 @@ class Balance extends PureComponent {
               <Figure
                 className={styles.Balance__currentBalance}
                 currencyClassName={styles.Balance__currentBalanceCurrency}
-                total={currentBalance}
+                total={checkedAccountsBalance}
                 currency="€"
               />
               <div className={styles.Balance__subtitle}>
-                {t('BalanceHistory.subtitle')}
+                {checkedAccounts.length === accounts.length
+                  ? t('BalanceHistory.all_accounts')
+                  : t('BalanceHistory.checked_accounts', {
+                      nbCheckedAccounts: checkedAccounts.length,
+                      nbAccounts: accounts.length
+                    })}
               </div>
-              <History accounts={accountsCollection} />
+              <History accounts={checkedAccounts} />
             </Fragment>
           ) : (
             <Padded className="u-pb-0">
