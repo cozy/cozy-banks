@@ -34,7 +34,7 @@ export const getAlphaParameter = (
   maxSmoothing
 ) => {
   if (nbUniqueCategories === 1) {
-    return 1
+    return 0.95
   } else {
     const alpha = maxSmoothing / (nbUniqueCategories + 1)
     return Math.max(min, Math.min(max, alpha))
@@ -92,7 +92,6 @@ class BankClassifier extends Document {
   }
 }
 
-const getAmountSignTag = amount => (amount < 0 ? 'tag_neg' : 'tag_pos')
 const getAmountTag = amount => {
   if (amount < -550) {
     return 'tag_v_b_expense'
@@ -116,10 +115,9 @@ const getAmountTag = amount => {
 const getLabelWithTags = transaction => {
   const label = getLabel(transaction).toLowerCase()
 
-  const amountSignTag = getAmountSignTag(transaction.amount)
   const amountTag = getAmountTag(transaction.amount)
 
-  return `${amountSignTag} ${amountTag} ${label}`
+  return `${amountTag} ${label}`
 }
 
 const globalModel = async (classifierOptions, transactions) => {
@@ -263,7 +261,7 @@ export const categorizes = async transactions => {
 }
 
 export class AutoCategorization extends Document {
-  async sendTransactions(transactions) {
+  static async sendTransactions(transactions) {
     const log = logger.namespace('categorization-send-transactions')
 
     const transactionsToSend = transactions.map(transaction =>

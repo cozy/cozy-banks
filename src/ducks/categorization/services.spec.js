@@ -48,7 +48,7 @@ describe('getAlphaParemeter', () => {
     const nbUniqueCategories = 1
     const alpha = getAlphaParameter(nbUniqueCategories, MIN, MAX, MAX_SMOOTHING)
 
-    expect(alpha).toBe(1)
+    expect(alpha).toBe(0.95)
   })
 
   it('Should never be lesser than the passed min parameter', () => {
@@ -84,10 +84,10 @@ describe('localModel', () => {
   it('Should give correct local probas', async () => {
     await localModel({ tokenizer }, transactions)
 
-    expect(transactions[0].localCategoryProba).toBeCloseTo(0.8143, 3)
+    expect(transactions[0].localCategoryProba).toBeCloseTo(0.803407088581696, 3)
     expect(transactions[1].localCategoryProba).toBeCloseTo(0.5, 3)
     expect(transactions[2].localCategoryProba).toBeCloseTo(0.5, 3)
-    expect(transactions[3].localCategoryProba).toBeCloseTo(0.6586, 3)
+    expect(transactions[3].localCategoryProba).toBeCloseTo(0.699, 3)
     expect(transactions[4].localCategoryProba).toBeCloseTo(0.5, 3)
   })
 })
