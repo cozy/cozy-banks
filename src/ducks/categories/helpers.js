@@ -17,6 +17,7 @@ const makeSubcategory = catId => ({
 })
 
 export const LOCAL_MODEL_USAGE_THRESHOLD = 0.8
+export const GLOBAL_MODEL_USAGE_THRESHOLD = 0.8
 
 /**
  * Return the category id of the transaction
@@ -37,6 +38,14 @@ export const getCategoryId = transaction => {
     transaction.localCategoryProba > LOCAL_MODEL_USAGE_THRESHOLD
   ) {
     return transaction.localCategoryId
+  }
+
+  if (
+    transaction.cozyCategoryId &&
+    transaction.cozyCategoryProba &&
+    transaction.cozyCategoryProba > GLOBAL_MODEL_USAGE_THRESHOLD
+  ) {
+    return transaction.cozyCategoryId
   }
 
   return transaction.automaticCategoryId
