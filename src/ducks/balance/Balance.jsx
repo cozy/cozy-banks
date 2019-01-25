@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from 'react'
 import { flowRight as compose, get, sumBy, set } from 'lodash'
 import { translate, withBreakpoints } from 'cozy-ui/react'
-import { queryConnect } from 'cozy-client'
+import { queryConnect, withMutations } from 'cozy-client'
 import flag from 'cozy-flags'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
 import cx from 'classnames'
@@ -56,7 +56,7 @@ class Balance extends PureComponent {
       set(nextState.panels, path, checked)
 
       return nextState
-    })
+    }, this.onPanelsStateChange)
   }
 
   handlePanelChange = panelId => (event, expanded) => {
@@ -67,7 +67,23 @@ class Balance extends PureComponent {
       set(nextState.panels, path, expanded)
 
       return nextState
-    })
+    }, this.onPanelsStateChange)
+  }
+
+  onPanelsStateChange() {
+    const { panels } = this.state
+    const settings = this.props.settings.data[0]
+
+    if (!settings) {
+      return
+    }
+
+    const newSettings = {
+      ...settings,
+      panelsState: panels
+    }
+
+    this.props.saveDocument(newSettings)
   }
 
   getAccountOccurrencesInState(account) {
@@ -222,5 +238,6 @@ export default compose(
     accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' },
     groups: { query: client => client.all(GROUP_DOCTYPE), as: 'groups' },
     settings: { query: client => client.all(SETTINGS_DOCTYPE), as: 'settings' }
-  })
+  }),
+  withMutations()
 )(Balance)
