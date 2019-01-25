@@ -49,4 +49,14 @@ describe('getCategoryId', () => {
     flag.mockReturnValueOnce(false)
     expect(getCategoryId(transaction)).toBe(transaction.automaticCategoryId)
   })
+
+  it('should return the cozyCategoryId if there is one with a high probability, but no localCategoryId', () => {
+    const transaction = {
+      automaticCategoryId: '200120',
+      cozyCategoryId: '200130',
+      cozyCategoryProba: 0.9
+    }
+
+    expect(getCategoryId(transaction)).toBe(transaction.cozyCategoryId)
+  })
 })
