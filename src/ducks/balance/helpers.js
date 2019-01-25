@@ -156,20 +156,16 @@ export const getGroupBalance = group => {
   return sumBy(accounts, account => get(account, 'balance', 0))
 }
 
-export const getSwitchesState = (groups, currentSwitchesState) => {
+export const getPanelsState = (groups, currentPanelsState) => {
   const switchesState = groups.reduce((acc, group) => {
-    const groupChecked = get(
-      currentSwitchesState,
-      `[${group._id}].checked`,
-      true
-    )
+    const groupChecked = get(currentPanelsState, `[${group._id}].checked`, true)
 
     acc[group._id] = {
       checked: groupChecked,
       accounts: get(group, 'accounts.data', []).reduce((acc2, account) => {
         acc2[account._id] = {
           checked: get(
-            currentSwitchesState,
+            currentPanelsState,
             `[${group._id}].accounts[${account.id}].checked`,
             true
           ),

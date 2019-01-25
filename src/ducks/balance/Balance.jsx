@@ -20,11 +20,11 @@ import History from './History'
 import styles from './Balance.styl'
 import BalanceTables from './BalanceTables'
 import BalancePanels from './BalancePanels'
-import { getSwitchesState } from './helpers'
+import { getPanelsState } from './helpers'
 
 class Balance extends PureComponent {
   state = {
-    switches: {}
+    panels: {}
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -39,12 +39,12 @@ class Balance extends PureComponent {
       ...buildVirtualGroups(accountsCollection.data)
     ]
 
-    const { switches: currentSwitchesState } = state
+    const { panels: currentPanelsState } = state
 
-    const newSwitchesState = getSwitchesState(groups, currentSwitchesState)
+    const newPanelsState = getPanelsState(groups, currentPanelsState)
 
     return {
-      switches: newSwitchesState
+      panels: newPanelsState
     }
   }
 
@@ -53,16 +53,16 @@ class Balance extends PureComponent {
 
     this.setState(prevState => {
       const nextState = { ...prevState }
-      set(nextState.switches, path, checked)
+      set(nextState.panels, path, checked)
 
       return nextState
     })
   }
 
   getAccountOccurrencesInState(account) {
-    const { switches } = this.state
+    const { panels } = this.state
 
-    return Object.values(switches)
+    return Object.values(panels)
       .map(group => group.accounts[account._id])
       .filter(Boolean)
   }
@@ -187,7 +187,7 @@ class Balance extends PureComponent {
             <BalancePanels
               groups={groups}
               warningLimit={balanceLower}
-              switches={this.state.switches}
+              panelsState={this.state.panels}
               onSwitchChange={this.handleSwitchChange}
             />
           ) : (
