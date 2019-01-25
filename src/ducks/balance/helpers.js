@@ -19,7 +19,14 @@ import {
  */
 export const getBalanceHistories = (accounts, transactions, to, from) => {
   if (accounts.length === 0) {
-    return null
+    return {
+      __no_accounts__: getBalanceHistory(
+        { _id: '__no_accounts__', balance: 0 },
+        [],
+        to,
+        from
+      )
+    }
   }
 
   const balances = accounts.reduce((balances, account) => {

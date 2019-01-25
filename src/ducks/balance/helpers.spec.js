@@ -154,8 +154,20 @@ describe('sumBalanceHistories', () => {
 })
 
 describe('getBalanceHistories', () => {
-  it('should return null if there is no account', () => {
-    expect(getBalanceHistories([], [{ amount: 42 }])).toBeNull()
+  it('should an empty history if there is no account', () => {
+    expect(
+      getBalanceHistories(
+        [],
+        [],
+        parseDate('2019-01-02'),
+        parseDate('2019-01-01')
+      )
+    ).toEqual({
+      __no_accounts__: {
+        '2019-01-01': 0,
+        '2019-01-02': 0
+      }
+    })
   })
 
   it('should return an object with a property for each account id', () => {
