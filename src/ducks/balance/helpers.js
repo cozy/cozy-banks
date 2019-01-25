@@ -159,9 +159,15 @@ export const getGroupBalance = group => {
 export const getPanelsState = (groups, currentPanelsState) => {
   const switchesState = groups.reduce((acc, group) => {
     const groupChecked = get(currentPanelsState, `[${group._id}].checked`, true)
+    const groupExpanded = get(
+      currentPanelsState,
+      `[${group._id}].expanded`,
+      true
+    )
 
     acc[group._id] = {
       checked: groupChecked,
+      expanded: groupExpanded,
       accounts: get(group, 'accounts.data', []).reduce((acc2, account) => {
         acc2[account._id] = {
           checked: get(

@@ -59,6 +59,17 @@ class Balance extends PureComponent {
     })
   }
 
+  handlePanelChange = panelId => (event, expanded) => {
+    const path = panelId + '.expanded'
+
+    this.setState(prevState => {
+      const nextState = { ...prevState }
+      set(nextState.panels, path, expanded)
+
+      return nextState
+    })
+  }
+
   getAccountOccurrencesInState(account) {
     const { panels } = this.state
 
@@ -189,6 +200,7 @@ class Balance extends PureComponent {
               warningLimit={balanceLower}
               panelsState={this.state.panels}
               onSwitchChange={this.handleSwitchChange}
+              onPanelChange={this.handlePanelChange}
             />
           ) : (
             <BalanceTables

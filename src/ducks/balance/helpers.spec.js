@@ -293,6 +293,7 @@ describe('getPanelsState', () => {
     expect(getPanelsState(groups, currentSwitchesState)).toEqual({
       g1: {
         checked: true,
+        expanded: true,
         accounts: {
           a1: {
             checked: true,
@@ -314,6 +315,7 @@ describe('getPanelsState', () => {
     expect(getPanelsState(groups, currentSwitchesState)).toEqual({
       g1: {
         checked: false,
+        expanded: true,
         accounts: {
           a1: {
             checked: true,
