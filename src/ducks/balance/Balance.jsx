@@ -62,15 +62,9 @@ class Balance extends PureComponent {
   getAccountOccurrencesInState(account) {
     const { switches } = this.state
 
-    return Object.values(switches).reduce((occurrences, group) => {
-      const occurrence = group.accounts[account._id]
-
-      if (occurrence) {
-        return [...occurrences, occurrence]
-      }
-
-      return occurrences
-    }, [])
+    return Object.values(switches)
+      .map(group => group.accounts[account._id])
+      .filter(Boolean)
   }
 
   getCheckedAccounts() {
