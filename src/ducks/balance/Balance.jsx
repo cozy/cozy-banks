@@ -28,20 +28,10 @@ class Balance extends PureComponent {
   }
 
   static getDerivedStateFromProps(props, state) {
-    const { groups: groupsCollection, accounts: accountsCollection } = props
-
-    if (!groupsCollection || !accountsCollection) {
-      return null
-    }
-
-    const groups = [
-      ...groupsCollection.data,
-      ...buildVirtualGroups(accountsCollection.data)
-    ]
-
+    const { groups, accounts } = props
+    const allGroups = [...groups.data, ...buildVirtualGroups(accounts.data)]
     const { panels: currentPanelsState } = state
-
-    const newPanelsState = getPanelsState(groups, currentPanelsState)
+    const newPanelsState = getPanelsState(allGroups, currentPanelsState)
 
     return {
       panels: newPanelsState
