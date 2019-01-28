@@ -1,20 +1,20 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
-import { flowRight as compose, uniq, sumBy, get } from 'lodash'
+import { flowRight as compose, uniq, get } from 'lodash'
 import { withBreakpoints } from 'cozy-ui/react'
 import cx from 'classnames'
 import { TdSecondary } from 'components/Table'
 import { Figure } from 'components/Figure'
 import { getFilteringDoc } from 'ducks/filters'
-import { getAccountInstitutionLabel } from 'ducks/account/helpers'
+import {
+  getAccountInstitutionLabel,
+  getAccountBalance
+} from 'ducks/account/helpers'
 import styles from './BalanceRow.styl'
 import tableStyles from './BalanceTable.styl'
 import { filterByDoc } from 'ducks/filters'
-
-const getGroupBalance = group => {
-  return sumBy(group.accounts.data, account => get(account, 'balance') || 0)
-}
+import { getGroupBalance } from 'ducks/balance/helpers'
 
 const sameId = (filteringDoc, accountOrGroup) => {
   return filteringDoc && filteringDoc._id === accountOrGroup._id
@@ -44,7 +44,9 @@ class BalanceRow extends React.PureComponent {
       breakpoints: { isMobile }
     } = this.props
 
-    const balance = account ? account.balance : getGroupBalance(group)
+    const balance = account
+      ? getAccountBalance(account)
+      : getGroupBalance(group)
     const isWarning = balance ? balance < warningLimit : false
     const isAlert = balance ? balance < 0 : false
     const label = account ? getAccountLabel(account) : group.label

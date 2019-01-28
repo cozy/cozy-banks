@@ -1,6 +1,3 @@
-export const isDocYoungerThan = date => doc =>
-  doc.date && new Date(doc.date) > date
-
 export const isTransactionAmountGreaterThan = max => transaction => {
   // Math.abs(null) === 0
   if (max === null) return false

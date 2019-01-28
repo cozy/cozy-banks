@@ -23,7 +23,7 @@ import {
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { getCategoryId } from 'ducks/categories/helpers'
 import { withUpdateCategory } from 'ducks/categories'
-import { getLabel } from './helpers'
+import { getLabel, getDate } from './helpers'
 import styles from './Transactions.styl'
 
 class _RowDesktop extends React.PureComponent {
@@ -83,7 +83,7 @@ class _RowDesktop extends React.PureComponent {
           className={cx(styles.ColumnSizeDate, 'u-clickable')}
           onClick={this.onSelectTransaction}
         >
-          {f(transaction.date, `D ${isExtraLarge ? 'MMMM' : 'MMM'} YYYY`)}
+          {f(getDate(transaction), `D ${isExtraLarge ? 'MMMM' : 'MMM'} YYYY`)}
         </TdSecondary>
         <TdSecondary
           className={cx(styles.ColumnSizeAmount, 'u-clickable')}

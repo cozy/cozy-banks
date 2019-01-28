@@ -3,6 +3,7 @@ import htmlTemplate from './html/balance-lower-html'
 import * as utils from './html/utils'
 import Notification from './Notification'
 import log from 'cozy-logger'
+import { getAccountBalance } from 'ducks/account/helpers'
 
 const addCurrency = o => ({ ...o, currency: '€' })
 
@@ -48,7 +49,8 @@ class BalanceLower extends Notification {
   filter(account) {
     // TODO: Find why account is undefined?
     return (
-      account.balance < this.lowerBalance && account.type !== 'CreditCard' // CreditCard are always in negative balance
+      getAccountBalance(account) < this.lowerBalance &&
+      account.type !== 'CreditCard' // CreditCard are always in negative balance
     )
   }
 
@@ -64,6 +66,7 @@ class BalanceLower extends Notification {
     log('info', `BalanceLower: ${accountsFiltered.length} accountsFiltered`)
 
     Handlebars.registerHelper({ t: this.t })
+    Handlebars.registerHelper({ getAccountBalance })
 
     const onlyOne = accountsFiltered.length === 1
     const firstAccount = accountsFiltered[0]
@@ -107,7 +110,7 @@ class BalanceLower extends Notification {
 
   getPushContent(accounts) {
     const [account] = accounts
-    const { balance } = account
+    const balance = getAccountBalance(account)
 
     return `${account.label} (${balance > 0 ? '+' : ''}${balance} ${
       account.currency

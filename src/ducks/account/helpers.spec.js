@@ -1,7 +1,8 @@
 import {
   getAccountUpdateDateDistance,
   distanceInWords,
-  getAccountType
+  getAccountType,
+  getAccountBalance
 } from './helpers'
 
 describe('getAccountUpdateDateDistance', () => {
@@ -51,5 +52,32 @@ describe('getAccountType', () => {
     expect(getAccountType(accounts[0])).toBe('RetirementPlan')
     expect(getAccountType(accounts[1])).toBe('RetirementPlan')
     expect(getAccountType(accounts[2])).toBe('RetirementPlan')
+  })
+})
+
+describe('getAccountBalance', () => {
+  it('should return the comingBalance if the account is a CreditCard one and it has a comingBalance', () => {
+    const account = {
+      type: 'CreditCard',
+      comingBalance: 100,
+      balance: 200
+    }
+
+    expect(getAccountBalance(account)).toBe(account.comingBalance)
+  })
+
+  it('should return the balance if the account is a CreditCard one but it has no comingBalance', () => {
+    const account = {
+      type: 'CreditCard',
+      balance: 200
+    }
+
+    expect(getAccountBalance(account)).toBe(account.balance)
+  })
+
+  it('should return the balance if the account is not a CreditCard one', () => {
+    const account = { type: 'Checkings', balance: 200 }
+
+    expect(getAccountBalance(account)).toBe(account.balance)
   })
 })

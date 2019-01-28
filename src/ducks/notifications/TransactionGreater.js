@@ -2,11 +2,12 @@ import Handlebars from 'handlebars'
 import htmlTemplate from './html/transaction-greater-html'
 import * as utils from './html/utils'
 import { subDays } from 'date-fns'
-import { isDocYoungerThan, isTransactionAmountGreaterThan } from './helpers'
+import { isTransactionAmountGreaterThan } from './helpers'
 import isCreatedDoc from 'utils/isCreatedDoc'
 import Notification from './Notification'
 import { sortBy } from 'lodash'
 import log from 'cozy-logger'
+import { getDate } from 'ducks/transactions/helpers'
 
 const ACCOUNT_SEL = '.js-account'
 const DATE_SEL = '.js-date'
@@ -57,7 +58,7 @@ class TransactionGreater extends Notification {
 
     return transactions
       .filter(isCreatedDoc)
-      .filter(isDocYoungerThan(fourDaysAgo))
+      .filter(tr => new Date(getDate(tr)) > fourDaysAgo)
       .filter(isTransactionAmountGreaterThan(this.maxAmount))
   }
 
@@ -113,7 +114,7 @@ class TransactionGreater extends Notification {
   }
 
   getPushContent(transactions) {
-    const [transaction] = sortBy(transactions, 'date').reverse()
+    const [transaction] = sortBy(transactions, getDate).reverse()
 
     return `${transaction.label} : ${transaction.amount} ${
       transaction.currency

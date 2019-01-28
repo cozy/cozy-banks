@@ -9,7 +9,6 @@ import {
   toPairs,
   groupBy
 } from 'lodash'
-import { format } from 'date-fns'
 import cx from 'classnames'
 import { isIOSApp } from 'cozy-device-helper'
 
@@ -21,9 +20,10 @@ import styles from './Transactions.styl'
 import { InfiniteScroll, ScrollRestore, TopMost } from './scroll'
 import TransactionModal from './TransactionModal'
 import { RowDesktop, RowMobile } from './TransactionRow'
+import { getDate } from './helpers'
 
 const groupByDateAndSort = transactions => {
-  const byDate = groupBy(transactions, x => format(x.date, 'YYYY-MM-DD'))
+  const byDate = groupBy(transactions, x => getDate(x))
   return sortBy(toPairs(byDate), x => x[0]).reverse()
 }
 

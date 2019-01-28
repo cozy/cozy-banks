@@ -46,6 +46,7 @@ import {
 import { TRANSACTION_DOCTYPE } from 'doctypes'
 import { isCollectionLoading } from 'ducks/client/utils'
 import flag from 'cozy-flags'
+import { getDate } from './helpers'
 
 const Separator = () => <hr className={styles.TransactionModalSeparator} />
 
@@ -155,7 +156,7 @@ class TransactionModal extends Component {
         <Separator />
         <TransactionModalRow iconLeft={iconCalendar}>
           <span style={transactionModalRowStyle}>
-            {f(transaction.date, 'dddd DD MMMM')}
+            {f(getDate(transaction), 'dddd DD MMMM')}
           </span>
         </TransactionModalRow>
         <Separator />

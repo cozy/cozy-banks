@@ -1,5 +1,5 @@
 import configureStore from 'store/configureStore'
-import { hydrateTransaction } from './helpers'
+import { hydrateTransaction, getDate } from './helpers'
 import { BILLS_DOCTYPE } from 'doctypes'
 
 const fakeCozyClient = {
@@ -48,5 +48,22 @@ xdescribe('transaction', () => {
       ].map(t => hydrateTransaction(store.getState(), t))
       expect(transactions[0].reimbursements[0].bill).toBe(undefined)
     })
+  })
+})
+
+describe('getDate', () => {
+  it('should return realisation date if there is one', () => {
+    const transaction = {
+      realisationDate: '2019-01-28T00:00:00Z',
+      date: '2019-01-31T00:00:00Z'
+    }
+
+    expect(getDate(transaction)).toBe('2019-01-28')
+  })
+
+  it('should return the date if there is no relation date', () => {
+    const transaction = { date: '2019-01-31T00:00:00Z' }
+
+    expect(getDate(transaction)).toBe('2019-01-31')
   })
 })

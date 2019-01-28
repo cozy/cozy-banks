@@ -12,7 +12,8 @@ import {
   getAccountUpdateDateDistance,
   distanceInWords,
   getAccountInstitutionLabel,
-  getAccountInstitutionSlug
+  getAccountInstitutionSlug,
+  getAccountBalance
 } from 'ducks/account/helpers'
 import styles from './AccountRow.styl'
 import { getCozyURL, isSecureProtocol } from 'cozy-stack-client/dist/urls'
@@ -126,7 +127,7 @@ class AccountRow extends React.PureComponent {
         >
           <Figure
             currency="€"
-            total={account.balance}
+            total={getAccountBalance(account)}
             className={cx(styles.AccountRow__figure)}
             totalClassName={styles.AccountRow__figure}
             currencyClassName={styles.AccountRow__figure}

@@ -5,6 +5,7 @@ import { withRouter } from 'react-router'
 import withFilteringDoc from 'components/withFilteringDoc'
 import AccountRow from './AccountRow'
 import styles from './AccountsList.styl'
+import { getAccountBalance } from 'ducks/account/helpers'
 
 class AccountsList extends React.PureComponent {
   static propTypes = {
@@ -25,7 +26,7 @@ class AccountsList extends React.PureComponent {
 
     return (
       <ol className={styles.AccountsList}>
-        {sortBy(accounts, a => a.balance).map(a => (
+        {sortBy(accounts.filter(Boolean), getAccountBalance).map(a => (
           <AccountRow
             key={a._id}
             account={a}
