@@ -15,6 +15,7 @@ import { PageTitle } from 'components/Title'
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import { buildVirtualGroups } from 'ducks/groups/helpers'
 import { isCollectionLoading } from 'ducks/client/utils'
+import { getAccountBalance } from 'ducks/account/helpers'
 
 import History from './History'
 import styles from './Balance.styl'
@@ -152,12 +153,7 @@ class Balance extends PureComponent {
     const accounts = accountsCollection.data
     const groups = [...groupsCollection.data, ...buildVirtualGroups(accounts)]
 
-    let total = 0
-    accounts.map(account => {
-      if (account.balance) {
-        total += parseInt(account.balance, 10)
-      }
-    })
+    const total = sumBy(accounts, getAccountBalance)
 
     const balanceLower = get(settings, 'notifications.balanceLower.value')
     const showPanels = flag('balance-panels')
@@ -165,7 +161,7 @@ class Balance extends PureComponent {
     const checkedAccounts = this.getCheckedAccounts()
     const checkedAccountsBalance = isCollectionLoading(accounts)
       ? 0
-      : sumBy(checkedAccounts, a => a.balance)
+      : sumBy(checkedAccounts, getAccountBalance)
 
     return (
       <Fragment>

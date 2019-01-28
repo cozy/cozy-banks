@@ -8,6 +8,7 @@ import {
   format as formatDate,
   isValid as isDateValid
 } from 'date-fns'
+import { getAccountBalance } from 'ducks/account/helpers'
 
 /**
  * Get balance histories for a set of accounts
@@ -83,7 +84,7 @@ export const getBalanceHistory = (account, transactions, to, from) => {
   const balances = {}
 
   for (
-    let day = to, balance = account.balance;
+    let day = to, balance = getAccountBalance(account);
     isDateAfter(day, from) || isDateEqual(day, from);
     day = subDays(day, 1)
   ) {
@@ -153,7 +154,7 @@ export const getGroupBalance = group => {
     return 0
   }
 
-  return sumBy(accounts, account => get(account, 'balance', 0))
+  return sumBy(accounts.filter(Boolean), getAccountBalance)
 }
 
 export const getPanelsState = (groups, currentPanelsState) => {

@@ -93,3 +93,11 @@ export const getAccountType = account => {
 
 export const getAccountInstitutionSlug = account =>
   get(account, 'cozyMetadata.createdByApp')
+
+export const getAccountBalance = account => {
+  if (account.type === 'CreditCard' && account.comingBalance) {
+    return account.comingBalance
+  }
+
+  return account.balance
+}

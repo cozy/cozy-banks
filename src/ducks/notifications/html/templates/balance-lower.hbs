@@ -23,7 +23,7 @@
                   {{ capitalize this.label }}
                   </a>
                 </td>
-                <td width="150px" align='right'><span>{{ colored this.balance }}</span></td>
+                <td width="150px" align='right'><span>{{ colored (getAccountBalance this) }}</span></td>
               </tr>
             </mj-table>
               {{#unless @last}}<mj-divider padding-bottom="0" padding-top="0" border-width="1px" border-color="#ececec" />{{/unless}}

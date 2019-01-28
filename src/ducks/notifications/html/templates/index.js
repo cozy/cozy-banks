@@ -25,7 +25,7 @@ Handlebars.registerHelper({
   colored: amount => {
     return new Handlebars.SafeString(
       `<span class='amount amount--${amount > 0 ? 'pos' : 'neg'}'>
-${amount > 0 ? '+' : '-'}
+${amount >= 0 ? '+' : '-'}
 ${Math.abs(amount)} €
 </span>
 `
