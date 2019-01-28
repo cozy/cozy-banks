@@ -227,6 +227,11 @@
     "konnectorSlug": "scaleway"
   },
   {
+    "name": "Showroom Privé",
+    "regexp": "\\bshowroomprive\\b",
+    "konnectorSlug": "showroomprive"
+  },
+  {
     "name": "Sosh",
     "regexp": "\\b(sosh|orange)\\b",
     "konnectorSlug": "sosh"
