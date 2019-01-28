@@ -5,6 +5,7 @@ import toPairs from 'lodash/toPairs'
 import flow from 'lodash/flow'
 import unique from 'lodash/uniq'
 import get from 'lodash/get'
+import { getDate } from 'ducks/transactions/helpers'
 
 export const toText = (cozyHTMLEmail, getContent) => {
   const $ = cheerio.load(cozyHTMLEmail)
@@ -26,13 +27,11 @@ ${getContent($)}
 `
 }
 
-const getDay = date => date.slice(0, 10)
-
 export const prepareTransactions = function(transactions) {
   const byAccounts = groupBy(transactions, tr => tr.account)
 
   const groupAndSortByDate = flow(
-    transactions => groupBy(transactions, tr => getDay(tr.date)),
+    transactions => groupBy(transactions, getDate),
     toPairs,
     dt => sortBy(dt, ([date]) => date).reverse()
   )

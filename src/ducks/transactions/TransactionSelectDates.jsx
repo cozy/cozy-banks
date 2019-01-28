@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import SelectDates from 'components/SelectDates'
 import { uniq } from 'lodash'
 import { subMonths, format, parse, differenceInCalendarMonths } from 'date-fns'
+import { getDate } from './helpers'
 
 const rangeMonth = (startDate, endDate) => {
   const options = []
@@ -13,7 +14,7 @@ const rangeMonth = (startDate, endDate) => {
   return options
 }
 
-const getYearMonth = transaction => transaction.date.slice(0, 7)
+const getYearMonth = transaction => getDate(transaction).slice(0, 7)
 
 export const getOptions = transactions => {
   const availableMonths = uniq(transactions.map(getYearMonth)).sort()
