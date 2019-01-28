@@ -40,7 +40,9 @@ class GroupPanel extends React.PureComponent {
     warningLimit: PropTypes.number.isRequired,
     switches: PropTypes.object.isRequired,
     checked: PropTypes.bool.isRequired,
-    onSwitchChange: PropTypes.func.isRequired
+    expanded: PropTypes.bool.isRequired,
+    onSwitchChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired
   }
 
   goToTransactionsFilteredByDoc = () => {
@@ -63,11 +65,13 @@ class GroupPanel extends React.PureComponent {
       warningLimit,
       switches,
       onSwitchChange,
-      checked
+      checked,
+      expanded,
+      onChange
     } = this.props
 
     return (
-      <ExpansionPanel defaultExpanded>
+      <ExpansionPanel expanded={expanded} onChange={onChange(group._id)}>
         <GroupPanelSummary
           expandIcon={<Icon icon="bottom" color="black" width={12} />}
           IconButtonProps={{

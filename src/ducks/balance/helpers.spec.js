@@ -6,7 +6,7 @@ import {
   getAllDates,
   balanceHistoryToChartData,
   getGroupBalance,
-  getSwitchesState
+  getPanelsState
 } from './helpers'
 import { format as formatDate, parse as parseDate } from 'date-fns'
 
@@ -285,14 +285,15 @@ describe('getGroupBalance', () => {
   })
 })
 
-describe('getSwitchesState', () => {
+describe('getPanelsState', () => {
   it('should initialize switches state to true', () => {
     const groups = [{ _id: 'g1', accounts: { data: [{ _id: 'a1' }] } }]
     const currentSwitchesState = {}
 
-    expect(getSwitchesState(groups, currentSwitchesState)).toEqual({
+    expect(getPanelsState(groups, currentSwitchesState)).toEqual({
       g1: {
         checked: true,
+        expanded: true,
         accounts: {
           a1: {
             checked: true,
@@ -311,9 +312,10 @@ describe('getSwitchesState', () => {
       }
     }
 
-    expect(getSwitchesState(groups, currentSwitchesState)).toEqual({
+    expect(getPanelsState(groups, currentSwitchesState)).toEqual({
       g1: {
         checked: false,
+        expanded: true,
         accounts: {
           a1: {
             checked: true,

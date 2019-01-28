@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from 'react'
 import { flowRight as compose, get, sumBy, set } from 'lodash'
 import { translate, withBreakpoints } from 'cozy-ui/react'
-import { queryConnect } from 'cozy-client'
+import { queryConnect, withMutations } from 'cozy-client'
 import flag from 'cozy-flags'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
 import cx from 'classnames'
@@ -20,31 +20,32 @@ import History from './History'
 import styles from './Balance.styl'
 import BalanceTables from './BalanceTables'
 import BalancePanels from './BalancePanels'
-import { getSwitchesState } from './helpers'
+import { getPanelsState } from './helpers'
 
 class Balance extends PureComponent {
   state = {
-    switches: {}
+    panels: null
   }
 
   static getDerivedStateFromProps(props, state) {
-    const { groups: groupsCollection, accounts: accountsCollection } = props
+    const { groups, accounts, settings: settingsCollection } = props
 
-    if (!groupsCollection || !accountsCollection) {
+    const isLoading =
+      isCollectionLoading(groups) ||
+      isCollectionLoading(accounts) ||
+      isCollectionLoading(settingsCollection)
+
+    if (isLoading) {
       return null
     }
 
-    const groups = [
-      ...groupsCollection.data,
-      ...buildVirtualGroups(accountsCollection.data)
-    ]
-
-    const { switches: currentSwitchesState } = state
-
-    const newSwitchesState = getSwitchesState(groups, currentSwitchesState)
+    const settings = getDefaultedSettingsFromCollection(settingsCollection)
+    const allGroups = [...groups.data, ...buildVirtualGroups(accounts.data)]
+    const currentPanelsState = state.panels || settings.panelsState || {}
+    const newPanelsState = getPanelsState(allGroups, currentPanelsState)
 
     return {
-      switches: newSwitchesState
+      panels: newPanelsState
     }
   }
 
@@ -53,16 +54,43 @@ class Balance extends PureComponent {
 
     this.setState(prevState => {
       const nextState = { ...prevState }
-      set(nextState.switches, path, checked)
+      set(nextState.panels, path, checked)
 
       return nextState
-    })
+    }, this.onPanelsStateChange)
+  }
+
+  handlePanelChange = panelId => (event, expanded) => {
+    const path = panelId + '.expanded'
+
+    this.setState(prevState => {
+      const nextState = { ...prevState }
+      set(nextState.panels, path, expanded)
+
+      return nextState
+    }, this.onPanelsStateChange)
+  }
+
+  onPanelsStateChange() {
+    const { panels } = this.state
+    const settings = this.props.settings.data[0]
+
+    if (!settings) {
+      return
+    }
+
+    const newSettings = {
+      ...settings,
+      panelsState: panels
+    }
+
+    this.props.saveDocument(newSettings)
   }
 
   getAccountOccurrencesInState(account) {
-    const { switches } = this.state
+    const { panels } = this.state
 
-    return Object.values(switches)
+    return Object.values(panels)
       .map(group => group.accounts[account._id])
       .filter(Boolean)
   }
@@ -187,8 +215,9 @@ class Balance extends PureComponent {
             <BalancePanels
               groups={groups}
               warningLimit={balanceLower}
-              switches={this.state.switches}
+              panelsState={this.state.panels}
               onSwitchChange={this.handleSwitchChange}
+              onPanelChange={this.handlePanelChange}
             />
           ) : (
             <BalanceTables
@@ -210,5 +239,6 @@ export default compose(
     accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' },
     groups: { query: client => client.all(GROUP_DOCTYPE), as: 'groups' },
     settings: { query: client => client.all(SETTINGS_DOCTYPE), as: 'settings' }
-  })
+  }),
+  withMutations()
 )(Balance)
