@@ -169,6 +169,10 @@ export const getPanelsState = (groups, currentPanelsState) => {
       checked: groupChecked,
       expanded: groupExpanded,
       accounts: get(group, 'accounts.data', []).reduce((acc2, account) => {
+        if (!account) {
+          return acc2
+        }
+
         acc2[account._id] = {
           checked: get(
             currentPanelsState,

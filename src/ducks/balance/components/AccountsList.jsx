@@ -25,7 +25,7 @@ class AccountsList extends React.PureComponent {
 
     return (
       <ol className={styles.AccountsList}>
-        {sortBy(accounts, a => a.balance).map(a => (
+        {sortBy(accounts.filter(Boolean), a => a.balance).map(a => (
           <AccountRow
             key={a._id}
             account={a}
