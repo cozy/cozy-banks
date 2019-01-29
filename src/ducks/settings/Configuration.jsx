@@ -103,17 +103,6 @@ class Configuration extends React.PureComponent {
             enabled={settings.community.autoCategorization.enabled}
             name="autoCategorization"
           />
-          <TogglePaneSubtitle>
-            {t('AdvancedFeaturesSettings.balance_history.title')}
-          </TogglePaneSubtitle>
-          <ToggleRow
-            description={t(
-              'AdvancedFeaturesSettings.balance_history.show_chart.description'
-            )}
-            onToggle={this.onToggle('balanceHistory')}
-            enabled={settings.balanceHistory.enabled}
-            name="balanceHistory"
-          />
         </TogglePane>
       </div>
     )
