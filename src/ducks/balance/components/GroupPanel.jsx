@@ -73,6 +73,9 @@ class GroupPanel extends React.PureComponent {
     const nbAccounts = group.accounts.data.length
     const nbCheckedAccounts = Object.values(switches).filter(s => s.checked)
       .length
+    const uncheckedAccountsIds = Object.keys(switches).filter(
+      k => !switches[k].checked
+    )
 
     return (
       <ExpansionPanel expanded={expanded} onChange={onChange(group._id)}>
@@ -92,7 +95,7 @@ class GroupPanel extends React.PureComponent {
               {group.label}
               <Figure
                 currency="€"
-                total={getGroupBalance(group)}
+                total={getGroupBalance(group, uncheckedAccountsIds)}
                 currencyClassName={styles.GroupPanelSummary__figureCurrency}
               />
             </div>
