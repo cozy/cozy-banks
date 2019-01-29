@@ -4749,10 +4749,10 @@ cozy-ach@1.9.0:
     server-destroy "^1.0.1"
     timezone "^1.0.13"
 
-cozy-app-publish@0.10.4:
-  version "0.10.4"
-  resolved "https://registry.yarnpkg.com/cozy-app-publish/-/cozy-app-publish-0.10.4.tgz#8040719656dc469de4e730fba43dd64776235ca6"
-  integrity sha512-hmWs5l3rCaUvpCm257yaqIpPA+JbyCYouCzfHAP6gkMJjb6lG2ZQnsPJ7W9ScDw9xYpuQ2wPszqBXOOyGH9KuA==
+cozy-app-publish@0.10.5:
+  version "0.10.5"
+  resolved "https://registry.yarnpkg.com/cozy-app-publish/-/cozy-app-publish-0.10.5.tgz#01992b00b904623434253bab6b3c3bdb31eeaf77"
+  integrity sha512-e8JQPHrJVbUhtuiu1VEy8G6fCHiQatlx0j4dFQ99oC2ora6gr19UZWCRrgPq4tIBVgG1m18a06JDVCriu/wedg==
   dependencies:
     chalk "2.4.2"
     commander "2.19.0"
@@ -4760,7 +4760,7 @@ cozy-app-publish@0.10.4:
     fs-extra "7.0.1"
     node-fetch "2.3.0"
     prompt "1.0.0"
-    request "^2.88.0"
+    request "2.88.0"
     tar "4.4.8"
 
 cozy-authentication@1.4.0-beta1:
@@ -15825,7 +15825,7 @@ request@2.83.0:
     tunnel-agent "^0.6.0"
     uuid "^3.1.0"
 
-request@2.88.0, request@^2.87.0, request@^2.88.0:
+request@2.88.0, request@^2.87.0:
   version "2.88.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.88.0.tgz#9c2fca4f7d35b592efe57c7f0a55e81052124fef"
   integrity sha512-NAqBSrijGLZdM0WZNsInLJpkJokL72XYjUpnB0iwsRgxh7dB6COrHnTBNwN0E+lHDAJzu7kLAkDeY08z2/A0hg==
