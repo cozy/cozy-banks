@@ -2,14 +2,8 @@ import Switch from '@material-ui/core/Switch'
 import { withStyles } from '@material-ui/core/styles'
 
 export default withStyles(() => ({
-  root: {
-    width: 40,
-    height: 23
-  },
-  switchBase: {
-    width: 25,
-    height: 23
-  },
+  root: {},
+  switchBase: {},
   checked: {
     '& + $bar': {
       opacity: 1
