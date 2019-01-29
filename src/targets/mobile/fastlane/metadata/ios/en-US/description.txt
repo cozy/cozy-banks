@@ -15,7 +15,7 @@ Main features:
 
 As secured as your bank:
 • Cozy Cloud is a French company that develops Cozy Banks which servers are hosted in France by OVH
-• We use the technology of our provider Linxo
+• We use the technology of our provider Business Insight
 • As safe as your bank's website
 • Your credentials and connections are always protected (encrypted)
 • Cozy Banks is dedicated for read only, no payment order or wire transfers are possible
@@ -34,7 +34,6 @@ heck out the list of 25+ banks and account types available in your Cozy:
 • Caisse d’Epargne
 • Casden
 • CIC
-• Compte Nickel
 • Crédit Agricole
 • Crédit Coopératif
 • Crédit Maritime
