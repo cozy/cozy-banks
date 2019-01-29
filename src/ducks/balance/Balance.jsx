@@ -9,7 +9,7 @@ import cx from 'classnames'
 import Loading from 'components/Loading'
 import { Padded } from 'components/Spacing'
 import Header from 'components/Header'
-import { Figure, FigureBlock } from 'components/Figure'
+import { Figure } from 'components/Figure'
 import { PageTitle } from 'components/Title'
 
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
@@ -123,12 +123,11 @@ class Balance extends PureComponent {
     }
 
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
-    const withChart = settings.balanceHistory.enabled
-    const color = withChart ? 'primary' : 'default'
+    const color = 'primary'
     const headerColorProps = { color }
     const headerClassName = styles[`Balance_HeaderColor_${color}`]
     const titleColorProps = {
-      color: withChart && !isMobile ? 'primary' : 'default'
+      color: isMobile ? 'default' : 'primay'
     }
     const titlePaddedClass = isMobile ? 'u-p-0' : 'u-pb-0'
 
@@ -139,7 +138,7 @@ class Balance extends PureComponent {
       return (
         <Fragment>
           <Header className={headerClassName} {...headerColorProps}>
-            {(isMobile || !withChart) && (
+            {isMobile && (
               <Padded className={titlePaddedClass}>
                 <PageTitle {...titleColorProps}>{t('Balance.title')}</PageTitle>
               </Padded>
@@ -153,8 +152,6 @@ class Balance extends PureComponent {
     const accounts = accountsCollection.data
     const groups = [...groupsCollection.data, ...buildVirtualGroups(accounts)]
 
-    const total = sumBy(accounts, getAccountBalance)
-
     const balanceLower = get(settings, 'notifications.balanceLower.value')
     const showPanels = flag('balance-panels')
 
@@ -166,45 +163,32 @@ class Balance extends PureComponent {
     return (
       <Fragment>
         <Header className={headerClassName} {...headerColorProps}>
-          {(isMobile || !withChart) && (
+          {isMobile && (
             <Padded className={titlePaddedClass}>
               <PageTitle {...titleColorProps}>{t('Balance.title')}</PageTitle>
             </Padded>
           )}
-          {withChart ? (
-            <Fragment>
-              <Figure
-                className={styles.Balance__currentBalance}
-                currencyClassName={styles.Balance__currentBalanceCurrency}
-                total={checkedAccountsBalance}
-                currency="€"
-              />
-              <div className={styles.Balance__subtitle}>
-                {checkedAccounts.length === accounts.length
-                  ? t('BalanceHistory.all_accounts')
-                  : t('BalanceHistory.checked_accounts', {
-                      nbCheckedAccounts: checkedAccounts.length,
-                      nbAccounts: accounts.length
-                    })}
-              </div>
-              <History accounts={checkedAccounts} />
-            </Fragment>
-          ) : (
-            <Padded className="u-pb-0">
-              <FigureBlock
-                label={t('Balance.subtitle.all')}
-                total={total}
-                currency="€"
-                coloredPositive
-                coloredNegative
-                signed
-              />
-            </Padded>
-          )}
+          <Fragment>
+            <Figure
+              className={styles.Balance__currentBalance}
+              currencyClassName={styles.Balance__currentBalanceCurrency}
+              total={checkedAccountsBalance}
+              currency="€"
+            />
+            <div className={styles.Balance__subtitle}>
+              {checkedAccounts.length === accounts.length
+                ? t('BalanceHistory.all_accounts')
+                : t('BalanceHistory.checked_accounts', {
+                    nbCheckedAccounts: checkedAccounts.length,
+                    nbAccounts: accounts.length
+                  })}
+            </div>
+            <History accounts={checkedAccounts} />
+          </Fragment>
         </Header>
         <Padded
           className={cx({
-            [styles.Balance__panelsContainer]: showPanels && withChart
+            [styles.Balance__panelsContainer]: showPanels
           })}
         >
           {showPanels ? (
