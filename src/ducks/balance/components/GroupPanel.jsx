@@ -70,6 +70,10 @@ class GroupPanel extends React.PureComponent {
       onChange
     } = this.props
 
+    const nbAccounts = group.accounts.data.length
+    const nbCheckedAccounts = Object.values(switches).filter(s => s.checked)
+      .length
+
     return (
       <ExpansionPanel expanded={expanded} onChange={onChange(group._id)}>
         <GroupPanelSummary
@@ -83,6 +87,8 @@ class GroupPanel extends React.PureComponent {
               className={styles.GroupPanelSummary__labelBalanceWrapper}
               onClick={this.handleSummaryContentClick}
             >
+              {nbCheckedAccounts < nbAccounts &&
+                `${nbCheckedAccounts}/${nbAccounts} `}
               {group.label}
               <Figure
                 currency="€"
