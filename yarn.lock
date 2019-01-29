@@ -4833,10 +4833,10 @@ cozy-client@5.7.2:
     redux-thunk "2.3.0"
     sift "7.0.1"
 
-cozy-client@^5.7.1:
-  version "5.7.1"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-5.7.1.tgz#13562f16369d4da29f4a3da4fa324985b9a133ee"
-  integrity sha512-Phvs5bLfDxDfbJ570e9IjFDdM/ExNVAY+MdzTlg/kGkiJG3LnztHsggMOL3bg5mWMHSet8sHtq5BCYhqmcx7dA==
+cozy-client@^5.7.3:
+  version "5.7.3"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-5.7.3.tgz#d5ca81d9d26098efd56f83629f8d68ec981c6811"
+  integrity sha512-bm7DNsOaSnHf8Js3wKHET0eDYfqz+xW6rNzfgqnVpATiWxEtULP7t/yQqokX2PmATkHk/2U+6mx6WFboPGUwXA==
   dependencies:
     cozy-device-helper "1.6.3"
     cozy-stack-client "^5.6.1"
@@ -4956,12 +4956,12 @@ cozy-logger@1.3.1, cozy-logger@^1.3.1:
   dependencies:
     json-stringify-safe "5.0.1"
 
-cozy-pouch-link@5.7.1:
-  version "5.7.1"
-  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-5.7.1.tgz#7738ebeb4f4220526d69fa6e4a0f66374712b2a5"
-  integrity sha512-YStDO9SqhR/Dlp/oADYwbN2bULR4u3cxfKBBh7viWV671+ZNxfXVaEdtYeRKD8lirRmRVBHXLxz/76OiaUHCVQ==
+cozy-pouch-link@5.7.3:
+  version "5.7.3"
+  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-5.7.3.tgz#1739414c44494275f3e4b8b1e21545951ff64da0"
+  integrity sha512-hNd9V339VYD/p/w/W1DL2aEjV9eHsOosLq5RVZ7UfFDSqI830Y5N6FlkxXy7wmHBJOgtfr5dUG6zafEK1cLisA==
   dependencies:
-    cozy-client "^5.7.1"
+    cozy-client "^5.7.3"
     cozy-device-helper "1.4.8"
     pouchdb "7.0.0"
     pouchdb-find "7.0.0"
