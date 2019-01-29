@@ -283,6 +283,25 @@ describe('getGroupBalance', () => {
 
     expect(getGroupBalance(group)).toBe(8900)
   })
+
+  it('should not sum the excluded accounts balance', () => {
+    const accounts = [
+      { _id: 'a', balance: 1000 },
+      { _id: 'b', balance: -100 },
+      { _id: 'c', balance: 8000 }
+    ]
+
+    const group = { accounts: { data: accounts } }
+    const excludedAccounts = ['a', 'c']
+
+    expect(getGroupBalance(group, excludedAccounts)).toBe(-100)
+  })
+
+  it('should return 0 if the group has no account', () => {
+    const group = { accounts: { data: [] } }
+
+    expect(getGroupBalance(group)).toBe(0)
+  })
 })
 
 describe('getPanelsState', () => {
