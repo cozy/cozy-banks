@@ -3,7 +3,12 @@
 import React, { Component, Fragment } from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
+import { subMonths } from 'date-fns'
+import PropTypes from 'prop-types'
+
 import { isIOSApp } from 'cozy-device-helper'
+import { translate, withBreakpoints } from 'cozy-ui/react'
+
 import {
   flowRight as compose,
   isEqual,
@@ -14,7 +19,6 @@ import {
 } from 'lodash'
 import { getFilteredAccounts } from 'ducks/filters'
 import BarBalance from 'components/BarBalance'
-import { translate, withBreakpoints } from 'cozy-ui/react'
 
 import {
   getTransactionsFilteredByAccount,
@@ -28,7 +32,6 @@ import { getDate } from 'ducks/transactions/helpers'
 import { getCategoryId } from 'ducks/categories/helpers'
 
 import Loading from 'components/Loading'
-
 import { TransactionsWithSelection } from './Transactions'
 import TransactionHeader from './TransactionHeader'
 import {
@@ -50,8 +53,6 @@ import {
   sumBalanceHistories,
   balanceHistoryToChartData
 } from 'ducks/balance/helpers'
-
-import { subMonths } from 'date-fns'
 
 const { BarRight } = cozy.bar
 
@@ -308,7 +309,7 @@ class TransactionsPage extends Component {
     const filteredTransactions = this.getTransactions()
 
     const chartData = this.getChartData()
-
+    const isOnSubcategory = onSubcategory(this.props)
     return (
       <Fragment>
         <TransactionHeader
@@ -318,10 +319,9 @@ class TransactionsPage extends Component {
           chartData={chartData}
         />
         {isMobile &&
-          !isCollectionLoading(accounts) && (
-            <BarRight>
-              <BarBalance accounts={filteredAccounts} />
-            </BarRight>
+          !isCollectionLoading(accounts) &&
+          !isOnSubcategory && (
+            <TransactionsPageBar accounts={filteredAccounts} />
           )}
         {isFetching ? (
           <Loading loadingType="movements" />
@@ -333,7 +333,14 @@ class TransactionsPage extends Component {
   }
 }
 
+export const TransactionsPageBar = ({ accounts }) => (
+  <BarRight>
+    <BarBalance accounts={accounts} />
+  </BarRight>
+)
+
 const onSubcategory = ownProps => ownProps.router.params.subcategoryName
+
 const mapStateToProps = (state, ownProps) => {
   const enhancedState = {
     ...state,
@@ -366,8 +373,19 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default compose(
+export const DumbTransactionsPage = TransactionsPage
+export const UnpluggedTransactionsPage = compose(
   withRouter,
+  translate(),
+  withBreakpoints()
+)(TransactionsPage)
+
+UnpluggedTransactionsPage.propTypes = {
+  filteredTransactions: PropTypes.array.isRequired,
+  filteredAccounts: PropTypes.array.isRequired
+}
+
+export default compose(
   queryConnect({
     apps: appsConn,
     accounts: accountsConn,
@@ -375,7 +393,5 @@ export default compose(
     triggers: triggersConn,
     transactions: transactionsConn
   }),
-  withBreakpoints(),
-  connect(mapStateToProps),
-  translate()
-)(TransactionsPage)
+  connect(mapStateToProps)
+)(UnpluggedTransactionsPage)

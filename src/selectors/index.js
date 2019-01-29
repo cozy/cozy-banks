@@ -11,7 +11,7 @@ const getCollection = (state, attr) => {
 
 export const getTransactions = state => {
   const col = getCollection(state, 'transactions')
-  return (col && col.data) || []
+  return (col && col.data.filter(Boolean)) || []
 }
 export const getGroups = state => {
   const col = getCollection(state, 'groups')
