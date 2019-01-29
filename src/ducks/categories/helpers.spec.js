@@ -1,7 +1,11 @@
 jest.mock('cozy-flags')
 
 import flag from 'cozy-flags'
-import { getCategoryId } from './helpers'
+import {
+  getCategoryId,
+  LOCAL_MODEL_USAGE_THRESHOLD,
+  GLOBAL_MODEL_USAGE_THRESHOLD
+} from './helpers'
 
 describe('getCategoryId', () => {
   beforeEach(() => {
@@ -13,7 +17,7 @@ describe('getCategoryId', () => {
       manualCategoryId: '200110',
       automaticCategoryId: '200120',
       localCategoryId: '200130',
-      localCategoryProba: 0.9
+      localCategoryProba: LOCAL_MODEL_USAGE_THRESHOLD + 0.01
     }
 
     expect(getCategoryId(transaction)).toBe(transaction.manualCategoryId)
@@ -23,7 +27,7 @@ describe('getCategoryId', () => {
     const transaction = {
       automaticCategoryId: '200120',
       localCategoryId: '200130',
-      localCategoryProba: 0.5
+      localCategoryProba: LOCAL_MODEL_USAGE_THRESHOLD - 0.01
     }
 
     expect(getCategoryId(transaction)).toBe(transaction.automaticCategoryId)
@@ -41,7 +45,7 @@ describe('getCategoryId', () => {
     const transaction = {
       automaticCategoryId: '200120',
       localCategoryId: '200130',
-      localCategoryProba: 0.9
+      localCategoryProba: LOCAL_MODEL_USAGE_THRESHOLD + 0.01
     }
 
     expect(getCategoryId(transaction)).toBe(transaction.localCategoryId)
@@ -54,7 +58,7 @@ describe('getCategoryId', () => {
     const transaction = {
       automaticCategoryId: '200120',
       cozyCategoryId: '200130',
-      cozyCategoryProba: 0.9
+      cozyCategoryProba: GLOBAL_MODEL_USAGE_THRESHOLD + 0.01
     }
 
     expect(getCategoryId(transaction)).toBe(transaction.cozyCategoryId)
