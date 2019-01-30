@@ -4784,10 +4784,10 @@ cozy-device-helper@1.6.3:
   dependencies:
     lodash "4.17.11"
 
-cozy-doctypes@1.32.0:
-  version "1.32.0"
-  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.32.0.tgz#a2363a0058b38dbf726105f6e3a88b9ea373da39"
-  integrity sha512-bcYOs3hSHKDGj1cos+IkgfTnm/3l47ksLRxpQdWXVsEBG+sj+DWOsDqc+58HwzEUjnuiUIuaoVGz6zKLsbbKrA==
+cozy-doctypes@1.32.1:
+  version "1.32.1"
+  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.32.1.tgz#e75964d8e8e61fc2cd729be4572fac0ce3013515"
+  integrity sha512-gwkuIF1WU8WNRTPpvgQIQuEdN0WgvknpQ3+5eVWzVW0+/c31aNWayDcvm7Kj0I2xdbmJrJR1GpxuFLEtLNGfCg==
   dependencies:
     cozy-logger "1.3.1"
     es6-promise-pool "2.5.0"
