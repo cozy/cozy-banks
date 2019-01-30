@@ -15,7 +15,7 @@ Main features:
 
 As secured as your bank:
 • Cozy Cloud is a French company that develops Cozy Banks which servers are hosted in France by OVH
-• We use the technology of our provider Business Insight
+• We use the technology of our provider Budget Insight
 • As safe as your bank's website
 • Your credentials and connections are always protected (encrypted)
 • Cozy Banks is dedicated for read only, no payment order or wire transfers are possible
