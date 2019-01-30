@@ -151,7 +151,11 @@ class _GeneralSettings extends Component {
             </tr>
             <tr>
               <td>{t('AccountDetails.type')}</td>
-              <td>{t(`AccountDetails.types.${account.type}`)}</td>
+              <td>
+                {t(`Data.accountTypes.${account.type}`, {
+                  _: t('Data.accountTypes.Other')
+                })}
+              </td>
             </tr>
           </tbody>
         </table>
