@@ -1,6 +1,16 @@
 import Switch from '@material-ui/core/Switch'
 import { withStyles } from '@material-ui/core/styles'
 
+const disabledStyle = {
+  '&$switchBase': {
+    color: 'white',
+    '& + $bar': {
+      backgroundColor: 'var(--silver)',
+      opacity: 1
+    }
+  }
+}
+
 export default withStyles(() => ({
   root: {
     width: 40,
@@ -37,13 +47,6 @@ export default withStyles(() => ({
       color: 'white'
     }
   },
-  disabled: {
-    '&$switchBase': {
-      color: 'white',
-      '& + $bar': {
-        backgroundColor: 'var(--silver)',
-        opacity: 1
-      }
-    }
-  }
+  colorDisabled: disabledStyle,
+  disabled: disabledStyle
 }))(Switch)
