@@ -137,7 +137,6 @@ class AccountRow extends React.PureComponent {
             checked={checked}
             color="primary"
             onClick={this.handleSwitchClick}
-            className={styles.AccountRow__switch}
             id={id}
             onChange={onSwitchChange}
           />

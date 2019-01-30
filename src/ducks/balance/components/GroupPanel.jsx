@@ -17,10 +17,13 @@ import styles from './GroupPanel.styl'
 const GroupPanelSummary = withStyles(() => ({
   expanded: {},
   root: {
-    maxHeight: '3.5rem'
+    maxHeight: '3.5rem',
+    height: '3.5rem'
   },
   content: {
-    paddingLeft: '3rem'
+    paddingLeft: '3rem',
+    paddingRight: '0',
+    height: '100%'
   },
   expandIcon: {
     left: '0.375rem',
@@ -103,7 +106,6 @@ class GroupPanel extends React.PureComponent {
               checked={checked}
               color="primary"
               onClick={this.handleSwitchClick}
-              className={styles.GroupPanelSummary__switch}
               id={`[${group._id}]`}
               onChange={onSwitchChange}
             />
