@@ -17,10 +17,12 @@ import styles from './GroupPanel.styl'
 const GroupPanelSummary = withStyles(() => ({
   expanded: {},
   root: {
-    maxHeight: '3.5rem'
+    maxHeight: '3.5rem',
+    height: '3.5rem'
   },
   content: {
-    paddingLeft: '3rem'
+    paddingLeft: '3rem',
+    height: '100%'
   },
   expandIcon: {
     left: '0.375rem',
