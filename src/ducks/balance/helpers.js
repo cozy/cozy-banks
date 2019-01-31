@@ -71,7 +71,11 @@ export const getBalanceHistory = (account, transactions, to, from) => {
   const DATE_FORMAT = 'YYYY-MM-DD'
 
   const transactionsByDate = groupBy(transactions, t =>
-    formatDate(t.date, DATE_FORMAT)
+    formatDate(
+      // do not take .realisationDate as we are interested in the debit date
+      t.date,
+      DATE_FORMAT
+    )
   )
 
   if (!from) {
