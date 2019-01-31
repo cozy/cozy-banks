@@ -112,7 +112,7 @@ class TransactionsD extends React.Component {
 
   updateTransactions(transactions) {
     this.transactionsById = keyBy(transactions, '_id')
-    this.transactions = transactions
+    this.transactions = sortByDate(transactions)
   }
 
   updateTopMostVisibleTransaction() {
@@ -155,11 +155,9 @@ class TransactionsD extends React.Component {
       brands,
       urls
     } = this.props
-    const transactionsSorted = sortByDate(this.transactions).slice(
-      limitMin,
-      limitMax
+    const transactionsGrouped = groupByDate(
+      this.transactions.slice(limitMin, limitMax)
     )
-    const transactionsGrouped = groupByDate(transactionsSorted)
     const Section = isDesktop ? SectionDesktop : SectionMobile
     const LoadMoreButton = isDesktop ? LoadMoreDesktop : LoadMoreMobile
     const TransactionContainer = isDesktop ? Table : TransactionContainerMobile
