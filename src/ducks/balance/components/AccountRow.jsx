@@ -133,9 +133,10 @@ class AccountRow extends React.PureComponent {
             currencyClassName={styles.AccountRow__figure}
           />
           <Switch
-            disabled={disabled}
             checked={checked}
-            color="primary"
+            // Do not deactivate interactions with the button,
+            // only color it to look disabled
+            color={disabled ? 'disabled' : 'primary'}
             onClick={this.handleSwitchClick}
             id={id}
             onChange={onSwitchChange}

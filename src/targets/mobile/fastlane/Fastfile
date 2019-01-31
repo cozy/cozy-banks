@@ -15,7 +15,7 @@ platform :ios do
       git_url: "git@gitlab.cozycloud.cc:labs/mobile-certificates.git"
     )
     cordova(platform: 'ios', build_flag: ['-UseModernBuildSystem=0'])
-    appstore(ipa: ENV['CORDOVA_IOS_RELEASE_BUILD_PATH'])
+    appstore(ipa: ENV['CORDOVA_IOS_RELEASE_BUILD_PATH'], skip_screenshots: true)
   end
 end
 
