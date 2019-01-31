@@ -35,7 +35,7 @@ export const DEFAULTS_SETTINGS = {
       enabled: false
     },
     localModelOverride: {
-      enabled: false
+      enabled: true
     }
   },
   categorization: {

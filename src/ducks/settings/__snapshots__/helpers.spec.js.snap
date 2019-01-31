@@ -15,7 +15,7 @@ Object {
       "enabled": false,
     },
     "localModelOverride": Object {
-      "enabled": false,
+      "enabled": true,
     },
   },
   "notifications": Object {
