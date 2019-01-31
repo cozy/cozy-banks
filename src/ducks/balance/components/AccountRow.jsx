@@ -138,7 +138,6 @@ class AccountRow extends React.PureComponent {
             // only color it to look disabled
             color={disabled ? 'disabled' : 'primary'}
             onClick={this.handleSwitchClick}
-            className={styles.AccountRow__switch}
             id={id}
             onChange={onSwitchChange}
           />

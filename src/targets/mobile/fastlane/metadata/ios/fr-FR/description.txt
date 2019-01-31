@@ -8,7 +8,7 @@ Avec Cozy Banks, vous pouvez facilement :
 Cozy Banks a été pensée avec la sécurité en premier plan :
 • Cozy Cloud est une entreprise française qui développe Cozy Banks
 • Les serveurs sont hébergés en France
-• Nous utilisons la technologie de notre prestataire Business Insight
+• Nous utilisons la technologie de notre prestataire Budget Insight
 • Aussi sécurisée que le site internet d’une banque
 • Vos identifiants et connexions sont toujours chiffrées
 • Cozy Banks ne s’utilise qu’en lecture seule, aucun ordre de paiement n’est possible

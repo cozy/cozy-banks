@@ -40,7 +40,7 @@ const _AccountLine = ({ account, router, t }) => (
     <td className={styles.AcnsStg__number}>{account.number}</td>
     <td className={styles.AcnsStg__type}>
       {t(`Data.accountTypes.${account.type}`, {
-        _: t('Data.accountTypes.Unknown')
+        _: t('Data.accountTypes.Other')
       })}
     </td>
     <td className={styles.AcnsStg__shared}>
