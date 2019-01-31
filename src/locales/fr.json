@@ -95,6 +95,7 @@
     "no-movements": "Pas de mouvements à afficher",
     "total": "Total",
     "transactions": "Opérations",
+    "will-be-debited-on": "Sera débitée le %{date}",
     "debit": "Débit",
     "credit": "Crédit",
     "header": {

@@ -79,17 +79,24 @@ describe('getBalanceHistory', () => {
   })
 
   it('should return history from the earliest transaction date if from is not specified', () => {
-    const account = { _id: 'test', balance: 8000 }
+    const account = { _id: 'test', balance: 7985 }
     const transactions = [
       { date: '2018-06-25T00:00:00Z', amount: 100 },
       { date: '2018-06-24T00:00:00Z', amount: 10 },
       { date: '2018-06-23T00:00:00Z', amount: -300 },
-      { date: '2018-06-22T00:00:00Z', amount: -15 }
+      { date: '2018-06-22T00:00:00Z', amount: -15 },
+      // date should be taken into account as it is the effective debit date
+      {
+        date: '2018-06-26T00:00:00Z',
+        realisationDate: '2018-06-01T00:00:00Z',
+        amount: -15
+      }
     ]
-    const to = parseDate('2018-06-26')
+    const to = parseDate('2018-06-27')
     const history = getBalanceHistory(account, transactions, to)
 
     expect(history).toEqual({
+      '2018-06-27': 7985,
       '2018-06-26': 8000,
       '2018-06-25': 7900,
       '2018-06-24': 7890,

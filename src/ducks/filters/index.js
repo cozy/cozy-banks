@@ -6,6 +6,7 @@ import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { sortBy, last, keyBy, find } from 'lodash'
 import { DESTROY_ACCOUNT } from 'actions/accounts'
 import { dehydrate } from 'cozy-client'
+import { getDisplayDate } from 'ducks/transactions/helpers'
 
 // constants
 const FILTER_BY_PERIOD = 'FILTER_BY_PERIOD'
@@ -58,10 +59,10 @@ export const getFilteredAccounts = state => {
 
 const filterByAccountIds = (transactions, accountIds) =>
   transactions.filter(transaction => {
-    return accountIds.indexOf(transaction.account.raw) !== -1
+    return transaction && accountIds.indexOf(transaction.account.raw) !== -1
   })
 
-const recentToAncient = transaction => -new Date(transaction.date)
+const recentToAncient = transaction => -new Date(getDisplayDate(transaction))
 export const getTransactionsFilteredByAccount = createSelector(
   [getTransactions, getFilteredAccountIds],
   (transactions, accountIds) => {
@@ -111,7 +112,7 @@ const filterByPeriod = (transactions, period) => {
   }
 
   return transactions.filter(transaction => {
-    const date = transaction.date
+    const date = getDisplayDate(transaction)
     if (!date) {
       return false
     }
@@ -133,9 +134,9 @@ export const addFilterForMostRecentTransactions = () => (
 ) => {
   const state = getState()
   const transactions = getTransactionsFilteredByAccount(state)
-  const mostRecentTransaction = last(sortBy(transactions, 'date'))
+  const mostRecentTransaction = last(sortBy(transactions, getDisplayDate))
   if (mostRecentTransaction) {
-    const date = mostRecentTransaction.date
+    const date = getDisplayDate(mostRecentTransaction)
     const period = monthFormat(date)
     return dispatch(addFilterByPeriod(period))
   }

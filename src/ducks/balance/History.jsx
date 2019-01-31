@@ -39,6 +39,7 @@ class History extends Component {
     return {
       ...transactions,
       data: transactions.data.filter(t => {
+        // Use .date as to get the debit date
         return isAfter(new Date(t.date), oneYearBefore)
       })
     }
