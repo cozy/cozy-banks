@@ -286,6 +286,7 @@
     "no-movements": "No movements to display",
     "total": "Total",
     "transactions": "Transactions",
+    "will-be-debited-on": "Will be debited on %{date}",
     "debit": "Debit",
     "credit": "Credit",
     "header": {

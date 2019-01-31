@@ -26,6 +26,27 @@ import { withUpdateCategory } from 'ducks/categories'
 import { getLabel, getDate } from './helpers'
 import styles from './Transactions.styl'
 
+const WILL_BE_DEBITED = 'Transactions.will-be-debited-on'
+
+class _TransactionDate extends React.PureComponent {
+  render() {
+    const { t, f, isExtraLarge, transaction } = this.props
+    return (
+      <span
+        title={
+          transaction.realisationDate &&
+          transaction.date !== transaction.realisationDate
+            ? t(WILL_BE_DEBITED, { date: f(transaction.date, 'D MMMM YYYY') })
+            : null
+        }
+      >
+        {f(getDate(transaction), `D ${isExtraLarge ? 'MMMM' : 'MMM'} YYYY`)}
+      </span>
+    )
+  }
+}
+const TransactionDate = translate()(_TransactionDate)
+
 class _RowDesktop extends React.PureComponent {
   constructor(props) {
     super(props)
@@ -39,7 +60,6 @@ class _RowDesktop extends React.PureComponent {
   render() {
     const {
       t,
-      f,
       transaction,
       isExtraLarge,
       showCategoryChoice,
@@ -83,7 +103,10 @@ class _RowDesktop extends React.PureComponent {
           className={cx(styles.ColumnSizeDate, 'u-clickable')}
           onClick={this.onSelectTransaction}
         >
-          {f(getDate(transaction), `D ${isExtraLarge ? 'MMMM' : 'MMM'} YYYY`)}
+          <TransactionDate
+            isExtraLarge={isExtraLarge}
+            transaction={transaction}
+          />
         </TdSecondary>
         <TdSecondary
           className={cx(styles.ColumnSizeAmount, 'u-clickable')}
