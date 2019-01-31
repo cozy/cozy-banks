@@ -99,6 +99,15 @@
           }
         }
       ]
+    },
+    {
+      "_id": "compteisa2",
+      "label": "Carte de crédit Isabelle",
+      "institutionLabel": "BNPP",
+      "number": "{{int 1000000 9999999}}",
+      "balance": 0,
+      "type": "CreditCard",
+      "comingBalance": -1000
     }
   ],
   "io.cozy.bank.groups": [
