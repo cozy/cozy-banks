@@ -65,4 +65,22 @@ describe('TransactionsPage', () => {
     setup()
     expect(root.find(TransactionsPageBar).length).toBe(0)
   })
+
+  it('should handle change in top most transaction', () => {
+    setup()
+    const tp = root.find(DumbTransactionsPage)
+    const instance = tp.instance()
+    instance.setState = jest.fn()
+    instance.handleChangeTopmostTransaction({ date: '2018-01-02T12:00' })
+    expect(instance.setState).toHaveBeenCalledWith({
+      currentMonth: '2018-01'
+    })
+    instance.handleChangeTopmostTransaction({
+      realisationDate: '2018-03-30T12:00',
+      date: '2018-04-30T12:00'
+    })
+    expect(instance.setState).toHaveBeenCalledWith({
+      currentMonth: '2018-03'
+    })
+  })
 })

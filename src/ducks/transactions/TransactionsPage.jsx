@@ -28,7 +28,7 @@ import {
 
 import { getAppUrlById } from 'selectors'
 import { getCategoryIdFromName } from 'ducks/categories/categoriesMap'
-import { getDate } from 'ducks/transactions/helpers'
+import { getDate, getDisplayDate } from 'ducks/transactions/helpers'
 import { getCategoryId } from 'ducks/categories/helpers'
 
 import Loading from 'components/Loading'
@@ -87,12 +87,12 @@ class TransactionsPage extends Component {
     if (!transactions || transactions.length === 0) {
       return
     }
-    const mostRecentTransaction = maxBy(transactions, x => x.date)
+    const mostRecentTransaction = maxBy(transactions, getDisplayDate)
     if (!mostRecentTransaction) {
       return
     }
     this.setState({
-      currentMonth: getMonth(mostRecentTransaction.date)
+      currentMonth: getMonth(getDisplayDate(mostRecentTransaction))
     })
   }
 
@@ -123,7 +123,7 @@ class TransactionsPage extends Component {
 
   handleChangeTopmostTransaction(transaction) {
     this.setState({
-      currentMonth: getMonth(transaction.date)
+      currentMonth: getMonth(getDisplayDate(transaction))
     })
   }
 
@@ -152,12 +152,12 @@ class TransactionsPage extends Component {
   handleChangeMonth(month) {
     const transactions = this.props.filteredTransactions
     const findMonthIndex = month =>
-      findIndex(transactions, t => t.date.indexOf(month) === 0)
+      findIndex(transactions, t => getDisplayDate(t).indexOf(month) === 0)
     let limitMin = findMonthIndex(month)
 
     if (limitMin == -1) {
       const monthsWithOperations = uniq(
-        transactions.map(x => getMonth(x.date))
+        transactions.map(x => getMonth(getDisplayDate(x)))
       ).sort()
       const nearestMonth = findNearestMonth(
         month,

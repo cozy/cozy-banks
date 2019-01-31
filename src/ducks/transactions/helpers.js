@@ -4,9 +4,12 @@ import findLast from 'lodash/findLast'
 export const getLabel = transaction =>
   transaction.label.toLowerCase().replace(/(?:^|\s)\S/g, a => a.toUpperCase())
 
-export const getDate = transaction => {
-  const date = transaction.realisationDate || transaction.date
+export const getDisplayDate = transaction => {
+  return transaction.realisationDate || transaction.date
+}
 
+export const getDate = transaction => {
+  const date = getDisplayDate(transaction)
   return date.slice(0, 10)
 }
 
