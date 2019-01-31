@@ -4909,7 +4909,7 @@ cozy-stack-client@5.6.1, cozy-stack-client@^5.6.1:
     detect-node "2.0.4"
     mime-types "2.1.20"
 
-cozy-ui@^18.13.1:
+cozy-ui@18.13.1:
   version "18.13.1"
   resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-18.13.1.tgz#66982d0abdb2a3a9f7ccae5cddaf4f697950946d"
   integrity sha512-LWMpZtyp57+WUAls1w3NFY8ZVxf+mYd7fGQc/H4dPkipVx6bhqsnIOUscbyurkmrVSWAJXTbPUI6bFjL9fMvLQ==
