@@ -31,6 +31,9 @@ class LineChart extends Component {
     this.updateData()
   }
 
+  /**
+   * Creates the x and y scales used to transform values to pixels
+   */
   createScales() {
     const { xScale, yScale } = this.props
 
@@ -38,6 +41,9 @@ class LineChart extends Component {
     this.y = yScale().range([this.getInnerHeight(), 0])
   }
 
+  /**
+   * Creates the function that will be used to draw the line
+   */
   createLineGenerator() {
     this.lineGenerator = d3
       .line()
@@ -45,16 +51,26 @@ class LineChart extends Component {
       .y(d => this.y(d.y))
   }
 
+  /**
+   * Returns the width in which the chart will be drawn
+   */
   getInnerWidth() {
     const { width, margin } = this.props
     return width - margin.left - margin.right
   }
 
+  /**
+   * Returns the height in which the chart will be drawn
+   */
   getInnerHeight() {
     const { height, margin } = this.props
     return height - margin.top - margin.bottom
   }
 
+  /**
+   * Creates the element that will contains all others.
+   * It is used to apply a translation on the whole chart content according to the margins we want to apply to it
+   */
   createRoot() {
     const { margin } = this.props
 
@@ -64,6 +80,9 @@ class LineChart extends Component {
       .attr('transform', `translate(${margin.left}, ${margin.top})`)
   }
 
+  /**
+   * Create the gradient element
+   */
   createGradient() {
     const { gradient } = this.props
 
@@ -94,6 +113,9 @@ class LineChart extends Component {
       .attr('fill', 'url(#gradient)')
   }
 
+  /**
+   * Generate the vertical line that follows the point
+   */
   createPointLine() {
     this.pointLine = this.svg
       .append('line')
@@ -102,6 +124,9 @@ class LineChart extends Component {
       .attr('stroke-dasharray', '3,2')
   }
 
+  /**
+   * Generate the data line
+   */
   createLine() {
     const { lineColor, lineWidth } = this.props
 
@@ -119,6 +144,9 @@ class LineChart extends Component {
       .on('click', this.onLineClick)
   }
 
+  /**
+   * Generate the selected point
+   */
   createPoint() {
     const {
       pointRadius,
@@ -140,6 +168,9 @@ class LineChart extends Component {
       .call(drag.on('end', this.stopPointDrag))
   }
 
+  /**
+   * Generate the horizontal axis
+   */
   createAxis() {
     const {
       tickSizeOuter,
@@ -175,6 +206,9 @@ class LineChart extends Component {
     }
   }
 
+  /**
+   * Create all graph elements
+   */
   createElements() {
     this.createRoot()
     this.createGradient()
@@ -184,6 +218,9 @@ class LineChart extends Component {
     this.createAxis()
   }
 
+  /**
+   * Update the scales domains
+   */
   updateDomains() {
     const { data } = this.props
 
@@ -201,6 +238,9 @@ class LineChart extends Component {
     this.y.domain(yDomain)
   }
 
+  /**
+   * Get the minimum y value in data
+   */
   getDataMin() {
     return minBy(this.props.data, d => d.y)
   }
