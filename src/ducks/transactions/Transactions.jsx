@@ -22,9 +22,12 @@ import TransactionModal from './TransactionModal'
 import { RowDesktop, RowMobile } from './TransactionRow'
 import { getDate } from './helpers'
 
-const groupByDateAndSort = transactions => {
+export const sortByDate = (transactions = []) =>
+  sortBy(transactions, getDate).reverse()
+
+const groupByDate = transactions => {
   const byDate = groupBy(transactions, x => getDate(x))
-  return sortBy(toPairs(byDate), x => x[0]).reverse()
+  return toPairs(byDate)
 }
 
 const loadMoreStyle = { textAlign: 'center' }
@@ -81,7 +84,7 @@ const shouldRestore = (oldProps, nextProps) => {
   )
 }
 
-class TransactionsD extends React.Component {
+export class TransactionsDumb extends React.Component {
   state = {
     infiniteScrollTop: false
   }
@@ -109,7 +112,7 @@ class TransactionsD extends React.Component {
 
   updateTransactions(transactions) {
     this.transactionsById = keyBy(transactions, '_id')
-    this.transactions = transactions
+    this.transactions = sortByDate(transactions)
   }
 
   updateTopMostVisibleTransaction() {
@@ -152,10 +155,9 @@ class TransactionsD extends React.Component {
       brands,
       urls
     } = this.props
-    const transactions = this.transactions
-      ? this.transactions.slice(limitMin, limitMax)
-      : []
-    const transactionsOrdered = groupByDateAndSort(transactions)
+    const transactionsGrouped = groupByDate(
+      this.transactions.slice(limitMin, limitMax)
+    )
     const Section = isDesktop ? SectionDesktop : SectionMobile
     const LoadMoreButton = isDesktop ? LoadMoreDesktop : LoadMoreMobile
     const TransactionContainer = isDesktop ? Table : TransactionContainerMobile
@@ -169,7 +171,7 @@ class TransactionsD extends React.Component {
               {t('Transactions.see-more')}
             </LoadMoreButton>
           )}
-        {transactionsOrdered.map(dateAndGroup => {
+        {transactionsGrouped.map(dateAndGroup => {
           const date = dateAndGroup[0]
           const transactionGroup = dateAndGroup[1]
           return (
@@ -234,7 +236,7 @@ class TransactionsD extends React.Component {
 const Transactions = compose(
   withBreakpoints(),
   translate()
-)(TransactionsD)
+)(TransactionsDumb)
 
 export class TransactionsWithSelection extends React.Component {
   state = {
