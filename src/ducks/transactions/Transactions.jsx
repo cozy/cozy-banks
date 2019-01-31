@@ -22,7 +22,7 @@ import TransactionModal from './TransactionModal'
 import { RowDesktop, RowMobile } from './TransactionRow'
 import { getDate } from './helpers'
 
-const sortByDate = (transactions = []) =>
+export const sortByDate = (transactions = []) =>
   sortBy(transactions, getDate).reverse()
 
 const groupByDate = transactions => {
@@ -84,7 +84,7 @@ const shouldRestore = (oldProps, nextProps) => {
   )
 }
 
-class TransactionsD extends React.Component {
+export class TransactionsDumb extends React.Component {
   state = {
     infiniteScrollTop: false
   }
@@ -236,7 +236,7 @@ class TransactionsD extends React.Component {
 const Transactions = compose(
   withBreakpoints(),
   translate()
-)(TransactionsD)
+)(TransactionsDumb)
 
 export class TransactionsWithSelection extends React.Component {
   state = {

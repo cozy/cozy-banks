@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { RowDesktop, RowMobile } from './TransactionRow'
+import { TransactionsDumb, sortByDate } from './Transactions'
 import data from '../../../test/fixtures'
 import store from '../../../test/store'
 import AppLike from '../../../test/AppLike'
@@ -68,5 +69,29 @@ describe('transaction row', () => {
     )
     expect(root.find(Caption).text()).toBe('Compte courant Isabelle - BNPP')
     expect(handleRef).toHaveBeenCalled()
+  })
+})
+
+describe('Transactions', () => {
+  jest
+    .spyOn(TransactionsDumb.prototype, 'renderTransactions')
+    .mockReturnValue(<div />)
+
+  it('should sort transactions from props on mount and on update', () => {
+    const transactions = data['io.cozy.bank.operations']
+
+    const root = mount(
+      <TransactionsDumb
+        breakpoints={{ isDesktop: false }}
+        transactions={transactions}
+      />
+    )
+
+    expect(root.instance().transactions).toEqual(sortByDate(transactions))
+
+    const slicedTransactions = transactions.slice(0, 10)
+    root.setProps({ transactions: slicedTransactions })
+
+    expect(root.instance().transactions).toEqual(sortByDate(slicedTransactions))
   })
 })
