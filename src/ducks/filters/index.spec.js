@@ -145,6 +145,13 @@ describe('filter selectors', () => {
         account: mockRelationship('a1', 'account'),
         label: 'Transaction 11',
         date: parisDateStr('2019-01-02')
+      },
+      {
+        _id: 't12',
+        account: mockRelationship('a1', 'account'),
+        label: 'Transaction 12',
+        date: parisDateStr('2019-02-28'),
+        realisationDate: parisDateStr('2019-01-28')
       }
     ]
     const accounts = [
@@ -240,6 +247,7 @@ describe('filter selectors', () => {
       ])
       dispatchOnFilters(addFilterByPeriod('2019'))
       expect(getFilteredTransactions(state).map(x => x._id)).toEqual([
+        't12',
         't11',
         't10'
       ])
