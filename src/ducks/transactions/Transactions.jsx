@@ -22,9 +22,12 @@ import TransactionModal from './TransactionModal'
 import { RowDesktop, RowMobile } from './TransactionRow'
 import { getDate } from './helpers'
 
-const groupByDateAndSort = transactions => {
+const sortByDate = (transactions = []) =>
+  sortBy(transactions, getDate).reverse()
+
+const groupByDate = transactions => {
   const byDate = groupBy(transactions, x => getDate(x))
-  return sortBy(toPairs(byDate), x => x[0]).reverse()
+  return toPairs(byDate)
 }
 
 const loadMoreStyle = { textAlign: 'center' }
@@ -152,10 +155,11 @@ class TransactionsD extends React.Component {
       brands,
       urls
     } = this.props
-    const transactions = this.transactions
-      ? this.transactions.slice(limitMin, limitMax)
-      : []
-    const transactionsOrdered = groupByDateAndSort(transactions)
+    const transactionsSorted = sortByDate(this.transactions).slice(
+      limitMin,
+      limitMax
+    )
+    const transactionsGrouped = groupByDate(transactionsSorted)
     const Section = isDesktop ? SectionDesktop : SectionMobile
     const LoadMoreButton = isDesktop ? LoadMoreDesktop : LoadMoreMobile
     const TransactionContainer = isDesktop ? Table : TransactionContainerMobile
@@ -169,7 +173,7 @@ class TransactionsD extends React.Component {
               {t('Transactions.see-more')}
             </LoadMoreButton>
           )}
-        {transactionsOrdered.map(dateAndGroup => {
+        {transactionsGrouped.map(dateAndGroup => {
           const date = dateAndGroup[0]
           const transactionGroup = dateAndGroup[1]
           return (
