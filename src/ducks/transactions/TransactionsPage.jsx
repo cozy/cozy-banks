@@ -239,9 +239,9 @@ class TransactionsPage extends Component {
   displayTransactions() {
     const { limitMin, limitMax, infiniteScrollTop } = this.state
     const { t, urls } = this.props
-    const transations = this.getTransactions()
+    const transactions = this.getTransactions()
 
-    if (transations.length === 0) {
+    if (transactions.length === 0) {
       return <p>{t('Transactions.no-movements')}</p>
     }
 
@@ -254,7 +254,7 @@ class TransactionsPage extends Component {
         infiniteScrollTop={infiniteScrollTop}
         onChangeTopMostTransaction={this.handleChangeTopmostTransaction}
         onScroll={this.checkToActivateTopInfiniteScroll}
-        transactions={transations}
+        transactions={transactions}
         urls={urls}
         brands={this.getBrands()}
         filteringOnAccount={this.getFilteringOnAccount()}
