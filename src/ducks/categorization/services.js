@@ -186,8 +186,36 @@ const getLocalClassifierOptions = transactionsWithManualCat => {
   }
 }
 
-const sanitizeHistoricalManualCategorizations = transactionsWithManualCat => {
-  return transactionsWithManualCat
+export const createLocalModel = async classifierOptions => {
+  localModelLog('info', 'Fetching manually categorized transactions')
+  const transactionsWithManualCat = await Transaction.queryAll({
+    manualCategoryId: { $exists: true }
+  })
+  localModelLog(
+    'info',
+    `Fetched ${
+      transactionsWithManualCat.length
+    } manually categorized transactions`
+  )
+
+  localModelLog('info', 'Instanciating a new classifier')
+
+  const options = getLocalClassifierOptions(transactionsWithManualCat)
+  const classifier = createLocalClassifier(
+    transactionsWithManualCat,
+    { ...classifierOptions, ...options.initialization },
+    options.configuration
+  )
+
+  if (!classifier) {
+    localModelLog(
+      'info',
+      'No classifier, impossible to categorize transactions'
+    )
+    return
+  } else {
+    return classifier
+  }
 }
 
 export const localModel = async (classifierOptions, transactions) => {
@@ -201,16 +229,12 @@ export const localModel = async (classifierOptions, transactions) => {
       transactionsWithManualCat.length
     } manually categorized transactions`
   )
-  // here : filter duplicates of transactions for historical users
-  const sanitizedManualCategorization = sanitizeHistoricalManualCategorizations(
-    transactionsWithManualCat
-    )
 
   localModelLog('info', 'Instanciating a new classifier')
 
   const options = getLocalClassifierOptions(transactionsWithManualCat)
   const classifier = createLocalClassifier(
-    sanitizedManualCategorization,
+    transactionsWithManualCat,
     { ...classifierOptions, ...options.initialization },
     options.configuration
   )
