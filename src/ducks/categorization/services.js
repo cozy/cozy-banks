@@ -50,6 +50,31 @@ const TOKENS_TO_REWEIGHT = [
 const LOCAL_MODEL_CATEG_FALLBACK = '0'
 const LOCAL_MODEL_PROBA_FALLBACK = 0.1
 const LOCAL_MODEL_PCT_TOKENS_IN_VOC_THRESHOLD = 0.1
+/**
+ * List of every combinations of tokens related to amounts:
+ * - a tag for the amount's sign
+ * - a tag for the amount's magnitude
+ */
+const TOKENS_TO_REWEIGHT = [
+  'tag_neg',
+  'tag_v_b_expense',
+  'tag_neg tag_v_b_expense',
+  'tag_b_expense',
+  'tag_neg tag_b_expense',
+  'tag_expense',
+  'tag_neg tag_expense',
+  'tag_noise_neg',
+  'tag_neg tag_noise_neg',
+  'tag_pos',
+  'tag_noise_pos',
+  'tag_pos tag_noise_pos',
+  'tag_income',
+  'tag_pos tag_income',
+  'tag_b_income',
+  'tag_pos tag_b_income',
+  'tag_activity_income',
+  'tag_pos tag_activity_income'
+]
 
 export const getUniqueCategories = transactions => {
   return uniq(transactions.map(t => t.manualCategoryId))
@@ -289,6 +314,12 @@ export const localModel = async (classifierOptions, transactions) => {
   const classifier = await createLocalModel(classifierOptions)
 
   if (classifier !== undefined) {
+    localModelLog(
+      'info',
+      'Reweighting model to lower the impact of amount in the prediction'
+    )
+    reweightModel(classifier)
+
     localModelLog(
       'info',
       `Applying model to ${transactions.length} transactions`
