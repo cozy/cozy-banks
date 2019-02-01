@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-import fs from 'fs-extra'
-import { endsWith } from 'lodash'
-import tar from 'tar'
-import { manual as cozyPublishManual } from 'cozy-app-publish'
-import { spawn } from 'child_process'
+const fs = require('fs-extra')
+const { endsWith } = require('lodash')
+const tar = require('tar')
+const { manual: cozyPublishManual } = require('cozy-app-publish')
+const { spawn } = require('child_process')
 
 const BUILD_FOLDER = './build/'
 const COZY_URL = 'downcloud.cozycloud.cc'

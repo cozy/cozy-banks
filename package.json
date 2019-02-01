@@ -13,7 +13,7 @@
     "commons:watch": "webpack --config webpack.config.js --watch --progress",
     "commons:watch:hot": "HOT_RELOAD=1 webpack-dev-server --progress --config webpack.config.js --port 8282 --inline --hot",
     "deploy": "git-directory-deploy --directory build/ --branch=${DEPLOY_BRANCH:-build} --repo=${DEPLOY_REPOSITORY:-https://$GITHUB_TOKEN@github.com/cozy/cozy-banks.git}",
-    "cozyPublish": "babel-node ./scripts/publish.js",
+    "cozyPublish": "node ./scripts/publish.js",
     "uploadStaticFiles": "babel-node ./scripts/upload-static-files.js",
     "tx": "true || tx pull --all || true",
     "precommons:build": "npm-run-all lint tx",
