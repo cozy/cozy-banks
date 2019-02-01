@@ -158,7 +158,9 @@ const main = async () => {
   const registryVersion = await getRegistryVersion(manifestVersion, commitHash)
 
   createManifest(manifest, manifestVersion)
+  console.log('Deleting previous archive...')
   await deleteArchive()
+  console.log('Creating archive...')
   await createArchive()
   try {
     await pushArchive(manifestVersion, commitHash)
