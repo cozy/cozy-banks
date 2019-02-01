@@ -55,8 +55,25 @@ const getCommitHash = async () => {
   return result.stdout[0].replace('\n', '')
 }
 
+const remoteFileExists = async (folder, file) => {
+  try {
+    const res  = await launchCmd('ls', [ARCHIVE_FILENAME], { cwd: BUILD_FOLDER })
+    return true
+  } catch (e) {
+    if (e.stderr && e.stderr[0].indexOf('No such file or directory') > -1) {
+      return false
+    } else {
+      throw e
+    }
+  }
+}
+
 const pushArchive = async (version, commit) => {
   const folder = `www-upload/${APP_NAME}/${version}-${commit}/`
+  const fileExists = await remoteFileExists(BUILD_FOLDER, ARCHIVE_FILENAME)
+  if (fileExists) {
+    throw new Error('File already exists on downcloud')
+  }
   return launchCmd(
     'rsync',
     [
@@ -108,7 +125,7 @@ const publish = async (manifestVersion, commitHash, registryVersion) => {
   const override = { confirm: 'y' }
 
   return new Promise(async (resolve, reject) => {
-    cozyPublishManual({
+    await cozyPublishManual({
       registryToken: process.env.REGISTRY_TOKEN,
       manualVersion: registryVersion,
       spaceName: REGISTRY_NAMESPACE,
