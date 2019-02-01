@@ -1,6 +1,6 @@
 {
   "name": "cozy-banks",
-  "version": "0.11.7",
+  "version": "0.11.9",
   "main": "src/main.jsx",
   "scripts": {
     "build": "npm run build:browser && npm run build:services",
@@ -13,7 +13,7 @@
     "commons:watch": "webpack --config webpack.config.js --watch --progress",
     "commons:watch:hot": "HOT_RELOAD=1 webpack-dev-server --progress --config webpack.config.js --port 8282 --inline --hot",
     "deploy": "git-directory-deploy --directory build/ --branch=${DEPLOY_BRANCH:-build} --repo=${DEPLOY_REPOSITORY:-https://$GITHUB_TOKEN@github.com/cozy/cozy-banks.git}",
-    "cozyPublish": "babel-node ./scripts/publish.js",
+    "cozyPublish": "cozy-app-publish --token $REGISTRY_TOKEN --prepublish downcloud --postpublish mattermost --space banks",
     "uploadStaticFiles": "babel-node ./scripts/upload-static-files.js",
     "tx": "true || tx pull --all || true",
     "precommons:build": "npm-run-all lint tx",
@@ -98,7 +98,7 @@
     "babel-runtime": "6.26.0",
     "commitlint-config-cozy": "0.3.16",
     "copy-webpack-plugin": "4.6.0",
-    "cozy-ach": "1.9.0",
+    "cozy-ach": "1.10.0",
     "cozy-app-publish": "0.10.5",
     "cozy-jobs-cli": "1.7.1",
     "css-loader": "2.1.0",
@@ -139,7 +139,6 @@
     "stylus": "0.54.5",
     "stylus-loader": "3.0.2",
     "svg-sprite-loader": "3.9.2",
-    "tar": "4.4.8",
     "webpack": "4.29.0",
     "webpack-cli": "3.2.1",
     "webpack-dev-server": "3.1.14",

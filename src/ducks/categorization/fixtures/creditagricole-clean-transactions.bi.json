@@ -1,0 +1,1039 @@
+{
+  "io.cozy.bank.operations": [
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea18474",
+      "amount": -22,
+      "date": "2019-01-21T12:00:00.000Z",
+      "label": "Cityscoot Paris",
+      "originalBankLabel": "Paiement Par Carte Cityscoot Paris 17/01",
+      "trueCategoryId": "400280",
+      "automaticCategoryId": "401020"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea19402",
+      "amount": -15,
+      "date": "2019-01-07T12:00:00.000Z",
+      "label": "L Orillon Paris",
+      "originalBankLabel": "Paiement Par Carte L Orillon Paris 04/01",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "0"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea1a4be",
+      "amount": -1.75,
+      "date": "2018-12-17T12:00:00.000Z",
+      "label": "Lime Temp Hold Paris",
+      "originalBankLabel": "Paiement Par Carte Lime Temp Hold Paris 16/12",
+      "trueCategoryId": "400280",
+      "automaticCategoryId": "0"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea1ad7f",
+      "amount": -15,
+      "date": "2019-01-07T12:00:00.000Z",
+      "label": "L Orillon Paris",
+      "originalBankLabel": "Paiement Par Carte L Orillon Paris 04/01",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "0"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea1b084",
+      "amount": -6.07,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "Monoprix Paris",
+      "originalBankLabel": "Paiement Par Carte Monoprix Paris 29/12",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea1ba93",
+      "amount": -20,
+      "date": "2018-11-23T12:00:00.000Z",
+      "label": "Fnac St Lazare Paris 9",
+      "originalBankLabel": "Paiement Par Carte Fnac St Lazare Paris 9 22/11",
+      "trueCategoryId": "400750",
+      "automaticCategoryId": "400750"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea1bcdd",
+      "amount": -14.9,
+      "date": "2018-11-29T12:00:00.000Z",
+      "label": "Ratp Paris",
+      "originalBankLabel": "Paiement Par Carte Ratp Paris 28/11",
+      "trueCategoryId": "400280",
+      "automaticCategoryId": "400280"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea1cc28",
+      "amount": -8.35,
+      "date": "2018-11-26T12:00:00.000Z",
+      "label": "Txfy.Me 75 Paris",
+      "originalBankLabel": "Paiement Par Carte Txfy.Me 75 Paris 24/11",
+      "trueCategoryId": "400290",
+      "automaticCategoryId": "0"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea1dbd2",
+      "amount": -75.2,
+      "date": "2018-11-28T12:00:00.000Z",
+      "label": "Ratp Paris",
+      "originalBankLabel": "Paiement Par Carte Ratp Paris 27/11",
+      "trueCategoryId": "400280",
+      "automaticCategoryId": "400280"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea1e2e9",
+      "amount": -24,
+      "date": "2018-11-28T12:00:00.000Z",
+      "label": "New Morning Paris",
+      "originalBankLabel": "Paiement Par Carte New Morning Paris 27/11",
+      "trueCategoryId": "400830",
+      "automaticCategoryId": "400810"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea34af6",
+      "amount": -1.99,
+      "date": "2019-01-14T12:00:00.000Z",
+      "label": "Google Google Storage Lond",
+      "originalBankLabel": "Paiement Par Carte Google Google Storage Lond 11/01",
+      "trueCategoryId": "400740",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea358f6",
+      "amount": 4799.32,
+      "date": "2019-01-05T12:00:00.000Z",
+      "label": "De Mousnier Mathieu",
+      "originalBankLabel": "Virement En Votre Faveur De Mousnier Mathieu",
+      "trueCategoryId": "600110",
+      "automaticCategoryId": "600110"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea35b0a",
+      "amount": -4799.32,
+      "date": "2019-01-05T12:00:00.000Z",
+      "label": "Web Mousnier Mathieu",
+      "originalBankLabel": "Virement Web Mousnier Mathieu 05/01/2019",
+      "trueCategoryId": "600110",
+      "automaticCategoryId": "600110"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea3631c",
+      "amount": 239,
+      "date": "2019-01-15T12:00:00.000Z",
+      "label": "Ddfip De La Haute Vienne 6p08700",
+      "originalBankLabel": "Virement Ddfip De La Haute Vienne 6p08700 Credimpot Alasource 111 75535699598 789 M Mousnier Mathieu 6p087000075535699598789 Rici D.G.F.I.P. 87 Impot",
+      "trueCategoryId": "200100",
+      "automaticCategoryId": "0"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea36c10",
+      "amount": 22,
+      "date": "2019-01-09T12:00:00.000Z",
+      "label": "De Mousnier Ludivine",
+      "originalBankLabel": "Virement De Mousnier Ludivine",
+      "trueCategoryId": "600160",
+      "automaticCategoryId": "0"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea3760d",
+      "amount": -8000,
+      "date": "2019-01-05T12:00:00.000Z",
+      "label": "Web Mousnier Mathieu",
+      "originalBankLabel": "Virement Web Mousnier Mathieu 05/01/2019",
+      "trueCategoryId": "600110",
+      "automaticCategoryId": "600110"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea37c38",
+      "amount": -24,
+      "date": "2019-01-02T12:00:00.000Z",
+      "label": "Bourquin Vins Ornans",
+      "originalBankLabel": "Paiement Par Carte Bourquin Vins Ornans 31/12",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "400810"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea3865a",
+      "amount": -7.2,
+      "date": "2019-01-03T12:00:00.000Z",
+      "label": "Csca Avantage Oc> 159",
+      "originalBankLabel": "Cotisation Csca Avantage Oc> 159",
+      "trueCategoryId": "400340",
+      "automaticCategoryId": "400340"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea392e7",
+      "amount": -0.87,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "Remboursement Dette Sociale",
+      "originalBankLabel": "Prelevement Remboursement Dette Sociale",
+      "trueCategoryId": "400320",
+      "automaticCategoryId": "400320"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea394bc",
+      "amount": -13.99,
+      "date": "2018-12-19T12:00:00.000Z",
+      "label": "Amazon Payments Payli24415",
+      "originalBankLabel": "Paiement Par Carte Amazon Payments Payli24415 17/12",
+      "trueCategoryId": "400112",
+      "automaticCategoryId": "400112"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea39d87",
+      "amount": -76.12,
+      "date": "2019-01-02T12:00:00.000Z",
+      "label": "Atac Ornans",
+      "originalBankLabel": "Paiement Par Carte Atac Ornans 31/12",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea3ab8b",
+      "amount": -228.6,
+      "date": "2018-12-28T12:00:00.000Z",
+      "label": "Trainline London",
+      "originalBankLabel": "Paiement Par Carte Trainline London 26/12",
+      "trueCategoryId": "400850",
+      "automaticCategoryId": "0"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea3acdf",
+      "amount": -85.45,
+      "date": "2018-12-17T12:00:00.000Z",
+      "label": "France Billetvad Ivry Sur",
+      "originalBankLabel": "Paiement Par Carte France Billetvad Ivry Sur 16/12",
+      "trueCategoryId": "400800",
+      "automaticCategoryId": "400800"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea3c492",
+      "amount": -11,
+      "date": "2018-12-24T12:00:00.000Z",
+      "label": "Dai Hl Paris",
+      "originalBankLabel": "Paiement Par Carte Dai Hl Paris 21/12",
+      "trueCategoryId": "400160",
+      "automaticCategoryId": "0"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea3c7c3",
+      "amount": -25.45,
+      "date": "2018-12-03T12:00:00.000Z",
+      "label": "Monoprix Paris",
+      "originalBankLabel": "Paiement Par Carte Monoprix Paris 30/11",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea3db8b",
+      "amount": -10.9,
+      "date": "2018-11-23T12:00:00.000Z",
+      "label": "Pharmacie Centra Phamacie",
+      "originalBankLabel": "Paiement Par Carte Pharmacie Centra Phamacie 22/11",
+      "trueCategoryId": "400610",
+      "automaticCategoryId": "400610"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea546ce",
+      "amount": -0.09,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "Prelevement De Solidarite",
+      "originalBankLabel": "Prelevement Prelevement De Solidarite",
+      "trueCategoryId": "400340",
+      "automaticCategoryId": "400340"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea54e86",
+      "amount": -17.24,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "Contrib. Sociale Generalisee",
+      "originalBankLabel": "Prelevement Contrib. Sociale Generalisee",
+      "trueCategoryId": "400500",
+      "automaticCategoryId": "400340"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea54e9f",
+      "amount": 174.19,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "De L'annee",
+      "originalBankLabel": "Interets Crediteurs De L'annee",
+      "trueCategoryId": "200130",
+      "automaticCategoryId": "200130"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea55b56",
+      "amount": -3.48,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "Prelevement De Solidarite",
+      "originalBankLabel": "Prelevement Prelevement De Solidarite",
+      "trueCategoryId": "400340",
+      "automaticCategoryId": "400340"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea5614a",
+      "amount": -0.21,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "Prelevement Social",
+      "originalBankLabel": "Prelevement Prelevement Social",
+      "trueCategoryId": "400340",
+      "automaticCategoryId": "400340"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea56313",
+      "amount": -536,
+      "date": "2018-12-28T12:00:00.000Z",
+      "label": "Restos Du Coeur Paris",
+      "originalBankLabel": "Paiement Par Carte Restos Du Coeur Paris 27/12",
+      "trueCategoryId": "400170",
+      "automaticCategoryId": "400170"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea571ff",
+      "amount": -14.26,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "Amazon Payments Payli24415",
+      "originalBankLabel": "Paiement Par Carte Amazon Payments Payli24415 27/12",
+      "trueCategoryId": "400112",
+      "automaticCategoryId": "400112"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea5794a",
+      "amount": -0.41,
+      "date": "2018-12-24T12:00:00.000Z",
+      "label": "Frais Carte Airtable.Com/bill",
+      "originalBankLabel": "Frais Frais Carte Airtable.Com/bill",
+      "trueCategoryId": "400340",
+      "automaticCategoryId": "400340"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea5868d",
+      "amount": -25.96,
+      "date": "2018-12-10T12:00:00.000Z",
+      "label": "Macif Sop Production-Macif",
+      "originalBankLabel": "Prelevmnt Macif Sop Production-Macif -Prelev 0910122018 00961556113 Fr66zzz110663 ++00009615561",
+      "trueCategoryId": "400100",
+      "automaticCategoryId": "400100"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea58c7f",
+      "amount": -10.57,
+      "date": "2018-12-24T12:00:00.000Z",
+      "label": "Intermarche Cestas",
+      "originalBankLabel": "Paiement Par Carte Intermarche Cestas 22/12",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea59432",
+      "amount": -5.68,
+      "date": "2018-12-17T12:00:00.000Z",
+      "label": "Monoprix Paris",
+      "originalBankLabel": "Paiement Par Carte Monoprix Paris 15/12",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea5a280",
+      "amount": -45,
+      "date": "2018-12-10T12:00:00.000Z",
+      "label": "Mens. P.E.L",
+      "originalBankLabel": "Virement Emis Mens. P.E.L 12/18",
+      "trueCategoryId": "600110",
+      "automaticCategoryId": "600110"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea5ad59",
+      "amount": 139,
+      "date": "2018-11-23T12:00:00.000Z",
+      "label": "Ddfip De La Haute Vienne 1p08700",
+      "originalBankLabel": "Virement Ddfip De La Haute Vienne 1p08700 Remb. Excd. Impot 111 187 5740797901imp 20/110006253 1p08700001875740797901imp 20/110006 D.G.F.I.P. 75 Impot",
+      "trueCategoryId": "200100",
+      "automaticCategoryId": "0"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea5b083",
+      "amount": -481,
+      "date": "2018-12-03T12:00:00.000Z",
+      "label": "Web Gaelle Lacaze Loyer",
+      "originalBankLabel": "Virement Web Gaelle Lacaze Loyer Mousnier Mathieu Loyer 03/12/2018",
+      "trueCategoryId": "401020",
+      "automaticCategoryId": "401020"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0ea5bd7b",
+      "amount": -14.99,
+      "date": "2018-11-19T12:00:00.000Z",
+      "label": "Spotify P084a9a4cb Stockho",
+      "originalBankLabel": "Paiement Par Carte Spotify P084a9a4cb Stockho 18/11",
+      "trueCategoryId": "400750",
+      "automaticCategoryId": "400750"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a26915e",
+      "amount": -1.75,
+      "date": "2019-01-14T12:00:00.000Z",
+      "label": "Lime Sarl Paris",
+      "originalBankLabel": "Paiement Par Carte Lime Sarl Paris 12/01",
+      "trueCategoryId": "400280",
+      "automaticCategoryId": "0"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a269fdc",
+      "amount": -0.02,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "Remboursement Dette Sociale",
+      "originalBankLabel": "Prelevement Remboursement Dette Sociale",
+      "trueCategoryId": "400320",
+      "automaticCategoryId": "400320"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a26a50b",
+      "amount": -8.45,
+      "date": "2019-01-02T12:00:00.000Z",
+      "label": "Txfy.Me 75 Paris",
+      "originalBankLabel": "Paiement Par Carte Txfy.Me 75 Paris 01/01",
+      "trueCategoryId": "400290",
+      "automaticCategoryId": "0"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a26a638",
+      "amount": -0.01,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "Contribution De Solidarite",
+      "originalBankLabel": "Prelevement Contribution De Solidarite",
+      "trueCategoryId": "400340",
+      "automaticCategoryId": "400340"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a26b06b",
+      "amount": -6.5,
+      "date": "2019-01-07T12:00:00.000Z",
+      "label": "L Orillon Paris",
+      "originalBankLabel": "Paiement Par Carte L Orillon Paris 04/01",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "0"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a26c949",
+      "amount": -2.5,
+      "date": "2018-12-13T12:00:00.000Z",
+      "label": "Lime Temp Hold Paris",
+      "originalBankLabel": "Paiement Par Carte Lime Temp Hold Paris 13/12",
+      "trueCategoryId": "400280",
+      "automaticCategoryId": "0"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a26d570",
+      "amount": -1.32,
+      "date": "2018-12-11T12:00:00.000Z",
+      "label": "Franprix Lp Cofi Paris",
+      "originalBankLabel": "Paiement Par Carte Franprix Lp Cofi Paris 10/12",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a26e36d",
+      "amount": -60,
+      "date": "2018-12-10T12:00:00.000Z",
+      "label": "Gab Havre Les Ga 07/12 21h15",
+      "originalBankLabel": "Retrait Au Distributeur Gab Havre Les Ga 07/12 21h15",
+      "trueCategoryId": "600140",
+      "automaticCategoryId": "600140"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a2703b7",
+      "amount": -140,
+      "date": "2018-11-19T12:00:00.000Z",
+      "label": "Sncf Internet Paris Cedex",
+      "originalBankLabel": "Paiement Par Carte Sncf Internet Paris Cedex 18/11",
+      "trueCategoryId": "400850",
+      "automaticCategoryId": "400850"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a287f94",
+      "amount": -20,
+      "date": "2019-01-21T12:00:00.000Z",
+      "label": "Paris Audio",
+      "originalBankLabel": "Paiement Par Carte Paris Audio 20/01",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "400810"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a289fd1",
+      "amount": -41.36,
+      "date": "2019-01-07T12:00:00.000Z",
+      "label": "Monoprix 1163 Paris2042083",
+      "originalBankLabel": "Paiement Par Carte Monoprix 1163 Paris2042083 06/01",
+      "trueCategoryId": "600170",
+      "automaticCategoryId": "600170"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a28a2c1",
+      "amount": -1,
+      "date": "2019-01-07T12:00:00.000Z",
+      "label": "Hagd Champs Ely Boulogne B",
+      "originalBankLabel": "Paiement Par Carte Hagd Champs Ely Boulogne B 04/01",
+      "trueCategoryId": "400160",
+      "automaticCategoryId": "0"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a28a5ca",
+      "amount": -11.33,
+      "date": "2019-01-07T12:00:00.000Z",
+      "label": "Naturalia Paris",
+      "originalBankLabel": "Paiement Par Carte Naturalia Paris 05/01",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a28a6a9",
+      "amount": -4.8,
+      "date": "2019-01-07T12:00:00.000Z",
+      "label": "Monoprix Paris",
+      "originalBankLabel": "Paiement Par Carte Monoprix Paris 05/01",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a28ade6",
+      "amount": -9.7,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "Monoprix Paris",
+      "originalBankLabel": "Paiement Par Carte Monoprix Paris 28/12",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a28b84e",
+      "amount": -44,
+      "date": "2018-12-21T12:00:00.000Z",
+      "label": "Le Temps Des Ce Paris",
+      "originalBankLabel": "Paiement Par Carte Le Temps Des Ce Paris 20/12",
+      "trueCategoryId": "400130",
+      "automaticCategoryId": "400810"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a28c0ac",
+      "amount": -0.52,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "Contribution De Solidarite",
+      "originalBankLabel": "Prelevement Contribution De Solidarite",
+      "trueCategoryId": "400340",
+      "automaticCategoryId": "400340"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a28c7ab",
+      "amount": -26,
+      "date": "2018-12-19T12:00:00.000Z",
+      "label": "Sncf Internet Paris 12",
+      "originalBankLabel": "Paiement Par Carte Sncf Internet Paris 12 18/12",
+      "trueCategoryId": "400850",
+      "automaticCategoryId": "400850"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a28ce4c",
+      "amount": -1.9,
+      "date": "2018-12-18T12:00:00.000Z",
+      "label": "Lime Sarl Paris",
+      "originalBankLabel": "Paiement Par Carte Lime Sarl Paris 17/12",
+      "trueCategoryId": "400280",
+      "automaticCategoryId": "0"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a28de0f",
+      "amount": -6.9,
+      "date": "2018-12-19T12:00:00.000Z",
+      "label": "Brief.Me Paris",
+      "originalBankLabel": "Paiement Par Carte Brief.Me Paris 18/12",
+      "trueCategoryId": "400111",
+      "automaticCategoryId": "0"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a28eaaf",
+      "amount": -9.84,
+      "date": "2018-12-17T12:00:00.000Z",
+      "label": "G20 Paris",
+      "originalBankLabel": "Paiement Par Carte G20 Paris 15/12",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a28fa2c",
+      "amount": -8.56,
+      "date": "2018-12-06T12:00:00.000Z",
+      "label": "Monoprix Paris",
+      "originalBankLabel": "Paiement Par Carte Monoprix Paris 05/12",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a28fc19",
+      "amount": -365,
+      "date": "2018-11-26T12:00:00.000Z",
+      "label": "Direction Generale Des Finances Pub",
+      "originalBankLabel": "Prelevmnt Direction Generale Des Finances Pub 600108258311tlr1875740797901 Tlr Sepa Dgfip Impot Th Fr46zzz005002 Nnfr46zzz0050021875740797901r258311",
+      "trueCategoryId": "400510",
+      "automaticCategoryId": "400510"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a2a3a7d",
+      "amount": -7.9,
+      "date": "2019-01-07T12:00:00.000Z",
+      "label": "Pharmacie Haim Paris",
+      "originalBankLabel": "Paiement Par Carte Pharmacie Haim Paris 05/01",
+      "trueCategoryId": "400610",
+      "automaticCategoryId": "400610"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a2a3f01",
+      "amount": 8000,
+      "date": "2019-01-05T12:00:00.000Z",
+      "label": "De Mousnier Mathieu",
+      "originalBankLabel": "Virement En Votre Faveur De Mousnier Mathieu",
+      "trueCategoryId": "600110",
+      "automaticCategoryId": "600110"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a2a4d2e",
+      "amount": -76.26,
+      "date": "2019-01-10T12:00:00.000Z",
+      "label": "Monoprix 1163 Paris2042083",
+      "originalBankLabel": "Paiement Par Carte Monoprix 1163 Paris2042083 09/01",
+      "trueCategoryId": "600170",
+      "automaticCategoryId": "600170"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a2a5126",
+      "amount": -17.72,
+      "date": "2019-01-14T12:00:00.000Z",
+      "label": "Monoprix Paris",
+      "originalBankLabel": "Paiement Par Carte Monoprix Paris 12/01",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a2a5e6e",
+      "amount": -75.2,
+      "date": "2019-01-02T12:00:00.000Z",
+      "label": "Ratp Paris",
+      "originalBankLabel": "Paiement Par Carte Ratp Paris 02/01",
+      "trueCategoryId": "400280",
+      "automaticCategoryId": "400280"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a2a7021",
+      "amount": -4.99,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "Bouygues Telecom",
+      "originalBankLabel": "Prelevmnt Bouygues Telecom Lignes Mobiles Fr35zzz418323 Btgac04f6da62",
+      "trueCategoryId": "400150",
+      "automaticCategoryId": "400150"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a2a7947",
+      "amount": 171.83,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "De L'annee Taux",
+      "originalBankLabel": "Interets Crediteurs De L'annee Taux 0,750%",
+      "trueCategoryId": "200130",
+      "automaticCategoryId": "200130"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a2a834c",
+      "amount": -8.7,
+      "date": "2018-12-24T12:00:00.000Z",
+      "label": "Boulangerie L&m Paris",
+      "originalBankLabel": "Paiement Par Carte Boulangerie L&m Paris 21/12",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a2a8cbc",
+      "amount": -9.99,
+      "date": "2018-12-19T12:00:00.000Z",
+      "label": "Spotify France 75 Paris",
+      "originalBankLabel": "Paiement Par Carte Spotify France 75 Paris 18/12",
+      "trueCategoryId": "400750",
+      "automaticCategoryId": "400750"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a2a91ef",
+      "amount": -1.99,
+      "date": "2018-12-13T12:00:00.000Z",
+      "label": "Google Google Storage Lond",
+      "originalBankLabel": "Paiement Par Carte Google Google Storage Lond 13/12",
+      "trueCategoryId": "400740",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a2a9af2",
+      "amount": -16.99,
+      "date": "2018-12-17T12:00:00.000Z",
+      "label": "Amazon Payments Payli24415",
+      "originalBankLabel": "Paiement Par Carte Amazon Payments Payli24415 16/12",
+      "trueCategoryId": "400112",
+      "automaticCategoryId": "400112"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a2a9e8f",
+      "amount": -24.87,
+      "date": "2018-12-12T12:00:00.000Z",
+      "label": "Monoprix Paris",
+      "originalBankLabel": "Paiement Par Carte Monoprix Paris 11/12",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a2aa825",
+      "amount": -19.79,
+      "date": "2018-12-07T12:00:00.000Z",
+      "label": "Monoprix Paris",
+      "originalBankLabel": "Paiement Par Carte Monoprix Paris 06/12",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a2ab6e1",
+      "amount": -27.85,
+      "date": "2018-12-17T12:00:00.000Z",
+      "label": "Monoprix Paris",
+      "originalBankLabel": "Paiement Par Carte Monoprix Paris 15/12",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a2abd1a",
+      "amount": -20,
+      "date": "2018-11-19T12:00:00.000Z",
+      "label": "Boulangerie Ope Paris",
+      "originalBankLabel": "Paiement Par Carte Boulangerie Ope Paris 16/11",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a2aca8a",
+      "amount": -47.55,
+      "date": "2018-11-26T12:00:00.000Z",
+      "label": "Monoprix 1163 Paris2042083",
+      "originalBankLabel": "Paiement Par Carte Monoprix 1163 Paris2042083 24/11",
+      "trueCategoryId": "600170",
+      "automaticCategoryId": "600170"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a2ad1c1",
+      "amount": -309.98,
+      "date": "2018-11-26T12:00:00.000Z",
+      "label": "Micromania Pf Paris",
+      "originalBankLabel": "Paiement Par Carte Micromania Pf Paris 24/11",
+      "trueCategoryId": "400750",
+      "automaticCategoryId": "400750"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba59c680b",
+      "amount": -35.5,
+      "date": "2019-01-21T12:00:00.000Z",
+      "label": "Cannibale Cafe Paris 11",
+      "originalBankLabel": "Paiement Par Carte Cannibale Cafe Paris 11 18/01",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "400810"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba59c69c0",
+      "amount": -45,
+      "date": "2019-01-10T12:00:00.000Z",
+      "label": "Mens. P.E.L",
+      "originalBankLabel": "Virement Emis Mens. P.E.L 01/19",
+      "trueCategoryId": "600170",
+      "automaticCategoryId": "600110"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba59c765c",
+      "amount": -8.95,
+      "date": "2019-01-14T12:00:00.000Z",
+      "label": "Magasin Nicolas Paris Eme",
+      "originalBankLabel": "Paiement Par Carte Magasin Nicolas Paris Eme 12/01",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "400810"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba59c7e9e",
+      "amount": -481,
+      "date": "2019-01-02T12:00:00.000Z",
+      "label": "Web Gaelle Lacaze Loyer",
+      "originalBankLabel": "Virement Web Gaelle Lacaze Loyer Mousnier Mathieu Loyer 02/01/2019",
+      "trueCategoryId": "401020",
+      "automaticCategoryId": "401020"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba59c8188",
+      "amount": 96.02,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "De L'annee Taux",
+      "originalBankLabel": "Interets Crediteurs De L'annee Taux 0,750%",
+      "trueCategoryId": "200130",
+      "automaticCategoryId": "200130"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba59c87a5",
+      "amount": -14.06,
+      "date": "2019-01-16T12:00:00.000Z",
+      "label": "Monoprix 1163 Paris2042083",
+      "originalBankLabel": "Paiement Par Carte Monoprix 1163 Paris2042083 15/01",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "600170"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba59c901d",
+      "amount": 4.8,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "De L'annee Taux",
+      "originalBankLabel": "Interets Crediteurs De L'annee Taux 0,100%",
+      "trueCategoryId": "200130",
+      "automaticCategoryId": "200130"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba59c95a7",
+      "amount": 45,
+      "date": "2018-12-10T12:00:00.000Z",
+      "label": "Mens. Cpte Cheques",
+      "originalBankLabel": "Virement En Votre Faveur Mens. Cpte Cheques 12/18",
+      "trueCategoryId": "600170",
+      "automaticCategoryId": "600110"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba59ca42f",
+      "amount": -70.5,
+      "date": "2018-12-10T12:00:00.000Z",
+      "label": "Le Bel Ami Etretat",
+      "originalBankLabel": "Paiement Par Carte Le Bel Ami Etretat 08/12",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "400810"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba59cb2b3",
+      "amount": -0.99,
+      "date": "2018-12-13T12:00:00.000Z",
+      "label": "Inpact Media Bordeaux",
+      "originalBankLabel": "Paiement Par Carte Inpact Media Bordeaux 12/12",
+      "trueCategoryId": "400750",
+      "automaticCategoryId": "400750"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba59cca3d",
+      "amount": -18.31,
+      "date": "2018-11-19T12:00:00.000Z",
+      "label": "Monoprix Paris",
+      "originalBankLabel": "Paiement Par Carte Monoprix Paris 18/11",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba59cd92b",
+      "amount": -27.3,
+      "date": "2018-11-27T12:00:00.000Z",
+      "label": "Le Chaland Paris 10",
+      "originalBankLabel": "Paiement Par Carte Le Chaland Paris 10 26/11",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "400810"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba59e5d9a",
+      "amount": -9.99,
+      "date": "2019-01-21T12:00:00.000Z",
+      "label": "Spotify France 75 Paris",
+      "originalBankLabel": "Paiement Par Carte Spotify France 75 Paris 18/01",
+      "trueCategoryId": "400750",
+      "automaticCategoryId": "400750"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba59e6d6a",
+      "amount": -6.6,
+      "date": "2019-01-04T12:00:00.000Z",
+      "label": "Le Monde Diplomatique",
+      "originalBankLabel": "Prelevmnt Le Monde Diplomatique Md----080119prl0000001548352212 Fr50zzz430372 Md00416777",
+      "trueCategoryId": "400830",
+      "automaticCategoryId": "400830"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba59e7c33",
+      "amount": -3.5,
+      "date": "2018-12-28T12:00:00.000Z",
+      "label": "Sncf Internet Paris 12",
+      "originalBankLabel": "Paiement Par Carte Sncf Internet Paris 12 27/12",
+      "trueCategoryId": "400850",
+      "automaticCategoryId": "400850"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba59e875b",
+      "amount": -7.83,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "Prelevement Social",
+      "originalBankLabel": "Prelevement Prelevement Social",
+      "trueCategoryId": "400340",
+      "automaticCategoryId": "400340"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba59e91be",
+      "amount": -2.99,
+      "date": "2018-11-30T12:00:00.000Z",
+      "label": "Bouygues Telecom",
+      "originalBankLabel": "Prelevmnt Bouygues Telecom Lignes Mobiles Fr35zzz418323 Btgac04f6da62",
+      "trueCategoryId": "400150",
+      "automaticCategoryId": "400150"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba59e9e7e",
+      "amount": -8.91,
+      "date": "2018-12-10T12:00:00.000Z",
+      "label": "Carrefour City Etretat",
+      "originalBankLabel": "Paiement Par Carte Carrefour City Etretat 08/12",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba59ea272",
+      "amount": -69.74,
+      "date": "2018-12-17T12:00:00.000Z",
+      "label": "Monoprix 1163 Paris2042083",
+      "originalBankLabel": "Paiement Par Carte Monoprix 1163 Paris2042083 15/12",
+      "trueCategoryId": "600170",
+      "automaticCategoryId": "600170"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba59eabe3",
+      "amount": -16.3,
+      "date": "2018-11-27T12:00:00.000Z",
+      "label": "Tick&live Easy Ivry Sur Se",
+      "originalBankLabel": "Paiement Par Carte Tick&live Easy Ivry Sur Se 26/11",
+      "trueCategoryId": "400740",
+      "automaticCategoryId": "400740"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba59ec2f8",
+      "amount": -40,
+      "date": "2018-11-28T12:00:00.000Z",
+      "label": "Lcl Paris Pte St 27/11 20h00",
+      "originalBankLabel": "Retrait Au Distributeur Lcl Paris Pte St 27/11 20h00",
+      "trueCategoryId": "600140",
+      "automaticCategoryId": "600140"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba59ed077",
+      "amount": -14.9,
+      "date": "2018-11-23T12:00:00.000Z",
+      "label": "Ratp Paris Cedex 12",
+      "originalBankLabel": "Paiement Par Carte Ratp Paris Cedex 12 22/11",
+      "trueCategoryId": "400280",
+      "automaticCategoryId": "400280"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba59eea5a",
+      "amount": -38.55,
+      "date": "2018-11-22T12:00:00.000Z",
+      "label": "Monoprix 1163 Paris2042083",
+      "originalBankLabel": "Paiement Par Carte Monoprix 1163 Paris2042083 21/11",
+      "trueCategoryId": "600170",
+      "automaticCategoryId": "600170"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba59fedbd",
+      "amount": -10.99,
+      "date": "2019-01-08T12:00:00.000Z",
+      "label": "Itunes.Com/bill",
+      "originalBankLabel": "Paiement Par Carte Itunes.Com/bill 07/01",
+      "trueCategoryId": "400750",
+      "automaticCategoryId": "400750"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba59ff8be",
+      "amount": -0.47,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "Contrib. Sociale Generalisee",
+      "originalBankLabel": "Prelevement Contrib. Sociale Generalisee",
+      "trueCategoryId": "400340",
+      "automaticCategoryId": "400340"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba5a00482",
+      "amount": 45,
+      "date": "2019-01-10T12:00:00.000Z",
+      "label": "Mens. Cpte Cheques",
+      "originalBankLabel": "Virement En Votre Faveur Mens. Cpte Cheques 01/19",
+      "trueCategoryId": "600170",
+      "automaticCategoryId": "600110"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba5a00750",
+      "amount": -0.61,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "Prelevement Servant D Acompte",
+      "originalBankLabel": "Prelevement Prelevement Servant D Acompte",
+      "trueCategoryId": "400340",
+      "automaticCategoryId": "400340"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba5a00aee",
+      "amount": -58.4,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "Atac Ornans",
+      "originalBankLabel": "Paiement Par Carte Atac Ornans 29/12",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba5a016ee",
+      "amount": -16.55,
+      "date": "2018-12-24T12:00:00.000Z",
+      "label": "Txfy.Me 75 Paris",
+      "originalBankLabel": "Paiement Par Carte Txfy.Me 75 Paris 20/12",
+      "trueCategoryId": "400290",
+      "automaticCategoryId": "0"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba5a027d9",
+      "amount": -3.5,
+      "date": "2018-12-24T12:00:00.000Z",
+      "label": "Sncf Bordeaux",
+      "originalBankLabel": "Paiement Par Carte Sncf Bordeaux 21/12",
+      "trueCategoryId": "400850",
+      "automaticCategoryId": "400850"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba5a03761",
+      "amount": -7.95,
+      "date": "2018-11-29T12:00:00.000Z",
+      "label": "Magasin Nicolas Paris Eme",
+      "originalBankLabel": "Paiement Par Carte Magasin Nicolas Paris Eme 28/11",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "400810"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba5a0405f",
+      "amount": -19.5,
+      "date": "2018-12-12T12:00:00.000Z",
+      "label": "Fnac St Lazare Paris 9",
+      "originalBankLabel": "Paiement Par Carte Fnac St Lazare Paris 9 11/12",
+      "trueCategoryId": "400750",
+      "automaticCategoryId": "400750"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba5a04c93",
+      "amount": -7.2,
+      "date": "2018-12-03T12:00:00.000Z",
+      "label": "Csca Avantage Oc> 159",
+      "originalBankLabel": "Cotisation Csca Avantage Oc> 159",
+      "trueCategoryId": "400340",
+      "automaticCategoryId": "400340"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba5a04d06",
+      "amount": -6.6,
+      "date": "2018-12-10T12:00:00.000Z",
+      "label": "Le Monde Diplomatique",
+      "originalBankLabel": "Prelevmnt Le Monde Diplomatique Md----111218prl0000001548046103 Fr50zzz430372 Md00416777",
+      "trueCategoryId": "400830",
+      "automaticCategoryId": "400830"
+    }
+  ]
+}

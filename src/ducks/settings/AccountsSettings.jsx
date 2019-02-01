@@ -13,7 +13,7 @@ import styles from './AccountsSettings.styl'
 import btnStyles from 'styles/buttons.styl'
 import AddAccountLink from 'ducks/settings/AddAccountLink'
 import cx from 'classnames'
-import { getAccountInstitutionLabel } from '../account/helpers'
+import { getAccountInstitutionLabel, getAccountType } from '../account/helpers'
 
 import { ACCOUNT_DOCTYPE, APP_DOCTYPE } from 'doctypes'
 
@@ -39,7 +39,7 @@ const _AccountLine = ({ account, router, t }) => (
     </td>
     <td className={styles.AcnsStg__number}>{account.number}</td>
     <td className={styles.AcnsStg__type}>
-      {t(`Data.accountTypes.${account.type}`, {
+      {t(`Data.accountTypes.${getAccountType(account)}`, {
         _: t('Data.accountTypes.Other')
       })}
     </td>

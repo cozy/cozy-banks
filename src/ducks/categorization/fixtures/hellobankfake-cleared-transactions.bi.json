@@ -1,0 +1,408 @@
+{
+  "io.cozy.bank.operations": [
+    {
+      "amount": 3380,
+      "label": "COZY CLOUD",
+      "automaticCategoryId": "0",
+      "manualCategoryId": "200110",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": 3380,
+      "label": "COZY CLOUD TRAISNEL",
+      "automaticCategoryId": "0",
+      "manualCategoryId": "200110",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": 3380,
+      "label": "COZY CLOUD TRAISNEL",
+      "automaticCategoryId": "200110",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -913,
+      "label": "Virement Permanent Loyer Traisnel",
+      "automaticCategoryId": "0",
+      "manualCategoryId": "401020",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -913,
+      "label": "Virement Permanent Loyer Traisnel",
+      "automaticCategoryId": "0",
+      "manualCategoryId": "401020",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -913,
+      "label": "Virement Permanent Loyer Traisnel",
+      "automaticCategoryId": "401020",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -40,
+      "label": "Retrait Dab 01h34 10741a06 Cic Paris 000497 17 decembre",
+      "automaticCategoryId": "0",
+      "manualCategoryId": "400110",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -50,
+      "label": "Retrait Dab 11h34 10741a06 Cic Paris 000497 27 janvier",
+      "automaticCategoryId": "0",
+      "manualCategoryId": "400110",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -40,
+      "label": "Retrait Dab 21h34 10741a06 Cic Paris 000497 13 juillet",
+      "automaticCategoryId": "400110",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -500,
+      "label": "Revolut9619 28 dec",
+      "automaticCategoryId": "0",
+      "manualCategoryId": "400820",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -500,
+      "label": "Revolut9619 28 janv",
+      "automaticCategoryId": "0",
+      "manualCategoryId": "400820",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -500,
+      "label": "Revolut9619 28 fev",
+      "automaticCategoryId": "400820",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -16.5,
+      "label": "LES PIANOS MONTREUIL",
+      "automaticCategoryId": "400810",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -37.4,
+      "label": "SANEF 0801-1401 SENLIS CEDEX",
+      "automaticCategoryId": "400270",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -4.5,
+      "label": "BOULANGERIE BEN MONTREUIL",
+      "automaticCategoryId": "400110",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": 154.03,
+      "label": "REMUNERATION NETTE",
+      "automaticCategoryId": "200130",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -30.81,
+      "label": "OFFICE DEPOT VILLEPINTE",
+      "automaticCategoryId": "400800",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -5.9,
+      "label": "MONOPRIX PARIS",
+      "automaticCategoryId": "400110",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -75.2,
+      "label": "NAVIGO ANNUEL - GIE COMUTITRES",
+      "automaticCategoryId": "400280",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -7.9,
+      "label": "GIBERT JOSEPH PARIS CEDEX 0",
+      "automaticCategoryId": "400750",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -25.55,
+      "label": "ECHEANCE PRET 03103 61893938",
+      "automaticCategoryId": "400120",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -153,
+      "label": "D.G.F.I.P IMPOT",
+      "automaticCategoryId": "400500",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -38.4,
+      "label": "GRANT AV US SN FR CARTE 49",
+      "automaticCategoryId": "600140",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -7.1,
+      "label": "NICOLAS 2474 PARIS",
+      "automaticCategoryId": "400810",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -39.9,
+      "label": "FNAC PARIS CEDEX",
+      "automaticCategoryId": "400180",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -150,
+      "label": "LA BANQUE POSTALE",
+      "automaticCategoryId": "600140",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -2,
+      "label": "LA POSTE 756220 PARIS TRINITE",
+      "automaticCategoryId": "400310",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -36.6,
+      "label": "EDF CLIENTS PARTICULIERS",
+      "automaticCategoryId": "401080",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -20.19,
+      "label": "LE FURET DU NOR LILLE",
+      "automaticCategoryId": "400750",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -400,
+      "label": "REVOLUT*9619*",
+      "automaticCategoryId": "400190",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -28.28,
+      "label": "PAYPAL EUROPE S.A.R.L. ET CIE S.C.A ECH/",
+      "automaticCategoryId": "400112",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -10.5,
+      "label": "COCO LAFAYETTE PARIS",
+      "automaticCategoryId": "400112",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -10,
+      "label": "LE PETIT CAPUCC PARIS 9",
+      "automaticCategoryId": "400810",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -50,
+      "label": "ORANGE BANK MONTREUIL",
+      "automaticCategoryId": "400150",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -3.3,
+      "label": "TRANSPOLE BR ME MARCQ EN BARO",
+      "automaticCategoryId": "400280",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -4.99,
+      "label": "IKEA LOMME133-HFB/",
+      "automaticCategoryId": "401050",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -18,
+      "label": "MB COIFFURE PARIS 18",
+      "automaticCategoryId": "400190",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -27.69,
+      "label": "PAYPAL EUROPE S.A.R.L. ET CIE S.C.A ECH/",
+      "automaticCategoryId": "400112",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -15.9,
+      "label": "SAJ PARIS",
+      "automaticCategoryId": "400810",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -26.41,
+      "label": "CARREFOURMARKET",
+      "automaticCategoryId": "400110",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -87,
+      "label": "PIZZERIA LE CON 2B BASTIA",
+      "automaticCategoryId": "400810",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -14900,
+      "label": "ACHAT IMMOBILIER",
+      "automaticCategoryId": "600170",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -26.11,
+      "label": "CARREFOURMARKET",
+      "automaticCategoryId": "400110",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -9.46,
+      "label": "REGUL LOYER",
+      "automaticCategoryId": "401020",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -5945,
+      "label": "D.G.F.I.P IMPOT 75038",
+      "automaticCategoryId": "400500",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -40,
+      "label": "SOCIETE GENERALE",
+      "automaticCategoryId": "600140",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -50,
+      "label": "LA BANQUE POSTALE",
+      "automaticCategoryId": "600140",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -36.6,
+      "label": "EDF CLIENTS PARTICULIERS",
+      "automaticCategoryId": "401080",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -6,
+      "label": "VELIB METROPOLE PARIS",
+      "automaticCategoryId": "400210",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -10.5,
+      "label": "COCO LAFAYETTE PARIS",
+      "automaticCategoryId": "400112",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -73,
+      "label": "PAYPAL EUROPE S.A.R.L. ET CIE S.C.A ECH/",
+      "automaticCategoryId": "400112",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -13.97,
+      "label": "PAYPAL EUROPE S.A.R.L. ET CIE S.C.A ECH/",
+      "automaticCategoryId": "400112",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -25.5,
+      "label": "REST. LAURETTA PARIS",
+      "automaticCategoryId": "400810",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -40,
+      "label": "SOCIETE GENERALE",
+      "automaticCategoryId": "600140",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -902.15,
+      "label": "VR. PERMANENT LOYER TRAISNEL",
+      "automaticCategoryId": "401020",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -6,
+      "label": "MONOP DAILY PARIS",
+      "automaticCategoryId": "400110",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -31.98,
+      "label": "FREE TELECOM",
+      "automaticCategoryId": "400150",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -9.9,
+      "label": "DECATHLON PARIS",
+      "automaticCategoryId": "400710",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -18.36,
+      "label": "CARREFMARKETSCO",
+      "automaticCategoryId": "400110",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -8,
+      "label": "MGP*PUMPKIN LILLE",
+      "automaticCategoryId": "400110",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -8.5,
+      "label": "LYDIA APP PARIS",
+      "automaticCategoryId": "400740",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -16,
+      "label": "SPAR WISSANT",
+      "automaticCategoryId": "400110",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -13.97,
+      "label": "SPAR WISSANT",
+      "automaticCategoryId": "400110",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -195.86,
+      "label": "AMALINE ASSURANCES",
+      "automaticCategoryId": "400340",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -20,
+      "label": "SNCF FRETHUN",
+      "automaticCategoryId": "400850",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    },
+    {
+      "amount": -20.6,
+      "label": "SPAR WISSANT",
+      "automaticCategoryId": "400110",
+      "account": "3e227e8fad0ab502a12f712a0e8c765c"
+    }
+  ]
+}

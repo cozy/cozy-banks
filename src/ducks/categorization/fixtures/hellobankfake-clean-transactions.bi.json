@@ -1,0 +1,1417 @@
+{
+  "io.cozy.bank.operations": [
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e932a32",
+      "amount": -16.11,
+      "date": "2019-01-31T12:00:00.000Z",
+      "label": "SC-SPRIET TRAIT",
+      "originalBankLabel": "CARTE 07/01 SC-SPRIET TRAIT",
+      "trueCategoryId": "400160",
+      "automaticCategoryId": "0"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e932e15",
+      "amount": -75.2,
+      "date": "2019-01-31T12:00:00.000Z",
+      "label": "RATP",
+      "originalBankLabel": "CARTE 07/01 RATP",
+      "trueCategoryId": "400280",
+      "automaticCategoryId": "400280"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e933914",
+      "amount": -9.99,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "WP KOBOECOM",
+      "originalBankLabel": "CARTE 24/12 WP KOBOECOM",
+      "trueCategoryId": "400750",
+      "automaticCategoryId": "400750"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e933c42",
+      "amount": -50,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "MICROMANIA-DE",
+      "originalBankLabel": "CARTE 12/12 MICROMANIA-DE",
+      "trueCategoryId": "400750",
+      "automaticCategoryId": "400750"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e934a2f",
+      "amount": -22,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "REST.FAUX FILET",
+      "originalBankLabel": "CARTE 18/12 REST.FAUX FILET",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "400810"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e935182",
+      "amount": -409,
+      "date": "2019-01-31T12:00:00.000Z",
+      "label": "SAP CHAMPAGNY",
+      "originalBankLabel": "CARTE 01/01 SAP CHAMPAGNY",
+      "trueCategoryId": "400280",
+      "automaticCategoryId": "400280"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e935f7b",
+      "amount": -13.3,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "UBER",
+      "originalBankLabel": "CARTE 09/12 UBER",
+      "trueCategoryId": "400290",
+      "automaticCategoryId": "400290"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e936279",
+      "amount": -17.4,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "FRICHTI EUR0000001740",
+      "originalBankLabel": "CARTE 05/12 FRICHTI EUR0000001740",
+      "trueCategoryId": "400160",
+      "automaticCategoryId": "0"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e936f82",
+      "amount": -38,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "DR WONGECZOWSKI",
+      "originalBankLabel": "CARTE 30/11 DR WONGECZOWSKI",
+      "trueCategoryId": "400610",
+      "automaticCategoryId": "400610"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e93765a",
+      "amount": -15.36,
+      "date": "2018-11-30T12:00:00.000Z",
+      "label": "MONOPRIX",
+      "originalBankLabel": "CARTE 27/11 MONOPRIX",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e937bdd",
+      "amount": -14.22,
+      "date": "2018-11-30T12:00:00.000Z",
+      "label": "SHIKI SUSHI",
+      "originalBankLabel": "CARTE 23/11 SHIKI SUSHI",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "400810"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e937f4b",
+      "amount": -14.46,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "CULTURA LA DEFEN",
+      "originalBankLabel": "CARTE 30/11 CULTURA LA DEFEN",
+      "trueCategoryId": "400760",
+      "automaticCategoryId": "400760"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e9391c0",
+      "amount": -8,
+      "date": "2018-11-30T12:00:00.000Z",
+      "label": "LA POSTE L920620",
+      "originalBankLabel": "CARTE 16/11 LA POSTE L920620",
+      "trueCategoryId": "400310",
+      "automaticCategoryId": "400310"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e93a022",
+      "amount": -29.9,
+      "date": "2018-11-30T12:00:00.000Z",
+      "label": "PHARMACIE JAURES",
+      "originalBankLabel": "CARTE 10/11 PHARMACIE JAURES",
+      "trueCategoryId": "400610",
+      "automaticCategoryId": "400610"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e93ab85",
+      "amount": -133.6,
+      "date": "2018-11-30T12:00:00.000Z",
+      "label": "AUCHAN ENGLOS",
+      "originalBankLabel": "CARTE 03/11 AUCHAN ENGLOS",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e93b2d2",
+      "amount": -13.6,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "MCDONALDS 921",
+      "originalBankLabel": "CARTE 24/10 MCDONALDS 921",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "400810"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e93c2b9",
+      "amount": -80.15,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "CULTURA LA DEFEN",
+      "originalBankLabel": "CARTE 24/10 CULTURA LA DEFEN",
+      "trueCategoryId": "400760",
+      "automaticCategoryId": "400760"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e93d00c",
+      "amount": -19.39,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "PAIN D EPICES",
+      "originalBankLabel": "CARTE 23/10 PAIN D EPICES",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e93d794",
+      "amount": -9.99,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "WP KOBOECOM",
+      "originalBankLabel": "CARTE 18/10 WP KOBOECOM",
+      "trueCategoryId": "400750",
+      "automaticCategoryId": "400750"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e93dc15",
+      "amount": -13.9,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "IYO",
+      "originalBankLabel": "CARTE 23/10 IYO",
+      "trueCategoryId": "401000",
+      "automaticCategoryId": "401000"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e93ea4a",
+      "amount": -23.75,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "F2097 HEMA",
+      "originalBankLabel": "CARTE 11/10 F2097 HEMA",
+      "trueCategoryId": "401050",
+      "automaticCategoryId": "401050"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e940468",
+      "amount": -47.98,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "ETAM LINGERIE",
+      "originalBankLabel": "CARTE 01/10 ETAM LINGERIE",
+      "trueCategoryId": "400130",
+      "automaticCategoryId": "400130"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e941054",
+      "amount": -75.2,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "L'ESPACE CAFE",
+      "originalBankLabel": "CARTE 01/10 L'ESPACE CAFE",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "400810"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e9418de",
+      "amount": -23.24,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "MAISONDUFRUIT92",
+      "originalBankLabel": "CARTE 28/09 MAISONDUFRUIT92",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "0"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e94286a",
+      "amount": -119.7,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "SAGA DES MARQUE",
+      "originalBankLabel": "CARTE 27/09 SAGA DES MARQUE",
+      "trueCategoryId": "400850",
+      "automaticCategoryId": "400850"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e942b65",
+      "amount": -25.15,
+      "date": "2018-09-28T12:00:00.000Z",
+      "label": "LA POSTE BOUTIQU",
+      "originalBankLabel": "CARTE 26/09 LA POSTE BOUTIQU",
+      "trueCategoryId": "400310",
+      "automaticCategoryId": "400310"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e943ace",
+      "amount": -3.87,
+      "date": "2018-09-28T12:00:00.000Z",
+      "label": "ITUNES.COM/BILL EUR0000000387",
+      "originalBankLabel": "CARTE 18/09 ITUNES.COM/BILL EUR0000000387",
+      "trueCategoryId": "400750",
+      "automaticCategoryId": "400750"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e944740",
+      "amount": -10.37,
+      "date": "2018-09-28T12:00:00.000Z",
+      "label": "IYO",
+      "originalBankLabel": "CARTE 19/09 IYO",
+      "trueCategoryId": "401000",
+      "automaticCategoryId": "401000"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e9452c0",
+      "amount": -40,
+      "date": "2018-09-10T12:00:00.000Z",
+      "label": "SURESNES LIB",
+      "originalBankLabel": "RETRAIT DAB 08/09 SURESNES LIB",
+      "trueCategoryId": "600140",
+      "automaticCategoryId": "600140"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e9456fa",
+      "amount": -10.5,
+      "date": "2018-09-28T12:00:00.000Z",
+      "label": "Transavia Menu S EUR0000001050",
+      "originalBankLabel": "CARTE 03/09 Transavia Menu S EUR0000001050",
+      "trueCategoryId": "400850",
+      "automaticCategoryId": "400850"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e9464a1",
+      "amount": -75.2,
+      "date": "2018-09-28T12:00:00.000Z",
+      "label": "L'ESPACE CAFE",
+      "originalBankLabel": "CARTE 03/09 L'ESPACE CAFE",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "400810"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e947394",
+      "amount": -74.75,
+      "date": "2018-09-28T12:00:00.000Z",
+      "label": "F2019 HEMA",
+      "originalBankLabel": "CARTE 05/09 F2019 HEMA",
+      "trueCategoryId": "401050",
+      "automaticCategoryId": "401050"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e947876",
+      "amount": -4.99,
+      "date": "2018-08-31T12:00:00.000Z",
+      "label": "WP KOBOECOM",
+      "originalBankLabel": "CARTE 24/08 WP KOBOECOM",
+      "trueCategoryId": "400750",
+      "automaticCategoryId": "400750"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e947f88",
+      "amount": -13.2,
+      "date": "2018-08-31T12:00:00.000Z",
+      "label": "LE SEL D'ISABELL",
+      "originalBankLabel": "CARTE 23/08 LE SEL D'ISABELL",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "400810"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e948e4d",
+      "amount": -40,
+      "date": "2018-08-23T12:00:00.000Z",
+      "label": "LE BOIS PLAG",
+      "originalBankLabel": "RETRAIT DAB 22/08 LE BOIS PLAG",
+      "trueCategoryId": "600140",
+      "automaticCategoryId": "600140"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e949aed",
+      "amount": -50,
+      "date": "2018-08-21T12:00:00.000Z",
+      "label": "LE BOIS PLAG",
+      "originalBankLabel": "RETRAIT DAB 20/08 LE BOIS PLAG",
+      "trueCategoryId": "600140",
+      "automaticCategoryId": "600140"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e94aa85",
+      "amount": -32.8,
+      "date": "2018-08-31T12:00:00.000Z",
+      "label": "PRADIER ROOSEVE",
+      "originalBankLabel": "CARTE 08/08 PRADIER ROOSEVE",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "400810"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e94b27d",
+      "amount": -59.98,
+      "date": "2018-08-31T12:00:00.000Z",
+      "label": "MONOPRIX",
+      "originalBankLabel": "CARTE 01/08 MONOPRIX",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e94bb4b",
+      "amount": -30,
+      "date": "2018-08-31T12:00:00.000Z",
+      "label": "PRINTEMPS HAUSSM",
+      "originalBankLabel": "CARTE 31/07 PRINTEMPS HAUSSM",
+      "trueCategoryId": "400112",
+      "automaticCategoryId": "400112"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e94bc30",
+      "amount": -29.6,
+      "date": "2018-08-31T12:00:00.000Z",
+      "label": "PHARMACIE D'AMST",
+      "originalBankLabel": "CARTE 02/08 PHARMACIE D'AMST",
+      "trueCategoryId": "400610",
+      "automaticCategoryId": "400610"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e94cd3b",
+      "amount": -95,
+      "date": "2018-08-31T12:00:00.000Z",
+      "label": "PRINTEMPS HAUSSM",
+      "originalBankLabel": "CARTE 31/07 PRINTEMPS HAUSSM",
+      "trueCategoryId": "400112",
+      "automaticCategoryId": "400112"
+    },
+    {
+      "_id": "3e227e8fad0ab502a12f712a0e94d4cf",
+      "amount": -66.18,
+      "date": "2018-07-31T12:00:00.000Z",
+      "label": "ETAM LINGERIE",
+      "originalBankLabel": "CARTE 27/07 ETAM LINGERIE",
+      "trueCategoryId": "400130",
+      "automaticCategoryId": "400130"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a16ac2f",
+      "amount": -4.68,
+      "date": "2019-01-31T12:00:00.000Z",
+      "label": "PHIE DES CHENES",
+      "originalBankLabel": "CARTE 22/01 PHIE DES CHENES",
+      "trueCategoryId": "400610",
+      "automaticCategoryId": "400610"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a16baff",
+      "amount": -2.65,
+      "date": "2019-01-31T12:00:00.000Z",
+      "label": "SURESNES VOIRIE",
+      "originalBankLabel": "CARTE 15/01 SURESNES VOIRIE",
+      "trueCategoryId": "400270",
+      "automaticCategoryId": "0"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a16c823",
+      "amount": -12.4,
+      "date": "2019-01-31T12:00:00.000Z",
+      "label": "SC-SPRIET TRAIT",
+      "originalBankLabel": "CARTE 10/01 SC-SPRIET TRAIT",
+      "trueCategoryId": "400160",
+      "automaticCategoryId": "0"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a16d627",
+      "amount": -20,
+      "date": "2019-01-31T12:00:00.000Z",
+      "label": "HAGD CHAMPS ELY",
+      "originalBankLabel": "CARTE 07/01 HAGD CHAMPS ELY",
+      "trueCategoryId": "400160",
+      "automaticCategoryId": "0"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a16d762",
+      "amount": -57,
+      "date": "2019-01-31T12:00:00.000Z",
+      "label": "PISCINE TPE",
+      "originalBankLabel": "CARTE 04/01 PISCINE TPE",
+      "trueCategoryId": "400710",
+      "automaticCategoryId": "400710"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a16dfa1",
+      "amount": -0.64,
+      "date": "2019-01-31T12:00:00.000Z",
+      "label": "F-FRAIS CB ETRANGER 31/12 Migr",
+      "originalBankLabel": "F-FRAIS CB ETRANGER 31/12 Migr",
+      "trueCategoryId": "400340",
+      "automaticCategoryId": "400340"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a16e067",
+      "amount": -9.5,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "PCIE DU CENTRE",
+      "originalBankLabel": "CARTE 18/12 PCIE DU CENTRE",
+      "trueCategoryId": "400610",
+      "automaticCategoryId": "400610"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a16eb47",
+      "amount": -38,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "DR WONGECZOWSKI",
+      "originalBankLabel": "CARTE 18/12 DR WONGECZOWSKI",
+      "trueCategoryId": "400610",
+      "automaticCategoryId": "400610"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a17023d",
+      "amount": -23.19,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "L AMANDIER",
+      "originalBankLabel": "CARTE 18/12 L AMANDIER",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "400810"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a170799",
+      "amount": -18.09,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "SC.FROMAGERIE R",
+      "originalBankLabel": "CARTE 20/12 SC.FROMAGERIE R",
+      "trueCategoryId": "400100",
+      "automaticCategoryId": "400100"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a170d18",
+      "amount": -1.4,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "INDIGO 921106",
+      "originalBankLabel": "CARTE 07/12 INDIGO 921106",
+      "trueCategoryId": "400740",
+      "automaticCategoryId": "400740"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a1716bb",
+      "amount": -18.9,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "FNAC.COM",
+      "originalBankLabel": "CARTE 02/12 FNAC.COM",
+      "trueCategoryId": "400750",
+      "automaticCategoryId": "400750"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a171c4d",
+      "amount": -79.82,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "CYRILLUS",
+      "originalBankLabel": "CARTE 30/11 CYRILLUS",
+      "trueCategoryId": "400130",
+      "automaticCategoryId": "400130"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a171ea9",
+      "amount": -13.5,
+      "date": "2018-11-30T12:00:00.000Z",
+      "label": "LE PETIT CAPUCCI",
+      "originalBankLabel": "CARTE 26/11 LE PETIT CAPUCCI",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "400810"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a172134",
+      "amount": -133,
+      "date": "2018-11-30T12:00:00.000Z",
+      "label": "WWW ZALANDO FR EUR0000013300",
+      "originalBankLabel": "CARTE 23/11 WWW ZALANDO FR EUR0000013300",
+      "trueCategoryId": "400130",
+      "automaticCategoryId": "400130"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a172de5",
+      "amount": -28,
+      "date": "2018-11-30T12:00:00.000Z",
+      "label": "O'BISTRO",
+      "originalBankLabel": "CARTE 28/11 O'BISTRO",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "400810"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a173e3a",
+      "amount": -21,
+      "date": "2018-11-30T12:00:00.000Z",
+      "label": "MIAN FAN",
+      "originalBankLabel": "CARTE 21/11 MIAN FAN",
+      "trueCategoryId": "400320",
+      "automaticCategoryId": "400320"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a174d50",
+      "amount": -13.5,
+      "date": "2018-11-30T12:00:00.000Z",
+      "label": "LE PETIT CAPUCCI",
+      "originalBankLabel": "CARTE 19/11 LE PETIT CAPUCCI",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "400810"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a1757e8",
+      "amount": -13.1,
+      "date": "2018-11-30T12:00:00.000Z",
+      "label": "IYO",
+      "originalBankLabel": "CARTE 14/11 IYO",
+      "trueCategoryId": "401000",
+      "automaticCategoryId": "401000"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a176b96",
+      "amount": -16,
+      "date": "2018-11-30T12:00:00.000Z",
+      "label": "LE PETIT CAPUCCI",
+      "originalBankLabel": "CARTE 06/11 LE PETIT CAPUCCI",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "400810"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a176f5e",
+      "amount": -19,
+      "date": "2018-11-30T12:00:00.000Z",
+      "label": "SELAS PHARMACIE",
+      "originalBankLabel": "CARTE 03/11 SELAS PHARMACIE",
+      "trueCategoryId": "400610",
+      "automaticCategoryId": "400610"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a17732c",
+      "amount": -10,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "GOURMET HAUSSMA",
+      "originalBankLabel": "CARTE 12/12 GOURMET HAUSSMA",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "400810"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a1777dc",
+      "amount": -59,
+      "date": "2018-11-30T12:00:00.000Z",
+      "label": "DECATHLON",
+      "originalBankLabel": "CARTE 03/11 DECATHLON",
+      "trueCategoryId": "400710",
+      "automaticCategoryId": "400710"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a1780c5",
+      "amount": -64.93,
+      "date": "2018-11-30T12:00:00.000Z",
+      "label": "LIDL HAUBOU2018",
+      "originalBankLabel": "CARTE 02/11 LIDL HAUBOU2018",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a17864f",
+      "amount": -9.99,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "WP KOBOECOM",
+      "originalBankLabel": "CARTE 24/10 WP KOBOECOM",
+      "trueCategoryId": "400750",
+      "automaticCategoryId": "400750"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a179145",
+      "amount": -87.6,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "UNIQLO OPERA 14",
+      "originalBankLabel": "CARTE 23/10 UNIQLO OPERA 14",
+      "trueCategoryId": "400130",
+      "automaticCategoryId": "400130"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a17a025",
+      "amount": -118.15,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "MODELISMO MAR SL EUR0000011815",
+      "originalBankLabel": "CARTE 19/10 MODELISMO MAR SL EUR0000011815",
+      "trueCategoryId": "400760",
+      "automaticCategoryId": "0"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a17b003",
+      "amount": -15.54,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "ALICE DELICE DEF",
+      "originalBankLabel": "CARTE 24/10 ALICE DELICE DEF",
+      "trueCategoryId": "400760",
+      "automaticCategoryId": "400760"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a17b8a1",
+      "amount": -30,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "PRINTEMPS HAUSSM",
+      "originalBankLabel": "CARTE 11/10 PRINTEMPS HAUSSM",
+      "trueCategoryId": "400112",
+      "automaticCategoryId": "400112"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a17c9b3",
+      "amount": -7.53,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "LA POSTE BOUTIQU",
+      "originalBankLabel": "CARTE 10/10 LA POSTE BOUTIQU",
+      "trueCategoryId": "400310",
+      "automaticCategoryId": "400310"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a17d616",
+      "amount": -9.99,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "WP KOBOECOM",
+      "originalBankLabel": "CARTE 10/10 WP KOBOECOM",
+      "trueCategoryId": "400750",
+      "automaticCategoryId": "400750"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a17dee2",
+      "amount": -9.99,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "WP KOBOECOM",
+      "originalBankLabel": "CARTE 04/10 WP KOBOECOM",
+      "trueCategoryId": "400750",
+      "automaticCategoryId": "400750"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a17ea61",
+      "amount": -19.54,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "FRANPRIX LP COFI",
+      "originalBankLabel": "CARTE 03/10 FRANPRIX LP COFI",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a17fe0f",
+      "amount": -9.99,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "WP KOBOECOM",
+      "originalBankLabel": "CARTE 30/09 WP KOBOECOM",
+      "trueCategoryId": "400750",
+      "automaticCategoryId": "400750"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a17ffc4",
+      "amount": -11.81,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "L'AMANDIER",
+      "originalBankLabel": "CARTE 28/09 L'AMANDIER",
+      "trueCategoryId": "400160",
+      "automaticCategoryId": "0"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a1809c9",
+      "amount": -6.98,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "ITUNES.COM/BILL EUR0000000698",
+      "originalBankLabel": "CARTE 28/09 ITUNES.COM/BILL EUR0000000698",
+      "trueCategoryId": "400750",
+      "automaticCategoryId": "400750"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a181677",
+      "amount": -37.47,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "ALICE DELICE DEF",
+      "originalBankLabel": "CARTE 27/09 ALICE DELICE DEF",
+      "trueCategoryId": "400760",
+      "automaticCategoryId": "400760"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a181e28",
+      "amount": -7.05,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "LA POSTE BOUTIQU",
+      "originalBankLabel": "CARTE 27/09 LA POSTE BOUTIQU",
+      "trueCategoryId": "400310",
+      "automaticCategoryId": "400310"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a1827ee",
+      "amount": -17.5,
+      "date": "2018-09-28T12:00:00.000Z",
+      "label": "BOULANGERIE OPE",
+      "originalBankLabel": "CARTE 21/09 BOULANGERIE OPE",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a1837a8",
+      "amount": -9.8,
+      "date": "2018-09-28T12:00:00.000Z",
+      "label": "CUCINA DA MARIO",
+      "originalBankLabel": "CARTE 24/09 CUCINA DA MARIO",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a184138",
+      "amount": -86.69,
+      "date": "2018-09-28T12:00:00.000Z",
+      "label": "DAC AUCHAN CARBU",
+      "originalBankLabel": "CARTE 23/09 DAC AUCHAN CARBU",
+      "trueCategoryId": "400250",
+      "automaticCategoryId": "400250"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a1842fa",
+      "amount": -11.95,
+      "date": "2018-09-28T12:00:00.000Z",
+      "label": "IYO",
+      "originalBankLabel": "CARTE 10/09 IYO",
+      "trueCategoryId": "401000",
+      "automaticCategoryId": "401000"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a184a7f",
+      "amount": -17.8,
+      "date": "2018-09-28T12:00:00.000Z",
+      "label": "RELAY 326264PX",
+      "originalBankLabel": "CARTE 05/09 RELAY 326264PX",
+      "trueCategoryId": "400830",
+      "automaticCategoryId": "400830"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a187263",
+      "amount": -40,
+      "date": "2018-08-27T12:00:00.000Z",
+      "label": "SAINT MARTIN",
+      "originalBankLabel": "RETRAIT DAB 24/08 SAINT MARTIN",
+      "trueCategoryId": "600140",
+      "automaticCategoryId": "600140"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a18818a",
+      "amount": -55.55,
+      "date": "2018-08-31T12:00:00.000Z",
+      "label": "WWW.COTESUSHI.CV EUR0000005555",
+      "originalBankLabel": "CARTE 25/08 WWW.COTESUSHI.CV EUR0000005555",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "400810"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a188dea",
+      "amount": -12.9,
+      "date": "2018-08-31T12:00:00.000Z",
+      "label": "IYO",
+      "originalBankLabel": "CARTE 14/08 IYO",
+      "trueCategoryId": "401000",
+      "automaticCategoryId": "401000"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a189e52",
+      "amount": -7,
+      "date": "2018-08-31T12:00:00.000Z",
+      "label": "OKAIDI 1637",
+      "originalBankLabel": "CARTE 08/08 OKAIDI 1637",
+      "trueCategoryId": "400130",
+      "automaticCategoryId": "400130"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a18a26f",
+      "amount": -182.98,
+      "date": "2018-08-31T12:00:00.000Z",
+      "label": "FNAC ST LAZARE",
+      "originalBankLabel": "CARTE 08/08 FNAC ST LAZARE",
+      "trueCategoryId": "400750",
+      "automaticCategoryId": "400750"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a18b10a",
+      "amount": -73.08,
+      "date": "2018-08-31T12:00:00.000Z",
+      "label": "Princesse Tam.Ta EUR0000007308",
+      "originalBankLabel": "CARTE 07/08 Princesse Tam.Ta EUR0000007308",
+      "trueCategoryId": "400280",
+      "automaticCategoryId": "400280"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a18bc60",
+      "amount": -7.95,
+      "date": "2018-08-31T12:00:00.000Z",
+      "label": "SUPER U",
+      "originalBankLabel": "CARTE 18/08 SUPER U",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a18c626",
+      "amount": -29.69,
+      "date": "2018-08-31T12:00:00.000Z",
+      "label": "MONOPRIX",
+      "originalBankLabel": "CARTE 31/07 MONOPRIX",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a18d1a6",
+      "amount": -13.5,
+      "date": "2018-08-31T12:00:00.000Z",
+      "label": "LE PETIT CAPUCCI",
+      "originalBankLabel": "CARTE 02/08 LE PETIT CAPUCCI",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "400810"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a18dd00",
+      "amount": -22.35,
+      "date": "2018-08-31T12:00:00.000Z",
+      "label": "MONOPRIX",
+      "originalBankLabel": "CARTE 31/07 MONOPRIX",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a18e4f1",
+      "amount": -12.99,
+      "date": "2018-08-31T12:00:00.000Z",
+      "label": "WP KOBOECOM",
+      "originalBankLabel": "CARTE 24/08 WP KOBOECOM",
+      "trueCategoryId": "400750",
+      "automaticCategoryId": "400750"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a18fa64",
+      "amount": -14.46,
+      "date": "2018-07-31T12:00:00.000Z",
+      "label": "IYO",
+      "originalBankLabel": "CARTE 25/07 IYO",
+      "trueCategoryId": "401000",
+      "automaticCategoryId": "401000"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a18fc97",
+      "amount": -11.2,
+      "date": "2018-07-31T12:00:00.000Z",
+      "label": "LA POSTE L920620",
+      "originalBankLabel": "CARTE 25/07 LA POSTE L920620",
+      "trueCategoryId": "400310",
+      "automaticCategoryId": "400310"
+    },
+    {
+      "_id": "49124a9bc1070f6bd73ce9390a1902e2",
+      "amount": -31.86,
+      "date": "2018-07-31T12:00:00.000Z",
+      "label": "BIO C BON",
+      "originalBankLabel": "CARTE 25/07 BIO C BON",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58e07bc",
+      "amount": -8.98,
+      "date": "2019-01-31T12:00:00.000Z",
+      "label": "ITUNES.COM/BILL EUR0000000898",
+      "originalBankLabel": "CARTE 06/01 ITUNES.COM/BILL EUR0000000898",
+      "trueCategoryId": "400750",
+      "automaticCategoryId": "400750"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58e07c9",
+      "amount": -175.91,
+      "date": "2019-01-31T12:00:00.000Z",
+      "label": "ZARA 9192",
+      "originalBankLabel": "CARTE 10/01 ZARA 9192",
+      "trueCategoryId": "400130",
+      "automaticCategoryId": "400130"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58e0b76",
+      "amount": -12.4,
+      "date": "2019-01-31T12:00:00.000Z",
+      "label": "SC-SPRIET TRAIT",
+      "originalBankLabel": "CARTE 15/01 SC-SPRIET TRAIT",
+      "trueCategoryId": "400160",
+      "automaticCategoryId": "0"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58e0e84",
+      "amount": -19.99,
+      "date": "2019-01-31T12:00:00.000Z",
+      "label": "AVENTURE VANOISE",
+      "originalBankLabel": "CARTE 04/01 AVENTURE VANOISE",
+      "trueCategoryId": "400700",
+      "automaticCategoryId": "0"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58e1b00",
+      "amount": -14.9,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "IYO",
+      "originalBankLabel": "CARTE 21/12 IYO",
+      "trueCategoryId": "401000",
+      "automaticCategoryId": "401000"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58e213d",
+      "amount": -8.4,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "HOPITAL FOCH",
+      "originalBankLabel": "CARTE 21/12 HOPITAL FOCH",
+      "trueCategoryId": "400600",
+      "automaticCategoryId": "400600"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58e3477",
+      "amount": -15.9,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "GOURMET HAUSSMA",
+      "originalBankLabel": "CARTE 12/12 GOURMET HAUSSMA",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "400810"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58e370b",
+      "amount": -24,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "NESTOR EUR0000002400",
+      "originalBankLabel": "CARTE 10/12 NESTOR EUR0000002400",
+      "trueCategoryId": "400160",
+      "automaticCategoryId": "0"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58e46c1",
+      "amount": -8.7,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "PHARMACIE DU RER",
+      "originalBankLabel": "CARTE 30/11 PHARMACIE DU RER",
+      "trueCategoryId": "400610",
+      "automaticCategoryId": "400610"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58e531f",
+      "amount": -7.9,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "PCIE DU CENTRE",
+      "originalBankLabel": "CARTE 30/11 PCIE DU CENTRE",
+      "trueCategoryId": "400610",
+      "automaticCategoryId": "400610"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58e5e76",
+      "amount": -65,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "BELLOT TATIANA",
+      "originalBankLabel": "CARTE 03/12 BELLOT TATIANA",
+      "trueCategoryId": "600160",
+      "automaticCategoryId": "0"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58e6381",
+      "amount": -12.9,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "PHARMACIE JAURES",
+      "originalBankLabel": "CARTE 29/11 PHARMACIE JAURES",
+      "trueCategoryId": "400610",
+      "automaticCategoryId": "400610"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58e6769",
+      "amount": -29.95,
+      "date": "2018-11-30T12:00:00.000Z",
+      "label": "N ET D 133",
+      "originalBankLabel": "CARTE 27/11 N ET D 133",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58e7606",
+      "amount": -70,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "DR SOPHIE PELLET",
+      "originalBankLabel": "CARTE 29/11 DR SOPHIE PELLET",
+      "trueCategoryId": "400610",
+      "automaticCategoryId": "400610"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58e81e6",
+      "amount": -38,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "DR WONGECZOWSKI",
+      "originalBankLabel": "CARTE 29/11 DR WONGECZOWSKI",
+      "trueCategoryId": "400610",
+      "automaticCategoryId": "400610"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58e8364",
+      "amount": -74,
+      "date": "2018-11-30T12:00:00.000Z",
+      "label": "PRINTEMPS HAUSSM",
+      "originalBankLabel": "CARTE 23/11 PRINTEMPS HAUSSM",
+      "trueCategoryId": "400112",
+      "automaticCategoryId": "400112"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58e9146",
+      "amount": -12.99,
+      "date": "2018-11-30T12:00:00.000Z",
+      "label": "FNAC.COM",
+      "originalBankLabel": "CARTE 23/11 FNAC.COM",
+      "trueCategoryId": "400750",
+      "automaticCategoryId": "400750"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58e9718",
+      "amount": -34,
+      "date": "2018-11-30T12:00:00.000Z",
+      "label": "AUCHAN.FR",
+      "originalBankLabel": "CARTE 23/11 AUCHAN.FR",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58e9774",
+      "amount": -39.99,
+      "date": "2018-11-30T12:00:00.000Z",
+      "label": "CULTURA LA DEFEN",
+      "originalBankLabel": "CARTE 19/11 CULTURA LA DEFEN",
+      "trueCategoryId": "400760",
+      "automaticCategoryId": "400760"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58e9ef1",
+      "amount": -155.19,
+      "date": "2018-11-30T12:00:00.000Z",
+      "label": "CYRILLUS.FR",
+      "originalBankLabel": "CARTE 21/11 CYRILLUS.FR",
+      "trueCategoryId": "400130",
+      "automaticCategoryId": "400130"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58eaffe",
+      "amount": -24.8,
+      "date": "2018-11-30T12:00:00.000Z",
+      "label": "PRINTEMPS HAUSSM",
+      "originalBankLabel": "CARTE 09/11 PRINTEMPS HAUSSM",
+      "trueCategoryId": "400112",
+      "automaticCategoryId": "400112"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58ebc69",
+      "amount": -187,
+      "date": "2018-11-30T12:00:00.000Z",
+      "label": "LORENTZ BY GERAR",
+      "originalBankLabel": "CARTE 09/11 LORENTZ BY GERAR",
+      "trueCategoryId": "400112",
+      "automaticCategoryId": "400112"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58ec046",
+      "amount": -95,
+      "date": "2018-11-30T12:00:00.000Z",
+      "label": "PRINTEMPS HAUSSM",
+      "originalBankLabel": "CARTE 09/11 PRINTEMPS HAUSSM",
+      "trueCategoryId": "400112",
+      "automaticCategoryId": "400112"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58eca67",
+      "amount": -12.6,
+      "date": "2018-11-30T12:00:00.000Z",
+      "label": "SHIKI SUSHI",
+      "originalBankLabel": "CARTE 08/11 SHIKI SUSHI",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "400810"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58ed6f1",
+      "amount": -11.15,
+      "date": "2018-11-30T12:00:00.000Z",
+      "label": "LA POSTE BOUTIQU",
+      "originalBankLabel": "CARTE 06/11 LA POSTE BOUTIQU",
+      "trueCategoryId": "400310",
+      "automaticCategoryId": "400310"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58ed99a",
+      "amount": -75.2,
+      "date": "2018-11-30T12:00:00.000Z",
+      "label": "SNCF",
+      "originalBankLabel": "CARTE 06/11 SNCF",
+      "trueCategoryId": "600170",
+      "automaticCategoryId": "600170"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58edf16",
+      "amount": -75.2,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "L'ESPACE CAFE",
+      "originalBankLabel": "CARTE 03/12 L'ESPACE CAFE",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "400810"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58eea9d",
+      "amount": -9.99,
+      "date": "2018-12-31T12:00:00.000Z",
+      "label": "WP KOBOECOM",
+      "originalBankLabel": "CARTE 05/12 WP KOBOECOM",
+      "trueCategoryId": "400750",
+      "automaticCategoryId": "400750"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58ef021",
+      "amount": -9.2,
+      "date": "2018-11-30T12:00:00.000Z",
+      "label": "WOK ADDICT",
+      "originalBankLabel": "CARTE 31/10 WOK ADDICT",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "400810"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58effa1",
+      "amount": -13.5,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "LE PETIT CAPUCCI",
+      "originalBankLabel": "CARTE 25/10 LE PETIT CAPUCCI",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "400810"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58f0ee4",
+      "amount": -129.8,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "UNIQLO OPERA 05",
+      "originalBankLabel": "CARTE 22/10 UNIQLO OPERA 05",
+      "trueCategoryId": "400130",
+      "automaticCategoryId": "400130"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58f2aec",
+      "amount": -7.5,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "LA POSTE BOUTIQU",
+      "originalBankLabel": "CARTE 15/10 LA POSTE BOUTIQU",
+      "trueCategoryId": "600110",
+      "automaticCategoryId": "600110"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58f3a9c",
+      "amount": -26.33,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "FRANPRIX LP COFI",
+      "originalBankLabel": "CARTE 23/10 FRANPRIX LP COFI",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58f3c38",
+      "amount": -6.8,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "LA POSTE BOUTIQU",
+      "originalBankLabel": "CARTE 12/10 LA POSTE BOUTIQU",
+      "trueCategoryId": "400310",
+      "automaticCategoryId": "400310"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58f4321",
+      "amount": -13.5,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "COCO LAFAYETTE",
+      "originalBankLabel": "CARTE 16/10 COCO LAFAYETTE",
+      "trueCategoryId": "400112",
+      "automaticCategoryId": "400112"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58f48b5",
+      "amount": -24,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "NESTOR EUR0000002400",
+      "originalBankLabel": "CARTE 10/10 NESTOR EUR0000002400",
+      "trueCategoryId": "400160",
+      "automaticCategoryId": "0"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58f4d49",
+      "amount": -102.49,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "ALMABIO BIOCOOP",
+      "originalBankLabel": "CARTE 09/10 ALMABIO BIOCOOP",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58f5c7d",
+      "amount": -15.45,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "LA POSTE 920620",
+      "originalBankLabel": "CARTE 05/10 LA POSTE 920620",
+      "trueCategoryId": "400112",
+      "automaticCategoryId": "400112"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58f7b15",
+      "amount": -36.98,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "DPAM",
+      "originalBankLabel": "CARTE 01/10 DPAM",
+      "trueCategoryId": "400130",
+      "automaticCategoryId": "400130"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58f8240",
+      "amount": -11.2,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "WOK ADDICT",
+      "originalBankLabel": "CARTE 02/10 WOK ADDICT",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "400810"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58f8399",
+      "amount": -89.9,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "SAGA DES MARQUE",
+      "originalBankLabel": "CARTE 28/09 SAGA DES MARQUE",
+      "trueCategoryId": "400850",
+      "automaticCategoryId": "400850"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58f9096",
+      "amount": -20.32,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "MONOPRIX",
+      "originalBankLabel": "CARTE 28/09 MONOPRIX",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58fa351",
+      "amount": -32.61,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "MONOPRIX",
+      "originalBankLabel": "CARTE 27/09 MONOPRIX",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58fafda",
+      "amount": -49.22,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "ALICE DELICE",
+      "originalBankLabel": "CARTE 27/09 ALICE DELICE",
+      "trueCategoryId": "400760",
+      "automaticCategoryId": "400760"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58fb0d9",
+      "amount": -73,
+      "date": "2018-09-28T12:00:00.000Z",
+      "label": "BAYARD PRESSE",
+      "originalBankLabel": "CARTE 25/09 BAYARD PRESSE",
+      "trueCategoryId": "400750",
+      "automaticCategoryId": "400750"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58fbb9d",
+      "amount": -12.42,
+      "date": "2018-10-31T12:00:00.000Z",
+      "label": "LAGON 92",
+      "originalBankLabel": "CARTE 27/09 LAGON 92",
+      "trueCategoryId": "400800",
+      "automaticCategoryId": "400800"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58fc077",
+      "amount": -60.95,
+      "date": "2018-09-28T12:00:00.000Z",
+      "label": "ALMABIO BIOCOOP",
+      "originalBankLabel": "CARTE 24/09 ALMABIO BIOCOOP",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58fc35a",
+      "amount": -12.85,
+      "date": "2018-09-28T12:00:00.000Z",
+      "label": "RELAY 328005SC",
+      "originalBankLabel": "CARTE 19/09 RELAY 328005SC",
+      "trueCategoryId": "400111",
+      "automaticCategoryId": "400111"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58fc429",
+      "amount": -12.2,
+      "date": "2018-09-28T12:00:00.000Z",
+      "label": "WOK ADDICT",
+      "originalBankLabel": "CARTE 17/09 WOK ADDICT",
+      "trueCategoryId": "400810",
+      "automaticCategoryId": "400810"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58fd61e",
+      "amount": -30.54,
+      "date": "2018-09-28T12:00:00.000Z",
+      "label": "ALMABIO BIOCOOP",
+      "originalBankLabel": "CARTE 05/09 ALMABIO BIOCOOP",
+      "trueCategoryId": "400110",
+      "automaticCategoryId": "400110"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58fe168",
+      "amount": -22.5,
+      "date": "2018-09-28T12:00:00.000Z",
+      "label": "MORGAN",
+      "originalBankLabel": "CARTE 12/09 MORGAN",
+      "trueCategoryId": "400130",
+      "automaticCategoryId": "400130"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58fe6d6",
+      "amount": -40.87,
+      "date": "2018-09-28T12:00:00.000Z",
+      "label": "UBER",
+      "originalBankLabel": "CARTE 02/09 UBER",
+      "trueCategoryId": "400290",
+      "automaticCategoryId": "400290"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba58fe908",
+      "amount": -2.99,
+      "date": "2018-08-31T12:00:00.000Z",
+      "label": "WP KOBOECOM",
+      "originalBankLabel": "CARTE 24/08 WP KOBOECOM",
+      "trueCategoryId": "400750",
+      "automaticCategoryId": "400750"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba590010f",
+      "amount": -47.6,
+      "date": "2018-08-31T12:00:00.000Z",
+      "label": "MORGAN",
+      "originalBankLabel": "CARTE 31/07 MORGAN",
+      "trueCategoryId": "400130",
+      "automaticCategoryId": "400130"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba5900983",
+      "amount": -250.04,
+      "date": "2018-07-31T12:00:00.000Z",
+      "label": "AUCHAN LA DEFENS",
+      "originalBankLabel": "CARTE 27/07 AUCHAN LA DEFENS",
+      "trueCategoryId": "400100",
+      "automaticCategoryId": "400100"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba5900b85",
+      "amount": -9.5,
+      "date": "2018-07-31T12:00:00.000Z",
+      "label": "INDIGO",
+      "originalBankLabel": "CARTE 27/07 INDIGO",
+      "trueCategoryId": "400740",
+      "automaticCategoryId": "400740"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba5900fab",
+      "amount": -57.11,
+      "date": "2018-07-31T12:00:00.000Z",
+      "label": "HPP SARL",
+      "originalBankLabel": "CARTE 25/07 HPP SARL",
+      "trueCategoryId": "400240",
+      "automaticCategoryId": "400240"
+    },
+    {
+      "_id": "9f1b0b189f81912a928664dba5900fbf",
+      "amount": -5.49,
+      "date": "2018-08-31T12:00:00.000Z",
+      "label": "ITUNES.COM/BILL EUR0000000549",
+      "originalBankLabel": "CARTE 05/08 ITUNES.COM/BILL EUR0000000549",
+      "trueCategoryId": "400750",
+      "automaticCategoryId": "400750"
+    }
+  ]
+}

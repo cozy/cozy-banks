@@ -25,6 +25,31 @@ const FAKE_TRANSACTION = {
 const LOCAL_MODEL_CATEG_FALLBACK = '0'
 const LOCAL_MODEL_PROBA_FALLBACK = 0.1
 const LOCAL_MODEL_PCT_TOKENS_IN_VOC_THRESHOLD = 0.1
+/**
+ * List of every combinations of tokens related to amounts:
+ * - a tag for the amount's sign
+ * - a tag for the amount's magnitude
+ */
+const TOKENS_TO_REWEIGHT = [
+  'tag_neg',
+  'tag_v_b_expense',
+  'tag_neg tag_v_b_expense',
+  'tag_b_expense',
+  'tag_neg tag_b_expense',
+  'tag_expense',
+  'tag_neg tag_expense',
+  'tag_noise_neg',
+  'tag_neg tag_noise_neg',
+  'tag_pos',
+  'tag_noise_pos',
+  'tag_pos tag_noise_pos',
+  'tag_income',
+  'tag_pos tag_income',
+  'tag_b_income',
+  'tag_pos tag_b_income',
+  'tag_activity_income',
+  'tag_pos tag_activity_income'
+]
 
 export const getUniqueCategories = transactions => {
   return uniq(transactions.map(t => t.manualCategoryId))
@@ -189,6 +214,48 @@ const getLocalClassifierOptions = transactionsWithManualCat => {
   }
 }
 
+/**
+ * Reweights a word in the Naive Bayes parameter in order to mimic the
+ * behavior of a sublinear TF-IDF vectorizer applied to this word.
+ * The transformation applied is inspired by the scikit-learn object
+ * `sklearn.feature_extraction.text.TfidfVectorizer` with `sublinear_tf`.
+ * The `log(frequencyCount)` smooths the probabilities of a word across the
+ * possible categories to avoid the probability of the most targeted category
+ * to explode.
+ * @param {*} classifier - classifier to reweight
+ * @param {*} category - category in which to reweight a word
+ * @param {*} word  - word to reweight
+ * @param {*} frequencyCount - observed frequency count of this word in the given category
+ */
+export const reweightWord = (classifier, category, word, frequencyCount) => {
+  const newFrequencyCount = 1 + Math.log(frequencyCount)
+  const deltaFrequencyCount = frequencyCount - newFrequencyCount
+  // update the right entries of the classifier's parameters
+  classifier.vocabulary[word] -= deltaFrequencyCount
+  classifier.wordCount[category] -= deltaFrequencyCount
+  classifier.wordFrequencyCount[category][word] = newFrequencyCount
+}
+
+export const reweightModel = classifier => {
+  // loop over categories in the wordFrequencyCat attribute
+  const wordFrequencyCount = classifier.wordFrequencyCount
+  // for each category
+  for (const category of Object.keys(wordFrequencyCount)) {
+    // extract its word-frequency count `wfc`
+    const categoryWordsFrequencyCounts = wordFrequencyCount[category]
+    // and search for tokens to reweight in it
+    TOKENS_TO_REWEIGHT.map(wordToReweight => {
+      if (categoryWordsFrequencyCounts.hasOwnProperty(wordToReweight)) {
+        // for every tokens to reweight : re-compute frequency count `fc`
+        const frequencyCount = categoryWordsFrequencyCounts[wordToReweight]
+        if (frequencyCount !== 1) {
+          reweightWord(classifier, category, wordToReweight, frequencyCount)
+        }
+      }
+    })
+  }
+}
+
 export const createLocalModel = async classifierOptions => {
   localModelLog('info', 'Fetching manually categorized transactions')
   const transactionsWithManualCat = await Transaction.queryAll({
@@ -222,6 +289,12 @@ export const localModel = async (classifierOptions, transactions) => {
   const classifier = await createLocalModel(classifierOptions)
 
   if (classifier !== undefined) {
+    localModelLog(
+      'info',
+      'Reweighting model to lower the impact of amount in the prediction'
+    )
+    reweightModel(classifier)
+
     localModelLog(
       'info',
       `Applying model to ${transactions.length} transactions`

@@ -19,6 +19,7 @@ import {
 } from 'lodash'
 import { getFilteredAccounts } from 'ducks/filters'
 import BarBalance from 'components/BarBalance'
+import { Padded } from 'components/Spacing'
 
 import {
   getTransactionsFilteredByAccount,
@@ -242,7 +243,11 @@ class TransactionsPage extends Component {
     const transactions = this.getTransactions()
 
     if (transactions.length === 0) {
-      return <p>{t('Transactions.no-movements')}</p>
+      return (
+        <Padded className='u-pt-0'>
+          <p>{t('Transactions.no-movements')}</p>
+        </Padded>
+      )
     }
 
     return (

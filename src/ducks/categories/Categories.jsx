@@ -52,7 +52,7 @@ class Categories extends Component {
 
     return (
       <div>
-        {isDesktop && !hasData && <p>{t('Categories.title.empty_text')}</p>}
+        {!hasData && <p>{t('Categories.title.empty_text')}</p>}
         {hasData && (
           <Table className={stTableCategory} {...colorProps}>
             {!isMobile && (

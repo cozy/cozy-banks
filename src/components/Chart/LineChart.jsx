@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import * as d3 from 'd3'
-import { maxBy, minBy } from 'lodash'
+import { max, minBy, keyBy, memoize } from 'lodash'
 import styles from './LineChart.styl'
 import Tooltip from './Tooltip'
 
@@ -13,24 +13,76 @@ class LineChart extends Component {
     this.updateDomains()
 
     this.dragging = false
-    this.state = {
-      x: this.x(maxBy(this.props.data, d => d.x).x)
-    }
+
+    const { data } = props
+    const dataByDate = this.getDataByDate(data)
+    const itemKey = max(Object.keys(dataByDate))
+
+    this.state = { itemKey }
+  }
+
+  getDataByDate = memoize(data => keyBy(data, i => i.x.getTime()))
+
+  getSelectedItem = () => {
+    const { data } = this.props
+    const { itemKey } = this.state
+    const dataByDate = this.getDataByDate(data)
+
+    return dataByDate[itemKey]
   }
 
   componentDidMount() {
-    this.createScales()
-    this.createLineGenerator()
     this.createElements()
-
-    this.updateData()
     this.enterAnimation()
+
+    this.updateElements()
+    this.movePointToItem()
   }
 
-  componentDidUpdate() {
-    this.updateData()
+  componentDidUpdate(prevProps, prevState) {
+    const itemKeyUpdate = this.state.itemKey !== prevState.itemKey
+    const widthUpdate = this.props.width !== prevProps.width
+    const marginUpdate = this.props.margin !== prevProps.margin
+    const dataUpdate = this.props.data !== prevProps.data
+
+    if (marginUpdate) {
+      this.updateRoot()
+    }
+
+    if (widthUpdate || dataUpdate) {
+      this.updateScales()
+      this.updateGradient()
+      this.updateAxis()
+      this.updateLine()
+      this.movePointToItem()
+    } else if (itemKeyUpdate) {
+      this.movePointToItem()
+    }
   }
 
+  /**
+   * Create all graph elements
+   */
+  createElements() {
+    this.createRoot()
+    this.createGradient()
+    this.createPointLine()
+    this.createLine()
+    this.createPoint()
+    this.createAxis()
+  }
+
+  updateElements() {
+    this.updateRoot()
+    this.updateScales()
+    this.updateGradient()
+    this.updateAxis()
+    this.updateLine()
+  }
+
+  /**
+   * Creates the x and y scales used to transform values to pixels
+   */
   createScales() {
     const { xScale, yScale } = this.props
 
@@ -38,32 +90,65 @@ class LineChart extends Component {
     this.y = yScale().range([this.getInnerHeight(), 0])
   }
 
-  createLineGenerator() {
-    this.lineGenerator = d3
-      .line()
-      .x(d => this.x(d.x))
-      .y(d => this.y(d.y))
+  updateScales() {
+    this.x.range([0, this.getInnerWidth()])
+    this.y.range([this.getInnerHeight(), 0])
+    this.updateDomains()
   }
 
+  /**
+   * Returns the width in which the chart will be drawn
+   */
   getInnerWidth() {
     const { width, margin } = this.props
     return width - margin.left - margin.right
   }
 
+  /**
+   * Returns the height in which the chart will be drawn
+   */
   getInnerHeight() {
     const { height, margin } = this.props
     return height - margin.top - margin.bottom
   }
 
-  createRoot() {
-    const { margin } = this.props
+  /**
+   * Update the scales domains
+   */
+  updateDomains() {
+    const { data } = this.props
 
-    this.svg = d3
-      .select(this.root)
-      .append('g')
-      .attr('transform', `translate(${margin.left}, ${margin.top})`)
+    this.x.domain(d3.extent(data, d => d.x))
+
+    let yDomain = d3.extent(data, d => d.y)
+
+    // If min === max, the line will be drawn on the bottom, like
+    // all values are the min. We want to opposite, so we set the
+    // min to 0. This way the line will be drawn on the top
+    if (yDomain[0] === yDomain[1]) {
+      yDomain[0] = 0
+    }
+
+    this.y.domain(yDomain)
   }
 
+  /**
+   * Creates the element that will contains all others.
+   * It is used to apply a translation on the whole chart content according to the margins we want to apply to it
+   */
+  createRoot() {
+    this.svg = d3.select(this.root).append('g')
+  }
+
+  updateRoot() {
+    const { margin } = this.props
+
+    this.svg.attr('transform', `translate(${margin.left}, ${margin.top})`)
+  }
+
+  /**
+   * Create the gradient element
+   */
   createGradient() {
     const { gradient } = this.props
 
@@ -71,11 +156,9 @@ class LineChart extends Component {
       return
     }
 
-    const minY = this.getDataMin()
     this.areaGenerator = d3
       .area()
       .x(d => this.x(d.x))
-      .y0(() => this.y(minY.y))
       .y1(d => this.y(d.y))
 
     this.mask = this.svg
@@ -84,41 +167,69 @@ class LineChart extends Component {
       .append('path')
       .attr('fill', 'white')
 
-    this.svg
+    this.rect = this.svg
       .append('rect')
+      .attr('id', 'gradient-rect')
       .attr('x', 0)
       .attr('y', 0)
-      .attr('width', this.getInnerWidth())
-      .attr('height', this.getInnerHeight())
       .attr('mask', 'url(#maskurl)')
       .attr('fill', 'url(#gradient)')
   }
 
-  createPointLine() {
-    this.pointLine = this.svg
-      .append('line')
-      .attr('stroke-width', 1)
-      .attr('stroke', 'white')
-      .attr('stroke-dasharray', '3,2')
+  updateGradient() {
+    if (this.rect) {
+      const { data } = this.props
+      const minY = this.getDataMin()
+      this.areaGenerator.y0(() => this.y(minY.y))
+
+      this.rect
+        .attr('width', this.getInnerWidth())
+        .attr('height', this.getInnerHeight())
+
+      this.mask.datum(data).attr('d', this.areaGenerator)
+    }
   }
 
+  /**
+   * Generate the data line
+   */
   createLine() {
     const { lineColor, lineWidth } = this.props
 
+    this.lineGenerator = d3
+      .line()
+      .x(d => this.x(d.x))
+      .y(d => this.y(d.y))
+
     this.line = this.svg
       .append('path')
+      .attr('id', 'line')
       .attr('stroke', lineColor)
-      .attr('stroke-width', lineWidth)
       .attr('fill', 'none')
+      .attr('stroke-width', lineWidth)
 
     this.clickLine = this.svg
       .append('path')
+      .attr('id', 'clickLine')
       .attr('stroke', 'transparent')
       .attr('stroke-width', 32)
       .attr('fill', 'none')
       .on('click', this.onLineClick)
+
+    this.updateLine()
   }
 
+  updateLine() {
+    const { data } = this.props
+
+    this.line.datum(data).attr('d', this.lineGenerator)
+
+    this.clickLine.datum(data).attr('d', this.lineGenerator)
+  }
+
+  /**
+   * Generate the selected point
+   */
   createPoint() {
     const {
       pointRadius,
@@ -140,6 +251,40 @@ class LineChart extends Component {
       .call(drag.on('end', this.stopPointDrag))
   }
 
+  updatePoint() {
+    const item = this.getSelectedItem()
+    const x = this.x(item.x)
+    const y = this.y(item.y)
+
+    this.point.attr('cx', x).attr('cy', y)
+  }
+
+  /**
+   * Generate the vertical line that follows the point
+   */
+  createPointLine() {
+    this.pointLine = this.svg
+      .append('line')
+      .attr('stroke-width', 1)
+      .attr('stroke', 'white')
+      .attr('stroke-dasharray', '3,2')
+  }
+
+  updatePointLine() {
+    const item = this.getSelectedItem()
+    const { height, margin, tickPadding } = this.props
+    const x = this.x(item.x)
+
+    this.pointLine
+      .attr('x1', x)
+      .attr('y1', 0)
+      .attr('x2', x)
+      .attr('y2', height - margin.top - margin.bottom + tickPadding)
+  }
+
+  /**
+   * Generate the horizontal axis
+   */
   createAxis() {
     const {
       tickSizeOuter,
@@ -147,8 +292,7 @@ class LineChart extends Component {
       tickPadding,
       nbTicks,
       tickFormat,
-      showAxis,
-      axisMargin
+      showAxis
     } = this.props
 
     this.xAxisGenerator = d3
@@ -166,68 +310,35 @@ class LineChart extends Component {
     }
 
     if (showAxis) {
-      this.axis = this.svg
-        .append('g')
-        .attr(
-          'transform',
-          `translate(0, ${this.getInnerHeight() + axisMargin})`
-        )
+      this.axis = this.svg.append('g')
     }
   }
 
-  createElements() {
-    this.createRoot()
-    this.createGradient()
-    this.createPointLine()
-    this.createLine()
-    this.createPoint()
-    this.createAxis()
-  }
+  updateAxis() {
+    const { axisColor, labelsColor, showAxis, axisMargin } = this.props
 
-  updateDomains() {
-    const { data } = this.props
-
-    this.x.domain(d3.extent(data, d => d.x))
-
-    let yDomain = d3.extent(data, d => d.y)
-
-    // If min === max, the line will be drawn on the bottom, like
-    // all values are the min. We want to opposite, so we set the
-    // min to 0. This way the line will be drawn on the top
-    if (yDomain[0] === yDomain[1]) {
-      yDomain[0] = 0
+    if (showAxis) {
+      this.axis.attr(
+        'transform',
+        `translate(0, ${this.getInnerHeight() + axisMargin})`
+      )
+      this.axis.call(this.xAxisGenerator)
+      this.axis.selectAll('.domain').attr('stroke', axisColor)
+      this.axis.selectAll('.tick line').attr('stroke', axisColor)
+      this.axis
+        .selectAll('.tick text')
+        .attr('fill', labelsColor)
+        .attr('font-family', 'Lato, sans-serif')
+        .attr('font-size', '0.75rem')
+        .attr('style', 'text-transform: uppercase')
     }
-
-    this.y.domain(yDomain)
   }
 
+  /**
+   * Get the minimum y value in data
+   */
   getDataMin() {
     return minBy(this.props.data, d => d.y)
-  }
-
-  updateGradient() {
-    const minY = this.getDataMin()
-    this.areaGenerator.y0(() => this.y(minY.y))
-  }
-
-  updateData() {
-    const { data } = this.props
-
-    this.updateDomains()
-    this.updateGradient()
-
-    this.line.datum(data).attr('d', this.lineGenerator)
-    this.clickLine.datum(data).attr('d', this.lineGenerator)
-
-    if (this.mask) {
-      this.mask.datum(data).attr('d', this.areaGenerator)
-    }
-
-    if (this.props.showAxis) {
-      this.updateAxis()
-    }
-
-    this.movePointTo(this.getItemAt(this.state.x))
   }
 
   enterAnimation() {
@@ -241,7 +352,7 @@ class LineChart extends Component {
     }
 
     this.line
-      .attr('stroke-dasharray', `${lineTotalLength} ${lineTotalLength}`)
+      .attr('stroke-dasharray', lineTotalLength)
       .attr('stroke-dashoffset', lineTotalLength)
       .transition()
       .duration(this.props.enterAnimationDuration)
@@ -268,54 +379,33 @@ class LineChart extends Component {
             .ease(d3.easeExpIn)
             .attr('opacity', 1)
         }
+
+        this.line.attr('stroke-dasharray', null)
       })
-  }
-
-  updateAxis() {
-    const { axisColor, labelsColor } = this.props
-
-    this.axis.call(this.xAxisGenerator)
-    this.axis.selectAll('.domain').attr('stroke', axisColor)
-    this.axis.selectAll('.tick line').attr('stroke', axisColor)
-    this.axis
-      .selectAll('.tick text')
-      .attr('fill', labelsColor)
-      .attr('font-family', 'Lato, sans-serif')
-      .attr('font-size', '0.75rem')
-      .attr('style', 'text-transform: uppercase')
   }
 
   onLineClick = () => {
     const [mouseX] = d3.mouse(this.clickLine.node())
-    this.setState({ x: mouseX })
+    this.setItemFromMouseX(mouseX)
   }
 
   getItemAt(x) {
     const { data } = this.props
+    const date = this.x.invert(x)
 
-    const distances = data.map(i => Math.abs(this.x.invert(x) - i.x))
-    const minDistance = Math.min(...distances)
-    const nearestIndex = distances.findIndex(d => d === minDistance)
+    const bisectX = d3.bisector(d => d.x).right
+    const nearestIndex = bisectX(data, date)
 
     return data[nearestIndex]
   }
 
-  movePointTo(item) {
+  movePointToItem() {
     if (!this.point) {
       return
     }
 
-    const { height, margin, tickPadding } = this.props
-    const x = this.x(item.x)
-    const y = this.y(item.y)
-
-    this.point.attr('cx', x).attr('cy', y)
-
-    this.pointLine
-      .attr('x1', x)
-      .attr('y1', 0)
-      .attr('x2', x)
-      .attr('y2', height - margin.top - margin.bottom + tickPadding)
+    this.updatePoint()
+    this.updatePointLine()
   }
 
   startPointDrag = () => {
@@ -328,7 +418,14 @@ class LineChart extends Component {
     }
 
     const [mouseX] = d3.mouse(this.svg.node())
-    this.setState({ x: Math.min(mouseX, this.getInnerWidth()) })
+    this.setItemFromMouseX(mouseX)
+  }
+
+  setItemFromMouseX = mouseX => {
+    const x = Math.min(mouseX, this.getInnerWidth() - 1)
+    const itemKey = this.getItemAt(x).x.getTime()
+
+    this.setState({ itemKey })
   }
 
   stopPointDrag = () => {
@@ -337,14 +434,13 @@ class LineChart extends Component {
 
   render() {
     const { width, height, gradient, margin, getTooltipContent } = this.props
-    const { x } = this.state
 
-    const selectedItem = this.getItemAt(x)
-    this.movePointTo(selectedItem)
+    const selectedItem = this.getSelectedItem()
+    const itemX = this.x(selectedItem.x)
 
-    const isLeftPosition = x < width / 2
+    const isLeftPosition = itemX < width / 2
     const position = isLeftPosition ? 'left' : 'right'
-    const tooltipX = (isLeftPosition ? 0 : -width) + x + margin.left
+    const tooltipX = (isLeftPosition ? 0 : -width) + itemX + margin.left
 
     return (
       <div className={styles.LineChart}>

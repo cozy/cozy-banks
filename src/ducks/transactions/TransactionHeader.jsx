@@ -123,6 +123,7 @@ class TransactionHeader extends Component {
   render() {
     const {
       router,
+      transactions,
       breakpoints: { isMobile }
     } = this.props
     const isSubcategory = !!router.params.subcategoryName
@@ -143,7 +144,9 @@ class TransactionHeader extends Component {
             {this.displayBreadcrumb()}
           </Padded>
         )}
-        <TableHead isSubcategory={isSubcategory} {...colorProps} />
+        {transactions.length > 0 && (
+          <TableHead isSubcategory={isSubcategory} {...colorProps} />
+        )}
       </Header>
     )
   }

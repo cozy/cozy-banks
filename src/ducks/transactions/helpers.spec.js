@@ -52,13 +52,20 @@ xdescribe('transaction', () => {
 })
 
 describe('getDate', () => {
-  it('should return realisation date if there is one', () => {
-    const transaction = {
+  it('should return realisation date if there is one and the linked account is a CreditCard one', () => {
+    const transactionCreditCard = {
+      realisationDate: '2019-01-28T00:00:00Z',
+      date: '2019-01-31T00:00:00Z',
+      account: { data: { type: 'CreditCard' } }
+    }
+
+    const transactionOther = {
       realisationDate: '2019-01-28T00:00:00Z',
       date: '2019-01-31T00:00:00Z'
     }
 
-    expect(getDate(transaction)).toBe('2019-01-28')
+    expect(getDate(transactionCreditCard)).toBe('2019-01-28')
+    expect(getDate(transactionOther)).toBe('2019-01-31')
   })
 
   it('should return the date if there is no relation date', () => {

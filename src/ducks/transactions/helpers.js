@@ -1,16 +1,28 @@
 import find from 'lodash/find'
 import findLast from 'lodash/findLast'
+import get from 'lodash/get'
 
 export const getLabel = transaction =>
   transaction.label.toLowerCase().replace(/(?:^|\s)\S/g, a => a.toUpperCase())
 
 export const getDisplayDate = transaction => {
-  return transaction.realisationDate || transaction.date
+  if (
+    getAccountType(transaction) === 'CreditCard' &&
+    transaction.realisationDate
+  ) {
+    return transaction.realisationDate
+  }
+
+  return transaction.date
 }
 
 export const getDate = transaction => {
   const date = getDisplayDate(transaction)
   return date.slice(0, 10)
+}
+
+export const getAccountType = transaction => {
+  return get(transaction, 'account.data.type')
 }
 
 /**

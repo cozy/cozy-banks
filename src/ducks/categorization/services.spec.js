@@ -84,10 +84,10 @@ describe('localModel', () => {
   it('Should give correct local probas', async () => {
     await localModel({ tokenizer }, transactions)
 
-    expect(transactions[0].localCategoryProba).toBeCloseTo(0.8143, 3)
-    expect(transactions[1].localCategoryProba).toBeCloseTo(0.1, 3)
-    expect(transactions[2].localCategoryProba).toBeCloseTo(0.1, 3)
-    expect(transactions[3].localCategoryProba).toBeCloseTo(0.6586, 3)
-    expect(transactions[4].localCategoryProba).toBeCloseTo(0.1, 3)
+    expect(transactions[0].localCategoryProba).toBeCloseTo(0.8109, 3)
+    expect(transactions[1].localCategoryProba).toBeCloseTo(0.5, 3)
+    expect(transactions[2].localCategoryProba).toBeCloseTo(0.5, 3)
+    expect(transactions[3].localCategoryProba).toBeCloseTo(0.6644, 3)
+    expect(transactions[4].localCategoryProba).toBeCloseTo(0.5, 3)
   })
 })

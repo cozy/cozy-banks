@@ -1,0 +1,32 @@
+{
+  "io.cozy.bank.operations": [
+    {
+      "_id": "f10232c43341135d9fc7490c25da99bb",
+      "account": "ff6f5704314c444bacec70c300feb3e0",
+      "amount": -286.85,
+      "applicationDate": "2018-12-26T12:00:00.000Z",
+      "automaticCategoryId": "400210",
+      "cozyMetadata": {
+        "updatedAt": "2019-01-28T12:25:01.865Z"
+      },
+      "currency": "EUR",
+      "date": "2019-01-02T12:00:00.000Z",
+      "isActive": true,
+      "isComing": false,
+      "label": "RENT AND DROP CHAMPAGNE AU M",
+      "metadata": {
+        "dateImport": "2019-01-28T12:25:00.845Z",
+        "vendor": "budget-insight",
+        "version": 1
+      },
+      "originalBankLabel": "CARTE 26/12 RENT AND DROP CHAMPAGNE AU M",
+      "rawDate": "2019-01-02",
+      "realisationDate": "2018-12-26T12:00:00.000Z",
+      "sourceCategoryId": 38,
+      "vendorAccountId": "232",
+      "vendorId": 25849,
+      "localCategoryId": "600110",
+      "localCategoryProba": 0.2611223458428986
+    }
+  ]
+}

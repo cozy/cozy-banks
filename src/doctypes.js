@@ -16,6 +16,7 @@ export const offlineDoctypes = [
   GROUP_DOCTYPE,
   TRANSACTION_DOCTYPE,
   SETTINGS_DOCTYPE,
+  TRIGGER_DOCTYPE,
   BILLS_DOCTYPE
 ]
 

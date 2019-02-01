@@ -31,4 +31,7 @@ if (isDemoCozy()) {
   flag('demo', true)
 }
 
+// Turn on new balance panels UI
+flag('balance-panels', true)
+
 window.flag = flag
