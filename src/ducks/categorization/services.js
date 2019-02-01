@@ -47,6 +47,9 @@ const TOKENS_TO_REWEIGHT = [
   'tag_activity_income',
   'tag_pos tag_activity_income'
 ]
+const LOCAL_MODEL_CATEG_FALLBACK = '0'
+const LOCAL_MODEL_PROBA_FALLBACK = 0.1
+const LOCAL_MODEL_PCT_TOKENS_IN_VOC_THRESHOLD = 0.1
 
 export const getUniqueCategories = transactions => {
   return uniq(transactions.map(t => t.manualCategoryId))
@@ -273,69 +276,64 @@ export const createLocalModel = async classifierOptions => {
     { ...classifierOptions, ...options.initialization },
     options.configuration
   )
+  return classifier
+}
 
-  if (!classifier) {
-    localModelLog(
-      'info',
-      'No classifier, impossible to categorize transactions'
-    )
-    return
-  } else {
-    return classifier
-  }
+export const pctOfTokensInVoc = (tokens, vocabularyArray) => {
+  const n_tokens = tokens.length
+  const intersection = tokens.filter(t => -1 !== vocabularyArray.indexOf(t))
+  return intersection.length / n_tokens
 }
 
 export const localModel = async (classifierOptions, transactions) => {
-  localModelLog('info', 'Fetching manually categorized transactions')
-  const transactionsWithManualCat = await Transaction.queryAll({
-    manualCategoryId: { $exists: true }
-  })
-  localModelLog(
-    'info',
-    `Fetched ${
-      transactionsWithManualCat.length
-    } manually categorized transactions`
-  )
+  const classifier = await createLocalModel(classifierOptions)
 
-  localModelLog('info', 'Instanciating a new classifier')
+  if (classifier !== undefined) {
+    localModelLog(
+      'info',
+      `Applying model to ${transactions.length} transactions`
+    )
 
-  const options = getLocalClassifierOptions(transactionsWithManualCat)
-  const classifier = createLocalClassifier(
-    transactionsWithManualCat,
-    { ...classifierOptions, ...options.initialization },
-    options.configuration
-  )
+    localModelLog(
+      'info',
+      'Reweighting model to lower the impact of amount in the prediction'
+    )
+    reweightModel(classifier)
 
-  if (!classifier) {
+    const vocabulary = Object.keys(classifier.vocabulary)
+    for (const transaction of transactions) {
+      const label = getLabelWithTags(transaction)
+      const tokens = tokenizer(transaction.label)
+      const pctOfThisTokensInVoc = pctOfTokensInVoc(tokens, vocabulary)
+      let category
+      let proba
+      // First : check if tokens from the transaction's label are in the model
+      if (pctOfThisTokensInVoc > LOCAL_MODEL_PCT_TOKENS_IN_VOC_THRESHOLD) {
+        // If OK : continue
+        localModelLog('info', `Applying model to ${label}`)
+        ;({ category, proba } = maxBy(
+          classifier.categorize(label).likelihoods,
+          'proba'
+        ))
+        transaction.localCategoryId = category
+        transaction.localCategoryProba = proba
+      } else {
+        // If KO : abort with category '0' and proba 1/nbUniqueCat
+        localModelLog('info', `Giving up for ${label}`)
+        category = LOCAL_MODEL_CATEG_FALLBACK
+        proba = LOCAL_MODEL_PROBA_FALLBACK
+        transaction.localCategoryId = category
+        transaction.localCategoryProba = proba
+      }
+      localModelLog('info', `Results for ${label} :`)
+      localModelLog('info', `localCategory: ${category}`)
+      localModelLog('info', `localProba: ${proba}`)
+    }
+  } else {
     localModelLog(
       'info',
       'No classifier, impossible to categorize transactions'
     )
-    return
-  }
-
-  localModelLog(
-    'info',
-    'Reweighting model to lower the impact of amount in the prediction'
-  )
-  reweightModel(classifier)
-
-  localModelLog('info', `Applying model to ${transactions.length} transactions`)
-  for (const transaction of transactions) {
-    const label = getLabelWithTags(transaction)
-    localModelLog('info', `Applying model to ${label}`)
-
-    const { category, proba } = maxBy(
-      classifier.categorize(label).likelihoods,
-      'proba'
-    )
-
-    transaction.localCategoryId = category
-    transaction.localCategoryProba = proba
-
-    localModelLog('info', `Results for ${label} :`)
-    localModelLog('info', `localCategory: ${category}`)
-    localModelLog('info', `localProba: ${proba}`)
   }
 }
 
