@@ -206,6 +206,22 @@ class LineChart extends Component {
     }
   }
 
+  updateAxis() {
+    const { axisColor, labelsColor, showAxis } = this.props
+
+    if (showAxis) {
+      this.axis.call(this.xAxisGenerator)
+      this.axis.selectAll('.domain').attr('stroke', axisColor)
+      this.axis.selectAll('.tick line').attr('stroke', axisColor)
+      this.axis
+        .selectAll('.tick text')
+        .attr('fill', labelsColor)
+        .attr('font-family', 'Lato, sans-serif')
+        .attr('font-size', '0.75rem')
+        .attr('style', 'text-transform: uppercase')
+    }
+  }
+
   /**
    * Create all graph elements
    */
@@ -261,16 +277,13 @@ class LineChart extends Component {
 
     this.updateScales()
     this.updateGradient()
+    this.updateAxis()
 
     this.line.datum(data).attr('d', this.lineGenerator)
     this.clickLine.datum(data).attr('d', this.lineGenerator)
 
     if (this.mask) {
       this.mask.datum(data).attr('d', this.areaGenerator)
-    }
-
-    if (this.props.showAxis) {
-      this.updateAxis()
     }
 
     this.movePointTo(this.getItemAt(this.state.x))
@@ -315,20 +328,6 @@ class LineChart extends Component {
             .attr('opacity', 1)
         }
       })
-  }
-
-  updateAxis() {
-    const { axisColor, labelsColor } = this.props
-
-    this.axis.call(this.xAxisGenerator)
-    this.axis.selectAll('.domain').attr('stroke', axisColor)
-    this.axis.selectAll('.tick line').attr('stroke', axisColor)
-    this.axis
-      .selectAll('.tick text')
-      .attr('fill', labelsColor)
-      .attr('font-family', 'Lato, sans-serif')
-      .attr('font-size', '0.75rem')
-      .attr('style', 'text-transform: uppercase')
   }
 
   onLineClick = () => {
