@@ -55,9 +55,14 @@ const getCommitHash = async () => {
   return result.stdout[0].replace('\n', '')
 }
 
-const remoteFileExists = async (folder, file) => {
+const remoteFileExists = async filePath => {
   try {
-    const res  = await launchCmd('ls', [ARCHIVE_FILENAME], { cwd: BUILD_FOLDER })
+    await launchCmd('ssh', [
+      '-o StrictHostKeyChecking=no',
+      `upload@${COZY_URL}`,
+      'ls',
+      filePath
+    ])
     return true
   } catch (e) {
     if (e.stderr && e.stderr[0].indexOf('No such file or directory') > -1) {
@@ -70,10 +75,13 @@ const remoteFileExists = async (folder, file) => {
 
 const pushArchive = async (version, commit) => {
   const folder = `www-upload/${APP_NAME}/${version}-${commit}/`
-  const fileExists = await remoteFileExists(BUILD_FOLDER, ARCHIVE_FILENAME)
+  const filePath = `${folder}${ARCHIVE_FILENAME}`
+  console.info(`Checking if ${filePath} exists...`)
+  const fileExists = await remoteFileExists(filePath)
   if (fileExists) {
     throw new Error('File already exists on downcloud')
   }
+  console.info(`${filePath} doesn't exist, uploading...`)
   return launchCmd(
     'rsync',
     [
@@ -166,7 +174,7 @@ const main = async () => {
     await pushArchive(manifestVersion, commitHash)
   } catch (e) {
     console.error(`\n⚠️  Erreur lors de l'upload :\n`)
-    console.error(' ', e.stderr, '\n')
+    console.error(' ', e, '\n')
     process.exit(1)
   }
 
