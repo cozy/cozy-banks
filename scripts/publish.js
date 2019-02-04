@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-import fs from 'fs-extra'
-import { endsWith } from 'lodash'
-import tar from 'tar'
-import { manual as cozyPublishManual } from 'cozy-app-publish'
-import { spawn } from 'child_process'
+const fs = require('fs-extra')
+const { endsWith } = require('lodash')
+const tar = require('tar')
+const { manual: cozyPublishManual } = require('cozy-app-publish')
+const { spawn } = require('child_process')
 
 const BUILD_FOLDER = './build/'
 const COZY_URL = 'downcloud.cozycloud.cc'
@@ -55,8 +55,25 @@ const getCommitHash = async () => {
   return result.stdout[0].replace('\n', '')
 }
 
+const remoteFileExists = async (folder, file) => {
+  try {
+    const res  = await launchCmd('ls', [ARCHIVE_FILENAME], { cwd: BUILD_FOLDER })
+    return true
+  } catch (e) {
+    if (e.stderr && e.stderr[0].indexOf('No such file or directory') > -1) {
+      return false
+    } else {
+      throw e
+    }
+  }
+}
+
 const pushArchive = async (version, commit) => {
   const folder = `www-upload/${APP_NAME}/${version}-${commit}/`
+  const fileExists = await remoteFileExists(BUILD_FOLDER, ARCHIVE_FILENAME)
+  if (fileExists) {
+    throw new Error('File already exists on downcloud')
+  }
   return launchCmd(
     'rsync',
     [
@@ -108,7 +125,7 @@ const publish = async (manifestVersion, commitHash, registryVersion) => {
   const override = { confirm: 'y' }
 
   return new Promise(async (resolve, reject) => {
-    cozyPublishManual({
+    await cozyPublishManual({
       registryToken: process.env.REGISTRY_TOKEN,
       manualVersion: registryVersion,
       spaceName: REGISTRY_NAMESPACE,
@@ -141,7 +158,9 @@ const main = async () => {
   const registryVersion = await getRegistryVersion(manifestVersion, commitHash)
 
   createManifest(manifest, manifestVersion)
+  console.log('Deleting previous archive...')
   await deleteArchive()
+  console.log('Creating archive...')
   await createArchive()
   try {
     await pushArchive(manifestVersion, commitHash)
@@ -164,4 +183,7 @@ const main = async () => {
   }
 }
 
-main()
+main().catch(e => {
+  console.error(e)
+  process.exit(1)
+})
