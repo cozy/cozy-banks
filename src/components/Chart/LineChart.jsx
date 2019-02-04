@@ -238,6 +238,12 @@ class LineChart extends Component {
     this.y.domain(yDomain)
   }
 
+  updateScales() {
+    this.x.range([0, this.getInnerWidth()])
+    this.y.range([this.getInnerHeight(), 0])
+    this.updateDomains()
+  }
+
   /**
    * Get the minimum y value in data
    */
@@ -253,7 +259,7 @@ class LineChart extends Component {
   updateData() {
     const { data } = this.props
 
-    this.updateDomains()
+    this.updateScales()
     this.updateGradient()
 
     this.line.datum(data).attr('d', this.lineGenerator)
