@@ -45,7 +45,6 @@ const checkCategorization = transactions => {
   });
 };
 
-
 describe("Chain of predictions", () => {
   // prepare mock
   let manualCategorizations = [];
@@ -101,20 +100,24 @@ describe("Chain of predictions", () => {
         const fmtedResults = results.map(op => {
           switch (op.status) {
             case 0:
-              return `❌ ${op.amount}€ - <<${op.label}>> 
-              IS NOT properly predicted as ${op.catNameTrue} by ${op.method} 
-              that said ${op.catNameDisplayed} (${op.usedProba.toFixed(2)})`;
+              return `❌ ${op.amount}€ - <<${
+                op.label
+              }>> IS NOT properly predicted as ${op.catNameTrue} by ${
+                op.method
+              } that said ${op.catNameDisplayed} (${op.usedProba.toFixed(2)})`;
             case 1:
-              return `✅ ${op.amount}€ - <<${op.label}>> 
-              is properly predicted as ${op.catNameTrue} by ${op.method}`;
+              return `✅ ${op.amount}€ - <<${
+                op.label
+              }>> is properly predicted as ${op.catNameTrue} by ${op.method}`;
             case 2:
-              return `⚠️ ${op.amount}€ - <<${op.label}>> was ${op.catNameTrue} 
-              and was predicted as ${op.catNameTrue} by ${op.method}`;
+              return `⚠️ ${op.amount}€ - <<${op.label}>> was ${
+                op.catNameTrue
+              } and was predicted as ${op.catNameTrue} by ${op.method}`;
           }
-        })
+        });
         // test
         expect(fmtedResults).toMatchSnapshot();
       });
     }
   }
-})
+});
