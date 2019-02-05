@@ -25,7 +25,7 @@ class LineChart extends Component {
   getDataByDate = memoize(data => keyBy(data, i => i.x.getTime()))
 
   getSelectedItem = () => {
-    const { data } = this.props
+    const { data } = this.props
     const { itemKey } = this.state
     const dataByDate = this.getDataByDate(data)
 
@@ -387,17 +387,15 @@ class LineChart extends Component {
 
   onLineClick = () => {
     const [mouseX] = d3.mouse(this.clickLine.node())
-    const itemKey = this.getItemAt(mouseX).x.getTime()
-    this.setState({ itemKey })
+    this.setItemFromMouseX(mouseX)
   }
 
   getItemAt(x) {
-    // bisect
     const { data } = this.props
+    const date = this.x.invert(x)
 
-    const distances = data.map(i => Math.abs(this.x.invert(x) - i.x))
-    const minDistance = Math.min(...distances)
-    const nearestIndex = distances.findIndex(d => d === minDistance)
+    const bisectX = d3.bisector(d => d.x).right
+    const nearestIndex = bisectX(data, date)
 
     return data[nearestIndex]
   }
@@ -421,7 +419,13 @@ class LineChart extends Component {
     }
 
     const [mouseX] = d3.mouse(this.svg.node())
-    const itemKey = this.getItemAt(Math.min(mouseX, this.getInnerWidth())).x.getTime()
+    this.setItemFromMouseX(mouseX)
+  }
+
+  setItemFromMouseX = mouseX => {
+    const x = Math.min(mouseX, this.getInnerWidth() - 1)
+    const itemKey = this.getItemAt(x).x.getTime()
+
     this.setState({ itemKey })
   }
 
