@@ -3,6 +3,7 @@ node_js:
   - '8'
 env:
   global:
+    - MATTERMOST_CHANNEL=Gangsters-release
     # kosssi GITHUB_TOKEN
     # to generate yours : travis encrypt GITHUB_TOKEN=<your_GITHUB_TOKEN> -r cozy/cozy-banks
     - secure: "e9//FM2xEZScLWqLcm25HHvoZTROExVW255fvOlGsQjGB+7jcYFOwGpbvq+58syGowrbfles7rexaGe9AwSGtnHEHdEH0gPwCOYo5vEzdcb8L0w6wFti503Idzv8qC6bocLSGGymCozQTrFbtYZHk8gKVT6R71jR49/Vj0YVpczAHCu9JFpOmmJTwsHULlAOCDaQlRkVXqzVdIT1G+mKyexJo4kqYue82+kLIk5tVjV7TXWupg9x32WqbVz/EV4DZvGmGndvvEDIVwxeGcE1RYyr17QeKwNWUsDHIWXGClKitr6krR5zcDo57/nAbdWwUUzvItk1Osw1Sa0tuwInh5KCw+frDMmA9209IeDtWSJzdbGkfwtQVOAORJqaUoqJkrPwhFQIg5jTYcAKR6Xy0AYt2sm1Pc7AeaWG9Fu0z3lW9hGNDwOLKfuIuKCHK9FgE9YY75S1nH8AYUSZwCL2all8u4LH9tFtU8AzGv5ZEKwLCA/KyCUtxb11t0W6KofZIt6ripTfu5P3dhN9dEpJ8pYZ85BViBM3sl3+kyanEaxIo4Z8DVgy5ilPOgpZS/I3EiimI62CFlXT8lrao6df4coLjjHbdhWpZNFZ697heb+K2Ncd9kgjwaul1U2sJBrWjnZdcQ2KERq3q9+4TRj9EM6J006DxDO7h+d7Pa+BXz4="
