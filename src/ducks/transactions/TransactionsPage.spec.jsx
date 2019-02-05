@@ -71,16 +71,35 @@ describe('TransactionsPage', () => {
     const tp = root.find(DumbTransactionsPage)
     const instance = tp.instance()
     instance.setState = jest.fn()
+
     instance.handleChangeTopmostTransaction({ date: '2018-01-02T12:00' })
     expect(instance.setState).toHaveBeenCalledWith({
       currentMonth: '2018-01'
     })
+
     instance.handleChangeTopmostTransaction({
       realisationDate: '2018-03-30T12:00',
       date: '2018-04-30T12:00'
     })
     expect(instance.setState).toHaveBeenCalledWith({
-      currentMonth: '2018-03'
+      currentMonth: '2018-04'
+    })
+
+    instance.handleChangeTopmostTransaction({
+      account: { data: { type: 'CreditCard' } },
+      realisationDate: '2019-03-04T12:00',
+      date: '2019-02-03T12:00'
+    })
+    expect(instance.setState).toHaveBeenCalledWith({
+      currentMonth: '2019-03'
+    })
+
+    instance.handleChangeTopmostTransaction({
+      realisationDate: '2019-03-04T12:00',
+      date: '2019-02-03T12:00'
+    })
+    expect(instance.setState).toHaveBeenCalledWith({
+      currentMonth: '2019-02'
     })
   })
 })
