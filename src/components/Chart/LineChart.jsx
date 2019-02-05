@@ -20,7 +20,6 @@ class LineChart extends Component {
 
   componentDidMount() {
     this.createScales()
-    this.createLineGenerator()
     this.createElements()
 
     this.updateData()
@@ -39,16 +38,6 @@ class LineChart extends Component {
 
     this.x = xScale().range([0, this.getInnerWidth()])
     this.y = yScale().range([this.getInnerHeight(), 0])
-  }
-
-  /**
-   * Creates the function that will be used to draw the line
-   */
-  createLineGenerator() {
-    this.lineGenerator = d3
-      .line()
-      .x(d => this.x(d.x))
-      .y(d => this.y(d.y))
   }
 
   /**
@@ -129,6 +118,11 @@ class LineChart extends Component {
    */
   createLine() {
     const { lineColor, lineWidth } = this.props
+
+    this.lineGenerator = d3
+      .line()
+      .x(d => this.x(d.x))
+      .y(d => this.y(d.y))
 
     this.line = this.svg
       .append('path')
