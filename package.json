@@ -179,6 +179,7 @@
     "localforage": "1.7.3",
     "lodash": "4.17.11",
     "matomo-tracker": "2.2.0",
+    "memoize-one": "5.0.0",
     "mjml": "3.3.5",
     "node-polyglot": "2.3.0",
     "null-loader": "0.1.1",

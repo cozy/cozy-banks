@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import * as d3 from 'd3'
-import { maxBy, minBy } from 'lodash'
+import { max, minBy, keyBy } from 'lodash'
+import memoize from 'memoize-one'
 import styles from './LineChart.styl'
 import Tooltip from './Tooltip'
 
@@ -13,21 +14,71 @@ class LineChart extends Component {
     this.updateDomains()
 
     this.dragging = false
-    this.state = {
-      date: maxBy(this.props.data, d => d.x).x
-    }
+
+    const { data } = props
+    const dataByDate = this.getDataByDate(data)
+    const itemKey = max(Object.keys(dataByDate))
+
+    this.state = { itemKey }
+  }
+
+  getDataByDate = memoize(data => keyBy(data, i => i.x.getTime()))
+
+  getSelectedItem = () => {
+    const { data } = this.props
+    const { itemKey } = this.state
+    const dataByDate = this.getDataByDate(data)
+
+    return dataByDate[itemKey]
   }
 
   componentDidMount() {
     this.createElements()
     this.enterAnimation()
 
-    this.updateData()
-    this.movePointTo(this.getItemFrom(this.state.date))
+    this.updateElements()
+    this.movePointToItem()
   }
 
-  componentDidUpdate() {
-    this.updateData()
+  componentDidUpdate(prevProps, prevState) {
+    const itemKeyUpdate = this.state.itemKey !== prevState.itemKey
+    const widthUpdate = this.props.width !== prevProps.width
+    const marginUpdate = this.props.margin !== prevProps.margin
+    const dataUpdate = this.props.data !== prevProps.data
+
+    if (marginUpdate) {
+      this.updateRoot()
+    }
+
+    if (widthUpdate || dataUpdate) {
+      this.updateScales()
+      this.updateGradient()
+      this.updateAxis()
+      this.updateLine()
+      this.movePointToItem()
+    } else if (itemKeyUpdate) {
+      this.movePointToItem()
+    }
+  }
+
+  /**
+   * Create all graph elements
+   */
+  createElements() {
+    this.createRoot()
+    this.createGradient()
+    this.createPointLine()
+    this.createLine()
+    this.createPoint()
+    this.createAxis()
+  }
+
+  updateElements() {
+    this.updateRoot()
+    this.updateScales()
+    this.updateGradient()
+    this.updateAxis()
+    this.updateLine()
   }
 
   /**
@@ -80,28 +131,6 @@ class LineChart extends Component {
     }
 
     this.y.domain(yDomain)
-  }
-
-  /**
-   * Create all graph elements
-   */
-  createElements() {
-    this.createRoot()
-    this.createGradient()
-    this.createPointLine()
-    this.createLine()
-    this.createPoint()
-    this.createAxis()
-  }
-
-  updateData() {
-    this.updateRoot()
-    this.updateScales()
-    this.updateGradient()
-    this.updateAxis()
-    this.updateLine()
-
-    this.movePointTo(this.getItemFrom(this.state.date))
   }
 
   /**
@@ -223,7 +252,8 @@ class LineChart extends Component {
       .call(drag.on('end', this.stopPointDrag))
   }
 
-  updatePoint(item) {
+  updatePoint() {
+    const item = this.getSelectedItem()
     const x = this.x(item.x)
     const y = this.y(item.y)
 
@@ -241,7 +271,8 @@ class LineChart extends Component {
       .attr('stroke-dasharray', '3,2')
   }
 
-  updatePointLine(item) {
+  updatePointLine() {
+    const item = this.getSelectedItem()
     const { height, margin, tickPadding } = this.props
     const x = this.x(item.x)
 
@@ -322,7 +353,7 @@ class LineChart extends Component {
     }
 
     this.line
-      .attr('stroke-dasharray', `${lineTotalLength} ${lineTotalLength}`)
+      .attr('stroke-dasharray', lineTotalLength)
       .attr('stroke-dashoffset', lineTotalLength)
       .transition()
       .duration(this.props.enterAnimationDuration)
@@ -350,19 +381,18 @@ class LineChart extends Component {
             .attr('opacity', 1)
         }
 
-        this.line
-          .removeAttribute('stroke-dasharray')
-          .removeAttribute('stroke-dashoffset')
+        this.line.attr('stroke-dasharray', null)
       })
   }
 
   onLineClick = () => {
     const [mouseX] = d3.mouse(this.clickLine.node())
-    const date = this.getItemAt(mouseX).x
-    this.setState({ date })
+    const itemKey = this.getItemAt(mouseX).x.getTime()
+    this.setState({ itemKey })
   }
 
   getItemAt(x) {
+    // bisect
     const { data } = this.props
 
     const distances = data.map(i => Math.abs(this.x.invert(x) - i.x))
@@ -372,19 +402,13 @@ class LineChart extends Component {
     return data[nearestIndex]
   }
 
-  getItemFrom(date) {
-    const { data } = this.props
-
-    return data.find(i => i.x.getTime() === date.getTime())
-  }
-
-  movePointTo(item) {
+  movePointToItem() {
     if (!this.point) {
       return
     }
 
-    this.updatePoint(item)
-    this.updatePointLine(item)
+    this.updatePoint()
+    this.updatePointLine()
   }
 
   startPointDrag = () => {
@@ -397,8 +421,8 @@ class LineChart extends Component {
     }
 
     const [mouseX] = d3.mouse(this.svg.node())
-    const date = this.getItemAt(Math.min(mouseX, this.getInnerWidth())).x
-    this.setState({ date })
+    const itemKey = this.getItemAt(Math.min(mouseX, this.getInnerWidth())).x.getTime()
+    this.setState({ itemKey })
   }
 
   stopPointDrag = () => {
@@ -407,9 +431,8 @@ class LineChart extends Component {
 
   render() {
     const { width, height, gradient, margin, getTooltipContent } = this.props
-    const { date } = this.state
 
-    const selectedItem = this.getItemFrom(date)
+    const selectedItem = this.getSelectedItem()
     const itemX = this.x(selectedItem.x)
 
     const isLeftPosition = itemX < width / 2
