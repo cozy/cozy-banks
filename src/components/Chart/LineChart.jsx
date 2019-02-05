@@ -327,6 +327,10 @@ class LineChart extends Component {
             .ease(d3.easeExpIn)
             .attr('opacity', 1)
         }
+
+        this.line
+          .removeAttribute('stroke-dasharray')
+          .removeAttribute('stroke-dashoffset')
       })
   }
 
