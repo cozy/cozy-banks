@@ -158,6 +158,19 @@
       "cozyMetadata": {
         "createdByApp": "hsbc119"
       }
+    },
+    {
+      "_id": "comptelea1",
+      "label": "Léa Credit Card",
+      "institutionLabel": "BNPP",
+      "number": "5293683",
+      "balance": 0,
+      "comingBalance": -250.82,
+      "type": "CreditCard",
+      "cozyMetadata": {
+        "updatedAt": "2019-02-05T00:00:00Z",
+        "createdByApp": "bnpparibas82"
+      }
     }
   ],
   "io.cozy.bank.groups": [
@@ -1659,6 +1672,24 @@
       "currency": "€",
       "date": "2018-11-23T00:00:00Z",
       "label": "Sosh"
+    },
+    {
+      "automaticCategoryId": "{{ categoryId 'telecom' }}",
+      "account": "comptelea1",
+      "label": "Sosh",
+      "currency": "€",
+      "amount": -60,
+      "date": "2019-02-28T00:00:00Z",
+      "realisationDate": "2019-02-04T00:00:00Z"
+    },
+    {
+      "automaticCategoryId": "{{ categoryId 'booksMoviesMusic' }}",
+      "account": "comptelea1",
+      "label": "Fnac",
+      "currency": "€",
+      "amount": -190.92,
+      "date": "2019-02-28T00:00:00Z",
+      "realisationDate": "2019-02-05T00:00:00Z"
     }
   ],
   "io.cozy.bills": [
