@@ -95,18 +95,11 @@ class LineChart extends Component {
   }
 
   updateData() {
-    const { data } = this.props
-
+    this.updateRoot()
     this.updateScales()
     this.updateGradient()
     this.updateAxis()
-
-    this.line.datum(data).attr('d', this.lineGenerator)
-    this.clickLine.datum(data).attr('d', this.lineGenerator)
-
-    if (this.mask) {
-      this.mask.datum(data).attr('d', this.areaGenerator)
-    }
+    this.updateLine()
 
     this.movePointTo(this.getItemFrom(this.state.date))
   }
@@ -116,12 +109,13 @@ class LineChart extends Component {
    * It is used to apply a translation on the whole chart content according to the margins we want to apply to it
    */
   createRoot() {
+    this.svg = d3.select(this.root).append('g')
+  }
+
+  updateRoot() {
     const { margin } = this.props
 
-    this.svg = d3
-      .select(this.root)
-      .append('g')
-      .attr('transform', `translate(${margin.left}, ${margin.top})`)
+    this.svg.attr('transform', `translate(${margin.left}, ${margin.top})`)
   }
 
   /**
@@ -134,11 +128,9 @@ class LineChart extends Component {
       return
     }
 
-    const minY = this.getDataMin()
     this.areaGenerator = d3
       .area()
       .x(d => this.x(d.x))
-      .y0(() => this.y(minY.y))
       .y1(d => this.y(d.y))
 
     this.mask = this.svg
@@ -147,19 +139,27 @@ class LineChart extends Component {
       .append('path')
       .attr('fill', 'white')
 
-    this.svg
+    this.rect = this.svg
       .append('rect')
+      .attr('id', 'gradient-rect')
       .attr('x', 0)
       .attr('y', 0)
-      .attr('width', this.getInnerWidth())
-      .attr('height', this.getInnerHeight())
       .attr('mask', 'url(#maskurl)')
       .attr('fill', 'url(#gradient)')
   }
 
   updateGradient() {
-    const minY = this.getDataMin()
-    this.areaGenerator.y0(() => this.y(minY.y))
+    if (this.rect) {
+      const { data } = this.props
+      const minY = this.getDataMin()
+      this.areaGenerator.y0(() => this.y(minY.y))
+
+      this.rect
+        .attr('width', this.getInnerWidth())
+        .attr('height', this.getInnerHeight())
+
+      this.mask.datum(data).attr('d', this.areaGenerator)
+    }
   }
 
   /**
@@ -175,16 +175,28 @@ class LineChart extends Component {
 
     this.line = this.svg
       .append('path')
+      .attr('id', 'line')
       .attr('stroke', lineColor)
-      .attr('stroke-width', lineWidth)
       .attr('fill', 'none')
+      .attr('stroke-width', lineWidth)
 
     this.clickLine = this.svg
       .append('path')
+      .attr('id', 'clickLine')
       .attr('stroke', 'transparent')
       .attr('stroke-width', 32)
       .attr('fill', 'none')
       .on('click', this.onLineClick)
+
+    this.updateLine()
+  }
+
+  updateLine() {
+    const { data } = this.props
+
+    this.line.datum(data).attr('d', this.lineGenerator)
+
+    this.clickLine.datum(data).attr('d', this.lineGenerator)
   }
 
   /**
@@ -211,6 +223,13 @@ class LineChart extends Component {
       .call(drag.on('end', this.stopPointDrag))
   }
 
+  updatePoint(item) {
+    const x = this.x(item.x)
+    const y = this.y(item.y)
+
+    this.point.attr('cx', x).attr('cy', y)
+  }
+
   /**
    * Generate the vertical line that follows the point
    */
@@ -220,6 +239,17 @@ class LineChart extends Component {
       .attr('stroke-width', 1)
       .attr('stroke', 'white')
       .attr('stroke-dasharray', '3,2')
+  }
+
+  updatePointLine(item) {
+    const { height, margin, tickPadding } = this.props
+    const x = this.x(item.x)
+
+    this.pointLine
+      .attr('x1', x)
+      .attr('y1', 0)
+      .attr('x2', x)
+      .attr('y2', height - margin.top - margin.bottom + tickPadding)
   }
 
   /**
@@ -232,8 +262,7 @@ class LineChart extends Component {
       tickPadding,
       nbTicks,
       tickFormat,
-      showAxis,
-      axisMargin
+      showAxis
     } = this.props
 
     this.xAxisGenerator = d3
@@ -251,19 +280,18 @@ class LineChart extends Component {
     }
 
     if (showAxis) {
-      this.axis = this.svg
-        .append('g')
-        .attr(
-          'transform',
-          `translate(0, ${this.getInnerHeight() + axisMargin})`
-        )
+      this.axis = this.svg.append('g')
     }
   }
 
   updateAxis() {
-    const { axisColor, labelsColor, showAxis } = this.props
+    const { axisColor, labelsColor, showAxis, axisMargin } = this.props
 
     if (showAxis) {
+      this.axis.attr(
+        'transform',
+        `translate(0, ${this.getInnerHeight() + axisMargin})`
+      )
       this.axis.call(this.xAxisGenerator)
       this.axis.selectAll('.domain').attr('stroke', axisColor)
       this.axis.selectAll('.tick line').attr('stroke', axisColor)
@@ -355,17 +383,8 @@ class LineChart extends Component {
       return
     }
 
-    const { height, margin, tickPadding } = this.props
-    const x = this.x(item.x)
-    const y = this.y(item.y)
-
-    this.point.attr('cx', x).attr('cy', y)
-
-    this.pointLine
-      .attr('x1', x)
-      .attr('y1', 0)
-      .attr('x2', x)
-      .attr('y2', height - margin.top - margin.bottom + tickPadding)
+    this.updatePoint(item)
+    this.updatePointLine(item)
   }
 
   startPointDrag = () => {
