@@ -14,7 +14,7 @@ class LineChart extends Component {
 
     this.dragging = false
     this.state = {
-      x: this.x(maxBy(this.props.data, d => d.x).x)
+      date: maxBy(this.props.data, d => d.x).x
     }
   }
 
@@ -23,6 +23,7 @@ class LineChart extends Component {
     this.enterAnimation()
 
     this.updateData()
+    this.movePointTo(this.getItemFrom(this.state.date))
   }
 
   componentDidUpdate() {
@@ -107,7 +108,7 @@ class LineChart extends Component {
       this.mask.datum(data).attr('d', this.areaGenerator)
     }
 
-    this.movePointTo(this.getItemAt(this.state.x))
+    this.movePointTo(this.getItemFrom(this.state.date))
   }
 
   /**
@@ -329,7 +330,8 @@ class LineChart extends Component {
 
   onLineClick = () => {
     const [mouseX] = d3.mouse(this.clickLine.node())
-    this.setState({ x: mouseX })
+    const date = this.getItemAt(mouseX).x
+    this.setState({ date })
   }
 
   getItemAt(x) {
@@ -340,6 +342,12 @@ class LineChart extends Component {
     const nearestIndex = distances.findIndex(d => d === minDistance)
 
     return data[nearestIndex]
+  }
+
+  getItemFrom(date) {
+    const { data } = this.props
+
+    return data.find(i => i.x.getTime() === date.getTime())
   }
 
   movePointTo(item) {
@@ -370,7 +378,8 @@ class LineChart extends Component {
     }
 
     const [mouseX] = d3.mouse(this.svg.node())
-    this.setState({ x: Math.min(mouseX, this.getInnerWidth()) })
+    const date = this.getItemAt(Math.min(mouseX, this.getInnerWidth())).x
+    this.setState({ date })
   }
 
   stopPointDrag = () => {
@@ -379,9 +388,9 @@ class LineChart extends Component {
 
   render() {
     const { width, height, gradient, margin, getTooltipContent } = this.props
-    const { x } = this.state
+    const { date } = this.state
 
-    const selectedItem = this.getItemAt(x)
+    const selectedItem = this.getItemFrom(date)
     this.movePointTo(selectedItem)
 
     const isLeftPosition = x < width / 2
