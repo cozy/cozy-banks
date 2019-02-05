@@ -1,7 +1,13 @@
 import React, { PureComponent } from 'react'
 import SelectDates from 'components/SelectDates'
-import { uniq } from 'lodash'
-import { subMonths, format, parse, differenceInCalendarMonths } from 'date-fns'
+import { uniq, last } from 'lodash'
+import {
+  subMonths,
+  format,
+  parse,
+  differenceInCalendarMonths,
+  isAfter
+} from 'date-fns'
 import { getDate } from './helpers'
 
 const rangeMonth = (startDate, endDate) => {
@@ -22,7 +28,9 @@ export const getOptions = transactions => {
   const mAvailableMonths = new Set(availableMonths)
 
   const start = parse(availableMonths[0], 'YYYY-MM')
-  const end = new Date()
+  const lastMonth = parse(last(availableMonths), 'YYYY-MM')
+  const today = new Date()
+  const end = isAfter(lastMonth, today) ? lastMonth : today
 
   return rangeMonth(start, end).map(month => {
     const fmted = format(month, 'YYYY-MM')

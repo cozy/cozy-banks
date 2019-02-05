@@ -17,10 +17,8 @@ const generateOption = date => {
   }
 }
 
-const generateOptions = () => {
+const generateOptions = (startDate, endDate) => {
   const options = []
-  const startDate = new Date('2017-06-01')
-  const endDate = new Date()
   let currentDate = startDate
   while (isBefore(currentDate, endDate)) {
     options.push(generateOption(currentDate))
@@ -32,6 +30,24 @@ const generateOptions = () => {
 
 describe('options from select dates', () => {
   it('should compute correctly', () => {
-    expect(getOptions(transactions)).toEqual(generateOptions())
+    expect(getOptions(transactions)).toEqual(
+      generateOptions(new Date('2017-06-01'), new Date())
+    )
+  })
+
+  it('should compute correctly with transactions in the future', () => {
+    const transactionInFuture = {
+      _id: 'inthefuture',
+      date: format(addMonths(new Date(), 1), 'YYYY-MM-DD')
+    }
+
+    enabledMonth.unshift(transactionInFuture.date.slice(0, 7))
+
+    expect(getOptions([...transactions, transactionInFuture])).toEqual(
+      generateOptions(
+        new Date('2017-06-01'),
+        new Date(transactionInFuture.date)
+      )
+    )
   })
 })
