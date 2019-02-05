@@ -391,11 +391,11 @@ class LineChart extends Component {
     const { date } = this.state
 
     const selectedItem = this.getItemFrom(date)
-    this.movePointTo(selectedItem)
+    const itemX = this.x(selectedItem.x)
 
-    const isLeftPosition = x < width / 2
+    const isLeftPosition = itemX < width / 2
     const position = isLeftPosition ? 'left' : 'right'
-    const tooltipX = (isLeftPosition ? 0 : -width) + x + margin.left
+    const tooltipX = (isLeftPosition ? 0 : -width) + itemX + margin.left
 
     return (
       <div className={styles.LineChart}>
