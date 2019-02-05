@@ -19,11 +19,10 @@ class LineChart extends Component {
   }
 
   componentDidMount() {
-    this.createScales()
     this.createElements()
+    this.enterAnimation()
 
     this.updateData()
-    this.enterAnimation()
   }
 
   componentDidUpdate() {
@@ -40,6 +39,12 @@ class LineChart extends Component {
     this.y = yScale().range([this.getInnerHeight(), 0])
   }
 
+  updateScales() {
+    this.x.range([0, this.getInnerWidth()])
+    this.y.range([this.getInnerHeight(), 0])
+    this.updateDomains()
+  }
+
   /**
    * Returns the width in which the chart will be drawn
    */
@@ -54,6 +59,55 @@ class LineChart extends Component {
   getInnerHeight() {
     const { height, margin } = this.props
     return height - margin.top - margin.bottom
+  }
+
+  /**
+   * Update the scales domains
+   */
+  updateDomains() {
+    const { data } = this.props
+
+    this.x.domain(d3.extent(data, d => d.x))
+
+    let yDomain = d3.extent(data, d => d.y)
+
+    // If min === max, the line will be drawn on the bottom, like
+    // all values are the min. We want to opposite, so we set the
+    // min to 0. This way the line will be drawn on the top
+    if (yDomain[0] === yDomain[1]) {
+      yDomain[0] = 0
+    }
+
+    this.y.domain(yDomain)
+  }
+
+  /**
+   * Create all graph elements
+   */
+  createElements() {
+    this.createRoot()
+    this.createGradient()
+    this.createPointLine()
+    this.createLine()
+    this.createPoint()
+    this.createAxis()
+  }
+
+  updateData() {
+    const { data } = this.props
+
+    this.updateScales()
+    this.updateGradient()
+    this.updateAxis()
+
+    this.line.datum(data).attr('d', this.lineGenerator)
+    this.clickLine.datum(data).attr('d', this.lineGenerator)
+
+    if (this.mask) {
+      this.mask.datum(data).attr('d', this.areaGenerator)
+    }
+
+    this.movePointTo(this.getItemAt(this.state.x))
   }
 
   /**
@@ -102,15 +156,9 @@ class LineChart extends Component {
       .attr('fill', 'url(#gradient)')
   }
 
-  /**
-   * Generate the vertical line that follows the point
-   */
-  createPointLine() {
-    this.pointLine = this.svg
-      .append('line')
-      .attr('stroke-width', 1)
-      .attr('stroke', 'white')
-      .attr('stroke-dasharray', '3,2')
+  updateGradient() {
+    const minY = this.getDataMin()
+    this.areaGenerator.y0(() => this.y(minY.y))
   }
 
   /**
@@ -160,6 +208,17 @@ class LineChart extends Component {
       .call(drag.on('start', this.startPointDrag))
       .call(drag.on('drag', this.pointDrag))
       .call(drag.on('end', this.stopPointDrag))
+  }
+
+  /**
+   * Generate the vertical line that follows the point
+   */
+  createPointLine() {
+    this.pointLine = this.svg
+      .append('line')
+      .attr('stroke-width', 1)
+      .attr('stroke', 'white')
+      .attr('stroke-dasharray', '3,2')
   }
 
   /**
@@ -217,70 +276,10 @@ class LineChart extends Component {
   }
 
   /**
-   * Create all graph elements
-   */
-  createElements() {
-    this.createRoot()
-    this.createGradient()
-    this.createPointLine()
-    this.createLine()
-    this.createPoint()
-    this.createAxis()
-  }
-
-  /**
-   * Update the scales domains
-   */
-  updateDomains() {
-    const { data } = this.props
-
-    this.x.domain(d3.extent(data, d => d.x))
-
-    let yDomain = d3.extent(data, d => d.y)
-
-    // If min === max, the line will be drawn on the bottom, like
-    // all values are the min. We want to opposite, so we set the
-    // min to 0. This way the line will be drawn on the top
-    if (yDomain[0] === yDomain[1]) {
-      yDomain[0] = 0
-    }
-
-    this.y.domain(yDomain)
-  }
-
-  updateScales() {
-    this.x.range([0, this.getInnerWidth()])
-    this.y.range([this.getInnerHeight(), 0])
-    this.updateDomains()
-  }
-
-  /**
    * Get the minimum y value in data
    */
   getDataMin() {
     return minBy(this.props.data, d => d.y)
-  }
-
-  updateGradient() {
-    const minY = this.getDataMin()
-    this.areaGenerator.y0(() => this.y(minY.y))
-  }
-
-  updateData() {
-    const { data } = this.props
-
-    this.updateScales()
-    this.updateGradient()
-    this.updateAxis()
-
-    this.line.datum(data).attr('d', this.lineGenerator)
-    this.clickLine.datum(data).attr('d', this.lineGenerator)
-
-    if (this.mask) {
-      this.mask.datum(data).attr('d', this.areaGenerator)
-    }
-
-    this.movePointTo(this.getItemAt(this.state.x))
   }
 
   enterAnimation() {
