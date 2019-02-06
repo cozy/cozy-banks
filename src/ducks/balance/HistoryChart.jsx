@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from 'react'
 import * as d3 from 'd3'
-import { withBreakpoints } from 'cozy-ui/react'
+import { withBreakpoints, translate } from 'cozy-ui/react'
 import LineChart from 'components/Chart/LineChart'
 import styles from './History.styl'
 import palette from 'cozy-ui/react/palette'
-import { format as formatDate } from 'date-fns'
+import { flowRight as compose } from 'lodash'
 
 // on iOS white transparency on SVG failed so we should calculate hexa color
 const gradientStyle = {
@@ -16,7 +16,7 @@ class HistoryChart extends Component {
   container = React.createRef()
 
   getTooltipContent = item => {
-    const date = formatDate(item.x, 'DD  MMM')
+    const date = this.props.f(item.x, 'D MMM')
     const balance = item.y.toLocaleString('fr-FR', {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2
@@ -60,4 +60,7 @@ class HistoryChart extends Component {
   }
 }
 
-export default withBreakpoints()(HistoryChart)
+export default compose(
+  withBreakpoints(),
+  translate()
+)(HistoryChart)
