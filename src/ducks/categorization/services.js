@@ -22,24 +22,26 @@ const FAKE_TRANSACTION = {
   label: 'thisisafaketransaction',
   manualCategoryId: '0'
 }
-const TOKENS_TO_REWEIGHT = ['tag_neg',
-                          'tag_v_b_expense',
-                          'tag_neg tag_v_b_expense',
-                          'tag_b_expense',
-                          'tag_neg tag_b_expense',
-                          'tag_expense',
-                          'tag_neg tag_expense',
-                          'tag_noise_neg',
-                          'tag_neg tag_noise_neg',
-                          'tag_pos',
-                          'tag_noise_pos',
-                          'tag_pos tag_noise_pos',
-                          'tag_income',
-                          'tag_pos tag_income',
-                          'tag_b_income',
-                          'tag_pos tag_b_income',
-                          'tag_activity_income',
-                          'tag_pos tag_activity_income']
+const TOKENS_TO_REWEIGHT = [
+  'tag_neg',
+  'tag_v_b_expense',
+  'tag_neg tag_v_b_expense',
+  'tag_b_expense',
+  'tag_neg tag_b_expense',
+  'tag_expense',
+  'tag_neg tag_expense',
+  'tag_noise_neg',
+  'tag_neg tag_noise_neg',
+  'tag_pos',
+  'tag_noise_pos',
+  'tag_pos tag_noise_pos',
+  'tag_income',
+  'tag_pos tag_income',
+  'tag_b_income',
+  'tag_pos tag_b_income',
+  'tag_activity_income',
+  'tag_pos tag_activity_income'
+]
 
 export const getUniqueCategories = transactions => {
   return uniq(transactions.map(t => t.manualCategoryId))
@@ -204,7 +206,7 @@ const getLocalClassifierOptions = transactionsWithManualCat => {
   }
 }
 
-export const atomicReweight = (classifier, category, word, frequencyCount) => {
+export const reweightWord = (classifier, category, word, frequencyCount) => {
   const newFrequencyCount = 1 + Math.log(frequencyCount)
   const deltaFrequencyCount = frequencyCount - newFrequencyCount
   // update the right entries of the classifier's parameters
@@ -217,21 +219,19 @@ export const reweightModel = classifier => {
   // loop over categories in the wordFrequencyCat attribute
   const wordFrequencyCount = classifier.wordFrequencyCount
   // for each category
-  for (const category in wordFrequencyCount) {
-    if (wordFrequencyCount.hasOwnProperty(category)) {
-      // extract its word-frequency count `wfc`
-      const categoryWordsFrequencyClounts = wordFrequencyCount[category];
-      // and search for tokens to reweight in it
-      TOKENS_TO_REWEIGHT.map(wordToReweight => {
-        if (categoryWordsFrequencyClounts.hasOwnProperty(wordToReweight)) {
-          // for every tokens to reweight : re-compute frequency count `fc`
-          const frequencyCount = categoryWordsFrequencyClounts[wordToReweight]
-          if (frequencyCount !== 1) {
-            atomicReweight(classifier, category, wordToReweight, frequencyCount)
-          }
+  for (const category of Object.keys(wordFrequencyCount)) {
+    // extract its word-frequency count `wfc`
+    const categoryWordsFrequencyCounts = wordFrequencyCount[category]
+    // and search for tokens to reweight in it
+    TOKENS_TO_REWEIGHT.map(wordToReweight => {
+      if (categoryWordsFrequencyCounts.hasOwnProperty(wordToReweight)) {
+        // for every tokens to reweight : re-compute frequency count `fc`
+        const frequencyCount = categoryWordsFrequencyCounts[wordToReweight]
+        if (frequencyCount !== 1) {
+          reweightWord(classifier, category, wordToReweight, frequencyCount)
         }
-      })
-    }
+      }
+    })
   }
 }
 
@@ -264,7 +264,10 @@ export const localModel = async (classifierOptions, transactions) => {
     return
   }
 
-  localModelLog('info', 'Reweighting model to lower the impact of amount in the prediction')
+  localModelLog(
+    'info',
+    'Reweighting model to lower the impact of amount in the prediction'
+  )
   reweightModel(classifier)
 
   localModelLog('info', `Applying model to ${transactions.length} transactions`)
