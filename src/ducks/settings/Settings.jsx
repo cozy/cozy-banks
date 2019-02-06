@@ -17,10 +17,14 @@ import { PageTitle } from 'components/Title'
 import { Padded } from 'components/Spacing'
 import cx from 'classnames'
 import flag from 'cozy-flags'
+import { setColorDefault } from 'ducks/mobile/statusBar'
 
 const Settings = ({ t, children, router, breakpoints: { isMobile } }) => {
-  const tabNames = ['configuration', 'accounts', 'groups']
+  if (__TARGET__ === 'mobile') {
+    setColorDefault()
+  }
 
+  const tabNames = ['configuration', 'accounts', 'groups']
   let defaultTab = router.location.pathname.replace('/settings/', '')
   if (tabNames.indexOf(defaultTab) === -1) defaultTab = 'configuration'
 
