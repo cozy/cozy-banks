@@ -16,10 +16,14 @@ import AppVersion from './AppVersion'
 import { PageTitle } from 'components/Title'
 import { Padded } from 'components/Spacing'
 import cx from 'classnames'
+import { setColorDefault } from 'ducks/mobile/statusBar'
 
 const tabNames = ['configuration', 'accounts', 'groups']
 
 const Settings = ({ t, children, router, breakpoints: { isMobile } }) => {
+  if (__TARGET__ === 'mobile') {
+    setColorDefault()
+  }
   let defaultTab = router.location.pathname.replace('/settings/', '')
   if (tabNames.indexOf(defaultTab) === -1) defaultTab = 'configuration'
 

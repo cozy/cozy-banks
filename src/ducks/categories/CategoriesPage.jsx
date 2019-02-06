@@ -1,3 +1,4 @@
+/* global __TARGET__ */
 import React, { Component, Fragment } from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
@@ -19,8 +20,17 @@ import {
   groupsConn
 } from 'doctypes'
 import { isCollectionLoading } from 'ducks/client/utils'
+import { setColorDefault } from 'ducks/mobile/statusBar'
 
 class CategoriesPage extends Component {
+  constructor(props) {
+    super(props)
+
+    if (__TARGET__ === 'mobile') {
+      setColorDefault()
+    }
+  }
+
   selectCategory = (selectedCategory, subcategory) => {
     if (subcategory) {
       this.props.router.push(`/categories/${selectedCategory}/${subcategory}`)

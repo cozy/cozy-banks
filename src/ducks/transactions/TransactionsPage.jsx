@@ -1,4 +1,4 @@
-/* global cozy */
+/* global __TARGET__, cozy */
 
 import React, { Component, Fragment } from 'react'
 import { withRouter } from 'react-router'
@@ -54,6 +54,8 @@ import {
   sumBalanceHistories,
   balanceHistoryToChartData
 } from 'ducks/balance/helpers'
+import { setColorPrimary, setColorDefault } from 'ducks/mobile/statusBar'
+import flag from 'cozy-flags'
 
 const { BarRight } = cozy.bar
 
@@ -62,15 +64,9 @@ const SCROLL_THRESOLD_TO_ACTIVATE_TOP_INFINITE_SCROLL = 150
 const getMonth = date => date.slice(0, 7)
 
 class TransactionsPage extends Component {
-  state = {
-    fetching: false,
-    limitMin: 0,
-    limitMax: STEP_INFINITE_SCROLL,
-    infiniteScrollTop: false
-  }
-
   constructor(props) {
     super(props)
+
     this.displayTransactions = this.displayTransactions.bind(this)
     this.handleDecreaseLimitMin = this.handleDecreaseLimitMin.bind(this)
     this.handleIncreaseLimitMax = this.handleIncreaseLimitMax.bind(this)
@@ -81,6 +77,17 @@ class TransactionsPage extends Component {
     this.checkToActivateTopInfiniteScroll = this.checkToActivateTopInfiniteScroll.bind(
       this
     )
+
+    this.state = {
+      fetching: false,
+      limitMin: 0,
+      limitMax: STEP_INFINITE_SCROLL,
+      infiniteScrollTop: false
+    }
+
+    if (__TARGET__ === 'mobile') {
+      flag('transaction-history') ? setColorPrimary() : setColorDefault()
+    }
   }
 
   setCurrentMonthFollowingMostRecentTransaction() {

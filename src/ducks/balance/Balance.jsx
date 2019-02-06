@@ -1,3 +1,4 @@
+/* global __TARGET__ */
 import React, { PureComponent, Fragment } from 'react'
 import { flowRight as compose, get, sumBy, set } from 'lodash'
 import { translate, withBreakpoints } from 'cozy-ui/react'
@@ -23,10 +24,19 @@ import styles from './Balance.styl'
 import BalanceTables from './BalanceTables'
 import BalancePanels from './BalancePanels'
 import { getPanelsState } from './helpers'
+import { setColorPrimary } from 'ducks/mobile/statusBar'
 
 class Balance extends PureComponent {
-  state = {
-    panels: null
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      panels: null
+    }
+
+    if (__TARGET__ === 'mobile') {
+      setColorPrimary()
+    }
   }
 
   static getDerivedStateFromProps(props, state) {
