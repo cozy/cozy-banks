@@ -26,6 +26,7 @@ class KonnectorUpdateInfo extends React.PureComponent {
     try {
       const url = await this.intents.getRedirectionURL('io.cozy.apps', {
         type: 'konnector',
+        category: 'banking',
         pendingUpdate: true
       })
 
