@@ -22,7 +22,7 @@ import styles from './AccountsSettings.styl'
 import { flowRight as compose } from 'lodash'
 import { destroyAccount } from 'actions'
 import spinner from 'assets/icons/icon-spinner.svg'
-import { getAccountInstitutionLabel } from '../account/helpers'
+import { getAccountInstitutionLabel, getAccountType } from '../account/helpers'
 import { getAppUrlById } from 'selectors'
 import { Query } from 'cozy-client'
 import { queryConnect, withClient } from 'cozy-client'
@@ -152,7 +152,7 @@ class _GeneralSettings extends Component {
             <tr>
               <td>{t('AccountDetails.type')}</td>
               <td>
-                {t(`Data.accountTypes.${account.type}`, {
+                {t(`Data.accountTypes.${getAccountType(account)}`, {
                   _: t('Data.accountTypes.Other')
                 })}
               </td>
