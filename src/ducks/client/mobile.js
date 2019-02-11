@@ -67,8 +67,8 @@ export const getClient = state => {
       notificationPlatform: 'firebase',
       ...clientInfos
     },
-    onTokenRefresh: accessToken => {
-      cozy.bar.updateAccessToken(accessToken)
+    onTokenRefresh: token => {
+      cozy.bar.updateAccessToken(token.accessToken)
     },
     links: getLinks()
   }
