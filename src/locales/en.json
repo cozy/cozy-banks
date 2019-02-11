@@ -112,29 +112,14 @@
   },
   "Data": {
     "accountTypes": {
-      "Asset": "Assets accounts",
-      "Bank": "Bank accounts",
-      "Capitalisation": "Capitalisation accounts",
-      "Cash": "Cash accounts",
+      "Business": "Business accounts",
       "Checkings": "Checking accounts",
-      "ConsumerCredit": "Consumer credits",
       "CreditCard": "Credit card accounts",
-      "Credit Card": "Credit card accounts",
-      "Deposit": "Deposit accounts",
       "Joint": "Joint accounts",
-      "Liability": "Liability accounts",
-      "LifeInsurance": "Life insurances",
       "Loan": "Loan accounts",
-      "Madelin": "Madelin contracts",
-      "Market": "Markets",
-      "Mortgage": "Mortgages",
-      "PEA": "PEA",
-      "PEE": "PEE",
-      "RevolvingCredit": "Revolving credits",
-      "RSP": "RSP",
-      "Savings": "Savings accounts",
+      "LongTermSavings": "Long term savings",
       "Other": "Other accounts",
-      "RetirementPlan": "PERP & PERCO"
+      "Savings": "Saving accounts"
     },
     "categories": {
       "uncategorized": "To be categorized",

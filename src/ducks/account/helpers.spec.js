@@ -34,24 +34,32 @@ describe('distanceInWords', () => {
 })
 
 describe('getAccountType', () => {
-  it('should map Unkown/None to Other', () => {
-    const accounts = [{ type: 'Unkown' }, { type: 'None' }, { type: 'Other' }]
+  it('should map types correctly', () => {
+    const accountTypes = {
+      Other: ['Unkown', 'None'],
+      LongTermSavings: [
+        'Article83',
+        'LifeInsurance',
+        'Madelin',
+        'Market',
+        'Mortgage',
+        'PEA',
+        'PEE',
+        'Perco',
+        'Perp',
+        'RSP'
+      ],
+      Business: ['Asset', 'Capitalisation', 'Liability'],
+      Checkings: ['Bank', 'Cash', 'Deposit'],
+      Loan: ['ConsumerCredit', 'RevolvingCredit'],
+      CreditCard: ['Credit card']
+    }
 
-    expect(getAccountType(accounts[0])).toBe('Other')
-    expect(getAccountType(accounts[1])).toBe('Other')
-    expect(getAccountType(accounts[2])).toBe('Other')
-  })
-
-  it('should map PERCO/PERP/Article83 to RetirementPlan', () => {
-    const accounts = [
-      { type: 'Perco' },
-      { type: 'Perp' },
-      { type: 'Article83' }
-    ]
-
-    expect(getAccountType(accounts[0])).toBe('RetirementPlan')
-    expect(getAccountType(accounts[1])).toBe('RetirementPlan')
-    expect(getAccountType(accounts[2])).toBe('RetirementPlan')
+    for (const [mapped, originals] of Object.entries(accountTypes)) {
+      for (const original of originals) {
+        expect(getAccountType({ type: original })).toBe(mapped)
+      }
+    }
   })
 })
 
