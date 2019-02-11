@@ -56,7 +56,7 @@ const setupApp = async persistedState => {
 
   history = setupHistory()
 
-  client = await getClient(persistedState)
+  client = await getClient(persistedState, () => store)
   store = configureStore(client, persistedState)
 
   persistState(store)
