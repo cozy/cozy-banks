@@ -13,6 +13,7 @@ import withFilteringDoc from 'components/withFilteringDoc'
 import AccountsList from './AccountsList'
 import { getGroupBalance } from '../helpers'
 import styles from './GroupPanel.styl'
+import cx from 'classnames'
 
 const GroupPanelSummary = withStyles(() => ({
   expanded: {},
@@ -83,10 +84,19 @@ class GroupPanel extends React.PureComponent {
     return (
       <ExpansionPanel expanded={expanded} onChange={onChange(group._id)}>
         <GroupPanelSummary
-          expandIcon={<Icon icon="bottom" color="black" width={12} />}
+          expandIcon={
+            <Icon
+              icon="bottom"
+              className={styles.GroupPanelSummary__icon}
+              width={12}
+            />
+          }
           IconButtonProps={{
             disableRipple: true
           }}
+          className={cx({
+            [styles['GroupPanelSummary--unchecked']]: !checked
+          })}
         >
           <div className={styles.GroupPanelSummary__content}>
             <div
