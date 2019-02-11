@@ -6,6 +6,7 @@ import { merge, get } from 'lodash'
 import { getLinks } from './links'
 import { schema } from 'doctypes'
 import manifest from '../../../manifest.webapp'
+import { setToken } from 'ducks/mobile'
 
 const SOFTWARE_ID = 'io.cozy.banks.mobile'
 
@@ -47,7 +48,7 @@ export const getManifestOptions = manifest => {
   }
 }
 
-export const getClient = state => {
+export const getClient = (state, getStore) => {
   const uri = getCozyURIFromState(state)
   const token = getTokenFromState(state)
   const clientInfos = getClientInfosFromState(state)
@@ -69,6 +70,7 @@ export const getClient = state => {
     },
     onTokenRefresh: token => {
       cozy.bar.updateAccessToken(token.accessToken)
+      getStore().dispatch(setToken(token))
     },
     links: getLinks()
   }
