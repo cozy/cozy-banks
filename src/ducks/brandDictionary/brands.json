@@ -237,6 +237,11 @@
     "konnectorSlug": "sosh"
   },
   {
+    "name": "Spartoo",
+    "regexp": "\\bspartoo\\b",
+    "konnectorSlug": "spartoo"
+  },
+  {
     "name": "Stickers Discount",
     "regexp": "\\bakoufen angers\\b",
     "konnectorSlug": "stickersdiscount"
