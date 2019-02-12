@@ -48,39 +48,39 @@ export const distanceInWords = distance => {
 }
 
 export const accountTypesWithTranslation = [
-  'Asset',
-  'Bank',
-  'Capitalisation',
-  'Cash',
+  'Business',
   'Checkings',
-  'ConsumerCredit',
   'CreditCard',
-  'Credit Card',
-  'Deposit',
   'Joint',
-  'Liability',
-  'LifeInsurance',
   'Loan',
-  'Madelin',
-  'Market',
-  'Mortgage',
-  'PEA',
-  'PEE',
-  'RevolvingCredit',
-  'RSP',
-  'Savings',
+  'LongTermSavings',
   'Other',
-  'RetirementPlan'
+  'Savings'
 ]
 
 export const getAccountType = account => {
   const accountTypesMap = {
-    Unkown: 'Other',
-    None: 'Other',
+    Article83: 'LongTermSavings',
+    Asset: 'Business',
+    Bank: 'Checkings',
+    Capitalisation: 'Business',
+    Cash: 'Checkings',
+    ConsumerCredit: 'Loan',
     'Credit card': 'CreditCard',
-    Perco: 'RetirementPlan',
-    Perp: 'RetirementPlan',
-    Article83: 'RetirementPlan'
+    Deposit: 'Checkings',
+    Liability: 'Business',
+    LifeInsurance: 'LongTermSavings',
+    Madelin: 'LongTermSavings',
+    Market: 'LongTermSavings',
+    Mortgage: 'LongTermSavings',
+    None: 'Other',
+    PEA: 'LongTermSavings',
+    PEE: 'LongTermSavings',
+    Perco: 'LongTermSavings',
+    Perp: 'LongTermSavings',
+    RevolvingCredit: 'Loan',
+    RSP: 'LongTermSavings',
+    Unkown: 'Other'
   }
 
   const mappedType = accountTypesMap[account.type] || account.type || 'Other'

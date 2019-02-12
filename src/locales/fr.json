@@ -181,29 +181,14 @@
 
   "Data": {
     "accountTypes": {
-      "Asset": "Comptes d'actifs",
-      "Bank": "Comptes bancaires",
-      "Capitalisation": "Comptes de capitalisation",
-      "Cash": "Liquidités",
+      "Business": "Comptes professionnels",
       "Checkings": "Comptes courants",
-      "ConsumerCredit": "Crédits à la consommation",
       "CreditCard": "Cartes de crédit",
-      "Credit Card": "Cartes de crédit",
-      "Deposit": "Comptes de dépôt",
       "Joint": "Comptes joints",
-      "Liability": "Comptes de dettes",
-      "LifeInsurance": "Assurances vie",
       "Loan": "Emprunts",
-      "Madelin": "Contrats Madelin",
-      "Market": "Comptes titres",
-      "Mortgage": "Prêts immobiliers",
-      "PEA": "PEA",
-      "PEE": "PEE",
-      "RevolvingCredit": "Crédits renouvelables",
-      "RSP": "RSP",
-      "Savings": "Comptes d'épargne",
+      "LongTermSavings": "Épargne long terme",
       "Other": "Autres comptes",
-      "RetirementPlan": "Plans Épargne Retraite"
+      "Savings": "Épargne"
     },
     "categories": {
       "uncategorized": "A catégoriser",
