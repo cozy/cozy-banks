@@ -1,12 +1,12 @@
 import React from 'react'
-import Info from '../Info'
 import styles from './styles.styl'
 import {
   Text,
   ButtonLink,
   Icon,
   translate,
-  withBreakpoints
+  withBreakpoints,
+  SubTitle
 } from 'cozy-ui/react'
 import { withClient } from 'cozy-client'
 import { flowRight as compose } from 'lodash'
@@ -14,6 +14,7 @@ import { Intents } from 'cozy-interapp'
 import { queryConnect } from 'cozy-client'
 import { KONNECTOR_DOCTYPE } from 'doctypes'
 import { isCollectionLoading } from 'ducks/client/utils'
+import { Padded } from 'components/Spacing'
 
 class KonnectorUpdateInfo extends React.PureComponent {
   intents = new Intents({ client: this.props.client })
@@ -59,22 +60,28 @@ class KonnectorUpdateInfo extends React.PureComponent {
     }
 
     return (
-      <Info variant="error" title={t('KonnectorUpdateInfo.title')}>
-        <Text
-          tag="p"
-          className={styles['KonnectorUpdateInfo__message']}
-          dangerouslySetInnerHTML={{
-            __html: t('KonnectorUpdateInfo.content')
-          }}
-        />
-        <ButtonLink
-          icon={<Icon icon="openwith" />}
-          label={t('KonnectorUpdateInfo.cta')}
-          theme="secondary"
-          href={url}
-          extension={breakpoints.isMobile ? 'full' : 'narrow'}
-        />
-      </Info>
+      <Padded className={styles.KonnectorUpdateInfo}>
+        <div className={styles.KonnectorUpdateInfo__inner}>
+          <SubTitle className={styles.KonnectorUpdateInfo__title}>
+            {t('KonnectorUpdateInfo.title')}
+          </SubTitle>
+          <Text
+            tag="p"
+            className={styles.KonnectorUpdateInfo__message}
+            dangerouslySetInnerHTML={{
+              __html: t('KonnectorUpdateInfo.content')
+            }}
+          />
+          <ButtonLink
+            icon={<Icon icon="openwith" />}
+            label={t('KonnectorUpdateInfo.cta')}
+            theme="secondary"
+            href={url}
+            extension={breakpoints.isMobile ? 'full' : 'narrow'}
+            className={styles.KonnectorUpdateInfo__button}
+          />
+        </div>
+      </Padded>
     )
   }
 }

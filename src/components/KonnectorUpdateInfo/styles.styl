@@ -1,4 +1,31 @@
+@require 'settings/breakpoints'
+
+.KonnectorUpdateInfo
+    padding-bottom 0
+
+    +small-screen()
+        padding-left 0.5rem
+        padding-right 0.5rem
+
+.KonnectorUpdateInfo__inner
+    padding 1.5rem
+    background-color var(--chablis)
+    border-radius 6px
+    text-align left
+
+    +small-screen()
+        padding 1rem
+
+.KonnectorUpdateInfo__title
+    color var(--monza)
+
+.KonnectorUpdateInfo__message
+    margin-top 0.5rem
+
 .KonnectorUpdateInfo__message a
     font-weight bold
     text-decoration none
     color var(--primary)
+
+.KonnectorUpdateInfo__button
+    margin 0
