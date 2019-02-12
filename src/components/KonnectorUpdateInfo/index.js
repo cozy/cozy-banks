@@ -62,12 +62,12 @@ class KonnectorUpdateInfo extends React.PureComponent {
     return (
       <Padded className={styles.KonnectorUpdateInfo}>
         <div className={styles.KonnectorUpdateInfo__inner}>
-          <SubTitle className={styles.KonnectorUpdateInfo__title}>
+          <SubTitle className="u-monza">
             {t('KonnectorUpdateInfo.title')}
           </SubTitle>
           <Text
             tag="p"
-            className={styles.KonnectorUpdateInfo__message}
+            className="u-mt-half"
             dangerouslySetInnerHTML={{
               __html: t('KonnectorUpdateInfo.content')
             }}
@@ -78,7 +78,7 @@ class KonnectorUpdateInfo extends React.PureComponent {
             theme="secondary"
             href={url}
             extension={breakpoints.isMobile ? 'full' : 'narrow'}
-            className={styles.KonnectorUpdateInfo__button}
+            className="u-mh-0"
           />
         </div>
       </Padded>
