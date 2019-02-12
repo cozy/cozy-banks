@@ -22,31 +22,6 @@ const FAKE_TRANSACTION = {
   label: 'thisisafaketransaction',
   manualCategoryId: '0'
 }
-/**
- * List of every combinations of tokens related to amounts:
- * - a tag for the amount's sign
- * - a tag for the amount's magnitude
- */
-const TOKENS_TO_REWEIGHT = [
-  'tag_neg',
-  'tag_v_b_expense',
-  'tag_neg tag_v_b_expense',
-  'tag_b_expense',
-  'tag_neg tag_b_expense',
-  'tag_expense',
-  'tag_neg tag_expense',
-  'tag_noise_neg',
-  'tag_neg tag_noise_neg',
-  'tag_pos',
-  'tag_noise_pos',
-  'tag_pos tag_noise_pos',
-  'tag_income',
-  'tag_pos tag_income',
-  'tag_b_income',
-  'tag_pos tag_b_income',
-  'tag_activity_income',
-  'tag_pos tag_activity_income'
-]
 const LOCAL_MODEL_CATEG_FALLBACK = '0'
 export const LOCAL_MODEL_PROBA_FALLBACK = 0.1
 const LOCAL_MODEL_PCT_TOKENS_IN_VOC_THRESHOLD = 0.1
