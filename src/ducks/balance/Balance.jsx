@@ -11,6 +11,7 @@ import { Padded } from 'components/Spacing'
 import Header from 'components/Header'
 import { Figure } from 'components/Figure'
 import { PageTitle } from 'components/Title'
+import KonnectorUpdateInfo from 'components/KonnectorUpdateInfo'
 
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import { buildVirtualGroups } from 'ducks/groups/helpers'
@@ -168,23 +169,22 @@ class Balance extends PureComponent {
               <PageTitle {...titleColorProps}>{t('Balance.title')}</PageTitle>
             </Padded>
           )}
-          <Fragment>
-            <Figure
-              className={styles.Balance__currentBalance}
-              currencyClassName={styles.Balance__currentBalanceCurrency}
-              total={checkedAccountsBalance}
-              currency="€"
-            />
-            <div className={styles.Balance__subtitle}>
-              {checkedAccounts.length === accounts.length
-                ? t('BalanceHistory.all_accounts')
-                : t('BalanceHistory.checked_accounts', {
-                    nbCheckedAccounts: checkedAccounts.length,
-                    nbAccounts: accounts.length
-                  })}
-            </div>
-            <History accounts={checkedAccounts} />
-          </Fragment>
+          <Figure
+            className={styles.Balance__currentBalance}
+            currencyClassName={styles.Balance__currentBalanceCurrency}
+            total={checkedAccountsBalance}
+            currency="€"
+          />
+          <div className={styles.Balance__subtitle}>
+            {checkedAccounts.length === accounts.length
+              ? t('BalanceHistory.all_accounts')
+              : t('BalanceHistory.checked_accounts', {
+                  nbCheckedAccounts: checkedAccounts.length,
+                  nbAccounts: accounts.length
+                })}
+          </div>
+          <History accounts={checkedAccounts} />
+          <KonnectorUpdateInfo />
         </Header>
         <Padded
           className={cx({

@@ -10,7 +10,6 @@ import { settingsConn } from 'doctypes'
 import { queryConnect } from 'cozy-client'
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import { Alerter } from 'cozy-ui/react'
-import KonnectorUpdateInfo from './KonnectorUpdateInfo'
 
 const ReactHint = ReactHintFactory(React)
 
@@ -26,10 +25,7 @@ const App = props => {
       </Sidebar>
 
       <Main>
-        <Content>
-          <KonnectorUpdateInfo />
-          {props.children}
-        </Content>
+        <Content>{props.children}</Content>
       </Main>
 
       {/* Outside every other component to bypass overflow:hidden */}
