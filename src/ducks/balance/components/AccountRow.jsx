@@ -136,7 +136,7 @@ class AccountRow extends React.PureComponent {
             checked={checked}
             // Do not deactivate interactions with the button,
             // only color it to look disabled
-            color={disabled ? 'disabled' : 'primary'}
+            color={disabled ? 'default' : 'primary'}
             onClick={this.handleSwitchClick}
             id={id}
             onChange={onSwitchChange}
