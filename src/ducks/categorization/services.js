@@ -48,7 +48,7 @@ const TOKENS_TO_REWEIGHT = [
   'tag_pos tag_activity_income'
 ]
 const LOCAL_MODEL_CATEG_FALLBACK = '0'
-const LOCAL_MODEL_PROBA_FALLBACK = 0.1
+export const LOCAL_MODEL_PROBA_FALLBACK = 0.1
 const LOCAL_MODEL_PCT_TOKENS_IN_VOC_THRESHOLD = 0.1
 /**
  * List of every combinations of tokens related to amounts:
