@@ -34,4 +34,7 @@ if (isDemoCozy()) {
 // Turn on new balance panels UI
 flag('balance-panels', true)
 
+// Turn on new Categories page UI
+flag('categories-header-primary', true)
+
 window.flag = flag
