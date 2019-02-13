@@ -5,7 +5,6 @@ import cx from 'classnames'
 import { flowRight as compose } from 'lodash'
 import Switch from 'components/Switch'
 import { translate, Icon } from 'cozy-ui/react'
-import AppIcon from 'cozy-ui/react/AppIcon'
 import { Figure } from 'components/Figure'
 import {
   getAccountLabel,
@@ -16,7 +15,7 @@ import {
   getAccountBalance
 } from 'ducks/account/helpers'
 import styles from './AccountRow.styl'
-import { getCozyURL, isSecureProtocol } from 'cozy-stack-client/dist/urls'
+import KonnectorIcon from './KonnectorIcon'
 
 class AccountRow extends React.PureComponent {
   static propTypes = {
@@ -58,8 +57,6 @@ class AccountRow extends React.PureComponent {
     const hasAlert = account.balance < 0
     const institutionSlug = getAccountInstitutionSlug(account)
 
-    const cozyURL = getCozyURL()
-
     return (
       <li
         className={cx(styles.AccountRow, {
@@ -71,13 +68,7 @@ class AccountRow extends React.PureComponent {
       >
         <div className={styles.AccountRow__column}>
           <div className={styles.AccountRow__logo}>
-            {institutionSlug && (
-              <AppIcon
-                app={institutionSlug}
-                domain={cozyURL.host}
-                secure={isSecureProtocol(cozyURL)}
-              />
-            )}
+            {institutionSlug && <KonnectorIcon slug={institutionSlug} />}
           </div>
           <div className={styles.AccountRow__labelUpdatedAtWrapper}>
             <div className={styles.AccountRow__label}>
