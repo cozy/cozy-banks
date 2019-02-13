@@ -244,7 +244,7 @@ class TransactionsPage extends Component {
 
     if (transactions.length === 0) {
       return (
-        <Padded className='u-pt-0'>
+        <Padded className="u-pt-0">
           <p>{t('Transactions.no-movements')}</p>
         </Padded>
       )

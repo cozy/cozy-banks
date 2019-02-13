@@ -107,6 +107,7 @@ class GroupPanel extends React.PureComponent {
                 `${nbCheckedAccounts}/${nbAccounts} `}
               {group.label}
               <Figure
+                className="u-ml-1"
                 currency="€"
                 total={getGroupBalance(group, uncheckedAccountsIds)}
                 currencyClassName={styles.GroupPanelSummary__figureCurrency}
