@@ -47,8 +47,8 @@ class Categories extends Component {
     const hasData =
       categories.length > 0 && categories[0].transactionsNumber > 0
 
-    const withChart = flag('transaction-history')
-    const colorProps = { color: withChart ? 'primary' : 'default' }
+    const withPrimary = flag('categories-header-primary')
+    const colorProps = { color: withPrimary ? 'primary' : 'default' }
 
     return (
       <div>
