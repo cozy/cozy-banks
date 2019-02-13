@@ -18,8 +18,8 @@ class CategoriesHeader extends PureComponent {
   renderAccountSwitch = () => {
     const { selectedCategory, breadcrumbItems } = this.props
     const [previousItem] = breadcrumbItems.slice(-2, 1)
-    const withChart = flag('transaction-history')
-    const colorProps = { color: withChart ? 'primary' : 'default' }
+    const withPrimary = flag('categories-header-primary')
+    const colorProps = { color: withPrimary ? 'primary' : 'default' }
 
     return (
       <Fragment>
@@ -52,8 +52,8 @@ class CategoriesHeader extends PureComponent {
     if (!showIncomeToggle) {
       return null
     }
-    const withChart = flag('transaction-history')
-    const color = withChart ? 'primary' : 'default'
+    const withPrimary = flag('categories-header-primary')
+    const color = withPrimary ? 'primary' : 'default'
 
     return (
       <div className={cx(styles.CategoriesHeader__Toggle, styles[color])}>
@@ -84,8 +84,8 @@ class CategoriesHeader extends PureComponent {
       return null
     }
 
-    const withChart = flag('transaction-history')
-    const color = { color: withChart ? 'primary' : 'default' }
+    const withPrimary = flag('categories-header-primary')
+    const color = { color: withPrimary ? 'primary' : 'default' }
 
     return (
       <CategoriesChart
@@ -113,8 +113,8 @@ class CategoriesHeader extends PureComponent {
     const incomeToggle = this.renderIncomeToggle()
     const chart = this.renderChart()
 
-    const withChart = flag('transaction-history')
-    const colorProps = { color: withChart ? 'primary' : 'default' }
+    const withPrimary = flag('categories-header-primary')
+    const colorProps = { color: withPrimary ? 'primary' : 'default' }
 
     if (isMobile) {
       return (
