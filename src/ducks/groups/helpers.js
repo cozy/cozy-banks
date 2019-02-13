@@ -1,4 +1,4 @@
-import { groupBy, sortBy } from 'lodash'
+import { groupBy, sortBy, deburr } from 'lodash'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { associateDocuments } from 'ducks/client/utils'
 import { getAccountType } from 'ducks/account/helpers'
@@ -54,7 +54,9 @@ export const translateAndSortGroups = (groups, translate) => {
     .filter(group => !isOtherVirtualGroup(group))
     .map(group => translateGroup(group, translate))
 
-  const sortedGroups = sortBy(groupsToSort, group => group.label)
+  const sortedGroups = sortBy(groupsToSort, group =>
+    deburr(group.label).toLowerCase()
+  )
 
   const otherGroup = groups.find(isOtherVirtualGroup)
 

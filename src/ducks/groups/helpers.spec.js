@@ -92,13 +92,17 @@ describe('translateAndSortGroups', () => {
     const groups = [
       { virtual: true, label: 'C' },
       { virtual: false, label: 'A' },
-      { virtual: false, label: 'B' }
+      { virtual: false, label: 'B' },
+      { virtual: false, label: 'Z' },
+      { virtual: false, label: 'é' }
     ]
 
     const expected = [
       { virtual: false, label: 'A' },
       { virtual: false, label: 'B' },
-      { virtual: true, label: 'Data.accountTypes.C' }
+      { virtual: true, label: 'Data.accountTypes.C' },
+      { virtual: false, label: 'é' },
+      { virtual: false, label: 'Z' }
     ]
 
     expect(translateAndSortGroups(groups, translate)).toEqual(expected)
