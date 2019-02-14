@@ -74,6 +74,7 @@ class CategoriesHeader extends PureComponent {
       selectedCategory,
       chartSize = 182,
       categories,
+      breakpoints: { isMobile },
       t,
       isFetching
     } = this.props
@@ -85,7 +86,7 @@ class CategoriesHeader extends PureComponent {
     }
 
     const withPrimary = flag('categories-header-primary')
-    const color = { color: withPrimary ? 'primary' : 'default' }
+    const color = { color: withPrimary && !isMobile ? 'primary' : 'default' }
 
     return (
       <CategoriesChart
@@ -123,7 +124,7 @@ class CategoriesHeader extends PureComponent {
             <SelectDates showFullYear {...colorProps} />
           </Header>
           {accountSwitch}
-          <Header {...colorProps}>
+          <Header color="default">
             <Padded>
               {incomeToggle}
               {chart}
