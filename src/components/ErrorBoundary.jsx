@@ -1,6 +1,8 @@
 import React from 'react'
-import { Empty } from 'cozy-ui/react'
+import { Empty, translate } from 'cozy-ui/react'
 import { logException } from 'lib/sentry'
+import brokenIcon from 'assets/icons/icon-broken.svg'
+import styles from './ErrorBoundary.styl'
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -26,11 +28,24 @@ class ErrorBoundary extends React.Component {
 
   render() {
     if (this.state.hasError) {
+      const { t } = this.props
+      const update = t('Error.update')
+        .replace('#{LINK}', `<a onClick="window.location.reload(true)">`)
+        .replace('#{/LINK}', '</a>')
+      const lang = 'fr'
+      const url = `https://cozy.io/${lang === 'fr' ? 'fr' : 'en'}/support/`
+      const contact = t('Error.contact')
+        .replace('#{LINK}', `<a href="${url}" target="_blank">`)
+        .replace('#{/LINK}', '</a>')
+
       return (
-        <Empty
-          icon="warning"
-          title="An error occured"
-          text="It's maybe nothing, just refresh to be sure" />
+        <div className={styles.Error}>
+          <Empty
+            className={styles.Empty}
+            icon={brokenIcon}
+            title={t('Error.title')}
+            text={<div dangerouslySetInnerHTML={{ __html: `${update}</br>${contact}` }} />} />
+        </div>
       )
     }
 
@@ -38,4 +53,4 @@ class ErrorBoundary extends React.Component {
   }
 }
 
-export default ErrorBoundary
+export default translate()(ErrorBoundary)

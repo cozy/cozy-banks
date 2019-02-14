@@ -13,7 +13,10 @@
 
   "Error": {
     "more-information": "More information",
-    "less-information": "Less information"
+    "less-information": "Less information",
+    "title": "L'affichages de vos données bancaires a échoué",
+    "update": "Vous pouvez essayer à nouveau #{LINK}en rafraichissant la page#{/LINK}.",
+    "contact": "#{LINK}Contactez-nous#{/LINK} si le problème persiste."
   },
 
   "AccountSwitch": {
