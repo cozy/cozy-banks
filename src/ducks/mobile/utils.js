@@ -10,6 +10,7 @@ export async function resetClient(cozyClient) {
   // reset cozy-bar
   if (document.getElementById('coz-bar')) {
     document.getElementById('coz-bar').remove()
+    document.body.setAttribute('style', '')
   }
 }
 
