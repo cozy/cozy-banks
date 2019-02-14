@@ -129,7 +129,7 @@ class GroupPanel extends React.PureComponent {
               </div>
               <Figure
                 className="u-ml-half"
-                currency="€"
+                symbol="€"
                 total={getGroupBalance(group, uncheckedAccountsIds)}
                 currencyClassName={styles.GroupPanelSummary__figureCurrency}
               />

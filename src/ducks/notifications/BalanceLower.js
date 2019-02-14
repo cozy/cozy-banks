@@ -4,6 +4,7 @@ import * as utils from './html/utils'
 import Notification from './Notification'
 import log from 'cozy-logger'
 import { getAccountBalance } from 'ducks/account/helpers'
+import { getCurrencySymbol } from 'utils/currencySymbol'
 
 const addCurrency = o => ({ ...o, currency: '€' })
 
@@ -112,9 +113,9 @@ class BalanceLower extends Notification {
     const [account] = accounts
     const balance = getAccountBalance(account)
 
-    return `${account.label} (${balance > 0 ? '+' : ''}${balance} ${
-      account.currency
-    })`
+    return `${account.label} (${
+      balance > 0 ? '+' : ''
+    }${balance} ${getCurrencySymbol(account.currency)})`
   }
 }
 

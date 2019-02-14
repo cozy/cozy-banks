@@ -126,7 +126,7 @@ class AccountRow extends React.PureComponent {
           )}
         >
           <Figure
-            currency="€"
+            symbol="€"
             total={getAccountBalance(account)}
             className={cx(styles.AccountRow__figure)}
             totalClassName={styles.AccountRow__figure}

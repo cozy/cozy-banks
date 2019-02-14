@@ -1,6 +1,7 @@
 import flag from 'cozy-flags'
 import parentCategory, { categoriesStyle } from './categoriesMap'
 import categoryNames from './tree'
+import { getCurrencySymbol } from 'utils/currencySymbol'
 
 const getParent = parentCategory.get.bind(parentCategory)
 
@@ -112,7 +113,7 @@ export const computeCategorieData = transactionsByCategory => {
           percentage: 0,
           currency:
             subcategory.transactions.length > 0
-              ? subcategory.transactions[0].currency
+              ? getCurrencySymbol(subcategory.transactions[0].currency)
               : '',
           transactionsNumber: subcategory.transactions.length
         }
@@ -137,7 +138,7 @@ export const computeCategorieData = transactionsByCategory => {
       percentage: 0,
       currency:
         category.transactions.length > 0
-          ? category.transactions[0].currency
+          ? getCurrencySymbol(category.transactions[0].currency)
           : '',
       transactionsNumber: category.transactions.length,
       subcategories: subcategories

@@ -173,7 +173,7 @@ class Balance extends PureComponent {
             className={styles.Balance__currentBalance}
             currencyClassName={styles.Balance__currentBalanceCurrency}
             total={checkedAccountsBalance}
-            currency="€"
+            symbol="€"
           />
           <div className={styles.Balance__subtitle}>
             {checkedAccounts.length === accounts.length
