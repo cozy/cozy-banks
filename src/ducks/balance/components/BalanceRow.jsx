@@ -82,7 +82,7 @@ class BalanceRow extends React.PureComponent {
             <Figure
               total={balance}
               warningLimit={warningLimit}
-              currency="€"
+              symbol="€"
               coloredNegative
               coloredWarning
               signed

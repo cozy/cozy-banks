@@ -8,6 +8,7 @@ import Notification from './Notification'
 import { sortBy } from 'lodash'
 import log from 'cozy-logger'
 import { getDate } from 'ducks/transactions/helpers'
+import { getCurrencySymbol } from 'utils/currencySymbol'
 
 const ACCOUNT_SEL = '.js-account'
 const DATE_SEL = '.js-date'
@@ -83,7 +84,7 @@ class TransactionGreater extends Notification {
       ? {
           firstTransaction: firstTransaction,
           amount: firstTransaction.amount,
-          currency: firstTransaction.currency
+          currency: getCurrencySymbol(firstTransaction.currency)
         }
       : {
           transactionsLength: transactionsFiltered.length,
@@ -116,9 +117,9 @@ class TransactionGreater extends Notification {
   getPushContent(transactions) {
     const [transaction] = sortBy(transactions, getDate).reverse()
 
-    return `${transaction.label} : ${transaction.amount} ${
+    return `${transaction.label} : ${transaction.amount} ${getCurrencySymbol(
       transaction.currency
-    }`
+    )}`
   }
 }
 

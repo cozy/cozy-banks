@@ -14,7 +14,7 @@ const FigureBlock = ({
   className,
   label,
   total,
-  currency,
+  symbol,
   coloredPositive,
   coloredNegative,
   signed,
@@ -28,7 +28,7 @@ const FigureBlock = ({
       size="big"
       className={classNames(styles['FigureBlock-figure'], figureClassName)}
       total={total}
-      currency={currency}
+      symbol={symbol}
       coloredPositive={coloredPositive}
       coloredNegative={coloredNegative}
       signed={signed}

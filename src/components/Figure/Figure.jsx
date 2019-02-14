@@ -3,11 +3,6 @@ import Types from 'prop-types'
 import cx from 'classnames'
 import styles from './Figure.styl'
 
-const currencySigns = {
-  EUR: '€',
-  USD: '$'
-}
-
 /**
  * Shows a number, typically a balance or an important financial
  * number in a bold way.
@@ -18,7 +13,7 @@ const styleWarning = styles['Figure-content--warning']
 const styleBig = styles['Figure--big']
 const Figure = props => {
   const {
-    currency,
+    symbol,
     withCurrencySpacing = true,
     coloredPositive,
     coloredNegative,
@@ -63,7 +58,7 @@ const Figure = props => {
         {isTotalPositive && signed && '+'}
         {totalLocalized}
       </span>
-      {currency && (
+      {symbol && (
         <span
           className={cx(
             styles['Figure-currency'],
@@ -73,7 +68,7 @@ const Figure = props => {
             currencyClassName
           )}
         >
-          {currencySigns[currency] || currency}
+          {symbol}
         </span>
       )}
     </div>
@@ -86,7 +81,7 @@ Figure.propTypes = {
   /** Class name applied to the element wrapping the number */
   totalClassName: Types.string,
   /** Currency to show */
-  currency: Types.string,
+  symbol: Types.string,
   currencyClassName: Types.string,
   /** Colors positive numbers in green */
   coloredPositive: Types.bool,

@@ -2,17 +2,17 @@
 <div>
   <Figure
     total={1000}
-    currency='EUR'
+    symbol='€'
     coloredPositive coloredNegative signed />
 
   <Figure
     total={-1000}
-    currency='EUR'
+    symbol='€'
     coloredPositive coloredNegative signed />
 
   <Figure
     total={-1000}
-    currency='EUR'
+    symbol='€'
     signed />
 </div>
 ```
