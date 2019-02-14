@@ -1,19 +1,22 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Icon } from 'cozy-ui/react'
+import cx from 'classnames'
 import { flowRight as compose } from 'lodash'
+import PropTypes from 'prop-types'
+import React from 'react'
 import { withRouter } from 'react-router'
-import { Figure } from 'components/Figure'
+
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
-import Switch from 'components/Switch'
 import { withStyles } from '@material-ui/core/styles'
-import withFilteringDoc from 'components/withFilteringDoc'
+
+import { Icon } from 'cozy-ui/react'
+import { Figure } from 'components/Figure'
+import Switch from 'components/Switch'
 import AccountsList from './AccountsList'
+import withFilteringDoc from 'components/withFilteringDoc'
+
 import { getGroupBalance } from '../helpers'
 import styles from './GroupPanel.styl'
-import cx from 'classnames'
 
 const GroupPanelSummary = withStyles(() => ({
   expanded: {},
