@@ -13,7 +13,20 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.json', '.css', '.jsx'],
-    modules: ['node_modules', SRC_DIR]
+    modules: ['node_modules', SRC_DIR],
+    alias: {
+      'lodash': path.resolve(__dirname, '../node_modules/lodash'),
+      'raven-js': path.resolve(__dirname, '../node_modules/raven-js'),
+      'warning': path.resolve(__dirname, '../node_modules/warning'),
+      'prop-types': path.resolve(__dirname, '../node_modules/prop-types'),
+      'react-redux': path.resolve(__dirname, '../node_modules/react-redux'),
+      'react-is': path.resolve(__dirname, '../node_modules/react-is'),
+      'has': path.resolve(__dirname, '../node_modules/has'),
+      'date-fns': path.resolve(__dirname, '../node_modules/date-fns'),
+      'core-js': path.resolve(__dirname, '../node_modules/core-js'),
+      'regenerator-runtime': path.resolve(__dirname, '../node_modules/regenerator-runtime'),
+      '@babel/runtime': path.resolve(__dirname, '../node_modules/@babel/runtime'),
+    }
   },
   module: {
     rules: [
