@@ -9,7 +9,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import { withStyles } from '@material-ui/core/styles'
 
-import { Icon } from 'cozy-ui/react'
+import { Icon, Caption, translate } from 'cozy-ui/react'
 import { Figure } from 'components/Figure'
 import Switch from 'components/Switch'
 import AccountsList from './AccountsList'
@@ -74,7 +74,8 @@ class GroupPanel extends React.PureComponent {
       onSwitchChange,
       checked,
       expanded,
-      onChange
+      onChange,
+      t
     } = this.props
 
     const nbAccounts = group.accounts.data.length
@@ -106,9 +107,18 @@ class GroupPanel extends React.PureComponent {
               className={styles.GroupPanelSummary__labelBalanceWrapper}
               onClick={this.handleSummaryContentClick}
             >
-              {nbCheckedAccounts < nbAccounts &&
-                `${nbCheckedAccounts}/${nbAccounts} `}
-              {group.label}
+              <div className={styles.GroupPanelSummary__label}>
+                {group.label}
+                <br />
+                {nbCheckedAccounts < nbAccounts && (
+                  <Caption className={styles.GroupPanelSummary__caption}>
+                    {t('Balance.nb_accounts', {
+                      nbCheckedAccounts,
+                      smart_count: nbAccounts
+                    })}
+                  </Caption>
+                )}
+              </div>
               <Figure
                 className="u-ml-half"
                 currency="€"
@@ -142,5 +152,6 @@ class GroupPanel extends React.PureComponent {
 
 export default compose(
   withFilteringDoc,
-  withRouter
+  withRouter,
+  translate()
 )(GroupPanel)
