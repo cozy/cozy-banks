@@ -1,19 +1,22 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Icon } from 'cozy-ui/react'
+import cx from 'classnames'
 import { flowRight as compose } from 'lodash'
+import PropTypes from 'prop-types'
+import React from 'react'
 import { withRouter } from 'react-router'
-import { Figure } from 'components/Figure'
+
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
-import Switch from 'components/Switch'
 import { withStyles } from '@material-ui/core/styles'
-import withFilteringDoc from 'components/withFilteringDoc'
+
+import { Icon, Caption, translate } from 'cozy-ui/react'
+import { Figure } from 'components/Figure'
+import Switch from 'components/Switch'
 import AccountsList from './AccountsList'
+import withFilteringDoc from 'components/withFilteringDoc'
+
 import { getGroupBalance } from '../helpers'
 import styles from './GroupPanel.styl'
-import cx from 'classnames'
 
 const GroupPanelSummary = withStyles(() => ({
   expanded: {},
@@ -35,6 +38,20 @@ const GroupPanelSummary = withStyles(() => ({
     }
   }
 }))(ExpansionPanelSummary)
+
+class GroupPanelExpandIcon extends React.PureComponent {
+  render() {
+    return (
+      <span className="u-click-xl">
+        <Icon
+          icon="bottom"
+          className={styles.GroupPanelSummary__icon}
+          width={12}
+        />
+      </span>
+    )
+  }
+}
 
 class GroupPanel extends React.PureComponent {
   static propTypes = {
@@ -71,7 +88,8 @@ class GroupPanel extends React.PureComponent {
       onSwitchChange,
       checked,
       expanded,
-      onChange
+      onChange,
+      t
     } = this.props
 
     const nbAccounts = group.accounts.data.length
@@ -84,13 +102,7 @@ class GroupPanel extends React.PureComponent {
     return (
       <ExpansionPanel expanded={expanded} onChange={onChange(group._id)}>
         <GroupPanelSummary
-          expandIcon={
-            <Icon
-              icon="bottom"
-              className={styles.GroupPanelSummary__icon}
-              width={12}
-            />
-          }
+          expandIcon={<GroupPanelExpandIcon />}
           IconButtonProps={{
             disableRipple: true
           }}
@@ -103,16 +115,28 @@ class GroupPanel extends React.PureComponent {
               className={styles.GroupPanelSummary__labelBalanceWrapper}
               onClick={this.handleSummaryContentClick}
             >
-              {nbCheckedAccounts < nbAccounts &&
-                `${nbCheckedAccounts}/${nbAccounts} `}
-              {group.label}
+              <div className={styles.GroupPanelSummary__label}>
+                {group.label}
+                <br />
+                {nbCheckedAccounts < nbAccounts && (
+                  <Caption className={styles.GroupPanelSummary__caption}>
+                    {t('Balance.nb_accounts', {
+                      nbCheckedAccounts,
+                      smart_count: nbAccounts
+                    })}
+                  </Caption>
+                )}
+              </div>
               <Figure
+                className="u-ml-half"
                 currency="€"
                 total={getGroupBalance(group, uncheckedAccountsIds)}
                 currencyClassName={styles.GroupPanelSummary__figureCurrency}
               />
             </div>
             <Switch
+              disableRipple
+              className="u-ml-half u-mr-1"
               checked={checked}
               color="primary"
               onClick={this.handleSwitchClick}
@@ -136,5 +160,6 @@ class GroupPanel extends React.PureComponent {
 
 export default compose(
   withFilteringDoc,
-  withRouter
+  withRouter,
+  translate()
 )(GroupPanel)

@@ -58,6 +58,7 @@
       "group": "Total group %{label}",
       "account": "Total account %{label}"
     },
+    "nb_accounts": "%{nbCheckedAccounts}/%{smart_count} account |||| %{nbCheckedAccounts}/%{smart_count} accounts",
     "title": "Current balance",
     "solde": "Balance",
     "account_number": "Account number",
