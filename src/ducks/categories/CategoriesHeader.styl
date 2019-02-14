@@ -26,8 +26,11 @@
         padding-bottom 1rem
         color var(--primary-contrast-text)
 
-        input:checked + label
+        input + label
             background-color var(--primary-light)
+
+        input:checked + label
+            background-color emerald
 
     +small-screen()
         &.default, &.primary
