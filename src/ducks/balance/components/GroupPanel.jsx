@@ -39,6 +39,20 @@ const GroupPanelSummary = withStyles(() => ({
   }
 }))(ExpansionPanelSummary)
 
+class GroupPanelExpandIcon extends React.PureComponent {
+  render() {
+    return (
+      <span className="u-click-xl">
+        <Icon
+          icon="bottom"
+          className={styles.GroupPanelSummary__icon}
+          width={12}
+        />
+      </span>
+    )
+  }
+}
+
 class GroupPanel extends React.PureComponent {
   static propTypes = {
     group: PropTypes.object.isRequired,
@@ -88,13 +102,7 @@ class GroupPanel extends React.PureComponent {
     return (
       <ExpansionPanel expanded={expanded} onChange={onChange(group._id)}>
         <GroupPanelSummary
-          expandIcon={
-            <Icon
-              icon="bottom"
-              className={styles.GroupPanelSummary__icon}
-              width={12}
-            />
-          }
+          expandIcon={<GroupPanelExpandIcon />}
           IconButtonProps={{
             disableRipple: true
           }}
