@@ -10,6 +10,7 @@ import { settingsConn } from 'doctypes'
 import { queryConnect } from 'cozy-client'
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import { Alerter } from 'cozy-ui/react'
+import ErrorBoundary from 'components/ErrorBoundary'
 
 const ReactHint = ReactHintFactory(React)
 
@@ -25,7 +26,11 @@ const App = props => {
       </Sidebar>
 
       <Main>
-        <Content>{props.children}</Content>
+        <Content>
+          <ErrorBoundary>
+            {props.children}
+          </ErrorBoundary>
+        </Content>
       </Main>
 
       {/* Outside every other component to bypass overflow:hidden */}
