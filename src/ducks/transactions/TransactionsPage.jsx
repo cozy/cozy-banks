@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { subMonths } from 'date-fns'
 import PropTypes from 'prop-types'
 
-import { isIOSApp } from 'cozy-device-helper'
+import { isMobileApp } from 'cozy-device-helper'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 
 import {
@@ -182,7 +182,7 @@ class TransactionsPage extends Component {
       },
       () => {
         // need to scroll past the LoadMore button
-        if (isIOSApp()) {
+        if (isMobileApp()) {
           const LoadMoreBtn = document.querySelector('.js-LoadMore')
           const padding = 15
           const scrollTo = LoadMoreBtn
@@ -263,7 +263,7 @@ class TransactionsPage extends Component {
         urls={urls}
         brands={this.getBrands()}
         filteringOnAccount={this.getFilteringOnAccount()}
-        manualLoadMore={isIOSApp()}
+        manualLoadMore={isMobileApp()}
       />
     )
   }
