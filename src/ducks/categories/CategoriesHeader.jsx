@@ -42,6 +42,7 @@ class CategoriesHeader extends PureComponent {
       selectedCategory,
       withIncome,
       onWithIncomeToggle,
+      breakpoints: { isMobile },
       categories,
       t
     } = this.props
@@ -53,7 +54,7 @@ class CategoriesHeader extends PureComponent {
       return null
     }
     const withPrimary = flag('categories-header-primary')
-    const color = withPrimary ? 'primary' : 'default'
+    const color = withPrimary && !isMobile ? 'primary' : 'default'
 
     return (
       <div className={cx(styles.CategoriesHeader__Toggle, styles[color])}>
