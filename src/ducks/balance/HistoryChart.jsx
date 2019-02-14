@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import * as d3 from 'd3'
+import * as d3 from 'utils/d3'
 import { withBreakpoints, translate } from 'cozy-ui/react'
 import LineChart from 'components/Chart/LineChart'
 import styles from './History.styl'

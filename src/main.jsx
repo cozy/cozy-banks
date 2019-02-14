@@ -15,7 +15,7 @@ import { getClient } from 'ducks/client'
 import 'utils/flag'
 import FastClick from 'fastclick'
 import { isReporterEnabled, configureReporter, setURLContext } from 'lib/sentry'
-import * as d3 from 'd3'
+import * as d3 from 'utils/d3'
 import 'cozy-ui/transpiled/react/stylesheet.css'
 
 import { checkToRefreshToken } from 'utils/token'
@@ -23,8 +23,8 @@ import { Alerter } from 'cozy-ui/react'
 import flag from 'cozy-flags'
 
 const D3_LOCALES_MAP = {
-  fr: 'fr-FR',
-  en: 'en-GB'
+  fr: require('d3-time-format/locale/fr-FR.json'),
+  en: require('d3-time-format/locale/en-GB.json')
 }
 
 if (__TARGET__ === 'mobile') {
@@ -54,9 +54,7 @@ const setupApp = async persistedState => {
       ? navigator.language.slice(0, 2)
       : data.cozyLocale || 'en'
 
-  d3.timeFormatDefaultLocale(
-    require(`d3-time-format/locale/${D3_LOCALES_MAP[lang]}.json`)
-  )
+  d3.timeFormatDefaultLocale(D3_LOCALES_MAP[lang])
 
   history = setupHistory()
 
