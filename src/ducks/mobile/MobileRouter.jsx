@@ -21,6 +21,7 @@ import {
 } from 'ducks/mobile/push'
 import { initBar, resetClient } from 'ducks/mobile/utils'
 import LogoutModal from 'components/LogoutModal'
+import { resetFilterByDoc } from 'ducks/filters'
 
 export const AUTH_PATH = 'authentication'
 
@@ -54,6 +55,7 @@ export const onLogout = async (store, cozyClient) => {
   }
 
   store.dispatch(unlink())
+  store.dispatch(resetFilterByDoc())
 }
 
 const withAuth = Wrapped =>
