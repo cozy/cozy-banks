@@ -27,9 +27,7 @@ const App = props => {
 
       <Main>
         <Content>
-          <ErrorBoundary>
-            {props.children}
-          </ErrorBoundary>
+          <ErrorBoundary>{props.children}</ErrorBoundary>
         </Content>
       </Main>
 

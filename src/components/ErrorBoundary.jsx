@@ -6,8 +6,8 @@ import styles from './ErrorBoundary.styl'
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
-    super(props);
-    this.state = { hasError: false };
+    super(props)
+    this.state = { hasError: false }
   }
 
   static getDerivedStateFromError() {
@@ -28,7 +28,7 @@ class ErrorBoundary extends React.Component {
 
   render() {
     if (this.state.hasError) {
-      const { t } = this.props
+      const { t } = this.props
       const update = t('Error.update')
         .replace('#{LINK}', `<a onClick="window.location.reload(true)">`)
         .replace('#{/LINK}', '</a>')
@@ -44,7 +44,12 @@ class ErrorBoundary extends React.Component {
             className={styles.Empty}
             icon={brokenIcon}
             title={t('Error.title')}
-            text={<div dangerouslySetInnerHTML={{ __html: `${update}</br>${contact}` }} />} />
+            text={
+              <div
+                dangerouslySetInnerHTML={{ __html: `${update}</br>${contact}` }}
+              />
+            }
+          />
         </div>
       )
     }
