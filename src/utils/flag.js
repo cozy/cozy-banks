@@ -40,4 +40,7 @@ flag('categories-header-primary', true)
 // Turn on history chart on movements page
 flag('transaction-history', true)
 
+// Remove animation on balance-panels
+flag('balance-panel-no-anim-collapse', true)
+
 window.flag = flag
