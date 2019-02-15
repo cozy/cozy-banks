@@ -42,7 +42,13 @@ const reducer = (state = initialState, action) => {
         revoked: false
       }
     case SET_TOKEN:
-      return { ...state, token: action.token }
+      return {
+        ...state,
+        token: {
+          ...action.token,
+          issuedAt: new Date()
+        }
+      }
     case REVOKE_CLIENT:
       return { ...state, revoked: true }
     case UNLINK:
