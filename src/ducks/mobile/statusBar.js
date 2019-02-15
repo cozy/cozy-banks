@@ -5,7 +5,7 @@ export const setColor = color => {
 }
 
 export const setColorPrimary = () => {
-  const color = getCssVariableValue('primary')
+  const color = getCssVariableValue('primary-dark')
   setColor(color)
 }
 
