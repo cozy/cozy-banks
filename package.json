@@ -16,7 +16,6 @@
     "cozyPublish": "cozy-app-publish --token $REGISTRY_TOKEN --prepublish downcloud --postpublish mattermost --space banks",
     "uploadStaticFiles": "babel-node ./scripts/upload-static-files.js",
     "tx": "true || tx pull --all || true",
-    "precommons:build": "npm-run-all lint tx",
     "prebuild:browser": "npm run clean:browser",
     "prebuild:mobile": "npm run clean:mobile",
     "pretest": "npm run lint",
