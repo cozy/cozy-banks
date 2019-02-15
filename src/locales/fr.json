@@ -74,7 +74,7 @@
 
   "Balance": {
     "title": "Solde actuel",
-    "nb_accounts": "%{nbCheckedAccounts}/%{smart_count} comptes activé |||| %{nbCheckedAccounts}/%{smart_count} comptes activés",
+    "nb_accounts": "%{nbCheckedAccounts}/%{smart_count} compte |||| %{nbCheckedAccounts}/%{smart_count} comptes",
     "subtitle": {
       "all": "Total de tous vos comptes",
       "group": "Total du groupe %{label}",
