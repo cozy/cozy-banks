@@ -2,14 +2,20 @@
 import React from 'react'
 import ReactHintFactory from 'react-hint'
 import 'react-hint/css/index.css'
-import { Layout, Main, Content, Sidebar, IconSprite } from 'cozy-ui/react'
+import {
+  Alerter,
+  Layout,
+  Main,
+  Content,
+  Sidebar,
+  IconSprite
+} from 'cozy-ui/react'
 import Nav from 'ducks/commons/Nav'
 import { Warnings } from 'ducks/warnings'
 import flag, { FlagSwitcher } from 'cozy-flags'
 import { settingsConn } from 'doctypes'
 import { queryConnect } from 'cozy-client'
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
-import { Alerter } from 'cozy-ui/react'
 import ErrorBoundary from 'components/ErrorBoundary'
 
 const ReactHint = ReactHintFactory(React)
