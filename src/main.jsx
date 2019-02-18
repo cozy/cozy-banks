@@ -17,7 +17,10 @@ import FastClick from 'fastclick'
 import { isReporterEnabled, configureReporter, setURLContext } from 'lib/sentry'
 import * as d3 from 'd3'
 import 'cozy-ui/transpiled/stylesheet.css'
-import { isBefore, subDays, isValid } from 'date-fns'
+
+import { checkToRefreshToken } from 'utils/token'
+import { Alerter } from 'cozy-ui/react'
+import flag from 'cozy-flags'
 
 const D3_LOCALES_MAP = {
   fr: 'fr-FR',
@@ -70,33 +73,14 @@ const setupApp = async persistedState => {
       replaceTitleOnMobile: true
     })
   } else {
-    // This check will be removed when we will be able to inject a cozy-client
-    // in the cozy-bar, thus it can renew the token it needed by itself.
-    // For now, we ensure that the token is refreshed before it expires,
-    // so the bar always have a valid token
-    document.addEventListener('resume', () => {
-      const state = store.getState()
-      const token = state.mobile && state.mobile.token
-
-      if (!token) {
-        return
-      }
-
-      // Since the token is valid for a week, we refresh it
-      // if it was issued more than 6 days ago
-      const today = new Date()
-      const sixDaysAgo = subDays(today, 6)
-      const { issuedAt } = token
-
-      if (!issuedAt || !isValid(issuedAt) || isBefore(issuedAt, sixDaysAgo)) {
-        try {
-          client.stackClient.refreshToken()
-        } catch (err) {
-          // eslint-disable-next-line no-console
-          console.error('Error while refreshing token:' + err)
+    document.addEventListener(
+      'resume',
+      checkToRefreshToken(client, store, () => {
+        if (flag('debug')) {
+          Alerter.show('info', 'Token refreshed')
         }
-      }
-    })
+      })
+    )
   }
 
   if (isReporterEnabled()) {

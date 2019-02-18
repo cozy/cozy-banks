@@ -415,7 +415,8 @@
     "accounts": "Accounts",
     "groups": "Groups",
     "configuration": "Configuration",
-    "app": "App"
+    "app": "App",
+    "debug": "Debug"
   },
 
   "AppSettings": {

@@ -18,7 +18,6 @@
     "tx": "true || tx pull --all || true",
     "prebuild:browser": "npm run clean:browser",
     "prebuild:mobile": "npm run clean:mobile",
-    "pretest": "npm run lint",
     "prewatch:mobile": "npm run clean:mobile",
     "lint": "npm-run-all --parallel 'lint:*'",
     "lint:js": "eslint --fix 'src/**/*.js' 'src/**/*.jsx' 'test/**/*.js'",

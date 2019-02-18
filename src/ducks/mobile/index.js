@@ -4,6 +4,7 @@ import { startPushNotifications } from './push'
 // constants
 const SET_TOKEN = 'SET_TOKEN'
 const REVOKE_CLIENT = 'REVOKE_CLIENT'
+const EXPIRE_TOKEN = 'EXPIRE_TOKEN'
 export const UNLINK = 'UNLINK'
 const STORE_CREDENTIALS = 'STORE_CREDENTIALS'
 const INITIAL_SYNC_OK = 'INITIAL_SYNC_OK'
@@ -12,6 +13,7 @@ const RECEIVE_UPDATED_DOCUMENTS_FROM_POUCH =
 
 // action creators
 export const setToken = token => ({ type: SET_TOKEN, token })
+export const expireToken = () => ({ type: EXPIRE_TOKEN })
 export const storeCredentials = (url, client, token) => ({
   type: STORE_CREDENTIALS,
   url,
@@ -31,6 +33,8 @@ export const initialState = {
   push: null
 }
 
+const DAY = 1000 * 60 * 60 * 24
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case STORE_CREDENTIALS:
@@ -47,6 +51,14 @@ const reducer = (state = initialState, action) => {
         token: {
           ...action.token,
           issuedAt: new Date()
+        }
+      }
+    case EXPIRE_TOKEN: // Useful for tests
+      return {
+        ...state,
+        token: {
+          ...(state.token || {}),
+          issuedAt: new Date(Date.now() - 8 * DAY)
         }
       }
     case REVOKE_CLIENT:

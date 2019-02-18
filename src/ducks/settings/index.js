@@ -4,6 +4,7 @@ import AccountsSettings from './AccountsSettings'
 import GroupSettings, { NewGroupSettings } from './GroupSettings'
 import GroupsSettings from './GroupsSettings'
 import Configuration from './Configuration'
+import Debug from './Debug'
 
 export {
   isNotificationEnabled,
@@ -18,5 +19,6 @@ export {
   GroupsSettings,
   GroupSettings,
   NewGroupSettings,
-  Configuration
+  Configuration,
+  Debug
 }
