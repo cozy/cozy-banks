@@ -3,8 +3,7 @@ import { withStyles } from '@material-ui/core/styles'
 
 const BAR_WIDTH = 25
 const BAR_HEIGHT = 12
-
-const BUTTON_WIDTH = 48
+const BUTTON_WIDTH = 46
 
 export default withStyles(() => ({
   root: {
