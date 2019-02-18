@@ -17,6 +17,7 @@ import withFilteringDoc from 'components/withFilteringDoc'
 
 import { getGroupBalance } from '../helpers'
 import styles from './GroupPanel.styl'
+import flag from 'cozy-flags'
 
 const GroupPanelSummary = withStyles(() => ({
   expanded: {},
@@ -52,6 +53,10 @@ class GroupPanelExpandIcon extends React.PureComponent {
     )
   }
 }
+
+const collapseProps = flag('balance-panel-no-anim-collapse')
+  ? { timeout: 0 }
+  : null
 
 class GroupPanel extends React.PureComponent {
   static propTypes = {
@@ -100,7 +105,11 @@ class GroupPanel extends React.PureComponent {
     )
 
     return (
-      <ExpansionPanel expanded={expanded} onChange={onChange(group._id)}>
+      <ExpansionPanel
+        CollapseProps={collapseProps}
+        expanded={expanded}
+        onChange={onChange(group._id)}
+      >
         <GroupPanelSummary
           expandIcon={<GroupPanelExpandIcon />}
           IconButtonProps={{
