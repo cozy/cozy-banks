@@ -7,7 +7,7 @@ import brokenIcon from 'assets/icons/icon-broken.svg'
 const Error = props => {
   const { t } = props
   const update = t('Error.update')
-    .replace('#{LINK}', `<a onClick="window.location.reload(true)">`)
+    .replace('#{LINK}', `<a onClick="javascript:window.location.reload(true)">`)
     .replace('#{/LINK}', '</a>')
   const lang = 'fr'
   const url = `https://cozy.io/${lang === 'fr' ? 'fr' : 'en'}/support/`
