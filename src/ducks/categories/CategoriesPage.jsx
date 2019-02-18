@@ -1,4 +1,4 @@
-/* global __TARGET__, cozy */
+/* global __TARGET__ */
 import React, { Component, Fragment } from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
@@ -20,15 +20,14 @@ import {
   groupsConn
 } from 'doctypes'
 import { isCollectionLoading } from 'ducks/client/utils'
-import { setColorDefault } from 'ducks/mobile/statusBar'
+import { setBarTheme } from 'ducks/mobile/utils'
 
 class CategoriesPage extends Component {
   constructor(props) {
     super(props)
 
     if (__TARGET__ === 'mobile') {
-      setColorDefault()
-      cozy.bar.setTheme('default')
+      setBarTheme('default')
     }
   }
 

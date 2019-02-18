@@ -1,4 +1,4 @@
-/* global __TARGET__, __APP_VERSION__, cozy */
+/* global __TARGET__, __APP_VERSION__ */
 import React from 'react'
 import {
   translate,
@@ -17,12 +17,11 @@ import { PageTitle } from 'components/Title'
 import { Padded } from 'components/Spacing'
 import cx from 'classnames'
 import flag from 'cozy-flags'
-import { setColorDefault } from 'ducks/mobile/statusBar'
+import { setBarTheme } from 'ducks/mobile/utils'
 
 const Settings = ({ t, children, router, breakpoints: { isMobile } }) => {
   if (__TARGET__ === 'mobile') {
-    setColorDefault()
-    cozy.bar.setTheme('default')
+    setBarTheme('default')
   }
 
   const tabNames = ['configuration', 'accounts', 'groups']

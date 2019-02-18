@@ -54,7 +54,7 @@ import {
   sumBalanceHistories,
   balanceHistoryToChartData
 } from 'ducks/balance/helpers'
-import { setColorPrimary, setColorDefault } from 'ducks/mobile/statusBar'
+import { setBarTheme } from 'ducks/mobile/utils'
 import flag from 'cozy-flags'
 
 const { BarRight } = cozy.bar
@@ -86,13 +86,8 @@ class TransactionsPage extends Component {
     }
 
     if (__TARGET__ === 'mobile') {
-      if (flag('transaction-history')) {
-        setColorPrimary()
-        cozy.bar.setTheme('primary')
-      } else {
-        setColorDefault()
-        cozy.bar.setTheme('default')
-      }
+      const theme = flag('transaction-history') ? 'primary' : 'default'
+      setBarTheme(theme)
     }
   }
 
