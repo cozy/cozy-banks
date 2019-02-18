@@ -426,7 +426,8 @@
     "title": "Paramètres",
     "accounts": "Comptes",
     "groups": "Groupes",
-    "configuration": "Configuration"
+    "configuration": "Configuration",
+    "debug": "Debug"
   },
 
   "Onboarding": {
