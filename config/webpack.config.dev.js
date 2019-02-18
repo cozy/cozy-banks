@@ -11,7 +11,7 @@ if (target !== 'mobile') {
 
 module.exports = {
   mode: 'development',
-  devtool: 'cheap-module-eval-source-map',
+  devtool: process.env.NO_SOURCE_MAP ? false : 'cheap-module-eval-source-map',
   externals: ['cozy'],
   module: {
     rules: [

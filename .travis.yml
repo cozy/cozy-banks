@@ -29,7 +29,7 @@ jobs:
   include:
     - &test_unit
       stage: test
-      script: yarn test
+      script: yarn lint && yarn test
       name: Unit tests
       os: linux
     - &build_web
