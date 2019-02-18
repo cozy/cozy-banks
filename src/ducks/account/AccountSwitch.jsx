@@ -131,13 +131,15 @@ const AccountSwitchMobile = ({
   filteredAccounts,
   filteringDoc,
   onClick,
-  t
+  t,
+  color
 }) => (
   <AccountSwitchSelect
     filteringDoc={filteringDoc}
     onClick={onClick}
     filteringAccounts={filteredAccounts}
     t={t}
+    color={color}
   />
 )
 
@@ -351,6 +353,7 @@ class AccountSwitch extends Component {
                 filteringDoc={filteringDoc}
                 onClick={this.toggle}
                 t={t}
+                color={color}
               />
             </BarItem>
           </BarCenter>
