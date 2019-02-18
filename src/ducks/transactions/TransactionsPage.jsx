@@ -86,7 +86,13 @@ class TransactionsPage extends Component {
     }
 
     if (__TARGET__ === 'mobile') {
-      flag('transaction-history') ? setColorPrimary() : setColorDefault()
+      if (flag('transaction-history')) {
+        setColorPrimary()
+        cozy.bar.setTheme('primary')
+      } else {
+        setColorDefault()
+        cozy.bar.setTheme('default')
+      }
     }
   }
 

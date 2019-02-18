@@ -1,4 +1,4 @@
-/* global __TARGET__, __APP_VERSION__ */
+/* global __TARGET__, __APP_VERSION__, cozy */
 import React from 'react'
 import {
   translate,
@@ -22,6 +22,7 @@ import { setColorDefault } from 'ducks/mobile/statusBar'
 const Settings = ({ t, children, router, breakpoints: { isMobile } }) => {
   if (__TARGET__ === 'mobile') {
     setColorDefault()
+    cozy.bar.setTheme('default')
   }
 
   const tabNames = ['configuration', 'accounts', 'groups']
