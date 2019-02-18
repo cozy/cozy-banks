@@ -1,4 +1,4 @@
-/* global __TARGET__, cozy */
+/* global __TARGET__ */
 import React, { PureComponent, Fragment } from 'react'
 import { flowRight as compose, get, sumBy, set } from 'lodash'
 import { translate, withBreakpoints } from 'cozy-ui/react'
@@ -24,7 +24,7 @@ import styles from './Balance.styl'
 import BalanceTables from './BalanceTables'
 import BalancePanels from './BalancePanels'
 import { getPanelsState } from './helpers'
-import { setColorPrimary } from 'ducks/mobile/statusBar'
+import { setBarTheme } from 'ducks/mobile/utils'
 
 class Balance extends PureComponent {
   constructor(props) {
@@ -35,8 +35,7 @@ class Balance extends PureComponent {
     }
 
     if (__TARGET__ === 'mobile') {
-      setColorPrimary()
-      cozy.bar.setTheme('primary')
+      setBarTheme('primary')
     }
   }
 
@@ -139,7 +138,7 @@ class Balance extends PureComponent {
     const headerColorProps = { color }
     const headerClassName = styles[`Balance_HeaderColor_${color}`]
     const titleColorProps = {
-      color: isMobile ? 'default' : 'primay'
+      color: isMobile ? 'primary' : 'default'
     }
     const titlePaddedClass = isMobile ? 'u-p-0' : 'u-pb-0'
 

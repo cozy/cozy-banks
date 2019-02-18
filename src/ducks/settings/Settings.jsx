@@ -1,4 +1,4 @@
-/* global __TARGET__, __APP_VERSION__, cozy */
+/* global __TARGET__, __APP_VERSION__ */
 import React from 'react'
 import {
   translate,
@@ -16,14 +16,13 @@ import AppVersion from './AppVersion'
 import { PageTitle } from 'components/Title'
 import { Padded } from 'components/Spacing'
 import cx from 'classnames'
-import { setColorDefault } from 'ducks/mobile/statusBar'
+import { setBarTheme } from 'ducks/mobile/utils'
 
 const tabNames = ['configuration', 'accounts', 'groups']
 
 const Settings = ({ t, children, router, breakpoints: { isMobile } }) => {
   if (__TARGET__ === 'mobile') {
-    setColorDefault()
-    cozy.bar.setTheme('default')
+    setBarTheme('default')
   }
   let defaultTab = router.location.pathname.replace('/settings/', '')
   if (tabNames.indexOf(defaultTab) === -1) defaultTab = 'configuration'

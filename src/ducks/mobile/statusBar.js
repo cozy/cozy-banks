@@ -4,12 +4,12 @@ export const setColor = color => {
   window.StatusBar.backgroundColorByHexString(color)
 }
 
-export const setColorPrimary = () => {
-  const color = getCssVariableValue('primary-dark')
-  setColor(color)
+const THEME_TO_COLORS = {
+  primary: 'primary-dark',
+  default: 'coolGrey'
 }
 
-export const setColorDefault = () => {
-  const color = getCssVariableValue('coolGrey')
-  setColor(color)
+export const setTheme = theme => {
+  const color = THEME_TO_COLORS[theme] || THEME_TO_COLORS.default
+  setColor(getCssVariableValue(color))
 }

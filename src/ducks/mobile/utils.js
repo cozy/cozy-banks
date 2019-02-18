@@ -1,4 +1,6 @@
 /* global cozy */
+import { setTheme as setStatusBarTheme } from './statusBar'
+
 const getLang = () =>
   navigator && navigator.language ? navigator.language.slice(0, 2) : 'en'
 
@@ -30,4 +32,9 @@ export const initBar = (url, accessToken, options = {}) => {
 
 export const updateAccessTokenBar = accessToken => {
   cozy.bar.updateAccessToken(accessToken)
+}
+
+export const setBarTheme = theme => {
+  setStatusBarTheme(theme)
+  cozy.bar.setTheme(theme)
 }
