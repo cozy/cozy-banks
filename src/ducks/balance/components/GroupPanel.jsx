@@ -145,7 +145,7 @@ class GroupPanel extends React.PureComponent {
             </div>
             <Switch
               disableRipple
-              className="u-ml-half u-mr-1"
+              className="u-mh-half"
               checked={checked}
               color="primary"
               onClick={this.handleSwitchClick}
