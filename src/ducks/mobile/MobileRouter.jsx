@@ -19,7 +19,7 @@ import {
   registerPushNotifications,
   stopPushNotifications
 } from 'ducks/mobile/push'
-import { initBar, resetClient } from 'ducks/mobile/utils'
+import { initBar, resetClient, setBarTheme } from 'ducks/mobile/utils'
 import LogoutModal from 'components/LogoutModal'
 import { resetFilterByDoc } from 'ducks/filters'
 
@@ -101,6 +101,7 @@ const withAuth = Wrapped =>
         setURLContext(url)
         initBar(url, getAccessToken(mobileState), {
           onLogOut: () => {
+            setBarTheme('default')
             this.setState({ isLoggingOut: true }, async () => {
               await onLogout(
                 this.context.store,
