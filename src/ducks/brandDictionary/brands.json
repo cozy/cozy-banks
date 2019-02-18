@@ -130,6 +130,11 @@
     "konnectorSlug": "justeat"
   },
   {
+    "name": "La mutuelle générale",
+    "regexp": "\\bla mutuelle gen",
+    "konnectorSlug": "lamutuellegenerale"
+  },
+  {
     "name": "Le Monde Diplomatique",
     "regexp": "\\bmonde-diplomatique\\b",
     "konnectorSlug": "mondediplo"
