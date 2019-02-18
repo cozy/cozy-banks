@@ -40,7 +40,7 @@ export const setBarTheme = theme => {
     setStatusBarTheme(theme)
   }
 
-  if (cozy && cozy.bar && cozy.bar.setTheme) {
+  if (cozy.bar && cozy.bar.setTheme) {
     cozy.bar.setTheme(theme)
   }
 }
