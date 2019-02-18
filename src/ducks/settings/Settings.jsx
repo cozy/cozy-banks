@@ -20,9 +20,7 @@ import flag from 'cozy-flags'
 import { setBarTheme } from 'ducks/mobile/utils'
 
 const Settings = ({ t, children, router, breakpoints: { isMobile } }) => {
-  if (__TARGET__ === 'mobile') {
-    setBarTheme('default')
-  }
+  setBarTheme('default')
 
   const tabNames = ['configuration', 'accounts', 'groups']
   let defaultTab = router.location.pathname.replace('/settings/', '')

@@ -1,4 +1,4 @@
-/* global cozy */
+/* global cozy, __TARGET__ */
 import { setTheme as setStatusBarTheme } from './statusBar'
 
 const getLang = () =>
@@ -36,6 +36,9 @@ export const updateAccessTokenBar = accessToken => {
 }
 
 export const setBarTheme = theme => {
-  setStatusBarTheme(theme)
+  if (__TARGET__ === 'mobile') {
+    setStatusBarTheme(theme)
+  }
+
   cozy.bar.setTheme(theme)
 }

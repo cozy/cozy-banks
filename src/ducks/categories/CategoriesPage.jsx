@@ -1,4 +1,3 @@
-/* global __TARGET__ */
 import React, { Component, Fragment } from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
@@ -26,9 +25,7 @@ class CategoriesPage extends Component {
   constructor(props) {
     super(props)
 
-    if (__TARGET__ === 'mobile') {
-      setBarTheme('default')
-    }
+    setBarTheme('default')
   }
 
   selectCategory = (selectedCategory, subcategory) => {

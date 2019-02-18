@@ -1,4 +1,4 @@
-/* global __TARGET__, cozy */
+/* global cozy */
 
 import React, { Component, Fragment } from 'react'
 import { withRouter } from 'react-router'
@@ -85,10 +85,8 @@ class TransactionsPage extends Component {
       infiniteScrollTop: false
     }
 
-    if (__TARGET__ === 'mobile') {
-      const theme = flag('transaction-history') ? 'primary' : 'default'
-      setBarTheme(theme)
-    }
+    const theme = flag('transaction-history') ? 'primary' : 'default'
+    setBarTheme(theme)
   }
 
   setCurrentMonthFollowingMostRecentTransaction() {

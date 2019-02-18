@@ -1,4 +1,3 @@
-/* global __TARGET__ */
 import React, { PureComponent, Fragment } from 'react'
 import { flowRight as compose, get, sumBy, set } from 'lodash'
 import { translate, withBreakpoints } from 'cozy-ui/react'
@@ -34,9 +33,7 @@ class Balance extends PureComponent {
       panels: null
     }
 
-    if (__TARGET__ === 'mobile') {
-      setBarTheme('primary')
-    }
+    setBarTheme('primary')
   }
 
   static getDerivedStateFromProps(props, state) {
