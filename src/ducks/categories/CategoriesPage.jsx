@@ -1,4 +1,4 @@
-/* global __TARGET__ */
+/* global __TARGET__, cozy */
 import React, { Component, Fragment } from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
@@ -28,6 +28,7 @@ class CategoriesPage extends Component {
 
     if (__TARGET__ === 'mobile') {
       setColorDefault()
+      cozy.bar.setTheme('default')
     }
   }
 

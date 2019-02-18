@@ -1,4 +1,4 @@
-/* global __TARGET__ */
+/* global __TARGET__, cozy */
 import React, { PureComponent, Fragment } from 'react'
 import { flowRight as compose, get, sumBy, set } from 'lodash'
 import { translate, withBreakpoints } from 'cozy-ui/react'
@@ -36,6 +36,7 @@ class Balance extends PureComponent {
 
     if (__TARGET__ === 'mobile') {
       setColorPrimary()
+      cozy.bar.setTheme('primary')
     }
   }
 
