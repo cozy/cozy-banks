@@ -73,14 +73,14 @@ const setupApp = async persistedState => {
       replaceTitleOnMobile: true
     })
   } else {
-    document.addEventListener(
-      'resume',
-      checkToRefreshToken(client, store, () => {
-        if (flag('debug')) {
-          Alerter.info('Token refreshed')
-        }
-      })
-    )
+    const onStartOrResume = checkToRefreshToken(client, store, () => {
+      if (flag('debug')) {
+        Alerter.info('Token refreshed')
+      }
+    })
+
+    document.addEventListener('deviceready', onStartOrResume)
+    document.addEventListener('resume', onStartOrResume)
   }
 
   if (isReporterEnabled()) {
