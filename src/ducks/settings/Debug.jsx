@@ -1,6 +1,7 @@
 import React from 'react'
 import { expireToken } from 'ducks/mobile'
 import { connect } from 'react-redux'
+import { Alerter } from 'cozy-ui/react'
 
 class DebugSettings extends React.PureComponent {
   constructor(props) {
@@ -10,6 +11,7 @@ class DebugSettings extends React.PureComponent {
 
   handleMakeTokenExpired() {
     this.props.makeTokenExpired()
+    Alerter.info('Token expired')
   }
 
   render() {
