@@ -1,6 +1,14 @@
 platform :ios do
   desc "Deploy ios app on the appstore"
 
+  lane :devices do
+    register_devices(
+       devices: {
+         "Patrick iPhone 6s" => "dbb0aa403f6928368467d3f10b28a61336e52023"
+       }
+    )
+  end
+
   lane :metadata do
     appstore(
       skip_binary_upload: true
@@ -12,7 +20,8 @@ platform :ios do
       shallow_clone: true,
       clone_branch_directly: true,
       type: "appstore",
-      git_url: "git@gitlab.cozycloud.cc:labs/mobile-certificates.git"
+      git_url: "git@gitlab.cozycloud.cc:labs/mobile-certificates.git",
+      force: true
     )
     cordova(platform: 'ios', build_flag: ['-UseModernBuildSystem=0'])
     appstore(ipa: ENV['CORDOVA_IOS_RELEASE_BUILD_PATH'], skip_screenshots: true)
