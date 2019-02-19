@@ -77,7 +77,7 @@ const setupApp = async persistedState => {
       'resume',
       checkToRefreshToken(client, store, () => {
         if (flag('debug')) {
-          Alerter.show('info', 'Token refreshed')
+          Alerter.info('Token refreshed')
         }
       })
     )
