@@ -93,6 +93,7 @@ class LineChart extends Component {
   updateScales() {
     this.x.range([0, this.getInnerWidth()])
     this.y.range([this.getInnerHeight(), 0])
+
     this.updateDomains()
   }
 
@@ -180,11 +181,23 @@ class LineChart extends Component {
     if (this.rect) {
       const { data } = this.props
       const minY = this.getDataMin()
-      this.areaGenerator.y0(() => this.y(minY.y))
+      this.areaGenerator.y0(() => {
+        let min = this.y(minY.y)
 
-      this.rect
-        .attr('width', this.getInnerWidth())
-        .attr('height', this.getInnerHeight())
+        if (!this.props.showAxis) {
+          min += this.props.margin.bottom
+        }
+
+        return min
+      })
+
+      let height = this.getInnerHeight()
+
+      if (!this.props.showAxis) {
+        height += this.props.margin.bottom
+      }
+
+      this.rect.attr('width', this.getInnerWidth()).attr('height', height)
 
       this.mask.datum(data).attr('d', this.areaGenerator)
     }
