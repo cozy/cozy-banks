@@ -102,7 +102,7 @@ class TransactionHeader extends Component {
       return
     }
     const intervalBetweenPoints = 2
-    const marginBottom = 10
+    const marginBottom = 64
     const historyChartMargin = {
       top: 26,
       bottom: marginBottom,
@@ -114,7 +114,7 @@ class TransactionHeader extends Component {
       <HistoryChart
         margin={historyChartMargin}
         data={chartData}
-        height={72 + marginBottom}
+        height={96 + marginBottom}
         width={max([size.width, intervalBetweenPoints * chartData.length])}
       />
     )
