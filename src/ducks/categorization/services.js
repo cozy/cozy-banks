@@ -105,7 +105,7 @@ export const createLocalClassifier = (
   return classifier
 }
 
-class BankClassifier extends Document {
+export class BankClassifier extends Document {
   static async fetchParameters() {
     try {
       const parameters = await this.cozyClient.fetchJSON(
@@ -150,7 +150,7 @@ const getLabelWithTags = transaction => {
   return `${amountSignTag} ${amountTag} ${label}`
 }
 
-const globalModel = async (classifierOptions, transactions) => {
+export const globalModel = async (classifierOptions, transactions) => {
   globalModelLog('info', 'Fetching parameters from the stack')
   let parameters
 
