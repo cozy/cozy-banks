@@ -27,7 +27,8 @@ module.exports = {
       name: 'Banks',
       components: () => [
         'src/components/Figure/Figure.jsx',
-        'src/components/Figure/FigureBlock.jsx'
+        'src/components/Figure/FigureBlock.jsx',
+        'src/ducks/balance/components/AccountRow.jsx'
       ]
     },
     {
