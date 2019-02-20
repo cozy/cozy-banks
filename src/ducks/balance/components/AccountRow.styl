@@ -1,9 +1,8 @@
 @require 'settings/breakpoints'
 
 .AccountRow
-    display grid
-    grid-template-columns 1fr auto
-    grid-column-gap 21px
+    display flex
+    justify-content space-between
     height 4rem
     align-items center
     padding-left 1rem
@@ -12,10 +11,6 @@
     color var(--charcoalGrey)
     cursor pointer
 
-    +small-screen('min')
-        grid-template-columns 2fr 1fr 1fr 1fr
-        grid-column-gap 67px
-
     & + &
         border-top 0.0625rem solid var(--silver)
 
@@ -23,6 +18,7 @@
     font-size 0.875rem
     font-weight normal
     color inherit
+    margin-right 0.25rem
 
 .AccountRow__column
     white-space nowrap
@@ -30,6 +26,21 @@
     text-overflow ellipsis
     display flex
     align-items center
+
+    // Each column will have the same size since they are
+    // sized relative to their container
+    flex-basis 100%
+
+    &:not(:first-child)
+        margin-left 1rem
+
+    +small-screen('min')
+        // On mobile the label is twice as large as the other
+        // column
+        &:first-child
+            // Cannot use flex-grow since content inside
+            // is ellipsed and therefore won't grow
+            flex-basis 200%
 
 .AccountRow__column--secondary
     font-size 0.875rem
