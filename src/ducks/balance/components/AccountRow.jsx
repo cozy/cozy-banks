@@ -132,7 +132,6 @@ class AccountRow extends React.PureComponent {
             onClick={this.handleSwitchClick}
             id={id}
             onChange={onSwitchChange}
-            className="u-mh-half"
           />
         </div>
       </li>
