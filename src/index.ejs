@@ -21,9 +21,6 @@
   {{.CozyClientJS}}
   {{.CozyBar}}
   <% } %>
-  <%  if (__STACK_ASSETS__ || (__DEV__ && __TARGET__ !== 'mobile')) { %>
-  <script src="//{{.Domain}}/assets/js/piwik.js" defer></script>
-  <% } %>
 </head>
 <div
   role="application"
@@ -41,4 +38,7 @@
 ></div>
 <% if (__TARGET__ === 'mobile') { %>
 <div id="logout-modal" style="position: relative; z-index: 100;"></div>
+<% } %>
+<%  if (__STACK_ASSETS__ || (__DEV__ && __TARGET__ !== 'mobile')) { %>
+<script src="//{{.Domain}}/assets/js/piwik.js" async></script>
 <% } %>
