@@ -320,7 +320,6 @@ describe('Chain of predictions', () => {
   let loseBIEveryFixtures = 0
   let nUncategorizedEveryFixtures = 0
   // prepare loop over fixtures
-  let testPromises = []
   for (let bank of banks) {
     // check if fixture exists
     const expectedPath = path.join(
@@ -333,65 +332,59 @@ describe('Chain of predictions', () => {
     } catch (error) {
       transactions = undefined
     }
-    // const transactions = require(expectedPath)["io.cozy.bank.operations"];
     // if fixture exists : continue
-    if (transactions !== undefined) {
-      testPromises.push(
-        new Promise(resolve => {
-          it(`should correctly predict transactions of ${bank}`, async () => {
-            manualCategorizations = transactions.filter(
-              op => op.manualCategoryId !== undefined
-            )
-            // launch local model
-            await localModel({ tokenizer }, transactions)
-            // launch global model
-            await globalModel({ tokenizer }, transactions)
-            // parse results to check result
-            const results = checkCategorization(transactions)
-            // Format results
-            const fmtedResults = fmtResults(results)
-            // Add an accuracy metrics
-            const currentAccuracy = computeAccuracy(results)
-            // Summary of the dataset
-            expect(
-              fmtFixtureSummary(manualCategorizations, currentAccuracy)
-            ).toMatchSnapshot()
-            // test
-            expect(fmtedResults).toMatchSnapshot()
-            // update global metrics
-            const {
-              nOperations,
-              winGlobalModel,
-              winLocalUser,
-              winBI,
-              winFallbackGlobalModel,
-              winFallbackLocalUser,
-              winFallbackBI,
-              loseGlobalModel,
-              loseLocalUser,
-              loseBI,
-              nUncategorized
-            } = currentAccuracy
-            nOperationsEveryFixtures += nOperations
-            winGlobalModelEveryFixtures += winGlobalModel
-            winLocalUserEveryFixtures += winLocalUser
-            winBIEveryFixtures += winBI
-            winFallbackGlobalModelEveryFixtures += winFallbackGlobalModel
-            winFallbackLocalUserEveryFixtures += winFallbackLocalUser
-            winFallbackBIEveryFixtures += winFallbackBI
-            loseGlobalModelEveryFixtures += loseGlobalModel
-            loseLocalUserEveryFixtures += loseLocalUser
-            loseBIEveryFixtures += loseBI
-            nUncategorizedEveryFixtures += nUncategorized
-            resolve()
-          })
-        })
-      )
-    }
+    ;(transactions ? it : xit)(
+      `should correctly predict transactions of ${bank}`,
+      async () => {
+        manualCategorizations = transactions.filter(
+          op => op.manualCategoryId !== undefined
+        )
+        // launch local model
+        await localModel({ tokenizer }, transactions)
+        // launch global model
+        await globalModel({ tokenizer }, transactions)
+        // parse results to check result
+        const results = checkCategorization(transactions)
+        // Format results
+        const fmtedResults = fmtResults(results)
+        // Add an accuracy metrics
+        const currentAccuracy = computeAccuracy(results)
+        // Summary of the dataset
+        expect(
+          fmtFixtureSummary(manualCategorizations, currentAccuracy)
+        ).toMatchSnapshot()
+        // test
+        expect(fmtedResults).toMatchSnapshot()
+        // update global metrics
+        const {
+          nOperations,
+          winGlobalModel,
+          winLocalUser,
+          winBI,
+          winFallbackGlobalModel,
+          winFallbackLocalUser,
+          winFallbackBI,
+          loseGlobalModel,
+          loseLocalUser,
+          loseBI,
+          nUncategorized
+        } = currentAccuracy
+        nOperationsEveryFixtures += nOperations
+        winGlobalModelEveryFixtures += winGlobalModel
+        winLocalUserEveryFixtures += winLocalUser
+        winBIEveryFixtures += winBI
+        winFallbackGlobalModelEveryFixtures += winFallbackGlobalModel
+        winFallbackLocalUserEveryFixtures += winFallbackLocalUser
+        winFallbackBIEveryFixtures += winFallbackBI
+        loseGlobalModelEveryFixtures += loseGlobalModel
+        loseLocalUserEveryFixtures += loseLocalUser
+        loseBIEveryFixtures += loseBI
+        nUncategorizedEveryFixtures += nUncategorized
+      }
+    )
   }
 
-  it('Should give a correct global accuracy', async () => {
-    await Promise.all([testPromises])
+  it('Should give a correct global accuracy', () => {
     const globalAccuracy = {
       nOperations: nOperationsEveryFixtures,
       winGlobalModel: winGlobalModelEveryFixtures,
