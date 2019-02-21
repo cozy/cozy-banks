@@ -171,6 +171,12 @@
         "updatedAt": "2019-02-05T00:00:00Z",
         "createdByApp": "bnpparibas82"
       }
+    },
+    {
+      "_id": "health_reimbursements",
+      "label": "Remb santé en attente",
+      "balance": 108,
+      "type": "Reimbursements"
     }
   ],
   "io.cozy.bank.groups": [
