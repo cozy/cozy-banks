@@ -181,11 +181,12 @@ class LineChart extends Component {
     if (this.rect) {
       const { data, showAxis, margin } = this.props
       const minY = this.getDataMin()
+      const innerHeight = this.getInnerHeight()
       this.areaGenerator.y0(() => {
         let min = this.y(minY.y)
 
         if (min === 0) {
-          min += this.getInnerHeight()
+          min += innerHeight
         }
 
         if (!showAxis) {
@@ -195,7 +196,6 @@ class LineChart extends Component {
         return min
       })
 
-      const innerHeight = this.getInnerHeight()
       const height = innerHeight + (showAxis ? 0 : margin.bottom)
 
       this.rect.attr('width', this.getInnerWidth()).attr('height', height)
