@@ -2,8 +2,14 @@ import find from 'lodash/find'
 import findLast from 'lodash/findLast'
 import get from 'lodash/get'
 
+const titleRx = /(?:^|\s)\S/g
+const titleCase = label =>
+  label
+    .toLowerCase()
+    .replace(titleRx, a => a.toUpperCase())
+
 export const getLabel = transaction =>
-  transaction.label.toLowerCase().replace(/(?:^|\s)\S/g, a => a.toUpperCase())
+  titleCase(transaction.label)
 
 export const getDisplayDate = transaction => {
   if (
