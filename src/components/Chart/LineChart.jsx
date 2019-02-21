@@ -93,6 +93,7 @@ class LineChart extends Component {
   updateScales() {
     this.x.range([0, this.getInnerWidth()])
     this.y.range([this.getInnerHeight(), 0])
+
     this.updateDomains()
   }
 
@@ -178,13 +179,26 @@ class LineChart extends Component {
 
   updateGradient() {
     if (this.rect) {
-      const { data } = this.props
+      const { data, showAxis, margin } = this.props
       const minY = this.getDataMin()
-      this.areaGenerator.y0(() => this.y(minY.y))
+      const innerHeight = this.getInnerHeight()
+      this.areaGenerator.y0(() => {
+        let min = this.y(minY.y)
 
-      this.rect
-        .attr('width', this.getInnerWidth())
-        .attr('height', this.getInnerHeight())
+        if (min === 0) {
+          min += innerHeight
+        }
+
+        if (!showAxis) {
+          min += margin.bottom
+        }
+
+        return min
+      })
+
+      const height = innerHeight + (showAxis ? 0 : margin.bottom)
+
+      this.rect.attr('width', this.getInnerWidth()).attr('height', height)
 
       this.mask.datum(data).attr('d', this.areaGenerator)
     }
@@ -272,14 +286,19 @@ class LineChart extends Component {
 
   updatePointLine() {
     const item = this.getSelectedItem()
-    const { height, margin, tickPadding } = this.props
+    const { height, margin, tickPadding, showAxis } = this.props
     const x = this.x(item.x)
+    let y2 = height - margin.top + tickPadding
+
+    if (showAxis) {
+      y2 -= margin.bottom
+    }
 
     this.pointLine
       .attr('x1', x)
       .attr('y1', 0)
       .attr('x2', x)
-      .attr('y2', height - margin.top - margin.bottom + tickPadding)
+      .attr('y2', y2)
   }
 
   /**

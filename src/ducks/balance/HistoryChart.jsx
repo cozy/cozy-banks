@@ -5,6 +5,7 @@ import LineChart from 'components/Chart/LineChart'
 import styles from './History.styl'
 import palette from 'cozy-ui/react/palette'
 import { flowRight as compose } from 'lodash'
+import cx from 'classnames'
 
 // on iOS white transparency on SVG failed so we should calculate hexa color
 const gradientStyle = {
@@ -38,9 +39,9 @@ class HistoryChart extends Component {
   }
 
   render() {
-    const { data, height, width } = this.props
+    const { data, height, width, className } = this.props
     return (
-      <div className={styles.HistoryChart} ref={this.container}>
+      <div className={cx(styles.HistoryChart, className)} ref={this.container}>
         <LineChart
           xScale={d3.scaleTime}
           lineColor="white"

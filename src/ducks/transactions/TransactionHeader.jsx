@@ -3,6 +3,7 @@ import { withRouter } from 'react-router'
 import { flowRight as compose, max } from 'lodash'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import { withSize } from 'react-sizeme'
+import cx from 'classnames'
 
 import BackButton from 'components/BackButton'
 import Breadcrumb from 'components/Breadcrumb'
@@ -54,6 +55,7 @@ class TransactionHeader extends Component {
         value={currentMonth}
         onChange={handleChangeMonth}
         {...colorProps}
+        className="u-p-0"
       />
     )
   }
@@ -102,7 +104,7 @@ class TransactionHeader extends Component {
       return
     }
     const intervalBetweenPoints = 2
-    const marginBottom = 10
+    const marginBottom = isMobile ? 48 : 64
     const historyChartMargin = {
       top: 26,
       bottom: marginBottom,
@@ -110,12 +112,15 @@ class TransactionHeader extends Component {
       right: isMobile ? 16 : 32
     }
 
+    const height = isMobile ? 66 : 96
+
     return (
       <HistoryChart
         margin={historyChartMargin}
         data={chartData}
-        height={72 + marginBottom}
+        height={height + marginBottom}
         width={max([size.width, intervalBetweenPoints * chartData.length])}
+        className={styles.TransactionsHeader__chart}
       />
     )
   }
@@ -136,7 +141,16 @@ class TransactionHeader extends Component {
           {this.displayAccountSwitch()}
         </Padded>
         {!isSubcategory && this.displayBalanceHistory()}
-        <Padded className={isMobile ? 'u-p-0' : 'u-pv-1'}>
+        <Padded
+          className={cx(
+            {
+              'u-ph-half': isMobile,
+              'u-pv-0': isMobile,
+              'u-pb-half': isMobile
+            },
+            styles.TransactionsHeader__selectDatesContainer
+          )}
+        >
           {this.displaySelectDates()}
         </Padded>
         {isSubcategory && (
