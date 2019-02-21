@@ -29,7 +29,10 @@ const AppRoute = (
     <Route component={EnsureHasAccounts}>
       <Route component={App}>
         <Redirect from="/" to={defaultRoute()} />
-        <Route path="balances" component={Balance} />
+        <Route path="balances">
+          <IndexRoute component={Balance} />
+          <Route path="reimbursements" component={TransactionsPage} />
+        </Route>
         <Route path="transactions" component={TransactionsPage} />
         <Route path="categories">
           <IndexRoute component={CategoriesPage} />
