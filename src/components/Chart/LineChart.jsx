@@ -184,6 +184,10 @@ class LineChart extends Component {
       this.areaGenerator.y0(() => {
         let min = this.y(minY.y)
 
+        if (min === 0) {
+          min += this.getInnerHeight()
+        }
+
         if (!this.props.showAxis) {
           min += this.props.margin.bottom
         }
