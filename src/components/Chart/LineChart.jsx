@@ -260,6 +260,15 @@ class LineChart extends Component {
       .attr('fill', pointFillColor)
       .attr('stroke-width', pointStrokeWidth)
       .attr('stroke', pointStrokeColor)
+
+    // We set a radius of 24 so the point will have a diameter of 48,
+    // respecting the standard dimensions for a touchable element
+    const CLICK_POINT_RADIUS = 24
+
+    this.clickPoint = this.svg
+      .append('circle')
+      .attr('r', CLICK_POINT_RADIUS)
+      .attr('fill', 'transparent')
       .call(drag.on('start', this.startPointDrag))
       .call(drag.on('drag', this.pointDrag))
       .call(drag.on('end', this.stopPointDrag))
@@ -271,6 +280,7 @@ class LineChart extends Component {
     const y = this.y(item.y)
 
     this.point.attr('cx', x).attr('cy', y)
+    this.clickPoint.attr('cx', x).attr('cy', y)
   }
 
   /**
