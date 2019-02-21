@@ -154,7 +154,7 @@
     "classnames": "2.2.6",
     "cordova": "7.1.0",
     "cozy-authentication": "1.4.0-beta1",
-    "cozy-bar": "6.13.0",
+    "cozy-bar": "6.13.1",
     "cozy-client": "^6.3.3",
     "cozy-client-js": "0.14.2",
     "cozy-device-helper": "1.6.3",
