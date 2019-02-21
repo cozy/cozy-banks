@@ -179,7 +179,7 @@ class LineChart extends Component {
 
   updateGradient() {
     if (this.rect) {
-      const { data } = this.props
+      const { data, showAxis, margin } = this.props
       const minY = this.getDataMin()
       this.areaGenerator.y0(() => {
         let min = this.y(minY.y)
@@ -188,18 +188,15 @@ class LineChart extends Component {
           min += this.getInnerHeight()
         }
 
-        if (!this.props.showAxis) {
-          min += this.props.margin.bottom
+        if (!showAxis) {
+          min += margin.bottom
         }
 
         return min
       })
 
-      let height = this.getInnerHeight()
-
-      if (!this.props.showAxis) {
-        height += this.props.margin.bottom
-      }
+      const innerHeight = this.getInnerHeight()
+      const height = innerHeight + (showAxis ? 0 : margin.bottom)
 
       this.rect.attr('width', this.getInnerWidth()).attr('height', height)
 
