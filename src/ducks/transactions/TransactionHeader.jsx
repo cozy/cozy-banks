@@ -103,7 +103,7 @@ class TransactionHeader extends Component {
       return
     }
     const intervalBetweenPoints = 2
-    const marginBottom = 64
+    const marginBottom = isMobile ? 48 : 64
     const historyChartMargin = {
       top: 26,
       bottom: marginBottom,
@@ -111,11 +111,13 @@ class TransactionHeader extends Component {
       right: isMobile ? 16 : 32
     }
 
+    const height = isMobile ? 66 : 96
+
     return (
       <HistoryChart
         margin={historyChartMargin}
         data={chartData}
-        height={96 + marginBottom}
+        height={height + marginBottom}
         width={max([size.width, intervalBetweenPoints * chartData.length])}
         className={styles.TransactionsHeader__chart}
       />
