@@ -91,8 +91,7 @@ class AccountRow extends React.PureComponent {
               styles['AccountRow__column--secondary']
             )}
           >
-            N°
-            {account.number}
+            {account.number && `N°${account.number}`}
           </div>
         )}
         {!isMobile && (
