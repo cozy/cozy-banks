@@ -55,6 +55,7 @@ class TransactionHeader extends Component {
         value={currentMonth}
         onChange={handleChangeMonth}
         {...colorProps}
+        className="u-p-0"
       />
     )
   }
@@ -143,10 +144,12 @@ class TransactionHeader extends Component {
         <Padded
           className={cx(
             {
-              'u-p-0': isMobile,
+              'u-ph-half': isMobile,
+              'u-pv-0': isMobile,
+              'u-pb-half': isMobile,
               'u-pv-1': !isMobile
             },
-            styles.TransactionsHeader__selectDates
+            styles.TransactionsHeader__selectDatesContainer
           )}
         >
           {this.displaySelectDates()}

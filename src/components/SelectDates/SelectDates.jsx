@@ -255,7 +255,8 @@ class SelectDates extends PureComponent {
       value,
       color,
       t,
-      breakpoints: { isMobile }
+      breakpoints: { isMobile },
+      className
     } = this.props
     const index = this.getSelectedIndex()
     const options = this.getOptions()
@@ -316,7 +317,8 @@ class SelectDates extends PureComponent {
         className={cx(
           styles.SelectDates,
           styles[`SelectDatesColor_${color}`],
-          scrolling && styles['SelectDates--scrolling']
+          scrolling && styles['SelectDates--scrolling'],
+          className
         )}
       >
         <span className={styles['SelectDates__DateYearSelector']}>
