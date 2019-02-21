@@ -13,7 +13,10 @@
 
   "Error": {
     "more-information": "More information",
-    "less-information": "Less information"
+    "less-information": "Less information",
+    "title": "L'affichage de vos données bancaires a échoué",
+    "update": "Vous pouvez essayer à nouveau #{LINK}en rafraichissant la page#{/LINK}.",
+    "contact": "#{LINK}Contactez-nous#{/LINK} si le problème persiste."
   },
 
   "AccountSwitch": {
@@ -71,6 +74,7 @@
 
   "Balance": {
     "title": "Solde actuel",
+    "nb_accounts": "%{nbCheckedAccounts}/%{smart_count} compte |||| %{nbCheckedAccounts}/%{smart_count} comptes",
     "subtitle": {
       "all": "Total de tous vos comptes",
       "group": "Total du groupe %{label}",
@@ -422,7 +426,8 @@
     "title": "Paramètres",
     "accounts": "Comptes",
     "groups": "Groupes",
-    "configuration": "Configuration"
+    "configuration": "Configuration",
+    "debug": "Debug"
   },
 
   "Onboarding": {

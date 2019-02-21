@@ -214,7 +214,16 @@
       "automaticCategoryId": "400610",
       "account": "compteisa1",
       "label": "DR CHOLLET CHQ 18708912",
-      "currency": "€",
+      "currency": {
+        "crypto": false,
+        "datetime": null,
+        "id": "EUR",
+        "marketcap": null,
+        "name": "Euro",
+        "precision": 2,
+        "prefix": false,
+        "symbol": "€"
+      },
       "amount": -70,
       "date": "2018-08-06T00:00:00Z",
       "_id": "c5d3364d147d8dc5da80fc9e354a388e",

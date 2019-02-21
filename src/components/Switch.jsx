@@ -1,33 +1,39 @@
 import Switch from '@material-ui/core/Switch'
 import { withStyles } from '@material-ui/core/styles'
 
-const disabledStyle = {
-  '&$switchBase': {
-    color: 'white',
-    '& + $bar': {
-      backgroundColor: 'var(--silver)',
-      opacity: 1
-    }
-  }
-}
+const BAR_WIDTH = 25
+const BAR_HEIGHT = 12
+const BUTTON_WIDTH = 46
 
 export default withStyles(() => ({
-  root: {},
-  switchBase: {},
+  root: {
+    width: BUTTON_WIDTH,
+    '& input': {
+      width: '150%',
+      height: '150%',
+      left: '-25%',
+      top: '-25%'
+    }
+  },
+  switchBase: {
+    width: BUTTON_WIDTH,
+    transform: 'translateX(-7px)'
+  },
   checked: {
     '& + $bar': {
       opacity: 1
-    }
+    },
+    transform: 'translateX(7px)'
   },
   icon: {
     width: 16,
     height: 16
   },
   bar: {
-    width: 25,
+    width: BAR_WIDTH,
     height: 12,
-    marginTop: -6,
-    marginLeft: -12,
+    marginTop: -(BAR_HEIGHT / 2),
+    marginLeft: -(BAR_WIDTH / 2),
     backgroundColor: 'var(--silver)',
     opacity: 1
   },
@@ -40,7 +46,5 @@ export default withStyles(() => ({
     '&$checked': {
       color: 'white'
     }
-  },
-  colorDisabled: disabledStyle,
-  disabled: disabledStyle
+  }
 }))(Switch)

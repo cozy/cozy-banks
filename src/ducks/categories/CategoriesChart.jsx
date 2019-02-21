@@ -5,6 +5,7 @@ import styles from './CategoriesChart.styl'
 import FigureBlock from 'components/Figure/FigureBlock'
 import { sortBy } from 'lodash'
 import cx from 'classnames'
+import { getCurrencySymbol } from 'utils/currencySymbol'
 
 const hexToRGBA = (hex, a) => {
   const cutHex = hex.substring(1)
@@ -71,7 +72,7 @@ class CategoriesChart extends Component {
           <FigureBlock
             label={label}
             total={total}
-            currency={currency}
+            symbol={getCurrencySymbol(currency)}
             signed
             className={styles.CategoriesChart__FigureBlock}
             figureClassName={styles.CategoriesChart__Figure}

@@ -12,7 +12,8 @@ import {
   GroupsSettings,
   GroupSettings,
   NewGroupSettings,
-  Configuration
+  Configuration,
+  Debug
 } from 'ducks/settings'
 import { Balance } from 'ducks/balance'
 import { EnsureHasAccounts, EnsureIsFirstSynced } from 'ducks/onboarding'
@@ -49,6 +50,7 @@ const AppRoute = (
             <Route path="accounts" component={AccountsSettings} />
             <Route path="groups" component={GroupsSettings} />
             <Route path="configuration" component={Configuration} />
+            <Route path="debug" component={Debug} />
           </Route>
         </Route>
         <Redirect from="*" to={defaultRoute()} />

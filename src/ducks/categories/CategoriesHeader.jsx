@@ -18,8 +18,8 @@ class CategoriesHeader extends PureComponent {
   renderAccountSwitch = () => {
     const { selectedCategory, breadcrumbItems } = this.props
     const [previousItem] = breadcrumbItems.slice(-2, 1)
-    const withChart = flag('transaction-history')
-    const colorProps = { color: withChart ? 'primary' : 'default' }
+    const withPrimary = flag('categories-header-primary')
+    const colorProps = { color: withPrimary ? 'primary' : 'default' }
 
     return (
       <Fragment>
@@ -42,6 +42,7 @@ class CategoriesHeader extends PureComponent {
       selectedCategory,
       withIncome,
       onWithIncomeToggle,
+      breakpoints: { isMobile },
       categories,
       t
     } = this.props
@@ -52,8 +53,8 @@ class CategoriesHeader extends PureComponent {
     if (!showIncomeToggle) {
       return null
     }
-    const withChart = flag('transaction-history')
-    const color = withChart ? 'primary' : 'default'
+    const withPrimary = flag('categories-header-primary')
+    const color = withPrimary && !isMobile ? 'primary' : 'default'
 
     return (
       <div className={cx(styles.CategoriesHeader__Toggle, styles[color])}>
@@ -74,6 +75,7 @@ class CategoriesHeader extends PureComponent {
       selectedCategory,
       chartSize = 182,
       categories,
+      breakpoints: { isMobile },
       t,
       isFetching
     } = this.props
@@ -84,8 +86,8 @@ class CategoriesHeader extends PureComponent {
       return null
     }
 
-    const withChart = flag('transaction-history')
-    const color = { color: withChart ? 'primary' : 'default' }
+    const withPrimary = flag('categories-header-primary')
+    const color = { color: withPrimary && !isMobile ? 'primary' : 'default' }
 
     return (
       <CategoriesChart
@@ -113,8 +115,8 @@ class CategoriesHeader extends PureComponent {
     const incomeToggle = this.renderIncomeToggle()
     const chart = this.renderChart()
 
-    const withChart = flag('transaction-history')
-    const colorProps = { color: withChart ? 'primary' : 'default' }
+    const withPrimary = flag('categories-header-primary')
+    const colorProps = { color: withPrimary ? 'primary' : 'default' }
 
     if (isMobile) {
       return (
@@ -123,7 +125,7 @@ class CategoriesHeader extends PureComponent {
             <SelectDates showFullYear {...colorProps} />
           </Header>
           {accountSwitch}
-          <Header {...colorProps}>
+          <Header color="default">
             <Padded>
               {incomeToggle}
               {chart}

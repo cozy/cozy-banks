@@ -19,14 +19,16 @@ module.exports = {
         // 'src/components/Table/index.jsx',
         'src/components/SharingIcon/SharingIcon.jsx',
         'src/components/SelectDates/SelectDates.jsx',
-        'src/components/Select/index.jsx'
+        'src/components/Select/index.jsx',
+        'src/components/Switch.jsx'
       ]
     },
     {
       name: 'Banks',
       components: () => [
         'src/components/Figure/Figure.jsx',
-        'src/components/Figure/FigureBlock.jsx'
+        'src/components/Figure/FigureBlock.jsx',
+        'src/ducks/balance/components/AccountRow.jsx'
       ]
     },
     {

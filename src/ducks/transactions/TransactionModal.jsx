@@ -34,6 +34,7 @@ import { withUpdateCategory } from 'ducks/categories'
 import PropTypes from 'prop-types'
 import { getCategoryId } from 'ducks/categories/helpers'
 import styles from './TransactionModal.styl'
+import { getCurrencySymbol } from 'utils/currencySymbol'
 
 import iconGraph from 'assets/icons/icon-graph.svg'
 import iconComment from 'assets/icons/actions/icon-comment.svg'
@@ -191,7 +192,7 @@ class TransactionModal extends Component {
       <h2 className={styles.TransactionModalHeading}>
         <Figure
           total={transaction.amount}
-          currency={transaction.currency}
+          symbol={getCurrencySymbol(transaction.currency)}
           signed
         />
       </h2>

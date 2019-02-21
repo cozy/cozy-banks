@@ -19,7 +19,10 @@
   },
   "Error": {
     "more-information": "More information",
-    "less-information": "Less information"
+    "less-information": "Less information",
+    "title": "We failed to display your bank data",
+    "update": "You can try #{LINK}to reload the page#{/LINK}.",
+    "contact": "Do not hesitate #{LINK}to contact us#{/LINK} if the problem persists."
   },
   "AccountSwitch": {
     "account_counter": "%{smart_count} account |||| %{smart_count} accounts",
@@ -58,6 +61,7 @@
       "group": "Total group %{label}",
       "account": "Total account %{label}"
     },
+    "nb_accounts": "%{nbCheckedAccounts}/%{smart_count} account |||| %{nbCheckedAccounts}/%{smart_count} accounts",
     "title": "Current balance",
     "solde": "Balance",
     "account_number": "Account number",
@@ -411,7 +415,8 @@
     "accounts": "Accounts",
     "groups": "Groups",
     "configuration": "Configuration",
-    "app": "App"
+    "app": "App",
+    "debug": "Debug"
   },
 
   "AppSettings": {

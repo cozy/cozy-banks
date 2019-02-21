@@ -10,14 +10,9 @@ import { queryConnect } from 'cozy-client'
 import { isCollectionLoading } from 'ducks/client/utils'
 import { getClient } from 'ducks/client'
 import { accountsConn } from 'doctypes'
+import { hasParameter } from 'utils/qs'
 
 const queryName = 'onboarding'
-
-const hasParameter = (qs, param) => {
-  // result of querystring parsing is created without prototype
-  // thus we need to use Object.prototype.hasOwnProperty
-  return Object.prototype.hasOwnProperty.call(qs, param)
-}
 
 const LayoutContent = props => (
   <Layout>

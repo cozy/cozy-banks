@@ -18,6 +18,10 @@ import { isReporterEnabled, configureReporter, setURLContext } from 'lib/sentry'
 import * as d3 from 'd3'
 import 'cozy-ui/transpiled/stylesheet.css'
 
+import { checkToRefreshToken } from 'utils/token'
+import { Alerter } from 'cozy-ui/react'
+import flag from 'cozy-flags'
+
 const D3_LOCALES_MAP = {
   fr: 'fr-FR',
   en: 'en-GB'
@@ -68,6 +72,15 @@ const setupApp = async persistedState => {
       lang: data.cozyLocale,
       replaceTitleOnMobile: true
     })
+  } else {
+    const onStartOrResume = checkToRefreshToken(client, store, () => {
+      if (flag('debug')) {
+        Alerter.info('Token refreshed')
+      }
+    })
+
+    document.addEventListener('deviceready', onStartOrResume)
+    document.addEventListener('resume', onStartOrResume)
   }
 
   if (isReporterEnabled()) {

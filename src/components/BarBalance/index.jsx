@@ -9,7 +9,7 @@ const BarBalance = ({ accounts }) => (
   <BarItem>
     <Figure
       className={styles['BarBalance']}
-      currency="€"
+      symbol="€"
       decimalNumbers={0}
       coloredPositive={true}
       coloredNegative={true}

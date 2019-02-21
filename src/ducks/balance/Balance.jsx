@@ -23,10 +23,17 @@ import styles from './Balance.styl'
 import BalanceTables from './BalanceTables'
 import BalancePanels from './BalancePanels'
 import { getPanelsState } from './helpers'
+import { setBarTheme } from 'ducks/mobile/utils'
 
 class Balance extends PureComponent {
-  state = {
-    panels: null
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      panels: null
+    }
+
+    setBarTheme('primary')
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -128,7 +135,7 @@ class Balance extends PureComponent {
     const headerColorProps = { color }
     const headerClassName = styles[`Balance_HeaderColor_${color}`]
     const titleColorProps = {
-      color: isMobile ? 'default' : 'primay'
+      color: isMobile ? 'primary' : 'default'
     }
     const titlePaddedClass = isMobile ? 'u-p-0' : 'u-pb-0'
 
@@ -173,7 +180,7 @@ class Balance extends PureComponent {
             className={styles.Balance__currentBalance}
             currencyClassName={styles.Balance__currentBalanceCurrency}
             total={checkedAccountsBalance}
-            currency="€"
+            symbol="€"
           />
           <div className={styles.Balance__subtitle}>
             {checkedAccounts.length === accounts.length

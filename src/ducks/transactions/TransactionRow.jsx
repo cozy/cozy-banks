@@ -25,6 +25,7 @@ import { getCategoryId } from 'ducks/categories/helpers'
 import { withUpdateCategory } from 'ducks/categories'
 import { getLabel, getDate } from './helpers'
 import styles from './Transactions.styl'
+import { getCurrencySymbol } from 'utils/currencySymbol'
 
 const WILL_BE_DEBITED = 'Transactions.will-be-debited-on'
 
@@ -114,7 +115,7 @@ class _RowDesktop extends React.PureComponent {
         >
           <Figure
             total={transaction.amount}
-            currency={transaction.currency}
+            symbol={getCurrencySymbol(transaction.currency)}
             coloredPositive
             signed
           />
@@ -182,7 +183,7 @@ class _RowMobile extends React.PureComponent {
           <Img onClick={this.handleSelect} className="u-clickable">
             <Figure
               total={transaction.amount}
-              currency={transaction.currency}
+              symbol={getCurrencySymbol(transaction.currency)}
               coloredPositive
               signed
             />

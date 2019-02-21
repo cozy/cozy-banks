@@ -17,6 +17,7 @@ import { Table, TdWithIcon, TdSecondary } from 'components/Table'
 import { Figure } from 'components/Figure'
 import styles from './styles.styl'
 import { flowRight as compose } from 'lodash'
+import { getCurrencySymbol } from 'utils/currencySymbol'
 
 const stAmount = styles['bnk-table-amount']
 const stCategory = styles['bnk-table-category-category']
@@ -47,8 +48,8 @@ class Categories extends Component {
     const hasData =
       categories.length > 0 && categories[0].transactionsNumber > 0
 
-    const withChart = flag('transaction-history')
-    const colorProps = { color: withChart ? 'primary' : 'default' }
+    const withPrimary = flag('categories-header-primary')
+    const colorProps = { color: withPrimary ? 'primary' : 'default' }
 
     return (
       <div>
@@ -172,7 +173,7 @@ class Categories extends Component {
               {credit ? (
                 <Figure
                   total={credit}
-                  currency={currency}
+                  symbol={getCurrencySymbol(currency)}
                   signed
                   default="-"
                   className={styles['bnk-table-amount-figure']}
@@ -188,7 +189,7 @@ class Categories extends Component {
               {debit ? (
                 <Figure
                   total={debit}
-                  currency={currency}
+                  symbol={getCurrencySymbol(currency)}
                   signed
                   default="-"
                   className={styles['bnk-table-amount-figure']}
@@ -202,7 +203,7 @@ class Categories extends Component {
           <TdSecondary className={stTotal}>
             <Figure
               total={total || '－'}
-              currency={currency || '€'}
+              symbol={getCurrencySymbol(currency)}
               coloredPositive
               signed
             />
@@ -275,7 +276,7 @@ class Categories extends Component {
                 <Figure
                   className={stCatTotalMobile}
                   total={total || '－'}
-                  currency={currency || '€'}
+                  symbol={getCurrencySymbol(currency)}
                   coloredPositive
                   signed
                 />

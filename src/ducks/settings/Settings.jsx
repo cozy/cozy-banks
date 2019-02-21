@@ -16,17 +16,22 @@ import AppVersion from './AppVersion'
 import { PageTitle } from 'components/Title'
 import { Padded } from 'components/Spacing'
 import cx from 'classnames'
-
-const tabNames = ['configuration', 'accounts', 'groups']
+import flag from 'cozy-flags'
+import { setBarTheme } from 'ducks/mobile/utils'
 
 const Settings = ({ t, children, router, breakpoints: { isMobile } }) => {
+  setBarTheme('default')
+
+  const tabNames = ['configuration', 'accounts', 'groups']
   let defaultTab = router.location.pathname.replace('/settings/', '')
   if (tabNames.indexOf(defaultTab) === -1) defaultTab = 'configuration'
 
   const goTo = url => () => {
     router.push(url)
   }
-
+  if (flag('debug')) {
+    tabNames.push('debug')
+  }
   const tabs = tabNames.map(tabName => (
     <Tab key={tabName} name={tabName} onClick={goTo(`/settings/${tabName}`)}>
       {t(`Settings.${tabName}`)}
