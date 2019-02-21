@@ -3,7 +3,7 @@ import React from 'react'
 import { IndexRoute, Route, Redirect } from 'react-router'
 import App from 'components/App'
 
-import { TransactionsPage } from 'ducks/transactions'
+import { TransactionsPage, TransactionsPageWithBackButton } from 'ducks/transactions'
 import { CategoriesPage } from 'ducks/categories'
 import {
   Settings,
@@ -31,14 +31,17 @@ const AppRoute = (
         <Redirect from="/" to={defaultRoute()} />
         <Route path="balances">
           <IndexRoute component={Balance} />
-          <Route path="reimbursements" component={TransactionsPage} />
+          <Route
+            path="reimbursements"
+            component={TransactionsPageWithBackButton}
+          />
         </Route>
         <Route path="transactions" component={TransactionsPage} />
         <Route path="categories">
           <IndexRoute component={CategoriesPage} />
           <Route
             path=":categoryName/:subcategoryName"
-            component={TransactionsPage}
+            component={TransactionsPageWithBackButton}
           />
           <Route path=":categoryName" component={CategoriesPage} />
         </Route>

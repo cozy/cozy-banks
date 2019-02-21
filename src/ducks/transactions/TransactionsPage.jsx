@@ -329,6 +329,7 @@ class TransactionsPage extends Component {
           handleChangeMonth={this.handleChangeMonth}
           currentMonth={this.state.currentMonth}
           chartData={chartData}
+          showBackButton={this.props.showBackButton}
         />
         {isMobile &&
           !isCollectionLoading(accounts) &&
@@ -397,7 +398,7 @@ UnpluggedTransactionsPage.propTypes = {
   filteredAccounts: PropTypes.array.isRequired
 }
 
-export default compose(
+const ConnectedTransactionsPage = compose(
   queryConnect({
     apps: appsConn,
     accounts: accountsConn,
@@ -407,3 +408,9 @@ export default compose(
   }),
   connect(mapStateToProps)
 )(UnpluggedTransactionsPage)
+
+export const TransactionsPageWithBackButton = props => (
+  <ConnectedTransactionsPage {...props} showBackButton />
+)
+
+export default ConnectedTransactionsPage

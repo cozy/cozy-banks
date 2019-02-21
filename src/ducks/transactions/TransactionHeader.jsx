@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
 import { flowRight as compose, max } from 'lodash'
 import { translate, withBreakpoints } from 'cozy-ui/react'
@@ -19,6 +20,10 @@ import TableHead from './header/TableHead'
 import styles from './TransactionsPage.styl'
 
 class TransactionHeader extends Component {
+  static propTypes = {
+    showBackButton: PropTypes.bool
+  }
+
   isSubcategory = () => {
     const { router } = this.props
 
@@ -34,7 +39,7 @@ class TransactionHeader extends Component {
 
     return (
       <Fragment>
-        {isSubcategory && <BackButton theme={theme} />}
+        {this.props.showBackButton && <BackButton theme={theme} />}
         <AccountSwitch small={isSubcategory} {...colorProps} />
       </Fragment>
     )
