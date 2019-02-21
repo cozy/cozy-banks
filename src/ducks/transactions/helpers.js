@@ -1,9 +1,33 @@
 import find from 'lodash/find'
 import findLast from 'lodash/findLast'
 import get from 'lodash/get'
+import flag from 'cozy-flags'
 
-export const getLabel = transaction =>
-  transaction.label.toLowerCase().replace(/(?:^|\s)\S/g, a => a.toUpperCase())
+const prevRecurRx = /\bPRLV SEPA RECU RCUR\b/
+const longNumber = /\b\d{5,}\b/g
+const notWord = /\b[A-Z]*\d+[A-Z]*\b/g
+const tooLong = /\b[A-Z\d]{15,}\b/g
+const punctuations = /[-:++]/g
+const spaces = /\s+/g
+
+const cleanLabel = flag('clean-label')
+  ? label => {
+      return label
+        .replace(prevRecurRx, ' ')
+        .replace(longNumber, ' ')
+        .replace(notWord, '')
+        .replace(punctuations, '')
+        .replace(tooLong, '')
+        .replace(spaces, ' ')
+        .trim()
+    }
+  : x => x
+
+const titleRx = /(?:^|\s)\S/g
+const titleCase = label =>
+  label.toLowerCase().replace(titleRx, a => a.toUpperCase())
+
+export const getLabel = transaction => cleanLabel(titleCase(transaction.label))
 
 export const getDisplayDate = transaction => {
   if (
