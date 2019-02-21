@@ -146,8 +146,7 @@ class TransactionHeader extends Component {
             {
               'u-ph-half': isMobile,
               'u-pv-0': isMobile,
-              'u-pb-half': isMobile,
-              'u-pv-1': !isMobile
+              'u-pb-half': isMobile
             },
             styles.TransactionsHeader__selectDatesContainer
           )}
