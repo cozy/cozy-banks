@@ -285,14 +285,19 @@ class LineChart extends Component {
 
   updatePointLine() {
     const item = this.getSelectedItem()
-    const { height, margin, tickPadding } = this.props
+    const { height, margin, tickPadding, showAxis } = this.props
     const x = this.x(item.x)
+    let y2 = height - margin.top + tickPadding
+
+    if (showAxis) {
+      y2 -= margin.bottom
+    }
 
     this.pointLine
       .attr('x1', x)
       .attr('y1', 0)
       .attr('x2', x)
-      .attr('y2', height - margin.top - margin.bottom + tickPadding)
+      .attr('y2', y2)
   }
 
   /**
