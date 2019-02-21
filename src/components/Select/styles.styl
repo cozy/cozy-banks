@@ -33,4 +33,11 @@ select-date-height-small=2.75rem
         .cz__indicators
             height select-date-height-small
             justify-content center
-            padding-right 1rem
+            padding-right 0.75rem
+
+    .cz__menu
+        // Not to have the years inside the menu be truncated
+        // We should have a better solution but I did not find
+        // why the content inside the menu was not automatically
+        // growing the menu.
+        min-width 100px

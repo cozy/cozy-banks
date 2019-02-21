@@ -5,7 +5,7 @@ import { find } from 'lodash'
 import palette from 'cozy-ui/react/palette'
 import { mergeStyles } from './styleUtils'
 
-const smallArrowStyle = { paddingLeft: '.5rem' }
+const smallArrowStyle = { paddingLeft: '0.25rem' }
 const IndicatorSeparator = () => null
 const SmallArrow = () => (
   <Icon
