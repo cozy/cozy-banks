@@ -3,7 +3,6 @@
 const path = require('path')
 const webpack = require('webpack')
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 
 const { production, SRC_DIR, enabledFlags } = require('./webpack.vars')
 const pkg = require(path.resolve(__dirname, '../package.json'))
@@ -60,9 +59,6 @@ module.exports = {
     // ChartJS uses moment :( To remove when we do not use it anymore
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|fr/),
     new webpack.ContextReplacementPlugin(/date-fns[\/\\]locale$/, /en|fr/),
-    new ScriptExtHtmlWebpackPlugin({
-      defaultAttribute: 'defer'
-    }),
     new DuplicatePackageCheckerPlugin({ verbose: true }),
   ]
 }

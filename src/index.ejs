@@ -5,10 +5,7 @@
   <title>Cozy Banks</title>
   <% if (__TARGET__ !== 'mobile') { %>
   {{.ThemeCSS}}
-  <link rel="stylesheet" type="text/css" href="//{{.Domain}}/assets/fonts/fonts.css">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
-  <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+  {{.Favicon}}
   <link rel="manifest" href="/manifest.json" crossOrigin="use-credentials">
   <link rel="mask-icon" href="/public/safari-pinned-tab.svg" color="#16B52D">
   <% } %>
@@ -20,9 +17,8 @@
   <% } else if (__STACK_ASSETS__) { %>
   {{.CozyClientJS}}
   {{.CozyBar}}
-  <% } %>
-  <%  if (__STACK_ASSETS__ || (__DEV__ && __TARGET__ !== 'mobile')) { %>
-  <script src="//{{.Domain}}/assets/js/piwik.js" defer></script>
+  <% } else { %>
+  <link rel="stylesheet" type="text/css" href="//{{.Domain}}/assets/fonts/fonts.css">
   <% } %>
 </head>
 <div
@@ -41,4 +37,7 @@
 ></div>
 <% if (__TARGET__ === 'mobile') { %>
 <div id="logout-modal" style="position: relative; z-index: 100;"></div>
+<% } %>
+<%  if (__STACK_ASSETS__ || (__DEV__ && __TARGET__ !== 'mobile')) { %>
+<script src="//{{.Domain}}/assets/js/piwik.js" async></script>
 <% } %>

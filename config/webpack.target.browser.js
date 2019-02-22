@@ -22,7 +22,6 @@ module.exports = {
       alwaysWriteToDisk: true,
       template: path.resolve(__dirname, '../src/index.ejs'),
       title: pkg.name,
-      inject: 'head',
       minify: {
         collapseWhitespace: true
       }

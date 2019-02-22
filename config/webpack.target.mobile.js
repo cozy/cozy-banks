@@ -40,7 +40,6 @@ module.exports = {
       template: path.resolve(__dirname, `../src/index.ejs`),
       title: `cozy-banks`,
       chunks: ['app'],
-      inject: 'head',
       minify: {
         collapseWhitespace: false
       }
