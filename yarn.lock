@@ -5221,6 +5221,11 @@ csswring@7.0.0:
     onecolor "^3.0.5"
     postcss "^7.0.0"
 
+csv-writer@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/csv-writer/-/csv-writer-1.2.0.tgz#b81a818e297e05308e9b1fc2f8c9342e0206cfea"
+  integrity sha512-ZU7eZ26y7oIOXwFHhTNnT/tF6RXMdQnuTGofzNTe1cvXacZm3Ixd7Oa9mOp2f1t39Ezfzg0h5tqfOjXM180BOg==
+
 currently-unhandled@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/currently-unhandled/-/currently-unhandled-0.4.1.tgz#988df33feab191ef799a61369dd76c17adf957ea"
@@ -7609,6 +7614,11 @@ fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
   integrity sha1-FQStJSMVjKpA20onh8sBQRmU6k8=
+
+fs@^0.0.1-security:
+  version "0.0.1-security"
+  resolved "https://registry.yarnpkg.com/fs/-/fs-0.0.1-security.tgz#8a7bd37186b6dddf3813f23858b57ecaaf5e41d4"
+  integrity sha1-invTcYa23d84E/I4WLV+yq9eQdQ=
 
 fsevents@^1.0.0, fsevents@^1.1.1, fsevents@^1.1.2:
   version "1.1.3"

@@ -1,19 +1,27 @@
 import { localModel, globalModel, BankClassifier } from './services'
 import { tokenizer } from '.'
 import { Transaction } from '../../models'
+const createCsvWriter = require('csv-writer').createObjectCsvWriter
 const path = require('path')
+const fs = require('fs')
 
 const fixturePath = path.join(__dirname, 'fixtures')
 const cat2name = require('../categories/tree.json')
 const globalModelJSON = require('./bank_classifier_nb_and_voc.json')
 const allowedFallbackCategories = require('./allowed_wrong_categories.json')
 
-const banks = [
-  'francoistest1.mycozy.cloud',
-  'flotest60.cozy.rocks',
-  'anonymous1.mycozy.cloud',
-  'fabien.mycozy.cloud'
-]
+const IT_IS_A_TEST = false
+let banks
+if (IT_IS_A_TEST) {
+  banks = ['flotest60.cozy.rocks']
+} else {
+  banks = [
+    'francoistest1.mycozy.cloud',
+    'flotest60.cozy.rocks',
+    'anonymous1.mycozy.cloud',
+    'fabien.mycozy.cloud'
+  ]
+}
 
 const LOCAL_MODEL_THRESHOLD = 0.8
 const GLOBAL_MODEL_THRESHOLD = 0.25
@@ -47,8 +55,23 @@ if (dd < 10) {
 if (mm < 10) {
   mm = '0' + mm
 }
-const timestamp = yyyy + '-' + mm + '-' + dd
-const resultsCSVChunks = []
+const BACKUP_DIR = require('./local-config.json').BACKUP_DIR
+// via the snapshots
+const txtPath = path.join(BACKUP_DIR, `results-${yyyy}-${mm}-${dd}.txt`)
+// via CSV
+const csvPath = path.join(BACKUP_DIR, `results-${yyyy}-${mm}-${dd}.csv`)
+const csvWriter = createCsvWriter({
+  path: csvPath,
+  header: [
+    { id: 'manCat', title: 'Manual recategorization' },
+    { id: 'method', title: 'Used model' },
+    { id: 'status', title: 'Status' },
+    { id: 'amount', title: 'Amount' },
+    { id: 'label', title: 'Label' },
+    { id: 'catNameDisplayed', title: 'Category displayed' },
+    { id: 'catNameTrue', title: 'True category' }
+  ]
+})
 
 const checkCategorization = transactions => {
   return transactions.map(op => {
@@ -219,35 +242,60 @@ const fmtResults = transactions => {
     }
     if (status === STATUS_UNCATEGORIZED) {
       fmtedResult += `${ICONE_UNCATEGORIZED}:`
-      fmtedResult += ` (${op.amount}€)\t<<${
-        op.label
-      }>> was NOT categorized at all but was predicted as ${
-        op.catNameTrue
-      } by ${op.method}`
+      fmtedResult += ` (${op.amount}€)\t<<${op.label}>> was NOT categorized. ${
+        op.method
+      } predicted it as ${op.catNameTrue}`
     } else if (status === STATUS_OK) {
       fmtedResult += `${method === METHOD_BI ? ICONE_OK_BI : ICONE_OK}:`
       fmtedResult += ` (${op.amount}€)\t<<${
         op.label
-      }>> - is properly predicted as ${op.catNameTrue} by ${op.method}`
+      }>> - is properly predicted by ${op.method} as ${op.catNameTrue}`
     } else if (status === STATUS_OK_FALLBACK) {
       fmtedResult += `${
         method === METHOD_BI ? ICONE_OK_BI : ICONE_OK_FALLBACK
       }:`
       fmtedResult += ` (${op.amount}€)\t<<${
         op.label
-      }>> - is ALMOST properly predicted as ${op.catNameTrue} by ${
-        op.method
-      } that said ${op.catNameDisplayed}`
+      }>> - is ALMOST properly predicted by ${op.method} as ${
+        op.catNameTrue
+      } (user would have seen ${op.catNameDisplayed})`
     } else if (status === STATUS_KO) {
       fmtedResult += `${ICONE_KO}:`
       fmtedResult += ` (${op.amount}€)\t<<${
         op.label
-      }>> - is NOT properly predicted as ${op.catNameTrue} by ${
-        op.method
+      }>> - is NOT properly predicted by ${op.method} as ${
+        op.catNameTrue
       } that said ${op.catNameDisplayed}`
     }
     return fmtedResult
   })
+  return fmtedResults
+}
+
+const fmtResultsCSV = transactions => {
+  const fmtedResults = transactions.map(op => {
+    const { status, method, amount, label, catNameDisplayed, catNameTrue } = op
+    let fmtedResult = {
+      manCat: op.manualCategoryId !== undefined,
+      method,
+      status,
+      amount,
+      label,
+      catNameDisplayed,
+      catNameTrue
+    }
+    return fmtedResult
+  })
+  const blankLine = {
+    manCat: ' ',
+    method: ' ',
+    status: ' ',
+    amount: ' ',
+    label: ' ',
+    catNameDisplayed: ' ',
+    catNameTrue: ' '
+  }
+  fmtedResults.push(blankLine)
   return fmtedResults
 }
 
@@ -321,6 +369,9 @@ describe('Chain of predictions', () => {
     jest.restoreAllMocks()
   })
 
+  // prepare CSV
+  let fixturesRecords = []
+
   // Prepare global metrics
   let nOperationsEveryFixtures = 0
   let winGlobalModelEveryFixtures = 0
@@ -361,14 +412,19 @@ describe('Chain of predictions', () => {
         const results = checkCategorization(transactions)
         // Format results
         const fmtedResults = fmtResults(results)
+        // Format results for the historized CSV
+        const fixtureCSV = fmtResultsCSV(results)
         // Add an accuracy metrics
         const currentAccuracy = computeAccuracy(results)
         // Summary of the dataset
-        expect(
-          fmtFixtureSummary(manualCategorizations, currentAccuracy)
-        ).toMatchSnapshot()
-        // test
+        const fixtureSummary = fmtFixtureSummary(
+          manualCategorizations,
+          currentAccuracy
+        )
+        // tests
+        expect(fixtureSummary).toMatchSnapshot()
         expect(fmtedResults).toMatchSnapshot()
+        fixturesRecords = fixturesRecords.concat(fixtureCSV)
         // update global metrics
         const {
           nOperations,
@@ -412,6 +468,31 @@ describe('Chain of predictions', () => {
       loseBI: loseBIEveryFixtures,
       nUncategorized: nUncategorizedEveryFixtures
     }
+    // add global metrics to snapshot
     expect(fmtAccuracy(globalAccuracy)).toMatchSnapshot()
+  })
+
+  it('Should write the historized CSV/txt onto the disk', () => {
+    fs.copyFile(
+      path.join(
+        __dirname,
+        '__snapshots__',
+        `${path.basename(__filename)}.snap`
+      ),
+      txtPath,
+      err => {
+        if (err) {
+          throw err
+        }
+      }
+    )
+    csvWriter.writeRecords(fixturesRecords).then(
+      () => {
+        expect(true).toBeTruthy()
+      },
+      () => {
+        expect(false).toBeTruthy()
+      }
+    )
   })
 })
