@@ -1,4 +1,4 @@
-const categoryNameToId = inverseObject(require('./linxo-categories'))
+const categoryNameToId = inverseObject(require('../linxo-categories'))
 
 module.exports = {
   helpers: {

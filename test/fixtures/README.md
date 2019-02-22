@@ -19,7 +19,7 @@ Usage
 =====
 
 ```
-ACH import demo.json helpers.js
+ACH import demo.json helpers/index.js
 ```
 
 Other fixtures
