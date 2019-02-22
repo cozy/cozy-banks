@@ -36,6 +36,20 @@ const ICONE_BI = 'BI'
 const ICONE_GLOBAL_MODEL = '☁️'
 const ICONE_LOCAL_MODEL = '👤'
 
+// Prepare the historized tracking
+const today = new Date()
+let dd = today.getDate()
+let mm = today.getMonth() + 1
+const yyyy = today.getFullYear()
+if (dd < 10) {
+  dd = '0' + dd
+}
+if (mm < 10) {
+  mm = '0' + mm
+}
+const timestamp = yyyy + '-' + mm + '-' + dd
+const resultsCSVChunks = []
+
 const checkCategorization = transactions => {
   return transactions.map(op => {
     const trueCatId = op.trueCategoryId
