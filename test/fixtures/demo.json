@@ -236,9 +236,9 @@
       "bill": "io.cozy.bills:marsrembourcomplisa2",
       "reimbursements": [
         {
+          "billId": "io.cozy.bills:bill_remboursement_dr_chollet_harmonie",
           "amount": 70,
-          "operationId": "marsop.sante.isa2",
-          "vendor": "Harmonie"
+          "operationId": "c5d3364d147d8dc5da80fc9e354a2d71"
         }
       ]
     },
@@ -251,10 +251,7 @@
       "currency": "€",
       "amount": 70,
       "date": "{{ freshDate '2018-08-08T00:00:00Z' }}",
-      "bills": [
-        "io.cozy.bills:b2"
-      ],
-      "bill": "io.cozy.bills:marsrembourcomplisa2"
+      "bills": ["io.cozy.bills:bill_remboursement_dr_chollet_harmonie"]
     },
     {
       "demo": false,
@@ -267,9 +264,9 @@
       "_id": "c5d3364d147d8dc5da80fc9e354a3985",
       "reimbursements": [
         {
+          "billId": "io.cozy.bills:bill_remboursement_dr_chollet_harmonie",
           "amount": 70,
-          "operationId": "marsop.sante.isa22",
-          "vendor": "Harmonie"
+          "operationId": "remboursement_dr_chollet_harmonie"
         }
       ]
     },
@@ -281,8 +278,8 @@
       "currency": "€",
       "amount": 70,
       "date": "{{ freshDate '2018-08-14T00:00:00Z' }}",
-      "_id": "446ae26d705b2eb461ca264d3849d350",
-      "bill": "io.cozy.bills:marsrembourcomplisa22"
+      "_id": "remboursement_dr_chollet_harmonie",
+      "bills": ["io.cozy.bills:bill_remboursement_dr_chollet_harmonie"]
     },
     {
       "demo": false,
@@ -417,9 +414,9 @@
       "_id": "4bbfe1f845ad1231c7d07aa3e04fef54",
       "reimbursements": [
         {
+          "billId": "io.cozy.bills:bill_remboursement_cabinet_osteokinesitherapie_harmonie2",
           "amount": 60,
-          "operationId": "avrilop.sante.isa2",
-          "vendor": "Harmonie"
+          "operationId": "remboursement_cabinet_osteokinesitherapie_harmonie2"
         }
       ]
     },
@@ -471,8 +468,8 @@
       "currency": "€",
       "amount": 60,
       "date": "{{ freshDate '2018-09-08T00:00:00Z' }}",
-      "_id": "4bbfe1f845ad1231c7d07aa3e05004cf",
-      "bill": "io.cozy.bills:avrilrembourcomplisa2"
+      "_id": "remboursement_cabinet_osteokinesitherapie_harmonie2",
+      "bills": ["io.cozy.bills:bill_remboursement_cabinet_osteokinesitherapie_harmonie2"]
     },
     {
       "demo": false,
@@ -495,9 +492,14 @@
       "_id": "446ae26d705b2eb461ca264d384a682f",
       "reimbursements": [
         {
+          "billId": "io.cozy.bills:bill_remboursement_cabinet_cardio_consult_ameli",
           "amount": 28.7,
-          "operationId": "avrilope.sante.cla3",
-          "vendor": "CPAM"
+          "operationId": "remboursement_cabinet_cardio_consult_ameli"
+        },
+        {
+          "billId": "io.cozy.bills:bill_remboursement_cabinet_cardio_consult_harmonie",
+          "amount": 12.3,
+          "operationId": "remboursement_cabinet_cardio_consult_harmonie"
         }
       ]
     },
@@ -509,8 +511,8 @@
       "currency": "€",
       "amount": 28.7,
       "date": "{{ freshDate '2018-09-11T00:00:00Z' }}",
-      "_id": "4bbfe1f845ad1231c7d07aa3e04fd1eb",
-      "bill": "io.cozy.bills:avrilrembourcla3"
+      "_id": "remboursement_cabinet_cardio_consult_ameli",
+      "bills": ["io.cozy.bills:bill_remboursement_cabinet_cardio_consult_ameli"]
     },
     {
       "demo": false,
@@ -543,25 +545,11 @@
       "_id": "4bbfe1f845ad1231c7d07aa3e04f599d",
       "reimbursements": [
         {
+          "billId": "io.cozy.bills:bill_remboursement_cabinet_osteokinesitherapie_harmonie",
           "amount": 60,
-          "operationId": "avrilop.sante.isa22",
-          "vendor": "Harmonie"
+          "operationId": "remboursement_cabinet_osteokinesitherapie_harmonie"
         }
       ]
-    },
-    {
-      "demo": false,
-      "automaticCategoryId": "400610",
-      "account": "comptecla1",
-      "label": "VIREMENT COMPL SANTE",
-      "currency": "€",
-      "amount": 12.3,
-      "date": "{{ freshDate '2018-09-12T00:00:00Z' }}",
-      "_id": "446ae26d705b2eb461ca264d3849fe32",
-      "bills": [
-        "io.cozy.bills:b4"
-      ],
-      "bill": "io.cozy.bills:avrilrembourcomplcla3"
     },
     {
       "demo": false,
@@ -571,8 +559,19 @@
       "currency": "€",
       "amount": 60,
       "date": "{{ freshDate '2018-09-14T00:00:00Z' }}",
-      "_id": "c5d3364d147d8dc5da80fc9e354a9105",
-      "bill": "io.cozy.bills:avrilrembourcomplisa22"
+      "_id": "remboursement_cabinet_osteokinesitherapie_harmonie",
+      "bills": ["io.cozy.bills:bill_remboursement_cabinet_osteokinesitherapie_harmonie"]
+    },
+    {
+      "demo": false,
+      "automaticCategoryId": "400610",
+      "account": "comptecla1",
+      "label": "VIREMENT COMPL SANTE",
+      "currency": "€",
+      "amount": 12.3,
+      "date": "{{ freshDate '2018-09-12T00:00:00Z' }}",
+      "_id": "remboursement_cabinet_cardio_consult_harmonie",
+      "bills": ["io.cozy.bills:bill_remboursement_cabinet_cardio_consult_harmonie"]
     },
     {
       "demo": false,
@@ -585,11 +584,21 @@
       "_id": "4bbfe1f845ad1231c7d07aa3e05012e0",
       "reimbursements": [
         {
-          "amount": 30,
-          "operationId": "avrilope.sante.cla32",
-          "vendor": "CPAM"
+          "billId": "io.cozy.bills:bill_remboursement_laboratoire_puteaux_harmonie",
+          "amount": 50,
+          "operationId": "remboursement_laboratoire_puteaux_harmonie"
         }
       ]
+    },
+    {
+      "_id": "remboursement_laboratoire_puteaux_harmonie",
+      "automaticCategoryId": "400610",
+      "account": "compteisa1",
+      "label": "Virement Compl Sante",
+      "currency": "€",
+      "amount": 50,
+      "date": "{{ freshDate '2018-09-25T00:00:00Z' }}",
+      "bills": ["io.cozy.bills:bill_remboursement_laboratoire_puteaux_harmonie"]
     },
     {
       "demo": false,
@@ -685,14 +694,23 @@
       "amount": -40,
       "date": "{{ freshDate '2018-09-21T00:00:00Z' }}",
       "_id": "c5d3364d147d8dc5da80fc9e354af7f5",
-      "bill": "io.cozy.bills:avrilrembourcomplcla32",
       "reimbursements": [
         {
+          "billId": "io.cozy.bills:bill_remboursement_kine_reuilly_harmonie",
           "amount": 40,
-          "operationId": "avrilop.sante.isa23",
-          "vendor": "Harmonie"
+          "operationId": "remboursement_kine_reuilly_harmonie"
         }
       ]
+    },
+    {
+      "_id": "remboursement_kine_reuilly_harmonie",
+      "automaticCategoryId": "400610",
+      "account": "compteisa1",
+      "label": "Virement Compl Sante",
+      "currency": "€",
+      "amount": 40,
+      "date": "{{ freshDate '2018-09-23T00:00:00Z' }}",
+      "bills": ["io.cozy.bills:bill_remboursement_kine_reuilly_harmonie"]
     },
     {
       "demo": false,
@@ -751,17 +769,6 @@
       "amount": -65.3,
       "date": "{{ freshDate '2018-09-22T00:00:00Z' }}",
       "_id": "446ae26d705b2eb461ca264d384a1874"
-    },
-    {
-      "demo": false,
-      "automaticCategoryId": "400610",
-      "account": "compteisa1",
-      "label": "VIREMENT COMPL SANTE",
-      "currency": "€",
-      "amount": 40,
-      "date": "{{ freshDate '2018-09-23T00:00:00Z' }}",
-      "_id": "446ae26d705b2eb461ca264d3849ebf5",
-      "bill": "io.cozy.bills:avrilrembourcomplisa23"
     },
     {
       "demo": false,
@@ -930,7 +937,6 @@
       "demo": false,
       "automaticCategoryId": "300",
       "account": "comptelou1",
-      "bill": "io.cozy.bills:avrilrembourcomplisa23",
       "label": "RETRAIT BNPPARIBAS",
       "currency": "€",
       "amount": -20,
@@ -1020,15 +1026,7 @@
       "currency": "€",
       "amount": -41,
       "date": "{{ freshDate '2018-10-10T00:00:00Z' }}",
-      "_id": "4bbfe1f845ad1231c7d07aa3e04f76df",
-      "bill": "io.cozy.bills:rembourcla3",
-      "reimbursements": [
-        {
-          "amount": 28.7,
-          "operationId": "ope.sante.cla3",
-          "vendor": "CPAM"
-        }
-      ]
+      "_id": "4bbfe1f845ad1231c7d07aa3e04f76df"
     },
     {
       "demo": false,
@@ -1046,17 +1044,6 @@
           "vendor": "Harmonie"
         }
       ]
-    },
-    {
-      "demo": false,
-      "automaticCategoryId": "400610",
-      "account": "comptecla1",
-      "label": "CPAM PARIS",
-      "currency": "€",
-      "amount": 28.7,
-      "date": "{{ freshDate '2018-10-11T00:00:00Z' }}",
-      "_id": "4bbfe1f845ad1231c7d07aa3e04f4f29",
-      "bill": "io.cozy.bills:rembourcla3"
     },
     {
       "demo": false,
@@ -1089,17 +1076,6 @@
       "amount": -165.3,
       "date": "{{ freshDate '2018-10-12T00:00:00Z' }}",
       "_id": "446ae26d705b2eb461ca264d384a2ade"
-    },
-    {
-      "demo": false,
-      "automaticCategoryId": "400610",
-      "account": "comptecla1",
-      "label": "VIREMENT COMPL SANTE",
-      "currency": "€",
-      "amount": 12.3,
-      "date": "{{ freshDate '2018-10-12T00:00:00Z' }}",
-      "_id": "446ae26d705b2eb461ca264d3849c88a",
-      "bill": "io.cozy.bills:rembourcomplcla3"
     },
     {
       "demo": false,
@@ -1276,19 +1252,39 @@
       "currency": "€",
       "amount": -25,
       "date": "{{ freshDate '2018-10-19T00:00:00Z' }}",
-      "_id": "paiementdocteur",
+      "_id": "paiement_docteur_martin",
       "reimbursements": [
         {
           "billId": "io.cozy.bills:bill_cpam_demo",
           "amount": 17.5,
-          "operationId": "remboursementameli"
+          "operationId": "remboursement_docteur_martin_ameli"
         },
         {
           "billId": "io.cozy.bills:bill_harmonie_demo",
           "amount": 7.5,
-          "operationId": "remboursementcomplementaire"
+          "operationId": "remboursement_docteur_martin_harmonie"
         }
       ]
+    },
+    {
+      "_id": "remboursement_docteur_martin_ameli",
+      "automaticCategoryId": "400610",
+      "account": "compteisa1",
+      "label": "Remboursement CPAM",
+      "currency": "€",
+      "amount": 17.5,
+      "date": "{{ freshDate '2018-10-30' }}",
+      "bills": ["io.cozy.bills:bill_cpam_demo"]
+    },
+    {
+      "_id": "remboursement_docteur_martin_harmonie",
+      "automaticCategoryId": "400610",
+      "account": "compteisa1",
+      "label": "Remboursement Harmonie",
+      "currency": "€",
+      "amount": 7.5,
+      "date": "{{ freshDate '2018-10-27' }}",
+      "bills": ["io.cozy.bills:bill_harmonie_demo"]
     },
     {
       "_id": "4bbfe1f845ad1231c7d07aa3e04fe8b3",
@@ -1771,8 +1767,49 @@
       "amount": 40,
       "isRefund": true,
       "date": "2017-07-23T00:00:00Z",
-      "_id": "avrilrembourcomplisa23",
-      "type": "healthExpenses"
+      "_id": "bill_remboursement_kine_reuilly_harmonie",
+      "type": "healthExpenses",
+      "invoice": "io.cozy.files:{{reference 'io.cozy.files' 6 '_id' }}"
+    },
+    {
+      "vendor": "Harmonie",
+      "subtype": "VIR COMPL SANTE",
+      "amount": 50,
+      "isRefund": true,
+      "date": "2017-07-23T00:00:00Z",
+      "_id": "bill_remboursement_laboratoire_puteaux_harmonie",
+      "type": "healthExpenses",
+      "invoice": "io.cozy.files:{{reference 'io.cozy.files' 6 '_id' }}"
+    },
+    {
+      "vendor": "Harmonie",
+      "subtype": "VIR COMPL SANTE",
+      "amount": 60,
+      "isRefund": true,
+      "date": "2017-07-23T00:00:00Z",
+      "_id": "bill_remboursement_cabinet_osteokinesitherapie_harmonie2",
+      "type": "healthExpenses",
+      "invoice": "io.cozy.files:{{reference 'io.cozy.files' 6 '_id' }}"
+    },
+    {
+      "vendor": "Harmonie",
+      "subtype": "VIR COMPL SANTE",
+      "amount": 60,
+      "isRefund": true,
+      "date": "2017-07-23T00:00:00Z",
+      "_id": "bill_remboursement_cabinet_osteokinesitherapie_harmonie",
+      "type": "healthExpenses",
+      "invoice": "io.cozy.files:{{reference 'io.cozy.files' 6 '_id' }}"
+    },
+    {
+      "vendor": "Harmonie",
+      "subtype": "VIR COMPL SANTE",
+      "amount": 70,
+      "isRefund": true,
+      "date": "2017-07-23T00:00:00Z",
+      "_id": "bill_remboursement_dr_chollet_harmonie",
+      "type": "healthExpenses",
+      "invoice": "io.cozy.files:{{reference 'io.cozy.files' 6 '_id' }}"
     },
     {
       "vendor": "CPAM",
@@ -1780,8 +1817,9 @@
       "amount": 28.7,
       "isRefund": true,
       "date": "2017-07-11T00:00:00Z",
-      "_id": "avrilrembourcla3",
-      "type": "healthExpenses"
+      "_id": "bill_remboursement_cabinet_cardio_consult_ameli",
+      "type": "healthExpenses",
+      "invoice": "io.cozy.files:{{reference 'io.cozy.files' 7 '_id' }}"
     },
     {
       "vendor": "Harmonie",
@@ -1789,8 +1827,9 @@
       "amount": 12.3,
       "isRefund": true,
       "date": "2017-07-12T00:00:00Z",
-      "_id": "avrilrembourcomplcla3",
-      "type": "healthExpenses"
+      "_id": "bill_remboursement_cabinet_cardio_consult_harmonie",
+      "type": "healthExpenses",
+      "invoice": "io.cozy.files:{{reference 'io.cozy.files' 6 '_id' }}"
     },
     {
       "vendor": "CPAM",
