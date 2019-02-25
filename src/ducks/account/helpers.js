@@ -1,5 +1,6 @@
 import { get } from 'lodash'
 import { differenceInCalendarDays } from 'date-fns'
+import flag from 'cozy-flags'
 
 const PARTS_TO_DELETE = ['(sans Secure Key)']
 
@@ -103,6 +104,12 @@ export const getAccountBalance = account => {
 }
 
 export const getAccountUpdatedAt = account => {
+  if (flag('demo')) {
+    return {
+      translateKey: distanceInWords(0),
+      params: { nbDays: 0 }
+    }
+  }
   const today = new Date()
   const updateDistance = getAccountUpdateDateDistance(account, today)
   const updateDistanceInWords = distanceInWords(updateDistance)
