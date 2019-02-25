@@ -431,18 +431,6 @@
       "currency": "€",
       "date": "{{ freshDate '2018-09-06T00:00:00Z' }}",
       "label": "CARREFOUR MARKET",
-      "reimbursements": [
-        {
-          "billId": "io.cozy.bills:janvremboursementisa1",
-          "amount": 17.5,
-          "operationId": "remboursementameli"
-        },
-        {
-          "billId": "io.cozy.bills:janvremboursementisa2",
-          "amount": 7.5,
-          "operationId": "remboursementcomplementaire"
-        }
-      ],
       "demo": false
     },
     {
