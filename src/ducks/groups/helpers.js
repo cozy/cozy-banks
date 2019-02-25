@@ -42,7 +42,7 @@ export const translateGroup = (group, translate) => {
 }
 
 const isOtherVirtualGroup = group => group.virtual && group.label === 'Other'
-const isReimbursementsVirtualGroup = group =>
+export const isReimbursementsVirtualGroup = group =>
   group.virtual && group._id === 'Reimbursements'
 
 /**
