@@ -42,6 +42,8 @@ export const translateGroup = (group, translate) => {
 }
 
 const isOtherVirtualGroup = group => group.virtual && group.label === 'Other'
+const isReimbursementsVirtualGroup = group =>
+  group.virtual && group._id === 'Reimbursements'
 
 /**
  * Translate groups labels then sort them on their translated label. But always put "others accounts" last
@@ -51,7 +53,10 @@ const isOtherVirtualGroup = group => group.virtual && group.label === 'Other'
  */
 export const translateAndSortGroups = (groups, translate) => {
   const groupsToSort = groups
-    .filter(group => !isOtherVirtualGroup(group))
+    .filter(
+      group =>
+        !isOtherVirtualGroup(group) && !isReimbursementsVirtualGroup(group)
+    )
     .map(group => translateGroup(group, translate))
 
   const sortedGroups = sortBy(groupsToSort, group =>
@@ -59,9 +64,14 @@ export const translateAndSortGroups = (groups, translate) => {
   )
 
   const otherGroup = groups.find(isOtherVirtualGroup)
+  const reimbursementsGroup = groups.find(isReimbursementsVirtualGroup)
 
   if (otherGroup) {
     sortedGroups.push(translateGroup(otherGroup, translate))
+  }
+
+  if (reimbursementsGroup) {
+    sortedGroups.push(translateGroup(reimbursementsGroup, translate))
   }
 
   return sortedGroups
