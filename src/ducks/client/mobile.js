@@ -8,7 +8,7 @@ import { schema } from 'doctypes'
 import manifest from '../../../manifest.webapp'
 import { setToken } from 'ducks/mobile'
 
-const SOFTWARE_ID = 'io.cozy.banks.mobile'
+const SOFTWARE_ID = 'registry://banks'
 
 const getCozyURIFromState = state => get(state, 'mobile.url')
 const getTokenFromState = state => get(state, 'mobile.token')
