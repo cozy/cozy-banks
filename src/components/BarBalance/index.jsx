@@ -5,7 +5,7 @@ import { Figure } from 'components/Figure'
 import BarItem from 'components/BarItem'
 import { getAccountBalance } from 'ducks/account/helpers'
 
-const BarBalance = ({ accounts }) => (
+const BarBalance = ({ accounts, theme }) => (
   <BarItem>
     <Figure
       className={styles['BarBalance']}
@@ -13,6 +13,7 @@ const BarBalance = ({ accounts }) => (
       decimalNumbers={0}
       coloredPositive={true}
       coloredNegative={true}
+      theme={theme}
       total={sumBy(accounts, getAccountBalance)}
     />
   </BarItem>
