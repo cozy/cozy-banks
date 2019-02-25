@@ -101,3 +101,14 @@ export const getAccountBalance = account => {
 
   return account.balance
 }
+
+export const getAccountUpdatedAt = account => {
+  const today = new Date()
+  const updateDistance = getAccountUpdateDateDistance(account, today)
+  const updateDistanceInWords = distanceInWords(updateDistance)
+
+  return {
+    translateKey: updateDistanceInWords,
+    params: { nbDays: updateDistance }
+  }
+}

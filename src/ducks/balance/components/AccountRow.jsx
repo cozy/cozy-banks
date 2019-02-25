@@ -8,8 +8,7 @@ import { translate, Icon } from 'cozy-ui/react'
 import { Figure } from 'components/Figure'
 import {
   getAccountLabel,
-  getAccountUpdateDateDistance,
-  distanceInWords,
+  getAccountUpdatedAt,
   getAccountInstitutionLabel,
   getAccountInstitutionSlug,
   getAccountBalance
@@ -47,12 +46,7 @@ class AccountRow extends React.PureComponent {
       id
     } = this.props
 
-    const today = new Date()
-    const updateDistance = getAccountUpdateDateDistance(account, today)
-    const updatedAt = t(distanceInWords(updateDistance), {
-      nbDays: updateDistance
-    })
-
+    const updatedAt = getAccountUpdatedAt(account)
     const hasWarning = account.balance < warningLimit
     const hasAlert = account.balance < 0
     const institutionSlug = getAccountInstitutionSlug(account)
@@ -76,7 +70,8 @@ class AccountRow extends React.PureComponent {
             </div>
             <div
               className={cx(styles.AccountRow__updatedAt, {
-                [styles['AccountRow__updatedAt--old']]: updateDistance > 1
+                [styles['AccountRow__updatedAt--old']]:
+                  updatedAt.params.nbDays > 1
               })}
             >
               <Icon
@@ -85,7 +80,7 @@ class AccountRow extends React.PureComponent {
                 color="currentColor"
                 className={styles.AccountRow__updatedAtIcon}
               />
-              {updatedAt}
+              {t(updatedAt.translateKey, updatedAt.params)}
             </div>
           </div>
         </div>
