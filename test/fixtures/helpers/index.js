@@ -1,10 +1,12 @@
-const categoryNameToId = inverseObject(require('./linxo-categories'))
+const { freshDate } = require('./freshDate')
+const categoryNameToId = inverseObject(require('../linxo-categories'))
 
 module.exports = {
   helpers: {
     categoryId: function(catName) {
       return categoryNameToId[catName]
-    }
+    },
+    freshDate
   }
 }
 
