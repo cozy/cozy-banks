@@ -321,6 +321,7 @@ class TransactionsPage extends Component {
 
     const chartData = this.getChartData()
     const isOnSubcategory = onSubcategory(this.props)
+    const theme = flag('transaction-history') ? 'primary' : 'default'
     return (
       <Fragment>
         <TransactionHeader
@@ -332,7 +333,7 @@ class TransactionsPage extends Component {
         {isMobile &&
           !isCollectionLoading(accounts) &&
           !isOnSubcategory && (
-            <TransactionsPageBar accounts={filteredAccounts} />
+            <TransactionsPageBar accounts={filteredAccounts} theme={theme} />
           )}
         {isFetching ? (
           <Loading loadingType="movements" />
@@ -344,9 +345,9 @@ class TransactionsPage extends Component {
   }
 }
 
-export const TransactionsPageBar = ({ accounts }) => (
+export const TransactionsPageBar = ({ accounts, theme }) => (
   <BarRight>
-    <BarBalance accounts={accounts} />
+    <BarBalance accounts={accounts} theme={theme} />
   </BarRight>
 )
 

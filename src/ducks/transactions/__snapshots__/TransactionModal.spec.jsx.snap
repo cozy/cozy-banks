@@ -13,7 +13,7 @@ exports[`transaction modal should render correctly 1`] = `
         </button>
         <div class=\\"c-modal-header TransactionModalHeader\\">
           <h2 class=\\"TransactionModalHeading\\">
-            <div class=\\"\\"><span class=\\"Figure-total\\">-1,231.00</span><span class=\\"Figure-currency Figure__currency--withSpacing\\">€</span></div>
+            <div class=\\"default\\"><span class=\\"Figure-total\\">-1,231.00</span><span class=\\"Figure-currency Figure__currency--withSpacing\\">€</span></div>
           </h2>
         </div>
         <div class=\\"c-modal-content TransactionModalContent\\">

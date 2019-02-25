@@ -86,9 +86,18 @@ describe('localModel', () => {
     await localModel({ tokenizer }, transactions)
 
     expect(transactions[0].localCategoryProba).toBeCloseTo(0.8072, 3)
-    expect(transactions[1].localCategoryProba).toBeCloseTo(LOCAL_MODEL_PROBA_FALLBACK, 3)
-    expect(transactions[2].localCategoryProba).toBeCloseTo(LOCAL_MODEL_PROBA_FALLBACK, 3)
+    expect(transactions[1].localCategoryProba).toBeCloseTo(
+      LOCAL_MODEL_PROBA_FALLBACK,
+      3
+    )
+    expect(transactions[2].localCategoryProba).toBeCloseTo(
+      LOCAL_MODEL_PROBA_FALLBACK,
+      3
+    )
     expect(transactions[3].localCategoryProba).toBeCloseTo(0.6667, 3)
-    expect(transactions[4].localCategoryProba).toBeCloseTo(LOCAL_MODEL_PROBA_FALLBACK, 3)
+    expect(transactions[4].localCategoryProba).toBeCloseTo(
+      LOCAL_MODEL_PROBA_FALLBACK,
+      3
+    )
   })
 })

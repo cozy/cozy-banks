@@ -1,31 +1,35 @@
 @require 'settings/breakpoints'
 
+.default
+    &.Figure-currency
+        color       coolGrey
+
+    &.Figure-content--positive
+        color   emerald
+
+        .Figure-currency
+            color   emerald
+
+    &.Figure-content--negative
+        color   pomegranate
+
+        .Figure-currency
+            color   pomegranate
+
+    &.Figure-content--warning
+        color   texasRose
+
+        .Figure-currency
+            color   texasRose
+
+.primary
+    color white
+
 .Figure-total
     font-weight    900
 
-.Figure-currency
-    color       coolGrey
-
 .Figure__currency--withSpacing
     margin-left .2em
-
-.Figure-content--positive
-    color   emerald
-
-    .Figure-currency
-        color   emerald
-
-.Figure-content--negative
-    color   pomegranate
-
-    .Figure-currency
-        color   pomegranate
-
-.Figure-content--warning
-    color   texasRose
-
-    .Figure-currency
-        color   texasRose
 
 .Figure--big
     font-size 2rem
