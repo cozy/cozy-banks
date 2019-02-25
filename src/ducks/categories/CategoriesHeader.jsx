@@ -19,7 +19,8 @@ class CategoriesHeader extends PureComponent {
     const { selectedCategory, breadcrumbItems } = this.props
     const [previousItem] = breadcrumbItems.slice(-2, 1)
     const withPrimary = flag('categories-header-primary')
-    const colorProps = { color: withPrimary ? 'primary' : 'default' }
+    const theme = withPrimary ? 'primary' : 'default'
+    const colorProps = { color: theme }
 
     return (
       <Fragment>
@@ -31,6 +32,7 @@ class CategoriesHeader extends PureComponent {
                 ? previousItem.onClick
                 : undefined
             }
+            theme={theme}
           />
         )}
       </Fragment>

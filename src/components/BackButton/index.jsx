@@ -7,7 +7,7 @@ import withBackSwipe from 'utils/backSwipe'
 import { flowRight as compose } from 'lodash'
 import { Icon, withBreakpoints } from 'cozy-ui/react'
 import arrowLeft from 'assets/icons/icon-arrow-left.svg'
-import palette from 'cozy-ui/react/palette'
+import { getCssVariableValue } from 'cozy-ui/react/utils/color'
 
 const { BarLeft } = cozy.bar
 
@@ -26,7 +26,8 @@ const BackButton = ({
   to,
   router,
   breakpoints: { isMobile },
-  arrow = false
+  arrow = false,
+  theme = 'default'
 }) => {
   const location = router.getCurrentLocation()
   if (!onClick && !to) {
@@ -36,16 +37,20 @@ const BackButton = ({
       .join('/')
   }
   const handleClick = (onClick = onClick || (() => to && router.push(to)))
+  const arrowColor =
+    theme === 'primary'
+      ? getCssVariableValue('primary-contrast-text')
+      : getCssVariableValue('coolGrey')
   return isMobile ? (
     <BarLeft>
       <button className="coz-bar-btn coz-bar-burger" onClick={handleClick}>
-        <Icon icon={arrowLeft} color={palette['coolGrey']} />
+        <Icon icon={arrowLeft} color={arrowColor} />
       </button>
     </BarLeft>
   ) : (
     arrow && (
       <a onClick={handleClick} className={styles['back-arrow']}>
-        <Icon icon={arrowLeft} />
+        <Icon icon={arrowLeft} color={arrowColor} />
       </a>
     )
   )
@@ -57,7 +62,8 @@ BackButton.propTypes = {
   /** onClick handler. Mutually exclusive with `to` */
   onClick: PropTypes.func,
   /** Provided by `withRouter` in `withBackSwipe` */
-  router: PropTypes.object
+  router: PropTypes.object,
+  theme: PropTypes.oneOf(['primary', 'default'])
 }
 
 export default compose(
