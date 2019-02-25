@@ -233,7 +233,7 @@
       "amount": -70,
       "date": "{{ freshDate '2018-08-06T00:00:00Z' }}",
       "_id": "c5d3364d147d8dc5da80fc9e354a388e",
-      "bill": "io.cozy.:marsrembourcomplisa2",
+      "bill": "io.cozy.bills:marsrembourcomplisa2",
       "reimbursements": [
         {
           "amount": 70,
@@ -254,7 +254,7 @@
       "bills": [
         "io.cozy.bills:b2"
       ],
-      "bill": "io.cozy.:marsrembourcomplisa2"
+      "bill": "io.cozy.bills:marsrembourcomplisa2"
     },
     {
       "demo": false,
@@ -282,7 +282,7 @@
       "amount": 70,
       "date": "{{ freshDate '2018-08-14T00:00:00Z' }}",
       "_id": "446ae26d705b2eb461ca264d3849d350",
-      "bill": "io.cozy.:marsrembourcomplisa22"
+      "bill": "io.cozy.bills:marsrembourcomplisa22"
     },
     {
       "demo": false,
@@ -343,7 +343,7 @@
       "demo": false,
       "automaticCategoryId": "600110",
       "account": "compteisa1",
-      "bill": "io.cozy.:rembourcomplisa2",
+      "bill": "io.cozy.bills:rembourcomplisa2",
       "label": "TRANSFERT LIVRET A",
       "currency": "€",
       "amount": -400,
@@ -359,7 +359,7 @@
       "amount": 400,
       "date": "{{ freshDate '2018-09-03T00:00:00Z' }}",
       "_id": "4bbfe1f845ad1231c7d07aa3e04ffa27",
-      "bill": "io.cozy.:avrilrembourcla3"
+      "bill": "io.cozy.bills:avrilrembourcla3"
     },
     {
       "demo": false,
@@ -394,7 +394,7 @@
         "io.cozy.bills:b3"
       ],
       "_id": "446ae26d705b2eb461ca264d384a0974",
-      "bill": "io.cozy.:avrilrembourcomplisa23"
+      "bill": "io.cozy.bills:avrilrembourcomplisa23"
     },
     {
       "_id": "446ae26d705b2eb461ca264d3849b4b1",
@@ -484,7 +484,7 @@
       "amount": 60,
       "date": "{{ freshDate '2018-09-08T00:00:00Z' }}",
       "_id": "4bbfe1f845ad1231c7d07aa3e05004cf",
-      "bill": "io.cozy.:avrilrembourcomplisa2"
+      "bill": "io.cozy.bills:avrilrembourcomplisa2"
     },
     {
       "demo": false,
@@ -522,7 +522,7 @@
       "amount": 28.7,
       "date": "{{ freshDate '2018-09-11T00:00:00Z' }}",
       "_id": "4bbfe1f845ad1231c7d07aa3e04fd1eb",
-      "bill": "io.cozy.:avrilrembourcla3"
+      "bill": "io.cozy.bills:avrilrembourcla3"
     },
     {
       "demo": false,
@@ -573,7 +573,7 @@
       "bills": [
         "io.cozy.bills:b4"
       ],
-      "bill": "io.cozy.:avrilrembourcomplcla3"
+      "bill": "io.cozy.bills:avrilrembourcomplcla3"
     },
     {
       "demo": false,
@@ -584,7 +584,7 @@
       "amount": 60,
       "date": "{{ freshDate '2018-09-14T00:00:00Z' }}",
       "_id": "c5d3364d147d8dc5da80fc9e354a9105",
-      "bill": "io.cozy.:avrilrembourcomplisa22"
+      "bill": "io.cozy.bills:avrilrembourcomplisa22"
     },
     {
       "demo": false,
@@ -625,7 +625,7 @@
       "amount": 30,
       "date": "{{ freshDate '2018-09-16T00:00:00Z' }}",
       "_id": "446ae26d705b2eb461ca264d3849f1ff",
-      "bill": "io.cozy.:avrilrembourcla32"
+      "bill": "io.cozy.bills:avrilrembourcla32"
     },
     {
       "demo": false,
@@ -656,7 +656,7 @@
       "amount": 18,
       "date": "{{ freshDate '2018-09-18T00:00:00Z' }}",
       "_id": "c5d3364d147d8dc5da80fc9e354aeea2",
-      "bill": "io.cozy.:avrilrembourcomplcla32"
+      "bill": "io.cozy.bills:avrilrembourcomplcla32"
     },
     {
       "demo": false,
@@ -697,7 +697,7 @@
       "amount": -40,
       "date": "{{ freshDate '2018-09-21T00:00:00Z' }}",
       "_id": "c5d3364d147d8dc5da80fc9e354af7f5",
-      "bill": "io.cozy.:avrilrembourcomplcla32",
+      "bill": "io.cozy.bills:avrilrembourcomplcla32",
       "reimbursements": [
         {
           "amount": 40,
@@ -757,7 +757,7 @@
       "demo": false,
       "automaticCategoryId": "400110",
       "account": "comptegene1",
-      "bill": "io.cozy.:avrilrembourcomplcla3",
+      "bill": "io.cozy.bills:avrilrembourcomplcla3",
       "label": "CARREFOUR CITY",
       "currency": "€",
       "amount": -65.3,
@@ -773,7 +773,7 @@
       "amount": 40,
       "date": "{{ freshDate '2018-09-23T00:00:00Z' }}",
       "_id": "446ae26d705b2eb461ca264d3849ebf5",
-      "bill": "io.cozy.:avrilrembourcomplisa23"
+      "bill": "io.cozy.bills:avrilrembourcomplisa23"
     },
     {
       "demo": false,
@@ -953,7 +953,7 @@
       "demo": false,
       "automaticCategoryId": "400610",
       "account": "compteisa1",
-      "bill": "io.cozy.:rembourcomplisa2",
+      "bill": "io.cozy.bills:rembourcomplisa2",
       "label": "VIREMENT COMPL SANTE",
       "currency": "€",
       "amount": 70,
@@ -979,7 +979,7 @@
       "amount": 7.5,
       "date": "{{ freshDate '2018-10-07T00:00:00Z' }}",
       "_id": "c5d3364d147d8dc5da80fc9e354a21f7",
-      "bill": "io.cozy.:rembourcomplisa1"
+      "bill": "io.cozy.bills:rembourcomplisa1"
     },
     {
       "demo": false,
@@ -1033,7 +1033,7 @@
       "amount": -41,
       "date": "{{ freshDate '2018-10-10T00:00:00Z' }}",
       "_id": "4bbfe1f845ad1231c7d07aa3e04f76df",
-      "bill": "io.cozy.:rembourcla3",
+      "bill": "io.cozy.bills:rembourcla3",
       "reimbursements": [
         {
           "amount": 28.7,
@@ -1068,7 +1068,7 @@
       "amount": 28.7,
       "date": "{{ freshDate '2018-10-11T00:00:00Z' }}",
       "_id": "4bbfe1f845ad1231c7d07aa3e04f4f29",
-      "bill": "io.cozy.:rembourcla3"
+      "bill": "io.cozy.bills:rembourcla3"
     },
     {
       "demo": false,
@@ -1111,7 +1111,7 @@
       "amount": 12.3,
       "date": "{{ freshDate '2018-10-12T00:00:00Z' }}",
       "_id": "446ae26d705b2eb461ca264d3849c88a",
-      "bill": "io.cozy.:rembourcomplcla3"
+      "bill": "io.cozy.bills:rembourcomplcla3"
     },
     {
       "demo": false,
@@ -1213,7 +1213,7 @@
       "amount": -36,
       "date": "{{ freshDate '2018-10-17T00:00:00Z' }}",
       "_id": "4bbfe1f845ad1231c7d07aa3e05017b4",
-      "bill": "io.cozy.:avrilrembourcomplisa2"
+      "bill": "io.cozy.bills:avrilrembourcomplisa2"
     },
     {
       "demo": false,
