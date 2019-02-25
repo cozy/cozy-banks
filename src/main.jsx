@@ -16,7 +16,7 @@ import 'utils/flag'
 import FastClick from 'fastclick'
 import { isReporterEnabled, configureReporter, setURLContext } from 'lib/sentry'
 import * as d3 from 'd3'
-import 'cozy-ui/transpiled/stylesheet.css'
+import 'cozy-ui/transpiled/react/stylesheet.css'
 
 import { checkToRefreshToken } from 'utils/token'
 import { Alerter } from 'cozy-ui/react'
