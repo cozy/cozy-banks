@@ -259,7 +259,7 @@
     {
       "demo": false,
       "automaticCategoryId": "400610",
-      "account": "compteisa1",
+      "account": "health_reimbursements",
       "label": "DR CHOLLET CHQ 18708913",
       "currency": "€",
       "amount": -70,
@@ -409,7 +409,7 @@
     {
       "demo": false,
       "automaticCategoryId": "400610",
-      "account": "compteisa1",
+      "account": "health_reimbursements",
       "label": "CABINET OSTEOKINESITHERAPIE",
       "currency": "€",
       "amount": -60,
@@ -499,7 +499,7 @@
     {
       "demo": false,
       "automaticCategoryId": "400610",
-      "account": "comptecla1",
+      "account": "health_reimbursements",
       "label": "CABINET CARDIOLOGIE CONSULT",
       "currency": "€",
       "amount": -41,
@@ -547,7 +547,7 @@
     {
       "demo": false,
       "automaticCategoryId": "400610",
-      "account": "compteisa1",
+      "account": "health_reimbursements",
       "label": "CABINET OSTEOKINESITHERAPIE",
       "currency": "€",
       "amount": -60,
@@ -589,7 +589,7 @@
     {
       "demo": false,
       "automaticCategoryId": "400610",
-      "account": "comptecla1",
+      "account": "health_reimbursements",
       "label": "LABORATOIRE PUTEAUX",
       "currency": "€",
       "amount": -50,
@@ -691,7 +691,7 @@
     {
       "demo": false,
       "automaticCategoryId": "400610",
-      "account": "compteisa1",
+      "account": "health_reimbursements",
       "label": "KINE REUILLY",
       "currency": "€",
       "amount": -40,
@@ -1027,7 +1027,7 @@
     {
       "demo": false,
       "automaticCategoryId": "400610",
-      "account": "comptecla1",
+      "account": "health_reimbursements",
       "label": "CABINET CARDIO CONSULT",
       "currency": "€",
       "amount": -41,
@@ -1045,7 +1045,7 @@
     {
       "demo": false,
       "automaticCategoryId": "400610",
-      "account": "compteisa1",
+      "account": "health_reimbursements",
       "label": "DR CHOLLET CHQ 18708914",
       "currency": "€",
       "amount": -70,
@@ -1244,7 +1244,7 @@
     {
       "demo": false,
       "automaticCategoryId": "400610",
-      "account": "comptegene1",
+      "account": "health_reimbursements",
       "label": "DOCTEUR LEFEBVRE",
       "currency": "€",
       "amount": -43,
@@ -1283,7 +1283,7 @@
     {
       "demo": true,
       "automaticCategoryId": "400610",
-      "account": "compteisa1",
+      "account": "health_reimbursements",
       "label": "Docteur Martin",
       "currency": "€",
       "amount": -25,
