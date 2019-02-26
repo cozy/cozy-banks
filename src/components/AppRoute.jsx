@@ -3,7 +3,7 @@ import React from 'react'
 import { IndexRoute, Route, Redirect } from 'react-router'
 import App from 'components/App'
 
-import { TransactionsPage, TransactionsPageWithBackButton } from 'ducks/transactions'
+import { TransactionsPageWithBackButton } from 'ducks/transactions'
 import { CategoriesPage } from 'ducks/categories'
 import {
   Settings,
@@ -35,8 +35,8 @@ const AppRoute = (
             path="reimbursements"
             component={TransactionsPageWithBackButton}
           />
+          <Route path="details" component={TransactionsPageWithBackButton} />
         </Route>
-        <Route path="transactions" component={TransactionsPage} />
         <Route path="categories">
           <IndexRoute component={CategoriesPage} />
           <Route

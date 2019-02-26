@@ -10,7 +10,6 @@ import {
 import { Link } from 'react-router'
 
 import dashboard from 'assets/icons/icon-dashboard.svg'
-import arrows from 'assets/icons/icon-arrow-left-right.svg'
 import graph from 'assets/icons/icon-graph.svg'
 import people from 'assets/icons/icon-people.svg'
 
@@ -22,12 +21,6 @@ const Nav = ({ t }) => (
       <NavLink to="balances">
         <NavIcon icon={dashboard} />
         <NavText>{t('Nav.balance')}</NavText>
-      </NavLink>
-    </NavItem>
-    <NavItem>
-      <NavLink to="transactions">
-        <NavIcon icon={arrows} />
-        <NavText>{t('Nav.movements')}</NavText>
       </NavLink>
     </NavItem>
     <NavItem>
