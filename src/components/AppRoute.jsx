@@ -1,4 +1,3 @@
-/* global __TARGET__ */
 import React from 'react'
 import { IndexRoute, Route, Redirect } from 'react-router'
 import App from 'components/App'
@@ -17,18 +16,14 @@ import {
 } from 'ducks/settings'
 import { Balance } from 'ducks/balance'
 import { EnsureHasAccounts, EnsureIsFirstSynced } from 'ducks/onboarding'
-import flag from 'cozy-flags'
 
 export const ComingSoon = () => <p style="margin-left: 2em">Coming soon!</p>
-
-export const defaultRoute = () =>
-  flag('demo') && __TARGET__ === 'browser' ? 'transactions' : 'balances'
 
 const AppRoute = (
   <Route component={EnsureIsFirstSynced}>
     <Route component={EnsureHasAccounts}>
       <Route component={App}>
-        <Redirect from="/" to={defaultRoute()} />
+        <Redirect from="/" to="balances" />
         <Route path="balances">
           <IndexRoute component={Balance} />
           <Route
@@ -59,7 +54,7 @@ const AppRoute = (
             <Route path="debug" component={Debug} />
           </Route>
         </Route>
-        <Redirect from="*" to={defaultRoute()} />
+        <Redirect from="*" to="balances" />
       </Route>
     </Route>
   </Route>
