@@ -15,6 +15,7 @@ import {
 } from 'ducks/account/helpers'
 import styles from './AccountRow.styl'
 import KonnectorIcon from './KonnectorIcon'
+import healthIcon from 'assets/icons/icon-health.svg'
 
 class AccountRow extends React.PureComponent {
   static propTypes = {
@@ -63,6 +64,9 @@ class AccountRow extends React.PureComponent {
         <div className={styles.AccountRow__column}>
           <div className={styles.AccountRow__logo}>
             {institutionSlug && <KonnectorIcon slug={institutionSlug} />}
+            {account._id === 'health_reimbursements' && (
+              <Icon icon={healthIcon} size={24} />
+            )}
           </div>
           <div className={styles.AccountRow__labelUpdatedAtWrapper}>
             <div className={styles.AccountRow__label}>
