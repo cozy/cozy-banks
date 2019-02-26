@@ -1320,7 +1320,7 @@
       "amount": -44.9,
       "date": "{{ freshDate '2018-10-19T00:00:00Z' }}",
       "bills": [
-        "io.cozy.bills:b2"
+        "io.cozy.bills:bouyges_telecom_44_90"
       ]
     },
     {
@@ -1414,7 +1414,7 @@
       "date": "{{ freshDate '2018-10-21T00:00:00Z' }}",
       "_id": "446ae26d705b2eb461ca264d384a6ee6",
       "bills": [
-        "io.cozy.bills:b2"
+        "io.cozy.bills:bouyges_telecom_44_90"
       ]
     },
     {
