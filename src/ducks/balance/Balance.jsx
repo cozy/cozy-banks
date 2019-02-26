@@ -1,6 +1,5 @@
 import React, { PureComponent, Fragment } from 'react'
 import { flowRight as compose, get, sumBy, set } from 'lodash'
-import { translate, withBreakpoints } from 'cozy-ui/react'
 import { queryConnect, withMutations } from 'cozy-client'
 import flag from 'cozy-flags'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
@@ -8,17 +7,13 @@ import cx from 'classnames'
 
 import Loading from 'components/Loading'
 import { Padded } from 'components/Spacing'
-import Header from 'components/Header'
-import { Figure } from 'components/Figure'
-import { PageTitle } from 'components/Title'
-import KonnectorUpdateInfo from 'components/KonnectorUpdateInfo'
+import BalanceHeader from './components/BalanceHeader'
 
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import { buildVirtualGroups } from 'ducks/groups/helpers'
 import { isCollectionLoading } from 'ducks/client/utils'
 import { getAccountBalance } from 'ducks/account/helpers'
 
-import History from './History'
 import styles from './Balance.styl'
 import BalanceTables from './BalanceTables'
 import BalancePanels from './BalancePanels'
@@ -119,8 +114,6 @@ class Balance extends PureComponent {
 
   render() {
     const {
-      t,
-      breakpoints: { isMobile },
       accounts: accountsCollection,
       groups: groupsCollection,
       settings: settingsCollection
@@ -131,13 +124,6 @@ class Balance extends PureComponent {
     }
 
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
-    const color = 'primary'
-    const headerColorProps = { color }
-    const headerClassName = styles[`Balance_HeaderColor_${color}`]
-    const titleColorProps = {
-      color: isMobile ? 'primary' : 'default'
-    }
-    const titlePaddedClass = isMobile ? 'u-p-0' : 'u-pb-0'
 
     if (
       isCollectionLoading(accountsCollection) ||
@@ -145,13 +131,7 @@ class Balance extends PureComponent {
     ) {
       return (
         <Fragment>
-          <Header className={headerClassName} {...headerColorProps}>
-            {isMobile && (
-              <Padded className={titlePaddedClass}>
-                <PageTitle {...titleColorProps}>{t('Balance.title')}</PageTitle>
-              </Padded>
-            )}
-          </Header>
+          <BalanceHeader />
           <Loading />
         </Fragment>
       )
@@ -164,35 +144,24 @@ class Balance extends PureComponent {
     const showPanels = flag('balance-panels')
 
     const checkedAccounts = this.getCheckedAccounts()
-    const checkedAccountsBalance = isCollectionLoading(accounts)
+    const accountsBalance = isCollectionLoading(accounts)
       ? 0
       : sumBy(checkedAccounts, getAccountBalance)
+    const subtitleParams =
+      checkedAccounts.length === accounts.length
+        ? undefined
+        : {
+            nbCheckedAccounts: checkedAccounts.length,
+            nbAccounts: accounts.length
+          }
 
     return (
       <Fragment>
-        <Header className={headerClassName} {...headerColorProps}>
-          {isMobile && (
-            <Padded className={titlePaddedClass}>
-              <PageTitle {...titleColorProps}>{t('Balance.title')}</PageTitle>
-            </Padded>
-          )}
-          <Figure
-            className={styles.Balance__currentBalance}
-            currencyClassName={styles.Balance__currentBalanceCurrency}
-            total={checkedAccountsBalance}
-            symbol="€"
-          />
-          <div className={styles.Balance__subtitle}>
-            {checkedAccounts.length === accounts.length
-              ? t('BalanceHistory.all_accounts')
-              : t('BalanceHistory.checked_accounts', {
-                  nbCheckedAccounts: checkedAccounts.length,
-                  nbAccounts: accounts.length
-                })}
-          </div>
-          <History accounts={checkedAccounts} />
-          <KonnectorUpdateInfo />
-        </Header>
+        <BalanceHeader
+          accountsBalance={accountsBalance}
+          accounts={checkedAccounts}
+          subtitleParams={subtitleParams}
+        />
         <Padded
           className={cx({
             [styles.Balance__panelsContainer]: showPanels
@@ -220,8 +189,6 @@ class Balance extends PureComponent {
 }
 
 export default compose(
-  withBreakpoints(),
-  translate(),
   queryConnect({
     accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' },
     groups: { query: client => client.all(GROUP_DOCTYPE), as: 'groups' },
