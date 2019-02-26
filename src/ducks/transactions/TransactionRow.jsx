@@ -78,14 +78,10 @@ class _RowDesktop extends React.PureComponent {
 
     const account = transaction.account.data
     const accountInstitutionLabel = getAccountInstitutionLabel(account)
+    const trRest = flag('show-transactions-ids') ? { id: transaction._id } : {}
+
     return (
-      <tr
-        ref={onRef}
-        className={cx({
-          [styles['TransactionRow--withId']]: flag('show-transactions-ids')
-        })}
-        id={transaction._id}
-      >
+      <tr ref={onRef} {...trRest}>
         <td className={cx(styles.ColumnSizeDesc, 'u-pv-half', 'u-pl-1')}>
           <Media className="u-clickable">
             <Img title={categoryTitle} onClick={showCategoryChoice}>
@@ -158,15 +154,10 @@ class _RowMobile extends React.PureComponent {
     } = this.props
     const account = transaction.account.data
     const accountInstitutionLabel = getAccountInstitutionLabel(account)
+    const rowRest = flag('show-transactions-ids') ? { id: transaction._id } : {}
 
     return (
-      <List.Row
-        onRef={onRef}
-        className={cx({
-          [styles['TransactionRow--withId']]: flag('show-transactions-ids')
-        })}
-        id={transaction._id}
-      >
+      <List.Row onRef={onRef} {...rowRest}>
         <Media className="u-full-width">
           <Img
             className="u-clickable u-mr-half"
