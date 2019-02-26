@@ -31,6 +31,30 @@
     {
       "__SRC__": "{{ dir }}/Fichiers_de_démo/Vente Privée/facture.pdf",
       "__DEST__": "/Fichiers_de_démo/Vente Privée/facture.pdf"
+    },
+    {
+      "__SRC__": "{{ dir }}/Fichiers_de_démo/Bouygues Telecom/2019_bouyguestelecom_44.90.pdf",
+      "__DEST__": "/Fichier_de_démo/Bouygues Telecom/2019_bouyguestelecom_44.90.pdf"
+    },
+    {
+      "__SRC__": "{{ dir }}/Fichiers_de_démo/Free/2019_free_34.90.pdf",
+      "__DEST__": "/Fichier_de_démo/Free/2019_free_34.90.pdf"
+    },
+    {
+      "__SRC__": "{{ dir }}/Fichiers_de_démo/CPAM/2019_ameli_17.50.pdf",
+      "__DEST__": "/Fichier_de_démo/CPAM/2019_ameli_17.50.pdf"
+    },
+    {
+      "__SRC__": "{{ dir }}/Fichiers_de_démo/Harmonie/2019_Harmonie_7.50.pdf",
+      "__DEST__": "/Fichier_de_démo/Harmonie/2019_Harmonie_7.50.pdf"
+    },
+    {
+      "__SRC__": "{{ dir }}/Fichiers_de_démo/Free mobile/2019_free_15.99.pdf",
+      "__DEST__": "/Fichier_de_démo/Free mobile/2019_free_15.99.pdf"
+    },
+    {
+      "__SRC__": "{{ dir }}/Fichiers_de_démo/MAIF/2019_MAIF_243.57.pdf",
+      "__DEST__": "/Fichier_de_démo/MAIF/2019_MAIF_243.57.pdf"
     }
   ],
   "io.cozy.bank.accounts": [
@@ -810,7 +834,7 @@
       "date": "{{ freshDate '2018-09-30T00:00:00Z' }}",
       "_id": "c5d3364d147d8dc5da80fc9e354a6d55",
       "bills": [
-        "io.cozy.bills:b3"
+        "io.cozy.bills:bouyges_telecom_44_90"
       ]
     },
     {
@@ -1129,7 +1153,7 @@
       "date": "{{ freshDate '2018-10-15T00:00:00Z' }}",
       "_id": "c5d3364d147d8dc5da80fc9e354abec5",
       "bills": [
-        "io.cozy.bills:b0"
+        "io.cozy.bills:free_mobile_15_99"
       ]
     },
     {
@@ -1142,7 +1166,7 @@
       "date": "{{ freshDate '2018-10-15T00:00:00Z' }}",
       "_id": "446ae26d705b2eb461ca264d3849df93",
       "bills": [
-        "io.cozy.bills:b4"
+        "io.cozy.bills:maif_243_57"
       ]
     },
     {
@@ -1318,7 +1342,7 @@
       "amount": -34.9,
       "date": "{{ freshDate '2018-10-20T00:00:00Z' }}",
       "bills": [
-        "io.cozy.bills:b2"
+        "io.cozy.bills:free_34_90"
       ],
       "_id": "4bbfe1f845ad1231c7d07aa3e04fe8b3"
     },
@@ -1729,7 +1753,7 @@
       "isThirdPartyPayer": false,
       "originalAmount": 25,
       "originalOperation": "io.cozy.bank.operations:paiementdocteur",
-      "invoice": "io.cozy.files:{{reference 'io.cozy.files' 5 '_id' }}"
+      "invoice": "io.cozy.files:{{reference 'io.cozy.files' 10 '_id' }}"
     },
     {
       "vendor": "Vente Privée",
@@ -1759,7 +1783,7 @@
       "isThirdPartyPayer": false,
       "originalAmount": 25,
       "originalOperation": "io.cozy.bank.operations:paiementdocteur",
-      "invoice": "io.cozy.files:{{reference 'io.cozy.files' 6 '_id' }}"
+      "invoice": "io.cozy.files:{{reference 'io.cozy.files' 11 '_id' }}"
     },
     {
       "vendor": "Harmonie",
@@ -1897,6 +1921,22 @@
       "originalOperation": "io.cozy.bank.operations:paiementdocteur",
       "isRefund": true,
       "invoice": "io.cozy.files:{{reference 'io.cozy.files' 1 '_id' }}"
+    },
+    {
+      "_id": "bouyges_telecom_44_90",
+      "invoice": "io.cozy.files:{{reference 'io.cozy.files' 8 '_id' }}"
+    },
+    {
+      "_id": "free_34_90",
+      "invoice": "io.cozy.files:{{reference 'io.cozy.files' 9 '_id' }}"
+    },
+    {
+      "_id": "free_mobile_15_99",
+      "invoice": "io.cozy.files:{{reference 'io.cozy.files' 12 '_id' }}"
+    },
+    {
+      "_id": "maif_243_57",
+      "invoice": "io.cozy.files:{{reference 'io.cozy.files' 13 '_id' }}"
     }
   ]
 }
