@@ -56,6 +56,7 @@ export const accountTypesWithTranslation = [
   'Loan',
   'LongTermSavings',
   'Other',
+  'Reimbursements',
   'Savings'
 ]
 

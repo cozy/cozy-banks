@@ -9,6 +9,7 @@ import {
   isValid as isDateValid
 } from 'date-fns'
 import { getAccountBalance } from 'ducks/account/helpers'
+import { isReimbursementsVirtualGroup } from 'ducks/groups/helpers'
 
 /**
  * Get balance histories for a set of accounts
@@ -168,7 +169,7 @@ export const getGroupBalance = (group, accountsIdsToExclude = []) => {
 
 export const getPanelsState = (groups, currentPanelsState) => {
   const switchesState = groups.reduce((acc, group) => {
-    const groupChecked = get(currentPanelsState, `[${group._id}].checked`, true)
+    const groupChecked = get(currentPanelsState, `[${group._id}].checked`, !isReimbursementsVirtualGroup(group))
     const groupExpanded = get(
       currentPanelsState,
       `[${group._id}].expanded`,

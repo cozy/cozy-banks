@@ -76,6 +76,7 @@ class _RowDesktop extends React.PureComponent {
     const parentCategory = getParentCategory(categoryId)
 
     const account = transaction.account.data
+    const accountInstitutionLabel = getAccountInstitutionLabel(account)
     return (
       <tr ref={onRef}>
         <td className={cx(styles.ColumnSizeDesc, 'u-pv-half', 'u-pl-1')}>
@@ -92,8 +93,7 @@ class _RowDesktop extends React.PureComponent {
                 {!filteringOnAccount && (
                   <Caption className={styles['bnk-op-desc-caption']}>
                     {getAccountLabel(account)}
-                    {' - '}
-                    {getAccountInstitutionLabel(account)}
+                    {accountInstitutionLabel && ` - ${accountInstitutionLabel}`}
                   </Caption>
                 )}
               </List.Content>
@@ -150,6 +150,8 @@ class _RowMobile extends React.PureComponent {
       onRef
     } = this.props
     const account = transaction.account.data
+    const accountInstitutionLabel = getAccountInstitutionLabel(account)
+
     return (
       <List.Row onRef={onRef}>
         <Media className="u-full-width">
@@ -174,8 +176,7 @@ class _RowMobile extends React.PureComponent {
                   className={cx('u-ellipsis', styles['bnk-op-desc-caption'])}
                 >
                   {getAccountLabel(account)}
-                  {' - '}
-                  {getAccountInstitutionLabel(account)}
+                  {accountInstitutionLabel && ` - ${accountInstitutionLabel}`}
                 </Caption>
               )}
             </List.Content>

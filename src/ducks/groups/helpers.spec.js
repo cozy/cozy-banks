@@ -125,4 +125,26 @@ describe('translateAndSortGroups', () => {
 
     expect(translateAndSortGroups(groups, translate)).toEqual(expected)
   })
+
+  it('should put reimbursements virtual group at the end', () => {
+    const groups = [
+      { virtual: false, label: 'A' },
+      { _id: 'Reimbursements', virtual: true, label: 'Reimbursements' },
+      { virtual: true, label: 'Other' },
+      { virtual: true, label: 'Z' }
+    ]
+
+    const expected = [
+      { virtual: false, label: 'A' },
+      { virtual: true, label: 'Data.accountTypes.Z' },
+      { virtual: true, label: 'Data.accountTypes.Other' },
+      {
+        _id: 'Reimbursements',
+        virtual: true,
+        label: 'Data.accountTypes.Reimbursements'
+      }
+    ]
+
+    expect(translateAndSortGroups(groups, translate)).toEqual(expected)
+  })
 })

@@ -5,7 +5,7 @@ import { withRouter } from 'react-router'
 import withFilteringDoc from 'components/withFilteringDoc'
 import AccountRow from './AccountRow'
 import styles from './AccountsList.styl'
-import { getAccountBalance } from 'ducks/account/helpers'
+import { getAccountBalance, getAccountType } from 'ducks/account/helpers'
 
 class AccountsList extends React.PureComponent {
   static propTypes = {
@@ -16,8 +16,16 @@ class AccountsList extends React.PureComponent {
   }
 
   goToTransactionsFilteredByDoc = account => () => {
-    this.props.filterByDoc(account)
-    this.props.router.push('/transactions')
+    const { filterByDoc, router } = this.props
+
+    filterByDoc(account)
+
+    const isReimbursementsType = getAccountType(account) === 'Reimbursements'
+    const route = isReimbursementsType
+      ? '/balances/reimbursements'
+      : '/transactions'
+
+    router.push(route)
   }
 
   render() {
