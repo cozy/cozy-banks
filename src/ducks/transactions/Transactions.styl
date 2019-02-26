@@ -74,6 +74,20 @@ for category in categories
         icon = '../../assets/icons/categories/icon-cat-%s.svg' % category
         background-image embedurl(icon) // @stylint ignore
 
+.TransactionRow--withId
+    position relative
+
+    &::before
+        content attr(id)
+        position absolute
+        top 0
+        left 0
+        padding 0 2px
+        background-color grey
+        color white
+        font-size 0.75rem
+        z-index 1
+
 +medium-screen()
     .c-table-body .c-table-row
         font-size 0.8em
