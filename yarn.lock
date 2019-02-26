@@ -4672,17 +4672,17 @@ cosmiconfig@^5.0.7:
     js-yaml "^3.9.0"
     parse-json "^4.0.0"
 
-cozy-ach@1.10.0:
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/cozy-ach/-/cozy-ach-1.10.0.tgz#c491a28ce584b2170386d1aa59ef49a21a7915a6"
-  integrity sha512-Q00qXvDym6dQSQyfmi6ZsBj33tLT4lKunroVv1kYtdT2XYvbqS//h40Ku0s9xDTL6xeVYYpCbfqzyKKkmKImrQ==
+cozy-ach@1.12.0:
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/cozy-ach/-/cozy-ach-1.12.0.tgz#4eab64f9803b6db5b3a790c75a4ff5b180e7793a"
+  integrity sha512-RSQdUrpcXpRPk5g4poqEXFZuM5QiMM5hupubqW1fG2ToJWabMB/WNZpwW8vSd+7rvMja819yMUGOSiU4rMbP5g==
   dependencies:
     btoa "1.1.2"
     colors "^1.1.2"
     commander "^2.11.0"
     core-js "2.5.1"
     cozy-client-js "^0.3.4"
-    cozy-doctypes "^1.12.1"
+    cozy-doctypes "1.33.0"
     directory-tree "^1.2.1"
     dummy-json "^2.0.0"
     es6-promise-pool "^2.5.0"
@@ -4821,6 +4821,15 @@ cozy-device-helper@1.6.5:
   dependencies:
     lodash "4.17.11"
 
+cozy-doctypes@1.33.0:
+  version "1.33.0"
+  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.33.0.tgz#9491301fe4a9fbc767902761c351763ca95cad71"
+  integrity sha512-ziz7mbCKtmTQQ1LHs5J/F4qzDC7/HT0+S2qePZbVOr0eNwqthUfFDh5z3v6ynNItgpx3hgd04Km5oojcP9Z6OA==
+  dependencies:
+    cozy-logger "1.3.1"
+    es6-promise-pool "2.5.0"
+    lodash "4.17.11"
+
 cozy-doctypes@1.35.1:
   version "1.35.1"
   resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.35.1.tgz#08a0c7a1ab08db7f79bc4564bd1f25f4af56adf8"
@@ -4828,15 +4837,6 @@ cozy-doctypes@1.35.1:
   dependencies:
     "@babel/runtime" "7.3.1"
     cozy-logger "1.3.1"
-    es6-promise-pool "2.5.0"
-    lodash "4.17.11"
-
-cozy-doctypes@^1.12.1:
-  version "1.18.1"
-  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.18.1.tgz#6899e4e964d0d0f7a401b3fb4137ea2028ec2b25"
-  integrity sha512-OZH/3IzXQnRGZkm6wnv/PF9BEyJnCC5rTWkjzNuzhdphJ6BQpDgXaEe1PEZn6Ka3VQMFFiSCxURQDV26bPNjmg==
-  dependencies:
-    cozy-logger "1.3.0"
     es6-promise-pool "2.5.0"
     lodash "4.17.11"
 
@@ -4919,13 +4919,6 @@ cozy-konnector-libs@^4.14.5:
     request "2.88.0"
     request-debug "0.2.0"
     request-promise "4.2.2"
-
-cozy-logger@1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/cozy-logger/-/cozy-logger-1.3.0.tgz#21cd10a9e0ebffbdeefdd89d57e021717986ba38"
-  integrity sha512-FLqMjnB6YYymotyAeDbWd1tZ06EE/u1QUstHFbTBPI2XNUoJXfnYEx7B+Uj93eU2o2zzjWHYb+2+lA0TvgsQqA==
-  dependencies:
-    json-stringify-safe "5.0.1"
 
 cozy-logger@1.3.1, cozy-logger@^1.3.1:
   version "1.3.1"
