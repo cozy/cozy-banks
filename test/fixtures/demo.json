@@ -1271,7 +1271,7 @@
     {
       "demo": true,
       "automaticCategoryId": "400610",
-      "account": "compteisa1",
+      "account": "health_reimbursements",
       "label": "Docteur Martin",
       "currency": "€",
       "amount": -25,
