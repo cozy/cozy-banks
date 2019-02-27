@@ -169,7 +169,11 @@ export const getGroupBalance = (group, accountsIdsToExclude = []) => {
 
 export const getPanelsState = (groups, currentPanelsState) => {
   const switchesState = groups.reduce((acc, group) => {
-    const groupChecked = get(currentPanelsState, `[${group._id}].checked`, !isReimbursementsVirtualGroup(group))
+    const groupChecked = get(
+      currentPanelsState,
+      `[${group._id}].checked`,
+      !isReimbursementsVirtualGroup(group)
+    )
     const groupExpanded = get(
       currentPanelsState,
       `[${group._id}].expanded`,
