@@ -16,7 +16,8 @@ const HEALTH_VENDORS = [
   'ascoreSante',
   'EoviMCD',
   'Humanis',
-  'Alan'
+  'Alan',
+  'lamutuellegenerale'
 ] // TODO: to import from each konnector
 const HEALTH_EXPENSE_CAT = '400610'
 const HEALTH_INSURANCE_CAT = '400620'
