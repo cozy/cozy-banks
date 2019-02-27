@@ -4,6 +4,7 @@ import cx from 'classnames'
 import compose from 'lodash/flowRight'
 
 import { translate, Media, Bd, Img, Caption, Text } from 'cozy-ui/react'
+import flag from 'cozy-flags'
 
 import { Figure } from 'components/Figure'
 import { TdSecondary } from 'components/Table'
@@ -77,8 +78,10 @@ class _RowDesktop extends React.PureComponent {
 
     const account = transaction.account.data
     const accountInstitutionLabel = getAccountInstitutionLabel(account)
+    const trRest = flag('show-transactions-ids') ? { id: transaction._id } : {}
+
     return (
-      <tr ref={onRef}>
+      <tr ref={onRef} {...trRest}>
         <td className={cx(styles.ColumnSizeDesc, 'u-pv-half', 'u-pl-1')}>
           <Media className="u-clickable">
             <Img title={categoryTitle} onClick={showCategoryChoice}>
@@ -151,9 +154,10 @@ class _RowMobile extends React.PureComponent {
     } = this.props
     const account = transaction.account.data
     const accountInstitutionLabel = getAccountInstitutionLabel(account)
+    const rowRest = flag('show-transactions-ids') ? { id: transaction._id } : {}
 
     return (
-      <List.Row onRef={onRef}>
+      <List.Row onRef={onRef} {...rowRest}>
         <Media className="u-full-width">
           <Img
             className="u-clickable u-mr-half"
