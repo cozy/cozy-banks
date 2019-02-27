@@ -1423,7 +1423,8 @@
       "label": "Salaire novembre 2018",
       "currency": "€",
       "amount": 3870.54,
-      "date": "{{ freshDate '2018-11-01T00:00:00Z' }}"
+      "date": "{{ freshDate '2018-11-01T00:00:00Z' }}",
+      "_id": "isa_salaire_nov_2018"
     },
     {
       "account": "compteisa1",
@@ -1431,7 +1432,8 @@
       "automaticCategoryId": "400410",
       "currency": "€",
       "date": "{{ freshDate '2018-11-01T00:00:00Z' }}",
-      "label": "ARGENT DE POCHE"
+      "label": "ARGENT DE POCHE",
+      "_id": "isa_argent_de_poche_nov_2018"
     },
     {
       "account": "compteisa1",
@@ -1439,7 +1441,8 @@
       "automaticCategoryId": "400420",
       "currency": "€",
       "date": "{{ freshDate '2018-11-01T00:00:00Z' }}",
-      "label": "CANTINE SCOLAIRE"
+      "label": "CANTINE SCOLAIRE",
+      "_id": "isa_cantine_scolaire_nov_2018"
     },
     {
       "account": "comptelou1",
@@ -1447,7 +1450,8 @@
       "automaticCategoryId": "400180",
       "currency": "€",
       "date": "{{ freshDate '2018-11-02T00:00:00Z' }}",
-      "label": "ARGENT DE POCHE"
+      "label": "ARGENT DE POCHE",
+      "_id": "lou_argent_de_poche_nov_2018"
     },
     {
       "account": "compteisa3",
@@ -1455,7 +1459,8 @@
       "automaticCategoryId": "600110",
       "currency": "€",
       "date": "{{ freshDate '2018-11-03T00:00:00Z' }}",
-      "label": "TRANSFERT LIVRET A"
+      "label": "TRANSFERT LIVRET A",
+      "_id": "isa_transfert_livret_a_credit_nov_2018"
     },
     {
       "account": "compteisa1",
@@ -1463,7 +1468,8 @@
       "automaticCategoryId": "400290",
       "currency": "€",
       "date": "{{ freshDate '2018-11-03T00:00:00Z' }}",
-      "label": "UBER"
+      "label": "UBER",
+      "_id": "isa_uber_nov_2018"
     },
     {
       "account": "compteisa1",
@@ -1471,7 +1477,8 @@
       "automaticCategoryId": "600110",
       "currency": "€",
       "date": "{{ freshDate '2018-11-03T00:00:00Z' }}",
-      "label": "TRANSFERT LIVRET A"
+      "label": "TRANSFERT LIVRET A",
+      "_id": "isa_transfert_livret_a_debit_nov_2018"
     },
     {
       "account": "comptegene1",
@@ -1479,7 +1486,8 @@
       "automaticCategoryId": "400110",
       "currency": "€",
       "date": "{{ freshDate '2018-11-04T00:00:00Z' }}",
-      "label": "AUCHAN"
+      "label": "AUCHAN",
+      "_id": "gene_auchan_nov_2018"
     },
     {
       "account": "compteisa1",
@@ -1487,7 +1495,8 @@
       "automaticCategoryId": "400620",
       "currency": "€",
       "date": "{{ freshDate '2018-11-04T00:00:00Z' }}",
-      "label": "Generali remboursement médecin"
+      "label": "Generali remboursement médecin",
+      "_id": "isa_generali_remb_medecin_nov_2018"
     },
     {
       "account": "comptegene1",
@@ -1495,7 +1504,8 @@
       "automaticCategoryId": "300",
       "currency": "€",
       "date": "{{ freshDate '2018-11-04T00:00:00Z' }}",
-      "label": "RETRAIT CREDIT AGRICOLE"
+      "label": "RETRAIT CREDIT AGRICOLE",
+      "_id": "gene_retrait_credit_agricole_nov_2018"
     },
     {
       "account": "comptelou1",
@@ -1503,7 +1513,8 @@
       "automaticCategoryId": "300",
       "currency": "€",
       "date": "{{ freshDate '2018-11-04T00:00:00Z' }}",
-      "label": "RETRAIT BNPPARIBAS"
+      "label": "RETRAIT BNPPARIBAS",
+      "_id": "lou_retrait_bnpparibas_nov_2018"
     },
     {
       "account": "compteisa1",
@@ -1511,7 +1522,8 @@
       "automaticCategoryId": "400110",
       "currency": "€",
       "date": "{{ freshDate '2018-11-06T00:00:00Z' }}",
-      "label": "CARREFOUR MARKET"
+      "label": "CARREFOUR MARKET",
+      "_id": "isa_carrefour_market_nov_2018"
     },
     {
       "account": "comptegene1",
@@ -1519,7 +1531,8 @@
       "automaticCategoryId": "400420",
       "currency": "€",
       "date": "{{ freshDate '2018-11-07T00:00:00Z' }}",
-      "label": "FRANPRIX"
+      "label": "FRANPRIX",
+      "_id": "gene_franprix_nov_2018"
     },
     {
       "account": "compteisa1",
@@ -1527,7 +1540,8 @@
       "automaticCategoryId": "400810",
       "currency": "€",
       "date": "{{ freshDate '2018-11-08T00:00:00Z' }}",
-      "label": "LA BELLE ASSIETTE"
+      "label": "LA BELLE ASSIETTE",
+      "_id": "isa_la_belle_assiette_nov_2018"
     },
     {
       "account": "compteisa1",
@@ -1535,7 +1549,8 @@
       "automaticCategoryId": "{{ categoryId 'goingOutAndTravel' }}",
       "currency": "€",
       "date": "{{ freshDate '2018-11-08T00:00:00Z' }}",
-      "label": "Sncf"
+      "label": "Sncf",
+      "_id": "isa_sncf_nov_2018"
     },
     {
       "account": "compteisa1",
@@ -1543,7 +1558,8 @@
       "automaticCategoryId": "{{ categoryId 'telecom' }}",
       "currency": "€",
       "date": "{{ freshDate '2018-11-11T00:00:00Z' }}",
-      "label": "Free Mobile"
+      "label": "Free Mobile",
+      "_id": "isa_free_mobile_nov_2018"
     },
     {
       "account": "comptegene1",
@@ -1551,7 +1567,8 @@
       "automaticCategoryId": "400180",
       "currency": "€",
       "date": "{{ freshDate '2018-11-11T00:00:00Z' }}",
-      "label": "FNAC TERNES"
+      "label": "FNAC TERNES",
+      "_id": "gene_fnac_ternes_nov_2018"
     },
     {
       "account": "compteisa1",
@@ -1559,7 +1576,8 @@
       "automaticCategoryId": "400420",
       "currency": "€",
       "date": "{{ freshDate '2018-11-11T00:00:00Z' }}",
-      "label": "FRANPRIX"
+      "label": "FRANPRIX",
+      "_id": "isa_franprix_nov_2018"
     },
     {
       "account": "comptelou1",
@@ -1567,7 +1585,8 @@
       "automaticCategoryId": "400740",
       "currency": "€",
       "date": "{{ freshDate '2018-11-12T00:00:00Z' }}",
-      "label": "GAUMONTPARNASSE"
+      "label": "GAUMONTPARNASSE",
+      "_id": "lou_gaumontparnasse_nov_2018"
     },
     {
       "account": "compteisa1",
@@ -1575,7 +1594,8 @@
       "automaticCategoryId": "400110",
       "currency": "€",
       "date": "{{ freshDate '2018-11-12T00:00:00Z' }}",
-      "label": "CARREFOUR MARKET"
+      "label": "CARREFOUR MARKET",
+      "_id": "isa_carrefour_market_nov_2018"
     },
     {
       "account": "comptelou1",
@@ -1583,7 +1603,8 @@
       "automaticCategoryId": "400810",
       "currency": "€",
       "date": "{{ freshDate '2018-11-12T00:00:00Z' }}",
-      "label": "MC DONALDS"
+      "label": "MC DONALDS",
+      "_id": "lou_mc_donalds_nov_2018"
     },
     {
       "account": "comptegene1",
@@ -1591,7 +1612,8 @@
       "automaticCategoryId": "400130",
       "currency": "€",
       "date": "{{ freshDate '2018-11-13T00:00:00Z' }}",
-      "label": "LA REDOUTE"
+      "label": "LA REDOUTE",
+      "_id": "gene_la_redoute_nov_2018"
     },
     {
       "account": "compteisa1",
@@ -1599,7 +1621,8 @@
       "automaticCategoryId": "{{ categoryId 'shoppingECommerce' }}",
       "currency": "€",
       "date": "{{ freshDate '2018-11-13T00:00:00Z' }}",
-      "label": "Leclerc Drive"
+      "label": "Leclerc Drive",
+      "_id": "isa_leclerc_drive_nov_2018"
     },
     {
       "account": "compteisa1",
@@ -1607,7 +1630,8 @@
       "automaticCategoryId": "400290",
       "currency": "€",
       "date": "{{ freshDate '2018-11-14T00:00:00Z' }}",
-      "label": "UBER"
+      "label": "UBER",
+      "_id": "isa_uber2_nov_2018"
     },
     {
       "account": "comptegene1",
@@ -1615,7 +1639,8 @@
       "automaticCategoryId": "400110",
       "currency": "€",
       "date": "{{ freshDate '2018-11-14T00:00:00Z' }}",
-      "label": "CARREFOUR CITY"
+      "label": "CARREFOUR CITY",
+      "_id": "gene_carrefour_city_nov_2018"
     },
     {
       "account": "compteisa1",
@@ -1623,7 +1648,8 @@
       "automaticCategoryId": "{{ categoryId 'shoppingECommerce' }}",
       "currency": "€",
       "date": "{{ freshDate '2018-11-15T00:00:00Z' }}",
-      "label": "Just Eat"
+      "label": "Just Eat",
+      "_id": "isa_just_eat_nov_2018"
     },
     {
       "account": "compteisa1",
@@ -1631,7 +1657,8 @@
       "automaticCategoryId": "400130",
       "currency": "€",
       "date": "{{ freshDate '2018-11-17T00:00:00Z' }}",
-      "label": "FRANCK PROVOST MONCEAU"
+      "label": "FRANCK PROVOST MONCEAU",
+      "_id": "isa_franck_provost_monceau_nov_2018"
     },
     {
       "account": "compteisa1",
@@ -1639,7 +1666,8 @@
       "automaticCategoryId": "400750",
       "currency": "€",
       "date": "{{ freshDate '2018-11-17T00:00:00Z' }}",
-      "label": "REMBOURSEMENT PRET LCL"
+      "label": "REMBOURSEMENT PRET LCL",
+      "_id": "isa_remboursement_pret_lcl_nov_2018"
     },
     {
       "account": "comptelou1",
@@ -1647,7 +1675,8 @@
       "automaticCategoryId": "300",
       "currency": "€",
       "date": "{{ freshDate '2018-11-19T00:00:00Z' }}",
-      "label": "RETRAIT BNPPARIBAS 2018-10-19"
+      "label": "RETRAIT BNPPARIBAS 2018-10-19",
+      "_id": "lou_retrait_bnpparibas_nov_2018"
     },
     {
       "account": "compteisa1",
@@ -1655,7 +1684,8 @@
       "automaticCategoryId": "{{ categoryId 'booksMoviesMusic' }}",
       "currency": "€",
       "date": "{{ freshDate '2018-11-20T00:00:00Z' }}",
-      "label": "Netflix"
+      "label": "Netflix",
+      "_id": "isa_netflix_nov_2018"
     },
     {
       "account": "comptegene1",
@@ -1663,7 +1693,8 @@
       "automaticCategoryId": "400330",
       "currency": "€",
       "date": "{{ freshDate '2018-11-20T00:00:00Z' }}",
-      "label": "FRANCE MENAGE MONTLY SUBSCRIPTION"
+      "label": "FRANCE MENAGE MONTLY SUBSCRIPTION",
+      "_id": "gene_france_menage_nov_2018"
     },
     {
       "account": "compteisa1",
@@ -1671,7 +1702,8 @@
       "automaticCategoryId": "400130",
       "currency": "€",
       "date": "{{ freshDate '2018-11-21T00:00:00Z' }}",
-      "label": "H&M"
+      "label": "H&M",
+      "_id": "isa_hm_nov_2018"
     },
     {
       "account": "comptegene1",
@@ -1679,7 +1711,8 @@
       "automaticCategoryId": "400420",
       "currency": "€",
       "date": "{{ freshDate '2018-11-21T00:00:00Z' }}",
-      "label": "FRANPRIX ST LAZARE PR"
+      "label": "FRANPRIX ST LAZARE PR",
+      "_id": "gene_franprix_st_lazare_pr_nov_2018"
     },
     {
       "account": "compteisa1",
@@ -1687,7 +1720,8 @@
       "automaticCategoryId": "{{ categoryId 'telecom' }}",
       "currency": "€",
       "date": "{{ freshDate '2018-11-23T00:00:00Z' }}",
-      "label": "Sosh"
+      "label": "Sosh",
+      "_id": "isa_sosh_nov_2018"
     }
   ],
   "io.cozy.bills": [
