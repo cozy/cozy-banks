@@ -20,7 +20,7 @@ const Nav = ({ t }) => (
     <NavItem>
       <NavLink to="balances">
         <NavIcon icon={dashboard} />
-        <NavText>{t('Nav.balance')}</NavText>
+        <NavText>{t('Nav.my-accounts')}</NavText>
       </NavLink>
     </NavItem>
     <NavItem>
