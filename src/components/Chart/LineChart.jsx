@@ -380,26 +380,30 @@ class LineChart extends Component {
       this.mask.attr('opacity', 0)
     }
 
-    d3.transition(this.line)
+    this.line
       .attr('stroke-dasharray', lineTotalLength)
       .attr('stroke-dashoffset', lineTotalLength)
+      .transition()
       .duration(this.props.enterAnimationDuration)
       .ease(d3.easeExpInOut)
       .attr('stroke-dashoffset', 0)
       .on('end', () => {
         if (this.mask) {
-          d3.transition(this.mask)
+          this.mask
+            .transition()
             .duration(250)
             .ease(d3.easeLinear)
             .attr('opacity', 1)
 
-          d3.transition(this.point)
+          this.point
+            .transition()
             .duration(200)
             .ease(d3.easeLinear)
             .attr('r', this.props.pointRadius)
             .attr('stroke-width', this.props.pointStrokeWidth)
 
-          d3.transition(this.pointLine)
+          this.pointLine
+            .transition()
             .duration(400)
             .ease(d3.easeExpIn)
             .attr('opacity', 1)
