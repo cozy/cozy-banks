@@ -78,7 +78,7 @@ class _RowDesktop extends React.PureComponent {
 
     const account = transaction.account.data
     const accountInstitutionLabel = getAccountInstitutionLabel(account)
-    const trRest = flag('show-transactions-ids') ? { id: transaction._id } : {}
+    const trRest = flag('show-transactions-ids') ? { id: transaction._id } : {}
 
     return (
       <tr ref={onRef} {...trRest}>
@@ -154,7 +154,7 @@ class _RowMobile extends React.PureComponent {
     } = this.props
     const account = transaction.account.data
     const accountInstitutionLabel = getAccountInstitutionLabel(account)
-    const rowRest = flag('show-transactions-ids') ? { id: transaction._id } : {}
+    const rowRest = flag('show-transactions-ids') ? { id: transaction._id } : {}
 
     return (
       <List.Row onRef={onRef} {...rowRest}>
