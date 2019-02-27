@@ -202,11 +202,6 @@
     "konnectorSlug": "opngo"
   },
   {
-    "name": "Orange Factures",
-    "regexp": "\\borange\\b",
-    "konnectorSlug": "orange"
-  },
-  {
     "name": "OVH",
     "regexp": "\\bovh\\b",
     "konnectorSlug": "ovh"
@@ -235,11 +230,6 @@
     "name": "Showroom Privé",
     "regexp": "\\bshowroomprive\\b",
     "konnectorSlug": "showroomprive"
-  },
-  {
-    "name": "Sosh",
-    "regexp": "\\b(sosh|orange)\\b",
-    "konnectorSlug": "sosh"
   },
   {
     "name": "Spartoo",
