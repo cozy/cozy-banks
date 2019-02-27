@@ -23,7 +23,7 @@ class AccountsList extends React.PureComponent {
     const isReimbursementsType = getAccountType(account) === 'Reimbursements'
     const route = isReimbursementsType
       ? '/balances/reimbursements'
-      : '/transactions'
+      : '/balances/details'
 
     router.push(route)
   }

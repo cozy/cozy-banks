@@ -79,7 +79,7 @@ class GroupPanel extends React.PureComponent {
       group._id === 'Reimbursements' && group.virtual
     const route = isReimbursementsVirtualGroup
       ? '/balances/reimbursements'
-      : '/transactions'
+      : '/balances/details'
 
     router.push(route)
   }
