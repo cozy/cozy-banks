@@ -9,7 +9,7 @@ import styles from './History.styl'
 import HistoryChart from './HistoryChart'
 import { isCollectionLoading } from 'ducks/client/utils'
 import { format as formatDate, subYears, isAfter } from 'date-fns'
-import * as d3 from 'd3'
+import * as d3 from 'utils/d3'
 import {
   getBalanceHistories,
   sumBalanceHistories,

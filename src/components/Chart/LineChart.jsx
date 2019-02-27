@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import * as d3 from 'd3'
+import * as d3 from 'utils/d3'
 import { max, minBy, keyBy, memoize } from 'lodash'
 import styles from './LineChart.styl'
 import Tooltip from './Tooltip'
@@ -380,30 +380,26 @@ class LineChart extends Component {
       this.mask.attr('opacity', 0)
     }
 
-    this.line
+    d3.transition(this.line)
       .attr('stroke-dasharray', lineTotalLength)
       .attr('stroke-dashoffset', lineTotalLength)
-      .transition()
       .duration(this.props.enterAnimationDuration)
       .ease(d3.easeExpInOut)
       .attr('stroke-dashoffset', 0)
       .on('end', () => {
         if (this.mask) {
-          this.mask
-            .transition()
+          d3.transition(this.mask)
             .duration(250)
             .ease(d3.easeLinear)
             .attr('opacity', 1)
 
-          this.point
-            .transition()
+          d3.transition(this.point)
             .duration(200)
             .ease(d3.easeLinear)
             .attr('r', this.props.pointRadius)
             .attr('stroke-width', this.props.pointStrokeWidth)
 
-          this.pointLine
-            .transition()
+          d3.transition(this.pointLine)
             .duration(400)
             .ease(d3.easeExpIn)
             .attr('opacity', 1)
