@@ -27,8 +27,7 @@
   },
 
   "Nav": {
-    "movements": "Mouvements",
-    "balance": "Solde actuel",
+    "my-accounts": "Mes comptes",
     "categorisation": "Catégorisation",
     "projections": "Prévisions",
     "savings": "Economiser",

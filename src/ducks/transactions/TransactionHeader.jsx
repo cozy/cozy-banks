@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
 import { flowRight as compose, max } from 'lodash'
@@ -38,10 +38,10 @@ class TransactionHeader extends Component {
     }
 
     return (
-      <Fragment>
-        {this.props.showBackButton && <BackButton theme={theme} />}
+      <div className={styles.TransactionHeader__accountSwitchContainer}>
+        {this.props.showBackButton && <BackButton theme={theme} arrow />}
         <AccountSwitch small={isSubcategory} {...colorProps} />
-      </Fragment>
+      </div>
     )
   }
 

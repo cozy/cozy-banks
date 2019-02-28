@@ -14,8 +14,7 @@
     "settings": "Settings",
     "savings": "Savings",
     "projections": "Forecasts",
-    "balance": "Current balance",
-    "movements": "Transactions"
+    "my-accounts": "My accounts"
   },
   "Error": {
     "more-information": "More information",
