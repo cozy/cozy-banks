@@ -98,7 +98,7 @@
     "copy-webpack-plugin": "4.6.0",
     "cozy-ach": "1.13.0",
     "cozy-app-publish": "0.11.0",
-    "cozy-jobs-cli": "1.7.8",
+    "cozy-jobs-cli": "1.7.10",
     "css-loader": "2.1.0",
     "css-mqpacker": "7.0.0",
     "csswring": "7.0.0",
@@ -138,10 +138,10 @@
     "stylus-loader": "3.0.2",
     "svg-sprite-loader": "3.9.2",
     "webpack": "4.29.5",
-    "webpack-cli": "3.2.1",
-    "webpack-dev-server": "3.1.14",
+    "webpack-cli": "3.2.3",
+    "webpack-dev-server": "3.2.1",
     "webpack-merge": "4.2.1",
-    "yarnhook": "0.3.0"
+    "yarnhook": "0.4.0"
   },
   "dependencies": {
     "@material-ui/core": "3.9.2",
@@ -154,8 +154,8 @@
     "classnames": "2.2.6",
     "cordova": "7.1.0",
     "cozy-authentication": "1.4.0-beta1",
-    "cozy-bar": "6.13.1",
-    "cozy-client": "6.3.3",
+    "cozy-bar": "6.14.0",
+    "cozy-client": "6.4.2",
     "cozy-client-js": "0.14.2",
     "cozy-device-helper": "1.6.3",
     "cozy-doctypes": "1.35.1",
