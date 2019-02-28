@@ -4775,10 +4775,10 @@ cozy-client-js@^0.3.4:
   resolved "https://registry.yarnpkg.com/cozy-client-js/-/cozy-client-js-0.3.21.tgz#d27d0288077ce95139333c41dfb537b8584ff254"
   integrity sha1-0n0CiAd86VE5MzxB37U3uFhP8lQ=
 
-cozy-client@6.3.3:
-  version "6.3.3"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.3.3.tgz#53cae88221c5264770b6edb8815582e2fc07f0cc"
-  integrity sha512-J4MJ3jZ6ynKU6SNPZaWcYQ6PqFiOS7UWLUvoqH7StpVtvKVz6hxqq6Fv3H5yBvtrOekTXk7szuFHXK682cjWdQ==
+cozy-client@6.4.2:
+  version "6.4.2"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.4.2.tgz#8193008ada122b5f59c669ad255cbc02d00fa941"
+  integrity sha512-/7a+dN1wMioaymD10QMZipN3SM9xpAGyySSG2pVQz8ynEGzz8TdKUnumdKn0rOyhUGLRKyPVzZ79+Txyb6vxfw==
   dependencies:
     cozy-device-helper "1.6.3"
     cozy-stack-client "^6.3.3"
@@ -4788,7 +4788,7 @@ cozy-client@6.3.3:
     react-redux "5.0.7"
     redux "3.7.2"
     redux-thunk "2.3.0"
-    sift "7.0.1"
+    sift "6.0.0"
 
 cozy-client@^5.7.6:
   version "5.7.6"
@@ -16501,6 +16501,11 @@ shellwords@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/shellwords/-/shellwords-0.1.1.tgz#d6b9181c1a48d397324c84871efbcfc73fc0654b"
   integrity sha512-vFwSUfQvqybiICwZY5+DAWIPLKsWO31Q91JSKl3UYv+K5c2QRPzn0qzec6QPu1Qc9eHYItiP3NdJqNVqetYAww==
+
+sift@6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/sift/-/sift-6.0.0.tgz#f93a778e5cbf05a5024ebc391e6b32511a6d1f82"
+  integrity sha1-+Tp3jly/BaUCTrw5HmsyURptH4I=
 
 sift@7.0.1:
   version "7.0.1"
