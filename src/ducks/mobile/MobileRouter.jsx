@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 import { Router, Route } from 'react-router'
 import { withClient } from 'cozy-client'
 import { Authentication, Revoked } from 'cozy-authentication'
-import { defaultRoute } from 'components/AppRoute'
 import { setURLContext, logException } from 'lib/sentry'
 import {
   storeCredentials,
@@ -77,7 +76,7 @@ const withAuth = Wrapped =>
         const { url, clientInfo, router, token } = res
         setURLContext(url)
         this.context.store.dispatch(storeCredentials(url, clientInfo, token))
-        router.replace(defaultRoute())
+        router.replace('/balances')
       } else {
         // when user is already authenticated
         clientInfos = this.context.store.getState().mobile.client
