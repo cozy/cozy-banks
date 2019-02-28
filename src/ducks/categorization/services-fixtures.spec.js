@@ -12,6 +12,17 @@ const fixturePath = path.join(__dirname, 'fixtures')
 const BACKUP_DIR = process.env.BACKUP_DIR
 const IT_IS_A_TEST = process.env.IT_IS_A_TEST
 
+const softRequire = file => {
+  try {
+    return require(file)
+  } catch (e) {
+    return undefined
+  }
+}
+
+const globalModelJSON = softRequire('./bank_classifier_nb_and_voc.json')
+const xOrDescribe = globalModelJSON ? describe : xdescribe
+
 let banks
 if (IT_IS_A_TEST) {
   banks = ['flotest60.cozy.rocks']
@@ -354,7 +365,7 @@ const computeAccuracy = transactions => {
   return accuracyByFrequency
 }
 
-describe('Chain of predictions', () => {
+xOrDescribe('Chain of predictions', () => {
   // prepare mock
   let manualCategorizations = []
   beforeEach(() => {
