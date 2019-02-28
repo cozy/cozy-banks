@@ -1,16 +1,17 @@
 import { localModel, globalModel, BankClassifier } from './services'
 import { tokenizer } from '.'
 import { Transaction } from '../../models'
-const createCsvWriter = require('csv-writer').createObjectCsvWriter
 const path = require('path')
 const fs = require('fs')
 
-const fixturePath = path.join(__dirname, 'fixtures')
 const cat2name = require('../categories/tree.json')
-const globalModelJSON = require('./bank_classifier_nb_and_voc.json')
 const allowedFallbackCategories = require('./allowed_wrong_categories.json')
 
-const IT_IS_A_TEST = false
+const fixturePath = path.join(__dirname, 'fixtures')
+
+const BACKUP_DIR = process.env.BACKUP_DIR
+const IT_IS_A_TEST = process.env.IT_IS_A_TEST
+
 let banks
 if (IT_IS_A_TEST) {
   banks = ['flotest60.cozy.rocks']
@@ -55,23 +56,24 @@ if (dd < 10) {
 if (mm < 10) {
   mm = '0' + mm
 }
-const BACKUP_DIR = require('./local-config.json').BACKUP_DIR
-// via the snapshots
-const txtPath = path.join(BACKUP_DIR, `results-${yyyy}-${mm}-${dd}.txt`)
-// via CSV
-const csvPath = path.join(BACKUP_DIR, `results-${yyyy}-${mm}-${dd}.csv`)
-const csvWriter = createCsvWriter({
-  path: csvPath,
-  header: [
-    { id: 'manCat', title: 'Manual recategorization' },
-    { id: 'method', title: 'Used model' },
-    { id: 'status', title: 'Status' },
-    { id: 'amount', title: 'Amount' },
-    { id: 'label', title: 'Label' },
-    { id: 'catNameDisplayed', title: 'Category displayed' },
-    { id: 'catNameTrue', title: 'True category' }
-  ]
-})
+
+let csvWriter
+const setCsvWriter = () => {
+  const createCsvWriter = require('csv-writer').createObjectCsvWriter
+  const csvPath = path.join(BACKUP_DIR, `results-${yyyy}-${mm}-${dd}.csv`)
+  csvWriter = createCsvWriter({
+    path: csvPath,
+    header: [
+      { id: 'manCat', title: 'Manual recategorization' },
+      { id: 'method', title: 'Used model' },
+      { id: 'status', title: 'Status' },
+      { id: 'amount', title: 'Amount' },
+      { id: 'label', title: 'Label' },
+      { id: 'catNameDisplayed', title: 'Category displayed' },
+      { id: 'catNameTrue', title: 'True category' }
+    ]
+  })
+}
 
 const checkCategorization = transactions => {
   return transactions.map(op => {
@@ -479,13 +481,14 @@ describe('Chain of predictions', () => {
         '__snapshots__',
         `${path.basename(__filename)}.snap`
       ),
-      txtPath,
+      path.join(BACKUP_DIR, `results-${yyyy}-${mm}-${dd}.txt`),
       err => {
         if (err) {
           throw err
         }
       }
     )
+    if (!csvWriter) setCsvWriter()
     csvWriter.writeRecords(fixturesRecords).then(
       () => {
         expect(true).toBeTruthy()
