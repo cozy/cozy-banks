@@ -113,6 +113,9 @@ class TransactionsPage extends Component {
     ) {
       this.setCurrentMonthFollowingMostRecentTransaction()
     }
+    if (prevProps.filteringDoc !== this.props.filteringDoc) {
+      this.handleChangeMonth(this.state.currentMonth)
+    }
   }
 
   getInstalledKonnectorsSlugs() {
