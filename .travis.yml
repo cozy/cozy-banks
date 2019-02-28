@@ -22,6 +22,11 @@ before_deploy:
   - eval "$(ssh-agent -s)"
   - chmod 600 /tmp/deploy_rsa
   - ssh-add /tmp/deploy_rsa
+branches:
+  only:
+  - master
+  # tags
+  - /^\d+\.\d+\.\d+(\-beta.\d+)?$/
 stages:
   - test
   - build
