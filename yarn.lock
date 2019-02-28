@@ -4708,10 +4708,10 @@ cozy-ach@1.13.0:
     server-destroy "^1.0.1"
     timezone "^1.0.13"
 
-cozy-app-publish@^0.11.1-beta.1:
-  version "0.11.1-beta.1"
-  resolved "https://registry.yarnpkg.com/cozy-app-publish/-/cozy-app-publish-0.11.1-beta.1.tgz#629900f072a9eb12a8f2a048f22904cf9efd4dcc"
-  integrity sha512-o0/IGv5vAEwp9DScSxqxz6kAuPfxe4SVqdAnmwHhM11X8Q7xCG5oLbhly2aENuZHszmDdvWJshyNPao8ifaFFQ==
+cozy-app-publish@0.11.1:
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/cozy-app-publish/-/cozy-app-publish-0.11.1.tgz#2699e57c81fa18aa9b1db09a12a85b79c3df2687"
+  integrity sha512-wSH3K8uuZcpuef3ve2ig3SyjBcYdTWEb9hSU8xT4oEQgr1Zvc80LqUBYeRFlC8bMrQm1t5IxPvlpKM6JxLXZvg==
   dependencies:
     chalk "2.4.2"
     commander "2.19.0"
