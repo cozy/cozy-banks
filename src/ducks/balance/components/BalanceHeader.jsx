@@ -7,9 +7,9 @@ import Header from 'components/Header'
 import { Figure } from 'components/Figure'
 import { PageTitle } from 'components/Title'
 import KonnectorUpdateInfo from 'components/KonnectorUpdateInfo'
+import History from 'ducks/balance/History'
 
 import styles from './BalanceHeader.styl'
-import History from '../History'
 
 const BalanceHeader = ({
   t,

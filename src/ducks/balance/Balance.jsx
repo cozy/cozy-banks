@@ -7,14 +7,14 @@ import cx from 'classnames'
 
 import Loading from 'components/Loading'
 import { Padded } from 'components/Spacing'
-import BalanceHeader from './components/BalanceHeader'
+import BalanceHeader from 'ducks/balance/components/BalanceHeader'
 
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import { buildVirtualGroups } from 'ducks/groups/helpers'
 import { isCollectionLoading } from 'ducks/client/utils'
 import { getAccountBalance } from 'ducks/account/helpers'
 
-import styles from './Balance.styl'
+import styles from 'ducks/balance/Balance.styl'
 import BalanceTables from './BalanceTables'
 import BalancePanels from './BalancePanels'
 import { getPanelsState } from './helpers'
