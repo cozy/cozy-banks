@@ -14,8 +14,9 @@ const FILTER_BY_DOC = 'FILTER_BY_DOC'
 const RESET_FILTER_BY_DOC = 'RESET_FILTER_BY_DOC'
 
 // selectors
-export const getPeriod = state => state.filters.period
-export const getFilteringDoc = state => state.filters.filteringDoc
+export const getPeriod = state => state.filters && state.filters.period
+export const getFilteringDoc = state =>
+  state.filters && state.filters.filteringDoc
 
 export const getFilteredAccountIds = state => {
   const availableAccountIds = getAccounts(state).map(x => x._id)
