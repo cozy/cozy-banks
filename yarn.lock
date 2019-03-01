@@ -4840,10 +4840,10 @@ cozy-doctypes@1.33.0:
     es6-promise-pool "2.5.0"
     lodash "4.17.11"
 
-cozy-doctypes@1.35.1:
-  version "1.35.1"
-  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.35.1.tgz#08a0c7a1ab08db7f79bc4564bd1f25f4af56adf8"
-  integrity sha512-LhMpY+1YKu5q6dr9FCZcFoqtQzTDzrsQJfWm3zOYLZ9jDgalfJCrzeUC2vklUsrqVxXfrYuz2MWQ8RTA178h7w==
+cozy-doctypes@1.35.2:
+  version "1.35.2"
+  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.35.2.tgz#077dfe3674b661b224423f6185df2a17d2654e4a"
+  integrity sha512-eg2bQqHQgpQCI0VZVSv4kVKcfE69W8+tqy1kj3KHliOjwxtwFpe7XVHg1/oe6/pwfr6p8aopC+YGC7DSLzzfRQ==
   dependencies:
     "@babel/runtime" "7.3.1"
     cozy-logger "1.3.1"
