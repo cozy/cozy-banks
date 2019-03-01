@@ -4862,18 +4862,18 @@ cozy-interapp@0.2.18:
   resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.2.18.tgz#be1f83f1a7d1fc58735cfa656fc0430feda556bb"
   integrity sha512-nISbYNk2rMtz6pSouXHsSJq06s6tIqNcB9vjiOR63PjIDphXXW94L4dkLDxhy5kQcvXjIBHRcViiDw9/NbcYFw==
 
-cozy-jobs-cli@1.7.10:
-  version "1.7.10"
-  resolved "https://registry.yarnpkg.com/cozy-jobs-cli/-/cozy-jobs-cli-1.7.10.tgz#7e8d650c09171b208dbd310740b15b40c6538c82"
-  integrity sha512-mFfpQQhrvuXGyKQuJLL9zjaXk6ZZ/mGkn4i2ky0f7BP+37YgpyVVH4m7ozm/2ZgzNHPDxSyjZAINBJzmNh8Yrw==
+cozy-jobs-cli@1.7.11:
+  version "1.7.11"
+  resolved "https://registry.yarnpkg.com/cozy-jobs-cli/-/cozy-jobs-cli-1.7.11.tgz#aab220bafa7c2e83b8494dbf78121e8f2270e3cd"
+  integrity sha512-NIAaTrF0AoelH1/giiEBButa3USb2hOc9loG++e2WQE/TCOTSgBl8wXhnlKrmMuviGFQ6rDu0v4kXTwNjgeUyQ==
   dependencies:
     btoa "1.2.1"
     cheerio "1.0.0-rc.2"
     cli-highlight "2.0.0"
     commander "2.19.0"
     core-js "2.6.5"
-    cozy-client-js "0.9.0"
-    cozy-konnector-libs "^4.14.8"
+    cozy-client-js "0.14.2"
+    cozy-konnector-libs "^4.14.9"
     cozy-logger "^1.3.1"
     opn "5.4.0"
     pretty "2.0.0"
@@ -4905,10 +4905,10 @@ cozy-konnector-libs@4.13.1:
     request-debug "0.2.0"
     request-promise "4.2.2"
 
-cozy-konnector-libs@^4.14.8:
-  version "4.14.8"
-  resolved "https://registry.yarnpkg.com/cozy-konnector-libs/-/cozy-konnector-libs-4.14.8.tgz#0afe0564b744d1903e1999042caa9a6527ad3f37"
-  integrity sha512-+Hm0bUwmzLoI8FgdTepE0AkVLwDmAIq1SBIIuQNnuaQgrOzioapn33qjXmGFeVLSmJMG3/zzRoLW9eAoUzVZeA==
+cozy-konnector-libs@^4.14.9:
+  version "4.14.9"
+  resolved "https://registry.yarnpkg.com/cozy-konnector-libs/-/cozy-konnector-libs-4.14.9.tgz#81349f714619184d4923c18eb3878f5eeab2e442"
+  integrity sha512-o9cCHh2nG3QBakn7mKxpnB5GQO9NbRqsQktJh+zPAAZTD34YkbN0Q9C6rLA5AZX/J1qZG6OvSBf9Kpj3H5Havg==
   dependencies:
     bluebird "3.5.3"
     bluebird-retry "0.11.0"
