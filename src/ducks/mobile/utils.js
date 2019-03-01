@@ -1,5 +1,6 @@
 /* global cozy, __TARGET__ */
 import { setTheme as setStatusBarTheme } from './statusBar'
+import barOverrides from 'ducks/bar/overrides'
 
 const getLang = () =>
   navigator && navigator.language ? navigator.language.slice(0, 2) : 'en'
@@ -41,6 +42,7 @@ export const setBarTheme = theme => {
   }
 
   if (cozy.bar && cozy.bar.setTheme) {
-    cozy.bar.setTheme(theme)
+    const overrides = barOverrides[theme]
+    cozy.bar.setTheme(theme, overrides)
   }
 }
