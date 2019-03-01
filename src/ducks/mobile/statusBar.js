@@ -5,7 +5,7 @@ export const setColor = color => {
 }
 
 const THEME_TO_COLORS = {
-  primary: 'primary-dark',
+  primary: 'primaryColorDark',
   default: 'coolGrey'
 }
 

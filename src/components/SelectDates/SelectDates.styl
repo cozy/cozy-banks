@@ -45,10 +45,10 @@ select-date-height-small = 2.75rem
     border-bottom 0
 
     .SelectDates__separator
-        border-left 1px solid var(--primary)
+        border-left 1px solid var(--primaryColor)
 
     .SelectDates__chip
-        background-color var(--primary-light)
+        background-color var(--primaryColorLight)
         margin 0
 
         svg
@@ -58,10 +58,8 @@ select-date-height-small = 2.75rem
             margin-left .5rem
 
         &.SelectDatesButtonDisabled
-            background-color #3e8bef
-
-            .SelectDatesButtonColor
-                color #6fa8f2
+            background-color var(--primaryColorLight)
+            opacity 0.5
 
         .SelectDatesButtonColor
             color var(--white)

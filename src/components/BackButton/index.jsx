@@ -39,7 +39,7 @@ const BackButton = ({
   const handleClick = (onClick = onClick || (() => to && router.push(to)))
   const arrowColor =
     theme === 'primary'
-      ? getCssVariableValue('primary-contrast-text')
+      ? getCssVariableValue('primaryContrastTextColor')
       : getCssVariableValue('coolGrey')
   return isMobile ? (
     <BarLeft>
