@@ -4857,10 +4857,10 @@ cozy-flags@1.5.5:
   dependencies:
     detect-node "2.0.4"
 
-cozy-interapp@0.2.18:
-  version "0.2.18"
-  resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.2.18.tgz#be1f83f1a7d1fc58735cfa656fc0430feda556bb"
-  integrity sha512-nISbYNk2rMtz6pSouXHsSJq06s6tIqNcB9vjiOR63PjIDphXXW94L4dkLDxhy5kQcvXjIBHRcViiDw9/NbcYFw==
+cozy-interapp@0.2.20:
+  version "0.2.20"
+  resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.2.20.tgz#bc943646a25af64d49acdad94e40e88239ef34ab"
+  integrity sha512-0W1FVLrs80QnWhy4F0Gqby+NOStUVdp8TWHlJBaVkDCn5kMXY0TrTAd/OZxMkdPsmTmxZuPlCrxRgXAF8nJk/w==
 
 cozy-jobs-cli@1.7.10:
   version "1.7.10"
