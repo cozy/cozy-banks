@@ -60,7 +60,7 @@ const Breadcrumb = ({ items, className, color }) => {
         <Icon
           icon={arrowLeftIcon}
           color={
-            color === 'primary' ? 'var(--primary-contrast-text)' : coolGrey
+            color === 'primary' ? 'var(--primaryContrastTextColor)' : coolGrey
           }
           className={cx(styles.Breadcrumb__previousButton, styles[color])}
           onClick={lastPreviousItem.onClick}
