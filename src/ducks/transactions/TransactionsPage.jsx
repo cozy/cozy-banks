@@ -17,7 +17,7 @@ import {
   uniq,
   maxBy
 } from 'lodash'
-import { getFilteredAccounts } from 'ducks/filters'
+import { getFilteredAccounts, getFilteringDoc } from 'ducks/filters'
 import BarBalance from 'components/BarBalance'
 import { Padded } from 'components/Spacing'
 
@@ -112,6 +112,9 @@ class TransactionsPage extends Component {
       !isCollectionLoading(this.props.transactions)
     ) {
       this.setCurrentMonthFollowingMostRecentTransaction()
+    }
+    if (prevProps.filteringDoc !== this.props.filteringDoc) {
+      this.handleChangeMonth(this.state.currentMonth)
     }
   }
 
@@ -380,7 +383,7 @@ const mapStateToProps = (state, ownProps) => {
       HOME: getAppUrlById(enhancedState, 'io.cozy.apps/home')
     },
     accountIds: getFilteredAccountIds(enhancedState),
-    filteringDoc: state.filters.filteringDoc,
+    filteringDoc: getFilteringDoc(state),
     filteredAccounts: getFilteredAccounts(enhancedState),
     filteredTransactions: filteredTransactions
   }

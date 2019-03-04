@@ -7,7 +7,8 @@ import {
   TransactionsPageBar
 } from './TransactionsPage'
 import data from '../../../test/fixtures'
-
+import PropTypes from 'prop-types'
+import AppLike from 'test/AppLike'
 const allAccounts = data['io.cozy.bank.accounts']
 const allTransactions = data['io.cozy.bank.operations']
 
@@ -34,18 +35,30 @@ describe('TransactionsPage', () => {
     jest.restoreAllMocks()
   })
 
-  const setup = () => {
-    root = mount(
+  // Necessary wrapper to be able to use setProps since `setProps` is
+  // only callable on the Enzyme root
+  const Wrapper = ({ filteringDoc }) => (
+    <AppLike>
       <UnpluggedTransactionsPage
         filteredTransactions={allTransactions}
         filteredAccounts={allAccounts}
-        router={{
-          params: {
-            subcategoryName
-          }
-        }}
+        filteringDoc={filteringDoc}
       />
-    )
+    </AppLike>
+  )
+
+  const setup = () => {
+    const context = {
+      router: {
+        params: {
+          subcategoryName
+        }
+      }
+    }
+    const childContextTypes = {
+      router: PropTypes.object
+    }
+    root = mount(<Wrapper />, { context, childContextTypes })
   }
 
   it('should not show the top balance on movements page on non mobile', () => {
@@ -101,5 +114,14 @@ describe('TransactionsPage', () => {
     expect(instance.setState).toHaveBeenCalledWith({
       currentMonth: '2019-02'
     })
+  })
+
+  it('should call handleChangeMonth if filteringDoc changed', () => {
+    setup()
+    const tp = root.find(DumbTransactionsPage)
+    const instance = tp.instance()
+    jest.spyOn(instance, 'handleChangeMonth')
+    root.setProps({ filteringDoc: { _id: 'new-doc' } })
+    expect(instance.handleChangeMonth).toHaveBeenCalled()
   })
 })
