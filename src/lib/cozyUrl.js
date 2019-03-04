@@ -1,5 +1,5 @@
-const protocolRegex = '(https?):\/{2}'
-const cozyRegex = '([^\.-]+)(-([^\.]+))?\.([^\.]*\.[^\.\/\:]*)'
+const protocolRegex = '(https?):/{2}'
+const cozyRegex = '([^.-]+)(-([^.]+))?.([^.]*.[^./:]*)'
 
 export const getProtocol = url => {
   const r = new RegExp(`^${protocolRegex}`)

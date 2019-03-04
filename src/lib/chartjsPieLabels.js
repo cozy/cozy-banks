@@ -3,7 +3,15 @@
 
 /* global Chart */
 
-function drawArcText (context, str, centerX, centerY, radius, startAngle, endAngle) {
+function drawArcText(
+  context,
+  str,
+  centerX,
+  centerY,
+  radius,
+  startAngle,
+  endAngle
+) {
   context.save()
   context.translate(centerX, centerY)
   startAngle += Math.PI / 2
@@ -24,7 +32,7 @@ function drawArcText (context, str, centerX, centerY, radius, startAngle, endAng
 }
 
 export const pieLabelsPlugin = {
-  afterDraw: function (chartInstance) {
+  afterDraw: function(chartInstance) {
     if (!chartInstance.options.pieceLabel) {
       return
     }
@@ -33,13 +41,17 @@ export const pieLabelsPlugin = {
     const arcText = chartInstance.options.pieceLabel.arcText || false
     const labelFormater = chartInstance.options.pieceLabel.labelFormater
     const precision = chartInstance.options.pieceLabel.precision || 0
-    const fontSize = chartInstance.options.pieceLabel.fontSize || options.defaultFontSize
+    const fontSize =
+      chartInstance.options.pieceLabel.fontSize || options.defaultFontSize
     const fontColor = chartInstance.options.pieceLabel.fontColor || '#fff'
-    const fontStyle = chartInstance.options.pieceLabel.fontStyle || options.defaultFontStyle
-    const fontFamily = chartInstance.options.pieceLabel.fontFamily || options.defaultFontFamily
-    const hasTooltip = chartInstance.tooltip._active && chartInstance.tooltip._active.length
+    const fontStyle =
+      chartInstance.options.pieceLabel.fontStyle || options.defaultFontStyle
+    const fontFamily =
+      chartInstance.options.pieceLabel.fontFamily || options.defaultFontFamily
+    const hasTooltip =
+      chartInstance.tooltip._active && chartInstance.tooltip._active.length
 
-    chartInstance.config.data.datasets.forEach(function (dataset, datasetIndex) {
+    chartInstance.config.data.datasets.forEach(function(dataset, datasetIndex) {
       const meta = dataset._meta[Object.keys(dataset._meta)[0]]
       let totalPercentage = 0
       for (let i = 0; i < meta.data.length; i++) {
@@ -64,13 +76,13 @@ export const pieLabelsPlugin = {
             break
           case 'percentage':
           default:
-            let percentage = view.circumference / options.circumference * 100
+            let percentage = (view.circumference / options.circumference) * 100
             percentage = parseFloat(percentage.toFixed(precision))
             totalPercentage += percentage
             if (totalPercentage > 100) {
               percentage -= totalPercentage - 100
-                // After adjusting the percentage, need to trim the numbers after decimal points again, otherwise it may not show
-                // on chart due to very long number after decimal point.
+              // After adjusting the percentage, need to trim the numbers after decimal points again, otherwise it may not show
+              // on chart due to very long number after decimal point.
               percentage = parseFloat(percentage.toFixed(precision))
             }
             text = percentage + '%'
@@ -85,17 +97,32 @@ export const pieLabelsPlugin = {
         const right = tooltipPosition.x + mertrics.width / 2
         const top = tooltipPosition.y - fontSize / 2
         const bottom = tooltipPosition.y + fontSize / 2
-        const inRange = element.inRange(left, top) && element.inRange(left, bottom) &&
-            element.inRange(right, top) && element.inRange(right, bottom)
+        const inRange =
+          element.inRange(left, top) &&
+          element.inRange(left, bottom) &&
+          element.inRange(right, top) &&
+          element.inRange(right, bottom)
         if (inRange) {
           ctx.fillStyle = fontColor
           if (arcText) {
             ctx.textBaseline = 'middle'
-            drawArcText(ctx, text, view.x, view.y, (view.innerRadius + view.outerRadius) / 2, view.startAngle, view.endAngle)
+            drawArcText(
+              ctx,
+              text,
+              view.x,
+              view.y,
+              (view.innerRadius + view.outerRadius) / 2,
+              view.startAngle,
+              view.endAngle
+            )
           } else {
             ctx.textBaseline = 'top'
             ctx.textAlign = 'center'
-            ctx.fillText(text, tooltipPosition.x, tooltipPosition.y - fontSize / 2)
+            ctx.fillText(
+              text,
+              tooltipPosition.x,
+              tooltipPosition.y - fontSize / 2
+            )
           }
         }
         ctx.restore()

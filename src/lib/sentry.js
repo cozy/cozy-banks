@@ -1,7 +1,7 @@
 /* global __SENTRY_URL__, __TARGET__, __DEV__, __APP_VERSION__ */
 import Raven from 'raven-js'
 import RavenMiddleWare from 'redux-raven-middleware'
-import { getDomain, getSlug } from 'lib/cozyUrl'
+import { getDomain, getSlug } from 'lib/cozyUrl'
 
 let domain
 let slug
@@ -10,7 +10,7 @@ let slug
 
 export const isReporterEnabled = () => typeof __SENTRY_URL__ !== 'undefined'
 
-const getReporterConfiguration = (cozyClient) => {
+const getReporterConfiguration = cozyClient => {
   const config = {
     shouldSendCallback: true,
     environment: __DEV__ ? 'development' : 'production',
@@ -22,8 +22,13 @@ const getReporterConfiguration = (cozyClient) => {
   if (__TARGET__ === 'browser') {
     config.transport = options => {
       const { auth, data } = options
-      const parameters = {...auth, ...{project: data.project}, ...{data: JSON.stringify(data)}}
-      cozyClient.stackClient.fetchJSON('POST', '/remote/cc.cozycloud.sentry', parameters)
+      const parameters = {
+        ...auth,
+        ...{ project: data.project },
+        ...{ data: JSON.stringify(data) }
+      }
+      cozyClient.stackClient
+        .fetchJSON('POST', '/remote/cc.cozycloud.sentry', parameters)
         .catch(options.onError)
         .then(options.onSuccess)
     }
@@ -37,11 +42,11 @@ export const setURLContext = url => {
   slug = getSlug(url)
 }
 
-export const getReporterMiddleware = (cozyClient) => {
+export const getReporterMiddleware = cozyClient => {
   return RavenMiddleWare(__SENTRY_URL__, getReporterConfiguration(cozyClient))
 }
 
-export const configureReporter = (cozyClient) => {
+export const configureReporter = cozyClient => {
   Raven.config(__SENTRY_URL__, getReporterConfiguration(cozyClient)).install()
   Raven.setTagsContext({ target: __TARGET__ })
 }
@@ -60,8 +65,13 @@ const normalizeRequestUrl = data => {
 }
 
 const normalizeStacktrace = data => {
-  if (data && data.stacktrace && data.stacktrace.frames && data.stacktrace.frames.length > 0) {
-    const scriptRegex = new RegExp('\/([a-z]+\.js.*)')
+  if (
+    data &&
+    data.stacktrace &&
+    data.stacktrace.frames &&
+    data.stacktrace.frames.length > 0
+  ) {
+    const scriptRegex = new RegExp('/([a-z]+.js.*)')
     data.stacktrace.frames = data.stacktrace.frames.map(frame => {
       const filenameFragment = frame.filename.match(scriptRegex)
       if (filenameFragment && filenameFragment.length > 1) {
@@ -76,7 +86,12 @@ const normalizeStacktrace = data => {
 }
 
 const normalizeBreadcrumbs = data => {
-  if (data && data.breadcrumbs && data.breadcrumbs.values && data.breadcrumbs.values.length > 0) {
+  if (
+    data &&
+    data.breadcrumbs &&
+    data.breadcrumbs.values &&
+    data.breadcrumbs.values.length > 0
+  ) {
     const cleanUrl = url => {
       const urlFragment = url.split('index.html')
       if (urlFragment.length > 1) {
