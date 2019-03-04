@@ -24,8 +24,8 @@ module.exports = {
           }, {
             loader: 'stylus-loader',
             options: {
-              sourceMap: true
-
+              sourceMap: true,
+              preferPathResolver: 'webpack'
             }
           }
         ]
