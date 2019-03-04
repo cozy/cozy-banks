@@ -3,14 +3,16 @@ import * as d3 from 'utils/d3'
 import { withBreakpoints, translate } from 'cozy-ui/react'
 import LineChart from 'components/Chart/LineChart'
 import styles from './History.styl'
-import palette from 'cozy-ui/react/palette'
 import { flowRight as compose } from 'lodash'
 import cx from 'classnames'
+import { getCssVariableValue } from 'cozy-ui/react/utils/color'
+import { lighten } from '@material-ui/core/styles/colorManipulator'
 
 // on iOS white transparency on SVG failed so we should calculate hexa color
+const primaryColor = getCssVariableValue('primaryColor')
 const gradientStyle = {
-  '0%': '#76b9f3', // TODO: replace with lighten(dodgerBlue, 48)
-  '100%': palette.dodgerBlue // TODO: replace with lighten(dodgerBlue, 0)
+  '0%': lighten(primaryColor, 0.48),
+  '100%': getCssVariableValue('primaryColor')
 }
 
 class HistoryChart extends Component {
