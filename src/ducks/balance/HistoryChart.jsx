@@ -9,10 +9,10 @@ import { getCssVariableValue } from 'cozy-ui/react/utils/color'
 import { lighten } from '@material-ui/core/styles/colorManipulator'
 
 // on iOS white transparency on SVG failed so we should calculate hexa color
-const primaryColor = getCssVariableValue('primaryColor')
+const gradientColor = getCssVariableValue('historyGradientColor')
 const gradientStyle = {
-  '0%': lighten(primaryColor, 0.48),
-  '100%': getCssVariableValue('primaryColor')
+  '0%': lighten(gradientColor, 0.48),
+  '100%': gradientColor
 }
 
 class HistoryChart extends Component {
