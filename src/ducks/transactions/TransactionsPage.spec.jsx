@@ -35,6 +35,8 @@ describe('TransactionsPage', () => {
     jest.restoreAllMocks()
   })
 
+  // Necessary wrapper to be able to use setProps since `setProps` is
+  // only callable on the Enzyme root
   const Wrapper = ({ filteringDoc }) => (
     <AppLike>
       <UnpluggedTransactionsPage
