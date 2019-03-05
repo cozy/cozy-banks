@@ -45,24 +45,24 @@ select-date-height-small = 2.75rem
     border-bottom 0
 
     .SelectDates__separator
-        border-left 1px solid var(--primaryColor)
+        border-left 1px solid var(--selectDatesSeparatorPrimaryColor)
 
     .SelectDates__chip
-        background-color var(--primaryColorLight)
+        background-color var(--selectDatesChipPrimaryBackgroundColor)
         margin 0
 
         svg
-            color var(--white)
+            color var(--selectDatesIconPrimaryColor)
 
         &.SelectDates__Button
             margin-left .5rem
 
         &.SelectDatesButtonDisabled
-            background-color var(--primaryColorLight)
+            background-color var(--selectDatesButtonDisabledPrimaryBackgroundColor)
             opacity 0.5
 
         .SelectDatesButtonColor
-            color var(--white)
+            color var(--selectDatesButtonPrimaryColor)
 
     +small-screen()
         padding .5rem
