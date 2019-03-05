@@ -10,20 +10,21 @@
 
     &.primary
         thead
-            background-color var(--primaryColorLight)
-            color var(--primaryContrastTextColor)
+            background-color var(--tableHeadPrimaryBackgroundColor)
             padding .5rem 0
             tr
                 border-bottom-width 0
             td
                 padding 0 1rem
                 line-height 1rem
+                font-weight bold
+                color var(--tableHeadPrimaryContrastTextColor)
                 &:last-child
                     padding-right 2rem
                 &:first-child
                     padding-left 2rem
             td + td
-                border-left 1px solid var(--primaryColor)
+                border-left 1px solid var(--tableHeadSeparatorPrimaryColor)
 
     thead, tbody
         display   flex
