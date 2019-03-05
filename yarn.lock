@@ -4780,13 +4780,13 @@ cozy-client-js@^0.3.4:
   resolved "https://registry.yarnpkg.com/cozy-client-js/-/cozy-client-js-0.3.21.tgz#d27d0288077ce95139333c41dfb537b8584ff254"
   integrity sha1-0n0CiAd86VE5MzxB37U3uFhP8lQ=
 
-cozy-client@6.4.2:
-  version "6.4.2"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.4.2.tgz#8193008ada122b5f59c669ad255cbc02d00fa941"
-  integrity sha512-/7a+dN1wMioaymD10QMZipN3SM9xpAGyySSG2pVQz8ynEGzz8TdKUnumdKn0rOyhUGLRKyPVzZ79+Txyb6vxfw==
+cozy-client@6.5.0:
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.5.0.tgz#d38687e5499d5137057120d4eb59cef09c7a42a7"
+  integrity sha512-sVnfF7gyW7sQBmORmE3/IYIUgyGvxj933+mYWwr4a/vGEFIhGn1nvDAjjYvzP1SCOV2P0jW1cMMOPPwUUjTSMw==
   dependencies:
     cozy-device-helper "1.6.3"
-    cozy-stack-client "^6.3.3"
+    cozy-stack-client "^6.5.0"
     lodash "4.17.11"
     prop-types "15.6.2"
     react "16.7.0"
@@ -4960,10 +4960,10 @@ cozy-stack-client@5.6.1, cozy-stack-client@^5.6.1:
     detect-node "2.0.4"
     mime-types "2.1.20"
 
-cozy-stack-client@^6.3.3:
-  version "6.3.3"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.3.3.tgz#0111763fc2164518e64f27a259aaec3d9ddaf513"
-  integrity sha512-x2zZu1j+QA52jMyNFzJsB2wvaI167xJvILnt7N0Q/+YAiTH+GKKzpF3ZqO13qaeI6COdXt8maQj3myV9NQMj9A==
+cozy-stack-client@^6.5.0:
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.5.0.tgz#18b247f5c548be726782dc4b5811744e31025a97"
+  integrity sha512-n68szEKn/3gNYqpgC8GosxaO57nvg1Zf9eHqhwnBJaOR56qBNOJq3rnGddvK73t5Ol15dfQmxQzJtw+ud5SsaA==
   dependencies:
     detect-node "2.0.4"
     mime-types "2.1.20"
