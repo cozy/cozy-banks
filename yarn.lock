@@ -4708,10 +4708,10 @@ cozy-ach@1.13.0:
     server-destroy "^1.0.1"
     timezone "^1.0.13"
 
-cozy-app-publish@0.11.1:
-  version "0.11.1"
-  resolved "https://registry.yarnpkg.com/cozy-app-publish/-/cozy-app-publish-0.11.1.tgz#2699e57c81fa18aa9b1db09a12a85b79c3df2687"
-  integrity sha512-wSH3K8uuZcpuef3ve2ig3SyjBcYdTWEb9hSU8xT4oEQgr1Zvc80LqUBYeRFlC8bMrQm1t5IxPvlpKM6JxLXZvg==
+cozy-app-publish@0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/cozy-app-publish/-/cozy-app-publish-0.12.0.tgz#83ee95d42891d1017cd1138847a96f20a6ebbf6f"
+  integrity sha512-Q2DGKvJ+8C8cH/ZsCHXcZBaqix3hqGtdELHywAPpK2M8VfZRRQVnyhXS2MfIAXS9DDiCJVO5Hq2dX/Xc0sXuQw==
   dependencies:
     chalk "2.4.2"
     commander "2.19.0"
@@ -5226,7 +5226,7 @@ csswring@7.0.0:
     onecolor "^3.0.5"
     postcss "^7.0.0"
 
-csv-writer@^1.2.0:
+csv-writer@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/csv-writer/-/csv-writer-1.2.0.tgz#b81a818e297e05308e9b1fc2f8c9342e0206cfea"
   integrity sha512-ZU7eZ26y7oIOXwFHhTNnT/tF6RXMdQnuTGofzNTe1cvXacZm3Ixd7Oa9mOp2f1t39Ezfzg0h5tqfOjXM180BOg==
