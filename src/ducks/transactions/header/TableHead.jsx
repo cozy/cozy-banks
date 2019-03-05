@@ -5,7 +5,6 @@ import { translate, withBreakpoints } from 'cozy-ui/react'
 import { Table } from 'components/Table'
 
 import transactionsStyles from '../Transactions.styl'
-import styles from './TableHead.styl'
 
 class TableHead extends React.PureComponent {
   render() {
@@ -21,7 +20,7 @@ class TableHead extends React.PureComponent {
     }
 
     return (
-      <Table className={styles[`TableHead_${color}`]}>
+      <Table color={color}>
         <thead>
           <tr>
             <td className={transactionsStyles.ColumnSizeDesc}>
