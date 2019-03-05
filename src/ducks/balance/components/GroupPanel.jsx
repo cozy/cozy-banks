@@ -59,6 +59,11 @@ const collapseProps = flag('balance-panel-no-anim-collapse')
   : null
 
 class GroupPanel extends React.PureComponent {
+  constructor(props) {
+    super(props)
+    this.state = {}
+    this.handlePanelChange = this.handlePanelChange.bind(this)
+  }
   static propTypes = {
     group: PropTypes.object.isRequired,
     filterByDoc: PropTypes.func.isRequired,
@@ -93,6 +98,18 @@ class GroupPanel extends React.PureComponent {
     e.stopPropagation()
   }
 
+  async handlePanelChange(event, expanded) {
+    const { group, onChange } = this.props
+
+    // cozy-client does not do optimistic update yet
+    // so we have to do it ourselves in the component
+    this.setState({
+      optimisticExpanded: expanded
+    })
+
+    await onChange(group._id, event, expanded)
+  }
+
   render() {
     const {
       group,
@@ -100,8 +117,6 @@ class GroupPanel extends React.PureComponent {
       switches,
       onSwitchChange,
       checked,
-      expanded,
-      onChange,
       t
     } = this.props
 
@@ -112,11 +127,17 @@ class GroupPanel extends React.PureComponent {
       k => !switches[k].checked
     )
 
+    const { optimisticExpanded } = this.state
+    const expanded =
+      optimisticExpanded !== undefined
+        ? optimisticExpanded
+        : this.props.expanded
+
     return (
       <ExpansionPanel
         CollapseProps={collapseProps}
         expanded={expanded}
-        onChange={onChange(group._id)}
+        onChange={this.handlePanelChange}
       >
         <GroupPanelSummary
           expandIcon={<GroupPanelExpandIcon />}
@@ -174,6 +195,8 @@ class GroupPanel extends React.PureComponent {
     )
   }
 }
+
+export const DumbGroupPanel = GroupPanel
 
 export default compose(
   withFilteringDoc,
