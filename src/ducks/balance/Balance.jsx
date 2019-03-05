@@ -64,7 +64,7 @@ class Balance extends PureComponent {
     }, this.onPanelsStateChange)
   }
 
-  handlePanelChange = panelId => (event, expanded) => {
+  handlePanelChange = (panelId, event, expanded) => {
     const path = panelId + '.expanded'
 
     this.setState(prevState => {
@@ -88,7 +88,7 @@ class Balance extends PureComponent {
       panelsState: panels
     }
 
-    this.props.saveDocument(newSettings)
+    return this.props.saveDocument(newSettings)
   }
 
   getAccountOccurrencesInState(account) {
