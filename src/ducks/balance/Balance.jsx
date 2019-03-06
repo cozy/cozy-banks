@@ -61,7 +61,7 @@ class Balance extends PureComponent {
       set(nextState.panels, path, checked)
 
       return nextState
-    }, this.onPanelsStateChange)
+    }, this.savePanelState)
   }
 
   handlePanelChange = (panelId, event, expanded) => {
@@ -72,10 +72,10 @@ class Balance extends PureComponent {
       set(nextState.panels, path, expanded)
 
       return nextState
-    }, this.onPanelsStateChange)
+    }, this.savePanelState)
   }
 
-  onPanelsStateChange() {
+  savePanelState() {
     const { panels } = this.state
     const settings = this.props.settings.data[0]
 
