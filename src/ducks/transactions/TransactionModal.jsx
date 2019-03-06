@@ -3,17 +3,10 @@
  */
 
 import React, { Component } from 'react'
-import {
-  translate,
-  Icon,
-  Modal,
-  ModalHeader,
-  ModalContent,
-  Media,
-  Bd,
-  Img,
-  withBreakpoints
-} from 'cozy-ui/react'
+import { translate, withBreakpoints } from 'cozy-ui/react'
+import Icon from 'cozy-ui/react/Icon'
+import Modal, { ModalHeader, ModalContent } from 'cozy-ui/react/Modal'
+import { Media, Bd, Img } from 'cozy-ui/react/Media'
 import { withDispatch } from 'utils'
 import { flowRight as compose } from 'lodash'
 import cx from 'classnames'

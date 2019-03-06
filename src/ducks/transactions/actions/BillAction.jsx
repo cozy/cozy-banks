@@ -2,7 +2,8 @@
 
 import React, { Component } from 'react'
 import { get, some } from 'lodash'
-import { translate, ButtonAction } from 'cozy-ui/react'
+import { translate } from 'cozy-ui/react'
+import ButtonAction from 'cozy-ui/react/ButtonAction'
 import FileOpener from 'ducks/transactions/FileOpener'
 import icon from 'assets/icons/actions/icon-file.svg'
 import ActionLink from './ActionLink'

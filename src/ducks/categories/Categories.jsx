@@ -2,16 +2,10 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import cx from 'classnames'
 import flag from 'cozy-flags'
-import {
-  translate,
-  withBreakpoints,
-  Text,
-  Caption,
-  ListItemText,
-  Media,
-  Bd,
-  Img
-} from 'cozy-ui/react'
+import { translate, withBreakpoints } from 'cozy-ui/react'
+import Text, { Caption } from 'cozy-ui/react/Text'
+import ListItemText from 'cozy-ui/react/ListItemText'
+import { Media, Bd, Img } from 'cozy-ui/react/Media'
 import CategoryIcon from './CategoryIcon'
 import { Table, TdWithIcon, TdSecondary } from 'components/Table'
 import { Figure } from 'components/Figure'

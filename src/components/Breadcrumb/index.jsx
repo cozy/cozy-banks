@@ -4,7 +4,7 @@ import cx from 'classnames'
 import styles from './style.styl'
 import arrowLeftIcon from 'assets/icons/icon-arrow-left.svg'
 import { coolGrey } from 'cozy-ui/react/palette'
-import { Icon } from 'cozy-ui/react'
+import Icon from 'cozy-ui/react/Icon'
 
 const BreadcrumbSeparator = () => (
   <span className={styles.BreadcrumbSeparator}>/</span>

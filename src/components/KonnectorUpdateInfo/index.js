@@ -1,13 +1,9 @@
 import React from 'react'
 import styles from './styles.styl'
-import {
-  Text,
-  ButtonLink,
-  Icon,
-  translate,
-  withBreakpoints,
-  SubTitle
-} from 'cozy-ui/react'
+import { translate, withBreakpoints } from 'cozy-ui/react'
+import Text, { SubTitle } from 'cozy-ui/react/Text'
+import Icon from 'cozy-ui/react/Icon'
+import { ButtonLink } from 'cozy-ui/react/Button'
 import { withClient } from 'cozy-client'
 import { flowRight as compose } from 'lodash'
 import { Intents } from 'cozy-interapp'

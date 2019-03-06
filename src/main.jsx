@@ -19,7 +19,7 @@ import * as d3 from 'utils/d3'
 import 'cozy-ui/transpiled/react/stylesheet.css'
 
 import { checkToRefreshToken } from 'utils/token'
-import { Alerter } from 'cozy-ui/react'
+import Alerter from 'cozy-ui/react/Alerter'
 import flag from 'cozy-flags'
 
 const D3_LOCALES_MAP = {

@@ -1,5 +1,6 @@
 import React from 'react'
-import { translate, Icon } from 'cozy-ui/react'
+import { translate } from 'cozy-ui/react'
+import Icon from 'cozy-ui/react/Icon'
 import { formatVendor } from './helpers'
 import palette from 'cozy-ui/react/palette'
 

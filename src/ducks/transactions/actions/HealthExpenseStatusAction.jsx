@@ -1,13 +1,9 @@
 import React from 'react'
-import {
-  translate,
-  Icon,
-  ButtonAction,
-  Menu,
-  MenuItem,
-  Badge,
-  withBreakpoints
-} from 'cozy-ui/react'
+import { translate, withBreakpoints } from 'cozy-ui/react'
+import Icon from 'cozy-ui/react/Icon'
+import ButtonAction from 'cozy-ui/react/ButtonAction'
+import Menu, { MenuItem } from 'cozy-ui/react/Menu'
+import Badge from 'cozy-ui/react/Badge'
 import palette from 'cozy-ui/react/palette'
 import { isHealthExpense } from 'ducks/categories/helpers'
 import { BillComponent } from './BillAction'

@@ -12,7 +12,8 @@ import {
 import cx from 'classnames'
 import { isIOSApp } from 'cozy-device-helper'
 
-import { translate, withBreakpoints, Button } from 'cozy-ui/react'
+import { translate, withBreakpoints } from 'cozy-ui/react'
+import Button from 'cozy-ui/react/Button'
 import * as List from 'components/List'
 import { Table } from 'components/Table'
 

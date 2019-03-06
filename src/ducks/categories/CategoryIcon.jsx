@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon } from 'cozy-ui/react'
+import Icon from 'cozy-ui/react/Icon'
 
 const CategoryIcon = ({ category, className }) => {
   let icon

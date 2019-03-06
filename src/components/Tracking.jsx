@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button } from 'cozy-ui/react'
+import Button from 'cozy-ui/react/Button'
 import trackOnClick from 'components/hoc/trackOnClick'
 
 const DEFAULT_CATEGORY = 'interaction'

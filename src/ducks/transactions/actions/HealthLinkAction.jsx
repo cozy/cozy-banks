@@ -1,5 +1,6 @@
 import React from 'react'
-import { translate, ButtonAction } from 'cozy-ui/react'
+import { translate } from 'cozy-ui/react'
+import ButtonAction from 'cozy-ui/react/ButtonAction'
 import icon from 'assets/icons/actions/icon-link-out.svg'
 import { isHealth } from 'ducks/categories/helpers'
 import palette from 'cozy-ui/react/palette'

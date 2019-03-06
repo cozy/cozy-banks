@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon, SelectBox, SelectBoxWithFixedOptions } from 'cozy-ui/react'
+import Icon from 'cozy-ui/react/Icon'
+import SelectBox, { SelectBoxWithFixedOptions } from 'cozy-ui/react/SelectBox'
 import styles from './styles.styl'
 import { find } from 'lodash'
 import palette from 'cozy-ui/react/palette'

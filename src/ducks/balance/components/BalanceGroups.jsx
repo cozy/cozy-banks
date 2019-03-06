@@ -2,7 +2,8 @@ import React from 'react'
 import { withRouter } from 'react-router'
 import cx from 'classnames'
 import { flowRight as compose } from 'lodash'
-import { translate, Button } from 'cozy-ui/react'
+import { translate } from 'cozy-ui/react'
+import Button from 'cozy-ui/react/Button'
 
 import btnStyles from 'styles/buttons.styl'
 

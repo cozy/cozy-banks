@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { withBreakpoints } from 'cozy-ui/react'
+import { withBreakpoints, translate } from 'cozy-ui/react'
+import Icon from 'cozy-ui/react/Icon'
 import cx from 'classnames'
 import { flowRight as compose } from 'lodash'
 import Switch from 'components/Switch'
-import { translate, Icon } from 'cozy-ui/react'
 import { Figure } from 'components/Figure'
 import {
   getAccountLabel,

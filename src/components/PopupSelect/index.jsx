@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import cx from 'classnames'
-import { Modal, Icon } from 'cozy-ui/react'
-import { ModalHeader, ModalDescription, Media, Bd, Img } from 'cozy-ui/react'
+import Icon from 'cozy-ui/react/Icon'
+import Modal, { ModalHeader, ModalDescription } from 'cozy-ui/react/Modal'
+import { Media, Bd, Img } from 'cozy-ui/react/Media'
 import palette from 'cozy-ui/react/palette'
 
 import styles from './styles.styl'
