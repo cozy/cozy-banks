@@ -6,15 +6,10 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import { flowRight as compose, sortBy } from 'lodash'
 import cx from 'classnames'
-import {
-  translate,
-  withBreakpoints,
-  Icon,
-  Media,
-  Bd,
-  Img,
-  Overlay
-} from 'cozy-ui/react'
+import { translate, withBreakpoints } from 'cozy-ui/react'
+import Icon from 'cozy-ui/react/Icon'
+import { Media, Bd, Img } from 'cozy-ui/react/Media'
+import Overlay from 'cozy-ui/react/Overlay'
 import Portal from 'cozy-ui/react/Portal'
 
 import AccountSharingStatus from 'components/AccountSharingStatus'

@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from '../TransactionActions.styl'
 import palette from 'cozy-ui/react/palette'
-import { Icon } from 'cozy-ui/react'
+import Icon from 'cozy-ui/react/Icon'
 
 const iconStyle = { marginRight: '10px' }
 const ActionLink = ({

@@ -1,12 +1,6 @@
 import React from 'react'
-import {
-  translate,
-  Nav as UINav,
-  NavItem,
-  NavIcon,
-  NavText,
-  genNavLink
-} from 'cozy-ui/react'
+import { translate } from 'cozy-ui/react'
+import UINav, { NavItem, NavIcon, NavText, genNavLink } from 'cozy-ui/react/Nav'
 import { Link } from 'react-router'
 
 import dashboard from 'assets/icons/icon-dashboard.svg'

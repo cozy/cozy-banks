@@ -1,5 +1,5 @@
 import React from 'react'
-import { Title } from 'cozy-ui/react'
+import { Title } from 'cozy-ui/react/Text'
 import styles from './TogglePane.styl'
 
 class TogglePane extends React.PureComponent {

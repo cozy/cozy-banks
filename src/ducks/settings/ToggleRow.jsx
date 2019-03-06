@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
-import { Toggle } from 'cozy-ui/react'
+import Toggle from 'cozy-ui/react/Toggle'
 import styles from './ToggleRow.styl'
 
 const parseNumber = val => {

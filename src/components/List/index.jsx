@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './List.styl'
-import { ListItemText } from 'cozy-ui/react'
+import ListItemText from 'cozy-ui/react/ListItemText'
 import cx from 'classnames'
 
 export const List = props => <div>{props.children}</div>

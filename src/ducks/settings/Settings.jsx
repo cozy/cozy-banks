@@ -1,14 +1,7 @@
 /* global __TARGET__, __APP_VERSION__ */
 import React from 'react'
-import {
-  translate,
-  withBreakpoints,
-  Tabs,
-  TabPanels,
-  TabPanel,
-  TabList,
-  Tab
-} from 'cozy-ui/react'
+import { translate, withBreakpoints } from 'cozy-ui/react'
+import { Tabs, TabPanels, TabPanel, TabList, Tab } from 'cozy-ui/react/Tabs'
 import styles from './Settings.styl'
 import { withRouter } from 'react-router'
 import { flowRight as compose } from 'lodash'

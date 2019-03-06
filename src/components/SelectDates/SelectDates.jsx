@@ -10,7 +10,9 @@ import {
   parse,
   differenceInCalendarMonths
 } from 'date-fns'
-import { Icon, Chip, translate, withBreakpoints } from 'cozy-ui/react'
+import { translate, withBreakpoints } from 'cozy-ui/react'
+import Icon from 'cozy-ui/react/Icon'
+import Chip from 'cozy-ui/react/Chip'
 
 import styles from './SelectDates.styl'
 import Select from 'components/Select'

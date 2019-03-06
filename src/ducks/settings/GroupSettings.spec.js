@@ -1,6 +1,6 @@
 import React from 'react'
 import { AccountLine } from './GroupSettings'
-import { Toggle } from 'cozy-ui/react'
+import Toggle from 'cozy-ui/react/Toggle'
 import { mount } from 'enzyme'
 import AppLike from 'test/AppLike'
 import fixtures from 'test/fixtures'

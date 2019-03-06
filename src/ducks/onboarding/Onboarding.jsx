@@ -1,6 +1,8 @@
 /* global __TARGET__ */
 import React, { Component } from 'react'
-import { translate, Button, withBreakpoints } from 'cozy-ui/react'
+import { translate, withBreakpoints } from 'cozy-ui/react'
+import Button from 'cozy-ui/react/Button'
+import palette from 'cozy-ui/react/palette'
 import { some, flowRight as compose } from 'lodash'
 import { withClient, queryConnect } from 'cozy-client'
 
@@ -11,7 +13,6 @@ import AddAccountLink from 'ducks/settings/AddAccountLink'
 import calculator from 'assets/icons/icon-calculator.svg'
 import watch from 'assets/icons/icon-watch.svg'
 import cozy from 'assets/icons/icon-cozy.svg'
-import palette from 'cozy-ui/react/palette'
 import { triggersConn } from 'doctypes'
 import { isCollectionLoading } from 'ducks/client/utils'
 

@@ -6,7 +6,7 @@ import { getURL } from 'reducers'
 import PropTypes from 'prop-types'
 import { checkApp, DRIVE_INFO } from 'ducks/mobile/appAvailability'
 import { flowRight as compose } from 'lodash'
-import { IntentOpener } from 'cozy-ui/react'
+import IntentOpener from 'cozy-ui/react/IntentOpener'
 import { withClient } from 'cozy-client'
 
 const buildAppURL = (cozyURL, app, hash) => {

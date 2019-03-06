@@ -1,18 +1,11 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
-import {
-  translate,
-  withBreakpoints,
-  Button,
-  Tabs,
-  TabPanels,
-  TabPanel,
-  TabList,
-  Tab,
-  Modal,
-  Icon,
-  Alerter
-} from 'cozy-ui/react'
+import { translate, withBreakpoints } from 'cozy-ui/react'
+import Button from 'cozy-ui/react/Button'
+import { Tabs, TabPanels, TabPanel, TabList, Tab } from 'cozy-ui/react/Tabs'
+import Modal from 'cozy-ui/react/Modal'
+import Icon from 'cozy-ui/react/Icon'
+import Alerter from 'cozy-ui/react/Alerter'
 import Loading from 'components/Loading'
 import { withDispatch } from 'utils'
 import BackButton from 'components/BackButton'

@@ -2,13 +2,10 @@ import React, { Component, PureComponent } from 'react'
 import { withRouter } from 'react-router'
 import { sortBy, flowRight as compose } from 'lodash'
 import { Query, withMutations, withClient } from 'cozy-client'
-import {
-  Button,
-  translate,
-  Toggle,
-  Alerter,
-  withBreakpoints
-} from 'cozy-ui/react'
+import { translate, withBreakpoints } from 'cozy-ui/react'
+import Button from 'cozy-ui/react/Button'
+import Toggle from 'cozy-ui/react/Toggle'
+import Alerter from 'cozy-ui/react/Alerter'
 
 import { GROUP_DOCTYPE, accountsConn } from 'doctypes'
 import Loading from 'components/Loading'
