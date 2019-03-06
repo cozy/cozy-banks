@@ -4958,7 +4958,16 @@ cozy-realtime@2.0.3:
   resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-2.0.3.tgz#7c02e19833f8061d32f8f72529a94d2277a8aee1"
   integrity sha512-Ad/l2wWYyvaKvLSOrSVALBdk+utqm6MJIIDDcpPLcT092ynmbSROC4JtG6dEfbzirVqKAM5H44oTtPgGT/e2mg==
 
-cozy-stack-client@5.6.1, cozy-stack-client@^5.6.1:
+cozy-stack-client@6.6.0:
+  version "6.6.0"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.6.0.tgz#f403ebcdf4d89099697d365e9693c4a0a1bc3940"
+  integrity sha512-o+UJt+yM0tgIimXVemHcvvLTFzqDreXDj1Tpp/sGdnKFz3CGBJMGgk6GqoGmP6dWvudQ3XeSibqttIbilcs72A==
+  dependencies:
+    detect-node "2.0.4"
+    mime-types "2.1.20"
+    qs "6.6.0"
+
+cozy-stack-client@^5.6.1:
   version "5.6.1"
   resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-5.6.1.tgz#f7ea391d5a635605a16b7bdaea0a36b2d9cd1023"
   integrity sha512-8Z1fMepAm5bu4eup4DviUux8j/bwbvuFNPVaVuk4We+k3/ly07nvp2q3sUh9YMSXGKZOsb3O9ybIZ5XzCOKnWA==
@@ -14785,6 +14794,11 @@ qs@6.5.2, qs@~6.5.2:
   version "6.5.2"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
   integrity sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==
+
+qs@6.6.0:
+  version "6.6.0"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.6.0.tgz#a99c0f69a8d26bf7ef012f871cdabb0aee4424c2"
+  integrity sha512-KIJqT9jQJDQx5h5uAVPimw6yVg2SekOKu959OCtktD3FjzbpvaPr8i4zzg07DOMz+igA4W/aNM7OV8H37pFYfA==
 
 qs@~6.2.0:
   version "6.2.3"
