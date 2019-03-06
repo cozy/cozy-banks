@@ -6,18 +6,13 @@ import { flowRight as compose } from 'lodash'
 import cx from 'classnames'
 import { withClient } from 'cozy-client'
 import { matchBrands, findMatchingBrand } from 'ducks/brandDictionary'
-import {
-  IntentModal,
-  translate,
-  ButtonAction,
-  Modal,
-  ModalDescription,
-  Button,
-  Title,
-  Text,
-  Caption,
-  Icon
-} from 'cozy-ui/react'
+import { translate } from 'cozy-ui/react'
+import IntentModal from 'cozy-ui/react/IntentModal'
+import ButtonAction from 'cozy-ui/react/ButtonAction'
+import Modal, { ModalDescription } from 'cozy-ui/react/Modal'
+import Button from 'cozy-ui/react/Button'
+import Text, { Title, Caption } from 'cozy-ui/react/Text'
+import Icon from 'cozy-ui/react/Icon'
 import icon from 'assets/icons/actions/icon-link-out.svg'
 import styles from '../TransactionActions.styl'
 import { TransactionModalRow } from '../TransactionModal'
