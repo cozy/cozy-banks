@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { withRouter } from 'react-router'
 
-import ExpansionPanel from '@material-ui/core/ExpansionPanel'
+import ExpansionPanel from 'cozy-ui/react/MuiCozyTheme/ExpansionPanel'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import { withStyles } from '@material-ui/core/styles'
