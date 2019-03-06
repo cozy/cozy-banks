@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import { translate } from 'cozy-ui/react'
-import Button from 'cozy-ui/react'
+import Button from 'cozy-ui/react/Button'
 
 import AddAccountLink from 'ducks/settings/AddAccountLink'
 import btnStyles from 'styles/buttons.styl'
