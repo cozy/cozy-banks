@@ -136,7 +136,7 @@ const doCategorization = async setting => {
     if (e.message === PARAMETERS_NOT_FOUND) {
       log('info', PARAMETERS_NOT_FOUND)
     } else {
-      log('warn', e)
+      log('warn', 'Error in categorization ' + e)
     }
   }
 }
