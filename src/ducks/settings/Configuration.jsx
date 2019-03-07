@@ -95,14 +95,6 @@ class Configuration extends React.PureComponent {
             enabled={settings.community.localModelOverride.enabled}
             name="localModelOverride"
           />
-          <ToggleRow
-            description={t(
-              'AdvancedFeaturesSettings.automatic_categorization.auto_categorization.description'
-            )}
-            onToggle={this.onToggle('community.autoCategorization')}
-            enabled={settings.community.autoCategorization.enabled}
-            name="autoCategorization"
-          />
         </TogglePane>
       </div>
     )

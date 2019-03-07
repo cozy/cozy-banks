@@ -18,7 +18,7 @@ const makeSubcategory = catId => ({
 })
 
 export const LOCAL_MODEL_USAGE_THRESHOLD = 0.8
-export const GLOBAL_MODEL_USAGE_THRESHOLD = 0.9
+export const GLOBAL_MODEL_USAGE_THRESHOLD = 0.25
 
 /**
  * Return the category id of the transaction

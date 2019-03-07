@@ -1,7 +1,7 @@
 /* global __TARGET__ */
 
 import logger from 'cozy-logger'
-import { maxBy, pick, uniq } from 'lodash'
+import { maxBy, uniq } from 'lodash'
 import { tokenizer, createClassifier } from '.'
 import bayes from 'classificator'
 import { getLabel } from 'ducks/transactions/helpers'
@@ -288,7 +288,7 @@ export const pctOfTokensInVoc = (tokens, vocabularyArray) => {
 export const localModel = async (classifierOptions, transactions) => {
   const classifier = await createLocalModel(classifierOptions)
 
-  if (classifier !== undefined) {
+  if (classifier) {
     localModelLog(
       'info',
       'Reweighting model to lower the impact of amount in the prediction'
@@ -369,38 +369,4 @@ export const categorizes = async transactions => {
   })
 
   return transactions
-}
-
-export class AutoCategorization extends Document {
-  static async sendTransactions(transactions) {
-    const log = logger.namespace('categorization-send-transactions')
-
-    const transactionsToSend = transactions.map(transaction =>
-      pick(transaction, [
-        'amount',
-        'date',
-        'label',
-        'automaticCategoryId',
-        'metadata.version',
-        'manualCategoryId',
-        'cozyCategoryId',
-        'cozyCategoryProba',
-        'localCategoryId',
-        'localCategoryProba'
-      ])
-    )
-
-    try {
-      await this.cozyClient.fetchJSON(
-        'POST',
-        '/remote/cc.cozycloud.autocategorization',
-        {
-          data: JSON.stringify(transactionsToSend)
-        }
-      )
-    } catch (e) {
-      log('info', 'Error while sending transactions')
-      log('info', e)
-    }
-  }
 }
