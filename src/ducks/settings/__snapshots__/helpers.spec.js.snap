@@ -11,9 +11,6 @@ Object {
     "lastSeq": 0,
   },
   "community": Object {
-    "autoCategorization": Object {
-      "enabled": false,
-    },
     "localModelOverride": Object {
       "enabled": false,
     },

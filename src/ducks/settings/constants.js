@@ -31,9 +31,6 @@ export const DEFAULTS_SETTINGS = {
     transactionsLastSeq: '0'
   },
   community: {
-    autoCategorization: {
-      enabled: false
-    },
     localModelOverride: {
       enabled: false
     }
