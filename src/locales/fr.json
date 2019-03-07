@@ -72,7 +72,7 @@
   },
 
   "Balance": {
-    "title": "Solde actuel",
+    "title": "Mes comptes",
     "nb_accounts": "%{nbCheckedAccounts}/%{smart_count} compte |||| %{nbCheckedAccounts}/%{smart_count} comptes",
     "subtitle": {
       "all": "Total de tous vos comptes",
