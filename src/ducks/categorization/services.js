@@ -288,7 +288,7 @@ export const pctOfTokensInVoc = (tokens, vocabularyArray) => {
 export const localModel = async (classifierOptions, transactions) => {
   const classifier = await createLocalModel(classifierOptions)
 
-  if (classifier !== undefined) {
+  if (classifier) {
     localModelLog(
       'info',
       'Reweighting model to lower the impact of amount in the prediction'
