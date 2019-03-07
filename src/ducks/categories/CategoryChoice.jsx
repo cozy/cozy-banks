@@ -24,10 +24,10 @@ class CategoryChoice extends Component {
       const translateKey = subcategory ? 'subcategories' : 'categories'
       option.title = this.props.t(`Data.${translateKey}.${option.name}`)
 
-      const iconCategory = subcategory
+      const categoryName = subcategory
         ? getParentCategory(option.id)
         : option.name
-      option.icon = <CategoryIcon category={iconCategory} />
+      option.icon = <CategoryIcon category={categoryName} />
 
       if (!subcategory) {
         // sort children so "others" is always the last
