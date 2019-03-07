@@ -61,7 +61,7 @@
       "account": "Total account %{label}"
     },
     "nb_accounts": "%{nbCheckedAccounts}/%{smart_count} account |||| %{nbCheckedAccounts}/%{smart_count} accounts",
-    "title": "Current balance",
+    "title": "My accounts",
     "solde": "Balance",
     "account_number": "Account number",
     "account_name": "Account name",
