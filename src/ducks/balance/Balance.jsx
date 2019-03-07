@@ -1,5 +1,6 @@
 import React, { PureComponent, Fragment } from 'react'
-import { flowRight as compose, get, sumBy, set } from 'lodash'
+import { flowRight as compose, get, sumBy, set, debounce } from 'lodash'
+
 import { queryConnect, withMutations } from 'cozy-client'
 import flag from 'cozy-flags'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
@@ -29,6 +30,11 @@ class Balance extends PureComponent {
     }
 
     setBarTheme('primary')
+    this.handlePanelChange = this.handlePanelChange.bind(this)
+    this.debouncedHandlePanelChange = debounce(this.handlePanelChange, 3000, {
+      leading: false,
+      trailing: true
+    }).bind(this)
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -64,7 +70,7 @@ class Balance extends PureComponent {
     }, this.savePanelState)
   }
 
-  handlePanelChange = (panelId, event, expanded) => {
+  handlePanelChange(panelId, event, expanded) {
     const path = panelId + '.expanded'
 
     this.setState(prevState => {
@@ -173,7 +179,7 @@ class Balance extends PureComponent {
               warningLimit={balanceLower}
               panelsState={this.state.panels}
               onSwitchChange={this.handleSwitchChange}
-              onPanelChange={this.handlePanelChange}
+              onPanelChange={this.debouncedHandlePanelChange}
             />
           ) : (
             <BalanceTables
@@ -187,6 +193,8 @@ class Balance extends PureComponent {
     )
   }
 }
+
+export const DumbBalance = Balance
 
 export default compose(
   queryConnect({
