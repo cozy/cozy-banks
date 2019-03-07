@@ -71,7 +71,12 @@ class PopupSelect extends Component {
     const current = history[0]
     const children = current.children || []
     return (
-      <Modal overflowHidden dismissAction={this.props.onCancel} into="body">
+      <Modal
+        closeBtnClassName={this.props.closeBtnClassName}
+        overflowHidden
+        dismissAction={this.props.onCancel}
+        into="body"
+      >
         <div className={styles.PopupSelect__title}>
           <ModalHeader>
             <PopupTitle

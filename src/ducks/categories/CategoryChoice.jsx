@@ -6,6 +6,7 @@ import {
   CategoryIcon,
   getParentCategory
 } from 'ducks/categories'
+import styles from 'ducks/transactions/TransactionModal.styl'
 
 class CategoryChoice extends Component {
   constructor(props) {
@@ -55,6 +56,7 @@ class CategoryChoice extends Component {
 
     return (
       <PopupSelect
+        closeBtnClassName={styles.TransactionModalCross}
         title={t('Categories.choice.title')}
         options={this.options}
         isSelected={this.isSelected}
