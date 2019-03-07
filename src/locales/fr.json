@@ -480,9 +480,6 @@
       "title" :"Catégorisation automatique",
       "local_model_override": {
         "description": "Apprendre de mes catégorisations manuelles"
-      },
-      "auto_categorization": {
-        "description": "Participer à l'amélioration du modèle par le partage anonymisé de vos écritures catégorisées. <a href='https://support.cozy.io/article/181-collaboration-a-la-categorisation-bancaire' target='_blank'>En savoir plus</a>"
       }
     },
     "balance_history": {
