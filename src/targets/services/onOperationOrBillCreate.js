@@ -3,8 +3,7 @@ import logger from 'cozy-logger'
 import flag from 'cozy-flags'
 import {
   categorizes,
-  PARAMETERS_NOT_FOUND,
-  AutoCategorization
+  PARAMETERS_NOT_FOUND
 } from 'ducks/categorization/services'
 import { sendNotifications } from 'ducks/notifications/services'
 import { Document } from 'cozy-doctypes'
@@ -127,20 +126,6 @@ const doCategorization = async setting => {
         Transaction,
         catChanges.newLastSeq
       )
-
-      if (setting.community.autoCategorization.enabled) {
-        log(
-          'info',
-          'Auto categorization setting is enabled, sending transactions to API'
-        )
-        await AutoCategorization.sendTransactions(transactionsCategorized)
-        log(
-          'info',
-          `Sent ${transactionsCategorized.length} transactions to API`
-        )
-      } else {
-        log('info', 'Auto categorization setting is disabled, skipping')
-      }
 
       setting.categorization.lastSeq = newChanges.newLastSeq
     } else {
