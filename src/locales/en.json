@@ -430,27 +430,6 @@
     }
   },
 
-  "Onboarding": {
-    "title": {
-      "desktop": "Connect your bank accounts",
-      "mobile": "Cozy Banks"
-    },
-    "connect-bank-account": "Connect your bank accounts",
-    "manage-budget": {
-      "description": "Summary of all your accounts at a glance",
-      "title": "Control your budget"
-    },
-    "save-time": {
-      "description": "Your invoices at your fingertips directly from your statements",
-      "title": "Save Time"
-    },
-    "cozy-assistant": {
-      "description": "Automatic follow-up of your medical expenses",
-      "title": "Cozy is working for you"
-    },
-    "wait-moments": "Please wait a few moments if you have just connected a bank. Your data will be displayed automatically !"
-  },
-
   "mobile": {
     "onboarding": {
       "welcome": {

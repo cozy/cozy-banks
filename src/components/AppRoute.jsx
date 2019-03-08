@@ -15,47 +15,45 @@ import {
   Debug
 } from 'ducks/settings'
 import { Balance } from 'ducks/balance'
-import { EnsureHasAccounts, EnsureIsFirstSynced } from 'ducks/onboarding'
+import EnsureIsFirstSynced from 'components/EnsureIsFirstSynced'
 
 export const ComingSoon = () => <p style="margin-left: 2em">Coming soon!</p>
 
 const AppRoute = (
   <Route component={EnsureIsFirstSynced}>
-    <Route component={EnsureHasAccounts}>
-      <Route component={App}>
-        <Redirect from="/" to="balances" />
-        <Route path="balances">
-          <IndexRoute component={Balance} />
-          <Route
-            path="reimbursements"
-            component={TransactionsPageWithBackButton}
-          />
-          <Route path="details" component={TransactionsPageWithBackButton} />
-        </Route>
-        <Route path="categories">
-          <IndexRoute component={CategoriesPage} />
-          <Route
-            path=":categoryName/:subcategoryName"
-            component={TransactionsPageWithBackButton}
-          />
-          <Route path=":categoryName" component={CategoriesPage} />
-        </Route>
-        <Route path="projections" component={ComingSoon} />
-        <Route path="savings" component={ComingSoon} />
-        <Route path="settings">
-          <Route path="groups/new" component={NewGroupSettings} />
-          <Route path="groups/:groupId" component={GroupSettings} />
-          <Route path="accounts/:accountId" component={AccountSettings} />
-          <Route component={Settings}>
-            <IndexRoute component={Configuration} />
-            <Route path="accounts" component={AccountsSettings} />
-            <Route path="groups" component={GroupsSettings} />
-            <Route path="configuration" component={Configuration} />
-            <Route path="debug" component={Debug} />
-          </Route>
-        </Route>
-        <Redirect from="*" to="balances" />
+    <Route component={App}>
+      <Redirect from="/" to="balances" />
+      <Route path="balances">
+        <IndexRoute component={Balance} />
+        <Route
+          path="reimbursements"
+          component={TransactionsPageWithBackButton}
+        />
+        <Route path="details" component={TransactionsPageWithBackButton} />
       </Route>
+      <Route path="categories">
+        <IndexRoute component={CategoriesPage} />
+        <Route
+          path=":categoryName/:subcategoryName"
+          component={TransactionsPageWithBackButton}
+        />
+        <Route path=":categoryName" component={CategoriesPage} />
+      </Route>
+      <Route path="projections" component={ComingSoon} />
+      <Route path="savings" component={ComingSoon} />
+      <Route path="settings">
+        <Route path="groups/new" component={NewGroupSettings} />
+        <Route path="groups/:groupId" component={GroupSettings} />
+        <Route path="accounts/:accountId" component={AccountSettings} />
+        <Route component={Settings}>
+          <IndexRoute component={Configuration} />
+          <Route path="accounts" component={AccountsSettings} />
+          <Route path="groups" component={GroupsSettings} />
+          <Route path="configuration" component={Configuration} />
+          <Route path="debug" component={Debug} />
+        </Route>
+      </Route>
+      <Redirect from="*" to="balances" />
     </Route>
   </Route>
 )
