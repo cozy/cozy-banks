@@ -15,6 +15,7 @@ module.exports = {
     extensions: ['.js', '.json', '.css', '.jsx'],
     modules: ['node_modules', SRC_DIR],
     alias: {
+      // Resolving multiple version manually
       'lodash': path.resolve(__dirname, '../node_modules/lodash'),
       'raven-js': path.resolve(__dirname, '../node_modules/raven-js'),
       'warning': path.resolve(__dirname, '../node_modules/warning'),
@@ -26,6 +27,15 @@ module.exports = {
       'core-js': path.resolve(__dirname, '../node_modules/core-js'),
       'regenerator-runtime': path.resolve(__dirname, '../node_modules/regenerator-runtime'),
       '@babel/runtime': path.resolve(__dirname, '../node_modules/@babel/runtime'),
+      
+      // We do not need mime-db (used in cozy-stack-client::FileCollection) so we fake it
+      'mime-db': path.resolve(__dirname, '../src/utils/empty-mime-db'),
+
+      // Chart.js has moment as dependency for backward compatibility but it can
+      // survive without it. We do not use date related functionality in chart.js
+      // so it is safe to remove moment.
+      // https://github.com/chartjs/Chart.js/blob/master/docs/getting-started/integration.md#bundlers-webpack-rollup-etc
+      moment: path.resolve(__dirname, '../src/utils/empty-moment'),
     }
   },
   module: {
@@ -63,6 +73,7 @@ module.exports = {
     ],
     noParse: [/localforage\/dist/]
   },
+
   plugins: [
     new webpack.DefinePlugin({
       __APP_VERSION__: JSON.stringify(pkg.version),
