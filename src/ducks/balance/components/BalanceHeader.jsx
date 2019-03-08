@@ -4,10 +4,10 @@ import { translate, withBreakpoints } from 'cozy-ui/react'
 
 import { Padded } from 'components/Spacing'
 import Header from 'components/Header'
-import { Figure } from 'components/Figure'
 import { PageTitle } from 'components/Title'
 import KonnectorUpdateInfo from 'components/KonnectorUpdateInfo'
 import History from 'ducks/balance/History'
+import HeaderTitle from 'ducks/balance/components/HeaderTitle'
 
 import styles from './BalanceHeader.styl'
 
@@ -21,6 +21,10 @@ const BalanceHeader = ({
 }) => {
   const titlePaddedClass = isMobile ? 'u-p-0' : 'u-pb-0'
   const titleColor = isMobile ? 'primary' : 'default'
+  const subtitle = subtitleParams
+    ? t('BalanceHistory.checked_accounts', subtitleParams)
+    : t('BalanceHistory.all_accounts')
+
   return (
     <Header className={styles.BalanceHeader} color="primary">
       {isMobile && (
@@ -28,20 +32,11 @@ const BalanceHeader = ({
           <PageTitle color={titleColor}>{t('Balance.title')}</PageTitle>
         </Padded>
       )}
-      {accountsBalance !== undefined && (
-        <Figure
-          onClick={onClickBalance}
-          className={styles.BalanceHeader__currentBalance}
-          currencyClassName={styles.BalanceHeader__currentBalanceCurrency}
-          total={accountsBalance}
-          symbol="€"
-        />
-      )}
-      <div className={styles.BalanceHeader__subtitle}>
-        {subtitleParams
-          ? t('BalanceHistory.checked_accounts', subtitleParams)
-          : t('BalanceHistory.all_accounts')}
-      </div>
+      <HeaderTitle
+        balance={accountsBalance}
+        subtitle={subtitle}
+        onClickBalance={onClickBalance}
+      />
       {accounts && <History accounts={accounts} />}
       <KonnectorUpdateInfo />
     </Header>

@@ -12,6 +12,7 @@ import { withRouter } from 'react-router'
 import Loading from 'components/Loading'
 import { Padded } from 'components/Spacing'
 import BalanceHeader from 'ducks/balance/components/BalanceHeader'
+import NoAccount from 'ducks/balance/components/NoAccount'
 
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import { buildVirtualGroups } from 'ducks/groups/helpers'
@@ -155,6 +156,11 @@ class Balance extends PureComponent {
     }
 
     const accounts = accountsCollection.data
+
+    if (accounts.length === 0) {
+      return <NoAccount />
+    }
+
     const groups = [...groupsCollection.data, ...buildVirtualGroups(accounts)]
 
     const balanceLower = get(settings, 'notifications.balanceLower.value')
