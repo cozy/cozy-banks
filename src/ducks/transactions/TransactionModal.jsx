@@ -18,10 +18,7 @@ import Page from './Page'
 
 import { getLabel } from 'ducks/transactions'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
-import {
-  getParentCategory,
-  getCategoryName
-} from 'ducks/categories/categoriesMap'
+import { getCategoryName } from 'ducks/categories/categoriesMap'
 import TransactionActions from 'ducks/transactions/TransactionActions'
 import { withUpdateCategory } from 'ducks/categories'
 import PropTypes from 'prop-types'
@@ -108,7 +105,6 @@ class TransactionModal extends Component {
     const { t, f, transaction, showCategoryChoice, ...props } = this.props
 
     const categoryId = getCategoryId(transaction)
-    const category = getParentCategory(categoryId)
     const account = transaction.account.data
 
     const typeIcon = (
@@ -156,7 +152,7 @@ class TransactionModal extends Component {
         <Separator />
         <TransactionModalRow
           iconLeft={iconGraph}
-          iconRight={<CategoryIcon category={category} />}
+          iconRight={<CategoryIcon categoryId={categoryId} />}
           onClick={showCategoryChoice}
         >
           {t(

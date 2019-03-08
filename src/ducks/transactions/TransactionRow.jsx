@@ -19,10 +19,7 @@ import {
   getAccountInstitutionLabel
 } from 'ducks/account/helpers'
 
-import {
-  getParentCategory,
-  getCategoryName
-} from 'ducks/categories/categoriesMap'
+import { getCategoryName } from 'ducks/categories/categoriesMap'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { getCategoryId } from 'ducks/categories/helpers'
 import { withUpdateCategory } from 'ducks/categories'
@@ -76,7 +73,6 @@ class _RowDesktop extends React.PureComponent {
     const categoryId = getCategoryId(transaction)
     const categoryName = getCategoryName(categoryId)
     const categoryTitle = t(`Data.subcategories.${categoryName}`)
-    const parentCategory = getParentCategory(categoryId)
 
     const account = transaction.account.data
     const accountInstitutionLabel = getAccountInstitutionLabel(account)
@@ -88,7 +84,7 @@ class _RowDesktop extends React.PureComponent {
           <Media className="u-clickable">
             <Img title={categoryTitle} onClick={showCategoryChoice}>
               <CategoryIcon
-                category={parentCategory}
+                categoryId={categoryId}
                 className={styles['bnk-op-caticon']}
               />
             </Img>
@@ -170,9 +166,7 @@ class _RowMobile extends React.PureComponent {
             )}
             onClick={this.handleSelect}
           >
-            <CategoryIcon
-              category={getParentCategory(getCategoryId(transaction))}
-            />
+            <CategoryIcon categoryId={getCategoryId(transaction)} />
           </Img>
           <Bd className="u-clickable u-mr-half">
             <List.Content onClick={this.handleSelect}>

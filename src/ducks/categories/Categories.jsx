@@ -245,7 +245,7 @@ class Categories extends Component {
           <td className="u-ph-1">
             <Media>
               <Img className="u-pr-half">
-                <CategoryIcon category={category.name} />
+                <CategoryIcon categoryId={category.id} />
               </Img>
               <Bd className={cx('u-ph-half', stCategory)}>
                 <ListItemText>
