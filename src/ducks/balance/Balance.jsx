@@ -20,6 +20,7 @@ import BalanceTables from './BalanceTables'
 import BalancePanels from './BalancePanels'
 import { getPanelsState } from './helpers'
 import { setBarTheme } from 'ducks/mobile/utils'
+import NoAccount from 'ducks/balance/components/NoAccount'
 
 class Balance extends PureComponent {
   constructor(props) {
@@ -144,6 +145,11 @@ class Balance extends PureComponent {
     }
 
     const accounts = accountsCollection.data
+
+    if (accounts.length === 0) {
+      return <NoAccount />
+    }
+
     const groups = [...groupsCollection.data, ...buildVirtualGroups(accounts)]
 
     const balanceLower = get(settings, 'notifications.balanceLower.value')
