@@ -431,27 +431,6 @@
     "debug": "Debug"
   },
 
-  "Onboarding": {
-    "title": {
-      "desktop": "Connecter vos comptes bancaires",
-      "mobile": "Cozy Banks"
-    },
-    "connect-bank-account": "Connecter vos comptes bancaires",
-    "manage-budget": {
-      "title": "Maîtrisez votre budget",
-      "description": "La situation de tous vos comptes en un coup d'œil"
-    },
-    "save-time": {
-      "title": "Gagnez du temps",
-      "description": "Vos factures à portée de main directement depuis vos relevés"
-    },
-    "cozy-assistant": {
-      "title": "Cozy travaille pour vous",
-      "description": "Suivi automatique du traitement de vos dépenses de santé"
-    },
-    "wait-moments": "Patientez quelques minutes si vous venez de connecter votre banque. Vos données vont se charger automatiquement !"
-  },
-
   "FileOpener": {
     "error": "Impossible de trouver le fichier, celui-ci a peut être été supprimé de l'application Drive."
   },
