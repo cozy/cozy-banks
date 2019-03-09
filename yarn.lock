@@ -4759,10 +4759,10 @@ cosmiconfig@^5.0.7:
     js-yaml "^3.9.0"
     parse-json "^4.0.0"
 
-cozy-ach@1.13.0:
-  version "1.13.0"
-  resolved "https://registry.yarnpkg.com/cozy-ach/-/cozy-ach-1.13.0.tgz#971ba7ea04316b9bab94c7ae62fba2a4eed9b08a"
-  integrity sha512-y2TgRjRkLRfWLwU+mCGMT6Wj0yP2/7dic+ISY8SwqwFRB4nkMjHM8sIiSC3H/+9doscil3wmkbUMEDDodapRZA==
+cozy-ach@1.16.0:
+  version "1.16.0"
+  resolved "https://registry.yarnpkg.com/cozy-ach/-/cozy-ach-1.16.0.tgz#2baa7427f7dc4aef67e5cfd6a01d2279f1d6aacb"
+  integrity sha512-+LHIlxmifq0Aqfxra7Fz4UJTNjH59q97ecYD66SaJ0G7EV0Wfz+kB0UW8nmX19KxuRJqJ74TVsNLtFkroL/8IQ==
   dependencies:
     btoa "1.1.2"
     colors "^1.1.2"
