@@ -47,7 +47,9 @@ class CategoriesChart extends Component {
       height,
       total,
       currency,
+      hasAccount,
       color,
+      className,
       label
     } = this.props
     if (categories.length === 0) return null
@@ -67,7 +69,12 @@ class CategoriesChart extends Component {
     const colors = this.getCategoriesColors(sortedCategories)
 
     return (
-      <div className={cx(styles.CategoriesChart, styles[color])}>
+      <div
+        className={cx(styles.CategoriesChart, styles[color], {
+          [styles.NoAccount]: !hasAccount,
+          [className]: className
+        })}
+      >
         <div className={styles.CategoriesChart__FigureBlockContainer}>
           <FigureBlock
             label={label}
@@ -79,13 +86,15 @@ class CategoriesChart extends Component {
             withCurrencySpacing={false}
           />
         </div>
-        <Chart
-          labels={labels}
-          data={data}
-          colors={colors}
-          width={width}
-          height={height}
-        />
+        {hasAccount && (
+          <Chart
+            labels={labels}
+            data={data}
+            colors={colors}
+            width={width}
+            height={height}
+          />
+        )}
       </div>
     )
   }
