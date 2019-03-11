@@ -66,7 +66,6 @@
     "solde": "Balance",
     "account_number": "Account number",
     "account_name": "Account name",
-    "add_bank": "Add a bank",
     "manage_accounts": "Manage my accounts",
     "updated_at": {
       "yesterday": "Yesterday",
@@ -82,6 +81,8 @@
   },
   "Accounts": {
     "account": "Account",
+    "add_bank": "Add a bank",
+    "no_account": "No account",
     "no-accounts": "You do not have any account yet.",
     "shared-accounts": "Accounts shared to me",
     "no-shared-accounts": "You do not have any shared account yet.",

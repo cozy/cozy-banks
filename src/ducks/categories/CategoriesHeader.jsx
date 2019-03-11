@@ -120,7 +120,8 @@ class CategoriesHeader extends PureComponent {
     const {
       breadcrumbItems,
       hasAccount,
-      breakpoints: { isMobile }
+      breakpoints: { isMobile },
+      t
     } = this.props
 
     const accountSwitch = this.renderAccountSwitch()
@@ -154,7 +155,7 @@ class CategoriesHeader extends PureComponent {
                     icon="plus"
                     size="large"
                     className={styles.CategoriesHeader_addButton}
-                    label="Ajouter une banque"
+                    label={t('Accounts.add_bank')}
                   />
                 </AddAccountLink>
               </Padded>
@@ -196,7 +197,7 @@ class CategoriesHeader extends PureComponent {
                 icon="plus"
                 size="large"
                 className={styles.CategoriesHeader_addButton}
-                label="Ajouter une banque"
+                label={t('Accounts.add_bank')}
               />
             </AddAccountLink>
           )}
