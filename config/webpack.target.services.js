@@ -80,11 +80,7 @@ module.exports = merge.strategy({
     ),
 
     new webpack.DefinePlugin({
-      __TARGET__: JSON.stringify('services'),
-      __PIWIK_SITEID__: 8,
-      __PIWIK_TRACKER_URL__: JSON.stringify(
-        'https://matomo.cozycloud.cc/piwik.php'
-      )
+      __TARGET__: JSON.stringify('services')
     }),
 
     /* Does not work in a bundle, we do not use it */
