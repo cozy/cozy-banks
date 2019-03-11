@@ -37,7 +37,10 @@ class HistoryChart extends Component {
 
   componentDidMount() {
     const container = this.container.current
-    container.scrollTo(container.scrollWidth, 0)
+
+    if (container && container.scrollTo) {
+      container.scrollTo(container.scrollWidth, 0)
+    }
   }
 
   render() {
