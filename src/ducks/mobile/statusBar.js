@@ -5,7 +5,7 @@ export const setColor = color => {
 }
 
 const THEME_TO_COLORS = {
-  primary: 'primaryColorDark',
+  primary: 'statusBarPrimaryColor',
   default: 'coolGrey'
 }
 
