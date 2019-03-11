@@ -1,27 +1,50 @@
+@require 'settings/breakpoints'
+
 .NoAccount
-    height calc(50vh - 48px)
     background var(--primaryColor)
     color var(--primaryContrastTextColor)
     text-align center
     position relative
+    height calc(50vh - 24px) // 24 is cozy-bar size / 2
+    min-height 200px
+    +small-screen()
+        height calc(50vh - 48px) // 48 is cozy-bar + bottom nav size / 2
+
+.VerticalContainer
     display flex
     flex-direction column
     flex-shrink 0
 
-
-.NoAccount_center
+.NoAccount_title
     display flex
     flex-direction column
-    justify-content center
+    justify-content flex-end
     flex-grow 1
+    +small-screen()
+        justify-content center
 
 .NoAccount_addButton
     position absolute
     bottom -24px
     left 0
     right 0
-    margin 0 1rem
-    width calc(100vw - 2rem)
+    margin 0 auto
+    width 512px
+    +small-screen()
+        width calc(100vw - 2rem)
+        margin 0 1rem
 
-.NoAccount_chart
+.NoAccount_bottom
     height 100px
+    margin-bottom 2.5rem
+    overflow hidden
+
+    .NoAccount_chart
+        height 63px
+        background-size auto 100%
+        background-position left
+        background-image url('./NoAccount.svg')
+        background-repeat no-repeat
+
+    .NoAccount_timeline
+        height 34px
