@@ -6313,6 +6313,11 @@ element-resize-detector@^1.1.12:
   dependencies:
     batch-processor "1.0.0"
 
+element-scroll-polyfill@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/element-scroll-polyfill/-/element-scroll-polyfill-1.0.1.tgz#adee88656a3e514f20be53d54965ed91b9269122"
+  integrity sha512-7DHhK7AjqipVYyFbZ0UePaU23Go5+hpgCvg4beqWHcAyCwH+NfzkKKUth+91dXuwS4QbOjIljqaUsfe5GTUPMg==
+
 elementtree@0.1.6:
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/elementtree/-/elementtree-0.1.6.tgz#2ac4c46ea30516c8c4cbdb5e3ac7418e592de20c"
