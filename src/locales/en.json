@@ -269,7 +269,8 @@
       "empty_text": "There is no transaction to analyze on this period",
       "total": "On the period",
       "general": "Categorization"
-    }
+    },
+    "noAccount": "No account"
   },
   "Transactions": {
     "title": "Movements",
