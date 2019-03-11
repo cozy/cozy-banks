@@ -1,7 +1,7 @@
 import fromPairs from 'lodash/fromPairs'
 
 let iconsByCatName
-if (require.context) {
+if (process.env.NODE_ENV !== 'test') {
   // Require all icons automatically
   const context = require.context('assets/icons/categories', false, /\.svg$/)
 
