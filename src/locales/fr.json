@@ -179,7 +179,8 @@
       "credit": "Crédit",
       "total": "Total",
       "movements": "Mouvements"
-    }
+    },
+    "noAccount": "Aucun compte"
   },
 
   "Data": {

@@ -316,7 +316,25 @@ class AccountSwitch extends Component {
     }))
 
     if (!accounts || accounts.length === 0) {
-      return null
+      return isMobile ? (
+        <BarCenter>
+          <BarItem style={barItemStyle}>
+            <Title
+              className={cx(styles.AccountSwitch__SelectText, styles.disable)}
+              color={color}
+            >
+              {t('Categories.noAccount')}
+            </Title>
+          </BarItem>
+        </BarCenter>
+      ) : (
+        <Title
+          className={cx(styles.AccountSwitch__SelectText, styles.disable)}
+          color={color}
+        >
+          {t('Categories.noAccount')}
+        </Title>
+      )
     }
 
     const closeAfterSelect = selection => param => {
