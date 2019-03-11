@@ -15,7 +15,7 @@ const NoAccount = ({ lang, t, breakpoints: { isMobile } }) => {
   return (
     <div className={cx(styles.NoAccount, styles.VerticalContainer)}>
       <div className={styles.NoAccount_title}>
-        <HeaderTitle balance={0} subtitle={t('Aucun compte')} />
+        <HeaderTitle balance={0} subtitle={t('Accounts.no_account')} />
       </div>
       <div className={styles.NoAccount_bottom}>
         <div className={styles.NoAccount_chart} />
@@ -27,7 +27,7 @@ const NoAccount = ({ lang, t, breakpoints: { isMobile } }) => {
           icon="plus"
           size="large"
           className={styles.NoAccount_addButton}
-          label={t('Ajouter une banque')}
+          label={t('Accounts.add_bank')}
         />
       </AddAccountLink>
     </div>
