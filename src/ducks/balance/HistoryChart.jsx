@@ -7,6 +7,7 @@ import { flowRight as compose } from 'lodash'
 import cx from 'classnames'
 import { getCssVariableValue } from 'cozy-ui/react/utils/color'
 import { lighten } from '@material-ui/core/styles/colorManipulator'
+import 'element-scroll-polyfill'
 
 // on iOS white transparency on SVG failed so we should calculate hexa color
 const gradientColor = getCssVariableValue('historyGradientColor')
