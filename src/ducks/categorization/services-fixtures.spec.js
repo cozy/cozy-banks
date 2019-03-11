@@ -81,7 +81,8 @@ const setCsvWriter = () => {
       { id: 'amount', title: 'Amount' },
       { id: 'label', title: 'Label' },
       { id: 'catNameDisplayed', title: 'Category displayed' },
-      { id: 'catNameTrue', title: 'True category' }
+      { id: 'catNameTrue', title: 'True category' },
+      { id: 'cozyId', title: 'Id of Cozy' }
     ]
   })
 }
@@ -285,7 +286,7 @@ const fmtResults = transactions => {
   return fmtedResults
 }
 
-const fmtResultsCSV = transactions => {
+const fmtResultsCSV = (transactions, cozyId) => {
   const fmtedResults = transactions.map(op => {
     const { status, method, amount, label, catNameDisplayed, catNameTrue } = op
     let fmtedResult = {
@@ -295,20 +296,11 @@ const fmtResultsCSV = transactions => {
       amount,
       label,
       catNameDisplayed,
-      catNameTrue
+      catNameTrue,
+      cozyId
     }
     return fmtedResult
   })
-  const blankLine = {
-    manCat: ' ',
-    method: ' ',
-    status: ' ',
-    amount: ' ',
-    label: ' ',
-    catNameDisplayed: ' ',
-    catNameTrue: ' '
-  }
-  fmtedResults.push(blankLine)
   return fmtedResults
 }
 
@@ -426,7 +418,7 @@ xOrDescribe('Chain of predictions', () => {
         // Format results
         const fmtedResults = fmtResults(results)
         // Format results for the historized CSV
-        const fixtureCSV = fmtResultsCSV(results)
+        const fixtureCSV = fmtResultsCSV(results, bank)
         // Add an accuracy metrics
         const currentAccuracy = computeAccuracy(results)
         // Summary of the dataset
