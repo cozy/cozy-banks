@@ -6,6 +6,7 @@ import { getCurrencySymbol } from 'utils/currencySymbol'
 const getParent = parentCategory.get.bind(parentCategory)
 
 const makeCategory = parent => ({
+  id: parent.id,
   name: parent.name,
   color: parent.color,
   transactions: [],
@@ -13,6 +14,7 @@ const makeCategory = parent => ({
 })
 
 const makeSubcategory = catId => ({
+  id: catId,
   name: categoryNames[catId],
   transactions: []
 })
@@ -90,8 +92,11 @@ export const transactionsByCategory = transactions => {
   return categories
 }
 
-// Very specific to this component: takes the transactions by category as returned by the `transactionsByCategory` function, and turns it into a flat array, while computing derived data such as totals and curencies.
-// The result is used pretty much as is down the chain by other components, so changing property names here should be done with care.
+// Very specific to this component: takes the transactions by category as returned by the
+// `transactionsByCategory` function, and turns it into a flat array, while computing derived
+// data such as totals and currencies.
+// The result is used pretty much as is down the chain by other components, so changing property
+// names here should be done with care.
 export const computeCategorieData = transactionsByCategory => {
   return Object.values(transactionsByCategory).map(category => {
     let subcategories = Object.values(category.subcategories).map(
@@ -106,6 +111,7 @@ export const computeCategorieData = transactionsByCategory => {
         )
 
         return {
+          id: subcategory.id,
           name: subcategory.name,
           amount: credit + debit,
           debit: debit,
@@ -130,6 +136,7 @@ export const computeCategorieData = transactionsByCategory => {
     )
 
     return {
+      id: category.id,
       name: category.name,
       color: category.color,
       amount: credit + debit,
