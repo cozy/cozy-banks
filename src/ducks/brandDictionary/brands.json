@@ -247,6 +247,11 @@
     "konnectorSlug": "theoldreader"
   },
   {
+    "name": "Thomann",
+    "regexp": "\\bthomann\\b",
+    "konnectorSlug": "thomann"
+  },
+  {
     "name": "Trainline",
     "regexp": "\\btrainline\\b",
     "konnectorSlug": "trainline"
