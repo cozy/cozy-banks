@@ -9,9 +9,10 @@ platform :ios do
     )
   end
 
-  lane :metadata do
+  lane :screenshots do
     appstore(
-      skip_binary_upload: true
+      skip_binary_upload: true,
+      skip_metadata: true
     )
   end
 
@@ -24,15 +25,23 @@ platform :ios do
       force: true
     )
     cordova(platform: 'ios', build_flag: ['-UseModernBuildSystem=0'])
-    appstore(ipa: ENV['CORDOVA_IOS_RELEASE_BUILD_PATH'], skip_screenshots: true)
+    appstore(
+      ipa: ENV['CORDOVA_IOS_RELEASE_BUILD_PATH'],
+      skip_screenshots: true,
+      skip_metadata: true
+    )
   end
 end
 
 platform :android do
   desc "Deploy android app on play store"
 
-  lane :metadata do
-    supply(skip_upload_apk: true, track: 'beta')
+  lane :screenshots do
+    supply(
+      skip_upload_apk: true,
+      skip_upload_metadata: true,
+      track: 'beta'
+    )
   end
 
   lane :deploy do
@@ -40,7 +49,8 @@ platform :android do
       apk: './build/android/cozy-banks.apk',
       track: 'beta',
       skip_upload_screenshots: true,
-      skip_upload_images: true
+      skip_upload_images: true,
+      skip_upload_metadata: true
     )
   end
 end
