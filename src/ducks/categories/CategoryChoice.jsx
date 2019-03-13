@@ -6,6 +6,7 @@ import {
   CategoryIcon,
   getParentCategory
 } from 'ducks/categories'
+import styles from 'ducks/transactions/TransactionModal.styl'
 
 class CategoryChoice extends Component {
   constructor(props) {
@@ -23,11 +24,7 @@ class CategoryChoice extends Component {
 
       const translateKey = subcategory ? 'subcategories' : 'categories'
       option.title = this.props.t(`Data.${translateKey}.${option.name}`)
-
-      const iconCategory = subcategory
-        ? getParentCategory(option.id)
-        : option.name
-      option.icon = <CategoryIcon category={iconCategory} />
+      option.icon = <CategoryIcon categoryId={option.id} />
 
       if (!subcategory) {
         // sort children so "others" is always the last
@@ -59,6 +56,7 @@ class CategoryChoice extends Component {
 
     return (
       <PopupSelect
+        closeBtnClassName={styles.TransactionModalCross}
         title={t('Categories.choice.title')}
         options={this.options}
         isSelected={this.isSelected}

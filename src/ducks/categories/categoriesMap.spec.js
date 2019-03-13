@@ -12,8 +12,7 @@ describe('categories map', function() {
       'color',
       'name',
       'id',
-      'children',
-      'icon'
+      'children'
     ])
   })
 

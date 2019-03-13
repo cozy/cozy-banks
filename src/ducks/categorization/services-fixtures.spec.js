@@ -23,11 +23,11 @@ const softRequire = file => {
 const globalModelJSON = softRequire('./bank_classifier_nb_and_voc.json')
 const xOrDescribe = globalModelJSON ? describe : xdescribe
 
-let banks
+let cozyInstances
 if (IT_IS_A_TEST) {
-  banks = ['flotest60.cozy.rocks']
+  cozyInstances = ['flotest60.cozy.rocks']
 } else {
-  banks = [
+  cozyInstances = [
     'francoistest1.mycozy.cloud',
     'flotest60.cozy.rocks',
     'anonymous1.mycozy.cloud',
@@ -81,7 +81,8 @@ const setCsvWriter = () => {
       { id: 'amount', title: 'Amount' },
       { id: 'label', title: 'Label' },
       { id: 'catNameDisplayed', title: 'Category displayed' },
-      { id: 'catNameTrue', title: 'True category' }
+      { id: 'catNameTrue', title: 'True category' },
+      { id: 'cozyId', title: 'Id of Cozy' }
     ]
   })
 }
@@ -285,7 +286,7 @@ const fmtResults = transactions => {
   return fmtedResults
 }
 
-const fmtResultsCSV = transactions => {
+const fmtResultsCSV = (transactions, cozyId) => {
   const fmtedResults = transactions.map(op => {
     const { status, method, amount, label, catNameDisplayed, catNameTrue } = op
     let fmtedResult = {
@@ -295,20 +296,11 @@ const fmtResultsCSV = transactions => {
       amount,
       label,
       catNameDisplayed,
-      catNameTrue
+      catNameTrue,
+      cozyId
     }
     return fmtedResult
   })
-  const blankLine = {
-    manCat: ' ',
-    method: ' ',
-    status: ' ',
-    amount: ' ',
-    label: ' ',
-    catNameDisplayed: ' ',
-    catNameTrue: ' '
-  }
-  fmtedResults.push(blankLine)
   return fmtedResults
 }
 
@@ -398,11 +390,11 @@ xOrDescribe('Chain of predictions', () => {
   let loseBIEveryFixtures = 0
   let nUncategorizedEveryFixtures = 0
   // prepare loop over fixtures
-  for (let bank of banks) {
+  for (let cozyId of cozyInstances) {
     // check if fixture exists
     const expectedPath = path.join(
       fixturePath,
-      `${bank}-clean-transactions.bi.json`
+      `${cozyId}-clean-transactions.bi.json`
     )
     let transactions
     try {
@@ -412,7 +404,7 @@ xOrDescribe('Chain of predictions', () => {
     }
     // if fixture exists : continue
     ;(transactions ? it : xit)(
-      `should correctly predict transactions of ${bank}`,
+      `should correctly predict transactions of ${cozyId}`,
       async () => {
         manualCategorizations = transactions.filter(
           op => op.manualCategoryId !== undefined
@@ -426,7 +418,7 @@ xOrDescribe('Chain of predictions', () => {
         // Format results
         const fmtedResults = fmtResults(results)
         // Format results for the historized CSV
-        const fixtureCSV = fmtResultsCSV(results)
+        const fixtureCSV = fmtResultsCSV(results, cozyId)
         // Add an accuracy metrics
         const currentAccuracy = computeAccuracy(results)
         // Summary of the dataset
