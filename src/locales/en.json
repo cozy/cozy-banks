@@ -72,7 +72,9 @@
       "today": "Today",
       "n_days_ago": "%{nbDays} days ago",
       "unknown": "NC"
-    }
+    },
+    "importing_accounts": "Importing accounts",
+    "in_progress": "In progress"
   },
   "SelectDates": {
     "all_year": "All year",

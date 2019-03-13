@@ -92,7 +92,9 @@
       "today": "Aujourd'hui",
       "n_days_ago": "Il y a %{nbDays} jours",
       "unknown": "NC"
-    }
+    },
+    "importing_accounts": "Importation des comptes",
+    "in_progress": "En cours"
   },
 
   "Transactions": {
