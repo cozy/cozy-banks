@@ -3,7 +3,12 @@ import { flowRight as compose, get, sumBy, set, debounce } from 'lodash'
 
 import { queryConnect, withMutations } from 'cozy-client'
 import flag from 'cozy-flags'
-import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
+import {
+  ACCOUNT_DOCTYPE,
+  GROUP_DOCTYPE,
+  SETTINGS_DOCTYPE,
+  TRIGGER_DOCTYPE
+} from 'doctypes'
 import cx from 'classnames'
 
 import { connect } from 'react-redux'
@@ -134,7 +139,8 @@ class Balance extends PureComponent {
     const {
       accounts: accountsCollection,
       groups: groupsCollection,
-      settings: settingsCollection
+      settings: settingsCollection,
+      triggers: triggersCollection
     } = this.props
 
     if (isCollectionLoading(settingsCollection)) {
@@ -142,11 +148,12 @@ class Balance extends PureComponent {
     }
 
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
-
-    if (
-      isCollectionLoading(accountsCollection) ||
-      isCollectionLoading(groupsCollection)
-    ) {
+    const collections = [
+      accountsCollection,
+      groupsCollection,
+      triggersCollection
+    ]
+    if (collections.some(isCollectionLoading)) {
       return (
         <Fragment>
           <BalanceHeader />
@@ -227,7 +234,8 @@ export default compose(
   queryConnect({
     accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' },
     groups: { query: client => client.all(GROUP_DOCTYPE), as: 'groups' },
-    settings: { query: client => client.all(SETTINGS_DOCTYPE), as: 'settings' }
+    settings: { query: client => client.all(SETTINGS_DOCTYPE), as: 'settings' },
+    triggers: { query: client => client.all(TRIGGER_DOCTYPE), as: 'triggers' }
   }),
   withMutations()
 )(Balance)
