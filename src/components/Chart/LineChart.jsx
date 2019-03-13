@@ -473,12 +473,11 @@ class LineChart extends Component {
 
     return (
       <div className={styles.LineChart}>
-        {selectedItem &&
-          getTooltipContent && (
-            <Tooltip x={tooltipX} position={position}>
-              {getTooltipContent(selectedItem)}
-            </Tooltip>
-          )}
+        {selectedItem && getTooltipContent && (
+          <Tooltip x={tooltipX} position={position}>
+            {getTooltipContent(selectedItem)}
+          </Tooltip>
+        )}
         <svg
           ref={node => (this.root = node)}
           width={width}

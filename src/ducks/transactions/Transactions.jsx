@@ -166,12 +166,11 @@ export class TransactionsDumb extends React.Component {
 
     return (
       <TransactionContainer className={styles.TransactionTable}>
-        {manualLoadMore &&
-          limitMin > 0 && (
-            <LoadMoreButton onClick={() => this.props.onReachTop(20)}>
-              {t('Transactions.see-more')}
-            </LoadMoreButton>
-          )}
+        {manualLoadMore && limitMin > 0 && (
+          <LoadMoreButton onClick={() => this.props.onReachTop(20)}>
+            {t('Transactions.see-more')}
+          </LoadMoreButton>
+        )}
         {transactionsGrouped.map(dateAndGroup => {
           const date = dateAndGroup[0]
           const transactionGroup = dateAndGroup[1]
@@ -194,12 +193,11 @@ export class TransactionsDumb extends React.Component {
             </Section>
           )
         })}
-        {manualLoadMore &&
-          limitMax < this.transactions.length && (
-            <LoadMoreButton onClick={() => this.props.onReachBottom(20)}>
-              {t('Transactions.see-more')}
-            </LoadMoreButton>
-          )}
+        {manualLoadMore && limitMax < this.transactions.length && (
+          <LoadMoreButton onClick={() => this.props.onReachBottom(20)}>
+            {t('Transactions.see-more')}
+          </LoadMoreButton>
+        )}
       </TransactionContainer>
     )
   }

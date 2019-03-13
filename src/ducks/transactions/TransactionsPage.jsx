@@ -334,11 +334,9 @@ class TransactionsPage extends Component {
           chartData={chartData}
           showBackButton={this.props.showBackButton}
         />
-        {isMobile &&
-          !isCollectionLoading(accounts) &&
-          !isOnSubcategory && (
-            <TransactionsPageBar accounts={filteredAccounts} theme={theme} />
-          )}
+        {isMobile && !isCollectionLoading(accounts) && !isOnSubcategory && (
+          <TransactionsPageBar accounts={filteredAccounts} theme={theme} />
+        )}
         {isFetching ? (
           <Loading loadingType="movements" />
         ) : (
