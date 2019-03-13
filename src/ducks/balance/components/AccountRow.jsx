@@ -88,18 +88,17 @@ class AccountRow extends React.PureComponent {
             </div>
           </div>
         </div>
-        {!isMobile &&
-          account.number && (
-            <div
-              className={cx(
-                styles.AccountRow__column,
-                styles['AccountRow__column--secondary']
-              )}
-            >
-              N°
-              {account.number}
-            </div>
-          )}
+        {!isMobile && account.number && (
+          <div
+            className={cx(
+              styles.AccountRow__column,
+              styles['AccountRow__column--secondary']
+            )}
+          >
+            N°
+            {account.number}
+          </div>
+        )}
         {!isMobile && (
           <div
             className={cx(

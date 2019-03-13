@@ -46,11 +46,11 @@ const Component = ({
   const text = pending
     ? t('Transactions.actions.healthExpensePending')
     : vendors.length > 1
-      ? t('Transactions.actions.healthExpenseProcessed.plural').replace(
-          '%{nbReimbursements}',
-          vendors.length
-        )
-      : t('Transactions.actions.healthExpenseProcessed.single')
+    ? t('Transactions.actions.healthExpenseProcessed.plural').replace(
+        '%{nbReimbursements}',
+        vendors.length
+      )
+    : t('Transactions.actions.healthExpenseProcessed.single')
 
   // Normally, pending color is not error/red, but for now we handle this state like this
   const type = pending ? 'error' : 'normal'

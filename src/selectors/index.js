@@ -22,9 +22,12 @@ export const getAccounts = state => {
   return (col && col.data) || []
 }
 
-export const getVirtualGroups = createSelector([getAccounts], accounts => {
-  return buildVirtualGroups(accounts)
-})
+export const getVirtualGroups = createSelector(
+  [getAccounts],
+  accounts => {
+    return buildVirtualGroups(accounts)
+  }
+)
 
 export const getAllGroups = createSelector(
   [getGroups, getVirtualGroups],

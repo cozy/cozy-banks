@@ -99,14 +99,13 @@ class Onboarding extends Component {
             />
           </AddAccountLink>
         </CTA>
-        {isTriggersLoaded &&
-          hasTriggers && (
-            <Padded>
-              <Paragraph style={centerStyle}>
-                {t('Onboarding.wait-moments')}
-              </Paragraph>
-            </Padded>
-          )}
+        {isTriggersLoaded && hasTriggers && (
+          <Padded>
+            <Paragraph style={centerStyle}>
+              {t('Onboarding.wait-moments')}
+            </Paragraph>
+          </Padded>
+        )}
       </Hero>
     )
   }
