@@ -242,6 +242,11 @@
     "konnectorSlug": "stickersdiscount"
   },
   {
+    "name": "Tag&Pass",
+    "regexp": "\\bsemitag\\b",
+    "konnectorSlug": "tagandpass"
+  },
+  {
     "name": "The Old Reader",
     "regexp": "\\btheoldreader\\b",
     "konnectorSlug": "theoldreader"
