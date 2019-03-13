@@ -14,7 +14,7 @@ import {
   getAccountBalance
 } from 'ducks/account/helpers'
 import styles from './AccountRow.styl'
-import KonnectorIcon from './KonnectorIcon'
+import KonnectorIcon from 'ducks/balance/components/KonnectorIcon'
 import healthIcon from 'assets/icons/icon-health.svg'
 
 class AccountRow extends React.PureComponent {
