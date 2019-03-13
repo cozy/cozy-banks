@@ -136,6 +136,7 @@ class GroupPanel extends React.PureComponent {
       optimisticExpanded !== undefined
         ? optimisticExpanded
         : this.props.expanded
+    const isUncheckable = !group.loading
 
     return (
       <ExpansionPanel expanded={expanded} onChange={this.handlePanelChange}>
@@ -145,7 +146,7 @@ class GroupPanel extends React.PureComponent {
             disableRipple: true
           }}
           className={cx({
-            [styles['GroupPanelSummary--unchecked']]: !checked
+            [styles['GroupPanelSummary--unchecked']]: !checked && isUncheckable
           })}
         >
           <div className={styles.GroupPanelSummary__content}>
@@ -174,15 +175,17 @@ class GroupPanel extends React.PureComponent {
                 />
               )}
             </div>
-            <Switch
-              disableRipple
-              className="u-mh-half"
-              checked={checked}
-              color="primary"
-              onClick={this.handleSwitchClick}
-              id={`[${group._id}]`}
-              onChange={onSwitchChange}
-            />
+            {checked !== undefined && (
+              <Switch
+                disableRipple
+                className="u-mh-half"
+                checked={checked}
+                color="primary"
+                onClick={this.handleSwitchClick}
+                id={`[${group._id}]`}
+                onChange={onSwitchChange}
+              />
+            )}
           </div>
         </GroupPanelSummary>
         <ExpansionPanelDetails>

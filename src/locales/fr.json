@@ -93,6 +93,7 @@
       "n_days_ago": "Il y a %{nbDays} jours",
       "unknown": "NC"
     },
+    "delay": "Cela peut prendre quelques minutes…",
     "importing_accounts": "Importation des comptes",
     "in_progress": "En cours"
   },

@@ -18,6 +18,7 @@ import Loading from 'components/Loading'
 import { Padded } from 'components/Spacing'
 import BalanceHeader from 'ducks/balance/components/BalanceHeader'
 import NoAccount from 'ducks/balance/components/NoAccount'
+import AccountsImporting from 'ducks/balance/components/AccountsImporting'
 
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import { buildVirtualGroups } from 'ducks/groups/helpers'
@@ -163,8 +164,16 @@ class Balance extends PureComponent {
     }
 
     const accounts = accountsCollection.data
+    const triggers = triggersCollection.data.filter(
+      t => get(t, 'message.worker') === 'konnector'
+    )
 
     if (accounts.length === 0) {
+      if (triggers.length > 0) {
+        const konnectorSlugs = triggers.map(t => t.message.konnector)
+        return <AccountsImporting konnectorSlugs={konnectorSlugs} />
+      }
+
       return <NoAccount />
     }
 

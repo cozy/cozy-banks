@@ -57,7 +57,8 @@ class AccountRow extends React.PureComponent {
         className={cx(styles.AccountRow, {
           [styles['AccountRow--hasWarning']]: hasWarning,
           [styles['AccountRow--hasAlert']]: hasAlert,
-          [styles['AccountRow--disabled']]: !checked || disabled
+          [styles['AccountRow--disabled']]:
+            (!checked || disabled) && account.loading !== true
         })}
         onClick={onClick}
       >
