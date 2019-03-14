@@ -138,11 +138,24 @@ const withAuth = Wrapped =>
             isRevoked: this.isRevoked,
             onAuthentication: this.onAuthentication,
             setupAuth: this.setupAuth
+            onLogout: this.onLogout
           }}
         />
       )
     }
   }
+
+
+const PotentiallyRevoked_ = props => {
+  if (props.revoked) {
+    setBarTheme('default')
+  }
+  return props.revoked ? <Revoked {...props} /> : props.children
+}
+
+const PotentiallyRevoked = connect(state => ({
+  revoked: state.mobile.revoked
+}))(PotentiallyRevoked_)
 
 const MobileRouter = ({
   router,
@@ -152,6 +165,7 @@ const MobileRouter = ({
   isRevoked,
   onAuthentication,
   setupAuth
+  onLogout,
 }) => {
   return (
     <Router history={history}>
@@ -168,19 +182,14 @@ const MobileRouter = ({
       />
       <Route
         onEnter={setupAuth(isAuthenticated, router)}
-        component={props => {
-          const revoked = isRevoked()
-          return revoked ? (
-            <Revoked
-              {...props}
-              router={history}
-              revoked={isRevoked()}
-              onLogBackIn={onAuthentication}
-            />
-          ) : (
-            props.children
-          )
-        }}
+        component={props => (
+          <PotentiallyRevoked
+            {...props}
+            router={history}
+            onLogBackIn={onAuthentication}
+            onLogout={onLogout}
+          />
+        )}
       >
         {routes}
       </Route>
