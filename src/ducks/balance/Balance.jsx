@@ -24,6 +24,7 @@ import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import { buildVirtualGroups } from 'ducks/groups/helpers'
 import { isCollectionLoading } from 'ducks/client/utils'
 import { getAccountBalance } from 'ducks/account/helpers'
+import { isBankTrigger } from 'utils/triggers'
 
 import styles from 'ducks/balance/Balance.styl'
 import BalanceTables from './BalanceTables'
@@ -164,13 +165,13 @@ class Balance extends PureComponent {
     }
 
     const accounts = accountsCollection.data
-    const triggers = triggersCollection.data.filter(
-      t => get(t, 'message.worker') === 'konnector'
-    )
+    const triggers = triggersCollection.data
 
     if (accounts.length === 0) {
-      if (triggers.length > 0) {
-        const konnectorSlugs = triggers.map(t => t.message.konnector)
+      const konnectorSlugs = triggers
+        .filter(isBankTrigger)
+        .map(t => t.message.konnector)
+      if (konnectorSlugs.length > 0) {
         return <AccountsImporting konnectorSlugs={konnectorSlugs} />
       }
 
