@@ -25,6 +25,7 @@ import { resetFilterByDoc } from 'ducks/filters'
 export const AUTH_PATH = 'authentication'
 
 export const onLogout = async (store, cozyClient) => {
+  setBarTheme('default')
   try {
     await stopPushNotifications()
 
@@ -98,22 +99,22 @@ const withAuth = Wrapped =>
         const url = getURL(mobileState)
         const cozyClient = this.props.client
         setURLContext(url)
-        initBar(url, getAccessToken(mobileState), {
-          onLogOut: () => {
-            setBarTheme('default')
-            this.setState({ isLoggingOut: true }, async () => {
-              await onLogout(
-                this.context.store,
-                cozyClient,
-                this.props.history.replace
-              )
-
-              this.setState({ isLoggingOut: false })
-              this.props.history.replace(`/${AUTH_PATH}`)
-            })
-          }
+        initBar(url, this.props.accessToken, {
+          onLogOut: this.onLogout
         })
       }
+    }
+
+    onLogout = async () => {
+      this.setState({ isLoggingOut: true }, async () => {
+        await onLogout(
+          this.context.store,
+          this.props.client,
+          this.props.history.replace
+        )
+        this.setState({ isLoggingOut: false })
+        this.props.history.replace(`/${AUTH_PATH}`)
+      })
     }
 
     isAuthenticated = () => {
