@@ -103,7 +103,7 @@
     "copy-webpack-plugin": "5.0.1",
     "cozy-ach": "1.16.0",
     "cozy-app-publish": "0.13.1",
-    "cozy-jobs-cli": "1.7.13",
+    "cozy-jobs-cli": "1.7.15",
     "css-loader": "2.1.1",
     "css-mqpacker": "7.0.0",
     "csswring": "7.0.0",

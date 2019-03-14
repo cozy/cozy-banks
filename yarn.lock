@@ -4832,6 +4832,16 @@ cozy-doctypes@1.38.1:
     es6-promise-pool "2.5.0"
     lodash "4.17.11"
 
+cozy-doctypes@1.38.6:
+  version "1.38.6"
+  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.38.6.tgz#7f797f25372a1589210d43f6df7f4eefef27b72a"
+  integrity sha512-ZKtq3SmqRtjDJH0y6EHf+4357BQCQoFjvy7/HriZuXL+TAlymY39FQtJ3Hyr/0vMoM9PFbRhwH9Z0JD9Tx4JJw==
+  dependencies:
+    "@babel/runtime" "7.3.1"
+    cozy-logger "1.3.1"
+    es6-promise-pool "2.5.0"
+    lodash "4.17.11"
+
 cozy-flags@1.5.5:
   version "1.5.5"
   resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-1.5.5.tgz#a55412480db8828c86e211befe0d74812e591db2"
@@ -4844,10 +4854,10 @@ cozy-interapp@0.2.20:
   resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.2.20.tgz#bc943646a25af64d49acdad94e40e88239ef34ab"
   integrity sha512-0W1FVLrs80QnWhy4F0Gqby+NOStUVdp8TWHlJBaVkDCn5kMXY0TrTAd/OZxMkdPsmTmxZuPlCrxRgXAF8nJk/w==
 
-cozy-jobs-cli@1.7.13:
-  version "1.7.13"
-  resolved "https://registry.yarnpkg.com/cozy-jobs-cli/-/cozy-jobs-cli-1.7.13.tgz#03cf2a51e26736e6de4769d6cdcf2c2257c2dc33"
-  integrity sha512-7HWA72XnfW8Oy95/mOKWHyaT3xKc6B5NtyVgwfqYmmUajeF3rwKhkbwLg8qp/7oYM8h4N2/c6ytzeMZWmlTXAA==
+cozy-jobs-cli@1.7.15:
+  version "1.7.15"
+  resolved "https://registry.yarnpkg.com/cozy-jobs-cli/-/cozy-jobs-cli-1.7.15.tgz#a99ccfb3c60c92612e8392e56578e5ad768d8cd9"
+  integrity sha512-ksNqKIni/keASvuSoseN1b7VaQLGt3CbuSxCE1RH1/7RWGUOrwYbzwS0it94DmYy+Lu8xUIx4qlkT/XpCkntdQ==
   dependencies:
     btoa "1.2.1"
     cheerio "1.0.0-rc.2"
@@ -4855,7 +4865,7 @@ cozy-jobs-cli@1.7.13:
     commander "2.19.0"
     core-js "2.6.5"
     cozy-client-js "0.9.0"
-    cozy-konnector-libs "^4.14.11"
+    cozy-konnector-libs "^4.14.13"
     cozy-logger "^1.3.1"
     opn "5.4.0"
     pretty "2.0.0"
@@ -4887,22 +4897,23 @@ cozy-konnector-libs@4.14.9:
     request-debug "0.2.0"
     request-promise "4.2.4"
 
-cozy-konnector-libs@^4.14.11:
-  version "4.14.11"
-  resolved "https://registry.yarnpkg.com/cozy-konnector-libs/-/cozy-konnector-libs-4.14.11.tgz#42313381b1225512e10400eb919289e78fbd20c6"
-  integrity sha512-O3HkNwVrO6M/mJA1ukQd/Q34N7cARpRABhKSOUPl1/JCL0sx0g0dlSUv85U62MraECrgT87+Q7eyF8D6r70+lA==
+cozy-konnector-libs@^4.14.13:
+  version "4.14.13"
+  resolved "https://registry.yarnpkg.com/cozy-konnector-libs/-/cozy-konnector-libs-4.14.13.tgz#0fe6e6623a821b863ce981a0e80dcc0519419256"
+  integrity sha512-3EtfwfIPhbU/KBou0W6w+SUpYkL/lILKcZZYHEg3UZIYHNuXklVWxsjRD96OoRAYQkCeVp2y+wVIe/hJUMEEWA==
   dependencies:
     bluebird "3.5.3"
     bluebird-retry "0.11.0"
     btoa "1.2.1"
     cheerio "1.0.0-rc.2"
+    classificator "0.3.3"
     cozy-client-js "0.9.0"
+    cozy-doctypes "1.38.6"
     cozy-logger "1.3.1"
     date-fns "1.30.1"
     geco "0.11.1"
     isomorphic-fetch "2.2.1"
-    lodash "4.17.11"
-    lodash-id "^0.14.0"
+    lodash-id "0.14.0"
     lowdb "1.0.0"
     pdfjs "2.1.0"
     pdfjs-dist "2.0.943"
@@ -10934,7 +10945,7 @@ lodash-es@^4.17.5, lodash-es@^4.2.1:
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.8.tgz#6fa8c8c5d337481df0bdf1c0d899d42473121e45"
   integrity sha512-I9mjAxengFAleSThFhhAhvba6fsO0hunb9/0sQ6qQihSZsJRBofv2rYH58WXaOb/O++eUmYpCLywSQ22GfU+sA==
 
-lodash-id@^0.14.0:
+lodash-id@0.14.0, lodash-id@^0.14.0:
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/lodash-id/-/lodash-id-0.14.0.tgz#baf48934e543a1b5d6346f8c84698b1a8c803896"
   integrity sha1-uvSJNOVDobXWNG+MhGmLGoyAOJY=
