@@ -22,6 +22,7 @@ import { initBar, resetClient, setBarTheme } from 'ducks/mobile/utils'
 import LogoutModal from 'components/LogoutModal'
 import { resetFilterByDoc } from 'ducks/filters'
 import { connect } from 'react-redux'
+import appIcon from 'targets/favicons/icon-banks.jpg'
 
 export const AUTH_PATH = 'authentication'
 
@@ -187,6 +188,8 @@ const MobileRouter = ({
             router={history}
             onComplete={onAuthentication}
             onException={logException}
+            appTitle="Banks"
+            appIcon={appIcon}
           />
         )}
       />
