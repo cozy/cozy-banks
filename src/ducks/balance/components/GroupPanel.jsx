@@ -93,6 +93,9 @@ class GroupPanel extends React.PureComponent {
   }
 
   handleSummaryContentClick = e => {
+    const { group } = this.props
+
+    if (group.loading) return
     e.stopPropagation()
     this.goToTransactionsFilteredByDoc()
   }

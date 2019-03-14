@@ -54,7 +54,7 @@ class AccountRow extends React.PureComponent {
 
     return (
       <li
-        className={cx(styles.AccountRow, {
+        className={cx(styles.AccountRow, 'u-c-pointer', {
           [styles['AccountRow--hasWarning']]: hasWarning,
           [styles['AccountRow--hasAlert']]: hasAlert,
           [styles['AccountRow--disabled']]:
