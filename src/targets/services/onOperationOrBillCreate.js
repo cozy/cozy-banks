@@ -1,10 +1,6 @@
 import { cozyClient } from 'cozy-konnector-libs'
 import logger from 'cozy-logger'
 import flag from 'cozy-flags'
-import {
-  categorizes,
-  PARAMETERS_NOT_FOUND
-} from 'ducks/categorization/services'
 import { sendNotifications } from 'ducks/notifications/services'
 import { Document } from 'cozy-doctypes'
 import { Transaction, Bill, Settings } from 'models'
@@ -112,35 +108,6 @@ const doSendNotifications = async (setting, notifChanges) => {
   }
 }
 
-const doCategorization = async setting => {
-  const catLastSeq = setting.categorization.lastSeq
-
-  try {
-    const catChanges = await fetchChangesOrAll(Transaction, catLastSeq)
-    const toCategorize = catChanges.documents.filter(isCreatedDoc)
-
-    if (toCategorize.length > 0) {
-      const transactionsCategorized = await categorizes(toCategorize)
-      await Transaction.updateAll(transactionsCategorized)
-      const newChanges = await fetchChangesOrAll(
-        Transaction,
-        catChanges.newLastSeq
-      )
-
-      setting.categorization.lastSeq = newChanges.newLastSeq
-    } else {
-      log('info', 'No transaction to categorize')
-      setting.categorization.lastSeq = catChanges.newLastSeq
-    }
-  } catch (e) {
-    if (e.message === PARAMETERS_NOT_FOUND) {
-      log('info', PARAMETERS_NOT_FOUND)
-    } else {
-      log('warn', 'Error in categorization ' + e)
-    }
-  }
-}
-
 const getOptions = argv => {
   try {
     return JSON.parse(argv.slice(-1)[0])
@@ -179,9 +146,6 @@ const onOperationOrBillCreate = async options => {
 
   log('info', 'Do send notifications...')
   await doSendNotifications(setting, notifChanges)
-
-  log('info', 'Do categorization...')
-  await doCategorization(setting)
 
   log('info', 'Saving settings...')
   await Settings.createOrUpdate(setting)

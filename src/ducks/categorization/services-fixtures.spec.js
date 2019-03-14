@@ -1,11 +1,12 @@
-import { localModel, globalModel, BankClassifier } from './services'
-import { tokenizer } from '.'
-import { Transaction } from '../../models'
-const path = require('path')
-const fs = require('fs')
-
-const cat2name = require('../categories/tree.json')
-const allowedFallbackCategories = require('./allowed_wrong_categories.json')
+import { localModel } from 'cozy-konnector-libs/dist/libs/categorization/localModel'
+import { globalModel } from 'cozy-konnector-libs/dist/libs/categorization/globalModel'
+import { tokenizer } from 'cozy-konnector-libs/dist/libs/categorization/helpers'
+import { BankTransaction } from 'cozy-doctypes'
+import { cozyClient } from 'cozy-konnector-libs'
+import path from 'path'
+import fs from 'fs'
+import cat2name from '../categories/tree.json'
+import allowedFallbackCategories from './allowed_wrong_categories.json'
 
 const fixturePath = path.join(__dirname, 'fixtures')
 
@@ -362,11 +363,12 @@ xOrDescribe('Chain of predictions', () => {
   let manualCategorizations = []
   beforeEach(() => {
     jest
-      .spyOn(Transaction, 'queryAll')
+      .spyOn(BankTransaction, 'queryAll')
       .mockImplementation(() => Promise.resolve(manualCategorizations))
+
     // Mock global model
     jest
-      .spyOn(BankClassifier, 'fetchParameters')
+      .spyOn(cozyClient, 'fetchJSON')
       .mockImplementation(() => Promise.resolve(globalModelJSON))
   })
 

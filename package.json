@@ -62,7 +62,7 @@
     "encrypt-banking-tests": "cd src/ducks/categorization/; make encrypted.tar.gz.gpg",
     "clean-banking-tests": "cd src/ducks/categorization/; make clean",
     "decrypt-banking-tests": "cd src/ducks/categorization; gpg -d encrypted.tar.gz.gpg | tar xz",
-    "download-banking-tests": "cd src/ducks/categorization; wget https://github.com/cozy/cozy-libs/raw/master/packages/cozy-doctypes/src/banking/encrypted.tar.gz.gpg -O encrypted.tar.gz.gpg ; wget https://bank-autocategorization.cozycloud.cc/bank_classifier_nb_and_voc.json -O bank_classifier_nb_and_voc.json"
+    "download-banking-tests": "cd src/ducks/categorization; wget https://bank-autocategorization.cozycloud.cc/bank_classifier_nb_and_voc.json -O bank_classifier_nb_and_voc.json"
   },
   "husky": {
     "hooks": {
@@ -168,7 +168,7 @@
     "cozy-doctypes": "1.38.1",
     "cozy-flags": "1.5.5",
     "cozy-interapp": "0.2.20",
-    "cozy-konnector-libs": "4.14.9",
+    "cozy-konnector-libs": "4.14.13",
     "cozy-pouch-link": "5.7.7",
     "cozy-ui": "19.11.0",
     "d3": "5.9.1",
@@ -228,7 +228,7 @@
     "moduleNameMapper": {
       "\\.(png|gif|jpe?g|svg)$": "<rootDir>/test/__mocks__/fileMock.js",
       "styl$": "identity-obj-proxy",
-      "css$": "identity-obj-proxy",
+      "\\.css$": "identity-obj-proxy",
       "hbs$": "identity-obj-proxy",
       "webapp$": "identity-obj-proxy"
     },
