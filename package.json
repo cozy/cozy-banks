@@ -62,7 +62,7 @@
     "encrypt-banking-tests": "cd src/ducks/categorization/; make encrypted.tar.gz.gpg",
     "clean-banking-tests": "cd src/ducks/categorization/; make clean",
     "decrypt-banking-tests": "cd src/ducks/categorization; gpg -d encrypted.tar.gz.gpg | tar xz",
-    "download-banking-tests": "cd src/ducks/categorization; wget https://github.com/cozy/cozy-libs/raw/master/packages/cozy-doctypes/src/banking/encrypted.tar.gz.gpg -O encrypted.tar.gz.gpg ; wget https://bank-autocategorization.cozycloud.cc/bank_classifier_nb_and_voc.json -O bank_classifier_nb_and_voc.json"
+    "download-banking-tests": "cd src/ducks/categorization; wget https://bank-autocategorization.cozycloud.cc/bank_classifier_nb_and_voc.json -O bank_classifier_nb_and_voc.json"
   },
   "husky": {
     "hooks": {
