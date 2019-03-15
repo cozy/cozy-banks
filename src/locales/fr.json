@@ -20,6 +20,7 @@
   },
 
   "AccountSwitch": {
+    "some_accounts": "%{count}/%{smart_count} compte |||| %{count}/%{smart_count} comptes",
     "all_accounts": "Tous les comptes",
     "accounts": "Comptes",
     "groups": "Groupes",
