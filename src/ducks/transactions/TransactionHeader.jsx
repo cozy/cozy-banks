@@ -30,7 +30,7 @@ class TransactionHeader extends Component {
     return router.params.subcategoryName !== undefined
   }
 
-  displayAccountSwitch = () => {
+  renderAccountSwitch = () => {
     const isSubcategory = this.isSubcategory()
     const theme = flag('transaction-history') ? 'primary' : 'default'
     const colorProps = {
@@ -144,7 +144,7 @@ class TransactionHeader extends Component {
     return (
       <Header {...colorProps} fixed>
         <Padded className={isMobile ? 'u-p-0' : 'u-pb-half'}>
-          {this.displayAccountSwitch()}
+          {this.renderAccountSwitch()}
         </Padded>
         {!isSubcategory && this.displayBalanceHistory()}
         <Padded
