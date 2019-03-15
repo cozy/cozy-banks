@@ -46,6 +46,10 @@ export const getFilteredAccountIds = state => {
     } else {
       return availableAccountIds
     }
+  } else if (doc.length) {
+    // In this case we have already been provided with
+    // accountsIds
+    return doc
   } else {
     throw new Error(
       "The filtering doc doesn't have any type. Please check it has a `_type` property"
@@ -126,7 +130,11 @@ export const addFilterByPeriod = period => ({ type: FILTER_BY_PERIOD, period })
 export const resetFilterByDoc = () => ({ type: RESET_FILTER_BY_DOC })
 export const filterByDoc = doc => ({
   type: FILTER_BY_DOC,
-  doc: doc && dehydrate(doc)
+  doc: doc && (doc.length ? doc : dehydrate(doc))
+})
+export const filterByAccounts = accounts => ({
+  type: FILTER_BY_DOC,
+  doc: accounts.map(x => x._id)
 })
 
 export const addFilterForMostRecentTransactions = () => (

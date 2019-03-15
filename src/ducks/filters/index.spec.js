@@ -1,5 +1,6 @@
 import reducer, {
   filterByDoc,
+  filterByAccounts,
   getFilteredTransactions,
   getFilteredAccounts,
   addFilterByPeriod,
@@ -43,6 +44,15 @@ describe('filter reducer', function() {
     state = reducer(state, filterByDoc(account))
     state = reducer(state, { type: DESTROY_ACCOUNT, account })
     expect(state.filteringDoc).toBe(null)
+  })
+
+  it('should be able to filter by multiple accounts', function() {
+    const accounts = [
+      { _id: 'a123', _type: ACCOUNT_DOCTYPE },
+      { _id: 'b456', _type: ACCOUNT_DOCTYPE }
+    ]
+    state = reducer(state, filterByAccounts(accounts))
+    expect(state.filteringDoc).toEqual(['a123', 'b456'])
   })
 })
 

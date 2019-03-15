@@ -25,7 +25,8 @@ const Figure = props => {
     total,
     totalClassName,
     currencyClassName,
-    size
+    size,
+    onClick
   } = props
 
   let { decimalNumbers } = props
@@ -55,6 +56,7 @@ const Figure = props => {
         },
         className
       )}
+      onClick={onClick}
     >
       <span className={cx(styles['Figure-total'], totalClassName)}>
         {isTotalPositive && signed && '+'}
