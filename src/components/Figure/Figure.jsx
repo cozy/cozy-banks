@@ -11,6 +11,8 @@ const stylePositive = styles['Figure-content--positive']
 const styleNegative = styles['Figure-content--negative']
 const styleWarning = styles['Figure-content--warning']
 const styleBig = styles['Figure--big']
+const styleClickable = styles['Figure--clickable']
+
 const Figure = props => {
   const {
     symbol,
@@ -52,7 +54,8 @@ const Figure = props => {
           [styleNegative]:
             total !== 0 && !isTotalPositive && !isWarning && coloredNegative,
           [styleWarning]: isWarning,
-          [styleBig]: size == 'big'
+          [styleBig]: size == 'big',
+          [styleClickable]: onClick
         },
         className
       )}
