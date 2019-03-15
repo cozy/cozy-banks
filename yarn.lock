@@ -4705,10 +4705,10 @@ cozy-app-publish@0.13.1:
     request "2.88.0"
     tar "4.4.8"
 
-cozy-authentication@1.4.0-beta.5:
-  version "1.4.0-beta.5"
-  resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-1.4.0-beta.5.tgz#bd839273c0e5b7b128a8e11f61267ae6324625e9"
-  integrity sha512-qhaI7ZD6HY6g5QX6xom3Yt34m27tTWG+mrpxmUjk/GetnvfVyXWCgPUr3m8TziP6vAwPGt5KFMRnuGHB5PHAgQ==
+cozy-authentication@1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-1.4.0.tgz#9b605c4c723aaaed35ee8babf27b104817690feb"
+  integrity sha512-1x5FlH3Ss9eo+6ATEsri3nOddqb16lJQ8gXGz+ZCPLhmH5yJ96dfWNLe/PXzo7Ibo+OMfQIRwlm/HfAX7zfbRw==
   dependencies:
     url-polyfill "1.1.0"
 
