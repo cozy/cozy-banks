@@ -52,19 +52,14 @@
     "konnectorSlug": "bouyguestelecom"
   },
   {
+    "name": "CESML",
+    "regexp": "\\bcesml\\b",
+    "konnectorSlug": "cesml"
+  },
+  {
     "name": "Cdiscount",
     "regexp": "\\bcdiscount\\b",
     "konnectorSlug": "cdiscount"
-  },
-  {
-    "name": "Deliveroo",
-    "regexp": "\\bdeliveroo\\b",
-    "konnectorSlug": "deliveroo"
-  },
-  {
-    "name": "Cultura",
-    "regexp": "\\bcultura\\b",
-    "konnectorSlug": "cultura"
   },
   {
     "name": "Darty",
@@ -72,14 +67,14 @@
     "konnectorSlug": "darty"
   },
   {
-    "name": "Deezer",
-    "regexp": "\\bdeezer\\b",
-    "konnectorSlug": "deezer"
-  },
-  {
     "name": "Direct Energie",
     "regexp": "\\bdirect energie\\b",
     "konnectorSlug": "directenergie"
+  },
+  {
+    "name": "Edf",
+    "regexp": "\\bedf\\b",
+    "konnectorSlug": "edf"
   },
   {
     "name": "Enercoop",
@@ -94,9 +89,14 @@
   {
     "name": "Eovi MCD Particuliers",
     "regexp": "\\beovi mcd mutuelle\\b",
-    "konnectorSlug": "eovimcdparticuliers"
+    "konnectorSlug": "eovimcdparticuliers",
+    "health": true    
   },
-
+  {
+    "name": "eTicket",
+    "regexp": "\\eticket\\b",
+    "konnectorSlug": "eticket"
+  },
   {
     "name": "Free",
     "regexp": "\\bfree (telecom|hautdebit)\\b",
@@ -120,6 +120,12 @@
     "health": true
   },
   {
+    "name": "Humanis Santé",
+    "regexp": "\\bhumanis\\b",
+    "konnectorSlug": "humanis",
+    "health": true
+  },
+  {
     "name": "Inulogic",
     "regexp": "\\binulogic\\b",
     "konnectorSlug": "inulogic"
@@ -132,17 +138,13 @@
   {
     "name": "La mutuelle générale",
     "regexp": "\\bla mutuelle gen",
-    "konnectorSlug": "lamutuellegenerale"
+    "konnectorSlug": "lamutuellegenerale",
+    "health": true
   },
   {
     "name": "Le Monde Diplomatique",
     "regexp": "\\bmonde-diplomatique\\b",
     "konnectorSlug": "mondediplo"
-  },
-  {
-    "name": "Leclerc Drive",
-    "regexp": "\\bleclerc\\b",
-    "konnectorSlug": "leclercdrive"
   },
   {
     "name": "Ma lentille",
@@ -230,6 +232,11 @@
     "name": "Showroom Privé",
     "regexp": "\\bshowroomprive\\b",
     "konnectorSlug": "showroomprive"
+  },
+  {
+    "name": "Oui.snf",
+    "regexp": "\\bsncf\\b",
+    "konnectorSlug": "sncf"
   },
   {
     "name": "Spartoo",
