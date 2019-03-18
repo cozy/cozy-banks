@@ -6,7 +6,7 @@ import { merge, get } from 'lodash'
 import { getLinks } from './links'
 import { schema } from 'doctypes'
 import manifest from '../../../manifest.webapp'
-import { setToken } from 'ducks/mobile'
+import { setToken, revokeClient } from 'ducks/mobile'
 
 const SOFTWARE_ID = 'registry://banks'
 
@@ -48,11 +48,39 @@ export const getManifestOptions = manifest => {
   }
 }
 
+const isRevoked = async client => {
+  try {
+    await client.stackClient.fetchInformation()
+    return false
+  } catch (err) {
+    if (err.message && err.message.indexOf('Client not found')) {
+      return true
+    } else {
+      return false
+    }
+  }
+}
+
+const unregister = client => {
+  client.stackClient.unregister()
+}
+
+const checkForRevocation = async (client, getStore) => {
+  const revoked = await isRevoked(client)
+  if (revoked) {
+    const store = getStore()
+    unregister(client)
+    await store.dispatch(revokeClient())
+  }
+}
+
 export const getClient = (state, getStore) => {
   const uri = getCozyURIFromState(state)
   const token = getTokenFromState(state)
   const clientInfos = getClientInfosFromState(state)
   const manifestOptions = getManifestOptions(manifest)
+
+  let client
   const banksOptions = {
     uri,
     token,
@@ -72,10 +100,15 @@ export const getClient = (state, getStore) => {
       cozy.bar.updateAccessToken(token.accessToken)
       getStore().dispatch(setToken(token))
     },
-    links: getLinks()
+    links: getLinks({
+      pouchLink: {
+        onSyncError: async () => {
+          checkForRevocation(client, getStore)
+        }
+      }
+    })
   }
 
-  const client = new CozyClient(merge(manifestOptions, banksOptions))
-
+  client = new CozyClient(merge(manifestOptions, banksOptions))
   return client
 }
