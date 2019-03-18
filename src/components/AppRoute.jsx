@@ -17,8 +17,6 @@ import {
 import { Balance } from 'ducks/balance'
 import { EnsureHasAccounts, EnsureIsFirstSynced } from 'ducks/onboarding'
 
-export const ComingSoon = () => <p style="margin-left: 2em">Coming soon!</p>
-
 const AppRoute = (
   <Route component={EnsureIsFirstSynced}>
     <Route component={EnsureHasAccounts}>
@@ -40,8 +38,6 @@ const AppRoute = (
           />
           <Route path=":categoryName" component={CategoriesPage} />
         </Route>
-        <Route path="projections" component={ComingSoon} />
-        <Route path="savings" component={ComingSoon} />
         <Route path="settings">
           <Route path="groups/new" component={NewGroupSettings} />
           <Route path="groups/:groupId" component={GroupSettings} />
