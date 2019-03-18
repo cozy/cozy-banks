@@ -86,6 +86,7 @@
   "devDependencies": {
     "@babel/cli": "7.2.3",
     "@babel/core": "7.3.4",
+    "@babel/node": "7.2.2",
     "@babel/polyfill": "7.2.5",
     "ach": "0.3.0",
     "autoprefixer": "9.4.10",
