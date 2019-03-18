@@ -8,6 +8,9 @@ import { Figure } from 'components/Figure'
 import { PageTitle } from 'components/Title'
 import KonnectorUpdateInfo from 'components/KonnectorUpdateInfo'
 import History from 'ducks/balance/History'
+import { filterByAccounts } from 'ducks/filters'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
 
 import styles from './BalanceHeader.styl'
 
@@ -16,11 +19,12 @@ const BalanceHeader = ({
   breakpoints: { isMobile },
   accountsBalance,
   accounts,
-  subtitleParams
+  subtitleParams,
+  filterByAccounts,
+  router
 }) => {
   const titlePaddedClass = isMobile ? 'u-p-0' : 'u-pb-0'
   const titleColor = isMobile ? 'primary' : 'default'
-
   return (
     <Header className={styles.BalanceHeader} color="primary">
       {isMobile && (
@@ -30,6 +34,10 @@ const BalanceHeader = ({
       )}
       {accountsBalance !== undefined && (
         <Figure
+          onClick={() => {
+            filterByAccounts(accounts)
+            router.push('/balances/details')
+          }}
           className={styles.BalanceHeader__currentBalance}
           currencyClassName={styles.BalanceHeader__currentBalanceCurrency}
           total={accountsBalance}
@@ -47,8 +55,19 @@ const BalanceHeader = ({
   )
 }
 
+const actionCreators = {
+  filterByAccounts
+}
+
+export const DumbBalanceHeader = BalanceHeader
+
 export default compose(
+  connect(
+    null,
+    actionCreators
+  ),
   withBreakpoints(),
+  withRouter,
   translate(),
   memo
 )(BalanceHeader)

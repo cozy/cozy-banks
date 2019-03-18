@@ -97,7 +97,7 @@ DownArrow.propTypes = {
   color: PropTypes.oneOf(['default', 'primary'])
 }
 
-const AccountSwitchSelect = ({ filteringDoc, onClick, t, color }) => (
+const AccountSwitchSelect = ({ accounts, filteringDoc, onClick, t, color }) => (
   <div
     className={cx(
       styles.AccountSwitch__Select,
@@ -107,7 +107,12 @@ const AccountSwitchSelect = ({ filteringDoc, onClick, t, color }) => (
   >
     <Title className={styles.AccountSwitch__SelectText} color={color}>
       {filteringDoc
-        ? filteringDoc.shortLabel || filteringDoc.label
+        ? filteringDoc.length
+          ? t('AccountSwitch.some_accounts', {
+              count: filteringDoc.length,
+              smart_count: accounts.length
+            })
+          : filteringDoc.shortLabel || filteringDoc.label
         : t('AccountSwitch.all_accounts')}
     </Title>
     <DownArrow color={color} />
@@ -343,7 +348,8 @@ class AccountSwitch extends Component {
         {isMobile ? (
           <BarCenter>
             <BarItem style={barItemStyle}>
-              <AccountSwitchMobile
+              <AccountSwitchSelect
+                accounts={accounts}
                 filteredAccounts={filteredAccounts}
                 filteringDoc={filteringDoc}
                 onClick={this.toggle}
@@ -354,6 +360,7 @@ class AccountSwitch extends Component {
           </BarCenter>
         ) : (
           <AccountSwitchSelect
+            accounts={accounts}
             filteredAccounts={filteredAccounts}
             filteringDoc={filteringDoc}
             onClick={this.toggle}
