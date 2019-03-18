@@ -94,4 +94,7 @@
     </plugin>
     <plugin name="cordova-plugin-safariviewcontroller" spec="https://github.com/rdesimone/cordova-plugin-safariviewcontroller" />
     <plugin name="cordova-sqlite-storage" spec="2.5.1" />
+    <plugin name="cordova-plugin-fingerprint-aio" spec="^1.6.0">
+        <variable name="FACEID_USAGE_DESCRIPTION" value=" " />
+    </plugin>
 </widget>
