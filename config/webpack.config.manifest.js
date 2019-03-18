@@ -45,7 +45,7 @@ module.exports = {
   plugins: [
     new CopyPlugin([
       { from: 'manifest.webapp', transform: transformManifest },
-      { from: 'src/targets/screenshots' },
+      { from: 'src/targets/screenshots', to: 'screenshots' },
       { from: 'README.md' },
       { from: 'LICENSE' }
     ])
