@@ -3883,10 +3883,10 @@ commander@~2.1.0:
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.1.0.tgz#d121bbae860d9992a3d517ba96f56588e47c6781"
   integrity sha1-0SG7roYNmZKj1Re6lvVliOR8Z4E=
 
-commitlint-config-cozy@0.3.19:
-  version "0.3.19"
-  resolved "https://registry.yarnpkg.com/commitlint-config-cozy/-/commitlint-config-cozy-0.3.19.tgz#1c64c8ac305822fb39d1d2c5c8964a95d680c3bf"
-  integrity sha512-Mqby7I72teJezLKRi+JGrU3MFCx085s03LAzUAFD1LUGqLbL1pCivf5SPeHfnFEZowPXn3C2rvTIAVL1Wa74yA==
+commitlint-config-cozy@0.3.24:
+  version "0.3.24"
+  resolved "https://registry.yarnpkg.com/commitlint-config-cozy/-/commitlint-config-cozy-0.3.24.tgz#714ef2d689a6ca996d9c38c6c929fcca6e75a45b"
+  integrity sha512-Y03vLr5WELGBHk/H87z/u5nbbiNPQ/pcvtKvGE7+jNF9lluhHu+wWKGj9B7tAYz70qT33iK7bljHwtKfTjdmDA==
   dependencies:
     "@commitlint/cli" "7.5.2"
 
