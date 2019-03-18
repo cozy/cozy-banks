@@ -15,6 +15,7 @@ import {
   Debug
 } from 'ducks/settings'
 import { Balance } from 'ducks/balance'
+import { Pin } from 'ducks/Pin'
 import { EnsureHasAccounts, EnsureIsFirstSynced } from 'ducks/onboarding'
 
 const AppRoute = (
@@ -38,6 +39,7 @@ const AppRoute = (
           />
           <Route path=":categoryName" component={CategoriesPage} />
         </Route>
+        <Route path="pin" component={Pin} />
         <Route path="settings">
           <Route path="groups/new" component={NewGroupSettings} />
           <Route path="groups/:groupId" component={GroupSettings} />
