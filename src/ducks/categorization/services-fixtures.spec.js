@@ -11,6 +11,8 @@ import allowedFallbackCategories from './allowed_wrong_categories.json'
 jest.mock(
   'cozy-konnector-libs/dist/libs/categorization/fetchTransactionsWithManualCat'
 )
+window.console.log = jest.fn()
+window.console.warn = jest.fn()
 
 const fixturePath = path.join(__dirname, 'fixtures')
 
@@ -248,45 +250,58 @@ const fmtFixtureSummary = (manualCategorizations, accuracy) => {
   return [fmtedAccuracy, fmtedManualCategorizations]
 }
 
+const fmtResultPartIcones = op => {
+  const { status, method } = op
+  let fmtedResultPart1 = ''
+  // check method
+  if (method === METHOD_BI) {
+    fmtedResultPart1 += ICONE_BI
+  } else if (method === METHOD_LOCAL_USER) {
+    fmtedResultPart1 += ICONE_LOCAL_MODEL
+  } else if (method === METHOD_GLOBAL_COZY) {
+    fmtedResultPart1 += ICONE_GLOBAL_MODEL
+  }
+  // check status
+  if (status === STATUS_UNCATEGORIZED) {
+    fmtedResultPart1 += `${ICONE_UNCATEGORIZED}`
+  } else if (status === STATUS_OK) {
+    fmtedResultPart1 += `${method === METHOD_BI ? ICONE_OK_BI : ICONE_OK}`
+  } else if (status === STATUS_OK_FALLBACK) {
+    fmtedResultPart1 += `${
+      method === METHOD_BI ? ICONE_OK_BI : ICONE_OK_FALLBACK
+    }`
+  } else if (status === STATUS_KO) {
+    fmtedResultPart1 += `${ICONE_KO}`
+  }
+  return fmtedResultPart1
+}
+
+const fmtResultPartDescription = op => {
+  const { label, date, amount } = op
+  return `${date.slice(0, 10)} (${amount}€)\t <${label}>`
+}
+
+const fmtResultPartConclusion = op => {
+  const { status, method, catNameTrue, catNameDisplayed } = op
+
+  if (status === STATUS_UNCATEGORIZED) {
+    return `was NOT categorized. ${method} predicted it as ${catNameTrue}`
+  } else if (status === STATUS_OK) {
+    return `is properly predicted by ${op.method} as ${catNameTrue}`
+  } else if (status === STATUS_OK_FALLBACK) {
+    return `is ALMOST properly predicted by ${method} as ${catNameTrue} (user would have seen ${catNameDisplayed})`
+  } else if (status === STATUS_KO) {
+    return `is NOT properly predicted by ${method} as ${catNameTrue} that said ${catNameDisplayed}`
+  }
+}
+
 const fmtResults = transactions => {
   const fmtedResults = transactions.map(op => {
-    let fmtedResult = ''
-    const { status, method } = op
-    if (method === METHOD_BI) {
-      fmtedResult += ICONE_BI
-    } else if (method === METHOD_LOCAL_USER) {
-      fmtedResult += ICONE_LOCAL_MODEL
-    } else if (method === METHOD_GLOBAL_COZY) {
-      fmtedResult += ICONE_GLOBAL_MODEL
-    }
-    if (status === STATUS_UNCATEGORIZED) {
-      fmtedResult += `${ICONE_UNCATEGORIZED}:`
-      fmtedResult += ` (${op.amount}€)\t<<${op.label}>> was NOT categorized. ${
-        op.method
-      } predicted it as ${op.catNameTrue}`
-    } else if (status === STATUS_OK) {
-      fmtedResult += `${method === METHOD_BI ? ICONE_OK_BI : ICONE_OK}:`
-      fmtedResult += ` (${op.amount}€)\t<<${
-        op.label
-      }>> - is properly predicted by ${op.method} as ${op.catNameTrue}`
-    } else if (status === STATUS_OK_FALLBACK) {
-      fmtedResult += `${
-        method === METHOD_BI ? ICONE_OK_BI : ICONE_OK_FALLBACK
-      }:`
-      fmtedResult += ` (${op.amount}€)\t<<${
-        op.label
-      }>> - is ALMOST properly predicted by ${op.method} as ${
-        op.catNameTrue
-      } (user would have seen ${op.catNameDisplayed})`
-    } else if (status === STATUS_KO) {
-      fmtedResult += `${ICONE_KO}:`
-      fmtedResult += ` (${op.amount}€)\t<<${
-        op.label
-      }>> - is NOT properly predicted by ${op.method} as ${
-        op.catNameTrue
-      } that said ${op.catNameDisplayed}`
-    }
-    return fmtedResult
+    let fmtedResultPartIcones = fmtResultPartIcones(op)
+    let fmtedResultPartDescription = fmtResultPartDescription(op)
+    let fmtedResultPartConclusion = fmtResultPartConclusion(op)
+
+    return `${fmtedResultPartIcones}\t${fmtedResultPartDescription}\t: ${fmtedResultPartConclusion}`
   })
   return fmtedResults
 }
@@ -376,7 +391,7 @@ xOrDescribe('Chain of predictions', () => {
       .mockImplementation(() => Promise.resolve(globalModelJSON))
   })
 
-  afterEach(() => {
+  afterAll(() => {
     jest.restoreAllMocks()
   })
 
