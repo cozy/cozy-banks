@@ -1,6 +1,6 @@
 {
   "name": "cozy-banks",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "src/main.jsx",
   "scripts": {
     "build": "npm run build:browser && npm run build:services",
@@ -39,7 +39,7 @@
     "mobile:build": "npm run build:mobile && npm run mobile:clean && npm run mobile:prepare",
     "android:run": "(cd src/targets/mobile && cordova run android --device)",
     "android:run:emulator": "(cd src/targets/mobile && cordova run android --emulator)",
-    "android:metadata": "cd src/targets/mobile && bundle exec fastlane android metadata",
+    "android:screenshots": "cd src/targets/mobile && bundle exec fastlane android screenshots",
     "android:package": "(cd src/targets/mobile && cordova build android --release)",
     "android:build": "npm run mobile:build && npm run android:package",
     "android:sign": "cd src/targets/mobile && apksigner sign --ks keys/android/cozy-banks-release-key.jks --out build/android/cozy-banks.apk platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk",
@@ -48,7 +48,7 @@
     "ios:install_pods": "cd src/targets/mobile/platforms/ios && pod install",
     "ios:run": "cd src/targets/mobile && cordova run ios --buildFlag='-UseModernBuildSystem=0' --device",
     "ios:run:emulator": "cd src/targets/mobile && cordova run ios --buildFlag='-UseModernBuildSystem=0' --emulator",
-    "ios:metadata": "cd src/targets/mobile && bundle exec fastlane ios metadata",
+    "ios:screenshots": "cd src/targets/mobile && bundle exec fastlane ios screenshots",
     "ios:deploy": "cd src/targets/mobile/platforms/ios && pod install && cd ../.. && bundle exec fastlane ios deploy",
     "ios:publish": "npm run mobile:build && npm run ios:deploy",
     "commons:services": "webpack --config config/webpack.target.services.js",
@@ -62,7 +62,7 @@
     "encrypt-banking-tests": "cd src/ducks/categorization/; make encrypted.tar.gz.gpg",
     "clean-banking-tests": "cd src/ducks/categorization/; make clean",
     "decrypt-banking-tests": "cd src/ducks/categorization; gpg -d encrypted.tar.gz.gpg | tar xz",
-    "download-banking-tests": "cd src/ducks/categorization; wget https://github.com/cozy/cozy-libs/raw/master/packages/cozy-doctypes/src/banking/encrypted.tar.gz.gpg -O encrypted.tar.gz.gpg ; wget https://bank-autocategorization.cozycloud.cc/bank_classifier_nb_and_voc.json -O bank_classifier_nb_and_voc.json"
+    "download-banking-tests": "cd src/ducks/categorization; wget https://bank-autocategorization.cozycloud.cc/bank_classifier_nb_and_voc.json -O bank_classifier_nb_and_voc.json"
   },
   "husky": {
     "hooks": {
@@ -161,12 +161,13 @@
     "cozy-doctypes": "1.38.1",
     "cozy-flags": "1.5.5",
     "cozy-interapp": "0.2.20",
-    "cozy-konnector-libs": "4.14.9",
+    "cozy-konnector-libs": "4.14.13",
     "cozy-pouch-link": "5.7.7",
     "cozy-ui": "19.12.0",
     "d3": "5.9.1",
     "date-fns": "1.30.1",
     "detect-node": "2.0.4",
+    "element-scroll-polyfill": "1.0.1",
     "expose-loader": "0.7.5",
     "fastclick": "1.0.6",
     "geco": "0.11.1",
@@ -220,7 +221,7 @@
     "moduleNameMapper": {
       "\\.(png|gif|jpe?g|svg)$": "<rootDir>/test/__mocks__/fileMock.js",
       "styl$": "identity-obj-proxy",
-      "css$": "identity-obj-proxy",
+      "\\.css$": "identity-obj-proxy",
       "hbs$": "identity-obj-proxy",
       "webapp$": "identity-obj-proxy"
     },
