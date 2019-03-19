@@ -16,7 +16,7 @@ import ErrorBoundary, { Error } from 'components/ErrorBoundary'
 import { withRouter } from 'react-router'
 import { flowRight as compose } from 'lodash'
 import { hasParameter } from 'utils/qs'
-import { pinGuarded } from 'ducks/Pin'
+import { pinGuarded } from 'ducks/pin'
 
 const ReactHint = ReactHintFactory(React)
 
@@ -52,7 +52,7 @@ const App = props => {
 }
 
 export default compose(
-  pinGuarded,
+  pinGuarded({ timeout: 30 * 1000 }),
   queryConnect({ settingsCollection: settingsConn }),
   withRouter
 )(App)
