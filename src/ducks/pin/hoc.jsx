@@ -1,11 +1,9 @@
-import PinGuard from './PinGuard' 
+import PinGuard from './PinGuard'
 
-const pinGuarded = Component => props => (
-  <PinGuard timeout={30 * 1000}>
+const pinGuarded = pinGuardProps => Component => props => (
+  <PinGuard {...pinGuardProps}>
     <Component {...props} />
   </PinGuard>
 )
-
-const noop = x => x
 
 export default pinGuarded
