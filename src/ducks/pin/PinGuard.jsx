@@ -1,23 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import range from 'lodash/range'
 import styles from './styles.styl'
-import Round from './Round'
 import PinKeyboard from './PinKeyboard'
+import LockedBody from './LockedBody'
 
-const Fullscreen = props => (
-  <div
-    style={{
-      width: '100vw',
-      height: '100vh',
-      zIndex: 10000,
-      position: 'absolute',
-      top: 0,
-      background: 'white'
-    }}
-  >
-    {props.children}
-  </div>
 const AffixRed = props => {
   return (
     <div style={{ background: 'red', position: 'fixed', top: 0, zIndex: 1000 }}>
@@ -25,6 +10,11 @@ const AffixRed = props => {
     </div>
   )
 }
+
+const PinWrapper = props => (
+  <LockedBody>
+    <div className={styles.PinWrapper}>{props.children}</div>
+  </LockedBody>
 )
 
 class PinGuard extends React.Component {
@@ -81,9 +71,9 @@ class PinGuard extends React.Component {
     return (
       <React.Fragment>
         {this.state.showPin ? (
-          <Fullscreen>
+          <PinWrapper>
             <PinKeyboard onSuccess={this.handlePinSuccess} />
-          </Fullscreen>
+          </PinWrapper>
         ) : null}
         {this.props.children}
         {this.props.showTimeout ? (
