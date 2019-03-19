@@ -15,7 +15,6 @@ Release $VERSION
 - [ ] Test well on the 3 platforms
 - [ ] Tag the branch as prod (X.Y.Z)
 - [ ] Push the tag, wait for the CI to push the build to the registry
-- [ ] Update cozies with the latest web version via Rundeck
 - [ ] [Promote Android app][playstore] to the production track
 - [ ] [Promote iOS app][itunesconnect] to the production track.
 
