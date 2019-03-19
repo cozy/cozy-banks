@@ -18,6 +18,13 @@ const Fullscreen = props => (
   >
     {props.children}
   </div>
+const AffixRed = props => {
+  return (
+    <div style={{ background: 'red', position: 'fixed', top: 0, zIndex: 1000 }}>
+      {props.children}
+    </div>
+  )
+}
 )
 
 class PinGuard extends React.Component {
@@ -79,6 +86,11 @@ class PinGuard extends React.Component {
           </Fullscreen>
         ) : null}
         {this.props.children}
+        {this.props.showTimeout ? (
+          <AffixRed>
+            {this.props.timeout - (Date.now() - this.state.last)}
+          </AffixRed>
+        ) : null}
       </React.Fragment>
     )
   }
