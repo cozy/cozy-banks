@@ -1,12 +1,16 @@
 import { localModel } from 'cozy-konnector-libs/dist/libs/categorization/localModel'
 import { globalModel } from 'cozy-konnector-libs/dist/libs/categorization/globalModel'
 import { tokenizer } from 'cozy-konnector-libs/dist/libs/categorization/helpers'
-import { BankTransaction } from 'cozy-doctypes'
+import fetchTransactionsWithManualCat from 'cozy-konnector-libs/dist/libs/categorization/fetchTransactionsWithManualCat'
 import { cozyClient } from 'cozy-konnector-libs'
 import path from 'path'
 import fs from 'fs'
 import cat2name from '../categories/tree.json'
 import allowedFallbackCategories from './allowed_wrong_categories.json'
+
+jest.mock(
+  'cozy-konnector-libs/dist/libs/categorization/fetchTransactionsWithManualCat'
+)
 
 const fixturePath = path.join(__dirname, 'fixtures')
 
@@ -362,9 +366,9 @@ xOrDescribe('Chain of predictions', () => {
   // prepare mock
   let manualCategorizations = []
   beforeEach(() => {
-    jest
-      .spyOn(BankTransaction, 'queryAll')
-      .mockImplementation(() => Promise.resolve(manualCategorizations))
+    fetchTransactionsWithManualCat.mockImplementation(() =>
+      Promise.resolve(manualCategorizations)
+    )
 
     // Mock global model
     jest
