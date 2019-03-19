@@ -13,10 +13,14 @@ const fakeCollection = (doctype, data) => ({
 })
 
 describe('Balance page', () => {
-  let root, instance, saveDocumentMock
+  let root, instance, saveDocumentMock, router, filterByAccounts
 
   beforeEach(() => {
     saveDocumentMock = jest.fn()
+    filterByAccounts = jest.fn()
+    router = {
+      push: jest.fn()
+    }
     const settingDoc = {}
     root = shallow(
       <DumbBalance
@@ -24,9 +28,22 @@ describe('Balance page', () => {
         groups={fakeCollection('io.cozy.bank.groups')}
         settings={fakeCollection('io.cozy.bank.settings', [settingDoc])}
         saveDocument={saveDocumentMock}
+        filterByAccounts={filterByAccounts}
+        router={router}
       />
     )
     instance = root.instance()
+  })
+
+  it('should call filterByAccounts prop with getCheckAccounts', () => {
+    const instance = root.instance()
+    let accounts = []
+    instance.getCheckedAccounts = () => {
+      return accounts
+    }
+    root.instance().handleClickBalance()
+    expect(router.push).toHaveBeenCalledWith('/balances/details')
+    expect(filterByAccounts).toHaveBeenCalledWith(accounts)
   })
 
   describe('panel toggling', () => {

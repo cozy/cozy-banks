@@ -16,11 +16,11 @@ const BalanceHeader = ({
   breakpoints: { isMobile },
   accountsBalance,
   accounts,
-  subtitleParams
+  subtitleParams,
+  onClickBalance
 }) => {
   const titlePaddedClass = isMobile ? 'u-p-0' : 'u-pb-0'
   const titleColor = isMobile ? 'primary' : 'default'
-
   return (
     <Header className={styles.BalanceHeader} color="primary">
       {isMobile && (
@@ -30,6 +30,7 @@ const BalanceHeader = ({
       )}
       {accountsBalance !== undefined && (
         <Figure
+          onClick={onClickBalance}
           className={styles.BalanceHeader__currentBalance}
           currencyClassName={styles.BalanceHeader__currentBalanceCurrency}
           total={accountsBalance}
@@ -46,6 +47,8 @@ const BalanceHeader = ({
     </Header>
   )
 }
+
+export const DumbBalanceHeader = BalanceHeader
 
 export default compose(
   withBreakpoints(),

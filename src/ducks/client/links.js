@@ -26,7 +26,7 @@ if (__POUCH__) {
 }
 
 let links = null
-export const getLinks = () => {
+export const getLinks = (options = {}) => {
   if (links) {
     return links
   }
@@ -35,7 +35,10 @@ export const getLinks = () => {
   links = [stackLink]
 
   if (__POUCH__) {
-    const pouchLink = new PouchLink(pouchLinkOptions)
+    const pouchLink = new PouchLink({
+      ...pouchLinkOptions,
+      ...options.pouchLink
+    })
     links = [pouchLink, ...links]
   }
 

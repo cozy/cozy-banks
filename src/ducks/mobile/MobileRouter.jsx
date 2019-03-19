@@ -21,10 +21,13 @@ import {
 import { initBar, resetClient, setBarTheme } from 'ducks/mobile/utils'
 import LogoutModal from 'components/LogoutModal'
 import { resetFilterByDoc } from 'ducks/filters'
+import { connect } from 'react-redux'
+import appIcon from 'targets/favicons/icon-banks.jpg'
 
 export const AUTH_PATH = 'authentication'
 
 export const onLogout = async (store, cozyClient) => {
+  setBarTheme('default')
   try {
     await stopPushNotifications()
 
@@ -57,7 +60,12 @@ export const onLogout = async (store, cozyClient) => {
   store.dispatch(resetFilterByDoc())
 }
 
-const withAuth = Wrapped =>
+const dispatcher = (dispatch, fn) =>
+  function() {
+    return dispatch(fn.apply(this, arguments))
+  }
+
+const withAuth = Wrapped => {
   class WithAuth extends React.Component {
     state = {
       isLoggingOut: false
@@ -75,53 +83,44 @@ const withAuth = Wrapped =>
         // first authentication
         const { url, clientInfo, router, token } = res
         setURLContext(url)
-        this.context.store.dispatch(storeCredentials(url, clientInfo, token))
+        this.props.storeCredentials(url, clientInfo, token)
         router.replace('/balances')
       } else {
         // when user is already authenticated
-        clientInfos = this.context.store.getState().mobile.client
+        clientInfos = this.props.clientInfos
       }
 
       cozyClient.login()
       await registerPushNotifications(cozyClient, clientInfos)
     }
 
-    setupAuth = isAuthenticated => () => {
-      if (!isAuthenticated()) {
+    onEnterApp = () => {
+      const { history, isAuthenticated } = this.props
+      if (!isAuthenticated) {
         // TODO: Remove old data, we remove it because it use old cozy-client-js
         // resetClient()
-        this.props.history.replace(`/${AUTH_PATH}`)
-        this.context.store.dispatch(revokeClient())
+        history.replace(`/${AUTH_PATH}`)
+        this.props.revokeClient()
       } else {
         this.onAuthentication()
-        const mobileState = this.context.store.getState().mobile
-        const url = getURL(mobileState)
-        const cozyClient = this.props.client
+        const url = this.props.url
         setURLContext(url)
-        initBar(url, getAccessToken(mobileState), {
-          onLogOut: () => {
-            setBarTheme('default')
-            this.setState({ isLoggingOut: true }, async () => {
-              await onLogout(
-                this.context.store,
-                cozyClient,
-                this.props.history.replace
-              )
-
-              this.setState({ isLoggingOut: false })
-              this.props.history.replace(`/${AUTH_PATH}`)
-            })
-          }
+        initBar(url, this.props.accessToken, {
+          onLogOut: this.onLogout
         })
       }
     }
 
-    isAuthenticated = () => {
-      return this.context.store.getState().mobile.client !== null
-    }
-
-    isRevoked = () => {
-      return this.context.store.getState().mobile.revoked
+    onLogout = async () => {
+      this.setState({ isLoggingOut: true }, async () => {
+        await onLogout(
+          this.context.store,
+          this.props.client,
+          this.props.history.replace
+        )
+        this.setState({ isLoggingOut: false })
+        this.props.history.replace(`/${AUTH_PATH}`)
+      })
     }
 
     render() {
@@ -133,57 +132,79 @@ const withAuth = Wrapped =>
         <Wrapped
           {...this.props}
           {...{
-            isAuthenticated: this.isAuthenticated,
-            isRevoked: this.isRevoked,
             onAuthentication: this.onAuthentication,
-            setupAuth: this.setupAuth
+            onEnterApp: this.onEnterApp,
+            onLogout: this.onLogout
           }}
         />
       )
     }
   }
 
+  const mapStateToProps = state => ({
+    accessToken: getAccessToken(state.mobile),
+    url: getURL(state.mobile),
+    isRevoked: state.mobile.revoked,
+    clientInfos: state.mobile.client,
+    isAuthenticated: state.mobile.client !== null
+  })
+
+  const mapDispatchToProps = dispatch => ({
+    storeCredentials: dispatcher(dispatch, storeCredentials),
+    revokeClient: dispatcher(dispatch, revokeClient)
+  })
+
+  return connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(WithAuth)
+}
+
+const PotentiallyRevoked_ = props => {
+  if (props.revoked) {
+    setBarTheme('default')
+  }
+  return props.revoked ? <Revoked {...props} /> : props.children
+}
+
+const PotentiallyRevoked = connect(state => ({
+  revoked: state.mobile.revoked
+}))(PotentiallyRevoked_)
+
 const MobileRouter = ({
-  router,
   history,
   routes,
-  isAuthenticated,
-  isRevoked,
   onAuthentication,
-  setupAuth
+  onLogout,
+  onEnterApp
 }) => {
   return (
     <Router history={history}>
-      <Route>
-        <Route
-          path={AUTH_PATH}
-          component={props => (
-            <Authentication
-              {...props}
-              router={history}
-              onComplete={onAuthentication}
-              onException={logException}
-            />
-          )}
-        />
-        <Route
-          onEnter={setupAuth(isAuthenticated, router)}
-          component={props => {
-            const revoked = isRevoked()
-            return revoked ? (
-              <Revoked
-                {...props}
-                router={history}
-                revoked={isRevoked()}
-                onLogBackIn={onAuthentication}
-              />
-            ) : (
-              props.children
-            )
-          }}
-        >
-          {routes}
-        </Route>
+      <Route
+        path={AUTH_PATH}
+        component={props => (
+          <Authentication
+            {...props}
+            router={history}
+            onComplete={onAuthentication}
+            onException={logException}
+            appTitle="Banks"
+            appIcon={appIcon}
+          />
+        )}
+      />
+      <Route
+        onEnter={onEnterApp}
+        component={props => (
+          <PotentiallyRevoked
+            {...props}
+            router={history}
+            onLogBackIn={onAuthentication}
+            onLogout={onLogout}
+          />
+        )}
+      >
+        {routes}
       </Route>
     </Router>
   )

@@ -6,6 +6,9 @@ import flag from 'cozy-flags'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
 import cx from 'classnames'
 
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
+
 import Loading from 'components/Loading'
 import { Padded } from 'components/Spacing'
 import BalanceHeader from 'ducks/balance/components/BalanceHeader'
@@ -20,6 +23,7 @@ import BalanceTables from './BalanceTables'
 import BalancePanels from './BalancePanels'
 import { getPanelsState } from './helpers'
 import { setBarTheme } from 'ducks/mobile/utils'
+import { filterByAccounts } from 'ducks/filters'
 
 class Balance extends PureComponent {
   constructor(props) {
@@ -30,6 +34,7 @@ class Balance extends PureComponent {
     }
 
     setBarTheme('primary')
+    this.handleClickBalance = this.handleClickBalance.bind(this)
     this.handlePanelChange = this.handlePanelChange.bind(this)
     this.debouncedHandlePanelChange = debounce(this.handlePanelChange, 3000, {
       leading: false,
@@ -79,6 +84,12 @@ class Balance extends PureComponent {
 
       return nextState
     }, this.savePanelState)
+  }
+
+  handleClickBalance() {
+    const { router, filterByAccounts } = this.props
+    filterByAccounts(this.getCheckedAccounts())
+    router.push('/balances/details')
   }
 
   savePanelState() {
@@ -164,6 +175,7 @@ class Balance extends PureComponent {
     return (
       <Fragment>
         <BalanceHeader
+          onClickBalance={this.handleClickBalance}
           accountsBalance={accountsBalance}
           accounts={checkedAccounts}
           subtitleParams={subtitleParams}
@@ -196,7 +208,16 @@ class Balance extends PureComponent {
 
 export const DumbBalance = Balance
 
+const actionCreators = {
+  filterByAccounts
+}
+
 export default compose(
+  withRouter,
+  connect(
+    null,
+    actionCreators
+  ),
   queryConnect({
     accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' },
     groups: { query: client => client.all(GROUP_DOCTYPE), as: 'groups' },

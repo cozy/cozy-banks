@@ -18,7 +18,7 @@ if (process.env.PUBLIC_PATH) {
 module.exports = {
   entry: {
     app: [
-      require.resolve('babel-polyfill'),
+      require.resolve('@babel/polyfill'),
       path.resolve(__dirname, '../src/main.jsx')
     ]
   },

@@ -26,6 +26,7 @@
   "AccountSwitch": {
     "account_counter": "%{smart_count} account |||| %{smart_count} accounts",
     "all_accounts": "All accounts",
+    "some_accounts": "%{count}/%{smart_count} account |||| %{count}/%{smart_count} accounts",
     "groups": "Groups",
     "accounts": "Accounts"
   },
