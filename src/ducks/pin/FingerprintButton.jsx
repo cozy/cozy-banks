@@ -2,7 +2,7 @@
 import React from 'react'
 import Round from './Round'
 
-class FingerprintAuthButton extends React.PureComponent {
+class FingerprintButton extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {}
@@ -47,8 +47,10 @@ class FingerprintAuthButton extends React.PureComponent {
   render() {
     return this.state.method ? (
       <Round onClick={this.handleClick}>F</Round>
-    ) : null
+    ) : (
+      <Round style={{ opacity: 0 }} />
+    )
   }
 }
 
-export default FingerprintAuthButton
+export default FingerprintButton
