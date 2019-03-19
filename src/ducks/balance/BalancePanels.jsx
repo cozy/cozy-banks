@@ -15,8 +15,15 @@ class BalancePanels extends React.PureComponent {
     router: PropTypes.object.isRequired,
     warningLimit: PropTypes.number.isRequired,
     panelsState: PropTypes.object.isRequired,
-    onSwitchChange: PropTypes.func.isRequired,
-    onPanelChange: PropTypes.func.isRequired
+    onSwitchChange: PropTypes.func,
+    onPanelChange: PropTypes.func,
+    withBalance: PropTypes.bool
+  }
+
+  static defaultProps = {
+    withBalance: true,
+    onSwitchChange: undefined,
+    onPanelChange: undefined
   }
 
   goToGroupsSettings = () => this.props.router.push('/settings/groups')
@@ -28,7 +35,8 @@ class BalancePanels extends React.PureComponent {
       warningLimit,
       panelsState,
       onSwitchChange,
-      onPanelChange
+      onPanelChange,
+      withBalance
     } = this.props
 
     const groupsSorted = translateAndSortGroups(groups, t)
@@ -45,13 +53,14 @@ class BalancePanels extends React.PureComponent {
             switches={panelsState[group._id].accounts}
             onSwitchChange={onSwitchChange}
             onChange={onPanelChange}
+            withBalance={withBalance}
           />
         ))}
         <div className={styles.BalancePanels__actions}>
           <AddAccountLink>
             <ButtonAction
               type="new"
-              label={t('Balance.add_bank')}
+              label={t('Accounts.add_bank')}
               className={styles.BalancePanels__action}
             />
           </AddAccountLink>

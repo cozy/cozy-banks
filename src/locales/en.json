@@ -66,14 +66,16 @@
     "solde": "Balance",
     "account_number": "Account number",
     "account_name": "Account name",
-    "add_bank": "Add a bank",
     "manage_accounts": "Manage my accounts",
     "updated_at": {
       "yesterday": "Yesterday",
       "today": "Today",
       "n_days_ago": "%{nbDays} days ago",
       "unknown": "NC"
-    }
+    },
+    "delay": "This may take a few minutes…",
+    "importing_accounts": "Importing accounts",
+    "in_progress": "In progress"
   },
   "SelectDates": {
     "all_year": "All year",
@@ -82,6 +84,8 @@
   },
   "Accounts": {
     "account": "Account",
+    "add_bank": "Add a bank",
+    "no_account": "No account",
     "no-accounts": "You do not have any account yet.",
     "shared-accounts": "Accounts shared to me",
     "no-shared-accounts": "You do not have any shared account yet.",
@@ -269,7 +273,8 @@
       "empty_text": "There is no transaction to analyze on this period",
       "total": "On the period",
       "general": "Categorization"
-    }
+    },
+    "noAccount": "No account"
   },
   "Transactions": {
     "title": "Movements",
@@ -429,27 +434,6 @@
       "cancel": "Cancel",
       "confirm": "Reset"
     }
-  },
-
-  "Onboarding": {
-    "title": {
-      "desktop": "Connect your bank accounts",
-      "mobile": "Cozy Banks"
-    },
-    "connect-bank-account": "Connect your bank accounts",
-    "manage-budget": {
-      "description": "Summary of all your accounts at a glance",
-      "title": "Control your budget"
-    },
-    "save-time": {
-      "description": "Your invoices at your fingertips directly from your statements",
-      "title": "Save Time"
-    },
-    "cozy-assistant": {
-      "description": "Automatic follow-up of your medical expenses",
-      "title": "Cozy is working for you"
-    },
-    "wait-moments": "Please wait a few moments if you have just connected a bank. Your data will be displayed automatically !"
   },
 
   "mobile": {

@@ -14,7 +14,7 @@ import {
   getAccountBalance
 } from 'ducks/account/helpers'
 import styles from './AccountRow.styl'
-import KonnectorIcon from './KonnectorIcon'
+import KonnectorIcon from 'ducks/balance/components/KonnectorIcon'
 import healthIcon from 'assets/icons/icon-health.svg'
 
 class AccountRow extends React.PureComponent {
@@ -54,10 +54,11 @@ class AccountRow extends React.PureComponent {
 
     return (
       <li
-        className={cx(styles.AccountRow, {
+        className={cx(styles.AccountRow, 'u-c-pointer', {
           [styles['AccountRow--hasWarning']]: hasWarning,
           [styles['AccountRow--hasAlert']]: hasAlert,
-          [styles['AccountRow--disabled']]: !checked || disabled
+          [styles['AccountRow--disabled']]:
+            (!checked || disabled) && account.loading !== true
         })}
         onClick={onClick}
       >

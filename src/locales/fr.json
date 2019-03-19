@@ -61,6 +61,8 @@
   "Accounts": {
     "account": "Compte ",
     "add-account": "Ajouter un compte",
+    "add_bank": "Ajouter une banque",
+    "no_account": "Aucun compte",
     "bank": "Banque",
     "label": "Libellé",
     "my-accounts": "Mes comptes",
@@ -84,14 +86,16 @@
     "solde": "Solde",
     "bank_name": "Nom de la banque",
     "account_number": "Numéro du compte",
-    "add_bank": "Ajouter une banque",
     "manage_accounts": "Organiser mes comptes",
     "updated_at": {
       "yesterday": "Hier",
       "today": "Aujourd'hui",
       "n_days_ago": "Il y a %{nbDays} jours",
       "unknown": "NC"
-    }
+    },
+    "delay": "Cela peut prendre quelques minutes…",
+    "importing_accounts": "Importation des comptes",
+    "in_progress": "En cours"
   },
 
   "Transactions": {
@@ -180,7 +184,8 @@
       "credit": "Crédit",
       "total": "Total",
       "movements": "Mouvements"
-    }
+    },
+    "noAccount": "Aucun compte"
   },
 
   "Data": {
@@ -429,27 +434,6 @@
     "groups": "Groupes",
     "configuration": "Configuration",
     "debug": "Debug"
-  },
-
-  "Onboarding": {
-    "title": {
-      "desktop": "Connecter vos comptes bancaires",
-      "mobile": "Cozy Banks"
-    },
-    "connect-bank-account": "Connecter vos comptes bancaires",
-    "manage-budget": {
-      "title": "Maîtrisez votre budget",
-      "description": "La situation de tous vos comptes en un coup d'œil"
-    },
-    "save-time": {
-      "title": "Gagnez du temps",
-      "description": "Vos factures à portée de main directement depuis vos relevés"
-    },
-    "cozy-assistant": {
-      "title": "Cozy travaille pour vous",
-      "description": "Suivi automatique du traitement de vos dépenses de santé"
-    },
-    "wait-moments": "Patientez quelques minutes si vous venez de connecter votre banque. Vos données vont se charger automatiquement !"
   },
 
   "FileOpener": {

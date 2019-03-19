@@ -8,7 +8,7 @@ import { getFilteredTransactions } from 'ducks/filters'
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import { transactionsByCategory, computeCategorieData } from './helpers'
 import Categories from './Categories'
-import { flowRight as compose, sortBy } from 'lodash'
+import { flowRight as compose, sortBy, some } from 'lodash'
 import CategoriesHeader from './CategoriesHeader'
 import { queryConnect } from 'cozy-client'
 import { withMutations } from 'cozy-client'
@@ -61,10 +61,13 @@ class CategoriesPage extends Component {
       categories: categoriesProps,
       transactions,
       router,
+      accounts,
       settings
     } = this.props
-    const isFetching =
-      isCollectionLoading(transactions) || isCollectionLoading(settings)
+    const isFetching = some(
+      [accounts, transactions, settings],
+      isCollectionLoading
+    )
     const { showIncomeCategory } = this.getSettings()
     const selectedCategoryName = router.params.categoryName
     const categories = showIncomeCategory
@@ -84,6 +87,7 @@ class CategoriesPage extends Component {
     const sortedCategories = sortBy(categories, cat =>
       Math.abs(cat.amount)
     ).reverse()
+    const hasAccount = accounts.data.length > 0
 
     return (
       <Fragment>
@@ -94,21 +98,24 @@ class CategoriesPage extends Component {
           onWithIncomeToggle={this.onWithIncomeToggle}
           categories={sortedCategories}
           isFetching={isFetching}
+          hasAccount={hasAccount}
         />
-        <Padded className="u-pt-0">
-          {isFetching ? (
-            <Loading loadingType="categories" />
-          ) : (
-            <Categories
-              categories={sortedCategories}
-              selectedCategory={selectedCategory}
-              selectedCategoryName={selectedCategoryName}
-              selectCategory={this.selectCategory}
-              withIncome={showIncomeCategory}
-              filterWithInCome={this.filterWithInCome}
-            />
-          )}
-        </Padded>
+        {hasAccount && (
+          <Padded className="u-pt-0">
+            {isFetching ? (
+              <Loading loadingType="categories" />
+            ) : (
+              <Categories
+                categories={sortedCategories}
+                selectedCategory={selectedCategory}
+                selectedCategoryName={selectedCategoryName}
+                selectCategory={this.selectCategory}
+                withIncome={showIncomeCategory}
+                filterWithInCome={this.filterWithInCome}
+              />
+            )}
+          </Padded>
+        )}
       </Fragment>
     )
   }

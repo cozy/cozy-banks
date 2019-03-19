@@ -14,6 +14,8 @@ import CategoriesChart from './CategoriesChart'
 import { getTransactionsTotal, getGlobalCurrency } from './helpers'
 import { flowRight as compose } from 'lodash'
 import styles from './CategoriesHeader.styl'
+import Bouton from 'cozy-ui/react/Button'
+import AddAccountLink from 'ducks/settings/AddAccountLink'
 
 class CategoriesHeader extends PureComponent {
   renderAccountSwitch = () => {
@@ -80,6 +82,7 @@ class CategoriesHeader extends PureComponent {
       categories,
       breakpoints: { isMobile },
       t,
+      hasAccount,
       isFetching
     } = this.props
     const globalCurrency = getGlobalCurrency(categories)
@@ -91,6 +94,9 @@ class CategoriesHeader extends PureComponent {
 
     const withPrimary = flag('categories-header-primary')
     const color = { color: withPrimary && !isMobile ? 'primary' : 'default' }
+    const className = hasAccount
+      ? undefined
+      : { className: styles.NoAccount_chart }
 
     return (
       <CategoriesChart
@@ -103,7 +109,9 @@ class CategoriesHeader extends PureComponent {
         total={selectedCategory ? selectedCategory.amount : transactionsTotal}
         currency={globalCurrency}
         label={t('Categories.title.total')}
+        hasAccount={hasAccount}
         {...color}
+        {...className}
       />
     )
   }
@@ -111,7 +119,9 @@ class CategoriesHeader extends PureComponent {
   render() {
     const {
       breadcrumbItems,
-      breakpoints: { isMobile }
+      hasAccount,
+      breakpoints: { isMobile },
+      t
     } = this.props
 
     const accountSwitch = this.renderAccountSwitch()
@@ -128,19 +138,40 @@ class CategoriesHeader extends PureComponent {
             <SelectDates showFullYear {...colorProps} />
           </Header>
           {accountSwitch}
-          <Header color="default">
-            <Padded>
-              {incomeToggle}
-              {chart}
-            </Padded>
-          </Header>
+          {hasAccount ? (
+            <Header color="default">
+              <Padded>
+                {incomeToggle}
+                {chart}
+              </Padded>
+            </Header>
+          ) : (
+            <Header color="default" className={styles.NoAccount_container}>
+              <Padded className={styles.NoAccount_box}>
+                {chart}
+                <AddAccountLink>
+                  <Bouton
+                    theme="highlight"
+                    icon="plus"
+                    size="large"
+                    className={styles.CategoriesHeader_addButton}
+                    label={t('Accounts.add_bank')}
+                  />
+                </AddAccountLink>
+              </Padded>
+            </Header>
+          )}
         </Fragment>
       )
     }
 
     return (
       <Header {...colorProps}>
-        <Padded className={styles.CategoriesHeader}>
+        <Padded
+          className={cx(styles.CategoriesHeader, {
+            [styles.NoAccount]: !hasAccount
+          })}
+        >
           <div>
             <Padded className="u-ph-0 u-pt-0 u-pb-half">{accountSwitch}</Padded>
             <Padded className="u-pv-1 u-ph-0">
@@ -159,6 +190,17 @@ class CategoriesHeader extends PureComponent {
             {incomeToggle}
           </div>
           {chart}
+          {!hasAccount && (
+            <AddAccountLink>
+              <Bouton
+                theme="highlight"
+                icon="plus"
+                size="large"
+                className={styles.CategoriesHeader_addButton}
+                label={t('Accounts.add_bank')}
+              />
+            </AddAccountLink>
+          )}
         </Padded>
       </Header>
     )
@@ -171,6 +213,7 @@ CategoriesHeader.propTypes = {
   withIncome: PropTypes.bool.isRequired,
   onWithIncomeToggle: PropTypes.func.isRequired,
   chartSize: PropTypes.number,
+  hasAccount: PropTypes.bool.isRequired,
   categories: PropTypes.array.isRequired,
   t: PropTypes.func.isRequired,
   breakpoints: PropTypes.object.isRequired

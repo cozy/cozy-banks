@@ -8,11 +8,6 @@ yarn-error.log
 build/
 
 
-# Locales
-**/locales/*
-!**/locales/en.json
-
-
 # OS generated files
 .DS_Store
 .DS_Store?

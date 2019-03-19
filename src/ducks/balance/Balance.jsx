@@ -3,7 +3,12 @@ import { flowRight as compose, get, sumBy, set, debounce } from 'lodash'
 
 import { queryConnect, withMutations } from 'cozy-client'
 import flag from 'cozy-flags'
-import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
+import {
+  ACCOUNT_DOCTYPE,
+  GROUP_DOCTYPE,
+  SETTINGS_DOCTYPE,
+  TRIGGER_DOCTYPE
+} from 'doctypes'
 import cx from 'classnames'
 
 import { connect } from 'react-redux'
@@ -12,11 +17,14 @@ import { withRouter } from 'react-router'
 import Loading from 'components/Loading'
 import { Padded } from 'components/Spacing'
 import BalanceHeader from 'ducks/balance/components/BalanceHeader'
+import NoAccount from 'ducks/balance/components/NoAccount'
+import AccountsImporting from 'ducks/balance/components/AccountsImporting'
 
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import { buildVirtualGroups } from 'ducks/groups/helpers'
 import { isCollectionLoading } from 'ducks/client/utils'
 import { getAccountBalance } from 'ducks/account/helpers'
+import { isBankTrigger } from 'utils/triggers'
 
 import styles from 'ducks/balance/Balance.styl'
 import BalanceTables from './BalanceTables'
@@ -133,7 +141,8 @@ class Balance extends PureComponent {
     const {
       accounts: accountsCollection,
       groups: groupsCollection,
-      settings: settingsCollection
+      settings: settingsCollection,
+      triggers: triggersCollection
     } = this.props
 
     if (isCollectionLoading(settingsCollection)) {
@@ -141,11 +150,12 @@ class Balance extends PureComponent {
     }
 
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
-
-    if (
-      isCollectionLoading(accountsCollection) ||
-      isCollectionLoading(groupsCollection)
-    ) {
+    const collections = [
+      accountsCollection,
+      groupsCollection,
+      triggersCollection
+    ]
+    if (collections.some(isCollectionLoading)) {
       return (
         <Fragment>
           <BalanceHeader />
@@ -155,6 +165,19 @@ class Balance extends PureComponent {
     }
 
     const accounts = accountsCollection.data
+    const triggers = triggersCollection.data
+
+    if (accounts.length === 0) {
+      const konnectorSlugs = triggers
+        .filter(isBankTrigger)
+        .map(t => t.message.konnector)
+      if (konnectorSlugs.length > 0) {
+        return <AccountsImporting konnectorSlugs={konnectorSlugs} />
+      }
+
+      return <NoAccount />
+    }
+
     const groups = [...groupsCollection.data, ...buildVirtualGroups(accounts)]
 
     const balanceLower = get(settings, 'notifications.balanceLower.value')
@@ -221,7 +244,8 @@ export default compose(
   queryConnect({
     accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' },
     groups: { query: client => client.all(GROUP_DOCTYPE), as: 'groups' },
-    settings: { query: client => client.all(SETTINGS_DOCTYPE), as: 'settings' }
+    settings: { query: client => client.all(SETTINGS_DOCTYPE), as: 'settings' },
+    triggers: { query: client => client.all(TRIGGER_DOCTYPE), as: 'triggers' }
   }),
   withMutations()
 )(Balance)

@@ -61,16 +61,24 @@ class GroupPanel extends React.PureComponent {
     this.state = {}
     this.handlePanelChange = this.handlePanelChange.bind(this)
   }
+
   static propTypes = {
     group: PropTypes.object.isRequired,
     filterByDoc: PropTypes.func.isRequired,
     router: PropTypes.object.isRequired,
     warningLimit: PropTypes.number.isRequired,
-    switches: PropTypes.object.isRequired,
-    checked: PropTypes.bool.isRequired,
+    switches: PropTypes.object,
+    checked: PropTypes.bool,
     expanded: PropTypes.bool.isRequired,
-    onSwitchChange: PropTypes.func.isRequired,
-    onChange: PropTypes.func.isRequired
+    onSwitchChange: PropTypes.func,
+    onChange: PropTypes.func,
+    withBalance: PropTypes.bool
+  }
+
+  static defaultProps = {
+    withBalance: true,
+    onSwitchChange: undefined,
+    onChange: undefined
   }
 
   goToTransactionsFilteredByDoc = () => {
@@ -87,6 +95,9 @@ class GroupPanel extends React.PureComponent {
   }
 
   handleSummaryContentClick = e => {
+    const { group } = this.props
+
+    if (group.loading) return
     e.stopPropagation()
     this.goToTransactionsFilteredByDoc()
   }
@@ -104,7 +115,9 @@ class GroupPanel extends React.PureComponent {
       optimisticExpanded: expanded
     })
 
-    await onChange(group._id, event, expanded)
+    if (onChange) {
+      await onChange(group._id, event, expanded)
+    }
   }
 
   render() {
@@ -114,6 +127,7 @@ class GroupPanel extends React.PureComponent {
       switches,
       onSwitchChange,
       checked,
+      withBalance,
       t
     } = this.props
 
@@ -129,6 +143,7 @@ class GroupPanel extends React.PureComponent {
       optimisticExpanded !== undefined
         ? optimisticExpanded
         : this.props.expanded
+    const isUncheckable = !group.loading
 
     return (
       <ExpansionPanel expanded={expanded} onChange={this.handlePanelChange}>
@@ -138,7 +153,7 @@ class GroupPanel extends React.PureComponent {
             disableRipple: true
           }}
           className={cx({
-            [styles['GroupPanelSummary--unchecked']]: !checked
+            [styles['GroupPanelSummary--unchecked']]: !checked && isUncheckable
           })}
         >
           <div className={styles.GroupPanelSummary__content}>
@@ -158,22 +173,26 @@ class GroupPanel extends React.PureComponent {
                   </Caption>
                 )}
               </div>
-              <Figure
-                className="u-ml-half"
-                symbol="€"
-                total={getGroupBalance(group, uncheckedAccountsIds)}
-                currencyClassName={styles.GroupPanelSummary__figureCurrency}
-              />
+              {withBalance && (
+                <Figure
+                  className="u-ml-half"
+                  symbol="€"
+                  total={getGroupBalance(group, uncheckedAccountsIds)}
+                  currencyClassName={styles.GroupPanelSummary__figureCurrency}
+                />
+              )}
             </div>
-            <Switch
-              disableRipple
-              className="u-mh-half"
-              checked={checked}
-              color="primary"
-              onClick={this.handleSwitchClick}
-              id={`[${group._id}]`}
-              onChange={onSwitchChange}
-            />
+            {onSwitchChange && (
+              <Switch
+                disableRipple
+                className="u-mh-half"
+                checked={checked}
+                color="primary"
+                onClick={this.handleSwitchClick}
+                id={`[${group._id}]`}
+                onChange={onSwitchChange}
+              />
+            )}
           </div>
         </GroupPanelSummary>
         <ExpansionPanelDetails>
