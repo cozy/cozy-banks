@@ -4510,13 +4510,13 @@ cozy-client-js@^0.3.4:
   resolved "https://registry.yarnpkg.com/cozy-client-js/-/cozy-client-js-0.3.21.tgz#d27d0288077ce95139333c41dfb537b8584ff254"
   integrity sha1-0n0CiAd86VE5MzxB37U3uFhP8lQ=
 
-cozy-client@6.9.0:
-  version "6.9.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.9.0.tgz#e84caf6a541e68792257442e73ad2ac549374236"
-  integrity sha512-H+rEFRXKCpYDMRBccO/TsFUjRkbWOeUZy/71mXv0G+/Zk8jOn1Js2eliRaetSTYTvIleIohT/sKzRLx9xUR7uA==
+cozy-client@6.11.1, cozy-client@^6.11.1:
+  version "6.11.1"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.11.1.tgz#0ad2e9511a6beb0d3d3bcac84b133438416c87c2"
+  integrity sha512-SyacwSFE6vkAYGSKFawY10Y4S4xidb6uQYDKHGkNxw6df5p8zfou4ssLiFGEtVBQ0r+uZYjygBoCY3VGsec0dA==
   dependencies:
     cozy-device-helper "1.6.3"
-    cozy-stack-client "^6.7.0"
+    cozy-stack-client "^6.11.1"
     lodash "4.17.11"
     prop-types "15.6.2"
     react "16.7.0"
@@ -4524,21 +4524,6 @@ cozy-client@6.9.0:
     redux "3.7.2"
     redux-thunk "2.3.0"
     sift "6.0.0"
-
-cozy-client@^5.7.7:
-  version "5.7.7"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-5.7.7.tgz#dba27b7f17a9d590ccdba5bed04299d3fc5c2398"
-  integrity sha512-wMNiImz1pNV+MjfINNMi8yEKvmcG/vN2P4qD6LySWOggPx4U6cB8wm8tIUIQsgkA/mvuMRzmQcGN1FQnxIl6Xw==
-  dependencies:
-    cozy-device-helper "1.6.3"
-    cozy-stack-client "^5.6.1"
-    lodash "4.17.11"
-    prop-types "15.6.2"
-    react "16.7.0"
-    react-redux "5.0.7"
-    redux "3.7.2"
-    redux-thunk "2.3.0"
-    sift "7.0.1"
 
 cozy-device-helper@1.4.8:
   version "1.4.8"
@@ -4685,12 +4670,12 @@ cozy-logger@1.3.1, cozy-logger@^1.3.1:
   dependencies:
     json-stringify-safe "5.0.1"
 
-cozy-pouch-link@5.7.7:
-  version "5.7.7"
-  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-5.7.7.tgz#9e65540bfd2a398113c596877e1a855a32a8fa53"
-  integrity sha512-hRnLWkIX2zMjRIzRhWoFDp+3aQaM/U/Qpn01054pHIDUtX2VLgLazfnPhet/yM7PYBq1SmVEaWJC0UejyHCq4A==
+cozy-pouch-link@6.11.1:
+  version "6.11.1"
+  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-6.11.1.tgz#8ed2f21694763290cf3a45062ddfdedf9c58e14c"
+  integrity sha512-FxJfY1pgoqnMJcKrfLoxMs8DUDc7r7ayGnlBN6SsmFxc1mqOkhAvbyr+IVRgabMscCx6SscBJMBokNinwAeqfQ==
   dependencies:
-    cozy-client "^5.7.7"
+    cozy-client "^6.11.1"
     cozy-device-helper "1.4.8"
     pouchdb "7.0.0"
     pouchdb-find "7.0.0"
@@ -4700,18 +4685,10 @@ cozy-realtime@2.0.3:
   resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-2.0.3.tgz#7c02e19833f8061d32f8f72529a94d2277a8aee1"
   integrity sha512-Ad/l2wWYyvaKvLSOrSVALBdk+utqm6MJIIDDcpPLcT092ynmbSROC4JtG6dEfbzirVqKAM5H44oTtPgGT/e2mg==
 
-cozy-stack-client@^5.6.1:
-  version "5.6.1"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-5.6.1.tgz#f7ea391d5a635605a16b7bdaea0a36b2d9cd1023"
-  integrity sha512-8Z1fMepAm5bu4eup4DviUux8j/bwbvuFNPVaVuk4We+k3/ly07nvp2q3sUh9YMSXGKZOsb3O9ybIZ5XzCOKnWA==
-  dependencies:
-    detect-node "2.0.4"
-    mime-types "2.1.20"
-
-cozy-stack-client@^6.7.0:
-  version "6.7.0"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.7.0.tgz#cf8963b5cdbbaac92abdaeb302f723f9e3cd9612"
-  integrity sha512-OcqIQ5MEqr5vNL3AnGXceehOMLsbCcfF4Wydf39bqk9fA1LODL4dBNaExgd42A/FxwZ5dfBHarhkkfk/6EAyvw==
+cozy-stack-client@^6.11.1:
+  version "6.12.0"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.12.0.tgz#8f6a1ddad68970245c874cf0d06ef0426314a340"
+  integrity sha512-aAlXQxD4UX7rWDLXjforwgiBgb2r4igAD0c9XBhZ2BX083bFzAInX0IWwLtHDRaJTqS9bqvXrHbbyJm13cBQog==
   dependencies:
     detect-node "2.0.4"
     mime-types "2.1.20"
@@ -16636,11 +16613,6 @@ sift@6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/sift/-/sift-6.0.0.tgz#f93a778e5cbf05a5024ebc391e6b32511a6d1f82"
   integrity sha1-+Tp3jly/BaUCTrw5HmsyURptH4I=
-
-sift@7.0.1:
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/sift/-/sift-7.0.1.tgz#47d62c50b159d316f1372f8b53f9c10cd21a4b08"
-  integrity sha512-oqD7PMJ+uO6jV9EQCl0LrRw1OwsiPsiFQR5AR30heR+4Dl7jBBbDLnNvWiak20tzZlSE1H7RB30SX/1j/YYT7g==
 
 sigmund@^1.0.1:
   version "1.0.1"
