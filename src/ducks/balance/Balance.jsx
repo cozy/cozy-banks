@@ -167,11 +167,15 @@ class Balance extends PureComponent {
     const accounts = accountsCollection.data
     const triggers = triggersCollection.data
 
-    if (accounts.length === 0) {
+    if (
+      accounts.length === 0 ||
+      flag('no-account') ||
+      flag('account-loading')
+    ) {
       const konnectorSlugs = triggers
         .filter(isBankTrigger)
         .map(t => t.message.konnector)
-      if (konnectorSlugs.length > 0) {
+      if (konnectorSlugs.length > 0 || flag('account-loading')) {
         return <AccountsImporting konnectorSlugs={konnectorSlugs} />
       }
 
