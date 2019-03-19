@@ -19,12 +19,17 @@ const common = merge(
   require('./config/webpack.config.piwik'),
   require('./config/webpack.config.string-replace'),
   hotReload ? require(`./config/webpack.config.hot-reload`) : null,
-  analyze ? require(`./config/webpack.config.analyze`) : null,
-  require(`./config/webpack.target.${target}`)
+  analyze ? require(`./config/webpack.config.analyze`) : null
 )
+
+const targetCfg = require(`./config/webpack.target.${target}`)
+
+const withTarget = merge.strategy({
+  'resolve.extensions': 'prepend'
+})(common, targetCfg)
 
 const modeConfig = production
   ? require('./config/webpack.config.prod')
   : require('./config/webpack.config.dev')
 
-module.exports = merge(common, modeConfig)
+module.exports = merge(withTarget, modeConfig)
