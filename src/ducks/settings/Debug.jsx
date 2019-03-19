@@ -20,8 +20,6 @@ class DebugSettings extends React.PureComponent {
         <button onClick={this.handleMakeTokenExpired}>
           Make token expired
         </button>
-        <br />
-        <a href="#/pin">Go to pin page</a>
       </div>
     )
   }
