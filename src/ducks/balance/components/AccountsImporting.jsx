@@ -24,7 +24,6 @@ const muiStyles = () => ({
   }
 })
 
-const emptyFct = () => {}
 const createGroups = (types, konnectorSlugs) => {
   const accounts = konnectorSlugs.map(konnectorSlug => ({
     _id: konnectorSlug,
@@ -93,8 +92,6 @@ const AccountsImporting = ({ t, classes, konnectorSlugs }) => {
           groups={groups}
           panelsState={panelsState}
           warningLimit={0}
-          onSwitchChange={emptyFct}
-          onPanelChange={emptyFct}
           withBalance={false}
         />
       </Padded>

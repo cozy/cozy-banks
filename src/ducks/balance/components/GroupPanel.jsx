@@ -70,13 +70,15 @@ class GroupPanel extends React.PureComponent {
     switches: PropTypes.object,
     checked: PropTypes.bool,
     expanded: PropTypes.bool.isRequired,
-    onSwitchChange: PropTypes.func.isRequired,
-    onChange: PropTypes.func.isRequired,
+    onSwitchChange: PropTypes.func,
+    onChange: PropTypes.func,
     withBalance: PropTypes.bool
   }
 
   static defaultProps = {
-    withBalance: true
+    withBalance: true,
+    onSwitchChange: undefined,
+    onChange: undefined
   }
 
   goToTransactionsFilteredByDoc = () => {
@@ -113,7 +115,9 @@ class GroupPanel extends React.PureComponent {
       optimisticExpanded: expanded
     })
 
-    await onChange(group._id, event, expanded)
+    if (onChange) {
+      await onChange(group._id, event, expanded)
+    }
   }
 
   render() {
@@ -178,7 +182,7 @@ class GroupPanel extends React.PureComponent {
                 />
               )}
             </div>
-            {checked !== undefined && (
+            {onSwitchChange && (
               <Switch
                 disableRipple
                 className="u-mh-half"

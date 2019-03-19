@@ -15,13 +15,15 @@ class BalancePanels extends React.PureComponent {
     router: PropTypes.object.isRequired,
     warningLimit: PropTypes.number.isRequired,
     panelsState: PropTypes.object.isRequired,
-    onSwitchChange: PropTypes.func.isRequired,
-    onPanelChange: PropTypes.func.isRequired,
+    onSwitchChange: PropTypes.func,
+    onPanelChange: PropTypes.func,
     withBalance: PropTypes.bool
   }
 
   static defaultProps = {
-    withBalance: true
+    withBalance: true,
+    onSwitchChange: undefined,
+    onPanelChange: undefined
   }
 
   goToGroupsSettings = () => this.props.router.push('/settings/groups')

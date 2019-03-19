@@ -13,7 +13,11 @@ class AccountsList extends React.PureComponent {
     group: PropTypes.object.isRequired,
     warningLimit: PropTypes.number.isRequired,
     switches: PropTypes.object.isRequired,
-    onSwitchChange: PropTypes.func.isRequired
+    onSwitchChange: PropTypes.func
+  }
+
+  static defaultProps = {
+    onSwitchChange: undefined
   }
 
   goToTransactionsFilteredByDoc = account => () => {
