@@ -22,6 +22,9 @@ module.exports = {
       path.resolve(__dirname, '../src/main.jsx')
     ]
   },
+  resolve: {
+    extensions: ['.mobile.js', '.mobile.jsx']
+  },
   output: output,
   plugins: [
     new webpack.DefinePlugin({
