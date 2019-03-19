@@ -1,4 +1,11 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import styles from './styles'
+import range from 'lodash/range'
+import Round from './Round'
+import FingerprintButton from './FingerprintButton'
+
+const InvisibleRound = () => <Round style={{ opacity: 0 }} />
 
 class PinKeyboard extends React.PureComponent {
   constructor(props) {
@@ -8,30 +15,31 @@ class PinKeyboard extends React.PureComponent {
     this.handleFingerprintCancel = this.handleFingerprintCancel.bind(this)
   }
 
-  handleFingerprintSuccess(res) {
+  handleFingerprintSuccess() {
     this.props.onSuccess()
   }
 
-  handleFingerprintError(res) {
+  handleFingerprintError() {
     this.props.onError()
   }
 
-  handleFingerprintCancel(res) {
+  handleFingerprintCancel() {
     this.props.onCancel()
   }
 
   render() {
     return (
-      <div className={styles.Wrapper}>
+      <div className={styles.PinKeyboard}>
         {range(1, 10).map(n => (
-          <Round children={n} />
+          <Round key={n}>{n}</Round>
         ))}
-        <FingerprintAuthButton
+        <FingerprintButton
           onSuccess={this.handleFingerprintSuccess}
           onError={this.handleFingerprintError}
           onCancel={this.handleFingerprintCancel}
         />
-        <Round children={0} />
+        <Round>0</Round>
+        <InvisibleRound />
       </div>
     )
   }
