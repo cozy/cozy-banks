@@ -18,7 +18,7 @@ import {
   registerPushNotifications,
   stopPushNotifications
 } from 'ducks/mobile/push'
-import { initBar, resetClient, setBarTheme } from 'ducks/mobile/utils'
+import { initBar, resetClient } from 'ducks/mobile/utils'
 import LogoutModal from 'components/LogoutModal'
 import { resetFilterByDoc } from 'ducks/filters'
 import { connect } from 'react-redux'
@@ -27,7 +27,6 @@ import appIcon from 'targets/favicons/icon-banks.jpg'
 export const AUTH_PATH = 'authentication'
 
 export const onLogout = async (store, cozyClient) => {
-  setBarTheme('default')
   try {
     await stopPushNotifications()
 
@@ -161,9 +160,6 @@ const withAuth = Wrapped => {
 }
 
 const PotentiallyRevoked_ = props => {
-  if (props.revoked) {
-    setBarTheme('default')
-  }
   return props.revoked ? <Revoked {...props} /> : props.children
 }
 

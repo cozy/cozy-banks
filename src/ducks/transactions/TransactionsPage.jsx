@@ -54,7 +54,7 @@ import {
   sumBalanceHistories,
   balanceHistoryToChartData
 } from 'ducks/balance/helpers'
-import { setBarTheme } from 'ducks/mobile/utils'
+import BarTheme from 'ducks/mobile/BarTheme'
 import flag from 'cozy-flags'
 
 const { BarRight } = cozy.bar
@@ -84,9 +84,6 @@ class TransactionsPage extends Component {
       limitMax: STEP_INFINITE_SCROLL,
       infiniteScrollTop: false
     }
-
-    const theme = flag('transaction-history') ? 'primary' : 'default'
-    setBarTheme(theme)
   }
 
   setCurrentMonthFollowingMostRecentTransaction() {
@@ -327,6 +324,7 @@ class TransactionsPage extends Component {
     const theme = flag('transaction-history') ? 'primary' : 'default'
     return (
       <Fragment>
+        <BarTheme theme={theme} />
         <TransactionHeader
           transactions={filteredTransactions}
           handleChangeMonth={this.handleChangeMonth}

@@ -19,17 +19,12 @@ import {
   groupsConn
 } from 'doctypes'
 import { isCollectionLoading } from 'ducks/client/utils'
-import { setBarTheme } from 'ducks/mobile/utils'
+import BarTheme from 'ducks/mobile/BarTheme'
 import flag from 'cozy-flags'
 
+const barTheme = flag('categories-header-primary') ? 'primary' : 'default'
+
 class CategoriesPage extends Component {
-  constructor(props) {
-    super(props)
-
-    const theme = flag('categories-header-primary') ? 'primary' : 'default'
-    setBarTheme(theme)
-  }
-
   selectCategory = (selectedCategory, subcategory) => {
     if (subcategory) {
       this.props.router.push(`/categories/${selectedCategory}/${subcategory}`)
@@ -91,6 +86,7 @@ class CategoriesPage extends Component {
 
     return (
       <Fragment>
+        <BarTheme theme={barTheme} />
         <CategoriesHeader
           breadcrumbItems={breadcrumbItems}
           selectedCategory={selectedCategory}
