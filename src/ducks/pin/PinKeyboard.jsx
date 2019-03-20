@@ -5,8 +5,6 @@ import range from 'lodash/range'
 import Round from './Round'
 import FingerprintButton from './FingerprintButton'
 
-const InvisibleRound = () => <Round style={{ opacity: 0 }} />
-
 class PinKeyboard extends React.PureComponent {
   constructor(props) {
     super(props)
@@ -39,7 +37,7 @@ class PinKeyboard extends React.PureComponent {
           onCancel={this.handleFingerprintCancel}
         />
         <Round>0</Round>
-        <InvisibleRound />
+        <Round className="u-hide" />
       </div>
     )
   }
