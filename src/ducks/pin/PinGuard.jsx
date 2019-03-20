@@ -4,6 +4,7 @@ import styles from 'ducks/pin/styles.styl'
 import PinKeyboard from 'ducks/pin/PinKeyboard'
 import LockedBody from 'ducks/pin/LockedBody'
 import PinTimeout from 'ducks/pin/PinTimeout.debug'
+import BarTheme from 'ducks/mobile/BarTheme'
 
 class PinGuard extends React.Component {
   constructor(props) {
@@ -51,14 +52,15 @@ class PinGuard extends React.Component {
   render() {
     return (
       <React.Fragment>
+        {this.props.children}
         {this.state.showPin ? (
           <LockedBody>
             <div className={styles.PinWrapper}>
+              <BarTheme theme="primary" />
               <PinKeyboard onSuccess={this.handlePinSuccess} />
             </div>
           </LockedBody>
         ) : null}
-        {this.props.children}
         {this.props.showTimeout ? (
           <PinTimeout start={this.state.last} duration={this.props.timeout} />
         ) : null}
