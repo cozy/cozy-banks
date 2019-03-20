@@ -1,7 +1,8 @@
 import React from 'react'
-import styles from './styles.styl'
-import PinKeyboard from './PinKeyboard'
-import LockedBody from './LockedBody'
+
+import styles from 'ducks/pin/styles.styl'
+import PinKeyboard from 'ducks/pin/PinKeyboard'
+import LockedBody from 'ducks/pin/LockedBody'
 
 const AffixRed = props => {
   return (

@@ -1,6 +1,6 @@
 /* global Fingerprint */
 import React from 'react'
-import Round from './Round'
+import Round from 'ducks/pin/Round'
 
 class FingerprintButton extends React.PureComponent {
   constructor(props) {
