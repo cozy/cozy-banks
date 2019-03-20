@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './styles.styl'
+import styles from 'ducks/pin/styles.styl'
 import cx from 'classnames'
 
 const Round = props => {

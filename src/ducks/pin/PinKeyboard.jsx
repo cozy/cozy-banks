@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styles from './styles'
 import range from 'lodash/range'
-import Round from './Round'
-import FingerprintButton from './FingerprintButton'
+
+import styles from 'ducks/pin/styles'
+import Round from 'ducks/pin/Round'
+import FingerprintButton from 'ducks/pin/FingerprintButton'
 
 class PinKeyboard extends React.PureComponent {
   constructor(props) {

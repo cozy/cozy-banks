@@ -1,4 +1,4 @@
-import PinGuard from './PinGuard'
+import PinGuard from 'ducks/pin/PinGuard'
 import React from 'react'
 
 const pinGuarded = pinGuardProps => Component => {
