@@ -10,10 +10,13 @@ const fs = require('fs')
 
 const rxUserAgent = /preference name="AppendUserAgent" value="(.*)"/g
 const mkPrefLine = userAgent =>
-  rxUserAgent.toString().replace('(.*)', userAgent)
+  rxUserAgent.toString()
+    .replace(/^\//, '')
+    .replace(/\/g$/, '')
+    .replace('(.*)', userAgent)
 
 const replaceUserAgent = (config, userAgent) => {
-  config.replace(rxUserAgent, mkPrefLine(userAgent))
+  return config.replace(rxUserAgent, mkPrefLine(userAgent))
 }
 
 const prefixVersion = "io.cozy.banks.mobile-"
