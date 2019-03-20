@@ -52,7 +52,7 @@ const App = props => {
 }
 
 export default compose(
-  pinGuarded({ timeout: 30 * 1000 }),
+  flag('pin') ? pinGuarded({ timeout: 30 * 1000 }) : x => x,
   queryConnect({ settingsCollection: settingsConn }),
   withRouter
 )(App)
