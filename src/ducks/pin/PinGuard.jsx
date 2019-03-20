@@ -11,12 +11,6 @@ const AffixRed = props => {
   )
 }
 
-const PinWrapper = props => (
-  <LockedBody>
-    <div className={styles.PinWrapper}>{props.children}</div>
-  </LockedBody>
-)
-
 class PinGuard extends React.Component {
   constructor(props) {
     super(props)
@@ -71,9 +65,11 @@ class PinGuard extends React.Component {
     return (
       <React.Fragment>
         {this.state.showPin ? (
-          <PinWrapper>
-            <PinKeyboard onSuccess={this.handlePinSuccess} />
-          </PinWrapper>
+          <LockedBody>
+            <div className={styles.PinWrapper}>
+              <PinKeyboard onSuccess={this.handlePinSuccess} />
+            </div>
+          </LockedBody>
         ) : null}
         {this.props.children}
         {this.props.showTimeout ? (
