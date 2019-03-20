@@ -13,6 +13,9 @@ module.exports = {
   externals: {
     'cozy-client-js': 'cozy'
   },
+  resolve: {
+    extensions: ['.browser.js', '.browser.jsx']
+  },
   plugins: [
     new webpack.DefinePlugin({
       __TARGET__: JSON.stringify('browser'),
