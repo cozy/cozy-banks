@@ -48,7 +48,7 @@ class FingerprintButton extends React.PureComponent {
     return this.state.method ? (
       <Round onClick={this.handleClick}>F</Round>
     ) : (
-      <Round style={{ opacity: 0 }} />
+      <Round className="u-hide" />
     )
   }
 }
