@@ -3,14 +3,7 @@ import React from 'react'
 import styles from 'ducks/pin/styles.styl'
 import PinKeyboard from 'ducks/pin/PinKeyboard'
 import LockedBody from 'ducks/pin/LockedBody'
-
-const AffixRed = props => {
-  return (
-    <div style={{ background: 'red', position: 'fixed', top: 0, zIndex: 1000 }}>
-      {props.children}
-    </div>
-  )
-}
+import PinTimeout from 'ducks/pin/PinTimeout.debug'
 
 class PinGuard extends React.Component {
   constructor(props) {
@@ -20,7 +13,6 @@ class PinGuard extends React.Component {
     this.handlePinSuccess = this.handlePinSuccess.bind(this)
     this.handleResume = this.handleResume.bind(this)
     this.handlePause = this.handlePause.bind(this)
-    this.update = this.update.bind(this)
   }
 
   componentDidMount() {
@@ -28,18 +20,12 @@ class PinGuard extends React.Component {
     document.addEventListener('resume', this.handleResume)
     document.addEventListener('pause', this.handlePause)
     this.handleInteraction()
-    this.interval = setInterval(this.update, 1000)
   }
 
   componentWillUnmount() {
     document.removeEventListener('touchstart', this.handleInteraction)
     document.removeEventListener('resume', this.handleResume)
     document.removeEventListener('pause', this.handlePause)
-    clearInterval(this.interval)
-  }
-
-  update() {
-    this.setState({})
   }
 
   handlePause() {
@@ -74,9 +60,7 @@ class PinGuard extends React.Component {
         ) : null}
         {this.props.children}
         {this.props.showTimeout ? (
-          <AffixRed>
-            {this.props.timeout - (Date.now() - this.state.last)}
-          </AffixRed>
+          <PinTimeout start={this.state.last} duration={this.props.timeout} />
         ) : null}
       </React.Fragment>
     )
