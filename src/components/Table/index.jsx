@@ -20,10 +20,4 @@ export const TdSecondary = ({ children, className, ...rest }) => (
   </td>
 )
 
-export const TdWithIcon = ({ children, className, ...rest }) => (
-  <td className={cx(styles['c-table-td-with-icon'], className)} {...rest}>
-    {children}
-  </td>
-)
-
 export default Table

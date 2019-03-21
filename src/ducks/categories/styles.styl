@@ -92,18 +92,18 @@
         .bnk-table-total
             maxed-flex-basis 14%
 
-    // All icons and classes for categories types
-
-    categories = kids dailyLife educationAndTraining health homeAndRealEstate incomeCat activities excludeFromBudgetCat services tax transportation goingOutAndTravel uncategorized
-
-    getCatBkg(categoryLabel)
-        icon = '../../assets/icons/categories/icon-cat-%s.svg' % categoryLabel
-        background-image embedurl(icon)
-
-    for category in categories
-        .bnk-table-category--{category}
-            getCatBkg(category)
 
 .bnk-category-total-mobile
     min-width 5rem
     font-size 0.875rem
+    
+
+.bnk-table-category-name-icon
+    $iconHeight=2rem
+    $textHeight=1rem
+    $heightIncrease=($iconHeight - $textHeight) / 2
+    // We apply negative margins so that the container of name
+    // and icon has the height of the text instead of the icon 
+    margin-top -($heightIncrease/2)
+    margin-bottom -($heightIncrease/2)
+        

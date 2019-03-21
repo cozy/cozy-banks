@@ -7,7 +7,7 @@ import Text, { Caption } from 'cozy-ui/react/Text'
 import ListItemText from 'cozy-ui/react/ListItemText'
 import { Media, Bd, Img } from 'cozy-ui/react/Media'
 import CategoryIcon from './CategoryIcon'
-import { Table, TdWithIcon, TdSecondary } from 'components/Table'
+import { Table, TdSecondary } from 'components/Table'
 import { Figure } from 'components/Figure'
 import styles from './styles.styl'
 import { flowRight as compose } from 'lodash'
@@ -151,14 +151,14 @@ class Categories extends Component {
           onClick={() => onClick(category, subcategory)}
         >
           <PercentageLine value={percentage} color={category.color} />
-          <TdWithIcon
-            className={cx(
-              stCategory,
-              styles[`bnk-table-category--${category.name}`]
-            )}
-          >
-            {t(`Data.${type}.${name}`)}
-          </TdWithIcon>
+          <TdSecondary className={cx(stCategory)}>
+            <Media className={styles['bnk-table-category-name-icon']}>
+              <Img className="u-mr-1">
+                <CategoryIcon categoryId={(subcategory || category).id} />
+              </Img>
+              <Bd>{t(`Data.${type}.${name}`)}</Bd>
+            </Media>
+          </TdSecondary>
           <TdSecondary className={styles['bnk-table-operation']}>
             {transactionsNumber}
           </TdSecondary>
@@ -245,7 +245,7 @@ class Categories extends Component {
           <td className="u-ph-1">
             <Media>
               <Img className="u-pr-half">
-                <CategoryIcon categoryId={category.id} />
+                <CategoryIcon categoryId={(subcategory || category).id} />
               </Img>
               <Bd className={cx('u-ph-half', stCategory)}>
                 <ListItemText>
