@@ -99,8 +99,8 @@ module.exports = {
       __ENABLED_FLAGS__: JSON.stringify(enabledFlags)
     }),
     // ChartJS uses moment :( To remove when we do not use it anymore
-    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|fr/),
-    new webpack.ContextReplacementPlugin(/date-fns[\/\\]locale$/, /en|fr/),
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /(en|fr)\/index\.js/),
+    new webpack.ContextReplacementPlugin(/date-fns[\/\\]locale$/, /(en|fr)\/index\.js/),
     new DuplicatePackageCheckerPlugin({ verbose: true }),
   ]
 }
