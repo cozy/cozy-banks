@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { flowRight as compose } from 'lodash'
 import cx from 'classnames'
 import { withClient } from 'cozy-client'
-import { matchBrands, findMatchingBrand } from 'ducks/brandDictionary'
+import { findMatchingBrand } from 'ducks/brandDictionary'
 import { translate } from 'cozy-ui/react'
 import IntentModal from 'cozy-ui/react/IntentModal'
 import ButtonAction from 'cozy-ui/react/ButtonAction'
@@ -221,9 +221,18 @@ const action = {
   match: (transaction, { brands, urls }) => {
     const brandsWithoutTrigger = getBrandsWithoutTrigger(brands)
 
+    if (!brandsWithoutTrigger) {
+      return false
+    }
+
+    const matchingBrand = findMatchingBrand(
+      brandsWithoutTrigger,
+      transaction.label
+    )
+
     return (
-      brandsWithoutTrigger &&
-      matchBrands(brandsWithoutTrigger, transaction.label) &&
+      matchingBrand &&
+      !matchingBrand.maintenance &&
       (urls['COLLECT'] || urls['HOME'])
     )
   },
