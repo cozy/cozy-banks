@@ -8,6 +8,7 @@ import compose from 'lodash/flowRight'
 
 import PinKeyboard from 'ducks/pin/PinKeyboard'
 import FingerprintButton from 'ducks/pin/FingerprintButton'
+import { pinSetting } from 'ducks/pin/queries'
 
 /**
  * Show pin keyboard and fingerprint button.
@@ -36,6 +37,21 @@ class PinAuth extends React.Component {
     // this.props.onCancel()
   }
 
+  handleConfirmKeyboard(val) {
+    const { pinSetting, t } = this.props
+    const pinDoc = pinSetting.data
+    if (!pinDoc) {
+      Alerter.info(t('Pin.no-pin-configured'))
+      this.props.onSuccess()
+    } else {
+      if (val === pinDoc.pin) {
+        this.props.onSuccess()
+      } else {
+        Alerter.info(t('Pin.bad-pin'))
+      }
+    }
+  }
+
   render() {
     return (
       <div>
@@ -44,7 +60,7 @@ class PinAuth extends React.Component {
           onError={this.handleFingerprintError}
           onCancel={this.handleFingerprintCancel}
         />
-        <PinKeyboard />
+        <PinKeyboard onConfirm={this.handleConfirmKeyboard} />
       </div>
     )
   }
@@ -58,4 +74,7 @@ class PinAuth extends React.Component {
 
 export default compose(
   translate(),
+  queryConnect({
+    pinSetting
+  })
 )(PinAuth)
