@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import { flowRight as compose } from 'lodash'
 import { translate, withBreakpoints } from 'cozy-ui/react'
-import Bouton from 'cozy-ui/react/Button'
+import Button from 'cozy-ui/react/Button'
 import HeaderTitle from 'ducks/balance/components/HeaderTitle'
 import AddAccountLink from 'ducks/settings/AddAccountLink'
 import { Container, Content } from 'components/VerticalBox'
@@ -23,7 +23,7 @@ const NoAccount = ({ lang, t, breakpoints: { isMobile } }) => {
         <img src={timelineImg} alt="" className={styles.NoAccount_timeline} />
       </div>
       <AddAccountLink>
-        <Bouton
+        <Button
           theme="highlight"
           icon="plus"
           size="large"
