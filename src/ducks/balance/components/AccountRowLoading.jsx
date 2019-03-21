@@ -4,8 +4,8 @@ import { flowRight as compose } from 'lodash'
 import Spinner from 'cozy-ui/react/Spinner'
 import { translate } from 'cozy-ui/react'
 import KonnectorIcon from 'ducks/balance/components/KonnectorIcon'
-import styles from './AccountRow.styl'
-import stylesLoading from './AccountRowLoading.styl'
+import styles from 'ducks/balance/components/AccountRow.styl'
+import stylesLoading from 'ducks/balance/components/AccountRowLoading.styl'
 
 const AccountRowLoading = ({ t, institutionSlug }) => (
   <li className={styles.AccountRow}>

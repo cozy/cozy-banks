@@ -11,8 +11,8 @@ import { Padded } from 'components/Spacing'
 import VerticalBox from 'components/VerticalBox'
 import BalancePanels from 'ducks/balance/BalancePanels'
 
-import headerTitleStyles from './HeaderTitle.styl'
-import styles from './AccountsImporting.styl'
+import headerTitleStyles from 'ducks/balance/components/HeaderTitle.styl'
+import styles from 'ducks/balance/components/AccountsImporting.styl'
 
 const muiStyles = () => ({
   linearColorPrimary: {
