@@ -1,4 +1,5 @@
-const { getKonnectorFromTrigger } = require('./triggers')
+import { merge } from 'lodash'
+import { getKonnectorFromTrigger, isBankTrigger } from './triggers'
 
 describe('getKonnectorFromTrigger', () => {
   it('should work with normal triggers', () => {
@@ -36,5 +37,32 @@ describe('getKonnectorFromTrigger', () => {
       }
     }
     expect(getKonnectorFromTrigger(legacyTrigger)).toBe('ameli')
+  })
+})
+
+describe('isBankTrigger', () => {
+  const trigger = {
+    attributes: {
+      worker: 'konnector',
+      message: { konnector: 'creditcooperatif148' }
+    }
+  }
+  const triggerNotKonnector = merge({}, trigger, {
+    attributes: { worker: 'notKonnector' }
+  })
+  const triggerWithUnknownBank = merge({}, trigger, {
+    attributes: { message: { konnector: 'unknownBank' } }
+  })
+  const triggerWithoutAttributes = {}
+  const triggerNull = null
+  const triggerWithoutMessage = { attributes: {} }
+
+  it('should return if is bank trigger', () => {
+    expect(isBankTrigger(trigger)).toBe(true)
+    expect(isBankTrigger(triggerNotKonnector)).toBe(false)
+    expect(isBankTrigger(triggerWithUnknownBank)).toBe(false)
+    expect(isBankTrigger(triggerWithoutAttributes)).toBe(false)
+    expect(isBankTrigger(triggerNull)).toBe(false)
+    expect(isBankTrigger(triggerWithoutMessage)).toBe(false)
   })
 })

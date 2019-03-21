@@ -172,10 +172,20 @@ class Balance extends PureComponent {
       flag('no-account') ||
       flag('account-loading')
     ) {
-      const konnectorSlugs = triggers
+      let konnectorSlugs = triggers
         .filter(isBankTrigger)
         .map(t => t.message.konnector)
-      if (konnectorSlugs.length > 0 || flag('account-loading')) {
+
+      if (flag('account-loading')) {
+        // eslint-disable-next-line no-console
+        console.log('konnectorSlugs', konnectorSlugs)
+
+        if (konnectorSlugs.length === 0) {
+          konnectorSlugs = ['creditcooperatif148', 'labanquepostale44']
+        }
+      }
+
+      if (konnectorSlugs.length > 0) {
         return <AccountsImporting konnectorSlugs={konnectorSlugs} />
       }
 
