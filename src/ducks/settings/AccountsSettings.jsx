@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { translate } from 'cozy-ui/react'
 import Button from 'cozy-ui/react/Button'
 import Icon from 'cozy-ui/react/Icon'
-import { getSharingInfo } from 'reducers'
 import { groupBy, flowRight as compose, sortBy } from 'lodash'
 import { getAppUrlById } from 'selectors'
 import Table from 'components/Table'
@@ -124,10 +123,7 @@ class AccountsSettings extends Component {
 }
 
 const mapStateToProps = state => ({
-  collectUrl: getAppUrlById(state, 'io.cozy.apps/collect'),
-  getSharingInfo: (doctype, id) => {
-    return getSharingInfo(state, doctype, id)
-  }
+  collectUrl: getAppUrlById(state, 'io.cozy.apps/collect')
 })
 
 // TODO reactivate when we understand how sharings work
