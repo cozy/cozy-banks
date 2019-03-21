@@ -4532,10 +4532,10 @@ cozy-ach@1.17.1:
     server-destroy "^1.0.1"
     timezone "^1.0.13"
 
-cozy-app-publish@0.13.1:
-  version "0.13.1"
-  resolved "https://registry.yarnpkg.com/cozy-app-publish/-/cozy-app-publish-0.13.1.tgz#7fa5bf25cb4f1a7fec436e177e0389d963480dff"
-  integrity sha512-+i3TFGLILqII9cxTzymZbVblFLHb09zNGgi66z3eDipP8aRympKye9FvhTziXGSmVss5f8Ib8bV2V0Ue3Kz7nQ==
+cozy-app-publish@0.15.0:
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/cozy-app-publish/-/cozy-app-publish-0.15.0.tgz#25562e00814a8759e1927c56ee050cd357453d9a"
+  integrity sha512-kEyqd7vTkdlS8d9aU2OzZSTlth+ZNn4KHHOpMSTk/nbM21CeHpdNDlO/WvAy/atyJhxdiS6Zca0z6l2DMyjB6Q==
   dependencies:
     chalk "2.4.2"
     commander "2.19.0"
@@ -4809,7 +4809,7 @@ cozy-realtime@2.0.6:
   resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-2.0.6.tgz#4b210253bfb7683df958ef8b39dbc68245cf0fc6"
   integrity sha512-mperwew3UkZJ5XaNYwqg3HOG+RWRz29asp8NGownHzYYtgHrM0HdUFUJu2C0Wnd+BqsrFw/rX2fKw6YySMSzHg==
 
-cozy-stack-client@^6.17.0:
+cozy-stack-client@^6.12.0, cozy-stack-client@^6.17.0:
   version "6.17.0"
   resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.17.0.tgz#02d200ebba371d27332de246583e5cb49f1a968f"
   integrity sha512-5Ph5kcS6lm3858GzaWBVSZIUTiIJBXukShdM3A4VTFoz725iXIl+TzlGEYJV8ZEI+3szI88T5y/PCe8tebRFpw==
