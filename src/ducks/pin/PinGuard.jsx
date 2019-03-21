@@ -2,9 +2,9 @@ import React from 'react'
 
 import styles from 'ducks/pin/styles.styl'
 import PinKeyboard from 'ducks/pin/PinKeyboard'
-import LockedBody from 'ducks/pin/LockedBody'
 import PinTimeout from 'ducks/pin/PinTimeout.debug'
 import BarTheme from 'ducks/mobile/BarTheme'
+import PinWrapper from 'ducks/pin/PinWrapper'
 
 class PinGuard extends React.Component {
   constructor(props) {
@@ -54,12 +54,9 @@ class PinGuard extends React.Component {
       <React.Fragment>
         {this.props.children}
         {this.state.showPin ? (
-          <LockedBody>
-            <div className={styles.PinWrapper}>
-              <BarTheme theme="primary" />
-              <PinKeyboard onSuccess={this.handlePinSuccess} />
-            </div>
-          </LockedBody>
+          <PinWrapper>
+            <PinKeyboard onSuccess={this.handlePinSuccess} />
+          </PinWrapper>
         ) : null}
         {this.props.showTimeout ? (
           <PinTimeout start={this.state.last} duration={this.props.timeout} />
