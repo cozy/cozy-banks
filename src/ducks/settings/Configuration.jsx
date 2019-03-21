@@ -12,6 +12,8 @@ import { settingsConn } from 'doctypes'
 import { flowRight as compose, set } from 'lodash'
 import Loading from 'components/Loading'
 import { getDefaultedSettingsFromCollection } from './helpers'
+import PinSettings from 'ducks/settings/PinSettings'
+import flag from 'cozy-flags'
 
 class Configuration extends React.PureComponent {
   saveDocument = async doc => {
@@ -96,6 +98,7 @@ class Configuration extends React.PureComponent {
             name="localModelOverride"
           />
         </TogglePane>
+        {flag('pin') ? <PinSettings /> : null}
       </div>
     )
   }
