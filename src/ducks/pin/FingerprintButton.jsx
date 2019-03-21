@@ -15,6 +15,9 @@ class FingerprintButton extends React.PureComponent {
   }
 
   checkForFingerprintSystem() {
+    if (typeof Fingerprint === 'undefined') {
+      return
+    }
     Fingerprint.isAvailable(
       method => {
         this.setState({ method })

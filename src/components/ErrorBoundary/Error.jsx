@@ -4,7 +4,6 @@ import styles from './Error.styl'
 import { translate } from 'cozy-ui/react'
 import Empty from 'cozy-ui/react/Empty'
 import brokenIcon from 'assets/icons/icon-broken.svg'
-import { setBarTheme } from 'ducks/mobile/utils'
 
 const refreshLinkID = 'error-refresh-link'
 
@@ -14,12 +13,6 @@ class Error extends React.Component {
   }
 
   rootRef = React.createRef()
-
-  constructor(props) {
-    super(props)
-
-    setBarTheme('default')
-  }
 
   componentDidMount() {
     this.listenRefreshLinkClick()
