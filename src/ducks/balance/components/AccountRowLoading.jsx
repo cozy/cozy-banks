@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { flowRight as compose } from 'lodash'
-import Spinner from 'cozy-ui/react/Spinner'
+import Icon from 'cozy-ui/react/Icon'
 import { translate } from 'cozy-ui/react'
 import KonnectorIcon from 'ducks/balance/components/KonnectorIcon'
 import styles from 'ducks/balance/components/AccountRow.styl'
@@ -18,8 +18,8 @@ const AccountRowLoading = ({ t, institutionSlug }) => (
           {t('Balance.importing_accounts')}
         </div>
         <div className={styles.AccountRow__updatedAt}>
-          <Spinner size="small" className={stylesLoading.spinner} />
-          <span className={stylesLoading.color}>
+          <Icon size="12" icon="spinner" color="var(--primaryColor)" spin />
+          <span className={stylesLoading.InProgress}>
             {t('Balance.in_progress')}
           </span>
         </div>
