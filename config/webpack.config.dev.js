@@ -16,7 +16,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: require.resolve('cozy-bar/dist/cozy-bar.js'),
+        test: /cozy-bar\/dist\/cozy-bar\.js$/,
         loader: 'imports-loader?css=./cozy-bar.css'
       }
     ]
