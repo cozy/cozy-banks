@@ -5,7 +5,6 @@ import { Link } from 'react-router'
 
 import dashboard from 'assets/icons/icon-dashboard.svg'
 import graph from 'assets/icons/icon-graph.svg'
-import people from 'assets/icons/icon-people.svg'
 
 const NavLink = genNavLink(Link)
 
@@ -25,7 +24,7 @@ const Nav = ({ t }) => (
     </NavItem>
     <NavItem>
       <NavLink to="settings">
-        <NavIcon icon={people} />
+        <NavIcon icon="gear" />
         <NavText>{t('Nav.settings')}</NavText>
       </NavLink>
     </NavItem>
