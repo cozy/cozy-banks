@@ -15,10 +15,10 @@ import {
   Debug
 } from 'ducks/settings'
 import { Balance } from 'ducks/balance'
-import EnsureIsFirstSynced from 'components/EnsureIsFirstSynced'
+import UserActionRequired from 'components/UserActionRequired'
 
 const AppRoute = (
-  <Route component={EnsureIsFirstSynced}>
+  <Route component={UserActionRequired}>
     <Route component={App}>
       <Redirect from="/" to="balances" />
       <Route path="balances">
