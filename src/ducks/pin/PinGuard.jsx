@@ -1,7 +1,6 @@
 import React from 'react'
 
 import PinTimeout from 'ducks/pin/PinTimeout.debug'
-import BarTheme from 'ducks/mobile/BarTheme'
 import PinWrapper from 'ducks/pin/PinWrapper'
 import PinAuth from 'ducks/pin/PinAuth'
 
