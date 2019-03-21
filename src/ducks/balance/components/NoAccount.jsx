@@ -5,6 +5,7 @@ import Button from 'cozy-ui/react/Button'
 import HeaderTitle from 'ducks/balance/components/HeaderTitle'
 import AddAccountLink from 'ducks/settings/AddAccountLink'
 import { Container, Content } from 'components/VerticalBox'
+import BarTheme from 'ducks/mobile/BarTheme'
 
 import styles from './NoAccount.styl'
 
@@ -15,6 +16,7 @@ const NoAccount = ({ lang, t, breakpoints: { isMobile } }) => {
   const contentProps = isMobile ? { center: true } : { bottom: true }
   return (
     <Container className={styles.NoAccount}>
+      <BarTheme theme="primary" />
       <Content {...contentProps}>
         <HeaderTitle balance={0} subtitle={t('Accounts.no_account')} />
       </Content>
