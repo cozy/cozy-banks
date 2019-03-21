@@ -7,6 +7,14 @@ const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack
 const { production, SRC_DIR, enabledFlags } = require('./webpack.vars')
 const pkg = require(path.resolve(__dirname, '../package.json'))
 
+const mapToNodeModules = packages => {
+  const res = {}
+  packages.forEach(pkgName => {
+    res[pkgName] = path.resolve(__dirname, `../node_modules/${pkgName}`)
+  })
+  return res
+}
+
 module.exports = {
   output: {
     filename: 'app.js'
@@ -15,18 +23,28 @@ module.exports = {
     extensions: ['.js', '.json', '.css', '.jsx'],
     modules: ['node_modules', SRC_DIR],
     alias: {
-      // Resolving multiple version manually
-      'lodash': path.resolve(__dirname, '../node_modules/lodash'),
-      'raven-js': path.resolve(__dirname, '../node_modules/raven-js'),
-      'warning': path.resolve(__dirname, '../node_modules/warning'),
-      'prop-types': path.resolve(__dirname, '../node_modules/prop-types'),
-      'react-redux': path.resolve(__dirname, '../node_modules/react-redux'),
-      'react-is': path.resolve(__dirname, '../node_modules/react-is'),
-      'has': path.resolve(__dirname, '../node_modules/has'),
-      'date-fns': path.resolve(__dirname, '../node_modules/date-fns'),
-      'core-js': path.resolve(__dirname, '../node_modules/core-js'),
-      'regenerator-runtime': path.resolve(__dirname, '../node_modules/regenerator-runtime'),
-      '@babel/runtime': path.resolve(__dirname, '../node_modules/@babel/runtime'),
+      // Resolving manually package that have multiple versions. They emit warnings with
+      // DuplicatePackageChecker plugin. We always use the node_modules version.
+      // https://github.com/darrenscerri/duplicate-package-checker-webpack-plugin#resolving-duplicate-packages-in-your-bundle
+      ...mapToNodeModules([
+        'cozy-device-helper',
+        'hoist-non-react-statics',
+        'unist-util-is',
+        'unist-util-visit',
+        'unist-util-visit-parents',
+        'lodash',
+        'raven-js',
+        'warning',
+        'prop-types',
+        'react',
+        'react-redux',
+        'react-is',
+        'has',
+        'date-fns',
+        'core-js',
+        'regenerator-runtime',
+        '@babel/runtime'
+      ]),
       
       // We do not need mime-db (used in cozy-stack-client::FileCollection) so we fake it
       'mime-db': path.resolve(__dirname, '../src/utils/empty-mime-db'),
