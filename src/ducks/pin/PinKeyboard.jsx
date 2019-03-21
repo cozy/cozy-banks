@@ -1,10 +1,29 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import cx from 'classnames'
 import range from 'lodash/range'
 
 import styles from 'ducks/pin/styles'
 import Round from 'ducks/pin/Round'
 
+const MAX_LENGTH = 6
+
+/**
+ * Shows a value as Dots
+ */
+const Dots = props => {
+  return (
+    <div className={cx(styles['Pin__dots'], styles['Pin__text'])}>
+      {range(1, props.max).map(i => (
+        <span key={i}>{i <= props.value.length ? '●' : '○'}</span>
+      ))}
+    </div>
+  )
+}
+
+Dots.propTypes = {
+  value: PropTypes.string.isRequired
+}
 
 /**
  * Allows to type a value with an onScreen keyboard.
@@ -54,6 +73,7 @@ class PinKeyboard extends React.PureComponent {
     const value = this.getValue()
     return (
       <div>
+        <Dots max={MAX_LENGTH} value={value} />
         <div className={styles.PinKeyboard}>
           {range(1, 10).map(n => (
             <Round
