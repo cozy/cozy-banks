@@ -1,4 +1,4 @@
-import { getBrands, matchBrands, findMatchingBrand } from '.'
+import { getBrands, matchBrands, findMatchingBrand, isMatchingBrand } from '.'
 import brands from './brands'
 
 const getFilteredBrands = () => getBrands(brand => brand.name === 'Filtered')
@@ -10,6 +10,18 @@ describe('brandDictionary', () => {
     })
     it('Should return brands filtered', () => {
       expect(getFilteredBrands()).toEqual([])
+    })
+  })
+
+  describe('isMatchingBrand', () => {
+    const [cpam] = brands.filter(brand => brand.name === 'Ameli')
+
+    it('should return true if the brand and the label match', () => {
+      expect(isMatchingBrand(cpam, 'Remboursement CPAM')).toBe(true)
+    })
+
+    it("should return false if the brand and the label don't match", () => {
+      expect(isMatchingBrand(cpam, 'Pouet pouet')).toBe(false)
     })
   })
 

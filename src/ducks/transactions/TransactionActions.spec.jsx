@@ -13,6 +13,15 @@ import data from 'test/fixtures'
 import store, { normalizeData } from 'test/store'
 import getClient from 'test/client'
 
+const brandInMaintenance = {
+  name: 'Maintenance',
+  regexp: '\\bmaintenance\\b',
+  konnectorSlug: 'maintenance',
+  maintenance: true
+}
+
+brands.push(brandInMaintenance)
+
 jest.mock('cozy-ui/react/Icon', () => {
   const OriginalIcon = jest.requireActual('cozy-ui/react/Icon')
   const mockIcon = props => {
@@ -49,7 +58,8 @@ const tests = [
   ['remboursementcomplementaire', null, '1 invoice', null, 'bill', {
     brands: brands.filter(x => x.name == 'Malakoff Mederic').map(b => ({ ...b, hasTrigger: true }))
   }, 'remboursementcomplementaire konnector installed'],
-  ['normalshopping', null, 'toto', null]
+  ['normalshopping', null, 'toto', null],
+  ['maintenance', null, null, null, null]
 ]
 /* eslint-enable */
 

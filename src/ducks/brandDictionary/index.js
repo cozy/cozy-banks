@@ -8,12 +8,14 @@ const getRegexp = brand => {
 export const getBrands = filterFct =>
   filterFct ? brands.filter(filterFct) : brands
 
+export const isMatchingBrand = (brand, label) => getRegexp(brand).test(label)
+
 export const findMatchingBrand = (brands, label) => {
-  return find(brands, brand => getRegexp(brand).test(label))
+  return find(brands, brand => isMatchingBrand(brand, label))
 }
 
 export const matchBrands = (brands, label) => {
-  return some(brands, brand => getRegexp(brand).test(label))
+  return some(brands, brand => isMatchingBrand(brand, label))
 }
 
 export default findMatchingBrand
