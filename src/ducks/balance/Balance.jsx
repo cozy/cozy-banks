@@ -30,7 +30,7 @@ import styles from 'ducks/balance/Balance.styl'
 import BalanceTables from './BalanceTables'
 import BalancePanels from './BalancePanels'
 import { getPanelsState } from './helpers'
-import { setBarTheme } from 'ducks/mobile/utils'
+import BarTheme from 'ducks/mobile/BarTheme'
 import { filterByAccounts } from 'ducks/filters'
 
 class Balance extends PureComponent {
@@ -41,7 +41,6 @@ class Balance extends PureComponent {
       panels: null
     }
 
-    setBarTheme('primary')
     this.handleClickBalance = this.handleClickBalance.bind(this)
     this.handlePanelChange = this.handlePanelChange.bind(this)
     this.debouncedHandlePanelChange = debounce(this.handlePanelChange, 3000, {
@@ -158,6 +157,7 @@ class Balance extends PureComponent {
     if (collections.some(isCollectionLoading)) {
       return (
         <Fragment>
+          <BarTheme theme="primary" />
           <BalanceHeader />
           <Loading />
         </Fragment>
@@ -172,10 +172,20 @@ class Balance extends PureComponent {
       flag('no-account') ||
       flag('account-loading')
     ) {
-      const konnectorSlugs = triggers
+      let konnectorSlugs = triggers
         .filter(isBankTrigger)
         .map(t => t.message.konnector)
-      if (konnectorSlugs.length > 0 || flag('account-loading')) {
+
+      if (flag('account-loading')) {
+        // eslint-disable-next-line no-console
+        console.log('konnectorSlugs', konnectorSlugs)
+
+        if (konnectorSlugs.length === 0) {
+          konnectorSlugs = ['creditcooperatif148', 'labanquepostale44']
+        }
+      }
+
+      if (konnectorSlugs.length > 0) {
         return <AccountsImporting konnectorSlugs={konnectorSlugs} />
       }
 
@@ -201,6 +211,7 @@ class Balance extends PureComponent {
 
     return (
       <Fragment>
+        <BarTheme theme="primary" />
         <BalanceHeader
           onClickBalance={this.handleClickBalance}
           accountsBalance={accountsBalance}

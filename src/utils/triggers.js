@@ -1,5 +1,5 @@
 import { logInfo } from 'lib/sentry'
-import { includes } from 'lodash'
+import { includes, get } from 'lodash'
 
 // To update this list used this command on banking konnector:
 // $ cat src/publish/manifests.json | jq '.[].slug'
@@ -47,5 +47,5 @@ export const getKonnectorFromTrigger = trigger => {
 }
 
 export const isBankTrigger = trigger =>
-  trigger.worker === 'konnector' &&
-  includes(bankingSlug, trigger.message.konnector)
+  get(trigger, 'attributes.worker') === 'konnector' &&
+  includes(bankingSlug, get(trigger, 'attributes.message.konnector'))
