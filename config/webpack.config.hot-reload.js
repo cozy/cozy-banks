@@ -19,7 +19,9 @@ module.exports = {
     host: HOST,
     port: PORT,
     stats: {
-      modules: false
+      modules: false,
+      chunks: false,
+      children: false
     },
     headers: {
       'Access-Control-Allow-Origin': '*',
