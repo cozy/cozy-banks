@@ -57,7 +57,7 @@ class Error extends React.Component {
           icon={brokenIcon}
           title={t('Error.title')}
           text={
-            <div
+            <span
               dangerouslySetInnerHTML={{ __html: `${update}</br>${contact}` }}
             />
           }
