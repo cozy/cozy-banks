@@ -18,6 +18,7 @@ class PinGuard extends React.Component {
 
   componentDidMount() {
     document.addEventListener('touchstart', this.handleInteraction)
+    document.addEventListener('click', this.handleInteraction)
     document.addEventListener('resume', this.handleResume)
     document.addEventListener('pause', this.handlePause)
     this.handleInteraction()
@@ -25,6 +26,7 @@ class PinGuard extends React.Component {
 
   componentWillUnmount() {
     document.removeEventListener('touchstart', this.handleInteraction)
+    document.removeEventListener('click', this.handleInteraction)
     document.removeEventListener('resume', this.handleResume)
     document.removeEventListener('pause', this.handlePause)
   }
