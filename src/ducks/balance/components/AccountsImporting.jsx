@@ -10,6 +10,7 @@ import Header from 'components/Header'
 import { Padded } from 'components/Spacing'
 import VerticalBox from 'components/VerticalBox'
 import BalancePanels from 'ducks/balance/BalancePanels'
+import BarTheme from 'ducks/mobile/BarTheme'
 
 import headerTitleStyles from 'ducks/balance/components/HeaderTitle.styl'
 import styles from 'ducks/balance/components/AccountsImporting.styl'
@@ -64,6 +65,7 @@ const AccountsImporting = ({ t, classes, konnectorSlugs }) => {
 
   return (
     <Fragment>
+      <BarTheme theme="primary" />
       <Header className={styles.content} color="primary">
         <VerticalBox center className={styles.header}>
           <Padded>
