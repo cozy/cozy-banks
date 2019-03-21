@@ -4,7 +4,7 @@ import { area, line } from 'd3-shape'
 import { drag } from 'd3-drag'
 import { extent, bisector } from 'd3-array'
 import { easeExpInOut, easeLinear, easeExpIn } from 'd3-ease'
-import { scaleLinear } from 'd3-scale'
+import { scaleLinear, scaleTime } from 'd3-scale'
 import { axisBottom } from 'd3-axis'
 import { transition } from 'd3-transition'
 export {
@@ -22,6 +22,7 @@ export {
   easeLinear,
   easeExpIn,
   scaleLinear,
+  scaleTime,
   axisBottom,
   transition
 }
