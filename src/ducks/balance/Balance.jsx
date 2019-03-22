@@ -174,7 +174,7 @@ class Balance extends PureComponent {
     ) {
       let konnectorSlugs = triggers
         .filter(isBankTrigger)
-        .map(t => t.message.konnector)
+        .map(t => t.attributes.message.konnector)
 
       if (flag('account-loading')) {
         // eslint-disable-next-line no-console
