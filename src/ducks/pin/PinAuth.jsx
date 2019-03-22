@@ -10,6 +10,7 @@ import PinKeyboard from 'ducks/pin/PinKeyboard'
 import FingerprintButton from 'ducks/pin/FingerprintButton'
 import { pinSetting } from 'ducks/pin/queries'
 
+const MAX_SIZE_PIN = 4
 const MAX_ATTEMPT = 5
 
 const AttemptCount_ = ({ t, current, max }) => {
@@ -20,8 +21,8 @@ const AttemptCount = translate()(AttemptCount_)
 
 /**
  * Show pin keyboard and fingerprint button.
- * When user confirms, checks if it is the right pin and
- * calls onSuccess.
+ * Automatically checks if it is the right pin while it is entered.
+ * After MAX_ATTEMPT bad attempts it logouts the user
  */
 class PinAuth extends React.Component {
   constructor(props) {
@@ -30,7 +31,10 @@ class PinAuth extends React.Component {
     this.handleFingerprintError = this.handleFingerprintError.bind(this)
     this.handleFingerprintCancel = this.handleFingerprintCancel.bind(this)
     this.handleEnteredPin = this.handleEnteredPin.bind(this)
-    this.state = { attempt: 0 }
+    this.state = {
+      attempt: 0,
+      pinValue: ''
+    }
   }
 
   handleFingerprintSuccess() {
@@ -46,23 +50,38 @@ class PinAuth extends React.Component {
     // this.props.onCancel()
   }
 
-  handleConfirmKeyboard(val) {
+  onMaxAttempt() {
+    console.log('LOGOUT')
+  }
+
+  handleEnteredPin(pinValue) {
     const { pinSetting, t } = this.props
     const pinDoc = pinSetting.data
     if (!pinDoc) {
       Alerter.info(t('Pin.no-pin-configured'))
-      this.props.onSuccess()
-    } else {
-      if (val === pinDoc.pin) {
-        this.props.onSuccess()
-      } else {
-        Alerter.info(t('Pin.bad-pin'))
-      }
+      return this.props.onSuccess()
     }
+
+    if (pinValue === pinDoc.pin) {
+      return this.props.onSuccess()
+    }
+
+    if (pinValue.length === MAX_SIZE_PIN) {
+      const newAttempt = this.state.attempt + 1
+      if (newAttempt >= MAX_ATTEMPT) {
+        return this.onMaxAttempt()
+      }
+      return this.setState({
+        attempt: this.state.attempt + 1,
+        pinValue: ''
+      })
+    }
+
+    this.setState({ pinValue })
   }
 
   render() {
-    const { attempt } = this.state
+    const { attempt, pinValue } = this.state
     return (
       <div>
         {attempt ? <AttemptCount max={5} current={attempt} /> : null}
@@ -71,7 +90,7 @@ class PinAuth extends React.Component {
           onError={this.handleFingerprintError}
           onCancel={this.handleFingerprintCancel}
         />
-        <PinKeyboard onConfirm={this.handleConfirmKeyboard} />
+        <PinKeyboard value={pinValue} onChange={this.handleEnteredPin} />
       </div>
     )
   }
