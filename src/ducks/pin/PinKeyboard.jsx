@@ -7,6 +7,10 @@ import styles from 'ducks/pin/styles'
 import PinButton from 'ducks/pin/PinButton'
 import { PIN_MAX_LENGTH } from 'ducks/pin/constants'
 
+const invisible = {
+  opacity: 0
+}
+
 /**
  * Shows a value as Dots
  */
@@ -82,9 +86,9 @@ class PinKeyboard extends React.PureComponent {
               {n}
             </PinButton>
           ))}
-          <PinButton onClick={this.handleRemoveCharacter}>R</PinButton>
+          {this.props.leftButton || <PinButton style={invisible} />}
           <PinButton>0</PinButton>
-          <PinButton onClick={this.handleConfirm}>OK</PinButton>
+          <PinButton onClick={this.handleRemoveCharacter}>R</PinButton>
         </div>
       </div>
     )
