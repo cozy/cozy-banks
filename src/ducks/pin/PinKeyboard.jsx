@@ -4,7 +4,7 @@ import cx from 'classnames'
 import range from 'lodash/range'
 
 import styles from 'ducks/pin/styles'
-import Round from 'ducks/pin/Round'
+import PinButton from 'ducks/pin/PinButton'
 
 const MAX_LENGTH = 6
 
@@ -76,16 +76,16 @@ class PinKeyboard extends React.PureComponent {
         <Dots max={MAX_LENGTH} value={value} />
         <div className={styles.PinKeyboard}>
           {range(1, 10).map(n => (
-            <Round
+            <PinButton
               onClick={this.handleClickNumber.bind(null, n.toString())}
               key={n}
             >
               {n}
-            </Round>
+            </PinButton>
           ))}
-          <Round onClick={this.handleRemoveCharacter}>R</Round>
-          <Round>0</Round>
-          <Round onClick={this.handleConfirm}>OK</Round>
+          <PinButton onClick={this.handleRemoveCharacter}>R</PinButton>
+          <PinButton>0</PinButton>
+          <PinButton onClick={this.handleConfirm}>OK</PinButton>
         </div>
       </div>
     )

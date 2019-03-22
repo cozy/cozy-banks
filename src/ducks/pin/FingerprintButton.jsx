@@ -1,6 +1,6 @@
 /* global Fingerprint */
 import React from 'react'
-import Round from 'ducks/pin/Round'
+import PinButton from 'ducks/pin/PinButton'
 
 class FingerprintButton extends React.PureComponent {
   constructor(props) {
@@ -49,9 +49,9 @@ class FingerprintButton extends React.PureComponent {
 
   render() {
     return this.state.method ? (
-      <Round onClick={this.handleClick}>F</Round>
+      <PinButton onClick={this.handleClick}>F</PinButton>
     ) : (
-      <Round className="u-hide" />
+      <PinButton className="u-hide" />
     )
   }
 }
