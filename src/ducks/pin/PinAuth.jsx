@@ -1,14 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import compose from 'lodash/flowRight'
 
 import { queryConnect } from 'cozy-client'
 import Alerter from 'cozy-ui/react/Alerter'
 import { translate } from 'cozy-ui/react/I18n'
-import compose from 'lodash/flowRight'
 
 import PinKeyboard from 'ducks/pin/PinKeyboard'
 import FingerprintButton from 'ducks/pin/FingerprintButton'
 import { pinSetting } from 'ducks/pin/queries'
+
+const MAX_ATTEMPT = 5
+
+const AttemptCount_ = ({ t, current, max }) => {
+  return <div>{t('Pin.attempt-count', { current, max })}</div>
+}
+
+const AttemptCount = translate()(AttemptCount_)
 
 /**
  * Show pin keyboard and fingerprint button.
@@ -21,7 +29,8 @@ class PinAuth extends React.Component {
     this.handleFingerprintSuccess = this.handleFingerprintSuccess.bind(this)
     this.handleFingerprintError = this.handleFingerprintError.bind(this)
     this.handleFingerprintCancel = this.handleFingerprintCancel.bind(this)
-    this.handleConfirmKeyboard = this.handleConfirmKeyboard.bind(this)
+    this.handleEnteredPin = this.handleEnteredPin.bind(this)
+    this.state = { attempt: 0 }
   }
 
   handleFingerprintSuccess() {
@@ -53,8 +62,10 @@ class PinAuth extends React.Component {
   }
 
   render() {
+    const { attempt } = this.state
     return (
       <div>
+        {attempt ? <AttemptCount max={5} current={attempt} /> : null}
         <FingerprintButton
           onSuccess={this.handleFingerprintSuccess}
           onError={this.handleFingerprintError}

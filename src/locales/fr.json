@@ -490,5 +490,6 @@
     "successfully-changed": "Code changé avec succès",
     "error-save": "Erreur de la sauvegarde du pin, êtes vous connecté à internet ?",
     "configure-button": "Configurer un code PIN",
+    "attempt-count": "%{current}/%{max} tentatives"
   }
 }

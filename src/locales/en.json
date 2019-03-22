@@ -537,5 +537,6 @@
     "successfully-changed": "Pin succesfully changed",
     "error-save": "Could not save pin, are you connected to internet ?",
     "configure-button": "Configure PIN",
+    "attempt-count": "%{current}/%{max} attempts"
   }
 }
