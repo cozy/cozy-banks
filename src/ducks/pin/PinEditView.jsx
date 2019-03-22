@@ -13,6 +13,7 @@ import PinWrapper from 'ducks/pin/PinWrapper'
 import { pinSetting } from 'ducks/pin/queries'
 import { SETTINGS_DOCTYPE } from 'doctypes'
 import styles from 'ducks/pin/styles.styl'
+import { PIN_MAX_LENGTH } from 'ducks/pin/constants'
 
 /**
  * Handles pin edit
@@ -30,7 +31,6 @@ class PinEditView extends React.Component {
 
   constructor(props) {
     super(props)
-    this.handleConfirm = this.handleConfirm.bind(this)
     this.handleKeyboardChange = this.handleKeyboardChange.bind(this)
   }
 
@@ -52,7 +52,7 @@ class PinEditView extends React.Component {
     })
   }
 
-  async handleConfirm(pin) {
+  async checkToSave(pin) {
     const t = this.props.t
     if (this.state.pin1) {
       if (this.state.pin1 === pin) {
@@ -77,6 +77,9 @@ class PinEditView extends React.Component {
 
   handleKeyboardChange(value) {
     this.setState({ value })
+    if (value.length === PIN_MAX_LENGTH) {
+      this.checkToSave(value)
+    }
   }
 
   render() {
