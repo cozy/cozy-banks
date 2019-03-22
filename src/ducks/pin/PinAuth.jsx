@@ -114,9 +114,7 @@ class PinAuth extends React.Component {
   }
 
   static propTypes = {
-    onSuccess: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
-    onError: PropTypes.func.isRequired
+    onSuccess: PropTypes.func.isRequired
   }
 }
 
