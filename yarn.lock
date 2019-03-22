@@ -4790,7 +4790,7 @@ cozy-realtime@2.0.6:
   resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-2.0.6.tgz#4b210253bfb7683df958ef8b39dbc68245cf0fc6"
   integrity sha512-mperwew3UkZJ5XaNYwqg3HOG+RWRz29asp8NGownHzYYtgHrM0HdUFUJu2C0Wnd+BqsrFw/rX2fKw6YySMSzHg==
 
-cozy-stack-client@^6.17.0:
+cozy-stack-client@^6.12.0, cozy-stack-client@^6.17.0:
   version "6.17.0"
   resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.17.0.tgz#02d200ebba371d27332de246583e5cb49f1a968f"
   integrity sha512-5Ph5kcS6lm3858GzaWBVSZIUTiIJBXukShdM3A4VTFoz725iXIl+TzlGEYJV8ZEI+3szI88T5y/PCe8tebRFpw==
