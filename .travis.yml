@@ -14,7 +14,6 @@ env:
     # REGISTRY_TOKEN
     - secure: "q0e3QfSHzD7u03W/uRmZ/1CgwLrdO2GuWD/9fPXTYXI9vnu0Z4xPLGHv0zzshgdH4qNyIJ+74KCfk2ev6FvG+8Z15qNkdbwLjQxn3TDK48dfjC8C1SWfa55r2hjMo/qYXgLhBpdaVeGLyvpvmmKB+MsqKVugr1V41iBLfXNustJ2smvCkjKiRWH7Jl6jeMWQ+paL5WccK6DF5GqoPc3RCdSoXNhhPOelmo2NI/XF1MFRNToc5Fl5yIquivJdb7nA1UTB+DKZOX0I4+6sJpecuseNFdnm938QuMRaRgiKChqH+lesMSDy9+m5qp/ftByXdZIUxqxeROxNF5sVG1IxC6CNnpqsltNAAnGOHT9laQaWrfjQHUMb7pC5fjR1JN5Y3N5ZspLlnDKeEpZc3muqbyRcJDDRl2lAxgtt1MDyOD3u2IuCwa8xKysZzDHBjIQDChr01mWmTb3tOt7iwSc7HekOnfa2VHvlQfiWD/JSKLRLGoX3GC/RljuIC7SxufUojV9vn2heROPk9b95wnHGce3rmHPuECfxuLAU2PN84S9j+j371AJ4/UsQhGV9Gyl3Bgua/6X82pooN4/Q/0RURJrQ8DUPkQ1wbDHCOeaDB97ZvcQi3bGUh+AiElSaHS+V7c6kne7QRmCPcn9NnlKmz7YPd141922WMIUunoc7guI="
 cache:
-  yarn: true
   directories:
     - node_modules
 before_deploy:
