@@ -16,7 +16,7 @@ const invisible = {
  */
 const Dots = props => {
   return (
-    <div className={cx(styles['Pin__dots'], styles['Pin__text'])}>
+    <div className={cx(styles['Pin__dots'])}>
       {range(1, props.max + 1).map(i => (
         <span key={i}>{i <= props.value.length ? '●' : '○'}</span>
       ))}
