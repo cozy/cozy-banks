@@ -48,12 +48,12 @@ export const getManifestOptions = manifest => {
   }
 }
 
-const isRevoked = async client => {
+export const isRevoked = async client => {
   try {
     await client.stackClient.fetchInformation()
     return false
   } catch (err) {
-    if (err.message && err.message.indexOf('Client not found')) {
+    if (err.message && err.message.indexOf('Client not found') > -1) {
       return true
     } else {
       return false
