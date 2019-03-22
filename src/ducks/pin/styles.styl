@@ -12,7 +12,7 @@
     border 0
 
 .Round:active, .Round:focus 
-    background rgba(0, 0, 0, 0.5)
+    background rgba(0, 0, 0, 0.15)
     transform scale(1.1)
     transition transform 0.1s ease
 
@@ -20,17 +20,36 @@
     align-items center
     justify-content center
     display flex
-    width 100%
     flex-direction row
     flex-wrap wrap
+    max-width 300px
+    margin auto
 
 .PinWrapper
     background var(--primaryColor)
     width 100vw
     height 100vh
-    z-index 10000
-    position absolute
+    z-index 100
+    position fixed
     display flex
     justify-content center
     flex-direction column
     top 0
+    bottom 0
+    left 0
+    right 0
+
+.Pin__dots
+    font-size 2rem
+
+.Pin__text
+    color var(--primaryContrastTextColor)
+    text-align center
+    
+.Pin__error
+    background var(--pomegranate)
+    color var(--primaryContrastTextColor)
+    margin .5rem
+    padding .5rem
+    border-radius .5rem
+    display inline-block

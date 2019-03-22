@@ -1,11 +1,13 @@
 import React from 'react'
 
-import styles from 'ducks/pin/styles.styl'
-import PinKeyboard from 'ducks/pin/PinKeyboard'
-import LockedBody from 'ducks/pin/LockedBody'
 import PinTimeout from 'ducks/pin/PinTimeout.debug'
-import BarTheme from 'ducks/mobile/BarTheme'
+import PinWrapper from 'ducks/pin/PinWrapper'
+import PinAuth from 'ducks/pin/PinAuth'
 
+/**
+ * Wraps an App and display a Pin screen after a period
+ * of inactivity (touch events on document).
+ */
 class PinGuard extends React.Component {
   constructor(props) {
     super(props)
@@ -18,6 +20,7 @@ class PinGuard extends React.Component {
 
   componentDidMount() {
     document.addEventListener('touchstart', this.handleInteraction)
+    document.addEventListener('click', this.handleInteraction)
     document.addEventListener('resume', this.handleResume)
     document.addEventListener('pause', this.handlePause)
     this.handleInteraction()
@@ -25,6 +28,7 @@ class PinGuard extends React.Component {
 
   componentWillUnmount() {
     document.removeEventListener('touchstart', this.handleInteraction)
+    document.removeEventListener('click', this.handleInteraction)
     document.removeEventListener('resume', this.handleResume)
     document.removeEventListener('pause', this.handlePause)
   }
@@ -54,12 +58,9 @@ class PinGuard extends React.Component {
       <React.Fragment>
         {this.props.children}
         {this.state.showPin ? (
-          <LockedBody>
-            <div className={styles.PinWrapper}>
-              <BarTheme theme="primary" />
-              <PinKeyboard onSuccess={this.handlePinSuccess} />
-            </div>
-          </LockedBody>
+          <PinWrapper>
+            <PinAuth onSuccess={this.handlePinSuccess} />
+          </PinWrapper>
         ) : null}
         {this.props.showTimeout ? (
           <PinTimeout start={this.state.last} duration={this.props.timeout} />

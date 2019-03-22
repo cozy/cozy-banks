@@ -479,5 +479,15 @@
     "title": "Nouveaux connecteurs bancaires",
     "content": "De nouvelles versions des connecteurs sont disponibles et nécessitent une mise à jour de leurs CGUs. <a href='https://support.cozy.io/article/302-budget' target='_blank'>En savoir plus</a>.",
     "cta": "Mettre à jour mes banques"
+  },
+
+  "Pin": {
+    "please-enter-pin": "Merci d'entrer un code (max: 6 caractères).",
+    "please-repeat-pin": "Merci de répeter ce code.",
+    "errors": {
+      "different-pins": "Les deux codes sont différents, merci de recommencer."
+    },
+    "successfully-changed": "Code changé avec succès",
+    "error-save": "Erreur de la sauvegarde du pin, êtes vous connecté à internet ?"
   }
 }

@@ -526,5 +526,15 @@
     "title": "Update of your banking connections",
     "content": "A latest version of our banking connection has been released. You need to sign the new terms of service. <a href='https://support.cozy.io/article/302-budget' target='_blank'>Learn more</a>.",
     "cta": "Update my banks"
+  },
+
+  "Pin": {
+    "please-enter-pin": "Please enter a pin (max: 6 characters).",
+    "please-repeat-pin": "Please repeat the code.",
+    "errors": {
+      "different-pins": "The two codes are different, please retry."
+    },
+    "successfully-changed": "Pin succesfully changed",
+    "error-save": "Could not save pin, are you connected to internet ?"
   }
 }
