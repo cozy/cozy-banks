@@ -13,7 +13,7 @@ import { queryConnect } from 'cozy-client'
 class PinGuard extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = { last: Date.now() }
     this.handleInteraction = this.handleInteraction.bind(this)
     this.handlePinSuccess = this.handlePinSuccess.bind(this)
     this.handleResume = this.handleResume.bind(this)
