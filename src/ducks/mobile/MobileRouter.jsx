@@ -59,11 +59,6 @@ export const onLogout = async (store, cozyClient) => {
   store.dispatch(resetFilterByDoc())
 }
 
-const dispatcher = (dispatch, fn) =>
-  function() {
-    return dispatch(fn.apply(this, arguments))
-  }
-
 const withAuth = Wrapped => {
   class WithAuth extends React.Component {
     state = {
@@ -148,10 +143,10 @@ const withAuth = Wrapped => {
     isAuthenticated: state.mobile.client !== null
   })
 
-  const mapDispatchToProps = dispatch => ({
-    storeCredentials: dispatcher(dispatch, storeCredentials),
-    revokeClient: dispatcher(dispatch, revokeClient)
-  })
+  const actionCreators = {
+    storeCredentials,
+    revokeClient
+  }
 
   return connect(
     mapStateToProps,
