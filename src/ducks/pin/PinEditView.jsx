@@ -4,12 +4,13 @@ import compose from 'lodash/flowRight'
 
 import { translate } from 'cozy-ui/react'
 import Alerter from 'cozy-ui/react/Alerter'
-import Button from 'cozy-ui/react/Button'
 import Spinner from 'cozy-ui/react/Spinner'
+import Icon from 'cozy-ui/react/Icon'
 import { queryConnect, withMutations } from 'cozy-client'
 
 import PinKeyboard from 'ducks/pin/PinKeyboard'
 import PinWrapper from 'ducks/pin/PinWrapper'
+import PinButton from 'ducks/pin/PinButton'
 import { pinSetting } from 'ducks/pin/queries'
 import { SETTINGS_DOCTYPE } from 'doctypes'
 import styles from 'ducks/pin/styles.styl'
@@ -105,13 +106,15 @@ class PinEditView extends React.Component {
           ) : null}
         </div>
         <PinKeyboard
+          leftButton={
+            <PinButton onClick={this.props.onExit}>
+              <Icon icon="back" />
+            </PinButton>
+          }
           value={this.state.value}
           onChange={this.handleKeyboardChange}
           onConfirm={this.handleConfirm}
         />
-        <Button onClick={this.props.onExit} theme="secondary">
-          Back
-        </Button>
       </PinWrapper>
     )
   }
