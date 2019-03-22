@@ -487,6 +487,7 @@
     "errors": {
       "different-pins": "Les deux codes sont différents, merci de recommencer."
     },
+    "logout": "Quitter",
     "successfully-changed": "Code changé avec succès",
     "error-save": "Erreur de la sauvegarde du pin, êtes vous connecté à internet ?",
     "configure-button": "Configurer un code PIN",
