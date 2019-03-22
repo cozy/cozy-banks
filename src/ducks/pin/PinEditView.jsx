@@ -34,6 +34,14 @@ class PinEditView extends React.Component {
     this.handleKeyboardChange = this.handleKeyboardChange.bind(this)
   }
 
+  componentDidMount() {
+    document.addEventListener('back', this.props.onExit)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('back', this.props.onExit)
+  }
+
   async savePin(pinValue) {
     const doc = this.props.pinSetting.data
     await this.props.saveDocument({
