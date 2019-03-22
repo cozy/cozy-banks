@@ -3,6 +3,8 @@ import React from 'react'
 import PinTimeout from 'ducks/pin/PinTimeout.debug'
 import PinWrapper from 'ducks/pin/PinWrapper'
 import PinAuth from 'ducks/pin/PinAuth'
+import { pinSetting } from 'ducks/pin/queries'
+import { queryConnect } from 'cozy-client'
 
 /**
  * Wraps an App and display a Pin screen after a period
@@ -54,6 +56,9 @@ class PinGuard extends React.Component {
   }
 
   render() {
+    if (!this.props.pinSetting.data) {
+      return this.props.children
+    }
     return (
       <React.Fragment>
         {this.props.children}
@@ -74,4 +79,6 @@ class PinGuard extends React.Component {
   }
 }
 
-export default PinGuard
+export default queryConnect({
+  pinSetting
+})(PinGuard)
