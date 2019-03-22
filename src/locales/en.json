@@ -3,7 +3,8 @@
     "delete": "Delete",
     "deleting": "Deleting...",
     "cancel": "Cancel",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "back": "Back"
   },
   "Loading": {
     "loading": "Loading...",
@@ -529,7 +530,9 @@
   },
 
   "Pin": {
-    "please-enter-pin": "Please enter a pin (max: 6 characters).",
+    "enter-pin-restricted-area": "Please enter pin to enter restricted area",
+    "please-enter-pin": "Please enter a new pin",
+    "please-enter-your-pin": "Please enter your pin",
     "please-repeat-pin": "Please repeat the code.",
     "errors": {
       "different-pins": "The two codes are different, please retry."

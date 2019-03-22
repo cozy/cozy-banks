@@ -96,6 +96,7 @@ class PinAuth extends React.Component {
     const { attempt, pinValue } = this.state
     return (
       <div>
+        {this.props.message || t('Pin.please-enter-your-pin')}
         {attempt ? <AttemptCount max={5} current={attempt} /> : null}
         <FingerprintButton
           onSuccess={this.handleFingerprintSuccess}
