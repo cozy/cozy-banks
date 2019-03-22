@@ -535,6 +535,7 @@
       "different-pins": "The two codes are different, please retry."
     },
     "successfully-changed": "Pin succesfully changed",
-    "error-save": "Could not save pin, are you connected to internet ?"
+    "error-save": "Could not save pin, are you connected to internet ?",
+    "configure-button": "Configure PIN",
   }
 }
