@@ -5,8 +5,7 @@ import range from 'lodash/range'
 
 import styles from 'ducks/pin/styles'
 import PinButton from 'ducks/pin/PinButton'
-
-const MAX_LENGTH = 6
+import { PIN_MAX_LENGTH } from 'ducks/pin/constants'
 
 /**
  * Shows a value as Dots
@@ -14,7 +13,7 @@ const MAX_LENGTH = 6
 const Dots = props => {
   return (
     <div className={cx(styles['Pin__dots'], styles['Pin__text'])}>
-      {range(1, props.max).map(i => (
+      {range(1, props.max + 1).map(i => (
         <span key={i}>{i <= props.value.length ? '●' : '○'}</span>
       ))}
     </div>
@@ -52,7 +51,7 @@ class PinKeyboard extends React.PureComponent {
 
   handleClickNumber(n) {
     const value = this.getValue()
-    const newVal = (value + n).substr(0, MAX_LENGTH)
+    const newVal = (value + n).substr(0, this.props.pinMaxLength)
     this.handleNewValue(newVal)
   }
 
@@ -73,7 +72,7 @@ class PinKeyboard extends React.PureComponent {
     const value = this.getValue()
     return (
       <div>
-        <Dots max={MAX_LENGTH} value={value} />
+        <Dots max={this.props.pinMaxLength} value={value} />
         <div className={styles.PinKeyboard}>
           {range(1, 10).map(n => (
             <PinButton
@@ -95,6 +94,10 @@ class PinKeyboard extends React.PureComponent {
 PinKeyboard.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func
+}
+
+PinKeyboard.defaultProps = {
+  pinMaxLength: PIN_MAX_LENGTH
 }
 
 export default PinKeyboard

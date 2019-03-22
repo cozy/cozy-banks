@@ -9,9 +9,8 @@ import { translate } from 'cozy-ui/react/I18n'
 import PinKeyboard from 'ducks/pin/PinKeyboard'
 import FingerprintButton from 'ducks/pin/FingerprintButton'
 import { pinSetting } from 'ducks/pin/queries'
-
-const MAX_SIZE_PIN = 4
-const MAX_ATTEMPT = 5
+import PinButton from 'ducks/pin/PinButton'
+import { PIN_MAX_LENGTH, MAX_ATTEMPT } from 'ducks/pin/constants'
 
 const AttemptCount_ = ({ t, current, max }) => {
   return <div>{t('Pin.attempt-count', { current, max })}</div>
@@ -66,7 +65,7 @@ class PinAuth extends React.Component {
       return this.props.onSuccess()
     }
 
-    if (pinValue.length === MAX_SIZE_PIN) {
+    if (pinValue.length === PIN_MAX_LENGTH) {
       const newAttempt = this.state.attempt + 1
       if (newAttempt >= MAX_ATTEMPT) {
         return this.onMaxAttempt()
