@@ -17,8 +17,7 @@ import {
 } from 'ducks/categories/helpers'
 import { flowRight as compose } from 'lodash'
 import styles from 'ducks/categories/CategoriesHeader.styl'
-import Bouton from 'cozy-ui/react/Button'
-import AddAccountLink from 'ducks/settings/AddAccountLink'
+import AddAccountButton from 'ducks/categories/AddAccountButton'
 
 class CategoriesHeader extends PureComponent {
   renderAccountSwitch = () => {
@@ -152,15 +151,7 @@ class CategoriesHeader extends PureComponent {
             <Header color="default" className={styles.NoAccount_container}>
               <Padded className={styles.NoAccount_box}>
                 {chart}
-                <AddAccountLink>
-                  <Bouton
-                    theme="highlight"
-                    icon="plus"
-                    size="large"
-                    className={styles.CategoriesHeader_addButton}
-                    label={t('Accounts.add_bank')}
-                  />
-                </AddAccountLink>
+                <AddAccountButton label={t('Accounts.add_bank')} />
               </Padded>
             </Header>
           )}
@@ -193,17 +184,7 @@ class CategoriesHeader extends PureComponent {
             {incomeToggle}
           </div>
           {chart}
-          {!hasAccount && (
-            <AddAccountLink>
-              <Bouton
-                theme="highlight"
-                icon="plus"
-                size="large"
-                className={styles.CategoriesHeader_addButton}
-                label={t('Accounts.add_bank')}
-              />
-            </AddAccountLink>
-          )}
+          {!hasAccount && <AddAccountButton label={t('Accounts.add_bank')} />}
         </Padded>
       </Header>
     )
