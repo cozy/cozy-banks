@@ -9,7 +9,7 @@ import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import { transactionsByCategory, computeCategorieData } from './helpers'
 import Categories from './Categories'
 import { flowRight as compose, sortBy, some } from 'lodash'
-import CategoriesHeader from './CategoriesHeader'
+import CategoriesHeader from 'ducks/categories/CategoriesHeader'
 import { queryConnect } from 'cozy-client'
 import { withMutations } from 'cozy-client'
 import {
