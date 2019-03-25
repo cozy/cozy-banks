@@ -3,7 +3,7 @@ import Button from 'cozy-ui/react/Button'
 import AddAccountLink from 'ducks/settings/AddAccountLink'
 import styles from 'ducks/categories/AddAccountButton.styl'
 
-const AddAccountButton = label => (
+const AddAccountButton = ({ label }) => (
   <AddAccountLink>
     <Button
       theme="highlight"
