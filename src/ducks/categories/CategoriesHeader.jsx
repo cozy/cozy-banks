@@ -11,7 +11,10 @@ import Header from 'components/Header'
 import { Padded } from 'components/Spacing'
 import { ConnectedSelectDates as SelectDates } from 'components/SelectDates'
 import CategoriesChart from './CategoriesChart'
-import { getTransactionsTotal, getGlobalCurrency } from 'ducks/categories/helpers'
+import {
+  getTransactionsTotal,
+  getGlobalCurrency
+} from 'ducks/categories/helpers'
 import { flowRight as compose } from 'lodash'
 import styles from 'ducks/categories/CategoriesHeader.styl'
 import Bouton from 'cozy-ui/react/Button'

@@ -51,7 +51,7 @@ export const pieLabelsPlugin = {
     const hasTooltip =
       chartInstance.tooltip._active && chartInstance.tooltip._active.length
 
-    chartInstance.config.data.datasets.forEach(function(dataset, datasetIndex) {
+    chartInstance.config.data.datasets.forEach(dataset => {
       const meta = dataset._meta[Object.keys(dataset._meta)[0]]
       let totalPercentage = 0
       for (let i = 0; i < meta.data.length; i++) {
@@ -62,10 +62,10 @@ export const pieLabelsPlugin = {
           element.draw()
         }
 
-        let text
+        let text, value, percentage
         switch (chartInstance.options.pieceLabel.mode) {
           case 'value':
-            let value = dataset.data[i]
+            value = dataset.data[i]
             if (labelFormater) {
               value = labelFormater(value)
             }
@@ -76,7 +76,7 @@ export const pieLabelsPlugin = {
             break
           case 'percentage':
           default:
-            let percentage = (view.circumference / options.circumference) * 100
+            percentage = (view.circumference / options.circumference) * 100
             percentage = parseFloat(percentage.toFixed(precision))
             totalPercentage += percentage
             if (totalPercentage > 100) {

@@ -29,7 +29,6 @@ describe('isRevoked', () => {
     expect(revoked).toBe(false)
   })
 
-
   it('should not trigger false positives 2', async () => {
     fetchInformation = async () => {
       return
@@ -37,5 +36,4 @@ describe('isRevoked', () => {
     const revoked = await isRevoked(client)
     expect(revoked).toBe(false)
   })
-
 })

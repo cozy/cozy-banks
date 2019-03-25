@@ -141,7 +141,9 @@ export const logException = err => {
     Raven.captureException(err, {
       tags: { slug, domain }
     })
+    // eslint-disable-next-line no-console
     console.warn('Raven is recording exception')
+    // eslint-disable-next-line no-console
     console.error(err)
     resolve()
   })
