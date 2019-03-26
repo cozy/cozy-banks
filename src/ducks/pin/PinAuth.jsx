@@ -23,7 +23,9 @@ const AttemptCount = translate()(AttemptCount_)
 /**
  * Show pin keyboard and fingerprint button.
  * Automatically checks if it is the right pin while it is entered.
- * After MAX_ATTEMPT bad attempts it logouts the user
+ *
+ * - After <props.maxAttempt> bad attempts it logouts the user
+ * - It automatically confirms when entered password's length is <props.maxLength>
  */
 class PinAuth extends React.Component {
   constructor(props) {
@@ -77,9 +79,9 @@ class PinAuth extends React.Component {
       return this.props.onSuccess()
     }
 
-    if (pinValue.length === PIN_MAX_LENGTH) {
+    if (pinValue.length === this.props.maxLength) {
       const newAttempt = this.state.attempt + 1
-      if (newAttempt >= MAX_ATTEMPT) {
+      if (newAttempt >= this.props.maxAttempt) {
         return this.onMaxAttempt()
       }
       return this.setState({
@@ -97,7 +99,7 @@ class PinAuth extends React.Component {
     return (
       <div>
         {this.props.message || t('Pin.please-enter-your-pin')}
-        {attempt ? <AttemptCount max={5} current={attempt} /> : null}
+        {attempt ? <AttemptCount max={this.props.maxAttempt} current={attempt} /> : null}
         <FingerprintButton
           onSuccess={this.handleFingerprintSuccess}
           onError={this.handleFingerprintError}
@@ -117,7 +119,13 @@ class PinAuth extends React.Component {
   static propTypes = {
     onSuccess: PropTypes.func.isRequired
   }
+
+  static defaultProps = {
+    maxAttempt: MAX_ATTEMPT,
+    maxLength: PIN_MAX_LENGTH
+  }
 }
+
 
 export default compose(
   connect(),
