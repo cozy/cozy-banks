@@ -99,7 +99,9 @@ class PinAuth extends React.Component {
     return (
       <div>
         {this.props.message || t('Pin.please-enter-your-pin')}
-        {attempt ? <AttemptCount max={this.props.maxAttempt} current={attempt} /> : null}
+        {attempt ? (
+          <AttemptCount max={this.props.maxAttempt} current={attempt} />
+        ) : null}
         <FingerprintButton
           onSuccess={this.handleFingerprintSuccess}
           onError={this.handleFingerprintError}
@@ -125,7 +127,6 @@ class PinAuth extends React.Component {
     maxLength: PIN_MAX_LENGTH
   }
 }
-
 
 export default compose(
   connect(),
