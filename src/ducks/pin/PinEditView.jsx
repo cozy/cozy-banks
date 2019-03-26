@@ -92,25 +92,25 @@ class PinEditView extends React.Component {
         </PinWrapper>
       )
     }
+    const topMessage = !this.state.pin1
+      ? t('Pin.please-enter-pin')
+      : t('Pin.please-repeat-pin')
+
+    const bottomMessage = this.state.error ? (
+      <div className={styles['Pin__error']}>
+        {t(`Pin.errors.${this.state.error}`)}
+      </div>
+    ) : null
     return (
       <PinWrapper>
-        <div>
-          {!this.state.pin1
-            ? t('Pin.please-enter-pin')
-            : t('Pin.please-repeat-pin')}
-          <br />
-          {this.state.error ? (
-            <div className={styles['Pin__error']}>
-              {t(`Pin.errors.${this.state.error}`)}
-            </div>
-          ) : null}
-        </div>
         <PinKeyboard
           leftButton={
             <PinButton onClick={this.props.onExit}>
               <Icon icon="back" />
             </PinButton>
           }
+          topMessage={topMessage}
+          bottomMessage={bottomMessage}
           value={this.state.value}
           onChange={this.handleKeyboardChange}
         />

@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import cx from 'classnames'
 import range from 'lodash/range'
 
 import styles from 'ducks/pin/styles'
@@ -78,15 +77,22 @@ class PinKeyboard extends React.PureComponent {
   }
 
   render() {
+    const { topMessage, bottomMessage } = this.props
     const value = this.getValue()
     return (
-      <div>
-        <div className={styles.PinKeyboard}>
+      <div className={styles.PinKeyboard}>
+        <div className={styles.PinKeyboard__top}>
+          <div className={styles.PinKeyboard__topMessage}>{topMessage}</div>
           <Dots
             ref={this.props.dotsRef}
             max={this.props.pinMaxLength}
             value={value}
           />
+          <div className={styles.PinKeyboard__bottomMessage}>
+            {bottomMessage}
+          </div>
+        </div>
+        <div className={styles.PinKeyboard__keyboard}>
           {range(1, 10).map(n => (
             <PinButton
               onClick={this.handleClickNumber.bind(null, n.toString())}
@@ -107,6 +113,8 @@ class PinKeyboard extends React.PureComponent {
 PinKeyboard.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
+  topMessage: PropTypes.node,
+  bottomMessage: PropTypes.node,
   dotsRef: PropTypes.object
 }
 

@@ -69,6 +69,7 @@ class PinAuth extends React.Component {
   }
 
   logout() {
+    const props = this.props
     const { client, store } = this.context
     onLogout(store, client)
   }
@@ -137,9 +138,7 @@ class PinAuth extends React.Component {
     const { t } = this.props
     const { attempt, pinValue } = this.state
     return (
-      <div>
-        {this.props.message || t('Pin.please-enter-your-pin')}
-        {attempt ? <AttemptCount max={this.props.maxAttempt} current={attempt} /> : null}
+      <React.Fragment>
         <FingerprintButton
           onSuccess={this.handleFingerprintSuccess}
           onError={this.handleFingerprintError}
@@ -148,12 +147,22 @@ class PinAuth extends React.Component {
         <PinKeyboard
           dotsRef={this.dots}
           leftButton={
-            <PinButton onClick={this.handleLogout}>{t('Pin.logout')}</PinButton>
+            this.props.leftButton || (
+              <PinButton onClick={this.handleLogout}>
+                {t('Pin.logout')}
+              </PinButton>
+            )
+          }
+          topMessage={this.props.message || t('Pin.please-enter-your-pin')}
+          bottomMessage={
+            attempt ? (
+              <AttemptCount max={this.props.maxAttempt} current={attempt} />
+            ) : null
           }
           value={pinValue}
           onChange={this.handleEnteredPin}
         />
-      </div>
+      </React.Fragment>
     )
   }
 

@@ -2,9 +2,10 @@
 
 .Pin__button
     border-radius 100%
-    width 4rem
     height 4rem
-    margin 1rem
+    margin .5rem
+    width 26%
+    border-radius 4rem
     display inline-flex
     align-items center
     justify-content center
@@ -20,12 +21,34 @@
     cursor pointer
 
 .PinKeyboard
+    display flex
+    flex-direction column
+    align-items stretch
+    max-width 500px
+    height 100%
+    
+.PinKeyboard__top
+  flex-grow 1
+  align-items center
+  justify-content center
+  display flex
+  flex-direction column
+  padding 1rem
+
+.PinKeyboard__topMessage
+    font-size 1.35rem
+    font-weight bold
+
+.PinKeyboard__topMessage, .PinKeyboard__bottomMessage
+    padding 1rem
+
+.PinKeyboard__keyboard
+    flex-grow 0
     align-items center
     justify-content center
     display flex
     flex-direction row
     flex-wrap wrap
-    max-width 300px
     margin auto
 
 .PinWrapper
