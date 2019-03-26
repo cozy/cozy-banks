@@ -1,13 +1,10 @@
 /* global Fingerprint */
 import React from 'react'
-import Round from 'ducks/pin/Round'
 
 class FingerprintButton extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {}
-    this.handleClick = this.handleClick.bind(this)
-    this.handleError = this.handleError.bind(this)
   }
 
   componentDidMount() {
@@ -19,16 +16,14 @@ class FingerprintButton extends React.PureComponent {
       return
     }
     Fingerprint.isAvailable(
-      method => {
-        this.setState({ method })
+      () => {
+        this.showFingerprintAuth()
       },
-      error => {
-        this.setState({ method: null, error })
-      }
+      () => {}
     )
   }
 
-  handleClick() {
+  showFingerprintAuth() {
     Fingerprint.show(
       {
         clientId: 'cozy-banks',
@@ -48,11 +43,7 @@ class FingerprintButton extends React.PureComponent {
   }
 
   render() {
-    return this.state.method ? (
-      <Round onClick={this.handleClick}>F</Round>
-    ) : (
-      <Round className="u-hide" />
-    )
+    return null
   }
 }
 

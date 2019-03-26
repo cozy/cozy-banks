@@ -4,17 +4,20 @@ import cx from 'classnames'
 import range from 'lodash/range'
 
 import styles from 'ducks/pin/styles'
-import Round from 'ducks/pin/Round'
+import PinButton from 'ducks/pin/PinButton'
+import { PIN_MAX_LENGTH } from 'ducks/pin/constants'
 
-const MAX_LENGTH = 6
+const invisible = {
+  opacity: 0
+}
 
 /**
  * Shows a value as Dots
  */
 const Dots = props => {
   return (
-    <div className={cx(styles['Pin__dots'], styles['Pin__text'])}>
-      {range(1, props.max).map(i => (
+    <div className={cx(styles['Pin__dots'])}>
+      {range(1, props.max + 1).map(i => (
         <span key={i}>{i <= props.value.length ? '●' : '○'}</span>
       ))}
     </div>
@@ -52,7 +55,7 @@ class PinKeyboard extends React.PureComponent {
 
   handleClickNumber(n) {
     const value = this.getValue()
-    const newVal = (value + n).substr(0, MAX_LENGTH)
+    const newVal = (value + n).substr(0, this.props.pinMaxLength)
     this.handleNewValue(newVal)
   }
 
@@ -73,19 +76,19 @@ class PinKeyboard extends React.PureComponent {
     const value = this.getValue()
     return (
       <div>
-        <Dots max={MAX_LENGTH} value={value} />
+        <Dots max={this.props.pinMaxLength} value={value} />
         <div className={styles.PinKeyboard}>
           {range(1, 10).map(n => (
-            <Round
+            <PinButton
               onClick={this.handleClickNumber.bind(null, n.toString())}
               key={n}
             >
               {n}
-            </Round>
+            </PinButton>
           ))}
-          <Round onClick={this.handleRemoveCharacter}>R</Round>
-          <Round>0</Round>
-          <Round onClick={this.handleConfirm}>OK</Round>
+          {this.props.leftButton || <PinButton style={invisible} />}
+          <PinButton>0</PinButton>
+          <PinButton onClick={this.handleRemoveCharacter}>R</PinButton>
         </div>
       </div>
     )
@@ -95,6 +98,10 @@ class PinKeyboard extends React.PureComponent {
 PinKeyboard.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func
+}
+
+PinKeyboard.defaultProps = {
+  pinMaxLength: PIN_MAX_LENGTH
 }
 
 export default PinKeyboard

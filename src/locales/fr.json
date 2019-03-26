@@ -3,7 +3,8 @@
     "delete": "Supprimer",
     "deleting": "Suppression...",
     "cancel": "Annuler",
-    "confirm": "Confirmer"
+    "confirm": "Confirmer",
+    "back": "Revenir"
   },
 
   "Loading": {
@@ -482,12 +483,17 @@
   },
 
   "Pin": {
-    "please-enter-pin": "Merci d'entrer un code (max: 6 caractères).",
+    "enter-pin-restricted-area": "Merci d'entrer votre code pin courant pour accéder à cette fonctionnalité",
+    "please-enter-pin": "Merci de saisir un nouveau code de sécurité",
+    "please-enter-your-pin": "Merci de saisir votre code de sécurité",
     "please-repeat-pin": "Merci de répeter ce code.",
     "errors": {
       "different-pins": "Les deux codes sont différents, merci de recommencer."
     },
+    "logout": "Quitter",
     "successfully-changed": "Code changé avec succès",
-    "error-save": "Erreur de la sauvegarde du pin, êtes vous connecté à internet ?"
+    "error-save": "Erreur de la sauvegarde du pin, êtes vous connecté à internet ?",
+    "configure-button": "Configurer un code PIN",
+    "attempt-count": "%{current}/%{max} tentatives"
   }
 }

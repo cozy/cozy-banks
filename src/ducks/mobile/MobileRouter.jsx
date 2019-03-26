@@ -1,5 +1,3 @@
-/* global __DEV__ */
-
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Router, Route } from 'react-router'
@@ -9,60 +7,15 @@ import { setURLContext, logException } from 'lib/sentry'
 import {
   storeCredentials,
   revokeClient,
-  unlink,
   // setToken,
   getURL,
   getAccessToken
 } from 'ducks/mobile'
-import {
-  registerPushNotifications,
-  stopPushNotifications
-} from 'ducks/mobile/push'
-import { initBar, resetClient } from 'ducks/mobile/utils'
+import { registerPushNotifications } from 'ducks/mobile/push'
+import { initBar, onLogout, AUTH_PATH } from 'ducks/mobile/utils'
 import LogoutModal from 'components/LogoutModal'
-import { resetFilterByDoc } from 'ducks/filters'
 import { connect } from 'react-redux'
 import appIcon from 'targets/favicons/icon-banks.jpg'
-
-export const AUTH_PATH = 'authentication'
-
-export const onLogout = async (store, cozyClient) => {
-  try {
-    await stopPushNotifications()
-
-    if (__DEV__) {
-      // eslint-disable-next-line no-console
-      console.info('Stopped push notifications')
-    }
-  } catch (e) {
-    if (__DEV__) {
-      // eslint-disable-next-line no-console
-      console.warn('Error while stopping push notification', e)
-    }
-  }
-
-  try {
-    await resetClient(cozyClient)
-
-    if (__DEV__) {
-      // eslint-disable-next-line no-console
-      console.info('Resetted client')
-    }
-  } catch (e) {
-    if (__DEV__) {
-      // eslint-disable-next-line no-console
-      console.warn('Error while resetting client', e)
-    }
-  }
-
-  store.dispatch(unlink())
-  store.dispatch(resetFilterByDoc())
-}
-
-const dispatcher = (dispatch, fn) =>
-  function() {
-    return dispatch(fn.apply(this, arguments))
-  }
 
 const withAuth = Wrapped => {
   class WithAuth extends React.Component {
@@ -118,7 +71,6 @@ const withAuth = Wrapped => {
           this.props.history.replace
         )
         this.setState({ isLoggingOut: false })
-        this.props.history.replace(`/${AUTH_PATH}`)
       })
     }
 
@@ -148,14 +100,14 @@ const withAuth = Wrapped => {
     isAuthenticated: state.mobile.client !== null
   })
 
-  const mapDispatchToProps = dispatch => ({
-    storeCredentials: dispatcher(dispatch, storeCredentials),
-    revokeClient: dispatcher(dispatch, revokeClient)
-  })
+  const actionCreators = {
+    storeCredentials,
+    revokeClient
+  }
 
   return connect(
     mapStateToProps,
-    mapDispatchToProps
+    actionCreators
   )(WithAuth)
 }
 

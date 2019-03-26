@@ -1,6 +1,9 @@
-/* global cozy, __TARGET__ */
+/* global cozy, __TARGET__, __DEV__ */
 import { setTheme as setStatusBarTheme } from './statusBar'
 import barOverrides from 'ducks/bar/overrides'
+import { stopPushNotifications } from 'ducks/mobile/push'
+import { resetFilterByDoc } from 'ducks/filters'
+import { unlink } from 'ducks/mobile'
 
 const getLang = () =>
   navigator && navigator.language ? navigator.language.slice(0, 2) : 'en'
@@ -45,4 +48,39 @@ export const setBarTheme = theme => {
     const overrides = barOverrides[theme]
     cozy.bar.setTheme(theme, overrides)
   }
+}
+
+export const AUTH_PATH = 'authentication'
+export const onLogout = async (store, cozyClient, navigateTo) => {
+  try {
+    await stopPushNotifications()
+
+    if (__DEV__) {
+      // eslint-disable-next-line no-console
+      console.info('Stopped push notifications')
+    }
+  } catch (e) {
+    if (__DEV__) {
+      // eslint-disable-next-line no-console
+      console.warn('Error while stopping push notification', e)
+    }
+  }
+
+  try {
+    await resetClient(cozyClient)
+
+    if (__DEV__) {
+      // eslint-disable-next-line no-console
+      console.info('Resetted client')
+    }
+  } catch (e) {
+    if (__DEV__) {
+      // eslint-disable-next-line no-console
+      console.warn('Error while resetting client', e)
+    }
+  }
+
+  store.dispatch(unlink())
+  store.dispatch(resetFilterByDoc())
+  navigateTo(`/${AUTH_PATH}`)
 }

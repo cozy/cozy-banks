@@ -1,4 +1,4 @@
-.Round
+.Pin__button
     border-radius 100%
     width 4rem
     height 4rem
@@ -7,14 +7,15 @@
     align-items center
     justify-content center
     color white
-    background rgba(0, 0, 0, 0.25)
+    background-color rgba(255, 255, 255, 0)
+    transition background-color 0.3s ease
     font-size 1.5rem
     border 0
+    text-transform uppercase
 
-.Round:active, .Round:focus 
-    background rgba(0, 0, 0, 0.15)
-    transform scale(1.1)
-    transition transform 0.1s ease
+.Pin__button:active, .Pin__button:focus 
+    background-color rgba(255, 255, 255, 0.25)
+    cursor pointer
 
 .PinKeyboard
     align-items center
@@ -27,13 +28,16 @@
 
 .PinWrapper
     background var(--primaryColor)
+    color var(--primaryContrastTextColor)
     width 100vw
     height 100vh
     z-index 100
     position fixed
     display flex
     justify-content center
+    align-items center
     flex-direction column
+    text-align center
     top 0
     bottom 0
     left 0
@@ -41,10 +45,6 @@
 
 .Pin__dots
     font-size 2rem
-
-.Pin__text
-    color var(--primaryContrastTextColor)
-    text-align center
     
 .Pin__error
     background var(--pomegranate)

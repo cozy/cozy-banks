@@ -10,7 +10,7 @@ import Button from 'cozy-ui/react/Button'
 import Alerter from 'cozy-ui/react/Alerter'
 import { withClient } from 'cozy-client'
 import styles from './styles.styl'
-import { onLogout } from 'ducks/mobile/MobileRouter'
+import { onLogout } from 'ducks/mobile/utils'
 
 const TosUpdatedModal = translate()(({ t, newTosLink, onAccept, onRefuse }) => (
   <Modal closable={false} into="body">
@@ -99,7 +99,6 @@ class UserActionRequired extends Component {
 
   disconnect = () => {
     const { store, client, router } = this.context
-
     onLogout(store, client, router.replace)
   }
 

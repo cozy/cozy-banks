@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Button from 'cozy-ui/react/Button'
+import { translate } from 'cozy-ui/react'
 
 import PinEditView from 'ducks/pin/PinEditView'
 
@@ -29,11 +30,13 @@ class PinSettings extends React.Component {
   }
 
   render() {
+    const { t } = this.props
     return (
       <div>
-        <Button onClick={this.handleConfigure}>
-          Configure PIN code for mobile
-        </Button>
+        <Button
+          label={t('Pin.configure-button')}
+          onClick={this.handleConfigure}
+        />
         {this.state.configuring ? (
           <PinEditView onSaved={this.handlePinSaved} onExit={this.handleExit} />
         ) : null}
@@ -42,4 +45,4 @@ class PinSettings extends React.Component {
   }
 }
 
-export default PinSettings
+export default translate()(PinSettings)
