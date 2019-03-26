@@ -26,7 +26,7 @@ class PinRestrictedArea extends React.Component {
   render() {
     const { children, t, pinSetting, onCancel } = this.props
 
-    if (pinSetting || this.state.hasEnteredPin) {
+    if (!pinSetting || !pinSetting.pin || this.state.hasEnteredPin) {
       return children
     }
 

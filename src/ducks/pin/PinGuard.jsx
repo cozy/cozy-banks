@@ -56,7 +56,8 @@ class PinGuard extends React.Component {
   }
 
   render() {
-    if (!this.props.pinSetting.data) {
+    const pinDoc = this.props.pinSetting.data
+    if (!pinDoc || !pinDoc.pin) {
       return this.props.children
     }
     return (

@@ -422,6 +422,7 @@
     "accounts": "Accounts",
     "groups": "Groups",
     "configuration": "Configuration",
+    "security-title": "Security",
     "app": "App",
     "debug": "Debug"
   },
@@ -541,6 +542,10 @@
     "successfully-changed": "Pin succesfully changed",
     "error-save": "Could not save pin, are you connected to internet ?",
     "configure-button": "Configure PIN",
-    "attempt-count": "%{current}/%{max} attempts"
+    "attempt-count": "%{current}/%{max} attempts",
+    "settings": {
+      "toggle-title": "PIN code",
+      "toggle-description": "Will lock your app when switching apps or after 1m of inactivity."
+    }
   }
 }

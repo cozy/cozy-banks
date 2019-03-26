@@ -15,7 +15,6 @@ import { pinSetting } from 'ducks/pin/queries'
 import { SETTINGS_DOCTYPE } from 'doctypes'
 import styles from 'ducks/pin/styles.styl'
 import { PIN_MAX_LENGTH } from 'ducks/pin/constants'
-import PinRestrictedArea from 'ducks/pin/PinRestrictedArea'
 
 /**
  * Handles pin edit
@@ -94,30 +93,28 @@ class PinEditView extends React.Component {
       )
     }
     return (
-      <PinRestrictedArea onCancel={this.props.onExit}>
-        <PinWrapper>
-          <div>
-            {!this.state.pin1
-              ? t('Pin.please-enter-pin')
-              : t('Pin.please-repeat-pin')}
-            <br />
-            {this.state.error ? (
-              <div className={styles['Pin__error']}>
-                {t(`Pin.errors.${this.state.error}`)}
-              </div>
-            ) : null}
-          </div>
-          <PinKeyboard
-            leftButton={
-              <PinButton onClick={this.props.onExit}>
-                <Icon icon="back" />
-              </PinButton>
-            }
-            value={this.state.value}
-            onChange={this.handleKeyboardChange}
-          />
-        </PinWrapper>
-      </PinRestrictedArea>
+      <PinWrapper>
+        <div>
+          {!this.state.pin1
+            ? t('Pin.please-enter-pin')
+            : t('Pin.please-repeat-pin')}
+          <br />
+          {this.state.error ? (
+            <div className={styles['Pin__error']}>
+              {t(`Pin.errors.${this.state.error}`)}
+            </div>
+          ) : null}
+        </div>
+        <PinKeyboard
+          leftButton={
+            <PinButton onClick={this.props.onExit}>
+              <Icon icon="back" />
+            </PinButton>
+          }
+          value={this.state.value}
+          onChange={this.handleKeyboardChange}
+        />
+      </PinWrapper>
     )
   }
 }

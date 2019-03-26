@@ -1,19 +1,21 @@
 import React from 'react'
-import TogglePane, {
-  TogglePaneTitle,
-  TogglePaneSubtitle,
-  TogglePaneText
-} from './TogglePane'
-import ToggleRow from './ToggleRow'
 import { translate } from 'cozy-ui/react'
 import { isCollectionLoading } from 'ducks/client/utils'
 import { queryConnect, withMutations } from 'cozy-client'
 import { settingsConn } from 'doctypes'
 import { flowRight as compose, set } from 'lodash'
 import Loading from 'components/Loading'
-import { getDefaultedSettingsFromCollection } from './helpers'
-import PinSettings from 'ducks/settings/PinSettings'
+
 import flag from 'cozy-flags'
+
+import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
+import PinSettings from 'ducks/settings/PinSettings'
+import TogglePane, {
+  TogglePaneTitle,
+  TogglePaneSubtitle,
+  TogglePaneText
+} from 'ducks/settings/TogglePane'
+import ToggleRow from 'ducks/settings/ToggleRow'
 
 class Configuration extends React.PureComponent {
   saveDocument = async doc => {
@@ -98,7 +100,13 @@ class Configuration extends React.PureComponent {
             name="localModelOverride"
           />
         </TogglePane>
-        {flag('pin') ? <PinSettings /> : null}
+
+        {flag('pin') ? (
+          <TogglePane>
+            <TogglePaneTitle>{t('Settings.security-title')}</TogglePaneTitle>
+            <PinSettings />
+          </TogglePane>
+        ) : null}
       </div>
     )
   }
