@@ -4617,6 +4617,11 @@ cozy-interapp@0.4.4:
   resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.4.4.tgz#86a7d0d6b849cd6f251877116612901c59f93cf7"
   integrity sha512-55bSrj1jymMb9Qe/sPjmVfaOcjuTOL//AQzYV2fMIaQZfRtjn1vx0O15C/RC9Qhgjv22fzxcnRtUEg6fi7FHHw==
 
+cozy-interapp@0.4.5:
+  version "0.4.5"
+  resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.4.5.tgz#115912a389448ebb8dc532972270b46e15010063"
+  integrity sha512-CuiZ4PIrDj+jcK1sCizFNCC9r8+/sgKXLtDgkpKHRHk+q0lhvqz/fQAVPWiIsZAr9WdbfxaBfsJCoHP/41+G1Q==
+
 cozy-jobs-cli@1.8.1:
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/cozy-jobs-cli/-/cozy-jobs-cli-1.8.1.tgz#a485f2633e96582175bb257b2827101b2cd7c860"
