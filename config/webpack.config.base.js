@@ -43,7 +43,14 @@ module.exports = {
         'date-fns',
         'core-js',
         'regenerator-runtime',
-        '@babel/runtime'
+        '@babel/runtime',
+        'cozy-client',
+        'cozy-stack-client',
+        'pouchdb-binary-utils',
+        'pouchdb-collections',
+        'pouchdb-errors',
+        'pouchdb-md5',
+        'pouchdb-utils'
       ]),
       
       // We do not need mime-db (used in cozy-stack-client::FileCollection) so we fake it
