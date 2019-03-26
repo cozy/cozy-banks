@@ -109,7 +109,28 @@ class PinAuth extends React.Component {
 
   async handleBadAttempt() {
     await this.shakeDots()
+    setTimeout(() => {
+      this.clearPin()
+    }, 200)
     this.setState({ attempt: this.state.attempt + 1 })
+  }
+
+  clearPin() {
+    const pinValue = this.state.pinValue
+    if (pinValue !== '') {
+      this.cleaning = true
+      this.setState(
+        {
+          pinValue: pinValue.substr(0, pinValue.length - 1)
+        },
+        debounce(this.clearPin.bind(this), 100, {
+          leading: false,
+          trailing: true
+        })
+      )
+    } else {
+      this.cleaning = false
+    }
   }
 
   render() {
