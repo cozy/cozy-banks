@@ -5,6 +5,7 @@ import compose from 'lodash/flowRight'
 import debounce from 'lodash/debounce'
 
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
 import { queryConnect } from 'cozy-client'
 import Alerter from 'cozy-ui/react/Alerter'
 import { translate } from 'cozy-ui/react/I18n'
@@ -32,6 +33,11 @@ const AttemptCount = translate()(AttemptCount_)
  * - It automatically confirms when entered password's length is <props.maxLength>
  */
 class PinAuth extends React.Component {
+  static contextTypes = {
+    store: PropTypes.object.isRequired,
+    client: PropTypes.object.isRequired
+  }
+
   constructor(props) {
     super(props)
     this.handleFingerprintSuccess = this.handleFingerprintSuccess.bind(this)
@@ -69,9 +75,9 @@ class PinAuth extends React.Component {
   }
 
   logout() {
-    const props = this.props
+    const { router } = this.props
     const { client, store } = this.context
-    onLogout(store, client)
+    onLogout(store, client, router)
   }
 
   handleEnteredPin(pinValue) {
@@ -177,10 +183,10 @@ class PinAuth extends React.Component {
   }
 }
 
-
 export default compose(
   connect(),
   translate(),
+  withRouter,
   queryConnect({
     pinSetting
   })
