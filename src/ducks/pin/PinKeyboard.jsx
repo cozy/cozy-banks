@@ -14,14 +14,19 @@ const invisible = {
 /**
  * Shows a value as Dots
  */
-const Dots = props => {
-  return (
-    <div className={cx(styles['Pin__dots'])}>
-      {range(1, props.max + 1).map(i => (
-        <span key={i}>{i <= props.value.length ? '●' : '○'}</span>
-      ))}
-    </div>
-  )
+class Dots extends React.Component {
+  render() {
+    const props = this.props
+    return (
+      <div ref={props.ref} className={styles['Pin__dots']}>
+        {range(1, props.max + 1).map(i => (
+          <span className={styles['Pin__dot']} key={i}>
+            {i <= props.value.length ? '●' : '_'}
+          </span>
+        ))}
+      </div>
+    )
+  }
 }
 
 Dots.propTypes = {
@@ -76,8 +81,12 @@ class PinKeyboard extends React.PureComponent {
     const value = this.getValue()
     return (
       <div>
-        <Dots max={this.props.pinMaxLength} value={value} />
         <div className={styles.PinKeyboard}>
+          <Dots
+            ref={this.props.dotsRef}
+            max={this.props.pinMaxLength}
+            value={value}
+          />
           {range(1, 10).map(n => (
             <PinButton
               onClick={this.handleClickNumber.bind(null, n.toString())}
@@ -97,7 +106,8 @@ class PinKeyboard extends React.PureComponent {
 
 PinKeyboard.propTypes = {
   value: PropTypes.string,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  dotsRef: PropTypes.object
 }
 
 PinKeyboard.defaultProps = {

@@ -1,18 +1,22 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import compose from 'lodash/flowRight'
+import debounce from 'lodash/debounce'
 
 import { connect } from 'react-redux'
 import { queryConnect } from 'cozy-client'
 import Alerter from 'cozy-ui/react/Alerter'
 import { translate } from 'cozy-ui/react/I18n'
 
+import styles from 'ducks/pin/styles.styl'
 import PinKeyboard from 'ducks/pin/PinKeyboard'
 import FingerprintButton from 'ducks/pin/FingerprintButton'
 import { pinSetting } from 'ducks/pin/queries'
 import PinButton from 'ducks/pin/PinButton'
 import { PIN_MAX_LENGTH, MAX_ATTEMPT } from 'ducks/pin/constants'
 import { onLogout } from 'ducks/mobile/utils'
+import { shake } from 'utils/effects'
 
 const AttemptCount_ = ({ t, current, max }) => {
   return <div>{t('Pin.attempt-count', { current, max })}</div>
@@ -35,10 +39,12 @@ class PinAuth extends React.Component {
     this.handleFingerprintCancel = this.handleFingerprintCancel.bind(this)
     this.handleEnteredPin = this.handleEnteredPin.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
+    this.handleBadAttempt = this.handleBadAttempt.bind(this)
     this.state = {
       attempt: 0,
       pinValue: ''
     }
+    this.dots = React.createRef()
   }
 
   handleFingerprintSuccess() {
@@ -68,6 +74,9 @@ class PinAuth extends React.Component {
   }
 
   handleEnteredPin(pinValue) {
+    if (this.cleaning) {
+      return
+    }
     const { pinSetting, t } = this.props
     const pinDoc = pinSetting.data
     if (!pinDoc) {
@@ -75,8 +84,13 @@ class PinAuth extends React.Component {
       return this.props.onSuccess()
     }
 
+    this.setState({ pinValue })
+
     if (pinValue === pinDoc.pin) {
-      return this.props.onSuccess()
+      setTimeout(() => {
+        this.props.onSuccess()
+      }, 500)
+      return
     }
 
     if (pinValue.length === this.props.maxLength) {
@@ -84,13 +98,18 @@ class PinAuth extends React.Component {
       if (newAttempt >= this.props.maxAttempt) {
         return this.onMaxAttempt()
       }
-      return this.setState({
-        attempt: this.state.attempt + 1,
-        pinValue: ''
-      })
+      return this.handleBadAttempt()
     }
+  }
 
-    this.setState({ pinValue })
+  async shakeDots() {
+    const node = ReactDOM.findDOMNode(this.dots.current)
+    shake(node)
+  }
+
+  async handleBadAttempt() {
+    await this.shakeDots()
+    this.setState({ attempt: this.state.attempt + 1 })
   }
 
   render() {
@@ -106,6 +125,7 @@ class PinAuth extends React.Component {
           onCancel={this.handleFingerprintCancel}
         />
         <PinKeyboard
+          dotsRef={this.dots}
           leftButton={
             <PinButton onClick={this.handleLogout}>{t('Pin.logout')}</PinButton>
           }
