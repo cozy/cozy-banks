@@ -3,12 +3,7 @@ import { flowRight as compose, get, sumBy, set, debounce } from 'lodash'
 
 import { queryConnect, withMutations } from 'cozy-client'
 import flag from 'cozy-flags'
-import {
-  ACCOUNT_DOCTYPE,
-  GROUP_DOCTYPE,
-  SETTINGS_DOCTYPE,
-  TRIGGER_DOCTYPE
-} from 'doctypes'
+import { groupsConn, settingsConn, triggersConn, accountsConn } from 'doctypes'
 import cx from 'classnames'
 
 import { connect } from 'react-redux'
@@ -257,10 +252,10 @@ export default compose(
     actionCreators
   ),
   queryConnect({
-    accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' },
-    groups: { query: client => client.all(GROUP_DOCTYPE), as: 'groups' },
-    settings: { query: client => client.all(SETTINGS_DOCTYPE), as: 'settings' },
-    triggers: { query: client => client.all(TRIGGER_DOCTYPE), as: 'triggers' }
+    accounts: accountsConn,
+    groups: groupsConn,
+    settings: settingsConn,
+    triggers: triggersConn
   }),
   withMutations()
 )(Balance)
