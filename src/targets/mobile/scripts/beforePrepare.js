@@ -2,7 +2,6 @@
 
 const path = require('path')
 const fs = require('fs-extra')
-const libxslt = require('libxslt')
 
 function handleError(error) {
   console.log('Error in beforePrepare hook:')
@@ -12,6 +11,17 @@ function handleError(error) {
 module.exports = function (context) {
   if (!process.env.MOBILE_CONFIG_TRANSFORM_FILE) {
     console.log('No transformation file provided, skipping transformation step')
+    return
+  }
+
+
+  let libxslt
+
+  try {
+    libxslt = require('libxslt')
+  } catch (err) {
+    console.error('Transformation file provided, but impossible to load `libxslt`. See the error below to know more:')
+    console.error(err)
     return
   }
 
