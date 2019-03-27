@@ -24,7 +24,11 @@ import lock from 'assets/icons/icon-lock.svg'
 import openLock from 'assets/icons/icon-lock-open.svg'
 
 const AttemptCount_ = ({ t, current, max }) => {
-  return <div>{t('Pin.attempt-count', { current, max })}</div>
+  return (
+    <div className={styles['Pin__error']}>
+      {t('Pin.attempt-count', { current, max })}
+    </div>
+  )
 }
 
 const AttemptCount = translate()(AttemptCount_)
