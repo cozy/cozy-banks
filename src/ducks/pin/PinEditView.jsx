@@ -5,7 +5,6 @@ import compose from 'lodash/flowRight'
 import { translate } from 'cozy-ui/react'
 import Alerter from 'cozy-ui/react/Alerter'
 import Spinner from 'cozy-ui/react/Spinner'
-import Icon from 'cozy-ui/react/Icon'
 import { queryConnect, withMutations } from 'cozy-client'
 
 import PinKeyboard from 'ducks/pin/PinKeyboard'
@@ -15,7 +14,6 @@ import { pinSetting } from 'ducks/pin/queries'
 import { SETTINGS_DOCTYPE } from 'doctypes'
 import styles from 'ducks/pin/styles.styl'
 import { PIN_MAX_LENGTH } from 'ducks/pin/constants'
-import PinRestrictedArea from 'ducks/pin/PinRestrictedArea'
 
 /**
  * Handles pin edit
@@ -93,31 +91,29 @@ class PinEditView extends React.Component {
         </PinWrapper>
       )
     }
+    const topMessage = !this.state.pin1
+      ? t('Pin.please-enter-pin')
+      : t('Pin.please-repeat-pin')
+
+    const bottomMessage = this.state.error ? (
+      <div className={styles['Pin__error']}>
+        {t(`Pin.errors.${this.state.error}`)}
+      </div>
+    ) : null
     return (
-      <PinRestrictedArea onCancel={this.props.onExit}>
-        <PinWrapper>
-          <div>
-            {!this.state.pin1
-              ? t('Pin.please-enter-pin')
-              : t('Pin.please-repeat-pin')}
-            <br />
-            {this.state.error ? (
-              <div className={styles['Pin__error']}>
-                {t(`Pin.errors.${this.state.error}`)}
-              </div>
-            ) : null}
-          </div>
-          <PinKeyboard
-            leftButton={
-              <PinButton onClick={this.props.onExit}>
-                <Icon icon="back" />
-              </PinButton>
-            }
-            value={this.state.value}
-            onChange={this.handleKeyboardChange}
-          />
-        </PinWrapper>
-      </PinRestrictedArea>
+      <PinWrapper>
+        <PinKeyboard
+          leftButton={
+            <PinButton isText onClick={this.props.onExit}>
+              {t('General.back')}
+            </PinButton>
+          }
+          topMessage={topMessage}
+          bottomMessage={bottomMessage}
+          value={this.state.value}
+          onChange={this.handleKeyboardChange}
+        />
+      </PinWrapper>
     )
   }
 }

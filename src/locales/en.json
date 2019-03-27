@@ -422,6 +422,7 @@
     "accounts": "Accounts",
     "groups": "Groups",
     "configuration": "Configuration",
+    "security-title": "Security",
     "app": "App",
     "debug": "Debug"
   },
@@ -533,7 +534,7 @@
     "enter-pin-restricted-area": "Please enter pin to enter restricted area",
     "please-enter-pin": "Please enter a new pin",
     "please-enter-your-pin": "Please enter your pin",
-    "please-repeat-pin": "Please repeat the code.",
+    "please-repeat-pin": "Please repeat the pin",
     "errors": {
       "different-pins": "The two codes are different, please retry."
     },
@@ -541,6 +542,11 @@
     "successfully-changed": "Pin succesfully changed",
     "error-save": "Could not save pin, are you connected to internet ?",
     "configure-button": "Configure PIN",
-    "attempt-count": "%{current}/%{max} attempts"
+    "attempt-count": "%{current}/%{max} attempts",
+    "settings": {
+      "toggle-title": "PIN code",
+      "toggle-description": "Will lock your app when switching apps or after 1m of inactivity."
+    },
+    "fingerprint-text": "Or your fingerprint"
   }
 }

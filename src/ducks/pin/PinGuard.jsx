@@ -1,7 +1,6 @@
 import React from 'react'
 
 import PinTimeout from 'ducks/pin/PinTimeout.debug'
-import PinWrapper from 'ducks/pin/PinWrapper'
 import PinAuth from 'ducks/pin/PinAuth'
 import { pinSetting } from 'ducks/pin/queries'
 import { queryConnect } from 'cozy-client'
@@ -35,6 +34,12 @@ class PinGuard extends React.Component {
     document.removeEventListener('pause', this.handlePause)
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.pinSetting.data !== prevProps.pinSetting.data) {
+      this.resetTimeout()
+    }
+  }
+
   handlePause() {
     this.setState({ showPin: true })
   }
@@ -44,6 +49,10 @@ class PinGuard extends React.Component {
   }
 
   handleInteraction() {
+    this.resetTimeout()
+  }
+
+  resetTimeout() {
     this.setState({ last: Date.now() })
     clearTimeout(this.timeout)
     this.timeout = setTimeout(() => {
@@ -52,20 +61,21 @@ class PinGuard extends React.Component {
   }
 
   handlePinSuccess() {
-    this.setState({ showPin: false })
+    setTimeout(() => {
+      this.setState({ showPin: false })
+    }, 500)
   }
 
   render() {
-    if (!this.props.pinSetting.data) {
+    const pinDoc = this.props.pinSetting.data
+    if (!pinDoc || !pinDoc.pin) {
       return this.props.children
     }
     return (
       <React.Fragment>
         {this.props.children}
         {this.state.showPin ? (
-          <PinWrapper>
-            <PinAuth onSuccess={this.handlePinSuccess} />
-          </PinWrapper>
+          <PinAuth onSuccess={this.handlePinSuccess} />
         ) : null}
         {this.props.showTimeout ? (
           <PinTimeout start={this.state.last} duration={this.props.timeout} />

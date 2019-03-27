@@ -1,11 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import cx from 'classnames'
 import range from 'lodash/range'
+
+import Icon from 'cozy-ui/react/Icon'
 
 import styles from 'ducks/pin/styles'
 import PinButton from 'ducks/pin/PinButton'
 import { PIN_MAX_LENGTH } from 'ducks/pin/constants'
+import backText from 'assets/icons/icon-back-text.svg'
+import { shake } from 'utils/effects'
 
 const invisible = {
   opacity: 0
@@ -14,15 +17,17 @@ const invisible = {
 /**
  * Shows a value as Dots
  */
-const Dots = props => {
+const Dots = React.forwardRef(function Dots({ max, value }, ref) {
   return (
-    <div className={cx(styles['Pin__dots'])}>
-      {range(1, props.max + 1).map(i => (
-        <span key={i}>{i <= props.value.length ? '●' : '○'}</span>
+    <div ref={ref} className={styles['Pin__dots']}>
+      {range(1, max + 1).map(i => (
+        <span className={styles['Pin__dot']} key={i}>
+          {i <= value.length ? '●' : '_'}
+        </span>
       ))}
     </div>
   )
-}
+})
 
 Dots.propTypes = {
   value: PropTypes.string.isRequired
@@ -39,6 +44,14 @@ class PinKeyboard extends React.PureComponent {
     this.handleConfirm = this.handleConfirm.bind(this)
     this.handleClickNumber = this.handleClickNumber.bind(this)
     this.handleRemoveCharacter = this.handleRemoveCharacter.bind(this)
+    this.dotsRef = React.createRef()
+  }
+
+  componentDidUpdate(prevProps) {
+    const { shake } = this.props
+    if (shake !== prevProps.shake && shake) {
+      this.shakeDots()
+    }
   }
 
   state = {
@@ -72,12 +85,29 @@ class PinKeyboard extends React.PureComponent {
     }
   }
 
+  shakeDots() {
+    if (this.dotsRef.current) {
+      shake(this.dotsRef.current)
+    }
+  }
+
   render() {
+    const { topMessage, bottomMessage } = this.props
     const value = this.getValue()
     return (
-      <div>
-        <Dots max={this.props.pinMaxLength} value={value} />
-        <div className={styles.PinKeyboard}>
+      <div className={styles.PinKeyboard}>
+        <div className={styles.PinKeyboard__top}>
+          <div className={styles.PinKeyboard__topMessage}>{topMessage}</div>
+          <Dots
+            ref={this.dotsRef}
+            max={this.props.pinMaxLength}
+            value={value}
+          />
+          <div className={styles.PinKeyboard__bottomMessage}>
+            {bottomMessage}
+          </div>
+        </div>
+        <div className={styles.PinKeyboard__keyboard}>
           {range(1, 10).map(n => (
             <PinButton
               onClick={this.handleClickNumber.bind(null, n.toString())}
@@ -88,7 +118,9 @@ class PinKeyboard extends React.PureComponent {
           ))}
           {this.props.leftButton || <PinButton style={invisible} />}
           <PinButton>0</PinButton>
-          <PinButton onClick={this.handleRemoveCharacter}>R</PinButton>
+          <PinButton onClick={this.handleRemoveCharacter}>
+            <Icon size="3rem" icon={backText} />
+          </PinButton>
         </div>
       </div>
     )
@@ -97,7 +129,10 @@ class PinKeyboard extends React.PureComponent {
 
 PinKeyboard.propTypes = {
   value: PropTypes.string,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  topMessage: PropTypes.node,
+  bottomMessage: PropTypes.node,
+  dotsRef: PropTypes.object
 }
 
 PinKeyboard.defaultProps = {

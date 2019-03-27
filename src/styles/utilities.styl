@@ -38,3 +38,27 @@
       content '\00a0'
       display block
       position absolute
+      
+    .u-shake
+        // For animation with keyframes to work with cssmodules and :global,
+        // it was necessary to add :local. A bit weird...
+        // https://github.com/css-modules/css-modules/issues/141#issuecomment-243011699
+        :local
+            animation-name shake
+      
+        animation-duration 820ms
+        animation-timing-function cubic-bezier(.36,.07,.19,.97)
+        animation-fill-mode both
+
+    @keyframes shake
+      10%, 90%
+        transform translate3d(-1px, 0, 0)
+     
+      20%, 80%
+        transform translate3d(2px, 0, 0)
+
+      30%, 50%, 70%
+        transform translate3d(-4px, 0, 0)
+
+      40%, 60%
+        transform translate3d(4px, 0, 0)

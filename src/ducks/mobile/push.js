@@ -1,3 +1,5 @@
+/* global __DEV__ */
+
 import { hashHistory } from 'react-router'
 import { fetchSettings, isNotificationEnabled } from 'ducks/settings/helpers'
 
@@ -52,7 +54,7 @@ export const startPushNotifications = (cozyClient, settings, clientInfos) => {
   })
 }
 
-export const stopPushNotifications = () =>
+export const _stopPushNotifications = () =>
   new Promise((resolve, reject) => {
     if (push) {
       push.unregister(
@@ -70,3 +72,19 @@ export const stopPushNotifications = () =>
       )
     }
   })
+
+export const stopPushNotifications = async () => {
+  try {
+    await _stopPushNotifications()
+
+    if (__DEV__) {
+      // eslint-disable-next-line no-console
+      console.info('Stopped push notifications')
+    }
+  } catch (e) {
+    if (__DEV__) {
+      // eslint-disable-next-line no-console
+      console.warn('Error while stopping push notification', e)
+    }
+  }
+}
