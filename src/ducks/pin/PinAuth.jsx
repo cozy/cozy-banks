@@ -116,6 +116,7 @@ class PinAuth extends React.Component {
     this.setState({ attempt: this.state.attempt + 1 })
   }
 
+  /* Cleans PIN animatedly */
   clearPin() {
     const pinValue = this.state.pinValue
     if (pinValue !== '') {
