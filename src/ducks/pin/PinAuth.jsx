@@ -9,8 +9,10 @@ import { withRouter } from 'react-router'
 import { queryConnect } from 'cozy-client'
 import Alerter from 'cozy-ui/react/Alerter'
 import { translate } from 'cozy-ui/react/I18n'
+import Icon from 'cozy-ui/react/Icon'
 
 import styles from 'ducks/pin/styles.styl'
+import PinWrapper from 'ducks/pin/PinWrapper'
 import PinKeyboard from 'ducks/pin/PinKeyboard'
 import FingerprintButton from 'ducks/pin/FingerprintButton'
 import { pinSetting } from 'ducks/pin/queries'
@@ -18,6 +20,8 @@ import PinButton from 'ducks/pin/PinButton'
 import { PIN_MAX_LENGTH, MAX_ATTEMPT } from 'ducks/pin/constants'
 import { onLogout } from 'ducks/mobile/utils'
 import { shake } from 'utils/effects'
+import lock from 'assets/icons/icon-lock.svg'
+import openLock from 'assets/icons/icon-lock-open.svg'
 
 const AttemptCount_ = ({ t, current, max }) => {
   return <div>{t('Pin.attempt-count', { current, max })}</div>
@@ -48,7 +52,8 @@ class PinAuth extends React.Component {
     this.handleBadAttempt = this.handleBadAttempt.bind(this)
     this.state = {
       attempt: 0,
-      pinValue: ''
+      pinValue: '',
+      success: false
     }
     this.dots = React.createRef()
   }
@@ -94,9 +99,8 @@ class PinAuth extends React.Component {
     this.setState({ pinValue })
 
     if (pinValue === pinDoc.pin) {
-      setTimeout(() => {
-        this.props.onSuccess()
-      }, 500)
+      this.setState({ success: true })
+      this.props.onSuccess()
       return
     }
 
@@ -143,7 +147,16 @@ class PinAuth extends React.Component {
 
   render() {
     const { t } = this.props
-    const { attempt, pinValue } = this.state
+    const { attempt, pinValue, success } = this.state
+
+    const topMessage = (
+      <div>
+        <Icon icon={success ? openLock : lock} size="4rem" className="u-mb-1" />
+        <br />
+        {this.props.message || t('Pin.please-enter-your-pin')}
+      </div>
+    )
+
     return (
       <React.Fragment>
         <FingerprintButton
@@ -160,7 +173,7 @@ class PinAuth extends React.Component {
               </PinButton>
             )
           }
-          topMessage={this.props.message || t('Pin.please-enter-your-pin')}
+          topMessage={topMessage}
           bottomMessage={
             attempt ? (
               <AttemptCount max={this.props.maxAttempt} current={attempt} />
