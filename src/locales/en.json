@@ -554,5 +554,9 @@
       "title": "Activate fingerprint unlocking",
       "description": "Do you want to use your smartphone's fingerprint security to unlock the app?"
     }
+  },
+
+  "Reimbursements": {
+    "title": "Reimbursements"
   }
 }

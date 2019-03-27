@@ -507,5 +507,9 @@
       "title": "Activer le déverrouillage par empreinte digitale",
       "description": "Souhaitez vous utiliser la sécurité par empreinte proposée par votre téléphone ?"
     }
+  },
+
+  "Reimbursements": {
+    "title": "Remboursements"
   }
 }

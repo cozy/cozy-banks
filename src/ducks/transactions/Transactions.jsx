@@ -119,7 +119,7 @@ export class TransactionsDumb extends React.Component {
   updateTopMostVisibleTransaction() {
     const topMostTransactionId = this.topmost.getTopMostVisibleNodeId()
     const topMostTransaction = this.transactionsById[topMostTransactionId]
-    if (topMostTransaction) {
+    if (topMostTransaction && this.props.onChangeTopMostTransaction) {
       this.props.onChangeTopMostTransaction(topMostTransaction)
     }
   }
@@ -128,7 +128,12 @@ export class TransactionsDumb extends React.Component {
    * Debounced in the constructor
    */
   handleScroll(getScrollInfo) {
-    this.props.onScroll(getScrollInfo)
+    const { onScroll } = this.props
+
+    if (onScroll) {
+      onScroll(getScrollInfo)
+    }
+
     this.updateTopMostVisibleTransaction()
   }
 
