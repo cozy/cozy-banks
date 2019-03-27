@@ -51,20 +51,10 @@ export const setBarTheme = theme => {
 }
 
 export const AUTH_PATH = 'authentication'
-export const onLogout = async (store, cozyClient, navigateTo) => {
-  try {
-    await stopPushNotifications()
-
-    if (__DEV__) {
-      // eslint-disable-next-line no-console
-      console.info('Stopped push notifications')
-    }
-  } catch (e) {
-    if (__DEV__) {
-      // eslint-disable-next-line no-console
-      console.warn('Error while stopping push notification', e)
-    }
-  }
+export const onLogout = async (store, cozyClient, router) => {
+  await stopPushNotifications()
+  store.dispatch(unlink())
+  store.dispatch(resetFilterByDoc())
 
   try {
     await resetClient(cozyClient)
@@ -79,8 +69,5 @@ export const onLogout = async (store, cozyClient, navigateTo) => {
       console.warn('Error while resetting client', e)
     }
   }
-
-  store.dispatch(unlink())
-  store.dispatch(resetFilterByDoc())
-  navigateTo(`/${AUTH_PATH}`)
+  router.push(`/${AUTH_PATH}`)
 }
