@@ -34,7 +34,7 @@
     "watch:mobile:production": "NODE_ENV=mobile:production npm run commons:watch -- --env.target=mobile",
     "serve:mobile": "(cd src/targets/mobile/www && http-server -p 8005)",
     "mobile:icon": "(cd src/targets/mobile && splashicon-generator --imagespath='./res/model')",
-    "mobile:prepare": "(cd src/targets/mobile && cordova prepare && bundle install) && [[ $(uname) == 'Darwin' ]] && npm run ios:install_pods",
+    "mobile:prepare": "(cd src/targets/mobile && cordova prepare && bundle install) && if [ $(uname) == 'Darwin' ] ; then npm run ios:install_pods ; fi",
     "mobile:clean": "(cd src/targets/mobile && rm -rf package.json node_modules platforms plugins)",
     "mobile:build": "npm run build:mobile && npm run mobile:clean && npm run mobile:prepare",
     "android:run": "(cd src/targets/mobile && cordova run android --device)",
@@ -160,7 +160,7 @@
     "cozy-device-helper": "1.6.10",
     "cozy-doctypes": "1.39.0",
     "cozy-flags": "1.5.9",
-    "cozy-interapp": "0.4.4",
+    "cozy-interapp": "0.4.5",
     "cozy-konnector-libs": "4.14.13",
     "cozy-pouch-link": "6.18.0",
     "cozy-ui": "19.15.1",
@@ -253,5 +253,8 @@
     "extends": [
       "cozy"
     ]
+  },
+  "optionalDependencies": {
+    "libxslt": "0.7.0"
   }
 }
