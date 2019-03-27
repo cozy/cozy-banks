@@ -20,7 +20,7 @@ class Dots extends React.Component {
   render() {
     const props = this.props
     return (
-      <div ref={props.ref} className={styles['Pin__dots']}>
+      <div className={styles['Pin__dots']}>
         {range(1, props.max + 1).map(i => (
           <span className={styles['Pin__dot']} key={i}>
             {i <= props.value.length ? '●' : '_'}
