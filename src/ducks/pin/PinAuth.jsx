@@ -148,9 +148,11 @@ class PinAuth extends React.Component {
   render() {
     const {
       t,
-      breakpoints: { largeEnough }
+      breakpoints: { largeEnough },
+      pinSetting
     } = this.props
     const { attempt, pinValue, success } = this.state
+    const pinDoc = pinSetting.data
     const topMessage = (
       <React.Fragment>
         {largeEnough ? (
@@ -162,26 +164,28 @@ class PinAuth extends React.Component {
         ) : null}
         <br />
         {this.props.message || t('Pin.please-enter-your-pin')}
-        <WithFingerprint
-          onSuccess={this.handleFingerprintSuccess}
-          onError={this.handleFingerprintError}
-          onCancel={this.handleFingerprintCancel}
-        >
-          {(method, promptFinger) => {
-            return method ? (
-              <Media
-                style={{ display: 'inline-flex' }}
-                onClick={promptFinger}
-                className={styles['Pin__FingerprintText'] + ' u-mv-half'}
-              >
-                <Img className="u-pr-half">
-                  <Icon size="1.5rem" icon={fingerprint} />
-                </Img>
-                <Bd>{t('Pin.fingerprint-text')}</Bd>
-              </Media>
-            ) : null
-          }}
-        </WithFingerprint>
+        {pinDoc && pinDoc.fingerprint ? (
+          <WithFingerprint
+            onSuccess={this.handleFingerprintSuccess}
+            onError={this.handleFingerprintError}
+            onCancel={this.handleFingerprintCancel}
+          >
+            {(method, promptFinger) => {
+              return method ? (
+                <Media
+                  style={{ display: 'inline-flex' }}
+                  onClick={promptFinger}
+                  className={styles['Pin__FingerprintText'] + ' u-mv-half'}
+                >
+                  <Img className="u-pr-half">
+                    <Icon size="1.5rem" icon={fingerprint} />
+                  </Img>
+                  <Bd>{t('Pin.fingerprint-text')}</Bd>
+                </Media>
+              ) : null
+            }}
+          </WithFingerprint>
+        ) : null}
       </React.Fragment>
     )
 
