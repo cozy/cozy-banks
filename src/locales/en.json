@@ -422,7 +422,7 @@
     "accounts": "Accounts",
     "groups": "Groups",
     "configuration": "Configuration",
-    "security-title": "Security",
+    "security": "Security",
     "app": "App",
     "debug": "Debug"
   },
