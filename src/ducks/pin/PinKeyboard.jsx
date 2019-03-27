@@ -2,9 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import range from 'lodash/range'
 
+import Icon from 'cozy-ui/react/Icon'
+
 import styles from 'ducks/pin/styles'
 import PinButton from 'ducks/pin/PinButton'
 import { PIN_MAX_LENGTH } from 'ducks/pin/constants'
+import backText from 'assets/icons/icon-back-text.svg'
 
 const invisible = {
   opacity: 0
@@ -103,7 +106,9 @@ class PinKeyboard extends React.PureComponent {
           ))}
           {this.props.leftButton || <PinButton style={invisible} />}
           <PinButton>0</PinButton>
-          <PinButton onClick={this.handleRemoveCharacter}>R</PinButton>
+          <PinButton onClick={this.handleRemoveCharacter}>
+            <Icon size="3.5rem" icon={backText} />
+          </PinButton>
         </div>
       </div>
     )

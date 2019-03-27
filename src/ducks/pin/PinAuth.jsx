@@ -168,7 +168,7 @@ class PinAuth extends React.Component {
           dotsRef={this.dots}
           leftButton={
             this.props.leftButton || (
-              <PinButton onClick={this.handleLogout}>
+              <PinButton isText onClick={this.handleLogout}>
                 {t('Pin.logout')}
               </PinButton>
             )

@@ -105,8 +105,8 @@ class PinEditView extends React.Component {
       <PinWrapper>
         <PinKeyboard
           leftButton={
-            <PinButton onClick={this.props.onExit}>
-              <Icon icon="back" />
+            <PinButton isText onClick={this.props.onExit}>
+              {t('General.back')}
             </PinButton>
           }
           topMessage={topMessage}
