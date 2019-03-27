@@ -21,6 +21,7 @@ import 'cozy-ui/transpiled/react/stylesheet.css'
 import { checkToRefreshToken } from 'utils/token'
 import Alerter from 'cozy-ui/react/Alerter'
 import flag from 'cozy-flags'
+import { makeItShine } from 'utils/display.debug'
 
 const D3_LOCALES_MAP = {
   fr: require('d3-time-format/locale/fr-FR.json'),
@@ -96,13 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
   loadState().then(setupApp)
 })
 
-const makeItShine = node => {
-  node.style.boxShadow = 'inset 0px 0px 20px yellow'
-  node.style.transition = 'box-shadow 0.3s ease'
-  setTimeout(() => {
-    node.style.boxShadow = 'inset 0 0 0'
-  }, 2000)
-}
 if (module.hot) {
   module.hot.accept('./AppContainer', () =>
     requestAnimationFrame(() => {
