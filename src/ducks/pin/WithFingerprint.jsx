@@ -19,6 +19,9 @@ class WithFingerprint extends React.PureComponent {
     Fingerprint.isAvailable(
       method => {
         this.setState({ method })
+        if (this.props.autoLaunch) {
+          this.showFingerprintAuth()
+        }
       },
       () => {}
     )

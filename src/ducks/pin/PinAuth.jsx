@@ -166,6 +166,7 @@ class PinAuth extends React.Component {
         {this.props.message || t('Pin.please-enter-your-pin')}
         {pinDoc && pinDoc.fingerprint ? (
           <WithFingerprint
+            autoLaunch
             onSuccess={this.handleFingerprintSuccess}
             onError={this.handleFingerprintError}
             onCancel={this.handleFingerprintCancel}
