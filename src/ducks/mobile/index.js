@@ -1,6 +1,3 @@
-import { get } from 'lodash'
-import { startPushNotifications } from './push'
-
 // constants
 const SET_TOKEN = 'SET_TOKEN'
 const REVOKE_CLIENT = 'REVOKE_CLIENT'

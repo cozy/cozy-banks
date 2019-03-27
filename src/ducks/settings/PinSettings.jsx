@@ -11,8 +11,6 @@ import PinAuth from 'ducks/pin/PinAuth'
 import PinButton from 'ducks/pin/PinButton'
 import { pinSetting } from 'ducks/pin/queries'
 
-console.clear()
-
 class PinSettings extends React.Component {
   state = {
     togglingOn: false,

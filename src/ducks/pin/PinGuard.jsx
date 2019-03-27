@@ -1,7 +1,6 @@
 import React from 'react'
 
 import PinTimeout from 'ducks/pin/PinTimeout.debug'
-import PinWrapper from 'ducks/pin/PinWrapper'
 import PinAuth from 'ducks/pin/PinAuth'
 import { pinSetting } from 'ducks/pin/queries'
 import { queryConnect } from 'cozy-client'
@@ -36,10 +35,6 @@ class PinGuard extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.warn(
-      'update',
-      this.props.pinSetting.data !== prevProps.pinSetting.data
-    )
     if (this.props.pinSetting.data !== prevProps.pinSetting.data) {
       this.resetTimeout()
     }

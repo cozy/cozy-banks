@@ -5,7 +5,6 @@ import compose from 'lodash/flowRight'
 import { translate } from 'cozy-ui/react'
 import Alerter from 'cozy-ui/react/Alerter'
 import Spinner from 'cozy-ui/react/Spinner'
-import Icon from 'cozy-ui/react/Icon'
 import { queryConnect, withMutations } from 'cozy-client'
 
 import PinKeyboard from 'ducks/pin/PinKeyboard'

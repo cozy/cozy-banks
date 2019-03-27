@@ -1,3 +1,5 @@
+/* global __DEV__ */
+
 import { hashHistory } from 'react-router'
 import { fetchSettings, isNotificationEnabled } from 'ducks/settings/helpers'
 
