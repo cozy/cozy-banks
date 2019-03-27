@@ -126,7 +126,7 @@ class PinKeyboard extends React.PureComponent {
           {this.props.leftButton || <PinButton style={invisible} />}
           <PinButton>0</PinButton>
           <PinButton onClick={this.handleRemoveCharacter}>
-            <Icon size="3.5rem" icon={backText} />
+            <Icon size="3rem" icon={backText} />
           </PinButton>
         </div>
       </div>
