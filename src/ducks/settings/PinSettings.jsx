@@ -8,7 +8,6 @@ import ToggleRow from 'ducks/settings/ToggleRow'
 
 import PinEditView from 'ducks/pin/PinEditView'
 import PinAuth from 'ducks/pin/PinAuth'
-import PinWrapper from 'ducks/pin/PinWrapper'
 import PinButton from 'ducks/pin/PinButton'
 import { pinSetting } from 'ducks/pin/queries'
 
@@ -79,16 +78,14 @@ class PinSettings extends React.Component {
           <PinEditView onSaved={this.handlePinSaved} onExit={this.handleExit} />
         ) : null}
         {this.state.togglingOff ? (
-          <PinWrapper>
-            <PinAuth
-              leftButton={
-                <PinButton onClick={this.handleTogglingOffCancel}>
-                  <Icon icon="back" />
-                </PinButton>
-              }
-              onSuccess={this.handlePinDeactivated}
-            />
-          </PinWrapper>
+          <PinAuth
+            leftButton={
+              <PinButton onClick={this.handleTogglingOffCancel}>
+                <Icon icon="back" />
+              </PinButton>
+            }
+            onSuccess={this.handlePinDeactivated}
+          />
         ) : null}
       </React.Fragment>
     )

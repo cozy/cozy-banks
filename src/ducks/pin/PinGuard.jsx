@@ -66,7 +66,9 @@ class PinGuard extends React.Component {
   }
 
   handlePinSuccess() {
-    this.setState({ showPin: false })
+    setTimeout(() => {
+      this.setState({ showPin: false })
+    }, 500)
   }
 
   render() {
@@ -78,9 +80,7 @@ class PinGuard extends React.Component {
       <React.Fragment>
         {this.props.children}
         {this.state.showPin ? (
-          <PinWrapper>
-            <PinAuth onSuccess={this.handlePinSuccess} />
-          </PinWrapper>
+          <PinAuth onSuccess={this.handlePinSuccess} />
         ) : null}
         {this.props.showTimeout ? (
           <PinTimeout start={this.state.last} duration={this.props.timeout} />

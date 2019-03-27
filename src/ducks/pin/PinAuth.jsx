@@ -162,7 +162,7 @@ class PinAuth extends React.Component {
     )
 
     return (
-      <React.Fragment>
+      <PinWrapper className={success ? styles['PinWrapper--success'] : null}>
         <FingerprintButton
           onSuccess={this.handleFingerprintSuccess}
           onError={this.handleFingerprintError}
@@ -186,7 +186,7 @@ class PinAuth extends React.Component {
           value={pinValue}
           onChange={this.handleEnteredPin}
         />
-      </React.Fragment>
+      </PinWrapper>
     )
   }
 
