@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from 'react'
 import { flowRight as compose, get, sumBy, set, debounce } from 'lodash'
 
-import { queryConnect, withMutations } from 'cozy-client'
+import { queryConnect, withMutations, withClient } from 'cozy-client'
 import flag from 'cozy-flags'
 import { groupsConn, settingsConn, triggersConn, accountsConn } from 'doctypes'
 import cx from 'classnames'
@@ -28,6 +28,8 @@ import { getPanelsState } from './helpers'
 import BarTheme from 'ducks/mobile/BarTheme'
 import { filterByAccounts } from 'ducks/filters'
 
+const INTERVAL_DURATION = 5000
+
 class Balance extends PureComponent {
   constructor(props) {
     super(props)
@@ -42,6 +44,11 @@ class Balance extends PureComponent {
       leading: false,
       trailing: true
     }).bind(this)
+
+    this.fetchTriggers = this.fetchTriggers.bind(this)
+    this.fetchAccounts = this.fetchAccounts.bind(this)
+    this.fetchTriggersIntervalId = null
+    this.fetchAccountsIntervalId = null
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -131,6 +138,51 @@ class Balance extends PureComponent {
     })
   }
 
+  fetchTriggers() {
+    const client = this.props.client
+    client.query(triggersConn.query(client))
+  }
+
+  startFetchTriggersInterval() {
+    if (!this.fetchTriggersIntervalId) {
+      this.fetchTriggersIntervalId = setInterval(
+        this.fetchTriggers,
+        INTERVAL_DURATION
+      )
+    }
+  }
+
+  stopFetchTriggersInterval() {
+    if (this.fetchTriggersIntervalId) {
+      clearInterval(this.fetchTriggersIntervalId)
+    }
+  }
+
+  fetchAccounts() {
+    const client = this.props.client
+    client.query(accountsConn.query(client))
+  }
+
+  startFetchAccountsInterval() {
+    if (!this.fetchAccountsIntervalId) {
+      this.fetchAccountsIntervalId = setInterval(
+        this.fetchAccounts,
+        INTERVAL_DURATION
+      )
+    }
+  }
+
+  stopFetchAccountsInterval() {
+    if (this.fetchAccountsIntervalId) {
+      clearInterval(this.fetchAccountsIntervalId)
+    }
+  }
+
+  componentWillUnmount() {
+    this.stopFetchTriggersInterval()
+    this.stopFetchAccountsInterval()
+  }
+
   render() {
     const {
       accounts: accountsCollection,
@@ -181,11 +233,17 @@ class Balance extends PureComponent {
       }
 
       if (konnectorSlugs.length > 0) {
+        this.stopFetchTriggersInterval()
+        this.startFetchAccountsInterval()
         return <AccountsImporting konnectorSlugs={konnectorSlugs} />
       }
 
+      this.stopFetchAccountsInterval()
+      this.startFetchTriggersInterval()
       return <NoAccount />
     }
+    this.stopFetchAccountsInterval()
+    this.stopFetchTriggersInterval()
 
     const groups = [...groupsCollection.data, ...buildVirtualGroups(accounts)]
 
@@ -257,5 +315,6 @@ export default compose(
     settings: settingsConn,
     triggers: triggersConn
   }),
+  withClient,
   withMutations()
 )(Balance)
