@@ -62,6 +62,11 @@ class PinAuth extends React.Component {
       success: false
     }
     this.dots = React.createRef()
+
+    this.clearPinWithAnimation = debounce(this.clearPinWithAnimation, 100, {
+      leading: false,
+      trailing: true
+    })
   }
 
   handleFingerprintSuccess() {
@@ -120,14 +125,12 @@ class PinAuth extends React.Component {
   }
 
   async handleBadAttempt() {
-    setTimeout(() => {
-      this.clearPin()
-    }, 200)
+    this.clearPinWithAnimation()
     this.setState({ attempt: this.state.attempt + 1 })
   }
 
   /* Cleans PIN animatedly */
-  clearPin() {
+  clearPinWithAnimation() {
     const pinValue = this.state.pinValue
     if (pinValue !== '') {
       this.cleaning = true
@@ -135,10 +138,7 @@ class PinAuth extends React.Component {
         {
           pinValue: pinValue.substr(0, pinValue.length - 1)
         },
-        debounce(this.clearPin.bind(this), 100, {
-          leading: false,
-          trailing: true
-        })
+        this.clearPinWithAnimation
       )
     } else {
       this.cleaning = false
