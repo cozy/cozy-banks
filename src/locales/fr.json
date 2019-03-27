@@ -485,9 +485,9 @@
 
   "Pin": {
     "enter-pin-restricted-area": "Merci d'entrer votre code pin courant pour accéder à cette fonctionnalité",
-    "please-enter-pin": "Entrez un nouveau code de sécurité",
+    "please-enter-pin": "Choisir un code PIN",
     "please-enter-your-pin": "Entrez votre code de sécurité",
-    "please-repeat-pin": "Merci de répeter ce code",
+    "please-repeat-pin": "Confirmez le code PIN",
     "errors": {
       "different-pins": "Les deux codes sont différents, merci de recommencer."
     },
@@ -499,6 +499,7 @@
     "settings": {
       "toggle-title": "Code PIN",
       "toggle-description": "Bloquera votre application avec un code pin lors d'un changement d'application ou après 1m d'inactivité."
-    }
+    },
+    "fingerprint-text": "Ou votre empreinte digitale"
   }
 }

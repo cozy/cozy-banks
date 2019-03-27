@@ -1,10 +1,11 @@
 /* global Fingerprint */
 import React from 'react'
 
-class FingerprintButton extends React.PureComponent {
+class WithFingerprint extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {}
+    this.showFingerprintAuth = this.showFingerprintAuth.bind(this)
   }
 
   componentDidMount() {
@@ -16,8 +17,8 @@ class FingerprintButton extends React.PureComponent {
       return
     }
     Fingerprint.isAvailable(
-      () => {
-        this.showFingerprintAuth()
+      method => {
+        this.setState({ method })
       },
       () => {}
     )
@@ -43,8 +44,8 @@ class FingerprintButton extends React.PureComponent {
   }
 
   render() {
-    return null
+    return this.props.children(this.state.method, this.showFingerprintAuth)
   }
 }
 
-export default FingerprintButton
+export default WithFingerprint

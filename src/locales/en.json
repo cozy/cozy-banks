@@ -546,6 +546,7 @@
     "settings": {
       "toggle-title": "PIN code",
       "toggle-description": "Will lock your app when switching apps or after 1m of inactivity."
-    }
+    },
+    "fingerprint-text": "Or your fingerprint"
   }
 }

@@ -10,17 +10,19 @@ import Alerter from 'cozy-ui/react/Alerter'
 import { translate } from 'cozy-ui/react/I18n'
 import Icon from 'cozy-ui/react/Icon'
 import { withBreakpoints } from 'cozy-ui/react'
+import { Media, Bd, Img } from 'cozy-ui/react/Media'
 
 import styles from 'ducks/pin/styles.styl'
 import PinWrapper from 'ducks/pin/PinWrapper'
 import PinKeyboard from 'ducks/pin/PinKeyboard'
-import FingerprintButton from 'ducks/pin/FingerprintButton'
+import WithFingerprint from 'ducks/pin/WithFingerprint'
 import { pinSetting } from 'ducks/pin/queries'
 import PinButton from 'ducks/pin/PinButton'
 import { PIN_MAX_LENGTH, MAX_ATTEMPT } from 'ducks/pin/constants'
 import { onLogout } from 'ducks/mobile/utils'
 import lock from 'assets/icons/icon-lock.svg'
 import openLock from 'assets/icons/icon-lock-open.svg'
+import fingerprint from 'assets/icons/icon-fingerprint.svg'
 
 const AttemptCount_ = ({ t, current, max }) => {
   return (
@@ -150,7 +152,7 @@ class PinAuth extends React.Component {
     } = this.props
     const { attempt, pinValue, success } = this.state
     const topMessage = (
-      <div>
+      <React.Fragment>
         {largeEnough ? (
           <Icon
             icon={success ? openLock : lock}
@@ -160,16 +162,31 @@ class PinAuth extends React.Component {
         ) : null}
         <br />
         {this.props.message || t('Pin.please-enter-your-pin')}
-      </div>
+        <WithFingerprint
+          onSuccess={this.handleFingerprintSuccess}
+          onError={this.handleFingerprintError}
+          onCancel={this.handleFingerprintCancel}
+        >
+          {(method, promptFinger) => {
+            return method ? (
+              <Media
+                style={{ display: 'inline-flex' }}
+                onClick={promptFinger}
+                className={styles['Pin__FingerprintText'] + ' u-mv-half'}
+              >
+                <Img className="u-pr-half">
+                  <Icon size="1.5rem" icon={fingerprint} />
+                </Img>
+                <Bd>{t('Pin.fingerprint-text')}</Bd>
+              </Media>
+            ) : null
+          }}
+        </WithFingerprint>
+      </React.Fragment>
     )
 
     return (
       <PinWrapper className={success ? styles['PinWrapper--success'] : null}>
-        <FingerprintButton
-          onSuccess={this.handleFingerprintSuccess}
-          onError={this.handleFingerprintError}
-          onCancel={this.handleFingerprintCancel}
-        />
         <PinKeyboard
           dotsRef={this.handleDotsNode}
           leftButton={
