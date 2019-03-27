@@ -1,7 +1,17 @@
 import React from 'react'
 
+const saveScroll = node => {
+  let scrollLeft = node.scrollLeft
+  let scrollTop = node.scrollTop
+  return () => {
+    node.scrollTo(scrollLeft, scrollTop)
+  }
+}
+
 class LockedBody extends React.Component {
   componentDidMount() {
+    this.restoreScroll = saveScroll(document.body)
+
     const sheetNode = document.createElement('style')
     document.head.appendChild(sheetNode)
     sheetNode.sheet.insertRule(
@@ -13,6 +23,7 @@ class LockedBody extends React.Component {
 
   componentWillUnmount() {
     document.head.removeChild(this.sheetNode)
+    this.restoreScroll()
   }
 
   render() {

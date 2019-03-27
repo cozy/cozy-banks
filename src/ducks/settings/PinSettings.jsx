@@ -14,14 +14,6 @@ import { pinSetting } from 'ducks/pin/queries'
 
 console.clear()
 
-const saveScroll = () => {
-  let scrollLeft = document.body.scrollLeft
-  let scrollTop = document.body.scrollTop
-  return () => {
-    document.body.scrollTo(scrollLeft, scrollTop)
-  }
-}
-
 class PinSettings extends React.Component {
   state = {
     togglingOn: false,
@@ -44,7 +36,6 @@ class PinSettings extends React.Component {
 
   handleToggle() {
     const pinDoc = this.getPinDoc()
-    this.restoreScroll = saveScroll(document.body)
     if (pinDoc && pinDoc.pin) {
       this.setState({ togglingOff: true })
     } else {
@@ -54,7 +45,10 @@ class PinSettings extends React.Component {
 
   handleTogglingOffCancel() {
     this.setState({ togglingOff: false })
-    this.restoreScroll()
+  }
+
+  handlePinSaved() {
+    this.setState({ togglingOn: false })
   }
 
   handlePinDeactivated() {
@@ -62,18 +56,11 @@ class PinSettings extends React.Component {
     if (pinDoc && pinDoc.pin) {
       this.props.saveDocument({ ...pinDoc, pin: null })
       this.setState({ togglingOff: false })
-      this.restoreScroll()
     }
   }
 
   handleExit() {
     this.setState({ togglingOn: false })
-    this.restoreScroll = saveScroll(document.body)
-  }
-
-  handlePinSaved() {
-    this.setState({ togglingOn: false })
-    this.restoreScroll = saveScroll(document.body)
   }
 
   render() {
