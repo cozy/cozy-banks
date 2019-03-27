@@ -35,6 +35,16 @@ class PinGuard extends React.Component {
     document.removeEventListener('pause', this.handlePause)
   }
 
+  componentDidUpdate(prevProps) {
+    console.warn(
+      'update',
+      this.props.pinSetting.data !== prevProps.pinSetting.data
+    )
+    if (this.props.pinSetting.data !== prevProps.pinSetting.data) {
+      this.resetTimeout()
+    }
+  }
+
   handlePause() {
     this.setState({ showPin: true })
   }
@@ -44,6 +54,10 @@ class PinGuard extends React.Component {
   }
 
   handleInteraction() {
+    this.resetTimeout()
+  }
+
+  resetTimeout() {
     this.setState({ last: Date.now() })
     clearTimeout(this.timeout)
     this.timeout = setTimeout(() => {
