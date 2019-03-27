@@ -10,6 +10,7 @@ import { queryConnect } from 'cozy-client'
 import Alerter from 'cozy-ui/react/Alerter'
 import { translate } from 'cozy-ui/react/I18n'
 import Icon from 'cozy-ui/react/Icon'
+import { withBreakpoints } from 'cozy-ui/react'
 
 import styles from 'ducks/pin/styles.styl'
 import PinWrapper from 'ducks/pin/PinWrapper'
@@ -150,12 +151,20 @@ class PinAuth extends React.Component {
   }
 
   render() {
-    const { t } = this.props
+    const {
+      t,
+      breakpoints: { largeEnough }
+    } = this.props
     const { attempt, pinValue, success } = this.state
-
     const topMessage = (
       <div>
-        <Icon icon={success ? openLock : lock} size="4rem" className="u-mb-1" />
+        {largeEnough ? (
+          <Icon
+            icon={success ? openLock : lock}
+            size="4rem"
+            className="u-mb-1"
+          />
+        ) : null}
         <br />
         {this.props.message || t('Pin.please-enter-your-pin')}
       </div>
@@ -201,6 +210,9 @@ class PinAuth extends React.Component {
 }
 
 export default compose(
+  withBreakpoints({
+    largeEnough: [320]
+  }),
   connect(),
   translate(),
   withRouter,
