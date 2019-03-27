@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import compose from 'lodash/flowRight'
 import debounce from 'lodash/debounce'
@@ -20,7 +19,6 @@ import { pinSetting } from 'ducks/pin/queries'
 import PinButton from 'ducks/pin/PinButton'
 import { PIN_MAX_LENGTH, MAX_ATTEMPT } from 'ducks/pin/constants'
 import { onLogout } from 'ducks/mobile/utils'
-import { shake } from 'utils/effects'
 import lock from 'assets/icons/icon-lock.svg'
 import openLock from 'assets/icons/icon-lock-open.svg'
 
@@ -55,6 +53,7 @@ class PinAuth extends React.Component {
     this.handleEnteredPin = this.handleEnteredPin.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
     this.handleBadAttempt = this.handleBadAttempt.bind(this)
+
     this.state = {
       attempt: 0,
       pinValue: '',
@@ -118,13 +117,7 @@ class PinAuth extends React.Component {
     }
   }
 
-  async shakeDots() {
-    const node = ReactDOM.findDOMNode(this.dots.current)
-    shake(node)
-  }
-
   async handleBadAttempt() {
-    await this.shakeDots()
     setTimeout(() => {
       this.clearPin()
     }, 200)
@@ -178,7 +171,7 @@ class PinAuth extends React.Component {
           onCancel={this.handleFingerprintCancel}
         />
         <PinKeyboard
-          dotsRef={this.dots}
+          dotsRef={this.handleDotsNode}
           leftButton={
             this.props.leftButton || (
               <PinButton isText onClick={this.handleLogout}>
@@ -192,6 +185,7 @@ class PinAuth extends React.Component {
               <AttemptCount max={this.props.maxAttempt} current={attempt} />
             ) : null
           }
+          shake={attempt}
           value={pinValue}
           onChange={this.handleEnteredPin}
         />

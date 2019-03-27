@@ -8,6 +8,7 @@ import styles from 'ducks/pin/styles'
 import PinButton from 'ducks/pin/PinButton'
 import { PIN_MAX_LENGTH } from 'ducks/pin/constants'
 import backText from 'assets/icons/icon-back-text.svg'
+import { shake } from 'utils/effects'
 
 const invisible = {
   opacity: 0
@@ -20,7 +21,7 @@ class Dots extends React.Component {
   render() {
     const props = this.props
     return (
-      <div className={styles['Pin__dots']}>
+      <div ref={props.domRef} className={styles['Pin__dots']}>
         {range(1, props.max + 1).map(i => (
           <span className={styles['Pin__dot']} key={i}>
             {i <= props.value.length ? '●' : '_'}
@@ -46,6 +47,14 @@ class PinKeyboard extends React.PureComponent {
     this.handleConfirm = this.handleConfirm.bind(this)
     this.handleClickNumber = this.handleClickNumber.bind(this)
     this.handleRemoveCharacter = this.handleRemoveCharacter.bind(this)
+    this.handleDotsRef = this.handleDotsRef.bind(this)
+  }
+
+  componentDidUpdate(prevProps) {
+    const { shake } = this.props
+    if (shake !== prevProps.shake && shake) {
+      this.shakeDots()
+    }
   }
 
   state = {
@@ -79,6 +88,16 @@ class PinKeyboard extends React.PureComponent {
     }
   }
 
+  handleDotsRef(node) {
+    this.dotsNode = node
+  }
+
+  shakeDots() {
+    if (this.dotsNode) {
+      shake(this.dotsNode)
+    }
+  }
+
   render() {
     const { topMessage, bottomMessage } = this.props
     const value = this.getValue()
@@ -87,7 +106,7 @@ class PinKeyboard extends React.PureComponent {
         <div className={styles.PinKeyboard__top}>
           <div className={styles.PinKeyboard__topMessage}>{topMessage}</div>
           <Dots
-            ref={this.props.dotsRef}
+            domRef={this.handleDotsRef}
             max={this.props.pinMaxLength}
             value={value}
           />
