@@ -18,25 +18,25 @@ import styles from 'ducks/pin/styles.styl'
 import { PIN_MAX_LENGTH } from 'ducks/pin/constants'
 import fingerprint from 'assets/icons/icon-fingerprint.svg'
 
+const FullwidthButton = props => <Button {...props} className="u-m-0 u-w-100" />
+
 const FingerprintChoice = translate()(({ t, onChoice }) => {
   return (
     <div className={styles.Pin__FingerprintChoice}>
       <div className={styles.Pin__FingerprintChoice__top}>
-        <Icon size="4rem" icon={fingerprint} />
+        <Icon className="u-mb-1" size="3rem" icon={fingerprint} />
         <br />
         {t('Pin.use-fingerprint-question')}
         <br />
       </div>
       <div style={{ flexGrow: 0 }}>
-        <Button
-          style={{ width: '100%' }}
+        <FullwidthButton
           theme="secondary"
           label="yes"
           onClick={onChoice.bind(null, true)}
         />
         <br />
-        <Button
-          style={{ width: '100%' }}
+        <FullwidthButton
           theme="primary"
           label="no"
           onClick={onChoice.bind(null, false)}

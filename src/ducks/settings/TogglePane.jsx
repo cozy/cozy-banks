@@ -4,7 +4,7 @@ import styles from './TogglePane.styl'
 
 class TogglePane extends React.PureComponent {
   render() {
-    return <div className="u-pb-2-half">{this.props.children}</div>
+    return <div className="u-pb-1-half">{this.props.children}</div>
   }
 }
 

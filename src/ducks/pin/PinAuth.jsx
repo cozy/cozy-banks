@@ -70,6 +70,7 @@ class PinAuth extends React.Component {
   }
 
   handleFingerprintSuccess() {
+    this.setState({ success: true, pinValue: '******' })
     this.props.onSuccess()
   }
 
@@ -158,7 +159,7 @@ class PinAuth extends React.Component {
         {largeEnough ? (
           <Icon
             icon={success ? openLock : lock}
-            size="4rem"
+            size="3rem"
             className="u-mb-1"
           />
         ) : null}

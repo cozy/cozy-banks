@@ -156,7 +156,7 @@ class _RowMobile extends React.PureComponent {
 
     return (
       <List.Row onRef={onRef} {...rowRest}>
-        <Media className="u-full-width">
+        <Media className="u-w-100">
           <Img
             className="u-clickable u-mr-half"
             title={t(

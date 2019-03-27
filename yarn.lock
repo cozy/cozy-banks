@@ -4721,10 +4721,10 @@ cozy-stack-client@^6.18.0:
     mime-types "2.1.20"
     qs "6.6.0"
 
-cozy-ui@19.15.1:
-  version "19.15.1"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-19.15.1.tgz#b123a7b14f9baa84468f66acda272437da53527c"
-  integrity sha512-tzlMSeIEdpX4A0AbXu0zc+CeJUWffyxKZTSo89iMsnmhx0HfHfKOeiYk21WkkNvWDiDhUP+Lszpt0VmB9qgtIQ==
+cozy-ui@19.17.0:
+  version "19.17.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-19.17.0.tgz#3e253282af351a8f605f24c16c927aecb3214694"
+  integrity sha512-3QMQxSPRKPdpdQ6BP6PMX32rRmRY6N2kY60jvhD/vQmT1nMJEIQlDNwk7ZqYb2+jInOf6nydv6sY5fUZJ/fl/A==
   dependencies:
     "@babel/runtime" "^7.3.4"
     body-scroll-lock "^2.5.8"
@@ -13998,13 +13998,6 @@ pouchdb-adapter-cordova-sqlite@2.0.5:
   integrity sha512-K7eIQzFYfuYOo4Nwn8r96Pq01t5mPOppO+n31U7IM/fPJTIGS/juJyNYYY9ePrlrz8icHEDl35cgHLMq40xFyA==
   dependencies:
     pouchdb-adapter-websql-core "^6.4.3"
-
-"pouchdb-adapter-cordova-sqlite@git+https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a":
-  version "2.0.2"
-  uid f3ee23009b70209c611435d57491aa77fb88802a
-  resolved "git+https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a"
-  dependencies:
-    pouchdb-adapter-websql-core "^6.1.1"
 
 "pouchdb-adapter-cordova-sqlite@https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a":
   version "2.0.2"
