@@ -534,7 +534,7 @@
     "enter-pin-restricted-area": "Please enter pin to enter restricted area",
     "please-enter-pin": "Please enter a new pin",
     "please-enter-your-pin": "Please enter your pin",
-    "please-repeat-pin": "Please repeat the code.",
+    "please-repeat-pin": "Please repeat the pin",
     "errors": {
       "different-pins": "The two codes are different, please retry."
     },

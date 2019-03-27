@@ -485,9 +485,9 @@
 
   "Pin": {
     "enter-pin-restricted-area": "Merci d'entrer votre code pin courant pour accéder à cette fonctionnalité",
-    "please-enter-pin": "Merci de saisir un nouveau code de sécurité",
-    "please-enter-your-pin": "Merci de saisir votre code de sécurité",
-    "please-repeat-pin": "Merci de répeter ce code.",
+    "please-enter-pin": "Entrez un nouveau code de sécurité",
+    "please-enter-your-pin": "Entrez votre code de sécurité",
+    "please-repeat-pin": "Merci de répeter ce code",
     "errors": {
       "different-pins": "Les deux codes sont différents, merci de recommencer."
     },
