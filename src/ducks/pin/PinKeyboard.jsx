@@ -17,20 +17,17 @@ const invisible = {
 /**
  * Shows a value as Dots
  */
-class Dots extends React.Component {
-  render() {
-    const props = this.props
-    return (
-      <div ref={props.domRef} className={styles['Pin__dots']}>
-        {range(1, props.max + 1).map(i => (
-          <span className={styles['Pin__dot']} key={i}>
-            {i <= props.value.length ? '●' : '_'}
-          </span>
-        ))}
-      </div>
-    )
-  }
-}
+const Dots = React.forwardRef(function Dots({ max, value }, ref) {
+  return (
+    <div ref={ref} className={styles['Pin__dots']}>
+      {range(1, max + 1).map(i => (
+        <span className={styles['Pin__dot']} key={i}>
+          {i <= value.length ? '●' : '_'}
+        </span>
+      ))}
+    </div>
+  )
+})
 
 Dots.propTypes = {
   value: PropTypes.string.isRequired
@@ -47,7 +44,7 @@ class PinKeyboard extends React.PureComponent {
     this.handleConfirm = this.handleConfirm.bind(this)
     this.handleClickNumber = this.handleClickNumber.bind(this)
     this.handleRemoveCharacter = this.handleRemoveCharacter.bind(this)
-    this.handleDotsRef = this.handleDotsRef.bind(this)
+    this.dotsRef = React.createRef()
   }
 
   componentDidUpdate(prevProps) {
@@ -88,13 +85,9 @@ class PinKeyboard extends React.PureComponent {
     }
   }
 
-  handleDotsRef(node) {
-    this.dotsNode = node
-  }
-
   shakeDots() {
-    if (this.dotsNode) {
-      shake(this.dotsNode)
+    if (this.dotsRef.current) {
+      shake(this.dotsRef.current)
     }
   }
 
@@ -106,7 +99,7 @@ class PinKeyboard extends React.PureComponent {
         <div className={styles.PinKeyboard__top}>
           <div className={styles.PinKeyboard__topMessage}>{topMessage}</div>
           <Dots
-            domRef={this.handleDotsRef}
+            ref={this.dotsRef}
             max={this.props.pinMaxLength}
             value={value}
           />
