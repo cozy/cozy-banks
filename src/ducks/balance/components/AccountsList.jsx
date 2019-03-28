@@ -2,11 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { sortBy, flowRight as compose } from 'lodash'
 import { withRouter } from 'react-router'
-import withFilteringDoc from 'components/withFilteringDoc'
+import withFilters from 'components/withFilters'
 import AccountRow from './AccountRow'
 import styles from './AccountsList.styl'
 import { getAccountBalance, getAccountType } from 'ducks/account/helpers'
 import AccountRowLoading from 'ducks/balance/components/AccountRowLoading'
+import { getYear } from 'date-fns'
 
 class AccountsList extends React.PureComponent {
   static propTypes = {
@@ -21,7 +22,7 @@ class AccountsList extends React.PureComponent {
   }
 
   goToTransactionsFilteredByDoc = account => () => {
-    const { filterByDoc, router } = this.props
+    const { filterByDoc, addFilterByPeriod, router } = this.props
 
     filterByDoc(account)
 
@@ -29,6 +30,8 @@ class AccountsList extends React.PureComponent {
     const route = isReimbursementsType
       ? '/balances/reimbursements'
       : '/balances/details'
+
+    isReimbursementsType && addFilterByPeriod(getYear(new Date()).toString())
 
     router.push(route)
   }
@@ -62,6 +65,6 @@ class AccountsList extends React.PureComponent {
 }
 
 export default compose(
-  withFilteringDoc,
+  withFilters,
   withRouter
 )(AccountsList)

@@ -15,7 +15,7 @@ import { Caption } from 'cozy-ui/react/Text'
 import { Figure } from 'components/Figure'
 import Switch from 'components/Switch'
 import AccountsList from './AccountsList'
-import withFilteringDoc from 'components/withFilteringDoc'
+import withFilters from 'components/withFilters'
 
 import { getGroupBalance } from '../helpers'
 import styles from './GroupPanel.styl'
@@ -211,7 +211,7 @@ class GroupPanel extends React.PureComponent {
 export const DumbGroupPanel = GroupPanel
 
 export default compose(
-  withFilteringDoc,
+  withFilters,
   withRouter,
   translate()
 )(GroupPanel)
