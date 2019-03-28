@@ -36,6 +36,32 @@ const AttemptCount_ = ({ t, current, max }) => {
 
 const AttemptCount = translate()(AttemptCount_)
 
+const FingerprintParagraph = ({ t, onSuccess, onError, onCancel }) => (
+  <WithFingerprint
+    autoLaunch
+    onSuccess={onSuccess}
+    onError={onError}
+    onCancel={onCancel}
+  >
+    {(method, promptFinger) => {
+      return method ? (
+        <Media
+          style={{ display: 'inline-flex' }}
+          onClick={promptFinger}
+          className={styles['Pin__FingerprintText'] + ' u-mv-half'}
+        >
+          <Img className="u-pb-1-half">
+            <Icon size="4.5rem" icon={fingerprint} />
+          </Img>
+          <Bd>
+            <p>{t('Pin.fingerprint-text')}</p>
+          </Bd>
+        </Media>
+      ) : null
+    }}
+  </WithFingerprint>
+)
+
 /**
  * Show pin keyboard and fingerprint button.
  * Automatically checks if it is the right pin while it is entered.
@@ -167,27 +193,11 @@ class PinAuth extends React.Component {
         ) : null}
         <h2>{this.props.message || t('Pin.please-enter-your-pin')}</h2>
         {pinDoc && pinDoc.fingerprint ? (
-          <WithFingerprint
-            autoLaunch
+          <FingerprintParagraph
             onSuccess={this.handleFingerprintSuccess}
             onError={this.handleFingerprintError}
             onCancel={this.handleFingerprintCancel}
-          >
-            {(method, promptFinger) => {
-              return method ? (
-                <Media
-                  style={{ display: 'inline-flex' }}
-                  onClick={promptFinger}
-                  className={styles['Pin__FingerprintText'] + ' u-mv-half'}
-                >
-                  <Img className="u-pr-half">
-                    <Icon size="1.5rem" icon={fingerprint} />
-                  </Img>
-                  <Bd>{t('Pin.fingerprint-text')}</Bd>
-                </Media>
-              ) : null
-            }}
-          </WithFingerprint>
+          />
         ) : null}
       </React.Fragment>
     )
