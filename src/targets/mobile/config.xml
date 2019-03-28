@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-packageName="io.cozy.banks.mobile" android-versionCode="1000301" ios-CFBundleIdentifier="io.cozy.banks" ios-CFBundleVersion="1.0.3.1" version="1.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-packageName="io.cozy.banks.mobile" android-versionCode="1000403" ios-CFBundleIdentifier="io.cozy.banks" ios-CFBundleVersion="1.0.4.3" version="1.0.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Cozy Banks</name>
     <description>The banking application for Cozy</description>
     <author email="contact@cozycloud.cc" href="https://cozy.io">Cozy Cloud</author>
@@ -11,7 +11,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <preference name="AppendUserAgent" value="io.cozy.banks.mobile-1.0.3" />
+    <preference name="AppendUserAgent" value="io.cozy.banks.mobile-1.0.4" />
     <hook src="scripts/beforePrepare.js" type="before_prepare"/>
     <platform name="android">
         <allow-intent href="market:*" />
@@ -75,6 +75,8 @@
         <resource-file src="keys/ios/GoogleService-Info.plist" />
     </platform>
     <preference name="StatusBarBackgroundColor" value="#95999D" />
+    <engine name="android" spec="7.1.0" />
+    <engine name="ios" spec="4.5.4" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <plugin name="cordova-plugin-statusbar" spec="2.4.2" />
     <plugin name="cordova-plugin-inappbrowser" spec="1.7.1" />
@@ -97,6 +99,4 @@
         <variable name="FACEID_USAGE_DESCRIPTION" value=" " />
     </plugin>
     <plugin name="cordova-blur-app-privacy-screen" spec="https://github.com/lifeofcoding/cordova-blur-app-privacy-screen.git" />
-    <engine name="android" spec="7.1.0" />
-    <engine name="ios" spec="4.5.4" />
 </widget>

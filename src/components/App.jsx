@@ -55,7 +55,7 @@ export default compose(
   // When removing the pin flag, do not forget to replace the exports (uncomment)
   // in ducks/pin/index.browser.jsx so that pin functionality is not included
   // in browsers
-  flag('pin') ? pinGuarded({ showTimeout: true, timeout: 5 * 1000 }) : x => x,
+  flag('pin') ? pinGuarded({}) : x => x,
   queryConnect({ settingsCollection: settingsConn }),
   withRouter
 )(App)

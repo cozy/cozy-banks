@@ -5,6 +5,8 @@ import compose from 'lodash/flowRight'
 import { translate } from 'cozy-ui/react'
 import Alerter from 'cozy-ui/react/Alerter'
 import Spinner from 'cozy-ui/react/Spinner'
+import Icon from 'cozy-ui/react/Icon'
+import Button from 'cozy-ui/react/Button'
 import { queryConnect, withMutations } from 'cozy-client'
 
 import PinKeyboard from 'ducks/pin/PinKeyboard'
@@ -14,6 +16,34 @@ import { pinSetting } from 'ducks/pin/queries'
 import { SETTINGS_DOCTYPE } from 'doctypes'
 import styles from 'ducks/pin/styles.styl'
 import { PIN_MAX_LENGTH } from 'ducks/pin/constants'
+import fingerprint from 'assets/icons/icon-fingerprint.svg'
+
+const FullwidthButton = props => <Button {...props} className="u-m-0 u-w-100" />
+
+const FingerprintChoice = translate()(({ t, onChoice }) => {
+  return (
+    <div className={styles.Pin__FingerprintChoice}>
+      <div className={styles.Pin__FingerprintChoice__top}>
+        <Icon className="u-mb-1-half" size="4.5rem" icon={fingerprint} />
+        <h2>{t('Pin.use-fingerprint.title')}</h2>
+        <p>{t('Pin.use-fingerprint.description')}</p>
+      </div>
+      <div className="u-flex-grow-0">
+        <FullwidthButton
+          theme="secondary"
+          label={t('Pin.use-fingerprint.yes')}
+          onClick={onChoice.bind(null, true)}
+        />
+        <br />
+        <FullwidthButton
+          theme="primary"
+          label={t('Pin.use-fingerprint.no')}
+          onClick={onChoice.bind(null, false)}
+        />
+      </div>
+    </div>
+  )
+})
 
 /**
  * Handles pin edit
@@ -32,6 +62,7 @@ class PinEditView extends React.Component {
   constructor(props) {
     super(props)
     this.handleKeyboardChange = this.handleKeyboardChange.bind(this)
+    this.handleChooseFingerprint = this.handleChooseFingerprint.bind(this)
   }
 
   componentDidMount() {
@@ -42,31 +73,21 @@ class PinEditView extends React.Component {
     document.removeEventListener('back', this.props.onExit)
   }
 
-  async savePin(pinValue) {
+  async savePin(pinValue, fingerprint) {
     const doc = this.props.pinSetting.data
     await this.props.saveDocument({
       _type: SETTINGS_DOCTYPE,
       _id: 'pin',
       ...doc,
-      pin: pinValue
+      pin: pinValue,
+      fingerprint
     })
   }
 
   async checkToSave(pin) {
-    const t = this.props.t
     if (this.state.pin1) {
       if (this.state.pin1 === pin) {
-        this.setState({ saving: true })
-        try {
-          await this.savePin(pin)
-        } catch (e) {
-          Alerter.error(t('Pin.error-save'))
-          throw e
-        } finally {
-          this.setState({ saving: false })
-        }
-        Alerter.success(t('Pin.successfully-changed'))
-        this.props.onSaved()
+        this.setState({ chosenPin: pin })
       } else {
         this.setState({ error: 'different-pins', pin1: null, value: '' })
       }
@@ -82,6 +103,20 @@ class PinEditView extends React.Component {
     }
   }
 
+  async handleChooseFingerprint(fingerprintChoice) {
+    const t = this.props.t
+    try {
+      await this.savePin(this.state.chosenPin, fingerprintChoice)
+    } catch (e) {
+      Alerter.error(t('Pin.error-save'))
+      throw e
+    } finally {
+      this.setState({ saving: false })
+    }
+    Alerter.success(t('Pin.successfully-changed'))
+    this.props.onSaved()
+  }
+
   render() {
     const { t } = this.props
     if (this.state.saving) {
@@ -91,28 +126,37 @@ class PinEditView extends React.Component {
         </PinWrapper>
       )
     }
-    const topMessage = !this.state.pin1
-      ? t('Pin.please-enter-pin')
-      : t('Pin.please-repeat-pin')
+    const topMessage = (
+      <h2>
+        {!this.state.pin1
+          ? t('Pin.please-enter-pin')
+          : t('Pin.please-repeat-pin')}
+      </h2>
+    )
 
     const bottomMessage = this.state.error ? (
       <div className={styles['Pin__error']}>
         {t(`Pin.errors.${this.state.error}`)}
       </div>
     ) : null
+
     return (
       <PinWrapper>
-        <PinKeyboard
-          leftButton={
-            <PinButton isText onClick={this.props.onExit}>
-              {t('General.back')}
-            </PinButton>
-          }
-          topMessage={topMessage}
-          bottomMessage={bottomMessage}
-          value={this.state.value}
-          onChange={this.handleKeyboardChange}
-        />
+        {!this.state.chosenPin ? (
+          <PinKeyboard
+            leftButton={
+              <PinButton isText onClick={this.props.onExit}>
+                {t('General.back')}
+              </PinButton>
+            }
+            topMessage={topMessage}
+            bottomMessage={bottomMessage}
+            value={this.state.value}
+            onChange={this.handleKeyboardChange}
+          />
+        ) : (
+          <FingerprintChoice onChoice={this.handleChooseFingerprint} />
+        )}
       </PinWrapper>
     )
   }

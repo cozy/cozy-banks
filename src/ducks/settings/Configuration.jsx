@@ -103,7 +103,7 @@ class Configuration extends React.PureComponent {
 
         {flag('pin') ? (
           <TogglePane>
-            <TogglePaneTitle>{t('Settings.security-title')}</TogglePaneTitle>
+            <TogglePaneTitle>{t('Settings.security')}</TogglePaneTitle>
             <PinSettings />
           </TogglePane>
         ) : null}

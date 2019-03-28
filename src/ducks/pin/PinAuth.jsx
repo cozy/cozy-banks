@@ -20,19 +20,46 @@ import { pinSetting } from 'ducks/pin/queries'
 import PinButton from 'ducks/pin/PinButton'
 import { PIN_MAX_LENGTH, MAX_ATTEMPT } from 'ducks/pin/constants'
 import { onLogout } from 'ducks/mobile/utils'
-import lock from 'assets/icons/icon-lock.svg'
 import openLock from 'assets/icons/icon-lock-open.svg'
 import fingerprint from 'assets/icons/icon-fingerprint.svg'
 
 const AttemptCount_ = ({ t, current, max }) => {
   return (
     <div className={styles['Pin__error']}>
-      {t('Pin.attempt-count', { current, max })}
+      {/* Have an unbreakspace so that the error when appearing does not // make
+      the previous content jump */}
+      {current > 0 ? t('Pin.attempt-count', { current, max }) : '\u00a0'}
     </div>
   )
 }
 
 const AttemptCount = translate()(AttemptCount_)
+
+const FingerprintParagraph = ({ t, onSuccess, onError, onCancel }) => (
+  <WithFingerprint
+    autoLaunch
+    onSuccess={onSuccess}
+    onError={onError}
+    onCancel={onCancel}
+  >
+    {(method, promptFinger) => {
+      return method ? (
+        <Media
+          style={{ display: 'inline-flex' }}
+          onClick={promptFinger}
+          className={styles['Pin__FingerprintText'] + ' u-mv-half'}
+        >
+          <Img className="u-pb-1-half">
+            <Icon size="4.5rem" icon={fingerprint} />
+          </Img>
+          <Bd>
+            <p>{t('Pin.fingerprint-text')}</p>
+          </Bd>
+        </Media>
+      ) : null
+    }}
+  </WithFingerprint>
+)
 
 /**
  * Show pin keyboard and fingerprint button.
@@ -70,6 +97,7 @@ class PinAuth extends React.Component {
   }
 
   handleFingerprintSuccess() {
+    this.setState({ success: true, pinValue: '******' })
     this.props.onSuccess()
   }
 
@@ -148,47 +176,34 @@ class PinAuth extends React.Component {
   render() {
     const {
       t,
-      breakpoints: { largeEnough }
+      breakpoints: { largeEnough },
+      pinSetting
     } = this.props
     const { attempt, pinValue, success } = this.state
+    const pinDoc = pinSetting.data
     const topMessage = (
       <React.Fragment>
         {largeEnough ? (
           <Icon
-            icon={success ? openLock : lock}
+            icon={success ? openLock : 'lock'}
             size="4rem"
             className="u-mb-1"
           />
         ) : null}
-        <br />
-        {this.props.message || t('Pin.please-enter-your-pin')}
-        <WithFingerprint
-          onSuccess={this.handleFingerprintSuccess}
-          onError={this.handleFingerprintError}
-          onCancel={this.handleFingerprintCancel}
-        >
-          {(method, promptFinger) => {
-            return method ? (
-              <Media
-                style={{ display: 'inline-flex' }}
-                onClick={promptFinger}
-                className={styles['Pin__FingerprintText'] + ' u-mv-half'}
-              >
-                <Img className="u-pr-half">
-                  <Icon size="1.5rem" icon={fingerprint} />
-                </Img>
-                <Bd>{t('Pin.fingerprint-text')}</Bd>
-              </Media>
-            ) : null
-          }}
-        </WithFingerprint>
+        <h2>{this.props.message || t('Pin.please-enter-your-pin')}</h2>
+        {pinDoc && pinDoc.fingerprint ? (
+          <FingerprintParagraph
+            onSuccess={this.handleFingerprintSuccess}
+            onError={this.handleFingerprintError}
+            onCancel={this.handleFingerprintCancel}
+          />
+        ) : null}
       </React.Fragment>
     )
 
     return (
       <PinWrapper className={success ? styles['PinWrapper--success'] : null}>
         <PinKeyboard
-          dotsRef={this.handleDotsNode}
           leftButton={
             this.props.leftButton || (
               <PinButton isText onClick={this.handleLogout}>
@@ -198,9 +213,7 @@ class PinAuth extends React.Component {
           }
           topMessage={topMessage}
           bottomMessage={
-            attempt ? (
-              <AttemptCount max={this.props.maxAttempt} current={attempt} />
-            ) : null
+            <AttemptCount max={this.props.maxAttempt} current={attempt} />
           }
           shake={attempt}
           value={pinValue}

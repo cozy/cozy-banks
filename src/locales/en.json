@@ -422,7 +422,7 @@
     "accounts": "Accounts",
     "groups": "Groups",
     "configuration": "Configuration",
-    "security-title": "Security",
+    "security": "Security",
     "app": "App",
     "debug": "Debug"
   },
@@ -545,8 +545,14 @@
     "attempt-count": "%{current}/%{max} attempts",
     "settings": {
       "toggle-title": "PIN code",
-      "toggle-description": "Will lock your app when switching apps or after 1m of inactivity."
+      "toggle-description": "Lock my app with a pin code or a fingerprint. Unlocking will be required after 1 minute of inactivity."
     },
-    "fingerprint-text": "Or your fingerprint"
+    "fingerprint-text": "Or your fingerprint",
+    "use-fingerprint": {
+      "yes": "Use my fingerprint",
+      "no": "No, thanks",
+      "title": "Activate fingerprint unlocking",
+      "description": "Do you want to use your smartphone's fingerprint security to unlock the app?"
+    }
   }
 }
