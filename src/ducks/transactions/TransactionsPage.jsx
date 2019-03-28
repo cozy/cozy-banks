@@ -27,7 +27,6 @@ import {
   getFilteredTransactions
 } from 'ducks/filters'
 
-import { getAppUrlById } from 'selectors'
 import { getCategoryIdFromName } from 'ducks/categories/categoriesMap'
 import { getDate, getDisplayDate } from 'ducks/transactions/helpers'
 import { getCategoryId } from 'ducks/categories/helpers'
@@ -37,7 +36,6 @@ import { TransactionsWithSelection } from './Transactions'
 import TransactionHeader from './TransactionHeader'
 import {
   ACCOUNT_DOCTYPE,
-  appsConn,
   accountsConn,
   groupsConn,
   triggersConn,
@@ -56,6 +54,7 @@ import {
 } from 'ducks/balance/helpers'
 import BarTheme from 'ducks/mobile/BarTheme'
 import flag from 'cozy-flags'
+import withAppsUrls from 'ducks/apps/withAppsUrls'
 
 const { BarRight } = cozy.bar
 
@@ -357,7 +356,6 @@ const mapStateToProps = (state, ownProps) => {
   const enhancedState = {
     ...state,
     accounts: ownProps.accounts,
-    apps: ownProps.apps,
     groups: ownProps.groups,
     transactions: ownProps.transactions,
     triggers: ownProps.triggers
@@ -368,16 +366,6 @@ const mapStateToProps = (state, ownProps) => {
     : getTransactionsFilteredByAccount(enhancedState)
 
   return {
-    urls: {
-      // this keys are used on Transactions.jsx to:
-      // - find transaction label
-      // - display appName in translate `Transactions.actions.app`
-      MAIF: getAppUrlById(enhancedState, 'io.cozy.apps/maif'),
-      HEALTH: getAppUrlById(enhancedState, 'io.cozy.apps/sante'),
-      EDF: getAppUrlById(enhancedState, 'io.cozy.apps/edf'),
-      COLLECT: getAppUrlById(enhancedState, 'io.cozy.apps/collect'),
-      HOME: getAppUrlById(enhancedState, 'io.cozy.apps/home')
-    },
     accountIds: getFilteredAccountIds(enhancedState),
     filteringDoc: getFilteringDoc(state),
     filteredAccounts: getFilteredAccounts(enhancedState),
@@ -399,13 +387,13 @@ UnpluggedTransactionsPage.propTypes = {
 
 const ConnectedTransactionsPage = compose(
   queryConnect({
-    apps: appsConn,
     accounts: accountsConn,
     groups: groupsConn,
     triggers: triggersConn,
     transactions: transactionsConn
   }),
-  connect(mapStateToProps)
+  connect(mapStateToProps),
+  withAppsUrls
 )(UnpluggedTransactionsPage)
 
 export const TransactionsPageWithBackButton = props => (
