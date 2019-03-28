@@ -10,6 +10,7 @@ import cx from 'classnames'
 import BackButton from 'components/BackButton'
 import { ConnectedSelectDates } from 'components/SelectDates'
 import HealthReimbursements from 'ducks/reimbursements/HealthReimbursements'
+import styles from 'ducks/reimbursements/ReimbursementsPage.styl'
 
 function getSubComponent(filteringDoc) {
   switch (filteringDoc._id) {
@@ -42,8 +43,10 @@ class RawReimbursementsPage extends React.Component {
               'u-pb-half': isMobile
             })}
           >
-            <BackButton theme="primary" arrow />
-            <PageTitle color="primary">{t('Reimbursements.title')}</PageTitle>
+            <div className={styles.ReimbursementsPage__title}>
+              <BackButton theme="primary" arrow />
+              <PageTitle color="primary">{t('Reimbursements.title')}</PageTitle>
+            </div>
             <ConnectedSelectDates showFullYear color="primary" />
           </Padded>
         </Header>
