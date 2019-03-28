@@ -20,7 +20,6 @@ import { pinSetting } from 'ducks/pin/queries'
 import PinButton from 'ducks/pin/PinButton'
 import { PIN_MAX_LENGTH, MAX_ATTEMPT } from 'ducks/pin/constants'
 import { onLogout } from 'ducks/mobile/utils'
-import lock from 'assets/icons/icon-lock.svg'
 import openLock from 'assets/icons/icon-lock-open.svg'
 import fingerprint from 'assets/icons/icon-fingerprint.svg'
 
@@ -186,8 +185,8 @@ class PinAuth extends React.Component {
       <React.Fragment>
         {largeEnough ? (
           <Icon
-            icon={success ? openLock : lock}
-            size="3rem"
+            icon={success ? openLock : 'lock'}
+            size="4rem"
             className="u-mb-1"
           />
         ) : null}
