@@ -127,9 +127,13 @@ class PinEditView extends React.Component {
         </PinWrapper>
       )
     }
-    const topMessage = !this.state.pin1
-      ? t('Pin.please-enter-pin')
-      : t('Pin.please-repeat-pin')
+    const topMessage = (
+      <h2>
+        {!this.state.pin1
+          ? t('Pin.please-enter-pin')
+          : t('Pin.please-repeat-pin')}
+      </h2>
+    )
 
     const bottomMessage = this.state.error ? (
       <div className={styles['Pin__error']}>

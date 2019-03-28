@@ -40,11 +40,7 @@
   padding 1rem
 
 .PinKeyboard__topMessage
-    font-size 1.5rem
     font-weight bold
-
-.PinKeyboard__topMessage, .PinKeyboard__bottomMessage
-    padding 1rem
 
 .PinKeyboard__keyboard
     flex-grow 0
@@ -72,6 +68,18 @@
     bottom 0
     left 0
     right 0
+    
+.PinWrapper p
+    opacity 0.64
+    font-size 1rem
+    font-weight normal
+    opacity 0.85
+    margin 0
+
+.PinWrapper h2
+    font-size 1.5rem
+    font-weight bold
+    margin 1rem 0
 
 .PinWrapper--success
     background var(--emerald)
@@ -94,11 +102,6 @@
     border-radius .5rem
     display inline-block
 
-.Pin__FingerprintText
-    font-size 1rem
-    font-weight normal
-    opacity 0.85
-    
 .Pin__FingerprintChoice
     display flex
     flex-direction column
@@ -107,7 +110,6 @@
     box-sizing border-box
     
 .Pin__FingerprintChoice__top
-    font-size 1.5rem
     display flex
     flex-direction column
     flex-grow 1

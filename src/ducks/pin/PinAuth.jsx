@@ -163,8 +163,7 @@ class PinAuth extends React.Component {
             className="u-mb-1"
           />
         ) : null}
-        <br />
-        {this.props.message || t('Pin.please-enter-your-pin')}
+        <h2>{this.props.message || t('Pin.please-enter-your-pin')}</h2>
         {pinDoc && pinDoc.fingerprint ? (
           <WithFingerprint
             autoLaunch
