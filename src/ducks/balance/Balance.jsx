@@ -165,11 +165,11 @@ class Balance extends PureComponent {
     client.query(triggersConn.query(client))
   }
 
-  startFetchTriggersInterval() {
+  startFetchTriggers() {
     this.startRealtime(TRIGGER_DOCTYPE, this.fetchTriggers)
   }
 
-  stopFetchTriggersInterval() {
+  stopFetchTriggers() {
     this.stopRealtime(TRIGGER_DOCTYPE, this.fetchTriggers)
   }
 
@@ -178,17 +178,17 @@ class Balance extends PureComponent {
     client.query(accountsConn.query(client))
   }
 
-  startFetchAccountsInterval() {
+  startFetchAccounts() {
     this.startRealtime(ACCOUNT_DOCTYPE, this.fetchAccounts)
   }
 
-  stopFetchAccountsInterval() {
+  stopFetchAccounts() {
     this.stopRealtime(ACCOUNT_DOCTYPE, this.fetchAccounts)
   }
 
   componentWillUnmount() {
-    this.stopFetchTriggersInterval()
-    this.stopFetchAccountsInterval()
+    this.stopFetchTriggers()
+    this.stopFetchAccounts()
   }
 
   render() {
@@ -241,17 +241,17 @@ class Balance extends PureComponent {
       }
 
       if (konnectorSlugs.length > 0) {
-        this.stopFetchTriggersInterval()
-        this.startFetchAccountsInterval()
+        this.stopFetchTriggers()
+        this.startFetchAccounts()
         return <AccountsImporting konnectorSlugs={konnectorSlugs} />
       }
 
-      this.stopFetchAccountsInterval()
-      this.startFetchTriggersInterval()
+      this.stopFetchAccounts()
+      this.startFetchTriggers()
       return <NoAccount />
     }
-    this.stopFetchAccountsInterval()
-    this.stopFetchTriggersInterval()
+    this.stopFetchAccounts()
+    this.stopFetchTriggers()
 
     const groups = [...groupsCollection.data, ...buildVirtualGroups(accounts)]
 
