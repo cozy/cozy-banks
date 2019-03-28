@@ -17,7 +17,8 @@ const BalanceHeader = ({
   accountsBalance,
   accounts,
   subtitleParams,
-  onClickBalance
+  onClickBalance,
+  transactionsCollection
 }) => {
   const titlePaddedClass = isMobile ? 'u-p-0' : 'u-pb-0'
   const titleColor = isMobile ? 'primary' : 'default'
@@ -37,7 +38,9 @@ const BalanceHeader = ({
         subtitle={subtitle}
         onClickBalance={onClickBalance}
       />
-      {accounts && <History accounts={accounts} />}
+      {accounts && (
+        <History accounts={accounts} transactions={transactionsCollection} />
+      )}
       <KonnectorUpdateInfo />
     </Header>
   )

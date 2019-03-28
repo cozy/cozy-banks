@@ -9,7 +9,8 @@ import {
   triggersConn,
   accountsConn,
   ACCOUNT_DOCTYPE,
-  TRIGGER_DOCTYPE
+  TRIGGER_DOCTYPE,
+  transactionsConn
 } from 'doctypes'
 import cx from 'classnames'
 
@@ -209,7 +210,8 @@ class Balance extends PureComponent {
       accounts: accountsCollection,
       groups: groupsCollection,
       settings: settingsCollection,
-      triggers: triggersCollection
+      triggers: triggersCollection,
+      transactions: transactionsCollection
     } = this.props
 
     if (isCollectionLoading(settingsCollection)) {
@@ -220,13 +222,14 @@ class Balance extends PureComponent {
     const collections = [
       accountsCollection,
       groupsCollection,
-      triggersCollection
+      triggersCollection,
+      transactionsCollection
     ]
     if (collections.some(isCollectionLoading)) {
       return (
         <Fragment>
           <BarTheme theme="primary" />
-          <BalanceHeader />
+          <BalanceHeader transactionsCollection={transactionsCollection} />
           <Loading />
         </Fragment>
       )
@@ -291,6 +294,7 @@ class Balance extends PureComponent {
           accountsBalance={accountsBalance}
           accounts={checkedAccounts}
           subtitleParams={subtitleParams}
+          transactionsCollection={transactionsCollection}
         />
         <Padded
           className={cx({
@@ -334,7 +338,8 @@ export default compose(
     accounts: accountsConn,
     groups: groupsConn,
     settings: settingsConn,
-    triggers: triggersConn
+    triggers: triggersConn,
+    transactions: transactionsConn
   }),
   withClient,
   withMutations()
