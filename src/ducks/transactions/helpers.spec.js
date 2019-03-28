@@ -1,5 +1,5 @@
 import configureStore from 'store/configureStore'
-import { hydrateTransaction, getDate } from './helpers'
+import { hydrateTransaction, getDate, getReimbursedAmount } from './helpers'
 import { BILLS_DOCTYPE } from 'doctypes'
 
 const fakeCozyClient = {
@@ -72,5 +72,24 @@ describe('getDate', () => {
     const transaction = { date: '2019-01-31T00:00:00Z' }
 
     expect(getDate(transaction)).toBe('2019-01-31')
+  })
+})
+
+describe('getReimbursedAmount', () => {
+  it('should throw if the given transaction is not an expense', () => {
+    expect(() => getReimbursedAmount({ amount: 10 })).toThrow()
+  })
+
+  it('should return the good reimbursed amount', () => {
+    const reimbursedExpense = {
+      amount: -10,
+      reimbursements: {
+        target: {
+          reimbursements: [{ amount: 2 }, { amount: 8 }]
+        }
+      }
+    }
+
+    expect(getReimbursedAmount(reimbursedExpense)).toBe(10)
   })
 })

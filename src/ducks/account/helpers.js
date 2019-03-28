@@ -1,5 +1,5 @@
 import { get, sumBy } from 'lodash'
-import { getDate } from 'ducks/transactions/helpers'
+import { getDate, getReimbursedAmount } from 'ducks/transactions/helpers'
 import { isHealthExpense } from 'ducks/categories/helpers'
 import { differenceInCalendarDays, isThisYear } from 'date-fns'
 import flag from 'cozy-flags'
@@ -129,15 +129,7 @@ export const buildHealthReimbursementsVirtualAccount = transactions => {
   })
 
   const balance = sumBy(healthExpenses, expense => {
-    const reimbursements = get(expense, 'reimbursements.target.reimbursements')
-    const hasReimbursements = reimbursements && reimbursements.length > 0
-
-    if (!hasReimbursements) {
-      return -expense.amount
-    }
-
-    const reimbursedAmount = sumBy(reimbursements, r => r.amount)
-
+    const reimbursedAmount = getReimbursedAmount(expense)
     return -expense.amount - reimbursedAmount
   })
 
