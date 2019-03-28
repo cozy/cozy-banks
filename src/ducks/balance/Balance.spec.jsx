@@ -1,5 +1,6 @@
 /* global shallow */
 
+import getClient from 'test/client'
 const React = require('react')
 const { DumbBalance } = require('./Balance')
 const debounce = require('lodash/debounce')
@@ -31,6 +32,7 @@ describe('Balance page', () => {
         saveDocument={saveDocumentMock}
         filterByAccounts={filterByAccounts}
         router={router}
+        client={getClient()}
       />
     )
     instance = root.instance()

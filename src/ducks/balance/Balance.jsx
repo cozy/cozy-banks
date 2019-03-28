@@ -1,12 +1,14 @@
 import React, { PureComponent, Fragment } from 'react'
 import { flowRight as compose, get, sumBy, set, debounce } from 'lodash'
 
-import { queryConnect, withMutations } from 'cozy-client'
+import { queryConnect, withMutations, withClient } from 'cozy-client'
 import flag from 'cozy-flags'
 import {
+  groupsConn,
+  settingsConn,
+  triggersConn,
+  accountsConn,
   ACCOUNT_DOCTYPE,
-  GROUP_DOCTYPE,
-  SETTINGS_DOCTYPE,
   TRIGGER_DOCTYPE
 } from 'doctypes'
 import cx from 'classnames'
@@ -32,6 +34,7 @@ import BalancePanels from './BalancePanels'
 import { getPanelsState } from './helpers'
 import BarTheme from 'ducks/mobile/BarTheme'
 import { filterByAccounts } from 'ducks/filters'
+import { CozyRealtime } from 'cozy-realtime'
 
 class Balance extends PureComponent {
   constructor(props) {
@@ -47,6 +50,14 @@ class Balance extends PureComponent {
       leading: false,
       trailing: true
     }).bind(this)
+
+    this.fetchTriggers = this.fetchTriggers.bind(this)
+    this.fetchAccounts = this.fetchAccounts.bind(this)
+    this.realtimeStatus = {
+      ACCOUNT_DOCTYPE: false,
+      TRIGGER_DOCTYPE: false
+    }
+    this.realtime = null
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -136,6 +147,63 @@ class Balance extends PureComponent {
     })
   }
 
+  createRealtime() {
+    if (!this.realtime) {
+      const cozyClient = this.props.client
+      // TODO: Update cozy-realtime to do only:
+      //   this.realtime = new CozyRealtime({ cozyClient })
+      const url = cozyClient.client.uri
+      const token = cozyClient.client.token.token
+      this.realtime = new CozyRealtime({ url, token })
+    }
+  }
+
+  startRealtime(type, callback) {
+    this.createRealtime()
+    if (!this.realtimeStatus[type]) {
+      this.realtime.subscribe({ type }, 'created', callback)
+      this.realtimeStatus[type] = true
+    }
+  }
+
+  stopRealtime(type, callback) {
+    if (this.realtimeStatus[type]) {
+      this.realtime.unsubscribe({ type }, 'created', callback)
+      this.realtimeStatus[type] = false
+    }
+  }
+
+  fetchTriggers() {
+    const client = this.props.client
+    client.query(triggersConn.query(client))
+  }
+
+  startFetchTriggers() {
+    this.startRealtime(TRIGGER_DOCTYPE, this.fetchTriggers)
+  }
+
+  stopFetchTriggers() {
+    this.stopRealtime(TRIGGER_DOCTYPE, this.fetchTriggers)
+  }
+
+  fetchAccounts() {
+    const client = this.props.client
+    client.query(accountsConn.query(client))
+  }
+
+  startFetchAccounts() {
+    this.startRealtime(ACCOUNT_DOCTYPE, this.fetchAccounts)
+  }
+
+  stopFetchAccounts() {
+    this.stopRealtime(ACCOUNT_DOCTYPE, this.fetchAccounts)
+  }
+
+  componentWillUnmount() {
+    this.stopFetchTriggers()
+    this.stopFetchAccounts()
+  }
+
   render() {
     const {
       accounts: accountsCollection,
@@ -186,11 +254,17 @@ class Balance extends PureComponent {
       }
 
       if (konnectorSlugs.length > 0) {
+        this.stopFetchTriggers()
+        this.startFetchAccounts()
         return <AccountsImporting konnectorSlugs={konnectorSlugs} />
       }
 
+      this.stopFetchAccounts()
+      this.startFetchTriggers()
       return <NoAccount />
     }
+    this.stopFetchAccounts()
+    this.stopFetchTriggers()
 
     const groups = [...groupsCollection.data, ...buildVirtualGroups(accounts)]
 
@@ -257,10 +331,11 @@ export default compose(
     actionCreators
   ),
   queryConnect({
-    accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' },
-    groups: { query: client => client.all(GROUP_DOCTYPE), as: 'groups' },
-    settings: { query: client => client.all(SETTINGS_DOCTYPE), as: 'settings' },
-    triggers: { query: client => client.all(TRIGGER_DOCTYPE), as: 'triggers' }
+    accounts: accountsConn,
+    groups: groupsConn,
+    settings: settingsConn,
+    triggers: triggersConn
   }),
+  withClient,
   withMutations()
 )(Balance)
