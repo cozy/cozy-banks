@@ -204,7 +204,6 @@ class PinAuth extends React.Component {
     return (
       <PinWrapper className={success ? styles['PinWrapper--success'] : null}>
         <PinKeyboard
-          dotsRef={this.handleDotsNode}
           leftButton={
             this.props.leftButton || (
               <PinButton isText onClick={this.handleLogout}>
