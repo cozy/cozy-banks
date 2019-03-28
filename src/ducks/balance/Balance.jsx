@@ -53,7 +53,11 @@ class Balance extends PureComponent {
 
     this.fetchTriggers = this.fetchTriggers.bind(this)
     this.fetchAccounts = this.fetchAccounts.bind(this)
-    this.realtime = []
+    this.realtimeStatus = {
+      ACCOUNT_DOCTYPE: false,
+      TRIGGER_DOCTYPE: false
+    }
+    this.realtime = null
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -143,20 +147,29 @@ class Balance extends PureComponent {
     })
   }
 
-  startRealtime(type, callback) {
-    if (!this.realtime[type]) {
+  createRealtime() {
+    if (!this.realtime) {
       const cozyClient = this.props.client
+      // TODO: Update cozy-realtime to do only:
+      //   this.realtime = new CozyRealtime({ cozyClient })
       const url = cozyClient.client.uri
       const token = cozyClient.client.token.token
-      this.realtime[type] = new CozyRealtime({ url, token })
-      this.realtime[type].subscribe({ type }, 'created', callback)
+      this.realtime = new CozyRealtime({ url, token })
+    }
+  }
+
+  startRealtime(type, callback) {
+    this.createRealtime()
+    if (!this.realtimeStatus[type]) {
+      this.realtime.subscribe({ type }, 'created', callback)
+      this.realtimeStatus[type] = true
     }
   }
 
   stopRealtime(type, callback) {
-    if (this.realtime[type]) {
-      this.realtime[type].unsubscribe({ type }, 'created', callback)
-      delete this.realtime[type]
+    if (this.realtimeStatus[type]) {
+      this.realtime.unsubscribe({ type }, 'created', callback)
+      this.realtimeStatus[type] = false
     }
   }
 
