@@ -1,5 +1,10 @@
 import configureStore from 'store/configureStore'
-import { hydrateTransaction, getDate, getReimbursedAmount } from './helpers'
+import {
+  hydrateTransaction,
+  getDate,
+  getReimbursedAmount,
+  isFullyReimbursed
+} from './helpers'
 import { BILLS_DOCTYPE } from 'doctypes'
 
 const fakeCozyClient = {
@@ -91,5 +96,23 @@ describe('getReimbursedAmount', () => {
     }
 
     expect(getReimbursedAmount(reimbursedExpense)).toBe(10)
+  })
+})
+
+describe('isFullyReimbursed', () => {
+  it('should return true if the expense is fully reimbursed, false otherwise', () => {
+    const reimbursedExpense = {
+      amount: -10,
+      reimbursements: {
+        target: {
+          reimbursements: [{ amount: 2 }, { amount: 8 }]
+        }
+      }
+    }
+
+    const expense = { amount: -10 }
+
+    expect(isFullyReimbursed(reimbursedExpense)).toBe(true)
+    expect(isFullyReimbursed(expense)).toBe(false)
   })
 })

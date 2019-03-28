@@ -560,6 +560,8 @@
   },
 
   "Reimbursements": {
-    "title": "Reimbursements"
+    "title": "Reimbursements",
+    "awaiting": "awaiting",
+    "alreadyReimbursed": "Already reimbursed"
   }
 }

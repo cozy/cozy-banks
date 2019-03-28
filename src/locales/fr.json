@@ -513,6 +513,8 @@
   },
 
   "Reimbursements": {
-    "title": "Remboursements"
+    "title": "Remboursements",
+    "awaiting": "en attente",
+    "alreadyReimbursed": "Déjà remboursés"
   }
 }
