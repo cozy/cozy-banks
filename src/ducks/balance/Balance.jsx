@@ -8,7 +8,8 @@ import {
   settingsConn,
   triggersConn,
   accountsConn,
-  ACCOUNT_DOCTYPE
+  ACCOUNT_DOCTYPE,
+  TRIGGER_DOCTYPE
 } from 'doctypes'
 import cx from 'classnames'
 
@@ -35,8 +36,6 @@ import BarTheme from 'ducks/mobile/BarTheme'
 import { filterByAccounts } from 'ducks/filters'
 import { CozyRealtime } from 'cozy-realtime'
 
-const INTERVAL_DURATION = 5000
-
 class Balance extends PureComponent {
   constructor(props) {
     super(props)
@@ -54,7 +53,7 @@ class Balance extends PureComponent {
 
     this.fetchTriggers = this.fetchTriggers.bind(this)
     this.fetchAccounts = this.fetchAccounts.bind(this)
-    this.fetchTriggersIntervalId = null
+    this.triggersRealtime = null
     this.accountsRealtime = null
   }
 
@@ -151,17 +150,27 @@ class Balance extends PureComponent {
   }
 
   startFetchTriggersInterval() {
-    if (!this.fetchTriggersIntervalId) {
-      this.fetchTriggersIntervalId = setInterval(
-        this.fetchTriggers,
-        INTERVAL_DURATION
+    if (!this.triggersRealtime) {
+      const cozyClient = this.props.client
+      const url = cozyClient.client.uri
+      const token = cozyClient.client.token.token
+      this.triggersRealtime = new CozyRealtime({ url, token })
+      this.triggersRealtime.subscribe(
+        { type: TRIGGER_DOCTYPE },
+        'created',
+        this.fetchTriggers
       )
     }
   }
 
   stopFetchTriggersInterval() {
-    if (this.fetchTriggersIntervalId) {
-      clearInterval(this.fetchTriggersIntervalId)
+    if (this.triggersRealtime) {
+      this.triggersRealtime.unsubscribe(
+        { type: TRIGGER_DOCTYPE },
+        'created',
+        this.fetchTriggers
+      )
+      this.triggersRealtime = undefined
     }
   }
 
