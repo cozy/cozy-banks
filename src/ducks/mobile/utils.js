@@ -20,12 +20,13 @@ export async function resetClient(cozyClient) {
   }
 }
 
-export const initBar = (url, accessToken, options = {}) => {
+export const initBar = (client, url, accessToken, options = {}) => {
   cozy.bar.init({
     appNamePrefix: 'Cozy',
     appName: 'Banks',
     appEditor: 'Cozy',
     appSlug: 'banks',
+    cozyClient: client,
     cozyURL: url,
     token: accessToken,
     iconPath: require('targets/favicons/icon-banks.svg'),

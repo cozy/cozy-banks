@@ -57,7 +57,7 @@ const withAuth = Wrapped => {
         this.onAuthentication()
         const url = this.props.url
         setURLContext(url)
-        initBar(url, this.props.accessToken, {
+        initBar(this.props.client, url, this.props.accessToken, {
           onLogOut: this.onLogout
         })
       }
