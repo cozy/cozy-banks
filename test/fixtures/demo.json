@@ -1054,14 +1054,7 @@
       "currency": "€",
       "amount": -70,
       "date": "{{ freshDate '2018-10-11T00:00:00Z' }}",
-      "_id": "4bbfe1f845ad1231c7d07aa3e04f7a6a",
-      "reimbursements": [
-        {
-          "amount": 70,
-          "operationId": "op.sante.isa2",
-          "vendor": "Harmonie"
-        }
-      ]
+      "_id": "4bbfe1f845ad1231c7d07aa3e04f7a6a"
     },
     {
       "demo": false,
