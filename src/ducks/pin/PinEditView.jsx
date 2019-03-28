@@ -28,7 +28,7 @@ const FingerprintChoice = translate()(({ t, onChoice }) => {
         <h2>{t('Pin.use-fingerprint.title')}</h2>
         <p>{t('Pin.use-fingerprint.description')}</p>
       </div>
-      <div style={{ flexGrow: 0 }}>
+      <div className="u-flex-grow-0">
         <FullwidthButton
           theme="secondary"
           label={t('Pin.use-fingerprint.yes')}

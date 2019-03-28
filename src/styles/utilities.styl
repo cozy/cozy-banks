@@ -27,6 +27,7 @@
         text-align center
 
     // To remove when utility classes in cozy-ui work correctly
+    // https://github.com/cozy/cozy-ui/issues/866
     .u-w-100
         width 100%
 
@@ -38,8 +39,14 @@
       content '\00a0'
       display block
       position absolute
-      
+
     // To remove when utility classes in cozy-ui work properly
+    // https://github.com/cozy/cozy-ui/issues/866
+    .u-flex-grow-0
+      flex-grow 0
+
+    // To remove when utility classes in cozy-ui work properly
+    // https://github.com/cozy/cozy-ui/issues/866
     .u-shake
         // For animation with keyframes to work with cssmodules and :global,
         // it was necessary to add :local. A bit weird...
