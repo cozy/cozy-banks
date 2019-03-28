@@ -501,6 +501,11 @@
       "toggle-description": "Bloquera votre application avec un code pin lors d'un changement d'application ou après 1m d'inactivité."
     },
     "fingerprint-text": "Ou votre empreinte digitale",
-    "use-fingerprint-question": "Souhaitez-vous utiliser votre empreinte digitale pour débloquer Banks ?"
+    "use-fingerprint": {
+      "yes": "Utiliser mon empreinte",
+      "no": "Non, merci",
+      "title": "Activer le déverrouillage par empreinte digitale",
+      "description": "Souhaitez vous utiliser la sécurité par empreinte proposée par votre téléphone ?"
+    }
   }
 }

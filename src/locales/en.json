@@ -548,6 +548,11 @@
       "toggle-description": "Will lock your app when switching apps or after 1m of inactivity."
     },
     "fingerprint-text": "Or your fingerprint",
-    "use-fingerprint-question": "Do you want to use your fingerprint to unlock Banks ?"
+    "use-fingerprint": {
+      "yes": "Use my fingerprint",
+      "no": "No, thanks",
+      "title": "Activate fingerprint unlocking",
+      "description": "Do you want to use your smartphone's fingerprint security to unlock the app?"
+    }
   }
 }

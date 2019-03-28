@@ -24,21 +24,20 @@ const FingerprintChoice = translate()(({ t, onChoice }) => {
   return (
     <div className={styles.Pin__FingerprintChoice}>
       <div className={styles.Pin__FingerprintChoice__top}>
-        <Icon className="u-mb-1" size="3rem" icon={fingerprint} />
-        <br />
-        {t('Pin.use-fingerprint-question')}
-        <br />
+        <Icon className="u-mb-1-half" size="4.5rem" icon={fingerprint} />
+        <h2>{t('Pin.use-fingerprint.title')}</h2>
+        <p>{t('Pin.use-fingerprint.description')}</p>
       </div>
       <div style={{ flexGrow: 0 }}>
         <FullwidthButton
           theme="secondary"
-          label="yes"
+          label={t('Pin.use-fingerprint.yes')}
           onClick={onChoice.bind(null, true)}
         />
         <br />
         <FullwidthButton
           theme="primary"
-          label="no"
+          label={t('Pin.use-fingerprint.no')}
           onClick={onChoice.bind(null, false)}
         />
       </div>
@@ -140,6 +139,7 @@ class PinEditView extends React.Component {
         {t(`Pin.errors.${this.state.error}`)}
       </div>
     ) : null
+
     return (
       <PinWrapper>
         {!this.state.chosenPin ? (
