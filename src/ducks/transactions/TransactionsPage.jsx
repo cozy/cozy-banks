@@ -9,14 +9,7 @@ import PropTypes from 'prop-types'
 import { isMobileApp } from 'cozy-device-helper'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 
-import {
-  flowRight as compose,
-  isEqual,
-  includes,
-  findIndex,
-  uniq,
-  maxBy
-} from 'lodash'
+import { flowRight as compose, isEqual, findIndex, uniq, maxBy } from 'lodash'
 import { getFilteredAccounts, getFilteringDoc } from 'ducks/filters'
 import BarBalance from 'components/BarBalance'
 import { Padded } from 'components/Spacing'
@@ -42,8 +35,6 @@ import {
   transactionsConn
 } from 'doctypes'
 
-import { getBrands } from 'ducks/brandDictionary'
-import { getKonnectorFromTrigger } from 'utils/triggers'
 import { queryConnect } from 'cozy-client'
 import { isCollectionLoading } from 'ducks/client/utils'
 import { findNearestMonth } from './helpers'
@@ -55,6 +46,7 @@ import {
 import BarTheme from 'ducks/mobile/BarTheme'
 import flag from 'cozy-flags'
 import withAppsUrls from 'ducks/apps/withAppsUrls'
+import withBrands from 'ducks/brandDictionary/withBrands'
 
 const { BarRight } = cozy.bar
 
@@ -112,19 +104,6 @@ class TransactionsPage extends Component {
     if (prevProps.filteringDoc !== this.props.filteringDoc) {
       this.handleChangeMonth(this.state.currentMonth)
     }
-  }
-
-  getInstalledKonnectorsSlugs() {
-    const { triggers } = this.props
-
-    if (isCollectionLoading(triggers)) {
-      return []
-    }
-
-    return triggers.data
-      .filter(trigger => trigger.worker === 'konnector')
-      .map(getKonnectorFromTrigger)
-      .filter(Boolean)
   }
 
   handleChangeTopmostTransaction(transaction) {
@@ -226,16 +205,6 @@ class TransactionsPage extends Component {
     )
   }
 
-  getBrands() {
-    const installedKonnectorsSlugs = this.getInstalledKonnectorsSlugs()
-    const brands = getBrands().map(brand => ({
-      ...brand,
-      hasTrigger: includes(installedKonnectorsSlugs, brand.konnectorSlug)
-    }))
-
-    return brands
-  }
-
   getFilteringOnAccount = () => {
     const { filteringDoc } = this.props
 
@@ -244,7 +213,7 @@ class TransactionsPage extends Component {
 
   displayTransactions() {
     const { limitMin, limitMax, infiniteScrollTop } = this.state
-    const { t, urls } = this.props
+    const { t, urls, brands } = this.props
     const transactions = this.getTransactions()
 
     if (transactions.length === 0) {
@@ -266,7 +235,7 @@ class TransactionsPage extends Component {
         onScroll={this.checkToActivateTopInfiniteScroll}
         transactions={transactions}
         urls={urls}
-        brands={this.getBrands()}
+        brands={brands}
         filteringOnAccount={this.getFilteringOnAccount()}
         manualLoadMore={isMobileApp()}
       />
@@ -357,8 +326,7 @@ const mapStateToProps = (state, ownProps) => {
     ...state,
     accounts: ownProps.accounts,
     groups: ownProps.groups,
-    transactions: ownProps.transactions,
-    triggers: ownProps.triggers
+    transactions: ownProps.transactions
   }
 
   const filteredTransactions = onSubcategory(ownProps)
@@ -393,7 +361,8 @@ const ConnectedTransactionsPage = compose(
     transactions: transactionsConn
   }),
   connect(mapStateToProps),
-  withAppsUrls
+  withAppsUrls,
+  withBrands
 )(UnpluggedTransactionsPage)
 
 export const TransactionsPageWithBackButton = props => (
