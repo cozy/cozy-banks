@@ -11,11 +11,12 @@ import {
   getAccountUpdatedAt,
   getAccountInstitutionLabel,
   getAccountInstitutionSlug,
-  getAccountBalance
+  getAccountBalance,
+  isHealthReimbursementsAccount
 } from 'ducks/account/helpers'
 import styles from './AccountRow.styl'
 import KonnectorIcon from 'ducks/balance/components/KonnectorIcon'
-import healthIcon from 'assets/icons/icon-health.svg'
+import { HealthReimbursementsIcon } from 'ducks/balance/components/HealthReimbursementsIcon'
 
 class AccountRow extends React.PureComponent {
   static propTypes = {
@@ -52,6 +53,7 @@ class AccountRow extends React.PureComponent {
     const hasAlert = account.balance < 0
     const institutionSlug = getAccountInstitutionSlug(account)
     const accountLabel = getAccountLabel(account)
+    const isHealthReimbursements = isHealthReimbursementsAccount(account)
 
     return (
       <li
@@ -66,9 +68,7 @@ class AccountRow extends React.PureComponent {
         <div className={styles.AccountRow__column}>
           <div className={styles.AccountRow__logo}>
             {institutionSlug && <KonnectorIcon slug={institutionSlug} />}
-            {account._id === 'health_reimbursements' && (
-              <Icon icon={healthIcon} size={24} />
-            )}
+            {isHealthReimbursements && <HealthReimbursementsIcon />}
           </div>
           <div className={styles.AccountRow__labelUpdatedAtWrapper}>
             <div className={styles.AccountRow__label}>

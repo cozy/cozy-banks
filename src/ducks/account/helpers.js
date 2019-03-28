@@ -156,3 +156,7 @@ export const buildHealthReimbursementsVirtualAccount = transactions => {
 export const buildVirtualAccounts = transactions => {
   return [buildHealthReimbursementsVirtualAccount(transactions)]
 }
+
+export const isHealthReimbursementsAccount = account => {
+  return account._id === 'health_reimbursements' && account.virtual
+}
