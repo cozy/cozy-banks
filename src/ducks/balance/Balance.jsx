@@ -26,7 +26,7 @@ import AccountsImporting from 'ducks/balance/components/AccountsImporting'
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import { buildVirtualGroups } from 'ducks/groups/helpers'
 import { isCollectionLoading } from 'ducks/client/utils'
-import { getAccountBalance } from 'ducks/account/helpers'
+import { getAccountBalance, buildVirtualAccounts } from 'ducks/account/helpers'
 import { isBankTrigger } from 'utils/triggers'
 
 import styles from 'ducks/balance/Balance.styl'
@@ -62,19 +62,27 @@ class Balance extends PureComponent {
   }
 
   static getDerivedStateFromProps(props, state) {
-    const { groups, accounts, settings: settingsCollection } = props
+    const {
+      groups,
+      accounts,
+      settings: settingsCollection,
+      transactions
+    } = props
 
     const isLoading =
       isCollectionLoading(groups) ||
       isCollectionLoading(accounts) ||
-      isCollectionLoading(settingsCollection)
+      isCollectionLoading(settingsCollection) ||
+      isCollectionLoading(transactions)
 
     if (isLoading) {
       return null
     }
 
+    const virtualAccounts = buildVirtualAccounts(transactions.data)
+    const allAccounts = [...accounts.data, ...virtualAccounts]
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
-    const allGroups = [...groups.data, ...buildVirtualGroups(accounts.data)]
+    const allGroups = [...groups.data, ...buildVirtualGroups(allAccounts)]
     const currentPanelsState = state.panels || settings.panelsState || {}
     const newPanelsState = getPanelsState(allGroups, currentPanelsState)
 
@@ -237,6 +245,9 @@ class Balance extends PureComponent {
 
     const accounts = accountsCollection.data
     const triggers = triggersCollection.data
+    const transactions = transactionsCollection.data
+    const virtualAccounts = buildVirtualAccounts(transactions)
+    const allAccounts = [...accounts, ...virtualAccounts]
 
     if (
       accounts.length === 0 ||
@@ -269,7 +280,10 @@ class Balance extends PureComponent {
     this.stopFetchAccounts()
     this.stopFetchTriggers()
 
-    const groups = [...groupsCollection.data, ...buildVirtualGroups(accounts)]
+    const groups = [
+      ...groupsCollection.data,
+      ...buildVirtualGroups(allAccounts)
+    ]
 
     const balanceLower = get(settings, 'notifications.balanceLower.value')
     const showPanels = flag('balance-panels')
