@@ -53,8 +53,7 @@ class Balance extends PureComponent {
 
     this.fetchTriggers = this.fetchTriggers.bind(this)
     this.fetchAccounts = this.fetchAccounts.bind(this)
-    this.triggersRealtime = null
-    this.accountsRealtime = null
+    this.realtime = []
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -144,34 +143,34 @@ class Balance extends PureComponent {
     })
   }
 
+  startRealtime(type, callback) {
+    if (!this.realtime[type]) {
+      const cozyClient = this.props.client
+      const url = cozyClient.client.uri
+      const token = cozyClient.client.token.token
+      this.realtime[type] = new CozyRealtime({ url, token })
+      this.realtime[type].subscribe({ type }, 'created', callback)
+    }
+  }
+
+  stopRealtime(type, callback) {
+    if (this.realtime[type]) {
+      this.realtime[type].unsubscribe({ type }, 'created', callback)
+      delete this.realtime[type]
+    }
+  }
+
   fetchTriggers() {
     const client = this.props.client
     client.query(triggersConn.query(client))
   }
 
   startFetchTriggersInterval() {
-    if (!this.triggersRealtime) {
-      const cozyClient = this.props.client
-      const url = cozyClient.client.uri
-      const token = cozyClient.client.token.token
-      this.triggersRealtime = new CozyRealtime({ url, token })
-      this.triggersRealtime.subscribe(
-        { type: TRIGGER_DOCTYPE },
-        'created',
-        this.fetchTriggers
-      )
-    }
+    this.startRealtime(TRIGGER_DOCTYPE, this.fetchTriggers)
   }
 
   stopFetchTriggersInterval() {
-    if (this.triggersRealtime) {
-      this.triggersRealtime.unsubscribe(
-        { type: TRIGGER_DOCTYPE },
-        'created',
-        this.fetchTriggers
-      )
-      this.triggersRealtime = undefined
-    }
+    this.stopRealtime(TRIGGER_DOCTYPE, this.fetchTriggers)
   }
 
   fetchAccounts() {
@@ -180,28 +179,11 @@ class Balance extends PureComponent {
   }
 
   startFetchAccountsInterval() {
-    if (!this.accountsRealtime) {
-      const cozyClient = this.props.client
-      const url = cozyClient.client.uri
-      const token = cozyClient.client.token.token
-      this.accountsRealtime = new CozyRealtime({ url, token })
-      this.accountsRealtime.subscribe(
-        { type: ACCOUNT_DOCTYPE },
-        'created',
-        this.fetchAccounts
-      )
-    }
+    this.startRealtime(ACCOUNT_DOCTYPE, this.fetchAccounts)
   }
 
   stopFetchAccountsInterval() {
-    if (this.accountsRealtime) {
-      this.accountsRealtime.unsubscribe(
-        { type: ACCOUNT_DOCTYPE },
-        'created',
-        this.fetchAccounts
-      )
-      this.accountsRealtime = undefined
-    }
+    this.stopRealtime(ACCOUNT_DOCTYPE, this.fetchAccounts)
   }
 
   componentWillUnmount() {
