@@ -3,7 +3,13 @@ import { flowRight as compose, get, sumBy, set, debounce } from 'lodash'
 
 import { queryConnect, withMutations, withClient } from 'cozy-client'
 import flag from 'cozy-flags'
-import { groupsConn, settingsConn, triggersConn, accountsConn } from 'doctypes'
+import {
+  groupsConn,
+  settingsConn,
+  triggersConn,
+  accountsConn,
+  ACCOUNT_DOCTYPE
+} from 'doctypes'
 import cx from 'classnames'
 
 import { connect } from 'react-redux'
@@ -27,6 +33,7 @@ import BalancePanels from './BalancePanels'
 import { getPanelsState } from './helpers'
 import BarTheme from 'ducks/mobile/BarTheme'
 import { filterByAccounts } from 'ducks/filters'
+import { CozyRealtime } from 'cozy-realtime'
 
 const INTERVAL_DURATION = 5000
 
@@ -48,7 +55,7 @@ class Balance extends PureComponent {
     this.fetchTriggers = this.fetchTriggers.bind(this)
     this.fetchAccounts = this.fetchAccounts.bind(this)
     this.fetchTriggersIntervalId = null
-    this.fetchAccountsIntervalId = null
+    this.accountsRealtime = null
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -164,17 +171,27 @@ class Balance extends PureComponent {
   }
 
   startFetchAccountsInterval() {
-    if (!this.fetchAccountsIntervalId) {
-      this.fetchAccountsIntervalId = setInterval(
-        this.fetchAccounts,
-        INTERVAL_DURATION
+    if (!this.accountsRealtime) {
+      const cozyClient = this.props.client
+      const url = cozyClient.client.uri
+      const token = cozyClient.client.token.token
+      this.accountsRealtime = new CozyRealtime({ url, token })
+      this.accountsRealtime.subscribe(
+        { type: ACCOUNT_DOCTYPE },
+        'created',
+        this.fetchAccounts
       )
     }
   }
 
   stopFetchAccountsInterval() {
-    if (this.fetchAccountsIntervalId) {
-      clearInterval(this.fetchAccountsIntervalId)
+    if (this.accountsRealtime) {
+      this.accountsRealtime.unsubscribe(
+        { type: ACCOUNT_DOCTYPE },
+        'created',
+        this.fetchAccounts
+      )
+      this.accountsRealtime = undefined
     }
   }
 
