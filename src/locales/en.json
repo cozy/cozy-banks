@@ -545,7 +545,7 @@
     "attempt-count": "%{current}/%{max} attempts",
     "settings": {
       "toggle-title": "PIN code",
-      "toggle-description": "Will lock your app when switching apps or after 1m of inactivity."
+      "toggle-description": "Lock my app with a pin code or a fingerprint. Unlocking will be required after 1 minute of inactivity."
     },
     "fingerprint-text": "Or your fingerprint",
     "use-fingerprint": {
