@@ -15,6 +15,7 @@ import styles from 'ducks/reimbursements/ReimbursementsPage.styl'
 function getSubComponent(filteringDoc) {
   switch (filteringDoc._id) {
     case 'health_reimbursements':
+    case 'Reimbursements':
       return HealthReimbursements
 
     default:
