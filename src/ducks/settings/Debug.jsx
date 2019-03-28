@@ -3,7 +3,7 @@ import { expireToken } from 'ducks/mobile'
 import { connect } from 'react-redux'
 import Alerter from 'cozy-ui/react/Alerter'
 import Checkbox from 'cozy-ui/react/Checkbox'
-import flag from 'cozy-flags'
+import flag, { FlagSwitcher } from 'cozy-flags'
 
 class DebugSettings extends React.PureComponent {
   constructor(props) {
@@ -52,6 +52,7 @@ class DebugSettings extends React.PureComponent {
           label="Display accounts loading"
           onClick={this.toggleAccountsLoading}
         />
+        <FlagSwitcher.List />
       </div>
     )
   }
