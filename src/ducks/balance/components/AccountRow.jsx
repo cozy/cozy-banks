@@ -51,6 +51,7 @@ class AccountRow extends React.PureComponent {
     const hasWarning = account.balance < warningLimit
     const hasAlert = account.balance < 0
     const institutionSlug = getAccountInstitutionSlug(account)
+    const accountLabel = getAccountLabel(account)
 
     return (
       <li
@@ -71,7 +72,7 @@ class AccountRow extends React.PureComponent {
           </div>
           <div className={styles.AccountRow__labelUpdatedAtWrapper}>
             <div className={styles.AccountRow__label}>
-              {getAccountLabel(account)}
+              {account.virtual ? t(accountLabel) : accountLabel}
             </div>
             <div
               className={cx(styles.AccountRow__updatedAt, {

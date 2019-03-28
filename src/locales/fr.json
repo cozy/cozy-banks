@@ -311,6 +311,9 @@
       "transportation": "Autres : Transports, véhicules",
       "goingOutAndTravel": "Autres : Sorties, voyages",
       "uncategorized": "Autres : A catégoriser"
+    },
+    "virtualAccounts": {
+      "healthReimbursements": "Remb santé en attente"
     }
   },
 
