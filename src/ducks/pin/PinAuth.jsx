@@ -27,7 +27,9 @@ import fingerprint from 'assets/icons/icon-fingerprint.svg'
 const AttemptCount_ = ({ t, current, max }) => {
   return (
     <div className={styles['Pin__error']}>
-      {t('Pin.attempt-count', { current, max })}
+      {/* Have an unbreakspace so that the error when appearing does not // make
+      the previous content jump */}
+      {current > 0 ? t('Pin.attempt-count', { current, max }) : '\u00a0'}
     </div>
   )
 }
@@ -203,9 +205,7 @@ class PinAuth extends React.Component {
           }
           topMessage={topMessage}
           bottomMessage={
-            attempt ? (
-              <AttemptCount max={this.props.maxAttempt} current={attempt} />
-            ) : null
+            <AttemptCount max={this.props.maxAttempt} current={attempt} />
           }
           shake={attempt}
           value={pinValue}
