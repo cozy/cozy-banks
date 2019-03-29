@@ -30,8 +30,8 @@ class RawHealthReimbursements extends Component {
 
     return (
       <>
-        <Padded>
-          <Title>
+        <Padded className="u-pv-0">
+          <Title className={styles.HealthReimbursements__title}>
             <Figure
               symbol="€"
               total={awaitingAmount}
@@ -48,8 +48,10 @@ class RawHealthReimbursements extends Component {
           withScroll={false}
           className={styles.HealthReimbursements__transactionsList}
         />
-        <Padded>
-          <Title>{t('Reimbursements.alreadyReimbursed')}</Title>
+        <Padded className="u-pv-0">
+          <Title className={styles.HealthReimbursements__title}>
+            {t('Reimbursements.alreadyReimbursed')}
+          </Title>
         </Padded>
         <TransactionsWithSelection
           transactions={reimbursedTransactions}
