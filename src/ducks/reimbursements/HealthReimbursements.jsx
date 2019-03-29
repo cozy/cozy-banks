@@ -14,7 +14,7 @@ import { Padded } from 'components/Spacing'
 import { Figure } from 'components/Figure'
 import styles from 'ducks/reimbursements/HealthReimbursements.styl'
 
-class RawHealthReimbursements extends Component {
+class DumbHealthReimbursements extends Component {
   render() {
     const { filteredTransactions, t } = this.props
 
@@ -84,6 +84,6 @@ const HealthReimbursements = compose(
   connect(mapStateToProps),
   withBrands,
   withAppsUrls
-)(RawHealthReimbursements)
+)(DumbHealthReimbursements)
 
 export default HealthReimbursements
