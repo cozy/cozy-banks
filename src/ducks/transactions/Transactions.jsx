@@ -260,14 +260,17 @@ export class TransactionsWithSelection extends React.Component {
   }
 
   render() {
-    const { withScroll, ...rest } = this.props
+    const { withScroll, className, ...rest } = this.props
     const { transactionId } = this.state
     return (
       <div
-        className={cx({
-          [styles.ScrollingElement]: withScroll,
-          'js-scrolling-element': true
-        })}
+        className={cx(
+          {
+            [styles.ScrollingElement]: withScroll
+          },
+          'js-scrolling-element',
+          className
+        )}
       >
         <Transactions selectTransaction={this.selectTransaction} {...rest} />
         {transactionId && (

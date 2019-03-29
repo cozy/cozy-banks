@@ -46,6 +46,7 @@ class RawHealthReimbursements extends Component {
           brands={this.props.brands}
           urls={this.props.urls}
           withScroll={false}
+          className={styles.HealthReimbursements__transactionsList}
         />
         <Padded>
           <Title>{t('Reimbursements.alreadyReimbursed')}</Title>
@@ -55,6 +56,7 @@ class RawHealthReimbursements extends Component {
           brands={this.props.brands}
           urls={this.props.urls}
           withScroll={false}
+          className={styles.HealthReimbursements__transactionsList}
         />
       </>
     )
