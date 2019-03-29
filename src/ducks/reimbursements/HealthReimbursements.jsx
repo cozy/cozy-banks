@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { queryConnect } from 'cozy-client'
 import { transactionsConn } from 'doctypes'
-import { flowRight as compose, sumBy } from 'lodash'
+import { flowRight as compose, sumBy, groupBy } from 'lodash'
 import { getHealthExpensesByPeriod } from 'ducks/filters'
 import { TransactionsWithSelection } from 'ducks/transactions/Transactions'
 import withBrands from 'ducks/brandDictionary/withBrands'
@@ -17,14 +17,10 @@ import styles from 'ducks/reimbursements/HealthReimbursements.styl'
 class DumbHealthReimbursements extends Component {
   render() {
     const { filteredTransactions, t } = this.props
-
-    const reimbursedTransactions = filteredTransactions.filter(
-      isFullyReimbursed
-    )
-
-    const awaitingTransactions = filteredTransactions.filter(
-      t => !isFullyReimbursed(t)
-    )
+    const {
+      true: reimbursedTransactions,
+      false: awaitingTransactions
+    } = groupBy(filteredTransactions, isFullyReimbursed)
 
     const awaitingAmount = sumBy(awaitingTransactions, t => -t.amount)
 
