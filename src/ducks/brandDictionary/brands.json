@@ -227,6 +227,11 @@
     "konnectorSlug": "scaleway"
   },
   {
+    "name": "SFR",
+    "regexp": "\\bsfr\\b",
+    "konnectorSlug": "sfr"
+  },
+  {
     "name": "Showroom Privé",
     "regexp": "\\bshowroomprive\\b",
     "konnectorSlug": "showroomprive"
