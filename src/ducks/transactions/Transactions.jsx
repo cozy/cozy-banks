@@ -243,6 +243,10 @@ const Transactions = compose(
 )(TransactionsDumb)
 
 export class TransactionsWithSelection extends React.Component {
+  static defaultProps = {
+    withScroll: true
+  }
+
   state = {
     transaction: null
   }
@@ -256,16 +260,21 @@ export class TransactionsWithSelection extends React.Component {
   }
 
   render() {
-    const props = this.props
+    const { withScroll, ...rest } = this.props
     const { transactionId } = this.state
     return (
-      <div className={cx(styles.ScrollingElement, 'js-scrolling-element')}>
-        <Transactions selectTransaction={this.selectTransaction} {...props} />
+      <div
+        className={cx({
+          [styles.ScrollingElement]: withScroll,
+          'js-scrolling-element': true
+        })}
+      >
+        <Transactions selectTransaction={this.selectTransaction} {...rest} />
         {transactionId && (
           <TransactionModal
             requestClose={this.unselectTransaction}
             transactionId={transactionId}
-            {...props}
+            {...rest}
           />
         )}
       </div>

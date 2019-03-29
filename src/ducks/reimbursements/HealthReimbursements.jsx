@@ -44,6 +44,7 @@ class RawHealthReimbursements extends Component {
           transactions={awaitingTransactions}
           brands={this.props.brands}
           urls={this.props.urls}
+          withScroll={false}
         />
         <Padded>
           <Title>{t('Reimbursements.alreadyReimbursed')}</Title>
@@ -52,6 +53,7 @@ class RawHealthReimbursements extends Component {
           transactions={reimbursedTransactions}
           brands={this.props.brands}
           urls={this.props.urls}
+          withScroll={false}
         />
       </>
     )
