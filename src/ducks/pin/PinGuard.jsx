@@ -15,22 +15,34 @@ class PinGuard extends React.Component {
     this.state = { last: Date.now() }
     this.handleInteraction = this.handleInteraction.bind(this)
     this.handlePinSuccess = this.handlePinSuccess.bind(this)
+    this.handleResume = this.handleResume.bind(this)
   }
 
   componentDidMount() {
     document.addEventListener('touchstart', this.handleInteraction)
     document.addEventListener('click', this.handleInteraction)
+    document.addEventListener('resume', this.handleResume)
     this.handleInteraction()
   }
 
   componentWillUnmount() {
     document.removeEventListener('touchstart', this.handleInteraction)
     document.removeEventListener('click', this.handleInteraction)
+    document.removeEventListener('resume', this.handleResume)
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.pinSetting.data !== prevProps.pinSetting.data) {
       this.resetTimeout()
+    }
+  }
+
+  handleResume() {
+    // setTimeout might not work properly when the application is paused, do this
+    // check to be sure that after resume, we display the pin if it
+    // is needed
+    if (Date.now() - this.props.timeout > this.state.last) {
+      this.setState({ showPin: true })
     }
   }
 
