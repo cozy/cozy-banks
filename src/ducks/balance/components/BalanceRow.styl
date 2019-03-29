@@ -1,11 +1,10 @@
 @require 'settings/breakpoints'
 @require '~styles/mixins.styl'
-@require 'settings/palette.styl'
 
 .BalanceRow
     &:active
     &:focus
-        background zircon
+        background var(--zircon)
 
     cursor pointer
     composes mobile-row from '../../../components/Table/styles.styl'
@@ -21,7 +20,7 @@
 
         &.warning
             font-weight bold
-            color texasRose
+            color var(--texasRose)
 
             span
                 margin-left 5px
@@ -31,12 +30,12 @@
                     vertical-align middle
                     margin-bottom 3px
         &.alert
-            color pomegranate
+            color var(--pomegranate)
 
 .BalanceRow--selected
-    border-left 0.25rem dodgerBlue solid
-    background zircon
+    border-left 0.25rem var(--dodgerBlue) solid
+    background var(--zircon)
 
 .BalanceRow--selected-account-from-group
     border-left 0.25rem silver solid
-    background paleGrey
+    background var(--paleGrey)
