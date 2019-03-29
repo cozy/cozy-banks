@@ -24,7 +24,7 @@ const FingerprintChoice = translate()(({ t, onChoice }) => {
   return (
     <div className={styles.Pin__FingerprintChoice}>
       <div className={styles.Pin__FingerprintChoice__top}>
-        <Icon className="u-mb-1-half" size="4.5rem" icon={fingerprint} />
+        <Icon className="u-mb-1-half" size="72px" icon={fingerprint} />
         <h2>{t('Pin.use-fingerprint.title')}</h2>
         <p>{t('Pin.use-fingerprint.description')}</p>
       </div>

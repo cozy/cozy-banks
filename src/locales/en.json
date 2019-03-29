@@ -544,7 +544,7 @@
     "configure-button": "Configure PIN",
     "attempt-count": "%{current}/%{max} attempts",
     "settings": {
-      "toggle-title": "PIN code",
+      "toggle-title": "Lock app",
       "toggle-description": "Lock my app with a pin code or a fingerprint. Unlocking will be required after 1 minute of inactivity."
     },
     "fingerprint-text": "Or your fingerprint",

@@ -186,7 +186,7 @@ class PinAuth extends React.Component {
         {largeEnough ? (
           <Icon
             icon={success ? openLock : 'lock'}
-            size="4rem"
+            size="48px"
             className="u-mb-1"
           />
         ) : null}
@@ -235,7 +235,7 @@ class PinAuth extends React.Component {
 
 export default compose(
   withBreakpoints({
-    largeEnough: [320]
+    largeEnough: [375] // iPhone 6+
   }),
   connect(),
   translate(),
