@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
-import { queryConnect } from 'cozy-client'
-import { transactionsConn } from 'doctypes'
 import { withBreakpoints } from 'cozy-ui/react'
 import Spinner from 'cozy-ui/react/Spinner'
 import { flowRight as compose, uniq, groupBy, max } from 'lodash'
@@ -113,8 +111,5 @@ History.propTypes = {
 
 export default compose(
   withBreakpoints(),
-  withSize(),
-  queryConnect({
-    transactions: transactionsConn
-  })
+  withSize()
 )(History)

@@ -311,6 +311,9 @@
       "transportation": "Autres : Transports, véhicules",
       "goingOutAndTravel": "Autres : Sorties, voyages",
       "uncategorized": "Autres : A catégoriser"
+    },
+    "virtualAccounts": {
+      "healthReimbursements": "Remb santé en attente"
     }
   },
 
@@ -507,5 +510,11 @@
       "title": "Activer le déverrouillage par empreinte digitale",
       "description": "Souhaitez vous utiliser la sécurité par empreinte proposée par votre téléphone ?"
     }
+  },
+
+  "Reimbursements": {
+    "title": "Remboursements",
+    "awaiting": "en attente",
+    "alreadyReimbursed": "Déjà remboursés"
   }
 }

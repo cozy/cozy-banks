@@ -7,6 +7,7 @@ import { sortBy, last, keyBy, find } from 'lodash'
 import { DESTROY_ACCOUNT } from 'actions/accounts'
 import { dehydrate } from 'cozy-client'
 import { getDisplayDate } from 'ducks/transactions/helpers'
+import { isHealthExpense } from 'ducks/categories/helpers'
 
 // constants
 const FILTER_BY_PERIOD = 'FILTER_BY_PERIOD'
@@ -82,6 +83,18 @@ export const getFilteredTransactions = createSelector(
   [getTransactionsFilteredByAccount, getPeriod],
   (transactions, period) => {
     return filterByPeriod(transactions, period)
+  }
+)
+
+const getHealthExpenses = createSelector(
+  [getTransactions],
+  transactions => transactions.filter(isHealthExpense)
+)
+
+export const getHealthExpensesByPeriod = createSelector(
+  [getHealthExpenses, getPeriod],
+  (healthExpenses, period) => {
+    return filterByPeriod(healthExpenses, period)
   }
 )
 

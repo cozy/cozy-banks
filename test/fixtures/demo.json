@@ -195,12 +195,6 @@
         "updatedAt": "2019-02-05T00:00:00Z",
         "createdByApp": "bnpparibas82"
       }
-    },
-    {
-      "_id": "health_reimbursements",
-      "label": "Remb santé en attente",
-      "balance": 108,
-      "type": "Reimbursements"
     }
   ],
   "io.cozy.bank.groups": [
@@ -280,7 +274,7 @@
     {
       "demo": false,
       "automaticCategoryId": "400610",
-      "account": "health_reimbursements",
+      "account": "compteisa1",
       "label": "DR CHOLLET CHQ 18708913",
       "currency": "€",
       "amount": -70,
@@ -430,7 +424,7 @@
     {
       "demo": false,
       "automaticCategoryId": "400610",
-      "account": "health_reimbursements",
+      "account": "compteisa1",
       "label": "CABINET OSTEOKINESITHERAPIE",
       "currency": "€",
       "amount": -60,
@@ -508,7 +502,7 @@
     {
       "demo": false,
       "automaticCategoryId": "400610",
-      "account": "health_reimbursements",
+      "account": "comptecla1",
       "label": "CABINET CARDIOLOGIE CONSULT",
       "currency": "€",
       "amount": -41,
@@ -561,7 +555,7 @@
     {
       "demo": false,
       "automaticCategoryId": "400610",
-      "account": "health_reimbursements",
+      "account": "compteisa1",
       "label": "CABINET OSTEOKINESITHERAPIE",
       "currency": "€",
       "amount": -60,
@@ -600,7 +594,7 @@
     {
       "demo": false,
       "automaticCategoryId": "400610",
-      "account": "health_reimbursements",
+      "account": "compteisa1",
       "label": "LABORATOIRE PUTEAUX",
       "currency": "€",
       "amount": -50,
@@ -712,7 +706,7 @@
     {
       "demo": false,
       "automaticCategoryId": "400610",
-      "account": "health_reimbursements",
+      "account": "compteisa1",
       "label": "KINE REUILLY",
       "currency": "€",
       "amount": -40,
@@ -1045,7 +1039,7 @@
     {
       "demo": false,
       "automaticCategoryId": "400610",
-      "account": "health_reimbursements",
+      "account": "comptecla1",
       "label": "CABINET CARDIO CONSULT",
       "currency": "€",
       "amount": -41,
@@ -1055,19 +1049,12 @@
     {
       "demo": false,
       "automaticCategoryId": "400610",
-      "account": "health_reimbursements",
+      "account": "compteisa1",
       "label": "DR CHOLLET CHQ 18708914",
       "currency": "€",
       "amount": -70,
       "date": "{{ freshDate '2018-10-11T00:00:00Z' }}",
-      "_id": "4bbfe1f845ad1231c7d07aa3e04f7a6a",
-      "reimbursements": [
-        {
-          "amount": 70,
-          "operationId": "op.sante.isa2",
-          "vendor": "Harmonie"
-        }
-      ]
+      "_id": "4bbfe1f845ad1231c7d07aa3e04f7a6a"
     },
     {
       "demo": false,
@@ -1232,7 +1219,7 @@
     {
       "demo": false,
       "automaticCategoryId": "400610",
-      "account": "health_reimbursements",
+      "account": "comptegene1",
       "label": "DOCTEUR LEFEBVRE",
       "currency": "€",
       "amount": -43,
@@ -1271,7 +1258,7 @@
     {
       "demo": true,
       "automaticCategoryId": "400610",
-      "account": "health_reimbursements",
+      "account": "compteisa1",
       "label": "Docteur Martin",
       "currency": "€",
       "amount": -25,

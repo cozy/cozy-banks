@@ -2,7 +2,9 @@ import {
   getAccountUpdateDateDistance,
   distanceInWords,
   getAccountType,
-  getAccountBalance
+  getAccountBalance,
+  buildHealthReimbursementsVirtualAccount,
+  buildVirtualAccounts
 } from './helpers'
 
 describe('getAccountUpdateDateDistance', () => {
@@ -87,5 +89,68 @@ describe('getAccountBalance', () => {
     const account = { type: 'Checkings', balance: 200 }
 
     expect(getAccountBalance(account)).toBe(account.balance)
+  })
+})
+
+describe('buildHealthReimbursementsVirtualAccount', () => {
+  let transactions
+
+  beforeEach(() => {
+    transactions = [
+      { automaticCategoryId: '400610', amount: -10, date: '2019-01-02' },
+      { manualCategoryId: '400610', amount: -10, date: '2019-01-02' },
+      { automaticCategoryId: '400610', amount: -10, date: '2019-01-02' },
+      { manualCategoryId: '400610', amount: -10, date: '2019-01-02' },
+      { automaticCategoryId: '400610', amount: -10, date: '2018-01-02' },
+      { automaticCategoryId: '400470', amount: 10 }
+    ]
+  })
+
+  it('should return a balance equals to 0 if no transactions', () => {
+    const virtualAccount = buildHealthReimbursementsVirtualAccount([])
+    expect(virtualAccount.balance).toBe(0)
+  })
+
+  it('should sum only this year transactions amounts', () => {
+    const virtualAccount = buildHealthReimbursementsVirtualAccount(transactions)
+
+    expect(virtualAccount.balance).toBe(40)
+  })
+
+  it('should take reimbursements into account', () => {
+    transactions[0].reimbursements = {
+      target: {
+        reimbursements: [{ amount: 5 }]
+      }
+    }
+
+    const virtualAccount = buildHealthReimbursementsVirtualAccount(transactions)
+
+    expect(virtualAccount.balance).toBe(35)
+  })
+
+  it('should return a well formed account', () => {
+    const expected = {
+      _id: 'health_reimbursements',
+      virtual: true,
+      balance: expect.any(Number),
+      label: 'Data.virtualAccounts.healthReimbursements',
+      type: 'Reimbursements',
+      currency: '€'
+    }
+
+    expect(buildHealthReimbursementsVirtualAccount(transactions)).toMatchObject(
+      expected
+    )
+  })
+})
+
+describe('buildVirtualAccounts', () => {
+  it('should contain a health reimbursements virtual account', () => {
+    const virtualAccounts = buildVirtualAccounts([])
+    const healthReimbursementsAccount = virtualAccounts.filter(
+      a => a._id === 'health_reimbursements'
+    )
+    expect(healthReimbursementsAccount).toHaveLength(1)
   })
 })

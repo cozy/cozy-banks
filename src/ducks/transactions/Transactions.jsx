@@ -119,7 +119,7 @@ export class TransactionsDumb extends React.Component {
   updateTopMostVisibleTransaction() {
     const topMostTransactionId = this.topmost.getTopMostVisibleNodeId()
     const topMostTransaction = this.transactionsById[topMostTransactionId]
-    if (topMostTransaction) {
+    if (topMostTransaction && this.props.onChangeTopMostTransaction) {
       this.props.onChangeTopMostTransaction(topMostTransaction)
     }
   }
@@ -128,7 +128,12 @@ export class TransactionsDumb extends React.Component {
    * Debounced in the constructor
    */
   handleScroll(getScrollInfo) {
-    this.props.onScroll(getScrollInfo)
+    const { onScroll } = this.props
+
+    if (onScroll) {
+      onScroll(getScrollInfo)
+    }
+
     this.updateTopMostVisibleTransaction()
   }
 
@@ -238,6 +243,10 @@ const Transactions = compose(
 )(TransactionsDumb)
 
 export class TransactionsWithSelection extends React.Component {
+  static defaultProps = {
+    withScroll: true
+  }
+
   state = {
     transaction: null
   }
@@ -251,16 +260,24 @@ export class TransactionsWithSelection extends React.Component {
   }
 
   render() {
-    const props = this.props
+    const { withScroll, className, ...rest } = this.props
     const { transactionId } = this.state
     return (
-      <div className={cx(styles.ScrollingElement, 'js-scrolling-element')}>
-        <Transactions selectTransaction={this.selectTransaction} {...props} />
+      <div
+        className={cx(
+          {
+            [styles.ScrollingElement]: withScroll
+          },
+          'js-scrolling-element',
+          className
+        )}
+      >
+        <Transactions selectTransaction={this.selectTransaction} {...rest} />
         {transactionId && (
           <TransactionModal
             requestClose={this.unselectTransaction}
             transactionId={transactionId}
-            {...props}
+            {...rest}
           />
         )}
       </div>

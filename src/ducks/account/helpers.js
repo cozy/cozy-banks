@@ -1,5 +1,7 @@
-import { get } from 'lodash'
-import { differenceInCalendarDays } from 'date-fns'
+import { get, sumBy } from 'lodash'
+import { getDate, getReimbursedAmount } from 'ducks/transactions/helpers'
+import { isHealthExpense } from 'ducks/categories/helpers'
+import { differenceInCalendarDays, isThisYear } from 'date-fns'
 import flag from 'cozy-flags'
 
 const PARTS_TO_DELETE = ['(sans Secure Key)']
@@ -119,4 +121,34 @@ export const getAccountUpdatedAt = account => {
     translateKey: updateDistanceInWords,
     params: { nbDays: updateDistance }
   }
+}
+
+export const buildHealthReimbursementsVirtualAccount = transactions => {
+  const healthExpenses = transactions.filter(transaction => {
+    return isHealthExpense(transaction) && isThisYear(getDate(transaction))
+  })
+
+  const balance = sumBy(healthExpenses, expense => {
+    const reimbursedAmount = getReimbursedAmount(expense)
+    return -expense.amount - reimbursedAmount
+  })
+
+  const account = {
+    _id: 'health_reimbursements',
+    label: 'Data.virtualAccounts.healthReimbursements',
+    balance,
+    type: 'Reimbursements',
+    currency: '€',
+    virtual: true
+  }
+
+  return account
+}
+
+export const buildVirtualAccounts = transactions => {
+  return [buildHealthReimbursementsVirtualAccount(transactions)]
+}
+
+export const isHealthReimbursementsAccount = account => {
+  return account._id === 'health_reimbursements' && account.virtual
 }

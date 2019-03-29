@@ -29,6 +29,7 @@ describe('Balance page', () => {
         groups={fakeCollection('io.cozy.bank.groups')}
         settings={fakeCollection('io.cozy.bank.settings', [settingDoc])}
         triggers={fakeCollection('io.cozy.triggers')}
+        transactions={fakeCollection('io.cozy.bank.operations')}
         saveDocument={saveDocumentMock}
         filterByAccounts={filterByAccounts}
         router={router}

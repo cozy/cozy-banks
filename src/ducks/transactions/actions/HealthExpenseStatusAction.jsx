@@ -55,7 +55,8 @@ const Component = ({
   // Normally, pending color is not error/red, but for now we handle this state like this
   const type = pending ? 'error' : 'normal'
   const icon = pending ? 'hourglass' : 'file'
-  const reimbursements = transaction.reimbursements.data
+  const reimbursements =
+    transaction.reimbursements && transaction.reimbursements.data
 
   if (pending) {
     if (isModalItem) {

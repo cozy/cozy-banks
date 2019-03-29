@@ -1,6 +1,7 @@
 import find from 'lodash/find'
 import findLast from 'lodash/findLast'
 import get from 'lodash/get'
+import sumBy from 'lodash/sumBy'
 import flag from 'cozy-flags'
 
 const prevRecurRx = /\bPRLV SEPA RECU RCUR\b/
@@ -81,4 +82,28 @@ export const findNearestMonth = (
       ? [findBeforeChosenMonth, findAfterChosenMonth]
       : [findAfterChosenMonth, findBeforeChosenMonth]
   return multiFind(availableMonths, findFns)
+}
+
+const isExpense = transaction => transaction.amount < 0
+
+export const getReimbursedAmount = expense => {
+  if (!isExpense(expense)) {
+    throw new Error("Can't get the reimbursed amount of a debit transaction")
+  }
+
+  const reimbursements = get(expense, 'reimbursements.target.reimbursements')
+  const hasReimbursements = reimbursements && reimbursements.length > 0
+
+  if (!hasReimbursements) {
+    return 0
+  }
+
+  const reimbursedAmount = sumBy(reimbursements, r => r.amount)
+  return reimbursedAmount
+}
+
+export const isFullyReimbursed = expense => {
+  const reimbursedAmount = getReimbursedAmount(expense)
+
+  return reimbursedAmount === -expense.amount
 }

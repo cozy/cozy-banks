@@ -241,6 +241,9 @@
       "transportation": "Others : Transportation, vehicles",
       "goingOutAndTravel": "Others : Outings, trips",
       "uncategorized": "Others : To be categorized"
+    },
+    "virtualAccounts": {
+      "healthReimbursements": "Awaiting health reimb"
     }
   },
   "Categories": {
@@ -554,5 +557,11 @@
       "title": "Activate fingerprint unlocking",
       "description": "Do you want to use your smartphone's fingerprint security to unlock the app?"
     }
+  },
+
+  "Reimbursements": {
+    "title": "Reimbursements",
+    "awaiting": "awaiting",
+    "alreadyReimbursed": "Already reimbursed"
   }
 }
