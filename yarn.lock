@@ -886,6 +886,13 @@
   dependencies:
     regenerator-runtime "^0.12.0"
 
+"@babel/runtime@^7.3.1":
+  version "7.4.2"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.4.2.tgz#f5ab6897320f16decd855eed70b705908a313fe8"
+  integrity sha512-7Bl2rALb7HpvXFL7TETNzKSAeBVCPHELzc0C//9FCxN8nsiueWSJBqaF+2oIJScyILStASR/Cx5WMkXGYTiJFA==
+  dependencies:
+    regenerator-runtime "^0.13.2"
+
 "@babel/runtime@^7.3.4":
   version "7.3.4"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.3.4.tgz#73d12ba819e365fcf7fd152aed56d6df97d21c83"
@@ -1758,13 +1765,6 @@ abstract-leveldown@~2.6.0, abstract-leveldown@~2.6.1:
   version "2.6.3"
   resolved "https://registry.yarnpkg.com/abstract-leveldown/-/abstract-leveldown-2.6.3.tgz#1c5e8c6a5ef965ae8c35dfb3a8770c476b82c4b8"
   integrity sha512-2++wDf/DYqkPR3o5tbfdhF96EfMApo1GpPfzOsR/ZYXdkSmELlvOOEAl9iKkRsktMPHdGjO4rtkBpf2I7TiTeA==
-  dependencies:
-    xtend "~4.0.0"
-
-abstract-leveldown@~3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/abstract-leveldown/-/abstract-leveldown-3.0.0.tgz#5cb89f958a44f526779d740d1440e743e0c30a57"
-  integrity sha512-KUWx9UWGQD12zsmLNj64/pndaz4iJh/Pj7nopgkfDG6RlCcbMZvT6+9l7dchK4idog2Is8VdC/PvNbFuFmalIQ==
   dependencies:
     xtend "~4.0.0"
 
@@ -4464,16 +4464,17 @@ cozy-authentication@1.5.0:
     react-markdown "4.0.6"
     url-polyfill "1.1.0"
 
-cozy-bar@6.16.3:
-  version "6.16.3"
-  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-6.16.3.tgz#20a0f9ca3a12b7ec5e1079a1aa39021a6615ce71"
-  integrity sha512-L3/sHe57FqU8FaXhEPFgUEBSCh0Im8gWysxXbzpDRqEK1SgsRJr0JDnUEBQq6t1BLRFYaaRMFz2fjnxGq5PrSw==
+cozy-bar@6.19.1:
+  version "6.19.1"
+  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-6.19.1.tgz#89d2b20106abff21e57a3de1fdb1a47e64c0965f"
+  integrity sha512-EcuV5rXa1TNfkspqZJfFTF3x02z1taB6Qyv8zHtGzMw6eVcqSyReejkFOD6Cxp+AnTTvLJ9WPuprAumOytJknQ==
   dependencies:
     "@babel/core" "7.3.4"
     babel-core "7.0.0-bridge.0"
     babel-preset-cozy-app "1.5.1"
-    cozy-client-js "0.14.2"
-    cozy-device-helper "1.6.10"
+    cozy-client "6.20.0"
+    cozy-device-helper "1.7.0"
+    cozy-harvest-lib "0.38.3"
     cozy-interapp "0.4.4"
     cozy-realtime "2.0.7"
     enzyme-to-json "3.3.5"
@@ -4482,23 +4483,14 @@ cozy-bar@6.16.3:
     localforage "1.7.3"
     lodash.debounce "4.0.8"
     lodash.unionwith "4.6.0"
+    minilog "3.1.0"
     piwik-react-router "0.12.1"
+    prop-types "^15.7.2"
     react-autosuggest "9.4.3"
     react-redux "5.1.1"
     redux "3.7.2"
     redux-persist "5.10.0"
     redux-thunk "2.3.0"
-
-cozy-client-js@0.14.2:
-  version "0.14.2"
-  resolved "https://registry.yarnpkg.com/cozy-client-js/-/cozy-client-js-0.14.2.tgz#175f5386ccd02dbc4c78cce13a7bec26715e412c"
-  integrity sha512-08Xd22CfFvc+8tH1iJCQVOz64kJhjsfYC72wKLXqGMnxDtfR70ZCSHPmWAEkrdY1Q8gTv3fT9Qq7UrrnFzrVXw==
-  dependencies:
-    core-js "^2.5.3"
-    isomorphic-fetch "^2.2.1"
-    pouchdb "6.4.3"
-    pouchdb-adapter-cordova-sqlite "https://github.com/SnceGroup/pouchdb-adapter-cordova-sqlite.git#f3ee23009b70209c611435d57491aa77fb88802a"
-    pouchdb-find "6.4.3"
 
 cozy-client-js@0.15.0:
   version "0.15.0"
@@ -4524,6 +4516,21 @@ cozy-client-js@^0.3.4:
   version "0.3.21"
   resolved "https://registry.yarnpkg.com/cozy-client-js/-/cozy-client-js-0.3.21.tgz#d27d0288077ce95139333c41dfb537b8584ff254"
   integrity sha1-0n0CiAd86VE5MzxB37U3uFhP8lQ=
+
+cozy-client@6.19.0:
+  version "6.19.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.19.0.tgz#ea44c2681f6d206dae5fdb2d1d91075a35d8434e"
+  integrity sha512-aYXIRQR/pX8vbpTG7fmcgQhpCdA5t0JL9HEH09ti6dh7TCPMHqZ1f91VhM6Pb7NCPQYsL9rTU+2vAEYn4RQKyQ==
+  dependencies:
+    cozy-device-helper "1.6.3"
+    cozy-stack-client "^6.18.1"
+    lodash "4.17.11"
+    prop-types "15.6.2"
+    react "16.7.0"
+    react-redux "5.0.7"
+    redux "3.7.2"
+    redux-thunk "2.3.0"
+    sift "6.0.0"
 
 cozy-client@6.20.0:
   version "6.20.0"
@@ -4576,7 +4583,7 @@ cozy-device-helper@1.6.3:
   dependencies:
     lodash "4.17.11"
 
-cozy-device-helper@^1.7.0:
+cozy-device-helper@1.7.0, cozy-device-helper@^1.7.0:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.7.0.tgz#900fc4e77ad6f0ff6a87ed1a683039ed3dbb2bad"
   integrity sha512-YL5viPiGGwA9jchZbb7narwQybZMrBWnBZrvFcRbp8F4WOqU+8z6hBXNlhAN9Ns6NzX5+O13c18VVLzOqKfXtQ==
@@ -4626,6 +4633,20 @@ cozy-flags@^1.6.0:
   dependencies:
     detect-node "2.0.4"
     microee "^0.0.6"
+
+cozy-harvest-lib@0.38.3:
+  version "0.38.3"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-0.38.3.tgz#ecf2a188ea6f647332fd3a7d2478a3cba7d91c09"
+  integrity sha512-JTFM3bm8JBqNtRY0QqH9JmFekdsG2EpTIEKrQmCStsCTNuOLv7q/Hp7uxZeBORWkdkZu0RLDIKPvO2LcFBFrGg==
+  dependencies:
+    cozy-client "6.19.0"
+    cozy-realtime "1.2.8"
+    cozy-ui "19.8.0"
+    final-form "4.11.1"
+    lodash "4.17.11"
+    react-final-form "3.7.0"
+    react-markdown "4.0.6"
+    react-proptypes "1.0.0"
 
 cozy-interapp@0.4.4:
   version "0.4.4"
@@ -4725,6 +4746,11 @@ cozy-pouch-link@6.18.0:
     pouchdb "7.0.0"
     pouchdb-find "7.0.0"
 
+cozy-realtime@1.2.8:
+  version "1.2.8"
+  resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-1.2.8.tgz#c94c4bd8eb36009a381739062bd41947ddd516fc"
+  integrity sha512-G4seWPh7Ys+XApe1p165xKWq2jNKfmR/icUx45YplVZZm5wJk5pPGVrc70Rccr0DYuA8oHh1i/wpG/a5cHhpYQ==
+
 cozy-realtime@2.0.7:
   version "2.0.7"
   resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-2.0.7.tgz#1ca40806e4a3e752bf1d6ea4f8a761a8eaa123d2"
@@ -4744,7 +4770,7 @@ cozy-stack-client@^6.18.0:
     mime-types "2.1.20"
     qs "6.6.0"
 
-cozy-stack-client@^6.20.0:
+cozy-stack-client@^6.18.1, cozy-stack-client@^6.20.0:
   version "6.20.0"
   resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.20.0.tgz#3d4b5334bd2a7c919e8b9e3989a46e470e2ab779"
   integrity sha512-bxzGG+VQt7tAHgrdx/fVTlSxDLdeslNiF6s4YuwjQaCS5QOGbTB83kZRvDx5HswVzjZePaP0a2omE/Pe6HVonw==
@@ -4759,6 +4785,20 @@ cozy-ui@19.18.0:
   integrity sha512-KumFMWaR1P+7pIHhH/oEmNUUYDUJ7aZZiNlKgEhBsfTkQlvaxa9MVZw3teKuNtnUy16FqOD48aXd4mpCgIdWvw==
   dependencies:
     "@babel/runtime" "^7.3.4"
+    body-scroll-lock "^2.5.8"
+    classnames "^2.2.5"
+    date-fns "^1.28.5"
+    hammerjs "^2.0.8"
+    node-polyglot "^2.2.2"
+    normalize.css "^7.0.0"
+    react-hot-loader "^4.3.11"
+    react-select "2.2.0"
+
+cozy-ui@19.8.0:
+  version "19.8.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-19.8.0.tgz#2568fc1ccfc03c6490266c2fc8855db117cb5aca"
+  integrity sha512-o8mQ6fniXXOyyU67yE+nvLxjwR0Ww6AQMbV3H+zoUHrqXtWU1yXiiXDf77qz/GqvYof8imqYvDX7tnZQnQvFTg==
+  dependencies:
     body-scroll-lock "^2.5.8"
     classnames "^2.2.5"
     date-fns "^1.28.5"
@@ -5522,13 +5562,6 @@ deferred-leveldown@~1.2.1:
   integrity sha512-uukrWD2bguRtXilKt6cAWKyoXrTSMo5m7crUdLfWQmu8kIm88w3QZoUL+6nhpfKVmhHANER6Re3sKoNoZ3IKMA==
   dependencies:
     abstract-leveldown "~2.6.0"
-
-deferred-leveldown@~2.0.2:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/deferred-leveldown/-/deferred-leveldown-2.0.3.tgz#91fbc7699ac85f3920df035792d96d97cbf50c0f"
-  integrity sha512-8c2Hv+vIwKNc7qqy4zE3t5DIsln+FQnudcyjLYstHwLFg7XnXZT/H8gQb8lj6xi8xqGM0Bz633ZWcCkonycBTA==
-  dependencies:
-    abstract-leveldown "~3.0.0"
 
 deferred-leveldown@~3.0.0:
   version "3.0.0"
@@ -7188,6 +7221,13 @@ fill-range@^4.0.0:
     is-number "^3.0.0"
     repeat-string "^1.6.1"
     to-regex-range "^2.1.0"
+
+final-form@4.11.1:
+  version "4.11.1"
+  resolved "https://registry.yarnpkg.com/final-form/-/final-form-4.11.1.tgz#cf84a995a75140727c3676647d7cdb858869cb22"
+  integrity sha512-GuRAcbUE+vs/IFcvsRxMAaz0MQp5QaJKXU8FnNf4qlsVDuKoAyvDJGvvDsSTSgQDixavoxPmqwzJOVXrf0Hw1w==
+  dependencies:
+    "@babel/runtime" "^7.3.1"
 
 finalhandler@1.1.1:
   version "1.1.1"
@@ -10480,14 +10520,6 @@ level-write-stream@1.0.0:
   dependencies:
     end-stream "~0.1.0"
 
-level@2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/level/-/level-2.1.1.tgz#6c9d459dc6a417ef1f53c58e3cb23180b0734926"
-  integrity sha512-jhsItEs/L5bf5ctKsvIPcMzeh4nwXxnL3Tsxm4E9My07jcFfqEYwKP57Y9AZu7tmtECdyK6bvCqoClwuOBuY9w==
-  dependencies:
-    level-packager "^2.0.2"
-    leveldown "^2.1.1"
-
 level@3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/level/-/level-3.0.2.tgz#83c3d6e48c9e89abc4b6f5ca1c591f177ea2bd59"
@@ -10507,17 +10539,6 @@ leveldown@1.5.0:
     fast-future "~1.0.0"
     nan "~2.4.0"
     prebuild "^4.1.1"
-
-leveldown@2.1.1, leveldown@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/leveldown/-/leveldown-2.1.1.tgz#2f4d786dfe6ba3ecc63409784ce29eca110413bf"
-  integrity sha512-JNMCTSchq1YtQLMGePmT07UE7hIIYR4GHpZI7+nUXbM9XgNtRAwcBGhnyJyITwpTILTkUcNPBKZ9lZmTUj2E3g==
-  dependencies:
-    abstract-leveldown "~3.0.0"
-    bindings "~1.3.0"
-    fast-future "~1.0.2"
-    nan "~2.8.0"
-    prebuild-install "^2.1.0"
 
 leveldown@3.0.0:
   version "3.0.0"
@@ -10552,16 +10573,6 @@ levelup@1.3.3:
     level-iterator-stream "~1.3.0"
     prr "~1.0.1"
     semver "~5.1.0"
-    xtend "~4.0.0"
-
-levelup@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/levelup/-/levelup-2.0.1.tgz#3dc91b3e632d37c9e546239c864118b004c9f860"
-  integrity sha1-PckbPmMtN8nlRiOchkEYsATJ+GA=
-  dependencies:
-    deferred-leveldown "~2.0.2"
-    level-errors "~1.1.0"
-    level-iterator-stream "~2.0.0"
     xtend "~4.0.0"
 
 levelup@3.0.1:
@@ -11205,11 +11216,6 @@ ltgt@2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/ltgt/-/ltgt-2.1.2.tgz#e7472324fee690afc0d5ecf900403ce5788a311d"
   integrity sha1-50cjJP7mkK/A1ez5AEA85XiKMR0=
-
-ltgt@2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/ltgt/-/ltgt-2.2.0.tgz#b65ba5fcb349a29924c8e333f7c6a5562f2e4842"
-  integrity sha1-tlul/LNJopkkyOMz98alVi8uSEI=
 
 ltgt@2.2.1:
   version "2.2.1"
@@ -14024,19 +14030,6 @@ posthtml@^0.9.2:
     posthtml-parser "^0.2.0"
     posthtml-render "^1.0.5"
 
-pouchdb-abstract-mapreduce@6.4.3:
-  version "6.4.3"
-  resolved "https://registry.yarnpkg.com/pouchdb-abstract-mapreduce/-/pouchdb-abstract-mapreduce-6.4.3.tgz#0310053812d16ff9545a3db43f5e38a67a0133d7"
-  integrity sha512-omSNRtSf5S/O6SdIy3RV5ODdftL7x0txoBKo2BBr72Ji1r3460ftRfKzurRnHwTYTPzxAZYqm2IkRExSqQRfNQ==
-  dependencies:
-    pouchdb-binary-utils "6.4.3"
-    pouchdb-collate "6.4.3"
-    pouchdb-collections "6.4.3"
-    pouchdb-mapreduce-utils "6.4.3"
-    pouchdb-md5 "6.4.3"
-    pouchdb-promise "6.4.3"
-    pouchdb-utils "6.4.3"
-
 pouchdb-abstract-mapreduce@7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/pouchdb-abstract-mapreduce/-/pouchdb-abstract-mapreduce-7.0.0.tgz#946d79073c9795ca03c9b5c318a64372422e8740"
@@ -14116,11 +14109,6 @@ pouchdb-browser@7.0.0:
     uuid "3.2.1"
     vuvuzela "1.0.3"
 
-pouchdb-collate@6.4.3:
-  version "6.4.3"
-  resolved "https://registry.yarnpkg.com/pouchdb-collate/-/pouchdb-collate-6.4.3.tgz#55a77a1a3e1c2cf86fe4d02aea171e10c2a3f944"
-  integrity sha512-iwKAdc8vjLx8AzxBFnfV24Hp4FkbADTUcuQl/2IUOaF8JzZ/wVYa0DgBd+uErk2rj5yf1HxFp+5/9EgHV4PxAw==
-
 pouchdb-collate@7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/pouchdb-collate/-/pouchdb-collate-7.0.0.tgz#4f9a0a03c236f1677a971c400b79b7baf6379a4d"
@@ -14183,18 +14171,6 @@ pouchdb-find@0.10.4:
     pouchdb-upsert "~2.0.1"
     spark-md5 "0.0.5"
 
-pouchdb-find@6.4.3:
-  version "6.4.3"
-  resolved "https://registry.yarnpkg.com/pouchdb-find/-/pouchdb-find-6.4.3.tgz#1d0128306071434a5e397bb14ce69c831356c95e"
-  integrity sha512-vWj30xgDXEevsSG3j0WOp6gUARWweZD6R22+e5RfT0f8oGf3WvRSbe04mUXcY/HbLSkJrV+tl/ZZ7/NdqGiEHg==
-  dependencies:
-    pouchdb-abstract-mapreduce "6.4.3"
-    pouchdb-collate "6.4.3"
-    pouchdb-md5 "6.4.3"
-    pouchdb-promise "6.4.3"
-    pouchdb-selector-core "6.4.3"
-    pouchdb-utils "6.4.3"
-
 pouchdb-find@7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/pouchdb-find/-/pouchdb-find-7.0.0.tgz#f390c3f7a9455e700eb178eb89b235aaf7dc3beb"
@@ -14214,16 +14190,6 @@ pouchdb-json@6.4.3:
   integrity sha512-ou9tDxySHKQv7uU8BjggVjtzNdeim/IcGYhF4yyN2wj4HqJqlanG9l0Rab6tBkCR6px5Gt5e9yCoas5bBZqiGw==
   dependencies:
     vuvuzela "1.0.3"
-
-pouchdb-mapreduce-utils@6.4.3:
-  version "6.4.3"
-  resolved "https://registry.yarnpkg.com/pouchdb-mapreduce-utils/-/pouchdb-mapreduce-utils-6.4.3.tgz#1245e1ca4d3f216d336030c669dd97d6597442e4"
-  integrity sha512-gbxX6h+nOKPDv2eYZznUthHiZ1Ml1xViE8DalEy6+fPzCba6CZ6dTKGZoFrBg4oLF3Wc+cUNX9Uk8cezVMGOhA==
-  dependencies:
-    argsarray "0.0.1"
-    inherits "2.0.3"
-    pouchdb-collections "6.4.3"
-    pouchdb-utils "6.4.3"
 
 pouchdb-mapreduce-utils@7.0.0:
   version "7.0.0"
@@ -14276,14 +14242,6 @@ pouchdb-promise@^5.4.3:
   integrity sha1-XCppdZFB63O+HhcuUi/YTaLgdS4=
   dependencies:
     lie "3.0.4"
-
-pouchdb-selector-core@6.4.3:
-  version "6.4.3"
-  resolved "https://registry.yarnpkg.com/pouchdb-selector-core/-/pouchdb-selector-core-6.4.3.tgz#03a9cfd9284589baf836f3005ff15cf5e0eaf705"
-  integrity sha512-Wx+gPE2cC5AsuNQrelaWQV3J3U75MkcxIYsQeIBHaEth/WOxjQ3MTWGwKdyaNdVX8Opp8Sj7VFRIZpI+HubQ4g==
-  dependencies:
-    pouchdb-collate "6.4.3"
-    pouchdb-utils "6.4.3"
 
 pouchdb-selector-core@7.0.0:
   version "7.0.0"
@@ -14351,32 +14309,6 @@ pouchdb@6.1.1:
     scope-eval "0.0.3"
     spark-md5 "3.0.0"
     through2 "2.0.1"
-    vuvuzela "1.0.3"
-
-pouchdb@6.4.3:
-  version "6.4.3"
-  resolved "https://registry.yarnpkg.com/pouchdb/-/pouchdb-6.4.3.tgz#077e812a054ac44e13622a64e0c802325d1d44ad"
-  integrity sha512-uLLFFCOuSJXB+yLBRUBSMbRF0r+Kv8rqNlwsu3W9n4QXJgYUZTbPsixzE4kvY19cyXO1vP93W7nUlOv6Ks8ibA==
-  dependencies:
-    argsarray "0.0.1"
-    buffer-from "0.1.1"
-    clone-buffer "1.0.0"
-    debug "3.1.0"
-    double-ended-queue "2.1.0-0"
-    immediate "3.0.6"
-    inherits "2.0.3"
-    level "2.1.1"
-    level-codec "7.0.1"
-    level-write-stream "1.0.0"
-    leveldown "2.1.1"
-    levelup "2.0.1"
-    lie "3.1.1"
-    ltgt "2.2.0"
-    readable-stream "1.0.33"
-    request "2.83.0"
-    spark-md5 "3.0.0"
-    through2 "2.0.3"
-    uuid "3.2.1"
     vuvuzela "1.0.3"
 
 pouchdb@7.0.0:
@@ -14635,15 +14567,7 @@ promzard@^0.3.0:
   dependencies:
     read "1"
 
-prop-types@15.6.2, prop-types@^15.6.2:
-  version "15.6.2"
-  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
-  integrity sha512-3pboPvLiWD7dkI3qf3KbUe6hKFKa52w+AE0VCqECtf+QHAKgOL37tTaNCnuX1nAAQ4ZhyP+kYVKf8rLmJ/feDQ==
-  dependencies:
-    loose-envify "^1.3.1"
-    object-assign "^4.1.1"
-
-prop-types@15.7.2, prop-types@^15.7.2:
+prop-types@*, prop-types@15.7.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -14651,6 +14575,14 @@ prop-types@15.7.2, prop-types@^15.7.2:
     loose-envify "^1.4.0"
     object-assign "^4.1.1"
     react-is "^16.8.1"
+
+prop-types@15.6.2, prop-types@^15.6.2:
+  version "15.6.2"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
+  integrity sha512-3pboPvLiWD7dkI3qf3KbUe6hKFKa52w+AE0VCqECtf+QHAKgOL37tTaNCnuX1nAAQ4ZhyP+kYVKf8rLmJ/feDQ==
+  dependencies:
+    loose-envify "^1.3.1"
+    object-assign "^4.1.1"
 
 prop-types@^15.5.10, prop-types@^15.5.6, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1:
   version "15.6.1"
@@ -15123,6 +15055,13 @@ react-event-listener@^0.6.2:
     prop-types "^15.6.0"
     warning "^4.0.1"
 
+react-final-form@3.7.0:
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/react-final-form/-/react-final-form-3.7.0.tgz#89196cc18340d0bcdb308941ea3e5dafe0f26684"
+  integrity sha512-/FAn1z7i2RFCMC1Bxg9CLA4rKelom6NF8at7PZgOp23T1e45giJQs9hTvuHx5LlX0u6948k0XbYw3y3zBmPOgw==
+  dependencies:
+    "@babel/runtime" "^7.1.2"
+
 react-group@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/react-group/-/react-group-1.0.6.tgz#8dd7c00c3b35d05ce164021458bb07d580e3001a"
@@ -15218,6 +15157,13 @@ react-markdown@4.0.6:
     unified "^6.1.5"
     unist-util-visit "^1.3.0"
     xtend "^4.0.1"
+
+react-proptypes@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-proptypes/-/react-proptypes-1.0.0.tgz#88e9cf5cc61b18844a5f57a06c839ae39fe9a57f"
+  integrity sha1-iOnPXMYbGIRKX1egbIOa45/ppX8=
+  dependencies:
+    prop-types "*"
 
 react-redux@5.0.7:
   version "5.0.7"
@@ -16130,34 +16076,6 @@ request@2.81.0:
     tough-cookie "~2.3.0"
     tunnel-agent "^0.6.0"
     uuid "^3.0.0"
-
-request@2.83.0:
-  version "2.83.0"
-  resolved "https://registry.yarnpkg.com/request/-/request-2.83.0.tgz#ca0b65da02ed62935887808e6f510381034e3356"
-  integrity sha512-lR3gD69osqm6EYLk9wB/G1W/laGWjzH90t1vEa2xuxHD5KUrSzp9pUSfTm+YC5Nxt2T8nMPEvKlhbQayU7bgFw==
-  dependencies:
-    aws-sign2 "~0.7.0"
-    aws4 "^1.6.0"
-    caseless "~0.12.0"
-    combined-stream "~1.0.5"
-    extend "~3.0.1"
-    forever-agent "~0.6.1"
-    form-data "~2.3.1"
-    har-validator "~5.0.3"
-    hawk "~6.0.2"
-    http-signature "~1.2.0"
-    is-typedarray "~1.0.0"
-    isstream "~0.1.2"
-    json-stringify-safe "~5.0.1"
-    mime-types "~2.1.17"
-    oauth-sign "~0.8.2"
-    performance-now "^2.1.0"
-    qs "~6.5.1"
-    safe-buffer "^5.1.1"
-    stringstream "~0.0.5"
-    tough-cookie "~2.3.3"
-    tunnel-agent "^0.6.0"
-    uuid "^3.1.0"
 
 request@2.88.0, request@^2.87.0:
   version "2.88.0"
