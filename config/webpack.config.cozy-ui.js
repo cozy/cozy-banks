@@ -22,7 +22,7 @@ module.exports = {
       options: {
         stylus: {
           use: [require('cozy-ui/stylus')()],
-          import: ['settings/palette.styl']
+          import: []
         }
       }
     })
