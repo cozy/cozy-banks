@@ -22,7 +22,7 @@ export const getFilteringDoc = state =>
 export const getFilteredAccountIds = state => {
   const availableAccountIds = getAccounts(state).map(x => x._id)
   const doc = getFilteringDoc(state)
-  if (!doc || doc.virtual) {
+  if (!doc) {
     return availableAccountIds
   }
   const doctype = doc._type
