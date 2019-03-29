@@ -65,13 +65,14 @@ const setupApp = async persistedState => {
   persistState(store)
 
   if (__TARGET__ !== 'mobile') {
-    cozy.bar.init({
-      appName: data.cozyAppName,
-      cozyClient: client,
-      iconPath: data.cozyIconPath,
-      lang: data.cozyLocale,
-      replaceTitleOnMobile: true
-    })
+      !flag('authentication') &&
+      cozy.bar.init({
+        appName: data.cozyAppName,
+        cozyClient: client,
+        iconPath: data.cozyIconPath,
+        lang: data.cozyLocale,
+        replaceTitleOnMobile: true
+      })
   } else {
     const onStartOrResume = checkToRefreshToken(client, store, () => {
       if (flag('debug')) {

@@ -5,11 +5,12 @@ import MuiCozyTheme from 'cozy-ui/react/MuiCozyTheme'
 import React from 'react'
 import { CozyProvider } from 'cozy-client'
 import { Provider } from 'react-redux'
+import flag from 'cozy-flags'
 
 const AppContainer = ({ store, lang, history, client }) => {
   const AppRoute = require('components/AppRoute').default
   const Router =
-    __TARGET__ === 'mobile'
+    __TARGET__ === 'mobile' || flag('authentication')
       ? require('ducks/mobile/MobileRouter').default
       : require('react-router').Router
   return (
