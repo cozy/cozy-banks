@@ -65,7 +65,7 @@ const setupApp = async persistedState => {
   persistState(store)
 
   if (__TARGET__ !== 'mobile') {
-      !flag('authentication') &&
+    !flag('authentication') &&
       cozy.bar.init({
         appName: data.cozyAppName,
         cozyClient: client,
