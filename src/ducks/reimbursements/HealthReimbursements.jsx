@@ -36,6 +36,7 @@ class RawHealthReimbursements extends Component {
               symbol="€"
               total={awaitingAmount}
               className={styles.HealthReimbursements__figure}
+              signed
             />{' '}
             {t('Reimbursements.awaiting')}
           </Title>
