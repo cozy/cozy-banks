@@ -2,14 +2,13 @@
 
 const merge = require('webpack-merge')
 const {
-  production,
   target,
   hotReload,
   analyze
 } = require('./config/webpack.vars')
 
 module.exports = (env = {}) => {
-  env.target = env.target || target
+  env.target = env.target || 'browser' 
 
   const common = merge(
     require('./config/webpack.config.base'),
@@ -25,7 +24,7 @@ module.exports = (env = {}) => {
     analyze ? require(`./config/webpack.config.analyze`) : null
   )
 
-  const targetCfg = require(`./config/webpack.target.${target}`)
+  const targetCfg = require(`./config/webpack.target.${env.target}`)(env)
 
   const withTarget = merge.strategy({
     'resolve.extensions': 'prepend'
