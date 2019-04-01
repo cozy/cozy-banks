@@ -14,7 +14,6 @@ const skin = process.env.SKIN
 const SRC_DIR = path.resolve(__dirname, '../src')
 
 module.exports = {
-  analyze: process.env.WEBPACK_ANALYZE,
   skin,
   SRC_DIR,
   enabledFlags: getEnabledFlags()

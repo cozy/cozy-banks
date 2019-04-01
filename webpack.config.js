@@ -21,7 +21,7 @@ module.exports = (env = {}) => {
     require('./config/webpack.config.piwik'),
     require('./config/webpack.config.string-replace'),
     env.hot ? require(`./config/webpack.config.hot-reload`) : null,
-    analyze ? require(`./config/webpack.config.analyze`) : null
+    env.analyze ? require(`./config/webpack.config.analyze`) : null
   )
 
   const targetCfg = require(`./config/webpack.target.${env.target}`)(env)
