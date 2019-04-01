@@ -10,11 +10,9 @@ const getEnabledFlags = () => {
   }
 }
 
-const skin = process.env.SKIN
 const SRC_DIR = path.resolve(__dirname, '../src')
 
 module.exports = {
-  skin,
   SRC_DIR,
   enabledFlags: getEnabledFlags()
 }
