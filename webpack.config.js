@@ -8,7 +8,9 @@ const {
   analyze
 } = require('./config/webpack.vars')
 
-module.exports = () => {
+module.exports = (env = {}) => {
+  env.target = env.target || target
+
   const common = merge(
     require('./config/webpack.config.base'),
     require('./config/webpack.config.disable-contexts'),
@@ -31,7 +33,7 @@ module.exports = () => {
 
   const modeConfig = production
     ? require('./config/webpack.config.prod')
-    : require('./config/webpack.config.dev')
+    : require('./config/webpack.config.dev')(env)
 
   return merge(withTarget, modeConfig)
 }
