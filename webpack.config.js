@@ -32,7 +32,7 @@ module.exports = (env = {}) => {
   })(common, targetCfg)
 
   const modeConfig = production
-    ? require('./config/webpack.config.prod')
+    ? require('./config/webpack.config.prod')(env)
     : require('./config/webpack.config.dev')(env)
 
   return merge(withTarget, modeConfig)
