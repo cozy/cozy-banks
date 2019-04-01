@@ -1,39 +1,43 @@
 'use strict'
 
 const merge = require('webpack-merge')
-const {
-  production,
-  target,
-  hotReload,
-  analyze
-} = require('./config/webpack.vars')
+const defaults = require('lodash/defaults')
 
-const common = merge(
-  require('./config/webpack.config.base'),
-  require('./config/webpack.config.disable-contexts'),
-  require('./config/webpack.config.styles'),
-  require('./config/webpack.config.cozy-ui'),
-  require('./config/webpack.config.pictures'),
-  require('./config/webpack.config.vendors'),
-  require('./config/webpack.config.manifest'),
-  require('./config/webpack.config.piwik'),
-  require('./config/webpack.config.string-replace'),
-  hotReload ? require(`./config/webpack.config.hot-reload`) : null,
-  analyze ? require(`./config/webpack.config.analyze`) : null
-)
+const defaultEnv = {
+  target: 'browser',
+  production: false
+}
 
-const targetCfg = require(`./config/webpack.target.${target}`)
+module.exports = (env = {}) => {
+  defaults(env, defaultEnv)
 
-const withTarget = merge.strategy({
-  'resolve.extensions': 'prepend'
-})(common, targetCfg)
+  const common = merge(
+    require('./config/webpack.config.base')(env),
+    require('./config/webpack.config.disable-contexts'),
+    require('./config/webpack.config.styles')(env),
+    require('./config/webpack.config.cozy-ui'),
+    require('./config/webpack.config.pictures')(env),
+    require('./config/webpack.config.vendors'),
+    require('./config/webpack.config.manifest'),
+    require('./config/webpack.config.piwik'),
+    require('./config/webpack.config.string-replace'),
+    env.hot ? require(`./config/webpack.config.hot-reload`) : null,
+    env.analyze ? require(`./config/webpack.config.analyze`) : null
+  )
 
-const modeConfig = production
-  ? require('./config/webpack.config.prod')
-  : require('./config/webpack.config.dev')
+  const targetCfg = require(`./config/webpack.target.${env.target}`)(env)
+  const withTarget = merge.strategy({
+    'resolve.extensions': 'prepend'
+  })(common, targetCfg)
 
-module.exports = merge(withTarget, modeConfig)
+  const modeConfig = env.production
+    ? require('./config/webpack.config.prod')(env)
+    : require('./config/webpack.config.dev')(env)
+
+  return merge(withTarget, modeConfig)
+}
 
 if (require.main === module) {
-  console.log(module.exports)
+  const env = { production: true }
+  console.log(module.exports(env))
 }

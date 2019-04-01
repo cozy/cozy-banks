@@ -5,30 +5,6 @@ const path = require('path')
 const merge = require('lodash/merge')
 const pkg = require('../package.json')
 
-const { skin } = require('./webpack.vars')
-
-const skinToProperties = {
-  mesinfos: {
-    slug: 'mesinfos-banques',
-    name: 'Banques',
-    category: 'partners'
-  },
-  demo: {
-    permissions: {
-      sharings: {
-        description: 'Handle shared bank accounts',
-        type: 'io.cozy.mocks.sharings',
-        verbs: ['GET']
-      },
-      recipients: {
-        description: 'Get recipients for shared accounts',
-        type: 'io.cozy.mocks.recipients',
-        verbs: ['GET']
-      }
-    }
-  }
-}
-
 const additionalProperties = skinToProperties[skin] || {}
 additionalProperties.version = pkg.version
 

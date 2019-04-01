@@ -1,9 +1,8 @@
 'use strict'
 
 const webpack = require('webpack')
-const {target} = require('./webpack.vars')
 
-module.exports = {
+module.exports = env => ({
   output: {
     filename: 'app.[hash].min.js'
   },
@@ -17,7 +16,7 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify('production'), // to compile on production mode (redux)
       __DEV__: false,
       __DEVTOOLS__: false,
-      __STACK_ASSETS__: target === 'mobile' ? false : true
+      __STACK_ASSETS__: env.target === 'mobile' ? false : true
     })
   ]
-}
+})
