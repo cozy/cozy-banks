@@ -6,8 +6,7 @@ const merge = require('webpack-merge')
 const base = require('./webpack.config.base')
 const ui = require('./webpack.config.cozy-ui')
 const piwik = require('./webpack.config.piwik')
-
-const SRC_DIR = path.resolve(__dirname, '../src')
+const { SRC_DIR } = require('./webpack.vars') 
 
 const mimerPath = require.resolve(path.join(SRC_DIR, 'ducks/notifications/vendor/mimer.min'))
 
