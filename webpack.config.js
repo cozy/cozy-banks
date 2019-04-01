@@ -38,5 +38,6 @@ module.exports = (env = {}) => {
 }
 
 if (require.main === module) {
-  console.log(module.exports)
+  const env = { production: true }
+  console.log(module.exports(env))
 }
