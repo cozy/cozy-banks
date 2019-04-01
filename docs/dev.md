@@ -208,6 +208,16 @@ yarn global add cordova@<same version as in package.json>
 yarn mobile:icon
 ```
 
+On iOS, if the given splashscreens are not to the resoution of the device, iOS
+falls back to compatibility mode and adds blacks bars to the top/bottom of the
+screen. This is particularly disgraceful on the iPhoneX which has an unusual screen
+shape.
+
+To fix this, we use a single splashscreen file and set XCode for it to use
+Cordova's launch screen functionality.
+
+`CozyBanks > Resources > Images.xcassets > LaunchStoryBoard > App icons and Launch images > LaunchScreenFile "CDVLaunchScreen"`
+
 - Install Ruby, Bundler and project dependencies
 
 See [Ruby installation page](https://www.ruby-lang.org/fr/documentation/installation/) to get the installation method for your system.
