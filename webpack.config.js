@@ -1,14 +1,15 @@
 'use strict'
 
 const merge = require('webpack-merge')
-const {
-  hotReload,
-  analyze
-} = require('./config/webpack.vars')
+const defaults = require('lodash/defaults')
+
+const defaultEnv = {
+  target: 'browser',
+  production: false
+}
 
 module.exports = (env = {}) => {
-  env.target = env.target || 'browser'
-  env.mode = env.production ? 'production' : 'development'
+  defaults(env, defaultEnv)
 
   const common = merge(
     require('./config/webpack.config.base')(env),
