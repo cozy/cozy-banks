@@ -2,20 +2,20 @@
 
 const merge = require('webpack-merge')
 const {
-  target,
   hotReload,
   analyze
 } = require('./config/webpack.vars')
 
 module.exports = (env = {}) => {
-  env.target = env.target || 'browser' 
+  env.target = env.target || 'browser'
+  env.mode = env.production ? 'production' : 'development'
 
   const common = merge(
-    require('./config/webpack.config.base'),
+    require('./config/webpack.config.base')(env),
     require('./config/webpack.config.disable-contexts'),
-    require('./config/webpack.config.styles'),
+    require('./config/webpack.config.styles')(env),
     require('./config/webpack.config.cozy-ui'),
-    require('./config/webpack.config.pictures'),
+    require('./config/webpack.config.pictures')(env),
     require('./config/webpack.config.vendors'),
     require('./config/webpack.config.manifest'),
     require('./config/webpack.config.piwik'),
@@ -25,12 +25,11 @@ module.exports = (env = {}) => {
   )
 
   const targetCfg = require(`./config/webpack.target.${env.target}`)(env)
-
   const withTarget = merge.strategy({
     'resolve.extensions': 'prepend'
   })(common, targetCfg)
 
-  const modeConfig = production
+  const modeConfig = env.production
     ? require('./config/webpack.config.prod')(env)
     : require('./config/webpack.config.dev')(env)
 
