@@ -91,6 +91,7 @@ export const findAppsSuggestions = async setting => {
       findSuggestionForTransaction(t, brands)
     )
   )
+
   const normalizedSuggestions = normalizeSuggestions(suggestions)
 
   log('info', 'Save suggestions')
