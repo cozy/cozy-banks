@@ -37,6 +37,15 @@ import BarTheme from 'ducks/mobile/BarTheme'
 import { filterByAccounts } from 'ducks/filters'
 import { CozyRealtime } from 'cozy-realtime'
 
+// TODO should be removed when realtime can be initialized directly
+// with cozyClient
+const getCredentialsFromClient = cozyClient => {
+  const url = cozyClient.stackClient.uri
+  const token =
+    cozyClient.stackClient.token.accessToken || cozyClient.stackClient.token
+  return { url, token }
+}
+
 class Balance extends PureComponent {
   constructor(props) {
     super(props)
@@ -161,8 +170,9 @@ class Balance extends PureComponent {
       const cozyClient = this.props.client
       // TODO: Update cozy-realtime to do only:
       //   this.realtime = new CozyRealtime({ cozyClient })
-      const url = cozyClient.stackClient.uri
-      const token = cozyClient.stackClient.token.token
+      const creds = getCredentialsFromClient(cozyClient)
+      const url = creds.url
+      const token = creds.token
       this.realtime = new CozyRealtime({ url, token })
     }
   }
