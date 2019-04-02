@@ -161,8 +161,8 @@ class Balance extends PureComponent {
       const cozyClient = this.props.client
       // TODO: Update cozy-realtime to do only:
       //   this.realtime = new CozyRealtime({ cozyClient })
-      const url = cozyClient.client.uri
-      const token = cozyClient.client.token.token
+      const url = cozyClient.stackClient.uri
+      const token = cozyClient.stackClient.token.token
       this.realtime = new CozyRealtime({ url, token })
     }
   }
