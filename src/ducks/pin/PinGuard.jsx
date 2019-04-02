@@ -29,6 +29,7 @@ class PinGuard extends React.Component {
     document.removeEventListener('touchstart', this.handleInteraction)
     document.removeEventListener('click', this.handleInteraction)
     document.removeEventListener('resume', this.handleResume)
+    clearTimeout(this.timeout)
   }
 
   componentDidUpdate(prevProps) {
