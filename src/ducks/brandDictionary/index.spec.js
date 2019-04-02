@@ -1,4 +1,12 @@
-import { getBrands, matchBrands, findMatchingBrand, isMatchingBrand } from '.'
+import {
+  getBrands,
+  matchBrands,
+  findMatchingBrand,
+  isMatchingBrand,
+  getBrandsWithInstallationInfo,
+  getInstalledBrands,
+  getNotInstalledBrands
+} from '.'
 import brands from './brands'
 
 const getFilteredBrands = () => getBrands(brand => brand.name === 'Filtered')
@@ -56,6 +64,26 @@ describe('brandDictionary', () => {
       expect(findMatchingBrand(getBrands(), 'Free Mobile').konnectorSlug).toBe(
         'freemobile'
       )
+    })
+  })
+
+  const installedSlugs = ['ameli', 'boulanger', 'mediapart', 'ovh', 'zalando']
+
+  describe('getBrandsWithInstallationInfo', () => {
+    it('Should return the list of brands with a isInstalled boolean property', () => {
+      expect(getBrandsWithInstallationInfo(installedSlugs)).toMatchSnapshot()
+    })
+  })
+
+  describe('getInstalledBrands', () => {
+    it('Should return the installed brands', () => {
+      expect(getInstalledBrands(installedSlugs)).toMatchSnapshot()
+    })
+  })
+
+  describe('getInstalledBrands', () => {
+    it('Should return the not installed brands', () => {
+      expect(getNotInstalledBrands(installedSlugs)).toMatchSnapshot()
     })
   })
 })
