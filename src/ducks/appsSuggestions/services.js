@@ -95,5 +95,7 @@ export const findAppsSuggestions = async setting => {
   const normalizedSuggestions = normalizeSuggestions(suggestions)
 
   log('info', 'Save suggestions')
-  return AppsSuggestion.bulkSave(normalizedSuggestions)
+  for (const suggestion of normalizedSuggestions) {
+    await AppsSuggestion.createOrUpdate(suggestion)
+  }
 }
