@@ -30,10 +30,10 @@ const withAppsUrls = Wrapped => {
   }
 
   const WithAppsUrls = compose(
-    connect(mapStateToProps),
     queryConnect({
       apps: appsConn
-    })
+    }),
+    connect(mapStateToProps)
   )(RawWithAppsUrls)
 
   return WithAppsUrls
