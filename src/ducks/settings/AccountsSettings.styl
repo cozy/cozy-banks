@@ -1,4 +1,3 @@
-@require 'settings/palette.styl'
 @require 'settings/breakpoints'
 @require '~styles/mixins.styl'
 
@@ -21,11 +20,11 @@
 
     &__number
         maxed-flex-basis 15%
-        color coolGrey
+        color var(--coolGrey)
 
     &__type
         maxed-flex-basis 15%
-        color coolGrey
+        color var(--coolGrey)
 
         +small-screen()
             td& // increase selectivity with td
@@ -68,5 +67,5 @@
                 background transparent
 
             td:first-child
-                color coolGrey
+                color var(--coolGrey)
                 font-size .85rem
