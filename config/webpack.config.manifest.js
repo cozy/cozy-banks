@@ -5,12 +5,40 @@ const path = require('path')
 const merge = require('lodash/merge')
 const pkg = require('../package.json')
 
+const { skin } = require('./webpack.vars')
+
+const skinToProperties = {
+  mesinfos: {
+    slug: 'mesinfos-banques',
+    name: 'Banques',
+    category: 'partners'
+  },
+  demo: {
+    permissions: {
+      sharings: {
+        description: 'Handle shared bank accounts',
+        type: 'io.cozy.mocks.sharings',
+        verbs: ['GET']
+      },
+      recipients: {
+        description: 'Get recipients for shared accounts',
+        type: 'io.cozy.mocks.recipients',
+        verbs: ['GET']
+      }
+    }
+  }
+}
+
+const additionalProperties = skinToProperties[skin] || {}
+additionalProperties.version = pkg.version
+
 module.exports = {
   module: {
     rules: [
       {
         test: /manifest\.webapp$/,
-        loader: path.resolve(__dirname, '../loaders/manifest-loader.js')
+        loader: path.resolve(__dirname, '../loaders/manifest-loader.js'),
+        options: { additionalProperties }
       }
     ]
   },
@@ -28,7 +56,5 @@ module.exports = {
 function transformManifest(buffer) {
   const manifest = JSON.parse(buffer.toString())
 
-  return JSON.stringify(merge(manifest, {
-    version: pkg.version
-  }), null, 2)
+  return JSON.stringify(merge(manifest, additionalProperties), null, 2)
 }

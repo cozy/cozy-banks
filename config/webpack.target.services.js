@@ -6,7 +6,9 @@ const merge = require('webpack-merge')
 const base = require('./webpack.config.base')
 const ui = require('./webpack.config.cozy-ui')
 const piwik = require('./webpack.config.piwik')
-const { SRC_DIR } = require('./webpack.vars') 
+const { production } = require('./webpack.vars')
+
+const SRC_DIR = path.resolve(__dirname, '../src')
 
 const mimerPath = require.resolve(path.join(SRC_DIR, 'ducks/notifications/vendor/mimer.min'))
 
@@ -24,13 +26,13 @@ if (process.env.TEST_TEMPLATES) {
   entries.testTemplates = path.resolve(SRC_DIR, './ducks/notifications/html/testTemplates.js')
 }
 
-const config = env => merge.strategy({
+const config = merge.strategy({
   plugins: 'replace',
   output: 'replace',
   entry: 'replace'
-})(base(env), ui, {
+})(base, ui, {
   entry: entries,
-  mode: env.production ? 'production' : 'development',
+  mode: production ? 'production' : 'development',
   target: 'node',
   output: {
     path: path.resolve(__dirname, '../build'),
@@ -93,4 +95,4 @@ const config = env => merge.strategy({
   ]
 })
 
-module.exports = env => merge(config(env), piwik)
+module.exports = merge(config, piwik)
