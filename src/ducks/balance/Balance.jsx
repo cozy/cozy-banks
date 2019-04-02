@@ -231,12 +231,12 @@ class Balance extends PureComponent {
     try {
       this._ensureRealtimeProperlyConfigured()
     } catch (e) {
-      // eslint-disable no-console
+      /* eslint-disable no-console */
       console.error(e)
       console.warn(
         'Balance: Could not correctly configure realtime, see error above.'
       )
-      // eslint-enable no-console
+      /* eslint-enable no-console */
     }
   }
 
