@@ -1,12 +1,8 @@
-/* global __TARGET__ */
-
 import React from 'react'
 import PropTypes from 'prop-types'
 import { flowRight as compose } from 'lodash'
-import { withClient } from 'cozy-client'
 import { findMatchingBrand } from 'ducks/brandDictionary'
 import { translate } from 'cozy-ui/react'
-import IntentModal from 'cozy-ui/react/IntentModal'
 import ButtonAction from 'cozy-ui/react/ButtonAction'
 import icon from 'assets/icons/actions/icon-link-out.svg'
 import styles from 'ducks/transactions/TransactionActions.styl'
@@ -14,6 +10,7 @@ import { TransactionModalRow } from 'ducks/transactions/TransactionModal'
 import palette from 'cozy-ui/react/palette'
 import { triggersConn } from 'doctypes'
 import InformativeModal from 'ducks/transactions/actions/KonnectorAction/InformativeModal'
+import ConfigurationModal from 'ducks/transactions/actions/KonnectorAction/ConfigurationModal'
 
 const name = 'konnector'
 
@@ -22,7 +19,7 @@ function getBrandsWithoutTrigger(brands) {
 }
 
 const transactionModalRowStyle = { color: palette.dodgerBlue }
-class _Component extends React.Component {
+class Component extends React.Component {
   state = {
     showInformativeModal: false,
     showIntentModal: false
@@ -50,23 +47,7 @@ class _Component extends React.Component {
 
   onInformativeModalConfirm = async () => {
     this.hideInformativeModal()
-
-    if (__TARGET__ === 'browser') {
-      this.showIntentModal()
-    } else if (__TARGET__ === 'mobile') {
-      const brand = this.findMatchingBrand()
-      const cozyClient = this.props.client
-      const intentWindow = await cozyClient.intents.redirect(
-        'io.cozy.apps',
-        {
-          slug: brand.konnectorSlug,
-          type: 'konnector'
-        },
-        open
-      )
-
-      intentWindow.addEventListener('exit', this.props.fetchTriggers)
-    }
+    this.showIntentModal()
   }
 
   onIntentComplete = () => {
@@ -91,7 +72,6 @@ class _Component extends React.Component {
     const healthOrGeneric = brand.health ? 'health' : 'generic'
     const label = t(`Transactions.actions.konnector.${healthOrGeneric}`)
     const translationKey = `Transactions.actions.informativeModal.${healthOrGeneric}`
-    const cozyClient = this.props.client
 
     return (
       <div>
@@ -127,14 +107,10 @@ class _Component extends React.Component {
           />
         )}
         {this.state.showIntentModal && (
-          <IntentModal
+          <ConfigurationModal
             dismissAction={this.hideIntentModal}
             onComplete={this.onIntentComplete}
-            action="INSTALL"
-            doctype="io.cozy.apps"
-            options={{ slug: brand.konnectorSlug }}
-            create={cozyClient.intents.create.bind(cozyClient.intents)}
-            mobileFullscreen
+            slug={brand.konnectorSlug}
           />
         )}
       </div>
@@ -142,7 +118,7 @@ class _Component extends React.Component {
   }
 }
 
-_Component.propTypes = {
+Component.propTypes = {
   t: PropTypes.func.isRequired,
   transaction: PropTypes.object.isRequired,
   actionProps: PropTypes.object.isRequired,
@@ -150,8 +126,6 @@ _Component.propTypes = {
   isModalItem: PropTypes.bool,
   fetchTriggers: PropTypes.func.isRequired
 }
-
-const Component = withClient(_Component)
 
 const mkFetchTriggers = client => () =>
   client.query(triggersConn.query(client), { as: triggersConn.as })
