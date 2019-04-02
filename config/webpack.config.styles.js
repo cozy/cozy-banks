@@ -2,9 +2,9 @@ const autoprefixer = require('autoprefixer')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const PostCSSAssetsPlugin = require('postcss-assets-webpack-plugin')
 const sortCSSmq = require('sort-css-media-queries')
-const { SRC_DIR } = require('./webpack.vars')
+const { SRC_DIR, production } = require('./webpack.vars')
 
-module.exports = env => ({
+module.exports = {
   module: {
     rules: [
       {
@@ -50,7 +50,7 @@ module.exports = env => ({
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      filename: `app${env.production ? '.[hash].min' : ''}.css`
+      filename: `app${production ? '.[hash].min' : ''}.css`
     }),
     // new PostCSSAssetsPlugin({
     //   test: /\.css$/,
@@ -68,4 +68,4 @@ module.exports = env => ({
     //   )
     // })
   ]
-})
+}

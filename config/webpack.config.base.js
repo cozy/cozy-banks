@@ -4,7 +4,7 @@ const path = require('path')
 const webpack = require('webpack')
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
 
-const { SRC_DIR, enabledFlags } = require('./webpack.vars')
+const { production, SRC_DIR, enabledFlags } = require('./webpack.vars')
 const pkg = require(path.resolve(__dirname, '../package.json'))
 
 const mapToNodeModules = packages => {
@@ -15,7 +15,7 @@ const mapToNodeModules = packages => {
   return res
 }
 
-module.exports = env => ({
+module.exports = {
   output: {
     filename: 'app.js'
   },
@@ -74,7 +74,7 @@ module.exports = env => ({
           emitWarning: true,
           fix: true,
           rules: {
-            'no-debugger': env.production ? 2 : 0
+            'no-debugger': production ? 2 : 0
           }
         }
       },
@@ -110,4 +110,4 @@ module.exports = env => ({
     new webpack.ContextReplacementPlugin(/date-fns[\/\\]locale$/, /(en|fr)\/index\.js/),
     new DuplicatePackageCheckerPlugin({ verbose: true }),
   ]
-})
+}

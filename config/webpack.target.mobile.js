@@ -4,6 +4,7 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
+const { production } = require('./webpack.vars')
 const pkg = require(path.resolve(__dirname, '../package.json'))
 
 const output = {
@@ -14,7 +15,7 @@ if (process.env.PUBLIC_PATH) {
   output.publicPath = process.env.PUBLIC_PATH
 }
 
-module.exports = env => ({
+module.exports = {
   entry: {
     app: [
       require.resolve('@babel/polyfill'),
@@ -27,7 +28,7 @@ module.exports = env => ({
   output: output,
   plugins: [
     new webpack.DefinePlugin({
-      __ALLOW_HTTP__: !env.production,
+      __ALLOW_HTTP__: !production,
       __TARGET__: JSON.stringify('mobile'),
       __POUCH__: JSON.stringify(true)
     }),
@@ -47,4 +48,4 @@ module.exports = env => ({
       }
     })
   ]
-})
+}
