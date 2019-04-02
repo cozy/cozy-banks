@@ -40,5 +40,6 @@ class AppsSuggestion extends Document {
 
 AppsSuggestion.doctype = 'io.cozy.apps.suggestions'
 AppsSuggestion.idAttributes = ['slug']
+AppsSuggestion.createdByApp = 'banks'
 
 export default AppsSuggestion
