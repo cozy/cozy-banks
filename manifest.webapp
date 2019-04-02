@@ -156,6 +156,11 @@
       "description": "Required to know if a konnector is waiting for a manual update",
       "type": "io.cozy.konnectors",
       "verbs": ["GET"]
+    },
+    "apps.suggestions": {
+      "description": "Used to suggest which apps / connectors might be useful for the user",
+      "type": "io.cozy.apps.suggestions",
+      "verbs": ["GET", "POST", "PUT"]
     }
   }
 }
