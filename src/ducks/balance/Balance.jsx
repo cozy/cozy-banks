@@ -37,6 +37,15 @@ import BarTheme from 'ducks/mobile/BarTheme'
 import { filterByAccounts } from 'ducks/filters'
 import { CozyRealtime } from 'cozy-realtime'
 
+// TODO should be removed when realtime can be initialized directly
+// with cozyClient
+const getCredentialsFromClient = cozyClient => {
+  const url = cozyClient.stackClient.uri
+  const token =
+    cozyClient.stackClient.token.accessToken || cozyClient.stackClient.token
+  return { url, token }
+}
+
 class Balance extends PureComponent {
   constructor(props) {
     super(props)
@@ -161,8 +170,9 @@ class Balance extends PureComponent {
       const cozyClient = this.props.client
       // TODO: Update cozy-realtime to do only:
       //   this.realtime = new CozyRealtime({ cozyClient })
-      const url = cozyClient.client.uri
-      const token = cozyClient.client.token.token
+      const creds = getCredentialsFromClient(cozyClient)
+      const url = creds.url
+      const token = creds.token
       this.realtime = new CozyRealtime({ url, token })
     }
   }
@@ -211,6 +221,56 @@ class Balance extends PureComponent {
   componentWillUnmount() {
     this.stopFetchTriggers()
     this.stopFetchAccounts()
+  }
+
+  componentDidUpdate() {
+    this.ensureRealtimeProperlyConfigured()
+  }
+
+  ensureRealtimeProperlyConfigured() {
+    try {
+      this._ensureRealtimeProperlyConfigured()
+    } catch (e) {
+      /* eslint-disable no-console */
+      console.error(e)
+      console.warn(
+        'Balance: Could not correctly configure realtime, see error above.'
+      )
+      /* eslint-enable no-console */
+    }
+  }
+
+  _ensureRealtimeProperlyConfigured() {
+    const {
+      accounts: accountsCollection,
+      triggers: triggersCollection
+    } = this.props
+
+    const accounts = accountsCollection.data
+    const triggers = triggersCollection.data
+
+    const collections = [accountsCollection, triggersCollection]
+    if (collections.some(isCollectionLoading)) {
+      return
+    }
+
+    if (accounts.length > 0) {
+      this.stopFetchAccounts()
+      this.stopFetchTriggers()
+      return
+    }
+
+    let konnectorSlugs = triggers
+      .filter(isBankTrigger)
+      .map(t => t.attributes.message.konnector)
+
+    if (konnectorSlugs.length > 0) {
+      this.stopFetchTriggers()
+      this.startFetchAccounts()
+    } else {
+      this.stopFetchAccounts()
+      this.startFetchTriggers()
+    }
   }
 
   render() {
@@ -268,17 +328,11 @@ class Balance extends PureComponent {
       }
 
       if (konnectorSlugs.length > 0) {
-        this.stopFetchTriggers()
-        this.startFetchAccounts()
         return <AccountsImporting konnectorSlugs={konnectorSlugs} />
       }
 
-      this.stopFetchAccounts()
-      this.startFetchTriggers()
       return <NoAccount />
     }
-    this.stopFetchAccounts()
-    this.stopFetchTriggers()
 
     const groups = [
       ...groupsCollection.data,

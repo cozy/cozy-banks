@@ -27,11 +27,19 @@ class KonnectorUpdateInfo extends React.PureComponent {
         pendingUpdate: true
       })
 
+      if (this.unmounted) {
+        return
+      }
+
       this.setState({ url })
     } catch (err) {
       // eslint-disable-next-line no-console
       console.warn('Error while retrieving redirection URL', err)
     }
+  }
+
+  componentWillUnmount() {
+    this.unmounted = true
   }
 
   render() {
