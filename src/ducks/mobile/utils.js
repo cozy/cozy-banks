@@ -52,7 +52,7 @@ export const setBarTheme = theme => {
 }
 
 export const AUTH_PATH = 'authentication'
-export const onLogout = async (store, cozyClient, router) => {
+export const onLogout = async (store, cozyClient, routerOrHistoryOrReplace) => {
   await stopPushNotifications()
   store.dispatch(unlink())
   store.dispatch(resetFilterByDoc())
@@ -70,5 +70,17 @@ export const onLogout = async (store, cozyClient, router) => {
       console.warn('Error while resetting client', e)
     }
   }
-  router.push(`/${AUTH_PATH}`)
+
+  try {
+    // TODO Some caller pass history, other the router
+    if (routerOrHistoryOrReplace.push) {
+      routerOrHistoryOrReplace.push(`/${AUTH_PATH}`)
+    } else if (routerOrHistoryOrReplace.replace) {
+      routerOrHistoryOrReplace.replace(`/${AUTH_PATH}`)
+    } else {
+      routerOrHistoryOrReplace(`/${AUTH_PATH}`)
+    }
+  } catch (e) {
+    window.location.reload()
+  }
 }

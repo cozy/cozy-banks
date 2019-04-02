@@ -68,7 +68,7 @@ const withAuth = Wrapped => {
         await onLogout(
           this.context.store,
           this.props.client,
-          this.props.history.replace
+          this.props.history
         )
         this.setState({ isLoggingOut: false })
       })
