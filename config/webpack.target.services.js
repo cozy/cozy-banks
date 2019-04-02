@@ -28,7 +28,7 @@ const config = env => merge.strategy({
   plugins: 'replace',
   output: 'replace',
   entry: 'replace'
-})(base(env), ui, {
+})(base, ui, {
   entry: entries,
   mode: env.production ? 'production' : 'development',
   target: 'node',
@@ -93,4 +93,4 @@ const config = env => merge.strategy({
   ]
 })
 
-module.exports = env => merge(config(env), piwik)
+module.exports = merge(config, piwik)
