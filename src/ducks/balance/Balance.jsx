@@ -213,6 +213,56 @@ class Balance extends PureComponent {
     this.stopFetchAccounts()
   }
 
+  componentDidUpdate() {
+    this.ensureRealtimeProperlyConfigured()
+  }
+
+  ensureRealtimeProperlyConfigured() {
+    try {
+      this._ensureRealtimeProperlyConfigured()
+    } catch (e) {
+      // eslint-disable no-console
+      console.error(e)
+      console.warn(
+        'Balance: Could not correctly configure realtime, see error above.'
+      )
+      // eslint-enable no-console
+    }
+  }
+
+  _ensureRealtimeProperlyConfigured() {
+    const {
+      accounts: accountsCollection,
+      triggers: triggersCollection
+    } = this.props
+
+    const accounts = accountsCollection.data
+    const triggers = triggersCollection.data
+
+    const collections = [accountsCollection, triggersCollection]
+    if (collections.some(isCollectionLoading)) {
+      return
+    }
+
+    if (accounts.length > 0) {
+      this.stopFetchAccounts()
+      this.stopFetchTriggers()
+      return
+    }
+
+    let konnectorSlugs = triggers
+      .filter(isBankTrigger)
+      .map(t => t.attributes.message.konnector)
+
+    if (konnectorSlugs.length > 0) {
+      this.stopFetchTriggers()
+      this.startFetchAccounts()
+    } else {
+      this.stopFetchAccounts()
+      this.startFetchTriggers()
+    }
+  }
+
   render() {
     const {
       accounts: accountsCollection,
@@ -268,17 +318,11 @@ class Balance extends PureComponent {
       }
 
       if (konnectorSlugs.length > 0) {
-        this.stopFetchTriggers()
-        this.startFetchAccounts()
         return <AccountsImporting konnectorSlugs={konnectorSlugs} />
       }
 
-      this.stopFetchAccounts()
-      this.startFetchTriggers()
       return <NoAccount />
     }
-    this.stopFetchAccounts()
-    this.stopFetchTriggers()
 
     const groups = [
       ...groupsCollection.data,
