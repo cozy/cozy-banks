@@ -24,7 +24,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       alwaysWriteToDisk: true,
       template: path.resolve(__dirname, '../src/index.ejs'),
-      title: pkg.name,
+      title: 'Cozy Banks',
       minify: {
         collapseWhitespace: true
       }

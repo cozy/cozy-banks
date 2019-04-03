@@ -2,7 +2,7 @@
 <html lang="{{.Locale}}">
 <head>
   <meta charset="utf-8">
-  <title>Cozy Banks</title>
+  <title><%= htmlWebpackPlugin.options.title %></title>
   <% if (__TARGET__ !== 'mobile') { %>
   {{.ThemeCSS}}
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
