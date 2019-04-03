@@ -116,7 +116,7 @@ export const schema = {
     attributes: {},
     relationships: {}
   },
-  accounts: {
+  bankAccounts: {
     doctype: ACCOUNT_DOCTYPE,
     attributes: {},
     relationships: {}
