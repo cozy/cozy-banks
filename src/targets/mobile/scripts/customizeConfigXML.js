@@ -4,11 +4,12 @@ const path = require('path')
 const fs = require('fs-extra')
 
 function handleError(error) {
-  console.log('Error in beforePrepare hook:')
+  console.log('Error in customizeConfigXML hook:')
   console.error(error)
   throw error
 }
-module.exports = function (context) {
+
+const customizeConfigXML = function (context) {
   if (!process.env.MOBILE_CONFIG_TRANSFORM_FILE) {
     console.log('No transformation file provided, skipping transformation step')
     return
@@ -55,4 +56,10 @@ module.exports = function (context) {
       console.log(`config.xml successfully transformed using ${transformFilePath}`)
     })
   })
+}
+
+module.exports = customizeConfigXML
+
+if (require.main === module) {
+  customizeConfigXML()
 }
