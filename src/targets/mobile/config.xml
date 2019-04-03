@@ -12,7 +12,7 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <preference name="AppendUserAgent" value="io.cozy.banks.mobile-1.0.4" />
-    <hook src="scripts/beforePrepare.js" type="before_prepare" />
+    <hook src="scripts/customizeConfigXML.js" type="before_prepare" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="res/icons/android/icon-36-ldpi.png" />
