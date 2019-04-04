@@ -1,6 +1,6 @@
 import TransactionsPage, {
   TransactionsPageWithBackButton
-} from './TransactionsPage'
+} from 'ducks/transactions/TransactionsPage'
 export { getLabel } from './helpers'
 
 // components
