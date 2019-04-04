@@ -85,6 +85,12 @@ More information : https://github.com/cozy/cozy-stack/blob/master/docs/registry-
 
 ### Pre-requisites
 
+- Install cordova globally (necessary for the fastlane cordova plugin)
+
+```
+yarn global add cordova@<same version as in package.json>
+```
+
 - Generate icons
 
 ```
