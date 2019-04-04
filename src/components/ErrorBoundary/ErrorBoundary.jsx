@@ -1,6 +1,11 @@
 import React from 'react'
 import { logException } from 'lib/sentry'
 import Error from './Error'
+import get from 'lodash/get'
+
+const getPathname = children => {
+  return get(children, 'props.location.pathname')
+}
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -17,8 +22,8 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const prevPathname = prevProps.children.props.location.pathname
-    const pathname = this.props.children.props.location.pathname
+    const prevPathname = getPathname(prevProps.children)
+    const pathname = getPathname(this.props.children)
     if (this.state.hasError && prevPathname !== pathname) {
       this.setState({ hasError: false })
     }
