@@ -52,6 +52,11 @@
     "konnectorSlug": "bouyguestelecom"
   },
   {
+    "name": "CAF",
+    "regexp": "\\bcaf\\b",
+    "konnectorSlug": "caf"
+  },
+  {
     "name": "Cdiscount",
     "regexp": "\\bcdiscount\\b",
     "konnectorSlug": "cdiscount"
