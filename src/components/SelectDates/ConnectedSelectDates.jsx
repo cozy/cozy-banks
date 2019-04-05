@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { getPeriod, addFilterByPeriod } from 'ducks/filters'
-import SelectDates from './SelectDates'
+import SelectDates from 'components/SelectDates/SelectDates'
 
 const mapStateToProps = state => ({
   value: getPeriod(state)

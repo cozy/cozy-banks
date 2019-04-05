@@ -14,11 +14,11 @@ import { translate, withBreakpoints } from 'cozy-ui/react'
 import Icon from 'cozy-ui/react/Icon'
 import Chip from 'cozy-ui/react/Chip'
 
-import styles from './SelectDates.styl'
+import styles from 'components/SelectDates/SelectDates.styl'
 import Select from 'components/Select'
 import cx from 'classnames'
-import scrollAware from './scrollAware'
-import { rangedSome } from './utils'
+import scrollAware from 'components/SelectDates/scrollAware'
+import { rangedSome } from 'components/SelectDates/utils'
 const start2016 = new Date(2015, 11, 31)
 
 const getDefaultOptions = () => {

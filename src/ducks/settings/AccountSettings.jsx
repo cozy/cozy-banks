@@ -11,11 +11,14 @@ import { withDispatch } from 'utils'
 import BackButton from 'components/BackButton'
 import { PageTitle } from 'components/Title'
 import { connect } from 'react-redux'
-import styles from './AccountsSettings.styl'
+import styles from 'ducks/settings/AccountsSettings.styl'
 import { flowRight as compose } from 'lodash'
 import { destroyAccount } from 'actions'
 import spinner from 'assets/icons/icon-spinner.svg'
-import { getAccountInstitutionLabel, getAccountType } from '../account/helpers'
+import {
+  getAccountInstitutionLabel,
+  getAccountType
+} from 'ducks/account/helpers'
 import { getAppUrlById } from 'selectors'
 import { Query } from 'cozy-client'
 import { queryConnect, withClient } from 'cozy-client'

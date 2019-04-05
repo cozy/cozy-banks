@@ -1,7 +1,7 @@
-import CategoriesPage from './CategoriesPage'
-import CategoryChoice from './CategoryChoice'
-import CategoryIcon from './CategoryIcon'
-import withUpdateCategory from './withUpdateCategory'
+import CategoriesPage from 'ducks/categories/CategoriesPage'
+import CategoryChoice from 'ducks/categories/CategoryChoice'
+import CategoryIcon from 'ducks/categories/CategoryIcon'
+import withUpdateCategory from 'ducks/categories/withUpdateCategory'
 
 export { getParentCategory, getCategories } from './categoriesMap'
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { debounce, throttle } from 'lodash'
 import ReactDOM from 'react-dom'
-import { getScroll, getScrollHeight } from './utils'
+import { getScroll, getScrollHeight } from 'ducks/transactions/scroll/utils'
 
 function elementInViewport(el, thresold) {
   if (!el) {

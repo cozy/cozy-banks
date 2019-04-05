@@ -1,7 +1,7 @@
 import React from 'react'
 import { keyBy, sortBy } from 'lodash'
 import { translate } from 'cozy-ui/react'
-import { BalanceAccounts, BalanceGroups } from './components'
+import { BalanceAccounts, BalanceGroups } from 'ducks/balance/components'
 
 class BalanceTables extends React.PureComponent {
   render() {

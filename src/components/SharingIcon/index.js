@@ -1,2 +1,2 @@
-import SharingIcon from './SharingIcon'
+import SharingIcon from 'components/SharingIcon/SharingIcon'
 export default SharingIcon

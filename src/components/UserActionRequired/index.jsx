@@ -9,7 +9,7 @@ import Icon from 'cozy-ui/react/Icon'
 import Button from 'cozy-ui/react/Button'
 import Alerter from 'cozy-ui/react/Alerter'
 import { withClient } from 'cozy-client'
-import styles from './styles.styl'
+import styles from 'components/UserActionRequired/styles.styl'
 import { onLogout } from 'ducks/mobile/utils'
 
 const TosUpdatedModal = translate()(({ t, newTosLink, onAccept, onRefuse }) => (

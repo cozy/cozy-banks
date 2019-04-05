@@ -1,4 +1,4 @@
-import styles from './styles.styl'
+import styles from 'components/BarItem/styles.styl'
 import React from 'react'
 import cx from 'classnames'
 

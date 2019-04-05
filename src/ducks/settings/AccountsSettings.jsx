@@ -10,11 +10,14 @@ import Table from 'components/Table'
 import Loading from 'components/Loading'
 import { queryConnect } from 'cozy-client'
 import plus from 'assets/icons/16/plus.svg'
-import styles from './AccountsSettings.styl'
+import styles from 'ducks/settings/AccountsSettings.styl'
 import btnStyles from 'styles/buttons.styl'
 import AddAccountLink from 'ducks/settings/AddAccountLink'
 import cx from 'classnames'
-import { getAccountInstitutionLabel, getAccountType } from '../account/helpers'
+import {
+  getAccountInstitutionLabel,
+  getAccountType
+} from 'ducks/account/helpers'
 
 import { ACCOUNT_DOCTYPE, APP_DOCTYPE } from 'doctypes'
 

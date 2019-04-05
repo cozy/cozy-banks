@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
-import styles from './style.styl'
+import styles from 'components/Breadcrumb/style.styl'
 import arrowLeftIcon from 'assets/icons/icon-arrow-left.svg'
 import { coolGrey } from 'cozy-ui/react/palette'
 import Icon from 'cozy-ui/react/Icon'

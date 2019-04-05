@@ -8,7 +8,7 @@ import {
   differenceInCalendarMonths,
   isAfter
 } from 'date-fns'
-import { getDate } from './helpers'
+import { getDate } from 'ducks/transactions/helpers'
 
 const rangeMonth = (startDate, endDate) => {
   const options = []

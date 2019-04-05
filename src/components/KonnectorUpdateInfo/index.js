@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './styles.styl'
+import styles from 'components/KonnectorUpdateInfo/styles.styl'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import Text, { SubTitle } from 'cozy-ui/react/Text'
 import Icon from 'cozy-ui/react/Icon'

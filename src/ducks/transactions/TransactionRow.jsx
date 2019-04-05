@@ -13,7 +13,7 @@ import { TdSecondary } from 'components/Table'
 import * as List from 'components/List'
 
 import { withDispatch } from 'utils'
-import TransactionActions from './TransactionActions'
+import TransactionActions from 'ducks/transactions/TransactionActions'
 import {
   getAccountLabel,
   getAccountInstitutionLabel
@@ -23,8 +23,8 @@ import { getCategoryName } from 'ducks/categories/categoriesMap'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { getCategoryId } from 'ducks/categories/helpers'
 import { withUpdateCategory } from 'ducks/categories'
-import { getLabel, getDate } from './helpers'
-import styles from './Transactions.styl'
+import { getLabel, getDate } from 'ducks/transactions/helpers'
+import styles from 'ducks/transactions/Transactions.styl'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 
 const WILL_BE_DEBITED = 'Transactions.will-be-debited-on'

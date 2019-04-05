@@ -1,7 +1,7 @@
 import React from 'react'
 import { translate } from 'cozy-ui/react'
 import Icon from 'cozy-ui/react/Icon'
-import { formatVendor } from './helpers'
+import { formatVendor } from 'ducks/health-expense/helpers'
 import palette from 'cozy-ui/react/palette'
 
 const healthExpenseStatusIconStyle = { display: 'inline-block' }

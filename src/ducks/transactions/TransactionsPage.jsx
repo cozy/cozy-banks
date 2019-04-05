@@ -25,8 +25,8 @@ import { getDate, getDisplayDate } from 'ducks/transactions/helpers'
 import { getCategoryId } from 'ducks/categories/helpers'
 
 import Loading from 'components/Loading'
-import { TransactionsWithSelection } from './Transactions'
-import TransactionHeader from './TransactionHeader'
+import { TransactionsWithSelection } from 'ducks/transactions/Transactions'
+import TransactionHeader from 'ducks/transactions/TransactionHeader'
 import {
   ACCOUNT_DOCTYPE,
   accountsConn,
@@ -37,7 +37,7 @@ import {
 
 import { queryConnect } from 'cozy-client'
 import { isCollectionLoading } from 'ducks/client/utils'
-import { findNearestMonth } from './helpers'
+import { findNearestMonth } from 'ducks/transactions/helpers'
 import {
   getBalanceHistories,
   sumBalanceHistories,

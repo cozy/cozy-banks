@@ -1,6 +1,6 @@
 import React, { Fragment, memo } from 'react'
 import PropTypes from 'prop-types'
-import styles from './HeaderTitle.styl'
+import styles from 'ducks/balance/components/HeaderTitle.styl'
 import { Figure } from 'components/Figure'
 
 const HeaderTitle = ({ balance, subtitle, onClickBalance }) => (

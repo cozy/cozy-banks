@@ -1,7 +1,7 @@
 import React from 'react'
 import { withBreakpoints } from 'cozy-ui/react'
 import { Table } from 'components/Table'
-import styles from './BalanceTable.styl'
+import styles from 'ducks/balance/components/BalanceTable.styl'
 
 class BalanceTable extends React.PureComponent {
   render() {

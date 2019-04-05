@@ -1,4 +1,4 @@
-import BalanceGroups from './BalanceGroups'
-import BalanceAccounts from './BalanceAccounts'
+import BalanceGroups from 'ducks/balance/components/BalanceGroups'
+import BalanceAccounts from 'ducks/balance/components/BalanceAccounts'
 
 export { BalanceAccounts, BalanceGroups }

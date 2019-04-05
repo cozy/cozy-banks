@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from '../TransactionActions.styl'
+import styles from 'ducks/transactions/TransactionActions.styl'
 import palette from 'cozy-ui/react/palette'
 import Icon from 'cozy-ui/react/Icon'
 

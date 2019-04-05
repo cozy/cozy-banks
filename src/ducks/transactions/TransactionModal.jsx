@@ -14,7 +14,7 @@ import cx from 'classnames'
 import { Query } from 'cozy-client'
 
 import { Figure } from 'components/Figure'
-import Page from './Page'
+import Page from 'ducks/transactions/Page'
 
 import { getLabel } from 'ducks/transactions'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
@@ -23,7 +23,7 @@ import TransactionActions from 'ducks/transactions/TransactionActions'
 import { withUpdateCategory } from 'ducks/categories'
 import PropTypes from 'prop-types'
 import { getCategoryId } from 'ducks/categories/helpers'
-import styles from './TransactionModal.styl'
+import styles from 'ducks/transactions/TransactionModal.styl'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 
 import iconGraph from 'assets/icons/icon-graph.svg'
@@ -37,7 +37,7 @@ import {
 import { TRANSACTION_DOCTYPE } from 'doctypes'
 import { isCollectionLoading } from 'ducks/client/utils'
 import flag from 'cozy-flags'
-import { getDate } from './helpers'
+import { getDate } from 'ducks/transactions/helpers'
 
 const Separator = () => <hr className={styles.TransactionModalSeparator} />
 

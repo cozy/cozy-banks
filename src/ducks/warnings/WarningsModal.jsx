@@ -4,7 +4,7 @@ import tosIcon from 'assets/icons/icon-tos.svg'
 import { translate } from 'cozy-ui/react'
 import Icon from 'cozy-ui/react/Icon'
 import Button from 'cozy-ui/react/Button'
-import styles from './WarningsModal.styl'
+import styles from 'ducks/warnings/WarningsModal.styl'
 
 class WarningsModal extends Component {
   static propTypes = {

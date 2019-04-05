@@ -2,7 +2,7 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import styles from './style.styl'
+import styles from 'components/BackButton/style.styl'
 import withBackSwipe from 'utils/backSwipe'
 import { flowRight as compose } from 'lodash'
 import { withBreakpoints } from 'cozy-ui/react'

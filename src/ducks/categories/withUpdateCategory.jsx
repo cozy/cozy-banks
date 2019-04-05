@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import CategoryChoice from './CategoryChoice'
+import CategoryChoice from 'ducks/categories/CategoryChoice'
 import { getCategoryId } from 'ducks/categories/helpers'
 import { withClient } from 'cozy-client'
 

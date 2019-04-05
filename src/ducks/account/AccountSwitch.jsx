@@ -22,9 +22,9 @@ import {
   resetFilterByDoc,
   getFilteredAccounts
 } from 'ducks/filters'
-import styles from './AccountSwitch.styl'
+import styles from 'ducks/account/AccountSwitch.styl'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
-import { getAccountInstitutionLabel } from './helpers.js'
+import { getAccountInstitutionLabel } from 'ducks/account/helpers.js'
 import { queryConnect } from 'cozy-client'
 
 import { buildVirtualGroups } from 'ducks/groups/helpers'

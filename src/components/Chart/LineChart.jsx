@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import * as d3 from 'utils/d3'
 import { max, minBy, keyBy, memoize } from 'lodash'
-import styles from './LineChart.styl'
-import Tooltip from './Tooltip'
+import styles from 'components/Chart/LineChart.styl'
+import Tooltip from 'components/Chart/Tooltip'
 
 class LineChart extends Component {
   constructor(props) {

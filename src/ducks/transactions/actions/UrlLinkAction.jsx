@@ -1,8 +1,8 @@
 import React from 'react'
 import icon from 'assets/icons/actions/icon-link-out.svg'
 import ButtonAction from 'cozy-ui/react/ButtonAction'
-import styles from '../TransactionActions.styl'
-import { TransactionModalRow } from '../TransactionModal'
+import styles from 'ducks/transactions/TransactionActions.styl'
+import { TransactionModalRow } from 'ducks/transactions/TransactionModal'
 import palette from 'cozy-ui/react/palette'
 
 const name = 'url'

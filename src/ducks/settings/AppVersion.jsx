@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styles from './AppVersion.styl'
+import styles from 'ducks/settings/AppVersion.styl'
 import flag from 'cozy-flags'
 import Alerter from 'cozy-ui/react/Alerter'
 

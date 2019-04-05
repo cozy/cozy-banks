@@ -14,7 +14,7 @@ import {
   getAccountBalance,
   isHealthReimbursementsAccount
 } from 'ducks/account/helpers'
-import styles from './AccountRow.styl'
+import styles from 'ducks/balance/components/AccountRow.styl'
 import KonnectorIcon from 'ducks/balance/components/KonnectorIcon'
 import { HealthReimbursementsIcon } from 'ducks/balance/components/HealthReimbursementsIcon'
 

@@ -1,3 +1,3 @@
-import Padded from './Padded'
+import Padded from 'components/Spacing/Padded'
 
 export { Padded }

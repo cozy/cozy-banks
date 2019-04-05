@@ -14,11 +14,11 @@ import Icon from 'cozy-ui/react/Icon'
 import { Caption } from 'cozy-ui/react/Text'
 import { Figure } from 'components/Figure'
 import Switch from 'components/Switch'
-import AccountsList from './AccountsList'
+import AccountsList from 'ducks/balance/components/AccountsList'
 import withFilters from 'components/withFilters'
 
-import { getGroupBalance } from '../helpers'
-import styles from './GroupPanel.styl'
+import { getGroupBalance } from 'ducks/balance/helpers'
+import styles from 'ducks/balance/components/GroupPanel.styl'
 
 const GroupPanelSummary = withStyles(() => ({
   expanded: {},

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import { MainTitle } from 'cozy-ui/react/Text'
-import styles from './Title.styl'
+import styles from 'components/Title/Title.styl'
 
 class Title extends React.PureComponent {
   render() {

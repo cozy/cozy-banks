@@ -4,7 +4,7 @@ import cx from 'classnames'
 import Icon from 'cozy-ui/react/Icon'
 import Modal, { ModalHeader, ModalContent } from 'cozy-ui/react/Modal'
 import palette from 'cozy-ui/react/palette'
-import styles from './Page.styl'
+import styles from 'ducks/transactions/Page.styl'
 import iconArrowLeft from 'assets/icons/icon-arrow-left.svg'
 
 const BackButton = ({ onClick }) => (

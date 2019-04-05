@@ -1,6 +1,6 @@
 import React from 'react'
 import { translate } from 'cozy-ui/react'
-import styles from './Loading.styl'
+import styles from 'components/Loading/Loading.styl'
 
 /**
  * Use it for the loading of page/section

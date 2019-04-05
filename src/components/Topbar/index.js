@@ -1,7 +1,7 @@
 /* global cozy */
 
 import React from 'react'
-import styles from './styles.styl'
+import styles from 'components/Topbar/styles.styl'
 import { withBreakpoints } from 'cozy-ui/react'
 
 const { BarCenter } = cozy.bar

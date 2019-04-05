@@ -1,7 +1,7 @@
 import React from 'react'
 import Types from 'prop-types'
 import classnames from 'classnames'
-import styles from './SharingIcon.styl'
+import styles from 'components/SharingIcon/SharingIcon.styl'
 
 const SharingIcon = ({ to, from }) => (
   <i

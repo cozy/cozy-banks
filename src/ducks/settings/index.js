@@ -1,10 +1,10 @@
-import Settings from './Settings'
-import AccountSettings from './AccountSettings'
-import AccountsSettings from './AccountsSettings'
-import GroupSettings, { NewGroupSettings } from './GroupSettings'
-import GroupsSettings from './GroupsSettings'
-import Configuration from './Configuration'
-import Debug from './Debug'
+import Settings from 'ducks/settings/Settings'
+import AccountSettings from 'ducks/settings/AccountSettings'
+import AccountsSettings from 'ducks/settings/AccountsSettings'
+import GroupSettings, { NewGroupSettings } from 'ducks/settings/GroupSettings'
+import GroupsSettings from 'ducks/settings/GroupsSettings'
+import Configuration from 'ducks/settings/Configuration'
+import Debug from 'ducks/settings/Debug'
 
 export {
   isNotificationEnabled,
