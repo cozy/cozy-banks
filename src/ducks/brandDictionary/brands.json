@@ -87,6 +87,11 @@
     "konnectorSlug": "directenergie"
   },
   {
+    "name": "EDF",
+    "regexp": "\\bedf\\b",
+    "konnectorSlug": "edf"
+  },
+  {
     "name": "Enercoop",
     "regexp": "\\benercoop\\b",
     "konnectorSlug": "enercoop"
