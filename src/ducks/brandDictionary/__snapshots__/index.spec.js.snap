@@ -66,6 +66,12 @@ Array [
   },
   Object {
     "isInstalled": false,
+    "konnectorSlug": "caf",
+    "name": "CAF",
+    "regexp": "\\\\bcaf\\\\b",
+  },
+  Object {
+    "isInstalled": false,
     "konnectorSlug": "cdiscount",
     "name": "Cdiscount",
     "regexp": "\\\\bcdiscount\\\\b",
@@ -445,6 +451,12 @@ Array [
     "konnectorSlug": "bouyguestelecom",
     "name": "Bouygues Telecom",
     "regexp": "\\\\bbouyg",
+  },
+  Object {
+    "isInstalled": false,
+    "konnectorSlug": "caf",
+    "name": "CAF",
+    "regexp": "\\\\bcaf\\\\b",
   },
   Object {
     "isInstalled": false,
