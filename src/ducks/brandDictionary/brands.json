@@ -62,11 +62,6 @@
     "konnectorSlug": "cdiscount"
   },
   {
-    "name": "Deliveroo",
-    "regexp": "\\bdeliveroo\\b",
-    "konnectorSlug": "deliveroo"
-  },
-  {
     "name": "Cultura",
     "regexp": "\\bcultura\\b",
     "konnectorSlug": "cultura"
@@ -80,6 +75,11 @@
     "name": "Deezer",
     "regexp": "\\bdeezer\\b",
     "konnectorSlug": "deezer"
+  },
+  {
+    "name": "Deliveroo",
+    "regexp": "\\bdeliveroo\\b",
+    "konnectorSlug": "deliveroo"
   },
   {
     "name": "Direct Energie",
@@ -101,7 +101,6 @@
     "regexp": "\\beovi mcd mutuelle\\b",
     "konnectorSlug": "eovimcdparticuliers"
   },
-
   {
     "name": "Free",
     "regexp": "\\bfree (telecom|hautdebit)\\b",
