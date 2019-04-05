@@ -30,6 +30,9 @@ export const DEFAULTS_SETTINGS = {
     billsLastSeq: '0',
     transactionsLastSeq: '0'
   },
+  appSuggestions: {
+    lastSeq: 0
+  },
   community: {
     localModelOverride: {
       enabled: true

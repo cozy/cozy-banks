@@ -8,6 +8,7 @@ import isCreatedDoc from 'utils/isCreatedDoc'
 import matchFromBills from 'ducks/billsMatching/matchFromBills'
 import matchFromTransactions from 'ducks/billsMatching/matchFromTransactions'
 import { logResult } from 'ducks/billsMatching/utils'
+import { findAppSuggestions } from 'ducks/appSuggestions/services'
 
 const log = logger.namespace('onOperationOrBillCreate')
 
@@ -108,6 +109,14 @@ const doSendNotifications = async (setting, notifChanges) => {
   }
 }
 
+const doAppSuggestions = async setting => {
+  try {
+    await findAppSuggestions(setting, cozyClient)
+  } catch (e) {
+    log('warn', 'Error while finding app suggestions: ' + e)
+  }
+}
+
 const getOptions = argv => {
   try {
     return JSON.parse(argv.slice(-1)[0])
@@ -146,6 +155,9 @@ const onOperationOrBillCreate = async options => {
 
   log('info', 'Do send notifications...')
   await doSendNotifications(setting, notifChanges)
+
+  log('info', 'Do apps suggestions...')
+  await doAppSuggestions(setting)
 
   log('info', 'Saving settings...')
   await Settings.createOrUpdate(setting)
