@@ -257,6 +257,11 @@
     "konnectorSlug": "showroomprive"
   },
   {
+    "name": "SNCF",
+    "regexp": "\\bsncf\\b",
+    "konnectorSlug": "sncf"
+  },
+  {
     "name": "Spartoo",
     "regexp": "\\bspartoo\\b",
     "konnectorSlug": "spartoo"
