@@ -2,12 +2,7 @@ import React from 'react'
 import UIAppIcon from 'cozy-ui/react/AppIcon'
 import { withClient } from 'cozy-client'
 
-const style = {
-  display: 'inline-block',
-  width: 24,
-  height: 24
-}
-
+// TODO: Move this in cozy-ui
 class KonnectorIcon extends React.PureComponent {
   constructor(props) {
     super(props)
@@ -23,11 +18,9 @@ class KonnectorIcon extends React.PureComponent {
   }
 
   render() {
-    return (
-      <span style={style}>
-        <UIAppIcon fetchIcon={this.fetchIcon} />
-      </span>
-    )
+    const { className } = this.props
+
+    return <UIAppIcon fetchIcon={this.fetchIcon} className={className} />
   }
 }
 
