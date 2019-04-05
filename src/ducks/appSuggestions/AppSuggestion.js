@@ -5,10 +5,12 @@ import get from 'lodash/get'
 import setWith from 'lodash/setWith'
 import clone from 'lodash/clone'
 
+/* Set a value inside an object, by path, immutably */
 const setIn = (obj, path, value) => {
   return setWith(clone(obj), path, value, clone)
 }
 
+/* Push value into nested array, immutably */
 const pushAtPath = (obj, path, value) => {
   const arr = get(obj, path, [])
   arr.push(value)
