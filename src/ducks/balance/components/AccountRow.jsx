@@ -67,7 +67,12 @@ class AccountRow extends React.PureComponent {
       >
         <div className={styles.AccountRow__column}>
           <div className={styles.AccountRow__logo}>
-            {institutionSlug && <KonnectorIcon slug={institutionSlug} />}
+            {institutionSlug && (
+              <KonnectorIcon
+                slug={institutionSlug}
+                className={styles.KonnectorIcon}
+              />
+            )}
             {isHealthReimbursements && <HealthReimbursementsIcon />}
           </div>
           <div className={styles.AccountRow__labelUpdatedAtWrapper}>

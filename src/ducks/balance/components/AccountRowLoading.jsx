@@ -11,7 +11,12 @@ const AccountRowLoading = ({ t, institutionSlug }) => (
   <li className={styles.AccountRow}>
     <div className={styles.AccountRow__column}>
       <div className={styles.AccountRow__logo}>
-        {institutionSlug && <KonnectorIcon slug={institutionSlug} />}
+        {institutionSlug && (
+          <KonnectorIcon
+            slug={institutionSlug}
+            className={styles.KonnectorIcon}
+          />
+        )}
       </div>
       <div className={styles.AccountRow__labelUpdatedAtWrapper}>
         <div className={styles.AccountRow__label}>
