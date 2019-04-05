@@ -23,8 +23,15 @@ class AppSuggestion extends Document {
   }
 
   static linkTransaction(suggestion, transaction) {
-    const transactionRelationship = { _id: transaction._id, _type: TRANSACTION_DOCTYPE }
-    return pushAtPath(suggestion, 'relationships.transactions.data', transactionRelationship)
+    const transactionRelationship = {
+      _id: transaction._id,
+      _type: TRANSACTION_DOCTYPE
+    }
+    return pushAtPath(
+      suggestion,
+      'relationships.transactions.data',
+      transactionRelationship
+    )
   }
 
   static init(slug, reasonCode) {
