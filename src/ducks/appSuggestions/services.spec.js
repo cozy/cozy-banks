@@ -1,5 +1,5 @@
 import { findSuggestionForTransaction, normalizeSuggestions } from './services'
-import AppsSuggestion from './AppsSuggestion'
+import AppSuggestion from './AppSuggestion'
 import { TRANSACTION_DOCTYPE } from '../../doctypes'
 import { getBrands } from '../brandDictionary'
 
@@ -8,7 +8,7 @@ describe('findSuggestionForTransaction', () => {
   const transaction = { _id: 'o1', label: 'boulanger' }
 
   it('should return a fresh io.cozy.apps.suggestions document', async () => {
-    jest.spyOn(AppsSuggestion, 'fetchBySlug').mockResolvedValueOnce(null)
+    jest.spyOn(AppSuggestion, 'fetchBySlug').mockResolvedValueOnce(null)
 
     const suggestion = await findSuggestionForTransaction(transaction, brands)
 
@@ -16,7 +16,7 @@ describe('findSuggestionForTransaction', () => {
   })
 
   it('should update an existing io.cozy.apps.suggestions document', async () => {
-    jest.spyOn(AppsSuggestion, 'fetchBySlug').mockResolvedValueOnce({
+    jest.spyOn(AppSuggestion, 'fetchBySlug').mockResolvedValueOnce({
       slug: 'boulanger',
       silenced: false,
       reason: {

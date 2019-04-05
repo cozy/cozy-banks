@@ -4,15 +4,14 @@ import { findMatchingBrand, getNotInstalledBrands } from 'ducks/brandDictionary'
 import { getLabel } from 'ducks/transactions/helpers'
 import { getKonnectorFromTrigger } from 'utils/triggers'
 import { BankTransaction } from 'cozy-doctypes'
-import AppsSuggestion from './AppsSuggestion'
+import AppSuggestion from './AppSuggestion'
 import Trigger from './Trigger'
+import { Document } from 'cozy-doctypes'
 import { groupBy, flatMap } from 'lodash'
 
-const log = logger.namespace('apps-suggestions')
+const log = logger.namespace('app-suggestions')
 
-AppsSuggestion.registerClient(cozyClient)
-Trigger.registerClient(cozyClient)
-BankTransaction.registerClient(cozyClient)
+Document.registerClient(cozyClient)
 
 export const findSuggestionForTransaction = async (transaction, brands) => {
   const matchingBrand = findMatchingBrand(brands, getLabel(transaction))
@@ -21,7 +20,7 @@ export const findSuggestionForTransaction = async (transaction, brands) => {
     return null
   }
 
-  let originalSuggestion = await AppsSuggestion.fetchBySlug(
+  let originalSuggestion = await AppSuggestion.fetchBySlug(
     matchingBrand.konnectorSlug
   )
 
@@ -32,13 +31,13 @@ export const findSuggestionForTransaction = async (transaction, brands) => {
         matchingBrand.konnectorSlug
       }. Creating a new one`
     )
-    originalSuggestion = AppsSuggestion.init(
+    originalSuggestion = AppSuggestion.init(
       matchingBrand.konnectorSlug,
       'FOUND_TRANSACTION'
     )
   }
 
-  const suggestion = AppsSuggestion.linkTransaction(
+  const suggestion = AppSuggestion.linkTransaction(
     originalSuggestion,
     transaction
   )
@@ -72,14 +71,14 @@ const mergeSuggestions = suggestions => {
   }
 }
 
-export const findAppsSuggestions = async setting => {
+export const findAppSuggestions = async setting => {
   log('info', 'Fetch transactions changes and triggers')
   const [transactionsToCheck, triggers] = await Promise.all([
-    BankTransaction.fetchChanges(setting.appsSuggestions.lastSeq),
+    BankTransaction.fetchChanges(setting.appSuggestions.lastSeq),
     Trigger.fetchAll()
   ])
 
-  setting.appsSuggestions.lastSeq = transactionsToCheck.newLastSeq
+  setting.appSuggestions.lastSeq = transactionsToCheck.newLastSeq
 
   log('info', 'Get not installed brands')
   const installedSlugs = triggers.map(getKonnectorFromTrigger)
@@ -96,6 +95,6 @@ export const findAppsSuggestions = async setting => {
 
   log('info', 'Save suggestions')
   for (const suggestion of normalizedSuggestions) {
-    await AppsSuggestion.createOrUpdate(suggestion)
+    await AppSuggestion.createOrUpdate(suggestion)
   }
 }

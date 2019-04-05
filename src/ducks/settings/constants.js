@@ -30,7 +30,7 @@ export const DEFAULTS_SETTINGS = {
     billsLastSeq: '0',
     transactionsLastSeq: '0'
   },
-  appsSuggestions: {
+  appSuggestions: {
     lastSeq: 0
   },
   community: {
