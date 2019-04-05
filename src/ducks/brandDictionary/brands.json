@@ -129,6 +129,12 @@
     "health": true
   },
   {
+    "name": "Humanis",
+    "regexp": "\\bhumanis\\b",
+    "konnectorSlug": "\\bhumanis\\b",
+    "health": true
+  },
+  {
     "name": "Inulogic",
     "regexp": "\\binulogic\\b",
     "konnectorSlug": "inulogic"
