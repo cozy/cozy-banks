@@ -4,8 +4,8 @@ import ButtonAction from 'cozy-ui/react/ButtonAction'
 import icon from 'assets/icons/actions/icon-link-out.svg'
 import { isHealth } from 'ducks/categories/helpers'
 import palette from 'cozy-ui/react/palette'
-import styles from '../TransactionActions.styl'
-import { TransactionModalRow } from '../TransactionModal'
+import styles from 'ducks/transactions/TransactionActions.styl'
+import { TransactionModalRow } from 'ducks/transactions/TransactionModal'
 
 const name = 'refund'
 

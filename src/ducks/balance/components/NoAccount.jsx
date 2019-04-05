@@ -7,7 +7,7 @@ import AddAccountLink from 'ducks/settings/AddAccountLink'
 import { Container, Content } from 'components/VerticalBox'
 import BarTheme from 'ducks/mobile/BarTheme'
 
-import styles from './NoAccount.styl'
+import styles from 'ducks/balance/components/NoAccount.styl'
 
 const NoAccount = ({ lang, t, breakpoints: { isMobile } }) => {
   const timelineImg = require(`./timeline_${isMobile ? 'mobile' : 'desktop'}_${

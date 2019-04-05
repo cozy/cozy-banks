@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Topbar from 'components/Topbar'
-import Title from './Title'
+import Title from 'components/Title/Title'
 
 class PageTitle extends React.PureComponent {
   render() {

@@ -13,10 +13,10 @@ import BackButton from 'components/BackButton'
 import Table from 'components/Table'
 import { PageTitle } from 'components/Title'
 import { Padded } from 'components/Spacing'
-import { getAccountInstitutionLabel } from '../account/helpers'
+import { getAccountInstitutionLabel } from 'ducks/account/helpers'
 import { logException } from 'lib/sentry'
 
-import styles from './GroupsSettings.styl'
+import styles from 'ducks/settings/GroupsSettings.styl'
 import btnStyles from 'styles/buttons.styl'
 
 const makeNewGroup = (client, t) => {

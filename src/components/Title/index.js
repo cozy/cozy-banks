@@ -1,5 +1,5 @@
-import Title from './Title'
-import PageTitle from './PageTitle'
+import Title from 'components/Title/Title'
+import PageTitle from 'components/Title/PageTitle'
 
 export { PageTitle, Title }
 

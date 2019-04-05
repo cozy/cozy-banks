@@ -7,8 +7,8 @@ import Button from 'cozy-ui/react/Button'
 import AddAccountLink from 'ducks/settings/AddAccountLink'
 import btnStyles from 'styles/buttons.styl'
 
-import BalanceTable from './BalanceTable'
-import BalanceRow from './BalanceRow'
+import BalanceTable from 'ducks/balance/components/BalanceTable'
+import BalanceRow from 'ducks/balance/components/BalanceRow'
 
 class BalanceAccounts extends React.PureComponent {
   render() {

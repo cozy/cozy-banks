@@ -1,2 +1,4 @@
-export { default } from './SelectDates'
-export { ConnectedSelectDates } from './ConnectedSelectDates'
+export { default } from 'components/SelectDates/SelectDates'
+export {
+  ConnectedSelectDates
+} from 'components/SelectDates/ConnectedSelectDates'

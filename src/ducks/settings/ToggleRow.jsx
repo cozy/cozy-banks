@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import Toggle from 'cozy-ui/react/Toggle'
-import styles from './ToggleRow.styl'
+import styles from 'ducks/settings/ToggleRow.styl'
 
 const parseNumber = val => {
   return parseInt(val.replace(/\D/i, ''), 10)

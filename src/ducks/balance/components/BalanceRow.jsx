@@ -11,8 +11,8 @@ import {
   getAccountInstitutionLabel,
   getAccountBalance
 } from 'ducks/account/helpers'
-import styles from './BalanceRow.styl'
-import tableStyles from './BalanceTable.styl'
+import styles from 'ducks/balance/components/BalanceRow.styl'
+import tableStyles from 'ducks/balance/components/BalanceTable.styl'
 import { filterByDoc } from 'ducks/filters'
 import { getGroupBalance } from 'ducks/balance/helpers'
 

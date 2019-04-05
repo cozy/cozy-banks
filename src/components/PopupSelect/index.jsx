@@ -5,7 +5,7 @@ import Modal, { ModalHeader, ModalDescription } from 'cozy-ui/react/Modal'
 import { Media, Bd, Img } from 'cozy-ui/react/Media'
 import palette from 'cozy-ui/react/palette'
 
-import styles from './styles.styl'
+import styles from 'components/PopupSelect/styles.styl'
 
 const PopupTitle = ({ showBack, onClickBack, title }) => (
   <Media>

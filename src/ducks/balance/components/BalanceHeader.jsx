@@ -9,7 +9,7 @@ import KonnectorUpdateInfo from 'components/KonnectorUpdateInfo'
 import History from 'ducks/balance/History'
 import HeaderTitle from 'ducks/balance/components/HeaderTitle'
 
-import styles from './BalanceHeader.styl'
+import styles from 'ducks/balance/components/BalanceHeader.styl'
 
 const BalanceHeader = ({
   t,

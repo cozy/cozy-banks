@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styles from './Tooltip.styl'
+import styles from 'components/Chart/Tooltip.styl'
 import cx from 'classnames'
 
 const Tooltip = ({ children, x, position }) => (

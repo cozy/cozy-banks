@@ -1,6 +1,6 @@
 import flag from 'cozy-flags'
-import parentCategory, { categoriesStyle } from './categoriesMap'
-import categoryNames from './tree'
+import parentCategory, { categoriesStyle } from 'ducks/categories/categoriesMap'
+import categoryNames from 'ducks/categories/tree'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 
 const getParent = parentCategory.get.bind(parentCategory)

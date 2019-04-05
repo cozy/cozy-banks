@@ -1,6 +1,6 @@
 import CozyClient from 'cozy-client'
 import { schema } from 'doctypes'
-import { getLinks } from './links'
+import { getLinks } from 'ducks/client/links'
 import flag from 'cozy-flags'
 
 const getToken = () => {

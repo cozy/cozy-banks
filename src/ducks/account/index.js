@@ -1,4 +1,4 @@
-import AccountSwitch from './AccountSwitch'
+import AccountSwitch from 'ducks/account/AccountSwitch'
 
 // components
 export { AccountSwitch }

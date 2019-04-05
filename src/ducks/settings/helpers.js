@@ -1,5 +1,5 @@
 import { merge, get } from 'lodash'
-import { DOCTYPE, DEFAULTS_SETTINGS } from './constants'
+import { DOCTYPE, DEFAULTS_SETTINGS } from 'ducks/settings/constants'
 
 export const isNotificationEnabled = settings => {
   return (

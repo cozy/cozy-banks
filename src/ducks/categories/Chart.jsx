@@ -2,7 +2,7 @@
 Component to render a pie chart from data (size from props too)
 */
 
-import styles from './Chart.styl'
+import styles from 'ducks/categories/Chart.styl'
 import React, { Component } from 'react'
 import { Doughnut, Chart as ReactChart } from 'react-chartjs-2'
 import pieceLabel from 'lib/chartjsPieLabels'

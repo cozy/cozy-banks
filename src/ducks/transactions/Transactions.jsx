@@ -17,11 +17,15 @@ import Button from 'cozy-ui/react/Button'
 import * as List from 'components/List'
 import { Table } from 'components/Table'
 
-import styles from './Transactions.styl'
-import { InfiniteScroll, ScrollRestore, TopMost } from './scroll'
-import TransactionModal from './TransactionModal'
-import { RowDesktop, RowMobile } from './TransactionRow'
-import { getDate } from './helpers'
+import styles from 'ducks/transactions/Transactions.styl'
+import {
+  InfiniteScroll,
+  ScrollRestore,
+  TopMost
+} from 'ducks/transactions/scroll'
+import TransactionModal from 'ducks/transactions/TransactionModal'
+import { RowDesktop, RowMobile } from 'ducks/transactions/TransactionRow'
+import { getDate } from 'ducks/transactions/helpers'
 
 export const sortByDate = (transactions = []) =>
   sortBy(transactions, getDate).reverse()

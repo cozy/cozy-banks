@@ -1,6 +1,6 @@
 import React from 'react'
 import { logException } from 'lib/sentry'
-import Error from './Error'
+import Error from 'components/ErrorBoundary/Error'
 import get from 'lodash/get'
 
 const getPathname = children => {

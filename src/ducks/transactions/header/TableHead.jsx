@@ -4,7 +4,7 @@ import { flowRight as compose } from 'lodash'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import { Table } from 'components/Table'
 
-import transactionsStyles from '../Transactions.styl'
+import transactionsStyles from 'ducks/transactions/Transactions.styl'
 
 class TableHead extends React.PureComponent {
   render() {

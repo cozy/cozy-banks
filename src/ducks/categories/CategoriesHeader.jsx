@@ -10,7 +10,7 @@ import BackButton from 'components/BackButton'
 import Header from 'components/Header'
 import { Padded } from 'components/Spacing'
 import { ConnectedSelectDates as SelectDates } from 'components/SelectDates'
-import CategoriesChart from './CategoriesChart'
+import CategoriesChart from 'ducks/categories/CategoriesChart'
 import {
   getTransactionsTotal,
   getGlobalCurrency

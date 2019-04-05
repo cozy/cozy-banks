@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
-import styles from './VerticalBox.styl'
+import styles from 'components/VerticalBox.styl'
 
 const ContainerDumb = ({ children, className }) => (
   <div className={cx(styles.container, { [className]: className })}>

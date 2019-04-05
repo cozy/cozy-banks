@@ -1,5 +1,9 @@
 import React from 'react'
-import { getScroll, setScroll, getScrollHeight } from './utils'
+import {
+  getScroll,
+  setScroll,
+  getScrollHeight
+} from 'ducks/transactions/scroll/utils'
 
 class ScrollRestore extends React.Component {
   componentWillUpdate(nextProps) {

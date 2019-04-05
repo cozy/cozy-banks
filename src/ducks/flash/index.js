@@ -1,5 +1,5 @@
 import Velocity from 'velocity-animate'
-import styles from './style.styl'
+import styles from 'ducks/flash/style.styl'
 
 // Temporary to show Coming soon
 

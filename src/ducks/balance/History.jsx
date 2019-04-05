@@ -4,8 +4,8 @@ import cx from 'classnames'
 import { withBreakpoints } from 'cozy-ui/react'
 import Spinner from 'cozy-ui/react/Spinner'
 import { flowRight as compose, uniq, groupBy, max } from 'lodash'
-import styles from './History.styl'
-import HistoryChart from './HistoryChart'
+import styles from 'ducks/balance/History.styl'
+import HistoryChart from 'ducks/balance/HistoryChart'
 import { isCollectionLoading } from 'ducks/client/utils'
 import { format as formatDate, subYears, isAfter } from 'date-fns'
 import * as d3 from 'utils/d3'
@@ -13,7 +13,7 @@ import {
   getBalanceHistories,
   sumBalanceHistories,
   balanceHistoryToChartData
-} from './helpers'
+} from 'ducks/balance/helpers'
 import { withSize } from 'react-sizeme'
 
 const today = new Date()

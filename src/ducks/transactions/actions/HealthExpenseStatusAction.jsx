@@ -7,9 +7,9 @@ import Badge from 'cozy-ui/react/Badge'
 import palette from 'cozy-ui/react/palette'
 import { isHealthExpense } from 'ducks/categories/helpers'
 import { BillComponent } from './BillAction'
-import styles from '../TransactionActions.styl'
+import styles from 'ducks/transactions/TransactionActions.styl'
 import { flowRight as compose } from 'lodash'
-import { TransactionModalRow } from '../TransactionModal'
+import { TransactionModalRow } from 'ducks/transactions/TransactionModal'
 
 const name = 'HealthExpenseStatus'
 

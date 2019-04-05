@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styles from './Error.styl'
+import styles from 'components/ErrorBoundary/Error.styl'
 import { translate } from 'cozy-ui/react'
 import Empty from 'cozy-ui/react/Empty'
 import brokenIcon from 'assets/icons/icon-broken.svg'

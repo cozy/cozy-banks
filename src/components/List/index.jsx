@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './List.styl'
+import styles from 'components/List/List.styl'
 import ListItemText from 'cozy-ui/react/ListItemText'
 import cx from 'classnames'
 

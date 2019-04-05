@@ -1,6 +1,6 @@
 import React from 'react'
 import { Title } from 'cozy-ui/react/Text'
-import styles from './TogglePane.styl'
+import styles from 'ducks/settings/TogglePane.styl'
 
 class TogglePane extends React.PureComponent {
   render() {

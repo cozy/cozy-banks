@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import GroupPanel from './components/GroupPanel'
+import GroupPanel from 'ducks/balance/components/GroupPanel'
 import { flowRight as compose } from 'lodash'
 import { translate } from 'cozy-ui/react'
 import ButtonAction from 'cozy-ui/react/ButtonAction'
 import { withRouter } from 'react-router'
 import AddAccountLink from 'ducks/settings/AddAccountLink'
 import { translateAndSortGroups } from 'ducks/groups/helpers'
-import styles from './BalancePanels.styl'
+import styles from 'ducks/balance/BalancePanels.styl'
 
 class BalancePanels extends React.PureComponent {
   static propTypes = {
