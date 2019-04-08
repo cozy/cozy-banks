@@ -7,6 +7,7 @@ import { flowRight as compose } from 'lodash'
 import cx from 'classnames'
 import { getCssVariableValue } from 'cozy-ui/react/utils/color'
 import { lighten } from '@material-ui/core/styles/colorManipulator'
+import flag from 'cozy-flags'
 import 'element-scroll-polyfill'
 
 // on iOS white transparency on SVG failed so we should calculate hexa color
@@ -29,7 +30,11 @@ class HistoryChart extends Component {
     return (
       <Fragment>
         {date}
-        <strong className={styles.HistoryChart__tooltipBalance}>
+        <strong
+          className={cx(styles.HistoryChart__tooltipBalance, {
+            [styles.Balance_blur]: flag('amount_blur')
+          })}
+        >
           {balance} €
         </strong>
       </Fragment>
