@@ -2,6 +2,7 @@ import React from 'react'
 import Types from 'prop-types'
 import cx from 'classnames'
 import styles from 'components/Figure/Figure.styl'
+import flag from 'cozy-flags'
 
 /**
  * Shows a number, typically a balance or an important financial
@@ -55,7 +56,8 @@ const Figure = props => {
             total !== 0 && !isTotalPositive && !isWarning && coloredNegative,
           [styleWarning]: isWarning,
           [styleBig]: size == 'big',
-          [styleClickable]: onClick
+          [styleClickable]: onClick,
+          [styles.Figure_blur]: flag('amount_blur')
         },
         className
       )}
