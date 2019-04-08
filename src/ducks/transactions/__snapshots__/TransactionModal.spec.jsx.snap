@@ -52,15 +52,6 @@ exports[`transaction modal should render correctly 1`] = `
               <div class=\\"img\\"></div>
             </div>
             <hr class=\\"TransactionModalSeparator\\">
-            <div class=\\"media TransactionModalRow TransactionModalRow-disabled\\">
-              <div class=\\"img TransactionModalRowIcon\\">
-                <svg class=\\"icon\\" width=\\"16\\" height=\\"16\\">
-                  <use xlink:href=\\"#test-file-stub\\"></use>
-                </svg>
-              </div>
-              <div class=\\"bd TransactionModalRowContent\\">Comment - available soon</div>
-            </div>
-            <hr class=\\"TransactionModalSeparator\\">
           </div>
         </div>
       </div>

@@ -27,7 +27,6 @@ import styles from './TransactionModal.styl'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 
 import iconGraph from 'assets/icons/icon-graph.svg'
-import iconComment from 'assets/icons/actions/icon-comment.svg'
 import iconCredit from 'assets/icons/icon-credit.svg'
 import iconCalendar from 'assets/icons/icon-calendar.svg'
 import {
@@ -158,10 +157,6 @@ class TransactionModal extends Component {
           {t(
             `Data.subcategories.${getCategoryName(getCategoryId(transaction))}`
           )}
-        </TransactionModalRow>
-        <Separator />
-        <TransactionModalRow iconLeft={iconComment} disabled>
-          {t('Transactions.actions.comment')}
         </TransactionModalRow>
         <Separator />
         <TransactionActions
