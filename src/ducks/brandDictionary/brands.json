@@ -62,11 +62,6 @@
     "konnectorSlug": "cdiscount"
   },
   {
-    "name": "Deliveroo",
-    "regexp": "\\bdeliveroo\\b",
-    "konnectorSlug": "deliveroo"
-  },
-  {
     "name": "Cultura",
     "regexp": "\\bcultura\\b",
     "konnectorSlug": "cultura"
@@ -82,9 +77,19 @@
     "konnectorSlug": "deezer"
   },
   {
+    "name": "Deliveroo",
+    "regexp": "\\bdeliveroo\\b",
+    "konnectorSlug": "deliveroo"
+  },
+  {
     "name": "Direct Energie",
     "regexp": "\\bdirect energie\\b",
     "konnectorSlug": "directenergie"
+  },
+  {
+    "name": "EDF",
+    "regexp": "\\bedf\\b",
+    "konnectorSlug": "edf"
   },
   {
     "name": "Enercoop",
@@ -101,7 +106,6 @@
     "regexp": "\\beovi mcd mutuelle\\b",
     "konnectorSlug": "eovimcdparticuliers"
   },
-
   {
     "name": "Free",
     "regexp": "\\bfree (telecom|hautdebit)\\b",
@@ -125,9 +129,20 @@
     "health": true
   },
   {
+    "name": "Humanis",
+    "regexp": "\\bhumanis\\b",
+    "konnectorSlug": "\\bhumanis\\b",
+    "health": true
+  },
+  {
     "name": "Inulogic",
     "regexp": "\\binulogic\\b",
     "konnectorSlug": "inulogic"
+  },
+  {
+    "name": "Impôts",
+    "regexp": "(impot|impots|dgfip|d\\.g\\.f\\.i\\.p|ddfip|d\\.d\\.f\\.i\\.p|drfip|d\\.r\\.f\\.i\\.p|tresor public|finances pub|finances publiques)",
+    "konnectorSlug": "impots"
   },
   {
     "name": "JustEat",
@@ -240,6 +255,11 @@
     "name": "Showroom Privé",
     "regexp": "\\bshowroomprive\\b",
     "konnectorSlug": "showroomprive"
+  },
+  {
+    "name": "SNCF",
+    "regexp": "\\bsncf\\b",
+    "konnectorSlug": "sncf"
   },
   {
     "name": "Spartoo",

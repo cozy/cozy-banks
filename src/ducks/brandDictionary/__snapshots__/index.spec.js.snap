@@ -78,12 +78,6 @@ Array [
   },
   Object {
     "isInstalled": false,
-    "konnectorSlug": "deliveroo",
-    "name": "Deliveroo",
-    "regexp": "\\\\bdeliveroo\\\\b",
-  },
-  Object {
-    "isInstalled": false,
     "konnectorSlug": "cultura",
     "name": "Cultura",
     "regexp": "\\\\bcultura\\\\b",
@@ -102,9 +96,21 @@ Array [
   },
   Object {
     "isInstalled": false,
+    "konnectorSlug": "deliveroo",
+    "name": "Deliveroo",
+    "regexp": "\\\\bdeliveroo\\\\b",
+  },
+  Object {
+    "isInstalled": false,
     "konnectorSlug": "directenergie",
     "name": "Direct Energie",
     "regexp": "\\\\bdirect energie\\\\b",
+  },
+  Object {
+    "isInstalled": false,
+    "konnectorSlug": "edf",
+    "name": "EDF",
+    "regexp": "\\\\bedf\\\\b",
   },
   Object {
     "isInstalled": false,
@@ -151,10 +157,23 @@ Array [
     "regexp": "\\\\bharmonie\\\\b",
   },
   Object {
+    "health": true,
+    "isInstalled": false,
+    "konnectorSlug": "\\\\bhumanis\\\\b",
+    "name": "Humanis",
+    "regexp": "\\\\bhumanis\\\\b",
+  },
+  Object {
     "isInstalled": false,
     "konnectorSlug": "inulogic",
     "name": "Inulogic",
     "regexp": "\\\\binulogic\\\\b",
+  },
+  Object {
+    "isInstalled": false,
+    "konnectorSlug": "impots",
+    "name": "Impôts",
+    "regexp": "(impot|impots|dgfip|d\\\\.g\\\\.f\\\\.i\\\\.p|ddfip|d\\\\.d\\\\.f\\\\.i\\\\.p|drfip|d\\\\.r\\\\.f\\\\.i\\\\.p|tresor public|finances pub|finances publiques)",
   },
   Object {
     "isInstalled": false,
@@ -289,6 +308,12 @@ Array [
     "konnectorSlug": "showroomprive",
     "name": "Showroom Privé",
     "regexp": "\\\\bshowroomprive\\\\b",
+  },
+  Object {
+    "isInstalled": false,
+    "konnectorSlug": "sncf",
+    "name": "SNCF",
+    "regexp": "\\\\bsncf\\\\b",
   },
   Object {
     "isInstalled": false,
@@ -466,12 +491,6 @@ Array [
   },
   Object {
     "isInstalled": false,
-    "konnectorSlug": "deliveroo",
-    "name": "Deliveroo",
-    "regexp": "\\\\bdeliveroo\\\\b",
-  },
-  Object {
-    "isInstalled": false,
     "konnectorSlug": "cultura",
     "name": "Cultura",
     "regexp": "\\\\bcultura\\\\b",
@@ -490,9 +509,21 @@ Array [
   },
   Object {
     "isInstalled": false,
+    "konnectorSlug": "deliveroo",
+    "name": "Deliveroo",
+    "regexp": "\\\\bdeliveroo\\\\b",
+  },
+  Object {
+    "isInstalled": false,
     "konnectorSlug": "directenergie",
     "name": "Direct Energie",
     "regexp": "\\\\bdirect energie\\\\b",
+  },
+  Object {
+    "isInstalled": false,
+    "konnectorSlug": "edf",
+    "name": "EDF",
+    "regexp": "\\\\bedf\\\\b",
   },
   Object {
     "isInstalled": false,
@@ -539,10 +570,23 @@ Array [
     "regexp": "\\\\bharmonie\\\\b",
   },
   Object {
+    "health": true,
+    "isInstalled": false,
+    "konnectorSlug": "\\\\bhumanis\\\\b",
+    "name": "Humanis",
+    "regexp": "\\\\bhumanis\\\\b",
+  },
+  Object {
     "isInstalled": false,
     "konnectorSlug": "inulogic",
     "name": "Inulogic",
     "regexp": "\\\\binulogic\\\\b",
+  },
+  Object {
+    "isInstalled": false,
+    "konnectorSlug": "impots",
+    "name": "Impôts",
+    "regexp": "(impot|impots|dgfip|d\\\\.g\\\\.f\\\\.i\\\\.p|ddfip|d\\\\.d\\\\.f\\\\.i\\\\.p|drfip|d\\\\.r\\\\.f\\\\.i\\\\.p|tresor public|finances pub|finances publiques)",
   },
   Object {
     "isInstalled": false,
@@ -665,6 +709,12 @@ Array [
     "konnectorSlug": "showroomprive",
     "name": "Showroom Privé",
     "regexp": "\\\\bshowroomprive\\\\b",
+  },
+  Object {
+    "isInstalled": false,
+    "konnectorSlug": "sncf",
+    "name": "SNCF",
+    "regexp": "\\\\bsncf\\\\b",
   },
   Object {
     "isInstalled": false,
