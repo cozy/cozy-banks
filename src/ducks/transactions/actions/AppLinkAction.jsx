@@ -10,7 +10,7 @@ import palette from 'cozy-ui/react/palette'
 const name = 'app'
 
 const getAppName = (urls, transaction) => {
-  const filteredUrls = omit(urls, ['COLLECT'])
+  const filteredUrls = omit(urls, ['COLLECT', 'HOME'])
 
   const label = transaction.label.toLowerCase()
   return findKey(
