@@ -25,7 +25,7 @@ import { getDate, getDisplayDate } from 'ducks/transactions/helpers'
 import { getCategoryId } from 'ducks/categories/helpers'
 
 import Loading from 'components/Loading'
-import { TransactionsWithSelection } from 'ducks/transactions/Transactions'
+import { TransactionsWithSelection } from 'ducks/transactions/Transactions.jsx'
 import TransactionHeader from 'ducks/transactions/TransactionHeader'
 import {
   ACCOUNT_DOCTYPE,
