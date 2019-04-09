@@ -1,4 +1,3 @@
-import { cozyClient } from 'cozy-konnector-libs'
 import logger from 'cozy-logger'
 import { findMatchingBrand, getNotInstalledBrands } from 'ducks/brandDictionary'
 import { getLabel } from 'ducks/transactions/helpers'
@@ -6,12 +5,9 @@ import { getKonnectorFromTrigger } from 'utils/triggers'
 import { BankTransaction } from 'cozy-doctypes'
 import AppSuggestion from './AppSuggestion'
 import Trigger from './Trigger'
-import { Document } from 'cozy-doctypes'
 import { groupBy, flatMap } from 'lodash'
 
 const log = logger.namespace('app-suggestions')
-
-Document.registerClient(cozyClient)
 
 export const findSuggestionForTransaction = async (transaction, brands) => {
   const matchingBrand = findMatchingBrand(brands, getLabel(transaction))
@@ -20,9 +16,16 @@ export const findSuggestionForTransaction = async (transaction, brands) => {
     return null
   }
 
-  let originalSuggestion = await AppSuggestion.fetchBySlug(
-    matchingBrand.konnectorSlug
-  )
+  let originalSuggestion
+
+  try {
+    originalSuggestion = await AppSuggestion.fetchBySlug(
+      matchingBrand.konnectorSlug
+    )
+  } catch (e) {
+    log('info', `fetchBySlug('${matchingBrand.konnectorSlug}') return an error`)
+    log('info', e)
+  }
 
   if (!originalSuggestion) {
     log(
