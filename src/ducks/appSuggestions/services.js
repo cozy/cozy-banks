@@ -16,9 +16,16 @@ export const findSuggestionForTransaction = async (transaction, brands) => {
     return null
   }
 
-  let originalSuggestion = await AppSuggestion.fetchBySlug(
-    matchingBrand.konnectorSlug
-  )
+  let originalSuggestion
+
+  try {
+    originalSuggestion = await AppSuggestion.fetchBySlug(
+      matchingBrand.konnectorSlug
+    )
+  } catch (e) {
+    log('info', `fetchBySlug('${matchingBrand.konnectorSlug}') return an error`)
+    log('info', e)
+  }
 
   if (!originalSuggestion) {
     log(
