@@ -227,6 +227,11 @@
     "konnectorSlug": "ovh"
   },
   {
+    "name": "Planete OUI",
+    "regexp": "\\boui energy\\b",
+    "konnectorSlug": "planeteoui"
+  },
+  {
     "name": "Probikeshop",
     "regexp": "\\bprobikeshop\\b",
     "konnectorSlug": "probikeshop"

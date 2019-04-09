@@ -275,6 +275,12 @@ Array [
   },
   Object {
     "isInstalled": false,
+    "konnectorSlug": "planeteoui",
+    "name": "Planete OUI",
+    "regexp": "\\\\boui energy\\\\b",
+  },
+  Object {
+    "isInstalled": false,
     "konnectorSlug": "probikeshop",
     "name": "Probikeshop",
     "regexp": "\\\\bprobikeshop\\\\b",
@@ -673,6 +679,12 @@ Array [
     "konnectorSlug": "opngo",
     "name": "Opngo",
     "regexp": "\\\\bopngo\\\\b",
+  },
+  Object {
+    "isInstalled": false,
+    "konnectorSlug": "planeteoui",
+    "name": "Planete OUI",
+    "regexp": "\\\\boui energy\\\\b",
   },
   Object {
     "isInstalled": false,
