@@ -5,7 +5,7 @@ import { getDeviceName } from 'cozy-device-helper'
 import { merge, get } from 'lodash'
 import { getLinks } from './links'
 import { schema } from 'doctypes'
-import manifest from 'manifest.webapp'
+import manifest from 'ducks/client/manifest'
 import { setToken, revokeClient } from 'ducks/mobile'
 
 const SOFTWARE_ID = 'registry://banks'
