@@ -1,4 +1,4 @@
-import Balance from 'ducks/balance/Balance'
+import Balance from 'ducks/balance/Balance.jsx'
 
 // components
 export { Balance }
