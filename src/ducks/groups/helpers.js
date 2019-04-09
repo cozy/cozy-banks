@@ -3,24 +3,26 @@ import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { associateDocuments } from 'ducks/client/utils'
 import { getAccountType } from 'ducks/account/helpers'
 
+export const buildVirtualGroup = (type, accounts) => {
+  const group = {
+    _id: type,
+    _type: GROUP_DOCTYPE,
+    label: type,
+    virtual: true
+  }
+
+  associateDocuments(group, 'accounts', ACCOUNT_DOCTYPE, accounts)
+
+  return group
+}
+
 export const buildVirtualGroups = (accounts, translate) => {
   const accountsByType = groupBy(accounts, account =>
     getAccountType(account, translate)
   )
 
-  const virtualGroups = Object.entries(accountsByType).map(
-    ([type, accounts]) => {
-      const group = {
-        _id: type,
-        _type: GROUP_DOCTYPE,
-        label: type,
-        virtual: true
-      }
-
-      associateDocuments(group, 'accounts', ACCOUNT_DOCTYPE, accounts)
-
-      return group
-    }
+  const virtualGroups = Object.entries(accountsByType).map(([type, accounts]) =>
+    buildVirtualGroup(type, accounts)
   )
 
   return virtualGroups
