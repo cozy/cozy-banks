@@ -1,3 +1,4 @@
+import Handlebars from 'handlebars'
 import Notification from './Notification'
 import { isHealthExpense } from '../categories/helpers'
 import htmlTemplate from './html/health-bill-linked-html'
@@ -69,6 +70,8 @@ class HealthBillLinked extends Notification {
       log('info', 'HealthBillLinked: no transactions with reimbursements')
       return
     }
+
+    Handlebars.registerHelper({ t: this.t })
 
     const billIds = uniq(
       flatten(
