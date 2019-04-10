@@ -120,6 +120,7 @@
     "identity-obj-proxy": "3.0.0",
     "imports-loader": "0.8.0",
     "jest": "24.7.1",
+    "jest-localstorage-mock": "2.4.0",
     "json-loader": "0.5.7",
     "lint-staged": "8.1.5",
     "madge": "3.4.4",
@@ -159,7 +160,7 @@
     "cozy-client-js": "0.15.0",
     "cozy-device-helper": "1.6.10",
     "cozy-doctypes": "1.39.0",
-    "cozy-flags": "1.5.9",
+    "cozy-flags": "1.6.0",
     "cozy-interapp": "0.4.5",
     "cozy-konnector-libs": "4.14.13",
     "cozy-pouch-link": "6.18.0",
@@ -243,6 +244,7 @@
       "cozy": {}
     },
     "setupFiles": [
+      "jest-localstorage-mock",
       "./test/jest.setup.js"
     ],
     "testMatch": [
