@@ -10,7 +10,6 @@ const HeaderTitle = ({ balance, subtitle, onClickBalance, className }) => (
       <Figure
         onClick={onClickBalance}
         className={styles.HeaderTitle_balance}
-        currencyClassName={styles.BalanceHeader__currentBalanceCurrency}
         total={balance}
         symbol="€"
       />
