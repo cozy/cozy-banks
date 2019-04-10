@@ -46,7 +46,7 @@ class Notification {
         }
       })
     } catch (err) {
-      log('info', 'error')
+      log('info', `Notification error`)
       log('info', err)
       // eslint-disable-next-line no-console
       console.log(err)
