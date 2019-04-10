@@ -1,10 +1,11 @@
-import React, { Fragment, memo } from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
+import cx from 'classnames'
 import styles from 'ducks/balance/components/HeaderTitle.styl'
 import { Figure } from 'components/Figure'
 
-const HeaderTitle = ({ balance, subtitle, onClickBalance }) => (
-  <Fragment>
+const HeaderTitle = ({ balance, subtitle, onClickBalance, className }) => (
+  <div className={cx(styles.HeaderTitle, className)}>
     {balance !== undefined && (
       <Figure
         onClick={onClickBalance}
@@ -15,7 +16,7 @@ const HeaderTitle = ({ balance, subtitle, onClickBalance }) => (
       />
     )}
     <div className={styles.HeaderTitle_subtitle}>{subtitle}</div>
-  </Fragment>
+  </div>
 )
 
 HeaderTitle.propTypes = {
