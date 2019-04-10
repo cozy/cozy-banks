@@ -290,7 +290,7 @@ class LineChart extends Component {
     this.pointLine = this.svg
       .append('line')
       .attr('stroke-width', 1)
-      .attr('stroke', 'white')
+      .attr('stroke', this.props.lineColor)
       .attr('stroke-dasharray', '3,2')
   }
 
