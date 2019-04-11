@@ -25,6 +25,7 @@ import { queryConnect, withClient } from 'cozy-client'
 import { ACCOUNT_DOCTYPE, APP_DOCTYPE } from 'doctypes'
 import { Padded } from 'components/Spacing'
 import { logException } from 'lib/sentry'
+import withFilters from 'components/withFilters'
 
 const DeleteConfirm = ({
   cancel,
@@ -95,6 +96,11 @@ class _GeneralSettings extends Component {
       this.setState({ deleting: true })
       // TODO remove from groups and delete operations, see actions/accounts.js
       await client.destroy(this.props.account)
+
+      if (this.props.account._id === this.props.filteringDoc._id) {
+        this.props.resetFilterByDoc()
+      }
+
       router.push('/settings/accounts')
     } catch (e) {
       logException(e)
@@ -227,7 +233,8 @@ const GeneralSettings = compose(
     mapStateToProps,
     mapDispatchToProps
   ),
-  translate()
+  translate(),
+  withFilters
 )(_GeneralSettings)
 
 const AccountSettings = function({
