@@ -427,7 +427,11 @@
     "configuration": "Configuration",
     "security": "Security",
     "app": "App",
-    "debug": "Debug"
+    "debug": "Debug",
+    "security": {
+      "title": "Security",
+      "amount_blur": "Hide amounts"
+    }
   },
 
   "AppSettings": {

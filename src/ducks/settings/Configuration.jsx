@@ -17,7 +17,7 @@ import TogglePane, {
 } from 'ducks/settings/TogglePane'
 import ToggleRow from 'ducks/settings/ToggleRow'
 
-class Configuration extends React.PureComponent {
+class Configuration extends React.Component {
   saveDocument = async doc => {
     const { saveDocument } = this.props
     await saveDocument(doc)
@@ -31,6 +31,10 @@ class Configuration extends React.PureComponent {
     this.saveDocument(settings, {
       updateCollections: ['settings']
     })
+  }
+
+  onToggleFlag = key => checked => {
+    flag(key, checked)
   }
 
   onChangeValue = key => value => {
@@ -101,12 +105,16 @@ class Configuration extends React.PureComponent {
           />
         </TogglePane>
 
-        {flag('pin') ? (
-          <TogglePane>
-            <TogglePaneTitle>{t('Settings.security')}</TogglePaneTitle>
-            <PinSettings />
-          </TogglePane>
-        ) : null}
+        <TogglePane>
+          <TogglePaneTitle>{t('Settings.security.title')}</TogglePaneTitle>
+          {flag('pin') && <PinSettings />}
+          <ToggleRow
+            title={t('Settings.security.amount_blur')}
+            onToggle={this.onToggleFlag('amount_blur')}
+            enabled={flag('amount_blur')}
+            name="amountBlur"
+          />
+        </TogglePane>
       </div>
     )
   }
@@ -117,5 +125,6 @@ export default compose(
   queryConnect({
     settingsCollection: settingsConn
   }),
+  flag.connect,
   translate()
 )(Configuration)
