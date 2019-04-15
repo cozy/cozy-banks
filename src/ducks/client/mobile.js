@@ -6,9 +6,14 @@ import { merge, get } from 'lodash'
 import { getLinks } from './links'
 import { schema } from 'doctypes'
 import manifest from 'ducks/client/manifest'
-import { setToken, revokeClient } from 'ducks/mobile'
-
-const SOFTWARE_ID = 'registry://banks'
+import {
+  setToken,
+  revokeClient,
+  URL_SCHEME,
+  SOFTWARE_ID,
+  LOGO_URI,
+  CLIENT_URI
+} from 'ducks/mobile'
 
 const getCozyURIFromState = state => get(state, 'mobile.url')
 const getTokenFromState = state => get(state, 'mobile.token')
@@ -86,13 +91,12 @@ export const getClient = (state, getStore) => {
     token,
     schema,
     oauth: {
-      redirectURI: 'cozybanks://auth',
+      redirectURI: `${URL_SCHEME}auth`,
       softwareID: SOFTWARE_ID,
       softwareVersion: __APP_VERSION__,
       clientKind: 'mobile',
-      clientURI: 'https://github.com/cozy/cozy-banks',
-      logoURI:
-        'https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/logo-bank.png',
+      clientURI: CLIENT_URI,
+      logoURI: LOGO_URI,
       notificationPlatform: 'firebase',
       ...clientInfos
     },

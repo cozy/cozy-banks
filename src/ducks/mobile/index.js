@@ -5,6 +5,13 @@ const EXPIRE_TOKEN = 'EXPIRE_TOKEN'
 export const UNLINK = 'UNLINK'
 const STORE_CREDENTIALS = 'STORE_CREDENTIALS'
 
+export {
+  URL_SCHEME,
+  SOFTWARE_ID,
+  LOGO_URI,
+  CLIENT_URI
+} from 'ducks/mobile/constants'
+
 // action creators
 export const setToken = token => ({ type: SET_TOKEN, token })
 export const expireToken = () => ({ type: EXPIRE_TOKEN })
