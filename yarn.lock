@@ -4485,13 +4485,14 @@ cozy-app-publish@0.15.0:
     request "2.88.0"
     tar "4.4.8"
 
-cozy-authentication@1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-1.5.0.tgz#3218e2459a48c091ee77d764090f92782f3d4dd0"
-  integrity sha512-sFPiM4eZXfGmjRRtDYLMQUHQE2X8ihquaHBGMn58GFW1/uhRk8oyKzRulfV9J5a1Xbj9V/I0a5aC6oxufB+mYg==
+cozy-authentication@1.5.4:
+  version "1.5.4"
+  resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-1.5.4.tgz#c46daba71b1d5d2d50b75c1b6fd357e2fcb37b50"
+  integrity sha512-Ll5Mk0MzzEU+IPSfgDtoqOiHYK6DHDgUown+gsLcA2wtVb2t3YtKIZEpF/jVtaG/LC9zA4Qj9dtjH/rDy1viPg==
   dependencies:
-    cozy-device-helper "^1.7.0"
-    cozy-flags "^1.6.0"
+    cozy-device-helper "1.7.1"
+    cozy-flags "1.6.0"
+    localforage "1.7.3"
     react-markdown "4.0.6"
     url-polyfill "1.1.0"
 
@@ -4614,10 +4615,17 @@ cozy-device-helper@1.6.3:
   dependencies:
     lodash "4.17.11"
 
-cozy-device-helper@1.7.0, cozy-device-helper@^1.7.0:
+cozy-device-helper@1.7.0:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.7.0.tgz#900fc4e77ad6f0ff6a87ed1a683039ed3dbb2bad"
   integrity sha512-YL5viPiGGwA9jchZbb7narwQybZMrBWnBZrvFcRbp8F4WOqU+8z6hBXNlhAN9Ns6NzX5+O13c18VVLzOqKfXtQ==
+  dependencies:
+    lodash "4.17.11"
+
+cozy-device-helper@1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.7.1.tgz#56c57a14b423de2700a0a695c3f7710cf6a2383d"
+  integrity sha512-CTEJOzRK+AtrGN/Wqjj5n0DM1mMMvNGSZDxKlTCvY0FNYYko05vX5qIEb9vFVm7UhH7GFZjZ+S73g3Kwq/hF4Q==
   dependencies:
     lodash "4.17.11"
 
@@ -4650,7 +4658,7 @@ cozy-doctypes@1.39.0:
     es6-promise-pool "2.5.0"
     lodash "4.17.11"
 
-cozy-flags@1.6.0, cozy-flags@^1.6.0:
+cozy-flags@1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-1.6.0.tgz#dcbadf075279e9db2f24df99dc541392d9994b5b"
   integrity sha512-fFg6H0NmZyom6kJvBGRdIPBwT3qKzCR8UzeLcpIoLcx8uqlcbMqpA+uphcVyJNbSUiPyR1I9qUqOEuGx7s9MFg==
