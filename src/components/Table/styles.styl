@@ -42,11 +42,11 @@
         display         flex
         flex-direction  row
         align-items     center
-        border-bottom   1px solid silver
+        border-bottom   1px solid var(--silver)
 
     tbody
         tr:hover
-            background-color paleGrey
+            background-color var(--paleGrey)
 
     th
         text-align left
@@ -57,7 +57,7 @@
             font-size       .75em
             text-transform  uppercase
             display block
-        color           coolGrey
+        color           var(--coolGrey)
 
 
     td, th
@@ -102,18 +102,18 @@
             flex-wrap wrap
 
         .mobile-row:first-child
-            border-top 1px solid silver
+            border-top 1px solid var(--silver)
 
         .mobile-row-main
             maxed-flex-basis 100%
             padding-top .5rem
             padding-bottom .25rem
             font-size 1rem
-            color charcoalGrey
+            color var(--charcoalGrey)
 
         .mobile-row-label
             padding-top .25rem
             padding-bottom .5rem
             font-size .75rem
-            color coolGrey
+            color var(--coolGrey)
             max-width fit-content

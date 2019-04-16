@@ -43,10 +43,10 @@
     .bnk-table-percentage-sign
         display inline-block
         margin-left 0.125em
-        color coolGrey
+        color var(--coolGrey)
 
     .bnk-table-amount-figure
-        color coolGrey
+        color var(--coolGrey)
         font-weight normal
 
     .bnk-table-amount-figure-total
@@ -54,7 +54,7 @@
 
     .bnk-table-row
     .bnk-table-row--uncollapsed
-        color charcoalGrey
+        color var(--charcoalGrey)
         position relative
 
         .bnk-table-percentage
@@ -66,7 +66,7 @@
     .bnk-table-percentage-caption
         display inline-block
         margin-right 0.1875rem
-        color charcoalGrey
+        color var(--charcoalGrey)
 
     +small-screen('min')
         .bnk-table-category-category
@@ -96,14 +96,13 @@
 .bnk-category-total-mobile
     min-width 5rem
     font-size 0.875rem
-    
+
 
 .bnk-table-category-name-icon
     $iconHeight=2rem
     $textHeight=1rem
     $heightIncrease=($iconHeight - $textHeight) / 2
     // We apply negative margins so that the container of name
-    // and icon has the height of the text instead of the icon 
+    // and icon has the height of the text instead of the icon
     margin-top -($heightIncrease/2)
     margin-bottom -($heightIncrease/2)
-        
