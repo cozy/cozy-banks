@@ -104,7 +104,7 @@ class AccountsSettings extends Component {
           <Button
             className={cx(btnStyles['btn--no-outline'], 'u-pb-1')}
             icon={<Icon icon={plus} className="u-mr-half" />}
-            label={t('Accounts.add-account')}
+            label={t('Accounts.add_bank')}
           />
         </AddAccountLink>
         {myAccounts ? (
