@@ -18,7 +18,7 @@ const AppContainer = ({ store, lang, history, client }) => {
       <CozyProvider client={client}>
         <I18n lang={lang} dictRequire={lang => require(`locales/${lang}`)}>
           <MuiCozyTheme>
-            <Router history={history} routes={AppRoute} />
+            <Router history={history} appRoutes={AppRoute} />
           </MuiCozyTheme>
         </I18n>
       </CozyProvider>
