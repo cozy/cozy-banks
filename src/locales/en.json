@@ -430,7 +430,10 @@
     "debug": "Debug",
     "security": {
       "title": "Security",
-      "amount_blur": "Hide amounts"
+      "amount_blur": {
+        "title": "Hide amounts",
+        "description": "Navigate the app with hidden amounts"
+      }
     }
   },
 
