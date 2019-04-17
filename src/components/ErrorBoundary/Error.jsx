@@ -23,6 +23,9 @@ class Error extends React.Component {
   }
 
   componentWillUnmount() {
+    if (!this.refreshLink) {
+      return
+    }
     this.refreshLink.removeEventListener('click', this.refresh)
   }
 
@@ -32,7 +35,9 @@ class Error extends React.Component {
     }
 
     this.refreshLink = this.rootRef.current.querySelector('#' + refreshLinkID)
-    this.refreshLink.addEventListener('click', this.refresh)
+    if (this.refreshLink) {
+      this.refreshLink.addEventListener('click', this.refresh)
+    }
   }
 
   refresh = () => {
