@@ -1,6 +1,6 @@
 /* global cozy */
 
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import { subMonths } from 'date-fns'
@@ -45,8 +45,7 @@ import {
 } from 'ducks/balance/helpers'
 import BarTheme from 'ducks/mobile/BarTheme'
 import flag from 'cozy-flags'
-import withAppsUrls from 'ducks/apps/withAppsUrls'
-import withBrands from 'ducks/brandDictionary/withBrands'
+import { TransactionActionsProvider } from 'ducks/transactions/TransactionActionsContext'
 
 const { BarRight } = cozy.bar
 
@@ -213,7 +212,7 @@ class TransactionsPage extends Component {
 
   displayTransactions() {
     const { limitMin, limitMax, infiniteScrollTop } = this.state
-    const { t, urls, brands } = this.props
+    const { t } = this.props
     const transactions = this.getTransactions()
 
     if (transactions.length === 0) {
@@ -234,8 +233,6 @@ class TransactionsPage extends Component {
         onChangeTopMostTransaction={this.handleChangeTopmostTransaction}
         onScroll={this.checkToActivateTopInfiniteScroll}
         transactions={transactions}
-        urls={urls}
-        brands={brands}
         filteringOnAccount={this.getFilteringOnAccount()}
         manualLoadMore={isMobileApp()}
       />
@@ -291,7 +288,7 @@ class TransactionsPage extends Component {
     const isOnSubcategory = onSubcategory(this.props)
     const theme = flag('transaction-history') ? 'primary' : 'default'
     return (
-      <Fragment>
+      <TransactionActionsProvider>
         <BarTheme theme={theme} />
         <TransactionHeader
           transactions={filteredTransactions}
@@ -308,7 +305,7 @@ class TransactionsPage extends Component {
         ) : (
           this.displayTransactions()
         )}
-      </Fragment>
+      </TransactionActionsProvider>
     )
   }
 }
@@ -360,9 +357,7 @@ const ConnectedTransactionsPage = compose(
     triggers: triggersConn,
     transactions: transactionsConn
   }),
-  connect(mapStateToProps),
-  withAppsUrls,
-  withBrands
+  connect(mapStateToProps)
 )(UnpluggedTransactionsPage)
 
 export const TransactionsPageWithBackButton = props => (
