@@ -161,9 +161,7 @@ export class TransactionsDumb extends React.Component {
       limitMax,
       breakpoints: { isDesktop, isExtraLarge },
       manualLoadMore,
-      filteringOnAccount,
-      brands,
-      urls
+      filteringOnAccount
     } = this.props
     const transactionsGrouped = groupByDate(
       this.transactions.slice(limitMin, limitMax)
@@ -191,8 +189,6 @@ export class TransactionsDumb extends React.Component {
                     key={transaction._id}
                     onRef={this.handleRefRow.bind(null, transaction._id)}
                     transaction={transaction}
-                    brands={brands}
-                    urls={urls}
                     isExtraLarge={isExtraLarge}
                     filteringOnAccount={filteringOnAccount}
                     selectTransaction={selectTransaction}

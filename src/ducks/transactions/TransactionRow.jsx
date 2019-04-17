@@ -65,9 +65,7 @@ class _RowDesktop extends React.PureComponent {
       isExtraLarge,
       showCategoryChoice,
       filteringOnAccount,
-      onRef,
-      urls,
-      brands
+      onRef
     } = this.props
 
     const categoryId = getCategoryId(transaction)
@@ -122,12 +120,7 @@ class _RowDesktop extends React.PureComponent {
           />
         </TdSecondary>
         <TdSecondary className={styles.ColumnSizeAction}>
-          <TransactionActions
-            transaction={transaction}
-            urls={urls}
-            brands={brands}
-            onlyDefault
-          />
+          <TransactionActions transaction={transaction} onlyDefault />
         </TdSecondary>
       </tr>
     )
