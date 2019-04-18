@@ -440,7 +440,10 @@
     "debug": "Debug",
     "security": {
       "title": "Sécurité",
-      "amount_blur": "Masquer les montants"
+      "amount_blur": {
+        "title": "Masquer les montants",
+        "description": "Naviguer dans l'app avec les montants cachés"
+      }
     }
   },
 
