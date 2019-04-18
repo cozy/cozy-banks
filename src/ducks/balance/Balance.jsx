@@ -130,11 +130,8 @@ class Balance extends PureComponent {
 
   savePanelState() {
     const { panels } = this.state
-    const settings = this.props.settings.data[0]
-
-    if (!settings) {
-      return
-    }
+    const { settings: settingsCollection } = this.props
+    const settings = getDefaultedSettingsFromCollection(settingsCollection)
 
     const newSettings = {
       ...settings,
