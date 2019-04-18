@@ -42,7 +42,7 @@ import { CozyRealtime } from 'cozy-realtime'
 const getCredentialsFromClient = cozyClient => {
   const url = cozyClient.stackClient.uri
   const token =
-    cozyClient.stackClient.token.accessToken || cozyClient.stackClient.token
+    cozyClient.stackClient.token.accessToken || cozyClient.stackClient.token.token
   return { url, token }
 }
 
