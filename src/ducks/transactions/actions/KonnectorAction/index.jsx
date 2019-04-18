@@ -11,12 +11,10 @@ import palette from 'cozy-ui/react/palette'
 import { triggersConn } from 'doctypes'
 import InformativeModal from 'ducks/transactions/actions/KonnectorAction/InformativeModal'
 import ConfigurationModal from 'ducks/transactions/actions/KonnectorAction/ConfigurationModal'
+import { getBrandsWithoutTrigger } from 'ducks/transactions/actions/KonnectorAction/helpers'
+import match from 'ducks/transactions/actions/KonnectorAction/match'
 
 const name = 'konnector'
-
-function getBrandsWithoutTrigger(brands) {
-  return brands.filter(brand => !brand.hasTrigger)
-}
 
 const transactionModalRowStyle = { color: palette.dodgerBlue }
 class Component extends React.Component {
@@ -143,24 +141,7 @@ const addFetchTriggers = Component => {
 const action = {
   name,
   icon,
-  match: (transaction, { brands, urls }) => {
-    const brandsWithoutTrigger = getBrandsWithoutTrigger(brands)
-
-    if (!brandsWithoutTrigger) {
-      return false
-    }
-
-    const matchingBrand = findMatchingBrand(
-      brandsWithoutTrigger,
-      transaction.label
-    )
-
-    return (
-      matchingBrand &&
-      !matchingBrand.maintenance &&
-      (urls['COLLECT'] || urls['HOME'])
-    )
-  },
+  match,
   Component: compose(
     translate(),
     addFetchTriggers
