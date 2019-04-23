@@ -45,7 +45,7 @@ import {
 } from 'ducks/balance/helpers'
 import BarTheme from 'ducks/mobile/BarTheme'
 import flag from 'cozy-flags'
-import { TransactionActionsProvider } from 'ducks/transactions/TransactionActionsContext'
+import TransactionActionsProvider from 'ducks/transactions/TransactionActionsProvider'
 
 const { BarRight } = cozy.bar
 

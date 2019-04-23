@@ -1,11 +1,9 @@
 import React from 'react'
-import { flowRight as compose, omit } from 'lodash'
-import withAppsUrls from 'ducks/apps/withAppsUrls'
-import withBrands from 'ducks/brandDictionary/withBrands'
+import { omit } from 'lodash'
 
 export const TransactionActionsContext = React.createContext()
 
-class DumbTransactionActionsProvider extends React.Component {
+export class DumbTransactionActionsProvider extends React.Component {
   render() {
     const value = omit(this.props, 'children')
 
@@ -16,8 +14,3 @@ class DumbTransactionActionsProvider extends React.Component {
     )
   }
 }
-
-export const TransactionActionsProvider = compose(
-  withAppsUrls,
-  withBrands
-)(DumbTransactionActionsProvider)
