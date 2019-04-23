@@ -1,23 +1,16 @@
-import { findMatchingBrand } from 'ducks/brandDictionary'
-import { getBrandsWithoutTrigger } from 'ducks/transactions/actions/KonnectorAction/helpers'
+import {
+  hasUrls,
+  findMatchingBrandWithoutTrigger
+} from 'ducks/transactions/actions/KonnectorAction/helpers'
 
 const match = (transaction, { brands, urls }) => {
-  const brandsWithoutTrigger = getBrandsWithoutTrigger(brands)
-
-  if (!brandsWithoutTrigger) {
+  if (!hasUrls(urls)) {
     return false
   }
 
-  const matchingBrand = findMatchingBrand(
-    brandsWithoutTrigger,
-    transaction.label
-  )
+  const matchingBrand = findMatchingBrandWithoutTrigger(transaction, brands)
 
-  return (
-    matchingBrand &&
-    !matchingBrand.maintenance &&
-    (urls['COLLECT'] || urls['HOME'])
-  )
+  return matchingBrand
 }
 
 export default match
