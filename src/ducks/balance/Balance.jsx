@@ -35,16 +35,7 @@ import BalancePanels from 'ducks/balance/BalancePanels'
 import { getPanelsState } from 'ducks/balance/helpers'
 import BarTheme from 'ducks/mobile/BarTheme'
 import { filterByAccounts } from 'ducks/filters'
-import { CozyRealtime } from 'cozy-realtime'
-
-// TODO should be removed when realtime can be initialized directly
-// with cozyClient
-const getCredentialsFromClient = cozyClient => {
-  const url = cozyClient.stackClient.uri
-  const token =
-    cozyClient.stackClient.token.accessToken || cozyClient.stackClient.token.token
-  return { url, token }
-}
+import CozyRealtime, { EVENT_CREATED } from 'cozy-realtime'
 
 class Balance extends PureComponent {
   constructor(props) {
@@ -165,26 +156,21 @@ class Balance extends PureComponent {
   createRealtime() {
     if (!this.realtime) {
       const cozyClient = this.props.client
-      // TODO: Update cozy-realtime to do only:
-      //   this.realtime = new CozyRealtime({ cozyClient })
-      const creds = getCredentialsFromClient(cozyClient)
-      const url = creds.url
-      const token = creds.token
-      this.realtime = new CozyRealtime({ url, token })
+      this.realtime = new CozyRealtime(cozyClient)
     }
   }
 
   startRealtime(type, callback) {
     this.createRealtime()
     if (!this.realtimeStatus[type]) {
-      this.realtime.subscribe({ type }, 'created', callback)
+      this.realtime.subscribe({ type, eventName: EVENT_CREATED }, callback)
       this.realtimeStatus[type] = true
     }
   }
 
   stopRealtime(type, callback) {
     if (this.realtimeStatus[type]) {
-      this.realtime.unsubscribe({ type }, 'created', callback)
+      this.realtime.unsubscribe({ type, eventName: EVENT_CREATED }, callback)
       this.realtimeStatus[type] = false
     }
   }

@@ -4578,6 +4578,22 @@ cozy-client@6.20.0:
     redux-thunk "2.3.0"
     sift "6.0.0"
 
+cozy-client@6.24.0:
+  version "6.24.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.24.0.tgz#3bbc25c18f279ac8d12bced3ae6df21c5d006bbc"
+  integrity sha512-57SYkytcOfJXLKuz9fQ67hhiyS5CDOlclDPApDWokGd6UDyAuqtjqSiUJ4uuQVlKXKTzcssS8bAMzApQe6JpPw==
+  dependencies:
+    cozy-device-helper "1.6.3"
+    cozy-stack-client "^6.24.0"
+    lodash "4.17.11"
+    microee "0.0.6"
+    prop-types "15.6.2"
+    react "16.7.0"
+    react-redux "5.0.7"
+    redux "3.7.2"
+    redux-thunk "2.3.0"
+    sift "6.0.0"
+
 cozy-client@^6.18.0:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.18.0.tgz#04d42f5ce52b9a075ed6c696c079ea264994714c"
@@ -4787,10 +4803,10 @@ cozy-realtime@2.0.7:
   resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-2.0.7.tgz#1ca40806e4a3e752bf1d6ea4f8a761a8eaa123d2"
   integrity sha512-rGJ4lLqbhcw6CKYIKir3lpuck1GbJCy2hUiEKeQXjeLU0j4TIPB1OBk01oz46RyTcAr2tzW8EesRGd4eqy/8Hw==
 
-cozy-realtime@3.0.0-beta.1:
-  version "3.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-3.0.0-beta.1.tgz#669b046ac4d8eb934e4ef6614a54970b8b1a417f"
-  integrity sha512-Y6HE2d+i52t2bXtSQ9CariCB/XEBcVMUYmQWOZnp3jV7ciu8HtbekWKmOt2M5nf+Q3zSqaiqiX/VFKruHFrz9Q==
+cozy-realtime@3.0.0-beta.3:
+  version "3.0.0-beta.3"
+  resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-3.0.0-beta.3.tgz#133ef876ba98cecf554a258537c500f370addc00"
+  integrity sha512-7fmIy9Hie32kINfX7C+zyn4Q+GEPnZnb5EgJ1tMYxb4YM+CgpcnRp5nFQ1Yjv77HSatGqFEISOPy7G2Q9ZtDsQ==
 
 cozy-stack-client@^6.18.0:
   version "6.18.0"
@@ -4809,6 +4825,15 @@ cozy-stack-client@^6.18.1, cozy-stack-client@^6.20.0:
     detect-node "2.0.4"
     mime-types "2.1.20"
     qs "6.6.0"
+
+cozy-stack-client@^6.24.0:
+  version "6.24.0"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.24.0.tgz#5c263b7c3ee4d26e02e301c80047ca25fad41646"
+  integrity sha512-430pPvJxViGhRP/cr1NYKEX7c34/QQ3m/XJ1mGGAApE0QiMxCzynv/sPIWdL/nyYLCyqhWKhfI0S6/mfraLR4Q==
+  dependencies:
+    detect-node "2.0.4"
+    mime-types "2.1.20"
+    qs "6.7.0"
 
 cozy-ui@19.22.0:
   version "19.22.0"
@@ -14819,6 +14844,11 @@ qs@6.6.0:
   version "6.6.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.6.0.tgz#a99c0f69a8d26bf7ef012f871cdabb0aee4424c2"
   integrity sha512-KIJqT9jQJDQx5h5uAVPimw6yVg2SekOKu959OCtktD3FjzbpvaPr8i4zzg07DOMz+igA4W/aNM7OV8H37pFYfA==
+
+qs@6.7.0:
+  version "6.7.0"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
+  integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
 
 qs@~6.2.0:
   version "6.2.3"
