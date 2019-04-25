@@ -126,6 +126,5 @@ export default compose(
   queryConnect({
     settingsCollection: settingsConn
   }),
-  flag.connect,
   translate()
 )(Configuration)

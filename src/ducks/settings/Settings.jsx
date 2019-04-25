@@ -52,7 +52,6 @@ const Settings = ({ t, children, router, breakpoints: { isMobile } }) => {
 
 export default compose(
   withRouter,
-  flag.connect,
   translate(),
   withBreakpoints()
 )(Settings)
