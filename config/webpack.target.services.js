@@ -39,7 +39,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        include: path.resolve('./node_modules'),
+        include: /node_modules/,
         loader: 'shebang-loader'
       },
       {
