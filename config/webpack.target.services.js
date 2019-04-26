@@ -2,10 +2,6 @@
 
 const path = require('path')
 const webpack = require('webpack')
-const merge = require('webpack-merge')
-const base = require('./webpack.config.base')
-const ui = require('./webpack.config.cozy-ui')
-const piwik = require('./webpack.config.piwik')
 const { production } = require('./webpack.vars')
 
 const SRC_DIR = path.resolve(__dirname, '../src')
@@ -26,11 +22,7 @@ if (process.env.TEST_TEMPLATES) {
   entries.testTemplates = path.resolve(SRC_DIR, './ducks/notifications/html/testTemplates.js')
 }
 
-const config = merge.strategy({
-  plugins: 'replace',
-  output: 'replace',
-  entry: 'replace'
-})(base, ui, {
+module.exports = {
   entry: entries,
   mode: production ? 'production' : 'development',
   target: 'node',
@@ -93,6 +85,4 @@ const config = merge.strategy({
      noop
     )
   ]
-})
-
-module.exports = merge(config, piwik)
+}
