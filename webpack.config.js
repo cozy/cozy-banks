@@ -32,7 +32,7 @@ const modeConfig = production
   ? require('./config/webpack.config.prod')
   : require('./config/webpack.config.dev')
 
-module.exports = merge(withTarget, modeConfig)
+module.exports = merge(modeConfig, withTarget)
 
 if (require.main === module) {
   console.log(module.exports)
