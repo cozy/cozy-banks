@@ -52,7 +52,7 @@ module.exports = {
         'pouchdb-md5',
         'pouchdb-utils'
       ]),
-      
+
       // We do not need mime-db (used in cozy-stack-client::FileCollection) so we fake it
       'mime-db': path.resolve(__dirname, '../src/utils/empty-mime-db'),
 
@@ -101,7 +101,7 @@ module.exports = {
 
   plugins: [
     new webpack.DefinePlugin({
-      __APP_VERSION__: JSON.stringify(pkg.version),
+      __APP_VERSION__: process.env.APP_VERSION || JSON.stringify(pkg.version),
       __SENTRY_URL__: JSON.stringify('https://ea2067ca88504d9cbc9115b55d0b2d55:e52e64f57486417bb1b5fa6529e1cfcb@sentry.cozycloud.cc/11'),
       __ENABLED_FLAGS__: JSON.stringify(enabledFlags)
     }),
