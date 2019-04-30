@@ -10,7 +10,7 @@ import Header from 'components/Header'
 import { Padded } from 'components/Spacing'
 import VerticalBox from 'components/VerticalBox'
 import BalancePanels from 'ducks/balance/BalancePanels'
-import BarTheme from 'ducks/mobile/BarTheme'
+import BarTheme from 'ducks/bar/BarTheme'
 
 import headerTitleStyles from 'ducks/balance/components/HeaderTitle.styl'
 import styles from 'ducks/balance/components/AccountsImporting.styl'

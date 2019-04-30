@@ -5,7 +5,7 @@ import Button from 'cozy-ui/react/Button'
 import HeaderTitle from 'ducks/balance/components/HeaderTitle'
 import AddAccountLink from 'ducks/settings/AddAccountLink'
 import { Container, Content } from 'components/VerticalBox'
-import BarTheme from 'ducks/mobile/BarTheme'
+import BarTheme from 'ducks/bar/BarTheme'
 
 import styles from 'ducks/balance/components/NoAccount.styl'
 
