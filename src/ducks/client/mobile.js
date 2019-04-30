@@ -1,4 +1,5 @@
 /* global cozy, __APP_VERSION__ */
+
 import CozyClient from 'cozy-client'
 import { getDeviceName } from 'cozy-device-helper'
 
@@ -6,7 +7,12 @@ import { merge, get } from 'lodash'
 import { getLinks } from './links'
 import { schema } from 'doctypes'
 import manifest from 'ducks/client/manifest'
-import { setToken, revokeClient } from 'ducks/mobile'
+import { revokeClient } from 'ducks/mobile'
+import pushPlugin from 'ducks/mobile/push'
+import barPlugin from 'ducks/mobile/bar'
+
+import { resetFilterByDoc } from 'ducks/filters'
+import { unlink } from 'ducks/mobile'
 
 const SOFTWARE_ID = 'registry://banks'
 
@@ -48,6 +54,7 @@ export const getManifestOptions = manifest => {
   }
 }
 
+// Should be moved to cozy-pouch
 export const isRevoked = async client => {
   try {
     await client.stackClient.fetchInformation()
@@ -61,17 +68,29 @@ export const isRevoked = async client => {
   }
 }
 
-const unregister = client => {
-  client.stackClient.unregister()
-}
-
+// Should be moved to cozy-pouch
 const checkForRevocation = async (client, getStore) => {
   const revoked = await isRevoked(client)
   if (revoked) {
     const store = getStore()
-    unregister(client)
+    client.stackClient.unregister()
     await store.dispatch(revokeClient())
   }
+}
+
+const registerPlugin = (client, plugin) => {
+  plugin(client)
+}
+
+const registerPluginsAndHandlers = (client, getStore) => {
+  registerPlugin(client, pushPlugin)
+  registerPlugin(client, barPlugin)
+
+  client.on('logout', () => {
+    const store = getStore()
+    store.dispatch(unlink())
+    store.dispatch(resetFilterByDoc())
+  })
 }
 
 export const getClient = (state, getStore) => {
@@ -96,10 +115,6 @@ export const getClient = (state, getStore) => {
       notificationPlatform: 'firebase',
       ...clientInfos
     },
-    onTokenRefresh: token => {
-      cozy.bar.updateAccessToken(token.accessToken)
-      getStore().dispatch(setToken(token))
-    },
     links: getLinks({
       pouchLink: {
         onSyncError: async () => {
@@ -110,5 +125,6 @@ export const getClient = (state, getStore) => {
   }
 
   client = new CozyClient(merge(manifestOptions, banksOptions))
+  registerPluginsAndHandlers(client, getStore)
   return client
 }
