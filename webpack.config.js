@@ -17,7 +17,6 @@ const common = merge(
   require('./config/webpack.config.vendors'),
   require('./config/webpack.config.manifest'),
   require('./config/webpack.config.piwik'),
-  require('./config/webpack.config.string-replace'),
   hotReload ? require(`./config/webpack.config.hot-reload`) : null,
   analyze ? require(`./config/webpack.config.analyze`) : null
 )
