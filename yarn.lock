@@ -4828,10 +4828,10 @@ cozy-stack-client@^6.24.0:
     mime-types "2.1.20"
     qs "6.7.0"
 
-cozy-ui@19.25.0:
-  version "19.25.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-19.25.0.tgz#0dbc92f24d3e79ede8dd373cbf19a9c3c054d5cd"
-  integrity sha512-MyUJ6lU4vry0LMBJOlG5nBhhdQEV3BLrfHofhU/Gid00+DQIR6DeXyPkTUKO/PrO5r+H6O4rZwFHLsoBFLV1Iw==
+cozy-ui@19.26.0:
+  version "19.26.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-19.26.0.tgz#7851660f30dd84a1ce68a9675b25152105967326"
+  integrity sha512-X5AFFc2Pz3+QW53AgPvbacvkmtBUmkCs049yFOTfrCIUAzzTFTvJ3zl+nzN5WrN5RKLBxOOJ9Bg9w1A1KQXzhQ==
   dependencies:
     "@babel/runtime" "^7.3.4"
     body-scroll-lock "^2.5.8"
