@@ -15,11 +15,6 @@ import { protocol } from 'ducks/mobile/constants'
 import { resetFilterByDoc } from 'ducks/filters'
 
 const SOFTWARE_ID = 'registry://banks'
-
-const getCozyURIFromState = state => get(state, 'mobile.url')
-const getTokenFromState = state => get(state, 'mobile.token')
-const getClientInfosFromState = state => get(state, 'mobile.client')
-
 export const getScope = m => {
   if (m.permissions === undefined) {
     throw new Error(`Your manifest must have a 'permissions' key.`)
@@ -92,15 +87,10 @@ const registerPluginsAndHandlers = (client, getStore) => {
 }
 
 export const getClient = (state, getStore) => {
-  const uri = getCozyURIFromState(state)
-  const token = getTokenFromState(state)
-  const clientInfos = getClientInfosFromState(state)
   const manifestOptions = getManifestOptions(manifest)
 
   let client
   const banksOptions = {
-    uri,
-    token,
     schema,
     oauth: {
       redirectURI: __DEV__ ? 'http://localhost:5000/auth' : protocol + 'auth',
@@ -110,8 +100,7 @@ export const getClient = (state, getStore) => {
       clientURI: 'https://github.com/cozy/cozy-banks',
       logoURI:
         'https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/logo-bank.png',
-      notificationPlatform: 'firebase',
-      ...clientInfos
+      notificationPlatform: 'firebase'
     },
     links: getLinks({
       pouchLink: {
