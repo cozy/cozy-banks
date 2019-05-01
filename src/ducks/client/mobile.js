@@ -11,10 +11,9 @@ import { revokeClient } from 'ducks/mobile'
 import pushPlugin from 'ducks/mobile/push'
 import barPlugin from 'ducks/mobile/bar'
 
-import { protocol } from 'ducks/mobile/constants'
+import { protocol, SOFTWARE_ID } from 'ducks/mobile/constants'
 import { resetFilterByDoc } from 'ducks/filters'
 
-const SOFTWARE_ID = 'registry://banks'
 export const getScope = m => {
   if (m.permissions === undefined) {
     throw new Error(`Your manifest must have a 'permissions' key.`)
