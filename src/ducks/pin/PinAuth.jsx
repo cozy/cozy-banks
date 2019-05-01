@@ -5,7 +5,7 @@ import debounce from 'lodash/debounce'
 
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
-import { queryConnect } from 'cozy-client'
+import { withClient, queryConnect } from 'cozy-client'
 import Alerter from 'cozy-ui/react/Alerter'
 import { translate } from 'cozy-ui/react/I18n'
 import Icon from 'cozy-ui/react/Icon'
@@ -19,7 +19,6 @@ import WithFingerprint from 'ducks/pin/WithFingerprint'
 import { pinSetting } from 'ducks/pin/queries'
 import PinButton from 'ducks/pin/PinButton'
 import { PIN_MAX_LENGTH, MAX_ATTEMPT } from 'ducks/pin/constants'
-import { onLogout } from 'ducks/mobile/utils'
 import openLock from 'assets/icons/icon-lock-open.svg'
 import fingerprint from 'assets/icons/icon-fingerprint.svg'
 
@@ -119,9 +118,8 @@ class PinAuth extends React.Component {
   }
 
   logout() {
-    const { router } = this.props
-    const { client, store } = this.context
-    onLogout(store, client, router)
+    const client = this.props.client
+    client.logout()
   }
 
   handleEnteredPin(pinValue) {
@@ -237,6 +235,7 @@ export default compose(
   withBreakpoints({
     largeEnough: [375] // iPhone 6+
   }),
+  withClient,
   connect(),
   translate(),
   withRouter,
