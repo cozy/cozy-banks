@@ -16,6 +16,12 @@ export const startPushNotifications = (cozyClient, settings, clientInfos) => {
     return
   }
 
+  if (!window.PushNotification) {
+    // eslint-disable-next-line no-console
+    console.warn('No window.PushNotification, did not start push notifications')
+    return
+  }
+
   /**
    * When we receive a notification while the app is in foreground, all on('notification')
    * handlers are executed. But we don't want to redirect the user without his consent.
