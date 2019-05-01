@@ -67,7 +67,6 @@ const reducer = (state = initialState, action) => {
 export default reducer
 
 // selectors
-export const getURL = state => state.url
 export const getAccessToken = state =>
   state.token ? state.token.accessToken : null
 export const isInitialSyncOK = state => state.syncOk === true

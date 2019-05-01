@@ -1,11 +1,8 @@
 /* global __TARGET__ */
 
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { getURL } from 'reducers'
 import PropTypes from 'prop-types'
 import { checkApp, DRIVE_INFO } from 'ducks/mobile/appAvailability'
-import { flowRight as compose } from 'lodash'
 import IntentOpener from 'cozy-ui/react/IntentOpener'
 import { withClient } from 'cozy-client'
 
@@ -46,7 +43,7 @@ class FileOpener extends Component {
     if (__TARGET__ === 'mobile') {
       const baseUrl = isInstalled
         ? DRIVE_INFO.uri
-        : buildAppURL(this.props.cozyURL, 'drive', '')
+        : buildAppURL(client.stackClient.uri, 'drive', '')
       const url = baseUrl + `file/${fileId}`
       // Open drive in a new window
       const openDriveOnNewWidow = () => window.open(url, '_system')
@@ -78,6 +75,4 @@ FileOpener.propTypes = {
   fileId: PropTypes.string.isRequired
 }
 
-export default withClient(
-  compose(connect(state => ({ cozyURL: getURL(state) })))(FileOpener)
-)
+export default withClient(FileOpener)
