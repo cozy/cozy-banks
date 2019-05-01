@@ -7,7 +7,6 @@ import { merge } from 'lodash'
 import { getLinks } from './links'
 import { schema } from 'doctypes'
 import manifest from 'ducks/client/manifest'
-import { revokeClient } from 'ducks/mobile'
 import pushPlugin from 'ducks/mobile/push'
 import barPlugin from 'ducks/mobile/bar'
 
@@ -67,7 +66,7 @@ const checkForRevocation = async client => {
   const revoked = await isRevoked(client)
   if (revoked) {
     client.stackClient.unregister()
-    await store.dispatch(revokeClient())
+    client.handleRevocationChange(true)
   }
 }
 
