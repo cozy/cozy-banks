@@ -11,6 +11,7 @@ import { revokeClient } from 'ducks/mobile'
 import pushPlugin from 'ducks/mobile/push'
 import barPlugin from 'ducks/mobile/bar'
 
+import { protocol } from 'ducks/mobile/constants'
 import { resetFilterByDoc } from 'ducks/filters'
 import { unlink } from 'ducks/mobile'
 
@@ -105,7 +106,7 @@ export const getClient = (state, getStore) => {
     token,
     schema,
     oauth: {
-      redirectURI: 'cozybanks://auth',
+      redirectURI: __DEV__ ? 'http://localhost:5000/auth' : protocol + 'auth',
       softwareID: SOFTWARE_ID,
       softwareVersion: __APP_VERSION__,
       clientKind: 'mobile',
