@@ -1,9 +1,9 @@
-/* global cozy, __APP_VERSION__ */
+/* global __APP_VERSION__, __DEV__ */
 
 import CozyClient from 'cozy-client'
 import { getDeviceName } from 'cozy-device-helper'
 
-import { merge, get } from 'lodash'
+import { merge } from 'lodash'
 import { getLinks } from './links'
 import { schema } from 'doctypes'
 import manifest from 'ducks/client/manifest'
@@ -13,7 +13,6 @@ import barPlugin from 'ducks/mobile/bar'
 
 import { protocol } from 'ducks/mobile/constants'
 import { resetFilterByDoc } from 'ducks/filters'
-import { unlink } from 'ducks/mobile'
 
 const SOFTWARE_ID = 'registry://banks'
 
@@ -70,10 +69,9 @@ export const isRevoked = async client => {
 }
 
 // Should be moved to cozy-pouch
-const checkForRevocation = async (client, getStore) => {
+const checkForRevocation = async client => {
   const revoked = await isRevoked(client)
   if (revoked) {
-    const store = getStore()
     client.stackClient.unregister()
     await store.dispatch(revokeClient())
   }
@@ -89,7 +87,6 @@ const registerPluginsAndHandlers = (client, getStore) => {
 
   client.on('logout', () => {
     const store = getStore()
-    store.dispatch(unlink())
     store.dispatch(resetFilterByDoc())
   })
 }
@@ -119,7 +116,7 @@ export const getClient = (state, getStore) => {
     links: getLinks({
       pouchLink: {
         onSyncError: async () => {
-          checkForRevocation(client, getStore)
+          checkForRevocation(client)
         }
       }
     })
