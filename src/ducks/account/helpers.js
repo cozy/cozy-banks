@@ -3,6 +3,7 @@ import { getDate, getReimbursedAmount } from 'ducks/transactions/helpers'
 import { isHealthExpense } from 'ducks/categories/helpers'
 import { differenceInCalendarDays, isThisYear } from 'date-fns'
 import flag from 'cozy-flags'
+import { BankAccount } from 'cozy-doctypes'
 
 const PARTS_TO_DELETE = ['(sans Secure Key)']
 
@@ -21,11 +22,8 @@ export const getAccountInstitutionLabel = account => {
 export const getAccountLabel = account =>
   account ? account.shortLabel || account.label : ''
 
-export const getAccountUpdateDate = account =>
-  get(account, 'cozyMetadata.updatedAt')
-
 export const getAccountUpdateDateDistance = (account, from) => {
-  const updateDate = getAccountUpdateDate(account)
+  const updateDate = BankAccount.getUpdatedAt(account)
 
   if (!updateDate || !from) {
     return null
