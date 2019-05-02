@@ -4,7 +4,8 @@ platform :ios do
   lane :devices do
     register_devices(
        devices: {
-         "Patrick iPhone 6s" => "dbb0aa403f6928368467d3f10b28a61336e52023"
+         "Patrick iPhone 6s" => "dbb0aa403f6928368467d3f10b28a61336e52023",
+         "Quentin iPhone X" => "f104c368769384e8f043ba497a74f704d27d6d3f"
        }
     )
   end
