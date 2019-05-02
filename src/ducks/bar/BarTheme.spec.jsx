@@ -1,10 +1,7 @@
 /* global mount */
 
 import React from 'react'
-import BarTheme from './BarTheme'
-import { setBarTheme } from 'ducks/mobile/utils'
-
-jest.mock('ducks/mobile/utils')
+import BarTheme, { DumbBarTheme } from './BarTheme'
 
 class Testing extends React.Component {
   constructor(props) {
@@ -36,7 +33,11 @@ class Testing extends React.Component {
 
 describe('BarTheme', () => {
   beforeEach(() => {
-    setBarTheme.mockReset()
+    jest.spyOn(DumbBarTheme, 'setBarTheme')
+  })
+
+  afterEach(() => {
+    jest.restoreAllMocks()
   })
 
   it('should set the theme of the last', () => {
@@ -45,12 +46,12 @@ describe('BarTheme', () => {
     inst.addTheme('A')
     inst.addTheme('B')
     inst.addTheme('C')
-    expect(setBarTheme).toHaveBeenLastCalledWith('C')
+    expect(DumbBarTheme.setBarTheme).toHaveBeenLastCalledWith('C')
     inst.removeTheme()
-    expect(setBarTheme).toHaveBeenLastCalledWith('B')
+    expect(DumbBarTheme.setBarTheme).toHaveBeenLastCalledWith('B')
     inst.removeTheme()
-    expect(setBarTheme).toHaveBeenLastCalledWith('A')
+    expect(DumbBarTheme.setBarTheme).toHaveBeenLastCalledWith('A')
     inst.removeTheme()
-    expect(setBarTheme).toHaveBeenLastCalledWith('default')
+    expect(DumbBarTheme.setBarTheme).toHaveBeenLastCalledWith('default')
   })
 })

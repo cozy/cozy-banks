@@ -1,18 +1,19 @@
-/* global cozy, __APP_VERSION__ */
-import CozyClient from 'cozy-client'
-import { getDeviceName } from 'cozy-device-helper'
+/* global __APP_VERSION__ */
 
-import { merge, get } from 'lodash'
+import CozyClient from 'cozy-client'
+import { getDeviceName, isAndroidApp } from 'cozy-device-helper'
+import { getUniversalLinkDomain } from 'cozy-ui/transpiled/react/AppLinker'
+
+import { merge } from 'lodash'
 import { getLinks } from './links'
 import { schema } from 'doctypes'
 import manifest from 'ducks/client/manifest'
-import { setToken, revokeClient } from 'ducks/mobile'
+import pushPlugin from 'ducks/mobile/push'
+import barPlugin from 'ducks/mobile/bar'
+import { clientPlugin as sentryPlugin } from 'lib/sentry'
 
-const SOFTWARE_ID = 'registry://banks'
-
-const getCozyURIFromState = state => get(state, 'mobile.url')
-const getTokenFromState = state => get(state, 'mobile.token')
-const getClientInfosFromState = state => get(state, 'mobile.client')
+import { protocol, SOFTWARE_ID } from 'ducks/mobile/constants'
+import { resetFilterByDoc } from 'ducks/filters'
 
 export const getScope = m => {
   if (m.permissions === undefined) {
@@ -42,12 +43,15 @@ export const getManifestOptions = manifest => {
   return {
     oauth: {
       clientName: getClientName(manifest),
-      policyURI: manifest.name_prefix === 'Cozy' ? cozyPolicyURI : ''
-    },
-    scope: getScope(manifest)
+      policyURI: manifest.name_prefix === 'Cozy' ? cozyPolicyURI : '',
+      scope: getScope(manifest)
+    }
   }
 }
 
+// TODO: the revocation check via cozy-pouch-link should not be
+// done in the app. We should find a way to have this in a shared
+// repository, possibly in cozy-client or cozy-pouch-link
 export const isRevoked = async client => {
   try {
     await client.stackClient.fetchInformation()
@@ -61,54 +65,58 @@ export const isRevoked = async client => {
   }
 }
 
-const unregister = client => {
-  client.stackClient.unregister()
-}
-
-const checkForRevocation = async (client, getStore) => {
+const checkForRevocation = async client => {
   const revoked = await isRevoked(client)
   if (revoked) {
-    const store = getStore()
-    unregister(client)
-    await store.dispatch(revokeClient())
+    client.stackClient.unregister()
+    client.handleRevocationChange(true)
   }
 }
 
+const registerPlugin = (client, plugin) => {
+  plugin(client)
+}
+
+const registerPluginsAndHandlers = (client, getStore) => {
+  registerPlugin(client, pushPlugin)
+  registerPlugin(client, barPlugin)
+  registerPlugin(client, sentryPlugin)
+
+  client.on('logout', () => {
+    const store = getStore()
+    store.dispatch(resetFilterByDoc())
+  })
+}
+
 export const getClient = (state, getStore) => {
-  const uri = getCozyURIFromState(state)
-  const token = getTokenFromState(state)
-  const clientInfos = getClientInfosFromState(state)
   const manifestOptions = getManifestOptions(manifest)
+  const appSlug = manifest.slug
 
   let client
   const banksOptions = {
-    uri,
-    token,
     schema,
     oauth: {
-      redirectURI: 'cozybanks://auth',
+      redirectURI: isAndroidApp()
+        ? protocol + 'auth'
+        : getUniversalLinkDomain() + '/' + appSlug + '/auth',
       softwareID: SOFTWARE_ID,
       softwareVersion: __APP_VERSION__,
       clientKind: 'mobile',
       clientURI: 'https://github.com/cozy/cozy-banks',
       logoURI:
         'https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/logo-bank.png',
-      notificationPlatform: 'firebase',
-      ...clientInfos
-    },
-    onTokenRefresh: token => {
-      cozy.bar.updateAccessToken(token.accessToken)
-      getStore().dispatch(setToken(token))
+      notificationPlatform: 'firebase'
     },
     links: getLinks({
       pouchLink: {
         onSyncError: async () => {
-          checkForRevocation(client, getStore)
+          checkForRevocation(client)
         }
       }
     })
   }
 
   client = new CozyClient(merge(manifestOptions, banksOptions))
+  registerPluginsAndHandlers(client, getStore)
   return client
 }

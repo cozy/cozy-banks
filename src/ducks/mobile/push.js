@@ -5,14 +5,20 @@ import { fetchSettings, isNotificationEnabled } from 'ducks/settings/helpers'
 
 let push
 
-export const registerPushNotifications = async (cozyClient, clientInfos) => {
+export const registerPushNotifications = async cozyClient => {
+  const clientInfos = cozyClient.stackClient.oauthOptions
   const settings = await fetchSettings(cozyClient)
-
   return startPushNotifications(cozyClient, settings, clientInfos)
 }
 
 export const startPushNotifications = (cozyClient, settings, clientInfos) => {
   if (push || !isNotificationEnabled(settings)) {
+    return
+  }
+
+  if (!window.PushNotification) {
+    // eslint-disable-next-line no-console
+    console.warn('No window.PushNotification, did not start push notifications')
     return
   }
 
@@ -87,4 +93,22 @@ export const stopPushNotifications = async () => {
       console.warn('Error while stopping push notification', e)
     }
   }
+}
+
+/**
+ * Push plugin for CozyClient
+ *
+ * Registers lifecycle handlers to
+ *
+ * - register push notifications on login
+ * - stop push notifications on logout
+ */
+export default client => {
+  client.on('login', async () => {
+    await registerPushNotifications(client)
+  })
+
+  client.on('logout', async () => {
+    await stopPushNotifications()
+  })
 }

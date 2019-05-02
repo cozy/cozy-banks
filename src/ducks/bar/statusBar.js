@@ -1,6 +1,9 @@
 import { getCssVariableValue } from 'cozy-ui/react/utils/color'
 
 export const setColor = color => {
+  if (!window.StatusBar) {
+    return
+  }
   window.StatusBar.backgroundColorByHexString(color)
 }
 

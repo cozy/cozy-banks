@@ -43,7 +43,7 @@ import {
   sumBalanceHistories,
   balanceHistoryToChartData
 } from 'ducks/balance/helpers'
-import BarTheme from 'ducks/mobile/BarTheme'
+import BarTheme from 'ducks/bar/BarTheme'
 import flag from 'cozy-flags'
 import TransactionActionsProvider from 'ducks/transactions/TransactionActionsProvider'
 

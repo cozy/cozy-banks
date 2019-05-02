@@ -1,5 +1,5 @@
 import React from 'react'
-import BarTheme from 'ducks/mobile/BarTheme'
+import BarTheme from 'ducks/bar/BarTheme'
 import { connect } from 'react-redux'
 import { flowRight as compose } from 'lodash'
 import { translate, withBreakpoints } from 'cozy-ui/react'

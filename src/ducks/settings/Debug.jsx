@@ -1,20 +1,8 @@
 import React from 'react'
-import { expireToken } from 'ducks/mobile'
-import { connect } from 'react-redux'
-import Alerter from 'cozy-ui/react/Alerter'
 import Checkbox from 'cozy-ui/react/Checkbox'
 import flag, { FlagSwitcher } from 'cozy-flags'
 
 class DebugSettings extends React.PureComponent {
-  constructor(props) {
-    super(props)
-  }
-
-  handleMakeTokenExpired() {
-    this.props.makeTokenExpired()
-    Alerter.info('Token expired')
-  }
-
   toggleNoAccount() {
     const noAccountValue = !flag('no-account')
 
@@ -39,9 +27,6 @@ class DebugSettings extends React.PureComponent {
 
     return (
       <div>
-        <button onClick={this.handleMakeTokenExpired}>
-          Make token expired
-        </button>
         <Checkbox
           defaultChecked={noAccountChecked}
           label="Display no account page"
@@ -58,13 +43,4 @@ class DebugSettings extends React.PureComponent {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    makeTokenExpired: () => dispatch(expireToken())
-  }
-}
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(DebugSettings)
+export default DebugSettings

@@ -33,7 +33,7 @@ import styles from 'ducks/balance/Balance.styl'
 import BalanceTables from 'ducks/balance/BalanceTables'
 import BalancePanels from 'ducks/balance/BalancePanels'
 import { getPanelsState } from 'ducks/balance/helpers'
-import BarTheme from 'ducks/mobile/BarTheme'
+import BarTheme from 'ducks/bar/BarTheme'
 import { filterByAccounts } from 'ducks/filters'
 import CozyRealtime, { EVENT_CREATED } from 'cozy-realtime'
 

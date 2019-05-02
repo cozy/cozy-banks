@@ -11,7 +11,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <preference name="AppendUserAgent" value="io.cozy.banks.mobile-1.0.4" />
+    <preference name="AppendUserAgent" value="io.cozy.banks.mobile-1.0.6" />
     <hook src="scripts/customizeConfigXML.js" type="before_prepare" />
     <universal-links>
         <host name="links.mycozy.cloud">
@@ -105,5 +105,6 @@
     </plugin>
     <plugin name="cordova-blur-app-privacy-screen" spec="https://github.com/lifeofcoding/cordova-blur-app-privacy-screen.git" />
     <engine name="ios" spec="4.5.5" />
+    <plugin name="cordova-plugin-keyboard" spec="git+https://github.com/cozy/cordova-plugin-keyboard.git" />
     <plugin name="cordova-universal-links-plugin" spec="https://github.com/walteram/cordova-universal-links-plugin.git" />
 </widget>
