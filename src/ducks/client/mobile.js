@@ -41,9 +41,9 @@ export const getManifestOptions = manifest => {
   return {
     oauth: {
       clientName: getClientName(manifest),
-      policyURI: manifest.name_prefix === 'Cozy' ? cozyPolicyURI : ''
-    },
-    scope: getScope(manifest)
+      policyURI: manifest.name_prefix === 'Cozy' ? cozyPolicyURI : '',
+      scope: getScope(manifest)
+    }
   }
 }
 
