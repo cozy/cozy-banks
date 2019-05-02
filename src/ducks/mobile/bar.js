@@ -15,6 +15,15 @@ const getLang = () =>
  * - refresh the bar's internal token
  */
 export default client => {
+  // Need to override the default logout from the bar
+  const handleMobileLogout = async () => {
+    try {
+      await client.logout()
+    } finally {
+      client.emit('logout')
+    }
+  }
+
   client.on('login', () => {
     cozy.bar.init({
       appNamePrefix: 'Cozy',
@@ -25,7 +34,8 @@ export default client => {
       cozyURL: client.uri,
       iconPath: iconBanks,
       lang: getLang(),
-      replaceTitleOnMobile: true
+      replaceTitleOnMobile: true,
+      onLogOut: handleMobileLogout
     })
   })
 
