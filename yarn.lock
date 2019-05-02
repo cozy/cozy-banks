@@ -4837,6 +4837,15 @@ cozy-realtime@3.0.0-beta.3:
   resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-3.0.0-beta.3.tgz#133ef876ba98cecf554a258537c500f370addc00"
   integrity sha512-7fmIy9Hie32kINfX7C+zyn4Q+GEPnZnb5EgJ1tMYxb4YM+CgpcnRp5nFQ1Yjv77HSatGqFEISOPy7G2Q9ZtDsQ==
 
+cozy-stack-client@6.25.0, cozy-stack-client@^6.25.0:
+  version "6.25.0"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.25.0.tgz#4fc50087d900be4b0976ceca3606c77703cf5f52"
+  integrity sha512-SY7450Yg9n9HDcPsMaNgfTcId5rXOR7hpzyCo1OUZoLINOGlG9Crd10p01aiOLSbvw8z1piKJnGyxYSSrmBOXA==
+  dependencies:
+    detect-node "2.0.4"
+    mime-types "2.1.24"
+    qs "6.7.0"
+
 cozy-stack-client@^6.18.0:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.18.0.tgz#85e1401f128c60265f2bd8ffbf6fab46dd8de5cb"
@@ -4855,19 +4864,10 @@ cozy-stack-client@^6.18.1, cozy-stack-client@^6.20.0:
     mime-types "2.1.20"
     qs "6.6.0"
 
-cozy-stack-client@^6.25.0:
-  version "6.25.0"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.25.0.tgz#4fc50087d900be4b0976ceca3606c77703cf5f52"
-  integrity sha512-SY7450Yg9n9HDcPsMaNgfTcId5rXOR7hpzyCo1OUZoLINOGlG9Crd10p01aiOLSbvw8z1piKJnGyxYSSrmBOXA==
-  dependencies:
-    detect-node "2.0.4"
-    mime-types "2.1.24"
-    qs "6.7.0"
-
-cozy-ui@19.28.0:
-  version "19.28.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-19.28.0.tgz#4976638b0a11d83d200fb58deac423b587238580"
-  integrity sha512-WjcxuBw4F3m5X+ThlLtSvjNTxP+KiXXeQBCD6O12vjDb8ST8uHWe+mrns3Xd8JDuNu8Bm+6pBzoUO43tYn0erg==
+cozy-ui@19.26.0:
+  version "19.26.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-19.26.0.tgz#7851660f30dd84a1ce68a9675b25152105967326"
+  integrity sha512-X5AFFc2Pz3+QW53AgPvbacvkmtBUmkCs049yFOTfrCIUAzzTFTvJ3zl+nzN5WrN5RKLBxOOJ9Bg9w1A1KQXzhQ==
   dependencies:
     "@babel/runtime" "^7.3.4"
     body-scroll-lock "^2.5.8"
