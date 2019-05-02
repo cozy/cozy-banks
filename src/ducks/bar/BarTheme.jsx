@@ -3,7 +3,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import withSideEffect from 'react-side-effect'
-import { setTheme as setStatusBarTheme } from './statusBar'
+import { setTheme as setStatusBarTheme } from 'ducks/bar/statusBar'
 import barOverrides from 'ducks/bar/overrides'
 
 export const setBarTheme = theme => {
