@@ -1,7 +1,6 @@
 import React from 'react'
 import { withClient } from 'cozy-client'
 import appIcon from 'targets/favicons/icon-banks.jpg'
-import { translate } from 'cozy-ui/react/I18n'
 import { MobileRouter as AuthMobileRouter } from 'cozy-authentication'
 import { hashHistory } from 'react-router'
 import { protocol, appTitle } from 'ducks/mobile/constants'
@@ -26,7 +25,6 @@ export class MobileRouter extends React.Component {
         appIcon={appIcon}
         appTitle={appTitle}
         loginPath="/balances"
-        onEnterApp={this.onEnterApp}
         onLogout={this.onLogout}
       >
         {routes}
@@ -35,4 +33,4 @@ export class MobileRouter extends React.Component {
   }
 }
 
-export default translate()(withClient(MobileRouter))
+export default withClient(MobileRouter)
