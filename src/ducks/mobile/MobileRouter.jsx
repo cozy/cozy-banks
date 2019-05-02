@@ -6,6 +6,9 @@ import { hashHistory } from 'react-router'
 import { protocol, appTitle } from 'ducks/mobile/constants'
 import LogoutModal from 'components/LogoutModal'
 
+import manifest from 'ducks/client/manifest'
+import { getUniversalLinkDomain } from 'cozy-ui/transpiled/react/AppLinker'
+
 export class MobileRouter extends React.Component {
   render() {
     const { routes } = this.props
@@ -15,6 +18,8 @@ export class MobileRouter extends React.Component {
         history={hashHistory}
         appIcon={appIcon}
         appTitle={appTitle}
+        appSlug={manifest.slug}
+        universalLinkDomain={getUniversalLinkDomain()}
         loginPath="/balances"
         LogoutComponent={LogoutModal}
       >
