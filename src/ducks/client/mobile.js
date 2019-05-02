@@ -47,7 +47,9 @@ export const getManifestOptions = manifest => {
   }
 }
 
-// Should be moved to cozy-pouch
+// TODO: the revocation check via cozy-pouch-link should not be
+// done in the app. We should find a way to have this in a shared
+// repository, possibly in cozy-client or cozy-pouch-link
 export const isRevoked = async client => {
   try {
     await client.stackClient.fetchInformation()
@@ -61,7 +63,6 @@ export const isRevoked = async client => {
   }
 }
 
-// Should be moved to cozy-pouch
 const checkForRevocation = async client => {
   const revoked = await isRevoked(client)
   if (revoked) {
