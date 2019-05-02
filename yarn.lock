@@ -4509,15 +4509,16 @@ cozy-app-publish@0.15.0:
     request "2.88.0"
     tar "4.4.8"
 
-cozy-authentication@1.8.0:
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-1.8.0.tgz#747557756a53c58f0b55b947c76af8f6bd60bf84"
-  integrity sha512-KtVPuI4GXIDSgT6uG4Vp8X9CChZQCuMHXxaEh1z8UEXdbw/0nFrDBJRy6AdFVIAWmM36z9QXDcea0otF5toybQ==
+cozy-authentication@1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-1.9.0.tgz#d8019f28700a154ece4c2e1c7b04049eaa1a97fa"
+  integrity sha512-gV2SPx3vGBoksCJKbTSFWHfXSVhthogRkFUx879+aNOpdJJhpgsz88QpO0Lce7vJ9VYodLd+/0g4G+2gWs/afg==
   dependencies:
     cozy-device-helper "1.7.1"
     cozy-flags "1.6.0"
     localforage "1.7.3"
     postcss-merge-rules "4.0.3"
+    prop-types "15.7.2"
     react ">=15"
     react-markdown "4.0.6"
     react-router "3"
@@ -4606,10 +4607,10 @@ cozy-client@6.20.0:
     redux-thunk "2.3.0"
     sift "6.0.0"
 
-cozy-client@6.25.0:
-  version "6.25.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.25.0.tgz#6d476c52dba9ab2424558ab46fbf89023e408a3b"
-  integrity sha512-KA9cyd5fDIdc6eL849KxFkD+MD6qJdpkzT4miKTwitzcfIg5S5JimAjKicUh1eFyBZLUDpgMU/WU+NZVPmOu0g==
+cozy-client@6.26.0:
+  version "6.26.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.26.0.tgz#6d8882a190d0dfbed46ed2240bc04f446e408a80"
+  integrity sha512-Zw/bnQ03YxfK9+nHWxGEdPN1gdlmwv1xbLF5DhSOCHDk3oXL5dSnGIqaA+DPIC/vetemIxdm9skMIaOT0k7Q+Q==
   dependencies:
     cozy-device-helper "1.6.3"
     cozy-stack-client "^6.25.0"
