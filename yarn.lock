@@ -4509,10 +4509,10 @@ cozy-app-publish@0.15.0:
     request "2.88.0"
     tar "4.4.8"
 
-cozy-authentication@1.10.0:
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-1.10.0.tgz#a2d6523bfd31372e9e9e06029dca0c8b219c51e2"
-  integrity sha512-Lhv4aHE61sg63ZQRUnU15ZeuOvp4HnDQRrBsOMEyKVBM5h07AcaRSLf5CCCDbfOff9aNGkJWhPVDPOR5ffUEcw==
+cozy-authentication@1.12.1:
+  version "1.12.1"
+  resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-1.12.1.tgz#479f009a1ed702e200744ca0db137425ad1a3d78"
+  integrity sha512-ygkXtP9NVyZHW0qFVNvKqy5rcBHS8Df427E7lVaIhNL1blmJDe3EkBTf8zsu4Xm0I1uBtBl2jAGexBLDAFcbbQ==
   dependencies:
     cozy-device-helper "1.7.1"
     cozy-flags "1.6.0"
@@ -4864,10 +4864,10 @@ cozy-stack-client@^6.18.1, cozy-stack-client@^6.20.0:
     mime-types "2.1.20"
     qs "6.6.0"
 
-cozy-ui@19.26.0:
-  version "19.26.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-19.26.0.tgz#7851660f30dd84a1ce68a9675b25152105967326"
-  integrity sha512-X5AFFc2Pz3+QW53AgPvbacvkmtBUmkCs049yFOTfrCIUAzzTFTvJ3zl+nzN5WrN5RKLBxOOJ9Bg9w1A1KQXzhQ==
+cozy-ui@19.28.0:
+  version "19.28.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-19.28.0.tgz#4976638b0a11d83d200fb58deac423b587238580"
+  integrity sha512-WjcxuBw4F3m5X+ThlLtSvjNTxP+KiXXeQBCD6O12vjDb8ST8uHWe+mrns3Xd8JDuNu8Bm+6pBzoUO43tYn0erg==
   dependencies:
     "@babel/runtime" "^7.3.4"
     body-scroll-lock "^2.5.8"
