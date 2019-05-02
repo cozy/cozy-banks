@@ -4509,10 +4509,10 @@ cozy-app-publish@0.15.0:
     request "2.88.0"
     tar "4.4.8"
 
-cozy-authentication@1.9.0:
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-1.9.0.tgz#d8019f28700a154ece4c2e1c7b04049eaa1a97fa"
-  integrity sha512-gV2SPx3vGBoksCJKbTSFWHfXSVhthogRkFUx879+aNOpdJJhpgsz88QpO0Lce7vJ9VYodLd+/0g4G+2gWs/afg==
+cozy-authentication@1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-1.10.0.tgz#a2d6523bfd31372e9e9e06029dca0c8b219c51e2"
+  integrity sha512-Lhv4aHE61sg63ZQRUnU15ZeuOvp4HnDQRrBsOMEyKVBM5h07AcaRSLf5CCCDbfOff9aNGkJWhPVDPOR5ffUEcw==
   dependencies:
     cozy-device-helper "1.7.1"
     cozy-flags "1.6.0"
