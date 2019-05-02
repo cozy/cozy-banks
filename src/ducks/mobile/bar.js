@@ -5,9 +5,6 @@ import iconBanks from 'targets/favicons/icon-banks.svg'
 const getLang = () =>
   navigator && navigator.language ? navigator.language.slice(0, 2) : 'en'
 
-const getAccessTokenFromClient = client => {
-  return client.stackClient.token.accessToken
-}
 /**
  * Bar plugin for CozyClient
  *
@@ -26,7 +23,6 @@ export default client => {
       appSlug: 'banks',
       cozyClient: client,
       cozyURL: client.uri,
-      token: getAccessTokenFromClient(client),
       iconPath: iconBanks,
       lang: getLang(),
       replaceTitleOnMobile: true
@@ -38,9 +34,5 @@ export default client => {
       document.getElementById('coz-bar').remove()
       document.body.setAttribute('style', '')
     }
-  })
-
-  client.on('refreshToken', () => {
-    cozy.bar.updateAccessToken(getAccessTokenFromClient(client))
   })
 }
