@@ -27,13 +27,17 @@ BarTheme.propTypes = {
   theme: PropTypes.string.isRequired
 }
 
+BarTheme.setBarTheme = setBarTheme
+
+export const DumbBarTheme = BarTheme
+
 function reducePropsToState(propsList) {
   const last = propsList[propsList.length - 1]
   return last ? last.theme : 'default'
 }
 
 function handleStateChangeOnClient(theme) {
-  setBarTheme(theme)
+  BarTheme.setBarTheme(theme)
 }
 
 export default withSideEffect(reducePropsToState, handleStateChangeOnClient)(
