@@ -1,7 +1,8 @@
 /* global __APP_VERSION__ */
 
 import CozyClient from 'cozy-client'
-import { getDeviceName } from 'cozy-device-helper'
+import { getDeviceName, isAndroidApp } from 'cozy-device-helper'
+import { getUniversalLinkDomain } from 'cozy-ui/transpiled/react/AppLinker'
 
 import { merge } from 'lodash'
 import { getLinks } from './links'
@@ -89,12 +90,15 @@ const registerPluginsAndHandlers = (client, getStore) => {
 
 export const getClient = (state, getStore) => {
   const manifestOptions = getManifestOptions(manifest)
+  const appSlug = manifest.slug
 
   let client
   const banksOptions = {
     schema,
     oauth: {
-      redirectURI: protocol + 'auth',
+      redirectURI: isAndroidApp()
+        ? protocol + 'auth'
+        : getUniversalLinkDomain() + '/' + appSlug,
       softwareID: SOFTWARE_ID,
       softwareVersion: __APP_VERSION__,
       clientKind: 'mobile',
