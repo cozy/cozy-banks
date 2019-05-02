@@ -98,7 +98,7 @@ export const getClient = (state, getStore) => {
     oauth: {
       redirectURI: isAndroidApp()
         ? protocol + 'auth'
-        : getUniversalLinkDomain() + '/' + appSlug,
+        : getUniversalLinkDomain() + '/' + appSlug + '/auth',
       softwareID: SOFTWARE_ID,
       softwareVersion: __APP_VERSION__,
       clientKind: 'mobile',
