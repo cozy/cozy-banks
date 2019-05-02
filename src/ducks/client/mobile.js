@@ -9,6 +9,7 @@ import { schema } from 'doctypes'
 import manifest from 'ducks/client/manifest'
 import pushPlugin from 'ducks/mobile/push'
 import barPlugin from 'ducks/mobile/bar'
+import { clientPlugin as sentryPlugin } from 'lib/sentry'
 
 import { protocol, SOFTWARE_ID } from 'ducks/mobile/constants'
 import { resetFilterByDoc } from 'ducks/filters'
@@ -78,6 +79,7 @@ const registerPlugin = (client, plugin) => {
 const registerPluginsAndHandlers = (client, getStore) => {
   registerPlugin(client, pushPlugin)
   registerPlugin(client, barPlugin)
+  registerPlugin(client, sentryPlugin)
 
   client.on('logout', () => {
     const store = getStore()
