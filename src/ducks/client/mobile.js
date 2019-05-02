@@ -1,4 +1,4 @@
-/* global __APP_VERSION__, __DEV__ */
+/* global __APP_VERSION__ */
 
 import CozyClient from 'cozy-client'
 import { getDeviceName } from 'cozy-device-helper'
@@ -91,7 +91,7 @@ export const getClient = (state, getStore) => {
   const banksOptions = {
     schema,
     oauth: {
-      redirectURI: __DEV__ ? 'http://localhost:5000/auth' : protocol + 'auth',
+      redirectURI: protocol + 'auth',
       softwareID: SOFTWARE_ID,
       softwareVersion: __APP_VERSION__,
       clientKind: 'mobile',
