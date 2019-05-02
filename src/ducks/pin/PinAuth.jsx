@@ -118,7 +118,7 @@ class PinAuth extends React.Component {
   }
 
   logout() {
-    const client = this.props.client
+    const { client } = this.props
     client.logout()
   }
 
