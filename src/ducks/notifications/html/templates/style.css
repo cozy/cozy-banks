@@ -58,10 +58,10 @@ h1,h2,h3,h4,h5,h6{
   white-space: nowrap;
   font-size: 16px;
 }
-.amount--pos {
+.amountPos {
   color: #35ce68;
 }
-.amount--neg {
+.amountNeg {
   color: #f52d2d;
 }
 /* footer */
@@ -87,7 +87,7 @@ h1,h2,h3,h4,h5,h6{
   margin-left: 16px;
 }
 /* text */
-.txt--right {
+.txtRight {
   text-align: right;
 }
 

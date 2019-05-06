@@ -24,7 +24,7 @@ const embeds = {
 Handlebars.registerHelper({
   colored: amount => {
     return new Handlebars.SafeString(
-      `<span class='amount amount--${amount > 0 ? 'pos' : 'neg'}'>
+      `<span class='amount amount${amount > 0 ? 'Pos' : 'Neg'}'>
 ${amount >= 0 ? '+' : '-'}
 ${Math.abs(amount)} €
 </span>
