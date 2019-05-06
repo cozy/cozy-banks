@@ -68,6 +68,11 @@
       "file": "onOperationOrBillCreate.js",
       "trigger": "@event io.cozy.bank.operations:CREATED io.cozy.bills:CREATED",
       "debounce": "75s"
+    },
+    "categorization": {
+      "type": "node",
+      "file": "categorization.js",
+      "trigger": "@at 2000-01-01T00:00:00.000Z"
     }
   },
   "notifications": {
