@@ -1,12 +1,49 @@
 /* global __TARGET__ */
 
-import { LOCAL_MODEL_USAGE_THRESHOLD } from 'ducks/categories/helpers'
+import { cozyClient } from 'cozy-konnector-libs'
+import { BankTransaction } from 'cozy-doctypes'
+import { sortBy, chunk } from 'lodash'
+import { differenceInSeconds } from 'date-fns'
 import { getTracker } from 'ducks/tracking'
-import { categorize } from 'cozy-konnector-libs'
+import { LOCAL_MODEL_USAGE_THRESHOLD } from 'ducks/categories/helpers'
 
-export const categorizes = async transactions => {
-  await categorize(transactions)
+BankTransaction.registerClient(cozyClient)
 
+export const CHUNK_SIZE = 100
+const MAX_EXECUTION_TIME = 200
+const timeStart = new Date()
+let highestTime = 0
+
+export const fetchTransactionsToCategorize = () => {
+  return BankTransaction.queryAll({
+    toCategorize: true
+  })
+}
+
+export const fetchChunksToCategorize = async () => {
+  const toCategorize = await fetchTransactionsToCategorize()
+  const sortedToCategorize = sortBy(toCategorize, t => t.date).reverse()
+  const chunks = chunk(sortedToCategorize, CHUNK_SIZE)
+
+  return chunks
+}
+
+export const categorizeChunk = async (categorizer, chunk) => {
+  const timeStart = new Date()
+  const categorizedTransactions = categorizer.categorize(chunk)
+  categorizedTransactions.forEach(t => (t.toCategorize = false))
+
+  await BankTransaction.bulkSave(categorizedTransactions, 30)
+
+  sendResultsToMatomo(categorizedTransactions)
+
+  const timeEnd = new Date()
+  const timeElapsed = differenceInSeconds(timeEnd, timeStart)
+
+  return timeElapsed
+}
+
+export const sendResultsToMatomo = transactions => {
   const tracker = getTracker(__TARGET__, { e_a: 'LocalCategorization' })
   const nbTransactionsAboveThreshold = transactions.reduce(
     (sum, transaction) => {
@@ -23,6 +60,15 @@ export const categorizes = async transactions => {
     e_n: 'TransactionsUsingLocalCategory',
     e_v: nbTransactionsAboveThreshold
   })
+}
 
-  return transactions
+export const updateTimeTracking = time => {
+  highestTime = Math.max(highestTime, time)
+}
+
+export const canCategorizeNextChunk = () => {
+  const executionTime = differenceInSeconds(new Date(), timeStart)
+  const nextExecutionTime = executionTime + highestTime
+
+  return nextExecutionTime < MAX_EXECUTION_TIME
 }
