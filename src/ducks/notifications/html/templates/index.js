@@ -6,6 +6,7 @@ const Handlebars = require('handlebars')
 const layouts = require('handlebars-layouts')
 const { parse, format } = require('date-fns')
 const { getCategoryId } = require('ducks/categories/helpers')
+const { getAccountBalance } = require('ducks/account/helpers')
 const { getParentCategory } = require('ducks/categories/categoriesMap')
 const utils = require('../utils')
 
@@ -78,7 +79,9 @@ ${Math.abs(amount)} €
     return n > 0
   },
 
-  treatedByFormat: utils.treatedByFormat
+  treatedByFormat: utils.treatedByFormat,
+
+  getAccountBalance
 })
 
 layouts.register(Handlebars)
