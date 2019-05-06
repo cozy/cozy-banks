@@ -19,7 +19,7 @@ const capitalizeWord = str => {
 }
 
 const embeds = {
-  'style.css': require('!!raw-loader!./style.css') // eslint-disable-line import/no-webpack-loader-syntax
+  'style.css': require('!!raw-loader!ducks/notifications/html/templates/style.css') // eslint-disable-line import/no-webpack-loader-syntax
 }
 
 Handlebars.registerHelper({
@@ -87,13 +87,21 @@ ${Math.abs(amount)} €
 layouts.register(Handlebars)
 
 const partials = {
-  'bank-layout': Handlebars.compile(require('./bank-layout.hbs')),
-  'cozy-layout': Handlebars.compile(require('./cozy-layout.hbs')),
-  'balance-lower': Handlebars.compile(require('./balance-lower.hbs')),
-  'transaction-greater': Handlebars.compile(
-    require('./transaction-greater.hbs')
+  'bank-layout': Handlebars.compile(
+    require('ducks/notifications/html/templates/bank-layout.hbs')
   ),
-  'health-bill-linked': Handlebars.compile(require('./health-bill-linked.hbs'))
+  'cozy-layout': Handlebars.compile(
+    require('ducks/notifications/html/templates/cozy-layout.hbs')
+  ),
+  'balance-lower': Handlebars.compile(
+    require('ducks/notifications/html/templates/balance-lower.hbs')
+  ),
+  'transaction-greater': Handlebars.compile(
+    require('ducks/notifications/html/templates/transaction-greater.hbs')
+  ),
+  'health-bill-linked': Handlebars.compile(
+    require('ducks/notifications/html/templates/health-bill-linked.hbs')
+  )
 }
 
 Handlebars.registerPartial(partials)
