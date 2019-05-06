@@ -4711,6 +4711,14 @@ cozy-flags@1.6.0:
     detect-node "2.0.4"
     microee "^0.0.6"
 
+cozy-flags@1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-1.6.1.tgz#27e8bed076f0676e512beda0f4532548862df0f4"
+  integrity sha512-L0Nh8DdgqRBAu4UkSWTbfJZAlcVYQPX2G09nSiOgsgBzr002txXRz1899r9jHoLJPFFR+Ep9zkSmnOnPzMHUwA==
+  dependencies:
+    detect-node "2.0.4"
+    microee "^0.0.6"
+
 cozy-harvest-lib@0.38.3:
   version "0.38.3"
   resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-0.38.3.tgz#ecf2a188ea6f647332fd3a7d2478a3cba7d91c09"
