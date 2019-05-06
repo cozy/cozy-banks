@@ -1,6 +1,6 @@
 const { fromPairs } = require('lodash')
 const templates = require('./templates')
-const { mjml2html } = require('mjml')
+const { renderMJML } = require('./utils')
 const { prepareTransactions } = require('./utils')
 
 export default ({ accounts, transactions, urls }) => {
@@ -16,15 +16,5 @@ export default ({ accounts, transactions, urls }) => {
     ...urls
   }
 
-  const obj = mjml2html(templates['transaction-greater'](data))
-  obj.errors.forEach(err => {
-    // eslint-disable-next-line no-console
-    console.warn(err.formattedMessage)
-  })
-
-  if (obj.html) {
-    return obj.html
-  } else {
-    throw new Error('Error during HTML generation')
-  }
+  return renderMJML(templates['transaction-greater'](data))
 }
