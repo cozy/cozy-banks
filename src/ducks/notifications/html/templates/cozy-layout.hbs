@@ -99,9 +99,11 @@
             <a css-class="footer__help" href="{{settingsUrl}}">
               {{tGlobal 'settings'}}
             </a>
-            <a css-class="footer__help" href="https://support.cozy.io/">
-              {{tGlobal 'support'}}
-            </a>
+            {{#block 'supportLink'}}
+              <a css-class="footer__help" href="https://support.cozy.io/">
+                {{tGlobal 'support'}}
+              </a>
+            {{/block}}
           </mj-text>
           {{/block}}
         </mj-column>
