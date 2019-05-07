@@ -35,7 +35,7 @@ import BalancePanels from 'ducks/balance/BalancePanels'
 import { getPanelsState } from 'ducks/balance/helpers'
 import BarTheme from 'ducks/bar/BarTheme'
 import { filterByAccounts } from 'ducks/filters'
-import CozyRealtime, { EVENT_CREATED } from 'cozy-realtime'
+import CozyRealtime from 'cozy-realtime'
 
 class Balance extends PureComponent {
   constructor(props) {
@@ -156,21 +156,21 @@ class Balance extends PureComponent {
   createRealtime() {
     if (!this.realtime) {
       const cozyClient = this.props.client
-      this.realtime = new CozyRealtime(cozyClient)
+      this.realtime = new CozyRealtime({ cozyClient })
     }
   }
 
   startRealtime(type, callback) {
     this.createRealtime()
     if (!this.realtimeStatus[type]) {
-      this.realtime.subscribe({ type, eventName: EVENT_CREATED }, callback)
+      this.realtime.subscribe('created', type, callback)
       this.realtimeStatus[type] = true
     }
   }
 
   stopRealtime(type, callback) {
     if (this.realtimeStatus[type]) {
-      this.realtime.unsubscribe({ type, eventName: EVENT_CREATED }, callback)
+      this.realtime.unsubscribe('created', type, callback)
       this.realtimeStatus[type] = false
     }
   }
