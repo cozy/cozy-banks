@@ -1,7 +1,7 @@
 const { fromPairs } = require('lodash')
 const templates = require('./templates')
 const { renderMJML } = require('./utils')
-const { prepareTransactions } = require('./utils')
+const { prepareTransactions, getCurrentDate } = require('./utils')
 
 export default ({ accounts, transactions, urls }) => {
   const accountsById = fromPairs(
@@ -12,7 +12,7 @@ export default ({ accounts, transactions, urls }) => {
   const data = {
     accounts: accountsById,
     byAccounts: transactionsByAccounts,
-    date: new Date(),
+    date: getCurrentDate(),
     ...urls
   }
 

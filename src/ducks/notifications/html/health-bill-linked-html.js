@@ -1,7 +1,7 @@
 const keyBy = require('lodash/keyBy')
 const templates = require('./templates')
 const { renderMJML } = require('./utils')
-const { prepareTransactions } = require('./utils')
+const { prepareTransactions, getCurrentDate } = require('./utils')
 
 export default ({ accounts, transactions, bills, urls }) => {
   const accountsById = keyBy(accounts, '_id')
@@ -12,7 +12,7 @@ export default ({ accounts, transactions, bills, urls }) => {
     accounts: accountsById,
     byAccounts: transactionsByAccounts,
     bills: billsById,
-    date: new Date(),
+    date: getCurrentDate(),
     ...urls
   }
 

@@ -1,6 +1,6 @@
 const { groupBy, map } = require('lodash')
 const templates = require('./templates')
-const { renderMJML } = require('./utils')
+const { renderMJML, getCurrentDate } = require('./utils')
 
 const groupAccountsByInstitution = accounts => {
   return map(groupBy(accounts, 'institutionLabel'), (accounts, name) => ({
@@ -12,7 +12,7 @@ const groupAccountsByInstitution = accounts => {
 export default ({ accounts, urls }) => {
   const data = {
     institutions: groupAccountsByInstitution(accounts),
-    date: new Date(),
+    date: getCurrentDate(),
     ...urls
   }
 

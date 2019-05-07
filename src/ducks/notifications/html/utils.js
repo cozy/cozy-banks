@@ -71,3 +71,7 @@ export const renderMJML = mjmlContent => {
     throw new Error('Error during HTML generation')
   }
 }
+
+export const getCurrentDate = () => {
+  return new Date()
+}
