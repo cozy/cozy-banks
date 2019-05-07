@@ -46,6 +46,10 @@ module.exports = {
         test: /\.svg$/,
         include: SRC_DIR,
         loader: 'null-loader'
+      },
+      {
+        test: /\.mjs$/,
+        type: 'javascript/auto'
       }
     ],
 
