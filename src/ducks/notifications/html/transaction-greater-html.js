@@ -1,7 +1,7 @@
 const { fromPairs } = require('lodash')
 const templates = require('./templates')
-const { mjml2html } = require('mjml')
-const { prepareTransactions } = require('./utils')
+const { renderMJML } = require('./utils')
+const { prepareTransactions, getCurrentDate } = require('./utils')
 
 export default ({ accounts, transactions, urls }) => {
   const accountsById = fromPairs(
@@ -12,19 +12,9 @@ export default ({ accounts, transactions, urls }) => {
   const data = {
     accounts: accountsById,
     byAccounts: transactionsByAccounts,
-    date: new Date(),
+    date: getCurrentDate(),
     ...urls
   }
 
-  const obj = mjml2html(templates['transaction-greater'](data))
-  obj.errors.forEach(err => {
-    // eslint-disable-next-line no-console
-    console.warn(err.formattedMessage)
-  })
-
-  if (obj.html) {
-    return obj.html
-  } else {
-    throw new Error('Error during HTML generation')
-  }
+  return renderMJML(templates['transaction-greater'](data))
 }

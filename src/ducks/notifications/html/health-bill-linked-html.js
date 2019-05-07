@@ -1,7 +1,7 @@
 const keyBy = require('lodash/keyBy')
 const templates = require('./templates')
-const { mjml2html } = require('mjml')
-const { prepareTransactions } = require('./utils')
+const { renderMJML } = require('./utils')
+const { prepareTransactions, getCurrentDate } = require('./utils')
 
 export default ({ accounts, transactions, bills, urls }) => {
   const accountsById = keyBy(accounts, '_id')
@@ -12,19 +12,9 @@ export default ({ accounts, transactions, bills, urls }) => {
     accounts: accountsById,
     byAccounts: transactionsByAccounts,
     bills: billsById,
-    date: new Date(),
+    date: getCurrentDate(),
     ...urls
   }
 
-  const obj = mjml2html(templates['health-bill-linked'](data))
-  obj.errors.forEach(err => {
-    // eslint-disable-next-line no-console
-    console.warn(err.formattedMessage)
-  })
-
-  if (obj.html) {
-    return obj.html
-  } else {
-    throw new Error('Error during HTML generation')
-  }
+  return renderMJML(templates['health-bill-linked'](data))
 }

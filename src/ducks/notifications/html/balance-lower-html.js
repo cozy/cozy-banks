@@ -1,6 +1,6 @@
 const { groupBy, map } = require('lodash')
 const templates = require('./templates')
-const { mjml2html } = require('mjml')
+const { renderMJML, getCurrentDate } = require('./utils')
 
 const groupAccountsByInstitution = accounts => {
   return map(groupBy(accounts, 'institutionLabel'), (accounts, name) => ({
@@ -12,19 +12,9 @@ const groupAccountsByInstitution = accounts => {
 export default ({ accounts, urls }) => {
   const data = {
     institutions: groupAccountsByInstitution(accounts),
-    date: new Date(),
+    date: getCurrentDate(),
     ...urls
   }
 
-  const obj = mjml2html(templates['balance-lower'](data))
-  obj.errors.forEach(err => {
-    // eslint-disable-next-line no-console
-    console.warn(err.formattedMessage)
-  })
-
-  if (obj.html) {
-    return obj.html
-  } else {
-    throw new Error('Error during HTML generation')
-  }
+  return renderMJML(templates['balance-lower'](data))
 }
