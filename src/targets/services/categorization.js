@@ -52,6 +52,8 @@ const categorization = async () => {
       return
     }
   }
+
+  log('info', 'All transactions have been successfuly categorized.')
 }
 
 categorization()
