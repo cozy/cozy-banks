@@ -166,6 +166,10 @@
       "description": "Used to suggest which apps / connectors might be useful for the user",
       "type": "io.cozy.apps.suggestions",
       "verbs": ["GET", "POST", "PUT"]
+    },
+    "jobs": {
+      "description": "Used in services to start other services",
+      "type": "io.cozy.jobs"
     }
   }
 }
