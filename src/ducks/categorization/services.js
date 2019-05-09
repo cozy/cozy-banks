@@ -72,3 +72,14 @@ export const canCategorizeNextChunk = () => {
 
   return nextExecutionTime < MAX_EXECUTION_TIME
 }
+
+export const restartService = () => {
+  const args = {
+    message: {
+      name: 'categorization',
+      slug: 'banks'
+    }
+  }
+
+  return cozyClient.jobs.create('service', args)
+}

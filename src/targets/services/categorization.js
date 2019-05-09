@@ -5,7 +5,8 @@ import {
   canCategorizeNextChunk,
   categorizeChunk,
   updateTimeTracking,
-  CHUNK_SIZE
+  CHUNK_SIZE,
+  restartService
 } from 'ducks/categorization/services'
 
 const log = logger.namespace('service/categorization')
@@ -45,8 +46,9 @@ const categorization = async () => {
     } else {
       log(
         'info',
-        'Not enough time remaining to categorize next chunk, stopping.'
+        'Not enough time remaining to categorize next chunk, starting a new service run.'
       )
+      await restartService()
       return
     }
   }
