@@ -73,10 +73,10 @@ export const canCategorizeNextChunk = () => {
   return nextExecutionTime < MAX_EXECUTION_TIME
 }
 
-export const restartService = () => {
+export const startService = name => {
   const args = {
     message: {
-      name: 'categorization',
+      name,
       slug: 'banks'
     }
   }
