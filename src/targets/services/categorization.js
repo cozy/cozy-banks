@@ -6,7 +6,7 @@ import {
   categorizeChunk,
   updateTimeTracking,
   CHUNK_SIZE,
-  restartService
+  startService
 } from 'ducks/categorization/services'
 
 const log = logger.namespace('service/categorization')
@@ -48,12 +48,15 @@ const categorization = async () => {
         'info',
         'Not enough time remaining to categorize next chunk, starting a new service run.'
       )
-      await restartService()
+      await startService('categorization')
       return
     }
   }
 
   log('info', 'All transactions have been successfuly categorized.')
+
+  log('info', 'Starting onOperationOrBillCreate service...')
+  await startService('onOperationOrBillCreate')
 }
 
 categorization()
