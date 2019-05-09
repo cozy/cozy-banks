@@ -1,3 +1,5 @@
+/* global __TARGET__ */
+
 import React, { PureComponent, Fragment } from 'react'
 import { flowRight as compose, get, sumBy, set, debounce } from 'lodash'
 
@@ -54,6 +56,7 @@ class Balance extends PureComponent {
 
     this.fetchTriggers = this.fetchTriggers.bind(this)
     this.fetchAccounts = this.fetchAccounts.bind(this)
+    this.handleResume = this.handleResume.bind(this)
     this.realtimeStatus = {
       ACCOUNT_DOCTYPE: false,
       TRIGGER_DOCTYPE: false
@@ -175,8 +178,13 @@ class Balance extends PureComponent {
     }
   }
 
-  fetchTriggers() {
-    const client = this.props.client
+  async fetchTriggers() {
+    const { client } = this.props
+    if (__TARGET__ === 'mobile') {
+      const pouchManager = client.links[0].pouches
+      pouchManager.stopReplicationLoop()
+      await pouchManager.startReplicationLoop()
+    }
     client.query(triggersConn.query(client))
   }
 
@@ -188,8 +196,13 @@ class Balance extends PureComponent {
     this.stopRealtime(TRIGGER_DOCTYPE, this.fetchTriggers)
   }
 
-  fetchAccounts() {
-    const client = this.props.client
+  async fetchAccounts() {
+    const { client } = this.props
+    if (__TARGET__ === 'mobile') {
+      const pouchManager = client.links[0].pouches
+      pouchManager.stopReplicationLoop()
+      await pouchManager.startReplicationLoop()
+    }
     client.query(accountsConn.query(client))
   }
 
@@ -201,9 +214,25 @@ class Balance extends PureComponent {
     this.stopRealtime(ACCOUNT_DOCTYPE, this.fetchAccounts)
   }
 
+  handleResume() {
+    this.props.accounts.fetch()
+    this.props.triggers.fetch()
+  }
+
+  componentDidMount() {
+    if (__TARGET__ === 'mobile') {
+      document.addEventListener('resume', this.handleResume)
+      window.addEventListener('online', this.handleResume)
+    }
+  }
+
   componentWillUnmount() {
     this.stopFetchTriggers()
     this.stopFetchAccounts()
+    if (__TARGET__ === 'mobile') {
+      document.removeEventListener('resume', this.handleResume)
+      window.removeEventListener('online', this.handleResume)
+    }
   }
 
   componentDidUpdate() {
