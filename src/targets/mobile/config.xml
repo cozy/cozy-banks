@@ -105,6 +105,5 @@
     </plugin>
     <plugin name="cordova-blur-app-privacy-screen" spec="https://github.com/lifeofcoding/cordova-blur-app-privacy-screen.git" />
     <engine name="ios" spec="4.5.5" />
-    <plugin name="cordova-plugin-keyboard" spec="https://github.com/cozy/cordova-plugin-keyboard.git#4fa4850e6f0ea78e1e2ce573ccde5531a2353edb" />
     <plugin name="cordova-universal-links-plugin" spec="https://github.com/walteram/cordova-universal-links-plugin.git" />
 </widget>
