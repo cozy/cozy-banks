@@ -1,3 +1,5 @@
+/* global __TARGET__ */
+
 import React, { PureComponent, Fragment } from 'react'
 import { flowRight as compose, get, sumBy, set, debounce } from 'lodash'
 
@@ -35,7 +37,16 @@ import BalancePanels from 'ducks/balance/BalancePanels'
 import { getPanelsState } from 'ducks/balance/helpers'
 import BarTheme from 'ducks/bar/BarTheme'
 import { filterByAccounts } from 'ducks/filters'
-import CozyRealtime, { EVENT_CREATED } from 'cozy-realtime'
+import CozyRealtime from 'cozy-realtime'
+
+const syncPouchImmediately = async client => {
+  const pouchLink = client.links.find(link => link.pouches)
+  const pouchManager = pouchLink.pouches
+  // @TODO replace by await pouchLink.syncImmediately() when
+  // https://github.com/cozy/cozy-client/pull/434 is merged
+  pouchManager.stopReplicationLoop()
+  await pouchManager.startReplicationLoop()
+}
 
 class Balance extends PureComponent {
   constructor(props) {
@@ -54,6 +65,7 @@ class Balance extends PureComponent {
 
     this.fetchTriggers = this.fetchTriggers.bind(this)
     this.fetchAccounts = this.fetchAccounts.bind(this)
+    this.handleResume = this.handleResume.bind(this)
     this.realtimeStatus = {
       ACCOUNT_DOCTYPE: false,
       TRIGGER_DOCTYPE: false
@@ -156,27 +168,30 @@ class Balance extends PureComponent {
   createRealtime() {
     if (!this.realtime) {
       const cozyClient = this.props.client
-      this.realtime = new CozyRealtime(cozyClient)
+      this.realtime = new CozyRealtime({ cozyClient })
     }
   }
 
   startRealtime(type, callback) {
     this.createRealtime()
     if (!this.realtimeStatus[type]) {
-      this.realtime.subscribe({ type, eventName: EVENT_CREATED }, callback)
+      this.realtime.subscribe('created', type, callback)
       this.realtimeStatus[type] = true
     }
   }
 
   stopRealtime(type, callback) {
     if (this.realtimeStatus[type]) {
-      this.realtime.unsubscribe({ type, eventName: EVENT_CREATED }, callback)
+      this.realtime.unsubscribe('created', type, callback)
       this.realtimeStatus[type] = false
     }
   }
 
-  fetchTriggers() {
-    const client = this.props.client
+  async fetchTriggers() {
+    const { client } = this.props
+    if (__TARGET__ === 'mobile') {
+      await syncPouchImmediately(client)
+    }
     client.query(triggersConn.query(client))
   }
 
@@ -188,8 +203,11 @@ class Balance extends PureComponent {
     this.stopRealtime(TRIGGER_DOCTYPE, this.fetchTriggers)
   }
 
-  fetchAccounts() {
-    const client = this.props.client
+  async fetchAccounts() {
+    const { client } = this.props
+    if (__TARGET__ === 'mobile') {
+      await syncPouchImmediately(client)
+    }
     client.query(accountsConn.query(client))
   }
 
@@ -201,9 +219,33 @@ class Balance extends PureComponent {
     this.stopRealtime(ACCOUNT_DOCTYPE, this.fetchAccounts)
   }
 
+  handleResume() {
+    this.props.accounts.fetch()
+    this.props.triggers.fetch()
+  }
+
+  startResumeListeners() {
+    if (__TARGET__ === 'mobile') {
+      document.addEventListener('resume', this.handleResume)
+      window.addEventListener('online', this.handleResume)
+    }
+  }
+
+  stopResumeListeners() {
+    if (__TARGET__ === 'mobile') {
+      document.removeEventListener('resume', this.handleResume)
+      window.removeEventListener('online', this.handleResume)
+    }
+  }
+
+  componentDidMount() {
+    this.startResumeListeners()
+  }
+
   componentWillUnmount() {
     this.stopFetchTriggers()
     this.stopFetchAccounts()
+    this.stopResumeListeners()
   }
 
   componentDidUpdate() {
@@ -240,6 +282,7 @@ class Balance extends PureComponent {
     if (accounts.length > 0) {
       this.stopFetchAccounts()
       this.stopFetchTriggers()
+      this.stopResumeListeners()
       return
     }
 
