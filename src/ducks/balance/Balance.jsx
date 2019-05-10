@@ -219,20 +219,28 @@ class Balance extends PureComponent {
     this.props.triggers.fetch()
   }
 
-  componentDidMount() {
+  startResumeListeners() {
     if (__TARGET__ === 'mobile') {
       document.addEventListener('resume', this.handleResume)
       window.addEventListener('online', this.handleResume)
     }
   }
 
-  componentWillUnmount() {
-    this.stopFetchTriggers()
-    this.stopFetchAccounts()
+  stopResumeListeners() {
     if (__TARGET__ === 'mobile') {
       document.removeEventListener('resume', this.handleResume)
       window.removeEventListener('online', this.handleResume)
     }
+  }
+
+  componentDidMount() {
+    this.startResumeListeners()
+  }
+
+  componentWillUnmount() {
+    this.stopFetchTriggers()
+    this.stopFetchAccounts()
+    this.stopResumeListeners()
   }
 
   componentDidUpdate() {
