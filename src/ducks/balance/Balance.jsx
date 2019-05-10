@@ -277,6 +277,7 @@ class Balance extends PureComponent {
     if (accounts.length > 0) {
       this.stopFetchAccounts()
       this.stopFetchTriggers()
+      this.stopResumeListeners()
       return
     }
 
