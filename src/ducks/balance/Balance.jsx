@@ -39,6 +39,14 @@ import BarTheme from 'ducks/bar/BarTheme'
 import { filterByAccounts } from 'ducks/filters'
 import CozyRealtime from 'cozy-realtime'
 
+// @TODO extract this to the client
+const syncPouchImmediately = async client => {
+  const pouchLink = client.links.find(link => link.pouches)
+  const pouchManager = pouchLink.pouches
+  pouchManager.stopReplicationLoop()
+  await pouchManager.startReplicationLoop()
+}
+
 class Balance extends PureComponent {
   constructor(props) {
     super(props)
@@ -181,9 +189,7 @@ class Balance extends PureComponent {
   async fetchTriggers() {
     const { client } = this.props
     if (__TARGET__ === 'mobile') {
-      const pouchManager = client.links[0].pouches
-      pouchManager.stopReplicationLoop()
-      await pouchManager.startReplicationLoop()
+      await syncPouchImmediately(client)
     }
     client.query(triggersConn.query(client))
   }
@@ -199,9 +205,7 @@ class Balance extends PureComponent {
   async fetchAccounts() {
     const { client } = this.props
     if (__TARGET__ === 'mobile') {
-      const pouchManager = client.links[0].pouches
-      pouchManager.stopReplicationLoop()
-      await pouchManager.startReplicationLoop()
+      await syncPouchImmediately(client)
     }
     client.query(accountsConn.query(client))
   }
