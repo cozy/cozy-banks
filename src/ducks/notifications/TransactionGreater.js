@@ -3,7 +3,6 @@ import htmlTemplate from './html/transaction-greater-html'
 import * as utils from './html/utils'
 import { subDays } from 'date-fns'
 import { isTransactionAmountGreaterThan } from './helpers'
-import isCreatedDoc from 'utils/isCreatedDoc'
 import Notification from './Notification'
 import { sortBy } from 'lodash'
 import log from 'cozy-logger'
@@ -13,6 +12,13 @@ import { getCurrencySymbol } from 'utils/currencySymbol'
 const ACCOUNT_SEL = '.js-account'
 const DATE_SEL = '.js-date'
 const TRANSACTION_SEL = '.js-transaction'
+
+// We don't use `isCreatedDoc` from utils here because
+// we want to get the transactions that have just been
+// categorized, so their _rev is <= 2
+const isFreshTransaction = transaction => {
+  return parseInt(transaction._rev.split('-').shift(), 10) <= 2
+}
 
 const toText = cozyHTMLEmail => {
   const getTextTransactionRow = $row =>
@@ -58,7 +64,7 @@ class TransactionGreater extends Notification {
     const fourDaysAgo = subDays(new Date(), 4)
 
     return transactions
-      .filter(isCreatedDoc)
+      .filter(isFreshTransaction)
       .filter(tr => new Date(getDate(tr)) > fourDaysAgo)
       .filter(isTransactionAmountGreaterThan(this.maxAmount))
   }
