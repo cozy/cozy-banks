@@ -71,11 +71,10 @@ class Balance extends PureComponent {
     }).bind(this)
 
     this.handleResume = this.handleResume.bind(this)
-    this.handleRealtime = debounce(
-      this.handleRealtime.bind(this),
-      1000,
-      { leading: false, trailing: true }
-    )
+    this.handleRealtime = debounce(this.handleRealtime.bind(this), 1000, {
+      leading: false,
+      trailing: true
+    })
     this.realtime = null
   }
 
@@ -204,11 +203,12 @@ class Balance extends PureComponent {
     this.realtimeStarted = false
   }
 
-  async handleRealtime(ev) {
+  async handleRealtime() {
     const { client } = this.props
     if (__TARGET__ === 'mobile') {
       await syncPouchImmediately(client)
     }
+    // TODO discriminate on the ev received to only fetch what is important
     this.props.accounts.fetch()
     this.props.transactions.fetch()
     this.props.triggers.fetch()
