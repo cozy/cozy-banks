@@ -12,6 +12,7 @@ import {
   accountsConn,
   ACCOUNT_DOCTYPE,
   TRIGGER_DOCTYPE,
+  TRANSACTION_DOCTYPE,
   transactionsConn
 } from 'doctypes'
 import cx from 'classnames'
@@ -51,6 +52,7 @@ const syncPouchImmediately = async client => {
 const REALTIME_DOCTYPES = [
   ACCOUNT_DOCTYPE,
   TRIGGER_DOCTYPE,
+  TRANSACTION_DOCTYPE
 ]
 
 class Balance extends PureComponent {
@@ -208,11 +210,13 @@ class Balance extends PureComponent {
       await syncPouchImmediately(client)
     }
     this.props.accounts.fetch()
+    this.props.transactions.fetch()
     this.props.triggers.fetch()
   }
 
   handleResume() {
     this.props.accounts.fetch()
+    this.props.transactions.fetch()
     this.props.triggers.fetch()
   }
 
