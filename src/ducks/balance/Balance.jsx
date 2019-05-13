@@ -165,11 +165,12 @@ class Balance extends PureComponent {
     })
   }
 
-  createRealtime() {
-    if (!this.realtime) {
-      const cozyClient = this.props.client
-      this.realtime = new CozyRealtime({ cozyClient })
+  ensureRealtime() {
+    if (this.realtime) {
+      return
     }
+    const cozyClient = this.props.client
+    this.realtime = new CozyRealtime({ cozyClient })
   }
 
   startRealtime(type, callback) {
