@@ -261,15 +261,11 @@ class Balance extends PureComponent {
   }
 
   _ensureListenersProperlyConfigured() {
-    const {
-      accounts: accountsCollection,
-      triggers: triggersCollection
-    } = this.props
+    const { accounts: accountsCollection } = this.props
 
     const accounts = accountsCollection.data
-    const triggers = triggersCollection.data
 
-    const collections = [accountsCollection, triggersCollection]
+    const collections = [accountsCollection]
     if (collections.some(isCollectionLoading)) {
       return
     }
@@ -277,16 +273,6 @@ class Balance extends PureComponent {
     if (accounts.length > 0) {
       this.stopRealtime()
       this.stopResumeListeners()
-      return
-    }
-
-    let konnectorSlugs = triggers
-      .filter(isBankTrigger)
-      .map(t => t.attributes.message.konnector)
-
-    if (konnectorSlugs.length > 0) {
-      this.stopFetchTriggers()
-      this.startFetchAccounts()
     } else {
       this.startRealtime()
       this.startResumeListeners()
