@@ -3,7 +3,8 @@ import { Intents } from 'cozy-interapp'
 
 let client
 
-const lib = __TARGET__ === 'mobile' ? require('./mobile') : require('./web')
+const lib =
+  __TARGET__ === 'mobile' ? require('./mobile/mobile') : require('./web')
 
 export const getClient = (state, getStore) => {
   if (client) {
