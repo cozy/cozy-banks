@@ -14,7 +14,7 @@
     <preference name="AppendUserAgent" value="io.cozy.banks.mobile-1.0.6" />
     <hook src="scripts/customizeConfigXML.js" type="before_prepare" />
     <universal-links>
-        <host name="links.mycozy.cloud">
+        <host name="links.mycozy.cloud" scheme="https">
             <path event="openUniversalLink" scheme="https" url="/banks/*" />
         </host>
         <ios-team-id value="3AKXFMV43J" />
