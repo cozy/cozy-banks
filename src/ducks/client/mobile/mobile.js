@@ -1,18 +1,18 @@
 /* global __APP_VERSION__ */
 
 import CozyClient from 'cozy-client'
-import { getDeviceName, isAndroidApp } from 'cozy-device-helper'
-import { getUniversalLinkDomain } from 'cozy-ui/transpiled/react/AppLinker'
+import { getDeviceName } from 'cozy-device-helper'
 
 import { merge } from 'lodash'
-import { getLinks } from './links'
+import { getLinks } from '../links'
 import { schema } from 'doctypes'
 import manifest from 'ducks/client/manifest'
 import pushPlugin from 'ducks/mobile/push'
 import barPlugin from 'ducks/mobile/bar'
 import { clientPlugin as sentryPlugin } from 'lib/sentry'
 
-import { protocol, SOFTWARE_ID } from 'ducks/mobile/constants'
+import { SOFTWARE_ID } from 'ducks/mobile/constants'
+import { getRedirectUri } from 'ducks/client/mobile/redirect'
 import { resetFilterByDoc } from 'ducks/filters'
 
 export const getScope = m => {
@@ -96,9 +96,7 @@ export const getClient = (state, getStore) => {
   const banksOptions = {
     schema,
     oauth: {
-      redirectURI: isAndroidApp()
-        ? protocol + 'auth'
-        : getUniversalLinkDomain() + '/' + appSlug + '/auth',
+      redirectURI: getRedirectUri(appSlug),
       softwareID: SOFTWARE_ID,
       softwareVersion: __APP_VERSION__,
       clientKind: 'mobile',
