@@ -1,5 +1,5 @@
 import React from 'react'
-import { translate } from 'cozy-ui/react'
+import { translate, Spinner } from 'cozy-ui/react'
 import styles from 'components/Loading/Loading.styl'
 
 /**
@@ -7,11 +7,8 @@ import styles from 'components/Loading/Loading.styl'
  */
 export const Loading = ({ t, loadingType, noMargin }) => {
   return (
-    <div
-      className={
-        noMargin ? styles['bnk-loading--no-margin'] : styles['bnk-loading']
-      }
-    >
+    <div className={styles['bnk-loading']}>
+      <Spinner size="xxlarge" noMargin={noMargin} />
       {loadingType && <p>{t('Loading.loading')}</p>}
     </div>
   )

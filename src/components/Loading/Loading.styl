@@ -1,14 +1,8 @@
 @require 'components/button.styl'
 @require 'settings/breakpoints'
 
-.bnk-loading, .bnk-loading--no-margin
+.bnk-loading
     text-align center
-    &:before
-        content     ''
-        margin      5rem auto 0
-        width       5rem
-        height      5rem
-        @extend $icon-spinner-blue
 
     h2
         font-size(24px)
@@ -20,10 +14,6 @@
         margin-top  0.9375rem
         color       var(--coolGrey)
         line-height 1.5
-
-.pho-loading--no-margin
-    &:before
-        margin 0
 
 
 +medium-screen()
