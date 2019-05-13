@@ -244,12 +244,12 @@ class Balance extends PureComponent {
   }
 
   componentDidUpdate() {
-    this.ensureRealtimeProperlyConfigured()
+    this.ensureListenersProperlyConfigured()
   }
 
-  ensureRealtimeProperlyConfigured() {
+  ensureListenersProperlyConfigured() {
     try {
-      this._ensureRealtimeProperlyConfigured()
+      this._ensureListenersProperlyConfigured()
     } catch (e) {
       /* eslint-disable no-console */
       console.error(e)
@@ -260,7 +260,7 @@ class Balance extends PureComponent {
     }
   }
 
-  _ensureRealtimeProperlyConfigured() {
+  _ensureListenersProperlyConfigured() {
     const {
       accounts: accountsCollection,
       triggers: triggersCollection
@@ -289,6 +289,7 @@ class Balance extends PureComponent {
       this.startFetchAccounts()
     } else {
       this.startRealtime()
+      this.startResumeListeners()
     }
   }
 
