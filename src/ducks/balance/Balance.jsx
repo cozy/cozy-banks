@@ -12,6 +12,7 @@ import {
   accountsConn,
   ACCOUNT_DOCTYPE,
   TRIGGER_DOCTYPE,
+  TRANSACTION_DOCTYPE,
   transactionsConn
 } from 'doctypes'
 import cx from 'classnames'
@@ -48,6 +49,12 @@ const syncPouchImmediately = async client => {
   await pouchManager.startReplicationLoop()
 }
 
+const REALTIME_DOCTYPES = [
+  ACCOUNT_DOCTYPE,
+  TRIGGER_DOCTYPE,
+  TRANSACTION_DOCTYPE
+]
+
 class Balance extends PureComponent {
   constructor(props) {
     super(props)
@@ -63,13 +70,11 @@ class Balance extends PureComponent {
       trailing: true
     }).bind(this)
 
-    this.fetchTriggers = this.fetchTriggers.bind(this)
-    this.fetchAccounts = this.fetchAccounts.bind(this)
     this.handleResume = this.handleResume.bind(this)
-    this.realtimeStatus = {
-      ACCOUNT_DOCTYPE: false,
-      TRIGGER_DOCTYPE: false
-    }
+    this.handleRealtime = debounce(this.handleRealtime.bind(this), 1000, {
+      leading: false,
+      trailing: true
+    })
     this.realtime = null
   }
 
@@ -165,62 +170,53 @@ class Balance extends PureComponent {
     })
   }
 
-  createRealtime() {
-    if (!this.realtime) {
-      const cozyClient = this.props.client
-      this.realtime = new CozyRealtime({ cozyClient })
+  ensureRealtime() {
+    if (this.realtime) {
+      return
     }
+    const cozyClient = this.props.client
+    this.realtime = new CozyRealtime({ cozyClient })
   }
 
-  startRealtime(type, callback) {
-    this.createRealtime()
-    if (!this.realtimeStatus[type]) {
-      this.realtime.subscribe('created', type, callback)
-      this.realtimeStatus[type] = true
+  startRealtime() {
+    if (this.realtimeStarted) {
+      return
     }
+    this.ensureRealtime()
+    for (const doctype of REALTIME_DOCTYPES) {
+      this.realtime.subscribe('created', doctype, this.handleRealtime)
+      this.realtime.subscribe('updated', doctype, this.handleRealtime)
+      this.realtime.subscribe('deleted', doctype, this.handleRealtime)
+    }
+    this.realtimeStarted = true
   }
 
-  stopRealtime(type, callback) {
-    if (this.realtimeStatus[type]) {
-      this.realtime.unsubscribe('created', type, callback)
-      this.realtimeStatus[type] = false
+  stopRealtime() {
+    if (!this.realtimeStarted || !this.realtime) {
+      return
     }
+    for (const doctype of REALTIME_DOCTYPES) {
+      this.realtime.unsubscribe('created', doctype, this.handleRealtime)
+      this.realtime.unsubscribe('updated', doctype, this.handleRealtime)
+      this.realtime.unsubscribe('deleted', doctype, this.handleRealtime)
+    }
+    this.realtimeStarted = false
   }
 
-  async fetchTriggers() {
+  async handleRealtime() {
     const { client } = this.props
     if (__TARGET__ === 'mobile') {
       await syncPouchImmediately(client)
     }
-    client.query(triggersConn.query(client))
-  }
-
-  startFetchTriggers() {
-    this.startRealtime(TRIGGER_DOCTYPE, this.fetchTriggers)
-  }
-
-  stopFetchTriggers() {
-    this.stopRealtime(TRIGGER_DOCTYPE, this.fetchTriggers)
-  }
-
-  async fetchAccounts() {
-    const { client } = this.props
-    if (__TARGET__ === 'mobile') {
-      await syncPouchImmediately(client)
-    }
-    client.query(accountsConn.query(client))
-  }
-
-  startFetchAccounts() {
-    this.startRealtime(ACCOUNT_DOCTYPE, this.fetchAccounts)
-  }
-
-  stopFetchAccounts() {
-    this.stopRealtime(ACCOUNT_DOCTYPE, this.fetchAccounts)
+    // TODO discriminate on the ev received to only fetch what is important
+    this.props.accounts.fetch()
+    this.props.transactions.fetch()
+    this.props.triggers.fetch()
   }
 
   handleResume() {
     this.props.accounts.fetch()
+    this.props.transactions.fetch()
     this.props.triggers.fetch()
   }
 
@@ -243,18 +239,17 @@ class Balance extends PureComponent {
   }
 
   componentWillUnmount() {
-    this.stopFetchTriggers()
-    this.stopFetchAccounts()
+    this.stopRealtime()
     this.stopResumeListeners()
   }
 
   componentDidUpdate() {
-    this.ensureRealtimeProperlyConfigured()
+    this.ensureListenersProperlyConfigured()
   }
 
-  ensureRealtimeProperlyConfigured() {
+  ensureListenersProperlyConfigured() {
     try {
-      this._ensureRealtimeProperlyConfigured()
+      this._ensureListenersProperlyConfigured()
     } catch (e) {
       /* eslint-disable no-console */
       console.error(e)
@@ -265,37 +260,22 @@ class Balance extends PureComponent {
     }
   }
 
-  _ensureRealtimeProperlyConfigured() {
-    const {
-      accounts: accountsCollection,
-      triggers: triggersCollection
-    } = this.props
+  _ensureListenersProperlyConfigured() {
+    const { accounts: accountsCollection } = this.props
 
     const accounts = accountsCollection.data
-    const triggers = triggersCollection.data
 
-    const collections = [accountsCollection, triggersCollection]
+    const collections = [accountsCollection]
     if (collections.some(isCollectionLoading)) {
       return
     }
 
     if (accounts.length > 0) {
-      this.stopFetchAccounts()
-      this.stopFetchTriggers()
+      this.stopRealtime()
       this.stopResumeListeners()
-      return
-    }
-
-    let konnectorSlugs = triggers
-      .filter(isBankTrigger)
-      .map(t => t.attributes.message.konnector)
-
-    if (konnectorSlugs.length > 0) {
-      this.stopFetchTriggers()
-      this.startFetchAccounts()
     } else {
-      this.stopFetchAccounts()
-      this.startFetchTriggers()
+      this.startRealtime()
+      this.startResumeListeners()
     }
   }
 
