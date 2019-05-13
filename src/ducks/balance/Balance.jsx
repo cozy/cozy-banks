@@ -48,6 +48,11 @@ const syncPouchImmediately = async client => {
   await pouchManager.startReplicationLoop()
 }
 
+const REALTIME_DOCTYPES = [
+  ACCOUNT_DOCTYPE,
+  TRIGGER_DOCTYPE,
+]
+
 class Balance extends PureComponent {
   constructor(props) {
     super(props)
@@ -63,13 +68,12 @@ class Balance extends PureComponent {
       trailing: true
     }).bind(this)
 
-    this.fetchTriggers = this.fetchTriggers.bind(this)
-    this.fetchAccounts = this.fetchAccounts.bind(this)
     this.handleResume = this.handleResume.bind(this)
-    this.realtimeStatus = {
-      ACCOUNT_DOCTYPE: false,
-      TRIGGER_DOCTYPE: false
-    }
+    this.handleRealtime = debounce(
+      this.handleRealtime.bind(this),
+      1000,
+      { leading: false, trailing: true }
+    )
     this.realtime = null
   }
 
@@ -173,51 +177,38 @@ class Balance extends PureComponent {
     this.realtime = new CozyRealtime({ cozyClient })
   }
 
-  startRealtime(type, callback) {
-    this.createRealtime()
-    if (!this.realtimeStatus[type]) {
-      this.realtime.subscribe('created', type, callback)
-      this.realtimeStatus[type] = true
+  startRealtime() {
+    if (this.realtimeStarted) {
+      return
     }
+    this.ensureRealtime()
+    for (const doctype of REALTIME_DOCTYPES) {
+      this.realtime.subscribe('created', doctype, this.handleRealtime)
+      this.realtime.subscribe('updated', doctype, this.handleRealtime)
+      this.realtime.subscribe('deleted', doctype, this.handleRealtime)
+    }
+    this.realtimeStarted = true
   }
 
-  stopRealtime(type, callback) {
-    if (this.realtimeStatus[type]) {
-      this.realtime.unsubscribe('created', type, callback)
-      this.realtimeStatus[type] = false
+  stopRealtime() {
+    if (!this.realtimeStarted || !this.realtime) {
+      return
     }
+    for (const doctype of REALTIME_DOCTYPES) {
+      this.realtime.unsubscribe('created', doctype, this.handleRealtime)
+      this.realtime.unsubscribe('updated', doctype, this.handleRealtime)
+      this.realtime.unsubscribe('deleted', doctype, this.handleRealtime)
+    }
+    this.realtimeStarted = false
   }
 
-  async fetchTriggers() {
+  async handleRealtime(ev) {
     const { client } = this.props
     if (__TARGET__ === 'mobile') {
       await syncPouchImmediately(client)
     }
-    client.query(triggersConn.query(client))
-  }
-
-  startFetchTriggers() {
-    this.startRealtime(TRIGGER_DOCTYPE, this.fetchTriggers)
-  }
-
-  stopFetchTriggers() {
-    this.stopRealtime(TRIGGER_DOCTYPE, this.fetchTriggers)
-  }
-
-  async fetchAccounts() {
-    const { client } = this.props
-    if (__TARGET__ === 'mobile') {
-      await syncPouchImmediately(client)
-    }
-    client.query(accountsConn.query(client))
-  }
-
-  startFetchAccounts() {
-    this.startRealtime(ACCOUNT_DOCTYPE, this.fetchAccounts)
-  }
-
-  stopFetchAccounts() {
-    this.stopRealtime(ACCOUNT_DOCTYPE, this.fetchAccounts)
+    this.props.accounts.fetch()
+    this.props.triggers.fetch()
   }
 
   handleResume() {
@@ -244,8 +235,7 @@ class Balance extends PureComponent {
   }
 
   componentWillUnmount() {
-    this.stopFetchTriggers()
-    this.stopFetchAccounts()
+    this.stopRealtime()
     this.stopResumeListeners()
   }
 
@@ -281,8 +271,7 @@ class Balance extends PureComponent {
     }
 
     if (accounts.length > 0) {
-      this.stopFetchAccounts()
-      this.stopFetchTriggers()
+      this.stopRealtime()
       this.stopResumeListeners()
       return
     }
@@ -295,8 +284,7 @@ class Balance extends PureComponent {
       this.stopFetchTriggers()
       this.startFetchAccounts()
     } else {
-      this.stopFetchAccounts()
-      this.startFetchTriggers()
+      this.startRealtime()
     }
   }
 
