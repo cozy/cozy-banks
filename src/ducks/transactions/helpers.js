@@ -107,3 +107,16 @@ export const isFullyReimbursed = expense => {
 
   return reimbursedAmount === -expense.amount
 }
+
+/*
+ * A transaction is considered as new if its revision is lesser than or equals
+ * to 2. This is because when a transaction is imported by a banking konnector
+ * it is saved, then categorized and re-saved (by the konnector or by the
+ * categorization service). It means that when a new transaction is handled by
+ * the onOperationOrBillCreate service, its revision is already `2`. So if we
+ * only consider transactions with revision `1`, we will miss the vast majority
+ * of them. For all other cases, please see `utils/isCreatedDoc`
+ */
+export const isNew = transaction => {
+  return parseInt(transaction._rev.split('-').shift(), 10) <= 2
+}
