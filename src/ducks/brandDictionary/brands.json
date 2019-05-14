@@ -1,5 +1,10 @@
 [
   {
+    "name": "Amazon",
+    "regexp": "\\bamazon\\b",
+    "konnectorSlug": "amazon"
+  },
+  {
     "name": "Ameli",
     "regexp": "(cpam|c\\.p\\.a\\.m|caisse primaire)",
     "konnectorSlug": "ameli",
