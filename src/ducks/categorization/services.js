@@ -9,7 +9,9 @@ import { LOCAL_MODEL_USAGE_THRESHOLD } from 'ducks/categories/helpers'
 
 BankTransaction.registerClient(cozyClient)
 
+// Each chunk will contain 100 transactions
 export const CHUNK_SIZE = 100
+
 const MAX_EXECUTION_TIME = 200
 const timeStart = new Date()
 let highestTime = 0
