@@ -97,12 +97,12 @@ describe('buildHealthReimbursementsVirtualAccount', () => {
 
   beforeEach(() => {
     transactions = [
-      { automaticCategoryId: '400610', amount: -10, date: '2019-01-02' },
       { manualCategoryId: '400610', amount: -10, date: '2019-01-02' },
-      { automaticCategoryId: '400610', amount: -10, date: '2019-01-02' },
       { manualCategoryId: '400610', amount: -10, date: '2019-01-02' },
-      { automaticCategoryId: '400610', amount: -10, date: '2018-01-02' },
-      { automaticCategoryId: '400470', amount: 10 }
+      { manualCategoryId: '400610', amount: -10, date: '2019-01-02' },
+      { manualCategoryId: '400610', amount: -10, date: '2019-01-02' },
+      { manualCategoryId: '400610', amount: -10, date: '2018-01-02' },
+      { manualCategoryId: '400470', amount: 10 }
     ]
   })
 

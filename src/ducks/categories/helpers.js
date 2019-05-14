@@ -51,6 +51,10 @@ export const getCategoryId = transaction => {
     return transaction.cozyCategoryId
   }
 
+  if (!transaction.localCategoryId && !transaction.cozyCategoryId) {
+    return null
+  }
+
   return transaction.automaticCategoryId
 }
 

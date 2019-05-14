@@ -52,9 +52,13 @@ describe('getCategoryId', () => {
     expect(getCategoryId(transaction)).toBe(transaction.automaticCategoryId)
   })
 
-  it("Should return the automaticCategoryId if there's neither manualCategoryId nor automaticCategoryId", () => {
+  it("Should return the automaticCategoryId if there's no manualCategoryId, and localCategory/cozyCategory are not usable", () => {
     const transaction = {
-      automaticCategoryId: '200120'
+      automaticCategoryId: '200120',
+      localCategoryId: '200130',
+      localCategoryPrba: LOCAL_MODEL_USAGE_THRESHOLD - 0.01,
+      cozyCategoryId: '200140',
+      cozyCategoryProba: GLOBAL_MODEL_USAGE_THRESHOLD - 0.01
     }
 
     expect(getCategoryId(transaction)).toBe(transaction.automaticCategoryId)
@@ -81,5 +85,13 @@ describe('getCategoryId', () => {
     }
 
     expect(getCategoryId(transaction)).toBe(transaction.cozyCategoryId)
+  })
+
+  it('should return null if there is only automaticCategoryId', () => {
+    const transaction = {
+      automaticCategoryId: '200120'
+    }
+
+    expect(getCategoryId(transaction)).toBeNull()
   })
 })

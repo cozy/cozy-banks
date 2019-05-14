@@ -120,4 +120,6 @@ Object.keys(tree).forEach(catId => {
   }
 })
 
+export const isAwaitingCategory = categoryId => categoryId === '-1'
+
 export default categoryToParent
