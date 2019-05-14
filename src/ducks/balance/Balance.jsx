@@ -206,7 +206,7 @@ class Balance extends PureComponent {
   async handleRealtime() {
     const { client } = this.props
     if (__TARGET__ === 'mobile') {
-      await syncPouchImmediately(client)
+      syncPouchImmediately(client)
     }
     // TODO discriminate on the ev received to only fetch what is important
     this.updateQueries()
