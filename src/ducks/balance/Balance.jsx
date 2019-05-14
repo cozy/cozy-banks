@@ -209,15 +209,17 @@ class Balance extends PureComponent {
       await syncPouchImmediately(client)
     }
     // TODO discriminate on the ev received to only fetch what is important
+    this.updateQueries()
+  }
+
+  updateQueries() {
     this.props.accounts.fetch()
     this.props.transactions.fetch()
     this.props.triggers.fetch()
   }
 
   handleResume() {
-    this.props.accounts.fetch()
-    this.props.transactions.fetch()
-    this.props.triggers.fetch()
+    this.updateQueries()
   }
 
   startResumeListeners() {
