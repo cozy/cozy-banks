@@ -71,6 +71,11 @@ export const getCategories = () => {
 
 export const getCategoryName = id => {
   const undefinedId = 0
+
+  if (id === null) {
+    return 'awaiting'
+  }
+
   if (id === undefined) {
     return tree[undefinedId]
   }
