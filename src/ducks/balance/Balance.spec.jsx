@@ -16,7 +16,7 @@ const fakeCollection = (doctype, data) => ({
 describe('Balance page', () => {
   let root, instance, saveDocumentMock, router, filterByAccounts
 
-  beforeEach(() => {
+  const setup = () => {
     saveDocumentMock = jest.fn()
     filterByAccounts = jest.fn()
     router = {
@@ -37,10 +37,10 @@ describe('Balance page', () => {
       />
     )
     instance = root.instance()
-  })
+  }
 
   it('should call filterByAccounts prop with getCheckAccounts', () => {
-    const instance = root.instance()
+    setup()
     let accounts = []
     instance.getCheckedAccounts = () => {
       return accounts
@@ -52,6 +52,7 @@ describe('Balance page', () => {
 
   describe('panel toggling', () => {
     it('should debounce handlePanelChange', () => {
+      setup()
       expect(debounce).toHaveBeenCalledWith(instance.handlePanelChange, 3000, {
         leading: false,
         trailing: true
@@ -59,6 +60,7 @@ describe('Balance page', () => {
     })
 
     it('should call savePanelState when handling panel change', () => {
+      setup()
       instance.setState = (fn, callback) => callback.apply(instance)
       jest.spyOn(instance, 'savePanelState')
       instance.handlePanelChange()
@@ -68,6 +70,7 @@ describe('Balance page', () => {
     })
 
     it('should call saveDocument when saving panel state', () => {
+      setup()
       instance.savePanelState()
       expect(saveDocumentMock).toHaveBeenCalled()
     })
