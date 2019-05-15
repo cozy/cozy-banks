@@ -25,7 +25,7 @@ export const GLOBAL_MODEL_USAGE_THRESHOLD = 0.15
 /**
  * Return the category id of the transaction
  * @param {Object} transaction
- * @return {String}
+ * @return {String|null} A category id or null if the transaction has not been categorized yet
  */
 export const getCategoryId = transaction => {
   if (transaction.manualCategoryId) {
