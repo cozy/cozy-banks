@@ -125,11 +125,18 @@ const getOptions = argv => {
   }
 }
 
+const updateSettings = async settings => {
+  log('info', 'Updating settings...')
+  const newSettings = await Settings.createOrUpdate(settings)
+  log('info', 'Settings updated')
+  return newSettings
+}
+
 const onOperationOrBillCreate = async options => {
   log('info', `COZY_CREDENTIALS: ${process.env.COZY_CREDENTIALS}`)
   log('info', `COZY_URL: ${process.env.COZY_URL}`)
   log('info', 'Fetching settings...')
-  const setting = await Settings.fetchWithDefault()
+  let setting = await Settings.fetchWithDefault()
 
   // The flag is needed to use local model when getting a transaction category ID
   flag('local-model-override', setting.community.localModelOverride.enabled)
@@ -146,21 +153,22 @@ const onOperationOrBillCreate = async options => {
   if (options.billMatching !== false) {
     log('info', 'Do bills matching...')
     await doBillsMatching(setting)
+    setting = await updateSettings(setting)
   }
 
   if (options.transactionMatching !== false) {
     log('info', 'Do transaction matching...')
     await doTransactionsMatching(setting)
+    setting = await updateSettings(setting)
   }
 
   log('info', 'Do send notifications...')
   await doSendNotifications(setting, notifChanges)
+  setting = await updateSettings(setting)
 
   log('info', 'Do apps suggestions...')
   await doAppSuggestions(setting)
-
-  log('info', 'Saving settings...')
-  await Settings.createOrUpdate(setting)
+  setting = await updateSettings(setting)
 }
 
 const main = argv => {
