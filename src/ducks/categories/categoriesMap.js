@@ -109,7 +109,7 @@ export const categoryToParent = new Map(
 
 export const getParentCategory = catId => {
   const parent = categoryToParent.get(catId)
-  return parent && parent.name ? parent.name : 'uncategorized'
+  return parent && parent.name
 }
 
 Object.keys(tree).forEach(catId => {
