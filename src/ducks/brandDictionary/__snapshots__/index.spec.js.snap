@@ -91,6 +91,7 @@ Array [
   Object {
     "isInstalled": false,
     "konnectorSlug": "darty",
+    "maintenance": true,
     "name": "Darty",
     "regexp": "\\\\bdarty\\\\b",
   },
@@ -522,6 +523,7 @@ Array [
   Object {
     "isInstalled": false,
     "konnectorSlug": "darty",
+    "maintenance": true,
     "name": "Darty",
     "regexp": "\\\\bdarty\\\\b",
   },
