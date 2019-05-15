@@ -74,7 +74,8 @@
   {
     "name": "Darty",
     "regexp": "\\bdarty\\b",
-    "konnectorSlug": "darty"
+    "konnectorSlug": "darty",
+    "maintenance": true
   },
   {
     "name": "Deezer",
