@@ -71,6 +71,7 @@ class Balance extends PureComponent {
     }).bind(this)
 
     this.handleResume = this.handleResume.bind(this)
+    this.updateQueries = this.updateQueries.bind(this)
     this.handleRealtime = debounce(this.handleRealtime.bind(this), 1000, {
       leading: false,
       trailing: true
@@ -206,18 +207,20 @@ class Balance extends PureComponent {
   async handleRealtime() {
     const { client } = this.props
     if (__TARGET__ === 'mobile') {
-      await syncPouchImmediately(client)
+      syncPouchImmediately(client)
     }
     // TODO discriminate on the ev received to only fetch what is important
+    this.updateQueries()
+  }
+
+  updateQueries() {
     this.props.accounts.fetch()
     this.props.transactions.fetch()
     this.props.triggers.fetch()
   }
 
   handleResume() {
-    this.props.accounts.fetch()
-    this.props.transactions.fetch()
-    this.props.triggers.fetch()
+    this.updateQueries()
   }
 
   startResumeListeners() {
@@ -240,6 +243,7 @@ class Balance extends PureComponent {
 
   componentWillUnmount() {
     this.stopRealtime()
+    this.stopRealtimeFallback()
     this.stopResumeListeners()
   }
 
@@ -272,11 +276,39 @@ class Balance extends PureComponent {
 
     if (accounts.length > 0) {
       this.stopRealtime()
+      this.stopRealtimeFallback()
       this.stopResumeListeners()
     } else {
       this.startRealtime()
+      this.startRealtimeFallback()
       this.startResumeListeners()
     }
+  }
+
+  /**
+   * Starts setInterval loop, as a fallback in case realtime does not work.
+   * If already started, does nothing.
+   */
+  startRealtimeFallback() {
+    if (this.realtimeFallbackInterval) {
+      return
+    }
+    this.realtimeFallbackInterval = setInterval(
+      this.updateQueries,
+      30 * 1000
+    )
+  }
+
+  /**
+   * Stops  the realtime fallback loop, and clears the setIntervalId
+   * If not started, does nothing.
+   */
+  stopRealtimeFallback() {
+    if (!this.realtimeFallbackInterval) {
+      return
+    }
+    clearInterval(this.realtimeFallbackInterval)
+    this.realtimeFallbackInterval = null
   }
 
   render() {
