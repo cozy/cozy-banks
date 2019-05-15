@@ -75,6 +75,11 @@ export const transactionsByCategory = transactions => {
     // Creates a map of categories, where each entry contains a list of
     // related operations and a breakdown by sub-category
     const catId = getCategoryId(transaction)
+
+    if (!catId) {
+      continue
+    }
+
     const parent = getParent(catId) || getParent('0')
 
     // create a new parent category if necessary
