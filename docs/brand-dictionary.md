@@ -8,7 +8,7 @@ the following properties for each brand:
 * `regexp` (string): the regexp used to test if a given transaction label matches this brand or not
 * `konnectorSlug` (string): the slug of the konnector for this brand
 * `health` (boolean): whether this brand is in the health category or not
-* `maintenance` (boolean): whether this brand is under maintenance or not
+* `maintenance` (boolean): whether this brand is under maintenance or not  (see below)
 
 ## Set a brand in maintenance
 
