@@ -84,6 +84,12 @@ Array [
   },
   Object {
     "isInstalled": false,
+    "konnectorSlug": "cesu",
+    "name": "CESU",
+    "regexp": "\\\\bcncesu\\\\b",
+  },
+  Object {
+    "isInstalled": false,
     "konnectorSlug": "cultura",
     "name": "Cultura",
     "regexp": "\\\\bcultura\\\\b",
@@ -513,6 +519,12 @@ Array [
     "konnectorSlug": "cdiscount",
     "name": "Cdiscount",
     "regexp": "\\\\bcdiscount\\\\b",
+  },
+  Object {
+    "isInstalled": false,
+    "konnectorSlug": "cesu",
+    "name": "CESU",
+    "regexp": "\\\\bcncesu\\\\b",
   },
   Object {
     "isInstalled": false,

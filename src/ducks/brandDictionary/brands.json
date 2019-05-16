@@ -67,6 +67,11 @@
     "konnectorSlug": "cdiscount"
   },
   {
+    "name": "CESU",
+    "regexp": "\\bcncesu\\b",
+    "konnectorSlug": "cesu"
+  },
+  {
     "name": "Cultura",
     "regexp": "\\bcultura\\b",
     "konnectorSlug": "cultura"
