@@ -16,10 +16,10 @@ export const findSuggestionForTransaction = async (transaction, brands) => {
     return null
   }
 
-  let originalSuggestion
+  let suggestion
 
   try {
-    originalSuggestion = await AppSuggestion.fetchBySlug(
+    suggestion = await AppSuggestion.fetchBySlug(
       matchingBrand.konnectorSlug
     )
   } catch (e) {
@@ -27,23 +27,20 @@ export const findSuggestionForTransaction = async (transaction, brands) => {
     log('info', e)
   }
 
-  if (!originalSuggestion) {
+  if (!suggestion) {
     log(
       'info',
       `No existing suggestion for ${
         matchingBrand.konnectorSlug
       }. Creating a new one`
     )
-    originalSuggestion = AppSuggestion.init(
+    suggestion = AppSuggestion.init(
       matchingBrand.konnectorSlug,
       'FOUND_TRANSACTION'
     )
   }
 
-  const suggestion = AppSuggestion.linkTransaction(
-    originalSuggestion,
-    transaction
-  )
+  AppSuggestion.linkTransaction(suggestion, transaction)
 
   return suggestion
 }
