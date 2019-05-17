@@ -13,9 +13,11 @@ class AppSuggestion extends Document {
       _type: TRANSACTION_DOCTYPE
     }
 
+    // We slice 9 existing transactions because we want to store only 10 items
+    // in the transactions relationship
     suggestion.relationships.transactions.data = [
       transactionRelationship,
-      ...suggestion.relationships.transactions.data
+      ...suggestion.relationships.transactions.data.slice(0, 9)
     ]
   }
 
