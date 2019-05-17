@@ -9,7 +9,7 @@ import { groupBy, flatMap } from 'lodash'
 
 const log = logger.namespace('app-suggestions')
 
-export const findSuggestionForTransaction = async (
+export const findSuggestionForTransaction = (
   transaction,
   brands,
   existingSuggestions
@@ -94,10 +94,8 @@ export const findAppSuggestions = async setting => {
   log('info', `${brands.length} not installed brands`)
 
   log('info', 'Find suggestions')
-  const suggestionsFound = await Promise.all(
-    transactionsToCheck.documents.map(t =>
-      findSuggestionForTransaction(t, brands, suggestions)
-    )
+  const suggestionsFound = transactionsToCheck.documents.map(t =>
+    findSuggestionForTransaction(t, brands, suggestions)
   )
 
   const normalizedSuggestions = normalizeSuggestions(suggestionsFound)
