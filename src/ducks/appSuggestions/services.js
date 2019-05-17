@@ -17,6 +17,7 @@ export const findSuggestionForTransaction = (
   const matchingBrand = findMatchingBrand(brands, getLabel(transaction))
 
   if (!matchingBrand) {
+    log('info', `No matching brand found for transaction ${transaction._id}`)
     return null
   }
 
@@ -99,6 +100,8 @@ export const findAppSuggestions = async setting => {
   )
 
   const normalizedSuggestions = normalizeSuggestions(suggestionsFound)
+
+  log('info', `Found ${normalizedSuggestions.length} suggestions`)
 
   log('info', 'Save suggestions')
   for (const suggestion of normalizedSuggestions) {
