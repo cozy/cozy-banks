@@ -62,6 +62,10 @@ export const getParentCategory = transaction => {
   return getParent(getCategoryId(transaction))
 }
 
+export const isAwaitingCategorization = transaction => {
+  return getCategoryId(transaction) === null
+}
+
 // This function builds a map of categories and sub-categories, each containing
 // a list of related transactions, a name and a color
 export const transactionsByCategory = transactions => {
@@ -72,14 +76,13 @@ export const transactionsByCategory = transactions => {
   }
 
   for (const transaction of transactions) {
+    // Ignore transactions that don't have a usable categorization yet
+    if (isAwaitingCategorization(transaction)) {
+      continue
+    }
     // Creates a map of categories, where each entry contains a list of
     // related operations and a breakdown by sub-category
     const catId = getCategoryId(transaction)
-
-    if (!catId) {
-      continue
-    }
-
     const parent = getParent(catId) || getParent('0')
 
     // create a new parent category if necessary
