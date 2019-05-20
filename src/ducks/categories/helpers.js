@@ -51,6 +51,9 @@ export const getCategoryId = transaction => {
     return transaction.cozyCategoryId
   }
 
+  // If the cozy categorization models have not been applied, we return null
+  // so the transaction is considered as « categorization in progress ».
+  // Otherwize we just use the automatic categorization from the vendor
   if (!transaction.localCategoryId && !transaction.cozyCategoryId) {
     return null
   }
