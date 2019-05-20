@@ -8,6 +8,8 @@ const PendingCategoryIcon = ({ size = 32 }) => {
     height: size
   }
 
+  // We don't externalize the SVG into its own file and use it in a cozy-ui
+  // Icon because it breaks the SVG animations
   return (
     <span className={styles.PendingCategoryIcon} style={style}>
       <svg
