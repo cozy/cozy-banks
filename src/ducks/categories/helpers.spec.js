@@ -3,6 +3,7 @@ jest.mock('cozy-flags')
 import flag from 'cozy-flags'
 import {
   getCategoryId,
+  isAwaitingCategorization,
   transactionsByCategory,
   LOCAL_MODEL_USAGE_THRESHOLD,
   GLOBAL_MODEL_USAGE_THRESHOLD
@@ -93,5 +94,17 @@ describe('getCategoryId', () => {
     }
 
     expect(getCategoryId(transaction)).toBeNull()
+  })
+})
+
+describe('isAwaitingCategorization', () => {
+  it('should return true if the transaction is awaiting cozy categorization', () => {
+    const transaction = { _id: 't1', automaticCategoryId: '400110' }
+    expect(isAwaitingCategorization(transaction)).toBe(true)
+  })
+
+  it('should return false if the transaction have a cozy categorization', () => {
+    const transaction = { _id: 't1', cozyCategoryId: '400110' }
+    expect(isAwaitingCategorization(transaction)).toBe(false)
   })
 })
