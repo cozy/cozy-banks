@@ -3,7 +3,7 @@
     {
       "account": "compteisa1",
       "amount": -60,
-      "automaticCategoryId": "400610",
+      "manualCategoryId": "400610",
       "currency": "€",
       "date": "2017-07-06T00:00:00Z",
       "demo": true,
@@ -20,7 +20,7 @@
     {
       "account": "compteisa1",
       "amount": -60,
-      "automaticCategoryId": "400610",
+      "manualCategoryId": "400610",
       "currency": "€",
       "date": "2017-07-06T00:00:00Z",
       "demo": true,
@@ -43,7 +43,7 @@
     {
       "account": "comptecla1",
       "amount": -60,
-      "automaticCategoryId": "400610",
+      "manualCategoryId": "400610",
       "currency": "€",
       "date": "2017-07-06T00:00:00Z",
       "demo": true,

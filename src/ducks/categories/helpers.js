@@ -25,7 +25,7 @@ export const GLOBAL_MODEL_USAGE_THRESHOLD = 0.15
 /**
  * Return the category id of the transaction
  * @param {Object} transaction
- * @return {String}
+ * @return {String|null} A category id or null if the transaction has not been categorized yet
  */
 export const getCategoryId = transaction => {
   if (transaction.manualCategoryId) {
@@ -51,11 +51,22 @@ export const getCategoryId = transaction => {
     return transaction.cozyCategoryId
   }
 
+  // If the cozy categorization models have not been applied, we return null
+  // so the transaction is considered as « categorization in progress ».
+  // Otherwize we just use the automatic categorization from the vendor
+  if (!transaction.localCategoryId && !transaction.cozyCategoryId) {
+    return null
+  }
+
   return transaction.automaticCategoryId
 }
 
 export const getParentCategory = transaction => {
   return getParent(getCategoryId(transaction))
+}
+
+export const isAwaitingCategorization = transaction => {
+  return getCategoryId(transaction) === null
 }
 
 // This function builds a map of categories and sub-categories, each containing
@@ -68,6 +79,10 @@ export const transactionsByCategory = transactions => {
   }
 
   for (const transaction of transactions) {
+    // Ignore transactions that don't have a usable categorization yet
+    if (isAwaitingCategorization(transaction)) {
+      continue
+    }
     // Creates a map of categories, where each entry contains a list of
     // related operations and a breakdown by sub-category
     const catId = getCategoryId(transaction)

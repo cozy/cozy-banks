@@ -3,11 +3,10 @@ import htmlTemplate from './html/transaction-greater-html'
 import * as utils from './html/utils'
 import { subDays } from 'date-fns'
 import { isTransactionAmountGreaterThan } from './helpers'
-import isCreatedDoc from 'utils/isCreatedDoc'
 import Notification from './Notification'
 import { sortBy } from 'lodash'
 import log from 'cozy-logger'
-import { getDate } from 'ducks/transactions/helpers'
+import { getDate, isNew as isNewTransaction } from 'ducks/transactions/helpers'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 
 const ACCOUNT_SEL = '.js-account'
@@ -58,7 +57,7 @@ class TransactionGreater extends Notification {
     const fourDaysAgo = subDays(new Date(), 4)
 
     return transactions
-      .filter(isCreatedDoc)
+      .filter(isNewTransaction)
       .filter(tr => new Date(getDate(tr)) > fourDaysAgo)
       .filter(isTransactionAmountGreaterThan(this.maxAmount))
   }

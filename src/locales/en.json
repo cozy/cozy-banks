@@ -240,7 +240,8 @@
       "tax": "Others : Taxes",
       "transportation": "Others : Transportation, vehicles",
       "goingOutAndTravel": "Others : Outings, trips",
-      "uncategorized": "Others : To be categorized"
+      "uncategorized": "Others : To be categorized",
+      "awaiting": "Categorization in progress"
     },
     "virtualAccounts": {
       "healthReimbursements": "Awaiting health reimb"

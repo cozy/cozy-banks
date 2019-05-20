@@ -66,8 +66,13 @@
     "onOperationOrBillCreate": {
       "type": "node",
       "file": "onOperationOrBillCreate.js",
-      "trigger": "@event io.cozy.bank.operations:CREATED io.cozy.bills:CREATED",
+      "trigger": "@event io.cozy.bills:CREATED",
       "debounce": "75s"
+    },
+    "categorization": {
+      "type": "node",
+      "file": "categorization.js",
+      "trigger": "@at 2000-01-01T00:00:00.000Z"
     }
   },
   "notifications": {
@@ -161,6 +166,10 @@
       "description": "Used to suggest which apps / connectors might be useful for the user",
       "type": "io.cozy.apps.suggestions",
       "verbs": ["GET", "POST", "PUT"]
+    },
+    "jobs": {
+      "description": "Used in services to start other services",
+      "type": "io.cozy.jobs"
     }
   }
 }

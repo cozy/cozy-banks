@@ -310,7 +310,8 @@
       "tax": "Autres : Impôts",
       "transportation": "Autres : Transports, véhicules",
       "goingOutAndTravel": "Autres : Sorties, voyages",
-      "uncategorized": "Autres : A catégoriser"
+      "uncategorized": "Autres : A catégoriser",
+      "awaiting": "Catégorisation en cours"
     },
     "virtualAccounts": {
       "healthReimbursements": "Remb santé en attente"

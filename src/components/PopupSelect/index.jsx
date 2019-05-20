@@ -70,6 +70,8 @@ class PopupSelect extends Component {
     const { history } = this.state
     const current = history[0]
     const children = current.children || []
+    const selectedItem = children.find(this.props.isSelected)
+
     return (
       <Modal
         closeBtnClassName={this.props.closeBtnClassName}
@@ -91,7 +93,7 @@ class PopupSelect extends Component {
             {children.map(item => (
               <PopupRow
                 key={item.title}
-                isSelected={this.props.isSelected(item)}
+                isSelected={item === selectedItem}
                 icon={item.icon}
                 label={item.title}
                 onClick={() => this.handleSelect(item)}

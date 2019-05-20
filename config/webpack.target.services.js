@@ -15,7 +15,8 @@ const entries = {
   onOperationOrBillCreate: path.resolve(
     SRC_DIR,
     './targets/services/onOperationOrBillCreate'
-  )
+  ),
+  categorization: path.resolve(SRC_DIR, './targets/services/categorization.js')
 }
 
 if (process.env.TEST_TEMPLATES) {
@@ -46,6 +47,10 @@ module.exports = {
         test: /\.svg$/,
         include: SRC_DIR,
         loader: 'null-loader'
+      },
+      {
+        test: /\.mjs$/,
+        type: 'javascript/auto'
       }
     ],
 
