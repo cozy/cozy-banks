@@ -9,41 +9,41 @@ import { groupBy, flatMap } from 'lodash'
 
 const log = logger.namespace('app-suggestions')
 
-export const findSuggestionForTransaction = async (transaction, brands) => {
+export const findSuggestionForTransaction = (
+  transaction,
+  brands,
+  existingSuggestions
+) => {
   const matchingBrand = findMatchingBrand(brands, getLabel(transaction))
 
   if (!matchingBrand) {
+    log('info', `No matching brand found for transaction ${transaction._id}`)
     return null
   }
 
-  let originalSuggestion
+  const originalSuggestion = existingSuggestions.find(
+    existing => existing.slug === matchingBrand.konnectorSlug
+  )
 
-  try {
-    originalSuggestion = await AppSuggestion.fetchBySlug(
-      matchingBrand.konnectorSlug
-    )
-  } catch (e) {
-    log('info', `fetchBySlug('${matchingBrand.konnectorSlug}') return an error`)
-    log('info', e)
-  }
+  let suggestion
 
-  if (!originalSuggestion) {
+  if (originalSuggestion) {
+    log('info', `Using existing suggestion for ${matchingBrand.konnectorSlug}`)
+    suggestion = originalSuggestion
+  } else {
     log(
       'info',
       `No existing suggestion for ${
         matchingBrand.konnectorSlug
       }. Creating a new one`
     )
-    originalSuggestion = AppSuggestion.init(
+    suggestion = AppSuggestion.init(
       matchingBrand.konnectorSlug,
       'FOUND_TRANSACTION'
     )
   }
 
-  const suggestion = AppSuggestion.linkTransaction(
-    originalSuggestion,
-    transaction
-  )
+  AppSuggestion.linkTransaction(suggestion, transaction)
 
   return suggestion
 }
@@ -75,11 +75,16 @@ const mergeSuggestions = suggestions => {
 }
 
 export const findAppSuggestions = async setting => {
-  log('info', 'Fetch transactions changes and triggers')
-  const [transactionsToCheck, triggers] = await Promise.all([
+  log('info', 'Fetch transactions changes, triggers and apps suggestions')
+  const [transactionsToCheck, triggers, suggestions] = await Promise.all([
     BankTransaction.fetchChanges(setting.appSuggestions.lastSeq),
-    Trigger.fetchAll()
+    Trigger.fetchAll(),
+    AppSuggestion.fetchAll()
   ])
+
+  log('info', `Fetched ${transactionsToCheck.documents.length} transactions`)
+  log('info', `Fetched ${triggers.length} triggers`)
+  log('info', `Fetched ${suggestions.length} apps suggestions`)
 
   setting.appSuggestions.lastSeq = transactionsToCheck.newLastSeq
 
@@ -87,14 +92,16 @@ export const findAppSuggestions = async setting => {
   const installedSlugs = triggers.map(getKonnectorFromTrigger)
   const brands = getNotInstalledBrands(installedSlugs)
 
+  log('info', `${brands.length} not installed brands`)
+
   log('info', 'Find suggestions')
-  const suggestions = await Promise.all(
-    transactionsToCheck.documents.map(t =>
-      findSuggestionForTransaction(t, brands)
-    )
+  const suggestionsFound = transactionsToCheck.documents.map(t =>
+    findSuggestionForTransaction(t, brands, suggestions)
   )
 
-  const normalizedSuggestions = normalizeSuggestions(suggestions)
+  const normalizedSuggestions = normalizeSuggestions(suggestionsFound)
+
+  log('info', `Found ${normalizedSuggestions.length} suggestions`)
 
   log('info', 'Save suggestions')
   for (const suggestion of normalizedSuggestions) {

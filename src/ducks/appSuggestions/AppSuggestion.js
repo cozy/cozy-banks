@@ -1,21 +1,6 @@
 import { Document } from 'cozy-doctypes'
 import { head } from 'lodash'
 import { TRANSACTION_DOCTYPE } from 'doctypes'
-import get from 'lodash/get'
-import setWith from 'lodash/setWith'
-import clone from 'lodash/clone'
-
-/* Set a value inside an object, by path, immutably */
-const setIn = (obj, path, value) => {
-  return setWith(clone(obj), path, value, clone)
-}
-
-/* Push value into nested array, immutably */
-const pushAtPath = (obj, path, value) => {
-  const arr = get(obj, path, [])
-  arr.push(value)
-  return setIn(obj, path, arr)
-}
 
 class AppSuggestion extends Document {
   static fetchBySlug(slug) {
@@ -27,11 +12,13 @@ class AppSuggestion extends Document {
       _id: transaction._id,
       _type: TRANSACTION_DOCTYPE
     }
-    return pushAtPath(
-      suggestion,
-      'relationships.transactions.data',
-      transactionRelationship
-    )
+
+    // We slice 9 existing transactions because we want to store only 10 items
+    // in the transactions relationship
+    suggestion.relationships.transactions.data = [
+      transactionRelationship,
+      ...suggestion.relationships.transactions.data.slice(0, 9)
+    ]
   }
 
   static init(slug, reasonCode) {

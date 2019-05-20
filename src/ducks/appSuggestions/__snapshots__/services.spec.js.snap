@@ -29,11 +29,11 @@ Object {
     "transactions": Object {
       "data": Array [
         Object {
-          "_id": "o2",
+          "_id": "o1",
           "_type": "io.cozy.bank.operations",
         },
         Object {
-          "_id": "o1",
+          "_id": "o2",
           "_type": "io.cozy.bank.operations",
         },
       ],
