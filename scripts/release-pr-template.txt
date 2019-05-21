@@ -1,7 +1,7 @@
 Release $VERSION
 
 - [ ] Create branch and the PR with the following content
-- [ ] Bump `package.json`, `config.xml`. Check the details below for Android's `versionCode` and `ios-CFBundleVersion`.
+- [ ] Bump `package.json`, `config.xml`. Check the details below for Android's `versionCode`, `ios-CFBundleVersion` and `AppendUserAgent`.
 - [ ] Write changelogs
   - [ ] Android: `src/targets/mobile/fastlane/metadata/android/{lang}/changelogs/ANDROID_VERSION.txt` (⚠️ ANDROID_VERSION should match `android-versionCode` in `config.xml`)
   - [ ] iOS : `src/targets/mobile/fastlane/metadata/ios/{lang}/release_notes.txt`
