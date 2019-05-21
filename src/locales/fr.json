@@ -144,6 +144,11 @@
         "caption": "Votre Cozy est totalement privé : personne d'autre que vous ne peut accéder à son contenu.",
         "cancel": "Annuler",
         "confirm": "Connecter"
+      },
+      "reimbursementStatus": {
+        "pending": "Remboursement en attente",
+        "reimbursed": "Remboursé",
+        "no-reimbursement": "Aucun remboursement attendu"
       }
     },
     "infos": {

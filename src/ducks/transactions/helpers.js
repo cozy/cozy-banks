@@ -84,7 +84,7 @@ export const findNearestMonth = (
   return multiFind(availableMonths, findFns)
 }
 
-const isExpense = transaction => transaction.amount < 0
+export const isExpense = transaction => transaction.amount < 0
 
 export const getReimbursedAmount = expense => {
   if (!isExpense(expense)) {

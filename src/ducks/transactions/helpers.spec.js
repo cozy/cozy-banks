@@ -3,7 +3,8 @@ import {
   hydrateTransaction,
   getDate,
   getReimbursedAmount,
-  isFullyReimbursed
+  isFullyReimbursed,
+  isExpense
 } from './helpers'
 import { BILLS_DOCTYPE } from 'doctypes'
 
@@ -114,5 +115,20 @@ describe('isFullyReimbursed', () => {
 
     expect(isFullyReimbursed(reimbursedExpense)).toBe(true)
     expect(isFullyReimbursed(expense)).toBe(false)
+  })
+})
+
+describe('isExpense', () => {
+  it('should return true if the transaction amount is lesser than 0', () => {
+    const transaction = { amount: -10 }
+    expect(isExpense(transaction)).toBe(true)
+  })
+
+  it('should return false if the transaction amount is greater than or equals to 0', () => {
+    const t1 = { amount: 10 }
+    expect(isExpense(t1)).toBe(false)
+
+    const t2 = { amount: 0 }
+    expect(isExpense(t2)).toBe(false)
   })
 })

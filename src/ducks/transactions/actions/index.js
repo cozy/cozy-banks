@@ -9,6 +9,7 @@ import CommentAction from 'ducks/transactions/actions/CommentAction'
 import AttachAction from 'ducks/transactions/actions/AttachAction'
 import HealthExpenseAction from 'ducks/transactions/actions/HealthExpenseAction'
 import HealthExpenseStatusAction from 'ducks/transactions/actions/HealthExpenseStatusAction'
+import ReimbursementStatusAction from 'ducks/transactions/actions/ReimbursementStatusAction'
 
 const actions = {
   HealthExpenseStatusAction: HealthExpenseStatusAction,
@@ -16,6 +17,7 @@ const actions = {
   HealthLinkAction: HealthLinkAction,
   BillAction: BillAction,
   KonnectorAction: KonnectorAction,
+  ReimbursementStatusAction,
   UrlLinkAction: UrlLinkAction,
   AppLinkAction: AppLinkAction,
   AttachAction: AttachAction,

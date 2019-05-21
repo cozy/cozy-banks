@@ -326,6 +326,11 @@
         "caption": "Your Cozy is totally private: nobody but you can access its content.",
         "cancel": "Cancel",
         "confirm": "Connect"
+      },
+      "reimbursementStatus": {
+        "pending": "No reimbursement yet",
+        "reimbursed": "Reimbursed",
+        "no-reimbursement": "No expected reimbursement"
       }
     },
     "infos": {
