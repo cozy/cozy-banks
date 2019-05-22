@@ -2,6 +2,8 @@ import React from 'react'
 import { translate } from 'cozy-ui/react'
 import Modal, { ModalDescription } from 'cozy-ui/react/Modal'
 import Radio from 'cozy-ui/react/Radio'
+import { List, Row } from 'components/List'
+import styles from 'ducks/transactions/actions/ReimbursementStatusAction/ReimbursementStatusModal.styl'
 
 class _ReimbursementStatusModal extends React.PureComponent {
   render() {
@@ -10,18 +12,25 @@ class _ReimbursementStatusModal extends React.PureComponent {
 
     return (
       <Modal {...rest}>
-        <ModalDescription>
+        <ModalDescription
+          className={styles.ReimbursementStatusModal__description}
+        >
           <form>
-            {choices.map(choice => (
-              <Radio
-                key={choice}
-                name="reimbursementStatus"
-                value={choice}
-                label={t(`Transactions.reimbursementStatus.${choice}`)}
-                checked={currentStatus === choice}
-                onChange={onChange}
-              />
-            ))}
+            <List>
+              {choices.map(choice => (
+                <Row key={choice}>
+                  <Radio
+                    key={choice}
+                    name="reimbursementStatus"
+                    value={choice}
+                    label={t(`Transactions.reimbursementStatus.${choice}`)}
+                    checked={currentStatus === choice}
+                    onChange={onChange}
+                    className={styles.ReimbursementStatusModal__radio}
+                  />
+                </Row>
+              ))}
+            </List>
           </form>
         </ModalDescription>
       </Modal>
