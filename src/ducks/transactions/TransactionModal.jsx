@@ -5,7 +5,6 @@
 import React, { Component } from 'react'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import Icon from 'cozy-ui/react/Icon'
-import Modal, { ModalHeader, ModalContent } from 'cozy-ui/react/Modal'
 import { Media, Bd, Img } from 'cozy-ui/react/Media'
 import { withDispatch } from 'utils'
 import { flowRight as compose } from 'lodash'
@@ -14,7 +13,7 @@ import cx from 'classnames'
 import { Query } from 'cozy-client'
 
 import { Figure } from 'components/Figure'
-import Page from 'ducks/transactions/Page'
+import { PageModal } from 'components/PageModal'
 
 import { getLabel } from 'ducks/transactions'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
@@ -183,38 +182,16 @@ class TransactionModal extends Component {
     )
   }
 
-  renderMobile() {
-    const { requestClose } = this.props
-
+  render() {
     return (
-      <Page dismissAction={requestClose} title={this.renderHeader()}>
-        {this.renderContent()}
-      </Page>
-    )
-  }
-
-  renderTabletDesktop() {
-    return (
-      <Modal
+      <PageModal
         dismissAction={this.props.requestClose}
         into="body"
-        closeBtnClassName={styles.TransactionModalCross}
-        className={styles.TransactionModal}
+        title={this.renderHeader()}
       >
-        <ModalHeader className={styles.TransactionModalHeader}>
-          {this.renderHeader()}
-        </ModalHeader>
-        <ModalContent className={styles.TransactionModalContent}>
-          {this.renderContent()}
-        </ModalContent>
-      </Modal>
+        {this.renderContent()}
+      </PageModal>
     )
-  }
-
-  render() {
-    return this.props.breakpoints.isMobile
-      ? this.renderMobile()
-      : this.renderTabletDesktop()
   }
 }
 

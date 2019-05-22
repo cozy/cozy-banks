@@ -20,7 +20,8 @@ module.exports = {
         'src/components/SharingIcon/SharingIcon.jsx',
         'src/components/SelectDates/SelectDates.jsx',
         'src/components/Select/index.jsx',
-        'src/components/Switch.jsx'
+        'src/components/Switch.jsx',
+        'src/components/PageModal/PageModal.jsx'
       ]
     },
     {
