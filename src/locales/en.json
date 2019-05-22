@@ -338,7 +338,12 @@
       "institution": "Bank",
       "originalBankLabel": "Original label"
     },
-    "see-more": "See more..."
+    "see-more": "See more...",
+    "reimbursementStatus": {
+      "pending": "I am waiting for a reimbursement",
+      "reimbursed": "I have already been reimbursed",
+      "no-reimbursement": "I am not waiting for a reimbursement"
+    }
   },
 
   "Notifications": {

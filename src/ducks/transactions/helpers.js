@@ -120,3 +120,6 @@ export const isFullyReimbursed = expense => {
 export const isNew = transaction => {
   return parseInt(transaction._rev.split('-').shift(), 10) <= 2
 }
+
+export const getReimbursementStatus = transaction =>
+  transaction.reimbursementStatus || 'no-reimbursement'

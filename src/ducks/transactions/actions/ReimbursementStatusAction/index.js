@@ -3,7 +3,8 @@ import flag from 'cozy-flags'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import Icon from 'cozy-ui/react/Icon'
 import { flowRight as compose } from 'lodash'
-import { isExpense } from 'ducks/transactions/helpers'
+import { withMutations } from 'cozy-client'
+import { isExpense, getReimbursementStatus } from 'ducks/transactions/helpers'
 import { TransactionModalRow } from 'ducks/transactions/TransactionModal'
 import ReimbursementStatusModal from 'ducks/transactions/actions/ReimbursementStatusAction/ReimbursementStatusModal'
 
@@ -15,6 +16,15 @@ class ReimbursementStatusAction extends React.PureComponent {
   showModal = () => this.setState({ showModal: true })
   hideModal = () => this.setState({ showModal: false })
 
+  handleChange = async e => {
+    const { transaction, saveDocument } = this.props
+    transaction.reimbursementStatus = e.target.value
+
+    await saveDocument(transaction)
+    this.forceUpdate()
+    this.hideModal()
+  }
+
   render() {
     const { t, transaction, isModalItem } = this.props
 
@@ -22,8 +32,8 @@ class ReimbursementStatusAction extends React.PureComponent {
       return null
     }
 
-    const translateKey = transaction.reimbursementStatus || 'no-reimbursement'
-    const label = t(`Transactions.actions.reimbursementStatus.${translateKey}`)
+    const status = getReimbursementStatus(transaction)
+    const label = t(`Transactions.actions.reimbursementStatus.${status}`)
 
     return (
       <>
@@ -38,6 +48,8 @@ class ReimbursementStatusAction extends React.PureComponent {
             into="body"
             dismissAction={this.hideModal}
             mobileFullscreen
+            currentStatus={status}
+            onChange={this.handleChange}
           />
         )}
       </>
@@ -52,7 +64,8 @@ const action = {
   },
   Component: compose(
     translate(),
-    withBreakpoints()
+    withBreakpoints(),
+    withMutations()
   )(ReimbursementStatusAction)
 }
 

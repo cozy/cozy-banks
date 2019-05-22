@@ -4,7 +4,8 @@ import {
   getDate,
   getReimbursedAmount,
   isFullyReimbursed,
-  isExpense
+  isExpense,
+  getReimbursementStatus
 } from './helpers'
 import { BILLS_DOCTYPE } from 'doctypes'
 
@@ -130,5 +131,17 @@ describe('isExpense', () => {
 
     const t2 = { amount: 0 }
     expect(isExpense(t2)).toBe(false)
+  })
+})
+
+describe('getReimbursementStatus', () => {
+  it("should return the reimbursement status if it's defined", () => {
+    const transaction = { reimbursementStatus: 'reimbursed' }
+    expect(getReimbursementStatus(transaction)).toBe('reimbursed')
+  })
+
+  it("should return no-reimbursement status if it's undefined", () => {
+    const transaction = {}
+    expect(getReimbursementStatus(transaction)).toBe('no-reimbursement')
   })
 })

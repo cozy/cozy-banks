@@ -156,7 +156,12 @@
       "institution": "Banque",
       "originalBankLabel": "Libellé original"
     },
-    "see-more": "Voir plus..."
+    "see-more": "Voir plus...",
+    "reimbursementStatus": {
+      "pending": "J'attends un remboursement",
+      "reimbursed": "J'ai déjà été remboursé",
+      "no-reimbursement": "Je n'attends pas de remboursement"
+    }
   },
 
   "Categories": {
