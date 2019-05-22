@@ -7,6 +7,7 @@ import { withMutations } from 'cozy-client'
 import { isExpense, getReimbursementStatus } from 'ducks/transactions/helpers'
 import { TransactionModalRow } from 'ducks/transactions/TransactionModal'
 import ReimbursementStatusModal from 'ducks/transactions/actions/ReimbursementStatusAction/ReimbursementStatusModal'
+import iconReimbursement from 'assets/icons/icon-reimbursement.svg'
 
 class ReimbursementStatusAction extends React.PureComponent {
   state = {
@@ -38,7 +39,7 @@ class ReimbursementStatusAction extends React.PureComponent {
     return (
       <>
         <TransactionModalRow
-          iconLeft={<Icon icon="restore" />}
+          iconLeft={<Icon icon={iconReimbursement} />}
           onClick={this.showModal}
         >
           {label}
