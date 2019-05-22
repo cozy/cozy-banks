@@ -2,6 +2,7 @@ import React from 'react'
 import flag from 'cozy-flags'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import Icon from 'cozy-ui/react/Icon'
+import ButtonAction from 'cozy-ui/react/ButtonAction'
 import { flowRight as compose } from 'lodash'
 import { withMutations } from 'cozy-client'
 import { isExpense, getReimbursementStatus } from 'ducks/transactions/helpers'
@@ -26,12 +27,8 @@ class ReimbursementStatusAction extends React.PureComponent {
     this.hideModal()
   }
 
-  render() {
-    const { t, transaction, isModalItem } = this.props
-
-    if (!isModalItem) {
-      return null
-    }
+  renderModalItem() {
+    const { t, transaction } = this.props
 
     const status = getReimbursementStatus(transaction)
     const label = t(`Transactions.actions.reimbursementStatus.${status}`)
@@ -55,6 +52,39 @@ class ReimbursementStatusAction extends React.PureComponent {
         )}
       </>
     )
+  }
+
+  renderTransactionRow() {
+    const {
+      breakpoints: { isMobile },
+      transaction,
+      t
+    } = this.props
+
+    const status = getReimbursementStatus(transaction)
+
+    if (status !== 'pending') {
+      return null
+    }
+
+    return (
+      <ButtonAction
+        label={t(`Transactions.actions.reimbursementStatus.${status}`)}
+        type="error"
+        rightIcon={<Icon icon="hourglass" />}
+        compact={isMobile}
+      />
+    )
+  }
+
+  render() {
+    const { isModalItem } = this.props
+
+    if (isModalItem) {
+      return this.renderModalItem()
+    } else {
+      return this.renderTransactionRow()
+    }
   }
 }
 
