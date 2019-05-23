@@ -4515,6 +4515,23 @@ cozy-client@6.28.0:
     redux-thunk "2.3.0"
     sift "6.0.0"
 
+cozy-client@6.35.0:
+  version "6.35.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.35.0.tgz#d37d022f47d753af9a199fe59636c49c7a6907fe"
+  integrity sha512-Gt3p/g/7AUUBKNLVGPwkS7pARqfj5DBtr7cGAAdLifF3dFlhyYeWt2k53voJZeKXeQ7K9ZnmYT3tfu0C2zrGvw==
+  dependencies:
+    cozy-device-helper "1.6.3"
+    cozy-stack-client "^6.33.0"
+    lodash "4.17.11"
+    microee "0.0.6"
+    prop-types "15.6.2"
+    react "16.7.0"
+    react-redux "5.0.7"
+    redux "3.7.2"
+    redux-thunk "2.3.0"
+    sift "6.0.0"
+    url-search-params-polyfill "^6.0.0"
+
 cozy-client@^6.18.0:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.18.0.tgz#04d42f5ce52b9a075ed6c696c079ea264994714c"
@@ -4704,6 +4721,15 @@ cozy-stack-client@^6.18.0:
     detect-node "2.0.4"
     mime-types "2.1.20"
     qs "6.6.0"
+
+cozy-stack-client@^6.33.0:
+  version "6.33.0"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.33.0.tgz#62eca6b63f1d7202ae5032b28b47461be5e85199"
+  integrity sha512-7S8xPcd03BoEd/VFhBv/vxB/2P0U2SLK/wgFoLor7lPHJ00Al8q/pFFgDIb8r1eoK247augH/JrcDUGbSIhVQA==
+  dependencies:
+    detect-node "2.0.4"
+    mime-types "2.1.24"
+    qs "6.7.0"
 
 cozy-ui@19.30.2:
   version "19.30.2"
@@ -18104,6 +18130,11 @@ url-polyfill@1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/url-polyfill/-/url-polyfill-1.1.0.tgz#d34e1a596d954b864bc8608f84c592820df422db"
   integrity sha512-QAbzqCwd84yA6VyjV30aZXla+lrRmczDurvlsVnK+tFOu677ZNGz8shcFWQRp5BF9/z7qvNiCQLqpWPtVoUEBg==
+
+url-search-params-polyfill@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/url-search-params-polyfill/-/url-search-params-polyfill-6.0.0.tgz#f5e5fc230d56125f5b0ba67d9cbcd6555fa347e3"
+  integrity sha512-69Bl5s3SiEgcHe8SMpzLGOyag27BQeTeSaP/CfVHkKc/VdUHtNjaP2PnhshFVC021221ItueOzuMMGofZ/HDmQ==
 
 url-slug@2.0.0:
   version "2.0.0"
