@@ -26,8 +26,8 @@ class ReimbursementStatusAction extends React.PureComponent {
     const { transaction, saveDocument } = this.props
     transaction.reimbursementStatus = e.target.value
 
-    await saveDocument(transaction)
     this.hideModal()
+    await saveDocument(transaction)
   }
 
   renderModalItem() {
