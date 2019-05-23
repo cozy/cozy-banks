@@ -3,6 +3,8 @@ import findLast from 'lodash/findLast'
 import get from 'lodash/get'
 import sumBy from 'lodash/sumBy'
 import flag from 'cozy-flags'
+import { differenceInCalendarMonths, parse as parseDate } from 'date-fns'
+import { isHealthExpense } from 'ducks/categories/helpers'
 
 const prevRecurRx = /\bPRLV SEPA RECU RCUR\b/
 const longNumber = /\b\d{5,}\b/g
@@ -84,7 +86,7 @@ export const findNearestMonth = (
   return multiFind(availableMonths, findFns)
 }
 
-const isExpense = transaction => transaction.amount < 0
+export const isExpense = transaction => transaction.amount < 0
 
 export const getReimbursedAmount = expense => {
   if (!isExpense(expense)) {
@@ -119,4 +121,24 @@ export const isFullyReimbursed = expense => {
  */
 export const isNew = transaction => {
   return parseInt(transaction._rev.split('-').shift(), 10) <= 2
+}
+
+export const getReimbursementStatus = transaction =>
+  transaction.reimbursementStatus || 'no-reimbursement'
+
+export const isReimbursementLate = transaction => {
+  if (!isHealthExpense(transaction)) {
+    return false
+  }
+
+  const status = getReimbursementStatus(transaction)
+
+  if (status !== 'pending') {
+    return false
+  }
+
+  const transactionDate = parseDate(getDate(transaction))
+  const today = new Date()
+
+  return differenceInCalendarMonths(today, transactionDate) >= 1
 }

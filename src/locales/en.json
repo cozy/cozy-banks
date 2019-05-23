@@ -326,6 +326,12 @@
         "caption": "Your Cozy is totally private: nobody but you can access its content.",
         "cancel": "Cancel",
         "confirm": "Connect"
+      },
+      "reimbursementStatus": {
+        "pending": "No reimbursement yet",
+        "reimbursed": "Reimbursed",
+        "no-reimbursement": "No expected reimbursement",
+        "late": "Late reimbursement"
       }
     },
     "infos": {
@@ -333,7 +339,13 @@
       "institution": "Bank",
       "originalBankLabel": "Original label"
     },
-    "see-more": "See more..."
+    "see-more": "See more...",
+    "reimbursementStatus": {
+      "pending": "I am waiting for a reimbursement",
+      "reimbursed": "I have already been reimbursed",
+      "no-reimbursement": "I am not waiting for a reimbursement"
+    },
+    "reimbursementStatusUpdateError": "An error occured while updating the reimbursement status"
   },
 
   "Notifications": {

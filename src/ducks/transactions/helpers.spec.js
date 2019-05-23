@@ -1,9 +1,13 @@
 import configureStore from 'store/configureStore'
+import differenceInCalendarMonths from 'date-fns/difference_in_calendar_months'
 import {
   hydrateTransaction,
   getDate,
   getReimbursedAmount,
-  isFullyReimbursed
+  isFullyReimbursed,
+  isExpense,
+  getReimbursementStatus,
+  isReimbursementLate
 } from './helpers'
 import { BILLS_DOCTYPE } from 'doctypes'
 
@@ -15,6 +19,8 @@ const fakeCozyClient = {
     return Promise.resolve({ data: [doc] })
   }
 }
+
+jest.mock('date-fns/difference_in_calendar_months')
 
 xdescribe('transaction', () => {
   const healthId = '400610'
@@ -114,5 +120,83 @@ describe('isFullyReimbursed', () => {
 
     expect(isFullyReimbursed(reimbursedExpense)).toBe(true)
     expect(isFullyReimbursed(expense)).toBe(false)
+  })
+})
+
+describe('isExpense', () => {
+  it('should return true if the transaction amount is lesser than 0', () => {
+    const transaction = { amount: -10 }
+    expect(isExpense(transaction)).toBe(true)
+  })
+
+  it('should return false if the transaction amount is greater than or equals to 0', () => {
+    const t1 = { amount: 10 }
+    expect(isExpense(t1)).toBe(false)
+
+    const t2 = { amount: 0 }
+    expect(isExpense(t2)).toBe(false)
+  })
+})
+
+describe('getReimbursementStatus', () => {
+  it("should return the reimbursement status if it's defined", () => {
+    const transaction = { reimbursementStatus: 'reimbursed' }
+    expect(getReimbursementStatus(transaction)).toBe('reimbursed')
+  })
+
+  it("should return no-reimbursement status if it's undefined", () => {
+    const transaction = {}
+    expect(getReimbursementStatus(transaction)).toBe('no-reimbursement')
+  })
+})
+
+describe('isReimbursementLate', () => {
+  it('should return false if the transaction is not an health expense', () => {
+    const transaction = {
+      manualCategoryId: '400310',
+      amount: 10
+    }
+
+    expect(isReimbursementLate(transaction)).toBe(false)
+  })
+
+  it('should return false if the transaction reimbursement status is not pending', () => {
+    const t1 = {
+      reimbursementStatus: 'reimbursed',
+      manualCategoryId: '400610',
+      amount: -10
+    }
+    const t2 = {
+      reimbursementStatus: 'no-reimbursement',
+      manualCategoryId: '400610',
+      amount: -10
+    }
+
+    expect(isReimbursementLate(t1)).toBe(false)
+    expect(isReimbursementLate(t2)).toBe(false)
+  })
+
+  it('should return false if the transaction reimbursement is pending but for less than one month', () => {
+    differenceInCalendarMonths.mockReturnValueOnce(0)
+    const transaction = {
+      reimbursementStatus: 'pending',
+      date: '2019-05-23',
+      manualCategoryId: '400610',
+      amount: -10
+    }
+
+    expect(isReimbursementLate(transaction)).toBe(false)
+  })
+
+  it('should return true if the transaction reimbursement is pending for more than one month', () => {
+    differenceInCalendarMonths.mockReturnValueOnce(2)
+    const transaction = {
+      reimbursementStatus: 'pending',
+      date: '2018-05-23',
+      manualCategoryId: '400610',
+      amount: -10
+    }
+
+    expect(isReimbursementLate(transaction)).toBe(true)
   })
 })
