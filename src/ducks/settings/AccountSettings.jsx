@@ -91,13 +91,13 @@ class _GeneralSettings extends Component {
   }
 
   onClickConfirmDelete = async () => {
-    const { client, router, t } = this.props
+    const { client, router, t, account, filteringDoc } = this.props
     try {
       this.setState({ deleting: true })
       // TODO remove from groups and delete operations, see actions/accounts.js
-      await client.destroy(this.props.account)
+      await client.destroy(account)
 
-      if (this.props.account._id === this.props.filteringDoc._id) {
+      if (filteringDoc && account._id === filteringDoc._id) {
         this.props.resetFilterByDoc()
       }
 
