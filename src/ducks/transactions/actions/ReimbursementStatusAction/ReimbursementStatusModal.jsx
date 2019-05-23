@@ -3,7 +3,6 @@ import { translate } from 'cozy-ui/react'
 import Radio from 'cozy-ui/react/Radio'
 import { List, Row } from 'components/List'
 import { PageModal } from 'components/PageModal'
-import styles from 'ducks/transactions/actions/ReimbursementStatusAction/ReimbursementStatusModal.styl'
 
 class _ReimbursementStatusModal extends React.PureComponent {
   render() {
@@ -23,7 +22,7 @@ class _ReimbursementStatusModal extends React.PureComponent {
                   label={t(`Transactions.reimbursementStatus.${choice}`)}
                   checked={currentStatus === choice}
                   onChange={onChange}
-                  className={styles.ReimbursementStatusModal__radio}
+                  className="u-mb-0"
                 />
               </Row>
             ))}
