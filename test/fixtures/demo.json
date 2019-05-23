@@ -1678,7 +1678,7 @@
       "_id": "isa_remboursement_pret_lcl_nov_2018"
     },
     {
-      "account": "compteisa1",
+      "account": "comptegene1",
       "amount": -20,
       "automaticCategoryId": "300",
       "currency": "€",
