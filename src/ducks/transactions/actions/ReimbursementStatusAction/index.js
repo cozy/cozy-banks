@@ -3,6 +3,7 @@ import flag from 'cozy-flags'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import Icon from 'cozy-ui/react/Icon'
 import ButtonAction from 'cozy-ui/react/ButtonAction'
+import Alerter from 'cozy-ui/react/Alerter'
 import { flowRight as compose } from 'lodash'
 import { withMutations } from 'cozy-client'
 import {
@@ -13,6 +14,7 @@ import {
 import { TransactionModalRow } from 'ducks/transactions/TransactionModal'
 import ReimbursementStatusModal from 'ducks/transactions/actions/ReimbursementStatusAction/ReimbursementStatusModal'
 import iconReimbursement from 'assets/icons/icon-reimbursement.svg'
+import { logException } from 'lib/sentry'
 
 class ReimbursementStatusAction extends React.PureComponent {
   state = {
@@ -23,11 +25,17 @@ class ReimbursementStatusAction extends React.PureComponent {
   hideModal = () => this.setState({ showModal: false })
 
   handleChange = async e => {
-    const { transaction, saveDocument } = this.props
+    const { transaction, saveDocument, t } = this.props
     transaction.reimbursementStatus = e.target.value
 
     this.hideModal()
-    await saveDocument(transaction)
+
+    try {
+      await saveDocument(transaction)
+    } catch (err) {
+      logException(err)
+      Alerter.error(t('Transactions.reimbursementStatusUpdateError'))
+    }
   }
 
   renderModalItem() {
