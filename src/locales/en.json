@@ -330,7 +330,8 @@
       "reimbursementStatus": {
         "pending": "No reimbursement yet",
         "reimbursed": "Reimbursed",
-        "no-reimbursement": "No expected reimbursement"
+        "no-reimbursement": "No expected reimbursement",
+        "late": "Late reimbursement"
       }
     },
     "infos": {

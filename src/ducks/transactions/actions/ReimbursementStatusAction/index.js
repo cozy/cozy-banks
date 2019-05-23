@@ -5,7 +5,11 @@ import Icon from 'cozy-ui/react/Icon'
 import ButtonAction from 'cozy-ui/react/ButtonAction'
 import { flowRight as compose } from 'lodash'
 import { withMutations } from 'cozy-client'
-import { isExpense, getReimbursementStatus } from 'ducks/transactions/helpers'
+import {
+  isExpense,
+  getReimbursementStatus,
+  isReimbursementLate
+} from 'ducks/transactions/helpers'
 import { TransactionModalRow } from 'ducks/transactions/TransactionModal'
 import ReimbursementStatusModal from 'ducks/transactions/actions/ReimbursementStatusAction/ReimbursementStatusModal'
 import iconReimbursement from 'assets/icons/icon-reimbursement.svg'
@@ -31,7 +35,9 @@ class ReimbursementStatusAction extends React.PureComponent {
     const { t, transaction } = this.props
 
     const status = getReimbursementStatus(transaction)
-    const label = t(`Transactions.actions.reimbursementStatus.${status}`)
+    const isLate = isReimbursementLate(transaction)
+    const translateKey = isLate ? 'late' : status
+    const label = t(`Transactions.actions.reimbursementStatus.${translateKey}`)
 
     return (
       <>
@@ -62,14 +68,17 @@ class ReimbursementStatusAction extends React.PureComponent {
     } = this.props
 
     const status = getReimbursementStatus(transaction)
+    const isLate = isReimbursementLate(transaction)
 
     if (status !== 'pending') {
       return null
     }
 
+    const translateKey = isLate ? 'late' : status
+
     return (
       <ButtonAction
-        label={t(`Transactions.actions.reimbursementStatus.${status}`)}
+        label={t(`Transactions.actions.reimbursementStatus.${translateKey}`)}
         type="error"
         rightIcon={<Icon icon="hourglass" />}
         compact={isMobile}

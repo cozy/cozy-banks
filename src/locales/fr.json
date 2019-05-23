@@ -148,7 +148,8 @@
       "reimbursementStatus": {
         "pending": "Remboursement en attente",
         "reimbursed": "Remboursé",
-        "no-reimbursement": "Aucun remboursement attendu"
+        "no-reimbursement": "Aucun remboursement attendu",
+        "late": "Rembours. en retard"
       }
     },
     "infos": {
