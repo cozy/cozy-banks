@@ -18,7 +18,8 @@ import {
 import { Balance } from 'ducks/balance'
 import UserActionRequired from 'components/UserActionRequired'
 
-const AppRoute = (
+// Use a function to delay instantation and have access to AppRoute.renderExtraRoutes
+const AppRoute = () => (
   <Route component={UserActionRequired}>
     <Route component={App}>
       <Redirect from="/" to="balances" />
@@ -47,9 +48,13 @@ const AppRoute = (
           <Route path="debug" component={Debug} />
         </Route>
       </Route>
+      {AppRoute.renderExtraRoutes()}
       <Redirect from="*" to="balances" />
     </Route>
   </Route>
 )
+
+// Ability to overrides easily
+AppRoute.renderExtraRoutes = () => null
 
 export default AppRoute
