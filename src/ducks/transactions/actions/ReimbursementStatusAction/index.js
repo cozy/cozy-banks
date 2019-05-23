@@ -27,7 +27,6 @@ class ReimbursementStatusAction extends React.PureComponent {
     transaction.reimbursementStatus = e.target.value
 
     await saveDocument(transaction)
-    this.forceUpdate()
     this.hideModal()
   }
 
