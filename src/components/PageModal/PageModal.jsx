@@ -11,7 +11,7 @@ import PageModalDesktop from 'components/PageModal/PageModalDesktop'
  * `PageModal` takes the same props as
  * [cozy-ui's Modal](https://docs.cozy.io/cozy-ui/react/#modal).
  */
-const PageModal = props => {
+export const DumbPageModal = props => {
   const {
     breakpoints: { isMobile },
     ...rest
@@ -22,4 +22,4 @@ const PageModal = props => {
   return <Component {...rest} />
 }
 
-export default withBreakpoints()(PageModal)
+export default withBreakpoints()(DumbPageModal)
