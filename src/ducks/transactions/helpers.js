@@ -88,17 +88,30 @@ export const findNearestMonth = (
 
 export const isExpense = transaction => transaction.amount < 0
 
+export const getReimbursements = transaction => {
+  return get(transaction, 'reimbursements.target.reimbursements')
+}
+
+export const hasReimbursements = transaction => {
+  const reimbursements = getReimbursements(transaction)
+
+  if (!reimbursements) {
+    return false
+  }
+
+  return reimbursements.length > 0
+}
+
 export const getReimbursedAmount = expense => {
   if (!isExpense(expense)) {
     throw new Error("Can't get the reimbursed amount of a debit transaction")
   }
 
-  const reimbursements = get(expense, 'reimbursements.target.reimbursements')
-  const hasReimbursements = reimbursements && reimbursements.length > 0
-
-  if (!hasReimbursements) {
+  if (!hasReimbursements(expense)) {
     return 0
   }
+
+  const reimbursements = getReimbursements(expense)
 
   const reimbursedAmount = sumBy(reimbursements, r => r.amount)
   return reimbursedAmount

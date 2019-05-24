@@ -7,7 +7,8 @@ import {
   isFullyReimbursed,
   isExpense,
   getReimbursementStatus,
-  isReimbursementLate
+  isReimbursementLate,
+  hasReimbursements
 } from './helpers'
 import { BILLS_DOCTYPE } from 'doctypes'
 
@@ -236,5 +237,34 @@ describe('isReimbursementLate', () => {
     }
 
     expect(isReimbursementLate(transaction)).toBe(true)
+  })
+})
+
+describe('hasReimbursements', () => {
+  it('should return true if the transaction has reimbursements', () => {
+    const transaction = {
+      reimbursements: {
+        target: {
+          reimbursements: [{ amount: 10 }]
+        }
+      }
+    }
+
+    expect(hasReimbursements(transaction)).toBe(true)
+  })
+
+  it('should return false if the transaction does not have reimbursements', () => {
+    const t1 = {
+      reimbursements: {
+        target: {
+          reimbursements: []
+        }
+      }
+    }
+
+    const t2 = {}
+
+    expect(hasReimbursements(t1)).toBe(false)
+    expect(hasReimbursements(t2)).toBe(false)
   })
 })
