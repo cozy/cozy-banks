@@ -4499,22 +4499,6 @@ cozy-client-js@^0.3.4:
   resolved "https://registry.yarnpkg.com/cozy-client-js/-/cozy-client-js-0.3.21.tgz#d27d0288077ce95139333c41dfb537b8584ff254"
   integrity sha1-0n0CiAd86VE5MzxB37U3uFhP8lQ=
 
-cozy-client@6.26.0:
-  version "6.26.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.26.0.tgz#6d8882a190d0dfbed46ed2240bc04f446e408a80"
-  integrity sha512-Zw/bnQ03YxfK9+nHWxGEdPN1gdlmwv1xbLF5DhSOCHDk3oXL5dSnGIqaA+DPIC/vetemIxdm9skMIaOT0k7Q+Q==
-  dependencies:
-    cozy-device-helper "1.6.3"
-    cozy-stack-client "^6.25.0"
-    lodash "4.17.11"
-    microee "0.0.6"
-    prop-types "15.6.2"
-    react "16.7.0"
-    react-redux "5.0.7"
-    redux "3.7.2"
-    redux-thunk "2.3.0"
-    sift "6.0.0"
-
 cozy-client@6.28.0:
   version "6.28.0"
   resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.28.0.tgz#0db0a084ee48912f9c942f057b5c3c2938625f65"
@@ -4530,6 +4514,23 @@ cozy-client@6.28.0:
     redux "3.7.2"
     redux-thunk "2.3.0"
     sift "6.0.0"
+
+cozy-client@6.35.0:
+  version "6.35.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.35.0.tgz#d37d022f47d753af9a199fe59636c49c7a6907fe"
+  integrity sha512-Gt3p/g/7AUUBKNLVGPwkS7pARqfj5DBtr7cGAAdLifF3dFlhyYeWt2k53voJZeKXeQ7K9ZnmYT3tfu0C2zrGvw==
+  dependencies:
+    cozy-device-helper "1.6.3"
+    cozy-stack-client "^6.33.0"
+    lodash "4.17.11"
+    microee "0.0.6"
+    prop-types "15.6.2"
+    react "16.7.0"
+    react-redux "5.0.7"
+    redux "3.7.2"
+    redux-thunk "2.3.0"
+    sift "6.0.0"
+    url-search-params-polyfill "^6.0.0"
 
 cozy-client@^6.18.0:
   version "6.18.0"
@@ -4604,12 +4605,11 @@ cozy-doctypes@1.44.0:
     lodash "4.17.11"
     prop-types "^15.7.2"
 
-cozy-flags@1.6.1:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-1.6.1.tgz#27e8bed076f0676e512beda0f4532548862df0f4"
-  integrity sha512-L0Nh8DdgqRBAu4UkSWTbfJZAlcVYQPX2G09nSiOgsgBzr002txXRz1899r9jHoLJPFFR+Ep9zkSmnOnPzMHUwA==
+cozy-flags@1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-1.7.0.tgz#543ef81443f9523e7f0b5f599935752956f5c370"
+  integrity sha512-5+o6FYH0/fB0GzyJ4g0PPNhWVBIdu5xKof8K5G/Dp1aN3sWtPzZQ1rTAr5w1YcGEwp91rrg6A1XHdV1Qu+jltw==
   dependencies:
-    detect-node "2.0.4"
     microee "^0.0.6"
 
 cozy-harvest-lib@0.43.0:
@@ -4721,6 +4721,15 @@ cozy-stack-client@^6.18.0:
     mime-types "2.1.20"
     qs "6.6.0"
 
+cozy-stack-client@^6.33.0:
+  version "6.33.0"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.33.0.tgz#62eca6b63f1d7202ae5032b28b47461be5e85199"
+  integrity sha512-7S8xPcd03BoEd/VFhBv/vxB/2P0U2SLK/wgFoLor7lPHJ00Al8q/pFFgDIb8r1eoK247augH/JrcDUGbSIhVQA==
+  dependencies:
+    detect-node "2.0.4"
+    mime-types "2.1.24"
+    qs "6.7.0"
+
 cozy-ui@19.30.2:
   version "19.30.2"
   resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-19.30.2.tgz#9e10d4a687c6db0de91b386d1cc9d1ea9176341d"
@@ -4736,15 +4745,14 @@ cozy-ui@19.30.2:
     react-hot-loader "^4.3.11"
     react-select "2.2.0"
 
-cozy-ui@19.34.1:
-  version "19.34.1"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-19.34.1.tgz#fbe0125ae0af747b0232b723d83f3bc8bb58963a"
-  integrity sha512-VtCU0FJcFAuymuN1rtc66kSJnlUqdOxAeUHzYIUjJ6w3p4vMyZijmPoKUtaAzfKF574uR/a13syro3eXh41EPA==
+cozy-ui@^19.41.1:
+  version "19.41.1"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-19.41.1.tgz#c85e049e4b3869bb4f884ac57538a94667cfeccc"
+  integrity sha512-FLnaoTGMeuJYD27aDLhxsYYsxudOWyKLzNF3eC+T9wpzvEoleyKC5C799B5oFJQ5DReJz+OT2dPuYX1LsZY/Qg==
   dependencies:
     "@babel/runtime" "^7.3.4"
     body-scroll-lock "^2.5.8"
     classnames "^2.2.5"
-    cozy-client "6.26.0"
     date-fns "^1.28.5"
     hammerjs "^2.0.8"
     node-polyglot "^2.2.2"
@@ -18121,6 +18129,11 @@ url-polyfill@1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/url-polyfill/-/url-polyfill-1.1.0.tgz#d34e1a596d954b864bc8608f84c592820df422db"
   integrity sha512-QAbzqCwd84yA6VyjV30aZXla+lrRmczDurvlsVnK+tFOu677ZNGz8shcFWQRp5BF9/z7qvNiCQLqpWPtVoUEBg==
+
+url-search-params-polyfill@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/url-search-params-polyfill/-/url-search-params-polyfill-6.0.0.tgz#f5e5fc230d56125f5b0ba67d9cbcd6555fa347e3"
+  integrity sha512-69Bl5s3SiEgcHe8SMpzLGOyag27BQeTeSaP/CfVHkKc/VdUHtNjaP2PnhshFVC021221ItueOzuMMGofZ/HDmQ==
 
 url-slug@2.0.0:
   version "2.0.0"
