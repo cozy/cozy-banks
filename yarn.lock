@@ -4745,7 +4745,7 @@ cozy-ui@19.30.2:
     react-hot-loader "^4.3.11"
     react-select "2.2.0"
 
-cozy-ui@^19.41.1:
+cozy-ui@19.41.1:
   version "19.41.1"
   resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-19.41.1.tgz#c85e049e4b3869bb4f884ac57538a94667cfeccc"
   integrity sha512-FLnaoTGMeuJYD27aDLhxsYYsxudOWyKLzNF3eC+T9wpzvEoleyKC5C799B5oFJQ5DReJz+OT2dPuYX1LsZY/Qg==
