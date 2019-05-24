@@ -139,14 +139,52 @@ describe('isExpense', () => {
 })
 
 describe('getReimbursementStatus', () => {
-  it("should return the reimbursement status if it's defined", () => {
-    const transaction = { reimbursementStatus: 'reimbursed' }
-    expect(getReimbursementStatus(transaction)).toBe('reimbursed')
+  describe('General case', () => {
+    it("should return the reimbursement status if it's defined", () => {
+      const transaction = { reimbursementStatus: 'reimbursed' }
+      expect(getReimbursementStatus(transaction)).toBe('reimbursed')
+    })
+
+    it("should return no-reimbursement status if it's undefined", () => {
+      const transaction = {}
+      expect(getReimbursementStatus(transaction)).toBe('no-reimbursement')
+    })
   })
 
-  it("should return no-reimbursement status if it's undefined", () => {
-    const transaction = {}
-    expect(getReimbursementStatus(transaction)).toBe('no-reimbursement')
+  describe('Health expense case', () => {
+    it('should return `pending` if the status is undefined and the transaction is not fully reimbursed', () => {
+      const t1 = {
+        manualCategoryId: '400610',
+        amount: -10
+      }
+
+      const t2 = {
+        manualCategoryId: '400610',
+        amount: -10,
+        reimbursements: {
+          target: {
+            reimbursements: [{ amount: 5 }]
+          }
+        }
+      }
+
+      expect(getReimbursementStatus(t1)).toBe('pending')
+      expect(getReimbursementStatus(t2)).toBe('pending')
+    })
+
+    it('should return `reimbursed` if the status is undefined and the transaction is fully reimbursed', () => {
+      const transaction = {
+        manualCategoryId: '400610',
+        amount: -10,
+        reimbursements: {
+          target: {
+            reimbursements: [{ amount: 10 }]
+          }
+        }
+      }
+
+      expect(getReimbursementStatus(transaction)).toBe('reimbursed')
+    })
   })
 })
 

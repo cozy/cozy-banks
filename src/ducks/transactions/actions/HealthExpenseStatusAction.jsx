@@ -5,6 +5,7 @@ import ButtonAction from 'cozy-ui/react/ButtonAction'
 import Menu, { MenuItem } from 'cozy-ui/react/Menu'
 import Badge from 'cozy-ui/react/Badge'
 import palette from 'cozy-ui/react/palette'
+import flag from 'cozy-flags'
 import { isHealthExpense } from 'ducks/categories/helpers'
 import { BillComponent } from './BillAction'
 import styles from 'ducks/transactions/TransactionActions.styl'
@@ -168,7 +169,11 @@ const action = {
     return <Icon icon="hourglass" color={color} />
   },
   match: transaction => {
-    return isHealthExpense(transaction) && getVendors(transaction)
+    return (
+      isHealthExpense(transaction) &&
+      getVendors(transaction) &&
+      !flag('reimbursement-tag')
+    )
   },
   Component: compose(
     withBreakpoints(),

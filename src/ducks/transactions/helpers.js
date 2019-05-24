@@ -123,8 +123,21 @@ export const isNew = transaction => {
   return parseInt(transaction._rev.split('-').shift(), 10) <= 2
 }
 
-export const getReimbursementStatus = transaction =>
-  transaction.reimbursementStatus || 'no-reimbursement'
+export const getReimbursementStatus = transaction => {
+  if (isHealthExpense(transaction)) {
+    return getHealthExpenseReimbursementStatus(transaction)
+  }
+
+  return transaction.reimbursementStatus || 'no-reimbursement'
+}
+
+export const getHealthExpenseReimbursementStatus = transaction => {
+  if (transaction.reimbursementStatus) {
+    return transaction.reimbursementStatus
+  }
+
+  return isFullyReimbursed(transaction) ? 'reimbursed' : 'pending'
+}
 
 export const isReimbursementLate = transaction => {
   if (!isHealthExpense(transaction)) {
