@@ -4,7 +4,7 @@ import range from 'lodash/range'
 
 import Icon from 'cozy-ui/react/Icon'
 
-import styles from 'ducks/pin/styles'
+import styles from 'ducks/pin/styles.styl'
 import PinButton from 'ducks/pin/PinButton'
 import { PIN_MAX_LENGTH } from 'ducks/pin/constants'
 import backText from 'assets/icons/icon-back-text.svg'
