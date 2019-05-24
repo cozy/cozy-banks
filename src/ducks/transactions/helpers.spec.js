@@ -97,9 +97,7 @@ describe('getReimbursedAmount', () => {
     const reimbursedExpense = {
       amount: -10,
       reimbursements: {
-        target: {
-          reimbursements: [{ amount: 2 }, { amount: 8 }]
-        }
+        data: [{ amount: 2 }, { amount: 8 }]
       }
     }
 
@@ -112,9 +110,7 @@ describe('isFullyReimbursed', () => {
     const reimbursedExpense = {
       amount: -10,
       reimbursements: {
-        target: {
-          reimbursements: [{ amount: 2 }, { amount: 8 }]
-        }
+        data: [{ amount: 2 }, { amount: 8 }]
       }
     }
 
@@ -164,9 +160,7 @@ describe('getReimbursementStatus', () => {
         manualCategoryId: '400610',
         amount: -10,
         reimbursements: {
-          target: {
-            reimbursements: [{ amount: 5 }]
-          }
+          data: [{ amount: 5 }]
         }
       }
 
@@ -179,9 +173,7 @@ describe('getReimbursementStatus', () => {
         manualCategoryId: '400610',
         amount: -10,
         reimbursements: {
-          target: {
-            reimbursements: [{ amount: 10 }]
-          }
+          data: [{ amount: 10 }]
         }
       }
 
@@ -245,9 +237,7 @@ describe('hasReimbursements', () => {
   it('should return true if the transaction has reimbursements', () => {
     const transaction = {
       reimbursements: {
-        target: {
-          reimbursements: [{ amount: 10 }]
-        }
+        data: [{ amount: 10 }]
       }
     }
 
@@ -257,9 +247,7 @@ describe('hasReimbursements', () => {
   it('should return false if the transaction does not have reimbursements', () => {
     const t1 = {
       reimbursements: {
-        target: {
-          reimbursements: []
-        }
+        data: []
       }
     }
 

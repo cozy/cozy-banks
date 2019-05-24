@@ -89,7 +89,7 @@ export const findNearestMonth = (
 export const isExpense = transaction => transaction.amount < 0
 
 export const getReimbursements = transaction => {
-  return get(transaction, 'reimbursements.target.reimbursements')
+  return get(transaction, 'reimbursements.data')
 }
 
 export const hasReimbursements = transaction => {
