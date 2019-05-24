@@ -102,6 +102,16 @@ export const hasReimbursements = transaction => {
   return reimbursements.length > 0
 }
 
+export const hasBills = transaction => {
+  const bills = get(transaction, 'bills.data')
+
+  if (!bills) {
+    return false
+  }
+
+  return bills.length > 0
+}
+
 export const getReimbursedAmount = expense => {
   if (!isExpense(expense)) {
     throw new Error("Can't get the reimbursed amount of a debit transaction")
