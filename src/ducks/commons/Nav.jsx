@@ -8,7 +8,7 @@ import graph from 'assets/icons/icon-graph.svg'
 
 const NavLink = genNavLink(Link)
 
-const Nav = ({ t }) => (
+export const Nav = ({ t }) => (
   <UINav>
     <NavItem>
       <NavLink to="balances">
@@ -28,7 +28,10 @@ const Nav = ({ t }) => (
         <NavText>{t('Nav.settings')}</NavText>
       </NavLink>
     </NavItem>
+    {Nav.renderExtra()}
   </UINav>
 )
+
+Nav.renderExtra = () => null
 
 export default translate()(Nav)
