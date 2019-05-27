@@ -4515,10 +4515,10 @@ cozy-client@6.28.0:
     redux-thunk "2.3.0"
     sift "6.0.0"
 
-cozy-client@6.35.0:
-  version "6.35.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.35.0.tgz#d37d022f47d753af9a199fe59636c49c7a6907fe"
-  integrity sha512-Gt3p/g/7AUUBKNLVGPwkS7pARqfj5DBtr7cGAAdLifF3dFlhyYeWt2k53voJZeKXeQ7K9ZnmYT3tfu0C2zrGvw==
+cozy-client@6.37.0:
+  version "6.37.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.37.0.tgz#da6035171cbdcf3424722a04242c57260b3a5aef"
+  integrity sha512-PZZttUH4WWUmxXiz/CRddKjTENNC2ZjJHRPRkm0Ff9JJyB3xyVxfx9a+WwcjXZ51TOnphG4bHaT/b3BB8NHLAA==
   dependencies:
     cozy-device-helper "1.6.3"
     cozy-stack-client "^6.33.0"
