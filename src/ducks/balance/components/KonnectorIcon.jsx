@@ -10,10 +10,10 @@ class KonnectorIcon extends React.PureComponent {
   }
 
   fetchIcon() {
-    const { client, slug } = this.props
+    const { client, slug, app } = this.props
     return client.stackClient.getIconURL({
       type: 'konnector',
-      slug: slug
+      slug: slug || app.slug
     })
   }
 
