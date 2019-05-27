@@ -42,9 +42,9 @@ class AccountsList extends React.PureComponent {
 
     return (
       <ol className={styles.AccountsList}>
-        {sortBy(accounts.filter(Boolean), getAccountBalance).map(a =>
+        {sortBy(accounts.filter(Boolean), getAccountBalance).map((a, i) =>
           a.loading ? (
-            <AccountRowLoading key={a._id} institutionSlug={a._id} />
+            <AccountRowLoading key={i + '_' + a._id} institutionSlug={a._id} />
           ) : (
             <AccountRow
               key={a._id}
