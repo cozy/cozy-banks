@@ -44,6 +44,7 @@ class AccountsList extends React.PureComponent {
       <ol className={styles.AccountsList}>
         {sortBy(accounts.filter(Boolean), getAccountBalance).map((a, i) =>
           a.loading ? (
+            // When loading, a._id is the slug of the connector and can be non-unique, this is why we concat the index
             <AccountRowLoading key={i + '_' + a._id} institutionSlug={a._id} />
           ) : (
             <AccountRow
