@@ -1,6 +1,5 @@
 import AppRoute from './AppRoute'
 import React from 'react'
-import omit from 'lodash/omit'
 import { Route } from 'react-router'
 
 const NewComponent = () => <div>New component</div>
