@@ -10,7 +10,7 @@ jest.mock('./utils', () => {
 
 const { EMAILS, renderTemplate } = require('./common-test')
 
-describe('emails', () => {
+xdescribe('emails', () => {
   for (const lang of ['en', 'fr']) {
     for (const templateName of Object.keys(EMAILS)) {
       it(`should render ${templateName} in ${lang}`, () => {
