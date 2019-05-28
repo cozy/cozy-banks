@@ -2,6 +2,8 @@ import React from 'react'
 import flag from 'cozy-flags'
 import { hasBills, hasReimbursements } from 'ducks/transactions/helpers'
 import Bill from 'ducks/transactions/actions/AttachedDocsAction/Bill'
+import { TransactionModalRow } from 'ducks/transactions/TransactionModal'
+import iconAttachment from 'assets/icons/icon-attachment.svg'
 
 class AttachedDocsAction extends React.PureComponent {
   renderTransactionRow() {
@@ -35,11 +37,47 @@ class AttachedDocsAction extends React.PureComponent {
     ))
   }
 
+  renderModalItem() {
+    const { transaction } = this.props
+
+    return (
+      <TransactionModalRow iconLeft={iconAttachment} align="top">
+        {hasBills(transaction) && this.renderModalItemBills()}
+        {hasReimbursements(transaction) && this.renderModalItemReimbursements()}
+      </TransactionModalRow>
+    )
+  }
+
+  renderModalItemBills() {
+    const { transaction } = this.props
+    const bills = transaction.bills.data.filter(Boolean)
+
+    return bills.map(bill => (
+      <TransactionModalRow key={bill._id}>
+        <Bill bill={bill} />
+      </TransactionModalRow>
+    ))
+  }
+
+  renderModalItemReimbursements() {
+    const { transaction } = this.props
+
+    const reimbursements = transaction.reimbursements.data.filter(
+      reimbursement => reimbursement && reimbursement.bill
+    )
+
+    return reimbursements.map(reimbursement => (
+      <TransactionModalRow key={reimbursement.bill._id}>
+        <Bill bill={reimbursement.bill} />
+      </TransactionModalRow>
+    ))
+  }
+
   render() {
     const { isModalItem } = this.props
 
     if (isModalItem) {
-      return null
+      return this.renderModalItem()
     } else {
       return this.renderTransactionRow()
     }
