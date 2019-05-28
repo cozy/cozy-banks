@@ -164,6 +164,10 @@ const action = {
   name,
   icon,
   match: async (transaction, actionProps) => {
+    if (flag('reimbursement-tag')) {
+      return false
+    }
+
     const bill = getBill(transaction, actionProps)
     if (bill && bill._id) {
       return !some(transaction.reimbursements, reimbursement => {
