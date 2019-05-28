@@ -145,7 +145,15 @@ class _RowMobile extends React.PureComponent {
     } = this.props
     const account = transaction.account.data
     const accountInstitutionLabel = getAccountInstitutionLabel(account)
-    const rowRest = flag('show-transactions-ids') ? { id: transaction._id } : {}
+    const rowRest = {}
+
+    if (flag('show-transactions-ids')) {
+      rowRest.id = transaction._id
+    }
+
+    if (flag('reimbursement-tag')) {
+      rowRest.className = cx(styles.TransactionRowMobile)
+    }
 
     return (
       <List.Row onRef={onRef} {...rowRest}>
@@ -182,7 +190,21 @@ class _RowMobile extends React.PureComponent {
               signed
             />
           </Img>
-          <Img className={styles['bnk-transaction-mobile-action']}>
+          {!flag('reimbursement-tag') && (
+            <Img className={styles['bnk-transaction-mobile-action']}>
+              <TransactionActions
+                transaction={transaction}
+                urls={urls}
+                brands={brands}
+                onlyDefault
+                compact
+                menuPosition="right"
+              />
+            </Img>
+          )}
+        </Media>
+        {flag('reimbursement-tag') && (
+          <div style={{ flexBasis: '100%', flexShrink: '0', flexGrow: '1' }}>
             <TransactionActions
               transaction={transaction}
               urls={urls}
@@ -190,9 +212,10 @@ class _RowMobile extends React.PureComponent {
               onlyDefault
               compact
               menuPosition="right"
+              className="u-mt-half u-ml-2-half"
             />
-          </Img>
-        </Media>
+          </div>
+        )}
       </List.Row>
     )
   }
