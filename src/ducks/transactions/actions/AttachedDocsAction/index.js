@@ -7,15 +7,12 @@ import iconAttachment from 'assets/icons/icon-attachment.svg'
 
 class AttachedDocsAction extends React.PureComponent {
   renderTransactionRow() {
-    const { transaction } = this.props
-
-    if (hasBills(transaction)) {
-      return this.renderTransactionRowBills()
-    } else if (hasReimbursements(transaction)) {
-      return this.renderTransactionRowReimbursements()
-    } else {
-      return null
-    }
+    return (
+      <>
+        {this.renderTransactionRowBills()}
+        {this.renderTransactionRowReimbursements()}
+      </>
+    )
   }
 
   renderTransactionRowBills() {
