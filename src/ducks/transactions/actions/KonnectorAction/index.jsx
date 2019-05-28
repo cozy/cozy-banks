@@ -61,6 +61,33 @@ class Component extends React.Component {
     return findMatchingBrand(brandsWithoutTrigger, this.props.transaction.label)
   }
 
+  renderModalItem(label) {
+    return (
+      <TransactionModalRow
+        iconLeft="plus"
+        style={transactionModalRowStyle}
+        onClick={this.showInformativeModal}
+      >
+        {label}
+      </TransactionModalRow>
+    )
+  }
+
+  renderTransactionRow(label) {
+    const { compact } = this.props
+
+    return (
+      <ButtonAction
+        label={label}
+        leftIcon="plus"
+        type="new"
+        compact={compact}
+        className={styles.TransactionActionButton}
+        onClick={this.showInformativeModal}
+      />
+    )
+  }
+
   render() {
     const { t, compact, isModalItem } = this.props
 
@@ -73,24 +100,9 @@ class Component extends React.Component {
 
     return (
       <>
-        {isModalItem ? (
-          <TransactionModalRow
-            iconLeft="plus"
-            style={transactionModalRowStyle}
-            onClick={this.showInformativeModal}
-          >
-            {label}
-          </TransactionModalRow>
-        ) : (
-          <ButtonAction
-            label={label}
-            leftIcon="plus"
-            type="new"
-            compact={compact}
-            className={styles.TransactionActionButton}
-            onClick={this.showInformativeModal}
-          />
-        )}
+        {isModalItem
+          ? this.renderModalItem(label)
+          : this.renderTransactionRow(label)}
         {this.state.showInformativeModal && (
           <InformativeModal
             onCancel={this.hideInformativeModal}
