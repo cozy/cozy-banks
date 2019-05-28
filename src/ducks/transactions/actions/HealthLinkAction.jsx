@@ -1,6 +1,9 @@
 import React from 'react'
 import { translate } from 'cozy-ui/react'
 import ButtonAction from 'cozy-ui/react/ButtonAction'
+import Chip from 'cozy-ui/react/Chip'
+import Icon from 'cozy-ui/react/Icon'
+import flag from 'cozy-flags'
 import icon from 'assets/icons/actions/icon-link-out.svg'
 import { isHealth } from 'ducks/categories/helpers'
 import palette from 'cozy-ui/react/palette'
@@ -26,10 +29,16 @@ const Component = ({ t, actionProps: { urls }, compact, isModalItem }) => {
     )
   }
 
-  return (
+  return flag('reimbursement-tag') ? (
+    <Chip size="small" variant="outlined" onClick={() => open(url)}>
+      {label}
+      <Chip.Separator />
+      <Icon icon="openwith" />
+    </Chip>
+  ) : (
     <ButtonAction
       onClick={() => open(url)}
-      label={t(`Transactions.actions.${name}`)}
+      label={label}
       rightIcon="openwith"
       compact={compact}
       className={styles.TransactionActionButton}
