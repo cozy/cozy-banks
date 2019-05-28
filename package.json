@@ -224,9 +224,9 @@
     "moduleNameMapper": {
       "\\.(png|gif|jpe?g|svg)$": "<rootDir>/test/__mocks__/fileMock.js",
       "styl$": "identity-obj-proxy",
-      "css$": "identity-obj-proxy",
       "webapp$": "identity-obj-proxy",
-      "!!raw-loader!(.*)": "$1"
+      "!!raw-loader!(.*)": "$1",
+      "css$": "identity-obj-proxy"
     },
     "testPathIgnorePatterns": [
       "node_modules",
