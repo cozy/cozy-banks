@@ -10,8 +10,10 @@ import AttachAction from 'ducks/transactions/actions/AttachAction'
 import HealthExpenseAction from 'ducks/transactions/actions/HealthExpenseAction'
 import HealthExpenseStatusAction from 'ducks/transactions/actions/HealthExpenseStatusAction'
 import ReimbursementStatusAction from 'ducks/transactions/actions/ReimbursementStatusAction'
+import AttachedDocsAction from 'ducks/transactions/actions/AttachedDocsAction'
 
 const actions = {
+  AttachedDocsAction,
   HealthExpenseStatusAction: HealthExpenseStatusAction,
   HealthExpenseAction: HealthExpenseAction,
   HealthLinkAction: HealthLinkAction,
