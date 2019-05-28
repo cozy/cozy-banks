@@ -92,6 +92,13 @@ export const getReimbursements = transaction => {
   return get(transaction, 'reimbursements.data')
 }
 
+export const getReimbursementsBills = transaction => {
+  const reimbursements = get(transaction, 'reimbursements.data', [])
+  const bills = reimbursements.map(r => r.bill).filter(Boolean)
+
+  return bills
+}
+
 export const hasReimbursements = transaction => {
   const reimbursements = getReimbursements(transaction)
 

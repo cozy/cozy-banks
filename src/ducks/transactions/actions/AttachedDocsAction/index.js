@@ -3,7 +3,8 @@ import flag from 'cozy-flags'
 import {
   hasBills,
   getBills,
-  hasReimbursements
+  hasReimbursements,
+  getReimbursementsBills
 } from 'ducks/transactions/helpers'
 import BillChip from 'ducks/transactions/actions/AttachedDocsAction/BillChip'
 import { TransactionModalRow } from 'ducks/transactions/TransactionModal'
@@ -28,14 +29,9 @@ class AttachedDocsAction extends React.PureComponent {
 
   renderTransactionRowReimbursements() {
     const { transaction } = this.props
+    const bills = getReimbursementsBills(transaction)
 
-    const reimbursements = transaction.reimbursements.data.filter(
-      reimbursement => reimbursement && reimbursement.bill
-    )
-
-    return reimbursements.map(reimbursement => (
-      <BillChip bill={reimbursement.bill} key={reimbursement.bill._id} />
-    ))
+    return bills.map(bill => <BillChip bill={bill} key={bill._id} />)
   }
 
   renderModalItem() {
@@ -62,14 +58,11 @@ class AttachedDocsAction extends React.PureComponent {
 
   renderModalItemReimbursements() {
     const { transaction } = this.props
+    const bills = getReimbursementsBills(transaction)
 
-    const reimbursements = transaction.reimbursements.data.filter(
-      reimbursement => reimbursement && reimbursement.bill
-    )
-
-    return reimbursements.map(reimbursement => (
-      <TransactionModalRow key={reimbursement.bill._id}>
-        <BillChip bill={reimbursement.bill} />
+    return bills.map(bill => (
+      <TransactionModalRow key={bill._id}>
+        <BillChip bill={bill} />
       </TransactionModalRow>
     ))
   }
