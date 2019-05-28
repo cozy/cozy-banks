@@ -54,8 +54,8 @@ export const TransactionModalRow = ({
       {
         [styles['TransactionModalRow-disabled']]: disabled,
         [styles['TransactionModalRow-clickable']]: onClick,
-        [styles['TransactionModalRow-withLeftIcon']]: iconLeft,
-        [styles['TransactionModalRow-withRightIcon']]: iconRight
+        'u-pl-1-half': iconLeft,
+        'u-pr-1-half': iconRight
       },
       className
     )}
