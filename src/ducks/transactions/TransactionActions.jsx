@@ -58,7 +58,14 @@ export const SyncTransactionActions = ({
   compact,
   className
 }) => (
-  <span className={cx('u-dib', className)}>
+  <span
+    className={cx(
+      {
+        'u-dib': !isModalItem
+      },
+      className
+    )}
+  >
     {(displayDefaultAction || onlyDefault) && actions.default && (
       <MenuAction
         action={actions.default}
