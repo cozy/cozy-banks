@@ -8,7 +8,7 @@ import FileOpener from 'ducks/transactions/FileOpener'
 import FileIcon from 'ducks/transactions/actions/AttachedDocsAction/FileIcon'
 import { Figure } from 'components/Figure'
 
-class DumbBill extends React.PureComponent {
+class DumbBillChip extends React.PureComponent {
   static propTypes = {
     bill: PropTypes.object.isRequired
   }
@@ -52,6 +52,6 @@ class DumbBill extends React.PureComponent {
   }
 }
 
-const Bill = translate()(DumbBill)
+const BillChip = translate()(DumbBillChip)
 
-export default Bill
+export default BillChip

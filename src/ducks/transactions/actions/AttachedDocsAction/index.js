@@ -1,7 +1,7 @@
 import React from 'react'
 import flag from 'cozy-flags'
 import { hasBills, hasReimbursements } from 'ducks/transactions/helpers'
-import Bill from 'ducks/transactions/actions/AttachedDocsAction/Bill'
+import BillChip from 'ducks/transactions/actions/AttachedDocsAction/BillChip'
 import { TransactionModalRow } from 'ducks/transactions/TransactionModal'
 import iconAttachment from 'assets/icons/icon-attachment.svg'
 
@@ -22,7 +22,7 @@ class AttachedDocsAction extends React.PureComponent {
     const { transaction } = this.props
     const bills = transaction.bills.data.filter(Boolean)
 
-    return bills.map(bill => <Bill bill={bill} key={bill._id} />)
+    return bills.map(bill => <BillChip bill={bill} key={bill._id} />)
   }
 
   renderTransactionRowReimbursements() {
@@ -33,7 +33,7 @@ class AttachedDocsAction extends React.PureComponent {
     )
 
     return reimbursements.map(reimbursement => (
-      <Bill bill={reimbursement.bill} key={reimbursement.bill._id} />
+      <BillChip bill={reimbursement.bill} key={reimbursement.bill._id} />
     ))
   }
 
@@ -54,7 +54,7 @@ class AttachedDocsAction extends React.PureComponent {
 
     return bills.map(bill => (
       <TransactionModalRow key={bill._id}>
-        <Bill bill={bill} />
+        <BillChip bill={bill} />
       </TransactionModalRow>
     ))
   }
@@ -68,7 +68,7 @@ class AttachedDocsAction extends React.PureComponent {
 
     return reimbursements.map(reimbursement => (
       <TransactionModalRow key={reimbursement.bill._id}>
-        <Bill bill={reimbursement.bill} />
+        <BillChip bill={reimbursement.bill} />
       </TransactionModalRow>
     ))
   }
