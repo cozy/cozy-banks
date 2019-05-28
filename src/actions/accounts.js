@@ -12,7 +12,7 @@ const removeAccountFromGroup = (group, account) => {
 
 const getStackCollection = doctype => {
   const links = getLinks()
-  const stackLink = links.find(x => x.constructor.name.indexOf('Stack') > -1)
+  const stackLink = links.find(x => !!x.stackClient)
   return stackLink.stackClient.collection(doctype)
 }
 
