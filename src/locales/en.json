@@ -306,6 +306,9 @@
         "health": "My reimbursements",
         "generic": "My invoices"
       },
+      "attachedDocs": {
+        "bill": "Invoice"
+      },
       "more": "More",
       "healthExpenseProcessed": {
         "single": "1 reimbursement",

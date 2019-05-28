@@ -72,7 +72,7 @@ class Component extends React.Component {
     const translationKey = `Transactions.actions.informativeModal.${healthOrGeneric}`
 
     return (
-      <div>
+      <>
         {isModalItem ? (
           <TransactionModalRow
             iconLeft="plus"
@@ -111,7 +111,7 @@ class Component extends React.Component {
             slug={brand.konnectorSlug}
           />
         )}
-      </div>
+      </>
     )
   }
 }

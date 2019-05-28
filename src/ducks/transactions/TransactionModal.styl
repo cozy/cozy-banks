@@ -11,9 +11,10 @@
     border-top 1px solid var(--silver)
 
 .TransactionModalRow
-    padding-left 24px
-    padding-right 24px
     min-height 57px
+
+    & + &
+        border-top 1px solid var(--silver)
 
 .TransactionModalRow-disabled
     color var(--coolGrey)
@@ -31,7 +32,7 @@
     margin-right 24px
 
 .TransactionModalRowIcon-alignTop
-    margin-top 3px
+    padding-top 16px
 
 .TransactionModalRowIcon-reversed
     transform rotate(180deg)

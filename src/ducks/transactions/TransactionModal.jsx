@@ -53,26 +53,28 @@ export const TransactionModalRow = ({
       styles.TransactionModalRow,
       {
         [styles['TransactionModalRow-disabled']]: disabled,
-        [styles['TransactionModalRow-clickable']]: onClick
+        [styles['TransactionModalRow-clickable']]: onClick,
+        'u-pl-1-half': iconLeft,
+        'u-pr-1-half': iconRight
       },
       className
     )}
     onClick={onClick}
     {...props}
   >
-    <Img className={styles.TransactionModalRowIcon}>
-      {Icon.isProperIcon(iconLeft) ? (
-        <Icon
-          icon={iconLeft}
-          width={16}
-          className={cx({
-            [styles['TransactionModalRowIcon-alignTop']]: props.align === 'top'
-          })}
-        />
-      ) : (
-        iconLeft
-      )}
-    </Img>
+    {iconLeft && (
+      <Img
+        className={cx(styles.TransactionModalRowIcon, {
+          [styles['TransactionModalRowIcon-alignTop']]: props.align === 'top'
+        })}
+      >
+        {Icon.isProperIcon(iconLeft) ? (
+          <Icon icon={iconLeft} width={16} />
+        ) : (
+          iconLeft
+        )}
+      </Img>
+    )}
     <Bd className={styles.TransactionModalRowContent}>{children}</Bd>
     {iconRight && <Img>{iconRight}</Img>}
   </Media>

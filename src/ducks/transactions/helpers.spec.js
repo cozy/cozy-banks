@@ -7,7 +7,9 @@ import {
   isFullyReimbursed,
   isExpense,
   getReimbursementStatus,
-  isReimbursementLate
+  isReimbursementLate,
+  hasReimbursements,
+  hasBills
 } from './helpers'
 import { BILLS_DOCTYPE } from 'doctypes'
 
@@ -95,9 +97,7 @@ describe('getReimbursedAmount', () => {
     const reimbursedExpense = {
       amount: -10,
       reimbursements: {
-        target: {
-          reimbursements: [{ amount: 2 }, { amount: 8 }]
-        }
+        data: [{ amount: 2 }, { amount: 8 }]
       }
     }
 
@@ -110,9 +110,7 @@ describe('isFullyReimbursed', () => {
     const reimbursedExpense = {
       amount: -10,
       reimbursements: {
-        target: {
-          reimbursements: [{ amount: 2 }, { amount: 8 }]
-        }
+        data: [{ amount: 2 }, { amount: 8 }]
       }
     }
 
@@ -162,9 +160,7 @@ describe('getReimbursementStatus', () => {
         manualCategoryId: '400610',
         amount: -10,
         reimbursements: {
-          target: {
-            reimbursements: [{ amount: 5 }]
-          }
+          data: [{ amount: 5 }]
         }
       }
 
@@ -177,9 +173,7 @@ describe('getReimbursementStatus', () => {
         manualCategoryId: '400610',
         amount: -10,
         reimbursements: {
-          target: {
-            reimbursements: [{ amount: 10 }]
-          }
+          data: [{ amount: 10 }]
         }
       }
 
@@ -236,5 +230,55 @@ describe('isReimbursementLate', () => {
     }
 
     expect(isReimbursementLate(transaction)).toBe(true)
+  })
+})
+
+describe('hasReimbursements', () => {
+  it('should return true if the transaction has reimbursements', () => {
+    const transaction = {
+      reimbursements: {
+        data: [{ amount: 10 }]
+      }
+    }
+
+    expect(hasReimbursements(transaction)).toBe(true)
+  })
+
+  it('should return false if the transaction does not have reimbursements', () => {
+    const t1 = {
+      reimbursements: {
+        data: []
+      }
+    }
+
+    const t2 = {}
+
+    expect(hasReimbursements(t1)).toBe(false)
+    expect(hasReimbursements(t2)).toBe(false)
+  })
+})
+
+describe('hasBills', () => {
+  it('should return true if the transaction has bills', () => {
+    const transaction = {
+      bills: {
+        data: [{ amount: 10 }]
+      }
+    }
+
+    expect(hasBills(transaction)).toBe(true)
+  })
+
+  it('should return false if the transaction does not have bills', () => {
+    const t1 = {
+      bills: {
+        data: []
+      }
+    }
+
+    const t2 = {}
+
+    expect(hasBills(t1)).toBe(false)
+    expect(hasBills(t2)).toBe(false)
   })
 })

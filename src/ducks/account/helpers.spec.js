@@ -119,9 +119,7 @@ describe('buildHealthReimbursementsVirtualAccount', () => {
 
   it('should take reimbursements into account', () => {
     transactions[0].reimbursements = {
-      target: {
-        reimbursements: [{ amount: 5 }]
-      }
+      data: [{ amount: 5 }]
     }
 
     const virtualAccount = buildHealthReimbursementsVirtualAccount(transactions)
