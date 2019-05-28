@@ -1,6 +1,10 @@
 import React from 'react'
 import flag from 'cozy-flags'
-import { hasBills, hasReimbursements } from 'ducks/transactions/helpers'
+import {
+  hasBills,
+  getBills,
+  hasReimbursements
+} from 'ducks/transactions/helpers'
 import BillChip from 'ducks/transactions/actions/AttachedDocsAction/BillChip'
 import { TransactionModalRow } from 'ducks/transactions/TransactionModal'
 import iconAttachment from 'assets/icons/icon-attachment.svg'
@@ -17,7 +21,7 @@ class AttachedDocsAction extends React.PureComponent {
 
   renderTransactionRowBills() {
     const { transaction } = this.props
-    const bills = transaction.bills.data.filter(Boolean)
+    const bills = getBills(transaction)
 
     return bills.map(bill => <BillChip bill={bill} key={bill._id} />)
   }
@@ -47,7 +51,7 @@ class AttachedDocsAction extends React.PureComponent {
 
   renderModalItemBills() {
     const { transaction } = this.props
-    const bills = transaction.bills.data.filter(Boolean)
+    const bills = getBills(transaction)
 
     return bills.map(bill => (
       <TransactionModalRow key={bill._id}>

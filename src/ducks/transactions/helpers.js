@@ -102,12 +102,14 @@ export const hasReimbursements = transaction => {
   return reimbursements.length > 0
 }
 
-export const hasBills = transaction => {
-  const bills = get(transaction, 'bills.data')
+export const getBills = transaction => {
+  const allBills = get(transaction, 'bills.data', [])
 
-  if (!bills) {
-    return false
-  }
+  return allBills.filter(Boolean)
+}
+
+export const hasBills = transaction => {
+  const bills = getBills(transaction)
 
   return bills.length > 0
 }
