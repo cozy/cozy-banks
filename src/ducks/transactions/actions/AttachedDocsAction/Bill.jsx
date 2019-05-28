@@ -7,7 +7,6 @@ import Chip from 'cozy-ui/react/Chip'
 import FileOpener from 'ducks/transactions/FileOpener'
 import FileIcon from 'ducks/transactions/actions/AttachedDocsAction/FileIcon'
 import { Figure } from 'components/Figure'
-import styles from 'ducks/transactions/actions/AttachedDocsAction/Bill.styl'
 
 class DumbBill extends React.PureComponent {
   static propTypes = {
@@ -40,7 +39,7 @@ class DumbBill extends React.PureComponent {
         <Chip component="button" size="small" variant="outlined">
           <FileIcon
             color={bill.isRefund ? 'var(--emerald)' : undefined}
-            className={styles.Bill__fileIcon}
+            className="u-flex-shrink-0"
           />
           {bill.isRefund ? (
             <Figure total={bill.amount} coloredPositive signed symbol="€" />
