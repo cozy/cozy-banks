@@ -4,6 +4,9 @@ import { flowRight as compose } from 'lodash'
 import { findMatchingBrand } from 'ducks/brandDictionary'
 import { translate } from 'cozy-ui/react'
 import ButtonAction from 'cozy-ui/react/ButtonAction'
+import Chip from 'cozy-ui/react/Chip'
+import Icon from 'cozy-ui/react/Icon'
+import flag from 'cozy-flags'
 import icon from 'assets/icons/actions/icon-link-out.svg'
 import styles from 'ducks/transactions/TransactionActions.styl'
 import { TransactionModalRow } from 'ducks/transactions/TransactionModal'
@@ -76,7 +79,17 @@ class Component extends React.Component {
   renderTransactionRow(label) {
     const { compact } = this.props
 
-    return (
+    return flag('reimbursement-tag') ? (
+      <Chip
+        size="small"
+        variant="dashed"
+        theme="primary"
+        onClick={this.showInformativeModal}
+      >
+        <Icon icon="plus" className="u-mr-half" />
+        {label}
+      </Chip>
+    ) : (
       <ButtonAction
         label={label}
         leftIcon="plus"
@@ -89,7 +102,7 @@ class Component extends React.Component {
   }
 
   render() {
-    const { t, compact, isModalItem } = this.props
+    const { t, isModalItem } = this.props
 
     const brand = this.findMatchingBrand()
     if (!brand) return
