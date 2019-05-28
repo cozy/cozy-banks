@@ -4,9 +4,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { translate } from 'cozy-ui/react'
 import Chip from 'cozy-ui/react/Chip'
+import flag from 'cozy-flags'
 import FileOpener from 'ducks/transactions/FileOpener'
 import FileIcon from 'ducks/transactions/actions/AttachedDocsAction/FileIcon'
 import { Figure } from 'components/Figure'
+import { AugmentedModalOpener } from 'components/AugmentedModal'
 
 class DumbBillChip extends React.PureComponent {
   static propTypes = {
@@ -34,8 +36,12 @@ class DumbBillChip extends React.PureComponent {
     const { bill, t } = this.props
     const [, invoiceId] = this.getInvoiceId(bill)
 
+    const isVentePrivee = flag('demo') && bill.vendor === 'Vente Privée'
+
+    const Wrapper = isVentePrivee ? AugmentedModalOpener : FileOpener
+
     return (
-      <FileOpener fileId={invoiceId} key={invoiceId}>
+      <Wrapper fileId={invoiceId} key={invoiceId}>
         <Chip component="button" size="small" variant="outlined">
           <FileIcon
             color={bill.isRefund ? 'var(--emerald)' : undefined}
@@ -47,7 +53,7 @@ class DumbBillChip extends React.PureComponent {
             t('Transactions.actions.attachedDocs.bill')
           )}
         </Chip>
-      </FileOpener>
+      </Wrapper>
     )
   }
 }
