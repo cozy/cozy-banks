@@ -83,3 +83,13 @@ for category in categories
 .TransactionRowMobile
     flex-direction column
     align-items flex-start
+    justify-content center
+
+.TransactionRowMobile__actions
+    display inline-block
+
+    // We may have an action that matches, but render nothing. In that case,
+    // this element exists, but is empty. We want to hide it to avoid extra
+    // margins
+    &:empty
+        display none
