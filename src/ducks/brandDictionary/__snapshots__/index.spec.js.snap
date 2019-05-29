@@ -127,6 +127,12 @@ Array [
   },
   Object {
     "isInstalled": false,
+    "konnectorSlug": "ekwateur",
+    "name": "Ekwateur",
+    "regexp": "\\\\bekwateur\\\\b",
+  },
+  Object {
+    "isInstalled": false,
     "konnectorSlug": "enercoop",
     "name": "Enercoop",
     "regexp": "\\\\benercoop\\\\b",
@@ -562,6 +568,12 @@ Array [
     "konnectorSlug": "edf",
     "name": "EDF",
     "regexp": "\\\\bedf\\\\b",
+  },
+  Object {
+    "isInstalled": false,
+    "konnectorSlug": "ekwateur",
+    "name": "Ekwateur",
+    "regexp": "\\\\bekwateur\\\\b",
   },
   Object {
     "isInstalled": false,
