@@ -72,12 +72,12 @@ class ReimbursementStatusAction extends React.PureComponent {
       <Chip
         size="small"
         variant="outlined"
-        theme="error"
+        theme={isLate ? 'error' : 'normal'}
         onClick={this.showModal}
       >
         {t(`Transactions.actions.reimbursementStatus.${translateKey}`)}
         <Chip.Separator />
-        <Icon icon="hourglass" />
+        <Icon icon="hourglass" size={12} />
       </Chip>
     )
   }
