@@ -10,7 +10,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import palette from 'cozy-ui/react/palette'
-import cx from 'classnames'
 import { findMatchingActions } from 'ducks/transactions/actions'
 import { TransactionActionsContext } from 'ducks/transactions/TransactionActionsContext'
 
@@ -58,14 +57,7 @@ export const SyncTransactionActions = ({
   compact,
   className
 }) => (
-  <span
-    className={cx(
-      {
-        'u-dib': !isModalItem
-      },
-      className
-    )}
-  >
+  <span className={className}>
     {(displayDefaultAction || onlyDefault) && actions.default && (
       <MenuAction
         action={actions.default}

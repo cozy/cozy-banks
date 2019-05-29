@@ -211,7 +211,11 @@ class _RowMobile extends React.PureComponent {
             onlyDefault
             compact
             menuPosition="right"
-            className="u-mt-half u-ml-2-half"
+            className={cx(
+              'u-mt-half',
+              'u-ml-2-half',
+              styles.TransactionRowMobile__actions
+            )}
           />
         )}
       </List.Row>
