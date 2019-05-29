@@ -103,6 +103,11 @@
     "konnectorSlug": "edf"
   },
   {
+    "name": "Ekwateur",
+    "regexp": "\\bekwateur\\b",
+    "konnectorSlug": "ekwateur"
+  },
+  {
     "name": "Enercoop",
     "regexp": "\\benercoop\\b",
     "konnectorSlug": "enercoop"
