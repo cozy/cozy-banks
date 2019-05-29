@@ -1801,15 +1801,11 @@
       "vendor": "Vente Privée",
       "subtype": "Facture Vente Privée 18/03/2018",
       "amount": -78.35,
-      "isRefund": true,
+      "isRefund": false,
       "date": "2018-10-18T22:00:00.000Z",
       "_id": "demo_venteprivee",
       "type": "shopping",
       "originalDate": "2018-10-16T00:00:00Z",
-      "socialSecurityRefund": 17.5,
-      "isThirdPartyPayer": false,
-      "originalAmount": 25,
-      "originalOperation": "io.cozy.bank.operations:paiementdocteur",
       "invoice": "io.cozy.files:{{reference 'io.cozy.files' 7 '_id' }}"
     },
     {
