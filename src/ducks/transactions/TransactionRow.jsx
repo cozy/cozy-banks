@@ -204,17 +204,15 @@ class _RowMobile extends React.PureComponent {
           )}
         </Media>
         {flag('reimbursement-tag') && (
-          <div style={{ flexBasis: '100%', flexShrink: '0', flexGrow: '1' }}>
-            <TransactionActions
-              transaction={transaction}
-              urls={urls}
-              brands={brands}
-              onlyDefault
-              compact
-              menuPosition="right"
-              className="u-mt-half u-ml-2-half"
-            />
-          </div>
+          <TransactionActions
+            transaction={transaction}
+            urls={urls}
+            brands={brands}
+            onlyDefault
+            compact
+            menuPosition="right"
+            className="u-mt-half u-ml-2-half"
+          />
         )}
       </List.Row>
     )

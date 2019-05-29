@@ -1,8 +1,8 @@
 import React from 'react'
 import flag from 'cozy-flags'
-import { translate, withBreakpoints } from 'cozy-ui/react'
+import { translate } from 'cozy-ui/react'
 import Icon from 'cozy-ui/react/Icon'
-import ButtonAction from 'cozy-ui/react/ButtonAction'
+import Chip from 'cozy-ui/react/Chip'
 import Alerter from 'cozy-ui/react/Alerter'
 import { flowRight as compose } from 'lodash'
 import { withMutations } from 'cozy-client'
@@ -47,13 +47,48 @@ class ReimbursementStatusAction extends React.PureComponent {
     const label = t(`Transactions.actions.reimbursementStatus.${translateKey}`)
 
     return (
+      <TransactionModalRow
+        iconLeft={<Icon icon={iconReimbursement} />}
+        onClick={this.showModal}
+      >
+        {label}
+      </TransactionModalRow>
+    )
+  }
+
+  renderTransactionRow() {
+    const { transaction, t } = this.props
+
+    const status = getReimbursementStatus(transaction)
+    const isLate = isReimbursementLate(transaction)
+
+    if (status !== 'pending') {
+      return null
+    }
+
+    const translateKey = isLate ? 'late' : status
+
+    return (
+      <Chip
+        size="small"
+        variant="outlined"
+        theme="error"
+        onClick={this.showModal}
+      >
+        {t(`Transactions.actions.reimbursementStatus.${translateKey}`)}
+        <Chip.Separator />
+        <Icon icon="hourglass" />
+      </Chip>
+    )
+  }
+
+  render() {
+    const { isModalItem, transaction } = this.props
+    const status = getReimbursementStatus(transaction)
+
+    return (
       <>
-        <TransactionModalRow
-          iconLeft={<Icon icon={iconReimbursement} />}
-          onClick={this.showModal}
-        >
-          {label}
-        </TransactionModalRow>
+        {isModalItem ? this.renderModalItem() : this.renderTransactionRow()}
         {this.state.showModal && (
           <ReimbursementStatusModal
             into="body"
@@ -66,42 +101,6 @@ class ReimbursementStatusAction extends React.PureComponent {
       </>
     )
   }
-
-  renderTransactionRow() {
-    const {
-      breakpoints: { isMobile },
-      transaction,
-      t
-    } = this.props
-
-    const status = getReimbursementStatus(transaction)
-    const isLate = isReimbursementLate(transaction)
-
-    if (status !== 'pending') {
-      return null
-    }
-
-    const translateKey = isLate ? 'late' : status
-
-    return (
-      <ButtonAction
-        label={t(`Transactions.actions.reimbursementStatus.${translateKey}`)}
-        type="error"
-        rightIcon={<Icon icon="hourglass" />}
-        compact={isMobile}
-      />
-    )
-  }
-
-  render() {
-    const { isModalItem } = this.props
-
-    if (isModalItem) {
-      return this.renderModalItem()
-    } else {
-      return this.renderTransactionRow()
-    }
-  }
 }
 
 const action = {
@@ -111,7 +110,6 @@ const action = {
   },
   Component: compose(
     translate(),
-    withBreakpoints(),
     withMutations()
   )(ReimbursementStatusAction)
 }
