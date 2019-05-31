@@ -105,6 +105,6 @@
     </plugin>
     <plugin name="cordova-blur-app-privacy-screen" spec="https://github.com/lifeofcoding/cordova-blur-app-privacy-screen.git" />
     <engine name="ios" spec="4.5.5" />
-    <plugin name="cordova-universal-links-plugin" spec="https://github.com/walteram/cordova-universal-links-plugin.git" />
+    <plugin name="cordova-universal-links-plugin" spec="https://github.com/Mailbutler/cordova-universal-links-plugin"/>
     <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
 </widget>
