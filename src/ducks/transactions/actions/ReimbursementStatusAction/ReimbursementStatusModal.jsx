@@ -1,18 +1,34 @@
 import React from 'react'
 import { translate } from 'cozy-ui/react'
+import Modal from 'cozy-ui/react/Modal'
 import Radio from 'cozy-ui/react/Radio'
+import Icon from 'cozy-ui/react/Icon'
+import { Title, Text } from 'cozy-ui/react/Text'
+import cx from 'classnames'
 import { List, Row } from 'components/List'
-import { PageModal } from 'components/PageModal'
+import iconReimbursement from 'assets/icons/icon-reimbursement-detailed.svg'
+import styles from 'ducks/transactions/actions/ReimbursementStatusAction/ReimbursementStatusModal.styl'
+import { getReimbursementStatus, getLabel } from 'ducks/transactions/helpers'
 
 class _ReimbursementStatusModal extends React.PureComponent {
   render() {
-    const { currentStatus, onChange, t, ...rest } = this.props
+    const { transaction, onChange, t, className, ...rest } = this.props
     const choices = ['pending', 'reimbursed', 'no-reimbursement']
+    const status = getReimbursementStatus(transaction)
 
     return (
-      <PageModal {...rest}>
-        <form>
-          <List>
+      <Modal mobileFullscreen className={cx('u-pt-2', className)} {...rest}>
+        <header className="u-ta-center">
+          <Icon icon={iconReimbursement} size={56} color="var(--slateGrey)" />
+          <Title className="u-mt-1">
+            {t('Transactions.actions.reimbursementStatus.modal.title')}
+          </Title>
+          <Text className={styles.ReimbursementStatusModal__transactionLabel}>
+            {getLabel(transaction)}
+          </Text>
+        </header>
+        <form className="u-mt-1">
+          <List bordered>
             {choices.map(choice => (
               <Row key={choice}>
                 <Radio
@@ -20,7 +36,7 @@ class _ReimbursementStatusModal extends React.PureComponent {
                   name="reimbursementStatus"
                   value={choice}
                   label={t(`Transactions.reimbursementStatus.${choice}`)}
-                  checked={currentStatus === choice}
+                  checked={status === choice}
                   onChange={onChange}
                   className="u-mb-0"
                 />
@@ -28,7 +44,7 @@ class _ReimbursementStatusModal extends React.PureComponent {
             ))}
           </List>
         </form>
-      </PageModal>
+      </Modal>
     )
   }
 }

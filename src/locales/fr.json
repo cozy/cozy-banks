@@ -152,7 +152,10 @@
         "pending": "Remboursement en attente",
         "reimbursed": "Remboursé",
         "no-reimbursement": "Aucun remboursement attendu",
-        "late": "Rembours. en retard"
+        "late": "Rembours. en retard",
+        "modal": {
+          "title": "Remboursement"
+        }
       }
     },
     "infos": {
