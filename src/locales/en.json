@@ -334,7 +334,10 @@
         "pending": "No reimbursement yet",
         "reimbursed": "Reimbursed",
         "no-reimbursement": "No expected reimbursement",
-        "late": "Late reimbursement"
+        "late": "Late reimbursement",
+        "modal": {
+          "title": "Reimbursement"
+        }
       }
     },
     "infos": {

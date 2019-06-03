@@ -84,7 +84,6 @@ class ReimbursementStatusAction extends React.PureComponent {
 
   render() {
     const { isModalItem, transaction } = this.props
-    const status = getReimbursementStatus(transaction)
 
     return (
       <>
@@ -94,7 +93,7 @@ class ReimbursementStatusAction extends React.PureComponent {
             into="body"
             dismissAction={this.hideModal}
             mobileFullscreen
-            currentStatus={status}
+            transaction={transaction}
             onChange={this.handleChange}
           />
         )}
