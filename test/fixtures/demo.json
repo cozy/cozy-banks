@@ -235,7 +235,7 @@
   "io.cozy.bank.operations": [
     {
       "demo": false,
-      "automaticCategoryId": "400610",
+      "manualCategoryId": "400610",
       "account": "compteisa1",
       "label": "DR CHOLLET CHQ 18708912",
       "currency": {
@@ -263,7 +263,7 @@
     {
       "_id": "c5d3364d147d8dc5da80fc9e354a2d71",
       "demo": false,
-      "automaticCategoryId": "400610",
+      "manualCategoryId": "400610",
       "account": "compteisa1",
       "label": "VIREMENT COMPL SANTE",
       "currency": "€",
@@ -273,7 +273,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400610",
+      "manualCategoryId": "400610",
       "account": "compteisa1",
       "label": "DR CHOLLET CHQ 18708913",
       "currency": "€",
@@ -290,7 +290,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400610",
+      "manualCategoryId": "400610",
       "account": "compteisa1",
       "label": "VIREMENT COMPL SANTE",
       "currency": "€",
@@ -301,7 +301,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "200110",
+      "manualCategoryId": "200110",
       "account": "compteisa1",
       "label": "PAYSLIP DURAND DECEMBER 2017",
       "currency": "€",
@@ -311,7 +311,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400410",
+      "manualCategoryId": "400410",
       "account": "compteisa1",
       "bill": "io.cozy.bills:rembourcomplisa1",
       "label": "ARGENT DE POCHE",
@@ -329,7 +329,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400460",
+      "manualCategoryId": "400460",
       "account": "comptegene1",
       "label": "RETRAITE",
       "currency": "€",
@@ -339,7 +339,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400180",
+      "manualCategoryId": "400180",
       "account": "comptelou1",
       "label": "ARGENT DE POCHE",
       "currency": "€",
@@ -356,7 +356,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "600110",
+      "manualCategoryId": "600110",
       "account": "compteisa1",
       "bill": "io.cozy.bills:rembourcomplisa2",
       "label": "TRANSFERT LIVRET A",
@@ -367,7 +367,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "600110",
+      "manualCategoryId": "600110",
       "account": "compteisa3",
       "label": "TRANSFERT LIVRET A",
       "currency": "€",
@@ -378,7 +378,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400290",
+      "manualCategoryId": "400290",
       "account": "compteisa1",
       "bill": "io.cozy.bills:avrilrembourcomplisa2",
       "label": "UBER",
@@ -389,7 +389,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "300",
+      "manualCategoryId": "300",
       "account": "comptegene1",
       "label": "RETRAIT CREDIT AGRICOLE",
       "currency": "€",
@@ -399,7 +399,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "300",
+      "manualCategoryId": "300",
       "account": "comptelou1",
       "label": "RETRAIT BNPPARIBAS",
       "currency": "€",
@@ -414,7 +414,7 @@
     {
       "_id": "446ae26d705b2eb461ca264d3849b4b1",
       "demo": false,
-      "automaticCategoryId": "400110",
+      "manualCategoryId": "400110",
       "account": "comptegene1",
       "label": "AUCHAN",
       "currency": "€",
@@ -423,7 +423,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400610",
+      "manualCategoryId": "400610",
       "account": "compteisa1",
       "label": "CABINET OSTEOKINESITHERAPIE",
       "currency": "€",
@@ -442,7 +442,7 @@
       "_id": "446ae26d705b2eb461ca264d3849b3c0",
       "account": "compteisa1",
       "amount": -122.4,
-      "automaticCategoryId": "400110",
+      "manualCategoryId": "400110",
       "currency": "€",
       "date": "{{ freshDate '2018-09-06T00:00:00Z' }}",
       "label": "CARREFOUR MARKET",
@@ -450,7 +450,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400420",
+      "manualCategoryId": "400420",
       "account": "comptegene1",
       "label": "FRANPRIX",
       "currency": "€",
@@ -460,7 +460,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400810",
+      "manualCategoryId": "400810",
       "account": "compteisa1",
       "label": "LE RICHER",
       "currency": "€",
@@ -470,7 +470,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400420",
+      "manualCategoryId": "400420",
       "account": "compteisa1",
       "label": "kAISER BOULANGERIE",
       "currency": "€",
@@ -480,7 +480,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400610",
+      "manualCategoryId": "400610",
       "account": "compteisa1",
       "label": "VIREMENT COMPL SANTE",
       "currency": "€",
@@ -491,7 +491,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400740",
+      "manualCategoryId": "400740",
       "account": "comptelou1",
       "label": "UGCCINECITE",
       "currency": "€",
@@ -501,7 +501,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400610",
+      "manualCategoryId": "400610",
       "account": "comptecla1",
       "label": "CABINET CARDIOLOGIE CONSULT",
       "currency": "€",
@@ -523,7 +523,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400610",
+      "manualCategoryId": "400610",
       "account": "comptecla1",
       "label": "CPAM PARIS",
       "currency": "€",
@@ -534,7 +534,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400180",
+      "manualCategoryId": "400180",
       "account": "comptegene1",
       "label": "FNAC TERNES",
       "currency": "€",
@@ -544,7 +544,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400110",
+      "manualCategoryId": "400110",
       "account": "compteisa1",
       "label": "CARREFOUR MARKET",
       "currency": "€",
@@ -554,7 +554,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400610",
+      "manualCategoryId": "400610",
       "account": "compteisa1",
       "label": "CABINET OSTEOKINESITHERAPIE",
       "currency": "€",
@@ -571,7 +571,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400610",
+      "manualCategoryId": "400610",
       "account": "compteisa1",
       "label": "VIREMENT COMPL SANTE",
       "currency": "€",
@@ -582,7 +582,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400610",
+      "manualCategoryId": "400610",
       "account": "comptecla1",
       "label": "VIREMENT COMPL SANTE",
       "currency": "€",
@@ -593,7 +593,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400610",
+      "manualCategoryId": "400610",
       "account": "compteisa1",
       "label": "LABORATOIRE PUTEAUX",
       "currency": "€",
@@ -610,7 +610,7 @@
     },
     {
       "_id": "remboursement_laboratoire_puteaux_harmonie",
-      "automaticCategoryId": "400610",
+      "manualCategoryId": "400610",
       "account": "compteisa1",
       "label": "Virement Compl Sante",
       "currency": "€",
@@ -620,7 +620,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400150",
+      "manualCategoryId": "400150",
       "account": "compteisa1",
       "label": "FREEMOBILE",
       "currency": "€",
@@ -633,7 +633,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400610",
+      "manualCategoryId": "400610",
       "account": "comptecla1",
       "label": "CPAM PARIS",
       "currency": "€",
@@ -644,7 +644,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400420",
+      "manualCategoryId": "400420",
       "account": "compteisa1",
       "label": "FRANPRIX",
       "currency": "€",
@@ -654,7 +654,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400290",
+      "manualCategoryId": "400290",
       "account": "compteisa1",
       "label": "UBER",
       "currency": "€",
@@ -664,7 +664,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400610",
+      "manualCategoryId": "400610",
       "account": "comptecla1",
       "label": "VIREMENT COMPL SANTE",
       "currency": "€",
@@ -675,7 +675,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400420",
+      "manualCategoryId": "400420",
       "account": "compteisa1",
       "label": "kAISER BOULANGERIE",
       "currency": "€",
@@ -692,7 +692,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400330",
+      "manualCategoryId": "400330",
       "account": "comptegene1",
       "label": "FRANCE MENAGE",
       "currency": "€",
@@ -705,7 +705,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400610",
+      "manualCategoryId": "400610",
       "account": "compteisa1",
       "label": "KINE REUILLY",
       "currency": "€",
@@ -722,7 +722,7 @@
     },
     {
       "_id": "remboursement_kine_reuilly_harmonie",
-      "automaticCategoryId": "400610",
+      "manualCategoryId": "400610",
       "account": "compteisa1",
       "label": "Virement Compl Sante",
       "currency": "€",
@@ -732,7 +732,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400420",
+      "manualCategoryId": "400420",
       "account": "comptegene1",
       "label": "FRANPRIX",
       "currency": "€",
@@ -742,7 +742,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400130",
+      "manualCategoryId": "400130",
       "account": "compteisa1",
       "label": "ZARA",
       "currency": "€",
@@ -754,7 +754,7 @@
       "_id": "446ae26d705b2eb461ca264d38499e69",
       "account": "compteisa1",
       "amount": -46.55,
-      "automaticCategoryId": "400420",
+      "manualCategoryId": "400420",
       "currency": "€",
       "date": "{{ freshDate '2018-09-21T00:00:00Z' }}",
       "label": "FRANPRIX",
@@ -762,7 +762,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400810",
+      "manualCategoryId": "400810",
       "account": "comptelou1",
       "label": "KFC",
       "currency": "€",
@@ -779,7 +779,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400110",
+      "manualCategoryId": "400110",
       "account": "comptegene1",
       "bill": "io.cozy.bills:avrilrembourcomplcla3",
       "label": "CARREFOUR CITY",
@@ -790,7 +790,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400750",
+      "manualCategoryId": "400750",
       "account": "compteisa1",
       "label": "REMBOURSEMENT PRET LCL",
       "currency": "€",
@@ -800,7 +800,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "300",
+      "manualCategoryId": "300",
       "account": "comptelou1",
       "label": "CASH WITHDRAWAL BNPPARIBAS",
       "currency": "€",
@@ -810,7 +810,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400130",
+      "manualCategoryId": "400130",
       "account": "comptegene1",
       "label": "SOMEWHERE",
       "currency": "€",
@@ -820,7 +820,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400150",
+      "manualCategoryId": "400150",
       "account": "comptegene1",
       "label": "BOUYGUES TELECOM",
       "currency": "€",
@@ -833,7 +833,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400410",
+      "manualCategoryId": "400410",
       "account": "compteisa1",
       "bill": "io.cozy.bills:marsrembourcomplisa2",
       "label": "ARGENT DE POCHE",
@@ -851,7 +851,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400420",
+      "manualCategoryId": "400420",
       "account": "compteisa1",
       "label": "CANTINE SCOLAIRE",
       "currency": "€",
@@ -861,7 +861,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400180",
+      "manualCategoryId": "400180",
       "account": "compteisa1",
       "label": "ARGENT DE POCHE",
       "currency": "€",
@@ -876,7 +876,7 @@
       "_id": "446ae26d705b2eb461ca264d3849ab7a",
       "account": "compteisa1",
       "amount": 2110.81,
-      "automaticCategoryId": "400460",
+      "manualCategoryId": "400460",
       "currency": "€",
       "date": "{{ freshDate '2018-10-02T00:00:00Z' }}",
       "label": "RETRAITE",
@@ -890,7 +890,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400290",
+      "manualCategoryId": "400290",
       "account": "compteisa1",
       "label": "UBER",
       "currency": "€",
@@ -900,7 +900,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "600110",
+      "manualCategoryId": "600110",
       "account": "compteisa1",
       "label": "TRANSFERT LIVRET A",
       "currency": "€",
@@ -910,7 +910,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "600110",
+      "manualCategoryId": "600110",
       "account": "compteisa1",
       "label": "TRANSFERT LIVRET A",
       "currency": "€",
@@ -920,7 +920,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400110",
+      "manualCategoryId": "400110",
       "account": "compteisa1",
       "label": "AUCHAN",
       "currency": "€",
@@ -937,7 +937,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "300",
+      "manualCategoryId": "300",
       "account": "compteisa1",
       "label": "RETRAIT CREDIT AGRICOLE",
       "currency": "€",
@@ -953,7 +953,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "300",
+      "manualCategoryId": "300",
       "account": "compteisa1",
       "label": "RETRAIT BNPPARIBAS",
       "currency": "€",
@@ -963,7 +963,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400610",
+      "manualCategoryId": "400610",
       "account": "compteisa1",
       "bill": "io.cozy.bills:rembourcomplisa2",
       "label": "VIREMENT COMPL SANTE",
@@ -974,7 +974,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400110",
+      "manualCategoryId": "400110",
       "account": "compteisa1",
       "label": "CARREFOUR MARKET",
       "currency": "€",
@@ -984,7 +984,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400610",
+      "manualCategoryId": "400610",
       "account": "compteisa1",
       "label": "VIREMENT COMPL SANTE",
       "currency": "€",
@@ -995,7 +995,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400420",
+      "manualCategoryId": "400420",
       "account": "compteisa1",
       "label": "FRANPRIX",
       "currency": "€",
@@ -1006,7 +1006,7 @@
     {
       "_id": "c5d3364d147d8dc5da80fc9e354ac448",
       "demo": false,
-      "automaticCategoryId": "400420",
+      "manualCategoryId": "400420",
       "account": "compteisa1",
       "label": "KAISER BOULANGERIE",
       "currency": "€",
@@ -1021,7 +1021,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400810",
+      "manualCategoryId": "400810",
       "account": "compteisa1",
       "label": "LA BELLE ASSIETTE",
       "currency": "€",
@@ -1038,7 +1038,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400610",
+      "manualCategoryId": "400610",
       "account": "compteisa1",
       "label": "CABINET CARDIO CONSULT",
       "currency": "€",
@@ -1048,7 +1048,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400610",
+      "manualCategoryId": "400610",
       "account": "compteisa1",
       "label": "DR CHOLLET CHQ 18708914",
       "currency": "€",
@@ -1058,7 +1058,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400180",
+      "manualCategoryId": "400180",
       "account": "compteisa1",
       "bill": "io.cozy.bills:avrilrembourcla3",
       "label": "FNAC TERNES",
@@ -1069,7 +1069,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400740",
+      "manualCategoryId": "400740",
       "account": "compteisa1",
       "label": "GAUMONTPARNASSE",
       "currency": "€",
@@ -1079,7 +1079,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400110",
+      "manualCategoryId": "400110",
       "account": "compteisa1",
       "bill": "io.cozy.bills:avrilrembourcomplcla3",
       "label": "CARREFOUR MARKET",
@@ -1090,7 +1090,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400810",
+      "manualCategoryId": "400810",
       "account": "compteisa1",
       "label": "MC DONALDS",
       "currency": "€",
@@ -1100,7 +1100,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400130",
+      "manualCategoryId": "400130",
       "account": "compteisa1",
       "bill": "io.cozy.bills:rembourcomplcla3",
       "label": "LA REDOUTE",
@@ -1111,7 +1111,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400290",
+      "manualCategoryId": "400290",
       "account": "compteisa1",
       "label": "UBER",
       "currency": "€",
@@ -1121,7 +1121,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400110",
+      "manualCategoryId": "400110",
       "account": "compteisa1",
       "bill": "io.cozy.bills:avrilrembourcomplisa22",
       "label": "CARREFOUR CITY",
@@ -1132,7 +1132,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400150",
+      "manualCategoryId": "400150",
       "account": "compteisa1",
       "label": "FREEMOBILE",
       "currency": "€",
@@ -1145,7 +1145,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "401040",
+      "manualCategoryId": "401040",
       "account": "compteisa1",
       "label": "MAIF ASSURANCE HABITATION",
       "currency": "€",
@@ -1158,7 +1158,7 @@
     },
     {
       "demo": true,
-      "automaticCategoryId": "400610",
+      "manualCategoryId": "400610",
       "account": "compteisa1",
       "label": "CPAM PARIS",
       "currency": "€",
@@ -1171,7 +1171,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400750",
+      "manualCategoryId": "400750",
       "account": "compteisa1",
       "label": "REMBOURSEMENT PRET LCL",
       "currency": "€",
@@ -1181,7 +1181,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400130",
+      "manualCategoryId": "400130",
       "account": "compteisa1",
       "label": "FRANCK PROVOST MONCEAU",
       "currency": "€",
@@ -1192,7 +1192,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400130",
+      "manualCategoryId": "400130",
       "account": "compteisa1",
       "label": "FNAC TERNES",
       "currency": "€",
@@ -1208,7 +1208,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400420",
+      "manualCategoryId": "400420",
       "account": "compteisa1",
       "label": "KAISER BOULANGERIE",
       "currency": "€",
@@ -1218,7 +1218,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400610",
+      "manualCategoryId": "400610",
       "account": "compteisa1",
       "label": "DOCTEUR LEFEBVRE",
       "currency": "€",
@@ -1228,7 +1228,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400112",
+      "manualCategoryId": "400112",
       "account": "compteisa1",
       "label": "Vente-Privée.com",
       "currency": "EUR",
@@ -1245,7 +1245,7 @@
     {
       "_id": "4bbfe1f845ad1231c7d07aa3e04fd1eb",
       "demo": true,
-      "automaticCategoryId": "400610",
+      "manualCategoryId": "400610",
       "account": "compteisa1",
       "label": "VIREMENT COMPL SANTE",
       "currency": "€",
@@ -1257,7 +1257,7 @@
     },
     {
       "demo": true,
-      "automaticCategoryId": "400610",
+      "manualCategoryId": "400610",
       "account": "compteisa1",
       "label": "Docteur Martin",
       "currency": "€",
@@ -1278,7 +1278,7 @@
       ]
     },
     {
-      "automaticCategoryId": "400610",
+      "manualCategoryId": "400610",
       "account": "compteisa1",
       "label": "Docteur Martin",
       "currency": "€",
@@ -1300,7 +1300,7 @@
     },
     {
       "_id": "remboursement_docteur_martin_ameli",
-      "automaticCategoryId": "400610",
+      "manualCategoryId": "400610",
       "account": "compteisa1",
       "label": "Remboursement CPAM",
       "currency": "€",
@@ -1310,7 +1310,7 @@
     },
     {
       "_id": "remboursement_docteur_martin_harmonie",
-      "automaticCategoryId": "400610",
+      "manualCategoryId": "400610",
       "account": "compteisa1",
       "label": "Remboursement Harmonie",
       "currency": "€",
@@ -1321,7 +1321,7 @@
     {
       "_id": "4bbfe1f845ad1231c7d07aa3e04fe8b3",
       "demo": false,
-      "automaticCategoryId": "400150",
+      "manualCategoryId": "400150",
       "account": "compteisa1",
       "label": "BOUYGUES TELECOM MONTHLY SUBSCRIPTION",
       "currency": "€",
@@ -1333,7 +1333,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "300",
+      "manualCategoryId": "300",
       "account": "compteisa1",
       "label": "RETRAIT BNPPARIBAS 2018-10-19",
       "currency": "€",
@@ -1343,7 +1343,7 @@
     },
     {
       "demo": true,
-      "automaticCategoryId": "400150",
+      "manualCategoryId": "400150",
       "account": "compteisa1",
       "label": "Free Telecom january subs",
       "currency": "€",
@@ -1356,7 +1356,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400330",
+      "manualCategoryId": "400330",
       "account": "compteisa1",
       "label": "FRANCE MENAGE MONTLY SUBSCRIPTION",
       "currency": "€",
@@ -1368,7 +1368,7 @@
       "_id": "446ae26d705b2eb461ca264d38498f5b",
       "account": "compteisa1",
       "amount": -120.11,
-      "automaticCategoryId": "401080",
+      "manualCategoryId": "401080",
       "currency": "€",
       "date": "{{ freshDate '2018-10-20T00:00:00Z' }}",
       "label": "EDF CLIENTS PARTICULIERS",
@@ -1378,7 +1378,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400420",
+      "manualCategoryId": "400420",
       "account": "compteisa1",
       "label": "FRANPRIX",
       "currency": "€",
@@ -1388,7 +1388,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400130",
+      "manualCategoryId": "400130",
       "account": "compteisa1",
       "label": "H&M",
       "currency": "€",
@@ -1398,7 +1398,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "200110",
+      "manualCategoryId": "200110",
       "account": "compteisa1",
       "label": "PAYSLIP TESLA DURAND JANUARY 2018",
       "currency": "€",
@@ -1414,7 +1414,7 @@
     },
     {
       "demo": false,
-      "automaticCategoryId": "400150",
+      "manualCategoryId": "400150",
       "account": "compteisa1",
       "label": "Bouygues Telecom",
       "currency": "€",
@@ -1426,7 +1426,7 @@
       ]
     },
     {
-      "automaticCategoryId": "{{ categoryId 'activityIncome' }}",
+      "manualCategoryId": "{{ categoryId 'activityIncome' }}",
       "account": "comptegene1",
       "label": "Salaire novembre 2018",
       "currency": "€",
@@ -1437,7 +1437,7 @@
     {
       "account": "comptegene1",
       "amount": -80,
-      "automaticCategoryId": "400410",
+      "manualCategoryId": "400410",
       "currency": "€",
       "date": "{{ freshDate '2018-11-01T00:00:00Z' }}",
       "label": "ARGENT DE POCHE",
@@ -1446,7 +1446,7 @@
     {
       "account": "comptegene1",
       "amount": -120.44,
-      "automaticCategoryId": "400420",
+      "manualCategoryId": "400420",
       "currency": "€",
       "date": "{{ freshDate '2018-11-01T00:00:00Z' }}",
       "label": "CANTINE SCOLAIRE",
@@ -1455,7 +1455,7 @@
     {
       "account": "comptegene1",
       "amount": 80,
-      "automaticCategoryId": "400180",
+      "manualCategoryId": "400180",
       "currency": "€",
       "date": "{{ freshDate '2018-11-02T00:00:00Z' }}",
       "label": "ARGENT DE POCHE",
@@ -1464,7 +1464,7 @@
     {
       "account": "comptegene1",
       "amount": 400,
-      "automaticCategoryId": "600110",
+      "manualCategoryId": "600110",
       "currency": "€",
       "date": "{{ freshDate '2018-11-03T00:00:00Z' }}",
       "label": "TRANSFERT LIVRET A",
@@ -1473,7 +1473,7 @@
     {
       "account": "comptegene1",
       "amount": -22.12,
-      "automaticCategoryId": "400290",
+      "manualCategoryId": "400290",
       "currency": "€",
       "date": "{{ freshDate '2018-11-03T00:00:00Z' }}",
       "label": "UBER",
@@ -1482,7 +1482,7 @@
     {
       "account": "comptegene1",
       "amount": -400,
-      "automaticCategoryId": "600110",
+      "manualCategoryId": "600110",
       "currency": "€",
       "date": "{{ freshDate '2018-11-03T00:00:00Z' }}",
       "label": "TRANSFERT LIVRET A",
@@ -1491,7 +1491,7 @@
     {
       "account": "comptegene1",
       "amount": -42.3,
-      "automaticCategoryId": "400110",
+      "manualCategoryId": "400110",
       "currency": "€",
       "date": "{{ freshDate '2018-11-04T00:00:00Z' }}",
       "label": "AUCHAN",
@@ -1500,7 +1500,7 @@
     {
       "account": "comptegene1",
       "amount": -7.5,
-      "automaticCategoryId": "400620",
+      "manualCategoryId": "400620",
       "currency": "€",
       "date": "{{ freshDate '2018-11-04T00:00:00Z' }}",
       "label": "Generali remboursement médecin",
@@ -1509,7 +1509,7 @@
     {
       "account": "comptegene1",
       "amount": -100,
-      "automaticCategoryId": "300",
+      "manualCategoryId": "300",
       "currency": "€",
       "date": "{{ freshDate '2018-11-04T00:00:00Z' }}",
       "label": "RETRAIT CREDIT AGRICOLE",
@@ -1518,7 +1518,7 @@
     {
       "account": "comptegene1",
       "amount": -20,
-      "automaticCategoryId": "300",
+      "manualCategoryId": "300",
       "currency": "€",
       "date": "{{ freshDate '2018-11-04T00:00:00Z' }}",
       "label": "RETRAIT BNPPARIBAS",
@@ -1527,7 +1527,7 @@
     {
       "account": "comptegene1",
       "amount": -62.3,
-      "automaticCategoryId": "400110",
+      "manualCategoryId": "400110",
       "currency": "€",
       "date": "{{ freshDate '2018-11-06T00:00:00Z' }}",
       "label": "CARREFOUR MARKET",
@@ -1536,7 +1536,7 @@
     {
       "account": "comptegene1",
       "amount": -18.22,
-      "automaticCategoryId": "400420",
+      "manualCategoryId": "400420",
       "currency": "€",
       "date": "{{ freshDate '2018-11-07T00:00:00Z' }}",
       "label": "FRANPRIX",
@@ -1545,7 +1545,7 @@
     {
       "account": "comptegene1",
       "amount": -78.54,
-      "automaticCategoryId": "400810",
+      "manualCategoryId": "400810",
       "currency": "€",
       "date": "{{ freshDate '2018-11-08T00:00:00Z' }}",
       "label": "LA BELLE ASSIETTE",
@@ -1554,7 +1554,7 @@
     {
       "account": "comptegene1",
       "amount": -117,
-      "automaticCategoryId": "{{ categoryId 'goingOutAndTravel' }}",
+      "manualCategoryId": "{{ categoryId 'goingOutAndTravel' }}",
       "currency": "€",
       "date": "{{ freshDate '2018-11-08T00:00:00Z' }}",
       "label": "Sncf",
@@ -1563,7 +1563,7 @@
     {
       "account": "comptegene1",
       "amount": -30,
-      "automaticCategoryId": "{{ categoryId 'telecom' }}",
+      "manualCategoryId": "{{ categoryId 'telecom' }}",
       "currency": "€",
       "date": "{{ freshDate '2018-11-11T00:00:00Z' }}",
       "label": "Free Mobile",
@@ -1572,7 +1572,7 @@
     {
       "account": "comptegene1",
       "amount": -80.44,
-      "automaticCategoryId": "400180",
+      "manualCategoryId": "400180",
       "currency": "€",
       "date": "{{ freshDate '2018-11-11T00:00:00Z' }}",
       "label": "FNAC TERNES",
@@ -1581,7 +1581,7 @@
     {
       "account": "comptegene1",
       "amount": -98.22,
-      "automaticCategoryId": "400420",
+      "manualCategoryId": "400420",
       "currency": "€",
       "date": "{{ freshDate '2018-11-11T00:00:00Z' }}",
       "label": "FRANPRIX",
@@ -1590,7 +1590,7 @@
     {
       "account": "comptegene1",
       "amount": -7.5,
-      "automaticCategoryId": "400740",
+      "manualCategoryId": "400740",
       "currency": "€",
       "date": "{{ freshDate '2018-11-12T00:00:00Z' }}",
       "label": "GAUMONTPARNASSE",
@@ -1599,7 +1599,7 @@
     {
       "account": "comptegene1",
       "amount": -165.3,
-      "automaticCategoryId": "400110",
+      "manualCategoryId": "400110",
       "currency": "€",
       "date": "{{ freshDate '2018-11-12T00:00:00Z' }}",
       "label": "CARREFOUR MARKET",
@@ -1608,7 +1608,7 @@
     {
       "account": "comptegene1",
       "amount": -8.5,
-      "automaticCategoryId": "400810",
+      "manualCategoryId": "400810",
       "currency": "€",
       "date": "{{ freshDate '2018-11-12T00:00:00Z' }}",
       "label": "MC DONALDS",
@@ -1617,7 +1617,7 @@
     {
       "account": "comptegene1",
       "amount": -42.89,
-      "automaticCategoryId": "400130",
+      "manualCategoryId": "400130",
       "currency": "€",
       "date": "{{ freshDate '2018-11-13T00:00:00Z' }}",
       "label": "LA REDOUTE",
@@ -1626,7 +1626,7 @@
     {
       "account": "comptegene1",
       "amount": -73.5,
-      "automaticCategoryId": "{{ categoryId 'shoppingECommerce' }}",
+      "manualCategoryId": "{{ categoryId 'shoppingECommerce' }}",
       "currency": "€",
       "date": "{{ freshDate '2018-11-13T00:00:00Z' }}",
       "label": "Leclerc Drive",
@@ -1635,7 +1635,7 @@
     {
       "account": "comptegene1",
       "amount": -8.09,
-      "automaticCategoryId": "400290",
+      "manualCategoryId": "400290",
       "currency": "€",
       "date": "{{ freshDate '2018-11-14T00:00:00Z' }}",
       "label": "UBER",
@@ -1644,7 +1644,7 @@
     {
       "account": "comptegene1",
       "amount": -65.3,
-      "automaticCategoryId": "400110",
+      "manualCategoryId": "400110",
       "currency": "€",
       "date": "{{ freshDate '2018-11-14T00:00:00Z' }}",
       "label": "CARREFOUR CITY",
@@ -1653,7 +1653,7 @@
     {
       "account": "comptegene1",
       "amount": -27.9,
-      "automaticCategoryId": "{{ categoryId 'shoppingECommerce' }}",
+      "manualCategoryId": "{{ categoryId 'shoppingECommerce' }}",
       "currency": "€",
       "date": "{{ freshDate '2018-11-15T00:00:00Z' }}",
       "label": "Just Eat",
@@ -1662,7 +1662,7 @@
     {
       "account": "comptegene1",
       "amount": -36,
-      "automaticCategoryId": "400130",
+      "manualCategoryId": "400130",
       "currency": "€",
       "date": "{{ freshDate '2018-11-17T00:00:00Z' }}",
       "label": "FRANCK PROVOST MONCEAU",
@@ -1671,7 +1671,7 @@
     {
       "account": "comptegene1",
       "amount": -1231,
-      "automaticCategoryId": "400750",
+      "manualCategoryId": "400750",
       "currency": "€",
       "date": "{{ freshDate '2018-11-17T00:00:00Z' }}",
       "label": "REMBOURSEMENT PRET LCL",
@@ -1680,7 +1680,7 @@
     {
       "account": "comptegene1",
       "amount": -20,
-      "automaticCategoryId": "300",
+      "manualCategoryId": "300",
       "currency": "€",
       "date": "{{ freshDate '2018-11-19T00:00:00Z' }}",
       "label": "RETRAIT BNPPARIBAS 2018-10-19",
@@ -1689,7 +1689,7 @@
     {
       "account": "comptegene1",
       "amount": -11.9,
-      "automaticCategoryId": "{{ categoryId 'booksMoviesMusic' }}",
+      "manualCategoryId": "{{ categoryId 'booksMoviesMusic' }}",
       "currency": "€",
       "date": "{{ freshDate '2018-11-20T00:00:00Z' }}",
       "label": "Netflix",
@@ -1698,7 +1698,7 @@
     {
       "account": "comptegene1",
       "amount": -40,
-      "automaticCategoryId": "400330",
+      "manualCategoryId": "400330",
       "currency": "€",
       "date": "{{ freshDate '2018-11-20T00:00:00Z' }}",
       "label": "FRANCE MENAGE MONTLY SUBSCRIPTION",
@@ -1707,7 +1707,7 @@
     {
       "account": "comptegene1",
       "amount": -42.89,
-      "automaticCategoryId": "400130",
+      "manualCategoryId": "400130",
       "currency": "€",
       "date": "{{ freshDate '2018-11-21T00:00:00Z' }}",
       "label": "H&M",
@@ -1716,7 +1716,7 @@
     {
       "account": "comptegene1",
       "amount": -48.22,
-      "automaticCategoryId": "400420",
+      "manualCategoryId": "400420",
       "currency": "€",
       "date": "{{ freshDate '2018-11-21T00:00:00Z' }}",
       "label": "FRANPRIX ST LAZARE PR",
@@ -1725,7 +1725,7 @@
     {
       "account": "comptegene1",
       "amount": -9.9,
-      "automaticCategoryId": "{{ categoryId 'telecom' }}",
+      "manualCategoryId": "{{ categoryId 'telecom' }}",
       "currency": "€",
       "date": "{{ freshDate '2018-11-23T00:00:00Z' }}",
       "label": "Sosh",
