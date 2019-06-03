@@ -1,5 +1,9 @@
-import { get, sumBy } from 'lodash'
-import { getDate, getReimbursedAmount } from 'ducks/transactions/helpers'
+import { get, sumBy, overEvery, flowRight as compose } from 'lodash'
+import {
+  getDate,
+  getReimbursedAmount,
+  hasPendingReimbursement
+} from 'ducks/transactions/helpers'
 import { isHealthExpense } from 'ducks/categories/helpers'
 import { differenceInCalendarDays, isThisYear } from 'date-fns'
 import flag from 'cozy-flags'
@@ -122,9 +126,18 @@ export const getAccountUpdatedAt = account => {
 }
 
 export const buildHealthReimbursementsVirtualAccount = transactions => {
-  const healthExpenses = transactions.filter(transaction => {
-    return isHealthExpense(transaction) && isThisYear(getDate(transaction))
-  })
+  const healthExpensesFilter = overEvery(
+    [
+      isHealthExpense,
+      compose(
+        isThisYear,
+        getDate
+      ),
+      flag('reimbursement-tag') && hasPendingReimbursement
+    ].filter(Boolean)
+  )
+
+  const healthExpenses = transactions.filter(healthExpensesFilter)
 
   const balance = sumBy(healthExpenses, expense => {
     const reimbursedAmount = getReimbursedAmount(expense)
