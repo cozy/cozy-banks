@@ -140,6 +140,7 @@
     "stylus": "0.54.5",
     "stylus-loader": "3.0.2",
     "svg-sprite-loader": "3.9.2",
+    "universal-url": "2.0.0",
     "webpack": "4.29.6",
     "webpack-cli": "3.3.0",
     "webpack-dev-server": "3.2.1",

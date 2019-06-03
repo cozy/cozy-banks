@@ -1,5 +1,6 @@
 const fs = require('fs')
 const Handlebars = require('handlebars').default
+const Notification = require('../Notification').default
 
 const readJSONSync = filename => {
   return JSON.parse(fs.readFileSync(filename))
@@ -37,5 +38,8 @@ export const renderTemplate = (templateName, lang) => {
   })
   const data = EMAILS[templateName].data
   const tpl = EMAILS[templateName].template
-  return tpl(data)
+  const cozyURL = 'https://test.mycozy.cloud'
+  const urls = Notification.generateURLs(cozyURL)
+  const allData = { ...data, urls }
+  return tpl(allData)
 }
