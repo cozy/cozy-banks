@@ -27,6 +27,8 @@ class DumbHealthReimbursements extends Component {
     const { filteredTransactions, t } = this.props
     const reimbursementTagFlag = flag('reimbursement-tag')
 
+    // This grouping logic should be extracted to a selector, so this is
+    // easily memoizable
     const groupedTransactions = groupBy(
       filteredTransactions,
       reimbursementTagFlag ? getReimbursementStatus : isFullyReimbursed
