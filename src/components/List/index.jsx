@@ -3,7 +3,21 @@ import styles from 'components/List/List.styl'
 import ListItemText from 'cozy-ui/react/ListItemText'
 import cx from 'classnames'
 
-export const List = props => <div>{props.children}</div>
+export const List = props => {
+  const { className, bordered, ...rest } = props
+
+  return (
+    <div
+      className={cx(
+        {
+          [styles['List--bordered']]: bordered
+        },
+        className
+      )}
+      {...rest}
+    />
+  )
+}
 
 export const Header = ({ children }) => (
   <div className={styles['c-list-header']}>{children}</div>

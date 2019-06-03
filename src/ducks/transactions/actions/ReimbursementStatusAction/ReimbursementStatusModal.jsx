@@ -13,7 +13,7 @@ class _ReimbursementStatusModal extends React.PureComponent {
     return (
       <Modal mobileFullscreen className={cx('u-pt-2', className)} {...rest}>
         <form>
-          <List>
+          <List bordered>
             {choices.map(choice => (
               <Row key={choice}>
                 <Radio
