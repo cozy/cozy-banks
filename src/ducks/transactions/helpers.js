@@ -187,3 +187,7 @@ export const isReimbursementLate = transaction => {
 
   return differenceInMonths(today, transactionDate) >= 1
 }
+
+export const hasPendingReimbursement = transaction => {
+  return getReimbursementStatus(transaction) === 'pending'
+}

@@ -3,11 +3,15 @@ import { connect } from 'react-redux'
 import { queryConnect } from 'cozy-client'
 import { transactionsConn } from 'doctypes'
 import { flowRight as compose, sumBy, groupBy } from 'lodash'
+import flag from 'cozy-flags'
 import { getHealthExpensesByPeriod } from 'ducks/filters'
 import { TransactionsWithSelection } from 'ducks/transactions/Transactions'
 import withBrands from 'ducks/brandDictionary/withBrands'
 import withAppsUrls from 'ducks/apps/withAppsUrls'
-import { isFullyReimbursed } from 'ducks/transactions/helpers'
+import {
+  isFullyReimbursed,
+  getReimbursementStatus
+} from 'ducks/transactions/helpers'
 import { translate } from 'cozy-ui/react'
 import { Title } from 'cozy-ui/react/Text'
 import { Padded } from 'components/Spacing'
@@ -15,14 +19,30 @@ import { Figure } from 'components/Figure'
 import styles from 'ducks/reimbursements/HealthReimbursements.styl'
 
 class DumbHealthReimbursements extends Component {
+  getGroups() {
+    return groupBy(this.props.filteredTransactions, getReimbursementStatus)
+  }
+
   render() {
     const { filteredTransactions, t } = this.props
-    const {
-      true: reimbursedTransactions,
-      false: awaitingTransactions
-    } = groupBy(filteredTransactions, isFullyReimbursed)
+    const reimbursementTagFlag = flag('reimbursement-tag')
 
-    const awaitingAmount = sumBy(awaitingTransactions, t => -t.amount)
+    // This grouping logic should be extracted to a selector, so this is
+    // easily memoizable
+    const groupedTransactions = groupBy(
+      filteredTransactions,
+      reimbursementTagFlag ? getReimbursementStatus : isFullyReimbursed
+    )
+
+    const reimbursedTransactions = reimbursementTagFlag
+      ? groupedTransactions.reimbursed
+      : groupedTransactions.true
+
+    const pendingTransactions = reimbursementTagFlag
+      ? groupedTransactions.pending
+      : groupedTransactions.false
+
+    const pendingAmount = sumBy(pendingTransactions, t => -t.amount)
 
     return (
       <>
@@ -30,7 +50,7 @@ class DumbHealthReimbursements extends Component {
           <Title className={styles.HealthReimbursements__title}>
             <Figure
               symbol="€"
-              total={awaitingAmount}
+              total={pendingAmount}
               className={styles.HealthReimbursements__figure}
               signed
             />{' '}
@@ -38,7 +58,7 @@ class DumbHealthReimbursements extends Component {
           </Title>
         </Padded>
         <TransactionsWithSelection
-          transactions={awaitingTransactions}
+          transactions={pendingTransactions}
           brands={this.props.brands}
           urls={this.props.urls}
           withScroll={false}
