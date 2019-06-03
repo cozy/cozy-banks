@@ -1,5 +1,5 @@
 import configureStore from 'store/configureStore'
-import differenceInCalendarMonths from 'date-fns/difference_in_calendar_months'
+import differenceInMonths from 'date-fns/difference_in_calendar_months'
 import {
   hydrateTransaction,
   getDate,
@@ -209,7 +209,7 @@ describe('isReimbursementLate', () => {
   })
 
   it('should return false if the transaction reimbursement is pending but for less than one month', () => {
-    differenceInCalendarMonths.mockReturnValueOnce(0)
+    differenceInMonths.mockReturnValueOnce(0)
     const transaction = {
       reimbursementStatus: 'pending',
       date: '2019-05-23',
@@ -221,7 +221,7 @@ describe('isReimbursementLate', () => {
   })
 
   it('should return true if the transaction reimbursement is pending for more than one month', () => {
-    differenceInCalendarMonths.mockReturnValueOnce(2)
+    differenceInMonths.mockReturnValueOnce(2)
     const transaction = {
       reimbursementStatus: 'pending',
       date: '2018-05-23',
