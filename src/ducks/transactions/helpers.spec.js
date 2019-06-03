@@ -1,5 +1,4 @@
 import configureStore from 'store/configureStore'
-import differenceInMonths from 'date-fns/difference_in_calendar_months'
 import {
   hydrateTransaction,
   getDate,
@@ -12,6 +11,7 @@ import {
   hasBills
 } from './helpers'
 import { BILLS_DOCTYPE } from 'doctypes'
+import MockDate from 'mockdate'
 
 const fakeCozyClient = {
   attachStore: () => {},
@@ -21,8 +21,6 @@ const fakeCozyClient = {
     return Promise.resolve({ data: [doc] })
   }
 }
-
-jest.mock('date-fns/difference_in_calendar_months')
 
 xdescribe('transaction', () => {
   const healthId = '400610'
@@ -183,6 +181,9 @@ describe('getReimbursementStatus', () => {
 })
 
 describe('isReimbursementLate', () => {
+  afterEach(() => {
+    MockDate.reset()
+  })
   it('should return false if the transaction is not an health expense', () => {
     const transaction = {
       manualCategoryId: '400310',
@@ -209,7 +210,8 @@ describe('isReimbursementLate', () => {
   })
 
   it('should return false if the transaction reimbursement is pending but for less than one month', () => {
-    differenceInMonths.mockReturnValueOnce(0)
+    MockDate.set('06/03/2019')
+
     const transaction = {
       reimbursementStatus: 'pending',
       date: '2019-05-23',
@@ -221,10 +223,11 @@ describe('isReimbursementLate', () => {
   })
 
   it('should return true if the transaction reimbursement is pending for more than one month', () => {
-    differenceInMonths.mockReturnValueOnce(2)
+    MockDate.set(new Date(2019, 4, 24))
+
     const transaction = {
       reimbursementStatus: 'pending',
-      date: '2018-05-23',
+      date: '2019-04-23',
       manualCategoryId: '400610',
       amount: -10
     }
