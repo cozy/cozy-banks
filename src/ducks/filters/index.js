@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import { createSelector } from 'reselect'
 import { parse, format, isWithinRange } from 'date-fns'
+import logger from 'cozy-logger'
 import { getTransactions, getAllGroups, getAccounts } from 'selectors'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { sortBy, last, keyBy, find } from 'lodash'
@@ -8,6 +9,8 @@ import { DESTROY_ACCOUNT } from 'actions/accounts'
 import { dehydrate } from 'cozy-client'
 import { getDisplayDate } from 'ducks/transactions/helpers'
 import { isHealthExpense } from 'ducks/categories/helpers'
+
+const log = logger.namespace('filters')
 
 // constants
 const FILTER_BY_PERIOD = 'FILTER_BY_PERIOD'
@@ -25,6 +28,7 @@ export const getFilteredAccountIds = state => {
   if (!doc) {
     return availableAccountIds
   }
+
   const doctype = doc._type
   const id = doc._id
 
@@ -52,9 +56,8 @@ export const getFilteredAccountIds = state => {
     // accountsIds
     return doc
   } else {
-    throw new Error(
-      "The filtering doc doesn't have any type. Please check it has a `_type` property"
-    )
+    log('warn', `The filtering doc '${doc}' doesn't have any type.`)
+    return availableAccountIds
   }
 }
 
