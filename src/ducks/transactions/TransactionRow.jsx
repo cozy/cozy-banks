@@ -77,7 +77,7 @@ class _RowDesktop extends React.PureComponent {
     const trRest = flag('show-transactions-ids') ? { id: transaction._id } : {}
 
     return (
-      <tr ref={onRef} {...trRest}>
+      <tr ref={onRef} {...trRest} className="u-clickable">
         <td className={cx(styles.ColumnSizeDesc, 'u-pv-half', 'u-pl-1')}>
           <Media className="u-clickable">
             <Img title={categoryTitle} onClick={showCategoryChoice}>
