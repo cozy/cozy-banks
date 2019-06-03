@@ -88,7 +88,7 @@
     "@babel/node": "7.2.2",
     "@babel/polyfill": "7.4.0",
     "ach": "0.3.0",
-    "autoprefixer": "9.5.1",
+    "autoprefixer": "9.6.0",
     "babel-eslint": "10.0.1",
     "babel-loader": "8.0.5",
     "babel-plugin-date-fns": "0.2.1",
