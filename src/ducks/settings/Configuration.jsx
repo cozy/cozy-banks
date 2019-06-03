@@ -112,7 +112,7 @@ class Configuration extends React.Component {
             title={t('Settings.security.amount_blur.title')}
             description={t('Settings.security.amount_blur.description')}
             onToggle={this.onToggleFlag('amount_blur')}
-            enabled={flag('amount_blur')}
+            enabled={Boolean(flag('amount_blur'))}
             name="amountBlur"
           />
         </TogglePane>
