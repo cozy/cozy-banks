@@ -36,11 +36,11 @@ class DumbHealthReimbursements extends Component {
       ? groupedTransactions.reimbursed
       : groupedTransactions.true
 
-    const awaitingTransactions = reimbursementTagFlag
+    const pendingTransactions = reimbursementTagFlag
       ? groupedTransactions.pending
       : groupedTransactions.false
 
-    const awaitingAmount = sumBy(awaitingTransactions, t => -t.amount)
+    const pendingAmount = sumBy(pendingTransactions, t => -t.amount)
 
     return (
       <>
@@ -48,7 +48,7 @@ class DumbHealthReimbursements extends Component {
           <Title className={styles.HealthReimbursements__title}>
             <Figure
               symbol="€"
-              total={awaitingAmount}
+              total={pendingAmount}
               className={styles.HealthReimbursements__figure}
               signed
             />{' '}
@@ -56,7 +56,7 @@ class DumbHealthReimbursements extends Component {
           </Title>
         </Padded>
         <TransactionsWithSelection
-          transactions={awaitingTransactions}
+          transactions={pendingTransactions}
           brands={this.props.brands}
           urls={this.props.urls}
           withScroll={false}
