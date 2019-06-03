@@ -1,8 +1,8 @@
 import React from 'react'
 import { translate } from 'cozy-ui/react'
+import Modal from 'cozy-ui/react/Modal'
 import Radio from 'cozy-ui/react/Radio'
 import { List, Row } from 'components/List'
-import { PageModal } from 'components/PageModal'
 
 class _ReimbursementStatusModal extends React.PureComponent {
   render() {
@@ -10,7 +10,7 @@ class _ReimbursementStatusModal extends React.PureComponent {
     const choices = ['pending', 'reimbursed', 'no-reimbursement']
 
     return (
-      <PageModal {...rest}>
+      <Modal mobileFullscreen {...rest}>
         <form>
           <List>
             {choices.map(choice => (
@@ -28,7 +28,7 @@ class _ReimbursementStatusModal extends React.PureComponent {
             ))}
           </List>
         </form>
-      </PageModal>
+      </Modal>
     )
   }
 }
