@@ -2,15 +2,16 @@ import React from 'react'
 import { translate } from 'cozy-ui/react'
 import Modal from 'cozy-ui/react/Modal'
 import Radio from 'cozy-ui/react/Radio'
+import cx from 'classnames'
 import { List, Row } from 'components/List'
 
 class _ReimbursementStatusModal extends React.PureComponent {
   render() {
-    const { currentStatus, onChange, t, ...rest } = this.props
+    const { currentStatus, onChange, t, className, ...rest } = this.props
     const choices = ['pending', 'reimbursed', 'no-reimbursement']
 
     return (
-      <Modal mobileFullscreen {...rest}>
+      <Modal mobileFullscreen className={cx('u-pt-2', className)} {...rest}>
         <form>
           <List>
             {choices.map(choice => (
