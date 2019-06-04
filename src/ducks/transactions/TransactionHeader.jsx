@@ -137,7 +137,7 @@ class TransactionHeader extends Component {
       transactions,
       breakpoints: { isMobile }
     } = this.props
-    const isSubcategory = !!router.params.subcategoryName
+    const isSubcategory = this.isSubcategory()
     const withChart = flag('transaction-history')
     const colorProps = { color: withChart ? 'primary' : 'default' }
 
