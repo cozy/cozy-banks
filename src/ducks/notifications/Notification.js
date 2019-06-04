@@ -1,5 +1,6 @@
 import log from 'cozy-logger'
-import { getBanksUrl } from './helpers'
+import './url-polyfill'
+import { generateUniversalLink } from 'cozy-ui/transpiled/react/AppLinker'
 import Handlebars from 'handlebars'
 
 class Notification {
@@ -10,15 +11,29 @@ class Notification {
 
     const cozyUrl = this.cozyClient._url
 
-    this.urls = {
-      banksUrl: getBanksUrl(cozyUrl),
-      balancesUrl: getBanksUrl(cozyUrl, '/balances'),
-      transactionsUrl: getBanksUrl(cozyUrl, '/transactions'),
-      settingsUrl: getBanksUrl(cozyUrl, '/settings/configuration')
-    }
+    this.urls = this.generateURLs(cozyUrl)
 
     const tGlobal = (key, data) => this.t('Notifications.email.' + key, data)
     Handlebars.registerHelper({ tGlobal })
+  }
+
+  static generateURLs(cozyUrl) {
+    const commonOpts = { cozyUrl, slug: 'banks' }
+    return {
+      banksUrl: generateUniversalLink({ ...commonOpts }),
+      balancesUrl: generateUniversalLink({
+        ...commonOpts,
+        nativePath: '/balances'
+      }),
+      transactionsUrl: generateUniversalLink({
+        ...commonOpts,
+        nativePath: '/transactions'
+      }),
+      settingsUrl: generateUniversalLink({
+        ...commonOpts,
+        nativePath: '/settings/configuration'
+      })
+    }
   }
 
   async sendNotification() {
