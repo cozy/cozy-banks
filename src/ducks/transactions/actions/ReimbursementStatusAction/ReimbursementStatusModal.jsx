@@ -38,7 +38,7 @@ class _ReimbursementStatusModal extends React.PureComponent {
                   label={t(`Transactions.reimbursementStatus.${choice}`)}
                   checked={status === choice}
                   onChange={onChange}
-                  className="u-mb-0"
+                  className={cx('u-mb-0', styles.Radio)}
                 />
               </Row>
             ))}
