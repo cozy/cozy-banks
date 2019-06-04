@@ -67,12 +67,7 @@ class TransactionHeader extends Component {
   }
 
   displayBreadcrumb = () => {
-    const { t, breakpoints, router } = this.props
-
-    if (breakpoints.isMobile || !this.isSubcategory()) {
-      return
-    }
-
+    const { t, router } = this.props
     const { categoryName, subcategoryName } = router.params
     const breadcrumbItems = [
       {
@@ -133,14 +128,12 @@ class TransactionHeader extends Component {
 
   render() {
     const {
-      router,
       transactions,
       breakpoints: { isMobile }
     } = this.props
     const isSubcategory = this.isSubcategory()
     const withChart = flag('transaction-history')
     const colorProps = { color: withChart ? 'primary' : 'default' }
-
     return (
       <Header {...colorProps} fixed>
         <Padded className={isMobile ? 'u-p-0' : 'u-pb-half'}>
@@ -159,10 +152,8 @@ class TransactionHeader extends Component {
         >
           {this.displaySelectDates()}
         </Padded>
-        {isSubcategory && (
-          <Padded className={isMobile ? 'u-p-0' : 'u-pt-0'}>
-            {this.displayBreadcrumb()}
-          </Padded>
+        {isSubcategory && !isMobile && (
+          <Padded className="u-pt-0">{this.displayBreadcrumb()}</Padded>
         )}
         {transactions.length > 0 && (
           <TableHead isSubcategory={isSubcategory} {...colorProps} />
