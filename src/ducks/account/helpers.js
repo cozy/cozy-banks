@@ -8,6 +8,7 @@ import { isHealthExpense } from 'ducks/categories/helpers'
 import { differenceInCalendarDays, isThisYear } from 'date-fns'
 import flag from 'cozy-flags'
 import { BankAccount } from 'cozy-doctypes'
+import { ACCOUNT_DOCTYPE } from 'doctypes'
 
 const PARTS_TO_DELETE = ['(sans Secure Key)']
 
@@ -146,6 +147,7 @@ export const buildHealthReimbursementsVirtualAccount = transactions => {
 
   const account = {
     _id: 'health_reimbursements',
+    _type: ACCOUNT_DOCTYPE,
     label: 'Data.virtualAccounts.healthReimbursements',
     balance,
     type: 'Reimbursements',

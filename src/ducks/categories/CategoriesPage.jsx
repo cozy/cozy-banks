@@ -4,11 +4,15 @@ import { connect } from 'react-redux'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import Loading from 'components/Loading'
 import { Padded } from 'components/Spacing'
-import { getFilteredTransactions } from 'ducks/filters'
+import {
+  getFilteredTransactions,
+  resetFilterByDoc,
+  getFilteringDoc
+} from 'ducks/filters'
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import { transactionsByCategory, computeCategorieData } from './helpers'
 import Categories from 'ducks/categories/Categories'
-import { flowRight as compose, sortBy, some } from 'lodash'
+import { flowRight as compose, sortBy, some, includes } from 'lodash'
 import CategoriesHeader from 'ducks/categories/CategoriesHeader'
 import { queryConnect } from 'cozy-client'
 import { withMutations } from 'cozy-client'
@@ -25,6 +29,16 @@ import flag from 'cozy-flags'
 const barTheme = flag('categories-header-primary') ? 'primary' : 'default'
 
 class CategoriesPage extends Component {
+  componentDidMount() {
+    const { filteringDoc, resetFilterByDoc } = this.props
+    if (
+      filteringDoc &&
+      includes(['Reimbursements', 'health_reimbursements'], filteringDoc._id)
+    ) {
+      resetFilterByDoc()
+    }
+  }
+
   selectCategory = (selectedCategory, subcategory) => {
     if (subcategory) {
       this.props.router.push(`/categories/${selectedCategory}/${subcategory}`)
@@ -117,6 +131,10 @@ class CategoriesPage extends Component {
   }
 }
 
+const mapDispatchToProps = dispatch => ({
+  resetFilterByDoc: () => dispatch(resetFilterByDoc())
+})
+
 const mapStateToProps = (state, ownProps) => {
   const { transactions, accounts, groups } = ownProps
   const enhancedState = {
@@ -130,7 +148,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     categories: computeCategorieData(
       transactionsByCategory(filteredTransactions)
-    )
+    ),
+    filteringDoc: getFilteringDoc(state)
   }
 }
 
@@ -145,5 +164,8 @@ export default compose(
     settings: settingsConn,
     groups: groupsConn
   }),
-  connect(mapStateToProps)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
 )(CategoriesPage)
