@@ -76,9 +76,15 @@ describe('Balance page', () => {
 
     it('should correctly start realtime fallback', () => {
       setup()
-      jest.spyOn(global, 'setInterval').mockReset().mockImplementation(() => 1337)
+      jest
+        .spyOn(global, 'setInterval')
+        .mockReset()
+        .mockImplementation(() => 1337)
       instance.startRealtimeFallback()
-      expect(global.setInterval).toHaveBeenCalledWith(instance.updateQueries, 30000)
+      expect(global.setInterval).toHaveBeenCalledWith(
+        instance.updateQueries,
+        30000
+      )
       expect(global.setInterval).toHaveBeenCalledTimes(1)
       instance.startRealtimeFallback()
       expect(global.setInterval).toHaveBeenCalledTimes(1)
@@ -86,8 +92,14 @@ describe('Balance page', () => {
 
     it('should correctly stop realtime fallback', () => {
       setup()
-      jest.spyOn(global, 'setInterval').mockReset().mockImplementation(() => 1337)
-      jest.spyOn(global, 'clearInterval').mockReset().mockImplementation(() => {})
+      jest
+        .spyOn(global, 'setInterval')
+        .mockReset()
+        .mockImplementation(() => 1337)
+      jest
+        .spyOn(global, 'clearInterval')
+        .mockReset()
+        .mockImplementation(() => {})
       instance.startRealtimeFallback()
       instance.stopRealtimeFallback()
       expect(global.clearInterval).toHaveBeenCalledWith(1337)
