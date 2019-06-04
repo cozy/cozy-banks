@@ -276,8 +276,8 @@ class Categories extends Component {
                 />
               </Img>
             </Media>
+            <PercentageLine value={percentage} color={category.color} />
           </td>
-          <PercentageLine value={percentage} color={category.color} />
         </tr>
       ),
       ...(isCollapsed || subcategory
