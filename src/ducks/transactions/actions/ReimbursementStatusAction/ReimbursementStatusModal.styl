@@ -2,5 +2,13 @@
     color var(--coolGrey)
 
 .Radio
+    width 100%
     height 3rem // Give the same height as the List row
     align-items center // Should be removed when https://github.com/cozy/cozy-ui/pull/1026 is merged
+
+
+// Fix fastclick issue
+// To remove when https://github.com/cozy/cozy-ui/issues/1027 is solved
+// https://github.com/ftlabs/fastclick/issues/60
+label.Radio > *
+    pointer-events none
