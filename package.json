@@ -96,7 +96,7 @@
     "babel-preset-cozy-app": "1.5.1",
     "commitlint-config-cozy": "0.3.24",
     "copy-webpack-plugin": "5.0.2",
-    "cozy-ach": "1.18.0",
+    "cozy-ach": "1.20.0",
     "cozy-app-publish": "0.15.0",
     "cozy-jobs-cli": "1.8.9",
     "css-loader": "2.1.1",
