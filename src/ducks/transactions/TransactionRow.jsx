@@ -228,9 +228,7 @@ class _RowMobile extends React.PureComponent {
 }
 
 _RowMobile.propTypes = {
-  transaction: PropTypes.object.isRequired,
-  urls: PropTypes.object.isRequired,
-  brands: PropTypes.array.isRequired
+  transaction: PropTypes.object.isRequired
 }
 
 export const RowMobile = translate()(_RowMobile)
