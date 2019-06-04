@@ -17,6 +17,7 @@ import { Title } from 'cozy-ui/react/Text'
 import { Padded } from 'components/Spacing'
 import { Figure } from 'components/Figure'
 import styles from 'ducks/reimbursements/HealthReimbursements.styl'
+import Loading from 'components/Loading'
 
 class DumbHealthReimbursements extends Component {
   getGroups() {
@@ -24,8 +25,12 @@ class DumbHealthReimbursements extends Component {
   }
 
   render() {
-    const { filteredTransactions, t } = this.props
+    const { filteredTransactions, fetchStatus, t } = this.props
     const reimbursementTagFlag = flag('reimbursement-tag')
+
+    if (fetchStatus !== 'loaded') {
+      return <Loading />
+    }
 
     // This grouping logic should be extracted to a selector, so this is
     // easily memoizable
@@ -88,6 +93,7 @@ function mapStateToProps(state, ownProps) {
   }
 
   return {
+    fetchStatus: ownProps.transactions.fetchStatus,
     filteredTransactions: getHealthExpensesByPeriod(enhancedState)
   }
 }
