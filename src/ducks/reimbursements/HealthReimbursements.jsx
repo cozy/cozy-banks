@@ -62,25 +62,37 @@ class DumbHealthReimbursements extends Component {
             {t('Reimbursements.awaiting')}
           </Title>
         </Padded>
-        <TransactionsWithSelection
-          transactions={pendingTransactions}
-          brands={this.props.brands}
-          urls={this.props.urls}
-          withScroll={false}
-          className={styles.HealthReimbursements__transactionsList}
-        />
+        {pendingTransactions ? (
+          <TransactionsWithSelection
+            transactions={pendingTransactions}
+            brands={this.props.brands}
+            urls={this.props.urls}
+            withScroll={false}
+            className={styles.HealthReimbursements__transactionsList}
+          />
+        ) : (
+          <Padded className="u-pv-0">
+            <p>{t('Reimbursements.noAwaiting')}</p>
+          </Padded>
+        )}
         <Padded className="u-pv-0">
           <Title className={styles.HealthReimbursements__title}>
             {t('Reimbursements.alreadyReimbursed')}
           </Title>
         </Padded>
-        <TransactionsWithSelection
-          transactions={reimbursedTransactions}
-          brands={this.props.brands}
-          urls={this.props.urls}
-          withScroll={false}
-          className={styles.HealthReimbursements__transactionsList}
-        />
+        {reimbursedTransactions ? (
+          <TransactionsWithSelection
+            transactions={reimbursedTransactions}
+            brands={this.props.brands}
+            urls={this.props.urls}
+            withScroll={false}
+            className={styles.HealthReimbursements__transactionsList}
+          />
+        ) : (
+          <Padded className="u-pv-0">
+            <p>{t('Reimbursements.noReimbursed')}</p>
+          </Padded>
+        )}
       </>
     )
   }
