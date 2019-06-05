@@ -19,6 +19,7 @@ import { Padded } from 'components/Spacing'
 import { Figure } from 'components/Figure'
 import styles from 'ducks/reimbursements/HealthReimbursements.styl'
 import Loading from 'components/Loading'
+import { KonnectorChip } from 'components/KonnectorChip'
 
 const Caption = props => {
   const { className, ...rest } = props
@@ -98,6 +99,10 @@ class DumbHealthReimbursements extends Component {
         ) : (
           <Padded className="u-pv-0">
             <Caption>{t('Reimbursements.noReimbursed')}</Caption>
+            <KonnectorChip
+              onClick={() => console.log('clicked')}
+              konnectorType="health"
+            />
           </Padded>
         )}
       </>
