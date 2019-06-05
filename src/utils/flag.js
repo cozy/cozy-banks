@@ -40,4 +40,7 @@ flag('categories-header-primary', true)
 // Turn on history chart on movements page
 flag('transaction-history', true)
 
+// Turn on reimbursement tags + new CTAs UI
+flag('reimbursement-tag', true)
+
 window.flag = flag
