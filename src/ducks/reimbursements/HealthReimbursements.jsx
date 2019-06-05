@@ -20,6 +20,7 @@ import { Figure } from 'components/Figure'
 import styles from 'ducks/reimbursements/HealthReimbursements.styl'
 import Loading from 'components/Loading'
 import { KonnectorChip } from 'components/KonnectorChip'
+import { StoreLink } from 'components/StoreLink'
 
 const Caption = props => {
   const { className, ...rest } = props
@@ -99,10 +100,9 @@ class DumbHealthReimbursements extends Component {
         ) : (
           <Padded className="u-pv-0">
             <Caption>{t('Reimbursements.noReimbursed')}</Caption>
-            <KonnectorChip
-              onClick={() => console.log('clicked')}
-              konnectorType="health"
-            />
+            <StoreLink type="konnector" category="insurance">
+              <KonnectorChip konnectorType="health" />
+            </StoreLink>
           </Padded>
         )}
       </>
