@@ -1,14 +1,11 @@
-language: node_js
-node_js:
-  - '8'
-cache:
-  directories:
-    - node_modules
-before_deploy:
-  - openssl aes-256-cbc -K $encrypted_5a663823105c_key -iv $encrypted_5a663823105c_iv -in ./scripts/id_rsa.enc -out /tmp/deploy_rsa -d
-  - eval "$(ssh-agent -s)"
-  - chmod 600 /tmp/deploy_rsa
-  - ssh-add /tmp/deploy_rsa
+node-preset: &node # Used internally to share configuration, ignored by travis.
+  language: node_js
+  node_js:
+    - "8"
+  cache:
+    yarn: true
+    directories:
+      - node_modules
 branches:
   only:
   - master
@@ -19,33 +16,41 @@ stages:
   - build
 jobs:
   include:
-    - &test_unit
+    - name: Unit tests
       stage: test
-      script: yarn lint && yarn test
-      name: Unit tests
-      os: linux
-    - &build_web
+      <<: *node
+      script:
+        - yarn lint
+        - yarn test
+    - name: Web build
       stage: build
-      script: yarn build
-      name: Web build
-      os: linux
+      <<: *node
+      script:
+        - yarn build
+      before_deploy:
+        - openssl aes-256-cbc -K $encrypted_5a663823105c_key -iv $encrypted_5a663823105c_iv -in ./scripts/id_rsa.enc -out /tmp/deploy_rsa -d
+        - eval "$(ssh-agent -s)"
+        - chmod 600 /tmp/deploy_rsa
+        - ssh-add /tmp/deploy_rsa
       deploy:
         - provider: script
           repo: cozy/cozy-banks
           skip-cleanup: true
-          script: yarn cozyPublish && yarn uploadStaticFiles
+          script:
+            - yarn cozyPublish
+            - yarn uploadStaticFiles
           on:
             branch: master
         - provider: script
           repo: cozy/cozy-banks
           skip-cleanup: true
-          script: yarn cozyPublish && yarn uploadStaticFiles
+          script:
+            - yarn cozyPublish
+            - yarn uploadStaticFiles
           on:
             tags: true
-    - &build_android
+    - name: Android build
       stage: build
-      script: yarn android:build
-      name: Android build
       os: linux
       language: android
       android:
@@ -57,6 +62,8 @@ jobs:
         - sudo apt-get install build-essential
         - yarn
         - yarn mobile:icon
+      script:
+        - yarn android:build
 env:
   global:
     - MATTERMOST_CHANNEL=Gangsters-release
