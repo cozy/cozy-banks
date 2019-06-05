@@ -4,6 +4,7 @@ import { queryConnect } from 'cozy-client'
 import { transactionsConn } from 'doctypes'
 import { flowRight as compose, sumBy, groupBy } from 'lodash'
 import flag from 'cozy-flags'
+import cx from 'classnames'
 import { getHealthExpensesByPeriod } from 'ducks/filters'
 import { TransactionsWithSelection } from 'ducks/transactions/Transactions'
 import withBrands from 'ducks/brandDictionary/withBrands'
@@ -18,6 +19,12 @@ import { Padded } from 'components/Spacing'
 import { Figure } from 'components/Figure'
 import styles from 'ducks/reimbursements/HealthReimbursements.styl'
 import Loading from 'components/Loading'
+
+const Caption = props => {
+  const { className, ...rest } = props
+
+  return <p className={cx(styles.Caption, className)} {...rest} />
+}
 
 class DumbHealthReimbursements extends Component {
   getGroups() {
@@ -72,7 +79,7 @@ class DumbHealthReimbursements extends Component {
           />
         ) : (
           <Padded className="u-pv-0">
-            <p>{t('Reimbursements.noAwaiting')}</p>
+            <Caption>{t('Reimbursements.noAwaiting')}</Caption>
           </Padded>
         )}
         <Padded className="u-pv-0">
@@ -90,7 +97,7 @@ class DumbHealthReimbursements extends Component {
           />
         ) : (
           <Padded className="u-pv-0">
-            <p>{t('Reimbursements.noReimbursed')}</p>
+            <Caption>{t('Reimbursements.noReimbursed')}</Caption>
           </Padded>
         )}
       </>
