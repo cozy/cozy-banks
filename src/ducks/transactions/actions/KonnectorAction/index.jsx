@@ -4,8 +4,6 @@ import { flowRight as compose } from 'lodash'
 import { findMatchingBrand } from 'ducks/brandDictionary'
 import { translate } from 'cozy-ui/react'
 import ButtonAction from 'cozy-ui/react/ButtonAction'
-import Chip from 'cozy-ui/react/Chip'
-import Icon from 'cozy-ui/react/Icon'
 import flag from 'cozy-flags'
 import icon from 'assets/icons/actions/icon-link-out.svg'
 import styles from 'ducks/transactions/TransactionActions.styl'
@@ -16,6 +14,7 @@ import InformativeModal from 'ducks/transactions/actions/KonnectorAction/Informa
 import ConfigurationModal from 'ducks/transactions/actions/KonnectorAction/ConfigurationModal'
 import { getBrandsWithoutTrigger } from 'ducks/transactions/actions/KonnectorAction/helpers'
 import match from 'ducks/transactions/actions/KonnectorAction/match'
+import { KonnectorChip } from 'components/KonnectorChip'
 
 const name = 'konnector'
 
@@ -76,19 +75,14 @@ class Component extends React.Component {
     )
   }
 
-  renderTransactionRow(label) {
+  renderTransactionRow(label, brand) {
     const { compact } = this.props
 
     return flag('reimbursement-tag') ? (
-      <Chip
-        size="small"
-        variant="dashed"
-        theme="primary"
+      <KonnectorChip
         onClick={this.showInformativeModal}
-      >
-        <Icon icon="plus" className="u-mr-half" />
-        {label}
-      </Chip>
+        konnectorType={brand.health ? 'health' : 'generic'}
+      />
     ) : (
       <ButtonAction
         label={label}
@@ -115,7 +109,7 @@ class Component extends React.Component {
       <>
         {isModalItem
           ? this.renderModalItem(label)
-          : this.renderTransactionRow(label)}
+          : this.renderTransactionRow(label, brand)}
         {this.state.showInformativeModal && (
           <InformativeModal
             onCancel={this.hideInformativeModal}

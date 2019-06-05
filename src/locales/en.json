@@ -591,5 +591,10 @@
     "alreadyReimbursed": "Already reimbursed",
     "noAwaiting": "No awaiting reimbursement.",
     "noReimbursed": "Automatically detect your health reimbursements by connecting your health insurance to your Cozy."
+  },
+
+  "KonnectorChip": {
+    "health": "My reimbursements",
+    "generic": "My invoices"
   }
 }
