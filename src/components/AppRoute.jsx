@@ -16,6 +16,7 @@ import {
   Debug
 } from 'ducks/settings'
 import { Balance } from 'ducks/balance'
+import { TransferPage } from 'ducks/transfers'
 import UserActionRequired from 'components/UserActionRequired'
 
 // Use a function to delay instantation and have access to AppRoute.renderExtraRoutes
@@ -48,6 +49,7 @@ const AppRoute = () => (
           <Route path="debug" component={Debug} />
         </Route>
       </Route>
+      <Route path="transfers" component={TransferPage} />
       {AppRoute.renderExtraRoutes()}
       <Redirect from="*" to="balances" />
     </Route>
