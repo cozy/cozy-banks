@@ -83,7 +83,7 @@
     },
     {
       "_id": "compteisa3",
-      "label": "Isabelle savngs",
+      "label": "Isabelle savings",
       "institutionLabel": "La Banque Postale",
       "number": "7546694",
       "balance": 11635.12,
@@ -120,7 +120,7 @@
       "label": "Genevieve checkings",
       "institutionLabel": "CA",
       "number": "5652653",
-      "balance": 22471.46,
+      "balance": 5471.46,
       "type": "Checkings",
       "id": "comptegene1",
       "recipients": [
@@ -1233,7 +1233,7 @@
       "label": "Vente-Privée.com",
       "currency": "EUR",
       "amount": -78.35,
-      "date": "{{ freshDate '2018-10-18T22:00:00.000Z' }}",
+      "date": "{{ freshDate '2018-10-21T22:00:00.000Z' }}",
       "_id": "demo_venteprivee",
       "bills": [
         "io.cozy.bills:demo_venteprivee"
@@ -1382,8 +1382,8 @@
       "account": "compteisa1",
       "label": "FRANPRIX",
       "currency": "€",
-      "amount": -48.22,
-      "date": "{{ freshDate '2018-10-21T00:00:00Z' }}",
+      "amount": -148.22,
+      "date": "{{ freshDate '2018-11-21T00:00:00Z' }}",
       "_id": "c5d3364d147d8dc5da80fc9e354ae98d"
     },
     {
@@ -1676,6 +1676,33 @@
       "date": "{{ freshDate '2018-11-17T00:00:00Z' }}",
       "label": "REMBOURSEMENT PRET LCL",
       "_id": "isa_remboursement_pret_lcl_nov_2018"
+    },
+    {
+      "account": "compteisa1",
+      "amount": -1231,
+      "manualCategoryId": "401010",
+      "currency": "€",
+      "date": "{{ freshDate '2018-11-27T00:00:00Z' }}",
+      "label": "REMBOURSEMENT PRET IMMO",
+      "_id": "isa_remboursement_pret_immo_nov_2018"
+    },
+    {
+      "account": "compteisa1",
+      "amount": -243.90,
+      "manualCategoryId": "400130",
+      "currency": "€",
+      "date": "{{ freshDate '2018-11-21T00:00:00Z' }}",
+      "label": "ZARA",
+      "_id": "isa_zara_nov_2018"
+    },
+    {
+      "account": "comptegene1",
+      "amount": 3870.54,
+      "manualCategoryId": "200110",
+      "currency": "€",
+      "date": "{{ freshDate '2018-12-01T00:00:00Z' }}",
+      "label": "SALAIRE GENEVIEVE DURAND",
+      "_id": "gen_salaire_dec_2018"
     },
     {
       "account": "comptegene1",
