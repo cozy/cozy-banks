@@ -21,7 +21,8 @@ module.exports = {
         'src/components/SelectDates/SelectDates.jsx',
         'src/components/Select/index.jsx',
         'src/components/Switch.jsx',
-        'src/components/PageModal/PageModal.jsx'
+        'src/components/PageModal/PageModal.jsx',
+        'src/components/KonnectorChip/index.js'
       ]
     },
     {

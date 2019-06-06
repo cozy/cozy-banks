@@ -4,6 +4,7 @@ import { queryConnect } from 'cozy-client'
 import { transactionsConn } from 'doctypes'
 import { flowRight as compose, sumBy, groupBy } from 'lodash'
 import flag from 'cozy-flags'
+import cx from 'classnames'
 import { getHealthExpensesByPeriod } from 'ducks/filters'
 import { TransactionsWithSelection } from 'ducks/transactions/Transactions'
 import withBrands from 'ducks/brandDictionary/withBrands'
@@ -13,13 +14,33 @@ import {
   getReimbursementStatus
 } from 'ducks/transactions/helpers'
 import { translate } from 'cozy-ui/react'
-import { Title } from 'cozy-ui/react/Text'
+import { Title as BaseTitle } from 'cozy-ui/react/Text'
 import { Padded } from 'components/Spacing'
 import { Figure } from 'components/Figure'
 import styles from 'ducks/reimbursements/HealthReimbursements.styl'
 import Loading from 'components/Loading'
+import { KonnectorChip } from 'components/KonnectorChip'
+import { StoreLink } from 'components/StoreLink'
+import { Section } from 'components/Section'
 
-class DumbHealthReimbursements extends Component {
+const Caption = props => {
+  const { className, ...rest } = props
+
+  return <p className={cx(styles.Caption, className)} {...rest} />
+}
+
+const Title = props => {
+  const { className, ...rest } = props
+
+  return (
+    <BaseTitle
+      className={cx(styles.HealthReimbursements__title, className)}
+      {...rest}
+    />
+  )
+}
+
+export class DumbHealthReimbursements extends Component {
   getGroups() {
     return groupBy(this.props.filteredTransactions, getReimbursementStatus)
   }
@@ -51,36 +72,55 @@ class DumbHealthReimbursements extends Component {
 
     return (
       <>
-        <Padded className="u-pv-0">
-          <Title className={styles.HealthReimbursements__title}>
-            <Figure
-              symbol="€"
-              total={pendingAmount}
-              className={styles.HealthReimbursements__figure}
-              signed
-            />{' '}
-            {t('Reimbursements.awaiting')}
+        <Section>
+          <Title>
+            <Padded className="u-pv-0">
+              <Figure
+                symbol="€"
+                total={pendingAmount}
+                className={styles.HealthReimbursements__figure}
+                signed
+              />{' '}
+              {t('Reimbursements.awaiting')}
+            </Padded>
           </Title>
-        </Padded>
-        <TransactionsWithSelection
-          transactions={pendingTransactions}
-          brands={this.props.brands}
-          urls={this.props.urls}
-          withScroll={false}
-          className={styles.HealthReimbursements__transactionsList}
-        />
-        <Padded className="u-pv-0">
-          <Title className={styles.HealthReimbursements__title}>
-            {t('Reimbursements.alreadyReimbursed')}
+          {pendingTransactions ? (
+            <TransactionsWithSelection
+              transactions={pendingTransactions}
+              brands={this.props.brands}
+              urls={this.props.urls}
+              withScroll={false}
+              className={styles.HealthReimbursements__transactionsList}
+            />
+          ) : (
+            <Padded className="u-pv-0">
+              <Caption>{t('Reimbursements.noAwaiting')}</Caption>
+            </Padded>
+          )}
+        </Section>
+        <Section>
+          <Title>
+            <Padded className="u-pv-0">
+              {t('Reimbursements.alreadyReimbursed')}
+            </Padded>
           </Title>
-        </Padded>
-        <TransactionsWithSelection
-          transactions={reimbursedTransactions}
-          brands={this.props.brands}
-          urls={this.props.urls}
-          withScroll={false}
-          className={styles.HealthReimbursements__transactionsList}
-        />
+          {reimbursedTransactions ? (
+            <TransactionsWithSelection
+              transactions={reimbursedTransactions}
+              brands={this.props.brands}
+              urls={this.props.urls}
+              withScroll={false}
+              className={styles.HealthReimbursements__transactionsList}
+            />
+          ) : (
+            <Padded className="u-pv-0">
+              <Caption>{t('Reimbursements.noReimbursed')}</Caption>
+              <StoreLink type="konnector" category="insurance">
+                <KonnectorChip konnectorType="health" />
+              </StoreLink>
+            </Padded>
+          )}
+        </Section>
       </>
     )
   }

@@ -540,6 +540,14 @@
   "Reimbursements": {
     "title": "Remboursements",
     "awaiting": "en attente",
-    "alreadyReimbursed": "Déjà remboursés"
+    "alreadyReimbursed": "Déjà remboursés",
+    "noAwaiting": "Aucun remboursement attendu.",
+    "noReimbursed": "Détecter automatiquement vos remboursements en connectant votre assurance santé à votre Cozy."
+  },
+
+
+  "KonnectorChip": {
+    "health": "Mes remboursements",
+    "generic": "Mes factures"
   }
 }
