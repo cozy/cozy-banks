@@ -5,6 +5,7 @@ import { withClient, queryConnect } from 'cozy-client'
 import compose from 'lodash/flowRight'
 import Loading from 'components/Loading'
 import Alerter from 'cozy-ui/react/Alerter'
+import { logException } from 'lib/sentry'
 
 const transfers = {
   /**
@@ -48,6 +49,7 @@ class DumbRecipient extends React.Component {
       this.clearInput()
     } catch (e) {
       console.error(e) // eslint-disable-line no-console
+      logException(e)
       Alerter.error('Could not create transfer, check console')
     } finally {
       this.setState({ sending: false })
@@ -93,7 +95,7 @@ class DumbRecipient extends React.Component {
     const { recipient } = this.props
     const { sending } = this.state
     return (
-      <Text key={recipient._id} className="u-mb-1">
+      <Text className="u-mb-1">
         {recipient.label}
         <br />
         {recipient.iban}
@@ -145,7 +147,6 @@ class TransferPage extends React.Component {
 }
 
 const enhance = compose(
-  withClient,
   queryConnect({
     recipients: {
       query: client => client.all('io.cozy.bank.recipients'),
