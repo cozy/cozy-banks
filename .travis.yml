@@ -64,6 +64,9 @@ jobs:
         - yarn mobile:icon
         - yarn secrets:decrypt
         - ln -s ../../../scripts/decrypted/keys ./src/targets/mobile/keys
+        - gem update --system
+        - rvm install 2.6.0
+        - gem install bundler
       script:
         - yarn android:build
 env:
