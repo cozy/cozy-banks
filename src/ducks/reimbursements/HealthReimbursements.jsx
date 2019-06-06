@@ -21,6 +21,7 @@ import styles from 'ducks/reimbursements/HealthReimbursements.styl'
 import Loading from 'components/Loading'
 import { KonnectorChip } from 'components/KonnectorChip'
 import { StoreLink } from 'components/StoreLink'
+import { Section } from 'components/Section'
 
 const Caption = props => {
   const { className, ...rest } = props
@@ -71,49 +72,55 @@ class DumbHealthReimbursements extends Component {
 
     return (
       <>
-        <Padded className="u-pv-0">
+        <Section>
           <Title>
-            <Figure
-              symbol="€"
-              total={pendingAmount}
-              className={styles.HealthReimbursements__figure}
-              signed
-            />{' '}
-            {t('Reimbursements.awaiting')}
+            <Padded className="u-pv-0">
+              <Figure
+                symbol="€"
+                total={pendingAmount}
+                className={styles.HealthReimbursements__figure}
+                signed
+              />{' '}
+              {t('Reimbursements.awaiting')}
+            </Padded>
           </Title>
-        </Padded>
-        {pendingTransactions ? (
-          <TransactionsWithSelection
-            transactions={pendingTransactions}
-            brands={this.props.brands}
-            urls={this.props.urls}
-            withScroll={false}
-            className={styles.HealthReimbursements__transactionsList}
-          />
-        ) : (
-          <Padded className="u-pv-0">
-            <Caption>{t('Reimbursements.noAwaiting')}</Caption>
-          </Padded>
-        )}
-        <Padded className="u-pv-0">
-          <Title>{t('Reimbursements.alreadyReimbursed')}</Title>
-        </Padded>
-        {reimbursedTransactions ? (
-          <TransactionsWithSelection
-            transactions={reimbursedTransactions}
-            brands={this.props.brands}
-            urls={this.props.urls}
-            withScroll={false}
-            className={styles.HealthReimbursements__transactionsList}
-          />
-        ) : (
-          <Padded className="u-pv-0">
-            <Caption>{t('Reimbursements.noReimbursed')}</Caption>
-            <StoreLink type="konnector" category="insurance">
-              <KonnectorChip konnectorType="health" />
-            </StoreLink>
-          </Padded>
-        )}
+          {pendingTransactions ? (
+            <TransactionsWithSelection
+              transactions={pendingTransactions}
+              brands={this.props.brands}
+              urls={this.props.urls}
+              withScroll={false}
+              className={styles.HealthReimbursements__transactionsList}
+            />
+          ) : (
+            <Padded className="u-pv-0">
+              <Caption>{t('Reimbursements.noAwaiting')}</Caption>
+            </Padded>
+          )}
+        </Section>
+        <Section>
+          <Title>
+            <Padded className="u-pv-0">
+              {t('Reimbursements.alreadyReimbursed')}
+            </Padded>
+          </Title>
+          {reimbursedTransactions ? (
+            <TransactionsWithSelection
+              transactions={reimbursedTransactions}
+              brands={this.props.brands}
+              urls={this.props.urls}
+              withScroll={false}
+              className={styles.HealthReimbursements__transactionsList}
+            />
+          ) : (
+            <Padded className="u-pv-0">
+              <Caption>{t('Reimbursements.noReimbursed')}</Caption>
+              <StoreLink type="konnector" category="insurance">
+                <KonnectorChip konnectorType="health" />
+              </StoreLink>
+            </Padded>
+          )}
+        </Section>
       </>
     )
   }
