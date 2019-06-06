@@ -5073,7 +5073,7 @@ cozy-realtime@3.0.0-beta.11:
   dependencies:
     minilog "3.1.0"
 
-cozy-stack-client@6.43, cozy-stack-client@^6.43.0:
+cozy-stack-client@6.43.1, cozy-stack-client@^6.43.0:
   version "6.43.1"
   resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.43.1.tgz#716bf2914fedca86d9d74c1a31f81edfdc8d960b"
   integrity sha512-GhjANhBl6UlBSxuzn/3sKo5zvOEsYAfX198Sn174ejRu9r3v7EHc630OU8bf/lMuv0qFe15Sa5bHW20ue8ac0A==
