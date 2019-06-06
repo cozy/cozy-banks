@@ -1,3 +1,7 @@
+# Encrypted files
+scripts/decrypted
+scripts/decrypted.tar.gz
+
 # NPM
 node_modules/
 npm-debug.log
