@@ -45,11 +45,13 @@ class DumbRecipient extends React.Component {
     try {
       this.setState({ sending: true })
       await this.transferMoney()
+      // TODO translate
       Alerter.success('Transfer successfully sent')
       this.clearInput()
     } catch (e) {
       console.error(e) // eslint-disable-line no-console
       logException(e)
+      // TODO translate
       Alerter.error('Could not create transfer, check console')
     } finally {
       this.setState({ sending: false })
@@ -94,6 +96,8 @@ class DumbRecipient extends React.Component {
   render() {
     const { recipient } = this.props
     const { sending } = this.state
+
+    // TODO translate
     return (
       <Text className="u-mb-1">
         {recipient.label}
