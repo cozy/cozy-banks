@@ -117,6 +117,15 @@
       "type": "io.cozy.bank.operations",
       "verbs": ["GET", "POST", "PUT"]
     },
+    "bank.settings": {
+      "description": "Used to manage your bank settings",
+      "type": "io.cozy.bank.settings",
+      "verbs": ["GET", "POST", "PUT"]
+    },
+    "bank.recipients": {
+      "description": "Show recipients of transfers",
+      "type": "io.cozy.bank.recipients"
+    },
     "bills": {
       "description": "Manage bills",
       "type": "io.cozy.bills",
@@ -136,11 +145,6 @@
       "description": "Used to add CTA to collect",
       "type": "io.cozy.triggers",
       "verbs": ["GET"]
-    },
-    "bank.settings": {
-      "description": "Used to manage your bank settings",
-      "type": "io.cozy.bank.settings",
-      "verbs": ["GET", "POST", "PUT"]
     },
     "settings": {
       "description": "Required by the cozy-bar to display Claudy and know which applications are coming soon",
