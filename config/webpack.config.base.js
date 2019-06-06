@@ -2,7 +2,7 @@
 
 const path = require('path')
 const webpack = require('webpack')
-const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
+const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin')
 
 const { production, SRC_DIR, enabledFlags } = require('./webpack.vars')
 const pkg = require(path.resolve(__dirname, '../package.json'))
@@ -52,7 +52,7 @@ module.exports = {
         'pouchdb-md5',
         'pouchdb-utils'
       ]),
-      
+
       // We do not need mime-db (used in cozy-stack-client::FileCollection) so we fake it
       'mime-db': path.resolve(__dirname, '../src/utils/empty-mime-db'),
 
@@ -60,7 +60,7 @@ module.exports = {
       // survive without it. We do not use date related functionality in chart.js
       // so it is safe to remove moment.
       // https://github.com/chartjs/Chart.js/blob/master/docs/getting-started/integration.md#bundlers-webpack-rollup-etc
-      moment: path.resolve(__dirname, '../src/utils/empty'),
+      moment: path.resolve(__dirname, '../src/utils/empty')
     }
   },
   module: {
@@ -83,7 +83,7 @@ module.exports = {
         include: [
           SRC_DIR,
           path.resolve(__dirname, '../docs'),
-          path.dirname(require.resolve('cozy-konnector-libs')),
+          path.dirname(require.resolve('cozy-konnector-libs'))
         ],
         loader: 'babel-loader',
         options: {
@@ -102,12 +102,20 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       __APP_VERSION__: JSON.stringify(pkg.version),
-      __SENTRY_URL__: JSON.stringify('https://ea2067ca88504d9cbc9115b55d0b2d55:e52e64f57486417bb1b5fa6529e1cfcb@sentry.cozycloud.cc/11'),
+      __SENTRY_URL__: JSON.stringify(
+        'https://ea2067ca88504d9cbc9115b55d0b2d55:e52e64f57486417bb1b5fa6529e1cfcb@sentry.cozycloud.cc/11'
+      ),
       __ENABLED_FLAGS__: JSON.stringify(enabledFlags)
     }),
     // ChartJS uses moment :( To remove when we do not use it anymore
-    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /(en|fr)\/index\.js/),
-    new webpack.ContextReplacementPlugin(/date-fns[\/\\]locale$/, /(en|fr)\/index\.js/),
-    new DuplicatePackageCheckerPlugin({ verbose: true }),
+    new webpack.ContextReplacementPlugin(
+      /moment[\/\\]locale$/,
+      /(en|fr)\/index\.js/
+    ),
+    new webpack.ContextReplacementPlugin(
+      /date-fns[\/\\]locale$/,
+      /(en|fr)\/index\.js/
+    ),
+    new DuplicatePackageCheckerPlugin({ verbose: true })
   ]
 }
