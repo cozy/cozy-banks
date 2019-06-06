@@ -40,7 +40,7 @@ const Title = props => {
   )
 }
 
-class DumbHealthReimbursements extends Component {
+export class DumbHealthReimbursements extends Component {
   getGroups() {
     return groupBy(this.props.filteredTransactions, getReimbursementStatus)
   }
