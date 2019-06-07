@@ -11,7 +11,7 @@ class Notification {
 
     const cozyUrl = this.cozyClient._url
 
-    this.urls = this.generateURLs(cozyUrl)
+    this.urls = this.constructor.generateURLs(cozyUrl)
 
     const tGlobal = (key, data) => this.t('Notifications.email.' + key, data)
     Handlebars.registerHelper({ tGlobal })
