@@ -121,7 +121,7 @@
     "mini-css-extract-plugin": "0.6.0",
     "mockdate": "2.0.2",
     "npm-run-all": "4.1.5",
-    "postcss": "7.0.14",
+    "postcss": "7.0.17",
     "postcss-assets-webpack-plugin": "3.0.0",
     "postcss-discard-duplicates": "4.0.2",
     "postcss-loader": "3.0.0",
