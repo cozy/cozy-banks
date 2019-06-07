@@ -4788,10 +4788,10 @@ cosmiconfig@^5.0.7:
     js-yaml "^3.9.0"
     parse-json "^4.0.0"
 
-cozy-ach@1.20.0:
-  version "1.20.0"
-  resolved "https://registry.yarnpkg.com/cozy-ach/-/cozy-ach-1.20.0.tgz#d15a5d704ef6868bca9494f42a62be63680cb43c"
-  integrity sha512-SjL0GL1dxtkonydFaG3/rR/jEbC0JlWmrC2Y41UEaX+yYiN79Zv0ftDMwpJbTw2CccjZRRu9xz16G0bImwNHEQ==
+cozy-ach@1.21.0:
+  version "1.21.0"
+  resolved "https://registry.yarnpkg.com/cozy-ach/-/cozy-ach-1.21.0.tgz#be782a07789b463b44ecff70c5f5301b117f1cc0"
+  integrity sha512-7vsakZtv9Jnu0KnhXvovYZE5EnJqXHkvwMj6bM/A7ukXzuRA+AchOY7ZDtk4cp4OaAylS4Nzx0DUGWCZywWgVg==
   dependencies:
     babel-runtime "6.26.0"
     btoa "1.2.1"
