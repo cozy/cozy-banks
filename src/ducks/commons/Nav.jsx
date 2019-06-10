@@ -2,6 +2,7 @@ import React from 'react'
 import { translate } from 'cozy-ui/react'
 import UINav, { NavItem, NavIcon, NavText, genNavLink } from 'cozy-ui/react/Nav'
 import { Link } from 'react-router'
+import flag from 'cozy-flags'
 
 import wallet from 'assets/icons/icon-wallet.svg'
 import graph from 'assets/icons/icon-graph.svg'
@@ -22,6 +23,15 @@ export const Nav = ({ t }) => (
         <NavText>{t('Nav.categorisation')}</NavText>
       </NavLink>
     </NavItem>
+    {flag('transfers') ? (
+      <NavItem>
+        <NavLink to="transfers">
+          {/* TODO change icon */}
+          <NavIcon icon={'arrow'} />
+          <NavText>{t('Transfer.nav')}</NavText>
+        </NavLink>
+      </NavItem>
+    ) : null}
     <NavItem>
       <NavLink to="settings">
         <NavIcon icon="gear" />
