@@ -24,8 +24,8 @@ const getReporterConfiguration = cozyClient => {
       const { auth, data } = options
       const parameters = {
         ...auth,
-        ...{ project: data.project },
-        ...{ data: JSON.stringify(data) }
+        project: data.project,
+        data: JSON.stringify(data)
       }
       cozyClient.stackClient
         .fetchJSON('POST', '/remote/cc.cozycloud.sentry', parameters)
