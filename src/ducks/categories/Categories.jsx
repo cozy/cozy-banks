@@ -12,6 +12,7 @@ import { Figure } from 'components/Figure'
 import styles from 'ducks/categories/styles.styl'
 import { flowRight as compose } from 'lodash'
 import { getCurrencySymbol } from 'utils/currencySymbol'
+import PercentageLine from 'components/PercentageLine'
 
 const stAmount = styles['bnk-table-amount']
 const stCategory = styles['bnk-table-category-category']
@@ -276,7 +277,11 @@ class Categories extends Component {
                 />
               </Img>
             </Media>
-            <PercentageLine value={percentage} color={category.color} />
+            <PercentageLine
+              className={styles.PercentageLine}
+              value={percentage}
+              color={category.color}
+            />
           </td>
         </tr>
       ),
@@ -288,16 +293,6 @@ class Categories extends Component {
     ]
   }
 }
-
-const PercentageLine = ({ value, color }) => (
-  <div
-    className={styles.PercentageLine}
-    style={{
-      width: `${value}%`,
-      backgroundColor: color
-    }}
-  />
-)
 
 export default compose(
   withRouter,
