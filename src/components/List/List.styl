@@ -1,11 +1,13 @@
 @require 'components/list'
 
+$height=3rem
+
 .List--bordered
     border-top 1px solid var(--silver)
     border-bottom 1px solid var(--silver)
 
 .c-list-row
-    min-height 3rem
+    min-height $height
     padding .375rem .75rem
     border-bottom 1px solid var(--silver)
     display flex
@@ -27,3 +29,8 @@
         position relative
         top -1px
         border-top 1px solid var(--white)
+
+.Radio
+    width 100%
+    margin-bottom 0
+    height $height // Give the same height as the List row
