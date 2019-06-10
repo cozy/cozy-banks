@@ -12,6 +12,20 @@ import { getCssVariableValue } from 'cozy-ui/react/utils/color'
 
 const { BarLeft } = cozy.bar
 
+export const BackButtonMobile = ({ onClick, theme }) => {
+  const arrowColor =
+    theme === 'primary'
+      ? getCssVariableValue('primaryContrastTextColor')
+      : getCssVariableValue('coolGrey')
+  return (
+    <BarLeft>
+      <button className="coz-bar-btn coz-bar-burger" onClick={onClick}>
+        <Icon icon={arrowLeft} color={arrowColor} />
+      </button>
+    </BarLeft>
+  )
+}
+
 /**
  * Display a BackButton on mobile. When it is displayed,
  * a right swipe on the screen or a click will bring
@@ -37,17 +51,13 @@ const BackButton = ({
       .slice(0, -1)
       .join('/')
   }
-  const handleClick = (onClick = onClick || (() => to && router.push(to)))
   const arrowColor =
     theme === 'primary'
       ? getCssVariableValue('primaryContrastTextColor')
       : getCssVariableValue('coolGrey')
+  const handleClick = (onClick = onClick || (() => to && router.push(to)))
   return isMobile ? (
-    <BarLeft>
-      <button className="coz-bar-btn coz-bar-burger" onClick={handleClick}>
-        <Icon icon={arrowLeft} color={arrowColor} />
-      </button>
-    </BarLeft>
+    <BackButtonMobile onClick={this.handleClick} theme={theme} />
   ) : (
     arrow && (
       <a onClick={handleClick} className={styles['back-arrow']}>
