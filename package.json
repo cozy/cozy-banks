@@ -193,6 +193,7 @@
     "react-router": "3.2.1",
     "react-side-effect": "1.1.5",
     "react-sizeme": "2.5.2",
+    "react-swipeable-views": "^0.13.3",
     "redux": "3.7.2",
     "redux-logger": "3.0.6",
     "redux-raven-middleware": "1.2.0",
