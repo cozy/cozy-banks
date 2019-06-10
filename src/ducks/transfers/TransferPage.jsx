@@ -32,18 +32,6 @@ const transfers = {
     }
   }
 
-  }
-
-  }
-
-  }
-
-  }
-
-  }
-
-  }
-
   render() {
     if (recipients.fetchStatus === 'loading') {
       return (

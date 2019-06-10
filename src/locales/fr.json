@@ -549,5 +549,30 @@
   "KonnectorChip": {
     "health": "Mes remboursements",
     "generic": "Mes factures"
+  },
+
+  "Transfer": {
+    "nav": "Transfers",
+    "page-title": "Virement",
+    "amount": {
+      "page-title": "Montant",
+      "field-label": "Montant du virement",
+      "title": "Quel montant souhaitez-vous envoyer ?",
+      "confirm": "Confirmer le montant"
+    },
+    "category": {
+      "page-title": "Bénéficiaire",
+      "title": "Où voulez-vous envoyer ce virement ?",
+      "internal": "Sur l'un des vos comptes",
+      "external": "Sur un autre compte"
+    },
+    "beneficiary": {
+      "page-title": "Bénéficiaire",
+      "title": "Vers quel compte souhaitez-vous effectuer un virement ?"
+    },
+    "sender": {
+      "page-title": "Émetteur",
+      "title": "Depuis quel compte souhaitez-vous effectuer un virement ?"
+    },
   }
 }
