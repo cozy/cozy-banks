@@ -17,7 +17,8 @@ class ToggleRow extends Component {
       description,
       onChangeValue,
       name,
-      onToggle
+      onToggle,
+      unit
     } = this.props
 
     const hasValue = value !== undefined
@@ -39,7 +40,7 @@ class ToggleRow extends Component {
                 )}
               />
             )}
-            {hasValue && <span>€</span>}
+            {hasValue && unit && <span>{unit}</span>}
           </p>
 
           <div className={styles.ToggleRow__toggle}>
@@ -62,7 +63,8 @@ ToggleRow.propTypes = {
   description: PropTypes.string.isRequired,
   onChangeValue: PropTypes.func,
   name: PropTypes.string.isRequired,
-  onToggle: PropTypes.func.isRequired
+  onToggle: PropTypes.func.isRequired,
+  unit: PropTypes.string
 }
 
 export default ToggleRow

@@ -68,6 +68,7 @@ class Configuration extends React.Component {
             enabled={settings.notifications.balanceLower.enabled}
             value={settings.notifications.balanceLower.value}
             name="balanceLower"
+            unit="€"
           />
           <ToggleRow
             title={t('Notifications.if_transaction_greater.settingTitle')}
@@ -79,6 +80,7 @@ class Configuration extends React.Component {
             enabled={settings.notifications.transactionGreater.enabled}
             value={settings.notifications.transactionGreater.value}
             name="transactionGreater"
+            unit="€"
           />
           <ToggleRow
             title={t('Notifications.when_health_bill_linked.settingTitle')}
@@ -101,6 +103,7 @@ class Configuration extends React.Component {
             enabled={settings.notifications.lateHealthReimbursement.enabled}
             value={settings.notifications.lateHealthReimbursement.value}
             name="lateHealthReimbursement"
+            unit={t('Notifications.when_late_health_reimbursement.unit')}
           />
         </TogglePane>
         <TogglePane>
