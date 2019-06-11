@@ -70,6 +70,7 @@ jobs:
         - gem install bundler
       script:
         - yarn android:build
+      if: tag IS present OR (type = push AND branch = master) OR (type = pull_request AND commit_message =~ /(\[apk\])/)
 env:
   global:
     - MATTERMOST_CHANNEL=Gangsters-release
