@@ -1,7 +1,7 @@
 [
   {
     "name": "Amazon",
-    "regexp": "\\bamazon\\b",
+    "regexp": "\\bamazo?n\\b",
     "konnectorSlug": "amazon"
   },
   {
