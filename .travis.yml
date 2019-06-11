@@ -66,6 +66,27 @@ jobs:
       script: ./scripts/ci/android_script.sh
       after_success: ./scripts/ci/android_after_success.sh
       if: tag IS present OR (type = push AND branch = master) OR (type = pull_request AND commit_message =~ /(\[apk\])/)
+    - name: iOS build
+      stage: build
+      os: osx
+      osx_image: xcode10.2
+      addons:
+        homebrew:
+          packages:
+            - yarn
+            - imagemagick
+      before_script:
+        - nvm install 8
+        - yarn
+        - yarn mobile:icon
+        - yarn secrets:decrypt
+        - ln -s ../../../scripts/decrypted/keys ./src/targets/mobile/keys
+        - gem update --system
+        - rvm install 2.6.0
+        - gem install bundler
+      script:
+        - yarn ios:build
+      if: tag IS present OR (type = push AND branch = master) OR (type = pull_request AND commit_message =~ /(\[ipa\])/)
 env:
   global:
     - MATTERMOST_CHANNEL=Gangsters-release

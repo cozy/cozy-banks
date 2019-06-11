@@ -1,0 +1,21 @@
+# For more information about this configuration visit
+# https://docs.fastlane.tools/actions/gym/#gymfile
+
+# In general, you can use the options available
+# fastlane gym --help
+
+# Remove the # in front of the line to enable the option
+
+scheme("Cozy Banks")
+workspace("./platforms/ios/Cozy\ Banks.xcworkspace")
+clean(true)
+
+output_directory("./")
+output_name("Cozy_Banks.ipa")
+
+codesigning_identity("iPhone Developer")
+export_options({
+  provisioningProfiles: {
+    "io.cozy.banks" => "match AppStore io.cozy.banks"
+  }
+})
