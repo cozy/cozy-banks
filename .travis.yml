@@ -70,6 +70,12 @@ jobs:
         - gem install bundler
       script:
         - yarn android:build
+      after_success:
+        - yarn secrets:decrypt
+        - eval "$(ssh-agent -s)"
+        - chmod 600 ./scripts/decrypted/id_rsa
+        - ssh-add ./scripts/decrypted/id_rsa
+        - node scripts/pushArtifact.js src/targets/mobile/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk
       if: tag IS present OR (type = push AND branch = master) OR (type = pull_request AND commit_message =~ /(\[apk\])/)
 env:
   global:
