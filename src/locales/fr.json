@@ -440,6 +440,10 @@
         }
       }
     },
+    "when_late_health_reimbursement": {
+      "settingTitle": "Remboursement de santé en retard",
+      "description": "Vous recevrez une notification lorsqu'un remboursement de santé est en attente depuis plus de"
+    },
     "email": {
       "settings": "Paramètres",
       "support": "Aide et support"

@@ -87,6 +87,21 @@ class Configuration extends React.Component {
             enabled={settings.notifications.healthBillLinked.enabled}
             name="healthBillLinked"
           />
+          <ToggleRow
+            title={t(
+              'Notifications.when_late_health_reimbursement.settingTitle'
+            )}
+            description={t(
+              'Notifications.when_late_health_reimbursement.description'
+            )}
+            onToggle={this.onToggle('notifications.lateHealthReimbursement')}
+            onChangeValue={this.onChangeValue(
+              'notifications.lateHealthReimbursement'
+            )}
+            enabled={settings.notifications.lateHealthReimbursement.enabled}
+            value={settings.notifications.lateHealthReimbursement.value}
+            name="lateHealthReimbursement"
+          />
         </TogglePane>
         <TogglePane>
           <TogglePaneTitle>
