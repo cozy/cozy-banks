@@ -27,7 +27,7 @@ class _ReimbursementStatusModal extends React.PureComponent {
           </Text>
         </header>
         <form className="u-mt-1">
-          <List bordered>
+          <List border="vertical">
             {choices.map(choice => (
               <Row key={choice}>
                 <Radio
