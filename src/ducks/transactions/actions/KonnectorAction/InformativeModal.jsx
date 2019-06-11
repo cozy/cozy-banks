@@ -25,7 +25,7 @@ const InformativeModal = ({
         height={112}
         className={styles.InformativeModal__illustration}
       />
-      <Title tag="h2" className={cx('u-mt-1-half', 'u-mb-0', 'u-text-center')}>
+      <Title tag="h2" className={cx('u-mt-1-half', 'u-mb-0', 'u-ta-center')}>
         {title}
       </Title>
       <Text tag="p">{description}</Text>
