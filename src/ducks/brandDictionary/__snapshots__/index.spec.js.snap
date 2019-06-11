@@ -6,7 +6,7 @@ Array [
     "isInstalled": false,
     "konnectorSlug": "amazon",
     "name": "Amazon",
-    "regexp": "\\\\bamazon\\\\b",
+    "regexp": "\\\\bamazo?n\\\\b",
   },
   Object {
     "health": true,
@@ -463,7 +463,7 @@ Array [
     "isInstalled": false,
     "konnectorSlug": "amazon",
     "name": "Amazon",
-    "regexp": "\\\\bamazon\\\\b",
+    "regexp": "\\\\bamazo?n\\\\b",
   },
   Object {
     "isInstalled": false,
