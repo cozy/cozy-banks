@@ -75,7 +75,7 @@ jobs:
         - eval "$(ssh-agent -s)"
         - chmod 600 ./scripts/decrypted/id_rsa
         - ssh-add ./scripts/decrypted/id_rsa
-        - node scripts/pushArtifact.js src/targets/mobile/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk
+        - APK_URL=$(node scripts/pushArtifact.js src/targets/mobile/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk) && yarn run cozy-ci-github "🎁 [Click here]($APK_URL) to download the latest Android APK"
       if: tag IS present OR (type = push AND branch = master) OR (type = pull_request AND commit_message =~ /(\[apk\])/)
 env:
   global:
