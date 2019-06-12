@@ -23,6 +23,7 @@ import PageTitle from 'components/Title/PageTitle'
 import TextCard from 'components/TextCard'
 import OptionalInput from 'components/OptionalInput'
 import BottomButton from 'components/BottomButton'
+import Figure from 'components/Figure'
 
 const Title = ({ children }) => {
   return <UITitle className="u-ta-center u-mb-1">{children}</UITitle>
@@ -50,22 +51,34 @@ const transfers = {
   }
 }
 
+const getAccountForBeneficiary = (beneficiary, accounts) => {
+  const account = accounts.find(acc => acc.iban === beneficiary.iban)
+  return account || null
+}
+
 const recipientUtils = {
   /**
    * BI recipients are per-account, if a user has 2 accounts that can send money to 1 person, there will be
    * 2 recipients. External accounts can be deduped on IBAN, internal on label
    */
-  groupAsBeneficiary: recipients => {
+  groupAsBeneficiary: (recipients, accounts) => {
     return Object.values(
       groupBy(recipients, r => (r.category == 'internal' ? r.label : r.iban))
-    ).map(group => ({
-      _id: group[0]._id, // useful for key
-      label: group[0].label,
-      bankName: group[0].bankName,
-      iban: group[0].iban,
-      category: group[0].category,
-      recipients: group
-    }))
+    ).map(group => {
+      const beneficiary = {
+        _id: group[0]._id, // useful for key
+        label: group[0].label,
+        bankName: group[0].bankName,
+        iban: group[0].iban,
+        category: group[0].category,
+        recipients: group
+      }
+      beneficiary.account =
+        beneficiary.category === 'internal'
+          ? getAccountForBeneficiary(beneficiary, accounts)
+          : null
+      return beneficiary
+    })
   }
 }
 
@@ -109,9 +122,21 @@ const BeneficiaryRow = ({ beneficiary, onSelect }) => {
           <Text>{beneficiary.label}</Text>
           <Caption>{beneficiary.iban}</Caption>
         </Bd>
-        <Img>
-          {beneficiary.balance ? <Bold>{beneficiary.balance}</Bold> : null}
-        </Img>
+        {beneficiary.account ? (
+          <Img>
+            (
+            <Bold>
+              <Figure
+                symbol="€"
+                total={beneficiary.account.balance}
+                coloredPositive
+                coloredNegative
+                coloredWarning
+              />
+            </Bold>
+            )
+          </Img>
+        ) : null}
       </Media>
     </Row>
   )
@@ -181,7 +206,15 @@ const SenderRow = ({ account, onSelect }) => {
           <Caption>{account.iban}</Caption>
         </Bd>
         <Img>
-          <Bold>{account.balance}€</Bold>
+          <Bold>
+            <Figure
+              coloredWarning
+              coloredNegative
+              coloredPositive
+              total={account.balance}
+              symbol="€"
+            />
+          </Bold>
         </Img>
       </Media>
     </Row>
@@ -371,7 +404,7 @@ class TransferPage extends React.Component {
   }
 
   render() {
-    const { recipients, t } = this.props
+    const { recipients, accounts } = this.props
 
     const {
       category,
@@ -391,7 +424,8 @@ class TransferPage extends React.Component {
 
     const categoryFilter = recipient => recipient.category === category
     const beneficiaries = recipientUtils.groupAsBeneficiary(
-      recipients.data.filter(categoryFilter)
+      recipients.data.filter(categoryFilter),
+      accounts.data
     )
 
     return (
@@ -434,6 +468,10 @@ const enhance = compose(
   withClient,
   withRouter,
   queryConnect({
+    accounts: {
+      query: client => client.all('io.cozy.bank.accounts'),
+      as: 'accounts'
+    },
     recipients: {
       query: client => client.all('io.cozy.bank.recipients'),
       as: 'recipients'
