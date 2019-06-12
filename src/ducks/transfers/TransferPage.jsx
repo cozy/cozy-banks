@@ -48,6 +48,25 @@ const transfers = {
   }
 }
 
+const recipientUtils = {
+  /**
+   * BI recipients are per-account, if a user has 2 accounts that can send money to 1 person, there will be
+   * 2 recipients. External accounts can be deduped on IBAN, internal on label
+   */
+  groupAsBeneficiary: recipients => {
+    return Object.values(
+      groupBy(recipients, r => (r.category == 'internal' ? r.label : r.iban))
+    ).map(group => ({
+      _id: group[0]._id, // useful for key
+      label: group[0].label,
+      bankName: group[0].bankName,
+      iban: group[0].iban,
+      category: group[0].category,
+      recipients: group
+    }))
+  }
+}
+
 const ChooseRecipientCategory = translate()(
   ({ t, category, onSelect, active }) => {
     return (
@@ -79,15 +98,54 @@ const ChooseRecipientCategory = translate()(
   }
 )
 
+const BeneficiaryRow = ({ beneficiary, onSelect }) => {
+  return (
+    <Row className="u-clickable" onClick={onSelect.bind(null, beneficiary)}>
+      <Media className="u-w-100">
+        <Img />
+        <Bd>
+          <Text>{beneficiary.label}</Text>
+          <Caption>{beneficiary.iban}</Caption>
+        </Bd>
+        <Img>{beneficiary.balance ? <Bold>{beneficiary.balance}</Bold> : null}</Img>
+      </Media>
+    </Row>
+  )
+}
+
+class _ChooseBeneficiary extends React.Component {
+  render() {
+    const { t, beneficiaries, onSelect, active } = this.props
+    return (
+      <Padded>
+        {active && (
+          <PageTitle>{t('Transfer.beneficiary.page-title')}</PageTitle>
+        )}
+        <Title>{t('Transfer.beneficiary.title')}</Title>
+        <List border paper>
+          {beneficiaries.map(beneficiary => (
+            <BeneficiaryRow key={beneficiary._id} onSelect={onSelect} beneficiary={beneficiary} />
+          ))}
+        </List>
+      </Padded>
+    )
+  }
+}
+
+const ChooseBeneficiary = translate()(_ChooseBeneficiary)
+
 class TransferPage extends React.Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
       category: null, // Currently selected category
       slide: 0,
+      senderAccount: null,
+      senderAccounts: [], // Possible sender accounts for chosen person
     }
     this.handleGoBack = this.handleGoBack.bind(this)
     this.handleChangeCategory = this.handleChangeCategory.bind(this)
+    this.handleSelectBeneficiary = this.handleSelectBeneficiary.bind(this)
     this.handleConfirm = this.handleConfirm.bind(this)
   }
 
@@ -103,6 +161,42 @@ class TransferPage extends React.Component {
 
   handleChangeCategory(category) {
     this.setState({ category, slide: 1 })
+  }
+
+  handleSelectBeneficiary(beneficiary) {
+    this.setState({ beneficiary, slide: 2 })
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const prevBeneficiaryId = prevState.beneficiary && prevState.beneficiary._id
+    const beneficiaryId = this.state.beneficiary && this.state.beneficiary._id
+    if (prevBeneficiaryId !== beneficiaryId) {
+      this.loadPossibleAccounts()
+    }
+  }
+
+  /**
+   * Show possible accounts according to beneficiary
+   */
+  async loadPossibleAccounts() {
+    const { client } = this.props
+    const { beneficiary } = this.state
+
+    if (!beneficiary) {
+      return
+    }
+
+    const possibleSenderAccounts = new Set(
+      beneficiary.recipients.map(x => x.vendorAccountId + '')
+    )
+
+    const resp = await client.query(client.all('io.cozy.bank.accounts'))
+    const data = resp.data
+    const senderAccounts = data.filter(x =>
+      possibleSenderAccounts.has(x.vendorId)
+    )
+
+    this.setState({ senderAccounts, senderAccount: senderAccounts[0] })
   }
 
   handleGoBack() {
@@ -123,7 +217,7 @@ class TransferPage extends React.Component {
 
   render() {
     const { recipients, t } = this.props
-    const { category } = this.state
+    const { category, beneficiary } = this.state
 
     if (recipients.fetchStatus === 'loading') {
       return (
@@ -132,6 +226,12 @@ class TransferPage extends React.Component {
         </Padded>
       )
     }
+
+    const categoryFilter = recipient => recipient.category === category
+    const beneficiaries = recipientUtils.groupAsBeneficiary(
+      recipients.data.filter(categoryFilter)
+    )
+
     return (
       <>
         <PageTitle>{t('Transfer.page-title')}</PageTitle>
@@ -139,6 +239,11 @@ class TransferPage extends React.Component {
           <ChooseRecipientCategory
             category={category}
             onSelect={this.handleChangeCategory}
+          />
+          <ChooseBeneficiary
+            beneficiary={beneficiary}
+            onSelect={this.handleSelectBeneficiary}
+            beneficiaries={beneficiaries}
           />
         </Stepper>
       </>
