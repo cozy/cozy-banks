@@ -140,6 +140,31 @@ class _ChooseBeneficiary extends React.Component {
 
 const ChooseBeneficiary = translate()(_ChooseBeneficiary)
 
+const _ChooseAmount = ({ t, amount, onChange, onSelect, active }) => {
+  return (
+    <Padded>
+      {active && <PageTitle>{t('Transfer.amount.page-title')}</PageTitle>}
+      <Title>{t('Transfer.amount.title')}</Title>
+      <Field
+        className="u-mt-0"
+        value={amount}
+        onChange={ev => {
+          onChange(ev.target.value)
+        }}
+        label={t('Transfer.amount.field-label')}
+        placeholder="10"
+      />
+      <BottomButton
+        label={t('Transfer.amount.confirm')}
+        visible={active}
+        onClick={onSelect}
+      />
+    </Padded>
+  )
+}
+
+const ChooseAmount = translate()(_ChooseAmount)
+
 const SenderRow = ({ account, onSelect }) => {
   return (
     <Row
@@ -191,11 +216,14 @@ class TransferPage extends React.Component {
       category: null, // Currently selected category
       slide: 0,
       senderAccount: null,
-      senderAccounts: [] // Possible sender accounts for chosen person
+      senderAccounts: [], // Possible sender accounts for chosen person
+      amount: ''
     }
     this.handleGoBack = this.handleGoBack.bind(this)
     this.handleChangeCategory = this.handleChangeCategory.bind(this)
     this.handleSelectBeneficiary = this.handleSelectBeneficiary.bind(this)
+    this.handleChangeAmount = this.handleChangeAmount.bind(this)
+    this.handleSelectAmount = this.handleSelectAmount.bind(this)
     this.handleSelectSender = this.handleSelectSender.bind(this)
     this.handleConfirm = this.handleConfirm.bind(this)
   }
@@ -262,6 +290,14 @@ class TransferPage extends React.Component {
     this.setState({ slide: Math.max(this.state.slide - 1, 0) })
   }
 
+  handleChangeAmount(amount) {
+    this.setState({ amount })
+  }
+
+  handleSelectAmount() {
+    this.goToNext()
+  }
+
   handleSelectSender(senderAccount) {
     this.setState({ senderAccount })
     this.goToNext()
@@ -273,7 +309,14 @@ class TransferPage extends React.Component {
 
   render() {
     const { recipients, t } = this.props
-    const { category, beneficiary, senderAccount, senderAccounts } = this.state
+
+    const {
+      category,
+      beneficiary,
+      senderAccount,
+      senderAccounts,
+      amount
+    } = this.state
 
     if (recipients.fetchStatus === 'loading') {
       return (
@@ -305,6 +348,11 @@ class TransferPage extends React.Component {
             account={senderAccount}
             accounts={senderAccounts}
             onSelect={this.handleSelectSender}
+          />
+          <ChooseAmount
+            amount={amount}
+            onChange={this.handleChangeAmount}
+            onSelect={this.handleSelectAmount}
           />
         </Stepper>
       </>
