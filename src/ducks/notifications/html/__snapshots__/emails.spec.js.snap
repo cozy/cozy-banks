@@ -115,13 +115,13 @@ exports[`emails should render balanceLower in en 1`] = `
           <td style=\\"vertical-align:top;width:300px;\\">
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr class=\\"header__title\\"><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"4px\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"auto\\" border=\\"0\\"><tbody><tr>
                 <td width=\\"30px\\">
-                  <a href=\\"\\" style=\\"text-decoration: none; color: inherit; white-space: nowrap;\\">
+                  <a href=\\"https://links.mycozy.cloud/banks/?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2F\\" style=\\"text-decoration: none; color: inherit; white-space: nowrap;\\">
                     <img align=\\"left\\" width=\\"30px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/logo-bank.png\\" alt=\\"    Banks
 \\">
                   </a>
                 </td>
                 <td>
-                  <h1 style=\\"display: block; margin: 0; padding: 0; line-height: 32px;\\"><a href=\\"\\" style=\\"text-decoration: none; color: inherit; white-space: nowrap;\\">    Banks
+                  <h1 style=\\"display: block; margin: 0; padding: 0; line-height: 32px;\\"><a href=\\"https://links.mycozy.cloud/banks/?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2F\\" style=\\"text-decoration: none; color: inherit; white-space: nowrap;\\">    Banks
 </a></h1>
                 </td>
               </tr></tbody></table></td></tr></tbody></table></div><!--[if mso | IE]>
@@ -159,7 +159,7 @@ exports[`emails should render balanceLower in en 1`] = `
               BNPP
             </h3></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"100%\\" border=\\"0\\"><tbody><tr class=\\"js-account tableRow\\" style=\\"padding: 8px 0; line-height: 1.5; letter-spacing: 0.25px; border-bottom: 0;\\">
                 <td>
-                  <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                  <a href=\\"https://links.mycozy.cloud/banks/balances?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Fbalances\\" style=\\"color: inherit; text-decoration: none;\\">
                   Compte Courant Claude
                   </a>
                 </td>
@@ -170,7 +170,7 @@ exports[`emails should render balanceLower in en 1`] = `
 </span></td>
               </tr></tbody></table></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\"><p style=\\"font-size:1px;margin:0px auto;border-top:1px solid #ececec;width:100%;\\"></p><!--[if mso | IE]><table role=\\"presentation\\" align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"font-size:1px;margin:0px auto;border-top:1px solid #ececec;width:100%;\\" width=\\"600\\"><tr><td style=\\"height:0;line-height:0;\\"> </td></tr></table><![endif]--></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"100%\\" border=\\"0\\"><tbody><tr class=\\"js-account tableRow\\" style=\\"padding: 8px 0; line-height: 1.5; letter-spacing: 0.25px; border-bottom: 0;\\">
                 <td>
-                  <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                  <a href=\\"https://links.mycozy.cloud/banks/balances?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Fbalances\\" style=\\"color: inherit; text-decoration: none;\\">
                   Compte Chèque Isabelle
                   </a>
                 </td>
@@ -181,7 +181,7 @@ exports[`emails should render balanceLower in en 1`] = `
 </span></td>
               </tr></tbody></table></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\"><p style=\\"font-size:1px;margin:0px auto;border-top:1px solid #ececec;width:100%;\\"></p><!--[if mso | IE]><table role=\\"presentation\\" align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"font-size:1px;margin:0px auto;border-top:1px solid #ececec;width:100%;\\" width=\\"600\\"><tr><td style=\\"height:0;line-height:0;\\"> </td></tr></table><![endif]--></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"100%\\" border=\\"0\\"><tbody><tr class=\\"js-account tableRow\\" style=\\"padding: 8px 0; line-height: 1.5; letter-spacing: 0.25px; border-bottom: 0;\\">
                 <td>
-                  <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                  <a href=\\"https://links.mycozy.cloud/banks/balances?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Fbalances\\" style=\\"color: inherit; text-decoration: none;\\">
                   Compte Jeune Louise
                   </a>
                 </td>
@@ -205,7 +205,7 @@ exports[`emails should render balanceLower in en 1`] = `
               HSBC
             </h3></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"100%\\" border=\\"0\\"><tbody><tr class=\\"js-account tableRow\\" style=\\"padding: 8px 0; line-height: 1.5; letter-spacing: 0.25px; border-bottom: 0;\\">
                 <td>
-                  <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                  <a href=\\"https://links.mycozy.cloud/banks/balances?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Fbalances\\" style=\\"color: inherit; text-decoration: none;\\">
                   PEE Isabelle
                   </a>
                 </td>
@@ -229,7 +229,7 @@ exports[`emails should render balanceLower in en 1`] = `
               La Banque Postale
             </h3></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"100%\\" border=\\"0\\"><tbody><tr class=\\"js-account tableRow\\" style=\\"padding: 8px 0; line-height: 1.5; letter-spacing: 0.25px; border-bottom: 0;\\">
                 <td>
-                  <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                  <a href=\\"https://links.mycozy.cloud/banks/balances?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Fbalances\\" style=\\"color: inherit; text-decoration: none;\\">
                   Livret A Isabelle
                   </a>
                 </td>
@@ -249,7 +249,7 @@ exports[`emails should render balanceLower in en 1`] = `
       <table role=\\"presentation\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\">
         <tr>
           <td style=\\"vertical-align:top;width:600px;\\">
-      <![endif]--><div class=\\"mj-column-per-100 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><div style=\\"cursor:auto;color:#000000;font-family:Lato, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;\\"><a href=\\"\\">Access my accounts</a></div></td></tr></tbody></table></div><!--[if mso | IE]>
+      <![endif]--><div class=\\"mj-column-per-100 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><div style=\\"cursor:auto;color:#000000;font-family:Lato, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;\\"><a href=\\"https://links.mycozy.cloud/banks/balances?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Fbalances\\">Access my accounts</a></div></td></tr></tbody></table></div><!--[if mso | IE]>
       </td></tr></table>
       <![endif]--></td></tr></tbody></table></div><!--[if mso | IE]>
           </td>
@@ -268,7 +268,7 @@ exports[`emails should render balanceLower in en 1`] = `
           <td style=\\"vertical-align:top;width:300px;\\">
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody></tbody></table></div><!--[if mso | IE]>
       </td><td style=\\"vertical-align:top;width:300px;\\">
-      <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr class=\\"footer__help\\"><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><div style=\\"letter-spacing: 0.6px; cursor: auto; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; color: #95999d; text-align: right;\\"><a css-class=\\"footer__help\\" href=\\"\\" style=\\"display: inline-block; color: #95999d;\\">
+      <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr class=\\"footer__help\\"><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><div style=\\"letter-spacing: 0.6px; cursor: auto; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; color: #95999d; text-align: right;\\"><a css-class=\\"footer__help\\" href=\\"https://links.mycozy.cloud/banks/settings/configuration?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Fsettings%2Fconfiguration\\" style=\\"display: inline-block; color: #95999d;\\">
               Settings
             </a>
               <a css-class=\\"footer__help\\" href=\\"https://support.cozy.io/\\" style=\\"display: inline-block; margin-left: 16px; color: #95999d;\\">
@@ -397,13 +397,13 @@ exports[`emails should render balanceLower in fr 1`] = `
           <td style=\\"vertical-align:top;width:300px;\\">
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr class=\\"header__title\\"><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"4px\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"auto\\" border=\\"0\\"><tbody><tr>
                 <td width=\\"30px\\">
-                  <a href=\\"\\" style=\\"text-decoration: none; color: inherit; white-space: nowrap;\\">
+                  <a href=\\"https://links.mycozy.cloud/banks/?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2F\\" style=\\"text-decoration: none; color: inherit; white-space: nowrap;\\">
                     <img align=\\"left\\" width=\\"30px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/logo-bank.png\\" alt=\\"    Banks
 \\">
                   </a>
                 </td>
                 <td>
-                  <h1 style=\\"display: block; margin: 0; padding: 0; line-height: 32px;\\"><a href=\\"\\" style=\\"text-decoration: none; color: inherit; white-space: nowrap;\\">    Banks
+                  <h1 style=\\"display: block; margin: 0; padding: 0; line-height: 32px;\\"><a href=\\"https://links.mycozy.cloud/banks/?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2F\\" style=\\"text-decoration: none; color: inherit; white-space: nowrap;\\">    Banks
 </a></h1>
                 </td>
               </tr></tbody></table></td></tr></tbody></table></div><!--[if mso | IE]>
@@ -441,7 +441,7 @@ exports[`emails should render balanceLower in fr 1`] = `
               BNPP
             </h3></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"100%\\" border=\\"0\\"><tbody><tr class=\\"js-account tableRow\\" style=\\"padding: 8px 0; line-height: 1.5; letter-spacing: 0.25px; border-bottom: 0;\\">
                 <td>
-                  <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                  <a href=\\"https://links.mycozy.cloud/banks/balances?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Fbalances\\" style=\\"color: inherit; text-decoration: none;\\">
                   Compte Courant Claude
                   </a>
                 </td>
@@ -452,7 +452,7 @@ exports[`emails should render balanceLower in fr 1`] = `
 </span></td>
               </tr></tbody></table></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\"><p style=\\"font-size:1px;margin:0px auto;border-top:1px solid #ececec;width:100%;\\"></p><!--[if mso | IE]><table role=\\"presentation\\" align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"font-size:1px;margin:0px auto;border-top:1px solid #ececec;width:100%;\\" width=\\"600\\"><tr><td style=\\"height:0;line-height:0;\\"> </td></tr></table><![endif]--></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"100%\\" border=\\"0\\"><tbody><tr class=\\"js-account tableRow\\" style=\\"padding: 8px 0; line-height: 1.5; letter-spacing: 0.25px; border-bottom: 0;\\">
                 <td>
-                  <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                  <a href=\\"https://links.mycozy.cloud/banks/balances?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Fbalances\\" style=\\"color: inherit; text-decoration: none;\\">
                   Compte Chèque Isabelle
                   </a>
                 </td>
@@ -463,7 +463,7 @@ exports[`emails should render balanceLower in fr 1`] = `
 </span></td>
               </tr></tbody></table></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\"><p style=\\"font-size:1px;margin:0px auto;border-top:1px solid #ececec;width:100%;\\"></p><!--[if mso | IE]><table role=\\"presentation\\" align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"font-size:1px;margin:0px auto;border-top:1px solid #ececec;width:100%;\\" width=\\"600\\"><tr><td style=\\"height:0;line-height:0;\\"> </td></tr></table><![endif]--></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"100%\\" border=\\"0\\"><tbody><tr class=\\"js-account tableRow\\" style=\\"padding: 8px 0; line-height: 1.5; letter-spacing: 0.25px; border-bottom: 0;\\">
                 <td>
-                  <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                  <a href=\\"https://links.mycozy.cloud/banks/balances?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Fbalances\\" style=\\"color: inherit; text-decoration: none;\\">
                   Compte Jeune Louise
                   </a>
                 </td>
@@ -487,7 +487,7 @@ exports[`emails should render balanceLower in fr 1`] = `
               HSBC
             </h3></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"100%\\" border=\\"0\\"><tbody><tr class=\\"js-account tableRow\\" style=\\"padding: 8px 0; line-height: 1.5; letter-spacing: 0.25px; border-bottom: 0;\\">
                 <td>
-                  <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                  <a href=\\"https://links.mycozy.cloud/banks/balances?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Fbalances\\" style=\\"color: inherit; text-decoration: none;\\">
                   PEE Isabelle
                   </a>
                 </td>
@@ -511,7 +511,7 @@ exports[`emails should render balanceLower in fr 1`] = `
               La Banque Postale
             </h3></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"100%\\" border=\\"0\\"><tbody><tr class=\\"js-account tableRow\\" style=\\"padding: 8px 0; line-height: 1.5; letter-spacing: 0.25px; border-bottom: 0;\\">
                 <td>
-                  <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                  <a href=\\"https://links.mycozy.cloud/banks/balances?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Fbalances\\" style=\\"color: inherit; text-decoration: none;\\">
                   Livret A Isabelle
                   </a>
                 </td>
@@ -531,7 +531,7 @@ exports[`emails should render balanceLower in fr 1`] = `
       <table role=\\"presentation\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\">
         <tr>
           <td style=\\"vertical-align:top;width:600px;\\">
-      <![endif]--><div class=\\"mj-column-per-100 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><div style=\\"cursor:auto;color:#000000;font-family:Lato, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;\\"><a href=\\"\\">Accéder à mes comptes</a></div></td></tr></tbody></table></div><!--[if mso | IE]>
+      <![endif]--><div class=\\"mj-column-per-100 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><div style=\\"cursor:auto;color:#000000;font-family:Lato, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;\\"><a href=\\"https://links.mycozy.cloud/banks/balances?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Fbalances\\">Accéder à mes comptes</a></div></td></tr></tbody></table></div><!--[if mso | IE]>
       </td></tr></table>
       <![endif]--></td></tr></tbody></table></div><!--[if mso | IE]>
           </td>
@@ -550,7 +550,7 @@ exports[`emails should render balanceLower in fr 1`] = `
           <td style=\\"vertical-align:top;width:300px;\\">
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody></tbody></table></div><!--[if mso | IE]>
       </td><td style=\\"vertical-align:top;width:300px;\\">
-      <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr class=\\"footer__help\\"><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><div style=\\"letter-spacing: 0.6px; cursor: auto; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; color: #95999d; text-align: right;\\"><a css-class=\\"footer__help\\" href=\\"\\" style=\\"display: inline-block; color: #95999d;\\">
+      <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr class=\\"footer__help\\"><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><div style=\\"letter-spacing: 0.6px; cursor: auto; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; color: #95999d; text-align: right;\\"><a css-class=\\"footer__help\\" href=\\"https://links.mycozy.cloud/banks/settings/configuration?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Fsettings%2Fconfiguration\\" style=\\"display: inline-block; color: #95999d;\\">
               Paramètres
             </a>
               <a css-class=\\"footer__help\\" href=\\"https://support.cozy.io/\\" style=\\"display: inline-block; margin-left: 16px; color: #95999d;\\">
@@ -679,13 +679,13 @@ exports[`emails should render healthBillLinked in en 1`] = `
           <td style=\\"vertical-align:top;width:300px;\\">
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr class=\\"header__title\\"><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"4px\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"auto\\" border=\\"0\\"><tbody><tr>
                 <td width=\\"30px\\">
-                  <a href=\\"\\" style=\\"text-decoration: none; color: inherit; white-space: nowrap;\\">
+                  <a href=\\"https://links.mycozy.cloud/banks/?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2F\\" style=\\"text-decoration: none; color: inherit; white-space: nowrap;\\">
                     <img align=\\"left\\" width=\\"30px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/logo-bank.png\\" alt=\\"    Banks
 \\">
                   </a>
                 </td>
                 <td>
-                  <h1 style=\\"display: block; margin: 0; padding: 0; line-height: 32px;\\"><a href=\\"\\" style=\\"text-decoration: none; color: inherit; white-space: nowrap;\\">    Banks
+                  <h1 style=\\"display: block; margin: 0; padding: 0; line-height: 32px;\\"><a href=\\"https://links.mycozy.cloud/banks/?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2F\\" style=\\"text-decoration: none; color: inherit; white-space: nowrap;\\">    Banks
 </a></h1>
                 </td>
               </tr></tbody></table></td></tr></tbody></table></div><!--[if mso | IE]>
@@ -720,19 +720,19 @@ exports[`emails should render healthBillLinked in en 1`] = `
         <tr>
           <td style=\\"vertical-align:top;width:600px;\\">
       <![endif]--><div class=\\"mj-column-per-100 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\" align=\\"left\\"><div style=\\"cursor:auto;color:#000000;font-family:Lato, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;\\"><h3 class=\\"js-account\\" style=\\"display: block; margin: 0; padding: 0; font-size: 12px; font-weight: bold; color: #95999d; text-transform: uppercase; letter-spacing: 0.6px;\\">Compte Isabelle 1 - HSBC</h3></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\" align=\\"left\\"><div style=\\"cursor:auto;color:#000000;font-family:Lato, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;\\"><h4 class=\\"js-date text\\" style=\\"display: block; margin: 0; padding: 0; font-size: 12px; font-weight: normal; color: #95999d; text-transform: uppercase; letter-spacing: 0.6px;\\"><span>06/07/2017</span></h4></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"100%\\" border=\\"0\\"><tbody><tr class=\\"js-transaction tableRow\\" style=\\"padding: 8px 0; line-height: 1.5; letter-spacing: 0.25px; border-bottom: 0;\\">
-                  <td width=\\"40px\\"><a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\"><img style=\\"width: 32px; height: 32px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-cat-health.png\\"></a></td>
+                  <td width=\\"40px\\"><a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\"><img style=\\"width: 32px; height: 32px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-cat-health.png\\"></a></td>
                   <td>
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">Cabinet Osteokinesitherapie</a>
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">Cabinet Osteokinesitherapie</a>
                   </td>
                   <td align=\\"right\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       <img style=\\"width: 16px; height: 16px; vertical-align: middle;\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-hourglass-blue.png\\">
                       Treated by
                       Malakoff Mederic
                       </a>
                   </td>
                   <td width=\\"100px\\" align=\\"right\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\"><span class=\\"amount amountNeg\\" style=\\"white-space: nowrap; font-size: 16px; color: #f52d2d;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\"><span class=\\"amount amountNeg\\" style=\\"white-space: nowrap; font-size: 16px; color: #f52d2d;\\">
 -
 60 €
 </span>
@@ -740,19 +740,19 @@ exports[`emails should render healthBillLinked in en 1`] = `
                     </a>
                   </td>
                 </tr></tbody></table></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\"><p style=\\"font-size:1px;margin:0px auto;border-top:1px solid #ececec;width:100%;\\"></p><!--[if mso | IE]><table role=\\"presentation\\" align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"font-size:1px;margin:0px auto;border-top:1px solid #ececec;width:100%;\\" width=\\"600\\"><tr><td style=\\"height:0;line-height:0;\\"> </td></tr></table><![endif]--></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"100%\\" border=\\"0\\"><tbody><tr class=\\"js-transaction tableRow\\" style=\\"padding: 8px 0; line-height: 1.5; letter-spacing: 0.25px; border-bottom: 0;\\">
-                  <td width=\\"40px\\"><a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\"><img style=\\"width: 32px; height: 32px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-cat-health.png\\"></a></td>
+                  <td width=\\"40px\\"><a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\"><img style=\\"width: 32px; height: 32px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-cat-health.png\\"></a></td>
                   <td>
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">Cabinet Osteokinesitherapie</a>
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">Cabinet Osteokinesitherapie</a>
                   </td>
                   <td align=\\"right\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       <img style=\\"width: 16px; height: 16px; vertical-align: middle;\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-hourglass-blue.png\\">
                       Treated by
                       Malakoff Mederic
                       </a>
                   </td>
                   <td width=\\"100px\\" align=\\"right\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\"><span class=\\"amount amountNeg\\" style=\\"white-space: nowrap; font-size: 16px; color: #f52d2d;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\"><span class=\\"amount amountNeg\\" style=\\"white-space: nowrap; font-size: 16px; color: #f52d2d;\\">
 -
 60 €
 </span>
@@ -771,19 +771,19 @@ exports[`emails should render healthBillLinked in en 1`] = `
         <tr>
           <td style=\\"vertical-align:top;width:600px;\\">
       <![endif]--><div class=\\"mj-column-per-100 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\" align=\\"left\\"><div style=\\"cursor:auto;color:#000000;font-family:Lato, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;\\"><h3 class=\\"js-account\\" style=\\"display: block; margin: 0; padding: 0; font-size: 12px; font-weight: bold; color: #95999d; text-transform: uppercase; letter-spacing: 0.6px;\\">Compte Claire 1 - CIC</h3></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\" align=\\"left\\"><div style=\\"cursor:auto;color:#000000;font-family:Lato, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;\\"><h4 class=\\"js-date text\\" style=\\"display: block; margin: 0; padding: 0; font-size: 12px; font-weight: normal; color: #95999d; text-transform: uppercase; letter-spacing: 0.6px;\\"><span>06/07/2017</span></h4></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"100%\\" border=\\"0\\"><tbody><tr class=\\"js-transaction tableRow\\" style=\\"padding: 8px 0; line-height: 1.5; letter-spacing: 0.25px; border-bottom: 0;\\">
-                  <td width=\\"40px\\"><a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\"><img style=\\"width: 32px; height: 32px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-cat-health.png\\"></a></td>
+                  <td width=\\"40px\\"><a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\"><img style=\\"width: 32px; height: 32px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-cat-health.png\\"></a></td>
                   <td>
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">Cabinet Osteokinesitherapie</a>
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">Cabinet Osteokinesitherapie</a>
                   </td>
                   <td align=\\"right\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       <img style=\\"width: 16px; height: 16px; vertical-align: middle;\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-hourglass-blue.png\\">
                       Treated by
                       Malakoff Mederic
                       </a>
                   </td>
                   <td width=\\"100px\\" align=\\"right\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\"><span class=\\"amount amountNeg\\" style=\\"white-space: nowrap; font-size: 16px; color: #f52d2d;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\"><span class=\\"amount amountNeg\\" style=\\"white-space: nowrap; font-size: 16px; color: #f52d2d;\\">
 -
 60 €
 </span>
@@ -809,7 +809,7 @@ exports[`emails should render healthBillLinked in en 1`] = `
           <td style=\\"vertical-align:top;width:300px;\\">
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody></tbody></table></div><!--[if mso | IE]>
       </td><td style=\\"vertical-align:top;width:300px;\\">
-      <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr class=\\"footer__help\\"><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><div style=\\"letter-spacing: 0.6px; cursor: auto; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; color: #95999d; text-align: right;\\"><a css-class=\\"footer__help\\" href=\\"\\" style=\\"display: inline-block; color: #95999d;\\">
+      <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr class=\\"footer__help\\"><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><div style=\\"letter-spacing: 0.6px; cursor: auto; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; color: #95999d; text-align: right;\\"><a css-class=\\"footer__help\\" href=\\"https://links.mycozy.cloud/banks/settings/configuration?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Fsettings%2Fconfiguration\\" style=\\"display: inline-block; color: #95999d;\\">
               Settings
             </a>
               <a css-class=\\"footer__help\\" href=\\"https://support.cozy.io/\\" style=\\"display: inline-block; margin-left: 16px; color: #95999d;\\">
@@ -938,13 +938,13 @@ exports[`emails should render healthBillLinked in fr 1`] = `
           <td style=\\"vertical-align:top;width:300px;\\">
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr class=\\"header__title\\"><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"4px\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"auto\\" border=\\"0\\"><tbody><tr>
                 <td width=\\"30px\\">
-                  <a href=\\"\\" style=\\"text-decoration: none; color: inherit; white-space: nowrap;\\">
+                  <a href=\\"https://links.mycozy.cloud/banks/?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2F\\" style=\\"text-decoration: none; color: inherit; white-space: nowrap;\\">
                     <img align=\\"left\\" width=\\"30px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/logo-bank.png\\" alt=\\"    Banks
 \\">
                   </a>
                 </td>
                 <td>
-                  <h1 style=\\"display: block; margin: 0; padding: 0; line-height: 32px;\\"><a href=\\"\\" style=\\"text-decoration: none; color: inherit; white-space: nowrap;\\">    Banks
+                  <h1 style=\\"display: block; margin: 0; padding: 0; line-height: 32px;\\"><a href=\\"https://links.mycozy.cloud/banks/?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2F\\" style=\\"text-decoration: none; color: inherit; white-space: nowrap;\\">    Banks
 </a></h1>
                 </td>
               </tr></tbody></table></td></tr></tbody></table></div><!--[if mso | IE]>
@@ -979,19 +979,19 @@ exports[`emails should render healthBillLinked in fr 1`] = `
         <tr>
           <td style=\\"vertical-align:top;width:600px;\\">
       <![endif]--><div class=\\"mj-column-per-100 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\" align=\\"left\\"><div style=\\"cursor:auto;color:#000000;font-family:Lato, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;\\"><h3 class=\\"js-account\\" style=\\"display: block; margin: 0; padding: 0; font-size: 12px; font-weight: bold; color: #95999d; text-transform: uppercase; letter-spacing: 0.6px;\\">Compte Isabelle 1 - HSBC</h3></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\" align=\\"left\\"><div style=\\"cursor:auto;color:#000000;font-family:Lato, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;\\"><h4 class=\\"js-date text\\" style=\\"display: block; margin: 0; padding: 0; font-size: 12px; font-weight: normal; color: #95999d; text-transform: uppercase; letter-spacing: 0.6px;\\"><span>06/07/2017</span></h4></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"100%\\" border=\\"0\\"><tbody><tr class=\\"js-transaction tableRow\\" style=\\"padding: 8px 0; line-height: 1.5; letter-spacing: 0.25px; border-bottom: 0;\\">
-                  <td width=\\"40px\\"><a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\"><img style=\\"width: 32px; height: 32px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-cat-health.png\\"></a></td>
+                  <td width=\\"40px\\"><a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\"><img style=\\"width: 32px; height: 32px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-cat-health.png\\"></a></td>
                   <td>
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">Cabinet Osteokinesitherapie</a>
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">Cabinet Osteokinesitherapie</a>
                   </td>
                   <td align=\\"right\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       <img style=\\"width: 16px; height: 16px; vertical-align: middle;\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-hourglass-blue.png\\">
                       Traité par
                       Malakoff Mederic
                       </a>
                   </td>
                   <td width=\\"100px\\" align=\\"right\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\"><span class=\\"amount amountNeg\\" style=\\"white-space: nowrap; font-size: 16px; color: #f52d2d;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\"><span class=\\"amount amountNeg\\" style=\\"white-space: nowrap; font-size: 16px; color: #f52d2d;\\">
 -
 60 €
 </span>
@@ -999,19 +999,19 @@ exports[`emails should render healthBillLinked in fr 1`] = `
                     </a>
                   </td>
                 </tr></tbody></table></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\"><p style=\\"font-size:1px;margin:0px auto;border-top:1px solid #ececec;width:100%;\\"></p><!--[if mso | IE]><table role=\\"presentation\\" align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"font-size:1px;margin:0px auto;border-top:1px solid #ececec;width:100%;\\" width=\\"600\\"><tr><td style=\\"height:0;line-height:0;\\"> </td></tr></table><![endif]--></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"100%\\" border=\\"0\\"><tbody><tr class=\\"js-transaction tableRow\\" style=\\"padding: 8px 0; line-height: 1.5; letter-spacing: 0.25px; border-bottom: 0;\\">
-                  <td width=\\"40px\\"><a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\"><img style=\\"width: 32px; height: 32px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-cat-health.png\\"></a></td>
+                  <td width=\\"40px\\"><a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\"><img style=\\"width: 32px; height: 32px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-cat-health.png\\"></a></td>
                   <td>
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">Cabinet Osteokinesitherapie</a>
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">Cabinet Osteokinesitherapie</a>
                   </td>
                   <td align=\\"right\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       <img style=\\"width: 16px; height: 16px; vertical-align: middle;\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-hourglass-blue.png\\">
                       Traité par
                       Malakoff Mederic
                       </a>
                   </td>
                   <td width=\\"100px\\" align=\\"right\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\"><span class=\\"amount amountNeg\\" style=\\"white-space: nowrap; font-size: 16px; color: #f52d2d;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\"><span class=\\"amount amountNeg\\" style=\\"white-space: nowrap; font-size: 16px; color: #f52d2d;\\">
 -
 60 €
 </span>
@@ -1030,19 +1030,19 @@ exports[`emails should render healthBillLinked in fr 1`] = `
         <tr>
           <td style=\\"vertical-align:top;width:600px;\\">
       <![endif]--><div class=\\"mj-column-per-100 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\" align=\\"left\\"><div style=\\"cursor:auto;color:#000000;font-family:Lato, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;\\"><h3 class=\\"js-account\\" style=\\"display: block; margin: 0; padding: 0; font-size: 12px; font-weight: bold; color: #95999d; text-transform: uppercase; letter-spacing: 0.6px;\\">Compte Claire 1 - CIC</h3></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\" align=\\"left\\"><div style=\\"cursor:auto;color:#000000;font-family:Lato, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;\\"><h4 class=\\"js-date text\\" style=\\"display: block; margin: 0; padding: 0; font-size: 12px; font-weight: normal; color: #95999d; text-transform: uppercase; letter-spacing: 0.6px;\\"><span>06/07/2017</span></h4></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"100%\\" border=\\"0\\"><tbody><tr class=\\"js-transaction tableRow\\" style=\\"padding: 8px 0; line-height: 1.5; letter-spacing: 0.25px; border-bottom: 0;\\">
-                  <td width=\\"40px\\"><a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\"><img style=\\"width: 32px; height: 32px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-cat-health.png\\"></a></td>
+                  <td width=\\"40px\\"><a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\"><img style=\\"width: 32px; height: 32px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-cat-health.png\\"></a></td>
                   <td>
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">Cabinet Osteokinesitherapie</a>
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">Cabinet Osteokinesitherapie</a>
                   </td>
                   <td align=\\"right\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       <img style=\\"width: 16px; height: 16px; vertical-align: middle;\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-hourglass-blue.png\\">
                       Traité par
                       Malakoff Mederic
                       </a>
                   </td>
                   <td width=\\"100px\\" align=\\"right\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\"><span class=\\"amount amountNeg\\" style=\\"white-space: nowrap; font-size: 16px; color: #f52d2d;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\"><span class=\\"amount amountNeg\\" style=\\"white-space: nowrap; font-size: 16px; color: #f52d2d;\\">
 -
 60 €
 </span>
@@ -1068,7 +1068,7 @@ exports[`emails should render healthBillLinked in fr 1`] = `
           <td style=\\"vertical-align:top;width:300px;\\">
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody></tbody></table></div><!--[if mso | IE]>
       </td><td style=\\"vertical-align:top;width:300px;\\">
-      <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr class=\\"footer__help\\"><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><div style=\\"letter-spacing: 0.6px; cursor: auto; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; color: #95999d; text-align: right;\\"><a css-class=\\"footer__help\\" href=\\"\\" style=\\"display: inline-block; color: #95999d;\\">
+      <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr class=\\"footer__help\\"><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><div style=\\"letter-spacing: 0.6px; cursor: auto; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; color: #95999d; text-align: right;\\"><a css-class=\\"footer__help\\" href=\\"https://links.mycozy.cloud/banks/settings/configuration?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Fsettings%2Fconfiguration\\" style=\\"display: inline-block; color: #95999d;\\">
               Paramètres
             </a>
               <a css-class=\\"footer__help\\" href=\\"https://support.cozy.io/\\" style=\\"display: inline-block; margin-left: 16px; color: #95999d;\\">
@@ -1197,13 +1197,13 @@ exports[`emails should render transactionGreater in en 1`] = `
           <td style=\\"vertical-align:top;width:300px;\\">
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr class=\\"header__title\\"><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"4px\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"auto\\" border=\\"0\\"><tbody><tr>
                 <td width=\\"30px\\">
-                  <a href=\\"\\" style=\\"text-decoration: none; color: inherit; white-space: nowrap;\\">
+                  <a href=\\"https://links.mycozy.cloud/banks/?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2F\\" style=\\"text-decoration: none; color: inherit; white-space: nowrap;\\">
                     <img align=\\"left\\" width=\\"30px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/logo-bank.png\\" alt=\\"    Banks
 \\">
                   </a>
                 </td>
                 <td>
-                  <h1 style=\\"display: block; margin: 0; padding: 0; line-height: 32px;\\"><a href=\\"\\" style=\\"text-decoration: none; color: inherit; white-space: nowrap;\\">    Banks
+                  <h1 style=\\"display: block; margin: 0; padding: 0; line-height: 32px;\\"><a href=\\"https://links.mycozy.cloud/banks/?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2F\\" style=\\"text-decoration: none; color: inherit; white-space: nowrap;\\">    Banks
 </a></h1>
                 </td>
               </tr></tbody></table></td></tr></tbody></table></div><!--[if mso | IE]>
@@ -1239,17 +1239,17 @@ exports[`emails should render transactionGreater in en 1`] = `
           <td style=\\"vertical-align:top;width:600px;\\">
       <![endif]--><div class=\\"mj-column-per-100 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\" align=\\"left\\"><div style=\\"cursor:auto;color:#000000;font-family:Lato, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;\\"><h3 class=\\"js-account\\" style=\\"display: block; margin: 0; padding: 0; font-size: 12px; font-weight: bold; color: #95999d; text-transform: uppercase; letter-spacing: 0.6px;\\">PEE Isabelle - HSBC</h3></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\" align=\\"left\\"><div style=\\"cursor:auto;color:#000000;font-family:Lato, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;\\"><h4 class=\\"js-date text\\" style=\\"display: block; margin: 0; padding: 0; font-size: 12px; font-weight: normal; color: #95999d; text-transform: uppercase; letter-spacing: 0.6px;\\"><span>25/08/2017</span></h4></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"100%\\" border=\\"0\\"><tbody><tr class=\\"js-transaction tableRow\\" style=\\"padding: 8px 0; line-height: 1.5; letter-spacing: 0.25px; border-bottom: 0;\\">
                   <td width=\\"40px\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       <img style=\\"width: 32px; height: 32px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-cat-health.png\\">
                     </a>
                   </td>
                   <td>
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       Virement Compl Sante
                     </a>
                   </td>
                   <td width=\\"150px\\" align=\\"right\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       <span class=\\"amount amountNeg\\" style=\\"white-space: nowrap; font-size: 16px; color: #f52d2d;\\">
 -
 90 €
@@ -1259,17 +1259,17 @@ exports[`emails should render transactionGreater in en 1`] = `
                   </td>
                 </tr></tbody></table></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\" align=\\"left\\"><div style=\\"cursor:auto;color:#000000;font-family:Lato, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;\\"><h4 class=\\"js-date text\\" style=\\"display: block; margin: 0; padding: 0; font-size: 12px; font-weight: normal; color: #95999d; text-transform: uppercase; letter-spacing: 0.6px;\\"><span>06/07/2017</span></h4></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"100%\\" border=\\"0\\"><tbody><tr class=\\"js-transaction tableRow\\" style=\\"padding: 8px 0; line-height: 1.5; letter-spacing: 0.25px; border-bottom: 0;\\">
                   <td width=\\"40px\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       <img style=\\"width: 32px; height: 32px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-cat-health.png\\">
                     </a>
                   </td>
                   <td>
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       Cabinet Osteokinesitherapie
                     </a>
                   </td>
                   <td width=\\"150px\\" align=\\"right\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       <span class=\\"amount amountNeg\\" style=\\"white-space: nowrap; font-size: 16px; color: #f52d2d;\\">
 -
 60 €
@@ -1279,17 +1279,17 @@ exports[`emails should render transactionGreater in en 1`] = `
                   </td>
                 </tr></tbody></table></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\"><p style=\\"font-size:1px;margin:0px auto;border-top:1px solid #ececec;width:100%;\\"></p><!--[if mso | IE]><table role=\\"presentation\\" align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"font-size:1px;margin:0px auto;border-top:1px solid #ececec;width:100%;\\" width=\\"600\\"><tr><td style=\\"height:0;line-height:0;\\"> </td></tr></table><![endif]--></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"100%\\" border=\\"0\\"><tbody><tr class=\\"js-transaction tableRow\\" style=\\"padding: 8px 0; line-height: 1.5; letter-spacing: 0.25px; border-bottom: 0;\\">
                   <td width=\\"40px\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       <img style=\\"width: 32px; height: 32px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-cat-health.png\\">
                     </a>
                   </td>
                   <td>
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       Cabinet Osteokinesitherapie
                     </a>
                   </td>
                   <td width=\\"150px\\" align=\\"right\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       <span class=\\"amount amountNeg\\" style=\\"white-space: nowrap; font-size: 16px; color: #f52d2d;\\">
 -
 60 €
@@ -1310,17 +1310,17 @@ exports[`emails should render transactionGreater in en 1`] = `
           <td style=\\"vertical-align:top;width:600px;\\">
       <![endif]--><div class=\\"mj-column-per-100 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\" align=\\"left\\"><div style=\\"cursor:auto;color:#000000;font-family:Lato, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;\\"><h3 class=\\"js-account\\" style=\\"display: block; margin: 0; padding: 0; font-size: 12px; font-weight: bold; color: #95999d; text-transform: uppercase; letter-spacing: 0.6px;\\">Compte courant Claude - BNPP</h3></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\" align=\\"left\\"><div style=\\"cursor:auto;color:#000000;font-family:Lato, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;\\"><h4 class=\\"js-date text\\" style=\\"display: block; margin: 0; padding: 0; font-size: 12px; font-weight: normal; color: #95999d; text-transform: uppercase; letter-spacing: 0.6px;\\"><span>11/07/2017</span></h4></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"100%\\" border=\\"0\\"><tbody><tr class=\\"js-transaction tableRow\\" style=\\"padding: 8px 0; line-height: 1.5; letter-spacing: 0.25px; border-bottom: 0;\\">
                   <td width=\\"40px\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       <img style=\\"width: 32px; height: 32px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-cat-health.png\\">
                     </a>
                   </td>
                   <td>
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       Cpam Paris
                     </a>
                   </td>
                   <td width=\\"150px\\" align=\\"right\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       <span class=\\"amount amountNeg\\" style=\\"white-space: nowrap; font-size: 16px; color: #f52d2d;\\">
 -
 120.7 €
@@ -1341,17 +1341,17 @@ exports[`emails should render transactionGreater in en 1`] = `
           <td style=\\"vertical-align:top;width:600px;\\">
       <![endif]--><div class=\\"mj-column-per-100 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\" align=\\"left\\"><div style=\\"cursor:auto;color:#000000;font-family:Lato, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;\\"><h3 class=\\"js-account\\" style=\\"display: block; margin: 0; padding: 0; font-size: 12px; font-weight: bold; color: #95999d; text-transform: uppercase; letter-spacing: 0.6px;\\">Livret A Isabelle - La Banque Postale</h3></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\" align=\\"left\\"><div style=\\"cursor:auto;color:#000000;font-family:Lato, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;\\"><h4 class=\\"js-date text\\" style=\\"display: block; margin: 0; padding: 0; font-size: 12px; font-weight: normal; color: #95999d; text-transform: uppercase; letter-spacing: 0.6px;\\"><span>03/07/2017</span></h4></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"100%\\" border=\\"0\\"><tbody><tr class=\\"js-transaction tableRow\\" style=\\"padding: 8px 0; line-height: 1.5; letter-spacing: 0.25px; border-bottom: 0;\\">
                   <td width=\\"40px\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       <img style=\\"width: 32px; height: 32px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-cat-excludeFromBudgetCat.png\\">
                     </a>
                   </td>
                   <td>
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       Transfert Livret A
                     </a>
                   </td>
                   <td width=\\"150px\\" align=\\"right\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       <span class=\\"amount amountPos\\" style=\\"white-space: nowrap; font-size: 16px; color: #35ce68;\\">
 +
 400 €
@@ -1372,17 +1372,17 @@ exports[`emails should render transactionGreater in en 1`] = `
           <td style=\\"vertical-align:top;width:600px;\\">
       <![endif]--><div class=\\"mj-column-per-100 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\" align=\\"left\\"><div style=\\"cursor:auto;color:#000000;font-family:Lato, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;\\"><h3 class=\\"js-account\\" style=\\"display: block; margin: 0; padding: 0; font-size: 12px; font-weight: bold; color: #95999d; text-transform: uppercase; letter-spacing: 0.6px;\\">Compte jeune Louise - BNPP</h3></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\" align=\\"left\\"><div style=\\"cursor:auto;color:#000000;font-family:Lato, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;\\"><h4 class=\\"js-date text\\" style=\\"display: block; margin: 0; padding: 0; font-size: 12px; font-weight: normal; color: #95999d; text-transform: uppercase; letter-spacing: 0.6px;\\"><span>04/07/2017</span></h4></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"100%\\" border=\\"0\\"><tbody><tr class=\\"js-transaction tableRow\\" style=\\"padding: 8px 0; line-height: 1.5; letter-spacing: 0.25px; border-bottom: 0;\\">
                   <td width=\\"40px\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       <img style=\\"width: 32px; height: 32px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-cat-dailyLife.png\\">
                     </a>
                   </td>
                   <td>
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       Auchan
                     </a>
                   </td>
                   <td width=\\"150px\\" align=\\"right\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       <span class=\\"amount amountNeg\\" style=\\"white-space: nowrap; font-size: 16px; color: #f52d2d;\\">
 -
 42.3 €
@@ -1409,7 +1409,7 @@ exports[`emails should render transactionGreater in en 1`] = `
           <td style=\\"vertical-align:top;width:300px;\\">
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody></tbody></table></div><!--[if mso | IE]>
       </td><td style=\\"vertical-align:top;width:300px;\\">
-      <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr class=\\"footer__help\\"><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><div style=\\"letter-spacing: 0.6px; cursor: auto; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; color: #95999d; text-align: right;\\"><a css-class=\\"footer__help\\" href=\\"\\" style=\\"display: inline-block; color: #95999d;\\">
+      <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr class=\\"footer__help\\"><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><div style=\\"letter-spacing: 0.6px; cursor: auto; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; color: #95999d; text-align: right;\\"><a css-class=\\"footer__help\\" href=\\"https://links.mycozy.cloud/banks/settings/configuration?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Fsettings%2Fconfiguration\\" style=\\"display: inline-block; color: #95999d;\\">
               Settings
             </a>
               <a css-class=\\"footer__help\\" href=\\"https://support.cozy.io/\\" style=\\"display: inline-block; margin-left: 16px; color: #95999d;\\">
@@ -1538,13 +1538,13 @@ exports[`emails should render transactionGreater in fr 1`] = `
           <td style=\\"vertical-align:top;width:300px;\\">
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr class=\\"header__title\\"><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"4px\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"auto\\" border=\\"0\\"><tbody><tr>
                 <td width=\\"30px\\">
-                  <a href=\\"\\" style=\\"text-decoration: none; color: inherit; white-space: nowrap;\\">
+                  <a href=\\"https://links.mycozy.cloud/banks/?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2F\\" style=\\"text-decoration: none; color: inherit; white-space: nowrap;\\">
                     <img align=\\"left\\" width=\\"30px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/logo-bank.png\\" alt=\\"    Banks
 \\">
                   </a>
                 </td>
                 <td>
-                  <h1 style=\\"display: block; margin: 0; padding: 0; line-height: 32px;\\"><a href=\\"\\" style=\\"text-decoration: none; color: inherit; white-space: nowrap;\\">    Banks
+                  <h1 style=\\"display: block; margin: 0; padding: 0; line-height: 32px;\\"><a href=\\"https://links.mycozy.cloud/banks/?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2F\\" style=\\"text-decoration: none; color: inherit; white-space: nowrap;\\">    Banks
 </a></h1>
                 </td>
               </tr></tbody></table></td></tr></tbody></table></div><!--[if mso | IE]>
@@ -1580,17 +1580,17 @@ exports[`emails should render transactionGreater in fr 1`] = `
           <td style=\\"vertical-align:top;width:600px;\\">
       <![endif]--><div class=\\"mj-column-per-100 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\" align=\\"left\\"><div style=\\"cursor:auto;color:#000000;font-family:Lato, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;\\"><h3 class=\\"js-account\\" style=\\"display: block; margin: 0; padding: 0; font-size: 12px; font-weight: bold; color: #95999d; text-transform: uppercase; letter-spacing: 0.6px;\\">PEE Isabelle - HSBC</h3></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\" align=\\"left\\"><div style=\\"cursor:auto;color:#000000;font-family:Lato, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;\\"><h4 class=\\"js-date text\\" style=\\"display: block; margin: 0; padding: 0; font-size: 12px; font-weight: normal; color: #95999d; text-transform: uppercase; letter-spacing: 0.6px;\\"><span>25/08/2017</span></h4></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"100%\\" border=\\"0\\"><tbody><tr class=\\"js-transaction tableRow\\" style=\\"padding: 8px 0; line-height: 1.5; letter-spacing: 0.25px; border-bottom: 0;\\">
                   <td width=\\"40px\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       <img style=\\"width: 32px; height: 32px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-cat-health.png\\">
                     </a>
                   </td>
                   <td>
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       Virement Compl Sante
                     </a>
                   </td>
                   <td width=\\"150px\\" align=\\"right\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       <span class=\\"amount amountNeg\\" style=\\"white-space: nowrap; font-size: 16px; color: #f52d2d;\\">
 -
 90 €
@@ -1600,17 +1600,17 @@ exports[`emails should render transactionGreater in fr 1`] = `
                   </td>
                 </tr></tbody></table></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\" align=\\"left\\"><div style=\\"cursor:auto;color:#000000;font-family:Lato, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;\\"><h4 class=\\"js-date text\\" style=\\"display: block; margin: 0; padding: 0; font-size: 12px; font-weight: normal; color: #95999d; text-transform: uppercase; letter-spacing: 0.6px;\\"><span>06/07/2017</span></h4></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"100%\\" border=\\"0\\"><tbody><tr class=\\"js-transaction tableRow\\" style=\\"padding: 8px 0; line-height: 1.5; letter-spacing: 0.25px; border-bottom: 0;\\">
                   <td width=\\"40px\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       <img style=\\"width: 32px; height: 32px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-cat-health.png\\">
                     </a>
                   </td>
                   <td>
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       Cabinet Osteokinesitherapie
                     </a>
                   </td>
                   <td width=\\"150px\\" align=\\"right\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       <span class=\\"amount amountNeg\\" style=\\"white-space: nowrap; font-size: 16px; color: #f52d2d;\\">
 -
 60 €
@@ -1620,17 +1620,17 @@ exports[`emails should render transactionGreater in fr 1`] = `
                   </td>
                 </tr></tbody></table></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\"><p style=\\"font-size:1px;margin:0px auto;border-top:1px solid #ececec;width:100%;\\"></p><!--[if mso | IE]><table role=\\"presentation\\" align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"font-size:1px;margin:0px auto;border-top:1px solid #ececec;width:100%;\\" width=\\"600\\"><tr><td style=\\"height:0;line-height:0;\\"> </td></tr></table><![endif]--></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"100%\\" border=\\"0\\"><tbody><tr class=\\"js-transaction tableRow\\" style=\\"padding: 8px 0; line-height: 1.5; letter-spacing: 0.25px; border-bottom: 0;\\">
                   <td width=\\"40px\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       <img style=\\"width: 32px; height: 32px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-cat-health.png\\">
                     </a>
                   </td>
                   <td>
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       Cabinet Osteokinesitherapie
                     </a>
                   </td>
                   <td width=\\"150px\\" align=\\"right\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       <span class=\\"amount amountNeg\\" style=\\"white-space: nowrap; font-size: 16px; color: #f52d2d;\\">
 -
 60 €
@@ -1651,17 +1651,17 @@ exports[`emails should render transactionGreater in fr 1`] = `
           <td style=\\"vertical-align:top;width:600px;\\">
       <![endif]--><div class=\\"mj-column-per-100 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\" align=\\"left\\"><div style=\\"cursor:auto;color:#000000;font-family:Lato, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;\\"><h3 class=\\"js-account\\" style=\\"display: block; margin: 0; padding: 0; font-size: 12px; font-weight: bold; color: #95999d; text-transform: uppercase; letter-spacing: 0.6px;\\">Compte courant Claude - BNPP</h3></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\" align=\\"left\\"><div style=\\"cursor:auto;color:#000000;font-family:Lato, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;\\"><h4 class=\\"js-date text\\" style=\\"display: block; margin: 0; padding: 0; font-size: 12px; font-weight: normal; color: #95999d; text-transform: uppercase; letter-spacing: 0.6px;\\"><span>11/07/2017</span></h4></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"100%\\" border=\\"0\\"><tbody><tr class=\\"js-transaction tableRow\\" style=\\"padding: 8px 0; line-height: 1.5; letter-spacing: 0.25px; border-bottom: 0;\\">
                   <td width=\\"40px\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       <img style=\\"width: 32px; height: 32px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-cat-health.png\\">
                     </a>
                   </td>
                   <td>
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       Cpam Paris
                     </a>
                   </td>
                   <td width=\\"150px\\" align=\\"right\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       <span class=\\"amount amountNeg\\" style=\\"white-space: nowrap; font-size: 16px; color: #f52d2d;\\">
 -
 120.7 €
@@ -1682,17 +1682,17 @@ exports[`emails should render transactionGreater in fr 1`] = `
           <td style=\\"vertical-align:top;width:600px;\\">
       <![endif]--><div class=\\"mj-column-per-100 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\" align=\\"left\\"><div style=\\"cursor:auto;color:#000000;font-family:Lato, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;\\"><h3 class=\\"js-account\\" style=\\"display: block; margin: 0; padding: 0; font-size: 12px; font-weight: bold; color: #95999d; text-transform: uppercase; letter-spacing: 0.6px;\\">Livret A Isabelle - La Banque Postale</h3></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\" align=\\"left\\"><div style=\\"cursor:auto;color:#000000;font-family:Lato, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;\\"><h4 class=\\"js-date text\\" style=\\"display: block; margin: 0; padding: 0; font-size: 12px; font-weight: normal; color: #95999d; text-transform: uppercase; letter-spacing: 0.6px;\\"><span>03/07/2017</span></h4></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"100%\\" border=\\"0\\"><tbody><tr class=\\"js-transaction tableRow\\" style=\\"padding: 8px 0; line-height: 1.5; letter-spacing: 0.25px; border-bottom: 0;\\">
                   <td width=\\"40px\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       <img style=\\"width: 32px; height: 32px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-cat-excludeFromBudgetCat.png\\">
                     </a>
                   </td>
                   <td>
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       Transfert Livret A
                     </a>
                   </td>
                   <td width=\\"150px\\" align=\\"right\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       <span class=\\"amount amountPos\\" style=\\"white-space: nowrap; font-size: 16px; color: #35ce68;\\">
 +
 400 €
@@ -1713,17 +1713,17 @@ exports[`emails should render transactionGreater in fr 1`] = `
           <td style=\\"vertical-align:top;width:600px;\\">
       <![endif]--><div class=\\"mj-column-per-100 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\" align=\\"left\\"><div style=\\"cursor:auto;color:#000000;font-family:Lato, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;\\"><h3 class=\\"js-account\\" style=\\"display: block; margin: 0; padding: 0; font-size: 12px; font-weight: bold; color: #95999d; text-transform: uppercase; letter-spacing: 0.6px;\\">Compte jeune Louise - BNPP</h3></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;padding-top:0px;padding-bottom:0px;\\" align=\\"left\\"><div style=\\"cursor:auto;color:#000000;font-family:Lato, Helvetica, Arial, sans-serif;font-size:13px;line-height:22px;text-align:left;\\"><h4 class=\\"js-date text\\" style=\\"display: block; margin: 0; padding: 0; font-size: 12px; font-weight: normal; color: #95999d; text-transform: uppercase; letter-spacing: 0.6px;\\"><span>04/07/2017</span></h4></div></td></tr><tr><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><table cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"border-spacing: 0; cellspacing: 0px; color: #000; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; table-layout: auto;\\" width=\\"100%\\" border=\\"0\\"><tbody><tr class=\\"js-transaction tableRow\\" style=\\"padding: 8px 0; line-height: 1.5; letter-spacing: 0.25px; border-bottom: 0;\\">
                   <td width=\\"40px\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       <img style=\\"width: 32px; height: 32px\\" src=\\"https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-cat-dailyLife.png\\">
                     </a>
                   </td>
                   <td>
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       Auchan
                     </a>
                   </td>
                   <td width=\\"150px\\" align=\\"right\\">
-                    <a href=\\"\\" style=\\"color: inherit; text-decoration: none;\\">
+                    <a href=\\"https://links.mycozy.cloud/banks/transactions?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Ftransactions\\" style=\\"color: inherit; text-decoration: none;\\">
                       <span class=\\"amount amountNeg\\" style=\\"white-space: nowrap; font-size: 16px; color: #f52d2d;\\">
 -
 42.3 €
@@ -1750,7 +1750,7 @@ exports[`emails should render transactionGreater in fr 1`] = `
           <td style=\\"vertical-align:top;width:300px;\\">
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody></tbody></table></div><!--[if mso | IE]>
       </td><td style=\\"vertical-align:top;width:300px;\\">
-      <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr class=\\"footer__help\\"><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><div style=\\"letter-spacing: 0.6px; cursor: auto; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; color: #95999d; text-align: right;\\"><a css-class=\\"footer__help\\" href=\\"\\" style=\\"display: inline-block; color: #95999d;\\">
+      <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr class=\\"footer__help\\"><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><div style=\\"letter-spacing: 0.6px; cursor: auto; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; color: #95999d; text-align: right;\\"><a css-class=\\"footer__help\\" href=\\"https://links.mycozy.cloud/banks/settings/configuration?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Fsettings%2Fconfiguration\\" style=\\"display: inline-block; color: #95999d;\\">
               Paramètres
             </a>
               <a css-class=\\"footer__help\\" href=\\"https://support.cozy.io/\\" style=\\"display: inline-block; margin-left: 16px; color: #95999d;\\">
