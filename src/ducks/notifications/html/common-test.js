@@ -24,6 +24,13 @@ export const EMAILS = {
     data: readJSONSync(
       'src/ducks/notifications/html/data/transactions-greater.json'
     )
+  },
+
+  lateHealthReimbursement: {
+    template: require('./late-health-reimbursement-html').default,
+    data: readJSONSync(
+      'src/ducks/notifications/html/data/late-health-reimbursement.json'
+    )
   }
 }
 
