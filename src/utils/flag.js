@@ -43,4 +43,7 @@ flag('transaction-history', true)
 // Turn on reimbursement tags + new CTAs UI
 flag('reimbursement-tag', true)
 
+// Turn on transfers
+flag('transfers', true)
+
 window.flag = flag
