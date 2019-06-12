@@ -81,11 +81,23 @@ jobs:
         - yarn mobile:icon
         - yarn secrets:decrypt
         - ln -s ../../../scripts/decrypted/keys ./src/targets/mobile/keys
+        - eval "$(ssh-agent -s)"
+        - mv ./scripts/decrypted/id_rs* ~/.ssh
+        - chmod 600 ~/.ssh/id_rsa
+        - ssh-add ~/.ssh/id_rsa
+        - echo -e "gitlab.cozycloud.cc,163.172.132.147 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBP2capqtBQeE+TUsxioyOJsFsf3+b2JQAT1d/JK0iRO/fmw2G7aUN0dTpsUhk+70M1s21AEWcn0yNcP835HZDPc=" >> ~/.ssh/known_hosts
         - gem update --system
         - rvm install 2.6.0
         - gem install bundler
       script:
-        - yarn ios:build
+        # mobile:build
+        - npm run build:mobile
+        - npm run mobile:clean
+        # mobile:prepare
+        - (cd src/targets/mobile && bundle install)
+        - (cd src/targets/mobile && ../../../node_modules/.bin/cordova prepare ios)
+        - npm run ios:install_pods
+        - (cd src/targets/mobile/ && fastlane ios build)
       if: tag IS present OR (type = push AND branch = master) OR (type = pull_request AND commit_message =~ /(\[ipa\])/)
 env:
   global:
@@ -107,3 +119,5 @@ env:
     - secure: "lWYmzyQM7sIKuoJIIiljRH2dOTXsna4qvC+rZeAYtxlHRgEZlObL5S4St2oAv+FGMHa8j1hZfxTBotqbKrVtjBuW0Sc3lezw/+WbB3MyUcFJF2rPGXOEWKDK3NTFyT2j0faO0XjPZMUtjHBZIcAMsHyBQCVrwIcIPICYoS8zFHYeAfI1ZbNSXQJzBkoEvR4yj7zDqPp9k7EZ12zvzBlnH8WiHSfjo8MjBWajQ4ZtCBHNO0MpVlQ30KKc8K8P0pkB55BahzX+6nBLFgIC5I5r+1QzZ5KjRBzMm8D/F7wn0jDMnHb5imJ8eZky+gPT6s4QF4jrLLOxwLelFqSQSSwpMH9+qfYTzNrhRFfBbi/xn/HQRje6bJBzD5stp5pOM6k3GWltK67KZKq7cGdAvSAOtKWdmr3NKny/q8LG6X2iQWOETcWobGv6BYjKvQTO9SVT+dd8Cg77s81Q/TMhB+If6g6mcvfsTUocyrXqvcf3mFcMKnadyAX89Ccz5f3yVYMhCLnU7F8FNsZYFpgKJ1HB9zXSsAkZVAL+8fX1iRZEGw1xKHwGO7yh5utxgQHAUfrqHGP8qdTpct1pfHF01P+ybt1k2rnLXAM3qDPg+fDlm1oEYwzrp/uRxmHlG50o5YILSGZEKk0OArcYKezToVWfNMmnzmQCY0O13dvgd/F9cFw="
     # ANDROID_KS_PASS_PASSWORD: travis encrypt ANDROID_KS_PASS_PASSWORD=<password> -r cozy/cozy-banks
     - secure: "eW3p+Pkd4a6GtvKaZmIVqnvLwZKQHopc11PmiQAr3Hn8wczNaQBSsHJNQSqzzH5aAw3Ou1XRRASdqzxb2Kc+TtUdLKV2WT25SQYz8knx9G7et76zNnoCoKG5xR3Forbphi8KnnajtzL1dBr1H7ebkB2nzBaXWTR3YginRxaLU4gEGeJ3C0K4PVy4P9OOwVsxxOWmEz+p0ahLYQbX5XsRG3bcDb3XJ5/XVdTzEa0iFeK1Ukt0QqQ5AF4h3wI4m10ldNCqQDl8JEYqJQUb+OW1yqEQTHd5J2FHwkH9aVolTmWOka+okujeB+oIdY94k3RUiwhiX9QBS+S8z8SxynzQ53z8JjVzyiRikCocC0AMVTBOoLS0squL1ZVUIR2XCM0oNPiAY8nq9oooStntbcyyNY+eREueq6m91fFfnZr1mXfNDtDNKY9AbNR7lP+YhHTdduRV719HLFwcRIHoRhkD9fykcZ8RSYqcwPS+eX2t90q76MRQXzr4du60KSNtbAV9aGr9dk7pFk9SSYo7JZ3xUEXaaQ7POmLnTYW8sR8NDnrnk59HiVR0jMPVQ5uAvtx+h0bPsSW043NWroFgb+J/wTJD2ntfr5fXTFs4WNE2dfViZX2bVMaDv3l3HODLeMmMv9fJO6CSSwHRoFqh4D9OrI479gkiYpjwTXFSJy/VnVg="
+    # MATCH_PASSWORD: travis encrypt MATCH_PASSWORD=`pass Mobile/iOS/Passphrase-certificate-match` -r cozy/cozy-banks
+    - secure: "dClgdjZA7fwvOuC28vM6RcsP99u1+/USrzCrcr3JOVpJuwcZ2iBJY/LPX+uu1vq/mhAFQzJNX8ln9oIjcGwDDwspCvGB9bs+h7Eio93mO5Gtg8dXR0MfO2eatyApttuKDF2r6l93Nq14c3ZLIQYHb/ce+aKyTn6s2SajMBx2oSqsn3Xqm4kORqqYLnC8liIS9hTgXJIY2p+LzYuxb2sI02sbKHVHA3OjfiPhvq1K8Hfe7O+1Vf4QHahz/T2NpJgd+fJ5SQO/u1vX3yjWznRC/Bt+WZ4xixCWf1PF+veSeNwr7WPX20SxMik7NqzJj8kCEW08pFTllMz6+kLOipLRrI4NZCQxf+iWYLUMtZmB39b4PaUSf7x0nM+FiQE7PpR8HYAzaEee3C3kMDd6Hrpdg0gPsvBf+r+vAoDm+NMv0IEI8gLMBeVrDhT/Mjj2QwnbhiTfQWd/vHDRlBZfNb7nkzWOR8KDNEsqCybgEu/ATk9E588Tz3c7M9FDGLqO4SJXP0btrOd6dPL+ABLck0FrMgZ9p1wPFtn0UicEGtlbLuz+rPTV4f5UjaJl3t+c7s5Le11KjG00DlMVqb1BrNXKJYJY6LavfJtJG3rI6fzqsbtF2HsvdqfHkeqQMhbnvMOoOjkckEeb+YtsrQ6LHv1hCaPORVFb+axLMGFqTg5PUI4="
