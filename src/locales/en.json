@@ -431,7 +431,7 @@
     "when_late_health_reimbursement": {
       "settingTitle": "Late health reimbursement",
       "description": "You will be notified when a health reimbursement is pending for more than",
-      "unit": "d"
+      "unit": "days"
     },
     "email": {
       "settings": "Settings",
