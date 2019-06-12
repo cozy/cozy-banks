@@ -27,7 +27,7 @@ class Stepper extends React.Component {
           <PercentageLine
             color="var(--primaryColor)"
             style={styles.percLine}
-            value={Math.max((current / children.length) * 100, 1)}
+            value={Math.max(((current + 1) / children.length) * 100, 1)}
           />
         </div>
         {current > 0 ? <BackButtonMobile onClick={onBack} /> : null}
