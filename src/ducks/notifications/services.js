@@ -3,7 +3,8 @@ import { initTranslation } from 'cozy-ui/react/I18n/translation'
 import {
   BalanceLower,
   TransactionGreater,
-  HealthBillLinked
+  HealthBillLinked,
+  LateHealthReimbursement
 } from 'ducks/notifications'
 import { BankAccount } from 'models'
 
@@ -14,7 +15,12 @@ const dictRequire = lang => require(`../../locales/${lang}`)
 const translation = initTranslation(lang, dictRequire)
 const t = translation.t.bind(translation)
 
-const notificationClasses = [BalanceLower, TransactionGreater, HealthBillLinked]
+const notificationClasses = [
+  BalanceLower,
+  TransactionGreater,
+  HealthBillLinked,
+  LateHealthReimbursement
+]
 
 const fetchTransactionAccounts = async transactions => {
   const accountsIds = Array.from(new Set(transactions.map(x => x.account)))

@@ -99,6 +99,14 @@
       "multiple": false,
       "default_priority": "normal",
       "templates": {}
+    },
+    "late-health-reimbursement": {
+      "description": "Alert the user when a health reimbursement is late",
+      "collapsible": false,
+      "stateful": false,
+      "multiple": false,
+      "default_priority": "normal",
+      "templates": {}
     }
   },
   "permissions": {

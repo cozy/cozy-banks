@@ -434,6 +434,12 @@
       "unit": "days",
       "email": {
         "innerTitle": "Late health reimbursement notification"
+      },
+      "notification": {
+        "title": "Late health reimbursements",
+        "content": {
+          "title": "Late health reimbursements"
+        }
       }
     },
     "email": {

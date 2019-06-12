@@ -446,6 +446,12 @@
       "unit": "jours",
       "email": {
         "innerTitle": "Notification de remboursement(s) en retard"
+      },
+      "notification": {
+        "title": "Remboursements de santé en retard",
+        "content": {
+          "title": "Remboursements de santé en retard"
+        }
       }
     },
     "email": {
