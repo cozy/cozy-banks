@@ -20,6 +20,8 @@ import Loading from 'components/Loading'
 import { List, Row, Radio } from 'components/List'
 import Stepper from 'components/Stepper'
 import PageTitle from 'components/Title/PageTitle'
+import TextCard from 'components/TextCard'
+import OptionalInput from 'components/OptionalInput'
 import BottomButton from 'components/BottomButton'
 
 const Title = ({ children }) => {
@@ -209,6 +211,57 @@ class _ChooseSenderAccount extends React.Component {
 
 const ChooseSenderAccount = translate()(_ChooseSenderAccount)
 
+const _Summary = ({
+  amount,
+  senderAccount,
+  beneficiary,
+  onConfirm,
+  active,
+  selectSlide,
+  t
+}) =>
+  amount && senderAccount && beneficiary ? (
+    <Padded>
+      {active && <PageTitle>{t('Transfer.summary.page-title')}</PageTitle>}
+      <Title>{t('Transfer.summary.title')}</Title>
+      <div>
+        {t('Transfer.summary.send')}{' '}
+        <TextCard
+          className="u-clickable"
+          onClick={selectSlide.bind(null, 'amount')}
+        >
+          {amount}€
+        </TextCard>
+        <br />
+        {t('Transfer.summary.to')}{' '}
+        <TextCard
+          className="u-clickable"
+          onClick={selectSlide.bind(null, 'beneficiary')}
+        >
+          {beneficiary.label}
+        </TextCard>
+        <br />
+        {t('Transfer.summary.from')}{' '}
+        <TextCard
+          className="u-clickable"
+          onClick={selectSlide.bind(null, 'sender')}
+        >
+          {senderAccount.label}
+        </TextCard>
+        <br />
+        {t('Transfer.summary.for')}{' '}
+        <OptionalInput placeholder={t('Transfer.summary.for-placeholder')} />
+        <BottomButton
+          label={t('Transfer.summary.confirm')}
+          visible={active}
+          onClick={onConfirm}
+        />
+      </div>
+    </Padded>
+  ) : null
+
+const Summary = translate()(_Summary)
+
 class TransferPage extends React.Component {
   constructor(props, context) {
     super(props, context)
@@ -225,6 +278,7 @@ class TransferPage extends React.Component {
     this.handleChangeAmount = this.handleChangeAmount.bind(this)
     this.handleSelectAmount = this.handleSelectAmount.bind(this)
     this.handleSelectSender = this.handleSelectSender.bind(this)
+    this.handleSelectSlide = this.handleSelectSlide.bind(this)
     this.handleConfirm = this.handleConfirm.bind(this)
   }
 
@@ -307,6 +361,15 @@ class TransferPage extends React.Component {
     this.transferMoney()
   }
 
+  handleSelectSlide(slideName) {
+    const indexes = {
+      beneficiary: 1,
+      amount: 2,
+      sender: 3
+    }
+    this.setState({ slide: indexes[slideName] })
+  }
+
   render() {
     const { recipients, t } = this.props
 
@@ -353,6 +416,13 @@ class TransferPage extends React.Component {
             amount={amount}
             onChange={this.handleChangeAmount}
             onSelect={this.handleSelectAmount}
+          />
+          <Summary
+            onConfirm={this.handleConfirm}
+            amount={amount}
+            beneficiary={beneficiary}
+            senderAccount={senderAccount}
+            selectSlide={this.handleSelectSlide}
           />
         </Stepper>
       </>

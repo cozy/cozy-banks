@@ -574,5 +574,15 @@
       "page-title": "Émetteur",
       "title": "Depuis quel compte souhaitez-vous effectuer un virement ?"
     },
+    "summary": {
+      "page-title": "Récapitulatif",
+      "title": "Effectuer un virement avec les informations suivantes ?",
+      "send": "Envoyer",
+      "from": "depuis",
+      "to": "à",
+      "for": "pour",
+      "for-placeholder": "motif (facultatif)",
+      "confirm": "Confirmer le virement"
+    }
   }
 }
