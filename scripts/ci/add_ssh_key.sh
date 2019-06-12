@@ -5,5 +5,6 @@ set -e
 
 yarn secrets:decrypt
 eval "$(ssh-agent -s)"
-chmod 600 ./scripts/decrypted/id_rsa
-ssh-add ./scripts/decrypted/id_rsa
+mv ./scripts/decrypted/id_rsa* ~/.ssh
+chmod 600 ~/.ssh/id_rsa*
+ssh-add ~/.ssh/id_rsa
