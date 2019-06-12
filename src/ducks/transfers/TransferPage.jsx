@@ -107,7 +107,9 @@ const BeneficiaryRow = ({ beneficiary, onSelect }) => {
           <Text>{beneficiary.label}</Text>
           <Caption>{beneficiary.iban}</Caption>
         </Bd>
-        <Img>{beneficiary.balance ? <Bold>{beneficiary.balance}</Bold> : null}</Img>
+        <Img>
+          {beneficiary.balance ? <Bold>{beneficiary.balance}</Bold> : null}
+        </Img>
       </Media>
     </Row>
   )
@@ -124,7 +126,11 @@ class _ChooseBeneficiary extends React.Component {
         <Title>{t('Transfer.beneficiary.title')}</Title>
         <List border paper>
           {beneficiaries.map(beneficiary => (
-            <BeneficiaryRow key={beneficiary._id} onSelect={onSelect} beneficiary={beneficiary} />
+            <BeneficiaryRow
+              key={beneficiary._id}
+              onSelect={onSelect}
+              beneficiary={beneficiary}
+            />
           ))}
         </List>
       </Padded>
@@ -134,6 +140,50 @@ class _ChooseBeneficiary extends React.Component {
 
 const ChooseBeneficiary = translate()(_ChooseBeneficiary)
 
+const SenderRow = ({ account, onSelect }) => {
+  return (
+    <Row
+      className="u-clickable"
+      onClick={onSelect.bind(null, account)}
+      key={account._id}
+    >
+      <Media className="u-w-100">
+        <Img />
+        <Bd>
+          <Text>{account.shortLabel}</Text>
+          <Caption>{account.iban}</Caption>
+        </Bd>
+        <Img>
+          <Bold>{account.balance}€</Bold>
+        </Img>
+      </Media>
+    </Row>
+  )
+}
+
+class _ChooseSenderAccount extends React.Component {
+  render() {
+    const { accounts, onSelect, active, t } = this.props
+    return (
+      <Padded>
+        {active && <PageTitle>{t('Transfer.sender.page-title')}</PageTitle>}
+        <Title>{t('Transfer.sender.title')}</Title>
+        <List border paper>
+          {accounts.map(account => (
+            <SenderRow
+              key={account._id}
+              account={account}
+              onSelect={onSelect}
+            />
+          ))}
+        </List>
+      </Padded>
+    )
+  }
+}
+
+const ChooseSenderAccount = translate()(_ChooseSenderAccount)
+
 class TransferPage extends React.Component {
   constructor(props, context) {
     super(props, context)
@@ -141,11 +191,12 @@ class TransferPage extends React.Component {
       category: null, // Currently selected category
       slide: 0,
       senderAccount: null,
-      senderAccounts: [], // Possible sender accounts for chosen person
+      senderAccounts: [] // Possible sender accounts for chosen person
     }
     this.handleGoBack = this.handleGoBack.bind(this)
     this.handleChangeCategory = this.handleChangeCategory.bind(this)
     this.handleSelectBeneficiary = this.handleSelectBeneficiary.bind(this)
+    this.handleSelectSender = this.handleSelectSender.bind(this)
     this.handleConfirm = this.handleConfirm.bind(this)
   }
 
@@ -211,13 +262,18 @@ class TransferPage extends React.Component {
     this.setState({ slide: Math.max(this.state.slide - 1, 0) })
   }
 
+  handleSelectSender(senderAccount) {
+    this.setState({ senderAccount })
+    this.goToNext()
+  }
+
   handleConfirm() {
     this.transferMoney()
   }
 
   render() {
     const { recipients, t } = this.props
-    const { category, beneficiary } = this.state
+    const { category, beneficiary, senderAccount, senderAccounts } = this.state
 
     if (recipients.fetchStatus === 'loading') {
       return (
@@ -244,6 +300,11 @@ class TransferPage extends React.Component {
             beneficiary={beneficiary}
             onSelect={this.handleSelectBeneficiary}
             beneficiaries={beneficiaries}
+          />
+          <ChooseSenderAccount
+            account={senderAccount}
+            accounts={senderAccounts}
+            onSelect={this.handleSelectSender}
           />
         </Stepper>
       </>
