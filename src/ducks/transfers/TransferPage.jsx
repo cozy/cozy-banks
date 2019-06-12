@@ -297,7 +297,6 @@ const _Summary = ({
 
 const Summary = translate()(_Summary)
 
-
 const _Password = ({ t, onChangePassword, onConfirm, active }) => (
   <>
     <Padded>
@@ -412,36 +411,25 @@ class TransferPage extends React.Component {
     this.setState({ beneficiary, slide: 2 })
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const prevBeneficiaryId = prevState.beneficiary && prevState.beneficiary._id
-    const beneficiaryId = this.state.beneficiary && this.state.beneficiary._id
-    if (prevBeneficiaryId !== beneficiaryId) {
-      this.loadPossibleAccounts()
-    }
   }
 
-  /**
-   * Show possible accounts according to beneficiary
-   */
-  async loadPossibleAccounts() {
-    const { client } = this.props
-    const { beneficiary } = this.state
-
-    if (!beneficiary) {
-      return
-    }
-
+  handleSelectBeneficiary(beneficiary) {
     const possibleSenderAccounts = new Set(
       beneficiary.recipients.map(x => x.vendorAccountId + '')
     )
 
-    const resp = await client.query(client.all('io.cozy.bank.accounts'))
-    const data = resp.data
+    const data = this.props.accounts.data
     const senderAccounts = data.filter(x =>
       possibleSenderAccounts.has(x.vendorId)
     )
+    this.setState({
+      beneficiary,
+      senderAccounts,
+      senderAccount: senderAccounts[0]
+    })
+    this.selectSlideByName('sender')
+  }
 
-    this.setState({ senderAccounts, senderAccount: senderAccounts[0] })
   }
 
   handleGoBack() {
