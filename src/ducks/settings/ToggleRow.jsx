@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import cx from 'classnames'
 import Toggle from 'cozy-ui/react/Toggle'
 import styles from 'ducks/settings/ToggleRow.styl'
 
@@ -31,17 +30,17 @@ class ToggleRow extends Component {
           <p className={styles.ToggleRow__description}>
             <span dangerouslySetInnerHTML={{ __html: description }} />
             {hasValue && (
-              <input
-                type="number"
-                onChange={e => onChangeValue(parseNumber(e.target.value))}
-                value={value}
-                className={cx(
-                  styles.ToggleRow__input,
-                  styles['ToggleRow__input--suffixed']
-                )}
-              />
+              <span className={styles.ToggleRow__input}>
+                <span className={styles.ToggleRow__inputContainer}>
+                  <input
+                    type="text"
+                    onChange={e => onChangeValue(parseNumber(e.target.value))}
+                    value={value}
+                  />
+                </span>
+                {unit && <span>{unit}</span>}
+              </span>
             )}
-            {hasValue && unit && <span>{unit}</span>}
           </p>
 
           <div className={styles.ToggleRow__toggle}>

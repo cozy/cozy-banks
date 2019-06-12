@@ -22,25 +22,34 @@ h5
     margin 0
     font-size .9em
 
-input[type='text'].ToggleRow__input,
-input[type='number'].ToggleRow__input
-    padding .5em .3em
+.ToggleRow__input
+    display inline-flex
     margin 0 5px
     width 4.5em
+    padding .5em .3em
+    align-items center
+    border 1px solid var(--silver)
 
-    &.ToggleRow__input--suffixed::-webkit-inner-spin-button
-    &.ToggleRow__input--suffixed::-webkit-outer-spin-button
+    input[type='text'],
+    input[type='number']
+        box-sizing border-box
+        width 100%
+        border 0
+        background-color var(--white)
+        color var(--black)
+        -moz-appearance textfield
+
+    ::-webkit-inner-spin-button,
+    ::-webkit-outer-spin-button
         -webkit-appearance none
 
-    &::-webkit-contacts-auto-fill-button
-        visibility     hidden
-        display        none
+    ::-webkit-contacts-auto-fill-button
+        visibility hidden
+        display none
         pointer-events none
 
-    &.ToggleRow__input--suffixed + span
-        position absolute
-        margin-left -1.5em
-        margin-top .6em
+.ToggleRow__inputContainer
+    flex-basis 100%
 
 .ToggleRow__toggle span
     vertical-align middle
