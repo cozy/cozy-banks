@@ -37,6 +37,9 @@ class Configuration extends React.Component {
     flag(key, checked)
   }
 
+  // TODO the displayed value and the persisted value should not be the same.
+  // If the user empties the input, we may persist `0`, but we don't want to
+  // show `0` until he blurs the input
   onChangeValue = key => value => {
     const { settingsCollection } = this.props
     const settings = getDefaultedSettingsFromCollection(settingsCollection)

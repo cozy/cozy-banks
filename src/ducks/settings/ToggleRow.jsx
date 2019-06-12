@@ -5,7 +5,8 @@ import Toggle from 'cozy-ui/react/Toggle'
 import styles from 'ducks/settings/ToggleRow.styl'
 
 const parseNumber = val => {
-  return parseInt(val.replace(/\D/i, ''), 10)
+  val = val.replace(/\D/gi, '') || 0
+  return parseInt(val, 10)
 }
 
 class ToggleRow extends Component {
