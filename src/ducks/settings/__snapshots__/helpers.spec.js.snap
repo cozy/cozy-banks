@@ -30,6 +30,10 @@ Object {
       "enabled": false,
     },
     "lastSeq": 0,
+    "lateHealthReimbursement": Object {
+      "enabled": true,
+      "value": 30,
+    },
     "mensuel": Object {
       "enabled": false,
     },

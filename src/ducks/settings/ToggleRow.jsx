@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import cx from 'classnames'
 import Toggle from 'cozy-ui/react/Toggle'
 import styles from 'ducks/settings/ToggleRow.styl'
 
 const parseNumber = val => {
-  return parseInt(val.replace(/\D/i, ''), 10)
+  val = val.replace(/\D/gi, '') || 0
+  return parseInt(val, 10)
 }
 
 class ToggleRow extends Component {
@@ -17,7 +17,8 @@ class ToggleRow extends Component {
       description,
       onChangeValue,
       name,
-      onToggle
+      onToggle,
+      unit
     } = this.props
 
     const hasValue = value !== undefined
@@ -29,17 +30,17 @@ class ToggleRow extends Component {
           <p className={styles.ToggleRow__description}>
             <span dangerouslySetInnerHTML={{ __html: description }} />
             {hasValue && (
-              <input
-                type="number"
-                onChange={e => onChangeValue(parseNumber(e.target.value))}
-                value={value}
-                className={cx(
-                  styles.ToggleRow__input,
-                  styles['ToggleRow__input--suffixed']
-                )}
-              />
+              <span className={styles.ToggleRow__input}>
+                <span className={styles.ToggleRow__inputContainer}>
+                  <input
+                    type="text"
+                    onChange={e => onChangeValue(parseNumber(e.target.value))}
+                    value={value}
+                  />
+                </span>
+                {unit && <span>{unit}</span>}
+              </span>
             )}
-            {hasValue && <span>€</span>}
           </p>
 
           <div className={styles.ToggleRow__toggle}>
@@ -62,7 +63,8 @@ ToggleRow.propTypes = {
   description: PropTypes.string.isRequired,
   onChangeValue: PropTypes.func,
   name: PropTypes.string.isRequired,
-  onToggle: PropTypes.func.isRequired
+  onToggle: PropTypes.func.isRequired,
+  unit: PropTypes.string
 }
 
 export default ToggleRow

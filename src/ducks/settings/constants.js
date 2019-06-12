@@ -16,6 +16,10 @@ export const DEFAULTS_SETTINGS = {
     healthBillLinked: {
       enabled: true
     },
+    lateHealthReimbursement: {
+      value: 30,
+      enabled: true
+    },
     salaire: {
       enabled: false
     },

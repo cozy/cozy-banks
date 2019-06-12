@@ -37,6 +37,9 @@ class Configuration extends React.Component {
     flag(key, checked)
   }
 
+  // TODO the displayed value and the persisted value should not be the same.
+  // If the user empties the input, we may persist `0`, but we don't want to
+  // show `0` until he blurs the input
   onChangeValue = key => value => {
     const { settingsCollection } = this.props
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
@@ -68,6 +71,7 @@ class Configuration extends React.Component {
             enabled={settings.notifications.balanceLower.enabled}
             value={settings.notifications.balanceLower.value}
             name="balanceLower"
+            unit="€"
           />
           <ToggleRow
             title={t('Notifications.if_transaction_greater.settingTitle')}
@@ -79,6 +83,7 @@ class Configuration extends React.Component {
             enabled={settings.notifications.transactionGreater.enabled}
             value={settings.notifications.transactionGreater.value}
             name="transactionGreater"
+            unit="€"
           />
           <ToggleRow
             title={t('Notifications.when_health_bill_linked.settingTitle')}
@@ -87,6 +92,24 @@ class Configuration extends React.Component {
             enabled={settings.notifications.healthBillLinked.enabled}
             name="healthBillLinked"
           />
+          {flag('late-health-reibursement-notification') && (
+            <ToggleRow
+              title={t(
+                'Notifications.when_late_health_reimbursement.settingTitle'
+              )}
+              description={t(
+                'Notifications.when_late_health_reimbursement.description'
+              )}
+              onToggle={this.onToggle('notifications.lateHealthReimbursement')}
+              onChangeValue={this.onChangeValue(
+                'notifications.lateHealthReimbursement'
+              )}
+              enabled={settings.notifications.lateHealthReimbursement.enabled}
+              value={settings.notifications.lateHealthReimbursement.value}
+              name="lateHealthReimbursement"
+              unit={t('Notifications.when_late_health_reimbursement.unit')}
+            />
+          )}
         </TogglePane>
         <TogglePane>
           <TogglePaneTitle>
