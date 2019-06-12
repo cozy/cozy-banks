@@ -3,7 +3,6 @@ node-preset: &node # Used internally to share configuration, ignored by travis.
   node_js:
     - "8"
   cache:
-    yarn: true
     directories:
       - node_modules
 branches:
@@ -19,34 +18,23 @@ jobs:
     - name: Unit tests
       stage: test
       <<: *node
-      script:
-        - yarn lint
-        - yarn test
+      script: yarn lint && yarn test
     - name: Web build
       stage: build
       <<: *node
-      script:
-        - yarn build
-      before_deploy:
-        - yarn secrets:decrypt
-        - eval "$(ssh-agent -s)"
-        - chmod 600 ./scripts/decrypted/id_rsa
-        - ssh-add ./scripts/decrypted/id_rsa
+      script: yarn build
+      before_deploy: ./scripts/ci/add_ssh_key.sh
       deploy:
         - provider: script
           repo: cozy/cozy-banks
           skip-cleanup: true
-          script:
-            - yarn cozyPublish
-            - yarn uploadStaticFiles
+          script: yarn cozyPublish && yarn uploadStaticFiles
           on:
             branch: master
         - provider: script
           repo: cozy/cozy-banks
           skip-cleanup: true
-          script:
-            - yarn cozyPublish
-            - yarn uploadStaticFiles
+          script: yarn cozyPublish && yarn uploadStaticFiles
           on:
             tags: true
     - name: Android build
@@ -55,29 +43,10 @@ jobs:
       language: android
       android:
         components:
-          - build-tools-26.0.2
-      before_script:
-        - yes | sdkmanager "platforms;android-27" # see https://github.com/travis-ci/travis-ci/issues/8874#issuecomment-350350607
-        - curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-        - sudo apt-get install nodejs
-        - sudo apt-get install build-essential
-        - yarn
-        - yarn mobile:icon
-        - yarn secrets:decrypt
-        - ln -s ../../../scripts/decrypted/keys ./src/targets/mobile/keys
-        - gem update --system
-        - rvm install 2.6.0
-        - gem install bundler
-      script:
-        - yarn android:build
-      after_success:
-        - yarn secrets:decrypt
-        - eval "$(ssh-agent -s)"
-        - chmod 600 ./scripts/decrypted/id_rsa
-        - ssh-add ./scripts/decrypted/id_rsa
-        - export APK_URL=$(node scripts/pushArtifact.js src/targets/mobile/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk)
-        - yarn run cozy-ci-github "🎁 [Click here]($APK_URL) to download the latest Android APK"
-        - ./scripts/mattermost.sh
+          - build-tools-27.0.2
+      before_script: ./scripts/ci/android_before_script.sh
+      script: yarn android:build
+      after_success: ./scripts/ci/android_after_success.sh
       if: tag IS present OR (type = push AND branch = master) OR (type = pull_request AND commit_message =~ /(\[apk\])/)
 env:
   global:
