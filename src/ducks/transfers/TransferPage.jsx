@@ -297,6 +297,30 @@ const _Summary = ({
 
 const Summary = translate()(_Summary)
 
+
+const _Password = ({ t, onChangePassword, onConfirm, active }) => (
+  <>
+    <Padded>
+      {active && <PageTitle>{t('Transfer.password.page-title')}</PageTitle>}
+      <Title>{t('Transfer.password.title')}</Title>
+      <p>
+        <Field
+          type="password"
+          onChange={onChangePassword}
+          placeholder={t('Transfer.password.field-placeholder')}
+          label={t('Transfer.password.field-label')}
+        />
+      </p>
+    </Padded>
+    <BottomButton
+      label={t('Transfer.password.confirm')}
+      visible={active}
+      onClick={onConfirm}
+    />
+  </>
+)
+
+const Password = translate()(_Password)
 const TransferSuccess = translate()(({ t, onReset, onExit }) => (
   <div>
     {t('transfer.success.description')}
@@ -334,6 +358,7 @@ class TransferPage extends React.Component {
       senderAccount: null,
       senderAccounts: [], // Possible sender accounts for chosen person
       amount: '',
+      password: '',
       transferSent: false,
       sendingTransfer: false,
       transferError: null
@@ -345,6 +370,8 @@ class TransferPage extends React.Component {
     this.handleSelectAmount = this.handleSelectAmount.bind(this)
     this.handleSelectSender = this.handleSelectSender.bind(this)
     this.handleSelectSlide = this.handleSelectSlide.bind(this)
+    this.handleConfirmSummary = this.handleConfirmSummary.bind(this)
+    this.handleChangePassword = this.handleChangePassword.bind(this)
     this.handleConfirm = this.handleConfirm.bind(this)
     this.handleModalDismiss = this.handleModalDismiss.bind(this)
     this.handleExit = this.handleExit.bind(this)
@@ -453,6 +480,22 @@ class TransferPage extends React.Component {
       sender: 3
     }
     this.setState({ slide: indexes[slideName] })
+  handleReset() {
+    this.setState({
+      amount: '',
+      sendingTransfer: false,
+      transferError: null,
+      transferSuccess: null,
+      senderAccount: null,
+      senderAccounts: [],
+      category: null,
+      beneficiary: null,
+      slide: 0
+    })
+  }
+
+  handleExit() {
+    this.props.router.push('/')
   }
 
   render() {
@@ -523,11 +566,15 @@ class TransferPage extends React.Component {
             onSelect={this.handleSelectAmount}
           />
           <Summary
-            onConfirm={this.handleConfirm}
+            onConfirm={this.handleConfirmSummary}
             amount={amount}
             beneficiary={beneficiary}
             senderAccount={senderAccount}
             selectSlide={this.handleSelectSlide}
+          />
+          <Password
+            onChangePassword={this.handleChangePassword}
+            onConfirm={this.handleConfirm}
           />
         </Stepper>
       </>
