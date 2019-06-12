@@ -12,7 +12,9 @@ import {
   Caption,
   Bold,
   Title as UITitle,
-  Field
+  Field,
+  Modal,
+  Button
 } from 'cozy-ui/transpiled/react'
 import { withClient, queryConnect } from 'cozy-client'
 
@@ -295,6 +297,34 @@ const _Summary = ({
 
 const Summary = translate()(_Summary)
 
+const TransferSuccess = translate()(({ t, onReset, onExit }) => (
+  <div>
+    {t('transfer.success.description')}
+    <br />
+    <Button onClick={onExit} label={t('transfer.exit')} />
+    <br />
+    <Button
+      theme="secondary"
+      onClick={onReset}
+      label={t('transfer.new-transfer')}
+    />
+  </div>
+))
+
+const TransferError = translate()(({ t, onReset, onExit }) => (
+  <div>
+    {t('transfer.error.description')}
+    <br />
+    <Button onClick={onExit} label={t('transfer.exit')} />
+    <br />
+    <Button
+      theme="secondary"
+      onClick={onReset}
+      label={t('transfer.new-transfer')}
+    />
+  </div>
+))
+
 class TransferPage extends React.Component {
   constructor(props, context) {
     super(props, context)
@@ -303,7 +333,10 @@ class TransferPage extends React.Component {
       slide: 0,
       senderAccount: null,
       senderAccounts: [], // Possible sender accounts for chosen person
-      amount: ''
+      amount: '',
+      transferSent: false,
+      sendingTransfer: false,
+      transferError: null
     }
     this.handleGoBack = this.handleGoBack.bind(this)
     this.handleChangeCategory = this.handleChangeCategory.bind(this)
@@ -313,16 +346,35 @@ class TransferPage extends React.Component {
     this.handleSelectSender = this.handleSelectSender.bind(this)
     this.handleSelectSlide = this.handleSelectSlide.bind(this)
     this.handleConfirm = this.handleConfirm.bind(this)
+    this.handleModalDismiss = this.handleModalDismiss.bind(this)
+    this.handleExit = this.handleExit.bind(this)
+    this.handleReset = this.handleReset.bind(this)
+  }
+
+  handleConfirm() {
+    this.transferMoney()
   }
 
   async transferMoney() {
     const { client } = this.props
     const account = this.state.account
-    return transfers.createJob(client, {
-      amount: this.inputRef.current.value,
-      recipientId: this.props.recipient._id,
-      fromAccount: account
+    this.setState({
+      sendingTransfer: true
     })
+    try {
+      await transfers.createJob(client, {
+        amount: this.inputRef.current.value,
+        recipientId: this.props.recipient._id,
+        fromAccount: account
+      })
+      this.setState({
+        transferSuccess: true
+      })
+    } catch (e) {
+      this.setState({ transferError: e })
+    } finally {
+      this.setState({ sendingTransfer: false })
+    }
   }
 
   handleChangeCategory(category) {
@@ -411,7 +463,10 @@ class TransferPage extends React.Component {
       beneficiary,
       senderAccount,
       senderAccounts,
-      amount
+      amount,
+      sendingTransfer,
+      transferSuccess,
+      transferError
     } = this.state
 
     if (recipients.fetchStatus === 'loading') {
@@ -430,7 +485,23 @@ class TransferPage extends React.Component {
 
     return (
       <>
-        <PageTitle>{t('Transfer.page-title')}</PageTitle>
+        {sendingTransfer || transferSuccess || transferError ? (
+          <Modal mobileFullscreen dismissAction={this.handleModalDismiss}>
+            {sendingTransfer && <Loading />}
+            {transferSuccess && (
+              <TransferSuccess
+                onExit={this.handleExit}
+                onReset={this.handleReset}
+              />
+            )}
+            {transferError && (
+              <TransferError
+                onExit={this.handleExit}
+                onReset={this.handleReset}
+              />
+            )}
+          </Modal>
+        ) : null}
         <Stepper current={this.state.slide} onBack={this.handleGoBack}>
           <ChooseRecipientCategory
             category={category}
