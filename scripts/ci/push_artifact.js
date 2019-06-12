@@ -9,10 +9,10 @@ const DOWNCLOUD_UPLOAD_DIR = 'www-upload/'
 const DOWNCLOUD_URL = 'downcloud.cozycloud.cc'
 
 const launchCmd = (cmd, params, options) => {
-  return new Promise(async (resolve, reject) => {
+  return new Promise((resolve, reject) => {
     const result = { stdout: [], stderr: [] }
     const cmdOptions = { encoding: 'utf8', ...options }
-    const process = await spawn(cmd, params, cmdOptions)
+    const process = spawn(cmd, params, cmdOptions)
     process.stdout.on('data', data => result.stdout.push(data.toString()))
     process.stderr.on('data', data => result.stderr.push(data.toString()))
     process.on('close', code => {
@@ -25,6 +25,8 @@ const launchCmd = (cmd, params, options) => {
     })
   })
 }
+
+/** Updates version in manifest.webapp to add commit sha and Travis build id */
 const updateVersion = async folderName => {
   const buildCommit = process.env.TRAVIS_COMMIT
   const TRAVIS_BUILD_DIR = process.env.TRAVIS_BUILD_DIR
@@ -107,13 +109,10 @@ const pushArtifact = async (fileName, parentFolder, options) => {
   }
 }
 
-const getUploadTarget = async () => {
-  const uploadTarget = process.argv[2]
-
+const getUploadTarget = async (uploadTarget, appName) => {
   if (!fs.existsSync(uploadTarget)) {
     throw new Error(`❌ ${uploadTarget} does not exist.`)
   } else if (fs.lstatSync(uploadTarget).isDirectory()) {
-    const appName = process.env.COZY_APP_SLUG || 'app'
     const archiveFileName = `${appName.toLowerCase()}.tar.gz`
     await createArchive(uploadTarget, archiveFileName)
 
@@ -128,8 +127,10 @@ const getUploadTarget = async () => {
 
 const run = (async () => {
   try {
-    const [uploadDir, uploadFile] = await getUploadTarget()
-    const { version, name } = require('../package.json')
+    const uploadTarget = process.argv[2]
+    const { version, name } = require('../../package.json')
+
+    const [uploadDir, uploadFile] = await getUploadTarget(uploadTarget, name)
 
     const { appBuildUrl } = await pushArtifact(uploadFile, uploadDir, {
       appSlug: name,
