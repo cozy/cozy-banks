@@ -48,13 +48,46 @@ const transfers = {
   }
 }
 
+const ChooseRecipientCategory = translate()(
+  ({ t, category, onSelect, active }) => {
+    return (
+      <Padded>
+        {active && <PageTitle>{t('Transfer.category.page-title')}</PageTitle>}
+        <Title>{t('Transfer.category.title')}</Title>
+        <List border paper>
+          <Row onClick={onSelect.bind(null, 'internal')}>
+            <Radio
+              readOnly
+              name="category"
+              checked={category == 'internal'}
+              value="internal"
+              label={t('Transfer.category.internal')}
+            />
+          </Row>
+          <Row onClick={onSelect.bind(null, 'external')}>
+            <Radio
+              readOnly
+              name="category"
+              checked={category == 'external'}
+              value="external"
+              label={t('Transfer.category.external')}
+            />
+          </Row>
+        </List>
+      </Padded>
+    )
+  }
+)
+
 class TransferPage extends React.Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
+      category: null, // Currently selected category
       slide: 0,
     }
     this.handleGoBack = this.handleGoBack.bind(this)
+    this.handleChangeCategory = this.handleChangeCategory.bind(this)
     this.handleConfirm = this.handleConfirm.bind(this)
   }
 
@@ -66,6 +99,10 @@ class TransferPage extends React.Component {
       recipientId: this.props.recipient._id,
       fromAccount: account
     })
+  }
+
+  handleChangeCategory(category) {
+    this.setState({ category, slide: 1 })
   }
 
   handleGoBack() {
@@ -85,6 +122,9 @@ class TransferPage extends React.Component {
   }
 
   render() {
+    const { recipients, t } = this.props
+    const { category } = this.state
+
     if (recipients.fetchStatus === 'loading') {
       return (
         <Padded>
@@ -95,7 +135,12 @@ class TransferPage extends React.Component {
     return (
       <>
         <PageTitle>{t('Transfer.page-title')}</PageTitle>
-        <Stepper current={this.state.slide} onBack={this.handleGoBack} />
+        <Stepper current={this.state.slide} onBack={this.handleGoBack}>
+          <ChooseRecipientCategory
+            category={category}
+            onSelect={this.handleChangeCategory}
+          />
+        </Stepper>
       </>
     )
   }
