@@ -23,6 +23,10 @@ const ReactHint = ReactHintFactory(React)
 const App = props => {
   const settings = getDefaultedSettingsFromCollection(props.settingsCollection)
   flag('local-model-override', settings.community.localModelOverride.enabled)
+  flag(
+    'late-health-reimbursement-limit',
+    settings.notifications.lateHealthReimbursement.value
+  )
 
   return (
     <Layout>

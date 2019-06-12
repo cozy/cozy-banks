@@ -185,7 +185,10 @@ export const isReimbursementLate = transaction => {
   const transactionDate = parseDate(getDate(transaction))
   const today = new Date()
 
-  return differenceInDays(today, transactionDate) > 30
+  return (
+    differenceInDays(today, transactionDate) >
+    flag('late-health-reimbursement-limit')
+  )
 }
 
 export const hasPendingReimbursement = transaction => {

@@ -12,6 +12,7 @@ import {
 } from './helpers'
 import { BILLS_DOCTYPE } from 'doctypes'
 import MockDate from 'mockdate'
+import flag from 'cozy-flags'
 
 const fakeCozyClient = {
   attachStore: () => {},
@@ -181,6 +182,10 @@ describe('getReimbursementStatus', () => {
 })
 
 describe('isReimbursementLate', () => {
+  beforeEach(() => {
+    flag('late-health-reimbursement-limit', 30)
+  })
+
   afterEach(() => {
     MockDate.reset()
   })
