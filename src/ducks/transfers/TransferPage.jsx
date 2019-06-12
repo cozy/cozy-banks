@@ -320,6 +320,15 @@ const _Password = ({ t, onChangePassword, onConfirm, active }) => (
 )
 
 const Password = translate()(_Password)
+const slideIndexes = {
+  category: 0,
+  beneficiary: 1,
+  sender: 2,
+  amount: 3,
+  summary: 4,
+  password: 5
+}
+
 const TransferSuccess = translate()(({ t, onReset, onExit }) => (
   <div>
     {t('transfer.success.description')}
@@ -403,14 +412,17 @@ class TransferPage extends React.Component {
     }
   }
 
+  handleGoBack() {
+    this.goToPrevious()
+  }
+
+  goToPrevious() {
+    this.setState({ slide: Math.max(this.state.slide - 1, 0) })
+  }
+
   handleChangeCategory(category) {
-    this.setState({ category, slide: 1 })
-  }
-
-  handleSelectBeneficiary(beneficiary) {
-    this.setState({ beneficiary, slide: 2 })
-  }
-
+    this.setState({ category })
+    this.selectSlideByName('beneficiary')
   }
 
   handleSelectBeneficiary(beneficiary) {
@@ -430,44 +442,39 @@ class TransferPage extends React.Component {
     this.selectSlideByName('sender')
   }
 
-  }
-
-  handleGoBack() {
-    this.goToPrevious()
-  }
-
-  goToNext() {
-    this.setState({ slide: this.state.slide + 1 })
-  }
-
-  goToPrevious() {
-    this.setState({ slide: Math.max(this.state.slide - 1, 0) })
-  }
-
   handleChangeAmount(amount) {
     this.setState({ amount })
   }
 
-  handleSelectAmount() {
-    this.goToNext()
-  }
-
   handleSelectSender(senderAccount) {
     this.setState({ senderAccount })
-    this.goToNext()
+    this.selectSlideByName('amount')
   }
 
-  handleConfirm() {
-    this.transferMoney()
+  handleSelectAmount() {
+    this.selectSlideByName('summary')
+  }
+
+  handleConfirmSummary() {
+    this.selectSlideByName('password')
+  }
+
+  handleChangePassword(password) {
+    this.setState({ password })
   }
 
   handleSelectSlide(slideName) {
-    const indexes = {
-      beneficiary: 1,
-      amount: 2,
-      sender: 3
-    }
-    this.setState({ slide: indexes[slideName] })
+    this.selectSlideByName(slideName)
+  }
+
+  selectSlideByName(slideName) {
+    this.setState({ slide: slideIndexes[slideName] })
+  }
+
+  handleModalDismiss() {
+    this.setState({ transferError: false, transferSuccess: false })
+  }
+
   handleReset() {
     this.setState({
       amount: '',
