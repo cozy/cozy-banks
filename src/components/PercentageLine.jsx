@@ -6,7 +6,7 @@ const PercentageLine = ({ value, color, className, style }) => (
   <div
     className={cx(className, styles.PercentageLine)}
     style={{
-      width: `${value}%`,
+      transform: `scaleX(${value / 100})`,
       backgroundColor: color,
       ...style
     }}
