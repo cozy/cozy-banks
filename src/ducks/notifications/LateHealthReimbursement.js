@@ -69,6 +69,14 @@ class LateHealthReimbursement extends Notification {
     )
   }
 
+  isAlreadyNotified(transaction) {
+    return (
+      transaction.cozyMetadata &&
+      transaction.cozyMetadata.notifications &&
+      transaction.cozyMetadata.notifications[LateHealthReimbursement.settingKey]
+    )
+  }
+
   async getTransactions() {
     const DATE_FORMAT = 'YYYY-MM-DD'
     const today = new Date()
@@ -125,9 +133,15 @@ class LateHealthReimbursement extends Notification {
 
     log('info', `${lateReimbursements.length} are late health reimbursements`)
 
-    this.lateReimbursements = lateReimbursements
+    const toNotify = lateReimbursements.filter(
+      lateReimbursement => !this.isAlreadyNotified(lateReimbursement)
+    )
 
-    return lateReimbursements
+    log('info', `${toNotify} need to be notified`)
+
+    this.toNotify = toNotify
+
+    return toNotify
   }
 
   getAccounts(transactions) {
@@ -182,7 +196,7 @@ class LateHealthReimbursement extends Notification {
   }
 
   async onSendNotificationSuccess() {
-    this.lateReimbursements.forEach(reimb => {
+    this.toNotify.forEach(reimb => {
       if (!reimb.cozyMetadata) {
         reimb.cozyMetadata = {}
       }
@@ -197,7 +211,7 @@ class LateHealthReimbursement extends Notification {
       ]
     })
 
-    await BankTransaction.updateAll(this.lateReimbursements)
+    await BankTransaction.updateAll(this.toNotify)
   }
 }
 
