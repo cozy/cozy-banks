@@ -460,9 +460,12 @@ class TransferPage extends React.Component {
       sendingTransfer: true
     })
     try {
+      const recipient = beneficiary.recipients.find(
+        rec => rec.vendorAccountId == senderAccount.vendorId
+      )
       await transfers.createJob(client, {
         amount: amount,
-        recipientId: beneficiary._id, // TODO beneficiary.recipients
+        recipientId: recipient._id,
         senderAccount,
         password: password
       })
