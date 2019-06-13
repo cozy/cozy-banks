@@ -9,6 +9,7 @@ import { BankTransaction, BankAccount } from 'cozy-doctypes'
 import { isReimbursementLate } from 'ducks/transactions/helpers'
 import { subDays, subMonths, format as formatDate } from 'date-fns'
 import { Bill } from 'models'
+import { getReimbursementBillId, getReimbursementBillIds } from './helpers'
 
 const log = logger.namespace('lateHealthReimbursement')
 
@@ -92,20 +93,7 @@ class LateHealthReimbursement extends Notification {
 
     log('info', `${healthExpenses.length} are health expenses`)
 
-    const billIds = uniq(
-      flatten(
-        healthExpenses.map(transaction => {
-          return (
-            transaction.reimbursements &&
-            transaction.reimbursements.map(reimbursement => {
-              const [, billId] = reimbursement.billId.split(':')
-              return billId
-            })
-          )
-        })
-      )
-    ).filter(Boolean)
-
+    const billIds = getReimbursementBillIds(healthExpenses)
     const bills = await Bill.getAll(billIds)
     const billsById = keyBy(bills, bill => bill._id)
 
@@ -119,13 +107,10 @@ class LateHealthReimbursement extends Notification {
       return {
         ...expense,
         reimbursements: {
-          data: expense.reimbursements.map(r => {
-            const [, billId] = r.billId.split(':')
-            return {
-              ...r,
-              ...billsById[billId]
-            }
-          })
+          data: expense.reimbursements.map(r => ({
+            ...r,
+            ...billsById[getReimbursementBillId(r)]
+          }))
         }
       }
     })
