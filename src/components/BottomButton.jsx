@@ -25,7 +25,7 @@ const styles = {
 }
 
 /** Button displayed at the bottom of the view on mobile, appears from the bottom */
-const BottomButton = ({ visible, ...buttonProps }) => (
+const _BottomButton = ({ visible, ...buttonProps }) => (
   <Bottom style={visible ? styles.visibleWrapper : null}>
     <Padded>
       <Button
@@ -37,6 +37,8 @@ const BottomButton = ({ visible, ...buttonProps }) => (
     </Padded>
   </Bottom>
 )
+
+const BottomButton = React.memo(_BottomButton)
 
 BottomButton.defaultProps = {
   visible: true

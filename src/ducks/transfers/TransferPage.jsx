@@ -27,9 +27,11 @@ import OptionalInput from 'components/OptionalInput'
 import BottomButton from 'components/BottomButton'
 import Figure from 'components/Figure'
 
-const Title = ({ children }) => {
+const _Title = ({ children }) => {
   return <UITitle className="u-ta-center u-mb-1">{children}</UITitle>
 }
+
+const Title = React.memo(_Title)
 
 const transfers = {
   /**
@@ -84,38 +86,40 @@ const recipientUtils = {
   }
 }
 
-const ChooseRecipientCategory = translate()(
-  ({ t, category, onSelect, active }) => {
-    return (
-      <Padded>
-        {active && <PageTitle>{t('Transfer.category.page-title')}</PageTitle>}
-        <Title>{t('Transfer.category.title')}</Title>
-        <List border paper>
-          <Row onClick={onSelect.bind(null, 'internal')}>
-            <Radio
-              readOnly
-              name="category"
-              checked={category == 'internal'}
-              value="internal"
-              label={t('Transfer.category.internal')}
-            />
-          </Row>
-          <Row onClick={onSelect.bind(null, 'external')}>
-            <Radio
-              readOnly
-              name="category"
-              checked={category == 'external'}
-              value="external"
-              label={t('Transfer.category.external')}
-            />
-          </Row>
-        </List>
-      </Padded>
-    )
-  }
+const _ChooseRecipientCategory = ({ t, category, onSelect, active }) => {
+  return (
+    <Padded>
+      {active && <PageTitle>{t('Transfer.category.page-title')}</PageTitle>}
+      <Title>{t('Transfer.category.title')}</Title>
+      <List border paper>
+        <Row onClick={onSelect.bind(null, 'internal')}>
+          <Radio
+            readOnly
+            name="category"
+            checked={category == 'internal'}
+            value="internal"
+            label={t('Transfer.category.internal')}
+          />
+        </Row>
+        <Row onClick={onSelect.bind(null, 'external')}>
+          <Radio
+            readOnly
+            name="category"
+            checked={category == 'external'}
+            value="external"
+            label={t('Transfer.category.external')}
+          />
+        </Row>
+      </List>
+    </Padded>
+  )
+}
+
+const ChooseRecipientCategory = React.memo(
+  translate()(_ChooseRecipientCategory)
 )
 
-const BeneficiaryRow = ({ beneficiary, onSelect }) => {
+const _BeneficiaryRow = ({ beneficiary, onSelect }) => {
   return (
     <Row className="u-clickable" onClick={onSelect.bind(null, beneficiary)}>
       <Media className="u-w-100">
@@ -126,7 +130,6 @@ const BeneficiaryRow = ({ beneficiary, onSelect }) => {
         </Bd>
         {beneficiary.account ? (
           <Img>
-            (
             <Bold>
               <Figure
                 symbol="€"
@@ -136,13 +139,14 @@ const BeneficiaryRow = ({ beneficiary, onSelect }) => {
                 coloredWarning
               />
             </Bold>
-            )
           </Img>
         ) : null}
       </Media>
     </Row>
   )
 }
+
+const BeneficiaryRow = React.memo(_BeneficiaryRow)
 
 class _ChooseBeneficiary extends React.Component {
   render() {
@@ -167,7 +171,7 @@ class _ChooseBeneficiary extends React.Component {
   }
 }
 
-const ChooseBeneficiary = translate()(_ChooseBeneficiary)
+const ChooseBeneficiary = React.memo(translate()(_ChooseBeneficiary))
 
 const _ChooseAmount = ({ t, amount, onChange, onSelect, active }) => {
   return (
@@ -192,7 +196,7 @@ const _ChooseAmount = ({ t, amount, onChange, onSelect, active }) => {
   )
 }
 
-const ChooseAmount = translate()(_ChooseAmount)
+const ChooseAmount = React.memo(translate()(_ChooseAmount))
 
 const SenderRow = ({ account, onSelect }) => {
   return (
@@ -244,7 +248,7 @@ class _ChooseSenderAccount extends React.Component {
   }
 }
 
-const ChooseSenderAccount = translate()(_ChooseSenderAccount)
+const ChooseSenderAccount = React.memo(translate()(_ChooseSenderAccount))
 
 const _Summary = ({
   amount,
@@ -295,7 +299,7 @@ const _Summary = ({
     </Padded>
   ) : null
 
-const Summary = translate()(_Summary)
+const Summary = React.memo(translate()(_Summary))
 
 const _Password = ({ t, onChangePassword, onConfirm, active }) => (
   <>
@@ -319,7 +323,8 @@ const _Password = ({ t, onChangePassword, onConfirm, active }) => (
   </>
 )
 
-const Password = translate()(_Password)
+const Password = React.memo(translate()(_Password))
+
 const slideIndexes = {
   category: 0,
   beneficiary: 1,
@@ -329,33 +334,37 @@ const slideIndexes = {
   password: 5
 }
 
-const TransferSuccess = translate()(({ t, onReset, onExit }) => (
-  <div>
-    {t('transfer.success.description')}
-    <br />
-    <Button onClick={onExit} label={t('transfer.exit')} />
-    <br />
-    <Button
-      theme="secondary"
-      onClick={onReset}
-      label={t('transfer.new-transfer')}
-    />
-  </div>
-))
+const TransferSuccess = React.memo(
+  translate()(({ t, onReset, onExit }) => (
+    <div>
+      {t('transfer.success.description')}
+      <br />
+      <Button onClick={onExit} label={t('transfer.exit')} />
+      <br />
+      <Button
+        theme="secondary"
+        onClick={onReset}
+        label={t('transfer.new-transfer')}
+      />
+    </div>
+  ))
+)
 
-const TransferError = translate()(({ t, onReset, onExit }) => (
-  <div>
-    {t('transfer.error.description')}
-    <br />
-    <Button onClick={onExit} label={t('transfer.exit')} />
-    <br />
-    <Button
-      theme="secondary"
-      onClick={onReset}
-      label={t('transfer.new-transfer')}
-    />
-  </div>
-))
+const TransferError = React.memo(
+  translate()(({ t, onReset, onExit }) => (
+    <div>
+      {t('transfer.error.description')}
+      <br />
+      <Button onClick={onExit} label={t('transfer.exit')} />
+      <br />
+      <Button
+        theme="secondary"
+        onClick={onReset}
+        label={t('transfer.new-transfer')}
+      />
+    </div>
+  ))
+)
 
 class TransferPage extends React.Component {
   constructor(props, context) {

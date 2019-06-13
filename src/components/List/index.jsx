@@ -9,7 +9,7 @@ export const Radio = props => {
   return <UIRadio {...props} className={styles.Radio} />
 }
 
-export const List = props => {
+const _List = props => {
   const { className, border, paper, ...rest } = props
 
   return (
@@ -28,6 +28,8 @@ export const List = props => {
   )
 }
 
+export const List = React.memo(_List)
+
 List.propTypes = {
   border: PropTypes.oneOf([true, 'horizontal', 'vertical']),
   paper: PropTypes.bool
@@ -37,8 +39,10 @@ export const Header = ({ children }) => (
   <div className={styles['c-list-header']}>{children}</div>
 )
 
-export const Row = ({ className, onRef, ...rest }) => (
+const _Row = ({ className, onRef, ...rest }) => (
   <div ref={onRef} className={cx(styles['c-list-row'], className)} {...rest} />
 )
+
+export const Row = React.memo(_Row)
 
 export const Content = ListItemText
