@@ -192,7 +192,10 @@ class LateHealthReimbursement extends Notification {
   }
 
   getPushContent(transactions) {
-    return `${transactions.length} late health reimbursements`
+    return this.t(
+      'Notifications.when_late_health_reimbursement.notification.content.message',
+      { smart_count: transactions.length }
+    )
   }
 
   async onSendNotificationSuccess() {

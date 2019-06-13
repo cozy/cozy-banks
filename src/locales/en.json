@@ -438,7 +438,8 @@
       "notification": {
         "title": "Late health reimbursements",
         "content": {
-          "title": "Late health reimbursements"
+          "title": "Late health reimbursements",
+          "message": "%{smart_count} late health reimbursement |||| %{smart_count} late health reimbursements"
         }
       }
     },

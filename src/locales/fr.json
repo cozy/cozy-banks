@@ -450,7 +450,8 @@
       "notification": {
         "title": "Remboursements de santé en retard",
         "content": {
-          "title": "Remboursements de santé en retard"
+          "title": "Remboursements de santé en retard",
+          "message": "%{smart_count} remboursement de santé en retard |||| %{smart_count} remboursements de santé en retard"
         }
       }
     },
