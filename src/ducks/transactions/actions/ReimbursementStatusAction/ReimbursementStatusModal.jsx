@@ -1,11 +1,10 @@
 import React from 'react'
 import { translate } from 'cozy-ui/react'
 import Modal from 'cozy-ui/react/Modal'
-import Radio from 'cozy-ui/react/Radio'
 import Icon from 'cozy-ui/react/Icon'
 import { Title, Text } from 'cozy-ui/react/Text'
 import cx from 'classnames'
-import { List, Row } from 'components/List'
+import { List, Row, Radio } from 'components/List'
 import iconReimbursement from 'assets/icons/icon-reimbursement-detailed.svg'
 import styles from 'ducks/transactions/actions/ReimbursementStatusAction/ReimbursementStatusModal.styl'
 import { getReimbursementStatus, getLabel } from 'ducks/transactions/helpers'
@@ -28,7 +27,7 @@ class _ReimbursementStatusModal extends React.PureComponent {
           </Text>
         </header>
         <form className="u-mt-1">
-          <List bordered>
+          <List border="vertical">
             {choices.map(choice => (
               <Row key={choice}>
                 <Radio

@@ -1,11 +1,32 @@
 import React from 'react'
-import Padded from 'components/Spacing/Padded'
-import { translate, Text, Button } from 'cozy-ui/transpiled/react'
-import { withClient, queryConnect } from 'cozy-client'
 import compose from 'lodash/flowRight'
+import groupBy from 'lodash/groupBy'
+import { withRouter } from 'react-router'
+import Padded from 'components/Spacing/Padded'
+import {
+  Media,
+  Bd,
+  Img,
+  translate,
+  Text,
+  Caption,
+  Bold,
+  Title as UITitle,
+  Field
+} from 'cozy-ui/transpiled/react'
+import { withClient, queryConnect } from 'cozy-client'
+
 import Loading from 'components/Loading'
-import Alerter from 'cozy-ui/react/Alerter'
-import { logException } from 'lib/sentry'
+import { List, Row, Radio } from 'components/List'
+import Stepper from 'components/Stepper'
+import PageTitle from 'components/Title/PageTitle'
+import TextCard from 'components/TextCard'
+import OptionalInput from 'components/OptionalInput'
+import BottomButton from 'components/BottomButton'
+
+const Title = ({ children }) => {
+  return <UITitle className="u-ta-center u-mb-1">{children}</UITitle>
+}
 
 const transfers = {
   /**
@@ -28,54 +49,242 @@ const transfers = {
     })
   }
 }
-class DumbRecipient extends React.Component {
+
+const recipientUtils = {
+  /**
+   * BI recipients are per-account, if a user has 2 accounts that can send money to 1 person, there will be
+   * 2 recipients. External accounts can be deduped on IBAN, internal on label
+   */
+  groupAsBeneficiary: recipients => {
+    return Object.values(
+      groupBy(recipients, r => (r.category == 'internal' ? r.label : r.iban))
+    ).map(group => ({
+      _id: group[0]._id, // useful for key
+      label: group[0].label,
+      bankName: group[0].bankName,
+      iban: group[0].iban,
+      category: group[0].category,
+      recipients: group
+    }))
+  }
+}
+
+const ChooseRecipientCategory = translate()(
+  ({ t, category, onSelect, active }) => {
+    return (
+      <Padded>
+        {active && <PageTitle>{t('Transfer.category.page-title')}</PageTitle>}
+        <Title>{t('Transfer.category.title')}</Title>
+        <List border paper>
+          <Row onClick={onSelect.bind(null, 'internal')}>
+            <Radio
+              readOnly
+              name="category"
+              checked={category == 'internal'}
+              value="internal"
+              label={t('Transfer.category.internal')}
+            />
+          </Row>
+          <Row onClick={onSelect.bind(null, 'external')}>
+            <Radio
+              readOnly
+              name="category"
+              checked={category == 'external'}
+              value="external"
+              label={t('Transfer.category.external')}
+            />
+          </Row>
+        </List>
+      </Padded>
+    )
+  }
+)
+
+const BeneficiaryRow = ({ beneficiary, onSelect }) => {
+  return (
+    <Row className="u-clickable" onClick={onSelect.bind(null, beneficiary)}>
+      <Media className="u-w-100">
+        <Img />
+        <Bd>
+          <Text>{beneficiary.label}</Text>
+          <Caption>{beneficiary.iban}</Caption>
+        </Bd>
+        <Img>
+          {beneficiary.balance ? <Bold>{beneficiary.balance}</Bold> : null}
+        </Img>
+      </Media>
+    </Row>
+  )
+}
+
+class _ChooseBeneficiary extends React.Component {
+  render() {
+    const { t, beneficiaries, onSelect, active } = this.props
+    return (
+      <Padded>
+        {active && (
+          <PageTitle>{t('Transfer.beneficiary.page-title')}</PageTitle>
+        )}
+        <Title>{t('Transfer.beneficiary.title')}</Title>
+        <List border paper>
+          {beneficiaries.map(beneficiary => (
+            <BeneficiaryRow
+              key={beneficiary._id}
+              onSelect={onSelect}
+              beneficiary={beneficiary}
+            />
+          ))}
+        </List>
+      </Padded>
+    )
+  }
+}
+
+const ChooseBeneficiary = translate()(_ChooseBeneficiary)
+
+const _ChooseAmount = ({ t, amount, onChange, onSelect, active }) => {
+  return (
+    <Padded>
+      {active && <PageTitle>{t('Transfer.amount.page-title')}</PageTitle>}
+      <Title>{t('Transfer.amount.title')}</Title>
+      <Field
+        className="u-mt-0"
+        value={amount}
+        onChange={ev => {
+          onChange(ev.target.value)
+        }}
+        label={t('Transfer.amount.field-label')}
+        placeholder="10"
+      />
+      <BottomButton
+        label={t('Transfer.amount.confirm')}
+        visible={active}
+        onClick={onSelect}
+      />
+    </Padded>
+  )
+}
+
+const ChooseAmount = translate()(_ChooseAmount)
+
+const SenderRow = ({ account, onSelect }) => {
+  return (
+    <Row
+      className="u-clickable"
+      onClick={onSelect.bind(null, account)}
+      key={account._id}
+    >
+      <Media className="u-w-100">
+        <Img />
+        <Bd>
+          <Text>{account.shortLabel}</Text>
+          <Caption>{account.iban}</Caption>
+        </Bd>
+        <Img>
+          <Bold>{account.balance}€</Bold>
+        </Img>
+      </Media>
+    </Row>
+  )
+}
+
+class _ChooseSenderAccount extends React.Component {
+  render() {
+    const { accounts, onSelect, active, t } = this.props
+    return (
+      <Padded>
+        {active && <PageTitle>{t('Transfer.sender.page-title')}</PageTitle>}
+        <Title>{t('Transfer.sender.title')}</Title>
+        <List border paper>
+          {accounts.map(account => (
+            <SenderRow
+              key={account._id}
+              account={account}
+              onSelect={onSelect}
+            />
+          ))}
+        </List>
+      </Padded>
+    )
+  }
+}
+
+const ChooseSenderAccount = translate()(_ChooseSenderAccount)
+
+const _Summary = ({
+  amount,
+  senderAccount,
+  beneficiary,
+  onConfirm,
+  active,
+  selectSlide,
+  t
+}) =>
+  amount && senderAccount && beneficiary ? (
+    <Padded>
+      {active && <PageTitle>{t('Transfer.summary.page-title')}</PageTitle>}
+      <Title>{t('Transfer.summary.title')}</Title>
+      <div>
+        {t('Transfer.summary.send')}{' '}
+        <TextCard
+          className="u-clickable"
+          onClick={selectSlide.bind(null, 'amount')}
+        >
+          {amount}€
+        </TextCard>
+        <br />
+        {t('Transfer.summary.to')}{' '}
+        <TextCard
+          className="u-clickable"
+          onClick={selectSlide.bind(null, 'beneficiary')}
+        >
+          {beneficiary.label}
+        </TextCard>
+        <br />
+        {t('Transfer.summary.from')}{' '}
+        <TextCard
+          className="u-clickable"
+          onClick={selectSlide.bind(null, 'sender')}
+        >
+          {senderAccount.label}
+        </TextCard>
+        <br />
+        {t('Transfer.summary.for')}{' '}
+        <OptionalInput placeholder={t('Transfer.summary.for-placeholder')} />
+        <BottomButton
+          label={t('Transfer.summary.confirm')}
+          visible={active}
+          onClick={onConfirm}
+        />
+      </div>
+    </Padded>
+  ) : null
+
+const Summary = translate()(_Summary)
+
+class TransferPage extends React.Component {
   constructor(props, context) {
     super(props, context)
-    this.handleClickTransfer = this.handleClickTransfer.bind(this)
     this.state = {
-      sending: false
+      category: null, // Currently selected category
+      slide: 0,
+      senderAccount: null,
+      senderAccounts: [], // Possible sender accounts for chosen person
+      amount: ''
     }
-    this.inputRef = React.createRef()
+    this.handleGoBack = this.handleGoBack.bind(this)
+    this.handleChangeCategory = this.handleChangeCategory.bind(this)
+    this.handleSelectBeneficiary = this.handleSelectBeneficiary.bind(this)
+    this.handleChangeAmount = this.handleChangeAmount.bind(this)
+    this.handleSelectAmount = this.handleSelectAmount.bind(this)
+    this.handleSelectSender = this.handleSelectSender.bind(this)
+    this.handleSelectSlide = this.handleSelectSlide.bind(this)
+    this.handleConfirm = this.handleConfirm.bind(this)
   }
 
-  /**
-   * Manages UI during transfer, setting state.sending and showing alerts
-   */
-  async handleClickTransfer() {
-    try {
-      this.setState({ sending: true })
-      await this.transferMoney()
-      // TODO translate
-      Alerter.success('Transfer successfully sent')
-      this.clearInput()
-    } catch (e) {
-      console.error(e) // eslint-disable-line no-console
-      logException(e)
-      // TODO translate
-      Alerter.error('Could not create transfer, check console')
-    } finally {
-      this.setState({ sending: false })
-    }
-  }
-
-  clearInput() {
-    if (this.inputRef.current) {
-      this.inputRef.current.value = ''
-    }
-  }
-
-  /**
-   * Creates the job to transfer money to the recipient
-   */
   async transferMoney() {
-    const { client, recipient } = this.props
-
-    // TODO find out why the request with a selector did not work
-    // Works as is but is not the most efficient
-    const resp = await client.query(client.all('io.cozy.bank.accounts'))
-    const data = resp.data
-    const account = data.find(x => x.vendorId == recipient.vendorAccountId)
-
+    const { client } = this.props
+    const account = this.state.account
     return transfers.createJob(client, {
       amount: this.inputRef.current.value,
       recipientId: this.props.recipient._id,
@@ -83,58 +292,95 @@ class DumbRecipient extends React.Component {
     })
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    this.checkToFocus(prevState)
+  handleChangeCategory(category) {
+    this.setState({ category, slide: 1 })
   }
 
-  checkToFocus(prevState) {
-    if (prevState.sending !== this.state.sending && this.inputRef.current) {
-      this.inputRef.current.focus()
+  handleSelectBeneficiary(beneficiary) {
+    this.setState({ beneficiary, slide: 2 })
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const prevBeneficiaryId = prevState.beneficiary && prevState.beneficiary._id
+    const beneficiaryId = this.state.beneficiary && this.state.beneficiary._id
+    if (prevBeneficiaryId !== beneficiaryId) {
+      this.loadPossibleAccounts()
     }
   }
 
-  render() {
-    const { recipient } = this.props
-    const { sending } = this.state
+  /**
+   * Show possible accounts according to beneficiary
+   */
+  async loadPossibleAccounts() {
+    const { client } = this.props
+    const { beneficiary } = this.state
 
-    // TODO translate
-    return (
-      <Text className="u-mb-1">
-        {recipient.label}
-        <br />
-        {recipient.iban}
-        <br />
-        {recipient.bankName}
-        {recipient.bankName && <br />}
-        How much ? <input type="text" name="amount" ref={this.inputRef} />
-        <Button
-          busy={sending}
-          onClick={this.handleClickTransfer}
-          label="Send money"
-        />
-      </Text>
+    if (!beneficiary) {
+      return
+    }
+
+    const possibleSenderAccounts = new Set(
+      beneficiary.recipients.map(x => x.vendorAccountId + '')
     )
-  }
-}
 
-const Recipient = withClient(DumbRecipient)
-
-class RecipientList extends React.Component {
-  render() {
-    return (
-      <>
-        <p>{this.props.recipients.length} recipients</p>
-        {this.props.recipients.map(recipient => (
-          <Recipient key={recipient._id} recipient={recipient} />
-        ))}
-      </>
+    const resp = await client.query(client.all('io.cozy.bank.accounts'))
+    const data = resp.data
+    const senderAccounts = data.filter(x =>
+      possibleSenderAccounts.has(x.vendorId)
     )
-  }
-}
 
-class TransferPage extends React.Component {
+    this.setState({ senderAccounts, senderAccount: senderAccounts[0] })
+  }
+
+  handleGoBack() {
+    this.goToPrevious()
+  }
+
+  goToNext() {
+    this.setState({ slide: this.state.slide + 1 })
+  }
+
+  goToPrevious() {
+    this.setState({ slide: Math.max(this.state.slide - 1, 0) })
+  }
+
+  handleChangeAmount(amount) {
+    this.setState({ amount })
+  }
+
+  handleSelectAmount() {
+    this.goToNext()
+  }
+
+  handleSelectSender(senderAccount) {
+    this.setState({ senderAccount })
+    this.goToNext()
+  }
+
+  handleConfirm() {
+    this.transferMoney()
+  }
+
+  handleSelectSlide(slideName) {
+    const indexes = {
+      beneficiary: 1,
+      amount: 2,
+      sender: 3
+    }
+    this.setState({ slide: indexes[slideName] })
+  }
+
   render() {
-    const { recipients } = this.props
+    const { recipients, t } = this.props
+
+    const {
+      category,
+      beneficiary,
+      senderAccount,
+      senderAccounts,
+      amount
+    } = this.state
+
     if (recipients.fetchStatus === 'loading') {
       return (
         <Padded>
@@ -142,15 +388,51 @@ class TransferPage extends React.Component {
         </Padded>
       )
     }
+
+    const categoryFilter = recipient => recipient.category === category
+    const beneficiaries = recipientUtils.groupAsBeneficiary(
+      recipients.data.filter(categoryFilter)
+    )
+
     return (
-      <Padded>
-        <RecipientList recipients={recipients.data} />
-      </Padded>
+      <>
+        <PageTitle>{t('Transfer.page-title')}</PageTitle>
+        <Stepper current={this.state.slide} onBack={this.handleGoBack}>
+          <ChooseRecipientCategory
+            category={category}
+            onSelect={this.handleChangeCategory}
+          />
+          <ChooseBeneficiary
+            beneficiary={beneficiary}
+            onSelect={this.handleSelectBeneficiary}
+            beneficiaries={beneficiaries}
+          />
+          <ChooseSenderAccount
+            account={senderAccount}
+            accounts={senderAccounts}
+            onSelect={this.handleSelectSender}
+          />
+          <ChooseAmount
+            amount={amount}
+            onChange={this.handleChangeAmount}
+            onSelect={this.handleSelectAmount}
+          />
+          <Summary
+            onConfirm={this.handleConfirm}
+            amount={amount}
+            beneficiary={beneficiary}
+            senderAccount={senderAccount}
+            selectSlide={this.handleSelectSlide}
+          />
+        </Stepper>
+      </>
     )
   }
 }
 
 const enhance = compose(
+  withClient,
+  withRouter,
   queryConnect({
     recipients: {
       query: client => client.all('io.cozy.bank.recipients'),
