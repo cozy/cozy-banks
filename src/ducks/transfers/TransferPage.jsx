@@ -18,6 +18,12 @@ import {
 } from 'cozy-ui/transpiled/react'
 import { withClient, queryConnect } from 'cozy-client'
 
+import {
+  PERMISSION_DOCTYPE,
+  COZY_ACCOUNT_DOCTYPE,
+  KONNECTOR_DOCTYPE
+} from 'doctypes'
+
 import Loading from 'components/Loading'
 import { List, Row, Radio } from 'components/List'
 import Stepper from 'components/Stepper'
@@ -36,22 +42,61 @@ const Title = React.memo(_Title)
 
 const transfers = {
   /**
+   * Creates a temporary account with authentication
+   * and give permission to the konnector to access this account
+   *
+   * @param  {CozyClient} client
+   * @param  {string} konnSlug - ex: "caissedepargne1"
+   * @param  {Object} auth - ex: { password: '1234' }
+   */
+  prepareJobAccount: async (client, konnSlug, auth) => {
+    const accounts = client.collection(COZY_ACCOUNT_DOCTYPE)
+    const permissions = client.collection(PERMISSION_DOCTYPE)
+    const konnectorsCol = client.collection(KONNECTOR_DOCTYPE)
+
+    const { data: account } = await accounts.create({
+      auth,
+      temporary: true
+    })
+
+    const { data: konnectors } = await konnectorsCol.all()
+    const konnector = konnectors.find(
+      konn => konn._id === `${KONNECTOR_DOCTYPE}/${konnSlug}`
+    )
+    const { data: permission } = await permissions.add(konnector, {
+      [account._id]: {
+        type: COZY_ACCOUNT_DOCTYPE,
+        verbs: ['GET', 'DELETE'],
+        values: [`${COZY_ACCOUNT_DOCTYPE}.${account._id}`]
+      }
+    })
+    return { account, permission, konnector }
+  },
+
+  /**
    * Creates a job to transfer money
    *
    * @param  {CozyClient} client            - CozyClient
    * @param  {Integer} options.amount    - Amount to send
    * @param  {String} options.recipientId - io.cozy.bank.recipients id
-   * @param  {String} options.fromAccountId - io.cozy.bank.accounts id
+   * @param  {String} options.senderAccount - io.cozy.bank.accounts id
    * @return {Promise}
    */
-  createJob: (client, { amount, recipientId, fromAccount }) => {
-    const konnector = fromAccount.cozyMetadata.createdByApp
+  createJob: async (
+    client,
+    { amount, recipientId, senderAccount, password }
+  ) => {
+    const konnector = senderAccount.cozyMetadata.createdByApp
+    const { account } = await transfers.prepareJobAccount(client, konnector, {
+      password
+    })
     return client.stackClient.jobs.create('konnector', {
       mode: 'transfer',
       konnector,
       recipientId,
+      temporaryAccountId: account._id,
       amount,
-      fromAccountId: fromAccount._id
+      senderAccountId: senderAccount._id
     })
   }
 }
@@ -409,15 +454,17 @@ class TransferPage extends React.Component {
 
   async transferMoney() {
     const { client } = this.props
-    const account = this.state.account
+    const { amount, beneficiary, senderAccount, password } = this.state
+
     this.setState({
       sendingTransfer: true
     })
     try {
       await transfers.createJob(client, {
-        amount: this.inputRef.current.value,
-        recipientId: this.props.recipient._id,
-        fromAccount: account
+        amount: amount,
+        recipientId: beneficiary._id, // TODO beneficiary.recipients
+        senderAccount,
+        password: password
       })
       this.setState({
         transferSuccess: true
