@@ -134,7 +134,7 @@ const _BeneficiaryRow = ({ beneficiary, onSelect }) => {
           <Caption>{beneficiary.iban}</Caption>
         </Bd>
         {beneficiary.account ? (
-          <Img>
+          <Img className="u-ml-half">
             <Bold>
               <Figure
                 symbol="€"
@@ -218,7 +218,7 @@ const SenderRow = ({ account, onSelect }) => {
           <Text>{account.shortLabel}</Text>
           <Caption>{account.iban}</Caption>
         </Bd>
-        <Img>
+        <Img className="u-ml-half">
           <Bold>
             <Figure
               coloredWarning
