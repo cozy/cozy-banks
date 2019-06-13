@@ -26,6 +26,7 @@ import TextCard from 'components/TextCard'
 import OptionalInput from 'components/OptionalInput'
 import BottomButton from 'components/BottomButton'
 import Figure from 'components/Figure'
+import AccountIcon from 'components/AccountIcon'
 
 const _Title = ({ children }) => {
   return <UITitle className="u-ta-center u-mb-1">{children}</UITitle>
@@ -123,7 +124,11 @@ const _BeneficiaryRow = ({ beneficiary, onSelect }) => {
   return (
     <Row className="u-clickable" onClick={onSelect.bind(null, beneficiary)}>
       <Media className="u-w-100">
-        <Img />
+        {beneficiary.account ? (
+          <Img className="u-mr-1">
+            <AccountIcon account={beneficiary.account} />
+          </Img>
+        ) : null}
         <Bd>
           <Text>{beneficiary.label}</Text>
           <Caption>{beneficiary.iban}</Caption>
@@ -206,7 +211,9 @@ const SenderRow = ({ account, onSelect }) => {
       key={account._id}
     >
       <Media className="u-w-100">
-        <Img />
+        <Img className="u-mr-1">
+          <AccountIcon account={account} />
+        </Img>
         <Bd>
           <Text>{account.shortLabel}</Text>
           <Caption>{account.iban}</Caption>
