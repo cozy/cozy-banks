@@ -111,26 +111,36 @@ class LateHealthReimbursement extends Notification {
 
     // We emulate the cozy-client relationships format manually, since we
     // don't use cozy-client in the services for now
-    healthExpenses.forEach(expense => {
+    const enhancedHealthExpenses = healthExpenses.map(expense => {
       if (!expense.reimbursements) {
-        return
+        return expense
       }
 
-      const originalReimbursements = [...expense.reimbursements]
-      expense.reimbursements = {
-        data: originalReimbursements.map(r => {
-          const [, billId] = r.billId.split(':')
-          return {
-            ...r,
-            ...billsById[billId]
-          }
-        })
+      return {
+        ...expense,
+        reimbursements: {
+          data: expense.reimbursements.map(r => {
+            const [, billId] = r.billId.split(':')
+            return {
+              ...r,
+              ...billsById[billId]
+            }
+          })
+        }
       }
     })
 
-    const lateReimbursements = healthExpenses.filter(isReimbursementLate)
+    // We want to work with transactions without fake cozy-client relationships
+    // so we get original transactions from filtered enhanced transactions
+    const healthExpensesById = keyBy(healthExpenses, h => h._id)
+
+    const lateReimbursements = enhancedHealthExpenses
+      .filter(isReimbursementLate)
+      .map(t => healthExpensesById[t._id])
 
     log('info', `${lateReimbursements.length} are late health reimbursements`)
+
+    this.lateReimbursements = lateReimbursements
 
     return lateReimbursements
   }
@@ -184,6 +194,25 @@ class LateHealthReimbursement extends Notification {
 
   getPushContent(transactions) {
     return `${transactions.length} late health reimbursements`
+  }
+
+  async onSendNotificationSuccess() {
+    this.lateReimbursements.forEach(reimb => {
+      if (!reimb.cozyMetadata) {
+        reimb.cozyMetadata = {}
+      }
+
+      if (!reimb.cozyMetadata.notifications) {
+        reimb.cozyMetadata.notifications = {}
+      }
+
+      const today = new Date()
+      reimb.cozyMetadata.notifications[LateHealthReimbursement.settingKey] = [
+        today.toISOString()
+      ]
+    })
+
+    await BankTransaction.updateAll(this.lateReimbursements)
   }
 }
 
