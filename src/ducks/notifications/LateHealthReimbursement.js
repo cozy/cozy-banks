@@ -60,15 +60,6 @@ class LateHealthReimbursement extends Notification {
     this.interval = config.value
   }
 
-  filterTransactions(transactions) {
-    return transactions.filter(
-      transaction =>
-        isHealthExpense(transaction) &&
-        transaction.reimbursements &&
-        transaction.reimbursements.length > 0
-    )
-  }
-
   isAlreadyNotified(transaction) {
     return (
       transaction.cozyMetadata &&
