@@ -540,7 +540,7 @@ class TransferPage extends React.Component {
             )}
           </Modal>
         ) : null}
-        <Stepper current={this.state.slide} onBack={this.handleGoBack}>
+        <Stepper currentIndex={this.state.slide} onBack={this.handleGoBack}>
           <ChooseRecipientCategory
             category={category}
             onSelect={this.handleChangeCategory}
