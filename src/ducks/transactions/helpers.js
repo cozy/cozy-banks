@@ -3,7 +3,7 @@ import findLast from 'lodash/findLast'
 import get from 'lodash/get'
 import sumBy from 'lodash/sumBy'
 import flag from 'cozy-flags'
-import { differenceInMonths, parse as parseDate } from 'date-fns'
+import { differenceInDays, parse as parseDate } from 'date-fns'
 import { isHealthExpense } from 'ducks/categories/helpers'
 
 const prevRecurRx = /\bPRLV SEPA RECU RCUR\b/
@@ -185,7 +185,10 @@ export const isReimbursementLate = transaction => {
   const transactionDate = parseDate(getDate(transaction))
   const today = new Date()
 
-  return differenceInMonths(today, transactionDate) >= 1
+  return (
+    differenceInDays(today, transactionDate) >
+    flag('late-health-reimbursement-limit')
+  )
 }
 
 export const hasPendingReimbursement = transaction => {
