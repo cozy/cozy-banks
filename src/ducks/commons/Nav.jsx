@@ -6,6 +6,7 @@ import flag from 'cozy-flags'
 
 import wallet from 'assets/icons/icon-wallet.svg'
 import graph from 'assets/icons/icon-graph.svg'
+import transfers from 'assets/icons/icon-transfers.svg'
 
 const NavLink = genNavLink(Link)
 
@@ -26,8 +27,7 @@ export const Nav = ({ t }) => (
     {flag('transfers') ? (
       <NavItem>
         <NavLink to="transfers">
-          {/* TODO change icon */}
-          <NavIcon icon={'arrow'} />
+          <NavIcon icon={transfers} />
           <NavText>{t('Transfer.nav')}</NavText>
         </NavLink>
       </NavItem>

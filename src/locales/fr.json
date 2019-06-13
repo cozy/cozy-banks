@@ -557,7 +557,7 @@
   },
 
   "Transfer": {
-    "nav": "Transfers",
+    "nav": "Virements",
     "page-title": "Virement",
     "amount": {
       "page-title": "Montant",
@@ -588,6 +588,13 @@
       "for": "pour",
       "for-placeholder": "motif (facultatif)",
       "confirm": "Confirmer le virement"
+    },
+    "password": {
+      "page-title": "Mot de passe",
+      "title": "Entrez votre mot de passe bancaire pour effectuer le virement",
+      "confirm": "Confirmer le virement",
+      "field-label": "Votre mot de passe bancaire",
+      "field-placeholder": "******"
     }
   }
 }

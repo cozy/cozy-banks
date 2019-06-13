@@ -601,5 +601,47 @@
   "KonnectorChip": {
     "health": "My reimbursements",
     "generic": "My invoices"
+  },
+
+  "Transfer": {
+    "nav": "Virements",
+    "page-title": "Virement",
+    "amount": {
+      "page-title": "Amount",
+      "field-label": "Transfer amount",
+      "title": "How much do you want to send ?",
+      "confirm": "Confirm the amount"
+    },
+    "category": {
+      "page-title": "Beneficiary",
+      "title": "Where do you want to send this transfer ?",
+      "internal": "On one of your accounts",
+      "external": "On another account"
+    },
+    "beneficiary": {
+      "page-title": "Beneficiary",
+      "title": "To which account do you want to send this transfer"
+    },
+    "sender": {
+      "page-title": "Émetteur",
+      "title": "From which account do you want to transfer ?"
+    },
+    "summary": {
+      "page-title": "Summary",
+      "title": "Execute transfer with those informations ?",
+      "send": "Send",
+      "from": "from",
+      "to": "to",
+      "for": "for",
+      "for-placeholder": "reason (optional)",
+      "confirm": "Confirm transfer"
+    },
+    "password": {
+      "page-title": "Password",
+      "title": "Enter your bank password to confirm the transfer",
+      "confirm": "Confirm the transfer",
+      "field-label": "Your bank password or pin code",
+      "field-placeholder": "******"
+    }
   }
 }
