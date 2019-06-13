@@ -33,10 +33,6 @@ module.exports = {
       __POUCH__: JSON.stringify(true)
     }),
     new webpack.ProvidePlugin({
-      PouchDB: 'pouchdb',
-      pouchdbFind: 'pouchdb-find',
-      pouchdbAdapterCordovaSqlite: 'pouchdb-adapter-cordova-sqlite',
-      'cozy.client': 'cozy-client-js/dist/cozy-client.js',
       'cozy.bar': `cozy-bar/dist/cozy-bar.mobile${production ? '.min' : ''}.js`
     }),
     new HtmlWebpackPlugin({

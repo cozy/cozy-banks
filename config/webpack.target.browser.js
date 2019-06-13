@@ -10,9 +10,6 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, '../build')
   },
-  externals: {
-    'cozy-client-js': 'cozy'
-  },
   resolve: {
     extensions: ['.browser.js', '.browser.jsx']
   },
