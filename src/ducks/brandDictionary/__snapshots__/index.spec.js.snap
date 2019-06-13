@@ -391,8 +391,8 @@ Array [
   Object {
     "isInstalled": false,
     "konnectorSlug": "venteprivee",
-    "name": "Vente Privée",
-    "regexp": "\\\\bVente\\\\-privee\\\\.com\\\\b",
+    "name": "Veepee",
+    "regexp": "\\\\b(Vente\\\\-privee\\\\.com|veepee)\\\\b",
   },
   Object {
     "isInstalled": false,
@@ -823,8 +823,8 @@ Array [
   Object {
     "isInstalled": false,
     "konnectorSlug": "venteprivee",
-    "name": "Vente Privée",
-    "regexp": "\\\\bVente\\\\-privee\\\\.com\\\\b",
+    "name": "Veepee",
+    "regexp": "\\\\b(Vente\\\\-privee\\\\.com|veepee)\\\\b",
   },
   Object {
     "isInstalled": false,

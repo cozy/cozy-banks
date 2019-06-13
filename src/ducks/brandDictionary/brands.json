@@ -323,8 +323,8 @@
     "konnectorSlug": "unibet"
   },
   {
-    "name": "Vente Privée",
-    "regexp": "\\bVente\\-privee\\.com\\b",
+    "name": "Veepee",
+    "regexp": "\\b(Vente\\-privee\\.com|veepee)\\b",
     "konnectorSlug": "venteprivee"
   },
   {
