@@ -194,3 +194,12 @@ export const isReimbursementLate = transaction => {
 export const hasPendingReimbursement = transaction => {
   return getReimbursementStatus(transaction) === 'pending'
 }
+
+export const isAlreadyNotified = (transaction, notificationClass) => {
+  return Boolean(
+    get(
+      transaction,
+      `cozyMetadata.notifications.${notificationClass.settingKey}`
+    )
+  )
+}

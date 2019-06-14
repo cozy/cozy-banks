@@ -6,7 +6,10 @@ import * as utils from './html/utils'
 import { keyBy, uniq } from 'lodash'
 import logger from 'cozy-logger'
 import { BankTransaction, BankAccount } from 'cozy-doctypes'
-import { isReimbursementLate } from 'ducks/transactions/helpers'
+import {
+  isReimbursementLate,
+  isAlreadyNotified
+} from 'ducks/transactions/helpers'
 import { subDays, subMonths, format as formatDate } from 'date-fns'
 import { Bill } from 'models'
 import { getReimbursementBillId, getReimbursementBillIds } from './helpers'
@@ -58,14 +61,6 @@ class LateHealthReimbursement extends Notification {
   constructor(config) {
     super(config)
     this.interval = config.value
-  }
-
-  isAlreadyNotified(transaction) {
-    return (
-      transaction.cozyMetadata &&
-      transaction.cozyMetadata.notifications &&
-      transaction.cozyMetadata.notifications[LateHealthReimbursement.settingKey]
-    )
   }
 
   async getTransactions() {
@@ -125,7 +120,8 @@ class LateHealthReimbursement extends Notification {
     log('info', `${lateReimbursements.length} are late health reimbursements`)
 
     const toNotify = lateReimbursements.filter(
-      lateReimbursement => !this.isAlreadyNotified(lateReimbursement)
+      lateReimbursement =>
+        !isAlreadyNotified(lateReimbursement, LateHealthReimbursement)
     )
 
     log('info', `${toNotify} need to be notified`)
