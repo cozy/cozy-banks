@@ -54,12 +54,16 @@ class Notification {
 
       log('info', `Send notifications with category: ${attributes.category}`)
       const cozyClient = this.cozyClient
-      return cozyClient.fetchJSON('POST', '/notifications', {
+      await cozyClient.fetchJSON('POST', '/notifications', {
         data: {
           type: 'io.cozy.notifications',
           attributes
         }
       })
+
+      if (this.onSendNotificationSuccess) {
+        this.onSendNotificationSuccess()
+      }
     } catch (err) {
       log('info', `Notification error`)
       log('info', err)

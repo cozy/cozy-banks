@@ -18,7 +18,7 @@ export const DEFAULTS_SETTINGS = {
     },
     lateHealthReimbursement: {
       value: 30,
-      enabled: true
+      enabled: false
     },
     salaire: {
       enabled: false

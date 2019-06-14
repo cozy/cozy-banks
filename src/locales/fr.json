@@ -443,7 +443,17 @@
     "when_late_health_reimbursement": {
       "settingTitle": "Remboursement de santé en retard",
       "description": "Vous recevrez une notification lorsqu'un remboursement de santé est en attente depuis plus de",
-      "unit": "jours"
+      "unit": "jours",
+      "email": {
+        "innerTitle": "Notification de remboursement(s) en retard"
+      },
+      "notification": {
+        "title": "Remboursements de santé en retard",
+        "content": {
+          "title": "Remboursements de santé en retard",
+          "message": "%{smart_count} remboursement de santé en retard |||| %{smart_count} remboursements de santé en retard"
+        }
+      }
     },
     "email": {
       "settings": "Paramètres",

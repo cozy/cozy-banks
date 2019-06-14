@@ -142,6 +142,11 @@ const onOperationOrBillCreate = async options => {
   // The flag is needed to use local model when getting a transaction category ID
   flag('local-model-override', setting.community.localModelOverride.enabled)
 
+  flag(
+    'late-health-reimbursement-limit',
+    setting.notifications.lateHealthReimbursement.value
+  )
+
   // We fetch the notifChanges before anything else because we need to know if
   // some transactions are totally new in `TransactionGreater` notification.
   // These transactions may be updated by the matching algorithm, and thus

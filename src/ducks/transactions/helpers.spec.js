@@ -8,7 +8,8 @@ import {
   getReimbursementStatus,
   isReimbursementLate,
   hasReimbursements,
-  hasBills
+  hasBills,
+  isAlreadyNotified
 } from './helpers'
 import { BILLS_DOCTYPE } from 'doctypes'
 import MockDate from 'mockdate'
@@ -288,5 +289,50 @@ describe('hasBills', () => {
 
     expect(hasBills(t1)).toBe(false)
     expect(hasBills(t2)).toBe(false)
+  })
+})
+
+describe('isAlreadyNotified', () => {
+  it('should return true if the transaction has already been notified', () => {
+    const transaction = {
+      cozyMetadata: {
+        notifications: {
+          notificationType: ['2019-06-14']
+        }
+      }
+    }
+
+    const notificationClass = { settingKey: 'notificationType' }
+
+    expect(isAlreadyNotified(transaction, notificationClass)).toBe(true)
+  })
+
+  it('should return false if the transaction has not already been notified', () => {
+    const t1 = {
+      cozyMetadata: {
+        notifications: {
+          otherNotificationType: ['2019-06-14']
+        }
+      }
+    }
+
+    const t2 = {
+      cozyMetadata: {
+        notifications: {}
+      }
+    }
+
+    const t3 = {
+      cozyMetadata: {}
+    }
+
+    const t4 = {}
+
+    const notificationClass = { settingKey: 'notificationType' }
+
+    expect(isAlreadyNotified(t1, notificationClass)).toBe(false)
+    expect(isAlreadyNotified(t2, notificationClass)).toBe(false)
+    expect(isAlreadyNotified(t3, notificationClass)).toBe(false)
+    expect(isAlreadyNotified(t4, notificationClass)).toBe(false)
   })
 })
