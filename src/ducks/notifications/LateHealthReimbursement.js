@@ -78,9 +78,9 @@ class LateHealthReimbursement extends Notification {
     })
     log(
       'info',
-      `Fetched ${
+      `${
         transactionsInDateRange.length
-      } transactions between ${gt} and ${lt}`
+      } fetched transactions between ${gt} and ${lt}`
     )
 
     const healthExpenses = transactionsInDateRange.filter(isHealthExpense)
