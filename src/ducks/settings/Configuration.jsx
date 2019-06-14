@@ -15,7 +15,11 @@ import TogglePane, {
   TogglePaneSubtitle,
   TogglePaneText
 } from 'ducks/settings/TogglePane'
-import ToggleRow from 'ducks/settings/ToggleRow'
+import ToggleRow, {
+  ToggleRowTitle,
+  ToggleRowDescription,
+  ToggleRowWrapper
+} from 'ducks/settings/ToggleRow'
 
 class Configuration extends React.Component {
   saveDocument = async doc => {
@@ -85,30 +89,59 @@ class Configuration extends React.Component {
             name="transactionGreater"
             unit="€"
           />
-          <ToggleRow
-            title={t('Notifications.when_health_bill_linked.settingTitle')}
-            description={t('Notifications.when_health_bill_linked.description')}
-            onToggle={this.onToggle('notifications.healthBillLinked')}
-            enabled={settings.notifications.healthBillLinked.enabled}
-            name="healthBillLinked"
-          />
-          {flag('late-health-reibursement-notification') && (
+          {!flag('late-health-reibursement-notification') && (
             <ToggleRow
-              title={t(
-                'Notifications.when_late_health_reimbursement.settingTitle'
-              )}
+              title={t('Notifications.when_health_bill_linked.settingTitle')}
               description={t(
-                'Notifications.when_late_health_reimbursement.description'
+                'Notifications.when_health_bill_linked.description'
               )}
-              onToggle={this.onToggle('notifications.lateHealthReimbursement')}
-              onChangeValue={this.onChangeValue(
-                'notifications.lateHealthReimbursement'
-              )}
-              enabled={settings.notifications.lateHealthReimbursement.enabled}
-              value={settings.notifications.lateHealthReimbursement.value}
-              name="lateHealthReimbursement"
-              unit={t('Notifications.when_late_health_reimbursement.unit')}
+              onToggle={this.onToggle('notifications.healthBillLinked')}
+              enabled={settings.notifications.healthBillLinked.enabled}
+              name="healthBillLinked"
             />
+          )}
+          {flag('late-health-reibursement-notification') && (
+            <ToggleRowWrapper>
+              <ToggleRowTitle>
+                {t('Notifications.health_section.title')}
+              </ToggleRowTitle>
+              <ToggleRowDescription>
+                {t('Notifications.health_section.description')}
+              </ToggleRowDescription>
+              <div className="u-pl-2 u-pt-1-half">
+                <ToggleRow
+                  title={t(
+                    'Notifications.when_health_bill_linked.settingTitle'
+                  )}
+                  description={t(
+                    'Notifications.when_health_bill_linked.description'
+                  )}
+                  onToggle={this.onToggle('notifications.healthBillLinked')}
+                  enabled={settings.notifications.healthBillLinked.enabled}
+                  name="healthBillLinked"
+                />
+                <ToggleRow
+                  title={t(
+                    'Notifications.when_late_health_reimbursement.settingTitle'
+                  )}
+                  description={t(
+                    'Notifications.when_late_health_reimbursement.description'
+                  )}
+                  onToggle={this.onToggle(
+                    'notifications.lateHealthReimbursement'
+                  )}
+                  onChangeValue={this.onChangeValue(
+                    'notifications.lateHealthReimbursement'
+                  )}
+                  enabled={
+                    settings.notifications.lateHealthReimbursement.enabled
+                  }
+                  value={settings.notifications.lateHealthReimbursement.value}
+                  name="lateHealthReimbursement"
+                  unit={t('Notifications.when_late_health_reimbursement.unit')}
+                />
+              </div>
+            </ToggleRowWrapper>
           )}
         </TogglePane>
         <TogglePane>

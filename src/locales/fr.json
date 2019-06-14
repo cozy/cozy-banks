@@ -427,8 +427,8 @@
       "description": "Vous recevrez un récapitulatif de vos dépenses et de vos revenus tous les premiers de chaque mois."
     },
     "when_health_bill_linked": {
-      "settingTitle": "Remboursements de santé",
-      "description": "Vous recevrez une notification lorsqu'un remboursement a été trouvé pour une de vos dépenses de santé. Cela nécessite d'avoir connecté une assurance santé à votre Cozy.",
+      "settingTitle": "Detecté",
+      "description": "Vous recevrez une notification lorsqu'un remboursement a été trouvé pour une de vos dépenses de santé",
       "email": {
         "innerTitle": "Remboursements de santé"
       },
@@ -441,8 +441,8 @@
       }
     },
     "when_late_health_reimbursement": {
-      "settingTitle": "Remboursement de santé en retard",
-      "description": "Vous recevrez une notification lorsqu'un remboursement de santé est en attente depuis plus de",
+      "settingTitle": "En retard",
+      "description": "Vous recevrez une notification lorsqu'un remboursement n'a pas été trouvé pour une de vos dépenses de santé depuis",
       "unit": "jours",
       "email": {
         "innerTitle": "Notification de remboursement(s) en retard"
@@ -454,6 +454,10 @@
           "message": "%{smart_count} remboursement de santé en retard |||| %{smart_count} remboursements de santé en retard"
         }
       }
+    },
+    "health_section": {
+      "title": "Remboursement de santé",
+      "description": "Cela nécessite d'avoir connecté une assurance santé à votre Cozy."
     },
     "email": {
       "settings": "Paramètres",
