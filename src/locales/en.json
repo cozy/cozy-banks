@@ -415,11 +415,11 @@
       "title": "Salary Delay"
     },
     "when_health_bill_linked": {
-      "settingTitle": "Medical expenses coverage",
+      "settingTitle": "Detected",
       "email": {
         "innerTitle": "New medical expenses coverage"
       },
-      "description": "You will be notified when a reimbursement is found for a medical expense. This requires to connect your Cozy to your medical insurance.",
+      "description": "You will be notified when a reimbursement is found for a medical expense.",
       "notification": {
         "title": "New medical expenses coverage",
         "content": {
@@ -429,8 +429,8 @@
       }
     },
     "when_late_health_reimbursement": {
-      "settingTitle": "Late health reimbursement",
-      "description": "You will be notified when a health reimbursement is pending for more than",
+      "settingTitle": "Late",
+      "description": "You will be notified when no reimbursement have been found for one of your health expenses since",
       "unit": "days",
       "email": {
         "innerTitle": "Late health reimbursement notification"
@@ -442,6 +442,10 @@
           "message": "%{smart_count} late health reimbursement |||| %{smart_count} late health reimbursements"
         }
       }
+    },
+    "health_section": {
+      "title": "Health reimbursement",
+      "description": "This requires to connect your Cozy to your medical insurance."
     },
     "email": {
       "settings": "Settings",
