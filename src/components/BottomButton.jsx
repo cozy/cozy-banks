@@ -9,7 +9,7 @@ const buttonStyle = {
 }
 
 const styles = {
-  visibleWrapper: {
+  invisibleWrapper: {
     pointerEvents: 'none'
   },
   visibleButton: {
@@ -26,7 +26,7 @@ const styles = {
 
 /** Button displayed at the bottom of the view on mobile, appears from the bottom */
 const _BottomButton = ({ visible, ...buttonProps }) => (
-  <Bottom style={visible ? styles.visibleWrapper : null}>
+  <Bottom style={!visible ? styles.invisibleWrapper : null}>
     <Padded>
       <Button
         extension="full"

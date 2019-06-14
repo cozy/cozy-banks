@@ -10,6 +10,8 @@ export const BILLS_DOCTYPE = 'io.cozy.bills'
 export const TRIGGER_DOCTYPE = 'io.cozy.triggers'
 export const APP_DOCTYPE = 'io.cozy.apps'
 export const KONNECTOR_DOCTYPE = 'io.cozy.konnectors'
+export const COZY_ACCOUNT_DOCTYPE = 'io.cozy.accounts'
+export const PERMISSION_DOCTYPE = 'io.cozy.permissions'
 
 export const offlineDoctypes = [
   ACCOUNT_DOCTYPE,
