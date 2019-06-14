@@ -185,6 +185,10 @@ class LateHealthReimbursement extends Notification {
     )
   }
 
+  /**
+   * Executed by `Notification` when the notification has been successfuly sent
+   * See `Notification::sendNotification`
+   */
   async onSendNotificationSuccess() {
     this.toNotify.forEach(reimb => {
       if (!reimb.cozyMetadata) {
