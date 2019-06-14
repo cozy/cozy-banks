@@ -9,7 +9,7 @@ import { protocol } from 'ducks/mobile/constants'
   deal with an iOS bug during apple-app-site json file retrieving. (https://openradar.appspot.com/33893852)
   Since the json file is not downloaded, the device and the app don't know they have to 
   handle the universal link so we reached the registry (the server behind the universalink domain)
-  This server is pretty dump. If we reach it, it redirects the client to the fallback_url which is 
+  This server only does redirection. If we reach it, it redirects the client to the fallback_url which is 
   the web version of the app.
 
   But as we know that we are on the mobile app if we use this method, we add the custom_scheme to the 
