@@ -14,7 +14,7 @@ import { protocol } from 'ducks/mobile/constants'
 
   But as we know that we are on the mobile app if we use this method, we add the custom_scheme to the 
   request. This way, if we reach the server, it can check if the url has the custom_scheme params and 
-  instead of redirecting to the web version of the app, redirect to this attribute
+  instead of redirecting to the web version of the app, redirect to the native app via the custom scheme.
 */
 export const getRedirectUri = appSlug => {
   const redirectedPath = 'auth'
