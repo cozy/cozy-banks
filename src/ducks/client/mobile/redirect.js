@@ -3,7 +3,7 @@ import { isAndroidApp } from 'cozy-device-helper'
 import { protocol } from 'ducks/mobile/constants'
 
 /**
-  The redirect_uri is neeeded by the stack to redirect the user logged from the app (OAuth Client)
+  The redirect_uri is needed by the stack to redirect the user logged from the app (OAuth Client)
   
   We need to add a custom_scheme and custom_path search params in order to be able to 
   deal with an iOS bug during apple-app-site json file retrieving. (https://openradar.appspot.com/33893852)
