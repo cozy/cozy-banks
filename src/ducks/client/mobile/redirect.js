@@ -8,7 +8,7 @@ import { protocol } from 'ducks/mobile/constants'
   We need to add a custom_scheme and custom_path search params in order to be able to 
   deal with an iOS bug during apple-app-site json file retrieving. (https://openradar.appspot.com/33893852)
   Since the json file is not downloaded, the device and the app don't know they have to 
-  handle the universal link so we reached the registry (the server behind the universalink domain)
+  handle the universal link so we are redirected to the registry (the server behind the universalink domain)
   This server only does redirection. If we reach it, it redirects the client to the fallback_url which is 
   the web version of the app.
 
