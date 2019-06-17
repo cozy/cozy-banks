@@ -7,7 +7,6 @@ import AccountRow from 'ducks/balance/components/AccountRow'
 import styles from 'ducks/balance/components/AccountsList.styl'
 import { getAccountBalance, getAccountType } from 'ducks/account/helpers'
 import AccountRowLoading from 'ducks/balance/components/AccountRowLoading'
-import { getYear } from 'date-fns'
 
 class AccountsList extends React.PureComponent {
   static propTypes = {
@@ -22,7 +21,7 @@ class AccountsList extends React.PureComponent {
   }
 
   goToTransactionsFilteredByDoc = account => () => {
-    const { filterByDoc, addFilterByPeriod, router } = this.props
+    const { filterByDoc, router } = this.props
 
     filterByDoc(account)
 
@@ -30,8 +29,6 @@ class AccountsList extends React.PureComponent {
     const route = isReimbursementsType
       ? '/balances/reimbursements'
       : '/balances/details'
-
-    isReimbursementsType && addFilterByPeriod(getYear(new Date()).toString())
 
     router.push(route)
   }

@@ -12,6 +12,7 @@ describe('HealthReimbursements', () => {
       <DumbHealthReimbursements
         fetchStatus="loading"
         filteredTransactions={[]}
+        addFilterByPeriod={jest.fn()}
       />
     )
 
@@ -30,6 +31,7 @@ describe('HealthReimbursements', () => {
         fetchStatus="loaded"
         filteredTransactions={pending}
         t={key => key}
+        addFilterByPeriod={jest.fn()}
       />
     )
 
@@ -46,6 +48,7 @@ describe('HealthReimbursements', () => {
         fetchStatus="loaded"
         filteredTransactions={reimbursed}
         t={key => key}
+        addFilterByPeriod={jest.fn()}
       />
     )
 
@@ -58,6 +61,7 @@ describe('HealthReimbursements', () => {
         fetchStatus="loaded"
         filteredTransactions={[]}
         t={key => key}
+        addFilterByPeriod={jest.fn()}
       />
     )
 
