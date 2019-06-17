@@ -17,6 +17,7 @@ import {
   Button
 } from 'cozy-ui/transpiled/react'
 import { withClient, queryConnect } from 'cozy-client'
+import Realtime from 'cozy-realtime'
 
 import {
   PERMISSION_DOCTYPE,
@@ -419,6 +420,19 @@ const TransferError = React.memo(
   ))
 )
 
+const subscribe = (rt, event, doc, id, cb) => {
+  let handler
+  const unsubscribe = () => {
+    console.log('unsubscribe !')
+    rt.unsubscribe(event, doc, id, handler)
+  }
+  handler = doc => {
+    return cb(doc, unsubscribe)
+  }
+  rt.subscribe(event, doc, id, handler)
+  return unsubscribe
+}
+
 class TransferPage extends React.Component {
   constructor(props, context) {
     super(props, context)
@@ -442,12 +456,35 @@ class TransferPage extends React.Component {
     this.handleChangePassword = this.handleChangePassword.bind(this)
     this.handleConfirm = this.handleConfirm.bind(this)
     this.handleModalDismiss = this.handleModalDismiss.bind(this)
+    this.handleJobChange = this.handleJobChange.bind(this)
     this.handleExit = this.handleExit.bind(this)
     this.handleReset = this.handleReset.bind(this)
   }
 
   handleConfirm() {
     this.transferMoney()
+  }
+
+  followJob(job) {
+    const rt = new Realtime({ client: this.props.client })
+    this.unfollowJob = subscribe(
+      rt,
+      'updated',
+      'io.cozy.jobs',
+      job._id,
+      this.handleJobChange
+    )
+  }
+
+  handleJobChange(job, unsubscribe) {
+    console.log('job change', job)
+    if (job.state === 'done') {
+      this.setState({ transferState: 'success' })
+      unsubscribe()
+    } else if (job.state === 'errored') {
+      this.setState({ transferState: new Error(job.error) })
+      unsubscribe()
+    }
   }
 
   async transferMoney() {
@@ -461,20 +498,27 @@ class TransferPage extends React.Component {
       const recipient = beneficiary.recipients.find(
         rec => rec.vendorAccountId == senderAccount.vendorId
       )
-      await transfers.createJob(client, {
+      const job = await transfers.createJob(client, {
         amount: amount,
         recipientId: recipient._id,
         senderAccount,
         password: password
       })
       this.followJob(job)
-      this.setState({
-        transferState: 'success'
-      })
+      this.successTimeout = setTimeout(() => {
+        this.setState({
+          transferState: 'success'
+        })
+      }, 30 * 1000)
     } catch (e) {
       console.error(e)
       this.setState({ transferState: e })
     }
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.successTimeout)
+    this.unfollowJob && this.unfollowJob()
   }
 
   handleGoBack() {
@@ -550,6 +594,7 @@ class TransferPage extends React.Component {
       beneficiary: null,
       slide: 0
     })
+    clearTimeout(this.successTimeout)
   }
 
   handleExit() {
@@ -565,7 +610,7 @@ class TransferPage extends React.Component {
       senderAccount,
       senderAccounts,
       amount,
-      transferState,
+      transferState
     } = this.state
 
     if (recipients.fetchStatus === 'loading') {
