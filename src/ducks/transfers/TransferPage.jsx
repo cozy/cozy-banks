@@ -64,6 +64,11 @@ const transfers = {
     const konnector = konnectors.find(
       konn => konn._id === `${KONNECTOR_DOCTYPE}/${konnSlug}`
     )
+
+    if (!konnector) {
+      throw new Error('Could not find suitable konnector')
+    }
+
     const { data: permission } = await permissions.add(konnector, {
       [account._id]: {
         type: COZY_ACCOUNT_DOCTYPE,
