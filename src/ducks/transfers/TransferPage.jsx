@@ -604,8 +604,8 @@ class TransferPage extends React.Component {
     this.selectSlideByName('password')
   }
 
-  handleChangePassword(password) {
-    this.setState({ password })
+  handleChangePassword(ev) {
+    this.setState({ password: ev.target.value })
   }
 
   handleChangeLabel(ev) {
