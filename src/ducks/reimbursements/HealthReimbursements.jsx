@@ -22,6 +22,8 @@ import Loading from 'components/Loading'
 import { KonnectorChip } from 'components/KonnectorChip'
 import { StoreLink } from 'components/StoreLink'
 import { Section } from 'components/Section'
+import withFilters from 'components/withFilters'
+import { getYear } from 'date-fns'
 
 const Caption = props => {
   const { className, ...rest } = props
@@ -41,6 +43,10 @@ const Title = props => {
 }
 
 export class DumbHealthReimbursements extends Component {
+  componentDidMount() {
+    this.props.addFilterByPeriod(getYear(new Date()).toString())
+  }
+
   getGroups() {
     return groupBy(this.props.filteredTransactions, getReimbursementStatus)
   }
@@ -145,7 +151,8 @@ const HealthReimbursements = compose(
   }),
   connect(mapStateToProps),
   withBrands,
-  withAppsUrls
+  withAppsUrls,
+  withFilters
 )(DumbHealthReimbursements)
 
 export default HealthReimbursements

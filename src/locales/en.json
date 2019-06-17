@@ -433,7 +433,8 @@
       "description": "You will be notified when no reimbursement have been found for one of your health expenses since",
       "unit": "days",
       "email": {
-        "innerTitle": "Late health reimbursement notification"
+        "innerTitle": "Late health reimbursement notification",
+        "accessReimbursements": "Access my reimbursements"
       },
       "notification": {
         "title": "Late health reimbursements",
