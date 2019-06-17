@@ -602,14 +602,26 @@
       "to": "à",
       "for": "pour",
       "for-placeholder": "motif (facultatif)",
-      "confirm": "Confirmer le virement"
+      "confirm": "Confirmer le virement",
+      "on": "le"
     },
     "password": {
       "page-title": "Mot de passe",
       "title": "Entrez votre mot de passe bancaire pour effectuer le virement",
       "confirm": "Confirmer le virement",
       "field-label": "Votre mot de passe bancaire",
-      "field-placeholder": "******"
-    }
+      "field-placeholder": "******",
+      "date-placeholder": "Date du virement"
+    },
+    "success": {
+      "title": "Votre demande de virement a été prise en compte",
+      "description": "Votre banque procédera au virement sous 1 jour ouvré, sous réserve de solde suffisant."
+    },
+    "error": {
+      "title": "Votre demande de virement n'a pas été prise en compte",
+      "description": "Votre demande de virement n'a pas pu être envoyée, merci de réessayer plus tard ou contactez notre support."
+    },
+    "exit": "Terminer",
+    "new-transfer": "Effectuer un nouveau transfert"
   }
 }

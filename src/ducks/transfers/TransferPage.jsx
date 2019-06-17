@@ -35,6 +35,10 @@ import BottomButton from 'components/BottomButton'
 import Figure from 'components/Figure'
 import AccountIcon from 'components/AccountIcon'
 
+import styles from 'ducks/transfers/styles.styl'
+import transferDoneImg from 'assets/transfer-done.jpg'
+import transferErrorImg from 'assets/transfer-error.jpg'
+
 const _Title = ({ children }) => {
   return <UITitle className="u-ta-center u-mb-1">{children}</UITitle>
 }
@@ -411,42 +415,51 @@ const slideIndexes = {
   password: 5
 }
 
+const TransferStateModal = props => (
+  <Padded className={styles.TransferStateModal}>
+    <Title className="u-mb-1-half">{props.title}</Title>
+    <img
+      style={{ maxHeight: '7.5rem' }}
+      className="u-mb-1-half"
+      src={props.img}
+    />
+    <Text className="u-mb-1-half">{props.description}</Text>
+    <Button
+      extension="full"
+      className="u-mb-half"
+      onClick={props.onClickPrimaryButton}
+      label={props.primaryLabel}
+    />
+  </Padded>
+)
+
 const TransferSuccess = React.memo(
-  translate()(({ t, onReset, onExit }) => (
-    <div>
-      {t('transfer.success.description')}
-      <br />
-      <Button onClick={onExit} label={t('transfer.exit')} />
-      <br />
-      <Button
-        theme="secondary"
-        onClick={onReset}
-        label={t('transfer.new-transfer')}
-      />
-    </div>
+  translate()(({ t, onExit }) => (
+    <TransferStateModal
+      title={t('Transfer.success.title')}
+      img={transferDoneImg}
+      description={t('Transfer.success.description')}
+      onClickPrimaryButton={onExit}
+      primaryLabel={t('Transfer.exit')}
+    />
   ))
 )
 
 const TransferError = React.memo(
-  translate()(({ t, onReset, onExit }) => (
-    <div>
-      {t('transfer.error.description')}
-      <br />
-      <Button onClick={onExit} label={t('transfer.exit')} />
-      <br />
-      <Button
-        theme="secondary"
-        onClick={onReset}
-        label={t('transfer.new-transfer')}
-      />
-    </div>
+  translate()(({ t, onExit }) => (
+    <TransferStateModal
+      title={t('Transfer.error.title')}
+      img={transferErrorImg}
+      description={t('Transfer.error.description')}
+      onClickPrimaryButton={onExit}
+      primaryLabel={t('Transfer.exit')}
+    />
   ))
 )
 
 const subscribe = (rt, event, doc, id, cb) => {
   let handler
   const unsubscribe = () => {
-    console.log('unsubscribe !')
     rt.unsubscribe(event, doc, id, handler)
   }
   handler = doc => {
@@ -509,7 +522,6 @@ class TransferPage extends React.Component {
   }
 
   handleJobChange(job, unsubscribe) {
-    console.log('job change', job)
     if (job.state === 'done') {
       this.setState({ transferState: 'success' })
       unsubscribe()
@@ -552,7 +564,7 @@ class TransferPage extends React.Component {
         })
       }, 30 * 1000)
     } catch (e) {
-      console.error(e)
+      console.error(e) // eslint-disable-line no-console
       this.setState({ transferState: e })
     }
   }
@@ -630,7 +642,7 @@ class TransferPage extends React.Component {
   }
 
   handleModalDismiss() {
-    this.setState({ transferError: false, transferSuccess: false })
+    this.handleReset()
   }
 
   handleReset() {
@@ -677,16 +689,10 @@ class TransferPage extends React.Component {
           <Modal mobileFullscreen dismissAction={this.handleModalDismiss}>
             {transferState === 'sending' && <Loading />}
             {transferState === 'success' && (
-              <TransferSuccess
-                onExit={this.handleExit}
-                onReset={this.handleReset}
-              />
+              <TransferSuccess onExit={this.handleExit} />
             )}
             {transferState instanceof Error && (
-              <TransferError
-                onExit={this.handleExit}
-                onReset={this.handleReset}
-              />
+              <TransferError onExit={this.handleExit} />
             )}
           </Modal>
         ) : null}
