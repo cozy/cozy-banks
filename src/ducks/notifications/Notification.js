@@ -32,6 +32,10 @@ class Notification {
       settingsUrl: generateUniversalLink({
         ...commonOpts,
         nativePath: '/settings/configuration'
+      }),
+      healthReimbursementsUrl: generateUniversalLink({
+        ...commonOpts,
+        nativePath: '/balances/reimbursements'
       })
     }
   }

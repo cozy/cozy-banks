@@ -445,7 +445,8 @@
       "description": "Vous recevrez une notification lorsqu'un remboursement n'a pas été trouvé pour une de vos dépenses de santé depuis",
       "unit": "jours",
       "email": {
-        "innerTitle": "Notification de remboursement(s) en retard"
+        "innerTitle": "Notification de remboursement(s) en retard",
+        "accessReimbursements": "Accéder à mes remboursements"
       },
       "notification": {
         "title": "Remboursements de santé en retard",
