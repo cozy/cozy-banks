@@ -429,9 +429,7 @@ class TransferPage extends React.Component {
       senderAccounts: [], // Possible sender accounts for chosen person
       amount: '',
       password: '',
-      transferSent: false,
-      sendingTransfer: false,
-      transferError: null
+      transferState: null // sending | error | success
     }
     this.handleGoBack = this.handleGoBack.bind(this)
     this.handleChangeCategory = this.handleChangeCategory.bind(this)
@@ -457,7 +455,7 @@ class TransferPage extends React.Component {
     const { amount, beneficiary, senderAccount, password } = this.state
 
     this.setState({
-      sendingTransfer: true
+      transferState: 'sending'
     })
     try {
       const recipient = beneficiary.recipients.find(
@@ -469,13 +467,13 @@ class TransferPage extends React.Component {
         senderAccount,
         password: password
       })
+      this.followJob(job)
       this.setState({
-        transferSuccess: true
+        transferState: 'success'
       })
     } catch (e) {
-      this.setState({ transferError: e })
-    } finally {
-      this.setState({ sendingTransfer: false })
+      console.error(e)
+      this.setState({ transferState: e })
     }
   }
 
@@ -545,9 +543,7 @@ class TransferPage extends React.Component {
   handleReset() {
     this.setState({
       amount: '',
-      sendingTransfer: false,
-      transferError: null,
-      transferSuccess: null,
+      transferState: null,
       senderAccount: null,
       senderAccounts: [],
       category: null,
@@ -569,10 +565,7 @@ class TransferPage extends React.Component {
       senderAccount,
       senderAccounts,
       amount,
-      sendingTransfer,
-      transferSuccess,
-      transferError,
-      password
+      transferState,
     } = this.state
 
     if (recipients.fetchStatus === 'loading') {
@@ -591,16 +584,16 @@ class TransferPage extends React.Component {
 
     return (
       <>
-        {sendingTransfer || transferSuccess || transferError ? (
+        {transferState !== null ? (
           <Modal mobileFullscreen dismissAction={this.handleModalDismiss}>
-            {sendingTransfer && <Loading />}
-            {transferSuccess && (
+            {transferState === 'sending' && <Loading />}
+            {transferState === 'success' && (
               <TransferSuccess
                 onExit={this.handleExit}
                 onReset={this.handleReset}
               />
             )}
-            {transferError && (
+            {transferState instanceof Error && (
               <TransferError
                 onExit={this.handleExit}
                 onReset={this.handleReset}
