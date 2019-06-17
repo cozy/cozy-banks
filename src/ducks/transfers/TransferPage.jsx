@@ -85,7 +85,7 @@ const transfers = {
    */
   createJob: async (
     client,
-    { amount, recipientId, senderAccount, password }
+    { amount, recipientId, senderAccount, password, label, date }
   ) => {
     const konnector = senderAccount.cozyMetadata.createdByApp
     const { account } = await transfers.prepareJobAccount(client, konnector, {
@@ -97,7 +97,9 @@ const transfers = {
       recipientId,
       temporaryAccountId: account._id,
       amount,
-      senderAccountId: senderAccount._id
+      senderAccountId: senderAccount._id,
+      label,
+      date
     })
   }
 }
@@ -310,7 +312,11 @@ const _Summary = ({
   onConfirm,
   active,
   selectSlide,
-  t
+  t,
+  onChangeLabel,
+  label,
+  onChangeDate,
+  date
 }) =>
   amount && senderAccount && beneficiary ? (
     <Padded>
@@ -342,7 +348,19 @@ const _Summary = ({
         </TextCard>
         <br />
         {t('Transfer.summary.for')}{' '}
-        <OptionalInput placeholder={t('Transfer.summary.for-placeholder')} />
+        <OptionalInput
+          value={label}
+          onChange={onChangeLabel}
+          placeholder={t('Transfer.summary.for-placeholder')}
+        />
+        <br />
+        {t('Transfer.summary.on')}{' '}
+        <Field
+          type="date"
+          value={date}
+          onChange={onChangeDate}
+          placeholder={t('Transfer.summary.date-placeholder')}
+        />
         <BottomButton
           label={t('Transfer.summary.confirm')}
           visible={active}
@@ -436,15 +454,8 @@ const subscribe = (rt, event, doc, id, cb) => {
 class TransferPage extends React.Component {
   constructor(props, context) {
     super(props, context)
-    this.state = {
-      category: null, // Currently selected category
-      slide: 0,
-      senderAccount: null,
-      senderAccounts: [], // Possible sender accounts for chosen person
-      amount: '',
-      password: '',
-      transferState: null // sending | error | success
     }
+    this.state = this.getInitialState()
     this.handleGoBack = this.handleGoBack.bind(this)
     this.handleChangeCategory = this.handleChangeCategory.bind(this)
     this.handleSelectBeneficiary = this.handleSelectBeneficiary.bind(this)
@@ -454,11 +465,27 @@ class TransferPage extends React.Component {
     this.handleSelectSlide = this.handleSelectSlide.bind(this)
     this.handleConfirmSummary = this.handleConfirmSummary.bind(this)
     this.handleChangePassword = this.handleChangePassword.bind(this)
+    this.handleChangeLabel = this.handleChangeLabel.bind(this)
+    this.handleChangeDate = this.handleChangeDate.bind(this)
     this.handleConfirm = this.handleConfirm.bind(this)
     this.handleModalDismiss = this.handleModalDismiss.bind(this)
     this.handleJobChange = this.handleJobChange.bind(this)
     this.handleExit = this.handleExit.bind(this)
     this.handleReset = this.handleReset.bind(this)
+  }
+
+  getInitialState() {
+    return {
+      category: null, // Currently selected category
+      slide: 0,
+      transferState: null,
+      senderAccount: null,
+      senderAccounts: [], // Possible sender accounts for chosen person
+      amount: '',
+      password: '',
+      label: 'Virement', // TODO translate
+      date: new Date().toISOString().slice(0, 10)
+    }
   }
 
   handleConfirm() {
@@ -489,7 +516,14 @@ class TransferPage extends React.Component {
 
   async transferMoney() {
     const { client } = this.props
-    const { amount, beneficiary, senderAccount, password } = this.state
+    const {
+      amount,
+      beneficiary,
+      senderAccount,
+      password,
+      label,
+      date
+    } = this.state
 
     this.setState({
       transferState: 'sending'
@@ -502,7 +536,9 @@ class TransferPage extends React.Component {
         amount: amount,
         recipientId: recipient._id,
         senderAccount,
-        password: password
+        password: password,
+        label,
+        date
       })
       this.followJob(job)
       this.successTimeout = setTimeout(() => {
@@ -572,6 +608,14 @@ class TransferPage extends React.Component {
     this.setState({ password })
   }
 
+  handleChangeLabel(ev) {
+    this.setState({ label: ev.target.value })
+  }
+
+  handleChangeDate(ev) {
+    this.setState({ date: ev.target.value })
+  }
+
   handleSelectSlide(slideName) {
     this.selectSlideByName(slideName)
   }
@@ -585,15 +629,7 @@ class TransferPage extends React.Component {
   }
 
   handleReset() {
-    this.setState({
-      amount: '',
-      transferState: null,
-      senderAccount: null,
-      senderAccounts: [],
-      category: null,
-      beneficiary: null,
-      slide: 0
-    })
+    this.setState(this.getInitialState())
     clearTimeout(this.successTimeout)
   }
 
@@ -610,7 +646,10 @@ class TransferPage extends React.Component {
       senderAccount,
       senderAccounts,
       amount,
-      transferState
+      transferState,
+      password,
+      label,
+      date
     } = this.state
 
     if (recipients.fetchStatus === 'loading') {
@@ -672,6 +711,10 @@ class TransferPage extends React.Component {
             beneficiary={beneficiary}
             senderAccount={senderAccount}
             selectSlide={this.handleSelectSlide}
+            onChangeLabel={this.handleChangeLabel}
+            onChangeDate={this.handleChangeDate}
+            label={label}
+            date={date}
           />
           <Password
             onChangePassword={this.handleChangePassword}
