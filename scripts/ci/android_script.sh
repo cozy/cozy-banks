@@ -9,3 +9,8 @@ yarn mobile:clean
 (cd src/targets/mobile && ../../../node_modules/.bin/cordova prepare android)
 (cd src/targets/mobile && ../../../node_modules/.bin/cordova build android --release)
 echo 'travis_fold:end:build_apk\\r'
+
+echo 'Sign apk' && echo 'travis_fold:start:sign_apk\\r'
+export PATH=/usr/local/android-sdk/build-tools/26.0.2:$PATH
+yarn android:autosign
+echo 'travis_fold:end:sign_apk\\r'
