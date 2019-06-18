@@ -578,7 +578,11 @@
       "page-title": "Montant",
       "field-label": "Montant du virement",
       "title": "Quel montant souhaitez-vous envoyer ?",
-      "confirm": "Confirmer le montant"
+      "confirm": "Confirmer le montant",
+      "errors": {
+        "too-high": "Choisissez un montant inférieur à 1000€",
+        "too-low": "Choisissez un montant supérieur à 5€"
+      }
     },
     "category": {
       "page-title": "Bénéficiaire",

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import compose from 'lodash/flowRight'
 import groupBy from 'lodash/groupBy'
 import { withRouter } from 'react-router'
@@ -239,27 +240,81 @@ class _ChooseBeneficiary extends React.Component {
 
 const ChooseBeneficiary = React.memo(translate()(_ChooseBeneficiary))
 
-const _ChooseAmount = ({ t, amount, onChange, onSelect, active }) => {
-  return (
-    <Padded>
-      {active && <PageTitle>{t('Transfer.amount.page-title')}</PageTitle>}
-      <Title>{t('Transfer.amount.title')}</Title>
-      <Field
-        className="u-mt-0"
-        value={amount}
-        onChange={ev => {
-          onChange(ev.target.value)
-        }}
-        label={t('Transfer.amount.field-label')}
-        placeholder="10"
-      />
-      <BottomButton
-        label={t('Transfer.amount.confirm')}
-        visible={active}
-        onClick={onSelect}
-      />
-    </Padded>
-  )
+const validateAmount = amount => {
+  if (amount == '') {
+    return { ok: true }
+  } else if (parseInt(amount, 10) > 1000) {
+    return { error: 'too-high' }
+  } else if (parseInt(amount, 10) < 5) {
+    return { error: 'too-low' }
+  }
+  return { ok: true }
+}
+
+class _ChooseAmount extends React.PureComponent {
+  constructor(props, context) {
+    super(props, context)
+    this.state = { validation: { ok: true } }
+    this.handleBlur = this.handleBlur.bind(this)
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    this.checkToIncreaseSlideHeight(prevState)
+  }
+
+  checkToIncreaseSlideHeight(prevState) {
+    if (
+      Boolean(prevState.validation.error) !==
+      Boolean(this.state.validation.error)
+    ) {
+      this.context.swipeableViews.slideUpdateHeight()
+    }
+  }
+
+  handleBlur() {
+    this.validate()
+  }
+
+  validate() {
+    this.setState({ validation: validateAmount(this.props.amount) })
+  }
+
+  render() {
+    const { t, amount, onChange, onSelect, active } = this.props
+    const validation = this.state.validation
+    return (
+      <Padded>
+        {active && <PageTitle>{t('Transfer.amount.page-title')}</PageTitle>}
+        <Title>{t('Transfer.amount.title')}</Title>
+        {validation.error ? (
+          <p className="u-error">
+            {t(`Transfer.amount.errors.${validation.error}`)}
+          </p>
+        ) : null}
+        <Field
+          className="u-mt-0"
+          value={amount}
+          onChange={ev => {
+            onChange(ev.target.value)
+          }}
+          onBlur={this.handleBlur}
+          label={t('Transfer.amount.field-label')}
+          error={validation.error}
+          placeholder="10"
+        />
+        <BottomButton
+          disabled={validation.error}
+          label={t('Transfer.amount.confirm')}
+          visible={active}
+          onClick={onSelect}
+        />
+      </Padded>
+    )
+  }
+}
+
+_ChooseAmount.contextTypes = {
+  swipeableViews: PropTypes.object.isRequired
 }
 
 const ChooseAmount = React.memo(translate()(_ChooseAmount))
@@ -610,7 +665,7 @@ class TransferPage extends React.Component {
   }
 
   handleChangeAmount(amount) {
-    this.setState({ amount })
+    this.setState({ amount: amount })
   }
 
   handleSelectSender(senderAccount) {
