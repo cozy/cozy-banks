@@ -45,6 +45,8 @@ const _Title = ({ children }) => {
 
 const Title = React.memo(_Title)
 
+const THIRTY_SECONDS = 30 * 1000
+
 const transfers = {
   /**
    * Creates a temporary account with authentication
@@ -563,7 +565,7 @@ class TransferPage extends React.Component {
         this.setState({
           transferState: 'success'
         })
-      }, 30 * 1000)
+      }, THIRTY_SECONDS)
     } catch (e) {
       console.error(e) // eslint-disable-line no-console
       this.setState({ transferState: e })
