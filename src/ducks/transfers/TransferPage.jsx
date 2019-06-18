@@ -99,7 +99,7 @@ const transfers = {
    */
   createJob: async (
     client,
-    { amount, recipientId, senderAccount, password, label, date }
+    { amount, recipientId, senderAccount, password, label, executionDate }
   ) => {
     const konnector = senderAccount.cozyMetadata.createdByApp
     const { account } = await transfers.prepareJobAccount(client, konnector, {
@@ -113,7 +113,7 @@ const transfers = {
       amount,
       senderAccountId: senderAccount._id,
       label,
-      date
+      executionDate
     })
   }
 }
@@ -615,7 +615,7 @@ class TransferPage extends React.Component {
         senderAccount,
         password: password,
         label,
-        date
+        executionDate: date
       })
       this.followJob(job)
       this.successTimeout = setTimeout(() => {
