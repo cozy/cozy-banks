@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import compose from 'lodash/flowRight'
 import groupBy from 'lodash/groupBy'
 import { withRouter } from 'react-router'
@@ -13,12 +14,13 @@ import {
   Bold,
   Title as UITitle,
   Field,
+  Input,
   Modal,
   Button
 } from 'cozy-ui/transpiled/react'
 import { withClient, queryConnect } from 'cozy-client'
 import Realtime from 'cozy-realtime'
-
+import { logException } from 'lib/sentry'
 import {
   PERMISSION_DOCTYPE,
   COZY_ACCOUNT_DOCTYPE,
@@ -34,6 +36,7 @@ import OptionalInput from 'components/OptionalInput'
 import BottomButton from 'components/BottomButton'
 import Figure from 'components/Figure'
 import AccountIcon from 'components/AccountIcon'
+import AddAccountButton from 'ducks/categories/AddAccountButton'
 
 import styles from 'ducks/transfers/styles.styl'
 import transferDoneImg from 'assets/transfer-done.jpg'
@@ -44,6 +47,8 @@ const _Title = ({ children }) => {
 }
 
 const Title = React.memo(_Title)
+
+const THIRTY_SECONDS = 30 * 1000
 
 const transfers = {
   /**
@@ -94,7 +99,7 @@ const transfers = {
    */
   createJob: async (
     client,
-    { amount, recipientId, senderAccount, password, label, date }
+    { amount, recipientId, senderAccount, password, label, executionDate }
   ) => {
     const konnector = senderAccount.cozyMetadata.createdByApp
     const { account } = await transfers.prepareJobAccount(client, konnector, {
@@ -108,7 +113,7 @@ const transfers = {
       amount,
       senderAccountId: senderAccount._id,
       label,
-      date
+      executionDate
     })
   }
 }
@@ -235,27 +240,81 @@ class _ChooseBeneficiary extends React.Component {
 
 const ChooseBeneficiary = React.memo(translate()(_ChooseBeneficiary))
 
-const _ChooseAmount = ({ t, amount, onChange, onSelect, active }) => {
-  return (
-    <Padded>
-      {active && <PageTitle>{t('Transfer.amount.page-title')}</PageTitle>}
-      <Title>{t('Transfer.amount.title')}</Title>
-      <Field
-        className="u-mt-0"
-        value={amount}
-        onChange={ev => {
-          onChange(ev.target.value)
-        }}
-        label={t('Transfer.amount.field-label')}
-        placeholder="10"
-      />
-      <BottomButton
-        label={t('Transfer.amount.confirm')}
-        visible={active}
-        onClick={onSelect}
-      />
-    </Padded>
-  )
+const validateAmount = amount => {
+  if (amount == '') {
+    return { ok: true }
+  } else if (parseInt(amount, 10) > 1000) {
+    return { error: 'too-high' }
+  } else if (parseInt(amount, 10) < 5) {
+    return { error: 'too-low' }
+  }
+  return { ok: true }
+}
+
+class _ChooseAmount extends React.PureComponent {
+  constructor(props, context) {
+    super(props, context)
+    this.state = { validation: { ok: true } }
+    this.handleBlur = this.handleBlur.bind(this)
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    this.checkToIncreaseSlideHeight(prevState)
+  }
+
+  checkToIncreaseSlideHeight(prevState) {
+    if (
+      Boolean(prevState.validation.error) !==
+      Boolean(this.state.validation.error)
+    ) {
+      this.context.swipeableViews.slideUpdateHeight()
+    }
+  }
+
+  handleBlur() {
+    this.validate()
+  }
+
+  validate() {
+    this.setState({ validation: validateAmount(this.props.amount) })
+  }
+
+  render() {
+    const { t, amount, onChange, onSelect, active } = this.props
+    const validation = this.state.validation
+    return (
+      <Padded>
+        {active && <PageTitle>{t('Transfer.amount.page-title')}</PageTitle>}
+        <Title>{t('Transfer.amount.title')}</Title>
+        {validation.error ? (
+          <p className="u-error">
+            {t(`Transfer.amount.errors.${validation.error}`)}
+          </p>
+        ) : null}
+        <Field
+          className="u-mt-0"
+          value={amount}
+          onChange={ev => {
+            onChange(ev.target.value)
+          }}
+          onBlur={this.handleBlur}
+          label={t('Transfer.amount.field-label')}
+          error={validation.error}
+          placeholder="10"
+        />
+        <BottomButton
+          disabled={validation.error}
+          label={t('Transfer.amount.confirm')}
+          visible={active}
+          onClick={onSelect}
+        />
+      </Padded>
+    )
+  }
+}
+
+_ChooseAmount.contextTypes = {
+  swipeableViews: PropTypes.object.isRequired
 }
 
 const ChooseAmount = React.memo(translate()(_ChooseAmount))
@@ -364,7 +423,7 @@ const _Summary = ({
         />
         <br />
         {t('Transfer.summary.on')}{' '}
-        <Field
+        <Input
           type="date"
           value={date}
           onChange={onChangeDate}
@@ -500,7 +559,7 @@ class TransferPage extends React.Component {
       senderAccounts: [], // Possible sender accounts for chosen person
       amount: '',
       password: '',
-      label: 'Virement', // TODO translate
+      label: this.props.t('Transfer.initial-transfer-label'), // TODO translate
       date: new Date().toISOString().slice(0, 10)
     }
   }
@@ -524,9 +583,11 @@ class TransferPage extends React.Component {
     if (job.state === 'done') {
       this.setState({ transferState: 'success' })
       unsubscribe()
+      clearTimeout(this.successTimeout)
     } else if (job.state === 'errored') {
       this.setState({ transferState: new Error(job.error) })
       unsubscribe()
+      clearTimeout(this.successTimeout)
     }
   }
 
@@ -554,16 +615,17 @@ class TransferPage extends React.Component {
         senderAccount,
         password: password,
         label,
-        date
+        executionDate: date
       })
       this.followJob(job)
       this.successTimeout = setTimeout(() => {
         this.setState({
           transferState: 'success'
         })
-      }, 30 * 1000)
+      }, THIRTY_SECONDS)
     } catch (e) {
       console.error(e) // eslint-disable-line no-console
+      logException(e)
       this.setState({ transferState: e })
     }
   }
@@ -604,7 +666,7 @@ class TransferPage extends React.Component {
   }
 
   handleChangeAmount(amount) {
-    this.setState({ amount })
+    this.setState({ amount: amount })
   }
 
   handleSelectSender(senderAccount) {
@@ -654,7 +716,7 @@ class TransferPage extends React.Component {
   }
 
   render() {
-    const { recipients, accounts } = this.props
+    const { recipients, accounts, t } = this.props
 
     const {
       category,
@@ -668,10 +730,58 @@ class TransferPage extends React.Component {
       date
     } = this.state
 
-    if (recipients.fetchStatus === 'loading') {
+    if (
+      recipients.fetchStatus === 'loading' ||
+      accounts.fetchStatus === 'loading'
+    ) {
       return (
         <Padded>
           <Loading />
+        </Padded>
+      )
+    }
+
+    if (accounts.data.length === 0) {
+      return (
+        <Padded>
+          <Title>{t('Transfer.no-bank.title')}</Title>
+          <AddAccountButton
+            extension="full"
+            label={t('Transfer.no-bank.add-bank')}
+            theme="primary"
+            className="u-mt-0"
+          />
+        </Padded>
+      )
+    }
+
+    if (recipients.data.length === 0) {
+      return (
+        <Padded>
+          <Title>{t('Transfer.no-recipients.title')}</Title>
+          <Text>{t('Transfer.no-recipients.description')}</Text>
+          <ul>
+            <li>Axa Banque</li>
+            <li>BNP Paribas</li>
+            <li>Boursorama</li>
+            <li>Banque Postale Particuliers</li>
+            <li>CIC</li>
+            <li>Crédit Agricole</li>
+            <li>Crédit Coopératif</li>
+            <li>Crédit Foncier</li>
+            <li>Crédit Mutuel</li>
+            <li>Fortuneo</li>
+            <li>Hello Bank</li>
+            <li>ING</li>
+            <li>LCL</li>
+            <li>Société Générale</li>
+          </ul>
+          <AddAccountButton
+            extension="full"
+            label={t('Transfer.no-bank.add-bank')}
+            theme="primary"
+            className="u-mt-0"
+          />
         </Padded>
       )
     }
