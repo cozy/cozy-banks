@@ -9,6 +9,7 @@ import uniq from 'lodash/uniq'
 import flatten from 'lodash/flatten'
 import log from 'cozy-logger'
 import { treatedByFormat } from './html/utils'
+import { getReimbursementBillIds } from './helpers'
 
 const ACCOUNT_SEL = '.js-account'
 const DATE_SEL = '.js-date'
@@ -73,16 +74,7 @@ class HealthBillLinked extends Notification {
 
     Handlebars.registerHelper({ t: this.t })
 
-    const billIds = uniq(
-      flatten(
-        transactionsWithReimbursements.map(transaction => {
-          transaction.reimbursements.map(reimbursement => {
-            const [, billId] = reimbursement.billId.split(':')
-            return billId
-          })
-        })
-      )
-    )
+    const billIds = getReimbursementBillIds(transactionsWithReimbursements)
 
     return Bill.getAll(billIds).then(bills => {
       const templateData = {

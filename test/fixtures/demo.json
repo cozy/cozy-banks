@@ -1989,19 +1989,23 @@
     },
     {
       "_id": "bouyges_telecom_44_90",
-      "invoice": "io.cozy.files:{{reference 'io.cozy.files' 8 '_id' }}"
+      "invoice": "io.cozy.files:{{reference 'io.cozy.files' 8 '_id' }}",
+      "vendor": "Bouygues Telecom"
     },
     {
       "_id": "free_34_90",
-      "invoice": "io.cozy.files:{{reference 'io.cozy.files' 9 '_id' }}"
+      "invoice": "io.cozy.files:{{reference 'io.cozy.files' 9 '_id' }}",
+      "vendor": "Free"
     },
     {
       "_id": "free_mobile_15_99",
-      "invoice": "io.cozy.files:{{reference 'io.cozy.files' 12 '_id' }}"
+      "invoice": "io.cozy.files:{{reference 'io.cozy.files' 12 '_id' }}",
+      "vendor": "Free Mobile"
     },
     {
       "_id": "maif_243_57",
-      "invoice": "io.cozy.files:{{reference 'io.cozy.files' 13 '_id' }}"
+      "invoice": "io.cozy.files:{{reference 'io.cozy.files' 13 '_id' }}",
+      "vendor": "MAIF"
     }
   ]
 }
