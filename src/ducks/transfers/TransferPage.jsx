@@ -20,7 +20,7 @@ import {
 } from 'cozy-ui/transpiled/react'
 import { withClient, queryConnect } from 'cozy-client'
 import Realtime from 'cozy-realtime'
-
+import { logException } from 'lib/sentry'
 import {
   PERMISSION_DOCTYPE,
   COZY_ACCOUNT_DOCTYPE,
@@ -625,6 +625,7 @@ class TransferPage extends React.Component {
       }, THIRTY_SECONDS)
     } catch (e) {
       console.error(e) // eslint-disable-line no-console
+      logException(e)
       this.setState({ transferState: e })
     }
   }
