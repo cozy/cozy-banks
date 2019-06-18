@@ -524,9 +524,11 @@ class TransferPage extends React.Component {
     if (job.state === 'done') {
       this.setState({ transferState: 'success' })
       unsubscribe()
+      clearTimeout(this.successTimeout)
     } else if (job.state === 'errored') {
       this.setState({ transferState: new Error(job.error) })
       unsubscribe()
+      clearTimeout(this.successTimeout)
     }
   }
 
