@@ -4,10 +4,8 @@ import cx from 'classnames'
 
 import styles from 'components/Spacing/Padded.styl'
 
-const Padded = ({ children, className, style }) => (
-  <div className={cx(styles.Padded, className)} style={style}>
-    {children}
-  </div>
+const Padded = ({ className, ...restProps }) => (
+  <div className={cx(styles.Padded, className)} {...restProps} />
 )
 
 Padded.propTypes = {
