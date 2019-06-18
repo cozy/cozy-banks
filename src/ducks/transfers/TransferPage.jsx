@@ -472,7 +472,6 @@ const subscribe = (rt, event, doc, id, cb) => {
 class TransferPage extends React.Component {
   constructor(props, context) {
     super(props, context)
-    }
     this.state = this.getInitialState()
     this.handleGoBack = this.handleGoBack.bind(this)
     this.handleChangeCategory = this.handleChangeCategory.bind(this)
