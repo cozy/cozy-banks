@@ -107,4 +107,5 @@
     <engine name="ios" spec="4.5.5" />
     <plugin name="cordova-universal-links-plugin" spec="https://github.com/Mailbutler/cordova-universal-links-plugin" />
     <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
+    <plugin name="cordova-plugin-keyboard" spec="https://github.com/cozy/cordova-plugin-keyboard#4fa4850e6f0ea78e1e2ce573ccde5531a2353edb" />
 </widget>

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import compose from 'lodash/flowRight'
 import groupBy from 'lodash/groupBy'
 import { withRouter } from 'react-router'
@@ -13,11 +14,13 @@ import {
   Bold,
   Title as UITitle,
   Field,
+  Input,
   Modal,
   Button
 } from 'cozy-ui/transpiled/react'
 import { withClient, queryConnect } from 'cozy-client'
-
+import Realtime from 'cozy-realtime'
+import { logException } from 'lib/sentry'
 import {
   PERMISSION_DOCTYPE,
   COZY_ACCOUNT_DOCTYPE,
@@ -33,12 +36,19 @@ import OptionalInput from 'components/OptionalInput'
 import BottomButton from 'components/BottomButton'
 import Figure from 'components/Figure'
 import AccountIcon from 'components/AccountIcon'
+import AddAccountButton from 'ducks/categories/AddAccountButton'
+
+import styles from 'ducks/transfers/styles.styl'
+import transferDoneImg from 'assets/transfer-done.jpg'
+import transferErrorImg from 'assets/transfer-error.jpg'
 
 const _Title = ({ children }) => {
   return <UITitle className="u-ta-center u-mb-1">{children}</UITitle>
 }
 
 const Title = React.memo(_Title)
+
+const THIRTY_SECONDS = 30 * 1000
 
 const transfers = {
   /**
@@ -63,6 +73,11 @@ const transfers = {
     const konnector = konnectors.find(
       konn => konn._id === `${KONNECTOR_DOCTYPE}/${konnSlug}`
     )
+
+    if (!konnector) {
+      throw new Error('Could not find suitable konnector')
+    }
+
     const { data: permission } = await permissions.add(konnector, {
       [account._id]: {
         type: COZY_ACCOUNT_DOCTYPE,
@@ -84,7 +99,7 @@ const transfers = {
    */
   createJob: async (
     client,
-    { amount, recipientId, senderAccount, password }
+    { amount, recipientId, senderAccount, password, label, executionDate }
   ) => {
     const konnector = senderAccount.cozyMetadata.createdByApp
     const { account } = await transfers.prepareJobAccount(client, konnector, {
@@ -96,7 +111,9 @@ const transfers = {
       recipientId,
       temporaryAccountId: account._id,
       amount,
-      senderAccountId: senderAccount._id
+      senderAccountId: senderAccount._id,
+      label,
+      executionDate
     })
   }
 }
@@ -223,27 +240,81 @@ class _ChooseBeneficiary extends React.Component {
 
 const ChooseBeneficiary = React.memo(translate()(_ChooseBeneficiary))
 
-const _ChooseAmount = ({ t, amount, onChange, onSelect, active }) => {
-  return (
-    <Padded>
-      {active && <PageTitle>{t('Transfer.amount.page-title')}</PageTitle>}
-      <Title>{t('Transfer.amount.title')}</Title>
-      <Field
-        className="u-mt-0"
-        value={amount}
-        onChange={ev => {
-          onChange(ev.target.value)
-        }}
-        label={t('Transfer.amount.field-label')}
-        placeholder="10"
-      />
-      <BottomButton
-        label={t('Transfer.amount.confirm')}
-        visible={active}
-        onClick={onSelect}
-      />
-    </Padded>
-  )
+const validateAmount = amount => {
+  if (amount == '') {
+    return { ok: true }
+  } else if (parseInt(amount, 10) > 1000) {
+    return { error: 'too-high' }
+  } else if (parseInt(amount, 10) < 5) {
+    return { error: 'too-low' }
+  }
+  return { ok: true }
+}
+
+class _ChooseAmount extends React.PureComponent {
+  constructor(props, context) {
+    super(props, context)
+    this.state = { validation: { ok: true } }
+    this.handleBlur = this.handleBlur.bind(this)
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    this.checkToIncreaseSlideHeight(prevState)
+  }
+
+  checkToIncreaseSlideHeight(prevState) {
+    if (
+      Boolean(prevState.validation.error) !==
+      Boolean(this.state.validation.error)
+    ) {
+      this.context.swipeableViews.slideUpdateHeight()
+    }
+  }
+
+  handleBlur() {
+    this.validate()
+  }
+
+  validate() {
+    this.setState({ validation: validateAmount(this.props.amount) })
+  }
+
+  render() {
+    const { t, amount, onChange, onSelect, active } = this.props
+    const validation = this.state.validation
+    return (
+      <Padded>
+        {active && <PageTitle>{t('Transfer.amount.page-title')}</PageTitle>}
+        <Title>{t('Transfer.amount.title')}</Title>
+        {validation.error ? (
+          <p className="u-error">
+            {t(`Transfer.amount.errors.${validation.error}`)}
+          </p>
+        ) : null}
+        <Field
+          className="u-mt-0"
+          value={amount}
+          onChange={ev => {
+            onChange(ev.target.value)
+          }}
+          onBlur={this.handleBlur}
+          label={t('Transfer.amount.field-label')}
+          error={validation.error}
+          placeholder="10"
+        />
+        <BottomButton
+          disabled={validation.error}
+          label={t('Transfer.amount.confirm')}
+          visible={active}
+          onClick={onSelect}
+        />
+      </Padded>
+    )
+  }
+}
+
+_ChooseAmount.contextTypes = {
+  swipeableViews: PropTypes.object.isRequired
 }
 
 const ChooseAmount = React.memo(translate()(_ChooseAmount))
@@ -309,7 +380,11 @@ const _Summary = ({
   onConfirm,
   active,
   selectSlide,
-  t
+  t,
+  onChangeLabel,
+  label,
+  onChangeDate,
+  date
 }) =>
   amount && senderAccount && beneficiary ? (
     <Padded>
@@ -341,7 +416,19 @@ const _Summary = ({
         </TextCard>
         <br />
         {t('Transfer.summary.for')}{' '}
-        <OptionalInput placeholder={t('Transfer.summary.for-placeholder')} />
+        <OptionalInput
+          value={label}
+          onChange={onChangeLabel}
+          placeholder={t('Transfer.summary.for-placeholder')}
+        />
+        <br />
+        {t('Transfer.summary.on')}{' '}
+        <Input
+          type="date"
+          value={date}
+          onChange={onChangeDate}
+          placeholder={t('Transfer.summary.date-placeholder')}
+        />
         <BottomButton
           label={t('Transfer.summary.confirm')}
           visible={active}
@@ -387,52 +474,64 @@ const slideIndexes = {
   password: 5
 }
 
+const TransferStateModal = props => (
+  <Padded className={styles.TransferStateModal}>
+    <Title className="u-mb-1-half">{props.title}</Title>
+    <img
+      style={{ maxHeight: '7.5rem' }}
+      className="u-mb-1-half"
+      src={props.img}
+    />
+    <Text className="u-mb-1-half">{props.description}</Text>
+    <Button
+      extension="full"
+      className="u-mb-half"
+      onClick={props.onClickPrimaryButton}
+      label={props.primaryLabel}
+    />
+  </Padded>
+)
+
 const TransferSuccess = React.memo(
-  translate()(({ t, onReset, onExit }) => (
-    <div>
-      {t('transfer.success.description')}
-      <br />
-      <Button onClick={onExit} label={t('transfer.exit')} />
-      <br />
-      <Button
-        theme="secondary"
-        onClick={onReset}
-        label={t('transfer.new-transfer')}
-      />
-    </div>
+  translate()(({ t, onExit }) => (
+    <TransferStateModal
+      title={t('Transfer.success.title')}
+      img={transferDoneImg}
+      description={t('Transfer.success.description')}
+      onClickPrimaryButton={onExit}
+      primaryLabel={t('Transfer.exit')}
+    />
   ))
 )
 
 const TransferError = React.memo(
-  translate()(({ t, onReset, onExit }) => (
-    <div>
-      {t('transfer.error.description')}
-      <br />
-      <Button onClick={onExit} label={t('transfer.exit')} />
-      <br />
-      <Button
-        theme="secondary"
-        onClick={onReset}
-        label={t('transfer.new-transfer')}
-      />
-    </div>
+  translate()(({ t, onExit }) => (
+    <TransferStateModal
+      title={t('Transfer.error.title')}
+      img={transferErrorImg}
+      description={t('Transfer.error.description')}
+      onClickPrimaryButton={onExit}
+      primaryLabel={t('Transfer.exit')}
+    />
   ))
 )
+
+const subscribe = (rt, event, doc, id, cb) => {
+  let handler
+  const unsubscribe = () => {
+    rt.unsubscribe(event, doc, id, handler)
+  }
+  handler = doc => {
+    return cb(doc, unsubscribe)
+  }
+  rt.subscribe(event, doc, id, handler)
+  return unsubscribe
+}
 
 class TransferPage extends React.Component {
   constructor(props, context) {
     super(props, context)
-    this.state = {
-      category: null, // Currently selected category
-      slide: 0,
-      senderAccount: null,
-      senderAccounts: [], // Possible sender accounts for chosen person
-      amount: '',
-      password: '',
-      transferSent: false,
-      sendingTransfer: false,
-      transferError: null
-    }
+    this.state = this.getInitialState()
     this.handleGoBack = this.handleGoBack.bind(this)
     this.handleChangeCategory = this.handleChangeCategory.bind(this)
     this.handleSelectBeneficiary = this.handleSelectBeneficiary.bind(this)
@@ -442,41 +541,98 @@ class TransferPage extends React.Component {
     this.handleSelectSlide = this.handleSelectSlide.bind(this)
     this.handleConfirmSummary = this.handleConfirmSummary.bind(this)
     this.handleChangePassword = this.handleChangePassword.bind(this)
+    this.handleChangeLabel = this.handleChangeLabel.bind(this)
+    this.handleChangeDate = this.handleChangeDate.bind(this)
     this.handleConfirm = this.handleConfirm.bind(this)
     this.handleModalDismiss = this.handleModalDismiss.bind(this)
+    this.handleJobChange = this.handleJobChange.bind(this)
     this.handleExit = this.handleExit.bind(this)
     this.handleReset = this.handleReset.bind(this)
+  }
+
+  getInitialState() {
+    return {
+      category: null, // Currently selected category
+      slide: 0,
+      transferState: null,
+      senderAccount: null,
+      senderAccounts: [], // Possible sender accounts for chosen person
+      amount: '',
+      password: '',
+      label: this.props.t('Transfer.initial-transfer-label'), // TODO translate
+      date: new Date().toISOString().slice(0, 10)
+    }
   }
 
   handleConfirm() {
     this.transferMoney()
   }
 
+  followJob(job) {
+    const rt = new Realtime({ client: this.props.client })
+    this.unfollowJob = subscribe(
+      rt,
+      'updated',
+      'io.cozy.jobs',
+      job._id,
+      this.handleJobChange
+    )
+  }
+
+  handleJobChange(job, unsubscribe) {
+    if (job.state === 'done') {
+      this.setState({ transferState: 'success' })
+      unsubscribe()
+      clearTimeout(this.successTimeout)
+    } else if (job.state === 'errored') {
+      this.setState({ transferState: new Error(job.error) })
+      unsubscribe()
+      clearTimeout(this.successTimeout)
+    }
+  }
+
   async transferMoney() {
     const { client } = this.props
-    const { amount, beneficiary, senderAccount, password } = this.state
+    const {
+      amount,
+      beneficiary,
+      senderAccount,
+      password,
+      label,
+      date
+    } = this.state
 
     this.setState({
-      sendingTransfer: true
+      transferState: 'sending'
     })
     try {
       const recipient = beneficiary.recipients.find(
         rec => rec.vendorAccountId == senderAccount.vendorId
       )
-      await transfers.createJob(client, {
+      const job = await transfers.createJob(client, {
         amount: amount,
         recipientId: recipient._id,
         senderAccount,
-        password: password
+        password: password,
+        label,
+        executionDate: date
       })
-      this.setState({
-        transferSuccess: true
-      })
+      this.followJob(job)
+      this.successTimeout = setTimeout(() => {
+        this.setState({
+          transferState: 'success'
+        })
+      }, THIRTY_SECONDS)
     } catch (e) {
-      this.setState({ transferError: e })
-    } finally {
-      this.setState({ sendingTransfer: false })
+      console.error(e) // eslint-disable-line no-console
+      logException(e)
+      this.setState({ transferState: e })
     }
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.successTimeout)
+    this.unfollowJob && this.unfollowJob()
   }
 
   handleGoBack() {
@@ -510,7 +666,7 @@ class TransferPage extends React.Component {
   }
 
   handleChangeAmount(amount) {
-    this.setState({ amount })
+    this.setState({ amount: amount })
   }
 
   handleSelectSender(senderAccount) {
@@ -526,8 +682,16 @@ class TransferPage extends React.Component {
     this.selectSlideByName('password')
   }
 
-  handleChangePassword(password) {
-    this.setState({ password })
+  handleChangePassword(ev) {
+    this.setState({ password: ev.target.value })
+  }
+
+  handleChangeLabel(ev) {
+    this.setState({ label: ev.target.value })
+  }
+
+  handleChangeDate(ev) {
+    this.setState({ date: ev.target.value })
   }
 
   handleSelectSlide(slideName) {
@@ -539,21 +703,12 @@ class TransferPage extends React.Component {
   }
 
   handleModalDismiss() {
-    this.setState({ transferError: false, transferSuccess: false })
+    this.handleReset()
   }
 
   handleReset() {
-    this.setState({
-      amount: '',
-      sendingTransfer: false,
-      transferError: null,
-      transferSuccess: null,
-      senderAccount: null,
-      senderAccounts: [],
-      category: null,
-      beneficiary: null,
-      slide: 0
-    })
+    this.setState(this.getInitialState())
+    clearTimeout(this.successTimeout)
   }
 
   handleExit() {
@@ -561,7 +716,7 @@ class TransferPage extends React.Component {
   }
 
   render() {
-    const { recipients, accounts } = this.props
+    const { recipients, accounts, t } = this.props
 
     const {
       category,
@@ -569,16 +724,64 @@ class TransferPage extends React.Component {
       senderAccount,
       senderAccounts,
       amount,
-      sendingTransfer,
-      transferSuccess,
-      transferError,
-      password
+      transferState,
+      password,
+      label,
+      date
     } = this.state
 
-    if (recipients.fetchStatus === 'loading') {
+    if (
+      recipients.fetchStatus === 'loading' ||
+      accounts.fetchStatus === 'loading'
+    ) {
       return (
         <Padded>
           <Loading />
+        </Padded>
+      )
+    }
+
+    if (accounts.data.length === 0) {
+      return (
+        <Padded>
+          <Title>{t('Transfer.no-bank.title')}</Title>
+          <AddAccountButton
+            extension="full"
+            label={t('Transfer.no-bank.add-bank')}
+            theme="primary"
+            className="u-mt-0"
+          />
+        </Padded>
+      )
+    }
+
+    if (recipients.data.length === 0) {
+      return (
+        <Padded>
+          <Title>{t('Transfer.no-recipients.title')}</Title>
+          <Text>{t('Transfer.no-recipients.description')}</Text>
+          <ul>
+            <li>Axa Banque</li>
+            <li>BNP Paribas</li>
+            <li>Boursorama</li>
+            <li>Banque Postale Particuliers</li>
+            <li>CIC</li>
+            <li>Crédit Agricole</li>
+            <li>Crédit Coopératif</li>
+            <li>Crédit Foncier</li>
+            <li>Crédit Mutuel</li>
+            <li>Fortuneo</li>
+            <li>Hello Bank</li>
+            <li>ING</li>
+            <li>LCL</li>
+            <li>Société Générale</li>
+          </ul>
+          <AddAccountButton
+            extension="full"
+            label={t('Transfer.no-bank.add-bank')}
+            theme="primary"
+            className="u-mt-0"
+          />
         </Padded>
       )
     }
@@ -591,20 +794,14 @@ class TransferPage extends React.Component {
 
     return (
       <>
-        {sendingTransfer || transferSuccess || transferError ? (
+        {transferState !== null ? (
           <Modal mobileFullscreen dismissAction={this.handleModalDismiss}>
-            {sendingTransfer && <Loading />}
-            {transferSuccess && (
-              <TransferSuccess
-                onExit={this.handleExit}
-                onReset={this.handleReset}
-              />
+            {transferState === 'sending' && <Loading />}
+            {transferState === 'success' && (
+              <TransferSuccess onExit={this.handleExit} />
             )}
-            {transferError && (
-              <TransferError
-                onExit={this.handleExit}
-                onReset={this.handleReset}
-              />
+            {transferState instanceof Error && (
+              <TransferError onExit={this.handleExit} />
             )}
           </Modal>
         ) : null}
@@ -634,6 +831,10 @@ class TransferPage extends React.Component {
             beneficiary={beneficiary}
             senderAccount={senderAccount}
             selectSlide={this.handleSelectSlide}
+            onChangeLabel={this.handleChangeLabel}
+            onChangeDate={this.handleChangeDate}
+            label={label}
+            date={date}
           />
           <Password
             onChangePassword={this.handleChangePassword}
