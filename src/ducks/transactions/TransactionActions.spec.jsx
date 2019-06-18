@@ -32,6 +32,7 @@ jest.mock('cozy-ui/react/Icon', () => {
       icon
     )
   }
+  mockIcon.propTypes = OriginalIcon.default.propTypes
   mockIcon.isProperIcon = OriginalIcon.default.isProperIcon
   mockIcon.iconPropType = OriginalIcon.iconPropType
   return mockIcon
