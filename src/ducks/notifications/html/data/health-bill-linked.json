@@ -12,8 +12,7 @@
         {
           "billId": "io.cozy.bills:bill1",
           "amount": 60,
-          "operationId": "avrilop.sante.isa2",
-          "vendor": "Harmonie"
+          "operationId": "avrilop.sante.isa2"
         }
       ]
     },
@@ -29,14 +28,12 @@
         {
           "billId": "io.cozy.bills:bill2",
           "amount": 60,
-          "operationId": "avrilop.sante.isa2",
-          "vendor": "Harmonie"
+          "operationId": "avrilop.sante.isa2"
         },
         {
           "billId": "io.cozy.bills:bill3",
           "amount": 60,
-          "operationId": "avrilop.sante.isa2",
-          "vendor": "Harmonie"
+          "operationId": "avrilop.sante.isa2"
         }
       ]
     },
@@ -52,14 +49,12 @@
         {
           "billId": "io.cozy.bills:bill2",
           "amount": 60,
-          "operationId": "avrilop.sante.isa2",
-          "vendor": "Harmonie"
+          "operationId": "avrilop.sante.isa2"
         },
         {
           "billId": "io.cozy.bills:bill3",
           "amount": 60,
-          "operationId": "avrilop.sante.isa2",
-          "vendor": "Harmonie"
+          "operationId": "avrilop.sante.isa2"
         }
       ]
     }
