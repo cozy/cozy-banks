@@ -698,6 +698,37 @@ class TransferPage extends React.Component {
       )
     }
 
+    if (recipients.data.length === 0) {
+      return (
+        <Padded>
+          <Title>{t('Transfer.no-recipients.title')}</Title>
+          <Text>{t('Transfer.no-recipients.description')}</Text>
+          <ul>
+            <li>Axa Banque</li>
+            <li>BNP Paribas</li>
+            <li>Boursorama</li>
+            <li>Banque Postale Particuliers</li>
+            <li>CIC</li>
+            <li>Crédit Agricole</li>
+            <li>Crédit Coopératif</li>
+            <li>Crédit Foncier</li>
+            <li>Crédit Mutuel</li>
+            <li>Fortuneo</li>
+            <li>Hello Bank</li>
+            <li>ING</li>
+            <li>LCL</li>
+            <li>Société Générale</li>
+          </ul>
+          <AddAccountButton
+            extension="full"
+            label={t('Transfer.no-bank.add-bank')}
+            theme="primary"
+            className="u-mt-0"
+          />
+        </Padded>
+      )
+    }
+
     const categoryFilter = recipient => recipient.category === category
     const beneficiaries = recipientUtils.groupAsBeneficiary(
       recipients.data.filter(categoryFilter),
