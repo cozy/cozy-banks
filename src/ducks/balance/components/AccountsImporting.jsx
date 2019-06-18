@@ -25,9 +25,10 @@ const muiStyles = () => ({
   }
 })
 
-const createGroups = (types, konnectorSlugs) => {
-  const accounts = konnectorSlugs.map(konnectorSlug => ({
-    _id: konnectorSlug,
+const createGroups = (types, konnectorInfos) => {
+  const accounts = konnectorInfos.map(konnectorInfo => ({
+    _id: konnectorInfo.slug,
+    status: konnectorInfo.status,
     loading: true
   }))
 
@@ -57,10 +58,10 @@ const createPanelsState = types => {
   return panelsState
 }
 
-const AccountsImporting = ({ t, classes, konnectorSlugs }) => {
+const AccountsImporting = ({ t, classes, konnectorInfos }) => {
   const types = ['Checkings', 'Savings']
 
-  const groups = createGroups(types, konnectorSlugs)
+  const groups = createGroups(types, konnectorInfos)
   const panelsState = createPanelsState(types)
 
   return (
@@ -104,7 +105,7 @@ const AccountsImporting = ({ t, classes, konnectorSlugs }) => {
 AccountsImporting.propTypes = {
   t: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
-  konnectorSlugs: PropTypes.arrayOf(PropTypes.string)
+  konnectorInfos: PropTypes.arrayOf(PropTypes.object)
 }
 
 export default compose(

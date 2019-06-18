@@ -7,7 +7,7 @@ import KonnectorIcon from 'ducks/balance/components/KonnectorIcon'
 import styles from 'ducks/balance/components/AccountRow.styl'
 import stylesLoading from 'ducks/balance/components/AccountRowLoading.styl'
 
-const AccountRowLoading = ({ t, institutionSlug }) => (
+const AccountRowLoading = ({ t, institutionSlug, status }) => (
   <li className={styles.AccountRow}>
     <div className={styles.AccountRow__column}>
       <div className={styles.AccountRow__logo}>
@@ -20,13 +20,24 @@ const AccountRowLoading = ({ t, institutionSlug }) => (
       </div>
       <div className={styles.AccountRow__labelUpdatedAtWrapper}>
         <div className={styles.AccountRow__label}>
-          {t('Balance.importing_accounts')}
+          {status === 'errored'
+            ? t('Balance.importing_accounts_error')
+            : t('Balance.importing_accounts')}
         </div>
         <div className={styles.AccountRow__updatedAt}>
-          <Icon size="12" icon="spinner" color="var(--primaryColor)" spin />
-          <span className={stylesLoading.InProgress}>
-            {t('Balance.in_progress')}
-          </span>
+          {status === 'errored' ? (
+            <>
+              <Icon size="12" icon="warning" />
+              <span className={stylesLoading.error}>{t('Balance.error')}</span>
+            </>
+          ) : (
+            <>
+              <Icon size="12" icon="spinner" color="var(--primaryColor)" spin />
+              <span className={stylesLoading.InProgress}>
+                {t('Balance.in_progress')}
+              </span>
+            </>
+          )}
         </div>
       </div>
     </div>
@@ -35,7 +46,8 @@ const AccountRowLoading = ({ t, institutionSlug }) => (
 
 AccountRowLoading.propTypes = {
   t: PropTypes.func.isRequired,
-  institutionSlug: PropTypes.string.isRequired
+  institutionSlug: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired
 }
 
 export default compose(
