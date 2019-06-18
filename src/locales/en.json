@@ -619,13 +619,18 @@
   },
 
   "Transfer": {
-    "nav": "Virements",
-    "page-title": "Virement",
+    "nav": "Transfers",
+    "page-title": "Transfer",
+    "initial-transfer-label": "Transfer",
     "amount": {
       "page-title": "Amount",
       "field-label": "Transfer amount",
       "title": "How much do you want to send ?",
-      "confirm": "Confirm the amount"
+      "confirm": "Confirm the amount",
+      "errors": {
+        "too-high": "Choose an amount lower than 1000€",
+        "too-low": "Choose an amount greater than 5€"
+      }
     },
     "category": {
       "page-title": "Beneficiary",
@@ -657,6 +662,23 @@
       "confirm": "Confirm the transfer",
       "field-label": "Your bank password or pin code",
       "field-placeholder": "******"
-    }
+    },
+    "success": {
+      "title": "Your transfer request has been sent",
+      "description": "Your bank will execute the transfer within a business day, provided you have sufficient funds."
+    },
+    "error": {
+      "title": "Your transfer request could not be sent",
+      "description": "You can retry later or contact our support."
+    },
+    "no-bank": {
+      "title": "Add a bank to be able to send money",
+      "add-bank": "Add your first bank"
+    },
+    "no-recipients": {
+      "title": "No recipients found",
+      "description": "We could not find any recipients, your bank might be unsupported. See below the supported banks."
+    },
+    "exit": "Finish"
   }
 }
