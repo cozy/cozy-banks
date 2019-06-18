@@ -582,7 +582,7 @@
       "confirm": "Confirmer le montant",
       "errors": {
         "too-high": "Choisissez un montant inférieur à 1000€",
-        "too-low": "Choisissez un montant supérieur à 5€"
+        "too-low": "Choisissez un montant supérieur à 1€"
       }
     },
     "category": {

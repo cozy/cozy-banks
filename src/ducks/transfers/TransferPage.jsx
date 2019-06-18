@@ -245,7 +245,7 @@ const validateAmount = amount => {
     return { ok: true }
   } else if (parseInt(amount, 10) > 1000) {
     return { error: 'too-high' }
-  } else if (parseInt(amount, 10) < 5) {
+  } else if (parseInt(amount, 10) < 1) {
     return { error: 'too-low' }
   }
   return { ok: true }
