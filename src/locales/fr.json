@@ -621,6 +621,10 @@
       "title": "Votre demande de virement n'a pas été prise en compte",
       "description": "Votre demande de virement n'a pas pu être envoyée, merci de réessayer plus tard ou contactez notre support."
     },
+    "no-bank": {
+      "title": "Ajoutez une première banque pour pouvoir effectuer un virement",
+      "add-bank": "Ajouter une première banque"
+    },
     "exit": "Terminer",
     "new-transfer": "Effectuer un nouveau transfert"
   }

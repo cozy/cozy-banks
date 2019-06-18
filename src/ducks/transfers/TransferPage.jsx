@@ -34,6 +34,7 @@ import OptionalInput from 'components/OptionalInput'
 import BottomButton from 'components/BottomButton'
 import Figure from 'components/Figure'
 import AccountIcon from 'components/AccountIcon'
+import AddAccountButton from 'ducks/categories/AddAccountButton'
 
 import styles from 'ducks/transfers/styles.styl'
 import transferDoneImg from 'assets/transfer-done.jpg'
@@ -658,7 +659,7 @@ class TransferPage extends React.Component {
   }
 
   render() {
-    const { recipients, accounts } = this.props
+    const { recipients, accounts, t } = this.props
 
     const {
       category,
@@ -672,10 +673,27 @@ class TransferPage extends React.Component {
       date
     } = this.state
 
-    if (recipients.fetchStatus === 'loading') {
+    if (
+      recipients.fetchStatus === 'loading' ||
+      accounts.fetchStatus === 'loading'
+    ) {
       return (
         <Padded>
           <Loading />
+        </Padded>
+      )
+    }
+
+    if (accounts.data.length === 0) {
+      return (
+        <Padded>
+          <Title>{t('Transfer.no-bank.title')}</Title>
+          <AddAccountButton
+            extension="full"
+            label={t('Transfer.no-bank.add-bank')}
+            theme="primary"
+            className="u-mt-0"
+          />
         </Padded>
       )
     }
