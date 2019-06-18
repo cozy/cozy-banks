@@ -13,6 +13,7 @@ import {
   Bold,
   Title as UITitle,
   Field,
+  Input,
   Modal,
   Button
 } from 'cozy-ui/transpiled/react'
@@ -367,7 +368,7 @@ const _Summary = ({
         />
         <br />
         {t('Transfer.summary.on')}{' '}
-        <Field
+        <Input
           type="date"
           value={date}
           onChange={onChangeDate}
