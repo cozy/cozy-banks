@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { flowRight as compose } from 'lodash'
 import Icon from 'cozy-ui/react/Icon'
@@ -8,17 +8,10 @@ import styles from 'ducks/balance/components/AccountRow.styl'
 import stylesLoading from 'ducks/balance/components/AccountRowLoading.styl'
 import cx from 'classnames'
 import { Intents } from 'cozy-interapp'
+import { withClient } from 'cozy-client'
 
-class AccountRowLoading extends Component {
-  static contextTypes = {
-    client: PropTypes.object.isRequired
-  }
-
-  constructor(props, context) {
-    super(props, context)
-
-    this.intents = new Intents({ client: this.context.client })
-  }
+class AccountRowLoading extends React.PureComponent {
+  intents = new Intents({ client: this.props.client })
 
   async redirect() {
     const { konnector, account } = this.props
@@ -87,4 +80,7 @@ AccountRowLoading.propTypes = {
   status: PropTypes.string.isRequired
 }
 
-export default compose(translate())(AccountRowLoading)
+export default compose(
+  translate(),
+  withClient
+)(AccountRowLoading)
