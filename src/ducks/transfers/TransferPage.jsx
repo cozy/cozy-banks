@@ -119,7 +119,13 @@ const transfers = {
 }
 
 const getAccountForBeneficiary = (beneficiary, accounts) => {
-  const account = accounts.find(acc => acc.iban === beneficiary.iban)
+  const account = accounts.find(acc => {
+    if (acc.iban) {
+      return acc.iban === beneficiary.iban
+    } else {
+      return beneficiary.iban.includes(acc.number)
+    }
+  })
   return account || null
 }
 
