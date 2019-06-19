@@ -6,10 +6,18 @@ import { translate } from 'cozy-ui/react'
 import KonnectorIcon from 'ducks/balance/components/KonnectorIcon'
 import styles from 'ducks/balance/components/AccountRow.styl'
 import stylesLoading from 'ducks/balance/components/AccountRowLoading.styl'
+import cx from 'classnames'
 
 const AccountRowLoading = ({ t, institutionSlug, status }) => {
+  const isErrored = status === 'errored'
+  const liProps = isErrored ? { onClick: () => alert('ok') } : {}
   return (
-    <li className={styles.AccountRow}>
+    <li
+      className={cx(styles.AccountRow, {
+        [stylesLoading.pointer]: isErrored
+      })}
+      {...liProps}
+    >
       <div className={styles.AccountRow__column}>
         <div className={styles.AccountRow__logo}>
           {institutionSlug && (
@@ -21,12 +29,12 @@ const AccountRowLoading = ({ t, institutionSlug, status }) => {
         </div>
         <div className={styles.AccountRow__labelUpdatedAtWrapper}>
           <div className={styles.AccountRow__label}>
-            {status === 'errored'
+            {isErrored
               ? t('Balance.importing_accounts_error')
               : t('Balance.importing_accounts')}
           </div>
           <div className={styles.AccountRow__updatedAt}>
-            {status === 'errored' ? (
+            {isErrored ? (
               <>
                 <Icon size="12" icon="warning" />
                 <span className={stylesLoading.error}>
