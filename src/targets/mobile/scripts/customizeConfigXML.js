@@ -51,9 +51,19 @@ const customizeConfigXML = function(context) {
   const configPath = path.resolve(__dirname, '../config.xml')
   const config = fs.readFileSync(configPath, 'utf8')
 
+  let [major, minor, patch, beta] = overrideConfig.fullVersion
+    .split('.')
+    .map(x => parseInt(x, 10))
+  const androidVersionCode = (
+    major * 1000000 +
+    minor * 10000 +
+    patch * 100 +
+    beta
+  ).toString()
+
   transformFile = transformFile
     .toString()
-    .replace('$ANDROID_VERSION_CODE', overrideConfig.fullVersion)
+    .replace('$ANDROID_VERSION_CODE', androidVersionCode)
     .replace('$IOS_VERSION_CODE', overrideConfig.fullVersion)
     .replace(
       '$USER_AGENT_VERSION',
