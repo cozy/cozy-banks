@@ -349,21 +349,33 @@ class Balance extends PureComponent {
       flag('no-account') ||
       flag('account-loading')
     ) {
-      let konnectorSlugs = triggers
-        .filter(isBankTrigger)
-        .map(t => t.attributes.message.konnector)
+      let konnectorInfos = triggers.filter(isBankTrigger).map(t => ({
+        konnector: get(t, 'attributes.message.konnector'),
+        account: get(t, 'attributes.message.account'),
+        status: get(t, 'attributes.current_state.status')
+      }))
 
       if (flag('account-loading')) {
         // eslint-disable-next-line no-console
-        console.log('konnectorSlugs', konnectorSlugs)
+        console.log('konnectorInfos', konnectorInfos)
 
-        if (konnectorSlugs.length === 0) {
-          konnectorSlugs = ['creditcooperatif148', 'labanquepostale44']
+        if (konnectorInfos.length === 0) {
+          konnectorInfos = [
+            {
+              konnector: 'creditcooperatif148',
+              status: 'done'
+            },
+            {
+              konnector: 'labanquepostale44',
+              account: 'fakeId',
+              status: 'errored'
+            }
+          ]
         }
       }
 
-      if (konnectorSlugs.length > 0) {
-        return <AccountsImporting konnectorSlugs={konnectorSlugs} />
+      if (konnectorInfos.length > 0) {
+        return <AccountsImporting konnectorInfos={konnectorInfos} />
       }
 
       return <NoAccount />

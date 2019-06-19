@@ -76,7 +76,9 @@
     },
     "delay": "This may take a few minutes…",
     "importing_accounts": "Importing accounts",
-    "in_progress": "In progress"
+    "importing_accounts_error": "Failed to import",
+    "in_progress": "In progress",
+    "error": "Click to restart"
   },
   "SelectDates": {
     "all_year": "All year",
