@@ -9,26 +9,35 @@ function handleError(error) {
   throw error
 }
 
-const customizeConfigXML = function (context) {
-  if (!process.env.MOBILE_CONFIG_TRANSFORM_FILE) {
+const readConfig = () => {
+  if (!process.env.OVERRIDE_CONFIG_FILE) {
+    return null
+  }
+  return JSON.parse(fs.readFileSync(process.env.OVERRIDE_CONFIG_FILE))
+}
+
+const customizeConfigXML = function(context) {
+  const overrideConfig = readConfig()
+  if (!overrideConfig) {
     console.log('No transformation file provided, skipping transformation step')
     return
   }
-
 
   let libxslt
 
   try {
     libxslt = require('libxslt')
   } catch (err) {
-    console.error('Transformation file provided, but impossible to load `libxslt`. See the error below to know more:')
+    console.error(
+      'Transformation file provided, but impossible to load `libxslt`. See the error below to know more:'
+    )
     console.error(err)
     return
   }
 
   const transformFilePath = path.resolve(
-    process.cwd(),
-    process.env.MOBILE_CONFIG_TRANSFORM_FILE
+    path.dirname(process.env.OVERRIDE_CONFIG_FILE),
+    overrideConfig.mobileConfigTransformFile
   )
 
   let transformFile
@@ -42,6 +51,19 @@ const customizeConfigXML = function (context) {
   const configPath = path.resolve(__dirname, '../config.xml')
   const config = fs.readFileSync(configPath, 'utf8')
 
+  transformFile = transformFile
+    .toString()
+    .replace('$ANDROID_VERSION_CODE', overrideConfig.fullVersion)
+    .replace('$IOS_VERSION_CODE', overrideConfig.fullVersion)
+    .replace(
+      '$USER_AGENT_VERSION',
+      'io.cozy.banks.mobile-' +
+        overrideConfig.fullVersion
+          .split('.')
+          .slice(0, 3)
+          .join('.')
+    )
+
   libxslt.parse(transformFile, (err, stylesheet) => {
     if (err) {
       handleError(err)
@@ -53,7 +75,9 @@ const customizeConfigXML = function (context) {
       }
 
       fs.writeFileSync(configPath, output)
-      console.log(`config.xml successfully transformed using ${transformFilePath}`)
+      console.log(
+        `config.xml successfully transformed using ${transformFilePath}`
+      )
     })
   })
 }

@@ -3,12 +3,13 @@
 It is possible to override the Cordova project config file located at
 `src/targets/mobile/config.xml` before building the app.
 
-To achieve that, you have to declare a `MOBILE_CONFIG_TRANSFORM_FILE`
-environment variable containing the path (absolute or relative to
-`src/targets/mobile`) to an XSL file when building the app.
+To achieve that, you have to declare a `mobileConfigTransformFile`
+attribute inside a JSON file called whose path is declared in
+`OVERRIDE_CONFIG_FILE`.
 
 ```
-env MOBILE_CONFIG_TRANSFORM_FILE=override-config.xsl yarn android:run
+echo '{"mobileConfigTransformFile":"./override-config.xsl"}' > ./override-config.json
+env OVERRIDE_CONFIG_FILE=$(pwd)/override-config.json yarn android:run
 ```
 
 Don't worry about this XSL thing, this is not that hard, just a little verbose.
