@@ -627,8 +627,8 @@
       "description": "Votre demande de virement n'a pas pu être envoyée, merci de réessayer plus tard ou contactez notre support."
     },
     "no-bank": {
-      "title": "Ajoutez une première banque pour pouvoir effectuer un virement",
-      "add-bank": "Ajouter une première banque"
+      "title": "Ajoutez une banque pour pouvoir effectuer un virement",
+      "add-bank": "Ajouter une banque"
     },
     "no-recipients": {
       "title": "Pas de bénéficiaires trouvés",
