@@ -182,6 +182,11 @@
     "jobs": {
       "description": "Used in services to start other services",
       "type": "io.cozy.jobs"
+    },
+    "accounts": {
+      "description": "Used to create a temporary account for transfers",
+      "type": "io.cozy.accounts",
+      "verbs": ["POST", "DELETE", "GET"]
     }
   }
 }
