@@ -4,7 +4,7 @@ It is possible to override the Cordova project config file located at
 `src/targets/mobile/config.xml` before building the app.
 
 To achieve that, you have to declare a `mobileConfigTransformFile`
-attribute inside a JSON file called whose path is declared in
+attribute inside a JSON file whose path is declared in
 `OVERRIDE_CONFIG_FILE`.
 
 ```
