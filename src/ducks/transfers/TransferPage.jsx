@@ -585,6 +585,15 @@ class TransferPage extends React.Component {
     )
   }
 
+  componentDidUpdate() {
+    if (
+      this.props.recipients.hasMore &&
+      this.props.recipients.fetchStatus !== 'loading'
+    ) {
+      this.props.recipients.fetchMore()
+    }
+  }
+
   handleJobChange(job, unsubscribe) {
     if (job.state === 'done') {
       this.setState({ transferState: 'success' })
