@@ -350,7 +350,8 @@ class Balance extends PureComponent {
       flag('account-loading')
     ) {
       let konnectorInfos = triggers.filter(isBankTrigger).map(t => ({
-        slug: get(t, 'attributes.message.konnector'),
+        konnector: get(t, 'attributes.message.konnector'),
+        account: get(t, 'attributes.message.account'),
         status: get(t, 'attributes.current_state.status')
       }))
 
@@ -361,11 +362,12 @@ class Balance extends PureComponent {
         if (konnectorInfos.length === 0) {
           konnectorInfos = [
             {
-              slug: 'creditcooperatif148',
+              konnector: 'creditcooperatif148',
               status: 'done'
             },
             {
-              slug: 'labanquepostale44',
+              konnector: 'labanquepostale44',
+              account: 'fakeId',
               status: 'errored'
             }
           ]

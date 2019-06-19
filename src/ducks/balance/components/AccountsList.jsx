@@ -44,7 +44,8 @@ class AccountsList extends React.PureComponent {
             // When loading, a._id is the slug of the connector and can be non-unique, this is why we concat the index
             <AccountRowLoading
               key={i + '_' + a._id}
-              institutionSlug={a._id}
+              konnector={a._id}
+              account={a.account}
               status={a.status}
             />
           ) : (

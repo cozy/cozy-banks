@@ -27,7 +27,8 @@ const muiStyles = () => ({
 
 const createGroups = (types, konnectorInfos) => {
   const accounts = konnectorInfos.map(konnectorInfo => ({
-    _id: konnectorInfo.slug,
+    _id: konnectorInfo.konnector,
+    account: konnectorInfo.account,
     status: konnectorInfo.status,
     loading: true
   }))

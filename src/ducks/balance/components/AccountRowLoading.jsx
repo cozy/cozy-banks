@@ -21,12 +21,12 @@ class AccountRowLoading extends Component {
   }
 
   async redirect() {
-    const { institutionSlug: konnector } = this.props
-    await this.intents.redirect('io.cozy.accounts', { konnector })
+    const { konnector, account } = this.props
+    await this.intents.redirect('io.cozy.accounts', { konnector, account })
   }
 
   render() {
-    const { t, institutionSlug, status } = this.props
+    const { t, konnector, status } = this.props
     const isErrored = status === 'errored'
     const liProps = isErrored ? { onClick: () => this.redirect() } : {}
     return (
@@ -38,9 +38,9 @@ class AccountRowLoading extends Component {
       >
         <div className={styles.AccountRow__column}>
           <div className={styles.AccountRow__logo}>
-            {institutionSlug && (
+            {konnector && (
               <KonnectorIcon
-                slug={institutionSlug}
+                slug={konnector}
                 className={styles.KonnectorIcon}
               />
             )}
@@ -82,7 +82,8 @@ class AccountRowLoading extends Component {
 
 AccountRowLoading.propTypes = {
   t: PropTypes.func.isRequired,
-  institutionSlug: PropTypes.string.isRequired,
+  konnector: PropTypes.string.isRequired,
+  account: PropTypes.string,
   status: PropTypes.string.isRequired
 }
 
