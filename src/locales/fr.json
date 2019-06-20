@@ -611,7 +611,7 @@
     },
     "password": {
       "page-title": "Mot de passe",
-      "title": "Entrez votre mot de passe bancaire pour effectuer le virement",
+      "title": "Merci de ressaisir le mot de passe de la banque émettrice du virement.",
       "confirm": "Confirmer le virement",
       "field-label": "Votre mot de passe bancaire",
       "field-placeholder": "******",
