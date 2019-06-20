@@ -638,5 +638,15 @@
     },
     "exit": "Terminer",
     "retry": "Réessayer"
+  },
+
+  "ReimbursementStatusModal": {
+    "contact": {
+      "actions": {
+        "sendCareSheet": "Envoyer ma feuile de soin"
+      },
+      "phoneCallPrice": " + prix appel",
+      "phoneCallFree": "Appel gratuit"
+    }
   }
 }

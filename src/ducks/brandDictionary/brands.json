@@ -8,7 +8,19 @@
     "name": "Ameli",
     "regexp": "(cpam|c\\.p\\.a\\.m|caisse primaire)",
     "konnectorSlug": "ameli",
-    "health": true
+    "health": true,
+    "contact": [
+      {
+        "type": "phone",
+        "number": "36 46",
+        "price": "0,06 €/min"
+      },
+      {
+        "type": "web",
+        "href": "https://www.ameli.fr/assure/adresses-et-contacts",
+        "action": "sendCareSheet"
+      }
+    ]
   },
   {
     "name": "APRR",
@@ -185,7 +197,14 @@
   {
     "name": "La mutuelle générale",
     "regexp": "\\bla mutuelle gen",
-    "konnectorSlug": "lamutuellegenerale"
+    "konnectorSlug": "lamutuellegenerale",
+    "health": true,
+    "contact": [
+      {
+        "type": "phone",
+        "number": "30 35"
+      }
+    ]
   },
   {
     "name": "LDLC",

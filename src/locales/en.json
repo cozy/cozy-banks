@@ -683,5 +683,15 @@
     },
     "exit": "Finish",
     "retry": "Retry"
+  },
+
+  "ReimbursementStatusModal": {
+    "contact": {
+      "actions": {
+        "sendCareSheet": "Send my care sheet"
+      },
+      "phoneCallPrice": " + call price",
+      "phoneCallFree": "Free call"
+    }
   }
 }

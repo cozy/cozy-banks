@@ -29,7 +29,8 @@ const Figure = props => {
     totalClassName,
     currencyClassName,
     size,
-    onClick
+    onClick,
+    inline
   } = props
 
   let { decimalNumbers } = props
@@ -57,7 +58,8 @@ const Figure = props => {
           [styleWarning]: isWarning,
           [styleBig]: size == 'big',
           [styleClickable]: onClick,
-          [styles.Figure_blur]: flag('amount_blur')
+          [styles.Figure_blur]: flag('amount_blur'),
+          [styles['Figure--inline']]: inline
         },
         className
       )}

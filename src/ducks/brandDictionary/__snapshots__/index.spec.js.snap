@@ -9,6 +9,18 @@ Array [
     "regexp": "\\\\bamazo?n\\\\b",
   },
   Object {
+    "contact": Array [
+      Object {
+        "number": "36 46",
+        "price": "0,06 €/min",
+        "type": "phone",
+      },
+      Object {
+        "action": "sendCareSheet",
+        "href": "https://www.ameli.fr/assure/adresses-et-contacts",
+        "type": "web",
+      },
+    ],
     "health": true,
     "isInstalled": true,
     "konnectorSlug": "ameli",
@@ -220,6 +232,13 @@ Array [
     "regexp": "\\\\bjust eat\\\\b",
   },
   Object {
+    "contact": Array [
+      Object {
+        "number": "30 35",
+        "type": "phone",
+      },
+    ],
+    "health": true,
     "isInstalled": false,
     "konnectorSlug": "lamutuellegenerale",
     "name": "La mutuelle générale",
@@ -453,6 +472,18 @@ Array [
 exports[`brandDictionary getInstalledBrands Should return the installed brands 1`] = `
 Array [
   Object {
+    "contact": Array [
+      Object {
+        "number": "36 46",
+        "price": "0,06 €/min",
+        "type": "phone",
+      },
+      Object {
+        "action": "sendCareSheet",
+        "href": "https://www.ameli.fr/assure/adresses-et-contacts",
+        "type": "web",
+      },
+    ],
     "health": true,
     "isInstalled": true,
     "konnectorSlug": "ameli",
@@ -694,6 +725,13 @@ Array [
     "regexp": "\\\\bjust eat\\\\b",
   },
   Object {
+    "contact": Array [
+      Object {
+        "number": "30 35",
+        "type": "phone",
+      },
+    ],
+    "health": true,
     "isInstalled": false,
     "konnectorSlug": "lamutuellegenerale",
     "name": "La mutuelle générale",
