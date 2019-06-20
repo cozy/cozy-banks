@@ -450,11 +450,21 @@ const _Summary = ({
 
 const Summary = React.memo(translate()(_Summary))
 
-const _Password = ({ t, onChangePassword, onConfirm, active, password }) => (
+const _Password = ({
+  t,
+  onChangePassword,
+  onConfirm,
+  active,
+  password,
+  senderAccount
+}) => (
   <>
     <Padded>
       {active && <PageTitle>{t('Transfer.password.page-title')}</PageTitle>}
       <Title>{t('Transfer.password.title')}</Title>
+      <p className="u-ta-center">
+        <AccountIcon account={senderAccount} />
+      </p>
       <p>
         <Field
           type="password"
@@ -860,6 +870,7 @@ class TransferPage extends React.Component {
             onChangePassword={this.handleChangePassword}
             onConfirm={this.handleConfirm}
             password={password}
+            senderAccount={senderAccount}
           />
         </Stepper>
       </>
