@@ -426,12 +426,15 @@ const _Summary = ({
         </TextCard>
         <br />
         {t('Transfer.summary.on')}{' '}
-        <Input
-          type="date"
-          value={date}
-          onChange={onChangeDate}
-          placeholder={t('Transfer.summary.date-placeholder')}
-        />
+        <TextCard className="u-clickable">
+          <Input
+            type="date"
+            value={date}
+            onChange={onChangeDate}
+            size="tiny"
+            placeholder={t('Transfer.summary.date-placeholder')}
+          />
+        </TextCard>
         <br />
         {t('Transfer.summary.for')}{' '}
         <OptionalInput
