@@ -469,6 +469,7 @@ const _Password = ({ t, onChangePassword, onConfirm, active, password }) => (
       label={t('Transfer.password.confirm')}
       visible={active}
       onClick={onConfirm}
+      disabled={password === ''}
     />
   </>
 )
