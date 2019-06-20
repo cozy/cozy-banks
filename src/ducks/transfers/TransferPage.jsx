@@ -425,19 +425,19 @@ const _Summary = ({
           {senderAccount.label}
         </TextCard>
         <br />
-        {t('Transfer.summary.for')}{' '}
-        <OptionalInput
-          value={label}
-          onChange={onChangeLabel}
-          placeholder={t('Transfer.summary.for-placeholder')}
-        />
-        <br />
         {t('Transfer.summary.on')}{' '}
         <Input
           type="date"
           value={date}
           onChange={onChangeDate}
           placeholder={t('Transfer.summary.date-placeholder')}
+        />
+        <br />
+        {t('Transfer.summary.for')}{' '}
+        <OptionalInput
+          value={label}
+          onChange={onChangeLabel}
+          placeholder={t('Transfer.summary.for-placeholder')}
         />
         <BottomButton
           label={t('Transfer.summary.confirm')}
