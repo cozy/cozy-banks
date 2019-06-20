@@ -581,8 +581,8 @@
       "title": "Quel montant souhaitez-vous envoyer ?",
       "confirm": "Confirmer le montant",
       "errors": {
-        "too-high": "Choisissez un montant inférieur à 1000€",
-        "too-low": "Choisissez un montant supérieur à 1€"
+        "too-high": "Choisissez un montant inférieur à %{maximum}€",
+        "too-low": "Choisissez un montant supérieur à %{minimum}€"
       }
     },
     "category": {

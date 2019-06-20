@@ -246,13 +246,16 @@ class _ChooseBeneficiary extends React.Component {
 
 const ChooseBeneficiary = React.memo(translate()(_ChooseBeneficiary))
 
+const MINIMUM_AMOUNT = 5
+const MAXIMUM_AMOUNT = 1000
+
 const validateAmount = amount => {
   if (amount == '') {
     return { ok: true }
-  } else if (parseInt(amount, 10) > 1000) {
-    return { error: 'too-high' }
-  } else if (parseInt(amount, 10) < 1) {
-    return { error: 'too-low' }
+  } else if (parseInt(amount, 10) > MAXIMUM_AMOUNT) {
+    return { error: 'too-high', maximum: MAXIMUM_AMOUNT }
+  } else if (parseInt(amount, 10) < MINIMUM_AMOUNT) {
+    return { error: 'too-low', minimum: MINIMUM_AMOUNT }
   }
   return { ok: true }
 }
@@ -294,7 +297,7 @@ class _ChooseAmount extends React.PureComponent {
         <Title>{t('Transfer.amount.title')}</Title>
         {validation.error ? (
           <p className="u-error">
-            {t(`Transfer.amount.errors.${validation.error}`)}
+            {t(`Transfer.amount.errors.${validation.error}`, validation.error)}
           </p>
         ) : null}
         <Field

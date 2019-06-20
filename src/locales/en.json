@@ -628,8 +628,8 @@
       "title": "How much do you want to send ?",
       "confirm": "Confirm the amount",
       "errors": {
-        "too-high": "Choose an amount lower than 1000€",
-        "too-low": "Choose an amount greater than 5€"
+        "too-high": "Choose an amount lower than %{maximum}€",
+        "too-low": "Choose an amount greater than %{minimum}€"
       }
     },
     "category": {
