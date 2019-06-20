@@ -628,7 +628,8 @@
       "confirm": "Confirm the amount",
       "errors": {
         "too-high": "Choose an amount lower than %{maximum}€",
-        "too-low": "Choose an amount greater than %{minimum}€"
+        "too-low": "Choose an amount greater than %{minimum}€",
+        "incorrect-number": "%{value} is an incorrect amount."
       }
     },
     "category": {

@@ -256,6 +256,8 @@ const validateAmount = amount => {
     return { error: 'too-high', maximum: MAXIMUM_AMOUNT }
   } else if (parseInt(amount, 10) < MINIMUM_AMOUNT) {
     return { error: 'too-low', minimum: MINIMUM_AMOUNT }
+  } else if (isNaN(parseInt(amount, 10))) {
+    return { error: 'incorrect-number', value: amount }
   }
   return { ok: true }
 }
@@ -312,7 +314,7 @@ class _ChooseAmount extends React.PureComponent {
           placeholder="10"
         />
         <BottomButton
-          disabled={validation.error}
+          disabled={amount !== '' || validation.error}
           label={t('Transfer.amount.confirm')}
           visible={active}
           onClick={onSelect}
