@@ -105,6 +105,7 @@ class ReimbursementStatusAction extends React.PureComponent {
 const action = {
   name: 'ReimbursementStatus',
   match: transaction => {
+    // TODO match only if the component is going to render something
     return isExpense(transaction) && flag('reimbursement-tag')
   },
   Component: compose(
