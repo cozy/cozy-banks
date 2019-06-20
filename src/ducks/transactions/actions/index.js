@@ -19,12 +19,12 @@ const actions = {
   HealthLinkAction: HealthLinkAction,
   BillAction: BillAction,
   KonnectorAction: KonnectorAction,
-  ReimbursementStatusAction,
   UrlLinkAction: UrlLinkAction,
   AppLinkAction: AppLinkAction,
   AttachAction: AttachAction,
   CommentAction: CommentAction,
-  AlertAction: AlertAction
+  AlertAction: AlertAction,
+  ReimbursementStatusAction
 }
 
 export const findMatchingActions = async (transaction, actionProps) => {
