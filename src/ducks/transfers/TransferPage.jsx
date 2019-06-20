@@ -299,7 +299,7 @@ class _ChooseAmount extends React.PureComponent {
         <Title>{t('Transfer.amount.title')}</Title>
         {validation.error ? (
           <p className="u-error">
-            {t(`Transfer.amount.errors.${validation.error}`, validation.error)}
+            {t(`Transfer.amount.errors.${validation.error}`, validation)}
           </p>
         ) : null}
         <Field
@@ -314,7 +314,7 @@ class _ChooseAmount extends React.PureComponent {
           placeholder="10"
         />
         <BottomButton
-          disabled={amount !== '' || validation.error}
+          disabled={amount === '' || validation.error}
           label={t('Transfer.amount.confirm')}
           visible={active}
           onClick={onSelect}
