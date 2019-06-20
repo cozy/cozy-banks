@@ -623,15 +623,15 @@
   "Transfer": {
     "nav": "Transfers",
     "page-title": "Transfer",
-    "initial-transfer-label": "Transfer",
     "amount": {
       "page-title": "Amount",
       "field-label": "Transfer amount",
       "title": "How much do you want to send ?",
       "confirm": "Confirm the amount",
       "errors": {
-        "too-high": "Choose an amount lower than 1000€",
-        "too-low": "Choose an amount greater than 5€"
+        "too-high": "Choose an amount lower than %{maximum}€",
+        "too-low": "Choose an amount greater than %{minimum}€",
+        "incorrect-number": "%{value} is an incorrect amount."
       }
     },
     "category": {
@@ -650,7 +650,6 @@
     },
     "summary": {
       "page-title": "Summary",
-      "title": "Execute transfer with those informations ?",
       "send": "Send",
       "from": "from",
       "to": "to",

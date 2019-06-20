@@ -246,13 +246,18 @@ class _ChooseBeneficiary extends React.Component {
 
 const ChooseBeneficiary = React.memo(translate()(_ChooseBeneficiary))
 
+const MINIMUM_AMOUNT = 5
+const MAXIMUM_AMOUNT = 1000
+
 const validateAmount = amount => {
   if (amount == '') {
     return { ok: true }
-  } else if (parseInt(amount, 10) > 1000) {
-    return { error: 'too-high' }
-  } else if (parseInt(amount, 10) < 1) {
-    return { error: 'too-low' }
+  } else if (parseInt(amount, 10) > MAXIMUM_AMOUNT) {
+    return { error: 'too-high', maximum: MAXIMUM_AMOUNT }
+  } else if (parseInt(amount, 10) < MINIMUM_AMOUNT) {
+    return { error: 'too-low', minimum: MINIMUM_AMOUNT }
+  } else if (isNaN(parseInt(amount, 10))) {
+    return { error: 'incorrect-number', value: amount }
   }
   return { ok: true }
 }
@@ -294,7 +299,7 @@ class _ChooseAmount extends React.PureComponent {
         <Title>{t('Transfer.amount.title')}</Title>
         {validation.error ? (
           <p className="u-error">
-            {t(`Transfer.amount.errors.${validation.error}`)}
+            {t(`Transfer.amount.errors.${validation.error}`, validation)}
           </p>
         ) : null}
         <Field
@@ -309,7 +314,7 @@ class _ChooseAmount extends React.PureComponent {
           placeholder="10"
         />
         <BottomButton
-          disabled={validation.error}
+          disabled={amount === '' || validation.error}
           label={t('Transfer.amount.confirm')}
           visible={active}
           onClick={onSelect}
@@ -395,7 +400,6 @@ const _Summary = ({
   amount && senderAccount && beneficiary ? (
     <Padded>
       {active && <PageTitle>{t('Transfer.summary.page-title')}</PageTitle>}
-      <Title>{t('Transfer.summary.title')}</Title>
       <div>
         {t('Transfer.summary.send')}{' '}
         <TextCard
@@ -421,19 +425,22 @@ const _Summary = ({
           {senderAccount.label}
         </TextCard>
         <br />
+        {t('Transfer.summary.on')}{' '}
+        <TextCard className="u-clickable">
+          <Input
+            type="date"
+            value={date}
+            onChange={onChangeDate}
+            size="tiny"
+            placeholder={t('Transfer.summary.date-placeholder')}
+          />
+        </TextCard>
+        <br />
         {t('Transfer.summary.for')}{' '}
         <OptionalInput
           value={label}
           onChange={onChangeLabel}
           placeholder={t('Transfer.summary.for-placeholder')}
-        />
-        <br />
-        {t('Transfer.summary.on')}{' '}
-        <Input
-          type="date"
-          value={date}
-          onChange={onChangeDate}
-          placeholder={t('Transfer.summary.date-placeholder')}
         />
         <BottomButton
           label={t('Transfer.summary.confirm')}
@@ -446,11 +453,21 @@ const _Summary = ({
 
 const Summary = React.memo(translate()(_Summary))
 
-const _Password = ({ t, onChangePassword, onConfirm, active, password }) => (
+const _Password = ({
+  t,
+  onChangePassword,
+  onConfirm,
+  active,
+  password,
+  senderAccount
+}) => (
   <>
     <Padded>
       {active && <PageTitle>{t('Transfer.password.page-title')}</PageTitle>}
       <Title>{t('Transfer.password.title')}</Title>
+      <p className="u-ta-center">
+        <AccountIcon account={senderAccount} />
+      </p>
       <p>
         <Field
           type="password"
@@ -465,6 +482,7 @@ const _Password = ({ t, onChangePassword, onConfirm, active, password }) => (
       label={t('Transfer.password.confirm')}
       visible={active}
       onClick={onConfirm}
+      disabled={password === ''}
     />
   </>
 )
@@ -565,7 +583,7 @@ class TransferPage extends React.Component {
       senderAccounts: [], // Possible sender accounts for chosen person
       amount: '',
       password: '',
-      label: this.props.t('Transfer.initial-transfer-label'), // TODO translate
+      label: '',
       date: new Date().toISOString().slice(0, 10)
     }
   }
@@ -855,6 +873,7 @@ class TransferPage extends React.Component {
             onChangePassword={this.handleChangePassword}
             onConfirm={this.handleConfirm}
             password={password}
+            senderAccount={senderAccount}
           />
         </Stepper>
       </>
