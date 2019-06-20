@@ -10,7 +10,7 @@ import cx from 'classnames'
 import { Intents } from 'cozy-interapp'
 import { withClient } from 'cozy-client'
 
-class AccountRowLoading extends React.PureComponent {
+export class AccountRowLoading extends React.PureComponent {
   intents = new Intents({ client: this.props.client })
 
   async redirect() {
