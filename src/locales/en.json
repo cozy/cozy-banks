@@ -608,7 +608,7 @@
   },
 
   "Reimbursements": {
-    "title": "Reimbursements",
+    "title": "Health reimbursements",
     "awaiting": "awaiting",
     "alreadyReimbursed": "Already reimbursed",
     "noAwaiting": "No awaiting reimbursement.",
