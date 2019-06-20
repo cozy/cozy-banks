@@ -29,7 +29,8 @@
   {
     "name": "Autolib",
     "regexp": "\\bautolib\\b",
-    "konnectorSlug": "autolib"
+    "konnectorSlug": "autolib",
+    "maintenance": true
   },
   {
     "name": "Bipandgo",
@@ -114,7 +115,8 @@
   {
     "name": "Electricité de Strabourg",
     "regexp": "es energies strasbourg\\b",
-    "konnectorSlug": "electricitestrasbourg"
+    "konnectorSlug": "electricitestrasbourg",
+    "maintenance": true
   },
   {
     "name": "Enercoop",
@@ -188,7 +190,8 @@
   {
     "name": "LDLC",
     "regexp": "\\bldlc\\b",
-    "konnectorSlug": "ldlc"
+    "konnectorSlug": "ldlc",
+    "maintenance": true
   },
   {
     "name": "Le Monde Diplomatique",
@@ -214,7 +217,8 @@
   {
     "name": "Macif",
     "regexp": "\\bmacif\\b",
-    "konnectorSlug": "macif"
+    "konnectorSlug": "macif",
+    "maintenance": true
   },
   {
     "name": "Malakoff Mederic",
