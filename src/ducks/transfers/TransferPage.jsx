@@ -466,7 +466,7 @@ const _Password = ({
       {active && <PageTitle>{t('Transfer.password.page-title')}</PageTitle>}
       <Title>{t('Transfer.password.title')}</Title>
       <p className="u-ta-center">
-        <AccountIcon account={senderAccount} />
+        <AccountIcon account={senderAccount} size="large" />
       </p>
       <p>
         <Field
