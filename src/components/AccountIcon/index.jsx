@@ -11,10 +11,9 @@ const _AccountIcon = ({ account, className }) => {
     return null
   }
   return (
-    <KonnectorIcon
-      slug={institutionSlug}
-      className={cx(styles.AccountIcon, className)}
-    />
+    <span className={styles.AccountIconContainer}>
+      <KonnectorIcon slug={institutionSlug} className={className} />
+    </span>
   )
 }
 
