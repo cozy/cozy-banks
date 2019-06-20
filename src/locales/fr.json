@@ -96,7 +96,7 @@
     },
     "delay": "Cela peut prendre quelques minutes…",
     "importing_accounts": "Importation des comptes",
-    "importing_accounts_error": "L'importation des comptes a échoué",
+    "importing_accounts_error": "Échec de l'import",
     "in_progress": "En cours",
     "error": "Cliquez pour relancer"
   },
