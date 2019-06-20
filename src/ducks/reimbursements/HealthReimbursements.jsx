@@ -81,13 +81,13 @@ export class DumbHealthReimbursements extends Component {
         <Section>
           <Title>
             <Padded className="u-pv-0">
+              {t('Reimbursements.pending')}
               <Figure
                 symbol="€"
                 total={pendingAmount}
                 className={styles.HealthReimbursements__figure}
                 signed
               />{' '}
-              {t('Reimbursements.awaiting')}
             </Padded>
           </Title>
           {pendingTransactions ? (

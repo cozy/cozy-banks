@@ -609,7 +609,7 @@
 
   "Reimbursements": {
     "title": "Health reimbursements",
-    "awaiting": "awaiting",
+    "pending": "Pending reimbursements: ",
     "alreadyReimbursed": "Already reimbursed",
     "noAwaiting": "No awaiting reimbursement.",
     "noReimbursed": "Automatically detect your health reimbursements by connecting your health insurance to your Cozy."

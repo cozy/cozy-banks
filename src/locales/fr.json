@@ -561,7 +561,7 @@
 
   "Reimbursements": {
     "title": "Rembours. santé",
-    "awaiting": "en attente",
+    "pending": "Remboursements en attente : ",
     "alreadyReimbursed": "Déjà remboursés",
     "noAwaiting": "Aucun remboursement attendu.",
     "noReimbursed": "Détecter automatiquement vos remboursements en connectant votre assurance santé à votre Cozy."
