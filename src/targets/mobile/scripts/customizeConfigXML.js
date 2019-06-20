@@ -54,6 +54,10 @@ const customizeConfigXML = function(context) {
   let [major, minor, patch, beta] = overrideConfig.fullVersion
     .split('.')
     .map(x => parseInt(x, 10))
+  const versionCode = overrideConfig.fullVersion
+    .split('.')
+    .slice(0, 3)
+    .join('.')
   const androidVersionCode = (
     major * 1000000 +
     minor * 10000 +
@@ -63,16 +67,10 @@ const customizeConfigXML = function(context) {
 
   transformFile = transformFile
     .toString()
+    .replace('$VERSION_CODE', versionCode)
     .replace('$ANDROID_VERSION_CODE', androidVersionCode)
     .replace('$IOS_VERSION_CODE', overrideConfig.fullVersion)
-    .replace(
-      '$USER_AGENT_VERSION',
-      'io.cozy.banks.mobile-' +
-        overrideConfig.fullVersion
-          .split('.')
-          .slice(0, 3)
-          .join('.')
-    )
+    .replace('$USER_AGENT_VERSION', 'io.cozy.banks.mobile-' + versionCode)
 
   libxslt.parse(transformFile, (err, stylesheet) => {
     if (err) {
