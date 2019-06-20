@@ -621,7 +621,6 @@
   "Transfer": {
     "nav": "Transfers",
     "page-title": "Transfer",
-    "initial-transfer-label": "Transfer",
     "amount": {
       "page-title": "Amount",
       "field-label": "Transfer amount",

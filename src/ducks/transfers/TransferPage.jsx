@@ -568,7 +568,7 @@ class TransferPage extends React.Component {
       senderAccounts: [], // Possible sender accounts for chosen person
       amount: '',
       password: '',
-      label: this.props.t('Transfer.initial-transfer-label'), // TODO translate
+      label: '',
       date: new Date().toISOString().slice(0, 10)
     }
   }
