@@ -400,7 +400,6 @@ const _Summary = ({
   amount && senderAccount && beneficiary ? (
     <Padded>
       {active && <PageTitle>{t('Transfer.summary.page-title')}</PageTitle>}
-      <Title>{t('Transfer.summary.title')}</Title>
       <div>
         {t('Transfer.summary.send')}{' '}
         <TextCard
