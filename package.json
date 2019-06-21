@@ -207,8 +207,7 @@
     "timezone": "1.0.22",
     "velocity-animate": "1.5.2",
     "webpack-bundle-analyzer": "3.3.2",
-    "whatwg-fetch": "3.0.0",
-    "yarn.lock": "0.0.1-security"
+    "whatwg-fetch": "3.0.0"
   },
   "jest": {
     "moduleFileExtensions": [
