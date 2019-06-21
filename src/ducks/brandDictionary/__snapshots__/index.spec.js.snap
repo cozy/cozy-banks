@@ -37,6 +37,7 @@ Array [
   Object {
     "isInstalled": false,
     "konnectorSlug": "autolib",
+    "maintenance": true,
     "name": "Autolib",
     "regexp": "\\\\bautolib\\\\b",
   },
@@ -49,6 +50,7 @@ Array [
   Object {
     "isInstalled": false,
     "konnectorSlug": "bookingdotcom",
+    "maintenance": true,
     "name": "Booking.com",
     "regexp": "\\\\bbooking.com\\\\b",
   },
@@ -91,6 +93,7 @@ Array [
   Object {
     "isInstalled": false,
     "konnectorSlug": "cultura",
+    "maintenance": true,
     "name": "Cultura",
     "regexp": "\\\\bcultura\\\\b",
   },
@@ -104,12 +107,14 @@ Array [
   Object {
     "isInstalled": false,
     "konnectorSlug": "deezer",
+    "maintenance": true,
     "name": "Deezer",
     "regexp": "\\\\bdeezer\\\\b",
   },
   Object {
     "isInstalled": false,
     "konnectorSlug": "deliveroo",
+    "maintenance": true,
     "name": "Deliveroo",
     "regexp": "\\\\bdeliveroo\\\\b",
   },
@@ -133,6 +138,13 @@ Array [
   },
   Object {
     "isInstalled": false,
+    "konnectorSlug": "electricitestrasbourg",
+    "maintenance": true,
+    "name": "Electricité de Strabourg",
+    "regexp": "es energies strasbourg\\\\b",
+  },
+  Object {
+    "isInstalled": false,
     "konnectorSlug": "enercoop",
     "name": "Enercoop",
     "regexp": "\\\\benercoop\\\\b",
@@ -140,6 +152,7 @@ Array [
   Object {
     "isInstalled": false,
     "konnectorSlug": "engie",
+    "maintenance": true,
     "name": "Engie",
     "regexp": "\\\\bengie\\\\b",
   },
@@ -214,6 +227,13 @@ Array [
   },
   Object {
     "isInstalled": false,
+    "konnectorSlug": "ldlc",
+    "maintenance": true,
+    "name": "LDLC",
+    "regexp": "\\\\bldlc\\\\b",
+  },
+  Object {
+    "isInstalled": false,
     "konnectorSlug": "mondediplo",
     "name": "Le Monde Diplomatique",
     "regexp": "\\\\bmonde-diplomatique\\\\b",
@@ -221,6 +241,7 @@ Array [
   Object {
     "isInstalled": false,
     "konnectorSlug": "leclercdrive",
+    "maintenance": true,
     "name": "Leclerc Drive",
     "regexp": "\\\\bleclerc\\\\b",
   },
@@ -235,6 +256,13 @@ Array [
     "konnectorSlug": "maifecheancier",
     "name": "Maif - Echeancier",
     "regexp": "\\\\bmaif\\\\b",
+  },
+  Object {
+    "isInstalled": false,
+    "konnectorSlug": "macif",
+    "maintenance": true,
+    "name": "Macif",
+    "regexp": "\\\\bmacif\\\\b",
   },
   Object {
     "health": true,
@@ -409,6 +437,7 @@ Array [
   Object {
     "isInstalled": true,
     "konnectorSlug": "zalando",
+    "maintenance": true,
     "name": "Zalando",
     "regexp": "\\\\bzalando\\\\b",
   },
@@ -451,6 +480,7 @@ Array [
   Object {
     "isInstalled": true,
     "konnectorSlug": "zalando",
+    "maintenance": true,
     "name": "Zalando",
     "regexp": "\\\\bzalando\\\\b",
   },
@@ -487,6 +517,7 @@ Array [
   Object {
     "isInstalled": false,
     "konnectorSlug": "autolib",
+    "maintenance": true,
     "name": "Autolib",
     "regexp": "\\\\bautolib\\\\b",
   },
@@ -499,6 +530,7 @@ Array [
   Object {
     "isInstalled": false,
     "konnectorSlug": "bookingdotcom",
+    "maintenance": true,
     "name": "Booking.com",
     "regexp": "\\\\bbooking.com\\\\b",
   },
@@ -535,6 +567,7 @@ Array [
   Object {
     "isInstalled": false,
     "konnectorSlug": "cultura",
+    "maintenance": true,
     "name": "Cultura",
     "regexp": "\\\\bcultura\\\\b",
   },
@@ -548,12 +581,14 @@ Array [
   Object {
     "isInstalled": false,
     "konnectorSlug": "deezer",
+    "maintenance": true,
     "name": "Deezer",
     "regexp": "\\\\bdeezer\\\\b",
   },
   Object {
     "isInstalled": false,
     "konnectorSlug": "deliveroo",
+    "maintenance": true,
     "name": "Deliveroo",
     "regexp": "\\\\bdeliveroo\\\\b",
   },
@@ -577,6 +612,13 @@ Array [
   },
   Object {
     "isInstalled": false,
+    "konnectorSlug": "electricitestrasbourg",
+    "maintenance": true,
+    "name": "Electricité de Strabourg",
+    "regexp": "es energies strasbourg\\\\b",
+  },
+  Object {
+    "isInstalled": false,
     "konnectorSlug": "enercoop",
     "name": "Enercoop",
     "regexp": "\\\\benercoop\\\\b",
@@ -584,6 +626,7 @@ Array [
   Object {
     "isInstalled": false,
     "konnectorSlug": "engie",
+    "maintenance": true,
     "name": "Engie",
     "regexp": "\\\\bengie\\\\b",
   },
@@ -658,6 +701,13 @@ Array [
   },
   Object {
     "isInstalled": false,
+    "konnectorSlug": "ldlc",
+    "maintenance": true,
+    "name": "LDLC",
+    "regexp": "\\\\bldlc\\\\b",
+  },
+  Object {
+    "isInstalled": false,
     "konnectorSlug": "mondediplo",
     "name": "Le Monde Diplomatique",
     "regexp": "\\\\bmonde-diplomatique\\\\b",
@@ -665,6 +715,7 @@ Array [
   Object {
     "isInstalled": false,
     "konnectorSlug": "leclercdrive",
+    "maintenance": true,
     "name": "Leclerc Drive",
     "regexp": "\\\\bleclerc\\\\b",
   },
@@ -679,6 +730,13 @@ Array [
     "konnectorSlug": "maifecheancier",
     "name": "Maif - Echeancier",
     "regexp": "\\\\bmaif\\\\b",
+  },
+  Object {
+    "isInstalled": false,
+    "konnectorSlug": "macif",
+    "maintenance": true,
+    "name": "Macif",
+    "regexp": "\\\\bmacif\\\\b",
   },
   Object {
     "health": true,
