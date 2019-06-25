@@ -21,7 +21,8 @@ export const DEFAULTS_SETTINGS = {
       enabled: false
     },
     delayedDebit: {
-      enabled: false
+      enabled: false,
+      accountsAssociations: []
     },
     salaire: {
       enabled: false

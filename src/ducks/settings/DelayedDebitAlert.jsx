@@ -2,9 +2,41 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { translate } from 'cozy-ui/react'
 import SelectBox from 'cozy-ui/react/SelectBox'
+import { groupBy, pick, mapValues } from 'lodash'
 import { getAccountLabel, getAccountType } from 'ducks/account/helpers'
 import ToggleRow, { ToggleRowWrapper } from 'ducks/settings/ToggleRow'
 import styles from 'ducks/settings/DelayedDebitAlert.styl'
+
+const AccountsAssociationSelect = props => {
+  const {
+    association,
+    creditCardOptions,
+    checkingsOptions,
+    enabled,
+    ...rest
+  } = props
+
+  return (
+    <div className={styles.AccountsPicker} {...rest}>
+      <SelectBox
+        size="medium"
+        disabled={!enabled}
+        options={creditCardOptions}
+        value={creditCardOptions.find(
+          option => option.value === association.creditCardAccount
+        )}
+      />
+      <SelectBox
+        size="medium"
+        disabled={!enabled}
+        options={checkingsOptions}
+        value={checkingsOptions.find(
+          option => option.value === association.checkingsAccount
+        )}
+      />
+    </div>
+  )
+}
 
 class DumbDelayedDebitAlert extends React.Component {
   static propTypes = {
@@ -16,14 +48,21 @@ class DumbDelayedDebitAlert extends React.Component {
   }
 
   render() {
-    const { accounts, enabled, onToggle, t } = this.props
+    const { accounts, enabled, accountsAssociations, onToggle, t } = this.props
 
-    const creditCardAccounts = accounts.filter(
-      account => getAccountType(account) === 'CreditCard'
-    )
+    const accountsByType = pick(groupBy(accounts, getAccountType), [
+      'CreditCard',
+      'Checkings'
+    ])
 
-    const checkingsAccounts = accounts.filter(
-      account => getAccountType(account) === 'Checkings'
+    const {
+      CreditCard: creditCardOptions,
+      Checkings: checkingsOptions
+    } = mapValues(accountsByType, accounts =>
+      accounts.map(account => ({
+        value: account._id,
+        label: getAccountLabel(account)
+      }))
     )
 
     return (
@@ -35,30 +74,15 @@ class DumbDelayedDebitAlert extends React.Component {
           enabled={enabled}
           name="delayedDebit"
         />
-        <div className={styles.AccountsPicker}>
-          <SelectBox
-            size="medium"
-            disabled={!enabled}
-            options={creditCardAccounts.map(account => ({
-              value: account._id,
-              label: getAccountLabel(account)
-            }))}
-            defaultValue={
-              creditCardAccounts.length === 1 ? creditCardAccounts[0] : null
-            }
+        {accountsAssociations.map(association => (
+          <AccountsAssociationSelect
+            creditCardOptions={creditCardOptions}
+            checkingsOptions={checkingsOptions}
+            association={association}
+            enabled={enabled}
+            key={association.creditCardAccount + association.checkingsAccount}
           />
-          <SelectBox
-            size="medium"
-            disabled={!enabled}
-            options={checkingsAccounts.map(account => ({
-              value: account._id,
-              label: getAccountLabel(account)
-            }))}
-            defaultValue={
-              checkingsAccounts.length === 1 ? checkingsAccounts[0] : null
-            }
-          />
-        </div>
+        ))}
       </ToggleRowWrapper>
     )
   }
