@@ -4912,10 +4912,10 @@ cozy-doctypes@1.39.0:
     es6-promise-pool "2.5.0"
     lodash "4.17.11"
 
-cozy-doctypes@1.47.0:
-  version "1.47.0"
-  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.47.0.tgz#88a75c4fe0b0b8a061fa5d58d3e96c305b721f78"
-  integrity sha512-VVO7XHHF3YJwPxWsiIglgGKPvBIy08h9gnZNWo5wLLkU/ykWxzFhW3r0xa/RKlhXm+wT0e12epPXomgDcCXP2w==
+cozy-doctypes@1.48.0:
+  version "1.48.0"
+  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.48.0.tgz#1a7690b887685e9a03770e449498f7232f99e173"
+  integrity sha512-YEy+RK4909MU6vjwD+Gu37fGPNF/Rao+idD/asxqWtM9oAl8D5+wZNP3oIxlCYNSvw9rbSuy4mykbgW4VkyVhg==
   dependencies:
     "@babel/runtime" "7.3.1"
     cozy-logger "1.3.1"
