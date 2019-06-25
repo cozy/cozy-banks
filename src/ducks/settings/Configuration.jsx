@@ -104,6 +104,7 @@ class Configuration extends React.Component {
               <div className={styles.AccountsPicker}>
                 <SelectBox
                   size="medium"
+                  disabled={!settings.notifications.delayedDebit.enabled}
                   options={creditCardAccounts.map(account => ({
                     value: account._id,
                     label: getAccountLabel(account)
@@ -111,6 +112,7 @@ class Configuration extends React.Component {
                 />
                 <SelectBox
                   size="medium"
+                  disabled={!settings.notifications.delayedDebit.enabled}
                   options={checkingsAccounts.map(account => ({
                     value: account._id,
                     label: getAccountLabel(account)
