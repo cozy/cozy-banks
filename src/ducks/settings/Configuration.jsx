@@ -1,8 +1,9 @@
 import React from 'react'
 import { translate } from 'cozy-ui/react'
+import SelectBox from 'cozy-ui/react/SelectBox'
 import { isCollectionLoading } from 'ducks/client/utils'
 import { queryConnect, withMutations } from 'cozy-client'
-import { settingsConn } from 'doctypes'
+import { settingsConn, accountsConn } from 'doctypes'
 import { flowRight as compose, set } from 'lodash'
 import Loading from 'components/Loading'
 
@@ -20,6 +21,8 @@ import ToggleRow, {
   ToggleRowDescription,
   ToggleRowWrapper
 } from 'ducks/settings/ToggleRow'
+import { getAccountLabel, getAccountType } from 'ducks/account/helpers'
+import styles from 'ducks/settings/Configuration.styl'
 
 class Configuration extends React.Component {
   saveDocument = async doc => {
@@ -54,13 +57,25 @@ class Configuration extends React.Component {
   }
 
   render() {
-    const { t, settingsCollection } = this.props
+    const { t, settingsCollection, accountsCollection } = this.props
 
-    if (isCollectionLoading(settingsCollection)) {
+    if (
+      isCollectionLoading(settingsCollection) ||
+      isCollectionLoading(accountsCollection)
+    ) {
       return <Loading />
     }
 
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
+    const accounts = accountsCollection.data
+
+    const creditCardAccounts = accounts.filter(
+      account => getAccountType(account) === 'CreditCard'
+    )
+
+    const checkingsAccounts = accounts.filter(
+      account => getAccountType(account) === 'Checkings'
+    )
 
     return (
       <div>
@@ -78,13 +93,31 @@ class Configuration extends React.Component {
             unit="€"
           />
           {flag('delayed-debit-alert') && (
-            <ToggleRow
-              title={t('Notifications.delayed_debit.settingTitle')}
-              description={t('Notifications.delayed_debit.description')}
-              onToggle={this.onToggle('notifications.delayedDebit')}
-              enabled={settings.notifications.delayedDebit.enabled}
-              name="delayedDebit"
-            />
+            <ToggleRowWrapper>
+              <ToggleRow
+                title={t('Notifications.delayed_debit.settingTitle')}
+                description={t('Notifications.delayed_debit.description')}
+                onToggle={this.onToggle('notifications.delayedDebit')}
+                enabled={settings.notifications.delayedDebit.enabled}
+                name="delayedDebit"
+              />
+              <div className={styles.AccountsPicker}>
+                <SelectBox
+                  size="medium"
+                  options={creditCardAccounts.map(account => ({
+                    value: account._id,
+                    label: getAccountLabel(account)
+                  }))}
+                />
+                <SelectBox
+                  size="medium"
+                  options={checkingsAccounts.map(account => ({
+                    value: account._id,
+                    label: getAccountLabel(account)
+                  }))}
+                />
+              </div>
+            </ToggleRowWrapper>
           )}
           <ToggleRow
             title={t('Notifications.if_transaction_greater.settingTitle')}
@@ -189,7 +222,8 @@ class Configuration extends React.Component {
 export default compose(
   withMutations(),
   queryConnect({
-    settingsCollection: settingsConn
+    settingsCollection: settingsConn,
+    accountsCollection: accountsConn
   }),
   flag.connect,
   translate()
