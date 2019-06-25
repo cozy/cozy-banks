@@ -20,6 +20,7 @@ import {
 import { withClient, queryConnect } from 'cozy-client'
 import Realtime from 'cozy-realtime'
 import { logException } from 'lib/sentry'
+import Stack from 'components/Stack'
 import {
   PERMISSION_DOCTYPE,
   COZY_ACCOUNT_DOCTYPE,
@@ -428,11 +429,11 @@ const _Password = ({
   <>
     <Padded>
       {active && <PageTitle>{t('Transfer.password.page-title')}</PageTitle>}
-      <Title>{t('Transfer.password.title')}</Title>
-      <p className="u-ta-center">
-        <AccountIcon account={senderAccount} size="large" />
-      </p>
-      <p>
+      <Stack>
+        <Title>{t('Transfer.password.title')}</Title>
+        <div className="u-ta-center">
+          <AccountIcon account={senderAccount} size="large" />
+        </div>
         <Field
           type="password"
           onChange={onChangePassword}
@@ -440,7 +441,7 @@ const _Password = ({
           placeholder={t('Transfer.password.field-placeholder')}
           label={t('Transfer.password.field-label')}
         />
-      </p>
+      </Stack>
     </Padded>
     <BottomButton
       label={t('Transfer.password.confirm')}
@@ -515,7 +516,6 @@ const subscribe = (rt, event, doc, id, cb) => {
   rt.subscribe(event, doc, id, handler)
   return unsubscribe
 }
-
 
 class TransferPage extends React.Component {
   constructor(props, context) {
