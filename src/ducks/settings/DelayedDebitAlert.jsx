@@ -13,6 +13,7 @@ const AccountsAssociationSelect = props => {
     creditCardOptions,
     checkingsOptions,
     enabled,
+    onChange,
     ...rest
   } = props
 
@@ -25,6 +26,9 @@ const AccountsAssociationSelect = props => {
         value={creditCardOptions.find(
           option => option.value === association.creditCardAccount
         )}
+        onChange={selected =>
+          onChange({ ...association, creditCardAccount: selected.value })
+        }
       />
       <SelectBox
         size="medium"
@@ -33,6 +37,9 @@ const AccountsAssociationSelect = props => {
         value={checkingsOptions.find(
           option => option.value === association.checkingsAccount
         )}
+        onChange={selected =>
+          onChange({ ...association, checkingsAccount: selected.value })
+        }
       />
     </div>
   )
@@ -44,11 +51,19 @@ class DumbDelayedDebitAlert extends React.Component {
     accounts: PropTypes.arrayOf(PropTypes.object).isRequired,
     enabled: PropTypes.bool.isRequired,
     onToggle: PropTypes.func.isRequired,
+    onAccountsAssociationChange: PropTypes.func.isRequired,
     t: PropTypes.func.isRequired
   }
 
   render() {
-    const { accounts, enabled, accountsAssociations, onToggle, t } = this.props
+    const {
+      accounts,
+      enabled,
+      accountsAssociations,
+      onToggle,
+      onAccountsAssociationChange,
+      t
+    } = this.props
 
     const accountsByType = pick(groupBy(accounts, getAccountType), [
       'CreditCard',
@@ -74,13 +89,16 @@ class DumbDelayedDebitAlert extends React.Component {
           enabled={enabled}
           name="delayedDebit"
         />
-        {accountsAssociations.map(association => (
+        {accountsAssociations.map((association, index) => (
           <AccountsAssociationSelect
             creditCardOptions={creditCardOptions}
             checkingsOptions={checkingsOptions}
             association={association}
             enabled={enabled}
             key={association.creditCardAccount + association.checkingsAccount}
+            onChange={newAssociation =>
+              onAccountsAssociationChange(index, newAssociation)
+            }
           />
         ))}
       </ToggleRowWrapper>
