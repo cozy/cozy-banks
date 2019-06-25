@@ -20257,10 +20257,10 @@ yargs@~3.10.0:
     decamelize "^1.0.0"
     window-size "0.1.0"
 
-yarnhook@0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/yarnhook/-/yarnhook-0.4.0.tgz#767b22f4ad446553c6eb86090c326d6e32ad0fe2"
-  integrity sha512-ERMvT3SEVPg9eaGEczd/lY4o3ZpNeMx5aQj7WCA00/i0o02DmcXrsmO5rg/fqR3S+/JkXNYdnoFXR1rGVpNy5A==
+yarnhook@0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/yarnhook/-/yarnhook-0.4.1.tgz#e3709661ffe6a3d07257b8cd68015c3672d673b5"
+  integrity sha512-u9Mw8h6/FSuGfR9XBO78FlNYer0OUiy6YvxLbGhb567NMkZPVUiiJmiu92E4uRnBqZvVTYKquoAxvm3ZCXUZPA==
   dependencies:
     execa "^0.8.0"
     find-parent-dir "^0.3.0"
