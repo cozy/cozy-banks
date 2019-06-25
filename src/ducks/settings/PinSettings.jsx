@@ -79,7 +79,7 @@ class PinSettings extends React.Component {
           <PinAuth
             leftButton={
               <PinButton onClick={this.handleTogglingOffCancel}>
-                <Icon icon="back" />
+                <Icon icon="left" />
               </PinButton>
             }
             onSuccess={this.handlePinDeactivated}
