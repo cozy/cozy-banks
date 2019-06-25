@@ -118,18 +118,22 @@ const transfers = {
   }
 }
 
-const getAccountForBeneficiary = (beneficiary, accounts) => {
-  const account = accounts.find(acc => {
-    if (acc.iban) {
-      return acc.iban === beneficiary.iban
-    } else {
-      return beneficiary.iban.includes(acc.number)
-    }
-  })
-  return account || null
-}
-
 const recipientUtils = {
+  /**
+   * Returns the io.cozy.banks.accounts corresponding to a recipient by matching
+   * on IBAN or number
+   */
+  findAccount: (recipient, accounts) => {
+    const account = accounts.find(acc => {
+      if (acc.iban) {
+        return acc.iban === recipient.iban
+      } else {
+        return recipient.iban && recipient.iban.includes(acc.number)
+      }
+    })
+    return account || null
+  },
+
   /**
    * BI recipients are per-account, if a user has 2 accounts that can send money to 1 person, there will be
    * 2 recipients. External accounts can be deduped on IBAN, internal on label
@@ -146,12 +150,27 @@ const recipientUtils = {
         category: group[0].category,
         recipients: group
       }
-      beneficiary.account =
-        beneficiary.category === 'internal'
-          ? getAccountForBeneficiary(beneficiary, accounts)
-          : null
+      beneficiary.account = recipientUtils.findAccount(beneficiary, accounts)
       return beneficiary
     })
+  },
+
+
+  /**
+   * Creates a predicate checking whether a recipient should be internal or external.
+   *
+   * It is considered internal if its category is internal or if we can find a
+   * matching io.cozy.accounts.
+   */
+  createCategoryFilter: (category, accounts) => recipient => {
+    if (category === 'internal') {
+      return (
+        recipient.category == category ||
+        recipientUtils.findAccount(recipient, accounts)
+      )
+    } else {
+      return recipient.category == category
+    }
   }
 }
 
@@ -552,6 +571,7 @@ const subscribe = (rt, event, doc, id, cb) => {
   return unsubscribe
 }
 
+
 class TransferPage extends React.Component {
   constructor(props, context) {
     super(props, context)
@@ -819,7 +839,7 @@ class TransferPage extends React.Component {
       )
     }
 
-    const categoryFilter = recipient => recipient.category === category
+    const categoryFilter = recipientUtils.createCategoryFilter(category, accounts.data)
     const beneficiaries = recipientUtils.groupAsBeneficiary(
       recipients.data.filter(categoryFilter),
       accounts.data
