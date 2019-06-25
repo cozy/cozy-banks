@@ -278,7 +278,7 @@ class _ChooseAmount extends React.PureComponent {
           placeholder="10"
         />
         <BottomButton
-          disabled={amount === '' || validation.error}
+          disabled={amount === '' || !!validation.error}
           label={t('Transfer.amount.confirm')}
           visible={active}
           onClick={onSelect}
