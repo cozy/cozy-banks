@@ -5,7 +5,7 @@ exports[`transaction modal should render correctly 1`] = `
   <div class=\\"c-overlay\\">
     <div class=\\"c-modal-wrapper\\">
       <div class=\\"c-modal c-modal--small c-modal--closable PageModalDesktop\\" role=\\"dialog\\" aria-modal=\\"true\\">
-        <button type=\\"button\\" class=\\"c-btn c-btn--close c-btn--narrow c-modal-close PageModalDesktop__cross c-modal-close--notitle\\" title=\\"Close\\"><span><span class=\\"u-visuallyhidden\\">Close</span>
+        <button type=\\"button\\" class=\\"c-btn c-btn--close c-btn--narrow c-btn--center c-modal-close PageModalDesktop__cross c-modal-close--notitle\\" title=\\"Close\\"><span><span class=\\"u-visuallyhidden\\">Close</span>
           <svg class=\\"icon\\" style=\\"fill: var(--coolGrey);\\" width=\\"24\\" height=\\"24\\">
             <use xlink:href=\\"#cross\\"></use>
           </svg>
