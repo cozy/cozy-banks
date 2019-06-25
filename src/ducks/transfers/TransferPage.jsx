@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import compose from 'lodash/flowRight'
-import groupBy from 'lodash/groupBy'
 import { withRouter } from 'react-router'
 import Padded from 'components/Spacing/Padded'
 import {
@@ -37,6 +36,7 @@ import BottomButton from 'components/BottomButton'
 import Figure from 'components/Figure'
 import AccountIcon from 'components/AccountIcon'
 import AddAccountButton from 'ducks/categories/AddAccountButton'
+import * as recipientUtils from 'ducks/transfers/recipients'
 
 import styles from 'ducks/transfers/styles.styl'
 import transferDoneImg from 'assets/transfer-done.jpg'
@@ -115,62 +115,6 @@ const transfers = {
       label,
       executionDate
     })
-  }
-}
-
-const recipientUtils = {
-  /**
-   * Returns the io.cozy.banks.accounts corresponding to a recipient by matching
-   * on IBAN or number
-   */
-  findAccount: (recipient, accounts) => {
-    const account = accounts.find(acc => {
-      if (acc.iban) {
-        return acc.iban === recipient.iban
-      } else {
-        return recipient.iban && recipient.iban.includes(acc.number)
-      }
-    })
-    return account || null
-  },
-
-  /**
-   * BI recipients are per-account, if a user has 2 accounts that can send money to 1 person, there will be
-   * 2 recipients. External accounts can be deduped on IBAN, internal on label
-   */
-  groupAsBeneficiary: (recipients, accounts) => {
-    return Object.values(
-      groupBy(recipients, r => (r.category == 'internal' ? r.label : r.iban))
-    ).map(group => {
-      const beneficiary = {
-        _id: group[0]._id, // useful for key
-        label: group[0].label,
-        bankName: group[0].bankName,
-        iban: group[0].iban,
-        category: group[0].category,
-        recipients: group
-      }
-      beneficiary.account = recipientUtils.findAccount(beneficiary, accounts)
-      return beneficiary
-    })
-  },
-
-
-  /**
-   * Creates a predicate checking whether a recipient should be internal or external.
-   *
-   * It is considered internal if its category is internal or if we can find a
-   * matching io.cozy.accounts.
-   */
-  createCategoryFilter: (category, accounts) => recipient => {
-    if (category === 'internal') {
-      return (
-        recipient.category == category ||
-        recipientUtils.findAccount(recipient, accounts)
-      )
-    } else {
-      return recipient.category == category
-    }
   }
 }
 
@@ -839,7 +783,10 @@ class TransferPage extends React.Component {
       )
     }
 
-    const categoryFilter = recipientUtils.createCategoryFilter(category, accounts.data)
+    const categoryFilter = recipientUtils.createCategoryFilter(
+      category,
+      accounts.data
+    )
     const beneficiaries = recipientUtils.groupAsBeneficiary(
       recipients.data.filter(categoryFilter),
       accounts.data
