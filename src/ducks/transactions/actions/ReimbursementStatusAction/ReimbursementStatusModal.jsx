@@ -76,8 +76,9 @@ class _ReimbursementStatusModal extends React.PureComponent {
                 <ContactItem
                   brand={brand}
                   key={brand.name}
+                  // TODO use stack layout when https://github.com/cozy/cozy-banks/pull/1312 has been merged (see https://github.com/cozy/cozy-banks/pull/1312/commits/2bc1d75a25fe2c61f219579ac56407e356997105 more particularly)
                   className={cx({
-                    'u-mb-1-half': index !== brands.length - 1
+                    'u-mt-1-half': index !== 0
                   })}
                 />
               ))}
