@@ -21,11 +21,6 @@ import { withClient, queryConnect } from 'cozy-client'
 import Realtime from 'cozy-realtime'
 import { logException } from 'lib/sentry'
 import Stack from 'components/Stack'
-import {
-  PERMISSION_DOCTYPE,
-  COZY_ACCOUNT_DOCTYPE,
-  KONNECTOR_DOCTYPE
-} from 'doctypes'
 
 import Loading from 'components/Loading'
 import { List, Row, Radio } from 'components/List'
@@ -38,6 +33,7 @@ import Figure from 'components/Figure'
 import AccountIcon from 'components/AccountIcon'
 import AddAccountButton from 'ducks/categories/AddAccountButton'
 import * as recipientUtils from 'ducks/transfers/recipients'
+import * as transfers from 'ducks/transfers/transfers'
 
 import styles from 'ducks/transfers/styles.styl'
 import transferDoneImg from 'assets/transfer-done.jpg'
@@ -50,74 +46,6 @@ const _Title = ({ children }) => {
 const Title = React.memo(_Title)
 
 const THIRTY_SECONDS = 30 * 1000
-
-const transfers = {
-  /**
-   * Creates a temporary account with authentication
-   * and give permission to the konnector to access this account
-   *
-   * @param  {CozyClient} client
-   * @param  {string} konnSlug - ex: "caissedepargne1"
-   * @param  {Object} auth - ex: { password: '1234' }
-   */
-  prepareJobAccount: async (client, konnSlug, auth) => {
-    const accounts = client.collection(COZY_ACCOUNT_DOCTYPE)
-    const permissions = client.collection(PERMISSION_DOCTYPE)
-    const konnectorsCol = client.collection(KONNECTOR_DOCTYPE)
-
-    const { data: account } = await accounts.create({
-      auth,
-      temporary: true
-    })
-
-    const { data: konnectors } = await konnectorsCol.all()
-    const konnector = konnectors.find(
-      konn => konn._id === `${KONNECTOR_DOCTYPE}/${konnSlug}`
-    )
-
-    if (!konnector) {
-      throw new Error('Could not find suitable konnector')
-    }
-
-    const { data: permission } = await permissions.add(konnector, {
-      [account._id]: {
-        type: COZY_ACCOUNT_DOCTYPE,
-        verbs: ['GET', 'DELETE'],
-        values: [`${COZY_ACCOUNT_DOCTYPE}.${account._id}`]
-      }
-    })
-    return { account, permission, konnector }
-  },
-
-  /**
-   * Creates a job to transfer money
-   *
-   * @param  {CozyClient} client            - CozyClient
-   * @param  {Integer} options.amount    - Amount to send
-   * @param  {String} options.recipientId - io.cozy.bank.recipients id
-   * @param  {String} options.senderAccount - io.cozy.bank.accounts id
-   * @return {Promise}
-   */
-  createJob: async (
-    client,
-    { amount, recipientId, senderAccount, password, label, executionDate }
-  ) => {
-    const konnector = senderAccount.cozyMetadata.createdByApp
-    const { account } = await transfers.prepareJobAccount(client, konnector, {
-      password
-    })
-    return client.stackClient.jobs.create('konnector', {
-      mode: 'transfer',
-      konnector,
-      recipientId,
-      temporaryAccountId: account._id,
-      amount,
-      senderAccountId: senderAccount._id,
-      label,
-      executionDate
-    })
-  }
-}
 
 const _ChooseRecipientCategory = ({ t, category, onSelect, active }) => {
   return (
@@ -393,13 +321,7 @@ const _Summary = ({
         <br />
         {t('Transfer.summary.on')}{' '}
         <TextCard className="u-clickable">
-          <Input
-            type="date"
-            value={date}
-            onChange={onChangeDate}
-            size="tiny"
-            placeholder={t('Transfer.summary.date-placeholder')}
-          />
+          <Input type="date" value={date} onChange={onChangeDate} size="tiny" />
         </TextCard>
         <br />
         {t('Transfer.summary.for')}{' '}
@@ -494,17 +416,27 @@ const TransferSuccess = React.memo(
   ))
 )
 
-const TransferError = React.memo(
-  translate()(({ t, onExit }) => (
+const isLoginFailed = error =>
+  error.message && error.message.includes('LOGIN_FAILED')
+
+export const DumbTransferError = ({ t, onExit, error }) => {
+  const loginFailed = isLoginFailed(error)
+  return (
     <TransferStateModal
       title={t('Transfer.error.title')}
       img={transferErrorImg}
-      description={t('Transfer.error.description')}
+      description={
+        loginFailed
+          ? t('Transfer.error.description-login-failed')
+          : t('Transfer.error.description')
+      }
       onClickPrimaryButton={onExit}
-      primaryLabel={t('Transfer.exit')}
+      primaryLabel={loginFailed ? t('Transfer.retry') : t('Transfer.exit')}
     />
-  ))
-)
+  )
+}
+
+export const TransferError = React.memo(translate()(DumbTransferError))
 
 const subscribe = (rt, event, doc, id, cb) => {
   let handler
@@ -624,7 +556,9 @@ class TransferPage extends React.Component {
       }, THIRTY_SECONDS)
     } catch (e) {
       console.error(e) // eslint-disable-line no-console
-      logException(e)
+      if (!isLoginFailed(e)) {
+        logException(e)
+      }
       this.setState({ transferState: e })
     }
   }
@@ -711,7 +645,13 @@ class TransferPage extends React.Component {
   }
 
   handleExit() {
-    this.props.router.push('/')
+    const { transferState } = this.state
+    if (isLoginFailed(transferState)) {
+      this.selectSlideByName('password')
+      this.setState({ password: '', transferState: null })
+    } else {
+      this.props.router.push('/')
+    }
   }
 
   render() {
@@ -803,7 +743,7 @@ class TransferPage extends React.Component {
               <TransferSuccess onExit={this.handleExit} />
             )}
             {transferState instanceof Error && (
-              <TransferError onExit={this.handleExit} />
+              <TransferError error={transferState} onExit={this.handleExit} />
             )}
           </Modal>
         ) : null}
@@ -865,5 +805,7 @@ const enhance = compose(
   }),
   translate()
 )
+
+export { TransferPage }
 
 export default enhance(TransferPage)

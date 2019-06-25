@@ -625,7 +625,8 @@
     },
     "error": {
       "title": "Votre demande de virement n'a pas été prise en compte",
-      "description": "Votre demande de virement n'a pas pu être envoyée, merci de réessayer plus tard ou contactez notre support."
+      "description": "Votre demande de virement n'a pas pu être envoyée, merci de réessayer plus tard ou contactez notre support.",
+      "description-login-failed": "Votre mot de passe semble incorrect, merci de réessayer."
     },
     "no-bank": {
       "title": "Ajoutez une banque pour pouvoir effectuer un virement",
@@ -636,6 +637,6 @@
       "description": "Nous n'avons pas pu trouver de bénéficiaires, il se peut que votre banque ne soit pas supportée pour les virements. Ci-dessous la liste des banques supportées pour les virements."
     },
     "exit": "Terminer",
-    "new-transfer": "Effectuer un nouveau transfert"
+    "retry": "Réessayer"
   }
 }
