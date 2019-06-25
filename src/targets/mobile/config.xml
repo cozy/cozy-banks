@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-packageName="io.cozy.banks.mobile" android-versionCode="1010100" ios-CFBundleIdentifier="io.cozy.banks" ios-CFBundleVersion="1.1.1.0" version="1.1.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-packageName="io.cozy.banks.mobile" android-versionCode="1020000" ios-CFBundleIdentifier="io.cozy.banks" ios-CFBundleVersion="1.2.0.0" version="1.2.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Cozy Banks</name>
     <description>The banking application for Cozy</description>
     <author email="contact@cozycloud.cc" href="https://cozy.io">Cozy Cloud</author>
@@ -11,7 +11,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <preference name="AppendUserAgent" value="io.cozy.banks.mobile-1.1.1" />
+    <preference name="AppendUserAgent" value="io.cozy.banks.mobile-1.2.0" />
     <hook src="scripts/customizeConfigXML.js" type="before_prepare" />
     <universal-links>
         <host name="links.mycozy.cloud" scheme="https">
