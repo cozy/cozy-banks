@@ -271,6 +271,7 @@ class _ChooseAmount extends React.PureComponent {
           onChange={ev => {
             onChange(ev.target.value)
           }}
+          type="number"
           onBlur={this.handleBlur}
           label={t('Transfer.amount.field-label')}
           error={validation.error}
