@@ -56,11 +56,13 @@ export const DumbPhoneCard = props => {
   )
 }
 
+const phoneContactShape = PropTypes.shape({
+  price: PropTypes.string,
+  number: PropTypes.string.isRequired
+})
+
 DumbPhoneCard.propTypes = {
-  contact: PropTypes.shape({
-    price: PropTypes.string,
-    number: PropTypes.string.isRequired
-  }).isRequired,
+  contact: phoneContactShape.isRequired,
   t: PropTypes.func.isRequired
 }
 
@@ -83,11 +85,13 @@ export const DumbWebCard = props => {
   )
 }
 
+const webContactShape = PropTypes.shape({
+  href: PropTypes.string.isRequired,
+  action: PropTypes.string.isRequired
+})
+
 DumbWebCard.propTypes = {
-  contact: PropTypes.shape({
-    href: PropTypes.string.isRequired,
-    action: PropTypes.string.isRequired
-  }).isRequired,
+  contact: webContactShape.isRequired,
   t: PropTypes.func.isRequired
 }
 
