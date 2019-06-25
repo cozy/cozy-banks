@@ -1,6 +1,5 @@
 import React from 'react'
 import { translate } from 'cozy-ui/react'
-import SelectBox from 'cozy-ui/react/SelectBox'
 import { isCollectionLoading } from 'ducks/client/utils'
 import { queryConnect, withMutations } from 'cozy-client'
 import { settingsConn, accountsConn } from 'doctypes'
@@ -21,8 +20,7 @@ import ToggleRow, {
   ToggleRowDescription,
   ToggleRowWrapper
 } from 'ducks/settings/ToggleRow'
-import { getAccountLabel, getAccountType } from 'ducks/account/helpers'
-import styles from 'ducks/settings/Configuration.styl'
+import DelayedDebitAlert from 'ducks/settings/DelayedDebitAlert'
 
 class Configuration extends React.Component {
   saveDocument = async doc => {
@@ -69,14 +67,6 @@ class Configuration extends React.Component {
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
     const accounts = accountsCollection.data
 
-    const creditCardAccounts = accounts.filter(
-      account => getAccountType(account) === 'CreditCard'
-    )
-
-    const checkingsAccounts = accounts.filter(
-      account => getAccountType(account) === 'Checkings'
-    )
-
     return (
       <div>
         <TogglePane>
@@ -93,41 +83,11 @@ class Configuration extends React.Component {
             unit="€"
           />
           {flag('delayed-debit-alert') && (
-            <ToggleRowWrapper>
-              <ToggleRow
-                title={t('Notifications.delayed_debit.settingTitle')}
-                description={t('Notifications.delayed_debit.description')}
-                onToggle={this.onToggle('notifications.delayedDebit')}
-                enabled={settings.notifications.delayedDebit.enabled}
-                name="delayedDebit"
-              />
-              <div className={styles.AccountsPicker}>
-                <SelectBox
-                  size="medium"
-                  disabled={!settings.notifications.delayedDebit.enabled}
-                  options={creditCardAccounts.map(account => ({
-                    value: account._id,
-                    label: getAccountLabel(account)
-                  }))}
-                  defaultValue={
-                    creditCardAccounts.length === 1
-                      ? creditCardAccounts[0]
-                      : null
-                  }
-                />
-                <SelectBox
-                  size="medium"
-                  disabled={!settings.notifications.delayedDebit.enabled}
-                  options={checkingsAccounts.map(account => ({
-                    value: account._id,
-                    label: getAccountLabel(account)
-                  }))}
-                  defaultValue={
-                    checkingsAccounts.length === 1 ? checkingsAccounts[0] : null
-                  }
-                />
-              </div>
-            </ToggleRowWrapper>
+            <DelayedDebitAlert
+              accounts={accounts}
+              onToggle={this.onToggle('notifications.delayedDebit')}
+              {...settings.notifications.delayedDebit}
+            />
           )}
           <ToggleRow
             title={t('Notifications.if_transaction_greater.settingTitle')}
