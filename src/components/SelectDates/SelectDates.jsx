@@ -378,7 +378,7 @@ class SelectDates extends PureComponent {
           </SelectDateButton>
         </span>
       </div>
-    );
+    )
   }
 }
 

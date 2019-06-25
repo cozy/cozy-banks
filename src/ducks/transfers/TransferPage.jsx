@@ -387,6 +387,7 @@ const _Summary = ({
           className="u-clickable"
           onClick={selectSlide.bind(null, 'sender')}
         >
+          <AccountIcon size="small" account={senderAccount} />{' '}
           {senderAccount.label}
         </TextCard>
         <br />
