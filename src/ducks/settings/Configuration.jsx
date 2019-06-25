@@ -109,6 +109,11 @@ class Configuration extends React.Component {
                     value: account._id,
                     label: getAccountLabel(account)
                   }))}
+                  defaultValue={
+                    creditCardAccounts.length === 1
+                      ? creditCardAccounts[0]
+                      : null
+                  }
                 />
                 <SelectBox
                   size="medium"
@@ -117,6 +122,9 @@ class Configuration extends React.Component {
                     value: account._id,
                     label: getAccountLabel(account)
                   }))}
+                  defaultValue={
+                    checkingsAccounts.length === 1 ? checkingsAccounts[0] : null
+                  }
                 />
               </div>
             </ToggleRowWrapper>
