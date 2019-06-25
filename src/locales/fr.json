@@ -465,6 +465,10 @@
     "email": {
       "settings": "Paramètres",
       "support": "Aide et support"
+    },
+    "delayed_debit": {
+      "settingTitle": "Alerte de débit différé",
+      "description": "Vous recevrez une notification lorsque..."
     }
   },
 

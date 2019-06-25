@@ -453,6 +453,10 @@
     "email": {
       "settings": "Settings",
       "support": "Help and support"
+    },
+    "delayed_debit": {
+      "settingTitle": "Delayed debit alert",
+      "description": "You will be notified when..."
     }
   },
 

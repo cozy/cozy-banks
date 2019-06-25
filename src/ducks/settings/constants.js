@@ -20,6 +20,9 @@ export const DEFAULTS_SETTINGS = {
       value: 30,
       enabled: false
     },
+    delayedDebit: {
+      enabled: false
+    },
     salaire: {
       enabled: false
     },
