@@ -18,7 +18,7 @@ const AccountsAssociationSelect = props => {
   } = props
 
   return (
-    <div className={styles.AccountsPicker} {...rest}>
+    <div className={styles.AccountsAssociationSelect} {...rest}>
       <SelectBox
         size="medium"
         disabled={!enabled}
