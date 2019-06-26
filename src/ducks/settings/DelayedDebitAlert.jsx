@@ -101,6 +101,20 @@ class DumbDelayedDebitAlert extends React.Component {
             }
           />
         ))}
+        {accountsAssociations.length === 0 ? (
+          <AccountsAssociationSelect
+            creditCardOptions={creditCardOptions}
+            checkingsOptions={checkingsOptions}
+            association={{
+              creditCardAccount: null,
+              checkingsAccount: null
+            }}
+            enabled={enabled}
+            onChange={newAssociation =>
+              onAccountsAssociationChange(0, newAssociation)
+            }
+          />
+        ) : null}
       </ToggleRowWrapper>
     )
   }
