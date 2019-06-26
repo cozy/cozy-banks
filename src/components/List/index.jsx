@@ -5,8 +5,8 @@ import ListItemText from 'cozy-ui/react/ListItemText'
 import { Radio as UIRadio } from 'cozy-ui/react'
 import cx from 'classnames'
 
-export const Radio = props => {
-  return <UIRadio {...props} className={styles.Radio} />
+export const Radio = ({ className, ...props }) => {
+  return <UIRadio {...props} className={cx(styles.Radio, className)} />
 }
 
 const _List = props => {
