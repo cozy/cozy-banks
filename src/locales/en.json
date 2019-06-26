@@ -453,6 +453,13 @@
     "email": {
       "settings": "Settings",
       "support": "Help and support"
+    },
+    "delayed_debit": {
+      "settingTitle": "Delayed debit alert",
+      "description": "You will be notified when...",
+      "noCheckings": "You have no checkings account.",
+      "noCreditCard": "You have no credit card account.",
+      "noAccount": "You have no bank account."
     }
   },
 

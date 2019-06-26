@@ -2,7 +2,7 @@ import React from 'react'
 import { translate } from 'cozy-ui/react'
 import { isCollectionLoading } from 'ducks/client/utils'
 import { queryConnect, withMutations } from 'cozy-client'
-import { settingsConn } from 'doctypes'
+import { settingsConn, accountsConn } from 'doctypes'
 import { flowRight as compose, set } from 'lodash'
 import Loading from 'components/Loading'
 
@@ -20,6 +20,7 @@ import ToggleRow, {
   ToggleRowDescription,
   ToggleRowWrapper
 } from 'ducks/settings/ToggleRow'
+import DelayedDebitAlert from 'ducks/settings/DelayedDebitAlert'
 
 class Configuration extends React.Component {
   saveDocument = async doc => {
@@ -53,14 +54,31 @@ class Configuration extends React.Component {
     })
   }
 
-  render() {
-    const { t, settingsCollection } = this.props
+  onDelayedDebitAccountsAssociationChange = (index, association) => {
+    const { settingsCollection } = this.props
+    const settings = getDefaultedSettingsFromCollection(settingsCollection)
+    set(
+      settings,
+      `notifications.delayedDebit.accountsAssociations[${index}]`,
+      association
+    )
+    this.saveDocument(settings, {
+      updateCollections: ['settings']
+    })
+  }
 
-    if (isCollectionLoading(settingsCollection)) {
+  render() {
+    const { t, settingsCollection, accountsCollection } = this.props
+
+    if (
+      isCollectionLoading(settingsCollection) ||
+      isCollectionLoading(accountsCollection)
+    ) {
       return <Loading />
     }
 
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
+    const accounts = accountsCollection.data
 
     return (
       <div>
@@ -77,6 +95,16 @@ class Configuration extends React.Component {
             name="balanceLower"
             unit="€"
           />
+          {flag('delayed-debit-alert') && (
+            <DelayedDebitAlert
+              accounts={accounts}
+              onToggle={this.onToggle('notifications.delayedDebit')}
+              onAccountsAssociationChange={
+                this.onDelayedDebitAccountsAssociationChange
+              }
+              {...settings.notifications.delayedDebit}
+            />
+          )}
           <ToggleRow
             title={t('Notifications.if_transaction_greater.settingTitle')}
             description={t('Notifications.if_transaction_greater.description')}
@@ -180,7 +208,8 @@ class Configuration extends React.Component {
 export default compose(
   withMutations(),
   queryConnect({
-    settingsCollection: settingsConn
+    settingsCollection: settingsConn,
+    accountsCollection: accountsConn
   }),
   flag.connect,
   translate()
