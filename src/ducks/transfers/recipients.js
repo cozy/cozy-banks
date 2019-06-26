@@ -1,15 +1,19 @@
 import groupBy from 'lodash/groupBy'
+
 /**
  * Returns the io.cozy.banks.accounts corresponding to a recipient by matching
  * on IBAN or number
  */
 export const findAccount = (recipient, accounts) => {
   const account = accounts.find(acc => {
-    if (acc.iban) {
-      return acc.iban === recipient.iban
-    } else {
-      return recipient.iban && recipient.iban.includes(acc.number)
-    }
+    const sameVendorId = Boolean(
+      recipient.vendorAccountId && recipient.vendorAccountId === acc.vendorId
+    )
+    const sameIBAN = Boolean(acc.iban && acc.iban === recipient.iban)
+    const sameNumber = Boolean(
+      recipient.iban && acc.number && recipient.iban.includes(acc.number)
+    )
+    return sameVendorId || sameIBAN || sameNumber
   })
   return account || null
 }

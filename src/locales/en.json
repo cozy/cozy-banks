@@ -670,7 +670,8 @@
     },
     "error": {
       "title": "Your transfer request could not be sent",
-      "description": "You can retry later or contact our support."
+      "description": "You can retry later or contact our support.",
+      "description-login-failed": "Your password seems incorrect, please check and try again"
     },
     "no-bank": {
       "title": "Add a bank to be able to send money",
@@ -680,6 +681,7 @@
       "title": "No recipients found",
       "description": "We could not find any recipients, your bank might be unsupported. See below the supported banks."
     },
-    "exit": "Finish"
+    "exit": "Finish",
+    "retry": "Retry"
   }
 }
