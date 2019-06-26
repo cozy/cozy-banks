@@ -95,7 +95,7 @@
     "commitlint-config-cozy": "0.3.24",
     "copy-webpack-plugin": "5.0.2",
     "cozy-ach": "1.21.0",
-    "cozy-app-publish": "0.16.0",
+    "cozy-app-publish": "0.16.2",
     "cozy-jobs-cli": "1.8.21",
     "css-loader": "2.1.1",
     "css-mqpacker": "7.0.0",
