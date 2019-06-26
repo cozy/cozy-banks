@@ -5,6 +5,7 @@ import SelectBox from 'cozy-ui/react/SelectBox'
 import { groupBy, pick, mapValues } from 'lodash'
 import { getAccountLabel, getAccountType } from 'ducks/account/helpers'
 import ToggleRow, { ToggleRowWrapper } from 'ducks/settings/ToggleRow'
+import Stack from 'components/Stack'
 import styles from 'ducks/settings/DelayedDebitAlert.styl'
 
 const AccountsAssociationSelect = props => {
@@ -89,32 +90,34 @@ class DumbDelayedDebitAlert extends React.Component {
           enabled={enabled}
           name="delayedDebit"
         />
-        {accountsAssociations.map((association, index) => (
-          <AccountsAssociationSelect
-            creditCardOptions={creditCardOptions}
-            checkingsOptions={checkingsOptions}
-            association={association}
-            enabled={enabled}
-            key={association.creditCardAccount + association.checkingsAccount}
-            onChange={newAssociation =>
-              onAccountsAssociationChange(index, newAssociation)
-            }
-          />
-        ))}
-        {accountsAssociations.length === 0 ? (
-          <AccountsAssociationSelect
-            creditCardOptions={creditCardOptions}
-            checkingsOptions={checkingsOptions}
-            association={{
-              creditCardAccount: null,
-              checkingsAccount: null
-            }}
-            enabled={enabled}
-            onChange={newAssociation =>
-              onAccountsAssociationChange(0, newAssociation)
-            }
-          />
-        ) : null}
+        <Stack>
+          {accountsAssociations.map((association, index) => (
+            <AccountsAssociationSelect
+              creditCardOptions={creditCardOptions}
+              checkingsOptions={checkingsOptions}
+              association={association}
+              enabled={enabled}
+              key={association.creditCardAccount + association.checkingsAccount}
+              onChange={newAssociation =>
+                onAccountsAssociationChange(index, newAssociation)
+              }
+            />
+          ))}
+          {accountsAssociations.length === 0 ? (
+            <AccountsAssociationSelect
+              creditCardOptions={creditCardOptions}
+              checkingsOptions={checkingsOptions}
+              association={{
+                creditCardAccount: null,
+                checkingsAccount: null
+              }}
+              enabled={enabled}
+              onChange={newAssociation =>
+                onAccountsAssociationChange(0, newAssociation)
+              }
+            />
+          ) : null}
+        </Stack>
       </ToggleRowWrapper>
     )
   }
