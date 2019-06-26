@@ -56,17 +56,8 @@ class DumbDelayedDebitAlert extends React.Component {
     t: PropTypes.func.isRequired
   }
 
-  render() {
-    const {
-      accounts,
-      enabled,
-      accountsAssociations,
-      onToggle,
-      onAccountsAssociationChange,
-      t
-    } = this.props
-
-    const accountsByType = pick(groupBy(accounts, getAccountType), [
+  makeSelectOptions() {
+    const accountsByType = pick(groupBy(this.props.accounts, getAccountType), [
       'CreditCard',
       'Checkings'
     ])
@@ -80,6 +71,20 @@ class DumbDelayedDebitAlert extends React.Component {
         label: getAccountLabel(account)
       }))
     )
+
+    return { creditCardOptions, checkingsOptions }
+  }
+
+  render() {
+    const {
+      enabled,
+      accountsAssociations,
+      onToggle,
+      onAccountsAssociationChange,
+      t
+    } = this.props
+
+    const { creditCardOptions, checkingsOptions } = this.makeSelectOptions()
 
     return (
       <ToggleRowWrapper>
