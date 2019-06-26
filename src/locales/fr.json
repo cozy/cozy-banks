@@ -468,7 +468,10 @@
     },
     "delayed_debit": {
       "settingTitle": "Alerte de débit différé",
-      "description": "Vous recevrez une notification lorsque..."
+      "description": "Vous recevrez une notification lorsque...",
+      "noCheckings": "Vous n'avez pas de compte courant.",
+      "noCreditCard": "Vous n'avez pas de compte de carte de crédit",
+      "noAccount": "Vous n'avez pas de compte bancaire."
     }
   },
 

@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { translate } from 'cozy-ui/react'
 import SelectBox from 'cozy-ui/react/SelectBox'
+import { Text } from 'cozy-ui/react/Text'
 import { groupBy, pick, mapValues } from 'lodash'
 import { getAccountLabel, getAccountType } from 'ducks/account/helpers'
 import ToggleRow, { ToggleRowWrapper } from 'ducks/settings/ToggleRow'
@@ -86,6 +87,10 @@ class DumbDelayedDebitAlert extends React.Component {
 
     const { creditCardOptions, checkingsOptions } = this.makeSelectOptions()
 
+    const hasNoCreditCard = !creditCardOptions
+    const hasNoCheckings = !checkingsOptions
+    const hasNoAccount = hasNoCreditCard && hasNoCheckings
+
     return (
       <ToggleRowWrapper>
         <ToggleRow
@@ -95,34 +100,47 @@ class DumbDelayedDebitAlert extends React.Component {
           enabled={enabled}
           name="delayedDebit"
         />
-        <Stack>
-          {accountsAssociations.map((association, index) => (
-            <AccountsAssociationSelect
-              creditCardOptions={creditCardOptions}
-              checkingsOptions={checkingsOptions}
-              association={association}
-              enabled={enabled}
-              key={association.creditCardAccount + association.checkingsAccount}
-              onChange={newAssociation =>
-                onAccountsAssociationChange(index, newAssociation)
-              }
-            />
-          ))}
-          {accountsAssociations.length === 0 ? (
-            <AccountsAssociationSelect
-              creditCardOptions={creditCardOptions}
-              checkingsOptions={checkingsOptions}
-              association={{
-                creditCardAccount: null,
-                checkingsAccount: null
-              }}
-              enabled={enabled}
-              onChange={newAssociation =>
-                onAccountsAssociationChange(0, newAssociation)
-              }
-            />
-          ) : null}
-        </Stack>
+        {hasNoAccount && (
+          <Text>{t('Notifications.delayed_debit.noAccount')}</Text>
+        )}
+        {!hasNoAccount && hasNoCreditCard && (
+          <Text>{t('Notifications.delayed_debit.noCreditCard')}</Text>
+        )}
+        {!hasNoAccount && hasNoCheckings && (
+          <Text>{t('Notifications.delayed_debit.noCheckings')}</Text>
+        )}
+        {!hasNoAccount && !hasNoCreditCard && !hasNoCheckings && (
+          <Stack>
+            {accountsAssociations.map((association, index) => (
+              <AccountsAssociationSelect
+                creditCardOptions={creditCardOptions}
+                checkingsOptions={checkingsOptions}
+                association={association}
+                enabled={enabled}
+                key={
+                  association.creditCardAccount + association.checkingsAccount
+                }
+                onChange={newAssociation =>
+                  onAccountsAssociationChange(index, newAssociation)
+                }
+              />
+            ))}
+            {accountsAssociations.length === 0 ? (
+              <AccountsAssociationSelect
+                creditCardOptions={creditCardOptions}
+                checkingsOptions={checkingsOptions}
+                association={{
+                  creditCardAccount: null,
+                  checkingsAccount: null
+                }}
+                enabled={enabled}
+                onChange={newAssociation =>
+                  onAccountsAssociationChange(0, newAssociation)
+                }
+              />
+            ) : null}
+          </Stack>
+        )}
       </ToggleRowWrapper>
     )
   }
