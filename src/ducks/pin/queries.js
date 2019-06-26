@@ -26,6 +26,10 @@ export const pinSetting = {
   query: getOne(pinIdentity.doctype, pinIdentity.id)
 }
 
+/**
+ * Gives access to documents inside cozy-client's store
+ * Useful when you know the necessary data has been fetched
+ */
 export const withCached = identityMapping => {
   return connect(state => {
     return mapValues(identityMapping, identity => {
