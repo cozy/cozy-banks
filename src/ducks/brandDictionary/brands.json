@@ -29,7 +29,8 @@
   {
     "name": "Autolib",
     "regexp": "\\bautolib\\b",
-    "konnectorSlug": "autolib"
+    "konnectorSlug": "autolib",
+    "maintenance": true
   },
   {
     "name": "Bipandgo",
@@ -39,7 +40,8 @@
   {
     "name": "Booking.com",
     "regexp": "\\bbooking.com\\b",
-    "konnectorSlug": "bookingdotcom"
+    "konnectorSlug": "bookingdotcom",
+    "maintenance": true
   },
   {
     "name": "Boulanger",
@@ -74,7 +76,8 @@
   {
     "name": "Cultura",
     "regexp": "\\bcultura\\b",
-    "konnectorSlug": "cultura"
+    "konnectorSlug": "cultura",
+    "maintenance": true
   },
   {
     "name": "Darty",
@@ -85,12 +88,14 @@
   {
     "name": "Deezer",
     "regexp": "\\bdeezer\\b",
-    "konnectorSlug": "deezer"
+    "konnectorSlug": "deezer",
+    "maintenance": true
   },
   {
     "name": "Deliveroo",
     "regexp": "\\bdeliveroo\\b",
-    "konnectorSlug": "deliveroo"
+    "konnectorSlug": "deliveroo",
+    "maintenance": true
   },
   {
     "name": "Direct Energie",
@@ -108,6 +113,12 @@
     "konnectorSlug": "ekwateur"
   },
   {
+    "name": "Electricité de Strabourg",
+    "regexp": "es energies strasbourg\\b",
+    "konnectorSlug": "electricitestrasbourg",
+    "maintenance": true
+  },
+  {
     "name": "Enercoop",
     "regexp": "\\benercoop\\b",
     "konnectorSlug": "enercoop"
@@ -115,7 +126,8 @@
   {
     "name": "Engie",
     "regexp": "\\bengie\\b",
-    "konnectorSlug": "engie"
+    "konnectorSlug": "engie",
+    "maintenance": true
   },
   {
     "name": "Ensap",
@@ -176,6 +188,12 @@
     "konnectorSlug": "lamutuellegenerale"
   },
   {
+    "name": "LDLC",
+    "regexp": "\\bldlc\\b",
+    "konnectorSlug": "ldlc",
+    "maintenance": true
+  },
+  {
     "name": "Le Monde Diplomatique",
     "regexp": "\\bmonde-diplomatique\\b",
     "konnectorSlug": "mondediplo"
@@ -183,7 +201,8 @@
   {
     "name": "Leclerc Drive",
     "regexp": "\\bleclerc\\b",
-    "konnectorSlug": "leclercdrive"
+    "konnectorSlug": "leclercdrive",
+    "maintenance": true
   },
   {
     "name": "Ma lentille",
@@ -194,6 +213,12 @@
     "name": "Maif - Echeancier",
     "regexp": "\\bmaif\\b",
     "konnectorSlug": "maifecheancier"
+  },
+  {
+    "name": "Macif",
+    "regexp": "\\bmacif\\b",
+    "konnectorSlug": "macif",
+    "maintenance": true
   },
   {
     "name": "Malakoff Mederic",
@@ -340,7 +365,8 @@
   {
     "name": "Zalando",
     "regexp": "\\bzalando\\b",
-    "konnectorSlug": "zalando"
+    "konnectorSlug": "zalando",
+    "maintenance": true
   },
   {
     "name": "ZooPlus",
