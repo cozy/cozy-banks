@@ -87,9 +87,8 @@ class DumbDelayedDebitAlert extends React.Component {
 
     const { creditCardOptions, checkingsOptions } = this.makeSelectOptions()
 
-    const hasNoCreditCard = !creditCardOptions
-    const hasNoCheckings = !checkingsOptions
-    const hasNoAccount = hasNoCreditCard && hasNoCheckings
+    const hasCreditCards = !!creditCardOptions
+    const hasCheckings = !!checkingsOptions
 
     return (
       <ToggleRowWrapper>
@@ -100,16 +99,16 @@ class DumbDelayedDebitAlert extends React.Component {
           enabled={enabled}
           name="delayedDebit"
         />
-        {hasNoAccount && (
+        {!hasCheckings && !hasCreditCards && (
           <Text>{t('Notifications.delayed_debit.noAccount')}</Text>
         )}
-        {!hasNoAccount && hasNoCreditCard && (
+        {hasCheckings && !hasCreditCards && (
           <Text>{t('Notifications.delayed_debit.noCreditCard')}</Text>
         )}
-        {!hasNoAccount && hasNoCheckings && (
+        {!hasCheckings && hasCreditCards && (
           <Text>{t('Notifications.delayed_debit.noCheckings')}</Text>
         )}
-        {!hasNoAccount && !hasNoCreditCard && !hasNoCheckings && (
+        {hasCheckings && hasCreditCards && (
           <Stack>
             {accountsAssociations.map((association, index) => (
               <AccountsAssociationSelect
