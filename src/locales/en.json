@@ -688,10 +688,11 @@
   "ReimbursementStatusModal": {
     "contact": {
       "actions": {
-        "sendCareSheet": "Send my care sheet"
+        "sendCareSheet": "Send my care sheet",
+        "contactComplementary": "Contact my complementary"
       },
       "phoneCallPrice": " + call price",
-      "phoneCallFree": "Free call"
+      "phoneCallFree": "Not surcharged call"
     }
   }
 }

@@ -201,8 +201,13 @@
     "health": true,
     "contact": [
       {
+        "type": "web",
+        "action": "contactComplementary",
+        "href": "https://www.lamutuellegenerale.fr/mobile/mon-espace-adherent#modalContact"
+      },
+      {
         "type": "phone",
-        "number": "30 35"
+        "number": "09 69 39 39 39"
       }
     ]
   },

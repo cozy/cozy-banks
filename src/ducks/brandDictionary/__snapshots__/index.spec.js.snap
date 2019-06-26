@@ -234,7 +234,12 @@ Array [
   Object {
     "contact": Array [
       Object {
-        "number": "30 35",
+        "action": "contactComplementary",
+        "href": "https://www.lamutuellegenerale.fr/mobile/mon-espace-adherent#modalContact",
+        "type": "web",
+      },
+      Object {
+        "number": "09 69 39 39 39",
         "type": "phone",
       },
     ],
@@ -727,7 +732,12 @@ Array [
   Object {
     "contact": Array [
       Object {
-        "number": "30 35",
+        "action": "contactComplementary",
+        "href": "https://www.lamutuellegenerale.fr/mobile/mon-espace-adherent#modalContact",
+        "type": "web",
+      },
+      Object {
+        "number": "09 69 39 39 39",
         "type": "phone",
       },
     ],

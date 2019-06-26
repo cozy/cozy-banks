@@ -643,10 +643,11 @@
   "ReimbursementStatusModal": {
     "contact": {
       "actions": {
-        "sendCareSheet": "Envoyer ma feuile de soin"
+        "sendCareSheet": "Envoyer ma feuile de soin",
+        "contactComplementary": "Contacter ma complémentaire"
       },
       "phoneCallPrice": " + prix appel",
-      "phoneCallFree": "Appel gratuit"
+      "phoneCallFree": "Appel non surtaxé"
     }
   }
 }
