@@ -364,7 +364,7 @@ class SelectDates extends PureComponent {
               [styles.SelectDatesButtonDisabled]: isPrevButtonDisabled
             })}
           >
-            <Icon icon="back" className={styles.SelectDatesButtonColor} />
+            <Icon icon="left" className={styles.SelectDatesButtonColor} />
           </SelectDateButton>
 
           <SelectDateButton
@@ -374,7 +374,7 @@ class SelectDates extends PureComponent {
               [styles.SelectDatesButtonDisabled]: isNextButtonDisabled
             })}
           >
-            <Icon icon="forward" className={styles.SelectDatesButtonColor} />
+            <Icon icon="right" className={styles.SelectDatesButtonColor} />
           </SelectDateButton>
         </span>
       </div>

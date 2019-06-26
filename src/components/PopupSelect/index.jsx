@@ -11,7 +11,7 @@ const PopupTitle = ({ showBack, onClickBack, title }) => (
   <Media>
     {showBack && (
       <Img className={styles.PopupSelect__back} onClick={onClickBack}>
-        <Icon icon="back" color={palette['coolGrey']} />
+        <Icon icon="left" color={palette['coolGrey']} />
       </Img>
     )}
     <Bd>
@@ -33,7 +33,7 @@ const PopupRow = ({ isSelected, icon, label, hasArrow, onClick }) => (
     <Bd className="u-ellipsis">{label}</Bd>
     {hasArrow && (
       <Img className="u-pl-1">
-        <Icon icon="forward" color={palette['coolGrey']} />
+        <Icon icon="right" color={palette['coolGrey']} />
       </Img>
     )}
   </Media>

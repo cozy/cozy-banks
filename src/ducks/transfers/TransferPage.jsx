@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import compose from 'lodash/flowRight'
-import groupBy from 'lodash/groupBy'
 import { withRouter } from 'react-router'
 import Padded from 'components/Spacing/Padded'
 import {
@@ -21,6 +20,7 @@ import {
 import { withClient, queryConnect } from 'cozy-client'
 import Realtime from 'cozy-realtime'
 import { logException } from 'lib/sentry'
+import Stack from 'components/Stack'
 import {
   PERMISSION_DOCTYPE,
   COZY_ACCOUNT_DOCTYPE,
@@ -37,6 +37,7 @@ import BottomButton from 'components/BottomButton'
 import Figure from 'components/Figure'
 import AccountIcon from 'components/AccountIcon'
 import AddAccountButton from 'ducks/categories/AddAccountButton'
+import * as recipientUtils from 'ducks/transfers/recipients'
 
 import styles from 'ducks/transfers/styles.styl'
 import transferDoneImg from 'assets/transfer-done.jpg'
@@ -114,43 +115,6 @@ const transfers = {
       senderAccountId: senderAccount._id,
       label,
       executionDate
-    })
-  }
-}
-
-const getAccountForBeneficiary = (beneficiary, accounts) => {
-  const account = accounts.find(acc => {
-    if (acc.iban) {
-      return acc.iban === beneficiary.iban
-    } else {
-      return beneficiary.iban.includes(acc.number)
-    }
-  })
-  return account || null
-}
-
-const recipientUtils = {
-  /**
-   * BI recipients are per-account, if a user has 2 accounts that can send money to 1 person, there will be
-   * 2 recipients. External accounts can be deduped on IBAN, internal on label
-   */
-  groupAsBeneficiary: (recipients, accounts) => {
-    return Object.values(
-      groupBy(recipients, r => (r.category == 'internal' ? r.label : r.iban))
-    ).map(group => {
-      const beneficiary = {
-        _id: group[0]._id, // useful for key
-        label: group[0].label,
-        bankName: group[0].bankName,
-        iban: group[0].iban,
-        category: group[0].category,
-        recipients: group
-      }
-      beneficiary.account =
-        beneficiary.category === 'internal'
-          ? getAccountForBeneficiary(beneficiary, accounts)
-          : null
-      return beneficiary
     })
   }
 }
@@ -308,13 +272,14 @@ class _ChooseAmount extends React.PureComponent {
           onChange={ev => {
             onChange(ev.target.value)
           }}
+          type="number"
           onBlur={this.handleBlur}
           label={t('Transfer.amount.field-label')}
           error={validation.error}
           placeholder="10"
         />
         <BottomButton
-          disabled={amount === '' || validation.error}
+          disabled={amount === '' || !!validation.error}
           label={t('Transfer.amount.confirm')}
           visible={active}
           onClick={onSelect}
@@ -422,6 +387,7 @@ const _Summary = ({
           className="u-clickable"
           onClick={selectSlide.bind(null, 'sender')}
         >
+          <AccountIcon size="small" account={senderAccount} />{' '}
           {senderAccount.label}
         </TextCard>
         <br />
@@ -464,11 +430,11 @@ const _Password = ({
   <>
     <Padded>
       {active && <PageTitle>{t('Transfer.password.page-title')}</PageTitle>}
-      <Title>{t('Transfer.password.title')}</Title>
-      <p className="u-ta-center">
-        <AccountIcon account={senderAccount} size="large" />
-      </p>
-      <p>
+      <Stack>
+        <Title>{t('Transfer.password.title')}</Title>
+        <div className="u-ta-center">
+          <AccountIcon account={senderAccount} size="large" />
+        </div>
         <Field
           type="password"
           onChange={onChangePassword}
@@ -476,7 +442,7 @@ const _Password = ({
           placeholder={t('Transfer.password.field-placeholder')}
           label={t('Transfer.password.field-label')}
         />
-      </p>
+      </Stack>
     </Padded>
     <BottomButton
       label={t('Transfer.password.confirm')}
@@ -819,7 +785,10 @@ class TransferPage extends React.Component {
       )
     }
 
-    const categoryFilter = recipient => recipient.category === category
+    const categoryFilter = recipientUtils.createCategoryFilter(
+      category,
+      accounts.data
+    )
     const beneficiaries = recipientUtils.groupAsBeneficiary(
       recipients.data.filter(categoryFilter),
       accounts.data

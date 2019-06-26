@@ -88,7 +88,7 @@ const DownArrow = ({ color }) => (
   <Icon
     width={12}
     height={12}
-    icon="small-arrow"
+    icon="bottom"
     className={cx(styles.DownArrow, styles[`DownArrowColor_${color}`])}
   />
 )

@@ -12,7 +12,7 @@ const SmallArrow = () => (
   <Icon
     className={styles.Select__Icon}
     style={smallArrowStyle}
-    icon="small-arrow"
+    icon="bottom"
     width={12}
     height={12}
   />

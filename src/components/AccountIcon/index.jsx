@@ -13,6 +13,7 @@ const _AccountIcon = ({ account, className, size }) => {
   return (
     <span
       className={cx(styles.AccountIconContainer, {
+        [styles['AccountIconContainer--small']]: size === 'small',
         [styles['AccountIconContainer--large']]: size === 'large'
       })}
     >
