@@ -24,8 +24,8 @@ Object {
       "value": 600,
     },
     "delayedDebit": Object {
-      "accountsAssociations": Array [],
       "enabled": false,
+      "value": 2,
     },
     "healthBillLinked": Object {
       "enabled": true,

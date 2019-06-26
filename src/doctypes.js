@@ -120,7 +120,12 @@ export const schema = {
   bankAccounts: {
     doctype: ACCOUNT_DOCTYPE,
     attributes: {},
-    relationships: {}
+    relationships: {
+      checkingsAccount: {
+        type: 'has-one',
+        doctype: ACCOUNT_DOCTYPE
+      }
+    }
   },
   groups: {
     doctype: GROUP_DOCTYPE,

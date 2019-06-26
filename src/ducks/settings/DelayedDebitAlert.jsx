@@ -2,49 +2,20 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { translate } from 'cozy-ui/react'
 import SelectBox from 'cozy-ui/react/SelectBox'
-import { Text } from 'cozy-ui/react/Text'
-import { groupBy, pick, mapValues } from 'lodash'
 import { getAccountLabel, getAccountType } from 'ducks/account/helpers'
-import ToggleRow, { ToggleRowWrapper } from 'ducks/settings/ToggleRow'
-import Stack from 'components/Stack'
+import {
+  ToggleRowWrapper,
+  ToggleRowTitle,
+  ToggleRowInput,
+  ToggleRowToggle,
+  ToggleRowContent,
+  ToggleRowDescription
+} from 'ducks/settings/ToggleRow'
 import styles from 'ducks/settings/DelayedDebitAlert.styl'
 
-const AccountsAssociationSelect = props => {
-  const {
-    association,
-    creditCardOptions,
-    checkingsOptions,
-    enabled,
-    onChange,
-    ...rest
-  } = props
-
-  return (
-    <div className={styles.AccountsAssociationSelect} {...rest}>
-      <SelectBox
-        size="medium"
-        disabled={!enabled}
-        options={creditCardOptions}
-        value={creditCardOptions.find(
-          option => option.value === association.creditCardAccount
-        )}
-        onChange={selected =>
-          onChange({ ...association, creditCardAccount: selected.value })
-        }
-      />
-      <SelectBox
-        size="medium"
-        disabled={!enabled}
-        options={checkingsOptions}
-        value={checkingsOptions.find(
-          option => option.value === association.checkingsAccount
-        )}
-        onChange={selected =>
-          onChange({ ...association, checkingsAccount: selected.value })
-        }
-      />
-    </div>
-  )
+const parseNumber = val => {
+  val = val.replace(/\D/gi, '') || 0
+  return parseInt(val, 10)
 }
 
 class DumbDelayedDebitAlert extends React.Component {
@@ -53,93 +24,150 @@ class DumbDelayedDebitAlert extends React.Component {
     accounts: PropTypes.arrayOf(PropTypes.object).isRequired,
     enabled: PropTypes.bool.isRequired,
     onToggle: PropTypes.func.isRequired,
-    onAccountsAssociationChange: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired
+    t: PropTypes.func.isRequired,
+    onAccountsChange: PropTypes.func.isRequired
   }
 
-  makeSelectOptions() {
-    const accountsByType = pick(groupBy(this.props.accounts, getAccountType), [
-      'CreditCard',
-      'Checkings'
-    ])
+  state = {
+    creditCardAccount: null,
+    checkingsAccount: null
+  }
 
-    const {
-      CreditCard: creditCardOptions,
-      Checkings: checkingsOptions
-    } = mapValues(accountsByType, accounts =>
-      accounts.map(account => ({
-        value: account._id,
-        label: getAccountLabel(account)
-      }))
+  static getDerivedStateFromProps(props, state) {
+    const selectedCreditCard = DumbDelayedDebitAlert.prototype.getSelectedCreditCard.call(
+      { props }
     )
 
-    return { creditCardOptions, checkingsOptions }
+    return {
+      creditCardAccount: state.creditCardAccount || selectedCreditCard,
+      checkingsAccount:
+        state.checkingsAccount ||
+        (selectedCreditCard && selectedCreditCard.checkingsAccount.data)
+    }
+  }
+
+  onCreditCardChange = selected => {
+    const account = this.props.accounts.find(
+      account => account._id === selected.value
+    )
+
+    this.setState({ creditCardAccount: account })
+  }
+
+  onCheckingsChange = selected => {
+    const account = this.props.accounts.find(
+      account => account._id === selected.value
+    )
+
+    this.setState({ checkingsAccount: account })
+  }
+
+  onAccountChange = changes => {
+    this.props.onAccountsChange(changes)
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevState.creditCardAccount !== this.state.creditCardAccount ||
+      prevState.checkingsAccount !== this.state.checkingsAccount
+    ) {
+      if (this.state.creditCardAccount && this.state.checkingsAccount) {
+        this.onAccountChange({
+          previousCreditCard: prevState.creditCardAccount,
+          newCreditCard: this.state.creditCardAccount,
+          newCheckings: this.state.checkingsAccount
+        })
+      }
+    }
+  }
+
+  makeOption(account) {
+    return {
+      value: account._id,
+      label: getAccountLabel(account)
+    }
+  }
+
+  getCreditCardOptions() {
+    const accounts = this.props.accounts.filter(
+      account => getAccountType(account) === 'CreditCard'
+    )
+
+    return accounts.map(this.makeOption)
+  }
+
+  getCheckingsOptions() {
+    const accounts = this.props.accounts.filter(
+      account => getAccountType(account) === 'Checkings'
+    )
+
+    return accounts.map(this.makeOption)
+  }
+
+  getSelectedCreditCard() {
+    const selectedAccount = this.props.accounts.find(
+      account =>
+        getAccountType(account) === 'CreditCard' &&
+        account.checkingsAccount.data
+    )
+
+    return selectedAccount
+  }
+
+  getCreditCardDefaultValue() {
+    const selectedAccount = this.getSelectedCreditCard()
+
+    return selectedAccount ? this.makeOption(selectedAccount) : null
+  }
+
+  getCheckingsDefaultValue() {
+    const selectedCreditCard = this.getSelectedCreditCard()
+
+    return selectedCreditCard && selectedCreditCard.checkingsAccount.data
+      ? this.makeOption(selectedCreditCard.checkingsAccount.data)
+      : null
   }
 
   render() {
-    const {
-      enabled,
-      accountsAssociations,
-      onToggle,
-      onAccountsAssociationChange,
-      t
-    } = this.props
-
-    const { creditCardOptions, checkingsOptions } = this.makeSelectOptions()
-
-    const hasCreditCards = !!creditCardOptions
-    const hasCheckings = !!checkingsOptions
+    const { enabled, value, onToggle, onChangeValue, t } = this.props
 
     return (
       <ToggleRowWrapper>
-        <ToggleRow
-          title={t('Notifications.delayed_debit.settingTitle')}
-          description={t('Notifications.delayed_debit.description')}
-          onToggle={onToggle}
-          enabled={enabled}
-          name="delayedDebit"
-        />
-        {!hasCheckings && !hasCreditCards && (
-          <Text>{t('Notifications.delayed_debit.noAccount')}</Text>
-        )}
-        {hasCheckings && !hasCreditCards && (
-          <Text>{t('Notifications.delayed_debit.noCreditCard')}</Text>
-        )}
-        {!hasCheckings && hasCreditCards && (
-          <Text>{t('Notifications.delayed_debit.noCheckings')}</Text>
-        )}
-        {hasCheckings && hasCreditCards && (
-          <Stack>
-            {accountsAssociations.map((association, index) => (
-              <AccountsAssociationSelect
-                creditCardOptions={creditCardOptions}
-                checkingsOptions={checkingsOptions}
-                association={association}
-                enabled={enabled}
-                key={
-                  association.creditCardAccount + association.checkingsAccount
-                }
-                onChange={newAssociation =>
-                  onAccountsAssociationChange(index, newAssociation)
-                }
-              />
-            ))}
-            {accountsAssociations.length === 0 ? (
-              <AccountsAssociationSelect
-                creditCardOptions={creditCardOptions}
-                checkingsOptions={checkingsOptions}
-                association={{
-                  creditCardAccount: null,
-                  checkingsAccount: null
-                }}
-                enabled={enabled}
-                onChange={newAssociation =>
-                  onAccountsAssociationChange(0, newAssociation)
-                }
-              />
-            ) : null}
-          </Stack>
-        )}
+        <ToggleRowTitle>
+          {t('Notifications.delayed_debit.settingTitle')}
+        </ToggleRowTitle>
+        <ToggleRowContent>
+          <ToggleRowDescription>
+            {t('Notifications.delayed_debit.description.start')}
+            <SelectBox
+              size="tiny"
+              className={styles.SelectBox}
+              options={this.getCreditCardOptions()}
+              defaultValue={this.getCreditCardDefaultValue()}
+              onChange={this.onCreditCardChange}
+            />
+            {t('Notifications.delayed_debit.description.accountsGlue')}
+            <SelectBox
+              size="tiny"
+              className={styles.SelectBox}
+              options={this.getCheckingsOptions()}
+              defaultValue={this.getCheckingsDefaultValue()}
+              onChange={this.onCheckingsChange}
+            />
+            <ToggleRowInput
+              value={value}
+              onChange={e => onChangeValue(parseNumber(e.target.value))}
+              unit={t('Notifications.delayed_debit.unit')}
+            />
+            {t('Notifications.delayed_debit.description.end')}
+          </ToggleRowDescription>
+
+          <ToggleRowToggle
+            id="delayedDebit"
+            checked={enabled}
+            onToggle={checked => onToggle(checked)}
+          />
+        </ToggleRowContent>
       </ToggleRowWrapper>
     )
   }
