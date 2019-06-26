@@ -33,10 +33,10 @@ class _ReimbursementStatusModal extends React.PureComponent {
     return (
       <Modal
         mobileFullscreen
-        className={cx('u-flex', 'u-flex-column', className)}
+        className={cx('u-flex', 'u-flex-column', 'u-pv-2', className)}
         {...rest}
       >
-        <header className="u-ta-center u-pt-2">
+        <header className="u-ta-center">
           <Icon icon={iconReimbursement} size={56} color="var(--slateGrey)" />
           <Title className="u-mt-1">
             {t('Transactions.actions.reimbursementStatus.modal.title')}
