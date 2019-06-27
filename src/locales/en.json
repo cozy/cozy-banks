@@ -465,6 +465,9 @@
       "email": {
         "innerTitle": "Delayed debit notification",
         "accessAccounts": "Access my accounts"
+      },
+      "notification": {
+        "title": "Account '%{label}' will be at %{balance}%{currency} after your credit card debit"
       }
     }
   },

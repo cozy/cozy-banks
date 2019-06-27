@@ -3,7 +3,11 @@ import htmlTemplate from './html/delayed-debit-html'
 import * as utils from './html/utils'
 import Notification from './Notification'
 import logger from 'cozy-logger'
-import { getAccountBalance, getAccountType } from 'ducks/account/helpers'
+import {
+  getAccountBalance,
+  getAccountType,
+  getAccountLabel
+} from 'ducks/account/helpers'
 import { endOfMonth, subDays, isWithinRange } from 'date-fns'
 import { BankAccount } from 'cozy-doctypes'
 import { get, keyBy } from 'lodash'
@@ -79,12 +83,22 @@ class DelayedDebit extends Notification {
     const creditCardsToNotify = creditCards.filter(this.shouldBeNotified)
     log('info', `${creditCardsToNotify.length} accounts to notify`)
 
+    if (creditCardsToNotify.length === 0) {
+      return
+    }
+
     const mailContent = this.getMailContent(creditCardsToNotify)
     const pushContent = this.getPushContent(creditCardsToNotify)
 
+    const title = this.t('Notifications.delayed_debit.notification.title', {
+      balance: getAccountNewBalance(creditCardsToNotify[0]),
+      currency: '€',
+      label: getAccountLabel(creditCardsToNotify[0].checkingsAccount.data)
+    })
+
     return {
       category: 'delayed-debit',
-      title: 'DELAYED DEBIT TITLE',
+      title,
       message: pushContent,
       preferred_channels: ['mail', 'mobile'],
       content: mailContent.text,
