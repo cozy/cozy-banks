@@ -11770,10 +11770,10 @@ math-sign-x@^3.0.0:
     is-nan-x "^1.0.1"
     to-number-x "^2.0.0"
 
-matomo-tracker@2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/matomo-tracker/-/matomo-tracker-2.2.0.tgz#f1064977a7e96e6737f213bf8503b5390aaccfe3"
-  integrity sha512-kZIN4zRmuWRyG4S42kkMawMcsT6BQ/FYPK8IjeLNXAbN/CwPSlxlt7SdSyK/5k8F+S8nlmjXeUXf5SNFAXi8dA==
+matomo-tracker@2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/matomo-tracker/-/matomo-tracker-2.2.1.tgz#bd61c32e8b9e8b4825e9dc9dc784cb598ef2169c"
+  integrity sha512-l81WwBbZX09WGhh4yMOmknO8vFJVWtI6hDFrowoqQIoINrKKn11RVfJYVpLHEdA/EUbXcqLsRRNCKeLAag7Q6w==
 
 max-safe-integer@^1.0.1:
   version "1.0.1"
