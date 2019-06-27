@@ -104,6 +104,9 @@ const partials = {
   ),
   'late-health-reimbursement': Handlebars.compile(
     require('ducks/notifications/html/templates/late-health-reimbursement.hbs')
+  ),
+  'delayed-debit': Handlebars.compile(
+    require('ducks/notifications/html/templates/delayed-debit.hbs')
   )
 }
 

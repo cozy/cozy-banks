@@ -461,7 +461,11 @@
         "accountsGlue": " generates a negative balance on its associated current account ",
         "end": " before the end of the month"
       },
-      "unit": "days"
+      "unit": "days",
+      "email": {
+        "innerTitle": "Delayed debit notification",
+        "accessAccounts": "Access my accounts"
+      }
     }
   },
 

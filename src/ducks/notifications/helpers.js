@@ -1,4 +1,5 @@
 import { uniq, flatten } from 'lodash'
+import { getAccountBalance } from 'ducks/account/helpers'
 
 export const isTransactionAmountGreaterThan = max => transaction => {
   // Math.abs(null) === 0
@@ -24,4 +25,11 @@ export const getReimbursementBillIds = transactions => {
   ).filter(Boolean)
 
   return billIds
+}
+
+export const getAccountNewBalance = creditCard => {
+  return (
+    getAccountBalance(creditCard.checkingsAccount.data) +
+    getAccountBalance(creditCard)
+  )
 }

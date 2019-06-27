@@ -1,9 +1,12 @@
+import Handlebars from 'handlebars'
+import htmlTemplate from './html/delayed-debit-html'
 import Notification from './Notification'
 import logger from 'cozy-logger'
 import { getAccountBalance, getAccountType } from 'ducks/account/helpers'
 import { endOfMonth, subDays, isWithinRange } from 'date-fns'
 import { BankAccount } from 'cozy-doctypes'
 import { get, keyBy } from 'lodash'
+import { getAccountNewBalance } from './helpers'
 
 const log = logger.namespace('delayedDebit')
 
@@ -95,10 +98,21 @@ class DelayedDebit extends Notification {
     return 'DELAYED DEBIT PUSH CONTENT'
   }
 
-  getMailContent() {
+  getMailContent(creditCards) {
+    Handlebars.registerHelper({ t: this.t })
+    Handlebars.registerHelper({ getAccountBalance })
+    Handlebars.registerHelper({ getAccountNewBalance })
+
+    const templateData = {
+      accounts: creditCards,
+      urls: this.urls
+    }
+
+    const htmlContent = htmlTemplate(templateData)
+
     return {
       text: 'DELAYED DEBIT TEXT CONTENT',
-      html: 'DELAYED DEBIT HTML CONTENT'
+      html: htmlContent
     }
   }
 }
