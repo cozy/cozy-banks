@@ -107,6 +107,14 @@
       "multiple": false,
       "default_priority": "normal",
       "templates": {}
+    },
+    "delayed-debit": {
+      "description": "Alert the user when an account balance is going to be negative after delayed debit",
+      "collapsible": false,
+      "stateful": false,
+      "multiple": false,
+      "default_priority": "normal",
+      "templates": {}
     }
   },
   "permissions": {
