@@ -110,7 +110,7 @@ class DelayedDebit extends Notification {
   }
 
   getPushContent() {
-    return 'DELAYED DEBIT PUSH CONTENT'
+    return ''
   }
 
   htmlToText(html) {
