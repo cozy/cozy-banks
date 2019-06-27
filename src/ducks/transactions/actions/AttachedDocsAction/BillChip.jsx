@@ -10,7 +10,7 @@ import FileIcon from 'ducks/transactions/actions/AttachedDocsAction/FileIcon'
 import { Figure } from 'components/Figure'
 import { AugmentedModalOpener } from 'components/AugmentedModal'
 
-class DumbBillChip extends React.PureComponent {
+export class DumbBillChip extends React.PureComponent {
   static propTypes = {
     bill: PropTypes.object.isRequired
   }
@@ -34,7 +34,15 @@ class DumbBillChip extends React.PureComponent {
 
   render() {
     const { bill, t } = this.props
-    const [, invoiceId] = this.getInvoiceId(bill)
+    let invoiceId
+
+    try {
+      invoiceId = this.getInvoiceId(bill)[1]
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log(err)
+      return null
+    }
 
     const isVentePrivee = flag('demo') && bill.vendor === 'Vente Privée'
 
