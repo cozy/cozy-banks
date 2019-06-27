@@ -5102,10 +5102,10 @@ cozy-realtime@3.1.0:
   dependencies:
     minilog "3.1.0"
 
-cozy-stack-client@6.43.1:
-  version "6.43.1"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.43.1.tgz#716bf2914fedca86d9d74c1a31f81edfdc8d960b"
-  integrity sha512-GhjANhBl6UlBSxuzn/3sKo5zvOEsYAfX198Sn174ejRu9r3v7EHc630OU8bf/lMuv0qFe15Sa5bHW20ue8ac0A==
+cozy-stack-client@6.47.0:
+  version "6.47.0"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.47.0.tgz#2ea33334b58a28c4abf27e0ca3fcc839d7b0597a"
+  integrity sha512-luZh7m4FtD9b0UfyiWKpzz+ZbDQSBTeui3i2M3Yzf1MFiPXR/gdo4HHp8/xkuWBzCbuBmP3O8oPrkgBYIxx8+w==
   dependencies:
     detect-node "2.0.4"
     mime-types "2.1.24"
