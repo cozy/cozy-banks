@@ -567,8 +567,8 @@
   },
 
   "Reimbursements": {
-    "title": "Remboursements",
-    "awaiting": "en attente",
+    "title": "Rembours. santé",
+    "pending": "Remboursements en attente : ",
     "alreadyReimbursed": "Déjà remboursés",
     "noAwaiting": "Aucun remboursement attendu.",
     "noReimbursed": "Détecter automatiquement vos remboursements en connectant votre assurance santé à votre Cozy."
@@ -645,5 +645,16 @@
     },
     "exit": "Terminer",
     "retry": "Réessayer"
+  },
+
+  "ReimbursementStatusModal": {
+    "contact": {
+      "actions": {
+        "sendCareSheet": "Envoyer ma feuile de soin",
+        "contactComplementary": "Contacter ma complémentaire"
+      },
+      "phoneCallPrice": " + prix appel",
+      "phoneCallFree": "Appel non surtaxé"
+    }
   }
 }

@@ -615,8 +615,8 @@
   },
 
   "Reimbursements": {
-    "title": "Reimbursements",
-    "awaiting": "awaiting",
+    "title": "Health reimbursements",
+    "pending": "Pending reimbursements: ",
     "alreadyReimbursed": "Already reimbursed",
     "noAwaiting": "No awaiting reimbursement.",
     "noReimbursed": "Automatically detect your health reimbursements by connecting your health insurance to your Cozy."
@@ -690,5 +690,16 @@
     },
     "exit": "Finish",
     "retry": "Retry"
+  },
+
+  "ReimbursementStatusModal": {
+    "contact": {
+      "actions": {
+        "sendCareSheet": "Send my care sheet",
+        "contactComplementary": "Contact my complementary"
+      },
+      "phoneCallPrice": " + call price",
+      "phoneCallFree": "Not surcharged call"
+    }
   }
 }

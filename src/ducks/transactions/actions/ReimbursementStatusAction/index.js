@@ -95,6 +95,7 @@ class ReimbursementStatusAction extends React.PureComponent {
             mobileFullscreen
             transaction={transaction}
             onChange={this.handleChange}
+            brands={this.props.actionProps.brands}
           />
         )}
       </>
