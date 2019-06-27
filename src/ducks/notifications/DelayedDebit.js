@@ -1,5 +1,6 @@
 import Handlebars from 'handlebars'
 import htmlTemplate from './html/delayed-debit-html'
+import * as utils from './html/utils'
 import Notification from './Notification'
 import logger from 'cozy-logger'
 import { getAccountBalance, getAccountType } from 'ducks/account/helpers'
@@ -98,6 +99,38 @@ class DelayedDebit extends Notification {
     return 'DELAYED DEBIT PUSH CONTENT'
   }
 
+  htmlToText(html) {
+    const INSTITUTION_SEL = '.js-institution'
+    const ACCOUNT_SEL = '.js-account'
+
+    const getContent = $ =>
+      $([ACCOUNT_SEL, INSTITUTION_SEL].join(', '))
+        .toArray()
+        .map(node => {
+          const $node = $(node)
+          if ($node.is(INSTITUTION_SEL)) {
+            return '\n ### ' + $node.text() + '\n'
+          } else if ($node.is(ACCOUNT_SEL)) {
+            return (
+              '- ' +
+              $node
+                .find('td')
+                .map((i, td) =>
+                  $(td)
+                    .text()
+                    .replace(/\n/g, '')
+                    .replace(' €', '€')
+                    .trim()
+                )
+                .toArray()
+                .join(' ')
+            )
+          }
+        })
+        .join('\n')
+    return utils.toText(html, getContent)
+  }
+
   getMailContent(creditCards) {
     Handlebars.registerHelper({ t: this.t })
     Handlebars.registerHelper({ getAccountBalance })
@@ -109,9 +142,10 @@ class DelayedDebit extends Notification {
     }
 
     const htmlContent = htmlTemplate(templateData)
+    const textContent = this.htmlToText(htmlContent)
 
     return {
-      text: 'DELAYED DEBIT TEXT CONTENT',
+      text: textContent,
       html: htmlContent
     }
   }
