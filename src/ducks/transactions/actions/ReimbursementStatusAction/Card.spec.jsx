@@ -1,6 +1,9 @@
 import React from 'react'
-import { DumbPhoneCard, DumbWebCard } from './Card'
+import { DumbPhoneCard, DumbWebCard, DumbAppCard } from './Card'
 import { mount } from 'enzyme'
+import { getPlatform } from 'cozy-device-helper'
+
+jest.mock('cozy-device-helper')
 
 const t = key => key
 
@@ -36,6 +39,25 @@ describe('DumbWebCard', () => {
 
     expect(
       mount(<DumbWebCard contact={contact} t={t} />).html()
+    ).toMatchSnapshot()
+  })
+})
+
+describe('DumbAppCard', () => {
+  it('should render nothing if the platform does not match with the current device', () => {
+    getPlatform.mockReturnValueOnce('ios')
+
+    const contact = { platform: 'android', href: 'http://some.thing' }
+
+    expect(mount(<DumbAppCard contact={contact} t={t} />).html()).toBe(null)
+  })
+
+  it('should render correctly if the platform matches with the current device', () => {
+    getPlatform.mockReturnValueOnce('ios')
+
+    const contact = { platform: 'ios', href: 'http://some.thing' }
+    expect(
+      mount(<DumbAppCard contact={contact} t={t} />).html()
     ).toMatchSnapshot()
   })
 })

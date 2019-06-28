@@ -3,6 +3,30 @@
 exports[`brandDictionary getBrandsWithInstallationInfo Should return the list of brands with a isInstalled boolean property 1`] = `
 Array [
   Object {
+    "contact": Array [
+      Object {
+        "action": "sendCareSheet",
+        "href": "https://alan.eu/login",
+        "type": "web",
+      },
+      Object {
+        "href": "https://alan.eu/open-or-download-mobile-app?origin=alanweb_landing_footer&os=android",
+        "platform": "android",
+        "type": "app",
+      },
+      Object {
+        "href": "https://alan.eu/open-or-download-mobile-app?origin=alanweb_landing_footer&os=ios",
+        "platform": "ios",
+        "type": "app",
+      },
+    ],
+    "health": true,
+    "isInstalled": false,
+    "konnectorSlug": "alan",
+    "name": "Alan",
+    "regexp": "\\\\balan\\\\b",
+  },
+  Object {
     "isInstalled": false,
     "konnectorSlug": "amazon",
     "name": "Amazon",
@@ -241,6 +265,11 @@ Array [
       Object {
         "number": "09 69 39 39 39",
         "type": "phone",
+      },
+      Object {
+        "href": "https://play.google.com/store/apps/details?id=fr.lamutuellegenerale.mamutuelle",
+        "platform": "android",
+        "type": "app",
       },
     ],
     "health": true,
@@ -526,6 +555,30 @@ Array [
 exports[`brandDictionary getInstalledBrands Should return the not installed brands 1`] = `
 Array [
   Object {
+    "contact": Array [
+      Object {
+        "action": "sendCareSheet",
+        "href": "https://alan.eu/login",
+        "type": "web",
+      },
+      Object {
+        "href": "https://alan.eu/open-or-download-mobile-app?origin=alanweb_landing_footer&os=android",
+        "platform": "android",
+        "type": "app",
+      },
+      Object {
+        "href": "https://alan.eu/open-or-download-mobile-app?origin=alanweb_landing_footer&os=ios",
+        "platform": "ios",
+        "type": "app",
+      },
+    ],
+    "health": true,
+    "isInstalled": false,
+    "konnectorSlug": "alan",
+    "name": "Alan",
+    "regexp": "\\\\balan\\\\b",
+  },
+  Object {
     "isInstalled": false,
     "konnectorSlug": "amazon",
     "name": "Amazon",
@@ -739,6 +792,11 @@ Array [
       Object {
         "number": "09 69 39 39 39",
         "type": "phone",
+      },
+      Object {
+        "href": "https://play.google.com/store/apps/details?id=fr.lamutuellegenerale.mamutuelle",
+        "platform": "android",
+        "type": "app",
       },
     ],
     "health": true,

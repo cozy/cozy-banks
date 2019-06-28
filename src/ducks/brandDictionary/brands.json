@@ -1,5 +1,28 @@
 [
   {
+    "name": "Alan",
+    "regexp": "\\balan\\b",
+    "konnectorSlug": "alan",
+    "health": true,
+    "contact": [
+      {
+        "type": "web",
+        "href": "https://alan.eu/login",
+        "action": "sendCareSheet"
+      },
+      {
+        "type": "app",
+        "platform": "android",
+        "href": "https://alan.eu/open-or-download-mobile-app?origin=alanweb_landing_footer&os=android"
+      },
+      {
+        "type": "app",
+        "platform": "ios",
+        "href": "https://alan.eu/open-or-download-mobile-app?origin=alanweb_landing_footer&os=ios"
+      }
+    ]
+  },
+  {
     "name": "Amazon",
     "regexp": "\\bamazo?n\\b",
     "konnectorSlug": "amazon"
@@ -208,6 +231,11 @@
       {
         "type": "phone",
         "number": "09 69 39 39 39"
+      },
+      {
+        "type": "app",
+        "platform": "android",
+        "href": "https://play.google.com/store/apps/details?id=fr.lamutuellegenerale.mamutuelle"
       }
     ]
   },
