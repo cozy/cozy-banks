@@ -86,7 +86,11 @@ const _BeneficiaryRow = ({ beneficiary, onSelect }) => {
       <Media className="u-w-100">
         {beneficiary.account ? (
           <Img className="u-mr-1">
-            <AccountIcon account={beneficiary.account} />
+            {/* TODO, remove key when AccountIcon correctly updates on account change (https://github.com/cozy/cozy-ui/issues/1076) */}
+            <AccountIcon
+              key={beneficiary.account._id}
+              account={beneficiary.account}
+            />
           </Img>
         ) : null}
         <Bd>
@@ -232,7 +236,8 @@ const SenderRow = ({ account, onSelect }) => {
     >
       <Media className="u-w-100">
         <Img className="u-mr-1">
-          <AccountIcon account={account} />
+          {/* TODO, remove key when AccountIcon correctly updates on account change (https://github.com/cozy/cozy-ui/issues/1076) */}
+          <AccountIcon key={account._id} account={account} />
         </Img>
         <Bd>
           <Text>{account.shortLabel}</Text>
@@ -315,7 +320,12 @@ const _Summary = ({
           className="u-clickable"
           onClick={selectSlide.bind(null, 'sender')}
         >
-          <AccountIcon size="small" account={senderAccount} />{' '}
+          {/* TODO, remove key when AccountIcon correctly updates on account change (https://github.com/cozy/cozy-ui/issues/1076) */}
+          <AccountIcon
+            key={senderAccount._id}
+            size="small"
+            account={senderAccount}
+          />{' '}
           {senderAccount.label}
         </TextCard>
         <br />
@@ -355,7 +365,14 @@ const _Password = ({
       <Stack>
         <Title>{t('Transfer.password.title')}</Title>
         <div className="u-ta-center">
-          <AccountIcon account={senderAccount} size="large" />
+          {/* TODO, remove key when AccountIcon correctly updates on account change (https://github.com/cozy/cozy-ui/issues/1076) */}
+          {senderAccount ? (
+            <AccountIcon
+              key={senderAccount._id}
+              account={senderAccount}
+              size="large"
+            />
+          ) : null}
         </div>
         <Field
           type="password"
