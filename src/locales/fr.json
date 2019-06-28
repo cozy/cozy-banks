@@ -467,11 +467,13 @@
       "support": "Aide et support"
     },
     "delayed_debit": {
-      "settingTitle": "Alerte de débit différé",
-      "description": "Vous recevrez une notification lorsque...",
-      "noCheckings": "Vous n'avez pas de compte courant.",
-      "noCreditCard": "Vous n'avez pas de compte de carte de crédit",
-      "noAccount": "Vous n'avez pas de compte bancaire."
+      "settingTitle": "Paiement de l'encours carte à débit différé",
+      "description": {
+        "start": "Vous recevrez une notification lorque l'encours carte du compte ",
+        "accountsGlue": " engendre un solde négatif sur son compte courant associé ",
+        "end": " avant la fin du mois"
+      },
+      "unit": "jours"
     }
   },
 

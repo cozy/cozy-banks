@@ -54,17 +54,17 @@ class Configuration extends React.Component {
     })
   }
 
-  onDelayedDebitAccountsAssociationChange = (index, association) => {
-    const { settingsCollection } = this.props
-    const settings = getDefaultedSettingsFromCollection(settingsCollection)
-    set(
-      settings,
-      `notifications.delayedDebit.accountsAssociations[${index}]`,
-      association
-    )
-    this.saveDocument(settings, {
-      updateCollections: ['settings']
-    })
+  onDelayedDebitAccountsChange = async changes => {
+    if (
+      changes.previousCreditCard &&
+      changes.previousCreditCard !== changes.newCreditCard
+    ) {
+      changes.previousCreditCard.checkingsAccount.unset()
+      await this.saveDocument(changes.previousCreditCard)
+    }
+
+    changes.newCreditCard.checkingsAccount.set(changes.newCheckings)
+    await this.saveDocument(changes.newCreditCard)
   }
 
   render() {
@@ -99,9 +99,8 @@ class Configuration extends React.Component {
             <DelayedDebitAlert
               accounts={accounts}
               onToggle={this.onToggle('notifications.delayedDebit')}
-              onAccountsAssociationChange={
-                this.onDelayedDebitAccountsAssociationChange
-              }
+              onChangeValue={this.onChangeValue('notifications.delayedDebit')}
+              onAccountsChange={this.onDelayedDebitAccountsChange}
               {...settings.notifications.delayedDebit}
             />
           )}
