@@ -4929,13 +4929,13 @@ cozy-client-js@^0.15.0:
     pouchdb-browser "7.0.0"
     pouchdb-find "7.0.0"
 
-cozy-client@6.46.0:
-  version "6.46.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.46.0.tgz#2512541d65158e0c32e171eb7acbd1060475f46d"
-  integrity sha512-lmddGQ2LaHOB09Rq3q6/JVHBXQgYURmlTt5l6nGpAelZ5LBgEBEEqNQY4hgDajnVKEnGOlwgC58XcQ3d/6jvvg==
+cozy-client@6.48.0:
+  version "6.48.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.48.0.tgz#23bdf234b3837845d64912e9986a561b84cf0d67"
+  integrity sha512-HctMuTgOaWKL+xqH16Zy36AMTHAqg5k2BCWOuDDJbNGSluu2G52wt9Zpc9mUAkguemerwZ98jMMEfQXEcSiKdA==
   dependencies:
     cozy-device-helper "1.6.3"
-    cozy-stack-client "^6.46.0"
+    cozy-stack-client "^6.47.0"
     lodash "4.17.11"
     microee "0.0.6"
     prop-types "15.6.2"
