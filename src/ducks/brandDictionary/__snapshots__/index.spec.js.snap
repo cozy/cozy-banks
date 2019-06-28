@@ -271,6 +271,11 @@ Array [
         "platform": "android",
         "type": "app",
       },
+      Object {
+        "href": "https://apps.apple.com/fr/app/m-mutuelle/id582194132",
+        "platform": "ios",
+        "type": "app",
+      },
     ],
     "health": true,
     "isInstalled": false,
@@ -796,6 +801,11 @@ Array [
       Object {
         "href": "https://play.google.com/store/apps/details?id=fr.lamutuellegenerale.mamutuelle",
         "platform": "android",
+        "type": "app",
+      },
+      Object {
+        "href": "https://apps.apple.com/fr/app/m-mutuelle/id582194132",
+        "platform": "ios",
         "type": "app",
       },
     ],
