@@ -654,7 +654,11 @@
         "contactComplementary": "Contacter ma complémentaire"
       },
       "phoneCallPrice": " + prix appel",
-      "phoneCallFree": "Appel non surtaxé"
+      "phoneCallFree": "Appel non surtaxé",
+      "openApp": {
+        "title": "Ouvrir l'application",
+        "caption": "Depuis mon téléphone"
+      }
     }
   }
 }

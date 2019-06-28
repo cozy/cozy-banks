@@ -699,7 +699,11 @@
         "contactComplementary": "Contact my complementary"
       },
       "phoneCallPrice": " + call price",
-      "phoneCallFree": "Not surcharged call"
+      "phoneCallFree": "Not surcharged call",
+      "openApp": {
+        "title": "Open the application",
+        "caption": "On my phone"
+      }
     }
   }
 }

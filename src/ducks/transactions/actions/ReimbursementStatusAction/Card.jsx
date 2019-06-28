@@ -6,6 +6,7 @@ import { Caption, Text } from 'cozy-ui/react/Text'
 import Icon, { iconPropType } from 'cozy-ui/react/Icon'
 import cx from 'classnames'
 import styles from 'ducks/transactions/actions/ReimbursementStatusAction/Card.styl'
+import { getPlatform } from 'cozy-device-helper'
 
 // TODO use icons from cozy-ui when https://github.com/cozy/cozy-ui/pull/983
 // has been merged
@@ -97,6 +98,38 @@ DumbWebCard.propTypes = {
 
 export const WebCard = translate()(DumbWebCard)
 
+export const DumbAppCard = props => {
+  const { contact, t, ...rest } = props
+
+  if (getPlatform() !== contact.platform) {
+    return null
+  }
+
+  return (
+    <Card
+      href={contact.href}
+      title={t('ReimbursementStatusModal.contact.openApp.title')}
+      caption={t('ReimbursementStatusModal.contact.openApp.caption')}
+      icon="phone"
+      target="_blank"
+      tag="a"
+      {...rest}
+    />
+  )
+}
+
+const appContactShape = PropTypes.shape({
+  platform: PropTypes.oneOf(['android', 'ios']).isRequired,
+  href: PropTypes.string.isRequired
+})
+
+DumbAppCard.propTypes = {
+  contact: appContactShape.isRequired,
+  t: PropTypes.func.isRequired
+}
+
+export const AppCard = translate()(DumbAppCard)
+
 export const ContactCard = props => {
   const { type, ...rest } = props
 
@@ -107,12 +140,15 @@ export const ContactCard = props => {
     case 'web':
       return <WebCard {...rest} />
 
+    case 'app':
+      return <AppCard {...rest} />
+
     default:
       return null
   }
 }
 
 ContactCard.propTypes = {
-  type: PropTypes.oneOf(['phone', 'web']).isRequired,
+  type: PropTypes.oneOf(['phone', 'web', 'app']).isRequired,
   contact: PropTypes.object.isRequired
 }
