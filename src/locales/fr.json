@@ -473,7 +473,14 @@
         "accountsGlue": " engendre un solde négatif sur son compte courant associé ",
         "end": " avant la fin du mois"
       },
-      "unit": "jours"
+      "unit": "jours",
+      "email": {
+        "innerTitle": "Notification de paiement de l'encours carte à débit différé",
+        "accessAccounts": "Accéder à mes comptes"
+      },
+      "notification": {
+        "title": "Le compte '%{label}' sera à %{balance}%{currency} après le débit de l'encours de votre carte de crédit"
+      }
     }
   },
 

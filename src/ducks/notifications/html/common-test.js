@@ -1,6 +1,7 @@
 const fs = require('fs')
 const Handlebars = require('handlebars').default
 const Notification = require('../Notification').default
+const { getAccountNewBalance } = require('../helpers')
 
 const readJSONSync = filename => {
   return JSON.parse(fs.readFileSync(filename))
@@ -31,6 +32,11 @@ export const EMAILS = {
     data: readJSONSync(
       'src/ducks/notifications/html/data/late-health-reimbursement.json'
     )
+  },
+
+  delayedDebit: {
+    template: require('./delayed-debit-html').default,
+    data: readJSONSync('src/ducks/notifications/html/data/delayed-debit.json')
   }
 }
 
@@ -41,7 +47,8 @@ export const renderTemplate = (templateName, lang) => {
   const t = translation.t.bind(translation)
   Handlebars.registerHelper({
     tGlobal: key => t('Notifications.email.' + key),
-    t
+    t,
+    getAccountNewBalance
   })
   const data = EMAILS[templateName].data
   const tpl = EMAILS[templateName].template

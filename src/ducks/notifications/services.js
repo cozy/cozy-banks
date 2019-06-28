@@ -4,7 +4,8 @@ import {
   BalanceLower,
   TransactionGreater,
   HealthBillLinked,
-  LateHealthReimbursement
+  LateHealthReimbursement,
+  DelayedDebit
 } from 'ducks/notifications'
 import { BankAccount } from 'models'
 
@@ -19,7 +20,8 @@ const notificationClasses = [
   BalanceLower,
   TransactionGreater,
   HealthBillLinked,
-  LateHealthReimbursement
+  LateHealthReimbursement,
+  DelayedDebit
 ]
 
 const fetchTransactionAccounts = async transactions => {
