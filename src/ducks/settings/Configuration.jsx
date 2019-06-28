@@ -29,6 +29,8 @@ class Configuration extends React.Component {
     this.forceUpdate()
   }
 
+  static renderExtraItems = () => null
+
   onToggle = key => checked => {
     const { settingsCollection } = this.props
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
@@ -199,6 +201,8 @@ class Configuration extends React.Component {
             name="amountBlur"
           />
         </TogglePane>
+
+        {Configuration.renderExtraItems()}
       </div>
     )
   }
