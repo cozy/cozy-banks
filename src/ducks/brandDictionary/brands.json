@@ -236,6 +236,11 @@
         "type": "app",
         "platform": "android",
         "href": "https://play.google.com/store/apps/details?id=fr.lamutuellegenerale.mamutuelle"
+      },
+      {
+        "type": "app",
+        "platform": "ios",
+        "href": "https://apps.apple.com/fr/app/m-mutuelle/id582194132"
       }
     ]
   },
