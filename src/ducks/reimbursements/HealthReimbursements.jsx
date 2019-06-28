@@ -7,8 +7,6 @@ import flag from 'cozy-flags'
 import cx from 'classnames'
 import { getHealthExpensesByPeriod } from 'ducks/filters'
 import { TransactionsWithSelection } from 'ducks/transactions/Transactions'
-import withBrands from 'ducks/brandDictionary/withBrands'
-import withAppsUrls from 'ducks/apps/withAppsUrls'
 import {
   isFullyReimbursed,
   getReimbursementStatus
@@ -24,6 +22,7 @@ import { StoreLink } from 'components/StoreLink'
 import { Section } from 'components/Section'
 import withFilters from 'components/withFilters'
 import { getYear } from 'date-fns'
+import TransactionActionsProvider from 'ducks/transactions/TransactionActionsProvider'
 
 const Caption = props => {
   const { className, ...rest } = props
@@ -77,7 +76,7 @@ export class DumbHealthReimbursements extends Component {
     const pendingAmount = sumBy(pendingTransactions, t => -t.amount)
 
     return (
-      <>
+      <TransactionActionsProvider>
         <Section>
           <Title>
             <Padded className="u-pv-0">
@@ -93,8 +92,6 @@ export class DumbHealthReimbursements extends Component {
           {pendingTransactions ? (
             <TransactionsWithSelection
               transactions={pendingTransactions}
-              brands={this.props.brands}
-              urls={this.props.urls}
               withScroll={false}
               className={styles.HealthReimbursements__transactionsList}
             />
@@ -113,8 +110,6 @@ export class DumbHealthReimbursements extends Component {
           {reimbursedTransactions ? (
             <TransactionsWithSelection
               transactions={reimbursedTransactions}
-              brands={this.props.brands}
-              urls={this.props.urls}
               withScroll={false}
               className={styles.HealthReimbursements__transactionsList}
             />
@@ -127,7 +122,7 @@ export class DumbHealthReimbursements extends Component {
             </Padded>
           )}
         </Section>
-      </>
+      </TransactionActionsProvider>
     )
   }
 }
@@ -150,8 +145,6 @@ const HealthReimbursements = compose(
     transactions: transactionsConn
   }),
   connect(mapStateToProps),
-  withBrands,
-  withAppsUrls,
   withFilters
 )(DumbHealthReimbursements)
 
