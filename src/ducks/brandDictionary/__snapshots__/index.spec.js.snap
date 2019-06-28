@@ -266,6 +266,11 @@ Array [
         "number": "09 69 39 39 39",
         "type": "phone",
       },
+      Object {
+        "href": "https://play.google.com/store/apps/details?id=fr.lamutuellegenerale.mamutuelle",
+        "platform": "android",
+        "type": "app",
+      },
     ],
     "health": true,
     "isInstalled": false,
@@ -787,6 +792,11 @@ Array [
       Object {
         "number": "09 69 39 39 39",
         "type": "phone",
+      },
+      Object {
+        "href": "https://play.google.com/store/apps/details?id=fr.lamutuellegenerale.mamutuelle",
+        "platform": "android",
+        "type": "app",
       },
     ],
     "health": true,

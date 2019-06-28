@@ -231,6 +231,11 @@
       {
         "type": "phone",
         "number": "09 69 39 39 39"
+      },
+      {
+        "type": "app",
+        "platform": "android",
+        "href": "https://play.google.com/store/apps/details?id=fr.lamutuellegenerale.mamutuelle"
       }
     ]
   },
