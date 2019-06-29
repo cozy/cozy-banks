@@ -4929,24 +4929,7 @@ cozy-client-js@^0.15.0:
     pouchdb-browser "7.0.0"
     pouchdb-find "7.0.0"
 
-cozy-client@6.48.0:
-  version "6.48.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.48.0.tgz#23bdf234b3837845d64912e9986a561b84cf0d67"
-  integrity sha512-HctMuTgOaWKL+xqH16Zy36AMTHAqg5k2BCWOuDDJbNGSluu2G52wt9Zpc9mUAkguemerwZ98jMMEfQXEcSiKdA==
-  dependencies:
-    cozy-device-helper "1.6.3"
-    cozy-stack-client "^6.47.0"
-    lodash "4.17.11"
-    microee "0.0.6"
-    prop-types "15.6.2"
-    react "16.7.0"
-    react-redux "5.0.7"
-    redux "3.7.2"
-    redux-thunk "2.3.0"
-    sift "6.0.0"
-    url-search-params-polyfill "^6.0.0"
-
-cozy-client@^6.48.0:
+cozy-client@6.48.0, cozy-client@^6.48.0:
   version "6.48.0"
   resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.48.0.tgz#23bdf234b3837845d64912e9986a561b84cf0d67"
   integrity sha512-HctMuTgOaWKL+xqH16Zy36AMTHAqg5k2BCWOuDDJbNGSluu2G52wt9Zpc9mUAkguemerwZ98jMMEfQXEcSiKdA==
@@ -5102,25 +5085,7 @@ cozy-realtime@3.1.0:
   dependencies:
     minilog "3.1.0"
 
-cozy-stack-client@6.47.0:
-  version "6.47.0"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.47.0.tgz#2ea33334b58a28c4abf27e0ca3fcc839d7b0597a"
-  integrity sha512-luZh7m4FtD9b0UfyiWKpzz+ZbDQSBTeui3i2M3Yzf1MFiPXR/gdo4HHp8/xkuWBzCbuBmP3O8oPrkgBYIxx8+w==
-  dependencies:
-    detect-node "2.0.4"
-    mime-types "2.1.24"
-    qs "6.7.0"
-
-cozy-stack-client@^6.46.0:
-  version "6.46.0"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.46.0.tgz#9f36a9bceb51254f9b4991babf0e9cc72973c968"
-  integrity sha512-2u1pSP9pzAbcpOW8QIX+oLh2BVw/39FGUnuEo4Uio0HTvFy0a5hiXEX3IuUr+cvcy4TUH0Hb16N8ESowle6CxA==
-  dependencies:
-    detect-node "2.0.4"
-    mime-types "2.1.24"
-    qs "6.7.0"
-
-cozy-stack-client@^6.47.0:
+cozy-stack-client@6.47.0, cozy-stack-client@^6.47.0:
   version "6.47.0"
   resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.47.0.tgz#2ea33334b58a28c4abf27e0ca3fcc839d7b0597a"
   integrity sha512-luZh7m4FtD9b0UfyiWKpzz+ZbDQSBTeui3i2M3Yzf1MFiPXR/gdo4HHp8/xkuWBzCbuBmP3O8oPrkgBYIxx8+w==
@@ -15326,7 +15291,7 @@ prop-types@15.7.2, prop-types@^15.5.4, prop-types@^15.7.2:
     object-assign "^4.1.1"
     react-is "^16.8.1"
 
-prop-types@^15.5.10, prop-types@^15.5.6, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1:
+prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1:
   version "15.6.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.1.tgz#36644453564255ddda391191fb3a125cbdf654ca"
   integrity sha512-4ec7bY1Y66LymSUOH/zARVYObB23AT2h8cf6e/O6ZALB/N0sqZFEx7rq6EYPX2MkOdKORuooI/H5k9TlR4q7kQ==
@@ -15986,17 +15951,18 @@ react-redux@5.1.1:
     react-is "^16.6.0"
     react-lifecycles-compat "^3.0.0"
 
-react-router@3.2.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/react-router/-/react-router-3.2.1.tgz#b9a3279962bdfbe684c8bd0482b81ef288f0f244"
-  integrity sha512-SXkhC0nr3G0ltzVU07IN8jYl0bB6FsrDIqlLC9dK3SITXqyTJyM7yhXlUqs89w3Nqi5OkXsfRUeHX+P874HQrg==
+react-router@3.2.3:
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-3.2.3.tgz#340146a2d6ee5618539c1bf96332ac97f58d6a58"
+  integrity sha512-dOBEo8985n6xyJmorgHtLxb/k30ua/JdfUhATGTTVQJsnlb/u/rx7X7p//qHyLWEfUcM0CLMTXWS+hp+THCsxA==
   dependencies:
     create-react-class "^15.5.1"
     history "^3.0.0"
     hoist-non-react-statics "^2.3.1"
     invariant "^2.2.1"
     loose-envify "^1.2.0"
-    prop-types "^15.5.6"
+    prop-types "^15.7.2"
+    react-is "^16.8.6"
     warning "^3.0.0"
 
 react-select@2.2.0:
