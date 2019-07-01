@@ -6,7 +6,7 @@ import { includes } from 'lodash'
 import { isCollectionLoading } from 'ducks/client/utils'
 import { getKonnectorFromTrigger } from 'utils/triggers'
 
-const withBrands = Wrapped => {
+const withBrands = (options = { queryName: 'triggers' }) => Wrapped => {
   class RawWithBrands extends Component {
     getInstalledKonnectorsSlugs() {
       const { triggers } = this.props
@@ -37,7 +37,7 @@ const withBrands = Wrapped => {
   }
 
   const WithBrands = queryConnect({
-    triggers: triggersConn
+    triggers: { ...triggersConn, as: options.queryName }
   })(RawWithBrands)
 
   return WithBrands

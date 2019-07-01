@@ -23,6 +23,8 @@ import { Section } from 'components/Section'
 import withFilters from 'components/withFilters'
 import { getYear } from 'date-fns'
 import TransactionActionsProvider from 'ducks/transactions/TransactionActionsProvider'
+import withBrands from 'ducks/brandDictionary/withBrands'
+import { isCollectionLoading } from 'ducks/client/utils'
 
 const Caption = props => {
   const { className, ...rest } = props
@@ -51,10 +53,16 @@ export class DumbHealthReimbursements extends Component {
   }
 
   render() {
-    const { filteredTransactions, fetchStatus, t } = this.props
+    const {
+      filteredTransactions,
+      fetchStatus,
+      t,
+      triggers,
+      brands
+    } = this.props
     const reimbursementTagFlag = flag('reimbursement-tag')
 
-    if (fetchStatus !== 'loaded') {
+    if (fetchStatus !== 'loaded' || isCollectionLoading(triggers)) {
       return <Loading />
     }
 
@@ -74,6 +82,9 @@ export class DumbHealthReimbursements extends Component {
       : groupedTransactions.false
 
     const pendingAmount = sumBy(pendingTransactions, t => -t.amount)
+
+    const hasHealthBrands =
+      brands.filter(brand => brand.hasTrigger && brand.health).length > 0
 
     return (
       <TransactionActionsProvider>
@@ -116,9 +127,11 @@ export class DumbHealthReimbursements extends Component {
           ) : (
             <Padded className="u-pv-0">
               <Caption>{t('Reimbursements.noReimbursed')}</Caption>
-              <StoreLink type="konnector" category="insurance">
-                <KonnectorChip konnectorType="health" />
-              </StoreLink>
+              {!hasHealthBrands && (
+                <StoreLink type="konnector" category="insurance">
+                  <KonnectorChip konnectorType="health" />
+                </StoreLink>
+              )}
             </Padded>
           )}
         </Section>
@@ -145,7 +158,10 @@ const HealthReimbursements = compose(
     transactions: transactionsConn
   }),
   connect(mapStateToProps),
-  withFilters
+  withFilters,
+  // We need to have a different query name otherwise we end with an infinite
+  // loading
+  withBrands({ queryName: 'healthReimbursementsPageTriggers' })
 )(DumbHealthReimbursements)
 
 export default HealthReimbursements
