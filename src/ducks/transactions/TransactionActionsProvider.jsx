@@ -5,7 +5,7 @@ import { DumbTransactionActionsProvider } from 'ducks/transactions/TransactionAc
 
 const TransactionActionsProvider = compose(
   withAppsUrls,
-  withBrands
+  withBrands()
 )(DumbTransactionActionsProvider)
 
 export default TransactionActionsProvider
