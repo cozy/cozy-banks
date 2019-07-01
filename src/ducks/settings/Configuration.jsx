@@ -22,7 +22,7 @@ import ToggleRow, {
 } from 'ducks/settings/ToggleRow'
 import DelayedDebitAlert from 'ducks/settings/DelayedDebitAlert'
 
-class Configuration extends React.Component {
+export class Configuration extends React.Component {
   saveDocument = async doc => {
     const { saveDocument } = this.props
     await saveDocument(doc)
