@@ -135,14 +135,7 @@ export const RowDesktop = compose(
 
 class _RowMobile extends React.PureComponent {
   render() {
-    const {
-      transaction,
-      t,
-      filteringOnAccount,
-      brands,
-      urls,
-      onRef
-    } = this.props
+    const { transaction, t, filteringOnAccount, onRef } = this.props
     const account = transaction.account.data
     const accountInstitutionLabel = getAccountInstitutionLabel(account)
     const rowRest = {}
@@ -194,8 +187,6 @@ class _RowMobile extends React.PureComponent {
             <Img className={styles['bnk-transaction-mobile-action']}>
               <TransactionActions
                 transaction={transaction}
-                urls={urls}
-                brands={brands}
                 onlyDefault
                 compact
                 menuPosition="right"
@@ -206,8 +197,6 @@ class _RowMobile extends React.PureComponent {
         {flag('reimbursement-tag') && (
           <TransactionActions
             transaction={transaction}
-            urls={urls}
-            brands={brands}
             onlyDefault
             compact
             menuPosition="right"
