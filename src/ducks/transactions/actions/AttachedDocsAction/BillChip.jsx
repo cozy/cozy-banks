@@ -56,7 +56,12 @@ export class DumbBillChip extends React.PureComponent {
             className="u-flex-shrink-0"
           />
           {bill.isRefund ? (
-            <Figure total={bill.amount} coloredPositive signed symbol="€" />
+            <>
+              {bill.vendor && (
+                <span className="u-valid u-mr-half">{bill.vendor}</span>
+              )}
+              <Figure total={bill.amount} coloredPositive signed symbol="€" />
+            </>
           ) : (
             t('Transactions.actions.attachedDocs.bill')
           )}
