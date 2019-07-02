@@ -15,6 +15,7 @@ import { TransactionModalRow } from 'ducks/transactions/TransactionModal'
 import ReimbursementStatusModal from 'ducks/transactions/actions/ReimbursementStatusAction/ReimbursementStatusModal'
 import iconReimbursement from 'assets/icons/icon-reimbursement.svg'
 import { logException } from 'lib/sentry'
+import cx from 'classnames'
 
 class ReimbursementStatusAction extends React.PureComponent {
   state = {
@@ -62,7 +63,7 @@ class ReimbursementStatusAction extends React.PureComponent {
     const status = getReimbursementStatus(transaction)
     const isLate = isReimbursementLate(transaction)
 
-    if (status !== 'pending') {
+    if (status === 'no-reimbursement') {
       return null
     }
 
@@ -74,10 +75,15 @@ class ReimbursementStatusAction extends React.PureComponent {
         variant="outlined"
         theme={isLate ? 'error' : 'normal'}
         onClick={this.showModal}
+        className={cx({ 'u-valid': status === 'reimbursed' })}
       >
         {t(`Transactions.actions.reimbursementStatus.${translateKey}`)}
-        <Chip.Separator />
-        <Icon icon="hourglass" size={12} />
+        {status === 'pending' && (
+          <>
+            <Chip.Separator />
+            <Icon icon="hourglass" size={12} />
+          </>
+        )}
       </Chip>
     )
   }
