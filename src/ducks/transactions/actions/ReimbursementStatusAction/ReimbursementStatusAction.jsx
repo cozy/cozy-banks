@@ -15,7 +15,7 @@ import { translate } from 'cozy-ui/react'
 import { flowRight as compose } from 'lodash'
 import { withMutations } from 'cozy-client'
 
-class DumbReimbursementStatusAction extends React.PureComponent {
+export class DumbReimbursementStatusAction extends React.PureComponent {
   state = {
     showModal: false
   }
