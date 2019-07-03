@@ -141,12 +141,30 @@ class TransferPage extends React.Component {
     )
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
+    this.ensureHasAllRecipients()
+    this.checkToUpdateSlideBasedOnRoute(prevProps)
+  }
+
+  ensureHasAllRecipients() {
     if (
       this.props.recipients.hasMore &&
       this.props.recipients.fetchStatus !== 'loading'
     ) {
       this.props.recipients.fetchMore()
+    }
+  }
+
+  checkToUpdateSlideBasedOnRoute(prevProps) {
+    if (!this.props.router) {
+      // In tests when TransferPage is not wrapped in withRouter
+      return
+    }
+    const { routeParams: prevRouteParams } = prevProps
+    const { routeParams } = this.props
+    console.log(routeParams, routeParams.slideName, prevRouteParams.slideName)
+    if (routeParams.slideName !== prevRouteParams.slideName) {
+      this.selectSlideByName(routeParams.slideName)
     }
   }
 
@@ -272,7 +290,8 @@ class TransferPage extends React.Component {
   }
 
   selectSlideByName(slideName) {
-    this.setState({ slide: slideIndexes[slideName] })
+    this.setState({ slide: slideIndexes[slideName] || 0 })
+    this.props.router.push(slideName ? `/transfers/${slideName}` : '/transfers')
   }
 
   handleModalDismiss() {

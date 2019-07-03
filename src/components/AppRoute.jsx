@@ -50,6 +50,7 @@ const AppRoute = () => (
         </Route>
       </Route>
       <Route path="transfers" component={TransferPage} />
+      <Route path="transfers/:slideName" component={TransferPage} />
       {AppRoute.renderExtraRoutes()}
       <Redirect from="*" to="balances" />
     </Route>

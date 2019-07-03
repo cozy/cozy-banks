@@ -1,7 +1,14 @@
 import React from 'react'
 import { translate } from 'cozy-ui/react'
-import UINav, { NavItem, NavIcon, NavText, genNavLink } from 'cozy-ui/react/Nav'
-import { Link } from 'react-router'
+import cx from 'classnames'
+import UINav, {
+  NavItem,
+  NavIcon,
+  NavText,
+  genNavLink,
+  NavLink as UINavLink
+} from 'cozy-ui/react/Nav'
+import { Link, withRouter } from 'react-router'
 import flag from 'cozy-flags'
 
 import wallet from 'assets/icons/icon-wallet.svg'
@@ -9,6 +16,24 @@ import graph from 'assets/icons/icon-graph.svg'
 import transfers from 'assets/icons/icon-transfers.svg'
 
 const NavLink = genNavLink(Link)
+
+export const RegexNavLink = React.memo(
+  withRouter(props => (
+    <a
+      href={`#/${props.to}`}
+      className={cx(
+        UINavLink.className,
+        props.rx.test(props.location.pathname)
+          ? UINavLink.activeClassName
+          : null
+      )}
+    >
+      {props.children}
+    </a>
+  ))
+)
+
+const transferRoute = /\/transfers\/.*/
 
 export const Nav = ({ t }) => (
   <UINav>
@@ -26,10 +51,10 @@ export const Nav = ({ t }) => (
     </NavItem>
     {flag('transfers') ? (
       <NavItem>
-        <NavLink to="transfers">
+        <RegexNavLink to="transfers" rx={transferRoute}>
           <NavIcon icon={transfers} />
           <NavText>{t('Transfer.nav')}</NavText>
-        </NavLink>
+        </RegexNavLink>
       </NavItem>
     ) : null}
     <NavItem>
