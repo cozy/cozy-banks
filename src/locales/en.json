@@ -671,7 +671,8 @@
       "to": "to",
       "for": "for",
       "for-placeholder": "reason (optional)",
-      "confirm": "Confirm transfer"
+      "confirm": "Confirm transfer",
+      "on": "on"
     },
     "password": {
       "page-title": "Password",
