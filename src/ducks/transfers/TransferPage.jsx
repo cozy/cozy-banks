@@ -162,7 +162,6 @@ class TransferPage extends React.Component {
     }
     const { routeParams: prevRouteParams } = prevProps
     const { routeParams } = this.props
-    console.log(routeParams, routeParams.slideName, prevRouteParams.slideName)
     if (routeParams.slideName !== prevRouteParams.slideName) {
       this.selectSlideByName(routeParams.slideName)
     }

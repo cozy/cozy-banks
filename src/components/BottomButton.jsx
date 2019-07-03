@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from 'cozy-ui/react'
+import { Button, withBreakpoints } from 'cozy-ui/react'
 
 import Bottom from 'components/Bottom'
 import Padded from 'components/Spacing/Padded'
@@ -25,7 +25,7 @@ const styles = {
 }
 
 /** Button displayed at the bottom of the view on mobile, appears from the bottom */
-const _BottomButton = ({ visible, ...buttonProps }) => (
+const _BottomButtonMobile = ({ visible, ...buttonProps }) => (
   <Bottom style={!visible ? styles.invisibleWrapper : null}>
     <Padded>
       <Button
@@ -38,10 +38,24 @@ const _BottomButton = ({ visible, ...buttonProps }) => (
   </Bottom>
 )
 
-const BottomButton = React.memo(_BottomButton)
+// eslint-disable-next-line no-unused-vars
+const _BottomButtonDesktop = ({ visible, ...props }) => (
+  <Button className="u-mh-0 u-db" theme="primary" {...props} />
+)
 
-BottomButton.defaultProps = {
+const BottomButtonDesktop = React.memo(_BottomButtonDesktop)
+const BottomButtonMobile = React.memo(_BottomButtonMobile)
+
+BottomButtonMobile.defaultProps = {
   visible: true
 }
 
-export default BottomButton
+const BottomButton = ({ breakpoints: { isMobile }, ...props }) => {
+  return isMobile ? (
+    <BottomButtonMobile {...props} />
+  ) : (
+    <BottomButtonDesktop {...props} />
+  )
+}
+
+export default withBreakpoints()(BottomButton)
