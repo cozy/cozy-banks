@@ -7,8 +7,13 @@ import {
   translate,
   Text,
   Caption,
-  Bold
+  Bold,
+  Button,
+  Modal,
+  ModalContent
 } from 'cozy-ui/transpiled/react'
+
+import AddAccountButton from 'ducks/categories/AddAccountButton'
 import { List, Row } from 'components/List'
 import PageTitle from 'components/Title/PageTitle'
 import Figure from 'components/Figure'
@@ -54,24 +59,65 @@ const _BeneficiaryRow = ({ beneficiary, onSelect }) => {
 const BeneficiaryRow = React.memo(_BeneficiaryRow)
 
 class ChooseBeneficiary extends React.Component {
+  constructor(props, context) {
+    super(props, context)
+    this.state = { showAddBeneficiary: false }
+    this.handleShowAddBeneficiary = this.handleShowAddBeneficiary.bind(this)
+    this.handleCloseAddBeneficiary = this.handleCloseAddBeneficiary.bind(this)
+  }
+
+  handleShowAddBeneficiary() {
+    this.setState({ showAddBeneficiary: true })
+  }
+
+  handleCloseAddBeneficiary() {
+    this.setState({ showAddBeneficiary: false })
+  }
+
   render() {
-    const { t, beneficiaries, onSelect, active } = this.props
+    const { t, beneficiaries, onSelect, active, category } = this.props
     return (
-      <Padded>
-        {active && (
-          <PageTitle>{t('Transfer.beneficiary.page-title')}</PageTitle>
-        )}
-        <Title>{t('Transfer.beneficiary.title')}</Title>
-        <List border paper>
-          {beneficiaries.map(beneficiary => (
-            <BeneficiaryRow
-              key={beneficiary._id}
-              onSelect={onSelect}
-              beneficiary={beneficiary}
-            />
-          ))}
-        </List>
-      </Padded>
+      <>
+        <Padded>
+          {active && (
+            <PageTitle>{t('Transfer.beneficiary.page-title')}</PageTitle>
+          )}
+          <Title>{t('Transfer.beneficiary.title')}</Title>
+          <Padded.Unpadded horizontal>
+            <List border="horizontal" className="u-mb-1">
+              {beneficiaries.map(beneficiary => (
+                <BeneficiaryRow
+                  key={beneficiary._id}
+                  onSelect={onSelect}
+                  beneficiary={beneficiary}
+                />
+              ))}
+            </List>
+          </Padded.Unpadded>
+          <div className="u-ta-center">
+            {category === 'internal' ? (
+              <AddAccountButton
+                label={t('Transfer.no-bank.add-bank')}
+                theme="primary"
+                className="u-mt-0"
+              />
+            ) : (
+              <Button
+                onClick={this.handleShowAddBeneficiary}
+                theme="primary"
+                label={t('Transfer.beneficiary.add-beneficiary')}
+              />
+            )}
+          </div>
+        </Padded>
+        {this.state.showAddBeneficiary ? (
+          <Modal into="body" dismissAction={this.handleCloseAddBeneficiary}>
+            <ModalContent>
+              {t('Transfer.beneficiary.help-add-beneficiary')}
+            </ModalContent>
+          </Modal>
+        ) : null}
+      </>
     )
   }
 }

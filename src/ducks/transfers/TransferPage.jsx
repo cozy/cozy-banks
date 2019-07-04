@@ -375,6 +375,7 @@ class TransferPage extends React.Component {
             onSelect={this.handleChangeCategory}
           />
           <ChooseBeneficiary
+            category={category}
             beneficiary={beneficiary}
             onSelect={this.handleSelectBeneficiary}
             beneficiaries={beneficiaries}
