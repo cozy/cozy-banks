@@ -82,6 +82,7 @@ const NoBank = translate()(({ t }) => (
   <Padded>
     <Title>{t('Transfer.no-bank.title')}</Title>
     <AddAccountButton
+      absolute
       extension="full"
       label={t('Transfer.no-bank.add-bank')}
       theme="primary"
