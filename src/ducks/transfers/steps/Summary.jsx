@@ -1,8 +1,14 @@
 import React from 'react'
 import Padded from 'components/Spacing/Padded'
-import { translate, Input, Media, Bd, Img } from 'cozy-ui/transpiled/react'
+import {
+  translate,
+  Input,
+  Media,
+  Bd,
+  Img,
+  InlineCard
+} from 'cozy-ui/transpiled/react'
 import PageTitle from 'components/Title/PageTitle'
-import TextCard from 'components/TextCard'
 import OptionalInput from 'components/OptionalInput'
 import BottomButton from 'components/BottomButton'
 import AccountIcon from 'components/AccountIcon'
@@ -25,24 +31,24 @@ const _Summary = ({
       {active && <PageTitle>{t('Transfer.summary.page-title')}</PageTitle>}
       <div>
         {t('Transfer.summary.send')}{' '}
-        <TextCard
-          className="u-clickable"
+        <InlineCard
+          className="u-clickable u-mb-half"
           onClick={selectSlide.bind(null, 'amount')}
         >
           {amount}€
-        </TextCard>
+        </InlineCard>
         <br />
         {t('Transfer.summary.to')}{' '}
-        <TextCard
-          className="u-clickable"
+        <InlineCard
+          className="u-clickable u-mb-half"
           onClick={selectSlide.bind(null, 'beneficiary')}
         >
           {beneficiary.label}
-        </TextCard>
+        </InlineCard>
         <br />
         {t('Transfer.summary.from')}{' '}
-        <TextCard
-          className="u-clickable"
+        <InlineCard
+          className="u-clickable u-mb-half"
           onClick={selectSlide.bind(null, 'sender')}
         >
           {/* TODO, remove key when AccountIcon correctly updates on account change (https://github.com/cozy/cozy-ui/issues/1076) */}
@@ -52,17 +58,18 @@ const _Summary = ({
             account={senderAccount}
           />{' '}
           {senderAccount.label}
-        </TextCard>
+        </InlineCard>
         <br />
         {t('Transfer.summary.on')}{' '}
-        <TextCard className="u-clickable">
+        <InlineCard className="u-clickable u-mb-half">
           <Input type="date" value={date} onChange={onChangeDate} size="tiny" />
-        </TextCard>
+        </InlineCard>
         <br />
         <Media>
           <Img className="u-mr-half">{t('Transfer.summary.for')}</Img>
           <Bd>
             <OptionalInput
+              className="u-mb-half"
               value={label}
               onChange={onChangeLabel}
               placeholder={t('Transfer.summary.for-placeholder')}
