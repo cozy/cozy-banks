@@ -61,7 +61,7 @@ const _Summary = ({
         </InlineCard>
         <br />
         {t('Transfer.summary.on')}{' '}
-        <InlineCard className="u-clickable u-mb-half">
+        <InlineCard className="u-clickable u-mb-half u-invisible-form-field">
           <Input type="date" value={date} onChange={onChangeDate} size="tiny" />
         </InlineCard>
         <br />
