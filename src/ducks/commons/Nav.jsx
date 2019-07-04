@@ -69,4 +69,4 @@ export const Nav = ({ t }) => (
 
 Nav.renderExtra = () => null
 
-export default translate()(Nav)
+export default React.memo(translate()(Nav))
