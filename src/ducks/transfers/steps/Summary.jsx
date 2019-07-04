@@ -1,6 +1,6 @@
 import React from 'react'
 import Padded from 'components/Spacing/Padded'
-import { translate, Input } from 'cozy-ui/transpiled/react'
+import { translate, Input, Media, Bd, Img } from 'cozy-ui/transpiled/react'
 import PageTitle from 'components/Title/PageTitle'
 import TextCard from 'components/TextCard'
 import OptionalInput from 'components/OptionalInput'
@@ -59,12 +59,16 @@ const _Summary = ({
           <Input type="date" value={date} onChange={onChangeDate} size="tiny" />
         </TextCard>
         <br />
-        {t('Transfer.summary.for')}{' '}
-        <OptionalInput
-          value={label}
-          onChange={onChangeLabel}
-          placeholder={t('Transfer.summary.for-placeholder')}
-        />
+        <Media>
+          <Img className="u-mr-half">{t('Transfer.summary.for')}</Img>
+          <Bd>
+            <OptionalInput
+              value={label}
+              onChange={onChangeLabel}
+              placeholder={t('Transfer.summary.for-placeholder')}
+            />
+          </Bd>
+        </Media>
         <BottomButton
           label={t('Transfer.summary.confirm')}
           visible={active}
