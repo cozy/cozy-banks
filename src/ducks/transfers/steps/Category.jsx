@@ -10,26 +10,28 @@ const ChooseRecipientCategory = ({ t, category, onSelect, active }) => {
     <Padded>
       {active && <PageTitle>{t('Transfer.category.page-title')}</PageTitle>}
       <Title>{t('Transfer.category.title')}</Title>
-      <List border paper>
-        <Row onClick={onSelect.bind(null, 'internal')}>
-          <Radio
-            readOnly
-            name="category"
-            checked={category == 'internal'}
-            value="internal"
-            label={t('Transfer.category.internal')}
-          />
-        </Row>
-        <Row onClick={onSelect.bind(null, 'external')}>
-          <Radio
-            readOnly
-            name="category"
-            checked={category == 'external'}
-            value="external"
-            label={t('Transfer.category.external')}
-          />
-        </Row>
-      </List>
+      <Padded.Unpadded horizontal>
+        <List border="horizontal">
+          <Row onClick={onSelect.bind(null, 'internal')}>
+            <Radio
+              readOnly
+              name="category"
+              checked={category == 'internal'}
+              value="internal"
+              label={t('Transfer.category.internal')}
+            />
+          </Row>
+          <Row onClick={onSelect.bind(null, 'external')}>
+            <Radio
+              readOnly
+              name="category"
+              checked={category == 'external'}
+              value="external"
+              label={t('Transfer.category.external')}
+            />
+          </Row>
+        </List>
+      </Padded.Unpadded>
     </Padded>
   )
 }

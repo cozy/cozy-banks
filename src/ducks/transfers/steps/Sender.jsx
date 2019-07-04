@@ -55,15 +55,17 @@ class _ChooseSenderAccount extends React.Component {
       <Padded>
         {active && <PageTitle>{t('Transfer.sender.page-title')}</PageTitle>}
         <Title>{t('Transfer.sender.title')}</Title>
-        <List border paper>
-          {accounts.map(account => (
-            <SenderRow
-              key={account._id}
-              account={account}
-              onSelect={onSelect}
-            />
-          ))}
-        </List>
+        <Padded.Unpadded horizontal>
+          <List border="horizontal">
+            {accounts.map(account => (
+              <SenderRow
+                key={account._id}
+                account={account}
+                onSelect={onSelect}
+              />
+            ))}
+          </List>
+        </Padded.Unpadded>
       </Padded>
     )
   }
