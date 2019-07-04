@@ -46,4 +46,7 @@ flag('reimbursement-tag', true)
 // Turn on late health reimbursement notification
 flag('late-health-reibursement-notification', true)
 
+// Turn on delayed debit notification
+flag('delayed-debit', true)
+
 window.flag = flag
