@@ -5,7 +5,6 @@ import 'react-hint/css/index.css'
 import Alerter from 'cozy-ui/react/Alerter'
 import { Layout, Main, Content } from 'cozy-ui/react/Layout'
 import Sidebar from 'cozy-ui/react/Sidebar'
-import { Sprite as IconSprite } from 'cozy-ui/react/Icon'
 import Nav from 'ducks/commons/Nav'
 import { Warnings } from 'ducks/warnings'
 import flag, { FlagSwitcher } from 'cozy-flags'
@@ -49,7 +48,6 @@ const App = props => {
       <ReactHint />
 
       <Warnings />
-      <IconSprite />
       <Alerter />
     </Layout>
   )
