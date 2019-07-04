@@ -24,7 +24,7 @@
     "lint:styles": "stylint src/styles --config ./.stylintrc",
     "stack:docker": "docker run --rm -it -p 8080:8080 -p 8025:8025 -v \"$(pwd)/build/\":/data/cozy-app/banks cozy/cozy-app-dev",
     "test": "env USE_REACT=true jest",
-    "test:changes": "git diff --name-only master..HEAD | grep -E 'jsx?$' | xargs yarn test --bail --find-related-tests",
+    "test:changes": "git diff --name-only master..HEAD | grep -E 'jsx?$' | xargs yarn test --bail --findRelatedTests",
     "test:e2e": "node test/e2e/onOperationOrBillCreate.js",
     "posttest": "madge -b src/ --webpack-config webpack.config.js -c --extensions js,jsx src/main.jsx",
     "watch": "npm run watch:browser",
@@ -69,7 +69,8 @@
       "post-checkout": "yarnhook",
       "post-rewrite": "yarnhook",
       "commit-msg": "commitlint -e $GIT_PARAMS",
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "pre-push": "yarn test:changes"
     }
   },
   "repository": {
