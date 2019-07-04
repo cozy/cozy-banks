@@ -58,11 +58,6 @@ class _ChooseAmount extends React.PureComponent {
       <Padded>
         {active && <PageTitle>{t('Transfer.amount.page-title')}</PageTitle>}
         <Title>{t('Transfer.amount.title')}</Title>
-        {validation.error ? (
-          <p className="u-error">
-            {t(`Transfer.amount.errors.${validation.error}`, validation)}
-          </p>
-        ) : null}
         <Field
           className="u-mt-0"
           value={amount}
@@ -75,6 +70,11 @@ class _ChooseAmount extends React.PureComponent {
           error={validation.error}
           placeholder="10"
         />
+        {validation.error ? (
+          <p className="u-error">
+            {t(`Transfer.amount.errors.${validation.error}`, validation)}
+          </p>
+        ) : null}
         <BottomButton
           disabled={amount === '' || !!validation.error}
           label={t('Transfer.amount.confirm')}
