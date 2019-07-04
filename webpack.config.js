@@ -1,6 +1,7 @@
 'use strict'
 
 const merge = require('webpack-merge')
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
 const {
   production,
   target,
@@ -31,7 +32,10 @@ const modeConfig = production
   ? require('./config/webpack.config.prod')
   : require('./config/webpack.config.dev')
 
-module.exports = merge(modeConfig, withTarget)
+const smp = new SpeedMeasurePlugin()
+const config = merge(modeConfig, withTarget)
+
+module.exports = process.env.SMP ? smp.wrap(config) : config
 
 if (require.main === module) {
   console.log(module.exports)
