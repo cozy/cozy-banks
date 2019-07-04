@@ -47,7 +47,7 @@ flag('reimbursement-tag', true)
 flag('late-health-reibursement-notification', true)
 
 // Turn on delayed debit notification
-flag('delayed-debit', true)
+flag('delayed-debit-alert', true)
 
 // Turn on health conacts in reimbursement status modal
 flag('reimbursements-contacts', true)
