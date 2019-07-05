@@ -33,7 +33,6 @@ import { getAccountBalance, buildVirtualAccounts } from 'ducks/account/helpers'
 import { isBankTrigger } from 'utils/triggers'
 
 import styles from 'ducks/balance/Balance.styl'
-import BalanceTables from 'ducks/balance/BalanceTables'
 import BalancePanels from 'ducks/balance/BalancePanels'
 import { getPanelsState } from 'ducks/balance/helpers'
 import BarTheme from 'ducks/bar/BarTheme'
@@ -387,7 +386,6 @@ class Balance extends PureComponent {
     ]
 
     const balanceLower = get(settings, 'notifications.balanceLower.value')
-    const showPanels = flag('balance-panels')
 
     const checkedAccounts = this.getCheckedAccounts()
     const accountsBalance = isCollectionLoading(accounts)
@@ -413,10 +411,10 @@ class Balance extends PureComponent {
         />
         <Padded
           className={cx({
-            [styles.Balance__panelsContainer]: showPanels
+            [styles.Balance__panelsContainer]: true
           })}
         >
-          {showPanels ? (
+          {
             <BalancePanels
               groups={groups}
               warningLimit={balanceLower}
@@ -424,13 +422,7 @@ class Balance extends PureComponent {
               onSwitchChange={this.handleSwitchChange}
               onPanelChange={this.debouncedHandlePanelChange}
             />
-          ) : (
-            <BalanceTables
-              groups={groups}
-              accounts={accounts}
-              balanceLower={balanceLower}
-            />
-          )}
+          }
         </Padded>
       </Fragment>
     )
