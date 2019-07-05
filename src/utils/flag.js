@@ -34,7 +34,4 @@ if (isDemoCozy()) {
 // Turn on reimbursement tags + new CTAs UI
 flag('reimbursement-tag', true)
 
-// Turn on late health reimbursement notification
-flag('late-health-reibursement-notification', true)
-
 window.flag = flag
