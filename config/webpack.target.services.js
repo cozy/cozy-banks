@@ -16,7 +16,8 @@ const entries = {
     SRC_DIR,
     './targets/services/onOperationOrBillCreate'
   ),
-  categorization: path.resolve(SRC_DIR, './targets/services/categorization.js')
+  categorization: path.resolve(SRC_DIR, './targets/services/categorization.js'),
+  stats: path.resolve(SRC_DIR, './targets/services/stats.js')
 }
 
 if (process.env.TEST_TEMPLATES) {
