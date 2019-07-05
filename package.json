@@ -47,7 +47,7 @@
     "android:autosign": "(cd src/targets/mobile && apksigner sign --key-pass pass:$ANDROID_KEY_PASS_PASSWORD --ks-pass pass:$ANDROID_KS_PASS_PASSWORD --ks keys/android/cozy-banks-release-key.jks --out build/android/cozy-banks.apk platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk)",
     "android:deploy": "cd src/targets/mobile && bundle exec fastlane android deploy",
     "android:publish": "npm run android:build && npm run android:sign && npm run android:deploy",
-    "ios:install_pods": "cd src/targets/mobile/platforms/ios && pod install",
+    "ios:install_pods": "cd src/targets/mobile/platforms/ios && env COCOAPODS_DISABLE_STATS=true pod install",
     "ios:run": "cd src/targets/mobile && cordova run ios --buildFlag='-UseModernBuildSystem=0' --device",
     "ios:run:emulator": "cd src/targets/mobile && cordova run ios --buildFlag='-UseModernBuildSystem=0' --emulator",
     "ios:screenshots": "cd src/targets/mobile && bundle exec fastlane ios screenshots",
