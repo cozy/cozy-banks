@@ -6,7 +6,9 @@ const { production } = require('./webpack.vars')
 
 const SRC_DIR = path.resolve(__dirname, '../src')
 
-const mimerPath = require.resolve(path.join(SRC_DIR, 'ducks/notifications/vendor/mimer.min'))
+const mimerPath = require.resolve(
+  path.join(SRC_DIR, 'ducks/notifications/vendor/mimer.min')
+)
 
 // Used to disable node modules we do not use
 const noop = require.resolve(path.join(SRC_DIR, 'ducks/notifications/noop'))
@@ -21,7 +23,10 @@ const entries = {
 }
 
 if (process.env.TEST_TEMPLATES) {
-  entries.testTemplates = path.resolve(SRC_DIR, './ducks/notifications/html/testTemplates.js')
+  entries.testTemplates = path.resolve(
+    SRC_DIR,
+    './ducks/notifications/html/testTemplates.js'
+  )
 }
 
 module.exports = {
@@ -59,7 +64,7 @@ module.exports = {
     // use them for features we do not use, so we can disable them.
     // More information : https://gitlab.cozycloud.cc/labs/cozy-bank/merge_requests/197#note_4018
     exprContextRegExp: /$^/,
-    exprContextCritical: false,
+    exprContextCritical: false
   },
 
   resolve: {
@@ -71,24 +76,21 @@ module.exports = {
       handlebars: 'handlebars/dist/handlebars.min.js',
       // Alias react to mjml's react since it needs react 15.6
       // Otherwise it is aliases to node_modules/react
-      react: path.resolve(__dirname, '../node_modules/mjml-core/node_modules/react')
+      react: path.resolve(
+        __dirname,
+        '../node_modules/mjml-core/node_modules/react'
+      )
     }
   },
 
   plugins: [
-    new webpack.NormalModuleReplacementPlugin(
-      /mimer/,
-      mimerPath
-    ),
+    new webpack.NormalModuleReplacementPlugin(/mimer/, mimerPath),
 
     new webpack.DefinePlugin({
       __TARGET__: JSON.stringify('services')
     }),
 
     /* Does not work in a bundle, we do not use it */
-    new webpack.NormalModuleReplacementPlugin(
-      /image-size/,
-     noop
-    )
+    new webpack.NormalModuleReplacementPlugin(/image-size/, noop)
   ]
 }
