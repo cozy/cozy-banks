@@ -11,7 +11,6 @@ import Breadcrumb from 'components/Breadcrumb'
 import { ConnectedSelectDates } from 'components/SelectDates'
 import { AccountSwitch } from 'ducks/account'
 import TransactionSelectDates from 'ducks/transactions/TransactionSelectDates'
-import flag from 'cozy-flags'
 import HistoryChart from 'ducks/balance/HistoryChart'
 import Header from 'components/Header'
 import { Padded } from 'components/Spacing'
@@ -32,25 +31,17 @@ class TransactionHeader extends Component {
 
   renderAccountSwitch = () => {
     const isSubcategory = this.isSubcategory()
-    const theme = flag('transaction-history') ? 'primary' : 'default'
-    const colorProps = {
-      color: theme
-    }
-
     return (
       <div className={styles.TransactionHeader__accountSwitchContainer}>
-        {this.props.showBackButton && <BackButton theme={theme} arrow />}
-        <AccountSwitch small={isSubcategory} {...colorProps} />
+        {this.props.showBackButton && <BackButton color="primary" arrow />}
+        <AccountSwitch small={isSubcategory} color="primary" />
       </div>
     )
   }
 
   displaySelectDates = () => {
-    const colorProps = {
-      color: flag('transaction-history') ? 'primary' : 'default'
-    }
     if (this.isSubcategory()) {
-      return <ConnectedSelectDates showFullYear {...colorProps} />
+      return <ConnectedSelectDates showFullYear color="primary" />
     }
 
     const { transactions, handleChangeMonth, currentMonth } = this.props
@@ -60,7 +51,7 @@ class TransactionHeader extends Component {
         transactions={transactions}
         value={currentMonth}
         onChange={handleChangeMonth}
-        {...colorProps}
+        color="primary"
         className="u-p-0"
       />
     )
@@ -83,14 +74,11 @@ class TransactionHeader extends Component {
       }
     ]
 
-    const withChart = flag('transaction-history')
-    const colorProps = { color: withChart ? 'primary' : 'default' }
-
     return (
       <Breadcrumb
         items={breadcrumbItems}
         className={styles.TransactionPage__Breadcrumb}
-        {...colorProps}
+        color="primary"
       />
     )
   }
@@ -101,7 +89,7 @@ class TransactionHeader extends Component {
       size,
       breakpoints: { isMobile }
     } = this.props
-    if (!flag('transaction-history') || !chartData || !size) {
+    if (!chartData || !size) {
       return
     }
     const intervalBetweenPoints = 2
@@ -132,10 +120,8 @@ class TransactionHeader extends Component {
       breakpoints: { isMobile }
     } = this.props
     const isSubcategory = this.isSubcategory()
-    const withChart = flag('transaction-history')
-    const colorProps = { color: withChart ? 'primary' : 'default' }
     return (
-      <Header {...colorProps} fixed>
+      <Header color="primary" fixed>
         <Padded className={isMobile ? 'u-p-0' : 'u-pb-half'}>
           {this.renderAccountSwitch()}
         </Padded>
@@ -156,7 +142,7 @@ class TransactionHeader extends Component {
           <Padded className="u-pt-0">{this.displayBreadcrumb()}</Padded>
         )}
         {transactions.length > 0 && (
-          <TableHead isSubcategory={isSubcategory} {...colorProps} />
+          <TableHead isSubcategory={isSubcategory} color="primary" />
         )}
       </Header>
     )

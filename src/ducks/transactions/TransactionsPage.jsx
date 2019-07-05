@@ -44,7 +44,6 @@ import {
   balanceHistoryToChartData
 } from 'ducks/balance/helpers'
 import BarTheme from 'ducks/bar/BarTheme'
-import flag from 'cozy-flags'
 import TransactionActionsProvider from 'ducks/transactions/TransactionActionsProvider'
 
 const { BarRight } = cozy.bar
@@ -286,7 +285,7 @@ class TransactionsPage extends Component {
 
     const chartData = this.getChartData()
     const isOnSubcategory = onSubcategory(this.props)
-    const theme = flag('transaction-history') ? 'primary' : 'default'
+    const theme = 'primary'
     return (
       <TransactionActionsProvider>
         <BarTheme theme={theme} />
