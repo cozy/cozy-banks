@@ -414,15 +414,13 @@ class Balance extends PureComponent {
             [styles.Balance__panelsContainer]: true
           })}
         >
-          {
-            <BalancePanels
-              groups={groups}
-              warningLimit={balanceLower}
-              panelsState={this.state.panels}
-              onSwitchChange={this.handleSwitchChange}
-              onPanelChange={this.debouncedHandlePanelChange}
-            />
-          }
+          <BalancePanels
+            groups={groups}
+            warningLimit={balanceLower}
+            panelsState={this.state.panels}
+            onSwitchChange={this.handleSwitchChange}
+            onPanelChange={this.debouncedHandlePanelChange}
+          />
         </Padded>
       </Fragment>
     )

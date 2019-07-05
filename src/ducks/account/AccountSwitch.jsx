@@ -55,7 +55,7 @@ const AccountSwitchDesktop = translate()(
         <div>
           <div className={styles['account-name']}>
             {filteringDoc.shortLabel || filteringDoc.label}{' '}
-            {<AccountSharingStatus account={filteringDoc} />}
+            <AccountSharingStatus account={filteringDoc} />
           </div>
           <div className={styles['account-num']}>
             {filteringDoc.number && 'n°' + filteringDoc.number}

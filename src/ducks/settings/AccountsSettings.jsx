@@ -48,7 +48,7 @@ const _AccountLine = ({ account, router, t }) => (
       })}
     </td>
     <td className={styles.AcnsStg__shared}>
-      {<AccountSharingStatus withText account={account} />}
+      <AccountSharingStatus withText account={account} />
     </td>
     <td className={styles.AcnsStg__actions} />
   </tr>
