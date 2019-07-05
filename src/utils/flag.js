@@ -31,19 +31,7 @@ if (isDemoCozy()) {
   flag('demo', true)
 }
 
-// Turn on new balance panels UI
-flag('balance-panels', true)
-
-// Turn on new Categories page UI
-flag('categories-header-primary', true)
-
-// Turn on history chart on movements page
-flag('transaction-history', true)
-
 // Turn on reimbursement tags + new CTAs UI
 flag('reimbursement-tag', true)
-
-// Turn on late health reimbursement notification
-flag('late-health-reibursement-notification', true)
 
 window.flag = flag
