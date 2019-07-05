@@ -1,6 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { TransferPage, TransferError } from './TransferPage'
+import { TransferError } from 'ducks/transfers/steps/TransferState'
+import { TransferPage } from './TransferPage'
 import fixtures from '../../../test/fixtures'
 import * as transfers from './transfers'
 

@@ -141,7 +141,7 @@ class CategoriesHeader extends PureComponent {
             <Header color="default" className={styles.NoAccount_container}>
               <Padded className={styles.NoAccount_box}>
                 {chart}
-                <AddAccountButton label={t('Accounts.add_bank')} />
+                <AddAccountButton absolute label={t('Accounts.add_bank')} />
               </Padded>
             </Header>
           )}

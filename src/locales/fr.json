@@ -604,18 +604,20 @@
       }
     },
     "category": {
-      "page-title": "Bénéficiaire",
-      "title": "Où voulez-vous envoyer ce virement ?",
-      "internal": "Sur l'un des vos comptes",
-      "external": "Sur un autre compte"
+      "page-title": "Virement",
+      "title": "A qui souhaitez-vous envoyer ce virement ?",
+      "internal": "L'un de mes comptes",
+      "external": "Un compte tiers"
     },
     "beneficiary": {
       "page-title": "Bénéficiaire",
+      "add-beneficiary": "Ajouter un bénéficiaire",
+      "help-add-beneficiary": "Pour rajouter des bénéficiaires, ajoutez les directement depuis le site de votre banque.",
       "title": "Vers quel compte souhaitez-vous effectuer un virement ?"
     },
     "sender": {
       "page-title": "Émetteur",
-      "title": "Depuis quel compte souhaitez-vous effectuer un virement ?"
+      "title": "Depuis quel compte ?"
     },
     "summary": {
       "page-title": "Récapitulatif",
