@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import cx from 'classnames'
-import flag from 'cozy-flags'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import Text, { Caption } from 'cozy-ui/react/Text'
 import ListItemText from 'cozy-ui/react/ListItemText'
@@ -43,14 +42,11 @@ class Categories extends Component {
     const hasData =
       categories.length > 0 && categories[0].transactionsNumber > 0
 
-    const withPrimary = flag('categories-header-primary')
-    const colorProps = { color: withPrimary ? 'primary' : 'default' }
-
     return (
       <div>
         {!hasData && <p>{t('Categories.title.empty_text')}</p>}
         {hasData && (
-          <Table className={stTableCategory} {...colorProps}>
+          <Table className={stTableCategory} color="primary">
             {!isMobile && (
               <thead>
                 <tr>

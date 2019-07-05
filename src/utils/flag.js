@@ -31,9 +31,6 @@ if (isDemoCozy()) {
   flag('demo', true)
 }
 
-// Turn on new Categories page UI
-flag('categories-header-primary', true)
-
 // Turn on history chart on movements page
 flag('transaction-history', true)
 
