@@ -1,0 +1,4 @@
+min-approvals:
+  MEMBER: 1
+requiredLabels:
+- merge
