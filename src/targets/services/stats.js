@@ -2,7 +2,7 @@ import fetch from 'node-fetch'
 import CozyClient from 'cozy-client'
 import { TRANSACTION_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
 import { Document, BankAccountStats } from 'cozy-doctypes'
-import { groupBy } from 'lodash'
+import { groupBy, keyBy } from 'lodash'
 import logger from 'cozy-logger'
 import {
   getPeriod,
@@ -55,6 +55,12 @@ const main = async () => {
   // The flag is needed to use local model when getting a transaction category ID
   flag('local-model-override', setting.community.localModelOverride.enabled)
 
+  const stats = await BankAccountStats.fetchAll()
+  const statsByAccountId = keyBy(
+    stats,
+    stat => stat.relationships.account.data._id
+  )
+
   const period = getPeriod()
   const transactions = await fetchTransactionsForPeriod(period)
 
@@ -72,28 +78,41 @@ const main = async () => {
 
   Object.entries(transactionsByAccount).forEach(
     async ([accountId, transactions]) => {
+      const accountStats = statsByAccountId[accountId] || {}
       const transactionsByCategory = groupBy(transactions, getCategoryId)
 
-      const accountStats = {
-        periodStart: period.start,
-        periodEnd: period.end,
-        income: getMeanOnPeriod(transactionsByCategory['200110'], period),
-        additionalIncome: getMeanOnPeriod(
-          transactionsByCategory['200180'],
-          period
-        ),
-        mortgage: getMeanOnPeriod(transactionsByCategory['401010'], period),
-        loans: getMeanOnPeriod(
-          [
-            ...(transactionsByCategory['401010'] || []),
-            ...(transactionsByCategory['400120'] || []),
-            ...(transactionsByCategory['400930'] || []),
-            ...(transactionsByCategory['400210'] || [])
-          ],
-          period
-        ),
-        currency: 'EUR',
-        relationships: {
+      accountStats.periodStart = period.start
+      accountStats.periodEnd = period.end
+
+      accountStats.income = getMeanOnPeriod(
+        transactionsByCategory['200110'],
+        period
+      )
+
+      accountStats.additionalIncome = getMeanOnPeriod(
+        transactionsByCategory['200180'],
+        period
+      )
+
+      accountStats.mortgage = getMeanOnPeriod(
+        transactionsByCategory['401010'],
+        period
+      )
+
+      accountStats.loans = getMeanOnPeriod(
+        [
+          ...(transactionsByCategory['401010'] || []),
+          ...(transactionsByCategory['400120'] || []),
+          ...(transactionsByCategory['400930'] || []),
+          ...(transactionsByCategory['400210'] || [])
+        ],
+        period
+      )
+
+      accountStats.currency = 'EUR'
+
+      if (!accountStats.relationships) {
+        accountStats.relationships = {
           account: {
             data: { _id: accountId, _type: ACCOUNT_DOCTYPE }
           }
