@@ -33,7 +33,7 @@ class TransactionHeader extends Component {
     const isSubcategory = this.isSubcategory()
     return (
       <div className={styles.TransactionHeader__accountSwitchContainer}>
-        {this.props.showBackButton && <BackButton color="primary" arrow />}
+        {this.props.showBackButton && <BackButton theme="primary" arrow />}
         <AccountSwitch small={isSubcategory} color="primary" />
       </div>
     )
