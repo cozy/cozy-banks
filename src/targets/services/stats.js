@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 import CozyClient from 'cozy-client'
 import { TRANSACTION_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
-import { BankTransaction } from 'cozy-doctypes'
+import { Document } from 'cozy-doctypes'
 import { groupBy } from 'lodash'
 import logger from 'cozy-logger'
 import {
@@ -10,6 +10,8 @@ import {
   getMeanOnPeriod
 } from 'ducks/stats/services'
 import { getCategoryId } from 'ducks/categories/helpers'
+import { Settings } from 'models'
+import flag from 'cozy-flags'
 
 global.fetch = fetch
 
@@ -44,9 +46,15 @@ const client = new CozyClient({
   token: process.env.COZY_CREDENTIALS.trim()
 })
 
-BankTransaction.registerClient(client)
-
 const main = async () => {
+  Document.registerClient(client)
+
+  log('info', 'Fetching settings...')
+  let setting = await Settings.fetchWithDefault()
+
+  // The flag is needed to use local model when getting a transaction category ID
+  flag('local-model-override', setting.community.localModelOverride.enabled)
+
   const period = getPeriod()
   const transactions = await fetchTransactionsForPeriod(period)
 
@@ -63,7 +71,6 @@ const main = async () => {
   )
 
   Object.entries(transactionsByAccount).forEach(([accountId, transactions]) => {
-    // TODO get `local-model-override` setting and put it in a flag
     const transactionsByCategory = groupBy(transactions, getCategoryId)
 
     const stats = {
