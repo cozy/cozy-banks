@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 import CozyClient from 'cozy-client'
 import { TRANSACTION_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
-import { Document } from 'cozy-doctypes'
+import { Document, BankAccountStats } from 'cozy-doctypes'
 import { groupBy } from 'lodash'
 import logger from 'cozy-logger'
 import {
@@ -70,41 +70,39 @@ const main = async () => {
     transaction => transaction.account
   )
 
-  Object.entries(transactionsByAccount).forEach(([accountId, transactions]) => {
-    const transactionsByCategory = groupBy(transactions, getCategoryId)
+  Object.entries(transactionsByAccount).forEach(
+    async ([accountId, transactions]) => {
+      const transactionsByCategory = groupBy(transactions, getCategoryId)
 
-    const stats = {
-      periodStart: period.start,
-      periodEnd: period.end,
-      income: getMeanOnPeriod(transactionsByCategory['200110'], period),
-      additionalIncome: getMeanOnPeriod(
-        transactionsByCategory['200180'],
-        period
-      ),
-      mortgage: getMeanOnPeriod(transactionsByCategory['401010'], period),
-      loans: getMeanOnPeriod(
-        [
-          ...(transactionsByCategory['401010'] || []),
-          ...(transactionsByCategory['400120'] || []),
-          ...(transactionsByCategory['400930'] || []),
-          ...(transactionsByCategory['400210'] || [])
-        ],
-        period
-      ),
-      currency: 'EUR',
-      relationships: {
-        account: {
-          data: { _id: accountId, _type: ACCOUNT_DOCTYPE }
+      const accountStats = {
+        periodStart: period.start,
+        periodEnd: period.end,
+        income: getMeanOnPeriod(transactionsByCategory['200110'], period),
+        additionalIncome: getMeanOnPeriod(
+          transactionsByCategory['200180'],
+          period
+        ),
+        mortgage: getMeanOnPeriod(transactionsByCategory['401010'], period),
+        loans: getMeanOnPeriod(
+          [
+            ...(transactionsByCategory['401010'] || []),
+            ...(transactionsByCategory['400120'] || []),
+            ...(transactionsByCategory['400930'] || []),
+            ...(transactionsByCategory['400210'] || [])
+          ],
+          period
+        ),
+        currency: 'EUR',
+        relationships: {
+          account: {
+            data: { _id: accountId, _type: ACCOUNT_DOCTYPE }
+          }
         }
       }
-    }
 
-    log('info', `stats for account ${accountId}`)
-    /* eslint-disable no-console */
-    console.log(stats)
-    console.log()
-    /* eslint-enable no-console */
-  })
+      await BankAccountStats.createOrUpdate(accountStats)
+    }
+  )
 }
 
 main()

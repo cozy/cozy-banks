@@ -134,6 +134,11 @@
       "type": "io.cozy.bank.accounts",
       "verbs": ["GET", "POST", "PUT", "DELETE"]
     },
+    "bank.accounts.stats": {
+      "description": "Used to aggregate stats about bank accounts",
+      "type": "io.cozy.bank.accounts.stats",
+      "verbs": ["GET", "POST", "PUT", "DELETE"]
+    },
     "bank.operations": {
       "description": "Used to manage your bank operations",
       "type": "io.cozy.bank.operations",
