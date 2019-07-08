@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getPeriod should return the period 1`] = `
+Object {
+  "end": 2019-06-30T21:59:59.999Z,
+  "start": 2019-02-28T23:00:00.000Z,
+}
+`;
