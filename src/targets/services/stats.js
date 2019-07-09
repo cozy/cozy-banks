@@ -12,6 +12,7 @@ import {
 import { getCategoryId } from 'ducks/categories/helpers'
 import { Settings } from 'models'
 import flag from 'cozy-flags'
+import { getCategoryIdFromName } from 'ducks/categories/categoriesMap'
 
 global.fetch = fetch
 
@@ -85,26 +86,30 @@ const main = async () => {
       accountStats.periodEnd = period.end
 
       accountStats.income = getMeanOnPeriod(
-        transactionsByCategory['200110'],
+        transactionsByCategory[getCategoryIdFromName('activityIncome')],
         period
       )
 
       accountStats.additionalIncome = getMeanOnPeriod(
-        transactionsByCategory['200180'],
+        transactionsByCategory[getCategoryIdFromName('additionalIncome')],
         period
       )
 
       accountStats.mortgage = getMeanOnPeriod(
-        transactionsByCategory['401010'],
+        transactionsByCategory[getCategoryIdFromName('realEstateLoan')],
         period
       )
 
       accountStats.loans = getMeanOnPeriod(
         [
-          ...(transactionsByCategory['401010'] || []),
-          ...(transactionsByCategory['400120'] || []),
-          ...(transactionsByCategory['400930'] || []),
-          ...(transactionsByCategory['400210'] || [])
+          ...(transactionsByCategory[getCategoryIdFromName('realEstateLoan')] ||
+            []),
+          ...(transactionsByCategory[getCategoryIdFromName('consumerLoan')] ||
+            []),
+          ...(transactionsByCategory[getCategoryIdFromName('studentLoan')] ||
+            []),
+          ...(transactionsByCategory[getCategoryIdFromName('vehiculeLoan')] ||
+            [])
         ],
         period
       )
