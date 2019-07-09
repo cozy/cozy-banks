@@ -10,7 +10,7 @@ import { sumBy } from 'lodash'
 export const getPeriod = () => {
   const today = new Date()
   const end = endOfMonth(subMonths(today, 1))
-  const start = startOfMonth(subMonths(end, 3))
+  const start = startOfMonth(subMonths(end, 2))
 
   return { start, end }
 }
