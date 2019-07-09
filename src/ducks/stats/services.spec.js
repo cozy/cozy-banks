@@ -15,7 +15,7 @@ describe('getPeriod', () => {
   })
 
   it('should return the period', () => {
-    MockDate.set(new Date('2019-07-08'))
+    MockDate.set(new Date('2019-07-08T00:00:00.000Z'))
 
     const period = getPeriod()
 
