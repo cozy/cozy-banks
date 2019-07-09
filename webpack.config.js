@@ -8,6 +8,7 @@ const {
   hotReload,
   analyze
 } = require('./config/webpack.vars')
+const VersionPlugin = require('./config/VersionPlugin')
 
 const common = merge(
   require('./config/webpack.config.base'),
@@ -15,7 +16,13 @@ const common = merge(
   require('./config/webpack.config.styles'),
   require('./config/webpack.config.cozy-ui'),
   require('./config/webpack.config.pictures'),
-  require('./config/webpack.config.vendors'),
+  {
+    plugins: [
+      new VersionPlugin({
+        packages: ['cozy-bar', 'cozy-ui']
+      })
+    ]
+  },
   require('./config/webpack.config.manifest'),
   require('./config/webpack.config.piwik'),
   hotReload ? require(`./config/webpack.config.hot-reload`) : null,
