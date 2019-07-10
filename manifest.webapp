@@ -73,6 +73,12 @@
       "type": "node",
       "file": "categorization.js",
       "trigger": "@at 2000-01-01T00:00:00.000Z"
+    },
+    "stats": {
+      "type": "node",
+      "file": "stats.js",
+      "trigger": "@event io.cozy.bank.operations:CREATED",
+      "debounce": "3m"
     }
   },
   "notifications": {
@@ -126,6 +132,11 @@
     "bank.accounts": {
       "description": "Used to list your bank accounts",
       "type": "io.cozy.bank.accounts",
+      "verbs": ["GET", "POST", "PUT", "DELETE"]
+    },
+    "bank.accounts.stats": {
+      "description": "Used to aggregate stats about bank accounts",
+      "type": "io.cozy.bank.accounts.stats",
       "verbs": ["GET", "POST", "PUT", "DELETE"]
     },
     "bank.operations": {

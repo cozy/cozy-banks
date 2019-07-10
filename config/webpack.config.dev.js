@@ -25,9 +25,7 @@ module.exports = {
     new webpack.DefinePlugin({
       __STACK_ASSETS__: false,
       __DEV__: true,
-      'process.env': {
-        NODE_ENV: JSON.stringify('development')
-      }
+      'process.env.NODE_ENV': JSON.stringify('development')
     }),
     new webpack.ProvidePlugin(provided)
   ],
