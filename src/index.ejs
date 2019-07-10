@@ -43,7 +43,7 @@
       div.appendChild(errorNode)
       setTimeout(function () {
         var appNode = document.querySelector('#app')
-        if (appNode.firstChild) {
+        if (!appNode || appNode.firstChild) {
           // Bail out if application already has started
           return
         }
