@@ -3,6 +3,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const { production } = require('./webpack.vars')
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 
 const SRC_DIR = path.resolve(__dirname, '../src')
 
@@ -91,6 +92,9 @@ module.exports = {
     }),
 
     /* Does not work in a bundle, we do not use it */
-    new webpack.NormalModuleReplacementPlugin(/image-size/, noop)
+    new webpack.NormalModuleReplacementPlugin(/image-size/, noop),
+    new MomentLocalesPlugin({
+      localesToKeep: ['fr']
+    })
   ]
 }
