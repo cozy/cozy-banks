@@ -5,7 +5,9 @@ import {
 } from './services'
 import MockDate from 'mockdate'
 import { BankTransaction } from 'cozy-doctypes'
-import { endOfDay } from 'date-fns'
+import moment from 'moment-timezone'
+
+moment.tz.setDefault('Europe/Paris')
 
 jest.mock('cozy-doctypes')
 
@@ -26,8 +28,8 @@ describe('getPeriod', () => {
 describe('fetchTransactionsForPeriod', () => {
   it('should fetch transactions for the given period', async () => {
     const period = {
-      start: new Date('2019-03-01'),
-      end: endOfDay(new Date('2019-06-30'))
+      start: moment('2019-03-01'),
+      end: moment('2019-07-01')
     }
 
     await fetchTransactionsForPeriod(period)
@@ -42,22 +44,19 @@ describe('fetchTransactionsForPeriod', () => {
 })
 
 describe('getMeanOnPeriod', () => {
+  const period = {
+    start: moment('2019-03-01'),
+    end: moment('2019-07-01')
+  }
+
   it('should return the mean amount by month on the given period', () => {
     const transactions = [{ amount: 100 }, { amount: 50 }]
-    const period = {
-      start: new Date('2019-03-01'),
-      end: endOfDay(new Date('2019-06-30'))
-    }
 
     expect(getMeanOnPeriod(transactions, period)).toBe(50)
   })
 
   it('should return a positive value even if transactions amount is negative', () => {
     const transactions = [{ amount: -100 }, { amount: -50 }]
-    const period = {
-      start: new Date('2019-03-01'),
-      end: endOfDay(new Date('2019-06-30'))
-    }
 
     expect(getMeanOnPeriod(transactions, period)).toBe(50)
   })
