@@ -28,7 +28,7 @@ describe('getPeriod', () => {
 describe('fetchTransactionsForPeriod', () => {
   it('should fetch transactions for the given period', async () => {
     const period = {
-      start: moment('2019-03-01'),
+      start: moment('2019-04-01'),
       end: moment('2019-07-01')
     }
 
@@ -45,7 +45,7 @@ describe('fetchTransactionsForPeriod', () => {
 
 describe('getMeanOnPeriod', () => {
   const period = {
-    start: moment('2019-03-01'),
+    start: moment('2019-04-01'),
     end: moment('2019-07-01')
   }
 
