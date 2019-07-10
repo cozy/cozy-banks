@@ -28,9 +28,7 @@ export const getMeanOnPeriod = (transactions, period) => {
   const end = moment(period.end)
   const start = moment(period.start)
 
-  // We need to remove one month since the period ends on the first day of the
-  // current month, not on the last day of the previous month
-  const nbMonths = end.diff(start, 'months') - 1
+  const nbMonths = end.diff(start, 'months')
 
   const total = Math.abs(sumBy(transactions, transaction => transaction.amount))
   const mean = total / nbMonths
