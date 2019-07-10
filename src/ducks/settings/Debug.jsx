@@ -1,11 +1,36 @@
+/* global __VERSIONS__ */
+
 import React from 'react'
 import Checkbox from 'cozy-ui/react/Checkbox'
 import Button from 'cozy-ui/react/Button'
 import Alerter from 'cozy-ui/react/Alerter'
-import { Title, SubTitle } from 'cozy-ui/react/Text'
+import { Title as UITitle, SubTitle } from 'cozy-ui/react/Text'
 import flag, { FlagSwitcher } from 'cozy-flags'
 import { withClient } from 'cozy-client'
 import { isMobileApp } from 'cozy-device-helper'
+import cx from 'classnames'
+
+const Title = ({ className, ...props }) => (
+  <UITitle {...props} className={cx(className, 'u-mb-1')} />
+)
+
+// TODO move this to ui
+// See https://github.com/cozy/cozy-ui/issues/1096
+const Stack = ({ children }) => <div className="u-stack">{children}</div>
+
+const Versions = () => {
+  const versions = typeof __VERSIONS__ !== 'undefined' ? __VERSIONS__ : {}
+  return (
+    <div>
+      <Title>Library versions</Title>
+      {Object.entries(versions).map(([pkg, version]) => (
+        <div key={pkg}>
+          {pkg}: {version}
+        </div>
+      ))}
+    </div>
+  )
+}
 
 class DumbDebugSettings extends React.PureComponent {
   toggleNoAccount() {
@@ -57,31 +82,38 @@ class DumbDebugSettings extends React.PureComponent {
     const { client } = this.props
 
     return (
-      <div>
-        <Title>Misc</Title>
-        <Checkbox
-          defaultChecked={noAccountChecked}
-          label="Display no account page"
-          onClick={this.toggleNoAccount}
-        />
-        <Checkbox
-          defaultChecked={accountLoadingChecked}
-          label="Display accounts loading"
-          onClick={this.toggleAccountsLoading}
-        />
-        <Title>Notifications</Title>
-        {isMobileApp() ? (
-          <>
-            <SubTitle>Device token</SubTitle>
-            <p>{client.stackClient.oauthOptions.notification_device_token}</p>
-          </>
-        ) : null}
-        <Button onClick={() => this.sendNotification()}>
-          Send notification
-        </Button>
-        <Title>Flags</Title>
-        <FlagSwitcher.List />
-      </div>
+      <Stack>
+        <div>
+          <Title>Misc</Title>
+          <Checkbox
+            defaultChecked={noAccountChecked}
+            label="Display no account page"
+            onClick={this.toggleNoAccount}
+          />
+          <Checkbox
+            defaultChecked={accountLoadingChecked}
+            label="Display accounts loading"
+            onClick={this.toggleAccountsLoading}
+          />
+        </div>
+        <div>
+          <Title>Notifications</Title>
+          {isMobileApp() ? (
+            <>
+              <SubTitle>Device token</SubTitle>
+              <p>{client.stackClient.oauthOptions.notification_device_token}</p>
+            </>
+          ) : null}
+          <Button onClick={() => this.sendNotification()}>
+            Send notification
+          </Button>
+        </div>
+        <div>
+          <Title>Flags</Title>
+          <FlagSwitcher.List />
+        </div>
+        <Versions />
+      </Stack>
     )
   }
 }
