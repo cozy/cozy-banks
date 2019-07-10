@@ -91,7 +91,24 @@ const main = async () => {
       )
 
       accountStats.additionalIncome = getMeanOnPeriod(
-        transactionsByCategory[getCategoryIdFromName('additionalIncome')],
+        [
+          ...(transactionsByCategory[
+            getCategoryIdFromName('replacementIncome')
+          ] || []),
+          ...(transactionsByCategory[getCategoryIdFromName('interests')] || []),
+          ...(transactionsByCategory[getCategoryIdFromName('dividends')] || []),
+          ...(transactionsByCategory[
+            getCategoryIdFromName('donationsReceived')
+          ] || []),
+          ...(transactionsByCategory[getCategoryIdFromName('allocations')] ||
+            []),
+          ...(transactionsByCategory[getCategoryIdFromName('rentalIncome')] ||
+            []),
+          ...(transactionsByCategory[
+            getCategoryIdFromName('additionalIncome')
+          ] || []),
+          ...(transactionsByCategory[getCategoryIdFromName('incomeCat')] || [])
+        ],
         period
       )
 
