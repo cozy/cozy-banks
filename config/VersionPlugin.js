@@ -13,7 +13,7 @@ class VersionPlugin {
     // Create a resolver with the same options as the compiler
     const resolver = ResolverFactory.createResolver({
       fileSystem: new CachedInputFileSystem(fs, 4000),
-      extensions: ['.js', '.json'],
+      extensions: ['.json'],
       modules: compiler.options.resolve.modules
     })
     // We need to get the versions before the compilation because we will use
