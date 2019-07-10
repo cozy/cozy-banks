@@ -34,8 +34,8 @@ describe('fetchTransactionsForPeriod', () => {
 
     expect(BankTransaction.queryAll).toHaveBeenCalledWith({
       date: {
-        $gt: period.start,
-        $lt: period.end
+        $gte: period.start,
+        $lte: period.end
       }
     })
   })

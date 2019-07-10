@@ -19,8 +19,8 @@ export const getPeriod = () => {
 export const fetchTransactionsForPeriod = period => {
   return BankTransaction.queryAll({
     date: {
-      $gt: period.start,
-      $lt: period.end
+      $gte: period.start,
+      $lte: period.end
     }
   })
 }
