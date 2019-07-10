@@ -82,34 +82,44 @@ const main = async () => {
       const accountStats = statsByAccountId[accountId] || {}
       const transactionsByCategory = groupBy(transactions, getCategoryId)
 
+      const getTransactionsByCategoryName = categoryName => {
+        const categoryId = getCategoryIdFromName(categoryName)
+        return transactionsByCategory[categoryId] || []
+      }
+
       accountStats.periodStart = period.start
       accountStats.periodEnd = period.end
 
       accountStats.income = getMeanOnPeriod(
-        transactionsByCategory[getCategoryIdFromName('activityIncome')],
+        getTransactionsByCategoryName('activityIncome'),
         period
       )
 
       accountStats.additionalIncome = getMeanOnPeriod(
-        transactionsByCategory[getCategoryIdFromName('additionalIncome')],
+        [
+          ...getTransactionsByCategoryName('replacementIncome'),
+          ...getTransactionsByCategoryName('interests'),
+          ...getTransactionsByCategoryName('dividends'),
+          ...getTransactionsByCategoryName('donationsReceived'),
+          ...getTransactionsByCategoryName('allocations'),
+          ...getTransactionsByCategoryName('rentalIncome'),
+          ...getTransactionsByCategoryName('additionalIncome'),
+          ...getTransactionsByCategoryName('incomeCat')
+        ],
         period
       )
 
       accountStats.mortgage = getMeanOnPeriod(
-        transactionsByCategory[getCategoryIdFromName('realEstateLoan')],
+        getTransactionsByCategoryName('realEstateLoan'),
         period
       )
 
       accountStats.loans = getMeanOnPeriod(
         [
-          ...(transactionsByCategory[getCategoryIdFromName('realEstateLoan')] ||
-            []),
-          ...(transactionsByCategory[getCategoryIdFromName('consumerLoan')] ||
-            []),
-          ...(transactionsByCategory[getCategoryIdFromName('studentLoan')] ||
-            []),
-          ...(transactionsByCategory[getCategoryIdFromName('vehiculeLoan')] ||
-            [])
+          ...getTransactionsByCategoryName('realEstateLoan'),
+          ...getTransactionsByCategoryName('consumerLoan'),
+          ...getTransactionsByCategoryName('studentLoan'),
+          ...getTransactionsByCategoryName('vehiculeLoan')
         ],
         period
       )
