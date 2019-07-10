@@ -1,10 +1,10 @@
-import moment from 'moment'
+import moment from 'moment-timezone'
 import { BankTransaction } from 'cozy-doctypes'
 import { sumBy } from 'lodash'
 
 export const getPeriod = () => {
   const end = moment()
-    .utc()
+    .tz('Europe/Paris')
     .subtract(1, 'month')
     .endOf('month')
 
@@ -26,8 +26,8 @@ export const fetchTransactionsForPeriod = period => {
 }
 
 export const getMeanOnPeriod = (transactions, period) => {
-  const end = moment(period.end).utc()
-  const start = moment(period.start).utc()
+  const end = moment(period.end)
+  const start = moment(period.start)
   const nbMonths = end.diff(start, 'months')
   const total = Math.abs(sumBy(transactions, transaction => transaction.amount))
   const mean = total / nbMonths

@@ -5,7 +5,6 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const { production } = require('./webpack.vars')
-const pkg = require(path.resolve(__dirname, '../package.json'))
 
 const output = {
   path: path.resolve(__dirname, '../src/targets/mobile/www')
@@ -23,7 +22,14 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.mobile.js', '.mobile.jsx']
+    extensions: ['.mobile.js', '.mobile.jsx'],
+    alias: {
+      // Chart.js has moment as dependency for backward compatibility but it can
+      // survive without it. We do not use date related functionality in chart.js
+      // so it is safe to remove moment.
+      // https://github.com/chartjs/Chart.js/blob/master/docs/getting-started/integration.md#bundlers-webpack-rollup-etc
+      moment: path.resolve(__dirname, '../src/utils/empty')
+    }
   },
   output: output,
   plugins: [
