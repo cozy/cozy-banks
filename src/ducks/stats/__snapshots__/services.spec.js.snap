@@ -2,7 +2,7 @@
 
 exports[`getPeriod should return the period 1`] = `
 Object {
-  "end": "2019-06-30T21:59:59.999Z",
+  "end": "2019-06-30T22:00:00.000Z",
   "start": "2019-03-31T22:00:00.000Z",
 }
 `;

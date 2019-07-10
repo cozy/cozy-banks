@@ -5,12 +5,11 @@ import { sumBy } from 'lodash'
 export const getPeriod = () => {
   const end = moment()
     .tz('Europe/Paris')
-    .subtract(1, 'month')
-    .endOf('month')
+    .startOf('month')
 
   const start = end
     .clone()
-    .subtract(2, 'month')
+    .subtract(3, 'month')
     .startOf('month')
 
   return { start, end }
@@ -20,7 +19,7 @@ export const fetchTransactionsForPeriod = period => {
   return BankTransaction.queryAll({
     date: {
       $gte: period.start,
-      $lte: period.end
+      $lt: period.end
     }
   })
 }
