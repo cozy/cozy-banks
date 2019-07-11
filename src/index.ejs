@@ -36,13 +36,14 @@
 
       var errorNode = document.createElement('pre')
       errorNode.innerHTML = e.toString() + '\n' + e.stack
+      errorNode.style.whiteSpace = 'pre-wrap'
       div.style.background = 'crimson'
       div.style.fontFamily = 'sans-serif'
       div.style.color = 'white'
       div.style.padding = '1rem'
       div.appendChild(errorNode)
       setTimeout(function () {
-        var appNode = document.querySelector('#app')
+        var appNode = document.querySelector('[role="application"]')
         if (!appNode || appNode.firstChild) {
           // Bail out if application already has started
           return
