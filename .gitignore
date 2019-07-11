@@ -34,10 +34,6 @@ desktop.ini
 **/mobile/plugins
 **/mobile/www/*
 **/mobile/keys
-**/mobile/res/icons
-**/mobile/res/screens
-**/mobile/store
-**/mobile/icon.png
 **/mobile/package.json
 
 
