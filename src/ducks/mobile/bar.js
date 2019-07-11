@@ -12,7 +12,6 @@ const getLang = () =>
  *
  * - initialize the bar on login
  * - destroy it on logout
- * - refresh the bar's internal token
  */
 export default client => {
   // Need to override the default logout from the bar
