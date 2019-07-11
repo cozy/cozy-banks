@@ -3,3 +3,5 @@ minApprovals:
 requiredLabels:
 - merge
 reportStatus: true
+blockingChecks:
+  status: 'pending'
