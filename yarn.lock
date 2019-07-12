@@ -4921,10 +4921,10 @@ cozy-app-publish@0.16.2:
     request "2.88.0"
     tar "4.4.8"
 
-cozy-authentication@1.15.1:
-  version "1.15.1"
-  resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-1.15.1.tgz#9635f00623f6768f6c2ecf9dd16ff458c31bc839"
-  integrity sha512-4mFsfCKHHukiGTSmWJXizpkrjF74HdBePBPTDwNw5u7FcurfQjZTm3DLgdq+LA+G0dPlWcfJtVLNsZAvMUXPwg==
+cozy-authentication@1.15.2:
+  version "1.15.2"
+  resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-1.15.2.tgz#7e688ed17e7556645cfec12e7928529a08a70759"
+  integrity sha512-RDL685b3dLe3BkbXctYE8/7npaYzJmSejrR6qYm5YWZUSUcmWm4M5KDh6NdElvKwY33yIzEqMtAR4UgnHt62DA==
   dependencies:
     cozy-device-helper "^1.7.3"
     localforage "1.7.3"
