@@ -1,0 +1,10 @@
+[
+  {
+    "query": "ForStatement[init.kind=\"let\"]",
+    "help": "For statements with initializer of kind let does not work in Safari iOS 10"
+  },
+  {
+    "query": "ExperimentalSpreadProperty",
+    "help": "ExperimentalSpreadProperty does not work in older browser, use Object.assign"
+  }
+]
