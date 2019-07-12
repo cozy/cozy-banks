@@ -16,7 +16,3 @@ echo 'Decrypt secrets' && echo 'travis_fold:start:decrypt_secrets\\r'
 yarn secrets:decrypt
 ln -s ../../../scripts/decrypted/keys ./src/targets/mobile/keys
 echo 'travis_fold:end:decrypt_secrets\\r'
-
-echo 'Generate mobile icons' && echo 'travis_fold:start:generate_mobile_icons\\r'
-yarn mobile:icon
-echo 'travis_fold:end:generate_mobile_icons\\r'
