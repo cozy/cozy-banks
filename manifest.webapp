@@ -78,7 +78,7 @@
       "type": "node",
       "file": "stats.js",
       "trigger": "@event io.cozy.bank.operations:CREATED,UPDATED",
-      "debounce": "3m"
+      "debounce": "1m"
     }
   },
   "notifications": {
