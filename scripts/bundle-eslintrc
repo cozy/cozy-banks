@@ -1,0 +1,8 @@
+{
+  "env": {
+    es6: true
+  },
+  "parser": 'babel-eslint',
+  "plugins": ["bundle-rules"],
+  "rules": { "bundle-rules/bundle-validation": "error" }
+}
