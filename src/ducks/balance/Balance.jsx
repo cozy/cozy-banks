@@ -317,7 +317,7 @@ class Balance extends PureComponent {
     } = this.props
 
     if (isCollectionLoading(settingsCollection)) {
-      return null
+      return <BarTheme theme="primary" />
     }
 
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
