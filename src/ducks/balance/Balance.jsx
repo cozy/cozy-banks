@@ -316,16 +316,13 @@ class Balance extends PureComponent {
       transactions: transactionsCollection
     } = this.props
 
-    if (isCollectionLoading(settingsCollection)) {
-      return <BarTheme theme="primary" />
-    }
-
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
     const collections = [
       accountsCollection,
       groupsCollection,
       triggersCollection,
-      transactionsCollection
+      transactionsCollection,
+      settingsCollection
     ]
     if (collections.some(isCollectionLoading)) {
       return (
