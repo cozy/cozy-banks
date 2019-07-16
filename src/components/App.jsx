@@ -1,4 +1,3 @@
-/* global __DEV__ */
 import React from 'react'
 import ReactHintFactory from 'react-hint'
 import 'react-hint/css/index.css'
@@ -7,7 +6,7 @@ import { Layout, Main, Content } from 'cozy-ui/react/Layout'
 import Sidebar from 'cozy-ui/react/Sidebar'
 import Nav from 'ducks/commons/Nav'
 import { Warnings } from 'ducks/warnings'
-import flag, { FlagSwitcher } from 'cozy-flags'
+import flag from 'cozy-flags'
 import { settingsConn } from 'doctypes'
 import { queryConnect } from 'cozy-client'
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
@@ -29,7 +28,6 @@ const App = props => {
 
   return (
     <Layout>
-      {__DEV__ ? <FlagSwitcher /> : null}
       <Sidebar>
         <Nav />
       </Sidebar>
