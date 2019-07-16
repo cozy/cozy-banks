@@ -191,7 +191,7 @@
     "moment": "2.24.0",
     "moment-timezone": "0.5.26",
     "node-polyglot": "2.3.1",
-    "null-loader": "0.1.1",
+    "null-loader": "3.0.0",
     "number-to-locale-string": "1.2.0",
     "piwik-react-router": "0.8.2",
     "pouchdb-adapter-cordova-sqlite": "2.0.5",
