@@ -3,12 +3,6 @@
 const path = require('path')
 const fs = require('fs-extra')
 
-function handleError(error) {
-  console.log('Error in customizeConfigXML hook:')
-  console.error(error)
-  throw error
-}
-
 const readConfig = () => {
   if (!process.env.OVERRIDE_CONFIG_FILE) {
     return null
@@ -17,21 +11,10 @@ const readConfig = () => {
 }
 
 const customizeConfigXML = function(context) {
+  const xsltproc = require('xsltproc')
   const overrideConfig = readConfig()
   if (!overrideConfig) {
     console.log('No transformation file provided, skipping transformation step')
-    return
-  }
-
-  let libxslt
-
-  try {
-    libxslt = require('libxslt')
-  } catch (err) {
-    console.error(
-      'Transformation file provided, but impossible to load `libxslt`. See the error below to know more:'
-    )
-    console.error(err)
     return
   }
 
@@ -40,54 +23,58 @@ const customizeConfigXML = function(context) {
     overrideConfig.mobileConfigTransformFile
   )
 
-  let transformFile
-
-  try {
-    transformFile = fs.readFileSync(transformFilePath, 'utf8')
-  } catch (err) {
-    handleError(err)
-  }
-
   const configPath = path.resolve(__dirname, '../config.xml')
-  const config = fs.readFileSync(configPath, 'utf8')
+  const tmpPath = path.resolve(__dirname, '../tmp.txt')
+  try {
+    fs.writeFileSync(tmpPath, '')
 
-  let [major, minor, patch, beta] = overrideConfig.fullVersion
-    .split('.')
-    .map(x => parseInt(x, 10))
-  const versionCode = overrideConfig.fullVersion
-    .split('.')
-    .slice(0, 3)
-    .join('.')
-  const androidVersionCode = (
-    major * 1000000 +
-    minor * 10000 +
-    patch * 100 +
-    beta
-  ).toString()
-
-  transformFile = transformFile
-    .toString()
-    .replace('$VERSION_CODE', versionCode)
-    .replace('$ANDROID_VERSION_CODE', androidVersionCode)
-    .replace('$IOS_VERSION_CODE', overrideConfig.fullVersion)
-    .replace('$USER_AGENT_VERSION', 'io.cozy.banks.mobile-' + versionCode)
-
-  libxslt.parse(transformFile, (err, stylesheet) => {
-    if (err) {
-      handleError(err)
-    }
-
-    stylesheet.apply(config, (err, output) => {
-      if (err) {
-        handleError(err)
+    let [major, minor, patch, beta] = overrideConfig.fullVersion
+      .split('.')
+      .map(x => parseInt(x, 10))
+    const versionCode = overrideConfig.fullVersion
+      .split('.')
+      .slice(0, 3)
+      .join('.')
+    const androidVersionCode = (
+      major * 1000000 +
+      minor * 10000 +
+      patch * 100 +
+      beta
+    ).toString()
+    const transformedContent = xsltproc.transform(
+      transformFilePath,
+      configPath,
+      {
+        output: tmpPath
       }
-
-      fs.writeFileSync(configPath, output)
-      console.log(
-        `config.xml successfully transformed using ${transformFilePath}`
-      )
+    )
+    transformedContent.stdout.on('data', function(data) {
+      console.log('xsltproc stdout: ' + data)
     })
-  })
+
+    transformedContent.stderr.on('data', function(data) {
+      console.log('xsltproc stderr: ' + data)
+    })
+
+    transformedContent.on('exit', function(code) {
+      if (code === 0) {
+        const config = fs.readFileSync(tmpPath, 'utf8')
+
+        let output = config
+          .toString()
+          .replace('$VERSION_CODE', versionCode)
+          .replace('$ANDROID_VERSION_CODE', androidVersionCode)
+          .replace('$IOS_VERSION_CODE', overrideConfig.fullVersion)
+          .replace('$USER_AGENT_VERSION', 'io.cozy.banks.mobile-' + versionCode)
+
+        fs.writeFileSync(configPath, output)
+      }
+    })
+  } catch (error) {
+    console.log('error during the transform', error)
+  } finally {
+    fs.unlinkSync(tmpPath)
+  }
 }
 
 module.exports = customizeConfigXML
