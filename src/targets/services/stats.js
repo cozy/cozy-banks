@@ -98,13 +98,10 @@ const main = async () => {
       accountStats.additionalIncome = getMeanOnPeriod(
         [
           ...getTransactionsByCategoryName('replacementIncome'),
-          ...getTransactionsByCategoryName('interests'),
-          ...getTransactionsByCategoryName('dividends'),
-          ...getTransactionsByCategoryName('donationsReceived'),
           ...getTransactionsByCategoryName('allocations'),
           ...getTransactionsByCategoryName('rentalIncome'),
           ...getTransactionsByCategoryName('additionalIncome'),
-          ...getTransactionsByCategoryName('incomeCat')
+          ...getTransactionsByCategoryName('retirement')
         ],
         period
       )
