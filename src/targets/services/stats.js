@@ -121,6 +121,19 @@ const main = async () => {
         period
       )
 
+      accountStats.fixedCharges = getMeanOnPeriod(
+        [
+          ...getTransactionsByCategoryName('tuition'),
+          ...getTransactionsByCategoryName('rent'),
+          ...getTransactionsByCategoryName('homeCharges'),
+          ...getTransactionsByCategoryName('homeInsurance'),
+          ...getTransactionsByCategoryName('power'),
+          ...getTransactionsByCategoryName('vehiculeRental'),
+          ...getTransactionsByCategoryName('vehiculeInsurance')
+        ],
+        period
+      )
+
       accountStats.currency = 'EUR'
 
       if (!accountStats.relationships) {
