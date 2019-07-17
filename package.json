@@ -9,6 +9,7 @@
     "build": "npm run build:browser && npm run build:services",
     "build:browser": "NODE_ENV=${NODE_ENV:-browser:production} npm run commons:build",
     "build:mobile": "NODE_ENV=mobile:production npm run commons:build -- --env.target=mobile",
+    "validate:bundle": "node scripts/validate-js.js scripts/bundle-rules.json -- build/app.js $(ls src/targets/mobile/www/app*js)",
     "build:mobile:hot": "npm run util:check-dev-server && HOT_RELOAD=1 NODE_ENV=mobile:development npm run commons:build -- --env.target=mobile",
     "clean:browser": "rm -rf build/*",
     "clean:mobile": "rm -rf src/targets/mobile/www",
