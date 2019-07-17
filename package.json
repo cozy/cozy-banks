@@ -2,9 +2,6 @@
   "name": "cozy-banks",
   "version": "1.3.1",
   "main": "src/main.jsx",
-  "engines": {
-    "node": "10"
-  },
   "scripts": {
     "build": "npm run build:browser && npm run build:services",
     "build:browser": "NODE_ENV=${NODE_ENV:-browser:production} npm run commons:build",
