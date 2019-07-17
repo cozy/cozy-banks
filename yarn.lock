@@ -4359,15 +4359,15 @@ cozy-doctypes@1.39.0:
     es6-promise-pool "2.5.0"
     lodash "4.17.11"
 
-cozy-doctypes@1.53.1:
-  version "1.53.1"
-  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.53.1.tgz#fdefd4cb57bcd9a95aaad9d0c3e9dd6cb5ce32b8"
-  integrity sha512-GPpGo+EYVk6KBFC34fnoIYITVxY7IAnMPGtY2bfv+1acPn5CFzxrGkNuep9cH1LUD56+CHT/rs0oBfIjD/q4Mw==
+cozy-doctypes@1.55.1:
+  version "1.55.1"
+  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.55.1.tgz#6fb249047d5088a4301eb2cb5981cb849dcec10f"
+  integrity sha512-zPFPj2sVCl3mpgqImwqrP4VXsDYzl134GtxWUg1E3hV/T0t76e/Veo9VrSagWYub79/8NaYhxVp7RznwQBH0sQ==
   dependencies:
     "@babel/runtime" "7.3.1"
     cozy-logger "1.3.1"
     es6-promise-pool "2.5.0"
-    lodash "4.17.11"
+    lodash "4.17.13"
     prop-types "^15.7.2"
 
 cozy-flags@1.9.0:
