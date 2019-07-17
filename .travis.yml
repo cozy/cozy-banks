@@ -22,7 +22,7 @@ jobs:
     - name: Web build
       stage: build
       <<: *node
-      script: yarn build
+      script: yarn build && node scripts/validate-js.js scripts/bundle-rules.json build/app.js
       before_deploy: ./scripts/ci/add_ssh_key.sh
       deploy:
         - provider: script
