@@ -7,11 +7,12 @@ import { protocol, appTitle } from 'ducks/mobile/constants'
 import LogoutModal from 'components/LogoutModal'
 
 import manifest from 'ducks/client/manifest'
+import initBar from 'ducks/mobile/bar'
 import { getUniversalLinkDomain } from 'cozy-ui/transpiled/react/AppLinker'
 
 export class MobileRouter extends React.Component {
   render() {
-    const { routes } = this.props
+    const { routes, client } = this.props
     return (
       <AuthMobileRouter
         protocol={protocol}
@@ -20,6 +21,9 @@ export class MobileRouter extends React.Component {
         appTitle={appTitle}
         appSlug={manifest.slug}
         universalLinkDomain={getUniversalLinkDomain()}
+        onAuthenticated={async () => {
+          await initBar(client)
+        }}
         loginPath="/balances"
         LogoutComponent={LogoutModal}
       >
