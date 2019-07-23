@@ -167,6 +167,7 @@
     "cozy-flags": "1.9.0",
     "cozy-interapp": "0.4.5",
     "cozy-konnector-libs": "4.17.1",
+    "cozy-logger": "1.4.0",
     "cozy-pouch-link": "6.49.1",
     "cozy-realtime": "3.1.0",
     "cozy-stack-client": "6.47.0",
