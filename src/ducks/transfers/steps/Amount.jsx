@@ -1,7 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Padded from 'components/Spacing/Padded'
-import { translate, Field } from 'cozy-ui/transpiled/react'
+import {
+  translate,
+  Input,
+  InputGroup,
+  Bold,
+  Label
+} from 'cozy-ui/transpiled/react'
 import PageTitle from 'components/Title/PageTitle'
 import BottomButton from 'components/BottomButton'
 
@@ -22,6 +28,11 @@ const validateAmount = amount => {
   }
   return { ok: true }
 }
+
+// TODO remove if https://github.com/cozy/cozy-ui/pull/1113 is merged
+const InputGroupUnit = ({ children }) => (
+  <Bold className="u-ph-1">{children}</Bold>
+)
 
 class _ChooseAmount extends React.PureComponent {
   constructor(props, context) {
@@ -58,18 +69,23 @@ class _ChooseAmount extends React.PureComponent {
       <Padded>
         {active && <PageTitle>{t('Transfer.amount.page-title')}</PageTitle>}
         <Title>{t('Transfer.amount.title')}</Title>
-        <Field
-          className="u-mt-0"
-          value={amount}
-          onChange={ev => {
-            onChange(ev.target.value)
-          }}
-          type="number"
-          onBlur={this.handleBlur}
-          label={t('Transfer.amount.field-label')}
-          error={validation.error}
-          placeholder="10"
-        />
+        <Label>
+          {t('Transfer.amount.field-label')}
+          <br />
+          <InputGroup append={<InputGroupUnit>€</InputGroupUnit>}>
+            <Input
+              className="u-mt-0"
+              value={amount}
+              onChange={ev => {
+                onChange(ev.target.value)
+              }}
+              type="number"
+              onBlur={this.handleBlur}
+              error={validation.error}
+              placeholder="10"
+            />
+          </InputGroup>
+        </Label>
         {validation.error ? (
           <p className="u-error">
             {t(`Transfer.amount.errors.${validation.error}`, validation)}
