@@ -38,5 +38,6 @@ const config = merge(modeConfig, withTarget)
 module.exports = process.env.SMP ? smp.wrap(config) : config
 
 if (require.main === module) {
+  // eslint-disable-next-line no-console
   console.log(module.exports)
 }
