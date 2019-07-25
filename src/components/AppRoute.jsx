@@ -1,6 +1,7 @@
 import React from 'react'
 import { IndexRoute, Route, Redirect } from 'react-router'
 import App from 'components/App'
+import { isWebApp } from 'cozy-device-helper'
 
 import { TransactionsPageWithBackButton } from 'ducks/transactions'
 import { ReimbursementsPage } from 'ducks/reimbursements'
@@ -23,7 +24,7 @@ import UserActionRequired from 'components/UserActionRequired'
 const AppRoute = () => (
   <Route component={UserActionRequired}>
     <Route component={App}>
-      <Redirect from="/" to="balances" />
+      {isWebApp() && <Redirect from="/" to="balances" />}
       <Route path="balances">
         <IndexRoute component={Balance} />
         <Route path="reimbursements" component={ReimbursementsPage} />
@@ -50,8 +51,9 @@ const AppRoute = () => (
         </Route>
       </Route>
       <Route path="transfers" component={TransferPage} />
+      <Route path="transfers/:slideName" component={TransferPage} />
       {AppRoute.renderExtraRoutes()}
-      <Redirect from="*" to="balances" />
+      {isWebApp() && <Redirect from="*" to="balances" />}
     </Route>
   </Route>
 )

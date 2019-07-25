@@ -24,9 +24,6 @@ import {
 } from 'doctypes'
 import { isCollectionLoading } from 'ducks/client/utils'
 import BarTheme from 'ducks/bar/BarTheme'
-import flag from 'cozy-flags'
-
-const barTheme = flag('categories-header-primary') ? 'primary' : 'default'
 
 class CategoriesPage extends Component {
   componentDidMount() {
@@ -100,7 +97,7 @@ class CategoriesPage extends Component {
 
     return (
       <Fragment>
-        <BarTheme theme={barTheme} />
+        <BarTheme theme="primary" />
         <CategoriesHeader
           breadcrumbItems={breadcrumbItems}
           selectedCategory={selectedCategory}

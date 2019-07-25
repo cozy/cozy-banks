@@ -37,10 +37,23 @@ const removeAccountFromGroups = async account => {
   }
 }
 
+export const removeStats = async (client, account) => {
+  const statsResponse = await client.query(
+    client.find('io.cozy.bank.accounts.stats', {
+      'relationships.account.data._id': account._id
+    })
+  )
+
+  for (const accountStats of statsResponse.data) {
+    await client.destroy(accountStats)
+  }
+}
+
 export const DESTROY_ACCOUNT = 'DESTROY_ACCOUNT'
 export const destroyReferences = async (client, account) => {
   await deleteOrphanOperations(client, account)
   await removeAccountFromGroups(account)
+  await removeStats(client, account)
 }
 
 CozyClient.registerHook(ACCOUNT_DOCTYPE, 'before:destroy', destroyReferences)

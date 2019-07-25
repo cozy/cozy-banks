@@ -379,6 +379,12 @@ Array [
     "regexp": "\\\\bopngo\\\\b",
   },
   Object {
+    "isInstalled": false,
+    "konnectorSlug": "orange",
+    "name": "Orange",
+    "regexp": "\\\\borange\\\\b",
+  },
+  Object {
     "isInstalled": true,
     "konnectorSlug": "ovh",
     "name": "OVH",
@@ -431,6 +437,12 @@ Array [
     "konnectorSlug": "sncf",
     "name": "SNCF",
     "regexp": "\\\\bsncf\\\\b",
+  },
+  Object {
+    "isInstalled": false,
+    "konnectorSlug": "sosh",
+    "name": "Sosh",
+    "regexp": "\\\\bsosh\\\\b",
   },
   Object {
     "isInstalled": false,
@@ -906,6 +918,12 @@ Array [
   },
   Object {
     "isInstalled": false,
+    "konnectorSlug": "orange",
+    "name": "Orange",
+    "regexp": "\\\\borange\\\\b",
+  },
+  Object {
+    "isInstalled": false,
     "konnectorSlug": "planeteoui",
     "name": "Planete OUI",
     "regexp": "\\\\boui energy\\\\b",
@@ -951,6 +969,12 @@ Array [
     "konnectorSlug": "sncf",
     "name": "SNCF",
     "regexp": "\\\\bsncf\\\\b",
+  },
+  Object {
+    "isInstalled": false,
+    "konnectorSlug": "sosh",
+    "name": "Sosh",
+    "regexp": "\\\\bsosh\\\\b",
   },
   Object {
     "isInstalled": false,

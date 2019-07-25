@@ -38,7 +38,7 @@ export const pieLabelsPlugin = {
     }
     const ctx = chartInstance.chart.ctx
     const options = chartInstance.config.options
-    const arcText = chartInstance.options.pieceLabel.arcText || false
+    const arcText = chartInstance.options.pieceLabel.arcText
     const labelFormater = chartInstance.options.pieceLabel.labelFormater
     const precision = chartInstance.options.pieceLabel.precision || 0
     const fontSize =

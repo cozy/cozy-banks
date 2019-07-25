@@ -325,6 +325,11 @@
     "konnectorSlug": "opngo"
   },
   {
+    "name": "Orange",
+    "regexp": "\\borange\\b",
+    "konnectorSlug": "orange"
+  },
+  {
     "name": "OVH",
     "regexp": "\\bovh\\b",
     "konnectorSlug": "ovh"
@@ -368,6 +373,11 @@
     "name": "SNCF",
     "regexp": "\\bsncf\\b",
     "konnectorSlug": "sncf"
+  },
+  {
+    "name": "Sosh",
+    "regexp": "\\bsosh\\b",
+    "konnectorSlug": "sosh"
   },
   {
     "name": "Spartoo",

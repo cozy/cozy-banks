@@ -12,9 +12,8 @@ const getLang = () =>
  *
  * - initialize the bar on login
  * - destroy it on logout
- * - refresh the bar's internal token
  */
-export default client => {
+export default async client => {
   // Need to override the default logout from the bar
   const handleMobileLogout = async () => {
     try {
@@ -24,19 +23,17 @@ export default client => {
     }
   }
 
-  client.on('login', () => {
-    cozy.bar.init({
-      appNamePrefix: 'Cozy',
-      appName: 'Banks',
-      appEditor: 'Cozy',
-      appSlug: 'banks',
-      cozyClient: client,
-      cozyURL: client.uri,
-      iconPath: iconBanks,
-      lang: getLang(),
-      replaceTitleOnMobile: true,
-      onLogOut: handleMobileLogout
-    })
+  await cozy.bar.init({
+    appNamePrefix: 'Cozy',
+    appName: 'Banks',
+    appEditor: 'Cozy',
+    appSlug: 'banks',
+    cozyClient: client,
+    cozyURL: client.uri,
+    iconPath: iconBanks,
+    lang: getLang(),
+    replaceTitleOnMobile: true,
+    onLogOut: handleMobileLogout
   })
 
   client.on('logout', () => {

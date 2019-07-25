@@ -20,6 +20,11 @@
         <ios-team-id value="3AKXFMV43J" />
     </universal-links>
     <platform name="android">
+        <config-file parent="/manifest/application" target="app/src/main/AndroidManifest.xml">
+            <meta-data android:name="google_analytics_adid_collection_enabled" android:value="false" />
+            <meta-data android:name="firebase_analytics_collection_deactivated" android:value="true" />
+            <meta-data android:name="google_analytics_ssaid_collection_enabled" android:value="false" />
+        </config-file>
         <allow-intent href="market:*" />
         <icon density="ldpi" src="res/icons/android/icon-36-ldpi.png" />
         <icon density="mdpi" src="res/icons/android/icon-48-mdpi.png" />
@@ -43,6 +48,12 @@
         <resource-file src="keys/android/google-services.json" target="app/google-services.json" />
     </platform>
     <platform name="ios">
+        <config-file overwrite="true" parent="FIREBASE_ANALYTICS_COLLECTION_DEACTIVATED" platform="ios" target="*-Info.plist">
+            <true />
+        </config-file>
+        <config-file overwrite="true" parent="GOOGLE_ANALYTICS_IDFV_COLLECTION_ENABLED" platform="ios" target="*-Info.plist">
+            <false />
+        </config-file>
         <preference name="StatusBarOverlaysWebView" value="false" />
         <preference name="Suppresses3DTouchGesture" value="true" />
         <preference name="DisallowOverscroll" value="true" />

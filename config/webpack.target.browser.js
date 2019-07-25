@@ -3,10 +3,12 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const pkg = require(path.resolve(__dirname, '../package.json'))
 
 module.exports = {
-  entry: [require.resolve('@babel/polyfill'), path.resolve(__dirname, '../src/main')],
+  entry: [
+    require.resolve('@babel/polyfill'),
+    path.resolve(__dirname, '../src/main')
+  ],
   output: {
     path: path.resolve(__dirname, '../build')
   },
@@ -14,7 +16,14 @@ module.exports = {
     'cozy-client-js': 'cozy'
   },
   resolve: {
-    extensions: ['.browser.js', '.browser.jsx']
+    extensions: ['.browser.js', '.browser.jsx'],
+    alias: {
+      // Chart.js has moment as dependency for backward compatibility but it can
+      // survive without it. We do not use date related functionality in chart.js
+      // so it is safe to remove moment.
+      // https://github.com/chartjs/Chart.js/blob/master/docs/getting-started/integration.md#bundlers-webpack-rollup-etc
+      moment: path.resolve(__dirname, '../src/utils/empty')
+    }
   },
   plugins: [
     new webpack.DefinePlugin({

@@ -1,6 +1,7 @@
 'use strict'
 
 const merge = require('webpack-merge')
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
 const {
   production,
   target,
@@ -14,7 +15,7 @@ const common = merge(
   require('./config/webpack.config.styles'),
   require('./config/webpack.config.cozy-ui'),
   require('./config/webpack.config.pictures'),
-  require('./config/webpack.config.vendors'),
+  require('./config/webpack.config.versions'),
   require('./config/webpack.config.manifest'),
   require('./config/webpack.config.piwik'),
   hotReload ? require(`./config/webpack.config.hot-reload`) : null,
@@ -31,8 +32,12 @@ const modeConfig = production
   ? require('./config/webpack.config.prod')
   : require('./config/webpack.config.dev')
 
-module.exports = merge(modeConfig, withTarget)
+const smp = new SpeedMeasurePlugin()
+const config = merge(modeConfig, withTarget)
+
+module.exports = process.env.SMP ? smp.wrap(config) : config
 
 if (require.main === module) {
+  // eslint-disable-next-line no-console
   console.log(module.exports)
 }

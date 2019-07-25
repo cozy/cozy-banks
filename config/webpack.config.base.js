@@ -53,17 +53,11 @@ module.exports = {
         'pouchdb-utils',
         'dom-helpers',
         'inherits',
-        'react-markown'
+        'react-markdown'
       ]),
 
       // We do not need mime-db (used in cozy-stack-client::FileCollection) so we fake it
-      'mime-db': path.resolve(__dirname, '../src/utils/empty-mime-db'),
-
-      // Chart.js has moment as dependency for backward compatibility but it can
-      // survive without it. We do not use date related functionality in chart.js
-      // so it is safe to remove moment.
-      // https://github.com/chartjs/Chart.js/blob/master/docs/getting-started/integration.md#bundlers-webpack-rollup-etc
-      moment: path.resolve(__dirname, '../src/utils/empty')
+      'mime-db': path.resolve(__dirname, '../src/utils/empty-mime-db')
     }
   },
   module: {
@@ -112,11 +106,11 @@ module.exports = {
     }),
     // ChartJS uses moment :( To remove when we do not use it anymore
     new webpack.ContextReplacementPlugin(
-      /moment[\/\\]locale$/,
+      /moment[/\\]locale$/,
       /(en|fr)\/index\.js/
     ),
     new webpack.ContextReplacementPlugin(
-      /date-fns[\/\\]locale$/,
+      /date-fns[/\\]locale$/,
       /(en|fr)\/index\.js/
     ),
     new DuplicatePackageCheckerPlugin({ verbose: true })

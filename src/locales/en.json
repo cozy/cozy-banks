@@ -658,6 +658,8 @@
     },
     "beneficiary": {
       "page-title": "Beneficiary",
+      "add-beneficiary": "Add a recipient",
+      "help-add-beneficiary": "To add recipients, add them directly on the website of your bank.",
       "title": "To which account do you want to send this transfer"
     },
     "sender": {
@@ -671,7 +673,8 @@
       "to": "to",
       "for": "for",
       "for-placeholder": "reason (optional)",
-      "confirm": "Confirm transfer"
+      "confirm": "Confirm transfer",
+      "on": "on"
     },
     "password": {
       "page-title": "Password",

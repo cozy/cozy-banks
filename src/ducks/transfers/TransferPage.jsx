@@ -1,398 +1,32 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import compose from 'lodash/flowRight'
 import { withRouter } from 'react-router'
 import Padded from 'components/Spacing/Padded'
-import {
-  Media,
-  Bd,
-  Img,
-  translate,
-  Text,
-  Caption,
-  Bold,
-  Title as UITitle,
-  Field,
-  Input,
-  Modal,
-  Button
-} from 'cozy-ui/transpiled/react'
+import { translate, Text, Modal } from 'cozy-ui/transpiled/react'
 import { withClient, queryConnect } from 'cozy-client'
 import Realtime from 'cozy-realtime'
 import { logException } from 'lib/sentry'
-import Stack from 'components/Stack'
 
 import Loading from 'components/Loading'
-import { List, Row, Radio } from 'components/List'
 import Stepper from 'components/Stepper'
-import PageTitle from 'components/Title/PageTitle'
-import TextCard from 'components/TextCard'
-import OptionalInput from 'components/OptionalInput'
-import BottomButton from 'components/BottomButton'
-import Figure from 'components/Figure'
-import AccountIcon from 'components/AccountIcon'
 import AddAccountButton from 'ducks/categories/AddAccountButton'
 import * as recipientUtils from 'ducks/transfers/recipients'
 import * as transfers from 'ducks/transfers/transfers'
 
-import styles from 'ducks/transfers/styles.styl'
-import transferDoneImg from 'assets/transfer-done.jpg'
-import transferErrorImg from 'assets/transfer-error.jpg'
-
-const _Title = ({ children }) => {
-  return <UITitle className="u-ta-center u-mb-1">{children}</UITitle>
-}
-
-const Title = React.memo(_Title)
+import Title from 'ducks/transfers/steps/Title'
+import {
+  TransferSuccess,
+  TransferError
+} from 'ducks/transfers/steps/TransferState'
+import ChooseRecipientCategory from 'ducks/transfers/steps/Category'
+import ChooseBeneficiary from 'ducks/transfers/steps/Beneficiary'
+import ChooseSenderAccount from 'ducks/transfers/steps/Sender'
+import ChooseAmount from 'ducks/transfers/steps/Amount'
+import Summary from 'ducks/transfers/steps/Summary'
+import Password from 'ducks/transfers/steps/Password'
+import { isLoginFailed } from 'ducks/transfers/utils'
 
 const THIRTY_SECONDS = 30 * 1000
-
-const _ChooseRecipientCategory = ({ t, category, onSelect, active }) => {
-  return (
-    <Padded>
-      {active && <PageTitle>{t('Transfer.category.page-title')}</PageTitle>}
-      <Title>{t('Transfer.category.title')}</Title>
-      <List border paper>
-        <Row onClick={onSelect.bind(null, 'internal')}>
-          <Radio
-            readOnly
-            name="category"
-            checked={category == 'internal'}
-            value="internal"
-            label={t('Transfer.category.internal')}
-          />
-        </Row>
-        <Row onClick={onSelect.bind(null, 'external')}>
-          <Radio
-            readOnly
-            name="category"
-            checked={category == 'external'}
-            value="external"
-            label={t('Transfer.category.external')}
-          />
-        </Row>
-      </List>
-    </Padded>
-  )
-}
-
-const ChooseRecipientCategory = React.memo(
-  translate()(_ChooseRecipientCategory)
-)
-
-const _BeneficiaryRow = ({ beneficiary, onSelect }) => {
-  return (
-    <Row className="u-clickable" onClick={onSelect.bind(null, beneficiary)}>
-      <Media className="u-w-100">
-        {beneficiary.account ? (
-          <Img className="u-mr-1">
-            {/* TODO, remove key when AccountIcon correctly updates on account change (https://github.com/cozy/cozy-ui/issues/1076) */}
-            <AccountIcon
-              key={beneficiary.account._id}
-              account={beneficiary.account}
-            />
-          </Img>
-        ) : null}
-        <Bd>
-          <Text>{beneficiary.label}</Text>
-          <Caption>{beneficiary.iban}</Caption>
-        </Bd>
-        {beneficiary.account ? (
-          <Img className="u-ml-half">
-            <Bold>
-              <Figure
-                symbol="€"
-                total={beneficiary.account.balance}
-                coloredPositive
-                coloredNegative
-                coloredWarning
-              />
-            </Bold>
-          </Img>
-        ) : null}
-      </Media>
-    </Row>
-  )
-}
-
-const BeneficiaryRow = React.memo(_BeneficiaryRow)
-
-class _ChooseBeneficiary extends React.Component {
-  render() {
-    const { t, beneficiaries, onSelect, active } = this.props
-    return (
-      <Padded>
-        {active && (
-          <PageTitle>{t('Transfer.beneficiary.page-title')}</PageTitle>
-        )}
-        <Title>{t('Transfer.beneficiary.title')}</Title>
-        <List border paper>
-          {beneficiaries.map(beneficiary => (
-            <BeneficiaryRow
-              key={beneficiary._id}
-              onSelect={onSelect}
-              beneficiary={beneficiary}
-            />
-          ))}
-        </List>
-      </Padded>
-    )
-  }
-}
-
-const ChooseBeneficiary = React.memo(translate()(_ChooseBeneficiary))
-
-const MINIMUM_AMOUNT = 5
-const MAXIMUM_AMOUNT = 1000
-
-const validateAmount = amount => {
-  if (amount == '') {
-    return { ok: true }
-  } else if (parseInt(amount, 10) > MAXIMUM_AMOUNT) {
-    return { error: 'too-high', maximum: MAXIMUM_AMOUNT }
-  } else if (parseInt(amount, 10) < MINIMUM_AMOUNT) {
-    return { error: 'too-low', minimum: MINIMUM_AMOUNT }
-  } else if (isNaN(parseInt(amount, 10))) {
-    return { error: 'incorrect-number', value: amount }
-  }
-  return { ok: true }
-}
-
-class _ChooseAmount extends React.PureComponent {
-  constructor(props, context) {
-    super(props, context)
-    this.state = { validation: { ok: true } }
-    this.handleBlur = this.handleBlur.bind(this)
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    this.checkToIncreaseSlideHeight(prevState)
-  }
-
-  checkToIncreaseSlideHeight(prevState) {
-    if (
-      Boolean(prevState.validation.error) !==
-      Boolean(this.state.validation.error)
-    ) {
-      this.context.swipeableViews.slideUpdateHeight()
-    }
-  }
-
-  handleBlur() {
-    this.validate()
-  }
-
-  validate() {
-    this.setState({ validation: validateAmount(this.props.amount) })
-  }
-
-  render() {
-    const { t, amount, onChange, onSelect, active } = this.props
-    const validation = this.state.validation
-    return (
-      <Padded>
-        {active && <PageTitle>{t('Transfer.amount.page-title')}</PageTitle>}
-        <Title>{t('Transfer.amount.title')}</Title>
-        {validation.error ? (
-          <p className="u-error">
-            {t(`Transfer.amount.errors.${validation.error}`, validation)}
-          </p>
-        ) : null}
-        <Field
-          className="u-mt-0"
-          value={amount}
-          onChange={ev => {
-            onChange(ev.target.value)
-          }}
-          type="number"
-          onBlur={this.handleBlur}
-          label={t('Transfer.amount.field-label')}
-          error={validation.error}
-          placeholder="10"
-        />
-        <BottomButton
-          disabled={amount === '' || !!validation.error}
-          label={t('Transfer.amount.confirm')}
-          visible={active}
-          onClick={onSelect}
-        />
-      </Padded>
-    )
-  }
-}
-
-_ChooseAmount.contextTypes = {
-  swipeableViews: PropTypes.object.isRequired
-}
-
-const ChooseAmount = React.memo(translate()(_ChooseAmount))
-
-const SenderRow = ({ account, onSelect }) => {
-  return (
-    <Row
-      className="u-clickable"
-      onClick={onSelect.bind(null, account)}
-      key={account._id}
-    >
-      <Media className="u-w-100">
-        <Img className="u-mr-1">
-          {/* TODO, remove key when AccountIcon correctly updates on account change (https://github.com/cozy/cozy-ui/issues/1076) */}
-          <AccountIcon key={account._id} account={account} />
-        </Img>
-        <Bd>
-          <Text>{account.shortLabel}</Text>
-          <Caption>{account.iban}</Caption>
-        </Bd>
-        <Img className="u-ml-half">
-          <Bold>
-            <Figure
-              coloredWarning
-              coloredNegative
-              coloredPositive
-              total={account.balance}
-              symbol="€"
-            />
-          </Bold>
-        </Img>
-      </Media>
-    </Row>
-  )
-}
-
-class _ChooseSenderAccount extends React.Component {
-  render() {
-    const { accounts, onSelect, active, t } = this.props
-    return (
-      <Padded>
-        {active && <PageTitle>{t('Transfer.sender.page-title')}</PageTitle>}
-        <Title>{t('Transfer.sender.title')}</Title>
-        <List border paper>
-          {accounts.map(account => (
-            <SenderRow
-              key={account._id}
-              account={account}
-              onSelect={onSelect}
-            />
-          ))}
-        </List>
-      </Padded>
-    )
-  }
-}
-
-const ChooseSenderAccount = React.memo(translate()(_ChooseSenderAccount))
-
-const _Summary = ({
-  amount,
-  senderAccount,
-  beneficiary,
-  onConfirm,
-  active,
-  selectSlide,
-  t,
-  onChangeLabel,
-  label,
-  onChangeDate,
-  date
-}) =>
-  amount && senderAccount && beneficiary ? (
-    <Padded>
-      {active && <PageTitle>{t('Transfer.summary.page-title')}</PageTitle>}
-      <div>
-        {t('Transfer.summary.send')}{' '}
-        <TextCard
-          className="u-clickable"
-          onClick={selectSlide.bind(null, 'amount')}
-        >
-          {amount}€
-        </TextCard>
-        <br />
-        {t('Transfer.summary.to')}{' '}
-        <TextCard
-          className="u-clickable"
-          onClick={selectSlide.bind(null, 'beneficiary')}
-        >
-          {beneficiary.label}
-        </TextCard>
-        <br />
-        {t('Transfer.summary.from')}{' '}
-        <TextCard
-          className="u-clickable"
-          onClick={selectSlide.bind(null, 'sender')}
-        >
-          {/* TODO, remove key when AccountIcon correctly updates on account change (https://github.com/cozy/cozy-ui/issues/1076) */}
-          <AccountIcon
-            key={senderAccount._id}
-            size="small"
-            account={senderAccount}
-          />{' '}
-          {senderAccount.label}
-        </TextCard>
-        <br />
-        {t('Transfer.summary.on')}{' '}
-        <TextCard className="u-clickable">
-          <Input type="date" value={date} onChange={onChangeDate} size="tiny" />
-        </TextCard>
-        <br />
-        {t('Transfer.summary.for')}{' '}
-        <OptionalInput
-          value={label}
-          onChange={onChangeLabel}
-          placeholder={t('Transfer.summary.for-placeholder')}
-        />
-        <BottomButton
-          label={t('Transfer.summary.confirm')}
-          visible={active}
-          onClick={onConfirm}
-        />
-      </div>
-    </Padded>
-  ) : null
-
-const Summary = React.memo(translate()(_Summary))
-
-const _Password = ({
-  t,
-  onChangePassword,
-  onConfirm,
-  active,
-  password,
-  senderAccount
-}) => (
-  <>
-    <Padded>
-      {active && <PageTitle>{t('Transfer.password.page-title')}</PageTitle>}
-      <Stack>
-        <Title>{t('Transfer.password.title')}</Title>
-        <div className="u-ta-center">
-          {/* TODO, remove key when AccountIcon correctly updates on account change (https://github.com/cozy/cozy-ui/issues/1076) */}
-          {senderAccount ? (
-            <AccountIcon
-              key={senderAccount._id}
-              account={senderAccount}
-              size="large"
-            />
-          ) : null}
-        </div>
-        <Field
-          type="password"
-          onChange={onChangePassword}
-          value={password}
-          placeholder={t('Transfer.password.field-placeholder')}
-          label={t('Transfer.password.field-label')}
-        />
-      </Stack>
-    </Padded>
-    <BottomButton
-      label={t('Transfer.password.confirm')}
-      visible={active}
-      onClick={onConfirm}
-      disabled={password === ''}
-    />
-  </>
-)
-
-const Password = React.memo(translate()(_Password))
 
 const slideIndexes = {
   category: 0,
@@ -402,58 +36,6 @@ const slideIndexes = {
   summary: 4,
   password: 5
 }
-
-const TransferStateModal = props => (
-  <Padded className={styles.TransferStateModal}>
-    <Title className="u-mb-1-half">{props.title}</Title>
-    <img
-      style={{ maxHeight: '7.5rem' }}
-      className="u-mb-1-half"
-      src={props.img}
-    />
-    <Text className="u-mb-1-half">{props.description}</Text>
-    <Button
-      extension="full"
-      className="u-mb-half"
-      onClick={props.onClickPrimaryButton}
-      label={props.primaryLabel}
-    />
-  </Padded>
-)
-
-const TransferSuccess = React.memo(
-  translate()(({ t, onExit }) => (
-    <TransferStateModal
-      title={t('Transfer.success.title')}
-      img={transferDoneImg}
-      description={t('Transfer.success.description')}
-      onClickPrimaryButton={onExit}
-      primaryLabel={t('Transfer.exit')}
-    />
-  ))
-)
-
-const isLoginFailed = error =>
-  error.message && error.message.includes('LOGIN_FAILED')
-
-export const DumbTransferError = ({ t, onExit, error }) => {
-  const loginFailed = isLoginFailed(error)
-  return (
-    <TransferStateModal
-      title={t('Transfer.error.title')}
-      img={transferErrorImg}
-      description={
-        loginFailed
-          ? t('Transfer.error.description-login-failed')
-          : t('Transfer.error.description')
-      }
-      onClickPrimaryButton={onExit}
-      primaryLabel={loginFailed ? t('Transfer.retry') : t('Transfer.exit')}
-    />
-  )
-}
-
-export const TransferError = React.memo(translate()(DumbTransferError))
 
 const subscribe = (rt, event, doc, id, cb) => {
   let handler
@@ -466,6 +48,48 @@ const subscribe = (rt, event, doc, id, cb) => {
   rt.subscribe(event, doc, id, handler)
   return unsubscribe
 }
+
+const NoRecipient = translate()(({ t }) => (
+  <Padded>
+    <Title>{t('Transfer.no-recipients.title')}</Title>
+    <Text>{t('Transfer.no-recipients.description')}</Text>
+    <ul>
+      <li>Axa Banque</li>
+      <li>BNP Paribas</li>
+      <li>Boursorama</li>
+      <li>Banque Postale Particuliers</li>
+      <li>CIC</li>
+      <li>Crédit Agricole</li>
+      <li>Crédit Coopératif</li>
+      <li>Crédit Foncier</li>
+      <li>Crédit Mutuel</li>
+      <li>Fortuneo</li>
+      <li>Hello Bank</li>
+      <li>ING</li>
+      <li>LCL</li>
+      <li>Société Générale</li>
+    </ul>
+    <AddAccountButton
+      extension="full"
+      label={t('Transfer.no-bank.add-bank')}
+      theme="primary"
+      className="u-mt-0"
+    />
+  </Padded>
+))
+
+const NoBank = translate()(({ t }) => (
+  <Padded>
+    <Title>{t('Transfer.no-bank.title')}</Title>
+    <AddAccountButton
+      absolute
+      extension="full"
+      label={t('Transfer.no-bank.add-bank')}
+      theme="primary"
+      className="u-mt-0"
+    />
+  </Padded>
+))
 
 class TransferPage extends React.Component {
   constructor(props, context) {
@@ -518,12 +142,29 @@ class TransferPage extends React.Component {
     )
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
+    this.ensureHasAllRecipients()
+    this.checkToUpdateSlideBasedOnRoute(prevProps)
+  }
+
+  ensureHasAllRecipients() {
     if (
       this.props.recipients.hasMore &&
       this.props.recipients.fetchStatus !== 'loading'
     ) {
       this.props.recipients.fetchMore()
+    }
+  }
+
+  checkToUpdateSlideBasedOnRoute(prevProps) {
+    if (!this.props.router) {
+      // In tests when TransferPage is not wrapped in withRouter
+      return
+    }
+    const { routeParams: prevRouteParams } = prevProps
+    const { routeParams } = this.props
+    if (routeParams.slideName !== prevRouteParams.slideName) {
+      this.selectSlideByName(routeParams.slideName)
     }
   }
 
@@ -649,7 +290,8 @@ class TransferPage extends React.Component {
   }
 
   selectSlideByName(slideName) {
-    this.setState({ slide: slideIndexes[slideName] })
+    this.setState({ slide: slideIndexes[slideName] || 0 })
+    this.props.router.push(slideName ? `/transfers/${slideName}` : '/transfers')
   }
 
   handleModalDismiss() {
@@ -672,7 +314,7 @@ class TransferPage extends React.Component {
   }
 
   render() {
-    const { recipients, accounts, t } = this.props
+    const { recipients, accounts } = this.props
 
     const {
       category,
@@ -698,48 +340,11 @@ class TransferPage extends React.Component {
     }
 
     if (accounts.data.length === 0) {
-      return (
-        <Padded>
-          <Title>{t('Transfer.no-bank.title')}</Title>
-          <AddAccountButton
-            extension="full"
-            label={t('Transfer.no-bank.add-bank')}
-            theme="primary"
-            className="u-mt-0"
-          />
-        </Padded>
-      )
+      return <NoBank />
     }
 
     if (recipients.data.length === 0) {
-      return (
-        <Padded>
-          <Title>{t('Transfer.no-recipients.title')}</Title>
-          <Text>{t('Transfer.no-recipients.description')}</Text>
-          <ul>
-            <li>Axa Banque</li>
-            <li>BNP Paribas</li>
-            <li>Boursorama</li>
-            <li>Banque Postale Particuliers</li>
-            <li>CIC</li>
-            <li>Crédit Agricole</li>
-            <li>Crédit Coopératif</li>
-            <li>Crédit Foncier</li>
-            <li>Crédit Mutuel</li>
-            <li>Fortuneo</li>
-            <li>Hello Bank</li>
-            <li>ING</li>
-            <li>LCL</li>
-            <li>Société Générale</li>
-          </ul>
-          <AddAccountButton
-            extension="full"
-            label={t('Transfer.no-bank.add-bank')}
-            theme="primary"
-            className="u-mt-0"
-          />
-        </Padded>
-      )
+      return <NoRecipient />
     }
 
     const categoryFilter = recipientUtils.createCategoryFilter(
@@ -770,6 +375,7 @@ class TransferPage extends React.Component {
             onSelect={this.handleChangeCategory}
           />
           <ChooseBeneficiary
+            category={category}
             beneficiary={beneficiary}
             onSelect={this.handleSelectBeneficiary}
             beneficiaries={beneficiaries}

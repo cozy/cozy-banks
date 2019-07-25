@@ -61,11 +61,10 @@ describe('GroupPanel', () => {
   it('should optimistically update', () => {
     const gp = root.find(DumbGroupPanel).instance()
     const ev = {}
-    const expanded = true
     expect(root.find(ExpansionPanel).props().expanded).toBe(false)
-    gp.handlePanelChange(ev, expanded)
-    expect(gp.state.optimisticExpanded).toBe(expanded)
-    expect(onChange).toHaveBeenCalledWith(group._id, ev, expanded)
+    gp.handlePanelChange(ev, true)
+    expect(gp.state.optimisticExpanded).toBe(true)
+    expect(onChange).toHaveBeenCalledWith(group._id, ev, true)
     root.update()
     expect(root.find(ExpansionPanel).props().expanded).toBe(true)
   })
@@ -77,11 +76,9 @@ describe('GroupPanel', () => {
     // sanity check
     expect(root.find(ExpansionPanel).props().expanded).toBe(false)
 
-    // Toggle panel
-    const evExpanded = true
-    gp.handlePanelChange(ev, evExpanded)
-    expect(gp.state.optimisticExpanded).toBe(evExpanded)
-    expect(onChange).toHaveBeenCalledWith(group._id, ev, evExpanded)
+    gp.handlePanelChange(ev, true)
+    expect(gp.state.optimisticExpanded).toBe(true)
+    expect(onChange).toHaveBeenCalledWith(group._id, ev, true)
     root.update()
     expect(root.find(ExpansionPanel).props().expanded).toBe(true)
 

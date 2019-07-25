@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import cx from 'classnames'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import Toggle from 'cozy-ui/react/Toggle'
-import flag from 'cozy-flags'
 import Breadcrumb from 'components/Breadcrumb'
 import { AccountSwitch } from 'ducks/account'
 import BackButton from 'components/BackButton'
@@ -23,13 +22,9 @@ class CategoriesHeader extends PureComponent {
   renderAccountSwitch = () => {
     const { selectedCategory, breadcrumbItems } = this.props
     const [previousItem] = breadcrumbItems.slice(-2, 1)
-    const withPrimary = flag('categories-header-primary')
-    const theme = withPrimary ? 'primary' : 'default'
-    const colorProps = { color: theme }
-
     return (
       <Fragment>
-        <AccountSwitch small={selectedCategory !== undefined} {...colorProps} />
+        <AccountSwitch small={selectedCategory !== undefined} color="primary" />
         {selectedCategory && (
           <BackButton
             onClick={
@@ -37,7 +32,7 @@ class CategoriesHeader extends PureComponent {
                 ? previousItem.onClick
                 : undefined
             }
-            theme={theme}
+            theme="primary"
           />
         )}
       </Fragment>
@@ -60,8 +55,7 @@ class CategoriesHeader extends PureComponent {
     if (!showIncomeToggle) {
       return null
     }
-    const withPrimary = flag('categories-header-primary')
-    const color = withPrimary && !isMobile ? 'primary' : 'default'
+    const color = !isMobile ? 'primary' : 'default'
 
     return (
       <div className={cx(styles.CategoriesHeader__Toggle, styles[color])}>
@@ -94,8 +88,7 @@ class CategoriesHeader extends PureComponent {
       return null
     }
 
-    const withPrimary = flag('categories-header-primary')
-    const color = { color: withPrimary && !isMobile ? 'primary' : 'default' }
+    const color = { color: !isMobile ? 'primary' : 'default' }
     const className = hasAccount
       ? undefined
       : { className: styles.NoAccount_chart }
@@ -130,14 +123,11 @@ class CategoriesHeader extends PureComponent {
     const incomeToggle = this.renderIncomeToggle()
     const chart = this.renderChart()
 
-    const withPrimary = flag('categories-header-primary')
-    const colorProps = { color: withPrimary ? 'primary' : 'default' }
-
     if (isMobile) {
       return (
         <Fragment>
-          <Header fixed {...colorProps}>
-            <SelectDates showFullYear {...colorProps} />
+          <Header fixed color="primary">
+            <SelectDates showFullYear color="primary" />
           </Header>
           {accountSwitch}
           {hasAccount ? (
@@ -151,7 +141,7 @@ class CategoriesHeader extends PureComponent {
             <Header color="default" className={styles.NoAccount_container}>
               <Padded className={styles.NoAccount_box}>
                 {chart}
-                <AddAccountButton label={t('Accounts.add_bank')} />
+                <AddAccountButton absolute label={t('Accounts.add_bank')} />
               </Padded>
             </Header>
           )}
@@ -160,7 +150,7 @@ class CategoriesHeader extends PureComponent {
     }
 
     return (
-      <Header {...colorProps}>
+      <Header color="primary">
         <Padded
           className={cx(styles.CategoriesHeader, {
             [styles.NoAccount]: !hasAccount
@@ -169,16 +159,16 @@ class CategoriesHeader extends PureComponent {
           <div>
             <Padded className="u-ph-0 u-pt-0 u-pb-half">{accountSwitch}</Padded>
             <Padded className="u-pv-1 u-ph-0">
-              <SelectDates showFullYear {...colorProps} />
+              <SelectDates showFullYear color="primary" />
             </Padded>
             {breadcrumbItems.length > 1 && (
               <Breadcrumb
                 items={breadcrumbItems}
                 className={cx(
                   styles.CategoriesHeader__Breadcrumb,
-                  styles[colorProps.color]
+                  styles.primary
                 )}
-                {...colorProps}
+                color="primary"
               />
             )}
             {incomeToggle}

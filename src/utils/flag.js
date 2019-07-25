@@ -31,25 +31,7 @@ if (isDemoCozy()) {
   flag('demo', true)
 }
 
-// Turn on new balance panels UI
-flag('balance-panels', true)
-
-// Turn on new Categories page UI
-flag('categories-header-primary', true)
-
-// Turn on history chart on movements page
-flag('transaction-history', true)
-
 // Turn on reimbursement tags + new CTAs UI
 flag('reimbursement-tag', true)
-
-// Turn on late health reimbursement notification
-flag('late-health-reibursement-notification', true)
-
-// Turn on delayed debit notification
-flag('delayed-debit-alert', true)
-
-// Turn on health conacts in reimbursement status modal
-flag('reimbursements-contacts', true)
 
 window.flag = flag
