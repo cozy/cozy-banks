@@ -46,26 +46,6 @@
     semver "^5.4.1"
     source-map "^0.5.0"
 
-"@babel/core@7.3.4", "@babel/core@^7.0.0 <7.4.0":
-  version "7.3.4"
-  resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.3.4.tgz#921a5a13746c21e32445bf0798680e9d11a6530b"
-  integrity sha512-jRsuseXBo9pN197KnDwhhaaBzyZr2oIcLHHTt2oDdQrej5Qp57dCCJafWx5ivU8/alEYDpssYqv1MUqcxwQlrA==
-  dependencies:
-    "@babel/code-frame" "^7.0.0"
-    "@babel/generator" "^7.3.4"
-    "@babel/helpers" "^7.2.0"
-    "@babel/parser" "^7.3.4"
-    "@babel/template" "^7.2.2"
-    "@babel/traverse" "^7.3.4"
-    "@babel/types" "^7.3.4"
-    convert-source-map "^1.1.0"
-    debug "^4.1.0"
-    json5 "^2.1.0"
-    lodash "^4.17.11"
-    resolve "^1.3.2"
-    semver "^5.4.1"
-    source-map "^0.5.0"
-
 "@babel/core@7.5.0":
   version "7.5.0"
   resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.5.0.tgz#6ed6a2881ad48a732c5433096d96d1b0ee5eb734"
@@ -86,7 +66,7 @@
     semver "^5.4.1"
     source-map "^0.5.0"
 
-"@babel/core@^7.1.0":
+"@babel/core@7.5.4", "@babel/core@^7.1.0":
   version "7.5.4"
   resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.5.4.tgz#4c32df7ad5a58e9ea27ad025c11276324e0b4ddd"
   integrity sha512-+DaeBEpYq6b2+ZmHx3tHspC+ZRflrvLqwfv8E3hNr5LVQoyBnL8RPKSBCg+rK2W2My9PWlujBiqd0ZPsR9Q6zQ==
@@ -98,6 +78,26 @@
     "@babel/template" "^7.4.4"
     "@babel/traverse" "^7.5.0"
     "@babel/types" "^7.5.0"
+    convert-source-map "^1.1.0"
+    debug "^4.1.0"
+    json5 "^2.1.0"
+    lodash "^4.17.11"
+    resolve "^1.3.2"
+    semver "^5.4.1"
+    source-map "^0.5.0"
+
+"@babel/core@^7.0.0 <7.4.0":
+  version "7.3.4"
+  resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.3.4.tgz#921a5a13746c21e32445bf0798680e9d11a6530b"
+  integrity sha512-jRsuseXBo9pN197KnDwhhaaBzyZr2oIcLHHTt2oDdQrej5Qp57dCCJafWx5ivU8/alEYDpssYqv1MUqcxwQlrA==
+  dependencies:
+    "@babel/code-frame" "^7.0.0"
+    "@babel/generator" "^7.3.4"
+    "@babel/helpers" "^7.2.0"
+    "@babel/parser" "^7.3.4"
+    "@babel/template" "^7.2.2"
+    "@babel/traverse" "^7.3.4"
+    "@babel/types" "^7.3.4"
     convert-source-map "^1.1.0"
     debug "^4.1.0"
     json5 "^2.1.0"
@@ -2452,6 +2452,22 @@ babel-preset-cozy-app@1.5.1:
     browserslist-config-cozy "0.2.0"
     lodash "4.17.11"
 
+babel-preset-cozy-app@1.5.2:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/babel-preset-cozy-app/-/babel-preset-cozy-app-1.5.2.tgz#56ecfa524b33ee89022f122079eedc6d8da59448"
+  integrity sha512-aACixVXDcQBhh1ewL6bs5PJJdV+CHIUfSOysyP0C0qv05ffOFRrhPQlrM3RBGN9qvTt+Ov/6+rsFJ+R1ZG1nEA==
+  dependencies:
+    "@babel/core" "7.2.2"
+    "@babel/helper-plugin-utils" "7.0.0"
+    "@babel/plugin-proposal-class-properties" "7.3.0"
+    "@babel/plugin-proposal-object-rest-spread" "7.3.2"
+    "@babel/plugin-transform-runtime" "7.2.0"
+    "@babel/preset-env" "7.3.1"
+    "@babel/preset-react" "7.0.0"
+    "@babel/runtime" "7.2.0"
+    browserslist-config-cozy "0.2.0"
+    lodash "4.17.13"
+
 babel-preset-jest@^24.6.0:
   version "24.6.0"
   resolved "https://registry.yarnpkg.com/babel-preset-jest/-/babel-preset-jest-24.6.0.tgz#66f06136eefce87797539c0d63f1769cc3915984"
@@ -4248,18 +4264,18 @@ cozy-authentication@1.16.0:
     react-markdown "4.0.8"
     url-polyfill "1.1.0"
 
-cozy-bar@7.5.2:
-  version "7.5.2"
-  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-7.5.2.tgz#4f4883668183fe23c1155e0e1c96a0b35e8d9e21"
-  integrity sha512-uvNZ4/zLax5PuIorvlqhckMh0D5/l1KFHAxcv3hiP+ZhJxKlnEjaG/ENQ1/oiSogpOC8tLcwwul7S++xN9Boaw==
+cozy-bar@7.6.0:
+  version "7.6.0"
+  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-7.6.0.tgz#cfcd39229a62bbb8df9fbb6a751231620e139738"
+  integrity sha512-QqqgQmK5I6/HKWAgE60tw5LhP86vc2afRwHlGcruwhW6BA8ZU+529+7VI0pT2gMosc6iVJrfkJC4pZ8oGKxmVw==
   dependencies:
-    "@babel/core" "7.3.4"
+    "@babel/core" "7.5.4"
     babel-core "7.0.0-bridge.0"
-    babel-preset-cozy-app "1.5.1"
+    babel-preset-cozy-app "1.5.2"
     cozy-device-helper "1.7.3"
     cozy-interapp "0.4.5"
     cozy-realtime "3.1.0"
-    cozy-ui "21.4.1"
+    cozy-ui "22.3.1"
     enzyme-to-json "3.3.5"
     hammerjs "2.0.8"
     lerna-changelog "0.8.2"
@@ -4507,10 +4523,10 @@ cozy-stack-client@^6.55.0:
     mime "2.4.0"
     qs "6.7.0"
 
-cozy-ui@21.4.1:
-  version "21.4.1"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-21.4.1.tgz#455977aa9e5cf4e5388aebb63029a1e2e94444ea"
-  integrity sha512-9ytxNjGwDLsLkQq7zkWbfkKP/eq4fHe4W88fdEUGa5s6evgZGY1k5xqkfrg+Qs/ipaQN/bkdMavlPtXnEtgDwg==
+cozy-ui@22.3.1:
+  version "22.3.1"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-22.3.1.tgz#9bd22099255e88ab2a9694a8b18d21cde3f627f5"
+  integrity sha512-yK4XO7RkV2lTbmYIgXHNBl7mw69VrB3VQMFIkSZWdzI27XIxTTT2jDUQYuIornKd0BFw81mmL2yp4um3KJuCsQ==
   dependencies:
     "@babel/runtime" "^7.3.4"
     body-scroll-lock "^2.5.8"
