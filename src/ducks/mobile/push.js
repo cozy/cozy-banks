@@ -28,6 +28,14 @@ const handleNotification = notification => {
   }
 }
 
+const updateRegistrationToken = (client, registrationId) => {
+  const clientInfos = client.stackClient.oauthOptions
+  client.stackClient.updateInformation({
+    ...clientInfos,
+    notificationDeviceToken: registrationId
+  })
+}
+
 export const startPushNotifications = cozyClient => {
   if (push) {
     // eslint-disable-next-line no-console
@@ -57,11 +65,8 @@ export const startPushNotifications = cozyClient => {
   // eslint-disable-next-line no-console
   push.on('error', err => console.log(err))
   push.on('registration', async ({ registrationId }) => {
-    const clientInfos = cozyClient.stackClient.oauthOptions
-    cozyClient.stackClient.updateInformation({
-      ...clientInfos,
-      notificationDeviceToken: registrationId
-    })
+    console.info('PushNotifications registered', { registrationId })
+    updateRegistrationToken(cozyClient, registrationId)
   })
 }
 
