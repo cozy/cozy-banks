@@ -49,6 +49,16 @@ export const startPushNotifications = cozyClient => {
     return
   }
 
+  const handleRegistrationError = err => {
+    // eslint-disable-next-line no-console
+    console.error('push-notifications: Registration failed', err)
+  }
+
+  const handleRegistrationSuccess = ({ registrationId }) => {
+    console.info('PushNotifications registered', { registrationId })
+    updateRegistrationToken(cozyClient, registrationId)
+  }
+
   push = window.PushNotification.init({
     android: {
       forceShow: true,
@@ -62,12 +72,8 @@ export const startPushNotifications = cozyClient => {
   })
 
   push.on('notification', handleNotification)
-  // eslint-disable-next-line no-console
-  push.on('error', err => console.log(err))
-  push.on('registration', async ({ registrationId }) => {
-    console.info('PushNotifications registered', { registrationId })
-    updateRegistrationToken(cozyClient, registrationId)
-  })
+  push.on('error', handleRegistrationError)
+  push.on('registration', handleRegistrationSuccess)
 }
 
 export const _stopPushNotifications = () =>
