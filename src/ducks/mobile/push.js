@@ -4,7 +4,7 @@ import { hashHistory } from 'react-router'
 import { fetchSettings, isNotificationEnabled } from 'ducks/settings/helpers'
 import flag from 'cozy-flags'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
-
+import { isIOS } from 'cozy-device-helper'
 let push
 
 export const startPushNotificationsIfSettingEnabled = async cozyClient => {
@@ -22,8 +22,11 @@ export const startPushNotificationsIfSettingEnabled = async cozyClient => {
  * In this case, the app is always in background.
  */
 const handleNotification = notification => {
-  if (flag('debug')) {
+  if (notification.additionalData.foreground && isIOS()) {
+    // on iOS the the notification does not appear if the application is in foreground
     Alerter.info(notification.title + ' : ' + notification.message)
+  }
+  if (flag('debug')) {
     // eslint-disable-next-line no-console
     console.log('Received notification', notification)
   }
