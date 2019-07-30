@@ -61,4 +61,4 @@ To be able to start the mobile app on an emulator or a real device, you can foll
 
 ## Maintainer
 
-Maintainers for Cozy Banks are [drazik](https://github.com/drazik), [ptbrowne](https://github.com/ptbrowne) and [kosssi](https://github.com/kosssi).
+Maintainers for Cozy Banks are [drazik](https://github.com/drazik) and [ptbrowne](https://github.com/ptbrowne).
