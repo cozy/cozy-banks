@@ -28,12 +28,19 @@ const handleNotification = notification => {
   }
 }
 
-const updateRegistrationToken = (client, registrationId) => {
+// TODO move this to cozy-client
+const updateRegistrationToken = (client, token) => {
+  // Updates local and remote information
   const clientInfos = client.stackClient.oauthOptions
   client.stackClient.updateInformation({
     ...clientInfos,
-    notificationDeviceToken: registrationId
+    notificationDeviceToken: token
   })
+}
+
+// TODO move this to cozy-client
+export const getRegistrationToken = client => {
+  return client.stackClient.oauthOptions.notification_device_token
 }
 
 export const startPushNotifications = cozyClient => {
