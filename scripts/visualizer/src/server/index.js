@@ -5,8 +5,10 @@
  */
 const Linker = require('ducks/billsMatching/Linker/Linker').default
 const { cozyClient } = require('cozy-konnector-libs')
-const { fetchAll } = require('ducks/billsMatching/utils')
+const { Document, Bill } = require('models')
 const path = require('path')
+
+Document.registerClient(cozyClient)
 
 class DryLinker extends Linker {
   commitChanges() {
@@ -15,7 +17,7 @@ class DryLinker extends Linker {
 }
 
 const generate = async options => {
-  const bills = await fetchAll('io.cozy.bills')
+  const bills = await Bill.fetchAll()
 
   const linker = new DryLinker(cozyClient)
   const results = await linker.linkBillsToOperations(bills, options)

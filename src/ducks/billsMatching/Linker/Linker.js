@@ -25,7 +25,9 @@ export default class Linker {
     this.toUpdate = []
     this.groupVendors = ['Numéricable']
 
-    this.tracker = getTracker(__TARGET__, { e_a: 'BillsMatching' })
+    if (typeof __TARGET__ !== 'undefined') {
+      this.tracker = getTracker(__TARGET__, { e_a: 'BillsMatching' })
+    }
   }
 
   async removeBillsFromOperations(bills, operations) {

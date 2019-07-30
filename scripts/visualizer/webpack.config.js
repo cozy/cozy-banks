@@ -1,3 +1,4 @@
+const webpack = require('webpack')
 const path = require('path')
 const { SRC_DIR } = require('../../config/webpack.vars')
 
@@ -19,5 +20,10 @@ module.exports = {
   // See https://codeburst.io/use-webpack-with-dirname-correctly-4cad3b265a92
   node: {
     __dirname: false
-  }
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('development')
+    })
+  ]
 }
