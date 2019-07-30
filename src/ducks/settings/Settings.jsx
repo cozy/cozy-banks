@@ -36,9 +36,9 @@ const Settings = ({ t, children, router, breakpoints: { isMobile } }) => {
       <Tabs className={styles['bnk-tabs']} initialActiveTab={defaultTab}>
         <TabList className={styles['bnk-coz-tab-list']}>{tabs}</TabList>
         <TabPanels className={styles.TabPanels}>
-          <Padded>
-            <TabPanel active>{children}</TabPanel>
-          </Padded>
+          <TabPanel active>
+            <Padded>{children}</Padded>
+          </TabPanel>
         </TabPanels>
       </Tabs>
       {__TARGET__ === 'mobile' && (
