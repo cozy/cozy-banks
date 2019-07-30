@@ -2,6 +2,8 @@
 
 import { hashHistory } from 'react-router'
 import { fetchSettings, isNotificationEnabled } from 'ducks/settings/helpers'
+import flag from 'cozy-flags'
+import Alerter from 'cozy-ui/transpiled/react/Alerter'
 
 let push
 
@@ -20,6 +22,11 @@ export const startPushNotificationsIfSettingEnabled = async cozyClient => {
  * In this case, the app is always in background.
  */
 const handleNotification = notification => {
+  if (flag('debug')) {
+    Alerter.info(notification.title + ' : ' + notification.message)
+    // eslint-disable-next-line no-console
+    console.log('Received notification', notification)
+  }
   if (
     !notification.additionalData.foreground &&
     notification.additionalData.route
@@ -62,6 +69,7 @@ export const startPushNotifications = cozyClient => {
   }
 
   const handleRegistrationSuccess = ({ registrationId }) => {
+    // eslint-disable-next-line no-console
     console.info('PushNotifications registered', { registrationId })
     updateRegistrationToken(cozyClient, registrationId)
   }
