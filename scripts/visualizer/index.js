@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /**
  * Visualizer to see links between transactions and bills.
  *

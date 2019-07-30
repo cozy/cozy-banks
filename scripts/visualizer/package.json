@@ -7,12 +7,15 @@
   "scripts": {
     "watch": "parcel watch index.html",
     "build": "parcel build index.html",
-    "serve": "cozy-run-dev index.js",
+    "serve": "cozy-run-dev ./index.js",
     "serve:watch": "nodemon -w '../../src' -x 'yarn serve'"
   },
   "dependencies": {
     "cors": "2.8.5",
     "express": "4.16.4",
     "parcel": "1.12.3"
+  },
+  "devDependencies": {
+    "cozy-jobs-cli": "1.9.0"
   }
 }
