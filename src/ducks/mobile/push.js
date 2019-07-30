@@ -2,17 +2,61 @@
 
 import { hashHistory } from 'react-router'
 import { fetchSettings, isNotificationEnabled } from 'ducks/settings/helpers'
-
+import flag from 'cozy-flags'
+import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import { isIOS } from 'cozy-device-helper'
 let push
 
-export const registerPushNotifications = async cozyClient => {
-  const clientInfos = cozyClient.stackClient.oauthOptions
+export const startPushNotificationsIfSettingEnabled = async cozyClient => {
   const settings = await fetchSettings(cozyClient)
-  return startPushNotifications(cozyClient, settings, clientInfos)
+  if (!isNotificationEnabled(settings)) {
+    return
+  }
+  return startPushNotifications(cozyClient)
 }
 
-export const startPushNotifications = (cozyClient, settings, clientInfos) => {
-  if (push || !isNotificationEnabled(settings)) {
+/**
+ * When we receive a notification while the app is in foreground, all on('notification')
+ * handlers are executed. But we don't want to redirect the user without his consent.
+ * So we redirect only when the user taps on the notification in the notification center.
+ * In this case, the app is always in background.
+ */
+const handleNotification = notification => {
+  if (notification.additionalData.foreground && isIOS()) {
+    // on iOS the the notification does not appear if the application is in foreground
+    Alerter.info(notification.title + ' : ' + notification.message)
+  }
+  if (flag('debug')) {
+    // eslint-disable-next-line no-console
+    console.log('Received notification', notification)
+  }
+  if (
+    !notification.additionalData.foreground &&
+    notification.additionalData.route
+  ) {
+    hashHistory.push(notification.additionalData.route)
+  }
+}
+
+// TODO move this to cozy-client
+const updateRegistrationToken = (client, token) => {
+  // Updates local and remote information
+  const clientInfos = client.stackClient.oauthOptions
+  client.stackClient.updateInformation({
+    ...clientInfos,
+    notificationDeviceToken: token
+  })
+}
+
+// TODO move this to cozy-client
+export const getRegistrationToken = client => {
+  return client.stackClient.oauthOptions.notification_device_token
+}
+
+export const startPushNotifications = cozyClient => {
+  if (push) {
+    // eslint-disable-next-line no-console
+    console.warn('Push notifications already started')
     return
   }
 
@@ -22,19 +66,15 @@ export const startPushNotifications = (cozyClient, settings, clientInfos) => {
     return
   }
 
-  /**
-   * When we receive a notification while the app is in foreground, all on('notification')
-   * handlers are executed. But we don't want to redirect the user without his consent.
-   * So we redirect only when the user taps on the notification in the notification center.
-   * In this case, the app is always in background.
-   */
-  const handleNotification = notification => {
-    if (
-      !notification.additionalData.foreground &&
-      notification.additionalData.route
-    ) {
-      hashHistory.push(notification.additionalData.route)
-    }
+  const handleRegistrationError = err => {
+    // eslint-disable-next-line no-console
+    console.error('push-notifications: Registration failed', err)
+  }
+
+  const handleRegistrationSuccess = ({ registrationId }) => {
+    // eslint-disable-next-line no-console
+    console.info('PushNotifications registered', { registrationId })
+    updateRegistrationToken(cozyClient, registrationId)
   }
 
   push = window.PushNotification.init({
@@ -50,14 +90,8 @@ export const startPushNotifications = (cozyClient, settings, clientInfos) => {
   })
 
   push.on('notification', handleNotification)
-  // eslint-disable-next-line no-console
-  push.on('error', err => console.log(err))
-  push.on('registration', async ({ registrationId }) => {
-    cozyClient.stackClient.updateInformation({
-      ...clientInfos,
-      notificationDeviceToken: registrationId
-    })
-  })
+  push.on('error', handleRegistrationError)
+  push.on('registration', handleRegistrationSuccess)
 }
 
 export const _stopPushNotifications = () =>
@@ -105,7 +139,7 @@ export const stopPushNotifications = async () => {
  */
 export default client => {
   client.on('login', async () => {
-    await registerPushNotifications(client)
+    await startPushNotificationsIfSettingEnabled(client)
   })
 
   client.on('logout', async () => {

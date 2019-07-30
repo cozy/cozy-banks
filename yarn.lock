@@ -4524,10 +4524,10 @@ cozy-ui@21.4.1:
     react-pdf "^4.0.5"
     react-select "2.2.0"
 
-cozy-ui@22.4.0:
-  version "22.4.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-22.4.0.tgz#358244f6c8ba62598c525c366bf75b7076e05bb0"
-  integrity sha512-bbfE/wBNn48aa6l1g5HpVL5EZ13k1B//9/6fY0g01kQIs3usRtNPvKBY09GF6Uj3OccCOL/sL8mCIiM2dCmUsA==
+cozy-ui@22.8.0:
+  version "22.8.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-22.8.0.tgz#71169c7322dae3d840a423479ca72b558ca2bd8e"
+  integrity sha512-dZy6R5+VTXQXbUy29EkpExux2QWNkEVlIcGtTiS7LJFXqD74sPL9FxpR5lwvGB4jn60WQqlA6qY+VOCRs7myVg==
   dependencies:
     "@babel/runtime" "^7.3.4"
     body-scroll-lock "^2.5.8"
