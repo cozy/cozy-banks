@@ -3,10 +3,12 @@
  *
  * Launch with `cozy-run-dev visualizer/index.js`
  */
-const Linker = require('../../src/ducks/billsMatching/Linker/Linker')
+const Linker = require('ducks/billsMatching/Linker/Linker').default
 const { cozyClient } = require('cozy-konnector-libs')
-const { fetchAll } = require('../../src/ducks/billsMatching/utils')
+const { Document, Bill } = require('models')
 const path = require('path')
+
+Document.registerClient(cozyClient)
 
 class DryLinker extends Linker {
   commitChanges() {
@@ -15,7 +17,7 @@ class DryLinker extends Linker {
 }
 
 const generate = async options => {
-  const bills = await fetchAll('io.cozy.bills')
+  const bills = await Bill.fetchAll()
 
   const linker = new DryLinker(cozyClient)
   const results = await linker.linkBillsToOperations(bills, options)
@@ -34,7 +36,7 @@ const app = express()
 
 app.use(bodyParser.json())
 app.use(cors())
-app.use('/', express.static(path.join(__dirname, 'dist')))
+app.use('/', express.static(path.join(__dirname)))
 
 const parser = spec => obj => {
   const res = {}
@@ -64,4 +66,7 @@ app.post('/generate', async (req, res) => {
 })
 
 // eslint-disable-next-line no-console
-app.listen(3000, () => console.log('Visualizer server running'))
+app.listen(3000, () =>
+  // eslint-disable-next-line no-console
+  console.log('Visualizer server running on http://localhost:3000')
+)
