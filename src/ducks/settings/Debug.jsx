@@ -105,9 +105,10 @@ class DumbDebugSettings extends React.PureComponent {
               <p>{getRegistrationToken(client)}</p>
             </>
           ) : null}
-          <Button onClick={() => this.sendNotification()}>
-            Send notification
-          </Button>
+          <Button
+            label="Send notification"
+            onClick={() => this.sendNotification()}
+          />
         </div>
         <div>
           <Title>Flags</Title>
