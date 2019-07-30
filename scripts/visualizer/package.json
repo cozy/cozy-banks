@@ -7,8 +7,9 @@
   "scripts": {
     "watch": "parcel watch index.html",
     "build": "parcel build index.html",
-    "serve": "cozy-run-dev ./index.js",
-    "serve:watch": "nodemon -w '../../src' -x 'yarn serve'"
+    "build:server": "webpack",
+    "serve": "cozy-run-dev node ./dist/server.js",
+    "serve:watch": "nodemon -w './dist/server.js' -x 'yarn serve'"
   },
   "dependencies": {
     "cors": "2.8.5",
@@ -16,6 +17,8 @@
     "parcel": "1.12.3"
   },
   "devDependencies": {
-    "cozy-jobs-cli": "1.9.0"
+    "cozy-jobs-cli": "1.9.0",
+    "webpack": "^4.38.0",
+    "webpack-cli": "^3.3.6"
   }
 }

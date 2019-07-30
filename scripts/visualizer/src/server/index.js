@@ -1,13 +1,11 @@
-#!/usr/bin/env node
-
 /**
  * Visualizer to see links between transactions and bills.
  *
  * Launch with `cozy-run-dev visualizer/index.js`
  */
-const Linker = require('../../src/ducks/billsMatching/Linker/Linker')
+const Linker = require('ducks/billsMatching/Linker/Linker').default
 const { cozyClient } = require('cozy-konnector-libs')
-const { fetchAll } = require('../../src/ducks/billsMatching/utils')
+const { fetchAll } = require('ducks/billsMatching/utils')
 const path = require('path')
 
 class DryLinker extends Linker {
@@ -36,7 +34,7 @@ const app = express()
 
 app.use(bodyParser.json())
 app.use(cors())
-app.use('/', express.static(path.join(__dirname, 'dist')))
+app.use('/', express.static(path.join(__dirname)))
 
 const parser = spec => obj => {
   const res = {}
@@ -66,4 +64,7 @@ app.post('/generate', async (req, res) => {
 })
 
 // eslint-disable-next-line no-console
-app.listen(3000, () => console.log('Visualizer server running'))
+app.listen(3000, () =>
+  // eslint-disable-next-line no-console
+  console.log('Visualizer server running on http://localhost:3000')
+)
