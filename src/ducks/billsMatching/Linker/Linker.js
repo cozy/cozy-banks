@@ -28,9 +28,20 @@ export default class Linker {
     this.toUpdate = []
     this.groupVendors = ['Numéricable']
 
-    if (typeof __TARGET__ !== 'undefined') {
+    try {
       this.tracker = getTracker(__TARGET__, { e_a: 'BillsMatching' })
+    } catch (err) {
+      log('warning', "Can't get tracker: " + err)
     }
+  }
+
+  trackEvent(event) {
+    if (!this.tracker) {
+      log('warning', "Can't track event: no tracker initialized")
+      return
+    }
+
+    this.tracker.trackEvent(event)
   }
 
   async removeBillsFromOperations(bills, operations) {
@@ -91,7 +102,7 @@ export default class Linker {
     log('debug', `Adding bill ${bill._id} to operation ${operation._id}`)
 
     if (!bill._id) {
-      this.tracker.trackEvent({
+      this.trackEvent({
         e_n: 'BillWithoutId'
       })
 
@@ -115,7 +126,7 @@ export default class Linker {
     )
 
     if (isOverflowing) {
-      this.tracker.trackEvent({
+      this.trackEvent({
         e_n: 'BillAmountOverflowingOperationAmount'
       })
 
@@ -146,7 +157,7 @@ export default class Linker {
     )
 
     if (!bill._id) {
-      this.tracker.trackEvent({
+      this.trackEvent({
         e_n: 'BillWithoutId'
       })
 
@@ -334,7 +345,7 @@ export default class Linker {
     ).length
 
     if (nbBillsLinked > 0) {
-      this.tracker.trackEvent({
+      this.trackEvent({
         e_n: 'BillsMatched',
         e_v: nbBillsLinked
       })
