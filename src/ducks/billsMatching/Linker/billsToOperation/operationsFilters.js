@@ -127,9 +127,9 @@ const operationsFilters = (bill, operations, options) => {
     conditions.push(fByReimbursements)
   }
 
-  // We filters with identifiers when
+  // We filters with brand when
   // - we search a credit operation
-  // - or when is bill is in the health category
+  // - or when bill is not in the health category
   if (options.credit || !isHealthBill(bill)) {
     const fbyBrand = filterByBrand(bill)
     conditions.push(fbyBrand)
