@@ -5,10 +5,13 @@
  */
 const Linker = require('ducks/billsMatching/Linker/Linker').default
 const { cozyClient } = require('cozy-konnector-libs')
-const { Document, Bill } = require('models')
+const { Document } = require('cozy-doctypes')
+const { Bill } = require('models')
 const path = require('path')
 
+// TODO Find out why our models parent class and Document from cozy-doctypes are different
 Document.registerClient(cozyClient)
+Bill.registerClient(cozyClient)
 
 class DryLinker extends Linker {
   commitChanges() {

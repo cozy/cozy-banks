@@ -14,11 +14,14 @@ const format = require('date-fns/format')
 const { getBillDate, log } = require('../utils')
 const { getTracker } = require('ducks/tracking')
 const { Transaction, Bill } = require('models')
+const { cozyClient } = require('cozy-konnector-libs')
 
 const DOCTYPE_OPERATIONS = 'io.cozy.bank.operations'
 const DEFAULT_AMOUNT_DELTA = 0.001
 export const DEFAULT_PAST_WINDOW = 15
 export const DEFAULT_FUTURE_WINDOW = 29
+
+Transaction.registerClient(cozyClient)
 
 export default class Linker {
   constructor() {

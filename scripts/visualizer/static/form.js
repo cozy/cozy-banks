@@ -39,7 +39,8 @@ const renderText = results => {
       const dId = v.debitOperation._id
       operations[dId] = operations[dId] || {
         operation: v.debitOperation,
-        bills: []
+        bills: [],
+        reimbursements: []
       }
       operations[dId].bills.push(v.bill)
       nLinks++
