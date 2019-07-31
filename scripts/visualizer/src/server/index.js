@@ -20,7 +20,7 @@ const generate = async options => {
   const bills = await Bill.fetchAll()
 
   const linker = new DryLinker(cozyClient)
-  const results = await linker.linkBillsToOperations(bills, options)
+  const results = await linker.linkBillsToOperations(bills, undefined, options)
   return results
 }
 
