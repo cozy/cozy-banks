@@ -51,8 +51,12 @@ const findOperation = (bill, options, allOperations) => {
   )
 }
 
-const findDebitOperation = findOperation
+const findDebitOperation = (bill, options, allOperations) => {
+  log('debug', `Finding debit operation for bill ${bill._id}`)
+  return findOperation(bill, options, allOperations)
+}
 const findCreditOperation = (bill, options, allOperations) => {
+  log('debug', `Finding credit operation for bill ${bill._id}`)
   const creditOptions = Object.assign({}, options, { credit: true })
   return findOperation(bill, creditOptions, allOperations)
 }
