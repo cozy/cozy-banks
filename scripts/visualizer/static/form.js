@@ -54,6 +54,10 @@ const renderText = results => {
       operations[dId].bills.push(v.bill)
       nLinks++
     }
+    if (v.creditOperation && v.debitOperation) {
+      const dId = v.debitOperation._id
+      operations[dId].reimbursements.push(v.bill)
+    }
   })
 
   const byDate = comp(v => v.operation.date)
@@ -63,7 +67,7 @@ const renderText = results => {
       .sort(byDate)
       .reverse()
       .map(v => {
-        const { operation, bills } = v
+        const { operation, bills, reimbursements } = v
         return `<div class='operation'>
       <b>${operation.label}</b> le ${formatDate(operation.date)}<br/>
       Montant: ${operation.amount}<br/>
@@ -80,6 +84,24 @@ const renderText = results => {
             )
             .join('\n')}
         </ul>
+      ${
+        reimbursements
+          ? `
+          Remboursements:
+            <ul>
+              ${reimbursements
+                .slice()
+                .sort(comp(x => x.date))
+                .map(
+                  reimbursement =>
+                    `<li>${formatDate(reimbursement.date)} : ${
+                      reimbursement.vendor
+                    } ${reimbursement.amount}</li>`
+                )
+                .join('\n')}
+                </ul>`
+          : ''
+      }
     </div>`
       })
       .join('\n\n')
