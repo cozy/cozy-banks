@@ -54,7 +54,9 @@ const isHealthBill = bill => {
 
 // filters
 const filterByBrand = bill => {
-  const [brand] = getBrands(brand => brand.name === bill.vendor)
+  const [brand] = getBrands(
+    brand => brand.name === bill.vendor || brand.konnectorSlug === bill.vendor
+  )
   const regexp = new RegExp(brand ? brand.regexp : `\\b${bill.vendor}\\b`, 'i')
 
   const brandFilter = operation => {
