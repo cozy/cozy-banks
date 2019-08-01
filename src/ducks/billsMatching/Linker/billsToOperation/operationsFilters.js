@@ -3,6 +3,7 @@ const sumBy = require('lodash/sumBy')
 const isWithinRange = require('date-fns/is_within_range')
 const { getBrands } = require('ducks/brandDictionary')
 const { log } = require('../../utils')
+const { getCategoryId } = require('../../../categories/helpers')
 
 const { getDateRangeFromBill, getAmountRangeFromBill } = require('./helpers')
 
@@ -25,14 +26,6 @@ const HEALTH_INSURANCE_CAT = '400620'
 const UNCATEGORIZED_CAT_ID_OPERATION = '0' // TODO: import it from cozy-bank
 
 // helpers
-
-const getCategoryId = o => {
-  return (
-    o.manualCategoryId ||
-    o.automaticCategoryId ||
-    UNCATEGORIZED_CAT_ID_OPERATION
-  )
-}
 
 const isHealthOperation = operation => {
   const catId = getCategoryId(operation)

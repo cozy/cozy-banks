@@ -65,9 +65,22 @@ describe('operations filters', () => {
     fit('should only match bills with the right categoryId when the vendor is known to be a health insurance provider', () => {
       const fByCategory = filterByCategory({ vendor: 'Ameli' })
       expect(fByCategory({ manualCategoryId: HEALTH_EXPENSE_CAT })).toBeTruthy()
+
       expect(
-        fByCategory({ automaticCategoryId: HEALTH_EXPENSE_CAT })
+        fByCategory({
+          cozyCategoryId: HEALTH_EXPENSE_CAT,
+          cozyCategoryProba: 0.5
+        })
       ).toBeTruthy()
+
+      expect(
+        fByCategory({
+          automaticCategoryId: HEALTH_EXPENSE_CAT,
+          cozyCategoryId: '0',
+          cozyCategoryProba: 0
+        })
+      ).toBeTruthy()
+
       expect(fByCategory({ manualCategoryId: '0' })).toBeFalsy()
       expect(fByCategory({ automaticCategoryId: '0' })).toBeFalsy()
     })
