@@ -64,7 +64,8 @@ const filterByBrand = bill => {
 
 const filterByDates = ({ minDate, maxDate }) => {
   const dateFilter = operation => {
-    return isWithinRange(operation.date, minDate, maxDate)
+    const operationDate = operation.realisationDate || operation.date
+    return isWithinRange(operationDate, minDate, maxDate)
   }
 
   dateFilter.name = 'byDates'
