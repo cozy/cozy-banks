@@ -2,6 +2,8 @@ const includes = require('lodash/includes')
 const sumBy = require('lodash/sumBy')
 const isWithinRange = require('date-fns/is_within_range')
 const { getBrands } = require('ducks/brandDictionary')
+const { log } = require('../../utils')
+const { getCategoryId } = require('../../../categories/helpers')
 
 const { getDateRangeFromBill, getAmountRangeFromBill } = require('./helpers')
 
@@ -25,14 +27,6 @@ const UNCATEGORIZED_CAT_ID_OPERATION = '0' // TODO: import it from cozy-bank
 
 // helpers
 
-const getCategoryId = o => {
-  return (
-    o.manualCategoryId ||
-    o.automaticCategoryId ||
-    UNCATEGORIZED_CAT_ID_OPERATION
-  )
-}
-
 const isHealthOperation = operation => {
   const catId = getCategoryId(operation)
   if (operation.amount < 0) {
@@ -53,19 +47,28 @@ const isHealthBill = bill => {
 
 // filters
 const filterByBrand = bill => {
-  const [brand] = getBrands(brand => brand.name === bill.vendor)
+  const [brand] = getBrands(
+    brand => brand.name === bill.vendor || brand.konnectorSlug === bill.vendor
+  )
   const regexp = new RegExp(brand ? brand.regexp : `\\b${bill.vendor}\\b`, 'i')
 
-  return operation => {
+  const brandFilter = operation => {
     const label = operation.label.toLowerCase()
     return label.match(regexp)
   }
+
+  brandFilter.name = 'byBrand'
+
+  return brandFilter
 }
 
 const filterByDates = ({ minDate, maxDate }) => {
   const dateFilter = operation => {
     return isWithinRange(operation.date, minDate, maxDate)
   }
+
+  dateFilter.name = 'byDates'
+
   return dateFilter
 }
 
@@ -73,6 +76,9 @@ const filterByAmounts = ({ minAmount, maxAmount }) => {
   const amountFilter = operation => {
     return operation.amount >= minAmount && operation.amount <= maxAmount
   }
+
+  amountFilter.name = 'byAmounts'
+
   return amountFilter
 }
 
@@ -89,6 +95,8 @@ const filterByCategory = (bill, options = {}) => {
       ? isHealthOperation(operation)
       : !isHealthOperation(operation)
   }
+
+  categoryFilter.name = 'byCategory'
   return categoryFilter
 }
 
@@ -101,6 +109,8 @@ const filterByReimbursements = bill => {
     const sumReimbursements = sumBy(operation.reimbursements, 'amount')
     return sumReimbursements + bill.amount <= -operation.amount
   }
+
+  reimbursementFilter.name = 'byReimbursements'
   return reimbursementFilter
 }
 
@@ -111,8 +121,11 @@ const operationsFilters = (bill, operations, options) => {
     for (let f of filters) {
       const res = f(op)
       if (!res) {
+        log('debug', `Operation ${op._id} does not satisfy ${f.name} filter`)
         return false
       }
+
+      log('debug', `Operation ${op._id} satisfies ${f.name} filter`)
     }
     return true
   }
@@ -127,9 +140,9 @@ const operationsFilters = (bill, operations, options) => {
     conditions.push(fByReimbursements)
   }
 
-  // We filters with identifiers when
+  // We filters with brand when
   // - we search a credit operation
-  // - or when is bill is in the health category
+  // - or when bill is not in the health category
   if (options.credit || !isHealthBill(bill)) {
     const fbyBrand = filterByBrand(bill)
     conditions.push(fbyBrand)
