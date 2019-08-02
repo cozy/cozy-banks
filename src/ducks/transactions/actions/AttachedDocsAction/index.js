@@ -9,27 +9,16 @@ import {
 import BillChip from 'ducks/transactions/actions/AttachedDocsAction/BillChip'
 import { TransactionModalRow } from 'ducks/transactions/TransactionModal'
 import iconAttachment from 'assets/icons/icon-attachment.svg'
+import { uniqBy } from 'lodash'
 
 class AttachedDocsAction extends React.PureComponent {
   renderTransactionRow() {
-    return (
-      <>
-        {this.renderTransactionRowBills()}
-        {this.renderTransactionRowReimbursements()}
-      </>
-    )
-  }
-
-  renderTransactionRowBills() {
     const { transaction } = this.props
-    const bills = getBills(transaction)
 
-    return bills.map(bill => <BillChip bill={bill} key={bill._id} />)
-  }
-
-  renderTransactionRowReimbursements() {
-    const { transaction } = this.props
-    const bills = getReimbursementsBills(transaction)
+    const bills = uniqBy([
+      ...getBills(transaction),
+      ...getReimbursementsBills(transaction)
+    ])
 
     return bills.map(bill => <BillChip bill={bill} key={bill._id} />)
   }

@@ -9,6 +9,7 @@ import FileOpener from 'ducks/transactions/FileOpener'
 import FileIcon from 'ducks/transactions/actions/AttachedDocsAction/FileIcon'
 import { Figure } from 'components/Figure'
 import { AugmentedModalOpener } from 'components/AugmentedModal'
+import { getBrands } from 'ducks/brandDictionary'
 
 export class DumbBillChip extends React.PureComponent {
   static propTypes = {
@@ -48,6 +49,13 @@ export class DumbBillChip extends React.PureComponent {
 
     const Wrapper = isVentePrivee ? AugmentedModalOpener : FileOpener
 
+    // Bill's vendor can be a slug. We get the brand from our dictionary to be
+    // sure that we show the brand name and not a konnector slug
+    const [brand] = getBrands(
+      brand => brand.name === bill.vendor || brand.konnectorSlug === bill.vendor
+    )
+    const vendorName = brand && brand.name
+
     return (
       <Wrapper fileId={invoiceId} key={invoiceId}>
         <Chip component="button" size="small" variant="outlined">
@@ -57,8 +65,8 @@ export class DumbBillChip extends React.PureComponent {
           />
           {bill.isRefund ? (
             <>
-              {bill.vendor && (
-                <span className="u-valid u-mr-half">{bill.vendor}</span>
+              {vendorName && (
+                <span className="u-valid u-mr-half">{vendorName}</span>
               )}
               <Figure total={bill.amount} coloredPositive signed symbol="€" />
             </>
