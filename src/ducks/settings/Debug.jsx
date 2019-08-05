@@ -26,7 +26,8 @@ const Versions = () => {
       <Title>Library versions</Title>
       {Object.entries(versions).map(([pkg, version]) => (
         <div key={pkg}>
-          {pkg}: {version}
+          {pkg}: {version} -{' '}
+          <img src={`https://img.shields.io/npm/v/${pkg}?style=flat-square}`} />
         </div>
       ))}
     </div>
