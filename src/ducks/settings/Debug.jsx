@@ -98,6 +98,17 @@ class DumbDebugSettings extends React.PureComponent {
           />
         </div>
         <div>
+          <Title>Client info</Title>
+          <SubTitle>URI</SubTitle>
+          <p>{this.props.client.stackClient.uri}</p>
+          {client.stackClient.oauthOptions ? (
+            <>
+              <SubTitle>OAuth document id</SubTitle>
+              <p>{client.stackClient.oauthOptions.clientID}</p>
+            </>
+          ) : null}
+        </div>
+        <div>
           <Title>Notifications</Title>
           {isMobileApp() ? (
             <>
