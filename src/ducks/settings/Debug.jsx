@@ -26,7 +26,8 @@ const Versions = () => {
       <Title>Library versions</Title>
       {Object.entries(versions).map(([pkg, version]) => (
         <div key={pkg}>
-          {pkg}: {version}
+          {pkg}: {version} -{' '}
+          <img src={`https://img.shields.io/npm/v/${pkg}?style=flat-square}`} />
         </div>
       ))}
     </div>
@@ -96,6 +97,17 @@ class DumbDebugSettings extends React.PureComponent {
             label="Display accounts loading"
             onClick={this.toggleAccountsLoading}
           />
+        </div>
+        <div>
+          <Title>Client info</Title>
+          <SubTitle>URI</SubTitle>
+          <p>{this.props.client.stackClient.uri}</p>
+          {client.stackClient.oauthOptions ? (
+            <>
+              <SubTitle>OAuth document id</SubTitle>
+              <p>{client.stackClient.oauthOptions.clientID}</p>
+            </>
+          ) : null}
         </div>
         <div>
           <Title>Notifications</Title>
