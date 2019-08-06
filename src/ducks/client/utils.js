@@ -6,6 +6,10 @@ export const isCollectionLoading = col => {
   return col.fetchStatus === 'loading' || col.fetchStatus === 'pending'
 }
 
+export const hasBeenLoaded = col => {
+  return col.lastFetch
+}
+
 export const associateDocuments = (
   originalDocument,
   associationName,

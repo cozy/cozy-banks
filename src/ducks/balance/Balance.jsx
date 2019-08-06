@@ -28,7 +28,7 @@ import AccountsImporting from 'ducks/balance/components/AccountsImporting'
 
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import { buildVirtualGroups } from 'ducks/groups/helpers'
-import { isCollectionLoading } from 'ducks/client/utils'
+import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { getAccountBalance, buildVirtualAccounts } from 'ducks/account/helpers'
 import { isBankTrigger } from 'utils/triggers'
 
@@ -87,10 +87,11 @@ class Balance extends PureComponent {
     } = props
 
     const isLoading =
-      isCollectionLoading(groups) ||
-      isCollectionLoading(accounts) ||
-      isCollectionLoading(settingsCollection) ||
-      isCollectionLoading(transactions)
+      (isCollectionLoading(groups) && !hasBeenLoaded(groups)) ||
+      (isCollectionLoading(accounts) && !hasBeenLoaded(accounts)) ||
+      (isCollectionLoading(settingsCollection) &&
+        !hasBeenLoaded(settingsCollection)) ||
+      (isCollectionLoading(transactions) && !hasBeenLoaded(transactions))
 
     if (isLoading) {
       return null
@@ -151,6 +152,10 @@ class Balance extends PureComponent {
 
   getAccountOccurrencesInState(account) {
     const { panels } = this.state
+
+    if (!panels) {
+      return []
+    }
 
     return Object.values(panels)
       .map(group => group.accounts[account._id])
@@ -324,7 +329,10 @@ class Balance extends PureComponent {
       transactionsCollection,
       settingsCollection
     ]
-    if (collections.some(isCollectionLoading)) {
+
+    if (
+      collections.some(col => isCollectionLoading(col) && !hasBeenLoaded(col))
+    ) {
       return (
         <Fragment>
           <BarTheme theme="primary" />
