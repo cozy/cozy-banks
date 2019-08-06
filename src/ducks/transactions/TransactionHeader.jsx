@@ -39,7 +39,7 @@ class TransactionHeader extends Component {
     )
   }
 
-  displaySelectDates = () => {
+  renderSelectDates = () => {
     if (this.isSubcategory()) {
       return <ConnectedSelectDates showFullYear color="primary" />
     }
@@ -57,7 +57,7 @@ class TransactionHeader extends Component {
     )
   }
 
-  displayBreadcrumb = () => {
+  renderBreadcrumb = () => {
     const { t, router } = this.props
     const { categoryName, subcategoryName } = router.params
     const breadcrumbItems = [
@@ -83,7 +83,7 @@ class TransactionHeader extends Component {
     )
   }
 
-  displayBalanceHistory() {
+  renderBalanceHistory() {
     const {
       chartData,
       size,
@@ -125,7 +125,7 @@ class TransactionHeader extends Component {
         <Padded className={isMobile ? 'u-p-0' : 'u-pb-half'}>
           {this.renderAccountSwitch()}
         </Padded>
-        {!isSubcategory && this.displayBalanceHistory()}
+        {!isSubcategory && this.renderBalanceHistory()}
         <Padded
           className={cx(
             {
@@ -136,10 +136,10 @@ class TransactionHeader extends Component {
             styles.TransactionsHeader__selectDatesContainer
           )}
         >
-          {this.displaySelectDates()}
+          {this.renderSelectDates()}
         </Padded>
         {isSubcategory && !isMobile && (
-          <Padded className="u-pt-0">{this.displayBreadcrumb()}</Padded>
+          <Padded className="u-pt-0">{this.renderBreadcrumb()}</Padded>
         )}
         {transactions.length > 0 && (
           <TableHead isSubcategory={isSubcategory} color="primary" />

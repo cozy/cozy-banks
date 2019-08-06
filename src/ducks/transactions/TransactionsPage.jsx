@@ -56,7 +56,7 @@ class TransactionsPage extends Component {
   constructor(props) {
     super(props)
 
-    this.displayTransactions = this.displayTransactions.bind(this)
+    this.renderTransactions = this.renderTransactions.bind(this)
     this.handleDecreaseLimitMin = this.handleDecreaseLimitMin.bind(this)
     this.handleIncreaseLimitMax = this.handleIncreaseLimitMax.bind(this)
     this.handleChangeMonth = this.handleChangeMonth.bind(this)
@@ -209,7 +209,7 @@ class TransactionsPage extends Component {
     return filteringDoc && filteringDoc._type === ACCOUNT_DOCTYPE
   }
 
-  displayTransactions() {
+  renderTransactions() {
     const { limitMin, limitMax, infiniteScrollTop } = this.state
     const { t } = this.props
     const transactions = this.getTransactions()
@@ -308,7 +308,7 @@ class TransactionsPage extends Component {
         {isFetching ? (
           <Loading loadingType="movements" />
         ) : (
-          this.displayTransactions()
+          this.renderTransactions()
         )}
       </TransactionActionsProvider>
     )

@@ -27,7 +27,7 @@ describe('TransactionsPage', () => {
   beforeEach(() => {
     restoreWindowWidth = saveWindowWidth()
     jest
-      .spyOn(DumbTransactionsPage.prototype, 'displayTransactions')
+      .spyOn(DumbTransactionsPage.prototype, 'renderTransactions')
       .mockReturnValue([])
   })
 
