@@ -36,7 +36,7 @@ import {
 } from 'doctypes'
 
 import { queryConnect } from 'cozy-client'
-import { isCollectionLoading } from 'ducks/client/utils'
+import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { findNearestMonth } from 'ducks/transactions/helpers'
 import {
   getBalanceHistories,
@@ -254,9 +254,11 @@ class TransactionsPage extends Component {
   }
 
   getChartData() {
+    const { accounts: accountsCol, transactions: transactionsCol } = this.props
     const isLoading =
-      isCollectionLoading(this.props.transactions) ||
-      isCollectionLoading(this.props.accounts) ||
+      (isCollectionLoading(transactionsCol) &&
+        !hasBeenLoaded(transactionsCol)) ||
+      (isCollectionLoading(accountsCol) && !hasBeenLoaded(accountsCol)) ||
       this.state.fetching
 
     if (isLoading) {
@@ -280,7 +282,11 @@ class TransactionsPage extends Component {
       filteredAccounts
     } = this.props
 
-    const isFetching = isCollectionLoading(transactions) || this.state.fetching
+    const isFetching =
+      (isCollectionLoading(transactions) && !hasBeenLoaded(transactions)) ||
+      this.state.fetching
+    const areAccountsLoading =
+      isCollectionLoading(accounts) && !hasBeenLoaded(accounts)
     const filteredTransactions = this.getTransactions()
 
     const chartData = this.getChartData()
@@ -296,7 +302,7 @@ class TransactionsPage extends Component {
           chartData={chartData}
           showBackButton={this.props.showBackButton}
         />
-        {isMobile && !isCollectionLoading(accounts) && !isOnSubcategory && (
+        {isMobile && !areAccountsLoading && !isOnSubcategory && (
           <TransactionsPageBar accounts={filteredAccounts} theme={theme} />
         )}
         {isFetching ? (

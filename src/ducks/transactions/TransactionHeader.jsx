@@ -90,7 +90,7 @@ class TransactionHeader extends Component {
       breakpoints: { isMobile }
     } = this.props
     if (!chartData || !size) {
-      return
+      return null
     }
     const intervalBetweenPoints = 2
     const marginBottom = isMobile ? 48 : 64
