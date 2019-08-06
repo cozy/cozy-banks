@@ -2,6 +2,7 @@ import flag from 'cozy-flags'
 import parentCategory, { categoriesStyle } from 'ducks/categories/categoriesMap'
 import categoryNames from 'ducks/categories/tree'
 import { getCurrencySymbol } from 'utils/currencySymbol'
+import { BankTransaction } from 'cozy-doctypes'
 
 const getParent = parentCategory.get.bind(parentCategory)
 
@@ -19,46 +20,15 @@ const makeSubcategory = catId => ({
   transactions: []
 })
 
-export const LOCAL_MODEL_USAGE_THRESHOLD = 0.8
-export const GLOBAL_MODEL_USAGE_THRESHOLD = 0.15
-
 /**
  * Return the category id of the transaction
  * @param {Object} transaction
  * @return {String|null} A category id or null if the transaction has not been categorized yet
  */
 export const getCategoryId = transaction => {
-  if (transaction.manualCategoryId) {
-    return transaction.manualCategoryId
-  }
-
   const localModelOverride = flag('local-model-override')
 
-  if (
-    localModelOverride &&
-    transaction.localCategoryId &&
-    transaction.localCategoryProba &&
-    transaction.localCategoryProba > LOCAL_MODEL_USAGE_THRESHOLD
-  ) {
-    return transaction.localCategoryId
-  }
-
-  if (
-    transaction.cozyCategoryId &&
-    transaction.cozyCategoryProba &&
-    transaction.cozyCategoryProba > GLOBAL_MODEL_USAGE_THRESHOLD
-  ) {
-    return transaction.cozyCategoryId
-  }
-
-  // If the cozy categorization models have not been applied, we return null
-  // so the transaction is considered as « categorization in progress ».
-  // Otherwize we just use the automatic categorization from the vendor
-  if (!transaction.localCategoryId && !transaction.cozyCategoryId) {
-    return null
-  }
-
-  return transaction.automaticCategoryId
+  return BankTransaction.getCategoryId(transaction, { localModelOverride })
 }
 
 export const getParentCategory = transaction => {
