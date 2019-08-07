@@ -17,6 +17,30 @@ import { Padded } from 'components/Spacing'
 
 import TableHead from './header/TableHead'
 import styles from './TransactionsPage.styl'
+const HeaderBreadcrumb = ({ t, router }) => {
+  const { categoryName, subcategoryName } = router.params
+  const breadcrumbItems = [
+    {
+      name: t('Categories.title.general'),
+      onClick: () => router.push('/categories')
+    },
+    {
+      name: t(`Data.categories.${categoryName}`),
+      onClick: () => router.push(`/categories/${categoryName}`)
+    },
+    {
+      name: t(`Data.subcategories.${subcategoryName}`)
+    }
+  ]
+
+  return (
+    <Breadcrumb
+      items={breadcrumbItems}
+      className={styles.TransactionPage__Breadcrumb}
+      color="primary"
+    />
+  )
+}
 
 class TransactionHeader extends Component {
   static propTypes = {
@@ -57,32 +81,6 @@ class TransactionHeader extends Component {
     )
   }
 
-  renderBreadcrumb = () => {
-    const { t, router } = this.props
-    const { categoryName, subcategoryName } = router.params
-    const breadcrumbItems = [
-      {
-        name: t('Categories.title.general'),
-        onClick: () => router.push('/categories')
-      },
-      {
-        name: t(`Data.categories.${categoryName}`),
-        onClick: () => router.push(`/categories/${categoryName}`)
-      },
-      {
-        name: t(`Data.subcategories.${subcategoryName}`)
-      }
-    ]
-
-    return (
-      <Breadcrumb
-        items={breadcrumbItems}
-        className={styles.TransactionPage__Breadcrumb}
-        color="primary"
-      />
-    )
-  }
-
   renderBalanceHistory() {
     const {
       chartData,
@@ -118,7 +116,9 @@ class TransactionHeader extends Component {
   render() {
     const {
       transactions,
-      breakpoints: { isMobile }
+      breakpoints: { isMobile },
+      router,
+      t
     } = this.props
     const isSubcategory = this.isSubcategory()
     return (
@@ -140,7 +140,9 @@ class TransactionHeader extends Component {
           {this.renderSelectDates()}
         </Padded>
         {isSubcategory && !isMobile && (
-          <Padded className="u-pt-0">{this.renderBreadcrumb()}</Padded>
+          <Padded className="u-pt-0">
+            <HeaderBreadcrumb router={router} t={t} />
+          </Padded>
         )}
         {transactions.length > 0 && (
           <TableHead isSubcategory={isSubcategory} color="primary" />
