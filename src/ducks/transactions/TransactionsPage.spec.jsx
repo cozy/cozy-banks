@@ -20,6 +20,8 @@ const saveWindowWidth = () => {
   }
 }
 
+jest.mock('ducks/balance/HistoryChart', () => () => null)
+
 const useMobile = () => (window.innerWidth = 400)
 
 describe('TransactionsPage', () => {
