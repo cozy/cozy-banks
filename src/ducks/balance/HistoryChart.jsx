@@ -47,10 +47,11 @@ class HistoryChart extends Component {
   }
 
   render() {
-    const { data, height, width, className } = this.props
+    const { data, height, width, className, animation } = this.props
     return (
       <div className={cx(styles.HistoryChart, className)} ref={this.container}>
         <LineChart
+          animation={animation}
           xScale={d3.scaleTime}
           lineColor="white"
           axisColor="white"

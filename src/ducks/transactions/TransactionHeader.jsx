@@ -105,6 +105,7 @@ class TransactionHeader extends Component {
 
     return (
       <HistoryChart
+        animation={false}
         margin={historyChartMargin}
         data={chartData}
         height={height + marginBottom}
