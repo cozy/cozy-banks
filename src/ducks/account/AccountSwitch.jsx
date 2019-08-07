@@ -11,8 +11,10 @@ import Icon from 'cozy-ui/react/Icon'
 import { Media, Bd, Img } from 'cozy-ui/react/Media'
 import Overlay from 'cozy-ui/react/Overlay'
 import Portal from 'cozy-ui/react/Portal'
+import flag from 'cozy-flags'
 
 import AccountSharingStatus from 'components/AccountSharingStatus'
+import AccountIcon from 'components/AccountIcon'
 import BarItem from 'components/BarItem'
 import Title from 'components/Title'
 
@@ -105,6 +107,12 @@ const AccountSwitchSelect = ({ accounts, filteringDoc, onClick, t, color }) => (
     )}
     onClick={onClick}
   >
+    {flag('account-switch.display-icon') &&
+    filteringDoc._type === 'io.cozy.bank.accounts' ? (
+      <span className="u-mr-1">
+        <AccountIcon account={filteringDoc} />
+      </span>
+    ) : null}
     <Title className={styles.AccountSwitch__SelectText} color={color}>
       {filteringDoc
         ? filteringDoc.length
