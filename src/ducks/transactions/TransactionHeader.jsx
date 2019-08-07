@@ -87,8 +87,9 @@ class TransactionHeader extends Component {
       size,
       breakpoints: { isMobile }
     } = this.props
-    if (!chartData || !size) {
-      return null
+    const height = isMobile ? 66 : 96
+    if (!chartData || !width) {
+      return <div style={{ height }} />
     }
     const intervalBetweenPoints = 2
     const marginBottom = isMobile ? 48 : 64
@@ -98,8 +99,6 @@ class TransactionHeader extends Component {
       left: 0,
       right: isMobile ? 16 : 32
     }
-
-    const height = isMobile ? 66 : 96
 
     return (
       <HistoryChart
