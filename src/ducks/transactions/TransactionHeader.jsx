@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
 import { flowRight as compose, max } from 'lodash'
 import { translate, withBreakpoints } from 'cozy-ui/react'
-import { withSize } from 'react-sizeme'
 import cx from 'classnames'
 
 import BackButton from 'components/BackButton'
@@ -15,8 +14,10 @@ import HistoryChart from 'ducks/balance/HistoryChart'
 import Header from 'components/Header'
 import { Padded } from 'components/Spacing'
 
+import withSize from 'components/withSize'
 import TableHead from './header/TableHead'
 import styles from './TransactionsPage.styl'
+
 const HeaderBreadcrumb = ({ t, router }) => {
   const { categoryName, subcategoryName } = router.params
   const breadcrumbItems = [
@@ -84,11 +85,11 @@ class TransactionHeader extends Component {
   renderBalanceHistory() {
     const {
       chartData,
-      size,
-      breakpoints: { isMobile }
+      breakpoints: { isMobile },
+      size
     } = this.props
     const height = isMobile ? 66 : 96
-    if (!chartData || !width) {
+    if (!chartData || !size) {
       return <div style={{ height }} />
     }
     const intervalBetweenPoints = 2
@@ -120,6 +121,7 @@ class TransactionHeader extends Component {
       t
     } = this.props
     const isSubcategory = this.isSubcategory()
+
     return (
       <Header color="primary" fixed>
         <Padded className={isMobile ? 'u-p-0' : 'u-pb-half'}>

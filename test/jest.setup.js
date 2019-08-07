@@ -13,6 +13,7 @@ global.cozy = {
   bar: {
     BarLeft: () => null,
     BarRight: () => null,
+    BarCenter:() => null,
     setTheme: () => null
   }
 }

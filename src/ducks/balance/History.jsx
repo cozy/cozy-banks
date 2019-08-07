@@ -14,7 +14,7 @@ import {
   sumBalanceHistories,
   balanceHistoryToChartData
 } from 'ducks/balance/helpers'
-import { withSize } from 'react-sizeme'
+import withSize from 'components/withSize'
 
 const today = new Date()
 const oneYearBefore = subYears(today, 1)
