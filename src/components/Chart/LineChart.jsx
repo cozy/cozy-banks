@@ -33,8 +33,9 @@ class LineChart extends Component {
 
   componentDidMount() {
     this.createElements()
-    this.enterAnimation()
-
+    if (this.props.animation) {
+      this.enterAnimation()
+    }
     this.updateElements()
     this.movePointToItem()
   }
@@ -550,7 +551,8 @@ LineChart.defaultProps = {
   pointRadius: 4,
   pointFillColor: 'black',
   pointStrokeWidth: 10,
-  pointStrokeColor: 'rgba(0, 0, 0, 0.3)'
+  pointStrokeColor: 'rgba(0, 0, 0, 0.3)',
+  animation: true
 }
 
 export default LineChart
