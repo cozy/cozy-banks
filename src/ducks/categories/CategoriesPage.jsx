@@ -22,7 +22,7 @@ import {
   transactionsConn,
   groupsConn
 } from 'doctypes'
-import { isCollectionLoading } from 'ducks/client/utils'
+import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import BarTheme from 'ducks/bar/BarTheme'
 
 class CategoriesPage extends Component {
@@ -72,7 +72,7 @@ class CategoriesPage extends Component {
     } = this.props
     const isFetching = some(
       [accounts, transactions, settings],
-      isCollectionLoading
+      col => isCollectionLoading(col) && !hasBeenLoaded(col)
     )
     const { showIncomeCategory } = this.getSettings()
     const selectedCategoryName = router.params.categoryName

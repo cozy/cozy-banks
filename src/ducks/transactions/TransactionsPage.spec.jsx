@@ -20,6 +20,8 @@ const saveWindowWidth = () => {
   }
 }
 
+jest.mock('ducks/balance/HistoryChart', () => () => null)
+
 const useMobile = () => (window.innerWidth = 400)
 
 describe('TransactionsPage', () => {
@@ -27,7 +29,7 @@ describe('TransactionsPage', () => {
   beforeEach(() => {
     restoreWindowWidth = saveWindowWidth()
     jest
-      .spyOn(DumbTransactionsPage.prototype, 'displayTransactions')
+      .spyOn(DumbTransactionsPage.prototype, 'renderTransactions')
       .mockReturnValue([])
   })
 

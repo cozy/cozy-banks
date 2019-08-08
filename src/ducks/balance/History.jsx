@@ -6,7 +6,7 @@ import Spinner from 'cozy-ui/react/Spinner'
 import { flowRight as compose, uniq, groupBy, max } from 'lodash'
 import styles from 'ducks/balance/History.styl'
 import HistoryChart from 'ducks/balance/HistoryChart'
-import { isCollectionLoading } from 'ducks/client/utils'
+import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { format as formatDate, subYears, isAfter } from 'date-fns'
 import * as d3 from 'utils/d3'
 import {
@@ -14,7 +14,7 @@ import {
   sumBalanceHistories,
   balanceHistoryToChartData
 } from 'ducks/balance/helpers'
-import { withSize } from 'react-sizeme'
+import withSize from 'components/withSize'
 
 const today = new Date()
 const oneYearBefore = subYears(today, 1)
@@ -89,7 +89,8 @@ class History extends Component {
   render() {
     const { transactions, className } = this.props
 
-    const isTransactionsLoading = isCollectionLoading(transactions)
+    const isTransactionsLoading =
+      isCollectionLoading(transactions) && !hasBeenLoaded(transactions)
 
     return (
       <div className={cx(styles.History, className)}>

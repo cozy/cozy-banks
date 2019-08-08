@@ -68,7 +68,10 @@ export const getFilteredAccounts = state => {
 
 const filterByAccountIds = (transactions, accountIds) =>
   transactions.filter(transaction => {
-    return transaction && accountIds.indexOf(transaction.account.raw) !== -1
+    return (
+      transaction &&
+      accountIds.indexOf(transaction.account.raw || transaction.account) !== -1
+    )
   })
 
 const recentToAncient = transaction => -new Date(getDisplayDate(transaction))

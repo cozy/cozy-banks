@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
 import { flowRight as compose, max } from 'lodash'
 import { translate, withBreakpoints } from 'cozy-ui/react'
-import { withSize } from 'react-sizeme'
 import cx from 'classnames'
 
 import BackButton from 'components/BackButton'
@@ -15,8 +14,34 @@ import HistoryChart from 'ducks/balance/HistoryChart'
 import Header from 'components/Header'
 import { Padded } from 'components/Spacing'
 
+import withSize from 'components/withSize'
 import TableHead from './header/TableHead'
 import styles from './TransactionsPage.styl'
+
+const HeaderBreadcrumb = ({ t, router }) => {
+  const { categoryName, subcategoryName } = router.params
+  const breadcrumbItems = [
+    {
+      name: t('Categories.title.general'),
+      onClick: () => router.push('/categories')
+    },
+    {
+      name: t(`Data.categories.${categoryName}`),
+      onClick: () => router.push(`/categories/${categoryName}`)
+    },
+    {
+      name: t(`Data.subcategories.${subcategoryName}`)
+    }
+  ]
+
+  return (
+    <Breadcrumb
+      items={breadcrumbItems}
+      className={styles.TransactionPage__Breadcrumb}
+      color="primary"
+    />
+  )
+}
 
 class TransactionHeader extends Component {
   static propTypes = {
@@ -39,7 +64,7 @@ class TransactionHeader extends Component {
     )
   }
 
-  displaySelectDates = () => {
+  renderSelectDates = () => {
     if (this.isSubcategory()) {
       return <ConnectedSelectDates showFullYear color="primary" />
     }
@@ -57,40 +82,15 @@ class TransactionHeader extends Component {
     )
   }
 
-  displayBreadcrumb = () => {
-    const { t, router } = this.props
-    const { categoryName, subcategoryName } = router.params
-    const breadcrumbItems = [
-      {
-        name: t('Categories.title.general'),
-        onClick: () => router.push('/categories')
-      },
-      {
-        name: t(`Data.categories.${categoryName}`),
-        onClick: () => router.push(`/categories/${categoryName}`)
-      },
-      {
-        name: t(`Data.subcategories.${subcategoryName}`)
-      }
-    ]
-
-    return (
-      <Breadcrumb
-        items={breadcrumbItems}
-        className={styles.TransactionPage__Breadcrumb}
-        color="primary"
-      />
-    )
-  }
-
-  displayBalanceHistory() {
+  renderBalanceHistory() {
     const {
       chartData,
-      size,
-      breakpoints: { isMobile }
+      breakpoints: { isMobile },
+      size
     } = this.props
+    const height = isMobile ? 66 : 96
     if (!chartData || !size) {
-      return
+      return <div style={{ height }} />
     }
     const intervalBetweenPoints = 2
     const marginBottom = isMobile ? 48 : 64
@@ -101,10 +101,9 @@ class TransactionHeader extends Component {
       right: isMobile ? 16 : 32
     }
 
-    const height = isMobile ? 66 : 96
-
     return (
       <HistoryChart
+        animation={false}
         margin={historyChartMargin}
         data={chartData}
         height={height + marginBottom}
@@ -117,15 +116,18 @@ class TransactionHeader extends Component {
   render() {
     const {
       transactions,
-      breakpoints: { isMobile }
+      breakpoints: { isMobile },
+      router,
+      t
     } = this.props
     const isSubcategory = this.isSubcategory()
+
     return (
       <Header color="primary" fixed>
         <Padded className={isMobile ? 'u-p-0' : 'u-pb-half'}>
           {this.renderAccountSwitch()}
         </Padded>
-        {!isSubcategory && this.displayBalanceHistory()}
+        {!isSubcategory && this.renderBalanceHistory()}
         <Padded
           className={cx(
             {
@@ -136,10 +138,12 @@ class TransactionHeader extends Component {
             styles.TransactionsHeader__selectDatesContainer
           )}
         >
-          {this.displaySelectDates()}
+          {this.renderSelectDates()}
         </Padded>
         {isSubcategory && !isMobile && (
-          <Padded className="u-pt-0">{this.displayBreadcrumb()}</Padded>
+          <Padded className="u-pt-0">
+            <HeaderBreadcrumb router={router} t={t} />
+          </Padded>
         )}
         {transactions.length > 0 && (
           <TableHead isSubcategory={isSubcategory} color="primary" />
