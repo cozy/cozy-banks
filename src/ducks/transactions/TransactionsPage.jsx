@@ -24,9 +24,12 @@ import { getCategoryIdFromName } from 'ducks/categories/categoriesMap'
 import { getDate, getDisplayDate } from 'ducks/transactions/helpers'
 import { getCategoryId } from 'ducks/categories/helpers'
 
+import { queryConnect } from 'cozy-client'
+
 import Loading from 'components/Loading'
+import Delayed from 'components/Delayed'
 import { TransactionsWithSelection } from 'ducks/transactions/Transactions.jsx'
-import TransactionHeader from 'ducks/transactions/TransactionHeader'
+
 import {
   ACCOUNT_DOCTYPE,
   accountsConn,
@@ -35,7 +38,7 @@ import {
   transactionsConn
 } from 'doctypes'
 
-import { queryConnect } from 'cozy-client'
+import TransactionHeader from 'ducks/transactions/TransactionHeader'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { findNearestMonth } from 'ducks/transactions/helpers'
 import {
@@ -51,6 +54,10 @@ const { BarRight } = cozy.bar
 const STEP_INFINITE_SCROLL = 30
 const SCROLL_THRESOLD_TO_ACTIVATE_TOP_INFINITE_SCROLL = 150
 const getMonth = date => date.slice(0, 7)
+
+const FakeTransactions = () => {
+  return <Padded>{null}</Padded>
+}
 
 class TransactionsPage extends Component {
   constructor(props) {
@@ -223,18 +230,20 @@ class TransactionsPage extends Component {
     }
 
     return (
-      <TransactionsWithSelection
-        limitMin={limitMin}
-        limitMax={limitMax}
-        onReachTop={this.handleDecreaseLimitMin}
-        onReachBottom={this.handleIncreaseLimitMax}
-        infiniteScrollTop={infiniteScrollTop}
-        onChangeTopMostTransaction={this.handleChangeTopmostTransaction}
-        onScroll={this.checkToActivateTopInfiniteScroll}
-        transactions={transactions}
-        filteringOnAccount={this.getFilteringOnAccount()}
-        manualLoadMore={isMobileApp()}
-      />
+      <Delayed delay={0} fallback={<FakeTransactions />}>
+        <TransactionsWithSelection
+          limitMin={limitMin}
+          limitMax={limitMax}
+          onReachTop={this.handleDecreaseLimitMin}
+          onReachBottom={this.handleIncreaseLimitMax}
+          infiniteScrollTop={infiniteScrollTop}
+          onChangeTopMostTransaction={this.handleChangeTopmostTransaction}
+          onScroll={this.checkToActivateTopInfiniteScroll}
+          transactions={transactions}
+          filteringOnAccount={this.getFilteringOnAccount()}
+          manualLoadMore={isMobileApp()}
+        />
+      </Delayed>
     )
   }
 

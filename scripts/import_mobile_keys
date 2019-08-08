@@ -30,6 +30,7 @@ function cp_from_keepass {
 
 check_dir
 
+mkdir -p src/targets/mobile/keys/{android,ios}
 cp_from_keepass Gangsters/cozy-banks/keys/android/cozy-banks-release-key.jks ./src/targets/mobile/keys/android/cozy-banks-release-key.jks
 cp_from_keepass Gangsters/cozy-banks/keys/android/key.json ./src/targets/mobile/keys/android/key.json
 extract_from_keepass Gangsters/cozy-banks/keys/android/google-services.json ./src/targets/mobile/keys/android/google-services.json
