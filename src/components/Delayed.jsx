@@ -18,6 +18,12 @@ const useDelay = delay => {
   return ok
 }
 
+/**
+ * Delays rendering of its children
+ * @param  {Element} options.fallback - Simple component used while delay has not elapsed
+ * @param  {Element} options.children - Will be rendered after <delay>ms have passed
+ * @param  {Number} options.delay    - Delay to render children in ms
+ */
 const Delayed = ({ fallback, children, delay }) => {
   const ok = useDelay(delay)
   if (ok) {
