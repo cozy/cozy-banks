@@ -24,9 +24,12 @@ import { getCategoryIdFromName } from 'ducks/categories/categoriesMap'
 import { getDate, getDisplayDate } from 'ducks/transactions/helpers'
 import { getCategoryId } from 'ducks/categories/helpers'
 
+import { queryConnect } from 'cozy-client'
+
 import Loading from 'components/Loading'
+import Delayed from 'components/Delayed'
 import { TransactionsWithSelection } from 'ducks/transactions/Transactions.jsx'
-import TransactionHeader from 'ducks/transactions/TransactionHeader'
+
 import {
   ACCOUNT_DOCTYPE,
   accountsConn,
@@ -35,7 +38,7 @@ import {
   transactionsConn
 } from 'doctypes'
 
-import { queryConnect } from 'cozy-client'
+import TransactionHeader from 'ducks/transactions/TransactionHeader'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { findNearestMonth } from 'ducks/transactions/helpers'
 import {
@@ -45,39 +48,12 @@ import {
 } from 'ducks/balance/helpers'
 import BarTheme from 'ducks/bar/BarTheme'
 import TransactionActionsProvider from 'ducks/transactions/TransactionActionsProvider'
-import { useState, useEffect } from 'react'
 
 const { BarRight } = cozy.bar
 
 const STEP_INFINITE_SCROLL = 30
 const SCROLL_THRESOLD_TO_ACTIVATE_TOP_INFINITE_SCROLL = 150
 const getMonth = date => date.slice(0, 7)
-
-const useDelay = delay => {
-  let timeout
-  const [ok, setOK] = useState(false)
-  useEffect(() => {
-    function setOKToTrue() {
-      setOK(true)
-    }
-    if (!timeout) {
-      timeout = setTimeout(setOKToTrue, delay)
-    }
-    return () => {
-      clearTimeout(timeout)
-    }
-  })
-  return ok
-}
-
-const Delayed = ({ fallback, children, delay }) => {
-  const ok = useDelay(delay)
-  if (ok) {
-    return children
-  } else {
-    return fallback
-  }
-}
 
 const FakeTransactions = () => {
   return <Padded>{null}</Padded>
