@@ -6137,17 +6137,17 @@ escodegen@~1.9.0:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-cozy-app@1.1.12:
-  version "1.1.12"
-  resolved "https://registry.yarnpkg.com/eslint-config-cozy-app/-/eslint-config-cozy-app-1.1.12.tgz#0ab562a593274d518ffc085e1b7ff9124d2e76f9"
-  integrity sha512-0Q65/ZF7xGi4dF5zMNl4SKRDlFBvIFu9EJ59pRE/X7IfG0BzgbLzcdJjdmzbNG1czLVLAqzbns0R+6mU8F9+0g==
+eslint-config-cozy-app@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-cozy-app/-/eslint-config-cozy-app-1.2.0.tgz#eed5277d84db1a24597e3ea4a61be9b9bf93e0bb"
+  integrity sha512-eiIteeLbdpl7lL7yq1k5iBnsCx+bq6BJZh1ueH5GrhGEg0494vHJtgrWUo3Hvq5E6WoDDx/9bgFNeZ7wLINaCQ==
   dependencies:
     babel-eslint "10.0.1"
     eslint "5.15.1"
     eslint-config-prettier "4.1.0"
     eslint-plugin-prettier "3.0.1"
     eslint-plugin-react "7.12.4"
-    eslint-plugin-vue "5.2.2"
+    eslint-plugin-vue "5.2.3"
     prettier "1.16.4"
 
 eslint-config-prettier@4.1.0:
@@ -6188,10 +6188,10 @@ eslint-plugin-react@7.12.4:
     prop-types "^15.6.2"
     resolve "^1.9.0"
 
-eslint-plugin-vue@5.2.2:
-  version "5.2.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-5.2.2.tgz#86601823b7721b70bc92d54f1728cfc03b36283c"
-  integrity sha512-CtGWH7IB0DA6BZOwcV9w9q3Ri6Yuo8qMjx05SmOGJ6X6E0Yo3y9E/gQ5tuNxg2dEt30tRnBoFTbvtmW9iEoyHA==
+eslint-plugin-vue@5.2.3:
+  version "5.2.3"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-5.2.3.tgz#3ee7597d823b5478804b2feba9863b1b74273961"
+  integrity sha512-mGwMqbbJf0+VvpGR5Lllq0PMxvTdrZ/ZPjmhkacrCHbubJeJOt+T6E3HUzAifa2Mxi7RSdJfC9HFpOeSYVMMIw==
   dependencies:
     vue-eslint-parser "^5.0.0"
 
