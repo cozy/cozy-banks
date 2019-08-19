@@ -96,7 +96,7 @@
     "babel-plugin-date-fns": "0.2.1",
     "babel-plugin-lodash": "3.3.4",
     "babel-preset-cozy-app": "1.6.0",
-    "commitlint-config-cozy": "0.3.24",
+    "commitlint-config-cozy": "0.3.27",
     "copy-webpack-plugin": "5.0.2",
     "cozy-ach": "1.21.0",
     "cozy-app-publish": "0.16.2",
