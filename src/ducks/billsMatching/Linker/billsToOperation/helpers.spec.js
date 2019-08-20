@@ -5,8 +5,12 @@ import {
   getDateRangeFromBill,
   getAmountRangeFromBill,
   getTotalReimbursements,
-  sortedOperations
+  sortedOperations,
+  getBillRegexp
 } from './helpers'
+import { getBrands } from '../../../brandDictionary'
+
+jest.mock('../../../brandDictionary')
 
 const OK = 'ok'
 
@@ -194,6 +198,35 @@ describe('getterHelper', () => {
         { id: 3, date: new Date(2017, 0, 19), amount: -13 }
       ]
       expect(sortedOperations(bill, operations)[0]).toEqual(operations[1])
+    })
+  })
+
+  describe('getBillRegexp', () => {
+    it('should return the regexp from matching criterias if it exists', () => {
+      const bill = {
+        matchingCriterias: { labelRegex: '\\bCOZY CLOUD\\b' },
+        vendor: 'Payfit'
+      }
+
+      const regexp = getBillRegexp(bill)
+
+      expect(regexp.toString()).toBe('/\\bCOZY CLOUD\\b/i')
+    })
+
+    it('should return the brand regexp if it exists', () => {
+      getBrands.mockReturnValueOnce([{ regexp: '\\bPAYFIT\\b' }])
+      const bill = { vendor: 'Payfit' }
+      const regexp = getBillRegexp(bill)
+
+      expect(regexp.toString()).toBe('/\\bPAYFIT\\b/i')
+    })
+
+    it("should build a regexp from the bill's vendor if nothing else exists", () => {
+      getBrands.mockReturnValueOnce([])
+      const bill = { vendor: 'Payfit' }
+      const regexp = getBillRegexp(bill)
+
+      expect(regexp.toString()).toBe('/\\bPayfit\\b/i')
     })
   })
 })

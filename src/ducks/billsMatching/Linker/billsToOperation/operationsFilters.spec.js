@@ -26,6 +26,15 @@ describe('operations filters', () => {
       expect(fByBrand({ label: 'tartanpion 17/09' })).toBeTruthy()
       expect(fByBrand({ label: 'Rien à voir' })).toBeFalsy()
     })
+
+    it('should use the regexp from the bill if it has one', () => {
+      const bill = { matchingCriterias: { labelRegex: 'Bidule' } }
+      const fByBrand = filterByBrand(bill)
+
+      expect(fByBrand({ label: 'Chez Bidule !!!' })).toBe(true)
+      expect(fByBrand({ label: 'bidule 20/08' })).toBe(true)
+      expect(fByBrand({ label: 'Ca match paaaas du tout' })).toBe(false)
+    })
   })
 
   test('filtering by date period', () => {
