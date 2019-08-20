@@ -52,21 +52,35 @@ describe('getterHelper', () => {
     const futureWindow = 1
     const date = '2018-01-08'
     const originalDate = '2018-01-03'
-
-    const bill = { date, originalDate }
     const options = { pastWindow, futureWindow }
     const creditOptions = { ...options, credit: true }
 
+    const matchingCriterias = {
+      dateLowerDelta: 2,
+      dateUpperDelta: 2
+    }
+
+    const bill1 = { date, originalDate }
+    const bill2 = { ...bill1, matchingCriterias }
+
     it('should find debit date range', () => {
-      const { minDate, maxDate } = getDateRangeFromBill(bill, options)
-      expect(minDate).toEqual(new Date('2018-01-02'))
-      expect(maxDate).toEqual(new Date('2018-01-04'))
+      const bill1Range = getDateRangeFromBill(bill1, options)
+      expect(bill1Range.minDate).toEqual(new Date('2018-01-02'))
+      expect(bill1Range.maxDate).toEqual(new Date('2018-01-04'))
+
+      const bill2Range = getDateRangeFromBill(bill2, options)
+      expect(bill2Range.minDate).toEqual(new Date('2018-01-01'))
+      expect(bill2Range.maxDate).toEqual(new Date('2018-01-05'))
     })
 
     it('should find credit date range', () => {
-      const { minDate, maxDate } = getDateRangeFromBill(bill, creditOptions)
-      expect(minDate).toEqual(new Date('2018-01-07'))
-      expect(maxDate).toEqual(new Date('2018-01-09'))
+      const bill1Range = getDateRangeFromBill(bill1, creditOptions)
+      expect(bill1Range.minDate).toEqual(new Date('2018-01-07'))
+      expect(bill1Range.maxDate).toEqual(new Date('2018-01-09'))
+
+      const bill2Range = getDateRangeFromBill(bill2, creditOptions)
+      expect(bill2Range.minDate).toEqual(new Date('2018-01-06'))
+      expect(bill2Range.maxDate).toEqual(new Date('2018-01-10'))
     })
   })
 
