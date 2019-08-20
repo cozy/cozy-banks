@@ -20,8 +20,8 @@ const createAmountSelector = (bill, options) => {
   const { minAmount, maxAmount } = getAmountRangeFromBill(bill, options)
 
   return {
-    $gt: minAmount,
-    $lt: maxAmount
+    $gte: minAmount,
+    $lte: maxAmount
   }
 }
 
@@ -67,6 +67,10 @@ const findByMangoQuerySimple = (docs, query) => {
         return val > selValue
       } else if ($operator == '$lt') {
         return val < selValue
+      } else if ($operator == '$gte') {
+        return val >= selValue
+      } else if ($operator == '$lte') {
+        return val <= selValue
       } else {
         throw new Error(`Unknown operator ${$operator}`)
       }

@@ -73,42 +73,59 @@ describe('getterHelper', () => {
   describe('getAmountRangeFromBill', () => {
     const minAmountDelta = 1
     const maxAmountDelta = 1
+    const options = { minAmountDelta, maxAmountDelta }
+    const creditOptions = { ...options, credit: true }
     const amount = 7.5
     const originalAmount = 25
 
+    const matchingCriterias = {
+      amountLowerDelta: 2,
+      amountUpperDelta: 2
+    }
+
     const bill1 = { amount }
     const bill2 = { amount, originalAmount }
-    const options = { minAmountDelta, maxAmountDelta }
-    const creditOptions = { ...options, credit: true }
+    const bill3 = { amount, matchingCriterias }
+    const bill4 = { ...bill2, matchingCriterias }
 
     it('should find debit amount range (negative)', () => {
-      const { minAmount, maxAmount } = getAmountRangeFromBill(bill1, options)
-      expect(minAmount).toEqual(-8.5)
-      expect(maxAmount).toEqual(-6.5)
+      const bill1Range = getAmountRangeFromBill(bill1, options)
+      expect(bill1Range.minAmount).toEqual(-8.5)
+      expect(bill1Range.maxAmount).toEqual(-6.5)
+
+      const bill3Range = getAmountRangeFromBill(bill3, options)
+      expect(bill3Range.minAmount).toEqual(-9.5)
+      expect(bill3Range.maxAmount).toEqual(-5.5)
     })
 
     it('should find debit amount range of bill with originalAmount (negative)', () => {
-      const { minAmount, maxAmount } = getAmountRangeFromBill(bill2, options)
-      expect(minAmount).toEqual(-26)
-      expect(maxAmount).toEqual(-24)
+      const bill2Range = getAmountRangeFromBill(bill2, options)
+      expect(bill2Range.minAmount).toEqual(-26)
+      expect(bill2Range.maxAmount).toEqual(-24)
+
+      const bill4Range = getAmountRangeFromBill(bill4, options)
+      expect(bill4Range.minAmount).toEqual(-27)
+      expect(bill4Range.maxAmount).toEqual(-23)
     })
 
     it('sould find credit amount range (positive)', () => {
-      const { minAmount, maxAmount } = getAmountRangeFromBill(
-        bill1,
-        creditOptions
-      )
-      expect(minAmount).toEqual(6.5)
-      expect(maxAmount).toEqual(8.5)
+      const bill1Range = getAmountRangeFromBill(bill1, creditOptions)
+      expect(bill1Range.minAmount).toEqual(6.5)
+      expect(bill1Range.maxAmount).toEqual(8.5)
+
+      const bill3Range = getAmountRangeFromBill(bill3, creditOptions)
+      expect(bill3Range.minAmount).toEqual(5.5)
+      expect(bill3Range.maxAmount).toEqual(9.5)
     })
 
     it('should find credit amount range of bill with originalAmount (positive)', () => {
-      const { minAmount, maxAmount } = getAmountRangeFromBill(
-        bill2,
-        creditOptions
-      )
-      expect(minAmount).toEqual(6.5)
-      expect(maxAmount).toEqual(8.5)
+      const bill2Range = getAmountRangeFromBill(bill2, creditOptions)
+      expect(bill2Range.minAmount).toEqual(6.5)
+      expect(bill2Range.maxAmount).toEqual(8.5)
+
+      const bill4Range = getAmountRangeFromBill(bill4, creditOptions)
+      expect(bill4Range.minAmount).toEqual(5.5)
+      expect(bill4Range.maxAmount).toEqual(9.5)
     })
   })
 

@@ -1,4 +1,5 @@
 const sortBy = require('lodash/sortBy')
+const get = require('lodash/get')
 const addDays = require('date-fns/add_days')
 const subDays = require('date-fns/sub_days')
 const differenceInDays = require('date-fns/difference_in_days')
@@ -29,9 +30,21 @@ const getDateRangeFromBill = (bill, options) => {
 const getAmountRangeFromBill = (bill, options) => {
   const amount = getOperationAmountFromBill(bill, options)
 
+  const lowerDelta = get(
+    bill,
+    'matchingCriterias.amountLowerDelta',
+    options.minAmountDelta
+  )
+
+  const upperDelta = get(
+    bill,
+    'matchingCriterias.amountUpperDelta',
+    options.maxAmountDelta
+  )
+
   return {
-    minAmount: amount - options.minAmountDelta,
-    maxAmount: amount + options.maxAmountDelta
+    minAmount: amount - lowerDelta,
+    maxAmount: amount + upperDelta
   }
 }
 
