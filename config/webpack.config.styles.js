@@ -1,7 +1,7 @@
-const autoprefixer = require('autoprefixer')
+// const autoprefixer = require('autoprefixer')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const PostCSSAssetsPlugin = require('postcss-assets-webpack-plugin')
-const sortCSSmq = require('sort-css-media-queries')
+// const PostCSSAssetsPlugin = require('postcss-assets-webpack-plugin')
+// const sortCSSmq = require('sort-css-media-queries')
 const { SRC_DIR, production } = require('./webpack.vars')
 
 module.exports = {
@@ -13,15 +13,18 @@ module.exports = {
         use: [
           {
             loader: MiniCssExtractPlugin.loader
-          }, {
+          },
+          {
             loader: 'css-loader',
             options: {
               importLoaders: 2,
-              modules: true,
-              sourceMap: true,
-              localIdentName: '[name]_[local]_[hash:base64:5]'
+              modules: {
+                localIdentName: '[name]_[local]_[hash:base64:5]'
+              },
+              sourceMap: true
             }
-          }, {
+          },
+          {
             loader: 'stylus-loader',
             options: {
               sourceMap: true,
@@ -51,7 +54,7 @@ module.exports = {
       // Options similar to the same options in webpackOptions.output
       // both options are optional
       filename: `app${production ? '.[hash].min' : ''}.css`
-    }),
+    })
     // new PostCSSAssetsPlugin({
     //   test: /\.css$/,
     //   plugins: [
