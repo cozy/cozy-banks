@@ -97,11 +97,15 @@ const sortedOperations = (bill, operations) => {
 const getBillRegexp = bill => {
   let regexpStr = bill.matchingCriterias && bill.matchingCriterias.labelRegex
 
-  if (!regexpStr) {
+  if (!regexpStr && bill.vendor) {
     const [brand] = getBrands(
       brand => brand.name === bill.vendor || brand.konnectorSlug === bill.vendor
     )
     regexpStr = brand ? brand.regexp : `\\b${bill.vendor}\\b`
+  }
+
+  if (!regexpStr) {
+    return null
   }
 
   return new RegExp(regexpStr, 'i')

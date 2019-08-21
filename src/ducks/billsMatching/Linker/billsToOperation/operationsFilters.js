@@ -53,6 +53,10 @@ const filterByBrand = bill => {
   const regexp = getBillRegexp(bill)
 
   const brandFilter = operation => {
+    if (!regexp) {
+      return false
+    }
+
     const label = operation.label.toLowerCase()
     return label.match(regexp)
   }

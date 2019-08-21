@@ -228,5 +228,12 @@ describe('getterHelper', () => {
 
       expect(regexp.toString()).toBe('/\\bPayfit\\b/i')
     })
+
+    it('should return null if the bill has no labelRegex and no vendor', () => {
+      const bill = {}
+      const regexp = getBillRegexp(bill)
+
+      expect(regexp).toBe(null)
+    })
   })
 })

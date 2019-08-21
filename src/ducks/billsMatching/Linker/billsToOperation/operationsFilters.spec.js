@@ -35,6 +35,13 @@ describe('operations filters', () => {
       expect(fByBrand({ label: 'bidule 20/08' })).toBe(true)
       expect(fByBrand({ label: 'Ca match paaaas du tout' })).toBe(false)
     })
+
+    it('should return false if the bill has no vendor and no regex', () => {
+      const bill = {}
+      const fByBrand = filterByBrand(bill)
+
+      expect(fByBrand({ label: 'Something' })).toBe(false)
+    })
   })
 
   test('filtering by date period', () => {
