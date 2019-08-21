@@ -327,7 +327,8 @@ describe('linker', () => {
     const testCases = require('../../../../test/fixtures/matching-service/cases')
 
     for (const testCase of testCases) {
-      test(testCase.description, async () => {
+      const fn = testCase.focus ? fit : it
+      fn(testCase.description, async () => {
         const { bills, operations, expectedResult } = testCase
         const result = await linker.linkBillsToOperations(bills, operations)
 

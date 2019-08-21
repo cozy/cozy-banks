@@ -1,7 +1,9 @@
 const sortBy = require('lodash/sortBy')
+const get = require('lodash/get')
 const addDays = require('date-fns/add_days')
 const subDays = require('date-fns/sub_days')
 const differenceInDays = require('date-fns/difference_in_days')
+const { getBrands } = require('ducks/brandDictionary')
 
 const getOperationAmountFromBill = (bill, options) => {
   const searchingCredit = options && options.credit
@@ -20,18 +22,43 @@ const getIdentifiers = options => options.identifiers
 
 const getDateRangeFromBill = (bill, options) => {
   const date = getOperationDateFromBill(bill, options)
+
+  const pastWindow = get(
+    bill,
+    'matchingCriterias.dateLowerDelta',
+    options.pastWindow
+  )
+
+  const futureWindow = get(
+    bill,
+    'matchingCriterias.dateUpperDelta',
+    options.futureWindow
+  )
+
   return {
-    minDate: subDays(date, options.pastWindow),
-    maxDate: addDays(date, options.futureWindow)
+    minDate: subDays(date, pastWindow),
+    maxDate: addDays(date, futureWindow)
   }
 }
 
 const getAmountRangeFromBill = (bill, options) => {
   const amount = getOperationAmountFromBill(bill, options)
 
+  const lowerDelta = get(
+    bill,
+    'matchingCriterias.amountLowerDelta',
+    options.minAmountDelta
+  )
+
+  const upperDelta = get(
+    bill,
+    'matchingCriterias.amountUpperDelta',
+    options.maxAmountDelta
+  )
+
   return {
-    minAmount: amount - options.minAmountDelta,
-    maxAmount: amount + options.maxAmountDelta
+    minAmount: amount - lowerDelta,
+    maxAmount: amount + upperDelta
   }
 }
 
@@ -67,6 +94,23 @@ const sortedOperations = (bill, operations) => {
   return sortBy(operations, buildSortFunction(bill))
 }
 
+const getBillRegexp = bill => {
+  let regexpStr = bill.matchingCriterias && bill.matchingCriterias.labelRegex
+
+  if (!regexpStr && bill.vendor) {
+    const [brand] = getBrands(
+      brand => brand.name === bill.vendor || brand.konnectorSlug === bill.vendor
+    )
+    regexpStr = brand ? brand.regexp : `\\b${bill.vendor}\\b`
+  }
+
+  if (!regexpStr) {
+    return null
+  }
+
+  return new RegExp(regexpStr, 'i')
+}
+
 module.exports = {
   getOperationAmountFromBill,
   getOperationDateFromBill,
@@ -74,5 +118,6 @@ module.exports = {
   getDateRangeFromBill,
   getAmountRangeFromBill,
   getTotalReimbursements,
-  sortedOperations
+  sortedOperations,
+  getBillRegexp
 }

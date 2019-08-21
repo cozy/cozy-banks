@@ -1,13 +1,12 @@
 import { max, min } from 'lodash'
-import { DEFAULT_FUTURE_WINDOW, DEFAULT_PAST_WINDOW } from './Linker/Linker'
-import { format as formatDate, addDays, subDays } from 'date-fns'
+import { format as formatDate, addYears, subYears } from 'date-fns'
 import { Bill } from 'models'
 import Linker from './Linker/Linker'
 
 export default async function matchFromTransactions(transactions) {
   const transactionsDates = transactions.map(transaction => transaction.date)
-  const dateMin = subDays(min(transactionsDates), DEFAULT_FUTURE_WINDOW)
-  const dateMax = addDays(max(transactionsDates), DEFAULT_PAST_WINDOW)
+  const dateMin = subYears(min(transactionsDates), 1)
+  const dateMax = addYears(max(transactionsDates), 1)
 
   const selector = {
     date: {

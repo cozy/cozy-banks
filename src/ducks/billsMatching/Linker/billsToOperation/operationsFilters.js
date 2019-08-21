@@ -1,11 +1,14 @@
 const includes = require('lodash/includes')
 const sumBy = require('lodash/sumBy')
 const isWithinRange = require('date-fns/is_within_range')
-const { getBrands } = require('ducks/brandDictionary')
 const { log } = require('../../utils')
 const { getCategoryId } = require('../../../categories/helpers')
 
-const { getDateRangeFromBill, getAmountRangeFromBill } = require('./helpers')
+const {
+  getDateRangeFromBill,
+  getAmountRangeFromBill,
+  getBillRegexp
+} = require('./helpers')
 
 // constants
 
@@ -47,12 +50,13 @@ const isHealthBill = bill => {
 
 // filters
 const filterByBrand = bill => {
-  const [brand] = getBrands(
-    brand => brand.name === bill.vendor || brand.konnectorSlug === bill.vendor
-  )
-  const regexp = new RegExp(brand ? brand.regexp : `\\b${bill.vendor}\\b`, 'i')
+  const regexp = getBillRegexp(bill)
 
   const brandFilter = operation => {
+    if (!regexp) {
+      return false
+    }
+
     const label = operation.label.toLowerCase()
     return label.match(regexp)
   }
