@@ -6230,15 +6230,15 @@ escodegen@~1.9.0:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-cozy-app@1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/eslint-config-cozy-app/-/eslint-config-cozy-app-1.2.1.tgz#ba3c98e38b34af79f56fb9343c17b0bda19d5687"
-  integrity sha512-xHRy6bozUQqDVHUN+OKr3jgaP3zJxHLvjUxyjRJiXagJ/VLJi7fHXPPbnhFYsRrZgxmFCJAgNIh9divdqIeIMw==
+eslint-config-cozy-app@1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/eslint-config-cozy-app/-/eslint-config-cozy-app-1.2.2.tgz#d46669c0f7d2fc89e8c999165b84a8b80c841f8d"
+  integrity sha512-+BZjfsJo0+UyM/LBZx+35BgyaMIJjmvgIXANAaD6oSpIgorkP7FFuI5NNRbJ2Pb2nx+nsYwRXR8ijbag1bteMA==
   dependencies:
     babel-eslint "10.0.1"
     eslint "5.15.1"
     eslint-config-prettier "4.1.0"
-    eslint-plugin-prettier "3.0.1"
+    eslint-plugin-prettier "3.1.0"
     eslint-plugin-react "7.12.4"
     eslint-plugin-vue "5.2.3"
     prettier "1.16.4"
@@ -6261,10 +6261,10 @@ eslint-loader@2.2.1:
     object-hash "^1.1.4"
     rimraf "^2.6.1"
 
-eslint-plugin-prettier@3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-prettier/-/eslint-plugin-prettier-3.0.1.tgz#19d521e3981f69dd6d14f64aec8c6a6ac6eb0b0d"
-  integrity sha512-/PMttrarPAY78PLvV3xfWibMOdMDl57hmlQ2XqFeA37wd+CJ7WSxV7txqjVPHi/AAFKd2lX0ZqfsOc/i5yFCSQ==
+eslint-plugin-prettier@3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-prettier/-/eslint-plugin-prettier-3.1.0.tgz#8695188f95daa93b0dc54b249347ca3b79c4686d"
+  integrity sha512-XWX2yVuwVNLOUhQijAkXz+rMPPoCr7WFiAl8ig6I7Xn+pPVhDhzg4DxHpmbeb0iqjO9UronEA3Tb09ChnFVHHA==
   dependencies:
     prettier-linter-helpers "^1.0.0"
 
