@@ -18,8 +18,8 @@ it('should fetch the potentials bills', async () => {
 
   expect(Bill.queryAll).toHaveBeenCalledWith({
     date: {
-      $gt: '2019-06-02',
-      $lt: '2019-09-05'
+      $gt: '2018-07-01',
+      $lt: '2020-08-21'
     }
   })
 })
