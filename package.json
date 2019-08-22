@@ -160,7 +160,7 @@
     "cozy-authentication": "1.17.0",
     "cozy-bar": "7.7.2",
     "cozy-ci": "0.3.0",
-    "cozy-client": "6.57.0",
+    "cozy-client": "6.58.1",
     "cozy-client-js": "0.16.4",
     "cozy-device-helper": "1.7.5",
     "cozy-doctypes": "1.62.0",
@@ -234,7 +234,8 @@
       "styl$": "identity-obj-proxy",
       "webapp$": "identity-obj-proxy",
       "!!raw-loader!(.*)": "$1",
-      "css$": "identity-obj-proxy"
+      "css$": "identity-obj-proxy",
+      "^cozy-client$": "cozy-client/dist/index"
     },
     "testPathIgnorePatterns": [
       "node_modules",
