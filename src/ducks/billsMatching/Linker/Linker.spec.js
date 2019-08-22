@@ -542,5 +542,64 @@ describe('linker', () => {
         expect(combinedBill.originalDate).toBe('2018-03-10T00:00:00Z')
       })
     })
+
+    describe('mergeMatchingCriterias', () => {
+      it('should merge criterias', () => {
+        const bills = [
+          {
+            matchingCriterias: {
+              labelRegex: '\\binulogic\\b',
+              amountLowerDelta: 2,
+              amountUpperDelta: 2,
+              dateLowerDelta: 30,
+              dateUpperDelta: 30
+            }
+          },
+          {
+            matchingCriterias: {
+              labelRegex: '(impot|impots)',
+              amountLowerDelta: 10,
+              amountUpperDelta: 10,
+              dateLowerDelta: 20,
+              dateUpperDelta: 20
+            }
+          }
+        ]
+
+        const criterias = linker.mergeMatchingCriterias(bills)
+        const regex = new RegExp(criterias.labelRegex, 'i')
+
+        expect(criterias.labelRegex).toBe('(\\binulogic\\b|(impot|impots))')
+
+        expect('INULOGIC 22-08-2019'.match(regex)).toBeTruthy()
+        expect('IMPOT blablabla'.match(regex)).toBeTruthy()
+        expect('IMPOTS blablabla'.match(regex)).toBeTruthy()
+        expect('INULOGIC IMPOT IMPOTS'.match(regex)).toBeTruthy()
+        expect(criterias.amountLowerDelta).toBe(10)
+        expect(criterias.amountUpperDelta).toBe(10)
+        expect(criterias.dateLowerDelta).toBe(30)
+        expect(criterias.dateUpperDelta).toBe(30)
+      })
+
+      it('should use defaults if needed', () => {
+        const bills = [
+          {
+            matchingCriterias: {
+              amountLowerDelta: 2,
+              dateLowerDelta: 10
+            }
+          },
+          {}
+        ]
+
+        const criterias = linker.mergeMatchingCriterias(bills)
+
+        expect(criterias.labelRegex).not.toBeDefined()
+        expect(criterias.amountLowerDelta).toBe(2)
+        expect(criterias.amountUpperDelta).toBe(0.001)
+        expect(criterias.dateLowerDelta).toBe(15)
+        expect(criterias.dateUpperDelta).toBe(29)
+      })
+    })
   })
 })

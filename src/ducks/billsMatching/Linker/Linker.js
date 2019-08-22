@@ -9,6 +9,7 @@ const defaults = require('lodash/defaults')
 const groupBy = require('lodash/groupBy')
 const flatten = require('lodash/flatten')
 const sumBy = require('lodash/sumBy')
+const max = require('lodash/max')
 const geco = require('geco')
 const format = require('date-fns/format')
 const { getBillDate, log } = require('../utils')
@@ -458,7 +459,58 @@ export default class Linker {
       _id: ['combined', ...bills.map(bill => bill._id)].join(':'),
       amount: sumBy(bills, bill => bill.amount),
       originalAmount: sumBy(bills, bill => bill.originalAmount),
-      originalBills: bills
+      originalBills: bills,
+      matchingCriterias: this.mergeMatchingCriterias(bills)
     }
+  }
+
+  /**
+   * Merge multiple bills matching criterias by making an union of them.
+   * In the end, we keep the widest range for each criterias
+   */
+  mergeMatchingCriterias(bills) {
+    const defaultCriterias = {
+      amountLowerDelta: DEFAULT_AMOUNT_DELTA,
+      amountUpperDelta: DEFAULT_AMOUNT_DELTA,
+      dateLowerDelta: DEFAULT_PAST_WINDOW,
+      dateUpperDelta: DEFAULT_FUTURE_WINDOW
+    }
+
+    const matchingCriterias = bills.reduce((criterias, bill) => {
+      const billCriterias = {
+        ...defaultCriterias,
+        ...bill.matchingCriterias
+      }
+
+      if (billCriterias.labelRegex) {
+        criterias.labelRegex = [
+          ...(criterias.labelRegex || []),
+          billCriterias.labelRegex
+        ]
+      }
+
+      const criteriasNames = [
+        'amountLowerDelta',
+        'amountUpperDelta',
+        'dateLowerDelta',
+        'dateUpperDelta'
+      ]
+
+      for (const criteriaName of criteriasNames) {
+        criterias[criteriaName] = max([
+          billCriterias[criteriaName],
+          criterias[criteriaName]
+        ])
+      }
+
+      return criterias
+    }, {})
+
+    if (matchingCriterias.labelRegex) {
+      matchingCriterias.labelRegex =
+        '(' + matchingCriterias.labelRegex.join('|') + ')'
+    }
+
+    return matchingCriterias
   }
 }
