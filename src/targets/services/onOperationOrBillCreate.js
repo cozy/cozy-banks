@@ -60,9 +60,10 @@ const doBillsMatching = async setting => {
           billsChanges.documents.length
         } new bills since last execution. Trying to find transactions for them`
       )
+
+      const result = await matchFromBills(billsChanges.documents)
+      logResult(result)
     }
-    const result = await matchFromBills(billsChanges.documents)
-    logResult(result)
   } catch (e) {
     log('error', `[matching service] ${e}`)
   }
