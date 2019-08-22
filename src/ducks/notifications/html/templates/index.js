@@ -88,25 +88,27 @@ layouts.register(Handlebars)
 
 const partials = {
   'bank-layout': Handlebars.compile(
-    require('ducks/notifications/html/templates/bank-layout.hbs')
+    require('ducks/notifications/html/templates/bank-layout.hbs').default
   ),
   'cozy-layout': Handlebars.compile(
-    require('ducks/notifications/html/templates/cozy-layout.hbs')
+    require('ducks/notifications/html/templates/cozy-layout.hbs').default
   ),
   'balance-lower': Handlebars.compile(
-    require('ducks/notifications/html/templates/balance-lower.hbs')
+    require('ducks/notifications/html/templates/balance-lower.hbs').default
   ),
   'transaction-greater': Handlebars.compile(
     require('ducks/notifications/html/templates/transaction-greater.hbs')
+      .default
   ),
   'health-bill-linked': Handlebars.compile(
-    require('ducks/notifications/html/templates/health-bill-linked.hbs')
+    require('ducks/notifications/html/templates/health-bill-linked.hbs').default
   ),
   'late-health-reimbursement': Handlebars.compile(
     require('ducks/notifications/html/templates/late-health-reimbursement.hbs')
+      .default
   ),
   'delayed-debit': Handlebars.compile(
-    require('ducks/notifications/html/templates/delayed-debit.hbs')
+    require('ducks/notifications/html/templates/delayed-debit.hbs').default
   )
 }
 

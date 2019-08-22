@@ -242,7 +242,8 @@
     ],
     "transform": {
       "^.+\\.jsx?$": "babel-jest",
-      "\\.(hbs|css)$": "<rootDir>/test/readFile.js"
+      "\\.css$": "<rootDir>/test/readFile.js",
+      "\\.hbs$": "<rootDir>/test/readFileESM.js"
     },
     "transformIgnorePatterns": [
       "node_modules/(?!(cozy-ui|cozy-client))"
