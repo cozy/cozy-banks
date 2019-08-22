@@ -42,10 +42,12 @@
   ],
   "expectedResult": {
     "b1": {
-      "debitOperation": "to_match"
+      "debitOperation": "to_match",
+      "creditOperation": null
     },
     "b2": {
-      "debitOperation": "to_match"
+      "debitOperation": "to_match",
+      "creditOperation": null
     }
   }
 }

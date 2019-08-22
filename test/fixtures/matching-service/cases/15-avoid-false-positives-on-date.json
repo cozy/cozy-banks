@@ -18,6 +18,9 @@
     }
   ],
   "expectedResult": {
-    "b1": {}
+    "b1": {
+      "debitOperation": null,
+      "creditOperation": null
+    }
   }
 }

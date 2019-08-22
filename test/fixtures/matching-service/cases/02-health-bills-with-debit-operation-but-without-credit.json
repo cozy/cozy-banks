@@ -30,7 +30,8 @@
   ],
   "expectedResult": {
     "b1": {
-      "debitOperation": "medecin"
+      "debitOperation": "medecin",
+      "creditOperation": null
     }
   }
 }

@@ -31,7 +31,8 @@
   ],
   "expectedResult": {
     "b1": {
-      "creditOperation": "reimbursement"
+      "creditOperation": "reimbursement",
+      "debitOperation": null
     }
   }
 }

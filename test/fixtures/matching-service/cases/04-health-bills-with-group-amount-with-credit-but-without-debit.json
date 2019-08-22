@@ -42,10 +42,12 @@
   ],
   "expectedResult": {
     "b1": {
-      "creditOperation": "cpam"
+      "creditOperation": "cpam",
+      "debitOperation": null
     },
     "b2": {
-      "creditOperation": "cpam"
+      "creditOperation": "cpam",
+      "debitOperation": null
     }
   }
 }

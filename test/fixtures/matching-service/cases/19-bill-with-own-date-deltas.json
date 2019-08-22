@@ -36,10 +36,12 @@
   ],
   "expectedResult": {
     "b1": {
-      "debitOperation": "op1"
+      "debitOperation": "op1",
+      "creditOperation": null
     },
     "b2": {
-      "debitOperation": "op2"
+      "debitOperation": "op2",
+      "creditOperation": null
     }
   }
 }

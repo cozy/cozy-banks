@@ -335,14 +335,14 @@ describe('linker', () => {
         Object.keys(expectedResult).forEach(billId => {
           const expected = expectedResult[billId]
           const real = result[billId] || {}
-
-          expect(real.debitOperation && real.debitOperation._id).toBe(
-            expected.debitOperation
-          )
-
-          expect(real.creditOperation && real.creditOperation._id).toBe(
-            expected.creditOperation
-          )
+          for (let attr of ['debitOperation', 'creditOperation']) {
+            const exp = expect(real[attr] && real[attr]._id)
+            if (expected[attr] === null) {
+              exp.not.toBeDefined()
+            } else {
+              exp.toBe(expected[attr])
+            }
+          }
         })
       })
     }

@@ -19,7 +19,8 @@
   ],
   "expectedResult": {
     "b1": {
-      "debitOperation": "sfr"
+      "debitOperation": "sfr",
+      "creditOperation": null
     }
   }
 }

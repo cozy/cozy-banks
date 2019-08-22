@@ -21,7 +21,8 @@
   ],
   "expectedResult": {
     "b1": {
-      "debitOperation": "trainline"
+      "debitOperation": "trainline",
+      "creditOperation": null
     }
   }
 }
