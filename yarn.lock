@@ -2742,11 +2742,6 @@ bluebird-retry@0.11.0, bluebird-retry@^0.11.0:
   resolved "https://registry.yarnpkg.com/bluebird-retry/-/bluebird-retry-0.11.0.tgz#1289ab22cbbc3a02587baad35595351dd0c1c047"
   integrity sha1-EomrIsu8OgJYe6rTVZU1HdDBwEc=
 
-bluebird@3.5.4:
-  version "3.5.4"
-  resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.4.tgz#d6cc661595de30d5b3af5fcedd3c0b3ef6ec5714"
-  integrity sha512-FG+nFEZChJrbQ9tIccIfZJBz3J7mLrAhxakAbnrJWn8d7aKOC+LWifa0G+p4ZqKp4y13T7juYvdhq9NzKdsrjw==
-
 bluebird@3.5.5, bluebird@^3.5.0, bluebird@^3.5.1, bluebird@^3.5.5:
   version "3.5.5"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.5.tgz#a8d0afd73251effbbd5fe384a77d73003c17a71f"
@@ -4691,13 +4686,13 @@ cozy-realtime@3.1.3:
   dependencies:
     minilog "3.1.0"
 
-cozy-stack-client@6.47.0:
-  version "6.47.0"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.47.0.tgz#2ea33334b58a28c4abf27e0ca3fcc839d7b0597a"
-  integrity sha512-luZh7m4FtD9b0UfyiWKpzz+ZbDQSBTeui3i2M3Yzf1MFiPXR/gdo4HHp8/xkuWBzCbuBmP3O8oPrkgBYIxx8+w==
+cozy-stack-client@6.58.1, cozy-stack-client@^6.58.1:
+  version "6.58.1"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.58.1.tgz#c9f6dabf41172fadeb752b18a7582c68e51c53ce"
+  integrity sha512-xb86IwFm1AVr0PwYlalIgV0ydA96aCXWKVKj+me/THOMYOhPgVrFZcAcJA0Ab3rKzMlMRJ0l3QP8GfWg2kbKRg==
   dependencies:
     detect-node "2.0.4"
-    mime-types "2.1.24"
+    mime "2.4.0"
     qs "6.7.0"
 
 cozy-stack-client@^6.49.0:
@@ -4713,15 +4708,6 @@ cozy-stack-client@^6.57.0:
   version "6.57.0"
   resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.57.0.tgz#dc14a795ae403247e232c60d143ab199a123ff18"
   integrity sha512-mFELDIAd6Yb11inB0ZjBVd8xCQy1euPWf6qHi5A9qs2HMFmK4fkQgIQq2brZOqxfaCmBq/I1jP3OppKcM83K+A==
-  dependencies:
-    detect-node "2.0.4"
-    mime "2.4.0"
-    qs "6.7.0"
-
-cozy-stack-client@^6.58.1:
-  version "6.58.1"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.58.1.tgz#c9f6dabf41172fadeb752b18a7582c68e51c53ce"
-  integrity sha512-xb86IwFm1AVr0PwYlalIgV0ydA96aCXWKVKj+me/THOMYOhPgVrFZcAcJA0Ab3rKzMlMRJ0l3QP8GfWg2kbKRg==
   dependencies:
     detect-node "2.0.4"
     mime "2.4.0"
