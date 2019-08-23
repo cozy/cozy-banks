@@ -218,6 +218,7 @@
     "whatwg-fetch": "3.0.0"
   },
   "jest": {
+    "browser": true,
     "moduleFileExtensions": [
       "js",
       "jsx",
@@ -234,8 +235,7 @@
       "styl$": "identity-obj-proxy",
       "webapp$": "identity-obj-proxy",
       "!!raw-loader!(.*)": "$1",
-      "css$": "identity-obj-proxy",
-      "^cozy-client$": "cozy-client/dist/index"
+      "css$": "identity-obj-proxy"
     },
     "testPathIgnorePatterns": [
       "node_modules",
