@@ -2742,11 +2742,6 @@ bluebird-retry@0.11.0, bluebird-retry@^0.11.0:
   resolved "https://registry.yarnpkg.com/bluebird-retry/-/bluebird-retry-0.11.0.tgz#1289ab22cbbc3a02587baad35595351dd0c1c047"
   integrity sha1-EomrIsu8OgJYe6rTVZU1HdDBwEc=
 
-bluebird@3.5.4:
-  version "3.5.4"
-  resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.4.tgz#d6cc661595de30d5b3af5fcedd3c0b3ef6ec5714"
-  integrity sha512-FG+nFEZChJrbQ9tIccIfZJBz3J7mLrAhxakAbnrJWn8d7aKOC+LWifa0G+p4ZqKp4y13T7juYvdhq9NzKdsrjw==
-
 bluebird@3.5.5, bluebird@^3.5.0, bluebird@^3.5.1, bluebird@^3.5.5:
   version "3.5.5"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.5.tgz#a8d0afd73251effbbd5fe384a77d73003c17a71f"
@@ -4384,10 +4379,10 @@ cozy-app-publish@0.18.2:
     request "2.88.0"
     tar "4.4.8"
 
-cozy-authentication@1.17.0:
-  version "1.17.0"
-  resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-1.17.0.tgz#e3437adcd9bbb2dc0887815db4a3a9c80df30e29"
-  integrity sha512-CA12yAbKBdXV1EYxI0lr0hNq/AUPcnjGnz3waJWt18owbECYPreXe7rxUAQqAC+NIidMP4badraG9LtcQKvkaA==
+cozy-authentication@1.17.2:
+  version "1.17.2"
+  resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-1.17.2.tgz#4decb93846490fab58d29f273a36b9301d1a3543"
+  integrity sha512-1M4Nk3lPoRUP0xfcIp25Nq7CBdzimtNYNQxWOFeYlqeoHWk7a7G5sGbxwTQ0Vsm7O2RqXeaRYEYlUyTtmdumMA==
   dependencies:
     cozy-device-helper "^1.7.5"
     localforage "1.7.3"
