@@ -2742,11 +2742,6 @@ bluebird-retry@0.11.0, bluebird-retry@^0.11.0:
   resolved "https://registry.yarnpkg.com/bluebird-retry/-/bluebird-retry-0.11.0.tgz#1289ab22cbbc3a02587baad35595351dd0c1c047"
   integrity sha1-EomrIsu8OgJYe6rTVZU1HdDBwEc=
 
-bluebird@3.5.4:
-  version "3.5.4"
-  resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.4.tgz#d6cc661595de30d5b3af5fcedd3c0b3ef6ec5714"
-  integrity sha512-FG+nFEZChJrbQ9tIccIfZJBz3J7mLrAhxakAbnrJWn8d7aKOC+LWifa0G+p4ZqKp4y13T7juYvdhq9NzKdsrjw==
-
 bluebird@3.5.5, bluebird@^3.5.0, bluebird@^3.5.1, bluebird@^3.5.5:
   version "3.5.5"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.5.tgz#a8d0afd73251effbbd5fe384a77d73003c17a71f"
@@ -4677,17 +4672,17 @@ cozy-pouch-link@6.49.1:
     pouchdb-browser "7.0.0"
     pouchdb-find "7.0.0"
 
-cozy-realtime@3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-3.1.0.tgz#ae06ef1c8174408aae70f5171820275880a4a587"
-  integrity sha512-4rLsIFAGlUQWSiMm1jgkzoPqnbH4iSDndeNLFCLhVmM93eJBztWIfXSwFQ2utvOuIvMjHeT5iw7v6GQvwzfBFA==
-  dependencies:
-    minilog "3.1.0"
-
 cozy-realtime@3.1.3:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-3.1.3.tgz#5799ae6bc1a04bf9a60e57a0fa4f3690cd602c0a"
   integrity sha512-ShC8yeyLiHIuz8Kt2TPyy9x7imrgeAatVv2YFjjzL/JarkAVC7rip32Dpebx3GzziHbHctNi9g1tsutiEIoSbw==
+  dependencies:
+    minilog "3.1.0"
+
+cozy-realtime@3.1.4:
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-3.1.4.tgz#bfc0cc03b2fb2e16c475361069884a7cb50e77c4"
+  integrity sha512-sdkLoEtdLj0EqhUf1aDCxvYL6u4x9x8m7r6w/+jrv1cDh3ioc6Yr9inihldoiwZylnEU9fTT/7AIrnlrpXRi6w==
   dependencies:
     minilog "3.1.0"
 
