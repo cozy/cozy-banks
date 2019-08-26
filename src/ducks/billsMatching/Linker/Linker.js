@@ -381,7 +381,7 @@ export default class Linker {
       log('debug', `Generated ${combinations.length} bills combinations`)
 
       const combinedBills = combinations.map(combination =>
-        this.combineBills(...combination)
+        this.combineBills(combination)
       )
 
       for (const combinedBill of combinedBills) {
@@ -453,7 +453,7 @@ export default class Linker {
     return combinations
   }
 
-  combineBills(...bills) {
+  combineBills(bills) {
     return {
       ...bills[0],
       _id: ['combined', ...bills.map(bill => bill._id)].join(':'),

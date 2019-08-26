@@ -528,17 +528,17 @@ describe('linker', () => {
       ]
 
       it('generate a bill with the right amount', () => {
-        const combinedBill = linker.combineBills(...bills)
+        const combinedBill = linker.combineBills(bills)
         expect(combinedBill.amount).toBe(20)
       })
 
       it('generates a bill with the right originalAmount', () => {
-        const combinedBill = linker.combineBills(...bills)
+        const combinedBill = linker.combineBills(bills)
         expect(combinedBill.originalAmount).toBe(30)
       })
 
       it('generates a bill with the right originalDate', () => {
-        const combinedBill = linker.combineBills(...bills)
+        const combinedBill = linker.combineBills(bills)
         expect(combinedBill.originalDate).toBe('2018-03-10T00:00:00Z')
       })
     })
