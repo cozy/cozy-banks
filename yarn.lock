@@ -4364,17 +4364,17 @@ cozy-ach@1.21.0:
     server-destroy "^1.0.1"
     timezone "^1.0.22"
 
-cozy-app-publish@0.18.2:
-  version "0.18.2"
-  resolved "https://registry.yarnpkg.com/cozy-app-publish/-/cozy-app-publish-0.18.2.tgz#a3e33c59fccbec91b5c19db0a6bb470642632418"
-  integrity sha512-ckZE+6Z4V73nt7NaZya/rQcvBXTak2f1ZtVdJ6pvv3LQNAWzgx7fCPten61ADx3FZHl3DyGzq/irDPlLDBYatQ==
+cozy-app-publish@0.18.3:
+  version "0.18.3"
+  resolved "https://registry.yarnpkg.com/cozy-app-publish/-/cozy-app-publish-0.18.3.tgz#be8792ba4972522af074f2d3c3c2e9939d439f13"
+  integrity sha512-eghogBs+K1vzx7lKkD3TpbpnRCgNwuTy0VIUyFTaDdHKC8FPG4lbI4xFzinGa6LosUl7TuRX7kIOV4Y1KxTVMA==
   dependencies:
     argparse "^1.0.10"
     chalk "2.4.2"
     cross-spawn "6.0.5"
     fs-extra "7.0.1"
     lodash "4.17.15"
-    node-fetch "2.3.0"
+    node-fetch "2.6.0"
     prompt "1.0.0"
     request "2.88.0"
     tar "4.4.8"
@@ -11901,10 +11901,10 @@ node-fetch-npm@^2.0.2:
     json-parse-better-errors "^1.0.0"
     safe-buffer "^5.1.1"
 
-node-fetch@2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.3.0.tgz#1a1d940bbfb916a1d3e0219f037e89e71f8c5fa5"
-  integrity sha512-MOd8pV3fxENbryESLgVIeaGKrdl+uaYhCSSVkjeOb/31/njTpcis5aWfdqgNlHIrKOLRbMnfPINPOML2CIFeXA==
+node-fetch@2.6.0, node-fetch@^2.0.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.0.tgz#e633456386d4aa55863f676a7ab0daa8fdecb0fd"
+  integrity sha512-8dG4H5ujfvFiqDmVu9fQ5bOHUC15JMjMY/Zumv26oOvvVJjM67KF8koCWIabKQ1GJIa9r2mMZscBq/TbdOcmNA==
 
 node-fetch@^1.0.1:
   version "1.7.3"
@@ -11913,11 +11913,6 @@ node-fetch@^1.0.1:
   dependencies:
     encoding "^0.1.11"
     is-stream "^1.0.1"
-
-node-fetch@^2.0.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.0.tgz#e633456386d4aa55863f676a7ab0daa8fdecb0fd"
-  integrity sha512-8dG4H5ujfvFiqDmVu9fQ5bOHUC15JMjMY/Zumv26oOvvVJjM67KF8koCWIabKQ1GJIa9r2mMZscBq/TbdOcmNA==
 
 node-forge@0.7.5:
   version "0.7.5"
