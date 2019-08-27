@@ -8711,10 +8711,10 @@ invert-kv@^2.0.0:
   resolved "https://registry.yarnpkg.com/invert-kv/-/invert-kv-2.0.0.tgz#7393f5afa59ec9ff5f67a27620d11c226e3eec02"
   integrity sha512-wPVv/y/QQ/Uiirj/vh3oP+1Ww+AWehmi1g5fFWGPF6IpCBCDVrhgHRMvrLfdYcwDh3QJbGXDW4JAuzxElLSqKA==
 
-ios-sim@8.0.1:
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/ios-sim/-/ios-sim-8.0.1.tgz#b74fbc46601a9773fee90417d753964c08e0e99d"
-  integrity sha512-BdDMehHmLxbbOWAi98OZRquctkfpcVWBt3wu7FQHJ5RSuN4drY4tvhOtOzQMRy127irReTpyN4WY5kHF9iC9Ig==
+ios-sim@8.0.2:
+  version "8.0.2"
+  resolved "https://registry.yarnpkg.com/ios-sim/-/ios-sim-8.0.2.tgz#e2394acb6db4378f75f4c3ff8610bbf4f4795c43"
+  integrity sha512-P7nEG771bfd+JoMRjnis1gpZOkjTUUxu+4Ek1Z+eoaEEoT9byllU9pxfQ8Df7hL3gSkIQxNwTSLhos2I8tWUQA==
   dependencies:
     bplist-parser "^0.0.6"
     nopt "1.0.9"
