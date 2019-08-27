@@ -183,7 +183,7 @@
     "html-webpack-harddisk-plugin": "1.0.1",
     "ios-sim": "8.0.1",
     "localforage": "1.7.3",
-    "lodash": "4.17.13",
+    "lodash": "4.17.15",
     "matomo-tracker": "2.2.1",
     "mjml": "3.3.5",
     "moment": "2.24.0",
