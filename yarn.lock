@@ -2742,11 +2742,6 @@ bluebird-retry@0.11.0, bluebird-retry@^0.11.0:
   resolved "https://registry.yarnpkg.com/bluebird-retry/-/bluebird-retry-0.11.0.tgz#1289ab22cbbc3a02587baad35595351dd0c1c047"
   integrity sha1-EomrIsu8OgJYe6rTVZU1HdDBwEc=
 
-bluebird@3.5.4:
-  version "3.5.4"
-  resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.4.tgz#d6cc661595de30d5b3af5fcedd3c0b3ef6ec5714"
-  integrity sha512-FG+nFEZChJrbQ9tIccIfZJBz3J7mLrAhxakAbnrJWn8d7aKOC+LWifa0G+p4ZqKp4y13T7juYvdhq9NzKdsrjw==
-
 bluebird@3.5.5, bluebird@^3.5.0, bluebird@^3.5.1, bluebird@^3.5.5:
   version "3.5.5"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.5.tgz#a8d0afd73251effbbd5fe384a77d73003c17a71f"
@@ -8716,10 +8711,10 @@ invert-kv@^2.0.0:
   resolved "https://registry.yarnpkg.com/invert-kv/-/invert-kv-2.0.0.tgz#7393f5afa59ec9ff5f67a27620d11c226e3eec02"
   integrity sha512-wPVv/y/QQ/Uiirj/vh3oP+1Ww+AWehmi1g5fFWGPF6IpCBCDVrhgHRMvrLfdYcwDh3QJbGXDW4JAuzxElLSqKA==
 
-ios-sim@8.0.1:
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/ios-sim/-/ios-sim-8.0.1.tgz#b74fbc46601a9773fee90417d753964c08e0e99d"
-  integrity sha512-BdDMehHmLxbbOWAi98OZRquctkfpcVWBt3wu7FQHJ5RSuN4drY4tvhOtOzQMRy127irReTpyN4WY5kHF9iC9Ig==
+ios-sim@8.0.2:
+  version "8.0.2"
+  resolved "https://registry.yarnpkg.com/ios-sim/-/ios-sim-8.0.2.tgz#e2394acb6db4378f75f4c3ff8610bbf4f4795c43"
+  integrity sha512-P7nEG771bfd+JoMRjnis1gpZOkjTUUxu+4Ek1Z+eoaEEoT9byllU9pxfQ8Df7hL3gSkIQxNwTSLhos2I8tWUQA==
   dependencies:
     bplist-parser "^0.0.6"
     nopt "1.0.9"
