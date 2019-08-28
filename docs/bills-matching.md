@@ -18,7 +18,10 @@ without leaving banks app.
 
 ## The Linker
 
-The algorithm is held by the [`Linker`](), and more precisely its `linkBillsToOperations` method. This method takes 3 parameters:
+The algorithm is held by the
+[`Linker`](https://github.com/cozy/cozy-banks/blob/master/src/ducks/billsMatching/Linker/Linker.js),
+and more precisely its `linkBillsToOperations` method. This method takes 3
+parameters:
 
 * An array of `io.cozy.bills` objects
 * An array of `io.cozy.bank.operations` objects
