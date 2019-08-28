@@ -125,9 +125,12 @@ transaction's `bills` array.
 When a bill matched with a debit and a credit transactions, it is also added to
 the debit transaction's `reimbursements` array.
 
-In both cases, a last safety net is applied by checking if adding the bill to
-the transaction would make the bills sum overflowing the transaction amount or
-not. It it overflows, the bill is not added.
+A last safety net is applied by checking if adding the bill to the transaction
+would make the bills sum overflowing the transaction amount or not. It it
+overflows, the bill is not added. For the `bills` property, a removed bill will
+be ignored. But for the `reimbursements` property, since we don't fetch the
+bill because the amount is already present in the transaction, a removed bill
+will not be ignored.
 
 ## Bills combinations
 
