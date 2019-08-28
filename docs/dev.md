@@ -4,32 +4,119 @@
 
 <!-- MarkdownTOC autolink=true -->
 
-- [Develop easily on mobile](#develop-easily-on-mobile)
-- [Important credentials](#important-credentials)
+- [Getting started](#getting-started)
+- [Fixtures](#fixtures)
+- [Develop on mobile](#develop-on-mobile)
+  - [Get a working Android environment](#get-a-working-android-environment)
+  - [Build and run the mobile app](#build-and-run-the-mobile-app)
+  - [Hot reload on mobile app](#hot-reload-on-mobile-app)
 - [Release](#release)
-- [Git workflow](#git-workflow)
-- [Cozy registry](#cozy-registry)
-- [Mobile stores](#mobile-stores)
-  - [Pre-requisites](#pre-requisites)
-  - [Common](#common)
-  - [Fastlane](#fastlane)
-  - [iOS](#ios)
-    - [Signing](#signing)
-    - [Push iOS build](#push-ios-build)
-  - [Android](#android)
+  - [Start a release branch](#start-a-release-branch)
+  - [Workflow](#workflow)
+  - [Publish manually on the Cozy registry](#publish-manually-on-the-cozy-registry)
+  - [Publish to mobile stores](#publish-to-mobile-stores)
 - [Notifications](#notifications)
   - [How to develop on templates](#how-to-develop-on-templates)
-    - [Under the covers](#under-the-covers)
-    - [Assets](#assets)
   - [Debug notification triggers](#debug-notification-triggers)
   - [When creating a notification](#when-creating-a-notification)
   - [Misc](#misc)
 - [Pouch On Web](#pouch-on-web)
-- [Fixtures](#fixtures)
+- [Important credentials](#important-credentials)
 
 <!-- /MarkdownTOC -->
 
-## Develop easily on mobile
+## Getting started
+
+You need to have `yarn` installed. If you don't, please check the [official
+documentation](https://yarnpkg.com/en/docs/install) and follow the instructions
+to install it on your system.
+
+Then you can install the dependencies:
+
+```console
+$ yarn
+```
+
+Develop:
+
+```console
+$ yarn watch
+```
+
+And build:
+
+```console
+$ yarn build
+```
+
+Please note that for the project to work, you will need to have a working
+cozy-stack. See [how to run a cozy
+application](https://docs.cozy.io/en/howTos/dev/runCozyDocker/#ephemeral-instance)
+for more information.
+
+When watching, you still need to have a cozy-stack running to serve the files
+of the app (do not use the webpack-dev-server directly). This is important as
+the stack injects through template variables the *token* and *domain* used to
+connect to the cozy.
+
+⚠️ CSPs must be disabled when working with the development server (as the
+`index.html` is served via the stack but the JS assets are served via
+webpack-dev-server). You can do this via a browser extension
+([Chrome](https://chrome.google.com/webstore/detail/disable-content-security/ieelmcmcagommplceebfedjlakkhpden))
+or you can tell the stack to disable CSPs via its config file (`disable_csp: true`, check here for [more
+info](https://docs.cozy.io/en/cozy-stack/config/#main-configuration-file) on
+the config file). See an example config file
+[here](https://github.com/CPatchane/create-cozy-app/blob/8329c7161a400119076a7e2734191607437f0dcc/packages/cozy-scripts/stack/disableCSP.yaml#L6).
+
+## Fixtures
+
+While developing, it is convenient to be able to inject and remove arbitraty data on your local instance.
+
+We have a set of fake banking data in the
+[`test/fixtures/demo.json`](https://github.com/cozy/cozy-banks/blob/master/test/fixtures/demo.json)
+file that you can inject in your instance using the `yarn fixtures` command.
+
+If you want to inject other data or remove some data, you can use [`ACH`](https://github.com/cozy/ACH).
+
+## Develop on mobile
+
+### Get a working Android environment
+
+To be able to build the app for Android, you can follow [this
+guide](https://gist.github.com/drazik/11dfe2014a6b967821df93b9e10353f4) (in
+french for now, will be translated soon, don't hesitate to open a pull
+request).
+
+### Build and run the mobile app
+
+To build the mobile app, you first have to run one of the following commands:
+
+```console
+# One-shot build
+$ yarn build:mobile
+# To develop
+$ yarn watch:mobile
+```
+
+Then you can run the app on the desired platform. For Android:
+
+```console
+# Run on a real device
+$ yarn android:run
+# Run on an emulator
+$ yarn android:run:emulator
+```
+
+For iOS:
+
+```console
+# Run on a real device
+$ yarn ios:run
+# Run on an emulator
+$ yarn ios:run:emulator
+```
+
+### Hot reload on mobile app
 
 ```
 # Replace the host with your own host (find it with ifconfig)
@@ -43,12 +130,16 @@ the filepath without the [hash] otherwise you will not hit the right JS file.
 
 ⚠️ You need to have the final `/` at the end of the PUBLIC_PATH, otherwise some some CSS resources like fonts will not load
 
-## Important credentials
-
-All important credentials are stored in Cozy internal [password store](pass).
-To import it execute `./scripts/import_mobile_keys`
 
 ## Release
+
+A release consists in publishing the app on all platforms: web (via the [Cozy
+Registry](https://apps-registry.cozycloud.cc/banks/registry)), Android (via the
+Google Play Store, APKs are also linked to [Github
+releases](https://github.com/cozy/cozy-banks/releases)) and iOS (via the App
+Store).
+
+### Start a release branch
 
 When starting a release, start the checklist PR with :
 
@@ -56,22 +147,40 @@ When starting a release, start the checklist PR with :
 yarn release
 ```
 
-## Git workflow
+This will ask for the next version number and create a release branch with it.
+If you have [Hub](https://github.com/github/hub) installed (recommended), it
+will also create the related pull request for you.
 
-When starting a release, create a branch `release-VERSION`, for example `release-0.7.5`. It separates the changes from the main branch and will contain all the changes necessary for the version (package.json, config.xml, changelogs, store metadata, screenshots).
+### Workflow
 
-While the release is not completely ready, to publish on the Cozy Registry, tag with `X.Y.Z-beta.M` since there can only be one version at a time on the registry. The `M` number lets you deploy several beta versions until you're ready to publish the real one.
+When a release branch is created, features are frozen and the branch should only receive bugfixes.
 
-After tagging the branch and pushing the tag, you can merge the release branch
-back into the main branch.
+To create beta versions, you have to do two thinkgs:
 
-## Cozy registry
+* Bump the different version codes in `src/targets/mobile/config.xml` file (see below for more details`android-versionCode`, `ios-CFBundleVersion`, `version` and `AppendUserAgent`)
+* Commit it and create a tag with the `X.Y.Z-beta.M` scheme (for example `1.5.0-beta.1`) and push them
 
-Publishing on the registry is done automatically via git tags.
+The web app beta version will be automatically built and published on the cozy
+registry. An APK for Android will also be automatically created. For iOS, you
+have to build the app and upload it on Testflight.
 
-* Each commit on `master` will upload a new dev version on the registry
-* `X.Y.Z-beta.M` tags will upload a new beta version
-* `X.Y.Z` tags will upload a prod version
+### Mobile apps version codes
+
+In the `src/targets/mobile/config.xml` file, you have to update multiple version codes:
+
+* `version`: the generic version code
+* `ios-CFBundleVersion`: the version code specific to iOS
+* `android-versionCode`: the version code specific to Android
+* `AppendUserAgent`: a version code that is appended to the user agent string so we can know which version is related to messages in error logs
+
+Each version code is not built in the same way:
+
+* `version` is the same as `version` in the `package.json`
+* `ios-CFBundleVersion` is the same as `version`, but with a fourth number representing the beta version number (for example `1.5.0.1` for `1.5.0-beta.1`)
+* For `android-versionCode`, follow the following formula: `beta + patch*100 + minor * 10000 + major * 1000000`. For example, `1.5.1-beta.1` gives us `1050101`
+* `AppendUserAgent` is the same as `version`
+
+### Publish manually on the Cozy registry
 
 To publish manually on the Cozy registry, you need a token also stored in Cozy internal [password store](pass):
 
@@ -83,9 +192,9 @@ After, you can use [cozy-app-publish](https://github.com/cozy/cozy-app-publish) 
 
 More information : https://github.com/cozy/cozy-stack/blob/master/docs/registry-publish.md
 
-## Mobile stores
+### Publish to mobile stores
 
-### Pre-requisites
+#### Pre-requisites
 
 - Install cordova globally (necessary for the fastlane cordova plugin)
 
@@ -126,24 +235,13 @@ yarn ios:install_pods # Install pods according to the Podfile.lock
 
 You must also have the `keys/` folder available from the internal password store.
 
-### Common
-
-When releasing a new version for mobile, you have to bump the version in those files.
-
-```
-- config.xml
-- package.json
-- package.json (généré par Cordova)
-```
-
-### Fastlane
+#### Fastlane
 
 Fastlane is used to manage automatically the deployment process. Its configuration is localed in`src/targets/mobile/fastlane/Fastfile`.
 
-### iOS
+#### iOS
 
-
-#### Signing
+##### Signing
 
 ⚠️ You need to have your device registered to iTunes Connect. If you have trouble deploying your app on your device, check that the Build settings in XCode are correct :
 
@@ -155,7 +253,7 @@ While developing, in XCode, in the "Signing" section :
 
 When deploying, Fastlane manages the certificate and may change it.
 
-#### Push iOS build
+##### Push iOS build
 
 To push an iOS build on Testflight, use the following command :
 
@@ -165,7 +263,7 @@ yarn run ios:publish
 
 To fully publish the app, go to iTunes Connect using the credentials in the password store and "submit for review".
 
-### Android
+#### Android
 
 
 Two keys will be asked during publishing, they are available in the password store in `Gangsters/cozy-banks/keys/android` :
@@ -187,6 +285,7 @@ yarn run android:publish
 ```
 
 This will upload create a new version in the store, in the `beta` track that you can review visually on the Play Store and then promote to the normal track.
+
 
 ## Notifications
 
@@ -304,19 +403,10 @@ cozyClient.links[0].startReplication()
 cozyClient.links[0].stopReplication()
 ```
 
-## Fixtures
+## Important credentials
 
-To get some initial data, you can import some fixtures:
-
-```
-yarn fixtures
-```
-
-There are also fixtures for specific things:
-
-- [Matching service](/test/fixtures/matching-service/README.md): transactions and bills that must match when passed in the matching algorithm
-
-All fixtures are located in [`test/fixtures`](/test/fixtures).
+All important credentials are stored in Cozy internal [password store](pass).
+To import it execute `./scripts/import_mobile_keys`
 
 [pass]: https://www.passwordstore.org/
 [ACH]: https://github.com/cozy/ACH
