@@ -4,6 +4,7 @@ import React from 'react'
 import Checkbox from 'cozy-ui/react/Checkbox'
 import Button from 'cozy-ui/react/Button'
 import Alerter from 'cozy-ui/react/Alerter'
+import Stack from 'cozy-ui/react/Stack'
 import { Title as UITitle, SubTitle } from 'cozy-ui/react/Text'
 import flag, { FlagSwitcher } from 'cozy-flags'
 import { withClient } from 'cozy-client'
@@ -14,10 +15,6 @@ import { getRegistrationToken } from 'ducks/mobile/push'
 const Title = ({ className, ...props }) => (
   <UITitle {...props} className={cx(className, 'u-mb-1')} />
 )
-
-// TODO move this to ui
-// See https://github.com/cozy/cozy-ui/issues/1096
-const Stack = ({ children }) => <div className="u-stack">{children}</div>
 
 const Versions = () => {
   const versions = typeof __VERSIONS__ !== 'undefined' ? __VERSIONS__ : {}
@@ -84,7 +81,7 @@ class DumbDebugSettings extends React.PureComponent {
     const { client } = this.props
 
     return (
-      <Stack>
+      <Stack spacing="xl">
         <div>
           <Title>Misc</Title>
           <Checkbox
