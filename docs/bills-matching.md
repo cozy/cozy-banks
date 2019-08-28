@@ -52,7 +52,8 @@ details after):
 ## Finding debit and credit operations for a bill
 
 The algorithm is globally the same to find a debit or a credit operation for a
-bill, but there are some differences at some steps.
+bill, but there are some differences at some steps. Each step is explained
+below.
 
 ### Find neighboring transactions
 
