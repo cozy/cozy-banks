@@ -18,7 +18,7 @@ jobs:
     - name: Unit tests
       stage: test
       <<: *node
-      script: yarn lint && yarn test
+      script: yarn lint && yarn test && yarn check-locales
     - name: Web build
       stage: build
       <<: *node
