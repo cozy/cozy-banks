@@ -214,7 +214,7 @@
     "splashicon-generator": "0.2.12",
     "timezone": "1.0.22",
     "velocity-animate": "1.5.2",
-    "webpack-bundle-analyzer": "3.3.2",
+    "webpack-bundle-analyzer": "3.4.1",
     "whatwg-fetch": "3.0.0"
   },
   "jest": {
