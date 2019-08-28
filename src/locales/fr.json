@@ -504,10 +504,6 @@
     }
   },
 
-  "FileOpener": {
-    "error": "Impossible de trouver le fichier, celui-ci a peut être été supprimé de l'application Drive."
-  },
-
   "TOS": {
     "updated": {
       "title": "Du nouveau avec le RGPD !",
