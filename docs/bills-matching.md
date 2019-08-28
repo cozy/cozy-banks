@@ -4,6 +4,18 @@ The matching algorithm is in charge of finding matchings between
 `io.cozy.bills` and `io.cozy.bank.operations` documents. This document explains
 how the matching algorithm works.
 
+## What are matchings?
+
+Matchings are links that can be made between `io.cozy.bills` and
+`io.cozy.bank.operations` documents.
+
+For example, if the user ordered something on Amazon, his Amazon connector will
+import a `io.cozy.bills` document representing this order, and his banking
+connector will import a `io.cozy.bank.operations` representing the bank
+transaction associated to this order. In banks' UI, it is used to show a CTA
+with the transaction on which the user can click to show the linked bill PDF
+without leaving banks app.
+
 ## The Linker
 
 The algorithm is held by the [`Linker`](), and more precisely its `linkBillsToOperations` method. This method takes 3 parameters:
