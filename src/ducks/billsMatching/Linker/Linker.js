@@ -79,6 +79,13 @@ export default class Linker {
     }
   }
 
+  /**
+   * Get the sum of all bills amounts linked to a given transaction
+   *
+   * @param {Object} operation - An io.cozy.bank.operations document
+   *
+   * @returns {number}
+   */
   async getBillsSum(operation) {
     if (!operation.bills) {
       return 0
@@ -91,6 +98,15 @@ export default class Linker {
     return sum
   }
 
+  /**
+   * Check if summing a bill amount with the amounts of the bills linked to a
+   * transaction overflows the amount of the transaction
+   *
+   * @param {Object} bill - An io.cozy.bills document
+   * @param {Object} operation - An io.cozy.bank.operations document
+   *
+   * @param {boolean}
+   */
   async isBillAmountOverflowingOperationAmount(bill, operation) {
     const currentBillsSum = await this.getBillsSum(operation)
     const newSum = currentBillsSum + bill.amount
@@ -99,7 +115,17 @@ export default class Linker {
     return isOverflowing
   }
 
+  /**
+   * Add a bill to an io.cozy.bank.operations' bills array
+   *
+   * @param {Object} bill - the io.cozy.bills to add
+   * @param {Object} operation - the io.cozy.bank.operations to add the bill to
+   *
+   * @returns {boolean} true if the bill have been linked to the transaction, false otherwise
+   */
   async addBillToOperation(bill, operation) {
+    // TODO The method should throw if the bill can't be added.
+
     log('debug', `Adding bill ${bill._id} to operation ${operation._id}`)
 
     if (!bill._id) {
@@ -149,7 +175,16 @@ export default class Linker {
     return true
   }
 
+  /**
+   * Add a bill to an io.cozy.bank.operations' reimbursements array
+   *
+   * @param {Object} bill - the io.cozy.bills to add
+   * @param {Object} debitOperation - the io.cozy.bank.operations to add the bill to
+   * @param {Object} matchingOperation - the io.cozy.bank.operations that is the corresponding credit operation
+   */
   addReimbursementToOperation(bill, debitOperation, matchingOperation) {
+    // TODO The method should throw if the bill can't be added
+
     log(
       'debug',
       `Adding bill ${bill._id} as a reimbursement to operation ${
@@ -192,14 +227,22 @@ export default class Linker {
     })
   }
 
-  /* Buffer update operations */
+  /**
+   * Buffer update operations
+   *
+   * @param {string} doctype - The type of the document that is going to be updated
+   * @param {Object} doc - The document that is going to be updated
+   * @param {Object} attrs - The updates to apply
+   */
   updateAttributes(doctype, doc, attrs) {
     Object.assign(doc, attrs)
     this.toUpdate.push(doc)
     return Promise.resolve()
   }
 
-  /* Commit updates */
+  /*
+   * Commit updates
+   */
   commitChanges() {
     log(
       'debug',
@@ -208,9 +251,19 @@ export default class Linker {
     return Transaction.updateAll(this.toUpdate)
   }
 
+  /**
+   * Get defaulted options
+   *
+   * @param {Object} [opts={}]
+   * @param {number} [opts.minAmountDelta=0.001]
+   * @param {number} [opts.maxAmountDelta=0.001]
+   * @param {number} [opts.pastWindow=15]
+   * @param {number} [opts.futureWindow=29]
+   */
   getOptions(opts = {}) {
     const options = { ...opts }
 
+    // TODO Use the same names as the bills matchingCriterias
     defaults(options, { amountDelta: DEFAULT_AMOUNT_DELTA })
     defaults(options, {
       minAmountDelta: options.amountDelta,
@@ -221,7 +274,16 @@ export default class Linker {
 
     return options
   }
-
+  /**
+   * Find a credit transaction for a bill
+   *
+   * @param {Object} bill - an io.cozy.bills document
+   * @param {Object} debitOperation - an io.cozy.bank.operations that already matched with the given io.cozy.bills as a debit transaction
+   * @param {Object[]} allOperations - an array of io.cozy.bank.operations documents
+   * @param {Object} options - see getOptions
+   *
+   * @returns {(Object|null)} The io.cozy.bank.operations that matched or null if nothing matched
+   */
   async linkBillToCreditOperation(
     bill,
     debitOperation,
@@ -244,6 +306,9 @@ export default class Linker {
     } else {
       log('debug', `Can't find credit operation for bill ${bill._id}`)
     }
+
+    // TODO Extract this from this function, this is not its role to also add
+    // the reimbursement
     if (creditOperation && debitOperation) {
       promises.push(
         this.addReimbursementToOperation(bill, debitOperation, creditOperation)
@@ -255,6 +320,15 @@ export default class Linker {
     return creditOperation
   }
 
+  /**
+   * Find a debit transaction for a bill
+   *
+   * @param {Object} bill - an io.cozy.bills document
+   * @param {Object[]} allOperations - an array of io.cozy.bank.operations documents
+   * @param {Object} options - see getOptions
+   *
+   * @returns {(Object|false)} The io.cozy.bank.operations that matched or false
+   */
   async linkBillToDebitOperation(bill, allOperations, options) {
     return findDebitOperation(bill, options, allOperations).then(operation => {
       if (operation) {
@@ -275,6 +349,19 @@ export default class Linker {
    * Link bills to
    *   - their matching banking operation (debit)
    *   - to their reimbursement (credit)
+   *
+   * @param {Object[]} bills - The array of io.cozy.bills to match
+   * @param {Object[]} operations - The array of io.cozy.bank.operations to match
+   * @param {Object} options - The options to apply to the matching algorithm
+   * @param {number} options.minAmountDelta - Lower delta for amount window
+   * @param {number} options.maxAmountDelta - Upper delta for amount window
+   * @param {number} options.pastWindow - Lower delta for date window
+   * @param {number} options.futureWindow - Upper delta for date window
+   *
+   * @returns {Object} An object that contains matchings for each bill
+   *
+   * @see https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.bills/
+   * @see https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.bank/#iocozybankoperations
    */
   async linkBillsToOperations(bills, operations, options) {
     options = this.getOptions(options)
@@ -357,6 +444,14 @@ export default class Linker {
     return result
   }
 
+  /**
+   * Combine bills to find debit transaction to the ones that didn't matched
+   * alone
+   *
+   * @param {Object} result - The result of the previous alone matching phase
+   * @param {Object} options - see getOptions
+   * @param {Object[]} allOperations - An array of io.cozy.bank.operations documents
+   */
   async findCombinations(result, options, allOperations) {
     log('debug', 'finding combinations')
     let found
@@ -364,6 +459,7 @@ export default class Linker {
     do {
       found = false
 
+      // TODO Filter bills upfront so `result` param is not necessary
       const unlinkedBills = this.getUnlinkedBills(result)
       log(
         'debug',
@@ -381,7 +477,7 @@ export default class Linker {
       log('debug', `Generated ${combinations.length} bills combinations`)
 
       const combinedBills = combinations.map(combination =>
-        this.combineBills(...combination)
+        this.combineBills(combination)
       )
 
       for (const combinedBill of combinedBills) {
@@ -417,6 +513,13 @@ export default class Linker {
     return result
   }
 
+  /**
+   * Get bills that didn't matched with a debit transaction
+   *
+   * @param {Object} bills - The result of `linkBillsToOperations`
+   *
+   * @return {Object[]} An array of io.cozy.bills
+   */
   getUnlinkedBills(bills) {
     const unlinkedBills = Object.values(bills)
       .filter(bill => !bill.debitOperation)
@@ -425,6 +528,13 @@ export default class Linker {
     return unlinkedBills
   }
 
+  /**
+   * Tell if a bill can be part of a group or not
+   *
+   * @param {Object} bill - An io.cozy.bills document
+   *
+   * @return {boolean}
+   */
   billCanBeGrouped(bill) {
     return (
       getBillDate(bill) &&
@@ -432,6 +542,13 @@ export default class Linker {
     )
   }
 
+  /**
+   * Group given bills
+   *
+   * @param {Object[]} bills - An array of io.cozy.bills documents
+   *
+   * @return {Object[][]} Array of groups
+   */
   groupBills(bills) {
     const billsToGroup = bills.filter(bill => this.billCanBeGrouped(bill))
     const groups = groupBy(billsToGroup, bill => {
@@ -441,6 +558,13 @@ export default class Linker {
     return Object.values(groups)
   }
 
+  /**
+   * Generate all possible combination of a given bills group
+   *
+   * @param {Object[]} bills - An array of io.cozy.bills documents
+   *
+   * @return {Object[][]} An array of possible combinations
+   */
   generateBillsCombinations(bills) {
     const MIN_ITEMS_IN_COMBINATION = 2
     const combinations = []
@@ -453,7 +577,14 @@ export default class Linker {
     return combinations
   }
 
-  combineBills(...bills) {
+  /**
+   * Combine an array of bills in a single meta bill
+   *
+   * @param {Object[]} bills - An array of io.cozy.bills documents
+   *
+   * @return {Object} A « meta » io.cozy.bills document
+   */
+  combineBills(bills) {
     return {
       ...bills[0],
       _id: ['combined', ...bills.map(bill => bill._id)].join(':'),
@@ -467,6 +598,10 @@ export default class Linker {
   /**
    * Merge multiple bills matching criterias by making an union of them.
    * In the end, we keep the widest range for each criterias
+   *
+   * @param {Object[]} bills - An array of io.cozy.bills documents
+   *
+   * @return {Object} The merged matching criterias
    */
   mergeMatchingCriterias(bills) {
     const defaultCriterias = {
