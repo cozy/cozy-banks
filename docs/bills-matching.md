@@ -131,10 +131,10 @@ not. It it overflows, the bill is not added.
 ## Bills combinations
 
 Sometimes, bills need to be combined to match with a debit transaction. It is
-mostly the case for health bills. For example, when your paid multiple medical
-procedures with a single transaction. It will generate multiple bills for a
-single debit transaction. In this case, we try to combine bills and find debit
-transaction for them.
+generally the case for health bills. For example, when your paid multiple
+medical procedures with a single transaction. It will generate multiple bills
+for a single debit transaction. In this case, we try to combine bills and find
+debit transaction for them.
 
 This combination process is not required to find debit transaction because in
 that case the bill's `groupAmount` (see [`io.cozy.bills
