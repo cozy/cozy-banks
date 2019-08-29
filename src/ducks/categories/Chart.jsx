@@ -43,11 +43,11 @@ class Chart extends Component {
     }
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     ReactChart.pluginService.register(pieceLabel)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
       data: {
         labels: nextProps.labels,

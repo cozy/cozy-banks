@@ -105,11 +105,11 @@ export class TransactionsDumb extends React.Component {
     )
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.updateTransactions(this.props.transactions)
   }
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     if (this.props.transactions !== nextProps.transactions) {
       this.updateTransactions(nextProps.transactions)
     }

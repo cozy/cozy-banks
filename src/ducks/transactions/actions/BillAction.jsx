@@ -102,7 +102,7 @@ export class BillComponent extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.transaction !== this.props.transaction) {
       this.setState({ fileId: false })
     }
