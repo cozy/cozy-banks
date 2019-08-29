@@ -113,7 +113,7 @@ class TransactionActions extends Component {
     this.unmounted = true
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.transaction !== this.props.transaction) {
       this.setState({ actions: false })
     }

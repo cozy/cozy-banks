@@ -50,7 +50,7 @@ class Select extends React.Component {
     this.updateControlStyle(props)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.props.options !== nextProps.options) {
       this.updateComponent(nextProps)
     }
