@@ -304,7 +304,7 @@ in Mailchimp is also useful to check that everything is correctly rendered on th
 
 #### Under the covers
 
-The templates are [Handlebars](handlebarsjs.com) templates using the
+The templates are [Handlebars](http://handlebarsjs.com/) templates using the
 [mjml](https://mjml.io/documentation) language. `mjml` greatly reduces the pains to develop an
 email template as it deals with a lot of quirks for you. It features ready-made
 components to make responsive email templates. Behind the scene, it uses `React`
