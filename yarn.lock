@@ -14989,10 +14989,10 @@ react-select@2.2.0:
     react-input-autosize "^2.2.1"
     react-transition-group "^2.2.1"
 
-react-side-effect@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/react-side-effect/-/react-side-effect-1.2.0.tgz#0e940c78faba0c73b9b0eba9cd3dda8dfb7e7dae"
-  integrity sha512-v1ht1aHg5k/thv56DRcjw+WtojuuDHFUgGfc+bFHOWsF4ZK6C2V57DO0Or0GPsg6+LSTE0M6Ry/gfzhzSwbc5w==
+react-side-effect@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-side-effect/-/react-side-effect-2.0.0.tgz#47163e0ede952929347e0894e02239f44f3f0e63"
+  integrity sha512-ttqKfExJRNQ2Kypffonu8Ss4ZPCanXMA9+KiHjFKs7sX3uIdp2Fev7lWXd54RoevndLiAo4/jsuMla1/wf4DEA==
   dependencies:
     shallowequal "^1.0.1"
 
