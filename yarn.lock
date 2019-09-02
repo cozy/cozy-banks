@@ -4379,10 +4379,10 @@ cozy-app-publish@0.18.3:
     request "2.88.0"
     tar "4.4.8"
 
-cozy-authentication@1.17.4:
-  version "1.17.4"
-  resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-1.17.4.tgz#fc72f131fc7870feabe71d0f8ef0da790e295fdc"
-  integrity sha512-aSlUtL3KcNsW/0jJlkEmMmgI56z4IgsxvawT/tGjvzhXXetf472qhX6JJWH7r7s8WsE5Xz+cFJOdFnwz7zDWBw==
+cozy-authentication@1.17.5:
+  version "1.17.5"
+  resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-1.17.5.tgz#dd57d9faaa2ba576d21ac1c4de20f86a66102f1b"
+  integrity sha512-UN7KLfvdnr4mnY1KFtCzMeLrP7sfXTC2IHOHbnxE88BgjH8IGWWNyPT5YxHP9PP8xe3i9y02IGZog+c8qk7zRA==
   dependencies:
     cozy-device-helper "^1.7.5"
     localforage "1.7.3"
@@ -4499,10 +4499,10 @@ cozy-doctypes@1.39.0:
     es6-promise-pool "2.5.0"
     lodash "4.17.11"
 
-cozy-doctypes@1.63.4:
-  version "1.63.4"
-  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.63.4.tgz#2491efc1d1d88ee9f79ea09fa7bf4a2ac259dbb5"
-  integrity sha512-VyfI9d8v4VatqWiZ/PTrOYpTHVENg5uDOVbBcyBhO+3YbDqPZ32kkT91rA8AzDsbnu0MBeiR8SSGGEMIDFWA2w==
+cozy-doctypes@1.63.5:
+  version "1.63.5"
+  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.63.5.tgz#43a8179d3547841033983491056e553648cb7d8f"
+  integrity sha512-o5ngl3/0gtbZwhmt7/Skx442Ez4Z9wdrl/d/k9wewZjl6qi6O56tGa1eo1KDr1nVL3n3sCkDMcqdNyxJ1kXcDw==
   dependencies:
     "@babel/runtime" "7.5.5"
     cozy-logger "^1.5.1"
