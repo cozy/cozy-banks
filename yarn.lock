@@ -4379,15 +4379,15 @@ cozy-app-publish@0.18.3:
     request "2.88.0"
     tar "4.4.8"
 
-cozy-authentication@1.17.5:
-  version "1.17.5"
-  resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-1.17.5.tgz#dd57d9faaa2ba576d21ac1c4de20f86a66102f1b"
-  integrity sha512-UN7KLfvdnr4mnY1KFtCzMeLrP7sfXTC2IHOHbnxE88BgjH8IGWWNyPT5YxHP9PP8xe3i9y02IGZog+c8qk7zRA==
+cozy-authentication@1.18.0:
+  version "1.18.0"
+  resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-1.18.0.tgz#5d2854e74b5f34b4a00c236fd3a10b1797cfa4ce"
+  integrity sha512-LlNtiVs2irCIoHm8YabmJyFKx5wIQB0gpOuQD1Jp0UaWd/QEo5jDvKZhpLNdJYzYykDDGbusOrKqWa6HTdVO+g==
   dependencies:
     cozy-device-helper "^1.7.5"
     localforage "1.7.3"
     prop-types "15.7.2"
-    react-markdown "4.1.0"
+    snarkdown "1.2.2"
     url-polyfill "1.1.7"
 
 cozy-bar@7.7.2:
@@ -16580,6 +16580,11 @@ snapdragon@^0.8.1:
     source-map "^0.5.6"
     source-map-resolve "^0.5.0"
     use "^3.1.0"
+
+snarkdown@1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/snarkdown/-/snarkdown-1.2.2.tgz#0cfe2f3012b804de120fc0c9f7791e869c59cc74"
+  integrity sha1-DP4vMBK4BN4SD8DJ93kehpxZzHQ=
 
 sntp@1.x.x:
   version "1.0.9"
