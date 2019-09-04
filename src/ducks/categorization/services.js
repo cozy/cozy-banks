@@ -30,7 +30,7 @@ export const fetchTransactionsToCategorize = () => {
 /**
  * Fetch transactions to categorize and chunk them
  *
- * @return {Object[][]} The chunks to categorize
+ * @return {io.cozy.bank.operations[][]} The chunks to categorize
  */
 export const fetchChunksToCategorize = async () => {
   const toCategorize = await fetchTransactionsToCategorize()
@@ -44,7 +44,7 @@ export const fetchChunksToCategorize = async () => {
  * Apply global and local categorization models to a chunk
  *
  * @param {Object} categorizer - A categorizer (see https://docs.cozy.io/en/cozy-konnector-libs/api/#categorization)
- * @param {Object[]} chunk - An array of io.cozy.bank.operations to categorize
+ * @param {io.cozy.bank.operations[]} chunk - Operations to categorize
  *
  * @return {Number} the time taken to categorize the chunk
  */
