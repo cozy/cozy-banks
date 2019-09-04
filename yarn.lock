@@ -15003,12 +15003,10 @@ react-select@2.2.0:
     react-input-autosize "^2.2.1"
     react-transition-group "^2.2.1"
 
-react-side-effect@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/react-side-effect/-/react-side-effect-2.0.0.tgz#47163e0ede952929347e0894e02239f44f3f0e63"
-  integrity sha512-ttqKfExJRNQ2Kypffonu8Ss4ZPCanXMA9+KiHjFKs7sX3uIdp2Fev7lWXd54RoevndLiAo4/jsuMla1/wf4DEA==
-  dependencies:
-    shallowequal "^1.0.1"
+react-side-effect@2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-side-effect/-/react-side-effect-2.1.0.tgz#1ce4a8b4445168c487ed24dab886421f74d380d3"
+  integrity sha512-IgmcegOSi5SNX+2Snh1vqmF0Vg/CbkycU9XZbOHJlZ6kMzTmi3yc254oB1WCkgA7OQtIAoLmcSFuHTc/tlcqXg==
 
 react-styleguidist@8.0.6:
   version "8.0.6"
@@ -16389,7 +16387,7 @@ shallow-equal@^1.0.0:
   resolved "https://registry.yarnpkg.com/shallow-equal/-/shallow-equal-1.2.0.tgz#fd828d2029ff4e19569db7e19e535e94e2d1f5cc"
   integrity sha512-Z21pVxR4cXsfwpMKMhCEIO1PCi5sp7KEp+CmOpBQ+E8GpHwKOw2sEzk7sgblM3d/j4z4gakoWEoPcjK0VJQogA==
 
-shallowequal@^1.0.1, shallowequal@^1.0.2:
+shallowequal@^1.0.2:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/shallowequal/-/shallowequal-1.1.0.tgz#188d521de95b9087404fd4dcb68b13df0ae4e7f8"
   integrity sha512-y0m1JoUZSlPAjXVtPPW70aZWfIL/dSP7AFkRnniLCrK/8MDKog3TySTBmckD+RObVxH0v4Tox67+F14PdED2oQ==
