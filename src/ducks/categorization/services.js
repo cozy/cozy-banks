@@ -12,7 +12,7 @@ BankTransaction.registerClient(cozyClient)
 // Each chunk will contain 100 transactions
 export const CHUNK_SIZE = 100
 
-const MAX_EXECUTION_TIME = 200
+const MAX_EXECUTION_TIME = parseInt(process.env.COZY_TIME_LIMIT, 10)
 const timeStart = new Date()
 let highestTime = 0
 
