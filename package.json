@@ -203,7 +203,7 @@
     "react-markdown": "4.2.2",
     "react-redux": "5.1.1",
     "react-router": "3.2.4",
-    "react-side-effect": "2.0.0",
+    "react-side-effect": "2.1.0",
     "react-swipeable-views": "0.13.3",
     "redux": "3.7.2",
     "redux-logger": "3.0.6",
