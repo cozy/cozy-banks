@@ -131,11 +131,11 @@ class AccountRow extends React.PureComponent {
             totalClassName={styles.AccountRow__figure}
             currencyClassName={styles.AccountRow__figure}
           />
+          {/* color: Do not deactivate interactions with the button,
+            only color it to look disabled */}
           <Switch
             disableRipple
             checked={checked}
-            // Do not deactivate interactions with the button,
-            // only color it to look disabled
             color={disabled ? 'default' : 'primary'}
             onClick={this.handleSwitchClick}
             id={id}
