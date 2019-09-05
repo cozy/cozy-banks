@@ -44,12 +44,13 @@ class BalancePanels extends React.PureComponent {
 
     return (
       <div className={styles.BalancePanels}>
-        {groupsSorted.map((group, i) => (
+        {groupsSorted.map(({ group, label }, i) => (
           <Delayed key={group._id} delay={i * 150}>
             {/* ^ Delay rendering of group panels after the first two */}
             <GroupPanel
               className="u-fx-from-bottom"
               group={group}
+              groupLabel={label}
               warningLimit={warningLimit}
               expanded={panelsState[group._id].expanded}
               checked={panelsState[group._id].checked}

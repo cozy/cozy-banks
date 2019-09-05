@@ -121,6 +121,7 @@ class GroupPanel extends React.PureComponent {
   render() {
     const {
       group,
+      groupLabel,
       warningLimit,
       switches,
       onSwitchChange,
@@ -165,7 +166,7 @@ class GroupPanel extends React.PureComponent {
               onClick={this.handleSummaryContentClick}
             >
               <div className={styles.GroupPanelSummary__label}>
-                {group.label}
+                {groupLabel}
                 <br />
                 {nbCheckedAccounts < nbAccounts && (
                   <Caption className={styles.GroupPanelSummary__caption}>
