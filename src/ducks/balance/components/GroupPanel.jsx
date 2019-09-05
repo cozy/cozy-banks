@@ -41,19 +41,17 @@ const GroupPanelSummary = withStyles(() => ({
   }
 }))(ExpansionPanelSummary)
 
-class GroupPanelExpandIcon extends React.PureComponent {
-  render() {
-    return (
-      <span className="u-click-xl">
-        <Icon
-          icon="bottom"
-          className={styles.GroupPanelSummary__icon}
-          width={12}
-        />
-      </span>
-    )
-  }
-}
+const GroupPanelExpandIcon = React.memo(function GroupPanelExpandIcon() {
+  return (
+    <span className="u-click-xl">
+      <Icon
+        icon="bottom"
+        className={styles.GroupPanelSummary__icon}
+        width={12}
+      />
+    </span>
+  )
+})
 
 class GroupPanel extends React.PureComponent {
   constructor(props) {
