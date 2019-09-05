@@ -128,7 +128,8 @@ class GroupPanel extends React.PureComponent {
       onSwitchChange,
       checked,
       withBalance,
-      t
+      t,
+      className
     } = this.props
 
     const nbAccounts = group.accounts.data.length
@@ -146,7 +147,11 @@ class GroupPanel extends React.PureComponent {
     const isUncheckable = !group.loading
 
     return (
-      <ExpansionPanel expanded={expanded} onChange={this.handlePanelChange}>
+      <ExpansionPanel
+        className={className}
+        expanded={expanded}
+        onChange={this.handlePanelChange}
+      >
         <GroupPanelSummary
           expandIcon={<GroupPanelExpandIcon />}
           IconButtonProps={{
