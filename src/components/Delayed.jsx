@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 
 const useDelay = delay => {
   // ok is true when delay has elapsed
-  const [ok, setOK] = useState(false)
+  const [ok, setOK] = useState(delay === 0)
   // Pass empty dep list to useEffect to have a behavior similar to
   // componentDid{Mount,Unmount}
   // https://fr.reactjs.org/docs/hooks-effect.html#tip-optimizing-performance-by-skipping-effects
@@ -10,7 +10,7 @@ const useDelay = delay => {
     function setOKToTrue() {
       setOK(true)
     }
-    let timeout = setTimeout(setOKToTrue, delay)
+    const timeout = delay === 0 ? null : setTimeout(setOKToTrue, delay)
     return () => {
       clearTimeout(timeout)
     }
