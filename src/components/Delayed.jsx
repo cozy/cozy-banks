@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 
 const useDelay = delay => {
@@ -31,6 +32,14 @@ const Delayed = ({ fallback, children, delay }) => {
   } else {
     return fallback
   }
+}
+
+Delayed.defaultProps = {
+  fallback: null
+}
+
+Delayed.propTypes = {
+  fallback: PropTypes.element
 }
 
 export default Delayed
