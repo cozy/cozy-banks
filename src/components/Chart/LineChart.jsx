@@ -381,9 +381,14 @@ class LineChart extends Component {
       this.mask.attr('opacity', 0)
     }
 
+    // We do not know where exactly this comes from but without it a bit of the end
+    // of the line is visible just before the animation as if the line was too offsetted.
+    // This is why we need to remove a bit of the offset.
+    const OFFSET = -60
+
     this.line
       .attr('stroke-dasharray', lineTotalLength)
-      .attr('stroke-dashoffset', lineTotalLength)
+      .attr('stroke-dashoffset', lineTotalLength + OFFSET)
       .transition()
       .duration(this.props.enterAnimationDuration)
       .ease(d3.easeExpInOut)
