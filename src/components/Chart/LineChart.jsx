@@ -296,7 +296,6 @@ class LineChart extends Component {
       .append('text')
       .attr('fill', getCSSPropertyValue('--historyTooltipTextColor'))
       .attr('style', 'font-size: 0.6875rem; font-family: Lato')
-    this.tooltip.attr('style', 'opacity: 0')
   }
 
   updateTooltip() {
