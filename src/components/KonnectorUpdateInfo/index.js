@@ -13,6 +13,13 @@ import { isCollectionLoading } from 'ducks/client/utils'
 import { Padded } from 'components/Spacing'
 import CozyClient from 'cozy-client'
 
+// Utilities on konnectors
+const konnectors = {
+  hasCategory: category => konnector => {
+    return konnector.categories && konnector.categories.includes(category)
+  }
+}
+
 class KonnectorUpdateInfo extends React.PureComponent {
   intents = new Intents({ client: this.props.client })
 
@@ -60,7 +67,10 @@ class KonnectorUpdateInfo extends React.PureComponent {
       outdatedKonnectors.fetchMore()
     }
 
-    if (konnectorsCollection.data.length === 0) {
+    const bankingKonnectors = outdatedKonnectors.data.filter(
+      konnectors.hasCategory('banking')
+    )
+    if (bankingKonnectors.length === 0) {
       return null
     }
 
