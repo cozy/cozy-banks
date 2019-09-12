@@ -13,18 +13,23 @@ const ErrorCard = ({
   content,
   buttonLabel,
   buttonHref,
-  buttonIcon
+  buttonIcon,
+  style
 }) => {
   return (
-    <div className={styles.ErrorCard}>
+    <div className={styles.ErrorCard} style={style}>
       <SubTitle className="u-monza">{title}</SubTitle>
-      <Text
-        tag="p"
-        className={cx('u-mt-half', styles.ErrorCard__text)}
-        dangerouslySetInnerHTML={{
-          __html: content
-        }}
-      />
+      {typeof content === 'string' ? (
+        <Text
+          tag="p"
+          className={cx('u-mt-half', styles.ErrorCard__text)}
+          dangerouslySetInnerHTML={{
+            __html: content
+          }}
+        />
+      ) : (
+        content
+      )}
       <ButtonLink
         theme="secondary"
         extension={breakpoints.isMobile ? 'full' : 'narrow'}
