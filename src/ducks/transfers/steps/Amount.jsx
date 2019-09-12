@@ -1,13 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Padded from 'components/Spacing/Padded'
-import {
-  translate,
-  Input,
-  InputGroup,
-  Bold,
-  Label
-} from 'cozy-ui/transpiled/react'
+import { translate, Input, InputGroup, Label } from 'cozy-ui/transpiled/react'
 import PageTitle from 'components/Title/PageTitle'
 import BottomButton from 'components/BottomButton'
 
@@ -28,11 +22,6 @@ const validateAmount = amount => {
   }
   return { ok: true }
 }
-
-// TODO remove if https://github.com/cozy/cozy-ui/pull/1113 is merged
-const InputGroupUnit = ({ children }) => (
-  <Bold className="u-ph-1">{children}</Bold>
-)
 
 class _ChooseAmount extends React.PureComponent {
   constructor(props, context) {
@@ -72,7 +61,7 @@ class _ChooseAmount extends React.PureComponent {
         <Label>
           {t('Transfer.amount.field-label')}
           <br />
-          <InputGroup append={<InputGroupUnit>€</InputGroupUnit>}>
+          <InputGroup append={<InputGroup.Unit>€</InputGroup.Unit>}>
             <Input
               className="u-mt-0"
               value={amount}

@@ -10,6 +10,7 @@ the first digital home on the market, Cozy helps all users with applications
 and connectors regain control, streamline and maximize their digital lives.
 
 With Cozy Banks, you can easily:
+
 - Have all your bank accounts in one place
 - Get an comprehensive overview of all your expenses with one-click access to
   your bills
