@@ -4364,10 +4364,10 @@ cozy-ach@1.21.0:
     server-destroy "^1.0.1"
     timezone "^1.0.22"
 
-cozy-app-publish@0.18.3:
-  version "0.18.3"
-  resolved "https://registry.yarnpkg.com/cozy-app-publish/-/cozy-app-publish-0.18.3.tgz#be8792ba4972522af074f2d3c3c2e9939d439f13"
-  integrity sha512-eghogBs+K1vzx7lKkD3TpbpnRCgNwuTy0VIUyFTaDdHKC8FPG4lbI4xFzinGa6LosUl7TuRX7kIOV4Y1KxTVMA==
+cozy-app-publish@0.19.2:
+  version "0.19.2"
+  resolved "https://registry.yarnpkg.com/cozy-app-publish/-/cozy-app-publish-0.19.2.tgz#55fb0bef703cd19c85ecb5dd2be2f68ccd10a0cc"
+  integrity sha512-aDKdPShE6Nwc4YKmYT9uUPbRyWkl44tGEeVTQQOFO2mCpFnfSZJDmUU138MvF1kpGW3yrSyYCM1rXcIeJxxxBA==
   dependencies:
     argparse "^1.0.10"
     chalk "2.4.2"
@@ -4377,7 +4377,7 @@ cozy-app-publish@0.18.3:
     node-fetch "2.6.0"
     prompt "1.0.0"
     request "2.88.0"
-    tar "4.4.8"
+    tar "4.4.10"
 
 cozy-authentication@1.18.2:
   version "1.18.2"
@@ -11257,7 +11257,7 @@ minimist@~0.0.1:
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.10.tgz#de3f98543dbf96082be48ad1a0c7cda836301dcf"
   integrity sha1-3j+YVD2/lggr5IrRoMfNqDYwHc8=
 
-minipass@^2.2.1, minipass@^2.3.4, minipass@^2.3.5:
+minipass@^2.2.1, minipass@^2.3.5:
   version "2.3.5"
   resolved "https://registry.yarnpkg.com/minipass/-/minipass-2.3.5.tgz#cacebe492022497f656b0f0f51e2682a9ed2d848"
   integrity sha512-Gi1W4k059gyRbyVUZQ4mEqLm0YIUiGYfvxhF6SIlk3ui1WVxMTGfGdQ2SInh3PDrRTVvPKgULkpJtT4RH10+VA==
@@ -11265,7 +11265,7 @@ minipass@^2.2.1, minipass@^2.3.4, minipass@^2.3.5:
     safe-buffer "^5.1.2"
     yallist "^3.0.0"
 
-minizlib@^1.1.1, minizlib@^1.2.1:
+minizlib@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/minizlib/-/minizlib-1.2.1.tgz#dd27ea6136243c7c880684e8672bb3a45fd9b614"
   integrity sha512-7+4oTUOWKg7AuL3vloEWekXY2/D20cevzsrNT2kGWm+39J9hGTCBv8VI5Pm5lXZ/o3/mdR4f8rflAPhnQb8mPA==
@@ -17416,29 +17416,7 @@ tar@2.2.1:
     fstream "^1.0.2"
     inherits "2"
 
-tar@4.4.8:
-  version "4.4.8"
-  resolved "https://registry.yarnpkg.com/tar/-/tar-4.4.8.tgz#b19eec3fde2a96e64666df9fdb40c5ca1bc3747d"
-  integrity sha512-LzHF64s5chPQQS0IYBn9IN5h3i98c12bo4NCO7e0sGM2llXQ3p2FGC5sdENN4cTW48O915Sh+x+EXx7XW96xYQ==
-  dependencies:
-    chownr "^1.1.1"
-    fs-minipass "^1.2.5"
-    minipass "^2.3.4"
-    minizlib "^1.1.1"
-    mkdirp "^0.5.0"
-    safe-buffer "^5.1.2"
-    yallist "^3.0.2"
-
-tar@^2.0.0, tar@~2.2.1:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/tar/-/tar-2.2.2.tgz#0ca8848562c7299b8b446ff6a4d60cdbb23edc40"
-  integrity sha512-FCEhQ/4rE1zYv9rYXJw/msRqsnmlje5jHP6huWeBZ704jUTy02c5AZyWujpMR1ax6mVw9NyJMfuK2CMDWVIfgA==
-  dependencies:
-    block-stream "*"
-    fstream "^1.0.12"
-    inherits "2"
-
-tar@^4:
+tar@4.4.10, tar@^4:
   version "4.4.10"
   resolved "https://registry.yarnpkg.com/tar/-/tar-4.4.10.tgz#946b2810b9a5e0b26140cf78bea6b0b0d689eba1"
   integrity sha512-g2SVs5QIxvo6OLp0GudTqEf05maawKUxXru104iaayWA09551tFCTI8f1Asb4lPfkBr91k07iL4c11XO3/b0tA==
@@ -17450,6 +17428,15 @@ tar@^4:
     mkdirp "^0.5.0"
     safe-buffer "^5.1.2"
     yallist "^3.0.3"
+
+tar@^2.0.0, tar@~2.2.1:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/tar/-/tar-2.2.2.tgz#0ca8848562c7299b8b446ff6a4d60cdbb23edc40"
+  integrity sha512-FCEhQ/4rE1zYv9rYXJw/msRqsnmlje5jHP6huWeBZ704jUTy02c5AZyWujpMR1ax6mVw9NyJMfuK2CMDWVIfgA==
+  dependencies:
+    block-stream "*"
+    fstream "^1.0.12"
+    inherits "2"
 
 temp@~0.4.0:
   version "0.4.0"
