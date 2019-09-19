@@ -21,8 +21,12 @@ describe('LateHealthReimbursement', () => {
       const oneTransaction = new Array(1)
       const twoTransactions = new Array(2)
 
-      expect(notification.getPushContent(oneTransaction)).toMatchSnapshot()
-      expect(notification.getPushContent(twoTransactions)).toMatchSnapshot()
+      expect(
+        notification.getPushContent({ transactions: oneTransaction })
+      ).toMatchSnapshot()
+      expect(
+        notification.getPushContent({ transactions: twoTransactions })
+      ).toMatchSnapshot()
     })
   })
 })
