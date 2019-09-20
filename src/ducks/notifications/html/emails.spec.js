@@ -8,7 +8,7 @@ jest.mock('./utils', () => {
   }
 })
 
-const { EMAILS, renderTemplate } = require('./common-test')
+const { EMAILS, renderTemplate, setup } = require('./common-test')
 
 describe('emails', () => {
   for (const lang of ['en', 'fr']) {

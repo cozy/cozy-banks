@@ -51,7 +51,7 @@ describe('template utils', () => {
       topLogo: 'topLogo',
       appURL: 'appURL',
       settingsURL: 'settingsUrl',
-      supportURL: 'supportURL'
+      footerHelp: 'footerHelp'
     })
 
     const compiled = Handlebars.compile(ast)

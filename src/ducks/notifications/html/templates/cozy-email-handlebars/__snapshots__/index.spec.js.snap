@@ -198,12 +198,7 @@ table {
         </mj-column>
         <mj-column>
           <mj-text css-class=\\"footer__help\\">
-            <a css-class=\\"footer__help\\" href=\\"settingsUrl\\">
-              settings
-            </a>
-              <a css-class=\\"footer__help\\" href=\\"supportURL\\">
-                support
-              </a>
+            footerHelp
           </mj-text>
         </mj-column>
       </mj-section>

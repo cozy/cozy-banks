@@ -81,10 +81,8 @@ class Notification {
    * A notification can add helpers and partials in this function
    */
   prepareHandlebars(Handlebars) {
-    const tGlobal = (key, data) => this.t('Notifications.email.' + key, data)
     Handlebars.registerHelper({
-      t: this.t,
-      tGlobal
+      t: this.t
     })
     Handlebars.registerHelper(helpers)
     Handlebars.registerPartial(mapValues(partials, Handlebars.compile))

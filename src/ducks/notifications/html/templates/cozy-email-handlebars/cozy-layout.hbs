@@ -95,14 +95,7 @@
         </mj-column>
         <mj-column>
           <mj-text css-class="footer__help">
-            <a css-class="footer__help" href="{{#block 'settingsURL'}}{{/block}}">
-              {{tGlobal 'settings'}}
-            </a>
-            {{#block 'supportLink'}}
-              <a css-class="footer__help" href="{{#block 'supportURL'}}https://support.cozy.io/{{/block}}">
-                {{tGlobal 'support'}}
-              </a>
-            {{/block}}
+            {{#block 'footerHelp'}}{{/block}}
           </mj-text>
         </mj-column>
       </mj-section>

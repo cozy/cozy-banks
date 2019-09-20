@@ -45,7 +45,7 @@ export const EMAILS = {
   }
 }
 
-export const renderTemplate = async (templateName, lang) => {
+export const setup = (templateName, lang) => {
   const localeStrings = require(`../../../locales/${lang}`)
   const { initTranslation } = require('cozy-ui/react/I18n/translation')
   const translation = initTranslation(lang, () => localeStrings)
@@ -53,12 +53,19 @@ export const renderTemplate = async (templateName, lang) => {
   const cozyURL = 'https://test.mycozy.cloud'
   const notification = new EMAILS[templateName].klass({
     t,
-    lang: 'en',
+    lang,
     data: {},
     cozyClient: {
       _url: cozyURL
     }
   })
+  return { notification }
+}
+
+export const renderTemplate = async (templateName, lang) => {
+  const { notification } = setup(templateName, lang)
+
+  // Mock fetchData to pass fixture data
   notification.fetchData = async () => {
     return EMAILS[templateName].data
   }

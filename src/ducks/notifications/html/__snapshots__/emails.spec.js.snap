@@ -269,11 +269,11 @@ exports[`emails should render balanceLower in en 1`] = `
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody></tbody></table></div><!--[if mso | IE]>
       </td><td style=\\"vertical-align:top;width:300px;\\">
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr class=\\"footer__help\\"><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><div style=\\"letter-spacing: 0.6px; cursor: auto; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; color: #95999d; text-align: right;\\"><a css-class=\\"footer__help\\" href=\\"https://links.mycozy.cloud/banks/settings/configuration?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Fsettings%2Fconfiguration\\" style=\\"display: inline-block; color: #95999d;\\">
-              Settings
-            </a>
-              <a css-class=\\"footer__help\\" href=\\"https://support.cozy.io/\\" style=\\"display: inline-block; margin-left: 16px; color: #95999d;\\">
-                Help and support
-              </a></div></td></tr></tbody></table></div><!--[if mso | IE]>
+      Settings
+    </a>
+    <a css-class=\\"footer__help\\" href=\\"https://support.cozy.io/\\" style=\\"display: inline-block; margin-left: 16px; color: #95999d;\\">
+      Help and support
+    </a></div></td></tr></tbody></table></div><!--[if mso | IE]>
       </td></tr></table>
       <![endif]--></td></tr></tbody></table></div><!--[if mso | IE]>
       </td></tr></table>
@@ -551,11 +551,11 @@ exports[`emails should render balanceLower in fr 1`] = `
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody></tbody></table></div><!--[if mso | IE]>
       </td><td style=\\"vertical-align:top;width:300px;\\">
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr class=\\"footer__help\\"><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><div style=\\"letter-spacing: 0.6px; cursor: auto; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; color: #95999d; text-align: right;\\"><a css-class=\\"footer__help\\" href=\\"https://links.mycozy.cloud/banks/settings/configuration?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Fsettings%2Fconfiguration\\" style=\\"display: inline-block; color: #95999d;\\">
-              Paramètres
-            </a>
-              <a css-class=\\"footer__help\\" href=\\"https://support.cozy.io/\\" style=\\"display: inline-block; margin-left: 16px; color: #95999d;\\">
-                Aide et support
-              </a></div></td></tr></tbody></table></div><!--[if mso | IE]>
+      Paramètres
+    </a>
+    <a css-class=\\"footer__help\\" href=\\"https://support.cozy.io/\\" style=\\"display: inline-block; margin-left: 16px; color: #95999d;\\">
+      Aide et support
+    </a></div></td></tr></tbody></table></div><!--[if mso | IE]>
       </td></tr></table>
       <![endif]--></td></tr></tbody></table></div><!--[if mso | IE]>
       </td></tr></table>
@@ -763,11 +763,11 @@ exports[`emails should render delayedDebit in en 1`] = `
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody></tbody></table></div><!--[if mso | IE]>
       </td><td style=\\"vertical-align:top;width:300px;\\">
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr class=\\"footer__help\\"><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><div style=\\"letter-spacing: 0.6px; cursor: auto; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; color: #95999d; text-align: right;\\"><a css-class=\\"footer__help\\" href=\\"https://links.mycozy.cloud/banks/settings/configuration?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Fsettings%2Fconfiguration\\" style=\\"display: inline-block; color: #95999d;\\">
-              Settings
-            </a>
-              <a css-class=\\"footer__help\\" href=\\"https://support.cozy.io/\\" style=\\"display: inline-block; margin-left: 16px; color: #95999d;\\">
-                Help and support
-              </a></div></td></tr></tbody></table></div><!--[if mso | IE]>
+      Settings
+    </a>
+    <a css-class=\\"footer__help\\" href=\\"https://support.cozy.io/\\" style=\\"display: inline-block; margin-left: 16px; color: #95999d;\\">
+      Help and support
+    </a></div></td></tr></tbody></table></div><!--[if mso | IE]>
       </td></tr></table>
       <![endif]--></td></tr></tbody></table></div><!--[if mso | IE]>
       </td></tr></table>
@@ -975,11 +975,11 @@ exports[`emails should render delayedDebit in fr 1`] = `
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody></tbody></table></div><!--[if mso | IE]>
       </td><td style=\\"vertical-align:top;width:300px;\\">
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr class=\\"footer__help\\"><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><div style=\\"letter-spacing: 0.6px; cursor: auto; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; color: #95999d; text-align: right;\\"><a css-class=\\"footer__help\\" href=\\"https://links.mycozy.cloud/banks/settings/configuration?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Fsettings%2Fconfiguration\\" style=\\"display: inline-block; color: #95999d;\\">
-              Paramètres
-            </a>
-              <a css-class=\\"footer__help\\" href=\\"https://support.cozy.io/\\" style=\\"display: inline-block; margin-left: 16px; color: #95999d;\\">
-                Aide et support
-              </a></div></td></tr></tbody></table></div><!--[if mso | IE]>
+      Paramètres
+    </a>
+    <a css-class=\\"footer__help\\" href=\\"https://support.cozy.io/\\" style=\\"display: inline-block; margin-left: 16px; color: #95999d;\\">
+      Aide et support
+    </a></div></td></tr></tbody></table></div><!--[if mso | IE]>
       </td></tr></table>
       <![endif]--></td></tr></tbody></table></div><!--[if mso | IE]>
       </td></tr></table>
@@ -1234,11 +1234,11 @@ exports[`emails should render healthBillLinked in en 1`] = `
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody></tbody></table></div><!--[if mso | IE]>
       </td><td style=\\"vertical-align:top;width:300px;\\">
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr class=\\"footer__help\\"><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><div style=\\"letter-spacing: 0.6px; cursor: auto; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; color: #95999d; text-align: right;\\"><a css-class=\\"footer__help\\" href=\\"https://links.mycozy.cloud/banks/settings/configuration?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Fsettings%2Fconfiguration\\" style=\\"display: inline-block; color: #95999d;\\">
-              Settings
-            </a>
-              <a css-class=\\"footer__help\\" href=\\"https://support.cozy.io/\\" style=\\"display: inline-block; margin-left: 16px; color: #95999d;\\">
-                Help and support
-              </a></div></td></tr></tbody></table></div><!--[if mso | IE]>
+      Settings
+    </a>
+    <a css-class=\\"footer__help\\" href=\\"https://support.cozy.io/\\" style=\\"display: inline-block; margin-left: 16px; color: #95999d;\\">
+      Help and support
+    </a></div></td></tr></tbody></table></div><!--[if mso | IE]>
       </td></tr></table>
       <![endif]--></td></tr></tbody></table></div><!--[if mso | IE]>
       </td></tr></table>
@@ -1493,11 +1493,11 @@ exports[`emails should render healthBillLinked in fr 1`] = `
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody></tbody></table></div><!--[if mso | IE]>
       </td><td style=\\"vertical-align:top;width:300px;\\">
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr class=\\"footer__help\\"><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><div style=\\"letter-spacing: 0.6px; cursor: auto; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; color: #95999d; text-align: right;\\"><a css-class=\\"footer__help\\" href=\\"https://links.mycozy.cloud/banks/settings/configuration?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Fsettings%2Fconfiguration\\" style=\\"display: inline-block; color: #95999d;\\">
-              Paramètres
-            </a>
-              <a css-class=\\"footer__help\\" href=\\"https://support.cozy.io/\\" style=\\"display: inline-block; margin-left: 16px; color: #95999d;\\">
-                Aide et support
-              </a></div></td></tr></tbody></table></div><!--[if mso | IE]>
+      Paramètres
+    </a>
+    <a css-class=\\"footer__help\\" href=\\"https://support.cozy.io/\\" style=\\"display: inline-block; margin-left: 16px; color: #95999d;\\">
+      Aide et support
+    </a></div></td></tr></tbody></table></div><!--[if mso | IE]>
       </td></tr></table>
       <![endif]--></td></tr></tbody></table></div><!--[if mso | IE]>
       </td></tr></table>
@@ -1757,11 +1757,11 @@ exports[`emails should render lateHealthReimbursement in en 1`] = `
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody></tbody></table></div><!--[if mso | IE]>
       </td><td style=\\"vertical-align:top;width:300px;\\">
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr class=\\"footer__help\\"><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><div style=\\"letter-spacing: 0.6px; cursor: auto; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; color: #95999d; text-align: right;\\"><a css-class=\\"footer__help\\" href=\\"https://links.mycozy.cloud/banks/settings/configuration?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Fsettings%2Fconfiguration\\" style=\\"display: inline-block; color: #95999d;\\">
-              Settings
-            </a>
-              <a css-class=\\"footer__help\\" href=\\"https://support.cozy.io/\\" style=\\"display: inline-block; margin-left: 16px; color: #95999d;\\">
-                Help and support
-              </a></div></td></tr></tbody></table></div><!--[if mso | IE]>
+      Settings
+    </a>
+    <a css-class=\\"footer__help\\" href=\\"https://support.cozy.io/\\" style=\\"display: inline-block; margin-left: 16px; color: #95999d;\\">
+      Help and support
+    </a></div></td></tr></tbody></table></div><!--[if mso | IE]>
       </td></tr></table>
       <![endif]--></td></tr></tbody></table></div><!--[if mso | IE]>
       </td></tr></table>
@@ -2021,11 +2021,11 @@ exports[`emails should render lateHealthReimbursement in fr 1`] = `
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody></tbody></table></div><!--[if mso | IE]>
       </td><td style=\\"vertical-align:top;width:300px;\\">
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr class=\\"footer__help\\"><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><div style=\\"letter-spacing: 0.6px; cursor: auto; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; color: #95999d; text-align: right;\\"><a css-class=\\"footer__help\\" href=\\"https://links.mycozy.cloud/banks/settings/configuration?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Fsettings%2Fconfiguration\\" style=\\"display: inline-block; color: #95999d;\\">
-              Paramètres
-            </a>
-              <a css-class=\\"footer__help\\" href=\\"https://support.cozy.io/\\" style=\\"display: inline-block; margin-left: 16px; color: #95999d;\\">
-                Aide et support
-              </a></div></td></tr></tbody></table></div><!--[if mso | IE]>
+      Paramètres
+    </a>
+    <a css-class=\\"footer__help\\" href=\\"https://support.cozy.io/\\" style=\\"display: inline-block; margin-left: 16px; color: #95999d;\\">
+      Aide et support
+    </a></div></td></tr></tbody></table></div><!--[if mso | IE]>
       </td></tr></table>
       <![endif]--></td></tr></tbody></table></div><!--[if mso | IE]>
       </td></tr></table>
@@ -2362,11 +2362,11 @@ exports[`emails should render transactionGreater in en 1`] = `
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody></tbody></table></div><!--[if mso | IE]>
       </td><td style=\\"vertical-align:top;width:300px;\\">
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr class=\\"footer__help\\"><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><div style=\\"letter-spacing: 0.6px; cursor: auto; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; color: #95999d; text-align: right;\\"><a css-class=\\"footer__help\\" href=\\"https://links.mycozy.cloud/banks/settings/configuration?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Fsettings%2Fconfiguration\\" style=\\"display: inline-block; color: #95999d;\\">
-              Settings
-            </a>
-              <a css-class=\\"footer__help\\" href=\\"https://support.cozy.io/\\" style=\\"display: inline-block; margin-left: 16px; color: #95999d;\\">
-                Help and support
-              </a></div></td></tr></tbody></table></div><!--[if mso | IE]>
+      Settings
+    </a>
+    <a css-class=\\"footer__help\\" href=\\"https://support.cozy.io/\\" style=\\"display: inline-block; margin-left: 16px; color: #95999d;\\">
+      Help and support
+    </a></div></td></tr></tbody></table></div><!--[if mso | IE]>
       </td></tr></table>
       <![endif]--></td></tr></tbody></table></div><!--[if mso | IE]>
       </td></tr></table>
@@ -2703,11 +2703,11 @@ exports[`emails should render transactionGreater in fr 1`] = `
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody></tbody></table></div><!--[if mso | IE]>
       </td><td style=\\"vertical-align:top;width:300px;\\">
       <![endif]--><div class=\\"mj-column-per-50 outlook-group-fix\\" style=\\"vertical-align:top;display:inline-block;direction:ltr;font-size:13px;text-align:left;width:100%;\\"><table role=\\"presentation\\" cellpadding=\\"0\\" cellspacing=\\"0\\" width=\\"100%\\" border=\\"0\\" style=\\"border-spacing: 0;\\"><tbody><tr class=\\"footer__help\\"><td style=\\"word-wrap:break-word;font-size:0px;padding:10px 25px;\\" align=\\"left\\"><div style=\\"letter-spacing: 0.6px; cursor: auto; font-family: Lato, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 22px; color: #95999d; text-align: right;\\"><a css-class=\\"footer__help\\" href=\\"https://links.mycozy.cloud/banks/settings/configuration?fallback=https%3A%2F%2Ftest-banks.mycozy.cloud%2F%23%2Fsettings%2Fconfiguration\\" style=\\"display: inline-block; color: #95999d;\\">
-              Paramètres
-            </a>
-              <a css-class=\\"footer__help\\" href=\\"https://support.cozy.io/\\" style=\\"display: inline-block; margin-left: 16px; color: #95999d;\\">
-                Aide et support
-              </a></div></td></tr></tbody></table></div><!--[if mso | IE]>
+      Paramètres
+    </a>
+    <a css-class=\\"footer__help\\" href=\\"https://support.cozy.io/\\" style=\\"display: inline-block; margin-left: 16px; color: #95999d;\\">
+      Aide et support
+    </a></div></td></tr></tbody></table></div><!--[if mso | IE]>
       </td></tr></table>
       <![endif]--></td></tr></tbody></table></div><!--[if mso | IE]>
       </td></tr></table>
