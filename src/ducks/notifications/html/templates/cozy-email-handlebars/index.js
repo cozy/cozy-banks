@@ -1,10 +1,11 @@
-const Handlebars = require('handlebars')
-const overEvery = require('lodash/overEvery')
-const fromPairs = require('lodash/fromPairs')
-const layouts = require('handlebars-layouts')
-const mapValues = require('lodash/mapValues')
+import Handlebars from 'handlebars'
+import overEvery from 'lodash/overEvery'
+import fromPairs from 'lodash/fromPairs'
+import layouts from 'handlebars-layouts'
+import mapValues from 'lodash/mapValues'
 
-layouts.register(Handlebars)
+import styleCSS from '!!raw-loader!./style.css'
+import cozyLayout from './cozy-layout.hbs'
 
 const isOfType = type => node => {
   return node.type == type
@@ -20,6 +21,10 @@ const isContentBlock = overEvery([
   isPath('content')
 ])
 
+const pushAll = (iter, items) => {
+  iter.push.apply(iter, items)
+}
+
 /**
  * Collect info content and parenting infos from an Handlebars AST.
  * Will go up the chain of templates to collect all content blocks.
@@ -31,29 +36,35 @@ const isContentBlock = overEvery([
  * @return {PartialTemplateInfo}
  */
 const collectInfo = (templateContent, partials) => {
-  const ast = Handlebars.parse(templateContent)
+  const parsedTemplate = Handlebars.parse(templateContent)
 
-  let curAST = ast
+  let curBody = parsedTemplate.body
   let contentNodes = []
   let parents = []
 
-  while (curAST) {
-    const parentNode = curAST.body.find(isExtendBlock)
-    const root = parentNode ? parentNode.program : curAST
-    contentNodes = contentNodes.concat(root.body.filter(isContentBlock))
+  while (curBody) {
+    // Add content nodes for current AST
+    const extendNode = curBody.find(isExtendBlock)
+    const body = extendNode ? extendNode.program.body : curBody
+    const currentContentNodes = body.filter(isContentBlock)
+    if (!currentContentNodes.length === 0) {
+      throw new Error('Did not find any content node')
+    }
+    pushAll(contentNodes, currentContentNodes)
 
-    if (!parentNode) {
-      curAST = null
+    // See if we can go upper
+    if (!extendNode) {
+      curBody = null
     } else {
       // Now go upper
-      const parentName = parentNode.params[0].value
+      const parentName = extendNode.params[0].value
       const parent = partials[parentName]
       if (!parent) {
-        throw new Error(`Cannot find partial ${parent}`)
+        throw new Error(`Cannot find partial ${parentName}`)
       }
       parents.push(parentName)
-      const parentAST = Handlebars.parse(parent)
-      curAST = parentAST
+      const parentParsed = Handlebars.parse(parent)
+      curBody = parentParsed.body
     }
   }
 
@@ -62,7 +73,7 @@ const collectInfo = (templateContent, partials) => {
   )
 
   return {
-    ast,
+    ast: parsedTemplate,
     contentASTByName,
     parents
   }
@@ -188,8 +199,30 @@ const twoPhaseRender = (Handlebars, templateRaw, templateData, partials) => {
   }
 }
 
+const embeds = {
+  'style.css': styleCSS
+}
+
+const helpers = {
+  embedFile: filename => {
+    return embeds[filename]
+  }
+}
+
+const partials = {
+  'cozy-layout': cozyLayout
+}
+
+const register = Handlebars => {
+  layouts.register(Handlebars)
+  Handlebars.registerPartial(mapValues(partials, Handlebars.compile))
+  Handlebars.registerHelper(helpers)
+}
+
 module.exports = {
   twoPhaseRender,
   injectContent,
-  collectInfo
+  collectInfo,
+  register,
+  partials
 }

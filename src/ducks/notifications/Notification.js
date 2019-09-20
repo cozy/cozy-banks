@@ -2,11 +2,15 @@ import log from 'cozy-logger'
 import './url-polyfill'
 import { generateUniversalLink } from 'cozy-ui/transpiled/react/AppLinker'
 import Handlebars from 'handlebars'
-import { twoPhaseRender } from './html/templates/utils'
 import mapValues from 'lodash/mapValues'
-import layouts from 'handlebars-layouts'
-import { helpers, partials } from './html/templates'
+import { helpers, partials as bankPartials } from './html/templates'
 import { renderMJML } from './html/utils'
+import cozyEmailHandlebars from './html/templates/cozy-email-handlebars'
+
+const partials = {
+  ...bankPartials,
+  ...cozyEmailHandlebars.partials
+}
 
 const isString = x => typeof x === 'string'
 const isArray = x => typeof x == 'object' && typeof x.length !== undefined
@@ -76,14 +80,14 @@ class Notification {
    * A notification can add helpers and partials in this function
    */
   prepareHandlebars(Handlebars) {
-    Handlebars.registerHelper({ t: this.t })
+    const tGlobal = (key, data) => this.t('Notifications.email.' + key, data)
+    Handlebars.registerHelper({
+      t: this.t,
+      tGlobal
+    })
     Handlebars.registerHelper(helpers)
     Handlebars.registerPartial(mapValues(partials, Handlebars.compile))
-
-    const tGlobal = (key, data) => this.t('Notifications.email.' + key, data)
-    Handlebars.registerHelper({ tGlobal })
-
-    layouts.register(Handlebars)
+    cozyEmailHandlebars.register(Handlebars)
   }
 
   /**
@@ -106,7 +110,7 @@ class Notification {
     const HandlebarsInstance = Handlebars.create()
     this.prepareHandlebars(HandlebarsInstance)
 
-    const { fullContent } = twoPhaseRender(
+    const { fullContent } = cozyEmailHandlebars.twoPhaseRender(
       HandlebarsInstance,
       this.constructor.template,
       templateData,

@@ -1,24 +1,33 @@
-import template from './balance-lower.hbs'
-import { partials, helpers } from './index'
-import { collectInfo, injectContent } from './utils'
+import appTemplate from './__tests__/app-layout.hbs'
+import template from './__tests__/email-layout.hbs'
+import {
+  collectInfo,
+  injectContent,
+  partials as globalPartials,
+  register
+} from './index'
+
 import Handlebars_ from 'handlebars'
-import layouts from 'handlebars-layouts'
+
+const partials = {
+  'app-layout': appTemplate,
+  ...globalPartials
+}
 
 const Handlebars = Handlebars_.create()
-
-beforeAll(() => {
-  layouts.register(Handlebars)
-  Handlebars.registerPartial(partials)
-  Handlebars.registerHelper(helpers)
-  Handlebars.registerHelper({
-    t: x => x,
-    tGlobal: x => x
-  })
+register(Handlebars)
+Handlebars.registerHelper({
+  tGlobal: x => x,
+  t: x => x
+})
+Handlebars.registerPartial({
+  'app-layout': Handlebars.compile(appTemplate)
 })
 
 describe('template utils', () => {
   it('should extract parts and parents from template', () => {
     const templateInfo = collectInfo(template, partials)
+    expect(templateInfo.parents).toEqual(['app-layout', 'cozy-layout'])
     expect(Object.keys(templateInfo.contentASTByName)).toEqual([
       'emailTitle',
       'emailSubtitle',
@@ -29,7 +38,6 @@ describe('template utils', () => {
       'appURL',
       'settingsURL'
     ])
-    expect(templateInfo.parents).toEqual(['bank-layout', 'cozy-layout'])
   })
 
   it('should inject content blocks', () => {

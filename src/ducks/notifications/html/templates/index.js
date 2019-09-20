@@ -9,9 +9,7 @@ import { getAccountBalance } from 'ducks/account/helpers'
 import { getParentCategory } from 'ducks/categories/categoriesMap'
 import { treatedByFormat } from '../utils'
 
-import cozyLayout from 'ducks/notifications/html/templates/cozy-layout.hbs'
 import bankLayout from 'ducks/notifications/html/templates/bank-layout.hbs'
-import styleCSS from '!!raw-loader!ducks/notifications/html/templates/style.css'
 
 const capitalizeWord = str => {
   if (str.length > 3) {
@@ -19,11 +17,6 @@ const capitalizeWord = str => {
   } else {
     return str
   }
-}
-
-const embeds = {
-  // eslint-disable-next-line import/no-webpack-loader-syntax
-  'style.css': styleCSS
 }
 
 export const helpers = {
@@ -39,10 +32,6 @@ ${Math.abs(amount)} €
 
   parentCategory: function(transaction) {
     return getParentCategory(getCategoryId(transaction))
-  },
-
-  embedFile: filename => {
-    return embeds[filename]
   },
 
   get: (a1, a2, a3) => {
@@ -89,6 +78,5 @@ ${Math.abs(amount)} €
 }
 
 export const partials = {
-  'bank-layout': bankLayout,
-  'cozy-layout': cozyLayout
+  'bank-layout': bankLayout
 }
