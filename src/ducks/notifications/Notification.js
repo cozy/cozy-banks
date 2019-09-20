@@ -2,7 +2,7 @@ import log from 'cozy-logger'
 import './url-polyfill'
 import { generateUniversalLink } from 'cozy-ui/transpiled/react/AppLinker'
 import Handlebars from 'handlebars'
-import { extractInfo, replaceParts } from './html/templates/utils'
+import { twoPhaseRender } from './html/templates/utils'
 import mapValues from 'lodash/mapValues'
 import layouts from 'handlebars-layouts'
 import { helpers, partials } from './html/templates'
@@ -78,7 +78,7 @@ class Notification {
   prepareHandlebars(Handlebars) {
     Handlebars.registerHelper({ t: this.t })
     Handlebars.registerHelper(helpers)
-    Handlebars.registerPartial(partials)
+    Handlebars.registerPartial(mapValues(partials, Handlebars.compile))
 
     const tGlobal = (key, data) => this.t('Notifications.email.' + key, data)
     Handlebars.registerHelper({ tGlobal })
@@ -95,38 +95,24 @@ class Notification {
 
   /**
    * Orchestrates the building of the notification
-   *
-   * Does the two-phase templating that is in preparation for when the stack
-   * does the global template.
-   *
-   * The goals is to separate the rendering of each part of the emails from
-   * the wrapping inside a known template, and the MJML rendering.
    */
   async buildNotification() {
-    const { parts, ast } = extractInfo(this.constructor.template)
-    const compiledParts = mapValues(parts, Handlebars.compile)
-
-    this.prepareHandlebars(Handlebars)
-
     const templateData = await this.buildTemplateData()
 
     if (!templateData || !this.shouldSendNotification(templateData)) {
       return
     }
 
-    const renderedParts = mapValues(compiledParts, block => block(templateData))
-    // Should be done on the stack at some point, we will pass directly the
-    // compiled parts and the name of the extending template
-    replaceParts(parts, renderedParts)
-    const template = Handlebars.compile(ast)
+    const HandlebarsInstance = Handlebars.create()
+    this.prepareHandlebars(HandlebarsInstance)
 
-    // TODO Do not pass templateData to global template function
-    // templateData is passed to the global template function for now but it should change
-    // at some point since it is the stack that will do this part and it will
-    // not receive the application specific templateData
-    // To prevent this it would be good to also extract the *parts* inside bank-layout and
-    // compile them with the templateData.
-    const contentHTML = renderMJML(template(templateData))
+    const { fullContent } = twoPhaseRender(
+      HandlebarsInstance,
+      this.constructor.template,
+      templateData,
+      partials
+    )
+    const contentHTML = renderMJML(fullContent)
 
     return {
       category: this.constructor.category,

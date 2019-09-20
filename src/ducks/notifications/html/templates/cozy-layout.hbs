@@ -94,18 +94,16 @@
           {{#block 'footerLeft' }}{{/block}}
         </mj-column>
         <mj-column>
-          {{#block 'footerRight' }}
           <mj-text css-class="footer__help">
-            <a css-class="footer__help" href="{{settingsUrl}}">
+            <a css-class="footer__help" href="{{#block 'settingsURL'}}{{/block}}">
               {{tGlobal 'settings'}}
             </a>
             {{#block 'supportLink'}}
-              <a css-class="footer__help" href="{{#block 'supportUrl'}}https://support.cozy.io/{{/block}}">
+              <a css-class="footer__help" href="{{#block 'supportURL'}}https://support.cozy.io/{{/block}}">
                 {{tGlobal 'support'}}
               </a>
             {{/block}}
           </mj-text>
-          {{/block}}
         </mj-column>
       </mj-section>
     </mj-container>

@@ -1,3 +1,11 @@
+/**
+ * Provides a way to test notifications HTML content in the browser
+ * and in tests.
+ *
+ * Data for templates is mocked by overriding the `fetchData` method
+ * of Notification children.
+ */
+
 import fs from 'fs'
 
 const readJSONSync = filename => {

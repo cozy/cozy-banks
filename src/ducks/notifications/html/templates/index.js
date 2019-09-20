@@ -89,6 +89,6 @@ ${Math.abs(amount)} €
 }
 
 export const partials = {
-  'bank-layout': Handlebars.compile(bankLayout),
-  'cozy-layout': Handlebars.compile(cozyLayout)
+  'bank-layout': bankLayout,
+  'cozy-layout': cozyLayout
 }
