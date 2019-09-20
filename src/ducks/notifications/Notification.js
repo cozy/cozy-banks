@@ -2,48 +2,49 @@ import log from 'cozy-logger'
 import './url-polyfill'
 import { generateUniversalLink } from 'cozy-ui/transpiled/react/AppLinker'
 import Handlebars from 'handlebars'
-import mapValues from 'lodash/mapValues'
 import { helpers, partials as bankPartials } from './html/templates'
 import { renderMJML } from './html/utils'
 import cozyEmailHandlebars from './html/templates/cozy-email-handlebars'
+import mapValues from 'lodash/mapValues'
+import {
+  isString,
+  isObject,
+  isFunction,
+  isArray,
+  validateAgainst
+} from './validators'
 
 const partials = {
   ...bankPartials,
   ...cozyEmailHandlebars.partials
 }
 
-const isString = x => typeof x === 'string'
-const isArray = x => typeof x == 'object' && typeof x.length !== undefined
-
-const types = {
+const classAttributeTypes = {
   template: isString,
   preferredChannels: isArray,
   category: isString
 }
 
-const validateAgainst = (obj, types) => {
-  for (let [name, validator] of Object.entries(types)) {
-    if (!validator(obj[name])) {
-      throw new Error(
-        `ValidationError: ${name} attribute (value: ${
-          obj[name]
-        }) does not validate against ${validator.name}.`
-      )
-    }
-  }
+const configTypes = {
+  t: isFunction,
+  data: isObject,
+  cozyClient: isObject,
+  lang: isString
 }
 
 class Notification {
   constructor(config) {
+    validateAgainst(config, configTypes)
     this.t = config.t
     this.data = config.data
     this.cozyClient = config.cozyClient
+    this.lang = config.lang
 
     const cozyUrl = this.cozyClient._url
 
     this.urls = this.constructor.generateURLs(cozyUrl)
 
-    validateAgainst(this.constructor, types)
+    validateAgainst(this.constructor, classAttributeTypes)
   }
 
   static generateURLs(cozyUrl) {
@@ -102,6 +103,7 @@ class Notification {
    */
   async buildNotification() {
     const templateData = await this.buildTemplateData()
+    templateData.lang = this.lang
 
     if (!templateData || !this.shouldSendNotification(templateData)) {
       return

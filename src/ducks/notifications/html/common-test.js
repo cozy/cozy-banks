@@ -53,6 +53,8 @@ export const renderTemplate = async (templateName, lang) => {
   const cozyURL = 'https://test.mycozy.cloud'
   const notification = new EMAILS[templateName].klass({
     t,
+    lang: 'en',
+    data: {},
     cozyClient: {
       _url: cozyURL
     }

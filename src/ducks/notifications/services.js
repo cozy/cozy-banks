@@ -67,6 +67,7 @@ export const sendNotifications = async (config, transactions, cozyClient) => {
       ...klassConfig,
       cozyClient,
       t,
+      lang,
       data: { accounts, transactions }
     })
     try {

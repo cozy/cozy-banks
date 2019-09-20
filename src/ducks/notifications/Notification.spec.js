@@ -5,6 +5,7 @@ describe('Notification', () => {
     const config = {
       t: () => {},
       data: {},
+      lang: 'en',
       cozyClient: { _url: 'http://cozy.tools' }
     }
 

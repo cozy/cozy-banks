@@ -10,8 +10,11 @@ describe('DelayedDebit', () => {
 
   beforeEach(() => {
     notification = new DelayedDebit({
+      lang: 'en',
+      t: () => {},
       cozyClient: { _url: 'http://cozy.tools:8080' },
-      value: 2
+      value: 2,
+      data: {}
     })
 
     accounts = [
