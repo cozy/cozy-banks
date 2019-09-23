@@ -12,6 +12,7 @@ import { triggersConn } from 'doctypes'
 import { isErrored, isBankTrigger } from 'utils/triggers'
 import Carrousel from 'components/Carrousel'
 import TriggerErrorCard from 'ducks/transactions/TriggerErrorCard'
+import flag from 'cozy-flags'
 
 const getCreatedByApp = acc => get(acc, 'cozyMetadata.createdByApp')
 
@@ -48,6 +49,11 @@ const TransactionPageErrors = props => {
   const count = failedTriggers.length
   const Wrapper = count > 1 ? Carrousel : React.Fragment
   const wrapperProps = count > 1 ? { className: 'u-bg-chablis' } : null
+
+  if (flag('demo')) {
+    return null
+  }
+
   return (
     <Wrapper {...wrapperProps}>
       {failedTriggers.map((trigger, i) => (
