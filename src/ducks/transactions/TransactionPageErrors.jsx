@@ -5,6 +5,7 @@ import sortBy from 'lodash/sortBy'
 import get from 'lodash/get'
 import keyBy from 'lodash/keyBy'
 import mapValues from 'lodash/mapValues'
+import cx from 'classnames'
 
 import CozyClient, { queryConnect } from 'cozy-client'
 
@@ -48,7 +49,11 @@ const TransactionPageErrors = props => {
   const { failedTriggers, konnectorToInstitutionLabel } = getDerivedData(props)
   const count = failedTriggers.length
   const Wrapper = count > 1 ? Carrousel : React.Fragment
-  const wrapperProps = count > 1 ? { className: 'u-bg-chablis' } : null
+  const wrapperProps = {
+    className: cx('u-flex-shrink-0', {
+      'u-bg-chablis': count > 1
+    })
+  }
 
   if (flag('demo')) {
     return null
