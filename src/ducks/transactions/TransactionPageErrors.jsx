@@ -48,7 +48,12 @@ const TransactionPageErrors = props => {
   const { failedTriggers, konnectorToInstitutionLabel } = getDerivedData(props)
   const count = failedTriggers.length
   const Wrapper = count > 1 ? Carrousel : React.Fragment
-  const wrapperProps = count > 1 ? { className: 'u-bg-chablis' } : null
+  const wrapperProps =
+    count > 1
+      ? {
+          className: 'u-bg-chablis'
+        }
+      : null
 
   if (flag('demo')) {
     return null
@@ -58,6 +63,7 @@ const TransactionPageErrors = props => {
     <Wrapper {...wrapperProps}>
       {failedTriggers.map((trigger, i) => (
         <TriggerErrorCard
+          className="u-flex-shrink-0"
           bankName={konnectorToInstitutionLabel[trigger.message.konnector]}
           key={trigger._id}
           index={i}
