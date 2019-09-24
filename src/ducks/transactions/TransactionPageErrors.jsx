@@ -5,7 +5,6 @@ import sortBy from 'lodash/sortBy'
 import get from 'lodash/get'
 import keyBy from 'lodash/keyBy'
 import mapValues from 'lodash/mapValues'
-import cx from 'classnames'
 
 import CozyClient, { queryConnect } from 'cozy-client'
 
@@ -49,11 +48,12 @@ const TransactionPageErrors = props => {
   const { failedTriggers, konnectorToInstitutionLabel } = getDerivedData(props)
   const count = failedTriggers.length
   const Wrapper = count > 1 ? Carrousel : React.Fragment
-  const wrapperProps = {
-    className: cx('u-flex-shrink-0', {
-      'u-bg-chablis': count > 1
-    })
-  }
+  const wrapperProps =
+    count > 1
+      ? {
+          className: 'u-bg-chablis'
+        }
+      : null
 
   if (flag('demo')) {
     return null
@@ -63,6 +63,7 @@ const TransactionPageErrors = props => {
     <Wrapper {...wrapperProps}>
       {failedTriggers.map((trigger, i) => (
         <TriggerErrorCard
+          className="u-flex-shrink-0"
           bankName={konnectorToInstitutionLabel[trigger.message.konnector]}
           key={trigger._id}
           index={i}
