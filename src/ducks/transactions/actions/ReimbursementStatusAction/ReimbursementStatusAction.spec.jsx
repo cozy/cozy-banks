@@ -17,6 +17,9 @@ describe('DumbReimbursementStatusAction', () => {
         t={t}
         transaction={{ reimbursementStatus }}
         isModalItem={isModalItem}
+        createDocument={() => {}}
+        deleteDocument={() => {}}
+        saveDocument={() => {}}
       />
     )
     return { wrapper }
