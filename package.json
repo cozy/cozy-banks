@@ -140,7 +140,7 @@
     "react-styleguidist": "8.0.6",
     "react-test-renderer": "16.9.0",
     "sort-css-media-queries": "1.4.3",
-    "style-loader": "0.23.1",
+    "style-loader": "1.0.0",
     "stylint": "2.0.0",
     "stylus": "0.54.7",
     "stylus-loader": "3.0.2",
