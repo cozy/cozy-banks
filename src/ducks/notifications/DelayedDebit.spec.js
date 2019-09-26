@@ -11,8 +11,13 @@ describe('DelayedDebit', () => {
   beforeEach(() => {
     notification = new DelayedDebit({
       lang: 'en',
+      locales: {},
       t: () => {},
-      cozyClient: { _url: 'http://cozy.tools:8080' },
+      client: {
+        stackClient: {
+          uri: 'http://cozy.tools:8080'
+        }
+      },
       value: 2,
       data: {}
     })

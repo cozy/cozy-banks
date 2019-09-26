@@ -17,7 +17,10 @@ describe('LateHealthReimbursement', () => {
       t,
       data: {},
       lang: 'en',
-      cozyClient: { _url: 'http://cozy.tools:8080' },
+      locales: {
+        en: localeStrings
+      },
+      client: { stackClient: { uri: 'http://cozy.tools:8080' } },
       value: 20
     })
     return { notification }

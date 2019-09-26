@@ -7,6 +7,7 @@
  */
 
 import fs from 'fs'
+import { buildAttributes } from 'cozy-notifications'
 
 const readJSONSync = filename => {
   return JSON.parse(fs.readFileSync(filename))
@@ -51,26 +52,29 @@ export const setup = (templateName, lang) => {
   const translation = initTranslation(lang, () => localeStrings)
   const t = translation.t.bind(translation)
   const cozyURL = 'https://test.mycozy.cloud'
-  const notification = new EMAILS[templateName].klass({
+  const notificationView = new EMAILS[templateName].klass({
     t,
     lang,
     data: {},
-    cozyClient: {
-      _url: cozyURL
+    locales: {
+      [lang]: localeStrings
+    },
+    client: {
+      stackClient: {
+        uri: cozyURL
+      }
     }
   })
-  return { notification }
+  return { notificationView }
 }
 
-export const renderTemplate = async (templateName, lang) => {
-  const { notification } = setup(templateName, lang)
+export const buildNotificationAttributes = async (templateName, lang) => {
+  const { notificationView } = setup(templateName, lang)
 
   // Mock fetchData to pass fixture data
-  notification.fetchData = async () => {
+  notificationView.fetchData = async () => {
     return EMAILS[templateName].data
   }
 
-  const notificationAttributes = await notification.buildNotification()
-  const html = notificationAttributes.content_html
-  return html
+  return await buildAttributes(notificationView)
 }

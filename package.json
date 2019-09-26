@@ -169,6 +169,7 @@
     "cozy-interapp": "0.4.9",
     "cozy-konnector-libs": "4.17.1",
     "cozy-logger": "1.5.1",
+    "cozy-notifications": "^0.2.0",
     "cozy-pouch-link": "6.61.0",
     "cozy-realtime": "3.1.6",
     "cozy-stack-client": "6.58.2",
@@ -186,7 +187,6 @@
     "localforage": "1.7.3",
     "lodash": "4.17.15",
     "matomo-tracker": "2.2.1",
-    "mjml": "3.3.5",
     "moment": "2.24.0",
     "moment-timezone": "0.5.26",
     "node-polyglot": "2.3.1",
@@ -245,6 +245,7 @@
     "transform": {
       "^.+\\.jsx?$": "babel-jest",
       "\\.css$": "<rootDir>/test/readFileESM.js",
+      "\\.styl$": "<rootDir>/test/readFileESM.js",
       "\\.hbs$": "<rootDir>/test/readFileESM.js"
     },
     "transformIgnorePatterns": [

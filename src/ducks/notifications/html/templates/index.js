@@ -9,8 +9,6 @@ import { getAccountBalance } from 'ducks/account/helpers'
 import { getParentCategory } from 'ducks/categories/categoriesMap'
 import { treatedByFormat } from '../utils'
 
-import bankLayout from 'ducks/notifications/html/templates/bank-layout.hbs'
-
 const capitalizeWord = str => {
   if (str.length > 3) {
     return str[0].toUpperCase() + str.slice(1).toLowerCase()
@@ -75,8 +73,4 @@ ${Math.abs(amount)} €
   treatedByFormat,
 
   getAccountBalance
-}
-
-export const partials = {
-  'bank-layout': bankLayout
 }

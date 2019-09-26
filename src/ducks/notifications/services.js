@@ -8,6 +8,7 @@ import {
   DelayedDebit
 } from 'ducks/notifications'
 import { BankAccount } from 'models'
+import { sendNotification } from 'cozy-notifications'
 
 const log = logger.namespace('notification-service')
 
@@ -63,15 +64,18 @@ export const sendNotifications = async (config, transactions, cozyClient) => {
   )
   for (const Klass of enabledNotificationClasses) {
     const klassConfig = getClassConfig(Klass, config)
-    const notification = new Klass({
+    const notificationView = new Klass({
       ...klassConfig,
-      cozyClient,
+      client: cozyClient.new,
       t,
+      locales: {
+        [lang]: dictRequire(lang)
+      },
       lang,
       data: { accounts, transactions }
     })
     try {
-      await notification.sendNotification()
+      await sendNotification(notificationView)
     } catch (err) {
       log('warn', JSON.stringify(err))
     }
