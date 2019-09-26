@@ -1,12 +1,15 @@
 import { subDays } from 'date-fns'
-import { isTransactionAmountGreaterThan } from './helpers'
-import NotificationView from './BaseNotificationView'
+import NotificationView from 'ducks/notifications/BaseNotificationView'
 import { sortBy, fromPairs } from 'lodash'
 import log from 'cozy-logger'
-import { getDate, isNew as isNewTransaction } from 'ducks/transactions/helpers'
+import {
+  getDate,
+  isNew as isNewTransaction,
+  isTransactionAmountGreaterThan
+} from 'ducks/transactions/helpers'
 import { getCurrencySymbol } from 'utils/currencySymbol'
-import template from './html/templates/transaction-greater.hbs'
-import { prepareTransactions, getCurrentDate } from './html/utils'
+import template from './template.hbs'
+import { prepareTransactions, getCurrentDate } from 'ducks/notifications/utils'
 import { toText } from 'cozy-notifications'
 
 const ACCOUNT_SEL = '.js-account'

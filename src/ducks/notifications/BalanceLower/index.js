@@ -1,10 +1,10 @@
-import NotificationView from './BaseNotificationView'
+import NotificationView from 'ducks/notifications/BaseNotificationView'
 import { map, groupBy } from 'lodash'
 import log from 'cozy-logger'
 import { getAccountBalance } from 'ducks/account/helpers'
 import { getCurrencySymbol } from 'utils/currencySymbol'
-import { getCurrentDate } from './html/utils'
-import template from './html/templates/balance-lower.hbs'
+import { getCurrentDate } from 'ducks/notifications/utils'
+import template from './template.hbs'
 import { toText } from 'cozy-notifications'
 
 const addCurrency = o => ({ ...o, currency: '€' })

@@ -1,4 +1,4 @@
-import LateHealthReimbursement from './LateHealthReimbursement'
+import LateHealthReimbursement from './index'
 import { Transaction, Bill, BankAccount } from 'src/models'
 import { Document } from 'cozy-doctypes'
 
@@ -9,7 +9,7 @@ beforeEach(() => {
 
 describe('LateHealthReimbursement', () => {
   const setup = ({ lang }) => {
-    const localeStrings = require(`../../locales/${lang}.json`)
+    const localeStrings = require(`locales/${lang}.json`)
     const { initTranslation } = require('cozy-ui/react/I18n/translation')
     const translation = initTranslation(lang, () => localeStrings)
     const t = translation.t.bind(translation)

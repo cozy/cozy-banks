@@ -1,4 +1,4 @@
-import NotificationView from './BaseNotificationView'
+import NotificationView from '../BaseNotificationView'
 import logger from 'cozy-logger'
 import {
   getAccountBalance,
@@ -8,9 +8,9 @@ import {
 import { endOfMonth, subDays, isWithinRange } from 'date-fns'
 import { BankAccount } from 'cozy-doctypes'
 import { get, keyBy, groupBy, map } from 'lodash'
-import { getAccountNewBalance } from './helpers'
-import { getCurrentDate } from './html/utils'
-import template from './html/templates/delayed-debit.hbs'
+import { getAccountNewBalance } from 'ducks/notifications/helpers'
+import { getCurrentDate } from 'ducks/notifications/utils'
+import template from './template.hbs'
 import { toText } from 'cozy-notifications'
 
 const log = logger.namespace('delayedDebit')

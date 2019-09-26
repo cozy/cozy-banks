@@ -1,8 +1,8 @@
 import { NotificationView } from 'cozy-notifications'
 import { generateUniversalLink } from 'cozy-ui/transpiled/react/AppLinker'
 
-import bankLayout from './html/templates/bank-layout.hbs'
-import { helpers } from './html/templates/index'
+import bankLayout from './bank-layout.hbs'
+import { helpers } from './index'
 
 class BaseNotificationView extends NotificationView {
   constructor(options) {

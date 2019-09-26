@@ -1,4 +1,4 @@
-import DelayedDebit, { isCreditCardAccount } from './DelayedDebit'
+import DelayedDebit, { isCreditCardAccount } from '.'
 import keyBy from 'lodash/keyBy'
 import MockDate from 'mockdate'
 

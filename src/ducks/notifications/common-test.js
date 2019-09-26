@@ -3,7 +3,9 @@
  * and in tests.
  *
  * Data for templates is mocked by overriding the `fetchData` method
- * of Notification children.
+ * of Notification views.
+ *
+ * TODO Move common-test and testTemplates to cozy-notifications
  */
 
 import fs from 'fs'
@@ -14,40 +16,36 @@ const readJSONSync = filename => {
 }
 
 export const EMAILS = {
-  balanceLower: {
-    klass: require('../BalanceLower').default,
-    data: readJSONSync('src/ducks/notifications/html/data/balance-lower.json')
+  BalanceLower: {
+    klass: require('./BalanceLower').default,
+    data: readJSONSync('src/ducks/notifications/BalanceLower/data.json')
   },
 
-  healthBillLinked: {
-    klass: require('../HealthBillLinked').default,
+  HealthBillLinked: {
+    klass: require('./HealthBillLinked').default,
+    data: readJSONSync('src/ducks/notifications/HealthBillLinked/data.json')
+  },
+
+  TransactionGreater: {
+    klass: require('./TransactionGreater').default,
+    data: readJSONSync('src/ducks/notifications/TransactionGreater/data.json')
+  },
+
+  LateHealthReimbursement: {
+    klass: require('./LateHealthReimbursement').default,
     data: readJSONSync(
-      'src/ducks/notifications/html/data/health-bill-linked.json'
+      'src/ducks/notifications/LateHealthReimbursement/data.json'
     )
   },
 
-  transactionGreater: {
-    klass: require('../TransactionGreater').default,
-    data: readJSONSync(
-      'src/ducks/notifications/html/data/transactions-greater.json'
-    )
-  },
-
-  lateHealthReimbursement: {
-    klass: require('../LateHealthReimbursement').default,
-    data: readJSONSync(
-      'src/ducks/notifications/html/data/late-health-reimbursement.json'
-    )
-  },
-
-  delayedDebit: {
-    klass: require('../DelayedDebit').default,
-    data: readJSONSync('src/ducks/notifications/html/data/delayed-debit.json')
+  DelayedDebit: {
+    klass: require('./DelayedDebit').default,
+    data: readJSONSync('src/ducks/notifications/DelayedDebit/data.json')
   }
 }
 
 export const setup = (templateName, lang) => {
-  const localeStrings = require(`../../../locales/${lang}`)
+  const localeStrings = require(`locales/${lang}`)
   const { initTranslation } = require('cozy-ui/react/I18n/translation')
   const translation = initTranslation(lang, () => localeStrings)
   const t = translation.t.bind(translation)

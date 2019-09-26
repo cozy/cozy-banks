@@ -12,8 +12,10 @@ const { EMAILS, buildNotificationAttributes } = require('./common-test')
 
 describe('emails', () => {
   for (const lang of ['en', 'fr']) {
-    for (const templateName of Object.keys(EMAILS)) {
-      it(`should render ${templateName} in ${lang}`, async () => {
+    for (let templateName of Object.keys(EMAILS)) {
+      const loweredTemplateName =
+        templateName[0].toLowerCase() + templateName.slice(1)
+      it(`should render ${loweredTemplateName} in ${lang}`, async () => {
         const attrs = await buildNotificationAttributes(templateName, lang)
         expect(attrs.content_html).toMatchSnapshot()
       })

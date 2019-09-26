@@ -1,12 +1,12 @@
 import logger from 'cozy-logger'
 import { initTranslation } from 'cozy-ui/react/I18n/translation'
-import {
-  BalanceLower,
-  TransactionGreater,
-  HealthBillLinked,
-  LateHealthReimbursement,
-  DelayedDebit
-} from 'ducks/notifications'
+
+import BalanceLower from './BalanceLower'
+import TransactionGreater from './TransactionGreater'
+import HealthBillLinked from './HealthBillLinked'
+import LateHealthReimbursement from './LateHealthReimbursement'
+import DelayedDebit from './DelayedDebit'
+
 import { BankAccount } from 'models'
 import { sendNotification } from 'cozy-notifications'
 

@@ -26,7 +26,7 @@ const entries = {
 if (process.env.TEST_TEMPLATES) {
   entries.testTemplates = path.resolve(
     SRC_DIR,
-    './ducks/notifications/html/testTemplates.js'
+    './ducks/notifications/testTemplates.js'
   )
 }
 
