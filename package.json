@@ -169,7 +169,7 @@
     "cozy-interapp": "0.4.9",
     "cozy-konnector-libs": "4.17.1",
     "cozy-logger": "1.5.1",
-    "cozy-notifications": "^0.2.0",
+    "cozy-notifications": "0.3.0",
     "cozy-pouch-link": "6.61.0",
     "cozy-realtime": "3.1.6",
     "cozy-stack-client": "6.58.2",

@@ -4648,10 +4648,10 @@ cozy-logger@1.5.1, cozy-logger@^1.5.1:
     chalk "^2.4.2"
     json-stringify-safe "5.0.1"
 
-cozy-notifications@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/cozy-notifications/-/cozy-notifications-0.2.0.tgz#eaa08e8479fea6411906aa73a6dcbfb2c3e2508f"
-  integrity sha512-YBWCcle8OIITX8bF/YbGqE7/xfRcc1QUOtWAPr/4dzRU16oPtyF4P8gA0yDCxVn+8Qvd/doZp7P80mSas9GLNg==
+cozy-notifications@0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/cozy-notifications/-/cozy-notifications-0.3.0.tgz#2244d9666df2658059813c68e9c16daddae77bb4"
+  integrity sha512-r1M4wGKkHoGY+W4KZrLCn77U5dAVMTnB2tMmm/Pw61pSvGtHLwz0kYzxwRINYkkiqjDrVQzYDs5gcNcyBzoAQA==
   dependencies:
     cozy-ui "24.3.0"
     handlebars "4.1.2"
