@@ -13,7 +13,7 @@
     "commons:build": "webpack --config webpack.config.js --bail",
     "commons:watch": "webpack --config webpack.config.js --watch --progress",
     "commons:watch:hot": "HOT_RELOAD=1 webpack-dev-server --progress --config webpack.config.js --port 8282 --inline --hot",
-    "deploy": "env HUSKY_SKIP_HOOKS=1 git-directory-deploy --directory build/ --branch=${DEPLOY_BRANCH:-build} --repo=${DEPLOY_REPOSITORY:-https://$GH_TOKEN@github.com/cozy/cozy-banks.git}",
+    "deploy": "env HUSKY_SKIP_HOOKS=1 git-directory-deploy --directory build/ --branch=${DEPLOY_BRANCH:-build} --repo=${DEPLOY_REPOSITORY:-origin}",
     "cozyPublish": "cozy-app-publish --token $REGISTRY_TOKEN --prepublish downcloud --postpublish mattermost --space banks",
     "uploadStaticFiles": "babel-node ./scripts/upload-static-files.js",
     "tx": "true || tx pull --all || true",
@@ -170,6 +170,7 @@
     "cozy-interapp": "0.4.9",
     "cozy-konnector-libs": "4.17.1",
     "cozy-logger": "1.5.1",
+    "cozy-notifications": "0.3.1",
     "cozy-pouch-link": "6.61.0",
     "cozy-realtime": "3.1.6",
     "cozy-stack-client": "6.58.2",
@@ -187,7 +188,6 @@
     "localforage": "1.7.3",
     "lodash": "4.17.15",
     "matomo-tracker": "2.2.1",
-    "mjml": "3.3.5",
     "moment": "2.24.0",
     "moment-timezone": "0.5.26",
     "node-polyglot": "2.3.1",
@@ -246,10 +246,11 @@
     "transform": {
       "^.+\\.jsx?$": "babel-jest",
       "\\.css$": "<rootDir>/test/readFileESM.js",
+      "\\.styl$": "<rootDir>/test/readFileESM.js",
       "\\.hbs$": "<rootDir>/test/readFileESM.js"
     },
     "transformIgnorePatterns": [
-      "node_modules/(?!(cozy-ui|cozy-client))"
+      "node_modules/(?!(cozy-ui|cozy-client|cozy-notifications))"
     ],
     "globals": {
       "__ALLOW_HTTP__": false,
