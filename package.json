@@ -137,7 +137,7 @@
     "pretty": "2.0.0",
     "prop-types": "15.7.2",
     "react-addons-test-utils": "16.0.0-alpha.3",
-    "react-styleguidist": "8.0.6",
+    "react-styleguidist": "9.1.16",
     "react-test-renderer": "16.9.0",
     "sort-css-media-queries": "1.4.3",
     "style-loader": "0.23.1",
