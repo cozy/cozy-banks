@@ -117,7 +117,7 @@
     "git-directory-deploy": "1.5.1",
     "glob": "7.1.4",
     "handlebars-layouts": "3.1.4",
-    "html-webpack-plugin": "4.0.0-beta.5",
+    "html-webpack-plugin": "4.0.0-beta.8",
     "husky": "3.0.5",
     "identity-obj-proxy": "3.0.0",
     "imports-loader": "0.8.0",
