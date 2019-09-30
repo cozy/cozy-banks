@@ -17,9 +17,9 @@ export const luminosity = hex => {
   return 0.21 * R + 0.72 * G + 0.07 * B
 }
 
-// Luminosity goes from 0 to 255. At the middle point, we switch
-// the bar theme
-const lumThresold = 127
+// Luminosity goes from 0 to 255. We set a thresold past which we change
+// the text color to white.
+const lumThresold = 180
 
 export const setColor = colorHex => {
   if (!window.StatusBar) {
