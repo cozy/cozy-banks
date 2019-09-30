@@ -3,29 +3,28 @@
     <name>Cozy Banks</name>
     <description>The banking application for Cozy</description>
     <author email="contact@cozycloud.cc" href="https://cozy.io">Cozy Cloud</author>
-    <content src="index.html" />
-    <access origin="*" />
-    <allow-intent href="http://*/*" />
-    <allow-intent href="https://*/*" />
-    <allow-intent href="tel:*" />
-    <allow-intent href="sms:*" />
-    <allow-intent href="mailto:*" />
-    <allow-intent href="geo:*" />
     <preference name="AppendUserAgent" value="io.cozy.banks.mobile-1.5.1" />
-    <hook src="scripts/customizeConfigXML.js" type="before_prepare" />
+    <content src="index.html"/>
+    <access origin="*"/>
+    <allow-intent href="http://*/*"/>
+    <allow-intent href="https://*/*"/>
+    <allow-intent href="tel:*"/>
+    <allow-intent href="sms:*"/>
+    <allow-intent href="mailto:*"/>
+    <allow-intent href="geo:*"/>
+    <hook src="scripts/customizeConfigXML.js" type="before_prepare"/>
     <universal-links>
         <host name="links.mycozy.cloud" scheme="https">
-            <path event="openUniversalLink" scheme="https" url="/banks/*" />
+            <path event="openUniversalLink" scheme="https" url="/banks/*"/>
         </host>
-        <ios-team-id value="3AKXFMV43J" />
+        <ios-team-id value="3AKXFMV43J"/>
     </universal-links>
     <platform name="android">
         <config-file parent="/manifest/application" target="app/src/main/AndroidManifest.xml">
-            <meta-data android:name="google_analytics_adid_collection_enabled" android:value="false" />
-            <meta-data android:name="firebase_analytics_collection_deactivated" android:value="true" />
-            <meta-data android:name="google_analytics_ssaid_collection_enabled" android:value="false" />
+            <meta-data android:name="google_analytics_adid_collection_enabled" android:value="false"/>
+            <meta-data android:name="firebase_analytics_collection_deactivated" android:value="true"/>
+            <meta-data android:name="google_analytics_ssaid_collection_enabled" android:value="false"/>
         </config-file>
-        <allow-intent href="market:*" />
         <icon density="ldpi" src="res/icons/android/icon-36-ldpi.png" />
         <icon density="mdpi" src="res/icons/android/icon-48-mdpi.png" />
         <icon density="hdpi" src="res/icons/android/icon-72-hdpi.png" />
@@ -44,8 +43,9 @@
         <splash density="port-xhdpi" src="res/screens/android/screen-xhdpi-portrait.png" />
         <splash density="port-xxhdpi" src="res/screens/android/screen-xxhdpi-portrait.png" />
         <splash density="port-xxxhdpi" src="res/screens/android/screen-xxxhdpi-portrait.png" />
-        <preference name="android-minSdkVersion" value="21" />
-        <resource-file src="keys/android/google-services.json" target="app/google-services.json" />
+        <preference name="android-minSdkVersion" value="21"/>
+        <resource-file src="keys/android/google-services.json" target="app/google-services.json"/>
+        <allow-intent href="market:*"/>
     </platform>
     <platform name="ios">
         <config-file overwrite="true" parent="FIREBASE_ANALYTICS_COLLECTION_DEACTIVATED" platform="ios" target="*-Info.plist">
@@ -92,22 +92,22 @@
     <plugin name="cordova-plugin-queries-schemes" spec="https://github.com/cozy/cordova-plugin-queries-schemes" />
     <plugin name="cordova-plugin-device" spec="^2.0.1" />
     <plugin name="phonegap-plugin-push" spec="^2.1.3">
-        <variable name="FCM_VERSION" value="11.6.2" />
+        <variable name="FCM_VERSION" value="11.6.2"/>
     </plugin>
     <plugin name="cordova-plugin-customurlscheme" spec="^4.3.0">
         <variable name="URL_SCHEME" value="cozybanks" />
-        <variable name="ANDROID_SCHEME" value=" " />
-        <variable name="ANDROID_HOST" value=" " />
-        <variable name="ANDROID_PATHPREFIX" value="/" />
+        <variable name="ANDROID_SCHEME" value=" "/>
+        <variable name="ANDROID_HOST" value=" "/>
+        <variable name="ANDROID_PATHPREFIX" value="/"/>
     </plugin>
-    <plugin name="cordova-plugin-safariviewcontroller" spec="https://github.com/rdesimone/cordova-plugin-safariviewcontroller" />
-    <plugin name="cordova-sqlite-storage" spec="2.5.1" />
+    <plugin name="cordova-plugin-safariviewcontroller" spec="https://github.com/rdesimone/cordova-plugin-safariviewcontroller"/>
+    <plugin name="cordova-sqlite-storage" spec="2.5.1"/>
     <plugin name="cordova-plugin-fingerprint-aio" spec="1.7.0">
-        <variable name="FACEID_USAGE_DESCRIPTION" value=" " />
+        <variable name="FACEID_USAGE_DESCRIPTION" value=" "/>
     </plugin>
-    <plugin name="cordova-blur-app-privacy-screen" spec="https://github.com/lifeofcoding/cordova-blur-app-privacy-screen.git" />
-    <engine name="ios" spec="4.5.5" />
-    <plugin name="cordova-universal-links-plugin" spec="https://github.com/Mailbutler/cordova-universal-links-plugin" />
-    <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
-    <plugin name="cordova-plugin-statusbar" spec="2.4.3" />
+    <plugin name="cordova-plugin-statusbar" spec="2.4.3"/>
+    <plugin name="cordova-blur-app-privacy-screen" spec="https://github.com/lifeofcoding/cordova-blur-app-privacy-screen.git"/>
+    <engine name="ios" spec="4.5.5"/>
+    <plugin name="cordova-universal-links-plugin" spec="https://github.com/Mailbutler/cordova-universal-links-plugin"/>
+    <plugin name="cordova-plugin-network-information" spec="^2.0.1"/>
 </widget>
