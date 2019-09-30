@@ -28,6 +28,10 @@ export const setColor = colorHex => {
   const StatusBar = window.StatusBar
   const lum = luminosity(colorHex)
   if (lum > lumThresold) {
+    // Black text color when background is light
+    // Also see https://github.com/apache/cordova-plugin-statusbar/issues/148#issuecomment-524354985
+    // since StatusBar has a problem with ios dark mode, we had to add lines to config.xml to force
+    // light mode in Banks (by setting UIUserInterfaceStyle)
     StatusBar.styleDefault()
   } else {
     StatusBar.styleBlackTranslucent()

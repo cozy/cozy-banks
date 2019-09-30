@@ -54,6 +54,9 @@
         <config-file overwrite="true" parent="GOOGLE_ANALYTICS_IDFV_COLLECTION_ENABLED" platform="ios" target="*-Info.plist">
             <false />
         </config-file>
+        <config-file parent="UIUserInterfaceStyle" platform="ios" target="*-Info.plist">
+            <string>Light</string>
+        </config-file>
         <preference name="StatusBarOverlaysWebView" value="false" />
         <preference name="Suppresses3DTouchGesture" value="true" />
         <preference name="DisallowOverscroll" value="true" />
@@ -83,7 +86,6 @@
     <preference name="StatusBarBackgroundColor" value="#95999D" />
     <engine name="android" spec="7.1.4" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
-    <plugin name="cordova-plugin-statusbar" spec="2.4.2" />
     <plugin name="cordova-plugin-inappbrowser" spec="1.7.1" />
     <plugin name="cordova-ios-plugin-no-export-compliance" spec="0.0.5" />
     <plugin name="com.lampa.startapp" spec="^0.1.4" />
@@ -107,4 +109,5 @@
     <engine name="ios" spec="4.5.5" />
     <plugin name="cordova-universal-links-plugin" spec="https://github.com/Mailbutler/cordova-universal-links-plugin" />
     <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
+    <plugin name="cordova-plugin-statusbar" spec="2.4.3" />
 </widget>
