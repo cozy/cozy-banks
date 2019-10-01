@@ -2,6 +2,7 @@
   "extends": [
     "cozy"
   ],
+  "masterIssue": true,
   "packageRules": [
     {
       "packagePatterns": [
