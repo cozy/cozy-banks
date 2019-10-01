@@ -150,7 +150,7 @@
     "webpack-cli": "3.3.9",
     "webpack-dev-server": "3.8.0",
     "webpack-merge": "4.2.2",
-    "yarnhook": "0.4.2"
+    "yarnhook": "0.4.3"
   },
   "dependencies": {
     "@material-ui/core": "3.9.3",
