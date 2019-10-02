@@ -16,10 +16,8 @@ export const buildVirtualGroup = (type, accounts) => {
   return group
 }
 
-export const buildVirtualGroups = (accounts, translate) => {
-  const accountsByType = groupBy(accounts, account =>
-    getAccountType(account, translate)
-  )
+export const buildVirtualGroups = accounts => {
+  const accountsByType = groupBy(accounts, getAccountType)
 
   const virtualGroups = Object.entries(accountsByType).map(([type, accounts]) =>
     buildVirtualGroup(type, accounts)
