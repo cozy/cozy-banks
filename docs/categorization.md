@@ -70,3 +70,7 @@ anonymize the transactions and then send them to an API using the
 [`cc.cozycloud.autocategorization`](https://github.com/cozy/cozy-doctypes/blob/master/docs/cc.cozycloud.autocategorization.md)
 remote doctype. This API then uses the documents it receives to update the
 global categorization model.
+
+## Service execution
+
+See the [service documentation](https://github.com/cozy/cozy-banks/blob/master/docs/services.md) to know how the categorization is run and how to use it.
