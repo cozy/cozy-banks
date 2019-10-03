@@ -18,6 +18,8 @@ If there are some uncategorized transactions remaining, it restarts itself to
 finish the work. If all transactions have been categorized, it calls the
 `onOperationOrBillCreate` service to trigger all other features.
 
+See the [categorization documentation](https://github.com/cozy/cozy-banks/blob/master/docs/categorization.md) for more details about the categorization implementation.
+
 ## onOperationOrBillCreate
 
 This service has many roles. It does:
