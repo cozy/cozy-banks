@@ -1,12 +1,12 @@
 import {
-  buildVirtualGroups,
+  buildAutoGroups,
   mkGetTranslatedLabel,
   translateAndSortGroups
 } from './helpers'
 import { associateDocuments } from 'ducks/client/utils'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 
-describe('buildVirtualGroups', () => {
+describe('buildAutoGroups', () => {
   it('should generate a virtual group for every account types', () => {
     const accounts = [
       { _id: '1', type: 'Checkings' },
@@ -16,7 +16,7 @@ describe('buildVirtualGroups', () => {
       { _id: '5' }
     ]
 
-    const virtualGroups = buildVirtualGroups(accounts)
+    const virtualGroups = buildAutoGroups(accounts)
 
     const checkingsGroup = {
       _id: 'Checkings',

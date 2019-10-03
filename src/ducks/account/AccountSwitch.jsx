@@ -29,7 +29,7 @@ import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers.js'
 import { queryConnect } from 'cozy-client'
 
-import { buildVirtualGroups } from 'ducks/groups/helpers'
+import { buildAutoGroups } from 'ducks/groups/helpers'
 
 const { BarCenter } = cozy.bar
 
@@ -320,13 +320,14 @@ class AccountSwitch extends Component {
     const { open } = this.state
 
     const accounts = accountsCollection.data
-    const groups = [
-      ...groupsCollection.data,
-      ...buildVirtualGroups(accounts)
-    ].map(group => ({
-      ...group,
-      label: group.virtual ? t(`Data.accountTypes.${group.label}`) : group.label
-    }))
+    const groups = [...groupsCollection.data, ...buildAutoGroups(accounts)].map(
+      group => ({
+        ...group,
+        label: group.virtual
+          ? t(`Data.accountTypes.${group.label}`)
+          : group.label
+      })
+    )
 
     if (!accounts || accounts.length === 0) {
       return isMobile ? (

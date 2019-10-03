@@ -3,12 +3,16 @@ import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { associateDocuments } from 'ducks/client/utils'
 import { getAccountType } from 'ducks/account/helpers'
 
-export const buildVirtualGroup = (type, accounts) => {
+export const buildAutoGroup = (accountType, accounts, options = {}) => {
+  const { virtual = true } = options
   const group = {
-    _id: type,
     _type: GROUP_DOCTYPE,
-    label: type,
-    virtual: true
+    label: accountType
+  }
+
+  if (virtual) {
+    group.virtual = true
+    group._id = accountType
   }
 
   associateDocuments(group, 'accounts', ACCOUNT_DOCTYPE, accounts)
@@ -16,11 +20,11 @@ export const buildVirtualGroup = (type, accounts) => {
   return group
 }
 
-export const buildVirtualGroups = accounts => {
+export const buildAutoGroups = (accounts, options) => {
   const accountsByType = groupBy(accounts, getAccountType)
 
-  const virtualGroups = Object.entries(accountsByType).map(([type, accounts]) =>
-    buildVirtualGroup(type, accounts)
+  const virtualGroups = Object.entries(accountsByType).map(
+    ([accountType, accounts]) => buildAutoGroup(accountType, accounts, options)
   )
 
   return virtualGroups

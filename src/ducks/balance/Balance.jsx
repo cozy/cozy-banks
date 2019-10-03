@@ -27,7 +27,7 @@ import NoAccount from 'ducks/balance/components/NoAccount'
 import AccountsImporting from 'ducks/balance/components/AccountsImporting'
 
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
-import { buildVirtualGroups } from 'ducks/groups/helpers'
+import { buildAutoGroups } from 'ducks/groups/helpers'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { getAccountBalance, buildVirtualAccounts } from 'ducks/account/helpers'
 import { isBankTrigger } from 'utils/triggers'
@@ -100,7 +100,7 @@ class Balance extends PureComponent {
     const virtualAccounts = buildVirtualAccounts(transactions.data)
     const allAccounts = [...accounts.data, ...virtualAccounts]
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
-    const allGroups = [...groups.data, ...buildVirtualGroups(allAccounts)]
+    const allGroups = [...groups.data, ...buildAutoGroups(allAccounts)]
     const currentPanelsState = state.panels || settings.panelsState || {}
     const newPanelsState = getPanelsState(allGroups, currentPanelsState)
 
@@ -388,10 +388,7 @@ class Balance extends PureComponent {
       return <NoAccount />
     }
 
-    const groups = [
-      ...groupsCollection.data,
-      ...buildVirtualGroups(allAccounts)
-    ]
+    const groups = [...groupsCollection.data, ...buildAutoGroups(allAccounts)]
 
     const balanceLower = get(settings, 'notifications.balanceLower.value')
 
