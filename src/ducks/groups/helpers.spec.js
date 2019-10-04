@@ -1,6 +1,6 @@
 import {
   buildAutoGroups,
-  mkGetTranslatedLabel,
+  getGroupLabel,
   translateAndSortGroups
 } from './helpers'
 import { associateDocuments } from 'ducks/client/utils'
@@ -63,7 +63,7 @@ describe('translateGroup', () => {
   })
 
   it("should translate the group label only if it's a virtual group", () => {
-    const getTranslatedLabel = mkGetTranslatedLabel(translate)
+    const getTranslatedLabel = getGroupLabel(translate)
     const virtualGroup = {
       virtual: true,
       label: 'label'
@@ -74,8 +74,10 @@ describe('translateGroup', () => {
       label: 'label'
     }
 
-    expect(getTranslatedLabel(virtualGroup)).toEqual('Data.accountTypes.label')
-    expect(getTranslatedLabel(normalGroup)).toEqual(normalGroup.label)
+    expect(getGroupLabel(virtualGroup, translate)).toEqual(
+      'Data.accountTypes.label'
+    )
+    expect(getGroupLabel(normalGroup, translate)).toEqual(normalGroup.label)
   })
 })
 

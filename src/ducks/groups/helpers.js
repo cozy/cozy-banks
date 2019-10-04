@@ -2,6 +2,18 @@ import { groupBy, sortBy, deburr } from 'lodash'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { associateDocuments } from 'ducks/client/utils'
 import { getAccountType } from 'ducks/account/helpers'
+import flag from 'cozy-flags'
+
+export const getGroupLabel = (group, t) => {
+  if (group.virtual) {
+    return (
+      t(`Data.accountTypes.${group.label}`, { _: 'other' }) +
+      (flag('debug-groups') ? ' (virtual)' : '')
+    )
+  } else {
+    return group.label
+  }
+}
 
 export const buildAutoGroup = (accountType, accounts, options = {}) => {
   const { virtual = true } = options
@@ -37,10 +49,6 @@ export const buildAutoGroups = (accounts, options) => {
  * @param {Function} translate - Translation function
  * @returns {Object} Translated label
  */
-export const mkGetTranslatedLabel = translate => group =>
-  group.virtual
-    ? translate(`Data.accountTypes.${group.label}`, { _: 'other' })
-    : group.label
 
 const isOtherVirtualGroup = group => group.virtual && group.label === 'Other'
 
@@ -70,13 +78,11 @@ const groupSortingPriorities = {
  * @returns {Object[]} The sorted wrapped groups ({ category, label, group })
  */
 export const translateAndSortGroups = (groups, translate) => {
-  const getTranslatedLabel = mkGetTranslatedLabel(translate)
-
   // Wrap groups to add necessary information for sorting
   const wrappedGroups = groups.map(group => ({
     group,
     category: getCategory(group),
-    label: getTranslatedLabel(group)
+    label: getGroupLabel(group, translate)
   }))
 
   return sortBy(wrappedGroups, ({ label, category }) => [

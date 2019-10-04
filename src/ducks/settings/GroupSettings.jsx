@@ -15,6 +15,7 @@ import { PageTitle } from 'components/Title'
 import { Padded } from 'components/Spacing'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
 import { logException } from 'lib/sentry'
+import { getGroupLabel } from 'ducks/groups/helpers'
 
 import styles from 'ducks/settings/GroupsSettings.styl'
 import btnStyles from 'styles/buttons.styl'
@@ -165,7 +166,7 @@ class DumbGroupSettings extends Component {
         {isMobile && <BackButton to="/settings/groups" arrow />}
         <PageTitle>
           {!isMobile && <BackButton to="/settings/groups" arrow />}
-          {group.label}
+          {getGroupLabel(group, t)}
         </PageTitle>
 
         <h3>{t('Groups.label')}</h3>
@@ -175,13 +176,13 @@ class DumbGroupSettings extends Component {
         >
           <p>
             {!modifying ? (
-              group.label
+              getGroupLabel(group, t)
             ) : (
               <input
                 ref={this.saveInputRef}
                 autoFocus
                 type="text"
-                defaultValue={group.label}
+                defaultValue={getGroupLabel(group, t)}
               />
             )}
             {modifying ? (

@@ -26,10 +26,13 @@ import {
 } from 'ducks/filters'
 import styles from 'ducks/account/AccountSwitch.styl'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
-import { getAccountInstitutionLabel } from 'ducks/account/helpers.js'
 import { queryConnect } from 'cozy-client'
 
-import { buildAutoGroups } from 'ducks/groups/helpers'
+import { buildAutoGroups, getGroupLabel } from 'ducks/groups/helpers'
+import {
+  getAccountInstitutionLabel,
+  getAccountLabel
+} from 'ducks/account/helpers.js'
 
 const { BarCenter } = cozy.bar
 
@@ -99,32 +102,42 @@ DownArrow.propTypes = {
   color: PropTypes.oneOf(['default', 'primary'])
 }
 
-const AccountSwitchSelect = ({ accounts, filteringDoc, onClick, t, color }) => (
-  <div
-    className={cx(
-      styles.AccountSwitch__Select,
-      styles[`AccountSwitchColor_${color}`]
-    )}
-    onClick={onClick}
-  >
-    {flag('account-switch.display-icon') &&
-    filteringDoc._type === 'io.cozy.bank.accounts' ? (
-      <span className="u-mr-1">
-        <AccountIcon account={filteringDoc} />
-      </span>
-    ) : null}
-    <Title className={styles.AccountSwitch__SelectText} color={color}>
-      {filteringDoc
-        ? filteringDoc.length
-          ? t('AccountSwitch.some_accounts', {
-              count: filteringDoc.length,
-              smart_count: accounts.length
-            })
-          : filteringDoc.shortLabel || filteringDoc.label
-        : t('AccountSwitch.all_accounts')}
-    </Title>
-    <DownArrow color={color} />
-  </div>
+const getFilteringDocLabel = (filteringDoc, t, accounts) => {
+  if (filteringDoc.length) {
+    return t('AccountSwitch.some_accounts', {
+      count: filteringDoc.length,
+      smart_count: accounts.length
+    })
+  } else if (filteringDoc._type === ACCOUNT_DOCTYPE) {
+    return getAccountLabel(filteringDoc)
+  } else if (filteringDoc._type === GROUP_DOCTYPE) {
+    return getGroupLabel(filteringDoc, t)
+  }
+}
+
+const AccountSwitchSelect = translate()(
+  ({ accounts, filteringDoc, onClick, t, color }) => (
+    <div
+      className={cx(
+        styles.AccountSwitch__Select,
+        styles[`AccountSwitchColor_${color}`]
+      )}
+      onClick={onClick}
+    >
+      {flag('account-switch.display-icon') &&
+      filteringDoc._type === ACCOUNT_DOCTYPE ? (
+        <span className="u-mr-1">
+          <AccountIcon account={filteringDoc} />
+        </span>
+      ) : null}
+      <Title className={styles.AccountSwitch__SelectText} color={color}>
+        {filteringDoc
+          ? getFilteringDocLabel(filteringDoc, t, accounts)
+          : t('AccountSwitch.all_accounts')}
+      </Title>
+      <DownArrow color={color} />
+    </div>
+  )
 )
 
 AccountSwitchSelect.propTypes = {
@@ -139,14 +152,12 @@ const AccountSwitchMobile = ({
   filteredAccounts,
   filteringDoc,
   onClick,
-  t,
   color
 }) => (
   <AccountSwitchSelect
+    filteringAccounts={filteredAccounts}
     filteringDoc={filteringDoc}
     onClick={onClick}
-    filteringAccounts={filteredAccounts}
-    t={t}
     color={color}
   />
 )
@@ -212,7 +223,7 @@ const AccountSwitchMenu = translate()(
                     filteringDoc && group._id === filteringDoc._id
                 })}
               >
-                {group.label}
+                {getGroupLabel(group, t)}
                 <span className={styles['account-secondary-info']}>
                   (
                   {t(
@@ -323,9 +334,7 @@ class AccountSwitch extends Component {
     const groups = [...groupsCollection.data, ...buildAutoGroups(accounts)].map(
       group => ({
         ...group,
-        label: group.virtual
-          ? t(`Data.accountTypes.${group.label}`)
-          : group.label
+        label: getGroupLabel(group, t)
       })
     )
 
