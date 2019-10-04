@@ -10,6 +10,11 @@ export const getGroupLabel = (group, t) => {
       t(`Data.accountTypes.${group.label}`, { _: 'other' }) +
       (flag('debug-groups') ? ' (virtual)' : '')
     )
+  } else if (isAutoGroup(group) && !isFormerAutoGroup(group)) {
+    return (
+      t(`Data.accountTypes.${group.accountType}`) +
+      (flag('debug-groups') ? ' (auto)' : '')
+    )
   } else {
     return group.label
   }
@@ -98,3 +103,8 @@ export const translateAndSortGroups = (groups, translate) => {
     deburr(label).toLowerCase()
   ])
 }
+
+// For automatically created groups, the `accountType` attribute is present.
+export const isFormerAutoGroup = group => group.accountType === null
+export const isAutoGroup = group => group.accountType !== undefined
+export const getGroupAccountType = group => group.accountType
