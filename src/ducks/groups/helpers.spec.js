@@ -22,21 +22,24 @@ describe('buildAutoGroups', () => {
       _id: 'Checkings',
       _type: 'io.cozy.bank.groups',
       label: 'Checkings',
-      virtual: true
+      virtual: true,
+      accountType: 'Checkings'
     }
 
     const savingsGroup = {
       _id: 'Savings',
       _type: 'io.cozy.bank.groups',
       label: 'Savings',
-      virtual: true
+      virtual: true,
+      accountType: 'Savings'
     }
 
     const otherGroup = {
       _id: 'Other',
       _type: 'io.cozy.bank.groups',
       label: 'Other',
-      virtual: true
+      virtual: true,
+      accountType: 'Other'
     }
 
     associateDocuments(checkingsGroup, 'accounts', ACCOUNT_DOCTYPE, [
@@ -63,7 +66,6 @@ describe('translateGroup', () => {
   })
 
   it("should translate the group label only if it's a virtual group", () => {
-    const getTranslatedLabel = getGroupLabel(translate)
     const virtualGroup = {
       virtual: true,
       label: 'label'

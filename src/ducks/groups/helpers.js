@@ -16,10 +16,12 @@ export const getGroupLabel = (group, t) => {
 }
 
 export const buildAutoGroup = (accountType, accounts, options = {}) => {
-  const { virtual = true } = options
+  const { virtual = true, client = null } = options
+
   const group = {
     _type: GROUP_DOCTYPE,
-    label: accountType
+    label: accountType,
+    accountType: accountType
   }
 
   if (virtual) {
@@ -29,7 +31,13 @@ export const buildAutoGroup = (accountType, accounts, options = {}) => {
 
   associateDocuments(group, 'accounts', ACCOUNT_DOCTYPE, accounts)
 
-  return group
+  if (client) {
+    group.accounts = accounts.map(x => x._id)
+    return client.hydrateDocument(group)
+  } else {
+    associateDocuments(group, 'accounts', ACCOUNT_DOCTYPE, accounts)
+    return group
+  }
 }
 
 export const buildAutoGroups = (accounts, options) => {
