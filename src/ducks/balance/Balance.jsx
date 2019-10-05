@@ -83,7 +83,6 @@ class Balance extends PureComponent {
       groups,
       accounts,
       settings: settingsCollection,
-      transactions,
       virtualGroups
     } = props
 
@@ -91,8 +90,7 @@ class Balance extends PureComponent {
       (isCollectionLoading(groups) && !hasBeenLoaded(groups)) ||
       (isCollectionLoading(accounts) && !hasBeenLoaded(accounts)) ||
       (isCollectionLoading(settingsCollection) &&
-        !hasBeenLoaded(settingsCollection)) ||
-      (isCollectionLoading(transactions) && !hasBeenLoaded(transactions))
+        !hasBeenLoaded(settingsCollection))
 
     if (isLoading) {
       return null
@@ -317,7 +315,6 @@ class Balance extends PureComponent {
       groups: groupsCollection,
       settings: settingsCollection,
       triggers: triggersCollection,
-      transactions: transactionsCollection,
       virtualGroups
     } = this.props
 
@@ -326,7 +323,6 @@ class Balance extends PureComponent {
       accountsCollection,
       groupsCollection,
       triggersCollection,
-      transactionsCollection,
       settingsCollection
     ]
 
@@ -336,7 +332,7 @@ class Balance extends PureComponent {
       return (
         <Fragment>
           <BarTheme theme="primary" />
-          <BalanceHeader transactionsCollection={transactionsCollection} />
+          <BalanceHeader />
           <Loading />
         </Fragment>
       )
@@ -409,7 +405,6 @@ class Balance extends PureComponent {
           accountsBalance={accountsBalance}
           accounts={checkedAccounts}
           subtitleParams={subtitleParams}
-          transactionsCollection={transactionsCollection}
         />
         <Padded
           className={cx({
