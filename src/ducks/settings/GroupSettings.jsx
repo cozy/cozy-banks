@@ -97,9 +97,17 @@ class DumbGroupSettings extends Component {
     const { group } = this.props
     const label = this.inputRef.value
     this.setState({ saving: true })
-    this.updateOrCreate({ ...group, label }, () => {
-      this.setState({ saving: false, modifying: false })
-    })
+    this.updateOrCreate(
+      {
+        ...group,
+        label,
+        // As soon as the account is renamed it loses its accountType
+        accountType: null
+      },
+      () => {
+        this.setState({ saving: false, modifying: false })
+      }
+    )
   }
 
   async updateOrCreate(group, cb) {
