@@ -1,5 +1,6 @@
 /* global __DEV__ */
-import { compose, createStore, applyMiddleware } from 'redux'
+import { compose, createStore, applyMiddleware, combineReducers } from 'redux'
+
 import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import flag from 'cozy-flags'
@@ -10,7 +11,7 @@ import {
 } from 'cozy-ui/react/helpers/tracker'
 import { isSentryEnabled, getSentryMiddleware } from 'lib/sentry'
 
-import appReducers from 'reducers'
+import filters from 'ducks/filters'
 
 const configureStore = (cozyClient, persistedState) => {
   // Enable Redux dev tools
@@ -32,7 +33,9 @@ const configureStore = (cozyClient, persistedState) => {
   }
 
   const store = createStore(
-    appReducers,
+    combineReducers({
+      filters
+    }),
     persistedState,
     composeEnhancers(applyMiddleware.apply(null, middlewares))
   )
