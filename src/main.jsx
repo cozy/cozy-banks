@@ -80,6 +80,8 @@ const setupApp = async persistedState => {
   store = configureStore(client, persistedState)
   client.registerPlugin(StoreClientPlugin, { store })
 
+  client.setStore(store)
+
   persistState(store)
 
   if (__TARGET__ !== 'mobile') {
