@@ -132,16 +132,8 @@ const mapDispatchToProps = dispatch => ({
   resetFilterByDoc: () => dispatch(resetFilterByDoc())
 })
 
-const mapStateToProps = (state, ownProps) => {
-  const { transactions, accounts, groups } = ownProps
-  const enhancedState = {
-    ...state,
-    transactions,
-    accounts,
-    groups
-  }
-
-  const filteredTransactions = getFilteredTransactions(enhancedState)
+const mapStateToProps = state => {
+  const filteredTransactions = getFilteredTransactions(state)
   return {
     categories: computeCategorieData(
       transactionsByCategory(filteredTransactions)

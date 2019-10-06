@@ -437,18 +437,11 @@ AccountSwitch.defaultProps = {
   color: 'default'
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const enhancedState = {
-    ...state,
-    accounts: ownProps.accounts,
-    groups: ownProps.groups
-  }
-  return {
-    virtualGroups: getVirtualGroups(state),
-    filteringDoc: getFilteringDoc(state),
-    filteredAccounts: getFilteredAccounts(enhancedState)
-  }
-}
+const mapStateToProps = state => ({
+  filteringDoc: getFilteringDoc(state),
+  filteredAccounts: getFilteredAccounts(state),
+  virtualGroups: getVirtualGroups(state)
+})
 
 const mapDispatchToProps = dispatch => ({
   resetFilterByDoc: () => dispatch(resetFilterByDoc()),

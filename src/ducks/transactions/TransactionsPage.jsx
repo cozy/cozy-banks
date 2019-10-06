@@ -56,9 +56,7 @@ const STEP_INFINITE_SCROLL = 30
 const SCROLL_THRESOLD_TO_ACTIVATE_TOP_INFINITE_SCROLL = 150
 const getMonth = date => date.slice(0, 7)
 
-const FakeTransactions = () => {
-  return <Padded>{null}</Padded>
-}
+const FakeTransactions = () => <Padded>{null}</Padded>
 
 class TransactionsPage extends Component {
   constructor(props) {
@@ -335,21 +333,14 @@ export const TransactionsPageBar = ({ accounts, theme }) => (
 const onSubcategory = ownProps => ownProps.router.params.subcategoryName
 
 const mapStateToProps = (state, ownProps) => {
-  const enhancedState = {
-    ...state,
-    accounts: ownProps.accounts,
-    groups: ownProps.groups,
-    transactions: ownProps.transactions
-  }
-
   const filteredTransactions = onSubcategory(ownProps)
-    ? getFilteredTransactions(enhancedState)
-    : getTransactionsFilteredByAccount(enhancedState)
+    ? getFilteredTransactions(state)
+    : getTransactionsFilteredByAccount(state)
 
   return {
-    accountIds: getFilteredAccountIds(enhancedState),
+    accountIds: getFilteredAccountIds(state),
     filteringDoc: getFilteringDoc(state),
-    filteredAccounts: getFilteredAccounts(enhancedState),
+    filteredAccounts: getFilteredAccounts(state),
     filteredTransactions: filteredTransactions
   }
 }

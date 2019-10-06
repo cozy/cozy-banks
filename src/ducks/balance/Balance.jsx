@@ -443,18 +443,10 @@ export default compose(
     triggers: triggersConn,
     transactions: transactionsConn
   }),
-  connect((state, ownProps) => {
-    const enhancedState = {
-      ...state,
-      accounts: ownProps.accounts,
-      groups: ownProps.groups,
-      transactions: ownProps.transactions
-    }
-    return {
-      virtualAccounts: getVirtualAccounts(enhancedState),
-      virtualGroups: getVirtualGroups(enhancedState)
-    }
-  }),
+  connect(state => ({
+    virtualAccounts: getVirtualAccounts(state),
+    virtualGroups: getVirtualGroups(state)
+  })),
   withClient,
   withMutations()
 )(Balance)
