@@ -32,10 +32,36 @@ export const getVirtualAccounts = createSelector(
   }
 )
 
+export const getAllAccounts = createSelector(
+  [getAccounts, getVirtualAccounts],
+  (accounts, virtualAccounts) => {
+    return [...accounts, ...virtualAccounts]
+  }
+)
+
+export const getAutoGroups = state => {
+  const col = getCollection(state, 'groups')
+  const data = (col && col.data) || []
+
+  return data.filter(isAutoGroup)
+}
+
+const isHealthReimbursementVirtualAccount = account =>
+  account._id === 'health_reimbursements'
+
 export const getVirtualGroups = createSelector(
-  [getAccounts],
-  accounts => {
-    return buildAutoGroups(accounts)
+  [getAllAccounts, getAutoGroups],
+  (accounts, autoGroups) => {
+    // While autogroups service has not run, we display virtual groups
+    // to the user
+    if (autoGroups.length === 0) {
+      return buildAutoGroups(accounts, { virtual: true })
+    } else {
+      return buildAutoGroups(
+        accounts.filter(isHealthReimbursementVirtualAccount),
+        { virtual: true }
+      )
+    }
   }
 )
 
