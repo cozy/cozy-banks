@@ -4,13 +4,8 @@ import { connect } from 'react-redux'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import Loading from 'components/Loading'
 import { Padded } from 'components/Spacing'
-import {
-  getFilteredTransactions,
-  resetFilterByDoc,
-  getFilteringDoc
-} from 'ducks/filters'
+import { resetFilterByDoc, getFilteringDoc } from 'ducks/filters'
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
-import { transactionsByCategory, computeCategorieData } from './helpers'
 import Categories from 'ducks/categories/Categories'
 import { flowRight as compose, sortBy, some, includes } from 'lodash'
 import CategoriesHeader from 'ducks/categories/CategoriesHeader'
@@ -24,6 +19,7 @@ import {
 } from 'doctypes'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import BarTheme from 'ducks/bar/BarTheme'
+import { getCategoriesData } from 'ducks/categories/selectors'
 
 class CategoriesPage extends Component {
   componentDidMount() {
@@ -133,11 +129,8 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => {
-  const filteredTransactions = getFilteredTransactions(state)
   return {
-    categories: computeCategorieData(
-      transactionsByCategory(filteredTransactions)
-    ),
+    categories: getCategoriesData(state),
     filteringDoc: getFilteringDoc(state)
   }
 }
