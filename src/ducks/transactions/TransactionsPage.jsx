@@ -72,7 +72,6 @@ class TransactionsPage extends Component {
     )
 
     this.state = {
-      fetching: false,
       limitMin: 0,
       limitMax: STEP_INFINITE_SCROLL,
       infiniteScrollTop: false
@@ -240,10 +239,6 @@ class TransactionsPage extends Component {
   }
 
   getChartData() {
-    if (this.state.fetching) {
-      return null
-    }
-
     const today = new Date()
     const twoMonthsBefore = subMonths(today, 2)
 
@@ -266,8 +261,7 @@ class TransactionsPage extends Component {
     } = this.props
 
     const isFetching =
-      (isCollectionLoading(transactions) && !hasBeenLoaded(transactions)) ||
-      this.state.fetching
+      isCollectionLoading(transactions) && !hasBeenLoaded(transactions)
     const areAccountsLoading =
       isCollectionLoading(accounts) && !hasBeenLoaded(accounts)
     const filteredTransactions = this.getTransactions()
