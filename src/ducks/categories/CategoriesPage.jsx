@@ -4,7 +4,12 @@ import { connect } from 'react-redux'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import Loading from 'components/Loading'
 import { Padded } from 'components/Spacing'
-import { resetFilterByDoc, getFilteringDoc } from 'ducks/filters'
+import {
+  resetFilterByDoc,
+  addFilterByPeriod,
+  getFilteringDoc,
+  getTransactionsFilteredByAccount
+} from 'ducks/filters'
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import Categories from 'ducks/categories/Categories'
 import { flowRight as compose, sortBy, some, includes } from 'lodash'
@@ -20,6 +25,11 @@ import {
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import BarTheme from 'ducks/bar/BarTheme'
 import { getCategoriesData } from 'ducks/categories/selectors'
+import maxBy from 'lodash/maxBy'
+
+const isCategoryDataEmpty = categoryData => {
+  return categoryData[0] && isNaN(categoryData[0].percentage)
+}
 
 class CategoriesPage extends Component {
   componentDidMount() {
@@ -29,6 +39,28 @@ class CategoriesPage extends Component {
       includes(['Reimbursements', 'health_reimbursements'], filteringDoc._id)
     ) {
       resetFilterByDoc()
+    }
+    this.checkToChangeFilter()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      !prevProps.transactions.lastUpdate &&
+      this.props.transactions.lastUpdate
+    ) {
+      this.checkToChangeFilter()
+    }
+  }
+
+  checkToChangeFilter() {
+    // If we do not have any data to show, change the period filter
+    // to the latest period available for the current account
+    if (isCategoryDataEmpty(this.props.categories)) {
+      const transactions = this.props.filteredTransactionsByAccount
+      if (transactions && transactions.length > 0) {
+        const maxDate = maxBy(transactions, tr => tr.date).date
+        this.props.addFilterByPeriod(maxDate.slice(0, 7))
+      }
     }
   }
 
@@ -125,13 +157,15 @@ class CategoriesPage extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  resetFilterByDoc: () => dispatch(resetFilterByDoc())
+  resetFilterByDoc: () => dispatch(resetFilterByDoc()),
+  addFilterByPeriod: period => dispatch(addFilterByPeriod(period))
 })
 
 const mapStateToProps = state => {
   return {
     categories: getCategoriesData(state),
-    filteringDoc: getFilteringDoc(state)
+    filteringDoc: getFilteringDoc(state),
+    filteredTransactionsByAccount: getTransactionsFilteredByAccount(state)
   }
 }
 
