@@ -38,6 +38,7 @@ import { getPanelsState } from 'ducks/balance/helpers'
 import BarTheme from 'ducks/bar/BarTheme'
 import { filterByAccounts } from 'ducks/filters'
 import CozyRealtime from 'cozy-realtime'
+import { createStructuredSelector } from 'reselect'
 
 const syncPouchImmediately = async client => {
   const pouchLink = client.links.find(link => link.pouches)
@@ -443,10 +444,12 @@ export default compose(
     triggers: triggersConn,
     transactions: transactionsConn
   }),
-  connect(state => ({
-    virtualAccounts: getVirtualAccounts(state),
-    virtualGroups: getVirtualGroups(state)
-  })),
+  connect(
+    createStructuredSelector({
+      virtualAccounts: getVirtualAccounts,
+      virtualGroups: getVirtualGroups
+    })
+  ),
   withClient,
   withMutations()
 )(Balance)

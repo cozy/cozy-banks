@@ -12,6 +12,7 @@ import { Media, Bd, Img } from 'cozy-ui/react/Media'
 import Overlay from 'cozy-ui/react/Overlay'
 import Portal from 'cozy-ui/react/Portal'
 import flag from 'cozy-flags'
+import { createStructuredSelector } from 'reselect'
 
 import AccountSharingStatus from 'components/AccountSharingStatus'
 import AccountIcon from 'components/AccountIcon'
@@ -437,10 +438,10 @@ AccountSwitch.defaultProps = {
   color: 'default'
 }
 
-const mapStateToProps = state => ({
-  filteringDoc: getFilteringDoc(state),
-  filteredAccounts: getFilteredAccounts(state),
-  virtualGroups: getVirtualGroups(state)
+const mapStateToProps = createStructuredSelector({
+  filteringDoc: getFilteringDoc,
+  filteredAccounts: getFilteredAccounts,
+  virtualGroups: getVirtualGroups
 })
 
 const mapDispatchToProps = dispatch => ({
