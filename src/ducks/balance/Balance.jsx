@@ -27,10 +27,10 @@ import NoAccount from 'ducks/balance/components/NoAccount'
 import AccountsImporting from 'ducks/balance/components/AccountsImporting'
 
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
-import { buildAutoGroups } from 'ducks/groups/helpers'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
-import { getAccountBalance, buildVirtualAccounts } from 'ducks/account/helpers'
+import { getAccountBalance } from 'ducks/account/helpers'
 import { isBankTrigger } from 'utils/triggers'
+import { getVirtualAccounts, getVirtualGroups } from 'selectors'
 
 import styles from 'ducks/balance/Balance.styl'
 import BalancePanels from 'ducks/balance/BalancePanels'
@@ -83,7 +83,8 @@ class Balance extends PureComponent {
       groups,
       accounts,
       settings: settingsCollection,
-      transactions
+      transactions,
+      virtualGroups
     } = props
 
     const isLoading =
@@ -97,10 +98,8 @@ class Balance extends PureComponent {
       return null
     }
 
-    const virtualAccounts = buildVirtualAccounts(transactions.data)
-    const allAccounts = [...accounts.data, ...virtualAccounts]
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
-    const allGroups = [...groups.data, ...buildAutoGroups(allAccounts)]
+    const allGroups = [...groups.data, ...virtualGroups]
     const currentPanelsState = state.panels || settings.panelsState || {}
     const newPanelsState = getPanelsState(allGroups, currentPanelsState)
 
@@ -318,7 +317,8 @@ class Balance extends PureComponent {
       groups: groupsCollection,
       settings: settingsCollection,
       triggers: triggersCollection,
-      transactions: transactionsCollection
+      transactions: transactionsCollection,
+      virtualGroups
     } = this.props
 
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
@@ -344,9 +344,6 @@ class Balance extends PureComponent {
 
     const accounts = accountsCollection.data
     const triggers = triggersCollection.data
-    const transactions = transactionsCollection.data
-    const virtualAccounts = buildVirtualAccounts(transactions)
-    const allAccounts = [...accounts, ...virtualAccounts]
 
     if (
       accounts.length === 0 ||
@@ -388,7 +385,7 @@ class Balance extends PureComponent {
       return <NoAccount />
     }
 
-    const groups = [...groupsCollection.data, ...buildAutoGroups(allAccounts)]
+    const groups = [...groupsCollection.data, ...virtualGroups]
 
     const balanceLower = get(settings, 'notifications.balanceLower.value')
 
@@ -450,6 +447,18 @@ export default compose(
     settings: settingsConn,
     triggers: triggersConn,
     transactions: transactionsConn
+  }),
+  connect((state, ownProps) => {
+    const enhancedState = {
+      ...state,
+      accounts: ownProps.accounts,
+      groups: ownProps.groups,
+      transactions: ownProps.transactions
+    }
+    return {
+      virtualAccounts: getVirtualAccounts(enhancedState),
+      virtualGroups: getVirtualGroups(enhancedState)
+    }
   }),
   withClient,
   withMutations()

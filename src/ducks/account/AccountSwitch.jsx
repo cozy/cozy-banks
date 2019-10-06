@@ -28,7 +28,9 @@ import styles from 'ducks/account/AccountSwitch.styl'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { queryConnect } from 'cozy-client'
 
-import { buildAutoGroups, getGroupLabel } from 'ducks/groups/helpers'
+import { getGroupLabel } from 'ducks/groups/helpers'
+import { getVirtualGroups } from 'selectors'
+
 import {
   getAccountInstitutionLabel,
   getAccountLabel
@@ -326,17 +328,16 @@ class AccountSwitch extends Component {
       small,
       color,
       accounts: accountsCollection,
-      groups: groupsCollection
+      groups: groupsCollection,
+      virtualGroups
     } = this.props
     const { open } = this.state
 
     const accounts = accountsCollection.data
-    const groups = [...groupsCollection.data, ...buildAutoGroups(accounts)].map(
-      group => ({
-        ...group,
-        label: getGroupLabel(group, t)
-      })
-    )
+    const groups = [...groupsCollection.data, ...virtualGroups].map(group => ({
+      ...group,
+      label: getGroupLabel(group, t)
+    }))
 
     if (!accounts || accounts.length === 0) {
       return isMobile ? (
@@ -443,6 +444,7 @@ const mapStateToProps = (state, ownProps) => {
     groups: ownProps.groups
   }
   return {
+    virtualGroups: getVirtualGroups(state),
     filteringDoc: getFilteringDoc(state),
     filteredAccounts: getFilteredAccounts(enhancedState)
   }
