@@ -3,7 +3,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
-import { subMonths } from 'date-fns'
 import PropTypes from 'prop-types'
 
 import { isMobileApp } from 'cozy-device-helper'
@@ -22,7 +21,6 @@ import {
 
 import { getCategoryIdFromName } from 'ducks/categories/categoriesMap'
 import { getDate, getDisplayDate } from 'ducks/transactions/helpers'
-import { getCategoryId } from 'ducks/categories/helpers'
 
 import { queryConnect } from 'cozy-client'
 
@@ -42,11 +40,9 @@ import TransactionHeader from 'ducks/transactions/TransactionHeader'
 import TransactionPageErrors from 'ducks/transactions/TransactionPageErrors'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { findNearestMonth } from 'ducks/transactions/helpers'
-import {
-  getBalanceHistories,
-  sumBalanceHistories,
-  balanceHistoryToChartData
-} from 'ducks/balance/helpers'
+
+import { getChartTransactions, getChartData } from 'ducks/chart/selectors'
+
 import BarTheme from 'ducks/bar/BarTheme'
 import TransactionActionsProvider from 'ducks/transactions/TransactionActionsProvider'
 
@@ -198,15 +194,10 @@ class TransactionsPage extends Component {
         params: { subcategoryName }
       }
     } = this.props
-
-    if (!subcategoryName) {
-      return filteredTransactions
-    }
-
-    const categoryId = getCategoryIdFromName(subcategoryName)
-    return filteredTransactions.filter(
-      transaction => getCategoryId(transaction) === categoryId
-    )
+    const categoryId = subcategoryName
+      ? getCategoryIdFromName(subcategoryName)
+      : null
+    return getChartTransactions(filteredTransactions, categoryId)
   }
 
   getFilteringOnAccount = () => {
@@ -246,40 +237,16 @@ class TransactionsPage extends Component {
     )
   }
 
-  getBalanceHistory(accounts, transactions) {
-    const today = new Date()
-    const twoMonthsBefore = subMonths(today, 2)
-
-    const balanceHistories = getBalanceHistories(
-      accounts,
-      transactions,
-      today,
-      twoMonthsBefore
-    )
-    const balanceHistory = sumBalanceHistories(Object.values(balanceHistories))
-
-    return balanceHistory
-  }
-
   getChartData() {
-    const { accounts: accountsCol, transactions: transactionsCol } = this.props
-    const isLoading =
-      (isCollectionLoading(transactionsCol) &&
-        !hasBeenLoaded(transactionsCol)) ||
-      (isCollectionLoading(accountsCol) && !hasBeenLoaded(accountsCol)) ||
-      this.state.fetching
-
-    if (isLoading) {
+    if (this.state.fetching) {
       return null
     }
-
-    const transactions = this.getTransactions()
-    const accounts = this.props.filteredAccounts
-
-    const history = this.getBalanceHistory(accounts, transactions)
-    const data = balanceHistoryToChartData(history)
-
-    return data
+    return getChartData(
+      this.props.accounts,
+      this.props.transactions,
+      this.getTransactions(),
+      this.props.filteredAccounts
+    )
   }
 
   render() {
