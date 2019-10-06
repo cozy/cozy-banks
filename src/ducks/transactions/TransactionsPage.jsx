@@ -5,6 +5,8 @@ import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
+import { subMonths } from 'date-fns'
+
 import { isMobileApp } from 'cozy-device-helper'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 
@@ -241,11 +243,17 @@ class TransactionsPage extends Component {
     if (this.state.fetching) {
       return null
     }
+
+    const today = new Date()
+    const twoMonthsBefore = subMonths(today, 2)
+
     return getChartData(
       this.props.accounts,
       this.props.transactions,
       this.getTransactions(),
-      this.props.filteredAccounts
+      this.props.filteredAccounts,
+      today,
+      twoMonthsBefore
     )
   }
 

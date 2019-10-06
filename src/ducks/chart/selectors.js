@@ -5,18 +5,9 @@ import {
 } from 'ducks/balance/helpers'
 import { getCategoryId } from 'ducks/categories/helpers'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
-import { subMonths } from 'date-fns'
 
-export const getBalanceHistory = (accounts, transactions) => {
-  const today = new Date()
-  const twoMonthsBefore = subMonths(today, 2)
-
-  const balanceHistories = getBalanceHistories(
-    accounts,
-    transactions,
-    today,
-    twoMonthsBefore
-  )
+const getBalanceHistory = (accounts, transactions, to, from) => {
+  const balanceHistories = getBalanceHistories(accounts, transactions, to, from)
   const balanceHistory = sumBalanceHistories(Object.values(balanceHistories))
 
   return balanceHistory
@@ -25,8 +16,10 @@ export const getBalanceHistory = (accounts, transactions) => {
 export const getChartData = (
   accountsCol,
   transactionsCol,
-  transactions,
-  filteredAccounts
+  filteredTransactions,
+  filteredAccounts,
+  to,
+  from
 ) => {
   const isLoading =
     (isCollectionLoading(transactionsCol) && !hasBeenLoaded(transactionsCol)) ||
@@ -36,9 +29,13 @@ export const getChartData = (
     return null
   }
 
-  const history = getBalanceHistory(filteredAccounts, transactions)
+  const history = getBalanceHistory(
+    filteredAccounts,
+    filteredTransactions,
+    to,
+    from
+  )
   const data = balanceHistoryToChartData(history)
-
   return data
 }
 
