@@ -34,7 +34,8 @@ const configureStore = (cozyClient, persistedState) => {
 
   const store = createStore(
     combineReducers({
-      filters
+      filters,
+      cozy: cozyClient.reducer()
     }),
     persistedState,
     composeEnhancers(applyMiddleware.apply(null, middlewares))

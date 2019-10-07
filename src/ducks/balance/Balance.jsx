@@ -38,6 +38,7 @@ import { getPanelsState } from 'ducks/balance/helpers'
 import BarTheme from 'ducks/bar/BarTheme'
 import { filterByAccounts } from 'ducks/filters'
 import CozyRealtime from 'cozy-realtime'
+import { createStructuredSelector } from 'reselect'
 
 const syncPouchImmediately = async client => {
   const pouchLink = client.links.find(link => link.pouches)
@@ -83,7 +84,6 @@ class Balance extends PureComponent {
       groups,
       accounts,
       settings: settingsCollection,
-      transactions,
       virtualGroups
     } = props
 
@@ -91,8 +91,7 @@ class Balance extends PureComponent {
       (isCollectionLoading(groups) && !hasBeenLoaded(groups)) ||
       (isCollectionLoading(accounts) && !hasBeenLoaded(accounts)) ||
       (isCollectionLoading(settingsCollection) &&
-        !hasBeenLoaded(settingsCollection)) ||
-      (isCollectionLoading(transactions) && !hasBeenLoaded(transactions))
+        !hasBeenLoaded(settingsCollection))
 
     if (isLoading) {
       return null
@@ -317,7 +316,6 @@ class Balance extends PureComponent {
       groups: groupsCollection,
       settings: settingsCollection,
       triggers: triggersCollection,
-      transactions: transactionsCollection,
       virtualGroups
     } = this.props
 
@@ -326,7 +324,6 @@ class Balance extends PureComponent {
       accountsCollection,
       groupsCollection,
       triggersCollection,
-      transactionsCollection,
       settingsCollection
     ]
 
@@ -336,7 +333,7 @@ class Balance extends PureComponent {
       return (
         <Fragment>
           <BarTheme theme="primary" />
-          <BalanceHeader transactionsCollection={transactionsCollection} />
+          <BalanceHeader />
           <Loading />
         </Fragment>
       )
@@ -409,7 +406,6 @@ class Balance extends PureComponent {
           accountsBalance={accountsBalance}
           accounts={checkedAccounts}
           subtitleParams={subtitleParams}
-          transactionsCollection={transactionsCollection}
         />
         <Padded
           className={cx({
@@ -448,18 +444,12 @@ export default compose(
     triggers: triggersConn,
     transactions: transactionsConn
   }),
-  connect((state, ownProps) => {
-    const enhancedState = {
-      ...state,
-      accounts: ownProps.accounts,
-      groups: ownProps.groups,
-      transactions: ownProps.transactions
-    }
-    return {
-      virtualAccounts: getVirtualAccounts(enhancedState),
-      virtualGroups: getVirtualGroups(enhancedState)
-    }
-  }),
+  connect(
+    createStructuredSelector({
+      virtualAccounts: getVirtualAccounts,
+      virtualGroups: getVirtualGroups
+    })
+  ),
   withClient,
   withMutations()
 )(Balance)
