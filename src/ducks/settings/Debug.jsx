@@ -10,7 +10,7 @@ import flag, { FlagSwitcher } from 'cozy-flags'
 import { withClient } from 'cozy-client'
 import { isMobileApp } from 'cozy-device-helper'
 import cx from 'classnames'
-import { getNotificationToken } from 'ducks/mobile/push'
+import { getNotificationToken } from 'ducks/client/utils'
 
 const Title = ({ className, ...props }) => (
   <UITitle {...props} className={cx(className, 'u-mb-1')} />
