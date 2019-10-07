@@ -345,6 +345,9 @@ class LineChart extends Component {
   updateTooltip() {
     const { bgPadding, arrowSize } = tooltipDimensions
     const item = this.getSelectedItem()
+    if (!item) {
+      return
+    }
     const x = this.x(item.x)
     const y = -arrowSize
     this.tooltip.attr('transform', `translate(${x}, ${y})`)
@@ -372,6 +375,9 @@ class LineChart extends Component {
 
   updatePoint() {
     const item = this.getSelectedItem()
+    if (!item) {
+      return
+    }
     const x = this.x(item.x)
     const y = this.y(item.y)
 
@@ -392,6 +398,9 @@ class LineChart extends Component {
 
   updatePointLine() {
     const item = this.getSelectedItem()
+    if (!item) {
+      return
+    }
     const { height, margin, tickPadding, showAxis } = this.props
     const x = this.x(item.x)
     let y2 = height - margin.top + tickPadding
