@@ -80,7 +80,7 @@ const registerPluginsAndHandlers = client => {
   registerPlugin(client, sentryPlugin)
 }
 
-export const getClient = state => {
+export const getClient = () => {
   const manifestOptions = getManifestOptions(manifest)
   const appSlug = manifest.slug
 
