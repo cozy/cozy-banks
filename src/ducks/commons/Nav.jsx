@@ -33,7 +33,7 @@ export const RegexNavLink = React.memo(
   ))
 )
 
-const transferRoute = /\/transfers\/.*/
+const transferRoute = /\/transfers(\/.*)?/
 
 export const Nav = ({ t }) => (
   <UINav>
