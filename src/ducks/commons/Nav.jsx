@@ -53,7 +53,7 @@ export const NavLink = React.memo(
   })
 )
 
-const transferRoute = /\/transfers\/.*/
+const transferRoute = /\/transfers(\/.*)?/
 
 const NavItems = ({ items }) => {
   const clickState = useState(null)
