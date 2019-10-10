@@ -78,7 +78,7 @@ export const Nav = ({ t }) => {
     <UINav>
       <NavItems
         items={[
-          { to: 'balance', icon: wallet, label: t('Nav.my-accounts') },
+          { to: 'balances', icon: wallet, label: t('Nav.my-accounts') },
           { to: 'categories', icon: graph, label: t('Nav.categorisation') },
           flag('transfers')
             ? {
