@@ -37,27 +37,19 @@ module.exports = {
     },
     {
       name: 'Chart',
-      components: () => [
-        'src/components/Chart/LineChart.jsx'
-      ]
+      components: () => ['src/components/Chart/LineChart.jsx']
     },
     {
       name: 'Balance',
-      components: () => [
-        'src/ducks/balance/History.jsx'
-      ]
+      components: () => ['src/ducks/balance/History.jsx']
     },
     {
       name: 'Loading',
-      components: () => [
-        'src/components/Loading/Loading.jsx'
-      ]
+      components: () => ['src/components/Loading/Loading.jsx']
     },
     {
       name: 'Misc',
-      components: () => [
-        'src/components/DisplayError.js'
-      ]
+      components: () => ['src/components/DisplayError.js']
     }
   ]
 }
