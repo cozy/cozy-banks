@@ -68,7 +68,7 @@ jobs:
       if: tag IS present OR (type = push AND branch = master) OR (type = pull_request AND commit_message =~ /(\[apk\])/)
 env:
   global:
-    - MATTERMOST_CHANNEL=Gangsters-release
+    - MATTERMOST_CHANNEL=Gangsters
     # cozy-bot GH_TOKEN
     # to generate yours : travis encrypt GH_TOKEN=<your_GH_TOKEN> -r cozy/cozy-banks
     - secure: "qhjOq0o2CXJvexLTHlBdmzHPrJr7fPOvpwvOdXBy/0XtoNgAoypmzkjCTlgQpXLo0qJMet0JddMgfdVV79yPiQ9Er0eaMkG6YjHv25yyuJU1ZMvR3Ehza5eLPAUr55qLRA9Uz/BVhPp2SCJr5Sq5nThcdiY3vbPHvKIYZh37qKETHxqiaJGEtT5I4Bz0Rrb+Mh49vLN0d50BBRSPipR0TH2a6oeQbxRw0OyXXkJsw1I1QJr9MLbHptWH8f6uZoTMhNBXtTMxwgGleYZuwZVivZm0/lXDi+A892Cc610C3zAjAJN3tGtIT5yylXK/c3sB/e14rI80v1koL+HkKIEPl+Kd46k1eHWgIvP2uK80Bhr9dB/XdRLM9j6hfIrJV9sObJSXucMXxK8WlPzuOr9G8t+6SMjrVgZ/YhZwVsTFgRoQQtvU7bXLRPn+04E1tYPPrwCdhRRL/JPRceI1K5Pl3VeV7JKb0Z8A989jCAO7mmPojPj/J79FwzDllkT2+LuJVqmg2eeSpe9I/NyMG9uaEwxVv89hoEdLM950pXnBU6yODcOJqA3gzg+F8y2YqJA8CIN3gOWXjYpgyNqUoGCGxXRD/HkJIwFWY2iY2I6ShBGIZsuVg+sTa3KGrulOCfWFRfxLjzKLed8JGJhSOzMosZPWsXMa+TfQKbn3iDVD8nQ="
