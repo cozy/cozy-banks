@@ -151,40 +151,6 @@ AccountSwitchSelect.defaultProps = {
   color: 'default'
 }
 
-const AccountSwitchMobile = ({
-  filteredAccounts,
-  filteringDoc,
-  onClick,
-  color
-}) => (
-  <AccountSwitchSelect
-    filteringAccounts={filteredAccounts}
-    filteringDoc={filteringDoc}
-    onClick={onClick}
-    color={color}
-  />
-)
-
-AccountSwitchMobile.propTypes = {
-  filteringDoc: PropTypes.object,
-  onClick: PropTypes.func.isRequired,
-  filteredAccounts: PropTypes.array.isRequired
-}
-
-const AccountSwitchTablet = ({ filteringDoc, onClick }) => (
-  <button
-    className={cx(styles['account-switch-button-mobile'], {
-      [styles['active']]: filteringDoc
-    })}
-    onClick={onClick}
-  />
-)
-
-AccountSwitchTablet.propTypes = {
-  filteringDoc: PropTypes.object,
-  onClick: PropTypes.func.isRequired
-}
-
 const AccountSwitchMenu = translate()(
   ({
     accounts,
