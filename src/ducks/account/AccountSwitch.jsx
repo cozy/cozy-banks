@@ -118,29 +118,29 @@ const getFilteringDocLabel = (filteringDoc, t, accounts) => {
   }
 }
 
-const AccountSwitchSelect = translate()(
-  ({ accounts, filteringDoc, onClick, t, color }) => (
-    <div
-      className={cx(
-        styles.AccountSwitch__Select,
-        styles[`AccountSwitchColor_${color}`]
-      )}
-      onClick={onClick}
-    >
-      {flag('account-switch.display-icon') &&
-      filteringDoc._type === ACCOUNT_DOCTYPE ? (
-        <span className="u-mr-1">
-          <AccountIcon account={filteringDoc} />
-        </span>
-      ) : null}
-      <Title className={styles.AccountSwitch__SelectText} color={color}>
-        {filteringDoc
-          ? getFilteringDocLabel(filteringDoc, t, accounts)
-          : t('AccountSwitch.all_accounts')}
-      </Title>
-      <DownArrow color={color} />
-    </div>
-  )
+// t is passed from above and not through translate() since AccountSwitchSelect can be
+// rendered in the Bar and in this case it has a different context
+const AccountSwitchSelect = ({ accounts, filteringDoc, onClick, t, color }) => (
+  <div
+    className={cx(
+      styles.AccountSwitch__Select,
+      styles[`AccountSwitchColor_${color}`]
+    )}
+    onClick={onClick}
+  >
+    {flag('account-switch.display-icon') &&
+    filteringDoc._type === ACCOUNT_DOCTYPE ? (
+      <span className="u-mr-1">
+        <AccountIcon account={filteringDoc} />
+      </span>
+    ) : null}
+    <Title className={styles.AccountSwitch__SelectText} color={color}>
+      {filteringDoc
+        ? getFilteringDocLabel(filteringDoc, t, accounts)
+        : t('AccountSwitch.all_accounts')}
+    </Title>
+    <DownArrow color={color} />
+  </div>
 )
 
 AccountSwitchSelect.propTypes = {
