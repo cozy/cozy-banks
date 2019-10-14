@@ -228,7 +228,7 @@
     ],
     "moduleDirectories": [
       "node_modules",
-      "src",
+      "<rootDir>/src",
       "<rootDir>"
     ],
     "moduleNameMapper": {
