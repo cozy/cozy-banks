@@ -11,7 +11,7 @@ import configureStore from 'store/configureStore'
 import 'number-to-locale-string'
 
 import { setupHistory } from 'utils/history'
-import { getClient } from 'ducks/client'
+import { getClient, CleanupStoreClientPlugin } from 'ducks/client'
 import 'utils/flag'
 import FastClick from 'fastclick'
 import { isSentryEnabled, configureSentry, setURLContext } from 'lib/sentry'
@@ -23,7 +23,6 @@ import { checkToRefreshToken } from 'utils/token'
 import Alerter from 'cozy-ui/react/Alerter'
 import flag from 'cozy-flags'
 import { makeItShine } from 'utils/display.debug'
-import { resetFilterByDoc } from 'ducks/filters'
 
 const D3_LOCALES_MAP = {
   fr: require('d3-time-format/locale/fr-FR.json'),
@@ -49,21 +48,6 @@ const initRender = () => {
   )
 }
 
-/** Used to cleanup redux store when client disconnects */
-class StoreClientPlugin {
-  constructor(client, { store }) {
-    this.client = client
-    this.store = store
-    client.on('logout', this.handleLogout.bind(this))
-  }
-
-  handleLogout() {
-    this.store.dispatch(resetFilterByDoc())
-  }
-}
-
-StoreClientPlugin.pluginName = 'store'
-
 const setupApp = async persistedState => {
   const root = document.querySelector('[role=application]')
   const data = root.dataset
@@ -78,7 +62,7 @@ const setupApp = async persistedState => {
 
   client = await getClient(persistedState)
   store = configureStore(client, persistedState)
-  client.registerPlugin(StoreClientPlugin, { store })
+  client.registerPlugin(CleanupStoreClientPlugin, { store })
 
   client.setStore(store)
 

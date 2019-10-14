@@ -22,3 +22,5 @@ export const getClient = () => {
 
   return client
 }
+
+export { default as CleanupStoreClientPlugin } from './cleanup'
