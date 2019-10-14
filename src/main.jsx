@@ -11,7 +11,11 @@ import configureStore from 'store/configureStore'
 import 'number-to-locale-string'
 
 import { setupHistory } from 'utils/history'
-import { getClient, CleanupStoreClientPlugin } from 'ducks/client'
+import {
+  getClient,
+  CleanupStoreClientPlugin,
+  StartupChecksPlugin
+} from 'ducks/client'
 import 'utils/flag'
 import FastClick from 'fastclick'
 import * as d3 from 'utils/d3'
@@ -62,6 +66,19 @@ const setupApp = async persistedState => {
   client = await getClient(persistedState)
   store = configureStore(client, persistedState)
   client.registerPlugin(CleanupStoreClientPlugin, { store })
+  client.registerPlugin(StartupChecksPlugin, {
+    launchTriggers: [
+      {
+        slug: 'banks',
+        name: 'autogroups',
+        type: '@event',
+        policy: 'never-executed'
+      }
+    ],
+
+    // Delay startup checks to lessen the load at page startup
+    delay: 5000
+  })
 
   client.setStore(store)
 
