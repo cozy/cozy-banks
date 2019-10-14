@@ -14,7 +14,6 @@ import { setupHistory } from 'utils/history'
 import { getClient, CleanupStoreClientPlugin } from 'ducks/client'
 import 'utils/flag'
 import FastClick from 'fastclick'
-import { isSentryEnabled, configureSentry, setURLContext } from 'lib/sentry'
 import * as d3 from 'utils/d3'
 import 'cozy-ui/transpiled/react/stylesheet.css'
 import 'cozy-ui/dist/cozy-ui.utils.min.css'
@@ -96,13 +95,6 @@ const setupApp = async persistedState => {
       }
     })
     document.addEventListener('resume', onStartOrResume)
-  }
-
-  if (isSentryEnabled()) {
-    configureSentry(client)
-    if (__TARGET__ === 'browser') {
-      setURLContext(window.location.href)
-    }
   }
 
   initRender()
