@@ -6,6 +6,7 @@ const {
   findCreditOperation
 } = require('./billsToOperation')
 const defaults = require('lodash/defaults')
+const defaultTo = require('lodash/defaultTo')
 const groupBy = require('lodash/groupBy')
 const flatten = require('lodash/flatten')
 const sumBy = require('lodash/sumBy')
@@ -266,10 +267,22 @@ class Linker {
     // TODO Use the same names as the bills matchingCriterias
     defaults(options, { amountDelta: DEFAULT_AMOUNT_DELTA })
     defaults(options, {
-      amountLowerDelta: options.amountDelta,
-      amountUpperDelta: options.amountDelta,
-      dateLowerDelta: DEFAULT_DATE_LOWER_DELTA,
-      dateUpperDelta: DEFAULT_DATE_UPPER_DELTA
+      amountLowerDelta: defaultTo(
+        options.amountLowerDelta,
+        DEFAULT_AMOUNT_DELTA
+      ),
+      amountUpperDelta: defaultTo(
+        options.amountUpperDelta,
+        DEFAULT_AMOUNT_DELTA
+      ),
+      dateLowerDelta: defaultTo(
+        options.dateLowerDelta,
+        DEFAULT_DATE_LOWER_DELTA
+      ),
+      dateUpperDelta: defaultTo(
+        options.dateUpperDelta,
+        DEFAULT_DATE_UPPER_DELTA
+      )
     })
 
     return options
