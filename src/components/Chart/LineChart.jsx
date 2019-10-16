@@ -37,12 +37,6 @@ class LineChart extends Component {
     this.updateDomains()
 
     this.dragging = false
-
-    const { data } = props
-    const dataByDate = getDataByDate(data)
-    const itemKey = max(Object.keys(dataByDate))
-
-    this.state = { itemKey }
   }
 
   getSelectedItem = () => {
@@ -60,6 +54,23 @@ class LineChart extends Component {
     }
     this.updateElements()
     this.movePointToItem()
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    const { data } = props
+    const { itemKey: prevItemKey } = state || {}
+
+    const dataByDate = getDataByDate(data)
+
+    // When dataByDate changes and the current selected item does not belong
+    // to the new data, we have to reset it. This happens for example when
+    // navigating from month to month
+    if (!dataByDate || !prevItemKey || !dataByDate[prevItemKey]) {
+      const itemKey = max(Object.keys(dataByDate))
+      return { itemKey }
+    } else {
+      return null
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -334,6 +345,9 @@ class LineChart extends Component {
   updateTooltip() {
     const { bgPadding, arrowSize } = tooltipDimensions
     const item = this.getSelectedItem()
+    if (!item) {
+      return
+    }
     const x = this.x(item.x)
     const y = -arrowSize
     this.tooltip.attr('transform', `translate(${x}, ${y})`)
@@ -361,6 +375,9 @@ class LineChart extends Component {
 
   updatePoint() {
     const item = this.getSelectedItem()
+    if (!item) {
+      return
+    }
     const x = this.x(item.x)
     const y = this.y(item.y)
 
@@ -381,6 +398,9 @@ class LineChart extends Component {
 
   updatePointLine() {
     const item = this.getSelectedItem()
+    if (!item) {
+      return
+    }
     const { height, margin, tickPadding, showAxis } = this.props
     const x = this.x(item.x)
     let y2 = height - margin.top + tickPadding
