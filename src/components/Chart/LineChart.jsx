@@ -251,7 +251,8 @@ class LineChart extends Component {
       .append('path')
       .attr('id', 'clickLine')
       .attr('stroke', 'transparent')
-      .attr('stroke-width', 32)
+      .attr('stroke-width', 64)
+      .style('cursor', 'pointer')
       .attr('fill', 'none')
       .on('click', this.onLineClick)
 
