@@ -5,7 +5,7 @@ import { translate } from 'cozy-ui/react'
 import Button from 'cozy-ui/react/Button'
 import Icon from 'cozy-ui/react/Icon'
 import { groupBy, flowRight as compose, sortBy } from 'lodash'
-import { getAppUrlById } from 'selectors'
+import { getHomeURL } from 'ducks/apps/selectors'
 import Table from 'components/Table'
 import Loading from 'components/Loading'
 import { queryConnect } from 'cozy-client'
@@ -130,7 +130,7 @@ class AccountsSettings extends Component {
 }
 
 const mapStateToProps = state => ({
-  collectUrl: getAppUrlById(state, 'io.cozy.apps/collect')
+  collectUrl: getHomeURL(state)
 })
 
 // TODO reactivate when we understand how sharings work
