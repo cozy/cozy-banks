@@ -4,9 +4,7 @@ import { connect } from 'react-redux'
 import { flowRight as compose } from 'lodash'
 
 import { appsConn } from 'doctypes'
-import { getAppsById } from 'ducks/apps/selectors'
-
-const getAppURL = app => app && app.links.related
+import { getAppsById, getAppURL } from 'ducks/apps/selectors'
 
 function mapStateToProps(state) {
   const apps = getAppsById(state)

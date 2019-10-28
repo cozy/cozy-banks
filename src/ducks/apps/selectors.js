@@ -2,6 +2,9 @@ import keyBy from 'lodash/keyBy'
 import { createSelector } from 'reselect'
 import { queryDataSelector } from 'selectors'
 
+export const getAppURL = app =>
+  app && app.links && app.links.related ? app.links.related : null
+
 export const getApps = queryDataSelector('apps')
 
 export const getAppsById = createSelector(
@@ -17,7 +20,7 @@ export const getAppURLById = id =>
       if (!app) {
         return null
       } else {
-        return app.links.related
+        return getAppURL(app)
       }
     }
   )
