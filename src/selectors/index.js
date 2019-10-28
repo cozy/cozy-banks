@@ -17,7 +17,7 @@ const getClient = () => {
 //  - Put the schema inside the store.
 //  - The problem is that some methods used by relationships are bound
 //    to the client
-const querySelector = (queryName, options) => () => {
+export const querySelector = (queryName, options) => () => {
   const client = getClient()
   return client.getQueryFromState(queryName, options)
 }
