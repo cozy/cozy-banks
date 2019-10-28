@@ -29,9 +29,10 @@ const getInstalledBrandsFromCollection = triggerCol => {
   return brands
 }
 
-export function getBrandsWithoutTrigger(brands) {
-  return brands.filter(brand => !brand.hasTrigger)
-}
+export const getBrandsWithoutTrigger = createSelector(
+  [brands => brands],
+  brands => brands.filter(brand => !brand.hasTrigger)
+)
 
 const findMatchingBrandWithoutTrigger = (label, brands) => {
   const brandsWithoutTrigger = getBrandsWithoutTrigger(brands)
