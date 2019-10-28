@@ -34,10 +34,10 @@ export const getBrandsWithoutTrigger = createSelector(
   brands => brands.filter(brand => !brand.hasTrigger)
 )
 
-const findMatchingBrandWithoutTrigger = (label, brands) => {
+export const findMatchingBrandWithoutTrigger = (label, brands) => {
   const brandsWithoutTrigger = getBrandsWithoutTrigger(brands)
 
-  if (!brandsWithoutTrigger) {
+  if (!brandsWithoutTrigger || brandsWithoutTrigger.length === 0) {
     return null
   }
 
