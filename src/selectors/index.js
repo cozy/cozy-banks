@@ -31,7 +31,9 @@ export const queryDataSelector = (queryName, options) =>
 export const getTransactionsRaw = queryDataSelector('transactions', {
   hydrated: true
 })
-export const getGroups = queryDataSelector('groups')
+export const getGroups = queryDataSelector('groups', {
+  hydrated: true
+})
 export const getAccounts = queryDataSelector('accounts')
 
 export const getTransactions = createSelector(
