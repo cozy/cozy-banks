@@ -34,10 +34,8 @@ const Versions = () => {
 const startAndWaitService = async (client, serviceName) => {
   const jobs = client.collection('io.cozy.jobs')
   const { data: job } = await jobs.create('service', {
-    message: {
-      name: serviceName,
-      slug: 'banks'
-    }
+    name: serviceName,
+    slug: 'banks'
   })
   const finalJob = await jobs.waitFor(job.id)
   if (finalJob.state === 'errored') {
