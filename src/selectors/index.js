@@ -1,6 +1,7 @@
-import { createSelector } from 'reselect'
+import { createSelector, createSelectorCreator, defaultMemoize } from 'reselect'
 import { buildAutoGroups, isAutoGroup } from 'ducks/groups/helpers'
 import { buildVirtualAccounts } from 'ducks/account/helpers'
+import { getQueryFromState } from 'cozy-client'
 
 let client
 const getClient = () => {
@@ -10,16 +11,46 @@ const getClient = () => {
   return client
 }
 
-// We need the client here since selectors that are directly exported
-// from cozy-client cannot hydrate. We should find a better way to do
-// that :
-//  - Be able to hydrate without a client.
-//  - Put the schema inside the store.
-//  - The problem is that some methods used by relationships are bound
-//    to the client
-export const querySelector = (queryName, options) => () => {
+const updatedAtSameTime = (currentQuery, prevQuery) => {
+  return (
+    currentQuery &&
+    prevQuery &&
+    currentQuery.lastUpdate === prevQuery.lastUpdate
+  )
+}
+
+const queryCreateSelector = createSelectorCreator(
+  defaultMemoize,
+  updatedAtSameTime
+)
+
+const hydratedQuery = queryResult => {
+  // We need the client here since selectors that are directly exported
+  // from cozy-client cannot hydrate. We should find a better way to do
+  // that :
+  //  - Be able to hydrate without a client.
+  //  - Put the schema inside the store.
+  //  - The problem is that some methods used by relationships are bound
+  //    to the client
   const client = getClient()
-  return client.getQueryFromState(queryName, options)
+  const doctype = queryResult.definition && queryResult.definition.doctype
+  const data = client.hydrateDocuments(doctype, queryResult.data)
+  return { ...queryResult, data }
+}
+
+const getRawQuery = queryName => state => getQueryFromState(state, queryName)
+
+/**
+ * Hydratation is expensive as it creates new objects that do not play well
+ * with React's triple equal checks to bypass renders.
+ * This is why we memoize based on the queryResult which should change
+ * identity more rarely (only when updating results inside).
+ */
+const getHydratedQuery = queryName =>
+  queryCreateSelector([getRawQuery(queryName)], hydratedQuery)
+
+export const querySelector = (queryName, options = {}) => {
+  return options.hydrated ? getHydratedQuery(queryName) : getRawQuery(queryName)
 }
 
 export const queryDataSelector = (queryName, options) =>
