@@ -17,7 +17,7 @@ const getClient = () => {
 //  - Put the schema inside the store.
 //  - The problem is that some methods used by relationships are bound
 //    to the client
-const querySelector = (queryName, options) => () => {
+export const querySelector = (queryName, options) => () => {
   const client = getClient()
   return client.getQueryFromState(queryName, options)
 }
@@ -33,7 +33,6 @@ export const getTransactionsRaw = queryDataSelector('transactions', {
 })
 export const getGroups = queryDataSelector('groups')
 export const getAccounts = queryDataSelector('accounts')
-export const getApps = queryDataSelector('apps')
 
 export const getTransactions = createSelector(
   [getTransactionsRaw],
@@ -77,18 +76,4 @@ export const getVirtualGroups = createSelector(
 export const getAllGroups = createSelector(
   [getGroups, getVirtualGroups],
   (groups, virtualGroups) => [...groups, ...virtualGroups]
-)
-
-export const getAppUrlById = createSelector(
-  [getApps],
-  (apps, id) => {
-    if (apps && apps.length > 0) {
-      for (const app of apps) {
-        if (app._id === id) {
-          return app.links.related
-        }
-      }
-    }
-    return
-  }
 )
