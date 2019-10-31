@@ -84,14 +84,7 @@ class GroupPanel extends React.PureComponent {
   goToGroupDetails = () => {
     const { group, filterByDoc, router } = this.props
     filterByDoc(group)
-
-    const isReimbursementsVirtualGroup =
-      group._id === 'Reimbursements' && group.virtual
-    const route = isReimbursementsVirtualGroup
-      ? '/balances/reimbursements'
-      : '/balances/details'
-
-    router.push(route)
+    router.push('/balances/details')
   }
 
   handleSummaryContentClick = e => {
