@@ -20,7 +20,7 @@ class AccountsList extends React.PureComponent {
     onSwitchChange: undefined
   }
 
-  goToTransactionsFilteredByDoc = account => () => {
+  goToAccountsDetails = account => () => {
     const { filterByDoc, router } = this.props
 
     filterByDoc(account)
@@ -54,7 +54,7 @@ class AccountsList extends React.PureComponent {
               key={a._id}
               account={a}
               group={group}
-              onClick={this.goToTransactionsFilteredByDoc(a)}
+              onClick={this.goToAccountsDetails(a)}
               warningLimit={warningLimit}
               checked={switchState.checked}
               disabled={switchState.disabled}

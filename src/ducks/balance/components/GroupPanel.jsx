@@ -81,7 +81,7 @@ class GroupPanel extends React.PureComponent {
     onChange: undefined
   }
 
-  goToTransactionsFilteredByDoc = () => {
+  goToGroupDetails = () => {
     const { group, filterByDoc, router } = this.props
     filterByDoc(group)
 
@@ -99,7 +99,7 @@ class GroupPanel extends React.PureComponent {
 
     if (group.loading) return
     e.stopPropagation()
-    this.goToTransactionsFilteredByDoc()
+    this.goToGroupDetails()
   }
 
   handleSwitchClick = e => {
