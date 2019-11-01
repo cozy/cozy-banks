@@ -27,6 +27,7 @@ class Page extends Component {
         dismissAction={this.props.dismissAction}
         closable={false}
         into="body"
+        title={title}
         className={cx(styles.Page, this.props.className)}
         overlayClassName={styles.Page__Overlay}
         wrapperClassName={styles.Page__Wrapper}
