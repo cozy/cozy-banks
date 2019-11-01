@@ -11,6 +11,7 @@ import History from 'ducks/balance/History'
 import HeaderTitle from 'ducks/balance/components/HeaderTitle'
 import Delayed from 'components/Delayed'
 import { queryConnect } from 'cozy-client'
+import flag from 'cozy-flags'
 
 import styles from 'ducks/balance/components/BalanceHeader.styl'
 
@@ -43,7 +44,11 @@ const BalanceHeader = ({
       />
       {accounts && (
         <Delayed delay={1000}>
-          <History accounts={accounts} transactions={transactions} />
+          <History
+            animation={!flag('balance.no-history-animation')}
+            accounts={accounts}
+            transactions={transactions}
+          />
         </Delayed>
       )}
       <KonnectorUpdateInfo />
