@@ -43,7 +43,7 @@ const BalanceHeader = ({
         onClickBalance={onClickBalance}
       />
       {accounts && (
-        <Delayed delay={1000}>
+        <Delayed delay={flag('balance.no-delay-history') ? 0 : 1000}>
           <History
             animation={!flag('balance.no-history-animation')}
             accounts={accounts}
