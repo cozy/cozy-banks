@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Icon from 'cozy-ui/react/Icon'
 import Modal, { ModalHeader, ModalDescription } from 'cozy-ui/react/Modal'
 import { Media, Bd, Img } from 'cozy-ui/react/Media'
 import palette from 'cozy-ui/react/palette'
-import Row from 'components/Row'
+import MultiSelect from 'components/MultiSelect'
 
 import styles from 'components/PopupSelect/styles.styl'
 
@@ -20,70 +20,41 @@ const PopupTitle = ({ showBack, onClickBack, title }) => (
   </Media>
 )
 
-class PopupSelect extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      history: [props.options]
-    }
-  }
-
-  handleBack = () => {
-    const [item, ...newHistory] = this.state.history
-    this.setState({
-      history: newHistory
-    })
-    return item
-  }
-
-  handleSelect = item => {
-    if (item.children && item.children.length > 0) {
-      const newHistory = [item, ...this.state.history]
-      this.setState({
-        history: newHistory
-      })
-    } else {
-      this.props.onSelect(item)
-    }
-  }
-
-  render() {
-    const { history } = this.state
-    const current = history[0]
-    const children = current.children || []
-    return (
-      <Modal
-        closeBtnClassName={this.props.closeBtnClassName}
-        overflowHidden
-        dismissAction={this.props.onCancel}
-        into="body"
-      >
-        <div className={styles.PopupSelect__title}>
-          <ModalHeader>
-            <PopupTitle
-              title={current.title}
-              showBack={history.length > 1}
-              onClickBack={this.handleBack}
-            />
-          </ModalHeader>
-        </div>
-        <ModalDescription className="u-pb-0">
-          <div className={styles.PopupSelect__content}>
-            {children.map(item => (
-              <Row
-                key={item.title}
-                isSelected={this.props.isSelected(item)}
-                icon={item.icon}
-                label={item.title}
-                onClick={() => this.handleSelect(item)}
-                hasArrow={item.children && item.children.length > 0}
-              />
-            ))}
-          </div>
-        </ModalDescription>
-      </Modal>
-    )
-  }
+const PopupModalHeader = ({ showBack, onClickBack, title }) => {
+  return (
+    <div className={styles.PopupSelect__title}>
+      <ModalHeader>
+        <PopupTitle
+          showBack={showBack}
+          onClickBack={onClickBack}
+          title={title}
+        />
+      </ModalHeader>
+    </div>
+  )
 }
 
-export default PopupSelect
+const PopupModalDescription = ({ children }) => (
+  <div className={styles.PopupSelect__content}>
+    <ModalDescription className="u-pb-0">{children}</ModalDescription>
+  </div>
+)
+
+const PopupSelectModal = props => {
+  return (
+    <Modal
+      closeBtnClassName={props.closeBtnClassName}
+      overflowHidden
+      dismissAction={props.onCancel}
+      into="body"
+    >
+      <MultiSelect
+        {...props}
+        HeaderComponent={PopupModalHeader}
+        ContentComponent={PopupModalDescription}
+      />
+    </Modal>
+  )
+}
+
+export default PopupSelectModal
