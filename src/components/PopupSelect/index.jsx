@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import cx from 'classnames'
 import Icon from 'cozy-ui/react/Icon'
 import Modal, { ModalHeader, ModalDescription } from 'cozy-ui/react/Modal'
 import { Media, Bd, Img } from 'cozy-ui/react/Media'
 import palette from 'cozy-ui/react/palette'
+import Row from 'components/Row'
 
 import styles from 'components/PopupSelect/styles.styl'
 
@@ -17,25 +17,6 @@ const PopupTitle = ({ showBack, onClickBack, title }) => (
     <Bd>
       <h2>{title}</h2>
     </Bd>
-  </Media>
-)
-
-const PopupRow = ({ isSelected, icon, label, hasArrow, onClick }) => (
-  <Media
-    className={cx(
-      styles.PopupSelect__row,
-      'u-ph-1 u-pv-half',
-      isSelected ? ' u-text-bold' : ''
-    )}
-    onClick={onClick}
-  >
-    {icon && <Img className="u-pr-1">{icon}</Img>}
-    <Bd className="u-ellipsis">{label}</Bd>
-    {hasArrow && (
-      <Img className="u-pl-1">
-        <Icon icon="right" color={palette['coolGrey']} />
-      </Img>
-    )}
   </Media>
 )
 
@@ -89,7 +70,7 @@ class PopupSelect extends Component {
         <ModalDescription className="u-pb-0">
           <div className={styles.PopupSelect__content}>
             {children.map(item => (
-              <PopupRow
+              <Row
                 key={item.title}
                 isSelected={this.props.isSelected(item)}
                 icon={item.icon}
