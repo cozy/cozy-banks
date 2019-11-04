@@ -7,6 +7,7 @@ import { isLoanGroup, isReimbursementsVirtualGroup } from 'ducks/groups/helpers'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { ReimbursementsPage } from 'ducks/reimbursements'
 import flag from 'cozy-flags'
+import BarTheme from 'ducks/bar/BarTheme'
 
 const getComponent = filteringDoc => {
   if (filteringDoc._type === ACCOUNT_DOCTYPE) {
@@ -34,7 +35,12 @@ const getComponent = filteringDoc => {
 
 export const RawAccountDetailsPage = props => {
   const Component = getComponent(props.filteringDoc)
-  return <Component {...props} />
+  return (
+    <>
+      <BarTheme theme={'primary'} />
+      <Component {...props} />
+    </>
+  )
 }
 
 function mapStateToProps(state) {

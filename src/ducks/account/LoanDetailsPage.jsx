@@ -1,7 +1,13 @@
 import React from 'react'
+import AccountDetailsHeader from 'ducks/account/AccountDetailsHeader'
 
-const LoanDetailsPage = () => {
-  return <div>Loan details page</div>
+export const LoanDetailsPage = () => {
+  return (
+    <>
+      <AccountDetailsHeader showBalance />
+      <div>LoanDetailsPage</div>
+    </>
+  )
 }
 
 export default LoanDetailsPage
