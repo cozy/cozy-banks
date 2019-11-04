@@ -5,6 +5,7 @@ import { TransactionsPageWithBackButton } from 'ducks/transactions'
 import LoanDetailsPage from 'ducks/account/LoanDetailsPage'
 import { ReimbursementsPage } from 'ducks/reimbursements'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
+import flag from 'cozy-flags'
 
 jest.mock('ducks/transactions', () => ({
   TransactionsPageWithBackButton: () => 'TransactionsPageWithBackButton'
@@ -15,6 +16,14 @@ jest.mock('ducks/account/LoanDetailsPage', () => () => 'LoanDetailsPage')
 jest.mock('ducks/reimbursements', () => ({
   ReimbursementsPage: () => 'ReimbursementsPage'
 }))
+
+jest.mock('cozy-flags')
+
+flag.mockImplementation(flag => {
+  const enabledFlags = ['loan-details-page']
+
+  return enabledFlags.includes(flag)
+})
 
 describe('when the filtering doc is neither a group nor an account', () => {
   const filteringDoc = {}
