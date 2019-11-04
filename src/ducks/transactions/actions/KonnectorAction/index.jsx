@@ -70,7 +70,7 @@ class Component extends React.Component {
   renderTransactionRow(label, brand) {
     const { compact } = this.props
 
-    return flag('reimbursement-tag') ? (
+    return flag('reimbursements.tag') ? (
       <KonnectorChip
         onClick={this.showInformativeModal}
         konnectorType={brand.health ? 'health' : 'generic'}
