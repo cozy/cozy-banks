@@ -16,6 +16,10 @@ class MultiSelect extends Component {
     }
   }
 
+  resetHistory() {
+    this.setState({ history: [this.props.options] })
+  }
+
   handleBack = () => {
     const [item, ...newHistory] = this.state.history
     this.setState({
@@ -32,6 +36,9 @@ class MultiSelect extends Component {
       })
     } else {
       this.props.onSelect(item)
+      setTimeout(() => {
+        this.resetHistory()
+      }, 500)
     }
   }
 
