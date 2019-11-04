@@ -2935,6 +2935,9 @@ h4 {
 .List_c-list-row_Vws4v:last-child {
   border-bottom: 0;
 }
+.List_c-list-row_Vws4v:active {
+  background: var(--paleGrey);
+}
 .List_c-list-header_V7h5z {
   background-color: var(--paleGrey);
   border-width: 0;
@@ -4878,7 +4881,7 @@ body {
   background-color: var(--selectDatesChipPrimaryBackgroundColor);
   margin: 0;
 }
-.SelectDates_SelectDatesColor_primary_15hmL .SelectDates_SelectDates__chip_1QEMF:active {
+.SelectDates_SelectDatesColor_primary_15hmL .SelectDates_SelectDates__chip_1QEMF:not(.SelectDates_SelectDatesButtonDisabled_1k5zs):active {
   box-shadow: 0px 0px 0px 2px rgba(255,255,255,0.2);
 }
 .SelectDates_SelectDatesColor_primary_15hmL .SelectDates_SelectDates__chip_1QEMF svg {
