@@ -67,10 +67,8 @@ class MyKonnector extends BaseKonnector {
     // save `transactions`
 
     await cozyClient.jobs.create('service', {
-      message: {
-        name: 'categorization',
-        slug: 'banks'
-      }
+      name: 'categorization',
+      slug: 'banks'
     })
   }
 }
