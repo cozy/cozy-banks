@@ -8,6 +8,8 @@ import { get } from 'lodash'
 import { Section as BaseSection } from 'components/Section'
 import cx from 'classnames'
 import styles from 'ducks/account/LoanDetailsPage.styl'
+import LoanProgress from 'ducks/account/LoanProgress'
+import { Padded } from 'components/Spacing'
 
 const DATE_FORMAT = 'DD/MM/YY'
 
@@ -253,7 +255,14 @@ export const LoanDetailsPage = props => {
     <>
       <AccountDetailsHeader showBalance />
       {accounts.map(account => (
-        <LoanDetails key={account._id} account={account} />
+        <React.Fragment key={account._id}>
+          <BaseSection>
+            <Padded>
+              <LoanProgress account={account} />
+            </Padded>
+          </BaseSection>
+          <LoanDetails account={account} />
+        </React.Fragment>
       ))}
     </>
   )
