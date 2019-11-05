@@ -7,6 +7,7 @@ import { Bold } from 'cozy-ui/transpiled/react/Text'
 import AccountIcon from 'components/AccountIcon'
 import withFilters from 'components/withFilters'
 import { BalanceDetailsHeader } from 'ducks/balance'
+import { Wrapper } from 'components/Spacing'
 
 const DumbLoanListPage = props => {
   const { filteringDoc, filterByDoc } = props
@@ -17,20 +18,22 @@ const DumbLoanListPage = props => {
       <BalanceDetailsHeader showBalance />
       {accounts.map(account => (
         <Section key={account._id}>
-          <CompositeRow
-            primaryText={
-              <div className="u-flex u-flex-items-center">
-                <AccountIcon account={account} />
-                <Bold className="u-ml-1">{account.label}</Bold>
-              </div>
-            }
-            right={<Icon icon="right" color="var(--coolGrey)" />}
-            actions={<LoanProgress account={account} />}
-            className="u-c-pointer"
-            onClick={() => {
-              filterByDoc(account)
-            }}
-          />
+          <Wrapper>
+            <CompositeRow
+              primaryText={
+                <div className="u-flex u-flex-items-center">
+                  <AccountIcon account={account} />
+                  <Bold className="u-ml-1">{account.label}</Bold>
+                </div>
+              }
+              right={<Icon icon="right" color="var(--coolGrey)" />}
+              actions={<LoanProgress account={account} />}
+              className="u-c-pointer"
+              onClick={() => {
+                filterByDoc(account)
+              }}
+            />
+          </Wrapper>
         </Section>
       ))}
     </>
