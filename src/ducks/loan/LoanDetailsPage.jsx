@@ -9,7 +9,7 @@ import { Section as BaseSection } from 'components/Section'
 import cx from 'classnames'
 import styles from 'ducks/loan/LoanDetailsPage.styl'
 import LoanProgress from 'ducks/loan/LoanProgress'
-import { Padded } from 'components/Spacing'
+import { Padded, Wrapper } from 'components/Spacing'
 
 const DATE_FORMAT = 'DD/MM/YY'
 
@@ -57,13 +57,14 @@ const Row = translate()(props => {
 
   return (
     <div className={cx(styles.LoanDetailsRow, className)}>
-      <CompositeRow
-        className={cx(styles.LoanDetailsRow__inner)}
-        primaryText={title}
-        secondaryText={caption}
-        right={right}
-        {...rest}
-      />
+      <Wrapper>
+        <CompositeRow
+          primaryText={title}
+          secondaryText={caption}
+          right={right}
+          {...rest}
+        />
+      </Wrapper>
     </div>
   )
 })
@@ -257,9 +258,11 @@ export const LoanDetailsPage = props => {
       {accounts.map(account => (
         <React.Fragment key={account._id}>
           <BaseSection>
-            <Padded>
-              <LoanProgress account={account} />
-            </Padded>
+            <Wrapper>
+              <Padded>
+                <LoanProgress account={account} />
+              </Padded>
+            </Wrapper>
           </BaseSection>
           <LoanDetails account={account} />
         </React.Fragment>
