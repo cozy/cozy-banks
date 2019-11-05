@@ -1,5 +1,5 @@
 import React from 'react'
-import LoanPercentageLine from 'ducks/account/LoanPercentageLine'
+import LoanPercentageLine from 'ducks/loan/LoanPercentageLine'
 import { translate } from 'cozy-ui/transpiled/react/I18n'
 import { Caption } from 'cozy-ui/transpiled/react/Text'
 import { get } from 'lodash'

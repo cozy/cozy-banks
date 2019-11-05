@@ -1,7 +1,7 @@
 import React from 'react'
 import PercentageLine from 'cozy-ui/transpiled/react/PercentageLine'
 import cx from 'classnames'
-import styles from 'ducks/account/LoanPercentageLine.styl'
+import styles from 'ducks/loan/LoanPercentageLine.styl'
 
 const LoanPercentageLine = props => {
   const { className, ...rest } = props

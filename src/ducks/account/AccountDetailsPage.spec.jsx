@@ -2,8 +2,7 @@ import React from 'react'
 import { mount } from 'enzyme'
 import { RawAccountDetailsPage } from './AccountDetailsPage'
 import { TransactionsPageWithBackButton } from 'ducks/transactions'
-import LoanDetailsPage from 'ducks/account/LoanDetailsPage'
-import LoanListPage from 'ducks/account/LoanListPage'
+import { LoanDetailsPage, LoanListPage } from 'ducks/loan'
 import { ReimbursementsPage } from 'ducks/reimbursements'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import flag from 'cozy-flags'
@@ -12,13 +11,14 @@ jest.mock('ducks/transactions', () => ({
   TransactionsPageWithBackButton: () => 'TransactionsPageWithBackButton'
 }))
 
-jest.mock('ducks/account/LoanDetailsPage', () => () => 'LoanDetailsPage')
+jest.mock('ducks/loan', () => ({
+  LoanDetailsPage: () => 'LoanDetailsPage',
+  LoanListPage: () => 'LoanListPage'
+}))
 
 jest.mock('ducks/reimbursements', () => ({
   ReimbursementsPage: () => 'ReimbursementsPage'
 }))
-
-jest.mock('ducks/account/LoanListPage', () => () => 'LoanListPage')
 
 jest.mock('cozy-flags')
 
