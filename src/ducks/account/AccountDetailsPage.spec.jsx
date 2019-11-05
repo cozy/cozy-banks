@@ -3,6 +3,7 @@ import { mount } from 'enzyme'
 import { RawAccountDetailsPage } from './AccountDetailsPage'
 import { TransactionsPageWithBackButton } from 'ducks/transactions'
 import LoanDetailsPage from 'ducks/account/LoanDetailsPage'
+import LoanListPage from 'ducks/account/LoanListPage'
 import { ReimbursementsPage } from 'ducks/reimbursements'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import flag from 'cozy-flags'
@@ -16,6 +17,8 @@ jest.mock('ducks/account/LoanDetailsPage', () => () => 'LoanDetailsPage')
 jest.mock('ducks/reimbursements', () => ({
   ReimbursementsPage: () => 'ReimbursementsPage'
 }))
+
+jest.mock('ducks/account/LoanListPage', () => () => 'LoanListPage')
 
 jest.mock('cozy-flags')
 
@@ -107,12 +110,12 @@ describe('when the filtering doc is a group', () => {
       }
     }
 
-    it('should show the loan details page', () => {
+    it('should show the loan list page', () => {
       const wrapper = mount(
         <RawAccountDetailsPage filteringDoc={filteringDoc} />
       )
 
-      expect(wrapper.find(LoanDetailsPage)).toHaveLength(1)
+      expect(wrapper.find(LoanListPage)).toHaveLength(1)
     })
   })
 

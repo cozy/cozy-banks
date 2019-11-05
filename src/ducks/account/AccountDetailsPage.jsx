@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { getAccountType } from './helpers'
 import { TransactionsPageWithBackButton } from 'ducks/transactions'
 import LoanDetailsPage from 'ducks/account/LoanDetailsPage'
+import LoanListPage from 'ducks/account/LoanListPage'
 import { isLoanGroup, isReimbursementsVirtualGroup } from 'ducks/groups/helpers'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { ReimbursementsPage } from 'ducks/reimbursements'
@@ -22,7 +23,7 @@ const getComponent = filteringDoc => {
     }
   } else if (filteringDoc._type === GROUP_DOCTYPE) {
     if (isLoanGroup(filteringDoc) && flag('loan-details-page')) {
-      return LoanDetailsPage
+      return LoanListPage
     } else if (isReimbursementsVirtualGroup(filteringDoc)) {
       return ReimbursementsPage
     } else {
