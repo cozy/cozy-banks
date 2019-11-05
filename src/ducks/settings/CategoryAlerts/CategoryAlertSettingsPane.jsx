@@ -18,6 +18,7 @@ import CategoryAlertEditModal from 'ducks/settings/CategoryAlerts/CategoryAlertE
 const makeNewAlert = () => ({
   categoryId: '400100',
   balanceThresoldMin: 100,
+  accountOrGroup: null
 })
 
 const CreateCategoryAlert = translate()(({ createAlert, t, ...props }) => {

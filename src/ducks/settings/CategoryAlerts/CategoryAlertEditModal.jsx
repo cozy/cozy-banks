@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import { connect } from 'react-redux'
 import {
   Button,
   Modal,
@@ -14,20 +14,26 @@ import {
 
 import Stepper from 'components/Stepper'
 import Row from 'components/Row'
+import AccountIcon from 'components/AccountIcon'
 
 import { CategoryChoice, CategoryIcon, getCategoryName } from 'ducks/categories'
 import AccountGroupChoice from 'ducks/settings/CategoryAlerts/AccountGroupChoice'
 import AccountOrGroupLabel from 'ducks/settings/CategoryAlerts/AccountOrGroupLabel'
+import { getAccountsById } from './selectors'
+
+import { ACCOUNT_DOCTYPE } from 'doctypes'
 
 const ModalRow = props => <Row className="u-ph-2" {...props} />
+
 /**
  * Modal to edit a category alert
  *
  * - Edit category
  * - Edit thresold for the alert
+ * - Edit account/group for the alert
  */
 const CategoryAlertEditModal = translate()(
-  ({ initialAlert, onEditAlert, onDismiss, t }) => {
+  ({ initialAlert, onEditAlert, onDismiss, t, accountsById }) => {
     const [stepperIndex, setStepperIndex] = useState(0)
     const [alert, setAlert] = useState(initialAlert)
     const [choosingCategory, setChoosingCategory] = useState(false)
@@ -43,6 +49,11 @@ const CategoryAlertEditModal = translate()(
       setChoosingCategory(false)
     }
 
+    const handleRequestChooseAccountOrGroup = () => {
+      setChoosingAccountOrGroup(true)
+      setStepperIndex(1)
+    }
+
     const handleRequestChooseCategory = () => {
       setChoosingCategory(true)
       setStepperIndex(1)
@@ -50,6 +61,26 @@ const CategoryAlertEditModal = translate()(
 
     const handleSelectCategoryCancel = () => {
       setChoosingCategory(false)
+      setStepperIndex(0)
+    }
+
+    const handleSelectAccountOrGroup = doc => {
+      setChoosingAccountOrGroup(false)
+      const updatedAlert = {
+        ...alert,
+        accountOrGroup: doc
+          ? {
+              _type: doc._type,
+              _id: doc._id
+            }
+          : null
+      }
+      setAlert(updatedAlert)
+      setStepperIndex(0)
+    }
+
+    const handleSelectAccountOrGroupCancel = () => {
+      setChoosingAccountOrGroup(false)
       setStepperIndex(0)
     }
 
@@ -86,6 +117,15 @@ const CategoryAlertEditModal = translate()(
             </ModalContent>
             <div>
               <ModalRow
+                icon={
+                  alert.accountOrGroup &&
+                  alert.accountOrGroup._type === ACCOUNT_DOCTYPE &&
+                  accountsById[alert.accountOrGroup._id] ? (
+                    <AccountIcon
+                      account={accountsById[alert.accountOrGroup._id]}
+                    />
+                  ) : null
+                }
                 label={
                   alert.accountOrGroup ? (
                     <AccountOrGroupLabel doc={alert.accountOrGroup} />
@@ -138,6 +178,7 @@ const CategoryAlertEditModal = translate()(
             ) : null}
             {choosingAccountOrGroup ? (
               <AccountGroupChoice
+                current={alert.accountOrGroup}
                 onSelect={handleSelectAccountOrGroup}
                 onCancel={handleSelectAccountOrGroupCancel}
               />
@@ -166,4 +207,6 @@ const CategoryAlertEditModal = translate()(
   }
 )
 
-export default CategoryAlertEditModal
+export default connect(state => ({
+  accountsById: getAccountsById(state)
+}))(CategoryAlertEditModal)
