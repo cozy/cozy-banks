@@ -1,5 +1,5 @@
 import React from 'react'
-import AccountDetailsHeader from 'ducks/account/AccountDetailsHeader'
+import { BalanceDetailsHeader } from 'ducks/balance'
 import { translate } from 'cozy-ui/transpiled/react/I18n'
 import CompositeRow from 'cozy-ui/transpiled/react/CompositeRow'
 import { Figure } from 'components/Figure'
@@ -253,7 +253,7 @@ export const LoanDetailsPage = props => {
 
   return (
     <>
-      <AccountDetailsHeader showBalance />
+      <BalanceDetailsHeader showBalance />
       {accounts.map(account => (
         <React.Fragment key={account._id}>
           <BaseSection>

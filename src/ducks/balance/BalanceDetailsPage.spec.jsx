@@ -1,6 +1,6 @@
 import React from 'react'
 import { mount } from 'enzyme'
-import { RawAccountDetailsPage } from './AccountDetailsPage'
+import { RawBalanceDetailsPage } from './BalanceDetailsPage'
 import { TransactionsPageWithBackButton } from 'ducks/transactions'
 import { LoanDetailsPage, LoanListPage } from 'ducks/loan'
 import { ReimbursementsPage } from 'ducks/reimbursements'
@@ -32,7 +32,7 @@ describe('when the filtering doc is neither a group nor an account', () => {
   const filteringDoc = {}
 
   it('should show the transactions page', () => {
-    const wrapper = mount(<RawAccountDetailsPage filteringDoc={filteringDoc} />)
+    const wrapper = mount(<RawBalanceDetailsPage filteringDoc={filteringDoc} />)
 
     expect(wrapper.find(TransactionsPageWithBackButton)).toHaveLength(1)
   })
@@ -52,7 +52,7 @@ describe('when the filtering doc is an account', () => {
       }
 
       const wrapper = mount(
-        <RawAccountDetailsPage filteringDoc={filteringDoc} />
+        <RawBalanceDetailsPage filteringDoc={filteringDoc} />
       )
 
       expect(wrapper.find(LoanDetailsPage)).toHaveLength(1)
@@ -67,7 +67,7 @@ describe('when the filtering doc is an account', () => {
       }
 
       const wrapper = mount(
-        <RawAccountDetailsPage filteringDoc={filteringDoc} />
+        <RawBalanceDetailsPage filteringDoc={filteringDoc} />
       )
 
       expect(wrapper.find(ReimbursementsPage)).toHaveLength(1)
@@ -82,7 +82,7 @@ describe('when the filtering doc is an account', () => {
       }
 
       const wrapper = mount(
-        <RawAccountDetailsPage filteringDoc={filteringDoc} />
+        <RawBalanceDetailsPage filteringDoc={filteringDoc} />
       )
 
       expect(wrapper.find(TransactionsPageWithBackButton)).toHaveLength(1)
@@ -112,7 +112,7 @@ describe('when the filtering doc is a group', () => {
 
     it('should show the loan list page', () => {
       const wrapper = mount(
-        <RawAccountDetailsPage filteringDoc={filteringDoc} />
+        <RawBalanceDetailsPage filteringDoc={filteringDoc} />
       )
 
       expect(wrapper.find(LoanListPage)).toHaveLength(1)
@@ -132,7 +132,7 @@ describe('when the filtering doc is a group', () => {
 
     it('should show the reimbursements page', () => {
       const wrapper = mount(
-        <RawAccountDetailsPage filteringDoc={filteringDoc} />
+        <RawBalanceDetailsPage filteringDoc={filteringDoc} />
       )
 
       expect(wrapper.find(ReimbursementsPage)).toHaveLength(1)
@@ -149,7 +149,7 @@ describe('when the filtering doc is a group', () => {
 
     it('should show the transactions page', () => {
       const wrapper = mount(
-        <RawAccountDetailsPage filteringDoc={filteringDoc} />
+        <RawBalanceDetailsPage filteringDoc={filteringDoc} />
       )
 
       expect(wrapper.find(TransactionsPageWithBackButton)).toHaveLength(1)

@@ -7,7 +7,7 @@ import cx from 'classnames'
 
 import Breadcrumb from 'components/Breadcrumb'
 import { ConnectedSelectDates } from 'components/SelectDates'
-import AccountDetailsHeader from 'ducks/account/AccountDetailsHeader'
+import { BalanceDetailsHeader } from 'ducks/balance'
 import TransactionSelectDates from 'ducks/transactions/TransactionSelectDates'
 import { ConnectedHistoryChart as HistoryChart } from 'ducks/balance/HistoryChart'
 import { Padded } from 'components/Spacing'
@@ -111,7 +111,7 @@ class TransactionHeader extends Component {
     const isSubcategory = this.isSubcategory()
 
     return (
-      <AccountDetailsHeader small={isSubcategory} showBalance={showBalance}>
+      <BalanceDetailsHeader small={isSubcategory} showBalance={showBalance}>
         {!isSubcategory && this.renderBalanceHistory()}
         <Padded
           className={cx(
@@ -133,7 +133,7 @@ class TransactionHeader extends Component {
         {transactions.length > 0 && (
           <TableHead isSubcategory={isSubcategory} color="primary" />
         )}
-      </AccountDetailsHeader>
+      </BalanceDetailsHeader>
     )
   }
 }

@@ -14,7 +14,7 @@ import BarBalance from 'components/BarBalance'
 
 const { BarRight } = cozy.bar
 
-const DumbAccountDetailsHeader = props => {
+const DumbBalanceDetailsHeader = props => {
   const {
     breakpoints: { isMobile },
     small,
@@ -52,9 +52,9 @@ const mapStateToProps = state => {
   }
 }
 
-const AccountDetailsHeader = compose(
+const BalanceDetailsHeader = compose(
   withBreakpoints(),
   connect(mapStateToProps)
-)(DumbAccountDetailsHeader)
+)(DumbBalanceDetailsHeader)
 
-export default AccountDetailsHeader
+export default BalanceDetailsHeader

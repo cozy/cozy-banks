@@ -15,11 +15,10 @@ import {
   Configuration,
   Debug
 } from 'ducks/settings'
-import { Balance } from 'ducks/balance'
+import { Balance, BalanceDetailsPage } from 'ducks/balance'
 import { TransferPage } from 'ducks/transfers'
 import UserActionRequired from 'components/UserActionRequired'
 import scrollToTopOnMount from 'components/scrollToTopOnMount'
-import AccountDetailsPage from 'ducks/account/AccountDetailsPage'
 
 // Use a function to delay instantation and have access to AppRoute.renderExtraRoutes
 const AppRoute = () => (
@@ -30,7 +29,7 @@ const AppRoute = () => (
         <IndexRoute component={scrollToTopOnMount(Balance)} />
         <Route
           path="details"
-          component={scrollToTopOnMount(AccountDetailsPage)}
+          component={scrollToTopOnMount(BalanceDetailsPage)}
         />
       </Route>
       <Route path="categories">

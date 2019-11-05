@@ -6,7 +6,7 @@ import Icon from 'cozy-ui/transpiled/react/Icon'
 import { Bold } from 'cozy-ui/transpiled/react/Text'
 import AccountIcon from 'components/AccountIcon'
 import withFilters from 'components/withFilters'
-import AccountDetailsHeader from 'ducks/account/AccountDetailsHeader'
+import { BalanceDetailsHeader } from 'ducks/balance'
 
 const DumbLoanListPage = props => {
   const { filteringDoc, filterByDoc } = props
@@ -14,7 +14,7 @@ const DumbLoanListPage = props => {
 
   return (
     <>
-      <AccountDetailsHeader showBalance />
+      <BalanceDetailsHeader showBalance />
       {accounts.map(account => (
         <Section key={account._id}>
           <CompositeRow

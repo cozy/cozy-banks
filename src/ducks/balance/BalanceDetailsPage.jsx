@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getAccountType } from './helpers'
+import { getAccountType } from 'ducks/account/helpers'
 import { TransactionsPageWithBackButton } from 'ducks/transactions'
 import { LoanDetailsPage, LoanListPage } from 'ducks/loan'
 import { isLoanGroup, isReimbursementsVirtualGroup } from 'ducks/groups/helpers'
@@ -33,7 +33,7 @@ const getComponent = filteringDoc => {
   }
 }
 
-export const RawAccountDetailsPage = props => {
+export const RawBalanceDetailsPage = props => {
   const Component = getComponent(props.filteringDoc)
   return (
     <>
@@ -49,6 +49,6 @@ function mapStateToProps(state) {
   }
 }
 
-const AccountDetailsPage = connect(mapStateToProps)(RawAccountDetailsPage)
+const BalanceDetailsPage = connect(mapStateToProps)(RawBalanceDetailsPage)
 
-export default AccountDetailsPage
+export default BalanceDetailsPage
