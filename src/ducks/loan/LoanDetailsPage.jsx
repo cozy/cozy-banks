@@ -1,6 +1,7 @@
 import React from 'react'
 import { BalanceDetailsHeader } from 'ducks/balance'
 import { translate } from 'cozy-ui/transpiled/react/I18n'
+import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import CompositeRow from 'cozy-ui/transpiled/react/CompositeRow'
 import { Figure } from 'components/Figure'
 import { GROUP_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
@@ -10,10 +11,11 @@ import cx from 'classnames'
 import styles from 'ducks/loan/LoanDetailsPage.styl'
 import LoanProgress from 'ducks/loan/LoanProgress'
 import { Padded, Wrapper } from 'components/Spacing'
+import { flowRight as compose } from 'lodash'
 
 const DATE_FORMAT = 'DD/MM/YY'
 
-const Row = translate()(props => {
+const DumbRow = translate()(props => {
   const {
     type,
     title,
@@ -22,6 +24,7 @@ const Row = translate()(props => {
     t, // eslint-disable-line no-unused-vars
     f,
     className,
+    breakpoints: { isMobile },
     ...rest
   } = props
 
@@ -59,6 +62,9 @@ const Row = translate()(props => {
     <div className={cx(styles.LoanDetailsRow, className)}>
       <Wrapper>
         <CompositeRow
+          className={cx({
+            'u-pl-2': !isMobile
+          })}
           primaryText={title}
           secondaryText={caption}
           right={right}
@@ -68,6 +74,11 @@ const Row = translate()(props => {
     </div>
   )
 })
+
+const Row = compose(
+  translate(),
+  withBreakpoints()
+)(DumbRow)
 
 const Section = props => {
   const { title, children } = props
