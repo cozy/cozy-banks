@@ -32,11 +32,11 @@ const DumbLoanProgress = props => {
       <div className="u-flex u-mt-half">
         <div className="u-flex-grow-1">
           <Figure total={reimbursedAmount} symbol="€" coloredPositive />
-          <Caption>{t('Montant remboursé')}</Caption>
+          <Caption>{t('LoanProgress.reimbursedAmount')}</Caption>
         </div>
         <div className="u-flex-grow-1 u-ta-right">
           <Figure total={totalAmount} symbol="€" />
-          <Caption>{t('Montant emprunté')}</Caption>
+          <Caption>{t('LoanProgress.borrowedAmount')}</Caption>
         </div>
       </div>
     </>

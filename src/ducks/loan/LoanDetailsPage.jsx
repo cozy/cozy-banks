@@ -110,20 +110,20 @@ const KeyInfosSection = translate()(props => {
   }
 
   return (
-    <Section title={t('Informations clés')}>
+    <Section title={t('LoanDetails.keyInfos.title')}>
       <Row
         type="amount"
-        title={t('Montant emprunté')}
+        title={t('LoanDetails.keyInfos.borrowedAmount')}
         value={get(account, 'loan.usedAmount')}
       />
       <Row
         type="amount"
-        title={t('Capital restant dû')}
+        title={t('LoanDetails.keyInfos.remainingCapital')}
         value={-get(account, 'balance')}
       />
       <Row
         type="rate"
-        title={t("Taux d'intérêt")}
+        title={t('LoanDetails.keyInfos.interestRate')}
         value={get(account, 'loan.rate')}
       />
     </Section>
@@ -143,16 +143,16 @@ const PaymentsSection = translate()(props => {
   }
 
   return (
-    <Section title={t('Paiements')}>
+    <Section title={t('LoanDetails.payments.title')}>
       <Row
         type="amount"
-        title={t('Dernier paiement effecté')}
+        title={t('LoanDetails.payments.lastPayment')}
         value={get(account, 'loan.lastPaymentAmount')}
         caption={'le ' + f(get(account, 'loan.lastPaymentDate'), DATE_FORMAT)}
       />
       <Row
         type="amount"
-        title={t('Prochain paiement prévu')}
+        title={t('LoanDetails.payments.nextPayment')}
         value={get(account, 'loan.nextPaymentAmount')}
         caption={
           t('le ') + f(get(account, 'loan.nextPaymentDate'), DATE_FORMAT)
@@ -177,25 +177,25 @@ const CharacteristicsSection = translate()(props => {
   }
 
   return (
-    <Section title={t('Caractéristiques du prêt')}>
+    <Section title={t('LoanDetails.characteristics.title')}>
       <Row
         type="date"
-        title={t('Date de souscription')}
+        title={t('LoanDetails.characteristics.subscriptionDate')}
         value={get(account, 'loan.subscriptionDate')}
       />
       <Row
         type="date"
-        title={t('Date de remboursement')}
+        title={t('LoanDetails.characteristics.maturityDate')}
         value={get(account, 'loan.maturityDate')}
       />
       <Row
         type="nb-payments"
-        title={t("Nb d'échéances encore prévues")}
+        title={t('LoanDetails.characteristics.nbPaymentsLeft')}
         value={get(account, 'loan.nbPaymentsLeft')}
       />
       <Row
         type="nb-payments"
-        title={t("Nb d'échéances payées")}
+        title={t('LoanDetails.characteristics.nbPaymentsDone')}
         value={get(account, 'loan.nbPaymentsDone')}
       />
     </Section>
@@ -215,15 +215,15 @@ const CreditReserveSection = translate()(props => {
   }
 
   return (
-    <Section title={t('Réserve crédit')}>
+    <Section title={t('LoanDetails.creditReserve.title')}>
       <Row
         type="amount"
-        title={t('Montant total utilisé')}
+        title={t('LoanDetails.creditReserve.totalUsedAmount')}
         value={get(account, 'loan.totalAmount')}
       />
       <Row
         type="amount"
-        title={t('Réserve disponible')}
+        title={t('LoanDetails.creditReserve.availableAmount')}
         value={get(account, 'loan.availableAmount')}
       />
     </Section>
