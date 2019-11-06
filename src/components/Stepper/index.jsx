@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import SwipeableViews from 'react-swipeable-views'
 
-import PercentageLine from 'components/PercentageLine'
+import { PercentageLine } from 'cozy-ui/transpiled/react'
 import { BackButtonMobile } from 'components/BackButton'
 import styles from './styles.styl'
 

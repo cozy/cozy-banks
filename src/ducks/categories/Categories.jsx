@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import cx from 'classnames'
-import { translate, withBreakpoints } from 'cozy-ui/react'
+import { translate, withBreakpoints, PercentageLine } from 'cozy-ui/react'
 import Text, { Caption } from 'cozy-ui/react/Text'
 import ListItemText from 'cozy-ui/react/ListItemText'
 import { Media, Bd, Img } from 'cozy-ui/react/Media'
@@ -11,7 +11,6 @@ import { Figure } from 'components/Figure'
 import styles from 'ducks/categories/styles.styl'
 import { flowRight as compose } from 'lodash'
 import { getCurrencySymbol } from 'utils/currencySymbol'
-import PercentageLine from 'components/PercentageLine'
 
 const stAmount = styles['bnk-table-amount']
 const stCategory = styles['bnk-table-category-category']
