@@ -501,7 +501,7 @@
       "pane-title": "Category budget alerts",
       "pane-description": "Configure balance alerts per category",
       "create-alert": "Create alert",
-      "balance-inferior-to": "Balance inferior to %{thresold}",
+      "balance-inferior-to": "Balance inferior to %{thresold}€.",
       "saving-error": "Could not save alert, please try again later",
       "edit": {
         "modal-title": "Edit alert",
