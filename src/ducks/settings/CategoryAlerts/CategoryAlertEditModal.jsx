@@ -9,7 +9,8 @@ import {
   translate,
   InputGroup,
   Input,
-  Label
+  Label,
+  Stack
 } from 'cozy-ui/transpiled/react'
 
 import Stepper from 'components/Stepper'
@@ -36,44 +37,48 @@ const CategoryAlertInfoSlide = ({
   const categoryName = getCategoryName(alert.categoryId)
 
   return (
-    <div>
-      <ModalContent>
-        <Label>
-          {t('Settings.budget-category-alerts.edit.account-group-label')}
-        </Label>
-      </ModalContent>
+    <Stack spacing="xs">
       <div>
-        <ModalRow
-          icon={
-            alert.accountOrGroup &&
-            alert.accountOrGroup._type === ACCOUNT_DOCTYPE &&
-            accountsById[alert.accountOrGroup._id] ? (
-              <AccountIcon account={accountsById[alert.accountOrGroup._id]} />
-            ) : null
-          }
-          label={
-            alert.accountOrGroup ? (
-              <AccountOrGroupLabel doc={alert.accountOrGroup} />
-            ) : (
-              t('AccountSwitch.all_accounts')
-            )
-          }
-          onClick={handleRequestChooseAccountOrGroup}
-          hasArrow={true}
-        />
+        <ModalContent>
+          <Label>
+            {t('Settings.budget-category-alerts.edit.account-group-label')}
+          </Label>
+        </ModalContent>
+        <div>
+          <ModalRow
+            icon={
+              alert.accountOrGroup &&
+              alert.accountOrGroup._type === ACCOUNT_DOCTYPE &&
+              accountsById[alert.accountOrGroup._id] ? (
+                <AccountIcon account={accountsById[alert.accountOrGroup._id]} />
+              ) : null
+            }
+            label={
+              alert.accountOrGroup ? (
+                <AccountOrGroupLabel doc={alert.accountOrGroup} />
+              ) : (
+                t('AccountSwitch.all_accounts')
+              )
+            }
+            onClick={handleRequestChooseAccountOrGroup}
+            hasArrow={true}
+          />
+        </div>
       </div>
-      <ModalContent>
-        <Label>
-          {t('Settings.budget-category-alerts.edit.category-label')}
-        </Label>
-      </ModalContent>
       <div>
-        <ModalRow
-          icon={<CategoryIcon categoryId={alert.categoryId} />}
-          label={t(`Data.subcategories.${categoryName}`)}
-          onClick={handleRequestChooseCategory}
-          hasArrow={true}
-        />
+        <ModalContent>
+          <Label>
+            {t('Settings.budget-category-alerts.edit.category-label')}
+          </Label>
+        </ModalContent>
+        <div>
+          <ModalRow
+            icon={<CategoryIcon categoryId={alert.categoryId} />}
+            label={t(`Data.subcategories.${categoryName}`)}
+            onClick={handleRequestChooseCategory}
+            hasArrow={true}
+          />
+        </div>
       </div>
       <ModalContent>
         <Label>
@@ -87,7 +92,7 @@ const CategoryAlertInfoSlide = ({
           />
         </InputGroup>
       </ModalContent>
-    </div>
+    </Stack>
   )
 }
 

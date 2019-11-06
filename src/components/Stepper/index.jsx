@@ -18,15 +18,15 @@ class Stepper extends React.Component {
     const { currentIndex, children, onBack, showPercentage } = this.props
     return (
       <>
-        <div className={styles.ProgressBackground}>
-          {showPercentage ? (
+        {showPercentage ? (
+          <div className={styles.ProgressBackground}>
             <PercentageLine
               color="var(--primaryColor)"
               className={styles.ProgressLine}
               value={Math.max(((currentIndex + 1) / children.length) * 100, 1)}
             />
-          ) : null}
-        </div>
+          </div>
+        ) : null}
         {currentIndex > 0 ? <BackButtonMobile onClick={onBack} /> : null}
         <SwipeableViews animateHeight disabled index={currentIndex}>
           {React.Children.map(children, (child, i) => {
