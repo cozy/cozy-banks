@@ -4,7 +4,6 @@ import { translate } from 'cozy-ui/transpiled/react/I18n'
 import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import CompositeRow from 'cozy-ui/transpiled/react/CompositeRow'
 import { Figure } from 'components/Figure'
-import { GROUP_DOCTYPE, ACCOUNT_DOCTYPE } from 'doctypes'
 import { get } from 'lodash'
 import { Section as BaseSection } from 'components/Section'
 import cx from 'classnames'
@@ -246,38 +245,19 @@ const DumbLoanDetails = props => {
 const LoanDetails = translate()(DumbLoanDetails)
 
 export const LoanDetailsPage = props => {
-  const { filteringDoc } = props
-
-  let accounts
-
-  switch (filteringDoc._type) {
-    case GROUP_DOCTYPE:
-      accounts = filteringDoc.accounts.data
-      break
-
-    case ACCOUNT_DOCTYPE:
-      accounts = [filteringDoc]
-      break
-
-    default:
-      return null
-  }
+  const { filteringDoc: account } = props
 
   return (
     <>
       <BalanceDetailsHeader showBalance />
-      {accounts.map(account => (
-        <React.Fragment key={account._id}>
-          <BaseSection>
-            <Wrapper>
-              <Padded>
-                <LoanProgress account={account} />
-              </Padded>
-            </Wrapper>
-          </BaseSection>
-          <LoanDetails account={account} />
-        </React.Fragment>
-      ))}
+      <BaseSection>
+        <Wrapper>
+          <Padded>
+            <LoanProgress account={account} />
+          </Padded>
+        </Wrapper>
+      </BaseSection>
+      <LoanDetails account={account} />
     </>
   )
 }
