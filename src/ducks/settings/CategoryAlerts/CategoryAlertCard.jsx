@@ -10,7 +10,7 @@ import AccountOrGroupLabel from 'ducks/settings/CategoryAlerts/AccountOrGroupLab
 
 const CategoryAlertPropType = PropTypes.shape({
   categoryId: PropTypes.string.isRequired,
-  balanceThresoldMin: PropTypes.number.isRequired
+  balanceThresholdMin: PropTypes.number.isRequired
 })
 
 /**
@@ -18,7 +18,7 @@ const CategoryAlertPropType = PropTypes.shape({
  *
  * - Category name
  * - Category icon
- * - Balance thresold
+ * - Balance threshold
  *
  * Displays edition modal and calls saveAlert callback
  * Displays removal button and calls removeAlert callback
@@ -73,8 +73,8 @@ const CategoryAlertCard = ({ removeAlert, updateAlert, alert, t }) => {
             {t(`Data.subcategories.${categoryName}`)}
             {saving ? <Spinner size="small" /> : null}
             <br />
-            {t('Settings.budget-category-alerts.balance-inferior-to', {
-              thresold: alert.balanceThresoldMin
+            {t('Settings.budget-category-alerts.budget-inferior-to', {
+              threshold: alert.balanceThresholdMin
             })}
             <br />
             {alert.accountOrGroup ? (
