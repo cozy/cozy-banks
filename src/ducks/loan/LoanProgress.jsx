@@ -1,5 +1,5 @@
 import React from 'react'
-import LoanPercentageLine from 'ducks/loan/LoanPercentageLine'
+import PercentageBar from 'cozy-ui/transpiled/react/PercentageBar'
 import { translate } from 'cozy-ui/transpiled/react/I18n'
 import { Caption } from 'cozy-ui/transpiled/react/Text'
 import { get } from 'lodash'
@@ -28,7 +28,7 @@ const DumbLoanProgress = props => {
 
   return (
     <>
-      <LoanPercentageLine value={percentage} />
+      <PercentageBar value={percentage} color="var(--emerald)" />
       <div className="u-flex u-mt-half">
         <div className="u-flex-grow-1">
           <Figure total={reimbursedAmount} symbol="€" coloredPositive />
