@@ -16,7 +16,7 @@ import CategoryAlertCard from 'ducks/settings/CategoryAlerts/CategoryAlertCard'
 import CategoryAlertEditModal from 'ducks/settings/CategoryAlerts/CategoryAlertEditModal'
 
 const makeNewAlert = () => ({
-  categoryId: '400100',
+  categoryId: '400110',
   balanceThresholdMin: 100,
   accountOrGroup: null
 })
