@@ -154,7 +154,8 @@ const CategoryAlertEditModal = translate()(
               <Label>
                 {t('Settings.budget-category-alerts.edit.thresold-label')}
               </Label>
-              {/* TODO box-sizing: border-box should be directly on InputGroup */}
+              {/* TODO box-sizing: border-box should be directly on InputGroup.
+                  https://github.com/cozy/cozy-ui/pull/1231 */}
               <InputGroup
                 className="u-bxz"
                 append={<InputGroup.Unit>€</InputGroup.Unit>}
