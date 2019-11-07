@@ -703,6 +703,7 @@
   },
 
   "LoanDetails": {
+    "dateGlue": "le",
     "keyInfos": {
       "title": "Informations clées",
       "borrowedAmount": "Montant emprunté :",

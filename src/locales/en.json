@@ -691,6 +691,7 @@
   },
 
   "LoanDetails": {
+    "dateGlue": "on",
     "keyInfos": {
       "title": "Key information",
       "borrowedAmount": "Borrowed amount:",

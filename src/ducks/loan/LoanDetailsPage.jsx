@@ -148,14 +148,20 @@ const PaymentsSection = translate()(props => {
         type="amount"
         title={t('LoanDetails.payments.lastPayment')}
         value={get(account, 'loan.lastPaymentAmount')}
-        caption={'le ' + f(get(account, 'loan.lastPaymentDate'), DATE_FORMAT)}
+        caption={
+          t('LoanDetails.dateGlue') +
+          ' ' +
+          f(get(account, 'loan.lastPaymentDate'), DATE_FORMAT)
+        }
       />
       <Row
         type="amount"
         title={t('LoanDetails.payments.nextPayment')}
         value={get(account, 'loan.nextPaymentAmount')}
         caption={
-          t('le ') + f(get(account, 'loan.nextPaymentDate'), DATE_FORMAT)
+          t('LoanDetails.dateGlue') +
+          ' ' +
+          f(get(account, 'loan.nextPaymentDate'), DATE_FORMAT)
         }
       />
     </Section>
