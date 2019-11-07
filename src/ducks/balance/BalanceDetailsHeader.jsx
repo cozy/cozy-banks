@@ -14,7 +14,7 @@ import BarBalance from 'components/BarBalance'
 
 const { BarRight } = cozy.bar
 
-const DumbBalanceDetailsHeader = props => {
+export const DumbBalanceDetailsHeader = props => {
   const {
     breakpoints: { isMobile },
     small,
