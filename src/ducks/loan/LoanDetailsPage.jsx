@@ -244,15 +244,18 @@ const DumbLoanDetails = props => {
 
 const LoanDetails = translate()(DumbLoanDetails)
 
-export const LoanDetailsPage = props => {
-  const { filteringDoc: account } = props
+export const DumbLoanDetailsPage = props => {
+  const {
+    filteringDoc: account,
+    breakpoints: { isMobile }
+  } = props
 
   return (
     <>
       <BalanceDetailsHeader showBalance />
       <BaseSection>
         <Wrapper>
-          <Padded>
+          <Padded className={cx({ 'u-pr-1': !isMobile })}>
             <LoanProgress account={account} />
           </Padded>
         </Wrapper>
@@ -261,5 +264,7 @@ export const LoanDetailsPage = props => {
     </>
   )
 }
+
+const LoanDetailsPage = withBreakpoints()(DumbLoanDetailsPage)
 
 export default LoanDetailsPage
