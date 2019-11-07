@@ -12,6 +12,7 @@ import styles from 'ducks/loan/LoanDetailsPage.styl'
 import LoanProgress from 'ducks/loan/LoanProgress'
 import { Padded } from 'components/Spacing'
 import { flowRight as compose } from 'lodash'
+import { getBorrowedAmount } from 'ducks/account/helpers'
 
 const DATE_FORMAT = 'DD/MM/YY'
 
@@ -91,7 +92,7 @@ const isExistingData = data => data !== undefined && data !== null
 export const KeyInfosSection = translate()(props => {
   const { account, t } = props
 
-  const borrowedAmount = get(account, 'loan.usedAmount')
+  const borrowedAmount = getBorrowedAmount(account)
   const balance = get(account, 'balance')
   const rate = get(account, 'loan.rate')
   const shouldRender = [borrowedAmount, balance, rate].some(isExistingData)
