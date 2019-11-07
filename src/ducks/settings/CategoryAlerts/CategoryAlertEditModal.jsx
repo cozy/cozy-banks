@@ -217,7 +217,7 @@ const CategoryAlertEditModal = translate()(
             <Button
               onClick={handleConfirmEdit}
               label={
-                alert.id
+                alert.id !== undefined
                   ? t('Settings.budget-category-alerts.edit.update-ok')
                   : t('Settings.budget-category-alerts.edit.create-ok')
               }
