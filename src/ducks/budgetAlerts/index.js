@@ -3,7 +3,15 @@ import isEqual from 'lodash/isEqual'
 import { TRANSACTION_DOCTYPE } from 'doctypes'
 import { getCategoryId } from 'ducks/categories/helpers'
 import sumBy from 'lodash/sumBy'
-import { fetchCategoryAlerts } from 'ducks/settings/helpers'
+import {
+  fetchCategoryAlerts,
+  updateCategoryAlerts
+} from 'ducks/settings/helpers'
+import CategoryBudgetNotificationView from './CategoryBudgetNotificationView'
+import { sendNotification } from 'cozy-notifications'
+
+const lang = process.env.COZY_LOCALE || 'en'
+const dictRequire = lang => require(`../../locales/${lang}`)
 
 const log = logger.namespace('category-alerts')
 
@@ -103,4 +111,16 @@ const buildNotificationData = async (client, alerts, options = {}) => {
   return data
 }
 
-export { buildNotificationData, fetchCategoryAlerts }
+const buildNotificationView = client => {
+  const notifView = new CategoryBudgetNotificationView({
+    client,
+    lang,
+    data: {},
+    locales: {
+      [lang]: dictRequire(lang)
+    }
+  })
+  return notifView
+}
+
+export { buildNotificationData, buildNotificationView, fetchCategoryAlerts }

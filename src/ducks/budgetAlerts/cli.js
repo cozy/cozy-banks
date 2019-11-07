@@ -1,13 +1,19 @@
 import argparse from 'argparse'
 
+import { sendNotification } from 'cozy-notifications'
 import { createClientInteractive } from 'cozy-client/dist/cli'
 
 import { SETTINGS_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
-import { fetchCategoryAlerts, buildNotificationData } from './index'
+import {
+  fetchCategoryAlerts,
+  buildNotificationData,
+  buildNotificationView,
+  runCategoryBudgetService
+} from './index'
 
 const parseArgs = () => {
   const parser = new argparse.ArgumentParser()
-  parser.addArgument('mode', { choices: ['show', 'build', 'send'] })
+  parser.addArgument('mode', { choices: ['show', 'build', 'send', 'run'] })
   parser.addArgument('--force', { action: 'storeTrue', default: false })
   parser.addArgument('--url', { default: 'http://cozy.tools:8080' })
   return parser.parseArgs()
@@ -32,6 +38,13 @@ const main = async () => {
     })
     // eslint-disable-next-line no-console
     console.log(JSON.stringify(notificationData, null, 2))
+  } else if (args.mode === 'send') {
+    const notifView = buildNotificationView(client)
+    await sendNotification(notifView)
+  } else if (args.mode == 'run') {
+    await runCategoryBudgetService(client, {
+      force: args.force
+    })
   }
 }
 

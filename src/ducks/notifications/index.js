@@ -5,6 +5,7 @@
 import Handlebars from 'handlebars'
 import { parse, format } from 'date-fns'
 import { getCategoryId } from 'ducks/categories/helpers'
+import { getCategoryName } from 'ducks/categories/categoriesMap'
 import { getAccountBalance } from 'ducks/account/helpers'
 import { getParentCategory } from 'ducks/categories/categoriesMap'
 import { treatedByFormat } from './utils'
@@ -25,6 +26,13 @@ ${amount >= 0 ? '+' : '-'}
 ${Math.abs(amount)} €
 </span>
 `
+    )
+  },
+
+  categoryIcon: categoryId => {
+    const parentCategoryName = getParentCategory(categoryId)
+    return new Handlebars.SafeString(
+      `<img style="width: 32px; height: 32px" src='https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/icons/icon-cat-${parentCategoryName}.png' />`
     )
   },
 

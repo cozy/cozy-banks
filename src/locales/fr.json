@@ -487,6 +487,12 @@
       "notification": {
         "title": "Le compte '%{label}' sera à %{balance}%{currency} après le débit de l'encours de votre carte de crédit"
       }
+    },
+    "categoryBudgets": {
+      "email": {
+        "innerTitle": "Notification d'alerte par catégorie",
+        "budgetOutOf": "sur"
+      }
     }
   },
 
