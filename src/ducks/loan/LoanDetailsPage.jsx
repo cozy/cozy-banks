@@ -14,7 +14,7 @@ import { flowRight as compose } from 'lodash'
 
 const DATE_FORMAT = 'DD/MM/YY'
 
-const DumbRow = translate()(props => {
+const DumbRow = props => {
   const {
     type,
     title,
@@ -72,7 +72,7 @@ const DumbRow = translate()(props => {
       </Wrapper>
     </div>
   )
-})
+}
 
 const Row = compose(
   translate(),
