@@ -85,7 +85,7 @@ const Section = props => {
   return <BaseSection title={title}>{children}</BaseSection>
 }
 
-const hasInfos = (account, paths) => {
+const hasSomeInfos = (account, paths) => {
   for (const path of paths) {
     if (get(account, path)) {
       return true
@@ -98,7 +98,7 @@ const hasInfos = (account, paths) => {
 const KeyInfosSection = translate()(props => {
   const { account, t } = props
 
-  const shouldRender = hasInfos(account, [
+  const shouldRender = hasSomeInfos(account, [
     'loan.usedAmount',
     'balance',
     'loan.rate'
@@ -132,7 +132,7 @@ const KeyInfosSection = translate()(props => {
 const PaymentsSection = translate()(props => {
   const { account, t, f } = props
 
-  const shouldRender = hasInfos(account, [
+  const shouldRender = hasSomeInfos(account, [
     'loan.lastPaymentDate',
     'loan.nextPaymentDate'
   ])
@@ -164,7 +164,7 @@ const PaymentsSection = translate()(props => {
 const CharacteristicsSection = translate()(props => {
   const { account, t } = props
 
-  const shouldRender = hasInfos(account, [
+  const shouldRender = hasSomeInfos(account, [
     'loan.subscriptionDate',
     'loan.maturityDate',
     'loan.nbPaymentsLeft',
@@ -204,7 +204,7 @@ const CharacteristicsSection = translate()(props => {
 const CreditReserveSection = translate()(props => {
   const { account, t } = props
 
-  const shouldRender = hasInfos(account, [
+  const shouldRender = hasSomeInfos(account, [
     'loan.totalAmount',
     'loan.availableAmount'
   ])
