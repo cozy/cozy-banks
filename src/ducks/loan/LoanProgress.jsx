@@ -4,21 +4,10 @@ import { translate } from 'cozy-ui/transpiled/react/I18n'
 import { Caption } from 'cozy-ui/transpiled/react/Text'
 import { get } from 'lodash'
 import { Figure } from 'components/Figure'
-
-const getReimbursedAmount = account => {
-  const usedAmount = get(account, 'loan.usedAmount')
-  const remaining = -get(account, 'balance')
-
-  return usedAmount - remaining
-}
-
-const getReimbursedPercentage = account => {
-  const reimbursedAmount = getReimbursedAmount(account)
-  const totalAmount = get(account, 'loan.usedAmount')
-  const percentage = (reimbursedAmount / totalAmount) * 100
-
-  return percentage
-}
+import {
+  getReimbursedPercentage,
+  getReimbursedAmount
+} from 'ducks/account/helpers'
 
 const DumbLoanProgress = props => {
   const { account, t } = props
