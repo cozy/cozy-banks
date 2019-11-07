@@ -5,10 +5,11 @@ import CompositeRow from 'cozy-ui/transpiled/react/CompositeRow'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import { Bold } from 'cozy-ui/transpiled/react/Text'
+import NarrowContent from 'cozy-ui/transpiled/react/NarrowContent'
 import AccountIcon from 'components/AccountIcon'
 import withFilters from 'components/withFilters'
 import { BalanceDetailsHeader } from 'ducks/balance'
-import { Wrapper, Padded } from 'components/Spacing'
+import { Padded } from 'components/Spacing'
 
 const PaddedOnDesktop = withBreakpoints()(props => {
   const {
@@ -32,7 +33,7 @@ const DumbLoanListPage = props => {
       <BalanceDetailsHeader showBalance />
       {accounts.map(account => (
         <Section key={account._id}>
-          <Wrapper>
+          <NarrowContent>
             <PaddedOnDesktop>
               <CompositeRow
                 primaryText={
@@ -49,7 +50,7 @@ const DumbLoanListPage = props => {
                 }}
               />
             </PaddedOnDesktop>
-          </Wrapper>
+          </NarrowContent>
         </Section>
       ))}
     </>

@@ -3,13 +3,14 @@ import { BalanceDetailsHeader } from 'ducks/balance'
 import { translate } from 'cozy-ui/transpiled/react/I18n'
 import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import CompositeRow from 'cozy-ui/transpiled/react/CompositeRow'
+import NarrowContent from 'cozy-ui/transpiled/react/NarrowContent'
 import { Figure } from 'components/Figure'
 import { get } from 'lodash'
 import { Section as BaseSection } from 'components/Section'
 import cx from 'classnames'
 import styles from 'ducks/loan/LoanDetailsPage.styl'
 import LoanProgress from 'ducks/loan/LoanProgress'
-import { Padded, Wrapper } from 'components/Spacing'
+import { Padded } from 'components/Spacing'
 import { flowRight as compose } from 'lodash'
 
 const DATE_FORMAT = 'DD/MM/YY'
@@ -59,7 +60,7 @@ const DumbRow = props => {
 
   return (
     <div className={cx(styles.LoanDetailsRow, className)}>
-      <Wrapper>
+      <NarrowContent>
         <CompositeRow
           className={cx({
             'u-pl-2': !isMobile
@@ -69,7 +70,7 @@ const DumbRow = props => {
           right={right}
           {...rest}
         />
-      </Wrapper>
+      </NarrowContent>
     </div>
   )
 }
@@ -254,11 +255,11 @@ export const DumbLoanDetailsPage = props => {
     <>
       <BalanceDetailsHeader showBalance />
       <BaseSection>
-        <Wrapper>
+        <NarrowContent>
           <Padded className={cx({ 'u-pr-1': !isMobile })}>
             <LoanProgress account={account} />
           </Padded>
-        </Wrapper>
+        </NarrowContent>
       </BaseSection>
       <LoanDetails account={account} />
     </>
