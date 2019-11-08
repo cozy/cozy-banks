@@ -51,7 +51,10 @@ const main = async () => {
     // eslint-disable-next-line no-console
     console.log(JSON.stringify(notificationData, null, 2))
   } else if (args.mode === 'send') {
-    const notifView = buildNotificationView(client)
+    const notifView = buildNotificationView(client, {
+      force: args.force,
+      currentDate: args.currentDate
+    })
     await sendNotification(client, notifView)
   } else if (args.mode == 'run') {
     await runCategoryBudgetService(client, {

@@ -21,18 +21,35 @@ const transformForTemplate = (budgetAlert, t) => {
 }
 
 class CategoryBudget extends NotificationView {
+  constructor(options) {
+    super(options)
+    this.currentDate = options.currentDate
+    this.force = options.force
+  }
+
+  shouldSend(templateData) {
+    return !!templateData.budgetAlerts
+  }
+
   async buildData() {
     const client = this.client
     const alerts = await fetchCategoryAlerts(client)
     const budgetAlerts = await buildNotificationData(client, alerts, {
-      force: true
+      currentDate: this.currentDate,
+      force: this.force
     })
+
+    if (!budgetAlerts) {
+      return {}
+    }
 
     const data = {
       date: getCurrentDate(),
-      budgetAlerts: budgetAlerts.map(budgetAlert =>
-        transformForTemplate(budgetAlert, this.t)
-      )
+      budgetAlerts: budgetAlerts
+        ? budgetAlerts.map(budgetAlert =>
+            transformForTemplate(budgetAlert, this.t)
+          )
+        : null
     }
 
     return data
