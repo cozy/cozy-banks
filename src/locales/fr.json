@@ -487,6 +487,12 @@
       "notification": {
         "title": "Le compte '%{label}' sera à %{balance}%{currency} après le débit de l'encours de votre carte de crédit"
       }
+    },
+    "categoryBudgets": {
+      "email": {
+        "innerTitle": "Notification d'alerte par catégorie",
+        "budgetOutOf": "sur"
+      }
     }
   },
 
@@ -506,6 +512,28 @@
       "amount_blur": {
         "title": "Masquer les montants",
         "description": "Naviguer dans l'app avec les montants cachés"
+      }
+    },
+    "budget-category-alerts": {
+      "pane-title": "Alertes de budget par catégorie",
+      "pane-description": "Configurer les alertes de budget par catégorie",
+      "create-alert": "Créer une alerte",
+      "budget-inferior-to": "Solde inférieur à %{threshold}€.",
+      "saving-error": "Impossible de sauver l'alerte, merci de réessayer plus tard.",
+      "edit": {
+        "modal-title": "Configurer l'alerte",
+        "category-label": "Catégorie",
+        "threshold-label": "Seuil",
+        "account-group-label": "Compte ou groupe",
+        "create-ok": "Créer l'alerte",
+        "update-ok": "Mettre à jour l'alerte",
+        "cancel": "Annuler"
+      },
+      "remove": {
+        "title": "Supprimer l'alerte ?",
+        "cancel": "Annuler",
+        "desc": "Merci de confirmer vouloir supprimer l'alerte",
+        "ok": "Supprimer l'alerte"
       }
     }
   },
@@ -672,6 +700,38 @@
         "title": "Ouvrir l'application",
         "caption": "Depuis mon téléphone"
       }
+    }
+  },
+
+  "LoanProgress": {
+    "reimbursedAmount": "Montant remboursé",
+    "borrowedAmount": "Montant emprunté"
+  },
+
+  "LoanDetails": {
+    "dateGlue": "le",
+    "keyInfos": {
+      "title": "Informations clées",
+      "borrowedAmount": "Montant emprunté :",
+      "remainingCapital": "Capital restant dû :",
+      "interestRate": "Taux d'intérêt :"
+    },
+    "payments": {
+      "title": "Paiements",
+      "lastPayment": "Dernier paiement effectué :",
+      "nextPayment": "Prochain paiement prévu :"
+    },
+    "characteristics": {
+      "title": "Caractéristiques du prêt",
+      "subscriptionDate": "Date de souscription :",
+      "maturityDate": "Date de remboursement :",
+      "nbPaymentsLeft": "Nb d'échéances encore prévues :",
+      "nbPaymentsDone": "Nb d'échéances payées :"
+    },
+    "creditReserve": {
+      "title": "Réserve crédit",
+      "totalUsedAmount": "Montant total utilisé :",
+      "availableAmount": "Réserve disponible :"
     }
   }
 }

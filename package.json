@@ -1,6 +1,6 @@
 {
   "name": "cozy-banks",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "main": "src/main.jsx",
   "scripts": {
     "build": "npm run build:browser && npm run build:services",
@@ -64,7 +64,8 @@
     "fixtures": "ACH import test/fixtures/demo.json test/fixtures/helpers/index.js",
     "secrets:decrypt": "openssl aes-256-cbc -K $ENCRYPTED_KEY -iv $ENCRYPTED_IV -in ./scripts/encrypted.tar.gz.enc -d | tar zxv -C scripts",
     "secrets:encrypt": "tar zcvf ./scripts/decrypted.tar.gz ./scripts/decrypted && travis encrypt-file ./scripts/decrypted.tar.gz ./scripts/encrypted.tar.gz.enc -p",
-    "release": "./scripts/release.sh"
+    "release": "./scripts/release.sh",
+    "services:budgetAlerts": "USE_REACT=true BABEL_ENV=cli babel-node --ignore /some-fake-path src/ducks/budgetAlerts/cli.js"
   },
   "husky": {
     "hooks": {
@@ -97,6 +98,7 @@
     "babel-eslint": "10.0.3",
     "babel-loader": "8.0.6",
     "babel-plugin-date-fns": "0.2.1",
+    "babel-plugin-inline-import": "^3.0.0",
     "babel-plugin-lodash": "3.3.4",
     "babel-preset-cozy-app": "1.6.0",
     "commitlint-config-cozy": "0.4.0",
@@ -151,10 +153,12 @@
     "webpack-cli": "3.3.9",
     "webpack-dev-server": "3.8.1",
     "webpack-merge": "4.2.2",
+    "wtfnode": "^0.8.0",
     "yarnhook": "0.4.3"
   },
   "dependencies": {
     "@material-ui/core": "3.9.3",
+    "babel-plugin-module-resolver": "^3.2.0",
     "bluebird": "3.5.5",
     "chart.js": "2.8.0",
     "classificator": "0.3.3",
@@ -167,7 +171,7 @@
     "cozy-client-js": "0.16.4",
     "cozy-device-helper": "1.8.0",
     "cozy-doctypes": "1.67.0",
-    "cozy-flags": "1.10.0",
+    "cozy-flags": "1.11.0",
     "cozy-harvest-lib": "1.9.0",
     "cozy-interapp": "0.5.0",
     "cozy-konnector-libs": "4.17.1",
@@ -176,7 +180,7 @@
     "cozy-pouch-link": "6.64.7",
     "cozy-realtime": "3.2.1",
     "cozy-stack-client": "7.5.0",
-    "cozy-ui": "25.10.2",
+    "cozy-ui": "26.5.0",
     "d3": "5.11.0",
     "date-fns": "1.30.1",
     "detect-node": "2.0.4",
