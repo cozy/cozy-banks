@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import compose from 'lodash/flowRight'
-import maxBy from 'lodash/maxBy'
 import { withClient, queryConnect } from 'cozy-client'
 import { Button, Stack, Alerter, translate } from 'cozy-ui/transpiled/react'
 
@@ -14,11 +13,7 @@ import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import CategoryAlertCard from 'ducks/settings/CategoryAlerts/CategoryAlertCard'
 import CategoryAlertEditModal from 'ducks/settings/CategoryAlerts/CategoryAlertEditModal'
 
-const makeNewAlert = () => ({
-  categoryId: '400110',
-  maxThreshold: 100,
-  accountOrGroup: null
-})
+import { getAlertId, getNextAlertId, makeNewAlert } from 'ducks/budgetAlerts'
 
 const CreateCategoryAlert = translate()(({ createAlert, t, ...props }) => {
   const [creating, setCreating] = useState(false)
@@ -68,12 +63,6 @@ const replaceBy = (arr, item, idFn) => {
   return index !== -1
     ? [...arr.slice(0, index), item, ...arr.slice(index + 1)]
     : [...arr, item]
-}
-
-const getAlertId = x => x.id
-
-const getNextAlertId = alerts => {
-  return alerts.length === 0 ? 0 : getAlertId(maxBy(alerts, getAlertId))
 }
 
 const CategoryAlertsPane = ({ client, settingsCollection, t }) => {

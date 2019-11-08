@@ -4,6 +4,7 @@ import { getCategoryId } from 'ducks/categories/helpers'
 import sumBy from 'lodash/sumBy'
 import { fetchCategoryAlerts } from 'ducks/settings/helpers'
 import { startOfMonth, endOfMonth, addDays, format } from 'date-fns'
+import maxBy from 'lodash/maxBy'
 
 const log = logger.namespace('category-alerts')
 
@@ -14,6 +15,19 @@ const fetchGroup = async (client, groupId) => {
     client.all(GROUP_DOCTYPE).getById(groupId)
   )
   return group
+}
+
+export const makeNewAlert = () => ({
+  // Default category is Daily Life > Supermarket
+  categoryId: '400110',
+  maxThreshold: 100,
+  accountOrGroup: null
+})
+
+export const getAlertId = x => x.id
+
+export const getNextAlertId = alerts => {
+  return alerts.length === 0 ? 0 : getAlertId(maxBy(alerts, getAlertId)) + 1
 }
 
 const makeSelectorForAccountOrGroup = async (client, accountOrGroup) => {
