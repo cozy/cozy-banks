@@ -711,7 +711,7 @@
       "interestRate": "Taux d'intérêt :"
     },
     "payments": {
-      "title": "Paiments",
+      "title": "Paiements",
       "lastPayment": "Dernier paiement effectué :",
       "nextPayment": "Prochain paiement prévu :"
     },
