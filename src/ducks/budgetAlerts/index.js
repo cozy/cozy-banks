@@ -123,4 +123,31 @@ const buildNotificationView = client => {
   return notifView
 }
 
-export { buildNotificationData, buildNotificationView, fetchCategoryAlerts }
+/**
+ * Sends category budget notification and updates settings if successful
+ */
+const runCategoryBudgetService = async (client, options) => {
+  log('info', 'Running category budget notification service')
+  const alerts = await fetchCategoryAlerts(client)
+  log('info', `Found ${alerts.length} alert(s)`)
+  const data = await buildNotificationData(client, alerts, {
+    force: options.force
+  })
+  if (!data) {
+    log('info', 'Nothing to send, bailing out')
+    return
+  }
+  const notifView = buildNotificationView(client)
+  await sendNotification(client, notifView)
+  log('info', `Saving updated alerts`)
+  const updatedAlerts = data.map(x => x.alert)
+  log('info', 'Saving updated category alerts')
+  await updateCategoryAlerts(client, updatedAlerts)
+}
+
+export {
+  buildNotificationData,
+  buildNotificationView,
+  fetchCategoryAlerts,
+  runCategoryBudgetService
+}
