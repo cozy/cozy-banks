@@ -23,6 +23,9 @@ import ToggleRow, {
 import DelayedDebitAlert from 'ducks/settings/DelayedDebitAlert'
 import CategoryAlertSettingsPane from 'ducks/settings/CategoryAlerts/CategoryAlertSettingsPane'
 
+/**
+ * Configure notifications and other features
+ */
 export class Configuration extends React.Component {
   saveDocument = async doc => {
     const { saveDocument } = this.props
