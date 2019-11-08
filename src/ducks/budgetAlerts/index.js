@@ -1,6 +1,6 @@
 import logger from 'cozy-logger'
 import isEqual from 'lodash/isEqual'
-import { TRANSACTION_DOCTYPE } from 'doctypes'
+import { TRANSACTION_DOCTYPE, ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { getCategoryId } from 'ducks/categories/helpers'
 import sumBy from 'lodash/sumBy'
 import {
@@ -9,6 +9,7 @@ import {
 } from 'ducks/settings/helpers'
 import CategoryBudgetNotificationView from './CategoryBudgetNotificationView'
 import { sendNotification } from 'cozy-notifications'
+import { startOfMonth, endOfMonth, addDays, format } from 'date-fns'
 
 const lang = process.env.COZY_LOCALE || 'en'
 const dictRequire = lang => require(`../../locales/${lang}`)
@@ -16,6 +17,69 @@ const dictRequire = lang => require(`../../locales/${lang}`)
 const log = logger.namespace('category-alerts')
 
 const copyAlert = alert => ({ ...alert })
+
+const fetchGroup = async (client, groupId) => {
+  const { data: group } = await client.query(
+    client.all(GROUP_DOCTYPE).getById(groupId)
+  )
+  return group
+}
+
+const makeSelectorForAccountOrGroup = async (client, accountOrGroup) => {
+  if (!accountOrGroup) {
+    return null
+  } else if (accountOrGroup._type === GROUP_DOCTYPE) {
+    // TODO find the right way to make an $or selector that works with cozyClient.query
+    // With an $or we have an error "no matching index found, create an index"
+    return null
+  } else if (accountOrGroup._type === ACCOUNT_DOCTYPE) {
+    return {
+      account: accountOrGroup._id
+    }
+  } else {
+    throw new Error(
+      `Unsupported _type (${accountOrGroup._type}) for alert.accountOrGroup`
+    )
+  }
+}
+
+export const fetchExpensesForAlert = async (client, alert, currentDate) => {
+  currentDate = currentDate ? new Date(currentDate) : new Date()
+  const start = format(startOfMonth(currentDate), 'YYYY-MM')
+  const end = format(addDays(endOfMonth(currentDate), 1), 'YYYY-MM')
+  const selector = {
+    date: {
+      $lt: end,
+      $gt: start
+    },
+    amount: {
+      $gt: 0
+    }
+  }
+  if (alert.accountOrGroup) {
+    const accountOrGroupSelector = await makeSelectorForAccountOrGroup(
+      client,
+      alert.accountOrGroup
+    )
+    if (accountOrGroupSelector) {
+      Object.assign(selector, accountOrGroupSelector)
+    }
+  }
+  const { data: monthExpenses } = await client.query(
+    client.all(TRANSACTION_DOCTYPE).where(selector)
+  )
+  const categoryExpenses = monthExpenses.filter(
+    tr => getCategoryId(tr) === alert.categoryId
+  )
+
+  let groupFilter
+  if (alert.accountOrGroup && alert.accountOrGroup._type === GROUP_DOCTYPE) {
+    const group = await fetchGroup(client, alert.accountOrGroup._id)
+    groupFilter = tr => group.accounts.includes(tr.account)
+  }
+
+  return groupFilter ? categoryExpenses.filter(groupFilter) : categoryExpenses
+}
 
 /**
  * Fetches transactions of current month corresponding to the alert
@@ -32,21 +96,13 @@ const copyAlert = alert => ({ ...alert })
  * @return {CategoryBudgetAlert}  - Updated alert (lastNotificationDate, lastNotificationAmount)
  */
 const collectAlertInfo = async (client, alert, options) => {
-  const { data: monthExpenses } = await client.query(
-    client.all(TRANSACTION_DOCTYPE).where({
-      date: {
-        $lt: '2019-08',
-        $gt: '2019-07'
-      },
-      amount: {
-        $gt: 0
-      }
-    })
+  const expenses = await fetchExpensesForAlert(
+    client,
+    alert,
+    options.currentDate
   )
-  const categoryExpenses = monthExpenses.filter(
-    tr => getCategoryId(tr) === alert.categoryId
-  )
-  const sum = sumBy(categoryExpenses, tr => tr.amount)
+
+  const sum = sumBy(expenses, tr => tr.amount)
 
   if (sum < alert.maxThreshold) {
     log(
@@ -69,7 +125,7 @@ const collectAlertInfo = async (client, alert, options) => {
   updatedAlert.lastNotificationDate = new Date().toISOString().slice(0, 10)
   return {
     alert: updatedAlert,
-    expenses: categoryExpenses
+    expenses: expenses
   }
 }
 
@@ -129,7 +185,8 @@ const runCategoryBudgetService = async (client, options) => {
   const alerts = await fetchCategoryAlerts(client)
   log('info', `Found ${alerts.length} alert(s)`)
   const data = await buildNotificationData(client, alerts, {
-    force: options.force
+    force: options.force,
+    currentDate: options.currentDate
   })
   if (!data) {
     log('info', 'Nothing to send, bailing out')

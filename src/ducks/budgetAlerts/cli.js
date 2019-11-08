@@ -3,7 +3,12 @@ import argparse from 'argparse'
 import { sendNotification } from 'cozy-notifications'
 import { createClientInteractive } from 'cozy-client/dist/cli'
 
-import { SETTINGS_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
+import {
+  SETTINGS_DOCTYPE,
+  TRANSACTION_DOCTYPE,
+  GROUP_DOCTYPE,
+  ACCOUNT_DOCTYPE
+} from 'doctypes'
 import {
   fetchCategoryAlerts,
   buildNotificationData,
@@ -15,7 +20,8 @@ const parseArgs = () => {
   const parser = new argparse.ArgumentParser()
   parser.addArgument('mode', { choices: ['show', 'build', 'send', 'run'] })
   parser.addArgument('--force', { action: 'storeTrue', default: false })
-  parser.addArgument('--url', { default: 'http://cozy.tools:8080' })
+  parser.addArgument('--url', { defaultValue: 'http://cozy.tools:8080' })
+  parser.addArgument('--currentDate')
   return parser.parseArgs()
 }
 
@@ -23,7 +29,12 @@ const main = async () => {
   const args = parseArgs()
   const client = await createClientInteractive({
     uri: args.url,
-    scope: [SETTINGS_DOCTYPE, TRANSACTION_DOCTYPE],
+    scope: [
+      SETTINGS_DOCTYPE,
+      TRANSACTION_DOCTYPE,
+      ACCOUNT_DOCTYPE,
+      GROUP_DOCTYPE
+    ],
     oauth: {
       softwareID: 'banks.category-alerts-cli'
     }
@@ -34,7 +45,8 @@ const main = async () => {
     console.log(JSON.stringify(alerts, null, 2))
   } else if (args.mode === 'build') {
     const notificationData = await buildNotificationData(client, alerts, {
-      force: args.force
+      force: args.force,
+      currentDate: args.currentDate
     })
     // eslint-disable-next-line no-console
     console.log(JSON.stringify(notificationData, null, 2))
