@@ -52,7 +52,18 @@ class CategoryBudget extends NotificationView {
         : null
     }
 
+    this.updatedAlerts = budgetAlerts
+
     return data
+  }
+
+  getUpdatedAlerts() {
+    if (this.updatedAlerts === undefined) {
+      throw new Error(
+        'Notification must have been sent before calling getUpdatedAlerts'
+      )
+    }
+    return this.updatedAlerts
   }
 
   getTitle() {

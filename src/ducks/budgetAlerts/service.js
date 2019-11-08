@@ -2,10 +2,7 @@ import isEqual from 'lodash/isEqual'
 
 import logger from 'cozy-logger'
 import { sendNotification } from 'cozy-notifications'
-import {
-  fetchCategoryAlerts,
-  updateCategoryAlerts
-} from 'ducks/settings/helpers'
+import { updateCategoryAlerts } from 'ducks/settings/helpers'
 import CategoryBudgetNotificationView from './CategoryBudgetNotificationView'
 
 import { collectAlertInfo } from './index'
@@ -68,21 +65,10 @@ export const buildNotificationView = (client, options) => {
  * Sends category budget notification and updates settings if successful
  */
 export const runCategoryBudgetService = async (client, options) => {
-  log('info', 'Running category budget notification service')
-  const alerts = await fetchCategoryAlerts(client)
-  log('info', `Found ${alerts.length} alert(s)`)
-  const data = await buildNotificationData(client, alerts, {
-    force: options.force,
-    currentDate: options.currentDate
-  })
-  if (!data) {
-    log('info', 'Nothing to send, bailing out')
-    return
-  }
   const notifView = buildNotificationView(client, options)
   await sendNotification(client, notifView)
   log('info', `Saving updated alerts`)
-  const updatedAlerts = data.map(x => x.alert)
+  const updatedAlerts = notifView.getUpdatedAlerts()
   log('info', 'Saving updated category alerts')
   await updateCategoryAlerts(client, updatedAlerts)
 }
