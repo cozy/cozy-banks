@@ -50,8 +50,6 @@ const CreateCategoryAlert = translate()(({ createAlert, t, ...props }) => {
   )
 })
 
-const Grid = ({ children }) => <div>{children}</div>
-
 /**
  * Replace item in arr, finding item through idFn.
  * If previous item cannot be found, the new item is pushed at the
@@ -109,20 +107,17 @@ const CategoryAlertsPane = ({ client, settingsCollection, t }) => {
         {t('Settings.budget-category-alerts.pane-description')}
       </TogglePaneText>
       <Stack spacing="s">
-        <div>
-          <Grid>
-            {alerts
-              ? alerts.map((alert, i) => (
-                  <CategoryAlertCard
-                    key={i}
-                    updateAlert={createOrUpdateAlert}
-                    removeAlert={removeAlert}
-                    alert={alert}
-                  />
-                ))
-              : null}
-          </Grid>
-        </div>
+        {alerts
+          ? alerts.map((alert, i) => (
+              <div key={i}>
+                <CategoryAlertCard
+                  updateAlert={createOrUpdateAlert}
+                  removeAlert={removeAlert}
+                  alert={alert}
+                />
+              </div>
+            ))
+          : null}
         <CreateCategoryAlert createAlert={createOrUpdateAlert} />
       </Stack>
     </ToggleRowWrapper>
