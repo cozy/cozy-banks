@@ -1,6 +1,7 @@
 import NotificationView from 'ducks/notifications/BaseNotificationView'
 import template from './template.hbs'
-import { fetchCategoryAlerts, buildNotificationData } from './index'
+import { fetchCategoryAlerts } from './index'
+import { buildNotificationData } from './service'
 import { getCurrentDate } from 'ducks/notifications/utils'
 import { getParentCategory } from 'ducks/categories/helpers'
 import { getCategoryName } from 'ducks/categories/categoriesMap'

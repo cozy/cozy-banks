@@ -9,12 +9,12 @@ import {
   GROUP_DOCTYPE,
   ACCOUNT_DOCTYPE
 } from 'doctypes'
+import { fetchCategoryAlerts } from './index'
 import {
-  fetchCategoryAlerts,
   buildNotificationData,
   buildNotificationView,
   runCategoryBudgetService
-} from './index'
+} from './service'
 
 const parseArgs = () => {
   const parser = new argparse.ArgumentParser()
@@ -52,7 +52,7 @@ const main = async () => {
     console.log(JSON.stringify(notificationData, null, 2))
   } else if (args.mode === 'send') {
     const notifView = buildNotificationView(client)
-    await sendNotification(notifView)
+    await sendNotification(client, notifView)
   } else if (args.mode == 'run') {
     await runCategoryBudgetService(client, {
       force: args.force
