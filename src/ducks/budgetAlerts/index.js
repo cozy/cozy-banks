@@ -48,12 +48,10 @@ const collectAlertInfo = async (client, alert, options) => {
   )
   const sum = sumBy(categoryExpenses, tr => tr.amount)
 
-  if (sum < alert.balanceMinThreshold) {
+  if (sum < alert.maxThreshold) {
     log(
       'info',
-      `Threshold (${
-        alert.balanceMinThreshold
-      }) has not been passed, bailing out`
+      `Threshold (${alert.maxThreshold}) has not been passed, bailing out`
     )
     return
   }
