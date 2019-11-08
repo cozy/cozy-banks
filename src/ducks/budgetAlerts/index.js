@@ -83,7 +83,7 @@ export const fetchExpensesForAlert = async (client, alert, currentDate) => {
 
 /**
  * Fetches transactions of current month corresponding to the alert
- * Computes sum and returns information that used to send the global
+ * Computes sum and returns information used to send the global
  * alert email
  *
  * Bails out if
