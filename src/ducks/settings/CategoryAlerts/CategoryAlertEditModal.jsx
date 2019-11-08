@@ -20,7 +20,7 @@ import AccountIcon from 'components/AccountIcon'
 import { CategoryChoice, CategoryIcon, getCategoryName } from 'ducks/categories'
 import AccountGroupChoice from 'ducks/settings/CategoryAlerts/AccountGroupChoice'
 import AccountOrGroupLabel from 'ducks/settings/CategoryAlerts/AccountOrGroupLabel'
-import { getAccountsById } from './selectors'
+import { getAccountsById } from 'selectors'
 
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 
