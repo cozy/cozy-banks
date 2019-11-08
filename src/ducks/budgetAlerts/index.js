@@ -70,6 +70,12 @@ export const fetchExpensesForAlert = async (client, alert, currentDate) => {
       Object.assign(selector, accountOrGroupSelector)
     }
   }
+  log(
+    'info',
+    `Selecting transactions with ${JSON.stringify(selector)} (alertId: ${
+      alert.id
+    })`
+  )
   const { data: monthExpenses } = await client.query(
     client.all(TRANSACTION_DOCTYPE).where(selector)
   )
@@ -107,12 +113,21 @@ export const collectAlertInfo = async (client, alert, options) => {
     options.currentDate
   )
 
+  log(
+    'info',
+    `Found ${expenses.length} expenses for alert ${alert.id} (currentDate: ${
+      options.currentDate
+    })`
+  )
+
   const sum = sumBy(expenses, tr => tr.amount)
 
   if (sum < alert.maxThreshold) {
     log(
       'info',
-      `Threshold (${alert.maxThreshold}) has not been passed, bailing out`
+      `Threshold (${
+        alert.maxThreshold
+      }) has not been passed, bailing out (alertId: ${alert.id})`
     )
     return
   }
@@ -123,6 +138,7 @@ export const collectAlertInfo = async (client, alert, options) => {
     !options.force
   ) {
     log('info', `Same amount as last notification, bailing out`)
+    return
   }
 
   const updatedAlert = copyAlert(alert)

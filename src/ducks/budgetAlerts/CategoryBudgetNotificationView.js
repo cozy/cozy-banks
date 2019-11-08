@@ -6,6 +6,9 @@ import { getCurrentDate } from 'ducks/notifications/utils'
 import { getParentCategory } from 'ducks/categories/helpers'
 import { getCategoryName } from 'ducks/categories/categoriesMap'
 import sumBy from 'lodash/sumBy'
+import logger from 'cozy-logger'
+
+const log = logger.namespace('category-budgets')
 
 const transformForTemplate = (budgetAlert, t) => {
   const catId = budgetAlert.alert.categoryId
@@ -28,6 +31,8 @@ class CategoryBudget extends NotificationView {
   }
 
   shouldSend(templateData) {
+    log('info', 'Nothing to send, bailing out')
+
     return !!templateData.budgetAlerts
   }
 
