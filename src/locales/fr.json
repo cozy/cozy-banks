@@ -518,7 +518,10 @@
       "pane-title": "Budget par catégorie",
       "pane-description": "Configurer les alertes de budget par catégorie",
       "create-alert": "Créer une alerte",
-      "budget-inferior-to": "Solde inférieur à %{threshold}€",
+      "budget-inferior-to": "Budget mensuel de %{threshold}€",
+      "for-account": "pour le compte",
+      "for-group": "pour le groupe",
+      "for-category": "en %{categoryName}",
       "saving-error": "Impossible de sauver l'alerte, merci de réessayer plus tard.",
       "edit": {
         "modal-title": "Configurer la notification",
