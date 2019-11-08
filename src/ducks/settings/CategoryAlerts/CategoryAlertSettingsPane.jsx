@@ -4,10 +4,9 @@ import maxBy from 'lodash/maxBy'
 import { withClient, queryConnect } from 'cozy-client'
 import { Button, Stack, Alerter, translate } from 'cozy-ui/transpiled/react'
 
-import TogglePane, {
-  TogglePaneTitle,
-  TogglePaneText
-} from 'ducks/settings/TogglePane'
+import { TogglePaneSubtitle, TogglePaneText } from 'ducks/settings/TogglePane'
+
+import { ToggleRowWrapper } from 'ducks/settings/ToggleRow'
 
 import { settingsConn } from 'doctypes'
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
@@ -113,10 +112,10 @@ const CategoryAlertsPane = ({ client, settingsCollection, t }) => {
   }
 
   return (
-    <TogglePane>
-      <TogglePaneTitle>
+    <ToggleRowWrapper>
+      <TogglePaneSubtitle>
         {t('Settings.budget-category-alerts.pane-title')}
-      </TogglePaneTitle>
+      </TogglePaneSubtitle>
       <TogglePaneText>
         {t('Settings.budget-category-alerts.pane-description')}
       </TogglePaneText>
@@ -137,7 +136,7 @@ const CategoryAlertsPane = ({ client, settingsCollection, t }) => {
         </div>
         <CreateCategoryAlert createAlert={createOrUpdateAlert} />
       </Stack>
-    </TogglePane>
+    </ToggleRowWrapper>
   )
 }
 
