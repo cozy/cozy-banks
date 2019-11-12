@@ -92,7 +92,9 @@ const CategoryAlertCard = ({ removeAlert, updateAlert, alert, t }) => {
                 )}{' '}
                 <AccountOrGroupLabel doc={alert.accountOrGroup} />
               </>
-            ) : null}
+            ) : (
+              t('Settings.budget-category-alerts.for-all-accounts')
+            )}
           </div>
           <div className="u-fixed u-ml-1">
             <Icon

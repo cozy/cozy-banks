@@ -18,7 +18,7 @@ const transformForTemplate = (budgetAlert, t) => {
   return {
     ...budgetAlert.alert,
     categoryLabel: t(`Data.${type}.${catName}`),
-    currentAmount: sumBy(budgetAlert.expenses, tr => tr.amount),
+    currentAmount: -sumBy(budgetAlert.expenses, tr => tr.amount),
     accountOrGroupLabel: 'Account or group label'
   }
 }
@@ -39,10 +39,13 @@ class CategoryBudget extends NotificationView {
   async buildData() {
     const client = this.client
     const alerts = await fetchCategoryAlerts(client)
+
     const budgetAlerts = await buildNotificationData(client, alerts, {
       currentDate: this.currentDate,
       force: this.force
     })
+
+    this.updatedAlerts = budgetAlerts && budgetAlerts.map(x => x.alert)
 
     if (!budgetAlerts) {
       return {}
@@ -57,8 +60,6 @@ class CategoryBudget extends NotificationView {
         : null
     }
 
-    this.updatedAlerts = budgetAlerts
-
     return data
   }
 
@@ -72,7 +73,7 @@ class CategoryBudget extends NotificationView {
   }
 
   getTitle() {
-    return 'CategoryBudget' // i18n
+    return this.t('categoryBudgets.email.title')
   }
 
   getPushContent() {}

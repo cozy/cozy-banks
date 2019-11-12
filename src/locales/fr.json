@@ -490,6 +490,7 @@
     },
     "categoryBudgets": {
       "email": {
+        "title": "Budget par catégorie",
         "innerTitle": "Notification d'alerte par catégorie",
         "budgetOutOf": "sur"
       }
@@ -521,6 +522,7 @@
       "budget-inferior-to": "Budget mensuel de %{threshold}€",
       "for-account": "pour le compte",
       "for-group": "pour le groupe",
+      "for-all-accounts": "pour tous les comptes",
       "for-category": "en %{categoryName}",
       "saving-error": "Impossible de sauver l'alerte, merci de réessayer plus tard.",
       "edit": {

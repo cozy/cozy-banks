@@ -42,7 +42,7 @@ describe('fetch transactions for alert', () => {
       expect.objectContaining({
         selector: {
           amount: {
-            $gt: 0
+            $lt: 0
           },
           date: {
             $lt: '2020-01',
@@ -71,7 +71,7 @@ describe('fetch transactions for alert', () => {
       expect.objectContaining({
         selector: {
           amount: {
-            $gt: 0
+            $lt: 0
           },
           account: 'c0ffeedeadbeef',
           date: {
@@ -110,7 +110,7 @@ describe('fetch transactions for alert', () => {
       expect.objectContaining({
         selector: {
           amount: {
-            $gt: 0
+            $lt: 0
           },
           date: {
             $lt: '2020-01',

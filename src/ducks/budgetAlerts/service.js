@@ -69,6 +69,9 @@ export const runCategoryBudgetService = async (client, options) => {
   await sendNotification(client, notifView)
   log('info', `Saving updated alerts`)
   const updatedAlerts = notifView.getUpdatedAlerts()
+  if (!updatedAlerts || !updatedAlerts.length) {
+    return
+  }
   log('info', 'Saving updated category alerts')
   await updateCategoryAlerts(client, updatedAlerts)
 }
