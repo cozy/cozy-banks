@@ -69,4 +69,4 @@ export const DumbAccountGroupChoice = translate()(AccountGroupChoice)
 export default queryConnect({
   accounts: accountsConn,
   groups: groupsConn
-})(AccountGroupChoice)
+})(DumbAccountGroupChoice)
