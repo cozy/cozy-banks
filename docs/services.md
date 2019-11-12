@@ -47,6 +47,19 @@ Whenever an `io.cozy.bank.accounts` is created, we check if it could belong in a
 on its type (checkings, savings, credit cards). These `io.cozy.bank.groups` documents are created with
 the `auto: true` attributes.
 
+## Budget alerts
+
+A user can configure alerts to be alerted whenever the sum of its expenses has
+gone past a maximum threshold per month. The notification is sent as part of the
+onOperationOrBillCreate service.
+
+It is configured from a `io.cozy.bank.settings` document and the last notification
+date and amount are saved.
+
+A debug service is built to be able to only run this particular part and not the
+whole onOperationOrBillCreate service. It is possible to run it from the Debug
+tab in the application (or via Bender).
+
 ## I am writing a banking konnector, what should I do?
 
 If you want to benefit from all the features of these services, the most
