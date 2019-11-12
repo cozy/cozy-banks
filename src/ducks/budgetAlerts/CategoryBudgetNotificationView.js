@@ -39,10 +39,13 @@ class CategoryBudget extends NotificationView {
   async buildData() {
     const client = this.client
     const alerts = await fetchCategoryAlerts(client)
+
     const budgetAlerts = await buildNotificationData(client, alerts, {
       currentDate: this.currentDate,
       force: this.force
     })
+
+    this.updatedAlerts = budgetAlerts && budgetAlerts.map(x => x.alert)
 
     if (!budgetAlerts) {
       return {}
@@ -56,8 +59,6 @@ class CategoryBudget extends NotificationView {
           )
         : null
     }
-
-    this.updatedAlerts = budgetAlerts
 
     return data
   }
