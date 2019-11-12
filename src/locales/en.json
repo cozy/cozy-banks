@@ -478,6 +478,7 @@
     },
     "categoryBudgets": {
       "email": {
+        "title": "Category budgets",
         "innerTitle": "Category budget notification",
         "budgetOutOf": "out of"
       }

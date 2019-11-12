@@ -72,7 +72,7 @@ class CategoryBudget extends NotificationView {
   }
 
   getTitle() {
-    return 'CategoryBudget' // i18n
+    return this.t('categoryBudgets.email.title')
   }
 
   getPushContent() {}

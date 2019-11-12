@@ -490,6 +490,7 @@
     },
     "categoryBudgets": {
       "email": {
+        "title": "Budget par catégorie",
         "innerTitle": "Notification d'alerte par catégorie",
         "budgetOutOf": "sur"
       }
