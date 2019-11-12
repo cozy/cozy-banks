@@ -80,8 +80,7 @@ class CategoryBudget extends NotificationView {
 }
 
 CategoryBudget.template = template
-CategoryBudget.category = 'category-budget'
+CategoryBudget.category = 'budget-alerts'
 CategoryBudget.preferredChannels = ['mail']
-CategoryBudget.settingKey = 'CategoryBudget'
 
 export default CategoryBudget
