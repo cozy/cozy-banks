@@ -73,7 +73,7 @@ class CategoryBudget extends NotificationView {
   }
 
   getTitle() {
-    return this.t('categoryBudgets.email.title')
+    return this.t('Notifications.categoryBudgets.email.title')
   }
 
   getPushContent() {}
