@@ -512,6 +512,7 @@
       "for-category": "in %{categoryName}",
       "for-account": "for account",
       "for-group": "for group",
+      "for-all-accounts": "for all accounts",
       "saving-error": "Could not save alert, please try again later",
       "edit": {
         "modal-title": "Edit alert",
