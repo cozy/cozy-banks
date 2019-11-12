@@ -58,7 +58,7 @@ export const fetchExpensesForAlert = async (client, alert, currentDate) => {
       $gt: start
     },
     amount: {
-      $gt: 0
+      $lt: 0
     }
   }
   if (alert.accountOrGroup) {
@@ -79,6 +79,7 @@ export const fetchExpensesForAlert = async (client, alert, currentDate) => {
   const { data: monthExpenses } = await client.query(
     client.all(TRANSACTION_DOCTYPE).where(selector)
   )
+
   const categoryExpenses = monthExpenses.filter(
     tr => getCategoryId(tr) === alert.categoryId
   )
@@ -120,7 +121,7 @@ export const collectAlertInfo = async (client, alert, options) => {
     })`
   )
 
-  const sum = sumBy(expenses, tr => tr.amount)
+  const sum = -sumBy(expenses, tr => tr.amount)
 
   if (sum < alert.maxThreshold) {
     log(

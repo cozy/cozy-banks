@@ -18,7 +18,7 @@ const transformForTemplate = (budgetAlert, t) => {
   return {
     ...budgetAlert.alert,
     categoryLabel: t(`Data.${type}.${catName}`),
-    currentAmount: sumBy(budgetAlert.expenses, tr => tr.amount),
+    currentAmount: -sumBy(budgetAlert.expenses, tr => tr.amount),
     accountOrGroupLabel: 'Account or group label'
   }
 }
