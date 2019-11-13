@@ -1,3 +1,4 @@
+import CozyClient from 'cozy-client'
 import { cozyClient } from 'cozy-konnector-libs'
 import logger from 'cozy-logger'
 import flag from 'cozy-flags'
@@ -10,7 +11,6 @@ import matchFromTransactions from 'ducks/billsMatching/matchFromTransactions'
 import { logResult } from 'ducks/billsMatching/utils'
 import { findAppSuggestions } from 'ducks/appSuggestions/services'
 import { fetchChangesOrAll, getOptions } from './helpers'
-import { runCategoryBudgetService } from 'ducks/budgetAlerts/service'
 
 const log = logger.namespace('onOperationOrBillCreate')
 
@@ -158,7 +158,12 @@ const onOperationOrBillCreate = async options => {
   setting = await updateSettings(setting)
 
   log('info', 'Do category budgets notification')
-  await runCategoryBudgetService(cozyClient)
+  const client = CozyClient.fromEnv(process.env)
+  const jobs = client.collection('io.cozy.jobs')
+  await jobs.create('service', {
+    name: 'budgetAlerts',
+    slug: 'banks'
+  })
 }
 
 const main = async () => {
