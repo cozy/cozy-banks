@@ -87,7 +87,7 @@ const doTransactionsMatching = async (setting, options = {}) => {
 const doSendNotifications = async (setting, notifChanges) => {
   try {
     const transactionsToNotify = notifChanges.documents
-    await sendNotifications(setting, transactionsToNotify, cozyClient)
+    await sendNotifications(setting, transactionsToNotify)
     setting.notifications.lastSeq = setting.billsMatching.transactionsLastSeq
   } catch (e) {
     log('warn', 'Error while sending notifications : ' + e)
