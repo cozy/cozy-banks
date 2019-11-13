@@ -59,7 +59,7 @@ const transformForTemplate = (budgetAlert, t, accountsById, groupsById) => {
   return {
     ...budgetAlert.alert,
     categoryLabel: t(`Data.${type}.${catName}`),
-    currentAmount: (-sumBy(budgetAlert.expenses, tr => tr.amount)).toFixed(2),
+    currentAmount: (-sumBy(budgetAlert.expenses, tr => tr.amount)).toFixed(0),
     accountOrGroupLabel
   }
 }
@@ -122,11 +122,28 @@ class CategoryBudget extends NotificationView {
     return this.t('Notifications.categoryBudgets.email.title')
   }
 
-  getPushContent() {}
+  getPushContent(templateData) {
+    return templateData.budgetAlerts
+      .map(
+        alert =>
+          `${alert.categoryLabel}: ${alert.currentAmount}€ > ${
+            alert.maxThreshold
+          }€`
+      )
+      .join(', ')
+  }
+
+  getExtraAttributes() {
+    return {
+      data: {
+        route: '/categories'
+      }
+    }
+  }
 }
 
 CategoryBudget.template = template
 CategoryBudget.category = 'budget-alerts'
-CategoryBudget.preferredChannels = ['mail']
+CategoryBudget.preferredChannels = ['mail', 'mobile']
 
 export default CategoryBudget
