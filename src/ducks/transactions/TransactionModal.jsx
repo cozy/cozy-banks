@@ -2,7 +2,7 @@
  * Is used in mobile/tablet mode when you click on the more button
  */
 
-import React, { Component } from 'react'
+import React from 'react'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import Icon from 'cozy-ui/react/Icon'
 import { Media, Bd, Img } from 'cozy-ui/react/Media'
@@ -100,102 +100,92 @@ const TransactionInfos = ({ infos }) => (
 )
 
 const transactionModalRowStyle = { textTransform: 'capitalize' }
-class TransactionModal extends Component {
-  renderContent() {
-    const { t, f, transaction, showCategoryChoice, ...props } = this.props
 
-    const categoryId = getCategoryId(transaction)
-    const account = transaction.account.data
+const TransactionModalInfo = props => {
+  const { t, f, transaction, showCategoryChoice, ...restProps } = props
 
-    const typeIcon = (
-      <Icon
-        icon={iconCredit}
-        width={16}
-        className={cx(styles['TransactionModalRowIcon-alignTop'], {
-          [styles['TransactionModalRowIcon-reversed']]: transaction.amount < 0
-        })}
-      />
-    )
+  const typeIcon = (
+    <Icon
+      icon={iconCredit}
+      width={16}
+      className={cx(styles['TransactionModalRowIcon-alignTop'], {
+        [styles['TransactionModalRowIcon-reversed']]: transaction.amount < 0
+      })}
+    />
+  )
 
-    return (
-      <div>
-        <TransactionModalRow
-          iconLeft={typeIcon}
-          className={styles['TransactionModalRow-multiline']}
-          align="top"
-        >
-          <TransactionLabel label={getLabel(transaction)} />
-          <TransactionInfos
-            infos={[
-              {
-                label: t('Transactions.infos.account'),
-                value: getAccountLabel(account)
-              },
-              {
-                label: t('Transactions.infos.institution'),
-                value: getAccountInstitutionLabel(account)
-              },
-              {
-                label: t('Transactions.infos.originalBankLabel'),
-                value:
-                  flag('originalBankLabel') && transaction.originalBankLabel
-              }
-            ].filter(x => x.value)}
-          />
-        </TransactionModalRow>
-        <Separator />
-        <TransactionModalRow iconLeft={iconCalendar}>
-          <span style={transactionModalRowStyle}>
-            {f(getDate(transaction), 'dddd DD MMMM')}
-          </span>
-        </TransactionModalRow>
-        <Separator />
-        <TransactionModalRow
-          iconLeft={iconGraph}
-          iconRight={<CategoryIcon categoryId={categoryId} />}
-          onClick={showCategoryChoice}
-        >
-          {t(
-            `Data.subcategories.${getCategoryName(getCategoryId(transaction))}`
-          )}
-        </TransactionModalRow>
-        <Separator />
-        <TransactionActions
-          transaction={transaction}
-          {...props}
-          displayDefaultAction
-          isModalItem
-        />
-      </div>
-    )
-  }
+  const categoryId = getCategoryId(transaction)
+  const account = transaction.account.data
 
-  renderHeader() {
-    const { transaction } = this.props
-
-    return (
-      <h2 className={styles.TransactionModalHeading}>
-        <Figure
-          total={transaction.amount}
-          symbol={getCurrencySymbol(transaction.currency)}
-          signed
-        />
-      </h2>
-    )
-  }
-
-  render() {
-    return (
-      <PageModal
-        dismissAction={this.props.requestClose}
-        into="body"
-        title={this.renderHeader()}
+  return (
+    <div>
+      <TransactionModalRow
+        iconLeft={typeIcon}
+        className={styles['TransactionModalRow-multiline']}
+        align="top"
       >
-        {this.renderContent()}
-      </PageModal>
-    )
-  }
+        <TransactionLabel label={getLabel(transaction)} />
+        <TransactionInfos
+          infos={[
+            {
+              label: t('Transactions.infos.account'),
+              value: getAccountLabel(account)
+            },
+            {
+              label: t('Transactions.infos.institution'),
+              value: getAccountInstitutionLabel(account)
+            },
+            {
+              label: t('Transactions.infos.originalBankLabel'),
+              value: flag('originalBankLabel') && transaction.originalBankLabel
+            }
+          ].filter(x => x.value)}
+        />
+      </TransactionModalRow>
+      <Separator />
+      <TransactionModalRow iconLeft={iconCalendar}>
+        <span style={transactionModalRowStyle}>
+          {f(getDate(transaction), 'dddd DD MMMM')}
+        </span>
+      </TransactionModalRow>
+      <Separator />
+      <TransactionModalRow
+        iconLeft={iconGraph}
+        iconRight={<CategoryIcon categoryId={categoryId} />}
+        onClick={showCategoryChoice}
+      >
+        {t(`Data.subcategories.${getCategoryName(getCategoryId(transaction))}`)}
+      </TransactionModalRow>
+      <Separator />
+      <TransactionActions
+        transaction={transaction}
+        {...restProps}
+        displayDefaultAction
+        isModalItem
+      />
+    </div>
+  )
 }
+
+const TransactionModalHeader = ({ transaction }) => (
+  <h2 className={styles.TransactionModalHeading}>
+    <Figure
+      total={transaction.amount}
+      symbol={getCurrencySymbol(transaction.currency)}
+      signed
+    />
+  </h2>
+)
+
+const TransactionModal = ({ requestClose, ...props }) => (
+  <PageModal
+    dismissAction={requestClose}
+    into="body"
+    title={<TransactionModalHeader transaction={props.transaction} />}
+  >
+    <TransactionModalInfo {...props} />
+  </PageModal>
+)
 
 TransactionModal.propTypes = {
   showCategoryChoice: PropTypes.func.isRequired,
