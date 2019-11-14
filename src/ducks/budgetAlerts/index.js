@@ -17,9 +17,11 @@ const fetchGroup = async (client, groupId) => {
   return group
 }
 
+const SUPERMARKET_CATEGORY_ID = '400110'
+
 export const makeNewAlert = () => ({
   // Default category is Daily Life > Supermarket
-  categoryId: '400110',
+  categoryId: SUPERMARKET_CATEGORY_ID,
   maxThreshold: 100,
   accountOrGroup: null
 })
