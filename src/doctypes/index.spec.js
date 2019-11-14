@@ -1,4 +1,4 @@
-import { transactionsConn, HasManyReimbursements } from './doctypes'
+import { transactionsConn, HasManyReimbursements } from './index'
 import getClient from 'test/client'
 
 const client = getClient()
