@@ -3,12 +3,23 @@ jest.mock('handlebars')
 
 import CozyClient from 'cozy-client'
 import merge from 'lodash/merge'
-import { getEnabledNotificationClasses, sendNotifications } from './services'
+import {
+  getEnabledNotificationClasses,
+  sendNotifications,
+  fetchTransactionAccounts
+} from './services'
 import BalanceLower from './BalanceLower'
 import TransactionGreater from './TransactionGreater'
 import HealthBillLinked from './HealthBillLinked'
 import { BankAccount } from 'models'
 import { sendNotification } from 'cozy-notifications'
+import logger from 'cozy-logger'
+
+jest.mock('cozy-logger', () => {
+  const logger = jest.fn()
+  logger.namespace = () => logger
+  return logger
+})
 
 jest.mock('cozy-notifications', () => {
   const mod = jest.requireActual('cozy-notifications')
@@ -16,6 +27,10 @@ jest.mock('cozy-notifications', () => {
     ...mod,
     sendNotification: jest.fn()
   }
+})
+
+beforeEach(() => {
+  logger.mockReset()
 })
 
 describe('getEnabledNotificationClasses', () => {
@@ -109,6 +124,10 @@ describe('service', () => {
       ])
   })
 
+  afterEach(() => {
+    jest.restoreAllMocks()
+  })
+
   mockEnvForEachTest({
     COZY_URL: 'http://localhost:8080',
     COZY_CREDENTIALS: 'fake-token'
@@ -127,6 +146,32 @@ describe('service', () => {
     expect(sendNotification).toHaveBeenCalledWith(
       expect.any(CozyClient),
       expect.any(HealthBillLinked)
+    )
+  })
+})
+
+describe('fetch transaction accounts', () => {
+  beforeEach(() => {
+    jest
+      .spyOn(BankAccount, 'getAll')
+      .mockReturnValue([
+        { _id: 'c0ffeedeadbeef', label: 'My bank account', balance: 123 }
+      ])
+  })
+
+  afterEach(() => {
+    jest.restoreAllMocks()
+  })
+
+  it('should report unknown accounts', async () => {
+    const transactions = [
+      { account: 'c0ffeedeadbeef', label: 'My transaction' },
+      { account: 'unknown-account', label: 'My transaction 2' }
+    ]
+    await fetchTransactionAccounts(transactions)
+    expect(logger).toHaveBeenCalledWith(
+      'warn',
+      '1 account(s) do not exist (ids: unknown-account)'
     )
   })
 })

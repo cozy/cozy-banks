@@ -26,17 +26,24 @@ const notificationClasses = [
   DelayedDebit
 ]
 
-const fetchTransactionAccounts = async transactions => {
-  const accountsIds = Array.from(new Set(transactions.map(x => x.account)))
+const setDifference = (a, b) => {
+  return new Set([...a].filter(x => !b.has(x)))
+}
+
+export const fetchTransactionAccounts = async transactions => {
+  const accountsIds = new Set(transactions.map(x => x.account))
   const accounts = await BankAccount.getAll(accountsIds)
-  const existingAccountIds = new Set(accounts.map(x => x._Id))
-  const absentAccountIds = accountsIds.filter(_id =>
-    existingAccountIds.has(_id)
-  )
-  const delta = accountsIds.length - accounts.length
+  const existingAccountIds = new Set(accounts.map(x => x._id))
+  const absentAccountIds = setDifference(accountsIds, existingAccountIds)
+
+  const delta = accountsIds.size - existingAccountIds.size
   if (delta) {
-    log('warn', delta + ' accounts do not exist')
-    log('warn', JSON.stringify(absentAccountIds))
+    log(
+      'warn',
+      `${delta} account(s) do not exist (ids: ${Array.from(
+        absentAccountIds
+      ).join(',')})`
+    )
   }
 
   return accounts
