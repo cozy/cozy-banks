@@ -14,14 +14,6 @@ import { fetchChangesOrAll, getOptions } from './helpers'
 
 const log = logger.namespace('onOperationOrBillCreate')
 
-process.on('uncaughtException', err => {
-  log('warn', JSON.stringify(err.stack))
-})
-
-process.on('unhandledRejection', err => {
-  log('warn', JSON.stringify(err.stack))
-})
-
 const doBillsMatching = async (setting, options = {}) => {
   // Bills matching
   log('info', 'Bills matching')
@@ -112,6 +104,26 @@ const updateSettings = async settings => {
   return newSettings
 }
 
+const launchBudgetAlertService = async () => {
+  log('info', 'Launching budget alert service...')
+  const client = CozyClient.fromEnv(process.env)
+  const jobs = client.collection('io.cozy.jobs')
+  await jobs.create('service', {
+    name: 'budgetAlerts',
+    slug: 'banks'
+  })
+}
+
+const setFlagsFromSettings = settings => {
+  // The flag is needed to use local model when getting a transaction category ID
+  flag('local-model-override', settings.community.localModelOverride.enabled)
+
+  flag(
+    'late-health-reimbursement-limit',
+    settings.notifications.lateHealthReimbursement.value
+  )
+}
+
 const onOperationOrBillCreate = async options => {
   log('info', `COZY_CREDENTIALS: ${process.env.COZY_CREDENTIALS}`)
   log('info', `COZY_URL: ${process.env.COZY_URL}`)
@@ -119,13 +131,7 @@ const onOperationOrBillCreate = async options => {
   log('info', 'Fetching settings...')
   let setting = await Settings.fetchWithDefault()
 
-  // The flag is needed to use local model when getting a transaction category ID
-  flag('local-model-override', setting.community.localModelOverride.enabled)
-
-  flag(
-    'late-health-reimbursement-limit',
-    setting.notifications.lateHealthReimbursement.value
-  )
+  setFlagsFromSettings(setting)
 
   // We fetch the notifChanges before anything else because we need to know if
   // some transactions are totally new in `TransactionGreater` notification.
@@ -156,16 +162,21 @@ const onOperationOrBillCreate = async options => {
   await doAppSuggestions(setting)
   setting = await updateSettings(setting)
 
-  log('info', 'Do category budgets notification')
-  const client = CozyClient.fromEnv(process.env)
-  const jobs = client.collection('io.cozy.jobs')
-  await jobs.create('service', {
-    name: 'budgetAlerts',
-    slug: 'banks'
+  await launchBudgetAlertService()
+}
+
+const attachProcessEventHandlers = () => {
+  process.on('uncaughtException', err => {
+    log('warn', JSON.stringify(err.stack))
+  })
+
+  process.on('unhandledRejection', err => {
+    log('warn', JSON.stringify(err.stack))
   })
 }
 
 const main = async () => {
+  attachProcessEventHandlers()
   Document.registerClient(cozyClient)
   const options = await getOptions(cozyClient)
   log('info', 'Options:')
