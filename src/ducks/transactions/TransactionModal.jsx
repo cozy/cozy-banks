@@ -10,8 +10,6 @@ import { withDispatch } from 'utils'
 import { flowRight as compose } from 'lodash'
 import cx from 'classnames'
 
-import { Query } from 'cozy-client'
-
 import { Figure } from 'components/Figure'
 import { PageModal } from 'components/PageModal'
 
@@ -33,11 +31,12 @@ import {
   getAccountInstitutionLabel
 } from 'ducks/account/helpers'
 import { TRANSACTION_DOCTYPE } from 'doctypes'
-import { isCollectionLoading } from 'ducks/client/utils'
 import flag from 'cozy-flags'
 import { getDate } from 'ducks/transactions/helpers'
 
 import { MainTitle } from 'cozy-ui/transpiled/react/Text'
+
+import withDocs from 'components/withDocs'
 
 const TransactionModalRowIcon = ({ icon }) =>
   icon ? (
@@ -183,44 +182,14 @@ TransactionModal.propTypes = {
   transaction: PropTypes.object.isRequired
 }
 
+const withTransaction = withDocs(ownProps => ({
+  transaction: [TRANSACTION_DOCTYPE, ownProps.transactionId]
+}))
+
 const DumbTransactionModal = compose(
   translate(),
   withBreakpoints()
 )(TransactionModal)
-
-const NeedResult = props => {
-  const { children: renderFun, ...restProps } = props
-  return (
-    <Query {...restProps}>
-      {collection => {
-        if (isCollectionLoading(collection)) {
-          return null
-        } else {
-          return renderFun(collection)
-        }
-      }}
-    </Query>
-  )
-}
-
-const withTransaction = Component => {
-  const Wrapped = props => {
-    return (
-      <NeedResult
-        query={client =>
-          client
-            .get(TRANSACTION_DOCTYPE, props.transactionId)
-            .include(['account'])
-        }
-      >
-        {({ data: transaction }) => {
-          return <Component {...props} transaction={transaction} />
-        }}
-      </NeedResult>
-    )
-  }
-  return Wrapped
-}
 
 export default compose(
   withDispatch,
