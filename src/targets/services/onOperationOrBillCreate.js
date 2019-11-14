@@ -91,7 +91,7 @@ const doSendNotifications = async (setting, notifChanges) => {
 const doAppSuggestions = async setting => {
   log('info', 'Do apps suggestions...')
   try {
-    await findAppSuggestions(setting, cozyClient)
+    await findAppSuggestions(setting)
   } catch (e) {
     log('warn', 'Error while finding app suggestions: ' + e)
   }
