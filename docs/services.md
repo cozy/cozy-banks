@@ -1,5 +1,18 @@
 # Services
 
+<!-- MarkdownTOC autolink=true -->
+
+- [Categorization](#categorization)
+- [onOperationOrBillCreate](#onoperationorbillcreate)
+- [Account stats](#account-stats)
+- [Automatic groups](#automatic-groups)
+- [Budget alerts](#budget-alerts)
+- [I am writing a banking konnector, what should I do?](#i-am-writing-a-banking-konnector-what-should-i-do)
+- [Developing](#developing)
+
+<!-- /MarkdownTOC -->
+
+
 Banks exposes the following services:
 
 * [categorization](#categorization)
@@ -104,3 +117,22 @@ following permission to your `manifest.konnector`:
 With this, the transactions you created will be categorized, then the
 `onOperationOrBillCreate` service will be launched and do its work.
 
+
+## Developing
+
+You can create manually an app token and launch the built service.
+
+```
+# Watch services
+$ env NODE_ENV=services:development yarn run webpack --config webpack.config.js --bail --watch
+# In another terminal
+$ export COZY_URL='http://cozy.tools:8080'
+$ export COZY_CREDENTIALS=$(cozy-stack instances token-app cozy.tools:8080 banks)
+$ node build/budgetAlerts.js
+```
+
+Some services like the "budgetAlerts" one expose a CLI that can perform service related tasks.
+
+```
+yarn run services:budgetAlerts --help
+```
