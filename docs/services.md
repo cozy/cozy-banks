@@ -120,7 +120,7 @@ With this, the transactions you created will be categorized, then the
 
 ## Developing
 
-You can create manually an app token and launch the built service.
+You can manually create an app token and launch the built service.
 
 ```
 # Watch services
