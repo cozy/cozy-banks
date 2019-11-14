@@ -1,8 +1,5 @@
-import {
-  HasManyReimbursements,
-  HasManyBills,
-  HasManyInPlace
-} from './relationships'
+import { HasManyReimbursements, HasManyBills } from './relationships'
+import { HasManyInPlace } from 'cozy-client'
 
 export const RECIPIENT_DOCTYPE = 'io.cozy.bank.recipients'
 export const ACCOUNT_DOCTYPE = 'io.cozy.bank.accounts'
@@ -42,7 +39,27 @@ export const schema = {
   settings: {
     doctype: SETTINGS_DOCTYPE,
     attributes: {},
-    relationships: {}
+    relationships: {},
+    conflicts: {
+      type: 'object',
+      attributes: {
+        categoryBudgetAlerts: {
+          type: 'array',
+          idAttribute: 'id',
+          attributes: {
+            maxThreshold: {
+              conflictResolution: 'user'
+            },
+            categoryId: {
+              conflictResolution: 'user'
+            },
+            accountOrGroup: {
+              conflictResolution: 'user'
+            }
+          }
+        }
+      }
+    }
   },
   bankAccounts: {
     doctype: ACCOUNT_DOCTYPE,
