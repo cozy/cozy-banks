@@ -114,7 +114,7 @@ const CategoryAlertCard = ({ removeAlert, updateAlert, alert, t }) => {
               <CategoryAlertDebug alert={alert} />
             ) : null}
           </div>
-          <div className="u-fixed u-ml-1">
+          <div className="u-fixed u-p-half">
             <Icon
               color="var(--coolGrey)"
               icon="cross"
