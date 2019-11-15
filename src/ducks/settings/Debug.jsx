@@ -101,7 +101,7 @@ class DumbDebugSettings extends React.PureComponent {
             category: 'transaction-greater',
             title: 'Test notification',
             message: 'This is a test notification message',
-            preferred_channels: ['mail', 'mobile'],
+            preferred_channels: ['mobile', 'mail'],
             content: 'This is a test notification text content',
             content_html: 'This is a test notification HTML content'
           }
