@@ -37,7 +37,14 @@ import { isCollectionLoading } from 'ducks/client/utils'
 import flag from 'cozy-flags'
 import { getDate } from 'ducks/transactions/helpers'
 
-const Separator = () => <hr className={styles.TransactionModalSeparator} />
+import { MainTitle } from 'cozy-ui/transpiled/react/Text'
+
+const TransactionModalRowIcon = ({ icon }) =>
+  icon ? (
+    <Img>
+      {Icon.isProperIcon(icon) ? <Icon icon={icon} width={16} /> : icon}
+    </Img>
+  ) : null
 
 export const TransactionModalRow = ({
   children,
@@ -46,36 +53,25 @@ export const TransactionModalRow = ({
   disabled = false,
   className,
   onClick,
+  align,
   ...props
 }) => (
   <Media
     className={cx(
       styles.TransactionModalRow,
+      'u-row-m',
       {
         [styles['TransactionModalRow-disabled']]: disabled,
-        [styles['TransactionModalRow-clickable']]: onClick,
-        'u-pl-1-half': iconLeft,
-        'u-pr-1-half': iconRight
+        'u-c-pointer': onClick
       },
       className
     )}
+    align={align}
     onClick={onClick}
     {...props}
   >
-    {iconLeft && (
-      <Img
-        className={cx(styles.TransactionModalRowIcon, {
-          [styles['TransactionModalRowIcon-alignTop']]: props.align === 'top'
-        })}
-      >
-        {Icon.isProperIcon(iconLeft) ? (
-          <Icon icon={iconLeft} width={16} />
-        ) : (
-          iconLeft
-        )}
-      </Img>
-    )}
-    <Bd className={styles.TransactionModalRowContent}>{children}</Bd>
+    <TransactionModalRowIcon icon={iconLeft} align={align} />
+    <Bd className="u-stack-xs">{children}</Bd>
     {iconRight && <Img>{iconRight}</Img>}
   </Media>
 )
@@ -92,7 +88,7 @@ const TransactionInfo = ({ label, value }) => (
 )
 
 const TransactionInfos = ({ infos }) => (
-  <div className={styles.TransactionInfos}>
+  <div>
     {infos.map(({ label, value }) => (
       <TransactionInfo key={label} label={label} value={value} />
     ))}
@@ -108,7 +104,7 @@ const TransactionModalInfo = props => {
     <Icon
       icon={iconCredit}
       width={16}
-      className={cx(styles['TransactionModalRowIcon-alignTop'], {
+      className={cx({
         [styles['TransactionModalRowIcon-reversed']]: transaction.amount < 0
       })}
     />
@@ -118,12 +114,8 @@ const TransactionModalInfo = props => {
   const account = transaction.account.data
 
   return (
-    <div>
-      <TransactionModalRow
-        iconLeft={typeIcon}
-        className={styles['TransactionModalRow-multiline']}
-        align="top"
-      >
+    <div className={styles['Separated']}>
+      <TransactionModalRow iconLeft={typeIcon} align="top" className>
         <TransactionLabel label={getLabel(transaction)} />
         <TransactionInfos
           infos={[
@@ -142,13 +134,11 @@ const TransactionModalInfo = props => {
           ].filter(x => x.value)}
         />
       </TransactionModalRow>
-      <Separator />
       <TransactionModalRow iconLeft={iconCalendar}>
         <span style={transactionModalRowStyle}>
           {f(getDate(transaction), 'dddd DD MMMM')}
         </span>
       </TransactionModalRow>
-      <Separator />
       <TransactionModalRow
         iconLeft={iconGraph}
         iconRight={<CategoryIcon categoryId={categoryId} />}
@@ -156,7 +146,6 @@ const TransactionModalInfo = props => {
       >
         {t(`Data.subcategories.${getCategoryName(getCategoryId(transaction))}`)}
       </TransactionModalRow>
-      <Separator />
       <TransactionActions
         transaction={transaction}
         {...restProps}
@@ -168,13 +157,13 @@ const TransactionModalInfo = props => {
 }
 
 const TransactionModalHeader = ({ transaction }) => (
-  <h2 className={styles.TransactionModalHeading}>
+  <MainTitle className="u-ta-center">
     <Figure
       total={transaction.amount}
       symbol={getCurrencySymbol(transaction.currency)}
       signed
     />
-  </h2>
+  </MainTitle>
 )
 
 const TransactionModal = ({ requestClose, ...props }) => (
