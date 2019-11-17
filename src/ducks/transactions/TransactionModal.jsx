@@ -2,24 +2,28 @@
  * Is used in mobile/tablet mode when you click on the more button
  */
 
-import React from 'react'
+import React, { useContext } from 'react'
 import { translate, withBreakpoints } from 'cozy-ui/react'
 import Icon from 'cozy-ui/react/Icon'
 import { Media, Bd, Img } from 'cozy-ui/react/Media'
-import { withDispatch } from 'utils'
 import { flowRight as compose } from 'lodash'
 import cx from 'classnames'
 
 import { Figure } from 'components/Figure'
 import { PageModal } from 'components/PageModal'
+import {
+  PageHeader,
+  PageContent,
+  PageBackButton
+} from 'components/PageModal/Page'
 
-import { getLabel } from 'ducks/transactions'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { getCategoryName } from 'ducks/categories/categoriesMap'
-import TransactionActions from 'ducks/transactions/TransactionActions'
-import { withUpdateCategory } from 'ducks/categories'
-import PropTypes from 'prop-types'
 import { getCategoryId } from 'ducks/categories/helpers'
+
+import { getLabel } from 'ducks/transactions'
+import TransactionActions from 'ducks/transactions/TransactionActions'
+import PropTypes from 'prop-types'
 import styles from 'ducks/transactions/TransactionModal.styl'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 
@@ -34,7 +38,8 @@ import { TRANSACTION_DOCTYPE } from 'doctypes'
 import flag from 'cozy-flags'
 import { getDate } from 'ducks/transactions/helpers'
 
-import { MainTitle } from 'cozy-ui/transpiled/react/Text'
+import ViewStack, { useViewStack } from 'components/ViewStack'
+import TransactionCategoryEditor from './TransactionCategoryEditor'
 
 import withDocs from 'components/withDocs'
 
@@ -96,8 +101,33 @@ const TransactionInfos = ({ infos }) => (
 
 const transactionModalRowStyle = { textTransform: 'capitalize' }
 
-const TransactionModalInfo = props => {
-  const { t, f, transaction, showCategoryChoice, ...restProps } = props
+const withTransaction = withDocs(ownProps => ({
+  transaction: [TRANSACTION_DOCTYPE, ownProps.transactionId]
+}))
+
+const TransactionCategoryEditorSlide = translate()(props => {
+  const { stackPop } = useViewStack()
+  return (
+    <div>
+      <PageHeader dismissAction={stackPop}>
+        <PageBackButton onClick={stackPop} />
+        {props.t('Categories.choice.title')}
+      </PageHeader>
+      <TransactionCategoryEditor
+        beforeUpdate={stackPop}
+        onCancel={stackPop}
+        transaction={props.transaction}
+      />
+    </div>
+  )
+})
+
+/**
+ * Show information of the transaction
+ */
+const TransactionModalInfoContent = withTransaction(props => {
+  const { t, f, transaction, ...restProps } = props
+  const { stackPush } = useViewStack()
 
   const typeIcon = (
     <Icon
@@ -111,6 +141,10 @@ const TransactionModalInfo = props => {
 
   const categoryId = getCategoryId(transaction)
   const account = transaction.account.data
+
+  const showCategoryChoice = () => {
+    stackPush(<TransactionCategoryEditorSlide transaction={transaction} />)
+  }
 
   return (
     <div className={styles['Separated']}>
@@ -153,48 +187,46 @@ const TransactionModalInfo = props => {
       />
     </div>
   )
-}
+})
 
-const TransactionModalHeader = ({ transaction }) => (
-  <MainTitle className="u-ta-center">
-    <Figure
-      total={transaction.amount}
-      symbol={getCurrencySymbol(transaction.currency)}
-      signed
-    />
-  </MainTitle>
+const TransactionModalInfoHeader = withTransaction(({ transaction }) => (
+  <Figure
+    total={transaction.amount}
+    symbol={getCurrencySymbol(transaction.currency)}
+    signed
+  />
+))
+
+const TransactionModalInfo = withBreakpoints()(
+  ({ breakpoints: { isMobile }, ...props }) => (
+    <div>
+      <PageHeader dismissAction={props.requestClose}>
+        {isMobile ? <PageBackButton onClick={props.requestClose} /> : null}
+        <TransactionModalInfoHeader {...props} />
+      </PageHeader>
+      <TransactionModalInfoContent {...props} />
+    </div>
+  )
 )
 
 const TransactionModal = ({ requestClose, ...props }) => (
-  <PageModal
-    dismissAction={requestClose}
-    into="body"
-    title={<TransactionModalHeader transaction={props.transaction} />}
-  >
-    <TransactionModalInfo {...props} />
+  <PageModal dismissAction={requestClose} into="body">
+    <ViewStack>
+      <TransactionModalInfo {...props} requestClose={requestClose} />
+    </ViewStack>
   </PageModal>
 )
 
 TransactionModal.propTypes = {
-  showCategoryChoice: PropTypes.func.isRequired,
   requestClose: PropTypes.func.isRequired,
-  transactionId: PropTypes.string.isRequired,
-  transaction: PropTypes.object.isRequired
+  transactionId: PropTypes.string.isRequired
 }
-
-const withTransaction = withDocs(ownProps => ({
-  transaction: [TRANSACTION_DOCTYPE, ownProps.transactionId]
-}))
 
 const DumbTransactionModal = compose(
   translate(),
   withBreakpoints()
 )(TransactionModal)
 
-export default compose(
-  withDispatch,
-  withTransaction,
-  withUpdateCategory()
-)(DumbTransactionModal)
+export default DumbTransactionModal
 
 export { DumbTransactionModal }
