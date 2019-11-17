@@ -2,20 +2,27 @@
  * Is used in mobile/tablet mode when you click on the more button
  */
 
-import React, { useContext } from 'react'
-import { translate, withBreakpoints } from 'cozy-ui/react'
-import Icon from 'cozy-ui/react/Icon'
-import { Media, Bd, Img } from 'cozy-ui/react/Media'
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { flowRight as compose } from 'lodash'
 import cx from 'classnames'
 
+import {
+  Icon,
+  Spinner,
+  Media,
+  Bd,
+  Img,
+  translate,
+  withBreakpoints,
+  Alerter
+} from 'cozy-ui/react'
+
+import { parse, format } from 'date-fns'
+
 import { Figure } from 'components/Figure'
 import { PageModal } from 'components/PageModal'
-import {
-  PageHeader,
-  PageContent,
-  PageBackButton
-} from 'components/PageModal/Page'
+import { PageHeader, PageBackButton } from 'components/PageModal/Page'
 
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { getCategoryName } from 'ducks/categories/categoriesMap'
@@ -23,7 +30,8 @@ import { getCategoryId } from 'ducks/categories/helpers'
 
 import { getLabel } from 'ducks/transactions'
 import TransactionActions from 'ducks/transactions/TransactionActions'
-import PropTypes from 'prop-types'
+import { updateApplicationDate } from 'ducks/transactions/helpers'
+
 import styles from 'ducks/transactions/TransactionModal.styl'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 
@@ -40,6 +48,7 @@ import { getDate } from 'ducks/transactions/helpers'
 
 import ViewStack, { useViewStack } from 'components/ViewStack'
 import TransactionCategoryEditor from './TransactionCategoryEditor'
+import TransactionApplicationDateEditor from './TransactionApplicationDateEditor'
 
 import withDocs from 'components/withDocs'
 
@@ -50,34 +59,37 @@ const TransactionModalRowIcon = ({ icon }) =>
     </Img>
   ) : null
 
+export const TransactionModalRowMedia = props => {
+  const { disabled, className, children, ...restProps } = props
+  return (
+    <Media
+      className={cx(
+        styles.TransactionModalRow,
+        'u-row-m',
+        {
+          [styles['TransactionModalRow-disabled']]: disabled,
+          'u-c-pointer': restProps.onClick
+        },
+        className
+      )}
+      {...restProps}
+    >
+      {children}
+    </Media>
+  )
+}
+
 export const TransactionModalRow = ({
   children,
   iconLeft,
   iconRight,
-  disabled = false,
-  className,
-  onClick,
-  align,
   ...props
 }) => (
-  <Media
-    className={cx(
-      styles.TransactionModalRow,
-      'u-row-m',
-      {
-        [styles['TransactionModalRow-disabled']]: disabled,
-        'u-c-pointer': onClick
-      },
-      className
-    )}
-    align={align}
-    onClick={onClick}
-    {...props}
-  >
-    <TransactionModalRowIcon icon={iconLeft} align={align} />
+  <TransactionModalRowMedia {...props}>
+    <TransactionModalRowIcon icon={iconLeft} />
     <Bd className="u-stack-xs">{children}</Bd>
     {iconRight && <Img>{iconRight}</Img>}
-  </Media>
+  </TransactionModalRowMedia>
 )
 
 const TransactionLabel = ({ label }) => (
@@ -98,8 +110,6 @@ const TransactionInfos = ({ infos }) => (
     ))}
   </div>
 )
-
-const transactionModalRowStyle = { textTransform: 'capitalize' }
 
 const withTransaction = withDocs(ownProps => ({
   transaction: [TRANSACTION_DOCTYPE, ownProps.transactionId]
@@ -122,12 +132,39 @@ const TransactionCategoryEditorSlide = translate()(props => {
   )
 })
 
+const TransactionApplicationDateEditorSlide = ({
+  transaction,
+  beforeUpdate,
+  afterUpdate
+}) => {
+  const { stackPop } = useViewStack()
+  const handleBeforeUpdate = async () => {
+    beforeUpdate()
+    await stackPop()
+  }
+
+  return (
+    <div>
+      <PageHeader dismissAction={stackPop}>
+        <PageBackButton onClick={stackPop} />
+        Application date {/* i18n */}
+      </PageHeader>
+      <TransactionApplicationDateEditor
+        beforeUpdate={handleBeforeUpdate}
+        afterUpdate={afterUpdate}
+        onCancel={stackPop}
+        transaction={transaction}
+      />
+    </div>
+  )
+}
+
 /**
  * Show information of the transaction
  */
 const TransactionModalInfoContent = withTransaction(props => {
-  const { t, f, transaction, ...restProps } = props
   const { stackPush } = useViewStack()
+  const { t, f, transaction, client, ...restProps } = props
 
   const typeIcon = (
     <Icon
@@ -144,6 +181,38 @@ const TransactionModalInfoContent = withTransaction(props => {
 
   const showCategoryChoice = () => {
     stackPush(<TransactionCategoryEditorSlide transaction={transaction} />)
+  }
+
+  const [applicationDateBusy, setApplicationDateBusy] = useState(false)
+
+  const handleAfterUpdateApplicationDate = (_, applicationDate) => {
+    setApplicationDateBusy(false)
+    Alerter.success(
+      t('Transactions.infos.applicationDateChangedAlert', {
+        applicationDate: format(parse(applicationDate, 'YYYY-MM-DD'), 'MMMM')
+      })
+    )
+  }
+
+  const handleShowApplicationEditor = ev => {
+    !ev.defaultPrevented &&
+      stackPush(
+        <TransactionApplicationDateEditorSlide
+          beforeUpdate={() => setApplicationDateBusy(true)}
+          afterUpdate={handleAfterUpdateApplicationDate}
+          transaction={transaction}
+        />
+      )
+  }
+
+  const handleResetApplicationDate = async ev => {
+    ev.preventDefault()
+    try {
+      setApplicationDateBusy(true)
+      await updateApplicationDate(client, transaction, null)
+    } finally {
+      setApplicationDateBusy(false)
+    }
   }
 
   return (
@@ -163,15 +232,42 @@ const TransactionModalInfoContent = withTransaction(props => {
             {
               label: t('Transactions.infos.originalBankLabel'),
               value: flag('originalBankLabel') && transaction.originalBankLabel
+            },
+            {
+              label: t('Transactions.infos.date'),
+              value: transaction.applicationDate
+                ? f(getDate(transaction), 'dddd D MMMM')
+                : null
             }
           ].filter(x => x.value)}
         />
       </TransactionModalRow>
-      <TransactionModalRow iconLeft={iconCalendar}>
-        <span style={transactionModalRowStyle}>
-          {f(getDate(transaction), 'dddd DD MMMM')}
-        </span>
-      </TransactionModalRow>
+      <TransactionModalRowMedia onClick={handleShowApplicationEditor}>
+        <Img>
+          <Icon icon={iconCalendar} />
+        </Img>
+        <Bd>
+          {transaction.applicationDate
+            ? t('Transactions.infos.applicationDate', {
+                applicationDate: f(transaction.applicationDate, 'MMMM YYYY')
+              })
+            : f(getDate(transaction), 'dddd D MMMM')}
+        </Bd>
+        {transaction.applicationDate && !applicationDateBusy ? (
+          <Img>
+            <Icon
+              onClick={handleResetApplicationDate}
+              color="var(--slateGrey)"
+              icon="restore"
+            />
+          </Img>
+        ) : null}
+        {applicationDateBusy ? (
+          <Img>
+            <Spinner />
+          </Img>
+        ) : null}
+      </TransactionModalRowMedia>
       <TransactionModalRow
         iconLeft={iconGraph}
         iconRight={<CategoryIcon categoryId={categoryId} />}

@@ -357,7 +357,10 @@
     "infos": {
       "account": "Account",
       "institution": "Bank",
-      "originalBankLabel": "Original label"
+      "originalBankLabel": "Original label",
+      "date": "Done on",
+      "applicationDate": "Assigned to %{applicationDate}",
+      "applicationDateChangedAlert": "Operation assigned to %{applicationDate} in the analysis tab"
     },
     "see-more": "See more...",
     "reimbursementStatus": {

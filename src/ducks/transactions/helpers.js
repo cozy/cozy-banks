@@ -220,3 +220,10 @@ export const updateTransactionCategory = async (
     console.log(err)
   }
 }
+
+export const updateApplicationDate = (client, transaction, applicationDate) => {
+  return client.save({
+    ...transaction,
+    applicationDate
+  })
+}
