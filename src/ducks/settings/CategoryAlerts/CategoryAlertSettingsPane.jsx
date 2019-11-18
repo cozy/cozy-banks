@@ -14,6 +14,7 @@ import CategoryAlertCard from 'ducks/settings/CategoryAlerts/CategoryAlertCard'
 import CategoryAlertEditModal from 'ducks/settings/CategoryAlerts/CategoryAlertEditModal'
 
 import { getAlertId, getNextAlertId, makeNewAlert } from 'ducks/budgetAlerts'
+import { saveDocHandlingConflicts } from 'doctypes/conflicts'
 
 export const CreateCategoryAlert = translate()(({ createAlert, t }) => {
   const [creating, setCreating] = useState(false)
@@ -68,13 +69,12 @@ const CategoryAlertsPane = ({ client, settingsCollection, t }) => {
 
   const updateAlerts = async updatedAlerts => {
     const previousAlerts = alerts
-    const updatedSettings = {
-      ...settings,
-      categoryBudgetAlerts: updatedAlerts
-    }
     setAlerts(updatedAlerts)
     try {
-      await client.save(updatedSettings)
+      await saveDocHandlingConflicts(client, {
+        ...settings,
+        categoryBudgetAlerts: updatedAlerts
+      })
     } catch (e) {
       Alerter.error(t('Settings.budget-category-alerts.saving-error'))
       setAlerts(previousAlerts)
