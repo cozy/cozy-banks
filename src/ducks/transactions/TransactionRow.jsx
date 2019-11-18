@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import compose from 'lodash/flowRight'
@@ -28,12 +28,7 @@ import styles from 'ducks/transactions/Transactions.styl'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 import TransactionModal from 'ducks/transactions/TransactionModal'
 
-const useSwitch = initialState => {
-  const [state, setState] = useState(initialState)
-  const toggleOn = () => setState(true)
-  const toggleOff = () => setState(false)
-  return [state, toggleOn, toggleOff]
-}
+import { useSwitch } from 'components/modalUtils'
 
 const withSelection = Component => {
   const Wrapped = props => {
