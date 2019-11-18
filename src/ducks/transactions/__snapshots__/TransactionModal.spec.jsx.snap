@@ -14,7 +14,7 @@ exports[`transaction modal should render correctly 1`] = `
         </div>
         <div class=\\"c-modal-content PageModalDesktop__content\\">
           <div class=\\"Separated\\">
-            <div class=\\"media media--top TransactionModalRow\\">
+            <div class=\\"media media--top TransactionModalRow u-row-m\\">
               <div class=\\"img\\"><svg class=\\"TransactionModalRowIcon-reversed icon\\" width=\\"16\\" height=\\"16\\">
                   <use xlink:href=\\"#test-file-stub\\"></use>
                 </svg></div>
@@ -26,13 +26,13 @@ exports[`transaction modal should render correctly 1`] = `
                 </div>
               </div>
             </div>
-            <div class=\\"media TransactionModalRow\\">
+            <div class=\\"media TransactionModalRow u-row-m\\">
               <div class=\\"img\\"><svg class=\\"icon\\" width=\\"16\\" height=\\"16\\">
                   <use xlink:href=\\"#test-file-stub\\"></use>
                 </svg></div>
               <div class=\\"bd u-stack-xs\\"><span style=\\"text-transform: capitalize;\\">Friday 25 August</span></div>
             </div>
-            <div class=\\"media TransactionModalRow TransactionModalRow-clickable\\">
+            <div class=\\"media TransactionModalRow u-row-m u-c-pointer\\">
               <div class=\\"img\\"><svg class=\\"icon\\" width=\\"16\\" height=\\"16\\">
                   <use xlink:href=\\"#test-file-stub\\"></use>
                 </svg></div>
