@@ -1,8 +1,6 @@
 import React from 'react'
-import Page from 'ducks/transactions/Page'
+import Page from 'components/PageModal/Page'
 
-const PageModalMobile = props => {
-  return <Page {...props} />
-}
+const PageModalMobile = Page
 
 export default PageModalMobile
