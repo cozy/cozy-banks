@@ -3,9 +3,7 @@ import PropTypes from 'prop-types'
 import cx from 'classnames'
 import compose from 'lodash/flowRight'
 
-import { translate } from 'cozy-ui/react'
-import { Media, Bd, Img } from 'cozy-ui/react/Media'
-import Text, { Caption } from 'cozy-ui/react/Text'
+import { translate, Media, Bd, Img, Icon, Text, Caption } from 'cozy-ui/react'
 import flag from 'cozy-flags'
 
 import { Figure } from 'components/Figure'
@@ -80,6 +78,17 @@ const AccountCaption = React.memo(function AccountCaption({ account }) {
   )
 })
 
+const ApplicationDateCaption = React.memo(function ApplicationDateCaption({
+  transaction,
+  f
+}) {
+  return (
+    <Caption>
+      <Icon size={10} icon="logout" /> {f(transaction.applicationDate, 'MMMM')}
+    </Caption>
+  )
+})
+
 const TransactionDate = translate()(_TransactionDate)
 
 class _RowDesktop extends React.PureComponent {
@@ -95,6 +104,7 @@ class _RowDesktop extends React.PureComponent {
   render() {
     const {
       t,
+      f,
       transaction,
       isExtraLarge,
       showCategoryChoice,
@@ -123,6 +133,9 @@ class _RowDesktop extends React.PureComponent {
               <List.Content onClick={this.onSelectTransaction}>
                 <Text>{getLabel(transaction)}</Text>
                 {!filteringOnAccount && <AccountCaption account={account} />}
+                {transaction.applicationDate ? (
+                  <ApplicationDateCaption f={f} transaction={transaction} />
+                ) : null}
               </List.Content>
             </Bd>
           </Media>
@@ -164,9 +177,8 @@ export const RowDesktop = compose(
 
 class _RowMobile extends React.PureComponent {
   render() {
-    const { transaction, t, filteringOnAccount, onRef } = this.props
+    const { transaction, t, f, filteringOnAccount, onRef } = this.props
     const account = transaction.account.data
-    const accountInstitutionLabel = getAccountInstitutionLabel(account)
     const rowRest = {}
 
     if (flag('show-transactions-ids')) {
@@ -195,6 +207,9 @@ class _RowMobile extends React.PureComponent {
             <List.Content onClick={this.handleSelect}>
               <Text className="u-ellipsis">{getLabel(transaction)}</Text>
               {!filteringOnAccount && <AccountCaption account={account} />}
+              {transaction.applicationDate ? (
+                <ApplicationDateCaption f={f} transaction={transaction} />
+              ) : null}
             </List.Content>
           </Bd>
           <Img onClick={this.handleSelect} className="u-clickable">
