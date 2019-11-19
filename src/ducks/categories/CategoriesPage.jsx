@@ -162,9 +162,9 @@ const mapDispatchToProps = dispatch => ({
   addFilterByPeriod: period => dispatch(addFilterByPeriod(period))
 })
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    categories: getCategoriesData(state),
+    categories: getCategoriesData(state, ownProps),
     filteringDoc: getFilteringDoc(state),
     filteredTransactionsByAccount: getTransactionsFilteredByAccount(state)
   }
