@@ -230,7 +230,8 @@ describe('service', () => {
           {
             ...budgetAlert,
             maxThreshold: 10,
-            categoryId: GOING_OUT_CATEGORY_ID
+            categoryId: GOING_OUT_CATEGORY_ID,
+            categoryIsParent: true
           }
         ],
         expenses: [
@@ -247,7 +248,7 @@ describe('service', () => {
         '2 budgets have exceeded their limit'
       )
       expect(lastPostNotificationCall.data.attributes.message).toEqual(
-        'Health expenses: 251€ > 100€, Others : Outings, trips: 16€ > 10€'
+        'Health expenses: 251€ > 100€, Outings, trips: 68€ > 10€'
       )
     })
   })
