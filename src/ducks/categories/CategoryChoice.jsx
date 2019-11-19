@@ -23,9 +23,9 @@ export const getOptions = (categories, subcategory = false, t) => {
       option.children = getOptions(option.children, true, t).sort(a => {
         if (a.id === option.id) {
           return 1
+        } else {
+          return -1
         }
-
-        return 0
       })
     }
 
@@ -56,7 +56,7 @@ class CategoryChoice extends Component {
   }
 
   render() {
-    const { t, onCancel, onSelect, modal } = this.props
+    const { t, onCancel, onSelect, modal, canSelectParent } = this.props
 
     const Component = modal ? PopupSelect : MultiSelect
     return (
@@ -65,6 +65,7 @@ class CategoryChoice extends Component {
         title={t('Categories.choice.title')}
         options={this.options}
         isSelected={this.isSelected}
+        canSelectParent={canSelectParent}
         onSelect={subcategory => onSelect(subcategory)}
         onCancel={onCancel}
       />
