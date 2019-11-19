@@ -64,7 +64,10 @@ const createAutoGroups = async ({ client }) => {
 
       const newAccounts = difference(autoGroup.accounts.raw, existing.accounts)
       if (newAccounts.length > 0) {
-        log('info', `Saving ${newAccounts.length} to group ${accountType}`)
+        log(
+          'info',
+          `Adding ${newAccounts.length} accounts to group ${accountType}`
+        )
 
         await client.save({
           ...autoGroup,
