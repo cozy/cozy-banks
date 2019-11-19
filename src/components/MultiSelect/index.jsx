@@ -92,7 +92,7 @@ const ItemPropType = PropTypes.shape({
 
 MultiSelect.propTypes = {
   onSelect: PropTypes.func.isRequired,
-  isSelected: PropTypes.bool.isRequired,
+  isSelected: PropTypes.func.isRequired,
   options: PropTypes.shape({
     children: PropTypes.arrayOf(ItemPropType)
   })
