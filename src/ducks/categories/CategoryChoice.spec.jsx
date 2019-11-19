@@ -2,6 +2,7 @@ import React from 'react'
 import { mount } from 'enzyme'
 import CategoryChoice, { getCategoriesOptions } from './CategoryChoice'
 import Row from 'components/Row'
+import { ChooseButton } from 'components/MultiSelect'
 import { TestI18n } from 'test/AppLike'
 
 const isSelectedRow = n => n.type() == Row && n.props().isSelected
@@ -43,9 +44,11 @@ describe('CategoryChoice', () => {
       const selectedRow = findSelectedRow(root)
       expect(selectedRow.length).toBe(1)
       expect(selectedRow.text()).toBe('Everyday life')
+      expect(selectedRow.find(ChooseButton).length).toBe(1)
       selectedRow.simulate('click')
 
       const selectedRow2 = findSelectedRow(root)
+      expect(selectedRow2.find(ChooseButton).length).toBe(0)
       expect(selectedRow2.length).toBe(1)
       expect(selectedRow2.text()).toBe('Dressing')
     })

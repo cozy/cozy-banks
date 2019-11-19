@@ -1,7 +1,17 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Row from 'components/Row'
+import Row, { RowBody } from 'components/Row'
+import { translate, Button } from 'cozy-ui/react'
 
+export const ChooseButton = translate()(({ onClick, t }) => (
+  <Button
+    className="u-m-0 u-ph-half"
+    theme="secondary"
+    label={t('General.choose')}
+    size="small"
+    onClick={onClick}
+  />
+))
 /**
  * Select like component to choose an option among a list of options.
  * Options can have children; selecting an option that has children
@@ -35,22 +45,30 @@ class MultiSelect extends Component {
     return item
   }
 
+  handleNavToChildren = item => {
+    const newHistory = [item, ...this.state.history]
+    this.setState({
+      history: newHistory
+    })
+  }
+
   handleSelect = item => {
+    this.props.onSelect(item)
+    setTimeout(() => {
+      this.resetHistory()
+    }, 500)
+  }
+
+  handleClickItem = item => {
     if (item.children && item.children.length > 0) {
-      const newHistory = [item, ...this.state.history]
-      this.setState({
-        history: newHistory
-      })
+      this.handleNavToChildren(item)
     } else {
-      this.props.onSelect(item)
-      setTimeout(() => {
-        this.resetHistory()
-      }, 500)
+      this.handleSelect(item)
     }
   }
 
   render() {
-    const { ContentComponent, HeaderComponent } = this.props
+    const { ContentComponent, HeaderComponent, canSelectParent } = this.props
     const { history } = this.state
     const current = history[0]
     const children = current.children || []
@@ -70,10 +88,14 @@ class MultiSelect extends Component {
               key={item.title}
               isSelected={this.props.isSelected(item, level)}
               icon={item.icon}
-              label={item.title}
-              onClick={() => this.handleSelect(item)}
+              onClick={() => this.handleClickItem(item)}
               hasArrow={item.children && item.children.length > 0}
-            />
+            >
+              <RowBody>{item.title}</RowBody>
+              {item.children && canSelectParent ? (
+                <ChooseButton onClick={() => this.handleSelect(item)} />
+              ) : null}
+            </Row>
           ))}
         </ContentComponent>
       </>
@@ -96,7 +118,8 @@ MultiSelect.propTypes = {
   isSelected: PropTypes.func.isRequired,
   options: PropTypes.shape({
     children: PropTypes.arrayOf(ItemPropType)
-  })
+  }),
+  canSelectParent: PropTypes.bool
 }
 
 export default MultiSelect
