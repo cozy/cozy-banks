@@ -3175,9 +3175,6 @@ h4 {
 .Transactions_TransactionTable_lO-9I thead {
   overflow-y: scroll;
 }
-.Transactions_TransactionTable_lO-9I .Transactions_bnk-op-desc-caption_7KmqV {
-  margin-top: 0;
-}
 .Transactions_TransactionTable_lO-9I .Transactions_bnk-transaction-mobile-action_3HYrZ {
   position: relative;
   flex-basis: 2.5rem;
@@ -3391,63 +3388,45 @@ h4 {
   }
 }
 /*# sourceMappingURL=src/ducks/transactions/TransactionActions.css.map */
-.Page_Page__BackButton_1Ey2P {
+.Page_Page__BackButton_32FJ1 {
   background-color: transparent;
   border-width: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
   width: 3rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
 }
-.Page_Page_1lhQq .Page_Page__title_pKPCR {
+.Page_Page__title_2kL7R {
   position: relative;
   height: 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 1px solid #c0c0c0;
   padding: 0 3rem;
   margin-bottom: 0;
+  position: relative;
+  font-weight: bold;
+  font-size: 1.25rem;
 }
-.Page_Page_1lhQq .Page_Page__content_2mJdv {
+@media (max-width: 48rem) {
+  .Page_Page__title_2kL7R {
+    font-size: 1.125rem;
+    border-bottom: 1px solid #c0c0c0;
+  }
+}
+.Page_Page__content_1og7c {
   padding: 0;
 }
-.Page_Page__Overlay_mbTxt,
-.Page_Page__Wrapper_399XY {
+.Page_Page__Overlay_1j6lF,
+.Page_Page__Wrapper_2PrAZ {
   height: calc(100% - 49px);
 }
-/*# sourceMappingURL=src/ducks/transactions/Page.css.map */
-.PageModalDesktop_PageModalDesktop_3h2lq .PageModalDesktop_PageModalDesktop__header_2N4Bg {
-  position: relative;
-  border-bottom: 1px solid var(--silver);
-  margin-bottom: 0;
-  padding-top: 0;
-  padding-bottom: 0;
-  height: 5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.PageModalDesktop_PageModalDesktop__content_Xcoma {
-  padding: 0;
-}
-.PageModalDesktop_PageModalDesktop__content_Xcoma:last-child {
-  padding: 0;
-}
-.PageModalDesktop_PageModalDesktop__cross_1YuIF {
-  width: 1rem;
-  height: 1rem;
-  min-height: auto;
-  z-index: 1;
-  top: 1.4rem;
-  right: 1.4rem;
-}
-/*# sourceMappingURL=src/components/PageModal/PageModalDesktop.css.map */
+/*# sourceMappingURL=src/components/PageModal/Page.css.map */
 .PendingCategoryIcon_PendingCategoryIcon_2J_Ih {
   display: inline-flex;
   align-items: center;
@@ -3460,6 +3439,96 @@ h4 {
   width: 100%;
 }
 /*# sourceMappingURL=src/ducks/categories/PendingCategoryIcon.css.map */
+.TransactionModal_Separated_LvX4T > * + * {
+  border-top: 1px solid var(--silver);
+}
+.TransactionModal_TransactionModalRow_1TVp_ {
+  min-height: 57px;
+  box-sizing: border-box;
+  padding: 12px 24px;
+}
+.TransactionModal_TransactionModalRow-disabled_3KMj3 {
+  color: var(--coolGrey);
+  font-style: italic;
+  cursor: default;
+}
+.TransactionModal_TransactionModalRowIcon-reversed_IrR-j {
+  transform: rotate(180deg);
+}
+.TransactionModal_TransactionLabel_2gXs7 {
+  font-weight: bold;
+  line-height: 1.5;
+  color: var(--charcoalGrey);
+}
+.TransactionModal_TransactionInfo_1acl8 {
+  line-height: 1.7;
+  font-size: 14px;
+  color: var(--coolGrey);
+}
+.TransactionModal_TransactionInfoLabel_2an82 {
+  display: inline-block;
+  margin-right: 8px;
+  color: var(--charcoalGrey);
+}
+/*# sourceMappingURL=src/ducks/transactions/TransactionModal.css.map */
+.PercentageLine_PercentageLine_1kjlr {
+  transition: transform 0.3s ease;
+  transform-origin: 0 0;
+}
+/*# sourceMappingURL=src/components/PercentageLine.css.map */
+.style_back-arrow_19QfL.style_back-arrow_19QfL {
+  float: left;
+  font-size: 1.25rem;
+  line-height: 1.6875;
+  margin-right: 1.5rem;
+  cursor: pointer;
+  border-radius: 100%;
+  width: 2rem;
+  display: inline-flex;
+  height: 2rem;
+  justify-content: center;
+  align-items: center;
+}
+.style_back-arrow_19QfL:active {
+  background: rgba(255,255,255,0.2);
+}
+/*# sourceMappingURL=src/components/BackButton/style.css.map */
+.styles_ProgressBackground_2In4w {
+  background-color: var(--silver);
+}
+.styles_ProgressLine_37sEz {
+  height: 5px;
+  margin-bottom: 0.5rem;
+}
+/*# sourceMappingURL=src/components/Stepper/styles.css.map */
+.Row_Row_29MOi {
+  min-height: 3rem;
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--silver);
+  padding: 0.5rem 1rem;
+}
+.Row_Row_29MOi:hover {
+  background-color: var(--paleGrey);
+  cursor: pointer;
+}
+.Row_Row_29MOi:last-child {
+  border-bottom: 0;
+}
+/*# sourceMappingURL=src/components/Row/Row.css.map */
+.styles_PopupSelect__content_2FjFM {
+  margin-left: -1.5em;
+  width: calc(100% + 3em);
+}
+.styles_PopupSelect__title_PXlI9 {
+  border-bottom: 1px solid var(--silver);
+}
+.styles_PopupSelect__back_3yThA {
+  cursor: pointer;
+  margin-right: 1.25rem;
+  margin-left: -0.25rem;
+  font-size: 1.5rem;
+}
+/*# sourceMappingURL=src/components/PopupSelect/styles.css.map */
 @media (max-width: 48rem) {
 }
 .styles_bnk-table-category_1nS2Z {
@@ -3582,11 +3651,6 @@ h4 {
   margin-bottom: -0.25rem;
 }
 /*# sourceMappingURL=src/ducks/categories/styles.css.map */
-.PercentageLine_PercentageLine_1kjlr {
-  transition: transform 0.3s ease;
-  transform-origin: 0 0;
-}
-/*# sourceMappingURL=src/components/PercentageLine.css.map */
 .style_Breadcrumb_3B7RZ {
   display: flex;
   align-items: center;
@@ -4739,23 +4803,6 @@ body {
   margin-left: 0.375rem;
 }
 /*# sourceMappingURL=src/ducks/account/AccountSwitch.css.map */
-.style_back-arrow_19QfL.style_back-arrow_19QfL {
-  float: left;
-  font-size: 1.25rem;
-  line-height: 1.6875;
-  margin-right: 1.5rem;
-  cursor: pointer;
-  border-radius: 100%;
-  width: 2rem;
-  display: inline-flex;
-  height: 2rem;
-  justify-content: center;
-  align-items: center;
-}
-.style_back-arrow_19QfL:active {
-  background: rgba(255,255,255,0.2);
-}
-/*# sourceMappingURL=src/components/BackButton/style.css.map */
 .Header_HeaderFixed_26BZu {
   position: sticky;
   position: -webkit-sticky;
@@ -5111,66 +5158,6 @@ body {
   right: 0;
 }
 /*# sourceMappingURL=src/ducks/categories/AddAccountButton.css.map */
-.Row_Row_29MOi {
-  min-height: 3rem;
-  box-sizing: border-box;
-  border-bottom: 1px solid var(--silver);
-  padding: 0.5rem 1rem;
-}
-.Row_Row_29MOi:hover {
-  background-color: var(--paleGrey);
-  cursor: pointer;
-}
-.Row_Row_29MOi:last-child {
-  border-bottom: 0;
-}
-/*# sourceMappingURL=src/components/Row/Row.css.map */
-.styles_PopupSelect__content_2FjFM {
-  margin-left: -1.5em;
-  width: calc(100% + 3em);
-}
-.styles_PopupSelect__title_PXlI9 {
-  border-bottom: 1px solid var(--silver);
-}
-.styles_PopupSelect__back_3yThA {
-  cursor: pointer;
-  margin-right: 1.25rem;
-  margin-left: -0.25rem;
-  font-size: 1.5rem;
-}
-/*# sourceMappingURL=src/components/PopupSelect/styles.css.map */
-.TransactionModal_Separated_LvX4T > * + * {
-  border-top: 1px solid var(--silver);
-}
-.TransactionModal_TransactionModalRow_1TVp_ {
-  min-height: 57px;
-  box-sizing: border-box;
-  padding: 12px 24px;
-}
-.TransactionModal_TransactionModalRow-disabled_3KMj3 {
-  color: var(--coolGrey);
-  font-style: italic;
-  cursor: default;
-}
-.TransactionModal_TransactionModalRowIcon-reversed_IrR-j {
-  transform: rotate(180deg);
-}
-.TransactionModal_TransactionLabel_2gXs7 {
-  font-weight: bold;
-  line-height: 1.5;
-  color: var(--charcoalGrey);
-}
-.TransactionModal_TransactionInfo_1acl8 {
-  line-height: 1.7;
-  font-size: 14px;
-  color: var(--coolGrey);
-}
-.TransactionModal_TransactionInfoLabel_2an82 {
-  display: inline-block;
-  margin-right: 8px;
-  color: var(--charcoalGrey);
-}
-/*# sourceMappingURL=src/ducks/transactions/TransactionModal.css.map */
 .AugmentedModal_AugmentedModalIntent_3koHU {
   padding: 0;
 }
@@ -6859,14 +6846,6 @@ h5 {
   margin-right: 0;
 }
 /*# sourceMappingURL=src/ducks/settings/DelayedDebitAlert.css.map */
-.styles_ProgressBackground_2In4w {
-  background-color: var(--silver);
-}
-.styles_ProgressLine_37sEz {
-  height: 5px;
-  margin-bottom: 0.5rem;
-}
-/*# sourceMappingURL=src/components/Stepper/styles.css.map */
 .CategoryAlertCard_CategoryAlertCard_3XWO0 {
   cursor: pointer;
   box-sizing: border-box;
