@@ -84,6 +84,37 @@ describe('service', () => {
     expect(mockPostNotification).toHaveBeenCalledTimes(1)
   })
 
+  describe('parent category', () => {
+    it('should send a notification when sum of expenses > alert threshold', async () => {
+      const DAILY_LIFE_ID = '400100'
+      const { client, mockPostNotification } = setup({
+        budgetAlerts: [
+          {
+            ...settings.budgetAlerts[0],
+            categoryId: DAILY_LIFE_ID,
+            categoryIsParent: true
+          }
+        ],
+        expenses: julyExpenses
+      })
+      await runCategoryBudgetService(client, { currentDate: '2019-07-15' })
+      expect(fetchCategoryAlerts).toHaveBeenCalledWith(expect.any(CozyClient))
+      expect(updateCategoryAlerts).toHaveBeenCalledWith(
+        expect.any(CozyClient),
+        [
+          {
+            maxThreshold: 100,
+            categoryId: DAILY_LIFE_ID,
+            categoryIsParent: true,
+            lastNotificationAmount: 735,
+            lastNotificationDate: '2017-07-15'
+          }
+        ]
+      )
+      expect(mockPostNotification).toHaveBeenCalledTimes(1)
+    })
+  })
+
   it('should not update alerts, nor send a notification when there are no expenses', async () => {
     const { client, mockPostNotification } = setup({
       budgetAlerts: settings.budgetAlerts,
