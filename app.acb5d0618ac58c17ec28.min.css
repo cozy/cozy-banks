@@ -6867,6 +6867,15 @@ h5 {
   margin-bottom: 0.5rem;
 }
 /*# sourceMappingURL=src/components/Stepper/styles.css.map */
+.CategoryAlertCard_CategoryAlertCard_3XWO0 {
+  cursor: pointer;
+  box-sizing: border-box;
+  width: 300px;
+}
+.CategoryAlertCard_CategoryAlertCard_3XWO0 +small-screen {
+  width: 100%;
+}
+/*# sourceMappingURL=src/ducks/settings/CategoryAlerts/CategoryAlertCard.css.map */
 .styles_TransferStateModal_gLD-h {
   justify-content: center;
   display: flex;
