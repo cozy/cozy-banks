@@ -23,9 +23,9 @@ export const getOptions = (categories, subcategory = false, t) => {
       option.children = getOptions(option.children, true, t).sort(a => {
         if (a.id === option.id) {
           return 1
+        } else {
+          return -1
         }
-
-        return 0
       })
     }
 
