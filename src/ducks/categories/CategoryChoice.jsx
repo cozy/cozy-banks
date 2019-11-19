@@ -10,47 +10,49 @@ import {
 } from 'ducks/categories'
 import styles from 'ducks/transactions/TransactionModal.styl'
 
+export const getOptions = (categories, subcategory = false, t) => {
+  return Object.keys(categories).map(catName => {
+    const option = categories[catName]
+
+    const translateKey = subcategory ? 'subcategories' : 'categories'
+    option.title = t(`Data.${translateKey}.${option.name}`)
+    option.icon = <CategoryIcon categoryId={option.id} />
+
+    if (!subcategory) {
+      // sort children so "others" is always the last
+      option.children = getOptions(option.children, true, t).sort(a => {
+        if (a.id === option.id) {
+          return 1
+        }
+
+        return 0
+      })
+    }
+
+    return option
+  })
+}
+
+export const getCategoriesOptions = t => getOptions(getCategories(), false, t)
+
 class CategoryChoice extends Component {
   constructor(props) {
     super(props)
 
     this.options = {
-      children: this.getOptions(getCategories()),
+      children: getCategoriesOptions(props.t),
       title: props.t('Categories.choice.title')
     }
   }
 
-  getOptions = (categories, subcategory = false) => {
-    return Object.keys(categories).map(catName => {
-      const option = categories[catName]
-
-      const translateKey = subcategory ? 'subcategories' : 'categories'
-      option.title = this.props.t(`Data.${translateKey}.${option.name}`)
-      option.icon = <CategoryIcon categoryId={option.id} />
-
-      if (!subcategory) {
-        // sort children so "others" is always the last
-        option.children = this.getOptions(option.children, true).sort(a => {
-          if (a.id === option.id) {
-            return 1
-          }
-
-          return 0
-        })
-      }
-
-      return option
-    })
-  }
-
-  isSelected = categoryToCheck => {
+  isSelected = (categoryOption, level) => {
     const { categoryId: selectedCategoryId } = this.props
     const selectedCategoryParentName = getParentCategory(selectedCategoryId)
     const isSelectedParentCategory =
-      selectedCategoryParentName === categoryToCheck.name
-    const isSelectedCategory = selectedCategoryId === categoryToCheck.id
+      selectedCategoryParentName === categoryOption.name
+    const isSelectedCategory = selectedCategoryId === categoryOption.id
 
-    return isSelectedParentCategory || isSelectedCategory
+    return level === 0 ? isSelectedParentCategory : isSelectedCategory
   }
 
   render() {

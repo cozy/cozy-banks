@@ -16,7 +16,14 @@ class MultiSelect extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.unmounted = true
+  }
+
   resetHistory() {
+    if (this.unmounted) {
+      return
+    }
     this.setState({ history: [this.props.options] })
   }
 
@@ -47,6 +54,7 @@ class MultiSelect extends Component {
     const { history } = this.state
     const current = history[0]
     const children = current.children || []
+    const level = history.length - 1
     return (
       <>
         {HeaderComponent ? (
@@ -60,7 +68,7 @@ class MultiSelect extends Component {
           {children.map(item => (
             <Row
               key={item.title}
-              isSelected={this.props.isSelected(item)}
+              isSelected={this.props.isSelected(item, level)}
               icon={item.icon}
               label={item.title}
               onClick={() => this.handleSelect(item)}
@@ -85,7 +93,7 @@ const ItemPropType = PropTypes.shape({
 
 MultiSelect.propTypes = {
   onSelect: PropTypes.func.isRequired,
-  isSelected: PropTypes.bool.isRequired,
+  isSelected: PropTypes.func.isRequired,
   options: PropTypes.shape({
     children: PropTypes.arrayOf(ItemPropType)
   })
