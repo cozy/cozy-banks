@@ -89,7 +89,11 @@ const CategoryAlertCard = ({ removeAlert, updateAlert, alert, t }) => {
             {saving ? <Spinner size="small" /> : null}
             <br />
             {t('Settings.budget-category-alerts.for-category', {
-              categoryName: t(`Data.subcategories.${categoryName}`)
+              categoryName: t(
+                `Data.${
+                  alert.categoryIsParent ? 'categories' : 'subcategories'
+                }.${categoryName}`
+              )
             })}
             <br />
             {alert.accountOrGroup ? (

@@ -25,13 +25,14 @@ describe('getCategoriesOptions', () => {
 })
 
 describe('CategoryChoice', () => {
-  const setup = ({ categoryId }) => {
+  const setup = ({ categoryId, canSelectParent }) => {
     const root = mount(
       <TestI18n>
         <CategoryChoice
+          canSelectParent={canSelectParent}
           categoryId={categoryId}
-          onSelect={() => {}}
-          onCancel={() => {}}
+          onSelect={jest.fn()}
+          onCancel={jest.fn()}
         />
       </TestI18n>
     )
@@ -44,11 +45,9 @@ describe('CategoryChoice', () => {
       const selectedRow = findSelectedRow(root)
       expect(selectedRow.length).toBe(1)
       expect(selectedRow.text()).toBe('Everyday life')
-      expect(selectedRow.find(ChooseButton).length).toBe(1)
       selectedRow.simulate('click')
 
       const selectedRow2 = findSelectedRow(root)
-      expect(selectedRow2.find(ChooseButton).length).toBe(0)
       expect(selectedRow2.length).toBe(1)
       expect(selectedRow2.text()).toBe('Dressing')
     })
@@ -65,6 +64,26 @@ describe('CategoryChoice', () => {
       const selectedRow2 = findSelectedRow(root)
       expect(selectedRow2.length).toBe(1)
       expect(selectedRow2.text()).toBe('Others : Everyday life')
+    })
+  })
+
+  describe('when allowing parent to be selected', () => {
+    it('should show a ChooseButton', () => {
+      const { root } = setup({
+        categoryId: DRESSING_CATEGORY_ID,
+        canSelectParent: true
+      })
+      const selectedRow = findSelectedRow(root)
+      expect(selectedRow.length).toBe(1)
+
+      const chooseBtn = selectedRow.find(ChooseButton)
+      expect(chooseBtn.length).toBe(1)
+      chooseBtn.props().onClick()
+      expect(root.find(CategoryChoice).props().onSelect).toHaveBeenCalledWith(
+        expect.objectContaining({
+          id: DAILY_LIFE_CATEGORY_ID
+        })
+      )
     })
   })
 })
