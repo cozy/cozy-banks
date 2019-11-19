@@ -69,6 +69,17 @@ class _TransactionDate extends React.PureComponent {
     )
   }
 }
+
+const AccountCaption = React.memo(function AccountCaption({ account }) {
+  const accountInstitutionLabel = getAccountInstitutionLabel(account)
+  return (
+    <Caption className="u-ellipsis">
+      {getAccountLabel(account)}
+      {accountInstitutionLabel && ` - ${accountInstitutionLabel}`}
+    </Caption>
+  )
+})
+
 const TransactionDate = translate()(_TransactionDate)
 
 class _RowDesktop extends React.PureComponent {
@@ -96,7 +107,6 @@ class _RowDesktop extends React.PureComponent {
     const categoryTitle = t(`Data.subcategories.${categoryName}`)
 
     const account = transaction.account.data
-    const accountInstitutionLabel = getAccountInstitutionLabel(account)
     const trRest = flag('show-transactions-ids') ? { id: transaction._id } : {}
 
     return (
@@ -112,12 +122,7 @@ class _RowDesktop extends React.PureComponent {
             <Bd className="u-pl-1">
               <List.Content onClick={this.onSelectTransaction}>
                 <Text>{getLabel(transaction)}</Text>
-                {!filteringOnAccount && (
-                  <Caption className={styles['bnk-op-desc-caption']}>
-                    {getAccountLabel(account)}
-                    {accountInstitutionLabel && ` - ${accountInstitutionLabel}`}
-                  </Caption>
-                )}
+                {!filteringOnAccount && <AccountCaption account={account} />}
               </List.Content>
             </Bd>
           </Media>
@@ -189,14 +194,7 @@ class _RowMobile extends React.PureComponent {
           <Bd className="u-clickable u-mr-half">
             <List.Content onClick={this.handleSelect}>
               <Text className="u-ellipsis">{getLabel(transaction)}</Text>
-              {!filteringOnAccount && (
-                <Caption
-                  className={cx('u-ellipsis', styles['bnk-op-desc-caption'])}
-                >
-                  {getAccountLabel(account)}
-                  {accountInstitutionLabel && ` - ${accountInstitutionLabel}`}
-                </Caption>
-              )}
+              {!filteringOnAccount && <AccountCaption account={account} />}
             </List.Content>
           </Bd>
           <Img onClick={this.handleSelect} className="u-clickable">
