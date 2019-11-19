@@ -45,14 +45,14 @@ class CategoryChoice extends Component {
     }
   }
 
-  isSelected = categoryToCheck => {
+  isSelected = (categoryOption, level) => {
     const { categoryId: selectedCategoryId } = this.props
     const selectedCategoryParentName = getParentCategory(selectedCategoryId)
     const isSelectedParentCategory =
-      selectedCategoryParentName === categoryToCheck.name
-    const isSelectedCategory = selectedCategoryId === categoryToCheck.id
+      selectedCategoryParentName === categoryOption.name
+    const isSelectedCategory = selectedCategoryId === categoryOption.id
 
-    return isSelectedParentCategory || isSelectedCategory
+    return level === 0 ? isSelectedParentCategory : isSelectedCategory
   }
 
   render() {
