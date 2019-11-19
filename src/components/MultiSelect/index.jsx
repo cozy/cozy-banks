@@ -16,7 +16,14 @@ class MultiSelect extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.unmounted = true
+  }
+
   resetHistory() {
+    if (this.unmounted) {
+      return
+    }
     this.setState({ history: [this.props.options] })
   }
 
