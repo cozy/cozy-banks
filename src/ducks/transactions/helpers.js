@@ -221,7 +221,15 @@ export const updateTransactionCategory = async (
   }
 }
 
+const isSameMonth = (dateStr, otherDateStr) => {
+  return dateStr.slice(0, 7) == otherDateStr.slice(0, 7)
+}
+
 export const updateApplicationDate = (client, transaction, applicationDate) => {
+  const date = getDisplayDate(transaction)
+  if (isSameMonth(date, applicationDate)) {
+    applicationDate = null // reset the application date
+  }
   return client.save({
     ...transaction,
     applicationDate
