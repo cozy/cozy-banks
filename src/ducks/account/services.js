@@ -4,6 +4,7 @@ import { ACCOUNT_DOCTYPE, CONTACT_DOCTYPE } from 'doctypes'
 import get from 'lodash/get'
 import set from 'lodash/set'
 import mergeSets from 'utils/mergeSets'
+import { addOwnerToAccount } from './helpers'
 
 const log = logger.namespace('link-myself-to-accounts')
 
@@ -42,13 +43,7 @@ export const linkMyselfToAccounts = async ({ client }) => {
   }
 
   for (const account of accountsToProcess) {
-    const currentOwners = get(account, 'relationships.owners.data', [])
-    const newOwners = [
-      ...currentOwners,
-      { _id: myself._id, _type: CONTACT_DOCTYPE }
-    ]
-
-    set(account, 'relationships.owners.data', newOwners)
+    addOwnerToAccount(account, myself)
 
     await client.save(account)
   }
