@@ -1,8 +1,7 @@
 import React from 'react'
 import { withClient } from 'cozy-client'
-import { Button } from 'cozy-ui/transpiled/react'
+import { Button, DateMonthPicker } from 'cozy-ui/transpiled/react'
 import { updateApplicationDate } from 'ducks/transactions/helpers'
-import DateMonthPicker from 'components/DateMonthPicker'
 
 const TransactionApplicationDateEditor = withClient(props => {
   const { client, onCancel, transaction, beforeUpdate, afterUpdate } = props

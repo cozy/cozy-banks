@@ -15,7 +15,9 @@ import {
   Img,
   translate,
   withBreakpoints,
-  Alerter
+  Alerter,
+  ViewStack,
+  useViewStack
 } from 'cozy-ui/react'
 
 import { format } from 'date-fns'
@@ -46,7 +48,6 @@ import { TRANSACTION_DOCTYPE } from 'doctypes'
 import flag from 'cozy-flags'
 import { getDate } from 'ducks/transactions/helpers'
 
-import ViewStack, { useViewStack } from 'components/ViewStack'
 import TransactionCategoryEditor from './TransactionCategoryEditor'
 import TransactionApplicationDateEditor from './TransactionApplicationDateEditor'
 
