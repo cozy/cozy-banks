@@ -18,7 +18,7 @@ import {
   Alerter
 } from 'cozy-ui/react'
 
-import { parse, format } from 'date-fns'
+import { format } from 'date-fns'
 
 import { Figure } from 'components/Figure'
 import { PageModal } from 'components/PageModal'
@@ -183,11 +183,11 @@ const TransactionModalInfoContent = withTransaction(props => {
 
   const [applicationDateBusy, setApplicationDateBusy] = useState(false)
 
-  const handleAfterUpdateApplicationDate = (_, applicationDate) => {
+  const handleAfterUpdateApplicationDate = updatedTransaction => {
     setApplicationDateBusy(false)
     Alerter.success(
       t('Transactions.infos.applicationDateChangedAlert', {
-        applicationDate: format(parse(applicationDate, 'YYYY-MM-DD'), 'MMMM')
+        applicationDate: format(updatedTransaction.applicationDate, 'MMMM')
       })
     )
   }

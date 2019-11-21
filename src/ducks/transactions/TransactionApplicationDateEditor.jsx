@@ -6,14 +6,16 @@ import DateMonthPicker from 'components/DateMonthPicker'
 
 const TransactionApplicationDateEditor = withClient(props => {
   const { client, onCancel, transaction, beforeUpdate, afterUpdate } = props
-  const handleCancel = () => {
-    onCancel(props)
-  }
+  const handleCancel = () => onCancel()
 
   const handleSelect = async monthDate => {
     await beforeUpdate(props)
-    await updateApplicationDate(client, transaction, monthDate)
-    await afterUpdate(props, monthDate)
+    const newTransaction = await updateApplicationDate(
+      client,
+      transaction,
+      monthDate
+    )
+    await afterUpdate(newTransaction)
   }
 
   return (

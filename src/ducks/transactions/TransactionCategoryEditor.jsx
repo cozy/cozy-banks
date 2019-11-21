@@ -12,16 +12,20 @@ const TransactionCategoryEditor = withClient(props => {
 
   const handleSelect = async category => {
     if (beforeUpdate) {
-      await beforeUpdate(props)
+      await beforeUpdate()
     }
-    await updateTransactionCategory(client, transaction, category)
+    const newTransaction = await updateTransactionCategory(
+      client,
+      transaction,
+      category
+    )
     if (afterUpdate) {
-      await afterUpdate(props)
+      await afterUpdate(newTransaction)
     }
   }
 
   const handleCancel = async () => {
-    await onCancel(props)
+    await onCancel()
   }
 
   return (
