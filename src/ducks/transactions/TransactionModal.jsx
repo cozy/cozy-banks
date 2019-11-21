@@ -213,6 +213,9 @@ const TransactionModalInfoContent = withTransaction(props => {
     }
   }
 
+  const shouldShowRestoreApplicationDateIcon =
+    transaction.applicationDate && !applicationDateBusy
+
   return (
     <div className={styles['Separated']}>
       <TransactionModalRow iconLeft={typeIcon} align="top" className>
@@ -251,7 +254,7 @@ const TransactionModalInfoContent = withTransaction(props => {
               })
             : f(getDate(transaction), 'dddd D MMMM')}
         </Bd>
-        {transaction.applicationDate && !applicationDateBusy ? (
+        {shouldShowRestoreApplicationDateIcon ? (
           <Img>
             <Icon
               onClick={handleResetApplicationDate}
