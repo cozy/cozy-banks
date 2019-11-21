@@ -7,38 +7,34 @@ exports[`transaction modal should render correctly 1`] = `
       <div class=\\"styles__c-modal___33aV9 styles__c-modal--small___XUfOM styles__c-modal--closable___29CLQ\\" role=\\"dialog\\" aria-modal=\\"true\\"><button type=\\"button\\" class=\\"styles__c-btn___-2Vnj styles__c-btn--close___3f0AP styles__c-btn--narrow___27FHD styles__c-btn--center___16_Xh styles__c-modal-close___1v2bp styles__c-modal-close--notitle___1rqne\\" title=\\"Close\\"><span><span class=\\"u-visuallyhidden\\">Close</span><svg class=\\"styles__icon___23x3R\\" style=\\"fill: var(--coolGrey);\\" width=\\"24\\" height=\\"24\\">
             <use xlink:href=\\"#cross\\"></use>
           </svg></span></button>
-        <div style=\\"overflow-x: hidden;\\">
-          <div style=\\"height: 0px; flex-direction: row; transition: all 0s ease 0s; direction: ltr; display: flex; will-change: transform;\\" class=\\"react-swipeable-view-container\\">
-            <div style=\\"width: 100%; flex-shrink: 0; overflow: auto; overflow-y: hidden;\\" aria-hidden=\\"false\\" data-swipeable=\\"true\\">
-              <div>
-                <div class=\\"c-modal-header Page__header\\">
-                  <div class=\\"default\\"><span class=\\"Figure-total\\">-77.50</span><span class=\\"Figure-currency Figure__currency--withSpacing\\">€</span></div>
-                </div>
-                <div class=\\"Separated\\">
-                  <div class=\\"media media--top TransactionModalRow u-row-m\\">
-                    <div class=\\"img\\"><svg class=\\"TransactionModalRowIcon-reversed icon\\" width=\\"16\\" height=\\"16\\">
-                        <use xlink:href=\\"#test-file-stub\\"></use>
-                      </svg></div>
-                    <div class=\\"bd u-stack-xs\\">
-                      <div class=\\"TransactionLabel\\">Edf Particuliers</div>
-                      <div></div>
-                    </div>
-                  </div>
-                  <div class=\\"media TransactionModalRow u-row-m u-c-pointer\\">
-                    <div class=\\"img\\"><svg class=\\"icon\\" width=\\"16\\" height=\\"16\\">
-                        <use xlink:href=\\"#test-file-stub\\"></use>
-                      </svg></div>
-                    <div class=\\"bd\\">Saturday 26 August</div>
-                  </div>
-                  <div class=\\"media TransactionModalRow u-row-m u-c-pointer\\">
-                    <div class=\\"img\\"><svg class=\\"icon\\" width=\\"16\\" height=\\"16\\">
-                        <use xlink:href=\\"#test-file-stub\\"></use>
-                      </svg></div>
-                    <div class=\\"bd u-stack-xs\\">Power</div>
-                    <div class=\\"img\\"></div>
-                  </div>
+        <div>
+          <div class=\\"c-modal-header Page__header\\">
+            <div class=\\"default\\"><span class=\\"Figure-total\\">-77.50</span><span class=\\"Figure-currency Figure__currency--withSpacing\\">€</span></div>
+          </div>
+          <div class=\\"Separated\\">
+            <div class=\\"media media--top TransactionModalRow u-row-m\\">
+              <div class=\\"img\\"><svg class=\\"TransactionModalRowIcon-reversed icon\\" width=\\"16\\" height=\\"16\\">
+                  <use xlink:href=\\"#test-file-stub\\"></use>
+                </svg></div>
+              <div class=\\"bd u-stack-xs\\">
+                <div class=\\"TransactionLabel\\">Edf Particuliers</div>
+                <div>
+                  <div class=\\"TransactionInfo\\"><span class=\\"TransactionInfoLabel\\">Date :</span>Saturday 26 August</div>
                 </div>
               </div>
+            </div>
+            <div class=\\"media TransactionModalRow u-row-m u-c-pointer\\">
+              <div class=\\"img\\"><svg class=\\"icon\\" width=\\"16\\" height=\\"16\\">
+                  <use xlink:href=\\"#test-file-stub\\"></use>
+                </svg></div>
+              <div class=\\"bd\\">Assigned to August 2017</div>
+            </div>
+            <div class=\\"media TransactionModalRow u-row-m u-c-pointer\\">
+              <div class=\\"img\\"><svg class=\\"icon\\" width=\\"16\\" height=\\"16\\">
+                  <use xlink:href=\\"#test-file-stub\\"></use>
+                </svg></div>
+              <div class=\\"bd u-stack-xs\\">Power</div>
+              <div class=\\"img\\"></div>
             </div>
           </div>
         </div>

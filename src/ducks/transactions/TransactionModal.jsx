@@ -16,10 +16,10 @@ import {
   translate,
   withBreakpoints,
   Alerter,
-  ViewStack,
   useViewStack
 } from 'cozy-ui/react'
 
+import ModalStack from 'components/ModalStack'
 import { format } from 'date-fns'
 
 import { Figure } from 'components/Figure'
@@ -201,7 +201,8 @@ const TransactionModalInfoContent = withTransaction(props => {
           beforeUpdate={() => setApplicationDateBusy(true)}
           afterUpdate={handleAfterUpdateApplicationDate}
           transaction={transaction}
-        />
+        />,
+        { size: 'xsmall' }
       )
   }
 
@@ -309,9 +310,9 @@ const TransactionModalInfo = withBreakpoints()(
 
 const TransactionModal = ({ requestClose, ...props }) => (
   <PageModal dismissAction={requestClose} into="body">
-    <ViewStack>
+    <ModalStack>
       <TransactionModalInfo {...props} requestClose={requestClose} />
-    </ViewStack>
+    </ModalStack>
   </PageModal>
 )
 
