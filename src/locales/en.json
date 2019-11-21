@@ -360,6 +360,7 @@
       "originalBankLabel": "Original label",
       "date": "Done on",
       "applicationDate": "Assigned to %{applicationDate}",
+      "chooseApplicationDate": "Assign to month",
       "applicationDateChangedAlert": "Operation assigned to %{applicationDate} in the analysis tab"
     },
     "see-more": "See more...",

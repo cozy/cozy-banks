@@ -175,7 +175,11 @@
     "infos": {
       "account": "Compte",
       "institution": "Banque",
-      "originalBankLabel": "Libellé original"
+      "originalBankLabel": "Libellé original",
+      "date": "Effectuée le",
+      "applicationDate": "Assignée à %{applicationDate}",
+      "chooseApplicationDate": "Assigner au mois",
+      "applicationDateChangedAlert": "Operation assignée à %{applicationDate} dans l'onglet Analyse"
     },
     "see-more": "Voir plus...",
     "reimbursementStatus": {

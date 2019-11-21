@@ -132,32 +132,30 @@ const TransactionCategoryEditorSlide = translate()(props => {
   )
 })
 
-const TransactionApplicationDateEditorSlide = ({
-  transaction,
-  beforeUpdate,
-  afterUpdate
-}) => {
-  const { stackPop } = useViewStack()
-  const handleBeforeUpdate = async () => {
-    beforeUpdate()
-    await stackPop()
-  }
+const TransactionApplicationDateEditorSlide = translate()(
+  ({ transaction, beforeUpdate, afterUpdate, t }) => {
+    const { stackPop } = useViewStack()
+    const handleBeforeUpdate = async () => {
+      beforeUpdate()
+      await stackPop()
+    }
 
-  return (
-    <div>
-      <PageHeader dismissAction={stackPop}>
-        <PageBackButton onClick={stackPop} />
-        Application date {/* i18n */}
-      </PageHeader>
-      <TransactionApplicationDateEditor
-        beforeUpdate={handleBeforeUpdate}
-        afterUpdate={afterUpdate}
-        onCancel={stackPop}
-        transaction={transaction}
-      />
-    </div>
-  )
-}
+    return (
+      <div>
+        <PageHeader dismissAction={stackPop}>
+          <PageBackButton onClick={stackPop} />
+          {t('Transactions.infos.chooseApplicationDate')}
+        </PageHeader>
+        <TransactionApplicationDateEditor
+          beforeUpdate={handleBeforeUpdate}
+          afterUpdate={afterUpdate}
+          onCancel={stackPop}
+          transaction={transaction}
+        />
+      </div>
+    )
+  }
+)
 
 /**
  * Show information of the transaction
