@@ -26,7 +26,7 @@ import styles from 'ducks/transactions/Transactions.styl'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 import TransactionModal from 'ducks/transactions/TransactionModal'
 
-import { useSwitch } from 'components/modalUtils'
+import useSwitch from 'hooks/useSwitch'
 
 const withSelection = Component => {
   const Wrapped = props => {
