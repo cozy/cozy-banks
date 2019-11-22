@@ -4,9 +4,9 @@ exports[`transaction modal should render correctly 1`] = `
 "<div class=\\"styles__c-modal-container___31zmi\\">
   <div class=\\"styles__c-overlay___31iWd\\">
     <div class=\\"styles__c-modal-wrapper___8PyE9\\">
-      <div class=\\"styles__c-modal___33aV9 styles__c-modal--small___XUfOM styles__c-modal--closable___29CLQ\\" role=\\"dialog\\" aria-modal=\\"true\\"><button type=\\"button\\" class=\\"styles__c-btn___-2Vnj styles__c-btn--close___3f0AP styles__c-btn--narrow___27FHD styles__c-btn--center___16_Xh styles__c-modal-close___1v2bp styles__c-modal-close--notitle___1rqne\\" title=\\"Close\\"><span><span class=\\"u-visuallyhidden\\">Close</span><svg class=\\"styles__icon___23x3R\\" style=\\"fill: var(--coolGrey);\\" width=\\"24\\" height=\\"24\\">
+      <div class=\\"styles__c-modal___33aV9 styles__c-modal--small___XUfOM styles__c-modal--closable___29CLQ\\" role=\\"dialog\\" aria-modal=\\"true\\"><button class=\\"styles__c-modal-close___1v2bp styles__c-modal-close--notitle___1rqne\\" type=\\"button\\" aria-label=\\"close\\"><svg class=\\"styles__icon___23x3R\\" style=\\"fill: var(--coolGrey);\\" width=\\"24\\" height=\\"24\\">
             <use xlink:href=\\"#cross\\"></use>
-          </svg></span></button>
+          </svg></button>
         <div>
           <div class=\\"c-modal-header Page__header\\">
             <div class=\\"default\\"><span class=\\"Figure-total\\">-77.50</span><span class=\\"Figure-currency Figure__currency--withSpacing\\">€</span></div>
