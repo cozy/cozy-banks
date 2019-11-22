@@ -177,9 +177,9 @@
       "institution": "Banque",
       "originalBankLabel": "Libellé original",
       "date": "Date",
-      "assignedToPeriod": "Assignée à %{date}",
-      "chooseApplicationDate": "Assigner au mois",
-      "applicationDateChangedAlert": "Operation assignée à %{applicationDate} dans l'onglet Analyse"
+      "assignedToPeriod": "Affectée à %{date}",
+      "chooseApplicationDate": "Affecter au mois",
+      "applicationDateChangedAlert": "Operation affectée à %{applicationDate} dans l'onglet Analyse"
     },
     "see-more": "Voir plus...",
     "reimbursementStatus": {
