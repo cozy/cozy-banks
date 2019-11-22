@@ -10,7 +10,8 @@ import {
   hasReimbursements,
   hasBills,
   isAlreadyNotified,
-  updateApplicationDate
+  updateApplicationDate,
+  getApplicationDate
 } from './helpers'
 import { BILLS_DOCTYPE } from 'doctypes'
 import MockDate from 'mockdate'
@@ -359,7 +360,7 @@ describe('updateApplicationDate', () => {
       date: '2019-08-07T12:00',
       applicationDate: '2019-09-01'
     })
-    expect(doc.applicationDate).toBe('2019-09-01')
+    expect(getApplicationDate(doc)).toBe('2019-09-01')
   })
 
   it('should reset the applicationDate if changed to same month as display date', async () => {

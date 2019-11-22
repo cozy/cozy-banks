@@ -13,7 +13,7 @@ import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { sortBy, last, keyBy, find } from 'lodash'
 import { DESTROY_ACCOUNT } from 'actions/accounts'
 import { dehydrate } from 'cozy-client'
-import { getDisplayDate } from 'ducks/transactions/helpers'
+import { getApplicationDate, getDisplayDate } from 'ducks/transactions/helpers'
 import { isHealthExpense } from 'ducks/categories/helpers'
 
 const log = logger.namespace('filters')
@@ -115,11 +115,12 @@ export const getTransactionsFilteredByAccount = createSelector(
 const getPathnameFromLocationProp = (state, ownProps) =>
   ownProps && ownProps.location.pathname
 
-const getApplicationDateOrDisplayDate = tr => {
-  if (tr.applicationDate) {
-    return tr.applicationDate
+const getApplicationDateOrDisplayDate = transaction => {
+  const applicationDate = getApplicationDate(transaction)
+  if (applicationDate) {
+    return applicationDate
   } else {
-    return getDisplayDate(tr)
+    return getDisplayDate(transaction)
   }
 }
 

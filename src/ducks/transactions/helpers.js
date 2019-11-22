@@ -223,6 +223,13 @@ const isSameMonth = (dateStr, otherDateStr) => {
   )
 }
 
+export const getApplicationDate = transaction => {
+  if (isSameMonth(transaction.applicationDate, transaction.date)) {
+    return null
+  }
+  return transaction.applicationDate
+}
+
 export const updateApplicationDate = async (
   client,
   transaction,

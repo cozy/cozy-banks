@@ -46,7 +46,7 @@ import {
 } from 'ducks/account/helpers'
 import { TRANSACTION_DOCTYPE } from 'doctypes'
 import flag from 'cozy-flags'
-import { getDate } from 'ducks/transactions/helpers'
+import { getDate, getApplicationDate } from 'ducks/transactions/helpers'
 
 import TransactionCategoryEditor from './TransactionCategoryEditor'
 import TransactionApplicationDateEditor from './TransactionApplicationDateEditor'
@@ -185,10 +185,11 @@ const TransactionModalInfoContent = withTransaction(props => {
   const [applicationDateBusy, setApplicationDateBusy] = useState(false)
 
   const handleAfterUpdateApplicationDate = updatedTransaction => {
+    const applicationDate = getApplicationDate(updatedTransaction)
     setApplicationDateBusy(false)
     Alerter.success(
       t('Transactions.infos.applicationDateChangedAlert', {
-        applicationDate: format(updatedTransaction.applicationDate, 'MMMM')
+        applicationDate: format(applicationDate, 'MMMM')
       })
     )
   }
@@ -215,7 +216,7 @@ const TransactionModalInfoContent = withTransaction(props => {
   }
 
   const shouldShowRestoreApplicationDateIcon =
-    transaction.applicationDate && !applicationDateBusy
+    getApplicationDate(transaction) && !applicationDateBusy
 
   return (
     <div className={styles['Separated']}>

@@ -21,7 +21,11 @@ import { getCategoryName } from 'ducks/categories/categoriesMap'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { getCategoryId } from 'ducks/categories/helpers'
 import { withUpdateCategory } from 'ducks/categories'
-import { getLabel, getDate } from 'ducks/transactions/helpers'
+import {
+  getLabel,
+  getDate,
+  getApplicationDate
+} from 'ducks/transactions/helpers'
 import styles from 'ducks/transactions/Transactions.styl'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 import TransactionModal from 'ducks/transactions/TransactionModal'
@@ -82,9 +86,10 @@ const ApplicationDateCaption = React.memo(function ApplicationDateCaption({
   transaction,
   f
 }) {
+  const applicationDate = getApplicationDate(transaction)
   return (
     <Caption>
-      <Icon size={10} icon="logout" /> {f(transaction.applicationDate, 'MMMM')}
+      <Icon size={10} icon="logout" /> {f(applicationDate, 'MMMM')}
     </Caption>
   )
 })
@@ -119,6 +124,7 @@ class _RowDesktop extends React.PureComponent {
     const account = transaction.account.data
     const trRest = flag('show-transactions-ids') ? { id: transaction._id } : {}
 
+    const applicationDate = getApplicationDate(transaction)
     return (
       <tr ref={onRef} {...trRest} className="u-clickable">
         <td className={cx(styles.ColumnSizeDesc, 'u-pv-half', 'u-pl-1')}>
@@ -133,7 +139,7 @@ class _RowDesktop extends React.PureComponent {
               <List.Content onClick={this.onSelectTransaction}>
                 <Text>{getLabel(transaction)}</Text>
                 {!filteringOnAccount && <AccountCaption account={account} />}
-                {transaction.applicationDate ? (
+                {applicationDate ? (
                   <ApplicationDateCaption f={f} transaction={transaction} />
                 ) : null}
               </List.Content>
@@ -189,6 +195,8 @@ class _RowMobile extends React.PureComponent {
       rowRest.className = cx(styles.TransactionRowMobile)
     }
 
+    const applicationDate = getApplicationDate(transaction)
+
     return (
       <List.Row onRef={onRef} {...rowRest}>
         <Media className="u-w-100">
@@ -207,7 +215,7 @@ class _RowMobile extends React.PureComponent {
             <List.Content onClick={this.handleSelect}>
               <Text className="u-ellipsis">{getLabel(transaction)}</Text>
               {!filteringOnAccount && <AccountCaption account={account} />}
-              {transaction.applicationDate ? (
+              {applicationDate ? (
                 <ApplicationDateCaption f={f} transaction={transaction} />
               ) : null}
             </List.Content>
