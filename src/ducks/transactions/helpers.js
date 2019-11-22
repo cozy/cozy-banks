@@ -218,7 +218,9 @@ export const updateTransactionCategory = async (
 }
 
 const isSameMonth = (dateStr, otherDateStr) => {
-  return dateStr.slice(0, 7) == otherDateStr.slice(0, 7)
+  return (
+    dateStr && otherDateStr && dateStr.slice(0, 7) == otherDateStr.slice(0, 7)
+  )
 }
 
 export const updateApplicationDate = async (
