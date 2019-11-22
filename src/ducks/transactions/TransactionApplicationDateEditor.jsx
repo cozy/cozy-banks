@@ -1,6 +1,6 @@
 import React from 'react'
 import { withClient } from 'cozy-client'
-import { Button, DateMonthPicker } from 'cozy-ui/transpiled/react'
+import { DateMonthPicker } from 'cozy-ui/transpiled/react'
 import {
   getDate,
   getApplicationDate,
@@ -8,8 +8,7 @@ import {
 } from 'ducks/transactions/helpers'
 
 const TransactionApplicationDateEditor = withClient(props => {
-  const { client, onCancel, transaction, beforeUpdate, afterUpdate } = props
-  const handleCancel = () => onCancel()
+  const { client, transaction, beforeUpdate, afterUpdate } = props
 
   const handleSelect = async monthDate => {
     await beforeUpdate(props)
@@ -30,15 +29,6 @@ const TransactionApplicationDateEditor = withClient(props => {
         initialValue={(applicationDate || date).slice(0, 10)}
         onSelect={handleSelect}
       />
-      <br />
-      <Button
-        size="small"
-        className="u-m-0"
-        theme="secondary"
-        onClick={handleCancel}
-      >
-        Cancel
-      </Button>
     </div>
   )
 })

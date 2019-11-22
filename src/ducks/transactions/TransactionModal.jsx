@@ -116,41 +116,44 @@ const withTransaction = withDocs(ownProps => ({
   transaction: [TRANSACTION_DOCTYPE, ownProps.transactionId]
 }))
 
-const TransactionCategoryEditorSlide = translate()(props => {
-  const { stackPop } = useViewStack()
-  return (
-    <div>
-      <PageHeader dismissAction={stackPop}>
-        <PageBackButton onClick={stackPop} />
-        {props.t('Categories.choice.title')}
-      </PageHeader>
-      <TransactionCategoryEditor
-        beforeUpdate={stackPop}
-        onCancel={stackPop}
-        transaction={props.transaction}
-      />
-    </div>
-  )
-})
+const TransactionCategoryEditorSlide = withBreakpoints()(
+  translate()(props => {
+    const { stackPop } = useViewStack()
+    const {
+      breakpoints: { isMobile }
+    } = props
+    return (
+      <div>
+        <PageHeader dismissAction={stackPop}>
+          {isMobile ? <PageBackButton onClick={stackPop} /> : null}
+          {props.t('Categories.choice.title')}
+        </PageHeader>
+        <TransactionCategoryEditor
+          beforeUpdate={stackPop}
+          onCancel={stackPop}
+          transaction={props.transaction}
+        />
+      </div>
+    )
+  })
+)
 
 const TransactionApplicationDateEditorSlide = translate()(
   ({ transaction, beforeUpdate, afterUpdate, t }) => {
     const { stackPop } = useViewStack()
-    const handleBeforeUpdate = async () => {
+    const handleBeforeUpdate = () => {
       beforeUpdate()
-      await stackPop()
+      stackPop()
     }
 
     return (
       <div>
         <PageHeader dismissAction={stackPop}>
-          <PageBackButton onClick={stackPop} />
           {t('Transactions.infos.chooseApplicationDate')}
         </PageHeader>
         <TransactionApplicationDateEditor
           beforeUpdate={handleBeforeUpdate}
           afterUpdate={afterUpdate}
-          onCancel={stackPop}
           transaction={transaction}
         />
       </div>
