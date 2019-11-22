@@ -27,7 +27,7 @@ exports[`transaction modal should render correctly 1`] = `
               <div class=\\"img\\"><svg class=\\"icon\\" width=\\"16\\" height=\\"16\\">
                   <use xlink:href=\\"#test-file-stub\\"></use>
                 </svg></div>
-              <div class=\\"bd\\">Assigned to August 2017</div>
+              <div class=\\"bd\\">Assigned to Aug 2017</div>
             </div>
             <div class=\\"media TransactionModalRow u-row-m u-c-pointer\\">
               <div class=\\"img\\"><svg class=\\"icon\\" width=\\"16\\" height=\\"16\\">
