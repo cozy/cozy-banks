@@ -269,11 +269,12 @@ const TransactionModalInfoContent = withTransaction(props => {
         </Bd>
         {shouldShowRestoreApplicationDateIcon ? (
           <Img>
-            <Icon
+            <span
               onClick={handleResetApplicationDate}
-              color="var(--slateGrey)"
-              icon="restore"
-            />
+              className="u-expanded-click-area"
+            >
+              <Icon color="var(--slateGrey)" icon="restore" />
+            </span>
           </Img>
         ) : null}
         {applicationDateBusy ? (
