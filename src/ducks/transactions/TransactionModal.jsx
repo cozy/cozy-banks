@@ -205,7 +205,7 @@ const TransactionModalInfoContent = withTransaction(props => {
           afterUpdate={handleAfterUpdateApplicationDate}
           transaction={transaction}
         />,
-        { size: 'xsmall' }
+        { size: 'xsmall', mobileFullscreen: false }
       )
   }
 
