@@ -20,7 +20,6 @@ import {
 } from 'cozy-ui/react'
 
 import ModalStack from 'components/ModalStack'
-import { format } from 'date-fns'
 
 import { Figure } from 'components/Figure'
 import { PageModal } from 'components/PageModal'
@@ -192,7 +191,7 @@ const TransactionModalInfoContent = withTransaction(props => {
     setApplicationDateBusy(false)
     Alerter.success(
       t('Transactions.infos.applicationDateChangedAlert', {
-        applicationDate: format(applicationDate, 'MMMM')
+        applicationDate: f(applicationDate, 'MMMM')
       })
     )
   }
@@ -213,7 +212,16 @@ const TransactionModalInfoContent = withTransaction(props => {
     ev.preventDefault()
     try {
       setApplicationDateBusy(true)
-      await updateApplicationDate(client, transaction, null)
+      const newTransaction = await updateApplicationDate(
+        client,
+        transaction,
+        null
+      )
+      Alerter.success(
+        t('Transactions.infos.applicationDateChangedAlert', {
+          applicationDate: f(getDate(newTransaction), 'MMMM')
+        })
+      )
     } finally {
       setApplicationDateBusy(false)
     }
@@ -255,7 +263,7 @@ const TransactionModalInfoContent = withTransaction(props => {
           {t('Transactions.infos.assignedToPeriod', {
             date: f(
               getApplicationDate(transaction) || getDate(transaction),
-              'MMMM YYYY'
+              'MMM YYYY'
             )
           })}
         </Bd>
