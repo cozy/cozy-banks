@@ -176,8 +176,8 @@
       "account": "Compte",
       "institution": "Banque",
       "originalBankLabel": "Libellé original",
-      "date": "Effectuée le",
-      "applicationDate": "Assignée à %{applicationDate}",
+      "date": "Date",
+      "assignedToPeriod": "Assignée à %{date}",
       "chooseApplicationDate": "Assigner au mois",
       "applicationDateChangedAlert": "Operation assignée à %{applicationDate} dans l'onglet Analyse"
     },

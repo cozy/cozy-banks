@@ -358,8 +358,8 @@
       "account": "Account",
       "institution": "Bank",
       "originalBankLabel": "Original label",
-      "date": "Done on",
-      "applicationDate": "Assigned to %{applicationDate}",
+      "date": "Date",
+      "assignedToPeriod": "Assigned to %{date}",
       "chooseApplicationDate": "Assign to month",
       "applicationDateChangedAlert": "Operation assigned to %{applicationDate} in the analysis tab"
     },

@@ -238,9 +238,7 @@ const TransactionModalInfoContent = withTransaction(props => {
             },
             {
               label: t('Transactions.infos.date'),
-              value: transaction.applicationDate
-                ? f(getDate(transaction), 'dddd D MMMM')
-                : null
+              value: f(getDate(transaction), 'dddd D MMMM')
             }
           ].filter(x => x.value)}
         />
@@ -250,11 +248,12 @@ const TransactionModalInfoContent = withTransaction(props => {
           <Icon icon={iconCalendar} />
         </Img>
         <Bd>
-          {transaction.applicationDate
-            ? t('Transactions.infos.applicationDate', {
-                applicationDate: f(transaction.applicationDate, 'MMMM YYYY')
-              })
-            : f(getDate(transaction), 'dddd D MMMM')}
+          {t('Transactions.infos.assignedToPeriod', {
+            date: f(
+              getApplicationDate(transaction) || getDate(transaction),
+              'MMMM YYYY'
+            )
+          })}
         </Bd>
         {shouldShowRestoreApplicationDateIcon ? (
           <Img>
