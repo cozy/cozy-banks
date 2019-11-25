@@ -1,4 +1,5 @@
 const LAST_INTERACTION_KEY = 'cozy.pin-last-interaction'
+const PIN_SETTING_KEY = 'cozy.pin-doc'
 
 const storage = (key, toString, fromString) => ({
   load: () => {
@@ -29,4 +30,10 @@ export const lastInteractionStorage = storage(
     return isNaN(n) ? null : n
   },
   n => n.toString()
+)
+
+export const pinSettingStorage = storage(
+  PIN_SETTING_KEY,
+  JSON.stringify,
+  JSON.parse
 )

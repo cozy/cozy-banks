@@ -5,7 +5,7 @@ import PinAuth from 'ducks/pin/PinAuth'
 import { pinSetting } from 'ducks/pin/queries'
 import { queryConnect } from 'cozy-client'
 import { isCollectionLoading } from 'ducks/client/utils'
-import { lastInteractionStorage } from './storage'
+import { lastInteractionStorage, pinSettingStorage } from './storage'
 
 /**
  * Wraps an App and display a Pin screen after a period
@@ -23,9 +23,11 @@ class PinGuard extends React.Component {
   initState() {
     const savedLast = lastInteractionStorage.load()
     const last = savedLast || Date.now()
+    const cachedPinSetting = pinSettingStorage.load()
     this.state = {
       last, // timestamp of last interaction
-      showPin: this.isTooLate(last)
+      showPin: this.isTooLate(last),
+      cachedPinSetting
     }
   }
 
@@ -46,6 +48,7 @@ class PinGuard extends React.Component {
   componentDidUpdate(prevProps) {
     if (this.props.pinSetting.data !== prevProps.pinSetting.data) {
       this.resetTimeout()
+      pinSettingStorage.save(this.props.pinSetting.data)
     }
   }
 
@@ -98,18 +101,24 @@ class PinGuard extends React.Component {
   }
 
   render() {
-    const pinDoc = this.props.pinSetting.data
+    const { pinSetting, children, showTimeout, timeout } = this.props
+    const { cachedPinSetting } = this.state
+    const pinDoc = isCollectionLoading(pinSetting)
+      ? cachedPinSetting
+      : pinSetting.data
+
     if (!pinDoc || !pinDoc.pin) {
-      return this.props.children
+      return children
     }
+
     return (
       <React.Fragment>
-        {this.props.children}
+        {children}
         {this.state.showPin ? (
           <PinAuth onSuccess={this.handlePinSuccess} />
         ) : null}
-        {this.props.showTimeout ? (
-          <PinTimeout start={this.state.last} duration={this.props.timeout} />
+        {showTimeout ? (
+          <PinTimeout start={this.state.last} duration={timeout} />
         ) : null}
       </React.Fragment>
     )
@@ -119,6 +128,8 @@ class PinGuard extends React.Component {
     timeout: 60 * 1000
   }
 }
+
+export const DumbPinGuard = PinGuard
 
 export default queryConnect({
   pinSetting
