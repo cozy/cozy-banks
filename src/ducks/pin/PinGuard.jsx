@@ -9,7 +9,7 @@ import { lastInteractionStorage, pinSettingStorage } from './storage'
 
 /**
  * Wraps an App and display a Pin screen after a period
- * of inactivity (touch events on document).
+ * of inactivity (touch/click/resume events on document).
  */
 class PinGuard extends React.Component {
   constructor(props) {
@@ -35,6 +35,7 @@ class PinGuard extends React.Component {
     document.addEventListener('touchstart', this.handleInteraction)
     document.addEventListener('click', this.handleInteraction)
     document.addEventListener('resume', this.handleResume)
+    document.addEventListener('visibilitychange', this.handleResume)
     this.resetTimeout()
   }
 
@@ -42,6 +43,7 @@ class PinGuard extends React.Component {
     document.removeEventListener('touchstart', this.handleInteraction)
     document.removeEventListener('click', this.handleInteraction)
     document.removeEventListener('resume', this.handleResume)
+    document.removeEventListener('visibilitychange', this.handleResume)
     clearTimeout(this.timeout)
   }
 
@@ -68,6 +70,11 @@ class PinGuard extends React.Component {
     // check to be sure that after resume, we display the pin if it
     // is needed
     this.checkToShowPin()
+    this.reloadSetting()
+  }
+
+  reloadSetting() {
+    this.props.pinSetting.fetch()
   }
 
   showPin() {
