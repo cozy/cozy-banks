@@ -4,6 +4,8 @@ import PinTimeout from 'ducks/pin/PinTimeout.debug'
 import PinAuth from 'ducks/pin/PinAuth'
 import { pinSetting } from 'ducks/pin/queries'
 import { queryConnect } from 'cozy-client'
+import { isCollectionLoading } from 'ducks/client/utils'
+import { lastInteractionStorage } from './storage'
 
 /**
  * Wraps an App and display a Pin screen after a period
@@ -12,10 +14,19 @@ import { queryConnect } from 'cozy-client'
 class PinGuard extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { last: Date.now() }
+    this.initState()
     this.handleInteraction = this.handleInteraction.bind(this)
     this.handlePinSuccess = this.handlePinSuccess.bind(this)
     this.handleResume = this.handleResume.bind(this)
+  }
+
+  initState() {
+    const savedLast = lastInteractionStorage.load()
+    const last = savedLast || Date.now()
+    this.state = {
+      last, // timestamp of last interaction
+      showPin: this.isTooLate(last)
+    }
   }
 
   componentDidMount() {
@@ -67,6 +78,7 @@ class PinGuard extends React.Component {
   handleInteraction() {
     const now = Date.now()
     this.setState({ last: now })
+    lastInteractionStorage.save(now)
     this.resetTimeout()
   }
 
