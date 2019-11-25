@@ -68,11 +68,6 @@ const FingerprintParagraph = ({ t, onSuccess, onError, onCancel }) => (
  * - It automatically confirms when entered password's length is <props.maxLength>
  */
 class PinAuth extends React.Component {
-  static contextTypes = {
-    store: PropTypes.object.isRequired,
-    client: PropTypes.object.isRequired
-  }
-
   constructor(props) {
     super(props)
     this.handleFingerprintSuccess = this.handleFingerprintSuccess.bind(this)
