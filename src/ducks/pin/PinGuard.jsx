@@ -22,7 +22,7 @@ class PinGuard extends React.Component {
     document.addEventListener('touchstart', this.handleInteraction)
     document.addEventListener('click', this.handleInteraction)
     document.addEventListener('resume', this.handleResume)
-    this.handleInteraction()
+    this.resetTimeout()
   }
 
   componentWillUnmount() {
@@ -38,30 +38,50 @@ class PinGuard extends React.Component {
     }
   }
 
+  isTooLate(lastInteractionTimestamp) {
+    return Date.now() - this.props.timeout > lastInteractionTimestamp
+  }
+
+  checkToShowPin() {
+    const now = Date.now()
+    if (this.isTooLate(now)) {
+      this.showPin()
+    }
+  }
+
   handleResume() {
     // setTimeout might not work properly when the application is paused, do this
     // check to be sure that after resume, we display the pin if it
     // is needed
-    if (Date.now() - this.props.timeout > this.state.last) {
-      this.setState({ showPin: true })
-    }
+    this.checkToShowPin()
+  }
+
+  showPin() {
+    this.setState({ showPin: true })
+  }
+
+  hidePin() {
+    this.setState({ showPin: false })
   }
 
   handleInteraction() {
+    const now = Date.now()
+    this.setState({ last: now })
     this.resetTimeout()
   }
 
   resetTimeout() {
-    this.setState({ last: Date.now() })
     clearTimeout(this.timeout)
     this.timeout = setTimeout(() => {
-      this.setState({ showPin: true })
+      this.showPin()
     }, this.props.timeout)
   }
 
   handlePinSuccess() {
+    // Delay a bit the success so that the user sees the success
+    // effect
     setTimeout(() => {
-      this.setState({ showPin: false })
+      this.hidePin()
     }, 500)
   }
 
