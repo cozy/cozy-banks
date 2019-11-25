@@ -112,9 +112,10 @@ class PinAuth extends React.Component {
     this.logout()
   }
 
-  logout() {
+  async logout() {
     const { client } = this.props
-    client.logout()
+    await client.logout()
+    window.location.reload()
   }
 
   handleEnteredPin(pinValue) {
