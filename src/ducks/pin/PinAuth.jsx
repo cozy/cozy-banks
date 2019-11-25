@@ -25,7 +25,7 @@ import fingerprint from 'assets/icons/icon-fingerprint.svg'
 const AttemptCount_ = ({ t, current, max }) => {
   return (
     <div className={styles['Pin__error']}>
-      {/* Have an unbreakspace so that the error when appearing does not // make
+      {/* Have an unbreakable space so that the error, when it appears, does not make
       the previous content jump */}
       {current > 0 ? t('Pin.attempt-count', { current, max }) : '\u00a0'}
     </div>
