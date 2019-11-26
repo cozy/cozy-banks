@@ -207,3 +207,7 @@ export const addOwnerToAccount = (account, owner) => {
 
   return account
 }
+
+export const getAccountOwners = account => {
+  return get(account, 'owners.data', [])
+}
