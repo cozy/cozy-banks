@@ -20,6 +20,10 @@ const storage = (key, toString, fromString) => ({
       return
     }
     localStorage.setItem(key, toString(val))
+  },
+
+  remove: () => {
+    localStorage.removeItem(key)
   }
 })
 
@@ -37,3 +41,8 @@ export const pinSettingStorage = storage(
   JSON.stringify,
   JSON.parse
 )
+
+export const clear = () => {
+  pinSettingStorage.remove()
+  lastInteractionStorage.remove()
+}
