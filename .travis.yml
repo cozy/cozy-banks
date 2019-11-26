@@ -5,11 +5,6 @@ node-preset: &node # Used internally to share configuration, ignored by travis.
   cache:
     directories:
       - node_modules
-branches:
-  only:
-  - master
-  # tags
-  - /^\d+\.\d+\.\d+(\-beta.\d+)?$/
 stages:
   - test
   - build
