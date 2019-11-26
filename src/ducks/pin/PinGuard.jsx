@@ -14,17 +14,18 @@ import { lastInteractionStorage, pinSettingStorage } from './storage'
 class PinGuard extends React.Component {
   constructor(props) {
     super(props)
-    this.initState()
+    this.state = this.getInitialState()
     this.handleInteraction = this.handleInteraction.bind(this)
     this.handlePinSuccess = this.handlePinSuccess.bind(this)
     this.handleResume = this.handleResume.bind(this)
   }
 
-  initState() {
+  getInitialState() {
     const savedLast = lastInteractionStorage.load()
     const last = savedLast || Date.now()
     const cachedPinSetting = pinSettingStorage.load()
-    this.state = {
+
+    return {
       last, // timestamp of last interaction
       showPin: this.isTooLate(last),
       cachedPinSetting
