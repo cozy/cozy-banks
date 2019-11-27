@@ -28,7 +28,7 @@ const fakeCozyClient = {
   }
 }
 
-xdescribe('transaction', () => {
+describe('transaction', () => {
   const healthId = '400610'
   const BILL_ID = '1234'
   let store, transaction // , bill
