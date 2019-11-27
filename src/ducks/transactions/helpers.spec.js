@@ -28,7 +28,7 @@ const fakeCozyClient = {
   }
 }
 
-describe('transaction', () => {
+describe('reimbursements', () => {
   const healthId = '400610'
   const BILL_ID = '1234'
   let store, transaction // , bill
@@ -43,28 +43,26 @@ describe('transaction', () => {
     // store.dispatch(createDocument(BILLS_DOCTYPE, bill))
   })
 
-  describe('reimbursements', () => {
-    it('should be hydrated if transaction in health category', () => {
-      const transactions = [transaction].map(t =>
-        hydrateTransaction(store.getState(), t)
-      )
-      expect(transactions[0].reimbursements[0].bill).toBeTruthy()
-      expect(transactions[0].reimbursements[0].bill._id).toBe(BILL_ID)
-    })
+  it('should be hydrated if transaction in health category', () => {
+    const transactions = [transaction].map(t =>
+      hydrateTransaction(store.getState(), t)
+    )
+    expect(transactions[0].reimbursements[0].bill).toBeTruthy()
+    expect(transactions[0].reimbursements[0].bill._id).toBe(BILL_ID)
+  })
 
-    it('should not be hydrated if transaction not in the health category', () => {
-      const transactions = [
-        { ...transaction, automaticCategoryId: '1000' }
-      ].map(t => hydrateTransaction(store.getState(), t))
-      expect(transactions[0].reimbursements[0].bill).toBe(undefined)
-    })
+  it('should not be hydrated if transaction not in the health category', () => {
+    const transactions = [{ ...transaction, automaticCategoryId: '1000' }].map(
+      t => hydrateTransaction(store.getState(), t)
+    )
+    expect(transactions[0].reimbursements[0].bill).toBe(undefined)
+  })
 
-    it('should not be hydrated if bill does not exist in store', () => {
-      const transactions = [
-        { ...transaction, reimbursements: [{ billId: undefined }] }
-      ].map(t => hydrateTransaction(store.getState(), t))
-      expect(transactions[0].reimbursements[0].bill).toBe(undefined)
-    })
+  it('should not be hydrated if bill does not exist in store', () => {
+    const transactions = [
+      { ...transaction, reimbursements: [{ billId: undefined }] }
+    ].map(t => hydrateTransaction(store.getState(), t))
+    expect(transactions[0].reimbursements[0].bill).toBe(undefined)
   })
 })
 
