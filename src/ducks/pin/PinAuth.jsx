@@ -34,7 +34,7 @@ const AttemptCount_ = ({ t, current, max }) => {
 
 const AttemptCount = translate()(AttemptCount_)
 
-const FingerprintParagraph_ = ({ t, onSuccess, onError, onCancel }) => (
+const DumbFingerprintParagraph = ({ t, onSuccess, onError, onCancel }) => (
   <WithFingerprint
     autoLaunch
     onSuccess={onSuccess}
@@ -60,7 +60,7 @@ const FingerprintParagraph_ = ({ t, onSuccess, onError, onCancel }) => (
   </WithFingerprint>
 )
 
-const FingerprintParagraph = translate()(FingerprintParagraph_)
+const FingerprintParagraph = translate()(DumbFingerprintParagraph)
 
 /**
  * Show pin keyboard and fingerprint button.

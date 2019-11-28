@@ -24,13 +24,13 @@ describe('pin auth', () => {
 
   it('should render a paragraph on fingerprint if activated', () => {
     const { root } = setup({ pinSetting: { ...pinSetting, fingerprint: true } })
-    expect(root.find('FingerprintParagraph_').length).toBe(1)
+    expect(root.find('DumbFingerprintParagraph').length).toBe(1)
   })
 
   it('should render a paragraph on fingerprint if activated', () => {
     const { root } = setup({
       pinSetting: { ...pinSetting, fingerprint: false }
     })
-    expect(root.find('FingerprintParagraph_').length).toBe(0)
+    expect(root.find('DumbFingerprintParagraph').length).toBe(0)
   })
 })
