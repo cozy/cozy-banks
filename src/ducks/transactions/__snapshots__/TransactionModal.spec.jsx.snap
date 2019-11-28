@@ -4,9 +4,9 @@ exports[`transaction modal should render correctly 1`] = `
 "<div class=\\"c-modal-container\\">
   <div class=\\"c-overlay\\">
     <div class=\\"c-modal-wrapper\\">
-      <div class=\\"c-modal c-modal--small c-modal--closable PageModalDesktop\\" role=\\"dialog\\" aria-modal=\\"true\\"><button type=\\"button\\" class=\\"c-btn c-btn--close c-btn--narrow c-btn--center c-modal-close PageModalDesktop__cross c-modal-close--notitle\\" title=\\"Close\\"><span><span class=\\"u-visuallyhidden\\">Close</span><svg class=\\"icon\\" style=\\"fill: var(--coolGrey);\\" width=\\"24\\" height=\\"24\\">
+      <div class=\\"c-modal c-modal--small c-modal--closable PageModalDesktop\\" role=\\"dialog\\" aria-modal=\\"true\\"><button class=\\"c-modal-close PageModalDesktop__cross c-modal-close--notitle\\" type=\\"button\\" aria-label=\\"close\\"><svg class=\\"icon\\" style=\\"fill: var(--coolGrey);\\" width=\\"24\\" height=\\"24\\">
             <use xlink:href=\\"#cross\\"></use>
-          </svg></span></button>
+          </svg></button>
         <div class=\\"c-modal-header PageModalDesktop__header\\">
           <div class=\\"u-title-h1 u-ta-center\\">
             <div class=\\"default\\"><span class=\\"Figure-total\\">-1,231.00</span><span class=\\"Figure-currency Figure__currency--withSpacing\\">€</span></div>
