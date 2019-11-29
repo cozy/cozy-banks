@@ -20,7 +20,9 @@ class AttachedDocsAction extends React.PureComponent {
       ...getReimbursementsBills(transaction)
     ])
 
-    return bills.map(bill => <BillChip bill={bill} key={bill._id} />)
+    return bills.map(bill => (
+      <BillChip transaction={transaction} bill={bill} key={bill._id} />
+    ))
   }
 
   renderModalItem() {
@@ -40,7 +42,7 @@ class AttachedDocsAction extends React.PureComponent {
 
     return bills.map(bill => (
       <TransactionModalRow key={bill._id}>
-        <BillChip bill={bill} />
+        <BillChip bill={bill} transaction={transaction} />
       </TransactionModalRow>
     ))
   }
@@ -51,7 +53,7 @@ class AttachedDocsAction extends React.PureComponent {
 
     return bills.map(bill => (
       <TransactionModalRow key={bill._id}>
-        <BillChip bill={bill} />
+        <BillChip bill={bill} transaction={transaction} />
       </TransactionModalRow>
     ))
   }

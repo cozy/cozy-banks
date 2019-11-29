@@ -8,3 +8,9 @@ export const isAugmentedModalTransaction = transaction => {
 export const isAugmentedModalBill = bill => {
   return bill.vendor === 'Vente Privée'
 }
+
+export const getTransactionVendor = transaction => {
+  if (isVentePrivee(transaction)) {
+    return 'ventePrivee'
+  }
+}

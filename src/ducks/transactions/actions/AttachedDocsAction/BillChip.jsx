@@ -44,7 +44,8 @@ export class DumbBillChip extends React.PureComponent {
   }
 
   render() {
-    const { bill } = this.props
+    const { bill, transaction } = this.props
+
     let invoiceId
 
     try {
@@ -67,7 +68,7 @@ export class DumbBillChip extends React.PureComponent {
     const vendorName = brand && brand.name
 
     return (
-      <Wrapper fileId={invoiceId} key={invoiceId}>
+      <Wrapper fileId={invoiceId} key={invoiceId} transaction={transaction}>
         <Chip component="button" size="small" variant="outlined">
           <FileIcon
             color={bill.isRefund ? 'var(--emerald)' : undefined}

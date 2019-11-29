@@ -9,6 +9,14 @@ import {
   Header as VentePriveeHeader,
   Side as VentePriveeSide
 } from './VentePrivee'
+import { getTransactionVendor } from './helpers'
+
+const componentsPerTransactionVendor = {
+  ventePrivee: {
+    Header: VentePriveeHeader,
+    Side: VentePriveeSide
+  }
+}
 
 class AugmentedModal extends Component {
   constructor(props, context) {
@@ -17,9 +25,9 @@ class AugmentedModal extends Component {
   }
 
   render() {
-    const { onClose, fileId } = this.props
-    const header = <VentePriveeHeader />
-    const sideContent = <VentePriveeSide />
+    const { onClose, fileId, transaction } = this.props
+    const vendor = getTransactionVendor(transaction)
+    const { Header, Side } = componentsPerTransactionVendor[vendor]
     return (
       <Modal
         into="body"
@@ -27,7 +35,7 @@ class AugmentedModal extends Component {
         size="xxlarge"
         overflowHidden={true}
       >
-        {header}
+        <Header transaction={transaction} />
         <ModalDescription className={styles.AugmentedModalDescription}>
           <Panel.Group>
             <Panel.Main className={styles.AugmentedModalIntent}>
@@ -39,7 +47,9 @@ class AugmentedModal extends Component {
               />
             </Panel.Main>
             <Panel.Side>
-              <div className={styles.FakeInfos}>{sideContent}</div>
+              <div className={styles.FakeInfos}>
+                <Side transaction={transaction} />
+              </div>
             </Panel.Side>
           </Panel.Group>
         </ModalDescription>
