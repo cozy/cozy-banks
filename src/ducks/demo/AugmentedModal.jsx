@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Modal, { ModalDescription } from 'cozy-ui/react/Modal'
 import Panel from 'cozy-ui/react/Panel'
+import { withClient } from 'cozy-client'
 import IntentIframe from 'cozy-ui/react/IntentIframe'
 import styles from './AugmentedModal.styl'
 import { Intents } from 'cozy-interapp'
@@ -10,14 +11,9 @@ import {
 } from './VentePrivee'
 
 class AugmentedModal extends Component {
-  static contextTypes = {
-    client: PropTypes.object.isRequired
-  }
-
   constructor(props, context) {
     super(props, context)
-
-    this.intents = new Intents({ client: this.context.client })
+    this.intents = new Intents({ client: props.client })
   }
 
   render() {
@@ -52,4 +48,4 @@ class AugmentedModal extends Component {
   }
 }
 
-export default AugmentedModal
+export default withClient(AugmentedModal)
