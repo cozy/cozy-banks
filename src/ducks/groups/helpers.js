@@ -78,11 +78,36 @@ const getCategory = group => {
   }
 }
 
+/**
+ * If obj[name] is a function, invokes it with this binded to obj and with args
+ * Otherwise, returns obj[name]
+ *
+ * Similar to lodash's result but supports args
+ */
+const result = (obj, name, args) => {
+  const v = obj[name]
+  if (typeof v === 'function') {
+    return v.apply(obj, args)
+  } else {
+    return v
+  }
+}
+
 const groupSortingPriorities = {
   normal: 0,
   virtualOther: 1,
-  virtualReimbursements: 2
+  virtualReimbursements: group => {
+    const balance = getGroupBalance(group)
+    if (flag('balance.reimbursements-top-position')) {
+      // Must be first if we have reimbursements waiting
+      return balance > 0 ? -1 : 2
+    } else {
+      return 2
+    }
+  }
 }
+const getGroupPriority = wrappedGroup =>
+  result(groupSortingPriorities, wrappedGroup.category, [wrappedGroup.group])
 
 /**
  * Translate groups labels then sort them on their translated label. But always put "others accounts" last
@@ -98,9 +123,9 @@ export const translateAndSortGroups = (groups, translate) => {
     label: getGroupLabel(group, translate)
   }))
 
-  return sortBy(wrappedGroups, ({ label, category }) => [
-    groupSortingPriorities[category],
-    deburr(label).toLowerCase()
+  return sortBy(wrappedGroups, wrappedGroup => [
+    getGroupPriority(wrappedGroup),
+    deburr(wrappedGroup.label).toLowerCase()
   ])
 }
 
