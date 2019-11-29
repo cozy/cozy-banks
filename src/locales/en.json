@@ -116,7 +116,8 @@
     "type": "Type",
     "bank": "Bank",
     "label": "Label",
-    "manage-accounts": "Manage my accounts"
+    "manage-accounts": "Manage my accounts",
+    "owner": "Owner"
   },
   "Groups": {
     "edit_group": "Edit Group",

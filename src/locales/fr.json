@@ -85,7 +85,8 @@
     "shared": "Partagé",
     "shared-accounts": "Comptes que l'on m'a partagé",
     "type": "Type",
-    "manage-accounts": "Gérer mes comptes"
+    "manage-accounts": "Gérer mes comptes",
+    "owner": "Titulaire"
   },
 
   "Balance": {
