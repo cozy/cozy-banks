@@ -10,7 +10,7 @@ import {
   Side as VentePriveeSide
 } from './VentePrivee'
 
-class Content extends Component {
+class AugmentedModal extends Component {
   static contextTypes = {
     client: PropTypes.object.isRequired
   }
@@ -22,45 +22,35 @@ class Content extends Component {
   }
 
   render() {
-    const { fileId, sideContent } = this.props
+    const { onClose, fileId } = this.props
+    const header = <VentePriveeHeader />
+    const sideContent = <VentePriveeSide />
     return (
-      <Panel.Group>
-        <Panel.Main className={styles.AugmentedModalIntent}>
-          <IntentIframe
-            action="OPEN"
-            type="io.cozy.files"
-            data={{ id: fileId }}
-            create={this.intents.create}
-          />
-        </Panel.Main>
-        <Panel.Side>
-          <div className={styles.FakeInfos}>{sideContent}</div>
-        </Panel.Side>
-      </Panel.Group>
+      <Modal
+        into="body"
+        dismissAction={onClose}
+        size="xxlarge"
+        overflowHidden={true}
+      >
+        {header}
+        <ModalDescription className={styles.AugmentedModalDescription}>
+          <Panel.Group>
+            <Panel.Main className={styles.AugmentedModalIntent}>
+              <IntentIframe
+                action="OPEN"
+                type="io.cozy.files"
+                data={{ id: fileId }}
+                create={this.intents.create}
+              />
+            </Panel.Main>
+            <Panel.Side>
+              <div className={styles.FakeInfos}>{sideContent}</div>
+            </Panel.Side>
+          </Panel.Group>
+        </ModalDescription>
+      </Modal>
     )
   }
-}
-
-const AugmentedModal = ({ onClose, fileId }) => {
-  const header = <VentePriveeHeader />
-  const sideContent = <VentePriveeSide />
-  return (
-    <Modal
-      into="body"
-      dismissAction={onClose}
-      size="xxlarge"
-      overflowHidden={true}
-    >
-      {header}
-      <ModalDescription className={styles.AugmentedModalDescription}>
-        <Content
-          fileId={fileId}
-          sideContent={sideContent}
-          transaction={transaction}
-        />
-      </ModalDescription>
-    </Modal>
-  )
 }
 
 /**
@@ -85,6 +75,7 @@ export class AugmentedModalOpener extends React.PureComponent {
           <AugmentedModal
             onClose={this.handleClose}
             fileId={this.props.fileId}
+            transaction={this.props.transaction}
           />
         )}
       </>
