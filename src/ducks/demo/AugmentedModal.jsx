@@ -3,31 +3,12 @@ import PropTypes from 'prop-types'
 import Modal, { ModalDescription } from 'cozy-ui/react/Modal'
 import Panel from 'cozy-ui/react/Panel'
 import IntentIframe from 'cozy-ui/react/IntentIframe'
-import ventePrivee from 'assets/vente-privee.png'
-import ventePriveeInfo from 'assets/venteprivee-info.png'
-import ventePriveeInfo2x from 'assets/venteprivee-info@2x.png'
 import styles from './AugmentedModal.styl'
 import { Intents } from 'cozy-interapp'
-
-const { ModalBrandedHeader } = Modal
-
-const VentePriveeFakeContent = () => (
-  <>
-    <a
-      href="https://secure.fr.vente-privee.com/authentication/portal/FR"
-      className={styles.FakeInfosLinkVendor}
-      target="_blank"
-      rel="noreferrer noopener"
-    />
-    <a
-      href="https://isabelledurand-drive.mycozy.cloud/#/folder/7aadd73f48591c0df263640687052a2d"
-      className={styles.FakeInfosLinkDrive}
-      target="_blank"
-      rel="noreferrer noopener"
-    />
-    <img src={ventePriveeInfo} srcSet={`${ventePriveeInfo2x} 2x`} alt="" />
-  </>
-)
+import {
+  Header as VentePriveeHeader,
+  Side as VentePriveeSide
+} from './VentePrivee'
 
 class Content extends Component {
   static contextTypes = {
@@ -60,24 +41,27 @@ class Content extends Component {
   }
 }
 
-const modalBrandedHeaderStyle = { marginBottom: 0 }
-const AugmentedModal = ({ onClose, fileId }) => (
-  <Modal
-    into="body"
-    dismissAction={onClose}
-    size="xxlarge"
-    overflowHidden={true}
-  >
-    <ModalBrandedHeader
-      bg="#eee"
-      logo={ventePrivee}
-      style={modalBrandedHeaderStyle}
-    />
-    <ModalDescription className={styles.AugmentedModalDescription}>
-      <Content fileId={fileId} sideContent={<VentePriveeFakeContent />} />
-    </ModalDescription>
-  </Modal>
-)
+const AugmentedModal = ({ onClose, fileId }) => {
+  const header = <VentePriveeHeader />
+  const sideContent = <VentePriveeSide />
+  return (
+    <Modal
+      into="body"
+      dismissAction={onClose}
+      size="xxlarge"
+      overflowHidden={true}
+    >
+      {header}
+      <ModalDescription className={styles.AugmentedModalDescription}>
+        <Content
+          fileId={fileId}
+          sideContent={sideContent}
+          transaction={transaction}
+        />
+      </ModalDescription>
+    </Modal>
+  )
+}
 
 /**
  * This is like a `FileOpener`, but it opens an `AugmentedModal`.
