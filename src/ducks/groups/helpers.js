@@ -98,7 +98,7 @@ const groupSortingPriorities = {
   virtualOther: 1,
   virtualReimbursements: group => {
     const balance = getGroupBalance(group)
-    if (flag('balance.reimbursements-top-position')) {
+    if (flag('demo') || flag('balance.reimbursements-top-position')) {
       // Must be first if we have reimbursements waiting
       return balance > 0 ? -1 : 2
     } else {
