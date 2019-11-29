@@ -8,7 +8,7 @@ import flag from 'cozy-flags'
 import FileOpener from 'ducks/transactions/FileOpener'
 import FileIcon from 'ducks/transactions/actions/AttachedDocsAction/FileIcon'
 import { Figure } from 'components/Figure'
-import { AugmentedModalOpener } from 'components/AugmentedModal'
+import { AugmentedModalOpener, isAugmentedModalBill } from 'ducks/demo'
 import { getBrands } from 'ducks/brandDictionary'
 
 export class DumbBillChip extends React.PureComponent {
@@ -55,9 +55,9 @@ export class DumbBillChip extends React.PureComponent {
       return null
     }
 
-    const isVentePrivee = flag('demo') && bill.vendor === 'Vente Privée'
+    const shouldUseAugmentedModal = flag('demo') && isAugmentedModalBill(bill)
 
-    const Wrapper = isVentePrivee ? AugmentedModalOpener : FileOpener
+    const Wrapper = shouldUseAugmentedModal ? AugmentedModalOpener : FileOpener
 
     // Bill's vendor can be a slug. We get the brand from our dictionary to be
     // sure that we show the brand name and not a konnector slug
