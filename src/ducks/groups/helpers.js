@@ -1,7 +1,7 @@
-import { groupBy, sortBy, deburr } from 'lodash'
+import { groupBy, sortBy, deburr, sumBy, get } from 'lodash'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { associateDocuments } from 'ducks/client/utils'
-import { getAccountType } from 'ducks/account/helpers'
+import { getAccountType, getAccountBalance } from 'ducks/account/helpers'
 import flag from 'cozy-flags'
 
 export const getGroupLabel = (group, t) => {
@@ -131,4 +131,24 @@ export const isLoanGroup = group => {
   }
 
   return true
+}
+
+/**
+ * Returns a group balance (all its accounts balance sumed)
+ * @param {Object} group
+ * @param {string[]} excludedAccountIds - Account ids that should be exclude from the sum
+ * @returns {number}
+ */
+export const getGroupBalance = (group, excludedAccountIds = []) => {
+  const accounts = get(group, 'accounts.data')
+
+  if (!accounts) {
+    return 0
+  }
+
+  const accountsToSum = accounts
+    .filter(Boolean)
+    .filter(account => !excludedAccountIds.includes(account._id))
+
+  return sumBy(accountsToSum, getAccountBalance)
 }
