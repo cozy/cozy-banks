@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import Modal, { ModalDescription } from 'cozy-ui/react/Modal'
 import Panel from 'cozy-ui/react/Panel'
 import IntentIframe from 'cozy-ui/react/IntentIframe'
@@ -49,36 +48,6 @@ class AugmentedModal extends Component {
           </Panel.Group>
         </ModalDescription>
       </Modal>
-    )
-  }
-}
-
-/**
- * This is like a `FileOpener`, but it opens an `AugmentedModal`.
- * This is used for demo purposes only
- */
-export class AugmentedModalOpener extends React.PureComponent {
-  static propTypes = {
-    children: PropTypes.node.isRequired
-  }
-
-  state = { isOpen: false }
-
-  handleOpen = () => this.setState({ isOpen: true })
-  handleClose = () => this.setState({ isOpen: false })
-
-  render() {
-    return (
-      <>
-        {React.cloneElement(this.props.children, { onClick: this.handleOpen })}
-        {this.state.isOpen && (
-          <AugmentedModal
-            onClose={this.handleClose}
-            fileId={this.props.fileId}
-            transaction={this.props.transaction}
-          />
-        )}
-      </>
     )
   }
 }
