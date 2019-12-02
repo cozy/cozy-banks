@@ -180,7 +180,7 @@ const filterByPeriod = (transactions, period, dateGetter) => {
       return isWithinRange(parse(date), period[0], period[1])
     }
   } else {
-    throw new Error('Invalid period: ' + period)
+    throw new Error('Invalid period: ' + JSON.stringify(period))
   }
 
   dateGetter = dateGetter || getDisplayDate
