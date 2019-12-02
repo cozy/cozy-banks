@@ -57,6 +57,33 @@ const Number = React.memo(function Number({ account }) {
   )
 })
 
+const DumbUpdatedAtOrFail = props => {
+  const { triggersCol, account, t, className, ...rest } = props
+  const triggers = triggersCol.data
+
+  const failedTrigger = triggers.find(
+    x =>
+      isErrored(x.attributes) &&
+      get(x, 'attributes.message.konnector') ===
+        get(account, 'cozyMetadata.createdByApp')
+  )
+
+  return (
+    <div className={cx(styles.AccountRow__subText, className)} {...rest}>
+      {failedTrigger && !flag('demo') && flag('balance-account-errors') ? (
+        <FailedTriggerMessage trigger={failedTrigger} />
+      ) : (
+        <UpdatedAt account={account} t={t} />
+      )}
+    </div>
+  )
+}
+
+const UpdatedAtOrFail = compose(
+  translate(),
+  React.memo
+)(DumbUpdatedAtOrFail)
+
 class AccountRow extends React.PureComponent {
   static propTypes = {
     account: PropTypes.object.isRequired,
@@ -86,7 +113,7 @@ class AccountRow extends React.PureComponent {
       disabled,
       onSwitchChange,
       id,
-      triggerCol,
+      triggersCol,
       showOwners,
       client
     } = this.props
@@ -99,13 +126,6 @@ class AccountRow extends React.PureComponent {
     const hasWarning = account.balance < warningLimit
     const hasAlert = account.balance < 0
     const isHealthReimbursements = isHealthReimbursementsAccount(account)
-    const { data: triggers } = triggerCol
-    const failedTrigger = triggers.find(
-      x =>
-        isErrored(x.attributes) &&
-        get(x, 'attributes.message.konnector') ===
-          get(account, 'cozyMetadata.createdByApp')
-    )
     const accountLabel = getAccountLabel(account)
 
     return (
@@ -138,15 +158,7 @@ class AccountRow extends React.PureComponent {
                 {owners.map(Contact.getDisplayName).join(' - ')}
               </div>
             )}
-            <div className={styles.AccountRow__subText}>
-              {failedTrigger &&
-              !flag('demo') &&
-              flag('balance-account-errors') ? (
-                <FailedTriggerMessage trigger={failedTrigger} />
-              ) : (
-                <UpdatedAt account={account} t={t} />
-              )}
-            </div>
+            <UpdatedAtOrFail triggersCol={triggersCol} account={account} />
           </div>
         </div>
         {!isMobile && account.number && <Number account={account} />}
@@ -191,7 +203,7 @@ class AccountRow extends React.PureComponent {
 
 export default compose(
   queryConnect({
-    triggerCol: {
+    triggersCol: {
       ...triggersConn,
       fetchPolicy: CozyClient.fetchPolicies.noFetch
     }
