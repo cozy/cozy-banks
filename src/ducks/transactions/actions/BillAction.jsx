@@ -9,7 +9,7 @@ import icon from 'assets/icons/actions/icon-file.svg'
 import ActionLink from 'ducks/transactions/actions/ActionLink'
 import flag from 'cozy-flags'
 import styles from 'ducks/transactions/TransactionActions.styl'
-import { TransactionModalRow } from 'ducks/transactions/TransactionModal'
+import TransactionModalRow from 'ducks/transactions/TransactionModalRow'
 import palette from 'cozy-ui/react/palette'
 import { AugmentedModalButton, isAugmentedModalTransaction } from 'ducks/demo'
 
