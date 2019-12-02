@@ -7,7 +7,7 @@ import {
   isReimbursementLate,
   REIMBURSEMENTS_STATUS
 } from 'ducks/transactions/helpers'
-import { TransactionModalRow } from 'ducks/transactions/TransactionModal'
+import TransactionModalRow from 'ducks/transactions/TransactionModalRow'
 import ReimbursementStatusModal from 'ducks/transactions/actions/ReimbursementStatusAction/ReimbursementStatusModal'
 import iconReimbursement from 'assets/icons/icon-reimbursement.svg'
 import { logException } from 'lib/sentry'

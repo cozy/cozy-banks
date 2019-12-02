@@ -7,7 +7,7 @@ import {
   getReimbursementsBills
 } from 'ducks/transactions/helpers'
 import BillChip from 'ducks/transactions/actions/AttachedDocsAction/BillChip'
-import { TransactionModalRow } from 'ducks/transactions/TransactionModal'
+import TransactionModalRow from 'ducks/transactions/TransactionModalRow'
 import iconAttachment from 'assets/icons/icon-attachment.svg'
 import { uniqBy } from 'lodash'
 
