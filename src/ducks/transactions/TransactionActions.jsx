@@ -58,7 +58,7 @@ export const SyncTransactionActions = ({
   compact,
   className
 }) => {
-  const Tag = isModalItem ? 'div' : 'span'
+  const Tag = isModalItem ? React.Fragment : 'span'
   return (
     <Tag className={className}>
       {(displayDefaultAction || onlyDefault) && actions.default && (
