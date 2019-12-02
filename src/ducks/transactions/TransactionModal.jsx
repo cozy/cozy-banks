@@ -295,7 +295,7 @@ const TransactionModalInfo = withBreakpoints()(
 )
 
 const TransactionModal = ({ requestClose, ...props }) => (
-  <PageModal dismissAction={requestClose} into="body">
+  <PageModal dismissAction={requestClose} into="body" overflowHidden>
     <ModalStack>
       <TransactionModalInfo {...props} requestClose={requestClose} />
     </ModalStack>

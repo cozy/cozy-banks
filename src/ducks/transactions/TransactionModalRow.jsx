@@ -22,6 +22,7 @@ export const TransactionModalRowMedia = props => {
         'u-row-m',
         {
           [styles['TransactionModalRow-disabled']]: disabled,
+          [styles['TransactionModalRow-clickable']]: props.onClick,
           'u-c-pointer': restProps.onClick
         },
         className
