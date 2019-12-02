@@ -1,9 +1,10 @@
 import groupBy from 'lodash/groupBy'
 import flag from 'cozy-flags'
-import { getHealthExpensesByPeriod } from 'ducks/filters'
+import { getHealthExpenses, getHealthExpensesByPeriod } from 'ducks/filters'
 import { createSelector } from 'reselect'
 import {
   isFullyReimbursed,
+  isReimbursementLate,
   getReimbursementStatus
 } from 'ducks/transactions/helpers'
 
@@ -34,4 +35,15 @@ const groupHealthExpenses = healthExpenses => {
 export const getGroupedHealthExpensesByPeriod = createSelector(
   [getHealthExpensesByPeriod],
   groupHealthExpenses
+)
+
+export const getGroupedHealthExpenses = createSelector(
+  [getHealthExpenses],
+  groupHealthExpenses
+)
+
+export const getLateHealthExpenses = createSelector(
+  [getGroupedHealthExpenses],
+  groupedHealthExpenses =>
+    groupedHealthExpenses.pending.filter(isReimbursementLate)
 )

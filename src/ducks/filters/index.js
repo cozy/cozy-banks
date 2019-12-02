@@ -140,7 +140,7 @@ export const getFilteredTransactions = createSelector(
   }
 )
 
-const getHealthExpenses = createSelector(
+export const getHealthExpenses = createSelector(
   [getTransactions],
   transactions => transactions.filter(isHealthExpense)
 )
