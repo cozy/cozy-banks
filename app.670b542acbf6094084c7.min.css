@@ -38596,9 +38596,6 @@ label.ReimbursementStatusModal_Radio_1y_BY > * {
 .GroupPanel_GroupPanelSummary--unchecked_1kA_e .GroupPanel_GroupPanelSummary__icon_1HMZc {
   color: var(--coolGrey);
 }
-.GroupPanel_GroupPanelSummary--healthReimbursements_1J7-_ {
-  background: var(--chablis);
-}
 /*# sourceMappingURL=src/ducks/balance/components/GroupPanel.css.map */
 @media (min-width: 48.063rem) {
   .BalancePanels_BalancePanels_2JHQ9 {
