@@ -10,6 +10,13 @@ import BillChip from 'ducks/transactions/actions/AttachedDocsAction/BillChip'
 import TransactionModalRow from 'ducks/transactions/TransactionModalRow'
 import iconAttachment from 'assets/icons/icon-attachment.svg'
 import { uniqBy } from 'lodash'
+import { Icon } from 'cozy-ui/transpiled/react'
+
+const AttachmentIcon = () => (
+  <div className="u-mt-half">
+    <Icon icon={iconAttachment} />
+  </div>
+)
 
 class AttachedDocsAction extends React.PureComponent {
   renderTransactionRow() {
@@ -29,7 +36,7 @@ class AttachedDocsAction extends React.PureComponent {
     const { transaction } = this.props
 
     return (
-      <TransactionModalRow iconLeft={iconAttachment} align="top">
+      <TransactionModalRow align="top" iconLeft={<AttachmentIcon />}>
         {hasBills(transaction) && this.renderModalItemBills()}
         {hasReimbursements(transaction) && this.renderModalItemReimbursements()}
       </TransactionModalRow>
