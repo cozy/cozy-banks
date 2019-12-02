@@ -57,6 +57,35 @@ const Number = React.memo(function Number({ account }) {
   )
 })
 
+const Owners = React.memo(function Owners(props) {
+  const { owners, className, ...rest } = props
+
+  return (
+    <div className={cx(styles.AccountRow__subText, className)} {...rest}>
+      <Icon
+        icon={owners.length > 1 ? 'team' : 'people'}
+        size={10}
+        className={styles.AccountRow__ownersIcon}
+      />
+      {owners.map(Contact.getDisplayName).join(' - ')}
+    </div>
+  )
+})
+
+const OwnersColumn = props => {
+  const { owners, ...rest } = props
+
+  return (
+    <div className={styles.AccountRow__column} {...rest}>
+      {owners && owners.length > 0 ? (
+        <Owners owners={owners} />
+      ) : (
+        <div className={cx(styles.AccountRow__subText)}>—</div>
+      )}
+    </div>
+  )
+}
+
 const DumbUpdatedAtOrFail = props => {
   const { triggersCol, account, t, className, ...rest } = props
   const triggers = triggersCol.data
@@ -122,6 +151,7 @@ class AccountRow extends React.PureComponent {
     const contactsById = keyBy(contacts, contact => contact._id)
     const ownerRelationships = get(account, 'relationships.owners.data', [])
     const owners = ownerRelationships.map(data => contactsById[data._id])
+    const shouldShowOwners = showOwners && owners && owners.length > 0
 
     const hasWarning = account.balance < warningLimit
     const hasAlert = account.balance < 0
@@ -134,7 +164,8 @@ class AccountRow extends React.PureComponent {
           [styles['AccountRow--hasWarning']]: hasWarning,
           [styles['AccountRow--hasAlert']]: hasAlert,
           [styles['AccountRow--disabled']]:
-            (!checked || disabled) && account.loading !== true
+            (!checked || disabled) && account.loading !== true,
+          [styles['AccountRow--withOwners']]: shouldShowOwners
         })}
         onClick={onClick}
       >
@@ -148,19 +179,11 @@ class AccountRow extends React.PureComponent {
             <div className={styles.AccountRow__label}>
               {account.virtual ? t(accountLabel) : accountLabel}
             </div>
-            {showOwners && owners && owners.length > 0 && (
-              <div className={styles.AccountRow__subText}>
-                <Icon
-                  icon={owners.length > 1 ? 'team' : 'people'}
-                  size={10}
-                  className={styles.AccountRow__ownersIcon}
-                />
-                {owners.map(Contact.getDisplayName).join(' - ')}
-              </div>
-            )}
+            {isMobile && shouldShowOwners && <Owners owners={owners} />}
             <UpdatedAtOrFail triggersCol={triggersCol} account={account} />
           </div>
         </div>
+        {!isMobile && <OwnersColumn owners={owners} />}
         {!isMobile && account.number && <Number account={account} />}
         {!isMobile && (
           <div
