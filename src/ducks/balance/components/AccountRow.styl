@@ -2,9 +2,9 @@
 
 .AccountRow
     display flex
-    justify-content space-between
+    flex-direction column
+    justify-content center
     height 4rem
-    align-items center
     padding-left 1rem
     padding-right 0.5rem
     background-color var(--white)
@@ -102,3 +102,12 @@
 
 .AccountRow__ownersIcon
     margin-right 0.25rem
+
+.AccountRow__mainLine
+    display flex
+    justify-content space-between
+    align-items center
+    width 100%
+
+.AccountRow__subLine
+    padding-left rem(40)

@@ -158,6 +158,8 @@ class AccountRow extends React.PureComponent {
     const isHealthReimbursements = isHealthReimbursementsAccount(account)
     const accountLabel = getAccountLabel(account)
 
+    const showUpdatedAtOutside = isMobile && shouldShowOwners
+
     return (
       <li
         className={cx(styles.AccountRow, 'u-clickable', {
@@ -169,56 +171,65 @@ class AccountRow extends React.PureComponent {
         })}
         onClick={onClick}
       >
-        <div className={styles.AccountRow__column}>
-          <div className={styles.AccountRow__logo}>
-            <AccountIcon account={account} />
-            {isHealthReimbursements && <HealthReimbursementsIcon />}
-          </div>
-
-          <div className={styles.AccountRow__labelWrapper}>
-            <div className={styles.AccountRow__label}>
-              {account.virtual ? t(accountLabel) : accountLabel}
+        <div className={styles.AccountRow__mainLine}>
+          <div className={styles.AccountRow__column}>
+            <div className={styles.AccountRow__logo}>
+              <AccountIcon account={account} />
+              {isHealthReimbursements && <HealthReimbursementsIcon />}
             </div>
-            {isMobile && shouldShowOwners && <Owners owners={owners} />}
-            <UpdatedAtOrFail triggersCol={triggersCol} account={account} />
+
+            <div className={styles.AccountRow__labelWrapper}>
+              <div className={styles.AccountRow__label}>
+                {account.virtual ? t(accountLabel) : accountLabel}
+              </div>
+              {shouldShowOwners && isMobile && <Owners owners={owners} />}
+              {!showUpdatedAtOutside && (
+                <UpdatedAtOrFail triggersCol={triggersCol} account={account} />
+              )}
+            </div>
           </div>
-        </div>
-        {!isMobile && <OwnersColumn owners={owners} />}
-        {!isMobile && account.number && <Number account={account} />}
-        {!isMobile && (
+          {!isMobile && <OwnersColumn owners={owners} />}
+          {!isMobile && account.number && <Number account={account} />}
+          {!isMobile && (
+            <div
+              className={cx(
+                styles.AccountRow__column,
+                styles['AccountRow__column--secondary']
+              )}
+            >
+              {getAccountInstitutionLabel(account)}
+            </div>
+          )}
           <div
             className={cx(
               styles.AccountRow__column,
-              styles['AccountRow__column--secondary']
+              styles.AccountRow__figureSwitchWrapper
             )}
           >
-            {getAccountInstitutionLabel(account)}
+            <Figure
+              symbol="€"
+              total={getAccountBalance(account)}
+              className={cx(styles.AccountRow__figure)}
+              totalClassName={styles.AccountRow__figure}
+              currencyClassName={styles.AccountRow__figure}
+            />
+            {/* color: Do not deactivate interactions with the button,
+            only color it to look disabled */}
+            <Switch
+              disableRipple
+              checked={checked}
+              color={disabled ? 'default' : 'primary'}
+              onClick={this.handleSwitchClick}
+              id={id}
+              onChange={onSwitchChange}
+            />
+          </div>
+        </div>
+        {showUpdatedAtOutside && (
+          <div className={styles.AccountRow__subLine}>
+            <UpdatedAtOrFail triggersCol={triggersCol} account={account} />
           </div>
         )}
-        <div
-          className={cx(
-            styles.AccountRow__column,
-            styles.AccountRow__figureSwitchWrapper
-          )}
-        >
-          <Figure
-            symbol="€"
-            total={getAccountBalance(account)}
-            className={cx(styles.AccountRow__figure)}
-            totalClassName={styles.AccountRow__figure}
-            currencyClassName={styles.AccountRow__figure}
-          />
-          {/* color: Do not deactivate interactions with the button,
-            only color it to look disabled */}
-          <Switch
-            disableRipple
-            checked={checked}
-            color={disabled ? 'default' : 'primary'}
-            onClick={this.handleSwitchClick}
-            id={id}
-            onChange={onSwitchChange}
-          />
-        </div>
       </li>
     )
   }
