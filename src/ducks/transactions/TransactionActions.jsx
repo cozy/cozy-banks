@@ -59,8 +59,9 @@ export const SyncTransactionActions = ({
   className
 }) => {
   const Tag = isModalItem ? React.Fragment : 'span'
+  const childProps = !isModalItem ? { className } : null
   return (
-    <Tag className={className}>
+    <Tag {...childProps}>
       {(displayDefaultAction || onlyDefault) && actions.default && (
         <MenuAction
           action={actions.default}
