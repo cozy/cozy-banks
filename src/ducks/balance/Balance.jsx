@@ -1,7 +1,15 @@
 /* global __TARGET__ */
 
 import React, { PureComponent, Fragment } from 'react'
-import { flowRight as compose, get, sumBy, set, debounce } from 'lodash'
+import {
+  flowRight as compose,
+  get,
+  sumBy,
+  set,
+  debounce,
+  flattenDeep,
+  uniqBy
+} from 'lodash'
 
 import { queryConnect, withMutations, withClient } from 'cozy-client'
 import flag from 'cozy-flags'
@@ -398,6 +406,14 @@ class Balance extends PureComponent {
             nbAccounts: accounts.length
           }
 
+    const allOwners = flattenDeep(
+      accounts.map(account => get(account, 'owners.data', []))
+    )
+    const uniqOwners = uniqBy(allOwners, owner => owner._id)
+    const showOwners =
+      (uniqOwners.length > 1 && flag('balance.show-owners')) ||
+      flag('balance.force-show-owners')
+
     return (
       <Fragment>
         <BarTheme theme="primary" />
@@ -418,6 +434,7 @@ class Balance extends PureComponent {
             panelsState={this.state.panels}
             onSwitchChange={this.handleSwitchChange}
             onPanelChange={this.debouncedHandlePanelChange}
+            showOwners={showOwners}
           />
         </Padded>
       </Fragment>

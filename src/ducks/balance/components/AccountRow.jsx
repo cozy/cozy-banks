@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import CozyClient, { queryConnect } from 'cozy-client'
+import CozyClient, { queryConnect, withClient } from 'cozy-client'
 import { withBreakpoints, translate } from 'cozy-ui/react'
 import flag from 'cozy-flags'
 import Icon from 'cozy-ui/react/Icon'
 import cx from 'classnames'
-import { get, flowRight as compose } from 'lodash'
+import { get, flowRight as compose, keyBy } from 'lodash'
 import Switch from 'components/Switch'
 import { Figure } from 'components/Figure'
 import {
@@ -18,8 +18,9 @@ import {
 import styles from 'ducks/balance/components/AccountRow.styl'
 import { HealthReimbursementsIcon } from 'ducks/balance/components/HealthReimbursementsIcon'
 import AccountIcon from 'components/AccountIcon'
-import { triggersConn } from 'doctypes'
+import { triggersConn, CONTACT_DOCTYPE } from 'doctypes'
 import { isErrored } from 'utils/triggers'
+import { Contact } from 'cozy-doctypes'
 
 const UpdatedAt = React.memo(function UpdatedAt({ account, t }) {
   const updatedAt = getAccountUpdatedAt(account)
@@ -66,7 +67,8 @@ class AccountRow extends React.PureComponent {
     checked: PropTypes.bool.isRequired,
     disabled: PropTypes.bool.isRequired,
     onSwitchChange: PropTypes.func.isRequired,
-    id: PropTypes.string.isRequired
+    id: PropTypes.string.isRequired,
+    showOwners: PropTypes.bool.isRequired
   }
 
   handleSwitchClick = e => {
@@ -84,8 +86,15 @@ class AccountRow extends React.PureComponent {
       disabled,
       onSwitchChange,
       id,
-      triggerCol
+      triggerCol,
+      showOwners,
+      client
     } = this.props
+
+    const contacts = client.getCollectionFromState(CONTACT_DOCTYPE)
+    const contactsById = keyBy(contacts, contact => contact._id)
+    const ownerRelationships = get(account, 'relationships.owners.data', [])
+    const owners = ownerRelationships.map(data => contactsById[data._id])
 
     const hasWarning = account.balance < warningLimit
     const hasAlert = account.balance < 0
@@ -119,6 +128,16 @@ class AccountRow extends React.PureComponent {
             <div className={styles.AccountRow__label}>
               {account.virtual ? t(accountLabel) : accountLabel}
             </div>
+            {showOwners && owners && owners.length > 0 && (
+              <div className={styles.AccountRow__subText}>
+                <Icon
+                  icon={owners.length > 1 ? 'team' : 'people'}
+                  size={10}
+                  className={styles.AccountRow__ownersIcon}
+                />
+                {owners.map(Contact.getDisplayName).join(' - ')}
+              </div>
+            )}
             <div className={styles.AccountRow__subText}>
               {failedTrigger &&
               !flag('demo') &&
@@ -179,5 +198,6 @@ export default compose(
   }),
   withBreakpoints(),
   translate(),
-  React.memo
+  React.memo,
+  withClient
 )(AccountRow)
