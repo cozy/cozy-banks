@@ -4,11 +4,15 @@ import logger from 'cozy-logger'
 
 const log = logger.namespace('settings.helpers')
 
+const allNotifications = [
+  'balanceLower',
+  'transactionGreater',
+  'healthBillLinked'
+]
+
 export const isNotificationEnabled = settings => {
-  return (
-    get(settings, 'notifications.balanceLower.enabled') ||
-    get(settings, 'notifications.transactionGreater.enabled') ||
-    get(settings, 'notifications.healthBillLinked.enabled')
+  return allNotifications.some(notificationName =>
+    get(settings, `notifications.${notificationName}.enabled`)
   )
 }
 
