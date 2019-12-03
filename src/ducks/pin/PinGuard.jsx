@@ -7,6 +7,8 @@ import { queryConnect } from 'cozy-client'
 import { isCollectionLoading } from 'ducks/client/utils'
 import { lastInteractionStorage, pinSettingStorage } from './storage'
 
+export const GREEN_BACKGROUND_EFFECT_DURATION = 500
+
 /**
  * Wraps an App and display a Pin screen after a period
  * of inactivity (touch/click/resume events on document).
@@ -114,7 +116,7 @@ class PinGuard extends React.Component {
     // effect
     setTimeout(() => {
       this.hidePin()
-    }, 500)
+    }, GREEN_BACKGROUND_EFFECT_DURATION)
   }
 
   render() {
