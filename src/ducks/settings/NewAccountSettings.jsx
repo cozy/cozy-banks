@@ -292,7 +292,7 @@ const NewAccountSettings = props => {
                 {getAccountLabel(account)}
                 {!isMobile && (
                   <Button
-                    className="u-ml-0 u-mr-0 u-ml-auto"
+                    className="u-mr-0 u-ml-auto"
                     label={t('AccountSettings.removeAccountBtn')}
                     theme="danger-outline"
                     onClick={() => setShowDeleteConfirmation(true)}
