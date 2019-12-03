@@ -83,11 +83,7 @@ const OwnersColumn = props => {
       )}
       {...rest}
     >
-      {owners && owners.length > 0 ? (
-        <Owners owners={owners} />
-      ) : (
-        <div className={cx(styles.AccountRow__subText)}>—</div>
-      )}
+      {owners && owners.length > 0 ? <Owners owners={owners} /> : null}
     </div>
   )
 }
