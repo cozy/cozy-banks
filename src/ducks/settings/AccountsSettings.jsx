@@ -92,7 +92,7 @@ const AccountsTable = ({ accounts, t }) => {
                 : styles.AcnsStg__shared
             }
           >
-            {t(`Accounts.${showAccountsOwners ? 'owner' : 'shared'}`)}
+            {showAccountsOwners ? t('Accounts.owner') : t('Accounts.shared')}
           </th>
           <th className={styles.AcnsStg__actions} />
         </tr>
