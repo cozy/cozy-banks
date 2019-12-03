@@ -147,6 +147,7 @@ class AccountRow extends React.PureComponent {
       client
     } = this.props
 
+    // TODO Extract it to a selector
     const contacts = client.getCollectionFromState(CONTACT_DOCTYPE)
     const contactsById = keyBy(contacts, contact => contact._id)
     const ownerRelationships = get(account, 'relationships.owners.data', [])
