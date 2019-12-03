@@ -223,7 +223,7 @@ class GroupPanel extends React.PureComponent {
   }
 }
 
-const getGroupPanelSummaryClasses = (group, state) => {
+export const getGroupPanelSummaryClasses = (group, state) => {
   if (!isReimbursementsVirtualGroup(group)) {
     return
   }
