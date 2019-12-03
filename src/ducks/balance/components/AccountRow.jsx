@@ -58,10 +58,10 @@ const Number = React.memo(function Number({ account }) {
 })
 
 const Owners = React.memo(function Owners(props) {
-  const { owners, className, ...rest } = props
+  const { owners, ...rest } = props
 
   return (
-    <div className={cx(styles.AccountRow__subText, className)} {...rest}>
+    <div {...rest}>
       <Icon
         icon={owners.length > 1 ? 'team' : 'people'}
         size={10}
@@ -76,7 +76,13 @@ const OwnersColumn = props => {
   const { owners, ...rest } = props
 
   return (
-    <div className={styles.AccountRow__column} {...rest}>
+    <div
+      className={cx(
+        styles.AccountRow__column,
+        styles['AccountRow__column--secondary']
+      )}
+      {...rest}
+    >
       {owners && owners.length > 0 ? (
         <Owners owners={owners} />
       ) : (
@@ -183,7 +189,12 @@ class AccountRow extends React.PureComponent {
               <div className={styles.AccountRow__label}>
                 {account.virtual ? t(accountLabel) : accountLabel}
               </div>
-              {shouldShowOwners && isMobile && <Owners owners={owners} />}
+              {shouldShowOwners && isMobile && (
+                <Owners
+                  className={styles.AccountRow__subText}
+                  owners={owners}
+                />
+              )}
               {!showUpdatedAtOutside && (
                 <UpdatedAtOrFail triggersCol={triggersCol} account={account} />
               )}
