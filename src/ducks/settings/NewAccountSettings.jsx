@@ -155,6 +155,33 @@ const DeleteConfirm = ({
   )
 }
 
+const saveAccount = async params => {
+  const { client, account, fields, onSuccess, onError } = params
+
+  Object.keys(fields).forEach(key => {
+    if (key === 'owners') {
+      set(
+        account,
+        'relationships.owners.data',
+        fields[key].map(owner => ({
+          _id: owner._id,
+          _type: owner._type
+        }))
+      )
+      return
+    }
+
+    account[key] = fields[key]
+  })
+
+  try {
+    await client.save(account)
+    onSuccess()
+  } catch (err) {
+    onError(err)
+  }
+}
+
 const NewAccountSettings = props => {
   const {
     breakpoints: { isMobile },
@@ -170,32 +197,21 @@ const NewAccountSettings = props => {
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false)
   const [deleting, setDeleting] = useState(false)
 
-  const saveAccount = async (account, fields) => {
-    Object.keys(fields).forEach(key => {
-      if (key === 'owners') {
-        set(
-          account,
-          'relationships.owners.data',
-          fields[key].map(owner => ({
-            _id: owner._id,
-            _type: owner._type
-          }))
-        )
-        return
+  const handleSaveAccount = async (account, fields) => {
+    await saveAccount({
+      client,
+      account,
+      fields,
+      onSuccess: () => {
+        router.push('/settings/accounts')
+        Alerter.success(t('AccountSettings.success'))
+      },
+      onError: err => {
+        // eslint-disable-next-line no-console
+        console.error(err)
+        Alerter.error(t('AccountSettings.failure'))
       }
-
-      account[key] = fields[key]
     })
-
-    try {
-      await client.save(account)
-      router.push('/settings/accounts')
-      Alerter.success(t('AccountSettings.success'))
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.error(err)
-      Alerter.error(t('AccountSettings.failure'))
-    }
   }
 
   const handleRemoveAccount = async account => {
@@ -278,7 +294,7 @@ const NewAccountSettings = props => {
                 <AccountSettingsForm
                   account={account}
                   id="account-settings-form"
-                  onSubmit={fields => saveAccount(account, fields)}
+                  onSubmit={fields => handleSaveAccount(account, fields)}
                   onCancel={() => router.push('/settings/accounts')}
                 />
                 {showDeleteConfirmation ? (
