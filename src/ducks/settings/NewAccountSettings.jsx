@@ -216,13 +216,22 @@ const NewAccountSettings = props => {
 
   const handleRemoveAccount = async account => {
     setDeleting(true)
-    await client.destroy(account)
 
-    if (filteringDoc && account._id === filteringDoc._id) {
-      resetFilterByDoc()
+    try {
+      await client.destroy(account)
+
+      if (filteringDoc && account._id === filteringDoc._id) {
+        resetFilterByDoc()
+      }
+
+      router.push('/settings/accounts')
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error(err)
+      Alerter.error(t('AccountSettings.deletion_error'))
+    } finally {
+      setDeleting(false)
     }
-
-    router.push('/settings/accounts')
   }
 
   const confirmPrimaryText = t('AccountSettings.confirm-deletion.description')
