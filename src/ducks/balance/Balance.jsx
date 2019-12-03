@@ -7,7 +7,7 @@ import {
   sumBy,
   set,
   debounce,
-  flattenDeep,
+  flatten,
   uniqBy
 } from 'lodash'
 
@@ -406,7 +406,7 @@ class Balance extends PureComponent {
             nbAccounts: accounts.length
           }
 
-    const allOwners = flattenDeep(
+    const allOwners = flatten(
       accounts.map(account => get(account, 'owners.data', []))
     )
     const uniqOwners = uniqBy(allOwners, owner => owner._id)
