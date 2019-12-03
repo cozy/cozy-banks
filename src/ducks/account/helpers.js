@@ -4,7 +4,8 @@ import {
   overEvery,
   flowRight as compose,
   set,
-  uniqBy
+  uniqBy,
+  flatten
 } from 'lodash'
 import {
   getDate,
@@ -210,4 +211,11 @@ export const addOwnerToAccount = (account, owner) => {
 
 export const getAccountOwners = account => {
   return get(account, 'owners.data', [])
+}
+
+export const getUniqueOwners = accounts => {
+  const allOwners = flatten(accounts.map(getAccountOwners))
+  const uniqOwners = uniqBy(allOwners, owner => owner._id)
+
+  return uniqOwners
 }
