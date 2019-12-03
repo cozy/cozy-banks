@@ -11,6 +11,7 @@ import AppLike from 'test/AppLike'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import getClient from 'selectors/getClient'
 
+jest.mock('components/AccountIcon', () => () => null)
 jest.mock('selectors/getClient')
 
 const addType = data => {
@@ -35,7 +36,13 @@ describe('GroupPanel', () => {
   })
 
   const fakeRouter = {
-    push: jest.fn()
+    push: jest.fn(),
+    replace: jest.fn(),
+    go: jest.fn(),
+    goBack: jest.fn(),
+    goForward: jest.fn(),
+    setRouteLeaveHook: jest.fn(),
+    isActive: jest.fn()
   }
 
   const Wrapper = ({ expanded }) => (
