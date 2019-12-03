@@ -9,8 +9,9 @@ import fromPairs from 'lodash/fromPairs'
 import { schema } from 'doctypes'
 import AppLike from 'test/AppLike'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
+import getClient from 'selectors/getClient'
 
-jest.mock('selectors')
+jest.mock('selectors/getClient')
 
 const addType = data => {
   return mapValues(data, (docs, doctype) => {
@@ -26,6 +27,7 @@ describe('GroupPanel', () => {
     client = new CozyClient({
       schema
     })
+    getClient.mockReturnValue(client)
     client.setData(addType(data))
     group = client.hydrateDocument(
       client.getDocumentFromState('io.cozy.bank.groups', rawGroup._id)
