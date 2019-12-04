@@ -127,7 +127,7 @@ const TransactionApplicationDateEditorSlide = translate()(
   }
 )
 
-const showAlertAfterApplicationDateUpdate = (transaction, t, f) => {
+export const showAlertAfterApplicationDateUpdate = (transaction, t, f) => {
   const date = getApplicationDate(transaction) || getDate(transaction)
   Alerter.success(
     t('Transactions.infos.applicationDateChangedAlert', {
