@@ -40,6 +40,7 @@ export const AccountGroupChoice = ({
             icon={<AccountIcon account={account} />}
             key={account._id}
             isSelected={current && current._id === account._id}
+            hasRadio
             label={getAccountLabel(account)}
             onClick={() => onSelect(account)}
           />
