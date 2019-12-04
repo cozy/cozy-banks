@@ -61,7 +61,7 @@ export const AccountGroupChoice = ({
 }
 
 AccountGroupChoice.propTypes = {
-  onChoose: PropTypes.func.isRequired
+  onSelect: PropTypes.func.isRequired
 }
 
 export const DumbAccountGroupChoice = translate()(AccountGroupChoice)
