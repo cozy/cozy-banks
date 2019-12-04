@@ -26,10 +26,8 @@ import {
 } from 'ducks/groups/helpers'
 import styles from 'ducks/balance/components/GroupPanel.styl'
 import { getLateHealthExpenses } from 'ducks/reimbursements/selectors'
-import {
-  getSettings,
-  getNotificationFromSettings
-} from 'ducks/settings/selectors'
+import { getSettings } from 'ducks/settings/selectors'
+import { getNotificationFromSettings } from 'ducks/settings/helpers'
 
 const GroupPanelSummary = withStyles({
   root: {
