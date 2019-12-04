@@ -116,9 +116,16 @@ describe('GroupPanel', () => {
 })
 
 describe('Reimbursement virtual group styling', () => {
+  // We need a different date for each test otherwise selectors are not
+  // recomputed since queryCreateSelector bases its memoization on
+  // the lastUpdate of the query
+  const mockedDate = +new Date('2020-01-31T00:00')
+  let i = 0
   beforeEach(() => {
-    MockDate.set('2020-01-31T00:00')
+    MockDate.set(mockedDate + i++)
+    getClient.mockReturnValue(client)
   })
+
   const setup = ({
     lateHealthReimbursementNotificationSetting,
     transactions
