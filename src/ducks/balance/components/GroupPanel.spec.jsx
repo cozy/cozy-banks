@@ -26,20 +26,22 @@ const addType = data => {
   })
 }
 
-describe('GroupPanel', () => {
-  const rawGroup = data['io.cozy.bank.groups'][0]
-  let root, client, group, onChange, switches
+const rawGroup = data['io.cozy.bank.groups'][0]
+let client, group
 
-  beforeAll(() => {
-    client = new CozyClient({
-      schema
-    })
-    getClient.mockReturnValue(client)
-    client.setData(addType(data))
-    group = client.hydrateDocument(
-      client.getDocumentFromState('io.cozy.bank.groups', rawGroup._id)
-    )
+beforeAll(() => {
+  client = new CozyClient({
+    schema
   })
+  getClient.mockReturnValue(client)
+  client.setData(addType(data))
+  group = client.hydrateDocument(
+    client.getDocumentFromState('io.cozy.bank.groups', rawGroup._id)
+  )
+})
+
+describe('GroupPanel', () => {
+  let root, onChange, switches
 
   const fakeRouter = {
     push: jest.fn(),
