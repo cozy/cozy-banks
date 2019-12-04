@@ -15,6 +15,7 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import { createClientWithData } from 'test/client'
 import { TRANSACTION_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
 import getClient from 'selectors/getClient'
+import MockDate from 'mockdate'
 
 jest.mock('components/AccountIcon', () => () => null)
 jest.mock('selectors/getClient')
@@ -113,7 +114,13 @@ describe('GroupPanel', () => {
 })
 
 describe('Reimbursement virtual group styling', () => {
-  const setup = ({ lateHealthReimbursementEnabled, transactions }) => {
+  beforeEach(() => {
+    MockDate.set('2020-01-31T00:00')
+  })
+  const setup = ({
+    lateHealthReimbursementNotificationSetting,
+    transactions
+  }) => {
     const client = createClientWithData({
       queries: {
         transactions: {
@@ -126,9 +133,7 @@ describe('Reimbursement virtual group styling', () => {
             {
               _id: 'settings-1234',
               notifications: {
-                lateHealthReimbursement: {
-                  enabled: lateHealthReimbursementEnabled
-                }
+                lateHealthReimbursement: lateHealthReimbursementNotificationSetting
               }
             }
           ]
@@ -151,10 +156,15 @@ describe('Reimbursement virtual group styling', () => {
     _id: 'Reimbursements'
   }
 
+  const lateHealthReimbursementNotificationSetting = {
+    enabled: true,
+    value: 30
+  }
+
   it('should have specific style if late reimbursements are present and setting is enabled', () => {
     const { state } = setup({
       transactions: [healthExpense],
-      lateHealthReimbursementEnabled: true
+      lateHealthReimbursementNotificationSetting
     })
     expect(
       getGroupPanelSummaryClasses(virtualReimbursementGroup, state)
@@ -167,7 +177,7 @@ describe('Reimbursement virtual group styling', () => {
     const healthCredit = { ...healthExpense, amount: 10 }
     const { state } = setup({
       transactions: [healthCredit],
-      lateHealthReimbursementEnabled: true
+      lateHealthReimbursementNotificationSetting
     })
     expect(
       getGroupPanelSummaryClasses(virtualReimbursementGroup, state)
@@ -177,7 +187,10 @@ describe('Reimbursement virtual group styling', () => {
   it('should not have specific style if setting not enabled', () => {
     const { state } = setup({
       transactions: [healthExpense],
-      lateHealthReimbursementEnabled: false
+      lateHealthReimbursementNotificationSetting: {
+        ...lateHealthReimbursementNotificationSetting,
+        enabled: false
+      }
     })
     expect(
       getGroupPanelSummaryClasses(virtualReimbursementGroup, state)
@@ -187,7 +200,19 @@ describe('Reimbursement virtual group styling', () => {
   it('should not have specific style if not virtual reimbursement group', () => {
     const { state } = setup({
       transactions: [healthExpense],
-      lateHealthReimbursementEnabled: false
+      lateHealthReimbursementNotificationSetting
+    })
+    const normalGroup = {
+      _id: 'deadbeef',
+      accounts: []
+    }
+    expect(getGroupPanelSummaryClasses(normalGroup, state)).toBeFalsy()
+  })
+
+  it('should not have specific style if not virtual reimbursement group', () => {
+    const { state } = setup({
+      transactions: [healthExpense],
+      lateHealthReimbursementNotificationSetting
     })
     const normalGroup = {
       _id: 'deadbeef',

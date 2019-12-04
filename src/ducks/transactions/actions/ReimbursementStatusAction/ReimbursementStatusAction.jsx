@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import Icon from 'cozy-ui/react/Icon'
 import Chip from 'cozy-ui/react/Chip'
 import Alerter from 'cozy-ui/react/Alerter'
@@ -17,6 +18,8 @@ import cx from 'classnames'
 import { translate } from 'cozy-ui/react'
 import { flowRight as compose } from 'lodash'
 import { withMutations } from 'cozy-client'
+import { getSettings } from 'ducks/settings/selectors'
+import { getHealthReimbursementLateLimit } from 'ducks/settings/helpers'
 
 export class DumbReimbursementStatusAction extends React.PureComponent {
   state = {
@@ -41,10 +44,13 @@ export class DumbReimbursementStatusAction extends React.PureComponent {
   }
 
   renderModalItem() {
-    const { t, transaction } = this.props
+    const { t, transaction, healthReimbursementLateLimit } = this.props
 
     const status = getReimbursementStatus(transaction)
-    const isLate = isReimbursementLate(transaction)
+    const isLate = isReimbursementLate(
+      transaction,
+      healthReimbursementLateLimit
+    )
     const translateKey = isLate ? 'late' : status
     const label = t(`Transactions.actions.reimbursementStatus.${translateKey}`)
 
@@ -60,10 +66,13 @@ export class DumbReimbursementStatusAction extends React.PureComponent {
   }
 
   renderTransactionRow() {
-    const { transaction, t } = this.props
+    const { transaction, t, healthReimbursementLateLimit } = this.props
 
     const status = getReimbursementStatus(transaction)
-    const isLate = isReimbursementLate(transaction)
+    const isLate = isReimbursementLate(
+      transaction,
+      healthReimbursementLateLimit
+    )
 
     if (status === REIMBURSEMENTS_STATUS.noReimbursement) {
       return null
@@ -113,7 +122,13 @@ export class DumbReimbursementStatusAction extends React.PureComponent {
 
 const ReimbursementStatusAction = compose(
   translate(),
-  withMutations()
+  withMutations(),
+  connect(state => {
+    const settings = getSettings(state)
+    return {
+      healthReimbursementLateLimit: getHealthReimbursementLateLimit(settings)
+    }
+  })
 )(DumbReimbursementStatusAction)
 
 export default ReimbursementStatusAction
