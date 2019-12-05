@@ -19,11 +19,16 @@ import {
   ThresholdSection
 } from 'components/EditionModal'
 
+const CHOOSING_TYPES = {
+  category: 'category',
+  accountOrGroup: 'accountOrGroup',
+  threshold: 'threshold'
+}
+
 const CategoryAlertInfoSlide = ({
   alert,
-  handleChangeBalanceThreshold,
-  handleRequestChooseAccountOrGroup,
-  handleRequestChooseCategory,
+  onRequestChooseField,
+  onChangeField,
   t
 }) => {
   return (
@@ -31,26 +36,23 @@ const CategoryAlertInfoSlide = ({
       <AccountOrGroupSection
         label={t('Settings.budget-category-alerts.edit.account-group-label')}
         value={alert.accountOrGroup}
-        onClick={handleRequestChooseAccountOrGroup}
+        onClick={() => onRequestChooseField(CHOOSING_TYPES.accountOrGroup)}
       />
       <CategorySection
         label={t('Settings.budget-category-alerts.edit.category-label')}
         isParent={alert.categoryIsParent}
         value={alert.categoryId}
-        onClick={handleRequestChooseCategory}
+        onClick={() => onRequestChooseField(CHOOSING_TYPES.category)}
       />
       <ThresholdSection
         label={t('Settings.budget-category-alerts.edit.threshold-label')}
         value={alert.maxThreshold}
-        onChange={handleChangeBalanceThreshold}
+        onChange={ev =>
+          onChangeField(CHOOSING_TYPES.threshold, ev.target.value)
+        }
       />
     </ModalSections>
   )
-}
-
-const CHOOSING_TYPES = {
-  category: 'category',
-  accountOrGroup: 'accountOrGroup'
 }
 
 const ChoosingSwitch = ({ choosing }) => {
@@ -143,12 +145,26 @@ const CategoryAlertEditModal = translate()(
       })
     }
 
-    const handleChangeBalanceThreshold = ev => {
+    const handleRequestChooseField = type => {
+      if (type === CHOOSING_TYPES.category) {
+        handleRequestChooseCategory()
+      } else if (type === CHOOSING_TYPES.accountOrGroup) {
+        handleRequestChooseAccountOrGroup()
+      }
+    }
+
+    const handleChangeBalanceThreshold = value => {
       const updatedAlert = {
         ...alert,
-        maxThreshold: parseInt(ev.target.value)
+        maxThreshold: parseInt(value)
       }
       setAlert(updatedAlert)
+    }
+
+    const handleChangeField = (type, value) => {
+      if (type === CHOOSING_TYPES.threshold) {
+        handleChangeBalanceThreshold(value)
+      }
     }
 
     const handleConfirmEdit = () => {
@@ -171,11 +187,9 @@ const CategoryAlertEditModal = translate()(
             alert={alert}
             t={t}
             accountsById={accountsById}
-            handleChangeBalanceThreshold={handleChangeBalanceThreshold}
-            handleRequestChooseAccountOrGroup={
-              handleRequestChooseAccountOrGroup
-            }
-            handleRequestChooseCategory={handleRequestChooseCategory}
+            onRequestChooseField={handleRequestChooseField}
+            onChangeField={handleChangeField}
+            onChange
           />
           <div>{choosing ? <ChoosingSwitch choosing={choosing} /> : null}</div>
         </Stepper>
