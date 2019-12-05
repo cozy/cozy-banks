@@ -80,6 +80,12 @@ const ChoosingSwitch = ({ choosing }) => {
   )
 }
 
+const getAccountOrGroupChoiceFromAlert = alert => alert.accountOrGroup
+const getCategoryChoiceFromAlert = alert => ({
+  id: alert.categoryId,
+  isParent: alert.categoryIsParent
+})
+
 /**
  * Modal to edit a category alert
  *
@@ -88,26 +94,26 @@ const ChoosingSwitch = ({ choosing }) => {
  * - Edit account/group for the alert
  */
 const CategoryAlertEditModal = translate()(
-  ({ initialAlert, onEditAlert, onDismiss, t, accountsById }) => {
+  ({ initialAlert, onEditAlert, onDismiss, t }) => {
     const [alert, setAlert] = useState(initialAlert)
     const [choosing, setChoosing] = useState(null)
 
-    const handleSelectCategory = category => {
+    const handleSelectCategory = (initialAlert, category) => {
       const updatedAlert = {
-        ...alert,
+        ...initialAlert,
         categoryIsParent: !!category.isParent,
         categoryId: category.id
       }
       setAlert(updatedAlert)
     }
 
-    const handleSelectAccountOrGroup = doc => {
+    const handleSelectAccountOrGroup = (initialAlert, accountOrGroup) => {
       const updatedAlert = {
-        ...alert,
-        accountOrGroup: doc
+        ...initialAlert,
+        accountOrGroup: accountOrGroup
           ? {
-              _type: doc._type,
-              _id: doc._id
+              _type: accountOrGroup._type,
+              _id: accountOrGroup._id
             }
           : null
       }
@@ -118,32 +124,31 @@ const CategoryAlertEditModal = translate()(
       setChoosing(null)
     }
 
-    const handleRequestChooseAccountOrGroup = () => {
+    const makeHandleRequestChooser = options => () => {
       setChoosing({
-        type: CHOOSING_TYPES.accountOrGroup,
-        value: alert.accountOrGroup,
-        onSelect: doc => {
+        type: options.type,
+        value: options.getValue(alert),
+        onSelect: val => {
           setChoosing(null)
-          handleSelectAccountOrGroup(doc)
+          options.onSelect(options.initialDoc, val)
         },
         onCancel: handleChoosingCancel
       })
     }
 
-    const handleRequestChooseCategory = () => {
-      setChoosing({
-        type: CHOOSING_TYPES.category,
-        value: {
-          id: alert.categoryId,
-          isParent: alert.categoryIsParent
-        },
-        onSelect: category => {
-          setChoosing(null)
-          handleSelectCategory(category)
-        },
-        onCancel: handleChoosingCancel
-      })
-    }
+    const handleRequestChooseAccountOrGroup = makeHandleRequestChooser({
+      type: CHOOSING_TYPES.accountOrGroup,
+      initialDoc: alert,
+      getValue: getAccountOrGroupChoiceFromAlert,
+      onSelect: handleSelectAccountOrGroup
+    })
+
+    const handleRequestChooseCategory = makeHandleRequestChooser({
+      type: CHOOSING_TYPES.category,
+      initialDoc: alert,
+      getValue: getCategoryChoiceFromAlert,
+      onSelect: handleSelectCategory
+    })
 
     const handleRequestChooseField = type => {
       if (type === CHOOSING_TYPES.category) {
@@ -186,10 +191,8 @@ const CategoryAlertEditModal = translate()(
           <CategoryAlertInfoSlide
             alert={alert}
             t={t}
-            accountsById={accountsById}
             onRequestChooseField={handleRequestChooseField}
             onChangeField={handleChangeField}
-            onChange
           />
           <div>{choosing ? <ChoosingSwitch choosing={choosing} /> : null}</div>
         </Stepper>
