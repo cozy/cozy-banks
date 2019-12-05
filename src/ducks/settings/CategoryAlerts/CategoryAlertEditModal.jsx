@@ -1,100 +1,23 @@
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
-import compose from 'lodash/flowRight'
 import {
   Button,
   Modal,
   ModalFooter,
-  ModalContent,
   ModalButtons,
-  translate,
-  InputGroup,
-  Input
+  translate
 } from 'cozy-ui/transpiled/react'
 
 import Stepper from 'components/Stepper'
-import AccountIcon from 'components/AccountIcon'
 
-import { CategoryChoice, CategoryIcon, getCategoryName } from 'ducks/categories'
+import { CategoryChoice } from 'ducks/categories'
 import AccountGroupChoice from 'ducks/settings/CategoryAlerts/AccountGroupChoice'
-import AccountOrGroupLabel from 'ducks/settings/CategoryAlerts/AccountOrGroupLabel'
-import { getAccountsById } from 'selectors'
 
-import { ModalSections, ModalSection, ModalRow } from 'components/ModalSections'
-import { ACCOUNT_DOCTYPE } from 'doctypes'
-
-const DumbAccountOrGroupSection = ({
-  label,
-  value,
-  onClick,
-  accountsById,
-  t
-}) => (
-  <ModalSection label={label}>
-    <ModalRow
-      icon={
-        value && value._type === ACCOUNT_DOCTYPE && accountsById[value._id] ? (
-          <AccountIcon key={value._id} account={accountsById[value._id]} />
-        ) : null
-      }
-      label={
-        value ? (
-          <AccountOrGroupLabel doc={value} />
-        ) : (
-          t('AccountSwitch.all_accounts')
-        )
-      }
-      onClick={onClick}
-      hasArrow={true}
-    />
-  </ModalSection>
-)
-
-const AccountOrGroupSection = compose(
-  translate(),
-  connect(state => ({
-    accountsById: getAccountsById(state)
-  }))
-)(DumbAccountOrGroupSection)
-
-const DumbCategorySection = ({ value, isParent, label, onClick, t }) => {
-  const categoryName = getCategoryName(value)
-
-  const translatedCategoryName = t(
-    `Data.${isParent ? 'categories' : 'subcategories'}.${categoryName}`
-  )
-
-  return (
-    <ModalSection label={label}>
-      <ModalRow
-        icon={<CategoryIcon categoryId={value} />}
-        label={
-          isParent
-            ? t('Settings.budget-category-alerts.edit.all-category', {
-                categoryName: translatedCategoryName
-              })
-            : translatedCategoryName
-        }
-        onClick={onClick}
-        hasArrow={true}
-      />
-    </ModalSection>
-  )
-}
-
-const CategorySection = translate()(DumbCategorySection)
-
-const ThresholdSection = ({ label, value, onChange }) => {
-  return (
-    <ModalSection label={label}>
-      <ModalContent>
-        <InputGroup append={<InputGroup.Unit>€</InputGroup.Unit>}>
-          <Input type="text" onChange={onChange} defaultValue={value} />
-        </InputGroup>
-      </ModalContent>
-    </ModalSection>
-  )
-}
+import { ModalSections } from 'components/ModalSections'
+import {
+  AccountOrGroupSection,
+  CategorySection,
+  ThresholdSection
+} from 'components/EditionModal'
 
 const CategoryAlertInfoSlide = ({
   alert,
