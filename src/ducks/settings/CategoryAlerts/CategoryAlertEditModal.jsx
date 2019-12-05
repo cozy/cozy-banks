@@ -25,32 +25,44 @@ const CHOOSING_TYPES = {
   threshold: 'threshold'
 }
 
-const CategoryAlertInfoSlide = ({
-  alert,
+const SectionsPerType = {
+  [CHOOSING_TYPES.category]: CategorySection,
+  [CHOOSING_TYPES.accountOrGroup]: AccountOrGroupSection,
+  [CHOOSING_TYPES.threshold]: ThresholdSection
+}
+
+const InfoSlide = ({
+  doc,
+  fieldSpecs,
+  fieldOrder,
+  fieldLabels,
   onRequestChooseField,
-  onChangeField,
-  t
+  onChangeField
 }) => {
   return (
     <ModalSections>
-      <AccountOrGroupSection
-        label={t('Settings.budget-category-alerts.edit.account-group-label')}
-        value={alert.accountOrGroup}
-        onClick={() => onRequestChooseField(CHOOSING_TYPES.accountOrGroup)}
-      />
-      <CategorySection
-        label={t('Settings.budget-category-alerts.edit.category-label')}
-        isParent={alert.categoryIsParent}
-        value={alert.categoryId}
-        onClick={() => onRequestChooseField(CHOOSING_TYPES.category)}
-      />
-      <ThresholdSection
-        label={t('Settings.budget-category-alerts.edit.threshold-label')}
-        value={alert.maxThreshold}
-        onChange={ev =>
-          onChangeField(CHOOSING_TYPES.threshold, ev.target.value)
-        }
-      />
+      {fieldOrder.map(fieldName => {
+        const FieldSection = SectionsPerType[fieldSpecs[fieldName].type]
+        const fieldSpec = fieldSpecs[fieldName]
+        const fieldLabel = fieldLabels[fieldName]
+        return (
+          <FieldSection
+            key={fieldName}
+            label={fieldLabel}
+            value={fieldSpec.getValue(doc)}
+            onClick={
+              fieldSpec.immediate ? null : () => onRequestChooseField(fieldName)
+            }
+            onChange={
+              fieldSpec.immediate
+                ? ev => {
+                    onChangeField(fieldName, ev.target.value)
+                  }
+                : null
+            }
+          />
+        )
+      })}
     </ModalSections>
   )
 }
@@ -85,6 +97,7 @@ const getCategoryChoiceFromAlert = alert => ({
   id: alert.categoryId,
   isParent: alert.categoryIsParent
 })
+const getMaxThresholdFromAlert = alert => alert.maxThreshold
 
 const updatedAlertFromCategoryChoice = (initialAlert, category) => ({
   ...initialAlert,
@@ -101,6 +114,10 @@ const updatedAlertFromAccountOrGroup = (initialAlert, accountOrGroup) => ({
       }
     : null
 })
+const updatedAlertFromThresholdChoice = (initialAlert, value) => ({
+  ...initialAlert,
+  maxThreshold: parseInt(value)
+})
 
 const fieldSpecs = {
   accountOrGroup: {
@@ -112,6 +129,12 @@ const fieldSpecs = {
     type: CHOOSING_TYPES.category,
     getValue: getCategoryChoiceFromAlert,
     updater: updatedAlertFromCategoryChoice
+  },
+  threshold: {
+    type: CHOOSING_TYPES.threshold,
+    getValue: getMaxThresholdFromAlert,
+    updater: updatedAlertFromThresholdChoice,
+    immediate: true
   }
 }
 
@@ -131,49 +154,23 @@ const CategoryAlertEditModal = translate()(
       setChoosing(null)
     }
 
-    const makeHandleRequestChooser = (initialDoc, type) => () => {
-      const options = fieldSpecs[type]
-      setChoosing({
-        type: options.type,
-        value: options.getValue(initialDoc),
-        onSelect: val => {
-          setChoosing(null)
-          const updatedAlert = options.updater(initialDoc, val)
-          setAlert(updatedAlert)
-        },
-        onCancel: handleChoosingCancel
-      })
-    }
-
-    const handleRequestChooseAccountOrGroup = makeHandleRequestChooser(
-      alert,
-      CHOOSING_TYPES.accountOrGroup
-    )
-    const handleRequestChooseCategory = makeHandleRequestChooser(
-      alert,
-      CHOOSING_TYPES.category
-    )
-
-    const handleRequestChooseField = type => {
-      if (type === CHOOSING_TYPES.category) {
-        handleRequestChooseCategory()
-      } else if (type === CHOOSING_TYPES.accountOrGroup) {
-        handleRequestChooseAccountOrGroup()
-      }
-    }
-
-    const handleChangeBalanceThreshold = value => {
-      const updatedAlert = {
-        ...alert,
-        maxThreshold: parseInt(value)
-      }
+    const handleChangeField = (type, val) => {
+      const updater = fieldSpecs[type].updater
+      const updatedAlert = updater(alert, val)
       setAlert(updatedAlert)
     }
 
-    const handleChangeField = (type, value) => {
-      if (type === CHOOSING_TYPES.threshold) {
-        handleChangeBalanceThreshold(value)
-      }
+    const handleRequestChooseField = type => {
+      const options = fieldSpecs[type]
+      setChoosing({
+        type: options.type,
+        value: options.getValue(alert),
+        onSelect: val => {
+          setChoosing(null)
+          handleChangeField(type, val)
+        },
+        onCancel: handleChoosingCancel
+      })
     }
 
     const handleConfirmEdit = () => {
@@ -192,9 +189,21 @@ const CategoryAlertEditModal = translate()(
           currentIndex={choosing ? 1 : 0}
           onBack={() => setChoosing(null)}
         >
-          <CategoryAlertInfoSlide
-            alert={alert}
-            t={t}
+          <InfoSlide
+            doc={alert}
+            fieldOrder={['accountOrGroup', 'category', 'threshold']}
+            fieldSpecs={fieldSpecs}
+            fieldLabels={{
+              accountOrGroup: t(
+                'Settings.budget-category-alerts.edit.account-group-label'
+              ),
+              category: t(
+                'Settings.budget-category-alerts.edit.category-label'
+              ),
+              threshold: t(
+                'Settings.budget-category-alerts.edit.threshold-label'
+              )
+            }}
             onRequestChooseField={handleRequestChooseField}
             onChangeField={handleChangeField}
           />
