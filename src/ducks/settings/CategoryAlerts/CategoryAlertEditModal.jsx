@@ -86,6 +86,35 @@ const getCategoryChoiceFromAlert = alert => ({
   isParent: alert.categoryIsParent
 })
 
+const updatedAlertFromCategoryChoice = (initialAlert, category) => ({
+  ...initialAlert,
+  categoryIsParent: !!category.isParent,
+  categoryId: category.id
+})
+
+const updatedAlertFromAccountOrGroup = (initialAlert, accountOrGroup) => ({
+  ...initialAlert,
+  accountOrGroup: accountOrGroup
+    ? {
+        _type: accountOrGroup._type,
+        _id: accountOrGroup._id
+      }
+    : null
+})
+
+const fieldSpecs = {
+  accountOrGroup: {
+    type: CHOOSING_TYPES.accountOrGroup,
+    getValue: getAccountOrGroupChoiceFromAlert,
+    updater: updatedAlertFromAccountOrGroup
+  },
+  category: {
+    type: CHOOSING_TYPES.category,
+    getValue: getCategoryChoiceFromAlert,
+    updater: updatedAlertFromCategoryChoice
+  }
+}
+
 /**
  * Modal to edit a category alert
  *
@@ -98,57 +127,32 @@ const CategoryAlertEditModal = translate()(
     const [alert, setAlert] = useState(initialAlert)
     const [choosing, setChoosing] = useState(null)
 
-    const handleSelectCategory = (initialAlert, category) => {
-      const updatedAlert = {
-        ...initialAlert,
-        categoryIsParent: !!category.isParent,
-        categoryId: category.id
-      }
-      setAlert(updatedAlert)
-    }
-
-    const handleSelectAccountOrGroup = (initialAlert, accountOrGroup) => {
-      const updatedAlert = {
-        ...initialAlert,
-        accountOrGroup: accountOrGroup
-          ? {
-              _type: accountOrGroup._type,
-              _id: accountOrGroup._id
-            }
-          : null
-      }
-      setAlert(updatedAlert)
-    }
-
     const handleChoosingCancel = () => {
       setChoosing(null)
     }
 
-    const makeHandleRequestChooser = options => () => {
+    const makeHandleRequestChooser = (initialDoc, type) => () => {
+      const options = fieldSpecs[type]
       setChoosing({
         type: options.type,
-        value: options.getValue(alert),
+        value: options.getValue(initialDoc),
         onSelect: val => {
           setChoosing(null)
-          options.onSelect(options.initialDoc, val)
+          const updatedAlert = options.updater(initialDoc, val)
+          setAlert(updatedAlert)
         },
         onCancel: handleChoosingCancel
       })
     }
 
-    const handleRequestChooseAccountOrGroup = makeHandleRequestChooser({
-      type: CHOOSING_TYPES.accountOrGroup,
-      initialDoc: alert,
-      getValue: getAccountOrGroupChoiceFromAlert,
-      onSelect: handleSelectAccountOrGroup
-    })
-
-    const handleRequestChooseCategory = makeHandleRequestChooser({
-      type: CHOOSING_TYPES.category,
-      initialDoc: alert,
-      getValue: getCategoryChoiceFromAlert,
-      onSelect: handleSelectCategory
-    })
+    const handleRequestChooseAccountOrGroup = makeHandleRequestChooser(
+      alert,
+      CHOOSING_TYPES.accountOrGroup
+    )
+    const handleRequestChooseCategory = makeHandleRequestChooser(
+      alert,
+      CHOOSING_TYPES.category
+    )
 
     const handleRequestChooseField = type => {
       if (type === CHOOSING_TYPES.category) {
