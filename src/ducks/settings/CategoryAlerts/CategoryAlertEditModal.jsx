@@ -78,7 +78,6 @@ const ChoosingSwitch = ({ choosing }) => {
           categoryIsParent={choosing.value.isParent}
           onSelect={choosing.onSelect}
           onCancel={choosing.onCancel}
-          {...choosing.chooserProps}
         />
       ) : null}
       {choosing.type === CHOOSING_TYPES.accountOrGroup ? (
@@ -114,7 +113,7 @@ const updatedAlertFromAccountOrGroup = (initialAlert, accountOrGroup) => ({
       }
     : null
 })
-const updatedAlertFromThresholdChoice = (initialAlert, value) => ({
+const updatedAlertFromMaxThresholdChoice = (initialAlert, value) => ({
   ...initialAlert,
   maxThreshold: parseInt(value)
 })
@@ -130,10 +129,10 @@ const fieldSpecs = {
     getValue: getCategoryChoiceFromAlert,
     updater: updatedAlertFromCategoryChoice
   },
-  threshold: {
+  maxThreshold: {
     type: CHOOSING_TYPES.threshold,
     getValue: getMaxThresholdFromAlert,
-    updater: updatedAlertFromThresholdChoice,
+    updater: updatedAlertFromMaxThresholdChoice,
     immediate: true
   }
 }
@@ -154,20 +153,20 @@ const CategoryAlertEditModal = translate()(
       setChoosing(null)
     }
 
-    const handleChangeField = (type, val) => {
-      const updater = fieldSpecs[type].updater
+    const handleChangeField = (name, val) => {
+      const updater = fieldSpecs[name].updater
       const updatedAlert = updater(alert, val)
       setAlert(updatedAlert)
     }
 
-    const handleRequestChooseField = type => {
-      const options = fieldSpecs[type]
+    const handleRequestChooseField = name => {
+      const fieldSpec = fieldSpecs[name]
       setChoosing({
-        type: options.type,
-        value: options.getValue(alert),
+        type: fieldSpec.type,
+        value: fieldSpec.getValue(alert),
         onSelect: val => {
           setChoosing(null)
-          handleChangeField(type, val)
+          handleChangeField(name, val)
         },
         onCancel: handleChoosingCancel
       })
@@ -191,7 +190,7 @@ const CategoryAlertEditModal = translate()(
         >
           <InfoSlide
             doc={alert}
-            fieldOrder={['accountOrGroup', 'category', 'threshold']}
+            fieldOrder={['accountOrGroup', 'category', 'maxThreshold']}
             fieldSpecs={fieldSpecs}
             fieldLabels={{
               accountOrGroup: t(
@@ -200,7 +199,7 @@ const CategoryAlertEditModal = translate()(
               category: t(
                 'Settings.budget-category-alerts.edit.category-label'
               ),
-              threshold: t(
+              maxThreshold: t(
                 'Settings.budget-category-alerts.edit.threshold-label'
               )
             }}
