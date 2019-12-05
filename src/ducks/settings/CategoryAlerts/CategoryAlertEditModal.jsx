@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import compose from 'lodash/flowRight'
 import {
   Button,
   Modal,
@@ -22,77 +23,104 @@ import { getAccountsById } from 'selectors'
 import { ModalSections, ModalSection, ModalRow } from 'components/ModalSections'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 
+const DumbAccountOrGroupSection = ({
+  label,
+  value,
+  onClick,
+  accountsById,
+  t
+}) => (
+  <ModalSection label={label}>
+    <ModalRow
+      icon={
+        value && value._type === ACCOUNT_DOCTYPE && accountsById[value._id] ? (
+          <AccountIcon key={value._id} account={accountsById[value._id]} />
+        ) : null
+      }
+      label={
+        value ? (
+          <AccountOrGroupLabel doc={value} />
+        ) : (
+          t('AccountSwitch.all_accounts')
+        )
+      }
+      onClick={onClick}
+      hasArrow={true}
+    />
+  </ModalSection>
+)
+
+const AccountOrGroupSection = compose(
+  translate(),
+  connect(state => ({
+    accountsById: getAccountsById(state)
+  }))
+)(DumbAccountOrGroupSection)
+
+const DumbCategorySection = ({ value, isParent, label, onClick, t }) => {
+  const categoryName = getCategoryName(value)
+
+  const translatedCategoryName = t(
+    `Data.${isParent ? 'categories' : 'subcategories'}.${categoryName}`
+  )
+
+  return (
+    <ModalSection label={label}>
+      <ModalRow
+        icon={<CategoryIcon categoryId={value} />}
+        label={
+          isParent
+            ? t('Settings.budget-category-alerts.edit.all-category', {
+                categoryName: translatedCategoryName
+              })
+            : translatedCategoryName
+        }
+        onClick={onClick}
+        hasArrow={true}
+      />
+    </ModalSection>
+  )
+}
+
+const CategorySection = translate()(DumbCategorySection)
+
+const ThresholdSection = ({ label, value, onChange }) => {
+  return (
+    <ModalSection label={label}>
+      <ModalContent>
+        <InputGroup append={<InputGroup.Unit>€</InputGroup.Unit>}>
+          <Input type="text" onChange={onChange} defaultValue={value} />
+        </InputGroup>
+      </ModalContent>
+    </ModalSection>
+  )
+}
+
 const CategoryAlertInfoSlide = ({
   alert,
-  accountsById,
   handleChangeBalanceThreshold,
   handleRequestChooseAccountOrGroup,
   handleRequestChooseCategory,
   t
 }) => {
-  const categoryName = getCategoryName(alert.categoryId)
-
-  const translatedCategoryName = t(
-    `Data.${
-      alert.categoryIsParent ? 'categories' : 'subcategories'
-    }.${categoryName}`
-  )
   return (
     <ModalSections>
-      <ModalSection
+      <AccountOrGroupSection
         label={t('Settings.budget-category-alerts.edit.account-group-label')}
-      >
-        <ModalRow
-          icon={
-            alert.accountOrGroup &&
-            alert.accountOrGroup._type === ACCOUNT_DOCTYPE &&
-            accountsById[alert.accountOrGroup._id] ? (
-              <AccountIcon
-                key={alert.accountOrGroup._id}
-                account={accountsById[alert.accountOrGroup._id]}
-              />
-            ) : null
-          }
-          label={
-            alert.accountOrGroup ? (
-              <AccountOrGroupLabel doc={alert.accountOrGroup} />
-            ) : (
-              t('AccountSwitch.all_accounts')
-            )
-          }
-          onClick={handleRequestChooseAccountOrGroup}
-          hasArrow={true}
-        />
-      </ModalSection>
-      <ModalSection
+        value={alert.accountOrGroup}
+        onClick={handleRequestChooseAccountOrGroup}
+      />
+      <CategorySection
         label={t('Settings.budget-category-alerts.edit.category-label')}
-      >
-        <ModalRow
-          icon={<CategoryIcon categoryId={alert.categoryId} />}
-          label={
-            alert.categoryIsParent
-              ? t('Settings.budget-category-alerts.edit.all-category', {
-                  categoryName: translatedCategoryName
-                })
-              : translatedCategoryName
-          }
-          onClick={handleRequestChooseCategory}
-          hasArrow={true}
-        />
-      </ModalSection>
-      <ModalSection
+        isParent={alert.categoryIsParent}
+        value={alert.categoryId}
+        onClick={handleRequestChooseCategory}
+      />
+      <ThresholdSection
         label={t('Settings.budget-category-alerts.edit.threshold-label')}
-      >
-        <ModalContent>
-          <InputGroup append={<InputGroup.Unit>€</InputGroup.Unit>}>
-            <Input
-              type="text"
-              onChange={handleChangeBalanceThreshold}
-              defaultValue={alert.maxThreshold}
-            />
-          </InputGroup>
-        </ModalContent>
-      </ModalSection>
+        value={alert.maxThreshold}
+        onChange={handleChangeBalanceThreshold}
+      />
     </ModalSections>
   )
 }
@@ -232,6 +260,4 @@ const CategoryAlertEditModal = translate()(
   }
 )
 
-export default connect(state => ({
-  accountsById: getAccountsById(state)
-}))(CategoryAlertEditModal)
+export default CategoryAlertEditModal
