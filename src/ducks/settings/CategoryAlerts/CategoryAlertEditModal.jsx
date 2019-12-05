@@ -137,6 +137,82 @@ const fieldSpecs = {
   }
 }
 
+const EditionModal = props => {
+  const {
+    fieldSpecs,
+    fieldLabels,
+    fieldOrder,
+    initialDoc,
+    modalTitle,
+    okButtonLabel,
+    cancelButtonLabel,
+    onEdit,
+    onDismiss
+  } = props
+  const [doc, setDoc] = useState(initialDoc)
+  const [choosing, setChoosing] = useState(null)
+
+  const handleChoosingCancel = () => {
+    setChoosing(null)
+  }
+
+  const handleChangeField = (name, val) => {
+    const updater = fieldSpecs[name].updater
+    const updatedDoc = updater(doc, val)
+    setDoc(updatedDoc)
+  }
+
+  const handleRequestChooseField = name => {
+    const fieldSpec = fieldSpecs[name]
+    setChoosing({
+      type: fieldSpec.type,
+      value: fieldSpec.getValue(doc),
+      onSelect: val => {
+        setChoosing(null)
+        handleChangeField(name, val)
+      },
+      onCancel: handleChoosingCancel
+    })
+  }
+
+  const handleConfirmEdit = () => {
+    onEdit(doc)
+  }
+
+  return (
+    <Modal title={modalTitle} mobileFullscreen={true} dismissAction={onDismiss}>
+      <Stepper
+        showPercentage={false}
+        currentIndex={choosing ? 1 : 0}
+        onBack={() => setChoosing(null)}
+      >
+        <InfoSlide
+          doc={doc}
+          fieldOrder={fieldOrder}
+          fieldSpecs={fieldSpecs}
+          fieldLabels={fieldLabels}
+          onRequestChooseField={handleRequestChooseField}
+          onChangeField={handleChangeField}
+        />
+        <div>{choosing ? <ChoosingSwitch choosing={choosing} /> : null}</div>
+      </Stepper>
+      <ModalFooter>
+        <ModalButtons>
+          <Button
+            theme={'secondary'}
+            onClick={onDismiss}
+            label={cancelButtonLabel(props, doc)}
+          />{' '}
+          <Button
+            onClick={handleConfirmEdit}
+            label={okButtonLabel(props, doc)}
+          />
+        </ModalButtons>
+      </ModalFooter>
+    </Modal>
+  )
+}
+
 /**
  * Modal to edit a category alert
  *
@@ -146,86 +222,34 @@ const fieldSpecs = {
  */
 const CategoryAlertEditModal = translate()(
   ({ initialAlert, onEditAlert, onDismiss, t }) => {
-    const [alert, setAlert] = useState(initialAlert)
-    const [choosing, setChoosing] = useState(null)
-
-    const handleChoosingCancel = () => {
-      setChoosing(null)
-    }
-
-    const handleChangeField = (name, val) => {
-      const updater = fieldSpecs[name].updater
-      const updatedAlert = updater(alert, val)
-      setAlert(updatedAlert)
-    }
-
-    const handleRequestChooseField = name => {
-      const fieldSpec = fieldSpecs[name]
-      setChoosing({
-        type: fieldSpec.type,
-        value: fieldSpec.getValue(alert),
-        onSelect: val => {
-          setChoosing(null)
-          handleChangeField(name, val)
-        },
-        onCancel: handleChoosingCancel
-      })
-    }
-
-    const handleConfirmEdit = () => {
-      onEditAlert(alert)
-    }
-
     const modalTitle = t('Settings.budget-category-alerts.edit.modal-title')
+    const okButtonLabel = (props, doc) =>
+      doc.id !== undefined
+        ? t('Settings.budget-category-alerts.edit.update-ok')
+        : t('Settings.budget-category-alerts.edit.create-ok')
+
+    const cancelButtonLabel = () =>
+      t('Settings.budget-category-alerts.edit.cancel')
     return (
-      <Modal
-        title={modalTitle}
-        mobileFullscreen={true}
-        dismissAction={onDismiss}
-      >
-        <Stepper
-          showPercentage={false}
-          currentIndex={choosing ? 1 : 0}
-          onBack={() => setChoosing(null)}
-        >
-          <InfoSlide
-            doc={alert}
-            fieldOrder={['accountOrGroup', 'category', 'maxThreshold']}
-            fieldSpecs={fieldSpecs}
-            fieldLabels={{
-              accountOrGroup: t(
-                'Settings.budget-category-alerts.edit.account-group-label'
-              ),
-              category: t(
-                'Settings.budget-category-alerts.edit.category-label'
-              ),
-              maxThreshold: t(
-                'Settings.budget-category-alerts.edit.threshold-label'
-              )
-            }}
-            onRequestChooseField={handleRequestChooseField}
-            onChangeField={handleChangeField}
-          />
-          <div>{choosing ? <ChoosingSwitch choosing={choosing} /> : null}</div>
-        </Stepper>
-        <ModalFooter>
-          <ModalButtons>
-            <Button
-              theme={'secondary'}
-              onClick={onDismiss}
-              label={t('Settings.budget-category-alerts.edit.cancel')}
-            />{' '}
-            <Button
-              onClick={handleConfirmEdit}
-              label={
-                alert.id !== undefined
-                  ? t('Settings.budget-category-alerts.edit.update-ok')
-                  : t('Settings.budget-category-alerts.edit.create-ok')
-              }
-            />
-          </ModalButtons>
-        </ModalFooter>
-      </Modal>
+      <EditionModal
+        initialDoc={initialAlert}
+        onEdit={onEditAlert}
+        fieldSpecs={fieldSpecs}
+        fieldOrder={['accountOrGroup', 'category', 'maxThreshold']}
+        fieldLabels={{
+          accountOrGroup: t(
+            'Settings.budget-category-alerts.edit.account-group-label'
+          ),
+          category: t('Settings.budget-category-alerts.edit.category-label'),
+          maxThreshold: t(
+            'Settings.budget-category-alerts.edit.threshold-label'
+          )
+        }}
+        onDismiss={onDismiss}
+        okButtonLabel={okButtonLabel}
+        cancelButtonLabel={cancelButtonLabel}
+        modalTitle={modalTitle}
+      />
     )
   }
 )
