@@ -48,6 +48,36 @@ const CategoryAlertInfoSlide = ({
   )
 }
 
+const CHOOSING_TYPES = {
+  category: 'category',
+  accountOrGroup: 'accountOrGroup'
+}
+
+const ChoosingSwitch = ({ choosing }) => {
+  return (
+    <>
+      {choosing.type === CHOOSING_TYPES.category ? (
+        <CategoryChoice
+          modal={false}
+          canSelectParent={true}
+          categoryId={choosing.value.id}
+          categoryIsParent={choosing.value.isParent}
+          onSelect={choosing.onSelect}
+          onCancel={choosing.onCancel}
+          {...choosing.chooserProps}
+        />
+      ) : null}
+      {choosing.type === CHOOSING_TYPES.accountOrGroup ? (
+        <AccountGroupChoice
+          current={choosing.value}
+          onSelect={choosing.onSelect}
+          onCancel={choosing.onCancel}
+        />
+      ) : null}
+    </>
+  )
+}
+
 /**
  * Modal to edit a category alert
  *
@@ -57,10 +87,8 @@ const CategoryAlertInfoSlide = ({
  */
 const CategoryAlertEditModal = translate()(
   ({ initialAlert, onEditAlert, onDismiss, t, accountsById }) => {
-    const [stepperIndex, setStepperIndex] = useState(0)
     const [alert, setAlert] = useState(initialAlert)
-    const [choosingCategory, setChoosingCategory] = useState(false)
-    const [choosingAccountOrGroup, setChoosingAccountOrGroup] = useState(false)
+    const [choosing, setChoosing] = useState(null)
 
     const handleSelectCategory = category => {
       const updatedAlert = {
@@ -69,27 +97,9 @@ const CategoryAlertEditModal = translate()(
         categoryId: category.id
       }
       setAlert(updatedAlert)
-      setStepperIndex(0)
-      setChoosingCategory(false)
-    }
-
-    const handleRequestChooseAccountOrGroup = () => {
-      setChoosingAccountOrGroup(true)
-      setStepperIndex(1)
-    }
-
-    const handleRequestChooseCategory = () => {
-      setChoosingCategory(true)
-      setStepperIndex(1)
-    }
-
-    const handleSelectCategoryCancel = () => {
-      setChoosingCategory(false)
-      setStepperIndex(0)
     }
 
     const handleSelectAccountOrGroup = doc => {
-      setChoosingAccountOrGroup(false)
       const updatedAlert = {
         ...alert,
         accountOrGroup: doc
@@ -100,12 +110,37 @@ const CategoryAlertEditModal = translate()(
           : null
       }
       setAlert(updatedAlert)
-      setStepperIndex(0)
     }
 
-    const handleSelectAccountOrGroupCancel = () => {
-      setChoosingAccountOrGroup(false)
-      setStepperIndex(0)
+    const handleChoosingCancel = () => {
+      setChoosing(null)
+    }
+
+    const handleRequestChooseAccountOrGroup = () => {
+      setChoosing({
+        type: CHOOSING_TYPES.accountOrGroup,
+        value: alert.accountOrGroup,
+        onSelect: doc => {
+          setChoosing(null)
+          handleSelectAccountOrGroup(doc)
+        },
+        onCancel: handleChoosingCancel
+      })
+    }
+
+    const handleRequestChooseCategory = () => {
+      setChoosing({
+        type: CHOOSING_TYPES.category,
+        value: {
+          id: alert.categoryId,
+          isParent: alert.categoryIsParent
+        },
+        onSelect: category => {
+          setChoosing(null)
+          handleSelectCategory(category)
+        },
+        onCancel: handleChoosingCancel
+      })
     }
 
     const handleChangeBalanceThreshold = ev => {
@@ -129,8 +164,8 @@ const CategoryAlertEditModal = translate()(
       >
         <Stepper
           showPercentage={false}
-          currentIndex={stepperIndex}
-          onBack={() => setStepperIndex(stepperIndex - 1)}
+          currentIndex={choosing ? 1 : 0}
+          onBack={() => setChoosing(null)}
         >
           <CategoryAlertInfoSlide
             alert={alert}
@@ -142,24 +177,7 @@ const CategoryAlertEditModal = translate()(
             }
             handleRequestChooseCategory={handleRequestChooseCategory}
           />
-          <div>
-            {choosingCategory ? (
-              <CategoryChoice
-                canSelectParent={true}
-                categoryId={alert.categoryId}
-                categoryIsParent={alert.categoryIsParent}
-                onSelect={handleSelectCategory}
-                onCancel={handleSelectCategoryCancel}
-              />
-            ) : null}
-            {choosingAccountOrGroup ? (
-              <AccountGroupChoice
-                current={alert.accountOrGroup}
-                onSelect={handleSelectAccountOrGroup}
-                onCancel={handleSelectAccountOrGroupCancel}
-              />
-            ) : null}
-          </div>
+          <div>{choosing ? <ChoosingSwitch choosing={choosing} /> : null}</div>
         </Stepper>
         <ModalFooter>
           <ModalButtons>
