@@ -29,11 +29,25 @@ import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import Field from 'cozy-ui/transpiled/react/Field'
 import CollectionField from 'cozy-ui/transpiled/react/Labs/CollectionField'
 import Stack from 'cozy-ui/transpiled/react/Stack'
-import ContactPicker from 'cozy-ui/transpiled/react/ContactPicker'
+import BaseContactPicker from 'cozy-ui/transpiled/react/ContactPicker'
 import withFilters from 'components/withFilters'
 import { withBreakpoints } from 'cozy-ui/transpiled/react'
 
 const { BarRight } = cozy.bar
+
+const ContactPicker = translate()(props => {
+  // eslint-disable-next-line no-unused-vars
+  const { t, f, ...rest } = props
+
+  return (
+    <BaseContactPicker
+      listPlaceholder={t('AccountSettings.listPlaceholder')}
+      listEmptyMessage={t('AccountSettings.listEmptyMessage')}
+      addContactLabel={t('AccountSettings.addContactLabel')}
+      {...props}
+    />
+  )
+})
 
 const DumbAccountSettingsForm = props => {
   const {

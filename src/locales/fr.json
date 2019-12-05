@@ -69,7 +69,10 @@
     "apply": "Appliquer",
     "success": "Compte mis à jour avec succès",
     "failure": "Erreur lors de la mise à jour du compte",
-    "removeAccountBtn": "Effacer le compte"
+    "removeAccountBtn": "Effacer le compte",
+    "listPlaceholder": "Rechercher un contact",
+    "listEmptyMessage": "Aucun contact trouvé",
+    "addContactLabel": "Créer un contact"
   },
 
   "Accounts": {

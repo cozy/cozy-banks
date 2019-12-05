@@ -65,7 +65,10 @@
     "apply": "Apply",
     "success": "Account updated successfully",
     "failure": "Error while updating the account",
-    "removeAccountBtn": "Remove the account"
+    "removeAccountBtn": "Remove the account",
+    "listPlaceholder": "Search a contact",
+    "listEmptyMessage": "No contact found",
+    "addContactLabel": "Add a contact"
   },
 
   "Balance": {
