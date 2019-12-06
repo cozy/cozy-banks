@@ -153,7 +153,7 @@ const EditionModal = props => {
             theme={'secondary'}
             onClick={onDismiss}
             label={cancelButtonLabel(props, doc)}
-          />{' '}
+          />
           <Button onClick={handleConfirmEdit} label={okButtonLabel(doc)} />
         </ModalButtons>
       </ModalFooter>
