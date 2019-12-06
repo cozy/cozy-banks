@@ -5,7 +5,7 @@ export const getCategoryChoiceFromAlert = alert => ({
   isParent: alert.categoryIsParent
 })
 
-export const getMaxThresholdFromAlert = alert => alert.maxThreshold
+export const getMaxThresholdChoiceFromAlert = alert => alert.maxThreshold
 
 export const updatedAlertFromCategoryChoice = (initialAlert, category) => ({
   ...initialAlert,
@@ -13,7 +13,7 @@ export const updatedAlertFromCategoryChoice = (initialAlert, category) => ({
   categoryId: category.id
 })
 
-export const updatedAlertFromAccountOrGroup = (
+export const updatedAlertFromAccountOrGroupChoice = (
   initialAlert,
   accountOrGroup
 ) => ({

@@ -3,10 +3,10 @@ import { translate } from 'cozy-ui/react'
 import EditionModal, { CHOOSING_TYPES } from 'components/EditionModal'
 import {
   getAccountOrGroupChoiceFromAlert,
-  updatedAlertFromAccountOrGroup,
   getCategoryChoiceFromAlert,
+  getMaxThresholdChoiceFromAlert,
+  updatedAlertFromAccountOrGroupChoice,
   updatedAlertFromCategoryChoice,
-  getMaxThresholdFromAlert,
   updatedAlertFromMaxThresholdChoice
 } from './helpers'
 
@@ -14,7 +14,7 @@ const fieldSpecs = {
   accountOrGroup: {
     type: CHOOSING_TYPES.accountOrGroup,
     getValue: getAccountOrGroupChoiceFromAlert,
-    updater: updatedAlertFromAccountOrGroup
+    updater: updatedAlertFromAccountOrGroupChoice
   },
   category: {
     type: CHOOSING_TYPES.category,
@@ -23,7 +23,7 @@ const fieldSpecs = {
   },
   maxThreshold: {
     type: CHOOSING_TYPES.threshold,
-    getValue: getMaxThresholdFromAlert,
+    getValue: getMaxThresholdChoiceFromAlert,
     updater: updatedAlertFromMaxThresholdChoice,
     immediate: true
   }
