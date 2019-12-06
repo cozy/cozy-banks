@@ -88,6 +88,9 @@ const InfoSlide = ({
   )
 }
 
+const INFO_SLIDE_INDEX = 0
+const CHOOSING_SLIDE_INDEX = 1
+
 const EditionModal = props => {
   const {
     fieldSpecs,
@@ -134,7 +137,7 @@ const EditionModal = props => {
     <Modal title={modalTitle} mobileFullscreen={true} dismissAction={onDismiss}>
       <Stepper
         showPercentage={false}
-        currentIndex={choosing ? 1 : 0}
+        currentIndex={choosing ? CHOOSING_SLIDE_INDEX : INFO_SLIDE_INDEX}
         onBack={() => setChoosing(null)}
       >
         <InfoSlide
