@@ -39,7 +39,7 @@ const fieldSpecs = {
 const CategoryAlertEditModal = translate()(
   ({ initialAlert, onEditAlert, onDismiss, t }) => {
     const modalTitle = t('Settings.budget-category-alerts.edit.modal-title')
-    const okButtonLabel = (props, doc) =>
+    const okButtonLabel = doc =>
       doc.id !== undefined
         ? t('Settings.budget-category-alerts.edit.update-ok')
         : t('Settings.budget-category-alerts.edit.create-ok')
