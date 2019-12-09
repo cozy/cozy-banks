@@ -3,6 +3,7 @@ import { translate, Media, Bd, Img, Icon } from 'cozy-ui/react'
 import SettingCard from 'components/SettingCard'
 import EditionModal, { CHOOSING_TYPES } from 'components/EditionModal'
 import { ToggleRowTitle, ToggleRowWrapper } from './ToggleRow'
+import Switch from 'components/Switch'
 
 const fieldSpecs = {
   value: {
@@ -31,6 +32,10 @@ const AlertEditModal = translate()(
     )
   }
 )
+
+// Since the toggle has a large height, we need to compensate negatively
+// so that the height of the switch does not impact the height of the card
+const toggleStyle = { margin: '-8px 0' }
 
 const HighlightedValue = ({ children }) => <b>{children}</b>
 
@@ -63,9 +68,18 @@ const EditableSettingCard = props => {
                 </HighlightedValue>
               )}
             </Bd>
-            <Img>
-              <Icon color="var(--coolGrey)" icon="pen" />
-            </Img>
+            {onToggle ? (
+              <Img style={toggleStyle}>
+                <Switch
+                  disableRipple
+                  className="u-mh-s"
+                  checked={enabled}
+                  color="primary"
+                  onClick={e => e.stopPropagation()}
+                  onChange={e => onToggle(!enabled)}
+                />
+              </Img>
+            ) : null}
           </Media>
         </SettingCard>
       </ToggleRowWrapper>
