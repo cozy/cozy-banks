@@ -35,7 +35,7 @@ const singleValueFieldOrder = ['value']
 
 // i18n
 const editModalProps = {
-  balanceLower: ({ t, initialDoc }) => ({
+  balanceLower: ({ t }) => ({
     modalTitle: t('Notifications.editModal.title'),
     fieldSpecs: {
       value: {
@@ -53,7 +53,7 @@ const editModalProps = {
     },
     initialDoc
   }),
-  transactionGreater: ({ t, initialDoc }) => ({
+  transactionGreater: ({ t }) => ({
     modalTitle: t('Notifications.editModal.title'),
     fieldSpecs: {
       value: {
@@ -67,11 +67,10 @@ const editModalProps = {
     },
     fieldOrder: singleValueFieldOrder,
     fieldLabels: {
-      value: t('Notifications.if_transaction_greater.fieldLabels.value')
-    },
-    initialDoc
+      value: t('Notifications.if_transaction_greater.fieldLabels.value'),
+    }
   }),
-  lateHealthReimbursement: ({ t, initialDoc }) => ({
+  lateHealthReimbursement: ({ t }) => ({
     modalTitle: t('Notifications.editModal.title'),
     fieldSpecs: {
       value: {
@@ -86,8 +85,7 @@ const editModalProps = {
     fieldOrder: singleValueFieldOrder,
     fieldLabels: {
       value: t('Notifications.when_late_health_reimbursement.fieldLabels.value')
-    },
-    initialDoc
+    }
   })
 }
 
@@ -150,12 +148,10 @@ export class Configuration extends React.Component {
             descriptionKey="Notifications.if_balance_lower.description"
             onToggle={this.onToggle('notifications.balanceLower')}
             onChangeDoc={this.onChangeDoc('notifications.balanceLower')}
-            enabled={settings.notifications.balanceLower.enabled}
-            value={settings.notifications.balanceLower.value}
             unit="€"
+            doc={settings.notifications.balanceLower}
             editModalProps={editModalProps.balanceLower({
-              t,
-              initialDoc: settings.notifications.balanceLower
+              t
             })}
           />
           <TogglableSettingCard
@@ -163,12 +159,10 @@ export class Configuration extends React.Component {
             descriptionKey="Notifications.if_transaction_greater.description"
             onToggle={this.onToggle('notifications.transactionGreater')}
             onChangeDoc={this.onChangeDoc('notifications.transactionGreater')}
-            enabled={settings.notifications.transactionGreater.enabled}
-            value={settings.notifications.transactionGreater.value}
+            doc={settings.notifications.transactionGreater}
             unit="€"
             editModalProps={editModalProps.transactionGreater({
-              t,
-              initialDoc: settings.notifications.transactionGreater
+              t
             })}
           />
           <CategoryAlertSettingsPane />
@@ -189,7 +183,7 @@ export class Configuration extends React.Component {
                 title={t('Notifications.when_health_bill_linked.settingTitle')}
                 descriptionKey="Notifications.when_health_bill_linked.description"
                 onToggle={this.onToggle('notifications.healthBillLinked')}
-                enabled={settings.notifications.healthBillLinked.enabled}
+                doc={settings.notifications.healthBillLinked}
               />
               <TogglableSettingCard
                 title={t(
@@ -204,11 +198,9 @@ export class Configuration extends React.Component {
                 onChangeDoc={this.onChangeDoc(
                   'notifications.lateHealthReimbursement'
                 )}
-                enabled={settings.notifications.lateHealthReimbursement.enabled}
-                value={settings.notifications.lateHealthReimbursement.value}
+                doc={settings.notifications.lateHealthReimbursement}
                 editModalProps={editModalProps.lateHealthReimbursement({
-                  t,
-                  initialDoc: settings.notifications.lateHealthReimbursement
+                  t
                 })}
               />
             </div>

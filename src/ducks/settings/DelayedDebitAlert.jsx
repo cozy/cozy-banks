@@ -136,13 +136,13 @@ class DelayedDebitCard extends React.Component {
 
     return (
       <TogglableSettingCard
-        enabled={doc.enabled}
         onToggle={onToggle}
         onChangeDoc={onChangeDoc}
         editModalProps={getModalProps({ t, initialDoc })}
         shouldOpenOnToggle={() => {
           return !initialDoc.creditCardAccount || !initialDoc.checkingsAccount
         }}
+        doc={doc}
         descriptionKey="Notifications.delayed_debit.description"
         descriptionProps={{
           creditCardLabel,

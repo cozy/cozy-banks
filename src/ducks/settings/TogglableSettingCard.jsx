@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { Media, Bd, Img, translate } from 'cozy-ui/react'
 import SettingCard from 'components/SettingCard'
 import { ToggleRowTitle, ToggleRowWrapper } from './ToggleRow'
@@ -24,16 +25,16 @@ const resolveDescriptionKey = props => {
 
 const EditableSettingCard = props => {
   const {
-    enabled,
     title,
     onChangeDoc,
     onToggle,
     editModalProps,
-    shouldOpenOnToggle
+    shouldOpenOnToggle,
+    doc
   } = props
 
+  const enabled = doc.enabled
   const [editing, setEditing] = useState(false)
-
   const description = resolveDescriptionKey(props)
 
   return (
@@ -80,6 +81,7 @@ const EditableSettingCard = props => {
       {editing ? (
         <EditionModal
           {...editModalProps}
+          initialDoc={doc}
           onEdit={updatedDoc => {
             onChangeDoc(updatedDoc)
             setEditing(false)
@@ -91,6 +93,10 @@ const EditableSettingCard = props => {
       ) : null}
     </>
   )
+}
+
+EditableSettingCard.propTypes = {
+  doc: PropTypes.object.isRequired
 }
 
 export default translate()(EditableSettingCard)
