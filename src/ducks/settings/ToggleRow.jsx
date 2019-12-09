@@ -65,7 +65,6 @@ class ToggleRow extends Component {
       title,
       description,
       onChangeValue,
-      name,
       onToggle,
       unit
     } = this.props
@@ -92,8 +91,8 @@ class ToggleRow extends Component {
             className="u-mh-half"
             checked={enabled}
             color="primary"
-            onClick={e => e.stopPropagation}
-            onChange={e => onToggle(!enabled)}
+            onClick={e => e.stopPropagation()}
+            onChange={() => onToggle(!enabled)}
           />
         </ToggleRowContent>
       </ToggleRowWrapper>

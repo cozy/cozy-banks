@@ -12,18 +12,22 @@ const mergeProps = (
   className: cx(className, otherClassName)
 })
 
-const SettingCard = ({ dashed, clickable, ...props }) => {
+const SettingCard = ({ enabled, clickable, ...props }) => {
   return (
     <Card
       {...mergeProps(props, {
         className: cx(
           styles.SettingCard,
-          dashed && styles['SettingCard--dashed'],
+          !enabled && styles['SettingCard--disabled'],
           clickable && styles['SettingCard--clickable']
         )
       })}
     />
   )
+}
+
+SettingCard.defaultProps = {
+  enabled: true
 }
 
 export default SettingCard
