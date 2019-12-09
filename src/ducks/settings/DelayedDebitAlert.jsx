@@ -27,7 +27,7 @@ const makeAccountChoiceFromAccount = account => {
 }
 
 const getModalProps = ({ initialDoc, t }) => ({
-  modalTitle: 'Configure the notification',
+  modalTitle: t('Notifications.editModal.title'),
   fieldOrder: ['creditCardAccount', 'checkingsAccount', 'value'],
   fieldLabels: {
     creditCardAccount: t(
