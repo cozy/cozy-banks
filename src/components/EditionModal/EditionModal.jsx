@@ -3,7 +3,8 @@ import {
   Button,
   Modal,
   ModalFooter,
-  ModalButtons
+  ModalButtons,
+  Icon
 } from 'cozy-ui/transpiled/react'
 
 import Stepper from 'components/Stepper'
@@ -21,6 +22,16 @@ export const CHOOSING_TYPES = {
   accountOrGroup: 'accountOrGroup',
   threshold: 'threshold'
 }
+
+const BackArrow = ({ onClick }) => (
+  <span className="u-mr-half">
+    <Icon
+      style={{ cursor: 'pointer', color: 'var(--coolGrey)' }}
+      icon="previous"
+      onClick={onClick}
+    />
+  </span>
+)
 
 const SectionsPerType = {
   [CHOOSING_TYPES.category]: CategorySection,
@@ -134,7 +145,16 @@ const EditionModal = props => {
   }
 
   return (
-    <Modal title={modalTitle} mobileFullscreen={true} dismissAction={onDismiss}>
+    <Modal
+      title={
+        <>
+          {choosing ? <BackArrow onClick={() => setChoosing(null)} /> : null}
+          {modalTitle}
+        </>
+      }
+      mobileFullscreen={true}
+      dismissAction={onDismiss}
+    >
       <Stepper
         showPercentage={false}
         currentIndex={choosing ? CHOOSING_SLIDE_INDEX : INFO_SLIDE_INDEX}
