@@ -146,6 +146,10 @@ const getBalanceLowerDescriptionProps = props => ({
   value: props.doc.value
 })
 
+const onToggleFlag = key => checked => {
+  flag(key, checked)
+}
+
 /**
  * Configure notifications and other features
  */
@@ -165,10 +169,6 @@ export class Configuration extends React.Component {
     this.saveDocument(settings, {
       updateCollections: ['settings']
     })
-  }
-
-  onToggleFlag = key => checked => {
-    flag(key, checked)
   }
 
   // TODO the displayed value and the persisted value should not be the same.
@@ -290,7 +290,7 @@ export class Configuration extends React.Component {
           <ToggleRow
             title={t('Settings.security.amount_blur.title')}
             description={t('Settings.security.amount_blur.description')}
-            onToggle={this.onToggleFlag('amount_blur')}
+            onToggle={onToggleFlag('amount_blur')}
             enabled={Boolean(flag('amount_blur'))}
             name="amountBlur"
           />
