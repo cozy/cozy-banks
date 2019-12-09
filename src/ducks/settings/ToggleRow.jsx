@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Toggle from 'cozy-ui/react/Toggle'
 import cx from 'classnames'
 import styles from 'ducks/settings/ToggleRow.styl'
+import Switch from 'components/Switch'
 
 const parseNumber = val => {
   val = val.replace(/\D/gi, '') || 0
@@ -86,10 +87,13 @@ class ToggleRow extends Component {
             )}
           </ToggleRowDescription>
 
-          <ToggleRowToggle
-            id={name}
+          <Switch
+            disableRipple
+            className="u-mh-half"
             checked={enabled}
-            onToggle={checked => onToggle(checked)}
+            color="primary"
+            onClick={e => e.stopPropagation}
+            onChange={e => onToggle(!enabled)}
           />
         </ToggleRowContent>
       </ToggleRowWrapper>
