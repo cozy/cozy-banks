@@ -173,6 +173,7 @@ const EditionModal = props => {
       }
       mobileFullscreen={true}
       dismissAction={onDismiss}
+      closable={!choosing}
     >
       <Stepper
         showPercentage={false}
