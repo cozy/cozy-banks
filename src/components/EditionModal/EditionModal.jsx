@@ -59,7 +59,8 @@ const ChoosingSwitch = ({ choosing }) => {
           {...choosing.chooserProps}
         />
       ) : null}
-      {choosing.type === CHOOSING_TYPES.accountOrGroup ? (
+      {choosing.type === CHOOSING_TYPES.accountOrGroup ||
+      choosing.type === CHOOSING_TYPES.account ? (
         <AccountGroupChoice
           current={choosing.value}
           onSelect={choosing.onSelect}
