@@ -63,7 +63,10 @@ const editModalProps = {
         updater: updatedNotificationFromAccountGroup
       }
     },
-    fieldOrder: ['value', 'accountOrGroup'],
+    fieldOrder: [
+      'value',
+      flag('settings.notification-account-group') && 'accountOrGroup'
+    ].filter(Boolean),
     fieldLabels: {
       value: t('Notifications.if_balance_lower.fieldLabels.value'),
       accountOrGroup: t(
@@ -88,7 +91,10 @@ const editModalProps = {
         updater: updatedNotificationFromAccountGroup
       }
     },
-    fieldOrder: ['value', 'accountOrGroup'],
+    fieldOrder: [
+      'value',
+      flag('settings.notification-account-group') && 'accountOrGroup'
+    ].filter(Boolean),
     fieldLabels: {
       value: t('Notifications.if_transaction_greater.fieldLabels.value'),
       accountOrGroup: t(
