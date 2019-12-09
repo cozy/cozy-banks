@@ -219,3 +219,8 @@ export const getUniqueOwners = accounts => {
 
   return uniqOwners
 }
+
+export const isCreditCardAccount = account =>
+  getAccountType(account) === 'CreditCard'
+export const isCheckingsAccount = account =>
+  getAccountType(account) === 'Checkings'

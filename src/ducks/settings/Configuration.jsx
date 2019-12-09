@@ -131,33 +131,17 @@ export class Configuration extends React.Component {
     })
   }
 
-  onDelayedDebitAccountsChange = async changes => {
-    if (
-      changes.previousCreditCard &&
-      changes.previousCreditCard !== changes.newCreditCard
-    ) {
-      changes.previousCreditCard.checkingsAccount.unset()
-      await this.saveDocument(changes.previousCreditCard)
-    }
-
-    changes.newCreditCard.checkingsAccount.set(changes.newCheckings)
-    await this.saveDocument(changes.newCreditCard)
-  }
-
   render() {
-    const { t, settingsCollection, accountsCollection } = this.props
+    const { t, settingsCollection } = this.props
 
     if (
-      (isCollectionLoading(settingsCollection) &&
-        !hasBeenLoaded(settingsCollection)) ||
-      (isCollectionLoading(accountsCollection) &&
-        !hasBeenLoaded(accountsCollection))
+      isCollectionLoading(settingsCollection) &&
+      !hasBeenLoaded(settingsCollection)
     ) {
       return <Loading />
     }
 
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
-    const accounts = accountsCollection.data
 
     return (
       <div>
@@ -192,11 +176,9 @@ export class Configuration extends React.Component {
           />
           <CategoryAlertSettingsPane />
           <DelayedDebitAlert
-            accounts={accounts}
             onToggle={this.onToggle('notifications.delayedDebit')}
-            onChangeValue={this.onChangeValue('notifications.delayedDebit')}
-            onAccountsChange={this.onDelayedDebitAccountsChange}
-            {...settings.notifications.delayedDebit}
+            onChangeDoc={this.onChangeDoc('notifications.delayedDebit')}
+            doc={settings.notifications.delayedDebit}
           />
           <ToggleRowWrapper>
             <ToggleRowTitle>
@@ -273,8 +255,7 @@ export class Configuration extends React.Component {
 export default compose(
   withMutations(),
   queryConnect({
-    settingsCollection: settingsConn,
-    accountsCollection: accountsConn
+    settingsCollection: settingsConn
   }),
   flag.connect,
   translate()
