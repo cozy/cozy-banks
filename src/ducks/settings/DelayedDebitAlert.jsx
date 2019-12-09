@@ -134,12 +134,6 @@ class DelayedDebitCard extends React.Component {
       ? getAccountLabel(checkingsAccount)
       : '...'
 
-    const description = t('Notifications.delayed_debit.description', {
-      creditCardLabel,
-      checkingsLabel,
-      value
-    })
-
     return (
       <TogglableSettingCard
         enabled={doc.enabled}
@@ -149,7 +143,12 @@ class DelayedDebitCard extends React.Component {
         shouldOpenOnToggle={() => {
           return !initialDoc.creditCardAccount || !initialDoc.checkingsAccount
         }}
-        description={description}
+        descriptionKey="Notifications.delayed_debit.description"
+        descriptionProps={{
+          creditCardLabel,
+          checkingsLabel,
+          value
+        }}
       />
     )
   }

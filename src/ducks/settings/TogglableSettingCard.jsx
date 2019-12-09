@@ -4,6 +4,7 @@ import SettingCard from 'components/SettingCard'
 import { ToggleRowTitle, ToggleRowWrapper } from './ToggleRow'
 import Switch from 'components/Switch'
 import EditionModal from 'components/EditionModal'
+import resultWithArgs from 'utils/resultWithArgs'
 
 // Since the toggle has a large height, we need to compensate negatively
 // so that the height of the switch does not impact the height of the card
@@ -16,25 +17,24 @@ const markdownBold = str => {
   })
 }
 
+const resolveDescriptionKey = props => {
+  const descriptionKeyStr = resultWithArgs(props, 'descriptionKey', [props])
+  return props.t(descriptionKeyStr, props.descriptionProps)
+}
+
 const EditableSettingCard = props => {
   const {
     enabled,
     title,
-    description,
     onChangeDoc,
     onToggle,
     editModalProps,
-    shouldOpenOnToggle,
-    descriptionKey,
-    t,
-    value
+    shouldOpenOnToggle
   } = props
 
   const [editing, setEditing] = useState(false)
 
-  const finalDescription = descriptionKey
-    ? t(descriptionKey, { value })
-    : description
+  const description = resolveDescriptionKey(props)
 
   return (
     <>
@@ -47,15 +47,11 @@ const EditableSettingCard = props => {
         >
           <Media className="u-row-xs" align="top">
             <Bd>
-              {typeof finalDescription === 'string' ? (
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: markdownBold(finalDescription)
-                  }}
-                />
-              ) : (
-                finalDescription
-              )}
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: markdownBold(description)
+                }}
+              />
             </Bd>
             {onToggle ? (
               <Img style={toggleStyle}>
