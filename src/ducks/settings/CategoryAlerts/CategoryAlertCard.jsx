@@ -42,7 +42,6 @@ const CategoryAlertDebug = ({ alert }) => (
  *
  */
 const CategoryAlertCard = ({ removeAlert, updateAlert, alert, t }) => {
-  const categoryName = getCategoryName(alert.categoryId)
   const [editing, setEditing] = useState(false)
   const [saving, setSaving] = useState(false)
   const [confirmingRemoval, setConfirmingRemoval] = useState(false)
@@ -75,6 +74,12 @@ const CategoryAlertCard = ({ removeAlert, updateAlert, alert, t }) => {
     setConfirmingRemoval(true)
   }
 
+  const categoryName = t(
+    `Data.${
+      alert.categoryIsParent ? 'categories' : 'subcategories'
+    }.${getCategoryName(alert.categoryId)}`
+  )
+
   return (
     <>
       <SettingCard onClick={handleCardClick}>
@@ -89,11 +94,7 @@ const CategoryAlertCard = ({ removeAlert, updateAlert, alert, t }) => {
             {saving ? <Spinner size="small" /> : null}
             <br />
             {t('Settings.budget-category-alerts.for-category', {
-              categoryName: t(
-                `Data.${
-                  alert.categoryIsParent ? 'categories' : 'subcategories'
-                }.${categoryName}`
-              )
+              categoryName: categoryName
             })}
             <br />
             {alert.accountOrGroup ? (
