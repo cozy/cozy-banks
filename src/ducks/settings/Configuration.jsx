@@ -22,6 +22,7 @@ import ToggleRow, {
 } from 'ducks/settings/ToggleRow'
 import DelayedDebitAlert from 'ducks/settings/DelayedDebitAlert'
 import CategoryAlertSettingsPane from 'ducks/settings/CategoryAlerts/CategoryAlertSettingsPane'
+import EditableSettingCard from './EditableSettingCard'
 
 /**
  * Configure notifications and other features
@@ -93,7 +94,7 @@ export class Configuration extends React.Component {
         <TogglePane>
           <TogglePaneTitle>{t('Notifications.title')}</TogglePaneTitle>
           <TogglePaneText>{t('Notifications.description')}</TogglePaneText>
-          <ToggleRow
+          <EditableSettingCard
             title={t('Notifications.if_balance_lower.settingTitle')}
             description={t('Notifications.if_balance_lower.description')}
             onToggle={this.onToggle('notifications.balanceLower')}
@@ -103,7 +104,7 @@ export class Configuration extends React.Component {
             name="balanceLower"
             unit="€"
           />
-          <ToggleRow
+          <EditableSettingCard
             title={t('Notifications.if_transaction_greater.settingTitle')}
             description={t('Notifications.if_transaction_greater.description')}
             onToggle={this.onToggle('notifications.transactionGreater')}
@@ -131,7 +132,7 @@ export class Configuration extends React.Component {
               {t('Notifications.health_section.description')}
             </ToggleRowDescription>
             <div className="u-pl-2 u-pt-1-half">
-              <ToggleRow
+              <EditableSettingCard
                 title={t('Notifications.when_health_bill_linked.settingTitle')}
                 description={t(
                   'Notifications.when_health_bill_linked.description'
@@ -140,7 +141,7 @@ export class Configuration extends React.Component {
                 enabled={settings.notifications.healthBillLinked.enabled}
                 name="healthBillLinked"
               />
-              <ToggleRow
+              <EditableSettingCard
                 title={t(
                   'Notifications.when_late_health_reimbursement.settingTitle'
                 )}
