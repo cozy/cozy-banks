@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import compose from 'lodash/flowRight'
 import PropTypes from 'prop-types'
 
 import { Icon, translate, Modal } from 'cozy-ui/transpiled/react'
@@ -6,9 +7,9 @@ import { Icon, translate, Modal } from 'cozy-ui/transpiled/react'
 import { CategoryIcon, getCategoryName } from 'ducks/categories'
 import CategoryAlertEditModal from 'ducks/settings/CategoryAlerts/CategoryAlertEditModal'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
-import AccountOrGroupLabel from 'ducks/settings/CategoryAlerts/AccountOrGroupLabel'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 import SettingCard from 'components/SettingCard'
+import { withAccountOrGroupLabeller } from '../helpers'
 
 import flag from 'cozy-flags'
 
@@ -41,7 +42,13 @@ const CategoryAlertDebug = ({ alert }) => (
  * Displays removal button and calls removeAlert callback
  *
  */
-const CategoryAlertCard = ({ removeAlert, updateAlert, alert, t }) => {
+const CategoryAlertCard = ({
+  removeAlert,
+  updateAlert,
+  alert,
+  t,
+  getAccountOrGroupLabel
+}) => {
   const [editing, setEditing] = useState(false)
   const [saving, setSaving] = useState(false)
   const [confirmingRemoval, setConfirmingRemoval] = useState(false)
@@ -107,7 +114,7 @@ const CategoryAlertCard = ({ removeAlert, updateAlert, alert, t }) => {
                     threshold: alert.maxThreshold
                   }
                 )}{' '}
-                <AccountOrGroupLabel doc={alert.accountOrGroup} />
+                {getAccountOrGroupLabel(alert.accountOrGroup)}
               </>
             ) : (
               t('Settings.budget-category-alerts.for-all-accounts')
@@ -154,4 +161,7 @@ CategoryAlertCard.propTypes = {
   alert: CategoryAlertPropType
 }
 
-export default translate()(CategoryAlertCard)
+export default compose(
+  withAccountOrGroupLabeller('getAccountOrGroupLabel'),
+  translate()
+)(CategoryAlertCard)
