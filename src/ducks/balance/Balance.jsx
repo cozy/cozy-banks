@@ -400,7 +400,7 @@ class Balance extends PureComponent {
 
     const owners = getUniqueOwners(accounts)
     const showOwners =
-      (owners.length > 1 && flag('balance.show-owners')) ||
+      (flag('balance.show-owners') && owners.length > 1) ||
       flag('balance.force-show-owners')
 
     return (
