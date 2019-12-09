@@ -1,5 +1,7 @@
 import React from 'react'
 import { translate } from 'cozy-ui/react'
+import { connect } from 'react-redux'
+import { createSelector } from 'reselect'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { queryConnect, withMutations } from 'cozy-client'
 import { settingsConn } from 'doctypes'
@@ -24,6 +26,11 @@ import DelayedDebitAlert from 'ducks/settings/DelayedDebitAlert'
 import CategoryAlertSettingsPane from 'ducks/settings/CategoryAlerts/CategoryAlertSettingsPane'
 import TogglableSettingCard from './TogglableSettingCard'
 import { CHOOSING_TYPES } from 'components/EditionModal'
+import { getAccountLabel } from 'ducks/account/helpers'
+import { getGroupLabel } from 'ducks/groups/helpers'
+import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
+import { fullyDehydrateDocument } from 'ducks/client/utils'
+import { getAccountsById, getGroupsById } from 'selectors'
 
 const getValueFromNotification = notification => notification.value
 const updatedNotificationFromValue = (notification, value) => ({
@@ -31,9 +38,13 @@ const updatedNotificationFromValue = (notification, value) => ({
   value
 })
 
-const singleValueFieldOrder = ['value']
+const getAccountOrGroupFromNotification = notification =>
+  notification.accountOrGroup
+const updatedNotificationFromAccountGroup = (notification, accountOrGroup) => ({
+  ...notification,
+  accountOrGroup: fullyDehydrateDocument(accountOrGroup)
+})
 
-// i18n
 const editModalProps = {
   balanceLower: ({ t }) => ({
     modalTitle: t('Notifications.editModal.title'),
@@ -45,13 +56,20 @@ const editModalProps = {
         sectionProps: {
           unit: '€'
         }
+      },
+      accountOrGroup: {
+        type: CHOOSING_TYPES.accountOrGroup,
+        getValue: getAccountOrGroupFromNotification,
+        updater: updatedNotificationFromAccountGroup
       }
     },
-    fieldOrder: singleValueFieldOrder,
+    fieldOrder: ['value', 'accountOrGroup'],
     fieldLabels: {
-      value: t('Notifications.if_balance_lower.fieldLabels.value')
-    },
-    initialDoc
+      value: t('Notifications.if_balance_lower.fieldLabels.value'),
+      accountOrGroup: t(
+        'Notifications.if_balance_lower.fieldLabels.accountOrGroup'
+      )
+    }
   }),
   transactionGreater: ({ t }) => ({
     modalTitle: t('Notifications.editModal.title'),
@@ -63,11 +81,19 @@ const editModalProps = {
         sectionProps: {
           unit: '€'
         }
+      },
+      accountOrGroup: {
+        type: CHOOSING_TYPES.accountOrGroup,
+        getValue: getAccountOrGroupFromNotification,
+        updater: updatedNotificationFromAccountGroup
       }
     },
-    fieldOrder: singleValueFieldOrder,
+    fieldOrder: ['value', 'accountOrGroup'],
     fieldLabels: {
       value: t('Notifications.if_transaction_greater.fieldLabels.value'),
+      accountOrGroup: t(
+        'Notifications.if_transaction_greater.fieldLabels.accountOrGroup'
+      )
     }
   }),
   lateHealthReimbursement: ({ t }) => ({
@@ -82,12 +108,53 @@ const editModalProps = {
         }
       }
     },
-    fieldOrder: singleValueFieldOrder,
+    fieldOrder: ['value'],
     fieldLabels: {
       value: t('Notifications.when_late_health_reimbursement.fieldLabels.value')
     }
   })
 }
+
+const getTransactionGreaterDescriptionKey = props => {
+  if (props.doc && props.doc.accountOrGroup) {
+    return 'Notifications.if_transaction_greater.descriptionWithAccountGroup'
+  } else {
+    return 'Notifications.if_transaction_greater.description'
+  }
+}
+
+const getBalanceLowerDescriptionKey = props => {
+  if (props.doc && props.doc.accountOrGroup) {
+    return 'Notifications.if_balance_lower.descriptionWithAccountGroup'
+  } else {
+    return 'Notifications.if_balance_lower.description'
+  }
+}
+
+const getAccountOrGroupLabel = accountOrGroup => {
+  switch (accountOrGroup._type) {
+    case ACCOUNT_DOCTYPE:
+      return getAccountLabel(accountOrGroup)
+    case GROUP_DOCTYPE:
+      return getGroupLabel(accountOrGroup)
+    default:
+      return ''
+  }
+}
+
+const getTransactionGreaterDescriptionProps = props => ({
+  accountOrGroupLabel: props.doc.accountOrGroup
+    ? props.getAccountOrGroupLabelFromDehydratedDoc(props.doc.accountOrGroup)
+    : null,
+  value: props.doc.value
+})
+
+const getBalanceLowerDescriptionProps = props => ({
+  accountOrGroupLabel: props.doc.accountOrGroup
+    ? props.getAccountOrGroupLabelFromDehydratedDoc(props.doc.accountOrGroup)
+    : null,
+  value: props.doc.value
+})
 
 /**
  * Configure notifications and other features
@@ -145,10 +212,14 @@ export class Configuration extends React.Component {
           <TogglePaneText>{t('Notifications.description')}</TogglePaneText>
           <TogglableSettingCard
             title={t('Notifications.if_balance_lower.settingTitle')}
-            descriptionKey="Notifications.if_balance_lower.description"
+            descriptionKey={getBalanceLowerDescriptionKey}
+            descriptionProps={getBalanceLowerDescriptionProps}
             onToggle={this.onToggle('notifications.balanceLower')}
             onChangeDoc={this.onChangeDoc('notifications.balanceLower')}
             unit="€"
+            getAccountOrGroupLabelFromDehydratedDoc={
+              this.props.getAccountOrGroupLabelFromDehydratedDoc
+            }
             doc={settings.notifications.balanceLower}
             editModalProps={editModalProps.balanceLower({
               t
@@ -156,10 +227,14 @@ export class Configuration extends React.Component {
           />
           <TogglableSettingCard
             title={t('Notifications.if_transaction_greater.settingTitle')}
-            descriptionKey="Notifications.if_transaction_greater.description"
+            descriptionKey={getTransactionGreaterDescriptionKey}
+            descriptionProps={getTransactionGreaterDescriptionProps}
             onToggle={this.onToggle('notifications.transactionGreater')}
             onChangeDoc={this.onChangeDoc('notifications.transactionGreater')}
             doc={settings.notifications.transactionGreater}
+            getAccountOrGroupLabelFromDehydratedDoc={
+              this.props.getAccountOrGroupLabelFromDehydratedDoc
+            }
             unit="€"
             editModalProps={editModalProps.transactionGreater({
               t
@@ -241,10 +316,27 @@ export class Configuration extends React.Component {
   }
 }
 
+const mkGetLabelFromAccountOrGroup = createSelector(
+  [getAccountsById, getGroupsById],
+  (accountsById, groupsById) => dehydratedAccountOrGroup => {
+    const accountOrGroup = (dehydratedAccountOrGroup._type === ACCOUNT_DOCTYPE
+      ? accountsById
+      : groupsById)[dehydratedAccountOrGroup._id]
+    return accountOrGroup && getAccountOrGroupLabel(accountOrGroup)
+  }
+)
+
 export default compose(
   withMutations(),
   queryConnect({
     settingsCollection: settingsConn
+  }),
+  connect(state => {
+    return {
+      getAccountOrGroupLabelFromDehydratedDoc: mkGetLabelFromAccountOrGroup(
+        state
+      )
+    }
   }),
   flag.connect,
   translate()

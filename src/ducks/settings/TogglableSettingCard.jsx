@@ -19,8 +19,12 @@ const markdownBold = str => {
 }
 
 const resolveDescriptionKey = props => {
-  const descriptionKeyStr = resultWithArgs(props, 'descriptionKey', [props])
-  return props.t(descriptionKeyStr, props.descriptionProps)
+  const propArgs = [props]
+  const descriptionKeyStr = resultWithArgs(props, 'descriptionKey', propArgs)
+  const descriptionProps =
+    resultWithArgs(props, 'descriptionProps', propArgs) || props.doc
+
+  return props.t(descriptionKeyStr, descriptionProps)
 }
 
 const EditableSettingCard = props => {
