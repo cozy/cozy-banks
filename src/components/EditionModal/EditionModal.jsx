@@ -189,16 +189,18 @@ const EditionModal = props => {
         />
         <div>{choosing ? <ChoosingSwitch choosing={choosing} /> : null}</div>
       </Stepper>
-      <ModalFooter>
-        <ModalButtons>
-          <Button
-            theme={'secondary'}
-            onClick={onDismiss}
-            label={cancelButtonLabel(props, doc)}
-          />
-          <Button onClick={handleConfirmEdit} label={okButtonLabel(doc)} />
-        </ModalButtons>
-      </ModalFooter>
+      {choosing ? null : (
+        <ModalFooter>
+          <ModalButtons>
+            <Button
+              theme={'secondary'}
+              onClick={onDismiss}
+              label={cancelButtonLabel(props, doc)}
+            />
+            <Button onClick={handleConfirmEdit} label={okButtonLabel(doc)} />
+          </ModalButtons>
+        </ModalFooter>
+      )}
     </Modal>
   )
 }
