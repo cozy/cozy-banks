@@ -16,6 +16,7 @@ import { ModalSections } from 'components/ModalSections'
 import AccountOrGroupSection from './AccountOrGroupSection'
 import CategorySection from './CategorySection'
 import ThresholdSection from './ThresholdSection'
+import resultWithArgs from 'utils/resultWithArgs'
 
 export const CHOOSING_TYPES = {
   category: 'category',
@@ -50,6 +51,7 @@ const ChoosingSwitch = ({ choosing }) => {
           categoryIsParent={choosing.value.isParent}
           onSelect={choosing.onSelect}
           onCancel={choosing.onCancel}
+          {...choosing.chooserProps}
         />
       ) : null}
       {choosing.type === CHOOSING_TYPES.accountOrGroup ? (
@@ -57,6 +59,7 @@ const ChoosingSwitch = ({ choosing }) => {
           current={choosing.value}
           onSelect={choosing.onSelect}
           onCancel={choosing.onCancel}
+          {...choosing.chooserProps}
         />
       ) : null}
     </>
@@ -77,6 +80,8 @@ const InfoSlide = ({
         const FieldSection = SectionsPerType[fieldSpecs[fieldName].type]
         const fieldSpec = fieldSpecs[fieldName]
         const fieldLabel = fieldLabels[fieldName]
+        const chooserProps = resultWithArgs(fieldSpec, 'chooserProps', [doc])
+        const sectionProps = resultWithArgs(fieldSpec, 'sectionProps', [doc])
         return (
           <FieldSection
             key={fieldName}
@@ -92,6 +97,8 @@ const InfoSlide = ({
                   }
                 : null
             }
+            {...sectionProps}
+            chooserProps={chooserProps}
           />
         )
       })}
@@ -132,6 +139,7 @@ const EditionModal = props => {
     setChoosing({
       type: fieldSpec.type,
       value: fieldSpec.getValue(doc),
+      chooserProps: fieldSpec.chooserProps,
       onSelect: val => {
         setChoosing(null)
         handleChangeField(name, val)
