@@ -95,10 +95,12 @@ const InfoSlide = ({
             key={fieldName}
             label={fieldLabel}
             value={fieldSpec.getValue(doc)}
-            onClick={hasSelector ? () => onRequestChooseField(fieldName) : null}
+            onClick={
+              hasSelector ? () => onRequestChooseField(fieldName) : undefined
+            }
             onChange={
               hasSelector
-                ? null
+                ? undefined
                 : value => {
                     onChangeField(fieldName, value)
                   }
