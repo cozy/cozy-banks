@@ -22,10 +22,14 @@ export const BackLink = ({ className, color, onClick }) => (
 )
 
 export const BackButton = ({ className, color, onClick }) => (
-  <button className={className} onClick={onClick}>
+  <button className={cx(styles.BackButton, className)} onClick={onClick}>
     <BackIcon color={color} />
   </button>
 )
+
+BackButton.defaultProps = {
+  color: 'var(--coolGrey)'
+}
 
 export const BarBackButton = ({ onClick, color }) => (
   <BarLeft>

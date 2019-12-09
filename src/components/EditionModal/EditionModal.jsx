@@ -3,8 +3,7 @@ import {
   Button,
   Modal,
   ModalFooter,
-  ModalButtons,
-  Icon
+  ModalButtons
 } from 'cozy-ui/transpiled/react'
 
 import Stepper from 'components/Stepper'
@@ -18,6 +17,8 @@ import CategorySection from './CategorySection'
 import ThresholdSection from './ThresholdSection'
 import NumberSection from './NumberSection'
 import resultWithArgs from 'utils/resultWithArgs'
+
+import { BackButton } from 'components/BackButton'
 
 export const CHOOSING_TYPES = {
   category: 'category',
@@ -34,13 +35,7 @@ const TYPES_WITH_SELECTOR = {
 }
 
 const BackArrow = ({ onClick }) => (
-  <span className="u-mr-half">
-    <Icon
-      style={{ cursor: 'pointer', color: 'var(--coolGrey)' }}
-      icon="previous"
-      onClick={onClick}
-    />
-  </span>
+  <BackButton className="u-mr-1" onClick={onClick} />
 )
 
 const SectionsPerType = {
