@@ -87,8 +87,8 @@ const InfoSlide = ({
             }
             onChange={
               fieldSpec.immediate
-                ? ev => {
-                    onChangeField(fieldName, ev.target.value)
+                ? value => {
+                    onChangeField(fieldName, value)
                   }
                 : null
             }
