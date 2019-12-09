@@ -27,6 +27,12 @@ export const CHOOSING_TYPES = {
   number: 'number'
 }
 
+const TYPES_WITH_SELECTOR = {
+  category: true,
+  accountOrGroup: true,
+  account: true
+}
+
 const BackArrow = ({ onClick }) => (
   <span className="u-mr-half">
     <Icon
@@ -88,20 +94,19 @@ const InfoSlide = ({
         const fieldLabel = fieldLabels[fieldName]
         const chooserProps = resultWithArgs(fieldSpec, 'chooserProps', [doc])
         const sectionProps = resultWithArgs(fieldSpec, 'sectionProps', [doc])
+        const hasSelector = TYPES_WITH_SELECTOR[fieldSpec.type]
         return (
           <FieldSection
             key={fieldName}
             label={fieldLabel}
             value={fieldSpec.getValue(doc)}
-            onClick={
-              fieldSpec.immediate ? null : () => onRequestChooseField(fieldName)
-            }
+            onClick={hasSelector ? () => onRequestChooseField(fieldName) : null}
             onChange={
-              fieldSpec.immediate
-                ? value => {
+              hasSelector
+                ? null
+                : value => {
                     onChangeField(fieldName, value)
                   }
-                : null
             }
             {...sectionProps}
             chooserProps={chooserProps}

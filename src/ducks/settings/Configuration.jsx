@@ -39,7 +39,6 @@ const editModalProps = {
     modalTitle: t('Notifications.editModal.title'),
     fieldSpecs: {
       value: {
-        immediate: true,
         type: CHOOSING_TYPES.number,
         getValue: getValueFromNotification,
         updater: updatedNotificationFromValue,
@@ -58,7 +57,6 @@ const editModalProps = {
     modalTitle: t('Notifications.editModal.title'),
     fieldSpecs: {
       value: {
-        immediate: true,
         type: CHOOSING_TYPES.number,
         getValue: getValueFromNotification,
         updater: updatedNotificationFromValue,
@@ -77,7 +75,6 @@ const editModalProps = {
     modalTitle: t('Notifications.editModal.title'),
     fieldSpecs: {
       value: {
-        immediate: true,
         type: CHOOSING_TYPES.number,
         getValue: getValueFromNotification,
         updater: updatedNotificationFromValue,

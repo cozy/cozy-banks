@@ -66,7 +66,6 @@ const getModalProps = ({ initialDoc, t }) => ({
       })
     },
     value: {
-      immediate: true,
       sectionProps: {
         unit: t('Notifications.delayed_debit.unit')
       },
