@@ -403,7 +403,7 @@
 
   "Notifications": {
     "title": "Notifications",
-    "description": "Vous recevrez les notifications par email, ainsi que par notification mobile si vous installez l'app Cozy Banks sur votre mobile",
+    "description": "Vous recevrez les notifications par email ou par notification mobile si vous installez l'app Cozy Banks sur votre mobile",
     "if_balance_lower": {
       "settingTitle": "Solde bas",
       "email": {

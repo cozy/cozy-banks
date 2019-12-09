@@ -391,7 +391,7 @@
 
   "Notifications": {
     "title": "Notifications",
-    "description": "You will receive your notifications via email and via a mobile notification if you have the Cozy Banks mobile app on your device",
+    "description": "You will receive your notifications via email or mobile notification if you have the Cozy Banks mobile app on your device",
     "weekly_summary": {
       "description": "You will receive a summary of your expenses and revenues every Monday of every week.",
       "title": "Weekly Synthesis"
