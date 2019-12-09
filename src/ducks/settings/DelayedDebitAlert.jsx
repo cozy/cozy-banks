@@ -16,14 +16,10 @@ import TogglableSettingCard from './TogglableSettingCard'
 import { CHOOSING_TYPES } from 'components/EditionModal'
 import { getAccountsById } from 'selectors'
 import compose from 'lodash/flowRight'
-
-const dehydrateAccount = account => ({
-  _id: account._id,
-  _type: account._type
-})
+import { fullyDehydrateDocument } from 'ducks/client/utils'
 
 const makeAccountChoiceFromAccount = account => {
-  return account ? dehydrateAccount(account) : null
+  return account ? fullyDehydrateDocument(account) : null
 }
 
 const getModalProps = ({ initialDoc, t }) => ({
@@ -49,7 +45,7 @@ const getModalProps = ({ initialDoc, t }) => ({
         makeAccountChoiceFromAccount(initialDoc.creditCardAccount),
       updater: (doc, creditCardAccount) => ({
         ...doc,
-        creditCardAccount: dehydrateAccount(creditCardAccount)
+        creditCardAccount: fullyDehydrateDocument(creditCardAccount)
       })
     },
     checkingsAccount: {
@@ -62,7 +58,7 @@ const getModalProps = ({ initialDoc, t }) => ({
         makeAccountChoiceFromAccount(initialDoc.checkingsAccount),
       updater: (doc, checkingsAccount) => ({
         ...doc,
-        checkingsAccount: dehydrateAccount(checkingsAccount)
+        checkingsAccount: fullyDehydrateDocument(checkingsAccount)
       })
     },
     value: {
