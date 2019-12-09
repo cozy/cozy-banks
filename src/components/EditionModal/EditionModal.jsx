@@ -16,12 +16,15 @@ import { ModalSections } from 'components/ModalSections'
 import AccountOrGroupSection from './AccountOrGroupSection'
 import CategorySection from './CategorySection'
 import ThresholdSection from './ThresholdSection'
+import NumberSection from './NumberSection'
 import resultWithArgs from 'utils/resultWithArgs'
 
 export const CHOOSING_TYPES = {
   category: 'category',
   accountOrGroup: 'accountOrGroup',
-  threshold: 'threshold'
+  account: 'account',
+  threshold: 'threshold',
+  number: 'number'
 }
 
 const BackArrow = ({ onClick }) => (
@@ -37,7 +40,9 @@ const BackArrow = ({ onClick }) => (
 const SectionsPerType = {
   [CHOOSING_TYPES.category]: CategorySection,
   [CHOOSING_TYPES.accountOrGroup]: AccountOrGroupSection,
-  [CHOOSING_TYPES.threshold]: ThresholdSection
+  [CHOOSING_TYPES.account]: AccountOrGroupSection,
+  [CHOOSING_TYPES.threshold]: ThresholdSection,
+  [CHOOSING_TYPES.number]: NumberSection
 }
 
 const ChoosingSwitch = ({ choosing }) => {

@@ -763,5 +763,10 @@
       "totalUsedAmount": "Montant total utilisé :",
       "availableAmount": "Réserve disponible :"
     }
+  },
+
+  "AccountGroupChoice": {
+    "nothing-selected": "Sélectionner un compte",
+    "all-accounts": "Tous les comptes"
   }
 }
