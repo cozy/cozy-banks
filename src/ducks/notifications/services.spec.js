@@ -118,6 +118,9 @@ const mockEnvForEachTest = values => {
 describe('service', () => {
   beforeEach(() => {
     jest
+      .spyOn(CozyClient.prototype, 'query')
+      .mockReturnValue({ data: [{ _id: 'group-id-1', label: 'My group' }] })
+    jest
       .spyOn(BankAccount, 'getAll')
       .mockReturnValue([
         { _id: 'c0ffeedeadbeef', label: 'My bank account', balance: 123 }
