@@ -141,7 +141,7 @@ const CategoryAlertCard = ({
                       })
                     )
                   }}
-                />{' '}
+                />
               </>
             ) : (
               t('Settings.budget-category-alerts.for-all-accounts')
