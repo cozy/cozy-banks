@@ -4755,7 +4755,7 @@ body {
   margin-left: 0.375rem;
 }
 /*# sourceMappingURL=src/ducks/account/AccountSwitch.css.map */
-.style_back-arrow_19QfL.style_back-arrow_19QfL {
+.style_BarLink_3duMt.style_BarLink_3duMt {
   float: left;
   font-size: 1.25rem;
   line-height: 1.6875;
@@ -4768,8 +4768,14 @@ body {
   justify-content: center;
   align-items: center;
 }
-.style_back-arrow_19QfL:active {
+.style_BarLink_3duMt.style_BarLink_3duMt:active {
   background: rgba(255,255,255,0.2);
+}
+.style_BackButton_1GcVI {
+  cursor: pointer;
+  padding: 0;
+  background: none;
+  border: 0;
 }
 /*# sourceMappingURL=src/components/BackButton/style.css.map */
 .Header_HeaderFixed_26BZu {
