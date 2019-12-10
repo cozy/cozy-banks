@@ -41,7 +41,6 @@ const EditableSettingCard = props => {
         {title && <ToggleRowTitle>{title}</ToggleRowTitle>}
         <SettingCard
           enabled={enabled}
-          clickable={editModalProps}
           onClick={editModalProps ? () => setEditing(true) : null}
         >
           <Media className="u-row-xs" align="top">
