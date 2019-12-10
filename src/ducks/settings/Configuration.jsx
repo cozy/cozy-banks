@@ -116,6 +116,14 @@ const editModalProps = {
   })
 }
 
+// descriptionProps getters below need the full props to have access to
+// `props.getAccountOrGroupLabel`.
+// `getAccountOrGroupLabel` must come from the props to have access to the
+// store since it needs to get the full accountOrGroup from the store, since
+// the accountOrGroup from the notification is only its identity (only _id
+// and _type).
+// We pass the full props to descriptionKey to keep the symmetry between
+// descriptionKey getter and descriptionProp getter
 const getTransactionGreaterDescriptionKey = props => {
   if (props.doc && props.doc.accountOrGroup) {
     return 'Notifications.if_transaction_greater.descriptionWithAccountGroup'
