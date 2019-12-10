@@ -6,6 +6,7 @@ import { getCurrencySymbol } from 'utils/currencySymbol'
 import { getCurrentDate } from 'ducks/notifications/utils'
 import template from './template.hbs'
 import { toText } from 'cozy-notifications'
+import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 
 const addCurrency = o => ({ ...o, currency: '€' })
 
@@ -48,18 +49,41 @@ const customToText = cozyHTMLEmail => {
   return toText(cozyHTMLEmail, getContent)
 }
 
+const doesAccountCorrespondToAccountGroup = (
+  groups,
+  accountOrGroup
+) => account => {
+  if (!accountOrGroup) {
+    return true
+  } else if (accountOrGroup._type === ACCOUNT_DOCTYPE) {
+    return account._id === accountOrGroup._id
+  } else if (accountOrGroup._type === GROUP_DOCTYPE) {
+    const group = groups.find(group => accountOrGroup._id === group._id)
+    if (group && group.accounts) {
+      return group.accounts.includes(account._id)
+    } else {
+      // In case of non existent group, prefer to consider that no accounts
+      // belong to it
+      return false
+    }
+  }
+}
+
 class BalanceLower extends NotificationView {
   constructor(config) {
     super(config)
     log('info', `value of lowerBalance: ${config.value}`)
-    this.lowerBalance = config.value
+    this.config = config
   }
 
   filter(account) {
-    // TODO: Find why account is undefined?
     return (
-      getAccountBalance(account) < this.lowerBalance &&
-      account.type !== 'CreditCard' // CreditCard are always in negative balance
+      getAccountBalance(account) < this.config.value &&
+      account.type !== 'CreditCard' && // CreditCard are always in negative balance
+      doesAccountCorrespondToAccountGroup(
+        this.data.groups,
+        this.config.accountOrGroup
+      )(account)
     )
   }
 
@@ -116,7 +140,7 @@ class BalanceLower extends NotificationView {
         }
       : {
           accountsLength: accounts.length,
-          lowerBalance: this.lowerBalance,
+          lowerBalance: this.config.value,
           currency: '€'
         }
 
