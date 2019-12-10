@@ -98,3 +98,10 @@ export const withAccountOrGroupLabeller = propName =>
         getDocumentFromState(state, partialDoc._type, partialDoc._id)
       )
   }))
+
+const boldRx = /\*(.*?)\*/g
+export const markdownBold = str => {
+  return str.replace(boldRx, function(a) {
+    return '<b>' + a.slice(1, -1) + '</b>'
+  })
+}

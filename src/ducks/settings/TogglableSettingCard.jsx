@@ -6,17 +6,11 @@ import { ToggleRowTitle, ToggleRowWrapper } from './ToggleRow'
 import Switch from 'components/Switch'
 import EditionModal from 'components/EditionModal'
 import resultWithArgs from 'utils/resultWithArgs'
+import { markdownBold } from './helpers'
 
 // Since the toggle has a large height, we need to compensate negatively
 // so that the height of the switch does not impact the height of the card
 const toggleStyle = { margin: '-8px 0' }
-
-const rx = /\*(.*?)\*/g
-const markdownBold = str => {
-  return str.replace(rx, function(a) {
-    return '<b>' + a.slice(1, -1) + '</b>'
-  })
-}
 
 const resolveDescriptionKey = props => {
   const propArgs = [props]

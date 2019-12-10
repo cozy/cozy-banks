@@ -9,7 +9,7 @@ import CategoryAlertEditModal from 'ducks/settings/CategoryAlerts/CategoryAlertE
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 import SettingCard from 'components/SettingCard'
-import { withAccountOrGroupLabeller } from '../helpers'
+import { withAccountOrGroupLabeller, markdownBold } from '../helpers'
 
 import flag from 'cozy-flags'
 
@@ -93,6 +93,12 @@ const CategoryAlertCard = ({
     }.${getCategoryName(alert.categoryId)}`
   )
 
+  const accountOrGroupKey = alert.accountOrGroup
+    ? alert.accountOrGroup._type === ACCOUNT_DOCTYPE
+      ? 'Settings.budget-category-alerts.for-account'
+      : 'Settings.budget-category-alerts.for-group'
+    : null
+
   return (
     <>
       <SettingCard onClick={handleCardClick}>
@@ -101,26 +107,41 @@ const CategoryAlertCard = ({
             <CategoryIcon categoryId={alert.categoryId} />
           </div>
           <div className="u-media-grow">
-            {t('Settings.budget-category-alerts.budget-inferior-to', {
-              threshold: alert.maxThreshold
-            })}
             {saving ? <Spinner size="small" /> : null}
+
+            <span
+              dangerouslySetInnerHTML={{
+                __html: markdownBold(
+                  t('Settings.budget-category-alerts.budget-inferior-to', {
+                    threshold: alert.maxThreshold
+                  })
+                )
+              }}
+            />
             <br />
-            {t('Settings.budget-category-alerts.for-category', {
-              categoryName: categoryName
-            })}
+            <span
+              dangerouslySetInnerHTML={{
+                __html: markdownBold(
+                  t('Settings.budget-category-alerts.for-category', {
+                    categoryName: categoryName
+                  })
+                )
+              }}
+            />
             <br />
             {alert.accountOrGroup ? (
               <>
-                {t(
-                  alert.accountOrGroup._type === ACCOUNT_DOCTYPE
-                    ? 'Settings.budget-category-alerts.for-account'
-                    : 'Settings.budget-category-alerts.for-group',
-                  {
-                    threshold: alert.maxThreshold
-                  }
-                )}{' '}
-                {getAccountOrGroupLabel(alert.accountOrGroup)}
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: markdownBold(
+                      t(accountOrGroupKey, {
+                        accountOrGroupLabel: getAccountOrGroupLabel(
+                          alert.accountOrGroup
+                        )
+                      })
+                    )
+                  }}
+                />{' '}
               </>
             ) : (
               t('Settings.budget-category-alerts.for-all-accounts')
