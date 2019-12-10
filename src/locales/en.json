@@ -527,7 +527,7 @@
   },
 
   "ComingSoon": {
-    "description": "These features will soon be available.",
+    "description": "This feature will soon be available.",
     "title": "To come up"
   },
 
@@ -545,10 +545,10 @@
         "description": "Navigate the app with hidden amounts"
       }
     },
+    "create-alert": "Create alert",
     "budget-category-alerts": {
       "pane-title": "Category budget",
       "pane-description": "Configure monthly budget notification per category",
-      "create-alert": "Create alert",
       "budget-inferior-to": "Monthly budget of *%{threshold}€*",
       "for-category": "in *%{categoryName}*",
       "for-account": "for account *%{accountOrGroupLabel}*",
