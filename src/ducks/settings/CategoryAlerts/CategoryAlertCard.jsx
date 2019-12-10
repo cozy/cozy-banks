@@ -18,6 +18,12 @@ const CategoryAlertPropType = PropTypes.shape({
   maxThreshold: PropTypes.number.isRequired
 })
 
+const RemoveCardIcon = ({ onClick }) => (
+  <span onClick={onClick} className="u-expanded-click-area">
+    <Icon color="var(--coolGrey)" icon="cross" />
+  </span>
+)
+
 const CategoryAlertDebug = ({ alert }) => (
   <>
     <hr />
@@ -124,12 +130,7 @@ const CategoryAlertCard = ({
             ) : null}
           </div>
           <div className="u-media-fixed u-ml-1">
-            <span
-              onClick={handleRequestRemoval}
-              className="u-expanded-click-area"
-            >
-              <Icon color="var(--coolGrey)" icon="cross" />
-            </span>
+            <RemoveCardIcon onClick={handleRequestRemoval} />
           </div>
         </div>
       </SettingCard>
