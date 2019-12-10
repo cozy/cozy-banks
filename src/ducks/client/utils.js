@@ -82,7 +82,7 @@ export const getNotificationToken = client => {
   return client.stackClient.oauthOptions.notification_device_token
 }
 
-export const fullyDehydrateDocument = doc =>
+export const getDocumentIdentity = doc =>
   doc
     ? {
         _id: doc._id,

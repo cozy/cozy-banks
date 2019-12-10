@@ -1,4 +1,4 @@
-const { isRevoked, fullyDehydrateDocument } = require('./utils')
+const { isRevoked, getDocumentIdentity } = require('./utils')
 
 describe('isRevoked', () => {
   let fetchInformation, client
@@ -41,7 +41,7 @@ describe('isRevoked', () => {
 describe('fully dehydratation', () => {
   it('should only keep _id and _type', () => {
     expect(
-      fullyDehydrateDocument({
+      getDocumentIdentity({
         _id: 'homer',
         _type: 'simpson',
         name: 'Homer'
@@ -50,6 +50,6 @@ describe('fully dehydratation', () => {
   })
 
   it('should support passing null', () => {
-    expect(fullyDehydrateDocument(null)).toEqual(null)
+    expect(getDocumentIdentity(null)).toEqual(null)
   })
 })

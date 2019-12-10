@@ -25,7 +25,7 @@ import CategoryAlertSettingsPane from 'ducks/settings/CategoryAlerts/CategoryAle
 import TogglableSettingCard from './TogglableSettingCard'
 import { CHOOSING_TYPES } from 'components/EditionModal'
 import { withAccountOrGroupLabeller } from './helpers'
-import { fullyDehydrateDocument } from 'ducks/client/utils'
+import { getDocumentIdentity } from 'ducks/client/utils'
 
 const getValueFromNotification = notification => notification.value
 const updatedNotificationFromValue = (notification, value) => ({
@@ -37,7 +37,7 @@ const getAccountOrGroupFromNotification = notification =>
   notification.accountOrGroup
 const updatedNotificationFromAccountGroup = (notification, accountOrGroup) => ({
   ...notification,
-  accountOrGroup: fullyDehydrateDocument(accountOrGroup)
+  accountOrGroup: getDocumentIdentity(accountOrGroup)
 })
 
 const editModalProps = {
