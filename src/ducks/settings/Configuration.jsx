@@ -1,5 +1,5 @@
 import React from 'react'
-import { translate } from 'cozy-ui/react'
+import { translate, Alerter, Button } from 'cozy-ui/react'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { queryConnect, withMutations } from 'cozy-client'
 import { settingsConn } from 'doctypes'
@@ -39,6 +39,13 @@ const updatedNotificationFromAccountGroup = (notification, accountOrGroup) => ({
   ...notification,
   accountOrGroup: getDocumentIdentity(accountOrGroup)
 })
+
+const SettingSection = ({ children, title }) => (
+  <ToggleRowWrapper>
+    {title && <ToggleRowTitle>{title}</ToggleRowTitle>}
+    {children}
+  </ToggleRowWrapper>
+)
 
 const editModalProps = {
   balanceLower: ({ t }) => ({
@@ -208,46 +215,67 @@ export class Configuration extends React.Component {
         <TogglePane>
           <TogglePaneTitle>{t('Notifications.title')}</TogglePaneTitle>
           <TogglePaneText>{t('Notifications.description')}</TogglePaneText>
-          <TogglableSettingCard
+          <SettingSection
             title={t('Notifications.if_balance_lower.settingTitle')}
-            descriptionKey={getBalanceLowerDescriptionKey}
-            descriptionProps={getBalanceLowerDescriptionProps}
-            onToggle={this.onToggle('notifications.balanceLower')}
-            onChangeDoc={this.onChangeDoc('notifications.balanceLower')}
-            unit="€"
-            getAccountOrGroupLabel={this.props.getAccountOrGroupLabel}
-            doc={settings.notifications.balanceLower}
-            editModalProps={editModalProps.balanceLower({
-              t
-            })}
-          />
-          <TogglableSettingCard
+          >
+            <TogglableSettingCard
+              descriptionKey={getBalanceLowerDescriptionKey}
+              descriptionProps={getBalanceLowerDescriptionProps}
+              onToggle={this.onToggle('notifications.balanceLower')}
+              onChangeDoc={this.onChangeDoc('notifications.balanceLower')}
+              unit="€"
+              getAccountOrGroupLabel={this.props.getAccountOrGroupLabel}
+              doc={settings.notifications.balanceLower}
+              editModalProps={editModalProps.balanceLower({
+                t
+              })}
+            />
+            <Button
+              className="u-ml-0"
+              theme="subtle"
+              icon="plus"
+              label={t('Settings.create-alert')}
+              onClick={() => {
+                Alerter.success(t('ComingSoon.description'))
+              }}
+            />
+          </SettingSection>
+          <SettingSection
             title={t('Notifications.if_transaction_greater.settingTitle')}
-            descriptionKey={getTransactionGreaterDescriptionKey}
-            descriptionProps={getTransactionGreaterDescriptionProps}
-            onToggle={this.onToggle('notifications.transactionGreater')}
-            onChangeDoc={this.onChangeDoc('notifications.transactionGreater')}
-            doc={settings.notifications.transactionGreater}
-            getAccountOrGroupLabel={this.props.getAccountOrGroupLabel}
-            unit="€"
-            editModalProps={editModalProps.transactionGreater({
-              t
-            })}
-          />
+          >
+            <TogglableSettingCard
+              descriptionKey={getTransactionGreaterDescriptionKey}
+              descriptionProps={getTransactionGreaterDescriptionProps}
+              onToggle={this.onToggle('notifications.transactionGreater')}
+              onChangeDoc={this.onChangeDoc('notifications.transactionGreater')}
+              doc={settings.notifications.transactionGreater}
+              getAccountOrGroupLabel={this.props.getAccountOrGroupLabel}
+              unit="€"
+              editModalProps={editModalProps.transactionGreater({
+                t
+              })}
+            />
+            <Button
+              className="u-ml-0"
+              theme="subtle"
+              icon="plus"
+              label={t('Settings.create-alert')}
+              onClick={() => {
+                Alerter.success(t('ComingSoon.description'))
+              }}
+            />
+          </SettingSection>
           <CategoryAlertSettingsPane />
           <DelayedDebitAlert
             onToggle={this.onToggle('notifications.delayedDebit')}
             onChangeDoc={this.onChangeDoc('notifications.delayedDebit')}
             doc={settings.notifications.delayedDebit}
           />
-          <ToggleRowWrapper>
-            <ToggleRowTitle>
-              {t('Notifications.health_section.title')}
-            </ToggleRowTitle>
+          <SettingSection title={t('Notifications.health_section.title')}>
             <ToggleRowDescription>
               {t('Notifications.health_section.description')}
             </ToggleRowDescription>
-            <div className="u-pl-2 u-pt-1-half">
+            <div className="u-pl-2 u-pt-1-half u-stack-xs">
               <TogglableSettingCard
                 title={t('Notifications.when_health_bill_linked.settingTitle')}
                 descriptionKey="Notifications.when_health_bill_linked.description"
@@ -273,7 +301,7 @@ export class Configuration extends React.Component {
                 })}
               />
             </div>
-          </ToggleRowWrapper>
+          </SettingSection>
         </TogglePane>
         <TogglePane>
           <TogglePaneTitle>
