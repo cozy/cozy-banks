@@ -34,21 +34,23 @@ beforeEach(() => {
 })
 
 describe('getEnabledNotificationClasses', () => {
-  it('should return the right classes', () => {
-    const config = {
-      notifications: {
-        balanceLower: { enabled: true, value: 100 },
-        transactionGreater: { enabled: true, value: 600 },
-        healthBillLinked: { enabled: true }
-      }
+  const config = {
+    notifications: {
+      balanceLower: [{ enabled: true, value: 100 }],
+      transactionGreater: { enabled: true, value: 600 }, // Old way with only 1 object
+      healthBillLinked: { enabled: true }
     }
+  }
 
+  it('should return the right classes 1', () => {
     expect(getEnabledNotificationClasses(config)).toEqual([
       BalanceLower,
       TransactionGreater,
       HealthBillLinked
     ])
+  })
 
+  it('should return the right classes 2', () => {
     expect(
       getEnabledNotificationClasses(
         merge(config, {
@@ -56,7 +58,9 @@ describe('getEnabledNotificationClasses', () => {
         })
       )
     ).toEqual([BalanceLower, HealthBillLinked])
+  })
 
+  it('should return the right classes 3', () => {
     expect(
       getEnabledNotificationClasses(
         merge(config, {
@@ -64,7 +68,9 @@ describe('getEnabledNotificationClasses', () => {
         })
       )
     ).toEqual([BalanceLower, HealthBillLinked])
+  })
 
+  it('should return the right classes 4', () => {
     expect(
       getEnabledNotificationClasses(
         merge(config, {
@@ -72,7 +78,9 @@ describe('getEnabledNotificationClasses', () => {
         })
       )
     ).toEqual([BalanceLower, HealthBillLinked])
+  })
 
+  it('should return the right classes 5', () => {
     expect(
       getEnabledNotificationClasses(
         merge(config, {
@@ -83,7 +91,9 @@ describe('getEnabledNotificationClasses', () => {
         })
       )
     ).toEqual([HealthBillLinked])
+  })
 
+  it('should return the right classes 6', () => {
     expect(
       getEnabledNotificationClasses(
         merge(config, {
