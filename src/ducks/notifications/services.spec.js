@@ -3,6 +3,7 @@ jest.mock('handlebars')
 
 import CozyClient from 'cozy-client'
 import merge from 'lodash/merge'
+import clone from 'lodash/clone'
 import {
   getEnabledNotificationClasses,
   sendNotifications,
@@ -53,7 +54,7 @@ describe('getEnabledNotificationClasses', () => {
   it('should return the right classes 2', () => {
     expect(
       getEnabledNotificationClasses(
-        merge(config, {
+        merge({}, config, {
           notifications: { transactionGreater: { enabled: false } }
         })
       )
@@ -63,7 +64,7 @@ describe('getEnabledNotificationClasses', () => {
   it('should return the right classes 3', () => {
     expect(
       getEnabledNotificationClasses(
-        merge(config, {
+        merge({}, config, {
           notifications: { transactionGreater: { value: null } }
         })
       )
@@ -71,22 +72,21 @@ describe('getEnabledNotificationClasses', () => {
   })
 
   it('should return the right classes 4', () => {
-    expect(
-      getEnabledNotificationClasses(
-        merge(config, {
-          notifications: { transactionGreater: { value: undefined } }
-        })
-      )
-    ).toEqual([BalanceLower, HealthBillLinked])
+    const clonedConfig = clone(config)
+    clonedConfig.notifications.transactionGreater.value = undefined
+    expect(getEnabledNotificationClasses(clonedConfig)).toEqual([
+      BalanceLower,
+      HealthBillLinked
+    ])
   })
 
   it('should return the right classes 5', () => {
     expect(
       getEnabledNotificationClasses(
-        merge(config, {
+        merge({}, config, {
           notifications: {
             transactionGreater: { enabled: false },
-            balanceLower: { enabled: false }
+            balanceLower: [{ enabled: false }]
           }
         })
       )
@@ -96,10 +96,10 @@ describe('getEnabledNotificationClasses', () => {
   it('should return the right classes 6', () => {
     expect(
       getEnabledNotificationClasses(
-        merge(config, {
+        merge({}, config, {
           notifications: {
             transactionGreater: { enabled: false },
-            balanceLower: { enabled: false },
+            balanceLower: [{ enabled: false }],
             healthBillLinked: { enabled: false }
           }
         })

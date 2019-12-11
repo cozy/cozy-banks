@@ -1,5 +1,5 @@
 import NotificationView from 'ducks/notifications/BaseNotificationView'
-import { map, groupBy } from 'lodash'
+import { map, groupBy, uniqBy, flatten } from 'lodash'
 import log from 'cozy-logger'
 import { getAccountBalance } from 'ducks/account/helpers'
 import { getCurrencySymbol } from 'utils/currencySymbol'
@@ -72,34 +72,53 @@ const doesAccountCorrespondToAccountGroup = (
 class BalanceLower extends NotificationView {
   constructor(config) {
     super(config)
-    log('info', `value of lowerBalance: ${config.value}`)
-    this.config = config
+    this.rules = config.rules
+    log('info', `value of lowerBalance: ${this.rules.map(x => x.value)}`)
   }
 
-  filter(account) {
+  filterForRule(rule, account) {
     return (
-      getAccountBalance(account) < this.config.value &&
+      getAccountBalance(account) < rule.value &&
       account.type !== 'CreditCard' && // CreditCard are always in negative balance
       doesAccountCorrespondToAccountGroup(
         this.data.groups,
-        this.config.accountOrGroup
+        rule.accountOrGroup
       )(account)
     )
+  }
+
+  /**
+   * Returns a list of [{ rule, accounts }]
+   * For each rule, returns a list of accounts
+   * Rules that do not match any accounts are discarded
+   */
+  findMatchingRules() {
+    const accounts = this.accounts
+    return this.rules
+      .map(rule => ({
+        rule,
+        accounts: this.data.accounts.filter(acc =>
+          this.filterForRule(rule, acc)
+        )
+      }))
+      .filter(({ accounts }) => accounts.length > 0)
+  }
+
+  fetchData() {
+    const matchingRules = this.findMatchingRules()
+    const accountsFiltered = uniqBy(
+      flatten(matchingRules.map(x => x.accounts)),
+      x => x._id
+    ).map(addCurrency)
+    return {
+      matchingRules,
+      accounts: accountsFiltered
+    }
   }
 
   getHelpers() {
     const helpers = super.getHelpers()
     return { ...helpers, getAccountBalance }
-  }
-
-  fetchData() {
-    const { accounts } = this.data
-    const accountsFiltered = accounts
-      .filter(acc => this.filter(acc))
-      .map(addCurrency)
-    return {
-      accounts: accountsFiltered
-    }
   }
 
   async buildData() {
@@ -132,6 +151,10 @@ class BalanceLower extends NotificationView {
     const onlyOne = accounts.length === 1
     const firstAccount = accounts[0]
 
+    const titleKey = `Notifications.if_balance_lower.notification.${
+      onlyOne ? 'one' : 'several'
+    }.title`
+
     const titleData = onlyOne
       ? {
           balance: firstAccount.balance,
@@ -143,10 +166,6 @@ class BalanceLower extends NotificationView {
           lowerBalance: this.config.value,
           currency: '€'
         }
-
-    const titleKey = `Notifications.if_balance_lower.notification.${
-      onlyOne ? 'one' : 'several'
-    }.title`
     return this.t(titleKey, titleData)
   }
 
@@ -166,6 +185,6 @@ BalanceLower.toText = customToText
 BalanceLower.category = 'balance-lower'
 BalanceLower.preferredChannels = ['mobile', 'mail']
 BalanceLower.settingKey = 'balanceLower'
-BalanceLower.isValidConfig = config => Number.isFinite(config.value)
+BalanceLower.isValidRule = config => Number.isFinite(config.value)
 
 export default BalanceLower

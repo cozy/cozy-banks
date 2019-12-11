@@ -36,8 +36,12 @@ describe('balance lower', () => {
     MockDate.set(maxDate)
 
     const config = {
-      value: value || 5000,
-      accountOrGroup: accountOrGroup || null,
+      rules: [
+        {
+          value: value || 5000,
+          accountOrGroup: accountOrGroup || null
+        }
+      ],
       data: {
         accounts: fixtures['io.cozy.bank.accounts'],
         groups: fixtures['io.cozy.bank.groups']
@@ -50,9 +54,9 @@ describe('balance lower', () => {
     return { config, client, notification }
   }
 
-  it('should keep config in its internal state', () => {
+  it('should keep rules in its internal state', () => {
     const { notification, config } = setup()
-    expect(notification.config).toBe(config)
+    expect(notification.rules).toBe(config.rules)
   })
 
   describe('without accountOrGroup', () => {
