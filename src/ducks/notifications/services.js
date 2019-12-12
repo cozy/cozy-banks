@@ -10,6 +10,7 @@ import DelayedDebit from './DelayedDebit'
 
 import { BankAccount } from 'models'
 import { sendNotification } from 'cozy-notifications'
+import { GROUP_DOCTYPE } from 'doctypes'
 
 const log = logger.namespace('notification-service')
 
@@ -49,6 +50,11 @@ export const fetchTransactionAccounts = async transactions => {
   return accounts
 }
 
+export const fetchGroups = async client => {
+  const groups = await client.query(client.all(GROUP_DOCTYPE))
+  return groups
+}
+
 const getClassConfig = (Klass, config) => config.notifications[Klass.settingKey]
 
 export const getEnabledNotificationClasses = config => {
@@ -65,14 +71,15 @@ export const getEnabledNotificationClasses = config => {
 
 export const sendNotifications = async (config, transactions) => {
   const enabledNotificationClasses = getEnabledNotificationClasses(config)
+  const client = CozyClient.fromEnv(process.env)
   const accounts = await fetchTransactionAccounts(transactions)
+  const groups = await fetchGroups(client)
   log(
     'info',
     `${transactions.length} new transactions on ${accounts.length} accounts.`
   )
   for (const Klass of enabledNotificationClasses) {
     const klassConfig = getClassConfig(Klass, config)
-    const client = CozyClient.fromEnv(process.env)
     const notificationView = new Klass({
       ...klassConfig,
       client,
@@ -81,7 +88,7 @@ export const sendNotifications = async (config, transactions) => {
         [lang]: dictRequire(lang)
       },
       lang,
-      data: { accounts, transactions }
+      data: { accounts, transactions, groups }
     })
     try {
       await sendNotification(client, notificationView)
