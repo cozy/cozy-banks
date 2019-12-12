@@ -164,6 +164,6 @@ TransactionGreater.toText = customToText
 TransactionGreater.preferredChannels = ['mobile', 'mail']
 TransactionGreater.template = template
 TransactionGreater.settingKey = 'transactionGreater'
-TransactionGreater.isValidConfig = config => Number.isFinite(config.value)
+TransactionGreater.isValidRule = config => Number.isFinite(config.value)
 
 export default TransactionGreater

@@ -55,18 +55,70 @@ export const fetchGroups = async client => {
   return groups
 }
 
-const getClassConfig = (Klass, config) => config.notifications[Klass.settingKey]
+/**
+ * Returns notification rules for a type of notification
+ *
+ * Must support old unary notifications and new plural notifications
+ * where a single class can have several alert.
+ */
+const getClassRules = (Klass, config) => {
+  const classRules = config.notifications[Klass.settingKey]
+  if (typeof classRules === 'object' && !Array.isArray(classRules)) {
+    return [classRules]
+  } else {
+    return classRules || []
+  }
+}
+
+const getValidClassRules = (Klass, config) => {
+  const rules = getClassRules(Klass, config)
+  return Klass.isValidRule
+    ? rules.filter(rule => Klass.isValidRule(rule))
+    : rules
+}
+
+const isNotificationKlassEnabledFromConfig = config => Klass => {
+  const rules = getValidClassRules(Klass, config)
+  let enabled = rules && rules.some(rule => rule.enabled)
+  log('info', `${Klass.settingKey} is ${enabled ? '' : 'not'} enabled`)
+  return enabled
+}
 
 export const getEnabledNotificationClasses = config => {
-  return notificationClasses.filter(Klass => {
-    const klassConfig = getClassConfig(Klass, config)
-    let enabled = klassConfig && klassConfig.enabled
-    if (enabled && Klass.isValidConfig) {
-      enabled = Klass.isValidConfig(klassConfig)
-    }
-    log('info', `${Klass.settingKey} is ${enabled ? '' : 'not'} enabled`)
-    return enabled
-  })
+  return notificationClasses.filter(
+    isNotificationKlassEnabledFromConfig(config)
+  )
+}
+
+const isKlassSupportingSeveralRules = Klass => {
+  return Klass.name == 'BalanceLower'
+}
+
+export const sendNotificationForClass = async (
+  Klass,
+  { config, client, data, lang }
+) => {
+  const klassRules = getClassRules(Klass, config)
+  const klassOptions = {
+    client,
+    t,
+    locales: {
+      [lang]: dictRequire(lang)
+    },
+    lang,
+    data
+  }
+  if (isKlassSupportingSeveralRules(Klass)) {
+    klassOptions.rules = klassRules
+  } else {
+    Object.assign(klassOptions, klassRules[0])
+  }
+  const notificationView = new Klass(klassOptions)
+  try {
+    await sendNotification(client, notificationView)
+  } catch (err) {
+    log('warn', JSON.stringify(err))
+  }
 }
 
 export const sendNotifications = async (config, transactions) => {
@@ -79,21 +131,15 @@ export const sendNotifications = async (config, transactions) => {
     `${transactions.length} new transactions on ${accounts.length} accounts.`
   )
   for (const Klass of enabledNotificationClasses) {
-    const klassConfig = getClassConfig(Klass, config)
-    const notificationView = new Klass({
-      ...klassConfig,
+    await sendNotificationForClass(Klass, {
       client,
-      t,
-      locales: {
-        [lang]: dictRequire(lang)
-      },
       lang,
-      data: { accounts, transactions, groups }
+      config,
+      data: {
+        accounts,
+        groups,
+        transactions
+      }
     })
-    try {
-      await sendNotification(client, notificationView)
-    } catch (err) {
-      log('warn', JSON.stringify(err))
-    }
   }
 }
