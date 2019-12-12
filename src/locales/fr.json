@@ -425,6 +425,9 @@
         },
         "several": {
           "title": "%{accountsLength} comptes sont en dessous de votre seuil de %{lowerBalance}%{currency}"
+        },
+        "several-multi-rule": {
+          "title": "%{accountsLength} comptes sont en dessous de leur seuil limite"
         }
       }
     },

@@ -93,7 +93,6 @@ class BalanceLower extends NotificationView {
    * Rules that do not match any accounts are discarded
    */
   findMatchingRules() {
-    const accounts = this.accounts
     return this.rules
       .map(rule => ({
         rule,
@@ -122,7 +121,7 @@ class BalanceLower extends NotificationView {
   }
 
   async buildData() {
-    const { accounts } = await this.fetchData()
+    const { accounts, matchingRules } = await this.fetchData()
     if (accounts.length === 0) {
       log('info', 'BalanceLower: no matched accounts')
       return
@@ -131,7 +130,8 @@ class BalanceLower extends NotificationView {
     log('info', `BalanceLower: ${accounts.length} accountsFiltered`)
 
     return {
-      accounts: accounts,
+      matchingRules,
+      accounts,
       institutions: groupAccountsByInstitution(accounts),
       date: getCurrentDate(),
       ...this.urls
@@ -147,14 +147,17 @@ class BalanceLower extends NotificationView {
   }
 
   getTitle(templateData) {
-    const { accounts } = templateData
+    const { accounts, matchingRules } = templateData
     const onlyOne = accounts.length === 1
     const firstAccount = accounts[0]
 
-    const titleKey = `Notifications.if_balance_lower.notification.${
-      onlyOne ? 'one' : 'several'
-    }.title`
+    const titleKey = onlyOne
+      ? 'Notifications.if_balance_lower.notification.one.title'
+      : matchingRules.length === 1
+      ? 'Notifications.if_balance_lower.notification.several.title'
+      : 'Notifications.if_balance_lower.notification.several-multi-rule.title'
 
+    const firstRule = this.rules[0].value
     const titleData = onlyOne
       ? {
           balance: firstAccount.balance,
@@ -163,7 +166,7 @@ class BalanceLower extends NotificationView {
         }
       : {
           accountsLength: accounts.length,
-          lowerBalance: this.config.value,
+          lowerBalance: firstRule,
           currency: '€'
         }
     return this.t(titleKey, titleData)
@@ -171,12 +174,15 @@ class BalanceLower extends NotificationView {
 
   getPushContent(templateData) {
     const { accounts } = templateData
-    const [account] = accounts
-    const balance = getAccountBalance(account)
 
-    return `${account.label} (${
-      balance > 0 ? '+' : ''
-    }${balance} ${getCurrencySymbol(account.currency)})`
+    return accounts
+      .map(account => {
+        const balance = getAccountBalance(account)
+        return `${account.label} ${
+          balance > 0 ? '+' : ''
+        }${balance}${getCurrencySymbol(account.currency)}`
+      })
+      .join(', ')
   }
 }
 

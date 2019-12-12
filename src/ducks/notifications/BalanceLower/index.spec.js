@@ -5,6 +5,7 @@ import MockDate from 'mockdate'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import maxBy from 'lodash/maxBy'
 import minBy from 'lodash/minBy'
+import enLocale from 'locales/en.json'
 
 const unique = arr => Array.from(new Set(arr))
 
@@ -24,19 +25,21 @@ describe('balance lower', () => {
     jest.restoreAllMocks()
   })
 
-  const setup = ({ value, accountOrGroup } = {}) => {
+  const setup = ({ value, accountOrGroup, rules } = {}) => {
     const cozyUrl = 'http://cozy.tools:8080'
     const client = new CozyClient({
       uri: cozyUrl
     })
-    const locales = {}
+    const locales = {
+      en: enLocale
+    }
 
     const operations = fixtures['io.cozy.bank.operations']
     const maxDate = operations.map(x => x.date).sort()[0]
     MockDate.set(maxDate)
 
     const config = {
-      rules: [
+      rules: rules || [
         {
           value: value || 5000,
           accountOrGroup: accountOrGroup || null
@@ -48,6 +51,7 @@ describe('balance lower', () => {
       },
       client,
       locales,
+      lang: 'en',
       cozyUrl
     }
     const notification = new BalanceLower(config)
@@ -135,6 +139,65 @@ describe('balance lower', () => {
       expect(unique(accounts.map(getIDFromAccount))).toEqual(['comptelou1'])
       expect(minValueBy(accounts, getAccountBalance)).toBeLessThan(500)
       expect(maxValueBy(accounts, getAccountBalance)).toBe(325.24)
+    })
+  })
+
+  describe('notification content', () => {
+    const setupContent = async ({ rules }) => {
+      const { notification } = setup({
+        rules
+      })
+      const data = await notification.buildData()
+      const title = notification.getTitle(data)
+      const pushContent = notification.getPushContent(data)
+      return { title, pushContent }
+    }
+
+    const lou1Rule = {
+      value: 500,
+      accountOrGroup: { _type: ACCOUNT_DOCTYPE, _id: 'comptelou1' }
+    }
+
+    const allAccountsRule = {
+      value: 5000
+    }
+
+    describe('one account matching', () => {
+      it('should have the right content', async () => {
+        const { title, pushContent } = await setupContent({
+          rules: [lou1Rule]
+        })
+        expect(title).toBe(
+          "Balance alert: 'Compte jeune Louise' account is at 325.24€"
+        )
+        expect(pushContent).toBe('Compte jeune Louise +325.24€')
+      })
+    })
+
+    describe('mutiple accounts matching', () => {
+      it('should have the right content', async () => {
+        const { title, pushContent } = await setupContent({
+          rules: [allAccountsRule]
+        })
+        expect(title).toBe(
+          '4 accounts are below your threshold amount of 5000€'
+        )
+        expect(pushContent).toBe(
+          'PEE Isabelle +1421.22€, Compte courant Claude +4135.62€, Compte courant Isabelle +3974.25€, Compte jeune Louise +325.24€'
+        )
+      })
+    })
+
+    describe('mutiple accounts matching', () => {
+      it('should have the right content', async () => {
+        const { title, pushContent } = await setupContent({
+          rules: [lou1Rule, allAccountsRule]
+        })
+        expect(title).toBe('4 accounts are below their threshold amount')
+        expect(pushContent).toBe(
+          'Compte jeune Louise +325.24€, PEE Isabelle +1421.22€, Compte courant Claude +4135.62€, Compte courant Isabelle +3974.25€'
+        )
+      })
     })
   })
 })

@@ -425,6 +425,9 @@
         },
         "several": {
           "title": "%{accountsLength} accounts are below your threshold amount of %{lowerBalance}%{currency}"
+        },
+        "several-multi-rule": {
+          "title": "%{accountsLength} accounts are below their threshold amount"
         }
       }
     },
