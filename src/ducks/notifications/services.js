@@ -33,7 +33,7 @@ const setDifference = (a, b) => {
 
 export const fetchTransactionAccounts = async transactions => {
   const accountsIds = new Set(transactions.map(x => x.account))
-  const accounts = await BankAccount.getAll(accountsIds)
+  const accounts = await BankAccount.getAll(Array.from(accountsIds))
   const existingAccountIds = new Set(accounts.map(x => x._id))
   const absentAccountIds = setDifference(accountsIds, existingAccountIds)
 
