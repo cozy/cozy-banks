@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { translate } from 'cozy-ui/react'
 import EditionModal, { CHOOSING_TYPES } from 'components/EditionModal'
 import {
@@ -36,7 +37,7 @@ const fieldSpecs = {
  * - Edit account/group for the alert
  */
 const CategoryAlertEditModal = translate()(
-  ({ initialAlert, onEditAlert, onDismiss, t }) => {
+  ({ initialDoc, onEdit, onDismiss, t }) => {
     const modalTitle = t('Settings.budget-category-alerts.edit.modal-title')
     const okButtonLabel = doc =>
       doc.id !== undefined
@@ -47,8 +48,8 @@ const CategoryAlertEditModal = translate()(
       t('Settings.budget-category-alerts.edit.cancel')
     return (
       <EditionModal
-        initialDoc={initialAlert}
-        onEdit={onEditAlert}
+        initialDoc={initialDoc}
+        onEdit={onEdit}
         fieldSpecs={fieldSpecs}
         fieldOrder={['accountOrGroup', 'category', 'maxThreshold']}
         fieldLabels={{
@@ -68,5 +69,11 @@ const CategoryAlertEditModal = translate()(
     )
   }
 )
+
+CategoryAlertEditModal.propTypes = {
+  initialDoc: PropTypes.object.isRequired,
+  onEdit: PropTypes.func.isRequired,
+  onDismiss: PropTypes.func.isRequired
+}
 
 export default CategoryAlertEditModal

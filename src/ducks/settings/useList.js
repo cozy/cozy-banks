@@ -13,7 +13,13 @@ const replaceBy = (arr, item, idFn) => {
     : [...arr, item]
 }
 
-const useList = (initialList, { onUpdate, onError, getId, getNextId }) => {
+const useList = ({
+  list: initialList,
+  onUpdate,
+  onError,
+  getId,
+  getNextId
+}) => {
   const [list, setList] = useState(initialList)
 
   const updateList = async updatedList => {

@@ -25,7 +25,7 @@ export const makeNewAlert = () => ({
   accountOrGroup: null
 })
 
-export const getAlertId = x => x.id
+export const getAlertId = alert => alert.id
 
 export const getNextAlertId = alerts => {
   return alerts.length === 0 ? 0 : getAlertId(maxBy(alerts, getAlertId)) + 1

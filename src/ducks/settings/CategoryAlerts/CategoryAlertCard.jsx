@@ -158,9 +158,8 @@ const CategoryAlertCard = ({
       {editing ? (
         <CategoryAlertEditModal
           onDismiss={() => setEditing(null)}
-          initialAlert={alert}
-          onEditAlert={handleEditAlert}
-          onRemoveAlert={handleRemoveAlert}
+          initialDoc={alert}
+          onEdit={handleEditAlert}
         />
       ) : null}
       {confirmingRemoval ? (
