@@ -26,6 +26,8 @@ import TogglableSettingCard from './TogglableSettingCard'
 import { CHOOSING_TYPES } from 'components/EditionModal'
 import { withAccountOrGroupLabeller } from './helpers'
 import { getDocumentIdentity } from 'ducks/client/utils'
+import useList from './useList'
+import { getAlertId, getNextAlertId } from 'ducks/budgetAlerts'
 
 const getValueFromNotification = notification => notification.value
 const updatedNotificationFromValue = (notification, value) => ({
@@ -165,6 +167,60 @@ const onToggleFlag = key => checked => {
   flag(key, checked)
 }
 
+const ensureNewRuleFormat = rules =>
+  !Array.isArray(rules) ? [{ ...rules, id: 0 }] : rules
+
+const DumbBalanceLowerRules = ({
+  rules: initialRules,
+  getAccountOrGroupLabel,
+  onChangeRules,
+  t
+}) => {
+  const onError = () =>
+    Alerter.error(t('Settings.budget-category-alerts.saving-error'))
+  const [rules, createOrUpdateRule, removeRule] = useList({
+    list: ensureNewRuleFormat(initialRules),
+    onUpdate: onChangeRules,
+    onError: onError,
+    getId: getAlertId,
+    getNextId: getNextAlertId
+  })
+
+  const onToggle = rule => enabled => createOrUpdateRule({ ...rule, enabled })
+
+  return (
+    <>
+      {rules.map((rule, i) => (
+        <TogglableSettingCard
+          doc={rule}
+          key={i}
+          onToggle={onToggle(rule)}
+          onChangeDoc={onChangeRules}
+          unit="€"
+          editModalProps={editModalProps.balanceLower({
+            t
+          })}
+          getAccountOrGroupLabel={getAccountOrGroupLabel}
+          descriptionKey={getBalanceLowerDescriptionKey}
+          descriptionProps={getBalanceLowerDescriptionProps}
+        />
+      ))}
+
+      <Button
+        className="u-ml-0"
+        theme="subtle"
+        icon="plus"
+        label={t('Settings.create-alert')}
+        onClick={() => {
+          Alerter.success(t('ComingSoon.description'))
+        }}
+      />
+    </>
+  )
+}
+
+const BalanceLowerRules = translate()(DumbBalanceLowerRules)
+
 /**
  * Configure notifications and other features
  */
@@ -218,26 +274,10 @@ export class Configuration extends React.Component {
           <SettingSection
             title={t('Notifications.if_balance_lower.settingTitle')}
           >
-            <TogglableSettingCard
-              descriptionKey={getBalanceLowerDescriptionKey}
-              descriptionProps={getBalanceLowerDescriptionProps}
-              onToggle={this.onToggle('notifications.balanceLower')}
-              onChangeDoc={this.onChangeDoc('notifications.balanceLower')}
-              unit="€"
+            <BalanceLowerRules
+              rules={settings.notifications.balanceLower}
               getAccountOrGroupLabel={this.props.getAccountOrGroupLabel}
-              doc={settings.notifications.balanceLower}
-              editModalProps={editModalProps.balanceLower({
-                t
-              })}
-            />
-            <Button
-              className="u-ml-0"
-              theme="subtle"
-              icon="plus"
-              label={t('Settings.create-alert')}
-              onClick={() => {
-                Alerter.success(t('ComingSoon.description'))
-              }}
+              onChangeRules={this.onChangeDoc('notifications.balanceLower')}
             />
           </SettingSection>
           <SettingSection
