@@ -15,8 +15,8 @@ const updatedNotificationFromAccountGroup = (notification, accountOrGroup) => ({
   accountOrGroup: getDocumentIdentity(accountOrGroup)
 })
 
-export const balanceLower = ({ t }) => ({
-  modalTitle: t('Notifications.editModal.title'),
+export const balanceLower = {
+  modalTitle: 'Notifications.editModal.title',
   fieldSpecs: {
     value: {
       type: CHOOSING_TYPES.number,
@@ -37,15 +37,13 @@ export const balanceLower = ({ t }) => ({
     flag('settings.notification-account-group') && 'accountOrGroup'
   ].filter(Boolean),
   fieldLabels: {
-    value: t('Notifications.if_balance_lower.fieldLabels.value'),
-    accountOrGroup: t(
-      'Notifications.if_balance_lower.fieldLabels.accountOrGroup'
-    )
+    value: 'Notifications.if_balance_lower.fieldLabels.value',
+    accountOrGroup: 'Notifications.if_balance_lower.fieldLabels.accountOrGroup'
   }
-})
+}
 
-export const transactionGreater = ({ t }) => ({
-  modalTitle: t('Notifications.editModal.title'),
+export const transactionGreater = {
+  modalTitle: 'Notifications.editModal.title',
   fieldSpecs: {
     value: {
       type: CHOOSING_TYPES.number,
@@ -66,27 +64,26 @@ export const transactionGreater = ({ t }) => ({
     flag('settings.notification-account-group') && 'accountOrGroup'
   ].filter(Boolean),
   fieldLabels: {
-    value: t('Notifications.if_transaction_greater.fieldLabels.value'),
-    accountOrGroup: t(
+    value: 'Notifications.if_transaction_greater.fieldLabels.value',
+    accountOrGroup:
       'Notifications.if_transaction_greater.fieldLabels.accountOrGroup'
-    )
   }
-})
+}
 
-export const lateHealthReimbursement = ({ t }) => ({
-  modalTitle: t('Notifications.editModal.title'),
+export const lateHealthReimbursement = {
+  modalTitle: 'Notifications.editModal.title',
   fieldSpecs: {
     value: {
       type: CHOOSING_TYPES.number,
       getValue: getValueFromNotification,
       updater: updatedNotificationFromValue,
       sectionProps: {
-        unit: t('Notifications.when_late_health_reimbursement.unit')
+        unitKey: 'Notifications.when_late_health_reimbursement.unit'
       }
     }
   },
   fieldOrder: ['value'],
   fieldLabels: {
-    value: t('Notifications.when_late_health_reimbursement.fieldLabels.value')
+    value: 'Notifications.when_late_health_reimbursement.fieldLabels.value'
   }
-})
+}

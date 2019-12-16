@@ -112,9 +112,7 @@ const DumbBalanceLowerRules = ({
           onToggle={onToggle(rule)}
           onChangeDoc={onChangeRules}
           unit="€"
-          editModalProps={balanceLower({
-            t
-          })}
+          editModalProps={balanceLower}
           getAccountOrGroupLabel={getAccountOrGroupLabel}
           descriptionKey={getBalanceLowerDescriptionKey}
           descriptionProps={getBalanceLowerDescriptionProps}
@@ -205,9 +203,7 @@ export class Configuration extends React.Component {
               doc={settings.notifications.transactionGreater}
               getAccountOrGroupLabel={this.props.getAccountOrGroupLabel}
               unit="€"
-              editModalProps={transactionGreater({
-                t
-              })}
+              editModalProps={transactionGreater}
             />
             <Button
               className="u-ml-0"
@@ -250,9 +246,7 @@ export class Configuration extends React.Component {
                   'notifications.lateHealthReimbursement'
                 )}
                 doc={settings.notifications.lateHealthReimbursement}
-                editModalProps={lateHealthReimbursement({
-                  t
-                })}
+                editModalProps={lateHealthReimbursement}
               />
             </div>
           </SettingSection>
