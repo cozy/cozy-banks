@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Stack, Button, translate } from 'cozy-ui/react'
 import useList from './useList'
+import { getRuleId, getNextRuleId } from './rules'
 
 export const AddRuleButton = ({ label, busy, onClick }) => (
   <Button
@@ -19,8 +20,6 @@ const Rules = ({
   children,
   onUpdate,
   onError,
-  getId,
-  getNextId,
   addButtonLabelKey,
   ItemEditionModal,
   makeNewItem,
@@ -30,8 +29,8 @@ const Rules = ({
     list: rules,
     onUpdate,
     onError,
-    getId,
-    getNextId
+    getId: getRuleId,
+    getNextId: getNextRuleId
   })
   const [creating, setCreating] = useState(false)
   const [saving, setSaving] = useState(false)

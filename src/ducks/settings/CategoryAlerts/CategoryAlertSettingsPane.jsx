@@ -11,7 +11,7 @@ import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import CategoryAlertCard from 'ducks/settings/CategoryAlerts/CategoryAlertCard'
 import CategoryAlertEditModal from 'ducks/settings/CategoryAlerts/CategoryAlertEditModal'
 
-import { getAlertId, getNextAlertId, makeNewAlert } from 'ducks/budgetAlerts'
+import { makeNewAlert } from 'ducks/budgetAlerts'
 import Rules from '../Rules'
 
 const updateBudgetAlerts = async (client, settings, categoryBudgetAlerts) => {
@@ -37,8 +37,8 @@ const CategoryAlertsPane = ({ client, settingsCollection, t }) => {
         rules={settings.categoryBudgetAlerts}
         onUpdate={onUpdate}
         onError={onUpdateError}
-        getId={getAlertId}
-        getNextId={getNextAlertId}
+        getId={getRuleId}
+        getNextId={getNextRuleId}
         addButtonLabelKey="Settings.create-alert"
         makeNewItem={makeNewAlert}
         ItemEditionModal={CategoryAlertEditModal}
