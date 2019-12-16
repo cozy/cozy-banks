@@ -16,15 +16,10 @@ import DelayedDebitAlert from 'ducks/settings/DelayedDebitAlert'
 import CategoryAlertSettingsPane from 'ducks/settings/CategoryAlerts/CategoryAlertSettingsPane'
 import EditableSettingCard from './EditableSettingCard'
 import { withAccountOrGroupLabeller } from './helpers'
-import useList from './useList'
-import { getAlertId, getNextAlertId } from 'ducks/budgetAlerts'
 import ToggleRow from 'ducks/settings/ToggleRow'
+import BalanceLowerRules from './BalanceLowerRules'
 
-import {
-  balanceLower,
-  transactionGreater,
-  lateHealthReimbursement
-} from './specs'
+import { transactionGreater, lateHealthReimbursement } from './specs'
 
 // descriptionProps getters below need the full props to have access to
 // `props.getAccountOrGroupLabel`.
@@ -42,22 +37,7 @@ const getTransactionGreaterDescriptionKey = props => {
   }
 }
 
-const getBalanceLowerDescriptionKey = props => {
-  if (props.doc && props.doc.accountOrGroup) {
-    return 'Notifications.if_balance_lower.descriptionWithAccountGroup'
-  } else {
-    return 'Notifications.if_balance_lower.description'
-  }
-}
-
 const getTransactionGreaterDescriptionProps = props => ({
-  accountOrGroupLabel: props.doc.accountOrGroup
-    ? props.getAccountOrGroupLabel(props.doc.accountOrGroup)
-    : null,
-  value: props.doc.value
-})
-
-const getBalanceLowerDescriptionProps = props => ({
   accountOrGroupLabel: props.doc.accountOrGroup
     ? props.getAccountOrGroupLabel(props.doc.accountOrGroup)
     : null,
@@ -67,57 +47,6 @@ const getBalanceLowerDescriptionProps = props => ({
 const onToggleFlag = key => checked => {
   flag(key, checked)
 }
-
-const ensureNewRuleFormat = rules =>
-  !Array.isArray(rules) ? [{ ...rules, id: 0 }] : rules
-
-const DumbBalanceLowerRules = ({
-  rules: initialRules,
-  getAccountOrGroupLabel,
-  onChangeRules,
-  t
-}) => {
-  const onError = () =>
-    Alerter.error(t('Settings.budget-category-alerts.saving-error'))
-  const [rules, createOrUpdateRule, removeRule] = useList({
-    list: ensureNewRuleFormat(initialRules),
-    onUpdate: onChangeRules,
-    onError: onError,
-    getId: getAlertId,
-    getNextId: getNextAlertId
-  })
-
-  const onToggle = rule => enabled => createOrUpdateRule({ ...rule, enabled })
-
-  return (
-    <>
-      {rules.map((rule, i) => (
-        <EditableSettingCard
-          doc={rule}
-          key={i}
-          onToggle={onToggle(rule)}
-          onChangeDoc={onChangeRules}
-          unit="€"
-          editModalProps={balanceLower}
-          getAccountOrGroupLabel={getAccountOrGroupLabel}
-          descriptionKey={getBalanceLowerDescriptionKey}
-          descriptionProps={getBalanceLowerDescriptionProps}
-        />
-      ))}
-      <Button
-        className="u-ml-0"
-        theme="subtle"
-        icon="plus"
-        label={t('Settings.create-alert')}
-        onClick={() => {
-          Alerter.success(t('ComingSoon.description'))
-        }}
-      />
-    </>
-  )
-}
-
-const BalanceLowerRules = translate()(DumbBalanceLowerRules)
 
 /**
  * Configure notifications and other features
