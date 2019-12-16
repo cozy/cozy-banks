@@ -43,12 +43,10 @@ const makeRuleComponent = ({
             onToggle={enabled => {
               createOrUpdateRule({ ...rule, enabled })
             }}
-            onChangeDoc={onChangeRules}
-            onRemoveDoc={arg => {
-              removeRule(arg)
-            }}
             removeModalTitle={t('Settings.rules.remove-modal.title')}
             removeModalDescription={t('Settings.rules.remove-modal.desc')}
+            onChangeDoc={createOrUpdateRule}
+            onRemoveDoc={removeRule}
             canBeRemoved={initialRules.length > 1}
             editModalProps={spec}
             getAccountOrGroupLabel={getAccountOrGroupLabel}
