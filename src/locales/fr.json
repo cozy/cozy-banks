@@ -578,9 +578,7 @@
       },
       "remove": {
         "title": "Supprimer l'alerte ?",
-        "cancel": "Annuler",
-        "desc": "Merci de confirmer vouloir supprimer l'alerte",
-        "ok": "Supprimer l'alerte"
+        "desc": "Merci de confirmer vouloir supprimer l'alerte"
       }
     }
   },
@@ -785,5 +783,16 @@
   "AccountGroupChoice": {
     "nothing-selected": "Sélectionner un compte",
     "all-accounts": "Tous les comptes"
+  },
+
+  "Confirmation": {
+    "cancel": "Annuler",
+    "ok": "OK"
+  },
+
+  "EditionModal": {
+    "ok": "OK",
+    "cancel": "Annuler",
+    "remove": "Supprimer"
   }
 }

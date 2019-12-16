@@ -56,7 +56,10 @@ const EditableSettingCard = props => {
     onRemoveDescription,
     editModalProps,
     shouldOpenOnToggle,
-    doc
+    doc,
+    canBeRemoved,
+    onRemoveDoc,
+    t
   } = props
 
   const enabled = doc.enabled
@@ -108,14 +111,19 @@ const EditableSettingCard = props => {
       {editing ? (
         <EditionModal
           {...editModalProps}
+          canBeRemoved={canBeRemoved}
+          onRemove={onRemoveDoc}
+          onRemoveTitle={onRemoveTitle}
+          onRemoveDescription={onRemoveDescription}
           initialDoc={doc}
           onEdit={updatedDoc => {
             onChangeDoc(updatedDoc)
             setEditing(false)
           }}
           onDismiss={() => setEditing(false)}
-          okButtonLabel={() => 'OK'}
-          cancelButtonLabel={() => 'Cancel'}
+          okButtonLabel={() => t('EditionModal.ok')}
+          cancelButtonLabel={() => t('EditionModal.cancel')}
+          removeButtonLabel={() => t('EditionModal.remove')}
         />
       ) : null}
     </>

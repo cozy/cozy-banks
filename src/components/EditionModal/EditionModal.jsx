@@ -18,6 +18,8 @@ import CategorySection from './CategorySection'
 import ThresholdSection from './ThresholdSection'
 import NumberSection from './NumberSection'
 import resultWithArgs from 'utils/resultWithArgs'
+import Confirmation from 'components/Confirmation'
+import { withBreakpoints } from 'cozy-ui/react'
 
 import { BackButton } from 'components/BackButton'
 
@@ -121,6 +123,64 @@ const InfoSlide = translate()(
 const INFO_SLIDE_INDEX = 0
 const CHOOSING_SLIDE_INDEX = 1
 
+const DumbEditionModalFooter = props => {
+  const {
+    breakpoints: { isMobile },
+    canBeRemoved,
+    doc,
+    onEdit,
+    onRemove,
+    onRemoveTitle,
+    onRemoveDescription,
+    removeButtonLabel,
+    cancelButtonLabel,
+    onDismiss,
+    okButtonLabel
+  } = props
+  const handleConfirmEdit = () => {
+    onEdit(doc)
+  }
+
+  const handleRemove = () => {
+    onRemove(doc)
+    onDismiss()
+  }
+
+  const removalButton = canBeRemoved && (
+    <Confirmation
+      title={onRemoveTitle}
+      description={onRemoveDescription}
+      onConfirm={handleRemove}
+    >
+      <Button theme="danger-outline" label={removeButtonLabel(props, doc)} />
+    </Confirmation>
+  )
+
+  return (
+    <ModalFooter>
+      <ModalButtons>
+        {canBeRemoved && !isMobile ? (
+          <>
+            {removalButton}
+            <div className="u-media-grow" />
+          </>
+        ) : null}
+        {!canBeRemoved || (canBeRemoved && !isMobile) ? (
+          <Button
+            theme="secondary"
+            onClick={onDismiss}
+            label={cancelButtonLabel(props, doc)}
+          />
+        ) : null}
+        {canBeRemoved && isMobile ? removalButton : null}
+        <Button onClick={handleConfirmEdit} label={okButtonLabel(doc)} />
+      </ModalButtons>
+    </ModalFooter>
+  )
+}
+
+const EditionModalFooter = withBreakpoints()(DumbEditionModalFooter)
+
 const EditionModal = props => {
   const {
     fieldSpecs,
@@ -130,9 +190,14 @@ const EditionModal = props => {
     modalTitle,
     okButtonLabel,
     cancelButtonLabel,
+    removeButtonLabel,
     onEdit,
     onDismiss,
-    t
+    onRemove,
+    onRemoveTitle,
+    onRemoveDescription,
+    t,
+    canBeRemoved
   } = props
   const [doc, setDoc] = useState(initialDoc)
   const [choosing, setChoosing] = useState(null)
@@ -159,10 +224,6 @@ const EditionModal = props => {
       },
       onCancel: handleChoosingCancel
     })
-  }
-
-  const handleConfirmEdit = () => {
-    onEdit(doc)
   }
 
   return (
@@ -193,16 +254,18 @@ const EditionModal = props => {
         <div>{choosing ? <ChoosingSwitch choosing={choosing} /> : null}</div>
       </Stepper>
       {choosing ? null : (
-        <ModalFooter>
-          <ModalButtons>
-            <Button
-              theme={'secondary'}
-              onClick={onDismiss}
-              label={cancelButtonLabel(props, doc)}
-            />
-            <Button onClick={handleConfirmEdit} label={okButtonLabel(doc)} />
-          </ModalButtons>
-        </ModalFooter>
+        <EditionModalFooter
+          canBeRemoved={canBeRemoved}
+          doc={doc}
+          onEdit={onEdit}
+          onDismiss={onDismiss}
+          onRemove={onRemove}
+          onRemoveTitle={onRemoveTitle}
+          onRemoveDescription={onRemoveDescription}
+          removeButtonLabel={removeButtonLabel}
+          cancelButtonLabel={cancelButtonLabel}
+          okButtonLabel={okButtonLabel}
+        />
       )}
     </Modal>
   )

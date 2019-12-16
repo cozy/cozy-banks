@@ -776,5 +776,11 @@
   "Confirmation": {
     "cancel": "Cancel",
     "ok": "OK"
+  },
+
+  "EditionModal": {
+    "ok": "OK",
+    "cancel": "Cancel",
+    "remove": "Remove"
   }
 }
