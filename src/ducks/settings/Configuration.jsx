@@ -149,9 +149,7 @@ export class Configuration extends React.Component {
     const { settingsCollection } = this.props
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
     set(settings, [...key.split('.'), 'enabled'], checked)
-    this.saveDocument(settings, {
-      updateCollections: ['settings']
-    })
+    this.saveDocument(settings)
   }
 
   // TODO the displayed value and the persisted value should not be the same.
@@ -161,9 +159,7 @@ export class Configuration extends React.Component {
     const { settingsCollection } = this.props
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
     set(settings, [...key.split('.')], value)
-    this.saveDocument(settings, {
-      updateCollections: ['settings']
-    })
+    this.saveDocument(settings)
   }
 
   render() {
