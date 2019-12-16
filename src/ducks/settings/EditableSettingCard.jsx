@@ -20,6 +20,17 @@ const resolveDescriptionKey = props => {
   return props.t(descriptionKeyStr, descriptionProps)
 }
 
+const SettingCardSwitch = ({ checked, onClick, onChange }) => (
+  <Switch
+    disableRipple
+    className="u-mh-s"
+    checked={checked}
+    color="primary"
+    onClick={onClick}
+    onChange={onChange}
+  />
+)
+
 const EditableSettingCard = props => {
   const {
     onChangeDoc,
@@ -33,6 +44,14 @@ const EditableSettingCard = props => {
   const [editing, setEditing] = useState(false)
   const description = resolveDescriptionKey(props)
 
+  const handleSwitchChange = () => {
+    const shouldOpen = shouldOpenOnToggle ? shouldOpenOnToggle(props) : false
+    if (shouldOpen) {
+      setEditing(true)
+    } else {
+      onToggle(!enabled)
+    }
+  }
   return (
     <>
       <SettingCard
@@ -49,22 +68,10 @@ const EditableSettingCard = props => {
           </Bd>
           {onToggle ? (
             <Img style={toggleStyle}>
-              <Switch
-                disableRipple
-                className="u-mh-s"
+              <SettingCardSwitch
                 checked={enabled}
-                color="primary"
                 onClick={e => e.stopPropagation()}
-                onChange={() => {
-                  const shouldOpen = shouldOpenOnToggle
-                    ? shouldOpenOnToggle(props)
-                    : false
-                  if (shouldOpen) {
-                    setEditing(true)
-                  } else {
-                    onToggle(!enabled)
-                  }
-                }}
+                onChange={handleSwitchChange}
               />
             </Img>
           ) : null}
