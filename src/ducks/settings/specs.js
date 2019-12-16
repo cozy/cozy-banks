@@ -1,6 +1,14 @@
 import { CHOOSING_TYPES } from 'components/EditionModal'
 import flag from 'cozy-flags'
 import { getDocumentIdentity } from 'ducks/client/utils'
+import {
+  getAccountOrGroupChoiceFromAlert,
+  getCategoryChoiceFromAlert,
+  getMaxThresholdChoiceFromAlert,
+  updatedAlertFromAccountOrGroupChoice,
+  updatedAlertFromCategoryChoice,
+  updatedAlertFromMaxThresholdChoice
+} from './CategoryAlerts/helpers'
 
 const getValueFromNotification = notification => notification.value
 const updatedNotificationFromValue = (notification, value) => ({
@@ -85,5 +93,32 @@ export const lateHealthReimbursement = {
   fieldOrder: ['value'],
   fieldLabels: {
     value: 'Notifications.when_late_health_reimbursement.fieldLabels.value'
+  }
+}
+
+export const categoryBudgets = {
+  modalTitle: 'Settings.budget-category-alerts.edit.modal-title',
+  fieldOrder: ['accountOrGroup', 'category', 'maxThreshold'],
+  fieldLabels: {
+    accountOrGroup: 'Settings.budget-category-alerts.edit.account-group-label',
+    category: 'Settings.budget-category-alerts.edit.category-label',
+    maxThreshold: 'Settings.budget-category-alerts.edit.threshold-label'
+  },
+  fieldSpecs: {
+    accountOrGroup: {
+      type: CHOOSING_TYPES.accountOrGroup,
+      getValue: getAccountOrGroupChoiceFromAlert,
+      updater: updatedAlertFromAccountOrGroupChoice
+    },
+    category: {
+      type: CHOOSING_TYPES.category,
+      getValue: getCategoryChoiceFromAlert,
+      updater: updatedAlertFromCategoryChoice
+    },
+    maxThreshold: {
+      type: CHOOSING_TYPES.threshold,
+      getValue: getMaxThresholdChoiceFromAlert,
+      updater: updatedAlertFromMaxThresholdChoice
+    }
   }
 }
