@@ -141,8 +141,8 @@ const CategoryAlertCard = ({
           </div>
           <div className="u-media-fixed u-ml-1">
             <SettingCardRemoveConfirmation
-              title={t('Settings.budget-category-alerts.remove.title')}
-              description={t('Settings.budget-category-alerts.remove.desc')}
+              title={t('Settings.rules.remove-modal.title')}
+              description={t('Settings.rules.remove-modal.desc')}
               onRemove={handleRemoveAlert}
             />
           </div>

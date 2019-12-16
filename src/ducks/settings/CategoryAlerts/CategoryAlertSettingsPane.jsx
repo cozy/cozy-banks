@@ -24,8 +24,7 @@ const updateBudgetAlerts = async (client, settings, categoryBudgetAlerts) => {
 
 const CategoryAlertsPane = ({ client, settingsCollection, t }) => {
   const settings = getDefaultedSettingsFromCollection(settingsCollection)
-  const onUpdateError = () =>
-    Alerter.error(t('Settings.budget-category-alerts.saving-error'))
+  const onUpdateError = () => Alerter.error(t('Settings.rules.saving-error'))
   const onUpdate = updatedAlerts =>
     updateBudgetAlerts(client, settings, updatedAlerts)
   return (
@@ -37,9 +36,7 @@ const CategoryAlertsPane = ({ client, settingsCollection, t }) => {
         rules={settings.categoryBudgetAlerts}
         onUpdate={onUpdate}
         onError={onUpdateError}
-        getId={getRuleId}
-        getNextId={getNextRuleId}
-        addButtonLabelKey="Settings.create-alert"
+        addButtonLabelKey="Settings.rules.create"
         makeNewItem={makeNewAlert}
         ItemEditionModal={CategoryAlertEditModal}
       >

@@ -119,7 +119,7 @@ export class Configuration extends React.Component {
               className="u-ml-0"
               theme="subtle"
               icon="plus"
-              label={t('Settings.create-alert')}
+              label={t('Settings.rules.create')}
               onClick={() => {
                 Alerter.success(t('ComingSoon.description'))
               }}

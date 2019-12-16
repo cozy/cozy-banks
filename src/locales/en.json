@@ -545,7 +545,14 @@
         "description": "Navigate the app with hidden amounts"
       }
     },
-    "create-alert": "Create alert",
+    "rules": {
+      "create": "Create alert",
+      "remove-modal": {
+        "title": "Remove alert ?",
+        "desc": "Please confirm you want to remove the alert"
+      },
+      "saving-error": "Could not save alert, please try again later"
+    },
     "budget-category-alerts": {
       "pane-title": "Category budget",
       "pane-description": "Configure monthly budget notification per category",
@@ -554,7 +561,6 @@
       "for-account": "for account *%{accountOrGroupLabel}*",
       "for-group": "for group *%{accountOrGroupLabel}*",
       "for-all-accounts": "for all accounts",
-      "saving-error": "Could not save alert, please try again later",
       "edit": {
         "modal-title": "Edit alert",
         "category-label": "Category",
@@ -564,10 +570,6 @@
         "update-ok": "Update alert",
         "all-category": "All « %{categoryName} »",
         "cancel": "Cancel"
-      },
-      "remove": {
-        "title": "Remove alert ?",
-        "desc": "Please confirm you want to remove the alert"
       }
     }
   },

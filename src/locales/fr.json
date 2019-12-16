@@ -556,7 +556,14 @@
         "description": "Naviguer dans l'app avec les montants cachés"
       }
     },
-    "create-alert": "Créer une alerte",
+    "rules": {
+      "create": "Créer une alerte",
+      "remove-modal": {
+        "title": "Supprimer l'alerte ?",
+        "desc": "Merci de confirmer vouloir supprimer l'alerte"
+      },
+      "saving-error": "Impossible de sauver l'alerte, merci de réessayer plus tard."
+    },
     "budget-category-alerts": {
       "pane-title": "Budget par catégorie",
       "pane-description": "Configurer les alertes de budget par catégorie",
@@ -565,7 +572,6 @@
       "for-group": "pour le groupe *%{accountOrGroupLabel}*",
       "for-all-accounts": "pour tous les comptes",
       "for-category": "en *%{categoryName}*",
-      "saving-error": "Impossible de sauver l'alerte, merci de réessayer plus tard.",
       "edit": {
         "modal-title": "Configurer la notification",
         "category-label": "Catégorie",
@@ -575,10 +581,6 @@
         "update-ok": "Mettre à jour",
         "all-category": "Tout « %{categoryName} »",
         "cancel": "Annuler"
-      },
-      "remove": {
-        "title": "Supprimer l'alerte ?",
-        "desc": "Merci de confirmer vouloir supprimer l'alerte"
       }
     }
   },
