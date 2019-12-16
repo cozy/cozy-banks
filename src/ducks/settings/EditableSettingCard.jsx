@@ -1,11 +1,27 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Media, Bd, Img, translate } from 'cozy-ui/react'
+import { Media, Bd, Img, translate, Icon } from 'cozy-ui/react'
+import resultWithArgs from 'utils/resultWithArgs'
+import { markdownBold } from './helpers'
+
+import Confirmation from 'components/Confirmation'
 import SettingCard from 'components/SettingCard'
 import Switch from 'components/Switch'
 import EditionModal from 'components/EditionModal'
-import resultWithArgs from 'utils/resultWithArgs'
-import { markdownBold } from './helpers'
+
+export const CrossIcon = ({ onClick }) => (
+  <span onClick={onClick} className="u-expanded-click-area">
+    <Icon color="var(--coolGrey)" icon="cross" />
+  </span>
+)
+
+export const SettingCardRemoveConfirmation = translate()(
+  ({ onRemove, t, description, title }) => (
+    <Confirmation onConfirm={onRemove} title={title} description={description}>
+      <CrossIcon />
+    </Confirmation>
+  )
+)
 
 // Since the toggle has a large height, we need to compensate negatively
 // so that the height of the switch does not impact the height of the card
@@ -35,6 +51,9 @@ const EditableSettingCard = props => {
   const {
     onChangeDoc,
     onToggle,
+    onRemove,
+    onRemoveTitle,
+    onRemoveDescription,
     editModalProps,
     shouldOpenOnToggle,
     doc
@@ -72,6 +91,15 @@ const EditableSettingCard = props => {
                 checked={enabled}
                 onClick={e => e.stopPropagation()}
                 onChange={handleSwitchChange}
+              />
+            </Img>
+          ) : null}
+          {onRemove ? (
+            <Img>
+              <SettingCardRemoveConfirmation
+                title={onRemoveTitle}
+                description={onRemoveDescription}
+                onRemove={onRemove}
               />
             </Img>
           ) : null}

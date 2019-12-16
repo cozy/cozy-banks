@@ -567,9 +567,7 @@
       },
       "remove": {
         "title": "Remove alert ?",
-        "cancel": "Cancel",
-        "desc": "Please confirm you want to remove the alert",
-        "ok": "Remove the alert"
+        "desc": "Please confirm you want to remove the alert"
       }
     }
   },
@@ -773,5 +771,10 @@
   "AccountGroupChoice": {
     "nothing-selected": "Select an account",
     "all-accounts": "All accounts"
+  },
+
+  "Confirmation": {
+    "cancel": "Cancel",
+    "ok": "OK"
   }
 }
