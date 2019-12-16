@@ -23,24 +23,15 @@ import ToggleRow, {
 import DelayedDebitAlert from 'ducks/settings/DelayedDebitAlert'
 import CategoryAlertSettingsPane from 'ducks/settings/CategoryAlerts/CategoryAlertSettingsPane'
 import TogglableSettingCard from './TogglableSettingCard'
-import { CHOOSING_TYPES } from 'components/EditionModal'
 import { withAccountOrGroupLabeller } from './helpers'
-import { getDocumentIdentity } from 'ducks/client/utils'
 import useList from './useList'
 import { getAlertId, getNextAlertId } from 'ducks/budgetAlerts'
 
-const getValueFromNotification = notification => notification.value
-const updatedNotificationFromValue = (notification, value) => ({
-  ...notification,
-  value
-})
-
-const getAccountOrGroupFromNotification = notification =>
-  notification.accountOrGroup
-const updatedNotificationFromAccountGroup = (notification, accountOrGroup) => ({
-  ...notification,
-  accountOrGroup: getDocumentIdentity(accountOrGroup)
-})
+import {
+  balanceLower,
+  transactionGreater,
+  lateHealthReimbursement
+} from './specs'
 
 const SettingSection = ({ children, title }) => (
   <ToggleRowWrapper>
@@ -48,82 +39,6 @@ const SettingSection = ({ children, title }) => (
     {children}
   </ToggleRowWrapper>
 )
-
-const editModalProps = {
-  balanceLower: ({ t }) => ({
-    modalTitle: t('Notifications.editModal.title'),
-    fieldSpecs: {
-      value: {
-        type: CHOOSING_TYPES.number,
-        getValue: getValueFromNotification,
-        updater: updatedNotificationFromValue,
-        sectionProps: {
-          unit: '€'
-        }
-      },
-      accountOrGroup: {
-        type: CHOOSING_TYPES.accountOrGroup,
-        getValue: getAccountOrGroupFromNotification,
-        updater: updatedNotificationFromAccountGroup
-      }
-    },
-    fieldOrder: [
-      'value',
-      flag('settings.notification-account-group') && 'accountOrGroup'
-    ].filter(Boolean),
-    fieldLabels: {
-      value: t('Notifications.if_balance_lower.fieldLabels.value'),
-      accountOrGroup: t(
-        'Notifications.if_balance_lower.fieldLabels.accountOrGroup'
-      )
-    }
-  }),
-  transactionGreater: ({ t }) => ({
-    modalTitle: t('Notifications.editModal.title'),
-    fieldSpecs: {
-      value: {
-        type: CHOOSING_TYPES.number,
-        getValue: getValueFromNotification,
-        updater: updatedNotificationFromValue,
-        sectionProps: {
-          unit: '€'
-        }
-      },
-      accountOrGroup: {
-        type: CHOOSING_TYPES.accountOrGroup,
-        getValue: getAccountOrGroupFromNotification,
-        updater: updatedNotificationFromAccountGroup
-      }
-    },
-    fieldOrder: [
-      'value',
-      flag('settings.notification-account-group') && 'accountOrGroup'
-    ].filter(Boolean),
-    fieldLabels: {
-      value: t('Notifications.if_transaction_greater.fieldLabels.value'),
-      accountOrGroup: t(
-        'Notifications.if_transaction_greater.fieldLabels.accountOrGroup'
-      )
-    }
-  }),
-  lateHealthReimbursement: ({ t }) => ({
-    modalTitle: t('Notifications.editModal.title'),
-    fieldSpecs: {
-      value: {
-        type: CHOOSING_TYPES.number,
-        getValue: getValueFromNotification,
-        updater: updatedNotificationFromValue,
-        sectionProps: {
-          unit: t('Notifications.when_late_health_reimbursement.unit')
-        }
-      }
-    },
-    fieldOrder: ['value'],
-    fieldLabels: {
-      value: t('Notifications.when_late_health_reimbursement.fieldLabels.value')
-    }
-  })
-}
 
 // descriptionProps getters below need the full props to have access to
 // `props.getAccountOrGroupLabel`.
@@ -197,7 +112,7 @@ const DumbBalanceLowerRules = ({
           onToggle={onToggle(rule)}
           onChangeDoc={onChangeRules}
           unit="€"
-          editModalProps={editModalProps.balanceLower({
+          editModalProps={balanceLower({
             t
           })}
           getAccountOrGroupLabel={getAccountOrGroupLabel}
@@ -205,7 +120,6 @@ const DumbBalanceLowerRules = ({
           descriptionProps={getBalanceLowerDescriptionProps}
         />
       ))}
-
       <Button
         className="u-ml-0"
         theme="subtle"
@@ -291,7 +205,7 @@ export class Configuration extends React.Component {
               doc={settings.notifications.transactionGreater}
               getAccountOrGroupLabel={this.props.getAccountOrGroupLabel}
               unit="€"
-              editModalProps={editModalProps.transactionGreater({
+              editModalProps={transactionGreater({
                 t
               })}
             />
@@ -336,7 +250,7 @@ export class Configuration extends React.Component {
                   'notifications.lateHealthReimbursement'
                 )}
                 doc={settings.notifications.lateHealthReimbursement}
-                editModalProps={editModalProps.lateHealthReimbursement({
+                editModalProps={lateHealthReimbursement({
                   t
                 })}
               />
