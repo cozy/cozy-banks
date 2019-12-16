@@ -1,4 +1,4 @@
-import { getNextRuleId } from './rules'
+import { getNextRuleId } from './ruleUtils'
 describe('get next alert id ', () => {
   it('should return the next id', () => {
     expect(getNextRuleId([])).toBe(0)

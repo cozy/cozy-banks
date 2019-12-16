@@ -4,7 +4,7 @@ import { Alerter, translate } from 'cozy-ui/react'
 import { makeEditionModalFromSpec } from 'components/EditionModal'
 import Rules from 'ducks/settings/Rules'
 import EditableSettingCard from './EditableSettingCard'
-import { ensureNewRuleFormat } from './rules'
+import { ensureNewRuleFormat } from './ruleUtils'
 
 const makeRuleComponent = ({
   getRuleDescriptionProps,

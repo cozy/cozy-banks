@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Stack, Button, translate } from 'cozy-ui/react'
 import useList from './useList'
-import { getRuleId, getNextRuleId } from './rules'
+import { getRuleId, getNextRuleId } from './ruleUtils'
 
 export const AddRuleButton = ({ label, busy, onClick }) => (
   <Button
