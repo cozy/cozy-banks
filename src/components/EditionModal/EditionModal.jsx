@@ -130,8 +130,8 @@ const DumbEditionModalFooter = props => {
     doc,
     onEdit,
     onRemove,
-    onRemoveTitle,
-    onRemoveDescription,
+    removeModalTitle,
+    removeModalDescription,
     removeButtonLabel,
     cancelButtonLabel,
     onDismiss,
@@ -148,8 +148,8 @@ const DumbEditionModalFooter = props => {
 
   const removalButton = canBeRemoved && (
     <Confirmation
-      title={onRemoveTitle}
-      description={onRemoveDescription}
+      title={removeModalTitle}
+      description={removeModalDescription}
       onConfirm={handleRemove}
     >
       <Button theme="danger-outline" label={removeButtonLabel(props, doc)} />
@@ -194,8 +194,8 @@ const EditionModal = props => {
     onEdit,
     onDismiss,
     onRemove,
-    onRemoveTitle,
-    onRemoveDescription,
+    removeModalTitle,
+    removeModalDescription,
     t,
     canBeRemoved
   } = props
@@ -260,8 +260,8 @@ const EditionModal = props => {
           onEdit={onEdit}
           onDismiss={onDismiss}
           onRemove={onRemove}
-          onRemoveTitle={onRemoveTitle}
-          onRemoveDescription={onRemoveDescription}
+          removeModalTitle={removeModalTitle}
+          removeModalDescription={removeModalDescription}
           removeButtonLabel={removeButtonLabel}
           cancelButtonLabel={cancelButtonLabel}
           okButtonLabel={okButtonLabel}

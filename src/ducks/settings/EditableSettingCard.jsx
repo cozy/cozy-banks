@@ -52,8 +52,8 @@ const EditableSettingCard = props => {
     onChangeDoc,
     onToggle,
     onRemove,
-    onRemoveTitle,
-    onRemoveDescription,
+    removeModalTitle,
+    removeModalDescription,
     editModalProps,
     shouldOpenOnToggle,
     doc,
@@ -100,8 +100,8 @@ const EditableSettingCard = props => {
           {onRemove ? (
             <Img>
               <SettingCardRemoveConfirmation
-                title={onRemoveTitle}
-                description={onRemoveDescription}
+                title={removeModalTitle}
+                description={removeModalDescription}
                 onRemove={onRemove}
               />
             </Img>
@@ -113,8 +113,8 @@ const EditableSettingCard = props => {
           {...editModalProps}
           canBeRemoved={canBeRemoved}
           onRemove={onRemoveDoc}
-          onRemoveTitle={onRemoveTitle}
-          onRemoveDescription={onRemoveDescription}
+          removeModalTitle={removeModalTitle}
+          removeModalDescription={removeModalDescription}
           initialDoc={doc}
           onEdit={updatedDoc => {
             onChangeDoc(updatedDoc)
