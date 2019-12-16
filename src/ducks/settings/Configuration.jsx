@@ -1,5 +1,5 @@
 import React from 'react'
-import { translate, Alerter, Button } from 'cozy-ui/react'
+import { translate } from 'cozy-ui/react'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { queryConnect, withMutations } from 'cozy-client'
 import { settingsConn } from 'doctypes'
@@ -18,31 +18,9 @@ import EditableSettingCard from './EditableSettingCard'
 import { withAccountOrGroupLabeller } from './helpers'
 import ToggleRow from 'ducks/settings/ToggleRow'
 import BalanceLowerRules from './BalanceLowerRules'
+import TransactionGreaterRules from './TransactionGreaterRules'
 
-import { transactionGreater, lateHealthReimbursement } from './specs'
-
-// descriptionProps getters below need the full props to have access to
-// `props.getAccountOrGroupLabel`.
-// `getAccountOrGroupLabel` must come from the props to have access to the
-// store since it needs to get the full accountOrGroup from the store, since
-// the accountOrGroup from the notification is only its identity (only _id
-// and _type).
-// We pass the full props to descriptionKey to keep the symmetry between
-// descriptionKey getter and descriptionProp getter
-const getTransactionGreaterDescriptionKey = props => {
-  if (props.doc && props.doc.accountOrGroup) {
-    return 'Notifications.if_transaction_greater.descriptionWithAccountGroup'
-  } else {
-    return 'Notifications.if_transaction_greater.description'
-  }
-}
-
-const getTransactionGreaterDescriptionProps = props => ({
-  accountOrGroupLabel: props.doc.accountOrGroup
-    ? props.getAccountOrGroupLabel(props.doc.accountOrGroup)
-    : null,
-  value: props.doc.value
-})
+import { lateHealthReimbursement } from './specs'
 
 const onToggleFlag = key => checked => {
   flag(key, checked)
@@ -105,24 +83,12 @@ export class Configuration extends React.Component {
           <SubSection
             title={t('Notifications.if_transaction_greater.settingTitle')}
           >
-            <EditableSettingCard
-              descriptionKey={getTransactionGreaterDescriptionKey}
-              descriptionProps={getTransactionGreaterDescriptionProps}
-              onToggle={this.onToggle('notifications.transactionGreater')}
-              onChangeDoc={this.onChangeDoc('notifications.transactionGreater')}
-              doc={settings.notifications.transactionGreater}
+            <TransactionGreaterRules
+              rules={settings.notifications.transactionGreater}
               getAccountOrGroupLabel={this.props.getAccountOrGroupLabel}
-              unit="€"
-              editModalProps={transactionGreater}
-            />
-            <Button
-              className="u-ml-0"
-              theme="subtle"
-              icon="plus"
-              label={t('Settings.rules.create')}
-              onClick={() => {
-                Alerter.success(t('ComingSoon.description'))
-              }}
+              onChangeRules={this.onChangeDoc(
+                'notifications.transactionGreater'
+              )}
             />
           </SubSection>
           <CategoryAlertSettingsPane />
