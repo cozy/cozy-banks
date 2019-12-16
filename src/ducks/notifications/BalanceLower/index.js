@@ -156,7 +156,7 @@ class BalanceLower extends NotificationView {
       ? 'Notifications.if_balance_lower.notification.several.title'
       : 'Notifications.if_balance_lower.notification.several-multi-rule.title'
 
-    const firstRule = this.rules[0].value
+    const firstRule = matchingRules[0].rule
     const titleData = onlyOne
       ? {
           balance: firstAccount.balance,
@@ -165,7 +165,7 @@ class BalanceLower extends NotificationView {
         }
       : {
           accountsLength: accounts.length,
-          lowerBalance: firstRule,
+          lowerBalance: firstRule.value,
           currency: '€'
         }
     return this.t(titleKey, titleData)
