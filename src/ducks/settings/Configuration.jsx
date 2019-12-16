@@ -10,35 +10,21 @@ import flag from 'cozy-flags'
 
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import PinSettings from 'ducks/settings/PinSettings'
-import TogglePane, {
-  TogglePaneTitle,
-  TogglePaneSubtitle,
-  TogglePaneText
-} from 'ducks/settings/TogglePane'
-import ToggleRow, {
-  ToggleRowTitle,
-  ToggleRowDescription,
-  ToggleRowWrapper
-} from 'ducks/settings/ToggleRow'
+import { Section, SubSection } from 'ducks/settings/Sections'
+
 import DelayedDebitAlert from 'ducks/settings/DelayedDebitAlert'
 import CategoryAlertSettingsPane from 'ducks/settings/CategoryAlerts/CategoryAlertSettingsPane'
 import TogglableSettingCard from './TogglableSettingCard'
 import { withAccountOrGroupLabeller } from './helpers'
 import useList from './useList'
 import { getAlertId, getNextAlertId } from 'ducks/budgetAlerts'
+import ToggleRow from 'ducks/settings/ToggleRow'
 
 import {
   balanceLower,
   transactionGreater,
   lateHealthReimbursement
 } from './specs'
-
-const SettingSection = ({ children, title }) => (
-  <ToggleRowWrapper>
-    {title && <ToggleRowTitle>{title}</ToggleRowTitle>}
-    {children}
-  </ToggleRowWrapper>
-)
 
 // descriptionProps getters below need the full props to have access to
 // `props.getAccountOrGroupLabel`.
@@ -176,19 +162,18 @@ export class Configuration extends React.Component {
 
     return (
       <div>
-        <TogglePane>
-          <TogglePaneTitle>{t('Notifications.title')}</TogglePaneTitle>
-          <TogglePaneText>{t('Notifications.description')}</TogglePaneText>
-          <SettingSection
-            title={t('Notifications.if_balance_lower.settingTitle')}
-          >
+        <Section
+          title={t('Notifications.title')}
+          description={t('Notifications.description')}
+        >
+          <SubSection title={t('Notifications.if_balance_lower.settingTitle')}>
             <BalanceLowerRules
               rules={settings.notifications.balanceLower}
               getAccountOrGroupLabel={this.props.getAccountOrGroupLabel}
               onChangeRules={this.onChangeDoc('notifications.balanceLower')}
             />
-          </SettingSection>
-          <SettingSection
+          </SubSection>
+          <SubSection
             title={t('Notifications.if_transaction_greater.settingTitle')}
           >
             <TogglableSettingCard
@@ -210,17 +195,17 @@ export class Configuration extends React.Component {
                 Alerter.success(t('ComingSoon.description'))
               }}
             />
-          </SettingSection>
+          </SubSection>
           <CategoryAlertSettingsPane />
           <DelayedDebitAlert
             onToggle={this.onToggle('notifications.delayedDebit')}
             onChangeDoc={this.onChangeDoc('notifications.delayedDebit')}
             doc={settings.notifications.delayedDebit}
           />
-          <SettingSection title={t('Notifications.health_section.title')}>
-            <ToggleRowDescription>
-              {t('Notifications.health_section.description')}
-            </ToggleRowDescription>
+          <SubSection
+            title={t('Notifications.health_section.title')}
+            description={t('Notifications.health_section.description')}
+          >
             <div className="u-pl-2 u-pt-1-half u-stack-xs">
               <TogglableSettingCard
                 title={t('Notifications.when_health_bill_linked.settingTitle')}
@@ -245,15 +230,14 @@ export class Configuration extends React.Component {
                 editModalProps={lateHealthReimbursement}
               />
             </div>
-          </SettingSection>
-        </TogglePane>
-        <TogglePane>
-          <TogglePaneTitle>
-            {t('AdvancedFeaturesSettings.title')}
-          </TogglePaneTitle>
-          <TogglePaneSubtitle>
-            {t('AdvancedFeaturesSettings.automatic_categorization.title')}
-          </TogglePaneSubtitle>
+          </SubSection>
+        </Section>
+        <Section
+          title={t('AdvancedFeaturesSettings.title')}
+          description={t(
+            'AdvancedFeaturesSettings.automatic_categorization.title'
+          )}
+        >
           <ToggleRow
             description={t(
               'AdvancedFeaturesSettings.automatic_categorization.local_model_override.description'
@@ -262,10 +246,9 @@ export class Configuration extends React.Component {
             enabled={settings.community.localModelOverride.enabled}
             name="localModelOverride"
           />
-        </TogglePane>
+        </Section>
 
-        <TogglePane>
-          <TogglePaneTitle>{t('Settings.security.title')}</TogglePaneTitle>
+        <Section title={t('Settings.security.title')}>
           {flag('pin') && <PinSettings />}
           <ToggleRow
             title={t('Settings.security.amount_blur.title')}
@@ -274,7 +257,7 @@ export class Configuration extends React.Component {
             enabled={Boolean(flag('amount_blur'))}
             name="amountBlur"
           />
-        </TogglePane>
+        </Section>
 
         {Configuration.renderExtraItems()}
       </div>

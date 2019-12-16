@@ -3,9 +3,7 @@ import compose from 'lodash/flowRight'
 import { withClient, queryConnect } from 'cozy-client'
 import { Alerter, translate } from 'cozy-ui/transpiled/react'
 
-import { TogglePaneSubtitle, TogglePaneText } from 'ducks/settings/TogglePane'
-
-import { ToggleRowWrapper } from 'ducks/settings/ToggleRow'
+import { SubSection } from 'ducks/settings/Sections'
 
 import { settingsConn } from 'doctypes'
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
@@ -31,13 +29,10 @@ const CategoryAlertsPane = ({ client, settingsCollection, t }) => {
   const onUpdate = updatedAlerts =>
     updateBudgetAlerts(client, settings, updatedAlerts)
   return (
-    <ToggleRowWrapper>
-      <TogglePaneSubtitle>
-        {t('Settings.budget-category-alerts.pane-title')}
-      </TogglePaneSubtitle>
-      <TogglePaneText>
-        {t('Settings.budget-category-alerts.pane-description')}
-      </TogglePaneText>
+    <SubSection
+      title={t('Settings.budget-category-alerts.pane-title')}
+      description={t('Settings.budget-category-alerts.pane-description')}
+    >
       <Rules
         rules={settings.categoryBudgetAlerts}
         onUpdate={onUpdate}
@@ -58,7 +53,7 @@ const CategoryAlertsPane = ({ client, settingsCollection, t }) => {
           </div>
         )}
       </Rules>
-    </ToggleRowWrapper>
+    </SubSection>
   )
 }
 
