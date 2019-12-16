@@ -71,11 +71,9 @@ Rules.propTypes = {
   rules: PropTypes.array.isRequired,
   onUpdate: PropTypes.func.isRequired,
   onError: PropTypes.func.isRequired,
-  getId: PropTypes.func.isRequired,
-  getNextId: PropTypes.func.isRequired,
   addButtonLabelKey: PropTypes.string.isRequired,
   makeNewItem: PropTypes.func.isRequired,
-  ItemEditionModal: PropTypes.object.isRequired
+  ItemEditionModal: PropTypes.elementType.isRequired
 }
 
 export default translate()(Rules)
