@@ -77,14 +77,13 @@ class BalanceLower extends NotificationView {
   }
 
   filterForRule(rule, account) {
-    return (
-      getAccountBalance(account) < rule.value &&
-      account.type !== 'CreditCard' && // CreditCard are always in negative balance
-      doesAccountCorrespondToAccountGroup(
-        this.data.groups,
-        rule.accountOrGroup
-      )(account)
-    )
+    const isBalanceUnder = getAccountBalance(account) < rule.value
+    const correspondsAccountToGroup = doesAccountCorrespondToAccountGroup(
+      this.data.groups,
+      rule.accountOrGroup
+    )(account)
+    const isNotCreditCard = account.type !== 'CreditCard'
+    return isBalanceUnder && correspondsAccountToGroup && isNotCreditCard // CreditCard are always in negative balance
   }
 
   /**
