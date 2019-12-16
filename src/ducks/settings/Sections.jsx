@@ -6,11 +6,9 @@ import { ToggleRowTitle, ToggleRowWrapper } from 'ducks/settings/ToggleRow'
 const TogglePaneTitle = ({ children }) => (
   <Title className={styles.TogglePaneTitle}>{children}</Title>
 )
+
 const TogglePaneDescription = ({ children }) => (
   <p className="u-coolGrey">{children}</p>
-)
-const TogglePaneSubtitle = ({ children }) => (
-  <h5 className={styles.TogglePaneSubtitle}>{children}</h5>
 )
 
 export const Section = ({ title, description, children }) => (

@@ -12,7 +12,6 @@ import SettingCard from 'components/SettingCard'
 import { withAccountOrGroupLabeller, markdownBold } from '../helpers'
 
 import flag from 'cozy-flags'
-import EditionModal from 'components/EditionModal'
 import { SettingCardRemoveConfirmation } from 'ducks/settings/EditableSettingCard'
 
 const CategoryAlertPropType = PropTypes.shape({

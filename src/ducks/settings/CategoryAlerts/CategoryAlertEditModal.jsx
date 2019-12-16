@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { translate } from 'cozy-ui/react'
-import EditionModal, { CHOOSING_TYPES } from 'components/EditionModal'
+import EditionModal from 'components/EditionModal'
 import { categoryBudgets } from '../specs'
 
 /**

@@ -16,7 +16,7 @@ export const CrossIcon = ({ onClick }) => (
 )
 
 export const SettingCardRemoveConfirmation = translate()(
-  ({ onRemove, t, description, title }) => (
+  ({ onRemove, description, title }) => (
     <Confirmation onConfirm={onRemove} title={title} description={description}>
       <CrossIcon />
     </Confirmation>
