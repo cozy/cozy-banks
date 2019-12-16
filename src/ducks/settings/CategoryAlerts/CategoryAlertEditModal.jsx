@@ -13,7 +13,7 @@ import { categoryBudgets } from '../specs'
  */
 const CategoryAlertEditModal = translate()(
   ({ initialDoc, onEdit, onDismiss, t }) => {
-    const modalTitle = t(categoryBudgets.modalTitle)
+    const modalTitle = categoryBudgets.modalTitle
     const okButtonLabel = doc =>
       doc.id !== undefined
         ? t('Settings.budget-category-alerts.edit.update-ok')
