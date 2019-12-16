@@ -14,7 +14,7 @@ import { Section, SubSection } from 'ducks/settings/Sections'
 
 import DelayedDebitAlert from 'ducks/settings/DelayedDebitAlert'
 import CategoryAlertSettingsPane from 'ducks/settings/CategoryAlerts/CategoryAlertSettingsPane'
-import TogglableSettingCard from './TogglableSettingCard'
+import EditableSettingCard from './EditableSettingCard'
 import { withAccountOrGroupLabeller } from './helpers'
 import useList from './useList'
 import { getAlertId, getNextAlertId } from 'ducks/budgetAlerts'
@@ -92,7 +92,7 @@ const DumbBalanceLowerRules = ({
   return (
     <>
       {rules.map((rule, i) => (
-        <TogglableSettingCard
+        <EditableSettingCard
           doc={rule}
           key={i}
           onToggle={onToggle(rule)}
@@ -176,7 +176,7 @@ export class Configuration extends React.Component {
           <SubSection
             title={t('Notifications.if_transaction_greater.settingTitle')}
           >
-            <TogglableSettingCard
+            <EditableSettingCard
               descriptionKey={getTransactionGreaterDescriptionKey}
               descriptionProps={getTransactionGreaterDescriptionProps}
               onToggle={this.onToggle('notifications.transactionGreater')}
@@ -207,13 +207,13 @@ export class Configuration extends React.Component {
             description={t('Notifications.health_section.description')}
           >
             <div className="u-pl-2 u-pt-1-half u-stack-xs">
-              <TogglableSettingCard
+              <EditableSettingCard
                 title={t('Notifications.when_health_bill_linked.settingTitle')}
                 descriptionKey="Notifications.when_health_bill_linked.description"
                 onToggle={this.onToggle('notifications.healthBillLinked')}
                 doc={settings.notifications.healthBillLinked}
               />
-              <TogglableSettingCard
+              <EditableSettingCard
                 title={t(
                   'Notifications.when_late_health_reimbursement.settingTitle'
                 )}

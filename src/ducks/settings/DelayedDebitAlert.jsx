@@ -12,7 +12,7 @@ import {
 import { Spinner } from 'cozy-ui/react'
 
 import { ToggleRowWrapper, ToggleRowTitle } from 'ducks/settings/ToggleRow'
-import TogglableSettingCard from './TogglableSettingCard'
+import EditableSettingCard from './EditableSettingCard'
 import { CHOOSING_TYPES } from 'components/EditionModal'
 import { getAccountsById } from 'selectors'
 import compose from 'lodash/flowRight'
@@ -131,7 +131,7 @@ class DelayedDebitCard extends React.Component {
       : '...'
 
     return (
-      <TogglableSettingCard
+      <EditableSettingCard
         onToggle={onToggle}
         onChangeDoc={onChangeDoc}
         editModalProps={getModalProps({ t, initialDoc })}
