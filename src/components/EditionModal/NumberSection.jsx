@@ -14,7 +14,9 @@ const NumberSection = ({ label, value, onChange, unit, unitKey, t }) => {
           append={
             unit ? (
               <InputGroup.Unit>{unit || t(unitKey)}</InputGroup.Unit>
-            ) : null
+            ) : (
+              undefined
+            )
           }
         >
           <Input type="text" onChange={handleChange} defaultValue={value} />

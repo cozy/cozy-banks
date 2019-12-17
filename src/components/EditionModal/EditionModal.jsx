@@ -89,8 +89,8 @@ const InfoSlide = translate()(
     return (
       <ModalSections>
         {fieldOrder.map(fieldName => {
-          const FieldSection = SectionsPerType[fieldSpecs[fieldName].type]
           const fieldSpec = fieldSpecs[fieldName]
+          const FieldSection = SectionsPerType[fieldSpec.type]
           const fieldLabel = fieldLabels[fieldName]
           const chooserProps = resultWithArgs(fieldSpec, 'chooserProps', [doc])
           const sectionProps = resultWithArgs(fieldSpec, 'sectionProps', [doc])

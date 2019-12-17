@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { Modal, translate } from 'cozy-ui/transpiled/react'
 
 const Confirmation = translate()(
@@ -35,5 +36,9 @@ const Confirmation = translate()(
     )
   }
 )
+
+Confirmation.propTypes = {
+  children: PropTypes.element.isRequired
+}
 
 export default Confirmation
