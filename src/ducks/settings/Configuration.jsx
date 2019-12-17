@@ -101,7 +101,7 @@ export class Configuration extends React.Component {
             title={t('Notifications.health_section.title')}
             description={t('Notifications.health_section.description')}
           >
-            <div className="u-pl-2 u-pt-1-half u-stack-xs">
+            <div className="u-stack-xs">
               <EditableSettingCard
                 title={t('Notifications.when_health_bill_linked.settingTitle')}
                 descriptionKey="Notifications.when_health_bill_linked.description"
@@ -133,25 +133,28 @@ export class Configuration extends React.Component {
             'AdvancedFeaturesSettings.automatic_categorization.title'
           )}
         >
-          <ToggleRow
-            description={t(
-              'AdvancedFeaturesSettings.automatic_categorization.local_model_override.description'
-            )}
-            onToggle={this.onToggle('community.localModelOverride')}
-            enabled={settings.community.localModelOverride.enabled}
-            name="localModelOverride"
-          />
+          <SubSection>
+            <ToggleRow
+              description={t(
+                'AdvancedFeaturesSettings.automatic_categorization.local_model_override.description'
+              )}
+              onToggle={this.onToggle('community.localModelOverride')}
+              enabled={settings.community.localModelOverride.enabled}
+              name="localModelOverride"
+            />
+          </SubSection>
         </Section>
 
         <Section title={t('Settings.security.title')}>
           {flag('pin') && <PinSettings />}
-          <ToggleRow
-            title={t('Settings.security.amount_blur.title')}
-            description={t('Settings.security.amount_blur.description')}
-            onToggle={onToggleFlag('amount_blur')}
-            enabled={Boolean(flag('amount_blur'))}
-            name="amountBlur"
-          />
+          <SubSection title={t('Settings.security.amount_blur.title')}>
+            <ToggleRow
+              description={t('Settings.security.amount_blur.description')}
+              onToggle={onToggleFlag('amount_blur')}
+              enabled={Boolean(flag('amount_blur'))}
+              name="amountBlur"
+            />
+          </SubSection>
         </Section>
 
         {Configuration.renderExtraItems()}

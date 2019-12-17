@@ -4,16 +4,6 @@ import cx from 'classnames'
 import styles from 'ducks/settings/ToggleRow.styl'
 import Switch from 'components/Switch'
 
-export const ToggleRowWrapper = props => {
-  const { className, ...rest } = props
-
-  return <div className={cx(styles.ToggleRow__wrapper, className)} {...rest} />
-}
-
-export const ToggleRowTitle = props => {
-  return <h5 {...props} />
-}
-
 export const ToggleRowContent = props => {
   const { className, ...rest } = props
 
@@ -28,25 +18,22 @@ export const ToggleRowDescription = props => {
   )
 }
 
-const ToggleRow = ({ enabled, title, description, onToggle }) => {
+const ToggleRow = ({ enabled, description, onToggle }) => {
   return (
-    <ToggleRowWrapper>
-      {title && <ToggleRowTitle>{title}</ToggleRowTitle>}
-      <ToggleRowContent>
-        <ToggleRowDescription>
-          <span dangerouslySetInnerHTML={{ __html: description }} />
-        </ToggleRowDescription>
+    <ToggleRowContent>
+      <ToggleRowDescription>
+        <span dangerouslySetInnerHTML={{ __html: description }} />
+      </ToggleRowDescription>
 
-        <Switch
-          disableRipple
-          className="u-mh-half"
-          checked={enabled}
-          color="primary"
-          onClick={e => e.stopPropagation()}
-          onChange={() => onToggle(!enabled)}
-        />
-      </ToggleRowContent>
-    </ToggleRowWrapper>
+      <Switch
+        disableRipple
+        className="u-mh-half"
+        checked={enabled}
+        color="primary"
+        onClick={e => e.stopPropagation()}
+        onChange={() => onToggle(!enabled)}
+      />
+    </ToggleRowContent>
   )
 }
 

@@ -1,33 +1,41 @@
 import React from 'react'
 import { Title } from 'cozy-ui/react/Text'
-import styles from 'ducks/settings/TogglePane.styl'
-import { ToggleRowTitle, ToggleRowWrapper } from 'ducks/settings/ToggleRow'
+import cx from 'classnames'
+import styles from './Sections.styl'
 
-const TogglePaneTitle = ({ children }) => (
-  <Title className={styles.TogglePaneTitle}>{children}</Title>
+const SectionTitle = ({ children }) => (
+  <Title className={styles.SectionTitle}>{children}</Title>
 )
 
-const TogglePaneDescription = ({ children }) => (
-  <p className="u-coolGrey">{children}</p>
+const SectionDescription = ({ children }) => (
+  <div className={styles.SectionDescription}>{children}</div>
 )
+
+const SubSectionDescription = ({ children }) => (
+  <div className={styles.SubSectionDescription}>{children}</div>
+)
+
+export const SubSectionTitle = props => {
+  return <h5 {...props} styles={styles.SubSectionTitle} />
+}
 
 export const Section = ({ title, description, children }) => (
-  <div className="u-pb-1-half">
-    {title ? <TogglePaneTitle>{title}</TogglePaneTitle> : null}
+  <div className={cx(styles.Section, 'u-stack-m')}>
+    {title ? <SectionTitle>{title}</SectionTitle> : null}
     {description ? (
-      <TogglePaneDescription>{description}</TogglePaneDescription>
+      <SectionDescription>{description}</SectionDescription>
     ) : null}
     {children}
   </div>
 )
 
-export const SubSection = ({ children, title, description }) => (
-  <ToggleRowWrapper>
-    {title ? <ToggleRowTitle>{title}</ToggleRowTitle> : null}
+export const SubSection = ({ children, title, description, className }) => (
+  <div className={cx(styles.SubSection, className, 'u-stack-s')}>
+    {title ? <SubSectionTitle>{title}</SubSectionTitle> : null}
 
     {description ? (
-      <TogglePaneDescription>{description}</TogglePaneDescription>
+      <SubSectionDescription>{description}</SubSectionDescription>
     ) : null}
     {children}
-  </ToggleRowWrapper>
+  </div>
 )

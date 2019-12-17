@@ -3,10 +3,12 @@ import PropTypes from 'prop-types'
 import { Stack, Button, translate } from 'cozy-ui/react'
 import useList from './useList'
 import { getRuleId, getNextRuleId } from './ruleUtils'
+import cx from 'classnames'
+import styles from './Rules.styl'
 
 export const AddRuleButton = ({ label, busy, onClick }) => (
   <Button
-    className="u-ml-0"
+    className={cx('u-ml-0 u-mb-0', styles.AddRuleButton)}
     theme="subtle"
     icon="plus"
     label={label}
@@ -44,11 +46,22 @@ const Rules = ({
     }
   }
   return (
-    <Stack spacing="s">
-      {items
-        ? items.map((item, i) => children(item, i, createOrUpdate, remove))
-        : null}
+    <>
+      {items.length > 0 ? (
+        <Stack spacing="xs">
+          {items
+            ? items.map((item, i) => children(item, i, createOrUpdate, remove))
+            : null}
 
+          {creating ? (
+            <ItemEditionModal
+              onDismiss={() => setCreating(false)}
+              initialDoc={makeNewItem()}
+              onEdit={handleCreateItem}
+            />
+          ) : null}
+        </Stack>
+      ) : null}
       <AddRuleButton
         label={t(addButtonLabelKey)}
         busy={saving}
@@ -56,14 +69,7 @@ const Rules = ({
           setCreating(true)
         }}
       />
-      {creating ? (
-        <ItemEditionModal
-          onDismiss={() => setCreating(false)}
-          initialDoc={makeNewItem()}
-          onEdit={handleCreateItem}
-        />
-      ) : null}
-    </Stack>
+    </>
   )
 }
 
