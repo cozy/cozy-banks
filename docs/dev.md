@@ -28,6 +28,7 @@
     - [Assets](#assets)
   - [Debug notification triggers](#debug-notification-triggers)
   - [When creating a notification](#when-creating-a-notification)
+  - [End to end tests](#end-to-end-tests)
 - [Important credentials](#important-credentials)
 
 <!-- /MarkdownTOC -->
@@ -391,6 +392,23 @@ Then you can use [ACH] to import the fixtures :
 ```console
 ACH import test/fixtures/operations-notifs.json test/fixtures/helpers.js --url <instance_url>
 ```
+
+### End to end tests
+
+Alert rules are tested with an end to end test that
+
+- Inserts data inside the local cozy-stack
+- Launches the onOperationOrBillCreate service
+- Checks on mailhog the emails received.
+
+```
+$ export COZY_URL=http://cozy.tools:8080
+$ export COZY_CREDENTIALS=$(cozy-stack instances token-app cozy.tools:8080 banks)
+$ docker run -p 1025:1025 -p 8025:8025 mailhog/mailhog
+$ yarn build:services
+# Use --watch when developing
+# Deactivate minification with minimize: false in webpack.optimize inside webpack.target.services.js
+$ yarn test:e2e:alerts
 
 ### Misc
 
