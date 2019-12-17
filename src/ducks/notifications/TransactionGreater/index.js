@@ -19,6 +19,12 @@ const ACCOUNT_SEL = '.js-account'
 const DATE_SEL = '.js-date'
 const TRANSACTION_SEL = '.js-transaction'
 
+// During tests, it is difficult to keep transactions with
+// first _rev since we replace replace existing transactions, this
+// is why we deactivate the isNewTransaction during tests
+const isNewTransactionOutsideTests =
+  process.env.IS_TESTING === 'test' ? () => true : isNewTransaction
+
 const customToText = cozyHTMLEmail => {
   const getTextTransactionRow = $row =>
     $row
@@ -92,7 +98,7 @@ class TransactionGreater extends NotificationView {
     )
 
     return overEvery(
-      isNewTransaction,
+      isNewTransactionOutsideTests,
       isRecentEnough,
       isGreatEnough,
       correspondsToAccountGroup
@@ -170,7 +176,7 @@ class TransactionGreater extends NotificationView {
       : matchingRules.length === 1
       ? {
           transactionsLength: transactions.length,
-          maxAmount: matchingRules[0].value
+          maxAmount: matchingRules[0].rule.value
         }
       : {
           transactionsLength: transactions.length
