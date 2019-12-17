@@ -163,6 +163,7 @@ class BalanceLower extends NotificationView {
   }
 }
 
+BalanceLower.supportsMultipleRules = true
 BalanceLower.template = template
 BalanceLower.toText = customToText
 BalanceLower.category = 'balance-lower'
