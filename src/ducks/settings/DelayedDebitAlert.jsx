@@ -153,7 +153,10 @@ class DelayedDebitCard extends React.Component {
 const DumbDelayedDebitSettingSection = props => {
   const { t } = props
   return (
-    <SubSection title={t('Notifications.delayed_debit.settingTitle')}>
+    <SubSection
+      title={t('Notifications.delayed_debit.settingTitle')}
+      description={t('Notifications.delayed_debit.settingDescription')}
+    >
       <DelayedDebitCard {...props} />
     </SubSection>
   )

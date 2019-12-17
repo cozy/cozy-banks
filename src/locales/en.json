@@ -501,6 +501,7 @@
     },
     "delayed_debit": {
       "settingTitle": "Delayed debit alert",
+      "settingDescription": "You need a \"credit card\" account for this functionality",
       "description": "You will receive a notification when the outstanding card account *%{creditCardLabel}* generates a negative balance on its associated current account *%{checkingsLabel}*, *%{value} days* before the end of the month.",
       "fieldLabels": {
         "creditCardAccount": "Credit card",

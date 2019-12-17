@@ -513,6 +513,7 @@
     },
     "delayed_debit": {
       "settingTitle": "Paiement de l'encours carte à débit différé",
+      "settingDescription": "Cela nécessite d'avoir connecté un compte de type \"carte de crédit\"",
       "fieldLabels": {
         "creditCardAccount": "Carte de crédit",
         "checkingsAccount": "Compte courant de l'encours",
