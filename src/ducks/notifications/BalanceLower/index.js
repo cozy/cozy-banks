@@ -77,14 +77,13 @@ class BalanceLower extends NotificationView {
   }
 
   filterForRule(rule, account) {
-    return (
-      getAccountBalance(account) < rule.value &&
-      account.type !== 'CreditCard' && // CreditCard are always in negative balance
-      doesAccountCorrespondToAccountGroup(
-        this.data.groups,
-        rule.accountOrGroup
-      )(account)
-    )
+    const isBalanceUnder = getAccountBalance(account) < rule.value
+    const correspondsAccountToGroup = doesAccountCorrespondToAccountGroup(
+      this.data.groups,
+      rule.accountOrGroup
+    )(account)
+    const isNotCreditCard = account.type !== 'CreditCard'
+    return isBalanceUnder && correspondsAccountToGroup && isNotCreditCard // CreditCard are always in negative balance
   }
 
   /**
@@ -157,7 +156,7 @@ class BalanceLower extends NotificationView {
       ? 'Notifications.if_balance_lower.notification.several.title'
       : 'Notifications.if_balance_lower.notification.several-multi-rule.title'
 
-    const firstRule = this.rules[0].value
+    const firstRule = matchingRules[0].rule
     const titleData = onlyOne
       ? {
           balance: firstAccount.balance,
@@ -166,7 +165,7 @@ class BalanceLower extends NotificationView {
         }
       : {
           accountsLength: accounts.length,
-          lowerBalance: firstRule,
+          lowerBalance: firstRule.value,
           currency: '€'
         }
     return this.t(titleKey, titleData)
