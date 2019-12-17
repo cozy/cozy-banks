@@ -29,6 +29,11 @@
   - [Debug notification triggers](#debug-notification-triggers)
   - [When creating a notification](#when-creating-a-notification)
   - [End to end tests](#end-to-end-tests)
+    - [Alert rules](#alert-rules)
+      - [Semi automatic test](#semi-automatic-test)
+      - [Manual insertion test](#manual-insertion-test)
+  - [Misc](#misc)
+- [Pouch On Web](#pouch-on-web)
 - [Important credentials](#important-credentials)
 
 <!-- /MarkdownTOC -->
@@ -395,7 +400,11 @@ ACH import test/fixtures/operations-notifs.json test/fixtures/helpers.js --url <
 
 ### End to end tests
 
-Alert rules are tested with an end to end test that
+#### Alert rules
+
+##### Semi automatic test
+
+Alert rules are tested with a semi automatic test that
 
 - Inserts data inside the local cozy-stack
 - Launches the onOperationOrBillCreate service
@@ -409,6 +418,23 @@ $ yarn build:services
 # Use --watch when developing
 # Deactivate minification with minimize: false in webpack.optimize inside webpack.target.services.js
 $ yarn test:e2e:alerts
+```
+
+At the moment, it needs to be launched on the computer of the developer but should
+be done on the CI in the future
+
+##### Manual insertion test
+
+To test on a real Cozy, a script can insert fake transactions on accounts corresponding
+to alerts, for the onOperationOrBillCreate service to be started.
+
+```
+# Insert fake transactions
+yarn test:e2e:alerts-existing-cozy --url https://mydemocozy.mycozy.cloud insert
+# Cleanup fake transactions
+yarn test:e2e:alerts-existing-cozy --url https://mydemocozy.mycozy.cloud cleanup
+```
+
 
 ### Misc
 
