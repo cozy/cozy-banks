@@ -1,5 +1,4 @@
 import { CHOOSING_TYPES } from 'components/EditionModal'
-import flag from 'cozy-flags'
 import { getDocumentIdentity } from 'ducks/client/utils'
 import {
   getAccountOrGroupChoiceFromAlert,
@@ -40,10 +39,7 @@ export const balanceLower = {
       updater: updatedNotificationFromAccountGroup
     }
   },
-  fieldOrder: [
-    'value',
-    flag('settings.notification-account-group') && 'accountOrGroup'
-  ].filter(Boolean),
+  fieldOrder: ['value', 'accountOrGroup'],
   fieldLabels: {
     value: 'Notifications.if_balance_lower.fieldLabels.value',
     accountOrGroup: 'Notifications.if_balance_lower.fieldLabels.accountOrGroup'
@@ -67,10 +63,7 @@ export const transactionGreater = {
       updater: updatedNotificationFromAccountGroup
     }
   },
-  fieldOrder: [
-    'value',
-    flag('settings.notification-account-group') && 'accountOrGroup'
-  ].filter(Boolean),
+  fieldOrder: ['value', 'accountOrGroup'],
   fieldLabels: {
     value: 'Notifications.if_transaction_greater.fieldLabels.value',
     accountOrGroup:
