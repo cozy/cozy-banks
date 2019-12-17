@@ -66,7 +66,7 @@ class BalanceLower extends NotificationView {
 
   /**
    * Returns a list of [{ rule, accounts }]
-   * For each rule, returns a list of accounts
+   * For each rule, returns a list of matching accounts
    * Rules that do not match any accounts are discarded
    */
   findMatchingRules() {
