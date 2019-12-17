@@ -6842,20 +6842,6 @@ body {
   }
 }
 /*# sourceMappingURL=src/ducks/settings/GroupsSettings.css.map */
-h4 {
-  color: var(--charcoalGrey);
-  font-size: 1.2em;
-}
-h5 {
-  color: var(--charcoalGrey);
-  font-size: 1em;
-  margin-top: 0;
-  margin-bottom: 5px;
-}
-.ToggleRow_ToggleRow__wrapper_395Qj {
-  max-width: 600px;
-  margin-bottom: 20px;
-}
 .ToggleRow_ToggleRow__body_1rtsq {
   display: flex;
   justify-content: flex-start;
@@ -6867,43 +6853,33 @@ h5 {
   margin: 0;
   font-size: 0.9em;
 }
-.ToggleRow_ToggleRow__input_scBzh {
-  display: inline-flex;
-  margin: 0 5px;
-  width: 4.5em;
-  padding: 0.5em 0.3em;
-  align-items: center;
-  border: 1px solid var(--silver);
-}
-.ToggleRow_ToggleRow__input_scBzh input[type='text'],
-.ToggleRow_ToggleRow__input_scBzh input[type='number'] {
-  box-sizing: border-box;
-  width: 100%;
-  border: 0;
-  background-color: var(--white);
-  color: var(--black);
-  -moz-appearance: textfield;
-}
-.ToggleRow_ToggleRow__input_scBzh ::-webkit-inner-spin-button,
-.ToggleRow_ToggleRow__input_scBzh ::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-}
-.ToggleRow_ToggleRow__input_scBzh ::-webkit-contacts-auto-fill-button {
-  visibility: hidden;
-  display: none;
-  pointer-events: none;
-}
-.ToggleRow_ToggleRow__inputContainer_1sEZm {
-  flex-basis: 100%;
-}
-.ToggleRow_ToggleRow__toggle_lpVAe span {
-  vertical-align: middle;
-}
 /*# sourceMappingURL=src/ducks/settings/ToggleRow.css.map */
-.TogglePane_TogglePaneTitle_3drSb {
-  margin-bottom: 1rem;
+h4 {
+  color: var(--charcoalGrey);
+  font-size: 1.2em;
 }
-/*# sourceMappingURL=src/ducks/settings/TogglePane.css.map */
+h5 {
+  color: var(--charcoalGrey);
+  font-size: 1em;
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+.Sections_Section_qDsxd + .Sections_Section_qDsxd {
+  margin-top: 1.5rem;
+}
+.Sections_SubSection_1XRL2 {
+  max-width: 600px;
+}
+.Sections_SubSection_1XRL2 + .Sections_SubSection_1XRL2 {
+  margin-top: 1.25rem;
+}
+.Sections_SectionDescription_wBxnr {
+  color: var(--coolGrey);
+}
+.Sections_SubSectionDescription_3O6wU {
+  color: var(--coolGrey);
+}
+/*# sourceMappingURL=src/ducks/settings/Sections.css.map */
 .styles_SettingCard_eH5wq {
   box-sizing: border-box;
   width: 400px;
@@ -6954,6 +6930,10 @@ h5 {
   }
 }
 /*# sourceMappingURL=src/components/ModalSections/styles.css.map */
+.Rules_AddRuleButton_16vqW:first-child:last-child {
+  margin-top: auto;
+}
+/*# sourceMappingURL=src/ducks/settings/Rules.css.map */
 .styles_TransferStateModal_gLD-h {
   justify-content: center;
   display: flex;
