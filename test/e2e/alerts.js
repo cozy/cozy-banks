@@ -296,9 +296,7 @@ const parseArgs = () => {
   const parser = new ArgumentParser()
   parser.addArgument('--url', { defaultValue: 'http://cozy.tools:8080' })
   parser.addArgument(['-v', '--verbose'], { action: 'storeTrue' })
-  parser.addArgument('scenario', {
-    choices: Object.keys(scenarios).concat(['all'])
-  })
+  parser.addArgument('scenario')
   return parser.parseArgs()
 }
 
@@ -416,8 +414,12 @@ const main = async () => {
     }
   })
 
+
+  const allScenarioIds = Object.keys(scenarios)
   const scenarioIds =
-    args.scenario === 'all' ? Object.keys(scenarios) : [args.scenario]
+    args.scenario === 'all'
+      ? allScenarioIds
+      : allScenarioIds.filter(x => x.startsWith(args.scenario))
 
   const mailhog = Mailhog({ host: 'localhost' })
   const answers = {}
