@@ -209,9 +209,9 @@ const scenarios = {
     }
   },
   transactionGreater1: {
-    description: 'Credit of 60€',
+    description: 'Debit of 60€',
     expectedEmail: {
-      subject: 'Credit of 60€'
+      subject: 'Debit of 60€'
     },
     data: {
       [SETTINGS_DOCTYPE]: [
@@ -226,7 +226,7 @@ const scenarios = {
       [TRANSACTION_DOCTYPE]: [
         {
           ...isaBurgerTransaction,
-          amount: 60 // such an expensive burger !
+          amount: -60 // such an expensive burger !
         }
       ]
     }
@@ -250,10 +250,10 @@ const scenarios = {
       ],
       [ACCOUNT_DOCTYPE]: [louiseCheckings, isabelleCheckings],
       [TRANSACTION_DOCTYPE]: [
-        { ...isaBurgerTransaction, _id: 'isa_burger_0', amount: 100 },
+        { ...isaBurgerTransaction, _id: 'isa_burger_0', amount: -100 },
         {
           ...isaBurgerTransaction,
-          amount: 60 // such an expensive burger !
+          amount: -60 // such an expensive burger !
         }
       ]
     }
@@ -277,10 +277,10 @@ const scenarios = {
       ],
       [ACCOUNT_DOCTYPE]: [louiseCheckings, isabelleCheckings],
       [TRANSACTION_DOCTYPE]: [
-        { ...louiseBurgerTransaction, amount: 10 },
+        { ...louiseBurgerTransaction, amount: -10 },
         {
           ...isaBurgerTransaction,
-          amount: 60 // such an expensive burger !
+          amount: -60 // such an expensive burger !
         }
       ]
     }
