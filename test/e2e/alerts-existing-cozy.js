@@ -180,6 +180,9 @@ const cleanupFakeDocumentsForDoctype = async (client, doctype) => {
   })
   console.log(`Found ${fakeDocuments.length} fake ${doctype}`)
   console.log(`Cleaning up ${fakeDocuments.length} fake ${doctype}...`)
+
+  // The omit for _type can be removed when the following PR is resolved
+  // https://github.com/cozy/cozy-client/pull/597
   const resp = await client.stackClient
     .collection(doctype)
     .destroyAll(fakeDocuments.map(x => omit(x, '_type')))

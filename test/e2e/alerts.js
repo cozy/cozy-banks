@@ -388,6 +388,8 @@ const cleanupDatabase = async client => {
     const { data: docs } = await col.getAll()
     if (docs.length > 0) {
       console.log(`Cleaning ${docs.length} ${doctype} documents`)
+      // The omit for _type can be removed when the following PR is resolved
+      // https://github.com/cozy/cozy-client/pull/597
       await col.destroyAll(docs.map(doc => omit(doc, '_type')))
     }
   }
