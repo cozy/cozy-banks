@@ -3,6 +3,7 @@ import NotificationView from 'ducks/notifications/BaseNotificationView'
 import { sortBy, fromPairs } from 'lodash'
 import log from 'cozy-logger'
 import { getDate, isNew as isNewTransaction } from 'ducks/transactions/helpers'
+import { getAccountLabel } from 'ducks/account/helpers'
 import { isTransactionAmountGreaterThan } from 'ducks/notifications/helpers'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 import template from './template.hbs'
@@ -11,6 +12,7 @@ import { toText } from 'cozy-notifications'
 import uniqBy from 'lodash/uniqBy'
 import flatten from 'lodash/flatten'
 import overEvery from 'lodash/overEvery'
+import groupBy from 'lodash/groupBy'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 
 const getDocumentId = x => x._id
@@ -163,24 +165,39 @@ class TransactionGreater extends NotificationView {
     }
   }
 
+  getNotificationSubtype(templateData) {
+    const { transactions, matchingRules } = templateData
+    if (transactions.length === 1) {
+      return 'only'
+    } else if (transactions.length > 1 && matchingRules.length === 1) {
+      return 'several-single-rule'
+    } else {
+      return 'several-multi-rule'
+    }
+  }
+
   getTitle(templateData) {
     const { transactions, matchingRules } = templateData
     const onlyOne = transactions.length === 1
     const firstTransaction = transactions[0]
-    const titleData = onlyOne
-      ? {
-          firstTransaction: firstTransaction,
-          amount: firstTransaction.amount,
-          currency: getCurrencySymbol(firstTransaction.currency)
-        }
-      : matchingRules.length === 1
-      ? {
-          transactionsLength: transactions.length,
-          maxAmount: matchingRules[0].rule.value
-        }
-      : {
-          transactionsLength: transactions.length
-        }
+
+    const notificationSubtype = this.getNotificationSubtype(templateData)
+    const titleData =
+      notificationSubtype === 'only'
+        ? {
+            firstTransaction: firstTransaction,
+            amount: Math.abs(firstTransaction.amount),
+            currency: getCurrencySymbol(firstTransaction.currency)
+          }
+        : notificationSubtype === 'several-single-rule'
+        ? {
+            transactionsLength: transactions.length,
+            maxAmount: matchingRules[0].rule.value
+          }
+        : {
+            transactionsLength: transactions.length,
+            matchingRulesLength: matchingRules.length
+          }
 
     const titleKey = onlyOne
       ? firstTransaction.amount > 0
@@ -193,12 +210,34 @@ class TransactionGreater extends NotificationView {
   }
 
   getPushContent(templateData) {
+    const notificationSubtype = this.getNotificationSubtype(templateData)
+
+    const accountsById = templateData.accounts
     const transactions = templateData.transactions
     const [transaction] = sortBy(transactions, getDate).reverse()
 
-    return `${transaction.label} : ${transaction.amount} ${getCurrencySymbol(
-      transaction.currency
-    )}`
+    if (notificationSubtype === 'only') {
+      return `${transaction.label} : ${transaction.amount}${getCurrencySymbol(
+        transaction.currency
+      )}`
+    } else {
+      const transactionGroupedByAccount = groupBy(transactions, x => x.account)
+      const groups = Object.entries(transactionGroupedByAccount).map(
+        ([accountId, transactions]) => ({
+          account: accountsById[accountId],
+          transactions
+        })
+      )
+      return groups
+        .map(
+          g =>
+            `${getAccountLabel(g.account)}: ${this.t(
+              'Notifications.if_transaction_greater.notification.content-transaction-mention',
+              { smart_count: g.transactions.length }
+            )}`
+        )
+        .join(', ')
+    }
   }
 }
 

@@ -234,7 +234,7 @@ const scenarios = {
   transactionGreater2: {
     description: '2 transactions, single rule',
     expectedEmail: {
-      subject: 'Alert: 2 transactions greater than 50€'
+      subject: '2 transactions greater than 50€'
     },
     data: {
       [SETTINGS_DOCTYPE]: [
@@ -259,9 +259,9 @@ const scenarios = {
     }
   },
   transactionGreater3: {
-    description: '2 transactions, multi rules',
+    description: '3 transactions, multi rules',
     expectedEmail: {
-      subject: 'Alert: 2 transactions greater than their max threshold'
+      subject: '3 transactions greater than 2 thresholds'
     },
     data: {
       [SETTINGS_DOCTYPE]: [
@@ -281,6 +281,11 @@ const scenarios = {
         {
           ...isaBurgerTransaction,
           amount: -60 // such an expensive burger !
+        },
+        {
+          ...isaBurgerTransaction,
+          _id: 'isa_burger_0',
+          amount: -100 // such an expensive burger !
         }
       ]
     }
