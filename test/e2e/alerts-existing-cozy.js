@@ -120,7 +120,10 @@ const insertFakeDocuments = async client => {
     )
     let chosenAccountId
     if (correspondingAccounts.length > 1) {
-      console.log('More than 1 corrsponding account for rule', formatRule(rule))
+      console.log(
+        'More than 1 corresponding account for rule',
+        formatRule(rule)
+      )
       chosenAccountId = (await chooseAccount(correspondingAccounts))._id
     } else if (correspondingAccounts.length === 1) {
       chosenAccountId = correspondingAccounts[0]._id
