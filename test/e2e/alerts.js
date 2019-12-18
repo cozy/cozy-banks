@@ -5,6 +5,8 @@ import { ArgumentParser } from 'argparse'
 import keyBy from 'lodash/keyBy'
 import isMatch from 'lodash/isMatch'
 import pick from 'lodash/pick'
+import pickBy from 'lodash/pickBy'
+import omit from 'lodash/omit'
 
 import demoData from '../fixtures/demo.json'
 
@@ -57,6 +59,24 @@ const balanceLower100OnLouiseAccount = {
   enabled: true
 }
 
+const transactionGreater5OnLouiseAccount = {
+  value: 5,
+  accountOrGroup: {
+    _id: LOUISE_ACCOUNT_ID,
+    _type: ACCOUNT_DOCTYPE
+  },
+  enabled: true
+}
+
+const transactionGreater50OnIsaCheckings = {
+  value: 50,
+  accountOrGroup: {
+    _id: ISA_CHECKING_ACCOUNT_ID,
+    _type: ACCOUNT_DOCTYPE
+  },
+  enabled: true
+}
+
 const balanceLower300OnAllAccounts = {
   value: 300,
   accountOrGroup: null,
@@ -73,7 +93,9 @@ const settingsWith2BalanceLowerRules = {
 const genevieveTransaction = {
   account: GENEVIEVE_ACCOUNT_ID,
   amount: 0,
-  label: 'Fake transaction'
+  label: 'Fake transaction',
+  date: new Date(),
+  _id: 'gen_fake_transaction'
 }
 
 const scenarios = {
@@ -185,6 +207,83 @@ const scenarios = {
       ],
       [TRANSACTION_DOCTYPE]: [genevieveTransaction]
     }
+  },
+  transactionGreater1: {
+    description: 'Credit of 60€',
+    expectedEmail: {
+      subject: 'Credit of 60€'
+    },
+    data: {
+      [SETTINGS_DOCTYPE]: [
+        {
+          _id: 'notificationSettings',
+          notifications: {
+            transactionGreater: [transactionGreater50OnIsaCheckings]
+          }
+        }
+      ],
+      [ACCOUNT_DOCTYPE]: [louiseCheckings, isabelleCheckings],
+      [TRANSACTION_DOCTYPE]: [
+        {
+          ...isaBurgerTransaction,
+          amount: 60 // such an expensive burger !
+        }
+      ]
+    }
+  },
+  transactionGreater2: {
+    description: '2 transactions, single rule',
+    expectedEmail: {
+      subject: 'Alert: 2 transactions greater than 50€'
+    },
+    data: {
+      [SETTINGS_DOCTYPE]: [
+        {
+          _id: 'notificationSettings',
+          notifications: {
+            transactionGreater: [
+              transactionGreater5OnLouiseAccount,
+              transactionGreater50OnIsaCheckings
+            ]
+          }
+        }
+      ],
+      [ACCOUNT_DOCTYPE]: [louiseCheckings, isabelleCheckings],
+      [TRANSACTION_DOCTYPE]: [
+        { ...isaBurgerTransaction, _id: 'isa_burger_0', amount: 100 },
+        {
+          ...isaBurgerTransaction,
+          amount: 60 // such an expensive burger !
+        }
+      ]
+    }
+  },
+  transactionGreater3: {
+    description: '2 transactions, multi rules',
+    expectedEmail: {
+      subject: 'Alert: 2 transactions greater than their max threshold'
+    },
+    data: {
+      [SETTINGS_DOCTYPE]: [
+        {
+          _id: 'notificationSettings',
+          notifications: {
+            transactionGreater: [
+              transactionGreater5OnLouiseAccount,
+              transactionGreater50OnIsaCheckings
+            ]
+          }
+        }
+      ],
+      [ACCOUNT_DOCTYPE]: [louiseCheckings, isabelleCheckings],
+      [TRANSACTION_DOCTYPE]: [
+        { ...louiseBurgerTransaction, amount: 10 },
+        {
+          ...isaBurgerTransaction,
+          amount: 60 // such an expensive burger !
+        }
+      ]
+    }
   }
 }
 
@@ -216,10 +315,21 @@ const runScenario = async (client, scenarioId, options) => {
   }
 
   console.log('Running service...')
+  const env = {
+    ...process.env,
+    IS_TESTING: 'test'
+  }
+  const processOptions = pickBy(
+    {
+      stdio: options.showOutput ? 'inherit' : undefined,
+      env
+    },
+    Boolean
+  )
   const res = spawnSync(
     'node',
     ['build/onOperationOrBillCreate'],
-    options.showOutput ? { stdio: 'inherit' } : {}
+    processOptions
   )
 
   if (res.status !== 0) {
@@ -265,6 +375,26 @@ const runScenario = async (client, scenarioId, options) => {
   }
 }
 
+const cleanupDatabase = async client => {
+  for (let doctype of [
+    SETTINGS_DOCTYPE,
+    TRANSACTION_DOCTYPE,
+    ACCOUNT_DOCTYPE,
+    GROUP_DOCTYPE,
+    BILLS_DOCTYPE
+  ]) {
+    const col = client.collection(doctype)
+    console.log(`Fetching docs ${doctype}`)
+    const { data: docs } = await col.getAll()
+    if (docs.length > 0) {
+      console.log(`Cleaning ${docs.length} ${doctype} documents`)
+      // The omit for _type can be removed when the following PR is resolved
+      // https://github.com/cozy/cozy-client/pull/597
+      await col.destroyAll(docs.map(doc => omit(doc, '_type')))
+    }
+  }
+}
+
 const main = async () => {
   const args = parseArgs()
   const client = await createClientInteractive({
@@ -287,6 +417,7 @@ const main = async () => {
   const mailhog = Mailhog({ host: 'localhost' })
   const answers = {}
   for (const scenarioId of scenarioIds) {
+    await cleanupDatabase(client)
     const res = await runScenario(client, scenarioId, {
       showOutput: args.verbose,
       mailhog

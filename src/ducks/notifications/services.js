@@ -90,9 +90,7 @@ export const getEnabledNotificationClasses = config => {
   )
 }
 
-const isKlassSupportingSeveralRules = Klass => {
-  return Klass.name == 'BalanceLower'
-}
+const isKlassSupportingSeveralRules = Klass => Klass.supportsMultipleRules
 
 export const sendNotificationForClass = async (
   Klass,

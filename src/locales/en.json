@@ -444,17 +444,16 @@
       },
       "notification": {
         "debit": {
-          "title": "Debit of %{amount}%{currency}",
-          "content": "%{label}"
+          "title": "Debit of %{amount}%{currency}"
         },
         "credit": {
-          "title": "Credit of %{amount}%{currency}",
-          "content": "%{label}"
+          "title": "Credit of %{amount}%{currency}"
         },
         "others": {
-          "title": "Alert: %{transactionsLength} transactions greater than %{maxAmount}€",
-          "debitContent": "Debit of %{amount}%{currency} with label '%{label}'.",
-          "creditContent": "Credit of %{amount}%{currency} with label '%{label}'."
+          "title": "Alert: %{transactionsLength} transactions greater than %{maxAmount}€"
+        },
+        "others-multi": {
+          "title": "Alert: %{transactionsLength} transactions greater than their max threshold"
         }
       }
     },
