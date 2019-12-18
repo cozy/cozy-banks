@@ -29,6 +29,7 @@
   - [Debug notification triggers](#debug-notification-triggers)
   - [When creating a notification](#when-creating-a-notification)
   - [End to end tests](#end-to-end-tests)
+    - [Possible problem when running E2E tests](#possible-problem-when-running-e2e-tests)
     - [Alert rules](#alert-rules)
       - [Semi automatic test](#semi-automatic-test)
       - [Manual insertion test](#manual-insertion-test)
@@ -399,6 +400,21 @@ ACH import test/fixtures/operations-notifs.json test/fixtures/helpers.js --url <
 ```
 
 ### End to end tests
+
+#### Possible problem when running E2E tests
+
+⚠️ When developing tests and launching them, you might encounter a weird error
+
+```
+toInteger is not a function
+```
+
+coming from lodash. We haven't found the root cause of the problem but a simple
+touch on the file being launched solves it.
+
+```
+touch test/e2e/alerts.js; yarn test:e2e:alerts
+```
 
 #### Alert rules
 
