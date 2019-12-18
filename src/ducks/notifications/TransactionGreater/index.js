@@ -21,6 +21,10 @@ const ACCOUNT_SEL = '.js-account'
 const DATE_SEL = '.js-date'
 const TRANSACTION_SEL = '.js-transaction'
 
+const SINGLE_TRANSACTION = 'single'
+const MULTI_TRANSACTION = 'multi'
+const MULTI_TRANSACTION_MULTI_RULES = 'multi-rules'
+
 // During tests, it is difficult to keep transactions with
 // first _rev since we replace replace existing transactions, this
 // is why we deactivate the isNewTransaction during tests
@@ -168,11 +172,11 @@ class TransactionGreater extends NotificationView {
   getNotificationSubtype(templateData) {
     const { transactions, matchingRules } = templateData
     if (transactions.length === 1) {
-      return 'only'
+      return SINGLE_TRANSACTION
     } else if (transactions.length > 1 && matchingRules.length === 1) {
-      return 'several-single-rule'
+      return MULTI_TRANSACTION
     } else {
-      return 'several-multi-rule'
+      return MULTI_TRANSACTION_MULTI_RULES
     }
   }
 
@@ -183,13 +187,13 @@ class TransactionGreater extends NotificationView {
 
     const notificationSubtype = this.getNotificationSubtype(templateData)
     const titleData =
-      notificationSubtype === 'only'
+      notificationSubtype === SINGLE_TRANSACTION
         ? {
             firstTransaction: firstTransaction,
             amount: Math.abs(firstTransaction.amount),
             currency: getCurrencySymbol(firstTransaction.currency)
           }
-        : notificationSubtype === 'several-single-rule'
+        : notificationSubtype === MULTI_TRANSACTION
         ? {
             transactionsLength: transactions.length,
             maxAmount: matchingRules[0].rule.value
@@ -216,7 +220,7 @@ class TransactionGreater extends NotificationView {
     const transactions = templateData.transactions
     const [transaction] = sortBy(transactions, getDate).reverse()
 
-    if (notificationSubtype === 'only') {
+    if (notificationSubtype === SINGLE_TRANSACTION) {
       return `${transaction.label} : ${transaction.amount}${getCurrencySymbol(
         transaction.currency
       )}`
