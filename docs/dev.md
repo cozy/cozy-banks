@@ -421,7 +421,34 @@ $ yarn test:e2e:alerts
 ```
 
 At the moment, it needs to be launched on the computer of the developer but should
-be done on the CI in the future
+be done on the CI in the future.
+
+It is possible to test push notifications with the `--push` flag. You need first to
+configure the stack so that it uses a fake server that will receive push notifications.
+
+- Add this to `~/.cozy.yml`:
+
+```
+notifications:
+   android_api_key: 'fake_android_api_key'
+   fcm_server: 'http://localhost:3001'
+```
+
+- Start the fake push notification server. It will output the content of notifications,
+  allowing you to check the content. In the future, the E2E test should automatically
+  fire up this server and check by itself that the content of notifications corresponds
+  (like we do with Mailhog).
+
+```
+$ node test/e2e/fake-fcm-server
+```
+
+- Launch tests with the push flag
+
+```
+yarn test:e2e:alerts --push
+```
+
 
 ##### Manual insertion test
 
