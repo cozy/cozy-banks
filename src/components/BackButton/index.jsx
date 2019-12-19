@@ -34,7 +34,7 @@ BackButton.defaultProps = {
 export const BarBackButton = ({ onClick, color }) => (
   <BarLeft>
     <BackButton
-      className="coz-bar-btn coz-bar-burger"
+      className={cx(styles.BackArrow, 'coz-bar-btn coz-bar-burger')}
       color={color}
       onClick={onClick}
     />
