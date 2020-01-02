@@ -18,8 +18,7 @@ import cx from 'classnames'
 import { translate } from 'cozy-ui/react'
 import { flowRight as compose } from 'lodash'
 import { withMutations } from 'cozy-client'
-import { getSettings } from 'ducks/settings/selectors'
-import { getHealthReimbursementLateLimit } from 'ducks/settings/helpers'
+import { getHealthReimbursementLateLimitSelector } from 'ducks/reimbursements/selectors'
 
 export class DumbReimbursementStatusAction extends React.PureComponent {
   state = {
@@ -123,12 +122,9 @@ export class DumbReimbursementStatusAction extends React.PureComponent {
 const ReimbursementStatusAction = compose(
   translate(),
   withMutations(),
-  connect(state => {
-    const settings = getSettings(state)
-    return {
-      healthReimbursementLateLimit: getHealthReimbursementLateLimit(settings)
-    }
-  })
+  connect(state => ({
+    healthReimbursementLateLimit: getHealthReimbursementLateLimitSelector(state)
+  }))
 )(DumbReimbursementStatusAction)
 
 export default ReimbursementStatusAction
