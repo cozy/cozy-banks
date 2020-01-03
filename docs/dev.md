@@ -29,9 +29,6 @@
   - [Debug notification triggers](#debug-notification-triggers)
   - [When creating a notification](#when-creating-a-notification)
   - [End to end tests](#end-to-end-tests)
-    - [Possible problem when running E2E tests](#possible-problem-when-running-e2e-tests)
-      - [toInteger is not a function](#tointeger-is-not-a-function)
-      - [Client not registered or missing OAuth information](#client-not-registered-or-missing-oauth-information)
     - [Alert rules](#alert-rules)
       - [Automatic tests](#automatic-tests)
       - [Manual insertion test](#manual-insertion-test)
@@ -403,40 +400,6 @@ ACH import test/fixtures/operations-notifs.json test/fixtures/helpers.js --url <
 
 ### End to end tests
 
-#### Possible problem when running E2E tests
-
-##### toInteger is not a function
-
-⚠️ When developing tests and launching them, you might encounter a weird error
-
-```
-toInteger is not a function
-```
-
-coming from lodash. We haven't found the root cause of the problem but a simple
-touch on the file being launched solves it.
-
-```
-touch test/e2e/alerts.js; yarn test:e2e:alerts
-```
-
-##### Client not registered or missing OAuth information
-
-When running twice the tests, the client oauth information is not correctly
-recovered from the JSON cache file resulting in
-
-```
-{ NotRegisteredException: Client not registered or missing OAuth information
-...
-```
-
-Removing the token fixes the problem
-
-```
-rm /tmp/cozy-client-oauth-cozy-tools:8080-banks.alerts-e2e.json
-```
-
-
 #### Alert rules
 
 ##### Automatic tests
@@ -461,8 +424,8 @@ $ yarn test:e2e:alerts
 At the moment, it needs to be launched on the computer of the developer but should
 be done on the CI in the future.
 
-It is possible to test push notifications with the `--push` flag. You need first to
-configure the stack so that it uses a fake server that will receive push notifications.
+⚠️ For push notifications tests to work, you need first to configure the stack so that
+it uses a fake server that will receive push notifications.
 
 - Add this to `~/cozy.yml`:
 
@@ -471,15 +434,6 @@ notifications:
    android_api_key: 'fake_android_api_key'
    fcm_server: 'http://localhost:3001'
 ```
-
-- Launch tests with the push flag (the tests will fire up the mock push notification
-  server and compare the expected notifications with the ones the mock push notification
-  server receives)
-
-```
-yarn test:e2e:alerts --push
-```
-
 
 ##### Manual insertion test
 
