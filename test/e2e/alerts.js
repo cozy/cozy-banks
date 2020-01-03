@@ -330,16 +330,7 @@ const decodeEmail = (mailhog, attrs) =>
       }
     : attrs
 
-const runScenario = async (client, scenarioId, options) => {
-  console.log('Running scenario', scenarioId)
-  const scenario = scenarios[scenarioId]
-  await importData(client, scenario.data)
-
-  if (options.mailhog) {
-    await options.mailhog.deleteAll()
-  }
-
-  console.log('Running service...')
+const runService = async options => {
   const env = {
     ...process.env,
     IS_TESTING: 'test'
@@ -362,38 +353,59 @@ const runScenario = async (client, scenarioId, options) => {
     if (!options.showOutput) {
       console.error(`Re-run with -v to see its output.`)
     }
+    throw new Error('Error while running onOperationOrBillCreate')
+  }
+}
+
+const checkEmailForScenario = async (mailhog, scenario) => {
+  const latestMessages = (await mailhog.messages(0, 1)).items
+  const email = decodeEmail(
+    mailhog,
+    latestMessages.length > 0 ? pick(latestMessages[0], ['subject']) : null
+  )
+  if (scenario.expectedEmail === null) {
+    if (!email) {
+      return true
+    } else {
+      console.error('Error: should not have received a mail')
+      return false
+    }
+  }
+  const isMatching = isMatch(email, scenario.expectedEmail)
+  if (isMatching) {
+    return true
+  } else {
+    console.error(
+      'Error:',
+      email,
+      'does not match expected',
+      scenario.expectedEmail
+    )
+    return false
+  }
+}
+
+const runScenario = async (client, scenarioId, options) => {
+  console.log('Running scenario', scenarioId)
+  const scenario = scenarios[scenarioId]
+  await importData(client, scenario.data)
+
+  if (options.mailhog) {
+    await options.mailhog.deleteAll()
+  }
+
+  console.log('Running service...')
+  try {
+    await runService(options)
+  } catch (e) {
     return false
   }
 
   console.log('Description: ', scenario.description)
 
   if (options.mailhog) {
-    const mailhog = options.mailhog
-    const latestMessages = (await mailhog.messages(0, 1)).items
-    const email = decodeEmail(
-      options.mailhog,
-      latestMessages.length > 0 ? pick(latestMessages[0], ['subject']) : null
-    )
-    if (scenario.expectedEmail === null) {
-      if (!email) {
-        return true
-      } else {
-        console.error('Error: should not have received a mail')
-        return false
-      }
-    }
-    const isMatching = isMatch(email, scenario.expectedEmail)
-    if (isMatching) {
-      return true
-    } else {
-      console.error(
-        'Error:',
-        email,
-        'does not match expected',
-        scenario.expectedEmail
-      )
-      return false
-    }
+    const emailMatch = await checkEmailForScenario(options.mailhog, scenario)
+    return emailMatch
   } else {
     const answer = await question('Is scenario OK (y|n) ? ')
     return answer === 'y'
