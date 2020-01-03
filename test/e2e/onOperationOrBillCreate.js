@@ -59,7 +59,8 @@ const exportAndSnapshot = async () => {
   await ach(['export', 'io.cozy.bank.operations,io.cozy.bills', exportFilename])
   const actual = fs.readFileSync(exportFilename).toString()
   const testTitle = 'onOperationOrBillCreate'
-  const snapResult = toMatchSnapshot(actual, __filename, testTitle)
+  const filename = path.basename(__filename)
+  const snapResult = toMatchSnapshot(actual, filename, testTitle)
   if (snapResult.pass) {
     log('info', 'Snapshot OK !')
   } else {
