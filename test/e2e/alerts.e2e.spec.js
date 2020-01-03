@@ -1,8 +1,6 @@
 /* eslint-disable no-console */
 
 import { spawnSync } from 'child_process'
-import { ArgumentParser } from 'argparse'
-import isMatch from 'lodash/isMatch'
 import pick from 'lodash/pick'
 import pickBy from 'lodash/pickBy'
 import omit from 'lodash/omit'
@@ -16,12 +14,14 @@ import {
   BILLS_DOCTYPE
 } from '../../src/doctypes'
 import { importData } from './dataUtils'
-import { question } from './interactionUtils'
 import Mailhog from 'mailhog'
 import MockServer from './mock-server'
 import scenarios from './scenarios'
+import fs from 'fs'
 
 const SOFTWARE_ID = 'banks.alerts-e2e'
+
+jest.setTimeout(10 * 1000)
 
 const revokeOtherOAuthClientsForSoftwareId = async (client, softwareID) => {
   const { data: clients } = await client.stackClient.fetchJSON(
@@ -40,15 +40,6 @@ const revokeOtherOAuthClientsForSoftwareId = async (client, softwareID) => {
       `/settings/clients/${oauthClient.id}`
     )
   }
-}
-
-const parseArgs = () => {
-  const parser = new ArgumentParser()
-  parser.addArgument('--url', { defaultValue: 'http://cozy.tools:8080' })
-  parser.addArgument(['-v', '--verbose'], { action: 'storeTrue' })
-  parser.addArgument(['--push'], { action: 'storeTrue' })
-  parser.addArgument('scenario')
-  return parser.parseArgs()
 }
 
 const decodeEmail = (mailhog, attrs) =>
@@ -86,53 +77,35 @@ const runService = async options => {
   }
 }
 
-const expectMatch = (expected, received) => {
-  if (expected === null) {
-    if (!received) {
-      return true
-    } else {
-      console.error('Error: expected null but received something')
-      console.log('Received', received)
-      return false
-    }
-  }
-  const isMatching = isMatch(received, expected)
-  if (isMatching) {
-    return true
-  } else {
-    console.error('Error:', received, 'does not match expected', expected)
-    return false
-  }
-}
-
 const checkEmailForScenario = async (mailhog, scenario) => {
   const latestMessages = (await mailhog.messages(0, 1)).items
   const email = decodeEmail(
     mailhog,
     latestMessages.length > 0 ? pick(latestMessages[0], ['subject']) : null
   )
-  return expectMatch(email, scenario.expected.email)
+  if (scenario.expected.email) {
+    expect(email).toMatchObject(scenario.expected.email)
+  } else {
+    expect(email).toBeFalsy()
+  }
 }
 
 const checkPushForScenario = async (pushServer, scenario) => {
   let lastReq
   try {
-    await pushServer.waitForRequest({ timeout: 5000 })
+    await pushServer.waitForRequest({ timeout: 1000 })
     lastReq = pushServer.getLastRequest()
   } catch (e) {
     // eslint-disable-line empty-catch
   }
-  if (scenario.expected.notification !== undefined) {
-    return expectMatch(scenario.expected.notification, lastReq && lastReq.body)
+  if (scenario.expected.notification) {
+    expect(lastReq.body).toMatchObject(scenario.expected.notification)
   } else {
-    const answer = await question('Is scenario OK (y|n) ? ')
-    return answer === 'y'
+    expect(lastReq).toBeFalsy()
   }
 }
 
-const runScenario = async (client, scenarioId, options) => {
-  console.log('Running scenario', scenarioId)
-  const scenario = scenarios[scenarioId]
+const runScenario = async (client, scenario, options) => {
   await importData(client, scenario.data)
 
   if (options.mailhog) {
@@ -142,14 +115,7 @@ const runScenario = async (client, scenarioId, options) => {
     options.pushServer.clearRequests()
   }
 
-  console.log('Running service...')
-  try {
-    await runService(options)
-  } catch (e) {
-    return false
-  }
-
-  console.log('Description: ', scenario.description)
+  await runService(options)
 
   if (options.mailhog) {
     const emailMatch = await checkEmailForScenario(options.mailhog, scenario)
@@ -169,10 +135,8 @@ const cleanupDatabase = async client => {
     BILLS_DOCTYPE
   ]) {
     const col = client.collection(doctype)
-    console.log(`Fetching docs ${doctype}`)
     const { data: docs } = await col.getAll()
     if (docs.length > 0) {
-      console.log(`Cleaning ${docs.length} ${doctype} documents`)
       // The omit for _type can be removed when the following PR is resolved
       // https://github.com/cozy/cozy-client/pull/597
       await col.destroyAll(docs.map(doc => omit(doc, '_type')))
@@ -180,10 +144,17 @@ const cleanupDatabase = async client => {
   }
 }
 
-const main = async () => {
-  const args = parseArgs()
+const setupClient = async options => {
+  try {
+    fs.unlinkSync(
+      '/tmp/cozy-client-oauth-cozy-tools:8080-banks.alerts-e2e.json'
+    )
+  } catch (e) {
+    // eslint-disable-next-line empty-block
+  }
+
   const client = await createClientInteractive({
-    uri: args.url,
+    uri: options.url,
     scope: [
       'io.cozy.oauth.clients:ALL',
       SETTINGS_DOCTYPE,
@@ -198,8 +169,7 @@ const main = async () => {
   })
 
   await revokeOtherOAuthClientsForSoftwareId(client, SOFTWARE_ID)
-
-  if (args.push) {
+  if (options.push) {
     const clientInfos = client.stackClient.oauthOptions
     await client.stackClient.updateInformation({
       ...clientInfos,
@@ -207,46 +177,63 @@ const main = async () => {
       notificationDeviceToken: 'fake-token'
     })
   }
-
-  const allScenarioIds = Object.keys(scenarios)
-  const scenarioIds =
-    args.scenario === 'all'
-      ? allScenarioIds
-      : allScenarioIds.filter(x => x.startsWith(args.scenario))
-
-  const mailhog = args.push ? null : Mailhog({ host: 'localhost' })
-  const pushServer = args.push ? new MockServer() : null
-  if (pushServer) {
-    await pushServer.listen()
-  }
-
-  const answers = {}
-  for (const scenarioId of scenarioIds) {
-    await cleanupDatabase(client)
-    const res = await runScenario(client, scenarioId, {
-      showOutput: args.verbose,
-      mailhog,
-      pushServer: pushServer
-    })
-    answers[scenarioId] = res
-  }
-
-  for (const [scenarioId, answer] of Object.entries(answers)) {
-    console.log(
-      answer ? '✅' : '❌',
-      scenarioId,
-      `(${scenarios[scenarioId].description})`
-    )
-  }
-
-  await pushServer.close()
+  return client
 }
 
-main()
-  .catch(e => {
-    console.error(e)
-    process.exit(1)
+describe('alert emails/notifications', () => {
+  let client
+  let pushServer
+  let mailhog
+  let options = {
+    url: process.env.COZY_URL || 'http://cozy.tools:8080',
+    verbose: false
+  }
+
+  beforeAll(async () => {
+    pushServer = new MockServer()
+    await pushServer.listen()
+    mailhog = Mailhog({ host: 'localhost' })
   })
-  .then(() => {
-    process.exit(0)
+
+  afterAll(async () => {
+    await pushServer.close()
   })
+
+  beforeEach(async () => {
+    await cleanupDatabase(client)
+  })
+
+  describe('push', () => {
+    beforeAll(async () => {
+      client = await setupClient({ url: options.url })
+    })
+
+    for (const scenario of Object.values(scenarios)) {
+      describe(scenario.description, () => {
+        it('should work', async () => {
+          await runScenario(client, scenario, {
+            showOutput: options.verbose,
+            mailhog
+          })
+        })
+      })
+    }
+  })
+
+  describe('email', () => {
+    beforeAll(async () => {
+      client = await setupClient({ url: options.url, push: true })
+    })
+
+    for (const scenario of Object.values(scenarios)) {
+      describe(scenario.description, () => {
+        it('should work', async () => {
+          await runScenario(client, scenario, {
+            showOutput: options.verbose,
+            pushServer
+          })
+        })
+      })
+    }
+  })
+})

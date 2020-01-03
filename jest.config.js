@@ -1,3 +1,5 @@
+const JEST_PROJECT = process.env.JEST_PROJECT
+
 module.exports = {
   moduleFileExtensions: ['js', 'jsx', 'json', 'styl'],
   moduleDirectories: ['node_modules', '<rootDir>/src', '<rootDir>'],
@@ -10,7 +12,15 @@ module.exports = {
     '^cozy-client$': 'cozy-client/dist/index'
   },
   snapshotSerializers: ['enzyme-to-json/serializer'],
-  testPathIgnorePatterns: ['node_modules', 'src/targets/mobile/'],
+  testPathIgnorePatterns: [
+    'node_modules',
+    'src/targets/mobile/',
+    JEST_PROJECT === 'e2e' ? null : '.*\\.e2e\\.spec\\.js'
+  ].filter(Boolean),
+  testMatch: [
+    JEST_PROJECT === 'e2e' ? null : '**/?(*.)(spec).js?(x)',
+    JEST_PROJECT === 'e2e' ? '**/?(*.)(e2e.spec).js?(x)' : null
+  ].filter(Boolean),
   transform: {
     '^.+\\.jsx?$': 'babel-jest',
     '\\.css$': '<rootDir>/test/readFileESM.js',
@@ -28,6 +38,5 @@ module.exports = {
     __SENTRY_TOKEN__: 'token',
     cozy: {}
   },
-  setupFiles: ['jest-localstorage-mock', './test/jest.setup.js'],
-  testMatch: ['**/__tests__/**/*.js?(x)', '**/?(*.)(spec).js?(x)']
+  setupFiles: ['jest-localstorage-mock', './test/jest.setup.js']
 }
