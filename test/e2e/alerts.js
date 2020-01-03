@@ -85,32 +85,32 @@ const runService = async options => {
   }
 }
 
+const expectMatch = (expected, received) => {
+  if (expected === null) {
+    if (!received) {
+      return true
+    } else {
+      console.error('Error: expected null but received something')
+      console.log('Received', received)
+      return false
+    }
+  }
+  const isMatching = isMatch(received, expected)
+  if (isMatching) {
+    return true
+  } else {
+    console.error('Error:', received, 'does not match expected', expected)
+    return false
+  }
+}
+
 const checkEmailForScenario = async (mailhog, scenario) => {
   const latestMessages = (await mailhog.messages(0, 1)).items
   const email = decodeEmail(
     mailhog,
     latestMessages.length > 0 ? pick(latestMessages[0], ['subject']) : null
   )
-  if (scenario.expectedEmail === null) {
-    if (!email) {
-      return true
-    } else {
-      console.error('Error: should not have received a mail')
-      return false
-    }
-  }
-  const isMatching = isMatch(email, scenario.expectedEmail)
-  if (isMatching) {
-    return true
-  } else {
-    console.error(
-      'Error:',
-      email,
-      'does not match expected',
-      scenario.expectedEmail
-    )
-    return false
-  }
+  return expectMatch(email, scenario.expected.email)
 }
 
 const runScenario = async (client, scenarioId, options) => {
