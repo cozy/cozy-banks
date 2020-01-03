@@ -4806,10 +4806,10 @@ cozy-realtime@3.2.1:
   dependencies:
     minilog "3.1.0"
 
-cozy-realtime@3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-3.3.0.tgz#7d4a4d6938330ab9b3437255e8f016b87a08b19c"
-  integrity sha512-szI22Rl8aaufw94jNMX1PCxswGHPQVBJHjnxibphM17UmymlZe7J1ILrsm+jBZkKDAvnProHNONtNOfjJLFc3g==
+cozy-realtime@3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-3.3.1.tgz#5596f92d1225d7ece7326a9dfb65af79f971ea63"
+  integrity sha512-+Muc8FfLLCOww9dJ5oXBNBZBOWa6VdqoTUapksFj3TPWeDTT5EId4nhJNuHs6CxDHk79Avfs8oqT5Bc3boYLkw==
   dependencies:
     minilog "https://github.com/cozy/minilog.git#master"
 
