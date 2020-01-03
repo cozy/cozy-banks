@@ -442,7 +442,7 @@ be done on the CI in the future.
 It is possible to test push notifications with the `--push` flag. You need first to
 configure the stack so that it uses a fake server that will receive push notifications.
 
-- Add this to `~/.cozy.yml`:
+- Add this to `~/cozy.yml`:
 
 ```
 notifications:
