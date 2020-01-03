@@ -88,6 +88,13 @@ const scenarios = {
     expected: {
       email: {
         subject: "Balance alert: 'Louise checkings' account is at 150€"
+      },
+      notification: {
+        data: {
+          body: 'Louise checkings +150€',
+          route: '/balances',
+          title: "Balance alert: 'Louise checkings' account is at 150€"
+        }
       }
     },
     data: {
@@ -115,6 +122,13 @@ const scenarios = {
     expected: {
       email: {
         subject: '2 accounts are below your threshold amount of 300€'
+      },
+      notification: {
+        data: {
+          body: 'Isabelle checkings +290€, Louise checkings +150€',
+          route: '/balances',
+          title: '2 accounts are below your threshold amount of 300€'
+        }
       }
     },
     data: {
@@ -139,7 +153,7 @@ const scenarios = {
   balanceLower3: {
     description:
       'No notification (Louise checking account is above the threshold, only 1 rule)',
-    expected: { email: null },
+    expected: { email: null, notification: null },
     data: {
       [SETTINGS_DOCTYPE]: [
         {
@@ -169,7 +183,7 @@ const scenarios = {
   balanceLower4: {
     description:
       'No notification (transactions are not new, no notification triggered)',
-    expected: { email: null },
+    expected: { email: null, notification: null },
     data: {
       [SETTINGS_DOCTYPE]: [
         {
@@ -234,7 +248,13 @@ const scenarios = {
       email: {
         subject: '2 transactions greater than 50€'
       },
-      notification: {}
+      notification: {
+        data: {
+          body: 'Isabelle checkings: 2 transactions',
+          route: '/transactions',
+          title: '2 transactions greater than 50€'
+        }
+      }
     },
     data: {
       [SETTINGS_DOCTYPE]: [
@@ -263,6 +283,14 @@ const scenarios = {
     expected: {
       email: {
         subject: '3 transactions greater than 2 thresholds'
+      },
+      notification: {
+        data: {
+          body:
+            'Louise checkings: 1 transaction, Isabelle checkings: 2 transactions',
+          route: '/transactions',
+          title: '3 transactions greater than 2 thresholds'
+        }
       }
     },
     data: {

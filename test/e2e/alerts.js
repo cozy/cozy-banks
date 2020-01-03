@@ -18,6 +18,7 @@ import {
 import { importData } from './dataUtils'
 import { question } from './interactionUtils'
 import Mailhog from 'mailhog'
+import MockServer from './mock-server'
 import scenarios from './scenarios'
 
 const SOFTWARE_ID = 'banks.alerts-e2e'
@@ -113,6 +114,22 @@ const checkEmailForScenario = async (mailhog, scenario) => {
   return expectMatch(email, scenario.expected.email)
 }
 
+const checkPushForScenario = async (pushServer, scenario) => {
+  let lastReq
+  try {
+    await pushServer.waitForRequest({ timeout: 5000 })
+    lastReq = pushServer.getLastRequest()
+  } catch (e) {
+    // eslint-disable-line empty-catch
+  }
+  if (scenario.expected.notification !== undefined) {
+    return expectMatch(scenario.expected.notification, lastReq && lastReq.body)
+  } else {
+    const answer = await question('Is scenario OK (y|n) ? ')
+    return answer === 'y'
+  }
+}
+
 const runScenario = async (client, scenarioId, options) => {
   console.log('Running scenario', scenarioId)
   const scenario = scenarios[scenarioId]
@@ -120,6 +137,9 @@ const runScenario = async (client, scenarioId, options) => {
 
   if (options.mailhog) {
     await options.mailhog.deleteAll()
+  }
+  if (options.pushServer) {
+    options.pushServer.clearRequests()
   }
 
   console.log('Running service...')
@@ -135,8 +155,8 @@ const runScenario = async (client, scenarioId, options) => {
     const emailMatch = await checkEmailForScenario(options.mailhog, scenario)
     return emailMatch
   } else {
-    const answer = await question('Is scenario OK (y|n) ? ')
-    return answer === 'y'
+    const pushMatch = await checkPushForScenario(options.pushServer, scenario)
+    return pushMatch
   }
 }
 
@@ -195,12 +215,18 @@ const main = async () => {
       : allScenarioIds.filter(x => x.startsWith(args.scenario))
 
   const mailhog = args.push ? null : Mailhog({ host: 'localhost' })
+  const pushServer = args.push ? new MockServer() : null
+  if (pushServer) {
+    await pushServer.listen()
+  }
+
   const answers = {}
   for (const scenarioId of scenarioIds) {
     await cleanupDatabase(client)
     const res = await runScenario(client, scenarioId, {
       showOutput: args.verbose,
-      mailhog
+      mailhog,
+      pushServer: pushServer
     })
     answers[scenarioId] = res
   }
@@ -212,6 +238,8 @@ const main = async () => {
       `(${scenarios[scenarioId].description})`
     )
   }
+
+  await pushServer.close()
 }
 
 main()
