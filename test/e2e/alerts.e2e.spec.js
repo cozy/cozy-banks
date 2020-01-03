@@ -209,12 +209,10 @@ describe('alert emails/notifications', () => {
     })
 
     for (const scenario of Object.values(scenarios)) {
-      describe(scenario.description, () => {
-        it('should work', async () => {
-          await runScenario(client, scenario, {
-            showOutput: options.verbose,
-            mailhog
-          })
+      test(scenario.description, async () => {
+        await runScenario(client, scenario, {
+          showOutput: options.verbose,
+          mailhog
         })
       })
     }
@@ -226,12 +224,10 @@ describe('alert emails/notifications', () => {
     })
 
     for (const scenario of Object.values(scenarios)) {
-      describe(scenario.description, () => {
-        it('should work', async () => {
-          await runScenario(client, scenario, {
-            showOutput: options.verbose,
-            pushServer
-          })
+      test(scenario.description, async () => {
+        await runScenario(client, scenario, {
+          showOutput: options.verbose,
+          pushServer
         })
       })
     }
