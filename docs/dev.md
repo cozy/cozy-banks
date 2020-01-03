@@ -30,8 +30,10 @@
   - [When creating a notification](#when-creating-a-notification)
   - [End to end tests](#end-to-end-tests)
     - [Possible problem when running E2E tests](#possible-problem-when-running-e2e-tests)
+      - [toInteger is not a function](#tointeger-is-not-a-function)
+      - [Client not registered or missing OAuth information](#client-not-registered-or-missing-oauth-information)
     - [Alert rules](#alert-rules)
-      - [Semi automatic test](#semi-automatic-test)
+      - [Automatic tests](#automatic-tests)
       - [Manual insertion test](#manual-insertion-test)
   - [Misc](#misc)
 - [Pouch On Web](#pouch-on-web)
@@ -403,6 +405,8 @@ ACH import test/fixtures/operations-notifs.json test/fixtures/helpers.js --url <
 
 #### Possible problem when running E2E tests
 
+##### toInteger is not a function
+
 ⚠️ When developing tests and launching them, you might encounter a weird error
 
 ```
@@ -416,15 +420,33 @@ touch on the file being launched solves it.
 touch test/e2e/alerts.js; yarn test:e2e:alerts
 ```
 
+##### Client not registered or missing OAuth information
+
+When running twice the tests, the client oauth information is not correctly
+recovered from the JSON cache file resulting in
+
+```
+{ NotRegisteredException: Client not registered or missing OAuth information
+...
+```
+
+Removing the token fixes the problem
+
+```
+rm /tmp/cozy-client-oauth-cozy-tools:8080-banks.alerts-e2e.json
+```
+
+
 #### Alert rules
 
-##### Semi automatic test
+##### Automatic tests
 
-Alert rules are tested with a semi automatic test that
+Alert rules are tested with automatic tests that
 
 - Inserts data inside the local cozy-stack
 - Launches the onOperationOrBillCreate service
-- Checks on mailhog the emails received.
+- Checks on mailhog the emails received
+- Checks on a mock push server the push notifications received
 
 ```
 $ export COZY_URL=http://cozy.tools:8080
@@ -450,16 +472,9 @@ notifications:
    fcm_server: 'http://localhost:3001'
 ```
 
-- Start the fake push notification server. It will output the content of notifications,
-  allowing you to check the content. In the future, the E2E test should automatically
-  fire up this server and check by itself that the content of notifications corresponds
-  (like we do with Mailhog).
-
-```
-$ node test/e2e/fake-fcm-server
-```
-
-- Launch tests with the push flag
+- Launch tests with the push flag (the tests will fire up the mock push notification
+  server and compare the expected notifications with the ones the mock push notification
+  server receives)
 
 ```
 yarn test:e2e:alerts --push
