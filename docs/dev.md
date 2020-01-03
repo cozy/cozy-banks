@@ -427,7 +427,7 @@ be done on the CI in the future.
 ⚠️ For push notifications tests to work, you need first to configure the stack so that
 it uses a fake server that will receive push notifications.
 
-- Add this to `~/cozy.yml`:
+- Add this to your [stack config file](https://docs.cozy.io/en/cozy-stack/config/):
 
 ```
 notifications:
