@@ -11,6 +11,7 @@ import data from '../../../test/fixtures'
 import PropTypes from 'prop-types'
 import AppLike from 'test/AppLike'
 import { getClient } from 'ducks/client'
+import mockRouter from 'test/mockRouter'
 
 const allAccounts = data['io.cozy.bank.accounts']
 const allTransactions = data['io.cozy.bank.operations']
@@ -71,13 +72,7 @@ describe('TransactionsPage', () => {
   const setup = () => {
     const context = {
       router: {
-        push: () => {},
-        replace: () => {},
-        go: () => {},
-        goBack: () => {},
-        goForward: () => {},
-        setRouteLeaveHook: () => {},
-        isActive: () => {},
+        ...mockRouter,
         getCurrentLocation: () => ({
           pathname: '/'
         }),
