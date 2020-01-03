@@ -1,3 +1,7 @@
+// Use JEST_PROJECT to switch between normal tests and end-to-end
+// tests.
+// See https://github.com/facebook/jest/issues/7542 for more information
+// and to see if this features has been integrated into Jest directly.
 const JEST_PROJECT = process.env.JEST_PROJECT
 
 module.exports = {
