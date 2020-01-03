@@ -43,10 +43,12 @@ const dropData = async () => {
   return couch.dropDatabases(doctypes)
 }
 
+const isJSONFile = filename => filename.endsWith('.json')
+
 const loadData = async () => {
   log('info', 'Loading data...')
   const dir = 'test/fixtures/matching-service'
-  for (let fixture of fs.readdirSync(dir)) {
+  for (let fixture of fs.readdirSync(dir).filter(isJSONFile)) {
     await ach(['import', path.join(dir, fixture)])
   }
 }
