@@ -47,7 +47,9 @@ const ignoredWarnings = {
 
 // Ignore warnings that we think are not problematic, see
 // https://github.com/cozy/cozy-ui/issues/1318
+// eslint-disable-next-line no-console
 console.warn = ignoreOnConditions(
+  // eslint-disable-next-line no-console
   console.warn,
   Object.values(ignoredWarnings).map(x => x.matcher)
 )
