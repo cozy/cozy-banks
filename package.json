@@ -27,7 +27,7 @@
     "stack:docker": "docker run --rm -it -p 8080:8080 -p 8025:8025 -v \"$(pwd)/build/\":/data/cozy-app/banks cozy/cozy-app-dev",
     "test": "jest --runInBand",
     "test:changes": "git diff --name-only master..HEAD | grep -E 'jsx?$' | xargs yarn test --runInBand --bail --findRelatedTests",
-    "test:e2e": "test:e2e:onOperationOrBillCreate && test:e2e:alerts",
+    "test:e2e": "yarn test:e2e:onOperationOrBillCreate && yarn test:e2e:alerts",
     "test:e2e:onOperationOrBillCreate": "node test/e2e/onOperationOrBillCreate.js",
     "test:e2e:alerts": "env JEST_PROJECT=e2e yarn jest",
     "test:e2e:alerts-existing-cozy": "BABEL_ENV=cli babel-node --ignore /some-fake-path test/e2e/alerts-existing-cozy.js",
