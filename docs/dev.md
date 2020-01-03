@@ -29,9 +29,8 @@
   - [Debug notification triggers](#debug-notification-triggers)
   - [When creating a notification](#when-creating-a-notification)
   - [End to end tests](#end-to-end-tests)
-    - [Possible problem when running E2E tests](#possible-problem-when-running-e2e-tests)
     - [Alert rules](#alert-rules)
-      - [Semi automatic test](#semi-automatic-test)
+      - [Automatic tests](#automatic-tests)
       - [Manual insertion test](#manual-insertion-test)
   - [Misc](#misc)
 - [Pouch On Web](#pouch-on-web)
@@ -401,30 +400,16 @@ ACH import test/fixtures/operations-notifs.json test/fixtures/helpers.js --url <
 
 ### End to end tests
 
-#### Possible problem when running E2E tests
-
-⚠️ When developing tests and launching them, you might encounter a weird error
-
-```
-toInteger is not a function
-```
-
-coming from lodash. We haven't found the root cause of the problem but a simple
-touch on the file being launched solves it.
-
-```
-touch test/e2e/alerts.js; yarn test:e2e:alerts
-```
-
 #### Alert rules
 
-##### Semi automatic test
+##### Automatic tests
 
-Alert rules are tested with a semi automatic test that
+Alert rules are tested with automatic tests that
 
 - Inserts data inside the local cozy-stack
 - Launches the onOperationOrBillCreate service
-- Checks on mailhog the emails received.
+- Checks on mailhog the emails received
+- Checks on a mock push server the push notifications received
 
 ```
 $ export COZY_URL=http://cozy.tools:8080
@@ -439,32 +424,16 @@ $ yarn test:e2e:alerts
 At the moment, it needs to be launched on the computer of the developer but should
 be done on the CI in the future.
 
-It is possible to test push notifications with the `--push` flag. You need first to
-configure the stack so that it uses a fake server that will receive push notifications.
+⚠️ For push notifications tests to work, you need first to configure the stack so that
+it uses a fake server that will receive push notifications.
 
-- Add this to `~/.cozy.yml`:
+- Add this to your [stack config file](https://docs.cozy.io/en/cozy-stack/config/):
 
 ```
 notifications:
    android_api_key: 'fake_android_api_key'
    fcm_server: 'http://localhost:3001'
 ```
-
-- Start the fake push notification server. It will output the content of notifications,
-  allowing you to check the content. In the future, the E2E test should automatically
-  fire up this server and check by itself that the content of notifications corresponds
-  (like we do with Mailhog).
-
-```
-$ node test/e2e/fake-fcm-server
-```
-
-- Launch tests with the push flag
-
-```
-yarn test:e2e:alerts --push
-```
-
 
 ##### Manual insertion test
 

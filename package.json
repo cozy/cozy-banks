@@ -29,7 +29,7 @@
     "test:changes": "git diff --name-only master..HEAD | grep -E 'jsx?$' | xargs yarn test --runInBand --bail --findRelatedTests",
     "test:e2e": "yarn test:e2e:onOperationOrBillCreate && yarn test:e2e:alerts",
     "test:e2e:onOperationOrBillCreate": "node test/e2e/onOperationOrBillCreate.js",
-    "test:e2e:alerts": "BABEL_ENV=cli babel-node --ignore /some-fake-path test/e2e/alerts.js all",
+    "test:e2e:alerts": "env JEST_PROJECT=e2e yarn jest",
     "test:e2e:alerts-existing-cozy": "BABEL_ENV=cli babel-node --ignore /some-fake-path test/e2e/alerts-existing-cozy.js",
     "check-fixtures": "node scripts/check-fixtures.js",
     "find-circular-dependencies": "madge -b src/ --webpack-config webpack.config.js -c --extensions js,jsx src/main.jsx",
@@ -230,59 +230,6 @@
     "velocity-animate": "1.5.2",
     "webpack-bundle-analyzer": "3.4.1",
     "whatwg-fetch": "3.0.0"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "jsx",
-      "json",
-      "styl"
-    ],
-    "moduleDirectories": [
-      "node_modules",
-      "<rootDir>/src",
-      "<rootDir>"
-    ],
-    "moduleNameMapper": {
-      "\\.(png|gif|jpe?g|svg)$": "<rootDir>/test/__mocks__/fileMock.js",
-      "styl$": "identity-obj-proxy",
-      "webapp$": "identity-obj-proxy",
-      "!!raw-loader!(.*)": "$1",
-      "css$": "identity-obj-proxy",
-      "^cozy-client$": "cozy-client/dist/index"
-    },
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
-    ],
-    "testPathIgnorePatterns": [
-      "node_modules",
-      "src/targets/mobile/"
-    ],
-    "transform": {
-      "^.+\\.jsx?$": "babel-jest",
-      "\\.css$": "<rootDir>/test/readFileESM.js",
-      "\\.styl$": "<rootDir>/test/readFileESM.js",
-      "\\.hbs$": "<rootDir>/test/readFileESM.js"
-    },
-    "transformIgnorePatterns": [
-      "node_modules/(?!(cozy-harvest-lib|cozy-ui|cozy-client|cozy-notifications))"
-    ],
-    "globals": {
-      "__ALLOW_HTTP__": false,
-      "__TARGET__": "browser",
-      "__DEV__": false,
-      "__POUCH__": false,
-      "__SENTRY_TOKEN__": "token",
-      "cozy": {}
-    },
-    "setupFiles": [
-      "jest-localstorage-mock",
-      "./test/jest.setup.js"
-    ],
-    "testMatch": [
-      "**/__tests__/**/*.js?(x)",
-      "**/?(*.)(spec).js?(x)"
-    ]
   },
   "commitlint": {
     "extends": [
