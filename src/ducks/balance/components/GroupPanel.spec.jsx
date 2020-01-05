@@ -145,6 +145,7 @@ describe('Reimbursement virtual group styling', () => {
   }
 
   const healthExpense = {
+    account: 'comptegene1',
     manualCategoryId: '400610',
     amount: -10,
     _id: 'transaction-1234',
