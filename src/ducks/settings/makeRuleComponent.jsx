@@ -25,7 +25,13 @@ const makeRuleComponent = ({
     } = props
 
     const initialRules = ensureNewRuleFormat(rawInitialRules)
-    const onError = () => Alerter.error(t('Settings.rules.saving-error'))
+    const onError = err => {
+      // eslint-disable-next-line no-console
+      console.warn('Could not save rule')
+      // eslint-disable-next-line no-console
+      console.error(err)
+      Alerter.error(t('Settings.rules.saving-error'))
+    }
 
     return (
       <Rules
