@@ -4,74 +4,14 @@ import { translate } from 'cozy-ui/react'
 import { queryConnect, hasQueryBeenLoaded } from 'cozy-client'
 import { connect } from 'react-redux'
 import { accountsConn } from 'doctypes'
-import {
-  getAccountLabel,
-  isCheckingsAccount,
-  isCreditCardAccount
-} from 'ducks/account/helpers'
+import { getAccountLabel, isCreditCardAccount } from 'ducks/account/helpers'
 import { Spinner } from 'cozy-ui/react'
 
 import { SubSection } from 'ducks/settings/Sections'
 import EditableSettingCard from './EditableSettingCard'
-import { CHOOSING_TYPES } from 'components/EditionModal'
 import { getAccountsById } from 'selectors'
 import compose from 'lodash/flowRight'
-import { getDocumentIdentity } from 'ducks/client/utils'
-
-const makeAccountChoiceFromAccount = account => {
-  return account ? getDocumentIdentity(account) : null
-}
-
-const getModalProps = ({ initialDoc, t }) => ({
-  modalTitle: t('Notifications.editModal.title'),
-  fieldOrder: ['creditCardAccount', 'checkingsAccount', 'value'],
-  fieldLabels: {
-    creditCardAccount: t(
-      'Notifications.delayed_debit.fieldLabels.creditCardAccount'
-    ),
-    checkingsAccount: t(
-      'Notifications.delayed_debit.fieldLabels.checkingsAccount'
-    ),
-    value: t('Notifications.delayed_debit.fieldLabels.days')
-  },
-  fieldSpecs: {
-    creditCardAccount: {
-      type: CHOOSING_TYPES.account,
-      chooserProps: {
-        canSelectAll: false,
-        filter: isCreditCardAccount
-      },
-      getValue: initialDoc =>
-        makeAccountChoiceFromAccount(initialDoc.creditCardAccount),
-      updater: (doc, creditCardAccount) => ({
-        ...doc,
-        creditCardAccount: getDocumentIdentity(creditCardAccount)
-      })
-    },
-    checkingsAccount: {
-      type: CHOOSING_TYPES.account,
-      chooserProps: {
-        canSelectAll: false,
-        filter: isCheckingsAccount
-      },
-      getValue: initialDoc =>
-        makeAccountChoiceFromAccount(initialDoc.checkingsAccount),
-      updater: (doc, checkingsAccount) => ({
-        ...doc,
-        checkingsAccount: getDocumentIdentity(checkingsAccount)
-      })
-    },
-    value: {
-      sectionProps: {
-        unit: t('Notifications.delayed_debit.unit')
-      },
-      type: CHOOSING_TYPES.number,
-      getValue: doc => doc.value,
-      updater: (doc, value) => ({ ...doc, value })
-    }
-  },
-  initialDoc
-})
+import { delayedDebits } from './specs'
 
 const getCreditCardDefaultValue = props => {
   const { accounts } = props
@@ -126,7 +66,7 @@ class DelayedDebitCard extends React.Component {
       <EditableSettingCard
         onToggle={onToggle}
         onChangeDoc={onChangeDoc}
-        editModalProps={getModalProps({ t, initialDoc })}
+        editModalProps={delayedDebits}
         shouldOpenOnToggle={() => {
           return !initialDoc.creditCardAccount || !initialDoc.checkingsAccount
         }}
