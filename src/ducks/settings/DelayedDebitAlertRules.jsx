@@ -26,41 +26,61 @@ const getCheckingsDefaultValue = props => {
     : null
 }
 
+const getRelevantAccounts = props => {
+  const { accountsById, doc } = props
+  const docCreditCardAccount = doc.creditCardAccount
+    ? accountsById[doc.creditCardAccount._id]
+    : null
+  const docCheckingsAccount = doc.checkingsAccount
+    ? accountsById[doc.checkingsAccount._id]
+    : null
+
+  const creditCardAccount =
+    docCreditCardAccount || getCreditCardDefaultValue(props)
+  const checkingsAccount =
+    docCheckingsAccount || getCheckingsDefaultValue(props)
+
+  return { creditCardAccount, checkingsAccount }
+}
+
+const getDescriptionProps = props => {
+  const { creditCardAccount, checkingsAccount } = getRelevantAccounts(props)
+  const creditCardLabel = creditCardAccount
+    ? getAccountLabel(creditCardAccount)
+    : '...'
+  const checkingsLabel = checkingsAccount
+    ? getAccountLabel(checkingsAccount)
+    : '...'
+
+  return {
+    creditCardLabel,
+    checkingsLabel,
+    value: props.doc.value
+  }
+}
+
+const getInitialDoc = props => {
+  const { doc } = props
+  const { creditCardAccount, checkingsAccount } = getRelevantAccounts(props)
+
+  return {
+    creditCardAccount,
+    checkingsAccount,
+    value: doc.value,
+    enabled: doc.enabled
+  }
+}
+
 class DelayedDebitCard extends React.Component {
   render() {
-    const { doc, onToggle, onChangeDoc, t, accountsById, accounts } = this.props
+    const { doc, onToggle, onChangeDoc, accounts } = this.props
 
     if (!hasQueryBeenLoaded(accounts)) {
       return <Spinner />
     }
 
-    const value = doc.value
-
-    const docCreditCardAccount = doc.creditCardAccount
-      ? accountsById[doc.creditCardAccount._id]
-      : null
-    const docCheckingsAccount = doc.checkingsAccount
-      ? accountsById[doc.checkingsAccount._id]
-      : null
-
-    const creditCardAccount =
-      docCreditCardAccount || getCreditCardDefaultValue(this.props)
-    const checkingsAccount =
-      docCheckingsAccount || getCheckingsDefaultValue(this.props)
-
-    const initialDoc = {
-      creditCardAccount,
-      checkingsAccount,
-      value,
-      enabled: doc.enabled
-    }
-
-    const creditCardLabel = creditCardAccount
-      ? getAccountLabel(creditCardAccount)
-      : '...'
-    const checkingsLabel = checkingsAccount
-      ? getAccountLabel(checkingsAccount)
-      : '...'
+    const initialDoc = getInitialDoc(this.props)
+    const descriptionProps = getDescriptionProps(this.props)
 
     return (
       <EditableSettingCard
@@ -72,11 +92,7 @@ class DelayedDebitCard extends React.Component {
         }}
         doc={doc}
         descriptionKey="Notifications.delayed_debit.description"
-        descriptionProps={{
-          creditCardLabel,
-          checkingsLabel,
-          value
-        }}
+        descriptionProps={descriptionProps}
       />
     )
   }
