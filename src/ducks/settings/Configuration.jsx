@@ -12,7 +12,7 @@ import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import PinSettings from 'ducks/settings/PinSettings'
 import { Section, SubSection } from 'ducks/settings/Sections'
 
-import DelayedDebitAlert from 'ducks/settings/DelayedDebitAlert'
+import DelayedDebitAlertRules from 'ducks/settings/DelayedDebitAlertRules'
 import CategoryAlertSettingsPane from 'ducks/settings/CategoryAlerts/CategoryAlertSettingsPane'
 import EditableSettingCard from './EditableSettingCard'
 import { withAccountOrGroupLabeller } from './helpers'
@@ -92,7 +92,7 @@ export class Configuration extends React.Component {
             />
           </SubSection>
           <CategoryAlertSettingsPane />
-          <DelayedDebitAlert
+          <DelayedDebitAlertRules
             onToggle={this.onToggle('notifications.delayedDebit')}
             onChangeDoc={this.onChangeDoc('notifications.delayedDebit')}
             doc={settings.notifications.delayedDebit}

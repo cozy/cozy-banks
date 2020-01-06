@@ -73,28 +73,20 @@ const getModalProps = ({ initialDoc, t }) => ({
   initialDoc
 })
 
+const getCreditCardDefaultValue = props => {
+  const { accounts } = props
+  const selectedAccount = (accounts.data || []).find(isCreditCardAccount)
+  return selectedAccount ? selectedAccount : null
+}
+
+const getCheckingsDefaultValue = props => {
+  const selectedCreditCard = getCreditCardDefaultValue(props)
+  return selectedCreditCard && selectedCreditCard.checkingsAccount
+    ? selectedCreditCard.checkingsAccount.data
+    : null
+}
+
 class DelayedDebitCard extends React.Component {
-  static propTypes = {
-    // TODO replace `PropTypes.object` with a shape coming from cozy-doctypes
-    accounts: PropTypes.arrayOf(PropTypes.object).isRequired,
-    enabled: PropTypes.bool.isRequired,
-    onToggle: PropTypes.func.isRequired,
-    t: PropTypes.func.isRequired
-  }
-
-  getCreditCardDefaultValue() {
-    const { accounts } = this.props
-    const selectedAccount = (accounts.data || []).find(isCreditCardAccount)
-    return selectedAccount ? selectedAccount : null
-  }
-
-  getCheckingsDefaultValue() {
-    const selectedCreditCard = this.getCreditCardDefaultValue()
-    return selectedCreditCard && selectedCreditCard.checkingsAccount
-      ? selectedCreditCard.checkingsAccount.data
-      : null
-  }
-
   render() {
     const { doc, onToggle, onChangeDoc, t, accountsById, accounts } = this.props
 
@@ -112,9 +104,9 @@ class DelayedDebitCard extends React.Component {
       : null
 
     const creditCardAccount =
-      docCreditCardAccount || this.getCreditCardDefaultValue()
+      docCreditCardAccount || getCreditCardDefaultValue(this.props)
     const checkingsAccount =
-      docCheckingsAccount || this.getCheckingsDefaultValue()
+      docCheckingsAccount || getCheckingsDefaultValue(this.props)
 
     const initialDoc = {
       creditCardAccount,
@@ -160,6 +152,14 @@ const DumbDelayedDebitSettingSection = props => {
       <DelayedDebitCard {...props} />
     </SubSection>
   )
+}
+
+DelayedDebitCard.propTyps = {
+  // TODO replace `PropTypes.object` with a shape coming from cozy-doctypes
+  accounts: PropTypes.arrayOf(PropTypes.object).isRequired,
+  enabled: PropTypes.bool.isRequired,
+  onToggle: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired
 }
 
 const DelayedDebitSettingSection = translate()(DumbDelayedDebitSettingSection)
