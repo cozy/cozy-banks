@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Alerter, translate } from 'cozy-ui/react'
 
 import { makeEditionModalFromSpec } from 'components/EditionModal'
@@ -69,6 +70,11 @@ const makeRuleComponent = ({
   }
   RulesComponent.defaultProps = {
     rules: getInitialRules()
+  }
+
+  RulesComponent.propTypes = {
+    rules: PropTypes.array.isRequired,
+    onChangeRules: PropTypes.func.isRequired
   }
 
   RulesComponent.displayName = displayName
