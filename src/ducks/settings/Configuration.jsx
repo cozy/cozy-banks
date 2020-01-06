@@ -92,11 +92,16 @@ export class Configuration extends React.Component {
             />
           </SubSection>
           <CategoryAlertSettingsPane />
-          <DelayedDebitAlertRules
-            onToggle={this.onToggle('notifications.delayedDebit')}
-            onChangeDoc={this.onChangeDoc('notifications.delayedDebit')}
-            doc={settings.notifications.delayedDebit}
-          />
+          <SubSection
+            title={t('Notifications.delayed_debit.settingTitle')}
+            description={t('Notifications.delayed_debit.settingDescription')}
+          >
+            <DelayedDebitAlertRules
+              onToggle={this.onToggle('notifications.delayedDebit')}
+              onChangeDoc={this.onChangeDoc('notifications.delayedDebit')}
+              doc={settings.notifications.delayedDebit}
+            />
+          </SubSection>
           <SubSection
             title={t('Notifications.health_section.title')}
             description={t('Notifications.health_section.description')}

@@ -82,16 +82,9 @@ class DelayedDebitCard extends React.Component {
   }
 }
 
-const DumbDelayedDebitSettingSection = props => {
+const DumbDelayedDebitRules = props => {
   const { t } = props
-  return (
-    <SubSection
-      title={t('Notifications.delayed_debit.settingTitle')}
-      description={t('Notifications.delayed_debit.settingDescription')}
-    >
-      <DelayedDebitCard {...props} />
-    </SubSection>
-  )
+  return <DelayedDebitCard {...props} />
 }
 
 DelayedDebitCard.propTyps = {
@@ -102,7 +95,7 @@ DelayedDebitCard.propTyps = {
   t: PropTypes.func.isRequired
 }
 
-const DelayedDebitSettingSection = translate()(DumbDelayedDebitSettingSection)
+const DelayedDebitRules = translate()(DumbDelayedDebitRules)
 
 const withAccounts = queryConnect({
   accounts: accountsConn
@@ -114,4 +107,4 @@ const withAccountsById = connect(state => ({
 export default compose(
   withAccounts,
   withAccountsById
-)(DelayedDebitSettingSection)
+)(DelayedDebitRules)
