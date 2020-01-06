@@ -12,7 +12,8 @@ const makeRuleComponent = ({
   getNewRule,
   getInitialRules,
   spec,
-  displayName
+  displayName,
+  shouldOpenOnToggle
 }) => {
   const EditionModal = makeEditionModalFromSpec(spec)
 
@@ -21,7 +22,8 @@ const makeRuleComponent = ({
       rules: rawInitialRules,
       getAccountOrGroupLabel,
       onChangeRules,
-      t
+      t,
+      ruleProps
     } = props
 
     const initialRules = ensureNewRuleFormat(rawInitialRules)
@@ -58,6 +60,8 @@ const makeRuleComponent = ({
             getAccountOrGroupLabel={getAccountOrGroupLabel}
             descriptionKey={getRuleDescriptionKey}
             descriptionProps={getRuleDescriptionProps}
+            shouldOpenOnToggle={shouldOpenOnToggle}
+            ruleProps={ruleProps}
           />
         )}
       </Rules>

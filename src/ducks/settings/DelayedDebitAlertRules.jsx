@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { translate } from 'cozy-ui/react'
 import { queryConnect, hasQueryBeenLoaded } from 'cozy-client'
 import { connect } from 'react-redux'
@@ -7,14 +6,13 @@ import { accountsConn } from 'doctypes'
 import { getAccountLabel, isCreditCardAccount } from 'ducks/account/helpers'
 import { Spinner } from 'cozy-ui/react'
 
-import { SubSection } from 'ducks/settings/Sections'
-import EditableSettingCard from './EditableSettingCard'
 import { getAccountsById } from 'selectors'
 import compose from 'lodash/flowRight'
 import { delayedDebits } from './specs'
+import makeRuleComponent from './makeRuleComponent'
 
 const getCreditCardDefaultValue = props => {
-  const { accounts } = props
+  const { accounts } = props.ruleProps
   const selectedAccount = (accounts.data || []).find(isCreditCardAccount)
   return selectedAccount ? selectedAccount : null
 }
@@ -27,7 +25,8 @@ const getCheckingsDefaultValue = props => {
 }
 
 const getRelevantAccounts = props => {
-  const { accountsById, doc } = props
+  const { doc } = props
+  const { accountsById } = props.ruleProps
   const docCreditCardAccount = doc.creditCardAccount
     ? accountsById[doc.creditCardAccount._id]
     : null
@@ -40,16 +39,23 @@ const getRelevantAccounts = props => {
   const checkingsAccount =
     docCheckingsAccount || getCheckingsDefaultValue(props)
 
-  return { creditCardAccount, checkingsAccount }
+  return {
+    docCreditCardAccount,
+    creditCardAccount,
+    docCheckingsAccount,
+    checkingsAccount
+  }
 }
 
 const getDescriptionProps = props => {
-  const { creditCardAccount, checkingsAccount } = getRelevantAccounts(props)
-  const creditCardLabel = creditCardAccount
-    ? getAccountLabel(creditCardAccount)
+  const { docCreditCardAccount, docCheckingsAccount } = getRelevantAccounts(
+    props
+  )
+  const creditCardLabel = docCreditCardAccount
+    ? getAccountLabel(docCreditCardAccount)
     : '...'
-  const checkingsLabel = checkingsAccount
-    ? getAccountLabel(checkingsAccount)
+  const checkingsLabel = docCheckingsAccount
+    ? getAccountLabel(docCheckingsAccount)
     : '...'
 
   return {
@@ -59,59 +65,38 @@ const getDescriptionProps = props => {
   }
 }
 
-const getInitialDoc = props => {
-  const { doc } = props
+const shouldOpenOnToggle = props => {
   const { creditCardAccount, checkingsAccount } = getRelevantAccounts(props)
+  return !creditCardAccount || !checkingsAccount
+}
 
-  return {
-    creditCardAccount,
-    checkingsAccount,
-    value: doc.value,
-    enabled: doc.enabled
+const newDelayedDebitRule = { enabled: true, value: 3 }
+const initialDelayedDebitRules = [{ enabled: false, value: 3 }]
+
+const DelayedDebitRules = makeRuleComponent({
+  displayName: 'DelayedDebit',
+  getInitialRules: () => initialDelayedDebitRules,
+  spec: delayedDebits,
+  getNewRule: () => ({ ...newDelayedDebitRule }),
+  getRuleDescriptionKey: () => 'Notifications.delayed_debit.description',
+  getRuleDescriptionProps: getDescriptionProps,
+  shouldOpenOnToggle: shouldOpenOnToggle
+})
+
+const WaitForLoadingDelayedDebitRules = props => {
+  const { accounts, accountsById } = props
+  if (!hasQueryBeenLoaded(accounts)) {
+    return <Spinner />
   }
+  return (
+    <DelayedDebitRules
+      rules={props.rules}
+      onChangeRules={props.onChangeRules}
+      t={props.t}
+      ruleProps={{ accounts, accountsById }}
+    />
+  )
 }
-
-class DelayedDebitCard extends React.Component {
-  render() {
-    const { doc, onToggle, onChangeDoc, accounts } = this.props
-
-    if (!hasQueryBeenLoaded(accounts)) {
-      return <Spinner />
-    }
-
-    const initialDoc = getInitialDoc(this.props)
-    const descriptionProps = getDescriptionProps(this.props)
-
-    return (
-      <EditableSettingCard
-        onToggle={onToggle}
-        onChangeDoc={onChangeDoc}
-        editModalProps={delayedDebits}
-        shouldOpenOnToggle={() => {
-          return !initialDoc.creditCardAccount || !initialDoc.checkingsAccount
-        }}
-        doc={doc}
-        descriptionKey="Notifications.delayed_debit.description"
-        descriptionProps={descriptionProps}
-      />
-    )
-  }
-}
-
-const DumbDelayedDebitRules = props => {
-  const { t } = props
-  return <DelayedDebitCard {...props} />
-}
-
-DelayedDebitCard.propTyps = {
-  // TODO replace `PropTypes.object` with a shape coming from cozy-doctypes
-  accounts: PropTypes.arrayOf(PropTypes.object).isRequired,
-  enabled: PropTypes.bool.isRequired,
-  onToggle: PropTypes.func.isRequired,
-  t: PropTypes.func.isRequired
-}
-
-const DelayedDebitRules = translate()(DumbDelayedDebitRules)
 
 const withAccounts = queryConnect({
   accounts: accountsConn
@@ -121,6 +106,7 @@ const withAccountsById = connect(state => ({
 }))
 
 export default compose(
+  translate(),
   withAccounts,
   withAccountsById
-)(DelayedDebitRules)
+)(WaitForLoadingDelayedDebitRules)

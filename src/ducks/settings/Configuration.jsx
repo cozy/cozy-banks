@@ -98,8 +98,8 @@ export class Configuration extends React.Component {
           >
             <DelayedDebitAlertRules
               onToggle={this.onToggle('notifications.delayedDebit')}
-              onChangeDoc={this.onChangeDoc('notifications.delayedDebit')}
-              doc={settings.notifications.delayedDebit}
+              onChangeRules={this.onChangeDoc('notifications.delayedDebit')}
+              rules={settings.notifications.delayedDebit}
             />
           </SubSection>
           <SubSection
