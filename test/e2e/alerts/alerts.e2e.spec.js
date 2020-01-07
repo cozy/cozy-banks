@@ -110,13 +110,6 @@ const setupClient = async options => {
   if (!areEnvVariablesProvided) {
     return
   }
-  try {
-    fs.unlinkSync(
-      '/tmp/cozy-client-oauth-cozy-tools:8080-banks.alerts-e2e.json'
-    )
-  } catch (e) {
-    // eslint-disable-next-line empty-block
-  }
 
   const client = await createClientInteractive({
     uri: options.url,
