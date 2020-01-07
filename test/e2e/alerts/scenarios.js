@@ -1,11 +1,11 @@
 import keyBy from 'lodash/keyBy'
-import demoData from '../fixtures/demo.json'
-import { getDocumentID } from './dataUtils'
+import demoData from 'test/fixtures/demo.json'
+import { getDocumentID } from 'ducks/client/utils'
 import {
   ACCOUNT_DOCTYPE,
   TRANSACTION_DOCTYPE,
   SETTINGS_DOCTYPE
-} from '../../src/doctypes'
+} from 'doctypes'
 
 const LOUISE_ACCOUNT_ID = 'comptelou1'
 const ISA_CHECKING_ACCOUNT_ID = 'compteisa1'
