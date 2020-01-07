@@ -1,5 +1,4 @@
 import DelayedDebit, { isCreditCardAccount, isWithinEndOfMonthRange } from '.'
-import keyBy from 'lodash/keyBy'
 import MockDate from 'mockdate'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 import { BankAccount } from 'cozy-doctypes'
@@ -19,8 +18,6 @@ const accounts = [
     comingBalance: 0
   }
 ]
-
-const accountsById = keyBy(accounts, x => x._id)
 
 describe('DelayedDebit::isWithinEndOfMonthRange', () => {
   afterEach(() => {
@@ -56,7 +53,6 @@ describe('DelayedDebit::isCreditCardAccount', () => {
 
 describe('DelayedDebit', () => {
   let notification
-  let creditCards
 
   beforeEach(() => {
     notification = new DelayedDebit({

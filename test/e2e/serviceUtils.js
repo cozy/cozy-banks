@@ -16,6 +16,7 @@ export const runService = async (serviceName, options) => {
   const res = spawnSync('node', [`build/${serviceName}`], processOptions)
 
   if (res.status !== 0) {
+    // eslint-disable-next-line no-console
     console.error(res.stdout)
     throw new Error(`Error while running ${serviceName}`)
   }

@@ -13,7 +13,6 @@ import {
 import Mailhog from 'mailhog'
 import MockServer from '../mock-server'
 import scenarios from './scenarios'
-import fs from 'fs'
 import {
   dropDoctype,
   importACHData,

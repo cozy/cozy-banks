@@ -7,7 +7,7 @@ import {
 } from 'ducks/account/helpers'
 import { endOfMonth, subDays, isWithinRange } from 'date-fns'
 import { BankAccount } from 'cozy-doctypes'
-import { get, keyBy, groupBy, map } from 'lodash'
+import { keyBy, groupBy, map } from 'lodash'
 import { getAccountNewBalance } from 'ducks/notifications/helpers'
 import { getCurrentDate } from 'ducks/notifications/utils'
 import template from './template.hbs'
