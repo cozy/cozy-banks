@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 
 import pick from 'lodash/pick'
-import omit from 'lodash/omit'
 
 import { createClientInteractive } from 'cozy-client/dist/cli'
 import {
@@ -103,7 +102,14 @@ const cleanupDatabase = async client => {
   }
 }
 
+const areEnvVariablesProvided = Boolean(
+  process.env.COZY_URL && process.env.COZY_CREDENTIALS
+)
+
 const setupClient = async options => {
+  if (!areEnvVariablesProvided) {
+    return
+  }
   try {
     fs.unlinkSync(
       '/tmp/cozy-client-oauth-cozy-tools:8080-banks.alerts-e2e.json'
@@ -139,7 +145,13 @@ const setupClient = async options => {
   return client
 }
 
-describe('alert emails/notifications', () => {
+test('COZY_URL and COZY_CREDENTIALS must be provided to E2E test', () => {
+  expect(areEnvVariablesProvided).toBe(true)
+})
+
+const describer = areEnvVariablesProvided ? describe : xdescribe
+
+describer('alert emails/notifications', () => {
   let client
   let pushServer
   let mailhog
@@ -147,6 +159,12 @@ describe('alert emails/notifications', () => {
     url: process.env.COZY_URL || 'http://cozy.tools:8080',
     verbose: false
   }
+
+  beforeEach(() => {
+    if (!process.env.COZY_URL || !process.env.COZY_CREDENTIALS) {
+      throw new Error('Must provide COZY_URL and COZY_CREDENTIALS')
+    }
+  })
 
   beforeAll(async () => {
     pushServer = new MockServer()
