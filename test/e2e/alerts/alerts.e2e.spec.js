@@ -185,7 +185,7 @@ describer('alert emails/notifications', () => {
       test(scenario.description, async () => {
         await runScenario(client, scenario, {
           showOutput: options.verbose,
-          mailhog
+          pushServer
         })
       })
     }
@@ -200,7 +200,7 @@ describer('alert emails/notifications', () => {
       test(scenario.description, async () => {
         await runScenario(client, scenario, {
           showOutput: options.verbose,
-          pushServer
+          mailhog
         })
       })
     }
