@@ -319,6 +319,82 @@ const scenarios = {
         }
       ]
     }
+  },
+  delayedDebit1: {
+    description: 'CreditCard account below Checkings account',
+    expected: {
+      email: {
+        subject:
+          "Account 'Checkings 1' will be at -50€ after your credit  card debit"
+      },
+      notification: {
+        data: {
+          body: '',
+          route: '/balances',
+          title:
+            "Account 'Checkings 1' will be at -50€ after your credit card debit"
+        }
+      }
+    },
+    data: {
+      [SETTINGS_DOCTYPE]: [
+        {
+          _id: 'notificationSettings',
+          notifications: {
+            delayedDebit: [
+              {
+                enabled: true,
+                checkingsAccount: {
+                  _id: 'checkings1',
+                  _type: ACCOUNT_DOCTYPE
+                },
+                creditCardAccount: {
+                  _id: 'creditcard1',
+                  _type: ACCOUNT_DOCTYPE
+                },
+                // this way we are always in the range
+                // end of month - value < now < end of the month
+                value: 50
+              }
+            ]
+          }
+        }
+      ],
+      [ACCOUNT_DOCTYPE]: [
+        {
+          _id: 'creditcard1',
+          balance: -100,
+          label: 'Credit card 1'
+        },
+        {
+          _id: 'checkings1',
+          balance: 50,
+          label: 'Checkings 1'
+        },
+        {
+          _id: 'creditcard2',
+          balance: -50,
+          label: 'Credit card 2'
+        },
+        {
+          _id: 'checkings2',
+          balance: 100,
+          label: 'Checkings 2'
+        }
+      ],
+      [TRANSACTION_DOCTYPE]: [
+        { ...louiseBurgerTransaction, amount: -10 },
+        {
+          ...isaBurgerTransaction,
+          amount: -60 // such an expensive burger !
+        },
+        {
+          ...isaBurgerTransaction,
+          _id: 'isa_burger_0',
+          amount: -100 // such an expensive burger !
+        }
+      ]
+    }
   }
 }
 
