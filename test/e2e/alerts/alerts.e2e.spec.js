@@ -122,12 +122,13 @@ const setupClient = async options => {
     uri: options.url,
     scope: [
       'io.cozy.oauth.clients:ALL',
+      options.push ? 'io.cozy.fake-doctype' : null,
       SETTINGS_DOCTYPE,
       TRANSACTION_DOCTYPE,
       ACCOUNT_DOCTYPE,
       GROUP_DOCTYPE,
       BILLS_DOCTYPE
-    ],
+    ].filter(Boolean),
     oauth: {
       softwareID: SOFTWARE_ID
     }
