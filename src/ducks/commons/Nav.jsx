@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { useI18n } from 'cozy-ui/react'
+import { useI18n } from 'cozy-ui/transpiled/react'
 import cx from 'classnames'
 import UINav, {
   NavItem,
   NavIcon,
   NavText,
   NavLink as UINavLink
-} from 'cozy-ui/react/Nav'
+} from 'cozy-ui/transpiled/react/Nav'
 import { withRouter } from 'react-router'
 import flag from 'cozy-flags'
 

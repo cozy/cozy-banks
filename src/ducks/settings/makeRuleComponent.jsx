@@ -1,5 +1,5 @@
 import React from 'react'
-import { Alerter, useI18n } from 'cozy-ui/react'
+import { Alerter, useI18n } from 'cozy-ui/transpiled/react'
 
 import { makeEditionModalFromSpec } from 'components/EditionModal'
 import Rules from 'ducks/settings/Rules'

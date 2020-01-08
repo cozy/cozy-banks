@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Chip from 'cozy-ui/react/Chip'
-import Icon from 'cozy-ui/react/Icon'
-import { useI18n } from 'cozy-ui/react'
+import Chip from 'cozy-ui/transpiled/react/Chip'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import { useI18n } from 'cozy-ui/transpiled/react'
 
 const DumbKonnectorChip = props => {
   const { t } = useI18n()

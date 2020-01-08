@@ -22,8 +22,8 @@ const brandInMaintenance = {
 
 brands.push(brandInMaintenance)
 
-jest.mock('cozy-ui/react/Icon', () => {
-  const OriginalIcon = jest.requireActual('cozy-ui/react/Icon')
+jest.mock('cozy-ui/transpiled/react/Icon', () => {
+  const OriginalIcon = jest.requireActual('cozy-ui/transpiled/react/Icon')
   const mockIcon = props => {
     const icon = props.icon
     return OriginalIcon.default.isProperIcon(icon) ? (

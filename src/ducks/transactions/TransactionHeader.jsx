@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
 import { flowRight as compose } from 'lodash'
-import { translate, withBreakpoints, useI18n } from 'cozy-ui/react'
+import { translate, withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
 import cx from 'classnames'
 
 import Breadcrumb from 'components/Breadcrumb'

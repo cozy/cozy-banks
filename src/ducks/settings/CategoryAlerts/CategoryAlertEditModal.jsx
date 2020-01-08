@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useI18n } from 'cozy-ui/react'
+import { useI18n } from 'cozy-ui/transpiled/react'
 import EditionModal from 'components/EditionModal'
 import { categoryBudgets } from '../specs'
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import cx from 'classnames'
 import compose from 'lodash/flowRight'
 
-import { translate, Media, Bd, Img, Icon, Text, Caption } from 'cozy-ui/react'
+import { translate, Media, Bd, Img, Icon, Text, Caption } from 'cozy-ui/transpiled/react'
 import flag from 'cozy-flags'
 
 import { Figure } from 'components/Figure'

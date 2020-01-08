@@ -18,7 +18,7 @@ import {
   useViewStack,
   ModalContent,
   useI18n
-} from 'cozy-ui/react'
+} from 'cozy-ui/transpiled/react'
 
 import ModalStack from 'components/ModalStack'
 

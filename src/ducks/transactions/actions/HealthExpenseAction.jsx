@@ -1,6 +1,6 @@
 import React from 'react'
 // import { some } from 'lodash'
-import { useI18n } from 'cozy-ui/react'
+import { useI18n } from 'cozy-ui/transpiled/react'
 import icon from 'assets/icons/actions/icon-file.svg'
 import { BillComponent } from 'ducks/transactions/actions/BillAction'
 

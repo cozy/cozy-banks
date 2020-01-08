@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Stack, Button, useI18n } from 'cozy-ui/react'
+import { Stack, Button, useI18n } from 'cozy-ui/transpiled/react'
 import useList from './useList'
 import { getRuleId, getNextRuleId } from './ruleUtils'
 import cx from 'classnames'

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Spinner, useI18n } from 'cozy-ui/react'
+import { Spinner, useI18n } from 'cozy-ui/transpiled/react'
 import styles from 'components/Loading/Loading.styl'
 
 /**

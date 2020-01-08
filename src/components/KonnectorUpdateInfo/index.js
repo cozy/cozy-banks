@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from 'components/KonnectorUpdateInfo/styles.styl'
-import { useI18n } from 'cozy-ui/react'
+import { useI18n } from 'cozy-ui/transpiled/react'
 import { withClient } from 'cozy-client'
 import { flowRight as compose } from 'lodash'
 import { queryConnect } from 'cozy-client'

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useI18n } from 'cozy-ui/react'
+import { useI18n } from 'cozy-ui/transpiled/react'
 import { queryConnect, hasQueryBeenLoaded } from 'cozy-client'
 import { connect } from 'react-redux'
 import { accountsConn } from 'doctypes'
@@ -9,7 +9,7 @@ import {
   isCheckingsAccount,
   isCreditCardAccount
 } from 'ducks/account/helpers'
-import { Spinner } from 'cozy-ui/react'
+import { Spinner } from 'cozy-ui/transpiled/react'
 
 import { SubSection } from 'ducks/settings/Sections'
 import EditableSettingCard from './EditableSettingCard'

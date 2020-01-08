@@ -1,8 +1,8 @@
 import React from 'react'
-import { useI18n } from 'cozy-ui/react'
-import Icon from 'cozy-ui/react/Icon'
+import { useI18n } from 'cozy-ui/transpiled/react'
+import Icon from 'cozy-ui/transpiled/react/Icon'
 import { formatVendor } from 'ducks/health-expense/helpers'
-import palette from 'cozy-ui/react/palette'
+import palette from 'cozy-ui/transpiled/react/palette'
 
 const healthExpenseStatusIconStyle = { display: 'inline-block' }
 export const HealthExpenseStatusIcon = ({ className = '', pending }) => {

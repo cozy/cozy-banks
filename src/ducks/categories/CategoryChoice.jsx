@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { NestedSelect, NestedSelectModal, translate } from 'cozy-ui/react'
+import { NestedSelect, NestedSelectModal, translate } from 'cozy-ui/transpiled/react'
 import {
   getCategories,
   CategoryIcon,

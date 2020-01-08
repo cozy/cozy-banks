@@ -1,4 +1,4 @@
-import { shouldEnableTracking, getTracker } from 'cozy-ui/react/helpers/tracker'
+import { shouldEnableTracking, getTracker } from 'cozy-ui/transpiled/react/helpers/tracker'
 import { hashHistory } from 'react-router'
 
 export const setupHistory = () => {
