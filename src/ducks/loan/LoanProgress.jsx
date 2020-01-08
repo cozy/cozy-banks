@@ -9,7 +9,7 @@ import {
 } from 'ducks/account/helpers'
 import { useI18n } from 'cozy-ui/transpiled/react'
 
-const DumbLoanProgress = props => {
+const LoanProgress = props => {
   const { t } = useI18n()
   const { account } = props
   const percentage = getReimbursedPercentage(account)
@@ -36,7 +36,5 @@ const DumbLoanProgress = props => {
     </>
   )
 }
-
-const LoanProgress = DumbLoanProgress
 
 export default LoanProgress

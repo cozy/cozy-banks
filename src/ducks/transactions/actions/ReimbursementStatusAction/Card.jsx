@@ -64,8 +64,7 @@ const phoneContactShape = PropTypes.shape({
 })
 
 DumbPhoneCard.propTypes = {
-  contact: phoneContactShape.isRequired,
-  t: PropTypes.func.isRequired
+  contact: phoneContactShape.isRequired
 }
 
 export const PhoneCard = DumbPhoneCard
@@ -94,8 +93,7 @@ const webContactShape = PropTypes.shape({
 })
 
 DumbWebCard.propTypes = {
-  contact: webContactShape.isRequired,
-  t: PropTypes.func.isRequired
+  contact: webContactShape.isRequired
 }
 
 export const WebCard = DumbWebCard
@@ -127,8 +125,7 @@ const appContactShape = PropTypes.shape({
 })
 
 DumbAppCard.propTypes = {
-  contact: appContactShape.isRequired,
-  t: PropTypes.func.isRequired
+  contact: appContactShape.isRequired
 }
 
 export const AppCard = DumbAppCard

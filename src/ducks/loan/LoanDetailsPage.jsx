@@ -11,7 +11,6 @@ import cx from 'classnames'
 import styles from 'ducks/loan/LoanDetailsPage.styl'
 import LoanProgress from 'ducks/loan/LoanProgress'
 import { Padded } from 'components/Spacing'
-import { flowRight as compose } from 'lodash'
 import { getBorrowedAmount } from 'ducks/account/helpers'
 
 import { useI18n } from 'cozy-ui/transpiled/react'
@@ -77,10 +76,7 @@ const DumbRow = props => {
   )
 }
 
-export const Row = compose(
-  translate(),
-  withBreakpoints()
-)(DumbRow)
+export const Row = withBreakpoints()(DumbRow)
 
 export const Section = props => {
   const { title, children } = props

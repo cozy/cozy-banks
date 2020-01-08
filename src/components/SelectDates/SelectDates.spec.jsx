@@ -3,7 +3,6 @@
 import AppLike from 'test/AppLike'
 import React from 'react'
 import SelectDates from './SelectDates'
-import Chip from 'cozy-ui/transpiled/react/Chip'
 
 import Select from 'react-select'
 Select.defaultProps.menuIsOpen = true
