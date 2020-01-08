@@ -12,7 +12,7 @@ import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import PinSettings from 'ducks/settings/PinSettings'
 import { Section, SubSection } from 'ducks/settings/Sections'
 
-import DelayedDebitAlert from 'ducks/settings/DelayedDebitAlert'
+import DelayedDebitAlertRules from 'ducks/settings/DelayedDebitAlertRules'
 import CategoryAlertSettingsPane from 'ducks/settings/CategoryAlerts/CategoryAlertSettingsPane'
 import EditableSettingCard from './EditableSettingCard'
 import { withAccountOrGroupLabeller } from './helpers'
@@ -92,11 +92,16 @@ export class Configuration extends React.Component {
             />
           </SubSection>
           <CategoryAlertSettingsPane />
-          <DelayedDebitAlert
-            onToggle={this.onToggle('notifications.delayedDebit')}
-            onChangeDoc={this.onChangeDoc('notifications.delayedDebit')}
-            doc={settings.notifications.delayedDebit}
-          />
+          <SubSection
+            title={t('Notifications.delayed_debit.settingTitle')}
+            description={t('Notifications.delayed_debit.settingDescription')}
+          >
+            <DelayedDebitAlertRules
+              onToggle={this.onToggle('notifications.delayedDebit')}
+              onChangeRules={this.onChangeDoc('notifications.delayedDebit')}
+              rules={settings.notifications.delayedDebit}
+            />
+          </SubSection>
           <SubSection
             title={t('Notifications.health_section.title')}
             description={t('Notifications.health_section.description')}
