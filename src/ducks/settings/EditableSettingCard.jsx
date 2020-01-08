@@ -71,7 +71,7 @@ const EditableSettingCard = props => {
 
   const enabled = doc.enabled
   const [editing, setEditing] = useState(false)
-  const description = resolveDescriptionKey(props)
+  const description = resolveDescriptionKey({ ...props, t })
 
   const handleSwitchChange = () => {
     const shouldOpen = shouldOpenOnToggle ? shouldOpenOnToggle(props) : false
