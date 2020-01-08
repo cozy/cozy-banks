@@ -2,8 +2,8 @@ import React from 'react'
 import { queryConnect, withMutations } from 'cozy-client'
 import compose from 'lodash/flowRight'
 
-import { translate } from 'cozy-ui/react'
-import Icon from 'cozy-ui/react/Icon'
+import { translate } from 'cozy-ui/transpiled/react'
+import Icon from 'cozy-ui/transpiled/react/Icon'
 import ToggleRow from 'ducks/settings/ToggleRow'
 
 import PinEditView from 'ducks/pin/PinEditView'
