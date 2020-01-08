@@ -3,6 +3,7 @@
 import AppLike from 'test/AppLike'
 import React from 'react'
 import SelectDates from './SelectDates'
+import Chip from 'cozy-ui/transpiled/react/Chip'
 
 import Select from 'react-select'
 Select.defaultProps.menuIsOpen = true
@@ -20,8 +21,8 @@ describe('SelectDates', () => {
   ]
 
   const findButtons = root => {
-    const prev = root.find('.c-chip--round.SelectDates__Button--prev')
-    const next = root.find('.c-chip--round.SelectDates__Button--next')
+    const prev = root.find('RoundChip.SelectDates__Button--prev')
+    const next = root.find('RoundChip.SelectDates__Button--next')
     return { prev, next }
   }
 
