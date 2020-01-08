@@ -415,9 +415,8 @@ Alert rules are tested with automatic tests that
 $ export COZY_URL=http://cozy.tools:8080
 $ export COZY_CREDENTIALS=$(cozy-stack instances token-app cozy.tools:8080 banks)
 $ docker run -p 1025:1025 -p 8025:8025 mailhog/mailhog
-$ yarn build:services
-# Use --watch when developing
 # Deactivate minification with minimize: false in webpack.optimize inside webpack.target.services.js
+$  env NODE_ENV=services:production yarn webpack --config webpack.config.js --bail --watch
 $ yarn test:e2e:alerts
 ```
 

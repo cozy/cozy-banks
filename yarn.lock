@@ -1414,43 +1414,10 @@
     mkdirp "^0.5.1"
     rimraf "^2.5.2"
 
-"@material-ui/core@3":
+"@material-ui/core@3", "@material-ui/core@3.9.4":
   version "3.9.4"
   resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-3.9.4.tgz#5297fd4ad9e739a87da4a6d34fc4af5396886e13"
   integrity sha512-r8QFLSexcYZbnqy/Hn4v8xzmAJV41yaodUVjmbGLi1iGDLG3+W941hEtEiBmxTRRqv2BdK3r4ijILcqKmDv/Sw==
-  dependencies:
-    "@babel/runtime" "^7.2.0"
-    "@material-ui/system" "^3.0.0-alpha.0"
-    "@material-ui/utils" "^3.0.0-alpha.2"
-    "@types/jss" "^9.5.6"
-    "@types/react-transition-group" "^2.0.8"
-    brcast "^3.0.1"
-    classnames "^2.2.5"
-    csstype "^2.5.2"
-    debounce "^1.1.0"
-    deepmerge "^3.0.0"
-    dom-helpers "^3.2.1"
-    hoist-non-react-statics "^3.2.1"
-    is-plain-object "^2.0.4"
-    jss "^9.8.7"
-    jss-camel-case "^6.0.0"
-    jss-default-unit "^8.0.2"
-    jss-global "^3.0.0"
-    jss-nested "^6.0.1"
-    jss-props-sort "^6.0.0"
-    jss-vendor-prefixer "^7.0.0"
-    normalize-scroll-left "^0.1.2"
-    popper.js "^1.14.1"
-    prop-types "^15.6.0"
-    react-event-listener "^0.6.2"
-    react-transition-group "^2.2.1"
-    recompose "0.28.0 - 0.30.0"
-    warning "^4.0.1"
-
-"@material-ui/core@3.9.3":
-  version "3.9.3"
-  resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-3.9.3.tgz#d378c1f4beb18df9a534ca7258c2c33fb8e0e51f"
-  integrity sha512-REIj62+zEvTgI/C//YL4fZxrCVIySygmpZglsu/Nl5jPqy3CDjZv1F9ubBYorHqmRgeVPh64EghMMWqk4egmfg==
   dependencies:
     "@babel/runtime" "^7.2.0"
     "@material-ui/system" "^3.0.0-alpha.0"
@@ -4540,13 +4507,13 @@ cozy-client-js@^0.15.0:
     pouchdb-browser "7.0.0"
     pouchdb-find "7.0.0"
 
-cozy-client@8.7.0:
-  version "8.7.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-8.7.0.tgz#74d4d5ee3307b79400ed3fa1209f27e4369e7cf8"
-  integrity sha512-RoMsn7e+pAD7S2GNlhO5frd2bqc66lb/JzNREnP19YBrFwjqGFsTmtH0/0aM+BoUmHE2myxNbVcfwq37vd+jOQ==
+cozy-client@9.4.0:
+  version "9.4.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-9.4.0.tgz#c57a05716a6d4184743fe2031e38a691fb85f93e"
+  integrity sha512-5YK7OhKH/hsHRYMWVfP4S8wzJk9D7VsQZb1gNUWbMtZnxKZ0lP6mIuyBL4iYg4olqmr4lj77k9utBzW1oZ8bag==
   dependencies:
     cozy-device-helper "^1.7.3"
-    cozy-stack-client "^8.7.0"
+    cozy-stack-client "^9.2.0"
     lodash "^4.17.13"
     microee "^0.0.6"
     prop-types "^15.6.2"
@@ -4812,7 +4779,7 @@ cozy-realtime@3.3.1:
   dependencies:
     minilog "https://github.com/cozy/minilog.git#master"
 
-cozy-stack-client@8.7.0, cozy-stack-client@^8.7.0:
+cozy-stack-client@8.7.0:
   version "8.7.0"
   resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-8.7.0.tgz#736c13cb086fe95b464a22dce578b8e8ebb06221"
   integrity sha512-1mZ7VtyTtSKEyjSCGICLxaRHVr5c0Dp5/OhhDH3q61VPUsPNYSkKKSFD6wUc1yHJBdiqHJAPEFfk8lflePTQew==
@@ -4834,6 +4801,15 @@ cozy-stack-client@^6.65.0:
   version "6.65.0"
   resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.65.0.tgz#bd6cdeef0c8031b71203361f8d1d865cab2f5aeb"
   integrity sha512-VqUhx5PNA6j5qraccSBVP4A5s6tBFnaJ/taglpAgH4R+4DnK/zTxch4sMPa01cI5iMWGxbD00jpFlBd7kK6OIw==
+  dependencies:
+    detect-node "^2.0.4"
+    mime "^2.4.0"
+    qs "^6.7.0"
+
+cozy-stack-client@^9.2.0:
+  version "9.2.0"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-9.2.0.tgz#3d6a9af9e42f6f2d8fad7fe57e83713a3bcafc77"
+  integrity sha512-ivMjA+EtV7lu6lKzuOIiS00XcTVL6WRbycSmfO7SJrAU12kWp54rlKDS9rMFA2NjCEShjTVdu0intkxYbuimsw==
   dependencies:
     detect-node "^2.0.4"
     mime "^2.4.0"
@@ -4873,10 +4849,10 @@ cozy-ui@24.3.0:
     react-pdf "^4.0.5"
     react-select "2.2.0"
 
-cozy-ui@29.0.0:
-  version "29.0.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-29.0.0.tgz#912532a0e28f5f6d64bc7e8aa9388a6723a1c4ae"
-  integrity sha512-MBQOvZUswkTkQ7oYcluuH11jnzxLnUKuDC62J0//fqe1zbrvL3t4Hnml8IXiRCU0bU3jneEdWGauIuYaaTc+iw==
+cozy-ui@28.12.0:
+  version "28.12.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-28.12.0.tgz#182d9c16330ef3096ecfdd4f86100140ac2d605b"
+  integrity sha512-+PxXzNy8+lm8L3hILUMYGVGPH/AQFEEPLs6QKhaeDPRzVJHFekvCk40phDwYW4/fVEyPLXx7844zrMLUZFxuMQ==
   dependencies:
     "@babel/runtime" "^7.3.4"
     body-scroll-lock "^2.5.8"

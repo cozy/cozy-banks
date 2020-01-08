@@ -17,7 +17,7 @@ const NumberSection = ({ label, value, onChange, unit, unitKey }) => {
       <ModalContent className="u-pb-0">
         <InputGroup
           append={
-            unit ? (
+            unit || unitKey ? (
               <InputGroup.Unit>{unit || t(unitKey)}</InputGroup.Unit>
             ) : (
               undefined
