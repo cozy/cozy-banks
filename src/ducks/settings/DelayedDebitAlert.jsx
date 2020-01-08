@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useI18n } from 'cozy-ui/transpiled/react'
+import { useI18n, translate } from 'cozy-ui/transpiled/react'
 import { queryConnect, hasQueryBeenLoaded } from 'cozy-client'
 import { connect } from 'react-redux'
 import { accountsConn } from 'doctypes'
@@ -22,9 +22,7 @@ const makeAccountChoiceFromAccount = account => {
   return account ? getDocumentIdentity(account) : null
 }
 
-const getModalProps = ({ initialDoc }) => {
-  const { t } = useI18n()
-
+const getModalProps = ({ initialDoc, t }) => {
   return {
     modalTitle: t('Notifications.editModal.title'),
     fieldOrder: ['creditCardAccount', 'checkingsAccount', 'value'],
@@ -77,7 +75,7 @@ const getModalProps = ({ initialDoc }) => {
   }
 }
 
-class DelayedDebitCard extends React.Component {
+class DumbDelayedDebitCard extends React.Component {
   static propTypes = {
     // TODO replace `PropTypes.object` with a shape coming from cozy-doctypes
     accounts: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -100,7 +98,7 @@ class DelayedDebitCard extends React.Component {
   }
 
   render() {
-    const { doc, onToggle, onChangeDoc, t, accountsById, accounts } = this.props
+    const { doc, onToggle, onChangeDoc, accountsById, accounts, t } = this.props
 
     if (!hasQueryBeenLoaded(accounts)) {
       return <Spinner />
@@ -153,6 +151,8 @@ class DelayedDebitCard extends React.Component {
     )
   }
 }
+
+const DelayedDebitCard = translate()(DumbDelayedDebitCard)
 
 const DumbDelayedDebitSettingSection = props => {
   const { t } = useI18n()
