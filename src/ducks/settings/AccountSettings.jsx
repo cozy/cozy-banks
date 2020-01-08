@@ -2,7 +2,13 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import { translate, withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
 import Button from 'cozy-ui/transpiled/react/Button'
-import { Tabs, TabPanels, TabPanel, TabList, Tab } from 'cozy-ui/transpiled/react/Tabs'
+import {
+  Tabs,
+  TabPanels,
+  TabPanel,
+  TabList,
+  Tab
+} from 'cozy-ui/transpiled/react/Tabs'
 import Modal from 'cozy-ui/transpiled/react/Modal'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'

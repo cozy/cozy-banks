@@ -1,7 +1,13 @@
 /* global __TARGET__, __APP_VERSION__ */
 import React from 'react'
 import { withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
-import { Tabs, TabPanels, TabPanel, TabList, Tab } from 'cozy-ui/transpiled/react/Tabs'
+import {
+  Tabs,
+  TabPanels,
+  TabPanel,
+  TabList,
+  Tab
+} from 'cozy-ui/transpiled/react/Tabs'
 import styles from 'ducks/settings/Settings.styl'
 import { withRouter } from 'react-router'
 import { flowRight as compose } from 'lodash'
