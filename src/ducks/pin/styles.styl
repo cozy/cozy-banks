@@ -23,6 +23,10 @@
     -webkit-tap-highlight-color transparent
     outline none
 
+    &.Pin__button--ios:not(.Pin__button--text)
+        border 2px solid rgba(255, 255, 255, 0.5)
+
+
 .Pin__button--text
     font-size .875rem
     font-weight bold
@@ -96,6 +100,14 @@
     display inline-block
     text-align center
     width 2rem
+
+.Pin__letters
+    font-variant small-caps
+    font-size 0.625rem
+    display none
+
+    .Pin__button--ios &
+        display block
 
 .Pin__error
     color #fbbabb
