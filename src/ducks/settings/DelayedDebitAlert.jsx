@@ -22,11 +22,7 @@ const makeAccountChoiceFromAccount = account => {
   return account ? getDocumentIdentity(account) : null
 }
 
-const getModalProps = (
-  {
-    initialDoc
-  }
-) => {
+const getModalProps = ({ initialDoc }) => {
   const { t } = useI18n()
 
   return {
@@ -78,7 +74,7 @@ const getModalProps = (
       }
     },
     initialDoc
-  };
+  }
 }
 
 class DelayedDebitCard extends React.Component {
@@ -160,7 +156,6 @@ class DelayedDebitCard extends React.Component {
 
 const DumbDelayedDebitSettingSection = props => {
   const { t } = useI18n()
-  const { t } = props
   return (
     <SubSection
       title={t('Notifications.delayed_debit.settingTitle')}

@@ -25,7 +25,7 @@ const TransferStateModal = props => (
   </Padded>
 )
 
-export const TransferSuccess = React.memo(({ onExit }) => {
+export const TransferSuccess = React.memo(function TransferSuccess({ onExit }) {
   const { t } = useI18n()
 
   return (

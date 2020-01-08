@@ -19,7 +19,7 @@ import { useI18n } from 'cozy-ui/transpiled/react'
 const DATE_FORMAT = 'DD/MM/YY'
 
 const DumbRow = props => {
-  const { t, f } = useI18n()
+  const { f } = useI18n()
   const {
     type,
     title,

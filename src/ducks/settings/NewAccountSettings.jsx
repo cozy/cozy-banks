@@ -36,7 +36,7 @@ import { withBreakpoints } from 'cozy-ui/transpiled/react'
 const { BarRight } = cozy.bar
 
 const ContactPicker = props => {
-  const { t, f } = useI18n()
+  const { t } = useI18n()
   // eslint-disable-next-line no-unused-vars
   const { ...rest } = props
 
@@ -51,7 +51,7 @@ const ContactPicker = props => {
 }
 
 const DumbAccountSettingsForm = props => {
-  const { t, f } = useI18n()
+  const { t } = useI18n()
   const {
     account,
     onSubmit,
