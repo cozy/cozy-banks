@@ -1,5 +1,5 @@
 import React from 'react'
-import { Alerter, translate } from 'cozy-ui/react'
+import { Alerter, useI18n } from 'cozy-ui/react'
 
 import { makeEditionModalFromSpec } from 'components/EditionModal'
 import Rules from 'ducks/settings/Rules'
@@ -17,11 +17,11 @@ const makeRuleComponent = ({
   const EditionModal = makeEditionModalFromSpec(spec)
 
   const RulesComponent = props => {
+    const { t } = useI18n()
     let {
       rules: rawInitialRules,
       getAccountOrGroupLabel,
-      onChangeRules,
-      t
+      onChangeRules
     } = props
 
     const initialRules = ensureNewRuleFormat(rawInitialRules)
@@ -63,7 +63,7 @@ const makeRuleComponent = ({
 
   RulesComponent.displayName = displayName
 
-  return translate()(RulesComponent)
+  return RulesComponent
 }
 
 export default makeRuleComponent

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Media, Bd, Img, translate, Icon } from 'cozy-ui/react'
+import { Media, Bd, Img, translate, Icon, useI18n } from 'cozy-ui/react'
 import resultWithArgs from 'utils/resultWithArgs'
 import { markdownBold } from './helpers'
 
@@ -48,6 +48,7 @@ const SettingCardSwitch = ({ checked, onClick, onChange }) => (
 )
 
 const EditableSettingCard = props => {
+  const { t } = useI18n()
   const {
     onChangeDoc,
     onToggle,
@@ -58,8 +59,7 @@ const EditableSettingCard = props => {
     shouldOpenOnToggle,
     doc,
     canBeRemoved,
-    onRemoveDoc,
-    t
+    onRemoveDoc
   } = props
 
   const enabled = doc.enabled
@@ -134,4 +134,4 @@ EditableSettingCard.propTypes = {
   doc: PropTypes.object.isRequired
 }
 
-export default translate()(EditableSettingCard)
+export default EditableSettingCard

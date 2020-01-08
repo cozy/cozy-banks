@@ -1,5 +1,5 @@
 import React from 'react'
-import { translate, withBreakpoints } from 'cozy-ui/react'
+import { translate, withBreakpoints, useI18n } from 'cozy-ui/react'
 import Icon from 'cozy-ui/react/Icon'
 import ButtonAction from 'cozy-ui/react/ButtonAction'
 import Menu, { MenuItem } from 'cozy-ui/react/Menu'
@@ -35,13 +35,13 @@ const isPending = transaction => {
 const transactionModalRowStyle = { color: palette.pomegranate }
 
 const Component = ({
-  t,
   transaction,
   compact,
   menuPosition,
   isModalItem,
   breakpoints: { isDesktop }
 }) => {
+  const { t } = useI18n()
   const pending = isPending(transaction)
   const vendors = getVendors(transaction)
   const text = pending

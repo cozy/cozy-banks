@@ -1,5 +1,5 @@
 import React from 'react'
-import { translate } from 'cozy-ui/react'
+import { useI18n } from 'cozy-ui/react'
 import ButtonAction from 'cozy-ui/react/ButtonAction'
 import Chip from 'cozy-ui/react/Chip'
 import Icon from 'cozy-ui/react/Icon'
@@ -13,7 +13,8 @@ import TransactionModalRow from 'ducks/transactions/TransactionModalRow'
 const name = 'refund'
 
 const transactionModalRowStyle = { color: palette.dodgerBlue }
-const Component = ({ t, actionProps: { urls }, compact, isModalItem }) => {
+const Component = ({ actionProps: { urls }, compact, isModalItem }) => {
+  const { t } = useI18n()
   const url = `${urls['HEALTH']}#/remboursements`
   const label = t(`Transactions.actions.${name}`)
 
@@ -53,7 +54,7 @@ const action = {
   match: (transaction, { urls }) => {
     return isHealth(transaction) && urls['HEALTH']
   },
-  Component: translate()(Component)
+  Component: Component
 }
 
 export default action

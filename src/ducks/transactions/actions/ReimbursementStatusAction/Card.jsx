@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { translate } from 'cozy-ui/react'
+import { useI18n } from 'cozy-ui/react'
 import UICard from 'cozy-ui/react/Card'
 import { Caption, Text } from 'cozy-ui/react/Text'
 import Icon, { iconPropType } from 'cozy-ui/react/Icon'
@@ -34,7 +34,8 @@ Card.propTypes = {
 }
 
 export const DumbPhoneCard = props => {
-  const { contact, t, ...rest } = props
+  const { t } = useI18n()
+  const { contact, ...rest } = props
   const href = `tel:${contact.number}`
   const caption = contact.price ? (
     <>
@@ -67,10 +68,11 @@ DumbPhoneCard.propTypes = {
   t: PropTypes.func.isRequired
 }
 
-export const PhoneCard = translate()(DumbPhoneCard)
+export const PhoneCard = DumbPhoneCard
 
 export const DumbWebCard = props => {
-  const { contact, t, ...rest } = props
+  const { t } = useI18n()
+  const { contact, ...rest } = props
   const caption = new URL(contact.href).hostname
 
   return (
@@ -96,10 +98,11 @@ DumbWebCard.propTypes = {
   t: PropTypes.func.isRequired
 }
 
-export const WebCard = translate()(DumbWebCard)
+export const WebCard = DumbWebCard
 
 export const DumbAppCard = props => {
-  const { contact, t, ...rest } = props
+  const { t } = useI18n()
+  const { contact, ...rest } = props
 
   if (getPlatform() !== contact.platform) {
     return null
@@ -128,7 +131,7 @@ DumbAppCard.propTypes = {
   t: PropTypes.func.isRequired
 }
 
-export const AppCard = translate()(DumbAppCard)
+export const AppCard = DumbAppCard
 
 export const ContactCard = props => {
   const { type, ...rest } = props

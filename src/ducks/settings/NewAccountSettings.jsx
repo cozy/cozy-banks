@@ -24,7 +24,7 @@ import Modal from 'cozy-ui/react/Modal'
 import { connect } from 'react-redux'
 import { getHomeURL } from 'ducks/apps/selectors'
 import { flowRight as compose, set } from 'lodash'
-import { translate } from 'cozy-ui/react'
+import { translate, useI18n } from 'cozy-ui/react'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import Field from 'cozy-ui/transpiled/react/Field'
 import CollectionField from 'cozy-ui/transpiled/react/Labs/CollectionField'
@@ -35,9 +35,10 @@ import { withBreakpoints } from 'cozy-ui/transpiled/react'
 
 const { BarRight } = cozy.bar
 
-const ContactPicker = translate()(props => {
+const ContactPicker = props => {
+  const { t, f } = useI18n()
   // eslint-disable-next-line no-unused-vars
-  const { t, f, ...rest } = props
+  const { ...rest } = props
 
   return (
     <BaseContactPicker
@@ -47,16 +48,15 @@ const ContactPicker = translate()(props => {
       {...props}
     />
   )
-})
+}
 
 const DumbAccountSettingsForm = props => {
+  const { t, f } = useI18n()
   const {
     account,
     onSubmit,
     onCancel,
     breakpoints: { isMobile },
-    t,
-    f, // eslint-disable-line no-unused-vars
     ...rest
   } = props
 
@@ -127,7 +127,8 @@ const AccountSettingsForm = compose(
 )(DumbAccountSettingsForm)
 
 const FormControls = props => {
-  const { onCancel, form, className, t, ...rest } = props
+  const { t } = useI18n()
+  const { onCancel, form, className, ...rest } = props
 
   return (
     <div className={cx(styles.FormControls, className)} {...rest}>
@@ -197,10 +198,10 @@ const saveAccount = async params => {
 }
 
 const NewAccountSettings = props => {
+  const { t } = useI18n()
   const {
     breakpoints: { isMobile },
     routeParams,
-    t,
     router,
     client,
     homeUrl,
@@ -352,6 +353,5 @@ const mapStateToProps = state => ({
 export default compose(
   withClient,
   connect(mapStateToProps),
-  translate(),
   withFilters
 )(NewAccountSettings)

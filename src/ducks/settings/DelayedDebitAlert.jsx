@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { translate } from 'cozy-ui/react'
+import { useI18n } from 'cozy-ui/react'
 import { queryConnect, hasQueryBeenLoaded } from 'cozy-client'
 import { connect } from 'react-redux'
 import { accountsConn } from 'doctypes'
@@ -22,56 +22,64 @@ const makeAccountChoiceFromAccount = account => {
   return account ? getDocumentIdentity(account) : null
 }
 
-const getModalProps = ({ initialDoc, t }) => ({
-  modalTitle: t('Notifications.editModal.title'),
-  fieldOrder: ['creditCardAccount', 'checkingsAccount', 'value'],
-  fieldLabels: {
-    creditCardAccount: t(
-      'Notifications.delayed_debit.fieldLabels.creditCardAccount'
-    ),
-    checkingsAccount: t(
-      'Notifications.delayed_debit.fieldLabels.checkingsAccount'
-    ),
-    value: t('Notifications.delayed_debit.fieldLabels.days')
-  },
-  fieldSpecs: {
-    creditCardAccount: {
-      type: CHOOSING_TYPES.account,
-      chooserProps: {
-        canSelectAll: false,
-        filter: isCreditCardAccount
-      },
-      getValue: initialDoc =>
-        makeAccountChoiceFromAccount(initialDoc.creditCardAccount),
-      updater: (doc, creditCardAccount) => ({
-        ...doc,
-        creditCardAccount: getDocumentIdentity(creditCardAccount)
-      })
+const getModalProps = (
+  {
+    initialDoc
+  }
+) => {
+  const { t } = useI18n()
+
+  return {
+    modalTitle: t('Notifications.editModal.title'),
+    fieldOrder: ['creditCardAccount', 'checkingsAccount', 'value'],
+    fieldLabels: {
+      creditCardAccount: t(
+        'Notifications.delayed_debit.fieldLabels.creditCardAccount'
+      ),
+      checkingsAccount: t(
+        'Notifications.delayed_debit.fieldLabels.checkingsAccount'
+      ),
+      value: t('Notifications.delayed_debit.fieldLabels.days')
     },
-    checkingsAccount: {
-      type: CHOOSING_TYPES.account,
-      chooserProps: {
-        canSelectAll: false,
-        filter: isCheckingsAccount
+    fieldSpecs: {
+      creditCardAccount: {
+        type: CHOOSING_TYPES.account,
+        chooserProps: {
+          canSelectAll: false,
+          filter: isCreditCardAccount
+        },
+        getValue: initialDoc =>
+          makeAccountChoiceFromAccount(initialDoc.creditCardAccount),
+        updater: (doc, creditCardAccount) => ({
+          ...doc,
+          creditCardAccount: getDocumentIdentity(creditCardAccount)
+        })
       },
-      getValue: initialDoc =>
-        makeAccountChoiceFromAccount(initialDoc.checkingsAccount),
-      updater: (doc, checkingsAccount) => ({
-        ...doc,
-        checkingsAccount: getDocumentIdentity(checkingsAccount)
-      })
+      checkingsAccount: {
+        type: CHOOSING_TYPES.account,
+        chooserProps: {
+          canSelectAll: false,
+          filter: isCheckingsAccount
+        },
+        getValue: initialDoc =>
+          makeAccountChoiceFromAccount(initialDoc.checkingsAccount),
+        updater: (doc, checkingsAccount) => ({
+          ...doc,
+          checkingsAccount: getDocumentIdentity(checkingsAccount)
+        })
+      },
+      value: {
+        sectionProps: {
+          unit: t('Notifications.delayed_debit.unit')
+        },
+        type: CHOOSING_TYPES.number,
+        getValue: doc => doc.value,
+        updater: (doc, value) => ({ ...doc, value })
+      }
     },
-    value: {
-      sectionProps: {
-        unit: t('Notifications.delayed_debit.unit')
-      },
-      type: CHOOSING_TYPES.number,
-      getValue: doc => doc.value,
-      updater: (doc, value) => ({ ...doc, value })
-    }
-  },
-  initialDoc
-})
+    initialDoc
+  };
+}
 
 class DelayedDebitCard extends React.Component {
   static propTypes = {
@@ -151,6 +159,7 @@ class DelayedDebitCard extends React.Component {
 }
 
 const DumbDelayedDebitSettingSection = props => {
+  const { t } = useI18n()
   const { t } = props
   return (
     <SubSection
@@ -162,7 +171,7 @@ const DumbDelayedDebitSettingSection = props => {
   )
 }
 
-const DelayedDebitSettingSection = translate()(DumbDelayedDebitSettingSection)
+const DelayedDebitSettingSection = DumbDelayedDebitSettingSection
 
 const withAccounts = queryConnect({
   accounts: accountsConn

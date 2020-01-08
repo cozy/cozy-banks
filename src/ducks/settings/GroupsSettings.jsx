@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
-import { translate } from 'cozy-ui/react'
+import { translate, useI18n } from 'cozy-ui/react'
 import Button from 'cozy-ui/react/Button'
 import Icon from 'cozy-ui/react/Icon'
 import Table from 'components/Table'
@@ -17,7 +17,8 @@ import { getGroupLabel } from 'ducks/groups/helpers'
 const GroupList = compose(
   withRouter,
   translate()
-)(({ groups, t, router }) => {
+)(({ groups, router }) => {
+  const { t } = useI18n()
   return groups.length ? (
     <Table className={styles.GrpsStg__table}>
       <thead>

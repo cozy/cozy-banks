@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import compose from 'lodash/flowRight'
 
-import { translate } from 'cozy-ui/react'
+import { translate, useI18n } from 'cozy-ui/react'
 import Alerter from 'cozy-ui/react/Alerter'
 import Spinner from 'cozy-ui/react/Spinner'
 import Icon from 'cozy-ui/react/Icon'
@@ -20,7 +20,8 @@ import fingerprint from 'assets/icons/icon-fingerprint.svg'
 
 const FullwidthButton = props => <Button {...props} className="u-m-0 u-w-100" />
 
-const FingerprintChoice = translate()(({ t, onChoice }) => {
+const FingerprintChoice = ({ onChoice }) => {
+  const { t } = useI18n()
   return (
     <div className={styles.Pin__FingerprintChoice}>
       <div className={styles.Pin__FingerprintChoice__top}>
@@ -43,7 +44,7 @@ const FingerprintChoice = translate()(({ t, onChoice }) => {
       </div>
     </div>
   )
-})
+}
 
 /**
  * Handles pin edit

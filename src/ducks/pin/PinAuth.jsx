@@ -10,7 +10,7 @@ import { withClient, queryConnect } from 'cozy-client'
 import Alerter from 'cozy-ui/react/Alerter'
 import { translate } from 'cozy-ui/react/I18n'
 import Icon from 'cozy-ui/react/Icon'
-import { withBreakpoints } from 'cozy-ui/react'
+import { withBreakpoints, useI18n } from 'cozy-ui/react'
 import { Media, Bd, Img } from 'cozy-ui/react/Media'
 
 import styles from 'ducks/pin/styles.styl'
@@ -23,7 +23,8 @@ import { PIN_MAX_LENGTH, MAX_ATTEMPT } from 'ducks/pin/constants'
 import openLock from 'assets/icons/icon-lock-open.svg'
 import fingerprint from 'assets/icons/icon-fingerprint.svg'
 
-const AttemptCount_ = ({ t, current, max }) => {
+const AttemptCount_ = ({ current, max }) => {
+  const { t } = useI18n()
   return (
     <div className={styles['Pin__error']}>
       {/* Have an unbreakable space so that the error, when it appears, does not make
@@ -33,35 +34,39 @@ const AttemptCount_ = ({ t, current, max }) => {
   )
 }
 
-const AttemptCount = translate()(AttemptCount_)
+const AttemptCount = AttemptCount_
 
-const DumbFingerprintParagraph = ({ t, onSuccess, onError, onCancel }) => (
-  <WithFingerprint
-    autoLaunch
-    onSuccess={onSuccess}
-    onError={onError}
-    onCancel={onCancel}
-  >
-    {(method, promptFinger) => {
-      return method ? (
-        <Media
-          style={{ display: 'inline-flex' }}
-          onClick={promptFinger}
-          className={styles['Pin__FingerprintText'] + ' u-mv-half'}
-        >
-          <Img className="u-pr-half">
-            <Icon size="2rem" icon={fingerprint} />
-          </Img>
-          <Bd>
-            <p>{t('Pin.fingerprint-text')}</p>
-          </Bd>
-        </Media>
-      ) : null
-    }}
-  </WithFingerprint>
-)
+const DumbFingerprintParagraph = ({ onSuccess, onError, onCancel }) => {
+  const { t } = useI18n()
 
-const FingerprintParagraph = translate()(DumbFingerprintParagraph)
+  return (
+    <WithFingerprint
+      autoLaunch
+      onSuccess={onSuccess}
+      onError={onError}
+      onCancel={onCancel}
+    >
+      {(method, promptFinger) => {
+        return method ? (
+          <Media
+            style={{ display: 'inline-flex' }}
+            onClick={promptFinger}
+            className={styles['Pin__FingerprintText'] + ' u-mv-half'}
+          >
+            <Img className="u-pr-half">
+              <Icon size="2rem" icon={fingerprint} />
+            </Img>
+            <Bd>
+              <p>{t('Pin.fingerprint-text')}</p>
+            </Bd>
+          </Media>
+        ) : null
+      }}
+    </WithFingerprint>
+  )
+}
+
+const FingerprintParagraph = DumbFingerprintParagraph
 
 /**
  * Show pin keyboard and fingerprint button.

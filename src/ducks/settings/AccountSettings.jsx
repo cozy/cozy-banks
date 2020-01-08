@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
-import { translate, withBreakpoints } from 'cozy-ui/react'
+import { translate, withBreakpoints, useI18n } from 'cozy-ui/react'
 import Button from 'cozy-ui/react/Button'
 import { Tabs, TabPanels, TabPanel, TabList, Tab } from 'cozy-ui/react/Tabs'
 import Modal from 'cozy-ui/react/Modal'
@@ -238,7 +238,8 @@ const GeneralSettings = compose(
   withFilters
 )(_GeneralSettings)
 
-const OldAccountSettings = ({ routeParams, t, breakpoints: { isMobile } }) => {
+const OldAccountSettings = ({ routeParams, breakpoints: { isMobile } }) => {
+  const { t } = useI18n()
   return (
     <Query query={client => client.get(ACCOUNT_DOCTYPE, routeParams.accountId)}>
       {({ data, fetchStatus }) => {

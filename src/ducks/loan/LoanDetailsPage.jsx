@@ -14,16 +14,17 @@ import { Padded } from 'components/Spacing'
 import { flowRight as compose } from 'lodash'
 import { getBorrowedAmount } from 'ducks/account/helpers'
 
+import { useI18n } from 'cozy-ui/transpiled/react'
+
 const DATE_FORMAT = 'DD/MM/YY'
 
 const DumbRow = props => {
+  const { t, f } = useI18n()
   const {
     type,
     title,
     value: originalValue,
     caption,
-    t, // eslint-disable-line no-unused-vars
-    f,
     className,
     breakpoints: { isMobile },
     ...rest
@@ -89,8 +90,9 @@ export const Section = props => {
 
 const isExistingData = data => data !== undefined && data !== null
 
-export const KeyInfosSection = translate()(props => {
-  const { account, t } = props
+export const KeyInfosSection = props => {
+  const { t } = useI18n()
+  const { account } = props
 
   const borrowedAmount = getBorrowedAmount(account)
   const balance = get(account, 'balance')
@@ -120,10 +122,11 @@ export const KeyInfosSection = translate()(props => {
       />
     </Section>
   )
-})
+}
 
-export const PaymentsSection = translate()(props => {
-  const { account, t, f } = props
+export const PaymentsSection = props => {
+  const { t, f } = useI18n()
+  const { account } = props
 
   const lastPaymentAmount = get(account, 'loan.lastPaymentAmount')
   const nextPaymentAmount = get(account, 'loan.nextPaymentAmount')
@@ -163,10 +166,11 @@ export const PaymentsSection = translate()(props => {
       />
     </Section>
   )
-})
+}
 
-export const CharacteristicsSection = translate()(props => {
-  const { account, t } = props
+export const CharacteristicsSection = props => {
+  const { t } = useI18n()
+  const { account } = props
 
   const subscriptionDate = get(account, 'loan.subscriptionDate')
   const maturityDate = get(account, 'loan.maturityDate')
@@ -208,10 +212,11 @@ export const CharacteristicsSection = translate()(props => {
       />
     </Section>
   )
-})
+}
 
-export const CreditReserveSection = translate()(props => {
-  const { account, t } = props
+export const CreditReserveSection = props => {
+  const { t } = useI18n()
+  const { account } = props
 
   const totalAmount = get(account, 'loan.totalAmount')
   const availableAmount = get(account, 'loan.availableAmount')
@@ -238,7 +243,7 @@ export const CreditReserveSection = translate()(props => {
       />
     </Section>
   )
-})
+}
 
 const DumbLoanDetails = props => {
   const { account } = props
