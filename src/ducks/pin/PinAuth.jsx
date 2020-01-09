@@ -207,7 +207,9 @@ class PinAuth extends React.Component {
       >
         <PinKeyboard
           leftButton={
-            this.props.leftButton || (
+            this.props.leftButton !== undefined ? (
+              this.props.leftButton
+            ) : (
               <PinButton isText onClick={this.handleLogout}>
                 {t('Pin.logout')}
               </PinButton>
