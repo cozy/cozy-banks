@@ -36,6 +36,10 @@ const ignoredWarnings = {
     reason: 'Preact compatibility',
     matcher: makeDeprecatedLifecycleMatcher('ModalContent')
   },
+  ReactSwipableView: {
+    reason: 'External component on which we have no control',
+    matcher: makeDeprecatedLifecycleMatcher('ReactSwipableView')
+  },
 
   // Until we upgrade react-redux to > 5, we will have deprecated lifecycle
   // methods on connected components
