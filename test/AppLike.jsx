@@ -15,7 +15,7 @@ export const TestI18n = ({ children }) => {
 }
 
 const AppLike = ({ children, store, client }) => (
-  <Provider store={store || (client && client.store)}>
+  <Provider store={(client && client.store) || store}>
     <CozyProvider client={client || getClient()}>
       <TestI18n>{children}</TestI18n>
     </CozyProvider>
