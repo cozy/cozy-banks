@@ -34,39 +34,41 @@ const AttemptCount_ = ({ current, max }) => {
   )
 }
 
-const AttemptCount = AttemptCount_
+const AttemptCount = translate()(AttemptCount_)
 
-const DumbFingerprintParagraph = ({ onSuccess, onError, onCancel }) => {
-  const { t } = useI18n()
+const DumbFingerprintParagraph = ({ t, onSuccess, onError, onCancel }) => (
+  <WithFingerprint
+    autoLaunch
+    onSuccess={onSuccess}
+    onError={onError}
+    onCancel={onCancel}
+  >
+    {(method, promptFinger) => {
+      return method ? (
+        <Media
+          style={{ display: 'inline-flex' }}
+          onClick={promptFinger}
+          className={styles['Pin__FingerprintText'] + ' u-mv-half'}
+        >
+          <Img className="u-pr-half">
+            <Icon size="2rem" icon={fingerprint} />
+          </Img>
+          <Bd>
+            <p>{t('Pin.fingerprint-text')}</p>
+          </Bd>
+        </Media>
+      ) : null
+    }}
+  </WithFingerprint>
+)
 
-  return (
-    <WithFingerprint
-      autoLaunch
-      onSuccess={onSuccess}
-      onError={onError}
-      onCancel={onCancel}
-    >
-      {(method, promptFinger) => {
-        return method ? (
-          <Media
-            style={{ display: 'inline-flex' }}
-            onClick={promptFinger}
-            className={styles['Pin__FingerprintText'] + ' u-mv-half'}
-          >
-            <Img className="u-pr-half">
-              <Icon size="2rem" icon={fingerprint} />
-            </Img>
-            <Bd>
-              <p>{t('Pin.fingerprint-text')}</p>
-            </Bd>
-          </Media>
-        ) : null
-      }}
-    </WithFingerprint>
-  )
-}
+const PinBackButton = ({ onClick }) => (
+  <div className={styles.Pin__BackButton} onClick={onClick}>
+    <Icon icon="left" />
+  </div>
+)
 
-const FingerprintParagraph = DumbFingerprintParagraph
+const FingerprintParagraph = translate()(DumbFingerprintParagraph)
 
 /**
  * Show pin keyboard and fingerprint button.
@@ -179,7 +181,8 @@ class PinAuth extends React.Component {
     const {
       t,
       breakpoints: { largeEnough },
-      pinSetting
+      pinSetting,
+      onClickBackButton
     } = this.props
     const { attempt, pinValue, success } = this.state
     const pinDoc = pinSetting.data
@@ -210,9 +213,14 @@ class PinAuth extends React.Component {
           success ? styles['PinWrapper--success'] : null
         )}
       >
+        {onClickBackButton ? (
+          <PinBackButton onClick={onClickBackButton} />
+        ) : null}
         <PinKeyboard
           leftButton={
-            this.props.leftButton || (
+            this.props.leftButton !== undefined ? (
+              this.props.leftButton
+            ) : (
               <PinButton isText onClick={this.handleLogout}>
                 {t('Pin.logout')}
               </PinButton>

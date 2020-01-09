@@ -14,6 +14,17 @@ const invisible = {
   opacity: 0
 }
 
+const lettersToNumber = {
+  2: 'abc',
+  3: 'def',
+  4: 'ghi',
+  5: 'jkl',
+  6: 'mno',
+  7: 'prqs',
+  8: 'tuv',
+  9: 'wxyz'
+}
+
 /**
  * Shows a value as Dots
  */
@@ -114,13 +125,14 @@ class PinKeyboard extends React.PureComponent {
               key={n}
             >
               {n}
+              <div className={styles['Pin__letters']}>{lettersToNumber[n]}</div>
             </PinButton>
           ))}
           {this.props.leftButton || <PinButton style={invisible} />}
           <PinButton onClick={this.handleClickNumber.bind(null, '0')}>
             0
           </PinButton>
-          <PinButton onClick={this.handleRemoveCharacter}>
+          <PinButton isText onClick={this.handleRemoveCharacter}>
             <Icon size="3rem" icon={backText} />
           </PinButton>
         </div>
