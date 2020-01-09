@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import range from 'lodash/range'
 
-import Icon from 'cozy-ui/react/Icon'
+import Icon from 'cozy-ui/transpiled/react/Icon'
 
 import styles from 'ducks/pin/styles.styl'
 import PinButton from 'ducks/pin/PinButton'

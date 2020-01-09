@@ -7,11 +7,11 @@ import cx from 'classnames'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { withClient, queryConnect } from 'cozy-client'
-import Alerter from 'cozy-ui/react/Alerter'
-import { translate } from 'cozy-ui/react/I18n'
-import Icon from 'cozy-ui/react/Icon'
-import { withBreakpoints } from 'cozy-ui/react'
-import { Media, Bd, Img } from 'cozy-ui/react/Media'
+import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import { translate } from 'cozy-ui/transpiled/react//I18n'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import { withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
+import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
 
 import styles from 'ducks/pin/styles.styl'
 import PinWrapper from 'ducks/pin/PinWrapper'
@@ -23,7 +23,8 @@ import { PIN_MAX_LENGTH, MAX_ATTEMPT } from 'ducks/pin/constants'
 import openLock from 'assets/icons/icon-lock-open.svg'
 import fingerprint from 'assets/icons/icon-fingerprint.svg'
 
-const AttemptCount_ = ({ t, current, max }) => {
+const AttemptCount_ = ({ current, max }) => {
+  const { t } = useI18n()
   return (
     <div className={styles['Pin__error']}>
       {/* Have an unbreakable space so that the error, when it appears, does not make
