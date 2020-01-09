@@ -129,7 +129,7 @@ class PinEditView extends React.Component {
     const topMessage = (
       <h2>
         {!this.state.pin1
-          ? t('Pin.please-enter-pin')
+          ? t('Pin.please-choose-pin')
           : t('Pin.please-repeat-pin')}
       </h2>
     )
