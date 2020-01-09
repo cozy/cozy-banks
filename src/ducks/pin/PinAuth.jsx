@@ -61,6 +61,12 @@ const DumbFingerprintParagraph = ({ t, onSuccess, onError, onCancel }) => (
   </WithFingerprint>
 )
 
+const PinBackButton = ({ onClick }) => (
+  <div className={styles.Pin__BackButton} onClick={onClick}>
+    <Icon icon="left" />
+  </div>
+)
+
 const FingerprintParagraph = translate()(DumbFingerprintParagraph)
 
 /**
@@ -174,7 +180,8 @@ class PinAuth extends React.Component {
     const {
       t,
       breakpoints: { largeEnough },
-      pinSetting
+      pinSetting,
+      onClickBackButton
     } = this.props
     const { attempt, pinValue, success } = this.state
     const pinDoc = pinSetting.data
@@ -205,6 +212,9 @@ class PinAuth extends React.Component {
           success ? styles['PinWrapper--success'] : null
         )}
       >
+        {onClickBackButton ? (
+          <PinBackButton onClick={onClickBackButton} />
+        ) : null}
         <PinKeyboard
           leftButton={
             this.props.leftButton !== undefined ? (
