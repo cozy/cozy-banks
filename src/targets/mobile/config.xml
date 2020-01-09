@@ -105,7 +105,7 @@
     <plugin name="cordova-plugin-safariviewcontroller" spec="https://github.com/rdesimone/cordova-plugin-safariviewcontroller" />
     <plugin name="cordova-sqlite-storage" spec="2.5.1" />
     <plugin name="cordova-plugin-fingerprint-aio" spec="1.7.0">
-        <variable name="FACEID_USAGE_DESCRIPTION" value=" " />
+        <variable name="FACEID_USAGE_DESCRIPTION" value="Cozy Banks" />
     </plugin>
     <plugin name="cordova-plugin-statusbar" spec="2.4.3" />
     <plugin name="cordova-blur-app-privacy-screen" spec="https://github.com/lifeofcoding/cordova-blur-app-privacy-screen.git" />
