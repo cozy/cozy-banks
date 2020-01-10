@@ -7,30 +7,29 @@ import { TransactionsWithSelection } from 'ducks/transactions/Transactions'
 import { StoreLink } from 'components/StoreLink'
 
 describe('HealthReimbursements', () => {
-  it('should show a loading if the transactions are loading', () => {
-    const root = shallow(
+  const setup = ({ triggers, transactions, groupedHealthExpenses }) => {
+    return shallow(
       <DumbHealthReimbursements
-        fetchStatus="loading"
-        triggers={{ fetchStatus: 'loaded' }}
-        transactions={{ fetchStatus: 'loading' }}
-        groupedHealthExpenses={{}}
+        fetchStatus="loaded"
+        t={key => key}
+        triggers={triggers || { fetchStatus: 'loaded' }}
+        transactions={transactions || { fetchStatus: 'loaded' }}
+        groupedHealthExpenses={groupedHealthExpenses || {}}
         addFilterByPeriod={jest.fn()}
+        brands={[]}
       />
     )
+  }
+  it('should show a loading if the transactions are loading', () => {
+    const root = setup({
+      transactions: { fetchStatus: 'loading' }
+    })
 
     expect(root.find(Loading).length).toBe(1)
   })
 
   it('should show a loading if the brands are loading', () => {
-    const root = shallow(
-      <DumbHealthReimbursements
-        fetchStatus="loaded"
-        triggers={{ fetchStatus: 'loading' }}
-        transactions={{ fetchStatus: 'loading' }}
-        groupedHealthExpenses={{}}
-        addFilterByPeriod={jest.fn()}
-      />
-    )
+    const root = setup({ triggers: { fetchStatus: 'loading' } })
 
     expect(root.find(Loading).length).toBe(1)
   })
@@ -42,18 +41,11 @@ describe('HealthReimbursements', () => {
 
     // Wrapping in `AppLike` instead of giving `t` manually makes the test
     // fail: no `TransactionsWithSelection` exists
-    const root = shallow(
-      <DumbHealthReimbursements
-        transactions={{ fetchStatus: 'loaded' }}
-        groupedHealthExpenses={{
-          pending
-        }}
-        t={key => key}
-        addFilterByPeriod={jest.fn()}
-        brands={[]}
-        triggers={{ fetchStatus: 'loaded' }}
-      />
-    )
+    const root = setup({
+      groupedHealthExpenses: {
+        pending
+      }
+    })
 
     expect(root.find(TransactionsWithSelection).length).toBe(1)
   })
@@ -63,33 +55,19 @@ describe('HealthReimbursements', () => {
       transaction => transaction._id === 'paiementdocteur'
     )
 
-    const root = shallow(
-      <DumbHealthReimbursements
-        transactions={{ fetchStatus: 'loaded' }}
-        groupedHealthExpenses={{
-          reimbursed
-        }}
-        t={key => key}
-        addFilterByPeriod={jest.fn()}
-        brands={[]}
-        triggers={{ fetchStatus: 'loaded' }}
-      />
-    )
+    const root = setup({
+      groupedHealthExpenses: {
+        reimbursed
+      }
+    })
 
     expect(root.find(TransactionsWithSelection).length).toBe(1)
   })
 
   it('should show a button to open the store if there is no reimbursed transactions and no health brand with trigger', () => {
-    const root = shallow(
-      <DumbHealthReimbursements
-        transactions={{ fetchStatus: 'loaded' }}
-        groupedHealthExpenses={{}}
-        t={key => key}
-        addFilterByPeriod={jest.fn()}
-        brands={[]}
-        triggers={{ fetchStatus: 'loaded' }}
-      />
-    )
+    const root = setup({
+      groupedHealthExpenses: {}
+    })
 
     expect(root.find(StoreLink).length).toBe(1)
   })
