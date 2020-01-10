@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import CozyClient, { queryConnect, withClient } from 'cozy-client'
-import { withBreakpoints, translate } from 'cozy-ui/transpiled/react'
+import { withBreakpoints, translate, useI18n } from 'cozy-ui/transpiled/react'
 import flag from 'cozy-flags'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import cx from 'classnames'
-import { get, flowRight as compose, keyBy, omit } from 'lodash'
+import { get, flowRight as compose, keyBy } from 'lodash'
 import Switch from 'components/Switch'
 import { Figure } from 'components/Figure'
 import {
@@ -88,8 +88,17 @@ const OwnersColumn = props => {
   )
 }
 
-const DumbUpdatedAtOrFail = props => {
-  const { triggersCol, account, t, className, ...rest } = omit(props, 'f')
+const AccountRowSubText = ({ className, children, ...rest }) => {
+  return (
+    <div className={cx(styles.AccountRow__subText, className)} {...rest}>
+      {children}
+    </div>
+  )
+}
+
+const DumbAccountCaption = props => {
+  const { t } = useI18n()
+  const { triggersCol, account, className, ...rest } = props
   const triggers = triggersCol.data
 
   const failedTrigger = triggers.find(
@@ -100,20 +109,17 @@ const DumbUpdatedAtOrFail = props => {
   )
 
   return (
-    <div className={cx(styles.AccountRow__subText, className)} {...rest}>
+    <AccountRowSubText className={className} {...rest}>
       {failedTrigger && !flag('demo') && flag('balance-account-errors') ? (
         <FailedTriggerMessage trigger={failedTrigger} />
       ) : (
         <UpdatedAt account={account} t={t} />
       )}
-    </div>
+    </AccountRowSubText>
   )
 }
 
-const UpdatedAtOrFail = compose(
-  translate(),
-  React.memo
-)(DumbUpdatedAtOrFail)
+const AccountCaption = React.memo(DumbAccountCaption)
 
 class AccountRow extends React.PureComponent {
   static propTypes = {
@@ -194,7 +200,7 @@ class AccountRow extends React.PureComponent {
                 />
               )}
               {!showUpdatedAtOutside && (
-                <UpdatedAtOrFail triggersCol={triggersCol} account={account} />
+                <AccountCaption triggersCol={triggersCol} account={account} />
               )}
             </div>
           </div>
@@ -237,7 +243,7 @@ class AccountRow extends React.PureComponent {
         </div>
         {showUpdatedAtOutside && (
           <div className={styles.AccountRow__subLine}>
-            <UpdatedAtOrFail triggersCol={triggersCol} account={account} />
+            <AccountCaption triggersCol={triggersCol} account={account} />
           </div>
         )}
       </li>
