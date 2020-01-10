@@ -142,7 +142,7 @@ export const buildHealthReimbursementsVirtualAccount = transactions => {
         isThisYear,
         getDate
       ),
-      flag('reimbursements.tag') && hasPendingReimbursement
+      hasPendingReimbursement
     ].filter(Boolean)
   )
 
