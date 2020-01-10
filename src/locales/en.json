@@ -99,7 +99,8 @@
     "no-accounts-in-group": {
       "description": "You don't have any accounts associated to this group.",
       "button": "Edit the group"
-    }
+    },
+    "health-reimbursements-caption": "Last 6 months"
   },
   "SelectDates": {
     "all_year": "All year",

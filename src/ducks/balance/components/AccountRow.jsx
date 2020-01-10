@@ -99,8 +99,16 @@ const AccountRowSubText = ({ className, children, ...rest }) => {
 const DumbAccountCaption = props => {
   const { t } = useI18n()
   const { triggersCol, account, className, ...rest } = props
-  const triggers = triggersCol.data
 
+  if (isHealthReimbursementsAccount(account)) {
+    return (
+      <AccountRowSubText className={className} {...rest}>
+        {t('Balance.health-reimbursements-caption')}
+      </AccountRowSubText>
+    )
+  }
+
+  const triggers = triggersCol.data
   const failedTrigger = triggers.find(
     x =>
       isErrored(x.attributes) &&
