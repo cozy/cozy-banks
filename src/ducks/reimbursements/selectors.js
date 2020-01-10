@@ -9,10 +9,10 @@ import { getHealthReimbursementLateLimit } from 'ducks/settings/helpers'
 import { getSettings } from 'ducks/settings/selectors'
 
 const groupHealthExpenses = healthExpenses => {
-  const groupedTransactions = groupBy(healthExpenses, getReimbursementStatus)
-
-  const reimbursed = groupedTransactions.reimbursed || []
-  const pending = groupedTransactions.pending || []
+  const { reimbursed = [], pending = [] } = groupBy(
+    healthExpenses,
+    getReimbursementStatus
+  )
 
   return {
     reimbursed,
@@ -32,9 +32,7 @@ export const getGroupedHealthExpenses = createSelector(
 
 export const getHealthReimbursementLateLimitSelector = createSelector(
   [getSettings],
-  settings => {
-    return getHealthReimbursementLateLimit(settings)
-  }
+  settings => getHealthReimbursementLateLimit(settings)
 )
 
 export const getLateHealthExpenses = createSelector(
