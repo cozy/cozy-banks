@@ -8,7 +8,7 @@ import palette from 'cozy-ui/transpiled/react/palette'
 const name = 'url'
 
 const transactionModalRowStyle = { color: palette.dodgerBlue }
-const Component = ({ transaction, compact, isModalItem }) => {
+const Component = ({ transaction, isModalItem }) => {
   const action = transaction.action
 
   if (isModalItem) {

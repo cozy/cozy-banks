@@ -65,8 +65,6 @@ class Component extends React.Component {
   }
 
   renderTransactionRow(label, brand) {
-    const { compact } = this.props
-
     return (
       <KonnectorChip
         onClick={this.showInformativeModal}

@@ -10,7 +10,7 @@ import TransactionModalRow from 'ducks/transactions/TransactionModalRow'
 const name = 'refund'
 
 const transactionModalRowStyle = { color: palette.dodgerBlue }
-const Component = ({ actionProps: { urls }, compact, isModalItem }) => {
+const Component = ({ actionProps: { urls }, isModalItem }) => {
   const { t } = useI18n()
   const url = `${urls['HEALTH']}#/remboursements`
   const label = t(`Transactions.actions.${name}`)

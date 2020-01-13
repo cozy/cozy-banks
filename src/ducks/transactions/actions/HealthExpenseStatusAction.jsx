@@ -166,7 +166,7 @@ const action = {
 
     return <Icon icon="hourglass" color={color} />
   },
-  match: transaction => {
+  match: () => {
     return false
   },
   Component: compose(

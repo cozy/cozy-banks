@@ -24,12 +24,7 @@ const beautify = appName => {
 }
 
 const transactionModalRowStyle = { color: palette.dodgerBlue }
-const Component = ({
-  transaction,
-  actionProps: { urls },
-  compact,
-  isModalItem
-}) => {
+const Component = ({ transaction, actionProps: { urls }, isModalItem }) => {
   const { t } = useI18n()
   const appName = getAppName(urls, transaction)
   const label = t(`Transactions.actions.${name}`, {
