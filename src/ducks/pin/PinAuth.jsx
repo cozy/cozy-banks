@@ -106,7 +106,7 @@ class PinAuth extends React.Component {
   }
 
   handleFingerprintError() {
-    const { t } = this.props.t
+    const { t } = this.props
     Alerter.info(t('Pin.bad-pin'))
   }
 
