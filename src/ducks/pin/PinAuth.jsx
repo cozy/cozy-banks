@@ -68,6 +68,24 @@ const PinBackButton = ({ onClick }) => (
   </div>
 )
 
+export const GREEN_BACKGROUND_EFFECT_DURATION = 500
+
+const AUTH_METHODS = {
+  biometric: 'biometric',
+  keyboard: 'keyboard'
+}
+
+const AUTH_METHODS_OPTIONS = {
+  keyboard: {
+    successClassName: styles['PinWrapper--success'],
+    successDelay: GREEN_BACKGROUND_EFFECT_DURATION
+  },
+  biometric: {
+    successClassName: null,
+    successDelay: null
+  }
+}
+
 const FingerprintParagraph = translate()(DumbFingerprintParagraph)
 
 /**
@@ -90,7 +108,8 @@ class PinAuth extends React.Component {
     this.state = {
       attempt: 0,
       pinValue: '',
-      success: false
+      success: false,
+      authMethod: null
     }
     this.dots = React.createRef()
 
@@ -101,8 +120,21 @@ class PinAuth extends React.Component {
   }
 
   handleFingerprintSuccess() {
-    this.setState({ success: true, pinValue: '******' })
-    this.props.onSuccess()
+    this.handleAuthSuccess(AUTH_METHODS.biometric)
+  }
+
+  handleAuthSuccess(authMethod) {
+    if (!AUTH_METHODS_OPTIONS[authMethod]) {
+      return
+    }
+    this.setState({ success: true, authMethod: authMethod })
+    if (AUTH_METHODS_OPTIONS[authMethod].successDelay) {
+      setTimeout(() => {
+        this.props.onSuccess()
+      }, AUTH_METHODS_OPTIONS[authMethod].successDelay)
+    } else {
+      this.props.onSuccess()
+    }
   }
 
   handleFingerprintError() {
@@ -142,12 +174,9 @@ class PinAuth extends React.Component {
     this.setState({ pinValue })
 
     if (pinValue === pinDoc.pin) {
-      this.setState({ success: true })
-      this.props.onSuccess()
+      this.handleAuthSuccess(AUTH_METHODS.keyboard)
       return
-    }
-
-    if (pinValue.length === this.props.maxLength) {
+    } else if (pinValue.length === this.props.maxLength) {
       const newAttempt = this.state.attempt + 1
       if (newAttempt >= this.props.maxAttempt) {
         return this.onMaxAttempt()
@@ -184,7 +213,7 @@ class PinAuth extends React.Component {
       pinSetting,
       onClickBackButton
     } = this.props
-    const { attempt, pinValue, success } = this.state
+    const { attempt, pinValue, success, authMethod } = this.state
     const pinDoc = pinSetting.data
     const topMessage = (
       <React.Fragment>
@@ -208,12 +237,13 @@ class PinAuth extends React.Component {
       </React.Fragment>
     )
 
+    const successClassName =
+      AUTH_METHODS_OPTIONS[authMethod] &&
+      AUTH_METHODS_OPTIONS[authMethod].successClassName
+
     return (
       <PinWrapper
-        className={cx(
-          'u-fx-from-bottom',
-          success ? styles['PinWrapper--success'] : null
-        )}
+        className={cx('u-fx-from-bottom', success && successClassName)}
       >
         {onClickBackButton ? (
           <PinBackButton onClick={onClickBackButton} />
@@ -249,6 +279,8 @@ class PinAuth extends React.Component {
     maxLength: PIN_MAX_LENGTH
   }
 }
+
+export const RawPinAuth = PinAuth
 
 export const DumbPinAuth = compose(
   withBreakpoints({
