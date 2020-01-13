@@ -98,9 +98,9 @@ const FingerprintParagraph = translate()(DumbFingerprintParagraph)
 class PinAuth extends React.Component {
   constructor(props) {
     super(props)
-    this.handleFingerprintSuccess = this.handleFingerprintSuccess.bind(this)
-    this.handleFingerprintError = this.handleFingerprintError.bind(this)
-    this.handleFingerprintCancel = this.handleFingerprintCancel.bind(this)
+    this.handleBiometricSuccess = this.handleBiometricSuccess.bind(this)
+    this.handleBiometricError = this.handleBiometricError.bind(this)
+    this.handleBiometricCancel = this.handleBiometricCancel.bind(this)
     this.handleEnteredPin = this.handleEnteredPin.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
     this.handleBadAttempt = this.handleBadAttempt.bind(this)
@@ -119,7 +119,7 @@ class PinAuth extends React.Component {
     })
   }
 
-  handleFingerprintSuccess() {
+  handleBiometricSuccess() {
     this.handleAuthSuccess(AUTH_METHODS.biometric)
   }
 
@@ -137,12 +137,12 @@ class PinAuth extends React.Component {
     }
   }
 
-  handleFingerprintError() {
+  handleBiometricError() {
     const { t } = this.props
     Alerter.info(t('Pin.bad-pin'))
   }
 
-  handleFingerprintCancel() {
+  handleBiometricCancel() {
     // this.props.onCancel()
   }
 
@@ -229,9 +229,9 @@ class PinAuth extends React.Component {
         </h2>
         {pinDoc && pinDoc.fingerprint ? (
           <FingerprintParagraph
-            onSuccess={this.handleFingerprintSuccess}
-            onError={this.handleFingerprintError}
-            onCancel={this.handleFingerprintCancel}
+            onSuccess={this.handleBiometricSuccess}
+            onError={this.handleBiometricError}
+            onCancel={this.handleBiometricCancel}
           />
         ) : null}
       </React.Fragment>
