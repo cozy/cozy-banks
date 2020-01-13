@@ -253,7 +253,8 @@ describe('isLoanGroup', () => {
             },
             {
               type: 'CreditCard'
-            }
+            },
+            null
           ]
         }
       })

@@ -136,11 +136,13 @@ export const isFormerAutoGroup = group => group.accountType === null
 export const isAutoGroup = group => group.accountType !== undefined
 export const getGroupAccountType = group => group.accountType
 
-export const isLoanAccount = account => getAccountType(account) == 'Loan'
-export const isLoanGroup = group =>
-  group.accounts && group.accounts.data
+export const isLoanAccount = account =>
+  account ? getAccountType(account) == 'Loan' : false
+export const isLoanGroup = group => {
+  return group.accounts && group.accounts.data
     ? every(group.accounts.data, isLoanAccount)
     : false
+}
 /**
  * Returns a group balance (all its accounts balance sumed)
  * @param {Object} group
