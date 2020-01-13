@@ -1,10 +1,7 @@
 import { mount } from 'enzyme'
 import React from 'react'
 import CozyClient from 'cozy-client'
-import {
-  DumbPinGuard as PinGuard,
-  GREEN_BACKGROUND_EFFECT_DURATION
-} from './PinGuard'
+import { DumbPinGuard as PinGuard } from './PinGuard'
 import AppLike from 'test/AppLike'
 import PinAuth from './PinAuth'
 import { pinSettingStorage, lastInteractionStorage } from './storage'
@@ -82,10 +79,6 @@ describe('PinGuard', () => {
       .props()
       .onSuccess()
 
-    root.update()
-    expect(pinAuthIsShown(root)).toBe(true)
-
-    jest.advanceTimersByTime(GREEN_BACKGROUND_EFFECT_DURATION)
     root.update()
     expect(pinAuthIsShown(root)).toBe(false)
   })
@@ -165,9 +158,6 @@ describe('PinGuard', () => {
           .find(PinAuth)
           .props()
           .onSuccess()
-        root.update()
-
-        jest.advanceTimersByTime(GREEN_BACKGROUND_EFFECT_DURATION)
         root.update()
 
         expect(root.find(PinGuard).state().showPin).toBe(false)
