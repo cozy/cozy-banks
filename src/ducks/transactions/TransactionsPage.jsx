@@ -23,6 +23,7 @@ import { queryConnect } from 'cozy-client'
 import Loading from 'components/Loading'
 import Delayed from 'components/Delayed'
 import { TransactionList } from 'ducks/transactions/Transactions.jsx'
+import styles from 'ducks/transactions/TransactionsPage.styl'
 
 import {
   ACCOUNT_DOCTYPE,
@@ -266,7 +267,9 @@ class TransactionsPage extends Component {
           showBackButton={this.props.showBackButton}
           showBalance={isMobile && !areAccountsLoading && !isOnSubcategory}
         />
+        <div className={styles.TransactionPage__transactions}>
           {this.renderTransactions()}
+        </div>
       </TransactionActionsProvider>
     )
   }

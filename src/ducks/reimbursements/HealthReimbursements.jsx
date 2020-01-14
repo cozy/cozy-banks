@@ -67,53 +67,57 @@ export class DumbHealthReimbursements extends Component {
 
     return (
       <TransactionActionsProvider>
-        <Section
-          title={
-            <>
-              {t('Reimbursements.pending')}
-              <Figure
-                symbol="€"
-                total={pendingAmount}
-                className={styles.HealthReimbursements__figure}
-                signed
-              />{' '}
-            </>
-          }
-        >
-          {pendingTransactions && pendingTransactions.length > 0 ? (
-            <TransactionsWithSelection
-              transactions={pendingTransactions}
-              withScroll={false}
-              className={styles.HealthReimbursements__transactionsList}
-            />
-          ) : (
-            <Padded className="u-pv-0">
-              <Caption>
-                {t('Reimbursements.noAwaiting', { period: formattedPeriod })}
-              </Caption>
-            </Padded>
-          )}
-        </Section>
-        <Section title={t('Reimbursements.alreadyReimbursed')}>
-          {reimbursedTransactions && reimbursedTransactions.length > 0 ? (
-            <TransactionsWithSelection
-              transactions={reimbursedTransactions}
-              withScroll={false}
-              className={styles.HealthReimbursements__transactionsList}
-            />
-          ) : (
-            <Padded className="u-pv-0">
-              <Caption>
-                {t('Reimbursements.noReimbursed', { period: formattedPeriod })}
-              </Caption>
-              {!hasHealthBrands && (
-                <StoreLink type="konnector" category="insurance">
-                  <KonnectorChip konnectorType="health" />
-                </StoreLink>
-              )}
-            </Padded>
-          )}
-        </Section>
+        <div className={styles.HealthReimbursements}>
+          <Section
+            title={
+              <>
+                {t('Reimbursements.pending')}
+                <Figure
+                  symbol="€"
+                  total={pendingAmount}
+                  className={styles.HealthReimbursements__figure}
+                  signed
+                />{' '}
+              </>
+            }
+          >
+            {pendingTransactions && pendingTransactions.length > 0 ? (
+              <TransactionList
+                transactions={pendingTransactions}
+                withScroll={false}
+                className={styles.HealthReimbursements__transactionsList}
+              />
+            ) : (
+              <Padded className="u-pv-0">
+                <Caption>
+                  {t('Reimbursements.noAwaiting', { period: formattedPeriod })}
+                </Caption>
+              </Padded>
+            )}
+          </Section>
+          <Section title={t('Reimbursements.alreadyReimbursed')}>
+            {reimbursedTransactions && reimbursedTransactions.length > 0 ? (
+              <TransactionList
+                transactions={reimbursedTransactions}
+                withScroll={false}
+                className={styles.HealthReimbursements__transactionsList}
+              />
+            ) : (
+              <Padded className="u-pv-0">
+                <Caption>
+                  {t('Reimbursements.noReimbursed', {
+                    period: formattedPeriod
+                  })}
+                </Caption>
+                {!hasHealthBrands && (
+                  <StoreLink type="konnector" category="insurance">
+                    <KonnectorChip konnectorType="health" />
+                  </StoreLink>
+                )}
+              </Padded>
+            )}
+          </Section>
+        </div>
       </TransactionActionsProvider>
     )
   }
