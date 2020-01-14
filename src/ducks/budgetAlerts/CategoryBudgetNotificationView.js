@@ -14,7 +14,7 @@ import { buildNotificationData } from './service'
 
 import logger from 'cozy-logger'
 
-import { Q } from "cozy-client";
+import { Q } from 'cozy-client'
 
 const log = logger.namespace('category-budgets')
 

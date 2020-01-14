@@ -1,5 +1,5 @@
 import logger from 'cozy-logger'
-import CozyClient, { Q } from 'cozy-client';
+import CozyClient, { Q } from 'cozy-client'
 import { initTranslation } from 'cozy-ui/transpiled/react/I18n/translation'
 
 import BalanceLower from './BalanceLower'

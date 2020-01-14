@@ -6,7 +6,7 @@ import set from 'lodash/set'
 import mergeSets from 'utils/mergeSets'
 import { addOwnerToAccount } from './helpers'
 
-import { Q } from "cozy-client";
+import { Q } from 'cozy-client'
 
 const log = logger.namespace('link-myself-to-accounts')
 

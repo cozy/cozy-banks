@@ -12,7 +12,7 @@ import {
   getGroupAccountType
 } from 'ducks/groups/helpers'
 
-import { Q } from "cozy-client";
+import { Q } from 'cozy-client'
 
 const log = logger.namespace('auto-groups')
 
@@ -109,9 +109,7 @@ export const listAutoGroups = async ({ client }) => {
 }
 
 export const purgeAutoGroups = async ({ client }) => {
-  const { data: groups } = await client.query(
-    Q(GROUP_DOCTYPE, { limit: null })
-  )
+  const { data: groups } = await client.query(Q(GROUP_DOCTYPE, { limit: null }))
   let autogroups = groups.filter(isAutoGroup)
 
   autogroups = autogroups.map(x => omit(x, '_type'))

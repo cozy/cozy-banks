@@ -1,5 +1,5 @@
 import fromPairs from 'lodash/fromPairs'
-import CozyClient, { QueryDefinition, HasManyInPlace, Q } from 'cozy-client';
+import CozyClient, { QueryDefinition, HasManyInPlace, Q } from 'cozy-client'
 
 export const RECIPIENT_DOCTYPE = 'io.cozy.bank.recipients'
 export const ACCOUNT_DOCTYPE = 'io.cozy.bank.accounts'
@@ -173,24 +173,24 @@ export const schema = {
 const older30s = CozyClient.fetchPolicies.olderThan(30 * 1000)
 
 export const accountsConn = {
-  query: client => Q(ACCOUNT_DOCTYPE).include(['owners']),
+  query: () => Q(ACCOUNT_DOCTYPE).include(['owners']),
   as: 'accounts',
   fetchPolicy: older30s
 }
 
 export const groupsConn = {
-  query: client => Q(GROUP_DOCTYPE),
+  query: () => Q(GROUP_DOCTYPE),
   as: 'groups',
   fetchPolicy: older30s
 }
 
 export const triggersConn = {
-  query: client => Q(TRIGGER_DOCTYPE),
+  query: () => Q(TRIGGER_DOCTYPE),
   as: 'triggers'
 }
 
 export const transactionsConn = {
-  query: client =>
+  query: () =>
     Q(TRANSACTION_DOCTYPE)
       .UNSAFE_noLimit()
       .include(['bills', 'account', 'reimbursements']),
@@ -199,24 +199,24 @@ export const transactionsConn = {
 }
 
 export const appsConn = {
-  query: client => Q(APP_DOCTYPE),
+  query: () => Q(APP_DOCTYPE),
   as: 'apps'
 }
 
 export const billsConn = {
-  query: client => Q(BILLS_DOCTYPE),
+  query: () => Q(BILLS_DOCTYPE),
   as: 'bills',
   fetchPolicy: older30s
 }
 
 export const settingsConn = {
-  query: client => Q(SETTINGS_DOCTYPE),
+  query: () => Q(SETTINGS_DOCTYPE),
   as: 'settings',
   fetchPolicy: older30s
 }
 
 export const recipientsConn = {
-  query: client => Q(RECIPIENT_DOCTYPE),
+  query: () => Q(RECIPIENT_DOCTYPE),
   as: 'recipients',
   fetchPolicy: older30s
 }

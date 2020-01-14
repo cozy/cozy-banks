@@ -6,16 +6,14 @@ import sumBy from 'lodash/sumBy'
 import { fetchCategoryAlerts } from 'ducks/settings/helpers'
 import { startOfMonth, endOfMonth, addDays, format } from 'date-fns'
 
-import { Q } from "cozy-client";
+import { Q } from 'cozy-client'
 
 const log = logger.namespace('category-alerts')
 
 const copyAlert = alert => ({ ...alert })
 
 const fetchGroup = async (client, groupId) => {
-  const { data: group } = await client.query(
-    Q(GROUP_DOCTYPE).getById(groupId)
-  )
+  const { data: group } = await client.query(Q(GROUP_DOCTYPE).getById(groupId))
   return group
 }
 
