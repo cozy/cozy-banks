@@ -7,6 +7,8 @@ import { queryConnect } from 'cozy-client'
 import { isCollectionLoading } from 'ducks/client/utils'
 import { lastInteractionStorage, pinSettingStorage } from './storage'
 
+const isPinOn = pinSetting => Boolean(pinSetting && pinSetting.pin)
+
 /**
  * Wraps an App and display a Pin screen after a period
  * of inactivity (touch/click/resume events on document).
@@ -53,8 +55,11 @@ class PinGuard extends React.Component {
   checkToUpdateLocalPinDoc(prevPinSetting) {
     const { pinSetting } = this.props
     if (pinSetting.data !== prevPinSetting.data) {
-      this.restartTimeout()
       pinSettingStorage.save(pinSetting.data)
+      this.restartTimeout()
+      if (!isPinOn(prevPinSetting.data) && isPinOn(pinSetting.data)) {
+        this.markInteraction()
+      }
     }
   }
 
@@ -95,13 +100,17 @@ class PinGuard extends React.Component {
     })
   }
 
+  markInteraction() {
+    const now = Date.now()
+    this.setState({ last: now })
+    lastInteractionStorage.save(now)
+  }
+
   handleInteraction() {
     if (this.state.showPin) {
       return
     }
-    const now = Date.now()
-    this.setState({ last: now })
-    lastInteractionStorage.save(now)
+    this.markInteraction()
     this.restartTimeout()
   }
 
