@@ -22,7 +22,7 @@ import { queryConnect } from 'cozy-client'
 
 import Loading from 'components/Loading'
 import Delayed from 'components/Delayed'
-import { TransactionsWithSelection } from 'ducks/transactions/Transactions.jsx'
+import { TransactionList } from 'ducks/transactions/Transactions.jsx'
 
 import {
   ACCOUNT_DOCTYPE,
@@ -220,7 +220,7 @@ class TransactionsPage extends Component {
 
     return (
       <Delayed delay={0} fallback={<FakeTransactions />}>
-        <TransactionsWithSelection
+        <TransactionList
           isOnSubcategory={isOnSubcategory}
           limitMin={limitMin}
           limitMax={limitMax}
