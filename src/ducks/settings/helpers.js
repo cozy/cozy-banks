@@ -55,12 +55,16 @@ export const getDefaultedSettingsFromCollection = col => {
   return getDefaultedSettings(settings)
 }
 
+export const getNotificationFromConfig = (config, name) => {
+  return get(config, ['notifications', name])
+}
+
 export const getNotificationFromSettings = (settings, name) => {
   if (!settings || settings.length === 0) {
     return null
   }
   const configurationSettings = settings.find(isConfigurationSetting)
-  return get(configurationSettings, ['notifications', name])
+  return getNotificationFromConfig(configurationSettings, name)
 }
 
 export const DEFAULT_HEALTH_REIMBURSEMENTS_LATE_LIMIT_IN_DAYS = 30
