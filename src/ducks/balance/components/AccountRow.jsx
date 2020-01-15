@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import CozyClient, { queryConnect, withClient } from 'cozy-client'
 import { withBreakpoints, translate, useI18n } from 'cozy-ui/transpiled/react'
@@ -15,6 +16,7 @@ import {
   getAccountBalance,
   isHealthReimbursementsAccount
 } from 'ducks/account/helpers'
+import { getWarningLimitPerAccount } from 'selectors'
 import styles from 'ducks/balance/components/AccountRow.styl'
 import { HealthReimbursementsIcon } from 'ducks/balance/components/HealthReimbursementsIcon'
 import AccountIcon from 'components/AccountIcon'
@@ -135,7 +137,7 @@ class AccountRow extends React.PureComponent {
     onClick: PropTypes.func.isRequired,
     breakpoints: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired,
-    warningLimit: PropTypes.number.isRequired,
+    hasWarning: PropTypes.bool.isRequired,
     checked: PropTypes.bool.isRequired,
     disabled: PropTypes.bool.isRequired,
     onSwitchChange: PropTypes.func.isRequired,
@@ -152,7 +154,7 @@ class AccountRow extends React.PureComponent {
       onClick,
       breakpoints: { isMobile },
       t,
-      warningLimit,
+      hasWarning,
       checked,
       disabled,
       onSwitchChange,
@@ -164,7 +166,6 @@ class AccountRow extends React.PureComponent {
 
     const shouldShowOwners = owners.length > 0
 
-    const hasWarning = account.balance < warningLimit
     const hasAlert = account.balance < 0
     const isHealthReimbursements = isHealthReimbursementsAccount(account)
     const accountLabel = getAccountLabel(account)
@@ -256,6 +257,13 @@ export default compose(
     triggersCol: {
       ...triggersConn,
       fetchPolicy: CozyClient.fetchPolicies.noFetch
+    }
+  }),
+  connect((state, { account }) => {
+    const warningLimits = getWarningLimitPerAccount(state)
+    const accountLimit = warningLimits[account._id]
+    return {
+      hasWarning: accountLimit ? accountLimit > account.balance : false
     }
   }),
   withBreakpoints(),

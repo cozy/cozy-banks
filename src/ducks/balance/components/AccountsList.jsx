@@ -14,7 +14,6 @@ import { getHydratedAccountsFromGroup } from 'selectors'
 class AccountsList extends React.PureComponent {
   static propTypes = {
     group: PropTypes.object.isRequired,
-    warningLimit: PropTypes.number.isRequired,
     switches: PropTypes.object.isRequired,
     onSwitchChange: PropTypes.func
   }
@@ -31,13 +30,7 @@ class AccountsList extends React.PureComponent {
   }
 
   render() {
-    const {
-      group,
-      accounts,
-      warningLimit,
-      switches,
-      onSwitchChange
-    } = this.props
+    const { group, accounts, switches, onSwitchChange } = this.props
 
     return (
       <ol className={styles.AccountsList}>
@@ -57,7 +50,6 @@ class AccountsList extends React.PureComponent {
               account={a}
               group={group}
               onClick={this.goToAccountsDetails(a)}
-              warningLimit={warningLimit}
               checked={switchState.checked}
               disabled={switchState.disabled}
               id={`${group._id}.accounts.${a._id}`}
