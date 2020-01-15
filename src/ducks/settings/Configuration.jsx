@@ -151,7 +151,7 @@ export class Configuration extends React.Component {
         </Section>
 
         <Section title={t('Settings.security.title')}>
-          {flag('pin') && <PinSettings />}
+          <PinSettings />
           <SubSection title={t('Settings.security.amount_blur.title')}>
             <ToggleRow
               description={t('Settings.security.amount_blur.description')}
