@@ -100,6 +100,15 @@ export const getVirtualGroups = createSelector(
   }
 )
 
+export const getHydratedAccountsFromGroup = (state, group, client) => {
+  const rawAccounts = group.accounts.data.map(
+    account =>
+      client.getDocumentFromState('io.cozy.bank.accounts', account._id) ||
+      account
+  )
+  return client.hydrateDocuments('io.cozy.bank.accounts', rawAccounts)
+}
+
 export const getAllGroups = createSelector(
   [getGroups, getVirtualGroups],
   (groups, virtualGroups) => [...groups, ...virtualGroups]

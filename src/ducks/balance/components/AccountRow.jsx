@@ -5,7 +5,7 @@ import { withBreakpoints, translate, useI18n } from 'cozy-ui/transpiled/react'
 import flag from 'cozy-flags'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import cx from 'classnames'
-import { get, flowRight as compose, keyBy } from 'lodash'
+import { get, flowRight as compose } from 'lodash'
 import Switch from 'components/Switch'
 import { Figure } from 'components/Figure'
 import {
@@ -18,7 +18,7 @@ import {
 import styles from 'ducks/balance/components/AccountRow.styl'
 import { HealthReimbursementsIcon } from 'ducks/balance/components/HealthReimbursementsIcon'
 import AccountIcon from 'components/AccountIcon'
-import { triggersConn, CONTACT_DOCTYPE } from 'doctypes'
+import { triggersConn } from 'doctypes'
 import { isErrored } from 'utils/triggers'
 import { Contact } from 'cozy-doctypes'
 
@@ -157,18 +157,10 @@ class AccountRow extends React.PureComponent {
       disabled,
       onSwitchChange,
       id,
-      triggersCol,
-      client
+      triggersCol
     } = this.props
 
-    // TODO Extract it to a selector
-    const contacts = client.getCollectionFromState(CONTACT_DOCTYPE)
-    const contactsById = keyBy(contacts, contact => contact._id)
-    const ownerRelationships = get(account, 'relationships.owners.data', [])
-
-    const owners = ownerRelationships
-      .map(data => contactsById[data._id])
-      .filter(owner => !owner.me)
+    const owners = account.owners.data.filter(owner => !owner.me)
 
     const shouldShowOwners = owners.length > 0
 
