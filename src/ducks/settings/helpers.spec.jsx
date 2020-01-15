@@ -77,7 +77,7 @@ describe('withAccountOrGroupLabeller', () => {
   })
 
   it('should correctly name a group', () => {
-    const ENLARGED_FAMILY_GROUP_ID = 'f1d11eb324b64d604cbeee734e77de66'
+    const ENLARGED_FAMILY_GROUP_ID = 'familleelargie'
     const { root } = setup({
       accountOrGroup: {
         _id: ENLARGED_FAMILY_GROUP_ID,
