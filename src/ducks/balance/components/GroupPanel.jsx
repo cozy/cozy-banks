@@ -235,7 +235,11 @@ export const getGroupPanelSummaryClasses = (group, state) => {
     'lateHealthReimbursement'
   )
 
-  if (hasLateHealthExpenses && lateHealthExpensesNotification.enabled) {
+  if (
+    hasLateHealthExpenses &&
+    lateHealthExpensesNotification &&
+    lateHealthExpensesNotification.enabled
+  ) {
     return {
       content: styles['GroupPanelSummary--lateHealthReimbursements']
     }
