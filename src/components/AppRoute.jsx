@@ -16,6 +16,7 @@ import {
   Debug
 } from 'ducks/settings'
 import { Balance, BalanceDetailsPage } from 'ducks/balance'
+import Playground from './Playground'
 import { TransferPage } from 'ducks/transfers'
 import UserActionRequired from 'components/UserActionRequired'
 import scrollToTopOnMount from 'components/scrollToTopOnMount'
@@ -43,6 +44,7 @@ const AppRoute = () => (
           component={scrollToTopOnMount(CategoriesPage)}
         />
       </Route>
+      <Route path="playground" component={scrollToTopOnMount(Playground)} />
       <Route path="settings">
         <Route
           path="groups/new"
