@@ -242,9 +242,7 @@ class PinAuth extends React.Component {
       AUTH_METHODS_OPTIONS[authMethod].successClassName
 
     return (
-      <PinWrapper
-        className={cx('u-fx-from-bottom', success && successClassName)}
-      >
+      <PinWrapper className={cx(success && successClassName)}>
         {onClickBackButton ? (
           <PinBackButton onClick={onClickBackButton} />
         ) : null}

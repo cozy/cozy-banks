@@ -12,7 +12,9 @@ const PinWrapper = ({ children, className }) => {
     <>
       <BarTheme theme="primary" />
       <Portal into="body">
-        <div className={cx(styles.PinWrapper, className)}>{children}</div>
+        <div className={cx(styles.PinWrapper, 'u-fx-from-bottom', className)}>
+          {children}
+        </div>
       </Portal>
     </>
   )
