@@ -1,3 +1,4 @@
+import { mount } from 'enzyme'
 import React from 'react'
 import CategoryAlertCard from 'ducks/settings/CategoryAlerts/CategoryAlertCard'
 import CategoryAlertEditModal from 'ducks/settings/CategoryAlerts/CategoryAlertEditModal'
