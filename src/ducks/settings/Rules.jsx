@@ -46,6 +46,7 @@ const Rules = ({
       setSaving(false)
     }
   }
+
   return (
     <>
       {items.length > 0 ? (
