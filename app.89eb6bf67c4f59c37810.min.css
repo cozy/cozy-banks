@@ -4817,13 +4817,12 @@ body {
 /*# sourceMappingURL=src/components/BackButton/style.css.map */
 .Header_HeaderFixed_26BZu {
   position: sticky;
+  position: -webkit-sticky;
   z-index: 2;
   top: 0;
 }
 @media (max-width: 63.938rem) {
   .Header_HeaderFixed_26BZu {
-    position: fixed;
-    width: 100%;
     top: 3rem;
   }
 }
@@ -5221,38 +5220,6 @@ body {
   height: calc(100% - -3rem - 1px);
 }
 /*# sourceMappingURL=src/components/PageModal/Page.css.map */
-.TransactionsPage_HeaderFixed_1bVfi {
-  position: sticky;
-  z-index: 2;
-  top: 0;
-}
-@media (max-width: 63.938rem) {
-  .TransactionsPage_HeaderFixed_1bVfi {
-    position: fixed;
-    width: 100%;
-    top: 3rem;
-  }
-}
-.TransactionsPage_HeaderColor_default_32Ozb {
-  background-color: var(--headerDefaultBackgroundColor);
-}
-.TransactionsPage_HeaderColor_primary_1Kgi9 {
-  background-color: var(--headerPrimaryBackgroundColor);
-}
-.TransactionsPage_HeaderColor_primary_1Kgi9.TransactionsPage_HeaderFixed_1bVfi {
-  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.24), 0 0 4px 0 rgba(0,0,0,0.16);
-}
-@media (max-width: 63.938rem) {
-  .TransactionsPage_TransactionPage__transactions_37GRS {
-    padding-top: 15.5rem;
-  }
-}
-@media (max-width: 48rem) {
-  .TransactionsPage_TransactionPage__transactions_37GRS {
-    padding-top: 7.5rem;
-  }
-}
-/*# sourceMappingURL=src/ducks/transactions/TransactionsPage.css.map */
 .styles_KonnectorUpdateInfo_2s0z7 {
   padding-bottom: 0;
 }
@@ -5735,32 +5702,6 @@ body {
   font-weight: bold;
 }
 /*# sourceMappingURL=src/ducks/loan/LoanDetailsPage.css.map */
-.HealthReimbursements_HeaderFixed_WU25E {
-  position: sticky;
-  z-index: 2;
-  top: 0;
-}
-@media (max-width: 63.938rem) {
-  .HealthReimbursements_HeaderFixed_WU25E {
-    position: fixed;
-    width: 100%;
-    top: 3rem;
-  }
-}
-.HealthReimbursements_HeaderColor_default_3KiQR {
-  background-color: var(--headerDefaultBackgroundColor);
-}
-.HealthReimbursements_HeaderColor_primary_20IxX {
-  background-color: var(--headerPrimaryBackgroundColor);
-}
-.HealthReimbursements_HeaderColor_primary_20IxX.HealthReimbursements_HeaderFixed_WU25E {
-  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.24), 0 0 4px 0 rgba(0,0,0,0.16);
-}
-@media (max-width: 63.938rem) {
-  .HealthReimbursements_HealthReimbursements_1dxYH {
-    padding-top: 3.5rem;
-  }
-}
 .HealthReimbursements_HealthReimbursements__figure_pzGug {
   display: inline-block;
 }
@@ -5786,23 +5727,46 @@ body {
   }
 }
 /*# sourceMappingURL=src/ducks/reimbursements/ReimbursementsPage.css.map */
-.TransactionsHeader_TransactionsHeader__chart_Ft9Oy {
+@media (max-width: 48rem) {
+}
+@media (max-width: 48rem) {
+}
+.TransactionsPage_TransactionPage__bottom_QUI6q {
+  overflow: auto;
+}
+.TransactionsPage_bnk-mov-figures_3J3hg {
+  margin: 1em 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.TransactionsPage_bnk-mov-figures_3J3hg > div {
+  margin: 0 1em 1em 0;
+  flex: 1;
+}
+@media (max-width: 63.938rem) {
+  .TransactionsPage_bnk-mov-figures_3J3hg > div {
+    margin: 0;
+    flex-basis: 50%;
+  }
+}
+.TransactionsPage_TransactionsHeader__chart_1i2y0 {
   margin-bottom: -72px;
 }
 @media (max-width: 48rem) {
-  .TransactionsHeader_TransactionsHeader__chart_Ft9Oy {
+  .TransactionsPage_TransactionsHeader__chart_1i2y0 {
     margin-bottom: -40px;
   }
 }
-.TransactionsHeader_TransactionsHeader__selectDatesContainer_3z-rP {
+.TransactionsPage_TransactionsHeader__selectDatesContainer_2Rjhh {
   position: relative;
   padding-bottom: 12px;
 }
-.TransactionsHeader_TransactionHeader__accountSwitchContainer_1axCO {
+.TransactionsPage_TransactionHeader__accountSwitchContainer_osxMv {
   display: flex;
   align-items: center;
 }
-/*# sourceMappingURL=src/ducks/transactions/TransactionsHeader.css.map */
+/*# sourceMappingURL=src/ducks/transactions/TransactionsPage.css.map */
 @media (max-width: 48rem) {
 }
 @media (max-width: 48rem) {
