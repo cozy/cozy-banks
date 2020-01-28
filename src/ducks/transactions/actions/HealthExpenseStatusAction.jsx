@@ -1,16 +1,14 @@
 import React from 'react'
-import { translate, withBreakpoints } from 'cozy-ui/react'
-import Icon from 'cozy-ui/react/Icon'
-import ButtonAction from 'cozy-ui/react/ButtonAction'
-import Menu, { MenuItem } from 'cozy-ui/react/Menu'
-import Badge from 'cozy-ui/react/Badge'
-import palette from 'cozy-ui/react/palette'
-import flag from 'cozy-flags'
-import { isHealthExpense } from 'ducks/categories/helpers'
+import { translate, withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import ButtonAction from 'cozy-ui/transpiled/react/ButtonAction'
+import Menu, { MenuItem } from 'cozy-ui/transpiled/react/Menu'
+import Badge from 'cozy-ui/transpiled/react/Badge'
+import palette from 'cozy-ui/transpiled/react/palette'
 import { BillComponent } from './BillAction'
 import styles from 'ducks/transactions/TransactionActions.styl'
 import { flowRight as compose } from 'lodash'
-import { TransactionModalRow } from 'ducks/transactions/TransactionModal'
+import TransactionModalRow from 'ducks/transactions/TransactionModalRow'
 
 const name = 'HealthExpenseStatus'
 
@@ -35,13 +33,13 @@ const isPending = transaction => {
 const transactionModalRowStyle = { color: palette.pomegranate }
 
 const Component = ({
-  t,
   transaction,
   compact,
   menuPosition,
   isModalItem,
   breakpoints: { isDesktop }
 }) => {
+  const { t } = useI18n()
   const pending = isPending(transaction)
   const vendors = getVendors(transaction)
   const text = pending
@@ -168,12 +166,8 @@ const action = {
 
     return <Icon icon="hourglass" color={color} />
   },
-  match: transaction => {
-    return (
-      isHealthExpense(transaction) &&
-      getVendors(transaction) &&
-      !flag('reimbursement-tag')
-    )
+  match: () => {
+    return false
   },
   Component: compose(
     withBreakpoints(),

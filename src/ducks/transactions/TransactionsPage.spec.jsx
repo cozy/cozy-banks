@@ -4,14 +4,21 @@ import React from 'react'
 import {
   DumbTransactionsPage,
   UnpluggedTransactionsPage,
-  TransactionsPageBar
+  STEP_INFINITE_SCROLL,
+  MIN_NB_TRANSACTIONS_SHOWN
 } from './TransactionsPage'
 import data from '../../../test/fixtures'
 import PropTypes from 'prop-types'
 import AppLike from 'test/AppLike'
+import { mkFakeChain } from 'test/client'
+import { getClient } from 'ducks/client'
+import mockRouter from 'test/mockRouter'
 
 const allAccounts = data['io.cozy.bank.accounts']
 const allTransactions = data['io.cozy.bank.operations']
+
+const client = getClient()
+client.chain = mkFakeChain()
 
 const saveWindowWidth = () => {
   let windowWidth = window.innerWidth
@@ -24,9 +31,11 @@ jest.mock(
   'ducks/transactions/TransactionActionsProvider',
   () => ({ children }) => children
 )
-jest.mock('ducks/balance/HistoryChart', () => () => null)
+jest.mock('ducks/balance/HistoryChart', () => ({
+  ConnectedHistoryChart: () => null
+}))
 
-const useMobile = () => (window.innerWidth = 400)
+// const useMobile = () => (window.innerWidth = 400)
 
 const mkCollection = (data, options) => ({
   data,
@@ -49,12 +58,12 @@ describe('TransactionsPage', () => {
 
   // Necessary wrapper to be able to use setProps since `setProps` is
   // only callable on the Enzyme root
-  const Wrapper = ({ filteringDoc }) => (
-    <AppLike>
+  const Wrapper = ({ filteringDoc, filteredTransactions }) => (
+    <AppLike client={client}>
       <UnpluggedTransactionsPage
         transactions={mkCollection(allTransactions, { fetchStatus: 'loaded' })}
         accounts={mkCollection(allAccounts, { fetchStatus: 'loaded' })}
-        filteredTransactions={allTransactions}
+        filteredTransactions={filteredTransactions || allTransactions}
         filteredAccounts={allAccounts}
         filteringDoc={filteringDoc}
       />
@@ -64,13 +73,10 @@ describe('TransactionsPage', () => {
   const setup = () => {
     const context = {
       router: {
-        push: () => {},
-        replace: () => {},
-        go: () => {},
-        goBack: () => {},
-        goForward: () => {},
-        setRouteLeaveHook: () => {},
-        isActive: () => {},
+        ...mockRouter,
+        getCurrentLocation: () => ({
+          pathname: '/'
+        }),
         params: {
           subcategoryName,
           categoryName
@@ -82,25 +88,6 @@ describe('TransactionsPage', () => {
     }
     root = mount(<Wrapper />, { context, childContextTypes })
   }
-
-  it('should not show the top balance on movements page on non mobile', () => {
-    setup()
-    expect(root.find(TransactionsPageBar).length).toBe(0)
-  })
-
-  it('should show the top balance on movements page on mobile', () => {
-    useMobile()
-    setup()
-    expect(root.find(TransactionsPageBar).length).toBe(1)
-  })
-
-  it('should not show the top balance on movements page on mobile if inside category', () => {
-    useMobile()
-    categoryName = 'dailyLife'
-    subcategoryName = 'supermarket'
-    setup()
-    expect(root.find(TransactionsPageBar).length).toBe(0)
-  })
 
   it('should handle change in top most transaction', () => {
     setup()
@@ -139,12 +126,18 @@ describe('TransactionsPage', () => {
     })
   })
 
-  it('should call handleChangeMonth if filteringDoc changed', () => {
+  it('should correctly set internal state if filteringDoc changed', () => {
     setup()
     const tp = root.find(DumbTransactionsPage)
     const instance = tp.instance()
     jest.spyOn(instance, 'handleChangeMonth')
-    root.setProps({ filteringDoc: { _id: 'new-doc' } })
-    expect(instance.handleChangeMonth).toHaveBeenCalled()
+    expect(tp.state('limitMax')).toBe(STEP_INFINITE_SCROLL)
+    root.setProps({
+      filteringDoc: { _id: 'new-doc' },
+      filteredTransactions: [{ date: '2019-11-03T13:13' }]
+    })
+    expect(tp.state('currentMonth')).toBe('2019-11')
+    expect(tp.state('limitMin')).toBe(0)
+    expect(tp.state('limitMax')).toBe(MIN_NB_TRANSACTIONS_SHOWN)
   })
 })

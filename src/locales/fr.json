@@ -4,7 +4,8 @@
     "deleting": "Suppression...",
     "cancel": "Annuler",
     "confirm": "Confirmer",
-    "back": "Revenir"
+    "back": "Revenir",
+    "choose": "Choisir"
   },
 
   "Loading": {
@@ -56,7 +57,22 @@
       "confirm": "Confirmer la suppression",
       "title": "Êtes-vous sûr ?"
     },
-    "deletion_error": "Une erreur est survenue lors de la suppression du compte."
+    "deletion_error": "Une erreur est survenue lors de la suppression du compte.",
+    "label": "Libellé",
+    "owner": "Titulaire",
+    "addOwnerBtn": "Ajouter un titulaire",
+    "removeOwnerBtn": "Supprimer ce titulaire",
+    "ownerPlaceholder": "Sélectionner un titulaire",
+    "bank": "Banque",
+    "number": "Numéro",
+    "type": "Type",
+    "apply": "Appliquer",
+    "success": "Compte mis à jour avec succès",
+    "failure": "Erreur lors de la mise à jour du compte",
+    "removeAccountBtn": "Effacer le compte",
+    "listPlaceholder": "Rechercher un contact",
+    "listEmptyMessage": "Aucun contact trouvé",
+    "addContactLabel": "Créer un contact"
   },
 
   "Accounts": {
@@ -72,7 +88,8 @@
     "shared": "Partagé",
     "shared-accounts": "Comptes que l'on m'a partagé",
     "type": "Type",
-    "manage-accounts": "Gérer mes comptes"
+    "manage-accounts": "Gérer mes comptes",
+    "owner": "Titulaire"
   },
 
   "Balance": {
@@ -99,7 +116,12 @@
     "importing_accounts_error": "Échec de l'import",
     "in_progress": "En cours",
     "error": "Cliquez pour relancer",
-    "trigger-problem": "Problème avec la connexion"
+    "trigger-problem": "Problème avec la connexion",
+    "no-accounts-in-group": {
+      "description": "Vous n'avez pas de compte associé à ce groupe.",
+      "button": "Éditer le groupe"
+    },
+    "health-reimbursements-caption": "6 derniers mois"
   },
 
   "Transactions": {
@@ -108,7 +130,7 @@
     "total": "Total",
     "trigger-error": {
       "title": "Connexion impossible",
-      "description": "Vos données bancaires ne sont plus à jour car nous ne parvenons plus à vous connecter à %{bankName}.",
+      "description": "Vos données %{bankName} ne sont plus mises à jour.",
       "cta": "Régler la connexion"
     },
     "transactions": "Opérations",
@@ -131,10 +153,11 @@
         "health": "Mes remboursements",
         "generic": "Mes factures"
       },
-      "alert": "Créer une alerte",
+      "alert": "Ajouter une alerte",
       "comment": "Commentaire - Bientôt disponible",
       "attachedDocs": {
-        "bill": "Facture"
+        "billWithVendor": "Facture %{vendorName}",
+        "billWithoutVendor": "Facture"
       },
       "healthExpenseProcessed": {
         "single": "1 remboursement",
@@ -167,9 +190,14 @@
       }
     },
     "infos": {
+      "modal-label": "Détails de la transaction",
       "account": "Compte",
       "institution": "Banque",
-      "originalBankLabel": "Libellé original"
+      "originalBankLabel": "Libellé original",
+      "date": "Date",
+      "assignedToPeriod": "Affectée à %{date}",
+      "chooseApplicationDate": "Affecter au mois",
+      "applicationDateChangedAlert": "Operation affectée à %{applicationDate} dans l'onglet Analyse"
     },
     "see-more": "Voir plus...",
     "reimbursementStatus": {
@@ -182,7 +210,8 @@
 
   "Categories": {
     "choice": {
-      "title": "Modifier la catégorie"
+      "title": "Modifier la catégorie",
+      "select-all": "Sélectionner tout"
     },
     "board": {
       "debit-header": "Dépense",
@@ -376,45 +405,58 @@
 
   "Notifications": {
     "title": "Notifications",
-    "description": "Vous recevrez les notifications par email, ainsi que par notification mobile si vous installez l'app Cozy Banks sur votre mobile",
+    "description": "Vous recevrez les notifications par email ou par notification mobile si vous installez l'app Cozy Banks sur votre mobile",
+    "editModal": {
+      "title": "Configurer la notification"
+    },
     "if_balance_lower": {
       "settingTitle": "Solde bas",
+      "fieldLabels": {
+        "value": "Me prévenir quand mon solde passe sous",
+        "accountOrGroup": "sur"
+      },
       "email": {
         "innerTitle": "Notification de solde bas",
         "access_accounts": "Accéder à mes comptes"
       },
-      "description": "Vous recevrez une notification, si votre solde est inférieur à",
+      "description": "Vous recevrez une notification si votre solde est inférieur à *%{value}*€ sur l'un de vos comptes",
+      "descriptionWithAccountGroup": "Vous recevrez une notification si votre solde est inférieur à *%{value}*€ sur *%{accountOrGroupLabel}*",
       "notification": {
         "one": {
-          "title": "Solde bas : le compte '%{label}' est à %{balance}%{currency}",
-          "debitContent": "Dépense de %{amount}%{currency} : '%{label}'.",
-          "creditContent": "Versement de %{amount}%{currency} : '%{label}'."
+          "title": "Solde bas : le compte '%{label}' est à %{balance}%{currency}"
         },
         "several": {
-          "title": "%{accountsLength} comptes sont en dessous de votre seuil de %{lowerBalance}%{currency}",
-          "content": "Solde de %{balance}%{currency} sur le compte '%{label}'."
+          "title": "%{accountsLength} comptes sont en dessous de votre seuil de %{lowerBalance}%{currency}"
+        },
+        "several-multi-rule": {
+          "title": "%{accountsLength} comptes sont en dessous de leur seuil limite"
         }
       }
     },
     "if_transaction_greater": {
       "settingTitle": "Mouvements",
-      "description": "Vous recevrez une notification, si un mouvement est supérieur à",
+      "description": "Vous recevrez une notification si un mouvement est supérieur à *%{value}*€",
+      "descriptionWithAccountGroup": "Vous recevrez une notification si un mouvement est supérieur à *%{value}*€ sur *%{accountOrGroupLabel}*",
       "email": {
         "innerTitle": "Notification de mouvement"
       },
+      "fieldLabels": {
+        "value": "Me prévenir pour les dépenses dépassant",
+        "accountOrGroup": "sur"
+      },
       "notification": {
+        "content-transaction-mention": "%{smart_count} mouvement |||| %{smart_count} mouvements",
         "debit": {
-          "title": "Dépense de %{amount}%{currency}",
-          "content": "%{label}"
+          "title": "Dépense de %{amount}%{currency}"
         },
         "credit": {
-          "title": "Versement de %{amount}%{currency}",
-          "content": "%{label}"
+          "title": "Versement de %{amount}%{currency}"
         },
         "others": {
-          "title": "Alerte : %{transactionsLength} mouvements de plus de %{maxAmount}€",
-          "debitContent": "Dépense de %{amount}%{currency} avec le libellé '%{label}'.",
-          "creditContent": "Versement de %{amount}%{currency} avec le libellé '%{label}'."
+          "title": "%{transactionsLength} mouvements de plus de %{maxAmount}€"
+        },
+        "others-multi": {
+          "title": "%{transactionsLength} mouvements au dessus de %{matchingRulesLength} seuils"
         }
       }
     },
@@ -450,11 +492,14 @@
     },
     "when_late_health_reimbursement": {
       "settingTitle": "En retard",
-      "description": "Vous recevrez une notification lorsqu'un remboursement n'a pas été trouvé pour une de vos dépenses de santé depuis",
+      "description": "Vous recevrez une notification lorsqu'un remboursement n'a pas été trouvé pour une de vos dépenses de santé depuis *%{value}* jours.",
       "unit": "jours",
       "email": {
         "innerTitle": "Notification de remboursement(s) en retard",
         "accessReimbursements": "Accéder à mes remboursements"
+      },
+      "fieldLabels": {
+        "value":  "Me prévenir quand une dépense de santé n'est pas remboursée depuis"
       },
       "notification": {
         "title": "Remboursements de santé en retard",
@@ -470,11 +515,13 @@
     },
     "delayed_debit": {
       "settingTitle": "Paiement de l'encours carte à débit différé",
-      "description": {
-        "start": "Vous recevrez une notification lorque l'encours carte du compte ",
-        "accountsGlue": " engendre un solde négatif sur son compte courant associé ",
-        "end": " avant la fin du mois"
+      "settingDescription": "Cela nécessite d'avoir connecté un compte de type \"carte de crédit\"",
+      "fieldLabels": {
+        "creditCardAccount": "Carte de crédit",
+        "checkingsAccount": "Compte courant de l'encours",
+        "days": "Me prévenir avant la fin du mois"
       },
+      "description": "Vous recevrez une notification lorque l'encours carte du compte *%{creditCardLabel}* engendre un solde négatif sur son compte courant associé *%{checkingsLabel}*, *%{value}* jour(s) avant la fin du mois",
       "unit": "jours",
       "email": {
         "innerTitle": "Notification de paiement de l'encours carte à débit différé",
@@ -483,25 +530,60 @@
       "notification": {
         "title": "Le compte '%{label}' sera à %{balance}%{currency} après le débit de l'encours de votre carte de crédit"
       }
+    },
+    "categoryBudgets": {
+      "email": {
+        "title-multi": "%{alertCount} budgets ont dépassé leur limite",
+        "title-single": "Le budget %{categoryLabel} a dépassé sa limite",
+        "innerTitle": "Notification d'alerte par catégorie",
+        "budgetOutOf": "sur"
+      }
     }
   },
 
   "ComingSoon": {
     "title": "À venir",
-    "description": "Ces fonctionnalités seront bientôt disponibles."
+    "description": "Cette fonctionnalité sera bientôt disponible."
   },
 
   "Settings": {
     "title": "Paramètres",
     "accounts": "Comptes",
     "groups": "Groupes",
-    "configuration": "Configuration",
+    "configuration": "Config.",
     "debug": "Debug",
     "security": {
       "title": "Sécurité",
       "amount_blur": {
         "title": "Masquer les montants",
         "description": "Naviguer dans l'app avec les montants cachés"
+      }
+    },
+    "rules": {
+      "create": "Créer une alerte",
+      "remove-modal": {
+        "title": "Supprimer l'alerte ?",
+        "desc": "Merci de confirmer vouloir supprimer l'alerte"
+      },
+      "saving-error": "Impossible de sauver l'alerte, merci de réessayer plus tard."
+    },
+    "budget-category-alerts": {
+      "pane-title": "Budget par catégorie",
+      "pane-description": "Configurer les alertes de budget par catégorie",
+      "budget-inferior-to": "Budget mensuel de *%{threshold}€*",
+      "for-account": "pour le compte *%{accountOrGroupLabel}*",
+      "for-group": "pour le groupe *%{accountOrGroupLabel}*",
+      "for-all-accounts": "pour tous les comptes",
+      "for-category": "en *%{categoryName}*",
+      "edit": {
+        "modal-title": "Configurer la notification",
+        "category-label": "Catégorie",
+        "threshold-label": "Budget mensuel",
+        "account-group-label": "Compte ou groupe",
+        "create-ok": "Créer",
+        "update-ok": "Mettre à jour",
+        "all-category": "Tout « %{categoryName} »",
+        "cancel": "Annuler"
       }
     }
   },
@@ -549,9 +631,9 @@
 
   "Pin": {
     "enter-pin-restricted-area": "Merci d'entrer votre code pin courant pour accéder à cette fonctionnalité",
-    "please-enter-pin": "Choisir un code PIN",
+    "please-choose-pin": "Choisir un code de sécurité",
     "please-enter-your-pin": "Entrez votre code de sécurité",
-    "please-repeat-pin": "Confirmez le code PIN",
+    "please-repeat-pin": "Confirmez le code de sécurité",
     "errors": {
       "different-pins": "Les deux codes sont différents, merci de recommencer."
     },
@@ -577,7 +659,7 @@
     "title": "Rembours. santé",
     "pending": "Remboursements en attente : ",
     "alreadyReimbursed": "Déjà remboursés",
-    "noAwaiting": "Aucun remboursement attendu.",
+    "noAwaiting": "Aucun remboursement attendu pour des dépenses en %{period}.",
     "noReimbursed": "Détecter automatiquement vos remboursements en connectant votre assurance santé à votre Cozy."
   },
 
@@ -669,5 +751,53 @@
         "caption": "Depuis mon téléphone"
       }
     }
+  },
+
+  "LoanProgress": {
+    "reimbursedAmount": "Montant remboursé",
+    "borrowedAmount": "Montant emprunté"
+  },
+
+  "LoanDetails": {
+    "dateGlue": "le",
+    "keyInfos": {
+      "title": "Informations clées",
+      "borrowedAmount": "Montant emprunté :",
+      "remainingCapital": "Capital restant dû :",
+      "interestRate": "Taux d'intérêt :"
+    },
+    "payments": {
+      "title": "Paiements",
+      "lastPayment": "Dernier paiement effectué :",
+      "nextPayment": "Prochain paiement prévu :"
+    },
+    "characteristics": {
+      "title": "Caractéristiques du prêt",
+      "subscriptionDate": "Date de souscription :",
+      "maturityDate": "Date de remboursement :",
+      "nbPaymentsLeft": "Nb d'échéances encore prévues :",
+      "nbPaymentsDone": "Nb d'échéances payées :"
+    },
+    "creditReserve": {
+      "title": "Réserve crédit",
+      "totalUsedAmount": "Montant total utilisé :",
+      "availableAmount": "Réserve disponible :"
+    }
+  },
+
+  "AccountGroupChoice": {
+    "nothing-selected": "Sélectionner un compte",
+    "all-accounts": "Tous les comptes"
+  },
+
+  "Confirmation": {
+    "cancel": "Annuler",
+    "ok": "OK"
+  },
+
+  "EditionModal": {
+    "ok": "OK",
+    "cancel": "Annuler",
+    "remove": "Supprimer"
   }
 }

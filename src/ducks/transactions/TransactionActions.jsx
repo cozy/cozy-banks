@@ -9,7 +9,7 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import palette from 'cozy-ui/react/palette'
+import palette from 'cozy-ui/transpiled/react/palette'
 import { findMatchingActions } from 'ducks/transactions/actions'
 import { TransactionActionsContext } from 'ducks/transactions/TransactionActionsContext'
 import withContext from 'components/withContext'
@@ -57,31 +57,35 @@ export const SyncTransactionActions = ({
   isModalItem,
   compact,
   className
-}) => (
-  <span className={className}>
-    {(displayDefaultAction || onlyDefault) && actions.default && (
-      <MenuAction
-        action={actions.default}
-        isDefault
-        transaction={transaction}
-        actionProps={actionProps}
-        menuPosition={menuPosition}
-        isModalItem={isModalItem}
-        compact={compact}
-      />
-    )}
-    {!onlyDefault &&
-      actions.others.map((action, index) => (
+}) => {
+  const Tag = isModalItem ? React.Fragment : 'span'
+  const childProps = !isModalItem ? { className } : null
+  return (
+    <Tag {...childProps}>
+      {(displayDefaultAction || onlyDefault) && actions.default && (
         <MenuAction
-          key={index}
-          action={action}
+          action={actions.default}
+          isDefault
           transaction={transaction}
           actionProps={actionProps}
+          menuPosition={menuPosition}
           isModalItem={isModalItem}
+          compact={compact}
         />
-      ))}
-  </span>
-)
+      )}
+      {!onlyDefault &&
+        actions.others.map((action, index) => (
+          <MenuAction
+            key={index}
+            action={action}
+            transaction={transaction}
+            actionProps={actionProps}
+            isModalItem={isModalItem}
+          />
+        ))}
+    </Tag>
+  )
+}
 
 class TransactionActions extends Component {
   state = {

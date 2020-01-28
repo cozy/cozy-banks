@@ -4,8 +4,11 @@ import {
   getAccountType,
   getAccountBalance,
   buildHealthReimbursementsVirtualAccount,
-  buildVirtualAccounts
+  buildVirtualAccounts,
+  addOwnerToAccount
 } from './helpers'
+import { CONTACT_DOCTYPE } from 'doctypes'
+import MockDate from 'mockdate'
 
 describe('getAccountUpdateDateDistance', () => {
   it('should return null if an argument is missing', () => {
@@ -104,6 +107,11 @@ describe('buildHealthReimbursementsVirtualAccount', () => {
       { manualCategoryId: '400610', amount: -10, date: '2018-01-02' },
       { manualCategoryId: '400470', amount: 10 }
     ]
+    MockDate.set(new Date('2019-04-08T00:00:00.000Z'))
+  })
+
+  afterEach(() => {
+    MockDate.reset()
   })
 
   it('should return a balance equals to 0 if no transactions', () => {
@@ -118,13 +126,17 @@ describe('buildHealthReimbursementsVirtualAccount', () => {
   })
 
   it('should take reimbursements into account', () => {
-    transactions[0].reimbursements = {
-      data: [{ amount: 5 }]
-    }
+    const virtualAccount = buildHealthReimbursementsVirtualAccount([
+      {
+        ...transactions[0],
+        reimbursements: {
+          data: [{ amount: 5 }]
+        }
+      },
+      ...transactions.slice(1)
+    ])
 
-    const virtualAccount = buildHealthReimbursementsVirtualAccount(transactions)
-
-    expect(virtualAccount.balance).toBe(35)
+    expect(virtualAccount.balance).toBe(30)
   })
 
   it('should return a well formed account', () => {
@@ -150,5 +162,41 @@ describe('buildVirtualAccounts', () => {
       a => a._id === 'health_reimbursements'
     )
     expect(healthReimbursementsAccount).toHaveLength(1)
+  })
+})
+
+describe('addOwnerToAccount', () => {
+  const owner = { _id: 'owner' }
+  const ownerRel = { _id: owner._id, _type: CONTACT_DOCTYPE }
+
+  describe('when the account is not already linked to the owner', () => {
+    it('should add the owner to the account', () => {
+      const otherOwner = { _id: 'otherowner', _type: CONTACT_DOCTYPE }
+      const account = {
+        relationships: {
+          owners: {
+            data: [otherOwner]
+          }
+        }
+      }
+
+      addOwnerToAccount(account, owner)
+      expect(account.relationships.owners.data).toEqual([otherOwner, ownerRel])
+    })
+  })
+
+  describe('when the account is already linked to the owner', () => {
+    it('should not add the owner to the account', () => {
+      const account = {
+        relationships: {
+          owners: {
+            data: [ownerRel]
+          }
+        }
+      }
+
+      addOwnerToAccount(account, owner)
+      expect(account.relationships.owners.data).toEqual([ownerRel])
+    })
   })
 })

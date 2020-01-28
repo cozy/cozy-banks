@@ -11,18 +11,11 @@ module.exports = {
       'cozy-ui/react': 'cozy-ui/transpiled/react'
     }
   },
-  module: {
-    rules: []
-  },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env.USE_REACT': 'true',
-    }),
     new webpack.LoaderOptionsPlugin({
       options: {
         stylus: {
-          use: [require('cozy-ui/stylus')()],
-          import: []
+          use: [require('cozy-ui/stylus')()]
         }
       }
     })

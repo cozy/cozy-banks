@@ -54,6 +54,7 @@
     window.onerror = handleError
   </script>
 </head>
+<body>
 <div
   role="application"
   <% if (__TARGET__ !== 'mobile') { %>
@@ -66,6 +67,7 @@
   data-cozy-icon-path="{{.IconPath}}"
   data-cozy-tracking="{{.Tracking}}"
   data-cozy-app-slug="{{.AppSlug}}"
+  data-cozy-subdomain-type="{{.SubDomain}}"
   <% } %>
 ></div>
 <% if (__TARGET__ === 'mobile') { %>
@@ -74,3 +76,5 @@
 <%  if (__STACK_ASSETS__ || (__DEV__ && __TARGET__ !== 'mobile')) { %>
 <script src="//{{.Domain}}/assets/js/piwik.js" async></script>
 <% } %>
+</body>
+</html>

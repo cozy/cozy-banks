@@ -123,8 +123,7 @@
   {
     "name": "Deezer",
     "regexp": "\\bdeezer\\b",
-    "konnectorSlug": "deezer",
-    "maintenance": true
+    "konnectorSlug": "deezer"
   },
   {
     "name": "Deliveroo",
@@ -191,7 +190,7 @@
     "health": true
   },
   {
-    "name": "Harmonie Mutuelle",
+    "name": "Harmonie",
     "regexp": "\\bharmonie\\b",
     "konnectorSlug": "harmonie",
     "health": true
@@ -199,7 +198,7 @@
   {
     "name": "Humanis",
     "regexp": "\\bhumanis\\b",
-    "konnectorSlug": "\\bhumanis\\b",
+    "konnectorSlug": "humanis",
     "health": true
   },
   {

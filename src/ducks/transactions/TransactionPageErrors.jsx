@@ -1,10 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import compose from 'lodash/flowRight'
 import sortBy from 'lodash/sortBy'
 import get from 'lodash/get'
 import keyBy from 'lodash/keyBy'
 import mapValues from 'lodash/mapValues'
+import { getFilteredAccounts } from 'ducks/filters'
 
 import CozyClient, { queryConnect } from 'cozy-client'
 
@@ -15,6 +17,22 @@ import TriggerErrorCard from 'ducks/transactions/TriggerErrorCard'
 import flag from 'cozy-flags'
 
 const getCreatedByApp = acc => get(acc, 'cozyMetadata.createdByApp')
+
+const isActionableError = trigger => {
+  const actionableErrors = [
+    'CHALLENGE_ASKED',
+    'DISK_QUOTA_EXCEEDED',
+    'TERMS_VERSION_MISMATCH',
+    'USER_ACTION_NEEDED',
+    'USER_ACTION_NEEDED.CHANGE_PASSWORD',
+    'USER_ACTION_NEEDED.ACCOUNT_REMOVED',
+    'USER_ACTION_NEEDED.WEBAUTH_REQUIRED',
+    'USER_ACTION_NEEDED.SCA_REQUIRED',
+    'LOGIN_FAILED'
+  ]
+
+  return actionableErrors.includes(trigger.current_state.last_error)
+}
 
 /**
  * Returns
@@ -34,6 +52,7 @@ export const getDerivedData = ({ triggerCol, accounts }) => {
     triggers
       .filter(isBankTrigger)
       .filter(isErrored)
+      .filter(isActionableError)
       .filter(tr => konnectorToAccounts[tr.message.konnector]),
     tr => tr.message.konnector
   )
@@ -55,7 +74,7 @@ const TransactionPageErrors = props => {
         }
       : null
 
-  if (flag('demo')) {
+  if (flag('demo') || !flag('transactions.error-banner')) {
     return null
   }
 
@@ -83,6 +102,9 @@ TransactionPageErrors.propTypes = {
 export const DumbTransactionPageErrors = TransactionPageErrors
 
 export default compose(
+  connect(state => ({
+    accounts: getFilteredAccounts(state)
+  })),
   queryConnect({
     triggerCol: {
       ...triggersConn,

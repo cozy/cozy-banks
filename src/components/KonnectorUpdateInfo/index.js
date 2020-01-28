@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from 'components/KonnectorUpdateInfo/styles.styl'
-import { translate } from 'cozy-ui/react'
-import { withClient } from 'cozy-client'
+import { useI18n } from 'cozy-ui/transpiled/react'
+import { withClient, Q } from 'cozy-client'
 import { flowRight as compose } from 'lodash'
 import { queryConnect } from 'cozy-client'
 import { KONNECTOR_DOCTYPE } from 'doctypes'
@@ -27,12 +27,8 @@ const redirectionOptions = {
   pendingUpdate: true
 }
 
-const KonnectorUpdateInfo = ({
-  t,
-  outdatedKonnectors,
-  client,
-  breakpoints
-}) => {
+const KonnectorUpdateInfo = ({ outdatedKonnectors, client, breakpoints }) => {
+  const { t } = useI18n()
   const url = useRedirectionURL(client, APP_DOCTYPE, redirectionOptions)
 
   if (!url || isCollectionLoading(outdatedKonnectors)) {
@@ -80,16 +76,13 @@ const KonnectorUpdateInfo = ({
 }
 
 const outdatedKonnectors = {
-  query: client =>
-    client
-      .all(KONNECTOR_DOCTYPE)
-      .where({ available_version: { $exists: true } }),
+  query: () =>
+    Q(KONNECTOR_DOCTYPE).where({ available_version: { $exists: true } }),
   fetchPolicy: CozyClient.fetchPolicies.olderThan(30 * 1000),
   as: 'outdatedKonnectors'
 }
 
 export default compose(
-  translate(),
   withClient,
   queryConnect({
     outdatedKonnectors

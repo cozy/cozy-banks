@@ -1,19 +1,24 @@
 import React from 'react'
-import Icon from 'cozy-ui/react/Icon'
-import Chip from 'cozy-ui/react/Chip'
-import Alerter from 'cozy-ui/react/Alerter'
+import { connect } from 'react-redux'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import Chip from 'cozy-ui/transpiled/react/Chip'
+import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import {
   getReimbursementStatus,
-  isReimbursementLate
+  isReimbursementLate,
+  REIMBURSEMENTS_STATUS
 } from 'ducks/transactions/helpers'
-import { TransactionModalRow } from 'ducks/transactions/TransactionModal'
+import TransactionModalRow, {
+  RowArrow
+} from 'ducks/transactions/TransactionModalRow'
 import ReimbursementStatusModal from 'ducks/transactions/actions/ReimbursementStatusAction/ReimbursementStatusModal'
 import iconReimbursement from 'assets/icons/icon-reimbursement.svg'
 import { logException } from 'lib/sentry'
 import cx from 'classnames'
-import { translate } from 'cozy-ui/react'
+import { translate } from 'cozy-ui/transpiled/react'
 import { flowRight as compose } from 'lodash'
 import { withMutations } from 'cozy-client'
+import { getHealthReimbursementLateLimitSelector } from 'ducks/reimbursements/selectors'
 
 export class DumbReimbursementStatusAction extends React.PureComponent {
   state = {
@@ -38,16 +43,20 @@ export class DumbReimbursementStatusAction extends React.PureComponent {
   }
 
   renderModalItem() {
-    const { t, transaction } = this.props
+    const { t, transaction, healthReimbursementLateLimit } = this.props
 
     const status = getReimbursementStatus(transaction)
-    const isLate = isReimbursementLate(transaction)
+    const isLate = isReimbursementLate(
+      transaction,
+      healthReimbursementLateLimit
+    )
     const translateKey = isLate ? 'late' : status
     const label = t(`Transactions.actions.reimbursementStatus.${translateKey}`)
 
     return (
       <TransactionModalRow
         iconLeft={<Icon icon={iconReimbursement} />}
+        iconRight={<RowArrow />}
         onClick={this.showModal}
       >
         {label}
@@ -56,12 +65,15 @@ export class DumbReimbursementStatusAction extends React.PureComponent {
   }
 
   renderTransactionRow() {
-    const { transaction, t } = this.props
+    const { transaction, t, healthReimbursementLateLimit } = this.props
 
     const status = getReimbursementStatus(transaction)
-    const isLate = isReimbursementLate(transaction)
+    const isLate = isReimbursementLate(
+      transaction,
+      healthReimbursementLateLimit
+    )
 
-    if (status === 'no-reimbursement') {
+    if (status === REIMBURSEMENTS_STATUS.noReimbursement) {
       return null
     }
 
@@ -109,7 +121,10 @@ export class DumbReimbursementStatusAction extends React.PureComponent {
 
 const ReimbursementStatusAction = compose(
   translate(),
-  withMutations()
+  withMutations(),
+  connect(state => ({
+    healthReimbursementLateLimit: getHealthReimbursementLateLimitSelector(state)
+  }))
 )(DumbReimbursementStatusAction)
 
 export default ReimbursementStatusAction

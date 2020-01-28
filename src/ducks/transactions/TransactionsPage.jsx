@@ -1,34 +1,29 @@
-/* global cozy */
-
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
-import { subMonths } from 'date-fns'
 import PropTypes from 'prop-types'
 
 import { isMobileApp } from 'cozy-device-helper'
-import { translate, withBreakpoints } from 'cozy-ui/react'
+import { translate, withBreakpoints } from 'cozy-ui/transpiled/react'
 
 import { flowRight as compose, isEqual, findIndex, uniq, maxBy } from 'lodash'
-import { getFilteredAccounts, getFilteringDoc } from 'ducks/filters'
-import BarBalance from 'components/BarBalance'
+import { getFilteringDoc } from 'ducks/filters'
 import { Padded } from 'components/Spacing'
 
 import {
   getTransactionsFilteredByAccount,
-  getFilteredAccountIds,
   getFilteredTransactions
 } from 'ducks/filters'
 
 import { getCategoryIdFromName } from 'ducks/categories/categoriesMap'
 import { getDate, getDisplayDate } from 'ducks/transactions/helpers'
-import { getCategoryId } from 'ducks/categories/helpers'
 
 import { queryConnect } from 'cozy-client'
 
 import Loading from 'components/Loading'
 import Delayed from 'components/Delayed'
-import { TransactionsWithSelection } from 'ducks/transactions/Transactions.jsx'
+import { TransactionList } from 'ducks/transactions/Transactions.jsx'
+import styles from 'ducks/transactions/TransactionsPage.styl'
 
 import {
   ACCOUNT_DOCTYPE,
@@ -39,26 +34,21 @@ import {
 } from 'doctypes'
 
 import TransactionHeader from 'ducks/transactions/TransactionHeader'
-import TransactionPageErrors from 'ducks/transactions/TransactionPageErrors'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { findNearestMonth } from 'ducks/transactions/helpers'
-import {
-  getBalanceHistories,
-  sumBalanceHistories,
-  balanceHistoryToChartData
-} from 'ducks/balance/helpers'
+
+import { getChartTransactions } from 'ducks/chart/selectors'
+
 import BarTheme from 'ducks/bar/BarTheme'
 import TransactionActionsProvider from 'ducks/transactions/TransactionActionsProvider'
 
-const { BarRight } = cozy.bar
+export const STEP_INFINITE_SCROLL = 30
+export const MIN_NB_TRANSACTIONS_SHOWN = 10
 
-const STEP_INFINITE_SCROLL = 30
 const SCROLL_THRESOLD_TO_ACTIVATE_TOP_INFINITE_SCROLL = 150
 const getMonth = date => date.slice(0, 7)
 
-const FakeTransactions = () => {
-  return <Padded>{null}</Padded>
-}
+const FakeTransactions = () => <Padded>{null}</Padded>
 
 class TransactionsPage extends Component {
   constructor(props) {
@@ -76,7 +66,6 @@ class TransactionsPage extends Component {
     )
 
     this.state = {
-      fetching: false,
       limitMin: 0,
       limitMax: STEP_INFINITE_SCROLL,
       infiniteScrollTop: false
@@ -92,23 +81,18 @@ class TransactionsPage extends Component {
     if (!mostRecentTransaction) {
       return
     }
-    this.setState({
-      currentMonth: getMonth(getDisplayDate(mostRecentTransaction))
-    })
+    const mostRecentMonth = getMonth(getDisplayDate(mostRecentTransaction))
+    this.handleChangeMonth(mostRecentMonth)
   }
 
   componentDidUpdate(prevProps) {
-    if (!isEqual(this.props.accountIds, prevProps.accountIds)) {
+    if (!isEqual(this.props.filteringDoc, prevProps.filteringDoc)) {
       this.setCurrentMonthFollowingMostRecentTransaction()
-    }
-    if (
+    } else if (
       isCollectionLoading(prevProps.transactions) &&
       !isCollectionLoading(this.props.transactions)
     ) {
       this.setCurrentMonthFollowingMostRecentTransaction()
-    }
-    if (prevProps.filteringDoc !== this.props.filteringDoc) {
-      this.handleChangeMonth(this.state.currentMonth)
     }
   }
 
@@ -140,6 +124,15 @@ class TransactionsPage extends Component {
     })
   }
 
+  /**
+   * Updates this.state after
+   *  - month change request from children
+   *  - filtering doc change
+   *
+   * - Updates limitMin/limitMax slicing the transactions array so that
+   *   we see only transactions for the selected month
+   * - Updates currentMonth to be `month`
+   */
   handleChangeMonth(month) {
     const transactions = this.props.filteredTransactions
     const findMonthIndex = month =>
@@ -166,7 +159,7 @@ class TransactionsPage extends Component {
     this.setState(
       {
         limitMin: limitMin,
-        limitMax: limitMin + 10,
+        limitMax: limitMin + MIN_NB_TRANSACTIONS_SHOWN,
         currentMonth: month,
         infiniteScrollTop: false
       },
@@ -200,15 +193,10 @@ class TransactionsPage extends Component {
         params: { subcategoryName }
       }
     } = this.props
-
-    if (!subcategoryName) {
-      return filteredTransactions
-    }
-
-    const categoryId = getCategoryIdFromName(subcategoryName)
-    return filteredTransactions.filter(
-      transaction => getCategoryId(transaction) === categoryId
-    )
+    const categoryId = subcategoryName
+      ? getCategoryIdFromName(subcategoryName)
+      : null
+    return getChartTransactions(filteredTransactions, categoryId)
   }
 
   getFilteringOnAccount = () => {
@@ -219,8 +207,16 @@ class TransactionsPage extends Component {
 
   renderTransactions() {
     const { limitMin, limitMax, infiniteScrollTop } = this.state
-    const { t } = this.props
+    const { t, transactions: transactionCol } = this.props
+    const isFetching =
+      isCollectionLoading(transactionCol) && !hasBeenLoaded(transactionCol)
+
+    if (isFetching) {
+      return <Loading loadingType="movements" />
+    }
+
     const transactions = this.getTransactions()
+    const isOnSubcategory = onSubcategory(this.props)
 
     if (transactions.length === 0) {
       return (
@@ -232,7 +228,8 @@ class TransactionsPage extends Component {
 
     return (
       <Delayed delay={0} fallback={<FakeTransactions />}>
-        <TransactionsWithSelection
+        <TransactionList
+          isOnSubcategory={isOnSubcategory}
           limitMin={limitMin}
           limitMax={limitMax}
           onReachTop={this.handleDecreaseLimitMin}
@@ -248,58 +245,16 @@ class TransactionsPage extends Component {
     )
   }
 
-  getBalanceHistory(accounts, transactions) {
-    const today = new Date()
-    const twoMonthsBefore = subMonths(today, 2)
-
-    const balanceHistories = getBalanceHistories(
-      accounts,
-      transactions,
-      today,
-      twoMonthsBefore
-    )
-    const balanceHistory = sumBalanceHistories(Object.values(balanceHistories))
-
-    return balanceHistory
-  }
-
-  getChartData() {
-    const { accounts: accountsCol, transactions: transactionsCol } = this.props
-    const isLoading =
-      (isCollectionLoading(transactionsCol) &&
-        !hasBeenLoaded(transactionsCol)) ||
-      (isCollectionLoading(accountsCol) && !hasBeenLoaded(accountsCol)) ||
-      this.state.fetching
-
-    if (isLoading) {
-      return null
-    }
-
-    const transactions = this.getTransactions()
-    const accounts = this.props.filteredAccounts
-
-    const history = this.getBalanceHistory(accounts, transactions)
-    const data = balanceHistoryToChartData(history)
-
-    return data
-  }
-
   render() {
     const {
       accounts,
-      transactions,
-      breakpoints: { isMobile },
-      filteredAccounts
+      breakpoints: { isMobile }
     } = this.props
 
-    const isFetching =
-      (isCollectionLoading(transactions) && !hasBeenLoaded(transactions)) ||
-      this.state.fetching
     const areAccountsLoading =
       isCollectionLoading(accounts) && !hasBeenLoaded(accounts)
     const filteredTransactions = this.getTransactions()
 
-    const chartData = this.getChartData()
     const isOnSubcategory = onSubcategory(this.props)
     const theme = 'primary'
     return (
@@ -309,47 +264,26 @@ class TransactionsPage extends Component {
           transactions={filteredTransactions}
           handleChangeMonth={this.handleChangeMonth}
           currentMonth={this.state.currentMonth}
-          chartData={chartData}
           showBackButton={this.props.showBackButton}
+          showBalance={isMobile && !areAccountsLoading && !isOnSubcategory}
         />
-        <TransactionPageErrors accounts={filteredAccounts} />
-        {isMobile && !areAccountsLoading && !isOnSubcategory && (
-          <TransactionsPageBar accounts={filteredAccounts} theme={theme} />
-        )}
-        {isFetching ? (
-          <Loading loadingType="movements" />
-        ) : (
-          this.renderTransactions()
-        )}
+        <div className={styles.TransactionPage__transactions}>
+          {this.renderTransactions()}
+        </div>
       </TransactionActionsProvider>
     )
   }
 }
 
-export const TransactionsPageBar = ({ accounts, theme }) => (
-  <BarRight>
-    <BarBalance accounts={accounts} theme={theme} />
-  </BarRight>
-)
-
 const onSubcategory = ownProps => ownProps.router.params.subcategoryName
 
 const mapStateToProps = (state, ownProps) => {
-  const enhancedState = {
-    ...state,
-    accounts: ownProps.accounts,
-    groups: ownProps.groups,
-    transactions: ownProps.transactions
-  }
-
   const filteredTransactions = onSubcategory(ownProps)
-    ? getFilteredTransactions(enhancedState)
-    : getTransactionsFilteredByAccount(enhancedState)
+    ? getFilteredTransactions(state, ownProps)
+    : getTransactionsFilteredByAccount(state)
 
   return {
-    accountIds: getFilteredAccountIds(enhancedState),
     filteringDoc: getFilteringDoc(state),
-    filteredAccounts: getFilteredAccounts(enhancedState),
     filteredTransactions: filteredTransactions
   }
 }
@@ -362,11 +296,11 @@ export const UnpluggedTransactionsPage = compose(
 )(TransactionsPage)
 
 UnpluggedTransactionsPage.propTypes = {
-  filteredTransactions: PropTypes.array.isRequired,
-  filteredAccounts: PropTypes.array.isRequired
+  filteredTransactions: PropTypes.array.isRequired
 }
 
 const ConnectedTransactionsPage = compose(
+  withRouter,
   queryConnect({
     accounts: accountsConn,
     groups: groupsConn,

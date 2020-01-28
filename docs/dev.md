@@ -13,12 +13,25 @@
 - [Release](#release)
   - [Start a release branch](#start-a-release-branch)
   - [Workflow](#workflow)
+  - [Mobile apps version codes](#mobile-apps-version-codes)
   - [Publish manually on the Cozy registry](#publish-manually-on-the-cozy-registry)
   - [Publish to mobile stores](#publish-to-mobile-stores)
+    - [Pre-requisites](#pre-requisites)
+    - [Fastlane](#fastlane)
+    - [iOS](#ios)
+      - [Signing](#signing)
+      - [Push iOS build](#push-ios-build)
+    - [Android](#android)
 - [Notifications](#notifications)
   - [How to develop on templates](#how-to-develop-on-templates)
+    - [Under the covers](#under-the-covers)
+    - [Assets](#assets)
   - [Debug notification triggers](#debug-notification-triggers)
   - [When creating a notification](#when-creating-a-notification)
+  - [End to end tests](#end-to-end-tests)
+    - [Alert rules](#alert-rules)
+      - [Automatic tests](#automatic-tests)
+      - [Manual insertion test](#manual-insertion-test)
   - [Misc](#misc)
 - [Pouch On Web](#pouch-on-web)
 - [Important credentials](#important-credentials)
@@ -120,9 +133,9 @@ $ yarn ios:run:emulator
 
 ```
 # Replace the host with your own host (find it with ifconfig)
-$ env DEV_SERVER_HOST=192.168.1.36 yarn build:mobile:hot
+$ env DEV_HOST=192.168.1.36 yarn build:mobile:hot
 $ yarn ios:run # at this point the app is blank since it cannot access the files from your host
-$ env DEV_SERVER_HOST=192.168.1.36 yarn watch:mobile:hot # launch a webpack-dev-server
+$ env DEV_HOST=192.168.1.36 yarn watch:mobile:hot # launch a webpack-dev-server
 ```
 
 ⚠️⚠️⚠️ If you watch a production build, you must edit the webpack config to have
@@ -207,6 +220,16 @@ yarn global add cordova@<same version as in package.json>
 ```
 yarn mobile:icon
 ```
+
+On iOS, if the given splashscreens are not to the resoution of the device, iOS
+falls back to compatibility mode and adds blacks bars to the top/bottom of the
+screen. This is particularly disgraceful on the iPhoneX which has an unusual screen
+shape.
+
+To fix this, we use a single splashscreen file and set XCode for it to use
+Cordova's launch screen functionality.
+
+`CozyBanks > Resources > Images.xcassets > LaunchStoryBoard > App icons and Launch images > LaunchScreenFile "CDVLaunchScreen"`
 
 - Install Ruby, Bundler and project dependencies
 
@@ -374,6 +397,55 @@ Then you can use [ACH] to import the fixtures :
 ```console
 ACH import test/fixtures/operations-notifs.json test/fixtures/helpers.js --url <instance_url>
 ```
+
+### End to end tests
+
+#### Alert rules
+
+##### Automatic tests
+
+Alert rules are tested with automatic tests that
+
+- Inserts data inside the local cozy-stack
+- Launches the onOperationOrBillCreate service
+- Checks on mailhog the emails received
+- Checks on a mock push server the push notifications received
+
+```
+$ export COZY_URL=http://cozy.tools:8080
+$ export COZY_CREDENTIALS=$(cozy-stack instances token-app cozy.tools:8080 banks)
+$ docker run -p 1025:1025 -p 8025:8025 mailhog/mailhog
+# Deactivate minification with minimize: false in webpack.optimize inside webpack.target.services.js
+$  env NODE_ENV=services:production yarn webpack --config webpack.config.js --bail --watch
+$ yarn test:e2e:alerts
+```
+
+At the moment, it needs to be launched on the computer of the developer but should
+be done on the CI in the future.
+
+⚠️ For push notifications tests to work, you need first to configure the stack so that
+it uses a fake server that will receive push notifications.
+
+- Add this to your [stack config file](https://docs.cozy.io/en/cozy-stack/config/):
+
+```
+notifications:
+   android_api_key: 'fake_android_api_key'
+   fcm_server: 'http://localhost:3001'
+```
+
+##### Manual insertion test
+
+To test on a real Cozy, a script can insert fake transactions on accounts corresponding
+to alerts, for the onOperationOrBillCreate service to be started.
+
+```
+# Insert fake transactions
+yarn test:e2e:alerts-existing-cozy --url https://mydemocozy.mycozy.cloud insert
+# Cleanup fake transactions
+yarn test:e2e:alerts-existing-cozy --url https://mydemocozy.mycozy.cloud cleanup
+```
+
 
 ### Misc
 

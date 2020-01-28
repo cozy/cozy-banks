@@ -6,6 +6,7 @@ import { includes, get } from 'lodash'
 const bankingSlug = [
   'axabanque102',
   'banquepopulaire',
+  'bankingconnectortest',
   'barclays136',
   'bforbank97',
   'bnpparibas82',
@@ -31,11 +32,19 @@ const bankingSlug = [
   'cdngroup109',
   'revolut',
   'societegenerale',
-  'n26'
+  'n26',
+  'banquecasino',
+  'cetelem',
+  'sofinco',
+  'oney'
 ]
 
+// TODO remove when https://github.com/cozy/cozy-client/pull/538
+// is merged
 export const isKonnectorTrigger = trigger => trigger.worker === 'konnector'
 
+// TODO remove when https://github.com/cozy/cozy-client/pull/538
+// is merged
 export const getKonnectorFromTrigger = trigger => {
   if (trigger.worker !== 'konnector') {
     return
@@ -50,6 +59,8 @@ export const getKonnectorFromTrigger = trigger => {
   }
 }
 
+// TODO remove when https://github.com/cozy/cozy-client/pull/538
+// is merged
 export const isErrored = trigger => {
   return trigger.current_state.status === 'errored'
 }

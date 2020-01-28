@@ -3,6 +3,21 @@
 import flag from 'cozy-flags'
 import { some } from 'lodash'
 
+/** Reset flags, keeping only those set to true */
+const garbageCollectFlags = () => {
+  const trueFlags = flag
+    .list()
+    .map(name => [name, flag(name)])
+    .filter(x => x[1])
+    .map(x => x[0])
+  flag.reset()
+  for (const trueFlag of trueFlags) {
+    flag(trueFlag, true)
+  }
+}
+
+garbageCollectFlags()
+
 if (__DEV__ && flag('switcher') === null) {
   flag('switcher', true)
 }
@@ -31,7 +46,15 @@ if (isDemoCozy()) {
   flag('demo', true)
 }
 
-// Turn on reimbursement tags + new CTAs UI
-flag('reimbursement-tag', true)
+// Turn on error banner on transactions page
+flag('transactions.error-banner', true)
+
+// Turn on loan details page
+flag('loan-details-page', true)
+
+// Turn on all flags related to owners
+flag('balance.show-owners', true)
+flag('settings.show-accounts-owners', true)
+flag('settings.new-account-details-page', true)
 
 window.flag = flag

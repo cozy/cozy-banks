@@ -1,7 +1,8 @@
 import React, { memo } from 'react'
 import { flowRight as compose } from 'lodash'
-import { translate, withBreakpoints } from 'cozy-ui/react'
+import { withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
 
+import { transactionsConn } from 'doctypes'
 import { Padded } from 'components/Spacing'
 import Header from 'components/Header'
 import { PageTitle } from 'components/Title'
@@ -9,18 +10,20 @@ import KonnectorUpdateInfo from 'components/KonnectorUpdateInfo'
 import History from 'ducks/balance/History'
 import HeaderTitle from 'ducks/balance/components/HeaderTitle'
 import Delayed from 'components/Delayed'
+import { queryConnect } from 'cozy-client'
+import flag from 'cozy-flags'
 
 import styles from 'ducks/balance/components/BalanceHeader.styl'
 
 const BalanceHeader = ({
-  t,
   breakpoints: { isMobile },
   accountsBalance,
   accounts,
   subtitleParams,
   onClickBalance,
-  transactionsCollection
+  transactions
 }) => {
+  const { t } = useI18n()
   const titlePaddedClass = isMobile ? 'u-p-0' : 'u-pb-0'
   const titleColor = isMobile ? 'primary' : 'default'
   const subtitle = subtitleParams
@@ -40,8 +43,12 @@ const BalanceHeader = ({
         onClickBalance={onClickBalance}
       />
       {accounts && (
-        <Delayed delay={1000}>
-          <History accounts={accounts} transactions={transactionsCollection} />
+        <Delayed delay={flag('balance.no-delay-history') ? 0 : 1000}>
+          <History
+            animation={!flag('balance.no-history-animation')}
+            accounts={accounts}
+            transactions={transactions}
+          />
         </Delayed>
       )}
       <KonnectorUpdateInfo />
@@ -53,6 +60,8 @@ export const DumbBalanceHeader = BalanceHeader
 
 export default compose(
   withBreakpoints(),
-  translate(),
-  memo
+  memo,
+  queryConnect({
+    transactions: transactionsConn
+  })
 )(BalanceHeader)

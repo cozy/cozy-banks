@@ -1,16 +1,17 @@
 /* global __VERSIONS__ */
 
-import React from 'react'
-import Checkbox from 'cozy-ui/react/Checkbox'
-import Button from 'cozy-ui/react/Button'
-import Alerter from 'cozy-ui/react/Alerter'
-import Stack from 'cozy-ui/react/Stack'
-import { Title as UITitle, SubTitle } from 'cozy-ui/react/Text'
+import React, { useState } from 'react'
+import Checkbox from 'cozy-ui/transpiled/react/Checkbox'
+import Button from 'cozy-ui/transpiled/react/Button'
+import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import Stack from 'cozy-ui/transpiled/react/Stack'
+import { Title as UITitle, SubTitle } from 'cozy-ui/transpiled/react/Text'
 import flag, { FlagSwitcher } from 'cozy-flags'
 import { withClient } from 'cozy-client'
 import { isMobileApp } from 'cozy-device-helper'
 import cx from 'classnames'
-import { getRegistrationToken } from 'ducks/mobile/push'
+import { getNotificationToken } from 'ducks/client/utils'
+import { pinSettingStorage, lastInteractionStorage } from 'ducks/pin/storage'
 
 const Title = ({ className, ...props }) => (
   <UITitle {...props} className={cx(className, 'u-mb-1')} />
@@ -31,22 +32,76 @@ const Versions = () => {
   )
 }
 
+const startAndWaitService = async (client, serviceName) => {
+  const jobs = client.collection('io.cozy.jobs')
+  const { data: job } = await jobs.create('service', {
+    name: serviceName,
+    slug: 'banks'
+  })
+  const finalJob = await jobs.waitFor(job.id)
+  if (finalJob.state === 'errored') {
+    Alerter.error(`Job finished with error. Error is ${finalJob.error}`)
+  } else if (finalJob.state === 'done') {
+    Alerter.success(`Job finished successfully`)
+  } else {
+    Alerter.error(`Job finished with state ${finalJob.state}`)
+  }
+  return finalJob
+}
+
+const ServiceButton = ({ name: serviceName, client }) => {
+  const [running, setRunning] = useState(false)
+  const startService = async () => {
+    try {
+      setRunning(true)
+      await startAndWaitService(client, serviceName)
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error(e)
+      Alerter.error(`Something wrong happened, see console.`)
+    } finally {
+      setRunning(false)
+    }
+  }
+  return (
+    <Button
+      busy={running}
+      label={`Run ${serviceName} service`}
+      onClick={() => startService(serviceName)}
+    />
+  )
+}
+
+const DeviceToken = ({ client }) => {
+  const notificationToken = getNotificationToken(client)
+  return (
+    <>
+      <SubTitle>Device token</SubTitle>
+      <p>
+        {notificationToken
+          ? notificationToken
+          : '⚠️ Cannot receive notifications'}
+      </p>
+    </>
+  )
+}
+
 class DumbDebugSettings extends React.PureComponent {
   toggleNoAccount() {
-    const noAccountValue = !flag('no-account')
+    const noAccountValue = !flag('balance.no-account')
 
-    flag('no-account', noAccountValue)
+    flag('balance.no-account', noAccountValue)
     if (noAccountValue) {
-      flag('account-loading', false)
+      flag('balance.account-loading', false)
     }
   }
 
   toggleAccountsLoading() {
-    const accountLoadingValue = !flag('account-loading')
+    const accountLoadingValue = !flag('balance.account-loading')
 
-    flag('account-loading', accountLoadingValue)
+    flag('balance.account-loading', accountLoadingValue)
     if (accountLoadingValue) {
-      flag('no-account', false)
+      flag('balance.no-account', false)
     }
   }
 
@@ -61,7 +116,7 @@ class DumbDebugSettings extends React.PureComponent {
             category: 'transaction-greater',
             title: 'Test notification',
             message: 'This is a test notification message',
-            preferred_channels: ['mail', 'mobile'],
+            preferred_channels: ['mobile', 'mail'],
             content: 'This is a test notification text content',
             content_html: 'This is a test notification HTML content'
           }
@@ -75,8 +130,8 @@ class DumbDebugSettings extends React.PureComponent {
   }
 
   render() {
-    const noAccountChecked = !!flag('no-account')
-    const accountLoadingChecked = !!flag('account-loading')
+    const noAccountChecked = !!flag('balance.no-account')
+    const accountLoadingChecked = !!flag('balance.account-loading')
 
     const { client } = this.props
 
@@ -98,7 +153,7 @@ class DumbDebugSettings extends React.PureComponent {
         <div>
           <Title>Client info</Title>
           <SubTitle>URI</SubTitle>
-          <p>{this.props.client.stackClient.uri}</p>
+          <p>{client.stackClient.uri}</p>
           {client.stackClient.oauthOptions ? (
             <>
               <SubTitle>OAuth document id</SubTitle>
@@ -108,20 +163,32 @@ class DumbDebugSettings extends React.PureComponent {
         </div>
         <div>
           <Title>Notifications</Title>
-          {isMobileApp() ? (
-            <>
-              <SubTitle>Device token</SubTitle>
-              <p>{getRegistrationToken(client)}</p>
-            </>
-          ) : null}
+          {isMobileApp() ? <DeviceToken client={client} /> : null}
           <Button
             label="Send notification"
             onClick={() => this.sendNotification()}
           />
         </div>
         <div>
+          <Title>Services</Title>
+          <ServiceButton client={client} name="autogroups" />
+          <ServiceButton client={client} name="stats" />
+          <ServiceButton client={client} name="categorization" />
+          <ServiceButton client={client} name="onOperationOrBillCreate" />
+          <ServiceButton client={client} name="budgetAlerts" />
+        </div>
+        <div>
           <Title>Flags</Title>
           <FlagSwitcher.List />
+        </div>
+        <div>
+          <Title>Pin</Title>
+          Setting doc cache
+          <br />
+          <pre>{JSON.stringify(pinSettingStorage.load(), null, 2)}</pre>
+          Last interaction cache
+          <br />
+          <pre>{JSON.stringify(lastInteractionStorage.load(), null, 2)}</pre>
         </div>
         <Versions />
       </Stack>

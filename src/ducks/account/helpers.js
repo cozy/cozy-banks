@@ -1,14 +1,22 @@
-import { get, sumBy, overEvery, flowRight as compose } from 'lodash'
+import {
+  get,
+  sumBy,
+  overEvery,
+  flowRight as compose,
+  set,
+  uniqBy,
+  flatten
+} from 'lodash'
 import {
   getDate,
-  getReimbursedAmount,
+  getReimbursedAmount as getTransactionReimbursedAmount,
   hasPendingReimbursement
 } from 'ducks/transactions/helpers'
 import { isHealthExpense } from 'ducks/categories/helpers'
-import { differenceInCalendarDays, isThisYear } from 'date-fns'
+import { differenceInCalendarDays, isAfter, subMonths } from 'date-fns'
 import flag from 'cozy-flags'
 import { BankAccount } from 'cozy-doctypes'
-import { ACCOUNT_DOCTYPE } from 'doctypes'
+import { ACCOUNT_DOCTYPE, CONTACT_DOCTYPE } from 'doctypes'
 
 const PARTS_TO_DELETE = ['(sans Secure Key)']
 
@@ -65,31 +73,31 @@ export const accountTypesWithTranslation = [
   'Savings'
 ]
 
-export const getAccountType = account => {
-  const accountTypesMap = {
-    Article83: 'LongTermSavings',
-    Asset: 'Business',
-    Bank: 'Checkings',
-    Capitalisation: 'Business',
-    Cash: 'Checkings',
-    ConsumerCredit: 'Loan',
-    'Credit card': 'CreditCard',
-    Deposit: 'Checkings',
-    Liability: 'Business',
-    LifeInsurance: 'LongTermSavings',
-    Madelin: 'LongTermSavings',
-    Market: 'LongTermSavings',
-    Mortgage: 'LongTermSavings',
-    None: 'Other',
-    PEA: 'LongTermSavings',
-    PEE: 'LongTermSavings',
-    Perco: 'LongTermSavings',
-    Perp: 'LongTermSavings',
-    RevolvingCredit: 'Loan',
-    RSP: 'LongTermSavings',
-    Unkown: 'Other'
-  }
+const accountTypesMap = {
+  Article83: 'LongTermSavings',
+  Asset: 'Business',
+  Bank: 'Checkings',
+  Capitalisation: 'Business',
+  Cash: 'Checkings',
+  ConsumerCredit: 'Loan',
+  'Credit card': 'CreditCard',
+  Deposit: 'Checkings',
+  Liability: 'Business',
+  LifeInsurance: 'LongTermSavings',
+  Madelin: 'LongTermSavings',
+  Market: 'LongTermSavings',
+  Mortgage: 'LongTermSavings',
+  None: 'Other',
+  PEA: 'LongTermSavings',
+  PEE: 'LongTermSavings',
+  Perco: 'LongTermSavings',
+  Perp: 'LongTermSavings',
+  RevolvingCredit: 'Loan',
+  RSP: 'LongTermSavings',
+  Unkown: 'Other'
+}
 
+export const getAccountType = account => {
   const mappedType = accountTypesMap[account.type] || account.type || 'Other'
   const type = accountTypesWithTranslation.includes(mappedType)
     ? mappedType
@@ -126,22 +134,27 @@ export const getAccountUpdatedAt = account => {
   }
 }
 
+const isWithin6Months = () => {
+  const SIX_MONTHS_AGO = subMonths(new Date(), 6)
+  return date => isAfter(date, SIX_MONTHS_AGO)
+}
+
 export const buildHealthReimbursementsVirtualAccount = transactions => {
   const healthExpensesFilter = overEvery(
     [
       isHealthExpense,
       compose(
-        isThisYear,
+        isWithin6Months(),
         getDate
       ),
-      flag('reimbursement-tag') && hasPendingReimbursement
+      hasPendingReimbursement
     ].filter(Boolean)
   )
 
   const healthExpenses = transactions.filter(healthExpensesFilter)
 
   const balance = sumBy(healthExpenses, expense => {
-    const reimbursedAmount = getReimbursedAmount(expense)
+    const reimbursedAmount = getTransactionReimbursedAmount(expense)
     return -expense.amount - reimbursedAmount
   })
 
@@ -165,3 +178,54 @@ export const buildVirtualAccounts = transactions => {
 export const isHealthReimbursementsAccount = account => {
   return account._id === 'health_reimbursements' && account.virtual
 }
+
+export const getReimbursedAmount = account => {
+  const borrowedAmount = getBorrowedAmount(account)
+  const remainingAmount = getRemainingAmount(account)
+
+  return borrowedAmount - remainingAmount
+}
+
+export const getReimbursedPercentage = account => {
+  const reimbursedAmount = getReimbursedAmount(account)
+  const borrowedAmount = getBorrowedAmount(account)
+  const percentage = (reimbursedAmount / borrowedAmount) * 100
+
+  return percentage
+}
+
+export const getBorrowedAmount = account => {
+  return get(account, 'loan.usedAmount') || get(account, 'loan.totalAmount')
+}
+
+export const getRemainingAmount = account => {
+  return Math.abs(account.balance)
+}
+
+export const addOwnerToAccount = (account, owner) => {
+  const currentOwners = get(account, 'relationships.owners.data', [])
+  const newOwners = uniqBy(
+    [...currentOwners, { _id: owner._id, _type: CONTACT_DOCTYPE }],
+    o => o._id
+  )
+
+  set(account, 'relationships.owners.data', newOwners)
+
+  return account
+}
+
+export const getAccountOwners = account => {
+  return get(account, 'owners.data', []).filter(Boolean)
+}
+
+export const getUniqueOwners = accounts => {
+  const allOwners = flatten(accounts.map(getAccountOwners))
+  const uniqOwners = uniqBy(allOwners, owner => owner._id)
+
+  return uniqOwners
+}
+
+export const isCreditCardAccount = account =>
+  getAccountType(account) === 'CreditCard'
+export const isCheckingsAccount = account =>
+  getAccountType(account) === 'Checkings'

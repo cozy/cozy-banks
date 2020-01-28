@@ -1,9 +1,10 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import CozyClient, { queryConnect } from 'cozy-client'
-import { withBreakpoints, translate } from 'cozy-ui/react'
+import CozyClient, { queryConnect, withClient } from 'cozy-client'
+import { withBreakpoints, translate, useI18n } from 'cozy-ui/transpiled/react'
 import flag from 'cozy-flags'
-import Icon from 'cozy-ui/react/Icon'
+import Icon from 'cozy-ui/transpiled/react/Icon'
 import cx from 'classnames'
 import { get, flowRight as compose } from 'lodash'
 import Switch from 'components/Switch'
@@ -15,11 +16,13 @@ import {
   getAccountBalance,
   isHealthReimbursementsAccount
 } from 'ducks/account/helpers'
+import { getWarningLimitPerAccount } from 'selectors'
 import styles from 'ducks/balance/components/AccountRow.styl'
 import { HealthReimbursementsIcon } from 'ducks/balance/components/HealthReimbursementsIcon'
 import AccountIcon from 'components/AccountIcon'
 import { triggersConn } from 'doctypes'
 import { isErrored } from 'utils/triggers'
+import { Contact } from 'cozy-doctypes'
 
 const UpdatedAt = React.memo(function UpdatedAt({ account, t }) {
   const updatedAt = getAccountUpdatedAt(account)
@@ -56,13 +59,85 @@ const Number = React.memo(function Number({ account }) {
   )
 })
 
+const Owners = React.memo(function Owners(props) {
+  const { owners, ...rest } = props
+
+  return (
+    <div {...rest}>
+      <Icon
+        icon={owners.length > 1 ? 'team' : 'people'}
+        size={10}
+        className={styles.AccountRow__ownersIcon}
+      />
+      {owners.map(Contact.getDisplayName).join(' - ')}
+    </div>
+  )
+})
+
+const OwnersColumn = props => {
+  const { owners, ...rest } = props
+
+  return (
+    <div
+      className={cx(
+        styles.AccountRow__column,
+        styles['AccountRow__column--secondary']
+      )}
+      {...rest}
+    >
+      {owners && owners.length > 0 ? <Owners owners={owners} /> : null}
+    </div>
+  )
+}
+
+const AccountRowSubText = ({ className, children, ...rest }) => {
+  return (
+    <div className={cx(styles.AccountRow__subText, className)} {...rest}>
+      {children}
+    </div>
+  )
+}
+
+const DumbAccountCaption = props => {
+  const { t } = useI18n()
+  const { triggersCol, account, className, ...rest } = props
+
+  if (isHealthReimbursementsAccount(account)) {
+    return (
+      <AccountRowSubText className={className} {...rest}>
+        {t('Balance.health-reimbursements-caption')}
+      </AccountRowSubText>
+    )
+  }
+
+  const triggers = triggersCol.data
+  const failedTrigger = triggers.find(
+    x =>
+      isErrored(x.attributes) &&
+      get(x, 'attributes.message.konnector') ===
+        get(account, 'cozyMetadata.createdByApp')
+  )
+
+  return (
+    <AccountRowSubText className={className} {...rest}>
+      {failedTrigger && !flag('demo') && flag('balance-account-errors') ? (
+        <FailedTriggerMessage trigger={failedTrigger} />
+      ) : (
+        <UpdatedAt account={account} t={t} />
+      )}
+    </AccountRowSubText>
+  )
+}
+
+const AccountCaption = React.memo(DumbAccountCaption)
+
 class AccountRow extends React.PureComponent {
   static propTypes = {
     account: PropTypes.object.isRequired,
     onClick: PropTypes.func.isRequired,
     breakpoints: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired,
-    warningLimit: PropTypes.number.isRequired,
+    hasWarning: PropTypes.bool.isRequired,
     checked: PropTypes.bool.isRequired,
     disabled: PropTypes.bool.isRequired,
     onSwitchChange: PropTypes.func.isRequired,
@@ -79,25 +154,25 @@ class AccountRow extends React.PureComponent {
       onClick,
       breakpoints: { isMobile },
       t,
-      warningLimit,
+      hasWarning,
       checked,
       disabled,
       onSwitchChange,
       id,
-      triggerCol
+      triggersCol
     } = this.props
 
-    const hasWarning = account.balance < warningLimit
+    const owners = account.owners.data
+      .filter(Boolean)
+      .filter(owner => !owner.me)
+
+    const shouldShowOwners = owners.length > 0
+
     const hasAlert = account.balance < 0
     const isHealthReimbursements = isHealthReimbursementsAccount(account)
-    const { data: triggers } = triggerCol
-    const failedTrigger = triggers.find(
-      x =>
-        isErrored(x.attributes) &&
-        get(x, 'attributes.message.konnector') ===
-          get(account, 'cozyMetadata.createdByApp')
-    )
     const accountLabel = getAccountLabel(account)
+
+    const showUpdatedAtOutside = isMobile && shouldShowOwners
 
     return (
       <li
@@ -105,64 +180,75 @@ class AccountRow extends React.PureComponent {
           [styles['AccountRow--hasWarning']]: hasWarning,
           [styles['AccountRow--hasAlert']]: hasAlert,
           [styles['AccountRow--disabled']]:
-            (!checked || disabled) && account.loading !== true
+            (!checked || disabled) && account.loading !== true,
+          [styles['AccountRow--withOwners']]: shouldShowOwners
         })}
         onClick={onClick}
       >
-        <div className={styles.AccountRow__column}>
-          <div className={styles.AccountRow__logo}>
-            <AccountIcon account={account} />
-            {isHealthReimbursements && <HealthReimbursementsIcon />}
-          </div>
-
-          <div className={styles.AccountRow__labelWrapper}>
-            <div className={styles.AccountRow__label}>
-              {account.virtual ? t(accountLabel) : accountLabel}
+        <div className={styles.AccountRow__mainLine}>
+          <div className={styles.AccountRow__column}>
+            <div className={styles.AccountRow__logo}>
+              <AccountIcon account={account} />
+              {isHealthReimbursements && <HealthReimbursementsIcon />}
             </div>
-            <div className={styles.AccountRow__subText}>
-              {failedTrigger && !flag('demo') ? (
-                <FailedTriggerMessage trigger={failedTrigger} />
-              ) : (
-                <UpdatedAt account={account} t={t} />
+
+            <div className={styles.AccountRow__labelWrapper}>
+              <div className={styles.AccountRow__label}>
+                {account.virtual ? t(accountLabel) : accountLabel}
+              </div>
+              {shouldShowOwners && isMobile && (
+                <Owners
+                  className={styles.AccountRow__subText}
+                  owners={owners}
+                />
+              )}
+              {!showUpdatedAtOutside && (
+                <AccountCaption triggersCol={triggersCol} account={account} />
               )}
             </div>
           </div>
-        </div>
-        {!isMobile && account.number && <Number account={account} />}
-        {!isMobile && (
+          {!isMobile && <OwnersColumn owners={owners} />}
+          {!isMobile && account.number && <Number account={account} />}
+          {!isMobile && (
+            <div
+              className={cx(
+                styles.AccountRow__column,
+                styles['AccountRow__column--secondary']
+              )}
+            >
+              {getAccountInstitutionLabel(account)}
+            </div>
+          )}
           <div
             className={cx(
               styles.AccountRow__column,
-              styles['AccountRow__column--secondary']
+              styles.AccountRow__figureSwitchWrapper
             )}
           >
-            {getAccountInstitutionLabel(account)}
+            <Figure
+              symbol="€"
+              total={getAccountBalance(account)}
+              className={cx(styles.AccountRow__figure)}
+              totalClassName={styles.AccountRow__figure}
+              currencyClassName={styles.AccountRow__figure}
+            />
+            {/* color: Do not deactivate interactions with the button,
+            only color it to look disabled */}
+            <Switch
+              disableRipple
+              checked={checked}
+              color={disabled ? 'default' : 'primary'}
+              onClick={this.handleSwitchClick}
+              id={id}
+              onChange={onSwitchChange}
+            />
+          </div>
+        </div>
+        {showUpdatedAtOutside && (
+          <div className={styles.AccountRow__subLine}>
+            <AccountCaption triggersCol={triggersCol} account={account} />
           </div>
         )}
-        <div
-          className={cx(
-            styles.AccountRow__column,
-            styles.AccountRow__figureSwitchWrapper
-          )}
-        >
-          <Figure
-            symbol="€"
-            total={getAccountBalance(account)}
-            className={cx(styles.AccountRow__figure)}
-            totalClassName={styles.AccountRow__figure}
-            currencyClassName={styles.AccountRow__figure}
-          />
-          {/* color: Do not deactivate interactions with the button,
-            only color it to look disabled */}
-          <Switch
-            disableRipple
-            checked={checked}
-            color={disabled ? 'default' : 'primary'}
-            onClick={this.handleSwitchClick}
-            id={id}
-            onChange={onSwitchChange}
-          />
-        </div>
       </li>
     )
   }
@@ -170,12 +256,20 @@ class AccountRow extends React.PureComponent {
 
 export default compose(
   queryConnect({
-    triggerCol: {
+    triggersCol: {
       ...triggersConn,
       fetchPolicy: CozyClient.fetchPolicies.noFetch
     }
   }),
+  connect((state, { account }) => {
+    const warningLimits = getWarningLimitPerAccount(state)
+    const accountLimit = warningLimits[account._id]
+    return {
+      hasWarning: accountLimit ? accountLimit > account.balance : false
+    }
+  }),
   withBreakpoints(),
   translate(),
-  React.memo
+  React.memo,
+  withClient
 )(AccountRow)

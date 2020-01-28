@@ -1,17 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { withClient } from 'cozy-client'
 import { sortBy, flowRight as compose } from 'lodash'
 import { withRouter } from 'react-router'
 import withFilters from 'components/withFilters'
 import AccountRow from 'ducks/balance/components/AccountRow'
 import styles from 'ducks/balance/components/AccountsList.styl'
-import { getAccountBalance, getAccountType } from 'ducks/account/helpers'
+import { getAccountBalance } from 'ducks/account/helpers'
 import AccountRowLoading from 'ducks/balance/components/AccountRowLoading'
+import { connect } from 'react-redux'
+import { getHydratedAccountsFromGroup } from 'selectors'
 
 class AccountsList extends React.PureComponent {
   static propTypes = {
     group: PropTypes.object.isRequired,
-    warningLimit: PropTypes.number.isRequired,
     switches: PropTypes.object.isRequired,
     onSwitchChange: PropTypes.func
   }
@@ -20,27 +22,21 @@ class AccountsList extends React.PureComponent {
     onSwitchChange: undefined
   }
 
-  goToTransactionsFilteredByDoc = account => () => {
+  goToAccountsDetails = account => () => {
     const { filterByDoc, router } = this.props
 
     filterByDoc(account)
-
-    const isReimbursementsType = getAccountType(account) === 'Reimbursements'
-    const route = isReimbursementsType
-      ? '/balances/reimbursements'
-      : '/balances/details'
-
-    router.push(route)
+    router.push('/balances/details')
   }
 
   render() {
-    const { group, warningLimit, switches, onSwitchChange } = this.props
-    const accounts = group.accounts.data || []
+    const { group, accounts, switches, onSwitchChange } = this.props
 
     return (
       <ol className={styles.AccountsList}>
-        {sortBy(accounts.filter(Boolean), getAccountBalance).map((a, i) =>
-          a.loading ? (
+        {sortBy(accounts.filter(Boolean), getAccountBalance).map((a, i) => {
+          const switchState = switches[a._id]
+          return a.loading ? (
             // When loading, a._id is the slug of the connector and can be non-unique, this is why we concat the index
             <AccountRowLoading
               key={i + '_' + a._id}
@@ -53,15 +49,14 @@ class AccountsList extends React.PureComponent {
               key={a._id}
               account={a}
               group={group}
-              onClick={this.goToTransactionsFilteredByDoc(a)}
-              warningLimit={warningLimit}
-              checked={switches[a._id].checked}
-              disabled={switches[a._id].disabled}
+              onClick={this.goToAccountsDetails(a)}
+              checked={switchState.checked}
+              disabled={switchState.disabled}
               id={`${group._id}.accounts.${a._id}`}
               onSwitchChange={onSwitchChange}
             />
           )
-        )}
+        })}
       </ol>
     )
   }
@@ -69,5 +64,9 @@ class AccountsList extends React.PureComponent {
 
 export default compose(
   withFilters,
-  withRouter
+  withRouter,
+  withClient,
+  connect((state, { group, client }) => ({
+    accounts: getHydratedAccountsFromGroup(state, group, client)
+  }))
 )(AccountsList)

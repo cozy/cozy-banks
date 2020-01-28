@@ -3,25 +3,33 @@ import { flowRight as compose } from 'lodash'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { withRouter } from 'react-router'
+import { connect } from 'react-redux'
 
-import ExpansionPanel from 'cozy-ui/react/MuiCozyTheme/ExpansionPanel'
+import ExpansionPanel from 'cozy-ui/transpiled/react/MuiCozyTheme/ExpansionPanel'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import { withStyles } from '@material-ui/core/styles'
 
-import { translate } from 'cozy-ui/react'
-import Icon from 'cozy-ui/react/Icon'
-import { Caption } from 'cozy-ui/react/Text'
+import { translate } from 'cozy-ui/transpiled/react'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import { ButtonLink } from 'cozy-ui/transpiled/react/Button'
+import { Caption } from 'cozy-ui/transpiled/react/Text'
 import { Figure } from 'components/Figure'
 import Switch from 'components/Switch'
 import AccountsList from 'ducks/balance/components/AccountsList'
 import withFilters from 'components/withFilters'
-
-import { getGroupBalance } from 'ducks/balance/helpers'
+import Stack from 'cozy-ui/transpiled/react/Stack'
+import Text from 'cozy-ui/transpiled/react/Text'
+import {
+  getGroupBalance,
+  isReimbursementsVirtualGroup
+} from 'ducks/groups/helpers'
 import styles from 'ducks/balance/components/GroupPanel.styl'
+import { getLateHealthExpenses } from 'ducks/reimbursements/selectors'
+import { getSettings } from 'ducks/settings/selectors'
+import { getNotificationFromSettings } from 'ducks/settings/helpers'
 
-const GroupPanelSummary = withStyles(() => ({
-  expanded: {},
+const GroupPanelSummary = withStyles({
   root: {
     maxHeight: '3.5rem',
     height: '3.5rem'
@@ -31,6 +39,7 @@ const GroupPanelSummary = withStyles(() => ({
     paddingRight: '0',
     height: '100%'
   },
+  expanded: {},
   expandIcon: {
     left: '0.375rem',
     right: 'auto',
@@ -39,17 +48,11 @@ const GroupPanelSummary = withStyles(() => ({
       transform: 'translateY(-50%) rotate(0)'
     }
   }
-}))(ExpansionPanelSummary)
+})(ExpansionPanelSummary)
 
 const GroupPanelExpandIcon = React.memo(function GroupPanelExpandIcon() {
   return (
-    <span className="u-click-xl">
-      <Icon
-        icon="bottom"
-        className={styles.GroupPanelSummary__icon}
-        width={12}
-      />
-    </span>
+    <Icon icon="bottom" className={styles.GroupPanelSummary__icon} width={12} />
   )
 })
 
@@ -64,7 +67,6 @@ class GroupPanel extends React.PureComponent {
     group: PropTypes.object.isRequired,
     filterByDoc: PropTypes.func.isRequired,
     router: PropTypes.object.isRequired,
-    warningLimit: PropTypes.number.isRequired,
     switches: PropTypes.object,
     checked: PropTypes.bool,
     expanded: PropTypes.bool.isRequired,
@@ -79,17 +81,10 @@ class GroupPanel extends React.PureComponent {
     onChange: undefined
   }
 
-  goToTransactionsFilteredByDoc = () => {
+  goToGroupDetails = () => {
     const { group, filterByDoc, router } = this.props
     filterByDoc(group)
-
-    const isReimbursementsVirtualGroup =
-      group._id === 'Reimbursements' && group.virtual
-    const route = isReimbursementsVirtualGroup
-      ? '/balances/reimbursements'
-      : '/balances/details'
-
-    router.push(route)
+    router.push('/balances/details')
   }
 
   handleSummaryContentClick = e => {
@@ -97,7 +92,7 @@ class GroupPanel extends React.PureComponent {
 
     if (group.loading) return
     e.stopPropagation()
-    this.goToTransactionsFilteredByDoc()
+    this.goToGroupDetails()
   }
 
   handleSwitchClick = e => {
@@ -122,16 +117,17 @@ class GroupPanel extends React.PureComponent {
     const {
       group,
       groupLabel,
-      warningLimit,
       switches,
       onSwitchChange,
       checked,
       withBalance,
       t,
-      className
+      className,
+      groupPanelSummaryClasses
     } = this.props
 
-    const nbAccounts = group.accounts.data.length
+    const groupAccounts = group.accounts.data.filter(Boolean)
+    const nbAccounts = groupAccounts.length
     const nbCheckedAccounts = Object.values(switches).filter(s => s.checked)
       .length
     const uncheckedAccountsIds = Object.keys(switches).filter(
@@ -159,6 +155,7 @@ class GroupPanel extends React.PureComponent {
           className={cx({
             [styles['GroupPanelSummary--unchecked']]: !checked && isUncheckable
           })}
+          classes={groupPanelSummaryClasses}
         >
           <div className={styles.GroupPanelSummary__content}>
             <div
@@ -200,15 +197,50 @@ class GroupPanel extends React.PureComponent {
           </div>
         </GroupPanelSummary>
         <ExpansionPanelDetails>
-          <AccountsList
-            group={group}
-            warningLimit={warningLimit}
-            switches={switches}
-            onSwitchChange={onSwitchChange}
-          />
+          {groupAccounts && groupAccounts.length > 0 ? (
+            <AccountsList
+              group={group}
+              switches={switches}
+              onSwitchChange={onSwitchChange}
+            />
+          ) : (
+            <Stack className="u-m-1">
+              <Text>{t('Balance.no-accounts-in-group.description')}</Text>
+              <ButtonLink
+                className="u-ml-0"
+                href={`#/settings/groups/${group._id}`}
+              >
+                {t('Balance.no-accounts-in-group.button')}
+              </ButtonLink>
+            </Stack>
+          )}
         </ExpansionPanelDetails>
       </ExpansionPanel>
     )
+  }
+}
+
+export const getGroupPanelSummaryClasses = (group, state) => {
+  if (!isReimbursementsVirtualGroup(group)) {
+    return
+  }
+
+  const lateHealthExpenses = getLateHealthExpenses(state)
+  const hasLateHealthExpenses = lateHealthExpenses.length > 0
+  const settings = getSettings(state)
+  const lateHealthExpensesNotification = getNotificationFromSettings(
+    settings,
+    'lateHealthReimbursement'
+  )
+
+  if (
+    hasLateHealthExpenses &&
+    lateHealthExpensesNotification &&
+    lateHealthExpensesNotification.enabled
+  ) {
+    return {
+      content: styles['GroupPanelSummary--lateHealthReimbursements']
+    }
   }
 }
 
@@ -217,5 +249,8 @@ export const DumbGroupPanel = GroupPanel
 export default compose(
   withFilters,
   withRouter,
-  translate()
+  translate(),
+  connect((state, ownProps) => ({
+    groupPanelSummaryClasses: getGroupPanelSummaryClasses(ownProps.group, state)
+  }))
 )(GroupPanel)

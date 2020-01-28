@@ -2,10 +2,10 @@ import React, { Component, PureComponent } from 'react'
 import { withRouter } from 'react-router'
 import { sortBy, flowRight as compose } from 'lodash'
 import { Query, withMutations, withClient } from 'cozy-client'
-import { translate, withBreakpoints } from 'cozy-ui/react'
-import Button from 'cozy-ui/react/Button'
-import Toggle from 'cozy-ui/react/Toggle'
-import Alerter from 'cozy-ui/react/Alerter'
+import { translate, withBreakpoints } from 'cozy-ui/transpiled/react'
+import Button from 'cozy-ui/transpiled/react/Button'
+import Toggle from 'cozy-ui/transpiled/react/Toggle'
+import Alerter from 'cozy-ui/transpiled/react/Alerter'
 
 import { GROUP_DOCTYPE, accountsConn } from 'doctypes'
 import Loading from 'components/Loading'
@@ -15,6 +15,7 @@ import { PageTitle } from 'components/Title'
 import { Padded } from 'components/Spacing'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
 import { logException } from 'lib/sentry'
+import { getGroupLabel, renamedGroup } from 'ducks/groups/helpers'
 
 import styles from 'ducks/settings/GroupsSettings.styl'
 import btnStyles from 'styles/buttons.styl'
@@ -90,13 +91,18 @@ class _AccountsList extends PureComponent {
 
 const AccountsList = translate()(_AccountsList)
 
-class DumbGroupSettings extends Component {
+export class DumbGroupSettings extends Component {
   state = { modifying: false, saving: false }
-  rename = () => {
-    const { group } = this.props
+  handleRename = () => {
     const label = this.inputRef.value
+    this.rename(label)
+  }
+
+  rename(label) {
     this.setState({ saving: true })
-    this.updateOrCreate({ ...group, label }, () => {
+    const { group } = this.props
+    const updatedGroup = renamedGroup(group, label)
+    return this.updateOrCreate(updatedGroup, () => {
       this.setState({ saving: false, modifying: false })
     })
   }
@@ -165,7 +171,7 @@ class DumbGroupSettings extends Component {
         {isMobile && <BackButton to="/settings/groups" arrow />}
         <PageTitle>
           {!isMobile && <BackButton to="/settings/groups" arrow />}
-          {group.label}
+          {getGroupLabel(group, t)}
         </PageTitle>
 
         <h3>{t('Groups.label')}</h3>
@@ -175,13 +181,13 @@ class DumbGroupSettings extends Component {
         >
           <p>
             {!modifying ? (
-              group.label
+              getGroupLabel(group, t)
             ) : (
               <input
                 ref={this.saveInputRef}
                 autoFocus
                 type="text"
-                defaultValue={group.label}
+                defaultValue={getGroupLabel(group, t)}
               />
             )}
             {modifying ? (
@@ -189,7 +195,7 @@ class DumbGroupSettings extends Component {
                 className={styles['save-button']}
                 disabled={saving}
                 theme="regular"
-                onClick={this.rename}
+                onClick={this.handleRename}
                 label={t('Groups.save')}
                 busy={saving}
               />

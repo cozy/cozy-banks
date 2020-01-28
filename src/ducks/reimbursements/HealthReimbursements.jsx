@@ -2,17 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { queryConnect } from 'cozy-client'
 import { transactionsConn } from 'doctypes'
-import { flowRight as compose, sumBy, groupBy } from 'lodash'
-import flag from 'cozy-flags'
+import { flowRight as compose, sumBy } from 'lodash'
 import cx from 'classnames'
-import { getHealthExpensesByPeriod } from 'ducks/filters'
-import { TransactionsWithSelection } from 'ducks/transactions/Transactions'
-import {
-  isFullyReimbursed,
-  getReimbursementStatus
-} from 'ducks/transactions/helpers'
-import { translate } from 'cozy-ui/react'
-import { Title as BaseTitle } from 'cozy-ui/react/Text'
+import { TransactionList } from 'ducks/transactions/Transactions'
+import { translate } from 'cozy-ui/transpiled/react'
 import { Padded } from 'components/Spacing'
 import { Figure } from 'components/Figure'
 import styles from 'ducks/reimbursements/HealthReimbursements.styl'
@@ -25,6 +18,8 @@ import { getYear } from 'date-fns'
 import TransactionActionsProvider from 'ducks/transactions/TransactionActionsProvider'
 import withBrands from 'ducks/brandDictionary/withBrands'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
+import { getGroupedHealthExpensesByPeriod } from './selectors'
+import { getPeriod, parsePeriod } from 'ducks/filters'
 
 const Caption = props => {
   const { className, ...rest } = props
@@ -32,35 +27,21 @@ const Caption = props => {
   return <p className={cx(styles.Caption, className)} {...rest} />
 }
 
-const Title = props => {
-  const { className, ...rest } = props
-
-  return (
-    <BaseTitle
-      className={cx(styles.HealthReimbursements__title, className)}
-      {...rest}
-    />
-  )
-}
-
 export class DumbHealthReimbursements extends Component {
   componentDidMount() {
     this.props.addFilterByPeriod(getYear(new Date()).toString())
   }
 
-  getGroups() {
-    return groupBy(this.props.filteredTransactions, getReimbursementStatus)
-  }
-
   render() {
     const {
-      filteredTransactions,
+      groupedHealthExpenses,
       t,
+      f,
       triggers,
       transactions,
-      brands
+      brands,
+      currentPeriod
     } = this.props
-    const reimbursementTagFlag = flag('reimbursement-tag')
 
     if (
       (isCollectionLoading(transactions) && !hasBeenLoaded(transactions)) ||
@@ -69,87 +50,83 @@ export class DumbHealthReimbursements extends Component {
       return <Loading />
     }
 
-    // This grouping logic should be extracted to a selector, so this is
-    // easily memoizable
-    const groupedTransactions = groupBy(
-      filteredTransactions,
-      reimbursementTagFlag ? getReimbursementStatus : isFullyReimbursed
-    )
-
-    const reimbursedTransactions = reimbursementTagFlag
-      ? groupedTransactions.reimbursed
-      : groupedTransactions.true
-
-    const pendingTransactions = reimbursementTagFlag
-      ? groupedTransactions.pending
-      : groupedTransactions.false
+    const {
+      reimbursed: reimbursedTransactions,
+      pending: pendingTransactions
+    } = groupedHealthExpenses
 
     const pendingAmount = sumBy(pendingTransactions, t => -t.amount)
 
     const hasHealthBrands =
       brands.filter(brand => brand.hasTrigger && brand.health).length > 0
 
+    const formattedPeriod = f(
+      parsePeriod(currentPeriod),
+      currentPeriod.length === 4 ? 'YYYY' : 'MMMM YYYY'
+    )
+
     return (
       <TransactionActionsProvider>
-        <Section>
-          <Title>
-            <Padded className="u-pv-0">
-              {t('Reimbursements.pending')}
-              <Figure
-                symbol="€"
-                total={pendingAmount}
-                className={styles.HealthReimbursements__figure}
-                signed
-              />{' '}
-            </Padded>
-          </Title>
-          {pendingTransactions ? (
-            <TransactionsWithSelection
-              transactions={pendingTransactions}
-              withScroll={false}
-              className={styles.HealthReimbursements__transactionsList}
-            />
-          ) : (
-            <Padded className="u-pv-0">
-              <Caption>{t('Reimbursements.noAwaiting')}</Caption>
-            </Padded>
-          )}
-        </Section>
-        <Section>
-          <Title>
-            <Padded className="u-pv-0">
-              {t('Reimbursements.alreadyReimbursed')}
-            </Padded>
-          </Title>
-          {reimbursedTransactions ? (
-            <TransactionsWithSelection
-              transactions={reimbursedTransactions}
-              withScroll={false}
-              className={styles.HealthReimbursements__transactionsList}
-            />
-          ) : (
-            <Padded className="u-pv-0">
-              <Caption>{t('Reimbursements.noReimbursed')}</Caption>
-              {!hasHealthBrands && (
-                <StoreLink type="konnector" category="insurance">
-                  <KonnectorChip konnectorType="health" />
-                </StoreLink>
-              )}
-            </Padded>
-          )}
-        </Section>
+        <div className={styles.HealthReimbursements}>
+          <Section
+            title={
+              <>
+                {t('Reimbursements.pending')}
+                <Figure
+                  symbol="€"
+                  total={pendingAmount}
+                  className={styles.HealthReimbursements__figure}
+                  signed
+                />{' '}
+              </>
+            }
+          >
+            {pendingTransactions && pendingTransactions.length > 0 ? (
+              <TransactionList
+                transactions={pendingTransactions}
+                withScroll={false}
+                className={styles.HealthReimbursements__transactionsList}
+              />
+            ) : (
+              <Padded className="u-pv-0">
+                <Caption>
+                  {t('Reimbursements.noAwaiting', { period: formattedPeriod })}
+                </Caption>
+              </Padded>
+            )}
+          </Section>
+          <Section title={t('Reimbursements.alreadyReimbursed')}>
+            {reimbursedTransactions && reimbursedTransactions.length > 0 ? (
+              <TransactionList
+                transactions={reimbursedTransactions}
+                withScroll={false}
+                className={styles.HealthReimbursements__transactionsList}
+              />
+            ) : (
+              <Padded className="u-pv-0">
+                <Caption>
+                  {t('Reimbursements.noReimbursed', {
+                    period: formattedPeriod
+                  })}
+                </Caption>
+                {!hasHealthBrands && (
+                  <StoreLink type="konnector" category="insurance">
+                    <KonnectorChip konnectorType="health" />
+                  </StoreLink>
+                )}
+              </Padded>
+            )}
+          </Section>
+        </div>
       </TransactionActionsProvider>
     )
   }
 }
 
-function mapStateToProps(state, ownProps) {
-  const enhancedState = {
-    ...state,
-    transactions: ownProps.transactions
-  }
+function mapStateToProps(state) {
   return {
-    filteredTransactions: getHealthExpensesByPeriod(enhancedState)
+    groupedHealthExpenses: getGroupedHealthExpensesByPeriod(state),
+    currentPeriod: getPeriod(state)
   }
 }
 

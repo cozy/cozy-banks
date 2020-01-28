@@ -2,15 +2,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import compose from 'lodash/flowRight'
 import debounce from 'lodash/debounce'
+import cx from 'classnames'
 
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { withClient, queryConnect } from 'cozy-client'
-import Alerter from 'cozy-ui/react/Alerter'
-import { translate } from 'cozy-ui/react/I18n'
-import Icon from 'cozy-ui/react/Icon'
-import { withBreakpoints } from 'cozy-ui/react'
-import { Media, Bd, Img } from 'cozy-ui/react/Media'
+import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import { translate } from 'cozy-ui/transpiled/react//I18n'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import { withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
+import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
 
 import styles from 'ducks/pin/styles.styl'
 import PinWrapper from 'ducks/pin/PinWrapper'
@@ -22,10 +23,11 @@ import { PIN_MAX_LENGTH, MAX_ATTEMPT } from 'ducks/pin/constants'
 import openLock from 'assets/icons/icon-lock-open.svg'
 import fingerprint from 'assets/icons/icon-fingerprint.svg'
 
-const AttemptCount_ = ({ t, current, max }) => {
+const AttemptCount_ = ({ current, max }) => {
+  const { t } = useI18n()
   return (
     <div className={styles['Pin__error']}>
-      {/* Have an unbreakspace so that the error when appearing does not // make
+      {/* Have an unbreakable space so that the error, when it appears, does not make
       the previous content jump */}
       {current > 0 ? t('Pin.attempt-count', { current, max }) : '\u00a0'}
     </div>
@@ -34,7 +36,7 @@ const AttemptCount_ = ({ t, current, max }) => {
 
 const AttemptCount = translate()(AttemptCount_)
 
-const FingerprintParagraph = ({ t, onSuccess, onError, onCancel }) => (
+const DumbFingerprintParagraph = ({ t, onSuccess, onError, onCancel }) => (
   <WithFingerprint
     autoLaunch
     onSuccess={onSuccess}
@@ -46,10 +48,10 @@ const FingerprintParagraph = ({ t, onSuccess, onError, onCancel }) => (
         <Media
           style={{ display: 'inline-flex' }}
           onClick={promptFinger}
-          className={styles['Pin__FingerprintText'] + ' u-mv-half'}
+          className="u-mv-half"
         >
-          <Img className="u-pb-1-half">
-            <Icon size="4.5rem" icon={fingerprint} />
+          <Img className="u-pr-half">
+            <Icon size="1.5rem" icon={fingerprint} />
           </Img>
           <Bd>
             <p>{t('Pin.fingerprint-text')}</p>
@@ -60,6 +62,32 @@ const FingerprintParagraph = ({ t, onSuccess, onError, onCancel }) => (
   </WithFingerprint>
 )
 
+const PinBackButton = ({ onClick }) => (
+  <div className={styles.Pin__BackButton} onClick={onClick}>
+    <Icon icon="left" />
+  </div>
+)
+
+export const GREEN_BACKGROUND_EFFECT_DURATION = 500
+
+const AUTH_METHODS = {
+  biometric: 'biometric',
+  keyboard: 'keyboard'
+}
+
+const AUTH_METHODS_OPTIONS = {
+  keyboard: {
+    successClassName: styles['PinWrapper--success'],
+    successDelay: GREEN_BACKGROUND_EFFECT_DURATION
+  },
+  biometric: {
+    successClassName: null,
+    successDelay: null
+  }
+}
+
+const FingerprintParagraph = translate()(DumbFingerprintParagraph)
+
 /**
  * Show pin keyboard and fingerprint button.
  * Automatically checks if it is the right pin while it is entered.
@@ -68,16 +96,11 @@ const FingerprintParagraph = ({ t, onSuccess, onError, onCancel }) => (
  * - It automatically confirms when entered password's length is <props.maxLength>
  */
 class PinAuth extends React.Component {
-  static contextTypes = {
-    store: PropTypes.object.isRequired,
-    client: PropTypes.object.isRequired
-  }
-
   constructor(props) {
     super(props)
-    this.handleFingerprintSuccess = this.handleFingerprintSuccess.bind(this)
-    this.handleFingerprintError = this.handleFingerprintError.bind(this)
-    this.handleFingerprintCancel = this.handleFingerprintCancel.bind(this)
+    this.handleBiometricSuccess = this.handleBiometricSuccess.bind(this)
+    this.handleBiometricError = this.handleBiometricError.bind(this)
+    this.handleBiometricCancel = this.handleBiometricCancel.bind(this)
     this.handleEnteredPin = this.handleEnteredPin.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
     this.handleBadAttempt = this.handleBadAttempt.bind(this)
@@ -85,7 +108,8 @@ class PinAuth extends React.Component {
     this.state = {
       attempt: 0,
       pinValue: '',
-      success: false
+      success: false,
+      authMethod: null
     }
     this.dots = React.createRef()
 
@@ -95,17 +119,30 @@ class PinAuth extends React.Component {
     })
   }
 
-  handleFingerprintSuccess() {
-    this.setState({ success: true, pinValue: '******' })
-    this.props.onSuccess()
+  handleBiometricSuccess() {
+    this.handleAuthSuccess(AUTH_METHODS.biometric)
   }
 
-  handleFingerprintError() {
-    const { t } = this.props.t
+  handleAuthSuccess(authMethod) {
+    if (!AUTH_METHODS_OPTIONS[authMethod]) {
+      return
+    }
+    this.setState({ success: true, authMethod: authMethod })
+    if (AUTH_METHODS_OPTIONS[authMethod].successDelay) {
+      setTimeout(() => {
+        this.props.onSuccess()
+      }, AUTH_METHODS_OPTIONS[authMethod].successDelay)
+    } else {
+      this.props.onSuccess()
+    }
+  }
+
+  handleBiometricError() {
+    const { t } = this.props
     Alerter.info(t('Pin.bad-pin'))
   }
 
-  handleFingerprintCancel() {
+  handleBiometricCancel() {
     // this.props.onCancel()
   }
 
@@ -117,9 +154,10 @@ class PinAuth extends React.Component {
     this.logout()
   }
 
-  logout() {
+  async logout() {
     const { client } = this.props
-    client.logout()
+    await client.logout()
+    window.location.reload()
   }
 
   handleEnteredPin(pinValue) {
@@ -136,12 +174,9 @@ class PinAuth extends React.Component {
     this.setState({ pinValue })
 
     if (pinValue === pinDoc.pin) {
-      this.setState({ success: true })
-      this.props.onSuccess()
+      this.handleAuthSuccess(AUTH_METHODS.keyboard)
       return
-    }
-
-    if (pinValue.length === this.props.maxLength) {
+    } else if (pinValue.length === this.props.maxLength) {
       const newAttempt = this.state.attempt + 1
       if (newAttempt >= this.props.maxAttempt) {
         return this.onMaxAttempt()
@@ -175,9 +210,10 @@ class PinAuth extends React.Component {
     const {
       t,
       breakpoints: { largeEnough },
-      pinSetting
+      pinSetting,
+      onClickBackButton
     } = this.props
-    const { attempt, pinValue, success } = this.state
+    const { attempt, pinValue, success, authMethod } = this.state
     const pinDoc = pinSetting.data
     const topMessage = (
       <React.Fragment>
@@ -185,25 +221,36 @@ class PinAuth extends React.Component {
           <Icon
             icon={success ? openLock : 'lock'}
             size="48px"
-            className="u-mb-1"
+            className="u-mb-half"
           />
         ) : null}
-        <h2>{this.props.message || t('Pin.please-enter-your-pin')}</h2>
+        <h2 className="u-mv-half">
+          {this.props.message || t('Pin.please-enter-your-pin')}
+        </h2>
         {pinDoc && pinDoc.fingerprint ? (
           <FingerprintParagraph
-            onSuccess={this.handleFingerprintSuccess}
-            onError={this.handleFingerprintError}
-            onCancel={this.handleFingerprintCancel}
+            onSuccess={this.handleBiometricSuccess}
+            onError={this.handleBiometricError}
+            onCancel={this.handleBiometricCancel}
           />
         ) : null}
       </React.Fragment>
     )
 
+    const successClassName =
+      AUTH_METHODS_OPTIONS[authMethod] &&
+      AUTH_METHODS_OPTIONS[authMethod].successClassName
+
     return (
-      <PinWrapper className={success ? styles['PinWrapper--success'] : null}>
+      <PinWrapper className={cx(success && successClassName)}>
+        {onClickBackButton ? (
+          <PinBackButton onClick={onClickBackButton} />
+        ) : null}
         <PinKeyboard
           leftButton={
-            this.props.leftButton || (
+            this.props.leftButton !== undefined ? (
+              this.props.leftButton
+            ) : (
               <PinButton isText onClick={this.handleLogout}>
                 {t('Pin.logout')}
               </PinButton>
@@ -231,15 +278,18 @@ class PinAuth extends React.Component {
   }
 }
 
-export default compose(
+export const RawPinAuth = PinAuth
+
+export const DumbPinAuth = compose(
   withBreakpoints({
     largeEnough: [375] // iPhone 6+
   }),
   withClient,
   connect(),
   translate(),
-  withRouter,
-  queryConnect({
-    pinSetting
-  })
+  withRouter
 )(PinAuth)
+
+export default queryConnect({
+  pinSetting
+})(DumbPinAuth)

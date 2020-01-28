@@ -72,6 +72,7 @@
     "categorization": {
       "type": "node",
       "file": "categorization.js",
+      "comment": "This service is called manually, this is why the trigger is in the past",
       "trigger": "@at 2000-01-01T00:00:00.000Z"
     },
     "stats": {
@@ -79,6 +80,24 @@
       "file": "stats.js",
       "trigger": "@event io.cozy.bank.operations:CREATED,UPDATED",
       "debounce": "1m"
+    },
+    "autogroups": {
+      "type": "node",
+      "file": "autogroups.js",
+      "trigger": "@event io.cozy.bank.accounts:CREATED",
+      "debounce": "5s"
+    },
+    "budgetAlerts": {
+      "type": "node",
+      "file": "budgetAlerts.js",
+      "comment": "Service is run inside onOperationOrBillCreate. This is why the trigger is in the past. The service described here is for diagnosis/debug.",
+      "trigger": "@at 2000-01-01T00:00:00.000Z"
+    },
+    "linkMyselfToAccounts": {
+      "type": "node",
+      "file": "linkMyselfToAccounts.js",
+      "trigger": "@event io.cozy.bank.accounts:CREATED",
+      "debounce": "5s"
     }
   },
   "notifications": {
@@ -116,6 +135,14 @@
     },
     "delayed-debit": {
       "description": "Alert the user when an account balance is going to be negative after delayed debit",
+      "collapsible": false,
+      "stateful": false,
+      "multiple": false,
+      "default_priority": "normal",
+      "templates": {}
+    },
+    "budget-alerts": {
+      "description": "Alert the user when sum of expenses goes higher than defined in settings",
       "collapsible": false,
       "stateful": false,
       "multiple": false,
@@ -171,7 +198,7 @@
     "triggers": {
       "description": "Used to add CTA to collect",
       "type": "io.cozy.triggers",
-      "verbs": ["GET"]
+      "verbs": ["GET", "POST"]
     },
     "settings": {
       "description": "Required by the cozy-bar to display Claudy and know which applications are coming soon",
@@ -206,6 +233,11 @@
       "description": "Used to create a temporary account for transfers",
       "type": "io.cozy.accounts",
       "verbs": ["POST", "DELETE", "GET"]
+    },
+    "contacts": {
+      "description": "Used to link accounts to contacts",
+      "type": "io.cozy.contacts",
+      "verbs": ["GET"]
     }
   }
 }

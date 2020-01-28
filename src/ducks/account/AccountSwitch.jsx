@@ -6,12 +6,13 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import { flowRight as compose, sortBy } from 'lodash'
 import cx from 'classnames'
-import { translate, withBreakpoints } from 'cozy-ui/react'
-import Icon from 'cozy-ui/react/Icon'
-import { Media, Bd, Img } from 'cozy-ui/react/Media'
-import Overlay from 'cozy-ui/react/Overlay'
-import Portal from 'cozy-ui/react/Portal'
+import { translate, withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
+import Overlay from 'cozy-ui/transpiled/react/Overlay'
+import Portal from 'cozy-ui/transpiled/react/Portal'
 import flag from 'cozy-flags'
+import { createStructuredSelector } from 'reselect'
 
 import AccountSharingStatus from 'components/AccountSharingStatus'
 import AccountIcon from 'components/AccountIcon'
@@ -26,23 +27,29 @@ import {
 } from 'ducks/filters'
 import styles from 'ducks/account/AccountSwitch.styl'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
-import { getAccountInstitutionLabel } from 'ducks/account/helpers.js'
-import { queryConnect } from 'cozy-client'
+import { queryConnect, Q } from 'cozy-client'
 
-import { buildVirtualGroups } from 'ducks/groups/helpers'
+import { getGroupLabel } from 'ducks/groups/helpers'
+import { getVirtualGroups } from 'selectors'
+
+import {
+  getAccountInstitutionLabel,
+  getAccountLabel
+} from 'ducks/account/helpers.js'
 
 const { BarCenter } = cozy.bar
 
-const AccountSwitchDesktop = translate()(
-  ({
-    isFetching,
-    isOpen,
-    filteringDoc,
-    accounts,
-    t,
-    toggle,
-    accountExists
-  }) => (
+const AccountSwitchDesktop = ({
+  isFetching,
+  isOpen,
+  filteringDoc,
+  accounts,
+  toggle,
+  accountExists
+}) => {
+  const { t } = useI18n()
+
+  return (
     <button
       className={cx(
         styles['account-switch-button'],
@@ -80,7 +87,7 @@ const AccountSwitchDesktop = translate()(
       )}
     </button>
   )
-)
+}
 
 AccountSwitchDesktop.propTypes = {
   filteringDoc: PropTypes.object
@@ -99,89 +106,67 @@ DownArrow.propTypes = {
   color: PropTypes.oneOf(['default', 'primary'])
 }
 
-const AccountSwitchSelect = ({ accounts, filteringDoc, onClick, t, color }) => (
-  <div
-    className={cx(
-      styles.AccountSwitch__Select,
-      styles[`AccountSwitchColor_${color}`]
-    )}
-    onClick={onClick}
-  >
-    {flag('account-switch.display-icon') &&
-    filteringDoc._type === 'io.cozy.bank.accounts' ? (
-      <span className="u-mr-1">
-        <AccountIcon account={filteringDoc} />
-      </span>
-    ) : null}
-    <Title className={styles.AccountSwitch__SelectText} color={color}>
-      {filteringDoc
-        ? filteringDoc.length
-          ? t('AccountSwitch.some_accounts', {
-              count: filteringDoc.length,
-              smart_count: accounts.length
-            })
-          : filteringDoc.shortLabel || filteringDoc.label
-        : t('AccountSwitch.all_accounts')}
-    </Title>
-    <DownArrow color={color} />
-  </div>
-)
+const getFilteringDocLabel = (filteringDoc, t, accounts) => {
+  if (filteringDoc.length) {
+    return t('AccountSwitch.some_accounts', {
+      count: filteringDoc.length,
+      smart_count: accounts.length
+    })
+  } else if (filteringDoc._type === ACCOUNT_DOCTYPE) {
+    return getAccountLabel(filteringDoc)
+  } else if (filteringDoc._type === GROUP_DOCTYPE) {
+    return getGroupLabel(filteringDoc, t)
+  }
+}
+
+// t is passed from above and not through useI18n() since AccountSwitchSelect can be
+// rendered in the Bar and in this case it has a different context
+const AccountSwitchSelect = ({ accounts, filteringDoc, onClick, color, t }) => {
+  return (
+    <div
+      className={cx(
+        styles.AccountSwitch__Select,
+        styles[`AccountSwitchColor_${color}`]
+      )}
+      onClick={onClick}
+    >
+      {flag('account-switch.display-icon') &&
+      filteringDoc._type === ACCOUNT_DOCTYPE ? (
+        <span className="u-mr-1">
+          <AccountIcon account={filteringDoc} />
+        </span>
+      ) : null}
+      <Title className={styles.AccountSwitch__SelectText} color={color}>
+        {filteringDoc
+          ? getFilteringDocLabel(filteringDoc, t, accounts)
+          : t('AccountSwitch.all_accounts')}
+      </Title>
+      <DownArrow color={color} />
+    </div>
+  )
+}
 
 AccountSwitchSelect.propTypes = {
-  color: PropTypes.oneOf(['default', 'primary'])
+  color: PropTypes.oneOf(['default', 'primary']),
+  t: PropTypes.func.isRequired
 }
 
 AccountSwitchSelect.defaultProps = {
   color: 'default'
 }
 
-const AccountSwitchMobile = ({
-  filteredAccounts,
+const AccountSwitchMenu = ({
+  accounts,
+  groups,
   filteringDoc,
-  onClick,
-  t,
-  color
-}) => (
-  <AccountSwitchSelect
-    filteringDoc={filteringDoc}
-    onClick={onClick}
-    filteringAccounts={filteredAccounts}
-    t={t}
-    color={color}
-  />
-)
+  filterByDoc,
+  resetFilterByDoc,
+  accountExists,
+  close
+}) => {
+  const { t } = useI18n()
 
-AccountSwitchMobile.propTypes = {
-  filteringDoc: PropTypes.object,
-  onClick: PropTypes.func.isRequired,
-  filteredAccounts: PropTypes.array.isRequired
-}
-
-const AccountSwitchTablet = ({ filteringDoc, onClick }) => (
-  <button
-    className={cx(styles['account-switch-button-mobile'], {
-      [styles['active']]: filteringDoc
-    })}
-    onClick={onClick}
-  />
-)
-
-AccountSwitchTablet.propTypes = {
-  filteringDoc: PropTypes.object,
-  onClick: PropTypes.func.isRequired
-}
-
-const AccountSwitchMenu = translate()(
-  ({
-    accounts,
-    groups,
-    filteringDoc,
-    filterByDoc,
-    resetFilterByDoc,
-    t,
-    accountExists,
-    close
-  }) => (
+  return (
     <div className={styles['account-switch-menu-content']}>
       <div className={styles['account-switch-menu']}>
         <h4>{t('AccountSwitch.groups')}</h4>
@@ -212,7 +197,7 @@ const AccountSwitchMenu = translate()(
                     filteringDoc && group._id === filteringDoc._id
                 })}
               >
-                {group.label}
+                {getGroupLabel(group, t)}
                 <span className={styles['account-secondary-info']}>
                   (
                   {t(
@@ -269,7 +254,7 @@ const AccountSwitchMenu = translate()(
       </div>
     </div>
   )
-)
+}
 
 AccountSwitchMenu.propTypes = {
   filterByDoc: PropTypes.func.isRequired,
@@ -315,17 +300,15 @@ class AccountSwitch extends Component {
       small,
       color,
       accounts: accountsCollection,
-      groups: groupsCollection
+      groups: groupsCollection,
+      virtualGroups
     } = this.props
     const { open } = this.state
 
     const accounts = accountsCollection.data
-    const groups = [
-      ...groupsCollection.data,
-      ...buildVirtualGroups(accounts)
-    ].map(group => ({
+    const groups = [...groupsCollection.data, ...virtualGroups].map(group => ({
       ...group,
-      label: group.virtual ? t(`Data.accountTypes.${group.label}`) : group.label
+      label: getGroupLabel(group, t)
     }))
 
     if (!accounts || accounts.length === 0) {
@@ -426,17 +409,11 @@ AccountSwitch.defaultProps = {
   color: 'default'
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const enhancedState = {
-    ...state,
-    accounts: ownProps.accounts,
-    groups: ownProps.groups
-  }
-  return {
-    filteringDoc: getFilteringDoc(state),
-    filteredAccounts: getFilteredAccounts(enhancedState)
-  }
-}
+const mapStateToProps = createStructuredSelector({
+  filteringDoc: getFilteringDoc,
+  filteredAccounts: getFilteredAccounts,
+  virtualGroups: getVirtualGroups
+})
 
 const mapDispatchToProps = dispatch => ({
   resetFilterByDoc: () => dispatch(resetFilterByDoc()),
@@ -445,8 +422,8 @@ const mapDispatchToProps = dispatch => ({
 
 export default compose(
   queryConnect({
-    accounts: { query: client => client.all(ACCOUNT_DOCTYPE), as: 'accounts' },
-    groups: { query: client => client.all(GROUP_DOCTYPE), as: 'groups' }
+    accounts: { query: () => Q(ACCOUNT_DOCTYPE), as: 'accounts' },
+    groups: { query: () => Q(GROUP_DOCTYPE), as: 'groups' }
   }),
   translate(),
   withBreakpoints(),

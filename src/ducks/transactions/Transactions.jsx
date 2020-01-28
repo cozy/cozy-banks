@@ -12,18 +12,18 @@ import {
 import cx from 'classnames'
 import { isIOSApp } from 'cozy-device-helper'
 
-import { translate, withBreakpoints } from 'cozy-ui/react'
-import Button from 'cozy-ui/react/Button'
+import { translate, withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
+import Button from 'cozy-ui/transpiled/react/Button'
 import * as List from 'components/List'
 import { Table } from 'components/Table'
 
+import TransactionPageErrors from 'ducks/transactions/TransactionPageErrors'
 import styles from 'ducks/transactions/Transactions.styl'
 import {
   InfiniteScroll,
   ScrollRestore,
   TopMost
 } from 'ducks/transactions/scroll'
-import TransactionModal from 'ducks/transactions/TransactionModal'
 import { RowDesktop, RowMobile } from 'ducks/transactions/TransactionRow'
 import { getDate } from 'ducks/transactions/helpers'
 
@@ -64,7 +64,8 @@ const LoadMoreMobile = ({ children, onClick }) => (
 )
 
 const _SectionMobile = props => {
-  const { date, f, children } = props
+  const { f } = useI18n()
+  const { date, children } = props
   return (
     <React.Fragment>
       <List.Header>{f(date, 'dddd D MMMM')}</List.Header>
@@ -72,7 +73,7 @@ const _SectionMobile = props => {
     </React.Fragment>
   )
 }
-const SectionMobile = translate()(_SectionMobile)
+const SectionMobile = _SectionMobile
 
 const SectionDesktop = props => {
   return <tbody {...props} />
@@ -161,7 +162,9 @@ export class TransactionsDumb extends React.Component {
       limitMax,
       breakpoints: { isDesktop, isExtraLarge },
       manualLoadMore,
-      filteringOnAccount
+      filteringOnAccount,
+      withScroll,
+      className
     } = this.props
     const transactionsGrouped = groupByDate(
       this.transactions.slice(limitMin, limitMax)
@@ -172,7 +175,16 @@ export class TransactionsDumb extends React.Component {
     const Row = isDesktop ? RowDesktop : RowMobile
 
     return (
-      <TransactionContainer className={styles.TransactionTable}>
+      <TransactionContainer
+        className={cx(
+          styles.TransactionTable,
+          className,
+          'js-scrolling-element',
+          {
+            [styles.ScrollingElement]: withScroll
+          }
+        )}
+      >
         {manualLoadMore && limitMin > 0 && (
           <LoadMoreButton onClick={() => this.props.onReachTop(20)}>
             {t('Transactions.see-more')}
@@ -208,7 +220,7 @@ export class TransactionsDumb extends React.Component {
   }
 
   render() {
-    const { limitMin, limitMax, manualLoadMore } = this.props
+    const { limitMin, limitMax, manualLoadMore, isOnSubcategory } = this.props
     return (
       <InfiniteScroll
         manual={manualLoadMore}
@@ -224,6 +236,7 @@ export class TransactionsDumb extends React.Component {
         onScroll={this.handleScroll}
         className={this.props.className}
       >
+        {!isOnSubcategory ? <TransactionPageErrors /> : null}
         <ScrollRestore
           limitMin={limitMin}
           limitMax={limitMax}
@@ -242,45 +255,4 @@ const Transactions = compose(
   translate()
 )(TransactionsDumb)
 
-export class TransactionsWithSelection extends React.Component {
-  static defaultProps = {
-    withScroll: true
-  }
-
-  state = {
-    transaction: null
-  }
-
-  selectTransaction = transaction => {
-    this.setState({ transactionId: transaction._id })
-  }
-
-  unselectTransaction = () => {
-    this.setState({ transactionId: null })
-  }
-
-  render() {
-    const { withScroll, className, ...rest } = this.props
-    const { transactionId } = this.state
-    return (
-      <div
-        className={cx(
-          {
-            [styles.ScrollingElement]: withScroll
-          },
-          'js-scrolling-element',
-          className
-        )}
-      >
-        <Transactions selectTransaction={this.selectTransaction} {...rest} />
-        {transactionId && (
-          <TransactionModal
-            requestClose={this.unselectTransaction}
-            transactionId={transactionId}
-            {...rest}
-          />
-        )}
-      </div>
-    )
-  }
-}
+export const TransactionList = Transactions

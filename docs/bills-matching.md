@@ -29,10 +29,10 @@ parameters:
 
 The options object can contain the following properties:
 
-* `minAmountDelta`: defaults to `0.001`
-* `maxAmountDelta`: defaults to `0.001`
-* `pastWindow`: defaults to 15 (days)
-* `futureWindow`: defaults to 29 (days)
+* `amountLowerDelta`: defaults to `0.001`
+* `amountUpperDelta`: defaults to `0.001`
+* `dateLowerDelta`: defaults to 15 (days)
+* `dateUpperDelta`: defaults to 29 (days)
 
 These options will determine the default date and amount windows in which a
 transaction should be to match with a bill.
@@ -63,8 +63,8 @@ the ones that fits in the amount and date windows of the bill.
 The date window is `[bill date - dateLowerDelta; bill date + dateUpperDelta]`. Where:
 
 * `bill date` is `bill.date` if we are looking for a credit; `bill.originalDate` with a fallback on `bill.date` if we are looking for a debit
-* `dateLowerDelta` is `bill.matchingCriterias.dateLowerDelta` if it exists, `options.pastWindow` otherwise
-* `dateUpperDelta` is `bill.matchingCriterias.dateUpperDelta` if it exists, `options.futureWindow` otherwise
+* `dateLowerDelta` is `bill.matchingCriterias.dateLowerDelta` if it exists, `options.dateLowerDelta` otherwise
+* `dateUpperDelta` is `bill.matchingCriterias.dateUpperDelta` if it exists, `options.dateUpperDelta` otherwise
 
 The amount window is `[bill amount - amountLowerDelta; bill amount + amountUpperDelta]`. Where:
 

@@ -1,8 +1,7 @@
 import React from 'react'
-import BarTheme from 'ducks/bar/BarTheme'
 import { connect } from 'react-redux'
 import { flowRight as compose } from 'lodash'
-import { translate, withBreakpoints } from 'cozy-ui/react'
+import { translate, withBreakpoints } from 'cozy-ui/transpiled/react'
 import Header from 'components/Header'
 import { Padded } from 'components/Spacing'
 import { PageTitle } from 'components/Title'
@@ -35,7 +34,6 @@ class RawReimbursementsPage extends React.Component {
 
     return (
       <>
-        <BarTheme theme="primary" />
         <Header color="primary" fixed>
           <Padded
             className={cx({

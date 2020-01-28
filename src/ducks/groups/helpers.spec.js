@@ -1,12 +1,15 @@
 import {
-  buildVirtualGroups,
-  mkGetTranslatedLabel,
-  translateAndSortGroups
+  buildAutoGroups,
+  getGroupLabel,
+  translateAndSortGroups,
+  renamedGroup,
+  getGroupBalance,
+  isLoanGroup
 } from './helpers'
 import { associateDocuments } from 'ducks/client/utils'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 
-describe('buildVirtualGroups', () => {
+describe('buildAutoGroups', () => {
   it('should generate a virtual group for every account types', () => {
     const accounts = [
       { _id: '1', type: 'Checkings' },
@@ -16,27 +19,30 @@ describe('buildVirtualGroups', () => {
       { _id: '5' }
     ]
 
-    const virtualGroups = buildVirtualGroups(accounts)
+    const virtualGroups = buildAutoGroups(accounts)
 
     const checkingsGroup = {
       _id: 'Checkings',
       _type: 'io.cozy.bank.groups',
       label: 'Checkings',
-      virtual: true
+      virtual: true,
+      accountType: 'Checkings'
     }
 
     const savingsGroup = {
       _id: 'Savings',
       _type: 'io.cozy.bank.groups',
       label: 'Savings',
-      virtual: true
+      virtual: true,
+      accountType: 'Savings'
     }
 
     const otherGroup = {
       _id: 'Other',
       _type: 'io.cozy.bank.groups',
       label: 'Other',
-      virtual: true
+      virtual: true,
+      accountType: 'Other'
     }
 
     associateDocuments(checkingsGroup, 'accounts', ACCOUNT_DOCTYPE, [
@@ -63,7 +69,6 @@ describe('translateGroup', () => {
   })
 
   it("should translate the group label only if it's a virtual group", () => {
-    const getTranslatedLabel = mkGetTranslatedLabel(translate)
     const virtualGroup = {
       virtual: true,
       label: 'label'
@@ -74,8 +79,10 @@ describe('translateGroup', () => {
       label: 'label'
     }
 
-    expect(getTranslatedLabel(virtualGroup)).toEqual('Data.accountTypes.label')
-    expect(getTranslatedLabel(normalGroup)).toEqual(normalGroup.label)
+    expect(getGroupLabel(virtualGroup, translate)).toEqual(
+      'Data.accountTypes.label'
+    )
+    expect(getGroupLabel(normalGroup, translate)).toEqual(normalGroup.label)
   })
 })
 
@@ -152,5 +159,105 @@ describe('translateAndSortGroups', () => {
     ]
 
     expect(setup(groups)).toEqual(expected)
+  })
+})
+
+describe('when the given group has an accountType', () => {
+  it('should not set accountType to null', () => {
+    const group = { accountType: 'checkings' }
+
+    expect(renamedGroup(group, 'My super group')).toEqual({
+      label: 'My super group',
+      accountType: null
+    })
+  })
+})
+
+describe('when the given group does not have an accountType', () => {
+  it('should not set accountType to null', () => {
+    const group = { label: 'My group' }
+
+    expect(renamedGroup(group, 'My super group')).toEqual({
+      label: 'My super group'
+    })
+  })
+})
+
+describe('getGroupBalance', () => {
+  it('should return 0 if no group is given', () => {
+    expect(getGroupBalance()).toBe(0)
+  })
+
+  it('should return 0 if the group has no account', () => {
+    expect(getGroupBalance({ accounts: null })).toBe(0)
+    expect(getGroupBalance({ accounts: { data: null } })).toBe(0)
+  })
+
+  it('should return the sum of all accounts balance', () => {
+    const accounts = [{ balance: 1000 }, { balance: -100 }, { balance: 8000 }]
+    const group = { accounts: { data: accounts } }
+
+    expect(getGroupBalance(group)).toBe(8900)
+  })
+
+  it('should not sum the excluded accounts balance', () => {
+    const accounts = [
+      { _id: 'a', balance: 1000 },
+      { _id: 'b', balance: -100 },
+      { _id: 'c', balance: 8000 }
+    ]
+
+    const group = { accounts: { data: accounts } }
+    const excludedAccounts = ['a', 'c']
+
+    expect(getGroupBalance(group, excludedAccounts)).toBe(-100)
+  })
+
+  it('should return 0 if the group has no account', () => {
+    const group = { accounts: { data: [] } }
+
+    expect(getGroupBalance(group)).toBe(0)
+  })
+})
+
+describe('isLoanGroup', () => {
+  it('should return false if group is not yet hydrated', () => {
+    expect(
+      isLoanGroup({
+        accounts: ['1', '2', '3']
+      })
+    ).toBe(false)
+  })
+
+  it('should return true if every account is a loan', () => {
+    expect(
+      isLoanGroup({
+        accounts: {
+          data: [
+            {
+              type: 'ConsumerCredit'
+            }
+          ]
+        }
+      })
+    ).toBe(true)
+  })
+
+  it('should return false if one account is not a loan', () => {
+    expect(
+      isLoanGroup({
+        accounts: {
+          data: [
+            {
+              type: 'ConsumerCredit'
+            },
+            {
+              type: 'CreditCard'
+            },
+            null
+          ]
+        }
+      })
+    ).toBe(false)
   })
 })

@@ -3,16 +3,28 @@ export const COLLECTION_NAME = 'settings'
 
 export const DEFAULTS_SETTINGS = {
   _type: 'io.cozy.bank.settings',
+  autogroups: {
+    processedAccounts: []
+  },
+  linkMyselfToAccounts: {
+    processedAccounts: []
+  },
   notifications: {
     lastSeq: 0,
-    balanceLower: {
-      value: 100,
-      enabled: false
-    },
-    transactionGreater: {
-      value: 600,
-      enabled: true
-    },
+    balanceLower: [
+      {
+        id: 0,
+        value: 100,
+        enabled: false
+      }
+    ],
+    transactionGreater: [
+      {
+        id: 0,
+        value: 600,
+        enabled: true
+      }
+    ],
     healthBillLinked: {
       enabled: true
     },
@@ -20,10 +32,13 @@ export const DEFAULTS_SETTINGS = {
       value: 30,
       enabled: false
     },
-    delayedDebit: {
-      enabled: false,
-      value: 2
-    },
+    delayedDebit: [
+      {
+        id: 0,
+        enabled: false,
+        value: 2
+      }
+    ],
     salaire: {
       enabled: false
     },
@@ -34,6 +49,7 @@ export const DEFAULTS_SETTINGS = {
       enabled: false
     }
   },
+  categoryBudgetAlerts: [],
   billsMatching: {
     billsLastSeq: '0',
     transactionsLastSeq: '0'

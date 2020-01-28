@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
-import { withBreakpoints } from 'cozy-ui/react'
-import Spinner from 'cozy-ui/react/Spinner'
+import { withBreakpoints } from 'cozy-ui/transpiled/react'
+import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import { flowRight as compose, uniq, groupBy, max } from 'lodash'
 import styles from 'ducks/balance/History.styl'
 import HistoryChart from 'ducks/balance/HistoryChart'
@@ -56,7 +56,8 @@ class History extends Component {
   getChartProps() {
     const {
       breakpoints: { isMobile },
-      size: { width }
+      size: { width },
+      animation
     } = this.props
 
     const data = this.getChartData()
@@ -80,7 +81,8 @@ class History extends Component {
       },
       showAxis: true,
       axisMargin: 10,
-      tickFormat: TICK_FORMAT
+      tickFormat: TICK_FORMAT,
+      animation: animation
     }
 
     return chartProps

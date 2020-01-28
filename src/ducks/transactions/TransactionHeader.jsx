@@ -1,24 +1,23 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
-import { flowRight as compose, max } from 'lodash'
-import { translate, withBreakpoints } from 'cozy-ui/react'
+import { flowRight as compose } from 'lodash'
+import { translate, withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
 import cx from 'classnames'
 
-import BackButton from 'components/BackButton'
 import Breadcrumb from 'components/Breadcrumb'
 import { ConnectedSelectDates } from 'components/SelectDates'
-import { AccountSwitch } from 'ducks/account'
+import { BalanceDetailsHeader } from 'ducks/balance'
 import TransactionSelectDates from 'ducks/transactions/TransactionSelectDates'
-import HistoryChart from 'ducks/balance/HistoryChart'
-import Header from 'components/Header'
+import { ConnectedHistoryChart as HistoryChart } from 'ducks/balance/HistoryChart'
 import { Padded } from 'components/Spacing'
 
 import withSize from 'components/withSize'
 import TableHead from './header/TableHead'
-import styles from './TransactionsPage.styl'
+import styles from './TransactionsHeader.styl'
 
-const HeaderBreadcrumb = ({ t, router }) => {
+const HeaderBreadcrumb = ({ router }) => {
+  const { t } = useI18n()
   const { categoryName, subcategoryName } = router.params
   const breadcrumbItems = [
     {
@@ -54,16 +53,6 @@ class TransactionHeader extends Component {
     return router.params.subcategoryName !== undefined
   }
 
-  renderAccountSwitch = () => {
-    const isSubcategory = this.isSubcategory()
-    return (
-      <div className={styles.TransactionHeader__accountSwitchContainer}>
-        {this.props.showBackButton && <BackButton theme="primary" arrow />}
-        <AccountSwitch small={isSubcategory} color="primary" />
-      </div>
-    )
-  }
-
   renderSelectDates = () => {
     if (this.isSubcategory()) {
       return <ConnectedSelectDates showFullYear color="primary" />
@@ -84,15 +73,14 @@ class TransactionHeader extends Component {
 
   renderBalanceHistory() {
     const {
-      chartData,
       breakpoints: { isMobile },
-      size
+      size,
+      currentMonth
     } = this.props
     const height = isMobile ? 66 : 96
-    if (!chartData || !size) {
+    if (!size || !size.width) {
       return <div style={{ height }} />
     }
-    const intervalBetweenPoints = 2
     const marginBottom = isMobile ? 48 : 64
     const historyChartMargin = {
       top: 26,
@@ -105,9 +93,9 @@ class TransactionHeader extends Component {
       <HistoryChart
         animation={false}
         margin={historyChartMargin}
-        data={chartData}
+        currentMonth={currentMonth}
         height={height + marginBottom}
-        width={max([size.width, intervalBetweenPoints * chartData.length])}
+        minWidth={size.width}
         className={styles.TransactionsHeader__chart}
       />
     )
@@ -118,15 +106,13 @@ class TransactionHeader extends Component {
       transactions,
       breakpoints: { isMobile },
       router,
+      showBalance,
       t
     } = this.props
     const isSubcategory = this.isSubcategory()
 
     return (
-      <Header color="primary" fixed>
-        <Padded className={isMobile ? 'u-p-0' : 'u-pb-half'}>
-          {this.renderAccountSwitch()}
-        </Padded>
+      <BalanceDetailsHeader small={isSubcategory} showBalance={showBalance}>
         {!isSubcategory && this.renderBalanceHistory()}
         <Padded
           className={cx(
@@ -148,7 +134,7 @@ class TransactionHeader extends Component {
         {transactions.length > 0 && (
           <TableHead isSubcategory={isSubcategory} color="primary" />
         )}
-      </Header>
+      </BalanceDetailsHeader>
     )
   }
 }

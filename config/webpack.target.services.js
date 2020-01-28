@@ -4,6 +4,7 @@ const path = require('path')
 const webpack = require('webpack')
 const { production } = require('./webpack.vars')
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 
 const SRC_DIR = path.resolve(__dirname, '../src')
 
@@ -14,13 +15,17 @@ const mimerPath = require.resolve(
 // Used to disable node modules we do not use
 const noop = require.resolve(path.join(SRC_DIR, 'ducks/notifications/noop'))
 
+const serviceDir = path.resolve(SRC_DIR, './targets/services/')
 const entries = {
   onOperationOrBillCreate: path.resolve(
     SRC_DIR,
     './targets/services/onOperationOrBillCreate'
   ),
-  categorization: path.resolve(SRC_DIR, './targets/services/categorization.js'),
-  stats: path.resolve(SRC_DIR, './targets/services/stats.js')
+  categorization: path.resolve(serviceDir, './categorization.js'),
+  stats: path.resolve(serviceDir, './stats.js'),
+  autogroups: path.resolve(serviceDir, './autogroups.js'),
+  budgetAlerts: path.resolve(serviceDir, './budgetAlerts.js'),
+  linkMyselfToAccounts: path.resolve(serviceDir, './linkMyselfToAccounts.js')
 }
 
 if (process.env.TEST_TEMPLATES) {
@@ -37,6 +42,17 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, '../build'),
     filename: '[name].js'
+  },
+  optimization: {
+    minimizer: [
+      // We have to disable the mangle options otherwise we have a problem with mjml:
+      // "Element mj-column doesn't exist or is not registered"
+      new TerserPlugin({
+        terserOptions: {
+          mangle: false // Note `mangle.properties` is `false` by default.
+        }
+      })
+    ]
   },
   module: {
     rules: [

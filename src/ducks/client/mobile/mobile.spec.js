@@ -1,39 +1,10 @@
-const { isRevoked } = require('./mobile')
+import { getClient } from './mobile'
 
-describe('isRevoked', () => {
-  let fetchInformation, client
-
-  beforeAll(() => {
-    client = {
-      stackClient: {
-        fetchInformation: () => {
-          return fetchInformation()
-        }
-      }
-    }
-  })
-
-  it('should detect revocation', async () => {
-    fetchInformation = async () => {
-      throw new Error('Client not found')
-    }
-    const revoked = await isRevoked(client)
-    expect(revoked).toBe(true)
-  })
-
-  it('should not trigger false positives 1', async () => {
-    fetchInformation = async () => {
-      throw new Error('No internet')
-    }
-    const revoked = await isRevoked(client)
-    expect(revoked).toBe(false)
-  })
-
-  it('should not trigger false positives 2', async () => {
-    fetchInformation = async () => {
-      return
-    }
-    const revoked = await isRevoked(client)
-    expect(revoked).toBe(false)
+describe('get mobile client', () => {
+  it('should have plugins correctly instantiated', () => {
+    global.__APP_VERSION__ = '1.5.0'
+    const client = getClient()
+    expect(client.plugins.push).not.toBeUndefined()
+    expect(client.plugins.sentry).not.toBeUndefined()
   })
 })

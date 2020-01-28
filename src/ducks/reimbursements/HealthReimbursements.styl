@@ -1,4 +1,9 @@
 @require 'settings/breakpoints'
+@require '../../components/Header/Header.styl'
+
+.HealthReimbursements
+    +medium-screen()
+        belowHeader(3rem)
 
 .HealthReimbursements__figure
     display inline-block
@@ -6,14 +11,6 @@
 .HealthReimbursements__transactionsList
     +medium-screen('min')
         border-top: 1px solid var(--silver)
-
-.HealthReimbursements__title
-    font-size 18px
-    line-height 56px
-    border-bottom 1px solid var(--silver)
-
-    +small-screen()
-        font-size 16px
 
 .Caption
     font-size 14px

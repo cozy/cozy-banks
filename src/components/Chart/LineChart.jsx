@@ -27,6 +27,8 @@ const tooltipDimensions = {
   fontSize: 11
 }
 
+const getDataByDate = memoize(data => keyBy(data, i => i.x.getTime()))
+
 class LineChart extends Component {
   constructor(props) {
     super(props)
@@ -36,19 +38,16 @@ class LineChart extends Component {
 
     this.dragging = false
 
-    const { data } = props
-    const dataByDate = this.getDataByDate(data)
-    const itemKey = max(Object.keys(dataByDate))
-
-    this.state = { itemKey }
+    this.state = {
+      itemKey: null, // Currently "selected" point
+      prevData: null
+    }
   }
-
-  getDataByDate = memoize(data => keyBy(data, i => i.x.getTime()))
 
   getSelectedItem = () => {
     const { data } = this.props
     const { itemKey } = this.state
-    const dataByDate = this.getDataByDate(data)
+    const dataByDate = getDataByDate(data)
 
     return dataByDate[itemKey]
   }
@@ -60,6 +59,19 @@ class LineChart extends Component {
     }
     this.updateElements()
     this.movePointToItem()
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    const { data } = props
+
+    // If currently displayed data changes, we recompute selected itemkey
+    if (!state || state.prevData !== data) {
+      const dataByDate = getDataByDate(data)
+      const itemKey = max(Object.keys(dataByDate))
+      // Have to keep prevData in derivedState to access it in later calls
+      // of getDerivedStateFromProps. See https://github.com/facebook/react/issues/12188
+      return { prevData: data, itemKey }
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -251,7 +263,8 @@ class LineChart extends Component {
       .append('path')
       .attr('id', 'clickLine')
       .attr('stroke', 'transparent')
-      .attr('stroke-width', 32)
+      .attr('stroke-width', 64)
+      .style('cursor', 'pointer')
       .attr('fill', 'none')
       .on('click', this.onLineClick)
 
@@ -333,6 +346,9 @@ class LineChart extends Component {
   updateTooltip() {
     const { bgPadding, arrowSize } = tooltipDimensions
     const item = this.getSelectedItem()
+    if (!item) {
+      return
+    }
     const x = this.x(item.x)
     const y = -arrowSize
     this.tooltip.attr('transform', `translate(${x}, ${y})`)
@@ -360,6 +376,9 @@ class LineChart extends Component {
 
   updatePoint() {
     const item = this.getSelectedItem()
+    if (!item) {
+      return
+    }
     const x = this.x(item.x)
     const y = this.y(item.y)
 
@@ -380,6 +399,9 @@ class LineChart extends Component {
 
   updatePointLine() {
     const item = this.getSelectedItem()
+    if (!item) {
+      return
+    }
     const { height, margin, tickPadding, showAxis } = this.props
     const x = this.x(item.x)
     let y2 = height - margin.top + tickPadding

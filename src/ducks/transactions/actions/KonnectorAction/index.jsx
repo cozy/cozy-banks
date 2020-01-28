@@ -1,20 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { flowRight as compose } from 'lodash'
-import { findMatchingBrand } from 'ducks/brandDictionary'
-import { translate } from 'cozy-ui/react'
-import ButtonAction from 'cozy-ui/react/ButtonAction'
-import flag from 'cozy-flags'
+import { translate } from 'cozy-ui/transpiled/react'
 import icon from 'assets/icons/actions/icon-link-out.svg'
-import styles from 'ducks/transactions/TransactionActions.styl'
-import { TransactionModalRow } from 'ducks/transactions/TransactionModal'
-import palette from 'cozy-ui/react/palette'
+import TransactionModalRow from 'ducks/transactions/TransactionModalRow'
+import palette from 'cozy-ui/transpiled/react/palette'
 import { triggersConn } from 'doctypes'
 import InformativeModal from 'ducks/transactions/actions/KonnectorAction/InformativeModal'
 import ConfigurationModal from 'ducks/transactions/actions/KonnectorAction/ConfigurationModal'
-import { getBrandsWithoutTrigger } from 'ducks/transactions/actions/KonnectorAction/helpers'
 import match from 'ducks/transactions/actions/KonnectorAction/match'
 import { KonnectorChip } from 'components/KonnectorChip'
+import { findMatchingBrandWithoutTrigger } from 'ducks/brandDictionary/selectors'
+import { connect } from 'react-redux'
 
 const name = 'konnector'
 
@@ -55,14 +52,6 @@ class Component extends React.Component {
     this.hideIntentModal()
   }
 
-  findMatchingBrand() {
-    const brandsWithoutTrigger = getBrandsWithoutTrigger(
-      this.props.actionProps.brands
-    )
-
-    return findMatchingBrand(brandsWithoutTrigger, this.props.transaction.label)
-  }
-
   renderModalItem(label) {
     return (
       <TransactionModalRow
@@ -76,21 +65,10 @@ class Component extends React.Component {
   }
 
   renderTransactionRow(label, brand) {
-    const { compact } = this.props
-
-    return flag('reimbursement-tag') ? (
+    return (
       <KonnectorChip
         onClick={this.showInformativeModal}
         konnectorType={brand.health ? 'health' : 'generic'}
-      />
-    ) : (
-      <ButtonAction
-        label={label}
-        leftIcon="plus"
-        type="new"
-        compact={compact}
-        className={styles.TransactionActionButton}
-        onClick={this.showInformativeModal}
       />
     )
   }
@@ -98,7 +76,7 @@ class Component extends React.Component {
   render() {
     const { t, isModalItem } = this.props
 
-    const brand = this.findMatchingBrand()
+    const brand = this.props.brand
     if (!brand) return
 
     const healthOrGeneric = brand.health ? 'health' : 'generic'
@@ -167,7 +145,13 @@ const action = {
   match,
   Component: compose(
     translate(),
-    addFetchTriggers
+    addFetchTriggers,
+    connect((state, { actionProps, transaction }) => ({
+      brand: findMatchingBrandWithoutTrigger(
+        transaction.label,
+        actionProps.brands
+      )
+    }))
   )(Component)
 }
 

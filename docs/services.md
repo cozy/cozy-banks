@@ -1,22 +1,40 @@
 # Services
 
+<!-- MarkdownTOC autolink=true -->
+
+- [Categorization](#categorization)
+- [onOperationOrBillCreate](#onoperationorbillcreate)
+- [Account stats](#account-stats)
+- [Automatic groups](#automatic-groups)
+- [Budget alerts](#budget-alerts)
+- [I am writing a banking konnector, what should I do?](#i-am-writing-a-banking-konnector-what-should-i-do)
+- [Developing](#developing)
+
+<!-- /MarkdownTOC -->
+
+
 Banks exposes the following services:
 
 * [categorization](#categorization)
 * [onOperationOrBillCreate](#onoperationorbillcreate)
+* [Account stats](#stats)
+* [Automatic groups](#goups)
 
 ## Categorization
 
 This service role is to categorize transactions. It is bound to no event at
 all, so it's not automatically triggered and needs to be explicitly called by a
-konnector or another service.
+konnector or another service.  This service is called from konnectors so that
+transactions are categorized as soon as possible (no debounce involved).
 
 When this service is ran, it gets all `io.cozy.bank.operations` that has the
 `toCategorize` property with a `true` value. Then it slices it into chunks and
-categories the most chunks it can before the service is stopped by the stack.
+categorizes the most chunks it can before the service is stopped by the stack.
 If there are some uncategorized transactions remaining, it restarts itself to
 finish the work. If all transactions have been categorized, it calls the
 `onOperationOrBillCreate` service to trigger all other features.
+
+See the [categorization documentation](https://github.com/cozy/cozy-banks/blob/master/docs/categorization.md) for more details about the categorization implementation.
 
 ## onOperationOrBillCreate
 
@@ -31,6 +49,29 @@ It is bound to the `io.cozy.bills` creation only. The creation of
 service. See [the next
 section](#i-am-writing-a-banking-konnector-what-should-i-do) for more precise
 informations about that.
+
+## Account stats
+
+Computes statistics on bank accounts and save the results in `io.cozy.bank.accounts.stats` doctype.
+
+## Automatic groups
+
+Whenever an `io.cozy.bank.accounts` is created, we check if it could belong in an automatic group based
+on its type (checkings, savings, credit cards). These `io.cozy.bank.groups` documents are created with
+the `auto: true` attributes.
+
+## Budget alerts
+
+A user can configure alerts to be alerted whenever the sum of its expenses has
+gone past a maximum threshold per month. The notification is sent as part of the
+onOperationOrBillCreate service.
+
+It is configured from a `io.cozy.bank.settings` document and the last notification
+date and amount are saved.
+
+A debug service is built to be able to only run this particular part and not the
+whole onOperationOrBillCreate service. It is possible to run it from the Debug
+tab in the application (or via Bender).
 
 ## I am writing a banking konnector, what should I do?
 
@@ -52,10 +93,8 @@ class MyKonnector extends BaseKonnector {
     // save `transactions`
 
     await cozyClient.jobs.create('service', {
-      message: {
-        name: 'categorization',
-        slug: 'banks'
-      }
+      name: 'categorization',
+      slug: 'banks'
     })
   }
 }
@@ -77,3 +116,23 @@ following permission to your `manifest.konnector`:
 
 With this, the transactions you created will be categorized, then the
 `onOperationOrBillCreate` service will be launched and do its work.
+
+
+## Developing
+
+You can manually create an app token and launch the built service.
+
+```
+# Watch services
+$ env NODE_ENV=services:development yarn run webpack --config webpack.config.js --bail --watch
+# In another terminal
+$ export COZY_URL='http://cozy.tools:8080'
+$ export COZY_CREDENTIALS=$(cozy-stack instances token-app cozy.tools:8080 banks)
+$ node build/budgetAlerts.js
+```
+
+Some services like the "budgetAlerts" one expose a CLI that can perform service related tasks.
+
+```
+yarn run services:budgetAlerts --help
+```

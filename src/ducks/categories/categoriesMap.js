@@ -6,8 +6,8 @@
 
 import tree from './tree'
 import isNode from 'detect-node'
-import palette from 'cozy-ui/react/palette'
-import { getCssVariableValue } from 'cozy-ui/react/utils/color'
+import palette from 'cozy-ui/transpiled/react/palette'
+import { getCssVariableValue } from 'cozy-ui/transpiled/react/utils/color'
 
 const getColor = color => (isNode ? palette[color] : getCssVariableValue(color))
 
@@ -110,6 +110,11 @@ export const categoryToParent = new Map(
 export const getParentCategory = catId => {
   const parent = categoryToParent.get(catId)
   return parent && parent.name
+}
+
+export const isParentOf = (possibleParentCatId, catId) => {
+  const parent = categoryToParent.get(catId)
+  return Boolean(parent && parent.id == possibleParentCatId)
 }
 
 Object.keys(tree).forEach(catId => {

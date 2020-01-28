@@ -1,6 +1,4 @@
-import configureStore from 'store/configureStore'
 import {
-  hydrateTransaction,
   getDate,
   getReimbursedAmount,
   isFullyReimbursed,
@@ -9,58 +7,70 @@ import {
   isReimbursementLate,
   hasReimbursements,
   hasBills,
-  isAlreadyNotified
+  isAlreadyNotified,
+  updateApplicationDate,
+  getApplicationDate,
+  REIMBURSEMENTS_STATUS
 } from './helpers'
-import { BILLS_DOCTYPE } from 'doctypes'
+import { BILLS_DOCTYPE, TRANSACTION_DOCTYPE, schema } from 'doctypes'
 import MockDate from 'mockdate'
-import flag from 'cozy-flags'
+import CozyClient from 'cozy-client'
+import { createClientWithData } from 'test/client'
 
-const fakeCozyClient = {
-  attachStore: () => {},
-  createDocument: (doctype, doc) => {
-    doc._type = doctype
-    doc.id = doc._id
-    return Promise.resolve({ data: [doc] })
-  }
-}
-
-xdescribe('transaction', () => {
+describe('reimbursements', () => {
+  let client
   const healthId = '400610'
   const BILL_ID = '1234'
-  let store, transaction // , bill
-  beforeEach(() => {
-    transaction = {
+  const bills = [
+    {
+      _type: BILLS_DOCTYPE,
+      _id: `${BILL_ID}`
+    }
+  ]
+  const transactions = [
+    {
+      _type: TRANSACTION_DOCTYPE,
       automaticCategoryId: healthId,
       amount: -10,
       reimbursements: [{ billId: `${BILLS_DOCTYPE}:${BILL_ID}` }]
     }
-    // bill = { _id: BILL_ID, invoice: 'io.cozy.files:4567' }
-    store = configureStore(fakeCozyClient)
-    // store.dispatch(createDocument(BILLS_DOCTYPE, bill))
+  ]
+  const transaction = transactions[0]
+
+  const getFirstReimbursementBill = transaction =>
+    transaction.reimbursements.data[0].bill
+
+  beforeEach(() => {
+    client = createClientWithData({
+      queries: {
+        bills: {
+          doctype: BILLS_DOCTYPE,
+          data: bills
+        },
+        transactions: {
+          doctype: TRANSACTION_DOCTYPE,
+          data: transactions
+        }
+      },
+      clientOptions: {
+        schema
+      }
+    })
   })
 
-  describe('reimbursements', () => {
-    it('should be hydrated if transaction in health category', () => {
-      const transactions = [transaction].map(t =>
-        hydrateTransaction(store.getState(), t)
-      )
-      expect(transactions[0].reimbursements[0].bill).toBeTruthy()
-      expect(transactions[0].reimbursements[0].bill._id).toBe(BILL_ID)
-    })
+  it('should be hydrated if transaction in health category', () => {
+    const transactions = [transaction].map(transaction =>
+      client.hydrateDocument(transaction)
+    )
+    expect(getFirstReimbursementBill(transactions[0])).toBeTruthy()
+    expect(getFirstReimbursementBill(transactions[0])._id).toBe(BILL_ID)
+  })
 
-    it('should not be hydrated if transaction not in the health category', () => {
-      const transactions = [
-        { ...transaction, automaticCategoryId: '1000' }
-      ].map(t => hydrateTransaction(store.getState(), t))
-      expect(transactions[0].reimbursements[0].bill).toBe(undefined)
-    })
-
-    it('should not be hydrated if bill does not exist in store', () => {
-      const transactions = [
-        { ...transaction, reimbursements: [{ billId: undefined }] }
-      ].map(t => hydrateTransaction(store.getState(), t))
-      expect(transactions[0].reimbursements[0].bill).toBe(undefined)
-    })
+  it('should not be hydrated if bill does not exist in store', () => {
+    const transactions = [
+      { ...transaction, reimbursements: [{ billId: undefined }] }
+    ].map(transaction => client.hydrateDocument(transaction))
+    expect(getFirstReimbursementBill(transactions[0])).toBe(undefined)
   })
 })
 
@@ -150,7 +160,7 @@ describe('getReimbursementStatus', () => {
   })
 
   describe('Health expense case', () => {
-    it('should return `pending` if the status is undefined and the transaction is not fully reimbursed', () => {
+    it('should return `pending` if the status is undefined and the transaction no reimbursement', () => {
       const t1 = {
         manualCategoryId: '400610',
         amount: -10
@@ -160,12 +170,24 @@ describe('getReimbursementStatus', () => {
         manualCategoryId: '400610',
         amount: -10,
         reimbursements: {
+          data: []
+        }
+      }
+
+      expect(getReimbursementStatus(t1)).toBe(REIMBURSEMENTS_STATUS.pending)
+      expect(getReimbursementStatus(t2)).toBe(REIMBURSEMENTS_STATUS.pending)
+    })
+
+    it('should return `reimbursed` if the status is undefined and the transaction has at least 1 reimbursement', () => {
+      const t2 = {
+        manualCategoryId: '400610',
+        amount: -10,
+        reimbursements: {
           data: [{ amount: 5 }]
         }
       }
 
-      expect(getReimbursementStatus(t1)).toBe('pending')
-      expect(getReimbursementStatus(t2)).toBe('pending')
+      expect(getReimbursementStatus(t2)).toBe(REIMBURSEMENTS_STATUS.reimbursed)
     })
 
     it('should return `reimbursed` if the status is undefined and the transaction is fully reimbursed', () => {
@@ -177,16 +199,14 @@ describe('getReimbursementStatus', () => {
         }
       }
 
-      expect(getReimbursementStatus(transaction)).toBe('reimbursed')
+      expect(getReimbursementStatus(transaction)).toBe(
+        REIMBURSEMENTS_STATUS.reimbursed
+      )
     })
   })
 })
 
 describe('isReimbursementLate', () => {
-  beforeEach(() => {
-    flag('late-health-reimbursement-limit', 30)
-  })
-
   afterEach(() => {
     MockDate.reset()
   })
@@ -196,7 +216,7 @@ describe('isReimbursementLate', () => {
       amount: 10
     }
 
-    expect(isReimbursementLate(transaction)).toBe(false)
+    expect(isReimbursementLate(transaction, 30)).toBe(false)
   })
 
   it('should return false if the transaction reimbursement status is not pending', () => {
@@ -211,8 +231,8 @@ describe('isReimbursementLate', () => {
       amount: -10
     }
 
-    expect(isReimbursementLate(t1)).toBe(false)
-    expect(isReimbursementLate(t2)).toBe(false)
+    expect(isReimbursementLate(t1, 30)).toBe(false)
+    expect(isReimbursementLate(t2, 30)).toBe(false)
   })
 
   it('should return false if the transaction reimbursement is pending but for less than one month', () => {
@@ -225,7 +245,7 @@ describe('isReimbursementLate', () => {
       amount: -10
     }
 
-    expect(isReimbursementLate(transaction)).toBe(false)
+    expect(isReimbursementLate(transaction, 30)).toBe(false)
   })
 
   it('should return true if the transaction reimbursement is pending for more than one month', () => {
@@ -238,7 +258,7 @@ describe('isReimbursementLate', () => {
       amount: -10
     }
 
-    expect(isReimbursementLate(transaction)).toBe(true)
+    expect(isReimbursementLate(transaction, 30)).toBe(true)
   })
 })
 
@@ -334,5 +354,44 @@ describe('isAlreadyNotified', () => {
     expect(isAlreadyNotified(t2, notificationClass)).toBe(false)
     expect(isAlreadyNotified(t3, notificationClass)).toBe(false)
     expect(isAlreadyNotified(t4, notificationClass)).toBe(false)
+  })
+})
+
+describe('updateApplicationDate', () => {
+  const setup = () => {
+    const client = new CozyClient({})
+    jest.spyOn(client, 'save').mockImplementation(doc => ({ data: doc }))
+    return { client }
+  }
+
+  it('should save the document', async () => {
+    const { client } = setup()
+    const doc = await updateApplicationDate(
+      client,
+      {
+        date: '2019-08-07T12:00'
+      },
+      '2019-09-01'
+    )
+    expect(client.save).toHaveBeenCalledWith({
+      date: '2019-08-07T12:00',
+      applicationDate: '2019-09-01'
+    })
+    expect(getApplicationDate(doc)).toBe('2019-09-01')
+  })
+
+  it('should reset the applicationDate if changed to same month as display date', async () => {
+    const { client } = setup()
+    await updateApplicationDate(
+      client,
+      {
+        date: '2019-09-07T12:00'
+      },
+      '2019-09-01'
+    )
+    expect(client.save).toHaveBeenCalledWith({
+      date: '2019-09-07T12:00',
+      applicationDate: null
+    })
   })
 })

@@ -2,13 +2,13 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import { translate } from 'cozy-ui/react'
-import Chip from 'cozy-ui/react/Chip'
+import { translate } from 'cozy-ui/transpiled/react'
+import Chip from 'cozy-ui/transpiled/react/Chip'
 import flag from 'cozy-flags'
 import FileOpener from 'ducks/transactions/FileOpener'
 import FileIcon from 'ducks/transactions/actions/AttachedDocsAction/FileIcon'
 import { Figure } from 'components/Figure'
-import { AugmentedModalOpener } from 'components/AugmentedModal'
+import { AugmentedModalOpener, isAugmentedModalBill } from 'ducks/demo'
 import { getBrands } from 'ducks/brandDictionary'
 
 export class DumbBillChip extends React.PureComponent {
@@ -33,21 +33,32 @@ export class DumbBillChip extends React.PureComponent {
     return [doctype, id]
   }
 
+  getChipLabel(vendorName) {
+    const { t } = this.props
+
+    return vendorName
+      ? t('Transactions.actions.attachedDocs.billWithVendor', {
+          vendorName: vendorName
+        })
+      : t('Transactions.actions.attachedDocs.billWithoutVendor')
+  }
+
   render() {
-    const { bill, t } = this.props
+    const { bill, transaction } = this.props
+
     let invoiceId
 
     try {
       invoiceId = this.getInvoiceId(bill)[1]
     } catch (err) {
       // eslint-disable-next-line no-console
-      console.log(err)
+      console.warn(err)
       return null
     }
 
-    const isVentePrivee = flag('demo') && bill.vendor === 'Vente Privée'
+    const shouldUseAugmentedModal = flag('demo') && isAugmentedModalBill(bill)
 
-    const Wrapper = isVentePrivee ? AugmentedModalOpener : FileOpener
+    const Wrapper = shouldUseAugmentedModal ? AugmentedModalOpener : FileOpener
 
     // Bill's vendor can be a slug. We get the brand from our dictionary to be
     // sure that we show the brand name and not a konnector slug
@@ -57,7 +68,7 @@ export class DumbBillChip extends React.PureComponent {
     const vendorName = brand && brand.name
 
     return (
-      <Wrapper fileId={invoiceId} key={invoiceId}>
+      <Wrapper fileId={invoiceId} key={invoiceId} transaction={transaction}>
         <Chip component="button" size="small" variant="outlined">
           <FileIcon
             color={bill.isRefund ? 'var(--emerald)' : undefined}
@@ -71,7 +82,7 @@ export class DumbBillChip extends React.PureComponent {
               <Figure total={bill.amount} coloredPositive signed symbol="€" />
             </>
           ) : (
-            t('Transactions.actions.attachedDocs.bill')
+            this.getChipLabel(vendorName)
           )}
         </Chip>
       </Wrapper>

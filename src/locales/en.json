@@ -4,7 +4,8 @@
     "deleting": "Deleting...",
     "cancel": "Cancel",
     "confirm": "Confirm",
-    "back": "Back"
+    "back": "Back",
+    "choose": "Choose"
   },
   "Loading": {
     "loading": "Loading...",
@@ -52,7 +53,22 @@
       "confirm": "Confirm account deletion",
       "title": "Are you definitive ?"
     },
-    "deletion_error": "An error occurred while group deletion."
+    "deletion_error": "An error occurred while group deletion.",
+    "label": "Label",
+    "owner": "Owner",
+    "addOwnerBtn": "Add an owner",
+    "removeOwnerBtn": "Remove this owner",
+    "ownerPlaceholder": "Select an owner",
+    "bank": "Bank",
+    "number": "Number",
+    "type": "Type",
+    "apply": "Apply",
+    "success": "Account updated successfully",
+    "failure": "Error while updating the account",
+    "removeAccountBtn": "Remove the account",
+    "listPlaceholder": "Search a contact",
+    "listEmptyMessage": "No contact found",
+    "addContactLabel": "Add a contact"
   },
 
   "Balance": {
@@ -79,7 +95,12 @@
     "importing_accounts_error": "Failed to import",
     "in_progress": "In progress",
     "error": "Click to restart",
-    "trigger-problem": "Problem with the connection"
+    "trigger-problem": "Problem with the connection",
+    "no-accounts-in-group": {
+      "description": "You don't have any accounts associated to this group.",
+      "button": "Edit the group"
+    },
+    "health-reimbursements-caption": "Last 6 months"
   },
   "SelectDates": {
     "all_year": "All year",
@@ -99,7 +120,8 @@
     "type": "Type",
     "bank": "Bank",
     "label": "Label",
-    "manage-accounts": "Manage my accounts"
+    "manage-accounts": "Manage my accounts",
+    "owner": "Owner"
   },
   "Groups": {
     "edit_group": "Edit Group",
@@ -204,7 +226,7 @@
       "activityFees": "Activity fees",
       "activityEquipments": "Activity equipments",
       "activityLessons": "Activity lessons",
-      "electronicsAndMultimedia": "Electronis and multimedia",
+      "electronicsAndMultimedia": "Electronics and multimedia",
       "booksMoviesMusic": "Books, movies, music",
       "hobbyAndPassion": "Hobby and passion",
       "restaurantsAndBars": "Restaurants and bars",
@@ -252,7 +274,8 @@
   },
   "Categories": {
     "choice": {
-      "title": "Update category"
+      "title": "Update category",
+      "select-all": "Select all"
     },
     "filter": {
       "credit": "earnings",
@@ -291,7 +314,7 @@
     "transactions": "Transactions",
     "trigger-error": {
       "title": "Connection unavailable",
-      "description": "Your banking data is no longer up-to-date because we cannot retrieve your data from %{bankName}.",
+      "description": "Your %{bankName} data is no longer updated.",
       "cta": "Verify the connection"
     },
     "will-be-debited-on": "Will be debited on %{date}",
@@ -315,7 +338,8 @@
         "generic": "My invoices"
       },
       "attachedDocs": {
-        "bill": "Invoice"
+        "billWithVendor": "%{vendorName} invoice",
+        "billWithoutVendor": "Invoice"
       },
       "more": "More",
       "healthExpenseProcessed": {
@@ -349,9 +373,14 @@
       }
     },
     "infos": {
+      "modal-label": "Transaction infos",
       "account": "Account",
       "institution": "Bank",
-      "originalBankLabel": "Original label"
+      "originalBankLabel": "Original label",
+      "date": "Date",
+      "assignedToPeriod": "Assigned to %{date}",
+      "chooseApplicationDate": "Assign to month",
+      "applicationDateChangedAlert": "Operation assigned to %{applicationDate} in the analysis tab"
     },
     "see-more": "See more...",
     "reimbursementStatus": {
@@ -364,7 +393,10 @@
 
   "Notifications": {
     "title": "Notifications",
-    "description": "You will receive your notifications via email and via a mobile notification if you have the Cozy Banks mobile app on your device",
+    "description": "You will receive your notifications via email or mobile notification if you have the Cozy Banks mobile app on your device",
+    "editModal": {
+      "title": "Configure notification"
+    },
     "weekly_summary": {
       "description": "You will receive a summary of your expenses and revenues every Monday of every week.",
       "title": "Weekly Synthesis"
@@ -378,43 +410,53 @@
       "title": "Monthly summary"
     },
     "if_balance_lower": {
-      "description": "You will receive a notification if your balance is less than",
+      "description": "You will receive a notification if your balance goes under *%{value}€* on any account",
+      "descriptionWithAccountGroup": "You will receive a notification if your balance goes under *%{value}€* on *%{accountOrGroupLabel}*",
       "settingTitle": "Low balances",
+      "fieldLabels": {
+        "value": "Warn me when my balance goes under",
+        "accountOrGroup": "On account/group"
+      },
       "email": {
         "innerTitle": "Low balances notification",
         "access_accounts": "Access my accounts"
       },
       "notification": {
         "one": {
-          "title": "Balance alert: '%{label}' account is at %{balance}%{currency}",
-          "debitContent": "Debit of %{amount}%{currency}: '%{label}'.",
-          "creditContent": "Credit of %{amount}%{currency}: '%{label}'."
+          "title": "Balance alert: '%{label}' account is at %{balance}%{currency}"
         },
         "several": {
-          "title": "%{accountsLength} accounts are below your threshold amount of %{lowerBalance}%{currency}",
-          "content": "Balance of %{balance}%{currency} on '%{label}' account."
+          "title": "%{accountsLength} accounts are below your threshold amount of %{lowerBalance}%{currency}"
+        },
+        "several-multi-rule": {
+          "title": "%{accountsLength} accounts are below their threshold amount"
         }
       }
     },
     "if_transaction_greater": {
-      "description": "You will receive a notification if a movement is greater than",
+      "description": "You will receive a notification if a movement is greater than *%{value}€*",
+      "descriptionWithAccountGroup": "You will receive a notification if a movement is greater than *%{value}€* on *%{accountOrGroupLabel}*",
       "settingTitle": "Transactions",
       "email": {
         "innerTitle": "Transaction notification"
       },
+      "fieldLabels": {
+        "value": "Warn me for expenses greater than",
+        "accountOrGroup": "On account/group"
+      },
       "notification": {
+        "content-transaction-mention": "%{smart_count} transaction |||| %{smart_count} transactions",
         "debit": {
-          "title": "Debit of %{amount}%{currency}",
-          "content": "%{label}"
+          "title": "Debit of %{amount}%{currency}"
         },
         "credit": {
-          "title": "Credit of %{amount}%{currency}",
-          "content": "%{label}"
+          "title": "Credit of %{amount}%{currency}"
         },
         "others": {
-          "title": "Alert: %{transactionsLength} transactions greater than %{maxAmount}€",
-          "debitContent": "Debit of %{amount}%{currency} with label '%{label}'.",
-          "creditContent": "Credit of %{amount}%{currency} with label '%{label}'."
+          "title": "%{transactionsLength} transactions greater than %{maxAmount}€"
+        },
+        "others-multi": {
+          "title": "%{transactionsLength} transactions greater than %{matchingRulesLength} thresholds"
         }
       }
     },
@@ -438,11 +480,14 @@
     },
     "when_late_health_reimbursement": {
       "settingTitle": "Late",
-      "description": "You will be notified when no reimbursement have been found for one of your health expenses since",
+      "description": "You will be notified when no reimbursement have been found for one of your health expenses since *%{value} days*.",
       "unit": "days",
       "email": {
         "innerTitle": "Late health reimbursement notification",
         "accessReimbursements": "Access my reimbursements"
+      },
+      "fieldLabels": {
+        "value":  "Warn me when a health expense has not been reimbursed in"
       },
       "notification": {
         "title": "Late health reimbursements",
@@ -458,10 +503,12 @@
     },
     "delayed_debit": {
       "settingTitle": "Delayed debit alert",
-      "description": {
-        "start": "You will receive a notification when the outstanding card account ",
-        "accountsGlue": " generates a negative balance on its associated current account ",
-        "end": " before the end of the month"
+      "settingDescription": "You need a \"credit card\" account for this functionality",
+      "description": "You will receive a notification when the outstanding card account *%{creditCardLabel}* generates a negative balance on its associated current account *%{checkingsLabel}*, *%{value} days* before the end of the month.",
+      "fieldLabels": {
+        "creditCardAccount": "Credit card",
+        "checkingsAccount": "Associated checking account",
+        "days": "Warn before the end of the month"
       },
       "unit": "days",
       "email": {
@@ -471,11 +518,19 @@
       "notification": {
         "title": "Account '%{label}' will be at %{balance}%{currency} after your credit card debit"
       }
+    },
+    "categoryBudgets": {
+      "email": {
+        "title-multi": "%{alertCount} budgets have exceeded their limit",
+        "title-single": "%{categoryLabel} budget has exceeded its limit",
+        "innerTitle": "Category budget notification",
+        "budgetOutOf": "out of"
+      }
     }
   },
 
   "ComingSoon": {
-    "description": "These features will soon be available.",
+    "description": "This feature will soon be available.",
     "title": "To come up"
   },
 
@@ -483,7 +538,7 @@
     "title": "Settings",
     "accounts": "Accounts",
     "groups": "Groups",
-    "configuration": "Configuration",
+    "configuration": "Config.",
     "security": "Security",
     "debug": "Debug",
     "security": {
@@ -491,6 +546,33 @@
       "amount_blur": {
         "title": "Hide amounts",
         "description": "Navigate the app with hidden amounts"
+      }
+    },
+    "rules": {
+      "create": "Create alert",
+      "remove-modal": {
+        "title": "Remove alert ?",
+        "desc": "Please confirm you want to remove the alert"
+      },
+      "saving-error": "Could not save alert, please try again later"
+    },
+    "budget-category-alerts": {
+      "pane-title": "Category budget",
+      "pane-description": "Configure monthly budget notification per category",
+      "budget-inferior-to": "Monthly budget of *%{threshold}€*",
+      "for-category": "in *%{categoryName}*",
+      "for-account": "for account *%{accountOrGroupLabel}*",
+      "for-group": "for group *%{accountOrGroupLabel}*",
+      "for-all-accounts": "for all accounts",
+      "edit": {
+        "modal-title": "Edit alert",
+        "category-label": "Category",
+        "threshold-label": "Monthly budget",
+        "account-group-label": "Account or group",
+        "create-ok": "Create alert",
+        "update-ok": "Update alert",
+        "all-category": "All « %{categoryName} »",
+        "cancel": "Cancel"
       }
     }
   },
@@ -538,9 +620,9 @@
 
   "Pin": {
     "enter-pin-restricted-area": "Please enter pin to enter restricted area",
-    "please-enter-pin": "Please enter a new pin",
-    "please-enter-your-pin": "Please enter your pin",
-    "please-repeat-pin": "Please repeat the pin",
+    "please-choose-pin": "Please choose a security code",
+    "please-enter-your-pin": "Please enter your security code",
+    "please-repeat-pin": "Please repeat the security code",
     "errors": {
       "different-pins": "The two codes are different, please retry."
     },
@@ -566,7 +648,7 @@
     "title": "Health reimbursements",
     "pending": "Pending reimbursements: ",
     "alreadyReimbursed": "Already reimbursed",
-    "noAwaiting": "No awaiting reimbursement.",
+    "noAwaiting": "No awaiting reimbursement for expenses in %{period}.",
     "noReimbursed": "Automatically detect your health reimbursements by connecting your health insurance to your Cozy."
   },
 
@@ -657,5 +739,53 @@
         "caption": "On my phone"
       }
     }
+  },
+
+  "LoanProgress": {
+    "reimbursedAmount": "Reimbursed amount",
+    "borrowedAmount": "Borrowed amount"
+  },
+
+  "LoanDetails": {
+    "dateGlue": "on",
+    "keyInfos": {
+      "title": "Key information",
+      "borrowedAmount": "Borrowed amount:",
+      "remainingCapital": "Remaining capital:",
+      "interestRate": "Interest rate:"
+    },
+    "payments": {
+      "title": "Payments",
+      "lastPayment": "Last payment made:",
+      "nextPayment": "Next scheduled payment:"
+    },
+    "characteristics": {
+      "title": "Loan characteristics",
+      "subscriptionDate": "Subscription date:",
+      "maturityDate": "Repayment date:",
+      "nbPaymentsLeft": "No payments left:",
+      "nbPaymentsDone": "No payments done:"
+    },
+    "creditReserve": {
+      "title": "Credit reserve",
+      "totalUsedAmount": "Total used amount:",
+      "availableAmount": "Available amount:"
+    }
+  },
+
+  "AccountGroupChoice": {
+    "nothing-selected": "Select an account",
+    "all-accounts": "All accounts"
+  },
+
+  "Confirmation": {
+    "cancel": "Cancel",
+    "ok": "OK"
+  },
+
+  "EditionModal": {
+    "ok": "OK",
+    "cancel": "Cancel",
+    "remove": "Remove"
   }
 }

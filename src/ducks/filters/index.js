@@ -2,12 +2,18 @@ import { combineReducers } from 'redux'
 import { createSelector } from 'reselect'
 import { parse, format, isWithinRange } from 'date-fns'
 import logger from 'cozy-logger'
-import { getTransactions, getAllGroups, getAccounts } from 'selectors'
+import {
+  getTransactions,
+  getAllGroups,
+  getAccounts,
+  getGroupsById,
+  getAccountsById
+} from 'selectors'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { sortBy, last, keyBy, find } from 'lodash'
 import { DESTROY_ACCOUNT } from 'actions/accounts'
 import { dehydrate } from 'cozy-client'
-import { getDisplayDate } from 'ducks/transactions/helpers'
+import { getApplicationDate, getDisplayDate } from 'ducks/transactions/helpers'
 import { isHealthExpense } from 'ducks/categories/helpers'
 
 const log = logger.namespace('filters')
@@ -16,11 +22,41 @@ const log = logger.namespace('filters')
 const FILTER_BY_PERIOD = 'FILTER_BY_PERIOD'
 const FILTER_BY_DOC = 'FILTER_BY_DOC'
 const RESET_FILTER_BY_DOC = 'RESET_FILTER_BY_DOC'
+const FILTER_YEAR_MONTH_FORMAT = 'YYYY-MM'
+const FILTER_YEAR_FORMAT = 'YYYY'
+
+export const parsePeriod = filter => {
+  return parse(
+    filter,
+    filter.length === 4 ? FILTER_YEAR_FORMAT : FILTER_YEAR_MONTH_FORMAT
+  )
+}
 
 // selectors
 export const getPeriod = state => state.filters && state.filters.period
-export const getFilteringDoc = state =>
+
+export const getRawFilteringDoc = state =>
   state.filters && state.filters.filteringDoc
+
+export const getFilteringDoc = createSelector(
+  [getAccountsById, getGroupsById, getRawFilteringDoc],
+  (accountsById, groupsById, rawFilteringDoc) => {
+    if (!rawFilteringDoc) {
+      return null
+    }
+
+    switch (rawFilteringDoc._type) {
+      case ACCOUNT_DOCTYPE:
+        return accountsById[rawFilteringDoc._id] || rawFilteringDoc
+
+      case GROUP_DOCTYPE:
+        return groupsById[rawFilteringDoc._id] || rawFilteringDoc
+
+      default:
+        return rawFilteringDoc
+    }
+  }
+)
 
 export const getFilteredAccountIds = state => {
   const availableAccountIds = getAccounts(state).map(x => x._id)
@@ -85,14 +121,35 @@ export const getTransactionsFilteredByAccount = createSelector(
   }
 )
 
-export const getFilteredTransactions = createSelector(
-  [getTransactionsFilteredByAccount, getPeriod],
-  (transactions, period) => {
-    return filterByPeriod(transactions, period)
+const getPathnameFromLocationProp = (state, ownProps) =>
+  ownProps && ownProps.location.pathname
+
+const getApplicationDateOrDisplayDate = transaction => {
+  const applicationDate = getApplicationDate(transaction)
+  if (applicationDate) {
+    return applicationDate
+  } else {
+    return getDisplayDate(transaction)
+  }
+}
+
+const getDateGetter = createSelector(
+  [getPathnameFromLocationProp],
+  pathname => {
+    if (pathname && pathname.startsWith('/categories')) {
+      return getApplicationDateOrDisplayDate
+    }
   }
 )
 
-const getHealthExpenses = createSelector(
+export const getFilteredTransactions = createSelector(
+  [getTransactionsFilteredByAccount, getPeriod, getDateGetter],
+  (transactions, period, dateGetter) => {
+    return filterByPeriod(transactions, period, dateGetter)
+  }
+)
+
+export const getHealthExpenses = createSelector(
   [getTransactions],
   transactions => transactions.filter(isHealthExpense)
 )
@@ -116,7 +173,7 @@ const isDate = date => date instanceof Date
 const isString = str => typeof str === 'string'
 
 // filters
-const filterByPeriod = (transactions, period) => {
+const filterByPeriod = (transactions, period, dateGetter) => {
   let pred
   const l = period.length
   if (isString(period)) {
@@ -132,11 +189,12 @@ const filterByPeriod = (transactions, period) => {
       return isWithinRange(parse(date), period[0], period[1])
     }
   } else {
-    throw new Error('Invalid period: ' + period)
+    throw new Error('Invalid period: ' + JSON.stringify(period))
   }
 
+  dateGetter = dateGetter || getDisplayDate
   return transactions.filter(transaction => {
-    const date = getDisplayDate(transaction)
+    const date = dateGetter(transaction)
     if (!date) {
       return false
     }

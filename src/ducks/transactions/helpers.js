@@ -13,7 +13,7 @@ const tooLong = /\b[A-Z\d]{15,}\b/g
 const punctuations = /[-:++]/g
 const spaces = /\s+/g
 
-const cleanLabel = flag('clean-label')
+const cleanLabel = flag('transactions.clean-label')
   ? label => {
       return label
         .replace(prevRecurRx, ' ')
@@ -45,6 +45,9 @@ export const getDisplayDate = transaction => {
 
 export const getDate = transaction => {
   const date = getDisplayDate(transaction)
+  if (!date) {
+    throw new Error(`Cannot get date on transaction ${transaction.label}`)
+  }
   return date.slice(0, 10)
 }
 
@@ -109,6 +112,13 @@ export const hasReimbursements = transaction => {
   return reimbursements.length > 0
 }
 
+export const REIMBURSEMENTS_STATUS = {
+  noReimbursement: 'no-reimbursement',
+  pending: 'pending',
+  reimbursed: 'reimbursed',
+  late: 'late'
+}
+
 export const getBills = transaction => {
   const allBills = get(transaction, 'bills.data', [])
 
@@ -168,31 +178,30 @@ export const getHealthExpenseReimbursementStatus = transaction => {
     return transaction.reimbursementStatus
   }
 
-  return isFullyReimbursed(transaction) ? 'reimbursed' : 'pending'
+  return hasReimbursements(transaction)
+    ? REIMBURSEMENTS_STATUS.reimbursed
+    : REIMBURSEMENTS_STATUS.pending
 }
 
-export const isReimbursementLate = transaction => {
+export const isReimbursementLate = (transaction, lateLimitInDays) => {
   if (!isHealthExpense(transaction)) {
     return false
   }
 
   const status = getReimbursementStatus(transaction)
 
-  if (status !== 'pending') {
+  if (status !== REIMBURSEMENTS_STATUS.pending) {
     return false
   }
 
   const transactionDate = parseDate(getDate(transaction))
   const today = new Date()
 
-  return (
-    differenceInDays(today, transactionDate) >
-    flag('late-health-reimbursement-limit')
-  )
+  return differenceInDays(today, transactionDate) > lateLimitInDays
 }
 
 export const hasPendingReimbursement = transaction => {
-  return getReimbursementStatus(transaction) === 'pending'
+  return getReimbursementStatus(transaction) === REIMBURSEMENTS_STATUS.pending
 }
 
 export const isAlreadyNotified = (transaction, notificationClass) => {
@@ -202,4 +211,46 @@ export const isAlreadyNotified = (transaction, notificationClass) => {
       `cozyMetadata.notifications.${notificationClass.settingKey}`
     )
   )
+}
+
+export const updateTransactionCategory = async (
+  client,
+  transaction,
+  category
+) => {
+  const newTransaction = {
+    ...transaction,
+    manualCategoryId: category.id
+  }
+  const { data } = await client.save(newTransaction)
+  return data
+}
+
+const isSameMonth = (dateStr, otherDateStr) => {
+  return (
+    dateStr && otherDateStr && dateStr.slice(0, 7) == otherDateStr.slice(0, 7)
+  )
+}
+
+export const getApplicationDate = transaction => {
+  if (isSameMonth(transaction.applicationDate, transaction.date)) {
+    return null
+  }
+  return transaction.applicationDate
+}
+
+export const updateApplicationDate = async (
+  client,
+  transaction,
+  applicationDate
+) => {
+  const date = getDisplayDate(transaction)
+  if (isSameMonth(date, applicationDate)) {
+    applicationDate = null // reset the application date
+  }
+  const { data } = await client.save({
+    ...transaction,
+    applicationDate
+  })
+  return data
 }

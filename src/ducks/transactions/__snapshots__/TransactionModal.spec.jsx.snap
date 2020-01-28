@@ -1,47 +1,44 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`transaction modal should render correctly 1`] = `
-"<div class=\\"c-modal-container\\">
-  <div class=\\"c-overlay\\">
-    <div class=\\"c-modal-wrapper\\">
-      <div class=\\"c-modal c-modal--small c-modal--closable PageModalDesktop\\" role=\\"dialog\\" aria-modal=\\"true\\"><button type=\\"button\\" class=\\"c-btn c-btn--close c-btn--narrow c-btn--center c-modal-close PageModalDesktop__cross c-modal-close--notitle\\" title=\\"Close\\"><span><span class=\\"u-visuallyhidden\\">Close</span><svg class=\\"icon\\" style=\\"fill: var(--coolGrey);\\" width=\\"24\\" height=\\"24\\">
+"<div class=\\"styles__c-modal-container___31zmi\\">
+  <div class=\\"styles__c-overlay___31iWd\\">
+    <div class=\\"styles__c-modal-wrapper___8PyE9\\">
+      <div class=\\"styles__c-modal___33aV9 styles__c-modal--small___XUfOM styles__c-modal--overflowHidden___3H87t styles__c-modal--closable___29CLQ\\" role=\\"dialog\\" aria-modal=\\"true\\" aria-label=\\"Transaction infos\\"><button class=\\"styles__c-modal-close___1v2bp styles__c-modal-close--notitle___1rqne\\" type=\\"button\\" aria-label=\\"close\\"><svg class=\\"styles__icon___23x3R\\" style=\\"fill: var(--coolGrey);\\" width=\\"24\\" height=\\"24\\">
             <use xlink:href=\\"#cross\\"></use>
-          </svg></span></button>
-        <div class=\\"c-modal-header PageModalDesktop__header\\">
-          <h2 class=\\"TransactionModalHeading\\">
-            <div class=\\"default\\"><span class=\\"Figure-total\\">-1,231.00</span><span class=\\"Figure-currency Figure__currency--withSpacing\\">€</span></div>
-          </h2>
-        </div>
-        <div class=\\"c-modal-content PageModalDesktop__content\\">
-          <div>
-            <div class=\\"media media--top TransactionModalRow u-pl-1-half TransactionModalRow-multiline\\">
-              <div class=\\"img TransactionModalRowIcon TransactionModalRowIcon-alignTop\\"><svg class=\\"TransactionModalRowIcon-alignTop TransactionModalRowIcon-reversed icon\\" width=\\"16\\" height=\\"16\\">
+          </svg></button>
+        <div>
+          <div class=\\"styles__c-modal-header___hTCm5 Page__header\\">
+            <div class=\\"default\\"><span class=\\"Figure-total\\">-77.50</span><span class=\\"Figure-currency Figure__currency--withSpacing\\">€</span></div>
+          </div>
+          <div class=\\"Separated\\">
+            <div class=\\"styles__media___cSJMp styles__media--top___K9w0I TransactionModalRow u-row-m\\">
+              <div class=\\"styles__img___3SHpG u-ph-half\\"><svg class=\\"TransactionModalRowIcon-reversed styles__icon___23x3R\\" width=\\"16\\" height=\\"16\\">
                   <use xlink:href=\\"#test-file-stub\\"></use>
                 </svg></div>
-              <div class=\\"bd TransactionModalRowContent\\">
-                <div class=\\"TransactionLabel\\">Remboursement Pret Lcl</div>
-                <div class=\\"TransactionInfos\\">
-                  <div class=\\"TransactionInfo\\"><span class=\\"TransactionInfoLabel\\">Account :</span>Compte courant Isabelle</div>
-                  <div class=\\"TransactionInfo\\"><span class=\\"TransactionInfoLabel\\">Bank :</span>BNPP</div>
+              <div class=\\"styles__bd___1Uv-F u-stack-xs\\">
+                <div class=\\"TransactionLabel\\">Edf Particuliers</div>
+                <div>
+                  <div class=\\"TransactionInfo\\"><span class=\\"TransactionInfoLabel\\">Date :</span>Saturday 26 August</div>
                 </div>
               </div>
             </div>
-            <hr class=\\"TransactionModalSeparator\\">
-            <div class=\\"media TransactionModalRow u-pl-1-half\\">
-              <div class=\\"img TransactionModalRowIcon\\"><svg class=\\"icon\\" width=\\"16\\" height=\\"16\\">
+            <div class=\\"styles__media___cSJMp TransactionModalRow u-row-m TransactionModalRow-clickable u-c-pointer\\">
+              <div class=\\"styles__img___3SHpG u-ph-half\\"><svg class=\\"styles__icon___23x3R\\" width=\\"16\\" height=\\"16\\">
                   <use xlink:href=\\"#test-file-stub\\"></use>
                 </svg></div>
-              <div class=\\"bd TransactionModalRowContent\\"><span style=\\"text-transform: capitalize;\\">Friday 25 August</span></div>
-            </div>
-            <hr class=\\"TransactionModalSeparator\\">
-            <div class=\\"media TransactionModalRow TransactionModalRow-clickable u-pl-1-half u-pr-1-half\\">
-              <div class=\\"img TransactionModalRowIcon\\"><svg class=\\"icon\\" width=\\"16\\" height=\\"16\\">
-                  <use xlink:href=\\"#test-file-stub\\"></use>
+              <div class=\\"styles__bd___1Uv-F\\">Assigned to Aug 2017</div>
+              <div class=\\"styles__img___3SHpG\\"><svg class=\\"styles__icon___23x3R\\" style=\\"fill: var(--coolGrey);\\" width=\\"16\\" height=\\"16\\">
+                  <use xlink:href=\\"#right\\"></use>
                 </svg></div>
-              <div class=\\"bd TransactionModalRowContent\\">Real estate loan</div>
-              <div class=\\"img\\"></div>
             </div>
-            <hr class=\\"TransactionModalSeparator\\">
+            <div class=\\"styles__media___cSJMp TransactionModalRow u-row-m TransactionModalRow-clickable u-c-pointer\\">
+              <div class=\\"styles__img___3SHpG\\"></div>
+              <div class=\\"styles__bd___1Uv-F\\">Power</div>
+              <div class=\\"styles__img___3SHpG\\"><svg class=\\"styles__icon___23x3R\\" style=\\"fill: var(--coolGrey);\\" width=\\"16\\" height=\\"16\\">
+                  <use xlink:href=\\"#right\\"></use>
+                </svg></div>
+            </div>
           </div>
         </div>
       </div>

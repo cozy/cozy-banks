@@ -1,6 +1,27 @@
-.back-arrow.back-arrow
+@require 'settings/breakpoints'
+
+.BackArrow.BackArrow
     float left
     font-size 1.25rem
     line-height 1.6875
     margin-right 1.5rem
     cursor pointer
+    border-radius 100%
+    width 2rem
+    display inline-flex
+    height 3rem
+    justify-content center
+    align-items center
+    border 0
+    background transparent
+
+    +small-screen()
+        &
+            margin-right 1rem
+
+.BackArrow.BackArrow:active
+    background rgba(255, 255, 255, 0.2)
+    cursor pointer
+    padding 0
+    background none
+    border 0

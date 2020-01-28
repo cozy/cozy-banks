@@ -1,5 +1,5 @@
 import fromPairs from 'lodash/fromPairs'
-import CozyClient, { QueryDefinition, HasManyInPlace } from 'cozy-client'
+import CozyClient, { QueryDefinition, HasManyInPlace, Q } from 'cozy-client'
 
 export const RECIPIENT_DOCTYPE = 'io.cozy.bank.recipients'
 export const ACCOUNT_DOCTYPE = 'io.cozy.bank.accounts'
@@ -12,6 +12,8 @@ export const APP_DOCTYPE = 'io.cozy.apps'
 export const KONNECTOR_DOCTYPE = 'io.cozy.konnectors'
 export const COZY_ACCOUNT_DOCTYPE = 'io.cozy.accounts'
 export const PERMISSION_DOCTYPE = 'io.cozy.permissions'
+export const BANK_ACCOUNT_STATS_DOCTYPE = 'io.cozy.bank.accounts.stats'
+export const CONTACT_DOCTYPE = 'io.cozy.contacts'
 
 export const offlineDoctypes = [
   ACCOUNT_DOCTYPE,
@@ -124,6 +126,10 @@ export const schema = {
       checkingsAccount: {
         type: 'has-one',
         doctype: ACCOUNT_DOCTYPE
+      },
+      owners: {
+        type: 'has-many',
+        doctype: CONTACT_DOCTYPE
       }
     }
   },
@@ -151,32 +157,41 @@ export const schema = {
     doctype: KONNECTOR_DOCTYPE,
     attributes: {},
     relationships: {}
+  },
+  stats: {
+    doctype: BANK_ACCOUNT_STATS_DOCTYPE,
+    attributes: {},
+    relationships: {
+      account: {
+        type: 'has-one',
+        doctype: ACCOUNT_DOCTYPE
+      }
+    }
   }
 }
 
 const older30s = CozyClient.fetchPolicies.olderThan(30 * 1000)
 
 export const accountsConn = {
-  query: client => client.all(ACCOUNT_DOCTYPE),
+  query: () => Q(ACCOUNT_DOCTYPE).include(['owners']),
   as: 'accounts',
   fetchPolicy: older30s
 }
 
 export const groupsConn = {
-  query: client => client.all(GROUP_DOCTYPE),
+  query: () => Q(GROUP_DOCTYPE),
   as: 'groups',
   fetchPolicy: older30s
 }
 
 export const triggersConn = {
-  query: client => client.all(TRIGGER_DOCTYPE),
+  query: () => Q(TRIGGER_DOCTYPE),
   as: 'triggers'
 }
 
 export const transactionsConn = {
-  query: client =>
-    client
-      .all(TRANSACTION_DOCTYPE)
+  query: () =>
+    Q(TRANSACTION_DOCTYPE)
       .UNSAFE_noLimit()
       .include(['bills', 'account', 'reimbursements']),
   as: 'transactions',
@@ -184,24 +199,24 @@ export const transactionsConn = {
 }
 
 export const appsConn = {
-  query: client => client.all(APP_DOCTYPE),
+  query: () => Q(APP_DOCTYPE),
   as: 'apps'
 }
 
 export const billsConn = {
-  query: client => client.all(BILLS_DOCTYPE),
+  query: () => Q(BILLS_DOCTYPE),
   as: 'bills',
   fetchPolicy: older30s
 }
 
 export const settingsConn = {
-  query: client => client.all(SETTINGS_DOCTYPE),
+  query: () => Q(SETTINGS_DOCTYPE),
   as: 'settings',
   fetchPolicy: older30s
 }
 
 export const recipientsConn = {
-  query: client => client.all(RECIPIENT_DOCTYPE),
+  query: () => Q(RECIPIENT_DOCTYPE),
   as: 'recipients',
   fetchPolicy: older30s
 }

@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
-import { translate } from 'cozy-ui/react'
-import Button from 'cozy-ui/react/Button'
-import Icon from 'cozy-ui/react/Icon'
+import { translate, useI18n } from 'cozy-ui/transpiled/react'
+import Button from 'cozy-ui/transpiled/react/Button'
+import Icon from 'cozy-ui/transpiled/react/Icon'
 import Table from 'components/Table'
-import { groupsConn } from 'doctypes'
+import { groupsConn, accountsConn } from 'doctypes'
 import { queryConnect } from 'cozy-client'
 import Loading from 'components/Loading'
 import plus from 'assets/icons/16/plus.svg'
@@ -12,11 +12,13 @@ import styles from 'ducks/settings/GroupsSettings.styl'
 import btnStyles from 'styles/buttons.styl'
 import { sortBy, flowRight as compose, get } from 'lodash'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
+import { getGroupLabel } from 'ducks/groups/helpers'
 
 const GroupList = compose(
   withRouter,
   translate()
-)(({ groups, t, router }) => {
+)(({ groups, router }) => {
+  const { t } = useI18n()
   return groups.length ? (
     <Table className={styles.GrpsStg__table}>
       <thead>
@@ -33,7 +35,7 @@ const GroupList = compose(
             onClick={() => router.push(`/settings/groups/${group._id}`)}
             className={styles.GrpsStg__row}
           >
-            <td className={styles.GrpsStg__label}>{group.label}</td>
+            <td className={styles.GrpsStg__label}>{getGroupLabel(group, t)}</td>
             <td className={styles.GrpsStg__accounts}>
               {group.accounts.data
                 .map(
@@ -78,7 +80,8 @@ const Groups = withRouter(
 
 export default compose(
   queryConnect({
-    groups: groupsConn
+    groups: groupsConn,
+    accounts: accountsConn
   }),
   translate()
 )(Groups)

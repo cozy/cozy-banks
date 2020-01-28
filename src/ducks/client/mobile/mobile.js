@@ -7,12 +7,12 @@ import { merge } from 'lodash'
 import { getLinks } from '../links'
 import { schema } from 'doctypes'
 import manifest from 'ducks/client/manifest'
-import pushPlugin from 'ducks/mobile/push'
-import { clientPlugin as sentryPlugin } from 'lib/sentry'
+import PushPlugin from 'ducks/mobile/push'
+import { checkForRevocation } from 'ducks/client/utils'
+import { SentryCozyClientPlugin as SentryPlugin } from 'lib/sentry'
 
 import { SOFTWARE_ID } from 'ducks/mobile/constants'
 import { getRedirectUri } from 'ducks/client/mobile/redirect'
-import { resetFilterByDoc } from 'ducks/filters'
 
 export const getScope = m => {
   if (m.permissions === undefined) {
@@ -48,45 +48,12 @@ export const getManifestOptions = manifest => {
   }
 }
 
-// TODO: the revocation check via cozy-pouch-link should not be
-// done in the app. We should find a way to have this in a shared
-// repository, possibly in cozy-client or cozy-pouch-link
-export const isRevoked = async client => {
-  try {
-    await client.stackClient.fetchInformation()
-    return false
-  } catch (err) {
-    if (err.message && err.message.indexOf('Client not found') > -1) {
-      return true
-    } else {
-      return false
-    }
-  }
+const registerPluginsAndHandlers = client => {
+  client.registerPlugin(PushPlugin)
+  client.registerPlugin(SentryPlugin)
 }
 
-const checkForRevocation = async client => {
-  const revoked = await isRevoked(client)
-  if (revoked) {
-    client.stackClient.unregister()
-    client.handleRevocationChange(true)
-  }
-}
-
-const registerPlugin = (client, plugin) => {
-  plugin(client)
-}
-
-const registerPluginsAndHandlers = (client, getStore) => {
-  registerPlugin(client, pushPlugin)
-  registerPlugin(client, sentryPlugin)
-
-  client.on('logout', () => {
-    const store = getStore()
-    store.dispatch(resetFilterByDoc())
-  })
-}
-
-export const getClient = (state, getStore) => {
+export const getClient = () => {
   const manifestOptions = getManifestOptions(manifest)
   const appSlug = manifest.slug
 
@@ -105,6 +72,9 @@ export const getClient = (state, getStore) => {
     },
     links: getLinks({
       pouchLink: {
+        // TODO: the revocation check via cozy-pouch-link should not be
+        // done in the app. We should find a way to have this in a shared
+        // repository, possibly in cozy-client or cozy-pouch-link
         onSyncError: async () => {
           checkForRevocation(client)
         }
@@ -113,6 +83,6 @@ export const getClient = (state, getStore) => {
   }
 
   client = new CozyClient(merge(manifestOptions, banksOptions))
-  registerPluginsAndHandlers(client, getStore)
+  registerPluginsAndHandlers(client)
   return client
 }

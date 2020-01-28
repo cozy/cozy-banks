@@ -1,11 +1,17 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
-import { translate, withBreakpoints } from 'cozy-ui/react'
-import Button from 'cozy-ui/react/Button'
-import { Tabs, TabPanels, TabPanel, TabList, Tab } from 'cozy-ui/react/Tabs'
-import Modal from 'cozy-ui/react/Modal'
-import Icon from 'cozy-ui/react/Icon'
-import Alerter from 'cozy-ui/react/Alerter'
+import { translate, withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
+import Button from 'cozy-ui/transpiled/react/Button'
+import {
+  Tabs,
+  TabPanels,
+  TabPanel,
+  TabList,
+  Tab
+} from 'cozy-ui/transpiled/react/Tabs'
+import Modal from 'cozy-ui/transpiled/react/Modal'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import Loading from 'components/Loading'
 import { withDispatch } from 'utils'
 import BackButton from 'components/BackButton'
@@ -19,13 +25,15 @@ import {
   getAccountInstitutionLabel,
   getAccountType
 } from 'ducks/account/helpers'
-import { getAppUrlById } from 'selectors'
-import { Query } from 'cozy-client'
+import { getHomeURL } from 'ducks/apps/selectors'
+import { Query, Q } from 'cozy-client'
 import { queryConnect, withClient } from 'cozy-client'
 import { ACCOUNT_DOCTYPE, APP_DOCTYPE } from 'doctypes'
 import { Padded } from 'components/Spacing'
 import { logException } from 'lib/sentry'
 import withFilters from 'components/withFilters'
+import flag from 'cozy-flags'
+import NewAccountSettings from './NewAccountSettings'
 
 const DeleteConfirm = ({
   cancel,
@@ -217,15 +225,14 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-const mapStateToProps = (state, ownProps) => ({
-  collectUrl: getAppUrlById(ownProps, 'io.cozy.apps/collect'),
-  homeUrl: getAppUrlById(ownProps, 'io.cozy.apps/home')
+const mapStateToProps = state => ({
+  homeUrl: getHomeURL(state)
 })
 
 const GeneralSettings = compose(
   withRouter,
   queryConnect({
-    apps: { query: client => client.all(APP_DOCTYPE), as: 'apps' }
+    apps: { query: () => Q(APP_DOCTYPE), as: 'apps' }
   }),
   withClient,
   withDispatch,
@@ -237,11 +244,8 @@ const GeneralSettings = compose(
   withFilters
 )(_GeneralSettings)
 
-const AccountSettings = function({
-  routeParams,
-  t,
-  breakpoints: { isMobile }
-}) {
+const OldAccountSettings = ({ routeParams, breakpoints: { isMobile } }) => {
+  const { t } = useI18n()
   return (
     <Query query={client => client.get(ACCOUNT_DOCTYPE, routeParams.accountId)}>
       {({ data, fetchStatus }) => {
@@ -286,6 +290,14 @@ const AccountSettings = function({
       }}
     </Query>
   )
+}
+
+const AccountSettings = function(props) {
+  if (flag('settings.new-account-details-page')) {
+    return <NewAccountSettings {...props} />
+  } else {
+    return <OldAccountSettings {...props} />
+  }
 }
 
 export default compose(
