@@ -17,7 +17,12 @@ With Cozy Banks, you can easily:
 - Directly access your health insurance reimbursements
 - Enjoy all the features for free
 
-## How to start developing
+
+## Feature requests
+
+We love getting feedback, do not hesitate if you have any. Please use the [forum](https://forum.cozy.io/c/francais/banque) for any feature requests.
+
+## Developing
 
 ```bash
 $ yarn
