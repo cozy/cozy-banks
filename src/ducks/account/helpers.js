@@ -145,6 +145,17 @@ const isWithin6Months = () => {
   return date => isAfter(date, SIX_MONTHS_AGO)
 }
 
+/**
+ * Generate a reimbursements virtual account builder
+ *
+ * @param {Object} specs
+ * @param {Function} specs.filter - A function to filter transactions that fits in the virtual account
+ * @param {String} specs.id - The id of the generated virtual account
+ * @param {String} specs.translationKey - The translationKey that will be used to show the name of the virtual account
+ * @param {String} [specs.categoryId] - The category id of the transactions that matches the virtual account if there is any
+ *
+ * @returns {Function} The builder
+ */
 const buildReimbursementsVirtualAccount = specs => transactions => {
   const combinedFilter = overEvery(
     [
