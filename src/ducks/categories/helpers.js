@@ -144,4 +144,8 @@ export const getGlobalCurrency = categories => {
   return currency
 }
 
+export const isProfessionalExpense = transaction => {
+  return getCategoryId(transaction) === '600140' && transaction.amount < 0
+}
+
 export { getCategoryIdFromName } from 'ducks/categories/categoriesMap'

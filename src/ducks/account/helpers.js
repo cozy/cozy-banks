@@ -10,9 +10,14 @@ import {
 import {
   getDate,
   getReimbursedAmount as getTransactionReimbursedAmount,
-  hasPendingReimbursement
+  hasPendingReimbursement,
+  isExpense
 } from 'ducks/transactions/helpers'
-import { isHealthExpense } from 'ducks/categories/helpers'
+import {
+  isHealthExpense,
+  isProfessionalExpense,
+  getCategoryIdFromName
+} from 'ducks/categories/helpers'
 import { differenceInCalendarDays, isAfter, subMonths } from 'date-fns'
 import flag from 'cozy-flags'
 import { BankAccount } from 'cozy-doctypes'
@@ -139,10 +144,10 @@ const isWithin6Months = () => {
   return date => isAfter(date, SIX_MONTHS_AGO)
 }
 
-export const buildHealthReimbursementsVirtualAccount = transactions => {
-  const healthExpensesFilter = overEvery(
+const buildReimbursementsVirtualAccount = (filter, options) => transactions => {
+  const combinedFilter = overEvery(
     [
-      isHealthExpense,
+      filter,
       compose(
         isWithin6Months(),
         getDate
@@ -150,20 +155,20 @@ export const buildHealthReimbursementsVirtualAccount = transactions => {
       hasPendingReimbursement
     ].filter(Boolean)
   )
+  const filteredTransactions = transactions.filter(combinedFilter)
 
-  const healthExpenses = transactions.filter(healthExpensesFilter)
-
-  const balance = sumBy(healthExpenses, expense => {
+  const balance = sumBy(filteredTransactions, expense => {
     const reimbursedAmount = getTransactionReimbursedAmount(expense)
     return -expense.amount - reimbursedAmount
   })
 
   const account = {
-    _id: 'health_reimbursements',
+    _id: options.id,
     _type: ACCOUNT_DOCTYPE,
-    label: 'Data.virtualAccounts.healthReimbursements',
+    label: `Data.virtualAccounts.${options.translationKey}`,
     balance,
     type: 'Reimbursements',
+    categoryId: options.categoryId,
     currency: '€',
     virtual: true
   }
@@ -171,8 +176,44 @@ export const buildHealthReimbursementsVirtualAccount = transactions => {
   return account
 }
 
+export const buildHealthReimbursementsVirtualAccount = buildReimbursementsVirtualAccount(
+  isHealthExpense,
+  {
+    id: 'health_reimbursements',
+    translationKey: 'healthReimbursements',
+    categoryId: getCategoryIdFromName('healthExpenses')
+  }
+)
+
+export const buildProfessionalReimbursementsVirtualAccount = buildReimbursementsVirtualAccount(
+  isProfessionalExpense,
+  {
+    id: 'professional_reimbursements',
+    translationKey: 'professionalReimbursements',
+    categoryId: getCategoryIdFromName('professionalExpenses')
+  }
+)
+
+export const buildOthersReimbursementsVirtualAccount = buildReimbursementsVirtualAccount(
+  transaction =>
+    !isProfessionalExpense(transaction) &&
+    !isHealthExpense(transaction) &&
+    isExpense(transaction),
+  { id: 'others_reimbursements', translationKey: 'othersReimbursements' }
+)
+
 export const buildVirtualAccounts = transactions => {
-  return [buildHealthReimbursementsVirtualAccount(transactions)]
+  return [
+    buildHealthReimbursementsVirtualAccount(transactions),
+    flag('balance.professional-reimb-account') &&
+      buildProfessionalReimbursementsVirtualAccount(transactions),
+    flag('balance.others-reimb-account') &&
+      buildOthersReimbursementsVirtualAccount(transactions)
+  ].filter(Boolean)
+}
+
+export const isReimbursementsAccount = account => {
+  return account.type === 'Reimbursements'
 }
 
 export const isHealthReimbursementsAccount = account => {
