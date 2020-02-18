@@ -5,7 +5,8 @@ import {
   flowRight as compose,
   set,
   uniqBy,
-  flatten
+  flatten,
+  overSome
 } from 'lodash'
 import {
   getDate,
@@ -144,10 +145,10 @@ const isWithin6Months = () => {
   return date => isAfter(date, SIX_MONTHS_AGO)
 }
 
-const buildReimbursementsVirtualAccount = (filter, options) => transactions => {
+const buildReimbursementsVirtualAccount = specs => transactions => {
   const combinedFilter = overEvery(
     [
-      filter,
+      specs.filter,
       compose(
         isWithin6Months(),
         getDate
@@ -163,12 +164,12 @@ const buildReimbursementsVirtualAccount = (filter, options) => transactions => {
   })
 
   const account = {
-    _id: options.id,
+    _id: specs.id,
     _type: ACCOUNT_DOCTYPE,
-    label: `Data.virtualAccounts.${options.translationKey}`,
+    label: `Data.virtualAccounts.${specs.translationKey}`,
     balance,
     type: 'Reimbursements',
-    categoryId: options.categoryId,
+    categoryId: specs.categoryId,
     currency: '€',
     virtual: true
   }
@@ -176,30 +177,43 @@ const buildReimbursementsVirtualAccount = (filter, options) => transactions => {
   return account
 }
 
-export const buildHealthReimbursementsVirtualAccount = buildReimbursementsVirtualAccount(
-  isHealthExpense,
-  {
+const reimbursementsVirtualAccountsSpecs = {
+  health: {
     id: 'health_reimbursements',
     translationKey: 'healthReimbursements',
-    categoryId: getCategoryIdFromName('healthExpenses')
+    categoryId: getCategoryIdFromName('healthExpenses'),
+    filter: isHealthExpense
+  },
+  professional: {
+    id: 'professional_reimbursements',
+    translationKey: 'professionalReimbursements',
+    categoryId: getCategoryIdFromName('professionalExpenses'),
+    filter: isProfessionalExpense
   }
+}
+
+export const buildHealthReimbursementsVirtualAccount = buildReimbursementsVirtualAccount(
+  reimbursementsVirtualAccountsSpecs.health
 )
 
 export const buildProfessionalReimbursementsVirtualAccount = buildReimbursementsVirtualAccount(
-  isProfessionalExpense,
-  {
-    id: 'professional_reimbursements',
-    translationKey: 'professionalReimbursements',
-    categoryId: getCategoryIdFromName('professionalExpenses')
-  }
+  reimbursementsVirtualAccountsSpecs.professional
 )
 
+const isSpecificReimbursement = overSome(
+  Object.values(reimbursementsVirtualAccountsSpecs).map(spec => spec.filter)
+)
+
+const othersFilter = transaction => {
+  return !isSpecificReimbursement(transaction) && isExpense(transaction)
+}
+
 export const buildOthersReimbursementsVirtualAccount = buildReimbursementsVirtualAccount(
-  transaction =>
-    !isProfessionalExpense(transaction) &&
-    !isHealthExpense(transaction) &&
-    isExpense(transaction),
-  { id: 'others_reimbursements', translationKey: 'othersReimbursements' }
+  {
+    id: 'others_reimbursements',
+    translationKey: 'othersReimbursements',
+    filter: othersFilter
+  }
 )
 
 export const buildVirtualAccounts = transactions => {
