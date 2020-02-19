@@ -11,26 +11,12 @@ import { ConnectedSelectDates } from 'components/SelectDates'
 import Reimbursements from 'ducks/reimbursements/Reimbursements'
 import styles from 'ducks/reimbursements/ReimbursementsPage.styl'
 
-function getSubComponent(filteringDoc) {
-  switch (filteringDoc._id) {
-    case 'health_reimbursements':
-    case 'Reimbursements':
-      return Reimbursements
-
-    default:
-      throw new Error()
-  }
-}
-
 class RawReimbursementsPage extends React.Component {
   render() {
     const {
       breakpoints: { isMobile },
-      t,
-      filteringDoc
+      t
     } = this.props
-
-    const SubComponent = getSubComponent(filteringDoc)
 
     return (
       <>
@@ -49,7 +35,7 @@ class RawReimbursementsPage extends React.Component {
             <ConnectedSelectDates showFullYear color="primary" />
           </Padded>
         </Header>
-        <SubComponent />
+        <Reimbursements />
       </>
     )
   }
