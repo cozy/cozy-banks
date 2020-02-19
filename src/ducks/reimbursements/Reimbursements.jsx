@@ -86,6 +86,7 @@ export class DumbReimbursements extends Component {
                 transactions={pendingExpenses}
                 withScroll={false}
                 className={styles.Reimbursements__transactionsList}
+                showTriggerErrors={false}
               />
             ) : (
               <Padded className="u-pv-0">
@@ -101,6 +102,7 @@ export class DumbReimbursements extends Component {
                 transactions={reimbursedExpenses}
                 withScroll={false}
                 className={styles.Reimbursements__transactionsList}
+                showTriggerErrors={false}
               />
             ) : (
               <Padded className="u-pv-0">
