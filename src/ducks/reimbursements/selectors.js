@@ -11,7 +11,8 @@ import { getTransactions } from 'selectors'
 import { createSelector } from 'reselect'
 import {
   isReimbursementLate,
-  getReimbursementStatus
+  getReimbursementStatus,
+  isExpense
 } from 'ducks/transactions/helpers'
 import { getHealthReimbursementLateLimit } from 'ducks/settings/helpers'
 import { getSettings } from 'ducks/settings/selectors'
@@ -45,9 +46,15 @@ export const getGroupedHealthExpenses = createSelector(
 export const getExpensesByFilteringDoc = createSelector(
   [getTransactions, getFilteringDoc],
   (transactions, filteringDoc) => {
-    let filter = filteringDoc.categoryId
-      ? reimbursementsVirtualAccountsSpecs[filteringDoc.categoryId].filter
-      : othersFilter
+    let filter
+
+    if (filteringDoc._type === 'io.cozy.bank.accounts') {
+      filter = filteringDoc.categoryId
+        ? reimbursementsVirtualAccountsSpecs[filteringDoc.categoryId].filter
+        : othersFilter
+    } else if (filteringDoc._type === 'io.cozy.bank.groups') {
+      filter = isExpense
+    }
 
     return transactions.filter(filter)
   }

@@ -242,4 +242,43 @@ describe('Reimbursements', () => {
       })
     })
   })
+
+  describe('when viewing the reimbursements group', () => {
+    const props = {
+      ...baseProps,
+      filteringDoc: {
+        _type: 'io.cozy.bank.groups'
+      }
+    }
+
+    describe('when there is no pending reimbursement', () => {
+      it('should show a message indicating there is no pending reimbursement', () => {
+        const { getByText } = render(
+          <AppLike client={client}>
+            <DumbReimbursements {...props} />
+          </AppLike>
+        )
+
+        expect(
+          getByText('No awaiting reimbursement for expenses in January 2020')
+        ).toBeDefined()
+      })
+    })
+
+    describe('when there is no reimbursed transactions', () => {
+      it('should show a message indicating there is no reimbursed transaction', () => {
+        const { getByText } = render(
+          <AppLike client={client}>
+            <DumbReimbursements {...props} />
+          </AppLike>
+        )
+
+        expect(
+          getByText(
+            'Manually add some pending reimbursements on expenses to follow their reimbursements'
+          )
+        ).toBeDefined()
+      })
+    })
+  })
 })
