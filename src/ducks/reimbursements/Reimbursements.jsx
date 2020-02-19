@@ -19,7 +19,8 @@ import TransactionActionsProvider from 'ducks/transactions/TransactionActionsPro
 import withBrands from 'ducks/brandDictionary/withBrands'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { getGroupedFilteredExpenses } from './selectors'
-import { getPeriod, parsePeriod } from 'ducks/filters'
+import { getPeriod, parsePeriod, getFilteringDoc } from 'ducks/filters'
+import { getCategoryName } from 'ducks/categories/categoriesMap'
 
 const Caption = props => {
   const { className, ...rest } = props
@@ -27,27 +28,33 @@ const Caption = props => {
   return <p className={cx(styles.Caption, className)} {...rest} />
 }
 
-const NoPendingReimbursements = ({ period }) => {
+const NoPendingReimbursements = ({ period, doc }) => {
   const { t } = useI18n()
+
+  const categoryName = doc.categoryId ? getCategoryName(doc.categoryId) : null
+  const message = categoryName
+    ? t(`Reimbursements.noPending.${categoryName}`, { period })
+    : t('Reimbursements.noPending.generic', { period })
 
   return (
     <Padded className="u-pv-0">
-      <Caption>{t('Reimbursements.noAwaiting', { period })}</Caption>
+      <Caption>{message}</Caption>
     </Padded>
   )
 }
 
-const NoReimbursedExpenses = ({ period, hasHealthBrands }) => {
+const NoReimbursedExpenses = ({ hasHealthBrands, doc }) => {
   const { t } = useI18n()
+
+  const categoryName = doc.categoryId ? getCategoryName(doc.categoryId) : null
+  const message = categoryName
+    ? t(`Reimbursements.noReimbursed.${categoryName}`)
+    : t('Reimbursements.noReimbursed.generic')
 
   return (
     <Padded className="u-pv-0">
-      <Caption>
-        {t('Reimbursements.noReimbursed', {
-          period
-        })}
-      </Caption>
-      {!hasHealthBrands && (
+      <Caption>{message}</Caption>
+      {!hasHealthBrands && categoryName === 'healthExpenses' && (
         <StoreLink type="konnector" category="insurance">
           <KonnectorChip konnectorType="health" />
         </StoreLink>
@@ -69,14 +76,15 @@ export class DumbReimbursements extends Component {
       triggers,
       transactions,
       brands,
-      currentPeriod
+      currentPeriod,
+      filteringDoc
     } = this.props
 
     if (
       (isCollectionLoading(transactions) && !hasBeenLoaded(transactions)) ||
       (isCollectionLoading(triggers) && !hasBeenLoaded(triggers))
     ) {
-      return <Loading />
+      return <Loading loadingType />
     }
 
     const {
@@ -118,7 +126,10 @@ export class DumbReimbursements extends Component {
                 showTriggerErrors={false}
               />
             ) : (
-              <NoPendingReimbursements period={formattedPeriod} />
+              <NoPendingReimbursements
+                period={formattedPeriod}
+                doc={filteringDoc}
+              />
             )}
           </Section>
           <Section title={t('Reimbursements.alreadyReimbursed')}>
@@ -131,8 +142,8 @@ export class DumbReimbursements extends Component {
               />
             ) : (
               <NoReimbursedExpenses
-                period={formattedPeriod}
                 hasHealthBrands={hasHealthBrands}
+                doc={filteringDoc}
               />
             )}
           </Section>
@@ -145,7 +156,8 @@ export class DumbReimbursements extends Component {
 function mapStateToProps(state) {
   return {
     groupedExpenses: getGroupedFilteredExpenses(state),
-    currentPeriod: getPeriod(state)
+    currentPeriod: getPeriod(state),
+    filteringDoc: getFilteringDoc(state)
   }
 }
 

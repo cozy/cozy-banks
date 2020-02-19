@@ -1,139 +1,245 @@
 import React from 'react'
-import { mount, shallow } from 'enzyme'
 import { DumbReimbursements } from './Reimbursements'
-import Loading from 'components/Loading'
 import fixtures from 'test/fixtures/unit-tests.json'
-import { TransactionList } from 'ducks/transactions/Transactions'
 import AppLike from 'test/AppLike'
 import Polyglot from 'node-polyglot'
 import en from 'locales/en'
 import format from 'date-fns/format'
 import { createMockClient } from 'cozy-client'
 import { render } from '@testing-library/react'
-
-const diveUntilAfter = (shallowMount, selector) => {
-  let cur = shallowMount
-  while (!cur.is(selector)) {
-    cur = cur.dive()
-  }
-  return cur.dive()
-}
+import { getCategoryIdFromName } from 'ducks/categories/helpers'
 
 const polyglot = new Polyglot()
 polyglot.extend(en)
 
 describe('Reimbursements', () => {
-  const setup = ({
-    mount: shouldMount = false,
-    triggers,
-    transactions,
-    groupedExpenses
-  }) => {
-    const client = createMockClient({})
-    client.intents = {
-      getRedirectionURL: jest
-        .fn()
-        .mockResolvedValue('http://store.cozy.tools:8080')
-    }
-
-    const instance = (shouldMount ? mount : shallow)(
-      <AppLike client={client}>
-        <DumbReimbursements
-          fetchStatus="loaded"
-          t={polyglot.t.bind(polyglot)}
-          f={format}
-          triggers={triggers || { fetchStatus: 'loaded' }}
-          transactions={transactions || { fetchStatus: 'loaded' }}
-          groupedExpenses={groupedExpenses || {}}
-          addFilterByPeriod={jest.fn()}
-          brands={[]}
-          currentPeriod="2020-01"
-        />
-      </AppLike>
-    )
-
-    return shouldMount ? instance : diveUntilAfter(instance, DumbReimbursements)
+  const baseProps = {
+    fetchStatus: 'loaded',
+    t: polyglot.t.bind(polyglot),
+    f: format,
+    triggers: { fetchStatus: 'loaded' },
+    transactions: { fetchStatus: 'loaded' },
+    groupedExpenses: {},
+    addFilterByPeriod: jest.fn(),
+    brands: [],
+    currentPeriod: '2020-01'
   }
+
+  const client = createMockClient({})
+  client.intents = {
+    getRedirectionURL: jest
+      .fn()
+      .mockResolvedValue('http://store.cozy.tools:8080')
+  }
+
   it('should show a loading if the transactions are loading', () => {
-    const root = setup({
+    const props = {
+      ...baseProps,
       transactions: { fetchStatus: 'loading' }
-    })
-
-    expect(root.find(Loading).length).toBe(1)
-  })
-
-  it('should show a loading if the brands are loading', () => {
-    const root = setup({ triggers: { fetchStatus: 'loading' } })
-
-    expect(root.find(Loading).length).toBe(1)
-  })
-
-  it('should show the pending reimbursements', () => {
-    const pending = fixtures['io.cozy.bank.operations'].filter(
-      transaction => transaction._id === 'paiementdocteur2'
-    )
-
-    const root = setup({
-      groupedExpenses: {
-        pending
-      }
-    })
-
-    expect(root.find(TransactionList).length).toBe(1)
-  })
-
-  it('should show the current filter value if no pending reimbursements', () => {
-    const pending = []
-
-    const root = setup({
-      groupedExpenses: {
-        pending
-      },
-      mount: true
-    })
-    expect(root.text()).toContain(
-      'No awaiting reimbursement for expenses in January 2020.'
-    )
-  })
-
-  it('should show the reimbursed transactions', () => {
-    const reimbursed = fixtures['io.cozy.bank.operations'].filter(
-      transaction => transaction._id === 'paiementdocteur'
-    )
-
-    const root = setup({
-      groupedExpenses: {
-        reimbursed
-      }
-    })
-
-    expect(root.find(TransactionList).length).toBe(1)
-  })
-
-  it('should show a button to open the store if there is no reimbursed transactions and no health brand with trigger', () => {
-    const client = createMockClient({})
-    client.intents = {
-      getRedirectionURL: jest
-        .fn()
-        .mockResolvedValue('http://store.cozy.tools:8080')
     }
 
     const { getByText } = render(
       <AppLike client={client}>
-        <DumbReimbursements
-          fetchStatus="loaded"
-          t={polyglot.t.bind(polyglot)}
-          f={format}
-          triggers={{ fetchStatus: 'loaded' }}
-          transactions={{ fetchStatus: 'loaded' }}
-          groupedExpenses={{}}
-          addFilterByPeriod={jest.fn()}
-          brands={[]}
-          currentPeriod="2020-01"
-        />
+        <DumbReimbursements {...props} />
       </AppLike>
     )
 
-    expect(getByText('My reimbursements')).toBeDefined()
+    expect(getByText(/loading/i)).toBeDefined()
+  })
+
+  it('should show a loading if the brands are loading', () => {
+    const props = {
+      ...baseProps,
+      triggers: { fetchStatus: 'loading' }
+    }
+
+    const { getByText } = render(
+      <AppLike client={client}>
+        <DumbReimbursements {...props} />
+      </AppLike>
+    )
+
+    expect(getByText(/loading/i)).toBeDefined()
+  })
+
+  describe('when viewing a reimbursements account', () => {
+    it('should show the pending reimbursements', () => {
+      const pending = fixtures['io.cozy.bank.operations'].filter(
+        transaction => transaction._id === 'paiementdocteur2'
+      )
+
+      const props = {
+        ...baseProps,
+        groupedExpenses: {
+          pending
+        },
+        filteringDoc: {
+          categoryId: getCategoryIdFromName('healthExpenses')
+        }
+      }
+
+      const { getByText } = render(
+        <AppLike client={client}>
+          <DumbReimbursements {...props} />
+        </AppLike>
+      )
+
+      expect(getByText(pending[0].label)).toBeDefined()
+    })
+
+    it('should show the reimbursed transactions', () => {
+      const reimbursed = fixtures['io.cozy.bank.operations'].filter(
+        transaction => transaction._id === 'paiementdocteur'
+      )
+
+      const props = {
+        ...baseProps,
+        groupedExpenses: {
+          reimbursed
+        },
+        filteringDoc: {
+          categoryId: getCategoryIdFromName('healthExpenses')
+        }
+      }
+
+      const { getByText } = render(
+        <AppLike client={client}>
+          <DumbReimbursements {...props} />
+        </AppLike>
+      )
+
+      expect(getByText(reimbursed[0].label)).toBeDefined()
+    })
+  })
+
+  describe('when viewing health reimbursements account', () => {
+    const reimbursementsProps = {
+      ...baseProps,
+      filteringDoc: {
+        categoryId: getCategoryIdFromName('healthExpenses')
+      }
+    }
+
+    describe('when there is no pending reimbursement', () => {
+      it('should show a message indicating there is no pending reimbursement', () => {
+        const { getByText } = render(
+          <AppLike client={client}>
+            <DumbReimbursements {...reimbursementsProps} />
+          </AppLike>
+        )
+
+        expect(
+          getByText(
+            'No awaiting reimbursement for health expenses in January 2020'
+          )
+        ).toBeDefined()
+      })
+    })
+
+    describe('when there is no reimbursed transactions', () => {
+      it('should show a message indicating there is no reimbursed transaction', () => {
+        const { getByText } = render(
+          <AppLike client={client}>
+            <DumbReimbursements {...reimbursementsProps} />
+          </AppLike>
+        )
+
+        expect(
+          getByText(
+            'Automatically detect your health reimbursements by connecting your health insurance to your Cozy.'
+          )
+        ).toBeDefined()
+      })
+
+      describe('when there is no health brand with trigger', () => {
+        it('should show a « my reimbursements » button redirecting to the store', () => {
+          const { getByText } = render(
+            <AppLike client={client}>
+              <DumbReimbursements {...reimbursementsProps} />
+            </AppLike>
+          )
+
+          expect(getByText('My reimbursements')).toBeDefined()
+        })
+      })
+    })
+  })
+
+  describe('when viewing professional expenses reimbursements account', () => {
+    const reimbursementsProps = {
+      ...baseProps,
+      filteringDoc: {
+        categoryId: getCategoryIdFromName('professionalExpenses')
+      }
+    }
+
+    describe('when there is no pending reimbursement', () => {
+      it('should show a message indicating there is no pending reimbursement', () => {
+        const { getByText } = render(
+          <AppLike client={client}>
+            <DumbReimbursements {...reimbursementsProps} />
+          </AppLike>
+        )
+
+        expect(
+          getByText(
+            'No awaiting reimbursement for professional expenses in January 2020'
+          )
+        ).toBeDefined()
+      })
+    })
+
+    describe('when there is no reimbursed transactions', () => {
+      it('should show a message indicating there is no reimbursed transaction', () => {
+        const { getByText } = render(
+          <AppLike client={client}>
+            <DumbReimbursements {...reimbursementsProps} />
+          </AppLike>
+        )
+
+        expect(
+          getByText(
+            'Categorize some expenses to « professional expense » to follow their reimbursements'
+          )
+        ).toBeDefined()
+      })
+    })
+  })
+
+  describe('when viewing others expenses reimbursements account', () => {
+    const reimbursementsProps = {
+      ...baseProps,
+      filteringDoc: {}
+    }
+
+    describe('when there is no pending reimbursement', () => {
+      it('should show a message indicating there is no pending reimbursement', () => {
+        const { getByText } = render(
+          <AppLike client={client}>
+            <DumbReimbursements {...reimbursementsProps} />
+          </AppLike>
+        )
+
+        expect(
+          getByText('No awaiting reimbursement for expenses in January 2020')
+        ).toBeDefined()
+      })
+    })
+
+    describe('when there is no reimbursed transactions', () => {
+      it('should show a message indicating there is no reimbursed transaction', () => {
+        const { getByText } = render(
+          <AppLike client={client}>
+            <DumbReimbursements {...reimbursementsProps} />
+          </AppLike>
+        )
+
+        expect(
+          getByText(
+            'Manually add some pending reimbursements on expenses to follow their reimbursements'
+          )
+        ).toBeDefined()
+      })
+    })
   })
 })
