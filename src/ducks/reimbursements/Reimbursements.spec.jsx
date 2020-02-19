@@ -4,11 +4,12 @@ import { DumbReimbursements } from './Reimbursements'
 import Loading from 'components/Loading'
 import fixtures from 'test/fixtures/unit-tests.json'
 import { TransactionList } from 'ducks/transactions/Transactions'
-import { StoreLink } from 'components/StoreLink'
 import AppLike from 'test/AppLike'
 import Polyglot from 'node-polyglot'
 import en from 'locales/en'
 import format from 'date-fns/format'
+import { createMockClient } from 'cozy-client'
+import { render } from '@testing-library/react'
 
 const diveUntilAfter = (shallowMount, selector) => {
   let cur = shallowMount
@@ -28,8 +29,15 @@ describe('Reimbursements', () => {
     transactions,
     groupedExpenses
   }) => {
+    const client = createMockClient({})
+    client.intents = {
+      getRedirectionURL: jest
+        .fn()
+        .mockResolvedValue('http://store.cozy.tools:8080')
+    }
+
     const instance = (shouldMount ? mount : shallow)(
-      <AppLike>
+      <AppLike client={client}>
         <DumbReimbursements
           fetchStatus="loaded"
           t={polyglot.t.bind(polyglot)}
@@ -103,10 +111,29 @@ describe('Reimbursements', () => {
   })
 
   it('should show a button to open the store if there is no reimbursed transactions and no health brand with trigger', () => {
-    const root = setup({
-      groupedExpenses: {}
-    })
+    const client = createMockClient({})
+    client.intents = {
+      getRedirectionURL: jest
+        .fn()
+        .mockResolvedValue('http://store.cozy.tools:8080')
+    }
 
-    expect(root.find(StoreLink).length).toBe(1)
+    const { getByText } = render(
+      <AppLike client={client}>
+        <DumbReimbursements
+          fetchStatus="loaded"
+          t={polyglot.t.bind(polyglot)}
+          f={format}
+          triggers={{ fetchStatus: 'loaded' }}
+          transactions={{ fetchStatus: 'loaded' }}
+          groupedExpenses={{}}
+          addFilterByPeriod={jest.fn()}
+          brands={[]}
+          currentPeriod="2020-01"
+        />
+      </AppLike>
+    )
+
+    expect(getByText('My reimbursements')).toBeDefined()
   })
 })

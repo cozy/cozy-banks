@@ -5,7 +5,7 @@ import { transactionsConn } from 'doctypes'
 import { flowRight as compose, sumBy } from 'lodash'
 import cx from 'classnames'
 import { TransactionList } from 'ducks/transactions/Transactions'
-import { translate } from 'cozy-ui/transpiled/react'
+import { translate, useI18n } from 'cozy-ui/transpiled/react'
 import { Padded } from 'components/Spacing'
 import { Figure } from 'components/Figure'
 import styles from 'ducks/reimbursements/Reimbursements.styl'
@@ -25,6 +25,35 @@ const Caption = props => {
   const { className, ...rest } = props
 
   return <p className={cx(styles.Caption, className)} {...rest} />
+}
+
+const NoPendingReimbursements = ({ period }) => {
+  const { t } = useI18n()
+
+  return (
+    <Padded className="u-pv-0">
+      <Caption>{t('Reimbursements.noAwaiting', { period })}</Caption>
+    </Padded>
+  )
+}
+
+const NoReimbursedExpenses = ({ period, hasHealthBrands }) => {
+  const { t } = useI18n()
+
+  return (
+    <Padded className="u-pv-0">
+      <Caption>
+        {t('Reimbursements.noReimbursed', {
+          period
+        })}
+      </Caption>
+      {!hasHealthBrands && (
+        <StoreLink type="konnector" category="insurance">
+          <KonnectorChip konnectorType="health" />
+        </StoreLink>
+      )}
+    </Padded>
+  )
 }
 
 export class DumbReimbursements extends Component {
@@ -89,11 +118,7 @@ export class DumbReimbursements extends Component {
                 showTriggerErrors={false}
               />
             ) : (
-              <Padded className="u-pv-0">
-                <Caption>
-                  {t('Reimbursements.noAwaiting', { period: formattedPeriod })}
-                </Caption>
-              </Padded>
+              <NoPendingReimbursements period={formattedPeriod} />
             )}
           </Section>
           <Section title={t('Reimbursements.alreadyReimbursed')}>
@@ -105,18 +130,10 @@ export class DumbReimbursements extends Component {
                 showTriggerErrors={false}
               />
             ) : (
-              <Padded className="u-pv-0">
-                <Caption>
-                  {t('Reimbursements.noReimbursed', {
-                    period: formattedPeriod
-                  })}
-                </Caption>
-                {!hasHealthBrands && (
-                  <StoreLink type="konnector" category="insurance">
-                    <KonnectorChip konnectorType="health" />
-                  </StoreLink>
-                )}
-              </Padded>
+              <NoReimbursedExpenses
+                period={formattedPeriod}
+                hasHealthBrands={hasHealthBrands}
+              />
             )}
           </Section>
         </div>
