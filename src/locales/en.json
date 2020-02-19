@@ -100,7 +100,7 @@
       "description": "You don't have any accounts associated to this group.",
       "button": "Edit the group"
     },
-    "health-reimbursements-caption": "Last 6 months"
+    "reimbursements-caption": "Last 6 months"
   },
   "SelectDates": {
     "all_year": "All year",
@@ -269,7 +269,9 @@
       "awaiting": "Categorization in progress"
     },
     "virtualAccounts": {
-      "healthReimbursements": "Awaiting health reimb"
+      "healthReimbursements": "Awaiting health reimb",
+      "professionalReimbursements": "Awaiting professional expenses reimb",
+      "othersReimbursements": "Others awaiting reimb"
     }
   },
   "Categories": {

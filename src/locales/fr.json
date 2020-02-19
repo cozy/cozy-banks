@@ -121,7 +121,7 @@
       "description": "Vous n'avez pas de compte associé à ce groupe.",
       "button": "Éditer le groupe"
     },
-    "health-reimbursements-caption": "6 derniers mois"
+    "reimbursements-caption": "6 derniers mois"
   },
 
   "Transactions": {
@@ -369,7 +369,9 @@
       "awaiting": "Catégorisation en cours"
     },
     "virtualAccounts": {
-      "healthReimbursements": "Remb santé en attente"
+      "healthReimbursements": "Remb santé en attente",
+      "professionalReimbursements": "Remb notes de frais en attente",
+      "othersReimbursements": "Autres remb en attente"
     }
   },
 
