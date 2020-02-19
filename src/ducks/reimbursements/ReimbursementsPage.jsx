@@ -8,14 +8,14 @@ import { PageTitle } from 'components/Title'
 import cx from 'classnames'
 import BackButton from 'components/BackButton'
 import { ConnectedSelectDates } from 'components/SelectDates'
-import HealthReimbursements from 'ducks/reimbursements/HealthReimbursements'
+import Reimbursements from 'ducks/reimbursements/Reimbursements'
 import styles from 'ducks/reimbursements/ReimbursementsPage.styl'
 
 function getSubComponent(filteringDoc) {
   switch (filteringDoc._id) {
     case 'health_reimbursements':
     case 'Reimbursements':
-      return HealthReimbursements
+      return Reimbursements
 
     default:
       throw new Error()

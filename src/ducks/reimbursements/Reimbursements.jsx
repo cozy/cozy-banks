@@ -8,7 +8,7 @@ import { TransactionList } from 'ducks/transactions/Transactions'
 import { translate } from 'cozy-ui/transpiled/react'
 import { Padded } from 'components/Spacing'
 import { Figure } from 'components/Figure'
-import styles from 'ducks/reimbursements/HealthReimbursements.styl'
+import styles from 'ducks/reimbursements/Reimbursements.styl'
 import Loading from 'components/Loading'
 import { KonnectorChip } from 'components/KonnectorChip'
 import { StoreLink } from 'components/StoreLink'
@@ -27,7 +27,7 @@ const Caption = props => {
   return <p className={cx(styles.Caption, className)} {...rest} />
 }
 
-export class DumbHealthReimbursements extends Component {
+export class DumbReimbursements extends Component {
   componentDidMount() {
     this.props.addFilterByPeriod(getYear(new Date()).toString())
   }
@@ -67,7 +67,7 @@ export class DumbHealthReimbursements extends Component {
 
     return (
       <TransactionActionsProvider>
-        <div className={styles.HealthReimbursements}>
+        <div className={styles.Reimbursements}>
           <Section
             title={
               <>
@@ -75,7 +75,7 @@ export class DumbHealthReimbursements extends Component {
                 <Figure
                   symbol="€"
                   total={pendingAmount}
-                  className={styles.HealthReimbursements__figure}
+                  className={styles.Reimbursements__figure}
                   signed
                 />{' '}
               </>
@@ -85,7 +85,7 @@ export class DumbHealthReimbursements extends Component {
               <TransactionList
                 transactions={pendingTransactions}
                 withScroll={false}
-                className={styles.HealthReimbursements__transactionsList}
+                className={styles.Reimbursements__transactionsList}
               />
             ) : (
               <Padded className="u-pv-0">
@@ -100,7 +100,7 @@ export class DumbHealthReimbursements extends Component {
               <TransactionList
                 transactions={reimbursedTransactions}
                 withScroll={false}
-                className={styles.HealthReimbursements__transactionsList}
+                className={styles.Reimbursements__transactionsList}
               />
             ) : (
               <Padded className="u-pv-0">
@@ -130,7 +130,7 @@ function mapStateToProps(state) {
   }
 }
 
-const HealthReimbursements = compose(
+const Reimbursements = compose(
   translate(),
   queryConnect({
     transactions: transactionsConn
@@ -139,7 +139,7 @@ const HealthReimbursements = compose(
   withFilters,
   // We need to have a different query name otherwise we end with an infinite
   // loading
-  withBrands({ queryName: 'healthReimbursementsPageTriggers' })
-)(DumbHealthReimbursements)
+  withBrands({ queryName: 'reimbursementsPageTriggers' })
+)(DumbReimbursements)
 
-export default HealthReimbursements
+export default Reimbursements

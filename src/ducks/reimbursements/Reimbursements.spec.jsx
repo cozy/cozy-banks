@@ -1,6 +1,6 @@
 import React from 'react'
 import { mount, shallow } from 'enzyme'
-import { DumbHealthReimbursements } from './HealthReimbursements'
+import { DumbReimbursements } from './Reimbursements'
 import Loading from 'components/Loading'
 import fixtures from 'test/fixtures/unit-tests.json'
 import { TransactionList } from 'ducks/transactions/Transactions'
@@ -30,7 +30,7 @@ describe('HealthReimbursements', () => {
   }) => {
     const instance = (shouldMount ? mount : shallow)(
       <AppLike>
-        <DumbHealthReimbursements
+        <DumbReimbursements
           fetchStatus="loaded"
           t={polyglot.t.bind(polyglot)}
           f={format}
@@ -44,9 +44,7 @@ describe('HealthReimbursements', () => {
       </AppLike>
     )
 
-    return shouldMount
-      ? instance
-      : diveUntilAfter(instance, DumbHealthReimbursements)
+    return shouldMount ? instance : diveUntilAfter(instance, DumbReimbursements)
   }
   it('should show a loading if the transactions are loading', () => {
     const root = setup({
