@@ -21,12 +21,12 @@ const diveUntilAfter = (shallowMount, selector) => {
 const polyglot = new Polyglot()
 polyglot.extend(en)
 
-describe('HealthReimbursements', () => {
+describe('Reimbursements', () => {
   const setup = ({
     mount: shouldMount = false,
     triggers,
     transactions,
-    groupedHealthExpenses
+    groupedExpenses
   }) => {
     const instance = (shouldMount ? mount : shallow)(
       <AppLike>
@@ -36,7 +36,7 @@ describe('HealthReimbursements', () => {
           f={format}
           triggers={triggers || { fetchStatus: 'loaded' }}
           transactions={transactions || { fetchStatus: 'loaded' }}
-          groupedHealthExpenses={groupedHealthExpenses || {}}
+          groupedExpenses={groupedExpenses || {}}
           addFilterByPeriod={jest.fn()}
           brands={[]}
           currentPeriod="2020-01"
@@ -66,7 +66,7 @@ describe('HealthReimbursements', () => {
     )
 
     const root = setup({
-      groupedHealthExpenses: {
+      groupedExpenses: {
         pending
       }
     })
@@ -78,7 +78,7 @@ describe('HealthReimbursements', () => {
     const pending = []
 
     const root = setup({
-      groupedHealthExpenses: {
+      groupedExpenses: {
         pending
       },
       mount: true
@@ -94,7 +94,7 @@ describe('HealthReimbursements', () => {
     )
 
     const root = setup({
-      groupedHealthExpenses: {
+      groupedExpenses: {
         reimbursed
       }
     })
@@ -104,7 +104,7 @@ describe('HealthReimbursements', () => {
 
   it('should show a button to open the store if there is no reimbursed transactions and no health brand with trigger', () => {
     const root = setup({
-      groupedHealthExpenses: {}
+      groupedExpenses: {}
     })
 
     expect(root.find(StoreLink).length).toBe(1)

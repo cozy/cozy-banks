@@ -658,7 +658,11 @@
   },
 
   "Reimbursements": {
-    "title": "Rembours. santé",
+    "title": {
+      "healthExpenses": "Rembours. santé",
+      "professionalExpenses": "Rembours. notes de frais",
+      "othersExpenses": "Autres remboursements"
+    },
     "pending": "Remboursements en attente : ",
     "alreadyReimbursed": "Déjà remboursés",
     "noAwaiting": "Aucun remboursement attendu pour des dépenses en %{period}.",

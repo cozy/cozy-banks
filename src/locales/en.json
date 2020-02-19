@@ -648,6 +648,11 @@
 
   "Reimbursements": {
     "title": "Health reimbursements",
+    "title": {
+      "healthExpenses": "Health reimbursements",
+      "professionalExpenses": "Professional reimbursements",
+      "othersExpenses": "Others reimbursements"
+    },
     "pending": "Pending reimbursements: ",
     "alreadyReimbursed": "Already reimbursed",
     "noAwaiting": "No awaiting reimbursement for expenses in %{period}.",

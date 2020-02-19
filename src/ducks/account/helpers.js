@@ -220,7 +220,7 @@ const isSpecificReimbursement = overSome(
   Object.values(reimbursementsVirtualAccountsSpecs).map(spec => spec.filter)
 )
 
-const othersFilter = transaction => {
+export const othersFilter = transaction => {
   return !isSpecificReimbursement(transaction) && isExpense(transaction)
 }
 

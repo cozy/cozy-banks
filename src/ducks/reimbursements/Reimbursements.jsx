@@ -18,7 +18,7 @@ import { getYear } from 'date-fns'
 import TransactionActionsProvider from 'ducks/transactions/TransactionActionsProvider'
 import withBrands from 'ducks/brandDictionary/withBrands'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
-import { getGroupedHealthExpensesByPeriod } from './selectors'
+import { getGroupedFilteredExpenses } from './selectors'
 import { getPeriod, parsePeriod } from 'ducks/filters'
 
 const Caption = props => {
@@ -34,7 +34,7 @@ export class DumbReimbursements extends Component {
 
   render() {
     const {
-      groupedHealthExpenses,
+      groupedExpenses,
       t,
       f,
       triggers,
@@ -51,11 +51,11 @@ export class DumbReimbursements extends Component {
     }
 
     const {
-      reimbursed: reimbursedTransactions,
-      pending: pendingTransactions
-    } = groupedHealthExpenses
+      reimbursed: reimbursedExpenses,
+      pending: pendingExpenses
+    } = groupedExpenses
 
-    const pendingAmount = sumBy(pendingTransactions, t => -t.amount)
+    const pendingAmount = sumBy(pendingExpenses, t => -t.amount)
 
     const hasHealthBrands =
       brands.filter(brand => brand.hasTrigger && brand.health).length > 0
@@ -81,9 +81,9 @@ export class DumbReimbursements extends Component {
               </>
             }
           >
-            {pendingTransactions && pendingTransactions.length > 0 ? (
+            {pendingExpenses && pendingExpenses.length > 0 ? (
               <TransactionList
-                transactions={pendingTransactions}
+                transactions={pendingExpenses}
                 withScroll={false}
                 className={styles.Reimbursements__transactionsList}
               />
@@ -96,9 +96,9 @@ export class DumbReimbursements extends Component {
             )}
           </Section>
           <Section title={t('Reimbursements.alreadyReimbursed')}>
-            {reimbursedTransactions && reimbursedTransactions.length > 0 ? (
+            {reimbursedExpenses && reimbursedExpenses.length > 0 ? (
               <TransactionList
-                transactions={reimbursedTransactions}
+                transactions={reimbursedExpenses}
                 withScroll={false}
                 className={styles.Reimbursements__transactionsList}
               />
@@ -125,7 +125,7 @@ export class DumbReimbursements extends Component {
 
 function mapStateToProps(state) {
   return {
-    groupedHealthExpenses: getGroupedHealthExpensesByPeriod(state),
+    groupedExpenses: getGroupedFilteredExpenses(state),
     currentPeriod: getPeriod(state)
   }
 }
