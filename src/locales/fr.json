@@ -658,11 +658,23 @@
   },
 
   "Reimbursements": {
-    "title": "Rembours. santé",
+    "title": {
+      "healthExpenses": "Rembours. santé",
+      "professionalExpenses": "Rembours. notes de frais",
+      "othersExpenses": "Autres remboursements"
+    },
     "pending": "Remboursements en attente : ",
     "alreadyReimbursed": "Déjà remboursés",
-    "noAwaiting": "Aucun remboursement attendu pour des dépenses en %{period}.",
-    "noReimbursed": "Détecter automatiquement vos remboursements en connectant votre assurance santé à votre Cozy."
+    "noPending": {
+      "generic": "Aucun remboursement attendu pour des dépenses en %{period}.",
+      "healthExpenses": "Aucun remboursement attendu pour des dépenses de santé en %{period}",
+      "professionalExpenses": "Aucun remboursement attendu pour des notes de frais en %{period}"
+    },
+    "noReimbursed": {
+      "generic": "Ajoutez un remboursement en attente manuellement sur des dépenses pour suivre leur remboursement.",
+      "healthExpenses": "Détecter automatiquement vos remboursements en connectant votre assurance santé à votre Cozy.",
+      "professionalExpenses": "Categorisez des dépenses en « note de frais » pour suivre leur remboursement."
+    }
   },
 
 

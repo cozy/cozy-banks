@@ -188,34 +188,39 @@ const buildReimbursementsVirtualAccount = specs => transactions => {
   return account
 }
 
-const reimbursementsVirtualAccountsSpecs = {
-  health: {
+const healthExpensesCategoryId = getCategoryIdFromName('healthExpenses')
+const professionalExpensesCategoryId = getCategoryIdFromName(
+  'professionalExpenses'
+)
+
+export const reimbursementsVirtualAccountsSpecs = {
+  [healthExpensesCategoryId]: {
     id: 'health_reimbursements',
     translationKey: 'healthReimbursements',
-    categoryId: getCategoryIdFromName('healthExpenses'),
+    categoryId: healthExpensesCategoryId,
     filter: isHealthExpense
   },
-  professional: {
+  [professionalExpensesCategoryId]: {
     id: 'professional_reimbursements',
     translationKey: 'professionalReimbursements',
-    categoryId: getCategoryIdFromName('professionalExpenses'),
+    categoryId: professionalExpensesCategoryId,
     filter: isProfessionalExpense
   }
 }
 
 export const buildHealthReimbursementsVirtualAccount = buildReimbursementsVirtualAccount(
-  reimbursementsVirtualAccountsSpecs.health
+  reimbursementsVirtualAccountsSpecs[healthExpensesCategoryId]
 )
 
 export const buildProfessionalReimbursementsVirtualAccount = buildReimbursementsVirtualAccount(
-  reimbursementsVirtualAccountsSpecs.professional
+  reimbursementsVirtualAccountsSpecs[professionalExpensesCategoryId]
 )
 
 const isSpecificReimbursement = overSome(
   Object.values(reimbursementsVirtualAccountsSpecs).map(spec => spec.filter)
 )
 
-const othersFilter = transaction => {
+export const othersFilter = transaction => {
   return !isSpecificReimbursement(transaction) && isExpense(transaction)
 }
 
