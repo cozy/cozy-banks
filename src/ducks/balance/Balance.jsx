@@ -75,6 +75,12 @@ const isLoading = props => {
   )
 }
 
+const getAllGroups = props => {
+  const { groups, virtualGroups } = props
+
+  return [...groups.data, ...virtualGroups]
+}
+
 class Balance extends PureComponent {
   constructor(props) {
     super(props)
@@ -100,14 +106,13 @@ class Balance extends PureComponent {
   }
 
   static getDerivedStateFromProps(props, state) {
-    const { groups, settings: settingsCollection, virtualGroups } = props
-
     if (isLoading(props)) {
       return null
     }
 
+    const { settings: settingsCollection } = props
     const settings = getDefaultedSettingsFromCollection(settingsCollection)
-    const allGroups = [...groups.data, ...virtualGroups]
+    const allGroups = getAllGroups(props)
     const currentPanelsState = state.panels || settings.panelsState || {}
     const newPanelsState = getPanelsState(allGroups, currentPanelsState)
 
@@ -324,12 +329,6 @@ class Balance extends PureComponent {
   }
 
   render() {
-    const {
-      groups: groupsCollection,
-      triggers: triggersCollection,
-      virtualGroups
-    } = this.props
-
     if (isLoading(this.props)) {
       return (
         <Fragment>
@@ -340,6 +339,7 @@ class Balance extends PureComponent {
       )
     }
 
+    const { triggers: triggersCollection } = this.props
     const accounts = this.getAllAccounts()
     const triggers = triggersCollection.data
 
@@ -383,7 +383,7 @@ class Balance extends PureComponent {
       return <NoAccount />
     }
 
-    const groups = [...groupsCollection.data, ...virtualGroups]
+    const groups = getAllGroups(this.props)
     const checkedAccounts = this.getCheckedAccounts()
     const accountsBalance = sumBy(checkedAccounts, getAccountBalance)
     const subtitleParams =
