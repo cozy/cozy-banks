@@ -169,9 +169,13 @@ class Balance extends PureComponent {
       .filter(Boolean)
   }
 
+  getAllAccounts() {
+    const { accounts: accountsCollection, virtualAccounts } = this.props
+    return [...accountsCollection.data, ...virtualAccounts]
+  }
+
   getCheckedAccounts() {
-    const { accounts: accountsCollection } = this.props
-    const accounts = accountsCollection.data
+    const accounts = this.getAllAccounts()
 
     return accounts.filter(account => {
       const occurrences = this.getAccountOccurrencesInState(account)
@@ -278,12 +282,12 @@ class Balance extends PureComponent {
   _ensureListenersProperlyConfigured() {
     const { accounts: accountsCollection } = this.props
 
-    const accounts = accountsCollection.data
-
     const collections = [accountsCollection]
     if (collections.some(isCollectionLoading)) {
       return
     }
+
+    const accounts = this.getAllAccounts()
 
     if (accounts.length > 0) {
       this.stopRealtime()
@@ -321,7 +325,6 @@ class Balance extends PureComponent {
 
   render() {
     const {
-      accounts: accountsCollection,
       groups: groupsCollection,
       triggers: triggersCollection,
       virtualGroups
@@ -337,7 +340,7 @@ class Balance extends PureComponent {
       )
     }
 
-    const accounts = accountsCollection.data
+    const accounts = this.getAllAccounts()
     const triggers = triggersCollection.data
 
     if (
