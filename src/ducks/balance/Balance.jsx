@@ -382,9 +382,7 @@ class Balance extends PureComponent {
 
     const groups = [...groupsCollection.data, ...virtualGroups]
     const checkedAccounts = this.getCheckedAccounts()
-    const accountsBalance = isCollectionLoading(accounts)
-      ? 0
-      : sumBy(checkedAccounts, getAccountBalance)
+    const accountsBalance = sumBy(checkedAccounts, getAccountBalance)
     const subtitleParams =
       checkedAccounts.length === accounts.length
         ? undefined
