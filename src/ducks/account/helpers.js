@@ -177,6 +177,7 @@ const buildReimbursementsVirtualAccount = specs => transactions => {
   const account = {
     _id: specs.id,
     _type: ACCOUNT_DOCTYPE,
+    id: specs.id,
     label: `Data.virtualAccounts.${specs.translationKey}`,
     balance,
     type: 'Reimbursements',
