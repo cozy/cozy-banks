@@ -55,6 +55,26 @@ const REALTIME_DOCTYPES = [
   TRANSACTION_DOCTYPE
 ]
 
+const isLoading = props => {
+  const {
+    accounts: accountsCollection,
+    groups: groupsCollection,
+    settings: settingsCollection,
+    triggers: triggersCollection
+  } = props
+
+  const collections = [
+    accountsCollection,
+    groupsCollection,
+    triggersCollection,
+    settingsCollection
+  ]
+
+  return collections.some(
+    col => isCollectionLoading(col) && !hasBeenLoaded(col)
+  )
+}
+
 class Balance extends PureComponent {
   constructor(props) {
     super(props)
@@ -80,20 +100,9 @@ class Balance extends PureComponent {
   }
 
   static getDerivedStateFromProps(props, state) {
-    const {
-      groups,
-      accounts,
-      settings: settingsCollection,
-      virtualGroups
-    } = props
+    const { groups, settings: settingsCollection, virtualGroups } = props
 
-    const isLoading =
-      (isCollectionLoading(groups) && !hasBeenLoaded(groups)) ||
-      (isCollectionLoading(accounts) && !hasBeenLoaded(accounts)) ||
-      (isCollectionLoading(settingsCollection) &&
-        !hasBeenLoaded(settingsCollection))
-
-    if (isLoading) {
+    if (isLoading(props)) {
       return null
     }
 
@@ -314,21 +323,11 @@ class Balance extends PureComponent {
     const {
       accounts: accountsCollection,
       groups: groupsCollection,
-      settings: settingsCollection,
       triggers: triggersCollection,
       virtualGroups
     } = this.props
 
-    const collections = [
-      accountsCollection,
-      groupsCollection,
-      triggersCollection,
-      settingsCollection
-    ]
-
-    if (
-      collections.some(col => isCollectionLoading(col) && !hasBeenLoaded(col))
-    ) {
+    if (isLoading(this.props)) {
       return (
         <Fragment>
           <BarTheme theme="primary" />
