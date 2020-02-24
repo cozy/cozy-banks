@@ -169,6 +169,8 @@ describe('buildHealthReimbursementsVirtualAccount', () => {
   it('should return a well formed account', () => {
     const expected = {
       _id: 'health_reimbursements',
+      _type: 'io.cozy.bank.accounts',
+      id: 'health_reimbursements',
       virtual: true,
       balance: expect.any(Number),
       label: 'Data.virtualAccounts.healthReimbursements',
@@ -309,6 +311,8 @@ describe('buildProfessionalReimbursementsVirtualAccount', () => {
   it('should return a well formed account', () => {
     const expected = {
       _id: 'professional_reimbursements',
+      _type: 'io.cozy.bank.accounts',
+      id: 'professional_reimbursements',
       virtual: true,
       balance: expect.any(Number),
       label: 'Data.virtualAccounts.professionalReimbursements',
@@ -381,6 +385,8 @@ describe('buildOthersReimbursementsVirtualAccount', () => {
   it('should return a well formed account', () => {
     const expected = {
       _id: 'others_reimbursements',
+      _type: 'io.cozy.bank.accounts',
+      id: 'others_reimbursements',
       virtual: true,
       balance: expect.any(Number),
       label: 'Data.virtualAccounts.othersReimbursements',
