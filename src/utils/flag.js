@@ -52,6 +52,5 @@ if (isDemoCozy()) {
 flag('loan-details-page', true)
 
 // Turn on all flags related to owners
-flag('settings.new-account-details-page', true)
 
 window.flag = flag
