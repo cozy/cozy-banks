@@ -49,7 +49,6 @@ if (isDemoCozy()) {
 // Turn on error banner on transactions page
 
 // Turn on loan details page
-flag('loan-details-page', true)
 
 // Turn on all flags related to owners
 
