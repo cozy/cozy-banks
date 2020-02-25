@@ -46,10 +46,4 @@ if (isDemoCozy()) {
   flag('demo', true)
 }
 
-// Turn on error banner on transactions page
-
-// Turn on loan details page
-
-// Turn on all flags related to owners
-
 window.flag = flag
