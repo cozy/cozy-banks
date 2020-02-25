@@ -12,7 +12,7 @@ import styles from 'ducks/reimbursements/Reimbursements.styl'
 import Loading from 'components/Loading'
 import { KonnectorChip } from 'components/KonnectorChip'
 import { StoreLink } from 'components/StoreLink'
-import { Section } from 'components/Section'
+import { Section, SectionTitle, SectionSeparator } from 'components/Section'
 import withFilters from 'components/withFilters'
 import { getYear } from 'date-fns'
 import TransactionActionsProvider from 'ducks/transactions/TransactionActionsProvider'
@@ -108,23 +108,24 @@ export class DumbReimbursements extends Component {
       currentPeriod.length === 4 ? 'YYYY' : 'MMMM YYYY'
     )
 
+    const hasPendingExpenses = pendingExpenses && pendingExpenses.length > 0
+    const hasReimbursedExpenses =
+      reimbursedExpenses && reimbursedExpenses.length > 0
+
     return (
       <TransactionActionsProvider>
         <div className={styles.Reimbursements}>
-          <Section
-            title={
-              <>
-                {t('Reimbursements.pending')}
-                <Figure
-                  symbol="€"
-                  total={pendingAmount}
-                  className={styles.Reimbursements__figure}
-                  signed
-                />{' '}
-              </>
-            }
-          >
-            {pendingExpenses && pendingExpenses.length > 0 ? (
+          <Section>
+            <SectionTitle>
+              {t('Reimbursements.pending')}
+              <Figure
+                symbol="€"
+                total={pendingAmount}
+                className={styles.Reimbursements__figure}
+                signed
+              />{' '}
+            </SectionTitle>
+            {hasPendingExpenses ? (
               <TransactionList
                 transactions={pendingExpenses}
                 withScroll={false}
@@ -132,14 +133,18 @@ export class DumbReimbursements extends Component {
                 showTriggerErrors={false}
               />
             ) : (
-              <NoPendingReimbursements
-                period={formattedPeriod}
-                doc={filteringDoc}
-              />
+              <>
+                <SectionSeparator />
+                <NoPendingReimbursements
+                  period={formattedPeriod}
+                  doc={filteringDoc}
+                />
+              </>
             )}
           </Section>
-          <Section title={t('Reimbursements.alreadyReimbursed')}>
-            {reimbursedExpenses && reimbursedExpenses.length > 0 ? (
+          <Section>
+            <SectionTitle>{t('Reimbursements.alreadyReimbursed')}</SectionTitle>
+            {hasReimbursedExpenses ? (
               <TransactionList
                 transactions={reimbursedExpenses}
                 withScroll={false}
@@ -147,10 +152,13 @@ export class DumbReimbursements extends Component {
                 showTriggerErrors={false}
               />
             ) : (
-              <NoReimbursedExpenses
-                hasHealthBrands={hasHealthBrands}
-                doc={filteringDoc}
-              />
+              <>
+                <SectionSeparator />
+                <NoReimbursedExpenses
+                  hasHealthBrands={hasHealthBrands}
+                  doc={filteringDoc}
+                />
+              </>
             )}
           </Section>
         </div>
