@@ -11,12 +11,20 @@ import { ConnectedSelectDates } from 'components/SelectDates'
 import Reimbursements from 'ducks/reimbursements/Reimbursements'
 import styles from 'ducks/reimbursements/ReimbursementsPage.styl'
 import { getCategoryName } from 'ducks/categories/categoriesMap'
+import { GROUP_DOCTYPE } from 'doctypes'
 
 const getTitleTranslationKey = doc => {
   const base = 'Reimbursements.title'
-  const lastPart = doc.categoryId
-    ? getCategoryName(doc.categoryId)
-    : 'othersExpenses'
+  let lastPart
+
+  if (doc._type === GROUP_DOCTYPE) {
+    lastPart = 'group'
+  } else if (doc.categoryId) {
+    lastPart = getCategoryName(doc.categoryId)
+  } else {
+    lastPart = 'othersExpenses'
+  }
+
   const key = [base, lastPart].join('.')
 
   return key

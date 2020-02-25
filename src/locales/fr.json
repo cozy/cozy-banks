@@ -661,7 +661,8 @@
     "title": {
       "healthExpenses": "Rembours. santé",
       "professionalExpenses": "Rembours. notes de frais",
-      "othersExpenses": "Autres remboursements"
+      "othersExpenses": "Autres remboursements",
+      "group": "Tous les remb. en attente"
     },
     "pending": "Remboursements en attente : ",
     "alreadyReimbursed": "Déjà remboursés",
