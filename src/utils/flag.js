@@ -47,7 +47,6 @@ if (isDemoCozy()) {
 }
 
 // Turn on error banner on transactions page
-flag('transactions.error-banner', true)
 
 // Turn on loan details page
 flag('loan-details-page', true)
