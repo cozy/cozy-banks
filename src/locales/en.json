@@ -651,7 +651,8 @@
     "title": {
       "healthExpenses": "Health reimbursements",
       "professionalExpenses": "Professional reimbursements",
-      "othersExpenses": "Others reimbursements"
+      "othersExpenses": "Others reimbursements",
+      "group": "All awaiting reimbursements"
     },
     "pending": "Pending reimbursements: ",
     "alreadyReimbursed": "Already reimbursed",
@@ -663,7 +664,8 @@
     "noReimbursed": {
       "generic": "Manually add some pending reimbursements on expenses to follow their reimbursements",
       "healthExpenses": "Automatically detect your health reimbursements by connecting your health insurance to your Cozy.",
-      "professionalExpenses": "Categorize some expenses to « professional expense » to follow their reimbursements"
+      "professionalExpenses": "Categorize some expenses to « professional expense » to follow their reimbursements",
+      "group": "Manually add an awaiting reimbursement on expenses to follow their reimbursement, or categorize it with \"out of budget / professional expenses\" or \"health expenses\" to have an automatic tracking"
     }
   },
 

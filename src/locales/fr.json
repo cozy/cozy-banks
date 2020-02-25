@@ -661,7 +661,8 @@
     "title": {
       "healthExpenses": "Rembours. santé",
       "professionalExpenses": "Rembours. notes de frais",
-      "othersExpenses": "Autres remboursements"
+      "othersExpenses": "Autres remboursements",
+      "group": "Tous les remb. en attente"
     },
     "pending": "Remboursements en attente : ",
     "alreadyReimbursed": "Déjà remboursés",
@@ -673,7 +674,8 @@
     "noReimbursed": {
       "generic": "Ajoutez un remboursement en attente manuellement sur des dépenses pour suivre leur remboursement.",
       "healthExpenses": "Détecter automatiquement vos remboursements en connectant votre assurance santé à votre Cozy.",
-      "professionalExpenses": "Categorisez des dépenses en « note de frais » pour suivre leur remboursement."
+      "professionalExpenses": "Categorisez des dépenses en « note de frais » pour suivre leur remboursement.",
+      "group": "Ajoutez un remboursement en attente manuellement sur des dépenses pour suivre leur remboursement, ou catégorizez les en \"hors budget / notes de frais\" ou \"frais de santé\" pour avoir un suivi automatique."
     }
   },
 
