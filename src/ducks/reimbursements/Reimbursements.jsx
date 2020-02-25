@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { queryConnect } from 'cozy-client'
-import { transactionsConn } from 'doctypes'
+import { transactionsConn, GROUP_DOCTYPE } from 'doctypes'
 import { flowRight as compose, sumBy } from 'lodash'
 import cx from 'classnames'
 import { TransactionList } from 'ducks/transactions/Transactions'
@@ -47,9 +47,15 @@ const NoReimbursedExpenses = ({ hasHealthBrands, doc }) => {
   const { t } = useI18n()
 
   const categoryName = doc.categoryId ? getCategoryName(doc.categoryId) : null
-  const message = categoryName
-    ? t(`Reimbursements.noReimbursed.${categoryName}`)
-    : t('Reimbursements.noReimbursed.generic')
+
+  let message
+  if (doc._type === GROUP_DOCTYPE) {
+    message = t('Reimbursements.noReimbursed.group')
+  } else if (categoryName) {
+    message = t(`Reimbursements.noReimbursed.${categoryName}`)
+  } else {
+    message = t('Reimbursements.noReimbursed.generic')
+  }
 
   return (
     <Padded className="u-pv-0">

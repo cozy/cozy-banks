@@ -275,7 +275,7 @@ describe('Reimbursements', () => {
 
         expect(
           getByText(
-            'Manually add some pending reimbursements on expenses to follow their reimbursements'
+            'Manually add an awaiting reimbursement on expenses to follow their reimbursement, or categorize it with "out of budget / professional expenses" or "health expenses" to have an automatic tracking'
           )
         ).toBeDefined()
       })
