@@ -57,4 +57,8 @@ flag('balance.show-owners', true)
 flag('settings.show-accounts-owners', true)
 flag('settings.new-account-details-page', true)
 
+// Turn on flags for professional and others reimbursements accounts
+flag('balance.professional-reimb-account', true)
+flag('balance.others-reimb-account', true)
+
 window.flag = flag
