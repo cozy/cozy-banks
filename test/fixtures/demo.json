@@ -1340,6 +1340,36 @@
     },
     {
       "demo": true,
+      "manualCategoryId": "400610",
+      "account": "comptelou1",
+      "label": "DOCTEUR LEFEBVRE",
+      "currency": "€",
+      "amount": -43,
+      "date": "{{ freshDate '2018-10-17T00:00:00Z' }}",
+      "_id": "4bbfe1f845ad1231c7d07aa3e04f682d"
+    },
+    {
+      "demo": true,
+      "manualCategoryId": "400610",
+      "account": "comptelou1",
+      "label": "DOCTEUR LEFEBVRE",
+      "currency": "€",
+      "amount": -43,
+      "date": "{{ freshDate '2018-10-16T00:00:00Z' }}",
+      "_id": "4bbfe1f845ad1231c7d07aa3e04f682e"
+    },
+    {
+      "demo": true,
+      "manualCategoryId": "400610",
+      "account": "comptelou1",
+      "label": "DOCTEUR LEFEBVRE",
+      "currency": "€",
+      "amount": -43,
+      "date": "{{ freshDate '2018-10-15T00:00:00Z' }}",
+      "_id": "4bbfe1f845ad1231c7d07aa3e04f682f"
+    },
+    {
+      "demo": true,
       "manualCategoryId": "400112",
       "account": "compteisa1",
       "label": "Vente-Privée.com",
@@ -1393,6 +1423,54 @@
       "amount": -25,
       "date": "{{ freshDate '2018-10-19T00:00:00Z' }}",
       "_id": "paiement_docteur_martin2",
+      "reimbursements": [
+        {
+          "billId": "io.cozy.bills:bill_cpam_demo",
+          "amount": 17.5,
+          "operationId": "remboursement_docteur_martin_ameli",
+          "vendor": "ameli"
+        },
+        {
+          "billId": "io.cozy.bills:bill_harmonie_demo",
+          "amount": 7.5,
+          "operationId": "remboursement_docteur_martin_harmonie",
+          "vendor": "harmonie"
+        }
+      ],
+      "demo": true
+    },
+    {
+      "manualCategoryId": "400610",
+      "account": "comptelou1",
+      "label": "Docteur Martoni",
+      "currency": "€",
+      "amount": -25,
+      "date": "{{ freshDate '2018-10-13T00:00:00Z' }}",
+      "_id": "paiement_docteur_martoni",
+      "reimbursements": [
+        {
+          "billId": "io.cozy.bills:bill_cpam_demo",
+          "amount": 17.5,
+          "operationId": "remboursement_docteur_martin_ameli",
+          "vendor": "ameli"
+        },
+        {
+          "billId": "io.cozy.bills:bill_harmonie_demo",
+          "amount": 7.5,
+          "operationId": "remboursement_docteur_martin_harmonie",
+          "vendor": "harmonie"
+        }
+      ],
+      "demo": true
+    },
+    {
+      "manualCategoryId": "400610",
+      "account": "comptelou1",
+      "label": "Docteur Biales",
+      "currency": "€",
+      "amount": -25,
+      "date": "{{ freshDate '2018-10-12T00:00:00Z' }}",
+      "_id": "paiement_docteur_biales",
       "reimbursements": [
         {
           "billId": "io.cozy.bills:bill_cpam_demo",
