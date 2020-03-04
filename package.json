@@ -61,7 +61,7 @@
     "ios:screenshots": "cd src/targets/mobile && bundle exec fastlane ios screenshots",
     "ios:deploy": "cd src/targets/mobile/platforms/ios && pod install && cd ../.. && bundle exec fastlane ios deploy",
     "ios:publish": "npm run mobile:build && npm run ios:deploy",
-    "build:services": "NODE_ENV=services:production npm run commons:build",
+    "build:services": "NODE_ENV=${NODE_ENV:-services:production} npm run commons:build",
     "watch:services": "NODE_ENV=services:development npm run commons:build -- --watch",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build",
