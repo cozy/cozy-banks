@@ -105,19 +105,19 @@ const doAppSuggestions = async setting => {
 
 const updateSettings = async settings => {
   log('info', 'Updating settings...')
-  const newSettings = await Settings.createOrUpdate(settings)
+  const { data: newSettings } = await Settings.createOrUpdate(settings)
   log('info', 'Settings updated')
   return newSettings
 }
 
-const launchBudgetAlertService = async () => {
+const launchBudgetAlertService = async client => {
   log('info', 'Launching budget alert service...')
-  const client = CozyClient.fromEnv(process.env)
   const jobs = client.collection('io.cozy.jobs')
   await jobs.create('service', {
     name: 'budgetAlerts',
     slug: 'banks'
   })
+  log('info', 'Budget alert service launched')
 }
 
 const setFlagsFromSettings = settings => {
@@ -130,7 +130,7 @@ const setFlagsFromSettings = settings => {
   )
 }
 
-const onOperationOrBillCreate = async options => {
+const onOperationOrBillCreate = async (client, options) => {
   log('info', `COZY_CREDENTIALS: ${process.env.COZY_CREDENTIALS}`)
   log('info', `COZY_URL: ${process.env.COZY_URL}`)
   log('info', `COZY_JOB_ID: ${process.env.COZY_JOB_ID}`)
@@ -168,7 +168,7 @@ const onOperationOrBillCreate = async options => {
   await doAppSuggestions(setting)
   setting = await updateSettings(setting)
 
-  await launchBudgetAlertService()
+  await launchBudgetAlertService(client)
 }
 
 const attachProcessEventHandlers = () => {
@@ -183,7 +183,8 @@ const attachProcessEventHandlers = () => {
 
 const main = async () => {
   attachProcessEventHandlers()
-  Document.registerClient(cozyClient)
+  const client = CozyClient.fromEnv(process.env)
+  Document.registerClient(client)
   const options = await getOptions(cozyClient)
   log('info', 'Options:')
   log('info', JSON.stringify(options))
