@@ -1,10 +1,15 @@
 const readline = require('readline')
 const fs = require('fs')
 const childProcess = require('child_process')
+const { spawnSync } = require('child_process')
 const fetch = require('node-fetch')
 const { SnapshotState, toMatchSnapshot } = require('jest-snapshot')
 const log = require('cozy-logger').namespace('e2e-utils')
 const any = require('lodash/some')
+const pickBy = require('lodash/pickBy')
+
+const PREFIX = 'cozy-banks-e2e-onOperationOrBillCreate'
+const TOKEN_FILE = `/tmp/${PREFIX}-token.json`
 
 function toMatchSnapshotStandalone(actual, testFile, testTitle) {
   // Intilize the SnapshotState, it's responsible for actually matching
@@ -105,11 +110,31 @@ const credentialsFromACHTokenFile = tokenFile => {
   }
 }
 
+/**
+ * Spawns ACH, adds token argument automatically
+ */
+const ach = args => {
+  args = args.slice()
+  args.splice(1, 0, '-t', TOKEN_FILE)
+  log('debug', JSON.stringify(args))
+  return spawn('ACH', args)
+}
+
+const makeToken = async () => {
+  log('info', 'Making token...')
+  await spawn('bash', [
+    '-c',
+    `scripts/make-token cozy.tools:8080 | jq -R '{token: .}' > ${TOKEN_FILE}`
+  ])
+}
+
 module.exports = {
   toMatchSnapshot: toMatchSnapshotStandalone,
   spawn,
   couch,
   endsWith,
   prompt,
-  credentialsFromACHTokenFile
+  credentialsFromACHTokenFile,
+  ach,
+  makeToken
 }

@@ -6,6 +6,8 @@ const {
   credentialsFromACHTokenFile,
   toMatchSnapshot,
   spawn,
+  ach,
+  makeToken,
   prompt,
   couch
 } = require('./utils')
@@ -13,24 +15,6 @@ const log = require('cozy-logger').namespace('e2e-onOperationOrBillCreate')
 
 const PREFIX = 'cozy-banks-e2e-onOperationOrBillCreate'
 const TOKEN_FILE = `/tmp/${PREFIX}-token.json`
-
-/**
- * Spawns ACH, adds token argument automatically
- */
-const ach = args => {
-  args = args.slice()
-  args.splice(1, 0, '-t', TOKEN_FILE)
-  log('debug', JSON.stringify(args))
-  return spawn('ACH', args)
-}
-
-const makeToken = async () => {
-  log('info', 'Making token...')
-  await spawn('bash', [
-    '-c',
-    `scripts/make-token cozy.tools:8080 | jq -R '{token: .}' > ${TOKEN_FILE}`
-  ])
-}
 
 const dropData = async () => {
   log('info', 'Dropping data...')
