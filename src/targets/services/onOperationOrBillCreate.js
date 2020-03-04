@@ -188,7 +188,11 @@ const main = async () => {
   const options = await getOptions(cozyClient)
   log('info', 'Options:')
   log('info', JSON.stringify(options))
-  onOperationOrBillCreate(options)
+  await onOperationOrBillCreate(client, options)
 }
 
-main()
+main().catch(e => {
+  log('critical', e)
+  console.error(e)
+  process.exit(e)
+})
