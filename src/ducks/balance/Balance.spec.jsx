@@ -1,26 +1,32 @@
-/* global shallow */
-
+import { shallow, mount } from 'enzyme'
 import getClient from 'test/client'
 const React = require('react')
 const { DumbBalance } = require('./Balance')
 const debounce = require('lodash/debounce')
 import fixtures from 'test/fixtures'
+import Loading from 'components/Loading'
 
 jest.mock('lodash/debounce', () => jest.fn(fn => fn))
 
+jest.mock('ducks/balance/components/BalanceHeader', () => () => null)
+jest.mock('ducks/balance/components/NoAccount', () => () => null)
+jest.mock('components/Loading', () => () => null)
+
 jest.useFakeTimers()
 
-const fakeCollection = (doctype, data) => ({
-  data: data || []
+const fakeCollection = (doctype, data, fetchStatus) => ({
+  data: data || [],
+  fetchStatus: fetchStatus || 'loaded'
 })
+
+const router = {
+  push: jest.fn()
+}
 
 describe('Balance page', () => {
   const setup = ({ accountsData } = {}) => {
     const saveDocumentMock = jest.fn()
     const filterByAccounts = jest.fn()
-    const router = {
-      push: jest.fn()
-    }
     const settingDoc = {}
     const root = shallow(
       <DumbBalance
@@ -136,6 +142,85 @@ describe('Balance page', () => {
       const { instance, saveDocumentMock } = setup()
       instance.savePanelState()
       expect(saveDocumentMock).toHaveBeenCalled()
+    })
+  })
+
+  describe('loading state', () => {
+    const commonProps = {
+      virtualAccounts: [],
+      virtualGroups: [],
+      triggers: fakeCollection('io.cozy.triggers'),
+      saveDocument: jest.fn(),
+      filterByAccounts: jest.fn(),
+      router: router,
+      client: getClient()
+    }
+
+    const isLoading = root => root.find(Loading).length > 0
+
+    it('should be in loading state if accounts is loading', () => {
+      expect(
+        isLoading(
+          mount(
+            <DumbBalance
+              accounts={fakeCollection('io.cozy.bank.accounts', [], 'loading')}
+              groups={fakeCollection('io.cozy.bank.groups')}
+              settings={fakeCollection('io.cozy.bank.settings', [])}
+              transactions={fakeCollection('io.cozy.bank.operations')}
+              {...commonProps}
+            />
+          )
+        )
+      ).toBe(true)
+    })
+
+    it('should be in loading state if groups is loading', () => {
+      expect(
+        isLoading(
+          mount(
+            <DumbBalance
+              accounts={fakeCollection('io.cozy.bank.accounts', [])}
+              groups={fakeCollection('io.cozy.bank.groups', [], 'loading')}
+              settings={fakeCollection('io.cozy.bank.settings', [])}
+              transactions={fakeCollection('io.cozy.bank.operations')}
+              {...commonProps}
+            />
+          )
+        )
+      ).toBe(true)
+    })
+
+    it('should be in loading state if settings is loading', () => {
+      expect(
+        isLoading(
+          mount(
+            <DumbBalance
+              accounts={fakeCollection('io.cozy.bank.accounts', [])}
+              groups={fakeCollection('io.cozy.bank.groups', [])}
+              settings={fakeCollection('io.cozy.bank.settings', [], 'loading')}
+              transactions={fakeCollection('io.cozy.bank.operations', [])}
+              {...commonProps}
+            />
+          )
+        )
+      ).toBe(true)
+    })
+
+    it('should not be in loading state if triggers are loading (since they are not stored offline)', () => {
+      expect(
+        isLoading(
+          mount(
+            <DumbBalance
+              accounts={fakeCollection('io.cozy.bank.accounts', [])}
+              groups={fakeCollection('io.cozy.bank.groups', [])}
+              settings={fakeCollection('io.cozy.bank.settings', [])}
+              transactions={fakeCollection('io.cozy.bank.operations', [])}
+              {...commonProps}
+              triggers={fakeCollection('io.cozy.bank.triggers', [], 'loading')}
+            />
+          )
+        )
+      ).toBe(false)
     })
   })
 })
