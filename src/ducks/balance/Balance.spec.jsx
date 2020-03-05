@@ -15,16 +15,14 @@ const fakeCollection = (doctype, data) => ({
 })
 
 describe('Balance page', () => {
-  let root, instance, saveDocumentMock, router, filterByAccounts
-
   const setup = ({ accountsData } = {}) => {
-    saveDocumentMock = jest.fn()
-    filterByAccounts = jest.fn()
-    router = {
+    const saveDocumentMock = jest.fn()
+    const filterByAccounts = jest.fn()
+    const router = {
       push: jest.fn()
     }
     const settingDoc = {}
-    root = shallow(
+    const root = shallow(
       <DumbBalance
         accounts={fakeCollection('io.cozy.bank.accounts', accountsData || [])}
         virtualAccounts={[]}
@@ -39,7 +37,9 @@ describe('Balance page', () => {
         client={getClient()}
       />
     )
-    instance = root.instance()
+    const instance = root.instance()
+
+    return { root, instance, saveDocumentMock, router, filterByAccounts }
   }
 
   afterEach(() => {
@@ -47,7 +47,7 @@ describe('Balance page', () => {
   })
 
   it('should call filterByAccounts prop with getCheckAccounts', () => {
-    setup()
+    const { root, instance, router, filterByAccounts } = setup()
     let accounts = []
     instance.getCheckedAccounts = () => {
       return accounts
@@ -59,7 +59,8 @@ describe('Balance page', () => {
 
   describe('data fetching', () => {
     it('should start periodic data fetch if no accounts', () => {
-      setup()
+      const { instance } = setup()
+
       jest.spyOn(instance, 'startRealtimeFallback')
       jest.spyOn(instance, 'stopRealtimeFallback')
       instance.ensureListenersProperlyConfigured()
@@ -68,7 +69,8 @@ describe('Balance page', () => {
     })
     it('should stop periodic data fetch if there are accounts', () => {
       const accounts = fixtures['io.cozy.bank.accounts']
-      setup({ accountsData: accounts })
+      const { instance } = setup({ accountsData: accounts })
+
       jest.spyOn(instance, 'startRealtimeFallback')
       jest.spyOn(instance, 'stopRealtimeFallback')
       instance.ensureListenersProperlyConfigured()
@@ -77,7 +79,7 @@ describe('Balance page', () => {
     })
 
     it('should correctly start realtime fallback', () => {
-      setup()
+      const { instance } = setup()
       jest
         .spyOn(global, 'setInterval')
         .mockReset()
@@ -93,7 +95,7 @@ describe('Balance page', () => {
     })
 
     it('should correctly stop realtime fallback', () => {
-      setup()
+      const { instance } = setup()
       jest
         .spyOn(global, 'setInterval')
         .mockReset()
@@ -113,7 +115,7 @@ describe('Balance page', () => {
 
   describe('panel toggling', () => {
     it('should debounce handlePanelChange', () => {
-      setup({ accountsData: [{ balance: 12345 }] })
+      const { instance } = setup({ accountsData: [{ balance: 12345 }] })
       expect(debounce).toHaveBeenCalledWith(instance.handlePanelChange, 3000, {
         leading: false,
         trailing: true
@@ -121,7 +123,7 @@ describe('Balance page', () => {
     })
 
     it('should call savePanelState when handling panel change', () => {
-      setup()
+      const { instance } = setup()
       instance.setState = (fn, callback) => callback.apply(instance)
       jest.spyOn(instance, 'savePanelState')
       instance.handlePanelChange()
@@ -131,7 +133,7 @@ describe('Balance page', () => {
     })
 
     it('should call saveDocument when saving panel state', () => {
-      setup()
+      const { instance, saveDocumentMock } = setup()
       instance.savePanelState()
       expect(saveDocumentMock).toHaveBeenCalled()
     })
