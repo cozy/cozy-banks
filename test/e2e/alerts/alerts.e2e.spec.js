@@ -18,7 +18,7 @@ import {
   importACHData,
   revokeOtherOAuthClientsForSoftwareId
 } from 'ducks/client/utils'
-import { runService } from 'test/e2e/serviceUtils'
+import { runService, makeToken } from 'test/e2e/utils'
 import assert from '../../../src/utils/assert'
 
 const SOFTWARE_ID = 'banks.alerts-e2e'
@@ -75,7 +75,7 @@ const runScenario = async (client, scenario, options) => {
   }
 
   try {
-    await runService('onOperationOrBillCreate', options)
+    await runService('onOperationOrBillCreate', [], options)
   } catch (e) {
     console.error(e.message)
     if (!options.showOutput) {
@@ -105,15 +105,7 @@ const cleanupDatabase = async client => {
   }
 }
 
-const areEnvVariablesProvided = Boolean(
-  process.env.COZY_URL && process.env.COZY_CREDENTIALS
-)
-
 const setupClient = async options => {
-  if (!areEnvVariablesProvided) {
-    return
-  }
-
   const client = await createClientInteractive({
     uri: options.url,
     scope: [
@@ -142,13 +134,11 @@ const setupClient = async options => {
   return client
 }
 
-test('COZY_URL and COZY_CREDENTIALS must be provided to E2E test', () => {
-  expect(areEnvVariablesProvided).toBe(true)
+beforeAll(() => {
+  makeToken()
 })
 
-const describer = areEnvVariablesProvided ? describe : xdescribe
-
-describer('alert emails/notifications', () => {
+describe('alert emails/notifications', () => {
   let client
   let pushServer
   let mailhog
@@ -156,12 +146,6 @@ describer('alert emails/notifications', () => {
     url: process.env.COZY_URL || 'http://cozy.tools:8080',
     verbose: false
   }
-
-  beforeEach(() => {
-    if (!process.env.COZY_URL || !process.env.COZY_CREDENTIALS) {
-      throw new Error('Must provide COZY_URL and COZY_CREDENTIALS')
-    }
-  })
 
   beforeAll(async () => {
     pushServer = new MockServer()

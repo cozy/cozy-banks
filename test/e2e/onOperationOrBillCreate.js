@@ -3,9 +3,8 @@ process.env.NODE_ENV = 'development'
 const fs = require('fs')
 const path = require('path')
 const {
-  credentialsFromACHTokenFile,
+  runService,
   toMatchSnapshot,
-  spawn,
   ach,
   makeToken,
   prompt,
@@ -14,7 +13,6 @@ const {
 const log = require('cozy-logger').namespace('e2e-onOperationOrBillCreate')
 
 const PREFIX = 'cozy-banks-e2e-onOperationOrBillCreate'
-const TOKEN_FILE = `/tmp/${PREFIX}-token.json`
 
 const dropData = async () => {
   log('info', 'Dropping data...')
@@ -53,22 +51,10 @@ const exportAndSnapshot = async () => {
   }
 }
 
-const runService = async options => {
-  log('info', 'Running service...')
-  process.env.COZY_URL = 'http://cozy.tools:8080'
-  process.env.COZY_CREDENTIALS = JSON.stringify(
-    credentialsFromACHTokenFile(TOKEN_FILE)
-  )
-  await spawn('node', [
-    'build/onOperationOrBillCreate.js',
-    JSON.stringify(options)
-  ])
-}
-
 const testService = async options => {
   await dropData()
   await loadData()
-  await runService(options)
+  await runService('onOperationOrBillCreate', [JSON.stringify(options)])
   await exportAndSnapshot()
 }
 
@@ -78,7 +64,7 @@ const main = async () => {
     log('info', 'Aborting...')
     return
   }
-  await makeToken()
+  await makeToken(PREFIX)
   await testService({ transactionMatching: false })
   await testService({ billMatching: false })
 }

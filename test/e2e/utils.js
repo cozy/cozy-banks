@@ -8,7 +8,7 @@ const log = require('cozy-logger').namespace('e2e-utils')
 const any = require('lodash/some')
 const pickBy = require('lodash/pickBy')
 
-const PREFIX = 'cozy-banks-e2e-onOperationOrBillCreate'
+const PREFIX = 'cozy-banks-e2e'
 const TOKEN_FILE = `/tmp/${PREFIX}-token.json`
 
 function toMatchSnapshotStandalone(actual, testFile, testTitle) {
@@ -110,6 +110,51 @@ const credentialsFromACHTokenFile = tokenFile => {
   }
 }
 
+const isErrorLine = line => {
+  return line.includes('Error') || line.includes('critical')
+}
+
+const assertNoError = processResult => {
+  const lines = processResult.stdout.toString().split('\n')
+  const errorLines = lines.filter(isErrorLine)
+  if (errorLines.length > 0) {
+    throw new Error('Error in process: \n' + errorLines.join('\n'))
+  }
+}
+
+const runService = async (serviceName, args, options = {}) => {
+  log('info', 'Running service...')
+  const credentials = credentialsFromACHTokenFile(TOKEN_FILE)
+  const env = {
+    ...process.env,
+    COZY_URL: 'http://cozy.tools:8080',
+    COZY_CREDENTIALS: JSON.stringify(credentials),
+    IS_TESTING: 'test'
+  }
+  const processOptions = pickBy(
+    {
+      stdio: options.showOutput ? 'inherit' : undefined,
+      env
+    },
+    Boolean
+  )
+  const res = spawnSync(
+    'node',
+    [`build/${serviceName}`, ...args],
+    processOptions
+  )
+
+  if (res.status !== 0) {
+    // eslint-disable-next-line no-console
+    console.error(res.stdout.toString())
+    throw new Error(`Error while running ${serviceName}`)
+  }
+
+  assertNoError(res)
+
+  return res
+}
+
 /**
  * Spawns ACH, adds token argument automatically
  */
@@ -135,6 +180,7 @@ module.exports = {
   endsWith,
   prompt,
   credentialsFromACHTokenFile,
+  runService,
   ach,
   makeToken
 }
