@@ -63,6 +63,8 @@ const checkPushForScenario = async (pushServer, scenario) => {
   }
 }
 
+const sleep = duration => new Promise(resolve => setTimeout(resolve, duration))
+
 const runScenario = async (client, scenario, options) => {
   assert(client, 'No client')
   await importACHData(client, scenario.data)
@@ -76,6 +78,7 @@ const runScenario = async (client, scenario, options) => {
 
   try {
     await runService('onOperationOrBillCreate', [], options)
+    await sleep(1000)
   } catch (e) {
     console.error(e.message)
     if (!options.showOutput) {
@@ -126,7 +129,7 @@ const setupClient = async options => {
     uri: options.url,
     scope: [
       'io.cozy.oauth.clients:ALL',
-      options.push ? 'io.cozy.fake-doctype' : null,
+      options.push ? 'io.cozy.fakedoctype' : null,
       SETTINGS_DOCTYPE,
       TRANSACTION_DOCTYPE,
       ACCOUNT_DOCTYPE,
