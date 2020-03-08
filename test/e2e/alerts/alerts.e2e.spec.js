@@ -40,7 +40,7 @@ const checkEmailForScenario = async (mailhog, scenario) => {
     latestMessages.length > 0 ? pick(latestMessages[0], ['subject']) : null
   )
   if (scenario.expected.email) {
-    expect(email).not.toBe(null)
+    expect(email).not.toBeFalsy()
     expect(email).toMatchObject(scenario.expected.email)
   } else {
     expect(email).toBeFalsy()
@@ -56,7 +56,7 @@ const checkPushForScenario = async (pushServer, scenario) => {
     // eslint-disable-line empty-catch
   }
   if (scenario.expected.notification) {
-    expect(lastReq).not.toBe(null)
+    expect(lastReq).not.toBeFalsy()
     expect(lastReq.body).toMatchObject(scenario.expected.notification)
   } else {
     expect(lastReq).toBeFalsy()
