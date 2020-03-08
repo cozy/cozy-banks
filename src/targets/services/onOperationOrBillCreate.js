@@ -11,6 +11,7 @@ import matchFromTransactions from 'ducks/billsMatching/matchFromTransactions'
 import { logResult } from 'ducks/billsMatching/utils'
 import { findAppSuggestions } from 'ducks/appSuggestions/services'
 import { fetchChangesOrAll, getOptions } from './helpers'
+import assert from '../../utils/assert'
 
 const log = logger.namespace('onOperationOrBillCreate')
 
@@ -46,6 +47,7 @@ const doBillsMatching = async (setting, options = {}) => {
 }
 
 const doTransactionsMatching = async (setting, options = {}) => {
+  assert(setting, 'No setting passed')
   log('info', 'Do transaction matching...')
   const transactionsLastSeq =
     options.lastSeq || setting.billsMatching.transactionsLastSeq || '0'
@@ -78,6 +80,7 @@ const doTransactionsMatching = async (setting, options = {}) => {
 }
 
 const doSendNotifications = async (setting, notifChanges) => {
+  assert(setting, 'No setting passed')
   log('info', 'Do send notifications...')
   try {
     const transactionsToNotify = notifChanges.documents
@@ -91,6 +94,7 @@ const doSendNotifications = async (setting, notifChanges) => {
 }
 
 const doAppSuggestions = async setting => {
+  assert(setting, 'No setting passed')
   log('info', 'Do apps suggestions...')
   try {
     await findAppSuggestions(setting)

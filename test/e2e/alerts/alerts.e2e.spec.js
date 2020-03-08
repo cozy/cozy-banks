@@ -19,6 +19,7 @@ import {
   revokeOtherOAuthClientsForSoftwareId
 } from 'ducks/client/utils'
 import { runService } from 'test/e2e/serviceUtils'
+import assert from '../../../src/utils/assert'
 
 const SOFTWARE_ID = 'banks.alerts-e2e'
 
@@ -63,6 +64,7 @@ const checkPushForScenario = async (pushServer, scenario) => {
 }
 
 const runScenario = async (client, scenario, options) => {
+  assert(client, 'No client')
   await importACHData(client, scenario.data)
 
   if (options.mailhog) {
