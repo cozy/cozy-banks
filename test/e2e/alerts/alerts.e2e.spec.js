@@ -93,6 +93,19 @@ const runScenario = async (client, scenario, options) => {
   }
 }
 
+const activatePushNotifications = async client => {
+  const clientInfos = client.stackClient.oauthOptions
+  console.log(
+    'Activating push notifications for OAuth client',
+    clientInfos.clientName
+  )
+  await client.stackClient.updateInformation({
+    ...clientInfos,
+    notificationPlatform: 'android',
+    notificationDeviceToken: 'fake-token'
+  })
+}
+
 const cleanupDatabase = async client => {
   for (let doctype of [
     SETTINGS_DOCTYPE,
@@ -124,12 +137,7 @@ const setupClient = async options => {
 
   await revokeOtherOAuthClientsForSoftwareId(client, SOFTWARE_ID)
   if (options.push) {
-    const clientInfos = client.stackClient.oauthOptions
-    await client.stackClient.updateInformation({
-      ...clientInfos,
-      notificationPlatform: 'android',
-      notificationDeviceToken: 'fake-token'
-    })
+    await activatePushNotifications(client)
   }
   return client
 }
