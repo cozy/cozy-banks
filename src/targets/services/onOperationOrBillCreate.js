@@ -11,6 +11,8 @@ import matchFromTransactions from 'ducks/billsMatching/matchFromTransactions'
 import { logResult } from 'ducks/billsMatching/utils'
 import { findAppSuggestions } from 'ducks/appSuggestions/services'
 import { fetchChangesOrAll, getOptions } from './helpers'
+import get from 'lodash/get'
+import set from 'lodash/set'
 import assert from '../../utils/assert'
 
 const log = logger.namespace('onOperationOrBillCreate')
@@ -50,7 +52,7 @@ const doTransactionsMatching = async (setting, options = {}) => {
   assert(setting, 'No setting passed')
   log('info', 'Do transaction matching...')
   const transactionsLastSeq =
-    options.lastSeq || setting.billsMatching.transactionsLastSeq || '0'
+    options.lastSeq || get(setting, 'billsMatching.transactionsLastSeq') || '0'
 
   try {
     log('info', 'Fetching transactions changes...')
@@ -59,7 +61,11 @@ const doTransactionsMatching = async (setting, options = {}) => {
       transactionsLastSeq
     )
 
-    setting.billsMatching.transactionsLastSeq = transactionsChanges.newLastSeq
+    set(
+      setting,
+      'billsMatching.transactionsLastSeq',
+      transactionsChanges.newLastSeq
+    )
 
     if (transactionsChanges.documents.length === 0) {
       log('info', '[matching service] No new operations since last execution')
@@ -85,7 +91,11 @@ const doSendNotifications = async (setting, notifChanges) => {
   try {
     const transactionsToNotify = notifChanges.documents
     await sendNotifications(setting, transactionsToNotify)
-    setting.notifications.lastSeq = setting.billsMatching.transactionsLastSeq
+    set(
+      setting,
+      'notifications.lastSeq',
+      get(setting, 'billsMatching.transactionsLastSeq')
+    )
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(e)
