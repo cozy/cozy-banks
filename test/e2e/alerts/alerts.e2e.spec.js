@@ -107,6 +107,9 @@ const activatePushNotifications = async client => {
 }
 
 const cleanupDatabase = async client => {
+  if (!client) {
+    return
+  }
   for (let doctype of [
     SETTINGS_DOCTYPE,
     TRANSACTION_DOCTYPE,
@@ -147,7 +150,6 @@ beforeAll(() => {
 })
 
 describe('alert emails/notifications', () => {
-  let client
   let pushServer
   let mailhog
   let options = {
@@ -165,13 +167,15 @@ describe('alert emails/notifications', () => {
     await pushServer.close()
   })
 
-  beforeEach(async () => {
-    await cleanupDatabase(client)
-  })
-
   describe('push', () => {
+    let client
+
     beforeAll(async () => {
-      client = await setupClient({ url: options.url })
+      client = await setupClient({ url: options.url, push: true })
+    })
+
+    beforeEach(async () => {
+      await cleanupDatabase(client)
     })
 
     for (const scenario of Object.values(scenarios)) {
@@ -185,8 +189,14 @@ describe('alert emails/notifications', () => {
   })
 
   describe('email', () => {
+    let client
+
     beforeAll(async () => {
-      client = await setupClient({ url: options.url, push: true })
+      client = await setupClient({ url: options.url })
+    })
+
+    beforeEach(async () => {
+      await cleanupDatabase(client)
     })
 
     for (const scenario of Object.values(scenarios)) {
