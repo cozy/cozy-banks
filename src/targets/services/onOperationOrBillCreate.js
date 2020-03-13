@@ -203,6 +203,5 @@ const main = async () => {
 
 main().catch(e => {
   log('critical', e)
-  console.error(e)
   process.exit(e)
 })
