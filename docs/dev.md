@@ -425,6 +425,9 @@ $ yarn test:e2e:alerts
 At the moment, it needs to be launched on the computer of the developer but should
 be done on the CI in the future.
 
+
+⚠️  You need to have the services built for production for E2E tests to work.
+
 ⚠️ For push notifications tests to work, you need first to configure the stack so that
 it uses a fake server that will receive push notifications.
 
