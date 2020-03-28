@@ -75,9 +75,8 @@ export const getSettings = queryDataSelector('settings', {
   hydrated: true
 })
 
-export const getConfig = createSelector(
-  [getSettings],
-  settings => getDefaultedSettings(settings.find(isConfigurationSetting))
+export const getConfig = createSelector([getSettings], settings =>
+  getDefaultedSettings(settings.find(isConfigurationSetting))
 )
 
 export const getAccounts = queryDataSelector('accounts')
@@ -97,9 +96,8 @@ export const getAllAccounts = createSelector(
   (accounts, virtualAccounts) => [...accounts, ...virtualAccounts]
 )
 
-export const getAutoGroups = createSelector(
-  [getGroups],
-  groups => groups.filter(isAutoGroup)
+export const getAutoGroups = createSelector([getGroups], groups =>
+  groups.filter(isAutoGroup)
 )
 
 export const getVirtualGroups = createSelector(
@@ -140,12 +138,10 @@ export const getAllGroups = createSelector(
   (groups, virtualGroups) => [...groups, ...virtualGroups]
 )
 
-export const getGroupsById = createSelector(
-  [getAllGroups],
-  groups => keyBy(groups, '_id')
+export const getGroupsById = createSelector([getAllGroups], groups =>
+  keyBy(groups, '_id')
 )
 
-export const getAccountsById = createSelector(
-  [getAccounts],
-  accounts => keyBy(accounts, '_id')
+export const getAccountsById = createSelector([getAccounts], accounts =>
+  keyBy(accounts, '_id')
 )

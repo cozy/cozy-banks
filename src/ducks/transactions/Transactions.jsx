@@ -201,11 +201,12 @@ export class TransactionsDumb extends React.Component {
             </Section>
           )
         })}
-        {manualLoadMore && limitMax < this.transactions.length && (
-          <LoadMoreButton onClick={() => this.props.onReachBottom(20)}>
-            {t('Transactions.see-more')}
-          </LoadMoreButton>
-        )}
+        {manualLoadMore &&
+          limitMax < this.transactions.length && (
+            <LoadMoreButton onClick={() => this.props.onReachBottom(20)}>
+              {t('Transactions.see-more')}
+            </LoadMoreButton>
+          )}
       </TransactionContainer>
     )
   }

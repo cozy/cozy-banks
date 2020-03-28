@@ -126,11 +126,12 @@ class TransactionHeader extends Component {
         >
           {this.renderSelectDates()}
         </Padded>
-        {isSubcategory && !isMobile && (
-          <Padded className="u-pt-0">
-            <HeaderBreadcrumb router={router} t={t} />
-          </Padded>
-        )}
+        {isSubcategory &&
+          !isMobile && (
+            <Padded className="u-pt-0">
+              <HeaderBreadcrumb router={router} t={t} />
+            </Padded>
+          )}
         {transactions.length > 0 && (
           <TableHead isSubcategory={isSubcategory} color="primary" />
         )}

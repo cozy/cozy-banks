@@ -198,12 +198,13 @@ class AccountRow extends React.PureComponent {
               <div className={styles.AccountRow__label}>
                 {account.virtual ? t(accountLabel) : accountLabel}
               </div>
-              {shouldShowOwners && isMobile && (
-                <Owners
-                  className={styles.AccountRow__subText}
-                  owners={owners}
-                />
-              )}
+              {shouldShowOwners &&
+                isMobile && (
+                  <Owners
+                    className={styles.AccountRow__subText}
+                    owners={owners}
+                  />
+                )}
               {!showUpdatedAtOutside && (
                 <AccountCaption triggersCol={triggersCol} account={account} />
               )}
