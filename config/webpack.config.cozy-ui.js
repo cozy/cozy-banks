@@ -1,23 +1,17 @@
 'use strict'
 
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const webpack = require('webpack')
-const path = require('path')
+const { mergeAppConfigs } = require('cozy-scripts/utils/merge')
 
-module.exports = {
-  resolve: {
-    extensions: ['.styl'],
-    alias: {
+module.exports = mergeAppConfigs([
+  require('cozy-scripts/config/webpack.config.cozy-ui'),
+  require('cozy-scripts/config/webpack.config.cozy-ui.react'),
+  require('cozy-scripts/config/webpack.config.css-modules'),
+  {
+    resolve: {
+      alias: {
       'cozy-ui/react': 'cozy-ui/transpiled/react'
-    }
-  },
-  plugins: [
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        stylus: {
-          use: [require('cozy-ui/stylus')()]
-        }
       }
-    })
-  ]
-}
+    }
+  }
+])
+
