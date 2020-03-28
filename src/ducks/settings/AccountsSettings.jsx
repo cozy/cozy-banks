@@ -31,6 +31,16 @@ import { Row, Cell } from 'components/Table'
 
 // TODO react-router v4
 
+const AccountOwners = ({ account }) => {
+  const owners = getAccountOwners(account)
+  return owners.length > 0 ? (
+    <>
+      <div className="u-ph-half">-</div>
+      <div>{owners.map(Contact.getDisplayName).join(' - ')}</div>
+    </>
+  ) : null
+}
+
 const _AccountLine = ({ account, router, breakpoints: { isMobile } }) => {
   const { t } = useI18n()
 
@@ -43,16 +53,7 @@ const _AccountLine = ({ account, router, breakpoints: { isMobile } }) => {
       <Cell main className={styles.AcnsStg__libelle}>
         <div className={styles.AcnsStg__libelleInner}>
           <div>{account.shortLabel || account.label}</div>
-          {isMobile ? (
-            <>
-              <div className="u-ph-half">-</div>
-              <div>
-                {getAccountOwners(account)
-                  .map(Contact.getDisplayName)
-                  .join(' - ')}
-              </div>
-            </>
-          ) : null}
+          {isMobile ? <AccountOwners account={account} /> : null}
         </div>
       </Cell>
       <Cell className={styles.AcnsStg__bank}>
