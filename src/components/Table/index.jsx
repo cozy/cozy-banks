@@ -2,6 +2,32 @@ import React from 'react'
 import styles from 'components/Table/styles.styl'
 import cx from 'classnames'
 
+export const Row = ({ nav, ...props }) => {
+  return (
+    <tr
+      {...props}
+      className={cx(styles.Table__row, nav && styles['Table__row--nav'])}
+    >
+      {props.children}
+    </tr>
+  )
+}
+
+export const Cell = ({ main, children, ...props }) => {
+  return (
+    <td
+      {...props}
+      className={cx(
+        props.className,
+        styles.Table__cell,
+        main && styles['Table__cell--main']
+      )}
+    >
+      {children}
+    </td>
+  )
+}
+
 /**
  * Used to display tabular data.
  * Column widths MUST be explicitly set with `flex-basis` AND `max-width`.

@@ -104,13 +104,6 @@
         .mobile-row:first-child
             border-top 1px solid var(--silver)
 
-        .mobile-row-main
-            maxed-flex-basis 100%
-            padding-top .5rem
-            padding-bottom .25rem
-            font-size 1rem
-            color var(--charcoalGrey)
-
         .mobile-row-label
             padding-top .25rem
             padding-bottom .5rem
@@ -120,3 +113,22 @@
             flex-shrink 0
             flex-grow 1
             max-width none
+
+        .mobile-row-main
+            maxed-flex-basis 100%
+            padding-top .5rem
+            padding-bottom .25rem
+            font-size 1rem
+            color var(--charcoalGrey)
+
+.Table__row
+    composes mobile-row
+
+.Table__row--nav
+    composes nav-row from '../../ducks/commons/mobile.styl'// @stylint ignore
+
+.Table__cell
+    composes mobile-row-label
+
+.Table__cell--main
+    composes mobile-row-main
