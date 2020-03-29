@@ -70,19 +70,6 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /^((?!min).)*\.jsx?$/, // all js, jsx, exclude minified
-        include: [SRC_DIR],
-        loader: 'eslint-loader',
-        enforce: 'pre',
-        options: {
-          emitWarning: true,
-          fix: true,
-          rules: {
-            'no-debugger': production ? 2 : 0
-          }
-        }
-      },
-      {
         test: /\.jsx?$/,
         include: [
           SRC_DIR,

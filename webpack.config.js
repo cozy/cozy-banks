@@ -10,6 +10,7 @@ const {
 } = require('./config/webpack.vars')
 
 const common = merge(
+  require('cozy-scripts/config/webpack.config.eslint'),
   require('./config/webpack.config.base'),
   require('./config/webpack.config.disable-contexts'),
   require('./config/webpack.config.cozy-ui'),
