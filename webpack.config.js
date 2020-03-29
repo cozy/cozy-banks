@@ -13,7 +13,7 @@ const common = merge(
   require('./config/webpack.config.base'),
   require('./config/webpack.config.disable-contexts'),
   require('./config/webpack.config.cozy-ui'),
-  require('./config/webpack.config.pictures'),
+  require('cozy-scripts/config/webpack.config.pictures'),
   require('./config/webpack.config.versions'),
   require('./config/webpack.config.manifest'),
   require('./config/webpack.config.piwik'),
