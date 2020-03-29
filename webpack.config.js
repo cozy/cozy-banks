@@ -43,13 +43,15 @@ const common = mergeAppConfigs([
   },
   require('cozy-scripts/config/webpack.config.css-modules'),
   require('cozy-scripts/config/webpack.config.pictures'),
-  require('./config/webpack.config.disable-contexts'),
+  analyze ? require('cozy-scripts/config/webpack.config.analyzer') : null,
+
+  require('./config/webpack.config.manual-resolves'),
+  require('./config/webpack.config.plugins'),
   require('./config/webpack.config.versions'),
   require('./config/webpack.config.manifest'),
   require('./config/webpack.config.piwik'),
   require('./config/webpack.config.vendors'),
   hotReload ? require(`./config/webpack.config.hot-reload`) : null,
-  analyze ? require('cozy-scripts/config/webpack.config.analyzer') : null
 ].filter(Boolean))
 
 const targetCfg = require(`./config/webpack.target.${target}`)
