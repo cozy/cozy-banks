@@ -6,7 +6,6 @@ const PORT = process.env.DEV_PORT ? parseInt(process.env.DEV_PORT, 10) : 8282
 
 module.exports = {
   output: {
-    filename: 'app.js',
     publicPath: `http://${HOST}:${PORT}/`
   },
   plugins: [new webpack.NamedModulesPlugin(), new HtmlWebpackHarddiskPlugin()],
