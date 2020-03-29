@@ -1,25 +1,7 @@
-'use strict'
+const { getEnabledFlags, target } = require('cozy-scripts/config/webpack.vars')
 
 const path = require('path')
-
-const getTarget = () => {
-  try {
-    return process.env.NODE_ENV.match(/^(\w+):/)[1]
-  } catch (e) {
-    return 'browser'
-  }
-}
-
-const getEnabledFlags = () => {
-  try {
-    return process.env.COZY_FLAGS.split(',')
-  } catch (e) {
-    return []
-  }
-}
-
 const production = /:production$/.test(process.env.NODE_ENV)
-const target = getTarget()
 const hotReload = !!process.env.HOT_RELOAD
 const SRC_DIR = path.resolve(__dirname, '../src')
 
