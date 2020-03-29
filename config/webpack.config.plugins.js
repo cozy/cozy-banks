@@ -4,6 +4,7 @@ const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack
 const path = require('path')
 const pkg = require(path.resolve(__dirname, '../package.json'))
 const { enabledFlags } = require('./webpack.vars')
+const VersionPlugin = require('cozy-scripts/plugins/VersionPlugin')
 
 module.exports = {
   plugins: [
@@ -34,6 +35,10 @@ module.exports = {
     new DuplicatePackageCheckerPlugin({ verbose: true }),
 
     // Favicons
-    new CopyPlugin([{ from: 'src/targets/favicons' }])
+    new CopyPlugin([{ from: 'src/targets/favicons' }]),
+
+    new VersionPlugin({
+      packages: ['cozy-bar', 'cozy-ui']
+    })
   ]
 }

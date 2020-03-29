@@ -22,7 +22,6 @@ const common = mergeAppConfigs([
   require('cozy-scripts/config/webpack.config.eslint'),
   require('cozy-scripts/config/webpack.config.base'),
   require('cozy-scripts/config/webpack.config.react'),
-  require('./config/webpack.config.base'),
   require('cozy-scripts/config/webpack.config.cozy-ui'),
   require('cozy-scripts/config/webpack.config.cozy-ui.react'),
   {
@@ -47,9 +46,9 @@ const common = mergeAppConfigs([
   require('cozy-scripts/config/webpack.config.pictures'),
   analyze ? require('cozy-scripts/config/webpack.config.analyzer') : null,
 
+  require('./config/webpack.config.base'),
   require('./config/webpack.config.manual-resolves'),
   require('./config/webpack.config.plugins'),
-  require('./config/webpack.config.versions'),
   require('./config/webpack.config.manifest'),
   require('./config/webpack.config.piwik'),
   hotReload ? require(`./config/webpack.config.hot-reload`) : null,
