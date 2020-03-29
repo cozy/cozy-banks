@@ -19,7 +19,7 @@ const common = merge(
   require('./config/webpack.config.piwik'),
   require('./config/webpack.config.vendors'),
   hotReload ? require(`./config/webpack.config.hot-reload`) : null,
-  analyze ? require(`./config/webpack.config.analyze`) : null
+  analyze ? require('cozy-scripts/config/webpack.config.analyzer') : null
 )
 
 const targetCfg = require(`./config/webpack.target.${target}`)
