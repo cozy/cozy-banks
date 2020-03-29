@@ -24,7 +24,7 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       __STACK_ASSETS__: false,
-      __DEV__: true,
+      __DEVELOPMENT__: true,
       'process.env.NODE_ENV': JSON.stringify('development')
     }),
     new webpack.ProvidePlugin(provided)
