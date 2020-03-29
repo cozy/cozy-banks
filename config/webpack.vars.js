@@ -1,4 +1,8 @@
-const { getEnabledFlags, target } = require('cozy-scripts/config/webpack.vars')
+const {
+  getEnabledFlags,
+  target,
+  addAnalyzer
+} = require('cozy-scripts/config/webpack.vars')
 
 const path = require('path')
 const production = /:production$/.test(process.env.NODE_ENV)
@@ -9,7 +13,7 @@ module.exports = {
   production: production,
   target: target,
   hotReload,
-  analyze: process.env.WEBPACK_ANALYZE,
+  addAnalyzer,
   SRC_DIR,
   enabledFlags: getEnabledFlags()
 }

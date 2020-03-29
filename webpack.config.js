@@ -8,7 +8,7 @@ const {
   production,
   target,
   hotReload,
-  analyze
+  addAnalyzer
 } = require('./config/webpack.vars')
 
 const provided = {}
@@ -37,8 +37,8 @@ const common = mergeAppConfigs([
   },
   require('cozy-scripts/config/webpack.config.css-modules'),
   require('cozy-scripts/config/webpack.config.pictures'),
-  analyze ? require('cozy-scripts/config/webpack.config.analyzer') : null,
 
+  addAnalyzer ? require('cozy-scripts/config/webpack.config.analyzer') : null,
   require('./config/webpack.config.base'),
   require('./config/webpack.config.manual-resolves'),
   require('./config/webpack.config.plugins'),
