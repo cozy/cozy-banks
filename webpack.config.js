@@ -1,6 +1,7 @@
 'use strict'
 
 const merge = require('webpack-merge')
+const { mergeAppConfigs } = require('cozy-scripts/utils/merge')
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
 const {
   production,
@@ -9,19 +10,28 @@ const {
   analyze
 } = require('./config/webpack.vars')
 
-const common = merge(
+const common = mergeAppConfigs([
   require('cozy-scripts/config/webpack.config.eslint'),
   require('./config/webpack.config.base'),
-  require('./config/webpack.config.disable-contexts'),
-  require('./config/webpack.config.cozy-ui'),
+  require('cozy-scripts/config/webpack.config.cozy-ui'),
+  require('cozy-scripts/config/webpack.config.cozy-ui.react'),
+  {
+    resolve: {
+      alias: {
+      'cozy-ui/react': 'cozy-ui/transpiled/react'
+      }
+    }
+  },
+  require('cozy-scripts/config/webpack.config.css-modules'),
   require('cozy-scripts/config/webpack.config.pictures'),
+  require('./config/webpack.config.disable-contexts'),
   require('./config/webpack.config.versions'),
   require('./config/webpack.config.manifest'),
   require('./config/webpack.config.piwik'),
   require('./config/webpack.config.vendors'),
   hotReload ? require(`./config/webpack.config.hot-reload`) : null,
   analyze ? require('cozy-scripts/config/webpack.config.analyzer') : null
-)
+].filter(Boolean))
 
 const targetCfg = require(`./config/webpack.target.${target}`)
 
