@@ -5,21 +5,15 @@ const path = require('path')
 const webpack = require('webpack')
 const appConfig = require('./webpack.target.app')
 
-const output = {
-  path: path.resolve(__dirname, '../src/targets/mobile/www')
-}
-
-if (process.env.PUBLIC_PATH) {
-  output.publicPath = process.env.PUBLIC_PATH
-}
-
 module.exports = merge(
   appConfig,
   {
     resolve: {
       extensions: ['.mobile.js', '.mobile.jsx']
     },
-    output: output,
+    output: {
+      path: path.resolve(__dirname, '../src/targets/mobile/www')
+    },
     plugins: [
       new webpack.DefinePlugin({
         __TARGET__: JSON.stringify('mobile'),
