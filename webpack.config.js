@@ -55,10 +55,9 @@ const modeConfig = production
   ? require('cozy-scripts/config/webpack.environment.prod')
   : require('cozy-scripts/config/webpack.environment.dev')
 
-const smp = new SpeedMeasurePlugin()
 const config = merge(modeConfig, withTarget)
 
-module.exports = process.env.SMP ? smp.wrap(config) : config
+module.exports = config
 
 if (require.main === module) {
   // eslint-disable-next-line no-console
