@@ -1,5 +1,6 @@
 'use strict'
 
+const { ProvidePlugin } = require('webpack')
 const merge = require('webpack-merge')
 const { mergeAppConfigs } = require('cozy-scripts/utils/merge')
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
@@ -9,6 +10,13 @@ const {
   hotReload,
   analyze
 } = require('./config/webpack.vars')
+
+const provided = {}
+
+if (target !== 'mobile') {
+  provided['cozy.bar'] = 'cozy-bar/dist/cozy-bar.js'
+}
+
 
 const common = mergeAppConfigs([
   require('cozy-scripts/config/webpack.config.eslint'),
@@ -20,6 +28,17 @@ const common = mergeAppConfigs([
       alias: {
       'cozy-ui/react': 'cozy-ui/transpiled/react'
       }
+    }
+  },
+  {
+    plugins: [new ProvidePlugin(provided)],
+    module: {
+      rules: [
+        {
+          test: /cozy-bar\/dist\/cozy-bar\.js$/,
+          loader: 'imports-loader?css=./cozy-bar.css'
+        }
+      ]
     }
   },
   require('cozy-scripts/config/webpack.config.css-modules'),
@@ -41,7 +60,7 @@ const withTarget = merge.strategy({
 
 const modeConfig = production
   ? require('./config/webpack.config.prod')
-  : require('./config/webpack.config.dev')
+  : require('cozy-scripts/config/webpack.environment.dev')
 
 const smp = new SpeedMeasurePlugin()
 const config = merge(modeConfig, withTarget)
