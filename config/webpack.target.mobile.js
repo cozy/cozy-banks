@@ -22,14 +22,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.mobile.js', '.mobile.jsx'],
-    alias: {
-      // Chart.js has moment as dependency for backward compatibility but it can
-      // survive without it. We do not use date related functionality in chart.js
-      // so it is safe to remove moment.
-      // https://github.com/chartjs/Chart.js/blob/master/docs/getting-started/integration.md#bundlers-webpack-rollup-etc
-      moment: path.resolve(__dirname, '../src/utils/empty')
-    }
+    extensions: ['.mobile.js', '.mobile.jsx']
   },
   output: output,
   plugins: [
