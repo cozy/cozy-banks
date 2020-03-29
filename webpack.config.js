@@ -50,7 +50,6 @@ const common = mergeAppConfigs([
   require('./config/webpack.config.versions'),
   require('./config/webpack.config.manifest'),
   require('./config/webpack.config.piwik'),
-  require('./config/webpack.config.vendors'),
   hotReload ? require(`./config/webpack.config.hot-reload`) : null,
 ].filter(Boolean))
 

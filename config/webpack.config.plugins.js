@@ -1,4 +1,5 @@
 const webpack = require('webpack')
+const CopyPlugin = require('copy-webpack-plugin')
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin')
 const path = require('path')
 const pkg = require(path.resolve(__dirname, '../package.json'))
@@ -25,7 +26,14 @@ module.exports = {
     new webpack.IgnorePlugin({
       resourceRegExp: /preact-portal/
     }),
+
+    // Disable contexts
     new webpack.IgnorePlugin(/^\.\.?\/contexts/),
-    new DuplicatePackageCheckerPlugin({ verbose: true })
+
+    // Checks for duplicates packages
+    new DuplicatePackageCheckerPlugin({ verbose: true }),
+
+    // Favicons
+    new CopyPlugin([{ from: 'src/targets/favicons' }])
   ]
 }
