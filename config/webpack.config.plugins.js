@@ -42,7 +42,7 @@ module.exports = {
       { from: 'src/targets/favicons' },
       { from: 'src/targets/screenshots', to: 'screenshots' },
       { from: 'README.md' },
-      { from: 'LICENSE' },
+      { from: 'LICENSE' }
     ]),
 
     new VersionPlugin({

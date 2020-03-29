@@ -8,10 +8,7 @@ module.exports = {
   output: {
     publicPath: process.env.PUBLIC_PATH || `http://${HOST}:${PORT}/`
   },
-  plugins: [
-    new webpack.NamedModulesPlugin(),
-    new HtmlWebpackHarddiskPlugin()
-  ],
+  plugins: [new webpack.NamedModulesPlugin(), new HtmlWebpackHarddiskPlugin()],
   devServer: {
     host: HOST,
     port: PORT,

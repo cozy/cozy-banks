@@ -20,9 +20,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new CopyPlugin([
-      { from: 'manifest.webapp', transform: transformManifest }
-    ])
+    new CopyPlugin([{ from: 'manifest.webapp', transform: transformManifest }])
   ]
 }
 
