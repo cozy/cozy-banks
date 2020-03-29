@@ -53,7 +53,7 @@ const withTarget = merge.strategy({
 })(common, targetCfg)
 
 const modeConfig = production
-  ? require('./config/webpack.config.prod')
+  ? require('cozy-scripts/config/webpack.environment.prod')
   : require('cozy-scripts/config/webpack.environment.dev')
 
 const smp = new SpeedMeasurePlugin()
