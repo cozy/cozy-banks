@@ -16,6 +16,10 @@ module.exports = {
       // so it is safe to remove moment.
       // https://github.com/chartjs/Chart.js/blob/master/docs/getting-started/integration.md#bundlers-webpack-rollup-etc
       moment: path.resolve(__dirname, '../src/utils/empty'),
+
+      // This way, we do not inadvertently use non transpiled files
+      'cozy-ui/react': 'cozy-ui/transpiled/react',
+
       // Resolving manually package that have multiple versions. They emit warnings with
       // DuplicatePackageChecker plugin. We always use the node_modules version.
       // https://github.com/darrenscerri/duplicate-package-checker-webpack-plugin#resolving-duplicate-packages-in-your-bundle

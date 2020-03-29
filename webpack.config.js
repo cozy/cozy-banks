@@ -25,13 +25,6 @@ const common = mergeAppConfigs([
   require('cozy-scripts/config/webpack.config.cozy-ui'),
   require('cozy-scripts/config/webpack.config.cozy-ui.react'),
   {
-    resolve: {
-      alias: {
-      'cozy-ui/react': 'cozy-ui/transpiled/react'
-      }
-    }
-  },
-  {
     plugins: [new ProvidePlugin(provided)],
     module: {
       rules: [
