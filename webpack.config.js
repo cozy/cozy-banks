@@ -20,6 +20,8 @@ if (target !== 'mobile') {
 
 const common = mergeAppConfigs([
   require('cozy-scripts/config/webpack.config.eslint'),
+  require('cozy-scripts/config/webpack.config.base'),
+  require('cozy-scripts/config/webpack.config.react'),
   require('./config/webpack.config.base'),
   require('cozy-scripts/config/webpack.config.cozy-ui'),
   require('cozy-scripts/config/webpack.config.cozy-ui.react'),
