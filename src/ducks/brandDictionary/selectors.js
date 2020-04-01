@@ -51,7 +51,10 @@ export const findMatchingBrandWithoutTrigger = (label, brands) => {
 }
 
 export const getInstalledBrandsFromQuery = queryName =>
-  createSelector([querySelector(queryName)], getInstalledBrandsFromCollection)
+  createSelector(
+    [querySelector(queryName)],
+    getInstalledBrandsFromCollection
+  )
 
 const getBrandsWithoutTriggerSelector = createSelector(
   [getInstalledBrandsFromQuery],

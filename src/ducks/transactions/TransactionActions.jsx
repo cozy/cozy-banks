@@ -62,18 +62,17 @@ export const SyncTransactionActions = ({
   const childProps = !isModalItem ? { className } : null
   return (
     <Tag {...childProps}>
-      {(displayDefaultAction || onlyDefault) &&
-        actions.default && (
-          <MenuAction
-            action={actions.default}
-            isDefault
-            transaction={transaction}
-            actionProps={actionProps}
-            menuPosition={menuPosition}
-            isModalItem={isModalItem}
-            compact={compact}
-          />
-        )}
+      {(displayDefaultAction || onlyDefault) && actions.default && (
+        <MenuAction
+          action={actions.default}
+          isDefault
+          transaction={transaction}
+          actionProps={actionProps}
+          menuPosition={menuPosition}
+          isModalItem={isModalItem}
+          compact={compact}
+        />
+      )}
       {!onlyDefault &&
         actions.others.map((action, index) => (
           <MenuAction

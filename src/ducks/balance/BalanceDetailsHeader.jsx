@@ -36,12 +36,11 @@ export const DumbBalanceDetailsHeader = props => {
           <AccountSwitch small={small} color="primary" />
         </div>
       </Padded>
-      {showBalance &&
-        isMobile && (
-          <BarRight>
-            <BarBalance accounts={filteredAccounts} theme={'primary'} />
-          </BarRight>
-        )}
+      {showBalance && isMobile && (
+        <BarRight>
+          <BarBalance accounts={filteredAccounts} theme={'primary'} />
+        </BarRight>
+      )}
       {children}
     </Header>
   )

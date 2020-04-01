@@ -3,7 +3,6 @@ const CopyPlugin = require('copy-webpack-plugin')
 const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin')
 const path = require('path')
 const pkg = require(path.resolve(__dirname, '../package.json'))
-const { enabledFlags } = require('./webpack.vars')
 const VersionPlugin = require('cozy-scripts/plugins/VersionPlugin')
 
 module.exports = {

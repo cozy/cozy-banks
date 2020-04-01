@@ -60,12 +60,11 @@ const NoReimbursedExpenses = ({ hasHealthBrands, doc }) => {
   return (
     <Padded className="u-pv-0">
       <Caption>{message}</Caption>
-      {!hasHealthBrands &&
-        categoryName === 'healthExpenses' && (
-          <StoreLink type="konnector" category="insurance">
-            <KonnectorChip konnectorType="health" />
-          </StoreLink>
-        )}
+      {!hasHealthBrands && categoryName === 'healthExpenses' && (
+        <StoreLink type="konnector" category="insurance">
+          <KonnectorChip konnectorType="health" />
+        </StoreLink>
+      )}
     </Padded>
   )
 }
