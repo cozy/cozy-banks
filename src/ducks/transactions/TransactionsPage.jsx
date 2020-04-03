@@ -267,7 +267,11 @@ class TransactionsPage extends Component {
           showBackButton={this.props.showBackButton}
           showBalance={isMobile && !areAccountsLoading && !isOnSubcategory}
         />
-        <div className={styles.TransactionPage__transactions}>
+        <div
+          className={`${
+            styles.TransactionPage__transactions
+          } js-scrolling-element`}
+        >
           {this.renderTransactions()}
         </div>
       </TransactionActionsProvider>
