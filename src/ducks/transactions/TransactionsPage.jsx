@@ -43,7 +43,7 @@ import BarTheme from 'ducks/bar/BarTheme'
 import TransactionActionsProvider from 'ducks/transactions/TransactionActionsProvider'
 
 export const STEP_INFINITE_SCROLL = 30
-export const MIN_NB_TRANSACTIONS_SHOWN = 10
+export const MIN_NB_TRANSACTIONS_SHOWN = 30
 
 const SCROLL_THRESOLD_TO_ACTIVATE_TOP_INFINITE_SCROLL = 150
 const getMonth = date => date.slice(0, 7)
