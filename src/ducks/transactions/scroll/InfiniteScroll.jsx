@@ -9,7 +9,7 @@ function isElementInViewport(el, thresold) {
   }
   const bcr = el.getBoundingClientRect()
   const top = bcr.top + thresold
-  const viewportTop = window.pageYOffset
+  const viewportTop = 0
   const viewportBottom = viewportTop + window.innerHeight
   return top >= viewportTop && top <= viewportBottom
 }
