@@ -103,12 +103,25 @@ class TransactionsPage extends Component {
   }
 
   handleIncreaseLimitMax() {
-    this.setState({
-      limitMax: this.state.limitMax + STEP_INFINITE_SCROLL
-    })
+    if (this.increasing) {
+      return
+    }
+    this.increasing = true
+    this.setState(
+      {
+        limitMax: this.state.limitMax + STEP_INFINITE_SCROLL
+      },
+      () => {
+        this.increasing = false
+      }
+    )
   }
 
   handleDecreaseLimitMin(amount = STEP_INFINITE_SCROLL) {
+    if (!this.increasing) {
+      return
+    }
+    this.increasing = true
     const transactions = this.props.filteredTransactions
     let goal = Math.max(this.state.limitMin - amount, 0)
 
@@ -119,9 +132,14 @@ class TransactionsPage extends Component {
     ) {
       goal--
     }
-    this.setState({
-      limitMin: goal
-    })
+    this.setState(
+      {
+        limitMin: goal
+      },
+      () => {
+        this.increasing = false
+      }
+    )
   }
 
   /**
