@@ -1,4 +1,4 @@
-/* global cozy, __TARGET__ */
+/* global cozy, __TARGET__, __OAUTH_AUTH__ */
 
 import 'utils/react-exposer'
 import 'whatwg-fetch'
@@ -85,8 +85,7 @@ const setupApp = async persistedState => {
   client.setStore(store)
 
   persistState(store)
-
-  if (__TARGET__ !== 'mobile') {
+  if (__TARGET__ !== 'mobile' || !__OAUTH_AUTH__) {
     !flag('authentication') &&
       cozy.bar.init({
         appName: data.cozyAppName,

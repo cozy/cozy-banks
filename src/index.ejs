@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title><%= htmlWebpackPlugin.options.title %></title>
-  <% if (__TARGET__ !== 'mobile') { %>
+  <% if (__TARGET__ !== 'mobile' && !__OAUTH_AUTH__) { %>
   {{.ThemeCSS}}
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
@@ -57,7 +57,7 @@
 <body>
 <div
   role="application"
-  <% if (__TARGET__ !== 'mobile') { %>
+  <% if (__TARGET__ !== 'mobile' && __OAUTH_AUTH__ !== true) { %>
   data-cozy-token="{{.Token}}"
   data-cozy-domain="{{.Domain}}"
   data-cozy-locale="{{.Locale}}"
@@ -70,10 +70,10 @@
   data-cozy-subdomain-type="{{.SubDomain}}"
   <% } %>
 ></div>
-<% if (__TARGET__ === 'mobile') { %>
+<% if (__TARGET__ === 'mobile' || __OAUTH_AUTH__ === true) { %>
 <div id="logout-modal" style="position: relative; z-index: 100;"></div>
 <% } %>
-<%  if (__STACK_ASSETS__ || (__DEV__ && __TARGET__ !== 'mobile')) { %>
+<%  if (__STACK_ASSETS__ || (__DEV__ && __TARGET__ !== 'mobile' && __OAUTH_AUTH__ !== true)) { %>
 <script src="//{{.Domain}}/assets/js/piwik.js" async></script>
 <% } %>
 </body>

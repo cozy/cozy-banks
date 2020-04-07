@@ -23,6 +23,7 @@ const target = getTarget()
 const hotReload = !!process.env.HOT_RELOAD
 const skin = process.env.SKIN
 const SRC_DIR = path.resolve(__dirname, '../src')
+const WEB_OAUTH = !!process.env.WEB_OAUTH
 
 module.exports = {
   production: production,
@@ -31,5 +32,6 @@ module.exports = {
   analyze: process.env.WEBPACK_ANALYZE,
   skin,
   SRC_DIR,
+  WEB_OAUTH,
   enabledFlags: getEnabledFlags()
 }

@@ -1,12 +1,13 @@
-/* global __TARGET__ */
+/* global __TARGET__, __OAUTH_AUTH__ */
 import { Intents } from 'cozy-interapp'
 import { RealtimePlugin } from 'cozy-realtime'
 
 let client
 
 const lib =
-  __TARGET__ === 'mobile' ? require('./mobile/mobile') : require('./web')
-
+  __TARGET__ === 'mobile' || __OAUTH_AUTH__
+    ? require('./mobile/mobile')
+    : require('./web')
 export const getClient = () => {
   if (client) {
     return client

@@ -37,6 +37,7 @@ module.exports = {
   globals: {
     __ALLOW_HTTP__: false,
     __TARGET__: 'browser',
+    __OAUTH_AUTH__: false,
     __DEV__: false,
     __POUCH__: false,
     __SENTRY_TOKEN__: 'token',

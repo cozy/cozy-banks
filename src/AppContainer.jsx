@@ -1,4 +1,4 @@
-/* global __TARGET__ */
+/* global __TARGET__, __OAUTH_AUTH__ */
 
 import { I18n } from 'cozy-ui/transpiled/react'
 import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
@@ -11,7 +11,7 @@ import { Sprite as IconSprite } from 'cozy-ui/transpiled/react/Icon'
 const AppContainer = ({ store, lang, history, client }) => {
   const AppRoute = require('components/AppRoute').default
   const Router =
-    __TARGET__ === 'mobile' || flag('authentication')
+    __TARGET__ === 'mobile' || flag('authentication') || __OAUTH_AUTH__
       ? require('ducks/mobile/MobileRouter').default
       : require('react-router').Router
   return (
