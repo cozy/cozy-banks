@@ -34,7 +34,6 @@
       - [Manual insertion test](#manual-insertion-test)
   - [Misc](#misc)
     - [Icons](#icons)
-    - [Skins](#skins)
 - [Pouch On Web](#pouch-on-web)
 - [Important credentials](#important-credentials)
 
@@ -457,17 +456,6 @@ yarn test:e2e:alerts-existing-cozy --url https://mydemocozy.mycozy.cloud cleanup
 #### Icons
 
 🖼 The PNG icons that are included in the emails are generated manually from the SVG via `scripts/icons-to-png.sh` and uploaded automatically to files.cozycloud.cc via Jenkins (which follows the file `files.cozycloud.cc` at the root of the repo).
-
-#### Skins
-
-⚠️ The skin feature is not maintained.
-
-The Banks application can be "skinned" to MesInfos style.
-
-Use `env SKIN='mesinfos' yarn build` for example to build with the MesInfos icon and slug. To deploy to a branch different from build you can use `env DEPLOY_BRANCH='build-maif' yarn deploy`.
-
-You can use `scripts/build-deploy-skins` to automatically build and deploy
-the vanilla app and the skinned version of the app.
 
 ## Pouch On Web
 
