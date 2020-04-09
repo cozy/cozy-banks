@@ -3,7 +3,6 @@
 const { ProvidePlugin } = require('webpack')
 const merge = require('webpack-merge')
 const { mergeAppConfigs } = require('cozy-scripts/utils/merge')
-const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
 const {
   production,
   target,
@@ -17,33 +16,35 @@ if (target !== 'mobile') {
   provided['cozy.bar'] = 'cozy-bar/dist/cozy-bar.js'
 }
 
-const common = mergeAppConfigs([
-  require('cozy-scripts/config/webpack.config.eslint'),
-  require('cozy-scripts/config/webpack.config.base'),
-  require('cozy-scripts/config/webpack.config.react'),
-  require('cozy-scripts/config/webpack.config.cozy-ui'),
-  require('cozy-scripts/config/webpack.config.cozy-ui.react'),
-  {
-    plugins: [new ProvidePlugin(provided)],
-    module: {
-      rules: [
-        {
-          test: /cozy-bar\/dist\/cozy-bar\.js$/,
-          loader: 'imports-loader?css=./cozy-bar.css'
-        }
-      ]
-    }
-  },
-  require('cozy-scripts/config/webpack.config.css-modules'),
-  require('cozy-scripts/config/webpack.config.pictures'),
+const common = mergeAppConfigs(
+  [
+    require('cozy-scripts/config/webpack.config.eslint'),
+    require('cozy-scripts/config/webpack.config.base'),
+    require('cozy-scripts/config/webpack.config.react'),
+    require('cozy-scripts/config/webpack.config.cozy-ui'),
+    require('cozy-scripts/config/webpack.config.cozy-ui.react'),
+    {
+      plugins: [new ProvidePlugin(provided)],
+      module: {
+        rules: [
+          {
+            test: /cozy-bar\/dist\/cozy-bar\.js$/,
+            loader: 'imports-loader?css=./cozy-bar.css'
+          }
+        ]
+      }
+    },
+    require('cozy-scripts/config/webpack.config.css-modules'),
+    require('cozy-scripts/config/webpack.config.pictures'),
 
-  addAnalyzer ? require('cozy-scripts/config/webpack.config.analyzer') : null,
-  require('./config/webpack.config.base'),
-  require('./config/webpack.config.manual-resolves'),
-  require('./config/webpack.config.plugins'),
-  require('./config/webpack.config.manifest'),
-  hotReload ? require(`./config/webpack.config.hot-reload`) : null,
-].filter(Boolean))
+    addAnalyzer ? require('cozy-scripts/config/webpack.config.analyzer') : null,
+    require('./config/webpack.config.base'),
+    require('./config/webpack.config.manual-resolves'),
+    require('./config/webpack.config.plugins'),
+    require('./config/webpack.config.manifest'),
+    hotReload ? require(`./config/webpack.config.hot-reload`) : null
+  ].filter(Boolean)
+)
 
 const targetCfg = require(`./config/webpack.target.${target}`)
 
