@@ -195,22 +195,22 @@ class TransactionGreater extends NotificationView {
             currency: getCurrencySymbol(firstTransaction.currency)
           }
         : notificationSubtype === MULTI_TRANSACTION
-        ? {
-            transactionsLength: transactions.length,
-            maxAmount: matchingRules[0].rule.value
-          }
-        : {
-            transactionsLength: transactions.length,
-            matchingRulesLength: matchingRules.length
-          }
+          ? {
+              transactionsLength: transactions.length,
+              maxAmount: matchingRules[0].rule.value
+            }
+          : {
+              transactionsLength: transactions.length,
+              matchingRulesLength: matchingRules.length
+            }
 
     const titleKey = onlyOne
       ? firstTransaction.amount > 0
         ? `Notifications.if_transaction_greater.notification.credit.title`
         : `Notifications.if_transaction_greater.notification.debit.title`
       : matchingRules.length === 1
-      ? `Notifications.if_transaction_greater.notification.others.title`
-      : `Notifications.if_transaction_greater.notification.others-multi.title`
+        ? `Notifications.if_transaction_greater.notification.others.title`
+        : `Notifications.if_transaction_greater.notification.others-multi.title`
     return this.t(titleKey, titleData)
   }
 

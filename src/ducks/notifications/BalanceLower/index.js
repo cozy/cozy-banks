@@ -132,8 +132,8 @@ class BalanceLower extends NotificationView {
     const titleKey = onlyOne
       ? 'Notifications.if_balance_lower.notification.one.title'
       : matchingRules.length === 1
-      ? 'Notifications.if_balance_lower.notification.several.title'
-      : 'Notifications.if_balance_lower.notification.several-multi-rule.title'
+        ? 'Notifications.if_balance_lower.notification.several.title'
+        : 'Notifications.if_balance_lower.notification.several-multi-rule.title'
 
     const firstRule = matchingRules[0].rule
     const titleData = onlyOne
