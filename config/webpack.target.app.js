@@ -1,4 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin')
+
 const path = require('path')
 
 module.exports = {
@@ -8,7 +10,9 @@ module.exports = {
   ],
 
   plugins: [
+    new HtmlWebpackHarddiskPlugin(),
     new HtmlWebpackPlugin({
+      alwaysWriteToDisk: true,
       template: path.resolve(__dirname, `../src/index.ejs`),
       title: `Cozy Banks`,
       chunks: ['app'],
