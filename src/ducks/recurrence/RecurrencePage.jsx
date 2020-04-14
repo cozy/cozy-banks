@@ -10,36 +10,11 @@ import sortBy from 'lodash/sortBy'
 import clone from 'lodash/clone'
 import tree from 'ducks/categories/tree'
 import defaultConfig from './config.json'
+import RulesDetails from './RulesDetails'
+import useStickyState from './useStickyState'
 
 const immutableSet = (object, path, value) => {
   return setWith(clone(object), path, value, clone)
-}
-
-const RuleDetails = () => {
-  return (
-    <details>
-      <summary>How rules work</summary>
-      <ol>
-        <li>
-          First operations are grouped into bundles based on their <b>amount</b>{' '}
-          and their <b>category</b>.
-        </li>
-        <li>
-          Filtering according to the <b>preStat</b> rules.
-        </li>
-        <li>
-          Then stats are computed on those bundles to compute intervals in days
-          between operations, their standard deviation and mean. The idea is to
-          be able to remove bundles where operations are not evenly spaced in
-          time.
-        </li>
-        <li>
-          Filtering according to the <b>postStat</b> rules.
-        </li>
-        <li>Merging of similar bundles.</li>
-      </ol>
-    </details>
-  )
 }
 
 const RuleInput = ({ ruleName, config, onChange }) => {
@@ -84,7 +59,7 @@ const Rules = ({ rulesConfig, onChangeConfig, onResetConfig }) => {
   )
   return (
     <Card className="u-mv-1">
-      <RuleDetails />
+      <RulesDetails />
       <div className="u-flex u-flex-wrap">
         {Object.entries(rulesConfig).map(([ruleName, config]) => (
           <RuleInput
@@ -177,22 +152,10 @@ const RecurrenceBundle = ({ bundle }) => {
   )
 }
 
-const useStickyState = (defaultValue, localStorageKey) => {
-  const savedValue = useMemo(() => {
-    const savedValue = localStorage.getItem(localStorageKey)
-    return savedValue ? JSON.parse(savedValue) : null
-  }, [localStorageKey])
-  const [value, rawSetValue] = useState(savedValue || defaultValue)
-  const setValue = newValue => {
-    localStorage.setItem(localStorageKey, JSON.stringify(newValue))
-    rawSetValue(newValue)
   }
 
-  const clearValue = () => {
-    localStorage.removeItem(localStorageKey)
   }
 
-  return [value, setValue, clearValue]
 }
 
 const RecurrencePage = () => {
