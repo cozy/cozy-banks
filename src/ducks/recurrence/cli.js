@@ -9,7 +9,6 @@ const loadOperations = filename => {
   return JSON.parse(file)['io.cozy.bank.operations']
 }
 
-
 const rulesConfig = {
   categoryShouldBeSet: {
     active: true

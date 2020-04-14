@@ -71,7 +71,6 @@ export const sigmaInferiorTo = n =>
 
 export const madInferiorTo = n =>
   function madInferiorTo(bundle) {
-    console.log(bundle.stats.deltas.mad)
     return bundle.stats.deltas.mad < n
   }
 

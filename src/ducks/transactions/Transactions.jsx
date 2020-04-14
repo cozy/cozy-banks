@@ -176,12 +176,11 @@ export class TransactionsDumb extends React.Component {
 
     return (
       <TransactionContainer className={cx(styles.TransactionTable, className)}>
-        {manualLoadMore &&
-          limitMin > 0 && (
-            <LoadMoreButton onClick={() => this.props.onReachTop(20)}>
-              {t('Transactions.see-more')}
-            </LoadMoreButton>
-          )}
+        {manualLoadMore && limitMin > 0 && (
+          <LoadMoreButton onClick={() => this.props.onReachTop(20)}>
+            {t('Transactions.see-more')}
+          </LoadMoreButton>
+        )}
         {transactionsGrouped.map(dateAndGroup => {
           const date = dateAndGroup[0]
           const transactionGroup = dateAndGroup[1]

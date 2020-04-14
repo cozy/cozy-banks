@@ -15,28 +15,30 @@ const immutableSet = (object, path, value) => {
 }
 
 const RuleDetails = () => {
-  return       <details>
-        <summary>How rules work</summary>
-        <ol>
-          <li>
-            First operations are grouped into bundles based on their{' '}
-            <b>amount</b> and their <b>category</b>.
-          </li>
-          <li>
-            Filtering according to the <b>preStat</b> rules.
-          </li>
-          <li>
-            Then stats are computed on those bundles to compute intervals in
-            days between operations, their standard deviation and mean. The idea
-            is to be able to remove bundles where operations are not evenly
-            spaced in time.
-          </li>
-          <li>
-            Filtering according to the <b>postStat</b> rules.
-          </li>
-          <li>Merging of similar bundles.</li>
-        </ol>
-      </details>
+  return (
+    <details>
+      <summary>How rules work</summary>
+      <ol>
+        <li>
+          First operations are grouped into bundles based on their <b>amount</b>{' '}
+          and their <b>category</b>.
+        </li>
+        <li>
+          Filtering according to the <b>preStat</b> rules.
+        </li>
+        <li>
+          Then stats are computed on those bundles to compute intervals in days
+          between operations, their standard deviation and mean. The idea is to
+          be able to remove bundles where operations are not evenly spaced in
+          time.
+        </li>
+        <li>
+          Filtering according to the <b>postStat</b> rules.
+        </li>
+        <li>Merging of similar bundles.</li>
+      </ol>
+    </details>
+  )
 }
 
 const RuleInput = ({ ruleName, config, onChange }) => {
@@ -72,19 +74,26 @@ const RuleInput = ({ ruleName, config, onChange }) => {
 }
 
 const Rules = ({ rulesConfig, onChangeConfig }) => {
-  const handleChangeRule = useCallback((path, value) => {
-    const updatedConfig = immutableSet(rulesConfig, path, value)
-    onChangeConfig(updatedConfig)
-  }, [rulesConfig, onChangeConfig])
+  const handleChangeRule = useCallback(
+    (path, value) => {
+      const updatedConfig = immutableSet(rulesConfig, path, value)
+      onChangeConfig(updatedConfig)
+    },
+    [rulesConfig, onChangeConfig]
+  )
   return (
     <Card className="u-mv-1">
       <RuleDetails />
       <div className="u-flex u-flex-wrap">
-        {Object.entries(rulesConfig).map(([ruleName, config]) =>
-          <RuleInput ruleName={ruleName} config={config} onChange={handleChangeRule} />
-        )}
+        {Object.entries(rulesConfig).map(([ruleName, config]) => (
+          <RuleInput
+            key={ruleName}
+            ruleName={ruleName}
+            config={config}
+            onChange={handleChangeRule}
+          />
+        ))}
       </div>
-
     </Card>
   )
 }
@@ -149,7 +158,8 @@ const RecurrenceBundle = ({ bundle }) => {
         <br />
         amount: {bundle.amount}
         <br />
-        sigma: {bundle.stats.deltas.sigma.toFixed(2)}<br/>
+        sigma: {bundle.stats.deltas.sigma.toFixed(2)}
+        <br />
         mad: {bundle.stats.deltas.mad.toFixed(2)}
       </p>
       <table style={{ fontSize: 'small' }}>
@@ -193,10 +203,6 @@ const defaultConfig = {
     active: false,
     options: 5
   },
-  madInferiorTo: {
-    active: true,
-    options: 5
-  },
   mergeBundles: {
     active: true
   }
@@ -206,7 +212,7 @@ const useStickyState = (defaultValue, localStorageKey) => {
   const savedValue = useMemo(() => {
     const savedValue = localStorage.getItem(localStorageKey)
     return savedValue ? JSON.parse(savedValue) : null
-  }, [])
+  }, [localStorageKey])
   const [value, rawSetValue] = useState(savedValue || defaultValue)
   const setValue = newValue => {
     localStorage.setItem(localStorageKey, JSON.stringify(newValue))
