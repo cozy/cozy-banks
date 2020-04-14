@@ -8,6 +8,16 @@ const isString = require('lodash/isString')
 const ONE_DAY = 86400 * 1000
 
 const mean = iterable => sum(iterable) / iterable.length
+const median = iterable => {
+  const sorted = [...iterable].sort()
+  if (sorted.length % 2 == 0) {
+    const mid = sorted.length / 2
+    return (sorted[mid - 1] + sorted[mid]) / 2
+  } else {
+    const mid = Math.floor(sorted.length / 2)
+    return sorted[mid]
+  }
+}
 
 const makeStats = ops => {
   const dates = sortBy(ops, x => x.date).map(x => +new Date(x.date))
@@ -15,12 +25,16 @@ const makeStats = ops => {
     .map((d, i) => (i === 0 ? null : (d - dates[i - 1]) / ONE_DAY))
     .slice(1)
   const m = mean(deltas)
-  const errors = deltas.map(d => Math.pow(d, 2) - Math.pow(m, 2))
-  const sigma = Math.sqrt(sum(errors) / deltas.length)
+  const med = median(deltas)
+  const sqDistToAverage = deltas.map(d => Math.pow(d, 2) - Math.pow(m, 2))
+  const sigma = Math.sqrt(sum(sqDistToAverage) / deltas.length)
+  const mad = median(deltas.map(d => Math.abs(d - med)))
   return {
     deltas: {
       sigma,
-      mean: m
+      mean: m,
+      median: median,
+      mad
     }
   }
 }
@@ -53,6 +67,12 @@ export const deltaMeanInferiorTo = n =>
 export const sigmaInferiorTo = n =>
   function sigmaInferiorTo(bundle) {
     return bundle.stats.deltas.sigma < n
+  }
+
+export const madInferiorTo = n =>
+  function madInferiorTo(bundle) {
+    console.log(bundle.stats.deltas.mad)
+    return bundle.stats.deltas.mad < n
   }
 
 const overEveryLogged = predicates => item => {
@@ -137,18 +157,24 @@ export const rulesPerName = {
   },
   deltaMeanSuperiorTo: {
     rule: deltaMeanSuperiorTo,
-    description: 'Mean distance in days between operations should be more than',
+    description: 'Mean interval in days between operations should be more than',
     stage: 'postStat'
   },
   deltaMeanInferiorTo: {
     rule: deltaMeanInferiorTo,
-    description: 'Mean distance in days between operations should be less than',
+    description: 'Mean interval in days between operations should be less than',
     stage: 'postStat'
   },
   sigmaInferiorTo: {
     rule: sigmaInferiorTo,
     description:
-      "Standard deviation of bundle's date interval should be less than",
+      "Standard deviation of bundle's date intervals should be less than",
+    stage: 'postStat'
+  },
+  madInferiorTo: {
+    rule: madInferiorTo,
+    description:
+      "Median absolute deviation of bundle's date intervals should be less than",
     stage: 'postStat'
   },
   mergeBundles: {

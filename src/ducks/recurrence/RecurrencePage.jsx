@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useCallback } from 'react'
 import { useQuery } from 'cozy-client'
 import { transactionsConn } from 'doctypes'
 import { findRecurringBundles, getRulesFromConfig, rulesPerName } from './rules'
@@ -149,7 +149,8 @@ const RecurrenceBundle = ({ bundle }) => {
         <br />
         amount: {bundle.amount}
         <br />
-        sigma: {bundle.stats.deltas.sigma.toFixed(2)}
+        sigma: {bundle.stats.deltas.sigma.toFixed(2)}<br/>
+        mad: {bundle.stats.deltas.mad.toFixed(2)}
       </p>
       <table style={{ fontSize: 'small' }}>
         {sortBy(bundle.ops, x => x.date).map(x => (
@@ -184,7 +185,15 @@ const defaultConfig = {
     active: true,
     options: 3 * 30
   },
+  madInferiorTo: {
+    active: true,
+    options: 5
+  },
   sigmaInferiorTo: {
+    active: false,
+    options: 5
+  },
+  madInferiorTo: {
     active: true,
     options: 5
   },
