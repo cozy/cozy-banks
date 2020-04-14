@@ -73,7 +73,7 @@ const RuleInput = ({ ruleName, config, onChange }) => {
   )
 }
 
-const Rules = ({ rulesConfig, onChangeConfig }) => {
+const Rules = ({ rulesConfig, onChangeConfig, onResetConfig }) => {
   const handleChangeRule = useCallback(
     (path, value) => {
       const updatedConfig = immutableSet(rulesConfig, path, value)
@@ -93,6 +93,7 @@ const Rules = ({ rulesConfig, onChangeConfig }) => {
             onChange={handleChangeRule}
           />
         ))}
+        <button onClick={onResetConfig}>Reset</button>
       </div>
     </Card>
   )
@@ -219,7 +220,11 @@ const useStickyState = (defaultValue, localStorageKey) => {
     rawSetValue(newValue)
   }
 
-  return [value, setValue]
+  const clearValue = () => {
+    localStorage.removeItem(localStorageKey)
+  }
+
+  return [value, setValue, clearValue]
 }
 
 const RecurrencePage = () => {
@@ -228,10 +233,15 @@ const RecurrencePage = () => {
     transactionsConn
   )
 
-  const [rulesConfig, setRulesConfig] = useStickyState(
+  const [rulesConfig, setRulesConfig, clearSavedConfig] = useStickyState(
     defaultConfig,
     'banks.recurrence-config'
   )
+
+  const handleResetConfig = useCallback(() => {
+    clearSavedConfig()
+    setRulesConfig(defaultConfig)
+  }, [clearSavedConfig, setRulesConfig])
 
   const handleChangeRules = newRules => setRulesConfig(newRules)
 
@@ -243,7 +253,11 @@ const RecurrencePage = () => {
   ])
   return (
     <Padded>
-      <Rules rulesConfig={rulesConfig} onChangeConfig={handleChangeRules} />
+      <Rules
+        rulesConfig={rulesConfig}
+        onResetConfig={handleResetConfig}
+        onChangeConfig={handleChangeRules}
+      />
       <div className="u-flex" style={{ flexWrap: 'wrap' }}>
         {bundles.map((bundle, i) => (
           <RecurrenceBundle key={i} bundle={bundle} />
