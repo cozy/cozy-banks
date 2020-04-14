@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useCallback } from 'react'
 import { useQuery } from 'cozy-client'
 import { transactionsConn } from 'doctypes'
-import { findRecurringBundles, getRulesFromConfig, rulesPerName } from './rules'
+import { findRecurringBundles, getRulesFromConfig, rulesPerName, groupBundles, sameFirstLabel } from './rules'
 import Card from 'cozy-ui/transpiled/react/Card'
 import { Caption, SubTitle } from 'cozy-ui/transpiled/react/Text'
 import { Padded } from 'components/Spacing'
@@ -10,7 +10,11 @@ import sortBy from 'lodash/sortBy'
 import clone from 'lodash/clone'
 import tree from 'ducks/categories/tree'
 import defaultConfig from './config.json'
+import addDays from 'date-fns/add_days'
+import maxBy from 'lodash/maxBy'
+import minBy from 'lodash/minBy'
 import RulesDetails from './RulesDetails'
+import DateSlider from './DateSlider'
 import useStickyState from './useStickyState'
 
 const immutableSet = (object, path, value) => {
@@ -122,6 +126,8 @@ const CategoryNames = ({ categoryId }) => {
   )
 }
 
+const newStyle = { color: 'var(--malachite)' }
+
 const RecurrenceBundle = ({ bundle }) => {
   return (
     <Card
@@ -141,7 +147,7 @@ const RecurrenceBundle = ({ bundle }) => {
       </p>
       <table style={{ fontSize: 'small' }}>
         {sortBy(bundle.ops, x => x.date).map(x => (
-          <tr key={x._id}>
+          <tr key={x._id} style={x.new ? newStyle : null}>
             <td>{x.label}</td>
             <td>{x.date.slice(0, 10)}</td>
             <td>{x.amount}</td>
@@ -152,10 +158,41 @@ const RecurrenceBundle = ({ bundle }) => {
   )
 }
 
+const ONE_DAY = 86400 * 1000
+
+const updateBundles = (bundles, newTransactions, rules) => {
+  if (!newTransactions.length) {
+    return bundles
+  }
+  const maxDate = new Date(maxBy(newTransactions, 'date').date)
+  const minDate = new Date(minBy(newTransactions, 'date').date)
+  const dateSpan = (maxDate - minDate) / ONE_DAY
+
+  if (dateSpan > 90 && newTransactions.length > 100) {
+    const newBundles = findRecurringBundles(newTransactions, rules)
+    const allBundles = [...bundles, ...newBundles]
+    const updatedBundles = groupBundles(allBundles, sameFirstLabel)
+    return updatedBundles
+  } else {
+    const newBundles = newTransactions.map(t => ({ ops: [t] }))
+    const allBundles = [...bundles, ...newBundles]
+    const updatedBundles = groupBundles(allBundles, sameFirstLabel)
+    return updatedBundles
   }
 
-  }
+  return bundles
+}
 
+const makeTextFilter = (searchStr, accessor) => {
+  const lw = searchStr.toLowerCase()
+  return item => {
+    if (lw === '') {
+      return true
+    } else {
+      const itemText = accessor(item).toLowerCase()
+      return itemText.includes(lw)
+    }
+  }
 }
 
 const RecurrencePage = () => {
@@ -174,14 +211,82 @@ const RecurrencePage = () => {
     setRulesConfig(defaultConfig)
   }, [clearSavedConfig, setRulesConfig])
 
+  const start = Date.now()
   const handleChangeRules = newRules => setRulesConfig(newRules)
 
   const rules = useMemo(() => getRulesFromConfig(rulesConfig), [rulesConfig])
+  const [bundlesDate, setBundlesDate] = useStickyState('2020-03-01', 'banks.recurrence.bundleDate')
+  const [currentDate, setCurrentDate] = useStickyState('2020-04-01', 'banks.recurrence.currentDate')
+  const [isLocked, setLocked] = useStickyState(false, 'banks.recurrence.locked')
 
-  const bundles = useMemo(() => findRecurringBundles(transactions, rules), [
-    transactions,
-    rules
-  ])
+  const bundlesTransactions = useMemo(
+    () =>
+      transactions ?transactions.filter(x =>
+        bundlesDate == null ? true : x.date < bundlesDate
+      ) : [],
+    [transactions, bundlesDate]
+  )
+
+  const bundles = useMemo(
+    () => findRecurringBundles(bundlesTransactions, rules),
+    [bundlesTransactions, rules]
+  )
+
+  const newTransactions = useMemo(
+    () =>
+      transactions ?
+        transactions.filter(x => x.date < currentDate && x.date >= bundlesDate).map(x => ({ ...x, new: true })) : [],
+    [transactions, currentDate, bundlesDate]
+  )
+
+  const [bundleFilter, setBundleFilter] = useStickyState('', 'banks.recurrence.bundleFilter')
+
+  const updatedBundles = useMemo(
+    () => updateBundles(bundles, newTransactions, rules),
+    [bundles, newTransactions]
+  )
+
+  const finalBundles = useMemo(() => {
+    const filteredBundles = bundles.filter(makeTextFilter(bundleFilter, bundle => bundle.ops[0].label))
+    const sortedBundles = sortBy(filteredBundles, bundle => bundle.ops[0].label)
+    return sortedBundles
+  }, [updatedBundles, bundleFilter])
+
+  const handleChangeBundleFilter = useCallback(ev => {
+    setBundleFilter(ev.target.value)
+  }, [setBundleFilter])
+
+
+  const handleSetCurrentDate = useCallback(newCurrentDate => {
+    if (isLocked) {
+      const cd = new Date(currentDate)
+      const bd = new Date(bundlesDate)
+      const ncd = new Date(newCurrentDate)
+      const diff = cd - bd
+      const nbd = new Date(ncd - diff)
+      setBundlesDate(nbd.toISOString().slice(0, 10))
+    }
+    setCurrentDate(newCurrentDate)
+  }, [setCurrentDate, setBundlesDate, currentDate, bundlesDate, isLocked])
+
+  const handleSetBundleDate = useCallback(newBundleDate => {
+    if (isLocked) {
+      const cd = new Date(currentDate)
+      const bd = new Date(bundlesDate)
+      const nbd = new Date(newBundleDate)
+      const diff = cd - bd
+      const ncd = new Date(+nbd + diff)
+      setCurrentDate(ncd.toISOString().slice(0, 10))
+    }
+    setBundlesDate(newBundleDate)
+  }, [setCurrentDate, setBundlesDate, currentDate, bundlesDate, isLocked])
+
+  const handleSetLocked = useCallback(() => {
+    setLocked(!isLocked)
+  }, [isLocked, setLocked])
+
+  const end = Date.now()
+
   return (
     <Padded>
       <Rules
@@ -189,8 +294,17 @@ const RecurrencePage = () => {
         onResetConfig={handleResetConfig}
         onChangeConfig={handleChangeRules}
       />
+      elapsed time: {((end - start) / 1000)}s<br/>
+      bundle date: <DateSlider date={bundlesDate} onChange={handleSetBundleDate} /><br/>
+      current date: <DateSlider date={currentDate} onChange={handleSetCurrentDate} /><br/>
+      isLocked: <input type='checkbox' checked={isLocked} onChange={handleSetLocked} /><br/>
+      bundle filter: <input type='text' value={bundleFilter} onChange={handleChangeBundleFilter} /><br/>
+      bundleTransactions: {bundlesTransactions.length}
+      <br />
+      newTransactions: {newTransactions.length}
+      <br />
       <div className="u-flex" style={{ flexWrap: 'wrap' }}>
-        {bundles.map((bundle, i) => (
+        {finalBundles.map((bundle, i) => (
           <RecurrenceBundle key={i} bundle={bundle} />
         ))}
       </div>

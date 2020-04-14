@@ -21,5 +21,4 @@ const useStickyState = (defaultValue, localStorageKey) => {
   return [value, setValue, clearValue]
 }
 
-
 export default useStickyState
