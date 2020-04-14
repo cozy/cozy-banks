@@ -14,10 +14,8 @@ const immutableSet = (object, path, value) => {
   return setWith(clone(object), path, value, clone)
 }
 
-const Rules = ({ rulesConfig, onChangeConfig }) => {
-  return (
-    <Card className="u-mv-1">
-      <details>
+const RuleDetails = () => {
+  return       <details>
         <summary>How rules work</summary>
         <ol>
           <li>
@@ -39,48 +37,54 @@ const Rules = ({ rulesConfig, onChangeConfig }) => {
           <li>Merging of similar bundles.</li>
         </ol>
       </details>
-      <div className="u-flex u-flex-wrap">
-        {Object.entries(rulesConfig).map(([ruleName, config]) => {
-          const handleChangeActive = () => {
-            const updatedConfig = immutableSet(
-              rulesConfig,
-              `${ruleName}.active`,
-              !config.active
-            )
-            onChangeConfig(updatedConfig)
-          }
+}
 
-          const handleChangeOptions = ev => {
-            if (ev.target.value == '') {
-              return
-            }
-            const updatedConfig = immutableSet(
-              rulesConfig,
-              `${ruleName}.options`,
-              parseInt(ev.target.value, 10)
-            )
-            onChangeConfig(updatedConfig)
-          }
-          return (
-            <div key={ruleName} className="u-m-half u-miw-6">
-              {ruleName} (<em>{rulesPerName[ruleName].stage}</em>)
-              <Caption>{rulesPerName[ruleName].description}</Caption>
-              <input
-                type="checkbox"
-                onChange={handleChangeActive}
-                checked={config.active}
-              />
-              {config.options !== undefined ? (
-                <input
-                  type="text"
-                  onChange={handleChangeOptions}
-                  value={config.options}
-                />
-              ) : null}
-            </div>
-          )
-        })}
+const RuleInput = ({ ruleName, config, onChange }) => {
+  const handleChangeActive = () => {
+    onChange(`${ruleName}.active`, !config.active)
+  }
+
+  const handleChangeOptions = ev => {
+    const parsed = parseInt(ev.target.value, 10)
+    if (isNaN(parsed)) {
+      return
+    }
+    onChange(`${ruleName}.options`, parsed)
+  }
+  return (
+    <div key={ruleName} className="u-m-half u-miw-6">
+      {ruleName} (<em>{rulesPerName[ruleName].stage}</em>)
+      <Caption>{rulesPerName[ruleName].description}</Caption>
+      <input
+        type="checkbox"
+        onChange={handleChangeActive}
+        checked={config.active}
+      />
+      {config.options !== undefined ? (
+        <input
+          type="text"
+          onChange={handleChangeOptions}
+          value={config.options}
+        />
+      ) : null}
+    </div>
+  )
+}
+
+const Rules = ({ rulesConfig, onChangeConfig }) => {
+  const handleChangeRule = useCallback((path, value) => {
+    const updatedConfig = immutableSet(rulesConfig, path, value)
+    onChangeConfig(updatedConfig)
+  }, [rulesConfig, onChangeConfig])
+  return (
+    <Card className="u-mv-1">
+      <RuleDetails />
+      <div className="u-flex u-flex-wrap">
+        {Object.entries(rulesConfig).map(([ruleName, config]) =>
+          <RuleInput ruleName={ruleName} config={config} onChange={handleChangeRule} />
+        )}
       </div>
+
     </Card>
   )
 }
