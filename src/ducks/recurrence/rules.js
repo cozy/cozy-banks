@@ -19,8 +19,14 @@ const median = iterable => {
   }
 }
 
-const makeStats = ops => {
-  const dates = sortBy(ops, x => x.date).map(x => +new Date(x.date))
+/**
+ * Computes stats on operations
+ *
+ * @param  {Array} operations
+ * @return {Object}
+ */
+const makeStats = operations => {
+  const dates = sortBy(operations, x => x.date).map(x => +new Date(x.date))
   const deltas = dates
     .map((d, i) => (i === 0 ? null : (d - dates[i - 1]) / ONE_DAY))
     .slice(1)
@@ -39,7 +45,17 @@ const makeStats = ops => {
   }
 }
 
-const overEveryLogged = predicates => item => {
+/**
+ * Will return a predicate that returns true only if all
+ * predicates return true
+ *
+ * Lodash as the same function but it is convenient to have
+ * it here to be able to add logging easily
+ *
+ * @param  {Array[Function]} predicates
+ * @return {Function}
+ */
+const overEvery = predicates => item => {
   for (const predicate of predicates) {
     if (!predicate(item)) {
       return false
@@ -65,6 +81,27 @@ const mergeBundles = bundles => {
   }
 }
 
+/**
+ * How rules work:
+ *
+ * 1. Operations are grouped into bundles based on their <b>amount</b>{' '}
+ * and their category.
+ *
+ * 2. Filtering according to the preStat rules.
+ *
+ * 3. Then stats are computed on those bundles to compute intervals in days
+ * between operations, their standard deviation and mean. The idea is to
+ * be able to remove bundles where operations are not evenly spaced in
+ * time.
+ *
+ * 4. Filtering according to the <b>postStat</b> rules.
+ *
+ * 5. Merging of similar bundles.
+ *
+ * @param  {array} operations
+ * @param  {array} rules
+ * @return {array} recurring bundles
+ */
 export const findRecurringBundles = (operations, rules) => {
   const groups = groupBy(
     operations,
@@ -85,9 +122,9 @@ export const findRecurringBundles = (operations, rules) => {
     rule => rule.stage
   )
   const preBundles = bundles
-    .filter(overEveryLogged(preStat.map(r => r.rule)))
+    .filter(overEvery(preStat.map(r => r.rule)))
     .map(bundle => ({ ...bundle, stats: makeStats(bundle.ops) }))
-    .filter(overEveryLogged(postStat.map(r => r.rule)))
+    .filter(overEvery(postStat.map(r => r.rule)))
 
   let postBundles = preBundles
   if (merging) {

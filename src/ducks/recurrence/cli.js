@@ -12,8 +12,12 @@ const loadOperations = filename => {
 const rules = getRulesFromConfig(defaultConfig)
 
 const main = async () => {
-  const parser = ArgumentParser()
-  parser.addArgument('filename')
+  const parser = ArgumentParser({
+    description: 'Finds recurring bundles in operations'
+  })
+  parser.addArgument('filename', {
+    help: 'ACH file containing io.cozy.bank.operations'
+  })
   const args = parser.parseArgs()
   const operations = loadOperations(args.filename)
   const bundles = findRecurringBundles(operations, rules)
