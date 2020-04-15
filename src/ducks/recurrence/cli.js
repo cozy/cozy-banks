@@ -1,44 +1,15 @@
 /* eslint-disable no-console */
+import fs from 'fs'
+import { ArgumentParser } from 'argparse'
 import { findRecurringBundles, getRulesFromConfig } from './rules'
-
-const fs = require('fs')
-const { ArgumentParser } = require('argparse')
+import defaultConfig from './config.json'
 
 const loadOperations = filename => {
   const file = fs.readFileSync(filename)
   return JSON.parse(file)['io.cozy.bank.operations']
 }
 
-const rulesConfig = {
-  categoryShouldBeSet: {
-    active: true
-  },
-  bundleSizeShouldBeMoreThan: {
-    active: true,
-    options: 2
-  },
-  amountShouldBeMoreThan: {
-    active: true,
-    options: 5
-  },
-  deltaMeanSuperiorTo: {
-    active: true,
-    options: 7
-  },
-  deltaMeanInferiorTo: {
-    active: true,
-    options: 3 * 30
-  },
-  sigmaInferiorTo: {
-    active: true,
-    options: 5
-  },
-  mergeBundles: {
-    active: true
-  }
-}
-
-const rules = getRulesFromConfig(rulesConfig)
+const rules = getRulesFromConfig(defaultConfig)
 
 const main = async () => {
   const parser = ArgumentParser()

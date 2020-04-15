@@ -9,6 +9,7 @@ import setWith from 'lodash/setWith'
 import sortBy from 'lodash/sortBy'
 import clone from 'lodash/clone'
 import tree from 'ducks/categories/tree'
+import defaultConfig from './config.json'
 
 const immutableSet = (object, path, value) => {
   return setWith(clone(object), path, value, clone)
@@ -174,39 +175,6 @@ const RecurrenceBundle = ({ bundle }) => {
       </table>
     </Card>
   )
-}
-
-const defaultConfig = {
-  categoryShouldBeSet: {
-    active: true
-  },
-  bundleSizeShouldBeMoreThan: {
-    active: true,
-    options: 2
-  },
-  amountShouldBeMoreThan: {
-    active: true,
-    options: 5
-  },
-  deltaMeanSuperiorTo: {
-    active: true,
-    options: 7
-  },
-  deltaMeanInferiorTo: {
-    active: true,
-    options: 3 * 30
-  },
-  madInferiorTo: {
-    active: true,
-    options: 5
-  },
-  sigmaInferiorTo: {
-    active: false,
-    options: 5
-  },
-  mergeBundles: {
-    active: true
-  }
 }
 
 const useStickyState = (defaultValue, localStorageKey) => {

@@ -39,41 +39,6 @@ const makeStats = ops => {
   }
 }
 
-export const categoryShouldBeSet = () =>
-  function categoryShouldBeSet(bundle) {
-    return bundle.categoryId !== '0'
-  }
-
-export const bundleSizeShouldBeMoreThan = n =>
-  function bundleSizeShouldBeMoreThan(bundle) {
-    return bundle.ops.length > n
-  }
-
-export const amountShouldBeMoreThan = amount =>
-  function amountShouldBeMoreThan(bundle) {
-    return Math.abs(bundle.amount) > amount
-  }
-
-export const deltaMeanSuperiorTo = n =>
-  function deltaMeanSuperiorTo(bundle) {
-    return bundle.stats.deltas.mean > n
-  }
-
-export const deltaMeanInferiorTo = n =>
-  function deltaMeanInferiorTo(bundle) {
-    return bundle.stats.deltas.mean < n
-  }
-
-export const sigmaInferiorTo = n =>
-  function sigmaInferiorTo(bundle) {
-    return bundle.stats.deltas.sigma < n
-  }
-
-export const madInferiorTo = n =>
-  function madInferiorTo(bundle) {
-    return bundle.stats.deltas.mad < n
-  }
-
 const overEveryLogged = predicates => item => {
   for (const predicate of predicates) {
     if (!predicate(item)) {
@@ -137,6 +102,44 @@ export const findRecurringBundles = (operations, rules) => {
 const sameFirstLabel = bundle => {
   return bundle.ops[0].label
 }
+
+
+
+
+export const categoryShouldBeSet = () =>
+  function categoryShouldBeSet(bundle) {
+    return bundle.categoryId !== '0'
+  }
+
+export const bundleSizeShouldBeMoreThan = n =>
+  function bundleSizeShouldBeMoreThan(bundle) {
+    return bundle.ops.length > n
+  }
+
+export const amountShouldBeMoreThan = amount =>
+  function amountShouldBeMoreThan(bundle) {
+    return Math.abs(bundle.amount) > amount
+  }
+
+export const deltaMeanSuperiorTo = n =>
+  function deltaMeanSuperiorTo(bundle) {
+    return bundle.stats.deltas.mean > n
+  }
+
+export const deltaMeanInferiorTo = n =>
+  function deltaMeanInferiorTo(bundle) {
+    return bundle.stats.deltas.mean < n
+  }
+
+export const sigmaInferiorTo = n =>
+  function sigmaInferiorTo(bundle) {
+    return bundle.stats.deltas.sigma < n
+  }
+
+export const madInferiorTo = n =>
+  function madInferiorTo(bundle) {
+    return bundle.stats.deltas.mad < n
+  }
 
 export const rulesPerName = {
   categoryShouldBeSet: {
