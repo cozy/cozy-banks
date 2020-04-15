@@ -28,5 +28,8 @@
   "sigmaInferiorTo": {
     "active": false,
     "options": 5
+  },
+  "computeStats": {
+    "active": true
   }
 }

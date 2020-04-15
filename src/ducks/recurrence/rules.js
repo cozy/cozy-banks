@@ -3,7 +3,9 @@ import sortBy from 'lodash/sortBy'
 import sum from 'lodash/sum'
 import mergeWith from 'lodash/mergeWith'
 import isArray from 'lodash/isArray'
+import unique from 'lodash/uniq'
 import isString from 'lodash/isString'
+import compose from 'lodash/flowRight'
 
 const ONE_DAY = 86400 * 1000
 
@@ -81,6 +83,12 @@ const mergeBundles = bundles => {
   }
 }
 
+const assert = (pred, msg) => {
+  if (!pred) {
+    throw new Error(msg)
+  }
+}
+
 /**
  * How rules work:
  *
@@ -107,7 +115,8 @@ export const findRecurringBundles = (operations, rules) => {
     operations,
     x => `${x.manualCategoryId || x.automaticCategoryId}/${x.amount}`
   )
-  const bundles = Object.entries(groups).map(([key, ops]) => {
+
+  let bundles = Object.entries(groups).map(([key, ops]) => {
     const [categoryId, amount] = key.split('/')
     return {
       categoryId,
@@ -117,23 +126,28 @@ export const findRecurringBundles = (operations, rules) => {
     }
   })
 
-  const { preStat = [], postStat = [], merging = [] } = groupBy(
-    rules,
-    rule => rule.stage
-  )
-  const preBundles = bundles
-    .filter(overEvery(preStat.map(r => r.rule)))
-    .map(bundle => ({ ...bundle, stats: makeStats(bundle.ops) }))
-    .filter(overEvery(postStat.map(r => r.rule)))
+  const groupedByStage = groupBy(rules, rule => rule.stage)
 
-  let postBundles = preBundles
-  if (merging) {
-    for (const r of merging) {
-      const groups = groupBy(postBundles, r.rule)
-      postBundles = Object.values(groups).map(mergeBundles)
+  const stageKeys = Object.keys(groupedByStage).sort()
+  for (let stageKey of stageKeys) {
+    const ruleInfos = groupedByStage[stageKey]
+    assert(
+      unique(ruleInfos.map(r => r.type)).length === 1,
+      'Cannot have multiple types per stage'
+    )
+    const type = ruleInfos[0].type
+    const rules = ruleInfos.map(ruleInfo => ruleInfo.rule)
+    if (type === 'filter') {
+      bundles = bundles.filter(overEvery(rules))
+    } else if (type === 'map') {
+      bundles = bundles.map(compose(rules))
+    } else if (type === 'group') {
+      const groups = groupBy(bundles, compose(rules))
+      bundles = Object.values(groups).map(mergeBundles)
     }
   }
-  return postBundles
+
+  return bundles
 }
 
 const sameFirstLabel = bundle => {
@@ -179,44 +193,58 @@ export const rulesPerName = {
   categoryShouldBeSet: {
     rule: categoryShouldBeSet,
     description: 'Filter out bundles where the category is not set',
-    stage: 'preStat'
+    stage: 0,
+    type: 'filter'
   },
   bundleSizeShouldBeMoreThan: {
     rule: bundleSizeShouldBeMoreThan,
     description: 'Filter out bundles where the size is below',
-    stage: 'preStat'
+    stage: 0,
+    type: 'filter'
   },
   amountShouldBeMoreThan: {
     rule: amountShouldBeMoreThan,
     description: 'Amount of bundle is more than',
-    stage: 'preStat'
+    stage: 0,
+    type: 'filter'
+  },
+  computeStats: {
+    rule: () => bundle => ({ ...bundle, stats: makeStats(bundle.ops) }),
+    description: 'Compute stats',
+    stage: 1,
+    type: 'map'
   },
   deltaMeanSuperiorTo: {
     rule: deltaMeanSuperiorTo,
     description: 'Mean interval in days between operations should be more than',
-    stage: 'postStat'
+    stage: 2,
+    type: 'filter'
   },
   deltaMeanInferiorTo: {
     rule: deltaMeanInferiorTo,
     description: 'Mean interval in days between operations should be less than',
-    stage: 'postStat'
+    stage: 2,
+    type: 'filter'
   },
   sigmaInferiorTo: {
     rule: sigmaInferiorTo,
     description:
       "Standard deviation of bundle's date intervals should be less than",
-    stage: 'postStat'
+    stage: 2,
+    type: 'filter'
   },
   madInferiorTo: {
     rule: madInferiorTo,
     description:
       "Median absolute deviation of bundle's date intervals should be less than",
-    stage: 'postStat'
+    stage: 2,
+    type: 'filter'
   },
   mergeBundles: {
     rule: () => sameFirstLabel,
     description: 'Merge similar bundles',
-    stage: 'merging'
+    stage: 3,
+    type: 'group'
   }
 }
 
@@ -229,8 +257,8 @@ export const getRulesFromConfig = config => {
       if (!rulesPerName[ruleName]) {
         throw new Error(`Unknown rule ${ruleName}`)
       }
-      const { rule: makeRule, stage } = rulesPerName[ruleName]
-      return { rule: makeRule(config.options), stage }
+      const { rule: makeRule, ...rest } = rulesPerName[ruleName]
+      return { rule: makeRule(config.options), ...rest }
     })
     .filter(Boolean)
 }
