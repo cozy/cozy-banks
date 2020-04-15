@@ -1,9 +1,9 @@
-const groupBy = require('lodash/groupBy')
-const sortBy = require('lodash/sortBy')
-const sum = require('lodash/sum')
-const mergeWith = require('lodash/mergeWith')
-const isArray = require('lodash/isArray')
-const isString = require('lodash/isString')
+import groupBy from 'lodash/groupBy'
+import sortBy from 'lodash/sortBy'
+import sum from 'lodash/sum'
+import mergeWith from 'lodash/mergeWith'
+import isArray from 'lodash/isArray'
+import isString from 'lodash/isString'
 
 const ONE_DAY = 86400 * 1000
 
@@ -139,9 +139,6 @@ export const findRecurringBundles = (operations, rules) => {
 const sameFirstLabel = bundle => {
   return bundle.ops[0].label
 }
-
-
-
 
 export const categoryShouldBeSet = () =>
   function categoryShouldBeSet(bundle) {
