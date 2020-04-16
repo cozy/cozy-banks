@@ -10,12 +10,16 @@ import sortBy from 'lodash/sortBy'
 import clone from 'lodash/clone'
 import tree from 'ducks/categories/tree'
 import defaultConfig from './config.json'
-import addDays from 'date-fns/add_days'
 import maxBy from 'lodash/maxBy'
 import minBy from 'lodash/minBy'
+import {useClient } from 'cozy-client'
+import { saveBundles, resetBundles } from './api'
 import RulesDetails from './RulesDetails'
 import DateSlider from './DateSlider'
 import useStickyState from './useStickyState'
+import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import Button from 'cozy-ui/transpiled/react/Button'
+import Loading from 'components/Loading/Loading'
 
 const immutableSet = (object, path, value) => {
   return setWith(clone(object), path, value, clone)
@@ -196,10 +200,12 @@ const makeTextFilter = (searchStr, accessor) => {
 }
 
 const RecurrencePage = () => {
-  const { data: transactions } = useQuery(
+  const { data: transactions, fetchStatus } = useQuery(
     transactionsConn.query,
     transactionsConn
   )
+
+  const loading = fetchStatus === 'loading' && transactions.length === 0
 
   const [rulesConfig, setRulesConfig, clearSavedConfig] = useStickyState(
     defaultConfig,
@@ -252,6 +258,33 @@ const RecurrencePage = () => {
     return sortedBundles
   }, [updatedBundles, bundleFilter])
 
+  const client = useClient()
+
+  const [savingBundles, setSavingBundles] = useState()
+  const [resettingBundles, setResettingBundles] = useState()
+  const handleSaveBundles = useCallback(async function () {
+    setSavingBundles(true)
+    try {
+      await saveBundles(client, finalBundles)
+    } catch (error) {
+      Alerter.error(error.message)
+    }
+    finally {
+      setSavingBundles(false)
+    }
+  }, [finalBundles, client])
+
+  const handleResetBundles = useCallback(async function () {
+    setResettingBundles(true)
+    try {
+      await resetBundles(client)
+    } catch (error) {
+      Alerter.error(error.message)
+    } finally {
+      setResettingBundles(false)
+    }
+  }, [client])
+
   const handleChangeBundleFilter = useCallback(ev => {
     setBundleFilter(ev.target.value)
   }, [setBundleFilter])
@@ -294,6 +327,9 @@ const RecurrencePage = () => {
         onResetConfig={handleResetConfig}
         onChangeConfig={handleChangeRules}
       />
+      { loading ? <Loading /> : null }
+      <Button onClick={handleSaveBundles} label="save bundles" busy={savingBundles} />
+      <Button onClick={handleResetBundles} label="reset bundles" busy={resettingBundles} />
       elapsed time: {((end - start) / 1000)}s<br/>
       bundle date: <DateSlider date={bundlesDate} onChange={handleSetBundleDate} /><br/>
       current date: <DateSlider date={currentDate} onChange={handleSetCurrentDate} /><br/>
