@@ -1,7 +1,13 @@
 import React, { useState, useMemo, useCallback } from 'react'
 import { useQuery } from 'cozy-client'
 import { transactionsConn } from 'doctypes'
-import { findRecurringBundles, getRulesFromConfig, rulesPerName, groupBundles, sameFirstLabel } from './rules'
+import {
+  findRecurringBundles,
+  getRulesFromConfig,
+  rulesPerName,
+  groupBundles,
+  sameFirstLabel
+} from './rules'
 import Card from 'cozy-ui/transpiled/react/Card'
 import { Caption, SubTitle } from 'cozy-ui/transpiled/react/Text'
 import { Padded } from 'components/Spacing'
@@ -12,7 +18,7 @@ import tree from 'ducks/categories/tree'
 import defaultConfig from './config.json'
 import maxBy from 'lodash/maxBy'
 import minBy from 'lodash/minBy'
-import {useClient } from 'cozy-client'
+import { useClient } from 'cozy-client'
 import { saveBundles, resetBundles } from './api'
 import RulesDetails from './RulesDetails'
 import DateSlider from './DateSlider'
@@ -221,15 +227,23 @@ const RecurrencePage = () => {
   const handleChangeRules = newRules => setRulesConfig(newRules)
 
   const rules = useMemo(() => getRulesFromConfig(rulesConfig), [rulesConfig])
-  const [bundlesDate, setBundlesDate] = useStickyState('2020-03-01', 'banks.recurrence.bundleDate')
-  const [currentDate, setCurrentDate] = useStickyState('2020-04-01', 'banks.recurrence.currentDate')
+  const [bundlesDate, setBundlesDate] = useStickyState(
+    '2020-03-01',
+    'banks.recurrence.bundleDate'
+  )
+  const [currentDate, setCurrentDate] = useStickyState(
+    '2020-04-01',
+    'banks.recurrence.currentDate'
+  )
   const [isLocked, setLocked] = useStickyState(false, 'banks.recurrence.locked')
 
   const bundlesTransactions = useMemo(
     () =>
-      transactions ?transactions.filter(x =>
-        bundlesDate == null ? true : x.date < bundlesDate
-      ) : [],
+      transactions
+        ? transactions.filter(x =>
+            bundlesDate == null ? true : x.date < bundlesDate
+          )
+        : [],
     [transactions, bundlesDate]
   )
 
@@ -240,79 +254,100 @@ const RecurrencePage = () => {
 
   const newTransactions = useMemo(
     () =>
-      transactions ?
-        transactions.filter(x => x.date < currentDate && x.date >= bundlesDate).map(x => ({ ...x, new: true })) : [],
+      transactions
+        ? transactions
+            .filter(x => x.date < currentDate && x.date >= bundlesDate)
+            .map(x => ({ ...x, new: true }))
+        : [],
     [transactions, currentDate, bundlesDate]
   )
 
-  const [bundleFilter, setBundleFilter] = useStickyState('', 'banks.recurrence.bundleFilter')
+  const [bundleFilter, setBundleFilter] = useStickyState(
+    '',
+    'banks.recurrence.bundleFilter'
+  )
 
   const updatedBundles = useMemo(
     () => updateBundles(bundles, newTransactions, rules),
-    [bundles, newTransactions]
+    [bundles, newTransactions, rules]
   )
 
   const finalBundles = useMemo(() => {
-    const filteredBundles = bundles.filter(makeTextFilter(bundleFilter, bundle => bundle.ops[0].label))
+    const filteredBundles = bundles.filter(
+      makeTextFilter(bundleFilter, bundle => bundle.ops[0].label)
+    )
     const sortedBundles = sortBy(filteredBundles, bundle => bundle.ops[0].label)
     return sortedBundles
-  }, [updatedBundles, bundleFilter])
+  }, [bundles, bundleFilter])
 
   const client = useClient()
 
   const [savingBundles, setSavingBundles] = useState()
   const [resettingBundles, setResettingBundles] = useState()
-  const handleSaveBundles = useCallback(async function () {
-    setSavingBundles(true)
-    try {
-      await saveBundles(client, finalBundles)
-    } catch (error) {
-      Alerter.error(error.message)
-    }
-    finally {
-      setSavingBundles(false)
-    }
-  }, [finalBundles, client])
+  const handleSaveBundles = useCallback(
+    async function() {
+      setSavingBundles(true)
+      try {
+        await saveBundles(client, finalBundles)
+      } catch (error) {
+        Alerter.error(error.message)
+      } finally {
+        setSavingBundles(false)
+      }
+    },
+    [finalBundles, client]
+  )
 
-  const handleResetBundles = useCallback(async function () {
-    setResettingBundles(true)
-    try {
-      await resetBundles(client)
-    } catch (error) {
-      Alerter.error(error.message)
-    } finally {
-      setResettingBundles(false)
-    }
-  }, [client])
+  const handleResetBundles = useCallback(
+    async function() {
+      setResettingBundles(true)
+      try {
+        await resetBundles(client)
+      } catch (error) {
+        Alerter.error(error.message)
+      } finally {
+        setResettingBundles(false)
+      }
+    },
+    [client]
+  )
 
-  const handleChangeBundleFilter = useCallback(ev => {
-    setBundleFilter(ev.target.value)
-  }, [setBundleFilter])
+  const handleChangeBundleFilter = useCallback(
+    ev => {
+      setBundleFilter(ev.target.value)
+    },
+    [setBundleFilter]
+  )
 
+  const handleSetCurrentDate = useCallback(
+    newCurrentDate => {
+      if (isLocked) {
+        const cd = new Date(currentDate)
+        const bd = new Date(bundlesDate)
+        const ncd = new Date(newCurrentDate)
+        const diff = cd - bd
+        const nbd = new Date(ncd - diff)
+        setBundlesDate(nbd.toISOString().slice(0, 10))
+      }
+      setCurrentDate(newCurrentDate)
+    },
+    [setCurrentDate, setBundlesDate, currentDate, bundlesDate, isLocked]
+  )
 
-  const handleSetCurrentDate = useCallback(newCurrentDate => {
-    if (isLocked) {
-      const cd = new Date(currentDate)
-      const bd = new Date(bundlesDate)
-      const ncd = new Date(newCurrentDate)
-      const diff = cd - bd
-      const nbd = new Date(ncd - diff)
-      setBundlesDate(nbd.toISOString().slice(0, 10))
-    }
-    setCurrentDate(newCurrentDate)
-  }, [setCurrentDate, setBundlesDate, currentDate, bundlesDate, isLocked])
-
-  const handleSetBundleDate = useCallback(newBundleDate => {
-    if (isLocked) {
-      const cd = new Date(currentDate)
-      const bd = new Date(bundlesDate)
-      const nbd = new Date(newBundleDate)
-      const diff = cd - bd
-      const ncd = new Date(+nbd + diff)
-      setCurrentDate(ncd.toISOString().slice(0, 10))
-    }
-    setBundlesDate(newBundleDate)
-  }, [setCurrentDate, setBundlesDate, currentDate, bundlesDate, isLocked])
+  const handleSetBundleDate = useCallback(
+    newBundleDate => {
+      if (isLocked) {
+        const cd = new Date(currentDate)
+        const bd = new Date(bundlesDate)
+        const nbd = new Date(newBundleDate)
+        const diff = cd - bd
+        const ncd = new Date(+nbd + diff)
+        setCurrentDate(ncd.toISOString().slice(0, 10))
+      }
+      setBundlesDate(newBundleDate)
+    },
+    [setCurrentDate, setBundlesDate, currentDate, bundlesDate, isLocked]
+  )
 
   const handleSetLocked = useCallback(() => {
     setLocked(!isLocked)
@@ -327,14 +362,34 @@ const RecurrencePage = () => {
         onResetConfig={handleResetConfig}
         onChangeConfig={handleChangeRules}
       />
-      { loading ? <Loading /> : null }
-      <Button onClick={handleSaveBundles} label="save bundles" busy={savingBundles} />
-      <Button onClick={handleResetBundles} label="reset bundles" busy={resettingBundles} />
-      elapsed time: {((end - start) / 1000)}s<br/>
-      bundle date: <DateSlider date={bundlesDate} onChange={handleSetBundleDate} /><br/>
-      current date: <DateSlider date={currentDate} onChange={handleSetCurrentDate} /><br/>
-      isLocked: <input type='checkbox' checked={isLocked} onChange={handleSetLocked} /><br/>
-      bundle filter: <input type='text' value={bundleFilter} onChange={handleChangeBundleFilter} /><br/>
+      {loading ? <Loading /> : null}
+      <Button
+        onClick={handleSaveBundles}
+        label="save bundles"
+        busy={savingBundles}
+      />
+      <Button
+        onClick={handleResetBundles}
+        label="reset bundles"
+        busy={resettingBundles}
+      />
+      elapsed time: {(end - start) / 1000}s<br />
+      bundle date:{' '}
+      <DateSlider date={bundlesDate} onChange={handleSetBundleDate} />
+      <br />
+      current date:{' '}
+      <DateSlider date={currentDate} onChange={handleSetCurrentDate} />
+      <br />
+      isLocked:{' '}
+      <input type="checkbox" checked={isLocked} onChange={handleSetLocked} />
+      <br />
+      bundle filter:{' '}
+      <input
+        type="text"
+        value={bundleFilter}
+        onChange={handleChangeBundleFilter}
+      />
+      <br />
       bundleTransactions: {bundlesTransactions.length}
       <br />
       newTransactions: {newTransactions.length}

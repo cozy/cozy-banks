@@ -16,7 +16,7 @@ import {
   Debug
 } from 'ducks/settings'
 import { Balance, BalanceDetailsPage } from 'ducks/balance'
-import { RecurrencePage } from 'ducks/recurrence'
+import { DebugRecurrencePage } from 'ducks/recurrence'
 import { TransferPage } from 'ducks/transfers'
 import UserActionRequired from 'components/UserActionRequired'
 import scrollToTopOnMount from 'components/scrollToTopOnMount'
@@ -67,7 +67,7 @@ const AppRoute = () => (
       </Route>
       <Route path="transfers" component={scrollToTopOnMount(TransferPage)} />
       <Route path="transfers/:slideName" component={TransferPage} />
-      <Route path="recurrence" component={scrollToTopOnMount(RecurrencePage)} />
+      <Route path="recurrence" component={scrollToTopOnMount(DebugRecurrencePage)} />
       {AppRoute.renderExtraRoutes()}
       {isWebApp() && <Redirect from="*" to="balances" />}
     </Route>
