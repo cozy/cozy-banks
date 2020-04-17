@@ -6,7 +6,8 @@ import {
   getRulesFromConfig,
   rulesPerName,
   groupBundles,
-  sameFirstLabel
+  sameFirstLabel,
+  addStats
 } from './rules'
 import Card from 'cozy-ui/transpiled/react/Card'
 import { Caption, SubTitle } from 'cozy-ui/transpiled/react/Text'
@@ -43,10 +44,15 @@ const RuleInput = ({ ruleName, config, onChange }) => {
     }
     onChange(`${ruleName}.options`, parsed)
   }
+
+  const ruleInfo = rulesPerName[ruleName]
+  if (!ruleInfo) {
+    return null
+  }
   return (
     <div key={ruleName} className="u-m-half u-miw-6">
-      {ruleName} (<em>{rulesPerName[ruleName].stage}</em>)
-      <Caption>{rulesPerName[ruleName].description}</Caption>
+      {ruleName} (<em>{ruleInfo.stage}</em>)
+      <Caption>{ruleInfo.description}</Caption>
       <input
         type="checkbox"
         onChange={handleChangeActive}
@@ -178,19 +184,22 @@ const updateBundles = (bundles, newTransactions, rules) => {
   const minDate = new Date(minBy(newTransactions, 'date').date)
   const dateSpan = (maxDate - minDate) / ONE_DAY
 
+  let updatedBundles
+
   if (dateSpan > 90 && newTransactions.length > 100) {
     const newBundles = findRecurringBundles(newTransactions, rules)
     const allBundles = [...bundles, ...newBundles]
-    const updatedBundles = groupBundles(allBundles, sameFirstLabel)
-    return updatedBundles
+    updatedBundles = groupBundles(allBundles, sameFirstLabel)
+    updatedBundles
   } else {
     const newBundles = newTransactions.map(t => ({ ops: [t] }))
     const allBundles = [...bundles, ...newBundles]
-    const updatedBundles = groupBundles(allBundles, sameFirstLabel)
-    return updatedBundles
+    updatedBundles = groupBundles(allBundles, sameFirstLabel)
+    updatedBundles.filter(bundles => bundles.ops.length > 1)
   }
 
-  return bundles
+  updatedBundles = bundles.map(addStats)
+  return updatedBundles
 }
 
 const makeTextFilter = (searchStr, accessor) => {
@@ -273,12 +282,12 @@ const RecurrencePage = () => {
   )
 
   const finalBundles = useMemo(() => {
-    const filteredBundles = bundles.filter(
+    const filteredBundles = updatedBundles.filter(
       makeTextFilter(bundleFilter, bundle => bundle.ops[0].label)
     )
     const sortedBundles = sortBy(filteredBundles, bundle => bundle.ops[0].label)
     return sortedBundles
-  }, [bundles, bundleFilter])
+  }, [updatedBundles, bundleFilter])
 
   const client = useClient()
 
@@ -362,7 +371,6 @@ const RecurrencePage = () => {
         onResetConfig={handleResetConfig}
         onChangeConfig={handleChangeRules}
       />
-      {loading ? <Loading /> : null}
       <Button
         onClick={handleSaveBundles}
         label="save bundles"
@@ -373,6 +381,7 @@ const RecurrencePage = () => {
         label="reset bundles"
         busy={resettingBundles}
       />
+      {loading ? <Loading /> : null}
       elapsed time: {(end - start) / 1000}s<br />
       bundle date:{' '}
       <DateSlider date={bundlesDate} onChange={handleSetBundleDate} />
