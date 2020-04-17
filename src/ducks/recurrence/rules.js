@@ -186,6 +186,8 @@ export const madInferiorTo = n =>
     return bundle.stats.deltas.mad < n
   }
 
+export const addStats = bundle => ({ ...bundle, stats: makeStats(bundle.ops) })
+
 export const rulesPerName = {
   categoryShouldBeSet: {
     rule: categoryShouldBeSet,
@@ -205,9 +207,9 @@ export const rulesPerName = {
     stage: 0,
     type: 'filter'
   },
-  computeStats: {
-    rule: () => bundle => ({ ...bundle, stats: makeStats(bundle.ops) }),
-    description: 'Compute stats',
+  addStats: {
+    rule: () => addStats,
+    description: 'Add stats',
     stage: 1,
     type: 'map'
   },
@@ -252,7 +254,9 @@ export const getRulesFromConfig = config => {
         return null
       }
       if (!rulesPerName[ruleName]) {
-        throw new Error(`Unknown rule ${ruleName}`)
+        // eslint-disable-next-line no-console
+        console.warn(`Unknown rule ${ruleName}`)
+        return null
       }
       const { rule: makeRule, ...rest } = rulesPerName[ruleName]
       return { rule: makeRule(config.options), ...rest }
