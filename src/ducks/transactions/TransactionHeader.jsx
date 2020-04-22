@@ -5,7 +5,7 @@ import { flowRight as compose } from 'lodash'
 import { translate, withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
 import cx from 'classnames'
 
-import Breadcrumb from 'components/Breadcrumb'
+import Breadcrumb from 'cozy-ui/transpiled/react/Breadcrumbs'
 import { ConnectedSelectDates } from 'components/SelectDates'
 import { BalanceDetailsHeader } from 'ducks/balance'
 import TransactionSelectDates from 'ducks/transactions/TransactionSelectDates'
@@ -37,7 +37,7 @@ const HeaderBreadcrumb = ({ router }) => {
     <Breadcrumb
       items={breadcrumbItems}
       className={styles.TransactionPage__Breadcrumb}
-      color="primary"
+      theme="primary"
     />
   )
 }
