@@ -17,7 +17,8 @@ import {
 import { flowRight as compose } from 'lodash'
 import styles from 'ducks/categories/CategoriesHeader.styl'
 import AddAccountButton from 'ducks/categories/AddAccountButton'
-import useTheme, { themed } from 'components/useTheme'
+import AnalysisTabs from 'ducks/analysis/AnalysisTabs'
+import useTheme, { ThemeContext, themed } from 'components/useTheme'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
 const Breadcrumb = themed(RawBreadcrumb)
@@ -135,6 +136,7 @@ class CategoriesHeader extends PureComponent {
       return (
         <Fragment>
           <Header fixed theme="primary">
+            <AnalysisTabs />
             <SelectDates showFullYear />
             {accountSwitch}
           </Header>
