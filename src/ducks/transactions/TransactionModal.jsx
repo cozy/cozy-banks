@@ -11,8 +11,6 @@ import {
   Spinner,
   Bd,
   Img,
-  translate,
-  withBreakpoints,
   Alerter,
   useViewStack,
   ModalContent,
@@ -283,8 +281,9 @@ const TransactionModalInfoHeader = withTransaction(({ transaction }) => (
   />
 ))
 
-const TransactionModalInfo = withBreakpoints()(
-  ({ breakpoints: { isMobile }, ...props }) => (
+const TransactionModalInfo = props => {
+  const { isMobile } = useBreakpoints()
+  return (
     <div>
       <PageHeader dismissAction={props.requestClose}>
         {isMobile ? <PageBackButton onClick={props.requestClose} /> : null}
@@ -293,7 +292,7 @@ const TransactionModalInfo = withBreakpoints()(
       <TransactionModalInfoContent {...props} />
     </div>
   )
-)
+}
 
 const TransactionModal = ({ requestClose, ...props }) => {
   const { t } = useI18n()
