@@ -1,5 +1,3 @@
-/* global cozy */
-
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -39,7 +37,7 @@ import {
   getAccountLabel
 } from 'ducks/account/helpers.js'
 
-const { BarCenter } = cozy.bar
+import { BarCenter } from 'components/Bar'
 
 const AccountSwitchDesktop = ({
   isFetching,

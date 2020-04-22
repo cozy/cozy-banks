@@ -1,5 +1,3 @@
-/* global cozy */
-
 import React from 'react'
 import Header from 'components/Header'
 import { Padded } from 'components/Spacing'
@@ -10,8 +8,7 @@ import { connect } from 'react-redux'
 import { getFilteredAccounts } from 'ducks/filters'
 import BarBalance from 'components/BarBalance'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-
-const { BarRight } = cozy.bar
+import { BarRight } from 'components/Bar'
 
 export const DumbBalanceDetailsHeader = props => {
   const { isMobile } = useBreakpoints()
