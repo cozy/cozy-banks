@@ -382,6 +382,12 @@ const RecurrencePage = () => {
         busy={resettingBundles}
       />
       {loading ? <Loading /> : null}
+      transactions: {transactions ? transactions.length : 0}
+      <br />
+      bundleTransactions: {bundlesTransactions.length}
+      <br />
+      newTransactions: {newTransactions.length}
+      <br />
       elapsed time: {(end - start) / 1000}s<br />
       bundle date:{' '}
       <DateSlider date={bundlesDate} onChange={handleSetBundleDate} />
@@ -398,10 +404,6 @@ const RecurrencePage = () => {
         value={bundleFilter}
         onChange={handleChangeBundleFilter}
       />
-      <br />
-      bundleTransactions: {bundlesTransactions.length}
-      <br />
-      newTransactions: {newTransactions.length}
       <br />
       <div className="u-flex" style={{ flexWrap: 'wrap' }}>
         {finalBundles.map((bundle, i) => (
