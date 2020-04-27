@@ -12,6 +12,7 @@ import cx from 'classnames'
 import flag from 'cozy-flags'
 import tabsStyle from 'components/Tabs.styl'
 import Header from 'components/Header'
+import styles from './Settings.styl'
 
 const Settings = ({ children, router, breakpoints: { isMobile } }) => {
   const { t } = useI18n()
@@ -50,7 +51,7 @@ const Settings = ({ children, router, breakpoints: { isMobile } }) => {
         </Tabs>
       </Header>
 
-      <Padded style={{ marginTop: '3rem' }}>{children}</Padded>
+      <Padded className={styles.Settings__Content}>{children}</Padded>
       {__TARGET__ === 'mobile' && (
         <Padded>
           <AppVersion version={__APP_VERSION__} />
