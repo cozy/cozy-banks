@@ -80,29 +80,26 @@ const withTransaction = withDocs(ownProps => ({
   transaction: [TRANSACTION_DOCTYPE, ownProps.transactionId]
 }))
 
-const TransactionCategoryEditorSlide = withBreakpoints()(
-  translate()(props => {
-    const { stackPop } = useViewStack()
-    const {
-      breakpoints: { isMobile }
-    } = props
-    return (
-      <>
-        <PageHeader dismissAction={stackPop}>
-          {isMobile ? <PageBackButton onClick={stackPop} /> : null}
-          {props.t('Categories.choice.title')}
-        </PageHeader>
-        <ModalContent className="u-p-0">
-          <TransactionCategoryEditor
-            beforeUpdate={stackPop}
-            onCancel={stackPop}
-            transaction={props.transaction}
-          />
-        </ModalContent>
-      </>
-    )
-  })
-)
+const TransactionCategoryEditorSlide = ({ transaction }) => {
+  const { t } = useI18n()
+  const { stackPop } = useViewStack()
+  const { isMobile } = useBreakpoints()
+  return (
+    <>
+      <PageHeader dismissAction={stackPop}>
+        {isMobile ? <PageBackButton onClick={stackPop} /> : null}
+        {t('Categories.choice.title')}
+      </PageHeader>
+      <ModalContent className="u-p-0">
+        <TransactionCategoryEditor
+          beforeUpdate={stackPop}
+          onCancel={stackPop}
+          transaction={transaction}
+        />
+      </ModalContent>
+    </>
+  )
+}
 
 const TransactionApplicationDateEditorSlide = ({
   transaction,
