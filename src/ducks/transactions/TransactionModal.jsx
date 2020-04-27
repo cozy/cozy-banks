@@ -14,7 +14,8 @@ import {
   Alerter,
   useViewStack,
   ModalContent,
-  useI18n
+  useI18n,
+  useBreakpoints
 } from 'cozy-ui/transpiled/react'
 
 import ModalStack from 'components/ModalStack'
