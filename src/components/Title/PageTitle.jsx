@@ -3,25 +3,21 @@ import PropTypes from 'prop-types'
 import Topbar from 'components/Topbar'
 import Title from 'components/Title/Title'
 
-class PageTitle extends React.PureComponent {
-  render() {
-    const { children, color } = this.props
-
-    return (
-      <Topbar>
-        <Title color={color}>{children}</Title>
-      </Topbar>
-    )
-  }
+const PageTitle = ({ children }) => {
+  return (
+    <Topbar>
+      <Title>{children}</Title>
+    </Topbar>
+  )
 }
 
 PageTitle.propTypes = {
   children: PropTypes.node.isRequired,
-  color: PropTypes.oneOf(['default', 'primary'])
+  theme: PropTypes.oneOf(['default', 'primary'])
 }
 
 Title.defaultProps = {
-  color: 'default'
+  theme: 'default'
 }
 
 export default PageTitle

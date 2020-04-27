@@ -18,7 +18,7 @@ export const DumbBalanceDetailsHeader = props => {
   const { small, showBalance, filteredAccounts, children } = props
 
   return (
-    <Header color="primary" fixed>
+    <Header theme="primary" fixed>
       <Padded
         className={cx({
           'u-p-0': isMobile,
@@ -27,7 +27,7 @@ export const DumbBalanceDetailsHeader = props => {
       >
         <div className={'u-flex u-flex-items-center'}>
           <BackButton theme="primary" arrow />
-          <AccountSwitch small={small} color="primary" />
+          <AccountSwitch small={small} theme="primary" />
         </div>
       </Padded>
       {showBalance && isMobile && (

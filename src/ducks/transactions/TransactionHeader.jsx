@@ -15,6 +15,7 @@ import { Padded } from 'components/Spacing'
 import withSize from 'components/withSize'
 import TableHead from './header/TableHead'
 import styles from './TransactionsHeader.styl'
+import { ThemeContext } from 'components/useTheme'
 
 const HeaderBreadcrumb = ({ router }) => {
   const { t } = useI18n()
@@ -131,9 +132,11 @@ class TransactionHeader extends Component {
             <HeaderBreadcrumb router={router} t={t} />
           </Padded>
         )}
-        {transactions.length > 0 && (
-          <TableHead isSubcategory={isSubcategory} color="primary" />
-        )}
+        <ThemeContext.Provider value="primary">
+          {transactions.length > 0 && (
+            <TableHead isSubcategory={isSubcategory} />
+          )}
+        </ThemeContext.Provider>
       </BalanceDetailsHeader>
     )
   }

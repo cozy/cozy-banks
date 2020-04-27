@@ -40,11 +40,11 @@ const Settings = ({ children, router, breakpoints: { isMobile } }) => {
     <React.Fragment>
       <BarTheme theme="primary" />
       <Padded className={cx({ ['u-p-0']: isMobile })}>
-        <PageTitle color={isMobile ? 'primary' : null}>
+        <PageTitle theme={isMobile ? 'primary' : null}>
           {t('Settings.title')}
         </PageTitle>
       </Padded>
-      <Header fixed color={isMobile ? 'primary' : null}>
+      <Header fixed theme={isMobile ? 'primary' : null}>
         <Tabs className={tabsStyle['Tabs']} initialActiveTab={defaultTab}>
           <TabList inverted={isMobile} className={tabsStyle['TabList']}>
             {tabs}
