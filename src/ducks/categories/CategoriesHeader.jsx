@@ -33,24 +33,33 @@ const IncomeToggle = ({ withIncome, onToggle }) => {
   )
 }
 
+const CategoryAccountSwitch = ({ selectedCategory, breadcrumbItems }) => {
+  const [previousItem] = breadcrumbItems.slice(-2, 1)
+  return (
+    <Fragment>
+      <AccountSwitch small={selectedCategory !== undefined} />
+      {selectedCategory && (
+        <BackButton
+          onClick={
+            previousItem && previousItem.onClick
+              ? previousItem.onClick
+              : undefined
+          }
+          theme="primary"
+        />
+      )}
+    </Fragment>
+  )
+}
+
 class CategoriesHeader extends PureComponent {
   renderAccountSwitch = () => {
     const { selectedCategory, breadcrumbItems } = this.props
-    const [previousItem] = breadcrumbItems.slice(-2, 1)
     return (
-      <Fragment>
-        <AccountSwitch small={selectedCategory !== undefined} />
-        {selectedCategory && (
-          <BackButton
-            onClick={
-              previousItem && previousItem.onClick
-                ? previousItem.onClick
-                : undefined
-            }
-            theme="primary"
-          />
-        )}
-      </Fragment>
+      <CategoryAccountSwitch
+        selectedCategory={selectedCategory}
+        breadcrumbItems={breadcrumbItems}
+      />
     )
   }
 
