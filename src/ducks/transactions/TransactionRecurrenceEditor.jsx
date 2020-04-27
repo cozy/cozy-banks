@@ -15,7 +15,6 @@ const optionFromRecurrence = rec => {
 }
 
 const isSelectedHelper = (item, currentId) => {
-  console.log('is selected', item)
   if (item.id === 'not-recurrent' && !currentId) {
     return true
   }
