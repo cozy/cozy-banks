@@ -816,5 +816,9 @@
     "ok": "OK",
     "cancel": "Annuler",
     "remove": "Supprimer"
+  },
+
+  "Recurrence": {
+    "frequency": "Tous les %{frequency} jours"
   }
 }

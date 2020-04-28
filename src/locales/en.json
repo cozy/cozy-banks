@@ -384,6 +384,7 @@
       "date": "Date",
       "assignedToPeriod": "Assigned to %{date}",
       "chooseApplicationDate": "Assign to month",
+      "chooseRecurrence": "Assign to recurrence",
       "applicationDateChangedAlert": "Operation assigned to %{applicationDate} in the analysis tab"
     },
     "see-more": "See more...",
@@ -806,5 +807,21 @@
     "ok": "OK",
     "cancel": "Cancel",
     "remove": "Remove"
+  },
+
+  "Recurrence": {
+    "frequency": "Every %{frequency} days",
+    "see-transaction-history": "Go to history",
+    "table": {
+      "frequency": "Frequency",
+      "label": "Label",
+      "amount": "Amount",
+      "last-occurence": "Last occurrence"
+    },
+    "title": "Recurring payments",
+    "choice": {
+      "none": "Not recurrent"
+    },
+    "not-recurring": "Not recurrent"
   }
 }
