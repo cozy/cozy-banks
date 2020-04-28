@@ -40,9 +40,7 @@ const Settings = ({ children, router, breakpoints: { isMobile } }) => {
     <React.Fragment>
       <BarTheme theme="primary" />
       <Padded className={cx({ ['u-p-0']: isMobile })}>
-        <PageTitle theme={isMobile ? 'primary' : null}>
-          {t('Settings.title')}
-        </PageTitle>
+        <PageTitle>{t('Settings.title')}</PageTitle>
       </Padded>
       <Header fixed theme={isMobile ? 'primary' : null}>
         <Tabs className={tabsStyle['Tabs']} initialActiveTab={defaultTab}>

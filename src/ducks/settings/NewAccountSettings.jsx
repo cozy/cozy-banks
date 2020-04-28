@@ -300,7 +300,7 @@ const NewAccountSettings = props => {
                   </BarRight>
                 </>
               )}
-              <PageTitle color={isMobile ? 'primary' : 'default'}>
+              <PageTitle>
                 {!isMobile && <BackButton to="/settings/accounts" arrow />}
                 {getAccountLabel(account)}
                 {!isMobile && (
