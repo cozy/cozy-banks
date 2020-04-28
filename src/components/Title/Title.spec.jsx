@@ -20,9 +20,7 @@ describe('Title', () => {
         <ThemeContext.Provider theme="primary">
           <Title>content</Title>
         </ThemeContext.Provider>
-      )
-        .getElement()
-        .dive()
+      ).getElement()
     ).toMatchSnapshot()
   })
 })
