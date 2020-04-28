@@ -5364,10 +5364,10 @@ cozy-ui@27.11.2:
     react-select "2.2.0"
     react-swipeable-views "0.13.3"
 
-cozy-ui@29.1.0:
-  version "29.1.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-29.1.0.tgz#fdc90e92bf0b4499e8c1c57c25373cf0641b70ba"
-  integrity sha512-sftVEHXCECzMGSKHwxN+2ai2SZP0sE2Os6mFVW0hcBnTxvMflv0pImspxWDw3jcEVc2jrGfuiA/iIKIOOEkYiw==
+cozy-ui@35.7.1:
+  version "35.7.1"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-35.7.1.tgz#d8040040e054e0a164b87a78bbff373924a18bf7"
+  integrity sha512-CFM9ri42sWW5E8j0yICh+4MPuHtl4grg36B+7A72duFyEHuxOzfGkNHVQpQ7SxhwX4JNvVuBwBIyfP9s5HyYGQ==
   dependencies:
     "@babel/runtime" "^7.3.4"
     body-scroll-lock "^2.5.8"

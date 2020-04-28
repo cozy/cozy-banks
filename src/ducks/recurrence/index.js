@@ -1,1 +1,1 @@
-export { default as RecurrencePage } from './RecurrencePage'
+export { default as DebugRecurrencePage } from './DebugRecurrencePage'
