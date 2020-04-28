@@ -67,7 +67,10 @@ const AppRoute = () => (
       </Route>
       <Route path="transfers" component={scrollToTopOnMount(TransferPage)} />
       <Route path="transfers/:slideName" component={TransferPage} />
-      <Route path="recurrence" component={scrollToTopOnMount(DebugRecurrencePage)} />
+      <Route
+        path="recurrence"
+        component={scrollToTopOnMount(DebugRecurrencePage)}
+      />
       {AppRoute.renderExtraRoutes()}
       {isWebApp() && <Redirect from="*" to="balances" />}
     </Route>
