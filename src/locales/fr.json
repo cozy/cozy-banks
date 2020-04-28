@@ -31,7 +31,8 @@
 
   "Nav": {
     "my-accounts": "Mes comptes",
-    "categorisation": "Analyse",
+    "analysis": "Analyse",
+    "categorisation": "Categorisation",
     "projections": "Prévisions",
     "savings": "Economiser",
     "settings": "Paramètres"

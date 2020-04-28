@@ -12,11 +12,13 @@
     "error": "An error occured while loading the data. Please try again later."
   },
   "Nav": {
-    "categorisation": "Analysis",
+    "analysis": "Analysis",
+    "categories": "Categories",
     "settings": "Settings",
     "savings": "Savings",
     "projections": "Forecasts",
-    "my-accounts": "My accounts"
+    "my-accounts": "My accounts",
+    "recurrence": "Recurring"
   },
   "Error": {
     "more-information": "More information",

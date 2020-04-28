@@ -15,7 +15,8 @@ import {
   useViewStack,
   ModalContent,
   useI18n,
-  useBreakpoints
+  useBreakpoints,
+  Caption
 } from 'cozy-ui/transpiled/react'
 
 import ModalStack from 'components/ModalStack'
@@ -37,6 +38,7 @@ import { getCurrencySymbol } from 'utils/currencySymbol'
 
 import iconCredit from 'assets/icons/icon-credit.svg'
 import iconCalendar from 'assets/icons/icon-calendar.svg'
+import iconRecurrence from 'assets/icons/icon-recurrence.svg'
 import {
   getAccountLabel,
   getAccountInstitutionLabel
@@ -47,7 +49,9 @@ import { getDate, getApplicationDate } from 'ducks/transactions/helpers'
 
 import TransactionCategoryEditor from './TransactionCategoryEditor'
 import TransactionApplicationDateEditor from './TransactionApplicationDateEditor'
+import TransactionRecurrenceEditor from 'ducks/transactions/TransactionRecurrenceEditor'
 
+import { prettyLabel } from 'ducks/recurrence/utils'
 import TransactionModalRow, {
   TransactionModalRowIcon,
   TransactionModalRowMedia,
@@ -135,6 +139,53 @@ export const showAlertAfterApplicationDateUpdate = (transaction, t, f) => {
   )
 }
 
+const RecurrenceRow = ({ transaction, onClick }) => {
+  const recurrence = transaction.recurrence && transaction.recurrence.data
+  const { t } = useI18n()
+  return (
+    <TransactionModalRowMedia onClick={onClick}>
+      <Img>
+        <TransactionModalRowIcon icon={iconRecurrence} />
+      </Img>
+      <Bd>
+        {recurrence ? (
+          <>
+            ( prettyLabel(recurrence.label) ) <br />
+            <Caption>Every {recurrence.stats.median}</Caption>
+          </>
+        ) : (
+          <i>{t('Recurrence.not-recurring')}</i>
+        )}
+      </Bd>
+      <Img>
+        <RowArrow />
+      </Img>
+    </TransactionModalRowMedia>
+  )
+}
+
+const TransactionRecurrenceEditorSlide = ({ transaction }) => {
+  const { t } = useI18n()
+
+  const { stackPop } = useViewStack()
+
+  return (
+    <div>
+      <PageHeader dismissAction={stackPop}>
+        {t('Transactions.infos.chooseRecurrence')}
+      </PageHeader>
+      <ModalContent className="u-p-0">
+        <TransactionRecurrenceEditor
+          onSelect={x => x}
+          beforeUpdate={stackPop}
+          onCancel={stackPop}
+          transaction={transaction}
+        />
+      </ModalContent>
+    </div>
+  )
+}
+
 /**
  * Show information of the transaction
  */
@@ -156,8 +207,12 @@ const TransactionModalInfoContent = withTransaction(props => {
   const categoryId = getCategoryId(transaction)
   const account = transaction.account.data
 
-  const showCategoryChoice = () => {
+  const handleShowCategoryChoice = () => {
     stackPush(<TransactionCategoryEditorSlide transaction={transaction} />)
+  }
+
+  const handleShowRecurrenceChoice = () => {
+    stackPush(<TransactionRecurrenceEditorSlide transaction={transaction} />)
   }
 
   const [applicationDateBusy, setApplicationDateBusy] = useState(false)
@@ -251,7 +306,7 @@ const TransactionModalInfoContent = withTransaction(props => {
           <RowArrow />
         </Img>
       </TransactionModalRowMedia>
-      <TransactionModalRowMedia onClick={showCategoryChoice}>
+      <TransactionModalRowMedia onClick={handleShowCategoryChoice}>
         <Img>
           <CategoryIcon categoryId={categoryId} />
         </Img>
@@ -264,6 +319,10 @@ const TransactionModalInfoContent = withTransaction(props => {
           <RowArrow />
         </Img>
       </TransactionModalRowMedia>
+      <RecurrenceRow
+        transaction={transaction}
+        onClick={handleShowRecurrenceChoice}
+      />
       <TransactionActions
         transaction={transaction}
         {...restProps}
