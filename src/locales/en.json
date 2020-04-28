@@ -820,7 +820,8 @@
     },
     "title": "Recurring payments",
     "choice": {
-      "none": "Not recurrent"
+      "not-recurrent": "Occasional transaction",
+      "recurrent": "Recurrent transaction"
     },
     "not-recurring": "Not recurrent"
   }

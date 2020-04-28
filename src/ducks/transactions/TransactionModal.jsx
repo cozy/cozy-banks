@@ -19,6 +19,7 @@ import {
   Caption
 } from 'cozy-ui/transpiled/react'
 
+import { withRouter } from 'react-router'
 import ModalStack from 'components/ModalStack'
 
 import { Figure } from 'components/Figure'
@@ -57,6 +58,8 @@ import TransactionModalRow, {
   TransactionModalRowMedia,
   RowArrow
 } from './TransactionModalRow'
+
+import Chip from 'cozy-ui/transpiled/react/Chip'
 
 import withDocs from 'components/withDocs'
 
@@ -139,30 +142,59 @@ export const showAlertAfterApplicationDateUpdate = (transaction, t, f) => {
   )
 }
 
-const RecurrenceRow = ({ transaction, onClick }) => {
+const RecurrenceRow = withRouter(({ transaction, onClick, router }) => {
   const recurrence = transaction.recurrence && transaction.recurrence.data
   const { t } = useI18n()
+
+  const recurrenceRoute = recurrence ? `/recurrence/${recurrence._id}` : null
+  const handleClickHistory = ev => {
+    ev.preventDefault()
+    router.push(recurrenceRoute)
+  }
+
   return (
-    <TransactionModalRowMedia onClick={onClick}>
+    <TransactionModalRowMedia
+      align={recurrence ? 'top' : undefined}
+      onClick={onClick}
+    >
       <Img>
         <TransactionModalRowIcon icon={iconRecurrence} />
       </Img>
       <Bd>
-        {recurrence ? (
-          <>
-            ( prettyLabel(recurrence.label) ) <br />
-            <Caption>Every {recurrence.stats.median}</Caption>
-          </>
-        ) : (
-          <i>{t('Recurrence.not-recurring')}</i>
-        )}
+        <div>
+          {recurrence ? (
+            prettyLabel(recurrence.label)
+          ) : (
+            <i>{t('Recurrence.not-recurring')}</i>
+          )}
+          {recurrence ? (
+            <>
+              <br />
+              <Caption>
+                {t('Recurrence.frequency', {
+                  frequency: Math.floor(recurrence.stats.deltas.mean)
+                })}
+              </Caption>
+              {router.location.pathname !== recurrenceRoute ? (
+                <Chip
+                  onClick={handleClickHistory}
+                  variant="outlined"
+                  size="small"
+                  className="u-w-100 u-ph-2 u-mt-half u-flex-justify-center"
+                >
+                  {t('Recurrence.see-transaction-history')}
+                </Chip>
+              ) : null}
+            </>
+          ) : null}
+        </div>
       </Bd>
       <Img>
         <RowArrow />
       </Img>
     </TransactionModalRowMedia>
   )
-}
+})
 
 const TransactionRecurrenceEditorSlide = ({ transaction }) => {
   const { t } = useI18n()

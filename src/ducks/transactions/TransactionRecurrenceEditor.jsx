@@ -4,12 +4,28 @@ import { NestedSelect, useI18n } from 'cozy-ui/transpiled/react'
 import { prettyLabel } from 'ducks/recurrence/utils'
 import { recurrenceConn } from 'doctypes'
 import { updateTransactionRecurrence } from 'ducks/transactions/helpers'
+import CategoryIcon from 'ducks/categories/CategoryIcon'
 
 const optionFromRecurrence = rec => {
   return {
     _id: rec._id,
-    title: prettyLabel(rec.label)
+    title: prettyLabel(rec.label),
+    icon: <CategoryIcon categoryId={rec.categoryId} />
   }
+}
+
+const isSelectedHelper = (item, currentId) => {
+  console.log('is selected', item)
+  if (item.id === 'not-recurrent' && !currentId) {
+    return true
+  }
+  if (item.id === 'recurrent' && currentId) {
+    return true
+  }
+  if (item._id === currentId) {
+    return true
+  }
+  return false
 }
 
 const TransactionRecurrenceEditor = ({
@@ -46,16 +62,26 @@ const TransactionRecurrenceEditor = ({
     }
   }
 
+  const isSelected = item => isSelectedHelper(item, currentId)
+
   return (
     <>
       <NestedSelect
-        isSelected={x => x._id == currentId}
+        radioPosition="left"
+        isSelected={isSelected}
         onSelect={handleSelect}
-        onBef
         options={{
           children: [
-            { title: t('Recurrence.choice.none') },
-            ...recurrenceOptions
+            {
+              id: 'not-recurrent',
+              title: t('Recurrence.choice.not-recurrent')
+            },
+            {
+              id: 'recurrent',
+              title: t('Recurrence.choice.recurrent'),
+              description: current && prettyLabel(current.label),
+              children: recurrenceOptions
+            }
           ]
         }}
       />
