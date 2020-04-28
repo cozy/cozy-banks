@@ -190,12 +190,10 @@ const updateBundles = (bundles, newTransactions, rules) => {
     const newBundles = findRecurringBundles(newTransactions, rules)
     const allBundles = [...bundles, ...newBundles]
     updatedBundles = groupBundles(allBundles, sameFirstLabel)
-    updatedBundles
   } else {
     const newBundles = newTransactions.map(t => ({ ops: [t] }))
     const allBundles = [...bundles, ...newBundles]
     updatedBundles = groupBundles(allBundles, sameFirstLabel)
-    updatedBundles.filter(bundles => bundles.ops.length > 1)
   }
 
   updatedBundles = bundles.map(addStats)
