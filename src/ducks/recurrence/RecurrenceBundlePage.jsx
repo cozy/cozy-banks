@@ -24,7 +24,7 @@ import BackButton from 'components/BackButton'
 import BarTheme from 'ducks/bar/BarTheme'
 import cx from 'classnames'
 import { prettyLabel } from 'ducks/recurrence/utils'
-// TODO
+
 import styles from 'ducks/categories/CategoriesHeader.styl'
 import AnalysisTabs from 'ducks/analysis/AnalysisTabs'
 import { BarTitle } from 'components/Title/PageTitle'
