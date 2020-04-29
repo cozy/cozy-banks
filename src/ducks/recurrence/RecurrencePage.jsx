@@ -19,6 +19,7 @@ import Padded from 'components/Spacing/Padded'
 import Table from 'components/Table'
 import Header from 'components/Header'
 import BackButton from 'components/BackButton'
+import PageTitle from 'components/Title/PageTitle'
 import styles from './styles.styl'
 import { prettyLabel } from './utils'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
@@ -155,7 +156,12 @@ const RecurrencesPage = ({ router }) => {
             <BundlesTableHead />
           </>
         ) : null}
-        {isMobile ? <AnalysisTabs /> : null}
+        {isMobile ? (
+          <>
+            <PageTitle>{t('Recurrence.title')}</PageTitle>
+            <AnalysisTabs />
+          </>
+        ) : null}
       </Header>
       {isCollectionLoading(bundleCol) && !hasBeenLoaded(bundleCol) ? (
         <Padded>
