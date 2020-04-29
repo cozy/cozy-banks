@@ -822,6 +822,17 @@
     "choice": {
       "not-recurrent": "Occasional transaction",
       "recurrent": "Recurrent transaction"
+    },
+    "action-menu": {
+      "open-button": "Act on recurrence",
+      "rename": "Rename"
+    },
+    "rename": {
+      "modal-title": "Rename recurrence group",
+      "save": "Save",
+      "cancel": "Cancel",
+      "save-success": "Saved !",
+      "save-error": "Could not rename, try again later"
     }
   }
 }
