@@ -64,27 +64,25 @@ const TransactionRecurrenceEditor = ({
   const isSelected = item => isSelectedHelper(item, currentId)
 
   return (
-    <>
-      <NestedSelect
-        radioPosition="left"
-        isSelected={isSelected}
-        onSelect={handleSelect}
-        options={{
-          children: [
-            {
-              id: 'not-recurrent',
-              title: t('Recurrence.choice.not-recurrent')
-            },
-            {
-              id: 'recurrent',
-              title: t('Recurrence.choice.recurrent'),
-              description: current && prettyLabel(current.label),
-              children: recurrenceOptions
-            }
-          ]
-        }}
-      />
-    </>
+    <NestedSelect
+      radioPosition="left"
+      isSelected={isSelected}
+      onSelect={handleSelect}
+      options={{
+        children: [
+          {
+            id: 'not-recurrent',
+            title: t('Recurrence.choice.not-recurrent')
+          },
+          {
+            id: 'recurrent',
+            title: t('Recurrence.choice.recurrent'),
+            description: current && prettyLabel(current.label),
+            children: recurrenceOptions
+          }
+        ]
+      }}
+    />
   )
 }
 
