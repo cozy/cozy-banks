@@ -1,4 +1,6 @@
 import React from 'react'
+import { withRouter, Link } from 'react-router'
+
 import { useQuery } from 'cozy-client'
 import CompositeRow from 'cozy-ui/transpiled/react/CompositeRow'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
@@ -13,7 +15,6 @@ import { recurrenceConn } from 'doctypes'
 import BarTheme from 'ducks/bar/BarTheme'
 import { TdSecondary } from 'components/Table'
 import AnalysisTabs from 'ducks/analysis/AnalysisTabs'
-import { withRouter } from 'react-router'
 
 import Padded from 'components/Spacing/Padded'
 import Table from 'components/Table'
@@ -23,6 +24,7 @@ import PageTitle from 'components/Title/PageTitle'
 import styles from './styles.styl'
 import { getLabel, getCategories } from './utils'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
+import flag from 'cozy-flags'
 
 const BundleFrequency = ({ bundle }) => {
   const { t } = useI18n()
@@ -151,6 +153,9 @@ const RecurrencesPage = ({ router }) => {
                 ]}
                 theme="primary"
               />
+              {flag('debug') ? (
+                <Link to="/recurrencedebug">Go to debug</Link>
+              ) : null}
             </Padded>
             <BackButton theme="primary" />
             <BundlesTableHead />
