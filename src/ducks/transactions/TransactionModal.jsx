@@ -165,7 +165,7 @@ const RecurrenceRow = withRouter(({ transaction, onClick, router }) => {
           {recurrence ? (
             prettyLabel(recurrence.label)
           ) : (
-            <i>{t('Recurrence.not-recurring')}</i>
+            <i>{t('Recurrence.choice.not-recurrent')}</i>
           )}
           {recurrence ? (
             <>
