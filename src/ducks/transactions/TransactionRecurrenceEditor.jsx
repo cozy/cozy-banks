@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { useClient, useQuery } from 'cozy-client'
 import { NestedSelect, useI18n } from 'cozy-ui/transpiled/react'
-import { prettyLabel } from 'ducks/recurrence/utils'
+import { getLabel } from 'ducks/recurrence/utils'
 import { recurrenceConn } from 'doctypes'
 import { updateTransactionRecurrence } from 'ducks/transactions/helpers'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
@@ -9,7 +9,7 @@ import CategoryIcon from 'ducks/categories/CategoryIcon'
 const optionFromRecurrence = rec => {
   return {
     _id: rec._id,
-    title: prettyLabel(rec.label),
+    title: getLabel(rec),
     icon: <CategoryIcon categoryId={rec.categoryId} />
   }
 }
@@ -77,7 +77,7 @@ const TransactionRecurrenceEditor = ({
           {
             id: 'recurrent',
             title: t('Recurrence.choice.recurrent'),
-            description: current && prettyLabel(current.label),
+            description: current && getLabel(current),
             children: recurrenceOptions
           }
         ]

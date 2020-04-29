@@ -3,6 +3,7 @@ import flatten from 'lodash/flatten'
 import omit from 'lodash/omit'
 import { dehydrate } from 'cozy-client'
 import maxBy from 'lodash/maxBy'
+import { getAutomaticLabelFromBundle } from './utils'
 
 const RECURRENCE_DOCTYPE = 'io.cozy.bank.recurrence'
 
@@ -15,7 +16,7 @@ export const saveBundles = async (client, recurrenceClientBundles) => {
   const saveBundlesResp = await recurrenceCol.updateAll(
     recurrenceClientBundles.map(bundle => {
       const withoutOps = omit(bundle, 'ops')
-      withoutOps.label = bundle.ops[0].label
+      withoutOps.automaticLabel = getAutomaticLabelFromBundle(bundle)
       const latestOperation = maxBy(bundle.ops, x => x.date)
       withoutOps.latestDate = latestOperation.date
       return withoutOps

@@ -21,7 +21,7 @@ import Header from 'components/Header'
 import BackButton from 'components/BackButton'
 import PageTitle from 'components/Title/PageTitle'
 import styles from './styles.styl'
-import { prettyLabel, getCategories } from './utils'
+import { getLabel, getCategories } from './utils'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 
 const BundleFrequency = ({ bundle }) => {
@@ -43,7 +43,7 @@ const BundleMobileRow = withRouter(({ bundle, router }) => {
       image={<CategoryIcon categoryId={catId} />}
       className="u-pv-half u-ph-1 u-c-pointer"
       key={bundle._id}
-      primaryText={prettyLabel(bundle.label)}
+      primaryText={getLabel(bundle)}
       secondaryText={
         <>
           {distanceInWords(Date.now(), bundle.latestDate)} -{' '}
@@ -71,7 +71,7 @@ const BundleDesktopRow = withRouter(({ bundle, router }) => {
           <Img className="u-mr-1">
             <CategoryIcon categoryId={catId} />
           </Img>
-          <Bd>{prettyLabel(bundle.label)}</Bd>
+          <Bd>{getLabel(bundle)}</Bd>
         </Media>
       </td>
       <TdSecondary className={styles.ColumnSizeLastOccurence}>

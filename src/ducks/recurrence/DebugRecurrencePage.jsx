@@ -9,6 +9,7 @@ import {
   sameFirstLabel,
   addStats
 } from './rules'
+import { getAutomaticLabelFromBundle } from './utils'
 import Card from 'cozy-ui/transpiled/react/Card'
 import { Caption, SubTitle } from 'cozy-ui/transpiled/react/Text'
 import { Padded } from 'components/Spacing'
@@ -123,7 +124,7 @@ const palette = [
 ]
 
 const getColor = bundle => {
-  const h = Math.abs(hash(bundle.ops[0].label))
+  const h = Math.abs(hash(getAutomaticLabelFromBundle(bundle)))
   return palette[h % (palette.length - 1)]
 }
 
@@ -150,7 +151,7 @@ const RecurrenceBundle = ({ bundle }) => {
       className="u-m-half"
       style={{ border: `2px solid ${getColor(bundle)}` }}
     >
-      <SubTitle>{bundle.ops[0].label}</SubTitle>
+      <SubTitle>{getAutomaticLabelFromBundle(bundle)}</SubTitle>
       <p>
         categories: <CategoryNames categoryId={bundle.categoryId} />
         frequency: {bundle.stats.deltas.mean.toFixed(0)} days

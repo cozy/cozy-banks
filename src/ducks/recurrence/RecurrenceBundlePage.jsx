@@ -23,7 +23,7 @@ import Header from 'components/Header'
 import BackButton from 'components/BackButton'
 import BarTheme from 'ducks/bar/BarTheme'
 import cx from 'classnames'
-import { prettyLabel } from 'ducks/recurrence/utils'
+import { getLabel } from 'ducks/recurrence/utils'
 
 import styles from 'ducks/categories/CategoriesHeader.styl'
 import AnalysisTabs from 'ducks/analysis/AnalysisTabs'
@@ -63,7 +63,7 @@ const BundleInfo = withRouter(({ bundle, router }) => {
                     onClick: goToRecurrenceRoot
                   },
                   {
-                    name: prettyLabel(bundle.label)
+                    name: getLabel(bundle)
                   }
                 ]}
                 className={cx(styles.primary)}
