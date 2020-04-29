@@ -833,6 +833,17 @@
     "choice": {
       "not-recurrent": "Opération occasionelle",
       "recurrent": "Opération récurrente"
+    },
+    "action-menu": {
+      "open-button": "Actions sur la récurrence",
+      "rename": "Renommer"
+    },
+    "rename": {
+      "modal-title": "Renommer le groupe de récurrence",
+      "save": "Sauver",
+      "cancel": "Annuler",
+      "save-success": "Groupe de récurrence correctement sauvé",
+      "save-error": "Impossible de renommer, merci de réessayer plus tard"
     }
   }
 }
