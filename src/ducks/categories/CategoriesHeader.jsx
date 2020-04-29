@@ -181,14 +181,12 @@ class CategoriesHeader extends PureComponent {
             {accountSwitch}
           </Header>
           {hasAccount ? (
-            <ThemeContext.Provider value={isMobile ? 'default' : 'primary'}>
-              <Header theme={isMobile ? 'default' : 'primary'}>
-                <Padded>
-                  {incomeToggle}
-                  {chart}
-                </Padded>
-              </Header>
-            </ThemeContext.Provider>
+            <Header theme={isMobile ? 'default' : 'primary'}>
+              <Padded>
+                {incomeToggle}
+                {chart}
+              </Padded>
+            </Header>
           ) : (
             <Header theme="default" className={cx(styles.NoAccount_container)}>
               <Padded className={styles.NoAccount_box}>
