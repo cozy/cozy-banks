@@ -18,7 +18,7 @@ import { flowRight as compose } from 'lodash'
 import styles from 'ducks/categories/CategoriesHeader.styl'
 import AddAccountButton from 'ducks/categories/AddAccountButton'
 import AnalysisTabs from 'ducks/analysis/AnalysisTabs'
-import useTheme, { ThemeContext, themed } from 'components/useTheme'
+import useTheme, { themed } from 'components/useTheme'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import Table from 'components/Table'
@@ -206,22 +206,31 @@ class CategoriesHeader extends PureComponent {
             [styles.NoAccount]: !hasAccount
           })}
         >
-          <div>
-            <Padded className="u-ph-0 u-pt-0 u-pb-half">{accountSwitch}</Padded>
-            <Padded className="u-pv-1 u-ph-0">
-              <SelectDates showFullYear />
-            </Padded>
-            {breadcrumbItems.length > 1 && (
-              <Breadcrumb className="u-mt-1" items={breadcrumbItems} />
-            )}
-            {incomeToggle}
-          </div>
-          {chart}
-          {!hasAccount && <AddAccountButton label={t('Accounts.add_bank')} />}
+          {hasAccount ? (
+            <>
+              <div>
+                <Padded className="u-ph-0 u-pt-0 u-pb-half">
+                  {accountSwitch}
+                </Padded>
+                <Padded className="u-pv-1 u-ph-0">
+                  <SelectDates showFullYear />
+                </Padded>
+                {breadcrumbItems.length > 1 && (
+                  <Breadcrumb className="u-mt-1" items={breadcrumbItems} />
+                )}
+                {incomeToggle}
+              </div>
+              {chart}
+            </>
+          ) : (
+            <AddAccountButton label={t('Accounts.add_bank')} />
+          )}
         </Padded>
-        <Table className={stTableCategory}>
-          <CategoriesTableHead selectedCategory={selectedCategory} />
-        </Table>
+        {hasAccount ? (
+          <Table className={stTableCategory}>
+            <CategoriesTableHead selectedCategory={selectedCategory} />
+          </Table>
+        ) : null}
       </Header>
     )
   }
