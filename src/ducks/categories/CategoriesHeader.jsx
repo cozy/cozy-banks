@@ -17,10 +17,20 @@ import {
 import { flowRight as compose } from 'lodash'
 import styles from 'ducks/categories/CategoriesHeader.styl'
 import AddAccountButton from 'ducks/categories/AddAccountButton'
-import useTheme, { themed } from 'components/useTheme'
+import AnalysisTabs from 'ducks/analysis/AnalysisTabs'
+import useTheme, { ThemeContext, themed } from 'components/useTheme'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import Table from 'components/Table'
+import catStyles from 'ducks/categories/styles.styl'
 
 const Breadcrumb = themed(RawBreadcrumb)
+
+const stAmount = catStyles['bnk-table-amount']
+const stCategory = catStyles['bnk-table-category-category']
+const stPercentage = catStyles['bnk-table-percentage']
+const stTotal = catStyles['bnk-table-total']
+const stTableCategory = catStyles['bnk-table-category']
 
 const IncomeToggle = ({ withIncome, onToggle }) => {
   const theme = useTheme()
@@ -49,6 +59,36 @@ const CategoryAccountSwitch = ({ selectedCategory, breadcrumbItems }) => {
         />
       )}
     </Fragment>
+  )
+}
+
+const CategoriesTableHead = props => {
+  const { selectedCategory } = props
+  const { isDesktop, isTablet } = useBreakpoints()
+  const { t } = useI18n()
+  return (
+    <thead>
+      <tr>
+        <td className={stCategory}>
+          {selectedCategory
+            ? t('Categories.headers.subcategories')
+            : t('Categories.headers.categories')}
+        </td>
+        {(isDesktop || isTablet) && (
+          <td className={catStyles['bnk-table-operation']}>
+            {t('Categories.headers.transactions.plural')}
+          </td>
+        )}
+        {isDesktop && (
+          <td className={stAmount}>{t('Categories.headers.credit')}</td>
+        )}
+        {isDesktop && (
+          <td className={stAmount}>{t('Categories.headers.debit')}</td>
+        )}
+        <td className={stTotal}>{t('Categories.headers.total')}</td>
+        <td className={stPercentage}>%</td>
+      </tr>
+    </thead>
   )
 }
 
@@ -124,7 +164,8 @@ class CategoriesHeader extends PureComponent {
       breadcrumbItems,
       hasAccount,
       breakpoints: { isMobile },
-      t
+      t,
+      selectedCategory
     } = this.props
 
     const accountSwitch = this.renderAccountSwitch()
@@ -135,21 +176,21 @@ class CategoriesHeader extends PureComponent {
       return (
         <Fragment>
           <Header fixed theme="primary">
+            <AnalysisTabs />
             <SelectDates showFullYear />
             {accountSwitch}
           </Header>
           {hasAccount ? (
-            <Header theme="default" className="u-mt-3">
-              <Padded>
-                {incomeToggle}
-                {chart}
-              </Padded>
-            </Header>
+            <ThemeContext.Provider value={isMobile ? 'default' : 'primary'}>
+              <Header theme={isMobile ? 'default' : 'primary'}>
+                <Padded>
+                  {incomeToggle}
+                  {chart}
+                </Padded>
+              </Header>
+            </ThemeContext.Provider>
           ) : (
-            <Header
-              theme="default"
-              className={cx(styles.NoAccount_container, 'u-mt-3')}
-            >
+            <Header theme="default" className={cx(styles.NoAccount_container)}>
               <Padded className={styles.NoAccount_box}>
                 {chart}
                 <AddAccountButton absolute label={t('Accounts.add_bank')} />
@@ -173,20 +214,16 @@ class CategoriesHeader extends PureComponent {
               <SelectDates showFullYear />
             </Padded>
             {breadcrumbItems.length > 1 && (
-              <Breadcrumb
-                items={breadcrumbItems}
-                className={cx(
-                  styles.CategoriesHeader__Breadcrumb,
-                  styles.primary
-                )}
-                theme="primary"
-              />
+              <Breadcrumb className="u-mt-1" items={breadcrumbItems} />
             )}
             {incomeToggle}
           </div>
           {chart}
           {!hasAccount && <AddAccountButton label={t('Accounts.add_bank')} />}
         </Padded>
+        <Table className={stTableCategory}>
+          <CategoriesTableHead selectedCategory={selectedCategory} />
+        </Table>
       </Header>
     )
   }

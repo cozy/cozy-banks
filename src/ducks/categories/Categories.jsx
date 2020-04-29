@@ -30,12 +30,7 @@ class Categories extends Component {
   }
 
   render() {
-    const {
-      t,
-      categories: categoriesProps,
-      selectedCategory,
-      breakpoints: { isDesktop, isTablet, isMobile }
-    } = this.props
+    const { t, categories: categoriesProps, selectedCategory } = this.props
     let categories = categoriesProps || []
     if (selectedCategory) {
       categories = [selectedCategory]
@@ -51,37 +46,7 @@ class Categories extends Component {
           </Padded>
         )}
         {hasData && (
-          <Table className={stTableCategory} color="primary">
-            {!isMobile && (
-              <thead>
-                <tr>
-                  <td className={stCategory}>
-                    {t(
-                      `Categories.headers.${
-                        selectedCategory ? 'subcategories' : 'categories'
-                      }`
-                    )}
-                  </td>
-                  {(isDesktop || isTablet) && (
-                    <td className={styles['bnk-table-operation']}>
-                      {t('Categories.headers.transactions.plural')}
-                    </td>
-                  )}
-                  {isDesktop && (
-                    <td className={stAmount}>
-                      {t('Categories.headers.credit')}
-                    </td>
-                  )}
-                  {isDesktop && (
-                    <td className={stAmount}>
-                      {t('Categories.headers.debit')}
-                    </td>
-                  )}
-                  <td className={stTotal}>{t('Categories.headers.total')}</td>
-                  <td className={stPercentage}>%</td>
-                </tr>
-              </thead>
-            )}
+          <Table className={stTableCategory}>
             <tbody>
               {categories.map(category =>
                 this.renderCategory(

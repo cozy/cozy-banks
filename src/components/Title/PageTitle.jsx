@@ -5,7 +5,7 @@ import { BarCenter } from 'components/Bar'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import styles from './PageTitle.styl'
 
-const BarTitle = ({ children }) => {
+export const BarTitle = ({ children }) => {
   return (
     <BarCenter>
       <Title className={styles.PageTitle}>{children}</Title>
