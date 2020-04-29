@@ -1,187 +1,128 @@
+import { useClient, useQuery } from 'cozy-client'
 import React from 'react'
-import { withRouter, Link } from 'react-router'
+import { withRouter } from 'react-router'
+import {
+  recurrenceConn,
+  RECURRENCE_DOCTYPE,
+  bundleTransactionsQueryConn
+} from 'doctypes'
 
-import { useQuery } from 'cozy-client'
-import CompositeRow from 'cozy-ui/transpiled/react/CompositeRow'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import { SubTitle } from 'cozy-ui/transpiled/react/Text'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Breadcrumbs from 'cozy-ui/transpiled/react/Breadcrumbs'
-import { Media, Img, Bd } from 'cozy-ui/transpiled/react/Media'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
 import Loading from 'components/Loading'
-import distanceInWords from 'date-fns/distance_in_words'
-import CategoryIcon from 'ducks/categories/CategoryIcon'
-import { recurrenceConn } from 'doctypes'
-import BarTheme from 'ducks/bar/BarTheme'
-import { TdSecondary } from 'components/Table'
-import AnalysisTabs from 'ducks/analysis/AnalysisTabs'
-
 import Padded from 'components/Spacing/Padded'
+import {
+  RowDesktop as TransactionRowDesktop,
+  RowMobile as TransactionRowMobile
+} from 'ducks/transactions/TransactionRow'
 import Table from 'components/Table'
 import Header from 'components/Header'
 import BackButton from 'components/BackButton'
-import PageTitle from 'components/Title/PageTitle'
-import styles from './styles.styl'
-import { getLabel, getCategories } from './utils'
-import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
-import flag from 'cozy-flags'
+import BarTheme from 'ducks/bar/BarTheme'
+import cx from 'classnames'
+import { getLabel } from 'ducks/recurrence/utils'
 
-const BundleFrequency = ({ bundle }) => {
-  const { t } = useI18n()
-  return (
-    <>
-      {t('Recurrence.frequency', {
-        frequency: Math.floor(bundle.stats.deltas.mean)
-      })}
-    </>
-  )
+import styles from 'ducks/categories/CategoriesHeader.styl'
+import AnalysisTabs from 'ducks/analysis/AnalysisTabs'
+import { BarTitle } from 'components/Title/PageTitle'
+import TransactionsTableHead from 'ducks/transactions/header/TableHead'
+
+const useDocument = (doctype, id) => {
+  const client = useClient()
+  return client.getDocumentFromState(doctype, id)
 }
 
-const BundleMobileRow = withRouter(({ bundle, router }) => {
-  const catId = getCategories(bundle)[0]
+const BundleInfo = withRouter(({ bundle, router }) => {
+  const { t } = useI18n()
+  const { isMobile } = useBreakpoints()
+  if (!bundle) {
+    return null
+  }
+
+  const goToRecurrenceRoot = () => router.push('/recurrence')
+
   return (
-    <CompositeRow
-      onClick={() => router.push(`/recurrence/${bundle._id}`)}
-      image={<CategoryIcon categoryId={catId} />}
-      className="u-pv-half u-ph-1 u-c-pointer"
-      key={bundle._id}
-      primaryText={getLabel(bundle)}
-      secondaryText={
+    <Header fixed theme="primary">
+      {isMobile ? (
         <>
-          {distanceInWords(Date.now(), bundle.latestDate)} -{' '}
-          <BundleFrequency bundle={bundle} />
+          <BackButton theme="primary" onClick={goToRecurrenceRoot} />
+          <BarTitle>{prettyLabel(bundle.label)}</BarTitle>
+          <AnalysisTabs />
         </>
-      }
-      right={<BundleAmount bundle={bundle} />}
-    />
-  )
-})
-
-const BundleAmount = ({ bundle }) => {
-  return <>{bundle.amount + '€'}</>
-}
-
-const BundleDesktopRow = withRouter(({ bundle, router }) => {
-  const catId = bundle.categoryId.split(' / ')[0]
-  return (
-    <tr
-      className="u-c-pointer"
-      onClick={() => router.push(`recurrence/${bundle._id}`)}
-    >
-      <td className={styles.ColumnSizeLabel}>
-        <Media>
-          <Img className="u-mr-1">
-            <CategoryIcon categoryId={catId} />
-          </Img>
-          <Bd>{getLabel(bundle)}</Bd>
-        </Media>
-      </td>
-      <TdSecondary className={styles.ColumnSizeLastOccurence}>
-        {distanceInWords(Date.now(), bundle.latestDate)}
-      </TdSecondary>
-      <TdSecondary className={styles.ColumnSizeFrequency}>
-        <BundleFrequency bundle={bundle} />
-      </TdSecondary>
-      <TdSecondary className={styles.ColumnSizeAmount}>
-        <BundleAmount bundle={bundle} />
-      </TdSecondary>
-    </tr>
-  )
-})
-
-const BundleRow = ({ bundle }) => {
-  const { isMobile } = useBreakpoints()
-  return isMobile ? (
-    <BundleMobileRow bundle={bundle} />
-  ) : (
-    <BundleDesktopRow bundle={bundle} />
-  )
-}
-
-const BundlesTableHead = () => {
-  const { t } = useI18n()
-  return (
-    <Table color="primary">
-      <thead>
-        <tr>
-          <td className={styles.ColumnSizeLabel}>
-            {t('Recurrence.table.label')}
-          </td>
-          <td className={styles.ColumnSizeLastOccurence}>
-            {t('Recurrence.table.last-occurence')}
-          </td>
-          <td className={styles.ColumnSizeFrequency}>
-            {t('Recurrence.table.frequency')}
-          </td>
-          <td className={styles.ColumnSizeAmount}>
-            {t('Recurrence.table.amount')}
-          </td>
-        </tr>
-      </thead>
-    </Table>
-  )
-}
-
-const BundlesTable = ({ children }) => {
-  return (
-    <Table>
-      <tbody>{children}</tbody>
-    </Table>
-  )
-}
-
-const RecurrencesPage = ({ router }) => {
-  const { isMobile } = useBreakpoints()
-  const bundleCol = useQuery(recurrenceConn.query, recurrenceConn)
-  const { data: bundles } = bundleCol
-  const { t } = useI18n()
-  const BundlesWrapper = isMobile ? React.Fragment : BundlesTable
-
-  return (
-    <>
-      <BarTheme theme="primary" />
-      <Header fixed theme="primary">
-        {!isMobile ? (
-          <>
-            <Padded>
+      ) : (
+        <>
+          <Padded>
+            <SubTitle>
               <Breadcrumbs
                 items={[
                   {
                     name: t('Recurrence.title'),
-                    onClick: () => router.push('/recurrence')
+                    onClick: goToRecurrenceRoot
+                  },
+                  {
+                    name: getLabel(bundle)
                   }
                 ]}
+                className={cx(styles.primary)}
                 theme="primary"
               />
-              {flag('debug') ? (
-                <Link to="/recurrencedebug">Go to debug</Link>
-              ) : null}
-            </Padded>
-            <BackButton theme="primary" />
-            <BundlesTableHead />
-          </>
-        ) : null}
-        {isMobile ? (
-          <>
-            <PageTitle>{t('Recurrence.title')}</PageTitle>
-            <AnalysisTabs />
-          </>
-        ) : null}
-      </Header>
-      {isCollectionLoading(bundleCol) && !hasBeenLoaded(bundleCol) ? (
-        <Padded>
-          <Loading />
-        </Padded>
-      ) : null}
-      <BundlesWrapper>
-        {bundles
-          ? bundles.map(bundle => (
-              <BundleRow key={bundle._id} bundle={bundle} />
-            ))
-          : null}
-      </BundlesWrapper>
+              <BackButton theme="primary" />
+            </SubTitle>
+          </Padded>
+          <TransactionsTableHead />
+        </>
+      )}
+    </Header>
+  )
+})
+
+const BundleTransactions = ({ bundle }) => {
+  const transactionsConn = bundleTransactionsQueryConn({ bundle })
+  const { isMobile } = useBreakpoints()
+  const { data: transactions } = useQuery(
+    transactionsConn.query,
+    transactionsConn
+  )
+
+  if (!transactions) {
+    return null
+  }
+
+  const TransactionRow = isMobile ? TransactionRowMobile : TransactionRowDesktop
+  return (
+    <>
+      <Table style={{ flex: 'none' }}>
+        {transactions.map(tr => (
+          <TransactionRow transaction={tr} key={tr._id} />
+        ))}
+      </Table>
     </>
   )
 }
 
-export default withRouter(RecurrencesPage)
+const RecurrenceBundlePage = ({ params }) => {
+  const { data: bundles, fetchStatus } = useQuery(
+    recurrenceConn.query,
+    recurrenceConn
+  )
+
+  const bundleId = params.bundleId
+  const bundle = useDocument(RECURRENCE_DOCTYPE, bundleId)
+
+  if (fetchStatus === 'loading' && !bundles) {
+    return <Loading />
+  }
+
+  return (
+    <>
+      <BarTheme theme="primary" />
+      {bundle ? <BundleInfo bundle={bundle} /> : null}
+      {bundle ? <BundleTransactions bundle={bundle} /> : null}
+    </>
+  )
+}
+
+export default withRouter(RecurrenceBundlePage)
