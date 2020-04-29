@@ -70,11 +70,9 @@ const CategoriesTableHead = props => {
     <thead>
       <tr>
         <td className={stCategory}>
-          {t(
-            `Categories.headers.${
-              selectedCategory ? 'subcategories' : 'categories'
-            }`
-          )}
+          {selectedCategory
+            ? t('Categories.headers.subcategories')
+            : t('Categories.headers.categories')}
         </td>
         {(isDesktop || isTablet) && (
           <td className={catStyles['bnk-table-operation']}>
