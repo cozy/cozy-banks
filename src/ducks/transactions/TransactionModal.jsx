@@ -11,12 +11,11 @@ import {
   Spinner,
   Bd,
   Img,
-  translate,
-  withBreakpoints,
   Alerter,
   useViewStack,
   ModalContent,
-  useI18n
+  useI18n,
+  useBreakpoints
 } from 'cozy-ui/transpiled/react'
 
 import ModalStack from 'components/ModalStack'
@@ -80,29 +79,26 @@ const withTransaction = withDocs(ownProps => ({
   transaction: [TRANSACTION_DOCTYPE, ownProps.transactionId]
 }))
 
-const TransactionCategoryEditorSlide = withBreakpoints()(
-  translate()(props => {
-    const { stackPop } = useViewStack()
-    const {
-      breakpoints: { isMobile }
-    } = props
-    return (
-      <>
-        <PageHeader dismissAction={stackPop}>
-          {isMobile ? <PageBackButton onClick={stackPop} /> : null}
-          {props.t('Categories.choice.title')}
-        </PageHeader>
-        <ModalContent className="u-p-0">
-          <TransactionCategoryEditor
-            beforeUpdate={stackPop}
-            onCancel={stackPop}
-            transaction={props.transaction}
-          />
-        </ModalContent>
-      </>
-    )
-  })
-)
+const TransactionCategoryEditorSlide = ({ transaction }) => {
+  const { t } = useI18n()
+  const { stackPop } = useViewStack()
+  const { isMobile } = useBreakpoints()
+  return (
+    <>
+      <PageHeader dismissAction={stackPop}>
+        {isMobile ? <PageBackButton onClick={stackPop} /> : null}
+        {t('Categories.choice.title')}
+      </PageHeader>
+      <ModalContent className="u-p-0">
+        <TransactionCategoryEditor
+          beforeUpdate={stackPop}
+          onCancel={stackPop}
+          transaction={transaction}
+        />
+      </ModalContent>
+    </>
+  )
+}
 
 const TransactionApplicationDateEditorSlide = ({
   transaction,
@@ -286,8 +282,9 @@ const TransactionModalInfoHeader = withTransaction(({ transaction }) => (
   />
 ))
 
-const TransactionModalInfo = withBreakpoints()(
-  ({ breakpoints: { isMobile }, ...props }) => (
+const TransactionModalInfo = props => {
+  const { isMobile } = useBreakpoints()
+  return (
     <div>
       <PageHeader dismissAction={props.requestClose}>
         {isMobile ? <PageBackButton onClick={props.requestClose} /> : null}
@@ -296,7 +293,7 @@ const TransactionModalInfo = withBreakpoints()(
       <TransactionModalInfoContent {...props} />
     </div>
   )
-)
+}
 
 const TransactionModal = ({ requestClose, ...props }) => {
   const { t } = useI18n()

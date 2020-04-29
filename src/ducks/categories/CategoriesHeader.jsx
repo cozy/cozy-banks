@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import cx from 'classnames'
 import { translate, withBreakpoints } from 'cozy-ui/transpiled/react'
 import Toggle from 'cozy-ui/transpiled/react/Toggle'
-import Breadcrumb from 'cozy-ui/transpiled/react/Breadcrumbs'
+import RawBreadcrumb from 'cozy-ui/transpiled/react/Breadcrumbs'
 import { AccountSwitch } from 'ducks/account'
 import BackButton from 'components/BackButton'
 import Header from 'components/Header'
@@ -17,25 +17,49 @@ import {
 import { flowRight as compose } from 'lodash'
 import styles from 'ducks/categories/CategoriesHeader.styl'
 import AddAccountButton from 'ducks/categories/AddAccountButton'
+import useTheme, { themed } from 'components/useTheme'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+
+const Breadcrumb = themed(RawBreadcrumb)
+
+const IncomeToggle = ({ withIncome, onToggle }) => {
+  const theme = useTheme()
+  const { t } = useI18n()
+  return (
+    <div className={cx(styles.CategoriesHeader__Toggle, styles[theme])}>
+      <Toggle id="withIncome" checked={withIncome} onToggle={onToggle} />
+      <label htmlFor="withIncome">{t('Categories.filter.includeIncome')}</label>
+    </div>
+  )
+}
+
+const CategoryAccountSwitch = ({ selectedCategory, breadcrumbItems }) => {
+  const [previousItem] = breadcrumbItems.slice(-2, 1)
+  return (
+    <Fragment>
+      <AccountSwitch small={selectedCategory !== undefined} />
+      {selectedCategory && (
+        <BackButton
+          onClick={
+            previousItem && previousItem.onClick
+              ? previousItem.onClick
+              : undefined
+          }
+          theme="primary"
+        />
+      )}
+    </Fragment>
+  )
+}
 
 class CategoriesHeader extends PureComponent {
   renderAccountSwitch = () => {
     const { selectedCategory, breadcrumbItems } = this.props
-    const [previousItem] = breadcrumbItems.slice(-2, 1)
     return (
-      <Fragment>
-        <AccountSwitch small={selectedCategory !== undefined} color="primary" />
-        {selectedCategory && (
-          <BackButton
-            onClick={
-              previousItem && previousItem.onClick
-                ? previousItem.onClick
-                : undefined
-            }
-            theme="primary"
-          />
-        )}
-      </Fragment>
+      <CategoryAccountSwitch
+        selectedCategory={selectedCategory}
+        breadcrumbItems={breadcrumbItems}
+      />
     )
   }
 
@@ -44,9 +68,7 @@ class CategoriesHeader extends PureComponent {
       selectedCategory,
       withIncome,
       onWithIncomeToggle,
-      breakpoints: { isMobile },
-      categories,
-      t
+      categories
     } = this.props
     const hasData =
       categories.length > 0 && categories[0].transactionsNumber > 0
@@ -55,19 +77,9 @@ class CategoriesHeader extends PureComponent {
     if (!showIncomeToggle) {
       return null
     }
-    const color = !isMobile ? 'primary' : 'default'
 
     return (
-      <div className={cx(styles.CategoriesHeader__Toggle, styles[color])}>
-        <Toggle
-          id="withIncome"
-          checked={withIncome}
-          onToggle={onWithIncomeToggle}
-        />
-        <label htmlFor="withIncome">
-          {t('Categories.filter.includeIncome')}
-        </label>
-      </div>
+      <IncomeToggle withIncome={withIncome} onToggle={onWithIncomeToggle} />
     )
   }
 
@@ -76,7 +88,6 @@ class CategoriesHeader extends PureComponent {
       selectedCategory,
       chartSize = 182,
       categories,
-      breakpoints: { isMobile },
       t,
       hasAccount,
       isFetching
@@ -87,8 +98,6 @@ class CategoriesHeader extends PureComponent {
     if (isFetching) {
       return null
     }
-
-    const color = { color: !isMobile ? 'primary' : 'default' }
     const className = hasAccount
       ? undefined
       : { className: styles.NoAccount_chart }
@@ -105,7 +114,6 @@ class CategoriesHeader extends PureComponent {
         currency={globalCurrency}
         label={t('Categories.title.total')}
         hasAccount={hasAccount}
-        {...color}
         {...className}
       />
     )
@@ -126,12 +134,12 @@ class CategoriesHeader extends PureComponent {
     if (isMobile) {
       return (
         <Fragment>
-          <Header fixed color="primary">
-            <SelectDates showFullYear color="primary" />
+          <Header fixed theme="primary">
+            <SelectDates showFullYear />
+            {accountSwitch}
           </Header>
-          {accountSwitch}
           {hasAccount ? (
-            <Header color="default" className="u-mt-3">
+            <Header theme="default" className="u-mt-3">
               <Padded>
                 {incomeToggle}
                 {chart}
@@ -139,7 +147,7 @@ class CategoriesHeader extends PureComponent {
             </Header>
           ) : (
             <Header
-              color="default"
+              theme="default"
               className={cx(styles.NoAccount_container, 'u-mt-3')}
             >
               <Padded className={styles.NoAccount_box}>
@@ -153,7 +161,7 @@ class CategoriesHeader extends PureComponent {
     }
 
     return (
-      <Header color="primary">
+      <Header theme="primary" fixed>
         <Padded
           className={cx(styles.CategoriesHeader, {
             [styles.NoAccount]: !hasAccount
@@ -162,7 +170,7 @@ class CategoriesHeader extends PureComponent {
           <div>
             <Padded className="u-ph-0 u-pt-0 u-pb-half">{accountSwitch}</Padded>
             <Padded className="u-pv-1 u-ph-0">
-              <SelectDates showFullYear color="primary" />
+              <SelectDates showFullYear />
             </Padded>
             {breadcrumbItems.length > 1 && (
               <Breadcrumb
@@ -171,7 +179,7 @@ class CategoriesHeader extends PureComponent {
                   styles.CategoriesHeader__Breadcrumb,
                   styles.primary
                 )}
-                color="primary"
+                theme="primary"
               />
             )}
             {incomeToggle}

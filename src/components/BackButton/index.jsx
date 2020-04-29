@@ -1,5 +1,3 @@
-/* global cozy */
-
 import React from 'react'
 import PropTypes from 'prop-types'
 import styles from 'components/BackButton/style.styl'
@@ -10,8 +8,7 @@ import Icon from 'cozy-ui/transpiled/react/Icon'
 import arrowLeft from 'assets/icons/icon-arrow-left.svg'
 import { getCssVariableValue } from 'cozy-ui/transpiled/react/utils/color'
 import cx from 'classnames'
-
-const { BarLeft } = cozy.bar
+import { BarLeft } from 'components/Bar'
 
 export const BackIcon = ({ color }) => <Icon icon={arrowLeft} color={color} />
 

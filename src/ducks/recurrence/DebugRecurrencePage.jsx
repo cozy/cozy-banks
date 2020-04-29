@@ -190,12 +190,10 @@ const updateBundles = (bundles, newTransactions, rules) => {
     const newBundles = findRecurringBundles(newTransactions, rules)
     const allBundles = [...bundles, ...newBundles]
     updatedBundles = groupBundles(allBundles, sameFirstLabel)
-    updatedBundles
   } else {
     const newBundles = newTransactions.map(t => ({ ops: [t] }))
     const allBundles = [...bundles, ...newBundles]
     updatedBundles = groupBundles(allBundles, sameFirstLabel)
-    updatedBundles.filter(bundles => bundles.ops.length > 1)
   }
 
   updatedBundles = bundles.map(addStats)
@@ -382,6 +380,12 @@ const RecurrencePage = () => {
         busy={resettingBundles}
       />
       {loading ? <Loading /> : null}
+      transactions: {transactions ? transactions.length : 0}
+      <br />
+      bundleTransactions: {bundlesTransactions.length}
+      <br />
+      newTransactions: {newTransactions.length}
+      <br />
       elapsed time: {(end - start) / 1000}s<br />
       bundle date:{' '}
       <DateSlider date={bundlesDate} onChange={handleSetBundleDate} />
@@ -398,10 +402,6 @@ const RecurrencePage = () => {
         value={bundleFilter}
         onChange={handleChangeBundleFilter}
       />
-      <br />
-      bundleTransactions: {bundlesTransactions.length}
-      <br />
-      newTransactions: {newTransactions.length}
       <br />
       <div className="u-flex" style={{ flexWrap: 'wrap' }}>
         {finalBundles.map((bundle, i) => (
