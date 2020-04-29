@@ -16,10 +16,11 @@ import {
   ModalContent,
   useI18n,
   useBreakpoints,
-  Caption
+  Caption,
+  Chip
 } from 'cozy-ui/transpiled/react'
 
-import { withRouter } from 'react-router'
+import { withRouter, Link } from 'react-router'
 import ModalStack from 'components/ModalStack'
 
 import { Figure } from 'components/Figure'
@@ -58,8 +59,6 @@ import TransactionModalRow, {
   TransactionModalRowMedia,
   RowArrow
 } from './TransactionModalRow'
-
-import Chip from 'cozy-ui/transpiled/react/Chip'
 
 import withDocs from 'components/withDocs'
 
@@ -142,15 +141,13 @@ export const showAlertAfterApplicationDateUpdate = (transaction, t, f) => {
   )
 }
 
+const stopPropagation = ev => ev.stopPropagation()
+
 const RecurrenceRow = withRouter(({ transaction, onClick, router }) => {
   const recurrence = transaction.recurrence && transaction.recurrence.data
   const { t } = useI18n()
 
   const recurrenceRoute = recurrence ? `/recurrence/${recurrence._id}` : null
-  const handleClickHistory = ev => {
-    ev.preventDefault()
-    router.push(recurrenceRoute)
-  }
 
   return (
     <TransactionModalRowMedia
@@ -176,14 +173,16 @@ const RecurrenceRow = withRouter(({ transaction, onClick, router }) => {
                 })}
               </Caption>
               {router.location.pathname !== recurrenceRoute ? (
-                <Chip
-                  onClick={handleClickHistory}
-                  variant="outlined"
-                  size="small"
-                  className="u-w-100 u-ph-2 u-mt-half u-flex-justify-center"
-                >
-                  {t('Recurrence.see-transaction-history')}
-                </Chip>
+                <Link to={recurrenceRoute}>
+                  <Chip
+                    onClick={stopPropagation}
+                    variant="outlined"
+                    size="small"
+                    className="u-w-100 u-ph-2 u-mt-half u-flex-justify-center"
+                  >
+                    {t('Recurrence.see-transaction-history')}
+                  </Chip>
+                </Link>
               ) : null}
             </>
           ) : null}
