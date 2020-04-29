@@ -46,7 +46,13 @@ const BundleInfo = withRouter(({ bundle, router }) => {
 
   return (
     <Header fixed theme="primary">
-      {!isMobile ? (
+      {isMobile ? (
+        <>
+          <BackButton theme="primary" onClick={goToRecurrenceRoot} />
+          <BarTitle>{prettyLabel(bundle.label)}</BarTitle>
+          <AnalysisTabs />
+        </>
+      ) : (
         <>
           <Padded>
             <SubTitle>
@@ -67,12 +73,6 @@ const BundleInfo = withRouter(({ bundle, router }) => {
             </SubTitle>
           </Padded>
           <TransactionsTableHead />
-        </>
-      ) : (
-        <>
-          <BackButton theme="primary" onClick={goToRecurrenceRoot} />
-          <BarTitle>{prettyLabel(bundle.label)}</BarTitle>
-          <AnalysisTabs />
         </>
       )}
     </Header>
