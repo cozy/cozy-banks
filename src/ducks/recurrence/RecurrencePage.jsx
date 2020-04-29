@@ -21,7 +21,7 @@ import Header from 'components/Header'
 import BackButton from 'components/BackButton'
 import PageTitle from 'components/Title/PageTitle'
 import styles from './styles.styl'
-import { prettyLabel } from './utils'
+import { prettyLabel, getCategories } from './utils'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 
 const BundleFrequency = ({ bundle }) => {
@@ -36,7 +36,7 @@ const BundleFrequency = ({ bundle }) => {
 }
 
 const BundleMobileRow = withRouter(({ bundle, router }) => {
-  const catId = bundle.categoryId.split(' / ')[0]
+  const catId = getCategories(bundle)[0]
   return (
     <CompositeRow
       onClick={() => router.push(`/recurrence/${bundle._id}`)}
