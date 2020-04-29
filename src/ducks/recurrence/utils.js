@@ -23,5 +23,5 @@ export const getLabel = bundle => {
 }
 
 export const getCategories = bundle => {
-  return bundle.categoryId.split(' / ')[0]
+  return bundle.categoryId.split(' / ')
 }
