@@ -46,3 +46,50 @@ export const resetBundles = async client => {
   const { data: serverBundles } = await recurrenceCol.all()
   await recurrenceCol.destroyAll(serverBundles)
 }
+
+export const renameRecurrenceManually = async (
+  client,
+  recurrence,
+  newLabel
+) => {
+  return client.save({
+    ...recurrence,
+    manualLabel: newLabel
+  })
+}
+
+const STATUS_ONGOING = 'ongoing'
+const STATUS_FINISHED = 'finished'
+
+export const getStatus = recurrence => {
+  if (recurrence.status) {
+    return recurrence.status
+  } else {
+    return STATUS_ONGOING
+  }
+}
+
+export const isOngoing = recurrence => {
+  const status = getStatus(recurrence)
+  return status === STATUS_ONGOING
+}
+
+export const isFinished = recurrence => {
+  const status = getStatus(recurrence)
+  return status === STATUS_FINISHED
+}
+
+export const setStatusOngoing = async (client, recurrence) => {
+  return setStatus(client, recurrence, STATUS_ONGOING)
+}
+
+export const setStatusFinished = async (client, recurrence) => {
+  return setStatus(client, recurrence, STATUS_FINISHED)
+}
+
+export const setStatus = async (client, recurrence, status) => {
+  client.save({
+    ...recurrence,
+    status
+  })
+}
