@@ -145,6 +145,21 @@ const CategoryNames = ({ categoryId }) => {
 
 const newStyle = { color: 'var(--malachite)' }
 
+const BundleStats = ({ bundle }) => {
+  const deltas = bundle.stats ? bundle.stats.deltas : null
+  return (
+    <>
+      mean frequency: {deltas.mean.toFixed(0)} days
+      <br />
+      median frequency: {deltas.median ? deltas.median.toFixed(0) : null} days
+      <br />
+      sigma: {deltas.sigma.toFixed(2)}
+      <br />
+      mad: {deltas.mad.toFixed(2)}
+    </>
+  )
+}
+
 const RecurrenceBundle = ({ bundle }) => {
   return (
     <Card
@@ -154,13 +169,9 @@ const RecurrenceBundle = ({ bundle }) => {
       <SubTitle>{getAutomaticLabelFromBundle(bundle)}</SubTitle>
       <p>
         categories: <CategoryNames categoryId={bundle.categoryId} />
-        frequency: {bundle.stats.deltas.mean.toFixed(0)} days
-        <br />
         amount: {bundle.amount}
         <br />
-        sigma: {bundle.stats.deltas.sigma.toFixed(2)}
-        <br />
-        mad: {bundle.stats.deltas.mad.toFixed(2)}
+        {bundle.stats ? <BundleStats bundle={bundle} /> : null}
       </p>
       <table style={{ fontSize: 'small' }}>
         {sortBy(bundle.ops, x => x.date).map(x => (
