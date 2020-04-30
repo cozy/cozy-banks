@@ -343,7 +343,11 @@ const BundleTransactions = ({ bundle }) => {
     <>
       <Table style={{ flex: 'none' }}>
         {transactions.map(tr => (
-          <TransactionRow transaction={tr} key={tr._id} />
+          <TransactionRow
+            showRecurrence={false}
+            transaction={tr}
+            key={tr._id}
+          />
         ))}
       </Table>
     </>

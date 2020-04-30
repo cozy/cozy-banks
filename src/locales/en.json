@@ -841,6 +841,14 @@
       "cancel": "Cancel",
       "save-success": "Saved !",
       "save-error": "Could not rename, try again later"
+    },
+    "transaction": {
+      "freq-info-word": {
+        "weekly": "every week",
+        "monthly": "every month",
+        "yearly": "every year"
+      },
+      "freq-info": "every %{frequency} days"
     }
   }
 }

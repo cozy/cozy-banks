@@ -25,3 +25,13 @@ export const getLabel = bundle => {
 export const getCategories = bundle => {
   return bundle.categoryId.split(' / ')
 }
+
+export const getFrequencyWord = freq => {
+  if (freq > 5 && freq <= 8) {
+    return 'weekly'
+  } else if (freq > 26 && freq <= 40) {
+    return 'monthly'
+  } else if (freq > 300 && freq <= 400) {
+    return 'yearly'
+  }
+}
