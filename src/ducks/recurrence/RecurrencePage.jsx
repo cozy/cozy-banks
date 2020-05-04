@@ -74,7 +74,6 @@ const RecurrenceActionMenu = ({
         <SubTitle>{getLabel(recurrence)}</SubTitle>
         <Caption>{getFrequencyText(t, recurrence)}</Caption>
       </ActionMenuHeader>
-      <RenameActionItem onClick={onClickRename} />
       {isMobile ? (
         <>
           <OngoingActionItem recurrence={recurrence} onClick={onClickOngoing} />
@@ -82,8 +81,10 @@ const RecurrenceActionMenu = ({
             recurrence={recurrence}
             onClick={onClickFinished}
           />
+          <hr />
         </>
       ) : null}
+      <RenameActionItem onClick={onClickRename} />
     </ActionMenu>
   )
 }
