@@ -51,7 +51,7 @@ const BundleMobileRow = withRouter(({ bundle, router }) => {
     <CompositeRow
       onClick={() => router.push(`/recurrence/${bundle._id}`)}
       image={<CategoryIcon categoryId={catId} />}
-      className="u-pv-half u-ph-1 u-c-pointer"
+      className={cx('u-pv-half u-ph-1 u-c-pointer', styles.BundleRow)}
       key={bundle._id}
       primaryText={getLabel(bundle)}
       secondaryText={
