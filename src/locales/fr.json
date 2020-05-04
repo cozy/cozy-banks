@@ -820,7 +820,7 @@
   },
 
   "Recurrence": {
-    "frequency": "Tout les %{frequency} jours",
+    "frequency": "tous les %{frequency} jours",
     "see-transaction-history": "Voir l'historique",
     "table": {
       "frequency": "Fréquence",
@@ -828,17 +828,22 @@
       "amount": "Montant",
       "last-occurence": "Dernière occurence"
     },
+    "status": {
+      "ongoing": "En cours",
+      "finished": "Terminé",
+      "save-success": "Statut changé"
+    },
     "title": "Paiements récurrents",
     "choice": {
       "not-recurrent": "Opération occasionelle",
-      "recurrent": "Opération récurrente",
-      "ongoing": "En cours",
-      "ongoing-caption": "Une transaction sera attendue dans votre budget prévisionnel",
-      "finished": "Terminé"
+      "recurrent": "Opération récurrente"
     },
     "action-menu": {
       "open-button": "Actions sur la récurrence",
-      "rename": "Renommer"
+      "rename": "Renommer",
+      "ongoing": "En cours",
+      "ongoing-caption": "Une transaction sera attendue dans votre budget prévisionnel",
+      "finished": "Terminé"
     },
     "rename": {
       "modal-title": "Renommer le groupe de récurrence",
