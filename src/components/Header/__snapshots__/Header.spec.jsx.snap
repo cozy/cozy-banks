@@ -1,41 +1,96 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Header should display children 1`] = `
-<div
-  className="HeaderColor_default"
->
-  content
-</div>
+Array [
+  <div
+    className=""
+  >
+    <div
+      className="HeaderColor_normal"
+    >
+      content
+    </div>
+  </div>,
+  <div
+    className="HeaderColor_normal"
+  >
+    content
+  </div>,
+]
 `;
 
 exports[`Header should extend className 1`] = `
-<div
-  className="HeaderColor_default noPaddingBottom"
->
-  content
-</div>
+Array [
+  <div
+    className=""
+  >
+    <div
+      className="HeaderColor_normal noPaddingBottom"
+    >
+      content
+    </div>
+  </div>,
+  <div
+    className="HeaderColor_normal noPaddingBottom"
+  >
+    content
+  </div>,
+]
 `;
 
 exports[`Header should set position fixed 1`] = `
-<div
-  className="HeaderColor_default HeaderFixed"
->
-  content
-</div>
+Array [
+  <div
+    className=""
+  >
+    <div
+      className="HeaderColor_normal HeaderFixed"
+    >
+      content
+    </div>
+  </div>,
+  <div
+    className="HeaderColor_normal HeaderFixed"
+  >
+    content
+  </div>,
+]
 `;
 
 exports[`Header should set theme default 1`] = `
-<div
-  className="HeaderColor_default"
->
-  content
-</div>
+Array [
+  <div
+    className=""
+  >
+    <div
+      className="HeaderColor_normal"
+    >
+      content
+    </div>
+  </div>,
+  <div
+    className="HeaderColor_normal"
+  >
+    content
+  </div>,
+]
 `;
 
-exports[`Header should set theme primary 1`] = `
-<div
-  className="HeaderColor_primary"
->
-  content
-</div>
+exports[`Header should set theme inverted 1`] = `
+Array [
+  <div
+    className="styles__CozyTheme--inverted___1ygHa"
+  >
+    <div
+      className="HeaderColor_inverted"
+    >
+      content
+    </div>
+  </div>,
+  <div
+    className="HeaderColor_inverted"
+  >
+    content
+  </div>,
+]
 `;

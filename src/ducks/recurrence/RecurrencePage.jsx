@@ -232,7 +232,7 @@ const BundleInfo = withRouter(({ bundle, router }) => {
   }, [bundle, client, t])
 
   return (
-    <Header fixed theme="primary">
+    <Header fixed theme="inverted">
       {isMobile ? (
         <>
           <BackButton theme="primary" onClick={goToRecurrenceRoot} />

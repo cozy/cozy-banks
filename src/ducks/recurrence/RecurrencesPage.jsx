@@ -140,7 +140,7 @@ const RecurrencesPage = ({ router }) => {
   return (
     <>
       <BarTheme theme="primary" />
-      <Header fixed theme="primary">
+      <Header fixed theme="inverted">
         {!isMobile ? (
           <>
             <Padded>

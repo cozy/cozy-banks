@@ -51,7 +51,6 @@
     "sharing": "Partage",
     "back-to-accounts": "Revenir aux comptes",
     "update": "Modifier",
-    "save": "Sauver",
     "delete": "Effacer",
     "deleting": "Effacement...",
     "confirm-deletion": {
@@ -570,7 +569,7 @@
         "title": "Supprimer l'alerte ?",
         "desc": "Merci de confirmer vouloir supprimer l'alerte"
       },
-      "saving-error": "Impossible de sauver l'alerte, merci de réessayer plus tard."
+      "saving-error": "Impossible de sauvegarder l'alerte, merci de réessayer plus tard."
     },
     "budget-category-alerts": {
       "pane-title": "Budget par catégorie",
@@ -832,7 +831,10 @@
     "title": "Paiements récurrents",
     "choice": {
       "not-recurrent": "Opération occasionelle",
-      "recurrent": "Opération récurrente"
+      "recurrent": "Opération récurrente",
+      "ongoing": "En cours",
+      "ongoing-caption": "Une transaction sera attendue dans votre budget prévisionnel",
+      "finished": "Terminé"
     },
     "action-menu": {
       "open-button": "Actions sur la récurrence",
@@ -849,7 +851,7 @@
       "freq-info-word": {
         "weekly": "toutes les semaines",
         "monthly": "tous les mois",
-        "yearly": "tout les ans"
+        "yearly": "tous les ans"
       },
       "freq-info": "tous les %{frequency} jours"
     }
