@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useRef } from 'react'
+import ReactDOM from 'react-dom'
 import { useClient, useQuery } from 'cozy-client'
 import { withRouter } from 'react-router'
 import {
@@ -54,6 +55,9 @@ const useDocument = (doctype, id) => {
   return client.getDocumentFromState(doctype, id)
 }
 
+const identity = x => x
+const portal = children => ReactDOM.createPortal(children, document.body)
+
 const RecurrenceActionMenu = ({
   recurrence,
   onClickRename,
@@ -62,7 +66,9 @@ const RecurrenceActionMenu = ({
   ...props
 }) => {
   const { isMobile } = useBreakpoints()
-  return (
+  const { t } = useI18n()
+  const wrapper = isMobile ? portal : identity
+  return wrapper(
     <ActionMenu {...props}>
       <ActionMenuHeader>
         <SubTitle>{getLabel(recurrence)}</SubTitle>
