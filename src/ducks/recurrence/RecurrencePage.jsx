@@ -49,6 +49,7 @@ import {
   ActionMenuItem,
   ActionMenuRadio
 } from 'cozy-ui/transpiled/react/ActionMenu'
+import styles from './styles.styl'
 
 const useDocument = (doctype, id) => {
   const client = useClient()
@@ -338,6 +339,10 @@ const BundleInfo = withRouter(({ bundle, router }) => {
   )
 })
 
+const BundleMobileWrapper = ({ children }) => {
+  return <div className={styles.RecurrencesMobileContent}>{children}</div>
+}
+
 const BundleTransactions = ({ bundle }) => {
   const transactionsConn = bundleTransactionsQueryConn({ bundle })
   const { isMobile } = useBreakpoints()
@@ -351,9 +356,10 @@ const BundleTransactions = ({ bundle }) => {
   }
 
   const TransactionRow = isMobile ? TransactionRowMobile : TransactionRowDesktop
+  const Wrapper = isMobile ? BundleMobileWrapper : Table
   return (
     <>
-      <Table style={{ flex: 'none' }}>
+      <Wrapper>
         {transactions.map(tr => (
           <TransactionRow
             showRecurrence={false}
@@ -361,7 +367,7 @@ const BundleTransactions = ({ bundle }) => {
             key={tr._id}
           />
         ))}
-      </Table>
+      </Wrapper>
     </>
   )
 }

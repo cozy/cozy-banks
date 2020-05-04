@@ -1,5 +1,6 @@
 import React from 'react'
 import { withRouter, Link } from 'react-router'
+import cx from 'classnames'
 
 import { useQuery } from 'cozy-client'
 import CompositeRow from 'cozy-ui/transpiled/react/CompositeRow'
@@ -132,6 +133,10 @@ const BundlesTableHead = () => {
   )
 }
 
+const BundleMobileWrapper = ({ children }) => {
+  return <div className={styles.RecurrencesMobileContent}>{children}</div>
+}
+
 const BundlesTable = ({ children }) => {
   return (
     <Table>
@@ -145,7 +150,7 @@ const RecurrencesPage = ({ router }) => {
   const bundleCol = useQuery(recurrenceConn.query, recurrenceConn)
   const { data: bundles } = bundleCol
   const { t } = useI18n()
-  const BundlesWrapper = isMobile ? React.Fragment : BundlesTable
+  const BundlesWrapper = isMobile ? BundleMobileWrapper : BundlesTable
 
   return (
     <>
@@ -168,7 +173,7 @@ const RecurrencesPage = ({ router }) => {
               ) : null}
             </Padded>
             <BackButton theme="primary" />
-            <BundlesTableHead />
+            {isMobile ? null : <BundlesTableHead />}
           </>
         ) : null}
         {isMobile ? (
