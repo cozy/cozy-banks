@@ -10,7 +10,8 @@ import {
   Img,
   Icon,
   Text,
-  Caption
+  Caption,
+  useI18n
 } from 'cozy-ui/transpiled/react'
 import flag from 'cozy-flags'
 
@@ -34,9 +35,11 @@ import {
   getDate,
   getApplicationDate
 } from 'ducks/transactions/helpers'
+import { getFrequencyWord } from 'ducks/recurrence/utils'
 import styles from 'ducks/transactions/Transactions.styl'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 import TransactionModal from 'ducks/transactions/TransactionModal'
+import iconRecurrence from 'assets/icons/icon-recurrence.svg'
 
 import useSwitch from 'hooks/useSwitch'
 
@@ -102,6 +105,20 @@ const ApplicationDateCaption = React.memo(function ApplicationDateCaption({
   )
 })
 
+const RecurrenceCaption = ({ recurrence }) => {
+  const { t } = useI18n()
+  const frequency = recurrence.stats.deltas.median
+  const freqWord = getFrequencyWord(frequency)
+  const text = freqWord
+    ? t(`Recurrence.transaction.freq-info-word.${freqWord}`)
+    : t(`Recurrence.transaction.freq-info`, { frequency })
+  return (
+    <Caption>
+      {text} <Icon icon={iconRecurrence} size="10" />
+    </Caption>
+  )
+}
+
 const TransactionDate = translate()(_TransactionDate)
 
 class _RowDesktop extends React.PureComponent {
@@ -122,7 +139,8 @@ class _RowDesktop extends React.PureComponent {
       isExtraLarge,
       showCategoryChoice,
       filteringOnAccount,
-      onRef
+      onRef,
+      showRecurrence
     } = this.props
 
     const categoryId = getCategoryId(transaction)
@@ -130,6 +148,9 @@ class _RowDesktop extends React.PureComponent {
     const categoryTitle = t(`Data.subcategories.${categoryName}`)
 
     const account = transaction.account.data
+    const recurrence = transaction.recurrence
+      ? transaction.recurrence.data
+      : null
     const trRest = flag('show-transactions-ids') ? { id: transaction._id } : {}
 
     const applicationDate = getApplicationDate(transaction)
@@ -149,6 +170,9 @@ class _RowDesktop extends React.PureComponent {
                 {!filteringOnAccount && <AccountCaption account={account} />}
                 {applicationDate ? (
                   <ApplicationDateCaption f={f} transaction={transaction} />
+                ) : null}
+                {recurrence && showRecurrence ? (
+                  <RecurrenceCaption recurrence={recurrence} />
                 ) : null}
               </List.Content>
             </Bd>
@@ -182,6 +206,10 @@ class _RowDesktop extends React.PureComponent {
   }
 }
 
+_RowDesktop.defaultProps = {
+  showRecurrence: true
+}
+
 export const RowDesktop = compose(
   translate(),
   withDispatch,
@@ -191,7 +219,14 @@ export const RowDesktop = compose(
 
 class _RowMobile extends React.PureComponent {
   render() {
-    const { transaction, t, f, filteringOnAccount, onRef } = this.props
+    const {
+      transaction,
+      t,
+      f,
+      filteringOnAccount,
+      onRef,
+      showRecurrence
+    } = this.props
     const account = transaction.account.data
     const rowRest = {}
 
@@ -202,6 +237,9 @@ class _RowMobile extends React.PureComponent {
     rowRest.className = cx(styles.TransactionRowMobile)
 
     const applicationDate = getApplicationDate(transaction)
+    const recurrence = transaction.recurrence
+      ? transaction.recurrence.data
+      : null
 
     return (
       <List.Row onRef={onRef} {...rowRest}>
@@ -226,13 +264,19 @@ class _RowMobile extends React.PureComponent {
               ) : null}
             </List.Content>
           </Bd>
-          <Img onClick={this.handleSelect} className="u-clickable">
+          <Img
+            onClick={this.handleSelect}
+            className={styles.TransactionRowMobileImg}
+          >
             <Figure
               total={transaction.amount}
               symbol={getCurrencySymbol(transaction.currency)}
               coloredPositive
               signed
             />
+            {recurrence && showRecurrence ? (
+              <RecurrenceCaption recurrence={recurrence} />
+            ) : null}
           </Img>
           {false}
         </Media>
@@ -259,7 +303,12 @@ class _RowMobile extends React.PureComponent {
 }
 
 _RowMobile.propTypes = {
-  transaction: PropTypes.object.isRequired
+  transaction: PropTypes.object.isRequired,
+  showRecurrence: PropTypes.bool
+}
+
+_RowMobile.defaultProps = {
+  showRecurrence: true
 }
 
 export const RowMobile = compose(

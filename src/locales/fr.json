@@ -32,7 +32,7 @@
   "Nav": {
     "my-accounts": "Mes comptes",
     "analysis": "Analyse",
-    "categories": "Categorisation",
+    "categories": "Catégorisation",
     "projections": "Prévisions",
     "savings": "Economiser",
     "settings": "Paramètres",
@@ -833,6 +833,25 @@
     "choice": {
       "not-recurrent": "Opération occasionelle",
       "recurrent": "Opération récurrente"
+    },
+    "action-menu": {
+      "open-button": "Actions sur la récurrence",
+      "rename": "Renommer"
+    },
+    "rename": {
+      "modal-title": "Renommer le groupe de récurrence",
+      "save": "Sauver",
+      "cancel": "Annuler",
+      "save-success": "Groupe de récurrence correctement sauvé",
+      "save-error": "Impossible de renommer, merci de réessayer plus tard"
+    },
+    "transaction": {
+      "freq-info-word": {
+        "weekly": "toutes les semaines",
+        "monthly": "tous les mois",
+        "yearly": "tout les ans"
+      },
+      "freq-info": "tous les %{frequency} jours"
     }
   }
 }

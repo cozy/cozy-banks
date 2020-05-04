@@ -1,15 +1,16 @@
 import React, { useMemo } from 'react'
 import { useClient, useQuery } from 'cozy-client'
 import { NestedSelect, useI18n } from 'cozy-ui/transpiled/react'
-import { prettyLabel } from 'ducks/recurrence/utils'
+import { getLabel } from 'ducks/recurrence/utils'
 import { recurrenceConn } from 'doctypes'
 import { updateTransactionRecurrence } from 'ducks/transactions/helpers'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
+import { RECURRENCE_DOCTYPE } from 'doctypes'
 
 const optionFromRecurrence = rec => {
   return {
     _id: rec._id,
-    title: prettyLabel(rec.label),
+    title: getLabel(rec),
     icon: <CategoryIcon categoryId={rec.categoryId} />
   }
 }
@@ -26,6 +27,9 @@ const isSelectedHelper = (item, currentId) => {
   }
   return false
 }
+
+const NOT_RECURRENT_ID = 'not-recurrent'
+const RECURRENT_ID = 'recurrent'
 
 const TransactionRecurrenceEditor = ({
   transaction,
@@ -47,14 +51,15 @@ const TransactionRecurrenceEditor = ({
     [allRecurrences]
   )
 
-  const handleSelect = async category => {
+  const handleSelect = async recurrence => {
     if (beforeUpdate) {
       await beforeUpdate()
     }
+
     const newTransaction = await updateTransactionRecurrence(
       client,
       transaction,
-      category
+      recurrence
     )
     if (afterUpdate) {
       await afterUpdate(newTransaction)
@@ -71,13 +76,14 @@ const TransactionRecurrenceEditor = ({
       options={{
         children: [
           {
-            id: 'not-recurrent',
+            _id: NOT_RECURRENT_ID,
+            _type: RECURRENCE_DOCTYPE,
             title: t('Recurrence.choice.not-recurrent')
           },
           {
-            id: 'recurrent',
+            id: RECURRENT_ID,
             title: t('Recurrence.choice.recurrent'),
-            description: current && prettyLabel(current.label),
+            description: current && getLabel(current),
             children: recurrenceOptions
           }
         ]
