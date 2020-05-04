@@ -246,7 +246,11 @@ const BundleInfo = withRouter(({ bundle, router }) => {
           <BackButton theme="primary" onClick={goToRecurrenceRoot} />
           <BarTitle>{getLabel(bundle)}</BarTitle>
           <BarRight>
-            <BarButton icon="dots" onClick={showActionsMenu} />
+            <BarButton
+              className={styles.BarRightButton}
+              icon="dots"
+              onClick={showActionsMenu}
+            />
           </BarRight>
           <AnalysisTabs />
           {showingActionsMenu ? (
