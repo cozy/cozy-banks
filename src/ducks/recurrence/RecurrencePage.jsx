@@ -27,7 +27,7 @@ import Table from 'components/Table'
 import Header from 'components/Header'
 import BackButton from 'components/BackButton'
 import BarTheme from 'ducks/bar/BarTheme'
-import { getLabel } from 'ducks/recurrence/utils'
+import { getLabel, getFrequencyText } from 'ducks/recurrence/utils'
 import {
   renameRecurrenceManually,
   setStatusOngoing,
@@ -66,6 +66,7 @@ const RecurrenceActionMenu = ({
     <ActionMenu {...props}>
       <ActionMenuHeader>
         <SubTitle>{getLabel(recurrence)}</SubTitle>
+        <Caption>{getFrequencyText(t, recurrence)}</Caption>
       </ActionMenuHeader>
       <RenameActionItem onClick={onClickRename} />
       {isMobile ? (
