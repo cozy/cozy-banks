@@ -7,7 +7,9 @@ import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Breadcrumbs from 'cozy-ui/transpiled/react/Breadcrumbs'
 import { Media, Img, Bd } from 'cozy-ui/transpiled/react/Media'
+import flag from 'cozy-flags'
 
+import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import Loading from 'components/Loading'
 import distanceInWords from 'date-fns/distance_in_words'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
@@ -21,17 +23,23 @@ import Table from 'components/Table'
 import Header from 'components/Header'
 import BackButton from 'components/BackButton'
 import PageTitle from 'components/Title/PageTitle'
+import { Figure } from 'components/Figure'
+
 import styles from './styles.styl'
-import { getLabel, getCategories } from './utils'
-import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
-import flag from 'cozy-flags'
+import {
+  getFrequency,
+  getAmount,
+  getCurrency,
+  getLabel,
+  getCategories
+} from './utils'
 
 const BundleFrequency = ({ bundle }) => {
   const { t } = useI18n()
   return (
     <>
       {t('Recurrence.frequency', {
-        frequency: Math.floor(bundle.stats.deltas.mean)
+        frequency: Math.floor(getFrequency(bundle))
       })}
     </>
   )
@@ -58,7 +66,9 @@ const BundleMobileRow = withRouter(({ bundle, router }) => {
 })
 
 const BundleAmount = ({ bundle }) => {
-  return <>{bundle.amount + '€'}</>
+  const amount = getAmount(bundle)
+  const currency = getCurrency(bundle)
+  return <Figure total={amount} symbol={currency} coloredPositive />
 }
 
 const BundleDesktopRow = withRouter(({ bundle, router }) => {

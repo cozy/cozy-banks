@@ -49,3 +49,11 @@ export const getFrequencyText = (t, recurrence) => {
   return text
 }
 
+export const getAmount = bundle => {
+  const amount = bundle.amount.split(' / ')
+  return amount[0]
+}
+
+export const getCurrency = () => {
+  return '€'
+}
