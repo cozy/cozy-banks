@@ -290,7 +290,7 @@ const BundleInfo = withRouter(({ bundle, router }) => {
               <Img className="u-flex">
                 <ActionMenuHelper
                   opener={
-                    <Button iconOnly extension="narrow" theme="secondary">
+                    <Button extension="narrow" theme="secondary">
                       {t(`Recurrence.status.${getStatus(bundle)}`)}
                       <Icon className="u-ml-half" icon="bottom" />
                     </Button>
