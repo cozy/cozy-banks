@@ -29,7 +29,7 @@ export const DumbBalanceDetailsHeader = props => {
       </Padded>
       {showBalance && isMobile && (
         <BarRight>
-          <BarBalance accounts={filteredAccounts} theme={'primary'} />
+          <BarBalance accounts={filteredAccounts} theme="inverted" />
         </BarRight>
       )}
       {children}
