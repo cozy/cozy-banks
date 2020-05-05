@@ -56,6 +56,8 @@ const useDocument = (doctype, id) => {
   return client.getDocumentFromState(doctype, id)
 }
 
+// TODO We should need to do this (isMobile ? portal : identity) but see
+// Cozy-UI's issue: https://github.com/cozy/cozy-ui/issues/1462
 const identity = x => x
 const portal = children => ReactDOM.createPortal(children, document.body)
 

@@ -74,6 +74,8 @@ const removeCSSMQPackerPlugin = config => {
   })
 }
 
+// TODO remove those lines after https://github.com/cozy/create-cozy-app/pull/1326
+// is fixed
 removeCSSMQPackerPlugin(config)
 
 module.exports = config
