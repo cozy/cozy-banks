@@ -54,8 +54,17 @@ export const getFrequencyText = (t, recurrence) => {
 }
 
 export const getAmount = bundle => {
-  const amount = bundle.amount.split(' / ')
-  return amount[0]
+  const t = typeof bundle.amount
+  if (t === 'string') {
+    const amount = bundle.amount.split(' / ')
+    return parseInt(amount[0], 10)
+  } else if (t === 'array') {
+    return bundle.amount[0]
+  } else if (t === 'null') {
+    return 0
+  } else if (t === 'number') {
+    return t
+  }
 }
 
 export const getCurrency = () => {
