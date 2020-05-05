@@ -27,7 +27,7 @@ export const getLabel = bundle => {
 }
 
 export const getCategories = bundle => {
-  return bundle.categoryId.split(' / ')
+  return bundle.categoryIds
 }
 
 export const getFrequencyWord = freq => {
@@ -54,17 +54,7 @@ export const getFrequencyText = (t, recurrence) => {
 }
 
 export const getAmount = bundle => {
-  const t = typeof bundle.amount
-  if (t === 'string') {
-    const amount = bundle.amount.split(' / ')
-    return parseInt(amount[0], 10)
-  } else if (t === 'array') {
-    return bundle.amount[0]
-  } else if (t === 'null') {
-    return 0
-  } else if (t === 'number') {
-    return t
-  }
+  return bundle.amounts[0]
 }
 
 export const getCurrency = () => {
@@ -80,7 +70,7 @@ export const makeRecurrenceFromTransaction = transaction => {
         median: 30
       }
     },
-    amount: transaction.amount,
-    categoryId: getCategoryId(transaction)
+    amounts: [transaction.amount],
+    categoryIds: [getCategoryId(transaction)]
   }
 }

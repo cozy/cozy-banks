@@ -73,7 +73,7 @@ const BundleAmount = ({ bundle }) => {
 }
 
 const BundleDesktopRow = withRouter(({ bundle, router }) => {
-  const catId = bundle.categoryId.split(' / ')[0]
+  const catId = getCategories(bundle)[0]
   return (
     <tr
       className="u-c-pointer"
