@@ -1,6 +1,10 @@
 import startCase from 'lodash/startCase'
 import maxBy from 'lodash/maxBy'
 import groupBy from 'lodash/groupBy'
+import { getLabel as getTransactionLabel } from 'ducks/transactions/helpers'
+import { getCategoryId } from 'ducks/categories/helpers'
+
+const RECURRENCE_DOCTYPE = 'io.cozy.bank.recurrence'
 
 export const prettyLabel = label => {
   return label ? startCase(label.toLowerCase()) : ''
@@ -56,4 +60,18 @@ export const getAmount = bundle => {
 
 export const getCurrency = () => {
   return '€'
+}
+
+export const makeRecurrenceFromTransaction = transaction => {
+  return {
+    _type: RECURRENCE_DOCTYPE,
+    automaticLabel: getTransactionLabel(transaction),
+    stats: {
+      deltas: {
+        median: 30
+      }
+    },
+    amount: transaction.amount,
+    categoryId: getCategoryId(transaction)
+  }
 }

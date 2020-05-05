@@ -53,7 +53,10 @@ import TransactionCategoryEditor from './TransactionCategoryEditor'
 import TransactionApplicationDateEditor from './TransactionApplicationDateEditor'
 import TransactionRecurrenceEditor from 'ducks/transactions/TransactionRecurrenceEditor'
 
-import { getLabel as getRecurrenceLabel } from 'ducks/recurrence/utils'
+import {
+  getLabel as getRecurrenceLabel,
+  getFrequency
+} from 'ducks/recurrence/utils'
 import TransactionModalRow, {
   TransactionModalRowIcon,
   TransactionModalRowMedia,
@@ -167,7 +170,7 @@ const RecurrenceRow = withRouter(({ transaction, onClick, router }) => {
               <br />
               <Caption>
                 {t('Recurrence.frequency', {
-                  frequency: Math.floor(recurrence.stats.deltas.mean)
+                  frequency: Math.floor(getFrequency(recurrence))
                 })}
               </Caption>
               {router.location.pathname !== recurrenceRoute ? (
