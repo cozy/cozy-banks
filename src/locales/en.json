@@ -825,7 +825,8 @@
     "title": "Recurring payments",
     "choice": {
       "not-recurrent": "Occasional transaction",
-      "recurrent": "Recurrent transaction"
+      "recurrent": "Recurrent transaction",
+      "new-recurrence": "New recurrence"
     },
     "action-menu": {
       "open-button": "Act on recurrence",
@@ -835,7 +836,7 @@
       "finished": "Finished"
     },
     "rename": {
-      "modal-title": "Rename recurrence group",
+      "modal-title": "Rename recurrence",
       "save": "Save",
       "cancel": "Cancel",
       "save-success": "Saved!",

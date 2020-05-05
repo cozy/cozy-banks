@@ -836,7 +836,8 @@
     "title": "Paiements récurrents",
     "choice": {
       "not-recurrent": "Opération occasionelle",
-      "recurrent": "Opération récurrente"
+      "recurrent": "Opération récurrente",
+      "new-recurrence": "Nouvelle récurrence"
     },
     "action-menu": {
       "open-button": "Actions sur la récurrence",
