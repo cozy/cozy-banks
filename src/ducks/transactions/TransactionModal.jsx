@@ -159,11 +159,9 @@ const RecurrenceRow = withRouter(({ transaction, onClick, router }) => {
       </Img>
       <Bd>
         <div>
-          {recurrence ? (
-            getRecurrenceLabel(recurrence)
-          ) : (
-            <i>{t('Recurrence.choice.not-recurrent')}</i>
-          )}
+          {recurrence
+            ? getRecurrenceLabel(recurrence)
+            : t('Recurrence.choice.not-recurrent')}
           {recurrence ? (
             <>
               <br />

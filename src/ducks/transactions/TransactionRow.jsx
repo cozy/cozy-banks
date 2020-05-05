@@ -35,7 +35,7 @@ import {
   getDate,
   getApplicationDate
 } from 'ducks/transactions/helpers'
-import { getFrequencyWord } from 'ducks/recurrence/utils'
+import { getFrequencyText } from 'ducks/recurrence/utils'
 import styles from 'ducks/transactions/Transactions.styl'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 import TransactionModal from 'ducks/transactions/TransactionModal'
@@ -107,14 +107,10 @@ const ApplicationDateCaption = React.memo(function ApplicationDateCaption({
 
 const RecurrenceCaption = ({ recurrence }) => {
   const { t } = useI18n()
-  const frequency = recurrence.stats.deltas.median
-  const freqWord = getFrequencyWord(frequency)
-  const text = freqWord
-    ? t(`Recurrence.transaction.freq-info-word.${freqWord}`)
-    : t(`Recurrence.transaction.freq-info`, { frequency })
+  const freqText = getFrequencyText(t, recurrence)
   return (
     <Caption>
-      {text} <Icon icon={iconRecurrence} size="10" />
+      {freqText} <Icon icon={iconRecurrence} size="10" />
     </Caption>
   )
 }

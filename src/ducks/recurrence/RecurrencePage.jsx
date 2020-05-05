@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useRef } from 'react'
+import ReactDOM from 'react-dom'
 import { useClient, useQuery } from 'cozy-client'
 import { withRouter } from 'react-router'
 import {
@@ -27,7 +28,7 @@ import Table from 'components/Table'
 import Header from 'components/Header'
 import BackButton from 'components/BackButton'
 import BarTheme from 'ducks/bar/BarTheme'
-import { getLabel } from 'ducks/recurrence/utils'
+import { getLabel, getFrequencyText } from 'ducks/recurrence/utils'
 import {
   renameRecurrenceManually,
   setStatusOngoing,
@@ -48,11 +49,17 @@ import {
   ActionMenuItem,
   ActionMenuRadio
 } from 'cozy-ui/transpiled/react/ActionMenu'
+import styles from './styles.styl'
 
 const useDocument = (doctype, id) => {
   const client = useClient()
   return client.getDocumentFromState(doctype, id)
 }
+
+// TODO We should need to do this (isMobile ? portal : identity) but see
+// Cozy-UI's issue: https://github.com/cozy/cozy-ui/issues/1462
+const identity = x => x
+const portal = children => ReactDOM.createPortal(children, document.body)
 
 const RecurrenceActionMenu = ({
   recurrence,
@@ -62,12 +69,14 @@ const RecurrenceActionMenu = ({
   ...props
 }) => {
   const { isMobile } = useBreakpoints()
-  return (
+  const { t } = useI18n()
+  const wrapper = isMobile ? portal : identity
+  return wrapper(
     <ActionMenu {...props}>
       <ActionMenuHeader>
         <SubTitle>{getLabel(recurrence)}</SubTitle>
+        <Caption>{getFrequencyText(t, recurrence)}</Caption>
       </ActionMenuHeader>
-      <RenameActionItem onClick={onClickRename} />
       {isMobile ? (
         <>
           <OngoingActionItem recurrence={recurrence} onClick={onClickOngoing} />
@@ -75,8 +84,10 @@ const RecurrenceActionMenu = ({
             recurrence={recurrence}
             onClick={onClickFinished}
           />
+          <hr />
         </>
       ) : null}
+      <RenameActionItem onClick={onClickRename} />
     </ActionMenu>
   )
 }
@@ -232,13 +243,17 @@ const BundleInfo = withRouter(({ bundle, router }) => {
   }, [bundle, client, t])
 
   return (
-    <Header fixed theme="primary">
+    <Header fixed theme="inverted">
       {isMobile ? (
         <>
           <BackButton theme="primary" onClick={goToRecurrenceRoot} />
           <BarTitle>{getLabel(bundle)}</BarTitle>
           <BarRight>
-            <BarButton icon="dots" onClick={showActionsMenu} />
+            <BarButton
+              className={styles.BarRightButton}
+              icon="dots"
+              onClick={showActionsMenu}
+            />
           </BarRight>
           <AnalysisTabs />
           {showingActionsMenu ? (
@@ -326,6 +341,10 @@ const BundleInfo = withRouter(({ bundle, router }) => {
   )
 })
 
+const BundleMobileWrapper = ({ children }) => {
+  return <div className={styles.RecurrencesMobileContent}>{children}</div>
+}
+
 const BundleTransactions = ({ bundle }) => {
   const transactionsConn = bundleTransactionsQueryConn({ bundle })
   const { isMobile } = useBreakpoints()
@@ -339,9 +358,10 @@ const BundleTransactions = ({ bundle }) => {
   }
 
   const TransactionRow = isMobile ? TransactionRowMobile : TransactionRowDesktop
+  const Wrapper = isMobile ? BundleMobileWrapper : Table
   return (
     <>
-      <Table style={{ flex: 'none' }}>
+      <Wrapper>
         {transactions.map(tr => (
           <TransactionRow
             showRecurrence={false}
@@ -349,7 +369,7 @@ const BundleTransactions = ({ bundle }) => {
             key={tr._id}
           />
         ))}
-      </Table>
+      </Wrapper>
     </>
   )
 }

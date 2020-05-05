@@ -35,3 +35,25 @@ export const getFrequencyWord = freq => {
     return 'yearly'
   }
 }
+
+export const getFrequency = recurrence => {
+  return recurrence.stats.deltas.median
+}
+
+export const getFrequencyText = (t, recurrence) => {
+  const frequency = getFrequency(recurrence)
+  const freqWord = getFrequencyWord(frequency)
+  const text = freqWord
+    ? t(`Recurrence.transaction.freq-info-word.${freqWord}`)
+    : t(`Recurrence.transaction.freq-info`, { frequency })
+  return text
+}
+
+export const getAmount = bundle => {
+  const amount = bundle.amount.split(' / ')
+  return amount[0]
+}
+
+export const getCurrency = () => {
+  return '€'
+}

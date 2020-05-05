@@ -10,16 +10,17 @@ import { RECURRENCE_DOCTYPE } from 'doctypes'
 const optionFromRecurrence = rec => {
   return {
     _id: rec._id,
+    _type: RECURRENCE_DOCTYPE,
     title: getLabel(rec),
     icon: <CategoryIcon categoryId={rec.categoryId} />
   }
 }
 
 const isSelectedHelper = (item, currentId) => {
-  if (item.id === 'not-recurrent' && !currentId) {
+  if (item._id === 'not-recurrent' && !currentId) {
     return true
   }
-  if (item.id === 'recurrent' && currentId) {
+  if (item._id === 'recurrent' && currentId) {
     return true
   }
   if (item._id === currentId) {
@@ -51,7 +52,7 @@ const TransactionRecurrenceEditor = ({
     [allRecurrences]
   )
 
-  const handleSelect = async recurrence => {
+  const handleSelect = async recurrenceChoice => {
     if (beforeUpdate) {
       await beforeUpdate()
     }
@@ -59,7 +60,7 @@ const TransactionRecurrenceEditor = ({
     const newTransaction = await updateTransactionRecurrence(
       client,
       transaction,
-      recurrence
+      recurrenceChoice
     )
     if (afterUpdate) {
       await afterUpdate(newTransaction)
@@ -81,7 +82,7 @@ const TransactionRecurrenceEditor = ({
             title: t('Recurrence.choice.not-recurrent')
           },
           {
-            id: RECURRENT_ID,
+            _id: RECURRENT_ID,
             title: t('Recurrence.choice.recurrent'),
             description: current && getLabel(current),
             children: recurrenceOptions

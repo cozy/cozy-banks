@@ -47,7 +47,6 @@
     "sharing": "Sharing",
     "back-to-accounts": "Back to accounts",
     "update": "Update",
-    "save": "Save",
     "delete": "Reset",
     "deleting": "Resetting...",
     "confirm-deletion": {
@@ -839,7 +838,7 @@
       "modal-title": "Rename recurrence group",
       "save": "Save",
       "cancel": "Cancel",
-      "save-success": "Saved !",
+      "save-success": "Saved!",
       "save-error": "Could not rename, try again later"
     },
     "transaction": {
