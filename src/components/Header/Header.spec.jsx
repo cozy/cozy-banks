@@ -4,7 +4,7 @@ import Header from './Header'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
 
 describe('Header', () => {
-  const setup = element => mount(element).find('div')
+  const setup = element => mount(element).html()
 
   it(`should display children`, () => {
     expect(setup(<Header>content</Header>)).toMatchSnapshot()
