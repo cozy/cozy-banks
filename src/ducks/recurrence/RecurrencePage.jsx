@@ -345,6 +345,14 @@ const BundleMobileWrapper = ({ children }) => {
   return <div className={styles.RecurrencesMobileContent}>{children}</div>
 }
 
+const BundleDesktopWrapper = ({ children }) => {
+  return (
+    <Table>
+      <tbody>{children}</tbody>
+    </Table>
+  )
+}
+
 const BundleTransactions = ({ bundle }) => {
   const transactionsConn = bundleTransactionsQueryConn({ bundle })
   const { isMobile } = useBreakpoints()
@@ -358,7 +366,7 @@ const BundleTransactions = ({ bundle }) => {
   }
 
   const TransactionRow = isMobile ? TransactionRowMobile : TransactionRowDesktop
-  const Wrapper = isMobile ? BundleMobileWrapper : Table
+  const Wrapper = isMobile ? BundleMobileWrapper : BundleDesktopWrapper
   return (
     <>
       <Wrapper>
