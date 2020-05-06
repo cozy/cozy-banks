@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import fs from 'fs'
 import { ArgumentParser } from 'argparse'
-import { findRecurringBundles, getRulesFromConfig } from './rules'
+import { findRecurrences, getRulesFromConfig } from './rules'
 import defaultConfig from './config.json'
 
 const loadOperations = filename => {
@@ -20,7 +20,7 @@ const main = async () => {
   })
   const args = parser.parseArgs()
   const operations = loadOperations(args.filename)
-  const bundles = findRecurringBundles(operations, rules)
+  const bundles = findRecurrences(operations, rules)
   for (let bundle of bundles) {
     console.log({ categoryId: bundle.categoryId, amount: bundle.amount })
     bundle.ops.forEach(op => console.log(op.label))

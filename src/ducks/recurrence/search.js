@@ -14,7 +14,7 @@ const assert = (pred, msg) => {
   }
 }
 
-export const updateBundles = (bundles, newTransactions, rules) => {
+export const updateRecurrences = (bundles, newTransactions, rules) => {
   if (!newTransactions.length) {
     return bundles
   }
@@ -25,7 +25,7 @@ export const updateBundles = (bundles, newTransactions, rules) => {
   let updatedBundles
 
   if (dateSpan > 90 && newTransactions.length > 100) {
-    const newBundles = findRecurringBundles(newTransactions, rules)
+    const newBundles = findRecurrences(newTransactions, rules)
     const allBundles = [...bundles, ...newBundles]
     updatedBundles = groupBundles(allBundles, sameFirstLabel)
   } else {
@@ -51,7 +51,7 @@ export const updateBundles = (bundles, newTransactions, rules) => {
  * @param  {array} rules
  * @return {array} recurring bundles
  */
-export const findRecurringBundles = (operations, rules) => {
+export const findRecurrences = (operations, rules) => {
   const groups = groupBy(
     operations,
     x => `${x.manualCategoryId || x.automaticCategoryId}/${x.amount}`
@@ -88,4 +88,14 @@ export const findRecurringBundles = (operations, rules) => {
   }
 
   return bundles
+}
+
+export const findAndUpdateRecurrences = (recurrences, operations, rules) => {
+  let updatedRecurrences
+  if (recurrences.length === 0) {
+    updatedRecurrences = findRecurrences(operations, rules)
+  } else {
+    updatedRecurrences = updateRecurrences(recurrences, operations, rules)
+  }
+  return updatedRecurrences
 }

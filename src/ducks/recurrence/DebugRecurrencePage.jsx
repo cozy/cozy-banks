@@ -22,7 +22,7 @@ import RulesDetails from './RulesDetails'
 import DateSlider from './DateSlider'
 import { getRulesFromConfig, rulesPerName } from './rules'
 import { getAutomaticLabelFromBundle } from './utils'
-import { findRecurringBundles, updateBundles } from './search'
+import { findRecurrences, updateRecurrences } from './search'
 import useStickyState from './useStickyState'
 
 const immutableSet = (object, path, value) => {
@@ -235,10 +235,10 @@ const RecurrencePage = () => {
     [transactions, bundlesDate]
   )
 
-  const bundles = useMemo(
-    () => findRecurringBundles(bundlesTransactions, rules),
-    [bundlesTransactions, rules]
-  )
+  const bundles = useMemo(() => findRecurrences(bundlesTransactions, rules), [
+    bundlesTransactions,
+    rules
+  ])
 
   const newTransactions = useMemo(
     () =>
@@ -255,10 +255,16 @@ const RecurrencePage = () => {
     'banks.recurrence.bundleFilter'
   )
 
-  const updatedBundles = useMemo(
-    () => updateBundles(bundles, newTransactions, rules),
-    [bundles, newTransactions, rules]
-  )
+  const updatedBundles = useMemo(() => {
+    let curBundles = bundles
+    const byDay = groupBy(newTransactions, x => x.date.slice(0, 10))
+    const days = sortBy(Object.keys(byDay), x => x)
+    for (let day of days) {
+      const newTransactionsOfDay = byDay[day]
+      curBundles = updateRecurrences(bundles, newTransactionsOfDay, rules)
+    }
+    return curBundles
+  }, [bundles, newTransactions, rules])
 
   const finalBundles = useMemo(() => {
     const filteredBundles = updatedBundles.filter(
