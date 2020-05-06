@@ -6,10 +6,7 @@ import { createMockClient } from 'cozy-client/dist/mock'
 import fixtures from 'test/fixtures/unit-tests.json'
 import { schema, TRANSACTION_DOCTYPE, RECURRENCE_DOCTYPE } from 'doctypes'
 import Radio from 'cozy-ui/transpiled/react/Radio'
-
-// TODO Remove this when https://github.com/cozy/cozy-ui/pull/1464 is merged
-import { ItemRow } from 'cozy-ui/transpiled/react/NestedSelect/NestedSelect'
-const findOptions = root => root.find(ItemRow)
+import { findOptions } from 'cozy-ui/transpiled/react/NestedSelect/testing'
 
 describe('transaction recurrence editor', () => {
   const setup = () => {
