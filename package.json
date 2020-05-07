@@ -132,6 +132,7 @@
     "madge": "3.4.4",
     "mailhog": "4.7.0",
     "mockdate": "2.0.5",
+    "module-alias": "^2.2.2",
     "moment-locales-webpack-plugin": "1.1.0",
     "npm-run-all": "4.1.5",
     "null-loader": "3.0.0",
@@ -218,5 +219,11 @@
   },
   "optionalDependencies": {
     "xsltproc": "0.0.4"
+  },
+  "_moduleDirectories": [
+    "src"
+  ],
+  "_moduleAliases": {
+    "cozy-ui/transpiled/react/utils/color": "src/ducks/notifications/noop"
   }
 }

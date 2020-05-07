@@ -3,8 +3,18 @@ import unique from 'lodash/uniq'
 import compose from 'lodash/flowRight'
 import maxBy from 'lodash/maxBy'
 import minBy from 'lodash/maxBy'
+import flatMap from 'lodash/flatMap'
 
-import { sameFirstLabel, groupBundles, addStats, overEvery } from './rules'
+import defaultRulesConfig from './config.json'
+import {
+  getRulesFromConfig,
+  sameLabel,
+  groupBundles,
+  addStats,
+  overEvery
+} from './rules'
+
+import { getLabel } from 'ducks/transactions/helpers'
 
 const ONE_DAY = 86400 * 1000
 
@@ -27,11 +37,11 @@ export const updateRecurrences = (bundles, newTransactions, rules) => {
   if (dateSpan > 90 && newTransactions.length > 100) {
     const newBundles = findRecurrences(newTransactions, rules)
     const allBundles = [...bundles, ...newBundles]
-    updatedBundles = groupBundles(allBundles, sameFirstLabel)
+    updatedBundles = groupBundles(allBundles, sameLabel)
   } else {
     const newBundles = newTransactions.map(t => ({ ops: [t] }))
     const allBundles = [...bundles, ...newBundles]
-    updatedBundles = groupBundles(allBundles, sameFirstLabel)
+    updatedBundles = groupBundles(allBundles, sameLabel)
   }
 
   updatedBundles = bundles.map(addStats)
@@ -49,22 +59,23 @@ export const updateRecurrences = (bundles, newTransactions, rules) => {
  *
  * @param  {array} operations
  * @param  {array} rules
- * @return {array} recurring bundles
+ * @return {array} recurrence groups
  */
 export const findRecurrences = (operations, rules) => {
   const groups = groupBy(
     operations,
-    x => `${x.manualCategoryId || x.automaticCategoryId}/${x.amount}`
+    x => `${x.manualCategoryId || x.automaticCategoryId}`
   )
 
-  let bundles = Object.entries(groups).map(([key, ops]) => {
-    const [categoryId, amount] = key.split('/')
-    return {
+  let bundles = flatMap(Object.entries(groups), ([categoryId, ops]) => {
+    const perAmount = groupBy(ops, op => op.amount)
+    return Object.entries(perAmount).map(([amount, ops]) => ({
       categoryIds: [categoryId],
       amounts: [parseInt(amount, 10)],
-      key,
-      ops
-    }
+      key: `${categoryId}/${amount}`,
+      ops,
+      automaticLabel: getLabel(ops[0])
+    }))
   })
 
   const groupedByStage = groupBy(rules, rule => rule.stage)
@@ -90,7 +101,9 @@ export const findRecurrences = (operations, rules) => {
   return bundles
 }
 
-export const findAndUpdateRecurrences = (recurrences, operations, rules) => {
+export const findAndUpdateRecurrences = (recurrences, operations) => {
+  const rules = getRulesFromConfig(defaultRulesConfig)
+
   let updatedRecurrences
   if (recurrences.length === 0) {
     updatedRecurrences = findRecurrences(operations, rules)

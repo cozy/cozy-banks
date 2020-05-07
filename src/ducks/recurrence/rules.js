@@ -68,7 +68,9 @@ export const overEvery = predicates => item => {
 }
 
 function customizer(objValue, srcValue) {
-  if (isArray(objValue)) {
+  if (isString(objValue)) {
+    return objValue
+  } else if (isArray(objValue)) {
     return objValue.concat(srcValue)
   } else if (isString(objValue)) {
     return `${objValue} / ${srcValue}`
@@ -90,8 +92,13 @@ export const groupBundles = (bundles, rules) => {
   return Object.values(groups).map(mergeBundles)
 }
 
-export const sameFirstLabel = bundle => {
-  return bundle.ops[0].label
+export const sameLabel = bundle => {
+  if (bundle.ops) {
+    return bundle.ops[0].label
+  } else {
+    // TODO use label helper
+    return bundle.manualLabel || bundle.automaticLabel
+  }
 }
 
 export const categoryShouldBeSet = () =>
@@ -183,7 +190,7 @@ export const rulesPerName = {
     type: 'filter'
   },
   mergeBundles: {
-    rule: () => sameFirstLabel,
+    rule: () => sameLabel,
     description: 'Merge similar bundles',
     stage: 3,
     type: 'group'

@@ -1,33 +1,23 @@
 import get from 'lodash/get'
 import set from 'lodash/set'
 
-import CozyClient, { Q } from 'cozy-client'
+import CozyClient from 'cozy-client'
 import { cozyClient } from 'cozy-konnector-libs'
 import logger from 'cozy-logger'
 import flag from 'cozy-flags'
-import {
-  Document,
-  RECURRENCE_DOCTYPE,
-  TRANSACTION_DOCTYPE
-} from 'cozy-doctypes'
+import { Document } from 'cozy-doctypes'
 
 import { sendNotifications } from 'ducks/notifications/services'
 import matchFromBills from 'ducks/billsMatching/matchFromBills'
 import matchFromTransactions from 'ducks/billsMatching/matchFromTransactions'
 import { logResult } from 'ducks/billsMatching/utils'
-
-import {
-  findAndUpdateRecurrences,
-  getRulesFromConfig,
-  defaultRulesConfig
-} from 'ducks/recurrence'
+import { doRecurrenceMatching } from 'ducks/recurrence/service'
 
 import { Transaction, Bill, Settings } from 'models'
 import isCreatedDoc from 'utils/isCreatedDoc'
 import { findAppSuggestions } from 'ducks/appSuggestions/services'
 import { fetchChangesOrAll, getOptions } from './helpers'
 import assert from '../../utils/assert'
-import addDays from 'date-fns/addDays'
 
 const log = logger.namespace('onOperationOrBillCreate')
 
@@ -92,45 +82,6 @@ const doTransactionsMatching = async (setting, options = {}) => {
     }
   } catch (e) {
     log('error', `[matching service] ${e}`)
-  }
-}
-
-/**
- * Fetches
- *   - transactions in the last 3 months
- *   - current recurrences
- * and update recurrences and operations according to recurrence matching
- * algorithm.
- */
-const doRecurrenceMatching = async client => {
-  try {
-    const recurrenceCol = client.collection(RECURRENCE_DOCTYPE)
-    const recurrences = await recurrenceCol.all()
-
-    const threeMonthsAgo = addDays(new Date(), -90)
-    const { data: newTransactions } = client.query(
-      Q(TRANSACTION_DOCTYPE).where({
-        date: {
-          $gt: threeMonthsAgo.toISOString().slice(0, 10)
-        }
-      })
-    )
-
-    const rules = getRulesFromConfig(defaultRulesConfig)
-
-    const updatedRecurrences = findAndUpdateRecurrences(
-      recurrences,
-      newTransactions,
-      rules
-    )
-
-    log(
-      'info',
-      `Found ${updatedRecurrences.length - recurrences.length} new recurrences`
-    )
-    await recurrenceCol.updateAll(updatedRecurrences)
-  } catch (e) {
-    log('error', `[recurrence service] ${e}`)
   }
 }
 
