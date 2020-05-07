@@ -12,6 +12,7 @@ import Field from 'cozy-ui/transpiled/react/Field'
 import { Media, Img, Bd } from 'cozy-ui/transpiled/react/Media'
 import { SubTitle, Caption } from 'cozy-ui/transpiled/react/Text'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import Empty from 'cozy-ui/transpiled/react/Empty'
 import Breadcrumbs from 'cozy-ui/transpiled/react/Breadcrumbs'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
@@ -393,6 +394,7 @@ const BundleTransactionMobile = ({ transaction }) => {
 const BundleTransactions = ({ bundle }) => {
   const transactionsConn = bundleTransactionsQueryConn({ bundle })
   const { isMobile } = useBreakpoints()
+  const { t } = useI18n()
   const { data: transactions } = useQuery(
     transactionsConn.query,
     transactionsConn
@@ -410,6 +412,15 @@ const BundleTransactions = ({ bundle }) => {
   return (
     <>
       <Wrapper>
+        {transactions.length === 0 ? (
+          <Padded>
+            <Empty
+              icon={{}}
+              title={t('Recurrence.no-transactions.title')}
+              text={t('Recurrence.no-transactions.text')}
+            />
+          </Padded>
+        ) : null}
         {transactions.map(tr => (
           <TransactionRow
             showRecurrence={false}

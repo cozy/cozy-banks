@@ -825,8 +825,12 @@
     "display-error": "Nous sommes désolés, une erreur a empêché l'affichage de cette page. Vous pouvez aller sur la page de debug pour réinitialiser les récurrences, et rechargez la page pour essayer de résoudre le problème.",
     "go-to-debug-page": "Aller sur la page de debug",
     "no-recurrences": {
-      "title": "Aucune transaction récurrente",
-      "text": "Aucune transaction récurrente n'a encore été trouvée. Indiquez une opération comme récurrente pour aider l'algorithme de détection à démarrer."
+      "title": "Aucune opération récurrente",
+      "text": "Aucune opération récurrente n'a encore été trouvée. Indiquez une opération comme récurrente pour aider l'algorithme de détection à démarrer."
+    },
+    "no-transactions": {
+      "title": "Aucune opération",
+      "text": "Cette récurrence ne contient aucune opération, vous pouvez la supprimer."
     },
     "table": {
       "frequency": "Fréquence",

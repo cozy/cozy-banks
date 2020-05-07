@@ -817,6 +817,10 @@
       "title": "No recurring transactions",
       "text": "No recurring transactions have been found yet. Set a transaction as recurrent to kickstart the detection algorithm."
     },
+    "no-transactions": {
+      "title": "No transactions",
+      "text": "This recurrence does not contain any transactions, you may want to delete it."
+    },
     "table": {
       "frequency": "Frequency",
       "label": "Label",
