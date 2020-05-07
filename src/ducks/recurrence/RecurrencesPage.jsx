@@ -5,6 +5,7 @@ import cx from 'classnames'
 import { useQuery } from 'cozy-client'
 import { ButtonLink } from 'cozy-ui/transpiled/react/Button'
 import CompositeRow from 'cozy-ui/transpiled/react/CompositeRow'
+import Empty from 'cozy-ui/transpiled/react/Empty'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Breadcrumbs from 'cozy-ui/transpiled/react/Breadcrumbs'
@@ -211,14 +212,21 @@ const RecurrencesPage = ({ router }) => {
         <Padded>
           <Loading />
         </Padded>
-      ) : null}
-      <BundlesWrapper>
-        {bundles
-          ? bundles.map(bundle => (
-              <BundleRow key={bundle._id} bundle={bundle} />
-            ))
-          : null}
-      </BundlesWrapper>
+      ) : bundles && bundles.length > 0 ? (
+        <BundlesWrapper>
+          {bundles.map(bundle => (
+            <BundleRow key={bundle._id} bundle={bundle} />
+          ))}
+        </BundlesWrapper>
+      ) : (
+        <Padded>
+          <Empty
+            icon={{}}
+            title={t('Recurrence.no-recurrences.title')}
+            text={t('Recurrence.no-recurrences.text')}
+          />
+        </Padded>
+      )}
     </>
   )
 }
