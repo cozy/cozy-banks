@@ -206,6 +206,16 @@
       "description": "Show recipients of transfers",
       "type": "io.cozy.bank.recipients"
     },
+    "bank.recurrence": {
+      "description": "Manage your recurring bundles your Cozy",
+      "type": "io.cozy.bank.recurrence",
+      "verbs": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE"
+      ]
+    },
     "bills": {
       "description": "Manage bills",
       "type": "io.cozy.bills",
@@ -296,5 +306,5 @@
       ]
     }
   },
-  "version": "1.13.0"
+  "version": "1.17.0"
 }
