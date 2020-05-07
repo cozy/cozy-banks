@@ -26,7 +26,7 @@ import Table from 'components/Table'
 import Header from 'components/Header'
 import BackButton from 'components/BackButton'
 import PageTitle from 'components/Title/PageTitle'
-import { Figure } from 'components/Figure'
+import Figure from 'cozy-ui/transpiled/react/Figure'
 
 import frLocale from 'date-fns/locale/fr'
 import enLocale from 'date-fns/locale/en'

@@ -15,7 +15,7 @@ import {
 } from 'cozy-ui/transpiled/react'
 import flag from 'cozy-flags'
 
-import { Figure } from 'components/Figure'
+import Figure from 'cozy-ui/transpiled/react/Figure'
 import { TdSecondary } from 'components/Table'
 import * as List from 'components/List'
 
