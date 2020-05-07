@@ -17,7 +17,7 @@ import { transactionsConn } from 'doctypes'
 import tree from 'ducks/categories/tree'
 
 import defaultConfig from './config.json'
-import { saveBundles, resetBundles } from './api'
+import { saveHydratedBundles, resetBundles } from './api'
 import RulesDetails from './RulesDetails'
 import DateSlider from './DateSlider'
 import { getRulesFromConfig, rulesPerName } from './rules'
@@ -282,7 +282,7 @@ const RecurrencePage = () => {
     async function() {
       setSavingBundles(true)
       try {
-        await saveBundles(client, finalBundles)
+        await saveHydratedBundles(client, finalBundles)
       } catch (error) {
         Alerter.error(error.message)
       } finally {

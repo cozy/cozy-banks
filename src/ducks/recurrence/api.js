@@ -11,7 +11,18 @@ const addRelationship = (doc, relationshipName, definition) => {
   return set(doc, ['relationships', relationshipName], { data: definition })
 }
 
-export const saveBundles = async (client, recurrenceClientBundles) => {
+/**
+ * Saves recurrence bundles and update related transactions
+ *
+ * Recurrence bundles here are "hydrated" with an `ops` attribute with
+ * all its operations. In CouchDB, the `ops` field is not present, the
+ * transactions have a HasOne relationship to the bundle.
+ *
+ * @param  {CozyClient} client
+ * @param  {HydratedRecurrence} recurrences - Bundles with `ops` attributes
+ * @return {Promise}
+ */
+export const saveHydratedBundles = async (client, recurrenceClientBundles) => {
   const recurrenceCol = client.collection(RECURRENCE_DOCTYPE)
   const saveBundlesResp = await recurrenceCol.updateAll(
     recurrenceClientBundles.map(bundle => {
