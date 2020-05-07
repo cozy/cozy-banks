@@ -811,6 +811,8 @@
   "Recurrence": {
     "frequency": "Every %{frequency} days",
     "see-transaction-history": "Go to history",
+    "display-error": "We are sorry, an error happened during the display of this page. You can go to the debug page to reset the recurrences and reload the page to try to solve this problem.",
+    "go-to-debug-page": "Go to debug page",
     "table": {
       "frequency": "Frequency",
       "label": "Label",

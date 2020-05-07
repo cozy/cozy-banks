@@ -822,6 +822,8 @@
   "Recurrence": {
     "frequency": "tous les %{frequency} jours",
     "see-transaction-history": "Voir l'historique",
+    "display-error": "Nous sommes désolés, une erreur a empêché l'affichage de cette page. Vous pouvez aller sur la page de debug pour réinitialiser les récurrences, et rechargez la page pour essayer de résoudre le problème.",
+    "go-to-debug-page": "Aller sur la page de debug",
     "table": {
       "frequency": "Fréquence",
       "label": "Libellé",

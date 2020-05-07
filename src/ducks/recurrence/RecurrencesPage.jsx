@@ -3,6 +3,7 @@ import { withRouter, Link } from 'react-router'
 import cx from 'classnames'
 
 import { useQuery } from 'cozy-client'
+import { ButtonLink } from 'cozy-ui/transpiled/react/Button'
 import CompositeRow from 'cozy-ui/transpiled/react/CompositeRow'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
@@ -37,6 +38,8 @@ import {
   getLabel,
   getCategories
 } from './utils'
+
+import withError from 'components/withError'
 
 const BundleFrequency = ({ bundle }) => {
   const { t } = useI18n()
@@ -220,4 +223,22 @@ const RecurrencesPage = ({ router }) => {
   )
 }
 
-export default withRouter(RecurrencesPage)
+const RecurrenceError = ({ error }) => {
+  const { t } = useI18n()
+
+  return (
+    <Padded>
+      <p>{t('Recurrence.display-error')}</p>
+      <ButtonLink
+        href="#/recurrencedebug"
+        label={t('Recurrence.go-to-debug-page')}
+      />
+      <pre>
+        {error.message}
+        {error.stack}
+      </pre>
+    </Padded>
+  )
+}
+
+export default withError(withRouter(RecurrencesPage), RecurrenceError)
