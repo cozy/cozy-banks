@@ -28,7 +28,7 @@ import {
 
 import { getCategoryName } from 'ducks/categories/categoriesMap'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
-import { getCategoryId } from 'ducks/categories/helpers'
+import { getCategoryId } from 'ducks/transactions/helpers'
 import { withUpdateCategory } from 'ducks/categories'
 import {
   getLabel,
