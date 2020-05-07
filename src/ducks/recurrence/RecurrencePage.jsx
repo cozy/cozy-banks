@@ -50,6 +50,7 @@ import {
 } from 'cozy-ui/transpiled/react/ActionMenu'
 import styles from './styles.styl'
 import * as List from 'components/List'
+import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 
 const useDocument = (doctype, id) => {
   const client = useClient()
@@ -395,14 +396,13 @@ const BundleTransactions = ({ bundle }) => {
   const transactionsConn = bundleTransactionsQueryConn({ bundle })
   const { isMobile } = useBreakpoints()
   const { t } = useI18n()
-  const { data: transactions } = useQuery(
-    transactionsConn.query,
-    transactionsConn
-  )
+  const transactionCol = useQuery(transactionsConn.query, transactionsConn)
 
-  if (!transactions) {
-    return null
+  if (isCollectionLoading(transactionCol) && !hasBeenLoaded(transactionCol)) {
+    return <Loading />
   }
+
+  const transactions = transactionCol.data
 
   const TransactionRow = isMobile
     ? BundleTransactionMobile
@@ -434,15 +434,12 @@ const BundleTransactions = ({ bundle }) => {
 }
 
 const RecurrenceBundlePage = ({ params }) => {
-  const { data: bundles, fetchStatus } = useQuery(
-    recurrenceConn.query,
-    recurrenceConn
-  )
+  const recurrenceCol = useQuery(recurrenceConn.query, recurrenceConn)
 
   const bundleId = params.bundleId
   const bundle = useDocument(RECURRENCE_DOCTYPE, bundleId)
 
-  if (fetchStatus === 'loading' && !bundles) {
+  if (isCollectionLoading(recurrenceCol) && !hasBeenLoaded(recurrenceCol)) {
     return <Loading />
   }
 
