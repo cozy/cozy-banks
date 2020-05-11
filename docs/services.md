@@ -1,5 +1,8 @@
 # Services
 
+This document describes services running as part of the
+Banks application.
+
 <!-- MarkdownTOC autolink=true -->
 
 - [Categorization](#categorization)
@@ -8,17 +11,11 @@
 - [Automatic groups](#automatic-groups)
 - [Budget alerts](#budget-alerts)
 - [I am writing a banking konnector, what should I do?](#i-am-writing-a-banking-konnector-what-should-i-do)
+- [Recurrences](#recurrences)
 - [Developing](#developing)
 
 <!-- /MarkdownTOC -->
 
-
-Banks exposes the following services:
-
-* [categorization](#categorization)
-* [onOperationOrBillCreate](#onoperationorbillcreate)
-* [Account stats](#stats)
-* [Automatic groups](#goups)
 
 ## Categorization
 
@@ -117,6 +114,13 @@ following permission to your `manifest.konnector`:
 With this, the transactions you created will be categorized, then the
 `onOperationOrBillCreate` service will be launched and do its work.
 
+## Recurrences
+
+A service tries to find recurrence groups when new operations are inserted
+in the Cozy. It either creates new recurrence groups or attaches transactions
+to existing recurrence groups.
+
+See Paper "Paiements recurrents" for more information on the service.
 
 ## Developing
 
