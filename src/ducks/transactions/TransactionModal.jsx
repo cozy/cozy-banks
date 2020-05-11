@@ -309,6 +309,19 @@ const TransactionModalInfoContent = withTransaction(props => {
           ].filter(x => x.value)}
         />
       </TransactionModalRow>
+      <TransactionModalRowMedia onClick={handleShowCategoryChoice}>
+        <Img>
+          <CategoryIcon categoryId={categoryId} />
+        </Img>
+        <Bd>
+          {t(
+            `Data.subcategories.${getCategoryName(getCategoryId(transaction))}`
+          )}
+        </Bd>
+        <Img>
+          <RowArrow />
+        </Img>
+      </TransactionModalRowMedia>
       <TransactionModalRowMedia onClick={handleShowApplicationEditor}>
         <TransactionModalRowIcon icon={iconCalendar} />
         <Bd>
@@ -334,19 +347,6 @@ const TransactionModalInfoContent = withTransaction(props => {
             <Spinner />
           </Img>
         ) : null}
-        <Img>
-          <RowArrow />
-        </Img>
-      </TransactionModalRowMedia>
-      <TransactionModalRowMedia onClick={handleShowCategoryChoice}>
-        <Img>
-          <CategoryIcon categoryId={categoryId} />
-        </Img>
-        <Bd>
-          {t(
-            `Data.subcategories.${getCategoryName(getCategoryId(transaction))}`
-          )}
-        </Bd>
         <Img>
           <RowArrow />
         </Img>
