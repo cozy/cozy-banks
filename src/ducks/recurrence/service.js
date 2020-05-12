@@ -50,6 +50,12 @@ const logDifferences = (oldRecurrences, updatedRecurrences) => {
         .length - oldById[id].ops.length})`
     )
   }
+  for (const rec of newRecurrences) {
+    log(
+      'info',
+      `${getLabel(rec)}: ${rec.ops.length} operations (+${rec.ops.length})`
+    )
+  }
 }
 
 /**
