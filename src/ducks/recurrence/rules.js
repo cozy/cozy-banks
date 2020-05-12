@@ -8,6 +8,7 @@ import compose from 'lodash/flowRight'
 import some from 'lodash/some'
 import maxBy from 'lodash/maxBy'
 import uniq from 'lodash/uniq'
+import uniqBy from 'lodash/uniqBy'
 import getCategoryId from 'ducks/transactions/getCategoryId'
 
 const ONE_DAY = 86400 * 1000
@@ -90,6 +91,8 @@ export const mergeCategoryIds = (objValue, srcValue, key, obj, src) => {
 function customizer(objValue, srcValue, key, obj, src) {
   if (key === 'categoryIds') {
     return mergeCategoryIds(objValue, srcValue, key, obj, src)
+  } else if (key == 'ops') {
+    return uniqBy(objValue.concat(srcValue), x => x._id)
   } else if (isString(objValue)) {
     return objValue
   } else if (isArray(objValue)) {
