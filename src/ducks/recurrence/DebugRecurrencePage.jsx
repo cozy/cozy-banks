@@ -257,6 +257,9 @@ const RecurrencePage = () => {
 
   const updatedBundles = useMemo(() => {
     let curBundles = bundles
+
+    // To mimic as much as possible the entry of new operations per day
+    // (a connector is run per day), we update bundles day per day
     const byDay = groupBy(newTransactions, x => x.date.slice(0, 10))
     const days = sortBy(Object.keys(byDay), x => x)
     for (let day of days) {
