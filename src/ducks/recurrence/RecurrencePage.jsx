@@ -79,18 +79,18 @@ const RecurrenceActionMenu = ({
         <SubTitle>{getLabel(recurrence)}</SubTitle>
         <Caption>{getFrequencyText(t, recurrence)}</Caption>
       </ActionMenuHeader>
+      <RenameActionItem onClick={onClickRename} />
+      <DeleteActionItem onClick={onClickDelete} />
       {isMobile ? (
         <>
+          <hr />
           <OngoingActionItem recurrence={recurrence} onClick={onClickOngoing} />
           <FinishedActionItem
             recurrence={recurrence}
             onClick={onClickFinished}
           />
-          <hr />
         </>
       ) : null}
-      <RenameActionItem onClick={onClickRename} />
-      <DeleteActionItem onClick={onClickDelete} />
     </ActionMenu>
   )
 }
