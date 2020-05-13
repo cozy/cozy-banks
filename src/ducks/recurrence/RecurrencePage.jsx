@@ -26,7 +26,7 @@ import Table from 'components/Table'
 import Header from 'components/Header'
 import BackButton from 'components/BackButton'
 import BarTheme from 'ducks/bar/BarTheme'
-import { getLabel, getFrequencyText } from 'ducks/recurrence/utils'
+import { getLabel } from 'ducks/recurrence/utils'
 import {
   renameRecurrenceManually,
   setStatusOngoing,
@@ -44,7 +44,6 @@ import TransactionsTableHead from 'ducks/transactions/header/TableHead'
 import { BarRight } from 'components/Bar'
 import { BarButton, ActionMenu, Icon } from 'cozy-ui/transpiled/react'
 import {
-  ActionMenuHeader,
   ActionMenuItem,
   ActionMenuRadio
 } from 'cozy-ui/transpiled/react/ActionMenu'
@@ -71,14 +70,9 @@ const RecurrenceActionMenu = ({
   ...props
 }) => {
   const { isMobile } = useBreakpoints()
-  const { t } = useI18n()
   const wrapper = isMobile ? portal : identity
   return wrapper(
     <ActionMenu {...props}>
-      <ActionMenuHeader>
-        <SubTitle>{getLabel(recurrence)}</SubTitle>
-        <Caption>{getFrequencyText(t, recurrence)}</Caption>
-      </ActionMenuHeader>
       <RenameActionItem onClick={onClickRename} />
       <DeleteActionItem onClick={onClickDelete} />
       {isMobile ? (
