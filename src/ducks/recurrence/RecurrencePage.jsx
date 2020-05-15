@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react'
+import React, { useCallback, useRef } from 'react'
 import ReactDOM from 'react-dom'
 import { useClient, useQuery } from 'cozy-client'
 import { withRouter } from 'react-router'
@@ -50,6 +50,8 @@ import {
 import styles from './styles.styl'
 import * as List from 'components/List'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
+import useToggle from 'components/useToggle'
+import ActionMenuHelper from 'components/ActionMenuHelper'
 
 const useDocument = (doctype, id) => {
   const client = useClient()
@@ -186,30 +188,6 @@ const RenameBundleModal = ({ bundle, dismissAction }) => {
         />
       </ModalContent>
     </Modal>
-  )
-}
-
-const useToggle = initial => {
-  const [val, setVal] = useState(initial)
-  const setTrue = useCallback(() => setVal(true), [setVal])
-  const setFalse = useCallback(() => setVal(false), [setVal])
-  return [val, setTrue, setFalse]
-}
-
-const ActionMenuHelper = ({ opener, menu }) => {
-  const [opened, openMenu, closeMenu] = useToggle(false)
-  const openerRef = useRef()
-  return (
-    <div className="u-inline-flex">
-      {React.cloneElement(opener, { onClick: openMenu, ref: openerRef })}
-      {opened
-        ? React.cloneElement(menu, {
-            autoclose: true,
-            onClose: closeMenu,
-            placement: 'bottom-end'
-          })
-        : null}
-    </div>
   )
 }
 
