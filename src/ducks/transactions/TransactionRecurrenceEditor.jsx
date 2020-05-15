@@ -116,7 +116,9 @@ const TransactionRecurrenceEditor = ({
           {
             _id: RECURRENT_ID,
             title: t('Recurrence.choice.recurrent'),
-            description: current && getLabel(current),
+            description: current && (
+              <div className="u-ellipsis">{getLabel(current)}</div>
+            ),
             children: recurrenceOptions
           }
         ]
