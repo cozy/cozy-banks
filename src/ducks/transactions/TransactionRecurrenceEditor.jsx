@@ -32,11 +32,14 @@ const makeNewRecurrenceOption = t => {
   }
 }
 
+const RECURRENT_ID = 'recurrent'
+const NEW_RECURRENCE_ID = 'new-recurrence'
+
 const isSelectedHelper = (item, currentId) => {
-  if (item._id === 'not-recurrent' && !currentId) {
+  if (item._id === NOT_RECURRENT_ID && !currentId) {
     return true
   }
-  if (item._id === 'recurrent' && currentId) {
+  if (item._id === RECURRENT_ID && currentId) {
     return true
   }
   if (item._id === currentId) {
@@ -44,9 +47,6 @@ const isSelectedHelper = (item, currentId) => {
   }
   return false
 }
-
-const RECURRENT_ID = 'recurrent'
-const NEW_RECURRENCE_ID = 'new-recurrence'
 
 const TransactionRecurrenceEditor = ({
   transaction,
