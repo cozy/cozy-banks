@@ -9,6 +9,8 @@ import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { RECURRENCE_DOCTYPE } from 'doctypes'
 import styles from './TransactionRecurrenceEditor.styl'
 import { getCategories } from 'ducks/recurrence/utils'
+import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
+import Loading from 'components/Loading'
 
 const makeOptionFromRecurrence = rec => {
   return {
@@ -58,10 +60,9 @@ const TransactionRecurrenceEditor = ({
 
   const current = transaction.recurrence.data
   const currentId = current && current._id
-  const { data: allRecurrences } = useQuery(
-    recurrenceConn.query,
-    recurrenceConn
-  )
+  const recurrenceCol = useQuery(recurrenceConn.query, recurrenceConn)
+
+  const { data: allRecurrences } = recurrenceCol
 
   const recurrenceOptions = useMemo(
     () =>
@@ -97,6 +98,10 @@ const TransactionRecurrenceEditor = ({
     if (afterUpdate) {
       await afterUpdate(newTransaction)
     }
+  }
+
+  if (isCollectionLoading(recurrenceCol) && !hasBeenLoaded(recurrenceCol)) {
+    return <Loading spinnerSize="xlarge" />
   }
 
   const isSelected = item => isSelectedHelper(item, currentId)
