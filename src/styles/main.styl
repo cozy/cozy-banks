@@ -26,7 +26,19 @@ h4
         [role=banner] .coz-bar-container
             padding 0
 
-:global
     .qawolf .qawolf__hide
         opacity 0
 
+    .qawolf-debug [data-testid]
+            position relative
+
+    .qawolf-debug [data-testid]:after
+        content: attr(data-testid)
+        background: rgba(255, 0, 0, .5)
+        border-radius 1rem
+        padding .15em
+        font-size small
+        position absolute
+        display inline-block
+        top 0
+        left 0
