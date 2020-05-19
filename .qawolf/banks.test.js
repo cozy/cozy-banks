@@ -21,6 +21,9 @@ test('banks transactions', async () => {
   await page.type('#password', 'cozy')
   await page.click('text=SE CONNECTER')
   await page.click('[data-testid="nav.my-accounts"]')
+  await page.evaluate(() => {
+    document.body.classList.add('qawolf')
+  })
   await page.screenshot({ path: 'screenshots/my-accounts.png' })
 
   await page.click('[data-testid="balance.account-row.compteisa1"]')
