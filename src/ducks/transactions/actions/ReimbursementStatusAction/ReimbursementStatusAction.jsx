@@ -55,6 +55,7 @@ export class DumbReimbursementStatusAction extends React.PureComponent {
 
     return (
       <TransactionModalRow
+        data-testid="transaction-modal.reimbursement-row"
         iconLeft={<Icon icon={iconReimbursement} />}
         iconRight={<RowArrow />}
         onClick={this.showModal}

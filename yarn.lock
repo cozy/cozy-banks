@@ -17522,10 +17522,10 @@ q@^1.0.1, q@^1.1.2, q@^1.4.1, q@^1.5.1:
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
   integrity sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc=
 
-qawolf@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/qawolf/-/qawolf-1.0.0.tgz#6082df598d70b8d0eb56d0988055745d34e061e4"
-  integrity sha512-gD1IBtYPBnwT+OP6MsjEBCuMJFL3E5/MmqhYl08aBty3kXKEVTkR7PNDs4zAWu31onZfO/enUce7o/gBIQuZOA==
+qawolf@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/qawolf/-/qawolf-1.0.1.tgz#91905057a6f699a2ad62763270d783c76c62a01e"
+  integrity sha512-Epg9iBIkWX4fh9MBGG0CkcNrQm6l3PuXdlteSx6oNDCaZLgmjggAL47MXW35vG5R+oFrwk/0L6KdUj1uwUmnOg==
   dependencies:
     "@jperl/html-parse-stringify" "^1.0.4"
     "@qawolf/jest-reporter" "^0.1.0"

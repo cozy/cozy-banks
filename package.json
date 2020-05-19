@@ -196,7 +196,7 @@
     "piwik-react-router": "0.12.1",
     "playwright-core": "^1.0.1",
     "pouchdb-adapter-cordova-sqlite": "2.0.5",
-    "qawolf": "^1.0.0",
+    "qawolf": "^1.0.1",
     "raven-js": "3.27.2",
     "react": "16.9.0",
     "react-chartjs-2": "2.7.6",
