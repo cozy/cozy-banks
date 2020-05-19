@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
+import { withRouter } from 'react-router-dom'
+
 import { useQuery } from 'cozy-client'
+import { Input, Stack, useI18n, Empty } from 'cozy-ui/transpiled/react'
+
 import { transactionsConn } from 'doctypes'
 import { TransactionList } from 'ducks/transactions/Transactions'
+import BarTheme from 'ducks/bar/BarTheme'
 import Header from 'components/Header'
 import Padded from 'components/Spacing/Padded'
-import Input from 'cozy-ui/transpiled/react/Input'
 import { PageTitle } from 'components/Title'
-import BarTheme from 'ducks/bar/BarTheme'
-import { withRouter } from 'react-router-dom'
 
 const makeSearch = searchStr => op => {
   return op.label.toLowerCase().includes(searchStr.toLowerCase())
@@ -16,6 +18,7 @@ const makeSearch = searchStr => op => {
 const isSearchSufficient = searchStr => searchStr.length > 3
 
 const SearchPage = ({ router }) => {
+  const { t } = useI18n()
   const [search, setSearch] = useState(router.params.search || '')
   const handleChange = ev => {
     setSearch(ev.target.value)
@@ -38,16 +41,29 @@ const SearchPage = ({ router }) => {
       <BarTheme theme="primary" />
       <Header theme="inverted">
         <Padded>
-          <PageTitle>Search</PageTitle>
-          <Input type="text" value={search} onChange={handleChange} />
+          <Stack spacing="l">
+            <PageTitle className="u-lh-tiny">{t('Search.title')}</PageTitle>
+            <Input
+              placeholder={t('Search.input-placeholder')}
+              type="text"
+              value={search}
+              onChange={handleChange}
+            />
+          </Stack>
         </Padded>
       </Header>
-      {!searchSufficient ? (
-        <Padded>Type a search to search transactions</Padded>
-      ) : null}
+      {!searchSufficient ? <Padded>{t('Search.type-a-search')}</Padded> : null}
       <div className={`js-scrolling-element`}>
         {searchSufficient ? (
-          <TransactionList transactions={transactions} />
+          transactions.length > 0 ? (
+            <TransactionList transactions={transactions} />
+          ) : (
+            <Empty
+              className="u-mt-large"
+              title={t('Search.no-transactions-found', { search })}
+              icon={''}
+            />
+          )
         ) : null}
       </div>
     </div>
