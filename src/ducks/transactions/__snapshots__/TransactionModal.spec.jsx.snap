@@ -24,14 +24,14 @@ exports[`transaction modal should render correctly 1`] = `
                 </div>
               </div>
             </div>
-            <div class=\\"styles__media___cSJMp TransactionModalRow u-row-m TransactionModalRow-clickable u-c-pointer\\">
+            <div class=\\"styles__media___cSJMp TransactionModalRow u-row-m TransactionModalRow-clickable u-c-pointer\\" data-testid=\\"transaction-modal.category-row\\">
               <div class=\\"styles__img___3SHpG\\"></div>
               <div class=\\"styles__bd___1Uv-F\\">Power</div>
               <div class=\\"styles__img___3SHpG\\"><svg class=\\"styles__icon___23x3R\\" style=\\"fill: var(--coolGrey);\\" width=\\"16\\" height=\\"16\\">
                   <use xlink:href=\\"#right\\"></use>
                 </svg></div>
             </div>
-            <div class=\\"styles__media___cSJMp TransactionModalRow u-row-m TransactionModalRow-clickable u-c-pointer\\">
+            <div class=\\"styles__media___cSJMp TransactionModalRow u-row-m TransactionModalRow-clickable u-c-pointer\\" data-testid=\\"transaction-modal.application-date-row\\">
               <div class=\\"styles__img___3SHpG u-ph-half\\"><svg class=\\"styles__icon___23x3R\\" width=\\"16\\" height=\\"16\\">
                   <use xlink:href=\\"#test-file-stub\\"></use>
                 </svg></div>
@@ -40,7 +40,7 @@ exports[`transaction modal should render correctly 1`] = `
                   <use xlink:href=\\"#right\\"></use>
                 </svg></div>
             </div>
-            <div class=\\"styles__media___cSJMp TransactionModalRow u-row-m TransactionModalRow-clickable u-c-pointer\\">
+            <div class=\\"styles__media___cSJMp TransactionModalRow u-row-m TransactionModalRow-clickable u-c-pointer\\" data-testid=\\"transaction-modal.recurrence-row\\">
               <div class=\\"styles__img___3SHpG\\">
                 <div class=\\"styles__img___3SHpG u-ph-half\\"><svg class=\\"styles__icon___23x3R\\" width=\\"16\\" height=\\"16\\">
                     <use xlink:href=\\"#test-file-stub\\"></use>

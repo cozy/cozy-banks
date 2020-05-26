@@ -43,6 +43,7 @@ export const NavLink = withRouter(props => {
       style={{ outline: 'none' }}
       onClick={() => setLastClicked(to)}
       href={`#${to}`}
+      data-testid={props['data-testid']}
       className={cx(
         UINavLink.className,
         isActive ? UINavLink.activeClassName : null
@@ -67,7 +68,12 @@ const NavItems = ({ items }) => {
       {items.map((item, i) =>
         item ? (
           <NavItem key={i} secondary={item.secondary}>
-            <NavLink to={item.to} rx={item.rx} clickState={clickState}>
+            <NavLink
+              to={item.to}
+              rx={item.rx}
+              clickState={clickState}
+              data-testid={item['data-testid']}
+            >
               {item.icon ? <NavIcon icon={item.icon} /> : null}
               <NavText>{item.label}</NavText>
             </NavLink>
@@ -88,20 +94,23 @@ export const Nav = () => {
             to: '/balances',
             icon: walletIcon,
             label: t('Nav.my-accounts'),
-            rx: balancesRoute
+            rx: balancesRoute,
+            'data-testid': 'nav.my-accounts'
           },
           {
             to: '/categories',
             icon: graphIcon,
             label: t('Nav.analysis'),
-            rx: analysisRoute
+            rx: analysisRoute,
+            'data-testid': 'nav.my-accounts'
           },
           flag('banks.recurrence')
             ? {
                 to: '/categories',
                 label: t('Nav.categories'),
                 rx: categoriesRoute,
-                secondary: true
+                secondary: true,
+                'data-testid': 'nav.categories'
               }
             : null,
           flag('banks.recurrence')
@@ -109,7 +118,8 @@ export const Nav = () => {
                 to: '/recurrence',
                 label: t('Nav.recurrence'),
                 rx: recurrenceRoute,
-                secondary: true
+                secondary: true,
+                'data-testid': 'nav.recurrence'
               }
             : null,
           flag('banks.transfers')
@@ -117,14 +127,16 @@ export const Nav = () => {
                 to: '/transfers',
                 icon: transfersIcon,
                 label: t('Transfer.nav'),
-                rx: transferRoute
+                rx: transferRoute,
+                'data-testid': 'nav.transfers'
               }
             : null,
           {
             to: '/settings',
             icon: 'gear',
             label: t('Nav.settings'),
-            rx: settingsRoute
+            rx: settingsRoute,
+            'data-testid': 'nav.settings'
           }
         ]}
       />

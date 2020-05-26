@@ -151,7 +151,12 @@ class _RowDesktop extends React.PureComponent {
 
     const applicationDate = getApplicationDate(transaction)
     return (
-      <tr ref={onRef} {...trRest} className="u-clickable">
+      <tr
+        ref={onRef}
+        {...trRest}
+        className="u-clickable"
+        data-testid={`transaction.row.${transaction._id}`}
+      >
         <td className={cx(styles.ColumnSizeDesc, 'u-pv-half', 'u-pl-1')}>
           <Media className="u-clickable">
             <Img title={categoryTitle} onClick={showCategoryChoice}>

@@ -183,6 +183,7 @@ class AccountRow extends React.PureComponent {
           [styles['AccountRow--withOwners']]: shouldShowOwners
         })}
         onClick={onClick}
+        data-testid={`balance.account-row.${account._id}`}
       >
         <div className={styles.AccountRow__mainLine}>
           <div className={styles.AccountRow__column}>

@@ -55,4 +55,8 @@ Figure.defaultProps = Object.assign({}, Figure.defaultProps, {
   blurred: flag('amount_blur') ? true : false
 })
 
+if (flag('qawolf-debug')) {
+  document.body.classList.add('qawolf-debug')
+}
+
 window.flag = flag

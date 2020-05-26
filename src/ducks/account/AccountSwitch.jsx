@@ -56,6 +56,7 @@ const AccountSwitchDesktop = ({
         { [styles['active']]: isOpen },
         'coz-desktop'
       )}
+      data-testid="account-switch"
       onClick={toggle}
     >
       {isFetching ? (

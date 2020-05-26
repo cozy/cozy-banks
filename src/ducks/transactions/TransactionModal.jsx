@@ -151,6 +151,7 @@ const RecurrenceRow = withRouter(({ transaction, onClick, router }) => {
 
   return (
     <TransactionModalRowMedia
+      data-testid="transaction-modal.recurrence-row"
       align={recurrence ? 'top' : undefined}
       onClick={onClick}
     >
@@ -302,7 +303,10 @@ const TransactionModalInfoContent = withTransaction(props => {
           ].filter(x => x.value)}
         />
       </TransactionModalRow>
-      <TransactionModalRowMedia onClick={handleShowCategoryChoice}>
+      <TransactionModalRowMedia
+        data-testid="transaction-modal.category-row"
+        onClick={handleShowCategoryChoice}
+      >
         <Img>
           <CategoryIcon categoryId={categoryId} />
         </Img>
@@ -315,7 +319,10 @@ const TransactionModalInfoContent = withTransaction(props => {
           <RowArrow />
         </Img>
       </TransactionModalRowMedia>
-      <TransactionModalRowMedia onClick={handleShowApplicationEditor}>
+      <TransactionModalRowMedia
+        data-testid="transaction-modal.application-date-row"
+        onClick={handleShowApplicationEditor}
+      >
         <TransactionModalRowIcon icon={iconCalendar} />
         <Bd>
           {t('Transactions.infos.assignedToPeriod', {

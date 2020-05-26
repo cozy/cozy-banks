@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import * as d3 from 'utils/d3'
 import { max, minBy, keyBy, memoize } from 'lodash'
 import styles from 'components/Chart/LineChart.styl'
+import cx from 'classnames'
 
 // TODO replace by import { getCSSVariableValue } from 'cozy-ui/transpiled/utils/colors'
 // when https://github.com/cozy/cozy-ui/issues/1153 is solved
@@ -587,7 +588,7 @@ class LineChart extends Component {
     const { width, height, gradient } = this.props
 
     return (
-      <div className={styles.LineChart}>
+      <div className={cx(styles.LineChart, 'qawolf__hide')}>
         <svg
           ref={node => (this.root = node)}
           width={width}
