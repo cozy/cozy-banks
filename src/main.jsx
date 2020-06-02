@@ -30,7 +30,8 @@ import PinPlugin from 'ducks/pin/plugin'
 
 const D3_LOCALES_MAP = {
   fr: require('d3-time-format/locale/fr-FR.json'),
-  en: require('d3-time-format/locale/en-GB.json')
+  en: require('d3-time-format/locale/en-GB.json'),
+  es: require('d3-time-format/locale/es-ES.json')
 }
 
 if (__TARGET__ === 'mobile') {
@@ -60,7 +61,7 @@ const setupApp = async persistedState => {
       ? navigator.language.slice(0, 2)
       : data.cozyLocale || 'en'
 
-  d3.timeFormatDefaultLocale(D3_LOCALES_MAP[lang])
+  d3.timeFormatDefaultLocale(D3_LOCALES_MAP[lang] || D3_LOCALES_MAP.en)
 
   history = setupHistory()
 
