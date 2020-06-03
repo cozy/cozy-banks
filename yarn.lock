@@ -4917,10 +4917,10 @@ cozy-authentication@1.19.2:
     snarkdown "1.2.2"
     url-polyfill "1.1.7"
 
-cozy-bar@^7.13.2-beta.1:
-  version "7.13.2-beta.1"
-  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-7.13.2-beta.1.tgz#4a058ca269fb58c59766c992d6773d9252a32e5a"
-  integrity sha512-GT6z20IBzPuUbvkKRt4dra5h9YzXw17ElMYD6lrF8GqOTptC/UXSjNwCNsVy0+z0y3U1fXk9bEUnHX4eQdEl/g==
+cozy-bar@7.13.2:
+  version "7.13.2"
+  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-7.13.2.tgz#4df37837585fb76b895fde9209086aad4d0664f7"
+  integrity sha512-u1+txX38EmbEKBXFR0WRsrGbavlW+LLYYipcjlEq9C8KlriQTXIUGOe2qOJ+cuZahT46iBap7zgY2d0f8bI/hQ==
   dependencies:
     "@babel/core" "7.6.2"
     babel-core "7.0.0-bridge.0"
@@ -12319,6 +12319,13 @@ mini-html-webpack-plugin@^0.2.3:
 minilog@3.1.0, minilog@^3.1.0, "minilog@https://github.com/cozy/minilog.git#master":
   version "3.1.0"
   resolved "https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
+  dependencies:
+    microee "0.0.6"
+
+"minilog@git+https://github.com/cozy/minilog.git#master":
+  version "3.1.0"
+  uid f01f7d9dfe20981177dd34b9662c2f077d818f82
+  resolved "git+https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
   dependencies:
     microee "0.0.6"
 
