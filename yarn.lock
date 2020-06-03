@@ -4917,25 +4917,26 @@ cozy-authentication@1.19.2:
     snarkdown "1.2.2"
     url-polyfill "1.1.7"
 
-cozy-bar@7.10.0:
-  version "7.10.0"
-  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-7.10.0.tgz#a148180f17ef629886ec3324bcc0423689468fe4"
-  integrity sha512-ZB1++ylV4eqt8cyHMDpD3tSFwLYNQEjomKoulq89beKoHwD94Z25GVMlAdHh0nFj7J4P2WuQpf5oNOxAviIeyQ==
+cozy-bar@^7.13.2-beta.1:
+  version "7.13.2-beta.1"
+  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-7.13.2-beta.1.tgz#4a058ca269fb58c59766c992d6773d9252a32e5a"
+  integrity sha512-GT6z20IBzPuUbvkKRt4dra5h9YzXw17ElMYD6lrF8GqOTptC/UXSjNwCNsVy0+z0y3U1fXk9bEUnHX4eQdEl/g==
   dependencies:
     "@babel/core" "7.6.2"
     babel-core "7.0.0-bridge.0"
     babel-preset-cozy-app "1.7.0"
+    cozy-client "13.8.3"
     cozy-device-helper "1.8.0"
     cozy-interapp "0.4.9"
     cozy-realtime "3.2.1"
-    cozy-ui "22.3.1"
+    cozy-ui "35.22.0"
     enzyme-to-json "3.3.5"
     hammerjs "2.0.8"
     lerna-changelog "0.8.2"
     localforage "1.7.3"
     lodash.debounce "4.0.8"
     lodash.unionwith "4.6.0"
-    minilog "3.1.0"
+    minilog "https://github.com/cozy/minilog.git#master"
     parcel "1.12.3"
     piwik-react-router "0.12.1"
     prop-types "15.7.2"
@@ -4971,15 +4972,15 @@ cozy-client-js@^0.15.0:
     pouchdb-browser "7.0.0"
     pouchdb-find "7.0.0"
 
-cozy-client@13.8.1:
-  version "13.8.1"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-13.8.1.tgz#090ba7bcf01317dfb5359e09cd13be2f50d7662a"
-  integrity sha512-oaZ6ghre7cjZXU4yfJqrQIRCs/Saub0TsyDERoHxheS6zsoG+oVzPTKA88UlQkJmlLQ+zybNV6O89LiQHaWSwg==
+cozy-client@13.8.3:
+  version "13.8.3"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-13.8.3.tgz#0bf27284fd2b7708a3ea37fc77e3d58fc923f3db"
+  integrity sha512-SLipjE0rh5YLQBuvOi8yeXTcQeuvdfzJD5B/TTlwgOsWcvJuLh5yazOLtL8A0oRty8SsCWWZe/SbGqVlI7Ue6Q==
   dependencies:
     btoa "^1.2.1"
     cozy-device-helper "^1.7.3"
     cozy-logger "^1.6.0"
-    cozy-stack-client "^13.5.3"
+    cozy-stack-client "^13.8.3"
     isomorphic-fetch "^2.2.1"
     lodash "^4.17.13"
     microee "^0.0.6"
@@ -5362,7 +5363,16 @@ cozy-scripts@3.1.0-beta.1:
     webpack-dev-server "3.10.3"
     webpack-merge "4.2.2"
 
-cozy-stack-client@13.5.3, cozy-stack-client@^13.5.3:
+cozy-stack-client@13.8.3, cozy-stack-client@^13.8.3:
+  version "13.8.3"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-13.8.3.tgz#7e87b18b853ae60b0df5bee1b78203d04e5ebc4a"
+  integrity sha512-ffSC6DVCi+LU8KP6dhV+A7u5aMeRtSvrhEGTdeZn1AbrS6cD11OZPOveCzMHYUXzuAwbov8sRLi0BF8cTENWfQ==
+  dependencies:
+    detect-node "^2.0.4"
+    mime "^2.4.0"
+    qs "^6.7.0"
+
+cozy-stack-client@^13.5.3:
   version "13.5.3"
   resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-13.5.3.tgz#d8f2489becd6c8da5b558ec07c1c7bdfced35971"
   integrity sha512-VpnDGeSjlmaoKOtM/b0tEbJgceQXdd9fyHn5/GkXUWfdhFazjNw8Tw4SOlF8cJC4keEhVw0oAdIgh4BhlJQ/Rg==
@@ -5397,23 +5407,6 @@ cozy-stack-client@^6.66.0:
     detect-node "^2.0.4"
     mime "^2.4.0"
     qs "^6.7.0"
-
-cozy-ui@22.3.1:
-  version "22.3.1"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-22.3.1.tgz#9bd22099255e88ab2a9694a8b18d21cde3f627f5"
-  integrity sha512-yK4XO7RkV2lTbmYIgXHNBl7mw69VrB3VQMFIkSZWdzI27XIxTTT2jDUQYuIornKd0BFw81mmL2yp4um3KJuCsQ==
-  dependencies:
-    "@babel/runtime" "^7.3.4"
-    body-scroll-lock "^2.5.8"
-    classnames "^2.2.5"
-    date-fns "^1.28.5"
-    hammerjs "^2.0.8"
-    node-polyglot "^2.2.2"
-    normalize.css "^7.0.0"
-    react-hot-loader "^4.3.11"
-    react-markdown "^4.0.8"
-    react-pdf "^4.0.5"
-    react-select "2.2.0"
 
 cozy-ui@27.11.2:
   version "27.11.2"
@@ -12323,14 +12316,7 @@ mini-html-webpack-plugin@^0.2.3:
   dependencies:
     webpack-sources "^1.1.0"
 
-minilog@3.1.0, minilog@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/minilog/-/minilog-3.1.0.tgz#d2d0f1887ca363d1acf0ea86d5c4df293b3fb675"
-  integrity sha1-0tDxiHyjY9Gs8OqG1cTfKTs/tnU=
-  dependencies:
-    microee "0.0.6"
-
-"minilog@https://github.com/cozy/minilog.git#master":
+minilog@3.1.0, minilog@^3.1.0, "minilog@https://github.com/cozy/minilog.git#master":
   version "3.1.0"
   resolved "https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
   dependencies:
