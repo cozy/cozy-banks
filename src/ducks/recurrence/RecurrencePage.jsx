@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { useClient, useQuery } from 'cozy-client'
 import { withRouter } from 'react-router'
 import { recurrenceConn, RECURRENCE_DOCTYPE } from 'doctypes'
-import { bundleTransactionsQueryConn } from './queries'
+import orderBy from 'lodash/orderBy'
 
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import Modal, { ModalTitle, ModalContent } from 'cozy-ui/transpiled/react/Modal'
@@ -27,6 +27,7 @@ import Header from 'components/Header'
 import BackButton from 'components/BackButton'
 import BarTheme from 'ducks/bar/BarTheme'
 import { getLabel } from 'ducks/recurrence/utils'
+import { bundleTransactionsQueryConn } from './queries'
 import {
   renameRecurrenceManually,
   setStatusOngoing,
@@ -374,7 +375,7 @@ const BundleTransactions = ({ bundle }) => {
     return <Loading />
   }
 
-  const transactions = transactionCol.data
+  const transactions = orderBy(transactionCol.data, ['date'], ['desc'])
 
   const TransactionRow = isMobile
     ? BundleTransactionMobile

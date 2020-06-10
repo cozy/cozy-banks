@@ -19,7 +19,6 @@ export const bundleTransactionsQueryConn = ({ bundle }) => {
   return {
     query: () =>
       queryRecurrenceTransactions(bundle)
-        .sortBy([{ date: 'desc' }])
         .UNSAFE_noLimit()
         .include(['bills', 'account', 'reimbursements', 'recurrence']),
     as: `bundle-transactions-${bundle._id}`,
