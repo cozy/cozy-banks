@@ -5445,6 +5445,24 @@ cozy-ui@35.22.0:
     react-select "2.2.0"
     react-swipeable-views "0.13.3"
 
+cozy-ui@35.23.0:
+  version "35.23.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-35.23.0.tgz#519bca4158c977ff10f25ab7059a435dd38ec822"
+  integrity sha512-Y4RV/SyRqrrpAqQ8JvAEGLfc5RIvz9kyHJjZT7gEDFtzGZj3zDpZYdW3bkGi4rzPhasq4is0w1Dy8emAfvSbYw==
+  dependencies:
+    "@babel/runtime" "^7.3.4"
+    body-scroll-lock "^2.5.8"
+    classnames "^2.2.5"
+    date-fns "^1.28.5"
+    hammerjs "^2.0.8"
+    node-polyglot "^2.2.2"
+    normalize.css "^7.0.0"
+    react-hot-loader "^4.3.11"
+    react-markdown "^4.0.8"
+    react-pdf "^4.0.5"
+    react-select "2.2.0"
+    react-swipeable-views "0.13.3"
+
 create-ecdh@^4.0.0:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/create-ecdh/-/create-ecdh-4.0.3.tgz#c9111b6f33045c4697f144787f9254cdc77c45ff"
