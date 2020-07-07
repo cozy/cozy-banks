@@ -6,6 +6,7 @@ import { translate, withBreakpoints } from 'cozy-ui/transpiled/react'
 import Button from 'cozy-ui/transpiled/react/Button'
 import Toggle from 'cozy-ui/transpiled/react/Toggle'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import { Media, Img } from 'cozy-ui/transpiled/react/Media'
 
 import BarTheme from 'ducks/bar/BarTheme'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
@@ -177,34 +178,38 @@ export class DumbGroupSettings extends Component {
           className={styles.GrpStg__form}
           onSubmit={e => e.preventDefault()}
         >
-          <p>
-            {!modifying ? (
-              getGroupLabel(group, t)
-            ) : (
-              <input
-                ref={this.saveInputRef}
-                autoFocus
-                type="text"
-                defaultValue={getGroupLabel(group, t)}
-              />
-            )}
-            {modifying ? (
-              <Button
-                className={styles['save-button']}
-                disabled={saving}
-                theme="regular"
-                onClick={this.handleRename}
-                label={t('Groups.save')}
-                busy={saving}
-              />
-            ) : (
-              <Button
-                theme="text"
-                onClick={this.modifyName}
-                label={t('Groups.rename')}
-              />
-            )}
-          </p>
+          <Media>
+            <Img>
+              {!modifying ? (
+                getGroupLabel(group, t)
+              ) : (
+                <input
+                  ref={this.saveInputRef}
+                  autoFocus
+                  type="text"
+                  defaultValue={getGroupLabel(group, t)}
+                />
+              )}
+            </Img>
+            <Img>
+              {modifying ? (
+                <Button
+                  className={styles['save-button']}
+                  disabled={saving}
+                  theme="regular"
+                  onClick={this.handleRename}
+                  label={t('Groups.save')}
+                  busy={saving}
+                />
+              ) : (
+                <Button
+                  theme="text"
+                  onClick={this.modifyName}
+                  label={t('Groups.rename')}
+                />
+              )}
+            </Img>
+          </Media>
         </form>
         <h3>{t('Groups.accounts')}</h3>
         <Query query={accountsConn.query} as={accountsConn.as}>
