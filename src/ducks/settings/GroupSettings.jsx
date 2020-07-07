@@ -7,15 +7,16 @@ import Button from 'cozy-ui/transpiled/react/Button'
 import Toggle from 'cozy-ui/transpiled/react/Toggle'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 
+import BarTheme from 'ducks/bar/BarTheme'
+import { getAccountInstitutionLabel } from 'ducks/account/helpers'
 import { GROUP_DOCTYPE, accountsConn } from 'doctypes'
+import { getGroupLabel, renamedGroup } from 'ducks/groups/helpers'
 import Loading from 'components/Loading'
 import BackButton from 'components/BackButton'
 import Table from 'components/Table'
 import { PageTitle } from 'components/Title'
 import { Padded } from 'components/Spacing'
-import { getAccountInstitutionLabel } from 'ducks/account/helpers'
 import { logException } from 'lib/sentry'
-import { getGroupLabel, renamedGroup } from 'ducks/groups/helpers'
 
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import styles from 'ducks/settings/GroupsSettings.styl'
@@ -248,9 +249,15 @@ const ExistingGroupSettings = enhance(props => (
   <Query query={client => client.get(GROUP_DOCTYPE, props.routeParams.groupId)}>
     {({ data: group, fetchStatus }) =>
       fetchStatus === 'loading' || fetchStatus === 'pending' ? (
-        <Loading />
+        <>
+          <BarTheme theme="primary" />
+          <Loading />
+        </>
       ) : (
-        <GroupSettings group={group} {...props} />
+        <>
+          <BarTheme theme="primary" />
+          <GroupSettings group={group} {...props} />
+        </>
       )
     }
   </Query>
@@ -267,6 +274,9 @@ export default ExistingGroupSettings
  */
 export const NewGroupSettings = enhance(
   translate()(props => (
-    <GroupSettings {...props} group={makeNewGroup(props.client, props.t)} />
+    <>
+      <BarTheme theme="primary" />
+      <GroupSettings {...props} group={makeNewGroup(props.client, props.t)} />
+    </>
   ))
 )
