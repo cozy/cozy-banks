@@ -5129,17 +5129,17 @@ cozy-device-helper@1.8.0, cozy-device-helper@^1.8.0:
   dependencies:
     lodash "4.17.15"
 
+cozy-device-helper@1.9.2, cozy-device-helper@^1.7.5, cozy-device-helper@^1.9.2:
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.9.2.tgz#cccddb08011c89620fefac96bb894708c1f27f7b"
+  integrity sha512-cHlECdha+xzomdpW4v6u79ui5/WMAWkvooFhSppnLMb8UC8JWM+7AAWIElfgTQEHFIOmkwPtqXr7OJP4hvmG7A==
+  dependencies:
+    lodash "4.17.15"
+
 cozy-device-helper@^1.7.3:
   version "1.7.5"
   resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.7.5.tgz#7e1ad1937c5c34d4e8df2ebcae6bd6cb88a49d3a"
   integrity sha512-5L6QdsJYcE+UpKjJGL6Uk5Lc2sSpDS8KQTf7mvIVrd7IOg/UJIEp9rt1aHQnTRevGShe5ANkmGQmlTfI1uKzUg==
-  dependencies:
-    lodash "4.17.15"
-
-cozy-device-helper@^1.7.5, cozy-device-helper@^1.9.2:
-  version "1.9.2"
-  resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.9.2.tgz#cccddb08011c89620fefac96bb894708c1f27f7b"
-  integrity sha512-cHlECdha+xzomdpW4v6u79ui5/WMAWkvooFhSppnLMb8UC8JWM+7AAWIElfgTQEHFIOmkwPtqXr7OJP4hvmG7A==
   dependencies:
     lodash "4.17.15"
 
@@ -12433,13 +12433,6 @@ mini-html-webpack-plugin@^0.2.3:
 minilog@3.1.0, minilog@^3.1.0, "minilog@https://github.com/cozy/minilog.git#master":
   version "3.1.0"
   resolved "https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
-  dependencies:
-    microee "0.0.6"
-
-"minilog@git+https://github.com/cozy/minilog.git#master":
-  version "3.1.0"
-  uid f01f7d9dfe20981177dd34b9662c2f077d818f82
-  resolved "git+https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
   dependencies:
     microee "0.0.6"
 
