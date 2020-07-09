@@ -171,7 +171,7 @@
     "cozy-logger": "1.6.0",
     "cozy-notifications": "0.5.0",
     "cozy-pouch-link": "13.5.3",
-    "cozy-realtime": "3.3.1",
+    "cozy-realtime": "3.9.0",
     "cozy-scripts": "4.1.0",
     "cozy-stack-client": "13.8.3",
     "cozy-ui": "35.25.0",
