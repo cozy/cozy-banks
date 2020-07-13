@@ -15,12 +15,12 @@ import {
   isReimbursementsAccount
 } from 'ducks/account/helpers'
 import { getWarningLimitPerAccount } from 'selectors'
-import styles from 'ducks/balance/components/AccountRow.styl'
-import ReimbursementsIcon from 'ducks/balance/components/ReimbursementsIcon'
+import styles from 'ducks/balance/AccountRow.styl'
+import ReimbursementsIcon from 'ducks/balance/ReimbursementsIcon'
 import AccountIcon from 'components/AccountIcon'
 import { triggersConn } from 'doctypes'
 import { Contact } from 'cozy-doctypes'
-import AccountCaption from 'ducks/balance/components/AccountRowCaption'
+import AccountCaption from 'ducks/balance/AccountRowCaption'
 
 const Number = React.memo(function Number({ account }) {
   return (

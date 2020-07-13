@@ -11,7 +11,7 @@ import {
   getAccountUpdatedAt,
   isReimbursementsAccount
 } from 'ducks/account/helpers'
-import styles from 'ducks/balance/components/AccountRow.styl'
+import styles from 'ducks/balance/AccountRow.styl'
 
 export const AccountRowSubText = ({ className, children, ...rest }) => {
   return (
