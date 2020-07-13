@@ -3,9 +3,7 @@ import { DumbTriggerErrorCard as TriggerErrorCard } from './TriggerErrorCard'
 import { shallow } from 'enzyme'
 import { TestI18n } from 'test/AppLike'
 
-jest.mock('components/effects', () => ({
-  useRedirectionURL: () => 'http://redirection'
-}))
+jest.mock('components/useRedirectionURL', () => () => 'http://redirection')
 
 describe('trigger error card', () => {
   const setup = () => {
