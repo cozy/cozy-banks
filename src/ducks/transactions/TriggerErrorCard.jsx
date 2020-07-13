@@ -12,14 +12,14 @@ import { getErrorLocaleBound, KonnectorJobError } from 'cozy-harvest-lib'
 
 const TriggerErrorCard = ({
   lang,
-  trigger,
   index,
   count,
   client,
-  bankName,
+  error,
   breakpoints,
   className
 }) => {
+  const { bankName, trigger } = error
   const { t } = useI18n()
   const url = useRedirectionURL(client, 'io.cozy.accounts', {
     account: trigger.message.account,
