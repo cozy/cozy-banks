@@ -5532,10 +5532,10 @@ cozy-ui@35.22.0:
     react-select "2.2.0"
     react-swipeable-views "0.13.3"
 
-cozy-ui@35.30.0:
-  version "35.30.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-35.30.0.tgz#20a2620cee9e2213dddbfcd4dc4bcacab289b2db"
-  integrity sha512-JqOFogeV+17+iYISAvOLndqLP7F8lEA6RnOoATvEdEz4AarCZie5BgyBjtP01DkBW7rh8XKkHXY0x+CB90KSFQ==
+cozy-ui@35.31.0:
+  version "35.31.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-35.31.0.tgz#bced6f6f0387a5840c1e58768dfee1c5b1b86f25"
+  integrity sha512-1ks0cZ1kg4lvFzyli4aZwLGBH30AllLVe4VwkevOchgfFBlQyvNc+l/PlHRVO+9WOilf+/BP7dDPY5S9SaBxRg==
   dependencies:
     "@babel/runtime" "^7.3.4"
     body-scroll-lock "^2.5.8"
@@ -11850,11 +11850,6 @@ lodash@4.17.15:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
-
-lodash@4.17.19:
-  version "4.17.19"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
-  integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
 
 lodash@^3.3.1, lodash@^3.5.0:
   version "3.10.1"
