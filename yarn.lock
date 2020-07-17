@@ -4948,12 +4948,12 @@ cozy-app-publish@0.22.3:
     request "2.88.0"
     tar "4.4.13"
 
-cozy-authentication@1.19.2:
-  version "1.19.2"
-  resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-1.19.2.tgz#290246c44d46b5dc38f2fe2ff2517ab7d169c62e"
-  integrity sha512-weFcYcxeLIDk6P2+UCMsVW6okqzTfm2v33Zz7K0F4dPpn/+VlGqaGWVLcjhX99Hgk5iuNsxTh+d1TD/dyVyhkQ==
+cozy-authentication@2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/cozy-authentication/-/cozy-authentication-2.1.0.tgz#20fb2826c4c19c823e39a93d75cb8551e385fb02"
+  integrity sha512-qFDR8re2j13OS4dFkbZ1eObNDeDDLyCIzAUeqkwg95fklDvZtIojYulUqct89J4+Ow8QBQJR5OHft6p9QxX77g==
   dependencies:
-    cozy-device-helper "^1.8.0"
+    cozy-device-helper "^1.10.0"
     localforage "1.7.3"
     prop-types "15.7.2"
     snarkdown "1.2.2"
@@ -5122,7 +5122,7 @@ cozy-device-helper@1.7.3:
   dependencies:
     lodash "4.17.13"
 
-cozy-device-helper@1.8.0, cozy-device-helper@^1.8.0:
+cozy-device-helper@1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.8.0.tgz#17b41d0ea28a504b906669a43449952e72615abb"
   integrity sha512-XomsjdCCWcS01x1QK/Wc4EI4zTxJN8Ouh7956wm2AEQyjj4lN+7cj8tqEBlb8fLWm68/3S3Z4V3iSJDgnJHu6A==
@@ -5135,6 +5135,13 @@ cozy-device-helper@1.9.2, cozy-device-helper@^1.7.5, cozy-device-helper@^1.9.2:
   integrity sha512-cHlECdha+xzomdpW4v6u79ui5/WMAWkvooFhSppnLMb8UC8JWM+7AAWIElfgTQEHFIOmkwPtqXr7OJP4hvmG7A==
   dependencies:
     lodash "4.17.15"
+
+cozy-device-helper@^1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.10.0.tgz#86c102d32b012f648dbce36cc6031d3895ee95a2"
+  integrity sha512-0yqxsgBVlKNs4sI4j1x4Pi5JVsXOh4yf/8aS+KTGZjXHvMcDP1tfUlkWw3JmkWR9qihcBlkaE16TpGxdfsiNSA==
+  dependencies:
+    lodash "4.17.19"
 
 cozy-device-helper@^1.7.3:
   version "1.7.5"
@@ -11843,6 +11850,11 @@ lodash@4.17.15:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
+
+lodash@4.17.19:
+  version "4.17.19"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
+  integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
 
 lodash@^3.3.1, lodash@^3.5.0:
   version "3.10.1"
