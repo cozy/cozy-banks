@@ -1,8 +1,8 @@
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent, Fragment, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import { translate, withBreakpoints } from 'cozy-ui/transpiled/react'
-import Toggle from 'cozy-ui/transpiled/react/Toggle'
+import Switch from 'components/Switch'
 import RawBreadcrumb from 'cozy-ui/transpiled/react/Breadcrumbs'
 import { AccountSwitch } from 'ducks/account'
 import BackButton from 'components/BackButton'
@@ -36,9 +36,22 @@ const stTableCategory = catStyles['bnk-table-category']
 const IncomeToggle = ({ withIncome, onToggle }) => {
   const theme = useCozyTheme()
   const { t } = useI18n()
+
+  const handleClick = useCallback(
+    ev => {
+      return onToggle(ev.target.checked)
+    },
+    [onToggle]
+  )
   return (
     <div className={cx(styles.CategoriesHeader__Toggle, styles[theme])}>
-      <Toggle id="withIncome" checked={withIncome} onToggle={onToggle} />
+      <Switch
+        id="withIncome"
+        disableRipple
+        checked={withIncome}
+        color="primary"
+        onClick={handleClick}
+      />
       <label htmlFor="withIncome">{t('Categories.filter.includeIncome')}</label>
     </div>
   )
