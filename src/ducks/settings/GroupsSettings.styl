@@ -51,3 +51,9 @@
     &__accntToggle
         maxed-flex-basis 20%
 
+    // Increase specificity to override properties applied to table &__table td
+    &__table &__accntToggle
+        // Do not let the switch extend vertically the cell
+        max-height 2rem
+        align-items center
+        display flex
