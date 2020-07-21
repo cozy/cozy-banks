@@ -8,7 +8,7 @@ import RawBreadcrumb from 'cozy-ui/transpiled/react/Breadcrumbs'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-import Switch from 'cozy-ui/transpiled/react/Switch'
+import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
 
 import { AccountSwitch } from 'ducks/account'
 import BackButton from 'components/BackButton'
@@ -52,7 +52,7 @@ const IncomeToggle = ({ withIncome, onToggle }) => {
         id="withIncome"
         disableRipple
         checked={withIncome}
-        color="primary"
+        color="secondary"
         onClick={handleClick}
       />
       <label htmlFor="withIncome">{t('Categories.filter.includeIncome')}</label>

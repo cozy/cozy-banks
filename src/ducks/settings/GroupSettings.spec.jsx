@@ -3,7 +3,7 @@ import {
   DumbGroupSettings as GroupSettings,
   AccountLine
 } from './GroupSettings'
-import Switch from 'components/Switch'
+import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
 import { mount } from 'enzyme'
 import AppLike from 'test/AppLike'
 import fixtures from 'test/fixtures'
