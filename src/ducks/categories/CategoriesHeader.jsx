@@ -1,27 +1,30 @@
 import React, { PureComponent, Fragment, useCallback } from 'react'
+import { flowRight as compose } from 'lodash'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
+
 import { translate, withBreakpoints } from 'cozy-ui/transpiled/react'
-import Switch from 'components/Switch'
 import RawBreadcrumb from 'cozy-ui/transpiled/react/Breadcrumbs'
+import { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import Switch from 'cozy-ui/transpiled/react/Switch'
+
 import { AccountSwitch } from 'ducks/account'
 import BackButton from 'components/BackButton'
 import Header from 'components/Header'
 import { Padded } from 'components/Spacing'
 import { ConnectedSelectDates as SelectDates } from 'components/SelectDates'
+
 import CategoriesChart from 'ducks/categories/CategoriesChart'
 import {
   getTransactionsTotal,
   getGlobalCurrency
 } from 'ducks/categories/helpers'
-import { flowRight as compose } from 'lodash'
 import styles from 'ducks/categories/CategoriesHeader.styl'
 import AddAccountButton from 'ducks/categories/AddAccountButton'
 import AnalysisTabs from 'ducks/analysis/AnalysisTabs'
 import { themed } from 'components/useTheme'
-import { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import Table from 'components/Table'
 import catStyles from 'ducks/categories/styles.styl'
 
