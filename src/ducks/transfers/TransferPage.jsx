@@ -34,14 +34,14 @@ import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 
 const THIRTY_SECONDS = 30 * 1000
 
-const slideIndexes = {
-  category: 0,
-  beneficiary: 1,
-  sender: 2,
-  amount: 3,
-  summary: 4,
-  password: 5
-}
+const slideIndexes = [
+  'category',
+  'beneficiary',
+  'sender',
+  'amount',
+  'summary',
+  'password'
+]
 
 const subscribe = (rt, event, doc, id, cb) => {
   let handler
@@ -304,7 +304,8 @@ class TransferPage extends React.Component {
   }
 
   selectSlideByName(slideName) {
-    this.setState({ slide: slideIndexes[slideName] || 0 })
+    const idx = slideIndexes.findIndex(x => x == slideName)
+    this.setState({ slide: idx !== -1 ? idx : 0 })
     this.props.router.push(slideName ? `/transfers/${slideName}` : '/transfers')
   }
 
