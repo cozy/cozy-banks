@@ -552,6 +552,10 @@
     "configuration": "Config.",
     "security": "Security",
     "debug": "Debug",
+    "personal-info": {
+      "title": "Personal information",
+      "edit": "Edit personal info"
+    },
     "security": {
       "title": "Security",
       "amount_blur": {
