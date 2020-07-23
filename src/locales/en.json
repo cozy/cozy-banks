@@ -683,6 +683,18 @@
     "generic": "My invoices"
   },
 
+  "PersonalInfo": {
+    "birthcity": "Birth city",
+    "nationality": "Nationality",
+    "save-cta": "Save information",
+    "modal-title": "Edit personal information",
+    "info-saved-succesfully": "Your personal info has been updated",
+    "info": {
+      "title": "Why is this information necessary ?",
+      "description": "To prevent money laundering and terrorism financing, MAIF has enforced strict rules on who is able to transfer money"
+    }
+  },
+
   "Transfer": {
     "nav": "Transfers",
     "page-title": "Transfer",
