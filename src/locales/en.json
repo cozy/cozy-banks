@@ -694,8 +694,8 @@
     "modal-title": "Edit personal information",
     "info-saved-succesfully": "Your personal info has been updated",
     "info": {
-      "title": "Why is this information necessary ?",
-      "description": "To prevent money laundering and terrorism financing, MAIF has enforced strict rules on who is able to transfer money"
+      "title": "Why is this information necessary?",
+      "description": "To prevent money laundering and terrorism financing, Cozy has enforced strict rules on who is able to transfer money"
     }
   },
 
