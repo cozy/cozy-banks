@@ -61,12 +61,12 @@ const pageComponents = {
   Content: React.Fragment
 }
 
-export const PersonalInfoModal = ({ modalProps, ...props }) => {
+export const PersonalInfoModal = ({ wrapperProps, ...props }) => {
   return (
     <PersonalInfo
-      wrapperProps={{ ...modalProps, mobileFullscreen: true }}
-      Components={modalComponents}
       {...props}
+      wrapperProps={wrapperProps}
+      Components={modalComponents}
     />
   )
 }

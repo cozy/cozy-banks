@@ -110,7 +110,12 @@ const NoBank = () => {
 }
 
 const isMyselfSufficientlyFilled = myself => {
-  return myself.birthcity && myself.birthcity !== '' && myself.nationality
+  return (
+    myself.birthcity &&
+    myself.birthcity !== '' &&
+    myself.nationality &&
+    myself.nationality !== ''
+  )
 }
 
 class TransferPage extends React.Component {
@@ -424,7 +429,7 @@ class TransferPage extends React.Component {
 
     return (
       <>
-        {transferState !== null ? (
+        {transferState ? (
           <Modal mobileFullscreen dismissAction={this.handleModalDismiss}>
             {transferState === 'sending' && <Loading />}
             {transferState === 'success' && (
