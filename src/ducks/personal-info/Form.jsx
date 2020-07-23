@@ -52,6 +52,7 @@ class PersonalInfoForm extends React.Component {
           type="text"
           name="birthcity"
           label={t('PersonalInfo.birthcity')}
+          placeholder={t('PersonalInfo.birthcity-placeholder')}
         />
         <Field
           onChange={option => this.handleChangeField('nationality', option)}
@@ -67,7 +68,7 @@ class PersonalInfoForm extends React.Component {
           disabled={saving}
           onClick={this.handleSave}
           label={t('PersonalInfo.save-cta')}
-          type="primary"
+          variant="primary"
           className="u-mt-1"
         />
       </>

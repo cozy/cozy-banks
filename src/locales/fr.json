@@ -700,6 +700,7 @@
 
   "PersonalInfo": {
     "birthcity": "Commune de naissance",
+    "birthcity-placeholder": "Là où vous êtes né",
     "nationality": "Nationalité",
     "save-cta": "Sauver mon profil",
     "modal-title": "Modifier mes infos personnelles",

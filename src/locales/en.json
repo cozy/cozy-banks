@@ -689,6 +689,7 @@
 
   "PersonalInfo": {
     "birthcity": "Birth city",
+    "birthcity-placeholder": "Where you are born",
     "nationality": "Nationality",
     "save-cta": "Save information",
     "modal-title": "Edit personal information",
