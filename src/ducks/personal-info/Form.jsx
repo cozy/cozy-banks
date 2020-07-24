@@ -94,16 +94,10 @@ class PersonalInfoForm extends React.Component {
   }
 
   async handleSave(ev) {
-    const {
-      client,
-      onBeforeSave,
-      onAfterSave,
-      onSaveSuccessful,
-      myself
-    } = this.props
+    const { client, onSaveSuccessful, myself } = this.props
     const { formData } = this.state
     ev && ev.preventDefault()
-    onBeforeSave && onBeforeSave()
+    this.setState({ saving: true })
     try {
       const attributes = {
         nationality: formData.nationality.value,
@@ -116,7 +110,7 @@ class PersonalInfoForm extends React.Component {
       await client.save(updatedMyself)
       onSaveSuccessful && onSaveSuccessful(updatedMyself)
     } finally {
-      onAfterSave && onAfterSave()
+      this.setState({ saving: false })
     }
   }
 }
