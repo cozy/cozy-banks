@@ -6,17 +6,20 @@ import Field from 'cozy-ui/transpiled/react/Field'
 import Stack from 'cozy-ui/transpiled/react/Stack'
 import compose from 'lodash/flowRight'
 
-import countries from './countries.json'
+import countries from './nationalities.json'
 import PersonalInfoInfos from 'ducks/personal-info/Infos'
 
 const defaultNationality = { label: 'French', value: 'FR' }
 
-const nationalities = countries.map(country => {
-  return {
-    label: country.nationality,
-    value: country.alpha_2_code
-  }
-})
+const makeNationalitiesOptions = lang =>
+  countries
+    .map(country => {
+      return {
+        label: country[`${lang}_nationality`] || country['en_nationality'],
+        value: country.alpha_2_code
+      }
+    })
+    .sort((a, b) => a.label > b.label)
 
 /**
  * Displays a form to fill personal info into the myself contact.
@@ -29,12 +32,13 @@ class PersonalInfoForm extends React.Component {
 
     const myself = this.props.myself
 
+    this.nationalityOptions = makeNationalitiesOptions(props.lang)
     this.state = {
       saving: false,
       formData: {
         birthcity: myself.birthcity,
         nationality:
-          nationalities.find(
+          this.nationalityOptions.find(
             x => myself.nationality && x.value === myself.nationality
           ) || defaultNationality
       }
@@ -63,7 +67,7 @@ class PersonalInfoForm extends React.Component {
             value={formData.nationality}
             type="select"
             name="nationality"
-            options={nationalities}
+            options={this.nationalityOptions}
             label={t('PersonalInfo.nationality')}
           />
         </div>
