@@ -3,6 +3,7 @@ import { translate } from 'cozy-ui/transpiled/react/I18n'
 import { withClient } from 'cozy-client'
 import Button from 'cozy-ui/transpiled/react/Button'
 import Field from 'cozy-ui/transpiled/react/Field'
+import Stack from 'cozy-ui/transpiled/react/Stack'
 import compose from 'lodash/flowRight'
 
 import countries from './countries.json'
@@ -45,23 +46,27 @@ class PersonalInfoForm extends React.Component {
     const { saving, formData } = this.state
 
     return (
-      <>
-        <Field
-          value={formData.birthcity}
-          onChange={ev => this.handleChangeField('birthcity', ev.target.value)}
-          type="text"
-          name="birthcity"
-          label={t('PersonalInfo.birthcity')}
-          placeholder={t('PersonalInfo.birthcity-placeholder')}
-        />
-        <Field
-          onChange={option => this.handleChangeField('nationality', option)}
-          value={formData.nationality}
-          type="select"
-          name="nationality"
-          options={nationalities}
-          label={t('PersonalInfo.nationality')}
-        />
+      <Stack spacing="xl">
+        <div>
+          <Field
+            value={formData.birthcity}
+            onChange={ev =>
+              this.handleChangeField('birthcity', ev.target.value)
+            }
+            type="text"
+            name="birthcity"
+            label={t('PersonalInfo.birthcity')}
+            placeholder={t('PersonalInfo.birthcity-placeholder')}
+          />
+          <Field
+            onChange={option => this.handleChangeField('nationality', option)}
+            value={formData.nationality}
+            type="select"
+            name="nationality"
+            options={nationalities}
+            label={t('PersonalInfo.nationality')}
+          />
+        </div>
         <PersonalInfoInfos />
         <Button
           busy={saving}
@@ -69,9 +74,8 @@ class PersonalInfoForm extends React.Component {
           onClick={this.handleSave}
           label={t('PersonalInfo.save-cta')}
           variant="primary"
-          className="u-mt-1"
         />
-      </>
+      </Stack>
     )
   }
 
