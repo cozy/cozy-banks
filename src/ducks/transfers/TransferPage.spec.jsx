@@ -133,7 +133,14 @@ describe('personal info', () => {
       const { root } = setup({
         myselfData: {
           birthcity: 'Compiègne',
-          nationality: 'FR'
+          nationality: 'FR',
+          cozyMetadata: {
+            updatedByApps: [
+              {
+                slug: 'slug'
+              }
+            ]
+          }
         }
       })
       // Personal info modal should not be shown
@@ -162,7 +169,14 @@ describe('personal info', () => {
       const { root } = setup({
         myselfData: {
           birthcity: 'Compiègne',
-          nationality: 'FR'
+          nationality: 'FR',
+          cozyMetadata: {
+            updatedByApps: [
+              {
+                slug: 'slug'
+              }
+            ]
+          }
         }
       })
       // Personal info modal should not be shown

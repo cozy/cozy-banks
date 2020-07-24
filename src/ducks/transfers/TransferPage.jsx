@@ -6,6 +6,7 @@ import { withRouter } from 'react-router'
 import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import { translate, Text, Modal, useI18n } from 'cozy-ui/transpiled/react'
 import { withClient, queryConnect } from 'cozy-client'
+import { utils } from 'cozy-client/dist/models'
 import Realtime from 'cozy-realtime'
 import flag from 'cozy-flags'
 import pickBy from 'lodash/pickBy'
@@ -35,6 +36,7 @@ import { isLoginFailed } from 'ducks/transfers/utils'
 import BarTheme from 'ducks/bar/BarTheme'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import { PersonalInfoModal, PersonalInfoPage } from 'ducks/personal-info'
+import manifest from 'ducks/client/manifest'
 
 const THIRTY_SECONDS = 30 * 1000
 
@@ -114,7 +116,8 @@ const isMyselfSufficientlyFilled = myself => {
     myself.birthcity &&
     myself.birthcity !== '' &&
     myself.nationality &&
-    myself.nationality !== ''
+    myself.nationality !== '' &&
+    utils.hasBeenUpdatedByApp(myself, manifest.slug)
   )
 }
 
@@ -187,17 +190,18 @@ class TransferPage extends React.Component {
    */
   checkToShowPersonalInfoModal(prevProps) {
     const props = this.props
-    if (
-      prevProps.myself &&
-      props.myself &&
-      prevProps.myself.fetchStatus === 'loading' &&
-      props.myself.fetchStatus === 'loaded'
-    ) {
-      const myself = props.myself.data[0]
+
+    const prevMyself = get(prevProps.myself, 'data[0]')
+    const nowMyself = get(props.myself, 'data[0]')
+    if (prevMyself !== nowMyself) {
       if (
-        !isMyselfSufficientlyFilled(myself) ||
-        flag('banks.transfers.display-personal-info-form')
+        isMyselfSufficientlyFilled(nowMyself) &&
+        !flag('banks.transfers.display-personal-info-form')
       ) {
+        this.setState({
+          showingPersonalInfo: false
+        })
+      } else {
         this.setState({
           showingPersonalInfo: true
         })
