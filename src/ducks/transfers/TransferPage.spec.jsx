@@ -3,7 +3,6 @@ import { shallow } from 'enzyme'
 import { render } from '@testing-library/react'
 
 import { createMockClient } from 'cozy-client/dist/mock'
-import flag from 'cozy-flags'
 
 import AppLike from 'test/AppLike'
 import fixtures from 'test/fixtures'
@@ -116,24 +115,61 @@ describe('personal info', () => {
     return { root }
   }
 
-  afterEach(() => {
-    flag('banks.transfers.need-personal-information', false)
-  })
-
-  it('should show personal info if myself contact not sufficiently filled', async () => {
-    window.innerWidth = 300 // isMobile -> true
-    const { root } = setup()
-    await root.findByText('Edit personal information')
-  })
-
-  it('should not show personal info if myself contact is sufficiently filled', async () => {
-    window.innerWidth = 300 // isMobile -> true
-    const { root } = setup({
-      myselfData: {
-        birthcity: 'Compiègne',
-        nationality: 'FR'
-      }
+  describe('mobile', () => {
+    beforeEach(() => {
+      window.innerWidth = 300
     })
-    await root.findByText('Where do you want to send this transfer ?')
+
+    it('should show personal info if myself contact not sufficiently filled', async () => {
+      const { root } = setup()
+      root.findByText('Edit personal information')
+
+      // Transfer stepper is hidden on mobile
+      const text = root.queryByText('Where do you want to send this transfer ?')
+      expect(text).toBe(null)
+    })
+
+    it('should not show personal info if myself contact is sufficiently filled', async () => {
+      const { root } = setup({
+        myselfData: {
+          birthcity: 'Compiègne',
+          nationality: 'FR'
+        }
+      })
+      // Personal info modal should not be shown
+      const personalInfoNode = root.queryByText('Edit personal information')
+      expect(personalInfoNode).toBe(null)
+
+      root.findByText('Where do you want to send this transfer ?')
+    })
+  })
+
+  describe('desktop', () => {
+    beforeEach(() => {
+      window.innerWidth = 800
+    })
+
+    it('should show personal info if myself contact not sufficiently filled', async () => {
+      const { root } = setup()
+      root.findByText('Edit personal information')
+
+      // Transfer stepper is not hidden on desktop
+      const text = root.queryByText('Where do you want to send this transfer ?')
+      expect(text).not.toBe(null)
+    })
+
+    it('should not show personal info if myself contact is sufficiently filled', async () => {
+      const { root } = setup({
+        myselfData: {
+          birthcity: 'Compiègne',
+          nationality: 'FR'
+        }
+      })
+      // Personal info modal should not be shown
+      const personalInfoNode = root.queryByText('Edit personal information')
+      expect(personalInfoNode).toBe(null)
+
+      root.findByText('Where do you want to send this transfer ?')
+    })
   })
 })

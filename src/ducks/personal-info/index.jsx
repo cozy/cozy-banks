@@ -62,10 +62,14 @@ const pageComponents = {
 }
 
 export const PersonalInfoModal = ({ wrapperProps, ...props }) => {
+  const { t } = useI18n()
   return (
     <PersonalInfo
       {...props}
-      wrapperProps={wrapperProps}
+      wrapperProps={{
+        ...wrapperProps,
+        'aria-label': t('PersonalInfo.modal-title')
+      }}
       Components={modalComponents}
     />
   )
