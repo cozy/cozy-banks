@@ -72,13 +72,16 @@ class PersonalInfoForm extends React.Component {
           />
         </div>
         <PersonalInfoInfos />
-        <Button
-          busy={saving}
-          disabled={saving}
-          onClick={this.handleSave}
-          label={t('PersonalInfo.save-cta')}
-          variant="primary"
-        />
+        <div>
+          <Button
+            extension="full"
+            busy={saving}
+            disabled={saving}
+            onClick={this.handleSave}
+            label={t('PersonalInfo.save-cta')}
+            variant="primary"
+          />
+        </div>
       </Stack>
     )
   }
