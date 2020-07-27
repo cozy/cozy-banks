@@ -565,7 +565,7 @@
     "debug": "Debug",
     "personal-info": {
       "title": "Informations personnelles",
-      "edit": "Modifier mes informations personnelles"
+      "edit": "Compléter mes informations personnelles"
     },
     "security": {
       "title": "Sécurité",
@@ -702,7 +702,7 @@
     "birthcity": "Commune de naissance",
     "birthcity-placeholder": "Là où vous êtes né",
     "nationality": "Nationalité",
-    "save-cta": "Sauver mon profil",
+    "save-cta": "Sauver",
     "modal-title": "Modifier mes infos personnelles",
     "info-saved-succesfully": "Vos informations ont bien été mises à jour",
     "info": {
