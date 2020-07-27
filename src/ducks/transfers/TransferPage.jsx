@@ -21,7 +21,7 @@ import AddAccountButton from 'ducks/categories/AddAccountButton'
 import * as recipientUtils from 'ducks/transfers/recipients'
 import * as transfers from 'ducks/transfers/transfers'
 
-import Title from 'ducks/transfers/steps/Title'
+import PageTitle from 'components/Title/PageTitle'
 import {
   TransferSuccess,
   TransferError
@@ -66,7 +66,7 @@ const NoRecipient = () => {
 
   return (
     <Padded>
-      <Title>{t('Transfer.no-recipients.title')}</Title>
+      <PageTitle>{t('Transfer.no-recipients.title')}</PageTitle>
       <Text>{t('Transfer.no-recipients.description')}</Text>
       <ul>
         <li>Axa Banque</li>
@@ -99,7 +99,7 @@ const NoBank = () => {
 
   return (
     <Padded>
-      <Title>{t('Transfer.no-bank.title')}</Title>
+      <PageTitle>{t('Transfer.no-bank.title')}</PageTitle>
       <AddAccountButton
         absolute
         extension="full"
