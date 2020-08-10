@@ -34,9 +34,7 @@ export const AccountLine = props => {
   const { account, group, toggleAccount } = props
 
   const handleClickSwitch = useCallback(
-    ev => {
-      return toggleAccount.bind(account._id, group, ev.target.checked)
-    },
+    ev => toggleAccount(account._id, group, ev.target.checked),
     [toggleAccount, account, group]
   )
 
