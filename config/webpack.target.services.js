@@ -39,6 +39,7 @@ module.exports = {
   entry: entries,
   mode: production ? 'production' : 'development',
   target: 'node',
+  devtool: false,
   output: {
     path: path.resolve(__dirname, '../build'),
     filename: '[name].js'
