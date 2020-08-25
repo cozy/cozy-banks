@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { withRouter } from 'react-router'
 import { groupBy, sortBy } from 'lodash'
 
@@ -24,6 +24,8 @@ import { Contact } from 'cozy-doctypes'
 import { accountsConn, APP_DOCTYPE } from 'doctypes'
 import { Row, Cell } from 'components/Table'
 
+import HarvestBankAccountSettings from './HarvestBankAccountSettings'
+
 // See comment below about sharings
 // import { ACCOUNT_DOCTYPE } from 'doctypes'
 // import { fetchSharingInfo } from 'modules/SharingStatus'
@@ -41,37 +43,43 @@ const AccountOwners = ({ account }) => {
   ) : null
 }
 
-const _AccountLine = ({ account, router }) => {
+const _AccountLine = ({ account }) => {
   const { t } = useI18n()
   const { isMobile } = useBreakpoints()
+  const [showHarvestSettings, setShowHarvestSettings] = useState(false)
+
   return (
-    <Row
-      nav
-      key={account.id}
-      onClick={() => router.push(`/settings/accounts/${account.id}`)}
-    >
-      <Cell main className={styles.AcnsStg__libelle}>
-        <div className={styles.AcnsStg__libelleInner}>
-          <div>{account.shortLabel || account.label}</div>
-          {isMobile ? <AccountOwners account={account} /> : null}
-        </div>
-      </Cell>
-      <Cell className={styles.AcnsStg__bank}>
-        {getAccountInstitutionLabel(account)}
-      </Cell>
-      <Cell className={styles.AcnsStg__number}>{account.number}</Cell>
-      <Cell className={styles.AcnsStg__type}>
-        {t(`Data.accountTypes.${getAccountType(account)}`, {
-          _: t('Data.accountTypes.Other')
-        })}
-      </Cell>
-      <Cell className={styles.AcnsStg__owner}>
-        {getAccountOwners(account)
-          .map(Contact.getDisplayName)
-          .join(' - ')}
-      </Cell>
-      <Cell className={styles.AcnsStg__actions} />
-    </Row>
+    <>
+      <Row nav key={account.id} onClick={() => setShowHarvestSettings(true)}>
+        <Cell main className={styles.AcnsStg__libelle}>
+          <div className={styles.AcnsStg__libelleInner}>
+            <div>{account.shortLabel || account.label}</div>
+            {isMobile ? <AccountOwners account={account} /> : null}
+          </div>
+        </Cell>
+        <Cell className={styles.AcnsStg__bank}>
+          {getAccountInstitutionLabel(account)}
+        </Cell>
+        <Cell className={styles.AcnsStg__number}>{account.number}</Cell>
+        <Cell className={styles.AcnsStg__type}>
+          {t(`Data.accountTypes.${getAccountType(account)}`, {
+            _: t('Data.accountTypes.Other')
+          })}
+        </Cell>
+        <Cell className={styles.AcnsStg__owner}>
+          {getAccountOwners(account)
+            .map(Contact.getDisplayName)
+            .join(' - ')}
+        </Cell>
+        <Cell className={styles.AcnsStg__actions} />
+      </Row>
+      {showHarvestSettings ? (
+        <HarvestBankAccountSettings
+          onDismiss={() => setShowHarvestSettings(false)}
+          bankAccount={account}
+        />
+      ) : null}
+    </>
   )
 }
 
