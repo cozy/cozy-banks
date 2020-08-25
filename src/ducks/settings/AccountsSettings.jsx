@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { withRouter } from 'react-router'
-import { groupBy, flowRight as compose, sortBy } from 'lodash'
+import { groupBy, sortBy } from 'lodash'
 
-import { translate, useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Button from 'cozy-ui/transpiled/react/Button'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
@@ -77,10 +77,6 @@ const _AccountLine = ({ account, router }) => {
 
 const AccountLine = withRouter(_AccountLine)
 
-const renderAccount = account => (
-  <AccountLine account={account} key={account._id} />
-)
-
 const AccountsTable = ({ accounts }) => {
   const { t } = useI18n()
 
@@ -96,58 +92,61 @@ const AccountsTable = ({ accounts }) => {
           <th className={styles.AcnsStg__actions} />
         </tr>
       </thead>
-      <tbody>{accounts.map(renderAccount)}</tbody>
+      <tbody>
+        {accounts.map(account => (
+          <AccountLine account={account} key={account._id} />
+        ))}
+      </tbody>
     </Table>
   )
 }
 
-class AccountsSettings extends Component {
-  render() {
-    const { t, accountsCollection } = this.props
+const AccountsSettings = props => {
+  const { t } = useI18n()
+  const { accountsCollection } = props
 
-    if (
-      isCollectionLoading(accountsCollection) &&
-      !hasBeenLoaded(accountsCollection)
-    ) {
-      return <Loading />
-    }
-
-    const sortedAccounts = sortBy(accountsCollection.data, [
-      'institutionLabel',
-      'label'
-    ])
-    const accountBySharingDirection = groupBy(sortedAccounts, account => {
-      return account.shared === undefined
-    })
-
-    const myAccounts = accountBySharingDirection[true]
-    const sharedAccounts = accountBySharingDirection[false]
-
-    return (
-      <div>
-        <AddAccountLink>
-          <Button
-            theme="text"
-            icon={<Icon icon={plus} className="u-mr-half" />}
-            label={t('Accounts.add_bank')}
-          />
-        </AddAccountLink>
-        {myAccounts ? (
-          <AccountsTable accounts={myAccounts} t={t} />
-        ) : (
-          <p>{t('Accounts.no-accounts')}</p>
-        )}
-
-        <h4>{t('Accounts.shared-accounts')}</h4>
-
-        {sharedAccounts ? (
-          <AccountsTable accounts={sharedAccounts} t={t} />
-        ) : (
-          <p>{t('Accounts.no-shared-accounts')}</p>
-        )}
-      </div>
-    )
+  if (
+    isCollectionLoading(accountsCollection) &&
+    !hasBeenLoaded(accountsCollection)
+  ) {
+    return <Loading />
   }
+
+  const sortedAccounts = sortBy(accountsCollection.data, [
+    'institutionLabel',
+    'label'
+  ])
+  const accountBySharingDirection = groupBy(sortedAccounts, account => {
+    return account.shared === undefined
+  })
+
+  const myAccounts = accountBySharingDirection[true]
+  const sharedAccounts = accountBySharingDirection[false]
+
+  return (
+    <div>
+      <AddAccountLink>
+        <Button
+          theme="text"
+          icon={<Icon icon={plus} className="u-mr-half" />}
+          label={t('Accounts.add_bank')}
+        />
+      </AddAccountLink>
+      {myAccounts ? (
+        <AccountsTable accounts={myAccounts} t={t} />
+      ) : (
+        <p>{t('Accounts.no-accounts')}</p>
+      )}
+
+      <h4>{t('Accounts.shared-accounts')}</h4>
+
+      {sharedAccounts ? (
+        <AccountsTable accounts={sharedAccounts} t={t} />
+      ) : (
+        <p>{t('Accounts.no-shared-accounts')}</p>
+      )}
+    </div>
+  )
 }
 
 // TODO reactivate when we understand how sharings work
@@ -160,10 +159,7 @@ class AccountsSettings extends Component {
 // }))
 // }
 
-export default compose(
-  queryConnect({
-    accountsCollection: accountsConn,
-    apps: { query: () => Q(APP_DOCTYPE), as: 'apps' }
-  }),
-  translate()
-)(AccountsSettings)
+export default queryConnect({
+  accountsCollection: accountsConn,
+  apps: { query: () => Q(APP_DOCTYPE), as: 'apps' }
+})(AccountsSettings)
