@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router'
-import { translate, useI18n } from 'cozy-ui/transpiled/react'
+import { groupBy, flowRight as compose, sortBy } from 'lodash'
+
+import { translate, useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Button from 'cozy-ui/transpiled/react/Button'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import { withBreakpoints } from 'cozy-ui/transpiled/react'
-import { groupBy, flowRight as compose, sortBy } from 'lodash'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import { queryConnect, Q } from 'cozy-client'
+
 import Table from 'components/Table'
 import Loading from 'components/Loading'
-import { queryConnect, Q } from 'cozy-client'
 import plus from 'assets/icons/16/plus.svg'
 import styles from 'ducks/settings/AccountsSettings.styl'
 import AddAccountLink from 'ducks/settings/AddAccountLink'
@@ -39,9 +41,9 @@ const AccountOwners = ({ account }) => {
   ) : null
 }
 
-const _AccountLine = ({ account, router, breakpoints: { isMobile } }) => {
+const _AccountLine = ({ account, router }) => {
   const { t } = useI18n()
-
+  const { isMobile } = useBreakpoints()
   return (
     <Row
       nav
@@ -73,11 +75,7 @@ const _AccountLine = ({ account, router, breakpoints: { isMobile } }) => {
   )
 }
 
-const AccountLine = compose(
-  translate(),
-  withRouter,
-  withBreakpoints()
-)(_AccountLine)
+const AccountLine = withRouter(_AccountLine)
 
 const renderAccount = account => (
   <AccountLine account={account} key={account._id} />
