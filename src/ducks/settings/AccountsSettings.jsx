@@ -1,113 +1,78 @@
 import React, { useState } from 'react'
+import groupBy from 'lodash/groupBy'
+import sortBy from 'lodash/sortBy'
+import uniqBy from 'lodash/uniqBy'
 import { withRouter } from 'react-router'
-import { groupBy, sortBy } from 'lodash'
 
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Button from 'cozy-ui/transpiled/react/Button'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
+import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
+import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
+import ListItemSecondaryAction from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemSecondaryAction'
+import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import { queryConnect, Q } from 'cozy-client'
 
-import Table from 'components/Table'
 import Loading from 'components/Loading'
 import plus from 'assets/icons/16/plus.svg'
-import styles from 'ducks/settings/AccountsSettings.styl'
 import AddAccountLink from 'ducks/settings/AddAccountLink'
-import {
-  getAccountInstitutionLabel,
-  getAccountType,
-  getAccountOwners
-} from 'ducks/account/helpers'
+import { getAccountInstitutionLabel } from 'ducks/account/helpers'
 import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
-import { Contact } from 'cozy-doctypes'
+import KonnectorIcon from 'ducks/balance/KonnectorIcon'
 
 import { accountsConn, APP_DOCTYPE } from 'doctypes'
-import { Row, Cell } from 'components/Table'
+import { AccountIconContainer } from 'components/AccountIcon'
+import { Unpadded } from 'components/Spacing/Padded'
 
 import HarvestBankAccountSettings from './HarvestBankAccountSettings'
 
-// See comment below about sharings
-// import { ACCOUNT_DOCTYPE } from 'doctypes'
-// import { fetchSharingInfo } from 'modules/SharingStatus'
-// import fetchData from 'components/fetchData'
+const AccountsList_ = ({ accounts }) => {
+  const connections = uniqBy(
+    accounts.map(acc => acc.connection.data),
+    connection => connection._id
+  )
 
-// TODO react-router v4
-
-const AccountOwners = ({ account }) => {
-  const owners = getAccountOwners(account)
-  return owners.length > 0 ? (
-    <>
-      <div className="u-ph-half">-</div>
-      <div>{owners.map(Contact.getDisplayName).join(' - ')}</div>
-    </>
-  ) : null
-}
-
-const _AccountLine = ({ account }) => {
-  const { t } = useI18n()
-  const { isMobile } = useBreakpoints()
-  const [showHarvestSettings, setShowHarvestSettings] = useState(false)
+  const [connectionId, setConnectionIdShownInSettings] = useState(null)
 
   return (
-    <>
-      <Row nav key={account.id} onClick={() => setShowHarvestSettings(true)}>
-        <Cell main className={styles.AcnsStg__libelle}>
-          <div className={styles.AcnsStg__libelleInner}>
-            <div>{account.shortLabel || account.label}</div>
-            {isMobile ? <AccountOwners account={account} /> : null}
-          </div>
-        </Cell>
-        <Cell className={styles.AcnsStg__bank}>
-          {getAccountInstitutionLabel(account)}
-        </Cell>
-        <Cell className={styles.AcnsStg__number}>{account.number}</Cell>
-        <Cell className={styles.AcnsStg__type}>
-          {t(`Data.accountTypes.${getAccountType(account)}`, {
-            _: t('Data.accountTypes.Other')
-          })}
-        </Cell>
-        <Cell className={styles.AcnsStg__owner}>
-          {getAccountOwners(account)
-            .map(Contact.getDisplayName)
-            .join(' - ')}
-        </Cell>
-        <Cell className={styles.AcnsStg__actions} />
-      </Row>
-      {showHarvestSettings ? (
+    <Unpadded horizontal className="u-mv-1">
+      <List>
+        {connections.map(connection => (
+          <ListItem
+            onClick={() => setConnectionIdShownInSettings(connection.id)}
+            className="u-c-pointer"
+            key={connection._id}
+          >
+            <ListItemIcon>
+              <AccountIconContainer>
+                <KonnectorIcon
+                  style={{ width: 16, height: 16 }}
+                  konnectorSlug={connection.account_type}
+                />
+              </AccountIconContainer>
+            </ListItemIcon>
+            <ListItemText
+              primaryText={getAccountInstitutionLabel(accounts[0])}
+              secondaryText={connection.auth.identifier}
+            />
+            <ListItemSecondaryAction>
+              <Icon icon="right" className="u-coolGrey u-mr-1" />
+            </ListItemSecondaryAction>
+          </ListItem>
+        ))}
+      </List>
+      {connectionId ? (
         <HarvestBankAccountSettings
-          onDismiss={() => setShowHarvestSettings(false)}
-          bankAccount={account}
+          connectionId={connectionId}
+          onDismiss={() => setConnectionIdShownInSettings(null)}
         />
       ) : null}
-    </>
+    </Unpadded>
   )
 }
 
-const AccountLine = withRouter(_AccountLine)
-
-const AccountsTable = ({ accounts }) => {
-  const { t } = useI18n()
-
-  return (
-    <Table className={styles.AcnsStg__accounts}>
-      <thead>
-        <tr>
-          <th className={styles.AcnsStg__libelle}>{t('Accounts.label')}</th>
-          <th className={styles.AcnsStg__bank}>{t('Accounts.bank')}</th>
-          <th className={styles.AcnsStg__number}>{t('Accounts.account')}</th>
-          <th className={styles.AcnsStg__type}>{t('Accounts.type')}</th>
-          <th className={styles.AcnsStg__owner}>{t('Accounts.owner')}</th>
-          <th className={styles.AcnsStg__actions} />
-        </tr>
-      </thead>
-      <tbody>
-        {accounts.map(account => (
-          <AccountLine account={account} key={account._id} />
-        ))}
-      </tbody>
-    </Table>
-  )
-}
+const AccountsList = withRouter(AccountsList_)
 
 const AccountsSettings = props => {
   const { t } = useI18n()
@@ -140,7 +105,7 @@ const AccountsSettings = props => {
         />
       </AddAccountLink>
       {myAccounts ? (
-        <AccountsTable accounts={myAccounts} t={t} />
+        <AccountsList accounts={myAccounts} t={t} />
       ) : (
         <p>{t('Accounts.no-accounts')}</p>
       )}

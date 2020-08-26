@@ -23,9 +23,9 @@ const HarvestSpinner = () => {
   )
 }
 
-const HarvestLoader = ({ accountId, children }) => {
+const HarvestLoader = ({ connectionId, children }) => {
   return (
-    <Query query={Q('io.cozy.accounts').getById(accountId)}>
+    <Query query={Q('io.cozy.accounts').getById(connectionId)}>
       {({ data: account, fetchStatus }) => {
         if (fetchStatus === 'loading') {
           return <HarvestSpinner />
@@ -37,7 +37,9 @@ const HarvestLoader = ({ accountId, children }) => {
                 if (fetchStatus === 'loading') {
                   return <HarvestSpinner />
                 }
-                const triggerQuery = makeQuerySpecForAccountTriggers(accountId)
+                const triggerQuery = makeQuerySpecForAccountTriggers(
+                  connectionId
+                )
                 return (
                   <Query query={triggerQuery.query} as={triggerQuery.as}>
                     {({ data: triggers }) => {
@@ -72,11 +74,10 @@ const HarvestLoader = ({ accountId, children }) => {
  * Shows a modal displaying the AccountModal from Harvest
  * Fetches all the data necessary through HarvestLoader
  */
-const HarvestBankAccountSettings = ({ bankAccount, onDismiss }) => {
-  const accountId = bankAccount.relationships.connection._id
+const HarvestBankAccountSettings = ({ connectionId, onDismiss }) => {
   return (
     <Modal mobileFullscreen size="large" dismissAction={onDismiss}>
-      <HarvestLoader accountId={accountId}>
+      <HarvestLoader connectionId={connectionId}>
         {({ triggers, konnector, accountsAndTriggers }) => {
           if (!accountsAndTriggers.length) {
             return null
@@ -84,7 +85,7 @@ const HarvestBankAccountSettings = ({ bankAccount, onDismiss }) => {
           return (
             <MountPointContext.Provider value={{}}>
               <AccountModal
-                accountId={accountId}
+                accountId={connectionId}
                 konnector={konnector}
                 triggers={triggers}
                 accountsAndTriggers={accountsAndTriggers}

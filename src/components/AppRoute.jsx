@@ -8,8 +8,8 @@ import { TransactionsPageWithBackButton } from 'ducks/transactions'
 import { CategoriesPage } from 'ducks/categories'
 import {
   Settings,
-  AccountSettings,
   AccountsSettings,
+  AccountSettings,
   GroupsSettings,
   GroupSettings,
   NewGroupSettings,
@@ -67,10 +67,17 @@ const AppRoute = () => (
           path="groups/:groupId"
           component={scrollToTopOnMount(GroupSettings)}
         />
+
+        {/* This route will be removed after finishing transition to Harvest for account settings */}
         <Route
-          path="accounts/:accountId"
+          path={
+            flag('banks.harvest-accounts-settings')
+              ? 'old-accounts/:accountId'
+              : 'accounts/:accountId'
+          }
           component={scrollToTopOnMount(AccountSettings)}
         />
+        <Redirect from="accounts/:accountId" to="accounts" />
         <Route component={scrollToTopOnMount(Settings)}>
           <IndexRoute component={Configuration} />
           <Route
