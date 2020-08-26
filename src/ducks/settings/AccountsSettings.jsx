@@ -129,7 +129,6 @@ const AccountsSettings = props => {
   })
 
   const myAccounts = accountBySharingDirection[true]
-  const sharedAccounts = accountBySharingDirection[false]
 
   return (
     <div>
@@ -145,28 +144,9 @@ const AccountsSettings = props => {
       ) : (
         <p>{t('Accounts.no-accounts')}</p>
       )}
-
-      <h4>{t('Accounts.shared-accounts')}</h4>
-
-      {sharedAccounts ? (
-        <AccountsTable accounts={sharedAccounts} t={t} />
-      ) : (
-        <p>{t('Accounts.no-shared-accounts')}</p>
-      )}
     </div>
   )
 }
-
-// TODO reactivate when we understand how sharings work
-// const fetchAccountsSharingInfo = props => {
-//   return Promise.resolve([])
-// const { accounts } = props
-// with cozy-client
-// return Promise.all(accounts.data.map(account => {
-//   return props.dispatch(fetchSharingInfo(ACCOUNT_DOCTYPE, account._id))
-// }))
-// }
-
 export default queryConnect({
   accountsCollection: accountsConn,
   apps: { query: () => Q(APP_DOCTYPE), as: 'apps' }
