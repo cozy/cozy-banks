@@ -29,7 +29,7 @@ import HarvestBankAccountSettings from './HarvestBankAccountSettings'
 
 const AccountsList_ = ({ accounts }) => {
   const connections = uniqBy(
-    accounts.map(acc => acc.connection.data),
+    accounts.map(acc => acc.connection.data).filter(Boolean),
     connection => connection._id
   )
 

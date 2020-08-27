@@ -1,11 +1,13 @@
 import React from 'react'
-import { Q, Query } from 'cozy-client'
+import CozyClient, { Q, Query } from 'cozy-client'
 
 import Modal from 'cozy-ui/transpiled/react/Modal'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 
 import AccountModal from 'cozy-harvest-lib/dist/components/AccountModal'
-import { MountPointContext } from 'cozy-harvest-lib/dist/components/MountPointContext'
+import EditAccountModal from 'cozy-harvest-lib/dist/components/EditAccountModal'
+
+import HarvestSwitch from './HarvestSwitch'
 
 const makeQuerySpecForAccountTriggers = accountId => ({
   query: () =>
@@ -23,18 +25,36 @@ const HarvestSpinner = () => {
   )
 }
 
+const fetchPolicy = CozyClient.fetchPolicies.olderThan(30 * 1000)
+
+/**
+ * Data fetching component that fetches data necessary to render Harvest
+ * components related to a particular connection
+ */
 const HarvestLoader = ({ connectionId, children }) => {
   return (
-    <Query query={Q('io.cozy.accounts').getById(connectionId)}>
-      {({ data: account, fetchStatus }) => {
-        if (fetchStatus === 'loading') {
+    <Query
+      query={() => Q('io.cozy.accounts').getById(connectionId)}
+      as={`accounts/${connectionId}`}
+      fetchPolicy={fetchPolicy}
+    >
+      {({ data: account, fetchStatus, lastUpdate }) => {
+        if (fetchStatus === 'loading' && !lastUpdate) {
           return <HarvestSpinner />
         } else {
           const konnectorSlug = account.account_type
           return (
-            <Query query={Q('io.cozy.konnectors').getById(konnectorSlug)}>
-              {({ data: { attributes: konnector }, fetchStatus }) => {
-                if (fetchStatus === 'loading') {
+            <Query
+              query={() => Q('io.cozy.konnectors').getById(konnectorSlug)}
+              as={`konnectors/${connectionId}`}
+              fetchPolicy={fetchPolicy}
+            >
+              {({
+                data: { attributes: konnector },
+                fetchStatus,
+                lastUpdate
+              }) => {
+                if (fetchStatus === 'loading' && !lastUpdate) {
                   return <HarvestSpinner />
                 }
                 const triggerQuery = makeQuerySpecForAccountTriggers(
@@ -43,7 +63,7 @@ const HarvestLoader = ({ connectionId, children }) => {
                 return (
                   <Query query={triggerQuery.query} as={triggerQuery.as}>
                     {({ data: triggers }) => {
-                      if (fetchStatus === 'loading') {
+                      if (fetchStatus === 'loading' && !lastUpdate) {
                         return <HarvestSpinner />
                       } else {
                         const accountsAndTriggers = [account]
@@ -72,28 +92,50 @@ const HarvestLoader = ({ connectionId, children }) => {
 
 /**
  * Shows a modal displaying the AccountModal from Harvest
- * Fetches all the data necessary through HarvestLoader
  */
 const HarvestBankAccountSettings = ({ connectionId, onDismiss }) => {
   return (
     <Modal mobileFullscreen size="large" dismissAction={onDismiss}>
-      <HarvestLoader connectionId={connectionId}>
-        {({ triggers, konnector, accountsAndTriggers }) => {
-          if (!accountsAndTriggers.length) {
-            return null
-          }
-          return (
-            <MountPointContext.Provider value={{}}>
-              <AccountModal
-                accountId={connectionId}
-                konnector={konnector}
-                triggers={triggers}
-                accountsAndTriggers={accountsAndTriggers}
-              />
-            </MountPointContext.Provider>
-          )
-        }}
-      </HarvestLoader>
+      <HarvestSwitch
+        initialFragment={`/accounts/${connectionId}`}
+        routes={[
+          [
+            '/accounts/:connectionId',
+            connectionId => (
+              <HarvestLoader connectionId={connectionId}>
+                {({ triggers, konnector, accountsAndTriggers }) => {
+                  return (
+                    <AccountModal
+                      initialActiveTab="configuration"
+                      accountId={connectionId}
+                      triggers={triggers}
+                      konnector={konnector}
+                      accountsAndTriggers={accountsAndTriggers}
+                    />
+                  )
+                }}
+              </HarvestLoader>
+            )
+          ],
+          ['/accounts', () => null],
+          [
+            '/accounts/:connectionId/edit',
+            connectionId => (
+              <HarvestLoader connectionId={connectionId}>
+                {({ konnector, accountsAndTriggers }) => {
+                  return (
+                    <EditAccountModal
+                      konnector={konnector}
+                      accountId={connectionId}
+                      accounts={accountsAndTriggers}
+                    />
+                  )
+                }}
+              </HarvestLoader>
+            )
+          ]
+        ]}
+      />
     </Modal>
   )
 }
