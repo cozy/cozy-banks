@@ -2,6 +2,7 @@ import React from 'react'
 import { IndexRoute, Route, Redirect } from 'react-router'
 import App from 'components/App'
 import { isWebApp } from 'cozy-device-helper'
+import flag from 'cozy-flags'
 
 import { TransactionsPageWithBackButton } from 'ducks/transactions'
 import { CategoriesPage } from 'ducks/categories'
@@ -15,6 +16,7 @@ import {
   Configuration,
   Debug
 } from 'ducks/settings'
+import OldAccountSettings from 'ducks/settings/OldAccountSettings'
 import { Balance, BalanceDetailsPage } from 'ducks/balance'
 import {
   DebugRecurrencePage,
@@ -71,7 +73,14 @@ const AppRoute = () => (
         />
         <Route component={scrollToTopOnMount(Settings)}>
           <IndexRoute component={Configuration} />
-          <Route path="accounts" component={AccountsSettings} />
+          <Route
+            path="accounts"
+            component={
+              flag('banks.harvest-accounts-settings')
+                ? AccountsSettings
+                : OldAccountSettings
+            }
+          />
           <Route path="groups" component={GroupsSettings} />
           <Route path="configuration" component={Configuration} />
           <Route path="debug" component={Debug} />
