@@ -24,13 +24,6 @@ import { Contact } from 'cozy-doctypes'
 import { accountsConn, APP_DOCTYPE } from 'doctypes'
 import { Row, Cell } from 'components/Table'
 
-// See comment below about sharings
-// import { ACCOUNT_DOCTYPE } from 'doctypes'
-// import { fetchSharingInfo } from 'modules/SharingStatus'
-// import fetchData from 'components/fetchData'
-
-// TODO react-router v4
-
 const AccountOwners = ({ account }) => {
   const owners = getAccountOwners(account)
   return owners.length > 0 ? (
@@ -148,16 +141,6 @@ const OldAccountSettings = props => {
     </div>
   )
 }
-
-// TODO reactivate when we understand how sharings work
-// const fetchAccountsSharingInfo = props => {
-//   return Promise.resolve([])
-// const { accounts } = props
-// with cozy-client
-// return Promise.all(accounts.data.map(account => {
-//   return props.dispatch(fetchSharingInfo(ACCOUNT_DOCTYPE, account._id))
-// }))
-// }
 
 export default queryConnect({
   accountsCollection: accountsConn,
