@@ -1,6 +1,7 @@
 import React from 'react'
 import CozyClient, { Q, Query } from 'cozy-client'
 
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Modal from 'cozy-ui/transpiled/react/Modal'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 
@@ -15,6 +16,11 @@ const HarvestSpinner = () => {
       <Spinner size="xxlarge" />
     </div>
   )
+}
+
+const HarvestError = () => {
+  const { t } = useI18n()
+  return <div className="u-m-2 u-error">{t('Loading.error')}</div>
 }
 
 const fetchPolicy = CozyClient.fetchPolicies.olderThan(30 * 1000)
@@ -37,6 +43,8 @@ const HarvestLoader = ({ connectionId, children }) => {
         }
         if (fetchStatus === 'loading' && !lastUpdate) {
           return <HarvestSpinner />
+        } else if (fetchStatus === 'error') {
+          return <HarvestError />
         } else {
           const konnectorSlug = account.account_type
           return (
@@ -54,6 +62,10 @@ const HarvestLoader = ({ connectionId, children }) => {
                   return <HarvestSpinner />
                 }
 
+                if (fetchStatus === 'error') {
+                  return <HarvestError />
+                }
+
                 // We do not query directly the triggers for the connection as
                 // we need to use the /jobs/triggers route. This route is only
                 // used by cozy-client when all triggers are fetched
@@ -69,6 +81,8 @@ const HarvestLoader = ({ connectionId, children }) => {
                       })
                       if (fetchStatus === 'loading' && !lastUpdate) {
                         return <HarvestSpinner />
+                      } else if (fetchStatus === 'error') {
+                        return <HarvestError />
                       } else {
                         const accountsAndTriggers = [account]
                           .map(account => ({
