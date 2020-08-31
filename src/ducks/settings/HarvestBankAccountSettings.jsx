@@ -53,6 +53,7 @@ const HarvestLoader = ({ connectionId, children }) => {
                 // We do not query directly the triggers for the connection as
                 // we need to use the /jobs/triggers route. This route is only
                 // used by cozy-client when all triggers are fetched
+                // Related issue : https://github.com/cozy/cozy-client/issues/767
                 return (
                   <Query query={Q('io.cozy.triggers')} as="triggers">
                     {({ data: allTriggers, fetchStatus, lastUpdate }) => {
