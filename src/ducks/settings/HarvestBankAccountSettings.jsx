@@ -62,7 +62,7 @@ const HarvestLoader = ({ connectionId, children }) => {
                 )
                 return (
                   <Query query={triggerQuery.query} as={triggerQuery.as}>
-                    {({ data: triggers }) => {
+                    {({ data: triggers, fetchStatus, lastUpdate }) => {
                       if (fetchStatus === 'loading' && !lastUpdate) {
                         return <HarvestSpinner />
                       } else {
