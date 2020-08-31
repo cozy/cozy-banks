@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+
 import groupBy from 'lodash/groupBy'
 import sortBy from 'lodash/sortBy'
 import { withRouter } from 'react-router'
@@ -11,14 +12,18 @@ import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
 import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
 import ListItemSecondaryAction from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemSecondaryAction'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
-
-import { queryConnect, Q } from 'cozy-client'
+import {
+  queryConnect,
+  Q,
+  isQueryLoading,
+  hasQueryBeenLoaded
+} from 'cozy-client'
 
 import Loading from 'components/Loading'
 import plus from 'assets/icons/16/plus.svg'
+
 import AddAccountLink from 'ducks/settings/AddAccountLink'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
-import { isCollectionLoading, hasBeenLoaded } from 'ducks/client/utils'
 import KonnectorIcon from 'ducks/balance/KonnectorIcon'
 
 import { accountsConn, APP_DOCTYPE } from 'doctypes'
@@ -106,8 +111,8 @@ const AccountsSettings = props => {
   const { accountsCollection } = props
 
   if (
-    isCollectionLoading(accountsCollection) &&
-    !hasBeenLoaded(accountsCollection)
+    isQueryLoading(accountsCollection) &&
+    !hasQueryBeenLoaded(accountsCollection)
   ) {
     return <Loading />
   }
