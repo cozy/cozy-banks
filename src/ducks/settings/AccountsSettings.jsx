@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import groupBy from 'lodash/groupBy'
 import sortBy from 'lodash/sortBy'
-import uniqBy from 'lodash/uniqBy'
 import { withRouter } from 'react-router'
 
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
@@ -12,6 +11,7 @@ import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
 import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
 import ListItemSecondaryAction from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemSecondaryAction'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
+
 import { queryConnect, Q } from 'cozy-client'
 
 import Loading from 'components/Loading'
@@ -26,46 +26,73 @@ import { AccountIconContainer } from 'components/AccountIcon'
 import { Unpadded } from 'components/Spacing/Padded'
 
 import HarvestBankAccountSettings from './HarvestBankAccountSettings'
+import DisconnectedAccountModal from 'cozy-harvest-lib/dist/components/DisconnectedAccountModal'
+
+const AccountListItem = ({ account, onClick, secondaryText }) => {
+  return (
+    <ListItem onClick={onClick} className="u-c-pointer">
+      <ListItemIcon>
+        <AccountIconContainer>
+          <KonnectorIcon
+            style={{ width: 16, height: 16 }}
+            konnectorSlug={
+              account.cozyMetadata ? account.cozyMetadata.createdByApp : null
+            }
+          />
+        </AccountIconContainer>
+      </ListItemIcon>
+      <ListItemText
+        primaryText={getAccountInstitutionLabel(account)}
+        secondaryText={secondaryText}
+      />
+      <ListItemSecondaryAction>
+        <Icon icon="right" className="u-coolGrey u-mr-1" />
+      </ListItemSecondaryAction>
+    </ListItem>
+  )
+}
 
 const AccountsList_ = ({ accounts }) => {
-  const connections = uniqBy(
-    accounts.map(acc => acc.connection.data).filter(Boolean),
-    connection => connection._id
-  )
+  const connectionGroups = Object.values(
+    groupBy(accounts, acc => acc.connection.raw.id)
+  ).map(accounts => ({
+    accounts,
+    connection: accounts[0].connection.data
+  }))
 
+  // Depending on whether the bank account is still connected to an
+  // io.cozy.accounts, we will either show the AccountModal or the
+  // DisconnectedAccountModal
   const [connectionId, setConnectionIdShownInSettings] = useState(null)
+  const [accountsBeingEdited, setAccountsBeingEdited] = useState(null)
 
   return (
     <Unpadded horizontal className="u-mv-1">
+      {/* Bank accounts still connected to io.cozy.accounts */}
       <List>
-        {connections.map(connection => (
-          <ListItem
-            onClick={() => setConnectionIdShownInSettings(connection.id)}
-            className="u-c-pointer"
-            key={connection._id}
-          >
-            <ListItemIcon>
-              <AccountIconContainer>
-                <KonnectorIcon
-                  style={{ width: 16, height: 16 }}
-                  konnectorSlug={connection.account_type}
-                />
-              </AccountIconContainer>
-            </ListItemIcon>
-            <ListItemText
-              primaryText={getAccountInstitutionLabel(accounts[0])}
-              secondaryText={connection.auth.identifier}
-            />
-            <ListItemSecondaryAction>
-              <Icon icon="right" className="u-coolGrey u-mr-1" />
-            </ListItemSecondaryAction>
-          </ListItem>
+        {connectionGroups.map(({ accounts, connection }) => (
+          <AccountListItem
+            key={accounts[0]._id}
+            account={accounts[0]}
+            secondaryText={connection ? connection.auth.identifier : null}
+            onClick={() => {
+              return connection
+                ? setConnectionIdShownInSettings(connection.id)
+                : setAccountsBeingEdited(accounts)
+            }}
+          />
         ))}
       </List>
       {connectionId ? (
         <HarvestBankAccountSettings
           connectionId={connectionId}
           onDismiss={() => setConnectionIdShownInSettings(null)}
+        />
+      ) : null}
+      {accountsBeingEdited ? (
+        <DisconnectedAccountModal
+          onClose={() => setAccountsBeingEdited(null)}
+          accounts={accountsBeingEdited}
         />
       ) : null}
     </Unpadded>
@@ -97,6 +124,11 @@ const AccountsSettings = props => {
 
   return (
     <div>
+      {myAccounts ? (
+        <AccountsList accounts={myAccounts} t={t} />
+      ) : (
+        <p>{t('Accounts.no-accounts')}</p>
+      )}
       <AddAccountLink>
         <Button
           theme="text"
@@ -104,11 +136,6 @@ const AccountsSettings = props => {
           label={t('Accounts.add_bank')}
         />
       </AddAccountLink>
-      {myAccounts ? (
-        <AccountsList accounts={myAccounts} t={t} />
-      ) : (
-        <p>{t('Accounts.no-accounts')}</p>
-      )}
     </div>
   )
 }
