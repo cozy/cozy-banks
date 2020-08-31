@@ -123,7 +123,7 @@ const AccountsSettings = props => {
   const myAccounts = accountBySharingDirection[true]
 
   return (
-    <div>
+    <>
       {myAccounts ? (
         <AccountsList accounts={myAccounts} t={t} />
       ) : (
@@ -136,7 +136,7 @@ const AccountsSettings = props => {
           label={t('Accounts.add_bank')}
         />
       </AddAccountLink>
-    </div>
+    </>
   )
 }
 export default queryConnect({
