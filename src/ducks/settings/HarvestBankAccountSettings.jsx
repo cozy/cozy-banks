@@ -31,6 +31,10 @@ const HarvestLoader = ({ connectionId, children }) => {
       fetchPolicy={fetchPolicy}
     >
       {({ data: account, fetchStatus, lastUpdate }) => {
+        // Can happen for a short while when the account is deleted
+        if (!account) {
+          return null
+        }
         if (fetchStatus === 'loading' && !lastUpdate) {
           return <HarvestSpinner />
         } else {
