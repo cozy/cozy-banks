@@ -9,14 +9,6 @@ import EditAccountModal from 'cozy-harvest-lib/dist/components/EditAccountModal'
 
 import HarvestSwitch from './HarvestSwitch'
 
-const makeQuerySpecForAccountTriggers = accountId => ({
-  query: () =>
-    Q('io.cozy.triggers').where({
-      'message.account': accountId
-    }),
-  as: `account/${accountId}/triggers`
-})
-
 const HarvestSpinner = () => {
   return (
     <div className="u-m-2 u-ta-center">
@@ -29,7 +21,7 @@ const fetchPolicy = CozyClient.fetchPolicies.olderThan(30 * 1000)
 
 /**
  * Data fetching component that fetches data necessary to render Harvest
- * components related to a particular connection
+ * components related to a particular connection.
  */
 const HarvestLoader = ({ connectionId, children }) => {
   return (
@@ -57,12 +49,19 @@ const HarvestLoader = ({ connectionId, children }) => {
                 if (fetchStatus === 'loading' && !lastUpdate) {
                   return <HarvestSpinner />
                 }
-                const triggerQuery = makeQuerySpecForAccountTriggers(
-                  connectionId
-                )
+
+                // We do not query directly the triggers for the connection as
+                // we need to use the /jobs/triggers route. This route is only
+                // used by cozy-client when all triggers are fetched
                 return (
-                  <Query query={triggerQuery.query} as={triggerQuery.as}>
-                    {({ data: triggers, fetchStatus, lastUpdate }) => {
+                  <Query query={Q('io.cozy.triggers')} as="triggers">
+                    {({ data: allTriggers, fetchStatus, lastUpdate }) => {
+                      const triggers = allTriggers.filter(trigger => {
+                        return (
+                          trigger.message &&
+                          trigger.message.account === account._id
+                        )
+                      })
                       if (fetchStatus === 'loading' && !lastUpdate) {
                         return <HarvestSpinner />
                       } else {
