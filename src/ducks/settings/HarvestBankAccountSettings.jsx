@@ -115,6 +115,10 @@ const HarvestBankAccountSettings = ({ connectionId, onDismiss }) => {
                       triggers={triggers}
                       konnector={konnector}
                       accountsAndTriggers={accountsAndTriggers}
+                      onDismiss={() => {
+                        onDismiss()
+                      }}
+                      showAccountSelection={false}
                     />
                   )
                 }}
