@@ -208,7 +208,7 @@
       "verbs": ["GET"]
     },
     "triggers": {
-      "description": "Used to configure bank account triggers through Harvest",
+      "description": "Used to configure bank accounts",
       "type": "io.cozy.triggers"
     },
     "settings": {
@@ -241,7 +241,7 @@
       "type": "io.cozy.jobs"
     },
     "accounts": {
-      "description": "Used to create a temporary account for transfers and to configure accounts through Harvest",
+      "description": "Used to create a temporary account for transfers and to configure accounts",
       "type": "io.cozy.accounts"
     },
     "contacts": {
