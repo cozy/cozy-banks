@@ -133,6 +133,7 @@ const HarvestBankAccountSettings = ({ connectionId, onDismiss }) => {
                         onDismiss()
                       }}
                       showAccountSelection={false}
+                      showNewAccountButton={false}
                     />
                   )
                 }}
