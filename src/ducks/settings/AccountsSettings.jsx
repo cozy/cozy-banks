@@ -57,48 +57,56 @@ const AccountListItem = ({ account, onClick, secondaryText }) => {
   )
 }
 
-const AccountsList_ = ({ accounts }) => {
+const getConnectionIdFromAccount = account => {
+  return account.connection.raw._id
+}
+
+export const AccountsList_ = ({ accounts }) => {
   const connectionGroups = Object.values(
-    groupBy(accounts, acc => acc.connection.raw.id)
+    groupBy(accounts, acc => acc.connection.raw._id)
   ).map(accounts => ({
     accounts,
-    connection: accounts[0].connection.data
+    connection: accounts[0].connection.data,
+    connectionId: getConnectionIdFromAccount(accounts[0])
   }))
 
   // Depending on whether the bank account is still connected to an
   // io.cozy.accounts, we will either show the AccountModal or the
   // DisconnectedAccountModal
-  const [connectionId, setConnectionIdShownInSettings] = useState(null)
-  const [accountsBeingEdited, setAccountsBeingEdited] = useState(null)
+  const [editionModalOptions, setEditionModalOptions] = useState(null)
 
   return (
     <Unpadded horizontal className="u-mv-1">
       {/* Bank accounts still connected to io.cozy.accounts */}
       <List>
-        {connectionGroups.map(({ accounts, connection }) => (
+        {connectionGroups.map(({ accounts, connection, connectionId }) => (
           <AccountListItem
             key={accounts[0]._id}
             account={accounts[0]}
             secondaryText={connection ? connection.auth.identifier : null}
             onClick={() => {
-              return connection
-                ? setConnectionIdShownInSettings(connection.id)
-                : setAccountsBeingEdited(accounts)
+              return setEditionModalOptions({
+                connection: connection,
+                connectionId: connectionId
+              })
             }}
           />
         ))}
       </List>
-      {connectionId ? (
-        <HarvestBankAccountSettings
-          connectionId={connectionId}
-          onDismiss={() => setConnectionIdShownInSettings(null)}
-        />
-      ) : null}
-      {accountsBeingEdited ? (
-        <DisconnectedAccountModal
-          onClose={() => setAccountsBeingEdited(null)}
-          accounts={accountsBeingEdited}
-        />
+      {editionModalOptions ? (
+        editionModalOptions.connection ? (
+          <HarvestBankAccountSettings
+            connectionId={editionModalOptions.connection._id}
+            onDismiss={() => setEditionModalOptions(null)}
+          />
+        ) : (
+          <DisconnectedAccountModal
+            onClose={() => setEditionModalOptions(null)}
+            accounts={accounts.filter(
+              acc => acc.connection.raw._id === editionModalOptions.connectionId
+            )}
+          />
+        )
       ) : null}
     </Unpadded>
   )
