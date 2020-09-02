@@ -24,7 +24,7 @@ const mockBankAccounts = [
   {
     _id: 'my-bank-account2',
     shortLabel: 'My bank account 2',
-    institutionLabel: 'My bank',
+    institutionLabel: 'My Bank',
     relationships: {
       connection: {
         data: { _id: 'connection-1', doctype: 'io.cozy.accounts' }
@@ -34,11 +34,22 @@ const mockBankAccounts = [
   {
     _id: 'my-bank-account3',
     shortLabel: 'My bank account 3',
-    institutionLabel: 'My other bank',
+    institutionLabel: 'My Bank 2',
     relationships: {
       connection: {
         data: { _id: 'connection-2', doctype: 'io.cozy.accounts' }
       }
+    }
+  },
+
+  // This account represents a legacy account which does not have
+  // the connection relationship
+  {
+    _id: 'my-bank-account4',
+    shortLabel: 'My bank account 4',
+    institutionLabel: 'My Bank 3',
+    cozyMetadata: {
+      createdByApp: 'revolut'
     }
   }
 ]
@@ -106,9 +117,17 @@ describe('AccountsSettings', () => {
     return { client, root }
   }
 
+  it('should display all "connections"', () => {
+    const { root } = setup()
+    expect(() => root.getByText('My Bank')).not.toThrow()
+    expect(() => root.getByText('My Bank 2')).not.toThrow()
+    expect(() => root.getByText('My Bank 3')).not.toThrow()
+  })
+
   it('should display an edition modal on click', async () => {
     const { root, client } = setup()
-    const myLoginLine = root.getByText('My other bank')
+    const myLoginLine = root.getByText('My Bank 2')
+
     fireEvent.click(myLoginLine)
     expect(() => root.getByText('My Bank Account 3')).not.toThrow()
     const bankAccount3 = mockBankAccounts.find(

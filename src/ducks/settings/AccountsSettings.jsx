@@ -32,6 +32,7 @@ import { Unpadded } from 'components/Spacing/Padded'
 
 import HarvestBankAccountSettings from './HarvestBankAccountSettings'
 import DisconnectedAccountModal from 'cozy-harvest-lib/dist/components/DisconnectedAccountModal'
+import { utils } from 'cozy-client/dist/models'
 
 const AccountListItem = ({ account, onClick, secondaryText }) => {
   return (
@@ -57,13 +58,27 @@ const AccountListItem = ({ account, onClick, secondaryText }) => {
   )
 }
 
+/**
+ * Returns the connection id of an account
+ *
+ * To achieve backward compatibility of the UI when accounts
+ * are not connected to any io.cozy.accounts (since banking
+ * connectors historically did not store the io.cozy.accounts
+ * in the io.cozy.bank.accounts), the connectionId
+ * that is assumed for bank accounts that have not been connected
+ * is the konnector slug. This means that every account for
+ * a given konnector will be regrouped (instead of being grouped
+ * by io.cozy.accounts).
+ */
 const getConnectionIdFromAccount = account => {
-  return account.connection.raw._id
+  return account.connection && account.connection.raw
+    ? account.connection.raw._id
+    : utils.getCreatedByApp(account)
 }
 
 export const AccountsList_ = ({ accounts }) => {
   const connectionGroups = Object.values(
-    groupBy(accounts, acc => acc.connection.raw._id)
+    groupBy(accounts, acc => getConnectionIdFromAccount(acc))
   ).map(accounts => ({
     accounts,
     connection: accounts[0].connection.data,
@@ -103,7 +118,9 @@ export const AccountsList_ = ({ accounts }) => {
           <DisconnectedAccountModal
             onClose={() => setEditionModalOptions(null)}
             accounts={accounts.filter(
-              acc => acc.connection.raw._id === editionModalOptions.connectionId
+              acc =>
+                getConnectionIdFromAccount(acc) ===
+                editionModalOptions.connectionId
             )}
           />
         )
