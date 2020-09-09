@@ -6,12 +6,14 @@ import Icon from 'cozy-ui/transpiled/react/Icon'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
 import flag from 'cozy-flags'
-import { trigger as triggerLibs } from 'cozy-client/dist/models'
+import { models } from 'cozy-client'
 import {
   getAccountUpdatedAt,
   isReimbursementsAccount
 } from 'ducks/account/helpers'
 import styles from 'ducks/balance/AccountRow.styl'
+
+const { trigger: triggerLibs } = models
 
 const { isErrored } = triggerLibs.triggerStates
 
