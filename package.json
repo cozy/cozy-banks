@@ -21,7 +21,7 @@
     "lint": "npm-run-all --parallel 'lint:*'",
     "lint:js": "eslint --fix 'config/**.js' 'src/**/*.js' 'src/**/*.jsx' 'test/**/*.js'",
     "lint:js:changes": "git diff --name-only master..HEAD | grep -E 'jsx?$' | xargs ls -d 2>/dev/null | xargs yarn eslint --fix",
-    "lint:styles": "stylint src/styles --config ./.stylintrc",
+    "lint:css": "stylint src/styles --config node_modules/cozy-scripts/config/.stylintrc",
     "stack:docker": "docker run --rm -it -p 8080:8080 -p 8025:8025 -v \"$(pwd)/build/\":/data/cozy-app/banks cozy/cozy-app-dev",
     "test": "jest --runInBand",
     "test:changes": "git diff --name-only master..HEAD | grep -E 'jsx?$' | xargs yarn test --runInBand --bail --findRelatedTests",
