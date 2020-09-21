@@ -16,6 +16,9 @@ module.exports = merge(appConfig, {
     path: path.resolve(__dirname, '../src/targets/mobile/www')
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      'cozy.bar': 'cozy-bar/dist/cozy-bar.mobile'
+    }),
     new webpack.DefinePlugin({
       __TARGET__: JSON.stringify('mobile'),
       __POUCH__: JSON.stringify(true)
