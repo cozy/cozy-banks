@@ -1,7 +1,7 @@
 Release $VERSION
 
-- [ ] Create branch and the PR with the following content
-- [ ] Check to remove flags for features on which we are mature enough
+- [x] Create branch and the PR with the following content
+- [ ] Check to remove flags for features on which we are mature enough (see the how to check flag section  below for help)
 - [ ] Run E2E tests (`yarn test:e2e`)
 - [ ] Bump `manifest.webapp`, `config.xml`. Check the details below for Android's `versionCode`, `ios-CFBundleVersion`. ⚠️ Don't forget `AppendUserAgent`.
 - [ ] Bump version in master for beta/prod versions not to shadow the next versions
@@ -82,6 +82,16 @@ For iOS, this is a little bit better since `ios-CFBundleVersion` can be a string
 Cordova doc : https://cordova.apache.org/docs/fr/latest/config_ref/
 iOS doc : https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html#//apple_ref/doc/uid/20001431-102364
 Android doc : https://developer.android.com/google/play/publishing/multiple-apks#VersionCodes
+</details>
+
+<details>
+<summary>How to check flags</summary>
+
+This command can be useful to list all flags from the current source code.
+
+```
+rg 'flag\(.*\)' -o --no-filename | sort | uniq | grep banks
+```
 </details>
 
 [playstore]: https://play.google.com/apps/publish/?pli=1&account=7424624102327137158#ManageReleasesPlace:p=io.cozy.banks.mobile&appid=4975496102553953948
