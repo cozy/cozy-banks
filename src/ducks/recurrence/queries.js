@@ -20,7 +20,11 @@ export const bundleTransactionsQueryConn = ({ bundle }) => {
     query: () => {
       const initialQDef = queryRecurrenceTransactions(bundle)
       const qDef = initialQDef
-        .sortBy([{ date: 'desc' }])
+        .sort([
+          { 'relationships.recurrence.data._id': 'desc' },
+          { date: 'desc' }
+        ])
+        .indexFields(['relationships.recurrence.data._id', 'date'])
         .where({ ...initialQDef.selector, date: { $gt: null } })
         .UNSAFE_noLimit()
         .include(['bills', 'account', 'reimbursements', 'recurrence'])
