@@ -5449,10 +5449,10 @@ cozy-realtime@3.9.0:
     cozy-device-helper "^1.9.2"
     minilog "https://github.com/cozy/minilog.git#master"
 
-cozy-scripts@5.1.1:
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/cozy-scripts/-/cozy-scripts-5.1.1.tgz#8bbd7d752221d059c76d389953c1127982a4e7f0"
-  integrity sha512-wGTE61VMaoI6v7kNA44Zu7Ec2YALWecVo2hzvUkHzY7+VSNgAzo3wKKUbIqeMKHIv1uHLlRC9SuzL7fnHrQKBA==
+cozy-scripts@5.1.2:
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/cozy-scripts/-/cozy-scripts-5.1.2.tgz#a23abbc43a1c8a61526a6f2e29f9e1e77428cedf"
+  integrity sha512-rR6OxXEL9r4wWPVKJXgm/xRAm0qhr+s912/KMlgZuFm94y+S6x6T1HyFAgPbH83kjYHBR10r2xDjvyM3N5PLtw==
   dependencies:
     "@babel/core" "7.9.0"
     "@babel/polyfill" "^7.10.4"
