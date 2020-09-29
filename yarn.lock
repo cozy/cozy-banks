@@ -5449,10 +5449,10 @@ cozy-realtime@3.9.0:
     cozy-device-helper "^1.9.2"
     minilog "https://github.com/cozy/minilog.git#master"
 
-cozy-scripts@5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/cozy-scripts/-/cozy-scripts-5.0.1.tgz#f0efca8b39618c9b8cb33a19c893b5aa347e04e5"
-  integrity sha512-9bqibwsYPs2DWEc1NwQspcrrMa/NK2zbur2YYDgAiAZ96VrpGaszf8tRMSDWa3+DWtPnWR7OoKR61GueeEA9UA==
+cozy-scripts@5.1.2:
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/cozy-scripts/-/cozy-scripts-5.1.2.tgz#a23abbc43a1c8a61526a6f2e29f9e1e77428cedf"
+  integrity sha512-rR6OxXEL9r4wWPVKJXgm/xRAm0qhr+s912/KMlgZuFm94y+S6x6T1HyFAgPbH83kjYHBR10r2xDjvyM3N5PLtw==
   dependencies:
     "@babel/core" "7.9.0"
     "@babel/polyfill" "^7.10.4"
@@ -5493,6 +5493,7 @@ cozy-scripts@5.0.1:
     prompt "1.0.0"
     script-ext-html-webpack-plugin "2.1.3"
     style-loader "0.23.1"
+    stylint "2.0.0"
     stylus "0.54.7"
     stylus-loader "3.0.2"
     svg-sprite-loader "4.2.3"
