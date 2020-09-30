@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react'
-import ReactHintFactory from 'react-hint'
-import 'react-hint/css/index.css'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import { Layout, Main, Content } from 'cozy-ui/transpiled/react/Layout'
 import Sidebar from 'cozy-ui/transpiled/react/Sidebar'
@@ -17,7 +15,7 @@ import { pinGuarded } from 'ducks/pin'
 import styles from './App.styl'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
-const ReactHint = ReactHintFactory(React)
+import ReactHint from 'components/ReactHint'
 
 const App = props => {
   const settings = getDefaultedSettingsFromCollection(props.settingsCollection)
