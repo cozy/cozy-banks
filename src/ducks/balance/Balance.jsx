@@ -2,6 +2,7 @@
 
 import React, { PureComponent, Fragment } from 'react'
 import { flowRight as compose, get, sumBy, set, debounce } from 'lodash'
+import cx from 'classnames'
 
 import {
   queryConnect,
@@ -10,6 +11,8 @@ import {
   hasQueryBeenLoaded
 } from 'cozy-client'
 import flag from 'cozy-flags'
+import CozyRealtime from 'cozy-realtime'
+
 import {
   groupsConn,
   settingsConn,
@@ -20,7 +23,6 @@ import {
   TRANSACTION_DOCTYPE,
   transactionsConn
 } from 'doctypes'
-import cx from 'classnames'
 
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
@@ -41,7 +43,6 @@ import BalancePanels from 'ducks/balance/BalancePanels'
 import { getPanelsState } from 'ducks/balance/helpers'
 import BarTheme from 'ducks/bar/BarTheme'
 import { filterByAccounts } from 'ducks/filters'
-import CozyRealtime from 'cozy-realtime'
 import { createStructuredSelector } from 'reselect'
 
 const syncPouchImmediately = async client => {
