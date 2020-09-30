@@ -37,7 +37,10 @@ export const getMatomoTracker = memoize(() => {
     },
     trackPage: pageName => {
       console.info('Tracking page', pageName)
-      trackerInstance.push(['setCustomUrl', pageName])
+      trackerInstance.push([
+        'setCustomUrl',
+        'https://cozy-banks/' + pageName.replace(/:/g, '/')
+      ])
       trackerInstance.push(['trackPageView'])
     }
   }

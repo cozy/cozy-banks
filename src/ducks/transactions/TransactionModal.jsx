@@ -2,7 +2,7 @@
  * Is used in mobile/tablet mode when you click on the more button
  */
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
@@ -52,18 +52,21 @@ import {
 import { TRANSACTION_DOCTYPE } from 'doctypes'
 import flag from 'cozy-flags'
 
-import TransactionCategoryEditor from './TransactionCategoryEditor'
-import TransactionApplicationDateEditor from './TransactionApplicationDateEditor'
+import { useTracker } from 'ducks/tracking/browser'
+import { getFrequencyText } from 'ducks/recurrence/utils'
+import withDocs from 'components/withDocs'
+
+import TransactionCategoryEditor from 'ducks/transactions/TransactionCategoryEditor'
+import TransactionApplicationDateEditor from 'ducks/transactions/TransactionApplicationDateEditor'
 import TransactionRecurrenceEditor from 'ducks/transactions/TransactionRecurrenceEditor'
 
-import { getFrequencyText } from 'ducks/recurrence/utils'
 import TransactionModalRow, {
   TransactionModalRowIcon,
   TransactionModalRowMedia,
   RowArrow
-} from './TransactionModalRow'
+} from 'ducks/transactions/TransactionModalRow'
 
-import withDocs from 'components/withDocs'
+import { useParams } from 'components/RouterContext'
 
 const SearchForTransactionIcon = ({ transaction }) => {
   const label = getLabel(transaction)
@@ -113,6 +116,19 @@ const TransactionCategoryEditorSlide = ({ transaction }) => {
   const { t } = useI18n()
   const { stackPop } = useViewStack()
   const { isMobile } = useBreakpoints()
+  const tracker = useTracker()
+  const { categoryName, subcategoryName } = useParams()
+
+  useEffect(() => {
+    if (categoryName && subcategoryName) {
+      tracker.trackPage(
+        `analyse:${categoryName}:depense-categorie`
+      )
+    } else {
+      tracker.trackPage(`mon_compte:depense:categorie`)
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <>
       <PageHeader dismissAction={stackPop}>
@@ -137,6 +153,19 @@ const TransactionApplicationDateEditorSlide = ({
 }) => {
   const { t } = useI18n()
   const { stackPop } = useViewStack()
+  const tracker = useTracker()
+  const { categoryName, subcategoryName } = useParams()
+
+  useEffect(() => {
+    if (categoryName && subcategoryName) {
+      tracker.trackPage(
+        `analyse:${categoryName}:depense-affectation_mois`
+      )
+    } else {
+      tracker.trackPage(`mon_compte:depense:affectation_mois`)
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
   const handleBeforeUpdate = () => {
     beforeUpdate()
     stackPop()
@@ -403,8 +432,19 @@ const TransactionModalInfo = props => {
   )
 }
 
-const TransactionModal = ({ requestClose, ...props }) => {
+const TransactionModal = ({ requestClose, router, ...props }) => {
   const { t } = useI18n()
+  const tracker = useTracker()
+  const { categoryName, subcategoryName } = useParams()
+
+  useEffect(() => {
+    if (categoryName && subcategoryName) {
+      tracker.trackPage(`analyse:${categoryName}:depense`)
+    } else {
+      tracker.trackPage(`mon_compte:depense`)
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <PageModal
       aria-label={t('Transactions.infos.modal-label')}
@@ -424,4 +464,4 @@ TransactionModal.propTypes = {
   transactionId: PropTypes.string.isRequired
 }
 
-export default TransactionModal
+export default withRouter(TransactionModal)

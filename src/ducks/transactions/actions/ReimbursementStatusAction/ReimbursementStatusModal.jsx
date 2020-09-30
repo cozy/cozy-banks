@@ -1,5 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { flowRight as compose } from 'lodash'
+import cx from 'classnames'
+
+import flag from 'cozy-flags'
 
 import Modal, { ModalContent } from 'cozy-ui/transpiled/react/Modal'
 import Icon from 'cozy-ui/transpiled/react/Icon'
@@ -7,13 +10,13 @@ import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import { Title, Text } from 'cozy-ui/transpiled/react/Text'
 
-import cx from 'classnames'
 import { List, Row, Radio } from 'components/List'
+import { useParams } from 'components/RouterContext'
+import { useTracker } from 'ducks/tracking/browser'
 import iconReimbursement from 'assets/icons/icon-reimbursement-detailed.svg'
 import styles from 'ducks/transactions/actions/ReimbursementStatusAction/ReimbursementStatusModal.styl'
 import { getReimbursementStatus, getLabel } from 'ducks/transactions/helpers'
 import { isHealthExpense } from 'ducks/categories/helpers'
-import flag from 'cozy-flags'
 import ContactItem from 'ducks/transactions/actions/ReimbursementStatusAction/ContactItem'
 
 const ReimbursementStatusModal = props => {
@@ -25,6 +28,19 @@ const ReimbursementStatusModal = props => {
 
   const showContacts =
     flag('reimbursements-contacts') && isHealthExpense(transaction)
+
+  const tracker = useTracker()
+  const { categoryName, subcategoryName } = useParams()
+
+  useEffect(() => {
+    if (categoryName && subcategoryName) {
+      tracker.trackPage(
+        `analyse:${categoryName}:depense-remboursement`
+      )
+    } else {
+      tracker.trackPage(`mon_compte:depense:remboursement`)
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Modal
