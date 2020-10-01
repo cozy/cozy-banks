@@ -33,6 +33,7 @@ module.exports = {
         'core-js',
         'cozy-client',
         'cozy-device-helper',
+        'cozy-flags',
         'cozy-stack-client',
         'date-fns',
         'dom-helpers',
