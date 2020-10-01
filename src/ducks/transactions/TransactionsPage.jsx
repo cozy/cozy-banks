@@ -100,7 +100,7 @@ class TransactionsPage extends Component {
     if (categoryName && subcategoryName) {
       tracker.trackPage(
         `analyse:${categoryName ? categoryName : 'home'}${
-          subcategoryName ? `:${subcategoryName}` : ''
+          subcategoryName ? `:details` : ''
         }`
       )
     } else {
