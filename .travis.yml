@@ -60,7 +60,6 @@ jobs:
       before_script:  ./scripts/ci/android_before_script.sh
       script: ./scripts/ci/android_script.sh
       after_success: ./scripts/ci/android_after_success.sh
-      if: tag IS present OR (type = push AND branch = master) OR (type = pull_request AND commit_message =~ /(\[apk\])/)
 env:
   global:
     - MATTERMOST_CHANNEL='{"dev":"gangsters","beta":"gangsters,publication","stable":"gangsters,publication"}'
