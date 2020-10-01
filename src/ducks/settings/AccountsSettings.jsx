@@ -81,7 +81,6 @@ const getConnectionIdFromAccount = account => {
 
 export const AccountsList_ = ({ accounts }) => {
   const { t } = useI18n()
-  useTrackPage('parametres:comptes')
 
   const connectionGroups = Object.values(
     groupBy(accounts, acc => getConnectionIdFromAccount(acc))
@@ -148,6 +147,8 @@ const AccountsList = withRouter(AccountsList_)
 
 const AccountsSettings = props => {
   const { t } = useI18n()
+  useTrackPage('parametres:comptes')
+
   const { accountsCollection } = props
 
   if (
