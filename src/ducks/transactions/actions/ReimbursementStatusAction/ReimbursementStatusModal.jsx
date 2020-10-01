@@ -12,7 +12,7 @@ import { Title, Text } from 'cozy-ui/transpiled/react/Text'
 
 import { List, Row, Radio } from 'components/List'
 import { useParams } from 'components/RouterContext'
-import { useTracker } from 'ducks/tracking/browser'
+import { useTrackPage } from 'ducks/tracking/browser'
 import iconReimbursement from 'assets/icons/icon-reimbursement-detailed.svg'
 import styles from 'ducks/transactions/actions/ReimbursementStatusAction/ReimbursementStatusModal.styl'
 import { getReimbursementStatus, getLabel } from 'ducks/transactions/helpers'
@@ -32,15 +32,11 @@ const ReimbursementStatusModal = props => {
   const tracker = useTracker()
   const { categoryName, subcategoryName } = useParams()
 
-  useEffect(() => {
-    if (categoryName && subcategoryName) {
-      tracker.trackPage(
-        `analyse:${categoryName}:depense-remboursement`
-      )
-    } else {
-      tracker.trackPage(`mon_compte:depense:remboursement`)
-    }
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  useTrackPage(
+    categoryName && subcategoryName
+      ? `analyse:${categoryName}:depense-remboursement`
+      : `mon_compte:depense:remboursement`
+  )
 
   return (
     <Modal

@@ -52,7 +52,7 @@ import {
 import { TRANSACTION_DOCTYPE } from 'doctypes'
 import flag from 'cozy-flags'
 
-import { useTracker } from 'ducks/tracking/browser'
+import { useTrackPage } from 'ducks/tracking/browser'
 import { getFrequencyText } from 'ducks/recurrence/utils'
 import withDocs from 'components/withDocs'
 
@@ -116,18 +116,13 @@ const TransactionCategoryEditorSlide = ({ transaction }) => {
   const { t } = useI18n()
   const { stackPop } = useViewStack()
   const { isMobile } = useBreakpoints()
-  const tracker = useTracker()
   const { categoryName, subcategoryName } = useParams()
 
-  useEffect(() => {
-    if (categoryName && subcategoryName) {
-      tracker.trackPage(
-        `analyse:${categoryName}:depense-categorie`
-      )
-    } else {
-      tracker.trackPage(`mon_compte:depense:categorie`)
-    }
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  useTrackPage(
+    categoryName && subcategoryName
+      ? `analyse:${categoryName}:depense-categorie`
+      : `mon_compte:depense:categorie`
+  )
 
   return (
     <>
@@ -153,18 +148,13 @@ const TransactionApplicationDateEditorSlide = ({
 }) => {
   const { t } = useI18n()
   const { stackPop } = useViewStack()
-  const tracker = useTracker()
   const { categoryName, subcategoryName } = useParams()
 
-  useEffect(() => {
-    if (categoryName && subcategoryName) {
-      tracker.trackPage(
-        `analyse:${categoryName}:depense-affectation_mois`
-      )
-    } else {
-      tracker.trackPage(`mon_compte:depense:affectation_mois`)
-    }
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  useTrackPage(
+    categoryName && subcategoryName
+      ? `analyse:${categoryName}:depense-affectation_mois`
+      : `mon_compte:depense:affectation_mois`
+  )
 
   const handleBeforeUpdate = () => {
     beforeUpdate()

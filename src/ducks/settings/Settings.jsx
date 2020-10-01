@@ -1,5 +1,5 @@
 /* global __TARGET__, __APP_VERSION__ */
-import React, { useEffect } from 'react'
+import React from 'react'
 import { withBreakpoints, useI18n } from 'cozy-ui/transpiled/react'
 import { Tabs, TabList, Tab } from 'cozy-ui/transpiled/react/Tabs'
 import { withRouter } from 'react-router'
@@ -13,12 +13,9 @@ import flag from 'cozy-flags'
 import tabsStyle from 'components/Tabs.styl'
 import Header from 'components/Header'
 import styles from 'ducks/Settings/Settings.styl'
-import { useTrackPage } from 'ducks/tracking/browser'
 
 const Settings = ({ children, router, breakpoints: { isMobile } }) => {
   const { t } = useI18n()
-
-  useTrackPage('parametres:configuration')
 
   const tabNames = ['configuration', 'accounts', 'groups']
   let defaultTab = router.location.pathname.replace('/settings/', '')

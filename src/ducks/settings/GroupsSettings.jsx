@@ -13,6 +13,7 @@ import plus from 'assets/icons/16/plus.svg'
 import styles from 'ducks/settings/GroupsSettings.styl'
 import { useRouter } from 'components/RouterContext'
 import { getGroupLabel } from 'ducks/groups/helpers'
+import { useTrackPage } from 'ducks/tracking/browser'
 
 const GroupList = ({ groups }) => {
   const router = useRouter()
@@ -56,6 +57,9 @@ const GroupList = ({ groups }) => {
 const Groups = props => {
   const { t } = useI18n()
   const router = useRouter()
+
+  useTrackPage('parametres:groupes')
+
   const { groups } = props
   if (isQueryLoading(groups) && !hasQueryBeenLoaded(groups)) {
     return <Loading />
