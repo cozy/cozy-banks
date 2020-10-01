@@ -80,6 +80,9 @@ if (process.env.TRAVIS_CI) {
   )
 }
 
+window.__PIWIK_TRACKER_URL__ = 'https://matomo.cozycloud.cc'
+window.__PIWIK_SITEID__ = 8
+
 window.cozy = {
   bar: {
     BarLeft: () => null,
