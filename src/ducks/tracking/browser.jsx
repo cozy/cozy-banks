@@ -74,7 +74,7 @@ export const useTrackPage = pageName => {
   const tracker = useTracker()
 
   useEffect(() => {
-    if (!pageName) {
+    if (!pageName || !tracker) {
       return
     }
     tracker.trackPage(pageName)
