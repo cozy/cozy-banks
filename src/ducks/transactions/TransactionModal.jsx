@@ -2,7 +2,7 @@
  * Is used in mobile/tablet mode when you click on the more button
  */
 
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
@@ -422,18 +422,15 @@ const TransactionModalInfo = props => {
   )
 }
 
-const TransactionModal = ({ requestClose, router, ...props }) => {
+const TransactionModal = ({ requestClose, ...props }) => {
   const { t } = useI18n()
-  const tracker = useTracker()
   const { categoryName, subcategoryName } = useParams()
 
-  useEffect(() => {
-    if (categoryName && subcategoryName) {
-      tracker.trackPage(`analyse:${categoryName}:depense`)
-    } else {
-      tracker.trackPage(`mon_compte:depense`)
-    }
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  useTrackPage(
+    categoryName && subcategoryName
+      ? `analyse:${categoryName}:depense`
+      : `mon_compte:depense`
+  )
 
   return (
     <PageModal
