@@ -1,4 +1,4 @@
-import React, { useContext, createContext } from 'react'
+import React, { useContext, createContext, useEffect } from 'react'
 import memoize from 'lodash/memoize'
 import {
   getTracker as uiGetTracker,
@@ -35,11 +35,11 @@ export const getMatomoTracker = memoize(() => {
       const { name, action, category, type } = event
       trackerInstance.push(['trackEvent', category, name, action])
     },
-    trackPage: pageName => {
-      console.info('Tracking page', pageName)
+    trackPage: pagePath => {
+      console.info('Tracking page', pagePath)
       trackerInstance.push([
         'setCustomUrl',
-        'https://cozy-banks/' + pageName.replace(/:/g, '/')
+        'https://cozy-banks/' + pagePath.replace(/:/g, '/')
       ])
       trackerInstance.push(['trackPageView'])
     }
@@ -61,4 +61,15 @@ export const TrackerProvider = ({ children }) => {
 
 export const useTracker = () => {
   return useContext(TrackerContext)
+}
+
+export const useTrackPage = pageName => {
+  const tracker = useTracker()
+
+  useEffect(() => {
+    if (!pageName) {
+      return
+    }
+    tracker.trackPage(pageName)
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 }

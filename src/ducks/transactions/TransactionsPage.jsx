@@ -103,6 +103,8 @@ class TransactionsPage extends Component {
           subcategoryName ? `:${subcategoryName}` : ''
         }`
       )
+    } else {
+      tracker.trackPage('mon_compte:compte')
     }
   }
 
