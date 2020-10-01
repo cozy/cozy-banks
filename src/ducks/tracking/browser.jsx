@@ -1,9 +1,12 @@
 import React, { useContext, createContext, useEffect } from 'react'
 import memoize from 'lodash/memoize'
+
+import flag from 'cozy-flags'
 import {
   getTracker as uiGetTracker,
   shouldEnableTracking
 } from 'cozy-ui/transpiled/react/helpers/tracker'
+import Alerter from 'cozy-ui/transpiled/react/Alerter'
 
 const trackerShim = {
   trackPage: () => {},
@@ -36,7 +39,11 @@ export const getMatomoTracker = memoize(() => {
       trackerInstance.push(['trackEvent', category, name, action])
     },
     trackPage: pagePath => {
-      console.info('Tracking page', pagePath)
+      const message = `Tracking page ${pagePath}`
+      console.info(message)
+      if (flag('banks.show-tracking-alerts')) {
+        Alerter.info(message)
+      }
       trackerInstance.push([
         'setCustomUrl',
         'https://cozy-banks/' + pagePath.replace(/:/g, '/')
