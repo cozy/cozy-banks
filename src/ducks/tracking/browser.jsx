@@ -1,11 +1,10 @@
+/* global __PIWIK_TRACKER_URL__, __PIWIK_SITEID__ */
+
 import React, { useContext, createContext, useEffect } from 'react'
 import memoize from 'lodash/memoize'
 
 import flag from 'cozy-flags'
-import {
-  getTracker as uiGetTracker,
-  shouldEnableTracking
-} from 'cozy-ui/transpiled/react/helpers/tracker'
+import { getTracker as uiGetTracker } from 'cozy-ui/transpiled/react/helpers/tracker'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 
 const trackerShim = {
@@ -34,13 +33,11 @@ export const getMatomoTracker = memoize(() => {
 
   return {
     trackEvent: event => {
-      console.info('Tracking event', event)
-      const { name, action, category, type } = event
+      const { name, action, category } = event
       trackerInstance.push(['trackEvent', category, name, action])
     },
     trackPage: pagePath => {
       const message = `Tracking page ${pagePath}`
-      console.info(message)
       if (flag('banks.show-tracking-alerts')) {
         Alerter.info(message)
       }

@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-import { flowRight as compose } from 'lodash'
+import React from 'react'
 import cx from 'classnames'
 
 import flag from 'cozy-flags'
@@ -29,7 +28,6 @@ const ReimbursementStatusModal = props => {
   const showContacts =
     flag('reimbursements-contacts') && isHealthExpense(transaction)
 
-  const tracker = useTracker()
   const { categoryName, subcategoryName } = useParams()
 
   useTrackPage(

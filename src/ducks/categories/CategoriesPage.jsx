@@ -86,7 +86,6 @@ class CategoriesPage extends Component {
   }
 
   selectCategory = (selectedCategory, subcategory) => {
-    const tracker = getTracker()
     if (subcategory) {
       this.props.router.push(`/categories/${selectedCategory}/${subcategory}`)
     } else if (selectedCategory) {
