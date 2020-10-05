@@ -49,7 +49,9 @@ const HarvestLoader = ({ connectionId, children }) => {
           const konnectorSlug = account.account_type
           return (
             <Query
-              query={Q('io.cozy.konnectors').getById(konnectorSlug)}
+              query={Q('io.cozy.konnectors').getById(
+                `io.cozy.konnectors/${konnectorSlug}`
+              )}
               as={`konnectors/${connectionId}`}
               fetchPolicy={fetchPolicy}
             >
