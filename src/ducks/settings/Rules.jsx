@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { Stack, useI18n } from 'cozy-ui/transpiled/react'
 import useList from './useList'
@@ -7,6 +7,12 @@ import AddRuleButton from 'ducks/settings/AddRuleButton'
 
 export { AddRuleButton }
 
+/**
+ * Displays a list of rules and allows to create or edit one
+ *
+ * Manages the stack of rules, the button to add a rule and the edition
+ * modal
+ */
 const Rules = ({
   rules,
   children,
@@ -26,15 +32,23 @@ const Rules = ({
   })
   const [creating, setCreating] = useState(false)
   const [saving, setSaving] = useState(false)
-  const handleCreateItem = async newItem => {
-    setCreating(false)
-    try {
-      setSaving(true)
-      await createOrUpdate(newItem)
-    } finally {
-      setSaving(false)
-    }
-  }
+
+  const handleCreateItem = useCallback(
+    async newItem => {
+      setCreating(false)
+      try {
+        setSaving(true)
+        await createOrUpdate(newItem)
+      } finally {
+        setSaving(false)
+      }
+    },
+    [createOrUpdate, setSaving, setCreating]
+  )
+
+  const handleAddRule = useCallback(() => {
+    setCreating(true)
+  }, [setCreating])
 
   return (
     <>
@@ -55,9 +69,7 @@ const Rules = ({
       <AddRuleButton
         label={t(addButtonLabelKey)}
         busy={saving}
-        onClick={() => {
-          setCreating(true)
-        }}
+        onClick={handleAddRule}
       />
     </>
   )
