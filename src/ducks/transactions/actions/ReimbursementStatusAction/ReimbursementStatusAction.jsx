@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import Chip from 'cozy-ui/transpiled/react/Chip'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+
 import {
   getReimbursementStatus,
   isReimbursementLate,
@@ -12,6 +14,7 @@ import TransactionModalRow, {
   RowArrow
 } from 'ducks/transactions/TransactionModalRow'
 import ReimbursementStatusModal from 'ducks/transactions/actions/ReimbursementStatusAction/ReimbursementStatusModal'
+
 import iconReimbursement from 'assets/icons/icon-reimbursement.svg'
 import { logException } from 'lib/sentry'
 import cx from 'classnames'
@@ -19,6 +22,59 @@ import { translate } from 'cozy-ui/transpiled/react'
 import { flowRight as compose } from 'lodash'
 import { withClient } from 'cozy-client'
 import { getHealthReimbursementLateLimitSelector } from 'ducks/reimbursements/selectors'
+
+const TransactionItem = ({
+  transaction,
+  healthReimbursementLateLimit,
+  onClick
+}) => {
+  const { t } = useI18n()
+  const status = getReimbursementStatus(transaction)
+  const isLate = isReimbursementLate(transaction, healthReimbursementLateLimit)
+
+  if (status === REIMBURSEMENTS_STATUS.noReimbursement) {
+    return null
+  }
+
+  const translateKey = isLate ? 'late' : status
+
+  return (
+    <Chip
+      size="small"
+      variant="outlined"
+      theme={isLate ? 'error' : 'normal'}
+      onClick={onClick}
+      className={cx({ 'u-valid': status === 'reimbursed' })}
+    >
+      {t(`Transactions.actions.reimbursementStatus.${translateKey}`)}
+      {status === 'pending' && (
+        <>
+          <Chip.Separator />
+          <Icon icon="hourglass" size={12} />
+        </>
+      )}
+    </Chip>
+  )
+}
+
+const ModalItem = ({ transaction, healthReimbursementLateLimit, onClick }) => {
+  const { t } = useI18n()
+
+  const status = getReimbursementStatus(transaction)
+  const isLate = isReimbursementLate(transaction, healthReimbursementLateLimit)
+  const translateKey = isLate ? 'late' : status
+  const label = t(`Transactions.actions.reimbursementStatus.${translateKey}`)
+
+  return (
+    <TransactionModalRow
+      iconLeft={<Icon icon={iconReimbursement} />}
+      iconRight={<RowArrow />}
+      onClick={onClick}
+    >
+      {label}
+    </TransactionModalRow>
+  )
+}
 
 export class DumbReimbursementStatusAction extends React.PureComponent {
   state = {
@@ -42,68 +98,21 @@ export class DumbReimbursementStatusAction extends React.PureComponent {
     }
   }
 
-  renderModalItem() {
-    const { t, transaction, healthReimbursementLateLimit } = this.props
-
-    const status = getReimbursementStatus(transaction)
-    const isLate = isReimbursementLate(
-      transaction,
-      healthReimbursementLateLimit
-    )
-    const translateKey = isLate ? 'late' : status
-    const label = t(`Transactions.actions.reimbursementStatus.${translateKey}`)
-
-    return (
-      <TransactionModalRow
-        iconLeft={<Icon icon={iconReimbursement} />}
-        iconRight={<RowArrow />}
-        onClick={this.showModal}
-      >
-        {label}
-      </TransactionModalRow>
-    )
-  }
-
-  renderTransactionRow() {
-    const { transaction, t, healthReimbursementLateLimit } = this.props
-
-    const status = getReimbursementStatus(transaction)
-    const isLate = isReimbursementLate(
-      transaction,
-      healthReimbursementLateLimit
-    )
-
-    if (status === REIMBURSEMENTS_STATUS.noReimbursement) {
-      return null
-    }
-
-    const translateKey = isLate ? 'late' : status
-
-    return (
-      <Chip
-        size="small"
-        variant="outlined"
-        theme={isLate ? 'error' : 'normal'}
-        onClick={this.showModal}
-        className={cx({ 'u-valid': status === 'reimbursed' })}
-      >
-        {t(`Transactions.actions.reimbursementStatus.${translateKey}`)}
-        {status === 'pending' && (
-          <>
-            <Chip.Separator />
-            <Icon icon="hourglass" size={12} />
-          </>
-        )}
-      </Chip>
-    )
-  }
-
   render() {
-    const { isModalItem, transaction } = this.props
+    const {
+      isModalItem,
+      transaction,
+      healthReimbursementLateLimit
+    } = this.props
 
+    const Item = isModalItem ? ModalItem : TransactionItem
     return (
       <>
-        {isModalItem ? this.renderModalItem() : this.renderTransactionRow()}
+        <Item
+          transaction={transaction}
+          healthReimbursementLateLimit={healthReimbursementLateLimit}
+          onClick={this.showModal}
+        />
         {this.state.showModal && (
           <ReimbursementStatusModal
             into="body"
