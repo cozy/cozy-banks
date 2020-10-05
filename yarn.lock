@@ -5055,15 +5055,15 @@ cozy-client@13.8.3:
     sift "^6.0.0"
     url-search-params-polyfill "^7.0.0"
 
-cozy-client@14.5.0:
-  version "14.5.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-14.5.0.tgz#394370ba717a632c96698d586d4baa06919de0ec"
-  integrity sha512-W9mdfhqNLk2vFyGhfHJSE7v4Axq6C3f94MRMv/48iGFnXJUKG3otVktgkAGWQG9soKxIRKCxCgI0FMap3o/wcw==
+cozy-client@15.2.0, cozy-client@^15.2.0:
+  version "15.2.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-15.2.0.tgz#a84e78c9f8e62094718187e0c514e5ef01131b48"
+  integrity sha512-xxPfGRYlgjVSaQ3FDlKfxYePRT4tfh5quWfezd3V6xvg0Ev0V0CAz+6FCXlJSO9r5v7hF0ZU3RnpYWT0a/BgOg==
   dependencies:
     btoa "^1.2.1"
     cozy-device-helper "^1.7.3"
     cozy-logger "^1.6.0"
-    cozy-stack-client "^14.1.2"
+    cozy-stack-client "^15.2.0"
     isomorphic-fetch "^2.2.1"
     lodash "^4.17.13"
     microee "^0.0.6"
@@ -5090,28 +5090,6 @@ cozy-client@6.64.5:
     react-redux "^5.0.7"
     redux "^3.7.2"
     redux-thunk "^2.3.0"
-    sift "^6.0.0"
-    url-search-params-polyfill "^7.0.0"
-
-cozy-client@^14.1.3:
-  version "14.1.3"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-14.1.3.tgz#662c735af70877bffead9883bf1362acb6aed4a4"
-  integrity sha512-WNsbTPAXHRCNaUlt+Lybsn7YPj7R6oVCSkuxv8bvE6OJTUOUAQgdXcc4mt3/byMNz9XqeeKbfS+BUS+qmabg5Q==
-  dependencies:
-    btoa "^1.2.1"
-    cozy-device-helper "^1.7.3"
-    cozy-logger "^1.6.0"
-    cozy-stack-client "^14.1.2"
-    isomorphic-fetch "^2.2.1"
-    lodash "^4.17.13"
-    microee "^0.0.6"
-    minilog "https://github.com/cozy/minilog.git#master"
-    open "^7.0.2"
-    prop-types "^15.6.2"
-    react-redux "^7.2.0"
-    redux "^3.7.2"
-    redux-thunk "^2.3.0"
-    server-destroy "^1.0.1"
     sift "^6.0.0"
     url-search-params-polyfill "^7.0.0"
 
@@ -5423,12 +5401,12 @@ cozy-notifications@0.5.0:
     mjml "4.3.1"
     word-wrap "^1.2.3"
 
-cozy-pouch-link@14.1.3:
-  version "14.1.3"
-  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-14.1.3.tgz#4dd7ca82a241d83a0de73d3f0a961473bee7c955"
-  integrity sha512-RdDyUyE0yQgSJpTUTSwj6G7IDfnBcLGDmxGZ7DPQLzDjW+3UXSGrA3LsAViJNMZwmSaSH2XiJc2TfZcQwZjU5A==
+cozy-pouch-link@15.2.0:
+  version "15.2.0"
+  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-15.2.0.tgz#1b4c7d156ad7077249f658b14639b10c93a4c884"
+  integrity sha512-6NxPTH8X4Km61yFBIh8gvSWFVCG2qPb02n3kRYmnwcmY2GawMAka8ayiP9sEK1cZLxkvF+3M5jOj7MCU8bYBIw==
   dependencies:
-    cozy-client "^14.1.3"
+    cozy-client "^15.2.0"
     cozy-device-helper "^1.7.3"
     minilog "^3.1.0"
     pouchdb-browser "^7.0.0"
@@ -5449,10 +5427,10 @@ cozy-realtime@3.9.0:
     cozy-device-helper "^1.9.2"
     minilog "https://github.com/cozy/minilog.git#master"
 
-cozy-scripts@5.1.1:
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/cozy-scripts/-/cozy-scripts-5.1.1.tgz#8bbd7d752221d059c76d389953c1127982a4e7f0"
-  integrity sha512-wGTE61VMaoI6v7kNA44Zu7Ec2YALWecVo2hzvUkHzY7+VSNgAzo3wKKUbIqeMKHIv1uHLlRC9SuzL7fnHrQKBA==
+cozy-scripts@5.1.2:
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/cozy-scripts/-/cozy-scripts-5.1.2.tgz#a23abbc43a1c8a61526a6f2e29f9e1e77428cedf"
+  integrity sha512-rR6OxXEL9r4wWPVKJXgm/xRAm0qhr+s912/KMlgZuFm94y+S6x6T1HyFAgPbH83kjYHBR10r2xDjvyM3N5PLtw==
   dependencies:
     "@babel/core" "7.9.0"
     "@babel/polyfill" "^7.10.4"
@@ -5504,10 +5482,10 @@ cozy-scripts@5.1.1:
     webpack-dev-server "3.10.3"
     webpack-merge "4.2.2"
 
-cozy-stack-client@14.1.2, cozy-stack-client@^14.1.2:
-  version "14.1.2"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-14.1.2.tgz#606ce89cabf4def2875cb8749b28b3ee8b96d18f"
-  integrity sha512-0IyYvBQu+vuwN9qe6PHA7khXBQT8TGSjVia7SVTGQ88tEFSLLGXjfZe3pkZQ1ihBdJvmeon12dm0BWeEb+9KZw==
+cozy-stack-client@15.2.0, cozy-stack-client@^15.2.0:
+  version "15.2.0"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-15.2.0.tgz#677f56e38e7a1b25f0574241da6caff441046b38"
+  integrity sha512-QldK+uQ2GZCLAlHwxFR3tb+4R83MG3huw43kGGVXono2XavBOqDU40Ms2imkUlCyzMXulY1UkInsSQBPO8mVgQ==
   dependencies:
     detect-node "^2.0.4"
     mime "^2.4.0"
