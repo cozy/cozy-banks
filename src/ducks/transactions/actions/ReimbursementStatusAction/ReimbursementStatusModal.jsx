@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import cx from 'classnames'
 
 import flag from 'cozy-flags'
@@ -18,7 +18,7 @@ import { getReimbursementStatus, getLabel } from 'ducks/transactions/helpers'
 import { isHealthExpense } from 'ducks/categories/helpers'
 import ContactItem from 'ducks/transactions/actions/ReimbursementStatusAction/ContactItem'
 
-const ReimbursementStatusModal = props => {
+const ReimbursementStatusModal = memo(function ReimbursementStatusModal(props) {
   const { isMobile } = useBreakpoints()
   const { t } = useI18n()
   const { transaction, onChange, className, brands, ...rest } = props
@@ -94,6 +94,6 @@ const ReimbursementStatusModal = props => {
       </ModalContent>
     </Modal>
   )
-}
+})
 
 export default ReimbursementStatusModal
