@@ -14,6 +14,7 @@ import TransactionModalRow, {
   RowArrow
 } from 'ducks/transactions/TransactionModalRow'
 import ReimbursementStatusModal from 'ducks/transactions/actions/ReimbursementStatusAction/ReimbursementStatusModal'
+import { getTracker } from 'ducks/tracking/browser'
 
 import iconReimbursement from 'assets/icons/icon-reimbursement.svg'
 import { logException } from 'lib/sentry'
@@ -76,6 +77,12 @@ const ModalItem = ({ transaction, healthReimbursementLateLimit, onClick }) => {
   )
 }
 
+const reimbursementStatusToEventName = {
+  pending: 'attente_remboursement',
+  reimbursed: 'rembourse',
+  'no-reimbursement': 'pas_attente_remboursement '
+}
+
 export class DumbReimbursementStatusAction extends React.PureComponent {
   state = {
     showModal: false
@@ -86,7 +93,8 @@ export class DumbReimbursementStatusAction extends React.PureComponent {
 
   handleChange = async e => {
     const { transaction, client, t } = this.props
-    transaction.reimbursementStatus = e.target.value
+    const value = e.target.value
+    transaction.reimbursementStatus = value
 
     this.hideModal()
 
@@ -96,6 +104,11 @@ export class DumbReimbursementStatusAction extends React.PureComponent {
       logException(err)
       Alerter.error(t('Transactions.reimbursementStatusUpdateError'))
     }
+
+    const tracker = getTracker()
+    tracker.trackEvent({
+      name: reimbursementStatusToEventName[value]
+    })
   }
 
   render() {
