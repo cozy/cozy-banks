@@ -12,7 +12,7 @@ import cx from 'classnames'
 import flag from 'cozy-flags'
 import tabsStyle from 'components/Tabs.styl'
 import Header from 'components/Header'
-import styles from 'ducks/Settings/Settings.styl'
+import styles from 'ducks/settings/Settings.styl'
 
 const Settings = ({ children, router, breakpoints: { isMobile } }) => {
   const { t } = useI18n()
