@@ -236,10 +236,15 @@ export const recurrenceConn = {
       .where({ _id: { $gt: null }, latestDate: { $gt: null } })
       .sortBy([{ _id: 'desc' }, { latestDate: 'desc' }]),
   as: 'recurrence',
-  fetchPolicy: older30s
+  fetchPolicy: older30s,
+
+  // TODO remove when https://github.com/cozy/cozy-client/pull/805 is merged
+  singleDocData: true
 }
 
 export const myselfConn = {
   query: () => Q('io.cozy.contacts').where({ me: true }),
-  as: 'myself'
+  as: 'myself',
+  // TODO remove when https://github.com/cozy/cozy-client/pull/805 is merged
+  singleDocData: true
 }
