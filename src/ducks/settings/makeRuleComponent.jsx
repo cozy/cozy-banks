@@ -5,7 +5,7 @@ import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
 import { makeEditionModalFromSpec } from 'components/EditionModal'
 import Rules from 'ducks/settings/Rules'
-import { useTracker } from 'ducks/tracking/browser'
+import { trackEvent } from 'ducks/tracking/browser'
 import EditableSettingCard from './EditableSettingCard'
 import { ensureNewRuleFormat } from './ruleUtils'
 
@@ -23,7 +23,6 @@ const makeRuleComponent = ({
 
   const RulesComponent = props => {
     const { t } = useI18n()
-    const tracker = useTracker()
 
     let {
       rules: rawInitialRules,
@@ -57,7 +56,7 @@ const makeRuleComponent = ({
             key={i}
             onToggle={enabled => {
               createOrUpdateRule({ ...rule, enabled })
-              tracker.trackEvent({
+              trackEvent({
                 name: `${trackPageName}-${enabled ? 'on' : 'off'}`
               })
             }}

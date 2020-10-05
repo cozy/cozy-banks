@@ -4,7 +4,7 @@ import { Stack, useI18n } from 'cozy-ui/transpiled/react'
 import AddRuleButton from 'ducks/settings/AddRuleButton'
 import useList from './useList'
 import { getRuleId, getNextRuleId } from './ruleUtils'
-import { useTracker } from 'ducks/tracking/browser'
+import { trackEvent } from 'ducks/tracking/browser'
 
 export { AddRuleButton }
 
@@ -34,7 +34,6 @@ const Rules = ({
   })
   const [creating, setCreating] = useState(false)
   const [saving, setSaving] = useState(false)
-  const tracker = useTracker()
 
   const handleCreateItem = useCallback(
     async newItem => {
@@ -42,14 +41,14 @@ const Rules = ({
       try {
         setSaving(true)
         await createOrUpdate(newItem)
-        tracker.trackEvent({
+        trackEvent({
           name: `${trackPageName}-creer_alerte`
         })
       } finally {
         setSaving(false)
       }
     },
-    [createOrUpdate, tracker, trackPageName]
+    [createOrUpdate, trackPageName]
   )
 
   const handleAddRule = useCallback(() => {

@@ -51,7 +51,7 @@ import {
 import { TRANSACTION_DOCTYPE } from 'doctypes'
 import flag from 'cozy-flags'
 
-import { useTracker, useTrackPage } from 'ducks/tracking/browser'
+import { trackEvent, useTrackPage } from 'ducks/tracking/browser'
 import { getFrequencyText } from 'ducks/recurrence/utils'
 import TransactionCategoryEditor from 'ducks/transactions/TransactionCategoryEditor'
 import TransactionApplicationDateEditor from 'ducks/transactions/TransactionApplicationDateEditor'
@@ -114,10 +114,9 @@ const TransactionCategoryEditorSlide = ({ transaction }) => {
   const { stackPop } = useViewStack()
   const { isMobile } = useBreakpoints()
   const { categoryName, subcategoryName } = useParams()
-  const tracker = useTracker()
 
   const onAfterUpdate = transaction => {
-    tracker.trackEvent({
+    trackEvent({
       name: getCategoryName(transaction.manualCategoryId)
     })
   }
@@ -264,7 +263,6 @@ const TransactionRecurrenceEditorSlide = ({ transaction }) => {
  */
 const TransactionModalInfoContent = withTransaction(props => {
   const { t, f } = useI18n()
-  const tracker = useTracker()
   const { stackPush } = useViewStack()
   const { transaction, client, ...restProps } = props
 
@@ -296,7 +294,7 @@ const TransactionModalInfoContent = withTransaction(props => {
     showAlertAfterApplicationDateUpdate(updatedTransaction, t, f)
     const date =
       getApplicationDate(updatedTransaction) || getDate(updatedTransaction)
-    tracker.trackEvent({
+    trackEvent({
       name: date
     })
   }

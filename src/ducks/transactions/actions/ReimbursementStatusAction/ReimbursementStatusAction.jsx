@@ -14,7 +14,7 @@ import TransactionModalRow, {
   RowArrow
 } from 'ducks/transactions/TransactionModalRow'
 import ReimbursementStatusModal from 'ducks/transactions/actions/ReimbursementStatusAction/ReimbursementStatusModal'
-import { getTracker } from 'ducks/tracking/browser'
+import { trackEvent } from 'ducks/tracking/browser'
 
 import iconReimbursement from 'assets/icons/icon-reimbursement.svg'
 import { logException } from 'lib/sentry'
@@ -105,8 +105,7 @@ export class DumbReimbursementStatusAction extends React.PureComponent {
       Alerter.error(t('Transactions.reimbursementStatusUpdateError'))
     }
 
-    const tracker = getTracker()
-    tracker.trackEvent({
+    trackEvent({
       name: reimbursementStatusToEventName[value]
     })
   }

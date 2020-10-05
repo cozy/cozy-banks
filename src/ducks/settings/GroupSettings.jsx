@@ -14,7 +14,7 @@ import { GROUP_DOCTYPE, accountsConn } from 'doctypes'
 import BarTheme from 'ducks/bar/BarTheme'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
 import { getGroupLabel, renamedGroup } from 'ducks/groups/helpers'
-import { getTracker } from 'ducks/tracking/browser'
+import { trackPage } from 'ducks/tracking/browser'
 
 import Loading from 'components/Loading'
 import BackButton from 'components/BackButton'
@@ -119,11 +119,10 @@ export class DumbGroupSettings extends Component {
   }
 
   trackPage() {
-    const tracker = getTracker()
     if (this.props.group._id) {
-      tracker.trackPage('parametres:groupes:detail')
+      trackPage('parametres:groupes:detail')
     } else {
-      tracker.trackPage('parametres:groupes:nouveau-groupe')
+      trackPage('parametres:groupes:nouveau-groupe')
     }
   }
 
