@@ -1,17 +1,18 @@
 import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { Stack, useI18n } from 'cozy-ui/transpiled/react'
+import AddRuleButton from 'ducks/settings/AddRuleButton'
 import useList from './useList'
 import { getRuleId, getNextRuleId } from './ruleUtils'
-import AddRuleButton from 'ducks/settings/AddRuleButton'
+import { useTracker } from 'ducks/tracking/browser'
 
 export { AddRuleButton }
 
 /**
  * Displays a list of rules and allows to create or edit one
  *
- * Manages the stack of rules, the button to add a rule and the edition
- * modal
+ * Manages the stack of rules, the button to add a rule and
+ * and the creation modal
  */
 const Rules = ({
   rules,
@@ -20,7 +21,8 @@ const Rules = ({
   onError,
   addButtonLabelKey,
   ItemEditionModal,
-  makeNewItem
+  makeNewItem,
+  trackPageName
 }) => {
   const { t } = useI18n()
   const [items, createOrUpdate, remove] = useList({
@@ -32,6 +34,7 @@ const Rules = ({
   })
   const [creating, setCreating] = useState(false)
   const [saving, setSaving] = useState(false)
+  const tracker = useTracker()
 
   const handleCreateItem = useCallback(
     async newItem => {
@@ -39,11 +42,14 @@ const Rules = ({
       try {
         setSaving(true)
         await createOrUpdate(newItem)
+        tracker.trackEvent({
+          name: `${trackPageName}-creer_alerte`
+        })
       } finally {
         setSaving(false)
       }
     },
-    [createOrUpdate, setSaving, setCreating]
+    [createOrUpdate, tracker, trackPageName]
   )
 
   const handleAddRule = useCallback(() => {
@@ -64,6 +70,7 @@ const Rules = ({
           onDismiss={() => setCreating(false)}
           initialDoc={makeNewItem()}
           onEdit={handleCreateItem}
+          trackPageName={trackPageName}
         />
       ) : null}
       <AddRuleButton
