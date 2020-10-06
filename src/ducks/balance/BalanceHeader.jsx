@@ -33,13 +33,13 @@ const SearchIcon = () => {
 }
 
 const BalanceHeader = ({
-  breakpoints: { isMobile },
   accountsBalance,
   accounts,
   subtitleParams,
   onClickBalance,
   transactions
 }) => {
+  const { isMobile } = useBreakpoints()
   const { t } = useI18n()
   const titlePaddedClass = isMobile ? 'u-p-0' : 'u-pb-0'
   const subtitle = subtitleParams
@@ -79,7 +79,6 @@ const BalanceHeader = ({
 export const DumbBalanceHeader = BalanceHeader
 
 export default compose(
-  withBreakpoints(),
   memo,
   queryConnect({
     transactions: transactionsConn
