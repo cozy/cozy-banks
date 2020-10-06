@@ -73,7 +73,6 @@ const BalancePanels = props => {
 
 BalancePanels.propTypes = {
   groups: PropTypes.arrayOf(PropTypes.object).isRequired,
-  router: PropTypes.object.isRequired,
   panelsState: PropTypes.object.isRequired,
   onSwitchChange: PropTypes.func,
   onPanelChange: PropTypes.func,

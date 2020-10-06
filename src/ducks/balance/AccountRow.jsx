@@ -179,8 +179,6 @@ const AccountRow = props => {
 AccountRow.propTypes = {
   account: PropTypes.object.isRequired,
   onClick: PropTypes.func.isRequired,
-  breakpoints: PropTypes.object.isRequired,
-  t: PropTypes.func.isRequired,
   hasWarning: PropTypes.bool.isRequired,
   checked: PropTypes.bool.isRequired,
   disabled: PropTypes.bool.isRequired,

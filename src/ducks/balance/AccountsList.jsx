@@ -73,10 +73,7 @@ DumbAccountsList.propTypes = {
   group: PropTypes.object.isRequired,
   switches: PropTypes.object.isRequired,
   onSwitchChange: PropTypes.func,
-  filterByDoc: PropTypes.func.isRequired,
-  router: PropTypes.shape({
-    push: PropTypes.func
-  }).isRequired
+  filterByDoc: PropTypes.func.isRequired
 }
 
 DumbAccountsList.defaultProps = {
