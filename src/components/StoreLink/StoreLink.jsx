@@ -1,39 +1,24 @@
-import React from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { pickBy } from 'lodash'
-import { withClient } from 'cozy-client'
+import { useClient } from 'cozy-client'
 
-class DumbStoreLink extends React.Component {
-  static propTypes = {
-    type: PropTypes.oneOf(['konnector', 'webapp']),
-    category: PropTypes.string
-  }
+const StoreLink = props => {
+  const [redirectionURL, setRedirectionURL] = useState()
+  const client = useClient()
+  const { type, category, children } = props
 
-  async componentDidMount() {
-    await this.updateRedirectionURL()
-  }
-
-  async componentDidUpdate(prevProps) {
-    if (
-      this.props.type !== prevProps.type ||
-      this.props.category !== prevProps.category
-    ) {
-      await this.updateRedirectionURL()
-    }
-  }
-
-  async updateRedirectionURL() {
-    const { client, type, category } = this.props
-
-    this.redirectionURL = await client.intents.getRedirectionURL(
+  const updateRedirectionURL = useCallback(async () => {
+    const url = await client.intents.getRedirectionURL(
       'io.cozy.apps',
       pickBy({ type, category }, Boolean)
     )
-  }
+    setRedirectionURL(url)
+  }, [client, type, category, setRedirectionURL])
 
-  redirect = async () => {
-    if (!this.redirectionURL) {
-      await this.updateRedirectionURL()
+  const redirect = useCallback(async () => {
+    if (!redirectionURL) {
+      await updateRedirectionURL()
     }
 
     // We use `window.location` because on desktop we want to stay in the same tab/window
@@ -43,14 +28,19 @@ class DumbStoreLink extends React.Component {
     // This means login cookies are stored in the external browser.
     // To prevent asking the user to login again, we have to use an external browser
     // instead of the in app browser.
-    window.location = this.redirectionURL
-  }
+    window.location = redirectionURL
+  }, [redirectionURL, updateRedirectionURL])
 
-  render() {
-    return React.cloneElement(this.props.children, { onClick: this.redirect })
-  }
+  useEffect(() => {
+    updateRedirectionURL()
+  }, [updateRedirectionURL])
+
+  return React.cloneElement(children, { onClick: redirect })
 }
 
-const StoreLink = withClient(DumbStoreLink)
+StoreLink.propTypes = {
+  type: PropTypes.oneOf(['konnector', 'webapp']),
+  category: PropTypes.string
+}
 
 export default StoreLink
