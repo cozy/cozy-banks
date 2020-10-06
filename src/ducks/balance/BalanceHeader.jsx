@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import { flowRight as compose } from 'lodash'
-import { withBreakpoints, useI18n, Icon } from 'cozy-ui/transpiled/react'
+import { useI18n, Icon } from 'cozy-ui/transpiled/react'
 
 import { transactionsConn } from 'doctypes'
 import { Padded } from 'components/Spacing'

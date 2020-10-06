@@ -60,7 +60,7 @@ const KonnectorUpdateInfo = ({ outdatedKonnectors }) => {
         actionButton={
           <ButtonLink
             theme="secondary"
-            extension={breakpoints.isMobile ? 'full' : 'narrow'}
+            extension={isMobile ? 'full' : 'narrow'}
             className="u-mh-0"
             label={t('KonnectorUpdateInfo.cta')}
             icon="openwith"

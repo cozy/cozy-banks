@@ -1,8 +1,7 @@
 import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { useClient } from 'cozy-client'
-import { sortBy, flowRight as compose } from 'lodash'
-import { withRouter } from 'react-router'
+import { sortBy } from 'lodash'
 import { useSelector } from 'react-redux'
 
 import withFilters from 'components/withFilters'

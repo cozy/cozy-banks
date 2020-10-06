@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import GroupPanel from 'ducks/balance/GroupPanel'
-import { flowRight as compose } from 'lodash'
 
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import { Button } from 'cozy-ui/transpiled/react/Button'
