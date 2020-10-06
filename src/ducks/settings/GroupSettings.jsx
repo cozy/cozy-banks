@@ -22,6 +22,7 @@ import Table from 'components/Table'
 import { PageTitle } from 'components/Title'
 import { Padded } from 'components/Spacing'
 import { logException } from 'lib/sentry'
+import { trackEvent } from 'ducks/tracking/browser'
 
 import styles from 'ducks/settings/GroupsSettings.styl'
 
@@ -137,6 +138,9 @@ export class DumbGroupSettings extends Component {
     const updatedGroup = renamedGroup(group, label)
     return this.updateOrCreate(updatedGroup, () => {
       this.setState({ saving: false, modifying: false })
+      trackEvent({
+        name: 'renommer'
+      })
     })
   }
 
@@ -152,7 +156,10 @@ export class DumbGroupSettings extends Component {
     } else {
       accounts.removeById(accountId)
     }
-    this.updateOrCreate(group)
+    await this.updateOrCreate(group)
+    trackEvent({
+      name: `compte-${enabled ? 'activer' : 'desactiver'}`
+    })
   }
 
   onRemove = async () => {
@@ -160,6 +167,9 @@ export class DumbGroupSettings extends Component {
 
     try {
       await client.destroy(group)
+      trackEvent({
+        name: 'supprimer'
+      })
       router.push('/settings/groups')
     } catch (err) {
       logException(err)
