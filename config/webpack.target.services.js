@@ -25,7 +25,8 @@ const entries = {
   autogroups: path.resolve(serviceDir, './autogroups.js'),
   budgetAlerts: path.resolve(serviceDir, './budgetAlerts.js'),
   linkMyselfToAccounts: path.resolve(serviceDir, './linkMyselfToAccounts.js'),
-  recurrence: path.resolve(serviceDir, './recurrence.js')
+  recurrence: path.resolve(serviceDir, './recurrence.js'),
+  konnectorAlerts: path.resolve(serviceDir, './konnectorAlerts.js')
 }
 
 if (process.env.TEST_TEMPLATES) {
