@@ -17,8 +17,8 @@ const noop = require.resolve(path.join(SRC_DIR, 'ducks/notifications/noop'))
 const serviceDir = path.resolve(SRC_DIR, './targets/services/')
 const entries = {
   onOperationOrBillCreate: path.resolve(
-    SRC_DIR,
-    './targets/services/onOperationOrBillCreate'
+    serviceDir,
+    './onOperationOrBillCreate'
   ),
   categorization: path.resolve(serviceDir, './categorization.js'),
   stats: path.resolve(serviceDir, './stats.js'),
