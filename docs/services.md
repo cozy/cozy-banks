@@ -23,7 +23,7 @@ You can manually create an app token and launch the built service.
 
 ```
 # Watch services
-$ env NODE_ENV=services:production yarn run webpack --config webpack.config.js --bail --watch
+$ yarn watch:services:prod
 # In another terminal
 $ export COZY_URL='http://cozy.tools:8080'
 $ export COZY_CREDENTIALS=$(cozy-stack instances token-app cozy.tools:8080 banks)
