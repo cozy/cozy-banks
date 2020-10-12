@@ -3,6 +3,7 @@ import keyBy from 'lodash/keyBy'
 import uniq from 'lodash/uniq'
 import fromPairs from 'lodash/fromPairs'
 import get from 'lodash/get'
+import memoize from 'lodash/memoize'
 
 import { Q, models } from 'cozy-client'
 import flag from 'cozy-flags'
@@ -52,6 +53,13 @@ const isErrorActionable = errorMessage => {
   )
 }
 
+const fetchRegistryInfo = memoize(
+  (client, konnectorSlug) => {
+    return client.stackClient.fetchJSON('GET', `/registry/${konnectorSlug}`)
+  },
+  (client, konnectorSlug) => konnectorSlug
+)
+
 /**
  * Returns whether we need to send a notification for a trigger
  *
@@ -95,11 +103,17 @@ const shouldNotify = async (client, trigger, previousStatesByTriggerId) => {
     return { ok: false, reason: 'manual-job' }
   }
 
-  return { ok: true }
-}
+  const registryInfo = await fetchRegistryInfo(
+    client,
+    getKonnectorSlug(trigger)
+  )
+  const categories = get(registryInfo, 'latest_version.manifest.categories')
 
-const fetchRegistryInfo = async (client, konnectorSlug) => {
-  return client.stackClient.fetchJSON('GET', `/registry/${konnectorSlug}`)
+  if (!categories || !categories.includes('banking')) {
+    return { ok: false, reason: 'not-banking-konnector' }
+  }
+
+  return { ok: true }
 }
 
 /**
