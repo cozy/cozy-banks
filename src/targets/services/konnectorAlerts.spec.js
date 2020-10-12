@@ -149,6 +149,21 @@ describe('job notifications service', () => {
     sendNotification.mockClear()
   })
 
+  const expectTriggerStatesToHaveBeenSaved = client => {
+    const saveCalls = client.save.mock.calls
+    const triggerStatesDoc = saveCalls[saveCalls.length - 1][0]
+    expect(triggerStatesDoc).toEqual(
+      expect.objectContaining({
+        triggerStates: expect.objectContaining({
+          'trigger-1': expect.any(Object),
+          'trigger-2': expect.any(Object),
+          'trigger-3': expect.any(Object),
+          'trigger-4': expect.any(Object)
+        })
+      })
+    )
+  }
+
   it('should not send notifications when no trigger state has been saved yet', async () => {
     const { client } = setup({
       settingsResponse: {
@@ -157,6 +172,7 @@ describe('job notifications service', () => {
     })
     await sendTriggerNotifications(client)
     expect(sendNotification).not.toHaveBeenCalled()
+    expectTriggerStatesToHaveBeenSaved(client)
   })
 
   it('should work', async () => {
@@ -174,5 +190,7 @@ describe('job notifications service', () => {
     const interval = +at - now
     expect(interval).toBeGreaterThan(0)
     expect(interval).toBeLessThan(86400000)
+
+    expectTriggerStatesToHaveBeenSaved(client)
   })
 })
