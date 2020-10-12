@@ -74,15 +74,18 @@ class KonnectorAlertNotification extends NotificationView {
           alertCount: konnectorAlerts.length
         })
       : this.t('Notifications.konnectorAlerts.email.title-single', {
-          konnectorNames: konnectorAlerts[0].konnectorName
+          konnectorName: konnectorAlerts[0].konnectorName
         })
   }
 
   getPushContent(templateData) {
     const { konnectorAlerts } = templateData
-    return this.t('Notifications.konnectorAlerts.push.content', {
-      konnectorNames: konnectorAlerts.map(x => x.konnectorName).join(', ')
-    })
+    const hasMultipleAlerts = konnectorAlerts.length > 1
+    return hasMultipleAlerts
+      ? this.t('Notifications.konnectorAlerts.push.content-multi', {
+          konnectorNames: konnectorAlerts.map(x => x.konnectorName).join(', ')
+        })
+      : this.t('Notifications.konnectorAlerts.push.content-single')
   }
 }
 

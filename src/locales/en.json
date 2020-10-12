@@ -545,7 +545,8 @@
         "innerTitle": "Connector sync"
       },
       "push": {
-        "content": "%{konnectorNames}"
+        "content-single": "Please connect to your Cozy to fix the problem",
+        "content-multi": "%{konnectorNames}"
       }
     }
   },

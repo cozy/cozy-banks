@@ -557,7 +557,8 @@
         "innerTitle": "Synchronisation des connecteurs"
       },
       "push": {
-        "content": "%{konnectorNames}"
+        "content-single": "Connectez-vous à votre Cozy pour régler le problème",
+        "content-multi": "%{konnectorNames}"
       }
     }
   },
