@@ -54,29 +54,48 @@ const isErrorActionable = errorMessage => {
 
 /**
  * Returns whether we need to send a notification for a trigger
+ *
+ * @typedef {Object} ShouldNotifyResult
+ * @property {number} ok - Whether the trigger generates a notification
+ * @property {number} reason - If ok=false, describes why.
+ *
+ * @return {ShouldNotifyResult}
  */
 const shouldNotify = async (client, trigger, previousStatesByTriggerId) => {
   const previousState = previousStatesByTriggerId[trigger._id]
-  if (!previousState) {
-    return false
-  } else if (
-    (previousState.status == 'done' ||
-      flag('banks.konnector-alerts.ignore-previous-status')) &&
-    trigger.current_state.status === 'errored' &&
-    isErrorActionable(trigger.current_state.last_error)
+  if (
+    !previousState &&
+    !flag('banks.konnector-alerts.ignore-previous-status')
   ) {
-    // We do not want to send notifications for jobs that were launched manually
-    const jobId = trigger.current_state.last_executed_job_id
-    const { data: job } = await client.query(Q('io.cozy.jobs').getById(jobId))
-    if (
-      job.manual_execution &&
-      !flag('banks.konnector-alerts.allow-manual-jobs')
-    ) {
-      return false
-    }
-    return true
+    return { ok: false, reason: 'no-previous-state' }
   }
-  return false
+
+  if (
+    previousState.status !== 'done' &&
+    !flag('banks.konnector-alerts.ignore-previous-status')
+  ) {
+    return { ok: false, reason: 'previous-state-is-error' }
+  }
+
+  if (trigger.current_state.status !== 'errored') {
+    return { ok: false, reason: 'current-state-is-not-errored' }
+  }
+
+  if (!isErrorActionable(trigger.current_state.last_error)) {
+    return { ok: false, reason: 'error-not-actionable' }
+  }
+
+  // We do not want to send notifications for jobs that were launched manually
+  const jobId = trigger.current_state.last_executed_job_id
+  const { data: job } = await client.query(Q('io.cozy.jobs').getById(jobId))
+  if (
+    job.manual_execution &&
+    !flag('banks.konnector-alerts.allow-manual-jobs')
+  ) {
+    return { ok: false, reason: 'manual-job' }
+  }
+
+  return { ok: true }
 }
 
 const fetchRegistryInfo = async (client, konnectorSlug) => {
@@ -104,6 +123,8 @@ export const buildNotification = (client, options) => {
   return notification
 }
 
+const getKonnectorSlug = trigger => trigger.message.konnector
+
 /**
  * Fetches triggers, filters those for which we can send a notification, and send
  * notifications.
@@ -127,12 +148,23 @@ export const sendTriggerNotifications = async client => {
         shouldNotify: await shouldNotify(client, trigger, previousStates)
       }
     })
-  )).filter(({ shouldNotify }) => shouldNotify)
+  )).filter(({ trigger, shouldNotify }) => {
+    if (shouldNotify.ok) {
+      logger('info', `Will notify trigger for ${getKonnectorSlug(trigger)}`)
+      return true
+    } else {
+      logger(
+        'info',
+        `Will not notify trigger for ${getKonnectorSlug(trigger)} because ${
+          shouldNotify.reason
+        }`
+      )
+      return false
+    }
+  })
 
   const konnectorSlugs = uniq(
-    triggerAndNotifsInfo.map(({ trigger }) => {
-      return trigger.message.konnector
-    })
+    triggerAndNotifsInfo.map(({ trigger }) => getKonnectorSlug(trigger))
   )
 
   const konnectorNamesBySlug = fromPairs(
