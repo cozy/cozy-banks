@@ -113,16 +113,16 @@ const mockJobResponse = {
 }
 
 describe('job notifications service', () => {
-  it('should work', async () => {
+  const setup = ({ triggersResponse, settingsResponse, jobsResponse } = {}) => {
     const client = new CozyClient({})
     client.query = async queryDef => {
       const { doctype, id } = queryDef
       if (doctype === 'io.cozy.triggers') {
-        return mockTriggersResponse
+        return triggersResponse || mockTriggersResponse
       } else if (doctype === 'io.cozy.bank.settings') {
-        return mockSettingsResponse
+        return settingsResponse || mockSettingsResponse
       } else if (doctype === 'io.cozy.jobs' && id) {
-        return mockJobResponse[id]
+        return jobsResponse ? jobsResponse[id] : mockJobResponse[id]
       } else {
         throw new Error(`No mock for queryDef ${queryDef}`)
       }
@@ -130,6 +130,26 @@ describe('job notifications service', () => {
     client.save = jest.fn()
     client.stackClient.fetchJSON = jest.fn()
     client.stackClient.uri = 'http://cozy.tools:8080'
+    return { client }
+  }
+
+  beforeEach(() => {
+    sendNotification.mockReset()
+  })
+
+  it('should work when no trigger state has been saved yet', async () => {
+    const { client } = setup({
+      settingsResponse: {
+        data: null
+      }
+    })
+    await sendTriggerNotifications(client)
+    expect(sendNotification).toHaveBeenCalledTimes(1)
+    expect(sendNotification).toHaveBeenCalledWith(client, expect.any(Object))
+  })
+
+  it('should work', async () => {
+    const { client } = setup()
     await sendTriggerNotifications(client)
     expect(sendNotification).toHaveBeenCalledTimes(1)
     expect(sendNotification).toHaveBeenCalledWith(client, expect.any(Object))

@@ -190,8 +190,7 @@ export const sendTriggerNotifications = async client => {
     isKonnectorWorker(trigger.attributes)
   )
   const triggerStatesDoc = await fetchTriggerStates(client)
-  const previousStates = triggerStatesDoc.triggerStates
-
+  const previousStates = get(triggerStatesDoc, 'triggerStates', {})
   logger('info', `${konnectorTriggers.length} konnector triggers`)
 
   const triggerAndNotifsInfo = (await Promise.all(
