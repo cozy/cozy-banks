@@ -37,8 +37,10 @@ const storeTriggerStates = async (client, triggers, previousDoc) => {
   const doc = {
     _id: TRIGGER_STATES_DOC_ID,
     _type: TRIGGER_STATES_DOC_TYPE,
-    _rev: previousDoc ? previousDoc._rev : null,
     triggerStates: triggerStatesById
+  }
+  if (previousDoc && previousDoc._rev) {
+    doc._rev = previousDoc._rev
   }
   return await client.save(doc)
 }
