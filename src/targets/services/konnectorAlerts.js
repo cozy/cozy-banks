@@ -113,6 +113,13 @@ const shouldNotify = async (client, trigger, previousStatesByTriggerId) => {
     return { ok: false, reason: 'not-banking-konnector' }
   }
 
+  if (
+    registryInfo.maintenance_activated &&
+    !flag('banks.konnector-alerts.ignore-maintenance')
+  ) {
+    return { ok: false, reason: 'maintenance' }
+  }
+
   return { ok: true }
 }
 
