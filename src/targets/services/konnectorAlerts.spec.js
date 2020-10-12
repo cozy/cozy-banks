@@ -6,7 +6,9 @@ jest.mock('cozy-notifications', () => {
   const notifications = jest.requireActual('cozy-notifications')
   return {
     ...notifications,
-    sendNotification: jest.fn()
+    sendNotification: jest
+      .fn()
+      .mockImplementation(notifications.sendNotification)
   }
 })
 
@@ -128,24 +130,33 @@ describe('job notifications service', () => {
       }
     }
     client.save = jest.fn()
-    client.stackClient.fetchJSON = jest.fn()
+    client.stackClient.fetchJSON = jest
+      .fn()
+      .mockImplementation((verb, route) => {
+        if (verb === 'GET' && /\/registry\/konnector-.*/.exec(route)) {
+          return { latest_version: { manifest: { categories: ['banking'] } } }
+        } else if (verb === 'POST' && route === '/notifications') {
+          return {}
+        } else {
+          throw new Error(`Mock stackClient does not support ${verb}:${route}`)
+        }
+      })
     client.stackClient.uri = 'http://cozy.tools:8080'
     return { client }
   }
 
   beforeEach(() => {
-    sendNotification.mockReset()
+    sendNotification.mockClear()
   })
 
-  it('should work when no trigger state has been saved yet', async () => {
+  it('should not send notifications when no trigger state has been saved yet', async () => {
     const { client } = setup({
       settingsResponse: {
         data: null
       }
     })
     await sendTriggerNotifications(client)
-    expect(sendNotification).toHaveBeenCalledTimes(1)
-    expect(sendNotification).toHaveBeenCalledWith(client, expect.any(Object))
+    expect(sendNotification).not.toHaveBeenCalled()
   })
 
   it('should work', async () => {
@@ -153,5 +164,15 @@ describe('job notifications service', () => {
     await sendTriggerNotifications(client)
     expect(sendNotification).toHaveBeenCalledTimes(1)
     expect(sendNotification).toHaveBeenCalledWith(client, expect.any(Object))
+
+    const calls = client.stackClient.fetchJSON.mock.calls
+    const payload = calls[calls.length - 1][2]
+    const notifAttributes = payload.data.attributes
+    const at = new Date(notifAttributes.at)
+    const now = new Date()
+    // test that the notification in less than a day
+    const interval = +at - now
+    expect(interval).toBeGreaterThan(0)
+    expect(interval).toBeLessThan(86400000)
   })
 })

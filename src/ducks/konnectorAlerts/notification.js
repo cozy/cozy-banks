@@ -87,6 +87,36 @@ class KonnectorAlertNotification extends NotificationView {
         })
       : this.t('Notifications.konnectorAlerts.push.content-single')
   }
+
+  getExtraAttributes() {
+    const ONE_DAY = 1000 * 60 * 60 * 24
+    let date = new Date()
+    let hours = 8
+    let minutes = Math.round(15 * Math.random())
+
+    if (
+      date.getHours() > hours ||
+      (date.getHours() === hours && date.getMinutes() >= minutes)
+    ) {
+      // If its too late for today, it'll be the next day
+      date = new Date(+date + ONE_DAY)
+    }
+
+    date.setHours(hours)
+    date.setMinutes(minutes)
+
+    const flagAt = flag('banks.konnector-alerts.schedule-date')
+    const flagNow = flag('banks.konnector-alerts.schedule-now')
+    if (flagNow) {
+      return {}
+    }
+
+    const at = flagAt || date.toISOString()
+    logger('info', `Scheduling notification at ${at}`)
+    return {
+      at
+    }
+  }
 }
 
 KonnectorAlertNotification.template = template

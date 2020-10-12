@@ -205,6 +205,10 @@ export const sendTriggerNotifications = async client => {
 
   logger('info', `${triggerAndNotifsInfo.length} konnector triggers to notify`)
 
+  if (!triggerAndNotifsInfo.length) {
+    return
+  }
+
   const notifView = buildNotification(client, {
     konnectorAlerts: triggerAndNotifsInfo.map(({ trigger }) => {
       const konnectorSlug = trigger.message.konnector
