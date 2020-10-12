@@ -113,7 +113,7 @@
       "type": "node",
       "file": "konnectorAlerts.js",
       "trigger": "@event io.cozy.jobs:UPDATED:konnector:worker",
-      "debounce": "60s"
+      "debounce": "10s"
     }
   },
   "notifications": {
