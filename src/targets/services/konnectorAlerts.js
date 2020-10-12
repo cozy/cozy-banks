@@ -109,7 +109,10 @@ const shouldNotify = async (client, trigger, previousStatesByTriggerId) => {
   )
   const categories = get(registryInfo, 'latest_version.manifest.categories')
 
-  if (!categories || !categories.includes('banking')) {
+  if (
+    (!categories || !categories.includes('banking')) &&
+    !flag('banks.konnector-alerts.allow-non-banking')
+  ) {
     return { ok: false, reason: 'not-banking-konnector' }
   }
 
