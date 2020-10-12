@@ -6,17 +6,12 @@ import get from 'lodash/get'
 
 import { Q, models } from 'cozy-client'
 import flag from 'cozy-flags'
-import cozyLogger from 'cozy-logger'
-import { runService, dictRequire, lang } from './service'
-import NotificationView from 'ducks/notifications/BaseNotificationView'
-import { getCurrentDate } from 'ducks/notifications/utils'
-import template from 'ducks/konnectorAlerts/template.hbs'
 import { sendNotification } from 'cozy-notifications'
-import { getErrorLocaleBound, KonnectorJobError } from 'cozy-harvest-lib'
+
+import { runService, dictRequire, lang } from './service'
+import { KonnectorAlertNotification, logger } from 'ducks/konnectorAlerts'
 
 const { isKonnectorWorker } = models.trigger.triggers
-
-const logger = cozyLogger.namespace('konnector-alerts')
 
 const TRIGGER_STATES_DOC_TYPE = 'io.cozy.bank.settings'
 const TRIGGER_STATES_DOC_ID = 'trigger-states'
@@ -82,86 +77,20 @@ const shouldNotify = async (client, trigger, previousStatesByTriggerId) => {
   return false
 }
 
-class KonnectorAlertView extends NotificationView {
-  constructor(options) {
-    super(options)
-    this.currentDate = options.currentDate
-    this.konnectorAlerts = options.konnectorAlerts
-  }
-
-  shouldSend(templateData) {
-    const willSend =
-      !!templateData.konnectorAlerts && templateData.konnectorAlerts.length > 0
-    if (!willSend) {
-      logger('info', 'Nothing to send, bailing out')
-    }
-    return willSend
-  }
-
-  async buildData() {
-    const data = {
-      date: getCurrentDate(),
-      konnectorAlerts: this.konnectorAlerts.map(alert => {
-        const { trigger, konnectorName } = alert
-        const konnError = new KonnectorJobError(
-          trigger.current_state.last_error
-        )
-        const title = getErrorLocaleBound(
-          konnError,
-          konnectorName,
-          this.lang,
-          'title'
-        )
-        const description = this.t('Transactions.trigger-error.description', {
-          bankName: konnectorName
-        })
-        return {
-          ...alert,
-          title,
-          description
-        }
-      }),
-      ctaText: this.t('Transactions.trigger-error.cta'),
-      homeUrl: this.urls.homeUrl
-    }
-
-    return data
-  }
-
-  getTitle(templateData) {
-    const { konnectorAlerts } = templateData
-    const hasMultipleAlerts = konnectorAlerts.length > 1
-    return hasMultipleAlerts
-      ? this.t('Notifications.konnectorAlerts.email.title-multi', {
-          alertCount: konnectorAlerts.length
-        })
-      : this.t('Notifications.konnectorAlerts.email.title-single', {
-          konnectorName: konnectorAlerts[0].konnectorName
-        })
-  }
-
-  getPushContent(templateData) {
-    const { konnectorAlerts } = templateData
-    return this.t('Notifications.konnectorAlerts.push.content', {
-      slugs: konnectorAlerts.map(x => x.konnectorName).join(', ')
-    })
-  }
+const fetchRegistryInfo = async (client, konnectorSlug) => {
+  return client.stackClient.fetchJSON('GET', `/registry/${konnectorSlug}`)
 }
 
-KonnectorAlertView.template = template
-KonnectorAlertView.category = 'konnector-alerts'
-KonnectorAlertView.preferredChannels = ['mobile', 'mail']
-
 /**
- * Build the notification view for konnector alerts
+ * Build the notification for konnector alerts
  *
  * @param  {CozyClient} client - Cozy client
  * @param  {object} options - Options
  * @param  {Array.<KonnectorAlert>} options.konnectorAlerts - Alerts to include in the notification
  * @return {NotificationView} - The konnector alerts notification view
  */
-export const buildNotificationView = (client, options) => {
-  const notifView = new KonnectorAlertView({
+export const buildNotification = (client, options) => {
+  const notification = new KonnectorAlertNotification({
     client,
     lang,
     data: {},
@@ -170,11 +99,7 @@ export const buildNotificationView = (client, options) => {
     },
     ...options
   })
-  return notifView
-}
-
-const fetchRegistryInfo = async (client, konnectorSlug) => {
-  return client.stackClient.fetchJSON('GET', `/registry/${konnectorSlug}`)
+  return notification
 }
 
 /**
@@ -222,7 +147,7 @@ export const sendTriggerNotifications = async client => {
 
   logger('info', `${triggerAndNotifsInfo.length} konnector triggers to notify`)
 
-  const notifView = buildNotificationView(client, {
+  const notifView = buildNotification(client, {
     konnectorAlerts: triggerAndNotifsInfo.map(({ trigger }) => {
       const konnectorSlug = trigger.message.konnector
       return {
