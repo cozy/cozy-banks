@@ -1,3 +1,5 @@
+import flag from 'cozy-flags'
+
 import NotificationView from 'ducks/notifications/BaseNotificationView'
 import { getCurrentDate } from 'ducks/notifications/utils'
 
@@ -14,6 +16,15 @@ class KonnectorAlertNotification extends NotificationView {
     super(options)
     this.currentDate = options.currentDate
     this.konnectorAlerts = options.konnectorAlerts
+
+    const flagPreferredChannel = flag('banks.konnector-alerts.preferredChannel')
+    if (flagPreferredChannel) {
+      KonnectorAlertNotification.preferredChannels = [flagPreferredChannel]
+      logger(
+        'info',
+        `Set KonnectorAlertNotification preferredChannel to ${flagPreferredChannel} because of flag`
+      )
+    }
   }
 
   shouldSend(templateData) {
