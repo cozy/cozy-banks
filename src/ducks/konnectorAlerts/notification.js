@@ -17,7 +17,7 @@ class KonnectorAlertNotification extends NotificationView {
     this.currentDate = options.currentDate
     this.konnectorAlerts = options.konnectorAlerts
 
-    const flagPreferredChannel = flag('banks.konnector-alerts.preferredChannel')
+    const flagPreferredChannel = flag('banks.konnector-alerts.channel')
     if (flagPreferredChannel) {
       KonnectorAlertNotification.preferredChannels = [flagPreferredChannel]
       logger(
