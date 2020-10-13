@@ -16,6 +16,18 @@ jest.mock('cozy-ui/transpiled/react/AppLinker', () => ({
   generateUniversalLink: () => 'universal-link'
 }))
 
+// String.prototype.matchAll only available for node > 12
+const matchAll = (str, regex) => {
+  // Need to have the "g" flag
+  const gRegex = new RegExp(regex, 'g')
+  let matches
+  const res = []
+  while ((matches = gRegex.exec(str)) !== null) {
+    res.push(matches[0])
+  }
+  return res
+}
+
 const mockTriggersResponse = {
   data: [
     {
@@ -33,7 +45,8 @@ const mockTriggersResponse = {
       }
     },
 
-    // Trigger already in error, will not have a notification
+    // Trigger was not in actionable error before, now the error is
+    // actionable, we can send a notification
     {
       _id: 'trigger-2',
       attributes: {
@@ -49,7 +62,7 @@ const mockTriggersResponse = {
       }
     },
 
-    // Trigger in success, will not have a notification
+    // Trigger in success, no notification
     {
       _id: 'trigger-3',
       attributes: {
@@ -65,7 +78,7 @@ const mockTriggersResponse = {
       }
     },
 
-    // No previous state, will not have a notification
+    // Previous error is actionable, no notification
     {
       _id: 'trigger-4',
       attributes: {
@@ -79,6 +92,22 @@ const mockTriggersResponse = {
       message: {
         konnector: 'konnector-4'
       }
+    },
+
+    // No previous state, no notification
+    {
+      _id: 'trigger-5',
+      attributes: {
+        worker: 'konnector'
+      },
+      current_state: {
+        status: 'errored',
+        last_executed_job_id: 'job-5',
+        last_error: 'LOGIN_FAILED'
+      },
+      message: {
+        konnector: 'konnector-5'
+      }
     }
   ]
 }
@@ -87,13 +116,19 @@ const mockSettingsResponse = {
   data: {
     triggerStates: {
       'trigger-1': {
-        status: 'done'
+        status: 'done',
+        error: null
       },
       'trigger-2': {
-        status: 'errored'
+        status: 'errored',
+        error: 'VENDOR_DOWN'
       },
       'trigger-3': {
         status: 'done'
+      },
+      'trigger-4': {
+        status: 'errored',
+        error: 'LOGIN_FAILED'
       }
     }
   }
@@ -190,6 +225,9 @@ describe('job notifications service', () => {
     const interval = +at - now
     expect(interval).toBeGreaterThan(0)
     expect(interval).toBeLessThan(86400000)
+
+    const notifSlugs = matchAll(notifAttributes.content, /konnector-\d+/)
+    expect(notifSlugs).toEqual(['konnector-1', 'konnector-2'])
 
     expectTriggerStatesToHaveBeenSaved(client)
   })

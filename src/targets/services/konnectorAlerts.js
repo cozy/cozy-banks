@@ -48,8 +48,9 @@ const storeTriggerStates = async (client, triggers, previousDoc) => {
 
 const isErrorActionable = errorMessage => {
   return (
-    errorMessage.startsWith('LOGIN_FAILED') ||
-    errorMessage.startsWith('USER_ACTION_NEEDED')
+    errorMessage &&
+    (errorMessage.startsWith('LOGIN_FAILED') ||
+      errorMessage.startsWith('USER_ACTION_NEEDED'))
   )
 }
 
@@ -79,10 +80,10 @@ const shouldNotify = async (client, trigger, previousStatesByTriggerId) => {
   }
 
   if (
-    previousState.status !== 'done' &&
+    isErrorActionable(previousState.last_error) &&
     !flag('banks.konnector-alerts.ignore-previous-status')
   ) {
-    return { ok: false, reason: 'previous-state-is-error' }
+    return { ok: false, reason: 'previous-error-is-actionable' }
   }
 
   if (trigger.current_state.status !== 'errored') {
