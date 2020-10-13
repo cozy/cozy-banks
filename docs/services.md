@@ -14,6 +14,7 @@ Banks application.
   - [Budget alerts](#budget-alerts)
   - [Recurrences](#recurrences)
 - [I am writing a banking konnector, what should I do?](#i-am-writing-a-banking-konnector-what-should-i-do)
+  - [Konnector alerts](#konnector-alerts)
 
 <!-- /MarkdownTOC -->
 
@@ -23,7 +24,7 @@ You can manually create an app token and launch the built service.
 
 ```
 # Watch services
-$ env NODE_ENV=services:production yarn run webpack --config webpack.config.js --bail --watch
+$ yarn watch:services:prod
 # In another terminal
 $ export COZY_URL='http://cozy.tools:8080'
 $ export COZY_CREDENTIALS=$(cozy-stack instances token-app cozy.tools:8080 banks)
@@ -142,3 +143,12 @@ following permission to your `manifest.konnector`:
 
 With this, the transactions you created will be categorized, then the
 `onOperationOrBillCreate` service will be launched and do its work.
+
+### Konnector alerts
+
+It monitors the jobs and sends a notification when a konnector has failed.
+Here are the rules for those notifications:
+
+- They should only be sent for LOGIN_FAILED and USER_ACTION_NEEDED errors
+- They should only be sent for automatic jobs (not manual)
+- We should not send a notification if the state stays the same
