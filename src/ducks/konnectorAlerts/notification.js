@@ -8,6 +8,35 @@ import logger from 'ducks/konnectorAlerts/logger'
 import { getErrorLocaleBound, KonnectorJobError } from 'cozy-harvest-lib'
 
 /**
+ * Returns the next date time at 8ish
+ *
+ * If now is earlier than 8AM, return today at 8, otherwise
+ * tomorrow at 8.
+ *
+ * A bit of fuzziness is added so that every notification is not sent
+ * exactly at the same time, to reduce the spike on the servers.
+ */
+export const getScheduleDate = currentDate => {
+  const ONE_DAY = 1000 * 60 * 60 * 24
+  let date = currentDate || new Date()
+  let hours = 8
+  let minutes = Math.round(15 * Math.random())
+
+  if (
+    date.getHours() > hours ||
+    (date.getHours() === hours && date.getMinutes() >= minutes)
+  ) {
+    // If its too late for today, it'll be the next day
+    date = new Date(+date + ONE_DAY)
+  }
+
+  date.setHours(hours)
+  date.setMinutes(minutes)
+
+  return date
+}
+
+/**
  * Manages the notification sent for konnector alerts
  * - Uses the same locales as Harvest in the content of the email
  */
@@ -89,33 +118,16 @@ class KonnectorAlertNotification extends NotificationView {
   }
 
   getExtraAttributes() {
-    const ONE_DAY = 1000 * 60 * 60 * 24
-    let date = new Date()
-    let hours = 8
-    let minutes = Math.round(15 * Math.random())
-
-    if (
-      date.getHours() > hours ||
-      (date.getHours() === hours && date.getMinutes() >= minutes)
-    ) {
-      // If its too late for today, it'll be the next day
-      date = new Date(+date + ONE_DAY)
-    }
-
-    date.setHours(hours)
-    date.setMinutes(minutes)
-
-    const flagAt = flag('banks.konnector-alerts.schedule-date')
+    const attributes = {}
     const flagNow = flag('banks.konnector-alerts.schedule-now')
-    if (flagNow) {
-      return {}
+    if (!flagNow) {
+      const date = getScheduleDate()
+      const flagAt = flag('banks.konnector-alerts.schedule-date')
+      const at = flagAt || date.toISOString()
+      logger('info', `Scheduling notification at ${at}`)
+      attributes.at = at
     }
-
-    const at = flagAt || date.toISOString()
-    logger('info', `Scheduling notification at ${at}`)
-    return {
-      at
-    }
+    return attributes
   }
 }
 
