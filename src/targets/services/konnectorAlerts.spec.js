@@ -210,7 +210,7 @@ describe('job notifications service', () => {
     expectTriggerStatesToHaveBeenSaved(client)
   })
 
-  it('should work', async () => {
+  it('should send a notification with the right content and save trigger states', async () => {
     const { client } = setup()
     await sendTriggerNotifications(client)
     expect(sendNotification).toHaveBeenCalledTimes(1)
