@@ -1,6 +1,8 @@
 import CozyClient from 'cozy-client'
-import { sendTriggerNotifications } from './konnectorAlerts'
 import { sendNotification } from 'cozy-notifications'
+
+import matchAll from 'utils/matchAll'
+import { sendTriggerNotifications } from './konnectorAlerts'
 
 jest.mock('cozy-notifications', () => {
   const notifications = jest.requireActual('cozy-notifications')
@@ -15,18 +17,6 @@ jest.mock('cozy-notifications', () => {
 jest.mock('cozy-ui/transpiled/react/AppLinker', () => ({
   generateUniversalLink: () => 'universal-link'
 }))
-
-// String.prototype.matchAll only available for node > 12
-const matchAll = (str, regex) => {
-  // Need to have the "g" flag
-  const gRegex = new RegExp(regex, 'g')
-  let matches
-  const res = []
-  while ((matches = gRegex.exec(str)) !== null) {
-    res.push(matches[0])
-  }
-  return res
-}
 
 const mockTriggersResponse = {
   data: [
