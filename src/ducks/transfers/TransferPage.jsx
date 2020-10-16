@@ -202,6 +202,10 @@ class TransferPage extends React.Component {
     )
   }
 
+  componentDidMount() {
+    trackPage(`virement:categorie`)
+  }
+
   componentDidUpdate(prevProps) {
     this.ensureHasAllRecipients()
     this.checkToShowPersonalInfoModal(prevProps)
