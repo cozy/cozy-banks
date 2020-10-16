@@ -220,7 +220,7 @@ class TransferPage extends React.Component {
     if (prevMyself !== nowMyself) {
       if (
         isMyselfSufficientlyFilled(nowMyself) &&
-        !flag('banks.transfers.display-personal-info-form')
+        !flag('banks.transfers.need-personal-information')
       ) {
         this.setState({
           showingPersonalInfo: false
