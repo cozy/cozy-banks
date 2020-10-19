@@ -19,7 +19,6 @@ import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { recurrenceConn } from 'doctypes'
 import BarTheme from 'ducks/bar/BarTheme'
 import Table, { TdSecondary } from 'components/Table'
-import AnalysisTabs from 'ducks/analysis/AnalysisTabs'
 
 import Padded from 'components/Spacing/Padded'
 import Header from 'components/Header'
@@ -214,7 +213,6 @@ const RecurrencesPage = () => {
         {isMobile ? (
           <>
             <PageTitle>{t('Recurrence.title')}</PageTitle>
-            <AnalysisTabs />
           </>
         ) : null}
       </Header>

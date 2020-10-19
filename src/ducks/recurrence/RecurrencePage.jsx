@@ -42,7 +42,6 @@ import {
   getStatus
 } from 'ducks/recurrence/api'
 
-import AnalysisTabs from 'ducks/analysis/AnalysisTabs'
 import { BarTitle } from 'components/Title/PageTitle'
 import TransactionsTableHead from 'ducks/transactions/header/TableHead'
 
@@ -273,7 +272,6 @@ const BundleInfo = ({ bundle }) => {
               onClick={showActionsMenu}
             />
           </BarRight>
-          <AnalysisTabs />
           {showingActionsMenu ? (
             <RecurrenceActionMenu
               onClose={hideActionsMenu}

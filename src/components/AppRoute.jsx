@@ -22,6 +22,7 @@ import {
 } from 'ducks/recurrence'
 import { TransferPage } from 'ducks/transfers'
 import { SearchPage } from 'ducks/search'
+import { AnalysisPage } from 'ducks/analysis'
 import UserActionRequired from 'components/UserActionRequired'
 import scrollToTopOnMount from 'components/scrollToTopOnMount'
 
@@ -43,7 +44,7 @@ const AppRoute = () => (
       <Route path="recurrence">
         <Redirect from="*" to="analysis/recurrence" />
       </Route>
-      <Route path="analysis">
+      <Route path="analysis" component={scrollToTopOnMount(AnalysisPage)}>
         <Route path="categories">
           <IndexRoute component={scrollToTopOnMount(CategoriesPage)} />
           <Route

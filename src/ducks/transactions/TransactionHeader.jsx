@@ -7,7 +7,6 @@ import Breadcrumb from 'cozy-ui/transpiled/react/Breadcrumbs'
 import { useParams, useHistory } from 'components/RouterContext'
 import cx from 'classnames'
 
-import AnalysisTabs from 'ducks/analysis/AnalysisTabs'
 import { ConnectedSelectDates } from 'components/SelectDates'
 import { BalanceDetailsHeader } from 'ducks/balance'
 import TransactionSelectDates from 'ducks/transactions/TransactionSelectDates'
@@ -109,11 +108,7 @@ const TransactionHeader = ({
 
   return (
     <BalanceDetailsHeader small={isSubcategory} showBalance={showBalance}>
-      {isSubcategory ? (
-        isMobile ? (
-          <AnalysisTabs />
-        ) : null
-      ) : (
+      {isSubcategory ? null : (
         <TransactionHeaderBalanceHistory
           currentMonth={currentMonth}
           size={size}
