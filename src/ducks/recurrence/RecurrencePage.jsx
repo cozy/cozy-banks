@@ -219,9 +219,10 @@ const BundleInfo = ({ bundle }) => {
   )
   const [showingRename, showRename, hideRename] = useToggle(false)
 
-  const goToRecurrenceRoot = useCallback(() => history.push('/recurrence'), [
-    history
-  ])
+  const goToRecurrenceRoot = useCallback(
+    () => history.push('/analysis/recurrence'),
+    [history]
+  )
 
   const handleOpenRename = useCallback(() => {
     showRename()

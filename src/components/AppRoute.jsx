@@ -38,22 +38,30 @@ const AppRoute = () => (
         />
       </Route>
       <Route path="categories">
-        <IndexRoute component={scrollToTopOnMount(CategoriesPage)} />
-        <Route
-          path=":categoryName/:subcategoryName"
-          component={scrollToTopOnMount(TransactionsPageWithBackButton)}
-        />
-        <Route
-          path=":categoryName"
-          component={scrollToTopOnMount(CategoriesPage)}
-        />
+        <Redirect from="*" to="analysis/categories" />
       </Route>
       <Route path="recurrence">
-        <IndexRoute component={scrollToTopOnMount(RecurrencesPage)} />
-        <Route
-          path=":bundleId"
-          component={scrollToTopOnMount(RecurrencePage)}
-        />
+        <Redirect from="*" to="analysis/recurrence" />
+      </Route>
+      <Route path="analysis">
+        <Route path="categories">
+          <IndexRoute component={scrollToTopOnMount(CategoriesPage)} />
+          <Route
+            path=":categoryName/:subcategoryName"
+            component={scrollToTopOnMount(TransactionsPageWithBackButton)}
+          />
+          <Route
+            path=":categoryName"
+            component={scrollToTopOnMount(CategoriesPage)}
+          />
+        </Route>
+        <Route path="recurrence">
+          <IndexRoute component={scrollToTopOnMount(RecurrencesPage)} />
+          <Route
+            path=":bundleId"
+            component={scrollToTopOnMount(RecurrencePage)}
+          />
+        </Route>
       </Route>
       <Route path="settings">
         <Route

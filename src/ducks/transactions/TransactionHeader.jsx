@@ -26,11 +26,11 @@ const HeaderBreadcrumb = () => {
   const breadcrumbItems = [
     {
       name: t('Categories.title.general'),
-      onClick: () => history.push('/categories')
+      onClick: () => history.push('/analysis/categories')
     },
     {
       name: t(`Data.categories.${categoryName}`),
-      onClick: () => history.push(`/categories/${categoryName}`)
+      onClick: () => history.push(`/analysis/categories/${categoryName}`)
     },
     {
       name: t(`Data.subcategories.${subcategoryName}`)

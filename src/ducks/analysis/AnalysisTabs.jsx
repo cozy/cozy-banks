@@ -5,6 +5,11 @@ import styles from 'components/Tabs.styl'
 
 import { useLocation, useHistory } from 'components/RouterContext'
 
+const tabRoutes = {
+  categories: 'analysis/categories',
+  recurrence: 'analysis/recurrence'
+}
+
 const AnalysisTabs = () => {
   const history = useHistory()
   const location = useLocation()
@@ -20,7 +25,7 @@ const AnalysisTabs = () => {
     : 'recurrence'
 
   const tabs = tabNames.map(tabName => (
-    <Tab key={tabName} name={tabName} onClick={goTo(`${tabName}`)}>
+    <Tab key={tabName} name={tabName} onClick={goTo(tabRoutes[tabName])}>
       {t(`Nav.${tabName}`)}
     </Tab>
   ))

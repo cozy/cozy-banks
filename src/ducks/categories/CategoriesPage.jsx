@@ -86,11 +86,13 @@ class CategoriesPage extends Component {
 
   selectCategory = (selectedCategory, subcategory) => {
     if (subcategory) {
-      this.props.router.push(`/categories/${selectedCategory}/${subcategory}`)
+      this.props.router.push(
+        `/analysis/categories/${selectedCategory}/${subcategory}`
+      )
     } else if (selectedCategory) {
-      this.props.router.push(`/categories/${selectedCategory}`)
+      this.props.router.push(`/analysis/categories/${selectedCategory}`)
     } else {
-      this.props.router.push('/categories')
+      this.props.router.push('/analysis/categories')
     }
   }
 
@@ -129,7 +131,7 @@ class CategoriesPage extends Component {
       : categoriesProps.filter(category => category.name !== 'incomeCat')
     const breadcrumbItems = [{ name: t('Categories.title.general') }]
     if (selectedCategoryName) {
-      breadcrumbItems[0].onClick = () => router.push('/categories')
+      breadcrumbItems[0].onClick = () => router.push('/analysis/categories')
       breadcrumbItems.push({
         name: t(`Data.categories.${selectedCategoryName}`)
       })
