@@ -1,9 +1,7 @@
-import React, { PureComponent, Fragment, useCallback } from 'react'
-import { flowRight as compose } from 'lodash'
+import React, { Fragment, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
-import { translate, withBreakpoints } from 'cozy-ui/transpiled/react'
 import RawBreadcrumb from 'cozy-ui/transpiled/react/Breadcrumbs'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
@@ -105,152 +103,124 @@ const CategoriesTableHead = props => {
   )
 }
 
-class CategoriesHeader extends PureComponent {
-  renderAccountSwitch = () => {
-    const { selectedCategory, breadcrumbItems } = this.props
+const CategoriesHeader = props => {
+  const { t } = useI18n()
+  const { isMobile } = useBreakpoints()
+  const {
+    breadcrumbItems,
+    hasAccount,
+    selectedCategory,
+    withIncome,
+    onWithIncomeToggle,
+    categories,
+    chartSize,
+    isFetching
+  } = props
+
+  const hasData = categories.length > 0 && categories[0].transactionsNumber > 0
+  const showIncomeToggle = hasData && selectedCategory === undefined
+  const globalCurrency = getGlobalCurrency(categories)
+  const transactionsTotal = getTransactionsTotal(categories)
+
+  const accountSwitch = (
+    <CategoryAccountSwitch
+      selectedCategory={selectedCategory}
+      breadcrumbItems={breadcrumbItems}
+    />
+  )
+  const incomeToggle = showIncomeToggle ? (
+    <IncomeToggle withIncome={withIncome} onToggle={onWithIncomeToggle} />
+  ) : null
+
+  const chart = isFetching ? null : (
+    <CategoriesChart
+      width={chartSize}
+      height={chartSize}
+      categories={
+        selectedCategory ? selectedCategory.subcategories : categories
+      }
+      selectedCategory={selectedCategory}
+      total={selectedCategory ? selectedCategory.amount : transactionsTotal}
+      currency={globalCurrency}
+      label={t('Categories.title.total')}
+      hasAccount={hasAccount}
+      className={cx(
+        hasAccount ? null : styles.NoAccount_chart,
+        selectedCategory ? styles.SubcategoryChart : null
+      )}
+    />
+  )
+
+  if (isMobile) {
     return (
-      <CategoryAccountSwitch
-        selectedCategory={selectedCategory}
-        breadcrumbItems={breadcrumbItems}
-      />
-    )
-  }
-
-  renderIncomeToggle = () => {
-    const {
-      selectedCategory,
-      withIncome,
-      onWithIncomeToggle,
-      categories
-    } = this.props
-    const hasData =
-      categories.length > 0 && categories[0].transactionsNumber > 0
-    const showIncomeToggle = hasData && selectedCategory === undefined
-    if (!showIncomeToggle) {
-      return null
-    }
-
-    return (
-      <IncomeToggle withIncome={withIncome} onToggle={onWithIncomeToggle} />
-    )
-  }
-
-  renderChart = () => {
-    const {
-      selectedCategory,
-      chartSize = 182,
-      categories,
-      t,
-      hasAccount,
-      isFetching
-    } = this.props
-    const globalCurrency = getGlobalCurrency(categories)
-    const transactionsTotal = getTransactionsTotal(categories)
-
-    if (isFetching) {
-      return null
-    }
-    const className = cx(
-      hasAccount ? null : styles.NoAccount_chart,
-      selectedCategory ? styles.SubcategoryChart : null
-    )
-    return (
-      <CategoriesChart
-        width={chartSize}
-        height={chartSize}
-        categories={
-          selectedCategory ? selectedCategory.subcategories : categories
-        }
-        selectedCategory={selectedCategory}
-        total={selectedCategory ? selectedCategory.amount : transactionsTotal}
-        currency={globalCurrency}
-        label={t('Categories.title.total')}
-        hasAccount={hasAccount}
-        className={className}
-      />
-    )
-  }
-
-  render() {
-    const {
-      breadcrumbItems,
-      hasAccount,
-      breakpoints: { isMobile },
-      t,
-      selectedCategory
-    } = this.props
-
-    const accountSwitch = this.renderAccountSwitch()
-    const incomeToggle = this.renderIncomeToggle()
-    const chart = this.renderChart()
-
-    if (isMobile) {
-      return (
-        <Fragment>
-          <Header fixed theme="inverted">
-            <AnalysisTabs />
-            <SelectDates showFullYear />
-            {accountSwitch}
-          </Header>
-          {hasAccount ? (
-            <Header
-              className={cx(styles.CategoriesHeader, {
-                [styles.NoAccount]: !hasAccount
-              })}
-              theme={isMobile ? 'normal' : 'inverted'}
-            >
-              <Padded>
-                {incomeToggle}
-                {chart}
-              </Padded>
-            </Header>
-          ) : (
-            <div className={cx(styles.NoAccount_container)}>
-              <Padded className={styles.NoAccount_box}>
-                {chart}
-                <AddAccountButton absolute label={t('Accounts.add_bank')} />
-              </Padded>
-            </div>
-          )}
-        </Fragment>
-      )
-    }
-
-    return (
-      <Header theme="inverted" fixed>
-        <Padded
-          className={cx(styles.CategoriesHeader, {
-            [styles.NoAccount]: !hasAccount
-          })}
-        >
-          {hasAccount ? (
-            <>
-              <div>
-                <Padded className="u-ph-0 u-pt-0 u-pb-half">
-                  {accountSwitch}
-                </Padded>
-                <Padded className="u-ph-0 u-pv-1">
-                  <SelectDates showFullYear />
-                </Padded>
-                {breadcrumbItems.length > 1 && (
-                  <Breadcrumb className="u-mt-1" items={breadcrumbItems} />
-                )}
-                {incomeToggle}
-              </div>
-              {chart}
-            </>
-          ) : (
-            <AddAccountButton label={t('Accounts.add_bank')} />
-          )}
-        </Padded>
+      <Fragment>
+        <Header theme="inverted">
+          <SelectDates showFullYear />
+          {accountSwitch}
+        </Header>
         {hasAccount ? (
-          <Table className={stTableCategory}>
-            <CategoriesTableHead selectedCategory={selectedCategory} />
-          </Table>
-        ) : null}
-      </Header>
+          <Header
+            className={cx(styles.CategoriesHeader, {
+              [styles.NoAccount]: !hasAccount
+            })}
+            theme={isMobile ? 'normal' : 'inverted'}
+          >
+            <Padded>
+              {incomeToggle}
+              {chart}
+            </Padded>
+          </Header>
+        ) : (
+          <div className={cx(styles.NoAccount_container)}>
+            <Padded className={styles.NoAccount_box}>
+              {chart}
+              <AddAccountButton absolute label={t('Accounts.add_bank')} />
+            </Padded>
+          </div>
+        )}
+      </Fragment>
     )
   }
+
+  return (
+    <Header theme="inverted" fixed>
+      <AnalysisTabs />
+      <Padded
+        className={cx(styles.CategoriesHeader, {
+          [styles.NoAccount]: !hasAccount
+        })}
+      >
+        {hasAccount ? (
+          <>
+            <div>
+              <Padded className="u-ph-0 u-pt-0 u-pb-half">
+                {accountSwitch}
+              </Padded>
+              <Padded className="u-ph-0 u-pv-1">
+                <SelectDates showFullYear />
+              </Padded>
+              {breadcrumbItems.length > 1 && (
+                <Breadcrumb className="u-mt-1" items={breadcrumbItems} />
+              )}
+              {incomeToggle}
+            </div>
+            {chart}
+          </>
+        ) : (
+          <AddAccountButton label={t('Accounts.add_bank')} />
+        )}
+      </Padded>
+      {hasAccount ? (
+        <Table className={stTableCategory}>
+          <CategoriesTableHead selectedCategory={selectedCategory} />
+        </Table>
+      ) : null}
+    </Header>
+  )
+}
+
+CategoriesHeader.defaultProps = {
+  chartSize: 182
 }
 
 CategoriesHeader.propTypes = {
@@ -265,7 +235,4 @@ CategoriesHeader.propTypes = {
   breakpoints: PropTypes.object.isRequired
 }
 
-export default compose(
-  translate(),
-  withBreakpoints()
-)(CategoriesHeader)
+export default CategoriesHeader
