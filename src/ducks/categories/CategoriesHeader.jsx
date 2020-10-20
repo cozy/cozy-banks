@@ -151,11 +151,13 @@ const CategoriesHeader = props => {
     />
   )
 
+  const dateSelector = <SelectDates showFullYear />
+
   if (isMobile) {
     return (
       <Fragment>
         <Header theme="inverted">
-          <SelectDates showFullYear />
+          {dateSelector}
           {accountSwitch}
         </Header>
         {hasAccount ? (
@@ -196,9 +198,7 @@ const CategoriesHeader = props => {
               <Padded className="u-ph-0 u-pt-0 u-pb-half">
                 {accountSwitch}
               </Padded>
-              <Padded className="u-ph-0 u-pv-1">
-                <SelectDates showFullYear />
-              </Padded>
+              <Padded className="u-ph-0 u-pv-1">{dateSelector}</Padded>
               {breadcrumbItems.length > 1 && (
                 <Breadcrumb className="u-mt-1" items={breadcrumbItems} />
               )}
