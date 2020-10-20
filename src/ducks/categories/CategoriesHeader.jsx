@@ -7,6 +7,7 @@ import { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
+import Stack from 'cozy-ui/transpiled/react/Stack'
 
 import { AccountSwitch } from 'ducks/account'
 import BackButton from 'components/BackButton'
@@ -195,10 +196,10 @@ const CategoriesHeader = props => {
         {hasAccount ? (
           <>
             <div>
-              <Padded className="u-ph-0 u-pt-0 u-pb-half">
+              <Stack spacing="m">
                 {accountSwitch}
-              </Padded>
-              <Padded className="u-ph-0 u-pv-1">{dateSelector}</Padded>
+                {dateSelector}
+              </Stack>
               {breadcrumbItems.length > 1 && (
                 <Breadcrumb className="u-mt-1" items={breadcrumbItems} />
               )}
