@@ -36,6 +36,16 @@ const isCategoryDataEmpty = categoryData => {
   return categoryData[0] && isNaN(categoryData[0].percentage)
 }
 
+const goToCategory = (router, selectedCategory, subcategory) => {
+  if (subcategory) {
+    router.push(`/analysis/categories/${selectedCategory}/${subcategory}`)
+  } else if (selectedCategory) {
+    router.push(`/analysis/categories/${selectedCategory}`)
+  } else {
+    router.push('/analysis/categories')
+  }
+}
+
 class CategoriesPage extends Component {
   componentDidMount() {
     const { filteringDoc, resetFilterByDoc } = this.props
@@ -81,18 +91,6 @@ class CategoriesPage extends Component {
         const maxDate = getDate(maxBy(transactions, getDate))
         this.props.addFilterByPeriod(maxDate.slice(0, 7))
       }
-    }
-  }
-
-  selectCategory = (selectedCategory, subcategory) => {
-    if (subcategory) {
-      this.props.router.push(
-        `/analysis/categories/${selectedCategory}/${subcategory}`
-      )
-    } else if (selectedCategory) {
-      this.props.router.push(`/analysis/categories/${selectedCategory}`)
-    } else {
-      this.props.router.push('/analysis/categories')
     }
   }
 
@@ -167,7 +165,9 @@ class CategoriesPage extends Component {
               categories={sortedCategories}
               selectedCategory={selectedCategory}
               selectedCategoryName={selectedCategoryName}
-              selectCategory={this.selectCategory}
+              selectCategory={(selectedCategory, subcategory) =>
+                goToCategory(router, selectedCategory, subcategory)
+              }
               withIncome={showIncomeCategory}
               filterWithInCome={this.filterWithInCome}
             />
