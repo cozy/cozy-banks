@@ -1,6 +1,6 @@
 import { runService } from './service'
-import { doRecurrenceMatching } from 'ducks/recurrence/service'
+import runRecurrenceService from 'ducks/recurrence/service'
 
 runService(async ({ client }) => {
-  await doRecurrenceMatching(client)
+  await runRecurrenceService({ client })
 })
