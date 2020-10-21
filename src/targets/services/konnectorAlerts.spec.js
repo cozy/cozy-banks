@@ -57,10 +57,10 @@ const expectedResults = [
   'konnector-2 sent',
   'konnector-3 current-state-is-not-errored',
   'konnector-4 manual-job',
-  'konnector-5 sent',
+  'konnector-5 never-been-in-success',
   'konnector-6 sent',
   'konnector-7 sent',
-  'konnector-8 sent'
+  'konnector-8 last-failure-already-notified'
 ]
 
 /**

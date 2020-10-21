@@ -83,23 +83,23 @@ const shouldNotify = async (client, trigger, previousStatesByTriggerId) => {
     return { ok: false, reason: 'no-previous-state' }
   }
 
-  // When the previous error is actionable, it's important to check if there
-  // was a succesful execution since the last failure, otherwise we must not
-  // send a notification.
-  if (
-    isErrorActionable(previousState.last_error) &&
-    trigger.current_state.last_failure > trigger.current_state.last_execution &&
-    !flag('banks.konnector-alerts.ignore-previous-status')
-  ) {
-    return { ok: false, reason: 'previous-error-is-actionable' }
-  }
-
   if (trigger.current_state.status !== 'errored') {
     return { ok: false, reason: 'current-state-is-not-errored' }
   }
 
   if (!isErrorActionable(trigger.current_state.last_error)) {
     return { ok: false, reason: 'error-not-actionable' }
+  }
+
+  if (!trigger.current_state.last_success) {
+    return { ok: false, reason: 'never-been-in-success' }
+  }
+
+  if (
+    previousState.status === 'errored' &&
+    isErrorActionable(previousState.last_error)
+  ) {
+    return { ok: false, reason: 'last-failure-already-notified' }
   }
 
   // We do not want to send notifications for jobs that were launched manually
