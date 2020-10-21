@@ -79,10 +79,7 @@ const fetchRegistryInfo = memoize(
  */
 const shouldNotify = async (client, trigger, previousStatesByTriggerId) => {
   const previousState = previousStatesByTriggerId[trigger._id]
-  if (
-    !previousState &&
-    !flag('banks.konnector-alerts.ignore-previous-status')
-  ) {
+  if (!previousState) {
     return { ok: false, reason: 'no-previous-state' }
   }
 
@@ -108,10 +105,7 @@ const shouldNotify = async (client, trigger, previousStatesByTriggerId) => {
   // We do not want to send notifications for jobs that were launched manually
   const jobId = trigger.current_state.last_executed_job_id
   const { data: job } = await client.query(Q('io.cozy.jobs').getById(jobId))
-  if (
-    job.manual_execution &&
-    !flag('banks.konnector-alerts.allow-manual-jobs')
-  ) {
+  if (job.manual_execution) {
     return { ok: false, reason: 'manual-job' }
   }
 
@@ -121,17 +115,11 @@ const shouldNotify = async (client, trigger, previousStatesByTriggerId) => {
   )
   const categories = get(registryInfo, 'latest_version.manifest.categories')
 
-  if (
-    (!categories || !categories.includes('banking')) &&
-    !flag('banks.konnector-alerts.allow-non-banking')
-  ) {
+  if (!categories || !categories.includes('banking')) {
     return { ok: false, reason: 'not-banking-konnector' }
   }
 
-  if (
-    registryInfo.maintenance_activated &&
-    !flag('banks.konnector-alerts.ignore-maintenance')
-  ) {
+  if (registryInfo.maintenance_activated) {
     return { ok: false, reason: 'maintenance' }
   }
 
@@ -177,6 +165,11 @@ export const sendTriggerNotifications = async client => {
   const previousStates = get(triggerStatesDoc, 'triggerStates', {})
   logger('info', `${konnectorTriggers.length} konnector triggers`)
 
+  const ignoredErrorFlag = flag('banks.konnector-alerts.ignored-errors')
+  const ignoredErrors = new Set(
+    ignoredErrorFlag ? ignoredErrorFlag.split(',') : []
+  )
+
   const triggerAndNotifsInfo = (await Promise.all(
     konnectorTriggers.map(async trigger => {
       return {
@@ -185,7 +178,7 @@ export const sendTriggerNotifications = async client => {
       }
     })
   )).filter(({ trigger, shouldNotify }) => {
-    if (shouldNotify.ok) {
+    if (shouldNotify.ok || ignoredErrors.has(shouldNotify.reason)) {
       logger('info', `Will notify trigger for ${getKonnectorSlug(trigger)}`)
       return true
     } else {
