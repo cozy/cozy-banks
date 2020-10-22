@@ -22,10 +22,12 @@ import {
 } from 'ducks/categories/helpers'
 import styles from 'ducks/categories/CategoriesHeader.styl'
 import AddAccountButton from 'ducks/categories/AddAccountButton'
-import AnalysisTabs from 'ducks/analysis/AnalysisTabs'
+import { onSubcategory } from 'ducks/categories/utils'
+import catStyles from 'ducks/categories/styles.styl'
+
 import { themed } from 'components/useTheme'
 import Table from 'components/Table'
-import catStyles from 'ducks/categories/styles.styl'
+import { useParams } from 'components/RouterContext'
 
 const Breadcrumb = themed(RawBreadcrumb)
 
@@ -122,7 +124,8 @@ const CategoriesHeader = props => {
   const showIncomeToggle = hasData && selectedCategory === undefined
   const globalCurrency = getGlobalCurrency(categories)
   const transactionsTotal = getTransactionsTotal(categories)
-
+  const params = useParams()
+  const isSubcategory = onSubcategory(params)
   const accountSwitch = (
     <CategoryAccountSwitch
       selectedCategory={selectedCategory}
@@ -133,34 +136,36 @@ const CategoriesHeader = props => {
     <IncomeToggle withIncome={withIncome} onToggle={onWithIncomeToggle} />
   ) : null
 
-  const chart = isFetching ? null : (
-    <CategoriesChart
-      width={chartSize}
-      height={chartSize}
-      categories={
-        selectedCategory ? selectedCategory.subcategories : categories
-      }
-      selectedCategory={selectedCategory}
-      total={selectedCategory ? selectedCategory.amount : transactionsTotal}
-      currency={globalCurrency}
-      label={t('Categories.title.total')}
-      hasAccount={hasAccount}
-      className={cx(
-        hasAccount ? null : styles.NoAccount_chart,
-        selectedCategory ? styles.SubcategoryChart : null
-      )}
-    />
-  )
+  const chart =
+    isFetching || isSubcategory ? null : (
+      <CategoriesChart
+        width={chartSize}
+        height={chartSize}
+        categories={
+          selectedCategory ? selectedCategory.subcategories : categories
+        }
+        selectedCategory={selectedCategory}
+        total={selectedCategory ? selectedCategory.amount : transactionsTotal}
+        currency={globalCurrency}
+        label={t('Categories.title.total')}
+        hasAccount={hasAccount}
+        className={cx(
+          hasAccount ? null : styles.NoAccount_chart,
+          selectedCategory ? styles.SubcategoryChart : null
+        )}
+      />
+    )
 
   const dateSelector = <SelectDates showFullYear />
 
   if (isMobile) {
     return (
       <Fragment>
-        <Header theme="inverted">
+        <Header theme="inverted" fixed className={styles.CategoriesHeader}>
           {dateSelector}
-          {accountSwitch}
         </Header>
+        <div style={{ height: '3rem' }}></div>
+        {accountSwitch}
         {hasAccount ? (
           <Header
             className={cx(styles.CategoriesHeader, {
@@ -168,10 +173,12 @@ const CategoriesHeader = props => {
             })}
             theme={isMobile ? 'normal' : 'inverted'}
           >
-            <Padded>
-              {incomeToggle}
-              {chart}
-            </Padded>
+            {incomeToggle || chart ? (
+              <Padded>
+                {incomeToggle}
+                {chart}
+              </Padded>
+            ) : null}
           </Header>
         ) : (
           <div className={cx(styles.NoAccount_container)}>
@@ -187,7 +194,6 @@ const CategoriesHeader = props => {
 
   return (
     <Header theme="inverted" fixed>
-      <AnalysisTabs />
       <Padded
         className={cx(styles.CategoriesHeader, {
           [styles.NoAccount]: !hasAccount

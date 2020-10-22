@@ -3,7 +3,6 @@ import { IndexRoute, Route, Redirect } from 'react-router'
 import App from 'components/App'
 import { isWebApp } from 'cozy-device-helper'
 
-import { TransactionsPageWithBackButton } from 'ducks/transactions'
 import { CategoriesPage } from 'ducks/categories'
 import {
   Settings,
@@ -49,7 +48,7 @@ const AppRoute = () => (
           <IndexRoute component={scrollToTopOnMount(CategoriesPage)} />
           <Route
             path=":categoryName/:subcategoryName"
-            component={scrollToTopOnMount(TransactionsPageWithBackButton)}
+            component={scrollToTopOnMount(CategoriesPage)}
           />
           <Route
             path=":categoryName"
