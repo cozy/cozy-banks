@@ -50,8 +50,8 @@ const AccountListItem = ({ account, onClick, secondaryText }) => {
         </AccountIconContainer>
       </ListItemIcon>
       <ListItemText
-        primaryText={getAccountInstitutionLabel(account)}
-        secondaryText={secondaryText}
+        primary={getAccountInstitutionLabel(account)}
+        secondary={secondaryText}
       />
       <ListItemSecondaryAction>
         <Icon icon="right" className="u-coolGrey u-mr-1" />
