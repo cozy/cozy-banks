@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import cx from 'classnames'
 import { createSelector } from 'reselect'
 import minBy from 'lodash/minBy'
 import { useSelector } from 'react-redux'
@@ -36,29 +35,11 @@ const makeSearch = searchStr => op => {
 
 const isSearchSufficient = searchStr => searchStr.length > 2
 
-const Ul = props => {
-  return <ul {...props} className={cx('u-pl-1 u-mt-1', props.className)} />
-}
-
-const Li = props => {
-  return (
-    <li
-      {...props}
-      className={cx('u-h-2 u-flex-justify-center', props.className)}
-    />
-  )
-}
-
 const SearchSuggestions = () => {
   const { t } = useI18n()
-  const suggestions = t('Search.suggestions').split(', ')
   return (
-    <Typography component={Ul} color="textSecondary">
-      {suggestions.map((suggestion, i) => (
-        <Li key={i}>
-          <Typography color="textSecondary">{suggestion}</Typography>
-        </Li>
-      ))}
+    <Typography align="center" variant="body">
+      {t('Search.suggestions')}
     </Typography>
   )
 }
@@ -82,11 +63,7 @@ const CompositeHeader = ({ title, image }) => {
   return (
     <div className="u-ta-center">
       {image}
-      <Typography
-        variant="h5"
-        color="textSecondary"
-        classes={{ root: 'u-mb-1-half' }}
-      >
+      <Typography variant="h3" classes={{ root: 'u-mb-half' }}>
         {title}
       </Typography>
     </div>
