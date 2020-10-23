@@ -63,7 +63,7 @@ import TransactionModalRow, {
 } from 'ducks/transactions/TransactionModalRow'
 
 import withDocs from 'components/withDocs'
-import { useParams, useLocation } from 'components/RouterContext'
+import { useLocation } from 'components/RouterContext'
 
 const SearchForTransactionIcon = ({ transaction }) => {
   const label = getLabel(transaction)
@@ -113,7 +113,6 @@ const TransactionCategoryEditorSlide = ({ transaction }) => {
   const { t } = useI18n()
   const { stackPop } = useViewStack()
   const { isMobile } = useBreakpoints()
-  const { categoryName, subcategoryName } = useParams()
 
   const onAfterUpdate = transaction => {
     trackEvent({
@@ -121,11 +120,7 @@ const TransactionCategoryEditorSlide = ({ transaction }) => {
     })
   }
 
-  useTrackPage(
-    categoryName && subcategoryName
-      ? `analyse:${categoryName}:depense-categorie`
-      : `mon_compte:depense:categorie`
-  )
+  useTrackPage(lastTracked => `${lastTracked}:depense-categorie`)
 
   return (
     <>
@@ -152,13 +147,7 @@ const TransactionApplicationDateEditorSlide = ({
 }) => {
   const { t } = useI18n()
   const { stackPop } = useViewStack()
-  const { categoryName, subcategoryName } = useParams()
 
-  useTrackPage(
-    categoryName && subcategoryName
-      ? `analyse:${categoryName}:depense-affectation_mois`
-      : `mon_compte:depense:affectation_mois`
-  )
 
   const handleBeforeUpdate = () => {
     beforeUpdate()
@@ -241,6 +230,8 @@ const TransactionRecurrenceEditorSlide = ({ transaction }) => {
   const { t } = useI18n()
 
   const { stackPop } = useViewStack()
+  useTrackPage(lastTracked => `${lastTracked}:affectation_recurrence`)
+
 
   return (
     <div>
@@ -434,13 +425,8 @@ const TransactionModalInfo = props => {
 
 const TransactionModal = ({ requestClose, ...props }) => {
   const { t } = useI18n()
-  const { categoryName, subcategoryName } = useParams()
 
-  useTrackPage(
-    categoryName && subcategoryName
-      ? `analyse:${categoryName}:depense`
-      : `mon_compte:depense`
-  )
+  useTrackPage(lastTracked => `${lastTracked}:depense`)
 
   return (
     <PageModal
