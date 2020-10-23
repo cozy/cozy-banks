@@ -5,12 +5,12 @@
   align-items center
   margin-left 2rem
   color var(--silver)
-  padding 0.375rem
   border-radius 2px
   transition border 0.3s ease, width 0.3s ease
   border 1px solid var(--silver)
 
   input
+    padding 0.375rem
     background transparent
     border none
     outline none
@@ -19,9 +19,11 @@
   width 400px
   max-width 100%
 
-  svg
-    margin-right 0.5rem
+  .Icon
     flex-shrink 0
+
+.ResetIcon
+  cursor pointer
 
 +small-screen()
   .InputWrapper
@@ -32,8 +34,19 @@
     input, input::placeholder
         color var(--primaryContrastTextColor)
 
-    svg
+    .SearchIcon
       display none
 
-  .InputWrapper--focus
+    .ResetIcon
+        color white
+
+  .InputWrapper
     border 1px solid transparent
+
+.Icon
+    display block
+    width 2.5rem
+    height 2rem
+    display flex
+    align-items center
+    justify-content center

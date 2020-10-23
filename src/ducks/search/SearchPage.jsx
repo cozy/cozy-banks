@@ -103,6 +103,11 @@ const SearchPage = () => {
     setSearch(ev.target.value)
   }
 
+  const handleReset = inputNode => {
+    setSearch('')
+    inputNode.focus()
+  }
+
   useTrackPage('recherche')
 
   let { data: allTransactions } = useQuery(
@@ -126,10 +131,10 @@ const SearchPage = () => {
             <BarCenter>
               <BarSearchInput
                 placeholder={t('Search.input-placeholder')}
-                type="text"
                 value={search}
                 onChange={handleChange}
                 autofocus
+                onReset={handleReset}
               />
             </BarCenter>
           </>
@@ -155,6 +160,8 @@ const SearchPage = () => {
                 placeholder={t('Search.input-placeholder')}
                 value={search}
                 onChange={handleChange}
+                autofocus
+                onReset={handleReset}
               />
             </BarSearch>
           </Padded>
