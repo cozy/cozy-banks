@@ -1,17 +1,22 @@
 import React, { useState, useMemo } from 'react'
 import { createSelector } from 'reselect'
-import minBy from 'lodash/minBy'
 import { useSelector } from 'react-redux'
+import minBy from 'lodash/minBy'
+import debounce from 'lodash/debounce'
+import orderBy from 'lodash/orderBy'
+import { Typography } from '@material-ui/core'
+import Fuse from 'fuse.js'
 
-import { useQuery } from 'cozy-client'
-import { useI18n, Empty } from 'cozy-ui/transpiled/react'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-import { useTrackPage } from 'ducks/tracking/browser'
-
 import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
+import { useI18n, Empty } from 'cozy-ui/transpiled/react'
 import NarrowContent from 'cozy-ui/transpiled/react/NarrowContent'
 
+import flag from 'cozy-flags'
+import { useQuery } from 'cozy-client'
 import { transactionsConn } from 'doctypes'
+
+import { useTrackPage } from 'ducks/tracking/browser'
 import { TransactionList } from 'ducks/transactions/Transactions'
 import BarTheme from 'ducks/bar/BarTheme'
 import TransactionTableHead from 'ducks/transactions/header/TableHead'
@@ -23,10 +28,6 @@ import { PageTitle } from 'components/Title'
 import BackButton from 'components/BackButton'
 import { BarCenter, BarSearch } from 'components/Bar'
 import { useParams } from 'components/RouterContext'
-import { Typography } from '@material-ui/core'
-import Fuse from 'fuse.js'
-import debounce from 'lodash/debounce'
-
 import BarSearchInput from 'components/BarSearchInput'
 
 import searchIllu from 'assets/search-illu.svg'
@@ -68,6 +69,20 @@ const CompositeHeader = ({ title, image }) => {
   )
 }
 
+const byRoundedScore = result => parseFloat(result.score.toFixed(1), 10)
+const byDate = result => result.item.date
+
+const orderSearchResults = results => {
+  return orderBy(results, [byRoundedScore, byDate], ['asc', 'desc'])
+}
+
+const logResults = results => {
+  for (let result of results) {
+    // eslint-disable-next-line no-console
+    console.log(parseFloat(result.score.toFixed(2), 10), result.item.label)
+  }
+}
+
 const emptyResults = []
 
 const SearchPage = () => {
@@ -106,10 +121,16 @@ const SearchPage = () => {
 
   const performSearch = useMemo(() => {
     return debounce(searchValue => {
-      const results = fuse.search(searchValue)
-      const transactions = results
-        .filter(result => result.score < 0.5)
-        .map(result => result.item)
+      const results = fuse
+        .search(searchValue)
+        .filter(result => result.score < 0.3)
+      const orderedResults = orderSearchResults(results)
+      const transactions = orderedResults.map(result => result.item)
+      if (flag('banks.search.debug-score')) {
+        logResults(results)
+        console.log('---') // eslint-disable-line no-console
+        logResults(orderedResults)
+      }
       setResults(transactions)
     }, 500)
   }, [fuse, setResults])
