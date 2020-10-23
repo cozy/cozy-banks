@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import cx from 'classnames'
+import React from 'react'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import styles from './styles.styl'
 
@@ -10,21 +9,10 @@ const BarSearchInput = ({
   value,
   autofocus
 }) => {
-  const [focus, setFocus] = useState(false)
-  const handleFocus = () => setFocus(true)
-  const handleBlur = () => setFocus(false)
   return (
-    <div
-      onClick={onClick}
-      className={cx(
-        styles.InputWrapper,
-        focus ? styles['InputWrapper--focus'] : null
-      )}
-    >
+    <div onClick={onClick} className={styles.InputWrapper}>
       <Icon icon="magnifier" />
       <input
-        onFocus={handleFocus}
-        onBlur={handleBlur}
         type="text"
         onChange={onChange}
         placeholder={placeholder}
