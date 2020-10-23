@@ -179,6 +179,7 @@
     "detect-node": "2.0.4",
     "element-scroll-polyfill": "1.0.1",
     "fastclick": "1.0.6",
+    "fuse.js": "^6.4.2",
     "geco": "0.11.1",
     "hammerjs": "2.0.8",
     "ios-sim": "8.0.2",

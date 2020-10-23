@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import { createSelector } from 'reselect'
 import minBy from 'lodash/minBy'
 import { useSelector } from 'react-redux'
@@ -24,14 +24,12 @@ import BackButton from 'components/BackButton'
 import { BarCenter, BarSearch } from 'components/Bar'
 import { useParams } from 'components/RouterContext'
 import { Typography } from '@material-ui/core'
+import Fuse from 'fuse.js'
+import debounce from 'lodash/debounce'
 
 import BarSearchInput from 'components/BarSearchInput'
 
 import searchIllu from 'assets/search-illu.svg'
-
-const makeSearch = searchStr => op => {
-  return op.label.toLowerCase().includes(searchStr.toLowerCase())
-}
 
 const isSearchSufficient = searchStr => searchStr.length > 2
 
@@ -70,15 +68,15 @@ const CompositeHeader = ({ title, image }) => {
   )
 }
 
+const emptyResults = []
+
 const SearchPage = () => {
   const params = useParams()
   const { t } = useI18n()
   const { isMobile } = useBreakpoints()
 
   const [search, setSearch] = useState(params.search || '')
-  const handleChange = ev => {
-    setSearch(ev.target.value)
-  }
+  const [results, setResults] = useState([])
 
   const handleReset = inputNode => {
     setSearch('')
@@ -87,15 +85,38 @@ const SearchPage = () => {
 
   useTrackPage('recherche')
 
-  let { data: allTransactions } = useQuery(
+  let { data: allTransactions, lastUpdate } = useQuery(
     transactionsConn.query,
     transactionsConn
   )
 
-  let transactions = allTransactions || []
+  let transactions = allTransactions || emptyResults
+  const fuse = useMemo(() => {
+    const fuse = new Fuse(transactions, {
+      keys: ['label'],
+      ignoreLocation: true,
+      includeScore: true,
+      includeMatches: true,
+      minMatchCharLength: 3
+    })
+    return fuse
+  }, [lastUpdate]) // eslint-disable-line react-hooks/exhaustive-deps
+
   const searchSufficient = isSearchSufficient(search)
-  if (searchSufficient) {
-    transactions = transactions.filter(makeSearch(search))
+
+  const performSearch = useMemo(() => {
+    return debounce(searchValue => {
+      const results = fuse.search(searchValue)
+      const transactions = results
+        .filter(result => result.score < 0.5)
+        .map(result => result.item)
+      setResults(transactions)
+    }, 500)
+  }, [fuse, setResults])
+
+  const handleChange = ev => {
+    setSearch(ev.target.value)
+    performSearch(ev.target.value)
   }
 
   return (
@@ -123,9 +144,9 @@ const SearchPage = () => {
               </Img>
               <Bd>
                 <PageTitle className="u-lh-tiny">
-                  {searchSufficient && transactions.length
+                  {searchSufficient && results.length
                     ? t('Search.title-results', {
-                        smart_count: transactions.length
+                        smart_count: results.length
                       })
                     : t('Search.title')}
                 </PageTitle>
@@ -160,8 +181,8 @@ const SearchPage = () => {
       ) : null}
       <div className={`js-scrolling-element`}>
         {searchSufficient ? (
-          transactions.length > 0 ? (
-            <TransactionList transactions={transactions} />
+          results.length > 0 ? (
+            <TransactionList transactions={results} />
           ) : (
             <Empty
               className="u-mt-large"
