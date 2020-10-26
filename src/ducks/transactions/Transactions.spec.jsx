@@ -6,7 +6,7 @@ import { TransactionsDumb, sortByDate } from './Transactions'
 import data from '../../../test/fixtures'
 import store from '../../../test/store'
 import AppLike from '../../../test/AppLike'
-import { Caption } from 'cozy-ui/transpiled/react/Text'
+import Typography from 'cozy-ui/transpiled/react/Typography'
 import { getClient } from 'test/client'
 import { normalizeData } from 'test/store'
 import TransactionPageErrors from 'ducks/transactions/TransactionPageErrors'
@@ -55,7 +55,12 @@ describe('transaction row', () => {
         true
       )
     )
-    expect(root.find(Caption).text()).toBe('Compte courant Isabelle - BNPP')
+    expect(
+      root
+        .find(Typography)
+        .filterWhere(n => n.props().variant == 'caption')
+        .text()
+    ).toBe('Compte courant Isabelle - BNPP')
   })
 
   it('should render correctly on mobile', () => {
@@ -71,7 +76,12 @@ describe('transaction row', () => {
         false
       )
     )
-    expect(root.find(Caption).text()).toBe('Compte courant Isabelle - BNPP')
+    expect(
+      root
+        .find(Typography)
+        .filterWhere(n => n.props().variant == 'caption')
+        .text()
+    ).toBe('Compte courant Isabelle - BNPP')
     expect(handleRef).toHaveBeenCalled()
   })
 })
