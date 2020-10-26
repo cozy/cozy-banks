@@ -17,7 +17,10 @@ import { useQuery } from 'cozy-client'
 import { transactionsConn } from 'doctypes'
 
 import { useTrackPage } from 'ducks/tracking/browser'
-import { TransactionList } from 'ducks/transactions/Transactions'
+import {
+  TransactionList,
+  TransactionsListContext
+} from 'ducks/transactions/Transactions'
 import BarTheme from 'ducks/bar/BarTheme'
 import TransactionTableHead from 'ducks/transactions/header/TableHead'
 import { getTransactions } from 'selectors'
@@ -84,6 +87,8 @@ const logResults = results => {
 }
 
 const emptyResults = []
+
+const transactionListOptions = { mobileSectionDateFormat: 'ddd D MMMM YYYY' }
 
 const SearchPage = () => {
   const params = useParams()
@@ -203,7 +208,12 @@ const SearchPage = () => {
       <div className={`js-scrolling-element`}>
         {searchSufficient ? (
           results.length > 0 ? (
-            <TransactionList transactions={results} showTriggerErrors={false} />
+            <TransactionsListContext.Provider value={transactionListOptions}>
+              <TransactionList
+                transactions={results}
+                showTriggerErrors={false}
+              />
+            </TransactionsListContext.Provider>
           ) : (
             <Empty
               className="u-mt-large"

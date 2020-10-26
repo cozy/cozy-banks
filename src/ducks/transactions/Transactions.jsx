@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useContext, createContext } from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import { sortBy, throttle, debounce, keyBy, toPairs, groupBy } from 'lodash'
@@ -55,12 +55,17 @@ const LoadMoreButton = ({ onClick }) => {
   )
 }
 
+export const TransactionsListContext = createContext({
+  mobileSectionDateFormat: 'dddd D MMMM'
+})
+
 const SectionMobile = props => {
   const { f } = useI18n()
+  const { mobileSectionDateFormat } = useContext(TransactionsListContext)
   const { date, children } = props
   return (
     <React.Fragment>
-      <List.Header>{f(date, 'dddd D MMMM')}</List.Header>
+      <List.Header>{f(date, mobileSectionDateFormat)}</List.Header>
       {children}
     </React.Fragment>
   )
