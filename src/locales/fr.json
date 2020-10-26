@@ -403,7 +403,7 @@
     "no-groups": "Avec les groupes, vous pouvez facilement rassembler plusieurs comptes, n'hésitez pas à en créer un !",
     "back-to-groups": "Revenir aux groupes",
     "rename": "Renommer",
-    "save": "Sauver",
+    "save": "Sauvegarder",
     "included": "Inclus",
     "account-number": "Numéro du compte",
     "total-balance": "Total",
@@ -716,7 +716,7 @@
     "birthcity": "Commune de naissance",
     "birthcity-placeholder": "Là où vous êtes né",
     "nationality": "Nationalité",
-    "save-cta": "Sauver",
+    "save-cta": "Sauvegarder",
     "modal-title": "Modifier mes infos personnelles",
     "info-saved-succesfully": "Vos informations ont bien été mises à jour",
     "info": {
@@ -899,7 +899,7 @@
     },
     "rename": {
       "modal-title": "Renommer le groupe de récurrence",
-      "save": "Sauver",
+      "save": "Sauvegarder",
       "cancel": "Annuler",
       "save-success": "Groupe de récurrence correctement sauvé",
       "save-error": "Impossible de renommer, merci de réessayer plus tard"
