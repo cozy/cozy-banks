@@ -194,7 +194,7 @@ const SearchPage = () => {
       </Header>
       {!searchSufficient ? (
         <Padded>
-          <NarrowContent className='u-m-auto'>
+          <NarrowContent className="u-m-auto">
             <CompositeHeader
               image={
                 <img src={searchIllu} width="116px" className="u-mt-1 u-mb-1" />
