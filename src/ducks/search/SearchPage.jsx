@@ -203,7 +203,7 @@ const SearchPage = () => {
       <div className={`js-scrolling-element`}>
         {searchSufficient ? (
           results.length > 0 ? (
-            <TransactionList transactions={results} />
+            <TransactionList transactions={results} showTriggerErrors={false} />
           ) : (
             <Empty
               className="u-mt-large"
