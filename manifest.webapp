@@ -96,7 +96,7 @@
     "budgetAlerts": {
       "type": "node",
       "file": "budgetAlerts.js",
-      "comment": "Service is run inside onOperationOrBillCreate. This is why the trigger is in the past. The service described here is for diagnosis/debug."
+      "comment": "Service is run inside onOperationOrBillCreate. The service described here is for diagnosis/debug."
     },
     "linkMyselfToAccounts": {
       "type": "node",
