@@ -216,8 +216,20 @@ const EditionModal = props => {
 
   useTrackPage(trackPageName)
 
-  const handleDismiss = () => {
-    onDismiss()
+  const handleDismiss = function() {
+    onDismiss.apply(this, arguments)
+
+    // :/ We need to set a timeout otherwise we fire the track page too soon
+    // and one of the event (for example clicking on "Annuler") might be wrongly
+    // included in the parent page, this is why we delay a bit the hit to the
+    // parent page.
+    setTimeout(() => {
+      trackParentPage()
+    }, 100)
+  }
+
+  const handleEdit = function() {
+    onEdit.apply(this, arguments)
 
     // :/ We need to set a timeout otherwise we fire the track page too soon
     // and one of the event (for example clicking on "Annuler") might be wrongly
@@ -284,7 +296,7 @@ const EditionModal = props => {
         <EditionModalFooter
           canBeRemoved={canBeRemoved}
           doc={doc}
-          onEdit={onEdit}
+          onEdit={handleEdit}
           onDismiss={handleDismiss}
           onRemove={onRemove}
           removeModalTitle={removeModalTitle}
