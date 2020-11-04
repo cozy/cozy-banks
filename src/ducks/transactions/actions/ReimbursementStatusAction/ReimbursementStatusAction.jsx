@@ -127,9 +127,7 @@ export class DumbReimbursementStatusAction extends React.PureComponent {
         />
         {this.state.showModal && (
           <ReimbursementStatusModal
-            into="body"
-            dismissAction={this.hideModal}
-            mobileFullscreen
+            onClose={this.hideModal}
             transaction={transaction}
             onChange={this.handleChange}
             brands={this.props.actionProps.brands}
