@@ -1,7 +1,15 @@
 import React, { useState } from 'react'
-import { Modal, useI18n } from 'cozy-ui/transpiled/react'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { ConfirmDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
+import Button from 'cozy-ui/transpiled/react/Button'
 
-const useConfirmation = ({ onConfirm, title, description }) => {
+const useConfirmation = ({
+  onConfirm,
+  title,
+  description,
+  primaryLabel,
+  secondaryLabel
+}) => {
   const { t } = useI18n()
   const [confirming, setConfirming] = useState(false)
 
@@ -16,16 +24,24 @@ const useConfirmation = ({ onConfirm, title, description }) => {
   }
 
   const component = confirming ? (
-    <Modal
-      size="xsmall"
-      primaryText={t('Confirmation.ok')}
-      secondaryText={t('Confirmation.cancel')}
-      primaryType="danger"
-      primaryAction={onConfirm}
-      secondaryAction={handleCancel}
-      dismissAction={handleCancel}
+    <ConfirmDialog
+      opened={true}
       title={title}
-      description={description}
+      content={description}
+      actions={
+        <>
+          <Button
+            theme="secondary"
+            onClick={handleCancel}
+            label={secondaryLabel || t('Confirmation.cancel')}
+          />
+          <Button
+            theme="danger"
+            label={primaryLabel || t('Confirmation.ok')}
+            onClick={onConfirm}
+          />
+        </>
+      }
     />
   ) : null
 
