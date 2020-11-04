@@ -19,7 +19,7 @@ import CategorySection from './CategorySection'
 import ThresholdSection from './ThresholdSection'
 import NumberSection from './NumberSection'
 import resultWithArgs from 'utils/resultWithArgs'
-import Confirmation from 'components/Confirmation'
+import useConfirmation from 'components/useConfirmation'
 
 import { BackIcon } from 'components/BackButton'
 import {
@@ -159,14 +159,24 @@ const EditionModalFooter = props => {
     tracker.trackEvent({ name: 'annuler' })
   }
 
+  const {
+    component: removalConfirmation,
+    requestOpen: onRemovalRequest
+  } = useConfirmation({
+    title: removeModalTitle,
+    description: removeModalDescription,
+    onConfirm: handleRemove
+  })
+
   const removalButton = canBeRemoved && (
-    <Confirmation
-      title={removeModalTitle}
-      description={removeModalDescription}
-      onConfirm={handleRemove}
-    >
-      <Button theme="danger-outline" label={removeButtonLabel(props, doc)} />
-    </Confirmation>
+    <>
+      <Button
+        theme="danger-outline"
+        label={removeButtonLabel(props, doc)}
+        onClick={onRemovalRequest}
+      />
+      {removalConfirmation}
+    </>
   )
 
   return (
