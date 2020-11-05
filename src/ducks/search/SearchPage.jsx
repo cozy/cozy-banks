@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { createSelector } from 'reselect'
 import { useSelector } from 'react-redux'
 import minBy from 'lodash/minBy'
@@ -144,6 +144,13 @@ const SearchPage = () => {
     setSearch(ev.target.value)
     performSearch(ev.target.value)
   }
+
+  // at mount time, perform a search if there is the search params
+  useEffect(() => {
+    if (params.search) {
+      performSearch(params.search)
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div>
