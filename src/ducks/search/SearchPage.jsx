@@ -40,7 +40,7 @@ const isSearchSufficient = searchStr => searchStr.length > 2
 const SearchSuggestions = () => {
   const { t } = useI18n()
   return (
-    <Typography align="center" variant="body">
+    <Typography align="center" variant="body1">
       {t('Search.suggestions')}
     </Typography>
   )
