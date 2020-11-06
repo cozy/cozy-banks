@@ -1,7 +1,7 @@
 #!/bin/bash
 # This script is used to comment on mattermost
 
-set -e
+set -ex
 
 if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
   FROM="pull request [#$TRAVIS_PULL_REQUEST](https://github.com/$TRAVIS_PULL_REQUEST_SLUG/pull/$TRAVIS_PULL_REQUEST)"
