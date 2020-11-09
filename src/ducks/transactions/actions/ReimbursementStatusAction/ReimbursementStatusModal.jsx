@@ -3,25 +3,30 @@ import cx from 'classnames'
 
 import flag from 'cozy-flags'
 
-import { IllustrationDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import { Title, Text } from 'cozy-ui/transpiled/react/Text'
 
-import { List, Row, Radio } from 'components/List'
+import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
+import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
+import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
+import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
+import Typography from 'cozy-ui/transpiled/react/Typography'
+
+import { Radio } from 'components/List'
 import { useParams } from 'components/RouterContext'
-import { useTrackPage } from 'ducks/tracking/browser'
+import { useTrackPage, trackParentPage } from 'ducks/tracking/browser'
 import iconReimbursement from 'assets/icons/icon-reimbursement-detailed.svg'
 import styles from 'ducks/transactions/actions/ReimbursementStatusAction/ReimbursementStatusModal.styl'
 import { getReimbursementStatus, getLabel } from 'ducks/transactions/helpers'
 import { isHealthExpense } from 'ducks/categories/helpers'
 import ContactItem from 'ducks/transactions/actions/ReimbursementStatusAction/ContactItem'
+import RawContentDialog from 'components/RawContentDialog'
 
 const ReimbursementStatusModal = function ReimbursementStatusModal(props) {
   const { isMobile } = useBreakpoints()
   const { t } = useI18n()
-  const { transaction, onChange, brands, ...rest } = props
+  const { transaction, onChange, brands, onClose, ...rest } = props
   const choices = ['pending', 'reimbursed', 'no-reimbursement']
   const status = getReimbursementStatus(transaction)
 
@@ -36,36 +41,47 @@ const ReimbursementStatusModal = function ReimbursementStatusModal(props) {
       : `mon_compte:depense:remboursement`
   )
 
+  const handleClose = () => {
+    trackParentPage()
+    onClose()
+  }
+
   return (
-    <IllustrationDialog
-      opened={true}
+    <RawContentDialog
+      size="small"
+      open={true}
       title={
         <div className="u-ta-center">
-          <Title>
-            {t('Transactions.actions.reimbursementStatus.modal.title')}
-          </Title>
           <Icon icon={iconReimbursement} size={56} color="var(--slateGrey)" />
-          <Text className={styles.ReimbursementStatusModal__transactionLabel}>
+          <Typography variant="h4">
+            {t('Transactions.actions.reimbursementStatus.modal.title')}
+          </Typography>
+          <Typography variant="caption" color="textSecondary">
             {getLabel(transaction)}
-          </Text>
+          </Typography>
         </div>
       }
+      onClose={handleClose}
       content={
         <>
-          <form className="u-mt-1">
+          <form>
             <List>
               {choices.map(choice => (
-                <Row key={choice}>
-                  <Radio
-                    key={choice}
-                    name="reimbursementStatus"
-                    value={choice}
-                    label={t(`Transactions.reimbursementStatus.${choice}`)}
-                    checked={status === choice}
-                    onChange={onChange}
-                    className={cx('u-mb-0', styles.Radio)}
-                  />
-                </Row>
+                <ListItem key={choice}>
+                  <ListItemIcon>
+                    <Radio
+                      key={choice}
+                      name="reimbursementStatus"
+                      value={choice}
+                      checked={status === choice}
+                      onChange={onChange}
+                      className={cx('u-mb-0', styles.Radio)}
+                    />
+                  </ListItemIcon>
+                  <ListItemText>
+                    {t(`Transactions.reimbursementStatus.${choice}`)}
+                  </ListItemText>
+                </ListItem>
               ))}
             </List>
           </form>

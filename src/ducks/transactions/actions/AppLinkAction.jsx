@@ -4,8 +4,10 @@ import { useI18n } from 'cozy-ui/transpiled/react'
 import Chip from 'cozy-ui/transpiled/react/Chip'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import icon from 'assets/icons/actions/icon-link-out.svg'
-import TransactionModalRow from 'ducks/transactions/TransactionModalRow'
 import palette from 'cozy-ui/transpiled/react/palette'
+import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
+import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
+import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 
 import OpenwithIcon from 'cozy-ui/transpiled/react/Icons/Openwith'
 
@@ -36,13 +38,12 @@ const Component = ({ transaction, actionProps: { urls }, isModalItem }) => {
 
   if (isModalItem) {
     return (
-      <TransactionModalRow
-        onClick={() => open(url)}
-        iconLeft="openwith"
-        style={transactionModalRowStyle}
-      >
-        {label}
-      </TransactionModalRow>
+      <ListItem onClick={() => open(url)} style={transactionModalRowStyle}>
+        <ListItemIcon>
+          <Icon icon={OpenwithIcon} />
+        </ListItemIcon>
+        <ListItemText>{label}</ListItemText>
+      </ListItem>
     )
   }
 

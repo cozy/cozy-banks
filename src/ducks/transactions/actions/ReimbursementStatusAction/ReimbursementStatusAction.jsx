@@ -1,18 +1,21 @@
 import React from 'react'
 import { connect } from 'react-redux'
+
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import Chip from 'cozy-ui/transpiled/react/Chip'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
+import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
+import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 
 import {
   getReimbursementStatus,
   isReimbursementLate,
   REIMBURSEMENTS_STATUS
 } from 'ducks/transactions/helpers'
-import TransactionModalRow, {
-  RowArrow
-} from 'ducks/transactions/TransactionModalRow'
+import ListItemArrow from 'components/ListItemArrow'
+
 import ReimbursementStatusModal from 'ducks/transactions/actions/ReimbursementStatusAction/ReimbursementStatusModal'
 import { trackEvent } from 'ducks/tracking/browser'
 
@@ -69,13 +72,13 @@ const ModalItem = ({ transaction, healthReimbursementLateLimit, onClick }) => {
   const label = t(`Transactions.actions.reimbursementStatus.${translateKey}`)
 
   return (
-    <TransactionModalRow
-      iconLeft={<Icon icon={iconReimbursement} />}
-      iconRight={<RowArrow />}
-      onClick={onClick}
-    >
-      {label}
-    </TransactionModalRow>
+    <ListItem onClick={onClick}>
+      <ListItemIcon>
+        <Icon icon={iconReimbursement} />
+      </ListItemIcon>
+      <ListItemText>{label}</ListItemText>
+      <ListItemArrow />
+    </ListItem>
   )
 }
 
