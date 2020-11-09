@@ -58,6 +58,10 @@ import ActionMenuHelper from 'components/ActionMenuHelper'
 import { useHistory, useParams } from 'components/RouterContext'
 import { useTrackPage } from 'ducks/tracking/browser'
 
+import PenIcon from 'cozy-ui/transpiled/react/Icons/Pen'
+import TrashIcon from 'cozy-ui/transpiled/react/Icons/Trash'
+import BottomIcon from 'cozy-ui/transpiled/react/Icons/Bottom'
+
 const useDocument = (doctype, id) => {
   const client = useClient()
   return client.getDocumentFromState(doctype, id)
@@ -108,7 +112,7 @@ const RecurrenceActionMenu = ({
 const RenameActionItem = ({ onClick }) => {
   const { t } = useI18n()
   return (
-    <ActionMenuItem onClick={onClick} left={<Icon icon="pen" />}>
+    <ActionMenuItem onClick={onClick} left={<Icon icon={PenIcon} />}>
       {t('Recurrence.action-menu.rename')}
     </ActionMenuItem>
   )
@@ -117,7 +121,7 @@ const RenameActionItem = ({ onClick }) => {
 const DeleteActionItem = ({ onClick }) => {
   const { t } = useI18n()
   return (
-    <ActionMenuItem onClick={onClick} left={<Icon icon="trash" />}>
+    <ActionMenuItem onClick={onClick} left={<Icon icon={TrashIcon} />}>
       {t('Recurrence.action-menu.delete')}
       <br />
       <Caption>{t('Recurrence.action-menu.delete-caption')}</Caption>
@@ -320,7 +324,7 @@ const BundleInfo = ({ bundle }) => {
                   opener={
                     <Button extension="narrow" theme="secondary">
                       {t(`Recurrence.status.${getStatus(bundle)}`)}
-                      <Icon className="u-ml-half" icon="bottom" />
+                      <Icon className="u-ml-half" icon={BottomIcon} />
                     </Button>
                   }
                   menu={

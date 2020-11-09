@@ -5,6 +5,8 @@ import Icon from 'cozy-ui/transpiled/react/Icon'
 import TransactionModalRow from 'ducks/transactions/TransactionModalRow'
 import palette from 'cozy-ui/transpiled/react/palette'
 
+import OpenwithIcon from 'cozy-ui/transpiled/react/Icons/Openwith'
+
 const name = 'url'
 
 const transactionModalRowStyle = { color: palette.dodgerBlue }
@@ -31,7 +33,7 @@ const Component = ({ transaction, isModalItem }) => {
     >
       {action.trad}
       <Chip.Separator />
-      <Icon icon="openwith" />
+      <Icon icon={OpenwithIcon} />
     </Chip>
   )
 }

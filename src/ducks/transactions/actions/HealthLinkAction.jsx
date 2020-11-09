@@ -7,6 +7,8 @@ import { isHealth } from 'ducks/categories/helpers'
 import palette from 'cozy-ui/transpiled/react/palette'
 import TransactionModalRow from 'ducks/transactions/TransactionModalRow'
 
+import OpenwithIcon from 'cozy-ui/transpiled/react/Icons/Openwith'
+
 const name = 'refund'
 
 const transactionModalRowStyle = { color: palette.dodgerBlue }
@@ -31,7 +33,7 @@ const Component = ({ actionProps: { urls }, isModalItem }) => {
     <Chip size="small" variant="outlined" onClick={() => open(url)}>
       {label}
       <Chip.Separator />
-      <Icon icon="openwith" />
+      <Icon icon={OpenwithIcon} />
     </Chip>
   )
 }

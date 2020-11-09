@@ -4,7 +4,9 @@ import cx from 'classnames'
 
 import styles from 'ducks/transactions/TransactionModalRow.styl'
 
-export const RowArrow = () => <Icon icon="right" color="var(--coolGrey)" />
+import RightIcon from 'cozy-ui/transpiled/react/Icons/Right'
+
+export const RowArrow = () => <Icon icon={RightIcon} color="var(--coolGrey)" />
 
 export const TransactionModalRowIcon = ({ icon }) =>
   icon ? (

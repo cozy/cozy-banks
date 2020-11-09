@@ -7,6 +7,8 @@ import icon from 'assets/icons/actions/icon-link-out.svg'
 import TransactionModalRow from 'ducks/transactions/TransactionModalRow'
 import palette from 'cozy-ui/transpiled/react/palette'
 
+import OpenwithIcon from 'cozy-ui/transpiled/react/Icons/Openwith'
+
 const name = 'app'
 
 const getAppName = (urls, transaction) => {
@@ -48,7 +50,7 @@ const Component = ({ transaction, actionProps: { urls }, isModalItem }) => {
     <Chip size="small" variant="outlined" onClick={() => open(url)}>
       {label}
       <Chip.Separator />
-      <Icon icon="openwith" />
+      <Icon icon={OpenwithIcon} />
     </Chip>
   )
 }

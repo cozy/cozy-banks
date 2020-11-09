@@ -24,6 +24,8 @@ import { flowRight as compose } from 'lodash'
 import { withClient } from 'cozy-client'
 import { getHealthReimbursementLateLimitSelector } from 'ducks/reimbursements/selectors'
 
+import HourglassIcon from 'cozy-ui/transpiled/react/Icons/Hourglass'
+
 const TransactionItem = ({
   transaction,
   healthReimbursementLateLimit,
@@ -51,7 +53,7 @@ const TransactionItem = ({
       {status === 'pending' && (
         <>
           <Chip.Separator />
-          <Icon icon="hourglass" size={12} />
+          <Icon icon={HourglassIcon} size={12} />
         </>
       )}
     </Chip>

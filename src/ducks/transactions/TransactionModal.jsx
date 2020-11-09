@@ -72,11 +72,14 @@ import TransactionModalRow, {
 import withDocs from 'components/withDocs'
 import { useLocation } from 'components/RouterContext'
 
+import MagnifierIcon from 'cozy-ui/transpiled/react/Icons/Magnifier'
+import RestoreIcon from 'cozy-ui/transpiled/react/Icons/Restore'
+
 const SearchForTransactionIcon = ({ transaction }) => {
   const label = getLabel(transaction)
   return (
     <a href={`#/search/${label}`}>
-      <Icon className="u-ml-half u-coolGrey" icon="magnifier" />
+      <Icon className="u-ml-half u-coolGrey" icon={MagnifierIcon} />
     </a>
   )
 }
@@ -398,7 +401,7 @@ const TransactionModalInfoContent = withTransaction(props => {
               onClick={handleResetApplicationDate}
               className="u-expanded-click-area"
             >
-              <Icon color="var(--slateGrey)" icon="restore" />
+              <Icon color="var(--slateGrey)" icon={RestoreIcon} />
             </span>
           </Img>
         ) : null}
