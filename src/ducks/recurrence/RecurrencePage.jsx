@@ -57,15 +57,11 @@ import ActionMenuHelper from 'components/ActionMenuHelper'
 
 import { useHistory, useParams } from 'components/RouterContext'
 import { useTrackPage } from 'ducks/tracking/browser'
+import useDocument from 'components/useDocument'
 
 import PenIcon from 'cozy-ui/transpiled/react/Icons/Pen'
 import TrashIcon from 'cozy-ui/transpiled/react/Icons/Trash'
 import BottomIcon from 'cozy-ui/transpiled/react/Icons/Bottom'
-
-const useDocument = (doctype, id) => {
-  const client = useClient()
-  return client.getDocumentFromState(doctype, id)
-}
 
 // TODO We should need to do this (isMobile ? portal : identity) but see
 // Cozy-UI's issue: https://github.com/cozy/cozy-ui/issues/1462
