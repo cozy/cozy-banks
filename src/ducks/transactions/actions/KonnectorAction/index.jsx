@@ -12,7 +12,7 @@ import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import icon from 'assets/icons/actions/icon-link-out.svg'
 import palette from 'cozy-ui/transpiled/react/palette'
 import { triggersConn } from 'doctypes'
-import InformativeModal from 'ducks/transactions/actions/KonnectorAction/InformativeModal'
+import InformativeDialog from 'ducks/transactions/actions/KonnectorAction/InformativeDialog'
 import ConfigurationModal from 'ducks/transactions/actions/KonnectorAction/ConfigurationModal'
 import match from 'ducks/transactions/actions/KonnectorAction/match'
 import { KonnectorChip } from 'components/KonnectorChip'
@@ -24,18 +24,18 @@ const name = 'konnector'
 const transactionModalRowStyle = { color: palette.dodgerBlue }
 class Component extends React.Component {
   state = {
-    showInformativeModal: false,
+    showInformativeDialog: false,
     showIntentModal: false
   }
 
-  showInformativeModal = () =>
+  showInformativeDialog = () =>
     this.setState({
-      showInformativeModal: true
+      showInformativeDialog: true
     })
 
-  hideInformativeModal = () =>
+  hideInformativeDialog = () =>
     this.setState({
-      showInformativeModal: false
+      showInformativeDialog: false
     })
 
   showIntentModal = () =>
@@ -48,8 +48,8 @@ class Component extends React.Component {
       showIntentModal: false
     })
 
-  onInformativeModalConfirm = async () => {
-    this.hideInformativeModal()
+  onInformativeDialogConfirm = async () => {
+    this.hideInformativeDialog()
     this.showIntentModal()
   }
 
@@ -62,7 +62,7 @@ class Component extends React.Component {
     return (
       <ListItem
         style={transactionModalRowStyle}
-        onClick={this.showInformativeModal}
+        onClick={this.showInformativeDialog}
       >
         <ListItemIcon>
           <Icon icon={IconPlus} />
@@ -75,7 +75,7 @@ class Component extends React.Component {
   renderTransactionRow(label, brand) {
     return (
       <KonnectorChip
-        onClick={this.showInformativeModal}
+        onClick={this.showInformativeDialog}
         konnectorType={brand.health ? 'health' : 'generic'}
       />
     )
@@ -95,10 +95,10 @@ class Component extends React.Component {
         {isModalItem
           ? this.renderModalItem(label)
           : this.renderTransactionRow(label, brand)}
-        {this.state.showInformativeModal && (
-          <InformativeModal
-            onCancel={this.hideInformativeModal}
-            onConfirm={this.onInformativeModalConfirm}
+        {this.state.showInformativeDialog && (
+          <InformativeDialog
+            onCancel={this.hideInformativeDialog}
+            onConfirm={this.onInformativeDialogConfirm}
             title={t(
               `Transactions.actions.informativeModal.${healthOrGeneric}.title`
             )}
