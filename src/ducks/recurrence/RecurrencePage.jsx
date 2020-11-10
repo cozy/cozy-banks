@@ -45,7 +45,7 @@ import { BarTitle } from 'components/Title/PageTitle'
 import TransactionsTableHead from 'ducks/transactions/header/TableHead'
 
 import { BarRight } from 'components/Bar'
-import { BarButton, ActionMenu, Icon } from 'cozy-ui/transpiled/react'
+import { BarButton, ActionMenu } from 'cozy-ui/transpiled/react'
 import {
   ActionMenuItem,
   ActionMenuRadio
@@ -62,6 +62,9 @@ import useDocument from 'components/useDocument'
 import PenIcon from 'cozy-ui/transpiled/react/Icons/Pen'
 import TrashIcon from 'cozy-ui/transpiled/react/Icons/Trash'
 import BottomIcon from 'cozy-ui/transpiled/react/Icons/Bottom'
+
+import DotsIcon from 'cozy-ui/transpiled/react/Icons/Dots'
+import Icon from 'cozy-ui/transpiled/react/Icon'
 
 // TODO We should need to do this (isMobile ? portal : identity) but see
 // Cozy-UI's issue: https://github.com/cozy/cozy-ui/issues/1462
@@ -338,7 +341,7 @@ const BundleInfo = ({ bundle }) => {
                       iconOnly
                       label={t('Recurrence.action-menu.open-button')}
                       extension="narrow"
-                      icon="dots"
+                      icon={<Icon icon={DotsIcon} />}
                       theme="secondary"
                     />
                   }
