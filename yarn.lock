@@ -4780,7 +4780,7 @@ cozy-device-helper@1.8.0:
   dependencies:
     lodash "4.17.15"
 
-cozy-device-helper@1.9.2, cozy-device-helper@^1.7.5, cozy-device-helper@^1.9.2:
+cozy-device-helper@1.9.2, cozy-device-helper@^1.7.5:
   version "1.9.2"
   resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.9.2.tgz#cccddb08011c89620fefac96bb894708c1f27f7b"
   integrity sha512-cHlECdha+xzomdpW4v6u79ui5/WMAWkvooFhSppnLMb8UC8JWM+7AAWIElfgTQEHFIOmkwPtqXr7OJP4hvmG7A==
@@ -4791,6 +4791,13 @@ cozy-device-helper@^1.10.0:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.10.0.tgz#86c102d32b012f648dbce36cc6031d3895ee95a2"
   integrity sha512-0yqxsgBVlKNs4sI4j1x4Pi5JVsXOh4yf/8aS+KTGZjXHvMcDP1tfUlkWw3JmkWR9qihcBlkaE16TpGxdfsiNSA==
+  dependencies:
+    lodash "4.17.19"
+
+cozy-device-helper@^1.10.3:
+  version "1.10.3"
+  resolved "https://registry.yarnpkg.com/cozy-device-helper/-/cozy-device-helper-1.10.3.tgz#c2ee5b9891b7865d97125ad7e71a1f7af9c639c6"
+  integrity sha512-n1GR1X6D00e6G0b4GD0PpMDbvbxltAboVLN2RWfYURg0bOlVb2QC7ay6WrIlGHc+rVVY8FPBvuV/87A3vEEuiQ==
   dependencies:
     lodash "4.17.19"
 
@@ -5052,20 +5059,20 @@ cozy-pouch-link@15.2.0:
     pouchdb-browser "^7.0.0"
     pouchdb-find "^7.0.0"
 
+cozy-realtime@3.11.0:
+  version "3.11.0"
+  resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-3.11.0.tgz#6d68137653aac0d815de30af038adf240b5ada2e"
+  integrity sha512-8YmP/pipVZwkLtkXrG2aSaAHxZNEc36bj3cuFAAGeuE3pw8c0+c/ClD/598+NXzBgtQ6cSExiDGMxVqynRnA3w==
+  dependencies:
+    "@cozy/minilog" "^1.0.0"
+    cozy-device-helper "^1.10.3"
+
 cozy-realtime@3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-3.2.1.tgz#b22cb9468566ae691edfa0383efbab3071a2f01e"
   integrity sha512-Ff1vQ8vxam5aH9GmL6+YgEApV40aku7Z84yTdfcEUaOYo4OJ+n40P0EUsQoqgpA2suGONdUfvJ+FnS0aha+9nw==
   dependencies:
     minilog "3.1.0"
-
-cozy-realtime@3.9.0:
-  version "3.9.0"
-  resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-3.9.0.tgz#4aa09ac74c973b720d0249ad1c2173ed123b28db"
-  integrity sha512-5TqHDrxKUyNIAxrOb/DlTkhMJj7UnsbKmAriOq6359HjXVlvIUfVMSght44xik3KLQ8inUSmF+1TAFeKe9tBGA==
-  dependencies:
-    cozy-device-helper "^1.9.2"
-    minilog "https://github.com/cozy/minilog.git#master"
 
 cozy-scripts@5.2.0:
   version "5.2.0"
