@@ -1,9 +1,10 @@
 import React from 'react'
 import compose from 'lodash/flowRight'
+import omit from 'lodash/omit'
+import merge from 'lodash/merge'
 
-import { withRouter } from 'react-router'
 import { translate } from 'cozy-ui/transpiled/react/I18n'
-import { withClient, queryConnect } from 'cozy-client'
+import { withClient } from 'cozy-client'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import Button from 'cozy-ui/transpiled/react/Button'
 import Field from 'cozy-ui/transpiled/react/Field'
@@ -13,8 +14,14 @@ import { Dialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 import PersonalInfoInfos from 'ducks/personal-info/Infos'
 import { trackPage } from 'ducks/tracking/browser'
 import Loading from 'components/Loading'
-import { myselfConn } from 'doctypes'
 import countries from './nationalities.json'
+import {
+  getDefaultIdentitySelector,
+  saveIdentity,
+  loadIdentities,
+  updateBIUserConfig,
+  isCurrentAppIdentity
+} from 'ducks/personal-info/utils'
 
 const defaultNationality = { label: 'French', value: 'FR' }
 
@@ -31,42 +38,70 @@ const makeNationalitiesOptions = lang =>
 /**
  * Loads the myself contact and displays the form
  */
-class PersonalInfoDialog extends React.Component {
+export class PersonalInfoDialog extends React.Component {
   constructor(props, context) {
     super(props, context)
     this.handleChangeField = this.handleChangeField.bind(this)
     this.handleSave = this.handleSave.bind(this)
-    this.handleClose = this.handleClose.bind(this)
 
     this.state = {
       saving: false,
-      formData: {},
-      formDataFilled: false
+      formData: {
+        birthcity: '',
+        nationality: defaultNationality
+      },
+      identity: null
     }
     this.nationalityOptions = makeNationalitiesOptions(props.lang)
   }
 
   componentDidMount() {
     trackPage('virements:informations')
+    this.loadIdentityAndFillForm()
   }
 
-  componentDidUpdate() {
-    const nowMyself = this.props.myselfCol
-    if (nowMyself.fetchStatus === 'loaded' && !this.state.formDataFilled) {
-      const myself = nowMyself.data[0]
-      this.setState({
-        formDataFilled: true,
-        formData: {
-          birthcity: myself.birthcity,
-          nationality:
-            this.nationalityOptions.find(
-              x => myself.nationality && x.value === myself.nationality
-            ) || defaultNationality
-        }
-      })
+  /**
+   * Loads all identities specified in the sourceIdentitySelectors prop
+   * and fills the form's nationality and birthcity
+   */
+  async loadIdentityAndFillForm() {
+    const {
+      client,
+      sourceIdentitySelectors: sourceIdentitySelectors_
+    } = this.props
+    if (this.state.identity) {
+      return
     }
+
+    let identity, mergedIdentity
+    try {
+      const sourceIdentitySelectors = sourceIdentitySelectors_.map(fn =>
+        typeof fn === 'function' ? fn(client) : fn
+      )
+      const identities = await loadIdentities(client, sourceIdentitySelectors)
+      identity = identities.find(isCurrentAppIdentity(client)) || {}
+      mergedIdentity = omit(merge({}, ...identities), ['_id', '_rev']) || {}
+    } catch (e) {
+      // New identity
+      identity = {}
+      mergedIdentity = {}
+    }
+
+    const { birthcity = '', nationalities } = mergedIdentity.contact || {}
+    const nationality = nationalities ? nationalities[0] : null
+    this.setState({
+      identity,
+      formData: {
+        birthcity,
+        nationality:
+          this.nationalityOptions.find(
+            x => nationality && x.value === nationality
+          ) || defaultNationality
+      }
+    })
   }
 
+  /** Keeps state.formData up-to-date */
   handleChangeField(name, value) {
     const formData = {
       ...this.state.formData,
@@ -77,44 +112,44 @@ class PersonalInfoDialog extends React.Component {
     })
   }
 
+  /**
+   * Validates form and saves identity
+   */
   async handleSave(ev) {
-    const { client, onSaveSuccessful, myself, t } = this.props
-    const { formData } = this.state
+    const { client, onSaveSuccessful, t } = this.props
+    const { formData, identity } = this.state
     ev && ev.preventDefault()
+
+    if (!formData.birthcity || !formData.nationality) {
+      this.setState({ validationError: true })
+      return
+    } else {
+      this.setState({ validationError: false })
+    }
+
     this.setState({ saving: true })
     try {
-      const attributes = {
-        _type: 'io.cozy.contacts',
-        nationality: formData.nationality.value,
+      const updatedIdentity = await saveIdentity(client, identity, {
         birthcity: formData.birthcity,
-        myself: true
-      }
-      const updatedMyself = {
-        ...myself,
-        ...attributes
-      }
-      const { data: ret } = await client.save(updatedMyself)
-      onSaveSuccessful && onSaveSuccessful(ret)
+        nationalities: [formData.nationality.value]
+      })
+      onSaveSuccessful && onSaveSuccessful(updatedIdentity)
       Alerter.success(t('PersonalInfo.info-saved-succesfully'))
+      await updateBIUserConfig(client, updatedIdentity)
     } finally {
       this.setState({ saving: false })
     }
   }
 
-  handleClose() {
-    this.props.router.push('/balances')
-  }
-
   render() {
-    const { t, myselfCol } = this.props
-    const { saving, formData } = this.state
-    const data = myselfCol.lastError ? {} : myselfCol.data && myselfCol.data[0]
+    const { t, onClose } = this.props
+    const { saving, formData, validationError } = this.state
 
-    if (!data) {
+    if (!this.state.identity) {
       return (
         <Dialog
           open={true}
-          onClose={this.handleClose}
+          onClose={onClose}
           title={t('PersonalInfo.modal-title')}
           content={<Loading />}
         />
@@ -124,13 +159,14 @@ class PersonalInfoDialog extends React.Component {
     return (
       <Dialog
         open={true}
-        onClose={this.handleClose}
+        onClose={onClose}
         title={t('PersonalInfo.modal-title')}
         content={
           <Stack spacing="xl">
             <Stack spacing="s">
+              {validationError ? t('PersonalInfo.validation-error') : null}
               <Field
-                value={formData.birthcity || ''}
+                value={formData.birthcity}
                 onChange={ev =>
                   this.handleChangeField('birthcity', ev.target.value)
                 }
@@ -138,13 +174,13 @@ class PersonalInfoDialog extends React.Component {
                 name="birthcity"
                 label={t('PersonalInfo.birthcity')}
                 placeholder={t('PersonalInfo.birthcity-placeholder')}
-                className="u-mh-0 u-mb-0"
+                className="u-mh-0 u-mb-0 u-mt-0"
               />
               <Field
                 onChange={option =>
                   this.handleChangeField('nationality', option)
                 }
-                value={formData.nationality || 'FR'}
+                value={formData.nationality}
                 type="select"
                 name="nationality"
                 options={this.nationalityOptions}
@@ -170,11 +206,13 @@ class PersonalInfoDialog extends React.Component {
   }
 }
 
+PersonalInfoDialog.defaultProps = {
+  // Can be overriden to specify other identity sources
+  // The final
+  sourceIdentitySelectors: [client => getDefaultIdentitySelector(client)]
+}
+
 export default compose(
   translate(),
-  withRouter,
-  withClient,
-  queryConnect({
-    myselfCol: myselfConn
-  })
+  withClient
 )(PersonalInfoDialog)
