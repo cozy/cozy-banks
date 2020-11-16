@@ -8,6 +8,8 @@
 - [Fixtures](#fixtures)
 - [Develop on mobile](#develop-on-mobile)
   - [Get a working Android environment](#get-a-working-android-environment)
+    - [Linux](#linux)
+    - [macOS](#macos)
   - [Build and run the mobile app](#build-and-run-the-mobile-app)
   - [Hot reload on mobile app](#hot-reload-on-mobile-app)
 - [Release](#release)
@@ -96,10 +98,25 @@ If you want to inject other data or remove some data, you can use [`ACH`](https:
 
 ### Get a working Android environment
 
+#### Linux
+
 To be able to build the app for Android, you can follow [this
 guide](https://gist.github.com/drazik/11dfe2014a6b967821df93b9e10353f4) (in
-french for now, will be translated soon, don't hesitate to open a pull
+French for now, don't hesitate to open a pull
 request).
+
+#### macOS
+
+On macOS you can use adoptOpenJDK to have a working Java environment.
+
+See https://github.com/AdoptOpenJDK/homebrew-openjdk
+
+```
+brew cask install adoptopenjdk8
+# Check the adopt open JDK page to see how to install the shell function "jdk"
+jdk 8 # Cordova supports JDK version 1.8 (same as version 8 it seems)
+brew install gradle
+```
 
 ### Build and run the mobile app
 
