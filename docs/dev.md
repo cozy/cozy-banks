@@ -294,6 +294,12 @@ While developing, in XCode, in the "Signing" section :
 
 When deploying, Fastlane manages the certificate and may change it.
 
+The certificate with its password is stored in the shared password store.
+
+- `cozy-banks/xcode-signing-certificate-password` : the password
+- `cozy-banks/xcode-signing-certificate-password.p12` : the certificate
+
+
 ##### Push iOS build
 
 To push an iOS build on Testflight, use the following command :
