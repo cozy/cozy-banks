@@ -5,6 +5,8 @@ import {
   getCategoryId,
   getLabel as getTransactionLabel
 } from 'ducks/transactions/helpers'
+import addDays from 'date-fns/add_days'
+import parse from 'date-fns/parse'
 
 const RECURRENCE_DOCTYPE = 'io.cozy.bank.recurrence'
 
@@ -81,5 +83,21 @@ export const makeRecurrenceFromTransaction = transaction => {
     accounts: [accountId],
     amounts: [transaction.amount],
     categoryIds: [getCategoryId(transaction)]
+  }
+}
+
+/** Gives the next date for a recurrence, based on the median stat and the latest date */
+export const nextDate = recurrence => {
+  try {
+    const {
+      latestDate,
+      stats: {
+        deltas: { median }
+      }
+    } = recurrence
+    const date = parse(latestDate)
+    return addDays(date, median)
+  } catch {
+    return null
   }
 }

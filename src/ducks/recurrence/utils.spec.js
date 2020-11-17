@@ -1,5 +1,5 @@
 import fixtures from 'test/fixtures'
-import { makeRecurrenceFromTransaction } from './utils'
+import { nextDate, makeRecurrenceFromTransaction } from './utils'
 
 test('make recurrence from transaction', () => {
   const transaction = fixtures['io.cozy.bank.operations'][0]
@@ -25,4 +25,10 @@ test('make recurrence from transaction', () => {
       }
     }
   })
+})
+
+test('nextDate', () => {
+  const recurrence = fixtures['io.cozy.bank.recurrence'][0]
+  const date = nextDate(recurrence)
+  expect(date.toISOString()).toEqual('2018-07-01T00:00:00.000Z')
 })

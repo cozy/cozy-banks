@@ -906,5 +906,9 @@
   "Harvest": {
     "modal-title": "Configure accounts",
     "disconnected-account": "Disconnected account"
+  },
+  "EstimatedBudget": {
+    "30-day-balance": "30-day balance",
+    "numberEstimatedTransactions": "%{smart_count} planned transaction |||| %{smart_count} planned transactions"
   }
 }

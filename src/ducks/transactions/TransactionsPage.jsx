@@ -4,7 +4,10 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import { isMobileApp } from 'cozy-device-helper'
-import { translate, withBreakpoints } from 'cozy-ui/transpiled/react'
+import { queryConnect, isQueryLoading, hasQueryBeenLoaded } from 'cozy-client'
+import { translate } from 'cozy-ui/transpiled/react/I18n'
+import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
+import flag from 'cozy-flags'
 
 import maxBy from 'lodash/maxBy'
 import uniq from 'lodash/uniq'
@@ -25,10 +28,9 @@ import {
   findNearestMonth
 } from 'ducks/transactions/helpers'
 
-import { queryConnect, isQueryLoading, hasQueryBeenLoaded } from 'cozy-client'
-
 import Loading from 'components/Loading'
 import Delayed from 'components/Delayed'
+import EstimatedBudgetCardTransactions from 'ducks/future/EstimatedBudgetCard'
 import { TransactionList } from 'ducks/transactions/Transactions.jsx'
 import styles from 'ducks/transactions/TransactionsPage.styl'
 
@@ -41,9 +43,7 @@ import {
 } from 'doctypes'
 
 import TransactionHeader from 'ducks/transactions/TransactionHeader'
-
 import { getChartTransactions } from 'ducks/chart/selectors'
-
 import BarTheme from 'ducks/bar/BarTheme'
 import TransactionActionsProvider from 'ducks/transactions/TransactionActionsProvider'
 
@@ -320,6 +320,9 @@ class TransactionsPage extends Component {
         <div
           className={`${styles.TransactionPage__transactions} ${className} js-scrolling-element`}
         >
+          {flag('banks.estimated-budget') ? (
+            <EstimatedBudgetCardTransactions />
+          ) : null}
           {this.renderTransactions()}
         </div>
       </TransactionActionsProvider>

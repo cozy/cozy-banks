@@ -133,8 +133,8 @@ export const renameRecurrenceManually = async (
   })
 }
 
-const STATUS_ONGOING = 'ongoing'
-const STATUS_FINISHED = 'finished'
+export const STATUS_ONGOING = 'ongoing'
+export const STATUS_FINISHED = 'finished'
 
 export const getStatus = recurrence => {
   if (recurrence.status) {
