@@ -909,6 +909,7 @@
   },
   "EstimatedBudget": {
     "30-day-balance": "30-day balance",
+    "page-title": "Planned transactions",
     "numberEstimatedTransactions": "%{smart_count} planned transaction |||| %{smart_count} planned transactions"
   }
 }

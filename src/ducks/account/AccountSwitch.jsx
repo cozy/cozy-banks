@@ -312,7 +312,8 @@ const AccountSwitch = props => {
     size,
     accounts: accountsCollection,
     groups: groupsCollection,
-    virtualGroups
+    virtualGroups,
+    insideBar
   } = props
   const [open, setOpen] = useState()
   const { t } = useI18n()
@@ -352,7 +353,7 @@ const AccountSwitch = props => {
   )
   return (
     <AccountSwitchWrapper>
-      {isMobile ? (
+      {isMobile && insideBar !== false ? (
         <BarCenter>
           <BarItem style={barItemStyle}>{select}</BarItem>
         </BarCenter>
@@ -387,7 +388,8 @@ AccountSwitch.propTypes = {
 }
 
 AccountSwitch.defaultProps = {
-  size: 'large'
+  size: 'large',
+  insideBar: true
 }
 
 const mapStateToProps = createStructuredSelector({

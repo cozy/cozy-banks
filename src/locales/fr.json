@@ -920,6 +920,7 @@
   },
   "EstimatedBudget": {
     "30-day-balance": "Solde à 30 jours",
+    "page-title": "Dépenses prévues",
     "numberEstimatedTransactions": "%{count} opération prévue |||| ${count} opérations prévues"
   }
 }

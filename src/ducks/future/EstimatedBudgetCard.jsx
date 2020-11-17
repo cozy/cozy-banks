@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
@@ -8,23 +8,31 @@ import Icon from 'cozy-ui/transpiled/react/Icon'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
-import { queryConnect } from 'cozy-client'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 
-import { recurrenceConn } from 'doctypes'
 import Elevated from 'components/Elevated'
+import { useRouter } from 'components/RouterContext'
 import useEstimatedBudget from './useEstimatedBudget'
 
-const DumbEstimatedBudgetCardTransactions = () => {
+const EstimatedBudgetCardTransactions = () => {
   const { t } = useI18n()
   const { isMobile } = useBreakpoints()
-  const { estimatedBalance, currency, nbOperations } = useEstimatedBudget()
+  const { estimatedBalance, currency, transactions } = useEstimatedBudget()
+
+  const router = useRouter()
+  const handleClick = useCallback(() => {
+    router.push('/balances/future')
+  }, [router])
+
   if (estimatedBalance === null) {
     return null
   }
 
   return (
-    <Elevated className={`${isMobile ? 'u-mv-1 u-mh-half' : 'u-m-1'} u-p-1`}>
+    <Elevated
+      onClick={handleClick}
+      className={`${isMobile ? 'u-mv-1 u-mh-half' : 'u-m-1'} u-p-1`}
+    >
       <Media>
         <Bd>
           <Typography variant="body1">
@@ -32,13 +40,13 @@ const DumbEstimatedBudgetCardTransactions = () => {
           </Typography>
           <Typography variant="caption" color="textSecondary">
             {t('EstimatedBudget.numberEstimatedTransactions', {
-              smart_count: nbOperations
+              smart_count: transactions.length
             })}
           </Typography>
         </Bd>
         <Img>
           <Figure
-            className="u-mr-1"
+            className="u-mr-1 u-slateGrey"
             total={estimatedBalance}
             symbol={getCurrencySymbol(currency)}
           />
@@ -51,10 +59,4 @@ const DumbEstimatedBudgetCardTransactions = () => {
   )
 }
 
-const enhance = queryConnect({
-  recurrences: recurrenceConn
-})
-
-export const EstimatedBudgetCardTransactions = enhance(
-  DumbEstimatedBudgetCardTransactions
-)
+export default EstimatedBudgetCardTransactions
