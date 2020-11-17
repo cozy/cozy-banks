@@ -62,6 +62,11 @@
         <preference name="StatusBarOverlaysWebView" value="false" />
         <preference name="Suppresses3DTouchGesture" value="true" />
         <preference name="DisallowOverscroll" value="true" />
+        <!--
+          "ScrollEnabled" is used by cordova-plugin-ionic-keyboard. Without it, the scrolling is deactivated. We should revisit this change if we ever use cordova-plugin-ionic-webview.
+          See https://github.com/ionic-team/cordova-plugin-ionic-webview#scrollenabled
+        -->
+	       <preference name="ScrollEnabled" value="true" />
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <icon height="29" src="res/icons/ios/icon-small.png" width="29" />
