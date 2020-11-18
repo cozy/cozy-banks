@@ -237,9 +237,7 @@ CategoriesHeader.propTypes = {
   onWithIncomeToggle: PropTypes.func.isRequired,
   chartSize: PropTypes.number,
   hasAccount: PropTypes.bool.isRequired,
-  categories: PropTypes.array.isRequired,
-  t: PropTypes.func.isRequired,
-  breakpoints: PropTypes.object.isRequired
+  categories: PropTypes.array.isRequired
 }
 
 export default CategoriesHeader
