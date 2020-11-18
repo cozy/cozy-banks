@@ -12,7 +12,7 @@ import Stack from 'cozy-ui/transpiled/react/Stack'
 import { AccountSwitch } from 'ducks/account'
 import BackButton from 'components/BackButton'
 import Header from 'components/Header'
-import { Padded } from 'components/Spacing'
+import Padded from 'components/Padded'
 import { ConnectedSelectDates as SelectDates } from 'components/SelectDates'
 
 import CategoriesChart from 'ducks/categories/CategoriesChart'
