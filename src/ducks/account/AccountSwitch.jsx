@@ -180,7 +180,7 @@ const AccountSwitchListItem = props => {
     <ListItem {...props}>
       {props.children}
       <ListItemSecondaryAction className="u-pr-1">
-        <Radio onClick={props.onClick} checked={props.selected} />
+        <Radio onClick={props.onClick} checked={props.selected} readOnly />
       </ListItemSecondaryAction>
     </ListItem>
   )
