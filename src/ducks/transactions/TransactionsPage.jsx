@@ -321,7 +321,7 @@ class TransactionsPage extends Component {
         <div
           className={`${styles.TransactionPage__transactions} ${className} js-scrolling-element`}
         >
-          {flag('banks.estimated-budget') && showFutureBalance ? (
+          {flag('banks.future-balance') && showFutureBalance ? (
             <FutureBalanceCard />
           ) : null}
           {this.renderTransactions()}
