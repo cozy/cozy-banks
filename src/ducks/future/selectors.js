@@ -4,6 +4,8 @@ import addDays from 'date-fns/add_days'
 import { getRecurrences } from 'selectors'
 import { getFilteredAccountIds } from 'ducks/filters'
 import { nextDate, STATUS_FINISHED } from 'ducks/recurrence'
+import getClient from 'selectors/getClient'
+import { TRANSACTION_DOCTYPE } from 'doctypes'
 
 export const getMaxDate = () => {
   return addDays(new Date(Date.now()), 30)
@@ -17,6 +19,7 @@ export const getMaxDate = () => {
 export const getPlannedTransactions = createSelector(
   [getRecurrences, getFilteredAccountIds, getMaxDate],
   (recurrences, filteredAccountIds, maxDate) => {
+    const client = getClient()
     const res = []
     for (let recurrence of recurrences) {
       if (recurrence.status === STATUS_FINISHED) {
@@ -27,9 +30,10 @@ export const getPlannedTransactions = createSelector(
         continue
       }
 
+      const lastBankAccount = recurrence.accounts && recurrence.accounts[0]
       if (
         filteredAccountIds &&
-        filteredAccountIds.indexOf(recurrence.lastBankAccount) === -1
+        filteredAccountIds.indexOf(lastBankAccount) === -1
       ) {
         continue
       }
@@ -39,13 +43,15 @@ export const getPlannedTransactions = createSelector(
         continue
       }
 
-      res.push({
+      const transaction = client.hydrateDocument({
+        _type: TRANSACTION_DOCTYPE,
         label: recurrence.automaticLabel,
         date: futureDate,
         amount: recurrence.amounts[0],
-        account: recurrence.lastBankAccount,
+        account: lastBankAccount,
         automaticCategoryId: recurrence.categoryIds[0]
       })
+      res.push(transaction)
     }
     return res
   }
