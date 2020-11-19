@@ -11,7 +11,7 @@ import { getPlannedTransactions } from './selectors'
 
 /** Returns estimatedBalance and number of planned transactions for currently filtered accounts */
 const useEstimatedBudget = () => {
-  const { data: recurrences, fetchStatus: recurrenceFetchStatus } = useQuery(
+  const { fetchStatus: recurrenceFetchStatus } = useQuery(
     recurrenceConn.query,
     recurrenceConn
   )
@@ -27,20 +27,13 @@ const useEstimatedBudget = () => {
     transactions
   ])
   const sumAccounts = useMemo(() => sumBy(accounts, x => x.balance), [accounts])
-
-  if (
-    accountsFetchStatus === 'loading' ||
-    recurrenceFetchStatus === 'loading' ||
-    (accounts && accounts.length === 0) ||
-    (recurrences && recurrences.length === 0)
-  ) {
-    return { estimatedBalance: null }
-  }
-
+  const isLoading =
+    accountsFetchStatus === 'loading' || recurrenceFetchStatus === 'loading'
   return {
-    estimatedBalance: sumAccounts + sumTransactions,
+    isLoading: isLoading,
+    estimatedBalance: isLoading ? null : sumAccounts + sumTransactions,
     sumTransactions,
-    currency: accounts[0].currency,
+    currency: accounts && accounts.length ? accounts[0].currency : null,
     transactions
   }
 }

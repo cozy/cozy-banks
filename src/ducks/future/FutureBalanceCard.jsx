@@ -10,6 +10,7 @@ import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
 import { getCurrencySymbol } from 'utils/currencySymbol'
 
+import Skeleton from 'components/Skeleton'
 import Elevated from 'components/Elevated'
 import { useRouter } from 'components/RouterContext'
 import useEstimatedBudget from './useEstimatedBudget'
@@ -17,16 +18,17 @@ import useEstimatedBudget from './useEstimatedBudget'
 const FutureBalanceCard = () => {
   const { t } = useI18n()
   const { isMobile } = useBreakpoints()
-  const { estimatedBalance, currency, transactions } = useEstimatedBudget()
+  const {
+    isLoading,
+    estimatedBalance,
+    currency,
+    transactions
+  } = useEstimatedBudget()
 
   const router = useRouter()
   const handleClick = useCallback(() => {
     router.push('/balances/future')
   }, [router])
-
-  if (estimatedBalance === null) {
-    return null
-  }
 
   return (
     <Elevated
@@ -39,17 +41,25 @@ const FutureBalanceCard = () => {
             {t('EstimatedBudget.30-day-balance')}
           </Typography>
           <Typography variant="caption" color="textSecondary">
-            {t('EstimatedBudget.numberEstimatedTransactions', {
-              smart_count: transactions.length
-            })}
+            {isLoading ? (
+              <Skeleton variant="text" />
+            ) : (
+              t('EstimatedBudget.numberEstimatedTransactions', {
+                smart_count: transactions.length
+              })
+            )}
           </Typography>
         </Bd>
         <Img>
-          <Figure
-            className="u-mr-1 u-slateGrey"
-            total={estimatedBalance}
-            symbol={getCurrencySymbol(currency)}
-          />
+          {isLoading ? (
+            <Skeleton variant="text" width="small" />
+          ) : (
+            <Figure
+              className="u-mr-1 u-slateGrey"
+              total={estimatedBalance}
+              symbol={getCurrencySymbol(currency)}
+            />
+          )}
         </Img>
         <Img>
           <Icon icon={RightIcon} size={16} className="u-coolGrey" />
