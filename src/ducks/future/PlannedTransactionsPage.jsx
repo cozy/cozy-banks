@@ -13,6 +13,7 @@ import AccountSwitch from 'ducks/account/AccountSwitch'
 import Padded from 'components/Padded'
 import Header from 'components/Header'
 import BackButton from 'components/BackButton'
+import Loading from 'components/Loading'
 import { useRouter } from 'components/RouterContext'
 
 import { TransactionList } from 'ducks/transactions/Transactions'
@@ -124,6 +125,11 @@ const PlannedTransactionsPage = () => {
         style={isMobile ? listMobileStyle : null}
         className="js-scrolling-element"
       >
+        {budget.isLoading ? (
+          <Padded>
+            <Loading />
+          </Padded>
+        ) : null}
         {budget.transactions ? (
           <TransactionList
             transactions={budget.transactions}
