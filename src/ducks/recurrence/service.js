@@ -59,7 +59,6 @@ const logDifferences = (oldRecurrences, updatedRecurrences) => {
     )
   }
 }
-
 /**
  * Fetches
  *   - transactions in the last 3 months

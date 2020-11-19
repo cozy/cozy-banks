@@ -64,6 +64,11 @@ export const getCurrency = () => {
 }
 
 export const makeRecurrenceFromTransaction = transaction => {
+  // Supports case where account is hydrated
+  const accountId =
+    typeof transaction.account === 'object'
+      ? transaction.account.data._id
+      : transaction.account
   return {
     _type: RECURRENCE_DOCTYPE,
     automaticLabel: getTransactionLabel(transaction),
@@ -72,6 +77,8 @@ export const makeRecurrenceFromTransaction = transaction => {
         median: 30
       }
     },
+    latestDate: transaction.date,
+    accounts: [accountId],
     amounts: [transaction.amount],
     categoryIds: [getCategoryId(transaction)]
   }
