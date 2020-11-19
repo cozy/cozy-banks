@@ -30,7 +30,7 @@ import {
 
 import Loading from 'components/Loading'
 import Delayed from 'components/Delayed'
-import EstimatedBudgetCardTransactions from 'ducks/future/EstimatedBudgetCard'
+import FutureBalanceCard from 'ducks/future/FutureBalanceCard'
 import { TransactionList } from 'ducks/transactions/Transactions.jsx'
 import styles from 'ducks/transactions/TransactionsPage.styl'
 
@@ -296,7 +296,8 @@ class TransactionsPage extends Component {
     const {
       accounts,
       breakpoints: { isMobile },
-      header,
+      showHeader,
+      showFutureBalance,
       className
     } = this.props
 
@@ -308,7 +309,7 @@ class TransactionsPage extends Component {
     return (
       <TransactionActionsProvider>
         <BarTheme theme={theme} />
-        {header ? (
+        {showHeader ? (
           <TransactionHeader
             transactions={filteredTransactions}
             handleChangeMonth={this.handleChangeMonth}
@@ -320,8 +321,8 @@ class TransactionsPage extends Component {
         <div
           className={`${styles.TransactionPage__transactions} ${className} js-scrolling-element`}
         >
-          {flag('banks.estimated-budget') ? (
-            <EstimatedBudgetCardTransactions />
+          {flag('banks.estimated-budget') && showFutureBalance ? (
+            <FutureBalanceCard />
           ) : null}
           {this.renderTransactions()}
         </div>
@@ -331,7 +332,8 @@ class TransactionsPage extends Component {
 }
 
 TransactionsPage.defaultProps = {
-  header: true
+  showHeader: true,
+  showFutureBalance: true
 }
 
 const onSubcategory = ownProps => ownProps.router.params.subcategoryName

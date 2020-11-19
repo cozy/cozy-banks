@@ -14,7 +14,7 @@ import Elevated from 'components/Elevated'
 import { useRouter } from 'components/RouterContext'
 import useEstimatedBudget from './useEstimatedBudget'
 
-const EstimatedBudgetCardTransactions = () => {
+const FutureBalanceCard = () => {
   const { t } = useI18n()
   const { isMobile } = useBreakpoints()
   const { estimatedBalance, currency, transactions } = useEstimatedBudget()
@@ -59,4 +59,4 @@ const EstimatedBudgetCardTransactions = () => {
   )
 }
 
-export default EstimatedBudgetCardTransactions
+export default FutureBalanceCard
