@@ -129,13 +129,19 @@ const PlannedTransactionsPage = () => {
           <Padded>
             <Loading />
           </Padded>
-        ) : null}
-        {budget.transactions ? (
-          <TransactionList
-            transactions={budget.transactions}
-            showTriggerErrors={false}
-          />
-        ) : null}
+        ) : (
+          <>
+            {budget.transactions && budget.transactions.length > 0 ? (
+              <TransactionList
+                transactions={budget.transactions}
+                showTriggerErrors={false}
+              />
+            ) : null}
+            {budget.transactions && budget.transactions.length === 0 ? (
+              <Padded>{t('EstimatedBudget.no-planned-transactions')}</Padded>
+            ) : null}
+          </>
+        )}
       </div>
     </>
   )

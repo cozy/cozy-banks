@@ -908,6 +908,7 @@
     "disconnected-account": "Disconnected account"
   },
   "EstimatedBudget": {
+    "no-planned-transactions": "There are no planned transactions in the next 30 days.",
     "30-day-balance": "30-day balance",
     "page-title": "Planned transactions",
     "numberEstimatedTransactions": "%{smart_count} planned transaction |||| %{smart_count} planned transactions"
