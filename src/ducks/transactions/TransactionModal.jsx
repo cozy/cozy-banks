@@ -187,7 +187,9 @@ const RecurrenceRow = ({ transaction, onClick }) => {
   const recurrence = transaction.recurrence && transaction.recurrence.data
   const { t } = useI18n()
 
-  const recurrenceRoute = recurrence ? `/recurrence/${recurrence._id}` : null
+  const recurrenceRoute = recurrence
+    ? `/analysis/recurrence/${recurrence._id}`
+    : null
 
   const vAlignTop = Boolean(recurrence)
   return (
