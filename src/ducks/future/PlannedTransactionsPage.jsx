@@ -20,16 +20,16 @@ import { TransactionList } from 'ducks/transactions/Transactions'
 import useEstimatedBudget from './useEstimatedBudget'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 
-const InvertedCard = withStyles({
+const HeaderCard = withStyles({
   card: {
-    backgroundColor: 'var(--primaryColorLight)',
+    backgroundColor: 'var(--headerInvertedBackgroundColorLight)',
     border: 0
   }
 })(({ classes, children }) => {
   return <Card className={classes.card}>{children}</Card>
 })
 
-const HeaderCard = () => {
+const HeaderInfoCard = () => {
   const { t } = useI18n()
   const { estimatedBalance, currency, transactions } = useEstimatedBudget()
 
@@ -38,7 +38,7 @@ const HeaderCard = () => {
   }
 
   return (
-    <InvertedCard>
+    <HeaderCard>
       <Media>
         <Bd>
           <Typography variant="h6" color="primary">
@@ -58,7 +58,7 @@ const HeaderCard = () => {
           />
         </Img>
       </Media>
-    </InvertedCard>
+    </HeaderCard>
   )
 }
 
@@ -99,7 +99,7 @@ const PlannedTransactionsPage = () => {
                 </Typography>
                 <AccountSwitch size="small" insideBar={false} />
               </div>
-              <HeaderCard />
+              <HeaderInfoCard />
             </div>
           ) : (
             <Media>
@@ -115,7 +115,7 @@ const PlannedTransactionsPage = () => {
                 </div>
               </Bd>
               <Img>
-                <HeaderCard />
+                <HeaderInfoCard />
               </Img>
             </Media>
           )}
