@@ -116,6 +116,7 @@ const main = async ({ client }) => {
     await saveHydratedBundles(client, updatedRecurrences)
   } catch (e) {
     log('error', `[recurrence service] ${e}`)
+    throw e
   }
 }
 
