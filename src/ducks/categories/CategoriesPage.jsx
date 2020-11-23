@@ -205,8 +205,9 @@ class CategoriesPage extends Component {
           ) : (
             <TransactionsPageWithBackButton
               className="u-pt-0"
+              showFutureBalance={false}
               showTriggerErrors={false}
-              header={false}
+              showHeader={false}
             />
           ))}
       </Fragment>
