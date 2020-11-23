@@ -65,12 +65,15 @@ export const getCurrency = () => {
   return '€'
 }
 
+/**
+ * Make a recurrence from a transaction. The recurrence will inherit
+ * the amount / account / category of the transaction
+ *
+ * @param  {Transaction} transaction (not hydrated)
+ * @return {Recurrence}
+ */
 export const makeRecurrenceFromTransaction = transaction => {
-  // Supports case where account is hydrated
-  const accountId =
-    typeof transaction.account === 'object'
-      ? transaction.account.data._id
-      : transaction.account
+  const accountId = transaction.account
   return {
     _type: RECURRENCE_DOCTYPE,
     automaticLabel: getTransactionLabel(transaction),
