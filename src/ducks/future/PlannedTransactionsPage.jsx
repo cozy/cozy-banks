@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react'
+import cx from 'classnames'
 import { withStyles } from '@material-ui/core/styles'
 
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
@@ -19,6 +20,8 @@ import { useRouter } from 'components/RouterContext'
 import { TransactionList } from 'ducks/transactions/Transactions'
 import useEstimatedBudget from './useEstimatedBudget'
 import { getCurrencySymbol } from 'utils/currencySymbol'
+
+import styles from './styles.styl'
 
 const HeaderCard = withStyles({
   card: {
@@ -62,14 +65,6 @@ const HeaderInfoCard = () => {
   )
 }
 
-const headerStyle = {
-  zIndex: 'var(--z-index-bar)'
-}
-
-const listMobileStyle = {
-  marginTop: '6.5rem'
-}
-
 const PlannedTransactionsPage = () => {
   const budget = useEstimatedBudget()
   const router = useRouter()
@@ -80,18 +75,11 @@ const PlannedTransactionsPage = () => {
   }, [router])
   return (
     <>
-      <Header theme="inverted" fixed style={headerStyle}>
+      <Header theme="inverted" fixed className={styles.Header}>
         <BarTheme theme="primary" />
         <Padded>
           {isMobile ? (
-            <div
-              className="u-stack-s"
-              style={{
-                marginTop: '-3.25rem',
-                zIndex: 50,
-                position: 'relative'
-              }}
-            >
+            <div className={cx('u-stack-s', styles['Title--mobile'])}>
               <BackButton theme="primary" onClick={handleBack} />
               <div className="u-ta-center u-mh-1">
                 <Typography color="primary" variant="h5">
@@ -122,8 +110,10 @@ const PlannedTransactionsPage = () => {
         </Padded>
       </Header>
       <div
-        style={isMobile ? listMobileStyle : null}
-        className="js-scrolling-element"
+        className={cx(
+          'js-scrolling-element',
+          isMobile ? styles['List--mobile'] : null
+        )}
       >
         {budget.isLoading ? (
           <Padded>
