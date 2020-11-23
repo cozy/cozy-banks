@@ -213,7 +213,7 @@ const RecurrenceRow = ({ transaction, onClick }) => {
               <br />
               <Caption>{getFrequencyText(t, recurrence)}</Caption>
               {location.pathname !== recurrenceRoute ? (
-                <Link to={recurrenceRoute}>
+                <Link to={recurrenceRoute} className="u-link">
                   <div className="u-mh-1">
                     <Chip
                       onClick={stopPropagation}
