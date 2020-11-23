@@ -51,7 +51,7 @@ jobs:
           - tools
           - platform-tools
           - build-tools-26.0.2
-          - android-26
+          - android-29
         licenses:
           - 'android-sdk-preview-license-52d11cd2'
           - 'android-sdk-license-.+'
