@@ -230,7 +230,7 @@ const RecurrenceRow = ({ transaction, onClick }) => {
           ) : null}
         </div>
       </ListItemText>
-      <ListItemArrow />
+      <ListItemArrow className={vAlignTop ? 'u-mt-1-half' : null} />
     </ListItem>
   )
 }
