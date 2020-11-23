@@ -333,6 +333,7 @@ const AccountSwitch = props => {
     handleClose()
   }
 
+  // TODO remove if https://github.com/cozy/cozy-client/issues/834 is solved
   // It seems there is a bug in cozy-client when we delete a document
   // The document is removed in the store, but still referenced in the collection
   // So we may get an undefined group. We filter it before sorting
