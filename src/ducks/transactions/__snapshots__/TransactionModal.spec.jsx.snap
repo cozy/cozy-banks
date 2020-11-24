@@ -5,8 +5,8 @@ exports[`transaction modal should render correctly 1`] = `
   <div class=\\"styles__c-overlay___31iWd\\">
     <div>
       <div class=\\"styles__c-modal-wrapper___8PyE9\\">
-        <div class=\\"styles__c-modal___33aV9 styles__c-modal--small___XUfOM styles__c-modal--overflowHidden___3H87t styles__c-modal--closable___29CLQ\\" role=\\"dialog\\" aria-modal=\\"true\\" aria-label=\\"Transaction infos\\"><button class=\\"styles__c-modal-close___1v2bp styles__c-modal-close--notitle___1rqne\\" type=\\"button\\" aria-label=\\"close\\"><svg class=\\"styles__icon___23x3R\\" style=\\"fill: var(--coolGrey);\\" width=\\"24\\" height=\\"24\\">
-              <use xlink:href=\\"#cross\\"></use>
+        <div class=\\"styles__c-modal___33aV9 styles__c-modal--small___XUfOM styles__c-modal--overflowHidden___3H87t styles__c-modal--closable___29CLQ\\" role=\\"dialog\\" aria-modal=\\"true\\" aria-label=\\"Transaction infos\\"><button class=\\"styles__c-modal-close___1v2bp styles__c-modal-close--notitle___1rqne\\" type=\\"button\\" aria-label=\\"close\\"><svg viewBox=\\"0 0 24 24\\" class=\\"styles__icon___23x3R\\" style=\\"fill: var(--coolGrey);\\" width=\\"24\\" height=\\"24\\">
+              <path fill-rule=\\"evenodd\\" d=\\"M10.586 12L.293 1.707A1 1 0 011.707.293L12 10.586 22.293.293a1 1 0 011.414 1.414L13.414 12l10.293 10.293a1 1 0 01-1.414 1.414L12 13.414 1.707 23.707a1 1 0 01-1.414-1.414L10.586 12z\\"></path>
             </svg></button>
           <div>
             <div class=\\"styles__c-modal-header___hTCm5 Page__header\\">
