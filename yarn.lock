@@ -945,6 +945,13 @@
   dependencies:
     regenerator-runtime "^0.13.2"
 
+"@babel/runtime@^7.10.0":
+  version "7.12.5"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.12.5.tgz#410e7e487441e1b360c29be715d870d9b985882e"
+  integrity sha512-plcc+hbExy3McchJCEQG3knOsuh3HH+Prx1P6cLIkET/0dLuQDEnrT+s27Axgc9bqfsmNUNHfscgMUdBpC9xfg==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
 "@babel/runtime@^7.10.2", "@babel/runtime@^7.10.3":
   version "7.11.2"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.11.2.tgz#f549c13c754cc40b87644b9fa9f09a6a95fe0736"
@@ -952,7 +959,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.3.1", "@babel/runtime@^7.4.0", "@babel/runtime@^7.5.2":
+"@babel/runtime@^7.3.1", "@babel/runtime@^7.4.0":
   version "7.6.3"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.6.3.tgz#935122c74c73d2240cafd32ddb5fc2a6cd35cf1f"
   integrity sha512-kq6anf9JGjW8Nt5rYfEuGRaEAaH1mkv3Bbu6rYvLOpPh/RusSJXuKPEAoZ7L7gybZkchE8+NV5g9vKF4AGAtsA==
@@ -4640,10 +4647,10 @@ cozy-bar@^8.1.1-beta.1:
     redux-thunk "2.3.0"
     semver-compare "^1.0.0"
 
-cozy-bi-auth@0.0.14:
-  version "0.0.14"
-  resolved "https://registry.yarnpkg.com/cozy-bi-auth/-/cozy-bi-auth-0.0.14.tgz#e38c2bd3f6534dde0f86aa05ceca7f82b0fee74b"
-  integrity sha512-1IcC0Dbn/wtCsS6rKuXZfFFRq+vMw849b5RoKXHinLA5fBsfxPF+xOre0tT3tKY0Uc3QgKKmd4D+za6vg7Vj2A==
+cozy-bi-auth@0.0.15:
+  version "0.0.15"
+  resolved "https://registry.yarnpkg.com/cozy-bi-auth/-/cozy-bi-auth-0.0.15.tgz#c3d450b1d4c5b053101888f6d139d5a1ef806a27"
+  integrity sha512-qZAYjUoyQFhqKiVph6k/P3d/GQMR+K6pQr4bqhzdGoDhrBjMZYvho6doQpyKYZpWiJCjHXaX4aJDOtfC5Qwinw==
   dependencies:
     cozy-logger "^1.3.0"
     lodash "^4.17.20"
@@ -4847,12 +4854,11 @@ cozy-doctypes@^1.63.2:
     lodash "4.17.15"
     prop-types "^15.7.2"
 
-cozy-doctypes@^1.74.8:
-  version "1.74.8"
-  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.74.8.tgz#82a7bc40771ff1181f0b772e509e88b65cda04dd"
-  integrity sha512-3BNy+ivSWOu4TQz9EHYF+DQhlZLAE/HNJekg6cUCflD5lAQUrRqT2IfYydlebgVswrSlDodbI8f+KC5eXBfSOw==
+cozy-doctypes@^1.75.0:
+  version "1.75.0"
+  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.75.0.tgz#04aa524293e5877caa73c2ce44aa687c5561cda9"
+  integrity sha512-Liw6ztj64eRsDeIKnOLi4CARgplwjqL/RNaL4XSBEYd6KE5cewxwO3eTxFEatbxVY7ljwr8hFB4ljBinrJGw1g==
   dependencies:
-    "@babel/runtime" "7.5.5"
     cozy-logger "^1.6.0"
     date-fns "1.30.1"
     es6-promise-pool "2.5.0"
@@ -4873,26 +4879,25 @@ cozy-flags@2.4.1:
   dependencies:
     microee "^0.0.6"
 
-cozy-harvest-lib@2.22.1:
-  version "2.22.1"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-2.22.1.tgz#5224669feff6da04ecf687be3ebae4e8b890040e"
-  integrity sha512-0lfNzi6zu68wg+9tzVC+zy49/MIstCyDTjrq1WA+XIyA5xri2bPXiccjnvhEhF212YmJbe8pVGuDgHIg0h69gw==
+cozy-harvest-lib@2.27.0:
+  version "2.27.0"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-2.27.0.tgz#28cfc2a408f2d291349a9800624f1688a3b728c9"
+  integrity sha512-9EGbbLDfPOl+OzBGK6joE9ZLDeaUdHBE4f4eBG81B2FO8wiGwza6LPEMp97iVLbWBFUOplSwuf0b1Gy+2OdFVQ==
   dependencies:
-    "@babel/runtime" "^7.5.2"
     "@cozy/minilog" "^1.0.0"
     "@material-ui/core" "3"
     "@testing-library/react" "^10.4.9"
-    cozy-bi-auth "0.0.14"
-    cozy-doctypes "^1.74.8"
-    cozy-keys-lib "3.1.2"
-    cozy-logger "1.6.0"
+    cozy-bi-auth "0.0.15"
+    cozy-doctypes "^1.75.0"
+    cozy-keys-lib "^3.1.2"
+    cozy-logger "^1.6.0"
     date-fns "^1.30.1"
-    final-form "4.18.5"
-    lodash "4.17.19"
+    final-form "^4.18.5"
+    lodash "^4.17.19"
     microee "^0.0.6"
     node-polyglot "^2.4.0"
-    react-final-form "3.7.0"
-    react-markdown "4.2.2"
+    react-final-form "^3.7.0"
+    react-markdown "^4.2.2"
     react-router-dom "^5.0.1"
     uuid "^3.3.2"
 
@@ -4930,7 +4935,7 @@ cozy-jobs-cli@1.9.13:
     replay "2.4.0"
     strip-json-comments "3.0.1"
 
-cozy-keys-lib@3.1.2:
+cozy-keys-lib@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/cozy-keys-lib/-/cozy-keys-lib-3.1.2.tgz#524b4360d8e6008c3f234aeb9bd9730f1d2276fc"
   integrity sha512-AgCO7otBoUvNs5lYWZquXm/YItM3Go+WseeFx99e6KuYs4219cSlEjzNyHgIGythfXRiBlQjWVuZaK4t/yvaPQ==
@@ -5185,10 +5190,10 @@ cozy-ui@27.11.2:
     react-select "2.2.0"
     react-swipeable-views "0.13.3"
 
-cozy-ui@40.0.0:
-  version "40.0.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-40.0.0.tgz#9726c4b540263592ec943dcb8208ea572baa1f22"
-  integrity sha512-OxK+ucAnNBlV1aQZrdTid9SEfNMfIjaWys8Q3Mvq9iR9bcfH9kuYpO+sTDlFOq78oeIhnJ4wS2P1FMvpzKoQlA==
+cozy-ui@40.1.0:
+  version "40.1.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-40.1.0.tgz#358577bb8f978f4ebcc81d93fc198f6f41ee6ffd"
+  integrity sha512-+XoXQxLBL5tHJvhkIVemDTpu8L8B11j7t9WL1j5Ou1cHOcWAM0WPSYh+mk9aIzsVQ5OJDbO8X5mqvzZYBPzq6A==
   dependencies:
     "@babel/runtime" "^7.3.4"
     "@popperjs/core" "^2.4.4"
@@ -5206,10 +5211,10 @@ cozy-ui@40.0.0:
     react-select "2.2.0"
     react-swipeable-views "0.13.3"
 
-cozy-ui@40.1.0:
-  version "40.1.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-40.1.0.tgz#358577bb8f978f4ebcc81d93fc198f6f41ee6ffd"
-  integrity sha512-+XoXQxLBL5tHJvhkIVemDTpu8L8B11j7t9WL1j5Ou1cHOcWAM0WPSYh+mk9aIzsVQ5OJDbO8X5mqvzZYBPzq6A==
+cozy-ui@41.0.0:
+  version "41.0.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-41.0.0.tgz#cfd2f6632c41ee1fec5a5e3174ffd7f89d3afebf"
+  integrity sha512-Y4hu/6rSBy9vL2EP1JDEuqR/QFUi3X1nWysJkKqpKTnkqHYwhBxJgNMVO78mA6+6hW+WDmDtp+kOf3My/efdhw==
   dependencies:
     "@babel/runtime" "^7.3.4"
     "@popperjs/core" "^2.4.4"
@@ -7497,12 +7502,12 @@ fill-range@^7.0.1:
   dependencies:
     to-regex-range "^5.0.1"
 
-final-form@4.18.5:
-  version "4.18.5"
-  resolved "https://registry.yarnpkg.com/final-form/-/final-form-4.18.5.tgz#e359cfaf2892ef135d92fcf22e06b475dda3a885"
-  integrity sha512-DH/I2W7fWxU8J8ZsbYJ5jLvUbhbatCvLhIKlsU17MvY6W3QnetPEyuX5mcxXgIGFNFKxfvqsG3pDy/1/VwOiTw==
+final-form@^4.18.5:
+  version "4.20.1"
+  resolved "https://registry.yarnpkg.com/final-form/-/final-form-4.20.1.tgz#525a7f7f27f55c28d8994b157b24d6104fc560e9"
+  integrity sha512-IIsOK3JRxJrN72OBj7vFWZxtGt3xc1bYwJVPchjVWmDol9DlzMSAOPB+vwe75TUYsw1JaH0fTQnIgwSQZQ9Acg==
   dependencies:
-    "@babel/runtime" "^7.3.1"
+    "@babel/runtime" "^7.10.0"
 
 finalhandler@~1.1.2:
   version "1.1.2"
@@ -11216,7 +11221,7 @@ lodash@^3.3.1, lodash@^3.5.0:
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
   integrity sha1-W/Rejkm6QYnhfUgnid/RW9FAt7Y=
 
-lodash@^4.17.20:
+lodash@^4.17.19, lodash@^4.17.20:
   version "4.17.20"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
   integrity sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
@@ -15184,7 +15189,7 @@ react-fast-compare@^3.0.1:
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-3.2.0.tgz#641a9da81b6a6320f270e89724fb45a0b39e43bb"
   integrity sha512-rtGImPZ0YyLrscKI9xTpV8psd6I8VAtjKCzQDlzyDvqJA8XOW78TXYQwNRNd8g8JZnDu8q9Fu/1v4HPAVwVdHA==
 
-react-final-form@3.7.0:
+react-final-form@^3.7.0:
   version "3.7.0"
   resolved "https://registry.yarnpkg.com/react-final-form/-/react-final-form-3.7.0.tgz#89196cc18340d0bcdb308941ea3e5dafe0f26684"
   integrity sha512-/FAn1z7i2RFCMC1Bxg9CLA4rKelom6NF8at7PZgOp23T1e45giJQs9hTvuHx5LlX0u6948k0XbYw3y3zBmPOgw==
@@ -15278,6 +15283,20 @@ react-markdown@^4.0.8:
     html-to-react "^1.3.4"
     mdast-add-list-metadata "1.0.1"
     prop-types "^15.7.2"
+    remark-parse "^5.0.0"
+    unified "^6.1.5"
+    unist-util-visit "^1.3.0"
+    xtend "^4.0.1"
+
+react-markdown@^4.2.2:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/react-markdown/-/react-markdown-4.3.1.tgz#39f0633b94a027445b86c9811142d05381300f2f"
+  integrity sha512-HQlWFTbDxTtNY6bjgp3C3uv1h2xcjCSi1zAEzfBW9OwJJvENSYiLXWNXN5hHLsoqai7RnZiiHzcnWdXk2Splzw==
+  dependencies:
+    html-to-react "^1.3.4"
+    mdast-add-list-metadata "1.0.1"
+    prop-types "^15.7.2"
+    react-is "^16.8.6"
     remark-parse "^5.0.0"
     unified "^6.1.5"
     unist-util-visit "^1.3.0"
