@@ -19,7 +19,7 @@ export const DumbBalanceDetailsHeader = props => {
     showBalance,
     filteredAccounts,
     children,
-    legalMention
+    showLegalMention
   } = props
 
   return (
@@ -34,7 +34,7 @@ export const DumbBalanceDetailsHeader = props => {
           <BackButton theme="primary" arrow />
           <AccountSwitch size={accountSwitchSize} theme="inverted" />
         </div>
-        {legalMention !== false ? (
+        {showLegalMention !== false ? (
           <LegalMention className={isMobile ? 'u-mr-1 u-mb-half' : ''} />
         ) : null}
       </Padded>
