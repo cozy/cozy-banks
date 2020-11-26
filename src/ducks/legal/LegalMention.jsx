@@ -13,4 +13,11 @@ LegalMention.propTypes = {
   className: PropTypes.string
 }
 
+/**
+ * This static property is useful since we must be able to know for example
+ * if we need to render a wrapper around the LegalMention. When using LegalMention
+ * it has to be put to true
+ */
+LegalMention.active = false
+
 export default LegalMention
