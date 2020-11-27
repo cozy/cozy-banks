@@ -350,7 +350,14 @@ class TransferPage extends React.Component {
 
   selectSlideByName(slideName) {
     this.setState(this.getStateUpdateForSlideName(slideName))
-    trackPage(`virement:${slideNameToTrackPageName[slideName]}`)
+    trackPage(lastTracked => {
+      const page = `virement:${slideNameToTrackPageName[slideName]}`
+      if (lastTracked !== page) {
+        return `virement:${slideNameToTrackPageName[slideName]}`
+      } else {
+        return false
+      }
+    })
   }
 
   handleModalDismiss() {
