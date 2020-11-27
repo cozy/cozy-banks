@@ -433,7 +433,16 @@ const TransactionModalInfoContent = props => {
 
 const TransactionModal = ({ requestClose, transactionId, ...props }) => {
   const transaction = useDocument(TRANSACTION_DOCTYPE, transactionId)
-  useTrackPage(lastTracked => `${lastTracked}:depense`)
+  useTrackPage(lastTracked => {
+    if (lastTracked == 'mon_compte:compte') {
+      return `mon_compte:depense`
+    } else {
+      return `${lastTracked
+        .split(':')
+        .slice(0, 2)
+        .join(':')}:depense`
+    }
+  })
 
   const handleClose = () => {
     trackParentPage()
