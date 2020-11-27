@@ -65,7 +65,7 @@ const TransactionHeader = ({
 }) => {
   const { isMobile } = useBreakpoints()
   return (
-    <BalanceDetailsHeader showBalance={showBalance} legalMention={false}>
+    <BalanceDetailsHeader showBalance={showBalance} showLegalMention={false}>
       <TransactionHeaderBalanceHistory
         currentMonth={currentMonth}
         size={size}
