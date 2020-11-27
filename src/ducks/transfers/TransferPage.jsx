@@ -58,7 +58,7 @@ const slideIndexes = [
 const slideNameToTrackPageName = {
   category: 'choix_virement',
   beneficiary: 'choix_beneficiaire',
-  sender: 'emetteur',
+  sender: 'choix_compte',
   summary: 'resume',
   password: 'securite',
   amount: 'montant'
@@ -189,7 +189,7 @@ class TransferPage extends React.Component {
   }
 
   componentDidMount() {
-    trackPage(`virement:categorie`)
+    trackPage(`virement:${slideNameToTrackPageName['category']}`)
   }
 
   componentDidUpdate(prevProps) {
