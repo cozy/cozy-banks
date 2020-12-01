@@ -110,7 +110,7 @@ const PlannedTransactionsPage = () => {
               </Img>
             </Media>
           )}
-          <LegalMention />
+          <LegalMention className="u-mt-1" />
         </Padded>
       </Header>
       <div
