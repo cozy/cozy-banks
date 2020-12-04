@@ -75,6 +75,13 @@ export const useTrackPage = pageName => {
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 }
 
+export const replaceLastPart = (pageName, newLastPart) => {
+  return `${pageName
+    .split(':')
+    .slice(0, -1)
+    .join(':')}:${newLastPart}`
+}
+
 export const getPageLastPart = pageName => {
   if (!pageName) {
     return null
