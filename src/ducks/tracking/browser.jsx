@@ -23,6 +23,10 @@ export const useTracker = () => {
   return useContext(TrackerContext)
 }
 
+// When components are rendered, it is possible that several events are sent
+// through the useTrackPage event since useEffect can be called at any time.
+// To prevent double hits, we discard pages with the same page name when they
+// are sent too close to each other (300ms is the limit).
 const DOUBLE_HIT_THRESHOLD = 300
 let lastTrackedPage, lastTrackTime
 const enhancedTrackPage = (tracker, pageNameArg) => {
