@@ -112,10 +112,10 @@ const TransactionCategoryEditorDialog = ({ transaction, onClose }) => {
     })
   }
 
-  useTrackPage(lastTracked => `${lastTracked}:depense-categorie`)
+  useTrackPage(lastTracked => replaceLastPart(lastTracked, 'depense-categorie'))
 
   const handlePop = useCallback(() => {
-    trackParentPage()
+    trackPage(lastTracked => replaceLastPart(lastTracked, 'depense'))
     onClose()
   }, [onClose])
 
@@ -144,10 +144,12 @@ const TransactionApplicationDateEditorDialog = ({
 }) => {
   const { t } = useI18n()
 
-  useTrackPage(lastTracked => `${lastTracked}:affectation_mois`)
+  useTrackPage(lastTracked =>
+    replaceLastPart(lastTracked, `depense-affectation_mois`)
+  )
 
   const handleClose = useCallback(() => {
-    trackParentPage()
+    trackPage(lastTracked => replaceLastPart(lastTracked, 'depense'))
     onClose()
   }, [onClose])
 
@@ -241,10 +243,12 @@ const RecurrenceRow = ({ transaction, onClick }) => {
 const TransactionRecurrenceEditorDialog = ({ transaction, onClose }) => {
   const { t } = useI18n()
 
-  useTrackPage(lastTracked => `${lastTracked}:affectation_recurrence`)
+  useTrackPage(lastTracked =>
+    replaceLastPart(lastTracked, 'depense-affectation_recurrence')
+  )
 
   const handleClose = useCallback(() => {
-    trackParentPage()
+    trackPage(lastTracked => replaceLastPart(lastTracked, 'depense'))
     onClose()
   }, [onClose])
 
@@ -452,7 +456,7 @@ const TransactionModal = ({ requestClose, transactionId, ...props }) => {
 
   const handleClose = useCallback(() => {
     if (location.pathname.startsWith('/balances/details')) {
-      trackPage('mon_compte:details')
+      trackPage('mon_compte:compte')
     } else if (location.pathname.startsWith('/analysis/categories')) {
       trackPage(lastTracked => replaceLastPart(lastTracked, 'details'))
     } else {
