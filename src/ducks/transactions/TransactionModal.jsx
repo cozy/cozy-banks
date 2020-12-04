@@ -121,7 +121,7 @@ const TransactionCategoryEditorDialog = ({ transaction, onClose }) => {
     <RawContentDialog
       open={true}
       title={t('Categories.choice.title')}
-      onClose={onClose}
+      onClose={handlePop}
       content={
         <TransactionCategoryEditor
           beforeUpdate={handlePop}
@@ -151,7 +151,7 @@ const TransactionApplicationDateEditorDialog = ({
 
   const handleBeforeUpdate = () => {
     beforeUpdate()
-    onClose()
+    handleClose()
   }
 
   return (
