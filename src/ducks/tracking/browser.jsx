@@ -23,7 +23,8 @@ export const useTracker = () => {
   return useContext(TrackerContext)
 }
 
-let lastTrackedPage
+const DOUBLE_HIT_THRESHOLD = 300
+let lastTrackedPage, lastTrackTime
 const enhancedTrackPage = (tracker, pageNameArg) => {
   let parentPage = getParentPage(lastTrackedPage)
   let pageName =
@@ -34,6 +35,18 @@ const enhancedTrackPage = (tracker, pageNameArg) => {
   if (pageName === false) {
     return
   }
+
+  const trackTime = Date.now()
+  if (
+    lastTrackTime &&
+    lastTrackedPage === pageName &&
+    trackTime - lastTrackTime < DOUBLE_HIT_THRESHOLD
+  ) {
+    // Prevent double hits
+    return
+  }
+
+  lastTrackTime = trackTime
   lastTrackedPage = pageName
   tracker.trackPage(pageName)
 }
