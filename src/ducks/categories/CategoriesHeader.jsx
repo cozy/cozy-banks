@@ -28,6 +28,7 @@ import catStyles from 'ducks/categories/styles.styl'
 import { themed } from 'components/useTheme'
 import Table from 'components/Table'
 import { useParams } from 'components/RouterContext'
+import LegalMention from 'ducks/legal/LegalMention'
 
 const Breadcrumb = themed(RawBreadcrumb)
 
@@ -164,7 +165,8 @@ const CategoriesHeader = props => {
         <Header theme="inverted" fixed className={styles.CategoriesHeader}>
           {dateSelector}
         </Header>
-        <div style={{ height: '3rem' }}></div>
+
+        <div style={{ height: '3rem' }} />
         {accountSwitch}
         {hasAccount ? (
           <Header
@@ -173,8 +175,9 @@ const CategoriesHeader = props => {
             })}
             theme={isMobile ? 'normal' : 'inverted'}
           >
+            <LegalMention className="u-mt-2 u-pt-1 u-mr-1" />
             {incomeToggle || chart ? (
-              <Padded>
+              <Padded className="u-pt-0">
                 {incomeToggle}
                 {chart}
               </Padded>
