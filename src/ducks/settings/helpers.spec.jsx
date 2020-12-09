@@ -9,7 +9,8 @@ import {
   fetchSettings,
   withAccountOrGroupLabeller,
   getWarningLimitsPerAccount,
-  reverseIndex
+  reverseIndex,
+  isNotificationEnabled
 } from './helpers'
 
 describe('defaulted settings', () => {
@@ -160,5 +161,40 @@ describe('getWarningLimitsPerAccount', () => {
     expect(warningLimits['comptegene1']).toBe(75)
     // isa4 is not in the isabelle group
     expect(warningLimits['compteisa4']).toBe(10)
+  })
+})
+
+describe('isNotificationEnabled', () => {
+  it('should be true if there are some notifications enabled', () => {
+    expect(
+      isNotificationEnabled({
+        notifications: {
+          balanceLower: [{ enabled: false }, { enabled: true }]
+        }
+      })
+    ).toBe(true)
+    expect(
+      isNotificationEnabled({
+        notifications: {
+          balanceLower: [{ enabled: false }],
+          transactionGreater: [{ enabled: false }]
+        }
+      })
+    ).toBe(false)
+    expect(
+      isNotificationEnabled({
+        notifications: {
+          balanceLower: [{ enabled: false }],
+          transactionGreater: [{ enabled: true }]
+        }
+      })
+    ).toBe(true)
+    expect(
+      isNotificationEnabled({
+        notifications: {
+          healthBillLinked: { enabled: true }
+        }
+      })
+    ).toBe(true)
   })
 })

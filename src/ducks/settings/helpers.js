@@ -28,9 +28,18 @@ const allNotifications = [
 ]
 
 export const isNotificationEnabled = settings => {
-  return allNotifications.some(notificationName =>
-    get(settings, `notifications.${notificationName}.enabled`)
-  )
+  return allNotifications.some(notificationName => {
+    const notifications = get(settings, `notifications.${notificationName}`)
+    if (!notifications) {
+      return false
+    }
+    if (Array.isArray(notifications)) {
+      return notifications.some(notif => notif.enabled)
+    } else {
+      // Some notifications like healthBillLinked are not arrays
+      return notifications.enabled
+    }
+  })
 }
 
 export const getDefaultedSettings = incompleteSettings => {
