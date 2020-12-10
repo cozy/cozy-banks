@@ -247,7 +247,7 @@ shape.
 To fix this, we use a single splashscreen file and set XCode for it to use
 Cordova's launch screen functionality.
 
-`CozyBanks > Resources > Images.xcassets > LaunchStoryBoard > App icons and Launch images > LaunchScreenFile "CDVLaunchScreen"`
+`CozyBanks > General > App icons and Launch images > LaunchScreenFile "CDVLaunchScreen"`
 
 - Install Ruby, Bundler and project dependencies
 
