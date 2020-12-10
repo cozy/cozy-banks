@@ -25,7 +25,7 @@ const mkSetFilterAndRedirect = () =>
     const groups = useQuery(groupsConn.query, groupsConn)
     useEffect(() => {
       if (
-        !accounts.fetchStatus === 'loading' ||
+        accounts.fetchStatus === 'loading' ||
         groups.fetchStatus === 'loading'
       ) {
         return
