@@ -88,6 +88,7 @@
         <icon height="152" src="res/icons/ios/icon-76-2x.png" width="152" />
         <icon height="167" src="res/icons/ios/icon-83.5-2x.png" width="167" />
         <splash src="res/screens/ios/Default@2x~universal~anyany.png" />
+        <splash src="res/screens/ios/Default@2x~iphone~anyany.png" />
         <resource-file src="keys/ios/GoogleService-Info.plist" />
     </platform>
     <preference name="StatusBarBackgroundColor" value="#95999D" />
