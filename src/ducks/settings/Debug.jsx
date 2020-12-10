@@ -90,7 +90,7 @@ class DumbDebugSettings extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      notificationRoute: '/transactions'
+      notificationRoute: '/balances/details'
     }
     this.onChangeNotificationRoute = this.onChangeNotificationRoute.bind(this)
   }
@@ -193,7 +193,8 @@ class DumbDebugSettings extends React.PureComponent {
           >
             <option value="/balances/details">transactions</option>
             <option value="/balances">balance</option>
-            <option value="/analysis">analysis</option>
+            <option value="/analysis/categories">categories</option>
+            <option value="/analysis/recurrence">recurrence</option>
           </select>
           <Button
             label="Send notification"

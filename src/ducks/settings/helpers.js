@@ -21,27 +21,6 @@ import {
 
 const log = logger.namespace('settings.helpers')
 
-const allNotifications = [
-  'balanceLower',
-  'transactionGreater',
-  'healthBillLinked'
-]
-
-export const isNotificationEnabled = settings => {
-  return allNotifications.some(notificationName => {
-    const notifications = get(settings, `notifications.${notificationName}`)
-    if (!notifications) {
-      return false
-    }
-    if (Array.isArray(notifications)) {
-      return notifications.some(notif => notif.enabled)
-    } else {
-      // Some notifications like healthBillLinked are not arrays
-      return notifications.enabled
-    }
-  })
-}
-
 export const getDefaultedSettings = incompleteSettings => {
   return merge({}, DEFAULTS_SETTINGS, incompleteSettings)
 }
