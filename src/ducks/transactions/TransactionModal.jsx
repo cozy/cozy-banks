@@ -199,6 +199,7 @@ const RecurrenceRow = ({ transaction, onClick }) => {
   return (
     <ListItem
       button
+      disableRipple
       alignItems={vAlignTop ? 'flex-start' : undefined}
       onClick={onClick}
     >
@@ -369,7 +370,11 @@ const TransactionModalInfoContent = props => {
         </ListItemText>
       </ListItem>
 
-      <ListItem button onClick={() => handleSelectRow('category')}>
+      <ListItem
+        button
+        disableRipple
+        onClick={() => handleSelectRow('category')}
+      >
         <ListItemIcon>
           <CategoryIcon categoryId={categoryId} />
         </ListItemIcon>
@@ -381,7 +386,11 @@ const TransactionModalInfoContent = props => {
         <ListItemArrow />
       </ListItem>
 
-      <ListItem button onClick={() => handleSelectRow('application-date')}>
+      <ListItem
+        button
+        disableRipple
+        onClick={() => handleSelectRow('application-date')}
+      >
         <ListItemIcon>
           <Icon icon={iconCalendar} />
         </ListItemIcon>
