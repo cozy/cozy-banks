@@ -6,7 +6,11 @@ import { useI18n } from 'cozy-ui/transpiled/react'
 import AccountIcon from 'components/AccountIcon'
 import { getGroupLabel } from 'ducks/groups/helpers'
 import { getAccountLabel } from 'ducks/account/helpers.js'
-import { ModalSection, ModalSections, ModalRow } from 'components/ModalSections'
+import {
+  DialogSection,
+  DialogSections,
+  DialogListItem
+} from 'components/DialogSections'
 import List from '@material-ui/core/List'
 
 /**
@@ -34,24 +38,24 @@ export const AccountGroupChoice = ({
   const groups = filter ? unfilteredGroups.filter(filter) : unfilteredGroups
 
   return (
-    <ModalSections>
+    <DialogSections>
       {canSelectAll ? (
-        <ModalSection>
+        <DialogSection>
           <List>
-            <ModalRow
+            <DialogListItem
               label={t('AccountSwitch.all_accounts')}
               hasRadio
               isSelected={!current}
               onClick={() => onSelect(null)}
             />
           </List>
-        </ModalSection>
+        </DialogSection>
       ) : null}
       {accounts.length > 0 ? (
-        <ModalSection label={t('AccountSwitch.accounts')}>
+        <DialogSection label={t('AccountSwitch.accounts')}>
           <List>
             {accounts.map(account => (
-              <ModalRow
+              <DialogListItem
                 divider
                 icon={<AccountIcon account={account} />}
                 key={account._id}
@@ -62,13 +66,13 @@ export const AccountGroupChoice = ({
               />
             ))}
           </List>
-        </ModalSection>
+        </DialogSection>
       ) : null}
       {groups.length > 0 ? (
-        <ModalSection label={t('AccountSwitch.groups')}>
+        <DialogSection label={t('AccountSwitch.groups')}>
           <List>
             {groups.map(group => (
-              <ModalRow
+              <DialogListItem
                 divider
                 key={group._id}
                 isSelected={current && current._id === group._id}
@@ -78,9 +82,9 @@ export const AccountGroupChoice = ({
               />
             ))}
           </List>
-        </ModalSection>
+        </DialogSection>
       ) : null}
-    </ModalSections>
+    </DialogSections>
   )
 }
 

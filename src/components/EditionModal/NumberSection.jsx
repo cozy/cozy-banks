@@ -1,7 +1,7 @@
 import React from 'react'
 import { DialogContent } from 'cozy-ui/transpiled/react/Dialog'
 import { InputGroup, Input, useI18n } from 'cozy-ui/transpiled/react'
-import { ModalSection } from 'components/ModalSections'
+import { DialogSection } from 'components/DialogSections'
 
 const NumberSection = ({ label, value, onChange, unit, unitKey }) => {
   const { t } = useI18n()
@@ -9,7 +9,7 @@ const NumberSection = ({ label, value, onChange, unit, unitKey }) => {
     onChange(parseInt(ev.target.value, 10))
   }
   return (
-    <ModalSection label={label}>
+    <DialogSection label={label}>
       <DialogContent className="u-pv-0">
         <InputGroup
           append={
@@ -23,7 +23,7 @@ const NumberSection = ({ label, value, onChange, unit, unitKey }) => {
           <Input type="text" onChange={handleChange} defaultValue={value} />
         </InputGroup>
       </DialogContent>
-    </ModalSection>
+    </DialogSection>
   )
 }
 

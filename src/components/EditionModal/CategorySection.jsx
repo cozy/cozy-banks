@@ -1,6 +1,6 @@
 import React from 'react'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import { ModalSection, ModalRow } from 'components/ModalSections'
+import { DialogSection, DialogListItem } from 'components/DialogSections'
 import { CategoryIcon, getCategoryName } from 'ducks/categories'
 import List from '@material-ui/core/List'
 
@@ -13,9 +13,9 @@ const DumbCategorySection = ({ value, label, onClick }) => {
   )
 
   return (
-    <ModalSection label={label}>
+    <DialogSection label={label}>
       <List>
-        <ModalRow
+        <DialogListItem
           icon={<CategoryIcon categoryId={value.id} />}
           label={
             value.isParent
@@ -28,7 +28,7 @@ const DumbCategorySection = ({ value, label, onClick }) => {
           hasArrow={true}
         />
       </List>
-    </ModalSection>
+    </DialogSection>
   )
 }
 

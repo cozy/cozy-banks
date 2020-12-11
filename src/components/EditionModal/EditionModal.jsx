@@ -17,7 +17,7 @@ import Stepper from 'components/Stepper'
 import { CategoryChoice } from 'ducks/categories'
 import AccountGroupChoice from 'ducks/settings/CategoryAlerts/AccountGroupChoice'
 
-import { ModalSections } from 'components/ModalSections'
+import { DialogSections } from 'components/DialogSections'
 import AccountOrGroupSection from './AccountOrGroupSection'
 import CategorySection from './CategorySection'
 import ThresholdSection from './ThresholdSection'
@@ -101,7 +101,7 @@ const InfoSlide = ({
 }) => {
   const { t } = useI18n()
   return (
-    <ModalSections>
+    <DialogSections>
       {fieldOrder.map(fieldName => {
         const fieldSpec = fieldSpecs[fieldName]
         const FieldSection = SectionsPerType[fieldSpec.type]
@@ -129,7 +129,7 @@ const InfoSlide = ({
           />
         )
       })}
-    </ModalSections>
+    </DialogSections>
   )
 }
 

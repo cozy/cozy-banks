@@ -3,7 +3,7 @@ import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
 import { useSelector } from 'react-redux'
 import { getAccountsById } from 'selectors'
-import { ModalSection, ModalRow } from 'components/ModalSections'
+import { DialogSection, DialogListItem } from 'components/DialogSections'
 import AccountOrGroupLabel from 'ducks/settings/CategoryAlerts/AccountOrGroupLabel'
 import AccountIcon from 'components/AccountIcon'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
@@ -13,9 +13,9 @@ const AccountOrGroupSection = ({ label, value, onClick, chooserProps }) => {
   const accountsById = useSelector(getAccountsById)
 
   return (
-    <ModalSection label={label}>
+    <DialogSection label={label}>
       <List>
-        <ModalRow
+        <DialogListItem
           icon={
             value &&
             value._type === ACCOUNT_DOCTYPE &&
@@ -36,7 +36,7 @@ const AccountOrGroupSection = ({ label, value, onClick, chooserProps }) => {
           hasArrow={true}
         />
       </List>
-    </ModalSection>
+    </DialogSection>
   )
 }
 

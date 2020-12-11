@@ -18,7 +18,7 @@ import Icon from 'cozy-ui/transpiled/react/Icon'
 import RightIcon from 'cozy-ui/transpiled/react/Icons/Right'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
-export const ModalSection = ({ children, label }) => (
+export const DialogSection = ({ children, label }) => (
   <div>
     {label && (
       <DialogContent className="u-pv-0">
@@ -31,11 +31,11 @@ export const ModalSection = ({ children, label }) => (
   </div>
 )
 
-export const ModalSections = ({ children }) => {
+export const DialogSections = ({ children }) => {
   return <Stack spacing="m">{children}</Stack>
 }
 
-export const ModalRow = ({
+export const DialogListItem = ({
   hasRadio,
   label,
   isSelected,
@@ -72,7 +72,7 @@ export const ModalRow = ({
   )
 }
 
-ModalRow.propTypes = {
+DialogListItem.propTypes = {
   icon: PropTypes.node,
   divider: PropTypes.bool,
   hasRadio: PropTypes.bool,
