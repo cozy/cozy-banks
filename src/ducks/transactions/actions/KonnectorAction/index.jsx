@@ -61,6 +61,8 @@ class Component extends React.Component {
   renderModalItem(label) {
     return (
       <ListItem
+        divider
+        button
         style={transactionModalRowStyle}
         onClick={this.showInformativeDialog}
       >

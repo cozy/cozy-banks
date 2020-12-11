@@ -23,6 +23,8 @@ const Component = ({ actionProps: { urls }, isModalItem }) => {
   if (isModalItem) {
     return (
       <ListItem
+        divider
+        button
         onClick={() => open(url, '_blank')}
         style={transactionModalRowStyle}
       >

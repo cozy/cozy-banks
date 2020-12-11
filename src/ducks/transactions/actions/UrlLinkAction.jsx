@@ -20,6 +20,8 @@ const Component = ({ transaction, isModalItem }) => {
   if (isModalItem) {
     return (
       <ListItem
+        divider
+        button
         onClick={() => open(action.url, action.target)}
         style={transactionModalRowStyle}
       >

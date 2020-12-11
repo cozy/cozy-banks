@@ -40,7 +40,12 @@ const Component = ({ transaction, actionProps: { urls }, isModalItem }) => {
 
   if (isModalItem) {
     return (
-      <ListItem onClick={() => open(url)} style={transactionModalRowStyle}>
+      <ListItem
+        button
+        divider
+        onClick={() => open(url)}
+        style={transactionModalRowStyle}
+      >
         <ListItemIcon>
           <Icon icon={OpenwithIcon} />
         </ListItemIcon>
