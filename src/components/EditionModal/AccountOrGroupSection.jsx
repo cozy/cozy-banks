@@ -1,5 +1,6 @@
 import React from 'react'
-import { useI18n } from 'cozy-ui/transpiled/react'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
 import { useSelector } from 'react-redux'
 import { getAccountsById } from 'selectors'
 import { ModalSection, ModalRow } from 'components/ModalSections'
@@ -13,26 +14,28 @@ const AccountOrGroupSection = ({ label, value, onClick, chooserProps }) => {
 
   return (
     <ModalSection label={label}>
-      <ModalRow
-        icon={
-          value &&
-          value._type === ACCOUNT_DOCTYPE &&
-          accountsById[value._id] ? (
-            <AccountIcon key={value._id} account={accountsById[value._id]} />
-          ) : null
-        }
-        label={
-          value ? (
-            <AccountOrGroupLabel doc={value} />
-          ) : chooserProps && !chooserProps.canSelectAll ? (
-            <i>{t('AccountGroupChoice.nothing-selected')}</i>
-          ) : (
-            t('AccountGroupChoice.all-accounts')
-          )
-        }
-        onClick={onClick}
-        hasArrow={true}
-      />
+      <List>
+        <ModalRow
+          icon={
+            value &&
+            value._type === ACCOUNT_DOCTYPE &&
+            accountsById[value._id] ? (
+              <AccountIcon key={value._id} account={accountsById[value._id]} />
+            ) : null
+          }
+          label={
+            value ? (
+              <AccountOrGroupLabel doc={value} />
+            ) : chooserProps && !chooserProps.canSelectAll ? (
+              <i>{t('AccountGroupChoice.nothing-selected')}</i>
+            ) : (
+              t('AccountGroupChoice.all-accounts')
+            )
+          }
+          onClick={onClick}
+          hasArrow={true}
+        />
+      </List>
     </ModalSection>
   )
 }
