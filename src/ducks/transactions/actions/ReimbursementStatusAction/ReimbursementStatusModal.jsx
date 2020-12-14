@@ -67,7 +67,7 @@ const ReimbursementStatusModal = function ReimbursementStatusModal(props) {
             <List>
               {choices.map(choice => (
                 <ListItem
-		  divider
+                  divider
                   button
                   disableRipple
                   onClick={() => onChange(choice)}

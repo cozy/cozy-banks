@@ -372,7 +372,7 @@ const TransactionModalInfoContent = props => {
       </ListItem>
 
       <ListItem
-	divider
+        divider
         button
         disableRipple
         onClick={() => handleSelectRow('category')}
@@ -391,7 +391,7 @@ const TransactionModalInfoContent = props => {
       <ListItem
         divider
         button
-	disableRipple
+        disableRipple
         onClick={() => handleSelectRow('application-date')}
       >
         <ListItemIcon>
