@@ -28,7 +28,7 @@ exports[`transaction modal should render correctly 1`] = `
     <div class=\\"MuiListItemIcon-root-64 WithStyles-ListItemIcon--root-63\\"></div>
     <div class=\\"MuiListItemText-root-65\\"><span class=\\"MuiTypography-root-71 u-db u-ellipsis MuiTypography-subheading-78 MuiListItemText-primary-68\\">Power</span></div><svg viewBox=\\"0 0 16 16\\" class=\\"styles__icon___23x3R\\" style=\\"fill: var(--coolGrey);\\" width=\\"16\\" height=\\"16\\">
       <path fill-rule=\\"evenodd\\" d=\\"M12.707 7.293l-6-6a.999.999 0 10-1.414 1.414L10.586 8l-5.293 5.293a.999.999 0 101.414 1.414l6-6a.999.999 0 000-1.414\\"></path>
-    </svg><span class=\\"MuiTouchRipple-root-110\\"></span>
+    </svg>
   </div>
   <div class=\\"MuiButtonBase-root-107 MuiListItem-root-51 MuiListItem-default-54 MuiListItem-gutters-59 MuiListItem-divider-58 MuiListItem-button-60\\" tabindex=\\"0\\" role=\\"button\\">
     <div class=\\"MuiListItemIcon-root-64 WithStyles-ListItemIcon--root-63\\"><svg width=\\"16\\" height=\\"16\\" class=\\"styles__icon___23x3R\\">
@@ -36,7 +36,7 @@ exports[`transaction modal should render correctly 1`] = `
       </svg></div>
     <div class=\\"MuiListItemText-root-65\\"><span class=\\"MuiTypography-root-71 u-db u-ellipsis MuiTypography-subheading-78 MuiListItemText-primary-68\\">Assigned to Aug 2017</span></div><svg viewBox=\\"0 0 16 16\\" class=\\"styles__icon___23x3R\\" style=\\"fill: var(--coolGrey);\\" width=\\"16\\" height=\\"16\\">
       <path fill-rule=\\"evenodd\\" d=\\"M12.707 7.293l-6-6a.999.999 0 10-1.414 1.414L10.586 8l-5.293 5.293a.999.999 0 101.414 1.414l6-6a.999.999 0 000-1.414\\"></path>
-    </svg><span class=\\"MuiTouchRipple-root-110\\"></span>
+    </svg>
   </div>
   <div class=\\"MuiButtonBase-root-107 MuiListItem-root-51 MuiListItem-default-54 MuiListItem-gutters-59 MuiListItem-divider-58 MuiListItem-button-60\\" tabindex=\\"0\\" role=\\"button\\">
     <div class=\\"MuiListItemIcon-root-64 WithStyles-ListItemIcon--root-63\\"><svg width=\\"16\\" height=\\"16\\" class=\\"styles__icon___23x3R\\">
@@ -44,7 +44,7 @@ exports[`transaction modal should render correctly 1`] = `
       </svg></div>
     <div class=\\"MuiListItemText-root-65\\"><span class=\\"MuiTypography-root-71 u-db u-ellipsis MuiTypography-subheading-78 MuiListItemText-primary-68\\"><div>Occasional transaction</div></span></div><svg viewBox=\\"0 0 16 16\\" class=\\"styles__icon___23x3R\\" style=\\"fill: var(--coolGrey);\\" width=\\"16\\" height=\\"16\\">
       <path fill-rule=\\"evenodd\\" d=\\"M12.707 7.293l-6-6a.999.999 0 10-1.414 1.414L10.586 8l-5.293 5.293a.999.999 0 101.414 1.414l6-6a.999.999 0 000-1.414\\"></path>
-    </svg><span class=\\"MuiTouchRipple-root-110\\"></span>
+    </svg>
   </div>
   </ul>
 </div>
