@@ -178,6 +178,7 @@ const AccountSwitchMenu = ({
           dense
           button
           disableRipple
+          divider
           onClick={handleReset}
           selected={filteringDoc === undefined}
         >

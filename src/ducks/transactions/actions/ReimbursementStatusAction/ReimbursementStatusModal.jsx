@@ -66,7 +66,7 @@ const ReimbursementStatusModal = function ReimbursementStatusModal(props) {
           <form>
             <List>
               {choices.map(choice => (
-                <ListItem key={choice}>
+                <ListItem divider button key={choice}>
                   <ListItemIcon>
                     <Radio
                       key={choice}

@@ -72,7 +72,7 @@ const ModalItem = ({ transaction, healthReimbursementLateLimit, onClick }) => {
   const label = t(`Transactions.actions.reimbursementStatus.${translateKey}`)
 
   return (
-    <ListItem onClick={onClick}>
+    <ListItem divider button onClick={onClick}>
       <ListItemIcon>
         <Icon icon={iconReimbursement} />
       </ListItemIcon>
