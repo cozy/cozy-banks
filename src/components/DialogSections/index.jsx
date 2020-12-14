@@ -1,8 +1,3 @@
-/**
- * Should be moved inside cozy-ui, see
- * https://github.com/cozy/cozy-ui/issues/1290
- */
-
 import React from 'react'
 import PropTypes from 'prop-types'
 import { DialogContent } from 'cozy-ui/transpiled/react/Dialog'
