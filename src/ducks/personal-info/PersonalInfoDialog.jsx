@@ -134,7 +134,7 @@ export class PersonalInfoDialog extends React.Component {
         nationalities: [formData.nationality.value]
       })
       onSaveSuccessful && onSaveSuccessful(updatedIdentity)
-      Alerter.success(t('PersonalInfo.info-saved-succesfully'))
+      Alerter.success(t('PersonalInfo.info-saved-successfully'))
       await updateBIUserConfig(client, updatedIdentity)
     } finally {
       this.setState({ saving: false })
