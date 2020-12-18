@@ -12,7 +12,6 @@ import { isMobileApp } from 'cozy-device-helper'
 import cx from 'classnames'
 import { getNotificationToken } from 'ducks/client/utils'
 import { pinSettingStorage, lastInteractionStorage } from 'ducks/pin/storage'
-import { sendNativeEvent } from 'utils/native'
 
 const Title = ({ className, ...props }) => (
   <UITitle {...props} className={cx(className, 'u-mb-1')} />
@@ -84,34 +83,6 @@ const DeviceToken = ({ client }) => {
           : '⚠️ Cannot receive notifications'}
       </p>
     </>
-  )
-}
-
-const NativeComm = () => {
-  const batchEvent = JSON.stringify({
-    event: 'view_parametres',
-    tags: ['tag1', 'tag2'],
-    data: {
-      aString: 'string',
-      anInt: 42,
-      aDouble: 3.14,
-      aBool: true,
-      anotherBool: false
-    }
-  })
-
-  const onClick = () => {
-    const res = sendNativeEvent(batchEvent)
-    if (res.err) {
-      // eslint-disable-next-line no-console
-      console.warn('Could not send event to native app. Error: ', res.err)
-    }
-  }
-  return (
-    <div>
-      <Title>Commucation with native device</Title>
-      <button onClick={onClick}>Send an event</button>
-    </div>
   )
 }
 
@@ -251,7 +222,6 @@ class DumbDebugSettings extends React.PureComponent {
           <br />
           <pre>{JSON.stringify(lastInteractionStorage.load(), null, 2)}</pre>
         </div>
-        <NativeComm />
         <Versions />
       </Stack>
     )
