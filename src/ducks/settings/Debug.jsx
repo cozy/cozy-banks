@@ -1,4 +1,4 @@
-/* global __VERSIONS__, JSBridge */
+/* global __VERSIONS__ */
 
 import React, { useState } from 'react'
 import Checkbox from 'cozy-ui/transpiled/react/Checkbox'
@@ -12,6 +12,7 @@ import { isMobileApp } from 'cozy-device-helper'
 import cx from 'classnames'
 import { getNotificationToken } from 'ducks/client/utils'
 import { pinSettingStorage, lastInteractionStorage } from 'ducks/pin/storage'
+import { sendNativeEvent } from 'utils/native'
 
 const Title = ({ className, ...props }) => (
   <UITitle {...props} className={cx(className, 'u-mb-1')} />
@@ -100,19 +101,10 @@ const NativeComm = () => {
   })
 
   const onClick = () => {
-    try {
-      if (!window.cordova) {
-        alert('Not in cordova')
-      } else if (window.cordova.platformId === 'ios') {
-        window.webkit.messageHandlers.batchTrackEvent.postMessage(batchEvent)
-      } else if (window.cordova.platformId === 'android') {
-        JSBridge.batchTrackEvent(batchEvent)
-      } else {
-        alert(`Unknown platform ${window.cordova.platformId}`)
-      }
-    } catch (e) {
+    const res = sendNativeEvent(batchEvent)
+    if (res.err) {
       // eslint-disable-next-line no-console
-      console.error('Could not send event to native app. Error: ', e)
+      console.warn('Could not send event to native app. Error: ', res.err)
     }
   }
   return (
