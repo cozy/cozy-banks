@@ -31,7 +31,7 @@ describe('personal info dialog', () => {
     return { root }
   }
 
-  it('should load the data from several sources', async () => {
+  it('should render correctly', async () => {
     const { root } = setup()
 
     const allAccounts = root.getByText('All accounts')
