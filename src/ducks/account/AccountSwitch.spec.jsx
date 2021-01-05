@@ -12,7 +12,7 @@ const accounts = fixtures['io.cozy.bank.accounts']
 
 jest.mock('selectors/getClient', () => jest.fn())
 
-describe('personal info dialog', () => {
+describe('account switch', () => {
   const setup = () => {
     const client = createMockClient({
       queries: {
