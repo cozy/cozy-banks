@@ -4883,7 +4883,7 @@ cozy-jobs-cli@1.9.13:
     replay "2.4.0"
     strip-json-comments "3.0.1"
 
-cozy-keys-lib@^3.4.3:
+cozy-keys-lib@3.4.3:
   version "3.4.3"
   resolved "https://registry.yarnpkg.com/cozy-keys-lib/-/cozy-keys-lib-3.4.3.tgz#69ba525cab9e174e17700d92eda1a8002b61d073"
   integrity sha512-oEL+vkVQKqPWE63wg8DzO+QyKUzmhn2D0NiwGrPXp0PiU/U6FadyMOC/08p+Pi0pBXTytD05PdOCdbnx8ojFrA==
@@ -5159,10 +5159,10 @@ cozy-ui@40.1.0:
     react-select "2.2.0"
     react-swipeable-views "0.13.3"
 
-cozy-ui@42.4.0:
-  version "42.4.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-42.4.0.tgz#514965c8d5f3a7e24e91bb10f8f48741fd93af37"
-  integrity sha512-wE5q2Fq5PqZnDGMPDLu42XfrHSzD/UjcSyPLh9kx1M8EyfT+1us6LRstB4ZfxkPgTSgI/UrW8Fo8Yv2pt9HRNQ==
+cozy-ui@42.4.1:
+  version "42.4.1"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-42.4.1.tgz#205b7468c34f7b1aa6934baf3ba4ebb7d7432af1"
+  integrity sha512-Zx+UoAa03xTTbMqVilnC1Qkzv2p/btDMadep5PIojQAzhcDhd1VWjLw9A9VlSwz7qQ6SfWIh2Cf9cUsQ9A6Dpg==
   dependencies:
     "@babel/runtime" "^7.3.4"
     "@popperjs/core" "^2.4.4"
