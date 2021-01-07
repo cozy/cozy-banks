@@ -29,6 +29,7 @@ import { themed } from 'components/useTheme'
 import Table from 'components/Table'
 import { useParams } from 'components/RouterContext'
 import LegalMention from 'ducks/legal/LegalMention'
+import Empty from 'cozy-ui/transpiled/react/Empty'
 
 const Breadcrumb = themed(RawBreadcrumb)
 
@@ -176,6 +177,16 @@ const CategoriesHeader = props => {
             theme={isMobile ? 'normal' : 'inverted'}
           >
             <LegalMention className="u-mt-2 u-pt-1 u-mr-1" />
+
+            {!hasData && (
+              <div className={styles.NoAccount_empty}>
+                <Empty
+                  icon="cozy"
+                  title=""
+                  text={t('Categories.title.empty_text')}
+                />
+              </div>
+            )}
             {incomeToggle || chart ? (
               <Padded className="u-pt-0">
                 {incomeToggle}
