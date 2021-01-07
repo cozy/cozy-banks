@@ -236,7 +236,7 @@ const RecurrencesPage = () => {
         <Padded>
           <LegalMention className="u-mt-3" style={{ marginBottom: '-3rem' }} />
           <Empty
-            icon={{}}
+            icon="cozy"
             title={t('Recurrence.no-recurrences.title')}
             text={t('Recurrence.no-recurrences.text')}
           />
