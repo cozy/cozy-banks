@@ -68,7 +68,7 @@ const HeaderInfoCard = () => {
   )
 }
 
-const PlannedTransactionsPage = () => {
+const PlannedTransactionsPage = ({ emptyIcon }) => {
   const budget = useEstimatedBudget()
   const router = useRouter()
   const { t } = useI18n()
@@ -133,7 +133,7 @@ const PlannedTransactionsPage = () => {
             ) : null}
             {budget.transactions && budget.transactions.length === 0 ? (
               <Empty
-                icon="cozy"
+                icon={emptyIcon}
                 title=""
                 text={t('EstimatedBudget.no-planned-transactions')}
               />
@@ -143,6 +143,10 @@ const PlannedTransactionsPage = () => {
       </div>
     </>
   )
+}
+
+PlannedTransactionsPage.defaultProps = {
+  emptyIcon: 'cozy'
 }
 
 export default PlannedTransactionsPage

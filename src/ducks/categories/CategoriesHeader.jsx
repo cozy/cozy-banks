@@ -113,6 +113,7 @@ const CategoriesHeader = props => {
   const { isMobile } = useBreakpoints()
   const {
     breadcrumbItems,
+    emptyIcon,
     hasAccount,
     selectedCategory,
     withIncome,
@@ -181,7 +182,7 @@ const CategoriesHeader = props => {
             {!hasData && (
               <div className={styles.NoAccount_empty}>
                 <Empty
-                  icon="cozy"
+                  icon={emptyIcon}
                   title=""
                   text={t('Categories.title.empty_text')}
                 />
@@ -241,7 +242,8 @@ const CategoriesHeader = props => {
 }
 
 CategoriesHeader.defaultProps = {
-  chartSize: 182
+  chartSize: 182,
+  emptyIcon: 'cozy'
 }
 
 CategoriesHeader.propTypes = {
