@@ -376,21 +376,23 @@ const AccountSwitch = props => {
         select
       )}
       {open && (
-        <RawContentDialog
-          open={true}
-          onClose={handleClose}
-          title={t('AccountSwitch.title')}
-          content={
-            <AccountSwitchMenu
-              filteringDoc={filteringDoc}
-              filterByDoc={closeAfterSelect(filterByDoc)}
-              resetFilterByDoc={closeAfterSelect(resetFilterByDoc)}
-              close={handleClose}
-              groups={orderedGroups}
-              accounts={accounts}
-            />
-          }
-        />
+        <CozyTheme variant="normal">
+          <RawContentDialog
+            open={true}
+            onClose={handleClose}
+            title={t('AccountSwitch.title')}
+            content={
+              <AccountSwitchMenu
+                filteringDoc={filteringDoc}
+                filterByDoc={closeAfterSelect(filterByDoc)}
+                resetFilterByDoc={closeAfterSelect(resetFilterByDoc)}
+                close={handleClose}
+                groups={orderedGroups}
+                accounts={accounts}
+              />
+            }
+          />
+        </CozyTheme>
       )}
     </AccountSwitchWrapper>
   )
