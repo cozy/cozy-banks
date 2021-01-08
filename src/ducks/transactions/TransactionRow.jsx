@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import { Media, Bd, Img, Icon, useI18n } from 'cozy-ui/transpiled/react'
@@ -204,8 +204,16 @@ export const RowMobile = React.memo(function RowMobile(props) {
   const { transaction, filteringOnAccount, onRef, showRecurrence } = props
   const account = transaction.account.data
   const rowRest = {}
-  const [showTransactionModal, , transactionModal] = useTransactionModal(
+  const [rawShowTransactionModal, , transactionModal] = useTransactionModal(
     transaction
+  )
+
+  const showTransactionModal = useCallback(
+    ev => {
+      ev.preventDefault()
+      rawShowTransactionModal()
+    },
+    [rawShowTransactionModal]
   )
 
   if (flag('show-transactions-ids')) {
