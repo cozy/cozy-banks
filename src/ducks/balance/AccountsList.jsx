@@ -67,10 +67,10 @@ export const DumbAccountsList = props => {
         )
 
         return (
-          <>
+          <React.Fragment key={i}>
             {component}
             {i !== accounts.length - 1 ? <Divider variant="inset" /> : null}
-          </>
+          </React.Fragment>
         )
       })}
     </List>
