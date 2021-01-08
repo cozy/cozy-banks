@@ -218,57 +218,61 @@ export const RowMobile = React.memo(function RowMobile(props) {
   const recurrence = transaction.recurrence ? transaction.recurrence.data : null
 
   return (
-    <List.Row onRef={onRef} {...rowRest}>
-      <Media className="u-w-100">
-        <Img
-          className="u-clickable u-mr-half"
-          title={t(
-            `Data.subcategories.${getCategoryName(getCategoryId(transaction))}`
-          )}
-          onClick={showTransactionModal}
-        >
-          <CategoryIcon categoryId={getCategoryId(transaction)} />
-        </Img>
-        <Bd className="u-clickable u-mr-half">
-          <List.Content onClick={showTransactionModal}>
-            <Typography className="u-ellipsis" variant="body1">
-              {getLabel(transaction)}
-            </Typography>
-            {!filteringOnAccount && <AccountCaption account={account} />}
-            {applicationDate ? (
-              <ApplicationDateCaption transaction={transaction} />
+    <>
+      <List.Row onRef={onRef} {...rowRest}>
+        <Media className="u-w-100">
+          <Img
+            className="u-clickable u-mr-half"
+            title={t(
+              `Data.subcategories.${getCategoryName(
+                getCategoryId(transaction)
+              )}`
+            )}
+            onClick={showTransactionModal}
+          >
+            <CategoryIcon categoryId={getCategoryId(transaction)} />
+          </Img>
+          <Bd className="u-clickable u-mr-half">
+            <List.Content onClick={showTransactionModal}>
+              <Typography className="u-ellipsis" variant="body1">
+                {getLabel(transaction)}
+              </Typography>
+              {!filteringOnAccount && <AccountCaption account={account} />}
+              {applicationDate ? (
+                <ApplicationDateCaption transaction={transaction} />
+              ) : null}
+            </List.Content>
+          </Bd>
+          <Img
+            onClick={showTransactionModal}
+            className={styles.TransactionRowMobileImg}
+          >
+            <Figure
+              total={transaction.amount}
+              symbol={getCurrencySymbol(transaction.currency)}
+              coloredPositive
+              signed
+            />
+            {recurrence && showRecurrence ? (
+              <RecurrenceCaption recurrence={recurrence} />
             ) : null}
-          </List.Content>
-        </Bd>
-        <Img
-          onClick={showTransactionModal}
-          className={styles.TransactionRowMobileImg}
-        >
-          <Figure
-            total={transaction.amount}
-            symbol={getCurrencySymbol(transaction.currency)}
-            coloredPositive
-            signed
-          />
-          {recurrence && showRecurrence ? (
-            <RecurrenceCaption recurrence={recurrence} />
-          ) : null}
-        </Img>
-        {false}
-      </Media>
-      <TransactionActions
-        transaction={transaction}
-        onlyDefault
-        compact
-        menuPosition="right"
-        className={cx(
-          'u-mt-half',
-          'u-ml-2-half',
-          styles.TransactionRowMobile__actions
-        )}
-      />
+          </Img>
+          {false}
+        </Media>
+        <TransactionActions
+          transaction={transaction}
+          onlyDefault
+          compact
+          menuPosition="right"
+          className={cx(
+            'u-mt-half',
+            'u-ml-2-half',
+            styles.TransactionRowMobile__actions
+          )}
+        />
+      </List.Row>
       {transactionModal}
-    </List.Row>
+    </>
   )
 })
 
