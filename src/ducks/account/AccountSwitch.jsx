@@ -320,8 +320,21 @@ const AccountSwitch = props => {
   const { t } = useI18n()
   const { isMobile } = useBreakpoints()
 
-  const handleToggle = useCallback(() => setOpen(open => !open), [setOpen])
-  const handleClose = useCallback(() => setOpen(false), [setOpen])
+  const handleToggle = useCallback(
+    ev => {
+      ev.preventDefault()
+      setOpen(open => !open)
+    },
+    [setOpen]
+  )
+
+  const handleClose = useCallback(
+    ev => {
+      ev.preventDefault()
+      setOpen(false)
+    },
+    [setOpen]
+  )
 
   const accounts = accountsCollection.data
   const groups = [...groupsCollection.data, ...virtualGroups].map(group => ({
