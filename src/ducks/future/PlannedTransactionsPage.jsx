@@ -7,6 +7,7 @@ import Typography from 'cozy-ui/transpiled/react/Typography'
 import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 import Card from 'cozy-ui/transpiled/react/Card'
+import Empty from 'cozy-ui/transpiled/react/Empty'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
 import BarTheme from 'ducks/bar/BarTheme'
@@ -131,7 +132,11 @@ const PlannedTransactionsPage = () => {
               />
             ) : null}
             {budget.transactions && budget.transactions.length === 0 ? (
-              <Padded>{t('EstimatedBudget.no-planned-transactions')}</Padded>
+              <Empty
+                icon="cozy"
+                title=""
+                text={t('EstimatedBudget.no-planned-transactions')}
+              />
             ) : null}
           </>
         )}
