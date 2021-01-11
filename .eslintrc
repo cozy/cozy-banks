@@ -4,6 +4,9 @@
   "globals": {
     "jest": true
   },
+  "rules": {
+    "no-use-before-define": "error"
+  },
   "settings": {
     "react": {
       "version": "16.2"
