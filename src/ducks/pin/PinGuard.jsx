@@ -154,7 +154,7 @@ class PinGuard extends React.Component {
   }
 
   static defaultProps = {
-    timeout: 60 * 1000
+    timeout: 30 * 1000
   }
 }
 
