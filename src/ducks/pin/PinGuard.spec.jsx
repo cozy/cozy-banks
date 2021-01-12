@@ -55,13 +55,9 @@ describe('PinGuard', () => {
       pinSetting: PIN_DOC
     })
 
-    const state = root.find(PinGuard).state()
-    expect(state.showPin).toBe(true)
-    expect(state.hasBeenShownOnce).toBe(false)
-
     expect(root.children).toHaveLength(1)
+    expect(root.find(App)).toHaveLength(0)
     expect(pinAuthIsShown(root)).toBe(true)
-
     jest.runAllTimers()
     root.update()
     expect(pinAuthIsShown(root)).toBe(true)
