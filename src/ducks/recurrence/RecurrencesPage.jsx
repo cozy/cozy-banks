@@ -179,7 +179,7 @@ const sortBundlesForViewing = bundles => {
   )
 }
 
-const RecurrencesPage = () => {
+export const RecurrencesPage = () => {
   const history = useHistory()
   const { isMobile } = useBreakpoints()
   const bundleCol = useQuery(recurrenceConn.query, recurrenceConn)
