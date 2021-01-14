@@ -1,21 +1,19 @@
-/* global mount */
-
 import React from 'react'
 import data from 'test/fixtures/unit-tests.json'
-import GroupPanel, {
-  DumbGroupPanel,
-  getGroupPanelSummaryClasses
-} from './GroupPanel'
-import CozyClient from 'cozy-client'
 import mapValues from 'lodash/mapValues'
 import fromPairs from 'lodash/fromPairs'
+import { render, fireEvent } from '@testing-library/react'
+
+import CozyClient from 'cozy-client'
 import { schema, TRANSACTION_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
+
 import AppLike from 'test/AppLike'
-import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import { createClientWithData } from 'test/client'
 import getClient from 'selectors/getClient'
 import MockDate from 'mockdate'
 import mockRouter from 'test/mockRouter'
+
+import GroupPanel, { getGroupPanelSummaryClasses } from './GroupPanel'
 
 jest.mock('components/AccountIcon', () => () => null)
 jest.mock('selectors/getClient')
@@ -68,39 +66,16 @@ describe('GroupPanel', () => {
       ])
     )
     onChange = jest.fn()
-    root = mount(<Wrapper expanded={false} />)
+    root = render(<Wrapper expanded={false} />)
   })
 
   it('should optimistically update', () => {
-    const gp = root.find(DumbGroupPanel).instance()
-    const ev = {}
-    expect(root.find(ExpansionPanel).props().expanded).toBe(false)
-    gp.handlePanelChange(ev, true)
-    expect(gp.state.optimisticExpanded).toBe(true)
-    expect(onChange).toHaveBeenCalledWith(group._id, ev, true)
-    root.update()
-    expect(root.find(ExpansionPanel).props().expanded).toBe(true)
-  })
+    const expandButton = root.getByRole('button')
+    expect(expandButton.getAttribute('aria-expanded')).toBe('false')
+    fireEvent.click(expandButton)
 
-  it('should prioritize optimizeExpanded', () => {
-    const gp = root.find(DumbGroupPanel).instance()
-    const ev = {}
-
-    // sanity check
-    expect(root.find(ExpansionPanel).props().expanded).toBe(false)
-
-    gp.handlePanelChange(ev, true)
-    expect(gp.state.optimisticExpanded).toBe(true)
-    expect(onChange).toHaveBeenCalledWith(group._id, ev, true)
-    root.update()
-    expect(root.find(ExpansionPanel).props().expanded).toBe(true)
-
-    // The request failed but we still want the panel to be toggled
-    // We ignore the fact that the request failed as UI coherency
-    // is more important for the user
-    root.setProps({ expanded: false })
-    root.update()
-    expect(root.find(ExpansionPanel).props().expanded).toBe(true)
+    const buttons = root.queryAllByRole('button')
+    expect(buttons[0].getAttribute('aria-expanded')).toBe('true')
   })
 })
 
