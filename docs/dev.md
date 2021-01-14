@@ -153,7 +153,7 @@ $ yarn ios:run:emulator
 # Replace the host with your own host (find it with ifconfig)
 $ env DEV_HOST=192.168.1.36 yarn build:mobile:hot
 $ yarn ios:run # at this point the app is blank since it cannot access the files from your host
-$ env DEV_HOST=192.168.1.36 yarn watch:mobile:hot # launch a webpack-dev-server
+$ env DEV_HOST=192.168.1.36 yarn watch:mobile # launch a webpack-dev-server
 ```
 
 ⚠️⚠️⚠️ If you watch a production build, you must edit the webpack config to have
