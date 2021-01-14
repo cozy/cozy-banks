@@ -68,24 +68,6 @@ class GroupPanel extends React.PureComponent {
     this.handlePanelChange = this.handlePanelChange.bind(this)
   }
 
-  static propTypes = {
-    group: PropTypes.object.isRequired,
-    filterByDoc: PropTypes.func.isRequired,
-    router: PropTypes.object.isRequired,
-    switches: PropTypes.object,
-    checked: PropTypes.bool,
-    expanded: PropTypes.bool.isRequired,
-    onSwitchChange: PropTypes.func,
-    onChange: PropTypes.func,
-    withBalance: PropTypes.bool
-  }
-
-  static defaultProps = {
-    withBalance: true,
-    onSwitchChange: undefined,
-    onChange: undefined
-  }
-
   goToGroupDetails = () => {
     const { group, filterByDoc, router } = this.props
     filterByDoc(group)
@@ -258,6 +240,24 @@ export const getGroupPanelSummaryClasses = (group, state) => {
 }
 
 export const DumbGroupPanel = GroupPanel
+
+GroupPanel.propTypes = {
+  group: PropTypes.object.isRequired,
+  filterByDoc: PropTypes.func.isRequired,
+  router: PropTypes.object.isRequired,
+  switches: PropTypes.object,
+  checked: PropTypes.bool,
+  expanded: PropTypes.bool.isRequired,
+  onSwitchChange: PropTypes.func,
+  onChange: PropTypes.func,
+  withBalance: PropTypes.bool
+}
+
+GroupPanel.defaultProps = {
+  withBalance: true,
+  onSwitchChange: undefined,
+  onChange: undefined
+}
 
 export default compose(
   withFilters,
