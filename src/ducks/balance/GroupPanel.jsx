@@ -7,10 +7,12 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import { withStyles } from '@material-ui/core/styles'
 
+import { useClient } from 'cozy-client'
 import ExpansionPanel from 'cozy-ui/transpiled/react/MuiCozyTheme/ExpansionPanel'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import { ButtonLink } from 'cozy-ui/transpiled/react/Button'
+import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
+import Button, { ButtonLink } from 'cozy-ui/transpiled/react/Button'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
 import AccountsList from 'ducks/balance/AccountsList'
@@ -98,6 +100,8 @@ const GroupPanel = props => {
     className
   } = props
   const router = useRouter()
+  const client = useClient()
+  const [deleting, setDeleting] = useState(false)
   const [optimisticExpanded, setOptimisticExpanded] = useState(expandedProp)
   const { t } = useI18n()
   const { filterByDoc } = useFilters()
@@ -134,6 +138,15 @@ const GroupPanel = props => {
     },
     [onChange, group, setOptimisticExpanded]
   )
+
+  const handleDelete = useCallback(async () => {
+    setDeleting(true)
+    try {
+      await client.destroy(group)
+    } catch (e) {
+      setDeleting(false)
+    }
+  }, [client, group])
 
   const groupAccounts = group.accounts.data.filter(Boolean)
   const nbAccounts = groupAccounts.length
@@ -220,12 +233,24 @@ const GroupPanel = props => {
                 {t('Balance.no-accounts-in-group.description')}
               </Typography>
 
-              <ButtonLink
-                className="u-ml-0"
-                href={`#/settings/groups/${group._id}`}
-              >
-                {t('Balance.no-accounts-in-group.button')}
-              </ButtonLink>
+              <Media>
+                <Bd>
+                  <ButtonLink
+                    className="u-ml-0"
+                    href={`#/settings/groups/${group._id}`}
+                  >
+                    {t('Balance.no-accounts-in-group.button')}
+                  </ButtonLink>
+                </Bd>
+                <Img>
+                  <Button
+                    theme="text"
+                    busy={deleting}
+                    label={t('Groups.delete')}
+                    onClick={handleDelete}
+                  />
+                </Img>
+              </Media>
             </Stack>
           )}
         </div>
@@ -238,8 +263,6 @@ export const DumbGroupPanel = GroupPanel
 
 GroupPanel.propTypes = {
   group: PropTypes.object.isRequired,
-  filterByDoc: PropTypes.func.isRequired,
-  router: PropTypes.object.isRequired,
   switches: PropTypes.object,
   checked: PropTypes.bool,
   expanded: PropTypes.bool.isRequired,
@@ -249,9 +272,7 @@ GroupPanel.propTypes = {
 }
 
 GroupPanel.defaultProps = {
-  withBalance: true,
-  onSwitchChange: undefined,
-  onChange: undefined
+  withBalance: true
 }
 
 export default GroupPanel
