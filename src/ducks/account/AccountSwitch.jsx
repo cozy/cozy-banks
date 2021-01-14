@@ -73,7 +73,7 @@ DownArrow.defaultProps = {
 
 const getFilteringDocLabel = (filteringDoc, t, accounts) => {
   if (filteringDoc.length) {
-    return t('AccountSwitch.some_accounts', {
+    return t('AccountSwitch.some-accounts', {
       count: filteringDoc.length,
       smart_count: accounts.length
     })
@@ -112,7 +112,7 @@ const AccountSwitchSelect = ({
           ? t('Categories.noAccount')
           : filteringDoc
           ? getFilteringDocLabel(filteringDoc, t, accounts)
-          : t('AccountSwitch.all_accounts')}
+          : t('AccountSwitch.all-accounts')}
       </Typography>
       <DownArrow {...arrowProps} />
     </div>
@@ -183,9 +183,9 @@ const AccountSwitchMenu = ({
           selected={filteringDoc === undefined}
         >
           <AccountListItemText
-            primary={t('AccountSwitch.all_accounts')}
+            primary={t('AccountSwitch.all-accounts')}
             secondary={
-              <>{t('AccountSwitch.account_counter', accounts.length)}</>
+              <>{t('AccountSwitch.account-counter', accounts.length)}</>
             }
           />
         </AccountSwitchListItem>
@@ -205,7 +205,7 @@ const AccountSwitchMenu = ({
               secondary={
                 <>
                   {t(
-                    'AccountSwitch.account_counter',
+                    'AccountSwitch.account-counter',
                     group.accounts.data.filter(
                       account => account && accountExists(account.id)
                     ).length

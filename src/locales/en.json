@@ -29,9 +29,9 @@
   },
   "AccountSwitch": {
     "title": "Choose account or group",
-    "account_counter": "%{smart_count} account |||| %{smart_count} accounts",
-    "all_accounts": "All accounts",
-    "some_accounts": "%{count}/%{smart_count} account |||| %{count}/%{smart_count} accounts",
+    "account-counter": "%{smart_count} account |||| %{smart_count} accounts",
+    "all-accounts": "All accounts",
+    "some-accounts": "%{count}/%{smart_count} account |||| %{count}/%{smart_count} accounts",
     "groups": "Groups",
     "accounts": "Accounts"
   },
@@ -65,7 +65,7 @@
       "confirm": "Confirm account deletion",
       "title": "Are you definitive ?"
     },
-    "deletion_error": "An error occurred while group deletion.",
+    "deletion-error": "An error occurred while group deletion.",
     "label": "Label",
     "owner": "Owner",
     "addOwnerBtn": "Add an owner",
@@ -84,28 +84,28 @@
   },
 
   "Balance": {
-    "bank_name": "Bank",
+    "bank-name": "Bank",
     "subtitle": {
       "all": "Total of all your accounts",
       "group": "Total group %{label}",
       "account": "Total account %{label}"
     },
-    "nb_accounts": "%{nbCheckedAccounts}/%{smart_count} account |||| %{nbCheckedAccounts}/%{smart_count} accounts",
+    "nb-accounts": "%{nbCheckedAccounts}/%{smart_count} account |||| %{nbCheckedAccounts}/%{smart_count} accounts",
     "title": "My accounts",
     "solde": "Balance",
-    "account_number": "Account number",
-    "account_name": "Account name",
-    "manage_accounts": "Manage my accounts",
-    "updated_at": {
+    "account-number": "Account number",
+    "account-name": "Account name",
+    "manage-accounts": "Manage my accounts",
+    "updated-at": {
       "yesterday": "Yesterday",
       "today": "Today",
-      "n_days_ago": "%{nbDays} days ago",
+      "n-days-ago": "%{nbDays} days ago",
       "unknown": "NC"
     },
     "delay": "This may take a few minutes…",
-    "importing_accounts": "Importing accounts",
-    "importing_accounts_error": "Failed to import",
-    "in_progress": "In progress",
+    "importing-accounts": "Importing accounts",
+    "importing-accounts-error": "Failed to import",
+    "in-progress": "In progress",
     "error": "Click to restart",
     "trigger-problem": "Problem with the connection",
     "no-accounts-in-group": {
@@ -115,14 +115,14 @@
     "reimbursements-caption": "Last 6 months"
   },
   "SelectDates": {
-    "all_year": "All year",
+    "all-year": "All year",
     "year": "Year",
     "month": "Month"
   },
   "Accounts": {
     "account": "Account",
-    "add_bank": "Add a bank",
-    "no_account": "No account",
+    "add-bank": "Add a bank",
+    "no-account": "No account",
     "no-accounts": "You do not have any account yet.",
     "shared-accounts": "Accounts shared to me",
     "no-shared-accounts": "You do not have any shared account yet.",
@@ -136,7 +136,7 @@
     "owner": "Owner"
   },
   "Groups": {
-    "edit_group": "Edit Group",
+    "edit-group": "Edit Group",
     "edit": "edit",
     "manage-groups": "Manage my groups",
     "create": "Create a group",
@@ -154,7 +154,7 @@
     "included": "Included",
     "account-number": "Account number",
     "total-balance": "Total",
-    "deletion_error": "An error occurred while group deletion.",
+    "deletion-error": "An error occurred while group deletion.",
     "no-account": "No account in this group"
   },
   "Data": {
@@ -316,7 +316,7 @@
       "total-header": "Total"
     },
     "title": {
-      "empty_text": "There is no transaction to analyze on this period",
+      "empty-text": "There is no transaction to analyze on this period",
       "total": "On the period",
       "general": "Categorization"
     },
@@ -413,19 +413,19 @@
     "editModal": {
       "title": "Configure notification"
     },
-    "weekly_summary": {
+    "weekly-summary": {
       "description": "You will receive a summary of your expenses and revenues every Monday of every week.",
       "title": "Weekly Synthesis"
     },
-    "when_month_revenue": {
+    "when-month-revenue": {
       "description": "You will receive an email at the reception of your salary each month.",
       "title": "Payment of salary"
     },
-    "monthly_summary": {
+    "monthly-summary": {
       "description": "You will receive a summary of your expenses and income each month.",
       "title": "Monthly summary"
     },
-    "if_balance_lower": {
+    "if-balance-lower": {
       "description": "You will receive a notification if your balance goes under *%{value}€* on any account",
       "descriptionWithAccountGroup": "You will receive a notification if your balance goes under *%{value}€* on *%{accountOrGroupLabel}*",
       "settingTitle": "Low balances",
@@ -435,7 +435,7 @@
       },
       "email": {
         "innerTitle": "Low balances notification",
-        "access_accounts": "Access my accounts"
+        "access-accounts": "Access my accounts"
       },
       "notification": {
         "one": {
@@ -449,7 +449,7 @@
         }
       }
     },
-    "if_transaction_greater": {
+    "if-transaction-greater": {
       "description": "You will receive a notification if a movement is greater than *%{value}€*",
       "descriptionWithAccountGroup": "You will receive a notification if a movement is greater than *%{value}€* on *%{accountOrGroupLabel}*",
       "settingTitle": "Transactions",
@@ -476,11 +476,11 @@
         }
       }
     },
-    "no_revenue": {
+    "no-revenue": {
       "description": "You will be notified if you have not received your salary at the %{input} of each month.",
       "title": "Salary Delay"
     },
-    "when_health_bill_linked": {
+    "when-health-bill-linked": {
       "settingTitle": "Detected",
       "email": {
         "innerTitle": "New medical expenses coverage"
@@ -490,11 +490,11 @@
         "title": "New medical expenses coverage",
         "content": {
           "title": "Health reimbursement notification",
-          "treated_by": "Treated by"
+          "treated-by": "Treated by"
         }
       }
     },
-    "when_late_health_reimbursement": {
+    "when-late-health-reimbursement": {
       "settingTitle": "Late",
       "description": "You will be notified when no reimbursement have been found for one of your health expenses since *%{value} days*.",
       "unit": "days",
@@ -513,11 +513,11 @@
         }
       }
     },
-    "health_section": {
+    "health-section": {
       "title": "Health reimbursement",
       "description": "This requires to connect your Cozy to your medical insurance."
     },
-    "delayed_debit": {
+    "delayed-debit": {
       "settingTitle": "Delayed debit alert",
       "settingDescription": "You need a \"credit card\" account for this functionality",
       "description": "You will receive a notification when the outstanding card account *%{creditCardLabel}* generates a negative balance on its associated current account *%{checkingsLabel}*, *%{value} days* before the end of the month.",
@@ -574,7 +574,7 @@
     },
     "security": {
       "title": "Security",
-      "amount_blur": {
+      "amount-blur": {
         "title": "Hide amounts",
         "description": "Navigate the app with hidden amounts"
       }
@@ -619,8 +619,8 @@
   },
 
   "BalanceHistory": {
-    "all_accounts": "All accounts",
-    "checked_accounts": "%{nbCheckedAccounts}/%{nbAccounts} accounts"
+    "all-accounts": "All accounts",
+    "checked-accounts": "%{nbCheckedAccounts}/%{nbAccounts} accounts"
   },
 
   "LogoutModal": {
@@ -629,15 +629,15 @@
 
   "AdvancedFeaturesSettings": {
     "title": "Advanced features",
-    "automatic_categorization": {
+    "automatic-categorization": {
       "title" :"Automatic categorization",
-      "local_model_override": {
+      "local-model-override": {
         "description": "Learn from my manual categorizations"
       }
     },
-    "balance_history": {
+    "balance-history": {
       "title": "Balance history chart",
-      "show_chart": {
+      "show-chart": {
         "description": "Build my balance history chart"
       }
     }
