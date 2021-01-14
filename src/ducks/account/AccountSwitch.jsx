@@ -180,7 +180,7 @@ const AccountSwitchMenu = ({
           disableRipple
           divider
           onClick={handleReset}
-          selected={filteringDoc === undefined}
+          selected={!filteringDoc}
         >
           <AccountListItemText
             primary={t('AccountSwitch.all_accounts')}
@@ -330,7 +330,7 @@ const AccountSwitch = props => {
 
   const handleClose = useCallback(
     ev => {
-      ev.preventDefault()
+      ev && ev.preventDefault()
       setOpen(false)
     },
     [setOpen]
