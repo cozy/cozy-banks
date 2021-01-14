@@ -99,13 +99,11 @@ const GroupPanel = props => {
   } = props
   const router = useRouter()
   const [optimisticExpanded, setOptimisticExpanded] = useState(expandedProp)
-
+  const { t } = useI18n()
   const { filterByDoc } = useFilters()
-
   const groupPanelSummaryClasses = useSelector(state =>
     getGroupPanelSummaryClasses(group, state)
   )
-
   const goToGroupDetails = useCallback(() => {
     filterByDoc(group)
     router.push('/balances/details')
@@ -136,8 +134,6 @@ const GroupPanel = props => {
     },
     [onChange, group, setOptimisticExpanded]
   )
-
-  const { t } = useI18n()
 
   const groupAccounts = group.accounts.data.filter(Boolean)
   const nbAccounts = groupAccounts.length
