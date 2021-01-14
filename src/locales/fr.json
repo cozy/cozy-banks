@@ -50,43 +50,6 @@
     "recurrence": "Récurrences"
   },
 
-  "AccountDetails": {
-    "label": "Libellé",
-    "institutionLabel": "Banque",
-    "number": "Numéro",
-    "type": "Type"
-  },
-
-  "AccountSettings": {
-    "details": "Détails",
-    "sharing": "Partage",
-    "back-to-accounts": "Revenir aux comptes",
-    "update": "Modifier",
-    "delete": "Effacer",
-    "deleting": "Effacement...",
-    "confirm-deletion": {
-      "description": "Cette action supprimera les mouvements déjà présents dans l'application Banks, ainsi que les liens avec vos factures. Supprimez également votre compte depuis #{LINK}l'app #{APP_NAME}#{/LINK}, si vous ne souhaitez pas réimporter vos données à la prochaine synchronisation.",
-      "confirm": "Confirmer la suppression",
-      "title": "Êtes-vous sûr ?"
-    },
-    "deletion-error": "Une erreur est survenue lors de la suppression du compte.",
-    "label": "Libellé",
-    "owner": "Titulaire",
-    "addOwnerBtn": "Ajouter un titulaire",
-    "removeOwnerBtn": "Supprimer ce titulaire",
-    "ownerPlaceholder": "Sélectionner un titulaire",
-    "bank": "Banque",
-    "number": "Numéro",
-    "type": "Type",
-    "apply": "Appliquer",
-    "success": "Compte mis à jour avec succès",
-    "failure": "Erreur lors de la mise à jour du compte",
-    "removeAccountBtn": "Effacer le compte",
-    "listPlaceholder": "Rechercher un contact",
-    "listEmptyMessage": "Aucun contact trouvé",
-    "addContactLabel": "Créer un contact"
-  },
-
   "Accounts": {
     "account": "Compte ",
     "add-account": "Ajouter un compte",
@@ -566,11 +529,6 @@
         "content-multi": "%{konnectorNames}"
       }
     }
-  },
-
-  "ComingSoon": {
-    "title": "À venir",
-    "description": "Cette fonctionnalité sera bientôt disponible."
   },
 
   "Settings": {

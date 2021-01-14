@@ -46,43 +46,6 @@
     "suggestions": "Salary, Bakery, Transfer..."
   },
 
-  "AccountDetails": {
-    "label": "Label",
-    "institutionLabel": "Bank",
-    "number": "Number",
-    "type": "Type"
-  },
-
-  "AccountSettings": {
-    "details": "Details",
-    "sharing": "Sharing",
-    "back-to-accounts": "Back to accounts",
-    "update": "Update",
-    "delete": "Reset",
-    "deleting": "Resetting...",
-    "confirm-deletion": {
-      "description": "This action will delete your transactions in the Cozy Banks app along with the links set up with your bills. You can delete your bank account in #{LINK}the #{APP_NAME} app#{/LINK} if you do not wish to reimport your banking data at the next scheduled synchronization.",
-      "confirm": "Confirm account deletion",
-      "title": "Are you definitive ?"
-    },
-    "deletion-error": "An error occurred while group deletion.",
-    "label": "Label",
-    "owner": "Owner",
-    "addOwnerBtn": "Add an owner",
-    "removeOwnerBtn": "Remove this owner",
-    "ownerPlaceholder": "Select an owner",
-    "bank": "Bank",
-    "number": "Number",
-    "type": "Type",
-    "apply": "Apply",
-    "success": "Account updated successfully",
-    "failure": "Error while updating the account",
-    "removeAccountBtn": "Remove the account",
-    "listPlaceholder": "Search a contact",
-    "listEmptyMessage": "No contact found",
-    "addContactLabel": "Add a contact"
-  },
-
   "Balance": {
     "bank-name": "Bank",
     "subtitle": {
@@ -554,11 +517,6 @@
         "content-multi": "%{konnectorNames}"
       }
     }
-  },
-
-  "ComingSoon": {
-    "description": "This feature will soon be available.",
-    "title": "To come up"
   },
 
   "Settings": {
