@@ -675,6 +675,8 @@
   "PersonalInfo": {
     "birthcity": "Commune de naissance",
     "birthcity-placeholder": "Là où vous êtes né",
+    "birthcountry": "Pays de naissance",
+    "birthcountry-placeholder": "France",
     "nationality": "Nationalité",
     "save-cta": "Sauvegarder",
     "modal-title": "Modifier mes infos personnelles",

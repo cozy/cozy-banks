@@ -664,6 +664,8 @@
   "PersonalInfo": {
     "birthcity": "Birth city",
     "birthcity-placeholder": "Where you are born",
+    "birthcountry": "Birth country",
+    "birthcountry-placeholder": "France",
     "nationality": "Nationality",
     "save-cta": "Save information",
     "modal-title": "Edit personal information",
