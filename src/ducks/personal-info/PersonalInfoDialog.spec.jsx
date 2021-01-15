@@ -83,6 +83,15 @@ describe('personal info dialog', () => {
     return { client, root }
   }
 
+  it('should display an error if at least one field is not filled', async () => {
+    const { root, client } = setup()
+    await wait(() => expect(client.query).toHaveBeenCalledTimes(2))
+    const inp1 = root.getByPlaceholderText('Where you are born')
+    fireEvent.change(inp1, { target: { value: '' } })
+    fireEvent.click(root.getByText('Save information').parentNode.parentNode)
+    expect(root.getByText('All fields are mandatory')).toBeDefined()
+  })
+
   it('should load the data from several sources', async () => {
     const { root, client } = setup()
     await wait(() => expect(client.query).toHaveBeenCalledTimes(2))
