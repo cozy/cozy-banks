@@ -23,7 +23,7 @@ import {
   isCurrentAppIdentity
 } from 'ducks/personal-info/utils'
 
-const defaultNationality = { label: 'French', value: 'FR' }
+const defaultNationality = { label: 'Française', value: 'FR' }
 
 const makeNationalitiesOptions = lang =>
   countries
@@ -88,14 +88,14 @@ export class PersonalInfoDialog extends React.Component {
     }
 
     const { birthcity = '', nationalities } = mergedIdentity.contact || {}
-    const nationality = nationalities ? nationalities[0] : null
+    const nationality = nationalities ? { value: nationalities[0] } : null
     this.setState({
       identity,
       formData: {
         birthcity,
         nationality:
           this.nationalityOptions.find(
-            x => nationality && x.value === nationality
+            x => nationality && x.value === nationality.value
           ) || defaultNationality
       }
     })
