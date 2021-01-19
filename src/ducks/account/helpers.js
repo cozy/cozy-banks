@@ -127,9 +127,7 @@ export const getAccountUpdatedAt = (account, jobTrigger) => {
   const today = new Date()
   const updatedAtAccount = BankAccount.getUpdatedAt(account)
 
-  // TODO replace by getLastSuccess when https://github.com/cozy/cozy-client/pull/854
-  // is merged
-  const updatedAtTrigger = triggerStates.getLastsuccess(jobTrigger)
+  const updatedAtTrigger = triggerStates.getLastSuccess(jobTrigger)
   const updateDate = updatedAtTrigger || updatedAtAccount
   const updateDistance = updateDate
     ? differenceInCalendarDays(today, updateDate)
