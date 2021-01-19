@@ -53,7 +53,13 @@ describe('remove orphan transactions', () => {
     client.query.mockResolvedValueOnce({ data: [stats] })
 
     await removeStats(client, account)
-
+    expect(client.query).toHaveBeenCalledWith(
+      expect.objectContaining({
+        selector: {
+          'relationships.account.data._id': 'account'
+        }
+      })
+    )
     expect(client.destroy).toHaveBeenCalledWith(stats)
   })
 
