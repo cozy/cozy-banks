@@ -2,7 +2,7 @@ import React, { Component, useCallback } from 'react'
 import { withRouter } from 'react-router'
 import compose from 'lodash/flowRight'
 import sortBy from 'lodash/sortBy'
-import { Query, withClient } from 'cozy-client'
+import { Query, withClient, Q } from 'cozy-client'
 
 import { translate, withBreakpoints } from 'cozy-ui/transpiled/react'
 import Button from 'cozy-ui/transpiled/react/Button'
@@ -291,7 +291,7 @@ const enhance = Component =>
   )(Component)
 
 const ExistingGroupSettings = enhance(props => (
-  <Query query={client => client.get(GROUP_DOCTYPE, props.routeParams.groupId)}>
+  <Query query={() => Q(GROUP_DOCTYPE).getById(props.routeParams.groupId)}>
     {({ data: group, fetchStatus }) =>
       fetchStatus === 'loading' || fetchStatus === 'pending' ? (
         <>
