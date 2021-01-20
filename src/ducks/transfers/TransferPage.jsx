@@ -427,7 +427,7 @@ class TransferPage extends React.Component {
     }
 
     if (accounts.data.length === 0) {
-      return <NoBank />
+      return <NoBank isMobile={isMobile} />
     }
 
     if (recipients.data.length === 0) {
