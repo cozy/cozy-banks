@@ -287,7 +287,7 @@ const EditionModal = props => {
 
   return (
     <Dialog {...dialogProps} onClose={handleDismiss}>
-      {!choosing ? <DialogCloseButton onClick={handleDismiss} /> : true}
+      {!choosing ? <DialogCloseButton onClick={handleDismiss} /> : null}
       <DialogTitle
         {...dialogTitleProps}
         className="u-flex u-flex-row u-flex-items-center"
