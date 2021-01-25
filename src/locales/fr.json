@@ -372,7 +372,8 @@
     "account-number": "Numéro du compte",
     "total-balance": "Total",
     "deletion-error": "Une erreur est survenue lors de la suppression du groupe.",
-    "no-account": "Aucun compte n'est présent dans ce groupe"
+    "no-account": "Aucun compte n'est présent dans ce groupe",
+    "name-placeholder": "Mon groupe"
   },
 
 
@@ -674,9 +675,9 @@
 
   "PersonalInfo": {
     "birthcity": "Commune de naissance",
-    "birthcity-placeholder": "Là où vous êtes né",
+    "birthcity-placeholder": "Ville où vous êtes né(e)",
     "birthcountry": "Pays de naissance",
-    "birthcountry-placeholder": "France",
+    "birthcountry-placeholder": "Pays où vous êtes né(e)",
     "nationality": "Nationalité",
     "save-cta": "Sauvegarder",
     "modal-title": "Modifier mes infos personnelles",

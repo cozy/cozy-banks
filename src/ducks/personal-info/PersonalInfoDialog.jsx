@@ -22,6 +22,7 @@ import {
   updateBIUserConfig,
   isCurrentAppIdentity
 } from 'ducks/personal-info/utils'
+import Typography from 'cozy-ui/transpiled/react/Typography'
 
 const defaultNationality = { label: 'Française', value: 'FR' }
 
@@ -97,8 +98,9 @@ export class PersonalInfoDialog extends React.Component {
         birthcity,
         birthcountry,
         nationality:
-          this.nationalityOptions.find(x => x.value === nationality?.value) ||
-          defaultNationality
+          this.nationalityOptions.find(
+            x => x.value === (nationality && nationality.value)
+          ) || defaultNationality
       }
     })
   }
@@ -172,7 +174,11 @@ export class PersonalInfoDialog extends React.Component {
         content={
           <Stack spacing="xl">
             <Stack spacing="s">
-              {validationError ? t('PersonalInfo.validation-error') : null}
+              {validationError ? (
+                <Typography variant="body1" className="u-mb-1 u-error">
+                  {t('PersonalInfo.validation-error')}
+                </Typography>
+              ) : null}
               <Field
                 value={formData.birthcity}
                 onChange={ev =>

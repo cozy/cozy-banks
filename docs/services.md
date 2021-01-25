@@ -3,20 +3,16 @@
 This document describes services running as part of the
 Banks application.
 
-<!-- MarkdownTOC autolink=true -->
-
 - [Developing](#developing)
 - [Services](#services)
-  - [Categorization](#categorization)
-  - [onOperationOrBillCreate](#onoperationorbillcreate)
-  - [Account stats](#account-stats)
-  - [Automatic groups](#automatic-groups)
-  - [Budget alerts](#budget-alerts)
-  - [Recurrences](#recurrences)
+  * [Categorization](#categorization)
+  * [onOperationOrBillCreate](#onoperationorbillcreate)
+  * [Account stats](#account-stats)
+  * [Automatic groups](#automatic-groups)
+  * [Budget alerts](#budget-alerts)
+  * [Recurrences](#recurrences)
+  * [Konnector alerts](#konnector-alerts)
 - [I am writing a banking konnector, what should I do?](#i-am-writing-a-banking-konnector-what-should-i-do)
-  - [Konnector alerts](#konnector-alerts)
-
-<!-- /MarkdownTOC -->
 
 ## Developing
 
@@ -41,6 +37,8 @@ yarn run services:budgetAlerts --help
 
 ### Categorization
 
+slug: `categorization`
+
 This service role is to categorize transactions. It is bound to no event at
 all, so it's not automatically triggered and needs to be explicitly called by a
 konnector or another service.  This service is called from konnectors so that
@@ -57,6 +55,8 @@ See the [categorization documentation](https://github.com/cozy/cozy-banks/blob/m
 
 ### onOperationOrBillCreate
 
+slug: `onOperationOrBillCreate`
+
 This service has many roles. It does:
 
 * Bills matching
@@ -71,15 +71,21 @@ informations about that.
 
 ### Account stats
 
+slug: `stats`
+
 Computes statistics on bank accounts and save the results in `io.cozy.bank.accounts.stats` doctype.
 
 ### Automatic groups
+
+slug: `autogroups`
 
 Whenever an `io.cozy.bank.accounts` is created, we check if it could belong in an automatic group based
 on its type (checkings, savings, credit cards). These `io.cozy.bank.groups` documents are created with
 the `auto: true` attributes.
 
 ### Budget alerts
+
+slug: `budgetAlerts`
 
 A user can configure alerts to be alerted whenever the sum of its expenses has
 gone past a maximum threshold per month. The notification is sent as part of the
@@ -94,11 +100,24 @@ tab in the application (or via Bender).
 
 ### Recurrences
 
-A service tries to find recurrence groups when new operations are inserted
+slug: `recurrence`
+
+Tries to find recurrence groups when new operations are inserted
 in the Cozy. It either creates new recurrence groups or attaches transactions
 to existing recurrence groups.
 
 See Paper "Paiements recurrents" for more information on the service.
+
+### Konnector alerts
+
+slug: `konnectorAlerts`
+
+It monitors the jobs and sends a notification when a konnector has failed.
+Here are the rules for those notifications:
+
+- They should only be sent for LOGIN_FAILED and USER_ACTION_NEEDED errors
+- They should only be sent for automatic jobs (not manual)
+- We should not send a notification if the state stays the same
 
 ## I am writing a banking konnector, what should I do?
 
@@ -143,12 +162,3 @@ following permission to your `manifest.konnector`:
 
 With this, the transactions you created will be categorized, then the
 `onOperationOrBillCreate` service will be launched and do its work.
-
-### Konnector alerts
-
-It monitors the jobs and sends a notification when a konnector has failed.
-Here are the rules for those notifications:
-
-- They should only be sent for LOGIN_FAILED and USER_ACTION_NEEDED errors
-- They should only be sent for automatic jobs (not manual)
-- We should not send a notification if the state stays the same

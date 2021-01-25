@@ -119,20 +119,30 @@ const NoRecipient = () => {
   )
 }
 
-const NoBank = () => {
+const NoBank = ({ isMobile }) => {
   const { t } = useI18n()
 
   return (
-    <Padded>
-      <PageTitle>{t('Transfer.no-bank.title')}</PageTitle>
-      <AddAccountButton
-        absolute
-        extension="full"
-        label={t('Transfer.no-bank.add-bank')}
-        theme="primary"
-        className="u-mt-0"
-      />
-    </Padded>
+    <>
+      <Header theme={isMobile ? 'inverted' : 'normal'}>
+        <Padded className="u-pv-half">
+          <LegalMention />
+        </Padded>
+      </Header>
+      <Padded>
+        <PageTitle>{t('Transfer.page-title')}</PageTitle>
+        <Typography variant="body1" align="center" className="u-mt-3">
+          {t('Transfer.no-bank.title')}
+        </Typography>
+        <AddAccountButton
+          absolute
+          extension="full"
+          label={t('Transfer.no-bank.add-bank')}
+          theme="primary"
+          className="u-mt-3"
+        />
+      </Padded>
+    </>
   )
 }
 
@@ -404,6 +414,7 @@ class TransferPage extends React.Component {
     if (
       (isQueryLoading(recipients) && !hasQueryBeenLoaded(recipients)) ||
       (isQueryLoading(accounts) && !hasQueryBeenLoaded(accounts)) ||
+      transferState === 'sending' ||
       (myself &&
         (isQueryLoading(myself) &&
           !hasQueryBeenLoaded(myself) &&
@@ -417,7 +428,7 @@ class TransferPage extends React.Component {
     }
 
     if (accounts.data.length === 0) {
-      return <NoBank />
+      return <NoBank isMobile={isMobile} />
     }
 
     if (recipients.data.length === 0) {
@@ -434,15 +445,17 @@ class TransferPage extends React.Component {
       accounts.data
     )
 
+    const isSuccessTransfer = transferState === 'success'
+    const isErrorTransfer = transferState instanceof Error
+
     return (
       <TransferGate>
         {transferState ? (
           <>
-            {transferState === 'sending' && <Loading />}
-            {transferState === 'success' && (
+            {isSuccessTransfer && (
               <TransferSuccessDialog onExit={this.handleExit} />
             )}
-            {transferState instanceof Error && (
+            {isErrorTransfer && (
               <TransferErrorDialog
                 error={transferState}
                 onExit={this.handleExit}
@@ -450,50 +463,54 @@ class TransferPage extends React.Component {
             )}
           </>
         ) : null}
-        <Header theme={isMobile ? 'inverted' : 'normal'}>
-          <Padded className="u-pv-half">
-            <LegalMention />
-          </Padded>
-        </Header>
-        <Stepper currentIndex={this.state.slide} onBack={this.handleGoBack}>
-          <ChooseRecipientCategory
-            category={category}
-            onSelect={this.handleChangeCategory}
-          />
-          <ChooseBeneficiary
-            category={category}
-            beneficiary={beneficiary}
-            onSelect={this.handleSelectBeneficiary}
-            beneficiaries={beneficiaries}
-          />
-          <ChooseSenderAccount
-            account={senderAccount}
-            accounts={senderAccounts}
-            onSelect={this.handleSelectSender}
-          />
-          <ChooseAmount
-            amount={amount}
-            onChange={this.handleChangeAmount}
-            onSelect={this.handleSelectAmount}
-          />
-          <Summary
-            onConfirm={this.handleConfirmSummary}
-            amount={amount}
-            beneficiary={beneficiary}
-            senderAccount={senderAccount}
-            selectSlide={this.handleSelectSlide}
-            onChangeLabel={this.handleChangeLabel}
-            onChangeDate={this.handleChangeDate}
-            label={label}
-            date={date}
-          />
-          <Password
-            onChangePassword={this.handleChangePassword}
-            onConfirm={this.handleConfirm}
-            password={password}
-            senderAccount={senderAccount}
-          />
-        </Stepper>
+        {!(isSuccessTransfer || isErrorTransfer) && (
+          <>
+            <Header theme={isMobile ? 'inverted' : 'normal'}>
+              <Padded className="u-pv-half">
+                <LegalMention />
+              </Padded>
+            </Header>
+            <Stepper currentIndex={this.state.slide} onBack={this.handleGoBack}>
+              <ChooseRecipientCategory
+                category={category}
+                onSelect={this.handleChangeCategory}
+              />
+              <ChooseBeneficiary
+                category={category}
+                beneficiary={beneficiary}
+                onSelect={this.handleSelectBeneficiary}
+                beneficiaries={beneficiaries}
+              />
+              <ChooseSenderAccount
+                account={senderAccount}
+                accounts={senderAccounts}
+                onSelect={this.handleSelectSender}
+              />
+              <ChooseAmount
+                amount={amount}
+                onChange={this.handleChangeAmount}
+                onSelect={this.handleSelectAmount}
+              />
+              <Summary
+                onConfirm={this.handleConfirmSummary}
+                amount={amount}
+                beneficiary={beneficiary}
+                senderAccount={senderAccount}
+                selectSlide={this.handleSelectSlide}
+                onChangeLabel={this.handleChangeLabel}
+                onChangeDate={this.handleChangeDate}
+                label={label}
+                date={date}
+              />
+              <Password
+                onChangePassword={this.handleChangePassword}
+                onConfirm={this.handleConfirm}
+                password={password}
+                senderAccount={senderAccount}
+              />
+            </Stepper>
+          </>
+        )}
       </TransferGate>
     )
   }
