@@ -55,12 +55,12 @@ describe('transaction row', () => {
         true
       )
     )
-    expect(
-      root
-        .find(Typography)
-        .filterWhere(n => n.props().variant == 'caption')
-        .text()
-    ).toBe('Compte courant Isabelle - BNPP')
+    const caption = root
+      .find(Typography)
+      .filterWhere(
+        n => console.log(n.props()) || n.props().variant == 'caption'
+      )
+    expect(caption.text()).toBe('Compte courant Isabelle - BNPP')
   })
 
   it('should render correctly on mobile', () => {
@@ -76,12 +76,11 @@ describe('transaction row', () => {
         false
       )
     )
-    expect(
-      root
-        .find(Typography)
-        .filterWhere(n => n.props().variant == 'caption')
-        .text()
-    ).toBe('Compte courant Isabelle - BNPP')
+
+    const caption = root
+      .find(Typography)
+      .filterWhere(n => n.props().variant == 'caption')
+    expect(caption.text()).toBe('Compte courant Isabelle - BNPP')
     expect(handleRef).toHaveBeenCalled()
   })
 })
