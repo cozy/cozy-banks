@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import get from 'lodash/get'
 import sortBy from 'lodash/sortBy'
 
@@ -64,6 +64,12 @@ const Groups = props => {
   useTrackPage('parametres:groupes')
 
   const { groups } = props
+
+  const sortedGroups = useMemo(
+    () => sortBy(groups.data.filter(x => x), getGroupLabel),
+    [groups]
+  )
+
   if (isQueryLoading(groups) && !hasQueryBeenLoaded(groups)) {
     return <Loading />
   }
@@ -72,7 +78,7 @@ const Groups = props => {
     <div
       className={LegalMention.active ? (isMobile ? 'u-mv-1' : '') : 'u-mb-1'}
     >
-      <GroupList groups={sortBy(groups.data.filter(x => x), 'label')} />
+      <GroupList groups={sortedGroups} />
       <p>
         <Button
           color="primary"
