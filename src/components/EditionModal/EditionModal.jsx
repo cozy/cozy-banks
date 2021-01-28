@@ -203,10 +203,11 @@ const EditionModalFooter = props => {
   )
 }
 
-const dialogTitleStyle = { maxHeight: 48, boxSizing: 'border-box' }
+const dialogTitleMobileStyle = { maxHeight: 48, boxSizing: 'border-box' }
 
 const EditionModal = props => {
   const { t } = useI18n()
+  const { isMobile } = useBreakpoints()
   const {
     fieldSpecs,
     fieldLabels,
@@ -288,7 +289,7 @@ const EditionModal = props => {
       <DialogTitle
         {...dialogTitleProps}
         className="u-flex u-flex-row u-flex-items-center"
-        style={dialogTitleStyle}
+        style={isMobile ? dialogTitleMobileStyle : null}
       >
         {choosing ? (
           <DialogBackButton onClick={() => setChoosing(null)} />
