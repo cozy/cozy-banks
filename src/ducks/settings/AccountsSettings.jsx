@@ -4,7 +4,7 @@ import groupBy from 'lodash/groupBy'
 import sortBy from 'lodash/sortBy'
 
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import Button from 'cozy-ui/transpiled/react/Button'
+import Button from 'cozy-ui/transpiled/react/MuiCozyTheme/Buttons'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
 import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
@@ -176,11 +176,9 @@ const AccountsSettings = props => {
         <p>{t('Accounts.no-accounts')}</p>
       )}
       <AddAccountLink>
-        <Button
-          theme="text"
-          icon={<Icon icon={plus} className="u-mr-half" />}
-          label={t('Accounts.add-bank')}
-        />
+        <Button color="primary">
+          <Icon icon={plus} className="u-mr-half" /> {t('Accounts.add-bank')}
+        </Button>
       </AddAccountLink>
     </>
   )
