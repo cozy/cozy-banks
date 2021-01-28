@@ -11,6 +11,7 @@ import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
 import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
 import ListItemSecondaryAction from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemSecondaryAction'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
+import PlusIcon from 'cozy-ui/transpiled/react/Icons/Plus'
 import {
   queryConnect,
   Q,
@@ -22,7 +23,6 @@ import DisconnectedAccountModal from 'cozy-harvest-lib/dist/components/Disconnec
 import KonnectorIcon from 'cozy-harvest-lib/dist/components/KonnectorIcon'
 
 import Loading from 'components/Loading'
-import plus from 'assets/icons/16/plus.svg'
 
 import AddAccountLink from 'ducks/settings/AddAccountLink'
 import HarvestBankAccountSettings from 'ducks/settings/HarvestBankAccountSettings'
@@ -177,7 +177,8 @@ const AccountsSettings = props => {
       )}
       <AddAccountLink>
         <Button color="primary">
-          <Icon icon={plus} className="u-mr-half" /> {t('Accounts.add-bank')}
+          <Icon icon={PlusIcon} className="u-mr-half" />{' '}
+          {t('Accounts.add-bank')}
         </Button>
       </AddAccountLink>
     </>
