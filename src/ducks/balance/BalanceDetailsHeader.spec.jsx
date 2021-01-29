@@ -25,23 +25,16 @@ jest.mock('cozy-ui/transpiled/react/hooks/useBreakpoints', () => ({
 const setup = options => {
   const { props, breakpoints } = options
   useBreakpoints.mockReturnValue(breakpoints)
+  const router = {
+    ...mockRouter,
+    getCurrentLocation: () => ({
+      pathname: '/'
+    })
+  }
   return mount(
-    <AppLike>
+    <AppLike router={router}>
       <DumbBalanceDetailsHeader filteredAccounts={[]} {...props} />
-    </AppLike>,
-    {
-      context: {
-        router: {
-          ...mockRouter,
-          getCurrentLocation: () => ({
-            pathname: '/'
-          })
-        }
-      },
-      childContextTypes: {
-        router: PropTypes.object
-      }
-    }
+    </AppLike>
   )
 }
 

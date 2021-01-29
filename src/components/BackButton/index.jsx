@@ -9,6 +9,7 @@ import { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
 import arrowLeft from 'assets/icons/icon-arrow-left.svg'
 import cx from 'classnames'
 import { BarLeft } from 'components/Bar'
+import { useRouter } from 'components/RouterContext'
 
 export const BackIcon = () => {
   const theme = useCozyTheme()
@@ -53,7 +54,8 @@ export const BarBackButton = ({ onClick }) => {
  * <BackButton to={ '/settings' } />
  * ```
  */
-const MobileAwareBackButton = ({ onClick, to, router, arrow = false }) => {
+const MobileAwareBackButton = ({ onClick, to, arrow = false }) => {
+  const router = useRouter()
   const { isMobile } = useBreakpoints()
   const location = router.getCurrentLocation()
   if (!onClick && !to) {
