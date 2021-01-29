@@ -1,6 +1,5 @@
 import React from 'react'
 import { mount } from 'enzyme'
-import PropTypes from 'prop-types'
 import { DumbBalanceDetailsHeader } from './BalanceDetailsHeader'
 import BarBalance from 'components/BarBalance'
 import AppLike from 'test/AppLike'
