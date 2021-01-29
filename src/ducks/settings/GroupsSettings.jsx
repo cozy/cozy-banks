@@ -5,6 +5,7 @@ import sortBy from 'lodash/sortBy'
 import { useI18n } from 'cozy-ui/transpiled/react'
 import Button from 'cozy-ui/transpiled/react/MuiCozyTheme/Buttons'
 import Icon from 'cozy-ui/transpiled/react/Icon'
+import Typography from 'cozy-ui/transpiled/react/Typography'
 import PlusIcon from 'cozy-ui/transpiled/react/Icons/Plus'
 import { groupsConn, accountsConn } from 'doctypes'
 import { queryConnect, isQueryLoading, hasQueryBeenLoaded } from 'cozy-client'
@@ -53,7 +54,7 @@ const GroupList = ({ groups }) => {
       </tbody>
     </Table>
   ) : (
-    <p>{t('Groups.no-groups')}</p>
+    <Typography variant="body1">{t('Groups.no-groups')}</Typography>
   )
 }
 
