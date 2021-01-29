@@ -203,6 +203,10 @@ const EditionModalFooter = props => {
   )
 }
 
+const ChoosingSlide = ({ choosing }) => {
+  return <div>{choosing ? <ChoosingSwitch choosing={choosing} /> : null}</div>
+}
+
 const dialogTitleMobileStyle = { maxHeight: 48, boxSizing: 'border-box' }
 
 const EditionModal = props => {
@@ -309,7 +313,7 @@ const EditionModal = props => {
           onRequestChooseField={handleRequestChooseField}
           onChangeField={handleChangeField}
         />
-        <div>{choosing ? <ChoosingSwitch choosing={choosing} /> : null}</div>
+        <ChoosingSlide choosing={choosing} />
       </Stepper>
       {choosing ? null : (
         <EditionModalFooter
