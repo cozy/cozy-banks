@@ -38,7 +38,7 @@ export const deleteOrphanOperations = async (client, account) => {
 
 const removeAccountFromGroups = async account => {
   const groupCollection = getStackCollection(GROUP_DOCTYPE)
-  const groups = (await groupCollection.all(GROUP_DOCTYPE)).data
+  const groups = (await groupCollection.all()).data
   const ugroups = groups.map(group => removeAccountFromGroup(group, account))
   for (let ugroup of ugroups) {
     await groupCollection.update(ugroup)
