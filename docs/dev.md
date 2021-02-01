@@ -292,8 +292,6 @@ While developing, in XCode, in the "Signing" section :
 * Team "Cozy Cloud"
 * Signing certificate : use a personal certificate belonging to the Cozy team (can be created when you have no matching certificate in the menu > Add an account).
 
-When deploying, Fastlane manages the certificate and may change it.
-
 The certificate with its password is stored in the shared password store.
 
 - `cozy-banks/xcode-signing-certificate-password` : the password
