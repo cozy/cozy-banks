@@ -1,6 +1,7 @@
 import CozyClient, { Q } from 'cozy-client'
 import { GROUP_DOCTYPE, ACCOUNT_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
 import { getLinks } from 'ducks/client/links'
+import { disableOutdatedNotifications } from 'ducks/settings/helpers'
 
 const removeAccountFromGroup = (group, account) => {
   return {
@@ -38,7 +39,7 @@ export const deleteOrphanOperations = async (client, account) => {
 
 const removeAccountFromGroups = async account => {
   const groupCollection = getStackCollection(GROUP_DOCTYPE)
-  const groups = (await groupCollection.all(GROUP_DOCTYPE)).data
+  const groups = (await groupCollection.all()).data
   const ugroups = groups.map(group => removeAccountFromGroup(group, account))
   for (let ugroup of ugroups) {
     await groupCollection.update(ugroup)
@@ -58,10 +59,19 @@ export const removeStats = async (client, account) => {
 }
 
 export const DESTROY_ACCOUNT = 'DESTROY_ACCOUNT'
-export const destroyReferences = async (client, account) => {
+const onAccountDelete = async (client, account) => {
   await deleteOrphanOperations(client, account)
   await removeAccountFromGroups(account)
   await removeStats(client, account)
+  await disableOutdatedNotifications(client)
 }
 
-CozyClient.registerHook(ACCOUNT_DOCTYPE, 'before:destroy', destroyReferences)
+export const onGroupDelete = async (client, account) => {
+  await deleteOrphanOperations(client, account)
+  await removeAccountFromGroups(client, account)
+  await removeStats(client, account)
+  await disableOutdatedNotifications(client)
+}
+
+CozyClient.registerHook(ACCOUNT_DOCTYPE, 'before:destroy', onAccountDelete)
+CozyClient.registerHook(GROUP_DOCTYPE, 'before:destroy', onGroupDelete)
