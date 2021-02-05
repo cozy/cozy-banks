@@ -8,10 +8,26 @@ import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
 import { Sprite as IconSprite } from 'cozy-ui/transpiled/react/Icon'
 import { CozyProvider } from 'cozy-client'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import {
+  StylesProvider,
+  createGenerateClassName
+} from '@material-ui/core/styles'
 
 import flag from 'cozy-flags'
 
 import { TrackerProvider } from 'ducks/tracking/browser'
+
+/*
+With MUI V4, it is possible to generate deterministic class names.
+In the case of multiple react roots, it is necessary to disable this
+feature. Since we have the cozy-bar root, we need to disable the
+feature.
+
+https://material-ui.com/styles/api/#stylesprovider
+*/
+const generateClassName = createGenerateClassName({
+  disableGlobal: true
+})
 
 const AppContainer = ({ store, lang, history, client }) => {
   const AppRoute = require('components/AppRoute').default
@@ -24,13 +40,18 @@ const AppContainer = ({ store, lang, history, client }) => {
       <IconSprite />
       <TrackerProvider>
         <Provider store={store}>
-          <CozyProvider client={client}>
-            <I18n lang={lang} dictRequire={lang => require(`locales/${lang}`)}>
-              <MuiCozyTheme>
-                <Router history={history} routes={AppRoute()} />
-              </MuiCozyTheme>
-            </I18n>
-          </CozyProvider>
+          <StylesProvider generateClassName={generateClassName}>
+            <CozyProvider client={client}>
+              <I18n
+                lang={lang}
+                dictRequire={lang => require(`locales/${lang}`)}
+              >
+                <MuiCozyTheme>
+                  <Router history={history} routes={AppRoute()} />
+                </MuiCozyTheme>
+              </I18n>
+            </CozyProvider>
+          </StylesProvider>
         </Provider>
       </TrackerProvider>
     </BreakpointsProvider>
