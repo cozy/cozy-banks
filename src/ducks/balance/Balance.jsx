@@ -345,8 +345,16 @@ class Balance extends PureComponent {
     const accounts = this.getAllAccounts()
     const triggers = triggersCollection.data
 
+    const hasNoAccounts =
+      accounts.filter(
+        a =>
+          a._id !== 'health_reimbursements' &&
+          a._id !== 'professional_reimbursements' &&
+          a._id !== 'others_reimbursements'
+      ) === 0
+
     if (
-      accounts.length === 0 ||
+      hasNoAccounts ||
       flag('balance.no-account') ||
       flag('banks.balance.account-loading')
     ) {
@@ -378,7 +386,10 @@ class Balance extends PureComponent {
         }
       }
 
-      if (konnectorInfos.length > 0) {
+      const hasKonnectorRunning = konnectorInfos.some(
+        k => k.status === 'running'
+      )
+      if (hasKonnectorRunning) {
         return <AccountsImporting konnectorInfos={konnectorInfos} />
       }
 
@@ -421,7 +432,6 @@ class Balance extends PureComponent {
     )
   }
 }
-
 export const DumbBalance = Balance
 
 const actionCreators = {
