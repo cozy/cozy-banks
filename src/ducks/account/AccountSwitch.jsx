@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
 import compose from 'lodash/flowRight'
 import sortBy from 'lodash/sortBy'
 import cx from 'classnames'
@@ -9,7 +8,7 @@ import cx from 'classnames'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import Button from 'cozy-ui/transpiled/react/Button'
+import Button from 'cozy-ui/transpiled/react/MuiCozyTheme/Buttons'
 import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
 import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
 import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
@@ -154,8 +153,7 @@ const AccountSwitchMenu = ({
   groups,
   filteringDoc,
   filterByDoc,
-  resetFilterByDoc,
-  close
+  resetFilterByDoc
 }) => {
   const { t } = useI18n()
 
@@ -216,13 +214,14 @@ const AccountSwitchMenu = ({
           </AccountSwitchListItem>
         ))}
       </List>
-      <Link to={'/settings/groups'} onClick={close}>
-        <Button
-          className="u-m-half"
-          theme="text"
-          label={t('Groups.manage-groups')}
-        />
-      </Link>
+      <Button
+        component="a"
+        href="#/settings/groups"
+        className="u-m-half"
+        color="primary"
+      >
+        {t('Groups.manage-groups')}
+      </Button>
 
       <List>
         <ListSubheader>{t('AccountSwitch.accounts')}</ListSubheader>
@@ -252,13 +251,14 @@ const AccountSwitchMenu = ({
           )
         )}
       </List>
-      <Link to="/settings/accounts" onClick={close}>
-        <Button
-          className="u-m-half"
-          theme="text"
-          label={t('Accounts.manage-accounts')}
-        />
-      </Link>
+      <Button
+        component="a"
+        href="#/settings/accounts"
+        className="u-m-half"
+        color="primary"
+      >
+        {t('Accounts.manage-accounts')}
+      </Button>
     </CozyTheme>
   )
 }
