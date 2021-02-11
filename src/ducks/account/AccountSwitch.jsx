@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import compose from 'lodash/flowRight'
@@ -164,6 +164,14 @@ const AccountSwitchMenu = ({
     [accounts]
   )
 
+  const sortedGroups = useMemo(() => {
+    return sortBy(groups, g => getGroupLabel(g, t))
+  }, [groups, t])
+
+  const sortedAccounts = useMemo(() => {
+    return sortBy(accounts, ['institutionLabel', getAccountLabel])
+  }, [accounts])
+
   return (
     <CozyTheme theme="normal">
       <List>
@@ -183,7 +191,7 @@ const AccountSwitchMenu = ({
             }
           />
         </AccountSwitchListItem>
-        {sortBy(groups, 'label').map(group => (
+        {sortedGroups.map(group => (
           <AccountSwitchListItem
             dense
             key={group._id}
@@ -195,7 +203,7 @@ const AccountSwitchMenu = ({
             }}
           >
             <AccountListItemText
-              primary={group.label}
+              primary={getGroupLabel(group, t)}
               secondary={
                 <>
                   {t(
@@ -221,31 +229,29 @@ const AccountSwitchMenu = ({
 
       <List>
         <ListSubheader>{t('AccountSwitch.accounts')}</ListSubheader>
-        {sortBy(accounts, ['institutionLabel', 'label']).map(
-          (account, index) => (
-            <AccountSwitchListItem
-              key={index}
-              button
-              disableRipple
-              dense
-              onClick={() => {
-                filterByDoc(account)
-              }}
-              selected={filteringDoc && account._id === filteringDoc._id}
-            >
-              <ListItemIcon>
-                <AccountIcon account={account} />
-              </ListItemIcon>
-              <AccountListItemText
-                primary={account.shortLabel || account.label}
-                secondary={getAccountInstitutionLabel(account)}
-              />
-              <ListItemSecondaryAction>
-                <AccountSharingStatus tooltip account={account} />
-              </ListItemSecondaryAction>
-            </AccountSwitchListItem>
-          )
-        )}
+        {sortedAccounts.map((account, index) => (
+          <AccountSwitchListItem
+            key={index}
+            button
+            disableRipple
+            dense
+            onClick={() => {
+              filterByDoc(account)
+            }}
+            selected={filteringDoc && account._id === filteringDoc._id}
+          >
+            <ListItemIcon>
+              <AccountIcon account={account} />
+            </ListItemIcon>
+            <AccountListItemText
+              primary={account.shortLabel || account.label}
+              secondary={getAccountInstitutionLabel(account)}
+            />
+            <ListItemSecondaryAction>
+              <AccountSharingStatus tooltip account={account} />
+            </ListItemSecondaryAction>
+          </AccountSwitchListItem>
+        ))}
       </List>
       <Button
         component="a"

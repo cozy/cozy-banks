@@ -18,7 +18,7 @@ export const getGroupAccountType = group => group.accountType
 export const getGroupLabel = (group, t) => {
   if (group.virtual) {
     return (
-      t(`Data.accountTypes.${group.label}`, { _: 'other' }) +
+      t(`Data.accountTypes.${group.accountType}`, { _: 'other' }) +
       (flag('debug-groups') ? ' (virtual)' : '')
     )
   } else if (isAutoGroup(group) && !isFormerAutoGroup(group)) {
