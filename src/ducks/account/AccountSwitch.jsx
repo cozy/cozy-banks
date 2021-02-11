@@ -4,7 +4,9 @@ import { connect } from 'react-redux'
 import compose from 'lodash/flowRight'
 import sortBy from 'lodash/sortBy'
 import cx from 'classnames'
+import { createStructuredSelector } from 'reselect'
 
+import { queryConnect, Q } from 'cozy-client'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import Icon from 'cozy-ui/transpiled/react/Icon'
@@ -16,14 +18,15 @@ import ListSubheader from 'cozy-ui/transpiled/react/MuiCozyTheme/ListSubheader'
 import ListItemSecondaryAction from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemSecondaryAction'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import Radio from 'cozy-ui/transpiled/react/Radio'
-
-import { createStructuredSelector } from 'reselect'
+import BottomIcon from 'cozy-ui/transpiled/react/Icons/Bottom'
+import Typography from 'cozy-ui/transpiled/react/Typography'
+import CozyTheme, { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
 
 import RawContentDialog from 'components/RawContentDialog'
 import AccountSharingStatus from 'components/AccountSharingStatus'
 import AccountIcon from 'components/AccountIcon'
 import BarItem from 'components/BarItem'
-import CozyTheme, { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
+import { BarCenter } from 'components/Bar'
 
 import {
   filterByDoc,
@@ -34,7 +37,6 @@ import {
 
 import styles from 'ducks/account/AccountSwitch.styl'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
-import { queryConnect, Q } from 'cozy-client'
 import { getGroupLabel } from 'ducks/groups/helpers'
 
 import { getVirtualGroups } from 'selectors'
@@ -42,12 +44,6 @@ import {
   getAccountInstitutionLabel,
   getAccountLabel
 } from 'ducks/account/helpers.js'
-
-import { BarCenter } from 'components/Bar'
-
-import BottomIcon from 'cozy-ui/transpiled/react/Icons/Bottom'
-
-import Typography from 'cozy-ui/transpiled/react/Typography'
 
 const filteringDocPropType = PropTypes.oneOfType([
   PropTypes.array,
