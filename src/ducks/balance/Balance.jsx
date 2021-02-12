@@ -49,6 +49,7 @@ import { getPanelsState } from 'ducks/balance/helpers'
 import BarTheme from 'ducks/bar/BarTheme'
 import { filterByAccounts } from 'ducks/filters'
 import { trackPage } from 'ducks/tracking/browser'
+import { isVirtualAccount } from 'ducks/balance/helpers'
 
 const syncPouchImmediately = async client => {
   const pouchLink = client.links.find(link => link.pouches)
@@ -294,7 +295,7 @@ class Balance extends PureComponent {
       return
     }
 
-    const accounts = this.getAllAccounts()
+    const accounts = accountsCollection.data
 
     if (accounts.length > 0) {
       this.stopRealtime()
@@ -345,16 +346,10 @@ class Balance extends PureComponent {
     const accounts = this.getAllAccounts()
     const triggers = triggersCollection.data
 
-    const hasNoAccounts =
-      accounts.filter(
-        a =>
-          a._id !== 'health_reimbursements' &&
-          a._id !== 'professional_reimbursements' &&
-          a._id !== 'others_reimbursements'
-      ) === 0
+    const hasNoAccount = accounts.filter(a => !isVirtualAccount(a)).length === 0
 
     if (
-      hasNoAccounts ||
+      hasNoAccount ||
       flag('balance.no-account') ||
       flag('banks.balance.account-loading')
     ) {
