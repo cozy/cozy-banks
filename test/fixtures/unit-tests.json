@@ -199,6 +199,7 @@
       "date": "2017-08-26T00:00:00Z"
     },
     {
+      "_id": "compteisa1",
       "demo": true,
       "manualCategoryId": "400150",
       "account": "compteisa1",

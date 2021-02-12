@@ -3,18 +3,19 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { RowDesktop, RowMobile } from './TransactionRow'
-import { TransactionsDumb, sortByDate } from './Transactions'
+import { sortByDate, TransactionsDumb } from './Transactions'
 import data from '../../../test/fixtures'
 import store from '../../../test/store'
 import AppLike from '../../../test/AppLike'
-import { getClient } from 'test/client'
-import { normalizeData } from 'test/store'
 import TransactionPageErrors from 'ducks/transactions/TransactionPageErrors'
+import { createMockClient } from 'cozy-client/dist/mock'
+import { ACCOUNT_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
 
 // No need to test this here
 jest.mock('ducks/transactions/TransactionPageErrors', () => () => null)
 
 const allTransactions = data['io.cozy.bank.operations']
+const accounts = data['io.cozy.bank.accounts']
 
 describe('transaction row', () => {
   let client, transaction
@@ -33,21 +34,28 @@ describe('transaction row', () => {
     )
   }
 
-  const rawTransaction = allTransactions[0]
-  rawTransaction._type = 'io.cozy.bank.operations'
-
   beforeEach(() => {
-    client = getClient()
-    client.ensureStore()
-    const datastore = normalizeData({
-      'io.cozy.bank.accounts': data['io.cozy.bank.accounts']
+    client = createMockClient({
+      queries: {
+        transactions: {
+          doctype: TRANSACTION_DOCTYPE,
+          data: allTransactions
+        },
+        accounts: {
+          doctype: ACCOUNT_DOCTYPE,
+          data: accounts
+        }
+      }
     })
-    jest
-      .spyOn(client, 'getDocumentFromState')
-      .mockImplementation((doctype, id) => {
-        return datastore[doctype][id]
-      })
-    transaction = client.hydrateDocument(rawTransaction)
+    client.ensureStore()
+    transaction = client.hydrateDocument({
+      ...client.getDocumentFromState(TRANSACTION_DOCTYPE, 'compteisa1'),
+      account: {
+        data: {
+          ...client.getDocumentFromState(ACCOUNT_DOCTYPE, 'compteisa1')
+        }
+      }
+    })
   })
 
   it('should render correctly on desktop', () => {
