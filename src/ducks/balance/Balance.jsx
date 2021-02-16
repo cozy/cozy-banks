@@ -241,6 +241,7 @@ class Balance extends PureComponent {
     this.props.accounts.fetch()
     this.props.transactions.fetch()
     this.props.triggers.fetch()
+    this.props.groups.fetch()
   }
 
   handleResume() {
