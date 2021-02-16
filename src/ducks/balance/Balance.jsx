@@ -27,6 +27,7 @@ import {
   cronKonnectorTriggersConn,
   accountsConn,
   ACCOUNT_DOCTYPE,
+  GROUP_DOCTYPE,
   TRIGGER_DOCTYPE,
   TRANSACTION_DOCTYPE,
   transactionsConn
@@ -60,7 +61,8 @@ const syncPouchImmediately = async client => {
 const REALTIME_DOCTYPES = [
   ACCOUNT_DOCTYPE,
   TRIGGER_DOCTYPE,
-  TRANSACTION_DOCTYPE
+  TRANSACTION_DOCTYPE,
+  GROUP_DOCTYPE
 ]
 
 const isLoading = props => {
