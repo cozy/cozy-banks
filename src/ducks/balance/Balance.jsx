@@ -295,10 +295,17 @@ class Balance extends PureComponent {
       return
     }
 
-    // See issue #2009 https://github.com/cozy/cozy-banks/issues/2009
-    this.startRealtime()
-    this.startRealtimeFallback()
-    this.startResumeListeners()
+    const accounts = accountsCollection.data
+
+    if (accounts.length > 0) {
+      this.stopRealtime()
+      this.stopRealtimeFallback()
+      this.stopResumeListeners()
+    } else {
+      this.startRealtime()
+      this.startRealtimeFallback()
+      this.startResumeListeners()
+    }
   }
 
   /**
