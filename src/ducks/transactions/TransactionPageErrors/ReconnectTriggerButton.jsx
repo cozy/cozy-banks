@@ -37,7 +37,7 @@ const ReconnectTriggerButton = ({ trigger, label }) => {
 
 ReconnectTriggerButton.propTypes = {
   /** @type {io.cozy.triggers} The trigger that needs to be reconnected */
-  trigger: PropTypes.object,
+  trigger: PropTypes.object.isRequired,
   label: PropTypes.string
 }
 
