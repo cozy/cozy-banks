@@ -1,21 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Title should display children 1`] = `
-<WithStyles(Typography)
+<ForwardRef(WithStyles)
   className="Title"
   variant="h4"
 >
   content
-</WithStyles(Typography)>
+</ForwardRef(WithStyles)>
 `;
 
 exports[`Title should extend className 1`] = `
-<WithStyles(Typography)
+<ForwardRef(WithStyles)
   className="Title noPaddingBottom"
   variant="h4"
 >
   content
-</WithStyles(Typography)>
+</ForwardRef(WithStyles)>
 `;
 
 exports[`Title should handle theme 1`] = `
