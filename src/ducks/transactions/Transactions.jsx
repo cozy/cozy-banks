@@ -231,7 +231,6 @@ export class TransactionsDumb extends React.Component {
         onScroll={this.handleScroll}
         className={this.props.className}
       >
-        {showTriggerErrors ? <TransactionPageErrors /> : null}
         <ScrollRestore
           limitMin={limitMin}
           limitMax={limitMax}

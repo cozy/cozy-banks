@@ -8,6 +8,7 @@ import cx from 'classnames'
 import { isMobileApp } from 'cozy-device-helper'
 import { queryConnect, isQueryLoading, hasQueryBeenLoaded } from 'cozy-client'
 import { translate } from 'cozy-ui/transpiled/react/I18n'
+import Typography from 'cozy-ui/transpiled/react/Typography'
 import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import flag from 'cozy-flags'
 
@@ -34,7 +35,8 @@ import {
 import Loading from 'components/Loading'
 import Delayed from 'components/Delayed'
 import FutureBalanceCard from 'ducks/future/FutureBalanceCard'
-import { TransactionList } from 'ducks/transactions/Transactions.jsx'
+import { TransactionList } from 'ducks/transactions/Transactions'
+import TransactionPageErrors from 'ducks/transactions/TransactionPageErrors'
 import styles from 'ducks/transactions/TransactionsPage.styl'
 
 import {
@@ -292,12 +294,7 @@ class TransactionsPage extends Component {
   }
 
   renderTransactions() {
-    const {
-      limitMin,
-      limitMax,
-      infiniteScrollTop,
-      showTriggerErrors
-    } = this.state
+    const { limitMin, limitMax, infiniteScrollTop } = this.state
     const { t, transactions: transactionCol } = this.props
     const isFetching =
       isQueryLoading(transactionCol) && !hasQueryBeenLoaded(transactionCol)
@@ -311,7 +308,9 @@ class TransactionsPage extends Component {
     if (transactions.length === 0) {
       return (
         <Padded className="u-pt-0">
-          <p>{t('Transactions.no-movements')}</p>
+          <Typography variant="body1">
+            {t('Transactions.no-movements')}
+          </Typography>
         </Padded>
       )
     }
@@ -319,7 +318,6 @@ class TransactionsPage extends Component {
     return (
       <Delayed delay={0} fallback={<FakeTransactions />}>
         <TransactionList
-          showTriggerErrors={showTriggerErrors}
           limitMin={limitMin}
           limitMax={limitMax}
           onReachTop={this.handleDecreaseLimitMin}
@@ -354,7 +352,7 @@ class TransactionsPage extends Component {
 
     const areAccountsLoading =
       isQueryLoading(accounts) && !hasQueryBeenLoaded(accounts)
-    const filteredTransactions = this.getTransactions()
+    const filteredTransactions = [] // this.getTransactions()
 
     const theme = 'primary'
     return (
@@ -379,6 +377,11 @@ class TransactionsPage extends Component {
             'js-scrolling-element'
           )}
         >
+          {filteredTransactions.length === 0 ? (
+            <div className="u-mb-1-half">
+              <TransactionPageErrors />
+            </div>
+          ) : null}
           {flag('banks.future-balance') && showFutureBalance ? (
             <FutureBalanceCard />
           ) : null}
