@@ -4735,10 +4735,10 @@ cozy-bar@8.1.1:
     redux-thunk "2.3.0"
     semver-compare "^1.0.0"
 
-cozy-bi-auth@0.0.17:
-  version "0.0.17"
-  resolved "https://registry.yarnpkg.com/cozy-bi-auth/-/cozy-bi-auth-0.0.17.tgz#dea325731c67b12b73e9e9c60febfa3c8e16b934"
-  integrity sha512-8wKKDgz6Mm8IWn6IAf5QNYInnRPWQa6SEizX54JnqaboBeo8j4WlK5jQ6+4jYEJ2+8FpJwVzjFp2uFJJhgMHdw==
+cozy-bi-auth@0.0.19:
+  version "0.0.19"
+  resolved "https://registry.yarnpkg.com/cozy-bi-auth/-/cozy-bi-auth-0.0.19.tgz#536c4e33e804aa17a1340507f4e0d49ff6f62a3b"
+  integrity sha512-WgADGZqIVUH6kGwUcym44DlixpGtYfFEWwd46F/jJ13vZAOsfDaI7ajH07z6WJSsg+srx6+Ro8Mh6xYy1FgDdw==
   dependencies:
     cozy-logger "^1.3.0"
     lodash "^4.17.20"
@@ -4978,10 +4978,10 @@ cozy-doctypes@^1.63.2:
     lodash "4.17.15"
     prop-types "^15.7.2"
 
-cozy-doctypes@^1.77.1:
-  version "1.77.1"
-  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.77.1.tgz#37056740aad9712d305f8dc5146796427096e5a4"
-  integrity sha512-BfDQxWcXQEGRNrauMvh1mOjiED2o1EWRLpoJroWrikptUUYzGvwaE5IvPFcwTO1lH1u/DtXWCg40EGWH0kw+ag==
+cozy-doctypes@^1.78.0:
+  version "1.78.0"
+  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.78.0.tgz#4e860d119ecef6235739f9f3945793595e966978"
+  integrity sha512-44mHU+IjpfuRgR39131lJHVxDo7ktwDV7U3ZVc8dEVfBS7Gu2zwq9f91nOdIa3cofPvd412SPKiXzDzTcNINaw==
   dependencies:
     cozy-logger "^1.7.0"
     date-fns "1.30.1"
