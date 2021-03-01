@@ -5010,15 +5010,15 @@ cozy-flags@^2.5.0:
   dependencies:
     microee "^0.0.6"
 
-cozy-harvest-lib@4.4.0:
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-4.4.0.tgz#3940ce8e4e00c1c74d16d557b516a4f250115c0f"
-  integrity sha512-XgB4YbBQGqqK9I2jtrCt6vFy6BglUE9LyJu2JvkchhfCfqP2L1sGNj+5f4Tz155Zm5dWD/1Ayl1hjoOj5q5PWw==
+cozy-harvest-lib@4.8.0:
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-4.8.0.tgz#08ea81eed5448637ea937511312a70978cf52f3d"
+  integrity sha512-z3WY30Y6zQg2HNOGoBWpi6skrtaDd134mi31qHj327yoYeE9cYq5v0ZRJsKzrSVf6jOmIKZZUAgI816g+KmH7Q==
   dependencies:
     "@cozy/minilog" "^1.0.0"
     "@sentry/browser" "^6.0.1"
-    cozy-bi-auth "0.0.17"
-    cozy-doctypes "^1.77.1"
+    cozy-bi-auth "0.0.19"
+    cozy-doctypes "^1.78.0"
     cozy-logger "^1.7.0"
     date-fns "^1.30.1"
     final-form "^4.18.5"
