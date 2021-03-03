@@ -78,7 +78,7 @@ Whenever an `io.cozy.bank.accounts` is created, we check if it could belong in a
 on its type (checkings, savings, credit cards). These `io.cozy.bank.groups` documents are created with
 the `auto: true` attributes.
 
-ℹ️  This service an be run via CLI via `yarn service:autogroups`
+ℹ️  This service can be run via CLI via `yarn service:autogroups`
 
 ### Budget alerts
 
@@ -105,7 +105,7 @@ to existing recurrence groups.
 
 See Paper "Paiements recurrents" for more information on the service.
 
-ℹ️  This service an be run via CLI via `yarn service recurrence`
+ℹ️  This service can be run via CLI via `yarn service recurrence`
 
 ### Konnector alerts
 
@@ -118,7 +118,7 @@ Here are the rules for those notifications:
 - They should only be sent for automatic jobs (not manual)
 - We should not send a notification if the state stays the same
 
-ℹ️  This service an be run via CLI via `yarn service konnectorAlerts`
+ℹ️  This service can be run via CLI via `yarn service konnectorAlerts`
 
 ## I am writing a banking konnector, what should I do?
 
