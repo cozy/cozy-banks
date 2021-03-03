@@ -27,11 +27,6 @@ $ export COZY_CREDENTIALS=$(cozy-stack instances token-app cozy.tools:8080 banks
 $ node build/budgetAlerts.js
 ```
 
-Some services like the "budgetAlerts" one expose a CLI that can perform service related tasks.
-
-```
-yarn run services:budgetAlerts --help
-```
 
 ## Services
 
@@ -83,6 +78,8 @@ Whenever an `io.cozy.bank.accounts` is created, we check if it could belong in a
 on its type (checkings, savings, credit cards). These `io.cozy.bank.groups` documents are created with
 the `auto: true` attributes.
 
+ℹ️  This service can be run via CLI via `yarn service:autogroups`
+
 ### Budget alerts
 
 slug: `budgetAlerts`
@@ -108,6 +105,8 @@ to existing recurrence groups.
 
 See Paper "Paiements recurrents" for more information on the service.
 
+ℹ️  This service can be run via CLI via `yarn service recurrence`
+
 ### Konnector alerts
 
 slug: `konnectorAlerts`
@@ -118,6 +117,8 @@ Here are the rules for those notifications:
 - They should only be sent for LOGIN_FAILED and USER_ACTION_NEEDED errors
 - They should only be sent for automatic jobs (not manual)
 - We should not send a notification if the state stays the same
+
+ℹ️  This service can be run via CLI via `yarn service konnectorAlerts`
 
 ## I am writing a banking konnector, what should I do?
 
