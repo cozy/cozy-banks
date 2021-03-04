@@ -73,6 +73,8 @@ describe('transaction modal', () => {
     return { root, tracker }
   }
 
+  // TODO Can be removed when https://github.com/cozy/cozy-ui/issues/1756
+  // is solved
   const closeModal = root => {
     const dialogNode = root.getAllByRole('dialog')[0]
     const closeButton = within(dialogNode).getAllByRole('button')[0]
