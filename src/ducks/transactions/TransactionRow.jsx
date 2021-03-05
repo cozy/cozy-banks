@@ -280,7 +280,6 @@ export const RowMobile = React.memo(function RowMobile(props) {
             menuPosition="right"
             className={cx(
               'u-w-100',
-              'u-ta-right',
               'u-mb-half',
               styles.TransactionRowMobile__actions
             )}
