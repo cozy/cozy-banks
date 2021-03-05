@@ -10,6 +10,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { useClient } from 'cozy-client'
 import Accordion from 'cozy-ui/transpiled/react/MuiCozyTheme/Accordion'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
 import Button, { ButtonLink } from 'cozy-ui/transpiled/react/Button'
 import Figure from 'cozy-ui/transpiled/react/Figure'
@@ -91,6 +92,7 @@ const GroupPanel = props => {
   const [deleting, setDeleting] = useState(false)
   const [optimisticExpanded, setOptimisticExpanded] = useState(expandedProp)
   const { t } = useI18n()
+  const { isMobile } = useBreakpoints()
   const { filterByDoc } = useFilters()
   const groupPanelSummaryClasses = useSelector(state =>
     getGroupPanelSummaryClasses(group, state)
@@ -191,7 +193,7 @@ const GroupPanel = props => {
         {onSwitchChange && (
           <Switch
             disableRipple
-            className="u-mr-half"
+            className={!isMobile && 'u-mr-half'}
             checked={checked}
             color="primary"
             onClick={handleSwitchClick}
