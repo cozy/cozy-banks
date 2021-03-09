@@ -47,8 +47,9 @@ const JobsProvider = ({ children, client, options }) => {
     const exist = index !== -1
 
     const { onSuccess, onError } = options
+    const hasAccount = msg.account
     let arr = [...currJobsInProgress]
-    if (worker === 'konnector') {
+    if (worker === 'konnector' && hasAccount) {
       if (state === 'running' && !exist) {
         arr.push(msg)
       } else if (state === 'done' && exist) {
