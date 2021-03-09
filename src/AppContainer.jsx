@@ -1,6 +1,6 @@
 /* global __TARGET__ */
 
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Provider } from 'react-redux'
 
 import I18n from 'cozy-ui/transpiled/react/I18n'
@@ -16,6 +16,20 @@ import {
 import flag from 'cozy-flags'
 
 import { TrackerProvider } from 'ducks/tracking/browser'
+import JobsProvider from 'components/JobsContext'
+import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import { initTranslation } from 'cozy-ui/react/I18n'
+
+const jobsProviderOptions = t => ({
+  onSuccess: () => Alerter.success(t('JobsContext.alerter-success')),
+  onError: () => Alerter.error(t('JobsContext.alerter-errored'))
+})
+
+const initT = (lang, dictRequire) => {
+  const polyglot = initTranslation(lang, dictRequire)
+  const t = polyglot.t.bind(polyglot)
+  return { t }
+}
 
 /*
 With MUI V4, it is possible to generate deterministic class names.
@@ -35,6 +49,12 @@ const AppContainer = ({ store, lang, history, client }) => {
     __TARGET__ === 'mobile' || flag('authentication')
       ? require('ducks/mobile/MobileRouter').default
       : require('react-router').Router
+
+  const dictRequire = lang => require(`locales/${lang}`)
+  const { t } = useMemo(() => {
+    return initT(lang, dictRequire)
+  }, [lang])
+
   return (
     <BreakpointsProvider>
       <IconSprite />
@@ -46,9 +66,11 @@ const AppContainer = ({ store, lang, history, client }) => {
                 lang={lang}
                 dictRequire={lang => require(`locales/${lang}`)}
               >
-                <MuiCozyTheme>
-                  <Router history={history} routes={AppRoute()} />
-                </MuiCozyTheme>
+                <JobsProvider client={client} options={jobsProviderOptions(t)}>
+                  <MuiCozyTheme>
+                    <Router history={history} routes={AppRoute()} />
+                  </MuiCozyTheme>
+                </JobsProvider>
               </I18n>
             </CozyProvider>
           </StylesProvider>
