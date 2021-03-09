@@ -8,7 +8,7 @@ import getClient from 'test/client'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import RouterContext from 'components/RouterContext'
 import { TrackerProvider } from 'ducks/tracking/browser'
-import { JobsContext } from '../src/components/JobsContext'
+import { JobsContext } from 'components/JobsContext'
 
 export const TestI18n = ({ children }) => {
   return (
