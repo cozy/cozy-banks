@@ -1,5 +1,5 @@
 import cx from 'classnames'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
@@ -16,8 +16,6 @@ import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
 import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import { useJobsContext } from 'components/JobsContext'
-import { Q, useClient } from 'cozy-client'
-import { KONNECTOR_DOCTYPE } from 'doctypes'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 
 export const GroupPanelSummary = withStyles({
@@ -106,25 +104,9 @@ const ImportGroupPanel = () => {
   )
 }
 
-const Row = ({ account, t }) => {
+const Row = React.memo(({ account, t }) => {
+  const name = account.instituion
   const slug = account.konnector
-
-  const client = useClient()
-  const [name, setName] = useState('')
-
-  useEffect(() => {
-    const slug = account.konnector
-    client
-      .query(Q(KONNECTOR_DOCTYPE).getById(`${KONNECTOR_DOCTYPE}/${slug}`))
-      .then(resp => {
-        const name = resp.data.attributes.name
-        setName(name)
-      })
-  }, [account.konnector, client])
-
-  // @TODO use 'useQuery' instead of 'client'
-  // const resp = useQuery(konnectorConn.query(slug), konnectorConn)
-  // const name = get(resp, 'data[0].attributes.name', '')
 
   return (
     <ListItem button disableRipple>
@@ -147,6 +129,7 @@ const Row = ({ account, t }) => {
       </PrimaryColumn>
     </ListItem>
   )
-}
+})
+Row.displayName = 'Import Group Panel Row'
 
 export default ImportGroupPanel

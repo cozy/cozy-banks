@@ -7,10 +7,13 @@ import React, {
   useRef,
   useState
 } from 'react'
-import { JOBS_DOCTYPE } from '../doctypes'
+import { JOBS_DOCTYPE, KONNECTOR_DOCTYPE } from 'doctypes'
 import CozyRealtime from 'cozy-realtime'
+import { Q } from 'cozy-client'
 import logger from 'cozy-logger'
 import isFunction from 'lodash/isFunction'
+import get from 'lodash/get'
+import PropTypes from 'prop-types'
 
 const log = logger.namespace('import.context')
 
@@ -20,14 +23,13 @@ export const useJobsContext = () => {
   return useContext(JobsContext)
 }
 
-// @TODO add tests for JobsContext
 /** Allows to subscribe to jobs and thus to know jobs in progress
  *
  * @param client
  * @param options
  * @returns jobsInProgress
  */
-const JobsProvider = ({ children, client, options }) => {
+const JobsProvider = ({ children, client, options = {} }) => {
   const [jobsInProgress, setJobsInProgress] = useState([])
   const realtimeStartedRef = useRef(false)
   const jobsInProgressRef = useRef([])
@@ -35,6 +37,22 @@ const JobsProvider = ({ children, client, options }) => {
   const realtime = useMemo(() => {
     return new CozyRealtime({ client })
   }, [client])
+
+  const setJobsWithName = async arr => {
+    const promises = arr.map(async jobInProgress => {
+      const slug = jobInProgress.konnector
+      const resp = await client.query(
+        Q(KONNECTOR_DOCTYPE).getById(`${KONNECTOR_DOCTYPE}/${slug}`)
+      )
+      const name = get(resp, 'data.attributes.name')
+      const newJobInProgress = { ...jobInProgress }
+      newJobInProgress.institutionLabel = name
+      return newJobInProgress
+    })
+
+    const newJobsInProgress = await Promise.all(promises)
+    setJobsInProgress(newJobsInProgress)
+  }
 
   const handleRealtime = data => {
     const { worker, state, message: msg } = data
@@ -46,7 +64,8 @@ const JobsProvider = ({ children, client, options }) => {
     const index = currJobsInProgress.findIndex(a => a.account === msg.account)
     const exist = index !== -1
 
-    const { onSuccess, onError } = options
+    const onSuccess = options.onSuccess
+    const onError = options.onError
     const hasAccount = msg.account
     let arr = [...currJobsInProgress]
     if (worker === 'konnector' && hasAccount) {
@@ -64,8 +83,9 @@ const JobsProvider = ({ children, client, options }) => {
           onError()
         }
       }
+
       jobsInProgressRef.current = arr
-      setJobsInProgress(jobsInProgressRef.current)
+      setJobsWithName(arr)
     }
   }
 
@@ -125,4 +145,12 @@ export const withJobsInProgress = Component => {
   Wrapped.displayName = `withJobsInProgress(${Component.displayName ||
     Component.name})`
   return Wrapped
+}
+
+JobsProvider.propTypes = {
+  client: PropTypes.object.isRequired,
+  options: PropTypes.shape({
+    onSuccess: PropTypes.func,
+    onError: PropTypes.number
+  })
 }
