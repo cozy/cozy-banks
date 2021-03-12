@@ -56,7 +56,7 @@ $ yarn
 Develop:
 
 ```console
-$ yarn watch
+$ yarn start
 ```
 
 And build:
@@ -126,7 +126,7 @@ To build the mobile app, you first have to run one of the following commands:
 # One-shot build
 $ yarn build:mobile
 # To develop
-$ yarn watch:mobile
+$ yarn start:mobile
 ```
 
 Then you can run the app on the desired platform. For Android:
@@ -153,7 +153,7 @@ $ yarn ios:run:emulator
 # Replace the host with your own host (find it with ifconfig)
 $ env DEV_HOST=192.168.1.36 yarn build:mobile:hot
 $ yarn ios:run # at this point the app is blank since it cannot access the files from your host
-$ env DEV_HOST=192.168.1.36 yarn watch:mobile:hot # launch a webpack-dev-server
+$ env DEV_HOST=192.168.1.36 yarn start:mobile:hot # launch a webpack-dev-server
 ```
 
 ⚠️⚠️⚠️ If you watch a production build, you must edit the webpack config to have
@@ -486,7 +486,7 @@ If you want activate Pouch on web app, you need:
 
 ```
 cozy-stack instances token-cli cozy.tools:8080 $(cat manifest.webapp | jq -r '[.permissions[] | .type] | join(" ")')
-env FORCE_POUCH=true yarn watch
+env FORCE_POUCH=true yarn start
 ```
 
 Launch your web application and in console javascript fill in the token and refresh the page:

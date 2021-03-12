@@ -13,7 +13,7 @@ jobs:
     - name: Unit tests
       stage: test
       <<: *node
-      script: yarn lint && yarn test && yarn check-locales && yarn check-fixtures
+      script: yarn lint && yarn test --runInBand && yarn check-locales && yarn check-fixtures
     - name: Web build
       stage: build
       <<: *node

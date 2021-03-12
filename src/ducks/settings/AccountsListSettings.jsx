@@ -26,7 +26,7 @@ const { utils } = models
 
 const AccountListItem = ({ account, onClick, secondary, isLoading }) => {
   return (
-    <ListItem divider onClick={onClick} className="u-c-pointer">
+    <ListItem button divider onClick={onClickItem}>
       <ListItemIcon>
         <AccountIconContainer>
           <KonnectorIcon
