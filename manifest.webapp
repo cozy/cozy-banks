@@ -209,7 +209,8 @@
       "verbs": [
         "GET",
         "POST",
-        "PUT"
+        "PUT",
+        "DELETE"
       ]
     },
     "bank.settings": {
