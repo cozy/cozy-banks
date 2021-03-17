@@ -101,7 +101,7 @@ const ImportGroupPanel = () => {
 }
 
 const Row = React.memo(({ account, t }) => {
-  const name = account.instituion
+  const name = account.institutionLabel
   const slug = account.konnector
 
   return (
