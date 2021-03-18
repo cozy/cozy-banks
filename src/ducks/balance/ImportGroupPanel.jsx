@@ -15,7 +15,7 @@ import AccountIcon from 'components/AccountIcon'
 import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
 import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
-import { useJobsContext } from 'components/JobsContext'
+import { useBanksContext } from 'ducks/context/BanksContext'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 
 export const GroupPanelSummary = withStyles(theme => ({
@@ -63,10 +63,10 @@ const PrimaryColumn = withStyles({
 
 const ImportGroupPanel = () => {
   const { t } = useI18n()
-  const { jobsInProgress = [] } = useJobsContext()
+  const { jobsInProgress = [], hasJobsInProgress } = useBanksContext()
   const [expanded, setExpanded] = useState(true)
 
-  if (jobsInProgress.length === 0) {
+  if (!hasJobsInProgress) {
     return null
   }
 

@@ -7,12 +7,10 @@ import React, {
   useRef,
   useState
 } from 'react'
-import { JOBS_DOCTYPE, KONNECTOR_DOCTYPE } from 'doctypes'
+import { JOBS_DOCTYPE } from 'doctypes'
 import CozyRealtime from 'cozy-realtime'
-import { Q } from 'cozy-client'
 import logger from 'cozy-logger'
 import isFunction from 'lodash/isFunction'
-import get from 'lodash/get'
 import PropTypes from 'prop-types'
 
 const log = logger.namespace('import.context')
@@ -37,22 +35,6 @@ const JobsProvider = ({ children, client, options = {} }) => {
   const realtime = useMemo(() => {
     return new CozyRealtime({ client })
   }, [client])
-
-  const setJobsWithName = async arr => {
-    const promises = arr.map(async jobInProgress => {
-      const slug = jobInProgress.konnector
-      const resp = await client.query(
-        Q(KONNECTOR_DOCTYPE).getById(`${KONNECTOR_DOCTYPE}/${slug}`)
-      )
-      const name = get(resp, 'data.attributes.name')
-      const newJobInProgress = { ...jobInProgress }
-      newJobInProgress.institutionLabel = name
-      return newJobInProgress
-    })
-
-    const newJobsInProgress = await Promise.all(promises)
-    setJobsInProgress(newJobsInProgress)
-  }
 
   const handleRealtime = data => {
     const { worker, state, message: msg } = data
@@ -85,7 +67,7 @@ const JobsProvider = ({ children, client, options = {} }) => {
       }
 
       jobsInProgressRef.current = arr
-      setJobsWithName(arr)
+      setJobsInProgress(arr)
     }
   }
 
@@ -120,7 +102,8 @@ const JobsProvider = ({ children, client, options = {} }) => {
   return (
     <JobsContext.Provider
       value={{
-        jobsInProgress
+        jobsInProgress,
+        hasJobsInProgress: jobsInProgress.length > 0
       }}
     >
       {children}
