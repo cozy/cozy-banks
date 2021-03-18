@@ -18,26 +18,27 @@ import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import { useJobsContext } from 'components/JobsContext'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 
-export const GroupPanelSummary = withStyles({
-  root: {
-    maxHeight: '3.5rem',
-    height: '3.5rem'
-  },
-  content: {
-    paddingLeft: '3rem',
-    paddingRight: '0',
-    height: '100%'
+export const GroupPanelSummary = withStyles(theme => ({
+  root: {},
+  expandIcon: {
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(0),
+    color: theme.palette.grey[400]
   },
   expanded: {},
-  expandIcon: {
-    left: '0.375rem',
-    right: 'auto',
-    transform: 'translateY(-50%) rotate(-90deg)',
+  content: {
+    marginTop: 0,
+    marginBottom: 0,
+    paddingRight: 0,
+    justifyContent: 'space-between',
+    alignItems: 'center',
     '&$expanded': {
-      transform: 'translateY(-50%) rotate(0)'
+      marginTop: 0,
+      marginBottom: 0,
+      paddingRight: 0
     }
   }
-})(AccordionSummary)
+}))(AccordionSummary)
 
 const EllipseTypography = withStyles({
   root: {
