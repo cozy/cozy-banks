@@ -24,10 +24,9 @@ const BanksProvider = ({ children, client }) => {
   const [banksJobsInProgress, setBanksJobsInProgress] = useState([])
 
   useEffect(() => {
-    const arr = [...jobsInProgress]
-    if (arr.length > 0) {
-      const formatJobsInProgress = async () => {
-        const ids = arr.map(jobsInProgress => {
+    if (jobsInProgress.length > 0) {
+      const queryJobsInProgress = async () => {
+        const ids = jobsInProgress.map(jobsInProgress => {
           const slug = jobsInProgress.konnector
           return `${KONNECTOR_DOCTYPE}/${slug}`
         })
@@ -44,7 +43,7 @@ const BanksProvider = ({ children, client }) => {
         return newJobInProgress
       }
 
-      formatJobsInProgress().then(formatJobs => {
+      queryJobsInProgress().then(formatJobs => {
         setBanksJobsInProgress(formatJobs)
       })
     }
