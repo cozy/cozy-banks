@@ -13,7 +13,6 @@ import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
 import { useI18n, Empty } from 'cozy-ui/transpiled/react'
 import NarrowContent from 'cozy-ui/transpiled/react/NarrowContent'
 
-import flag from 'cozy-flags'
 import { useQuery } from 'cozy-client'
 import { transactionsConn } from 'doctypes'
 
@@ -80,13 +79,6 @@ const orderSearchResults = results => {
   return orderBy(results, [byRoundedScore, byDate], ['asc', 'desc'])
 }
 
-const logResults = results => {
-  for (let result of results) {
-    // eslint-disable-next-line no-console
-    console.log(parseFloat(result.score.toFixed(2), 10), result.item.label)
-  }
-}
-
 const emptyResults = []
 
 const transactionListOptions = { mobileSectionDateFormat: 'ddd D MMMM YYYY' }
@@ -132,11 +124,6 @@ const SearchPage = () => {
         .filter(result => result.score < 0.3)
       const orderedResults = orderSearchResults(results)
       const transactions = orderedResults.map(result => result.item)
-      if (flag('banks.search.debug-score')) {
-        logResults(results)
-        console.log('---') // eslint-disable-line no-console
-        logResults(orderedResults)
-      }
       setResultIds(transactions.map(tr => tr._id))
     }, 500)
   }, [fuse, setResultIds])
