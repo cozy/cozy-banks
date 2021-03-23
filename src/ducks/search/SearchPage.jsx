@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import minBy from 'lodash/minBy'
 import debounce from 'lodash/debounce'
 import orderBy from 'lodash/orderBy'
+import keyBy from 'lodash/keyBy'
 import { Typography } from '@material-ui/core'
 import Fuse from 'fuse.js'
 
@@ -96,7 +97,7 @@ const SearchPage = () => {
   const { isMobile } = useBreakpoints()
 
   const [search, setSearch] = useState(params.search || '')
-  const [results, setResults] = useState([])
+  const [resultIds, setResultIds] = useState([])
 
   const handleReset = inputNode => {
     setSearch('')
@@ -136,9 +137,9 @@ const SearchPage = () => {
         console.log('---') // eslint-disable-line no-console
         logResults(orderedResults)
       }
-      setResults(transactions)
+      setResultIds(transactions.map(tr => tr._id))
     }, 500)
-  }, [fuse, setResults])
+  }, [fuse, setResultIds])
 
   const handleChange = ev => {
     setSearch(ev.target.value)
@@ -151,6 +152,11 @@ const SearchPage = () => {
       performSearch(params.search)
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const results = useMemo(() => {
+    const transactionsById = keyBy(transactions, tr => tr._id)
+    return resultIds.map(rid => transactionsById[rid]).filter(Boolean)
+  }, [transactions, resultIds])
 
   return (
     <div>
