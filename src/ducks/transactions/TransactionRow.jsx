@@ -142,13 +142,36 @@ export const RowDesktop = React.memo(function RowDesktop(props) {
     categoryModal
   ] = useTransactionCategoryModal(transaction)
 
+  const handleClickCategory = useCallback(
+    ev => {
+      ev.preventDefault()
+      showTransactionCategoryModal()
+    },
+    [showTransactionCategoryModal]
+  )
+
+  const handleClickRow = useCallback(
+    ev => {
+      if (ev.defaultPrevented) {
+        return
+      }
+      showTransactionModal()
+    },
+    [showTransactionModal]
+  )
+
   return (
-    <tr ref={onRef} {...trRest} className={transaction._id && 'u-clickable'}>
+    <tr
+      ref={onRef}
+      {...trRest}
+      className={transaction._id && 'u-clickable'}
+      onClick={handleClickRow}
+    >
       <td className={cx(styles.ColumnSizeDesc, 'u-pv-half', 'u-pl-1')}>
         <Media className="u-clickable">
           <Img
             title={categoryTitle}
-            onClick={transaction._id && showTransactionCategoryModal}
+            onClick={transaction._id && handleClickCategory}
           >
             <CategoryIcon
               categoryId={categoryId}
