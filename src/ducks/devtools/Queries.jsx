@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useCallback } from 'react'
 import sortBy from 'lodash/sortBy'
 import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
@@ -9,7 +9,7 @@ import ListItem from 'cozy-ui/transpiled/react/ListItem'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import { useSelector } from 'react-redux'
 import format from 'date-fns/format'
-import Inspector from 'react-inspector'
+import { TableInspector, ObjectInspector } from 'react-inspector'
 
 import { NavSecondaryAction, ListGridItem } from './common'
 
@@ -38,13 +38,28 @@ const FetchStatus = ({ fetchStatus }) => {
 
 const QueryData = ({ data, doctype }) => {
   const client = useClient()
-
+  const [showTable, setShowTable] = useState(false)
   const documents = useSelector(state => state.cozy.documents[doctype])
 
   const storeData = useMemo(() => {
     return data.map(id => client.hydrateDocument(documents[id]))
   }, [client, data, documents])
-  return <Inspector data={storeData} />
+
+  const handleShowTable = useCallback(() => setShowTable(value => !value), [
+    setShowTable
+  ])
+  return (
+    <>
+      Table:{' '}
+      <input type="checkbox" onClick={handleShowTable} checked={showTable} />
+      <br />
+      {showTable ? (
+        <TableInspector data={storeData} />
+      ) : (
+        <ObjectInspector data={storeData} />
+      )}
+    </>
+  )
 }
 
 const QueryState = ({ name }) => {
