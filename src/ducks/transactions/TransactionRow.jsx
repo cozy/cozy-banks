@@ -4,6 +4,8 @@ import cx from 'classnames'
 import { Media, Bd, Img, Icon, useI18n } from 'cozy-ui/transpiled/react'
 
 import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
+import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
+
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import LogoutIcon from 'cozy-ui/transpiled/react/Icons/Logout'
 import Figure from 'cozy-ui/transpiled/react/Figure'
@@ -11,7 +13,6 @@ import Figure from 'cozy-ui/transpiled/react/Figure'
 import flag from 'cozy-flags'
 
 import { TdSecondary } from 'components/Table'
-import * as List from 'components/List'
 
 import TransactionActions from 'ducks/transactions/TransactionActions'
 import {
@@ -155,7 +156,7 @@ export const RowDesktop = React.memo(function RowDesktop(props) {
             />
           </Img>
           <Bd className="u-pl-1">
-            <List.Content onClick={transaction._id && showTransactionModal}>
+            <ListItemText onClick={transaction._id && showTransactionModal}>
               <Typography variant="body1">{getLabel(transaction)}</Typography>
               {!filteringOnAccount && <AccountCaption account={account} />}
               {applicationDate ? (
@@ -164,7 +165,7 @@ export const RowDesktop = React.memo(function RowDesktop(props) {
               {recurrence && showRecurrence ? (
                 <RecurrenceCaption recurrence={recurrence} />
               ) : null}
-            </List.Content>
+            </ListItemText>
           </Bd>
         </Media>
       </td>
@@ -245,7 +246,7 @@ export const RowMobile = React.memo(function RowMobile(props) {
             <CategoryIcon categoryId={getCategoryId(transaction)} />
           </Img>
           <Bd className="u-mr-half">
-            <List.Content onClick={transaction._id && showTransactionModal}>
+            <ListItemText onClick={transaction._id && showTransactionModal}>
               <Typography className="u-ellipsis" variant="body1">
                 {getLabel(transaction)}
               </Typography>
@@ -253,7 +254,7 @@ export const RowMobile = React.memo(function RowMobile(props) {
               {applicationDate ? (
                 <ApplicationDateCaption transaction={transaction} />
               ) : null}
-            </List.Content>
+            </ListItemText>
           </Bd>
           <Img
             onClick={showTransactionModal}
