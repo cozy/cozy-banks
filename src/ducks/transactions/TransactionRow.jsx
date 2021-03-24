@@ -156,7 +156,10 @@ export const RowDesktop = React.memo(function RowDesktop(props) {
             />
           </Img>
           <Bd className="u-pl-1">
-            <ListItemText onClick={transaction._id && showTransactionModal}>
+            <ListItemText
+              className="u-pv-half"
+              onClick={transaction._id && showTransactionModal}
+            >
               <Typography variant="body1">{getLabel(transaction)}</Typography>
               {!filteringOnAccount && <AccountCaption account={account} />}
               {applicationDate ? (
