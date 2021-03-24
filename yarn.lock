@@ -5071,17 +5071,16 @@ cozy-flags@^2.6.0:
   dependencies:
     microee "^0.0.6"
 
-cozy-harvest-lib@5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-5.2.0.tgz#441c4308b4972eea986c8435bdb2556c76beb2f2"
-  integrity sha512-yBXlKXyDrzdSZQrG4CJHy5PcgRE8dpG2EllRUoImomnehezQs10FPR7rHg90wZUvmgyma6gXOhlj7PtafvgTjg==
+cozy-harvest-lib@5.2.1:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-5.2.1.tgz#0da754d5fda35ba628b126f1323f19b18b920ba3"
+  integrity sha512-A2XLmS+hIBM8O/7HMOdkPPJwgwfAo92WFEIsL6lOdGqfLIGKGtl5UfFSbfbdQIykUwIPh+43bViHrMDXvdHnSg==
   dependencies:
     "@cozy/minilog" "^1.0.0"
     "@sentry/browser" "^6.0.1"
     cozy-bi-auth "0.0.19"
     cozy-doctypes "^1.80.0"
     cozy-logger "^1.7.0"
-    cozy-ui "^47.4.0"
     date-fns "^1.30.1"
     final-form "^4.18.5"
     lodash "^4.17.19"
@@ -5407,31 +5406,10 @@ cozy-ui@40.1.0:
     react-select "2.2.0"
     react-swipeable-views "0.13.3"
 
-cozy-ui@46.1.0:
-  version "46.1.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-46.1.0.tgz#e6cd65b18e219a78126c5208515842fbc4b3a05a"
-  integrity sha512-CfLY0zpNyMtWvOVDjWcBezyUTYGMwtG5ovBo+Q1zj/78CBzWF1Wn4EwuEarfARR8CjwydmC9QbhrgiRNiMcB0Q==
-  dependencies:
-    "@babel/runtime" "^7.3.4"
-    "@popperjs/core" "^2.4.4"
-    classnames "^2.2.5"
-    cozy-interapp "0.5.4"
-    date-fns "^1.28.5"
-    hammerjs "^2.0.8"
-    intersection-observer "0.11.0"
-    node-polyglot "^2.2.2"
-    normalize.css "^7.0.0"
-    react-markdown "^4.0.8"
-    react-pdf "^4.0.5"
-    react-popper "^2.2.3"
-    react-remove-scroll "^2.4.0"
-    react-select "2.2.0"
-    react-swipeable-views "0.13.3"
-
-cozy-ui@^47.4.0:
-  version "47.5.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-47.5.0.tgz#4b1f1d3b67c83a608066a8662069fdf52a0250f0"
-  integrity sha512-DmAWixDPtAGC5kfSQ9EK5RlsmRkWuSEWvnPI4cxshztF/MLEoC1Tlf8blpe4SpFwIs4g7yUkzawsXtHkkHBxMA==
+cozy-ui@47.4.0:
+  version "47.4.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-47.4.0.tgz#1bb12cc9b786627e83b1187811a7ba84565c4971"
+  integrity sha512-M7DEZppLE5kBjXO+oi6/WL52Wd5agRBw7LAF4qxzEimVU7dzqsmd5iNxxUpQW+CHXzafIGEGEG/FdfMDuGmX8w==
   dependencies:
     "@babel/runtime" "^7.3.4"
     "@popperjs/core" "^2.4.4"
