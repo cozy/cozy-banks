@@ -1,5 +1,7 @@
 import React, { useState, useMemo, useCallback } from 'react'
 import sortBy from 'lodash/sortBy'
+import overEvery from 'lodash/overEvery'
+import get from 'lodash/get'
 import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
 
@@ -36,6 +38,27 @@ const FetchStatus = ({ fetchStatus }) => {
   )
 }
 
+const makeMatcher = search => {
+  const specs = search.split(';')
+  const conditions = specs.map(spec => {
+    const [key, value] = spec.split(':')
+    return obj => {
+      if (!value) {
+        return false
+      }
+      const attr = get(obj, key)
+      return (
+        attr &&
+        attr
+          .toString()
+          .toLowerCase()
+          .includes(value.toLowerCase())
+      )
+    }
+  })
+  return overEvery(conditions)
+}
+
 const QueryData = ({ data, doctype }) => {
   const client = useClient()
   const [showTable, setShowTable] = useState(false)
@@ -48,15 +71,33 @@ const QueryData = ({ data, doctype }) => {
   const handleShowTable = useCallback(() => setShowTable(value => !value), [
     setShowTable
   ])
+
+  const [results, setResults] = useState(null)
+  const [search, setSearch] = useState('')
+  const handleSearch = useCallback(
+    ev => {
+      const searchValue = ev.target.value
+      const matcher = searchValue !== '' ? makeMatcher(searchValue) : null
+      const results = matcher ? storeData.filter(matcher) : null
+      setSearch(searchValue)
+      setResults(results)
+    },
+    [storeData]
+  )
+
+  const viewData = results || storeData
+
   return (
     <>
       Table:{' '}
       <input type="checkbox" onClick={handleShowTable} checked={showTable} />
       <br />
+      Search: <input type="text" onChange={handleSearch} value={search} />
+      <br />
       {showTable ? (
-        <TableInspector data={storeData} />
+        <TableInspector data={viewData} />
       ) : (
-        <ObjectInspector data={storeData} />
+        <ObjectInspector data={viewData} />
       )}
     </>
   )
