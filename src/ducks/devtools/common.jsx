@@ -18,7 +18,11 @@ const styles = {
 const NavSecondaryAction = () => {
   return (
     <ListItemSecondaryAction>
-      <Icon icon={RightIcon} className="u-mr-half" />
+      <Icon
+        icon={RightIcon}
+        className="u-mr-half"
+        color="var(--secondaryTextColor)"
+      />
     </ListItemSecondaryAction>
   )
 }
