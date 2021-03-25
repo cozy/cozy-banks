@@ -5,7 +5,6 @@ import { Provider } from 'react-redux'
 
 import I18n from 'cozy-ui/transpiled/react/I18n'
 import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
-import { Sprite as IconSprite } from 'cozy-ui/transpiled/react/Icon'
 import { CozyProvider } from 'cozy-client'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import {
@@ -16,7 +15,8 @@ import {
 import flag from 'cozy-flags'
 
 import { TrackerProvider } from 'ducks/tracking/browser'
-import JobsProvider from 'components/JobsContext'
+import JobsProvider from 'ducks/context/JobsContext'
+import BanksProvider from 'ducks/context/BanksContext'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import { initTranslation } from 'cozy-ui/react/I18n'
 
@@ -57,7 +57,6 @@ const AppContainer = ({ store, lang, history, client }) => {
 
   return (
     <BreakpointsProvider>
-      <IconSprite />
       <TrackerProvider>
         <Provider store={store}>
           <StylesProvider generateClassName={generateClassName}>
@@ -67,9 +66,11 @@ const AppContainer = ({ store, lang, history, client }) => {
                 dictRequire={lang => require(`locales/${lang}`)}
               >
                 <JobsProvider client={client} options={jobsProviderOptions(t)}>
-                  <MuiCozyTheme>
-                    <Router history={history} routes={AppRoute()} />
-                  </MuiCozyTheme>
+                  <BanksProvider client={client}>
+                    <MuiCozyTheme>
+                      <Router history={history} routes={AppRoute()} />
+                    </MuiCozyTheme>
+                  </BanksProvider>
                 </JobsProvider>
               </I18n>
             </CozyProvider>
