@@ -2,6 +2,7 @@ import React, { useState, useMemo, useCallback } from 'react'
 import sortBy from 'lodash/sortBy'
 import overEvery from 'lodash/overEvery'
 import get from 'lodash/get'
+
 import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
 import Table from '@material-ui/core/Table'
@@ -25,7 +26,7 @@ import { NavSecondaryAction, ListGridItem } from './common'
 const styles = {
   panelRight: { height: '100%', overflow: 'scroll', flexGrow: 1 },
   mono: { fontFamily: 'monospace' },
-  input: { width: 400 },
+  input: { width: 400 }
 }
 
 const TableCell = withStyles({
@@ -185,14 +186,13 @@ const QueryListItem = ({ name, selected, onClick }) => {
 }
 const QueryPanels = () => {
   const queries = useSelector(state => state.cozy.queries)
-  const [selectedQuery, setSelectedQuery] = useState(
-    () => Object.keys(queries)[0]
-  )
   const sortedQueries = useMemo(() => {
     return sortBy(Object.values(queries), queryState => queryState.lastUpdate)
       .map(queryState => queryState.id)
       .reverse()
   }, [queries])
+
+  const [selectedQuery, setSelectedQuery] = useState(() => sortedQueries[0])
 
   return (
     <>
