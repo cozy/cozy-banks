@@ -39,7 +39,7 @@ const FetchStatus = ({ fetchStatus }) => {
   return (
     <span
       className={
-        fetchStatus == 'loaded'
+        fetchStatus === 'loaded'
           ? 'u-valid'
           : fetchStatus === 'pending'
           ? 'u-warn'
