@@ -4,6 +4,13 @@ import overEvery from 'lodash/overEvery'
 import get from 'lodash/get'
 import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import MuiTableCell from '@material-ui/core/TableCell'
+import TableContainer from '@material-ui/core/TableContainer'
+import TableRow from '@material-ui/core/TableRow'
+import Paper from '@material-ui/core/Paper'
+import { withStyles } from '@material-ui/core/styles'
 
 import { useClient } from 'cozy-client'
 import Typography from 'cozy-ui/transpiled/react/Typography'
@@ -20,6 +27,12 @@ const styles = {
   mono: { fontFamily: 'monospace' },
   input: { width: 400 },
 }
+
+const TableCell = withStyles({
+  root: {
+    fontFamily: 'inherit'
+  }
+})(MuiTableCell)
 
 const FetchStatus = ({ fetchStatus }) => {
   return (
@@ -122,32 +135,36 @@ const QueryState = ({ name }) => {
   }, [queryState])
   return (
     <>
-      <table style={styles.mono}>
-        <tr>
-          <td>doctype</td>
-          <td>{queryState.definition.doctype}</td>
-        </tr>
-        <tr>
-          <td>fetchStatus</td>
-          <td>
-            <FetchStatus fetchStatus={queryState.fetchStatus} />
-          </td>
-        </tr>
-        <tr>
-          <td>lastFetch</td>
-          <td>{format(lastFetch, 'HH:mm:ss')}</td>
-        </tr>
-        <tr>
-          <td>lastUpdate</td>
-          <td>{format(lastUpdate, 'HH:mm:ss')}</td>
-        </tr>
-        <tr>
-          <td>documents</td>
-          <td>
-            {data && data.length !== undefined ? data.length : data ? 1 : 0}
-          </td>
-        </tr>
-      </table>
+      <TableContainer component={Paper} elevation={0}>
+        <Table style={styles.mono} size="small" className="u-w-auto">
+          <TableBody>
+            <TableRow>
+              <TableCell>doctype</TableCell>
+              <TableCell>{queryState.definition.doctype}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>fetchStatus</TableCell>
+              <TableCell>
+                <FetchStatus fetchStatus={queryState.fetchStatus} />
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>lastFetch</TableCell>
+              <TableCell>{format(lastFetch, 'HH:mm:ss')}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>lastUpdate</TableCell>
+              <TableCell>{format(lastUpdate, 'HH:mm:ss')}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>documents</TableCell>
+              <TableCell>
+                {data && data.length !== undefined ? data.length : data ? 1 : 0}
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </TableContainer>
       <QueryData data={data} doctype={queryState.definition.doctype} />
     </>
   )
