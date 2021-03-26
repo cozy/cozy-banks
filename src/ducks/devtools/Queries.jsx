@@ -17,7 +17,8 @@ import { NavSecondaryAction, ListGridItem } from './common'
 
 const styles = {
   panelRight: { height: '100%', overflow: 'scroll', flexGrow: 1 },
-  mono: { fontFamily: 'monospace' }
+  mono: { fontFamily: 'monospace' },
+  input: { width: 400 },
 }
 
 const FetchStatus = ({ fetchStatus }) => {
@@ -92,7 +93,14 @@ const QueryData = ({ data, doctype }) => {
       Table:{' '}
       <input type="checkbox" onClick={handleShowTable} checked={showTable} />
       <br />
-      Search: <input type="text" onChange={handleSearch} value={search} />
+      Search:{' '}
+      <input
+        type="text"
+        placeholder="field.nested_field:value;other_field:other_value"
+        onChange={handleSearch}
+        value={search}
+        style={styles.input}
+      />
       <br />
       {showTable ? (
         <TableInspector data={viewData} />
