@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import cx from 'classnames'
-import Modal, { ModalDescription } from 'cozy-ui/transpiled/react/Modal'
+import Dialog, { DialogContent } from 'cozy-ui/transpiled/react/Dialog'
 import Panel from 'cozy-ui/transpiled/react/Panel'
 import { withClient } from 'cozy-client'
 import IntentIframe from 'cozy-ui/transpiled/react/IntentIframe'
@@ -28,14 +28,14 @@ class AugmentedModal extends Component {
     const vendor = getTransactionVendor(transaction)
     const { Header, Side } = componentsPerTransactionVendor[vendor]
     return (
-      <Modal
+      <Dialog
         into="body"
         dismissAction={onClose}
         size="xxlarge"
         overflowHidden={true}
       >
         {Header && <Header transaction={transaction} />}
-        <ModalDescription
+        <DialogContent
           className={cx(
             styles.AugmentedModalDescription,
             !Header && styles['AugmentedModalDescription--NoHeader']
@@ -55,8 +55,8 @@ class AugmentedModal extends Component {
               </div>
             </Panel.Side>
           </Panel.Group>
-        </ModalDescription>
-      </Modal>
+        </DialogContent>
+      </Dialog>
     )
   }
 }

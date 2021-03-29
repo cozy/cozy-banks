@@ -1,11 +1,11 @@
 import React from 'react'
-import Modal from 'cozy-ui/transpiled/react/Modal'
+import Dialog from 'cozy-ui/transpiled/react/Dialog'
 import veepeeLogo from 'assets/veepee.png'
 import veepeeInfo from 'assets/veepee-info.png'
 import veepeeInfo2x from 'assets/veepee-info@2x.png'
 import styles from './AugmentedModal.styl'
 
-const { ModalBrandedHeader } = Modal
+const { ModalBrandedHeader } = Dialog
 
 const modalBrandedHeaderStyle = { marginBottom: 0 }
 
