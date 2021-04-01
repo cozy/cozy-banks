@@ -25,7 +25,7 @@ const KONNECTORS = [
 ]
 
 describe('Jobs Context', () => {
-  const setup = ({ withKonnectors }) => {
+  const setup = ({ konnectors }) => {
     const client = new CozyClient({})
     client.query = jest.fn().mockImplementation(options => {
       const { doctype } = options
@@ -45,20 +45,9 @@ describe('Jobs Context', () => {
           // To simulate handle realtime we check if there are
           // at least the first event and we call handleRealtime callbacks
           if (eventName === 'created') {
-            if (withKonnectors) {
+            for (const konn of konnectors) {
               handleRealtime(
-                createKonnectorMsg(
-                  RUNNING,
-                  KONNECTORS[0].konnector,
-                  KONNECTORS[0].account
-                )
-              )
-              handleRealtime(
-                createKonnectorMsg(
-                  RUNNING,
-                  KONNECTORS[1].konnector,
-                  KONNECTORS[1].account
-                )
+                createKonnectorMsg(RUNNING, konn.konnector, konn.account)
               )
             }
           }
@@ -89,7 +78,7 @@ describe('Jobs Context', () => {
     return root
   }
   it('should display job in progress', async () => {
-    const root = setup({ withKonnectors: true })
+    const root = setup({ konnectors: [KONNECTORS[0], KONNECTORS[1]] })
     expect(await root.findByText('caissedepargne1')).toBeTruthy()
     expect(await root.findByText('1234')).toBeTruthy()
     expect(await root.findByText('boursorama83')).toBeTruthy()
@@ -97,7 +86,7 @@ describe('Jobs Context', () => {
   })
 
   it('should not display job in progress', () => {
-    const root = setup({ withKonnectors: false })
+    const root = setup({ konnectors: [] })
     expect(root.queryByText('caissedepargne1')).toBeNull()
     expect(root.queryByText('1234')).toBeNull()
     expect(root.queryByText('boursorama83')).toBeNull()

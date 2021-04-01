@@ -17,9 +17,13 @@ export const createKonnectorMsg = (state, konnector, account) => ({
 })
 
 const RUNNING = 'running'
+const KONNECTORS = [
+  { konnector: 'caissedepargne1', account: '1234' },
+  { konnector: 'boursorama83', account: '5678' }
+]
 
-describe('Jobs Context', () => {
-  it('should display job in progress', async () => {
+describe('Banks Context', () => {
+  const setup = ({ konnectors }) => {
     const client = new CozyClient({})
     CozyRealtime.mockImplementation(() => {
       return {
@@ -28,10 +32,11 @@ describe('Jobs Context', () => {
           // To simulate handle realtime we check if there are
           // at least the first event and we call handleRealtime callbacks
           if (eventName === 'created') {
-            handleRealtime(
-              createKonnectorMsg(RUNNING, 'caissedepargne1', '1234')
-            )
-            handleRealtime(createKonnectorMsg(RUNNING, 'boursorama83', '5678'))
+            for (const konn of konnectors) {
+              handleRealtime(
+                createKonnectorMsg(RUNNING, konn.konnector, konn.account)
+              )
+            }
           }
         },
         unsubscribe: () => {}
@@ -56,9 +61,21 @@ describe('Jobs Context', () => {
         {children}
       </JobsProvider>
     )
+    return root
+  }
+  it('should display job in progress', async () => {
+    const root = setup({ konnectors: [KONNECTORS[0], KONNECTORS[1]] })
     expect(await root.findByText('caissedepargne1')).toBeTruthy()
     expect(await root.findByText('1234')).toBeTruthy()
     expect(await root.findByText('boursorama83')).toBeTruthy()
     expect(await root.findByText('5678')).toBeTruthy()
+  })
+
+  it('should not display job in progress', () => {
+    const root = setup({ konnectors: [] })
+    expect(root.queryByText('caissedepargne1')).toBeNull()
+    expect(root.queryByText('1234')).toBeNull()
+    expect(root.queryByText('boursorama83')).toBeNull()
+    expect(root.queryByText('5678')).toBeNull()
   })
 })
