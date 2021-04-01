@@ -13,6 +13,8 @@ const HiddenPages = () => {
       <a href="#/transfers">Transfers</a>
       <br />
       <a href="#/search">Search</a>
+      <br />
+      <a href="#/payments">Payments API</a>
     </PanelContent>
   )
 }
