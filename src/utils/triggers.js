@@ -108,3 +108,6 @@ const bankingSlug = [
 
 export const isBankTrigger = trigger =>
   includes(bankingSlug, get(trigger, 'message.konnector'))
+
+export const isBankKonnector = job =>
+  includes(bankingSlug, get(job, 'konnector'))
