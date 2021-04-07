@@ -24,7 +24,7 @@ const KONNECTORS = [
   { konnector: 'boursorama83', account: '5678' }
 ]
 
-describe('Jobs Context', () => {
+describe('Banks Context', () => {
   const setup = ({ konnectors }) => {
     const client = new CozyClient({})
     client.query = jest.fn().mockImplementation(options => {
