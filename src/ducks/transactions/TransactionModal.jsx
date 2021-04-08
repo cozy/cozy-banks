@@ -19,6 +19,7 @@ import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import MagnifierIcon from 'cozy-ui/transpiled/react/Icons/Magnifier'
 import RestoreIcon from 'cozy-ui/transpiled/react/Icons/Restore'
+import Typography from 'cozy-ui/transpiled/react/Typography'
 
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { getCategoryName } from 'ducks/categories/categoriesMap'
@@ -61,7 +62,6 @@ import useDocument from 'components/useDocument'
 import { useLocation } from 'components/RouterContext'
 import ListItemArrow from 'components/ListItemArrow'
 import RawContentDialog from 'components/RawContentDialog'
-import Typography from 'cozy-ui/transpiled/react/Typography'
 
 const SearchForTransactionIcon = ({ transaction }) => {
   const label = getLabel(transaction)
@@ -76,7 +76,7 @@ const TransactionLabel = ({ transaction }) => {
   const label = getLabel(transaction)
 
   return (
-    <div className={styles.TransactionLabel}>
+    <Typography variant="h6" gutterBottom>
       {label}
       {
         <>
@@ -84,7 +84,7 @@ const TransactionLabel = ({ transaction }) => {
           <SearchForTransactionIcon transaction={transaction} />
         </>
       }
-    </div>
+    </Typography>
   )
 }
 
