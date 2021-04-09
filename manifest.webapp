@@ -1,6 +1,6 @@
 {
   "name": "Banks",
-  "version": "1.28.0",
+  "version": "1.30.0",
   "name_prefix": "Cozy",
   "slug": "banks",
   "registry_namespace": "banks",
@@ -209,7 +209,8 @@
       "verbs": [
         "GET",
         "POST",
-        "PUT"
+        "PUT",
+        "DELETE"
       ]
     },
     "bank.settings": {
