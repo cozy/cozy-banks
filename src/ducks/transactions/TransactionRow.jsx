@@ -155,6 +155,9 @@ export const RowDesktop = React.memo(function RowDesktop(props) {
       if (ev.defaultPrevented) {
         return
       }
+      if (!ev.currentTarget.contains(ev.target)) {
+        return
+      }
       showTransactionModal()
     },
     [showTransactionModal]
