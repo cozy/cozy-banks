@@ -19,7 +19,7 @@ const Component = ({ transaction, isModalItem }) => {
 
   const handleClick = useCallback(
     ev => {
-      ev.preventDefault()
+      ev && ev.preventDefault()
       open(action.url, action.target)
     },
     [action.target, action.url]
