@@ -2,12 +2,18 @@ import find from 'lodash/find'
 import findLast from 'lodash/findLast'
 import get from 'lodash/get'
 import sumBy from 'lodash/sumBy'
+
+import { Q } from 'cozy-client'
 import flag from 'cozy-flags'
+
 import { differenceInDays, parse as parseDate } from 'date-fns'
 import {
   isHealthExpense,
   isProfessionalExpense
 } from 'ducks/categories/helpers'
+import { queryRecurrenceTransactions } from 'ducks/recurrence/queries'
+import { NOT_RECURRENT_ID } from 'ducks/recurrence/api'
+
 export { default as getCategoryId } from './getCategoryId'
 
 const prevRecurRx = /\bPRLV SEPA RECU RCUR\b/
@@ -243,6 +249,7 @@ export const updateTransactionRecurrence = async (
   transaction,
   recurrence
 ) => {
+  const oldRecurrence = get(transaction, 'relationships.recurrence.data')
   const recurrenceRelationshipData = {
     _id: recurrence._id,
     _type: recurrence._type
@@ -250,6 +257,21 @@ export const updateTransactionRecurrence = async (
   transaction.recurrence.set(recurrenceRelationshipData)
 
   const { data } = await client.save(transaction)
+
+  // Check if we need to delete an empty recurrence
+  if (oldRecurrence && oldRecurrence._id !== NOT_RECURRENT_ID) {
+    const { data: recurrenceTransactions } = await client.query(
+      queryRecurrenceTransactions(oldRecurrence)
+    )
+    if (recurrenceTransactions.length === 0) {
+      const qdef = Q(oldRecurrence._type).getById(oldRecurrence._id)
+      const { data: recurrence } = await client.query(qdef)
+      if (recurrence) {
+        await client.destroy(recurrence)
+      }
+    }
+  }
+
   return data
 }
 
