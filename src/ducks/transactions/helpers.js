@@ -12,7 +12,7 @@ import {
   isProfessionalExpense
 } from 'ducks/categories/helpers'
 import { queryRecurrenceTransactions } from 'ducks/recurrence/queries'
-import { NOT_RECURRENT_ID } from 'ducks/recurrence/api'
+import { NOT_RECURRENT_ID } from 'ducks/recurrence/constants'
 
 export { default as getCategoryId } from './getCategoryId'
 

@@ -25,6 +25,7 @@ import {
 } from './queries'
 import { TRANSACTION_DOCTYPE, RECURRENCE_DOCTYPE } from 'doctypes'
 import { log } from './logger'
+import { NOT_RECURRENT_ID } from './constants'
 
 const addRelationship = (doc, relationshipName, definition) => {
   return set(doc, ['relationships', relationshipName], { data: definition })
@@ -32,8 +33,6 @@ const addRelationship = (doc, relationshipName, definition) => {
 
 const getRecurrenceIdFromRawTransaction = tr =>
   get(tr, 'relationships.recurrence.data._id', null)
-
-export const NOT_RECURRENT_ID = 'not-recurrent'
 
 /**
  * Fetch bundles and associated transactions from CouchDB
