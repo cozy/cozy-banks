@@ -176,7 +176,7 @@ export const setStatusFinished = async (client, recurrence) => {
   return setStatus(client, recurrence, STATUS_FINISHED)
 }
 
-export const removeRecurrenceIfEmpty = async (client, partialRecurrence) => {
+export const destroyRecurrenceIfEmpty = async (client, partialRecurrence) => {
   const { data: recurrenceTransactions } = await client.query(
     queryRecurrenceTransactions(partialRecurrence)
   )

@@ -10,7 +10,7 @@ import {
   isHealthExpense,
   isProfessionalExpense
 } from 'ducks/categories/helpers'
-import { removeRecurrenceIfEmpty } from 'ducks/recurrence/api'
+import { destroyRecurrenceIfEmpty } from 'ducks/recurrence/api'
 import { NOT_RECURRENT_ID } from 'ducks/recurrence/constants'
 
 export { default as getCategoryId } from './getCategoryId'
@@ -259,7 +259,7 @@ export const updateTransactionRecurrence = async (
 
   // Check if we need to delete an empty recurrence
   if (oldRecurrence && oldRecurrence._id !== NOT_RECURRENT_ID) {
-    await removeRecurrenceIfEmpty(client, oldRecurrence)
+    await destroyRecurrenceIfEmpty(client, oldRecurrence)
   }
 
   return data

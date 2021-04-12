@@ -8,7 +8,7 @@ import {
   RECURRENCE_DOCTYPE,
   BANK_ACCOUNT_STATS_DOCTYPE
 } from 'doctypes'
-import { removeRecurrenceIfEmpty } from 'ducks/recurrence/api'
+import { destroyRecurrenceIfEmpty } from 'ducks/recurrence/api'
 import { disableOutdatedNotifications } from 'ducks/settings/helpers'
 
 const removeAccountFromGroup = (group, account) => {
@@ -72,7 +72,7 @@ export const updateRecurrences = async (client, account, deletedOps) => {
     Q(RECURRENCE_DOCTYPE).getByIds(impactedRecurrenceIds)
   )
   for (const recurrence of recurrences) {
-    await removeRecurrenceIfEmpty(client, recurrence)
+    await destroyRecurrenceIfEmpty(client, recurrence)
   }
 }
 
