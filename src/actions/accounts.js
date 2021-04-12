@@ -1,5 +1,10 @@
 import CozyClient, { Q } from 'cozy-client'
-import { GROUP_DOCTYPE, ACCOUNT_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
+import {
+  GROUP_DOCTYPE,
+  ACCOUNT_DOCTYPE,
+  TRANSACTION_DOCTYPE,
+  BANK_ACCOUNT_STATS_DOCTYPE
+} from 'doctypes'
 import { disableOutdatedNotifications } from 'ducks/settings/helpers'
 
 const removeAccountFromGroup = (group, account) => {
@@ -41,7 +46,7 @@ const removeAccountFromGroups = async (client, account) => {
 
 export const removeStats = async (client, account) => {
   const statsResponse = await client.query(
-    Q('io.cozy.bank.accounts.stats').where({
+    Q(BANK_ACCOUNT_STATS_DOCTYPE).where({
       'relationships.account.data._id': account._id
     })
   )
