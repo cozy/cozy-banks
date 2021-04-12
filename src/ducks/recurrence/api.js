@@ -19,7 +19,6 @@ import maxBy from 'lodash/maxBy'
 import get from 'lodash/get'
 import groupBy from 'lodash/groupBy'
 
-import { getAutomaticLabelFromBundle } from './utils'
 import {
   queryRecurrenceTransactions,
   queryRecurrencesTransactions
@@ -27,6 +26,14 @@ import {
 import { TRANSACTION_DOCTYPE, RECURRENCE_DOCTYPE } from 'doctypes'
 import { log } from './logger'
 import { NOT_RECURRENT_ID } from './constants'
+
+const mostFrequent = (iterable, fn) => {
+  const groups = groupBy(iterable, fn)
+  return maxBy(Object.entries(groups), ([, ops]) => ops.length)[0]
+}
+
+export const getAutomaticLabelFromBundle = bundle =>
+  mostFrequent(bundle.ops, op => op.label)
 
 const addRelationship = (doc, relationshipName, definition) => {
   return set(doc, ['relationships', relationshipName], { data: definition })
