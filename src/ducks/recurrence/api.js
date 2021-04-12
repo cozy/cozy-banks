@@ -14,10 +14,11 @@ import flatten from 'lodash/flatten'
 import uniq from 'lodash/uniq'
 
 import omit from 'lodash/omit'
-import { dehydrate } from 'cozy-client'
+import { Q, dehydrate } from 'cozy-client'
 import maxBy from 'lodash/maxBy'
 import get from 'lodash/get'
 import groupBy from 'lodash/groupBy'
+
 import { getAutomaticLabelFromBundle } from './utils'
 import {
   queryRecurrenceTransactions,
@@ -166,4 +167,17 @@ export const setStatusOngoing = async (client, recurrence) => {
 
 export const setStatusFinished = async (client, recurrence) => {
   return setStatus(client, recurrence, STATUS_FINISHED)
+}
+
+export const removeRecurrenceIfEmpty = async (client, partialRecurrence) => {
+  const { data: recurrenceTransactions } = await client.query(
+    queryRecurrenceTransactions(partialRecurrence)
+  )
+  if (recurrenceTransactions.length === 0) {
+    const qdef = Q(partialRecurrence._type).getById(partialRecurrence._id)
+    const { data: recurrence } = await client.query(qdef)
+    if (recurrence) {
+      await client.destroy(recurrence)
+    }
+  }
 }
