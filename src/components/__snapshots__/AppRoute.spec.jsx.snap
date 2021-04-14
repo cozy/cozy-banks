@@ -114,6 +114,10 @@ exports[`App route should be a function returning a route 1`] = `
     </Route>
     <Route
       component={[Function]}
+      path="payments"
+    />
+    <Route
+      component={[Function]}
       path="transfers"
     />
     <Route
@@ -248,6 +252,10 @@ exports[`App route should have renderExtraRoutes 1`] = `
         />
       </Route>
     </Route>
+    <Route
+      component={[Function]}
+      path="payments"
+    />
     <Route
       component={[Function]}
       path="transfers"
