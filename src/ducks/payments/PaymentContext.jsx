@@ -5,10 +5,10 @@ const PaymentContext = createContext({})
 
 const PaymentProvider = ({ children }) => {
   const [payment, setPayment] = useState({
-    beneficiaryLabel: 'PIRES FLORIAN',
-    amount: '1',
-    label: 'Virement vers Bourso',
-    identification: 'FR7640618803070004066945901'
+    beneficiaryLabel: '',
+    amount: '',
+    label: '',
+    identification: ''
   })
   const [biPayment, setBiPayment] = useState({})
 

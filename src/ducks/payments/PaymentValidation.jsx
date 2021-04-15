@@ -1,21 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { ButtonLink } from 'cozy-ui/transpiled/react/Button'
-import { getUrlWebView } from './service'
 import { usePaymentContext } from './PaymentContext'
+import { useUrlWebView } from './hooks/usePayment'
 
 const PaymentValidation = () => {
-  const { payment, biPayment } = usePaymentContext()
-  const [webViewUrl, setWebViewUrl] = useState('')
+  const {
+    payment: { id: paymentId },
+    biPayment
+  } = usePaymentContext()
 
-  useEffect(() => {
-    const loadUrlWebView = async () => {
-      if (payment.id) {
-        const url = await getUrlWebView(payment.id, biPayment)
-        setWebViewUrl(url)
-      }
-    }
-    loadUrlWebView()
-  }, [biPayment, payment.id])
+  const webViewUrl = useUrlWebView(paymentId, biPayment)
 
   return (
     <div>

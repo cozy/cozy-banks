@@ -1,37 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import palette from 'cozy-ui/transpiled/react/palette'
 import { LinearProgress } from 'cozy-ui/transpiled/react/Progress'
-import { styles } from './Payments'
-import { getAccessTokenPayload } from './api'
 import Banner from 'cozy-ui/transpiled/react/Banner'
 import Label from 'cozy-ui/transpiled/react/Label'
-import { useClient } from 'cozy-client'
-import { createBiPayment } from './service'
+import { styles } from './Payments'
+import { getAccessTokenPayload } from './api'
+import { useAccessToken } from './hooks/usePayment'
 import { usePaymentContext } from './PaymentContext'
 
 const title = `POST - /auth/token`
 const AccessToken = () => {
-  const [status, setStatus] = useState('')
-  const [error, setError] = useState(null)
-  const client = useClient()
-  const { setBiPayment, biPayment } = usePaymentContext()
-
-  useEffect(() => {
-    const loadBiPayment = async () => {
-      try {
-        setStatus('loading')
-        const biPayment = await createBiPayment(client)
-        setBiPayment(biPayment)
-        setStatus('done')
-      } catch (e) {
-        setError(e)
-        setStatus('error')
-      }
-    }
-    loadBiPayment()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
+  const { biPayment } = usePaymentContext()
+  const { status, error } = useAccessToken()
   return (
     <div>
       Register the payment request with the API:
