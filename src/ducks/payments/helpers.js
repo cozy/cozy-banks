@@ -1,8 +1,4 @@
-import { getBiPayment } from './storage'
-
-export const makePayload = payment => {
-  const biPayment = getBiPayment()
-  const clientRedirectUri = biPayment && biPayment.clientRedirectUri
+export const makePayload = (payment, clientRedirectUri) => {
   const payload = {
     client_redirect_uri: clientRedirectUri,
     beneficiary: {

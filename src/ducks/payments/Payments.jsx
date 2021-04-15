@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
   Step,
   StepButton,
@@ -11,7 +11,6 @@ import AccessToken from './AccessToken'
 import PaymentCreation from './PaymentCreation'
 import PaymentValidation from './PaymentValidation'
 import PaymentProvider from './PaymentContext'
-import { clearBiPayment } from './storage'
 
 const steps = [
   {
@@ -41,10 +40,6 @@ const Payments = () => {
   const nextStep = () => {
     setActiveStep(activeStep + 1)
   }
-
-  useEffect(() => {
-    clearBiPayment()
-  }, [])
 
   const { content: Content } = steps[activeStep]
 

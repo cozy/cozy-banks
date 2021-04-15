@@ -4,18 +4,18 @@ import { getUrlWebView } from './service'
 import { usePaymentContext } from './PaymentContext'
 
 const PaymentValidation = () => {
-  const { payment } = usePaymentContext()
+  const { payment, biPayment } = usePaymentContext()
   const [webViewUrl, setWebViewUrl] = useState('')
 
   useEffect(() => {
     const loadUrlWebView = async () => {
       if (payment.id) {
-        const url = await getUrlWebView(payment.id)
+        const url = await getUrlWebView(payment.id, biPayment)
         setWebViewUrl(url)
       }
     }
     loadUrlWebView()
-  }, [payment.id])
+  }, [biPayment, payment.id])
 
   return (
     <div>

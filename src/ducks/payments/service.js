@@ -1,5 +1,5 @@
 import logger from 'cozy-logger'
-import { biApi, getPayment } from './api'
+import { biApi } from './api'
 import { makePayload } from './helpers'
 import { waitForRealtimeEvent } from 'cozy-harvest-lib/dist/services/jobUtils'
 import { TRANSACTION_DOCTYPE } from 'doctypes'
@@ -55,18 +55,18 @@ const savePaymentCreation = async (client, paymentCreation) => {
   }
 }
 
-export const createPaymentCreation = async (client, payment) => {
-  const payload = makePayload(payment)
-  const biPayment = getPayment()
-  const baseUrl = biPayment && biPayment.url
-  const paymentCreation = await biApi('POST', `${baseUrl}/payments`, payload)
+export const createPaymentCreation = async ({ client, payment, biPayment }) => {
+  const { url, token, clientRedirectUri } = biPayment
+  const payload = makePayload(payment, clientRedirectUri)
+  const paymentCreation = await biApi('POST', `${url}/payments`, {
+    token,
+    payload
+  })
   await savePaymentCreation(client, paymentCreation)
-
   return paymentCreation
 }
 
-export const getUrlWebView = async paymentId => {
-  const biPayment = getPayment()
+export const getUrlWebView = async (paymentId, biPayment) => {
   const clientId = biPayment && biPayment.clientId
   const token = biPayment && biPayment.token
   const baseUrl = biPayment && biPayment.url

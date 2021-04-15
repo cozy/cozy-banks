@@ -5,14 +5,17 @@ const PaymentContext = createContext({})
 
 const PaymentProvider = ({ children }) => {
   const [payment, setPayment] = useState({
-    beneficiaryLabel: '',
-    amount: '',
-    label: '',
-    identification: ''
+    beneficiaryLabel: 'PIRES FLORIAN',
+    amount: '1',
+    label: 'Virement vers Bourso',
+    identification: 'FR7640618803070004066945901'
   })
+  const [biPayment, setBiPayment] = useState({})
 
   return (
-    <PaymentContext.Provider value={{ payment, setPayment }}>
+    <PaymentContext.Provider
+      value={{ payment, setPayment, biPayment, setBiPayment }}
+    >
       {children}
     </PaymentContext.Provider>
   )

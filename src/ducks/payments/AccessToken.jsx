@@ -6,15 +6,15 @@ import { getAccessTokenPayload } from './api'
 import Banner from 'cozy-ui/transpiled/react/Banner'
 import Label from 'cozy-ui/transpiled/react/Label'
 import { useClient } from 'cozy-client'
-import { storeBiPayment } from './storage'
 import { createBiPayment } from './service'
+import { usePaymentContext } from './PaymentContext'
 
-const title = `POST  - /auth/token`
+const title = `POST - /auth/token`
 const AccessToken = () => {
   const [status, setStatus] = useState('')
   const [error, setError] = useState(null)
-  const [biPayment, setBiPayment] = useState(null)
   const client = useClient()
+  const { setBiPayment, biPayment } = usePaymentContext()
 
   useEffect(() => {
     const loadBiPayment = async () => {
@@ -22,7 +22,6 @@ const AccessToken = () => {
         setStatus('loading')
         const biPayment = await createBiPayment(client)
         setBiPayment(biPayment)
-        storeBiPayment(biPayment)
         setStatus('done')
       } catch (e) {
         setError(e)
@@ -38,7 +37,7 @@ const AccessToken = () => {
       Register the payment request with the API:
       <div>
         <Banner bgcolor={palette['paleGrey']} text={title} inline />
-        <pre>{JSON.stringify(getAccessTokenPayload(), null, 2)}</pre>
+        <pre>{JSON.stringify(getAccessTokenPayload(biPayment), null, 2)}</pre>
       </div>
       {status === 'loading' && (
         <LinearProgress className="u-w-6 u-mt-1" value={undefined} />

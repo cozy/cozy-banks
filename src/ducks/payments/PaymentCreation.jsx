@@ -9,24 +9,26 @@ import { createPaymentCreation } from './service'
 import { makePayload } from './helpers'
 import Label from 'cozy-ui/transpiled/react/Label'
 import { useClient } from 'cozy-client'
-import { getPayment } from './api'
 
-const biPayment = getPayment()
-const baseUrl = biPayment && biPayment.url
-const title = `POST ${baseUrl}/payments`
 const PaymentCreation = () => {
-  const { payment, setPayment } = usePaymentContext()
+  const { payment, setPayment, biPayment } = usePaymentContext()
   const payloadRef = useRef(makePayload(payment))
   const [status, setStatus] = useState('')
   const [error, setError] = useState(null)
   const [paymentCreation, setPaymentCreation] = useState(null)
   const client = useClient()
 
+  const baseUrl = biPayment && biPayment.url
+  const title = `POST ${baseUrl}/payments`
   const execute = useCallback(() => {
     const loadPaymentCreation = async () => {
       setStatus('loading')
       try {
-        const paymentCreation = await createPaymentCreation(client, payment)
+        const paymentCreation = await createPaymentCreation({
+          client,
+          payment,
+          biPayment
+        })
         setPaymentCreation(paymentCreation)
         setPayment(paymentCreation)
         setError(null)
@@ -37,7 +39,7 @@ const PaymentCreation = () => {
       }
     }
     loadPaymentCreation()
-  }, [client, payment, setPayment])
+  }, [biPayment, client, payment, setPayment])
 
   const isDone = useMemo(() => status === 'done', [status])
   return (
