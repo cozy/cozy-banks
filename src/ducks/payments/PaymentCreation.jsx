@@ -1,5 +1,5 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react'
 import { styles } from './Payments'
+import React, { useCallback, useMemo, useRef, useState } from 'react'
 import { LinearProgress } from 'cozy-ui/transpiled/react/Progress'
 import Button from 'cozy-ui/transpiled/react/Button'
 import { usePaymentContext } from './PaymentContext'
@@ -15,10 +15,31 @@ const PaymentCreation = () => {
   const payloadRef = useRef(makePayload(payment))
   const [status, setStatus] = useState('')
   const [error, setError] = useState(null)
+  const [paymentCreation, setPaymentCreation] = useState(null)
+  const client = useClient()
 
   const baseUrl = biPayment && biPayment.url
   const title = `POST ${baseUrl}/payments`
-  const execute = () => {}
+  const execute = useCallback(() => {
+    const loadPaymentCreation = async () => {
+      setStatus('loading')
+      try {
+        const paymentCreation = await createPaymentCreation({
+          client,
+          payment,
+          biPayment
+        })
+        setPaymentCreation(paymentCreation)
+        setPayment(paymentCreation)
+        setError(null)
+        setStatus('done')
+      } catch (e) {
+        setError(e)
+        setStatus('error')
+      }
+    }
+    loadPaymentCreation()
+  }, [biPayment, client, payment, setPayment])
 
   const isDone = useMemo(() => status === 'done', [status])
   return (
