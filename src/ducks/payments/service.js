@@ -8,7 +8,7 @@ import get from 'lodash/get'
 const log = logger.namespace('payment-service')
 
 export const createBiPayment = async client => {
-  const jobResponse = await client.stackClient.jobs.create('konnector', {
+  const jobResponse = await client.getStackClient().jobs.create('konnector', {
     mode: 'getPaymentToken',
     konnector: 'caissedepargne1'
   })
