@@ -95,7 +95,7 @@ const AccountsListSettings = ({
           return t('Settings.accounts-tab.import-in-progress')
         }
         const isInMaintenance = slugInMaintenance.includes(
-          connection && connection.account_type
+          connection?.account_type
         )
         if (isInMaintenance) {
           return t('Settings.accounts-tab.in-maintenance')
