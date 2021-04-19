@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Registry } from 'cozy-client'
 
-// Move useAppsInMaintenance in cozy client
+// TODO Must use useAppsInMaintenance from cozy-client
+// https://github.com/cozy/cozy-client/pull/924
 const useAppsInMaintenance = client => {
   const [appsInMaintenance, setAppsInMaintenance] = useState([])
 
