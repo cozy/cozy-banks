@@ -34,8 +34,6 @@ export class AccountRowLoading extends React.PureComponent {
 
   render() {
     const { t, konnectorSlug, status } = this.props
-    console.log('----status', status)
-
     const isErrored = status === 'errored'
     return (
       <ListItem
