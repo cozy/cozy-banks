@@ -57,7 +57,10 @@ const AccountListItem = ({
 AccountListItem.propTypes = {
   account: PropTypes.object.isRequired,
   onClick: PropTypes.func.isRequired,
-  secondary: PropTypes.func.isRequired,
+  secondary: PropTypes.oneOfType([
+    PropTypes.string.isRequired,
+    PropTypes.object.isRequired
+  ]),
   isLoading: PropTypes.bool,
   hasError: PropTypes.bool
 }
