@@ -38,6 +38,7 @@ const AccountListItem = ({
       {hasError && (
         <Icon
           icon={WarningIcon}
+          color="var(--errorColor)"
           className="u-mr-half"
           data-testid="error-konn"
         />
