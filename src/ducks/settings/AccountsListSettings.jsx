@@ -44,7 +44,7 @@ const AccountsListSettings = ({
   const { t } = useI18n()
   const client = useClient()
   const appsInMaintenance = useAppsInMaintenance(client)
-  const [slugInError, setSlugInError] = useState([])
+  const [konnInError, setKonnInError] = useState([])
 
   const accounts = [...myAccounts].concat(
     transformJobsToFakeAccounts(jobsInProgress)
@@ -71,10 +71,13 @@ const AccountsListSettings = ({
           as: cronKonnectorTriggersConn.as
         }
       )
-      const errors = result.data
-        .filter(trigger => get(trigger, 'current_state.status') === 'errored')
-        .map(trigger => get(trigger, 'message.konnector'))
-      setSlugInError(errors)
+      const errors =
+        result?.data
+          ?.filter(
+            trigger => get(trigger, 'current_state.status') === 'errored'
+          )
+          .map(trigger => get(trigger, 'message.konnector')) || []
+      setKonnInError(errors)
     }
     fetchTriggers()
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -110,8 +113,7 @@ const AccountsListSettings = ({
     [slugInMaintenance, t]
   )
 
-  const hasError = connection =>
-    slugInError.includes(connection && connection.account_type)
+  const hasError = connection => konnInError.includes(connection?.account_type)
 
   return (
     <Unpadded horizontal className={LegalMention.active ? 'u-mv-1' : 'u-mb-1'}>
