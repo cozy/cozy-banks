@@ -35,7 +35,13 @@ const AccountListItem = ({
         primary={getAccountInstitutionLabel(account)}
         secondary={secondary}
       />
-      {hasError && <Icon icon={WarningIcon} className="u-mr-half" />}
+      {hasError && (
+        <Icon
+          icon={WarningIcon}
+          className="u-mr-half"
+          data-testid="error-konn"
+        />
+      )}
 
       <ListItemSecondaryAction>
         {isLoading ? (
