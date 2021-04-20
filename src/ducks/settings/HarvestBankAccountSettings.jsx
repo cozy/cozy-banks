@@ -70,16 +70,16 @@ const HarvestLoader = ({ connectionId, children }) => {
               fetchPolicy={fetchPolicy}
             >
               {({ data, fetchStatus, lastUpdate }) => {
-                if (!data) {
-                  return null
-                }
-
                 if (fetchStatus === 'loading' && !lastUpdate) {
                   return <HarvestSpinner />
                 }
 
                 if (fetchStatus === 'error') {
                   return <HarvestError />
+                }
+
+                if (!data) {
+                  return null
                 }
 
                 const { attributes: konnector } = data
