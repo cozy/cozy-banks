@@ -88,14 +88,19 @@ const HarvestLoader = ({ connectionId, children }) => {
                 // Related issue : https://github.com/cozy/cozy-client/issues/767
                 return (
                   <Query query={Q(TRIGGER_DOCTYPE)} as="triggers">
-                    {({ data: allTriggers, fetchStatus, lastUpdate }) => {
+                    {triggerCol => {
+                      const {
+                        data: allTriggers,
+                        fetchStatus,
+                        lastUpdate
+                      } = triggerCol
                       const triggers = allTriggers.filter(trigger => {
                         return (
                           trigger.message &&
                           trigger.message.account === account._id
                         )
                       })
-                      if (fetchStatus === 'loading' && !lastUpdate) {
+                      if (isQueryLoading(triggerCol) && !lastUpdate) {
                         return <HarvestSpinner />
                       } else if (fetchStatus === 'error') {
                         return <HarvestError />
