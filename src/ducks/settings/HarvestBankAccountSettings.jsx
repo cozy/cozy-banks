@@ -70,6 +70,10 @@ const HarvestLoader = ({ connectionId, children }) => {
               fetchPolicy={fetchPolicy}
             >
               {({ data, fetchStatus, lastUpdate }) => {
+                if (!data) {
+                  return null
+                }
+
                 if (fetchStatus === 'loading' && !lastUpdate) {
                   return <HarvestSpinner />
                 }
