@@ -13,8 +13,8 @@ import {
   getParentCategory
 } from 'ducks/categories'
 import styles from 'ducks/transactions/TransactionModal.styl'
-import { SearchCategoryRow } from './search/SearchCategoryRow'
 import flatten from 'lodash/flatten'
+import { formatSearchResult, fuseOptions } from './search/helpers'
 
 export const getOptions = (categories, subcategory = false, t) => {
   return Object.keys(categories).map(catName => {
@@ -50,16 +50,12 @@ export const isSelected = (toCheck, selected, level) => {
 }
 
 export const getCategoriesOptions = t => getOptions(getCategories(), false, t)
-const fuseOptions = {
-  keys: ['title'],
-  threshold: 0.2
-}
 
 class CategoryChoice extends Component {
   constructor(props) {
     super(props)
 
-    const { t, onSelect } = props
+    const { t } = props
     const childrenOptions = getCategoriesOptions(t)
     this.options = {
       children: childrenOptions,
@@ -73,17 +69,7 @@ class CategoryChoice extends Component {
     this.searchOptions = {
       placeholderSearch: t('Categories.search.title'),
       noDataLabel: t('Categories.search.no-category'),
-      onSearch: this.onSearch,
-      displaySearchResultItem: item => {
-        return (
-          <SearchCategoryRow
-            key={item.key || item.title}
-            item={item}
-            onClick={() => onSelect(item)}
-            isSelected={false}
-          />
-        )
-      }
+      onSearch: this.onSearch
     }
     this.state = {
       value: ''
@@ -106,9 +92,10 @@ class CategoryChoice extends Component {
   }
 
   onSearch = value => {
+    const t = this.props.t
     const result = this.fuse.search(value)
     this.setState({ searchValue: value })
-    return result.map(e => e.item)
+    return formatSearchResult(t, result)
   }
 
   render() {
