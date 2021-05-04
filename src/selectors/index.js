@@ -63,9 +63,26 @@ export const queryDataSelector = (queryName, options) =>
     query => (query && query.data) || []
   )
 
-export const getTransactionsRaw = queryDataSelector('transactions', {
-  hydrated: true
-})
+export const documentSelector = (doctype, options = {}) =>
+  createSelector(
+    [state => state.cozy.documents[doctype]],
+    documents => {
+      const client = getClient()
+      const docs = Object.values(documents || {})
+      return options.hydrated ? client.hydrateDocuments(doctype, docs) : docs
+    }
+  )
+
+export const getTransactionsRaw = createSelector(
+  [
+    documentSelector('io.cozy.bank.operations', {
+      hydrated: true
+    })
+  ],
+  partialTransactions => {
+    return partialTransactions.filter(x => !!x.label)
+  }
+)
 
 export const getGroups = queryDataSelector('groups', {
   hydrated: true

@@ -10,18 +10,14 @@ import sortBy from 'lodash/sortBy'
 import cx from 'classnames'
 import { isIOSApp } from 'cozy-device-helper'
 
-import { useI18n, withBreakpoints } from 'cozy-ui/transpiled/react'
-import Button from 'cozy-ui/transpiled/react/Button'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import ListSubheader from 'cozy-ui/transpiled/react/MuiCozyTheme/ListSubheader'
 
 import { Table } from 'components/Table'
 import TransactionPageErrors from 'ducks/transactions/TransactionPageErrors'
 import styles from 'ducks/transactions/Transactions.styl'
-import {
-  InfiniteScroll,
-  ScrollRestore,
-  TopMost
-} from 'ducks/transactions/scroll'
+import { InfiniteScroll, TopMost } from 'ducks/transactions/scroll'
 import { RowDesktop, RowMobile } from 'ducks/transactions/TransactionRow'
 import { getDate } from 'ducks/transactions/helpers'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
@@ -32,32 +28,6 @@ export const sortByDate = (transactions = []) =>
 const groupByDate = transactions => {
   const byDate = groupBy(transactions, x => getDate(x))
   return toPairs(byDate)
-}
-
-const loadMoreStyle = { textAlign: 'center' }
-const loadMoreBtnStyle = { width: '100%', padding: '0.75rem', margin: 0 }
-const LoadMoreButton = ({ onClick, className }) => {
-  const { t } = useI18n()
-  const { isMobile } = useBreakpoints()
-
-  const button = (
-    <Button
-      style={loadMoreBtnStyle}
-      onClick={onClick}
-      subtle
-      className={className}
-      label={t('Transactions.see-more')}
-    />
-  )
-  return isMobile ? (
-    <div style={loadMoreStyle}>{button}</div>
-  ) : (
-    <tbody>
-      <tr>
-        <td style={loadMoreStyle}>{button}</td>
-      </tr>
-    </tbody>
-  )
 }
 
 export const TransactionsListContext = createContext({
@@ -89,21 +59,13 @@ const TransactionContainerMobile = props => {
  * On desktop, the section headers will not be shown
  */
 const TransactionSections = props => {
-  const {
-    limitMin,
-    limitMax,
-    filteringOnAccount,
-    className,
-    transactions,
-    onRowRef
-  } = props
+  const { filteringOnAccount, className, transactions, onRowRef } = props
 
   const { isDesktop, isExtraLarge } = useBreakpoints()
 
-  const transactionsGrouped = useMemo(
-    () => groupByDate(transactions.slice(limitMin, limitMax)),
-    [transactions, limitMin, limitMax]
-  )
+  const transactionsGrouped = useMemo(() => groupByDate(transactions), [
+    transactions
+  ])
   const Section = isDesktop ? SectionDesktop : SectionMobile
   const TransactionContainer = isDesktop ? Table : TransactionContainerMobile
   const Row = isDesktop ? RowDesktop : RowMobile
@@ -130,13 +92,6 @@ const TransactionSections = props => {
         )
       })}
     </TransactionContainer>
-  )
-}
-
-const shouldRestore = (oldProps, nextProps) => {
-  return (
-    oldProps.limitMin !== nextProps.limitMin &&
-    oldProps.limitMax === nextProps.limitMax
   )
 }
 
@@ -206,60 +161,33 @@ export class TransactionsDumb extends React.Component {
 
   render() {
     const {
-      limitMin,
-      limitMax,
-      manualLoadMore,
       showTriggerErrors,
       filteringOnAccount,
       className,
       transactions,
-      TransactionSections
+      TransactionSections,
+      onReachTop,
+      onReachBottom,
+      canFetchMore
     } = this.props
 
     return (
       <InfiniteScroll
-        manual={manualLoadMore}
-        canLoadAtTop={this.props.infiniteScrollTop && limitMin > 0}
-        canLoadAtBottom={
-          this.transactions && limitMax < this.transactions.length
-        }
-        limitMin={limitMin}
-        limitMax={limitMax}
-        onReachTop={this.props.onReachTop}
-        onReachBottom={this.props.onReachBottom}
+        manual={false}
+        canLoadAtTop={false}
+        canLoadAtBottom={canFetchMore}
+        onReachTop={onReachTop}
+        onReachBottom={onReachBottom}
         getScrollingElement={this.getScrollingElement}
         onScroll={this.handleScroll}
-        className={this.props.className}
       >
         {showTriggerErrors ? <TransactionPageErrors /> : null}
-        <ScrollRestore
-          limitMin={limitMin}
-          limitMax={limitMax}
-          getScrollingElement={this.getScrollingElement}
-          shouldRestore={shouldRestore}
-        >
-          {manualLoadMore && limitMin > 0 && (
-            <LoadMoreButton
-              className="js-topLoadMoreButton"
-              onClick={() => this.props.onReachTop(20)}
-            />
-          )}
-
-          <TransactionSections
-            limitMin={limitMin}
-            limitMax={limitMax}
-            filteringOnAccount={filteringOnAccount}
-            className={className}
-            transactions={transactions}
-            onRowRef={this.handleRefRow}
-          />
-          {manualLoadMore && limitMax < this.transactions.length && (
-            <LoadMoreButton
-              className="js-bottomLoadMoreButton"
-              onClick={() => this.props.onReachBottom(20)}
-            />
-          )}
-        </ScrollRestore>
+        <TransactionSections
+          filteringOnAccount={filteringOnAccount}
+          className={className}
+          transactions={transactions}
+          onRowRef={this.handleRefRow}
+        />
       </InfiniteScroll>
     )
   }

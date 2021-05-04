@@ -215,6 +215,66 @@ export const transactionsConn = {
   fetchPolicy: older30s
 }
 
+export const makeFilteredTransactionsConn = props => {
+  const { filteringDoc, groups, accounts } = props
+  let enabled = true
+  if (!groups.lastUpdate || !accounts.lastUpdate) {
+    enabled = false
+  }
+
+  let indexFields
+  let whereClause
+
+  if (enabled) {
+    if (filteringDoc) {
+      if (filteringDoc._type === GROUP_DOCTYPE) {
+        // The query issued does not use the index "by_account_and_date"
+        // because of the $or
+        const group = groups.data.find(g => g._id === filteringDoc._id)
+        indexFields = ['account', 'date']
+        whereClause = {
+          $or: group.accounts.raw.map(a => ({ account: a }))
+        }
+      } else {
+        indexFields = ['account', 'date']
+        whereClause = { account: filteringDoc._id }
+      }
+    } else {
+      indexFields = ['date', '_id']
+      whereClause = {
+        _id: {
+          $gt: null
+        }
+      }
+    }
+  }
+
+  return {
+    query: () =>
+      transactionsConn
+        .query()
+        .where(whereClause)
+        .sortBy([{ account: 'desc' }, { date: 'desc' }])
+        .indexFields(indexFields)
+        .select([
+          'date',
+          'amount',
+          'bill',
+          'account',
+          'currency',
+          'label',
+          'cozyCategoryId',
+          'automaticCategoryId',
+          'manualCategoryId',
+          'relationships'
+        ])
+        .limitBy(100), // TODO change limit to 100 after dev
+    fetchPolicy: transactionsConn.fetchPolicy,
+    as: `transactions-filtered-${filteringDoc._id}`,
+    enabled: enabled
+  }
+}
+
 export const makeBalanceTransactionsConn = () => {
   const fromDate = subYears(new Date(), 1).toISOString()
   return {
