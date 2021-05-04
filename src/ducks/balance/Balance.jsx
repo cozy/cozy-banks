@@ -30,7 +30,8 @@ import {
   GROUP_DOCTYPE,
   TRIGGER_DOCTYPE,
   TRANSACTION_DOCTYPE,
-  transactionsConn
+  transactionsConn,
+  makeBalanceTransactionsConn
 } from 'doctypes'
 
 import { getVirtualAccounts, getVirtualGroups } from 'selectors'
@@ -277,8 +278,20 @@ class Balance extends PureComponent {
     this.stopResumeListeners()
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     this.ensureListenersProperlyConfigured()
+    this.ensureTransactionsAreFullyLoaded(prevProps.transactions)
+  }
+
+  ensureTransactionsAreFullyLoaded(prevTransactions) {
+    const { transactions } = this.props
+    if (
+      prevTransactions.fetchStatus === 'loading' &&
+      transactions.fetchStatus === 'loaded' &&
+      transactions.hasMore
+    ) {
+      transactions.fetchMore()
+    }
   }
 
   ensureListenersProperlyConfigured() {
@@ -444,7 +457,9 @@ export default compose(
     groups: groupsConn,
     settings: settingsConn,
     triggers: cronKonnectorTriggersConn,
-    transactions: transactionsConn
+    transactions: flag('banks.perf.use-balance-transactions-conn')
+      ? makeBalanceTransactionsConn()
+      : transactionsConn
   }),
   connect(
     createStructuredSelector({
