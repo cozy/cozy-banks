@@ -227,10 +227,9 @@ export const makeBalanceTransactionsConn = () => {
             $gt: fromDate
           }
         })
-        .sortBy([{ date: 'asc' }])
+        .sortBy([{ date: 'desc' }])
         .indexFields(['date'])
-        .select(['date', 'amount', 'account']),
-    fetchPolicy: older30s
+        .select(['date', 'amount', 'account', 'currency']),
   }
 }
 
