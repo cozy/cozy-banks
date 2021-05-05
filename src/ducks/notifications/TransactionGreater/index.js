@@ -34,6 +34,17 @@ const SINGLE_TRANSACTION = 'single'
 const MULTI_TRANSACTION = 'multi'
 const MULTI_TRANSACTION_MULTI_RULES = 'multi-rules'
 
+/**
+ * @typedef {object} Rule
+ */
+
+/**
+ * @typedef {object} RuleResult
+ * @property {Rule} rule - The rule being matched
+ * @property {Array<Transaction>} transactions - Transactions that matched the rule
+ *
+ */
+
 // During tests, it is difficult to keep transactions with
 // first _rev since we replace replace existing transactions, this
 // is why we deactivate the isNewTransaction during tests
@@ -95,12 +106,22 @@ const makeAccountOrGroupFilter = (groups, accountOrGroup) => {
   }
 }
 
+/**
+ * Sends a notification when a transaction amount is greater than
+ * a threshold.
+ */
 class TransactionGreater extends NotificationView {
   constructor(config) {
     super(config)
     this.rules = config.rules
   }
 
+  /**
+   * Creates a filtering function from a rule
+   *
+   * @param  {Rule} rule - A rule
+   * @return {function(Transaction): Boolean} - Predicates that check if a transaction matches rule
+   */
   filterForRule(rule) {
     const fourDaysAgo = subDays(new Date(), 4)
 
@@ -121,9 +142,10 @@ class TransactionGreater extends NotificationView {
   }
 
   /**
-   * Returns a list of [{ rule, transactions }]
    * For each rule, returns a list of matching transactions
    * Rules that do not match any transactions are discarded
+   *
+   * @return {Array<RuleResult>}
    */
   findMatchingRules() {
     return this.rules
@@ -139,7 +161,7 @@ class TransactionGreater extends NotificationView {
     const { accounts } = this.data
     const matchingRules = this.findMatchingRules()
     const transactionsFiltered = uniqBy(
-      flatten(matchingRules.map(x => x.transactions)),
+      flatten(matchingRules.map(result => result.transactions)),
       getDocumentId
     )
     return {
@@ -196,6 +218,9 @@ class TransactionGreater extends NotificationView {
     }
   }
 
+  /**
+   * @return {string} - The title of the notification
+   */
   getTitle(templateData) {
     const { transactions, matchingRules } = templateData
     const onlyOne = transactions.length === 1
