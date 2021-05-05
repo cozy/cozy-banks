@@ -186,10 +186,13 @@ class LateHealthReimbursement extends NotificationView {
   }
 
   /**
+   * Saves last notification date to transactions for which there was
+   * the notification.
+   *
    * Executed by `Notification` when the notification has been successfuly sent
    * See `Notification::sendNotification`
    */
-  async onSendNotificationSuccess() {
+  async onSuccess() {
     this.toNotify.forEach(reimb => {
       if (!reimb.cozyMetadata) {
         reimb.cozyMetadata = {}

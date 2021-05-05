@@ -1,6 +1,13 @@
+import CozyClient from 'cozy-client'
+import { Document } from 'cozy-doctypes'
+import { sendNotification } from 'cozy-notifications'
+
 import LateHealthReimbursement from './index'
 import { Transaction, Bill, BankAccount } from 'src/models'
-import { Document } from 'cozy-doctypes'
+
+import fetch from 'node-fetch'
+window.fetch = fetch
+
 const mockTransactions = [
   // This transaction is not taken into account since it is not an expense
   {
@@ -105,6 +112,7 @@ describe('LateHealthReimbursement', () => {
     const { notification } = setup({ lang: 'en' })
 
     const res = await notification.fetchData()
+    jest.spyOn(notification, 'onSuccess')
 
     expect(Bill.getAll).toHaveBeenCalledWith(['billId12345'])
     expect(BankAccount.getAll).toHaveBeenCalledWith(['accountId1'])
@@ -113,5 +121,25 @@ describe('LateHealthReimbursement', () => {
       account: 'accountId1'
     })
     expect(res.accounts).toHaveLength(1)
+  })
+
+  it('should be called with onSuccess', async () => {
+    jest.spyOn(Transaction, 'queryAll').mockResolvedValue(mockTransactions)
+    jest.spyOn(Document, 'getAll').mockImplementation(async function() {
+      if (this.doctype == 'io.cozy.bills') {
+        return [{ _id: 'billId12345' }]
+      } else if (this.doctype == 'io.cozy.bank.accounts') {
+        return [{ _id: 'accountId3' }, { _id: 'accountId1' }]
+      }
+    })
+    const client = new CozyClient({
+      uri: 'http://localhost:8080'
+    })
+    Document.registerClient(client)
+    const { notification } = setup({ lang: 'en' })
+    jest.spyOn(notification, 'onSuccess')
+    jest.spyOn(client.stackClient, 'fetchJSON').mockResolvedValue({})
+    await sendNotification(client, notification)
+    expect(notification.onSuccess).toHaveBeenCalled()
   })
 })
