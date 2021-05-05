@@ -123,7 +123,7 @@ class LateHealthReimbursement extends NotificationView {
         !isAlreadyNotified(lateReimbursement, LateHealthReimbursement)
     )
 
-    log('info', `${toNotify} need to be notified`)
+    log('info', `${toNotify.length} need to be notified`)
 
     this.toNotify = toNotify
 
