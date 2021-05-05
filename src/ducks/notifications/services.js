@@ -127,6 +127,9 @@ export const sendNotificationForClass = async (
 /**
  * Fetches relevant data, instantiates enabled notification classes and
  * sends push notifications
+ *
+ * @param {object} config - io.cozy.bank.settings document
+ * @param {object} transactions - Transactions that have changed
  */
 export const sendNotifications = async (config, transactions) => {
   const enabledNotificationClasses = getEnabledNotificationClasses(config)

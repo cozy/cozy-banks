@@ -140,6 +140,9 @@ class BalanceLower extends NotificationView {
       data: {
         route: '/balances'
       },
+
+      // If there are new transactions for the account but the account balance
+      // does not change, there will be no alerts
       state: JSON.stringify({
         accounts: this.templateData.accounts
           .map(account => ({
@@ -148,6 +151,8 @@ class BalanceLower extends NotificationView {
           }))
           .sort(byIdSorter)
       }),
+
+      // The category of the alert is made of the rule doc + the threshold
       categoryId: this.templateData.matchingRules
         .map(({ rule }) =>
           rule.accountOrGroup
