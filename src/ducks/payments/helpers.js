@@ -23,3 +23,15 @@ export const iconsState = {
   rejected: '❌',
   pending: '🕓'
 }
+
+export const getSearchParams = location => {
+  const urlSearchParams = new URLSearchParams(
+    window.location.search + location.search.replace('?', '&')
+  )
+  const state = urlSearchParams.get('state')
+  const paymentState = urlSearchParams.get('payment_state')
+  const errorCode = urlSearchParams.get('error_code')
+  const paymentId = urlSearchParams.get('id_payment')
+  const token = urlSearchParams.get('token')
+  return { state, paymentState, errorCode, paymentId, token }
+}

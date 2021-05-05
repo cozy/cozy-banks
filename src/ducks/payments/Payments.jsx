@@ -13,6 +13,7 @@ import PaymentValidation from './PaymentValidation'
 import PaymentProvider, { usePaymentContext } from './PaymentContext'
 import { useLocation } from 'components/RouterContext'
 import { useI18n } from 'cozy-ui/transpiled/react'
+import { getSearchParams } from './helpers'
 
 const steps = [
   {
@@ -45,13 +46,13 @@ const Payments = () => {
   const lastStep = steps.length - 1
 
   useEffect(() => {
-    const urlSearchParams = new URLSearchParams(window.location.search)
-    const state = urlSearchParams.get('state')
-    const paymentState = urlSearchParams.get('payment_state')
-    const errorCode = urlSearchParams.get('error_code')
-    const paymentId = urlSearchParams.get('id_payment')
-    const urlSearchParams2 = new URLSearchParams(location.search)
-    const token = urlSearchParams2.get('token')
+    const {
+      state,
+      paymentState,
+      errorCode,
+      paymentId,
+      token
+    } = getSearchParams(location)
 
     if (paymentState) {
       setActiveStep(lastStep)
@@ -63,7 +64,7 @@ const Payments = () => {
         paymentId
       })
     }
-  }, [lastStep, location.search, setStatePayment, setToken])
+  }, [lastStep, location, location.search, setStatePayment, setToken])
 
   const nextStep = () => {
     setActiveStep(activeStep + 1)
