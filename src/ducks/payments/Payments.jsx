@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Step,
   StepButton,
@@ -10,32 +10,60 @@ import PaymentDefinition from './PaymentDefinition'
 import AccessToken from './AccessToken'
 import PaymentCreation from './PaymentCreation'
 import PaymentValidation from './PaymentValidation'
-import PaymentProvider from './PaymentContext'
+import PaymentProvider, { usePaymentContext } from './PaymentContext'
+import { useLocation } from 'components/RouterContext'
+import { useI18n } from 'cozy-ui/transpiled/react'
 
 const steps = [
   {
-    label: 'Payment definition',
+    label: 'Informations',
     // eslint-disable-next-line react/display-name
     content: () => <PaymentDefinition />
   },
   {
-    label: 'Access token',
+    label: 'Token',
     // eslint-disable-next-line react/display-name
     content: () => <AccessToken />
   },
   {
-    label: 'Payment creation',
+    label: "Création d'un paiement",
     // eslint-disable-next-line react/display-name
     content: () => <PaymentCreation />
   },
   {
-    label: 'Payment validation',
+    label: 'Validation',
     // eslint-disable-next-line react/display-name
     content: () => <PaymentValidation />
   }
 ]
 const Payments = () => {
+  const { t } = useI18n()
   const [activeStep, setActiveStep] = useState(0)
+  const { setStatePayment, setToken } = usePaymentContext()
+  const location = useLocation()
+
+  const lastStep = steps.length - 1
+
+  useEffect(() => {
+    const urlSearchParams = new URLSearchParams(window.location.search)
+    const state = urlSearchParams.get('state')
+    const paymentState = urlSearchParams.get('payment_state')
+    const errorCode = urlSearchParams.get('error_code')
+    const paymentId = urlSearchParams.get('id_payment')
+    const urlSearchParams2 = new URLSearchParams(location.search)
+    const token = urlSearchParams2.get('token')
+
+    if (paymentState) {
+      setActiveStep(lastStep)
+      setToken(token)
+      setStatePayment({
+        state,
+        paymentState,
+        errorCode,
+        paymentId
+      })
+    }
+  }, [lastStep, location.search, setStatePayment, setToken])
 
   const nextStep = () => {
     setActiveStep(activeStep + 1)
@@ -43,10 +71,10 @@ const Payments = () => {
 
   const { content: Content } = steps[activeStep]
 
-  const displayNextButton = activeStep !== steps.length - 1
+  const displayNextButton = activeStep !== lastStep
 
   return (
-    <PaymentProvider>
+    <>
       <div className="u-mr-2">
         <Stepper alternativeLabel nonLinear activeStep={activeStep}>
           {steps.map((step, index) => {
@@ -68,6 +96,7 @@ const Payments = () => {
             )
           })}
         </Stepper>
+
         <div className="u-ml-3">
           <Content />
         </div>
@@ -75,12 +104,12 @@ const Payments = () => {
         {displayNextButton && (
           <Button
             className="u-db u-mt-1 u-ml-3"
-            label="Next"
+            label={t('Payment.next')}
             onClick={nextStep}
           />
         )}
       </div>
-    </PaymentProvider>
+    </>
   )
 }
 
@@ -88,4 +117,10 @@ export const styles = {
   pre: { whiteSpace: 'pre-wrap', wordWrap: 'break-word' }
 }
 
-export default Payments
+const AppPayment = () => (
+  <PaymentProvider>
+    <Payments />
+  </PaymentProvider>
+)
+
+export default AppPayment

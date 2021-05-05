@@ -38,3 +38,10 @@ export const getAccessTokenPayload = biPayment => {
     scope: 'payments'
   }
 }
+
+export const getToken = stackClient => {
+  const token = stackClient
+    .fetchJSON('POST', '/remote/com.budgetinsight.maifsandbox.api', {})
+    .then(resp => resp.token)
+  return token
+}

@@ -10,14 +10,22 @@ const PaymentProvider = ({ children }) => {
     label: '',
     identification: ''
   })
+  const [token, setToken] = useState(null)
   const [biPayment, setBiPayment] = useState({})
+  const [statePayment, setStatePayment] = useState(null)
 
+  const value = {
+    token,
+    setToken,
+    payment,
+    setPayment,
+    biPayment,
+    setBiPayment,
+    statePayment,
+    setStatePayment
+  }
   return (
-    <PaymentContext.Provider
-      value={{ payment, setPayment, biPayment, setBiPayment }}
-    >
-      {children}
-    </PaymentContext.Provider>
+    <PaymentContext.Provider value={value}>{children}</PaymentContext.Provider>
   )
 }
 

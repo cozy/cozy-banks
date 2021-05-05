@@ -18,3 +18,8 @@ export const makePayload = (payment, clientRedirectUri) => {
 
   return payload
 }
+
+export const iconsState = {
+  rejected: '❌',
+  pending: '🕓'
+}

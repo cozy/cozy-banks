@@ -9,42 +9,47 @@ import { createPaymentCreation } from './service'
 import { makePayload } from './helpers'
 import Label from 'cozy-ui/transpiled/react/Label'
 import { useClient } from 'cozy-client'
+import { useI18n } from 'cozy-ui/transpiled/react'
 
 const PaymentCreation = () => {
+  const client = useClient()
+  const { t } = useI18n()
   const { payment, setPayment, biPayment } = usePaymentContext()
   const payloadRef = useRef(makePayload(payment))
-  const [status, setStatus] = useState('')
-  const [error, setError] = useState(null)
-  const [paymentCreation, setPaymentCreation] = useState(null)
-  const client = useClient()
+  const [state, setState] = useState({
+    status: '',
+    error: null,
+    paymentCreation: null
+  })
+
+  const { status, error, paymentCreation } = state
 
   const baseUrl = biPayment && biPayment.url
   const title = `POST ${baseUrl}/payments`
   const execute = useCallback(() => {
     const loadPaymentCreation = async () => {
-      setStatus('loading')
+      setState(st => ({ ...st, status: 'loading' }))
       try {
         const paymentCreation = await createPaymentCreation({
           client,
           payment,
           biPayment
         })
-        setPaymentCreation(paymentCreation)
-        setPayment(paymentCreation)
-        setError(null)
-        setStatus('done')
+        if (paymentCreation) {
+          setState(st => ({ ...st, paymentCreation }))
+          setPayment(paymentCreation)
+        }
+        setState(st => ({ ...st, error: null, status: 'done' }))
       } catch (e) {
-        setError(e)
-        setStatus('error')
+        setState(st => ({ ...st, error: e.message, status: 'error' }))
       }
     }
     loadPaymentCreation()
   }, [biPayment, client, payment, setPayment])
-
   const isDone = useMemo(() => status === 'done', [status])
   return (
     <div>
-      Register the payment request with the API:
+      {t('Payment.Creation.description')}
       <div>
         <Banner bgcolor={palette['paleGrey']} text={title} inline />
         <pre style={styles.pre}>
@@ -78,9 +83,7 @@ const PaymentCreation = () => {
         <>
           <Label error={true}>{error.status}</Label>
           <Label error={true}>
-            <pre style={styles.pre}>
-              {JSON.stringify(error.message, null, 2)}
-            </pre>
+            <Label error={true}>{t(`Payment.error.${error.code}`)}</Label>
           </Label>
         </>
       )}

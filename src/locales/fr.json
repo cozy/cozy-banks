@@ -197,6 +197,39 @@
     "reimbursementStatusUpdateError": "Une erreur est survenue lors de la mise à jour du statut de remboursement"
   },
 
+  "Payment": {
+    "next": "Suivant",
+    "Definition": {
+      "label": "Label",
+      "amount": "Montant",
+      "iban-beneficiary": "IBAN (bénéficaire)",
+      "label-beneficiary": "Label (Bénéficiaire)"
+    },
+    "Token": {
+      "description": "Créer un token 'payment'"
+    },
+    "Creation": {
+      "description": "Enregistrer la demande de paiement avec l'API:"
+    },
+    "Validation": {
+      "description": "Validez le paiement via la webview:",
+      "transfer-number": "Virement N°:",
+      "status-payment": "Statut du paiement:"
+    },
+    "make-transfer": "Effectuer le virement",
+    "state": {
+      "created": "Crée",
+      "rejected": "Rejeté",
+      "pending": "En attente",
+      "done": "Validé"
+    },
+    "error": {
+      "CancelledByUser" : "Le paiement a été explicitement annulé par l'utilisateur. The payment was explicitly cancelled by the end-user.",
+      "maxAmountExceeded": "Le montant est supérieur au maximum autorisé de 10",
+      "invalidValue": "Le montant doit être positif"
+    }
+  },
+
   "Categories": {
     "choice": {
       "title": "Modifier la catégorie",

@@ -1,22 +1,27 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import Label from 'cozy-ui/transpiled/react/Label'
 import Input from 'cozy-ui/transpiled/react/Input'
 import { usePaymentContext } from './PaymentContext'
+import { useI18n } from 'cozy-ui/transpiled/react'
 
-const Payments = () => {
+const PaymentsDefinition = () => {
+  const { t } = useI18n()
   const { payment, setPayment } = usePaymentContext()
 
-  const onChange = ev => {
-    const pay = { ...payment }
-    pay[ev.target.id] = ev.target.value
-    setPayment(pay)
-  }
+  const onChange = useCallback(
+    ev => {
+      const pay = { ...payment }
+      pay[ev.target.id] = ev.target.value
+      setPayment(pay)
+    },
+    [payment, setPayment]
+  )
 
   return (
     <div>
       <div>
         <div>
-          <Label htmlFor="label">Label *</Label>
+          <Label htmlFor="label">{t('Payment.Definition.label')}*</Label>
           <Input
             id="label"
             type="text"
@@ -26,7 +31,7 @@ const Payments = () => {
           />
         </div>
         <div>
-          <Label htmlFor="amount">Amount *</Label>
+          <Label htmlFor="amount">{t('Payment.Definition.amount')}*</Label>
           <Input
             id="amount"
             type="number"
@@ -36,7 +41,9 @@ const Payments = () => {
           />
         </div>
         <div>
-          <Label htmlFor="identification">Beneficiary IBAN *</Label>
+          <Label htmlFor="identification">
+            {t('Payment.Definition.iban-beneficiary')}*
+          </Label>
           <Input
             id="identification"
             type="text"
@@ -48,7 +55,7 @@ const Payments = () => {
 
         <div>
           <Label htmlFor="beneficiaryLabel">
-            Beneficiary label: (Recipient name) *
+            {t('Payment.Definition.label-beneficiary')} *
           </Label>
           <Input
             id="beneficiaryLabel"
@@ -63,4 +70,4 @@ const Payments = () => {
   )
 }
 
-export default Payments
+export default PaymentsDefinition

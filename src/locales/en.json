@@ -263,6 +263,39 @@
     }
   },
 
+  "Payment": {
+    "next": "Next",
+    "Definition": {
+      "label": "Label",
+      "amount": "Amount",
+      "iban-beneficiary": "Beneficiary IBAN",
+      "label-beneficiary": "Beneficiary label: (Recipient name)"
+    },
+    "Token": {
+      "description": "Create a token"
+    },
+    "Creation": {
+      "description": "Save the payment request with the API:"
+    },
+    "Validation": {
+      "description": "Validate the payment via the WebView:",
+      "transfer-number": "Transfer #",
+      "status-payment": "Payment Status:"
+    },
+    "make-transfer": "Make the transfer",
+    "state": {
+      "created": "Created",
+      "rejected": "Rejected",
+      "pending": "Pending",
+      "done": "Done"
+    },
+    "error": {
+      "CancelledByUser" : "The payment was explicitly cancelled by the user.",
+      "maxAmountExceeded": "Amount is greater than the maximum allowed of 10",
+      "invalidValue": "Amount must be positive"
+    }
+  },
+
   "Categories": {
     "choice": {
       "title": "Update category",

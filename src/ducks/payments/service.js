@@ -1,24 +1,30 @@
 import logger from 'cozy-logger'
 import { biApi } from './api'
 import { makePayload } from './helpers'
-import { waitForRealtimeEvent } from 'cozy-harvest-lib/dist/services/jobUtils'
 import { TRANSACTION_DOCTYPE } from 'doctypes'
 import get from 'lodash/get'
+import decode from 'jwt-decode'
+import { Q } from 'cozy-client'
 
 const log = logger.namespace('payment-service')
 
-export const createBiPayment = async client => {
-  const jobResponse = await client.getStackClient().jobs.create('konnector', {
-    mode: 'getPaymentToken',
-    konnector: 'caissedepargne1'
-  })
-  const event = await waitForRealtimeEvent(
-    client,
-    jobResponse.data.attributes,
-    'result',
-    30 * 1000
-  )
-  return event.data.result
+const getClientRedirectUri = token => {
+  const { hostname, protocol, port: p } = window.location
+  const port = p.length === 0 ? '' : `:${p}`
+  const uri = `${protocol}//${hostname}${port}/#/payments?token=${token}`
+  return uri
+}
+
+export const createBiPayment = token => {
+  const decoded = decode(token)
+
+  const clientRedirectUri = getClientRedirectUri(token)
+  return {
+    token,
+    clientId: decoded.iss,
+    clientRedirectUri,
+    url: `https://${decoded.domain}/2.0`
+  }
 }
 
 const savePaymentCreation = async (client, paymentCreation) => {
@@ -43,7 +49,7 @@ const savePaymentCreation = async (client, paymentCreation) => {
       date: executionDate,
       dateType: executionDateType,
       transferId: paymentCreation.id,
-      status: paymentCreation.status,
+      state: paymentCreation.state,
       label,
       beneficiaryLabel,
       beneficiaryAccount,
@@ -58,18 +64,55 @@ const savePaymentCreation = async (client, paymentCreation) => {
 export const createPaymentCreation = async ({ client, payment, biPayment }) => {
   const { url, token, clientRedirectUri } = biPayment
   const payload = makePayload(payment, clientRedirectUri)
-  const paymentCreation = await biApi('POST', `${url}/payments`, {
-    token,
-    payload
-  })
-  await savePaymentCreation(client, paymentCreation)
-  return paymentCreation
+
+  let paymentCreation
+  try {
+    paymentCreation = await biApi('POST', `${url}/payments`, {
+      token,
+      payload
+    })
+  } catch (e) {
+    throw e
+  }
+  if (paymentCreation) {
+    await savePaymentCreation(client, paymentCreation)
+    return paymentCreation
+  }
+  return null
 }
 
-export const getUrlWebView = async (paymentId, biPayment) => {
+export const getUrlWebView = async (paymentId, biPayment, token) => {
   const clientId = biPayment && biPayment.clientId
-  const token = biPayment && biPayment.token
   const baseUrl = biPayment && biPayment.url
   const url = `${baseUrl}/auth/webview/payment?payment_id=${paymentId}&client_id=${clientId}&code=${token}`
   return url
+}
+
+export const updateStatePayment = async (client, data, state) => {
+  try {
+    await client.save({
+      ...data,
+      state
+    })
+  } catch (e) {
+    log('error', "Can't update transaction with payment object")
+    log('error', e)
+  }
+}
+
+export const updatePaymentStatus = async ({ client, paymentId, token }) => {
+  const decoded = decode(token)
+  const url = `https://${decoded.domain}`
+  const paymentStatus = await biApi('GET', `${url}/payments/${paymentId}`, {
+    token
+  })
+  const paymentResponse = await client.query(
+    Q('io.cozy.bank.settings').where({
+      transferId: parseInt(paymentId)
+    })
+  )
+  const data = get(paymentResponse, 'data[0]')
+  if (data) {
+    await updateStatePayment(client, data, paymentStatus.state)
+  }
 }
