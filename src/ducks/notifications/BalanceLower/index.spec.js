@@ -47,6 +47,7 @@ describe('balance lower', () => {
         }
       ],
       data: {
+        transactions: operations,
         accounts: fixtures['io.cozy.bank.accounts'],
         groups: fixtures['io.cozy.bank.groups']
       },
@@ -140,6 +141,21 @@ describe('balance lower', () => {
       expect(unique(accounts.map(getIDFromAccount))).toEqual(['comptelou1'])
       expect(minValueBy(accounts, getAccountBalance)).toBeLessThan(500)
       expect(maxValueBy(accounts, getAccountBalance)).toBe(325.24)
+    })
+
+    it('should compute correct state', async () => {
+      const { notification } = setup({
+        value: 500,
+        accountOrGroup: isabelleGroup
+      })
+      await notification.buildData()
+      const extraAttributes = await notification.getExtraAttributes()
+      expect(extraAttributes).toEqual(
+        expect.objectContaining({
+          categoryId: 'io.cozy.bank.groups:isabelle:500',
+          state: '{"accounts":[{"_id":"comptelou1","balance":325.24}]}'
+        })
+      )
     })
   })
 

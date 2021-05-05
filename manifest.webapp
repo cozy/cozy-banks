@@ -115,8 +115,8 @@
     "balance-lower": {
       "description": "Alert the user when his account balance is lower than a certain value",
       "collapsible": true,
-      "stateful": false,
-      "multiple": false,
+      "stateful": true,
+      "multiple": true,
       "default_priority": "normal",
       "templates": {}
     },
