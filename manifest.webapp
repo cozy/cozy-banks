@@ -265,6 +265,11 @@
       "description": "Used to update the document storing information entered before a transfer",
       "type": "io.cozy.identities",
       "verbs": ["GET", "PUT", "POST"]
+    },
+    "bi.api.pay": {
+      "description": "Required to get a token from BI",
+      "type": "com.budgetinsight.maifsandbox.api",
+      "verbs": ["POST"]
     }
   }
 }
