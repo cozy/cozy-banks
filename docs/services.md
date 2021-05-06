@@ -58,6 +58,9 @@ This service has many roles. It does:
 * Notifications (push & email)
 * Apps suggestions
 
+:warning: A [PR is opened](https://github.com/cozy/cozy-banks/pull/2077) to have stateful
+notifications, please check it before doing more work on notifications.
+
 It is bound to the `io.cozy.bills` creation only. The creation of
 `io.cozy.bank.operations` should be managed by calling the categorization
 service. See [the next
