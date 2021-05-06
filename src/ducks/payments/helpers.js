@@ -1,3 +1,5 @@
+import decode from 'jwt-decode'
+
 export const makePayload = (payment, clientRedirectUri) => {
   const payload = {
     client_redirect_uri: clientRedirectUri,
@@ -17,6 +19,25 @@ export const makePayload = (payment, clientRedirectUri) => {
   }
 
   return payload
+}
+
+const getClientRedirectUri = token => {
+  const { hostname, protocol, port: p } = window.location
+  const port = p.length === 0 ? '' : `:${p}`
+  const uri = `${protocol}//${hostname}${port}/#/payments?token=${token}`
+  return uri
+}
+
+export const createBiPayment = token => {
+  const decoded = decode(token)
+
+  const clientRedirectUri = getClientRedirectUri(token)
+  return {
+    token,
+    clientId: decoded.iss,
+    clientRedirectUri,
+    url: `https://${decoded.domain}/2.0`
+  }
 }
 
 export const iconsState = {

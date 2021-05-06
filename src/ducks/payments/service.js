@@ -8,25 +8,12 @@ import { Q } from 'cozy-client'
 
 const log = logger.namespace('payment-service')
 
-const getClientRedirectUri = token => {
-  const { hostname, protocol, port: p } = window.location
-  const port = p.length === 0 ? '' : `:${p}`
-  const uri = `${protocol}//${hostname}${port}/#/payments?token=${token}`
-  return uri
-}
-
-export const createBiPayment = token => {
-  const decoded = decode(token)
-
-  const clientRedirectUri = getClientRedirectUri(token)
-  return {
-    token,
-    clientId: decoded.iss,
-    clientRedirectUri,
-    url: `https://${decoded.domain}/2.0`
-  }
-}
-
+/**
+ * Save payment object in transaction doctype
+ *
+ * @param client
+ * @param paymentCreation
+ */
 const savePaymentCreation = async (client, paymentCreation) => {
   const label = get(paymentCreation, 'instructions[0].label')
   const beneficiaryAccount = get(
@@ -61,6 +48,14 @@ const savePaymentCreation = async (client, paymentCreation) => {
   }
 }
 
+/**
+ * Save payment object at BI
+ *
+ * @param client
+ * @param payment
+ * @param biPayment
+ * @returns {Promise<*|null>}
+ */
 export const createPaymentCreation = async ({ client, payment, biPayment }) => {
   const { url, token, clientRedirectUri } = biPayment
   const payload = makePayload(payment, clientRedirectUri)
@@ -81,6 +76,14 @@ export const createPaymentCreation = async ({ client, payment, biPayment }) => {
   return null
 }
 
+/**
+ * Get Url WebView to access the transfer
+ *
+ * @param paymentId
+ * @param biPayment
+ * @param token
+ * @returns {Promise<string>}
+ */
 export const getUrlWebView = async (paymentId, biPayment, token) => {
   const clientId = biPayment && biPayment.clientId
   const baseUrl = biPayment && biPayment.url
@@ -88,6 +91,13 @@ export const getUrlWebView = async (paymentId, biPayment, token) => {
   return url
 }
 
+/**
+ * Update payment object in
+ * @param client
+ * @param data
+ * @param state
+ *
+ */
 export const updateStatePayment = async (client, data, state) => {
   try {
     await client.save({
@@ -100,9 +110,18 @@ export const updateStatePayment = async (client, data, state) => {
   }
 }
 
+/**
+ * Get payment status from BI and update transaction doctype
+ *
+ * @param client
+ * @param paymentId
+ * @param token
+ */
 export const updatePaymentStatus = async ({ client, paymentId, token }) => {
   const decoded = decode(token)
   const url = `https://${decoded.domain}`
+
+  log('info', 'Checking payment tatus')
   const paymentStatus = await biApi('GET', `${url}/payments/${paymentId}`, {
     token
   })
@@ -113,6 +132,7 @@ export const updatePaymentStatus = async ({ client, paymentId, token }) => {
   )
   const data = get(paymentResponse, 'data[0]')
   if (data) {
+    log('info', 'Updating Payment Status')
     await updateStatePayment(client, data, paymentStatus.state)
   }
 }

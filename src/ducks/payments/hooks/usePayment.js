@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
-import { createBiPayment, getUrlWebView } from '../service'
+import { getUrlWebView } from '../service'
 import { usePaymentContext } from '../PaymentContext'
 import { useClient } from 'cozy-client'
 import { getToken } from '../api'
+import { createBiPayment } from '../helpers'
 
 export const useAccessToken = () => {
   const [state, setState] = useState({})
