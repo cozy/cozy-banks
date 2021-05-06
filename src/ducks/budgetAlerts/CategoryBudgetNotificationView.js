@@ -1,6 +1,8 @@
 import sumBy from 'lodash/sumBy'
 import keyBy from 'lodash/keyBy'
 import merge from 'lodash/merge'
+import sortBy from 'lodash/sortBy'
+import formatDate from 'date-fns/format'
 
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import NotificationView from 'ducks/notifications/BaseNotificationView'
@@ -67,6 +69,9 @@ const transformForTemplate = (budgetAlert, t, accountsById, groupsById) => {
   }
 }
 
+const formatBudgetAlertToCategoryId = budgetAlert =>
+  `${budgetAlert.categoryId}:${budgetAlert.maxThreshold}`
+
 class CategoryBudget extends NotificationView {
   constructor(options) {
     super(options)
@@ -112,6 +117,8 @@ class CategoryBudget extends NotificationView {
         : null
     }
 
+    this.templateData = data
+
     return data
   }
 
@@ -149,10 +156,25 @@ class CategoryBudget extends NotificationView {
   }
 
   getExtraAttributes() {
+    if (!this.templateData) {
+      return
+    }
+    const { budgetAlerts } = this.templateData
     return merge(super.getExtraAttributes(), {
       data: {
         route: '/analysis/categories'
-      }
+      },
+      categoryId: budgetAlerts.map(formatBudgetAlertToCategoryId).join(','),
+      state: JSON.stringify({
+        budgetAlerts: sortBy(
+          budgetAlerts,
+          budgetAlert => budgetAlert.categoryId
+        ).map(budgetAlert => ({
+          categoryId: budgetAlert.categoryId,
+          date: formatDate(new Date(), 'YYYY-MM-DD'),
+          maxThreshold: budgetAlert.maxThreshold
+        }))
+      })
     })
   }
 }

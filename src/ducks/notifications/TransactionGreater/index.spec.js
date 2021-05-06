@@ -15,10 +15,7 @@ const addId = doc => {
   return { ...doc, _id: doc._id || Math.random().toString() }
 }
 
-const prepareTransactionForTest = compose(
-  addRev,
-  addId
-)
+const prepareTransactionForTest = compose(addRev, addId)
 
 const unique = arr => Array.from(new Set(arr))
 
@@ -119,16 +116,17 @@ describe('transaction greater', () => {
     it('should compute relevant transactions', async () => {
       const { notification } = setup()
       const { transactions } = await notification.buildData()
-      expect(transactions).toHaveLength(116)
+      expect(transactions).toHaveLength(117)
     })
     it('should compute relevant transactions for a different value', async () => {
       const { notification } = setup({ value: 100 })
       const { transactions } = await notification.buildData()
-      expect(transactions).toHaveLength(22)
+      expect(transactions).toHaveLength(23)
       expect(unique(transactions.map(getAccountIDFromTransaction))).toEqual([
         'compteisa1',
         'compteisa3',
-        'comptegene1'
+        'comptegene1',
+        'compteisa4'
       ])
     })
   })

@@ -3,11 +3,13 @@ import flatten from 'lodash/flatten'
 import uniqBy from 'lodash/uniqBy'
 import groupBy from 'lodash/groupBy'
 import map from 'lodash/map'
+import mapValues from 'lodash/mapValues'
 import merge from 'lodash/merge'
 import log from 'cozy-logger'
 import { getAccountBalance } from 'ducks/account/helpers'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 import { getCurrentDate } from 'ducks/notifications/utils'
+import { isNew as isNewTransaction } from 'ducks/transactions/helpers'
 import template from './template.hbs'
 import { toText } from 'cozy-notifications'
 import { ruleAccountFilter } from 'ducks/settings/ruleUtils'
@@ -53,6 +55,8 @@ const customToText = cozyHTMLEmail => {
   return toText(cozyHTMLEmail, getContent)
 }
 
+const byIdSorter = (acc1, acc2) => (acc1._id > acc2._id ? 1 : -1)
+
 class BalanceLower extends NotificationView {
   constructor(config) {
     super(config)
@@ -74,13 +78,22 @@ class BalanceLower extends NotificationView {
    * Rules that do not match any accounts are discarded
    */
   findMatchingRules() {
+    const nbNewTransactionsByAccountId = mapValues(
+      groupBy(
+        this.data.transactions.filter(
+          process.env.NODE_ENV === 'test' ? () => true : isNewTransaction
+        ),
+        tr => tr.account
+      ),
+      transactions => transactions.length
+    )
     return this.rules
       .filter(rule => rule.enabled)
       .map(rule => ({
         rule,
-        accounts: this.data.accounts.filter(acc =>
-          this.filterForRule(rule, acc)
-        )
+        accounts: this.data.accounts
+          .filter(account => nbNewTransactionsByAccountId[account._id] > 0)
+          .filter(acc => this.filterForRule(rule, acc))
       }))
       .filter(({ accounts }) => accounts.length > 0)
   }
@@ -111,20 +124,42 @@ class BalanceLower extends NotificationView {
 
     log('info', `BalanceLower: ${accounts.length} accountsFiltered`)
 
-    return {
+    this.templateData = {
       matchingRules,
       accounts,
       institutions: groupAccountsByInstitution(accounts),
       date: getCurrentDate(),
       ...this.urls
     }
+
+    return this.templateData
   }
 
   getExtraAttributes() {
     return merge(super.getExtraAttributes(), {
       data: {
         route: '/balances'
-      }
+      },
+
+      // If there are new transactions for the account but the account balance
+      // does not change, there will be no alerts
+      state: JSON.stringify({
+        accounts: this.templateData.accounts
+          .map(account => ({
+            _id: account._id,
+            balance: account.balance
+          }))
+          .sort(byIdSorter)
+      }),
+
+      // The category of the alert is made of the rule doc + the threshold
+      categoryId: this.templateData.matchingRules
+        .map(({ rule }) =>
+          rule.accountOrGroup
+            ? `${rule.accountOrGroup._type}:${rule.accountOrGroup._id}:${rule.value}`
+            : `all:${rule.value}`
+        )
+        .join(',')
     })
   }
 

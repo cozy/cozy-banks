@@ -1435,6 +1435,15 @@
       "currency": "€",
       "date": "2018-06-21T00:00:00Z",
       "label": "maintenance"
+    },
+    {
+      "_id": "soldeinitialcompteisa4",
+      "account": "compteisa4",
+      "amount": 10000,
+      "manualCategoryId": "400140",
+      "currency": "€",
+      "date": "2018-06-21T00:00:00Z",
+      "label": "Solde initial"
     }
   ],
   "io.cozy.bills": [
