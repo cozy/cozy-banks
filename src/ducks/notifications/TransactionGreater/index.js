@@ -1,21 +1,28 @@
 import { subDays } from 'date-fns'
-import NotificationView from 'ducks/notifications/BaseNotificationView'
-import fromPairs from 'lodash/fromPairs'
-import sortBy from 'lodash/sortBy'
-import log from 'cozy-logger'
-import { getDate, isNew as isNewTransaction } from 'ducks/transactions/helpers'
-import { getAccountLabel } from 'ducks/account/helpers'
-import { isTransactionAmountGreaterThan } from 'ducks/notifications/helpers'
-import { getCurrencySymbol } from 'utils/currencySymbol'
-import template from './template.hbs'
-import { prepareTransactions, getCurrentDate } from 'ducks/notifications/utils'
-import { toText } from 'cozy-notifications'
 import uniqBy from 'lodash/uniqBy'
 import flatten from 'lodash/flatten'
 import overEvery from 'lodash/overEvery'
 import merge from 'lodash/merge'
 import groupBy from 'lodash/groupBy'
+import fromPairs from 'lodash/fromPairs'
+import sortBy from 'lodash/sortBy'
+
+import log from 'cozy-logger'
+import { toText } from 'cozy-notifications'
+
+import NotificationView from 'ducks/notifications/BaseNotificationView'
+import { getDate, isNew as isNewTransaction } from 'ducks/transactions/helpers'
+import { getAccountLabel } from 'ducks/account/helpers'
+import { isTransactionAmountGreaterThan } from 'ducks/notifications/helpers'
+import { getCurrencySymbol } from 'utils/currencySymbol'
+import {
+  prepareTransactions,
+  getCurrentDate,
+  formatAmount
+} from 'ducks/notifications/utils'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
+
+import template from './template.hbs'
 
 const getDocumentId = x => x._id
 
@@ -199,13 +206,13 @@ class TransactionGreater extends NotificationView {
       notificationSubtype === SINGLE_TRANSACTION
         ? {
             firstTransaction: firstTransaction,
-            amount: Math.abs(firstTransaction.amount),
+            amount: formatAmount(Math.abs(firstTransaction.amount)),
             currency: getCurrencySymbol(firstTransaction.currency)
           }
         : notificationSubtype === MULTI_TRANSACTION
         ? {
             transactionsLength: transactions.length,
-            maxAmount: matchingRules[0].rule.value
+            maxAmount: formatAmount(matchingRules[0].rule.value)
           }
         : {
             transactionsLength: transactions.length,
@@ -230,9 +237,9 @@ class TransactionGreater extends NotificationView {
     const [transaction] = sortBy(transactions, getDate).reverse()
 
     if (notificationSubtype === SINGLE_TRANSACTION) {
-      return `${transaction.label} : ${transaction.amount}${getCurrencySymbol(
-        transaction.currency
-      )}`
+      return `${transaction.label} : ${formatAmount(
+        transaction.amount
+      )}${getCurrencySymbol(transaction.currency)}`
     } else {
       const transactionGroupedByAccount = groupBy(transactions, x => x.account)
       const groups = Object.entries(transactionGroupedByAccount).map(
