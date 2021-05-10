@@ -1,6 +1,57 @@
 import LateHealthReimbursement from './index'
 import { Transaction, Bill, BankAccount } from 'src/models'
 import { Document } from 'cozy-doctypes'
+const mockTransactions = [
+  // This transaction is not taken into account since it is not an expense
+  {
+    _id: 't1',
+    amount: 20,
+    date: '2018-09-16T12:00',
+    manualCategoryId: '400610',
+    label: '1',
+    account: 'accountId1'
+  },
+
+  // This transaction is not taken into account since it is not a health transaction
+  {
+    _id: 't2',
+    amount: 10,
+    date: '2018-09-17T12:00',
+    label: '2',
+    account: 'accountId2'
+  },
+  {
+    _id: 't3',
+    amount: -5,
+    date: '2018-09-18T12:00',
+    label: '3',
+    manualCategoryId: '400610',
+    account: 'accountId3',
+
+    // Should not be taken into account since with at least 1 bill, it is
+    // considered reimbursed
+    reimbursements: [{ billId: 'io.cozy.bills:billId12345' }]
+  },
+  {
+    _id: 't4',
+    amount: -15,
+    // will never be late since the date is now
+    date: new Date().toISOString(),
+    label: '3',
+    manualCategoryId: '400610',
+    account: 'accountId5',
+    reimbursements: [{ billId: 'io.cozy.bills:billId12345' }]
+  },
+
+  {
+    _id: 't5',
+    amount: -20,
+    date: '2018-09-16T12:00',
+    manualCategoryId: '400610',
+    label: '1',
+    account: 'accountId1'
+  }
+]
 
 beforeEach(() => {
   jest.spyOn(Document, 'queryAll').mockResolvedValue([])
@@ -43,57 +94,7 @@ describe('LateHealthReimbursement', () => {
   })
 
   it('should fetch data', async () => {
-    jest.spyOn(Transaction, 'queryAll').mockResolvedValue([
-      // This transaction is not taken into account since it is not an expense
-      {
-        _id: 't1',
-        amount: 20,
-        date: '2018-09-16T12:00',
-        manualCategoryId: '400610',
-        label: '1',
-        account: 'accountId1'
-      },
-
-      // This transaction is not taken into account since it is not a health transaction
-      {
-        _id: 't2',
-        amount: 10,
-        date: '2018-09-17T12:00',
-        label: '2',
-        account: 'accountId2'
-      },
-      {
-        _id: 't3',
-        amount: -5,
-        date: '2018-09-18T12:00',
-        label: '3',
-        manualCategoryId: '400610',
-        account: 'accountId3',
-
-        // Should not be taken into account since with at least 1 bill, it is
-        // considered reimbursed
-        reimbursements: [{ billId: 'io.cozy.bills:billId12345' }]
-      },
-      {
-        _id: 't4',
-        amount: -15,
-        // will never be late since the date is now
-        date: new Date().toISOString(),
-        label: '3',
-        manualCategoryId: '400610',
-        account: 'accountId5',
-        reimbursements: [{ billId: 'io.cozy.bills:billId12345' }]
-      },
-
-      {
-        _id: 't5',
-        amount: -20,
-        date: '2018-09-16T12:00',
-        manualCategoryId: '400610',
-        label: '1',
-        account: 'accountId1'
-      }
-    ])
+    jest.spyOn(Transaction, 'queryAll').mockResolvedValue(mockTransactions)
     jest.spyOn(Document, 'getAll').mockImplementation(async function() {
       if (this.doctype == 'io.cozy.bills') {
         return [{ _id: 'billId12345' }]
