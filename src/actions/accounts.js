@@ -80,7 +80,7 @@ export const updateRecurrences = async (client, account, deletedOps) => {
 }
 
 export const DESTROY_ACCOUNT = 'DESTROY_ACCOUNT'
-const onAccountDelete = async (client, account) => {
+export const onAccountDelete = async (client, account) => {
   const t = getT()
   const notif = Alerter.info(t('DeletingAccount.related-data.deleting'), {
     duration: Infinity
