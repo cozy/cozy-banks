@@ -1,13 +1,11 @@
-import React, { Fragment, useCallback } from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
 import Fade from '@material-ui/core/Fade'
 import Breadcrumb from 'cozy-ui/transpiled/react/Breadcrumbs'
-import { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
 import Stack from 'cozy-ui/transpiled/react/Stack'
 import Header from 'components/Header'
 import Padded from 'components/Padded'
@@ -15,8 +13,8 @@ import { ConnectedSelectDates as SelectDates } from 'components/SelectDates'
 
 import CategoriesChart from 'ducks/categories/CategoriesChart'
 import {
-  getTransactionsTotal,
-  getGlobalCurrency
+  getGlobalCurrency,
+  getTransactionsTotal
 } from 'ducks/categories/helpers'
 import styles from 'ducks/categories/CategoriesHeader.styl'
 import AddAccountButton from 'ducks/categories/AddAccountButton'
@@ -29,56 +27,13 @@ import LegalMention from 'ducks/legal/LegalMention'
 import Empty from 'cozy-ui/transpiled/react/Empty'
 import DateSelectorHeader from 'ducks/categories/DateSelectorHeader'
 import CategoryAccountSwitch from 'ducks/categories/CategoryAccountSwitch'
+import IncomeToggle from 'ducks/categories/IncomeToggle'
 
 const stAmount = catStyles['bnk-table-amount']
 const stCategory = catStyles['bnk-table-category-category']
 const stPercentage = catStyles['bnk-table-percentage']
 const stTotal = catStyles['bnk-table-total']
 const stTableCategory = catStyles['bnk-table-category']
-
-const IncomeToggle = ({ withIncome, onToggle }) => {
-  const theme = useCozyTheme()
-  const { t } = useI18n()
-
-  const handleChange = useCallback(
-    ev => {
-      onToggle(ev.target.checked)
-    },
-    [onToggle]
-  )
-
-  return (
-    <div className={cx(styles.CategoriesHeader__Toggle, styles[theme])}>
-      <Switch
-        id="withIncome"
-        disableRipple
-        checked={withIncome}
-        color="secondary"
-        onChange={handleChange}
-      />
-      <label htmlFor="withIncome">{t('Categories.filter.includeIncome')}</label>
-    </div>
-  )
-}
-
-const CategoryAccountSwitch = ({ selectedCategory, breadcrumbItems }) => {
-  const [previousItem] = breadcrumbItems.slice(-2, 1)
-  return (
-    <Fragment>
-      <AccountSwitch small={selectedCategory !== undefined} />
-      {selectedCategory && (
-        <BackButton
-          onClick={
-            previousItem && previousItem.onClick
-              ? previousItem.onClick
-              : undefined
-          }
-          theme="primary"
-        />
-      )}
-    </Fragment>
-  )
-}
 
 const CategoriesTableHead = props => {
   const { selectedCategory } = props
@@ -156,7 +111,9 @@ const CategoriesHeader = props => {
       />
     )
 
-  const dateSelector = <SelectDates showFullYear />
+  const dateSelector = (
+    <SelectDates showFullYear className={classes.selectDates} />
+  )
 
   if (isMobile) {
     return (
@@ -186,12 +143,7 @@ const CategoriesHeader = props => {
                 />
               </div>
             )}
-            {incomeToggle || chart ? (
-              <Padded className="u-pt-0">
-                {incomeToggle}
-                {chart}
-              </Padded>
-            ) : null}
+            {incomeToggle || chart ? <Padded>{chart}</Padded> : null}
           </Header>
         ) : (
           <div className={cx(styles.NoAccount_container)}>
@@ -251,7 +203,8 @@ CategoriesHeader.defaultProps = {
   emptyIcon: 'cozy',
   classes: {
     header: '',
-    legalMention: 'u-mt-2 u-pt-1'
+    legalMention: 'u-mt-2 u-pt-1',
+    selectDates: 'u-pt-0'
   }
 }
 
