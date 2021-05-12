@@ -57,7 +57,7 @@ const DeprecatedNotice = withStyles(theme => ({
   }
 }))(ListSubheader)
 
-export const RecurrencesPage = ({ emptyIcon }) => {
+export const RecurrencesPage = ({ emptyIcon, showTitle }) => {
   const history = useHistory()
   const { isMobile } = useBreakpoints()
   const bundleCol = useQuery(recurrenceConn.query, recurrenceConn)
@@ -100,7 +100,7 @@ export const RecurrencesPage = ({ emptyIcon }) => {
         ) : null}
         {isMobile ? (
           <>
-            <PageTitle>{t('Recurrence.title')}</PageTitle>
+            <PageTitle>{showTitle && t('Recurrence.title')}</PageTitle>
           </>
         ) : null}
       </Header>
@@ -141,7 +141,8 @@ export const RecurrencesPage = ({ emptyIcon }) => {
 }
 
 RecurrencesPage.defaultProps = {
-  emptyIcon: 'cozy'
+  emptyIcon: 'cozy',
+  showTitle: true
 }
 
 const RecurrenceError = ({ error }) => {
