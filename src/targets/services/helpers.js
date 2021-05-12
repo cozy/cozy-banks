@@ -15,7 +15,8 @@ const log = logger.namespace('services')
  *
  * @return {Object} an object containing the `documents` and the `newLastSeq`
  */
-export const fetchChangesOrAll = async (Model, lastSeq) => {
+export const fetchChangesOrAll = async (client, doctype, lastSeq) => {
+  const collection = client.collection(doctype)
   if (lastSeq === '0') {
     // If we want to fetch all changes, it is more efficient to fetch all the
     // documents. But we still need to return a `lastSeq` just as if we really
@@ -25,16 +26,19 @@ export const fetchChangesOrAll = async (Model, lastSeq) => {
     // documents then fetch the last change, a document could have been created
     // between the two, and it will not be part of the documents returned. Since
     // the lastSeq includes it, it will not be returned next time either.
-    const lastChanges = await Model.fetchChanges('', {
+    const lastChanges = await collection.fetchChanges({
+      since: '',
       descending: true,
       limit: 1
     })
 
-    const documents = await Model.fetchAll()
+    const documents = await collection.all({ limit: null })
 
     return { documents, newLastSeq: lastChanges.newLastSeq }
   } else {
-    return Model.fetchChanges(lastSeq)
+    return collection.fetchChanges({
+      since: lastSeq
+    })
   }
 }
 
