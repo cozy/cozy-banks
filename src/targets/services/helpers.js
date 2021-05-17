@@ -10,7 +10,8 @@ const log = logger.namespace('services')
  * more efficient to fetch all the documents, because we don't have to check the
  * whole history of each document.
  *
- * @param {Object} Model - A cozy-doctypes' model class
+ * @param {CozyClient} client - A cozy client
+ * @param {string} doctype - The doctype of which we want the latest changes
  * @param {string} lastSeq - The lastSeq from which you want to fetch the changes. If you give '0', then all documents will be fetched
  *
  * @return {Object} an object containing the `documents` and the `newLastSeq`
