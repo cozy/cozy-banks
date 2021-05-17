@@ -100,6 +100,7 @@
     "@babel/plugin-proposal-optional-chaining": "7.12.7",
     "@babel/polyfill": "7.6.0",
     "@testing-library/react": "^9.4.0",
+    "@welldone-software/why-did-you-render": "^6.1.2",
     "ach": "0.3.0",
     "babel-plugin-date-fns": "0.2.1",
     "babel-plugin-inline-import": "^3.0.0",
