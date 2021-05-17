@@ -259,4 +259,4 @@ GroupPanel.defaultProps = {
   withBalance: true
 }
 
-export default GroupPanel
+export default React.memo(GroupPanel)
