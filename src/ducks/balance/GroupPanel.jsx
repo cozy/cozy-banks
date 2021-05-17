@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import React, { useState, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 
+import Box from '@material-ui/core/Box'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
 import { withStyles } from '@material-ui/core/styles'
@@ -43,7 +44,10 @@ const GroupPanelSummary = withStyles(theme => ({
     marginTop: 0,
     marginBottom: 0,
     paddingRight: 0,
-    alignItems: 'center',
+    alignItems: 'stretch',
+    // Do not put align-items: stretch on the root otherwise the expand icon
+    // has the wrong size. Here, only the label takes all the vertical space.
+    alignSelf: 'stretch',
     '&$expanded': {
       marginTop: 0,
       marginBottom: 0,
@@ -194,17 +198,19 @@ const GroupPanel = props => {
             />
           )}
         </div>
-        {onSwitchChange && (
-          <Switch
-            disableRipple
-            className={!isMobile && 'u-mr-half'}
-            checked={checked}
-            color="primary"
-            onClick={handleSwitchClick}
-            id={`[${group._id}]`}
-            onChange={onSwitchChange}
-          />
-        )}
+        <Box display="flex" alignItems="center">
+          {onSwitchChange && (
+            <Switch
+              disableRipple
+              className={!isMobile && 'u-mr-half'}
+              checked={checked}
+              color="primary"
+              onClick={handleSwitchClick}
+              id={`[${group._id}]`}
+              onChange={onSwitchChange}
+            />
+          )}
+        </Box>
       </GroupPanelSummary>
       <AccordionDetails>
         <div className="u-flex-grow-1 u-maw-100">
