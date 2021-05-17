@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, memo } from 'react'
 import PropTypes from 'prop-types'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
@@ -101,4 +101,4 @@ TransactionHeader.propTypes = {
   showBackButton: PropTypes.bool
 }
 
-export default withSize()(TransactionHeader)
+export default withSize()(memo(TransactionHeader))
