@@ -123,6 +123,10 @@ const AccountRow = props => {
   const handleSwitchClick = useCallback(ev => {
     ev.stopPropagation()
   }, [])
+  const handleClick = useCallback(ev => onClick(ev, account), [
+    account,
+    onClick
+  ])
 
   return (
     <ListItem
@@ -137,7 +141,7 @@ const AccountRow = props => {
             (!checked || disabled) && account.loading !== true
         })
       }}
-      onClick={onClick}
+      onClick={handleClick}
     >
       <ListItemIcon>
         <AccountRowIcon account={account} />

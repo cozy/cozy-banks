@@ -37,7 +37,7 @@ export const AccountsList = props => {
   const accounts = useSelector(mkAccountsSelector(group, client))
 
   const goToAccountsDetails = useCallback(
-    account => {
+    (ev, account) => {
       filterByDoc(account)
       router.push('/balances/details')
     },
@@ -66,7 +66,7 @@ export const AccountsList = props => {
             key={a._id}
             account={a}
             group={group}
-            onClick={() => goToAccountsDetails(a)}
+            onClick={goToAccountsDetails}
             checked={switchState.checked}
             disabled={switchState.disabled}
             id={`${group._id}.accounts.${a._id}`}
