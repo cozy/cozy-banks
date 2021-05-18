@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import CozyClient, { queryConnect } from 'cozy-client'
 import cx from 'classnames'
 import compose from 'lodash/flowRight'
 import { withStyles } from '@material-ui/core/styles'
@@ -26,7 +25,6 @@ import { getWarningLimitPerAccount } from 'selectors'
 import styles from 'ducks/balance/AccountRow.styl'
 import ReimbursementsIcon from 'ducks/balance/ReimbursementsIcon'
 import AccountIcon from 'components/AccountIcon'
-import { cronKonnectorTriggersConn } from 'doctypes'
 import { Contact } from 'cozy-doctypes'
 import AccountCaption from 'ducks/balance/AccountRowCaption'
 
@@ -110,8 +108,7 @@ const AccountRow = props => {
     checked,
     disabled,
     onSwitchChange,
-    id,
-    triggersCol
+    id
   } = props
 
   const { t } = useI18n()
@@ -155,7 +152,6 @@ const AccountRow = props => {
         </EllipseTypography>
         <AccountCaption
           gutterBottom={isMobile && hasOwners}
-          triggersCol={triggersCol}
           account={account}
         />
         {isMobile && hasOwners ? (
@@ -211,12 +207,6 @@ AccountRow.propTypes = {
 }
 
 export default compose(
-  queryConnect({
-    triggersCol: {
-      ...cronKonnectorTriggersConn,
-      fetchPolicy: CozyClient.fetchPolicies.noFetch
-    }
-  }),
   connect((state, { account }) => {
     const warningLimits = getWarningLimitPerAccount(state)
     const accountLimit = warningLimits[account._id]
