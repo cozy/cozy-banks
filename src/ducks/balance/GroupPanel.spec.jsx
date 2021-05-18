@@ -5,10 +5,17 @@ import fromPairs from 'lodash/fromPairs'
 import { render, fireEvent } from '@testing-library/react'
 
 import CozyClient from 'cozy-client'
-import { schema, TRANSACTION_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
+import { createMockClient } from 'cozy-client/dist/mock'
+import {
+  schema,
+  groupsConn,
+  GROUP_DOCTYPE,
+  ACCOUNT_DOCTYPE,
+  TRANSACTION_DOCTYPE,
+  SETTINGS_DOCTYPE
+} from 'doctypes'
 
 import AppLike from 'test/AppLike'
-import { createClientWithData } from 'test/client'
 import getClient from 'selectors/getClient'
 import MockDate from 'mockdate'
 import mockRouter from 'test/mockRouter'
@@ -30,13 +37,22 @@ describe('GroupPanel', () => {
   let root, onChange, switches
 
   const setup = ({ group: rawGroup, initialExpanded = false }) => {
-    const client = new CozyClient({
-      schema
+    const client = createMockClient({
+      clientOptions: {
+        schema
+      },
+      queries: {
+        groups: {
+          doctype: GROUP_DOCTYPE,
+          data: [rawGroup]
+        },
+        accounts: {
+          doctype: ACCOUNT_DOCTYPE,
+          data: fixtures['io.cozy.bank.accounts']
+        }
+      }
     })
-    const data = {
-      'io.cozy.bank.groups': [rawGroup],
-      'io.cozy.bank.accounts': fixtures['io.cozy.bank.accounts']
-    }
+    const data = {}
     getClient.mockReturnValue(client)
     client.setData(addType(data))
     const group = client.hydrateDocument(
@@ -113,7 +129,7 @@ describe('Reimbursement virtual group styling', () => {
     lateHealthReimbursementNotificationSetting,
     transactions
   }) => {
-    const client = createClientWithData({
+    const client = createMockClient({
       queries: {
         transactions: {
           doctype: TRANSACTION_DOCTYPE,
