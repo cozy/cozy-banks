@@ -1,7 +1,8 @@
-import React from 'react'
-import { translate, Spinner } from 'cozy-ui/react'
 import { queryConnect, hasQueryBeenLoaded } from 'cozy-client'
 import { connect } from 'react-redux'
+import React, { useMemo } from 'react'
+import Spinner from 'cozy-ui/react/Spinner'
+import { useI18n } from 'cozy-ui/react/I18n'
 import { accountsConn } from 'doctypes'
 import { getAccountLabel, isCreditCardAccount } from 'ducks/account/helpers'
 
@@ -85,6 +86,12 @@ const DelayedDebitRules = makeRuleComponent({
 
 const WaitForLoadingDelayedDebitRules = props => {
   const { accounts, accountsById } = props
+  const { t } = useI18n()
+  const ruleProps = useMemo(() => ({ accounts, accountsById }), [
+    accounts,
+    accountsById
+  ])
+
   if (!hasQueryBeenLoaded(accounts)) {
     return <Spinner />
   }
@@ -92,8 +99,8 @@ const WaitForLoadingDelayedDebitRules = props => {
     <DelayedDebitRules
       rules={props.rules}
       onChangeRules={props.onChangeRules}
-      t={props.t}
-      ruleProps={{ accounts, accountsById }}
+      t={t}
+      ruleProps={ruleProps}
     />
   )
 }
@@ -106,7 +113,6 @@ const withAccountsById = connect(state => ({
 }))
 
 export default compose(
-  translate(),
   withAccounts,
   withAccountsById
 )(WaitForLoadingDelayedDebitRules)
