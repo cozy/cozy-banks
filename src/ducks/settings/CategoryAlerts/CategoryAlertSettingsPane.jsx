@@ -1,6 +1,5 @@
-import compose from 'lodash/flowRight'
-import { withClient, queryConnect } from 'cozy-client'
 import React, { useCallback } from 'react'
+import { useClient, useQuery } from 'cozy-client'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
@@ -22,8 +21,10 @@ const updateBudgetAlerts = async (client, settings, categoryBudgetAlerts) => {
   await client.save(updatedSettings)
 }
 
-const CategoryAlertsPane = ({ client, settingsCollection }) => {
+const CategoryAlertsPane = () => {
   const { t } = useI18n()
+  const client = useClient()
+  const settingsCollection = useQuery(settingsConn.query, settingsConn)
   const settings = getDefaultedSettingsFromCollection(settingsCollection)
   const onUpdateError = useCallback(
     () => Alerter.error(t('Settings.rules.saving-error')),
@@ -61,9 +62,4 @@ const CategoryAlertsPane = ({ client, settingsCollection }) => {
   )
 }
 
-export default compose(
-  withClient,
-  queryConnect({
-    settingsCollection: settingsConn
-  })
-)(CategoryAlertsPane)
+export default CategoryAlertsPane
