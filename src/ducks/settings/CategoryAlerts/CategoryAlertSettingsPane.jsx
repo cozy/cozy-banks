@@ -1,17 +1,17 @@
-import React from 'react'
 import compose from 'lodash/flowRight'
 import { withClient, queryConnect } from 'cozy-client'
-import { Alerter, useI18n } from 'cozy-ui/transpiled/react'
-
-import { SubSection } from 'ducks/settings/Sections'
+import React, { useCallback } from 'react'
+import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
 import { settingsConn } from 'doctypes'
-import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 
+import { SubSection } from 'ducks/settings/Sections'
+import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import CategoryAlertCard from 'ducks/settings/CategoryAlerts/CategoryAlertCard'
 import CategoryAlertEditModal from 'ducks/settings/CategoryAlerts/CategoryAlertEditModal'
-
 import { makeNewAlert } from 'ducks/budgetAlerts'
+
 import Rules from '../Rules'
 
 const updateBudgetAlerts = async (client, settings, categoryBudgetAlerts) => {
@@ -25,9 +25,14 @@ const updateBudgetAlerts = async (client, settings, categoryBudgetAlerts) => {
 const CategoryAlertsPane = ({ client, settingsCollection }) => {
   const { t } = useI18n()
   const settings = getDefaultedSettingsFromCollection(settingsCollection)
-  const onUpdateError = () => Alerter.error(t('Settings.rules.saving-error'))
-  const onUpdate = updatedAlerts =>
-    updateBudgetAlerts(client, settings, updatedAlerts)
+  const onUpdateError = useCallback(
+    () => Alerter.error(t('Settings.rules.saving-error')),
+    [t]
+  )
+  const onUpdate = useCallback(
+    updatedAlerts => updateBudgetAlerts(client, settings, updatedAlerts),
+    [client, settings]
+  )
   return (
     <SubSection
       title={t('Settings.budget-category-alerts.pane-title')}
