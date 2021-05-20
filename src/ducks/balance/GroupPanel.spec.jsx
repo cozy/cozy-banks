@@ -4,11 +4,9 @@ import mapValues from 'lodash/mapValues'
 import fromPairs from 'lodash/fromPairs'
 import { render, fireEvent } from '@testing-library/react'
 
-import CozyClient from 'cozy-client'
 import { createMockClient } from 'cozy-client/dist/mock'
 import {
   schema,
-  groupsConn,
   GROUP_DOCTYPE,
   ACCOUNT_DOCTYPE,
   TRANSACTION_DOCTYPE,
