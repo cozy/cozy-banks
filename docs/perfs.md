@@ -1,21 +1,12 @@
 # Measuring Banks performance
 
+There is ongoing work on improving Banks performance for people for have a lot of banking data.
+
 ## Fixtures
 
-Mean number of bank transactions per day : 3
-There are 3 different fixture files to check Banks perfs.
-
-### Small fixture
-
-10 io.cozy.bills
-3 io.cozy.bank.accounts
-300 io.cozy.bank.operations
-3 io.cozy.bank.groups
-
-Size of the fixture file : 124K
-Nombre d'années dans le cozy: 20
-
-5,57 Mo / 1,33 Mo transférés depuis une page de compte
+To test more easily performance and performance regressions, fixtures can be created with adjustable
+number of documents for each doctype. This will help us measure performances on large cozies and
+in the future have performance regression tests.
 
 ### Medium fixture
 
@@ -37,8 +28,3 @@ Size of the fixture file : 1.2M
 
 12,37 Mo / 12,38 Mo transférés
 8.2M
-Temps Regular 4G: 15s (N)
-Temps 3G : Inutilisable j'imagine
-
-Changement de mois prend 1s
-Scroll est lent
