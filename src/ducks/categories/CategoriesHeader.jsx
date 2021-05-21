@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
@@ -7,6 +7,8 @@ import Breadcrumb from 'cozy-ui/transpiled/react/Breadcrumbs'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import Stack from 'cozy-ui/transpiled/react/Stack'
+
+import { useRouter } from 'components/RouterContext'
 import Header from 'components/Header'
 import Padded from 'components/Padded'
 import { ConnectedSelectDates as SelectDates } from 'components/SelectDates'
@@ -34,6 +36,27 @@ const stCategory = catStyles['bnk-table-category-category']
 const stPercentage = catStyles['bnk-table-percentage']
 const stTotal = catStyles['bnk-table-total']
 const stTableCategory = catStyles['bnk-table-category']
+
+const makeBreadcrumbs = (router, categoryName, subcategoryName, t) => {
+  const breadcrumbs = [
+    {
+      name: t('Categories.title.general'),
+      onClick: () => router.push('/analysis/categories')
+    }
+  ]
+  if (categoryName) {
+    breadcrumbs.push({
+      name: t(`Data.categories.${categoryName}`),
+      onClick: () => router.push(`/analysis/categories/${categoryName}`)
+    })
+  }
+  if (subcategoryName) {
+    breadcrumbs.push({
+      name: t(`Data.subcategories.${subcategoryName}`)
+    })
+  }
+  return breadcrumbs
+}
 
 const CategoriesTableHead = props => {
   const { selectedCategory } = props
@@ -69,7 +92,6 @@ const CategoriesHeader = props => {
   const { t } = useI18n()
   const { isMobile } = useBreakpoints()
   const {
-    breadcrumbItems,
     emptyIcon,
     hasAccount,
     selectedCategory,
@@ -78,6 +100,8 @@ const CategoriesHeader = props => {
     categories,
     chartSize,
     isFetching,
+    categoryName,
+    subcategoryName,
     classes
   } = props
 
@@ -87,6 +111,12 @@ const CategoriesHeader = props => {
   const transactionsTotal = getTransactionsTotal(categories)
   const params = useParams()
   const isSubcategory = onSubcategory(params)
+
+  const router = useRouter()
+  const breadcrumbItems = useMemo(() => {
+    return makeBreadcrumbs(router, categoryName, subcategoryName, t)
+  }, [router, categoryName, subcategoryName, t])
+
   const incomeToggle = showIncomeToggle ? (
     <IncomeToggle withIncome={withIncome} onToggle={onWithIncomeToggle} />
   ) : null
@@ -209,7 +239,8 @@ CategoriesHeader.defaultProps = {
 }
 
 CategoriesHeader.propTypes = {
-  breadcrumbItems: PropTypes.array.isRequired,
+  categoryName: PropTypes.string,
+  subcategoryName: PropTypes.string,
   selectedCategory: PropTypes.object,
   withIncome: PropTypes.bool.isRequired,
   onWithIncomeToggle: PropTypes.func.isRequired,
