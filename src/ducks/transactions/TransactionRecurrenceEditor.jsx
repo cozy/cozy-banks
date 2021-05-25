@@ -6,7 +6,9 @@ import {
   hasQueryBeenLoaded,
   dehydrate
 } from 'cozy-client'
-import { NestedSelect, useI18n, Icon } from 'cozy-ui/transpiled/react'
+import NestedSelect from 'cozy-ui/transpiled/react/NestedSelect'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import Icon from 'cozy-ui/transpiled/react/Icon'
 import {
   getLabel,
   makeRecurrenceFromTransaction,

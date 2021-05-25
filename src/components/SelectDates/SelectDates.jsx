@@ -14,7 +14,8 @@ import {
   parse,
   differenceInCalendarMonths
 } from 'date-fns'
-import { translate, withBreakpoints } from 'cozy-ui/transpiled/react'
+import { translate } from 'cozy-ui/transpiled/react/I18n'
+import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import Chip from 'cozy-ui/transpiled/react/Chip'
 
