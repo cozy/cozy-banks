@@ -1,4 +1,4 @@
-import React, { Component, useState, useCallback } from 'react'
+import React, { Component, useState, useCallback, useMemo } from 'react'
 import ReactDOM from 'react-dom'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
@@ -17,7 +17,7 @@ import Typography from 'cozy-ui/transpiled/react/Typography'
 import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import flag from 'cozy-flags'
 
-import maxBy from 'lodash/maxBy'
+import endOfMonth from 'date-fns/end_of_month'
 import isEqual from 'lodash/isEqual'
 import debounce from 'lodash/debounce'
 import compose from 'lodash/flowRight'
@@ -158,11 +158,12 @@ class TransactionsPage extends Component {
    *  - month change request from children
    *  - filtering doc change
    *
-   * - Updates limitMin/limitMax slicing the transactions array so that
-   *   we see only transactions for the selected month
-   * - Updates currentMonth to be `month`
+   * Will change the query that fetches the transactions
    */
   handleChangeMonth(month) {
+    this.setState({
+      currentMonth: month
+    })
     this.props.onChangeMonth(month)
   }
 
@@ -225,11 +226,7 @@ class TransactionsPage extends Component {
       showHeader,
       showFutureBalance,
       className,
-      transactions,
-      router: {
-        params: { subcategoryName }
-      },
-      transaction
+      transactions
     } = this.props
 
     const areAccountsLoading =
@@ -273,17 +270,14 @@ TransactionsPage.defaultProps = {
   showFutureBalance: true
 }
 
-const onSubcategory = ownProps => ownProps.router.params.subcategoryName
-
-const mapStateToProps = (state, ownProps) => {
-  return {
-    filteringDoc: getFilteringDoc(state)
-  }
-}
+const mapStateToProps = state => ({
+  filteringDoc: getFilteringDoc(state)
+})
 
 const addMonthToConn = (baseConn, month) => {
   const { query: baseQuery, as: baseAs, ...rest } = baseConn
-  const query = baseQuery().where({ date: { $lt: month } }, true)
+  const thresholdDate = endOfMonth(new Date(month))
+  const query = baseQuery().where({ date: { $lt: thresholdDate } }, true)
   const as = `${baseAs}-${month}`
   return {
     query,
@@ -297,21 +291,22 @@ const addTransactions = Component => props => {
   const initialConn = flag('banks.perf.transaction-query-filtered')
     ? makeFilteredTransactionsConn(props)
     : transactionsConn
-  const conn = month ? addMonthToConn(initialConn, month) : initialConn
+  const conn = useMemo(() => {
+    return month ? addMonthToConn(initialConn, month) : initialConn
+  }, [initialConn, month])
   const transactions = useQuery(conn.query, conn)
-  const handleChangeMonth = useCallback(month => {
-    setMonth(month)
-  })
+  const handleChangeMonth = useCallback(
+    month => {
+      setMonth(month)
+    },
+    [setMonth]
+  )
   return (
-    <>
-      month: {month}
-      <br />
-      <Component
-        {...props}
-        transactions={transactions}
-        onChangeMonth={handleChangeMonth}
-      />
-    </>
+    <Component
+      {...props}
+      transactions={transactions}
+      onChangeMonth={handleChangeMonth}
+    />
   )
 }
 

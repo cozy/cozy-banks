@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import cx from 'classnames'
 
 import findIndex from 'lodash/findIndex'
 import compose from 'lodash/flowRight'
@@ -14,19 +15,20 @@ import {
   parse,
   differenceInCalendarMonths
 } from 'date-fns'
+
 import { translate } from 'cozy-ui/transpiled/react/I18n'
 import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import Chip from 'cozy-ui/transpiled/react/Chip'
+import LeftIcon from 'cozy-ui/transpiled/react/Icons/Left'
+import RightIcon from 'cozy-ui/transpiled/react/Icons/Right'
 
 import styles from 'components/SelectDates/SelectDates.styl'
 import Select from 'components/Select'
-import cx from 'classnames'
 import scrollAware from 'components/SelectDates/scrollAware'
 import { rangedSome } from 'components/SelectDates/utils'
 import { themed } from 'components/useTheme'
-import LeftIcon from 'cozy-ui/transpiled/react/Icons/Left'
-import RightIcon from 'cozy-ui/transpiled/react/Icons/Right'
+
 const start2016 = new Date(2015, 11, 31)
 
 const getDefaultOptions = () => {
@@ -395,6 +397,12 @@ SelectDates.defaultProps = {
 }
 
 SelectDates.propTypes = {
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      yearMonth: PropTypes.string,
+      disabled: PropTypes.bool
+    })
+  ),
   onChange: PropTypes.func.isRequired
 }
 

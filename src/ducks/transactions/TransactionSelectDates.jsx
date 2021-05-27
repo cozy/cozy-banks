@@ -1,5 +1,6 @@
-import React from 'react'
-import SelectDates from 'components/SelectDates'
+import React, { useState, useEffect, useMemo } from 'react'
+import { useSelector } from 'react-redux'
+import SelectDates, { monthRange } from 'components/SelectDates'
 import last from 'lodash/last'
 import uniq from 'lodash/uniq'
 import {
@@ -9,7 +10,14 @@ import {
   differenceInCalendarMonths,
   isAfter
 } from 'date-fns'
+import { useQuery, useClient } from 'cozy-client'
 import { getDate } from 'ducks/transactions/helpers'
+import { getFilteringDoc } from 'ducks/filters'
+import {
+  groupsConn,
+  accountsConn,
+  makeFilteredTransactionsConn
+} from 'doctypes'
 
 const rangeMonth = (startDate, endDate) => {
   const options = []
@@ -42,11 +50,63 @@ export const getOptions = transactions => {
   })
 }
 
-const TransactionSelectDates = props => {
-  const { transactions, ...rest } = props
-  const options = getOptions(transactions)
+const useConn = conn => {
+  return useQuery(conn.query, conn)
+}
 
-  return <SelectDates options={options} {...rest} />
+const useTransactionExtent = () => {
+  const client = useClient()
+  const accounts = useConn(accountsConn)
+  const groups = useConn(groupsConn)
+  const filteringDoc = useSelector(getFilteringDoc)
+  const transactionsConn = makeFilteredTransactionsConn({
+    filteringDoc,
+    accounts,
+    groups
+  })
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    const fetch = async () => {
+      const q = transactionsConn.query()
+      const latestQuery = q.limitBy(1)
+      const earliestQuery = q
+        .sortBy([{ account: 'asc' }, { date: 'asc' }])
+        .limitBy(1)
+      const [earliest, latest] = await Promise.all(
+        [earliestQuery, latestQuery].map(q => client.query(q))
+      )
+      setData([earliest.data[0], latest.data[0]])
+    }
+
+    if (transactionsConn.enabled) {
+      fetch()
+    }
+  }, [transactionsConn.enabled]) // eslint-disable-line
+
+  return data
+}
+
+const TransactionSelectDates = props => {
+  const [earliestTransaction, latestTransaction] = useTransactionExtent()
+  const options = useMemo(() => {
+    if (!earliestTransaction || !latestTransaction) {
+      return []
+    }
+    const { date: earliestDate } = earliestTransaction
+    const { date: latestDate } = latestTransaction
+    return monthRange(new Date(earliestDate), new Date(latestDate))
+      .map(date => ({
+        yearMonth: format(date, 'YYYY-MM'),
+        disabled: false
+      }))
+      .reverse()
+  }, [earliestTransaction, latestTransaction])
+  return (
+    <>
+      <SelectDates options={options} {...props} />
+    </>
+  )
 }
 
 export default React.memo(TransactionSelectDates)
