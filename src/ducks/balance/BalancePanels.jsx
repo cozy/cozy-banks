@@ -52,6 +52,7 @@ const BalancePanels = props => {
             onSwitchChange={onSwitchChange}
             onChange={onPanelChange}
             withBalance={withBalance}
+            initialVisibleAccounts={i < 2}
           />
         </Delayed>
       ))}
