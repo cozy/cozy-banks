@@ -270,7 +270,7 @@ export const makeFilteredTransactionsConn = props => {
         ])
         .limitBy(100), // TODO change limit to 100 after dev
     fetchPolicy: transactionsConn.fetchPolicy,
-    as: `transactions-filtered-${filteringDoc._id}`,
+    as: `transactions-${filteringDoc._id}`,
     enabled: enabled
   }
 }

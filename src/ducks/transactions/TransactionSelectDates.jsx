@@ -74,7 +74,12 @@ const useTransactionExtent = () => {
         .sortBy([{ account: 'asc' }, { date: 'asc' }])
         .limitBy(1)
       const [earliest, latest] = await Promise.all(
-        [earliestQuery, latestQuery].map(q => client.query(q))
+        [earliestQuery, latestQuery].map((q, i) =>
+          client.query(q, {
+            as: `${transactionsConn.as}-${i === 0 ? 'earliest' : 'latest'}`,
+            autoUpdate: false
+          })
+        )
       )
       setData([earliest.data[0], latest.data[0]])
     }
