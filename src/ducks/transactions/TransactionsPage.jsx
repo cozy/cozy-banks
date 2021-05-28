@@ -274,6 +274,11 @@ const mapStateToProps = state => ({
   filteringDoc: getFilteringDoc(state)
 })
 
+const autoUpdateOptions = {
+  add: false,
+  remove: true,
+  update: true
+}
 const addMonthToConn = (baseConn, month) => {
   const { query: baseQuery, as: baseAs, ...rest } = baseConn
   const thresholdDate = endOfMonth(new Date(month))
@@ -282,12 +287,12 @@ const addMonthToConn = (baseConn, month) => {
   return {
     query,
     as,
-    autoUpdate: false,
+    autoUpdate: autoUpdateOptions,
     ...rest
   }
 }
 
-const disableAutoUpdate = conn => ({ ...conn, autoUpdate: false })
+const setAutoUpdate = conn => ({ ...conn, autoUpdate: autoUpdateOptions })
 
 const addTransactions = Component => props => {
   const [month, setMonth] = useState(null)
@@ -297,7 +302,7 @@ const addTransactions = Component => props => {
   const conn = useMemo(() => {
     return month
       ? addMonthToConn(initialConn, month)
-      : disableAutoUpdate(initialConn)
+      : setAutoUpdate(initialConn)
   }, [initialConn, month])
   const transactions = useQuery(conn.query, conn)
   const handleChangeMonth = useCallback(

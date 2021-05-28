@@ -54,6 +54,10 @@ const useConn = conn => {
   return useQuery(conn.query, conn)
 }
 
+// We do not want queries with the minimal and maximal transaction to receive
+// transactions from other queries
+const extentAutoUpdateOptions = { update: true, add: false, remove: false }
+
 const useTransactionExtent = () => {
   const client = useClient()
   const accounts = useConn(accountsConn)
@@ -77,7 +81,7 @@ const useTransactionExtent = () => {
         [earliestQuery, latestQuery].map((q, i) =>
           client.query(q, {
             as: `${transactionsConn.as}-${i === 0 ? 'earliest' : 'latest'}`,
-            autoUpdate: false
+            autoUpdate: extentAutoUpdateOptions
           })
         )
       )
