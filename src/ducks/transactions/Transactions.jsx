@@ -1,4 +1,10 @@
-import React, { useMemo, useContext, createContext } from 'react'
+import React, {
+  useMemo,
+  useContext,
+  createContext,
+  useState,
+  useCallback
+} from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import groupBy from 'lodash/groupBy'
@@ -8,11 +14,12 @@ import debounce from 'lodash/debounce'
 import throttle from 'lodash/throttle'
 import sortBy from 'lodash/sortBy'
 import cx from 'classnames'
-import { isIOSApp } from 'cozy-device-helper'
 
+import { isIOSApp } from 'cozy-device-helper'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import ListSubheader from 'cozy-ui/transpiled/react/MuiCozyTheme/ListSubheader'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
 import { Table } from 'components/Table'
 import TransactionPageErrors from 'ducks/transactions/TransactionPageErrors'
@@ -20,7 +27,7 @@ import styles from 'ducks/transactions/Transactions.styl'
 import { InfiniteScroll, TopMost } from 'ducks/transactions/scroll'
 import { RowDesktop, RowMobile } from 'ducks/transactions/TransactionRow'
 import { getDate } from 'ducks/transactions/helpers'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import useIntersectionObserver from 'hooks/useIntersectionObserver'
 
 export const sortByDate = (transactions = []) =>
   sortBy(transactions, getDate).reverse()
@@ -34,20 +41,60 @@ export const TransactionsListContext = createContext({
   mobileSectionDateFormat: 'dddd D MMMM'
 })
 
-const SectionMobile = props => {
+const observerOptions = {
+  threshold: [0, 1],
+  margin: '-200px 0px 0px 0px'
+}
+
+const useVisible = initialVisible => {
+  const [visible, setVisible] = useState(initialVisible)
+  const handleIntersection = useCallback(
+    entries => {
+      if (entries[0].intersectionRatio > 0 && !visible) {
+        setVisible(true)
+      }
+    },
+    [setVisible, visible]
+  )
+  const ref = useIntersectionObserver(observerOptions, handleIntersection)
+  return [ref, visible]
+}
+
+const emptyDesktopSectionStyle = { height: 80 }
+const emptyMobileSectionStyle = { height: 100 }
+
+const SectionMobile = ({ initialVisible, ...props }) => {
+  const [ref, visible] = useVisible(initialVisible)
   const { f } = useI18n()
   const { mobileSectionDateFormat } = useContext(TransactionsListContext)
   const { date, children } = props
+  if (!visible) {
+    return (
+      <>
+        <ListSubheader ref={ref}>
+          {f(date, mobileSectionDateFormat)}
+        </ListSubheader>
+        <div style={emptyMobileSectionStyle} />
+      </>
+    )
+  }
   return (
-    <React.Fragment>
-      <ListSubheader>{f(date, mobileSectionDateFormat)}</ListSubheader>
+    <>
+      <ListSubheader ref={ref}>
+        {f(date, mobileSectionDateFormat)}
+      </ListSubheader>
       {children}
-    </React.Fragment>
+    </>
   )
 }
 
-const SectionDesktop = props => {
-  return <tbody {...props} />
+const VisibleSectionDesktop = ({ initialVisible, ...props }) => {
+  const [ref, visible] = useVisible(initialVisible)
+  return visible ? (
+    <tbody ref={ref} {...props} />
+  ) : (
+    <tbody ref={ref} style={emptyDesktopSectionStyle}></tbody>
+  )
 }
 
 const TransactionContainerMobile = props => {
@@ -66,7 +113,7 @@ const TransactionSections = props => {
   const transactionsGrouped = useMemo(() => groupByDate(transactions), [
     transactions
   ])
-  const Section = isDesktop ? SectionDesktop : SectionMobile
+  const Section = isDesktop ? VisibleSectionDesktop : SectionMobile
   const TransactionContainer = isDesktop ? Table : TransactionContainerMobile
   const Row = isDesktop ? RowDesktop : RowMobile
 
@@ -76,7 +123,7 @@ const TransactionSections = props => {
         const date = dateAndGroup[0]
         const transactionGroup = dateAndGroup[1]
         return (
-          <Section date={date} key={id}>
+          <Section date={date} key={id} initialVisible={id < 10}>
             {transactionGroup.map(transaction => {
               return (
                 <Row
