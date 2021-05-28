@@ -256,18 +256,6 @@ export const makeFilteredTransactionsConn = props => {
         .where(whereClause)
         .sortBy([{ account: 'desc' }, { date: 'desc' }])
         .indexFields(indexFields)
-        .select([
-          'date',
-          'amount',
-          'bill',
-          'account',
-          'currency',
-          'label',
-          'cozyCategoryId',
-          'automaticCategoryId',
-          'manualCategoryId',
-          'relationships'
-        ])
         .limitBy(100), // TODO change limit to 100 after dev
     fetchPolicy: transactionsConn.fetchPolicy,
     as: `transactions-${filteringDoc._id}`,
