@@ -1,6 +1,7 @@
 import fromPairs from 'lodash/fromPairs'
 import CozyClient, { QueryDefinition, HasManyInPlace, Q } from 'cozy-client'
 import subYears from 'date-fns/sub_years'
+import { Connection } from './types'
 
 export const RECIPIENT_DOCTYPE = 'io.cozy.bank.recipients'
 export const ACCOUNT_DOCTYPE = 'io.cozy.bank.accounts'
@@ -215,8 +216,15 @@ export const transactionsConn = {
   fetchPolicy: older30s
 }
 
-export const makeFilteredTransactionsConn = props => {
-  const { filteringDoc, groups, accounts } = props
+/**
+ * Outputs a connection to fetch transactions
+ * based on the current filtering doc
+ *
+ * @param  {FilterTransactionsConnOptions} options - Options
+ * @return {Connection}
+ */
+export const makeFilteredTransactionsConn = options => {
+  const { filteringDoc, groups, accounts } = options
   let enabled = true
   if (!groups.lastUpdate || !accounts.lastUpdate) {
     enabled = false
