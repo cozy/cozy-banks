@@ -8,13 +8,7 @@ import findLast from 'lodash/findLast'
 import find from 'lodash/find'
 import uniqBy from 'lodash/uniqBy'
 
-import {
-  subMonths,
-  format,
-  endOfDay,
-  parse,
-  differenceInCalendarMonths
-} from 'date-fns'
+import { format, parse } from 'date-fns'
 
 import { translate } from 'cozy-ui/transpiled/react/I18n'
 import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
@@ -28,22 +22,6 @@ import Select from 'components/Select'
 import scrollAware from 'components/SelectDates/scrollAware'
 import { rangedSome } from 'components/SelectDates/utils'
 import { themed } from 'components/useTheme'
-
-const start2016 = new Date(2015, 11, 31)
-
-const getDefaultOptions = () => {
-  const options = []
-  const now = endOfDay(new Date())
-
-  for (let i = 0; i < differenceInCalendarMonths(now, start2016); i++) {
-    const month = format(subMonths(now, i), 'YYYY-MM')
-    options.push({
-      yearMonth: month
-    })
-  }
-
-  return options
-}
 
 const isAllYear = value => value.includes('allyear')
 
@@ -393,7 +371,7 @@ class SelectDates extends PureComponent {
 }
 
 SelectDates.defaultProps = {
-  options: getDefaultOptions()
+  options: []
 }
 
 SelectDates.propTypes = {
