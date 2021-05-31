@@ -2,10 +2,9 @@
 <html lang="{{.Locale}}">
 <head>
   <meta charset="utf-8">
-  <title>Espace personnel MAIF</title>
+  <title>Cozy Banks</title>
   
   {{.ThemeCSS}}
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
   <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
   <link rel="manifest" href="/manifest.json" crossorigin="use-credentials">
@@ -14,7 +13,8 @@
   <meta name="theme-color" content="#ffffff">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   
-  <link rel="stylesheet" type="text/css" href="//{{.Domain}}/assets/fonts/fonts.css">
+  {{.CozyClientJS}}
+  {{.CozyBar}}
   
   <script type="text/javascript">
     /**
@@ -23,7 +23,7 @@
      * is displayed with the stacktrace in a pre so that the user can easily copy/paste it.
      *
      */
-    var message = 'Nous sommes désolés, l\'application n\'a pas pu être chargée, merci de contacter notre support (assistance-applimobile@maif.fr) en leur communiquant l\'erreur ci-dessous. Merci.'
+    var message = 'Nous sommes désolés, l\'application n\'a pas pu être chargée, merci de contacter notre support (contact@cozycloud.cc) en leur communiquant l\'erreur ci-dessous. Merci.'
     var handleError = function (e) {
       const div = document.createElement('div')
       div.innerHTML = message + '\n'
@@ -47,64 +47,12 @@
     }
     window.onerror = handleError
   </script>
-
-  <!-- Difference with original template, added to support TagCommander -->
-  <script type="text/javascript">
-  const getTagCommanderEnv = () => {
-    const url = new URL(window.location)
-    const hostname = url.hostname
-    const domain = hostname.substring(hostname.indexOf('.') + 1)
-    if (domain === 'mycozy.eu') {
-      return 'prod'
-    } else {
-      return 'preprod'
-    }
-  }
-
-  var tc_vars = {
-    // Environnement
-    env_template : 'pfm', //voir Marquage page ou marquage contribution
-    env_work : getTagCommanderEnv(), // si en Production alors "prod" sinon "preprod"
-    env_xtn2 : '1',
-    // Users info à récuper lors de l'identification sur maif.fr ou lors de la création d'un espace potentiel sur les parcours de devis
-    user_id : '',
-    profil : '',
-    identification_type : '',
-    // Arborescence
-    page_name : '',//voir Marquage page ou marquage contribution
-    page_cat1 : '',//voir Marquage page ou marquage contribution
-    page_cat2 : '',//voir Marquage page ou marquage contribution
-    page_cat3 : '',//voir Marquage page ou marquage contribution
-    page_cat4 : '',//voir Marquage page
-    page_cat5 : '',//voir Marquage page
-    page_cat6 : '',//voir Marquage page
-    // Moteur de recherche
-    search_keywords : '',
-    search_page_nb : '',
-
-    // Indicateurs de page
-    ip1 : '',//voir Marquage page
-    ip2 : '',//voir Marquage page
-    ip3 : '',//voir Marquage page
-    ip4 : '',//voir Marquage page
-
-    ip20 : ''//voir Marquage page
-
-  }
-  </script>
-
-  <!-- Difference with original template, added to support TagCommander -->
-  <script src="https://cdn.tagcommander.com/3418/uat/tc_MAIF_1.js"></script>
-<link href="http://localhost:8282/main-maif.css" rel="stylesheet"></head>
+<link href="main-banks.6314fb07205a50f683db.min.css" rel="stylesheet"></head>
 <body>
 <div role="application" data-cozy-token="{{.Token}}" data-cozy-domain="{{.Domain}}" data-cozy-locale="{{.Locale}}" data-cozy-app-name="{{.AppName}}" data-cozy-app-name-prefix="{{.AppNamePrefix}}" data-cozy-app-editor="{{.AppEditor}}" data-cozy-icon-path="{{.IconPath}}" data-cozy-tracking="{{.Tracking}}" data-cozy-app-slug="{{.AppSlug}}" data-cozy-subdomain-type="{{.SubDomain}}" data-cozy-flags="{{.Flags}}"></div>
 
 
 <script src="//{{.Domain}}/assets/js/piwik.js" async></script>
 
-<!-- Difference with original template, added to support TagCommander -->
-<script src="https://cdn.tagcommander.com/3418/uat/tc_MAIF_2.js"></script>
-<script src="https://cdn.tagcommander.com/3418/uat/tc_MAIF_3.js"></script>
-<script src="http://localhost:8282/app.js"></script></body>
+<script src="app.js"></script></body>
 </html>
-
