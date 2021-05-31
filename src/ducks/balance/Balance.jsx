@@ -30,7 +30,6 @@ import {
   GROUP_DOCTYPE,
   TRIGGER_DOCTYPE,
   TRANSACTION_DOCTYPE,
-  transactionsConn,
   makeBalanceTransactionsConn
 } from 'doctypes'
 
@@ -465,9 +464,7 @@ export default compose(
     groups: groupsConn,
     settings: settingsConn,
     triggers: cronKonnectorTriggersConn,
-    transactions: flag('banks.perf.use-balance-transactions-conn')
-      ? makeBalanceTransactionsConn()
-      : transactionsConn
+    transactions: makeBalanceTransactionsConn()
   }),
   connect(
     createStructuredSelector({
