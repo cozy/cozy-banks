@@ -317,7 +317,6 @@ export const RowMobile = React.memo(function RowMobile(props) {
               <RecurrenceCaption recurrence={recurrence} />
             ) : null}
           </Img>
-          {false}
         </Media>
         {showTransactionActions && (
           <TransactionActions
