@@ -1,6 +1,8 @@
 import fromPairs from 'lodash/fromPairs'
 import CozyClient, { QueryDefinition, HasManyInPlace, Q } from 'cozy-client'
 import subYears from 'date-fns/sub_years'
+
+// eslint-disable-next-line no-unused-vars
 import { Connection } from './types'
 
 export const RECIPIENT_DOCTYPE = 'io.cozy.bank.recipients'
@@ -232,6 +234,7 @@ export const makeFilteredTransactionsConn = options => {
 
   let indexFields
   let whereClause
+  let sortByClause = []
 
   if (enabled) {
     if (filteringDoc) {
@@ -239,13 +242,17 @@ export const makeFilteredTransactionsConn = options => {
         // The query issued does not use the index "by_account_and_date"
         // because of the $or
         const group = groups.data.find(g => g._id === filteringDoc._id)
-        indexFields = ['account', 'date']
-        whereClause = {
-          $or: group.accounts.raw.map(a => ({ account: a }))
+        if (group) {
+          indexFields = ['account', 'date']
+          whereClause = {
+            $or: group.accounts.raw.map(a => ({ account: a }))
+          }
+          sortByClause = [{ account: 'desc' }, { date: 'desc' }]
         }
       } else {
         indexFields = ['account', 'date']
         whereClause = { account: filteringDoc._id }
+        sortByClause = [{ account: 'desc' }, { date: 'desc' }]
       }
     } else {
       indexFields = ['date', '_id']
@@ -254,6 +261,7 @@ export const makeFilteredTransactionsConn = options => {
           $gt: null
         }
       }
+      sortByClause = [{ date: 'desc' }]
     }
   }
 
@@ -262,11 +270,11 @@ export const makeFilteredTransactionsConn = options => {
       transactionsConn
         .query()
         .where(whereClause)
-        .sortBy([{ account: 'desc' }, { date: 'desc' }])
         .indexFields(indexFields)
+        .sortBy(sortByClause)
         .limitBy(100), // TODO change limit to 100 after dev
     fetchPolicy: transactionsConn.fetchPolicy,
-    as: `transactions-${filteringDoc._id}`,
+    as: `transactions-${filteringDoc ? filteringDoc._id : 'all'}`,
     enabled: enabled
   }
 }

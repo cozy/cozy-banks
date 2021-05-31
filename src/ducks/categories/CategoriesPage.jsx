@@ -1,16 +1,12 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component, Fragment, useMemo, useEffect } from 'react'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
-import Loading from 'components/Loading'
-import Padded from 'components/Padded'
-import {
-  resetFilterByDoc,
-  addFilterByPeriod,
-  getFilteringDoc,
-  getTransactionsFilteredByAccount
-} from 'ducks/filters'
-import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
-import Categories from 'ducks/categories/Categories'
+
+import startOfMonth from 'date-fns/start_of_month'
+import endOfMonth from 'date-fns/end_of_month'
+import startOfYear from 'date-fns/start_of_year'
+import endOfYear from 'date-fns/end_of_year'
+
 import includes from 'lodash/includes'
 import some from 'lodash/some'
 import sortBy from 'lodash/sortBy'
@@ -20,12 +16,24 @@ import {
   withClient,
   queryConnect,
   isQueryLoading,
-  hasQueryBeenLoaded
+  hasQueryBeenLoaded,
+  useQuery
 } from 'cozy-client'
+
+import Loading from 'components/Loading'
+import Padded from 'components/Padded'
+import {
+  resetFilterByDoc,
+  addFilterByPeriod,
+  getFilteringDoc,
+  getPeriod
+} from 'ducks/filters'
+import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
+import Categories from 'ducks/categories/Categories'
 import {
   accountsConn,
   settingsConn,
-  transactionsConn,
+  makeFilteredTransactionsConn,
   groupsConn
 } from 'doctypes'
 import BarTheme from 'ducks/bar/BarTheme'
@@ -33,7 +41,7 @@ import { getCategoriesData } from 'ducks/categories/selectors'
 import maxBy from 'lodash/maxBy'
 import { getDate } from 'ducks/transactions/helpers'
 import { trackPage } from 'ducks/tracking/browser'
-import { TransactionsPageWithBackButton } from 'ducks/transactions'
+import { UnpluggedTransactionsPage } from 'ducks/transactions'
 import { onSubcategory } from './utils'
 import Delayed from 'components/Delayed'
 
@@ -77,12 +85,14 @@ export class CategoriesPage extends Component {
   componentDidUpdate(prevProps) {
     const prevParams = prevProps.router.params
     const curParams = this.props.router.params
-    if (
-      !prevProps.transactions.lastUpdate &&
-      this.props.transactions.lastUpdate
-    ) {
-      this.checkToChangeFilter()
-    } else if (prevParams.categoryName !== curParams.categoryName) {
+    // if (
+    //   !prevProps.transactions.lastUpdate &&
+    //   this.props.transactions.lastUpdate
+    // ) {
+    //   this.checkToChangeFilter()
+    // }
+
+    if (prevParams.categoryName !== curParams.categoryName) {
       this.trackPage()
     }
   }
@@ -177,10 +187,11 @@ export class CategoriesPage extends Component {
                 filterWithInCome={this.filterWithInCome}
               />
             ) : (
-              <TransactionsPageWithBackButton
+              <UnpluggedTransactionsPage
                 className="u-pt-0"
                 showFutureBalance={false}
                 showTriggerErrors={false}
+                showBackButton
                 showHeader={false}
               />
             ))}
@@ -194,6 +205,62 @@ CategoriesPage.defaultProps = {
   delayContent: 0
 }
 
+const autoUpdateOptions = {
+  add: false,
+  remove: true,
+  update: true
+}
+
+const addPeriodToConn = (baseConn, period) => {
+  const { query: baseQuery, as: baseAs, ...rest } = baseConn
+  const d = new Date(period)
+  const startDate = period.length === 7 ? startOfMonth(d) : startOfYear(d)
+  const endDate = period.length === 7 ? endOfMonth(d) : endOfYear(d)
+  const query = baseQuery()
+    .where({ date: { $lt: endDate, $gt: startDate } }, { merge: true })
+    .indexFields(['date', 'account'])
+    .sortBy([{ date: 'desc' }, { account: 'desc' }])
+  const as = `${baseAs}-${period}-only`
+  return {
+    query,
+    as,
+    autoUpdate: autoUpdateOptions,
+    ...rest
+  }
+}
+
+/**
+ * Will run fetchMore on the query until the query is fully loaded
+ */
+const useFullyLoadedQuery = (query, options) => {
+  const res = useQuery(query, options)
+  useEffect(() => {
+    if (res.fetchStatus === 'loaded' && res.hasMore) {
+      res.fetchMore()
+    }
+  }, [res.fetchStatus, res.fetchMore, res])
+  return res
+}
+
+const setAutoUpdate = conn => ({ ...conn, autoUpdate: autoUpdateOptions })
+
+const addTransactions = Component => props => {
+  const initialConn = makeFilteredTransactionsConn(props)
+  const conn = useMemo(() => {
+    return props.period
+      ? addPeriodToConn(initialConn, props.period)
+      : setAutoUpdate(initialConn)
+  }, [initialConn, props.period])
+  const transactions = useFullyLoadedQuery(conn.query, conn)
+  return (
+    <Component
+      {...props}
+      transactions={transactions}
+      filteredTransactionsByAccount={transactions.data}
+    />
+  )
+}
+
 const mapDispatchToProps = dispatch => ({
   resetFilterByDoc: () => dispatch(resetFilterByDoc()),
   addFilterByPeriod: period => dispatch(addFilterByPeriod(period))
@@ -203,7 +270,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     categories: getCategoriesData(state, ownProps),
     filteringDoc: getFilteringDoc(state),
-    filteredTransactionsByAccount: getTransactionsFilteredByAccount(state)
+    period: getPeriod(state)
   }
 }
 
@@ -212,12 +279,12 @@ export default compose(
   withClient,
   queryConnect({
     accounts: accountsConn,
-    transactions: transactionsConn,
     settings: settingsConn,
     groups: groupsConn
   }),
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )
+  ),
+  addTransactions
 )(CategoriesPage)
