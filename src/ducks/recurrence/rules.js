@@ -118,7 +118,7 @@ export const groupBundles = (bundles, rules) => {
 }
 
 export const sameLabel = bundle => {
-  if (bundle.ops) {
+  if (bundle.ops && bundle.ops.length > 0) {
     return bundle.ops[0].label
   } else {
     // TODO use label helper
