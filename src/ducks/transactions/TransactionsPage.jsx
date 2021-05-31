@@ -36,8 +36,7 @@ import {
   accountsConn,
   groupsConn,
   cronKonnectorTriggersConn,
-  makeFilteredTransactionsConn,
-  transactionsConn
+  makeFilteredTransactionsConn
 } from 'doctypes'
 
 import TransactionHeader from 'ducks/transactions/TransactionHeader'
@@ -296,9 +295,7 @@ const setAutoUpdate = conn => ({ ...conn, autoUpdate: autoUpdateOptions })
 
 const addTransactions = Component => props => {
   const [month, setMonth] = useState(null)
-  const initialConn = flag('banks.perf.transaction-query-filtered')
-    ? makeFilteredTransactionsConn(props)
-    : transactionsConn
+  const initialConn = makeFilteredTransactionsConn(props)
   const conn = useMemo(() => {
     return month
       ? addMonthToConn(initialConn, month)
