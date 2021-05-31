@@ -73,10 +73,14 @@ const useTransactionExtent = () => {
   useEffect(() => {
     const fetch = async () => {
       const q = transactionsConn.query()
-      const latestQuery = q.limitBy(1)
-      const earliestQuery = q
-        .sortBy([{ account: 'asc' }, { date: 'asc' }])
+      const latestQuery = q
         .limitBy(1)
+        .sortBy([{ date: 'desc' }])
+        .indexFields(['date'])
+      const earliestQuery = q
+        .sortBy([{ date: 'asc' }])
+        .limitBy(1)
+        .indexFields(['date'])
       const [earliest, latest] = await Promise.all(
         [earliestQuery, latestQuery].map((q, i) =>
           client.query(q, {
@@ -91,7 +95,7 @@ const useTransactionExtent = () => {
     if (transactionsConn.enabled) {
       fetch()
     }
-  }, [transactionsConn.enabled]) // eslint-disable-line
+  }, [transactionsConn.enabled, transactionsConn.as]) // eslint-disable-line
 
   return data
 }
