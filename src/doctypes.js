@@ -272,7 +272,7 @@ export const makeFilteredTransactionsConn = options => {
         .where(whereClause)
         .indexFields(indexFields)
         .sortBy(sortByClause)
-        .limitBy(100), // TODO change limit to 100 after dev
+        .limitBy(100),
     fetchPolicy: transactionsConn.fetchPolicy,
     as: `transactions-${filteringDoc ? filteringDoc._id : 'all'}`,
     enabled: enabled
