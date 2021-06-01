@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import Box from '@material-ui/core/Box'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import getCategoryId from 'ducks/transactions/getCategoryId'
+import { getCategoryIdFromName } from 'ducks/categories/helpers'
 
 import startOfMonth from 'date-fns/start_of_month'
 import endOfMonth from 'date-fns/end_of_month'
@@ -47,7 +49,7 @@ import BarTheme from 'ducks/bar/BarTheme'
 import { computeCategoriesData } from 'ducks/categories/selectors'
 import { getDate } from 'ducks/transactions/helpers'
 import { trackPage } from 'ducks/tracking/browser'
-import { UnpluggedTransactionsPage } from 'ducks/transactions'
+import { TransactionList } from 'ducks/transactions/Transactions'
 import { onSubcategory } from './utils'
 import Delayed from 'components/Delayed'
 import useLast from 'hooks/useLast'
@@ -73,6 +75,32 @@ const ProgressContainerDesktop = ({ children }) => {
     <Box minHeight={8} marginBottom={-1}>
       {children}
     </Box>
+  )
+}
+
+const CategoryTransactions = ({ transactions, subcategoryName }) => {
+  const categoryTransactions = useMemo(() => {
+    const categoryId = getCategoryIdFromName(subcategoryName)
+    return transactions
+      ? transactions.filter(t => {
+          const tc = getCategoryId(t)
+          return tc === categoryId
+        })
+      : []
+  }, [subcategoryName, transactions])
+  return (
+    <div className="js-scrolling-element">
+      <TransactionList
+        showTriggerErrors={false}
+        onChangeTopMostTransaction={null}
+        onScroll={null}
+        transactions={categoryTransactions}
+        canFetchMore={false}
+        filteringOnAccount={true}
+        manualLoadMore={false}
+        onReachBottom={null}
+      />
+    </div>
   )
 }
 
@@ -209,12 +237,9 @@ class CategoriesPage extends Component {
                 filterWithInCome={this.filterWithInCome}
               />
             ) : (
-              <UnpluggedTransactionsPage
-                className="u-pt-0"
-                showFutureBalance={false}
-                showTriggerErrors={false}
-                showBackButton
-                showHeader={false}
+              <CategoryTransactions
+                subcategoryName={router.params.subcategoryName}
+                transactions={transactions.data}
               />
             ))}
         </Delayed>
@@ -244,6 +269,7 @@ const addPeriodToConn = (baseConn, period) => {
     )
     .indexFields(['date', 'account'])
     .sortBy([{ date: 'desc' }, { account: 'desc' }])
+    .limitBy(500)
   const as = `${baseAs}-${format(startDate, 'YYYY-MM')}-${format(
     endDate,
     'YYYY-MM'

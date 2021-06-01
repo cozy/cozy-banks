@@ -28,7 +28,7 @@ import { getDisplayDate } from 'ducks/transactions/helpers'
 
 import Loading from 'components/Loading'
 import FutureBalanceCard from 'ducks/future/FutureBalanceCard'
-import { TransactionList } from 'ducks/transactions/Transactions.jsx'
+import { TransactionList } from 'ducks/transactions/Transactions'
 import styles from 'ducks/transactions/TransactionsPage.styl'
 
 import {
