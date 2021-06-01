@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { useSelector } from 'react-redux'
+import CozyClient from 'cozy-client'
 import SelectDates, { monthRange } from 'components/SelectDates'
 import last from 'lodash/last'
 import uniq from 'lodash/uniq'
@@ -84,6 +85,7 @@ const useTransactionExtent = () => {
       const [earliest, latest] = await Promise.all(
         [earliestQuery, latestQuery].map((q, i) =>
           client.query(q, {
+            fetchPolicy: CozyClient.fetchPolicies.olderThan(30 * 1000),
             as: `${transactionsConn.as}-${i === 0 ? 'earliest' : 'latest'}`,
             autoUpdate: extentAutoUpdateOptions
           })
