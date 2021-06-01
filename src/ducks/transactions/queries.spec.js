@@ -46,4 +46,35 @@ describe('makeFilteredTransactionsConn', () => {
       })
     )
   })
+
+  it('should work with virtual groups', () => {
+    const conn1 = makeFilteredTransactionsConn({
+      groups: {
+        lastUpdate: Date.now(),
+        data: []
+      },
+      accounts: {
+        lastUpdate: Date.now()
+      },
+      filteringDoc: {
+        _id: 'g1',
+        _type: 'io.cozy.bank.groups',
+        virtual: true,
+        accounts: {
+          raw: ['a1', 'a2', 'a3']
+        }
+      }
+    })
+    expect(conn1.enabled).toBe(true)
+    const query = conn1.query()
+    expect(query).toEqual(
+      expect.objectContaining({
+        indexedFields: ['account', 'date'],
+        selector: {
+          $or: [{ account: 'a1' }, { account: 'a2' }, { account: 'a3' }]
+        },
+        sort: [{ account: 'desc' }, { date: 'desc' }]
+      })
+    )
+  })
 })

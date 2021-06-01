@@ -22,15 +22,21 @@ export const makeFilteredTransactionsConn = options => {
     if (filteringDoc) {
       if (filteringDoc._type === GROUP_DOCTYPE) {
         // The query issued does not use the index "by_account_and_date"
-        // because of the $or
-        const group = groups.data.find(g => g._id === filteringDoc._id)
-        if (group) {
-          indexFields = ['account', 'date']
-          whereClause = {
-            $or: group.accounts.raw.map(a => ({ account: a }))
-          }
-          sortByClause = [{ account: 'desc' }, { date: 'desc' }]
+        // because of the $or. It is therefore much slower than queries
+        // with only the account. We haven't found a satisfactory solution
+        // yet.
+        let accounts
+        if (filteringDoc.virtual) {
+          accounts = filteringDoc.accounts.raw || []
+        } else {
+          const group = groups.data.find(g => g._id === filteringDoc._id)
+          accounts = group ? group.accounts.raw : []
         }
+        indexFields = ['account', 'date']
+        whereClause = {
+          $or: accounts.map(a => ({ account: a }))
+        }
+        sortByClause = [{ account: 'desc' }, { date: 'desc' }]
       } else {
         indexFields = ['account', 'date']
         whereClause = { account: filteringDoc._id }
