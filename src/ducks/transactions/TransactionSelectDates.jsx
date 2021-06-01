@@ -14,11 +14,8 @@ import {
 import { useQuery, useClient } from 'cozy-client'
 import { getDate } from 'ducks/transactions/helpers'
 import { getFilteringDoc } from 'ducks/filters'
-import {
-  groupsConn,
-  accountsConn,
-  makeFilteredTransactionsConn
-} from 'doctypes'
+import { groupsConn, accountsConn } from 'doctypes'
+import { makeFilteredTransactionsConn } from './queries'
 
 const rangeMonth = (startDate, endDate) => {
   const options = []

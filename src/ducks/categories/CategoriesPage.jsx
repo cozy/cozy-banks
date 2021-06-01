@@ -39,12 +39,9 @@ import {
 } from 'ducks/filters'
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import Categories from 'ducks/categories/Categories'
-import {
-  accountsConn,
-  settingsConn,
-  makeFilteredTransactionsConn,
-  groupsConn
-} from 'doctypes'
+import { accountsConn, settingsConn, groupsConn } from 'doctypes'
+
+import { makeFilteredTransactionsConn } from 'ducks/transactions/queries'
 import BarTheme from 'ducks/bar/BarTheme'
 import { computeCategoriesData } from 'ducks/categories/selectors'
 import { getDate } from 'ducks/transactions/helpers'

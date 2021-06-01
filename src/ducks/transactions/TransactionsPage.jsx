@@ -35,9 +35,9 @@ import {
   ACCOUNT_DOCTYPE,
   accountsConn,
   groupsConn,
-  cronKonnectorTriggersConn,
-  makeFilteredTransactionsConn
+  cronKonnectorTriggersConn
 } from 'doctypes'
+import { makeFilteredTransactionsConn } from './queries'
 
 import TransactionHeader from 'ducks/transactions/TransactionHeader'
 import BarTheme from 'ducks/bar/BarTheme'
