@@ -419,9 +419,6 @@ const AccountSwitch = props => {
 }
 
 AccountSwitch.propTypes = {
-  filterByDoc: PropTypes.func.isRequired,
-  resetFilterByDoc: PropTypes.func.isRequired,
-  filteringDoc: filteringDocPropType,
   insideBar: PropTypes.bool
 }
 
