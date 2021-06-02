@@ -262,7 +262,15 @@ const addPeriodToConn = (baseConn, period) => {
   const endDate = period.length === 7 ? endOfMonth(d) : endOfYear(d)
   const query = Q(baseQuery().doctype)
     .where(
-      merge({ date: { $lt: endDate, $gt: startDate } }, baseQuery.selector)
+      merge(
+        {
+          date: {
+            $lte: format(endDate, 'YYYY-MM-DD'),
+            $gte: format(startDate, 'YYYY-MM-DD')
+          }
+        },
+        baseQuery.selector
+      )
     )
     .indexFields(['date', 'account'])
     .sortBy([{ date: 'desc' }, { account: 'desc' }])
