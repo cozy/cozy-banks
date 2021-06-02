@@ -59,6 +59,4 @@ const BalanceHeader = ({
   )
 }
 
-export const DumbBalanceHeader = BalanceHeader
-
 export default memo(BalanceHeader)
