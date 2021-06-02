@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import 'intersection-observer'
 
 const useIntersectionObserver = (observerOptions, handleIntersection) => {
   const [ref, setRef] = useState(null)
