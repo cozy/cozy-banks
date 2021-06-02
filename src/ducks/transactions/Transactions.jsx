@@ -1,10 +1,4 @@
-import React, {
-  useMemo,
-  useContext,
-  createContext,
-  useState,
-  useCallback
-} from 'react'
+import React, { useMemo, useContext, createContext } from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import groupBy from 'lodash/groupBy'
@@ -27,7 +21,7 @@ import styles from 'ducks/transactions/Transactions.styl'
 import { InfiniteScroll, TopMost } from 'ducks/transactions/scroll'
 import { RowDesktop, RowMobile } from 'ducks/transactions/TransactionRow'
 import { getDate } from 'ducks/transactions/helpers'
-import useIntersectionObserver from 'hooks/useIntersectionObserver'
+import useVisible from 'hooks/useVisible'
 
 export const sortByDate = (transactions = []) =>
   sortBy(transactions, getDate).reverse()
@@ -46,25 +40,11 @@ const observerOptions = {
   margin: '-200px 0px 0px 0px'
 }
 
-const useVisible = initialVisible => {
-  const [visible, setVisible] = useState(initialVisible)
-  const handleIntersection = useCallback(
-    entries => {
-      if (entries[0].intersectionRatio > 0 && !visible) {
-        setVisible(true)
-      }
-    },
-    [setVisible, visible]
-  )
-  const ref = useIntersectionObserver(observerOptions, handleIntersection)
-  return [ref, visible]
-}
-
 const emptyDesktopSectionStyle = { height: 80 }
 const emptyMobileSectionStyle = { height: 100 }
 
 const SectionMobile = ({ initialVisible, ...props }) => {
-  const [ref, visible] = useVisible(initialVisible)
+  const [ref, visible] = useVisible(initialVisible, observerOptions)
   const { f } = useI18n()
   const { mobileSectionDateFormat } = useContext(TransactionsListContext)
   const { date, children } = props

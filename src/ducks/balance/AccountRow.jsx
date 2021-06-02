@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
@@ -27,7 +27,7 @@ import styles from 'ducks/balance/AccountRow.styl'
 import ReimbursementsIcon from 'ducks/balance/ReimbursementsIcon'
 import AccountIcon from 'components/AccountIcon'
 import AccountCaption from 'ducks/balance/AccountRowCaption'
-import useIntersectionObserver from 'hooks/useIntersectionObserver'
+import useVisible from 'hooks/useVisible'
 
 const Owners = React.memo(function Owners(props) {
   const { owners } = props
@@ -116,17 +116,7 @@ const AccountRow = props => {
     id,
     initialVisible
   } = props
-
-  const [visible, setVisible] = useState(initialVisible)
-  const handleIntersection = useCallback(
-    entries => {
-      if (entries[0].intersectionRatio > 0) {
-        setVisible(true)
-      }
-    },
-    [setVisible]
-  )
-  const ref = useIntersectionObserver(observerOptions, handleIntersection)
+  const [ref, visible] = useVisible(initialVisible, observerOptions)
   const { t } = useI18n()
   const { isMobile } = useBreakpoints()
   const owners = account.owners.data.filter(Boolean).filter(owner => !owner.me)
