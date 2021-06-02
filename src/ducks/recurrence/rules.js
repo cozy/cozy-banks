@@ -74,7 +74,7 @@ export const overEvery = predicates => item => {
 
 const getTransactionDate = x => x.date
 
-export const mergeCategoryIds = (objValue, srcValue, key, obj, src) => {
+export const mergeCategoryIds = (obj, src) => {
   // When merging two bundles, we put the most recent categoryId in front
   const mostRecentObjOp = maxBy(obj.ops, getTransactionDate)
   const mostRecentSrcOp = maxBy(src.ops, getTransactionDate)
