@@ -1,24 +1,31 @@
 /* global mount */
 
 import React from 'react'
+import { createMockClient } from 'cozy-client/dist/mock'
+
+import data from 'test/fixtures'
+import PropTypes from 'prop-types'
+import AppLike from 'test/AppLike'
+import getClient from 'src/selectors/getClient'
+import mockRouter from 'test/mockRouter'
+import fixtures from 'test/fixtures'
+
+import { GROUP_DOCTYPE, ACCOUNT_DOCTYPE, schema } from 'doctypes'
+
 import {
   DumbTransactionsPage,
   UnpluggedTransactionsPage,
   STEP_INFINITE_SCROLL,
   MIN_NB_TRANSACTIONS_SHOWN
 } from './TransactionsPage'
-import data from '../../../test/fixtures'
-import PropTypes from 'prop-types'
-import AppLike from 'test/AppLike'
-import { mkFakeChain } from 'test/client'
-import { getClient } from 'ducks/client'
-import mockRouter from 'test/mockRouter'
+
+jest.mock('src/selectors/getClient', () => ({
+  __esModule: true,
+  default: jest.fn()
+}))
 
 const allAccounts = data['io.cozy.bank.accounts']
 const allTransactions = data['io.cozy.bank.operations']
-
-const client = getClient()
-client.chain = mkFakeChain()
 
 const saveWindowWidth = () => {
   let windowWidth = window.innerWidth
@@ -42,6 +49,20 @@ const mkCollection = (data, options) => ({
   ...options
 })
 
+// Necessary wrapper to be able to use setProps since `setProps` is
+// only callable on the Enzyme root
+const Wrapper = ({ filteringDoc, filteredTransactions, router, client }) => (
+  <AppLike client={client} router={router}>
+    <UnpluggedTransactionsPage
+      transactions={mkCollection(allTransactions, { fetchStatus: 'loaded' })}
+      accounts={mkCollection(allAccounts, { fetchStatus: 'loaded' })}
+      filteredTransactions={filteredTransactions || allTransactions}
+      filteredAccounts={allAccounts}
+      filteringDoc={filteringDoc}
+    />
+  </AppLike>
+)
+
 describe('TransactionsPage', () => {
   let root, categoryName, subcategoryName, restoreWindowWidth
   beforeEach(() => {
@@ -55,20 +76,6 @@ describe('TransactionsPage', () => {
     restoreWindowWidth()
     jest.restoreAllMocks()
   })
-
-  // Necessary wrapper to be able to use setProps since `setProps` is
-  // only callable on the Enzyme root
-  const Wrapper = ({ filteringDoc, filteredTransactions, router }) => (
-    <AppLike client={client} router={router}>
-      <UnpluggedTransactionsPage
-        transactions={mkCollection(allTransactions, { fetchStatus: 'loaded' })}
-        accounts={mkCollection(allAccounts, { fetchStatus: 'loaded' })}
-        filteredTransactions={filteredTransactions || allTransactions}
-        filteredAccounts={allAccounts}
-        filteringDoc={filteringDoc}
-      />
-    </AppLike>
-  )
 
   const setup = () => {
     const router = {
@@ -87,7 +94,26 @@ describe('TransactionsPage', () => {
     const childContextTypes = {
       router: PropTypes.object
     }
-    root = mount(<Wrapper router={router} />, { context, childContextTypes })
+    const client = createMockClient({
+      queries: {
+        groups: {
+          doctype: GROUP_DOCTYPE,
+          data: fixtures[GROUP_DOCTYPE]
+        },
+        accounts: {
+          doctype: ACCOUNT_DOCTYPE,
+          data: fixtures[ACCOUNT_DOCTYPE]
+        }
+      },
+      clientOptions: {
+        schema
+      }
+    })
+    getClient.mockReturnValue(client)
+    root = mount(<Wrapper client={client} router={router} />, {
+      context,
+      childContextTypes
+    })
   }
 
   it('should handle change in top most transaction', () => {
