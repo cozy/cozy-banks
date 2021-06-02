@@ -14,9 +14,7 @@ import { GROUP_DOCTYPE, ACCOUNT_DOCTYPE, schema } from 'doctypes'
 
 import {
   DumbTransactionsPage,
-  UnpluggedTransactionsPage,
-  STEP_INFINITE_SCROLL,
-  MIN_NB_TRANSACTIONS_SHOWN
+  UnpluggedTransactionsPage
 } from './TransactionsPage'
 
 jest.mock('src/selectors/getClient', () => ({
@@ -151,20 +149,5 @@ describe('TransactionsPage', () => {
     expect(instance.setState).toHaveBeenCalledWith({
       currentMonth: '2019-02'
     })
-  })
-
-  it('should correctly set internal state if filteringDoc changed', () => {
-    setup()
-    const tp = root.find(DumbTransactionsPage)
-    const instance = tp.instance()
-    jest.spyOn(instance, 'handleChangeMonth')
-    expect(tp.state('limitMax')).toBe(STEP_INFINITE_SCROLL)
-    root.setProps({
-      filteringDoc: { _id: 'new-doc' },
-      filteredTransactions: [{ date: '2019-11-03T13:13' }]
-    })
-    expect(tp.state('currentMonth')).toBe('2019-11')
-    expect(tp.state('limitMin')).toBe(0)
-    expect(tp.state('limitMax')).toBe(MIN_NB_TRANSACTIONS_SHOWN)
   })
 })
