@@ -13,8 +13,7 @@
   <meta name="theme-color" content="#ffffff">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   
-  {{.CozyClientJS}}
-  {{.CozyBar}}
+  <link rel="stylesheet" type="text/css" href="//{{.Domain}}/assets/fonts/fonts.css">
   
   <script type="text/javascript">
     /**
@@ -47,12 +46,12 @@
     }
     window.onerror = handleError
   </script>
-<link href="main-banks.dc7cfb5b1eaacaa4954d.min.css" rel="stylesheet"></head>
+<link href="http://localhost:8282/main-banks.css" rel="stylesheet"></head>
 <body>
 <div role="application" data-cozy-token="{{.Token}}" data-cozy-domain="{{.Domain}}" data-cozy-locale="{{.Locale}}" data-cozy-app-name="{{.AppName}}" data-cozy-app-name-prefix="{{.AppNamePrefix}}" data-cozy-app-editor="{{.AppEditor}}" data-cozy-icon-path="{{.IconPath}}" data-cozy-tracking="{{.Tracking}}" data-cozy-app-slug="{{.AppSlug}}" data-cozy-subdomain-type="{{.SubDomain}}" data-cozy-flags="{{.Flags}}"></div>
 
 
 <script src="//{{.Domain}}/assets/js/piwik.js" async></script>
 
-<script src="app.js"></script></body>
+<script src="http://localhost:8282/app.js"></script><script src="http://localhost:8282/main.f7c17e9a2d022dad7960.hot-update.js"></script></body>
 </html>
