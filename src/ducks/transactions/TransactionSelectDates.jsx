@@ -80,13 +80,17 @@ const useTransactionExtent = () => {
         .limitBy(1)
         .indexFields(['date'])
       const [earliest, latest] = await Promise.all(
-        [earliestQuery, latestQuery].map((q, i) =>
-          client.query(q, {
+        [earliestQuery, latestQuery].map(async (q, i) => {
+          const queryName = `${transactionsConn.as}-${
+            i === 0 ? 'earliest' : 'latest'
+          }`
+          await client.query(q, {
             fetchPolicy: CozyClient.fetchPolicies.olderThan(30 * 1000),
-            as: `${transactionsConn.as}-${i === 0 ? 'earliest' : 'latest'}`,
+            as: queryName,
             autoUpdate: extentAutoUpdateOptions
           })
-        )
+          return client.getQueryFromState(queryName)
+        })
       )
       setData([earliest.data[0], latest.data[0]])
     }
