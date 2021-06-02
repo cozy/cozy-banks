@@ -4,6 +4,10 @@ import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
+import endOfMonth from 'date-fns/end_of_month'
+import isEqual from 'lodash/isEqual'
+import debounce from 'lodash/debounce'
+import compose from 'lodash/flowRight'
 
 import { isMobileApp } from 'cozy-device-helper'
 import {
@@ -17,33 +21,25 @@ import Typography from 'cozy-ui/transpiled/react/Typography'
 import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import flag from 'cozy-flags'
 
-import endOfMonth from 'date-fns/end_of_month'
-import isEqual from 'lodash/isEqual'
-import debounce from 'lodash/debounce'
-import compose from 'lodash/flowRight'
-import { getFilteringDoc } from 'ducks/filters'
-import Padded from 'components/Padded'
-
-import { getDisplayDate } from 'ducks/transactions/helpers'
-
-import Loading from 'components/Loading'
-import FutureBalanceCard from 'ducks/future/FutureBalanceCard'
-import { TransactionList } from 'ducks/transactions/Transactions'
-import styles from 'ducks/transactions/TransactionsPage.styl'
-
 import {
   ACCOUNT_DOCTYPE,
   accountsConn,
   groupsConn,
   cronKonnectorTriggersConn
 } from 'doctypes'
-import { makeFilteredTransactionsConn } from './queries'
+import { getFilteringDoc } from 'ducks/filters'
+import Padded from 'components/Padded'
 
+import { getDisplayDate } from 'ducks/transactions/helpers'
+import Loading from 'components/Loading'
+import FutureBalanceCard from 'ducks/future/FutureBalanceCard'
+import { TransactionList } from 'ducks/transactions/Transactions'
+import styles from 'ducks/transactions/TransactionsPage.styl'
 import TransactionHeader from 'ducks/transactions/TransactionHeader'
 import BarTheme from 'ducks/bar/BarTheme'
 import TransactionActionsProvider from 'ducks/transactions/TransactionActionsProvider'
-
 import { trackPage } from 'ducks/tracking/browser'
+import { makeFilteredTransactionsConn } from 'ducks/transactions/queries'
 
 const getMonth = date => date.slice(0, 7)
 
