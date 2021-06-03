@@ -38,11 +38,11 @@ describe('makeFilteredTransactionsConn', () => {
     const query = conn1.query()
     expect(query).toEqual(
       expect.objectContaining({
-        indexedFields: ['account', 'date'],
+        indexedFields: ['date', 'account'],
         selector: {
           $or: [{ account: 'a1' }, { account: 'a2' }, { account: 'a3' }]
         },
-        sort: [{ account: 'desc' }, { date: 'desc' }]
+        sort: [{ date: 'desc' }, { account: 'desc' }]
       })
     )
   })
@@ -69,11 +69,11 @@ describe('makeFilteredTransactionsConn', () => {
     const query = conn1.query()
     expect(query).toEqual(
       expect.objectContaining({
-        indexedFields: ['account', 'date'],
+        indexedFields: ['date', 'account'],
         selector: {
           $or: [{ account: 'a1' }, { account: 'a2' }, { account: 'a3' }]
         },
-        sort: [{ account: 'desc' }, { date: 'desc' }]
+        sort: [{ date: 'desc' }, { account: 'desc' }]
       })
     )
   })

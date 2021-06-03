@@ -1,4 +1,4 @@
-import { GROUP_DOCTYPE, transactionsConn } from 'doctypes'
+import { GROUP_DOCTYPE, ACCOUNT_DOCTYPE, transactionsConn } from 'doctypes'
 
 /**
  * Outputs a connection to fetch transactions
@@ -32,15 +32,17 @@ export const makeFilteredTransactionsConn = options => {
           const group = groups.data.find(g => g._id === filteringDoc._id)
           accounts = group ? group.accounts.raw : []
         }
-        indexFields = ['account', 'date']
+        indexFields = ['date', 'account']
         whereClause = {
           $or: accounts.map(a => ({ account: a }))
         }
-        sortByClause = [{ account: 'desc' }, { date: 'desc' }]
-      } else {
-        indexFields = ['account', 'date']
+        sortByClause = [{ date: 'desc' }, { account: 'desc' }]
+      } else if (filteringDoc._type === ACCOUNT_DOCTYPE) {
+        indexFields = ['date', 'account']
         whereClause = { account: filteringDoc._id }
-        sortByClause = [{ account: 'desc' }, { date: 'desc' }]
+        sortByClause = [{ date: 'desc' }, { account: 'desc' }]
+      } else {
+        throw new Error('Unsupported filtering doc to create transaction query')
       }
     } else {
       indexFields = ['date', '_id']
