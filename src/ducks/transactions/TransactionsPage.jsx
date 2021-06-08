@@ -20,8 +20,6 @@ import { translate } from 'cozy-ui/transpiled/react/I18n'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import flag from 'cozy-flags'
-import LinearProgress from '@material-ui/core/LinearProgress'
-import Box from '@material-ui/core/Box'
 
 import {
   ACCOUNT_DOCTYPE,
@@ -31,6 +29,7 @@ import {
 } from 'doctypes'
 import { getFilteringDoc } from 'ducks/filters'
 import Padded from 'components/Padded'
+import HeaderLoadingProgress from 'components/HeaderLoadingProgress'
 import useLast from 'hooks/useLast'
 import { getDisplayDate } from 'ducks/transactions/helpers'
 import Loading from 'components/Loading'
@@ -44,14 +43,6 @@ import { trackPage } from 'ducks/tracking/browser'
 import { makeFilteredTransactionsConn } from 'ducks/transactions/queries'
 
 const getMonth = date => date.slice(0, 7)
-
-const ProgressContainer = ({ children }) => {
-  return (
-    <Box minHeight="8px" marginBottom={-1}>
-      {children}
-    </Box>
-  )
-}
 
 const updateListStyle = (listRef, headerRef) => {
   // eslint-disable-next-line
@@ -252,9 +243,7 @@ class TransactionsPage extends Component {
             showBalance={isMobile && !areAccountsLoading}
           />
         ) : null}
-        <ProgressContainer>
-          {isFetchingNewData ? <LinearProgress /> : null}
-        </ProgressContainer>
+        <HeaderLoadingProgress isFetching={isFetchingNewData} />
         <div
           ref={this.handleListRef}
           style={{ opacity: 0 }}
