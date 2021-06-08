@@ -1,11 +1,10 @@
-import React, { useState, useMemo, useEffect } from 'react'
-import { createSelector } from 'reselect'
-import { useSelector } from 'react-redux'
+import React, { useState, useMemo, useEffect, useCallback } from 'react'
 import minBy from 'lodash/minBy'
 import debounce from 'lodash/debounce'
 import orderBy from 'lodash/orderBy'
 import keyBy from 'lodash/keyBy'
-import { Typography } from '@material-ui/core'
+import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
 import Fuse from 'fuse.js'
 
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
@@ -13,10 +12,14 @@ import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Empty from 'cozy-ui/transpiled/react/Empty'
 import NarrowContent from 'cozy-ui/transpiled/react/NarrowContent'
+import HistoryIcon from 'cozy-ui/transpiled/react/Icons/History'
+import IconButton from 'cozy-ui/transpiled/react/IconButton'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import Tooltip from '@material-ui/core/Tooltip'
 
-import { useQuery } from 'cozy-client'
-import { transactionsConn } from 'doctypes'
+import { Q, useQuery, isQueryLoading } from 'cozy-client'
 
+import { TRANSACTION_DOCTYPE } from 'doctypes'
 import { useTrackPage } from 'ducks/tracking/browser'
 import {
   TransactionList,
@@ -24,9 +27,9 @@ import {
 } from 'ducks/transactions/Transactions'
 import BarTheme from 'ducks/bar/BarTheme'
 import TransactionTableHead from 'ducks/transactions/header/TableHead'
-import { getTransactions } from 'selectors'
 
 import Header from 'components/Header'
+import HeaderLoadingProgress from 'components/HeaderLoadingProgress'
 import Padded from 'components/Padded'
 import { PageTitle } from 'components/Title'
 import BackButton from 'components/BackButton'
@@ -47,17 +50,25 @@ const SearchSuggestions = () => {
   )
 }
 
-const getTransactionEarliestDate = createSelector(
-  [getTransactions],
-  transactions => minBy(transactions, x => x.date)
-)
-
-const EarliestTransactionDate = () => {
+const EarliestTransactionDate = ({
+  transaction,
+  transactionCol,
+  onFetchMore
+}) => {
   const { t, f } = useI18n()
-  const transaction = useSelector(getTransactionEarliestDate)
   return transaction ? (
-    <div className="u-mt-half">
+    <div>
       {t('Search.since', { date: f(transaction.date, 'D MMM YYYY') })}
+      {transactionCol.hasMore ? (
+        <Tooltip title={t('Search.search-older-transactions')}>
+          <IconButton
+            disabled={isQueryLoading(transactionCol)}
+            onClick={onFetchMore}
+          >
+            <Icon icon={HistoryIcon} />
+          </IconButton>
+        </Tooltip>
+      ) : null}
     </div>
   ) : null
 }
@@ -84,6 +95,17 @@ const emptyResults = []
 
 const transactionListOptions = { mobileSectionDateFormat: 'ddd D MMMM YYYY' }
 
+const searchConn = {
+  query: Q(TRANSACTION_DOCTYPE)
+    .where({ _id: { $gt: null } })
+    .indexFields(['date'])
+    .sortBy([{ date: 'desc' }])
+    .limitBy(1000),
+  as: 'transactions-searchPage'
+}
+
+const getTransactionDate = x => x.date
+
 const SearchPage = () => {
   const params = useParams()
   const { t } = useI18n()
@@ -99,14 +121,16 @@ const SearchPage = () => {
 
   useTrackPage('recherche')
 
-  let { data: allTransactions, lastUpdate } = useQuery(
-    transactionsConn.query,
-    transactionsConn
-  )
+  const transactionCol = useQuery(searchConn.query, searchConn)
 
-  let transactions = allTransactions || emptyResults
+  const { data: transactions = emptyResults, lastUpdate } = transactionCol
+
+  const earliestTransaction = useMemo(() => {
+    return minBy(transactions, getTransactionDate)
+  }, [transactions])
+
   const fuse = useMemo(() => {
-    const fuse = new Fuse(transactions, {
+    const fuse = new Fuse(transactions || [], {
       keys: ['label'],
       ignoreLocation: true,
       includeScore: true,
@@ -126,13 +150,22 @@ const SearchPage = () => {
       const orderedResults = orderSearchResults(results)
       const transactions = orderedResults.map(result => result.item)
       setResultIds(transactions.map(tr => tr._id))
-    }, 500)
+    }, 200)
   }, [fuse, setResultIds])
 
-  const handleChange = ev => {
-    setSearch(ev.target.value)
-    performSearch(ev.target.value)
-  }
+  const handleChange = useCallback(
+    ev => {
+      setSearch(ev.target.value)
+      performSearch(ev.target.value)
+    },
+    [setSearch, performSearch]
+  )
+
+  const handleFetchMore = useCallback(() => {
+    if (!isQueryLoading(transactionCol)) {
+      transactionCol.fetchMore()
+    }
+  }, [transactionCol])
 
   // at mount time, perform a search if there is the search params
   useEffect(() => {
@@ -177,7 +210,11 @@ const SearchPage = () => {
                       })
                     : t('Search.title')}
                 </PageTitle>
-                <EarliestTransactionDate />
+                <EarliestTransactionDate
+                  onFetchMore={handleFetchMore}
+                  transaction={earliestTransaction}
+                  transactionCol={transactionCol}
+                />
               </Bd>
             </Media>
             <BarSearch>
@@ -193,6 +230,9 @@ const SearchPage = () => {
         )}
         <TransactionTableHead isSubcategory={false} />
       </Header>
+      <HeaderLoadingProgress
+        isFetching={transactionCol.fetchStatus === 'loading'}
+      />
       {!searchSufficient ? (
         <Padded>
           <NarrowContent className="u-m-auto">
@@ -219,6 +259,14 @@ const SearchPage = () => {
             <Empty
               className="u-mt-large"
               title={t('Search.no-transactions-found', { search })}
+              text={
+                <Button
+                  onClick={handleFetchMore}
+                  startIcon={<Icon icon={HistoryIcon} />}
+                >
+                  {t('Search.search-older-transactions')}
+                </Button>
+              }
               icon={''}
             />
           )
