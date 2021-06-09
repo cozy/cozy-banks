@@ -50,4 +50,8 @@ const BarSearchInput = ({
   )
 }
 
+BarSearchInput.defaultProps = {
+  value: ''
+}
+
 export default BarSearchInput
