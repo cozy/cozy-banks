@@ -202,7 +202,7 @@ class CategoriesPage extends Component {
           hasAccount={hasAccount}
           chart={!isSubcategory}
         />
-        <HeaderLoadingProgress isFetching={isFetchingNewData} />
+        <HeaderLoadingProgress isFetching={!!isFetchingNewData} />
         <Delayed delay={this.props.delayContent}>
           {hasAccount &&
             (isFetching ? (
