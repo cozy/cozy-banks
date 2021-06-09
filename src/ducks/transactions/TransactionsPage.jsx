@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import endOfMonth from 'date-fns/end_of_month'
-import isEqual from 'lodash/isEqual'
 import debounce from 'lodash/debounce'
 import compose from 'lodash/flowRight'
 
@@ -84,23 +83,9 @@ class TransactionsPage extends Component {
       this
     )
     this.handleChangeMonth = this.handleChangeMonth.bind(this)
-
     this.state = {
-      limitMin: 0,
-      limitMax: 1000000
+      currentMonth: null
     }
-  }
-
-  setCurrentMonthFollowingMostRecentTransaction() {
-    // const transactions = this.props.filteredTransactions
-    // if (!transactions || transactions.length === 0) {
-    //   return
-    // }
-    // const mostRecentTransaction = maxBy(transactions, getDisplayDate)
-    // if (!mostRecentTransaction) {
-    //   return
-    // }
-    // const mostRecentMonth = getMonth(getDisplayDate(mostRecentTransaction))
   }
 
   componentDidMount() {
@@ -132,17 +117,6 @@ class TransactionsPage extends Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
-    if (!isEqual(this.props.filteringDoc, prevProps.filteringDoc)) {
-      this.setCurrentMonthFollowingMostRecentTransaction()
-    } else if (
-      isQueryLoading(prevProps.transactions) &&
-      !isQueryLoading(this.props.transactions)
-    ) {
-      this.setCurrentMonthFollowingMostRecentTransaction()
-    }
-  }
-
   handleChangeTopmostTransaction(transaction) {
     this.setState({
       currentMonth: getMonth(getDisplayDate(transaction))
@@ -164,8 +138,7 @@ class TransactionsPage extends Component {
   }
 
   renderTransactions() {
-    const { showTriggerErrors } = this.state
-    const { t, transactions, filteringDoc } = this.props
+    const { t, transactions, filteringDoc, showTriggerErrors } = this.props
 
     const isFilteringOnAccount =
       filteringDoc && filteringDoc._type === ACCOUNT_DOCTYPE
