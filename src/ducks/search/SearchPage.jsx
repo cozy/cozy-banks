@@ -156,9 +156,8 @@ const SearchPage = () => {
   const handleChange = useCallback(
     ev => {
       setSearch(ev.target.value)
-      performSearch(ev.target.value)
     },
-    [setSearch, performSearch]
+    [setSearch]
   )
 
   const handleFetchMore = useCallback(() => {
@@ -173,6 +172,12 @@ const SearchPage = () => {
       performSearch(params.search)
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (lastUpdate && search) {
+      performSearch(search)
+    }
+  }, [lastUpdate, performSearch, search])
 
   const results = useMemo(() => {
     const transactionsById = keyBy(transactions, tr => tr._id)
@@ -233,7 +238,7 @@ const SearchPage = () => {
       <HeaderLoadingProgress
         isFetching={transactionCol.fetchStatus === 'loading'}
       />
-      {!searchSufficient ? (
+      {!searchSufficient || !lastUpdate ? (
         <Padded>
           <NarrowContent className="u-m-auto">
             <CompositeHeader
@@ -247,7 +252,7 @@ const SearchPage = () => {
         </Padded>
       ) : null}
       <div className={`js-scrolling-element`}>
-        {searchSufficient ? (
+        {searchSufficient && lastUpdate ? (
           results.length > 0 ? (
             <TransactionsListContext.Provider value={transactionListOptions}>
               <TransactionList
