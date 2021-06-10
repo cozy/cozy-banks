@@ -6,7 +6,7 @@ import debounce from 'lodash/debounce'
 import orderBy from 'lodash/orderBy'
 import keyBy from 'lodash/keyBy'
 import { Typography } from '@material-ui/core'
-import Fuse from 'fuse.js'
+import Fuse from 'fuse.js/dist/fuse.js'
 
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
