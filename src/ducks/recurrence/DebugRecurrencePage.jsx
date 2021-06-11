@@ -391,30 +391,32 @@ const DebugRecurrencePage = () => {
         label="reset bundles"
         busy={resettingBundles}
       />
-      {loading ? <Loading /> : null}
-      transactions: {transactions ? transactions.length : 0}
-      <br />
-      bundleTransactions: {bundlesTransactions.length}
-      <br />
-      newTransactions: {newTransactions.length}
-      <br />
-      elapsed time: {(end - start) / 1000}s<br />
-      bundle date:{' '}
-      <DateSlider date={bundlesDate} onChange={handleSetBundleDate} />
-      <br />
-      current date:{' '}
-      <DateSlider date={currentDate} onChange={handleSetCurrentDate} />
-      <br />
-      isLocked:{' '}
-      <input type="checkbox" checked={isLocked} onChange={handleSetLocked} />
-      <br />
-      bundle filter:{' '}
+      <p>
+        transactions: {transactions ? transactions.length : 0}
+        <br />
+        bundleTransactions: {bundlesTransactions.length}
+        <br />
+        newTransactions: {newTransactions.length}
+        <br />
+        elapsed time: {(end - start) / 1000}s<br />
+        bundle date:{' '}
+        <DateSlider date={bundlesDate} onChange={handleSetBundleDate} />
+        <br />
+        current date:{' '}
+        <DateSlider date={currentDate} onChange={handleSetCurrentDate} />
+        <br />
+        isLocked:{' '}
+        <input type="checkbox" checked={isLocked} onChange={handleSetLocked} />
+        <br />
+        bundle filter:{' '}
+      </p>
       <input
         type="text"
         value={bundleFilter}
         onChange={handleChangeBundleFilter}
       />
       <br />
+      {loading ? <Loading /> : null}
       <div className="u-flex" style={{ flexWrap: 'wrap' }}>
         {finalBundles.map((bundle, i) => (
           <RecurrenceBundle key={i} bundle={bundle} />
