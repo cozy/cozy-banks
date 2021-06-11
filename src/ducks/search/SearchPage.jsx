@@ -238,6 +238,15 @@ const SearchPage = () => {
       <HeaderLoadingProgress
         isFetching={transactionCol.fetchStatus === 'loading'}
       />
+      {isMobile ? (
+        <Typography color="textSecondary" className="u-p-1">
+          <EarliestTransactionDate
+            onFetchMore={handleFetchMore}
+            transaction={earliestTransaction}
+            transactionCol={transactionCol}
+          />
+        </Typography>
+      ) : null}
       {!searchSufficient || !lastUpdate ? (
         <Padded>
           <NarrowContent className="u-m-auto">
