@@ -90,7 +90,7 @@ const CategoryTransactions = ({ transactions, subcategoryName }) => {
   )
 }
 
-class CategoriesPage extends Component {
+export class CategoriesPage extends Component {
   componentDidMount() {
     const { filteringDoc, dispatch } = this.props
     if (
