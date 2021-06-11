@@ -52,7 +52,11 @@ const RuleInput = ({ ruleName, config, onChange }) => {
   }
   return (
     <div key={ruleName} className="u-m-half u-miw-6">
-      {ruleName} (<em>{ruleInfo.stage}</em>)
+      {ruleName} (
+      <em>
+        {ruleInfo.type} - {ruleInfo.stage}
+      </em>
+      )
       <Typography variant="caption" color="textSecondary">
         {ruleInfo.description}
       </Typography>
@@ -80,11 +84,17 @@ const Rules = ({ rulesConfig, onChangeConfig, onResetConfig }) => {
     },
     [rulesConfig, onChangeConfig]
   )
+  const entries = useMemo(() => {
+    return sortBy(
+      Object.entries(rulesConfig),
+      ([ruleName]) => rulesPerName[ruleName].stage
+    )
+  }, [rulesConfig])
   return (
     <Card className="u-mv-1">
       <RulesDetails />
       <div className="u-flex u-flex-wrap">
-        {Object.entries(rulesConfig).map(([ruleName, config]) => (
+        {entries.map(([ruleName, config]) => (
           <RuleInput
             key={ruleName}
             ruleName={ruleName}
