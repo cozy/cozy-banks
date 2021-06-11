@@ -5,7 +5,7 @@ import orderBy from 'lodash/orderBy'
 import keyBy from 'lodash/keyBy'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import Button from 'cozy-ui/transpiled/react/MuiCozyTheme/Buttons'
-import Fuse from 'fuse.js'
+import Fuse from 'fuse.js/dist/fuse.js'
 
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
