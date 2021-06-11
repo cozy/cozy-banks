@@ -13,7 +13,8 @@ import PlusIcon from 'cozy-ui/transpiled/react/Icons/Plus'
 import {
   getLabel,
   makeRecurrenceFromTransaction,
-  getCategories
+  getCategories,
+  getFrequencyText
 } from 'ducks/recurrence/utils'
 import { NOT_RECURRENT_ID } from 'ducks/recurrence/constants'
 import { recurrenceConn, RECURRENCE_DOCTYPE } from 'doctypes'
@@ -21,17 +22,42 @@ import { updateTransactionRecurrence } from 'ducks/transactions/helpers'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import styles from './TransactionRecurrenceEditor.styl'
 import Loading from 'components/Loading'
+import min from 'lodash/min'
+import max from 'lodash/max'
 import sortBy from 'lodash/sortBy'
 
 const RECURRENT_ID = 'recurrent'
 const NEW_RECURRENCE_ID = 'new-recurrence'
 
-const makeOptionFromRecurrence = rec => {
+const DEFAULT_CURRENCY = '€'
+
+// TODO Add currency into recurrences object
+const formatRecurrenceAmount = (amount, recurrence) => {
+  if (recurrence.currency) {
+    return `${Math.abs(amount)}${recurrence.currency}`
+  } else {
+    return `${Math.abs(amount)}${DEFAULT_CURRENCY}`
+  }
+}
+
+const makeOptionFromRecurrence = (rec, t) => {
+  const minAmount = min(rec.amounts)
+  const maxAmount = max(rec.amounts)
   return {
     _id: rec._id,
     _type: RECURRENCE_DOCTYPE,
     title: getLabel(rec),
-    icon: <CategoryIcon categoryId={getCategories(rec)[0]} />
+    icon: <CategoryIcon categoryId={getCategories(rec)[0]} />,
+    description: `${getFrequencyText(t, rec)} · ${
+      minAmount === maxAmount
+        ? t('Recurrence.description-amount', {
+            amount: formatRecurrenceAmount(minAmount, rec)
+          })
+        : t('Recurrence.description-amounts', {
+            minAmount: formatRecurrenceAmount(minAmount, rec),
+            maxAmount: formatRecurrenceAmount(maxAmount, rec)
+          })
+    }`
   }
 }
 
