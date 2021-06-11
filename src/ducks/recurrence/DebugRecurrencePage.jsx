@@ -208,10 +208,11 @@ const makeTextFilter = (searchStr, accessor) => {
   }
 }
 
-const RecurrencePage = () => {
+const DebugRecurrencePage = () => {
   const transactionCol = useQuery(transactionsConn.query, transactionsConn)
   const { data: transactions } = transactionCol
-  const loading = isQueryLoading(transactionCol) && transactions.length === 0
+  const loading =
+    isQueryLoading(transactionCol) && transactions && transactions.length === 0
   const [rulesConfig, setRulesConfig, clearSavedConfig] = useStickyState(
     defaultConfig,
     'banks.recurrence-config'
@@ -413,4 +414,4 @@ const RecurrencePage = () => {
   )
 }
 
-export default RecurrencePage
+export default DebugRecurrencePage
