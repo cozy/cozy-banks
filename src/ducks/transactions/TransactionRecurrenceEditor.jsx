@@ -21,6 +21,7 @@ import { updateTransactionRecurrence } from 'ducks/transactions/helpers'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import styles from './TransactionRecurrenceEditor.styl'
 import Loading from 'components/Loading'
+import sortBy from 'lodash/sortBy'
 
 const RECURRENT_ID = 'recurrent'
 const NEW_RECURRENCE_ID = 'new-recurrence'
@@ -78,7 +79,9 @@ const TransactionRecurrenceEditor = ({
     () =>
       allRecurrences
         ? [makeNewRecurrenceOption(t)].concat(
-            allRecurrences.map(makeOptionFromRecurrence)
+            sortBy(allRecurrences, getLabel).map(recurrence =>
+              makeOptionFromRecurrence(recurrence, t)
+            )
           )
         : null,
     [allRecurrences, t]
