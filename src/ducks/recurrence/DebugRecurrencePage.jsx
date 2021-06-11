@@ -5,7 +5,7 @@ import sortBy from 'lodash/sortBy'
 import clone from 'lodash/clone'
 import groupBy from 'lodash/groupBy'
 
-import { useQuery, useClient, isQueryLoading } from 'cozy-client'
+import { useQuery, useClient, isQueryLoading, dehydrate } from 'cozy-client'
 import Card from 'cozy-ui/transpiled/react/Card'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import Button from 'cozy-ui/transpiled/react/Button'
@@ -176,6 +176,11 @@ const BundleStats = ({ bundle }) => {
 }
 
 const RecurrenceBundle = ({ bundle }) => {
+  const client = useClient()
+  const jsonData = useMemo(
+    () => JSON.stringify(bundle.ops.map(o => dehydrate(o))),
+    [bundle]
+  )
   return (
     <Card
       className="u-m-half"
@@ -184,9 +189,12 @@ const RecurrenceBundle = ({ bundle }) => {
       <Typography variant="h5">
         {getAutomaticLabelFromBundle(bundle)}
       </Typography>
+      <input type="text" value={jsonData} />
       <p>
         categories: <CategoryNames bundle={bundle} />
         amounts: {bundle.amounts}
+        <br />
+        #operations: {bundle.ops.length}
         <br />
         {bundle.stats ? <BundleStats bundle={bundle} /> : null}
       </p>
