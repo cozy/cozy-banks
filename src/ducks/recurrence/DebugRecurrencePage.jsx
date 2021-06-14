@@ -176,7 +176,6 @@ const BundleStats = ({ bundle }) => {
 }
 
 const RecurrenceBundle = ({ bundle }) => {
-  const client = useClient()
   const jsonData = useMemo(
     () => JSON.stringify(bundle.ops.map(o => dehydrate(o))),
     [bundle]
