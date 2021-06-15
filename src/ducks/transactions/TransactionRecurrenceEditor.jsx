@@ -28,18 +28,17 @@ import { updateTransactionRecurrence } from 'ducks/transactions/helpers'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import styles from './TransactionRecurrenceEditor.styl'
 import Loading from 'components/Loading'
+import { DEFAULT_CURRENCY_SYMBOL } from 'utils/currencySymbol'
 
 const RECURRENT_ID = 'recurrent'
 const NEW_RECURRENCE_ID = 'new-recurrence'
-
-const DEFAULT_CURRENCY = '€'
 
 // TODO Add currency into recurrences object
 const formatRecurrenceAmount = (amount, recurrence) => {
   if (recurrence.currency) {
     return `${Math.abs(amount)}${recurrence.currency}`
   } else {
-    return `${Math.abs(amount)}${DEFAULT_CURRENCY}`
+    return `${Math.abs(amount)}${DEFAULT_CURRENCY_SYMBOL}`
   }
 }
 
