@@ -1,5 +1,6 @@
 import keyBy from 'lodash/keyBy'
 import React from 'react'
+import { render, fireEvent } from '@testing-library/react'
 import { mount } from 'enzyme'
 import Polyglot from 'node-polyglot'
 
@@ -38,7 +39,7 @@ describe('makeOptionFromRecurrence', () => {
 })
 
 describe('transaction recurrence editor', () => {
-  const setup = () => {
+  const setup = ({ renderFn }) => {
     const client = createMockClient({
       queries: {
         transactions: {
@@ -65,7 +66,7 @@ describe('transaction recurrence editor', () => {
       client.getDocumentFromState(TRANSACTION_DOCTYPE, 'salaireisa1')
     )
 
-    const root = mount(
+    const root = renderFn(
       <AppLike client={client}>
         <TransactionRecurrenceEditor
           transaction={transaction}
@@ -74,11 +75,11 @@ describe('transaction recurrence editor', () => {
       </AppLike>
     )
 
-    return { root, mount }
+    return { root }
   }
 
   it('should correctly render', () => {
-    const { root } = setup()
+    const { root } = setup({ renderFn: mount })
     const options = findOptions(root)
     const optionTexts = options.map(option => option.text())
     expect(optionTexts[0]).toContain('Occasional transaction')
@@ -87,5 +88,19 @@ describe('transaction recurrence editor', () => {
     const recurrentOption = options.at(1)
     const recurrentOptionProps = recurrentOption.props()
     expect(recurrentOptionProps.isSelected).toBe(true)
+  })
+
+  it('should sort recurrences', () => {
+    const { root } = setup({ renderFn: render })
+    const recurrentItem = root.getByText('Recurrent transaction')
+    fireEvent.click(recurrentItem)
+    const buttons = root.getAllByRole('button')
+    const texts = buttons.map(btn => btn.textContent)
+    expect(texts).toEqual([
+      expect.stringContaining('New recurrence'),
+      expect.stringContaining('A recurrence that should be listed first'),
+      expect.stringContaining('Salaire'),
+      expect.stringContaining('Salaire')
+    ])
   })
 })
