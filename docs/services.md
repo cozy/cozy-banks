@@ -21,6 +21,10 @@ You can manually create an app token and launch the built service.
 ```
 # Watch services
 $ yarn watch:services:prod
+# If you want to watch only 1 service, you can use the WEBPACK_ENTRYPOINT
+# env variable with the name of the name of the entrypoint. If this var
+# is set, only the corresponding entrypoint will be used.
+# env WEBPACK_ENTRYPOINT=recurrence yarn watch:services
 # In another terminal
 $ export COZY_URL='http://cozy.tools:8080'
 $ export COZY_CREDENTIALS=$(cozy-stack instances token-app cozy.tools:8080 banks)
