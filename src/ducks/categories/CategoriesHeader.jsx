@@ -186,7 +186,7 @@ const CategoriesHeader = props => {
               {incomeToggle}
             </LegalMention>
 
-            {!hasData && (
+            {!hasData && !isFetching && !isFetchingNewData && (
               <div className={styles.NoAccount_empty}>
                 <Empty
                   icon={emptyIcon}
