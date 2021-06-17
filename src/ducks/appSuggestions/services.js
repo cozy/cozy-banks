@@ -34,7 +34,7 @@ export const findSuggestionForTransaction = (
   if (originalSuggestion) {
     log('debug', `Using existing suggestion for ${matchingBrand.konnectorSlug}`)
     suggestion = originalSuggestion
-  } else {
+  } else if (matchingBrand.konnectorSlug) {
     log(
       'debug',
       `No existing suggestion for ${matchingBrand.konnectorSlug}. Creating a new one`
@@ -43,6 +43,8 @@ export const findSuggestionForTransaction = (
       matchingBrand.konnectorSlug,
       'FOUND_TRANSACTION'
     )
+  } else {
+    return null
   }
 
   AppSuggestion.linkTransaction(suggestion, transaction)
