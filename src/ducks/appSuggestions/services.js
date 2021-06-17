@@ -21,7 +21,7 @@ export const findSuggestionForTransaction = (
   const matchingBrand = findMatchingBrand(brands, getLabel(transaction))
 
   if (!matchingBrand) {
-    log('info', `No matching brand found for transaction ${transaction._id}`)
+    log('debug', `No matching brand found for transaction ${transaction._id}`)
     return null
   }
 
@@ -32,11 +32,11 @@ export const findSuggestionForTransaction = (
   let suggestion
 
   if (originalSuggestion) {
-    log('info', `Using existing suggestion for ${matchingBrand.konnectorSlug}`)
+    log('debug', `Using existing suggestion for ${matchingBrand.konnectorSlug}`)
     suggestion = originalSuggestion
   } else {
     log(
-      'info',
+      'debug',
       `No existing suggestion for ${matchingBrand.konnectorSlug}. Creating a new one`
     )
     suggestion = AppSuggestion.init(
