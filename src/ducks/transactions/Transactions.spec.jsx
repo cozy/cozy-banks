@@ -14,6 +14,7 @@ import TransactionPageErrors from 'ducks/transactions/TransactionPageErrors'
 
 // No need to test this here
 jest.mock('ducks/transactions/TransactionPageErrors', () => () => null)
+jest.mock('react-tappable/lib/Tappable', () => ({ children }) => children)
 
 const allTransactions = data['io.cozy.bank.operations']
 

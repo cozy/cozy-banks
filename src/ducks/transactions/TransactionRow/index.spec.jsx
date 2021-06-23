@@ -3,6 +3,8 @@ import React from 'react'
 import AppLike from 'test/AppLike'
 import TransactionRowMobile from './TransactionRowMobile'
 
+jest.mock('react-tappable/lib/Tappable', () => ({ children }) => children)
+
 describe('TransactionRowMobile', () => {
   const setup = ({ transactionAttributes } = {}) => {
     const SNACK_AND_WORK_MEALS = '400160'
