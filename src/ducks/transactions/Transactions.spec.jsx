@@ -1,15 +1,33 @@
 /* global mount */
 
 import React from 'react'
+import Tappable from 'react-tappable/lib/Tappable'
+import { render, fireEvent, wait } from '@testing-library/react'
+import flag from 'cozy-flags'
+
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import Alerter from 'cozy-ui/transpiled/react/Alerter'
 
 import data from 'test/fixtures'
 import AppLike from 'test/AppLike'
+import { createMockClient } from 'cozy-client/dist/mock'
 
 import TransactionPageErrors from 'ducks/transactions/TransactionPageErrors'
 import { TransactionsDumb, sortByDate } from './Transactions'
 
 // No need to test this here
 jest.mock('ducks/transactions/TransactionPageErrors', () => () => null)
+
+jest.mock('react-tappable/lib/Tappable', () => ({
+  default: jest.fn(),
+  __esModule: true
+}))
+
+jest.mock('cozy-ui/transpiled/react/hooks/useBreakpoints', () => ({
+  __esModule: true,
+  default: jest.fn(),
+  BreakpointsProvider: ({ children }) => children
+}))
 
 describe('Transactions', () => {
   let i = 0
@@ -60,5 +78,86 @@ describe('Transactions', () => {
 
     const instance2 = root.find(TransactionsDumb).instance()
     expect(instance2.transactions).toEqual(sortByDate(slicedTransactions))
+  })
+})
+
+describe('SelectionBar', () => {
+  beforeAll(() => {
+    flag('banks.selectionMode.enabled', true)
+    useBreakpoints.mockReturnValue({ isMobile: true })
+  })
+
+  afterAll(() => {
+    flag('banks.selectionMode.enabled', undefined)
+    useBreakpoints.clearMock()
+  })
+
+  let i = 0
+  const mockTransactions = data['io.cozy.bank.operations'].map(x => ({
+    _id: `transaction-id-${i++}`,
+    ...x
+  }))
+
+  // Mock tappable so that key down fires its onPress event
+  Tappable.mockImplementation(({ children, onPress, onTap }) => {
+    return (
+      <div onClick={onTap} onKeyDown={onPress}>
+        {children}
+      </div>
+    )
+  })
+
+  const setup = () => {
+    const client = createMockClient({})
+    client.save.mockImplementation(doc => ({ data: doc }))
+
+    const root = render(
+      <AppLike client={client}>
+        <Alerter />
+        <TransactionsDumb
+          breakpoints={{ isDesktop: false }}
+          transactions={mockTransactions}
+          showTriggerErrors={false}
+        />
+      </AppLike>
+    )
+
+    return { root, client }
+  }
+
+  it('should show selection bar and open category modal', async () => {
+    const { root, client } = setup()
+    const { getByText, queryByText } = root
+
+    fireEvent.keyDown(getByText('Remboursement Pret Lcl'))
+    let node = queryByText('item selected')
+    expect(node).toBeTruthy()
+    expect(node.parentNode.textContent).toBe('1 item selected')
+
+    // should remove the selection bar
+    fireEvent.click(getByText('Remboursement Pret Lcl'))
+    expect(queryByText('item selected')).toBeFalsy()
+
+    // should show 2 transactions selected
+    fireEvent.keyDown(getByText('Remboursement Pret Lcl'))
+    node = queryByText('item selected')
+    fireEvent.click(getByText('Edf Particuliers'))
+    expect(node.parentNode.textContent).toBe('2 items selected')
+
+    // should unselected transaction
+    fireEvent.click(getByText('Edf Particuliers'))
+    expect(node.parentNode.textContent).toBe('1 item selected')
+    fireEvent.click(getByText('Edf Particuliers'))
+    expect(node.parentNode.textContent).toBe('2 items selected')
+
+    // selecting a category
+    fireEvent.click(getByText('Categorize'))
+    fireEvent.click(getByText('Everyday life'))
+    fireEvent.click(getByText('Supermarket'))
+
+    // should remove the selection bar and show a success alert
+    expect(queryByText('item selected')).toBeFalsy()
+    await wait(() => expect(client.save).toHaveBeenCalledTimes(2))
+    expect(queryByText('2 operations have been recategorized')).toBeTruthy()
   })
 })
