@@ -61,7 +61,7 @@ const TransactionRowDesktop = props => {
     showTransactionCategoryModal,
     ,
     categoryModal
-  ] = useTransactionCategoryModal(transaction)
+  ] = useTransactionCategoryModal({ transactions: [transaction] })
 
   const handleClickCategory = useCallback(
     ev => {
