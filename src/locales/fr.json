@@ -917,5 +917,15 @@
       "deleting": "Suppression des données associées, ne pas fermer la fenêtre...",
       "successfully-deleted": "Toutes les données associées ont bien été supprimées"
     }
+  },
+
+  "Categorization": {
+    "success": "%{smart_count} operation a été recatégorisée |||| %{smart_count} operations ont été recatégorisées"
+  },
+
+  "SelectionBar": {
+    "selected_count": "élément sélectionné |||| éléments sélectionnés",
+    "close": "Fermer",
+    "categorize": "Categorisation"
   }
 }
