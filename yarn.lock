@@ -15834,6 +15834,11 @@ react-swipeable-views@0.13.9, react-swipeable-views@^0.13.3:
     react-swipeable-views-utils "^0.13.9"
     warning "^4.0.1"
 
+react-tappable@1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-tappable/-/react-tappable-1.0.4.tgz#282b7b3dc25e6170b55d1ea33d986b7624a19fb9"
+  integrity sha512-thWt8b11Hy1BmWDPuqbj+Qom5MmnMZDjfzgSE2L2Yh0Hoc9+I6DKNmWrOJGaZtH6fL4FWtRk4HwyMfUJ10M67g==
+
 react-test-renderer@16.9.0, react-test-renderer@^16.0.0-0:
   version "16.9.0"
   resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-16.9.0.tgz#7ed657a374af47af88f66f33a3ef99c9610c8ae9"
