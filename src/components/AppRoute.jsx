@@ -18,6 +18,7 @@ import {
   RecurrencesPage,
   RecurrencePage
 } from 'ducks/recurrence'
+import { Payments } from 'ducks/payments'
 import { TransferPage } from 'ducks/transfers'
 import { SearchPage } from 'ducks/search'
 import { AnalysisPage } from 'ducks/analysis'
@@ -90,6 +91,7 @@ const AppRoute = () => (
           <Route path="configuration" component={Configuration} />
         </Route>
       </Route>
+      <Route path="payments" component={scrollToTopOnMount(Payments)} />
       <Route path="transfers" component={scrollToTopOnMount(TransferPage)} />
       <Route path="search" component={scrollToTopOnMount(SearchPage)} />
       <Route path="search/:search" component={scrollToTopOnMount(SearchPage)} />
