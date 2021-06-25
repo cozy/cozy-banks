@@ -9,9 +9,11 @@ import { td, tr } from 'txt-table-utils'
 
 import { findAndUpdateRecurrences } from './search'
 import { getLabel, getAmount } from './utils'
-import fixtures from './fixtures.json'
-import fixtures2 from './fixtures2.json'
-import fixtures3 from './fixtures3.json'
+import fixtures from './fixtures/fixtures.json'
+import fixtures2 from './fixtures/fixtures2.json'
+import fixtures3 from './fixtures/fixtures3.json'
+import fixtures4 from './fixtures/fixtures4.json'
+import fixtures5 from './fixtures/fixtures5.json'
 
 const formatBundleExtent = bundle => {
   const oldestOp = minBy(bundle.ops, x => x.date)
