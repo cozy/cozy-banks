@@ -151,13 +151,7 @@ const AccountRow = props => {
   }
 
   return (
-    <ListItem
-      ref={ref}
-      button
-      disableRipple
-      classes={classes}
-      onClick={handleClick}
-    >
+    <ListItem ref={ref} button classes={classes} onClick={handleClick}>
       <ListItemIcon>
         <AccountRowIcon account={account} />
       </ListItemIcon>
