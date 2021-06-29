@@ -29,6 +29,10 @@ jest.mock('cozy-ui/transpiled/react/hooks/useBreakpoints', () => ({
   BreakpointsProvider: ({ children }) => children
 }))
 
+jest.mock('cozy-ui/transpiled/react/Alerter', () => ({
+  success: jest.fn()
+}))
+
 describe('Transactions', () => {
   let i = 0
   const mockTransactions = data['io.cozy.bank.operations'].map(x => ({
@@ -84,12 +88,14 @@ describe('Transactions', () => {
 describe('SelectionBar', () => {
   beforeAll(() => {
     flag('banks.selectionMode.enabled', true)
-    useBreakpoints.mockReturnValue({ isMobile: true })
   })
 
   afterAll(() => {
     flag('banks.selectionMode.enabled', undefined)
-    useBreakpoints.clearMock()
+  })
+
+  beforeEach(() => {
+    Alerter.success.mockReset()
   })
 
   let i = 0
@@ -107,13 +113,13 @@ describe('SelectionBar', () => {
     )
   })
 
-  const setup = () => {
+  const setup = ({ isDesktop = false } = {}) => {
     const client = createMockClient({})
     client.save.mockImplementation(doc => ({ data: doc }))
+    useBreakpoints.mockReturnValue({ isDesktop })
 
     const root = render(
       <AppLike client={client}>
-        <Alerter />
         <TransactionsDumb
           breakpoints={{ isDesktop: false }}
           transactions={mockTransactions}
@@ -126,7 +132,7 @@ describe('SelectionBar', () => {
   }
 
   it('should show selection bar and open category modal', async () => {
-    const { root, client } = setup()
+    const { root, client } = setup({ isDesktop: false })
     const { getByText, queryByText } = root
 
     fireEvent.keyDown(getByText('Remboursement Pret Lcl'))
@@ -158,6 +164,46 @@ describe('SelectionBar', () => {
     // should remove the selection bar and show a success alert
     expect(queryByText('item selected')).toBeFalsy()
     await wait(() => expect(client.save).toHaveBeenCalledTimes(2))
-    expect(queryByText('2 operations have been recategorized')).toBeTruthy()
+    expect(Alerter.success).toHaveBeenCalledWith(
+      '2 operations have been recategorized'
+    )
+  })
+
+  it('should show selection bar and open category modal on desktop', async () => {
+    const { root, client } = setup({ isDesktop: true })
+    const { getByText, queryByText, getByTestId } = root
+
+    fireEvent.click(getByTestId('TransactionRow-checkbox-reimbursement'))
+    let node = queryByText('item selected')
+    expect(node).toBeTruthy()
+    expect(node.parentNode.textContent).toBe('1 item selected')
+
+    // should remove the selection bar
+    fireEvent.click(getByText('Remboursement Pret Lcl'))
+    expect(queryByText('item selected')).toBeFalsy()
+
+    // should show 2 transactions selected
+    fireEvent.click(getByTestId('TransactionRow-checkbox-reimbursement'))
+    node = queryByText('item selected')
+    fireEvent.click(getByText('Edf Particuliers'))
+    expect(node.parentNode.textContent).toBe('2 items selected')
+
+    // should unselected transaction
+    fireEvent.click(getByText('Edf Particuliers'))
+    expect(node.parentNode.textContent).toBe('1 item selected')
+    fireEvent.click(getByText('Edf Particuliers'))
+    expect(node.parentNode.textContent).toBe('2 items selected')
+
+    // selecting a category
+    fireEvent.click(getByText('Categorize'))
+    fireEvent.click(getByText('Everyday life'))
+    fireEvent.click(getByText('Supermarket'))
+
+    // should remove the selection bar and show a success alert
+    expect(queryByText('item selected')).toBeFalsy()
+    await wait(() => expect(client.save).toHaveBeenCalledTimes(2))
+    expect(Alerter.success).toHaveBeenCalledWith(
+      '2 operations have been recategorized'
+    )
   })
 })
