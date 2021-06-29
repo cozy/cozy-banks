@@ -191,7 +191,6 @@ const CategoriesHeader = props => {
               <Empty
                 className={cx('u-mt-3', styles.NoAccount_empty)}
                 icon={emptyIcon}
-                title=""
                 text={t('Categories.title.empty-text')}
               />
             )}
@@ -253,7 +252,6 @@ const CategoriesHeader = props => {
         <Empty
           className={styles.NoAccount_empty}
           icon={emptyIcon}
-          title=""
           text={t('Categories.title.empty-text')}
         />
       ) : null}
