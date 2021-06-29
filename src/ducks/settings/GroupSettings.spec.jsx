@@ -159,4 +159,39 @@ describe('GroupSettings', () => {
     const sw2 = root.getByRole('checkbox')
     expect(sw2.checked).toBe(false)
   })
+
+  it('should show other groups of an account', () => {
+    const client = createMockClient({
+      queries: {
+        groups: {
+          lastUpdate: new Date(),
+          doctype: GROUP_DOCTYPE,
+          data: fixtures[GROUP_DOCTYPE]
+        }
+      },
+      clientOptions: {
+        schema
+      }
+    })
+    const rawGroup = {
+      _type: GROUP_DOCTYPE,
+      ...cloneDeep(fixtureGroup)
+    }
+    const group = client.hydrateDocument(rawGroup)
+
+    const account = fixtures['io.cozy.bank.accounts'].find(
+      x => x._id == 'compteisa1'
+    )
+
+    const { root } = setupAccountList({
+      client,
+      accounts: [account],
+      group
+    })
+
+    // Check that the "groups" column contains Isabelle
+    // It does not contain "Famille élargie" since we are "viewing"
+    // this group
+    expect(root.getByText('Isabelle')).toBeTruthy()
+  })
 })
