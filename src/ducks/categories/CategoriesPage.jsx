@@ -297,6 +297,9 @@ const enhance = Component => props => {
       : setAutoUpdate(initialConn)
   }, [initialConn, period])
   const transactions = useFullyLoadedQuery(conn.query, conn)
+
+  // This is used for loaded transactions to stay rendered while
+  // next/previous month transactions are loaded
   const col = useLast(transactions, (last, cur) => {
     return !last || (cur.lastUpdate && !cur.hasMore)
   })
