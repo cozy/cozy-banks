@@ -86,10 +86,18 @@ const TransactionRowMobile = props => {
 
   return (
     <>
-      <ListItem ref={boundOnRef} {...rowRest} button={!!transaction._id}>
+      <ListItem
+        ref={boundOnRef}
+        {...rowRest}
+        className={cx({
+          [styles['TransactionRow--selected']]: isTransactionSelected,
+          'u-pl-0': isSelectionModeActive
+        })}
+        button={!!transaction._id}
+      >
         <Media className="u-w-100">
           {isSelectionModeActive && (
-            <Img className="u-mr-half">
+            <Img>
               <Tappable
                 onTap={handleTap}
                 onPress={toggleSelection}
