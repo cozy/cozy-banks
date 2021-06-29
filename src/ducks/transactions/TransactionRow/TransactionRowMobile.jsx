@@ -40,13 +40,12 @@ const TransactionRowMobile = props => {
   const [rawShowTransactionModal, , transactionModal] = useTransactionModal(
     transaction
   )
+
   const {
-    isSelectionModeEnabled,
     isSelectionModeActive,
-    addToSelection,
-    isSelected,
-    removeFromSelection
-  } = useSelectionContext()
+    toggleSelection,
+    isItemSelected: isTransactionSelected
+  } = useSelectionContext(transaction)
 
   const boundOnRef = useMemo(() => {
     return onRef.bind(null, transaction._id)
@@ -69,44 +68,21 @@ const TransactionRowMobile = props => {
   const applicationDate = getApplicationDate(transaction)
   const recurrence = transaction.recurrence ? transaction.recurrence.data : null
 
-  const isTransactionSelected = useMemo(() => isSelected(transaction), [
-    isSelected,
-    transaction
-  ])
-
   const handleTap = useCallback(
     ev => {
       if (isSelectionModeActive) {
-        isTransactionSelected
-          ? removeFromSelection(transaction)
-          : addToSelection(transaction)
+        toggleSelection()
       } else {
         transaction._id && showTransactionModal(ev)
       }
     },
     [
-      addToSelection,
       isSelectionModeActive,
-      isTransactionSelected,
-      removeFromSelection,
       showTransactionModal,
-      transaction
+      toggleSelection,
+      transaction._id
     ]
   )
-
-  const handlePress = useCallback(() => {
-    if (isSelectionModeEnabled) {
-      isTransactionSelected
-        ? removeFromSelection(transaction)
-        : addToSelection(transaction)
-    }
-  }, [
-    addToSelection,
-    isSelectionModeEnabled,
-    isTransactionSelected,
-    removeFromSelection,
-    transaction
-  ])
 
   return (
     <>
@@ -116,7 +92,7 @@ const TransactionRowMobile = props => {
             <Img className="u-mr-half">
               <Tappable
                 onTap={handleTap}
-                onPress={handlePress}
+                onPress={toggleSelection}
                 pressDelay={250}
               >
                 <Checkbox checked={isTransactionSelected} readOnly />
@@ -135,7 +111,7 @@ const TransactionRowMobile = props => {
               >
                 <Tappable
                   onTap={handleTap}
-                  onPress={handlePress}
+                  onPress={toggleSelection}
                   pressDelay={250}
                 >
                   <CategoryIcon categoryId={getCategoryId(transaction)} />
@@ -144,7 +120,7 @@ const TransactionRowMobile = props => {
               <Bd className="u-mr-half">
                 <Tappable
                   onTap={handleTap}
-                  onPress={handlePress}
+                  onPress={toggleSelection}
                   pressDelay={250}
                 >
                   <ListItemText>
@@ -163,7 +139,7 @@ const TransactionRowMobile = props => {
               <Img className={styles.TransactionRowMobileImg}>
                 <Tappable
                   onTap={handleTap}
-                  onPress={handlePress}
+                  onPress={toggleSelection}
                   pressDelay={250}
                 >
                   <Figure

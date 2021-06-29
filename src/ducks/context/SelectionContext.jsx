@@ -11,8 +11,23 @@ import flag from 'cozy-flags'
 
 export const SelectionContext = createContext()
 
-export const useSelectionContext = () => {
-  return useContext(SelectionContext)
+export const useSelectionContext = item => {
+  const selectionContext = useContext(SelectionContext)
+
+  const isItemSelected = useMemo(() => selectionContext.isSelected(item), [
+    selectionContext,
+    item
+  ])
+
+  const toggleSelection = useCallback(() => {
+    if (selectionContext.isSelectionModeEnabled) {
+      isItemSelected
+        ? selectionContext.removeFromSelection(item)
+        : selectionContext.addToSelection(item)
+    }
+  }, [isItemSelected, item, selectionContext])
+
+  return { toggleSelection, isItemSelected, ...selectionContext }
 }
 
 // TODO: SelectionProvider stores the entire elements in an array
