@@ -82,7 +82,8 @@ const ActionListItemTextColumn = withStyles(theme => ({
 
 const secondaryColumnPrimaryTypographyProps = {
   color: 'textSecondary',
-  variant: 'body2'
+  variant: 'body2',
+  className: 'u-ellipsis'
 }
 const SecondaryColumn = props => {
   return (
