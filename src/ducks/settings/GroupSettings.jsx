@@ -97,7 +97,7 @@ export const AccountLine = props => {
       <td className={styles.GrpStg__accntNumber}>{account.number}</td>
       {!isMobile ? (
         <td className={styles.GrpStg__accntGroups}>
-          {groups.map(g => g.label).join(', ')}
+          {groups.map(g => getGroupLabel(g, t)).join(', ')}
         </td>
       ) : null}
       <td className={styles.GrpStg__accntToggle}>
