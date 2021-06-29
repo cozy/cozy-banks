@@ -241,11 +241,12 @@ const autoUpdateOptions = {
 }
 
 const addPeriodToConn = (baseConn, period) => {
-  const { query: baseQuery, as: baseAs, ...rest } = baseConn
+  const { query: mkBaseQuery, as: baseAs, ...rest } = baseConn
   const d = new Date(period)
   const startDate = period.length === 7 ? startOfMonth(d) : startOfYear(d)
   const endDate = period.length === 7 ? endOfMonth(d) : endOfYear(d)
-  const query = Q(baseQuery().doctype)
+  const baseQuery = mkBaseQuery()
+  const query = Q(baseQuery.doctype)
     .where(
       merge(
         {
