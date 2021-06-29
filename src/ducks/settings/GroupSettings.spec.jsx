@@ -6,9 +6,9 @@ import AppLike from 'test/AppLike'
 import fixtures from 'test/fixtures'
 import omit from 'lodash/omit'
 import cloneDeep from 'lodash/cloneDeep'
-import { schema } from 'doctypes'
+import { schema, GROUP_DOCTYPE } from 'doctypes'
 
-const fixtureGroup = fixtures['io.cozy.bank.groups'][0]
+const fixtureGroup = fixtures[GROUP_DOCTYPE][0]
 
 jest.mock('components/BackButton', () => () => null)
 
@@ -66,7 +66,7 @@ describe('GroupSettings', () => {
   }
 
   it('should rename new group', async () => {
-    const group = omit(fixtures['io.cozy.bank.groups'][0], ['_id', 'id'])
+    const group = omit(fixtures[GROUP_DOCTYPE][0], ['_id', 'id'])
     const { router, client, root } = setup({ group })
     await rename(root, 'Renamed group')
     expect(client.save).toHaveBeenCalledWith({
@@ -78,7 +78,7 @@ describe('GroupSettings', () => {
 
   it('should rename autogroup', async () => {
     const group = {
-      ...fixtures['io.cozy.bank.groups'][0],
+      ...fixtures[GROUP_DOCTYPE][0],
       accountType: 'Checkings'
     }
     const { router, client, root } = setup({ group })
@@ -105,7 +105,7 @@ describe('GroupSettings', () => {
 
   it('should be possible to toggle an account from a group', async () => {
     const rawGroup = {
-      _type: 'io.cozy.bank.groups',
+      _type: GROUP_DOCTYPE,
       ...cloneDeep(fixtureGroup)
     }
     const client = createClient()
@@ -134,7 +134,7 @@ describe('GroupSettings', () => {
   it('should be possible to toggle an account from a group (save fails)', async () => {
     jest.spyOn(console, 'warn').mockImplementation()
     const rawGroup = {
-      _type: 'io.cozy.bank.groups',
+      _type: GROUP_DOCTYPE,
       ...cloneDeep(fixtureGroup)
     }
     const client = createClient()
