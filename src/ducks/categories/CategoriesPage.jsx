@@ -182,7 +182,7 @@ export class CategoriesPage extends Component {
     const sortedCategories = sortBy(categories, cat =>
       Math.abs(cat.amount)
     ).reverse()
-    const hasAccount = accounts.data && accounts.data.length > 0
+    const hasAccount = Boolean(accounts.data && accounts.data.length > 0)
 
     const isSubcategory = onSubcategory(router.params)
 
