@@ -44,8 +44,13 @@ const TransactionRowMobile = props => {
   const {
     isSelectionModeActive,
     toggleSelection,
-    isItemSelected: isTransactionSelected
-  } = useSelectionContext(transaction)
+    isSelected
+  } = useSelectionContext()
+
+  const toggleTransactionSelection = useCallback(
+    () => toggleSelection(transaction),
+    [toggleSelection, transaction]
+  )
 
   const boundOnRef = useMemo(() => {
     return onRef.bind(null, transaction._id)
@@ -71,17 +76,12 @@ const TransactionRowMobile = props => {
   const handleTap = useCallback(
     ev => {
       if (isSelectionModeActive) {
-        toggleSelection()
+        toggleSelection(transaction)
       } else {
         transaction._id && showTransactionModal(ev)
       }
     },
-    [
-      isSelectionModeActive,
-      showTransactionModal,
-      toggleSelection,
-      transaction._id
-    ]
+    [isSelectionModeActive, showTransactionModal, toggleSelection, transaction]
   )
 
   return (
@@ -90,7 +90,7 @@ const TransactionRowMobile = props => {
         ref={boundOnRef}
         {...rowRest}
         className={cx({
-          [styles['TransactionRow--selected']]: isTransactionSelected,
+          [styles['TransactionRow--selected']]: isSelected(transaction),
           'u-pl-0': isSelectionModeActive
         })}
         button={!!transaction._id}
@@ -100,10 +100,10 @@ const TransactionRowMobile = props => {
             <Img>
               <Tappable
                 onTap={handleTap}
-                onPress={toggleSelection}
+                onPress={toggleTransactionSelection}
                 pressDelay={250}
               >
-                <Checkbox checked={isTransactionSelected} readOnly />
+                <Checkbox checked={isSelected(transaction)} readOnly />
               </Tappable>
             </Img>
           )}
@@ -119,7 +119,7 @@ const TransactionRowMobile = props => {
               >
                 <Tappable
                   onTap={handleTap}
-                  onPress={toggleSelection}
+                  onPress={toggleTransactionSelection}
                   pressDelay={250}
                 >
                   <CategoryIcon categoryId={getCategoryId(transaction)} />
@@ -128,7 +128,7 @@ const TransactionRowMobile = props => {
               <Bd className="u-mr-half">
                 <Tappable
                   onTap={handleTap}
-                  onPress={toggleSelection}
+                  onPress={toggleTransactionSelection}
                   pressDelay={250}
                 >
                   <ListItemText>
@@ -147,7 +147,7 @@ const TransactionRowMobile = props => {
               <Img className={styles.TransactionRowMobileImg}>
                 <Tappable
                   onTap={handleTap}
-                  onPress={toggleSelection}
+                  onPress={toggleTransactionSelection}
                   pressDelay={250}
                 >
                   <Figure

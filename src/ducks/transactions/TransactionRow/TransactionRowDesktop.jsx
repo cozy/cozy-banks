@@ -44,8 +44,8 @@ const TransactionRowDesktop = ({
     isSelectionModeActive,
     isSelectionModeEnabled,
     toggleSelection,
-    isItemSelected: isTransactionSelected
-  } = useSelectionContext(transaction)
+    isSelected
+  } = useSelectionContext()
 
   const boundOnRef = useMemo(() => {
     return onRef ? onRef.bind(null, transaction._id) : null
@@ -75,20 +75,25 @@ const TransactionRowDesktop = ({
     ev => {
       ev.preventDefault()
       if (isSelectionModeActive) {
-        toggleSelection()
+        toggleSelection(transaction)
       } else {
         showTransactionCategoryModal()
       }
     },
-    [isSelectionModeActive, showTransactionCategoryModal, toggleSelection]
+    [
+      isSelectionModeActive,
+      showTransactionCategoryModal,
+      toggleSelection,
+      transaction
+    ]
   )
 
   const handleClickCheckbox = useCallback(
     ev => {
       ev.preventDefault()
-      toggleSelection()
+      toggleSelection(transaction)
     },
-    [toggleSelection]
+    [toggleSelection, transaction]
   )
 
   const handleClickRow = useCallback(
@@ -100,12 +105,12 @@ const TransactionRowDesktop = ({
         return
       }
       if (isSelectionModeActive) {
-        toggleSelection()
+        toggleSelection(transaction)
       } else {
         showTransactionModal()
       }
     },
-    [isSelectionModeActive, showTransactionModal, toggleSelection]
+    [isSelectionModeActive, showTransactionModal, toggleSelection, transaction]
   )
 
   // Virtual transactions, like those generated from recurrences, cannot be edited
@@ -120,7 +125,7 @@ const TransactionRowDesktop = ({
           styles.TransactionRow,
           canEditTransaction ? styles['TransactionRow--editable'] : null,
           {
-            [styles['TransactionRow--selected']]: isTransactionSelected
+            [styles['TransactionRow--selected']]: isSelected(transaction)
           }
         )}
         onClick={canEditTransaction && handleClickRow}
@@ -132,7 +137,7 @@ const TransactionRowDesktop = ({
           >
             <Checkbox
               data-testid={`TransactionRow-checkbox-${transaction._id}`}
-              checked={isTransactionSelected}
+              checked={isSelected(transaction)}
               readOnly
             />
           </TdSecondary>

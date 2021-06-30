@@ -11,23 +11,8 @@ import flag from 'cozy-flags'
 
 export const SelectionContext = createContext()
 
-export const useSelectionContext = item => {
-  const selectionContext = useContext(SelectionContext)
-
-  const isItemSelected = useMemo(() => selectionContext.isSelected(item), [
-    selectionContext,
-    item
-  ])
-
-  const toggleSelection = useCallback(() => {
-    if (selectionContext.isSelectionModeEnabled) {
-      isItemSelected
-        ? selectionContext.removeFromSelection(item)
-        : selectionContext.addToSelection(item)
-    }
-  }, [isItemSelected, item, selectionContext])
-
-  return { toggleSelection, isItemSelected, ...selectionContext }
+export const useSelectionContext = () => {
+  return useContext(SelectionContext)
 }
 
 // TODO: SelectionProvider stores the entire elements in an array
@@ -68,6 +53,15 @@ const SelectionProvider = ({ children }) => {
 
   const isSelected = useCallback(item => selected.includes(item), [selected])
 
+  const toggleSelection = useCallback(
+    item => {
+      if (isSelectionModeEnabled) {
+        isSelected(item) ? removeFromSelection(item) : addToSelection(item)
+      }
+    },
+    [addToSelection, removeFromSelection, isSelected]
+  )
+
   useEffect(() => {
     if (isSelectionModeActive && selected.length === 0) {
       deactivateSelectionMode()
@@ -90,7 +84,8 @@ const SelectionProvider = ({ children }) => {
       isSelected,
       emptySelection,
       removeFromSelection,
-      isSelectionModeEnabled
+      isSelectionModeEnabled,
+      toggleSelection
     }),
     [
       addToSelection,
@@ -99,7 +94,8 @@ const SelectionProvider = ({ children }) => {
       isSelectionModeActive,
       isSelectionModeEnabled,
       removeFromSelection,
-      selected
+      selected,
+      toggleSelection
     ]
   )
 
