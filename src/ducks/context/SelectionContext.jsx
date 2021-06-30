@@ -2,7 +2,6 @@ import React, {
   createContext,
   useState,
   useCallback,
-  useEffect,
   useContext,
   useMemo
 } from 'react'
@@ -20,20 +19,9 @@ export const useSelectionContext = () => {
 // imagine that there are quite few elements.
 // But an improvement would be to store only the ids.
 const SelectionProvider = ({ children }) => {
-  const [isSelectionModeActive, setIsSelectionModeActive] = useState(false)
   const [selected, setSelected] = useState([])
 
   const isSelectionModeEnabled = flag('banks.selectionMode.enabled')
-
-  const activateSelectionMode = useCallback(
-    () => isSelectionModeEnabled && setIsSelectionModeActive(true),
-    [isSelectionModeEnabled]
-  )
-
-  const deactivateSelectionMode = useCallback(
-    () => setIsSelectionModeActive(false),
-    [setIsSelectionModeActive]
-  )
 
   const emptySelection = useCallback(() => setSelected([]), [setSelected])
 
@@ -54,24 +42,10 @@ const SelectionProvider = ({ children }) => {
     [isSelectionModeEnabled]
   )
 
-  useEffect(() => {
-    if (isSelectionModeActive && selected.length === 0) {
-      deactivateSelectionMode()
-    }
-    if (!isSelectionModeActive && selected.length > 0) {
-      activateSelectionMode()
-    }
-  }, [
-    selected,
-    activateSelectionMode,
-    isSelectionModeActive,
-    deactivateSelectionMode
-  ])
-
   const value = useMemo(
     () => ({
       selected,
-      isSelectionModeActive,
+      isSelectionModeActive: selected.length > 0,
       isSelectionModeEnabled,
       isSelected,
       emptySelection,
@@ -79,7 +53,6 @@ const SelectionProvider = ({ children }) => {
     }),
     [
       selected,
-      isSelectionModeActive,
       isSelectionModeEnabled,
       isSelected,
       emptySelection,
