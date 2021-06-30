@@ -59,7 +59,7 @@ const SelectionProvider = ({ children }) => {
         isSelected(item) ? removeFromSelection(item) : addToSelection(item)
       }
     },
-    [addToSelection, removeFromSelection, isSelected]
+    [isSelectionModeEnabled, isSelected, removeFromSelection, addToSelection]
   )
 
   useEffect(() => {
@@ -78,23 +78,19 @@ const SelectionProvider = ({ children }) => {
 
   const value = useMemo(
     () => ({
-      isSelectionModeActive,
       selected,
-      addToSelection,
+      isSelectionModeActive,
+      isSelectionModeEnabled,
       isSelected,
       emptySelection,
-      removeFromSelection,
-      isSelectionModeEnabled,
       toggleSelection
     }),
     [
-      addToSelection,
-      emptySelection,
-      isSelected,
+      selected,
       isSelectionModeActive,
       isSelectionModeEnabled,
-      removeFromSelection,
-      selected,
+      isSelected,
+      emptySelection,
       toggleSelection
     ]
   )
