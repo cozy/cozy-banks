@@ -37,6 +37,7 @@ export const useSelectionContext = item => {
 const SelectionProvider = ({ children }) => {
   const [isSelectionModeActive, setIsSelectionModeActive] = useState(false)
   const [selected, setSelected] = useState([])
+
   const isSelectionModeEnabled = flag('banks.selectionMode.enabled')
 
   const activateSelectionMode = useCallback(
@@ -44,7 +45,10 @@ const SelectionProvider = ({ children }) => {
     [isSelectionModeEnabled]
   )
 
-  const deactivateSelectionMode = () => setIsSelectionModeActive(false)
+  const deactivateSelectionMode = useCallback(
+    () => setIsSelectionModeActive(false),
+    [setIsSelectionModeActive]
+  )
 
   const addToSelection = useCallback(
     item => {
@@ -55,9 +59,9 @@ const SelectionProvider = ({ children }) => {
 
   const removeFromSelection = useCallback(
     item => {
-      setSelected(selected.filter(e => e._id !== item._id))
+      setSelected(v => v.filter(e => e._id !== item._id))
     },
-    [selected]
+    [setSelected]
   )
 
   const emptySelection = useCallback(() => setSelected([]), [setSelected])
@@ -71,7 +75,12 @@ const SelectionProvider = ({ children }) => {
     if (!isSelectionModeActive && selected.length > 0) {
       activateSelectionMode()
     }
-  }, [selected, activateSelectionMode, isSelectionModeActive])
+  }, [
+    selected,
+    activateSelectionMode,
+    isSelectionModeActive,
+    deactivateSelectionMode
+  ])
 
   const value = useMemo(
     () => ({
