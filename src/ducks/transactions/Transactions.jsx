@@ -164,6 +164,11 @@ export class TransactionsDumb extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    const { emptySelection } = this.props
+    emptySelection()
+  }
+
   updateTransactions(transactions) {
     this.transactionsById = keyBy(transactions, '_id')
     this.transactions = sortByDate(transactions)
@@ -251,6 +256,10 @@ TransactionsDumb.defaultProps = {
   TransactionSections
 }
 
-const Transactions = TransactionsDumb
+const Transactions = props => {
+  const { emptySelection } = useSelectionContext()
+
+  return <TransactionsDumb emptySelection={emptySelection} {...props} />
+}
 
 export const TransactionList = withBreakpoints()(Transactions)

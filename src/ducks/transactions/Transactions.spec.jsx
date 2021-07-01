@@ -124,6 +124,7 @@ describe('SelectionBar', () => {
           breakpoints={{ isDesktop: false }}
           transactions={mockTransactions}
           showTriggerErrors={false}
+          emptySelection={() => null}
         />
       </AppLike>
     )
