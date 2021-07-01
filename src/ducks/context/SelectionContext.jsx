@@ -28,6 +28,8 @@ const SelectionProvider = ({ children }) => {
 
   const emptySelection = useCallback(() => setSelected([]), [setSelected])
 
+  const fillSelectionWith = useCallback(arr => setSelected(arr), [setSelected])
+
   const isSelected = useCallback(item => selected.includes(item), [selected])
 
   const isSelectionModeActiveFn = useCallback(() => {
@@ -58,7 +60,8 @@ const SelectionProvider = ({ children }) => {
       isSelectionModeEnabled,
       isSelected,
       emptySelection,
-      toggleSelection
+      toggleSelection,
+      fillSelectionWith
     }),
     [
       selected,
@@ -66,7 +69,8 @@ const SelectionProvider = ({ children }) => {
       isSelectionModeEnabled,
       isSelected,
       emptySelection,
-      toggleSelection
+      toggleSelection,
+      fillSelectionWith
     ]
   )
 

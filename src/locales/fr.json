@@ -925,6 +925,7 @@
   "SelectionBar": {
     "selected_count": "élément sélectionné |||| éléments sélectionnés",
     "close": "Fermer",
-    "categorize": "Categorisation"
+    "categorize": "Catégorisation",
+    "selectAll": "Tout sélectionner"
   }
 }
