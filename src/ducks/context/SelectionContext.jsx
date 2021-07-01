@@ -35,31 +35,23 @@ const SelectionProvider = ({ children }) => {
     [setIsSelectionModeActive]
   )
 
-  const addToSelection = useCallback(
-    item => {
-      setSelected(v => [...v, item])
-    },
-    [setSelected]
-  )
-
-  const removeFromSelection = useCallback(
-    item => {
-      setSelected(v => v.filter(e => e._id !== item._id))
-    },
-    [setSelected]
-  )
-
   const emptySelection = useCallback(() => setSelected([]), [setSelected])
 
   const isSelected = useCallback(item => selected.includes(item), [selected])
 
   const toggleSelection = useCallback(
     item => {
-      if (isSelectionModeEnabled) {
-        isSelected(item) ? removeFromSelection(item) : addToSelection(item)
+      if (!isSelectionModeEnabled) {
+        return
       }
+      return setSelected(selected => {
+        const found = selected.includes(item)
+        return found
+          ? selected.filter(elem => elem !== item)
+          : [...selected, item]
+      })
     },
-    [isSelectionModeEnabled, isSelected, removeFromSelection, addToSelection]
+    [isSelectionModeEnabled]
   )
 
   useEffect(() => {
