@@ -75,11 +75,6 @@
   },
   "husky": {
     "hooks": {
-      "post-merge": "yarnhook",
-      "post-checkout": "yarnhook",
-      "post-rewrite": "yarnhook",
-      "commit-msg": "commitlint -e $GIT_PARAMS",
-      "pre-commit": "lint-staged",
       "pre-push": "yarn test:changes"
     }
   },
