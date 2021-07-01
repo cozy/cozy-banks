@@ -183,7 +183,6 @@ const TransactionRowMobile = ({
                 compact
                 menuPosition="right"
                 className={cx(
-                  'u-w-100',
                   'u-mb-half',
                   styles.TransactionRowMobile__actions
                 )}
