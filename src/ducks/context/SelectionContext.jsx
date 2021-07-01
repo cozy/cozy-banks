@@ -3,7 +3,8 @@ import React, {
   useState,
   useCallback,
   useContext,
-  useMemo
+  useMemo,
+  useRef
 } from 'react'
 
 import flag from 'cozy-flags'
@@ -26,6 +27,13 @@ const SelectionProvider = ({ children }) => {
   const emptySelection = useCallback(() => setSelected([]), [setSelected])
 
   const isSelected = useCallback(item => selected.includes(item), [selected])
+  const selectedRef = useRef(selected)
+
+  const isSelectionModeActiveFn = useCallback(() => {
+    return selectedRef.current.length > 0
+  }, [])
+
+  selectedRef.current = selected
 
   const toggleSelection = useCallback(
     item => {
@@ -46,6 +54,8 @@ const SelectionProvider = ({ children }) => {
     () => ({
       selected,
       isSelectionModeActive: selected.length > 0,
+      // Only used this in callbacks since its value is not reactive
+      isSelectionModeActiveFn,
       isSelectionModeEnabled,
       isSelected,
       emptySelection,
@@ -53,6 +63,7 @@ const SelectionProvider = ({ children }) => {
     }),
     [
       selected,
+      isSelectionModeActiveFn,
       isSelectionModeEnabled,
       isSelected,
       emptySelection,
