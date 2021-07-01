@@ -22,7 +22,7 @@
     - [Fastlane](#fastlane)
     - [iOS](#ios)
       - [Signing](#signing)
-      - [Push iOS build](#push-ios-build)
+      - [iOS build](#ios-build)
     - [Android](#android)
 - [Notifications](#notifications)
   - [How to develop on templates](#how-to-develop-on-templates)
@@ -298,39 +298,47 @@ The certificate with its password is stored in the shared password store.
 - `cozy-banks/xcode-signing-certificate-password.p12` : the certificate
 
 
-##### Push iOS build
+##### iOS build
 
 To push an iOS build on Testflight, use the following command :
 
 ```
-yarn run ios:publish
+yarn build:mobile
+cd src/targets/mobile
+cordova prepare ios
+open platforms/ios/Cozy\ Banks.xcworkspace/
+# Then in XCode you can first do an archive
+# 1. Select Cozy Banks > Any iOS Device (arm64) as generic device
+# 2. Menu Product > Archive
+# 3. Distribute app
+# After the application has been distributed, it is available for
+# Testflight testers and @flo can then manually put the testflight
+# app in production
 ```
 
 To fully publish the app, go to iTunes Connect using the credentials in the password store and "submit for review".
 
+When publishing a new version, you have to change the build number.
+
+You can do it in the `config.xml` file by changing the "ios-CFBundleVersion" widget attribute. If you do it in config.xml
+you can commit it and push it so that other contributors know at
+which version we are.
+
+You can also do it manually in XCode by selecting the "Cozy Banks"
+project on the left navbar and then in the "General" tab change
+the build number in the "Build" input (in general you just have
+to increment the 4th part of the build number). It's not recommended
+as other contributors may not know at which build number we are
+if the change is not commited. It can be handy while developing
+when you do not want to commit/push too often.
+
+
 #### Android
 
-
-Two keys will be asked during publishing, they are available in the password store in `Gangsters/cozy-banks/keys/android` :
-
-- 1: `jks-pass.gpg`
-- 2: `cozy-banks-key-pass.gpg`
-
-You will also have to have apksigner in your PATH. It is located in the Android SDK folder.
-
-```
-export PATH $PATH:$HOME/.android/sdk/tools
-export PATH $PATH:$HOME/.android/sdk/build-tools/26.0.2
-```
-
-When publishing a new version on the Play Store, you can use :
-
-```
-yarn run android:publish
-```
-
-This will upload create a new version in the store, in the `beta` track that you can review visually on the Play Store and then promote to the normal track.
-
+Anytime a beta is tagged, Travis produces an APK in the Android stage.
+In the logs is displayed an URL for the APK that has been built.
+This APK can then be tested and then pushed and published in the Play
+Developer Console.
 
 ## Notifications
 
