@@ -29,23 +29,19 @@ import ApplicationDateCaption from 'ducks/transactions/TransactionRow/Applicatio
 import AccountCaption from 'ducks/transactions/TransactionRow/AccountCaption'
 import TransactionDate from 'ducks/transactions/TransactionRow/TransactionDate'
 import RecurrenceCaption from 'ducks/transactions/TransactionRow/RecurrenceCaption'
-import { useSelectionContext } from 'ducks/context/SelectionContext'
 
 const TransactionRowDesktop = ({
   transaction,
   isExtraLarge,
   filteringOnAccount,
   onRef,
-  showRecurrence
+  showRecurrence,
+  isSelected,
+  isSelectionModeActiveFn,
+  isSelectionModeEnabled,
+  toggleSelection
 }) => {
   const { t } = useI18n()
-
-  const {
-    isSelectionModeActiveFn,
-    isSelectionModeEnabled,
-    toggleSelection,
-    isSelected
-  } = useSelectionContext()
 
   const boundOnRef = useMemo(() => {
     return onRef ? onRef.bind(null, transaction._id) : null
@@ -130,7 +126,7 @@ const TransactionRowDesktop = ({
           styles.TransactionRow,
           canEditTransaction ? styles['TransactionRow--editable'] : null,
           {
-            [styles['TransactionRow--selected']]: isSelected(transaction)
+            [styles['TransactionRow--selected']]: isSelected
           }
         )}
         onClick={canEditTransaction && handleClickRow}
@@ -142,7 +138,7 @@ const TransactionRowDesktop = ({
           >
             <Checkbox
               data-testid={`TransactionRow-checkbox-${transaction._id}`}
-              checked={isSelected(transaction)}
+              checked={isSelected}
               readOnly
             />
           </TdSecondary>

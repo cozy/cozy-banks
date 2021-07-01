@@ -32,20 +32,33 @@ import AccountCaption from 'ducks/transactions/TransactionRow/AccountCaption'
 import RecurrenceCaption from 'ducks/transactions/TransactionRow/RecurrenceCaption'
 import { useSelectionContext } from 'ducks/context/SelectionContext'
 
-const TransactionRowMobile = props => {
+const RowCheckbox = ({ isSelected, onTap, onPress }) => {
+  const { isSelectionModeActive } = useSelectionContext()
+
+  return isSelectionModeActive ? (
+    <Img style={{ marginLeft: '-1rem' }}>
+      <Tappable onTap={onTap} onPress={onPress} pressDelay={250}>
+        <Checkbox checked={isSelected} readOnly />
+      </Tappable>
+    </Img>
+  ) : null
+}
+
+const TransactionRowMobile = ({
+  transaction,
+  filteringOnAccount,
+  onRef,
+  showRecurrence,
+  isSelected,
+  isSelectionModeActiveFn,
+  toggleSelection
+}) => {
   const { t } = useI18n()
-  const { transaction, filteringOnAccount, onRef, showRecurrence } = props
   const account = transaction.account.data
   const rowRest = {}
   const [rawShowTransactionModal, , transactionModal] = useTransactionModal(
     transaction
   )
-
-  const {
-    isSelectionModeActive,
-    toggleSelection,
-    isSelected
-  } = useSelectionContext()
 
   const toggleTransactionSelection = useCallback(
     () => toggleSelection(transaction),
@@ -75,13 +88,18 @@ const TransactionRowMobile = props => {
 
   const handleTap = useCallback(
     ev => {
-      if (isSelectionModeActive) {
+      if (isSelectionModeActiveFn()) {
         toggleSelection(transaction)
       } else {
         transaction._id && showTransactionModal(ev)
       }
     },
-    [isSelectionModeActive, showTransactionModal, toggleSelection, transaction]
+    [
+      isSelectionModeActiveFn,
+      showTransactionModal,
+      toggleSelection,
+      transaction
+    ]
   )
 
   return (
@@ -90,23 +108,16 @@ const TransactionRowMobile = props => {
         ref={boundOnRef}
         {...rowRest}
         className={cx({
-          [styles['TransactionRow--selected']]: isSelected(transaction),
-          'u-pl-0': isSelectionModeActive
+          [styles['TransactionRow--selected']]: isSelected
         })}
         button={!!transaction._id}
       >
         <Media className="u-w-100">
-          {isSelectionModeActive && (
-            <Img>
-              <Tappable
-                onTap={handleTap}
-                onPress={toggleTransactionSelection}
-                pressDelay={250}
-              >
-                <Checkbox checked={isSelected(transaction)} readOnly />
-              </Tappable>
-            </Img>
-          )}
+          <RowCheckbox
+            isSelected={isSelected}
+            onTap={handleTap}
+            onPress={toggleTransactionSelection}
+          />
           <Bd>
             <Media className="u-w-100">
               <Img
