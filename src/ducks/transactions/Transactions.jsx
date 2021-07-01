@@ -116,7 +116,7 @@ const TransactionSections = ({
         const transactionGroup = dateAndGroup[1]
         return (
           <Section date={date} key={id} initialVisible={id < 10}>
-            {transactionGroup.map(transaction => {
+            {transactionGroup.map((transaction, index) => {
               return (
                 <Row
                   key={transaction._id}
@@ -128,6 +128,10 @@ const TransactionSections = ({
                   isSelectionModeActiveFn={isSelectionModeActiveFn}
                   isSelectionModeEnabled={isSelectionModeEnabled}
                   toggleSelection={toggleSelection}
+                  hasSeparator={
+                    transactionGroup.length > 1 &&
+                    index !== transactionGroup.length - 1
+                  }
                 />
               )
             })}

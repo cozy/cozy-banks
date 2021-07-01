@@ -11,6 +11,7 @@ import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 import Checkbox from 'cozy-ui/transpiled/react/Checkbox'
+import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
 
 import TransactionActions from 'ducks/transactions/TransactionActions'
 
@@ -51,7 +52,8 @@ const TransactionRowMobile = ({
   showRecurrence,
   isSelected,
   isSelectionModeActiveFn,
-  toggleSelection
+  toggleSelection,
+  hasSeparator
 }) => {
   const { t } = useI18n()
   const account = transaction.account.data
@@ -190,6 +192,9 @@ const TransactionRowMobile = ({
           </Bd>
         </Media>
       </ListItem>
+      {hasSeparator && (
+        <Divider style={{ marginLeft: '3.5rem' }} variant="inset" />
+      )}
       {transactionModal}
     </>
   )
@@ -197,7 +202,8 @@ const TransactionRowMobile = ({
 
 TransactionRowMobile.propTypes = {
   transaction: PropTypes.object.isRequired,
-  showRecurrence: PropTypes.bool
+  showRecurrence: PropTypes.bool,
+  hasSeparator: PropTypes.bool
 }
 
 TransactionRowMobile.defaultProps = {
