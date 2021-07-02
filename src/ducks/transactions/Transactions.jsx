@@ -24,6 +24,7 @@ import TransactionRowDesktop from 'ducks/transactions/TransactionRow/Transaction
 import { getDate } from 'ducks/transactions/helpers'
 import useVisible from 'hooks/useVisible'
 import SelectionBar from 'ducks/selection/SelectionBar'
+import { useSelectionContext } from 'ducks/context/SelectionContext'
 
 export const sortByDate = (transactions = []) =>
   sortBy(transactions, getDate).reverse()
@@ -87,10 +88,19 @@ const TransactionContainerMobile = props => {
  * Groups transactions by date and renders them as a list
  * On desktop, the section headers will not be shown
  */
-const TransactionSections = props => {
-  const { filteringOnAccount, className, transactions, onRowRef } = props
-
+const TransactionSections = ({
+  filteringOnAccount,
+  className,
+  transactions,
+  onRowRef
+}) => {
   const { isDesktop, isExtraLarge } = useBreakpoints()
+  const {
+    isSelected,
+    isSelectionModeActiveFn,
+    isSelectionModeEnabled,
+    toggleSelection
+  } = useSelectionContext()
 
   const transactionsGrouped = useMemo(() => groupByDate(transactions), [
     transactions
@@ -114,6 +124,10 @@ const TransactionSections = props => {
                   transaction={transaction}
                   isExtraLarge={isExtraLarge}
                   filteringOnAccount={filteringOnAccount}
+                  isSelected={isSelected(transaction)}
+                  isSelectionModeActiveFn={isSelectionModeActiveFn}
+                  isSelectionModeEnabled={isSelectionModeEnabled}
+                  toggleSelection={toggleSelection}
                 />
               )
             })}
@@ -148,6 +162,11 @@ export class TransactionsDumb extends React.Component {
     if (this.props.transactions !== nextProps.transactions) {
       this.updateTransactions(nextProps.transactions)
     }
+  }
+
+  componentWillUnmount() {
+    const { emptySelection } = this.props
+    emptySelection()
   }
 
   updateTransactions(transactions) {
@@ -237,6 +256,10 @@ TransactionsDumb.defaultProps = {
   TransactionSections
 }
 
-const Transactions = TransactionsDumb
+const Transactions = props => {
+  const { emptySelection } = useSelectionContext()
+
+  return <TransactionsDumb emptySelection={emptySelection} {...props} />
+}
 
 export const TransactionList = withBreakpoints()(Transactions)

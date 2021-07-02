@@ -29,23 +29,19 @@ import ApplicationDateCaption from 'ducks/transactions/TransactionRow/Applicatio
 import AccountCaption from 'ducks/transactions/TransactionRow/AccountCaption'
 import TransactionDate from 'ducks/transactions/TransactionRow/TransactionDate'
 import RecurrenceCaption from 'ducks/transactions/TransactionRow/RecurrenceCaption'
-import { useSelectionContext } from 'ducks/context/SelectionContext'
 
 const TransactionRowDesktop = ({
   transaction,
   isExtraLarge,
   filteringOnAccount,
   onRef,
-  showRecurrence
+  showRecurrence,
+  isSelected,
+  isSelectionModeActiveFn,
+  isSelectionModeEnabled,
+  toggleSelection
 }) => {
   const { t } = useI18n()
-
-  const {
-    isSelectionModeActive,
-    isSelectionModeEnabled,
-    toggleSelection,
-    isItemSelected: isTransactionSelected
-  } = useSelectionContext(transaction)
 
   const boundOnRef = useMemo(() => {
     return onRef ? onRef.bind(null, transaction._id) : null
@@ -74,21 +70,26 @@ const TransactionRowDesktop = ({
   const handleClickCategory = useCallback(
     ev => {
       ev.preventDefault()
-      if (isSelectionModeActive) {
-        toggleSelection()
+      if (isSelectionModeActiveFn()) {
+        toggleSelection(transaction)
       } else {
         showTransactionCategoryModal()
       }
     },
-    [isSelectionModeActive, showTransactionCategoryModal, toggleSelection]
+    [
+      isSelectionModeActiveFn,
+      showTransactionCategoryModal,
+      toggleSelection,
+      transaction
+    ]
   )
 
   const handleClickCheckbox = useCallback(
     ev => {
       ev.preventDefault()
-      toggleSelection()
+      toggleSelection(transaction)
     },
-    [toggleSelection]
+    [toggleSelection, transaction]
   )
 
   const handleClickRow = useCallback(
@@ -99,13 +100,18 @@ const TransactionRowDesktop = ({
       if (!ev.currentTarget.contains(ev.target)) {
         return
       }
-      if (isSelectionModeActive) {
-        toggleSelection()
+      if (isSelectionModeActiveFn()) {
+        toggleSelection(transaction)
       } else {
         showTransactionModal()
       }
     },
-    [isSelectionModeActive, showTransactionModal, toggleSelection]
+    [
+      isSelectionModeActiveFn,
+      showTransactionModal,
+      toggleSelection,
+      transaction
+    ]
   )
 
   // Virtual transactions, like those generated from recurrences, cannot be edited
@@ -120,7 +126,7 @@ const TransactionRowDesktop = ({
           styles.TransactionRow,
           canEditTransaction ? styles['TransactionRow--editable'] : null,
           {
-            [styles['TransactionRow--selected']]: isTransactionSelected
+            [styles['TransactionRow--selected']]: isSelected
           }
         )}
         onClick={canEditTransaction && handleClickRow}
@@ -132,7 +138,7 @@ const TransactionRowDesktop = ({
           >
             <Checkbox
               data-testid={`TransactionRow-checkbox-${transaction._id}`}
-              checked={isTransactionSelected}
+              checked={isSelected}
               readOnly
             />
           </TdSecondary>

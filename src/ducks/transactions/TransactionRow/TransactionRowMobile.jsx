@@ -32,20 +32,38 @@ import AccountCaption from 'ducks/transactions/TransactionRow/AccountCaption'
 import RecurrenceCaption from 'ducks/transactions/TransactionRow/RecurrenceCaption'
 import { useSelectionContext } from 'ducks/context/SelectionContext'
 
-const TransactionRowMobile = props => {
+const RowCheckbox = ({ isSelected, onTap, onPress }) => {
+  const { isSelectionModeActive } = useSelectionContext()
+
+  return isSelectionModeActive ? (
+    <Img style={{ marginLeft: '-1rem' }}>
+      <Tappable onTap={onTap} onPress={onPress} pressDelay={250}>
+        <Checkbox checked={isSelected} readOnly />
+      </Tappable>
+    </Img>
+  ) : null
+}
+
+const TransactionRowMobile = ({
+  transaction,
+  filteringOnAccount,
+  onRef,
+  showRecurrence,
+  isSelected,
+  isSelectionModeActiveFn,
+  toggleSelection
+}) => {
   const { t } = useI18n()
-  const { transaction, filteringOnAccount, onRef, showRecurrence } = props
   const account = transaction.account.data
   const rowRest = {}
   const [rawShowTransactionModal, , transactionModal] = useTransactionModal(
     transaction
   )
 
-  const {
-    isSelectionModeActive,
-    toggleSelection,
-    isItemSelected: isTransactionSelected
-  } = useSelectionContext(transaction)
+  const toggleTransactionSelection = useCallback(
+    () => toggleSelection(transaction),
+    [toggleSelection, transaction]
+  )
 
   const boundOnRef = useMemo(() => {
     return onRef.bind(null, transaction._id)
@@ -70,17 +88,17 @@ const TransactionRowMobile = props => {
 
   const handleTap = useCallback(
     ev => {
-      if (isSelectionModeActive) {
-        toggleSelection()
+      if (isSelectionModeActiveFn()) {
+        toggleSelection(transaction)
       } else {
         transaction._id && showTransactionModal(ev)
       }
     },
     [
-      isSelectionModeActive,
+      isSelectionModeActiveFn,
       showTransactionModal,
       toggleSelection,
-      transaction._id
+      transaction
     ]
   )
 
@@ -90,23 +108,16 @@ const TransactionRowMobile = props => {
         ref={boundOnRef}
         {...rowRest}
         className={cx({
-          [styles['TransactionRow--selected']]: isTransactionSelected,
-          'u-pl-0': isSelectionModeActive
+          [styles['TransactionRow--selected']]: isSelected
         })}
         button={!!transaction._id}
       >
         <Media className="u-w-100">
-          {isSelectionModeActive && (
-            <Img>
-              <Tappable
-                onTap={handleTap}
-                onPress={toggleSelection}
-                pressDelay={250}
-              >
-                <Checkbox checked={isTransactionSelected} readOnly />
-              </Tappable>
-            </Img>
-          )}
+          <RowCheckbox
+            isSelected={isSelected}
+            onTap={handleTap}
+            onPress={toggleTransactionSelection}
+          />
           <Bd>
             <Media className="u-w-100">
               <Img
@@ -119,7 +130,7 @@ const TransactionRowMobile = props => {
               >
                 <Tappable
                   onTap={handleTap}
-                  onPress={toggleSelection}
+                  onPress={toggleTransactionSelection}
                   pressDelay={250}
                 >
                   <CategoryIcon categoryId={getCategoryId(transaction)} />
@@ -128,7 +139,7 @@ const TransactionRowMobile = props => {
               <Bd className="u-mr-half">
                 <Tappable
                   onTap={handleTap}
-                  onPress={toggleSelection}
+                  onPress={toggleTransactionSelection}
                   pressDelay={250}
                 >
                   <ListItemText>
@@ -147,7 +158,7 @@ const TransactionRowMobile = props => {
               <Img className={styles.TransactionRowMobileImg}>
                 <Tappable
                   onTap={handleTap}
-                  onPress={toggleSelection}
+                  onPress={toggleTransactionSelection}
                   pressDelay={250}
                 >
                   <Figure
