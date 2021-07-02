@@ -134,36 +134,43 @@ describe('SelectionBar', () => {
 
   it('should show selection bar and open category modal', async () => {
     const { root, client } = setup({ isDesktop: false })
-    const { getByText, queryByText } = root
+    const { getByText, getByTestId, queryByTestId } = root
 
     fireEvent.keyDown(getByText('Remboursement Pret Lcl'))
-    let node = queryByText('item selected')
-    expect(node).toBeTruthy()
-    expect(node.parentNode.textContent).toBe('1 item selected')
+    expect(queryByTestId('selectionBar')).toBeTruthy()
+    expect(queryByTestId('selectionBar-count').textContent).toBe(
+      '1 item selected'
+    )
 
     // should remove the selection bar
     fireEvent.click(getByText('Remboursement Pret Lcl'))
-    expect(queryByText('item selected')).toBeFalsy()
+    expect(queryByTestId('selectionBar')).toBeFalsy()
 
     // should show 2 transactions selected
     fireEvent.keyDown(getByText('Remboursement Pret Lcl'))
-    node = queryByText('item selected')
+    expect(queryByTestId('selectionBar')).toBeTruthy()
     fireEvent.click(getByText('Edf Particuliers'))
-    expect(node.parentNode.textContent).toBe('2 items selected')
+    expect(queryByTestId('selectionBar-count').textContent).toBe(
+      '2 items selected'
+    )
 
     // should unselected transaction
     fireEvent.click(getByText('Edf Particuliers'))
-    expect(node.parentNode.textContent).toBe('1 item selected')
+    expect(queryByTestId('selectionBar-count').textContent).toBe(
+      '1 item selected'
+    )
     fireEvent.click(getByText('Edf Particuliers'))
-    expect(node.parentNode.textContent).toBe('2 items selected')
+    expect(queryByTestId('selectionBar-count').textContent).toBe(
+      '2 items selected'
+    )
 
     // selecting a category
-    fireEvent.click(getByText('Categorize'))
+    fireEvent.click(getByTestId('selectionBar-action-categorize'))
     fireEvent.click(getByText('Everyday life'))
     fireEvent.click(getByText('Supermarket'))
 
     // should remove the selection bar and show a success alert
-    expect(queryByText('item selected')).toBeFalsy()
+    expect(queryByTestId('selectionBar')).toBeFalsy()
     await wait(() => expect(client.save).toHaveBeenCalledTimes(2))
     expect(Alerter.success).toHaveBeenCalledWith(
       '2 operations have been recategorized'
@@ -172,28 +179,35 @@ describe('SelectionBar', () => {
 
   it('should show selection bar and open category modal on desktop', async () => {
     const { root, client } = setup({ isDesktop: true })
-    const { getByText, queryByText, getByTestId } = root
+    const { getByText, getByTestId, queryByTestId } = root
 
     fireEvent.click(getByTestId('TransactionRow-checkbox-reimbursement'))
-    let node = queryByText('item selected')
-    expect(node).toBeTruthy()
-    expect(node.parentNode.textContent).toBe('1 item selected')
+    expect(queryByTestId('selectionBar')).toBeTruthy()
+    expect(queryByTestId('selectionBar-count').textContent).toBe(
+      '1 item selected'
+    )
 
     // should remove the selection bar
     fireEvent.click(getByText('Remboursement Pret Lcl'))
-    expect(queryByText('item selected')).toBeFalsy()
+    expect(queryByTestId('selectionBar')).toBeFalsy()
 
     // should show 2 transactions selected
     fireEvent.click(getByTestId('TransactionRow-checkbox-reimbursement'))
-    node = queryByText('item selected')
+    expect(queryByTestId('selectionBar')).toBeTruthy()
     fireEvent.click(getByText('Edf Particuliers'))
-    expect(node.parentNode.textContent).toBe('2 items selected')
+    expect(queryByTestId('selectionBar-count').textContent).toBe(
+      '2 items selected'
+    )
 
     // should unselected transaction
     fireEvent.click(getByText('Edf Particuliers'))
-    expect(node.parentNode.textContent).toBe('1 item selected')
+    expect(queryByTestId('selectionBar-count').textContent).toBe(
+      '1 item selected'
+    )
     fireEvent.click(getByText('Edf Particuliers'))
-    expect(node.parentNode.textContent).toBe('2 items selected')
+    expect(queryByTestId('selectionBar-count').textContent).toBe(
+      '2 items selected'
+    )
 
     // selecting a category
     fireEvent.click(getByText('Categorize'))
@@ -201,7 +215,7 @@ describe('SelectionBar', () => {
     fireEvent.click(getByText('Supermarket'))
 
     // should remove the selection bar and show a success alert
-    expect(queryByText('item selected')).toBeFalsy()
+    expect(queryByTestId('selectionBar')).toBeFalsy()
     await wait(() => expect(client.save).toHaveBeenCalledTimes(2))
     expect(Alerter.success).toHaveBeenCalledWith(
       '2 operations have been recategorized'
