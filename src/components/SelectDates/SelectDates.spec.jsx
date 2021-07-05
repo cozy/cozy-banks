@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { render, fireEvent } from '@testing-library/react'
 import AppLike from 'test/AppLike'
 import React from 'react'
 import SelectDates from './SelectDates'
@@ -64,4 +64,31 @@ describe('SelectDates', () => {
       }
     )
   }
+
+  it('should behave correctly with undefined value', async () => {
+    const onChange = jest.fn()
+    const root = render(
+      <AppLike>
+        <SelectDates value={undefined} options={options} onChange={onChange} />
+      </AppLike>
+    )
+
+    // When value is undefined, the first option is displayed
+    expect(
+      Array.from(root.container.querySelectorAll('.cz__single-value')).map(
+        n => n.textContent
+      )
+    ).toEqual(['2017', 'October'])
+    const { prev, next } = findButtons(root)
+
+    // Clicking on prev goes to the second option
+    fireEvent.click(prev)
+    expect(onChange).toHaveBeenCalledWith('2017-11')
+
+    onChange.mockReset()
+
+    fireEvent.click(next)
+    // Already at latest, since onChange does nothing
+    expect(onChange).not.toHaveBeenCalled()
+  })
 })

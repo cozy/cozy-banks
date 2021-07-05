@@ -218,7 +218,10 @@ class SelectDates extends PureComponent {
   }
 
   chooseOption = inc => {
-    const index = this.getSelectedIndex()
+    // If index = -1, we are on the latest month but the value
+    // has not been passed down, this is why we force the value
+    // to be 0 so that clicking on prev work correctly
+    const index = Math.max(0, this.getSelectedIndex())
     const options = this.getOptions()
     const currentValue = this.props.value
     if (isFullYearValue(currentValue)) {
