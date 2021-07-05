@@ -220,17 +220,17 @@ class SelectDates extends PureComponent {
     const index = this.getSelectedIndex()
     const options = this.getOptions()
     const currentValue = this.props.value
-    if (!isFullYearValue(currentValue)) {
+    if (isFullYearValue(currentValue)) {
+      const availableYears = this.getAvailableYears()
+      const current = availableYears.indexOf(currentValue)
+      const newIndex = constrain(current + inc, 0, availableYears.length - 1)
+      this.props.onChange(availableYears[newIndex])
+    } else {
       const newIndex = index + inc
       if (newIndex > -1 && index < options.length) {
         const value = options[newIndex].value
         this.props.onChange(value)
       }
-    } else {
-      const availableYears = this.getAvailableYears()
-      const current = availableYears.indexOf(currentValue)
-      const newIndex = constrain(current + inc, 0, availableYears.length - 1)
-      this.props.onChange(availableYears[newIndex])
     }
   }
 
