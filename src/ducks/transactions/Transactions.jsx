@@ -128,7 +128,7 @@ const TransactionSections = ({
                   isSelectionModeActiveFn={isSelectionModeActiveFn}
                   isSelectionModeEnabled={isSelectionModeEnabled}
                   toggleSelection={toggleSelection}
-                  hasSeparator={
+                  hasDivider={
                     transactionGroup.length > 1 &&
                     index !== transactionGroup.length - 1
                   }
