@@ -225,7 +225,7 @@ export class TransactionsDumb extends React.Component {
 
     return (
       <>
-        <SelectionBar />
+        <SelectionBar transactions={transactions} />
         <InfiniteScroll
           manual={false}
           canLoadAtTop={false}

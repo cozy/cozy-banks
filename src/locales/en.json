@@ -923,6 +923,7 @@
   "SelectionBar": {
     "selected_count": "item selected |||| items selected",
     "close": "Close",
-    "categorize": "Categorize"
+    "categorize": "Categorize",
+    "selectAll": "Select all"
   }
 }

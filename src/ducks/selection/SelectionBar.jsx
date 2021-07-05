@@ -8,12 +8,13 @@ import { useSelectionContext } from 'ducks/context/SelectionContext'
 import { makeSelectionBarActions } from 'ducks/selection/helpers'
 import { useTransactionCategoryModal } from 'ducks/transactions/TransactionRow'
 
-const SelectionBar = () => {
+const SelectionBar = ({ transactions }) => {
   const {
     isSelectionModeEnabled,
     isSelectionModeActive,
     selected,
-    emptySelection
+    emptySelection,
+    fillSelectionWith
   } = useSelectionContext()
 
   const { t } = useI18n()
@@ -40,9 +41,18 @@ const SelectionBar = () => {
     afterUpdates
   })
 
+  const fillSelection = useCallback(() => fillSelectionWith(transactions), [
+    fillSelectionWith,
+    transactions
+  ])
+
   const actions = useMemo(
-    () => makeSelectionBarActions(showTransactionCategoryModal),
-    [showTransactionCategoryModal]
+    () =>
+      makeSelectionBarActions({
+        showTransactionCategoryModal,
+        fillSelection
+      }),
+    [fillSelection, showTransactionCategoryModal]
   )
 
   if (!isSelectionModeEnabled) return null

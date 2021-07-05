@@ -21,19 +21,20 @@ export const useSelectionContext = () => {
 // But an improvement would be to store only the ids.
 const SelectionProvider = ({ children }) => {
   const [selected, setSelected] = useState([])
+  const selectedRef = useRef(selected)
+  selectedRef.current = selected
 
   const isSelectionModeEnabled = flag('banks.selectionMode.enabled')
 
   const emptySelection = useCallback(() => setSelected([]), [setSelected])
 
+  const fillSelectionWith = useCallback(arr => setSelected(arr), [setSelected])
+
   const isSelected = useCallback(item => selected.includes(item), [selected])
-  const selectedRef = useRef(selected)
 
   const isSelectionModeActiveFn = useCallback(() => {
     return selectedRef.current.length > 0
   }, [])
-
-  selectedRef.current = selected
 
   const toggleSelection = useCallback(
     item => {
@@ -59,7 +60,8 @@ const SelectionProvider = ({ children }) => {
       isSelectionModeEnabled,
       isSelected,
       emptySelection,
-      toggleSelection
+      toggleSelection,
+      fillSelectionWith
     }),
     [
       selected,
@@ -67,7 +69,8 @@ const SelectionProvider = ({ children }) => {
       isSelectionModeEnabled,
       isSelected,
       emptySelection,
-      toggleSelection
+      toggleSelection,
+      fillSelectionWith
     ]
   )
 
