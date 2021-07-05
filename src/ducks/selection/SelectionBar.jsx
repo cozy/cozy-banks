@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo } from 'react'
+import PropTypes from 'prop-types'
 
 import UISelectionBar from 'cozy-ui/transpiled/react/SelectionBar'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
@@ -70,4 +71,8 @@ const SelectionBar = ({ transactions }) => {
   )
 }
 
-export default SelectionBar
+SelectionBar.propTypes = {
+  transactions: PropTypes.array
+}
+
+export default React.memo(SelectionBar)
