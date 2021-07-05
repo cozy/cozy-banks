@@ -53,7 +53,7 @@ const TransactionRowMobile = ({
   isSelected,
   isSelectionModeActiveFn,
   toggleSelection,
-  hasSeparator
+  hasDivider
 }) => {
   const { t } = useI18n()
   const account = transaction.account.data
@@ -191,7 +191,7 @@ const TransactionRowMobile = ({
           </Bd>
         </Media>
       </ListItem>
-      {hasSeparator && (
+      {hasDivider && (
         <Divider style={{ marginLeft: '3.5rem' }} variant="inset" />
       )}
       {transactionModal}
@@ -202,7 +202,7 @@ const TransactionRowMobile = ({
 TransactionRowMobile.propTypes = {
   transaction: PropTypes.object.isRequired,
   showRecurrence: PropTypes.bool,
-  hasSeparator: PropTypes.bool
+  hasDivider: PropTypes.bool
 }
 
 TransactionRowMobile.defaultProps = {
