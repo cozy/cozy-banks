@@ -1,7 +1,8 @@
 import { Q } from 'cozy-client'
 import {
   makeFilteredTransactionsConn,
-  makeEarliestLatestQueries
+  makeEarliestLatestQueries,
+  addMonthToConn
 } from './queries'
 
 describe('makeFilteredTransactionsConn', () => {
@@ -158,5 +159,43 @@ describe('makeEarliestLatestQueries', () => {
         limit: 1
       })
     ])
+  })
+})
+
+describe('addMonthToConn', () => {
+  it('should keep the existing selector', () => {
+    const conn1 = makeFilteredTransactionsConn({
+      groups: {
+        lastUpdate: Date.now(),
+        data: [
+          {
+            _id: 'g1',
+            accounts: {
+              raw: ['a1', 'a2', 'a3']
+            }
+          }
+        ]
+      },
+      accounts: {
+        lastUpdate: Date.now()
+      },
+      filteringDoc: {
+        _id: 'g1',
+        _type: 'io.cozy.bank.groups'
+      }
+    })
+    const conn2 = addMonthToConn(conn1, '2021-07')
+    expect(conn2.query).toEqual(
+      expect.objectContaining({
+        selector: {
+          $or: [{ account: 'a1' }, { account: 'a2' }, { account: 'a3' }],
+          date: {
+            // Use stringContaining not to have difference of timezones
+            // between CI and local development
+            $lt: expect.stringContaining('2021-07-31T')
+          }
+        }
+      })
+    )
   })
 })

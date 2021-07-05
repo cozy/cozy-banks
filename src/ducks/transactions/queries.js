@@ -107,7 +107,7 @@ export const addMonthToConn = (baseConn, month) => {
   const { query: baseQuery, as: baseAs, ...rest } = baseConn
   const thresholdDate = endOfMonth(new Date(month)).toISOString()
   const q = baseQuery()
-  const query = q.where({ date: { $lt: thresholdDate } }, true)
+  const query = q.where({ date: { $lt: thresholdDate }, ...q.selector })
   const as = `${baseAs}-${month}`
   return {
     query,
