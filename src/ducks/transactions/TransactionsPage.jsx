@@ -4,7 +4,6 @@ import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
-import endOfMonth from 'date-fns/end_of_month'
 import debounce from 'lodash/debounce'
 import compose from 'lodash/flowRight'
 
@@ -39,7 +38,10 @@ import TransactionHeader from 'ducks/transactions/TransactionHeader'
 import BarTheme from 'ducks/bar/BarTheme'
 import TransactionActionsProvider from 'ducks/transactions/TransactionActionsProvider'
 import { trackPage } from 'ducks/tracking/browser'
-import { makeFilteredTransactionsConn } from 'ducks/transactions/queries'
+import {
+  addMonthToConn,
+  makeFilteredTransactionsConn
+} from 'ducks/transactions/queries'
 
 const getMonth = date => date.slice(0, 7)
 
@@ -250,18 +252,6 @@ const autoUpdateOptions = {
   remove: true,
   update: true
 }
-const addMonthToConn = (baseConn, month) => {
-  const { query: baseQuery, as: baseAs, ...rest } = baseConn
-  const thresholdDate = endOfMonth(new Date(month))
-  const query = baseQuery().where({ date: { $lt: thresholdDate } }, true)
-  const as = `${baseAs}-${month}`
-  return {
-    query,
-    as,
-    autoUpdate: autoUpdateOptions,
-    ...rest
-  }
-}
 
 const setAutoUpdate = conn => ({ ...conn, autoUpdate: autoUpdateOptions })
 
@@ -270,7 +260,7 @@ const addTransactions = Component => props => {
   const initialConn = makeFilteredTransactionsConn(props)
   const conn = useMemo(() => {
     return month
-      ? addMonthToConn(initialConn, month)
+      ? setAutoUpdate(addMonthToConn(initialConn, month))
       : setAutoUpdate(initialConn)
   }, [initialConn, month])
   const transactions = useQuery(conn.query, conn)

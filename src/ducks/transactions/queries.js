@@ -1,5 +1,6 @@
 import { Q } from 'cozy-client'
 import { GROUP_DOCTYPE, ACCOUNT_DOCTYPE, transactionsConn } from 'doctypes'
+import endOfMonth from 'date-fns/end_of_month'
 
 /**
  * Outputs a connection to fetch transactions
@@ -99,4 +100,18 @@ export const makeEarliestLatestQueries = baseQuery => {
     .indexFields(['date'])
     .sortBy([{ date: 'asc' }])
   return [earliestQuery, latestQuery]
+}
+
+/** Add a month selector to a connection */
+export const addMonthToConn = (baseConn, month) => {
+  const { query: baseQuery, as: baseAs, ...rest } = baseConn
+  const thresholdDate = endOfMonth(new Date(month)).toISOString()
+  const q = baseQuery()
+  const query = q.where({ date: { $lt: thresholdDate }, ...q.selector })
+  const as = `${baseAs}-${month}`
+  return {
+    query,
+    as,
+    ...rest
+  }
 }

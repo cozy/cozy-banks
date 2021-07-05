@@ -98,6 +98,7 @@ class SelectDateButton extends PureComponent {
     return (
       <Chip.Round
         {...props}
+        aria-disabled={disabled}
         onClick={!disabled ? props.onClick : null}
         className={cx(
           styles.SelectDates__Button,
@@ -217,20 +218,23 @@ class SelectDates extends PureComponent {
   }
 
   chooseOption = inc => {
-    const index = this.getSelectedIndex()
+    // If index = -1, we are on the latest month but the value
+    // has not been passed down, this is why we force the value
+    // to be 0 so that clicking on prev work correctly
+    const index = Math.max(0, this.getSelectedIndex())
     const options = this.getOptions()
     const currentValue = this.props.value
-    if (!isFullYearValue(currentValue)) {
+    if (isFullYearValue(currentValue)) {
+      const availableYears = this.getAvailableYears()
+      const current = availableYears.indexOf(currentValue)
+      const newIndex = constrain(current + inc, 0, availableYears.length - 1)
+      this.props.onChange(availableYears[newIndex])
+    } else {
       const newIndex = index + inc
       if (newIndex > -1 && index < options.length) {
         const value = options[newIndex].value
         this.props.onChange(value)
       }
-    } else {
-      const availableYears = this.getAvailableYears()
-      const current = availableYears.indexOf(currentValue)
-      const newIndex = constrain(current + inc, 0, availableYears.length - 1)
-      this.props.onChange(availableYears[newIndex])
     }
   }
 
@@ -346,6 +350,7 @@ class SelectDates extends PureComponent {
         <span className={styles.SelectDates__buttons}>
           {isMobile && theme !== 'primary' && <Separator />}
           <SelectDateButton
+            aria-label={t('SelectDates.previous-month')}
             onClick={this.handleChoosePrev}
             disabled={isPrevButtonDisabled}
             className={cx(styles['SelectDates__Button--prev'], {
@@ -356,6 +361,7 @@ class SelectDates extends PureComponent {
           </SelectDateButton>
 
           <SelectDateButton
+            aria-label={t('SelectDates.next-month')}
             onClick={this.handleChooseNext}
             disabled={isNextButtonDisabled}
             className={cx(styles['SelectDates__Button--next'], {

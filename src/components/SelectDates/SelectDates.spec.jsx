@@ -1,5 +1,4 @@
-/* global mount */
-
+import { render, fireEvent } from '@testing-library/react'
 import AppLike from 'test/AppLike'
 import React from 'react'
 import SelectDates from './SelectDates'
@@ -7,7 +6,13 @@ import SelectDates from './SelectDates'
 import Select from 'react-select'
 Select.defaultProps.menuIsOpen = true
 
-const isButtonActive = node => !node.is('.SelectDates__Button--disabled')
+const isButtonActive = node => node.getAttribute('aria-disabled') !== 'true'
+
+const findButtons = root => {
+  const prev = root.getByLabelText('Previous month')
+  const next = root.getByLabelText('Next month')
+  return { prev, next }
+}
 
 describe('SelectDates', () => {
   beforeEach(() => {})
@@ -18,12 +23,6 @@ describe('SelectDates', () => {
     { yearMonth: '2018-02' },
     { yearMonth: '2018-04' }
   ]
-
-  const findButtons = root => {
-    const prev = root.find('RoundChip.SelectDates__Button--prev')
-    const next = root.find('RoundChip.SelectDates__Button--next')
-    return { prev, next }
-  }
 
   const tests = [
     {
@@ -50,7 +49,7 @@ describe('SelectDates', () => {
     it(
       'should render correctly prev and next when value is ' + test.value,
       () => {
-        const root = mount(
+        const root = render(
           <AppLike>
             <SelectDates
               value={test.value}
@@ -65,4 +64,31 @@ describe('SelectDates', () => {
       }
     )
   }
+
+  it('should behave correctly with undefined value', async () => {
+    const onChange = jest.fn()
+    const root = render(
+      <AppLike>
+        <SelectDates value={undefined} options={options} onChange={onChange} />
+      </AppLike>
+    )
+
+    // When value is undefined, the first option is displayed
+    expect(
+      Array.from(root.container.querySelectorAll('.cz__single-value')).map(
+        n => n.textContent
+      )
+    ).toEqual(['2017', 'October'])
+    const { prev, next } = findButtons(root)
+
+    // Clicking on prev goes to the second option
+    fireEvent.click(prev)
+    expect(onChange).toHaveBeenCalledWith('2017-11')
+
+    onChange.mockReset()
+
+    fireEvent.click(next)
+    // Already at latest, since onChange does nothing
+    expect(onChange).not.toHaveBeenCalled()
+  })
 })
