@@ -398,7 +398,9 @@
   "SelectDates": {
     "all-year": "Toute l'année",
     "year": "Année",
-    "month": "Mois"
+    "month": "Mois",
+    "previous-month": "Mois précédent",
+    "next-month": "Mois suivant"
   },
 
   "Notifications": {

@@ -1,5 +1,4 @@
-/* global mount */
-
+import { render } from '@testing-library/react'
 import AppLike from 'test/AppLike'
 import React from 'react'
 import SelectDates from './SelectDates'
@@ -7,7 +6,13 @@ import SelectDates from './SelectDates'
 import Select from 'react-select'
 Select.defaultProps.menuIsOpen = true
 
-const isButtonActive = node => !node.is('.SelectDates__Button--disabled')
+const isButtonActive = node => node.getAttribute('aria-disabled') !== 'true'
+
+const findButtons = root => {
+  const prev = root.getByLabelText('Previous month')
+  const next = root.getByLabelText('Next month')
+  return { prev, next }
+}
 
 describe('SelectDates', () => {
   beforeEach(() => {})
@@ -18,12 +23,6 @@ describe('SelectDates', () => {
     { yearMonth: '2018-02' },
     { yearMonth: '2018-04' }
   ]
-
-  const findButtons = root => {
-    const prev = root.find('RoundChip.SelectDates__Button--prev')
-    const next = root.find('RoundChip.SelectDates__Button--next')
-    return { prev, next }
-  }
 
   const tests = [
     {
@@ -50,7 +49,7 @@ describe('SelectDates', () => {
     it(
       'should render correctly prev and next when value is ' + test.value,
       () => {
-        const root = mount(
+        const root = render(
           <AppLike>
             <SelectDates
               value={test.value}

@@ -98,6 +98,7 @@ class SelectDateButton extends PureComponent {
     return (
       <Chip.Round
         {...props}
+        aria-disabled={disabled}
         onClick={!disabled ? props.onClick : null}
         className={cx(
           styles.SelectDates__Button,
@@ -346,6 +347,7 @@ class SelectDates extends PureComponent {
         <span className={styles.SelectDates__buttons}>
           {isMobile && theme !== 'primary' && <Separator />}
           <SelectDateButton
+            aria-label={t('SelectDates.previous-month')}
             onClick={this.handleChoosePrev}
             disabled={isPrevButtonDisabled}
             className={cx(styles['SelectDates__Button--prev'], {
@@ -356,6 +358,7 @@ class SelectDates extends PureComponent {
           </SelectDateButton>
 
           <SelectDateButton
+            aria-label={t('SelectDates.next-month')}
             onClick={this.handleChooseNext}
             disabled={isNextButtonDisabled}
             className={cx(styles['SelectDates__Button--next'], {
