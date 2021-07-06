@@ -11,7 +11,6 @@ import cx from 'classnames'
 
 import { isIOSApp } from 'cozy-device-helper'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import ListSubheader from 'cozy-ui/transpiled/react/MuiCozyTheme/ListSubheader'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
@@ -259,10 +258,14 @@ TransactionsDumb.defaultProps = {
   TransactionSections
 }
 
-const Transactions = props => {
+export const TransactionList = props => {
   const { emptySelection } = useSelectionContext()
-
-  return <TransactionsDumb emptySelection={emptySelection} {...props} />
+  const breakpoints = useBreakpoints()
+  return (
+    <TransactionsDumb
+      emptySelection={emptySelection}
+      breakpoints={breakpoints}
+      {...props}
+    />
+  )
 }
-
-export const TransactionList = withBreakpoints()(Transactions)
