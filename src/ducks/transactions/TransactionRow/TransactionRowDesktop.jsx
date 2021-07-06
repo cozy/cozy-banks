@@ -161,10 +161,7 @@ const TransactionRowDesktop = ({
               />
             </Img>
             <Bd className="u-pl-1">
-              <ListItemText
-                className="u-pv-half"
-                onClick={canEditTransaction && handleClickCategory}
-              >
+              <ListItemText className="u-pv-half">
                 <Typography variant="body1">{getLabel(transaction)}</Typography>
                 {!filteringOnAccount && <AccountCaption account={account} />}
                 {applicationDate ? (
