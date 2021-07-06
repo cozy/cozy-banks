@@ -6,6 +6,7 @@ import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import Typography from 'cozy-ui/transpiled/react/Typography'
+import IconButton from 'cozy-ui/transpiled/react/IconButton'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 import Checkbox from 'cozy-ui/transpiled/react/Checkbox'
 
@@ -151,14 +152,16 @@ const TransactionRowDesktop = ({
           )}
         >
           <Media>
-            <Img
-              title={categoryTitle}
-              onClick={canEditTransaction && handleClickCategory}
-            >
-              <CategoryIcon
-                categoryId={categoryId}
-                className={styles['bnk-op-caticon']}
-              />
+            <Img title={categoryTitle}>
+              <IconButton
+                className={styles.CategoryIconButton}
+                onClick={canEditTransaction && handleClickCategory}
+              >
+                <CategoryIcon
+                  categoryId={categoryId}
+                  className={styles['bnk-op-caticon']}
+                />
+              </IconButton>
             </Img>
             <Bd className="u-pl-1">
               <ListItemText className="u-pv-half">
