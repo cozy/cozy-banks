@@ -33,6 +33,14 @@ jest.mock('cozy-ui/transpiled/react/Alerter', () => ({
   success: jest.fn()
 }))
 
+// Mock useVisible so that intersection observer is not used
+// in test, useVisible is static here
+jest.mock('hooks/useVisible', () => {
+  return initialState => {
+    return [null, initialState]
+  }
+})
+
 const mockTransactions = data['io.cozy.bank.operations'].map((x, i) => ({
   _id: `transaction-id-${i++}`,
   ...x
@@ -130,30 +138,30 @@ describe('SelectionBar', () => {
     const { root, client } = setup({ isDesktop: false })
     const { getByText, getByTestId, queryByTestId } = root
 
-    fireEvent.keyDown(getByText('Remboursement Pret Lcl'))
+    fireEvent.keyDown(getByText('Maintenance'))
     expect(queryByTestId('selectionBar')).toBeTruthy()
     expect(queryByTestId('selectionBar-count').textContent).toBe(
       '1 item selected'
     )
 
     // should remove the selection bar
-    fireEvent.click(getByText('Remboursement Pret Lcl'))
+    fireEvent.click(getByText('Maintenance'))
     expect(queryByTestId('selectionBar')).toBeFalsy()
 
     // should show 2 transactions selected
-    fireEvent.keyDown(getByText('Remboursement Pret Lcl'))
+    fireEvent.keyDown(getByText('Maintenance'))
     expect(queryByTestId('selectionBar')).toBeTruthy()
-    fireEvent.click(getByText('Edf Particuliers'))
+    fireEvent.click(getByText('Franprix St Lazare Pr'))
     expect(queryByTestId('selectionBar-count').textContent).toBe(
       '2 items selected'
     )
 
     // should unselected transaction
-    fireEvent.click(getByText('Edf Particuliers'))
+    fireEvent.click(getByText('Franprix St Lazare Pr'))
     expect(queryByTestId('selectionBar-count').textContent).toBe(
       '1 item selected'
     )
-    fireEvent.click(getByText('Edf Particuliers'))
+    fireEvent.click(getByText('Franprix St Lazare Pr'))
     expect(queryByTestId('selectionBar-count').textContent).toBe(
       '2 items selected'
     )
@@ -175,30 +183,30 @@ describe('SelectionBar', () => {
     const { root, client } = setup({ isDesktop: true })
     const { getByText, getByTestId, queryByTestId } = root
 
-    fireEvent.click(getByTestId('TransactionRow-checkbox-reimbursement'))
+    fireEvent.click(getByTestId('TransactionRow-checkbox-maintenance'))
     expect(queryByTestId('selectionBar')).toBeTruthy()
     expect(queryByTestId('selectionBar-count').textContent).toBe(
       '1 item selected'
     )
 
     // should remove the selection bar
-    fireEvent.click(getByText('Remboursement Pret Lcl'))
+    fireEvent.click(getByText('Maintenance'))
     expect(queryByTestId('selectionBar')).toBeFalsy()
 
     // should show 2 transactions selected
-    fireEvent.click(getByTestId('TransactionRow-checkbox-reimbursement'))
+    fireEvent.click(getByTestId('TransactionRow-checkbox-maintenance'))
     expect(queryByTestId('selectionBar')).toBeTruthy()
-    fireEvent.click(getByText('Edf Particuliers'))
+    fireEvent.click(getByText('Franprix St Lazare Pr'))
     expect(queryByTestId('selectionBar-count').textContent).toBe(
       '2 items selected'
     )
 
     // should unselected transaction
-    fireEvent.click(getByText('Edf Particuliers'))
+    fireEvent.click(getByText('Franprix St Lazare Pr'))
     expect(queryByTestId('selectionBar-count').textContent).toBe(
       '1 item selected'
     )
-    fireEvent.click(getByText('Edf Particuliers'))
+    fireEvent.click(getByText('Franprix St Lazare Pr'))
     expect(queryByTestId('selectionBar-count').textContent).toBe(
       '2 items selected'
     )

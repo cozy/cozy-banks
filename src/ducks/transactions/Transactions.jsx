@@ -216,7 +216,6 @@ export class TransactionsDumb extends React.Component {
       showTriggerErrors,
       filteringOnAccount,
       className,
-      transactions,
       TransactionSections,
       onReachTop,
       onReachBottom,
@@ -225,7 +224,7 @@ export class TransactionsDumb extends React.Component {
 
     return (
       <>
-        <SelectionBar transactions={transactions} />
+        <SelectionBar transactions={this.transactions} />
         <InfiniteScroll
           manual={false}
           canLoadAtTop={false}
@@ -239,7 +238,7 @@ export class TransactionsDumb extends React.Component {
           <TransactionSections
             filteringOnAccount={filteringOnAccount}
             className={className}
-            transactions={transactions}
+            transactions={this.transactions}
             onRowRef={this.handleRefRow}
           />
         </InfiniteScroll>
