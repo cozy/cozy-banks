@@ -33,12 +33,12 @@ jest.mock('cozy-ui/transpiled/react/Alerter', () => ({
   success: jest.fn()
 }))
 
+const mockTransactions = data['io.cozy.bank.operations'].map((x, i) => ({
+  _id: `transaction-id-${i++}`,
+  ...x
+}))
+
 describe('Transactions', () => {
-  let i = 0
-  const mockTransactions = data['io.cozy.bank.operations'].map(x => ({
-    _id: `transaction-id-${i++}`,
-    ...x
-  }))
   const setup = ({ showTriggerErrors }) => {
     const Wrapper = ({ transactions = mockTransactions }) => {
       return (
@@ -97,12 +97,6 @@ describe('SelectionBar', () => {
   beforeEach(() => {
     Alerter.success.mockReset()
   })
-
-  let i = 0
-  const mockTransactions = data['io.cozy.bank.operations'].map(x => ({
-    _id: `transaction-id-${i++}`,
-    ...x
-  }))
 
   // Mock tappable so that key down fires its onPress event
   Tappable.mockImplementation(({ children, onPress, onTap }) => {
