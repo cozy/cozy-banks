@@ -47,7 +47,7 @@ const mockTransactions = data['io.cozy.bank.operations'].map((x, i) => ({
 }))
 
 describe('Transactions', () => {
-  const setup = ({ showTriggerErrors }) => {
+  const setup = ({ showTriggerErrors, renderFn }) => {
     const Wrapper = ({ transactions = mockTransactions }) => {
       return (
         <AppLike>
@@ -60,27 +60,30 @@ describe('Transactions', () => {
         </AppLike>
       )
     }
-    const root = mount(<Wrapper />)
+    const root = renderFn(<Wrapper />)
 
     return { root, transactions: mockTransactions }
   }
 
   describe('when showTriggerErrors is false', () => {
     it('should not show transaction errors', () => {
-      const { root } = setup({ showTriggerErrors: false })
+      const { root } = setup({ showTriggerErrors: false, renderFn: mount })
       expect(root.find(TransactionPageErrors).length).toBe(0)
     })
   })
 
   describe('when showTriggerErrors is true', () => {
     it('should show transaction errors', () => {
-      const { root } = setup({ showTriggerErrors: true })
+      const { root } = setup({ showTriggerErrors: true, renderFn: mount })
       expect(root.find(TransactionPageErrors).length).toBe(1)
     })
   })
 
   it('should sort transactions from props on mount and on update', () => {
-    const { root, transactions } = setup({ isOnSubcategory: false })
+    const { root, transactions } = setup({
+      isOnSubcategory: false,
+      renderFn: mount
+    })
 
     const instance = root.find(TransactionsDumb).instance()
     expect(instance.transactions).toEqual(sortByDate(transactions))
@@ -93,7 +96,7 @@ describe('Transactions', () => {
   })
 })
 
-describe('SelectionBar', () => {
+describe('Interactions', () => {
   beforeAll(() => {
     flag('banks.selectionMode.enabled', true)
   })
@@ -134,93 +137,95 @@ describe('SelectionBar', () => {
     return { root, client }
   }
 
-  it('should show selection bar and open category modal', async () => {
-    const { root, client } = setup({ isDesktop: false })
-    const { getByText, getByTestId, queryByTestId } = root
+  describe('SelectionBar', () => {
+    it('should show selection bar and open category modal', async () => {
+      const { root, client } = setup({ isDesktop: false })
+      const { getByText, getByTestId, queryByTestId } = root
 
-    fireEvent.keyDown(getByText('Maintenance'))
-    expect(queryByTestId('selectionBar')).toBeTruthy()
-    expect(queryByTestId('selectionBar-count').textContent).toBe(
-      '1 item selected'
-    )
+      fireEvent.keyDown(getByText('Maintenance'))
+      expect(queryByTestId('selectionBar')).toBeTruthy()
+      expect(queryByTestId('selectionBar-count').textContent).toBe(
+        '1 item selected'
+      )
 
-    // should remove the selection bar
-    fireEvent.click(getByText('Maintenance'))
-    expect(queryByTestId('selectionBar')).toBeFalsy()
+      // should remove the selection bar
+      fireEvent.click(getByText('Maintenance'))
+      expect(queryByTestId('selectionBar')).toBeFalsy()
 
-    // should show 2 transactions selected
-    fireEvent.keyDown(getByText('Maintenance'))
-    expect(queryByTestId('selectionBar')).toBeTruthy()
-    fireEvent.click(getByText('Franprix St Lazare Pr'))
-    expect(queryByTestId('selectionBar-count').textContent).toBe(
-      '2 items selected'
-    )
+      // should show 2 transactions selected
+      fireEvent.keyDown(getByText('Maintenance'))
+      expect(queryByTestId('selectionBar')).toBeTruthy()
+      fireEvent.click(getByText('Franprix St Lazare Pr'))
+      expect(queryByTestId('selectionBar-count').textContent).toBe(
+        '2 items selected'
+      )
 
-    // should unselected transaction
-    fireEvent.click(getByText('Franprix St Lazare Pr'))
-    expect(queryByTestId('selectionBar-count').textContent).toBe(
-      '1 item selected'
-    )
-    fireEvent.click(getByText('Franprix St Lazare Pr'))
-    expect(queryByTestId('selectionBar-count').textContent).toBe(
-      '2 items selected'
-    )
+      // should unselected transaction
+      fireEvent.click(getByText('Franprix St Lazare Pr'))
+      expect(queryByTestId('selectionBar-count').textContent).toBe(
+        '1 item selected'
+      )
+      fireEvent.click(getByText('Franprix St Lazare Pr'))
+      expect(queryByTestId('selectionBar-count').textContent).toBe(
+        '2 items selected'
+      )
 
-    // selecting a category
-    fireEvent.click(getByTestId('selectionBar-action-categorize'))
-    fireEvent.click(getByText('Everyday life'))
-    fireEvent.click(getByText('Supermarket'))
+      // selecting a category
+      fireEvent.click(getByTestId('selectionBar-action-categorize'))
+      fireEvent.click(getByText('Everyday life'))
+      fireEvent.click(getByText('Supermarket'))
 
-    // should remove the selection bar and show a success alert
-    expect(queryByTestId('selectionBar')).toBeFalsy()
-    await wait(() => expect(client.save).toHaveBeenCalledTimes(2))
-    expect(Alerter.success).toHaveBeenCalledWith(
-      '2 operations have been recategorized'
-    )
-  })
+      // should remove the selection bar and show a success alert
+      expect(queryByTestId('selectionBar')).toBeFalsy()
+      await wait(() => expect(client.save).toHaveBeenCalledTimes(2))
+      expect(Alerter.success).toHaveBeenCalledWith(
+        '2 operations have been recategorized'
+      )
+    })
 
-  it('should show selection bar and open category modal on desktop', async () => {
-    const { root, client } = setup({ isDesktop: true })
-    const { getByText, getByTestId, queryByTestId } = root
+    it('should show selection bar and open category modal on desktop', async () => {
+      const { root, client } = setup({ isDesktop: true })
+      const { getByText, getByTestId, queryByTestId } = root
 
-    fireEvent.click(getByTestId('TransactionRow-checkbox-maintenance'))
-    expect(queryByTestId('selectionBar')).toBeTruthy()
-    expect(queryByTestId('selectionBar-count').textContent).toBe(
-      '1 item selected'
-    )
+      fireEvent.click(getByTestId('TransactionRow-checkbox-maintenance'))
+      expect(queryByTestId('selectionBar')).toBeTruthy()
+      expect(queryByTestId('selectionBar-count').textContent).toBe(
+        '1 item selected'
+      )
 
-    // should remove the selection bar
-    fireEvent.click(getByText('Maintenance'))
-    expect(queryByTestId('selectionBar')).toBeFalsy()
+      // should remove the selection bar
+      fireEvent.click(getByText('Maintenance'))
+      expect(queryByTestId('selectionBar')).toBeFalsy()
 
-    // should show 2 transactions selected
-    fireEvent.click(getByTestId('TransactionRow-checkbox-maintenance'))
-    expect(queryByTestId('selectionBar')).toBeTruthy()
-    fireEvent.click(getByText('Franprix St Lazare Pr'))
-    expect(queryByTestId('selectionBar-count').textContent).toBe(
-      '2 items selected'
-    )
+      // should show 2 transactions selected
+      fireEvent.click(getByTestId('TransactionRow-checkbox-maintenance'))
+      expect(queryByTestId('selectionBar')).toBeTruthy()
+      fireEvent.click(getByText('Franprix St Lazare Pr'))
+      expect(queryByTestId('selectionBar-count').textContent).toBe(
+        '2 items selected'
+      )
 
-    // should unselected transaction
-    fireEvent.click(getByText('Franprix St Lazare Pr'))
-    expect(queryByTestId('selectionBar-count').textContent).toBe(
-      '1 item selected'
-    )
-    fireEvent.click(getByText('Franprix St Lazare Pr'))
-    expect(queryByTestId('selectionBar-count').textContent).toBe(
-      '2 items selected'
-    )
+      // should unselected transaction
+      fireEvent.click(getByText('Franprix St Lazare Pr'))
+      expect(queryByTestId('selectionBar-count').textContent).toBe(
+        '1 item selected'
+      )
+      fireEvent.click(getByText('Franprix St Lazare Pr'))
+      expect(queryByTestId('selectionBar-count').textContent).toBe(
+        '2 items selected'
+      )
 
-    // selecting a category
-    fireEvent.click(getByText('Categorize'))
-    fireEvent.click(getByText('Everyday life'))
-    fireEvent.click(getByText('Supermarket'))
+      // selecting a category
+      fireEvent.click(getByText('Categorize'))
+      fireEvent.click(getByText('Everyday life'))
+      fireEvent.click(getByText('Supermarket'))
 
-    // should remove the selection bar and show a success alert
-    expect(queryByTestId('selectionBar')).toBeFalsy()
-    await wait(() => expect(client.save).toHaveBeenCalledTimes(2))
-    expect(Alerter.success).toHaveBeenCalledWith(
-      '2 operations have been recategorized'
-    )
+      // should remove the selection bar and show a success alert
+      expect(queryByTestId('selectionBar')).toBeFalsy()
+      await wait(() => expect(client.save).toHaveBeenCalledTimes(2))
+      expect(Alerter.success).toHaveBeenCalledWith(
+        '2 operations have been recategorized'
+      )
+    })
   })
 })
