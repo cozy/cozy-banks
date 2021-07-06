@@ -3,14 +3,15 @@
 import React from 'react'
 import Tappable from 'react-tappable/lib/Tappable'
 import { render, fireEvent, wait } from '@testing-library/react'
-import flag from 'cozy-flags'
+import { within } from '@testing-library/dom'
 
+import flag from 'cozy-flags'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import { createMockClient } from 'cozy-client/dist/mock'
 
 import data from 'test/fixtures'
 import AppLike from 'test/AppLike'
-import { createMockClient } from 'cozy-client/dist/mock'
 
 import TransactionPageErrors from 'ducks/transactions/TransactionPageErrors'
 import { TransactionsDumb, sortByDate } from './Transactions'
@@ -118,16 +119,28 @@ describe('Interactions', () => {
     )
   })
 
-  const setup = ({ isDesktop = false } = {}) => {
-    const client = createMockClient({})
+  const setup = ({
+    isDesktop = false,
+    transactions = mockTransactions
+  } = {}) => {
+    const client = createMockClient({
+      queries: {
+        // The transaction modal gets its transactions through cozy-client
+        // store. This is why the transactions should be in there.
+        fakeTransactions: {
+          data: transactions,
+          doctype: 'io.cozy.bank.operations'
+        }
+      }
+    })
     client.save.mockImplementation(doc => ({ data: doc }))
     useBreakpoints.mockReturnValue({ isDesktop })
-
+    const router = { location: 'fakeLocation' }
     const root = render(
-      <AppLike client={client}>
+      <AppLike client={client} router={router}>
         <TransactionsDumb
           breakpoints={{ isDesktop: false }}
-          transactions={mockTransactions}
+          transactions={transactions}
           showTriggerErrors={false}
           emptySelection={() => null}
         />
@@ -136,6 +149,21 @@ describe('Interactions', () => {
 
     return { root, client }
   }
+
+  describe('Transaction modal', () => {
+    it('should show transaction modal on click on label', async () => {
+      const { root } = setup({
+        isDesktop: true,
+        transactions: mockTransactions.slice(0, 1)
+      })
+      const label = root.getByText('Remboursement Pret Lcl')
+      expect(root.queryByRole('dialog')).toBeFalsy()
+      fireEvent.click(label)
+      const dialog = root.getByRole('dialog')
+      expect(dialog).toBeTruthy()
+      expect(within(dialog).getByText('Assigned to Aug 2017'))
+    })
+  })
 
   describe('SelectionBar', () => {
     it('should show selection bar and open category modal', async () => {
