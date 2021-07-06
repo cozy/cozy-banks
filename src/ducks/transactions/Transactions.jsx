@@ -11,7 +11,6 @@ import cx from 'classnames'
 
 import { isIOSApp } from 'cozy-device-helper'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import ListSubheader from 'cozy-ui/transpiled/react/MuiCozyTheme/ListSubheader'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
@@ -216,7 +215,6 @@ export class TransactionsDumb extends React.Component {
       showTriggerErrors,
       filteringOnAccount,
       className,
-      transactions,
       TransactionSections,
       onReachTop,
       onReachBottom,
@@ -225,7 +223,7 @@ export class TransactionsDumb extends React.Component {
 
     return (
       <>
-        <SelectionBar transactions={transactions} />
+        <SelectionBar transactions={this.transactions} />
         <InfiniteScroll
           manual={false}
           canLoadAtTop={false}
@@ -239,7 +237,7 @@ export class TransactionsDumb extends React.Component {
           <TransactionSections
             filteringOnAccount={filteringOnAccount}
             className={className}
-            transactions={transactions}
+            transactions={this.transactions}
             onRowRef={this.handleRefRow}
           />
         </InfiniteScroll>
@@ -260,10 +258,14 @@ TransactionsDumb.defaultProps = {
   TransactionSections
 }
 
-const Transactions = props => {
+export const TransactionList = props => {
   const { emptySelection } = useSelectionContext()
-
-  return <TransactionsDumb emptySelection={emptySelection} {...props} />
+  const breakpoints = useBreakpoints()
+  return (
+    <TransactionsDumb
+      emptySelection={emptySelection}
+      breakpoints={breakpoints}
+      {...props}
+    />
+  )
 }
-
-export const TransactionList = withBreakpoints()(Transactions)

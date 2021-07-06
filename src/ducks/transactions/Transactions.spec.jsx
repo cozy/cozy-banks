@@ -3,14 +3,15 @@
 import React from 'react'
 import Tappable from 'react-tappable/lib/Tappable'
 import { render, fireEvent, wait } from '@testing-library/react'
-import flag from 'cozy-flags'
+import { within } from '@testing-library/dom'
 
+import flag from 'cozy-flags'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import { createMockClient } from 'cozy-client/dist/mock'
 
 import data from 'test/fixtures'
 import AppLike from 'test/AppLike'
-import { createMockClient } from 'cozy-client/dist/mock'
 
 import TransactionPageErrors from 'ducks/transactions/TransactionPageErrors'
 import { TransactionsDumb, sortByDate } from './Transactions'
@@ -33,13 +34,21 @@ jest.mock('cozy-ui/transpiled/react/Alerter', () => ({
   success: jest.fn()
 }))
 
+// Mock useVisible so that intersection observer is not used
+// in test, useVisible is static here
+jest.mock('hooks/useVisible', () => {
+  return initialState => {
+    return [null, initialState]
+  }
+})
+
+const mockTransactions = data['io.cozy.bank.operations'].map((x, i) => ({
+  _id: `transaction-id-${i++}`,
+  ...x
+}))
+
 describe('Transactions', () => {
-  let i = 0
-  const mockTransactions = data['io.cozy.bank.operations'].map(x => ({
-    _id: `transaction-id-${i++}`,
-    ...x
-  }))
-  const setup = ({ showTriggerErrors }) => {
+  const setup = ({ showTriggerErrors, renderFn }) => {
     const Wrapper = ({ transactions = mockTransactions }) => {
       return (
         <AppLike>
@@ -52,27 +61,30 @@ describe('Transactions', () => {
         </AppLike>
       )
     }
-    const root = mount(<Wrapper />)
+    const root = renderFn(<Wrapper />)
 
     return { root, transactions: mockTransactions }
   }
 
   describe('when showTriggerErrors is false', () => {
     it('should not show transaction errors', () => {
-      const { root } = setup({ showTriggerErrors: false })
+      const { root } = setup({ showTriggerErrors: false, renderFn: mount })
       expect(root.find(TransactionPageErrors).length).toBe(0)
     })
   })
 
   describe('when showTriggerErrors is true', () => {
     it('should show transaction errors', () => {
-      const { root } = setup({ showTriggerErrors: true })
+      const { root } = setup({ showTriggerErrors: true, renderFn: mount })
       expect(root.find(TransactionPageErrors).length).toBe(1)
     })
   })
 
   it('should sort transactions from props on mount and on update', () => {
-    const { root, transactions } = setup({ isOnSubcategory: false })
+    const { root, transactions } = setup({
+      isOnSubcategory: false,
+      renderFn: mount
+    })
 
     const instance = root.find(TransactionsDumb).instance()
     expect(instance.transactions).toEqual(sortByDate(transactions))
@@ -85,7 +97,7 @@ describe('Transactions', () => {
   })
 })
 
-describe('SelectionBar', () => {
+describe('Interactions', () => {
   beforeAll(() => {
     flag('banks.selectionMode.enabled', true)
   })
@@ -98,12 +110,6 @@ describe('SelectionBar', () => {
     Alerter.success.mockReset()
   })
 
-  let i = 0
-  const mockTransactions = data['io.cozy.bank.operations'].map(x => ({
-    _id: `transaction-id-${i++}`,
-    ...x
-  }))
-
   // Mock tappable so that key down fires its onPress event
   Tappable.mockImplementation(({ children, onPress, onTap }) => {
     return (
@@ -113,16 +119,28 @@ describe('SelectionBar', () => {
     )
   })
 
-  const setup = ({ isDesktop = false } = {}) => {
-    const client = createMockClient({})
+  const setup = ({
+    isDesktop = false,
+    transactions = mockTransactions
+  } = {}) => {
+    const client = createMockClient({
+      queries: {
+        // The transaction modal gets its transactions through cozy-client
+        // store. This is why the transactions should be in there.
+        fakeTransactions: {
+          data: transactions,
+          doctype: 'io.cozy.bank.operations'
+        }
+      }
+    })
     client.save.mockImplementation(doc => ({ data: doc }))
     useBreakpoints.mockReturnValue({ isDesktop })
-
+    const router = { location: 'fakeLocation' }
     const root = render(
-      <AppLike client={client}>
+      <AppLike client={client} router={router}>
         <TransactionsDumb
           breakpoints={{ isDesktop: false }}
-          transactions={mockTransactions}
+          transactions={transactions}
           showTriggerErrors={false}
           emptySelection={() => null}
         />
@@ -132,93 +150,110 @@ describe('SelectionBar', () => {
     return { root, client }
   }
 
-  it('should show selection bar and open category modal', async () => {
-    const { root, client } = setup({ isDesktop: false })
-    const { getByText, getByTestId, queryByTestId } = root
-
-    fireEvent.keyDown(getByText('Remboursement Pret Lcl'))
-    expect(queryByTestId('selectionBar')).toBeTruthy()
-    expect(queryByTestId('selectionBar-count').textContent).toBe(
-      '1 item selected'
-    )
-
-    // should remove the selection bar
-    fireEvent.click(getByText('Remboursement Pret Lcl'))
-    expect(queryByTestId('selectionBar')).toBeFalsy()
-
-    // should show 2 transactions selected
-    fireEvent.keyDown(getByText('Remboursement Pret Lcl'))
-    expect(queryByTestId('selectionBar')).toBeTruthy()
-    fireEvent.click(getByText('Edf Particuliers'))
-    expect(queryByTestId('selectionBar-count').textContent).toBe(
-      '2 items selected'
-    )
-
-    // should unselected transaction
-    fireEvent.click(getByText('Edf Particuliers'))
-    expect(queryByTestId('selectionBar-count').textContent).toBe(
-      '1 item selected'
-    )
-    fireEvent.click(getByText('Edf Particuliers'))
-    expect(queryByTestId('selectionBar-count').textContent).toBe(
-      '2 items selected'
-    )
-
-    // selecting a category
-    fireEvent.click(getByTestId('selectionBar-action-categorize'))
-    fireEvent.click(getByText('Everyday life'))
-    fireEvent.click(getByText('Supermarket'))
-
-    // should remove the selection bar and show a success alert
-    expect(queryByTestId('selectionBar')).toBeFalsy()
-    await wait(() => expect(client.save).toHaveBeenCalledTimes(2))
-    expect(Alerter.success).toHaveBeenCalledWith(
-      '2 operations have been recategorized'
-    )
+  describe('Transaction modal', () => {
+    it('should show transaction modal on click on label', async () => {
+      const { root } = setup({
+        isDesktop: true,
+        transactions: mockTransactions.slice(0, 1)
+      })
+      const label = root.getByText('Remboursement Pret Lcl')
+      expect(root.queryByRole('dialog')).toBeFalsy()
+      fireEvent.click(label)
+      const dialog = root.getByRole('dialog')
+      expect(dialog).toBeTruthy()
+      expect(within(dialog).getByText('Assigned to Aug 2017'))
+    })
   })
 
-  it('should show selection bar and open category modal on desktop', async () => {
-    const { root, client } = setup({ isDesktop: true })
-    const { getByText, getByTestId, queryByTestId } = root
+  describe('SelectionBar', () => {
+    it('should show selection bar and open category modal', async () => {
+      const { root, client } = setup({ isDesktop: false })
+      const { getByText, getByTestId, queryByTestId } = root
 
-    fireEvent.click(getByTestId('TransactionRow-checkbox-reimbursement'))
-    expect(queryByTestId('selectionBar')).toBeTruthy()
-    expect(queryByTestId('selectionBar-count').textContent).toBe(
-      '1 item selected'
-    )
+      fireEvent.keyDown(getByText('Maintenance'))
+      expect(queryByTestId('selectionBar')).toBeTruthy()
+      expect(queryByTestId('selectionBar-count').textContent).toBe(
+        '1 item selected'
+      )
 
-    // should remove the selection bar
-    fireEvent.click(getByText('Remboursement Pret Lcl'))
-    expect(queryByTestId('selectionBar')).toBeFalsy()
+      // should remove the selection bar
+      fireEvent.click(getByText('Maintenance'))
+      expect(queryByTestId('selectionBar')).toBeFalsy()
 
-    // should show 2 transactions selected
-    fireEvent.click(getByTestId('TransactionRow-checkbox-reimbursement'))
-    expect(queryByTestId('selectionBar')).toBeTruthy()
-    fireEvent.click(getByText('Edf Particuliers'))
-    expect(queryByTestId('selectionBar-count').textContent).toBe(
-      '2 items selected'
-    )
+      // should show 2 transactions selected
+      fireEvent.keyDown(getByText('Maintenance'))
+      expect(queryByTestId('selectionBar')).toBeTruthy()
+      fireEvent.click(getByText('Franprix St Lazare Pr'))
+      expect(queryByTestId('selectionBar-count').textContent).toBe(
+        '2 items selected'
+      )
 
-    // should unselected transaction
-    fireEvent.click(getByText('Edf Particuliers'))
-    expect(queryByTestId('selectionBar-count').textContent).toBe(
-      '1 item selected'
-    )
-    fireEvent.click(getByText('Edf Particuliers'))
-    expect(queryByTestId('selectionBar-count').textContent).toBe(
-      '2 items selected'
-    )
+      // should unselected transaction
+      fireEvent.click(getByText('Franprix St Lazare Pr'))
+      expect(queryByTestId('selectionBar-count').textContent).toBe(
+        '1 item selected'
+      )
+      fireEvent.click(getByText('Franprix St Lazare Pr'))
+      expect(queryByTestId('selectionBar-count').textContent).toBe(
+        '2 items selected'
+      )
 
-    // selecting a category
-    fireEvent.click(getByText('Categorize'))
-    fireEvent.click(getByText('Everyday life'))
-    fireEvent.click(getByText('Supermarket'))
+      // selecting a category
+      fireEvent.click(getByTestId('selectionBar-action-categorize'))
+      fireEvent.click(getByText('Everyday life'))
+      fireEvent.click(getByText('Supermarket'))
 
-    // should remove the selection bar and show a success alert
-    expect(queryByTestId('selectionBar')).toBeFalsy()
-    await wait(() => expect(client.save).toHaveBeenCalledTimes(2))
-    expect(Alerter.success).toHaveBeenCalledWith(
-      '2 operations have been recategorized'
-    )
+      // should remove the selection bar and show a success alert
+      expect(queryByTestId('selectionBar')).toBeFalsy()
+      await wait(() => expect(client.save).toHaveBeenCalledTimes(2))
+      expect(Alerter.success).toHaveBeenCalledWith(
+        '2 operations have been recategorized'
+      )
+    })
+
+    it('should show selection bar and open category modal on desktop', async () => {
+      const { root, client } = setup({ isDesktop: true })
+      const { getByText, getByTestId, queryByTestId } = root
+
+      fireEvent.click(getByTestId('TransactionRow-checkbox-maintenance'))
+      expect(queryByTestId('selectionBar')).toBeTruthy()
+      expect(queryByTestId('selectionBar-count').textContent).toBe(
+        '1 item selected'
+      )
+
+      // should remove the selection bar
+      fireEvent.click(getByText('Maintenance'))
+      expect(queryByTestId('selectionBar')).toBeFalsy()
+
+      // should show 2 transactions selected
+      fireEvent.click(getByTestId('TransactionRow-checkbox-maintenance'))
+      expect(queryByTestId('selectionBar')).toBeTruthy()
+      fireEvent.click(getByText('Franprix St Lazare Pr'))
+      expect(queryByTestId('selectionBar-count').textContent).toBe(
+        '2 items selected'
+      )
+
+      // should unselected transaction
+      fireEvent.click(getByText('Franprix St Lazare Pr'))
+      expect(queryByTestId('selectionBar-count').textContent).toBe(
+        '1 item selected'
+      )
+      fireEvent.click(getByText('Franprix St Lazare Pr'))
+      expect(queryByTestId('selectionBar-count').textContent).toBe(
+        '2 items selected'
+      )
+
+      // selecting a category
+      fireEvent.click(getByText('Categorize'))
+      fireEvent.click(getByText('Everyday life'))
+      fireEvent.click(getByText('Supermarket'))
+
+      // should remove the selection bar and show a success alert
+      expect(queryByTestId('selectionBar')).toBeFalsy()
+      await wait(() => expect(client.save).toHaveBeenCalledTimes(2))
+      expect(Alerter.success).toHaveBeenCalledWith(
+        '2 operations have been recategorized'
+      )
+    })
   })
 })
