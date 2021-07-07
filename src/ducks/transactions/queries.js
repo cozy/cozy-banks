@@ -139,8 +139,8 @@ export const addPeriodToConn = (baseConn, period) => {
       merge(
         {
           date: {
-            $lte: format(endDate, 'YYYY-MM-DD'),
-            $gte: format(startDate, 'YYYY-MM-DD')
+            $lte: format(endDate, 'YYYY-MM-DD[T]HH:mm'),
+            $gte: format(startDate, 'YYYY-MM-DD[T]HH:mm')
           }
         },
         baseQuery.selector
