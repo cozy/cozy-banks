@@ -17,7 +17,7 @@ const isTouchEventsCatched = ev => {
 const TransactionOpener = ({
   transaction,
   toggleSelection,
-  isSelectionModeActiveFn,
+  isSelectionModeActive,
   showTransactionModal,
   children
 }) => {
@@ -26,13 +26,13 @@ const TransactionOpener = ({
   const handleClick = useCallback(ev => ev.preventDefault(), [])
 
   const handleTap = useCallback(() => {
-    if (isSelectionModeActiveFn()) {
+    if (isSelectionModeActive) {
       toggleSelection(transaction)
     } else {
       transaction._id && showTransactionModal()
     }
   }, [
-    isSelectionModeActiveFn,
+    isSelectionModeActive,
     showTransactionModal,
     toggleSelection,
     transaction
@@ -84,7 +84,7 @@ const TransactionOpener = ({
 TransactionOpener.propTypes = {
   transaction: PropTypes.object,
   toggleSelection: PropTypes.func,
-  isSelectionModeActiveFn: PropTypes.func,
+  isSelectionModeActive: PropTypes.func,
   showTransactionModal: PropTypes.func
 }
 

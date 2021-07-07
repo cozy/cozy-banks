@@ -3,8 +3,7 @@ import React, {
   useState,
   useCallback,
   useContext,
-  useMemo,
-  useRef
+  useMemo
 } from 'react'
 
 import flag from 'cozy-flags'
@@ -21,42 +20,45 @@ export const useSelectionContext = () => {
 // But an improvement would be to store only the ids.
 const SelectionProvider = ({ children }) => {
   const [selected, setSelected] = useState([])
-  const selectedRef = useRef(selected)
-  selectedRef.current = selected
+  const [isSelectionModeActive, setIsSelectionModeActive] = useState(false)
 
   const isSelectionModeEnabled = flag('banks.selectionMode.enabled')
+
+  const isSelected = useCallback(item => selected.includes(item), [selected])
 
   const emptySelection = useCallback(() => setSelected([]), [setSelected])
 
   const fillSelectionWith = useCallback(arr => setSelected(arr), [setSelected])
-
-  const isSelected = useCallback(item => selected.includes(item), [selected])
-
-  const isSelectionModeActiveFn = useCallback(() => {
-    return selectedRef.current.length > 0
-  }, [])
 
   const toggleSelection = useCallback(
     item => {
       if (!isSelectionModeEnabled) {
         return
       }
+
+      !isSelectionModeActive && setIsSelectionModeActive(true)
+
       return setSelected(selected => {
         const found = selected.includes(item)
-        return found
+        const nextSelected = found
           ? selected.filter(elem => elem !== item)
           : [...selected, item]
+
+        if (found && selected.length === 1) {
+          setIsSelectionModeActive(false)
+        }
+
+        return nextSelected
       })
     },
-    [isSelectionModeEnabled]
+    [isSelectionModeActive, isSelectionModeEnabled]
   )
 
   const value = useMemo(
     () => ({
       selected,
-      isSelectionModeActive: selected.length > 0,
-      // Only used this in callbacks since its value is not reactive
-      isSelectionModeActiveFn,
+      isSelectionModeActive,
+      setIsSelectionModeActive,
       isSelectionModeEnabled,
       isSelected,
       emptySelection,
@@ -65,7 +67,7 @@ const SelectionProvider = ({ children }) => {
     }),
     [
       selected,
-      isSelectionModeActiveFn,
+      isSelectionModeActive,
       isSelectionModeEnabled,
       isSelected,
       emptySelection,

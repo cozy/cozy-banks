@@ -49,7 +49,7 @@ const TransactionRowMobile = ({
   onRef,
   showRecurrence,
   isSelected,
-  isSelectionModeActiveFn,
+  isSelectionModeActive,
   toggleSelection,
   hasDivider
 }) => {
@@ -78,7 +78,7 @@ const TransactionRowMobile = ({
       <TransactionOpener
         transaction={transaction}
         toggleSelection={toggleSelection}
-        isSelectionModeActiveFn={isSelectionModeActiveFn}
+        isSelectionModeActive={isSelectionModeActive}
         showTransactionModal={showTransactionModal}
       >
         <ListItem
