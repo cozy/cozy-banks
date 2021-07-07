@@ -31,6 +31,11 @@ const SelectionProvider = ({ children }) => {
 
   const emptySelection = useCallback(() => setSelected([]), [setSelected])
 
+  const emptyAndDeactivateSelection = useCallback(() => {
+    emptySelection()
+    setIsSelectionModeActive(false)
+  }, [emptySelection])
+
   const fillSelectionWith = useCallback(arr => setSelected(arr), [setSelected])
 
   const toggleSelection = useCallback(
@@ -65,6 +70,7 @@ const SelectionProvider = ({ children }) => {
       isSelectionModeEnabled,
       isSelected,
       emptySelection,
+      emptyAndDeactivateSelection,
       toggleSelection,
       fillSelectionWith
     }),
@@ -74,6 +80,7 @@ const SelectionProvider = ({ children }) => {
       isSelectionModeEnabled,
       isSelected,
       emptySelection,
+      emptyAndDeactivateSelection,
       toggleSelection,
       fillSelectionWith
     ]

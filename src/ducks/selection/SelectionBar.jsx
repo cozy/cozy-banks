@@ -14,15 +14,15 @@ const SelectionBar = ({ transactions }) => {
     isSelectionModeEnabled,
     isSelectionModeActive,
     selected,
-    emptySelection,
+    emptyAndDeactivateSelection,
     fillSelectionWith
   } = useSelectionContext()
 
   const { t } = useI18n()
 
   const beforeUpdate = useCallback(() => {
-    emptySelection()
-  }, [emptySelection])
+    emptyAndDeactivateSelection()
+  }, [emptyAndDeactivateSelection])
 
   const afterUpdates = () => {
     Alerter.success(
@@ -63,7 +63,7 @@ const SelectionBar = ({ transactions }) => {
         <UISelectionBar
           actions={actions}
           selected={selected}
-          hideSelectionBar={emptySelection}
+          hideSelectionBar={emptyAndDeactivateSelection}
         />
       )}
       {transactionCategoryModal}
