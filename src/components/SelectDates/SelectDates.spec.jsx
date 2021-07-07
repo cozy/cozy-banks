@@ -91,4 +91,24 @@ describe('SelectDates', () => {
     // Already at latest, since onChange does nothing
     expect(onChange).not.toHaveBeenCalled()
   })
+
+  it('should behave correctly with undefined value', async () => {
+    const onChange = jest.fn()
+    const root = render(
+      <AppLike>
+        <SelectDates
+          value={undefined}
+          options={[{ yearMonth: '2017-10' }]}
+          onChange={onChange}
+        />
+      </AppLike>
+    )
+
+    // When value is undefined, the first option is displayed
+    expect(
+      Array.from(root.container.querySelectorAll('.cz__single-value')).map(
+        n => n.textContent
+      )
+    ).toEqual(['2017', 'October'])
+  })
 })
