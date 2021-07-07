@@ -6,6 +6,8 @@ import React, {
   useMemo
 } from 'react'
 
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+
 import flag from 'cozy-flags'
 
 export const SelectionContext = createContext()
@@ -19,6 +21,7 @@ export const useSelectionContext = () => {
 // imagine that there are quite few elements.
 // But an improvement would be to store only the ids.
 const SelectionProvider = ({ children }) => {
+  const { isDesktop } = useBreakpoints()
   const [selected, setSelected] = useState([])
   const [isSelectionModeActive, setIsSelectionModeActive] = useState(false)
 
@@ -44,14 +47,14 @@ const SelectionProvider = ({ children }) => {
           ? selected.filter(elem => elem !== item)
           : [...selected, item]
 
-        if (found && selected.length === 1) {
+        if (isDesktop && found && selected.length === 1) {
           setIsSelectionModeActive(false)
         }
 
         return nextSelected
       })
     },
-    [isSelectionModeActive, isSelectionModeEnabled]
+    [isDesktop, isSelectionModeActive, isSelectionModeEnabled]
   )
 
   const value = useMemo(

@@ -43,6 +43,8 @@ const mockTransactions = data['io.cozy.bank.operations'].map((x, i) => ({
 
 describe('Transactions', () => {
   const setup = ({ showTriggerErrors, renderFn }) => {
+    useBreakpoints.mockReturnValue({ isDesktop: false })
+
     const Wrapper = ({ transactions = mockTransactions }) => {
       return (
         <AppLike>
