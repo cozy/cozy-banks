@@ -1,5 +1,6 @@
 import { useCallback, useMemo } from 'react'
 
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import GraphCircleIcon from 'cozy-ui/transpiled/react/Icons/GraphCircle'
 import SelectAllIcon from 'cozy-ui/transpiled/react/Icons/SelectAll'
 
@@ -9,12 +10,21 @@ export const useSelectionBarActions = ({
   items,
   showTransactionCategoryModal
 }) => {
-  const { fillSelectionWith } = useSelectionContext()
+  const { isDesktop } = useBreakpoints()
+  const {
+    emptySelection,
+    emptyAndDeactivateSelection,
+    fillSelectionWith
+  } = useSelectionContext()
 
   const fillSelection = useCallback(() => fillSelectionWith(items), [
     fillSelectionWith,
     items
   ])
+
+  const unSelectAllAction = useCallback(() => {
+    isDesktop ? emptyAndDeactivateSelection() : emptySelection()
+  }, [emptyAndDeactivateSelection, emptySelection, isDesktop])
 
   const actions = useMemo(
     () => ({
@@ -25,11 +35,21 @@ export const useSelectionBarActions = ({
       },
       selectAll: {
         action: () => fillSelection(),
-        displayCondition: selected => selected.length > 0,
+        displayCondition: selected => selected.length !== items.length,
+        icon: SelectAllIcon
+      },
+      unselectAll: {
+        action: () => unSelectAllAction(),
+        displayCondition: selected => selected.length === items.length,
         icon: SelectAllIcon
       }
     }),
-    [fillSelection, showTransactionCategoryModal]
+    [
+      fillSelection,
+      items.length,
+      showTransactionCategoryModal,
+      unSelectAllAction
+    ]
   )
 
   return actions

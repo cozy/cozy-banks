@@ -926,6 +926,7 @@
     "selected_count": "item selected |||| items selected",
     "close": "Close",
     "categorize": "Categorize",
-    "selectAll": "Select all"
+    "selectAll": "Select all",
+    "unselectAll": "Unselect all"
   }
 }
