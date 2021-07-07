@@ -36,7 +36,8 @@ export const useSelectionBarActions = ({
       selectAll: {
         action: () => fillSelection(),
         displayCondition: selected => selected.length !== items.length,
-        icon: SelectAllIcon
+        icon: SelectAllIcon,
+        disabled: () => false
       },
       unselectAll: {
         action: () => unSelectAllAction(),
