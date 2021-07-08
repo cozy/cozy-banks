@@ -96,7 +96,7 @@ const TransactionSections = ({
   const { isDesktop, isExtraLarge } = useBreakpoints()
   const {
     isSelected,
-    isSelectionModeActiveFn,
+    isSelectionModeActive,
     isSelectionModeEnabled,
     toggleSelection
   } = useSelectionContext()
@@ -124,7 +124,7 @@ const TransactionSections = ({
                   isExtraLarge={isExtraLarge}
                   filteringOnAccount={filteringOnAccount}
                   isSelected={isSelected(transaction)}
-                  isSelectionModeActiveFn={isSelectionModeActiveFn}
+                  isSelectionModeActive={isSelectionModeActive}
                   isSelectionModeEnabled={isSelectionModeEnabled}
                   toggleSelection={toggleSelection}
                   hasDivider={

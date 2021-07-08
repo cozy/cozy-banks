@@ -38,7 +38,7 @@ const TransactionRowDesktop = ({
   onRef,
   showRecurrence,
   isSelected,
-  isSelectionModeActiveFn,
+  isSelectionModeActive,
   isSelectionModeEnabled,
   toggleSelection
 }) => {
@@ -71,14 +71,14 @@ const TransactionRowDesktop = ({
   const handleClickCategory = useCallback(
     ev => {
       ev.preventDefault()
-      if (isSelectionModeActiveFn()) {
+      if (isSelectionModeActive) {
         toggleSelection(transaction)
       } else {
         showTransactionCategoryModal()
       }
     },
     [
-      isSelectionModeActiveFn,
+      isSelectionModeActive,
       showTransactionCategoryModal,
       toggleSelection,
       transaction
@@ -101,18 +101,13 @@ const TransactionRowDesktop = ({
       if (!ev.currentTarget.contains(ev.target)) {
         return
       }
-      if (isSelectionModeActiveFn()) {
+      if (isSelectionModeActive) {
         toggleSelection(transaction)
       } else {
         showTransactionModal()
       }
     },
-    [
-      isSelectionModeActiveFn,
-      showTransactionModal,
-      toggleSelection,
-      transaction
-    ]
+    [isSelectionModeActive, showTransactionModal, toggleSelection, transaction]
   )
 
   // Virtual transactions, like those generated from recurrences, cannot be edited

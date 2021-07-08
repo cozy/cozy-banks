@@ -3,9 +3,10 @@ import React, {
   useState,
   useCallback,
   useContext,
-  useMemo,
-  useRef
+  useMemo
 } from 'react'
+
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
 import flag from 'cozy-flags'
 
@@ -20,55 +21,66 @@ export const useSelectionContext = () => {
 // imagine that there are quite few elements.
 // But an improvement would be to store only the ids.
 const SelectionProvider = ({ children }) => {
+  const { isDesktop } = useBreakpoints()
   const [selected, setSelected] = useState([])
-  const selectedRef = useRef(selected)
-  selectedRef.current = selected
+  const [isSelectionModeActive, setIsSelectionModeActive] = useState(false)
 
   const isSelectionModeEnabled = flag('banks.selectionMode.enabled')
 
-  const emptySelection = useCallback(() => setSelected([]), [setSelected])
-
-  const fillSelectionWith = useCallback(arr => setSelected(arr), [setSelected])
-
   const isSelected = useCallback(item => selected.includes(item), [selected])
 
-  const isSelectionModeActiveFn = useCallback(() => {
-    return selectedRef.current.length > 0
-  }, [])
+  const emptySelection = useCallback(() => setSelected([]), [setSelected])
+
+  const emptyAndDeactivateSelection = useCallback(() => {
+    emptySelection()
+    setIsSelectionModeActive(false)
+  }, [emptySelection])
+
+  const fillSelectionWith = useCallback(arr => setSelected(arr), [setSelected])
 
   const toggleSelection = useCallback(
     item => {
       if (!isSelectionModeEnabled) {
         return
       }
+
+      !isSelectionModeActive && setIsSelectionModeActive(true)
+
       return setSelected(selected => {
         const found = selected.includes(item)
-        return found
+        const nextSelected = found
           ? selected.filter(elem => elem !== item)
           : [...selected, item]
+
+        if (isDesktop && found && selected.length === 1) {
+          setIsSelectionModeActive(false)
+        }
+
+        return nextSelected
       })
     },
-    [isSelectionModeEnabled]
+    [isDesktop, isSelectionModeActive, isSelectionModeEnabled]
   )
 
   const value = useMemo(
     () => ({
       selected,
-      isSelectionModeActive: selected.length > 0,
-      // Only used this in callbacks since its value is not reactive
-      isSelectionModeActiveFn,
+      isSelectionModeActive,
+      setIsSelectionModeActive,
       isSelectionModeEnabled,
       isSelected,
       emptySelection,
+      emptyAndDeactivateSelection,
       toggleSelection,
       fillSelectionWith
     }),
     [
       selected,
-      isSelectionModeActiveFn,
+      isSelectionModeActive,
       isSelectionModeEnabled,
       isSelected,
       emptySelection,
+      emptyAndDeactivateSelection,
       toggleSelection,
       fillSelectionWith
     ]

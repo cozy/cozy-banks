@@ -1,7 +1,6 @@
 /* global mount */
 
 import React from 'react'
-import Tappable from 'react-tappable/lib/Tappable'
 import { render, fireEvent, wait } from '@testing-library/react'
 import { within } from '@testing-library/dom'
 
@@ -18,11 +17,6 @@ import { TransactionsDumb, sortByDate } from './Transactions'
 
 // No need to test this here
 jest.mock('ducks/transactions/TransactionPageErrors', () => () => null)
-
-jest.mock('react-tappable/lib/Tappable', () => ({
-  default: jest.fn(),
-  __esModule: true
-}))
 
 jest.mock('cozy-ui/transpiled/react/hooks/useBreakpoints', () => ({
   __esModule: true,
@@ -49,6 +43,8 @@ const mockTransactions = data['io.cozy.bank.operations'].map((x, i) => ({
 
 describe('Transactions', () => {
   const setup = ({ showTriggerErrors, renderFn }) => {
+    useBreakpoints.mockReturnValue({ isDesktop: false })
+
     const Wrapper = ({ transactions = mockTransactions }) => {
       return (
         <AppLike>
@@ -110,15 +106,6 @@ describe('Interactions', () => {
     Alerter.success.mockReset()
   })
 
-  // Mock tappable so that key down fires its onPress event
-  Tappable.mockImplementation(({ children, onPress, onTap }) => {
-    return (
-      <div onClick={onTap} onKeyDown={onPress}>
-        {children}
-      </div>
-    )
-  })
-
   const setup = ({
     isDesktop = false,
     transactions = mockTransactions
@@ -166,51 +153,6 @@ describe('Interactions', () => {
   })
 
   describe('SelectionBar', () => {
-    it('should show selection bar and open category modal', async () => {
-      const { root, client } = setup({ isDesktop: false })
-      const { getByText, getByTestId, queryByTestId } = root
-
-      fireEvent.keyDown(getByText('Maintenance'))
-      expect(queryByTestId('selectionBar')).toBeTruthy()
-      expect(queryByTestId('selectionBar-count').textContent).toBe(
-        '1 item selected'
-      )
-
-      // should remove the selection bar
-      fireEvent.click(getByText('Maintenance'))
-      expect(queryByTestId('selectionBar')).toBeFalsy()
-
-      // should show 2 transactions selected
-      fireEvent.keyDown(getByText('Maintenance'))
-      expect(queryByTestId('selectionBar')).toBeTruthy()
-      fireEvent.click(getByText('Franprix St Lazare Pr'))
-      expect(queryByTestId('selectionBar-count').textContent).toBe(
-        '2 items selected'
-      )
-
-      // should unselected transaction
-      fireEvent.click(getByText('Franprix St Lazare Pr'))
-      expect(queryByTestId('selectionBar-count').textContent).toBe(
-        '1 item selected'
-      )
-      fireEvent.click(getByText('Franprix St Lazare Pr'))
-      expect(queryByTestId('selectionBar-count').textContent).toBe(
-        '2 items selected'
-      )
-
-      // selecting a category
-      fireEvent.click(getByTestId('selectionBar-action-categorize'))
-      fireEvent.click(getByText('Everyday life'))
-      fireEvent.click(getByText('Supermarket'))
-
-      // should remove the selection bar and show a success alert
-      expect(queryByTestId('selectionBar')).toBeFalsy()
-      await wait(() => expect(client.save).toHaveBeenCalledTimes(2))
-      expect(Alerter.success).toHaveBeenCalledWith(
-        '2 operations have been recategorized'
-      )
-    })
-
     it('should show selection bar and open category modal on desktop', async () => {
       const { root, client } = setup({ isDesktop: true })
       const { getByText, getByTestId, queryByTestId } = root
