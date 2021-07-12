@@ -43,6 +43,8 @@ const RowCheckbox = ({ isSelected }) => {
   ) : null
 }
 
+const dividerStyle = { marginLeft: '3.5rem' }
+
 const TransactionRowMobile = ({
   transaction,
   filteringOnAccount,
@@ -104,7 +106,7 @@ const TransactionRowMobile = ({
                   <CategoryIcon categoryId={getCategoryId(transaction)} />
                 </Img>
                 <Bd className="u-mr-half">
-                  <ListItemText>
+                  <ListItemText disableTypography>
                     <Typography className="u-ellipsis" variant="body1">
                       {getLabel(transaction)}
                     </Typography>
@@ -144,9 +146,7 @@ const TransactionRowMobile = ({
             </Bd>
           </Media>
         </ListItem>
-        {hasDivider && (
-          <Divider style={{ marginLeft: '3.5rem' }} variant="inset" />
-        )}
+        {hasDivider && <Divider style={dividerStyle} variant="inset" />}
       </TransactionOpener>
       {transactionModal}
     </>
