@@ -104,7 +104,7 @@ const TransactionRowMobile = ({
                   <CategoryIcon categoryId={getCategoryId(transaction)} />
                 </Img>
                 <Bd className="u-mr-half">
-                  <ListItemText>
+                  <ListItemText disableTypography>
                     <Typography className="u-ellipsis" variant="body1">
                       {getLabel(transaction)}
                     </Typography>

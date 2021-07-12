@@ -159,7 +159,7 @@ const TransactionRowDesktop = ({
               </IconButton>
             </Img>
             <Bd className="u-pl-1">
-              <ListItemText className="u-pv-half">
+              <ListItemText className="u-pv-half" disableTypography>
                 <Typography variant="body1">{getLabel(transaction)}</Typography>
                 {!filteringOnAccount && <AccountCaption account={account} />}
                 {applicationDate ? (
