@@ -178,7 +178,9 @@ export const brandSplit = () => bundle => {
     return {
       ...bundle,
       ops: ops,
-      brand: brand ? brand.name : null
+      brand: brand ? brand.name : null,
+      categoryIds: uniq(ops.map(o => getCategoryId(o))),
+      amounts: uniq(ops.map(o => o.amount))
     }
   })
 }
