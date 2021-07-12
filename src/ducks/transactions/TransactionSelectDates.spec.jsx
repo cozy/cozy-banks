@@ -12,6 +12,7 @@ import TransactionSelectDates, { getOptions } from './TransactionSelectDates'
 import { createMockClient } from 'cozy-client'
 import { TRANSACTION_DOCTYPE } from 'doctypes'
 import AppLike from 'test/AppLike'
+import { findSelectDatesInput } from 'test/selectDates'
 import getClient from 'selectors/getClient'
 import useTransactionExtent from 'hooks/useTransactionExtent'
 
@@ -101,11 +102,10 @@ describe('TransactionSelectDates', () => {
       </AppLike>
     )
 
-    expect(
-      Array.from(root.container.querySelectorAll('.cz__single-value')).map(
-        n => n.textContent
-      )
-    ).toEqual(['2019', 'June'])
+    expect(findSelectDatesInput(root).map(n => n.textContent)).toEqual([
+      '2019',
+      'June'
+    ])
     expect(onExtentLoad).toHaveBeenCalledWith([])
   })
 
@@ -138,11 +138,10 @@ describe('TransactionSelectDates', () => {
       </AppLike>
     )
 
-    expect(
-      Array.from(root.container.querySelectorAll('.cz__single-value')).map(
-        n => n.textContent
-      )
-    ).toEqual(['2019', 'June'])
+    expect(findSelectDatesInput(root).map(n => n.textContent)).toEqual([
+      '2019',
+      'June'
+    ])
     expect(onExtentLoad).toHaveBeenCalledWith(['2017-08', '2018-06'])
   })
 })

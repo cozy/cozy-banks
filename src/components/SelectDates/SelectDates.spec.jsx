@@ -2,6 +2,7 @@ import { render, fireEvent } from '@testing-library/react'
 import AppLike from 'test/AppLike'
 import React from 'react'
 import SelectDates from './SelectDates'
+import { findSelectDatesInput } from 'test/selectDates'
 
 import Select from 'react-select'
 Select.defaultProps.menuIsOpen = true
@@ -74,11 +75,10 @@ describe('SelectDates', () => {
     )
 
     // When value is undefined, the first option is displayed
-    expect(
-      Array.from(root.container.querySelectorAll('.cz__single-value')).map(
-        n => n.textContent
-      )
-    ).toEqual(['2017', 'October'])
+    expect(findSelectDatesInput(root).map(n => n.textContent)).toEqual([
+      '2017',
+      'October'
+    ])
     const { prev, next } = findButtons(root)
 
     // Clicking on prev goes to the second option
@@ -105,10 +105,9 @@ describe('SelectDates', () => {
     )
 
     // When value is undefined, the first option is displayed
-    expect(
-      Array.from(root.container.querySelectorAll('.cz__single-value')).map(
-        n => n.textContent
-      )
-    ).toEqual(['2017', 'October'])
+    expect(findSelectDatesInput(root).map(n => n.textContent)).toEqual([
+      '2017',
+      'October'
+    ])
   })
 })
