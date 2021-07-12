@@ -137,7 +137,9 @@ const CategoriesHeader = props => {
   const onExtentLoad = useCallback(
     extent => {
       const latestPeriod = extent[1]
-      dispatch(addFilterByPeriod(latestPeriod))
+      if (latestPeriod) {
+        dispatch(addFilterByPeriod(latestPeriod))
+      }
     },
     [dispatch]
   )

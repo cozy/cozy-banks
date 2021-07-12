@@ -62,7 +62,9 @@ const TransactionSelectDates = ({ onExtentLoad, ...props }) => {
       return
     }
     onExtentLoad(
-      [earliestTransaction, latestTransaction].map(getMonthFromTransaction)
+      earliestTransaction && latestTransaction
+        ? [earliestTransaction, latestTransaction].map(getMonthFromTransaction)
+        : []
     )
   }, [earliestTransaction, latestTransaction, loading, onExtentLoad])
 
