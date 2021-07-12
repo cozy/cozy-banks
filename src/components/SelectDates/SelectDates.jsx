@@ -19,7 +19,6 @@ import RightIcon from 'cozy-ui/transpiled/react/Icons/Right'
 
 import styles from 'components/SelectDates/SelectDates.styl'
 import Select from 'components/Select'
-import scrollAware from 'components/SelectDates/scrollAware'
 import { rangedSome } from 'components/SelectDates/utils'
 import { themed } from 'components/useTheme'
 
@@ -147,7 +146,6 @@ class SelectDates extends PureComponent {
   getOptions = () => {
     // create options
     const { f, options } = this.props
-
     return options.map(option => {
       const date = parse(option.yearMonth, 'YYYY-MM')
       const year = format(date, 'YYYY')
@@ -244,7 +242,6 @@ class SelectDates extends PureComponent {
 
   render() {
     const {
-      scrolling,
       showFullYear,
       value,
       t,
@@ -311,7 +308,6 @@ class SelectDates extends PureComponent {
         className={cx(
           styles.SelectDates,
           styles[`SelectDatesColor_${theme}`],
-          scrolling && styles['SelectDates--scrolling'],
           className
         )}
       >
@@ -392,7 +388,6 @@ SelectDates.propTypes = {
 
 export default compose(
   translate(),
-  scrollAware,
   withBreakpoints(),
   themed
 )(SelectDates)
