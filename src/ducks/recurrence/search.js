@@ -115,3 +115,14 @@ export const findAndUpdateRecurrences = (recurrences, operations) => {
   }
   return updatedRecurrences
 }
+
+export const updateAmountsCategoriesRecurrences = bundles => {
+  const newBundles = [...bundles].map(b => {
+    return {
+      ...b,
+      amounts: uniq(b.ops.map(o => o.amount)),
+      categoryIds: uniq(b.ops.map(getCategoryId))
+    }
+  })
+  return newBundles
+}
