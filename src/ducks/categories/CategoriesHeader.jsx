@@ -132,18 +132,6 @@ const CategoriesHeader = props => {
     [dispatch]
   )
 
-  // When date selector loads the latest and earliest transaction,
-  // sets the period to the latest month
-  const onExtentLoad = useCallback(
-    extent => {
-      const latestPeriod = extent[1]
-      if (latestPeriod) {
-        dispatch(addFilterByPeriod(latestPeriod))
-      }
-    },
-    [dispatch]
-  )
-
   const incomeToggle = showIncomeToggle ? (
     <IncomeToggle withIncome={withIncome} onToggle={onWithIncomeToggle} />
   ) : null
@@ -171,7 +159,6 @@ const CategoriesHeader = props => {
   const dateSelector = (
     <TransactionSelectDates
       onChange={onChangePeriod}
-      onExtentLoad={onExtentLoad}
       value={period}
       showFullYear
       className={classes.selectDates}
