@@ -173,7 +173,6 @@ class TransactionsPage extends Component {
       <TransactionList
         showTriggerErrors={showTriggerErrors}
         onChangeTopMostTransaction={this.handleChangeTopmostTransaction}
-        onScroll={this.checkToActivateTopInfiniteScroll}
         transactions={transactions.data}
         canFetchMore={transactions.hasMore}
         filteringOnAccount={isFilteringOnAccount}
