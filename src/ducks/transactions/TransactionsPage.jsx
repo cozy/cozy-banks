@@ -41,6 +41,7 @@ import {
   addMonthToConn,
   makeFilteredTransactionsConn
 } from 'ducks/transactions/queries'
+import { DESKTOP_SCROLLING_ELEMENT_CLASSNAME } from './scroll/getScrollingElement'
 
 const getMonth = date => date.slice(0, 7)
 
@@ -235,7 +236,7 @@ class TransactionsPage extends Component {
           className={cx(
             styles.TransactionPage__transactions,
             className,
-            'js-scrolling-element'
+            DESKTOP_SCROLLING_ELEMENT_CLASSNAME
           )}
         >
           {flag('banks.future-balance') && showFutureBalance ? (

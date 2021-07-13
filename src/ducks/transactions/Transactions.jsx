@@ -24,6 +24,7 @@ import { getDate } from 'ducks/transactions/helpers'
 import useVisible from 'hooks/useVisible'
 import SelectionBar from 'ducks/selection/SelectionBar'
 import { useSelectionContext } from 'ducks/context/SelectionContext'
+import getScrollingElement from './scroll/getScrollingElement'
 
 export const sortByDate = (transactions = []) =>
   sortBy(transactions, getDate).reverse()
@@ -207,7 +208,7 @@ export class TransactionsDumb extends React.Component {
     const {
       breakpoints: { isDesktop }
     } = this.props
-    return isDesktop ? document.querySelector('.js-scrolling-element') : window
+    return getScrollingElement(isDesktop)
   }
 
   render() {

@@ -36,6 +36,7 @@ import BackButton from 'components/BackButton'
 import { BarCenter, BarSearch } from 'components/Bar'
 import { useParams } from 'components/RouterContext'
 import BarSearchInput from 'components/BarSearchInput'
+import { DESKTOP_SCROLLING_ELEMENT_CLASSNAME } from 'ducks/transactions/scroll/getScrollingElement'
 
 import searchIllu from 'assets/search-illu.svg'
 
@@ -260,7 +261,7 @@ const SearchPage = () => {
           </NarrowContent>
         </Padded>
       ) : null}
-      <div className={`js-scrolling-element`}>
+      <div className={DESKTOP_SCROLLING_ELEMENT_CLASSNAME}>
         {searchSufficient && lastUpdate ? (
           results.length > 0 ? (
             <TransactionsListContext.Provider value={transactionListOptions}>
