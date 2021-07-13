@@ -41,7 +41,9 @@ import {
   addMonthToConn,
   makeFilteredTransactionsConn
 } from 'ducks/transactions/queries'
-import { DESKTOP_SCROLLING_ELEMENT_CLASSNAME } from './scroll/getScrollingElement'
+import getScrollingElement, {
+  DESKTOP_SCROLLING_ELEMENT_CLASSNAME
+} from './scroll/getScrollingElement'
 
 const getMonth = date => date.slice(0, 7)
 
@@ -137,6 +139,12 @@ class TransactionsPage extends Component {
       currentMonth: month
     })
     this.props.onChangeMonth(month)
+
+    const {
+      breakpoints: { isDesktop }
+    } = this.props
+    const scrollingElement = getScrollingElement(isDesktop)
+    scrollingElement.scrollTo({ top: 0 })
   }
 
   renderTransactions() {
