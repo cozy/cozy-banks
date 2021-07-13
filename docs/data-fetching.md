@@ -91,7 +91,7 @@ fetchMore.
 - `transactions-<groupId>`
 
 When the user selects a group. Very similar to the `transactions-<accountId>`
-query but we fetch transactions for several accounts with a CouchDB `$or`
+query but we fetch transactions for several accounts with a CouchDB `$in`
 query on the `account` attribute.
 
 - `transactions-<groupId>-<endDate>`
