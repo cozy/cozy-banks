@@ -41,7 +41,7 @@ export const makeFilteredTransactionsConn = options => {
         }
         indexFields = ['date', 'account']
         whereClause = {
-          $or: accounts.map(a => ({ account: a }))
+          account: { $in: accounts }
         }
         sortByClause = [{ date: 'desc' }, { account: 'desc' }]
       } else if (filteringDoc._type === ACCOUNT_DOCTYPE) {
@@ -51,7 +51,7 @@ export const makeFilteredTransactionsConn = options => {
       } else if (Array.isArray(filteringDoc)) {
         indexFields = ['date', 'account']
         whereClause = {
-          $or: filteringDoc.map(a => ({ account: a }))
+          account: { $in: filteringDoc }
         }
         sortByClause = [{ date: 'desc' }, { account: 'desc' }]
       } else {
