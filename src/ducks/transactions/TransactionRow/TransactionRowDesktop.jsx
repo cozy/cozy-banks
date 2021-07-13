@@ -6,6 +6,7 @@ import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import Typography from 'cozy-ui/transpiled/react/Typography'
+import IconButton from 'cozy-ui/transpiled/react/IconButton'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 import Checkbox from 'cozy-ui/transpiled/react/Checkbox'
 
@@ -37,7 +38,7 @@ const TransactionRowDesktop = ({
   onRef,
   showRecurrence,
   isSelected,
-  isSelectionModeActiveFn,
+  isSelectionModeActive,
   isSelectionModeEnabled,
   toggleSelection
 }) => {
@@ -70,14 +71,14 @@ const TransactionRowDesktop = ({
   const handleClickCategory = useCallback(
     ev => {
       ev.preventDefault()
-      if (isSelectionModeActiveFn()) {
+      if (isSelectionModeActive) {
         toggleSelection(transaction)
       } else {
         showTransactionCategoryModal()
       }
     },
     [
-      isSelectionModeActiveFn,
+      isSelectionModeActive,
       showTransactionCategoryModal,
       toggleSelection,
       transaction
@@ -100,18 +101,13 @@ const TransactionRowDesktop = ({
       if (!ev.currentTarget.contains(ev.target)) {
         return
       }
-      if (isSelectionModeActiveFn()) {
+      if (isSelectionModeActive) {
         toggleSelection(transaction)
       } else {
         showTransactionModal()
       }
     },
-    [
-      isSelectionModeActiveFn,
-      showTransactionModal,
-      toggleSelection,
-      transaction
-    ]
+    [isSelectionModeActive, showTransactionModal, toggleSelection, transaction]
   )
 
   // Virtual transactions, like those generated from recurrences, cannot be edited
@@ -151,17 +147,20 @@ const TransactionRowDesktop = ({
           )}
         >
           <Media>
-            <Img
-              title={categoryTitle}
-              onClick={canEditTransaction && handleClickCategory}
-            >
-              <CategoryIcon
-                categoryId={categoryId}
-                className={styles['bnk-op-caticon']}
-              />
+            <Img title={categoryTitle}>
+              <IconButton
+                disabled={!canEditTransaction}
+                className={styles.CategoryIconButton}
+                onClick={canEditTransaction && handleClickCategory}
+              >
+                <CategoryIcon
+                  categoryId={categoryId}
+                  className={styles['bnk-op-caticon']}
+                />
+              </IconButton>
             </Img>
             <Bd className="u-pl-1">
-              <ListItemText className="u-pv-half">
+              <ListItemText className="u-pv-half" disableTypography>
                 <Typography variant="body1">{getLabel(transaction)}</Typography>
                 {!filteringOnAccount && <AccountCaption account={account} />}
                 {applicationDate ? (

@@ -19,11 +19,10 @@ import RightIcon from 'cozy-ui/transpiled/react/Icons/Right'
 
 import styles from 'components/SelectDates/SelectDates.styl'
 import Select from 'components/Select'
-import scrollAware from 'components/SelectDates/scrollAware'
 import { rangedSome } from 'components/SelectDates/utils'
 import { themed } from 'components/useTheme'
 
-const isAllYear = value => value.includes('allyear')
+const isAllYear = value => value && value.includes('allyear')
 
 const getOptionValue = option => option.value
 const capitalizeFirstLetter = string => {
@@ -147,7 +146,6 @@ class SelectDates extends PureComponent {
   getOptions = () => {
     // create options
     const { f, options } = this.props
-
     return options.map(option => {
       const date = parse(option.yearMonth, 'YYYY-MM')
       const year = format(date, 'YYYY')
@@ -160,6 +158,14 @@ class SelectDates extends PureComponent {
         monthF: capitalizeFirstLetter(f(date, 'MMMM'))
       }
     })
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.options !== prevProps.options) {
+      if (this.props.value) {
+        this.onChange(this.props.value)
+      }
+    }
   }
 
   handleChooseNext = () => {
@@ -204,12 +210,17 @@ class SelectDates extends PureComponent {
       if (!nearest) {
         nearest = findValue(!searchInPast)
       }
-      value = nearest.value
+      if (nearest) {
+        value = nearest.value
+      }
     }
-    if (value.includes('allyear')) {
+    if (value && value.includes('allyear')) {
       value = value.substr(0, 4)
     }
-    this.props.onChange(value)
+
+    if (value && this.props.value !== value) {
+      this.props.onChange(value)
+    }
   }
 
   getAvailableYears() {
@@ -244,7 +255,6 @@ class SelectDates extends PureComponent {
 
   render() {
     const {
-      scrolling,
       showFullYear,
       value,
       t,
@@ -311,7 +321,6 @@ class SelectDates extends PureComponent {
         className={cx(
           styles.SelectDates,
           styles[`SelectDatesColor_${theme}`],
-          scrolling && styles['SelectDates--scrolling'],
           className
         )}
       >
@@ -392,7 +401,6 @@ SelectDates.propTypes = {
 
 export default compose(
   translate(),
-  scrollAware,
   withBreakpoints(),
   themed
 )(SelectDates)

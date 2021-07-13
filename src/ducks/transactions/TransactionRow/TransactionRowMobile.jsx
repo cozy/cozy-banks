@@ -1,7 +1,6 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
-import Tappable from 'react-tappable/lib/Tappable'
 
 import flag from 'cozy-flags'
 import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
@@ -32,18 +31,19 @@ import ApplicationDateCaption from 'ducks/transactions/TransactionRow/Applicatio
 import AccountCaption from 'ducks/transactions/TransactionRow/AccountCaption'
 import RecurrenceCaption from 'ducks/transactions/TransactionRow/RecurrenceCaption'
 import { useSelectionContext } from 'ducks/context/SelectionContext'
+import TransactionOpener from 'ducks/transactions/TransactionRow/TransactionOpener'
 
-const RowCheckbox = ({ isSelected, onTap, onPress }) => {
+const RowCheckbox = ({ isSelected }) => {
   const { isSelectionModeActive } = useSelectionContext()
 
   return isSelectionModeActive ? (
     <Img style={{ marginLeft: '-1rem' }}>
-      <Tappable onTap={onTap} onPress={onPress} pressDelay={250}>
-        <Checkbox checked={isSelected} readOnly />
-      </Tappable>
+      <Checkbox checked={isSelected} readOnly />
     </Img>
   ) : null
 }
+
+const dividerStyle = { marginLeft: '3.5rem' }
 
 const TransactionRowMobile = ({
   transaction,
@@ -51,33 +51,20 @@ const TransactionRowMobile = ({
   onRef,
   showRecurrence,
   isSelected,
-  isSelectionModeActiveFn,
+  isSelectionModeActive,
   toggleSelection,
   hasDivider
 }) => {
   const { t } = useI18n()
   const account = transaction.account.data
   const rowRest = {}
-  const [rawShowTransactionModal, , transactionModal] = useTransactionModal(
+  const [showTransactionModal, , transactionModal] = useTransactionModal(
     transaction
-  )
-
-  const toggleTransactionSelection = useCallback(
-    () => toggleSelection(transaction),
-    [toggleSelection, transaction]
   )
 
   const boundOnRef = useMemo(() => {
     return onRef ? onRef.bind(null, transaction._id) : null
   }, [onRef, transaction])
-
-  const showTransactionModal = useCallback(
-    ev => {
-      ev.preventDefault()
-      rawShowTransactionModal()
-    },
-    [rawShowTransactionModal]
-  )
 
   if (flag('show-transactions-ids')) {
     rowRest.id = transaction._id
@@ -88,63 +75,38 @@ const TransactionRowMobile = ({
   const applicationDate = getApplicationDate(transaction)
   const recurrence = transaction.recurrence ? transaction.recurrence.data : null
 
-  const handleTap = useCallback(
-    ev => {
-      if (isSelectionModeActiveFn()) {
-        toggleSelection(transaction)
-      } else {
-        transaction._id && showTransactionModal(ev)
-      }
-    },
-    [
-      isSelectionModeActiveFn,
-      showTransactionModal,
-      toggleSelection,
-      transaction
-    ]
-  )
-
   return (
     <>
-      <ListItem
-        ref={boundOnRef}
-        {...rowRest}
-        className={cx({
-          [styles['TransactionRow--selected']]: isSelected
-        })}
-        button={!!transaction._id}
+      <TransactionOpener
+        transaction={transaction}
+        toggleSelection={toggleSelection}
+        isSelectionModeActive={isSelectionModeActive}
+        showTransactionModal={showTransactionModal}
       >
-        <Media className="u-w-100">
-          <RowCheckbox
-            isSelected={isSelected}
-            onTap={handleTap}
-            onPress={toggleTransactionSelection}
-          />
-          <Bd>
-            <Media className="u-w-100">
-              <Img
-                className="u-mr-half"
-                title={t(
-                  `Data.subcategories.${getCategoryName(
-                    getCategoryId(transaction)
-                  )}`
-                )}
-              >
-                <Tappable
-                  onTap={handleTap}
-                  onPress={toggleTransactionSelection}
-                  pressDelay={250}
+        <ListItem
+          ref={boundOnRef}
+          {...rowRest}
+          className={cx({
+            [styles['TransactionRow--selected']]: isSelected
+          })}
+          button={!!transaction._id}
+        >
+          <Media className="u-w-100">
+            <RowCheckbox isSelected={isSelected} />
+            <Bd>
+              <Media className="u-w-100">
+                <Img
+                  className="u-mr-half"
+                  title={t(
+                    `Data.subcategories.${getCategoryName(
+                      getCategoryId(transaction)
+                    )}`
+                  )}
                 >
                   <CategoryIcon categoryId={getCategoryId(transaction)} />
-                </Tappable>
-              </Img>
-              <Bd className="u-mr-half">
-                <Tappable
-                  onTap={handleTap}
-                  onPress={toggleTransactionSelection}
-                  pressDelay={250}
-                >
-                  <ListItemText>
+                </Img>
+                <Bd className="u-mr-half">
+                  <ListItemText disableTypography>
                     <Typography className="u-ellipsis" variant="body1">
                       {getLabel(transaction)}
                     </Typography>
@@ -155,14 +117,8 @@ const TransactionRowMobile = ({
                       <ApplicationDateCaption transaction={transaction} />
                     ) : null}
                   </ListItemText>
-                </Tappable>
-              </Bd>
-              <Img className={styles.TransactionRowMobileImg}>
-                <Tappable
-                  onTap={handleTap}
-                  onPress={toggleTransactionSelection}
-                  pressDelay={250}
-                >
+                </Bd>
+                <Img className={styles.TransactionRowMobileImg}>
                   <Figure
                     total={transaction.amount}
                     symbol={getCurrencySymbol(transaction.currency)}
@@ -172,28 +128,26 @@ const TransactionRowMobile = ({
                   {recurrence && showRecurrence ? (
                     <RecurrenceCaption recurrence={recurrence} />
                   ) : null}
-                </Tappable>
-              </Img>
-            </Media>
+                </Img>
+              </Media>
 
-            {showTransactionActions && (
-              <TransactionActions
-                transaction={transaction}
-                onlyDefault
-                compact
-                menuPosition="right"
-                className={cx(
-                  'u-mb-half',
-                  styles.TransactionRowMobile__actions
-                )}
-              />
-            )}
-          </Bd>
-        </Media>
-      </ListItem>
-      {hasDivider && (
-        <Divider style={{ marginLeft: '3.5rem' }} variant="inset" />
-      )}
+              {showTransactionActions && (
+                <TransactionActions
+                  transaction={transaction}
+                  onlyDefault
+                  compact
+                  menuPosition="right"
+                  className={cx(
+                    'u-mb-half',
+                    styles.TransactionRowMobile__actions
+                  )}
+                />
+              )}
+            </Bd>
+          </Media>
+        </ListItem>
+        {hasDivider && <Divider style={dividerStyle} variant="inset" />}
+      </TransactionOpener>
       {transactionModal}
     </>
   )

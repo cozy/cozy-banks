@@ -5258,10 +5258,10 @@ cozy-ui@40.1.0:
     react-select "2.2.0"
     react-swipeable-views "0.13.3"
 
-cozy-ui@51.0.2:
-  version "51.0.2"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-51.0.2.tgz#92e092a2c1a3437d45ec1515e19cff796f519b37"
-  integrity sha512-FfsemCsrXra4lUTuM6Qp48W0L485tiLvsGdrlJD/b2xsa/c/KCTnP2bgH6wyBtqQ3EzhQmOEOxNkwcrUXOTG7g==
+cozy-ui@51.1.0:
+  version "51.1.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-51.1.0.tgz#a0252ff8600f91f2b233466ae6af1be6e025c4db"
+  integrity sha512-fklO3mOHgAO5nKiDuo2xhtGWrjDKEyN0glnDFp5Xr4N81NP1Octg//XoybfauUFMxgcgMRTE7WL3oVGE8g047Q==
   dependencies:
     "@babel/runtime" "^7.3.4"
     "@popperjs/core" "^2.4.4"
@@ -15841,11 +15841,6 @@ react-swipeable-views@0.13.9, react-swipeable-views@^0.13.3:
     react-swipeable-views-core "^0.13.7"
     react-swipeable-views-utils "^0.13.9"
     warning "^4.0.1"
-
-react-tappable@1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/react-tappable/-/react-tappable-1.0.4.tgz#282b7b3dc25e6170b55d1ea33d986b7624a19fb9"
-  integrity sha512-thWt8b11Hy1BmWDPuqbj+Qom5MmnMZDjfzgSE2L2Yh0Hoc9+I6DKNmWrOJGaZtH6fL4FWtRk4HwyMfUJ10M67g==
 
 react-test-renderer@16.9.0, react-test-renderer@^16.0.0-0:
   version "16.9.0"

@@ -2,7 +2,6 @@ import React, { Component, useState, useCallback, useMemo } from 'react'
 import ReactDOM from 'react-dom'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
 import cx from 'classnames'
 import debounce from 'lodash/debounce'
 import compose from 'lodash/flowRight'
@@ -175,10 +174,19 @@ class TransactionsPage extends Component {
     )
   }
 
-  handleFetchMoreBecomeVisible() {
+  async handleFetchMoreBecomeVisible() {
     const { transactions } = this.props
-    if (transactions.hasMore && transactions.fetchStatus === 'loaded') {
-      transactions.fetchMore()
+    if (
+      transactions.hasMore &&
+      transactions.fetchStatus === 'loaded' &&
+      !this.fetchingMore
+    ) {
+      try {
+        this.fetchingMore = true
+        await transactions.fetchMore()
+      } finally {
+        this.fetchingMore = false
+      }
     }
   }
 
@@ -218,7 +226,9 @@ class TransactionsPage extends Component {
             showBalance={isMobile && !areAccountsLoading}
           />
         ) : null}
-        <HeaderLoadingProgress isFetching={isFetchingNewData} />
+        <HeaderLoadingProgress
+          isFetching={isFetchingNewData || this.fetchingMore}
+        />
         <div
           ref={this.handleListRef}
           style={{ opacity: 0 }}
@@ -289,10 +299,6 @@ export const UnpluggedTransactionsPage = compose(
   translate(),
   withBreakpoints()
 )(TransactionsPage)
-
-UnpluggedTransactionsPage.propTypes = {
-  filteredTransactions: PropTypes.array.isRequired
-}
 
 const ConnectedTransactionsPage = compose(
   withRouter,

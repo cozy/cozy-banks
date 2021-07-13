@@ -928,6 +928,7 @@
     "selected_count": "élément sélectionné |||| éléments sélectionnés",
     "close": "Fermer",
     "categorize": "Catégorisation",
-    "selectAll": "Tout sélectionner"
+    "selectAll": "Tout sélectionner",
+    "unselectAll": "Tout désélectionner"
   }
 }
