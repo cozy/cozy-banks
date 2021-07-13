@@ -1,6 +1,7 @@
+import React, { useState, useMemo } from 'react'
 import { render, fireEvent } from '@testing-library/react'
 import AppLike from 'test/AppLike'
-import React from 'react'
+
 import SelectDates from './SelectDates'
 import { findSelectDatesInput } from 'test/selectDates'
 
@@ -109,5 +110,69 @@ describe('SelectDates', () => {
       '2017',
       'October'
     ])
+  })
+
+  it('should call on change if options changes', () => {
+    const StatefulExample = ({ initialValue, onChange }) => {
+      const [state, setState] = useState('A')
+      const [value, setValue] = useState(initialValue)
+      const handleChange = value => {
+        setValue(value)
+        onChange(value)
+      }
+      const options = useMemo(() => {
+        switch (state) {
+          case 'A':
+            return [{ yearMonth: '2017-10' }]
+          case 'B':
+            return [{ yearMonth: '2021-01' }]
+          case 'C':
+            return [{ yearMonth: '2021-01' }, { yearMonth: '2021-02' }]
+        }
+      }, [state])
+      return (
+        <AppLike>
+          <button onClick={() => setState('A')}>set state A</button>
+          <button onClick={() => setState('B')}>set state B</button>
+          <button onClick={() => setState('C')}>set state C</button>
+          <SelectDates
+            value={value}
+            options={options}
+            onChange={handleChange}
+          />
+        </AppLike>
+      )
+    }
+
+    const onChange = jest.fn()
+    const root = render(
+      <StatefulExample initialValue="2017-10" onChange={onChange} />
+    )
+
+    expect(findSelectDatesInput(root).map(n => n.textContent)).toEqual([
+      '2017',
+      'October'
+    ])
+    fireEvent.click(root.getByText('set state B'))
+    // 2017-10 is not contained in state A options: onChange is called
+    // with the nearest value from state B options
+    expect(onChange).toHaveBeenLastCalledWith('2021-01')
+    expect(findSelectDatesInput(root).map(n => n.textContent)).toEqual([
+      '2021',
+      'January'
+    ])
+    fireEvent.click(root.getByText('set state A'))
+    // 2021-01 is not contained in state A options: onChange is called
+    // with the nearest value from state A options
+    expect(onChange).toHaveBeenLastCalledWith('2017-10')
+    expect(findSelectDatesInput(root).map(n => n.textContent)).toEqual([
+      '2017',
+      'October'
+    ])
+    fireEvent.click(root.getByText('set state B'))
+    onChange.mockReset()
+    // The value does not need to change here, no need to call onChange
+    fireEvent.click(root.getByText('set state C'))
+    expect(onChange).not.toHaveBeenCalled()
   })
 })
