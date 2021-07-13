@@ -22,7 +22,7 @@ import Select from 'components/Select'
 import { rangedSome } from 'components/SelectDates/utils'
 import { themed } from 'components/useTheme'
 
-const isAllYear = value => value.includes('allyear')
+const isAllYear = value => value && value.includes('allyear')
 
 const getOptionValue = option => option.value
 const capitalizeFirstLetter = string => {
@@ -160,6 +160,14 @@ class SelectDates extends PureComponent {
     })
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.options !== prevProps.options) {
+      if (this.props.value) {
+        this.onChange(this.props.value)
+      }
+    }
+  }
+
   handleChooseNext = () => {
     this.chooseOption(-1)
   }
@@ -202,12 +210,17 @@ class SelectDates extends PureComponent {
       if (!nearest) {
         nearest = findValue(!searchInPast)
       }
-      value = nearest.value
+      if (nearest) {
+        value = nearest.value
+      }
     }
-    if (value.includes('allyear')) {
+    if (value && value.includes('allyear')) {
       value = value.substr(0, 4)
     }
-    this.props.onChange(value)
+
+    if (value && this.props.value !== value) {
+      this.props.onChange(value)
+    }
   }
 
   getAvailableYears() {
