@@ -32,6 +32,7 @@ import {
   makeFilteredTransactionsConn,
   addPeriodToConn
 } from 'ducks/transactions/queries'
+import { DESKTOP_SCROLLING_ELEMENT_CLASSNAME } from 'ducks/transactions/scroll/getScrollingElement'
 import BarTheme from 'ducks/bar/BarTheme'
 import { computeCategoriesData } from 'ducks/categories/selectors'
 import { getDate } from 'ducks/transactions/helpers'
@@ -67,7 +68,7 @@ const CategoryTransactions = ({ transactions, subcategoryName }) => {
       : []
   }, [subcategoryName, transactions])
   return (
-    <div className="js-scrolling-element">
+    <div className={DESKTOP_SCROLLING_ELEMENT_CLASSNAME}>
       <TransactionList
         showTriggerErrors={false}
         onChangeTopMostTransaction={null}

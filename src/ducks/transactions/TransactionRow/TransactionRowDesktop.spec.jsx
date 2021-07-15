@@ -5,6 +5,8 @@ import AppLike from 'test/AppLike'
 import fixtures from 'test/fixtures'
 import TransactionRowDesktop from './TransactionRowDesktop'
 
+// TransactionRowDesktop is mainly tested via Transactions.spec.jsx
+// This is why this file is so short
 describe('TransactionRowDesktop', () => {
   const setup = () => {
     const transaction = fixtures['io.cozy.bank.operations'][0]

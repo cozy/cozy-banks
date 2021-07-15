@@ -138,17 +138,29 @@ describe('Interactions', () => {
   }
 
   describe('Transaction modal', () => {
-    it('should show transaction modal on click on label', async () => {
+    const checkClickOnTextOpensTransactionModal = text => {
       const { root } = setup({
         isDesktop: true,
         transactions: mockTransactions.slice(0, 1)
       })
-      const label = root.getByText('Remboursement Pret Lcl')
+      const node = root.getByText(text)
       expect(root.queryByRole('dialog')).toBeFalsy()
-      fireEvent.click(label)
+      fireEvent.click(node)
       const dialog = root.getByRole('dialog')
       expect(dialog).toBeTruthy()
       expect(within(dialog).getByText('Assigned to Aug 2017'))
+    }
+
+    it('should show transaction modal on click on label', () => {
+      checkClickOnTextOpensTransactionModal('Remboursement Pret Lcl')
+    })
+
+    it('should show transaction modal on click on date', () => {
+      checkClickOnTextOpensTransactionModal('25 Aug 2017')
+    })
+
+    it('should show transaction modal on click on amount', () => {
+      checkClickOnTextOpensTransactionModal('-1,231.00')
     })
   })
 
