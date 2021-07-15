@@ -1,12 +1,11 @@
 import React from 'react'
-import compose from 'lodash/flowRight'
 
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Infos from 'cozy-ui/transpiled/react/Infos'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { ButtonLink } from 'cozy-ui/transpiled/react/Button'
 
-import CozyClient, { queryConnect, Q, isQueryLoading } from 'cozy-client'
+import CozyClient, { useQuery, Q, isQueryLoading } from 'cozy-client'
 import { KONNECTOR_DOCTYPE } from 'doctypes'
 
 import styles from 'components/KonnectorUpdateInfo/styles.styl'
@@ -27,10 +26,21 @@ const redirectionOptions = {
   pendingUpdate: true
 }
 
-const KonnectorUpdateInfo = ({ outdatedKonnectors }) => {
+const outdatedKonnectorsConn = {
+  query: () =>
+    Q(KONNECTOR_DOCTYPE).where({ available_version: { $exists: true } }),
+  fetchPolicy: CozyClient.fetchPolicies.olderThan(30 * 1000),
+  as: 'outdatedKonnectors'
+}
+
+const KonnectorUpdateInfo = () => {
   const { t } = useI18n()
   const { isMobile } = useBreakpoints()
   const [url] = useRedirectionURL(APP_DOCTYPE, redirectionOptions)
+  const outdatedKonnectors = useQuery(
+    outdatedKonnectorsConn.query,
+    outdatedKonnectorsConn
+  )
 
   if (!url || isQueryLoading(outdatedKonnectors)) {
     return null
@@ -76,16 +86,4 @@ const KonnectorUpdateInfo = ({ outdatedKonnectors }) => {
   )
 }
 
-const outdatedKonnectors = {
-  query: () =>
-    Q(KONNECTOR_DOCTYPE).where({ available_version: { $exists: true } }),
-  fetchPolicy: CozyClient.fetchPolicies.olderThan(30 * 1000),
-  as: 'outdatedKonnectors'
-}
-
-export default compose(
-  queryConnect({
-    outdatedKonnectors
-  }),
-  React.memo
-)(KonnectorUpdateInfo)
+export default React.memo(KonnectorUpdateInfo)
