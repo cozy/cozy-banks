@@ -41,6 +41,9 @@ import {
   addMonthToConn,
   makeFilteredTransactionsConn
 } from 'ducks/transactions/queries'
+import getScrollingElement, {
+  DESKTOP_SCROLLING_ELEMENT_CLASSNAME
+} from './scroll/getScrollingElement'
 
 const getMonth = date => date.slice(0, 7)
 
@@ -136,6 +139,12 @@ class TransactionsPage extends Component {
       currentMonth: month
     })
     this.props.onChangeMonth(month)
+
+    const {
+      breakpoints: { isDesktop }
+    } = this.props
+    const scrollingElement = getScrollingElement(isDesktop)
+    scrollingElement.scrollTo({ top: 0 })
   }
 
   renderTransactions() {
@@ -164,7 +173,6 @@ class TransactionsPage extends Component {
       <TransactionList
         showTriggerErrors={showTriggerErrors}
         onChangeTopMostTransaction={this.handleChangeTopmostTransaction}
-        onScroll={this.checkToActivateTopInfiniteScroll}
         transactions={transactions.data}
         canFetchMore={transactions.hasMore}
         filteringOnAccount={isFilteringOnAccount}
@@ -235,7 +243,7 @@ class TransactionsPage extends Component {
           className={cx(
             styles.TransactionPage__transactions,
             className,
-            'js-scrolling-element'
+            DESKTOP_SCROLLING_ELEMENT_CLASSNAME
           )}
         >
           {flag('banks.future-balance') && showFutureBalance ? (

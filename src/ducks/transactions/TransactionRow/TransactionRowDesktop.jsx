@@ -173,19 +173,13 @@ const TransactionRowDesktop = ({
             </Bd>
           </Media>
         </td>
-        <TdSecondary
-          className={styles.ColumnSizeDate}
-          onClick={handleClickCategory}
-        >
+        <TdSecondary className={styles.ColumnSizeDate}>
           <TransactionDate
             isExtraLarge={isExtraLarge}
             transaction={transaction}
           />
         </TdSecondary>
-        <TdSecondary
-          className={styles.ColumnSizeAmount}
-          onClick={handleClickCategory}
-        >
+        <TdSecondary className={styles.ColumnSizeAmount}>
           <Figure
             total={transaction.amount || 0}
             symbol={getCurrencySymbol(transaction.currency)}
