@@ -5,9 +5,10 @@ import Infos from 'cozy-ui/transpiled/react/Infos'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { ButtonLink } from 'cozy-ui/transpiled/react/Button'
 
-import CozyClient, { useQuery, Q, isQueryLoading } from 'cozy-client'
-import { KONNECTOR_DOCTYPE } from 'doctypes'
+import CozyClient, { Q, isQueryLoading } from 'cozy-client'
 
+import { KONNECTOR_DOCTYPE } from 'doctypes'
+import useFullyLoadedQuery from 'hooks/useFullyLoadedQuery'
 import styles from 'components/KonnectorUpdateInfo/styles.styl'
 import Padded from 'components/Padded'
 import useRedirectionURL from 'hooks/useRedirectionURL'
@@ -37,17 +38,13 @@ const KonnectorUpdateInfo = () => {
   const { t } = useI18n()
   const { isMobile } = useBreakpoints()
   const [url] = useRedirectionURL(APP_DOCTYPE, redirectionOptions)
-  const outdatedKonnectors = useQuery(
+  const outdatedKonnectors = useFullyLoadedQuery(
     outdatedKonnectorsConn.query,
     outdatedKonnectorsConn
   )
 
   if (!url || isQueryLoading(outdatedKonnectors)) {
     return null
-  }
-
-  if (outdatedKonnectors.hasMore) {
-    outdatedKonnectors.fetchMore()
   }
 
   const bankingKonnectors = outdatedKonnectors.data.filter(
