@@ -39,6 +39,7 @@ import cozyBar from 'utils/cozyBar'
 import { getLanguageFromDOM } from 'utils/lang'
 
 import './logger'
+import parseCozyData from 'utils/cozyData'
 
 if (__TARGET__ === 'mobile') {
   require('styles/mobile.styl')
@@ -62,7 +63,10 @@ const initRender = () => {
 
 const setupApp = async persistedState => {
   const root = document.querySelector('[role=application]')
-  const data = root.dataset
+  const {
+    app: { icon, name },
+    locale
+  } = parseCozyData(root)
   lang = getLanguageFromDOM(root)
 
   setupD3Locale(lang)
@@ -115,10 +119,10 @@ const setupApp = async persistedState => {
   if (__TARGET__ !== 'mobile') {
     !flag('authentication') &&
       cozyBar.init({
-        appName: data.cozyAppName,
+        appName: name,
         cozyClient: client,
-        iconPath: data.cozyIconPath,
-        lang: data.cozyLocale,
+        iconPath: icon,
+        lang: locale,
         replaceTitleOnMobile: true
       })
   } else {
