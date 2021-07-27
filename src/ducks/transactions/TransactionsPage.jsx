@@ -273,32 +273,39 @@ const autoUpdateOptions = {
 
 const setAutoUpdate = conn => ({ ...conn, autoUpdate: autoUpdateOptions })
 
-const addTransactions = Component => props => {
-  const [month, setMonth] = useState(null)
-  const initialConn = makeFilteredTransactionsConn(props)
-  const conn = useMemo(() => {
-    return month
-      ? setAutoUpdate(addMonthToConn(initialConn, month))
-      : setAutoUpdate(initialConn)
-  }, [initialConn, month])
-  const transactions = useQuery(conn.query, conn)
-  const transactionsLoaded = useLast(transactions, (last, cur) => {
-    return !last || cur.lastUpdate
-  })
-  const handleChangeMonth = useCallback(
-    month => {
-      setMonth(month)
-    },
-    [setMonth]
-  )
-  return (
-    <Component
-      {...props}
-      transactions={transactionsLoaded}
-      onChangeMonth={handleChangeMonth}
-      isFetchingNewData={transactions !== transactionsLoaded}
-    />
-  )
+const addTransactions = Component => {
+  const Wrapped = props => {
+    const [month, setMonth] = useState(null)
+    const initialConn = makeFilteredTransactionsConn(props)
+    const conn = useMemo(() => {
+      return month
+        ? setAutoUpdate(addMonthToConn(initialConn, month))
+        : setAutoUpdate(initialConn)
+    }, [initialConn, month])
+    const transactions = useQuery(conn.query, conn)
+    const transactionsLoaded = useLast(transactions, (last, cur) => {
+      return !last || cur.lastUpdate
+    })
+    const handleChangeMonth = useCallback(
+      month => {
+        setMonth(month)
+      },
+      [setMonth]
+    )
+
+    return (
+      <Component
+        {...props}
+        transactions={transactionsLoaded}
+        onChangeMonth={handleChangeMonth}
+        isFetchingNewData={transactions !== transactionsLoaded}
+      />
+    )
+  }
+
+  Wrapped.displayName = `withTransactions(${Component.displayName ||
+    Component.name})`
+  return Wrapped
 }
 
 export const DumbTransactionsPage = TransactionsPage
