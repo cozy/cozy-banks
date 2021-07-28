@@ -235,7 +235,7 @@ class TransactionsPage extends Component {
           />
         ) : null}
         <HeaderLoadingProgress
-          isFetching={isFetchingNewData || this.fetchingMore}
+          isFetching={isFetchingNewData || !!this.fetchingMore}
         />
         <div
           ref={this.handleListRef}
