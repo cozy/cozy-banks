@@ -12,10 +12,17 @@ import { BarRight } from 'components/Bar'
 import SearchIconLink from 'ducks/search/SearchIconLink'
 import LegalMention from 'ducks/legal/LegalMention'
 import AccountSwitchBalanceDetails from 'ducks/balance/AccountSwitchBalanceDetails'
+import SelectionIconLink from 'ducks/selection/SelectionIconLink'
+import { useSelectionContext } from 'ducks/context/SelectionContext'
 
 export const DumbBalanceDetailsHeader = props => {
   const { isMobile } = useBreakpoints()
   const { accountSwitchSize, children, showLegalMention } = props
+  const {
+    isSelectionModeEnabled,
+    isSelectionModeActive,
+    setIsSelectionModeActive
+  } = useSelectionContext()
 
   return (
     <Header theme="inverted" fixed>
@@ -36,6 +43,11 @@ export const DumbBalanceDetailsHeader = props => {
       {isMobile && (
         <BarRight>
           <SearchIconLink />
+          <SelectionIconLink
+            isSelectionModeEnabled={isSelectionModeEnabled}
+            isSelectionModeActive={isSelectionModeActive}
+            setIsSelectionModeActive={setIsSelectionModeActive}
+          />
         </BarRight>
       )}
       {children}
