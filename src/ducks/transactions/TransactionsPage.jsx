@@ -15,7 +15,6 @@ import {
 } from 'cozy-client'
 import { translate } from 'cozy-ui/transpiled/react/I18n'
 import Typography from 'cozy-ui/transpiled/react/Typography'
-import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import flag from 'cozy-flags'
 
 import {
@@ -208,17 +207,12 @@ class TransactionsPage extends Component {
 
   render() {
     const {
-      accounts,
-      breakpoints: { isMobile },
       showHeader,
       showFutureBalance,
       className,
       transactions,
       isFetchingNewData
     } = this.props
-
-    const areAccountsLoading =
-      isQueryLoading(accounts) && !hasQueryBeenLoaded(accounts)
 
     const theme = 'primary'
     return (
@@ -231,7 +225,6 @@ class TransactionsPage extends Component {
             handleChangeMonth={this.handleChangeMonth}
             currentMonth={this.state.currentMonth}
             showBackButton={this.props.showBackButton}
-            showBalance={isMobile && !areAccountsLoading}
           />
         ) : null}
         <HeaderLoadingProgress
@@ -311,8 +304,7 @@ const addTransactions = Component => {
 export const DumbTransactionsPage = TransactionsPage
 export const UnpluggedTransactionsPage = compose(
   withRouter,
-  translate(),
-  withBreakpoints()
+  translate()
 )(TransactionsPage)
 
 const ConnectedTransactionsPage = compose(
