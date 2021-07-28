@@ -6,12 +6,10 @@ import Fuse from 'fuse.js/dist/fuse.js'
 
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Typography from 'cozy-ui/transpiled/react/Typography'
-import Button from 'cozy-ui/transpiled/react/MuiCozyTheme/Buttons'
+import Button from 'cozy-ui/transpiled/react/Button'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import Empty from 'cozy-ui/transpiled/react/Empty'
 import NarrowContent from 'cozy-ui/transpiled/react/NarrowContent'
-import HistoryIcon from 'cozy-ui/transpiled/react/Icons/History'
-import Icon from 'cozy-ui/transpiled/react/Icon'
 import { useQuery, isQueryLoading } from 'cozy-client'
 
 import { useTrackPage } from 'ducks/tracking/browser'
@@ -39,6 +37,7 @@ import searchIllu from 'assets/search-illu.svg'
 
 const emptyResults = []
 const transactionListOptions = { mobileSectionDateFormat: 'ddd D MMMM YYYY' }
+const emptyButtonStyle = { maxWidth: '80%' }
 
 const SearchPage = () => {
   const params = useParams()
@@ -157,16 +156,14 @@ const SearchPage = () => {
             <Empty
               className="u-mt-large"
               title={t('Search.no-transactions-found', { search })}
-              text={
-                <Button
-                  onClick={handleFetchMore}
-                  startIcon={<Icon icon={HistoryIcon} />}
-                >
-                  {t('Search.search-older-transactions')}
-                </Button>
-              }
-              icon={''}
-            />
+            >
+              <Button
+                style={emptyButtonStyle}
+                theme="secondary"
+                label={t('Search.search-older-transactions')}
+                onClick={handleFetchMore}
+              />
+            </Empty>
           ))}
       </div>
     </div>
