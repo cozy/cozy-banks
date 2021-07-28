@@ -121,7 +121,7 @@ const SearchPage = () => {
       <HeaderLoadingProgress
         isFetching={transactionCol.fetchStatus === 'loading'}
       />
-      {isMobile ? (
+      {isMobile && (
         <Typography color="textSecondary" className="u-p-1">
           <EarliestTransactionDate
             onFetchMore={handleFetchMore}
@@ -129,8 +129,8 @@ const SearchPage = () => {
             transactionCol={transactionCol}
           />
         </Typography>
-      ) : null}
-      {!searchSufficient || !lastUpdate ? (
+      )}
+      {(!searchSufficient || !lastUpdate) && (
         <Padded>
           <NarrowContent className="u-m-auto">
             <CompositeHeader
@@ -142,10 +142,11 @@ const SearchPage = () => {
             <SearchSuggestions />
           </NarrowContent>
         </Padded>
-      ) : null}
+      )}
       <div className={DESKTOP_SCROLLING_ELEMENT_CLASSNAME}>
-        {searchSufficient && lastUpdate ? (
-          results.length > 0 ? (
+        {searchSufficient &&
+          lastUpdate &&
+          (results.length > 0 ? (
             <TransactionsListContext.Provider value={transactionListOptions}>
               <TransactionList
                 transactions={results}
@@ -166,8 +167,7 @@ const SearchPage = () => {
               }
               icon={''}
             />
-          )
-        ) : null}
+          ))}
       </div>
     </div>
   )
