@@ -4,11 +4,10 @@ import debounce from 'lodash/debounce'
 import keyBy from 'lodash/keyBy'
 import Fuse from 'fuse.js/dist/fuse.js'
 
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import Button from 'cozy-ui/transpiled/react/MuiCozyTheme/Buttons'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Empty from 'cozy-ui/transpiled/react/Empty'
 import NarrowContent from 'cozy-ui/transpiled/react/NarrowContent'
 import HistoryIcon from 'cozy-ui/transpiled/react/Icons/History'
@@ -21,15 +20,9 @@ import {
   TransactionsListContext
 } from 'ducks/transactions/Transactions'
 import BarTheme from 'ducks/bar/BarTheme'
-import TransactionTableHead from 'ducks/transactions/header/TableHead'
-import Header from 'components/Header'
 import HeaderLoadingProgress from 'components/HeaderLoadingProgress'
 import Padded from 'components/Padded'
-import { PageTitle } from 'components/Title'
-import BackButton from 'components/BackButton'
-import { BarCenter, BarSearch } from 'components/Bar'
 import { useParams } from 'components/RouterContext'
-import BarSearchInput from 'components/BarSearchInput'
 import { DESKTOP_SCROLLING_ELEMENT_CLASSNAME } from 'ducks/transactions/scroll/getScrollingElement'
 import {
   getTransactionDate,
@@ -40,6 +33,7 @@ import { searchConn } from 'ducks/search/queries'
 import EarliestTransactionDate from 'ducks/search/EarliestTransactionDate'
 import CompositeHeader from 'ducks/search/CompositeHeader'
 import SearchSuggestions from 'ducks/search/SearchSuggestions'
+import SearchHeader from 'ducks/search/SearchHeader'
 
 import searchIllu from 'assets/search-illu.svg'
 
@@ -53,11 +47,6 @@ const SearchPage = () => {
 
   const [search, setSearch] = useState(params.search || '')
   const [resultIds, setResultIds] = useState([])
-
-  const handleReset = inputNode => {
-    setSearch('')
-    inputNode.focus()
-  }
 
   useTrackPage('recherche')
 
@@ -93,13 +82,6 @@ const SearchPage = () => {
     }, 200)
   }, [fuse, setResultIds])
 
-  const handleChange = useCallback(
-    ev => {
-      setSearch(ev.target.value)
-    },
-    [setSearch]
-  )
-
   const handleFetchMore = useCallback(() => {
     if (!isQueryLoading(transactionCol)) {
       transactionCol.fetchMore()
@@ -127,54 +109,15 @@ const SearchPage = () => {
   return (
     <div>
       <BarTheme theme="primary" />
-      <Header theme="inverted" fixed>
-        {isMobile ? (
-          <>
-            <BackButton to="/balances" arrow={true} />
-            <BarCenter>
-              <BarSearchInput
-                placeholder={t('Search.input-placeholder')}
-                value={search}
-                onChange={handleChange}
-                autofocus
-                onReset={handleReset}
-              />
-            </BarCenter>
-          </>
-        ) : (
-          <Padded>
-            <Media>
-              <Img>
-                <BackButton to="/balances" arrow={true} />
-              </Img>
-              <Bd>
-                <PageTitle className="u-lh-tiny">
-                  {searchSufficient && results.length
-                    ? t('Search.title-results', {
-                        smart_count: results.length
-                      })
-                    : t('Search.title')}
-                </PageTitle>
-                <EarliestTransactionDate
-                  onFetchMore={handleFetchMore}
-                  transaction={earliestTransaction}
-                  transactionCol={transactionCol}
-                />
-              </Bd>
-            </Media>
-            <BarSearch>
-              <BarSearchInput
-                placeholder={t('Search.input-placeholder')}
-                value={search}
-                onChange={handleChange}
-                autofocus
-                onReset={handleReset}
-              />
-            </BarSearch>
-          </Padded>
-        )}
-        <TransactionTableHead isSubcategory={false} />
-      </Header>
+      <SearchHeader
+        results={results}
+        search={search}
+        setSearch={setSearch}
+        searchSufficient={searchSufficient}
+        handleFetchMore={handleFetchMore}
+        transactionCol={transactionCol}
+        earliestTransaction={earliestTransaction}
+      />
       <HeaderLoadingProgress
         isFetching={transactionCol.fetchStatus === 'loading'}
       />
