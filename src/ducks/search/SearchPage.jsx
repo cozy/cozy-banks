@@ -1,25 +1,20 @@
 import React, { useState, useMemo, useEffect, useCallback } from 'react'
 import minBy from 'lodash/minBy'
 import debounce from 'lodash/debounce'
-import orderBy from 'lodash/orderBy'
 import keyBy from 'lodash/keyBy'
-import Typography from 'cozy-ui/transpiled/react/Typography'
-import Button from 'cozy-ui/transpiled/react/MuiCozyTheme/Buttons'
 import Fuse from 'fuse.js/dist/fuse.js'
 
+import Typography from 'cozy-ui/transpiled/react/Typography'
+import Button from 'cozy-ui/transpiled/react/MuiCozyTheme/Buttons'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Empty from 'cozy-ui/transpiled/react/Empty'
 import NarrowContent from 'cozy-ui/transpiled/react/NarrowContent'
 import HistoryIcon from 'cozy-ui/transpiled/react/Icons/History'
-import IconButton from 'cozy-ui/transpiled/react/IconButton'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import Tooltip from 'cozy-ui/transpiled/react/Tooltip'
+import { useQuery, isQueryLoading } from 'cozy-client'
 
-import { Q, useQuery, isQueryLoading } from 'cozy-client'
-
-import { TRANSACTION_DOCTYPE } from 'doctypes'
 import { useTrackPage } from 'ducks/tracking/browser'
 import {
   TransactionList,
@@ -27,7 +22,6 @@ import {
 } from 'ducks/transactions/Transactions'
 import BarTheme from 'ducks/bar/BarTheme'
 import TransactionTableHead from 'ducks/transactions/header/TableHead'
-
 import Header from 'components/Header'
 import HeaderLoadingProgress from 'components/HeaderLoadingProgress'
 import Padded from 'components/Padded'
@@ -37,75 +31,20 @@ import { BarCenter, BarSearch } from 'components/Bar'
 import { useParams } from 'components/RouterContext'
 import BarSearchInput from 'components/BarSearchInput'
 import { DESKTOP_SCROLLING_ELEMENT_CLASSNAME } from 'ducks/transactions/scroll/getScrollingElement'
+import {
+  getTransactionDate,
+  isSearchSufficient,
+  orderSearchResults
+} from 'ducks/search/helpers'
+import { searchConn } from 'ducks/search/queries'
+import EarliestTransactionDate from 'ducks/search/EarliestTransactionDate'
+import CompositeHeader from 'ducks/search/CompositeHeader'
+import SearchSuggestions from 'ducks/search/SearchSuggestions'
 
 import searchIllu from 'assets/search-illu.svg'
 
-const isSearchSufficient = searchStr => searchStr.length > 2
-
-const SearchSuggestions = () => {
-  const { t } = useI18n()
-  return (
-    <Typography align="center" variant="body1">
-      {t('Search.suggestions')}
-    </Typography>
-  )
-}
-
-const EarliestTransactionDate = ({
-  transaction,
-  transactionCol,
-  onFetchMore
-}) => {
-  const { t, f } = useI18n()
-  return transaction ? (
-    <div>
-      {t('Search.since', { date: f(transaction.date, 'D MMM YYYY') })}
-      {transactionCol.hasMore ? (
-        <Tooltip title={t('Search.search-older-transactions')}>
-          <IconButton
-            disabled={isQueryLoading(transactionCol)}
-            onClick={onFetchMore}
-          >
-            <Icon icon={HistoryIcon} />
-          </IconButton>
-        </Tooltip>
-      ) : null}
-    </div>
-  ) : null
-}
-
-const CompositeHeader = ({ title, image }) => {
-  return (
-    <div className="u-ta-center">
-      {image}
-      <Typography variant="h3" classes={{ root: 'u-mb-half' }}>
-        {title}
-      </Typography>
-    </div>
-  )
-}
-
-const byRoundedScore = result => parseFloat(result.score.toFixed(1), 10)
-const byDate = result => result.item.date
-
-const orderSearchResults = results => {
-  return orderBy(results, [byRoundedScore, byDate], ['asc', 'desc'])
-}
-
 const emptyResults = []
-
 const transactionListOptions = { mobileSectionDateFormat: 'ddd D MMMM YYYY' }
-
-const searchConn = {
-  query: Q(TRANSACTION_DOCTYPE)
-    .where({ _id: { $gt: null } })
-    .indexFields(['date'])
-    .sortBy([{ date: 'desc' }])
-    .limitBy(1000),
-  as: 'transactions-searchPage'
-}
-
-const getTransactionDate = x => x.date
 
 const SearchPage = () => {
   const params = useParams()
