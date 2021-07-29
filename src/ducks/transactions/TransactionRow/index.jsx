@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 
 import flag from 'cozy-flags'
 
-import TransactionModal from 'ducks/transactions/TransactionModal'
+import TransactionModal from 'ducks/transactions/TransactionModal/TransactionModal'
 import TransactionCategoryEditor from 'ducks/transactions/TransactionCategoryEditor'
 import useSwitch from 'hooks/useSwitch'
 

@@ -35,7 +35,7 @@ import {
 
 import { getLabel } from 'ducks/transactions'
 import TransactionActions from 'ducks/transactions/TransactionActions'
-import styles from 'ducks/transactions/TransactionModal.styl'
+import styles from 'ducks/transactions/TransactionModal/TransactionModal.styl'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 
 import iconCredit from 'components/IconCredit'
