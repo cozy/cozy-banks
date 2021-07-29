@@ -9,10 +9,9 @@ import { ACCOUNT_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
 import { TrackerProvider, trackPage } from 'ducks/tracking/browser'
 import { getTracker } from 'ducks/tracking/tracker'
 
-import TransactionModal, {
-  showAlertAfterApplicationDateUpdate
-} from './TransactionModal'
-import data from '../../../test/fixtures'
+import TransactionModal from './TransactionModal'
+import { showAlertAfterApplicationDateUpdate } from 'ducks/transactions/TransactionModal/helpers'
+import data from 'test/fixtures'
 import { getT, enLocaleOption } from 'utils/lang'
 
 jest.mock('ducks/tracking/tracker', () => {
