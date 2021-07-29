@@ -129,7 +129,7 @@ const TransactionRowDesktop = ({
       >
         {isSelectionModeEnabled && (
           <TdSecondary
-            className={cx(styles.ColumnSizeCheckbox, 'u-pl-0')}
+            className={cx(styles.ColumnSizeCheckbox, 'u-pl-0 u-ta-center')}
             onClick={handleClickCheckbox}
           >
             <Checkbox

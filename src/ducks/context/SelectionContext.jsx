@@ -13,7 +13,12 @@ import flag from 'cozy-flags'
 export const SelectionContext = createContext()
 
 export const useSelectionContext = () => {
-  return useContext(SelectionContext)
+  const context = useContext(SelectionContext)
+  if (!context)
+    throw new Error(
+      'SelectionContext is unavailable. There is no Selection provider, or it is not loaded yet.'
+    )
+  return context
 }
 
 // TODO: SelectionProvider stores the entire elements in an array
