@@ -12,6 +12,8 @@ import { BarCenter, BarSearch } from 'components/Bar'
 import BarSearchInput from 'components/BarSearchInput'
 import Padded from 'components/Padded'
 import EarliestTransactionDate from 'ducks/search/EarliestTransactionDate'
+import SelectionIconLink from 'ducks/selection/SelectionIconLink'
+import { useSelectionContext } from 'ducks/context/SelectionContext'
 
 const SearchHeader = ({
   results,
@@ -24,17 +26,30 @@ const SearchHeader = ({
 }) => {
   const { isMobile } = useBreakpoints()
   const { t } = useI18n()
+  const {
+    isSelectionModeEnabled,
+    isSelectionModeActive,
+    setIsSelectionModeActive
+  } = useSelectionContext()
 
   const handleReset = inputNode => {
     setSearch('')
+    if (isSelectionModeEnabled) setIsSelectionModeActive(false)
     inputNode.focus()
   }
 
   const handleChange = useCallback(
     ev => {
       setSearch(ev.target.value)
+      if (isSelectionModeEnabled && results.length === 0)
+        setIsSelectionModeActive(false)
     },
-    [setSearch]
+    [
+      isSelectionModeEnabled,
+      results.length,
+      setIsSelectionModeActive,
+      setSearch
+    ]
   )
 
   return (
@@ -46,10 +61,17 @@ const SearchHeader = ({
             <BarSearchInput
               placeholder={t('Search.input-placeholder')}
               value={search}
-              onChange={handleChange}
               autofocus
+              onChange={handleChange}
               onReset={handleReset}
             />
+            {results.length > 0 && search.length > 0 && (
+              <SelectionIconLink
+                isSelectionModeEnabled={isSelectionModeEnabled}
+                isSelectionModeActive={isSelectionModeActive}
+                setIsSelectionModeActive={setIsSelectionModeActive}
+              />
+            )}
           </BarCenter>
         </>
       ) : (
