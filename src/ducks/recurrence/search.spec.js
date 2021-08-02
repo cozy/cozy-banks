@@ -9,12 +9,15 @@ import { TRANSACTION_DOCTYPE } from 'doctypes'
 import { td, tr } from 'txt-table-utils'
 
 import { findAndUpdateRecurrences } from './search'
-import { getLabel, getAmount } from './utils'
+import { getLabel, getAmount, getFrequencyText } from './utils'
 import fixtures from './fixtures/fixtures.json'
 import fixtures2 from './fixtures/fixtures2.json'
 import fixtures3 from './fixtures/fixtures3.json'
 import fixtures4 from './fixtures/fixtures4.json'
 import fixtures5 from './fixtures/fixtures5.json'
+import fixtures6 from './fixtures/fixtures6.json'
+import Polyglot from 'node-polyglot'
+import enLocale from 'locales/en.json'
 
 const formatBundleExtent = bundle => {
   const oldestOp = minBy(bundle.ops, x => x.date)
@@ -353,5 +356,39 @@ describe('recurrence scenario with 01 feb, march and april are to categorize (0)
     expect(op4.amount).toBe(2150)
     expect(op5._id).toBe('june')
     expect(op5.amount).toBe(2000)
+  })
+
+  it('reattach next new operations from a new bundle which has 1 operation with "very month" in frequency', () => {
+    const transactionsByKey = keyBy(fixtures6[TRANSACTION_DOCTYPE], '_id')
+    const febTransactionEDF = transactionsByKey['february']
+    const mayTransactionEDF = transactionsByKey['may']
+
+    const recurrence = {
+      categoryIds: ['401080'],
+      amounts: [30],
+      accounts: ['1d22740c6c510e5368d1b6b670deee05'],
+      key: '401080/30',
+      ops: [febTransactionEDF],
+      automaticLabel: 'EDF'
+    }
+
+    const bundleWithEDF = findAndUpdateRecurrences(
+      [recurrence],
+      [mayTransactionEDF]
+    )
+
+    const polyglot = new Polyglot()
+    polyglot.extend(enLocale)
+    const t = polyglot.t.bind(polyglot)
+
+    const bundle = bundleWithEDF[0]
+    expect(bundle.ops.length).toBe(2)
+
+    expect(getFrequencyText(t, bundle)).toBe('every month')
+    const [op1, op2] = bundle.ops
+    expect(op1._id).toBe('february')
+    expect(op1.amount).toBe(30)
+    expect(op2._id).toBe('may')
+    expect(op2.amount).toBe(30)
   })
 })
