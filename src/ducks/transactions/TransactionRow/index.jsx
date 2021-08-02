@@ -21,18 +21,18 @@ export const useTransactionModal = transaction => {
 
 export const useTransactionCategoryModal = ({
   transactions,
-  beforeUpdate,
+  beforeUpdates,
   afterUpdates
 }) => {
   const [modalOpened, show, hide] = useSwitch(false)
-  const handleBeforeUpdate = useCallback(() => {
+  const handleBeforeUpdates = useCallback(() => {
     hide()
-    beforeUpdate && beforeUpdate()
-  }, [beforeUpdate, hide])
+    beforeUpdates && beforeUpdates()
+  }, [beforeUpdates, hide])
 
   const modal = modalOpened ? (
     <TransactionCategoryEditor
-      beforeUpdate={handleBeforeUpdate}
+      beforeUpdates={handleBeforeUpdates}
       afterUpdates={afterUpdates}
       transactions={transactions}
       onCancel={hide}

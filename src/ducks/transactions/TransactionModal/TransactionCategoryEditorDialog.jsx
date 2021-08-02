@@ -25,7 +25,7 @@ const TransactionCategoryEditorDialog = ({ transaction, onClose }) => {
 
   return (
     <TransactionCategoryEditor
-      beforeUpdate={handlePop}
+      beforeUpdates={handlePop}
       afterUpdate={onAfterUpdate}
       onCancel={handlePop}
       transactions={[transaction]}
