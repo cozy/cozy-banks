@@ -16,8 +16,7 @@ import fixtures3 from './fixtures/fixtures3.json'
 import fixtures4 from './fixtures/fixtures4.json'
 import fixtures5 from './fixtures/fixtures5.json'
 import fixtures6 from './fixtures/fixtures6.json'
-import Polyglot from 'node-polyglot'
-import enLocale from 'locales/en.json'
+import { getT, enLocaleOption } from 'utils/lang'
 
 const formatBundleExtent = bundle => {
   const oldestOp = minBy(bundle.ops, x => x.date)
@@ -377,13 +376,10 @@ describe('recurrence scenario with 01 feb, march and april are to categorize (0)
       [mayTransactionEDF]
     )
 
-    const polyglot = new Polyglot()
-    polyglot.extend(enLocale)
-    const t = polyglot.t.bind(polyglot)
-
     const bundle = bundleWithEDF[0]
     expect(bundle.ops.length).toBe(2)
 
+    const t = getT(enLocaleOption)
     expect(getFrequencyText(t, bundle)).toBe('every month')
     const [op1, op2] = bundle.ops
     expect(op1._id).toBe('february')
