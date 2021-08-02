@@ -20,11 +20,15 @@ export const getLanguageFromDOM = rootOption => {
  * To be used when not in React context, in React
  * context, the t function comes from the context
  */
-export const getT = () => {
-  const lang = getLanguageFromDOM()
+export const getT = option => {
+  const lang = getLanguageFromDOM(option)
   const polyglot = new Polyglot({
     lang: lang,
     phrases: locales[lang]
   })
   return polyglot.t.bind(polyglot)
+}
+
+export const enLocaleOption = {
+  dataset: { cozy: JSON.stringify({ locale: 'en' }) }
 }
