@@ -84,7 +84,7 @@ const TransactionOpener = ({
 TransactionOpener.propTypes = {
   transaction: PropTypes.object,
   toggleSelection: PropTypes.func,
-  isSelectionModeActive: PropTypes.func,
+  isSelectionModeActive: PropTypes.bool,
   showTransactionModal: PropTypes.func
 }
 

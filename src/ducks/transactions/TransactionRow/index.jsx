@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 
 import flag from 'cozy-flags'
 
-import TransactionModal from 'ducks/transactions/TransactionModal'
+import TransactionModal from 'ducks/transactions/TransactionModal/TransactionModal'
 import TransactionCategoryEditor from 'ducks/transactions/TransactionCategoryEditor'
 import useSwitch from 'hooks/useSwitch'
 
@@ -21,18 +21,18 @@ export const useTransactionModal = transaction => {
 
 export const useTransactionCategoryModal = ({
   transactions,
-  beforeUpdate,
+  beforeUpdates,
   afterUpdates
 }) => {
   const [modalOpened, show, hide] = useSwitch(false)
-  const handleBeforeUpdate = useCallback(() => {
+  const handleBeforeUpdates = useCallback(() => {
     hide()
-    beforeUpdate && beforeUpdate()
-  }, [beforeUpdate, hide])
+    beforeUpdates && beforeUpdates()
+  }, [beforeUpdates, hide])
 
   const modal = modalOpened ? (
     <TransactionCategoryEditor
-      beforeUpdate={handleBeforeUpdate}
+      beforeUpdates={handleBeforeUpdates}
       afterUpdates={afterUpdates}
       transactions={transactions}
       onCancel={hide}

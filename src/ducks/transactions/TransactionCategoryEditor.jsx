@@ -11,7 +11,7 @@ import CategoryChoice from 'ducks/categories/CategoryChoice'
  */
 const TransactionCategoryEditor = ({
   transactions,
-  beforeUpdate,
+  beforeUpdates,
   afterUpdate,
   afterUpdates,
   onCancel
@@ -38,8 +38,8 @@ const TransactionCategoryEditor = ({
 
   const handleSelect = useCallback(
     async category => {
-      if (beforeUpdate) {
-        await beforeUpdate()
+      if (beforeUpdates) {
+        await beforeUpdates()
       }
 
       const promises = transactions.map(transaction =>
@@ -52,7 +52,7 @@ const TransactionCategoryEditor = ({
         afterUpdates()
       }
     },
-    [afterUpdates, beforeUpdate, handleUpdate, transactions]
+    [afterUpdates, beforeUpdates, handleUpdate, transactions]
   )
 
   const handleCancel = useCallback(async () => {

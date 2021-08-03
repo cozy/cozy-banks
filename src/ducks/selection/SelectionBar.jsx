@@ -19,7 +19,7 @@ const SelectionBar = ({ transactions }) => {
 
   const { t } = useI18n()
 
-  const beforeUpdate = useCallback(() => {
+  const beforeUpdates = useCallback(() => {
     emptyAndDeactivateSelection()
   }, [emptyAndDeactivateSelection])
 
@@ -37,7 +37,7 @@ const SelectionBar = ({ transactions }) => {
     transactionCategoryModal
   ] = useTransactionCategoryModal({
     transactions: selected,
-    beforeUpdate,
+    beforeUpdates,
     afterUpdates
   })
 
