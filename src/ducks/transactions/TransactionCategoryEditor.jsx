@@ -1,7 +1,7 @@
 import React, { useMemo, useCallback } from 'react'
 import { useClient } from 'cozy-client'
 import {
-  updateTransactionCategory,
+  setTransactionCategory,
   getCategoryId
 } from 'ducks/transactions/helpers'
 import CategoryChoice from 'ducks/categories/CategoryChoice'
@@ -12,7 +12,6 @@ import CategoryChoice from 'ducks/categories/CategoryChoice'
 const TransactionCategoryEditor = ({
   transactions,
   beforeUpdates,
-  afterUpdate,
   afterUpdates,
   onCancel
 }) => {
@@ -21,38 +20,23 @@ const TransactionCategoryEditor = ({
     transactions
   ])
 
-  const handleUpdate = useCallback(
-    async (transaction, category) => {
-      const newTransaction = await updateTransactionCategory(
-        client,
-        transaction,
-        category
-      )
-
-      if (afterUpdate) {
-        await afterUpdate(newTransaction)
-      }
-    },
-    [afterUpdate, client]
-  )
-
-  const handleSelect = useCallback(
+  const handleSelectCategory = useCallback(
     async category => {
       if (beforeUpdates) {
         await beforeUpdates()
       }
 
-      const promises = transactions.map(transaction =>
-        handleUpdate(transaction, category)
+      const newTransactions = transactions.map(transaction =>
+        setTransactionCategory(transaction, category)
       )
 
-      await Promise.all(promises)
+      await client.saveAll(newTransactions)
 
       if (afterUpdates) {
-        afterUpdates()
+        afterUpdates(newTransactions)
       }
     },
-    [afterUpdates, beforeUpdates, handleUpdate, transactions]
+    [afterUpdates, beforeUpdates, client, transactions]
   )
 
   const handleCancel = useCallback(async () => {
@@ -63,7 +47,7 @@ const TransactionCategoryEditor = ({
     <CategoryChoice
       modal={true}
       categoryId={categoryId}
-      onSelect={handleSelect}
+      onSelect={handleSelectCategory}
       onCancel={handleCancel}
     />
   )

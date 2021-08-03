@@ -38,6 +38,7 @@ jest.mock('hooks/useVisible', () => {
 
 const mockTransactions = data['io.cozy.bank.operations'].map((x, i) => ({
   _id: `transaction-id-${i++}`,
+  _type: 'io.cozy.bank.operations',
   ...x
 }))
 
@@ -204,7 +205,7 @@ describe('Interactions', () => {
 
       // should remove the selection bar and show a success alert
       expect(queryByTestId('selectionBar')).toBeFalsy()
-      await wait(() => expect(client.save).toHaveBeenCalledTimes(2))
+      await wait(() => expect(client.saveAll).toHaveBeenCalledTimes(1))
       expect(Alerter.success).toHaveBeenCalledWith(
         '2 operations have been recategorized'
       )
