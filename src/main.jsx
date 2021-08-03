@@ -63,10 +63,6 @@ const initRender = () => {
 
 const setupApp = async persistedState => {
   const root = document.querySelector('[role=application]')
-  const {
-    app: { icon, name },
-    locale
-  } = parseCozyData(root)
   lang = getLanguageFromDOM(root)
 
   setupD3Locale(lang)
@@ -117,6 +113,10 @@ const setupApp = async persistedState => {
   persistState(store)
 
   if (__TARGET__ !== 'mobile') {
+    const {
+      app: { icon, name },
+      locale
+    } = parseCozyData(root)
     !flag('authentication') &&
       cozyBar.init({
         appName: name,

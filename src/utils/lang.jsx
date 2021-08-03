@@ -7,11 +7,12 @@ import parseCozyData from 'utils/cozyData'
 const locales = { en, fr }
 
 export const getLanguageFromDOM = rootOption => {
+  if (__TARGET__ === 'mobile' && navigator && navigator.language) {
+    return navigator.language.slice(0, 2)
+  }
+
   const root = rootOption || document.querySelector('[role=application]')
-  const { locale } = parseCozyData(root)
-  return __TARGET__ === 'mobile' && navigator && navigator.language
-    ? navigator.language.slice(0, 2)
-    : locale || 'en'
+  return root?.dataset?.cozy ? parseCozyData(root).locale : 'en'
 }
 
 /**
