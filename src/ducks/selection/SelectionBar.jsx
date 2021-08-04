@@ -31,6 +31,10 @@ const SelectionBar = ({ transactions }) => {
     )
   }
 
+  const onError = () => {
+    Alerter.error(t('Categorization.error'))
+  }
+
   const [
     showTransactionCategoryModal,
     ,
@@ -38,7 +42,8 @@ const SelectionBar = ({ transactions }) => {
   ] = useTransactionCategoryModal({
     transactions: selected,
     beforeUpdates,
-    afterUpdates
+    afterUpdates,
+    onError
   })
 
   const actions = useSelectionBarActions({

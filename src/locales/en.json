@@ -919,6 +919,7 @@
   },
 
   "Categorization": {
+    "error": "Could not categorize some operations, please try again.",
     "success": "%{smart_count} operation has been recategorized |||| %{smart_count} operations have been recategorized"
   },
 
