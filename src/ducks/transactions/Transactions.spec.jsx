@@ -214,7 +214,7 @@ describe('Interactions', () => {
 
     it('should show an alert in case of problem', async () => {
       const { root, client } = setup({ isDesktop: true })
-      const { getByText, getByTestId, queryByTestId } = root
+      const { getByText, getByTestId } = root
 
       // We expect an error to happen but we do not want the test to fail
       jest.spyOn(console, 'error').mockImplementation(() => {})
