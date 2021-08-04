@@ -7,6 +7,8 @@
 * Improve improve ui for no result in search page
 * Update cozy-ui to 51.4.0
 * Update cozy-harvest-lib to 6.4.0
+* Recategorizing several transactions is faster
+
 
 ## 🐛 Bug Fixes
 
