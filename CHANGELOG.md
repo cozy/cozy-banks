@@ -15,4 +15,4 @@
 
 ## 🔧 Tech
 
-*
+* Ability to run the push notifications debug server from the CLI
