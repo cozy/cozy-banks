@@ -1842,19 +1842,6 @@
   dependencies:
     "@types/istanbul-lib-report" "*"
 
-"@types/jest@^26.0.20":
-  version "26.0.20"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-26.0.20.tgz#cd2f2702ecf69e86b586e1f5223a60e454056307"
-  integrity sha512-9zi2Y+5USJRxd0FsahERhBwlcvFh6D2GLQnY2FH2BzK8J9s9omvNHIbvABwIluXa0fD8XVKMLTO0aOEuUfACAA==
-  dependencies:
-    jest-diff "^26.0.0"
-    pretty-format "^26.0.0"
-
-"@types/lodash@^4.14.170":
-  version "4.14.170"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.170.tgz#0d67711d4bf7f4ca5147e9091b847479b87925d6"
-  integrity sha512-bpcvu/MKHHeYX+qeEN8GE7DIravODWdACVA1ctevD8CN24RhPZIKMn9ntfAsrvLfSX3cR5RrBKAbYm9bGs0A+Q==
-
 "@types/minimatch@*":
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
@@ -4856,17 +4843,17 @@ cozy-client@13.8.3:
     sift "^6.0.0"
     url-search-params-polyfill "^7.0.0"
 
-cozy-client@23.17.3:
-  version "23.17.3"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-23.17.3.tgz#143da2bb1815effcb468ce0c483feb913026f563"
-  integrity sha512-xOGzqoVf7TAGMHJ7EpUmcuwFpYRRwpGNbJL0ol/BAvdiVAalk3CEaoKdZvJUw6Abb9U8YnYF44Ug6hwNzMZGGg==
+cozy-client@23.18.0, cozy-client@^23.18.0:
+  version "23.18.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-23.18.0.tgz#f61ed118d0764755ee9a3c2dfd3eef42e37a73ae"
+  integrity sha512-OVxYMg/h/fZ7LrFhqQNlSKaN8m5tNe19mRGx7iLrPY2U2sYbp7uxvtEAea5qOfaAdUMy02Zoe1yE0LjFVXOSsQ==
   dependencies:
     "@cozy/minilog" "1.0.0"
     btoa "^1.2.1"
     cozy-device-helper "^1.12.0"
     cozy-flags "2.7.1"
     cozy-logger "^1.6.0"
-    cozy-stack-client "^23.17.0"
+    cozy-stack-client "^23.18.0"
     json-stable-stringify "^1.0.1"
     lodash "^4.17.13"
     microee "^0.0.6"
@@ -4893,32 +4880,6 @@ cozy-client@6.64.5, cozy-client@^6.58.0, cozy-client@^6.58.1:
     react-redux "^5.0.7"
     redux "^3.7.2"
     redux-thunk "^2.3.0"
-    sift "^6.0.0"
-    url-search-params-polyfill "^7.0.0"
-
-cozy-client@^23.15.1:
-  version "23.15.1"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-23.15.1.tgz#15ade70ad07890d2036a267bea0824f926b1d57d"
-  integrity sha512-cROedD4c+MMyjNVym1cZyG5Fuz7rF1kdLX3t4UqvAh0y2QCjR5KuUX+bctKmz0GvTv7yxFHVEQSTg/bSt8qMzQ==
-  dependencies:
-    "@cozy/minilog" "1.0.0"
-    "@types/jest" "^26.0.20"
-    "@types/lodash" "^4.14.170"
-    btoa "^1.2.1"
-    cozy-device-helper "^1.12.0"
-    cozy-flags "2.7.1"
-    cozy-logger "^1.6.0"
-    cozy-stack-client "^23.13.1"
-    json-stable-stringify "^1.0.1"
-    lodash "^4.17.13"
-    microee "^0.0.6"
-    node-fetch "^2.6.1"
-    open "^7.0.2"
-    prop-types "^15.6.2"
-    react-redux "^7.2.0"
-    redux "3 || 4"
-    redux-thunk "^2.3.0"
-    server-destroy "^1.0.1"
     sift "^6.0.0"
     url-search-params-polyfill "^7.0.0"
 
@@ -5152,13 +5113,13 @@ cozy-notifications@0.12.0:
     mjml "4.3.1"
     word-wrap "^1.2.3"
 
-cozy-pouch-link@23.15.1:
-  version "23.15.1"
-  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-23.15.1.tgz#9f005188bb5ef5bf91760d913cae54e1149915d2"
-  integrity sha512-EdJXmCAI/Mx+jJQp0oEHMRDFf5DQV57LRuJGu+7X96d640x5dqZw2FQV+Jv04SXOFO01FF4qeX/k588C2fiKQA==
+cozy-pouch-link@23.18.0:
+  version "23.18.0"
+  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-23.18.0.tgz#c064d5380a3758310d8310dd367adb3a7aca74d5"
+  integrity sha512-geQaA7z6vqlUTxkwpxuGLp2fON0rDB2YRh0GU320S1vKMK4QBJn/WA79fXrRVCVrLgh4WPZU96oBivvrfJSaiw==
   dependencies:
     "@cozy/minilog" "1.0.0"
-    cozy-client "^23.15.1"
+    cozy-client "^23.18.0"
     cozy-device-helper "^1.12.0"
     pouchdb-browser "^7.0.0"
     pouchdb-find "7.2.2"
@@ -5233,10 +5194,10 @@ cozy-scripts@5.2.0:
     webpack-dev-server "3.10.3"
     webpack-merge "4.2.2"
 
-cozy-stack-client@23.17.0, cozy-stack-client@^23.17.0:
-  version "23.17.0"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-23.17.0.tgz#db95568c7989e8a5e7961eb81249ca5bd6d14220"
-  integrity sha512-b/cWNBvGw3dyogQLS9hvVrQyOFm4qXVdHXj9RU1aLjywy6O+Bt3OlMJh5RFeLFKuDrv51D0/G1bDXQ8iC163jQ==
+cozy-stack-client@23.18.0, cozy-stack-client@^23.18.0:
+  version "23.18.0"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-23.18.0.tgz#d80e3b3c27cd6d14b8130292e06c2f1c10131f2e"
+  integrity sha512-bnZpPeg0ps/pA+xn9n/qSIZR+KLMB+E/FPYjfkmeks0cWVoyJ+qxERUDu1TGrnFXNNiu8oTJ9gd8Lbu0Gy31DQ==
   dependencies:
     cozy-flags "2.7.1"
     detect-node "^2.0.4"
@@ -5248,16 +5209,6 @@ cozy-stack-client@^13.8.3:
   resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-13.8.3.tgz#7e87b18b853ae60b0df5bee1b78203d04e5ebc4a"
   integrity sha512-ffSC6DVCi+LU8KP6dhV+A7u5aMeRtSvrhEGTdeZn1AbrS6cD11OZPOveCzMHYUXzuAwbov8sRLi0BF8cTENWfQ==
   dependencies:
-    detect-node "^2.0.4"
-    mime "^2.4.0"
-    qs "^6.7.0"
-
-cozy-stack-client@^23.13.1:
-  version "23.13.1"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-23.13.1.tgz#d3a02e71dde5c3c16f2e492f3d3ccf2b4670f63c"
-  integrity sha512-99WSNXE5UQOKoMrT6v2ltn1KqfTYDMxAe1OoSgzguMUwA47R/TnNJidRHSXhQW+dZL/W40I5QAkY0X8ZdH8Bxg==
-  dependencies:
-    cozy-flags "2.7.1"
     detect-node "^2.0.4"
     mime "^2.4.0"
     qs "^6.7.0"
@@ -10214,7 +10165,7 @@ jest-diff@^24.5.0, jest-diff@^24.9.0:
     jest-get-type "^24.9.0"
     pretty-format "^24.9.0"
 
-jest-diff@^26.0.0, jest-diff@^26.6.2:
+jest-diff@^26.6.2:
   version "26.6.2"
   resolved "https://registry.yarnpkg.com/jest-diff/-/jest-diff-26.6.2.tgz#1aa7468b52c3a68d7d5c5fdcdfcd5e49bd164394"
   integrity sha512-6m+9Z3Gv9wN0WFVasqjCL/06+EFCMTqDEUl/b87HYK2rAPTyfz4ZIuSlPhY51PIQRWx5TaxeF1qmXKe9gfN3sA==
@@ -15041,7 +14992,7 @@ pretty-format@^24.3.0, pretty-format@^24.9.0:
     ansi-styles "^3.2.0"
     react-is "^16.8.4"
 
-pretty-format@^26.0.0, pretty-format@^26.6.2:
+pretty-format@^26.6.2:
   version "26.6.2"
   resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-26.6.2.tgz#e35c2705f14cb7fe2fe94fa078345b444120fc93"
   integrity sha512-7AeGuCYNGmycyQbCqd/3PWH4eOoX/OiCa0uphp57NVTeAGdJGaAliecxwBDHYQCIvrW7aDBZCYeNTP/WX69mkg==
