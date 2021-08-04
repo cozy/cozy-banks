@@ -29,6 +29,8 @@
     - [Under the covers](#under-the-covers)
     - [Assets](#assets)
   - [Debug notification triggers](#debug-notification-triggers)
+    - [Emails](#emails)
+    - [Push notifications](#push-notifications)
   - [When creating a notification](#when-creating-a-notification)
   - [End to end tests](#end-to-end-tests)
     - [Alert rules](#alert-rules)
@@ -402,6 +404,8 @@ $ yarn watch:services # will continuously build `build/notifications.js`
 $ nodemon --delay 1 -w build/notifications.js --exec "cozy-konnector-dev -t /tmp/token.json -m manifest.webapp build/notifications.js" # will launch build/notifications.js (and relaunch it when it changes) with the right COZY_CREDENTIALS, /tmp/token.json is where the token will be stored
 ```
 
+#### Emails
+
 To see the emails that the stack sends, launch a MailHog instance :
 
 ```
@@ -410,6 +414,24 @@ docker run -p 1025:1025 -p 8025:8025 mailhog/mailhog
 
 The stack will send the emails through the SMTP port of MailHog and you
 will be able to see the mails in its web interface on http://localhost:8025.
+
+#### Push notifications
+
+Similarly, to debug push notifications, you can configure the stack to send
+push notifications to a local server, and launch a fake push notifications server
+locally.
+
+```
+env PORT=3001 node test/e2e/mock-server.js
+```
+
+To configure the stack, edit your `cozy.yml` config file:
+
+```patch
++ notifications:
++   android_api_key: 'fake_android_api_key'
++   fcm_server: 'http://localhost:3001'
+```
 
 
 https://github.com/cozy/cozy-banks/tree/master/src/ducks/notifications/html
