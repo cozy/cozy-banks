@@ -59,7 +59,7 @@ const updateListStyle = (listRef, headerRef) => {
   // eslint-disable-next-line
   const listNode = ReactDOM.findDOMNode(listRef)
 
-  if (document.body.getBoundingClientRect().width < 768) {
+  if (document.body.getBoundingClientRect().width < 1024) {
     listNode.style.paddingTop = headerNode.getBoundingClientRect().height + 'px'
   } else {
     listNode.style.paddingTop = 0

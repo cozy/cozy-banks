@@ -15,6 +15,7 @@
 * Checkbox horizontal position for selectionning rows in desktop
 * Hide owner field in account configuration when Contacts app is not installed
 * Deactivates selection mode when leaving an account page
+* First transactions are no longer trimmed on the balance page on tablet
 
 ## 🔧 Tech
 
