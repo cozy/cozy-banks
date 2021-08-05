@@ -131,7 +131,7 @@ describe('Interactions', () => {
           breakpoints={{ isDesktop: false }}
           transactions={transactions}
           showTriggerErrors={false}
-          emptySelection={() => null}
+          emptyAndDeactivateSelection={() => null}
         />
       </AppLike>
     )

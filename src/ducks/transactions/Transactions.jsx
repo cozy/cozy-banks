@@ -169,8 +169,8 @@ export class TransactionsDumb extends React.Component {
   }
 
   componentWillUnmount() {
-    const { emptySelection } = this.props
-    emptySelection()
+    const { emptyAndDeactivateSelection } = this.props
+    emptyAndDeactivateSelection()
   }
 
   updateTransactions(transactions) {
@@ -260,11 +260,12 @@ TransactionsDumb.defaultProps = {
 }
 
 export const TransactionList = props => {
-  const { emptySelection } = useSelectionContext()
+  const { emptyAndDeactivateSelection } = useSelectionContext()
   const breakpoints = useBreakpoints()
+
   return (
     <TransactionsDumb
-      emptySelection={emptySelection}
+      emptyAndDeactivateSelection={emptyAndDeactivateSelection}
       breakpoints={breakpoints}
       {...props}
     />
