@@ -236,4 +236,38 @@ describe('addPeriodToConn', () => {
       })
     )
   })
+
+  it('should use _id selector instead of account for null filteringDoc', () => {
+    const conn1 = makeFilteredTransactionsConn({
+      groups: {
+        lastUpdate: Date.now(),
+        data: [
+          {
+            _id: 'g1',
+            accounts: {
+              raw: ['a1', 'a2', 'a3']
+            }
+          }
+        ]
+      },
+      accounts: {
+        lastUpdate: Date.now()
+      },
+      filteringDoc: null
+    })
+    const conn2 = addPeriodToConn(conn1, '2021-07')
+
+    expect(conn2.query).toEqual(
+      expect.objectContaining({
+        selector: {
+          _id: { $gt: null },
+          date: {
+            $gte: '2021-07-01T00:00',
+            $lte: '2021-07-31T23:59'
+          }
+        },
+        indexedFields: ['date', '_id']
+      })
+    )
+  })
 })
