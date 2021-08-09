@@ -146,8 +146,8 @@ export const addPeriodToConn = (baseConn, period) => {
         baseQuery.selector
       )
     )
-    .indexFields(['date', 'account'])
-    .sortBy([{ date: 'desc' }, { account: 'desc' }])
+    .indexFields(baseQuery.indexedFields || ['date', 'account'])
+    .sortBy(baseQuery.sort || [{ date: 'desc' }, { account: 'desc' }])
     .limitBy(500)
   const as = `${baseAs}-${format(startDate, 'YYYY-MM')}-${format(
     endDate,

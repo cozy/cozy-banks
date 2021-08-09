@@ -17,6 +17,7 @@
 * Deactivates selection mode when leaving an account page
 * First transactions are no longer trimmed on the balance page on tablet
 * Missing colors for categories in the chart on the analysis page
+* The analysis page correctly retrieves information when viewing all accounts
 
 ## 🔧 Tech
 
