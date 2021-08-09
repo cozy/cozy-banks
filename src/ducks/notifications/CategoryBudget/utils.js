@@ -4,6 +4,9 @@ import logger from 'cozy-logger'
 import { collectAlertInfo } from 'ducks/budgetAlerts'
 import CategoryBudgetNotificationView from 'ducks/notifications/CategoryBudget'
 
+const lang = process.env.COZY_LOCALE || 'en'
+const dictRequire = lang => require(`locales/${lang}`)
+
 const log = logger.namespace('category-alerts')
 
 /**

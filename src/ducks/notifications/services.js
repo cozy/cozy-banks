@@ -12,11 +12,11 @@ import { BankAccount } from 'models'
 import { sendNotification } from 'cozy-notifications'
 import { GROUP_DOCTYPE } from 'doctypes'
 import get from 'lodash/get'
+export const lang = process.env.COZY_LOCALE || 'en'
+export const dictRequire = lang => require(`locales/${lang}`)
 
 const log = logger.namespace('notification-service')
 
-const lang = process.env.COZY_LOCALE || 'en'
-const dictRequire = lang => require(`locales/${lang}`)
 const translation = initTranslation(lang, dictRequire)
 const t = translation.t.bind(translation)
 

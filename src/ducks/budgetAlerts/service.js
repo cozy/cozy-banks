@@ -1,7 +1,6 @@
 import logger from 'cozy-logger'
 import { sendNotification } from 'cozy-notifications'
 import { updateCategoryAlerts } from 'ducks/settings/helpers'
-import { lang, dictRequire } from 'targets/services/service'
 import { buildNotificationView } from 'ducks/notifications/CategoryBudget/utils'
 
 const log = logger.namespace('category-alerts')
