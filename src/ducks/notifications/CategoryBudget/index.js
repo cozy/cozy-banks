@@ -7,15 +7,14 @@ import { Q } from 'cozy-client'
 
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import NotificationView from 'ducks/notifications/BaseNotificationView'
-import { getCurrentDate } from 'ducks/notifications/utils'
+import { formatAmount, getCurrentDate } from 'ducks/notifications/utils'
 import { getCategoryName } from 'ducks/categories/categoriesMap'
 import { getGroupLabel } from 'ducks/groups/helpers'
 import { getAccountLabel } from 'ducks/account/helpers'
 
-import template from './template.hbs'
-import { fetchCategoryAlerts } from './index'
-import { buildNotificationData } from './service'
-import { formatAmount } from 'ducks/notifications/utils'
+import template from 'ducks/budgetAlerts/template.hbs'
+import { fetchCategoryAlerts } from 'ducks//budgetAlerts'
+import { buildNotificationData } from 'ducks/notifications/CategoryBudget/utils'
 
 const log = logger.namespace('category-budgets')
 
