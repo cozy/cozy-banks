@@ -6,6 +6,8 @@
 
 - [Getting started](#getting-started)
 - [Fixtures](#fixtures)
+- [Doctypes](#doctypes)
+- [Continuous build](#continuous-build)
 - [Develop on mobile](#develop-on-mobile)
   - [Get a working Android environment](#get-a-working-android-environment)
     - [Linux](#linux)
@@ -89,12 +91,21 @@ the config file). See an example config file
 ## Fixtures
 
 While developing, it is convenient to be able to inject and remove arbitraty data on your local instance.
+You can add fixtures by using [ACH](https://github.com/cozy/ACH) and data in [test/fixtures](./test/fixtures).
 
 We have a set of fake banking data in the
 [`test/fixtures/demo.json`](https://github.com/cozy/cozy-banks/blob/master/test/fixtures/demo.json)
 file that you can inject in your instance using the `yarn fixtures` command.
 
 If you want to inject other data or remove some data, you can use [`ACH`](https://github.com/cozy/ACH).
+
+## Doctypes
+
+`The doctypes used in Banks are described `in the [cozy-doctypes](https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.bank.md) repository.
+
+## Continuous build
+
+The application is built automatically and published on [Cozy Registry](https://apps-registry.cozycloud.cc/banks/registry) by [Travis](https://travis-ci.org/cozy/cozy-banks).
 
 ## Develop on mobile
 
@@ -121,6 +132,7 @@ brew install gradle
 ```
 
 ### Build and run the mobile app
+To be able to start the mobile app on an emulator or a real device, you can follow [this guide](https://gist.github.com/drazik/11dfe2014a6b967821df93b9e10353f4).
 
 To build the mobile app, you first have to run one of the following commands:
 
@@ -130,6 +142,7 @@ $ yarn build:mobile
 # To develop
 $ yarn start:mobile
 ```
+
 
 Then you can run the app on the desired platform. For Android:
 
