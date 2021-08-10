@@ -1842,6 +1842,19 @@
   dependencies:
     "@types/istanbul-lib-report" "*"
 
+"@types/jest@^26.0.20":
+  version "26.0.24"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-26.0.24.tgz#943d11976b16739185913a1936e0de0c4a7d595a"
+  integrity sha512-E/X5Vib8BWqZNRlDxj9vYXhsDwPYbPINqKF9BsnSoon4RQ0D9moEuLD8txgyypFLH7J4+Lho9Nr/c8H0Fi+17w==
+  dependencies:
+    jest-diff "^26.0.0"
+    pretty-format "^26.0.0"
+
+"@types/lodash@^4.14.170":
+  version "4.14.172"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.172.tgz#aad774c28e7bfd7a67de25408e03ee5a8c3d028a"
+  integrity sha512-/BHF5HAx3em7/KkzVKm3LrsD6HZAXuXO1AJZQ3cRRBZj4oHZDviWPYu0aEplAqDFNHZPW6d3G7KN+ONcCCC7pw==
+
 "@types/minimatch@*":
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
@@ -4843,17 +4856,19 @@ cozy-client@13.8.3:
     sift "^6.0.0"
     url-search-params-polyfill "^7.0.0"
 
-cozy-client@23.18.0, cozy-client@^23.18.0:
-  version "23.18.0"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-23.18.0.tgz#f61ed118d0764755ee9a3c2dfd3eef42e37a73ae"
-  integrity sha512-OVxYMg/h/fZ7LrFhqQNlSKaN8m5tNe19mRGx7iLrPY2U2sYbp7uxvtEAea5qOfaAdUMy02Zoe1yE0LjFVXOSsQ==
+cozy-client@23.19.3, cozy-client@^23.19.3:
+  version "23.19.3"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-23.19.3.tgz#fc94eec733f776b8c083bee2275e8ec4c5389351"
+  integrity sha512-LTkmPdWaTnc/qGItrA2qAIu3Z1O3DR94zECdGA7KuLGyGpyWJKNSB6gXYz0vDdzBHWggrRrldfvIInMDLCABUA==
   dependencies:
     "@cozy/minilog" "1.0.0"
+    "@types/jest" "^26.0.20"
+    "@types/lodash" "^4.14.170"
     btoa "^1.2.1"
     cozy-device-helper "^1.12.0"
     cozy-flags "2.7.1"
     cozy-logger "^1.6.0"
-    cozy-stack-client "^23.18.0"
+    cozy-stack-client "^23.19.0"
     json-stable-stringify "^1.0.1"
     lodash "^4.17.13"
     microee "^0.0.6"
@@ -5113,16 +5128,16 @@ cozy-notifications@0.12.0:
     mjml "4.3.1"
     word-wrap "^1.2.3"
 
-cozy-pouch-link@23.18.0:
-  version "23.18.0"
-  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-23.18.0.tgz#c064d5380a3758310d8310dd367adb3a7aca74d5"
-  integrity sha512-geQaA7z6vqlUTxkwpxuGLp2fON0rDB2YRh0GU320S1vKMK4QBJn/WA79fXrRVCVrLgh4WPZU96oBivvrfJSaiw==
+cozy-pouch-link@23.20.0:
+  version "23.20.0"
+  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-23.20.0.tgz#b9bc5f776d8aa52b89718a4e99329c80f9dc327f"
+  integrity sha512-6jKjp4e65ZfO0U9l6zIuiYI2wsc+QvZlKOuNvzKBIT+M0FI6UBrs3kK/t8uvxsz3TXofUmdh/ETdUgqsQabD0Q==
   dependencies:
     "@cozy/minilog" "1.0.0"
-    cozy-client "^23.18.0"
+    cozy-client "^23.19.3"
     cozy-device-helper "^1.12.0"
-    pouchdb-browser "^7.0.0"
-    pouchdb-find "7.2.2"
+    pouchdb-browser "^7.2.2"
+    pouchdb-find "^7.2.2"
 
 cozy-realtime@3.11.0:
   version "3.11.0"
@@ -5194,10 +5209,10 @@ cozy-scripts@5.2.0:
     webpack-dev-server "3.10.3"
     webpack-merge "4.2.2"
 
-cozy-stack-client@23.18.0, cozy-stack-client@^23.18.0:
-  version "23.18.0"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-23.18.0.tgz#d80e3b3c27cd6d14b8130292e06c2f1c10131f2e"
-  integrity sha512-bnZpPeg0ps/pA+xn9n/qSIZR+KLMB+E/FPYjfkmeks0cWVoyJ+qxERUDu1TGrnFXNNiu8oTJ9gd8Lbu0Gy31DQ==
+cozy-stack-client@23.19.0, cozy-stack-client@^23.19.0:
+  version "23.19.0"
+  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-23.19.0.tgz#2972c3dcc151b13c0f65749f341a6349170fe1d3"
+  integrity sha512-oq7/ERKy/Gg3jnxSi0rs3upvBccsGmmfdMiIa9hhJcw/Vxl7NMmjUM2itPnfmBNAMfBax6VlB8HWI1LY87fLuw==
   dependencies:
     cozy-flags "2.7.1"
     detect-node "^2.0.4"
@@ -10165,7 +10180,7 @@ jest-diff@^24.5.0, jest-diff@^24.9.0:
     jest-get-type "^24.9.0"
     pretty-format "^24.9.0"
 
-jest-diff@^26.6.2:
+jest-diff@^26.0.0, jest-diff@^26.6.2:
   version "26.6.2"
   resolved "https://registry.yarnpkg.com/jest-diff/-/jest-diff-26.6.2.tgz#1aa7468b52c3a68d7d5c5fdcdfcd5e49bd164394"
   integrity sha512-6m+9Z3Gv9wN0WFVasqjCL/06+EFCMTqDEUl/b87HYK2rAPTyfz4ZIuSlPhY51PIQRWx5TaxeF1qmXKe9gfN3sA==
@@ -14701,7 +14716,7 @@ pouchdb-binary-utils@7.2.2:
   dependencies:
     buffer-from "1.1.1"
 
-pouchdb-browser@7.0.0, pouchdb-browser@^7.0.0:
+pouchdb-browser@7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/pouchdb-browser/-/pouchdb-browser-7.0.0.tgz#d493fd738f21f7c91f17bbb7ee7ad97c2072e546"
   integrity sha512-a0AikmIM8BJ4ROWnfRtmQWW3JlFdHvfcQQWxY2V1CesLJYqPkTzwSUDD3QsiU+edpTSK8fIrEq257W15qZzXYQ==
@@ -14711,6 +14726,18 @@ pouchdb-browser@7.0.0, pouchdb-browser@^7.0.0:
     inherits "2.0.3"
     spark-md5 "3.0.0"
     uuid "3.2.1"
+    vuvuzela "1.0.3"
+
+pouchdb-browser@^7.2.2:
+  version "7.2.2"
+  resolved "https://registry.yarnpkg.com/pouchdb-browser/-/pouchdb-browser-7.2.2.tgz#cf933cb25661b31c6691f7038f8fc3f757c093d0"
+  integrity sha512-90pkngk9/F95knUwOhGQ0xuNzG51uIecF5kD5AfNdhqqrV9wbngz+I3QA7u/9eVyZRVyOrTrT3oaKcNqAB7Brg==
+  dependencies:
+    argsarray "0.0.1"
+    immediate "3.3.0"
+    inherits "2.0.4"
+    spark-md5 "3.0.1"
+    uuid "8.1.0"
     vuvuzela "1.0.3"
 
 pouchdb-collate@7.0.0:
@@ -14789,7 +14816,7 @@ pouchdb-find@7.0.0:
     pouchdb-selector-core "7.0.0"
     pouchdb-utils "7.0.0"
 
-pouchdb-find@7.2.2:
+pouchdb-find@^7.2.2:
   version "7.2.2"
   resolved "https://registry.yarnpkg.com/pouchdb-find/-/pouchdb-find-7.2.2.tgz#1227afdd761812d508fe0794b3e904518a721089"
   integrity sha512-BmFeFVQ0kHmDehvJxNZl9OmIztCjPlZlVSdpijuFbk/Fi1EFPU1BAv3kLC+6DhZuOqU/BCoaUBY9sn66pPY2ag==
@@ -14992,7 +15019,7 @@ pretty-format@^24.3.0, pretty-format@^24.9.0:
     ansi-styles "^3.2.0"
     react-is "^16.8.4"
 
-pretty-format@^26.6.2:
+pretty-format@^26.0.0, pretty-format@^26.6.2:
   version "26.6.2"
   resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-26.6.2.tgz#e35c2705f14cb7fe2fe94fa078345b444120fc93"
   integrity sha512-7AeGuCYNGmycyQbCqd/3PWH4eOoX/OiCa0uphp57NVTeAGdJGaAliecxwBDHYQCIvrW7aDBZCYeNTP/WX69mkg==
