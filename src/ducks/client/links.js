@@ -3,6 +3,9 @@
 import { StackLink } from 'cozy-client'
 import { offlineDoctypes } from 'doctypes'
 import { isMobileApp, isIOSApp } from 'cozy-device-helper'
+import flag from 'cozy-flags'
+
+const activatePouch = __POUCH__ && !flag('banks.pouch.disabled')
 
 let PouchLink
 
@@ -11,7 +14,7 @@ const pouchLinkOptions = {
   initialSync: true
 }
 
-if (__POUCH__) {
+if (activatePouch) {
   PouchLink = require('cozy-pouch-link').default
 
   if (isMobileApp() && isIOSApp()) {
@@ -34,7 +37,7 @@ export const getLinks = (options = {}) => {
   const stackLink = new StackLink()
   links = [stackLink]
 
-  if (__POUCH__) {
+  if (activatePouch) {
     const pouchLink = new PouchLink({
       ...pouchLinkOptions,
       ...options.pouchLink
