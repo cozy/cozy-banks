@@ -57,3 +57,9 @@ export const buildNotificationView = (client, options) => {
   })
   return notifView
 }
+
+export const hasBudgetAlerts = templateData => {
+  const { budgetAlerts } = templateData
+  const hasMultipleAlerts = budgetAlerts.length > 1
+  return hasMultipleAlerts
+}

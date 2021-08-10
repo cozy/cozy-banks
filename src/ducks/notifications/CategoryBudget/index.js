@@ -14,7 +14,10 @@ import { getAccountLabel } from 'ducks/account/helpers'
 
 import template from 'ducks/budgetAlerts/template.hbs'
 import { fetchCategoryAlerts } from 'ducks//budgetAlerts'
-import { buildNotificationData } from 'ducks/notifications/CategoryBudget/utils'
+import {
+  buildNotificationData,
+  hasBudgetAlerts
+} from 'ducks/notifications/CategoryBudget/utils'
 
 const log = logger.namespace('category-budgets')
 
@@ -125,7 +128,7 @@ class CategoryBudget extends NotificationView {
 
   getTitle(templateData) {
     const { budgetAlerts } = templateData
-    const hasMultipleAlerts = budgetAlerts.length > 1
+    const hasMultipleAlerts = hasBudgetAlerts(templateData)
     return hasMultipleAlerts
       ? this.t('Notifications.categoryBudgets.email.title-multi', {
           alertCount: budgetAlerts.length
