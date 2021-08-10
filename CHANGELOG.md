@@ -15,4 +15,8 @@
 
 ## 🔧 Tech
 
-*
+* To facilitate overriding about notifications and standardize their entry point, a bit
+refactoring was necessary:
+  * Move `CategoryBudget` to notifications folder
+  * Move `lang` and `dictRequire` to utils/lang
+
