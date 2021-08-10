@@ -1,5 +1,6 @@
 /* global __POUCH__ */
 
+import fromPairs from 'lodash/fromPairs'
 import { StackLink, Q } from 'cozy-client'
 import { offlineDoctypes } from 'doctypes'
 import { isMobileApp, isIOSApp } from 'cozy-device-helper'
@@ -10,23 +11,30 @@ const activatePouch = __POUCH__ && !flag('banks.pouch.disabled')
 
 let PouchLink
 
+const makeWarmupQueryOptions = (doctype, indexedFields) => {
+  return {
+    definition: () => {
+      const qdef = Q(doctype)
+        .where(
+          fromPairs(indexedFields.map(fieldName => [fieldName, { $gt: null }]))
+        )
+        .indexFields(indexedFields)
+      return qdef
+    },
+    options: {
+      as: `${doctype}-by-${indexedFields.join('-')}`
+    }
+  }
+}
+
 const pouchLinkOptions = {
   doctypes: offlineDoctypes,
   doctypesReplicationOptions: {
     [TRANSACTION_DOCTYPE]: {
       warmupQueries: [
-        {
-          definition: () => {
-            return Q(TRANSACTION_DOCTYPE).where({
-              date: {
-                $gt: '2020-01'
-              }
-            })
-          },
-          options: {
-            as: 'transactions'
-          }
-        }
+        makeWarmupQueryOptions(TRANSACTION_DOCTYPE, ['date']),
+        makeWarmupQueryOptions(TRANSACTION_DOCTYPE, ['account']),
+        makeWarmupQueryOptions(TRANSACTION_DOCTYPE, ['date', 'account'])
       ]
     }
   },
