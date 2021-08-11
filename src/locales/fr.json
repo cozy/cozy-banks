@@ -921,6 +921,7 @@
   },
 
   "Categorization": {
+    "error": "Impossible de catégoriser certaines opérations, merci de réessayer plus tard.",
     "success": "%{smart_count} operation a été recatégorisée |||| %{smart_count} operations ont été recatégorisées"
   },
 

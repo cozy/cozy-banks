@@ -10,9 +10,9 @@ import { getCategoryName } from 'ducks/categories/categoriesMap'
 import TransactionCategoryEditor from 'ducks/transactions/TransactionCategoryEditor'
 
 const TransactionCategoryEditorDialog = ({ transaction, onClose }) => {
-  const onAfterUpdate = transaction => {
+  const onAfterUpdates = transactions => {
     trackEvent({
-      name: getCategoryName(transaction.manualCategoryId)
+      name: getCategoryName(transactions[0].manualCategoryId)
     })
   }
 
@@ -26,7 +26,7 @@ const TransactionCategoryEditorDialog = ({ transaction, onClose }) => {
   return (
     <TransactionCategoryEditor
       beforeUpdates={handlePop}
-      afterUpdate={onAfterUpdate}
+      afterUpdates={onAfterUpdates}
       onCancel={handlePop}
       transactions={[transaction]}
     />

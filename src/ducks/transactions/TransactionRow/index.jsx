@@ -22,7 +22,8 @@ export const useTransactionModal = transaction => {
 export const useTransactionCategoryModal = ({
   transactions,
   beforeUpdates,
-  afterUpdates
+  afterUpdates,
+  onError
 }) => {
   const [modalOpened, show, hide] = useSwitch(false)
   const handleBeforeUpdates = useCallback(() => {
@@ -36,6 +37,7 @@ export const useTransactionCategoryModal = ({
       afterUpdates={afterUpdates}
       transactions={transactions}
       onCancel={hide}
+      onError={onError}
     />
   ) : null
 
