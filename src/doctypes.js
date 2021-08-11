@@ -224,6 +224,7 @@ export const makeBalanceTransactionsConn = () => {
   const fromDate = format(subYears(new Date(), 1), 'YYYY-MM-DD')
   return {
     as: 'home/transactions',
+    fetchPolicy: older30s,
     query: () =>
       Q(TRANSACTION_DOCTYPE)
         .limitBy(1000)
