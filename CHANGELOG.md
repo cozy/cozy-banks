@@ -5,9 +5,9 @@
 * Remove balance from transaction header
 * Add checkbox icon button to activate selection mode in transactions page and search page
 * Improve ui for no result in search page
+* Recategorizing multiple transactions is much faster with better performance
 * Update cozy-ui to 51.4.0
 * Update cozy-harvest-lib to 6.4.0
-* Recategorizing several transactions is faster
 
 
 ## 🐛 Bug Fixes
@@ -28,3 +28,4 @@ refactoring was necessary:
   * Move `CategoryBudget` to notifications folder
   * Move `lang` and `dictRequire` to utils/lang
 * Ability to run the push notifications debug server from the CLI
+* Add some documentation to develop for android
