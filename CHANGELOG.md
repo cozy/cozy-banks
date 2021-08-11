@@ -20,6 +20,7 @@
 * The analysis page correctly retrieves information when viewing all accounts
 * Prevent render loop after login if a pin had been set
 * Render pin setting row in configuration even when no pin has been set yet
+* Autogroups and LinkMyselfToAccount services crashed if configuration settings had not been saved yet
 
 ## 🔧 Tech
 
