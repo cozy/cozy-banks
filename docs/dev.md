@@ -131,51 +131,67 @@ jdk 8 # Cordova supports JDK version 1.8 (same as version 8 it seems)
 brew install gradle
 ```
 
-### Build and run the mobile app
-To be able to start the mobile app on an emulator or a real device, you can follow [this guide](https://gist.github.com/drazik/11dfe2014a6b967821df93b9e10353f4).
+### Run the mobile app with hot reload
 
-To build the mobile app, you first have to run one of the following commands:
+First you need to export your local host IP address (whether to use a real device or an emulator):
 
-```console
-# One-shot build
-$ yarn build:mobile
-# To develop
+```bash
+$ export DEV_HOST=[YOUR_LOCAL_IP_ADDRESS]
+```
+
+For Android 9+ device only, add some specifiations in `src/targets/mobile/config.xml` inside `<platform name="android">` after `<config-file parent="/manifest/application" target="app/src/main/AndroidManifest.xml"></config-file>`.
+
+⚠️ Be careful to not commit this modification, and to not build a release with it. It's for developing purpose only. Here the specifications:
+
+```xml
+<edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
+  <application android:usesCleartextTraffic="true" />
+</edit-config>
+```
+
+Now you can watch with hot reload:
+
+```bash
 $ yarn start:mobile
 ```
 
+And start the application (plateform could be `ios` or `android`) on an emulator:
 
-Then you can run the app on the desired platform. For Android:
-
-```console
-# Run on a real device
-$ yarn android:run
-# Run on an emulator
-$ yarn android:run:emulator
+```bash
+$ yarn [plateform]:run:emulator
 ```
 
-For iOS:
+Or on a real device:
 
-```console
-# Run on a real device
-$ yarn ios:run
-# Run on an emulator
-$ yarn ios:run:emulator
+```bash
+$ yarn [plateform]:run
 ```
 
-### Hot reload on mobile app
-
-```
-# Replace the host with your own host (find it with ifconfig)
-$ env DEV_HOST=192.168.1.36 yarn build:mobile
-$ yarn ios:run # at this point the app is blank since it cannot access the files from your host
-$ env DEV_HOST=192.168.1.36 yarn start:mobile # launch a webpack-dev-server
-```
 
 ⚠️⚠️⚠️ If you watch a production build, you must edit the webpack config to have
 the filepath without the [hash] otherwise you will not hit the right JS file.
 
 ⚠️ You need to have the final `/` at the end of the PUBLIC_PATH, otherwise some some CSS resources like fonts will not load
 
+For more information about installing prerequisites (installing Android Studio, Cordova etc.), you can follow [this guide](https://gist.github.com/drazik/11dfe2014a6b967821df93b9e10353f4) (in French for now, don't hesitate to open a pull request).
+
+
+### Build the mobile app
+
+You can one-shot build the app and launch it on a device/emulator
+
+```bash
+$ yarn build:mobile
+```
+
+Then you can run the app on the desired platform:
+
+```bash
+# Run on a real device
+$ yarn [plateform]:run
+# Run on an emulator
+$ yarn [plateform]:run:emulator
+```
 
 ## Release
 

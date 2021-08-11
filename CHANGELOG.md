@@ -26,3 +26,4 @@ refactoring was necessary:
   * Move `CategoryBudget` to notifications folder
   * Move `lang` and `dictRequire` to utils/lang
 * Ability to run the push notifications debug server from the CLI
+* Add some documentation to develop for android
