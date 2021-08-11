@@ -460,7 +460,7 @@ If you want to test the notifications in a workflow that is very close to the re
 Then you can use [ACH] to import the fixtures :
 
 ```console
-ACH import test/fixtures/operations-notifs.json test/fixtures/helpers.js --url <instance_url>
+ACH import test/fixtures/notifications-service/operations-notifs.json test/fixtures/helpers/index.js --url <instance_url>
 ```
 
 ### End to end tests

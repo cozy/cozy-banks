@@ -30,6 +30,9 @@ export const getT = option => {
   return polyglot.t.bind(polyglot)
 }
 
+export const lang = process.env.COZY_LOCALE || 'en'
+export const dictRequire = lang => require(`locales/${lang}`)
+
 export const enLocaleOption = {
   dataset: { cozy: JSON.stringify({ locale: 'en' }) }
 }
