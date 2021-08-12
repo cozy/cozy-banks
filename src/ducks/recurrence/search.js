@@ -47,7 +47,6 @@ export const findRecurrences = (operations, rules) => {
     return Object.entries(perAmount).map(([amount, ops]) => ({
       categoryIds: [categoryId],
       amounts: [parseInt(amount, 10)],
-      key: `${categoryId}/${amount}`,
       ops,
       automaticLabel: getLabel(ops[0])
     }))
