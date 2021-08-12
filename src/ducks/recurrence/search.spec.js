@@ -139,7 +139,6 @@ describe('recurrence scenario with all operations which have a subcategory', () 
     categoryIds: ['200110'],
     amounts: [2000, 2150],
     accounts: ['1d22740c6c510e5368d1b6b670deee05'],
-    key: '200110/2000',
     ops: [...transactions, mayTransaction],
     automaticLabel: 'Mon Salaire'
   }
@@ -238,7 +237,6 @@ describe('recurrence scenario with all operations which have a subcategory', () 
       categoryIds: ['400100'],
       amounts: [10],
       accounts: ['1d22740c6c510e5368d1b6b670deee05'],
-      key: '400100/10',
       ops: [juneSpot],
       automaticLabel: 'Spotify Abonnement'
     }
@@ -292,7 +290,6 @@ describe('recurrence scenario with 01 feb, march and april are to categorize (0)
     categoryIds: ['0', '200110'],
     amounts: [2000, 2150],
     accounts: ['1d22740c6c510e5368d1b6b670deee05'],
-    key: '200110/2000',
     ops: [...transactions, mayTransaction],
     automaticLabel: 'Mon Salaire'
   }
@@ -366,7 +363,6 @@ describe('recurrence scenario with 01 feb, march and april are to categorize (0)
       categoryIds: ['401080'],
       amounts: [30],
       accounts: ['1d22740c6c510e5368d1b6b670deee05'],
-      key: '401080/30',
       ops: [febTransactionEDF],
       automaticLabel: 'EDF'
     }

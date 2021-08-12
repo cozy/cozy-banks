@@ -147,7 +147,6 @@ describe('make stats', () => {
   const makeBundle = ops => ({
     categoryIds: ['200110'],
     amounts: [2000, 2150],
-    key: '200110/2000',
     ops,
     automaticLabel: 'Mon Salaire'
   })
