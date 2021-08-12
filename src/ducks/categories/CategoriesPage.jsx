@@ -35,13 +35,17 @@ import {
 import { DESKTOP_SCROLLING_ELEMENT_CLASSNAME } from 'ducks/transactions/scroll/getScrollingElement'
 import BarTheme from 'ducks/bar/BarTheme'
 import { computeCategoriesData } from 'ducks/categories/selectors'
-import { getDate } from 'ducks/transactions/helpers'
+import {
+  getDate,
+  computeTransactionsByDateAndApplicationDate
+} from 'ducks/transactions/helpers'
 import { trackPage } from 'ducks/tracking/browser'
 import { TransactionList } from 'ducks/transactions/Transactions'
 import Delayed from 'components/Delayed'
 import useLast from 'hooks/useLast'
 import useFullyLoadedQuery from 'hooks/useFullyLoadedQuery'
 import { onSubcategory } from './utils'
+import { APPLICATION_DATE } from 'ducks/transactions/constants'
 
 const isCategoryDataEmpty = categoryData => {
   return categoryData[0] && isNaN(categoryData[0].percentage)
@@ -153,15 +157,18 @@ export class CategoriesPage extends Component {
     const {
       categories: categoriesProps,
       transactions,
+      transactionsByApplicationDate,
       router,
       accounts,
       settings,
-      isFetching: isFetchingNewData
+      isFetching: isFetchingNewData,
+      filteredTransactionsByAccount
     } = this.props
     const isFetching = some(
-      [accounts, transactions, settings],
+      [accounts, transactions, settings, transactionsByApplicationDate],
       col => isQueryLoading(col) && !hasQueryBeenLoaded(col)
     )
+
     const { showIncomeCategory } = this.getSettings()
     const categories = showIncomeCategory
       ? categoriesProps
@@ -216,7 +223,7 @@ export class CategoriesPage extends Component {
             ) : (
               <CategoryTransactions
                 subcategoryName={router.params.subcategoryName}
-                transactions={transactions.data}
+                transactions={filteredTransactionsByAccount}
               />
             ))}
         </Delayed>
@@ -248,27 +255,74 @@ const enhance = Component => props => {
   const period = useSelector(getPeriod)
   const dispatch = useDispatch()
 
-  const initialConn = makeFilteredTransactionsConn({
+  const initialConnByDate = makeFilteredTransactionsConn({
     groups,
     accounts,
-    filteringDoc
+    filteringDoc,
+    dateAttribute: 'date'
   })
-  const conn = useMemo(() => {
+  const initialConnByApplicationDate = makeFilteredTransactionsConn({
+    groups,
+    accounts,
+    filteringDoc,
+    dateAttribute: APPLICATION_DATE
+  })
+
+  const connByDate = useMemo(() => {
     return period
-      ? setAutoUpdate(addPeriodToConn(initialConn, period))
-      : setAutoUpdate(initialConn)
-  }, [initialConn, period])
-  const transactions = useFullyLoadedQuery(conn.query, conn)
+      ? setAutoUpdate(
+          addPeriodToConn({
+            baseConn: initialConnByDate,
+            period,
+            dateAttribute: 'date'
+          })
+        )
+      : setAutoUpdate(initialConnByDate)
+  }, [initialConnByDate, period])
+
+  const connByApplicationDate = useMemo(() => {
+    return period
+      ? setAutoUpdate(
+          addPeriodToConn({
+            baseConn: initialConnByApplicationDate,
+            period,
+            dateAttribute: APPLICATION_DATE
+          })
+        )
+      : setAutoUpdate(initialConnByApplicationDate)
+  }, [initialConnByApplicationDate, period])
+
+  const transactionsByDate = useFullyLoadedQuery(connByDate.query, connByDate)
+  const transactionsByApplicationDate = useFullyLoadedQuery(
+    connByApplicationDate.query,
+    connByApplicationDate
+  )
 
   // This is used for loaded transactions to stay rendered while
   // next/previous month transactions are loaded
-  const col = useLast(transactions, (last, cur) => {
+  const colByDate = useLast(transactionsByDate, (last, cur) => {
     return !last || (cur.lastUpdate && !cur.hasMore)
   })
+  const colByApplicationDate = useLast(
+    transactionsByApplicationDate,
+    (last, cur) => {
+      return !last || (cur.lastUpdate && !cur.hasMore)
+    }
+  )
+
+  const transactionsData = useMemo(
+    () =>
+      computeTransactionsByDateAndApplicationDate({
+        transactionsByDate: transactionsByDate.data,
+        transactionsByApplicationDate: transactionsByApplicationDate.data
+      }),
+    [transactionsByApplicationDate.data, transactionsByDate.data]
+  )
 
   const categories = useMemo(() => {
-    return computeCategoriesData(col.data || [])
-  }, [col.data])
+    return computeCategoriesData(transactionsData || [])
+  }, [transactionsData])
+
   return (
     <Component
       {...props}
@@ -276,15 +330,19 @@ const enhance = Component => props => {
       groups={groups}
       settings={settings}
       categories={categories}
-      transactions={col}
+      transactions={colByDate}
+      transactionsByApplicationDate={colByApplicationDate}
       filteringDoc={filteringDoc}
       period={period}
       client={client}
       params={params}
-      filteredTransactionsByAccount={col.data}
+      filteredTransactionsByAccount={transactionsData}
       dispatch={dispatch}
       isFetching={
-        transactions.fetchStatus === 'loading' || transactions.hasMore
+        isQueryLoading(transactionsByDate) ||
+        transactionsByDate.hasMore ||
+        isQueryLoading(transactionsByApplicationDate) ||
+        transactionsByApplicationDate.hasMore
       }
     />
   )
