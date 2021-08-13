@@ -1,51 +1,24 @@
-import React, { Component, Fragment, useMemo } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { Component } from 'react'
 import includes from 'lodash/includes'
 import maxBy from 'lodash/maxBy'
 import some from 'lodash/some'
 import sortBy from 'lodash/sortBy'
 
-import getCategoryId from 'ducks/transactions/getCategoryId'
-import { getCategoryIdFromName } from 'ducks/categories/helpers'
-import CategoriesHeader from 'ducks/categories/CategoriesHeader'
-import {
-  useClient,
-  isQueryLoading,
-  hasQueryBeenLoaded,
-  useQuery
-} from 'cozy-client'
+import { isQueryLoading, hasQueryBeenLoaded } from 'cozy-client'
 
-import { useParams } from 'components/RouterContext'
 import Loading from 'components/Loading'
 import Padded from 'components/Padded'
-import {
-  resetFilterByDoc,
-  addFilterByPeriod,
-  getFilteringDoc,
-  getPeriod
-} from 'ducks/filters'
-import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
-import Categories from 'ducks/categories/Categories'
-import { accountsConn, settingsConn, groupsConn } from 'doctypes'
-
-import {
-  makeFilteredTransactionsConn,
-  addPeriodToConn
-} from 'ducks/transactions/queries'
-import { DESKTOP_SCROLLING_ELEMENT_CLASSNAME } from 'ducks/transactions/scroll/getScrollingElement'
-import BarTheme from 'ducks/bar/BarTheme'
-import { computeCategoriesData } from 'ducks/categories/selectors'
-import {
-  getDate,
-  computeTransactionsByDateAndApplicationDate
-} from 'ducks/transactions/helpers'
-import { trackPage } from 'ducks/tracking/browser'
-import { TransactionList } from 'ducks/transactions/Transactions'
 import Delayed from 'components/Delayed'
-import useLast from 'hooks/useLast'
-import useFullyLoadedQuery from 'hooks/useFullyLoadedQuery'
-import { onSubcategory } from './utils'
-import { APPLICATION_DATE } from 'ducks/transactions/constants'
+import { resetFilterByDoc, addFilterByPeriod } from 'ducks/filters'
+import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
+import BarTheme from 'ducks/bar/BarTheme'
+import { getDate } from 'ducks/transactions/helpers'
+import { trackPage } from 'ducks/tracking/browser'
+import CategoriesHeader from 'ducks/categories/CategoriesHeader'
+import Categories from 'ducks/categories/Categories'
+import { onSubcategory } from 'ducks/categories/utils'
+import CategoryTransactions from 'ducks/categories/CategoriesPage/CategoryTransactions'
+import enhanceCategoriesPage from 'ducks/categories/CategoriesPage/enhanceCategoriesPage'
 
 const isCategoryDataEmpty = categoryData => {
   return categoryData[0] && isNaN(categoryData[0].percentage)
@@ -59,32 +32,6 @@ const goToCategory = (router, selectedCategory, subcategory) => {
   } else {
     router.push('/analysis/categories')
   }
-}
-
-const CategoryTransactions = ({ transactions, subcategoryName }) => {
-  const categoryTransactions = useMemo(() => {
-    const categoryId = getCategoryIdFromName(subcategoryName)
-    return transactions
-      ? transactions.filter(t => {
-          const tc = getCategoryId(t)
-          return tc === categoryId
-        })
-      : []
-  }, [subcategoryName, transactions])
-  return (
-    <div className={DESKTOP_SCROLLING_ELEMENT_CLASSNAME}>
-      <TransactionList
-        showTriggerErrors={false}
-        onChangeTopMostTransaction={null}
-        onScroll={null}
-        transactions={categoryTransactions}
-        canFetchMore={false}
-        filteringOnAccount={true}
-        manualLoadMore={false}
-        onReachBottom={null}
-      />
-    </div>
-  )
 }
 
 export class CategoriesPage extends Component {
@@ -113,12 +60,6 @@ export class CategoriesPage extends Component {
   componentDidUpdate(prevProps) {
     const prevParams = prevProps.params
     const curParams = this.props.params
-    // if (
-    //   !prevProps.transactions.lastUpdate &&
-    //   this.props.transactions.lastUpdate
-    // ) {
-    //   this.checkToChangeFilter()
-    // }
 
     if (prevParams.categoryName !== curParams.categoryName) {
       this.trackPage()
@@ -189,7 +130,7 @@ export class CategoriesPage extends Component {
     const isSubcategory = onSubcategory(router.params)
 
     return (
-      <Fragment>
+      <>
         <BarTheme theme="primary" />
         <CategoriesHeader
           categoryName={categoryName}
@@ -227,7 +168,7 @@ export class CategoriesPage extends Component {
               />
             ))}
         </Delayed>
-      </Fragment>
+      </>
     )
   }
 }
@@ -236,116 +177,4 @@ CategoriesPage.defaultProps = {
   delayContent: 0
 }
 
-const autoUpdateOptions = {
-  add: false,
-  remove: true,
-  update: true
-}
-
-const setAutoUpdate = conn => ({ ...conn, autoUpdate: autoUpdateOptions })
-
-const enhance = Component => props => {
-  const client = useClient()
-  const params = useParams()
-  const accounts = useQuery(accountsConn.query, accountsConn)
-  const groups = useQuery(groupsConn.query, groupsConn)
-  const settings = useQuery(settingsConn.query, settingsConn)
-
-  const filteringDoc = useSelector(getFilteringDoc)
-  const period = useSelector(getPeriod)
-  const dispatch = useDispatch()
-
-  const initialConnByDate = makeFilteredTransactionsConn({
-    groups,
-    accounts,
-    filteringDoc,
-    dateAttribute: 'date'
-  })
-  const initialConnByApplicationDate = makeFilteredTransactionsConn({
-    groups,
-    accounts,
-    filteringDoc,
-    dateAttribute: APPLICATION_DATE
-  })
-
-  const connByDate = useMemo(() => {
-    return period
-      ? setAutoUpdate(
-          addPeriodToConn({
-            baseConn: initialConnByDate,
-            period,
-            dateAttribute: 'date'
-          })
-        )
-      : setAutoUpdate(initialConnByDate)
-  }, [initialConnByDate, period])
-
-  const connByApplicationDate = useMemo(() => {
-    return period
-      ? setAutoUpdate(
-          addPeriodToConn({
-            baseConn: initialConnByApplicationDate,
-            period,
-            dateAttribute: APPLICATION_DATE
-          })
-        )
-      : setAutoUpdate(initialConnByApplicationDate)
-  }, [initialConnByApplicationDate, period])
-
-  const transactionsByDate = useFullyLoadedQuery(connByDate.query, connByDate)
-  const transactionsByApplicationDate = useFullyLoadedQuery(
-    connByApplicationDate.query,
-    connByApplicationDate
-  )
-
-  // This is used for loaded transactions to stay rendered while
-  // next/previous month transactions are loaded
-  const colByDate = useLast(transactionsByDate, (last, cur) => {
-    return !last || (cur.lastUpdate && !cur.hasMore)
-  })
-  const colByApplicationDate = useLast(
-    transactionsByApplicationDate,
-    (last, cur) => {
-      return !last || (cur.lastUpdate && !cur.hasMore)
-    }
-  )
-
-  const transactionsData = useMemo(
-    () =>
-      computeTransactionsByDateAndApplicationDate({
-        transactionsByDate: transactionsByDate.data,
-        transactionsByApplicationDate: transactionsByApplicationDate.data
-      }),
-    [transactionsByApplicationDate.data, transactionsByDate.data]
-  )
-
-  const categories = useMemo(() => {
-    return computeCategoriesData(transactionsData || [])
-  }, [transactionsData])
-
-  return (
-    <Component
-      {...props}
-      accounts={accounts}
-      groups={groups}
-      settings={settings}
-      categories={categories}
-      transactions={colByDate}
-      transactionsByApplicationDate={colByApplicationDate}
-      filteringDoc={filteringDoc}
-      period={period}
-      client={client}
-      params={params}
-      filteredTransactionsByAccount={transactionsData}
-      dispatch={dispatch}
-      isFetching={
-        isQueryLoading(transactionsByDate) ||
-        transactionsByDate.hasMore ||
-        isQueryLoading(transactionsByApplicationDate) ||
-        transactionsByApplicationDate.hasMore
-      }
-    />
-  )
-}
-
-export default enhance(CategoriesPage)
+export default enhanceCategoriesPage(CategoriesPage)
