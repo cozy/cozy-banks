@@ -42,21 +42,21 @@ export const makeFilteredTransactionsConn = options => {
           const group = groups.data.find(g => g._id === filteringDoc._id)
           accounts = group ? group.accounts.raw : []
         }
-        indexFields = [dateAttribute, 'account']
+        indexFields = ['account', dateAttribute]
         whereClause = {
           account: { $in: accounts }
         }
-        sortByClause = [{ [dateAttribute]: 'desc' }, { account: 'desc' }]
+        sortByClause = [{ account: 'desc' }, { [dateAttribute]: 'desc' }]
       } else if (filteringDoc._type === ACCOUNT_DOCTYPE) {
-        indexFields = [dateAttribute, 'account']
+        indexFields = ['account', dateAttribute]
         whereClause = { account: filteringDoc._id }
-        sortByClause = [{ [dateAttribute]: 'desc' }, { account: 'desc' }]
+        sortByClause = [{ account: 'desc' }, { [dateAttribute]: 'desc' }]
       } else if (Array.isArray(filteringDoc)) {
-        indexFields = [dateAttribute, 'account']
+        indexFields = ['account', dateAttribute]
         whereClause = {
           account: { $in: filteringDoc }
         }
-        sortByClause = [{ [dateAttribute]: 'desc' }, { account: 'desc' }]
+        sortByClause = [{ account: 'desc' }, { [dateAttribute]: 'desc' }]
       } else {
         throw new Error('Unsupported filtering doc to create transaction query')
       }
@@ -158,9 +158,9 @@ export const addPeriodToConn = ({
         baseQuery.selector
       )
     )
-    .indexFields(baseQuery.indexedFields || [dateAttribute, 'account'])
+    .indexFields(baseQuery.indexedFields || ['account', dateAttribute])
     .sortBy(
-      baseQuery.sort || [{ [dateAttribute]: 'desc' }, { account: 'desc' }]
+      baseQuery.sort || [{ account: 'desc' }, { [dateAttribute]: 'desc' }]
     )
     .limitBy(500)
   const as = `${baseAs}-by-${dateAttribute}-${format(

@@ -16,6 +16,7 @@ describe('makeFilteredTransactionsConn', () => {
         _type: 'io.cozy.bank.groups'
       }
     })
+
     expect(conn1.enabled).toBe(false)
   })
 
@@ -40,15 +41,18 @@ describe('makeFilteredTransactionsConn', () => {
         _type: 'io.cozy.bank.groups'
       }
     })
+
     expect(conn1.enabled).toBe(true)
+
     const query = conn1.query()
+
     expect(query).toEqual(
       expect.objectContaining({
-        indexedFields: ['date', 'account'],
+        indexedFields: ['account', 'date'],
         selector: {
           account: { $in: ['a1', 'a2', 'a3'] }
         },
-        sort: [{ date: 'desc' }, { account: 'desc' }]
+        sort: [{ account: 'desc' }, { date: 'desc' }]
       })
     )
   })
@@ -71,15 +75,18 @@ describe('makeFilteredTransactionsConn', () => {
         }
       }
     })
+
     expect(conn1.enabled).toBe(true)
+
     const query = conn1.query()
+
     expect(query).toEqual(
       expect.objectContaining({
-        indexedFields: ['date', 'account'],
+        indexedFields: ['account', 'date'],
         selector: {
           account: { $in: ['a1', 'a2', 'a3'] }
         },
-        sort: [{ date: 'desc' }, { account: 'desc' }]
+        sort: [{ account: 'desc' }, { date: 'desc' }]
       })
     )
   })
@@ -95,15 +102,18 @@ describe('makeFilteredTransactionsConn', () => {
       },
       filteringDoc: ['a1', 'a2', 'a3']
     })
+
     expect(conn1.enabled).toBe(true)
+
     const query = conn1.query()
+
     expect(query).toEqual(
       expect.objectContaining({
-        indexedFields: ['date', 'account'],
+        indexedFields: ['account', 'date'],
         selector: {
           account: { $in: ['a1', 'a2', 'a3'] }
         },
-        sort: [{ date: 'desc' }, { account: 'desc' }]
+        sort: [{ account: 'desc' }, { date: 'desc' }]
       })
     )
   })
@@ -114,6 +124,7 @@ describe('makeEarliestLatestQueries', () => {
     const baseQuery = Q('io.cozy.bank.transactions').where({
       account: 'comptelou1'
     })
+
     expect(makeEarliestLatestQueries(baseQuery)).toEqual([
       expect.objectContaining({
         selector: {
@@ -140,6 +151,7 @@ describe('makeEarliestLatestQueries', () => {
     const baseQuery = Q('io.cozy.bank.transactions').where({
       account: { $in: ['comptelou1', 'compteisa2'] }
     })
+
     expect(makeEarliestLatestQueries(baseQuery)).toEqual([
       expect.objectContaining({
         selector: {
@@ -186,6 +198,7 @@ describe('addMonthToConn', () => {
       }
     })
     const conn2 = addMonthToConn(conn1, '2021-07')
+
     expect(conn2.query).toEqual(
       expect.objectContaining({
         selector: {
