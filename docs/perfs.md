@@ -24,7 +24,3 @@ Size of the fixture file : 1.2M
 50 io.cozy.bank.accounts
 20000 io.cozy.bank.operations
 15 io.cozy.bank.groups
-
-
-12,37 Mo / 12,38 Mo transférés
-8.2M
