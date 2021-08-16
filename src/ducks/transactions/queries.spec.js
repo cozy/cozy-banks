@@ -3,7 +3,8 @@ import {
   makeFilteredTransactionsConn,
   makeEarliestLatestQueries,
   addMonthToConn,
-  addPeriodToConn
+  addPeriodToConn,
+  makeAccounts
 } from './queries'
 
 describe('makeFilteredTransactionsConn', () => {
@@ -283,5 +284,62 @@ describe('addPeriodToConn', () => {
         indexedFields: ['date', '_id']
       })
     )
+  })
+})
+
+describe('makeAccounts', () => {
+  it('should return empty array if no datas', () => {
+    const filteringDoc = {}
+    const groups = { data: [] }
+
+    expect(makeAccounts(filteringDoc, groups)).toMatchObject([])
+  })
+
+  it('should return empty array if no accounts in filteringDoc for virtual filtering', () => {
+    const filteringDoc = { virtual: true, accounts: undefined }
+    const groups = { data: [] }
+
+    expect(makeAccounts(filteringDoc, groups)).toMatchObject([])
+  })
+
+  it('should return filteringDoc accounts for virtual filtering', () => {
+    const filteringDoc = { virtual: true, accounts: { raw: [{ id: '01' }] } }
+    const groups = { data: [] }
+
+    expect(makeAccounts(filteringDoc, groups)).toMatchObject([{ id: '01' }])
+  })
+
+  it('should return empty array if no groups', () => {
+    const filteringDoc = { virtual: false, _id: '01' }
+    const groups = { data: [] }
+
+    expect(makeAccounts(filteringDoc, groups)).toMatchObject([])
+  })
+
+  it('should return empty array if no matching group', () => {
+    const filteringDoc = { virtual: false, _id: '01' }
+    const groups = {
+      data: [{ _id: '02' }]
+    }
+
+    expect(makeAccounts(filteringDoc, groups)).toMatchObject([])
+  })
+
+  it('should return empty array if no raw accounts for a matched group', () => {
+    const filteringDoc = { virtual: false, _id: '01' }
+    const groups = {
+      data: [{ _id: '01', accounts: { raw: undefined } }, { _id: '02' }]
+    }
+
+    expect(makeAccounts(filteringDoc, groups)).toMatchObject([])
+  })
+
+  it('should return raw account for a matched group', () => {
+    const filteringDoc = { virtual: false, _id: '01' }
+    const groups = {
+      data: [{ _id: '01', accounts: { raw: [{ id: '01' }] } }, { _id: '02' }]
+    }
+
+    expect(makeAccounts(filteringDoc, groups)).toMatchObject([{ id: '01' }])
   })
 })

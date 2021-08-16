@@ -10,6 +10,17 @@ import { GROUP_DOCTYPE, ACCOUNT_DOCTYPE, transactionsConn } from 'doctypes'
 
 import { APPLICATION_DATE } from 'ducks/transactions/constants'
 
+export const makeAccounts = (filteringDoc, groups) => {
+  let accounts
+  if (filteringDoc.virtual) {
+    accounts = filteringDoc.accounts?.raw || []
+  } else {
+    const group = groups.data.find(g => g._id === filteringDoc._id)
+    accounts = group?.accounts?.raw || []
+  }
+  return accounts
+}
+
 /**
  * Outputs a connection to fetch transactions
  * based on the current filtering doc
@@ -24,9 +35,9 @@ export const makeFilteredTransactionsConn = options => {
     enabled = false
   }
 
-  let indexFields
+  let indexFields = ['account', dateAttribute]
   let whereClause
-  let sortByClause = []
+  let sortByClause = [{ account: 'desc' }, { [dateAttribute]: 'desc' }]
 
   if (enabled) {
     if (filteringDoc) {
@@ -35,28 +46,16 @@ export const makeFilteredTransactionsConn = options => {
         // because of the $or. It is therefore much slower than queries
         // with only the account. We haven't found a satisfactory solution
         // yet.
-        let accounts
-        if (filteringDoc.virtual) {
-          accounts = filteringDoc.accounts.raw || []
-        } else {
-          const group = groups.data.find(g => g._id === filteringDoc._id)
-          accounts = group ? group.accounts.raw : []
-        }
-        indexFields = ['account', dateAttribute]
+        const accounts = makeAccounts(filteringDoc, groups)
         whereClause = {
           account: { $in: accounts }
         }
-        sortByClause = [{ account: 'desc' }, { [dateAttribute]: 'desc' }]
       } else if (filteringDoc._type === ACCOUNT_DOCTYPE) {
-        indexFields = ['account', dateAttribute]
         whereClause = { account: filteringDoc._id }
-        sortByClause = [{ account: 'desc' }, { [dateAttribute]: 'desc' }]
       } else if (Array.isArray(filteringDoc)) {
-        indexFields = ['account', dateAttribute]
         whereClause = {
           account: { $in: filteringDoc }
         }
-        sortByClause = [{ account: 'desc' }, { [dateAttribute]: 'desc' }]
       } else {
         throw new Error('Unsupported filtering doc to create transaction query')
       }
