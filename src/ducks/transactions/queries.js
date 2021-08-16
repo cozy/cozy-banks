@@ -1,11 +1,14 @@
-import { Q } from 'cozy-client'
-import { GROUP_DOCTYPE, ACCOUNT_DOCTYPE, transactionsConn } from 'doctypes'
 import startOfMonth from 'date-fns/start_of_month'
 import endOfMonth from 'date-fns/end_of_month'
 import startOfYear from 'date-fns/start_of_year'
 import endOfYear from 'date-fns/end_of_year'
 import format from 'date-fns/format'
 import merge from 'lodash/merge'
+
+import { Q } from 'cozy-client'
+import { GROUP_DOCTYPE, ACCOUNT_DOCTYPE, transactionsConn } from 'doctypes'
+
+import { APPLICATION_DATE } from 'ducks/transactions/constants'
 
 /**
  * Outputs a connection to fetch transactions
@@ -15,7 +18,7 @@ import merge from 'lodash/merge'
  * @return {Connection}
  */
 export const makeFilteredTransactionsConn = options => {
-  const { filteringDoc, groups, accounts } = options
+  const { filteringDoc, groups, accounts, dateAttribute = 'date' } = options
   let enabled = true
   if (!groups.lastUpdate || !accounts.lastUpdate) {
     enabled = false
@@ -39,32 +42,32 @@ export const makeFilteredTransactionsConn = options => {
           const group = groups.data.find(g => g._id === filteringDoc._id)
           accounts = group ? group.accounts.raw : []
         }
-        indexFields = ['date', 'account']
+        indexFields = [dateAttribute, 'account']
         whereClause = {
           account: { $in: accounts }
         }
-        sortByClause = [{ date: 'desc' }, { account: 'desc' }]
+        sortByClause = [{ [dateAttribute]: 'desc' }, { account: 'desc' }]
       } else if (filteringDoc._type === ACCOUNT_DOCTYPE) {
-        indexFields = ['date', 'account']
+        indexFields = [dateAttribute, 'account']
         whereClause = { account: filteringDoc._id }
-        sortByClause = [{ date: 'desc' }, { account: 'desc' }]
+        sortByClause = [{ [dateAttribute]: 'desc' }, { account: 'desc' }]
       } else if (Array.isArray(filteringDoc)) {
-        indexFields = ['date', 'account']
+        indexFields = [dateAttribute, 'account']
         whereClause = {
           account: { $in: filteringDoc }
         }
-        sortByClause = [{ date: 'desc' }, { account: 'desc' }]
+        sortByClause = [{ [dateAttribute]: 'desc' }, { account: 'desc' }]
       } else {
         throw new Error('Unsupported filtering doc to create transaction query')
       }
     } else {
-      indexFields = ['date', '_id']
+      indexFields = [dateAttribute, '_id']
       whereClause = {
         _id: {
           $gt: null
         }
       }
-      sortByClause = [{ date: 'desc' }]
+      sortByClause = [{ [dateAttribute]: 'desc' }]
     }
   }
 
@@ -77,7 +80,9 @@ export const makeFilteredTransactionsConn = options => {
         .sortBy(sortByClause)
         .limitBy(100),
     fetchPolicy: transactionsConn.fetchPolicy,
-    as: `transactions-${filteringDoc ? filteringDoc._id : 'all'}`,
+    as: `transactions-by-${dateAttribute}-${
+      filteringDoc ? filteringDoc._id : 'all'
+    }`,
     enabled: enabled
   }
 }
@@ -128,31 +133,40 @@ export const addMonthToConn = (baseConn, month) => {
  * Makes a new conn, adding a date filter on the query selector
  * so that only transactions for a given month are fetched.
  */
-export const addPeriodToConn = (baseConn, period) => {
+export const addPeriodToConn = ({
+  baseConn,
+  period,
+  dateAttribute = 'date'
+}) => {
   const { query: mkBaseQuery, as: baseAs, ...rest } = baseConn
   const d = new Date(period)
   const startDate = period.length === 7 ? startOfMonth(d) : startOfYear(d)
   const endDate = period.length === 7 ? endOfMonth(d) : endOfYear(d)
+  const dateFormat =
+    dateAttribute === APPLICATION_DATE ? 'YYYY-MM-DD' : 'YYYY-MM-DD[T]HH:mm'
   const baseQuery = mkBaseQuery()
+
   const query = Q(baseQuery.doctype)
     .where(
       merge(
         {
-          date: {
-            $lte: format(endDate, 'YYYY-MM-DD[T]HH:mm'),
-            $gte: format(startDate, 'YYYY-MM-DD[T]HH:mm')
+          [dateAttribute]: {
+            $lte: format(endDate, dateFormat),
+            $gte: format(startDate, dateFormat)
           }
         },
         baseQuery.selector
       )
     )
-    .indexFields(baseQuery.indexedFields || ['date', 'account'])
-    .sortBy(baseQuery.sort || [{ date: 'desc' }, { account: 'desc' }])
+    .indexFields(baseQuery.indexedFields || [dateAttribute, 'account'])
+    .sortBy(
+      baseQuery.sort || [{ [dateAttribute]: 'desc' }, { account: 'desc' }]
+    )
     .limitBy(500)
-  const as = `${baseAs}-${format(startDate, 'YYYY-MM')}-${format(
-    endDate,
+  const as = `${baseAs}-by-${dateAttribute}-${format(
+    startDate,
     'YYYY-MM'
-  )}`
+  )}-${format(endDate, 'YYYY-MM')}`
   return {
     query,
     as,

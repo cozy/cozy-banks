@@ -223,7 +223,8 @@ describe('addPeriodToConn', () => {
         _type: 'io.cozy.bank.groups'
       }
     })
-    const conn2 = addPeriodToConn(conn1, '2021-07')
+    const conn2 = addPeriodToConn({ baseConn: conn1, period: '2021-07' })
+
     expect(conn2.query).toEqual(
       expect.objectContaining({
         selector: {
@@ -255,7 +256,7 @@ describe('addPeriodToConn', () => {
       },
       filteringDoc: null
     })
-    const conn2 = addPeriodToConn(conn1, '2021-07')
+    const conn2 = addPeriodToConn({ baseConn: conn1, period: '2021-07' })
 
     expect(conn2.query).toEqual(
       expect.objectContaining({

@@ -22,6 +22,7 @@
 * Render pin setting row in configuration even when no pin has been set yet
 * Autogroups and LinkMyselfToAccount services crashed if configuration settings had not been saved yet
 * Median function in Recurrence returns the correct median
+* Reassigned transactions are displayed in the correct period according to the selected period
 
 ## 🔧 Tech
 
