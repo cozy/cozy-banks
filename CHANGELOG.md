@@ -39,3 +39,4 @@ refactoring was necessary:
 * Ability to run the push notifications debug server from the CLI
 * Add some documentation to develop for android
 * Extract HeaderInfoCard from PlannedTransactionsPage
+* Extract PlannedTransactionsPage header in its own component
