@@ -28,6 +28,7 @@
 * Reassigned transactions are displayed in the correct period according to the selected period
 * On mobile, account settings page doesn't loop after removing an account
 * Checkbox in transaction row are no longer trimmed
+* Transactions are no longer selectable in the projected expenses page
 
 ## 🔧 Tech
 

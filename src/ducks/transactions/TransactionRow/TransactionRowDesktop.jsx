@@ -127,7 +127,7 @@ const TransactionRowDesktop = ({
         )}
         onClick={canEditTransaction && handleClickRow}
       >
-        {isSelectionModeEnabled && (
+        {isSelectionModeEnabled && canEditTransaction && (
           <TdSecondary
             className={cx(styles.ColumnSizeCheckbox, 'u-pl-0 u-ta-center')}
             onClick={handleClickCheckbox}
@@ -143,7 +143,7 @@ const TransactionRowDesktop = ({
           className={cx(
             styles.ColumnSizeDesc,
             'u-pv-half',
-            isSelectionModeEnabled ? 'u-pl-0' : 'u-pl-1'
+            isSelectionModeEnabled && canEditTransaction ? 'u-pl-0' : 'u-pl-1'
           )}
         >
           <Media>
