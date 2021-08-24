@@ -1,12 +1,9 @@
 import React, { useCallback } from 'react'
 import cx from 'classnames'
-import { withStyles } from '@material-ui/core/styles'
 
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
-import Figure from 'cozy-ui/transpiled/react/Figure'
-import Card from 'cozy-ui/transpiled/react/Card'
 import Empty from 'cozy-ui/transpiled/react/Empty'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
@@ -20,54 +17,12 @@ import { useRouter } from 'components/RouterContext'
 
 import { TransactionList } from 'ducks/transactions/Transactions'
 import LegalMention from 'ducks/legal/LegalMention'
-import useEstimatedBudget from './useEstimatedBudget'
-import { getCurrencySymbol } from 'utils/currencySymbol'
 import { useTrackPage } from 'ducks/tracking/browser'
 import { DESKTOP_SCROLLING_ELEMENT_CLASSNAME } from 'ducks/transactions/scroll/getScrollingElement'
+import useEstimatedBudget from 'ducks/future/useEstimatedBudget'
+import HeaderInfoCard from 'ducks/future/HeaderInfoCard'
 
 import styles from './styles.styl'
-
-const HeaderCard = withStyles({
-  card: {
-    backgroundColor: 'var(--headerInvertedBackgroundColorLight)',
-    border: 0
-  }
-})(({ classes, children }) => {
-  return <Card className={classes.card}>{children}</Card>
-})
-
-const HeaderInfoCard = () => {
-  const { t } = useI18n()
-  const { estimatedBalance, currency, transactions } = useEstimatedBudget()
-
-  if (estimatedBalance === null) {
-    return null
-  }
-
-  return (
-    <HeaderCard>
-      <Media>
-        <Bd>
-          <Typography variant="h6" color="primary">
-            {t('EstimatedBudget.30-day-balance')}
-          </Typography>
-          <Typography variant="caption" color="textSecondary">
-            {t('EstimatedBudget.numberEstimatedTransactions', {
-              smart_count: transactions.length
-            })}
-          </Typography>
-        </Bd>
-        <Img>
-          <Figure
-            className="u-ml-2"
-            total={estimatedBalance}
-            symbol={getCurrencySymbol(currency)}
-          />
-        </Img>
-      </Media>
-    </HeaderCard>
-  )
-}
 
 const PlannedTransactionsPage = ({ emptyIcon }) => {
   const budget = useEstimatedBudget()
@@ -75,9 +30,11 @@ const PlannedTransactionsPage = ({ emptyIcon }) => {
   const { t } = useI18n()
   const { isMobile } = useBreakpoints()
   useTrackPage('previsionnel')
+
   const handleBack = useCallback(() => {
     router.push('/balances/details')
   }, [router])
+
   return (
     <>
       <Header theme="inverted" fixed className={styles.Header}>
@@ -119,20 +76,20 @@ const PlannedTransactionsPage = ({ emptyIcon }) => {
         )}
       >
         {/* Necessary to offset vertically the content in the scrolling area when the LegalMention is displayed */}
-        {LegalMention.active ? <div className="u-mt-2"> </div> : null}
+        {LegalMention.active && <div className="u-mt-2"> </div>}
         {budget.isLoading ? (
           <Padded>
             <Loading />
           </Padded>
         ) : (
           <>
-            {budget.transactions && budget.transactions.length > 0 ? (
+            {budget.transactions && budget.transactions.length > 0 && (
               <TransactionList
                 transactions={budget.transactions}
                 showTriggerErrors={false}
               />
-            ) : null}
-            {budget.transactions && budget.transactions.length === 0 ? (
+            )}
+            {budget.transactions && budget.transactions.length === 0 && (
               <div className={isMobile ? 'u-mh-half' : ''}>
                 <Empty
                   icon={emptyIcon}
@@ -142,7 +99,7 @@ const PlannedTransactionsPage = ({ emptyIcon }) => {
                   }
                 />
               </div>
-            ) : null}
+            )}
           </>
         )}
       </div>
