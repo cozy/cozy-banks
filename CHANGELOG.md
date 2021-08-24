@@ -29,6 +29,7 @@
 * On mobile, account settings page doesn't loop after removing an account
 * Checkbox in transaction row are no longer trimmed
 * Transactions are no longer selectable in the projected expenses page
+* Planned transactions page shows transactions correctly on tablet
 
 ## 🔧 Tech
 

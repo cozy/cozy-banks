@@ -19,17 +19,17 @@ import styles from './styles.styl'
 const PlannedTransactionsPage = ({ emptyIcon }) => {
   const budget = useEstimatedBudget()
   const { t } = useI18n()
-  const { isMobile } = useBreakpoints()
+  const { isMobile, isTablet } = useBreakpoints()
   useTrackPage('previsionnel')
 
   return (
     <>
       <PlannedTransactionsPageHeader />
       <div
-        className={cx(
-          DESKTOP_SCROLLING_ELEMENT_CLASSNAME,
-          isMobile ? styles['List--mobile'] : null
-        )}
+        className={cx(DESKTOP_SCROLLING_ELEMENT_CLASSNAME, {
+          [styles['List--mobile']]: isMobile,
+          [styles['List--tablet']]: isTablet
+        })}
       >
         {/* Necessary to offset vertically the content in the scrolling area when the LegalMention is displayed */}
         {LegalMention.active && <div className="u-mt-2"> </div>}
