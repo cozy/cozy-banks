@@ -29,6 +29,7 @@
 * On mobile, account settings page doesn't loop after removing an account
 * Checkbox in transaction row are no longer trimmed
 * Transactions are no longer selectable in the projected expenses page
+* Planned transactions page shows transactions correctly on tablet
 
 ## 🔧 Tech
 
@@ -38,3 +39,5 @@ refactoring was necessary:
   * Move `lang` and `dictRequire` to utils/lang
 * Ability to run the push notifications debug server from the CLI
 * Add some documentation to develop for android
+* Extract HeaderInfoCard from PlannedTransactionsPage
+* Extract PlannedTransactionsPage header in its own component
