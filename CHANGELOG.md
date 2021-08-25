@@ -9,6 +9,8 @@
 * Optimize transactions queries by changing indexes order
 * Update cozy-ui to 51.4.0
 * Update cozy-harvest-lib to 6.4.0
+* Update cozy-client and cozy-pouch-link to 24.1.0 to fix queryAll bug and destroy on Pouch
+* Update cozy-stack-client to 24.0.0
 
 
 ## 🐛 Bug Fixes
@@ -24,6 +26,7 @@
 * Autogroups and LinkMyselfToAccount services crashed if configuration settings had not been saved yet
 * Median function in Recurrence returns the correct median
 * Reassigned transactions are displayed in the correct period according to the selected period
+* On mobile, account settings page doesn't loop after removing an account
 
 ## 🔧 Tech
 
