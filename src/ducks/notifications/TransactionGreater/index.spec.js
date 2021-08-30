@@ -216,7 +216,7 @@ describe('transaction greater', () => {
 
       expect(title).toBe('116 mouvements de plus de 10€')
       expect(pushContent).toBe(
-        'Compte courant Isabelle: 63 mouvements, Livret A Isabelle: 3 mouvements, Compte jeune Louise: 10 mouvements, Compte courant Claude: 9 mouvements, Compte courant Genevieve: 31 mouvements'
+        'Compte courant Isabelle: 63 mouvements\nLivret A Isabelle: 3 mouvements\nCompte jeune Louise: 10 mouvements\nCompte courant Claude: 9 mouvements\nCompte courant Genevieve: 31 mouvements'
       )
     })
   })
