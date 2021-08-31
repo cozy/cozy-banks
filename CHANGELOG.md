@@ -15,6 +15,7 @@
 * Improve ui for no result in search page
 * Recategorizing multiple transactions is much faster with better performance
 * Optimize transactions queries by changing indexes order
+* Separates notifications content by a return to line
 * Update cozy-ui to 51.4.0
 * Update cozy-harvest-lib to 6.4.0
 * Update cozy-client and cozy-pouch-link to 24.1.0 to fix queryAll bug and destroy on Pouch
