@@ -75,7 +75,7 @@ informations about that.
 
 slug: `stats`
 
-Computes statistics on bank accounts and save the results in `io.cozy.bank.accounts.stats` doctype.
+Computes statistics (see [the documentation](https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.bank/#iocozybankaccountsstats) for more informations) on bank accounts and save the results in `io.cozy.bank.accounts.stats` doctype.
 
 ### Automatic groups
 
