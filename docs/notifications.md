@@ -34,8 +34,8 @@ contexts:
   dev:
     ...
 notifications:
-  android_api_key: 'fake_android_api_key'
-  fcm_server: 'http://localhost:3001
+  android_api_key: "fake_android_api_key"
+  fcm_server: "http://localhost:3001"
 ```
 
 2. In Fauxton - .../io-cozy-oauth-clients doctype
@@ -57,6 +57,11 @@ Ex: To test TransactionGreater, create a document with an amount greater than yo
 4. In a shell
 ```bash
 $ env PORT=3001 node test/e2e/mock-server.js
+```
+
+In an other shell
+```bash
+$ yarn watch:services
 ```
 
 In an other shell
