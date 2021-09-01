@@ -15,7 +15,7 @@ import {
   getManifestOptions
 } from 'ducks/client/mobile/helpers'
 
-export const getClient = () => {
+export const getClient = async () => {
   const manifestOptions = getManifestOptions(manifest)
   const appSlug = manifest.slug
 
@@ -33,7 +33,7 @@ export const getClient = () => {
         'https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/logo-bank.png',
       notificationPlatform: 'firebase'
     },
-    links: getLinks({
+    links: await getLinks({
       pouchLink: {
         // TODO: the revocation check via cozy-pouch-link should not be
         // done in the app. We should find a way to have this in a shared

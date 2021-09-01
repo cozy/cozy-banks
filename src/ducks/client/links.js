@@ -27,7 +27,7 @@ const makeWarmupQueryOptions = (doctype, indexedFields) => {
   }
 }
 
-export const getLinks = (options = {}) => {
+export const getLinks = async (options = {}) => {
   if (links) {
     return links
   }
