@@ -1,31 +1,15 @@
 /* global __POUCH__ */
-import fromPairs from 'lodash/fromPairs'
 
-import { StackLink, Q } from 'cozy-client'
+import { StackLink } from 'cozy-client'
 import { isMobileApp, isIOSApp } from 'cozy-device-helper'
 import flag from 'cozy-flags'
 
 import { offlineDoctypes, TRANSACTION_DOCTYPE } from 'doctypes'
 import { APPLICATION_DATE } from 'ducks/transactions/constants'
+import { makeWarmupQueryOptions } from 'ducks/client/linksHelpers'
 
 const activatePouch = __POUCH__ && !flag('banks.pouch.disabled')
 let links = null
-
-const makeWarmupQueryOptions = (doctype, indexedFields) => {
-  return {
-    definition: () => {
-      const qdef = Q(doctype)
-        .where(
-          fromPairs(indexedFields.map(fieldName => [fieldName, { $gt: null }]))
-        )
-        .indexFields(indexedFields)
-      return qdef
-    },
-    options: {
-      as: `${doctype}-by-${indexedFields.join('-')}`
-    }
-  }
-}
 
 export const getLinks = async (options = {}) => {
   if (links) {
