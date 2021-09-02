@@ -14664,6 +14664,31 @@ pouchdb-adapter-cordova-sqlite@2.0.5:
   dependencies:
     pouchdb-adapter-websql-core "^6.4.3"
 
+pouchdb-adapter-idb@7.2.2:
+  version "7.2.2"
+  resolved "https://registry.yarnpkg.com/pouchdb-adapter-idb/-/pouchdb-adapter-idb-7.2.2.tgz#0a4b6c6f6639f93e2e50cb20d50b5fb6eaf1e80e"
+  integrity sha512-swSVQFm/p5CPKP0zyOmtv/hFpTyjtDlPAKTpxH4gEm9V+K30kDZ8ciAHaCkGEBSfWfZFYUI8/VOnAL2L0WIIeA==
+  dependencies:
+    pouchdb-adapter-utils "7.2.2"
+    pouchdb-binary-utils "7.2.2"
+    pouchdb-collections "7.2.2"
+    pouchdb-errors "7.2.2"
+    pouchdb-json "7.2.2"
+    pouchdb-merge "7.2.2"
+    pouchdb-utils "7.2.2"
+
+pouchdb-adapter-indexeddb@7.2.2:
+  version "7.2.2"
+  resolved "https://registry.yarnpkg.com/pouchdb-adapter-indexeddb/-/pouchdb-adapter-indexeddb-7.2.2.tgz#ffcee0435bb5a9599c8d45de09a5758103e31c61"
+  integrity sha512-OK/a0MAMEALySy4bIDOQy/qLnBDwPARW7yQKA25CmMObdOdCrca7EUSySZD5gjMDY0u4DUANgb0USlD6Hk9Feg==
+  dependencies:
+    pouchdb-adapter-utils "7.2.2"
+    pouchdb-binary-utils "7.2.2"
+    pouchdb-errors "7.2.2"
+    pouchdb-md5 "7.2.2"
+    pouchdb-merge "7.2.2"
+    pouchdb-utils "7.2.2"
+
 pouchdb-adapter-utils@6.4.3:
   version "6.4.3"
   resolved "https://registry.yarnpkg.com/pouchdb-adapter-utils/-/pouchdb-adapter-utils-6.4.3.tgz#384bb1bcd37dc7d473016eb450cec53d665bcae4"
@@ -14676,6 +14701,18 @@ pouchdb-adapter-utils@6.4.3:
     pouchdb-merge "6.4.3"
     pouchdb-promise "6.4.3"
     pouchdb-utils "6.4.3"
+
+pouchdb-adapter-utils@7.2.2:
+  version "7.2.2"
+  resolved "https://registry.yarnpkg.com/pouchdb-adapter-utils/-/pouchdb-adapter-utils-7.2.2.tgz#c64426447d9044ba31517a18500d6d2d28abd47d"
+  integrity sha512-2CzZkTyTyHZkr3ePiWFMTiD5+56lnembMjaTl8ohwegM0+hYhRyJux0biAZafVxgIL4gnCUC4w2xf6WVztzKdg==
+  dependencies:
+    pouchdb-binary-utils "7.2.2"
+    pouchdb-collections "7.2.2"
+    pouchdb-errors "7.2.2"
+    pouchdb-md5 "7.2.2"
+    pouchdb-merge "7.2.2"
+    pouchdb-utils "7.2.2"
 
 pouchdb-adapter-websql-core@^6.4.3:
   version "6.4.3"
@@ -14831,6 +14868,13 @@ pouchdb-json@6.4.3:
   dependencies:
     vuvuzela "1.0.3"
 
+pouchdb-json@7.2.2:
+  version "7.2.2"
+  resolved "https://registry.yarnpkg.com/pouchdb-json/-/pouchdb-json-7.2.2.tgz#b939be24b91a7322e9a24b8880a6e21514ec5e1f"
+  integrity sha512-3b2S2ynN+aoB7aCNyDZc/4c0IAdx/ir3nsHB+/RrKE9cM3QkQYbnnE3r/RvOD1Xvr6ji/KOCBie+Pz/6sxoaug==
+  dependencies:
+    vuvuzela "1.0.3"
+
 pouchdb-mapreduce-utils@7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/pouchdb-mapreduce-utils/-/pouchdb-mapreduce-utils-7.0.0.tgz#ff342e9d515d4c9cf0b19ad85c78f10f2568493b"
@@ -14879,6 +14923,11 @@ pouchdb-merge@6.4.3:
   version "6.4.3"
   resolved "https://registry.yarnpkg.com/pouchdb-merge/-/pouchdb-merge-6.4.3.tgz#4ef901f4aaa27be6aec0108998a127fe55bb0628"
   integrity sha512-UuSpex/V1kNr1aXcmg+TQlOdjzMWc08AX/Ja6jrPq9J42M97UFF+7Ijx3JllxDK0j6QJZrvhpvjFzsRhFC4+zw==
+
+pouchdb-merge@7.2.2:
+  version "7.2.2"
+  resolved "https://registry.yarnpkg.com/pouchdb-merge/-/pouchdb-merge-7.2.2.tgz#940d85a2b532d6a93a6cab4b250f5648511bcc16"
+  integrity sha512-6yzKJfjIchBaS7Tusuk8280WJdESzFfQ0sb4jeMUNnrqs4Cx3b0DIEOYTRRD9EJDM+je7D3AZZ4AT0tFw8gb4A==
 
 pouchdb-promise@6.4.3:
   version "6.4.3"

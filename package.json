@@ -198,6 +198,8 @@
     "number-to-locale-string": "1.2.0",
     "piwik-react-router": "0.12.1",
     "pouchdb-adapter-cordova-sqlite": "2.0.5",
+    "pouchdb-adapter-idb": "7.2.2",
+    "pouchdb-adapter-indexeddb": "7.2.2",
     "raven-js": "3.27.2",
     "react": "16.9.0",
     "react-chartjs-2": "2.7.6",
