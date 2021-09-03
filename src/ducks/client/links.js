@@ -6,7 +6,11 @@ import flag from 'cozy-flags'
 
 import { offlineDoctypes, TRANSACTION_DOCTYPE } from 'doctypes'
 import { APPLICATION_DATE } from 'ducks/transactions/constants'
-import { makeWarmupQueryOptions } from 'ducks/client/linksHelpers'
+import {
+  makeWarmupQueryOptions,
+  pickAdapter,
+  getAdapterPlugin
+} from 'ducks/client/linksHelpers'
 
 const activatePouch = __POUCH__ && !flag('banks.pouch.disabled')
 let links = null
@@ -17,6 +21,7 @@ export const getLinks = async (options = {}) => {
   }
 
   const stackLink = new StackLink()
+  const adapter = await pickAdapter()
 
   links = [stackLink]
 
@@ -42,9 +47,9 @@ export const getLinks = async (options = {}) => {
 
     if (isMobileApp() && isIOSApp()) {
       pouchLinkOptions.pouch = {
-        plugins: [require('pouchdb-adapter-cordova-sqlite')],
+        plugins: [getAdapterPlugin(adapter)],
         options: {
-          adapter: 'cordova-sqlite',
+          adapter,
           location: 'default'
         }
       }
