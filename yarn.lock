@@ -4851,7 +4851,7 @@ cozy-client@13.8.3:
     sift "^6.0.0"
     url-search-params-polyfill "^7.0.0"
 
-cozy-client@24.1.0, cozy-client@^24.1.0:
+cozy-client@24.1.0:
   version "24.1.0"
   resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-24.1.0.tgz#9cb3f794ff42cc7d1e09bea718bc35615fb0433d"
   integrity sha512-QtFKqb8VWdZL3jv/Zc7Pqb+dUi0CeJ1VKeeMV1I+pHBpzb0yCt15nHlXXIiC136GUuqBI2IK2mItWlofu4SpYQ==
@@ -4890,6 +4890,32 @@ cozy-client@6.64.5, cozy-client@^6.58.0, cozy-client@^6.58.1:
     react-redux "^5.0.7"
     redux "^3.7.2"
     redux-thunk "^2.3.0"
+    sift "^6.0.0"
+    url-search-params-polyfill "^7.0.0"
+
+cozy-client@^24.2.0:
+  version "24.2.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-24.2.0.tgz#eb9e8c0748a338d90b55d763ba219a9d28c7b71c"
+  integrity sha512-Cr4Ve1K+qBVV4JwfqLtxBCHzsg1TnEqsYM+yj6Rmd9uN47g7rqcJrOt8obgsbb74zggqJkObrMKOGG/jbgZAAA==
+  dependencies:
+    "@cozy/minilog" "1.0.0"
+    "@types/jest" "^26.0.20"
+    "@types/lodash" "^4.14.170"
+    btoa "^1.2.1"
+    cozy-device-helper "^1.12.0"
+    cozy-flags "2.7.1"
+    cozy-logger "^1.6.0"
+    cozy-stack-client "^24.0.0"
+    json-stable-stringify "^1.0.1"
+    lodash "^4.17.13"
+    microee "^0.0.6"
+    node-fetch "^2.6.1"
+    open "^7.0.2"
+    prop-types "^15.6.2"
+    react-redux "^7.2.0"
+    redux "3 || 4"
+    redux-thunk "^2.3.0"
+    server-destroy "^1.0.1"
     sift "^6.0.0"
     url-search-params-polyfill "^7.0.0"
 
@@ -5123,13 +5149,13 @@ cozy-notifications@0.12.0:
     mjml "4.3.1"
     word-wrap "^1.2.3"
 
-cozy-pouch-link@24.1.0:
-  version "24.1.0"
-  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-24.1.0.tgz#fbfcb83cde162b6901bc32aabd98910572da4dc8"
-  integrity sha512-WBIYKOgaJQs/+GgJSPgXNA+z3AgX6n99FaGQwNcZxly5YbT1Rcew5d0UCGJBC7yTq95De+G3Jmj1N7Ev0Z11VQ==
+cozy-pouch-link@24.3.2:
+  version "24.3.2"
+  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-24.3.2.tgz#d894d71196995975803abdfb15c9cabd42281e1f"
+  integrity sha512-CT1GRgdoQ5rAmvXN8jD0wphy91eVfUEIJb9sxI4pJm9iSYL7c4z6ofJHyljy3+lT6V16DH5zUvus9JPvt8IOgw==
   dependencies:
     "@cozy/minilog" "1.0.0"
-    cozy-client "^24.1.0"
+    cozy-client "^24.2.0"
     cozy-device-helper "^1.12.0"
     pouchdb-browser "^7.2.2"
     pouchdb-find "^7.2.2"
