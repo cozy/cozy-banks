@@ -931,5 +931,12 @@
     "categorize": "Catégorisation",
     "selectAll": "Tout sélectionner",
     "unselectAll": "Tout désélectionner"
+  },
+
+  "Migration": {
+    "title": "Mise à jour de Cozy Banks",
+    "content": "Cozy Banks doit être mis à jour afin d'améliorer ses performances. Cela peut prendre plusieurs minutes pendant lesquelles vous ne pouvez pas utiliser votre application. Voulez-vous le faire maintenant ? Si vous refusez, nous vous le demanderons à nouveau la prochaine fois",
+    "confirm" : "Ok, c'est parti !",
+    "cancel": "Non, pas maintenant"
   }
 }

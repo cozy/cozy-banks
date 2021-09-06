@@ -2,9 +2,14 @@
 
 ## ✨ Features
 
+* Optimization of the database on mobile (addition of the indexeddb adapter). For old users, a modal appears and allows to launch the data migration.
+* Update cozy-pouch-link to 24.3.2 to be able to migrates database on mobile to indexeddb
+
 ## 🐛 Bug Fixes
 
 ## 🔧 Tech
+
+* Add pouchdb-adapter-idb and pouchdb-adapter-indexeddb v7.2.2
 
 # 1.34.0
 
