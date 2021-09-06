@@ -24,12 +24,14 @@ const GroupSettings = props => {
   const { t } = useI18n()
 
   useEffect(() => {
-    if (group._id) {
-      trackPage('parametres:groupes:detail')
-    } else {
-      trackPage('parametres:groupes:nouveau-groupe')
+    if (group) {
+      if (group._id) {
+        trackPage('parametres:groupes:detail')
+      } else {
+        trackPage('parametres:groupes:nouveau-groupe')
+      }
     }
-  }, [group._id])
+  }, [group])
 
   // When deleting the group, there's a re-render between the deletion and the redirection. So we need to handle this case
   if (!group) {
