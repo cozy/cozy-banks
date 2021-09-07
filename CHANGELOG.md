@@ -7,9 +7,14 @@
 
 ## 🐛 Bug Fixes
 
+* Error when removing a group
+
 ## 🔧 Tech
 
 * Add pouchdb-adapter-idb and pouchdb-adapter-indexeddb v7.2.2
+* Extract component from GroupSettings
+* Groups are not filtered anymore to exclude undefined one in AccountSwitch
+* Remove updateOrCreateGroup() to remove router from dependencies
 
 # 1.34.0
 
