@@ -10,7 +10,6 @@ import Typography from 'cozy-ui/transpiled/react/Typography'
 import { useRouter } from 'components/RouterContext'
 import { getGroupLabel, renamedGroup } from 'ducks/groups/helpers'
 import { trackEvent } from 'ducks/tracking/browser'
-import { updateOrCreateGroup } from 'ducks/settings/GroupSettings/helpers'
 
 import styles from 'ducks/settings/GroupsSettings.styl'
 
@@ -24,16 +23,23 @@ const RenameGroupForm = props => {
 
   const { group } = props
 
-  const handleRename = useCallback(() => {
+  const handleRename = useCallback(async () => {
     setSaving(true)
     const updatedGroup = renamedGroup(group, inputRef.current.value)
-    return updateOrCreateGroup(client, updatedGroup, router, () => {
+
+    try {
+      const res = await client.save(updatedGroup)
+      const doc = res?.data
+      if (doc && !updatedGroup.id) {
+        router.push(`/settings/groups/${doc.id}`)
+      }
+    } finally {
       setSaving(false)
       setModifying(false)
       trackEvent({
         name: 'renommer'
       })
-    })
+    }
   }, [client, group, router])
 
   const handleModifyName = useCallback(() => {

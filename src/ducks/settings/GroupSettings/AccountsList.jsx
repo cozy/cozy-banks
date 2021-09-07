@@ -12,7 +12,6 @@ import { useRouter } from 'components/RouterContext'
 import { getGroupAccountIds } from 'ducks/groups/helpers'
 import { trackEvent } from 'ducks/tracking/browser'
 import multiKeyBy from 'utils/multiKeyBy'
-import { updateOrCreateGroup } from 'ducks/settings/GroupSettings/helpers'
 import AccountLine from 'ducks/settings/GroupSettings/AccountLine'
 
 import styles from 'ducks/settings/GroupsSettings.styl'
@@ -32,7 +31,11 @@ const AccountsList = props => {
       } else {
         accounts.removeById(accountId)
       }
-      await updateOrCreateGroup(client, group, router)
+      const res = await client.save(group)
+      const doc = res?.data
+      if (doc && !group.id) {
+        router.push(`/settings/groups/${doc.id}`)
+      }
       trackEvent({
         name: `compte-${enabled ? 'activer' : 'desactiver'}`
       })
