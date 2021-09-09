@@ -54,7 +54,7 @@ const formatRecurrence = bundle =>
   )
 
 describe('recurrence bundles', () => {
-  it('should find new bundles', () => {
+  it('should find new bundles (fixtures1)', () => {
     const transactions = fixtures[TRANSACTION_DOCTYPE]
     const recurrences = []
     const updatedRecurrences = findAndUpdateRecurrences(
@@ -65,7 +65,7 @@ describe('recurrence bundles', () => {
     updatedRecurrences.forEach(assertValidRecurrence)
     // eslint-disable
     expect(
-      sortBy(updatedRecurrences.map(formatRecurrence)).join('\n')
+      '\n' + sortBy(updatedRecurrences.map(formatRecurrence)).join('\n')
     ).toMatchSnapshot()
   })
 
@@ -80,11 +80,11 @@ describe('recurrence bundles', () => {
     updatedRecurrences.forEach(assertValidRecurrence)
     // eslint-disable
     expect(
-      sortBy(updatedRecurrences.map(formatRecurrence)).join('\n')
+      '\n' + sortBy(updatedRecurrences.map(formatRecurrence)).join('\n')
     ).toMatchSnapshot()
   })
 
-  it('should find new bundles', () => {
+  it('should find new bundles (fixtures3)', () => {
     const transactions = fixtures3[TRANSACTION_DOCTYPE]
     const recurrences = []
     const updatedRecurrences = findAndUpdateRecurrences(
@@ -95,7 +95,7 @@ describe('recurrence bundles', () => {
     updatedRecurrences.forEach(assertValidRecurrence)
     // eslint-disable
     expect(
-      sortBy(updatedRecurrences.map(formatRecurrence)).join('\n')
+      '\n' + sortBy(updatedRecurrences.map(formatRecurrence)).join('\n')
     ).toMatchSnapshot()
   })
 
@@ -109,7 +109,7 @@ describe('recurrence bundles', () => {
     const recurrences = findAndUpdateRecurrences([], transactions)
 
     expect(
-      sortBy(recurrences.map(formatRecurrence)).join('\n')
+      '\n' + sortBy(recurrences.map(formatRecurrence)).join('\n')
     ).toMatchSnapshot()
 
     const updatedRecurrences = findAndUpdateRecurrences(
@@ -120,7 +120,7 @@ describe('recurrence bundles', () => {
     updatedRecurrences.forEach(assertValidRecurrence)
 
     expect(
-      sortBy(updatedRecurrences.map(formatRecurrence)).join('\n')
+      '\n' + sortBy(updatedRecurrences.map(formatRecurrence)).join('\n')
     ).toMatchSnapshot()
   })
 })
