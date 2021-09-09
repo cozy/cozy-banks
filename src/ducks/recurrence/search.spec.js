@@ -103,20 +103,20 @@ describe('recurrence bundles', () => {
     const transactions = fixtures[TRANSACTION_DOCTYPE].filter(
       tr => tr.date < '2019-05'
     )
-    const newTransactions = fixtures[TRANSACTION_DOCTYPE].filter(
-      tr => tr.date > '2019-05'
-    )
     const recurrences = findAndUpdateRecurrences([], transactions)
+    recurrences.forEach(assertValidRecurrence)
 
     expect(
       '\n' + sortBy(recurrences.map(formatRecurrence)).join('\n')
     ).toMatchSnapshot()
 
+    const newTransactions = fixtures[TRANSACTION_DOCTYPE].filter(
+      tr => tr.date > '2019-05'
+    )
     const updatedRecurrences = findAndUpdateRecurrences(
       recurrences,
       newTransactions
     )
-
     updatedRecurrences.forEach(assertValidRecurrence)
 
     expect(

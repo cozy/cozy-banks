@@ -3,7 +3,7 @@ import unique from 'lodash/uniq'
 import uniq from 'lodash/uniq'
 import compose from 'lodash/flowRight'
 import maxBy from 'lodash/maxBy'
-import minBy from 'lodash/maxBy'
+import minBy from 'lodash/minBy'
 import flatMap from 'lodash/flatMap'
 
 import defaultRulesConfig from './config.json'
@@ -84,12 +84,13 @@ export const updateRecurrences = (bundles, newTransactions, rules) => {
   if (!newTransactions.length) {
     return bundles
   }
+
   const maxDate = new Date(maxBy(newTransactions, 'date').date)
   const minDate = new Date(minBy(newTransactions, 'date').date)
   const dateSpan = (maxDate - minDate) / ONE_DAY
 
   let newBundles = []
-  let updatedBundles
+  let updatedBundles = []
   if (dateSpan > 90 && newTransactions.length > 100) {
     newBundles = findRecurrences(newTransactions, rules)
   } else {
