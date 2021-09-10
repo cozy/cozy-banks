@@ -18,6 +18,12 @@ import addDays from 'date-fns/add_days'
 const NB_MONTH_LOOKBACK = 3
 const DAYS_IN_MONTH = 30.5
 
+/**
+ * Fetch transactions from 3 months back if there is already recurrences,
+ * otherwise all transactions
+ * @param {array} recurrences - Hydrated bundle of recurrences
+ * @returns transactions
+ */
 const makeQueryForTransactions = recurrences => {
   if (recurrences.length === 0) {
     return Q(TRANSACTION_DOCTYPE)
