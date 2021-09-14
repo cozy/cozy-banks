@@ -7,6 +7,7 @@
 * Remove minimum limit to find recurrence
 * Ability to update old recurrences and create new ones in the same batch
 * Change recurrence lookback date limit from 90 to 100 days
+* Selection mode to change the category of several transactions at once
 
 ## 🐛 Bug Fixes
 
