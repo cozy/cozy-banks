@@ -3,20 +3,21 @@ import unique from 'lodash/uniq'
 import uniq from 'lodash/uniq'
 import compose from 'lodash/flowRight'
 import maxBy from 'lodash/maxBy'
-import minBy from 'lodash/maxBy'
+import minBy from 'lodash/minBy'
 import flatMap from 'lodash/flatMap'
+import differenceBy from 'lodash/differenceBy'
 
 import defaultRulesConfig from './config.json'
+import getCategoryId from 'ducks/transactions/getCategoryId'
+import { getLabel } from 'ducks/transactions/helpers'
 import {
   addStats,
   getRulesFromConfig,
   groupBundles,
   overEvery
 } from 'ducks/recurrence/rules'
-import getCategoryId from 'ducks/transactions/getCategoryId'
-
-import { getLabel } from 'ducks/transactions/helpers'
 import { addTransactionToBundles } from 'ducks/recurrence/utils'
+import { NB_DAYS_LOOKBACK } from 'ducks/recurrence/service'
 
 const ONE_DAY = 86400 * 1000
 
@@ -53,8 +54,8 @@ export const findRecurrences = (operations, rules) => {
   })
 
   const groupedByStage = groupBy(rules, rule => rule.stage)
-
   const stageKeys = Object.keys(groupedByStage).sort()
+
   for (let stageKey of stageKeys) {
     const ruleInfos = groupedByStage[stageKey]
     assert(
@@ -63,6 +64,7 @@ export const findRecurrences = (operations, rules) => {
     )
     const type = ruleInfos[0].type
     const rules = ruleInfos.map(ruleInfo => ruleInfo.rule)
+
     if (type === 'filter') {
       bundles = bundles.filter(overEvery(rules))
     } else if (type === 'map') {
@@ -84,19 +86,35 @@ export const updateRecurrences = (bundles, newTransactions, rules) => {
   if (!newTransactions.length) {
     return bundles
   }
+
   const maxDate = new Date(maxBy(newTransactions, 'date').date)
   const minDate = new Date(minBy(newTransactions, 'date').date)
   const dateSpan = (maxDate - minDate) / ONE_DAY
 
   let newBundles = []
-  let updatedBundles
-  if (dateSpan > 90 && newTransactions.length > 100) {
+  let updatedBundles = []
+
+  if (dateSpan > NB_DAYS_LOOKBACK) {
     newBundles = findRecurrences(newTransactions, rules)
   } else {
-    updatedBundles = addTransactionToBundles(bundles, newTransactions)
+    const {
+      updatedBundles: newUpdatedBundles,
+      transactionsForUpdatedBundles
+    } = addTransactionToBundles(bundles, newTransactions)
+
+    updatedBundles = newUpdatedBundles
+    const remainingTransactions = differenceBy(
+      newTransactions,
+      transactionsForUpdatedBundles
+    )
+
+    if (remainingTransactions.length > 0) {
+      newBundles = findRecurrences(remainingTransactions, rules)
+    }
   }
 
   const allBundles = [...updatedBundles, ...newBundles].map(addStats)
+
   return allBundles
 }
 

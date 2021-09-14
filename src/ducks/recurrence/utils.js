@@ -117,28 +117,37 @@ export const isDeprecatedBundle = recurrence => {
 }
 
 export const addTransactionToBundles = (bundles, transactions) => {
+  let transactionsForUpdatedBundles = []
+
   const updatedBundles = [...bundles].map(b => {
     const bundle = { ...b }
 
     // Matching on Amount, CategoryId and account
     const transactionFounds = transactions.filter(transaction => {
-      return (
-        bundle.categoryIds.some(
-          catId => getCategoryId(transaction) === catId
-        ) &&
-        bundle.amounts.some(amount => amount === transaction.amount) &&
-        bundle.accounts?.some(account => account === transaction.account)
+      const hasSomeSameCategoryId = bundle.categoryIds.some(
+        catId => getCategoryId(transaction) === catId
       )
+      const hasSomeSameAmount = bundle.amounts.some(
+        amount => amount === transaction.amount
+      )
+      const hasSomeSameAccount = bundle.accounts?.some(
+        account => account === transaction.account
+      )
+
+      return hasSomeSameCategoryId && hasSomeSameAmount && hasSomeSameAccount
     })
 
     if (transactionFounds?.length > 0) {
       bundle.ops = uniqBy([...bundle.ops, ...transactionFounds], o => o._id)
+      transactionsForUpdatedBundles = transactionsForUpdatedBundles.concat(
+        transactionFounds
+      )
     }
 
     return bundle
   })
 
-  return updatedBundles
+  return { updatedBundles, transactionsForUpdatedBundles }
 }
 
 const findBrandBundles = transactions => {

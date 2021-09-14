@@ -15,17 +15,19 @@ import { getLabel } from 'ducks/recurrence/utils'
 import tree from 'ducks/categories/tree'
 import addDays from 'date-fns/add_days'
 
-const NB_MONTH_LOOKBACK = 3
-const DAYS_IN_MONTH = 30.5
+export const NB_DAYS_LOOKBACK = 100
 
+/**
+ * Fetch transactions from 3 months back if there is already recurrences,
+ * otherwise all transactions
+ * @param {array} recurrences - Hydrated bundle of recurrences
+ * @returns transactions
+ */
 const makeQueryForTransactions = recurrences => {
   if (recurrences.length === 0) {
     return Q(TRANSACTION_DOCTYPE)
   } else {
-    const lookbackDateLimit = addDays(
-      new Date(),
-      -NB_MONTH_LOOKBACK * DAYS_IN_MONTH
-    )
+    const lookbackDateLimit = addDays(new Date(), -NB_DAYS_LOOKBACK)
     const query = Q(TRANSACTION_DOCTYPE).where({
       date: {
         $gt: lookbackDateLimit.toISOString().slice(0, 10)
@@ -92,7 +94,7 @@ const main = async ({ client }) => {
     if (recurrences.length > 0) {
       log(
         'info',
-        `Loaded transactions from ${NB_MONTH_LOOKBACK} months back, ${transactions.length} transactions to consider`
+        `Loaded transactions from ${NB_DAYS_LOOKBACK} days back, ${transactions.length} transactions to consider`
       )
     } else {
       log(

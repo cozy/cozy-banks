@@ -4,10 +4,14 @@
 
 * Optimization of the database on mobile (addition of the indexeddb adapter). For old users, a modal appears and allows to launch the data migration.
 * Update cozy-pouch-link to 24.3.2 to be able to migrates database on mobile to indexeddb
+* Remove minimum limit to find recurrence
+* Ability to update old recurrences and create new ones in the same batch
+* Change recurrence lookback date limit from 90 to 100 days
 
 ## 🐛 Bug Fixes
 
 * Error when removing a group
+* Correct minimum date is used to create recurrence
 
 ## 🔧 Tech
 
