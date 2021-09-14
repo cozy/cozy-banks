@@ -8,16 +8,16 @@ import flatMap from 'lodash/flatMap'
 import differenceBy from 'lodash/differenceBy'
 
 import defaultRulesConfig from './config.json'
+import getCategoryId from 'ducks/transactions/getCategoryId'
+import { getLabel } from 'ducks/transactions/helpers'
 import {
   addStats,
   getRulesFromConfig,
   groupBundles,
   overEvery
 } from 'ducks/recurrence/rules'
-import getCategoryId from 'ducks/transactions/getCategoryId'
-
-import { getLabel } from 'ducks/transactions/helpers'
 import { addTransactionToBundles } from 'ducks/recurrence/utils'
+import { NB_DAYS_LOOKBACK } from 'ducks/recurrence/service'
 
 const ONE_DAY = 86400 * 1000
 
@@ -94,7 +94,7 @@ export const updateRecurrences = (bundles, newTransactions, rules) => {
   let newBundles = []
   let updatedBundles = []
 
-  if (dateSpan > 90) {
+  if (dateSpan > NB_DAYS_LOOKBACK) {
     newBundles = findRecurrences(newTransactions, rules)
   } else {
     const {
