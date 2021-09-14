@@ -1,6 +1,5 @@
 import uniqBy from 'lodash/uniqBy'
 import startCase from 'lodash/startCase'
-import groupBy from 'lodash/groupBy'
 import addDays from 'date-fns/add_days'
 import parse from 'date-fns/parse'
 import differenceInDays from 'date-fns/difference_in_days'
@@ -9,7 +8,6 @@ import {
   getCategoryId,
   getLabel as getTransactionLabel
 } from 'ducks/transactions/helpers'
-import { brandSplit, mergeBundles } from './rules'
 
 const RECURRENCE_DOCTYPE = 'io.cozy.bank.recurrence'
 
@@ -148,29 +146,4 @@ export const addTransactionToBundles = (bundles, transactions) => {
   })
 
   return { updatedBundles, transactionsForUpdatedBundles }
-}
-
-const findBrandBundles = transactions => {
-  const brandBundles = transactions
-    .map(t => ({
-      ops: [t],
-      categoryIds: [getCategoryId(t)],
-      amounts: [t.amount]
-    }))
-    .map(brandSplit())
-    .map(b => b[0])
-    .filter(b => Boolean(b.brand))
-    .filter(b => Boolean(b.categoryIds[0]))
-
-  return brandBundles
-}
-
-export const mergeBrandBundles = transactions => {
-  const brandBundles = findBrandBundles(transactions)
-
-  const groups = groupBy(brandBundles, b => {
-    return `${b.categoryIds[0]}/${b.amounts[0]}/${b.brand}`
-  })
-  const mergedBundles = Object.values(groups).map(mergeBundles)
-  return mergedBundles
 }
