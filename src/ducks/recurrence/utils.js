@@ -117,6 +117,8 @@ export const isDeprecatedBundle = recurrence => {
 }
 
 export const addTransactionToBundles = (bundles, transactions) => {
+  let transactionsForUpdatedBundles = []
+
   const updatedBundles = [...bundles].map(b => {
     const bundle = { ...b }
 
@@ -137,12 +139,15 @@ export const addTransactionToBundles = (bundles, transactions) => {
 
     if (transactionFounds?.length > 0) {
       bundle.ops = uniqBy([...bundle.ops, ...transactionFounds], o => o._id)
+      transactionsForUpdatedBundles = transactionsForUpdatedBundles.concat(
+        transactionFounds
+      )
     }
 
     return bundle
   })
 
-  return updatedBundles
+  return { updatedBundles, transactionsForUpdatedBundles }
 }
 
 const findBrandBundles = transactions => {

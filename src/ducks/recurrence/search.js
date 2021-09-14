@@ -5,6 +5,7 @@ import compose from 'lodash/flowRight'
 import maxBy from 'lodash/maxBy'
 import minBy from 'lodash/minBy'
 import flatMap from 'lodash/flatMap'
+import differenceBy from 'lodash/differenceBy'
 
 import defaultRulesConfig from './config.json'
 import {
@@ -53,8 +54,8 @@ export const findRecurrences = (operations, rules) => {
   })
 
   const groupedByStage = groupBy(rules, rule => rule.stage)
-
   const stageKeys = Object.keys(groupedByStage).sort()
+
   for (let stageKey of stageKeys) {
     const ruleInfos = groupedByStage[stageKey]
     assert(
@@ -63,6 +64,7 @@ export const findRecurrences = (operations, rules) => {
     )
     const type = ruleInfos[0].type
     const rules = ruleInfos.map(ruleInfo => ruleInfo.rule)
+
     if (type === 'filter') {
       bundles = bundles.filter(overEvery(rules))
     } else if (type === 'map') {
@@ -91,13 +93,28 @@ export const updateRecurrences = (bundles, newTransactions, rules) => {
 
   let newBundles = []
   let updatedBundles = []
-  if (dateSpan > 90 && newTransactions.length > 100) {
+
+  if (dateSpan > 90) {
     newBundles = findRecurrences(newTransactions, rules)
   } else {
-    updatedBundles = addTransactionToBundles(bundles, newTransactions)
+    const {
+      updatedBundles: newUpdatedBundles,
+      transactionsForUpdatedBundles
+    } = addTransactionToBundles(bundles, newTransactions)
+
+    updatedBundles = newUpdatedBundles
+    const remainingTransactions = differenceBy(
+      newTransactions,
+      transactionsForUpdatedBundles
+    )
+
+    if (remainingTransactions.length > 0) {
+      newBundles = findRecurrences(remainingTransactions, rules)
+    }
   }
 
   const allBundles = [...updatedBundles, ...newBundles].map(addStats)
+
   return allBundles
 }
 

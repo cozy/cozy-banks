@@ -809,4 +809,427 @@ describe('with existing recurrences', () => {
       }
     ])
   })
+
+  it('should create new bundle if the transactions do not correspond to an existing bundle', () => {
+    const oldTransactions = [
+      {
+        _id: 'january',
+        amount: -50,
+        date: '2021-01-01T12:00:00.000Z',
+        label: 'Netflix',
+        automaticCategoryId: 'NetflixId',
+        localCategoryId: '0',
+        account: 'accountId'
+      },
+      {
+        _id: 'february',
+        amount: -50,
+        date: '2021-02-01T12:00:00.000Z',
+        label: 'Netflix',
+        automaticCategoryId: 'NetflixId',
+        localCategoryId: '0',
+        account: 'accountId'
+      },
+      {
+        _id: 'march',
+        amount: -50,
+        date: '2021-03-01T12:00:00.000Z',
+        label: 'Netflix',
+        automaticCategoryId: 'NetflixId',
+        localCategoryId: '0',
+        account: 'accountId'
+      }
+    ]
+
+    const recurrences = [
+      {
+        categoryIds: ['NetflixId'],
+        amounts: [-50],
+        ops: oldTransactions,
+        automaticLabel: 'Netflix',
+        brand: 'Netflix',
+        stats: {
+          deltas: { sigma: 1.5, mean: 29.5, median: 29.5, mad: 1.5 }
+        },
+        accounts: ['accountId']
+      }
+    ]
+
+    const transactions = [
+      {
+        _id: 'april',
+        amount: 2000,
+        date: '2021-04-01T12:00:00.000Z',
+        label: 'Mon Salaire Mai',
+        automaticCategoryId: 'SalaireId',
+        localCategoryId: '0',
+        account: 'accountId'
+      },
+      {
+        _id: 'may',
+        amount: 2000,
+        date: '2021-05-01T12:00:00.000Z',
+        label: 'Mon Salaire Juin',
+        automaticCategoryId: 'SalaireId',
+        localCategoryId: '0',
+        account: 'accountId'
+      },
+      {
+        _id: 'june',
+        amount: 2000,
+        date: '2021-06-01T12:00:00.000Z',
+        label: 'Mon Salaire Juillet',
+        automaticCategoryId: 'SalaireId',
+        localCategoryId: '0',
+        account: 'accountId'
+      }
+    ]
+
+    const expectedBundles = [
+      {
+        categoryIds: ['NetflixId'],
+        amounts: [-50],
+        ops: oldTransactions,
+        automaticLabel: 'Netflix',
+        brand: 'Netflix',
+        stats: { deltas: { sigma: 1.5, mean: 29.5, median: 29.5, mad: 1.5 } },
+        accounts: ['accountId']
+      },
+      {
+        categoryIds: ['SalaireId'],
+        amounts: [2000],
+        ops: transactions,
+        automaticLabel: 'Mon Salaire Mai',
+        brand: null,
+        stats: { deltas: { sigma: 0.5, mean: 30.5, median: 30.5, mad: 0.5 } }
+      }
+    ]
+
+    const bundles = findAndUpdateRecurrences(recurrences, transactions)
+
+    expect(bundles).toMatchObject(expectedBundles)
+  })
+
+  it('should update existing bundle and create a new one', () => {
+    const oldTransactions = [
+      {
+        _id: 'january',
+        amount: -50,
+        date: '2021-01-01T12:00:00.000Z',
+        label: 'Netflix',
+        automaticCategoryId: 'NetflixId',
+        localCategoryId: '0',
+        account: 'accountId'
+      },
+      {
+        _id: 'february',
+        amount: -50,
+        date: '2021-02-01T12:00:00.000Z',
+        label: 'Netflix',
+        automaticCategoryId: 'NetflixId',
+        localCategoryId: '0',
+        account: 'accountId'
+      },
+      {
+        _id: 'march',
+        amount: -50,
+        date: '2021-03-01T12:00:00.000Z',
+        label: 'Netflix',
+        automaticCategoryId: 'NetflixId',
+        localCategoryId: '0',
+        account: 'accountId'
+      }
+    ]
+
+    const recurrences = [
+      {
+        categoryIds: ['NetflixId'],
+        amounts: [-50],
+        ops: oldTransactions,
+        automaticLabel: 'Netflix',
+        brand: 'Netflix',
+        stats: {
+          deltas: { sigma: 1.5, mean: 29.5, median: 29.5, mad: 1.5 }
+        },
+        accounts: ['accountId']
+      }
+    ]
+
+    const newNetflixTransactions = [
+      {
+        _id: 'aprilNetflix',
+        amount: -50,
+        date: '2021-04-01T12:00:00.000Z',
+        label: 'Netflix',
+        automaticCategoryId: 'NetflixId',
+        localCategoryId: '0',
+        account: 'accountId'
+      },
+      {
+        _id: 'mayNetflix',
+        amount: -50,
+        date: '2021-05-01T12:00:00.000Z',
+        label: 'Netflix',
+        automaticCategoryId: 'NetflixId',
+        localCategoryId: '0',
+        account: 'accountId'
+      },
+      {
+        _id: 'juneNetflix',
+        amount: -50,
+        date: '2021-06-01T12:00:00.000Z',
+        label: 'Netflix',
+        automaticCategoryId: 'NetflixId',
+        localCategoryId: '0',
+        account: 'accountId'
+      }
+    ]
+
+    const newSalaireTransactions = [
+      {
+        _id: 'aprilSalaire',
+        amount: 2000,
+        date: '2021-04-01T12:00:00.000Z',
+        label: 'Mon Salaire Mai',
+        automaticCategoryId: 'SalaireId',
+        localCategoryId: '0',
+        account: 'accountId'
+      },
+      {
+        _id: 'maySalaire',
+        amount: 2000,
+        date: '2021-05-01T12:00:00.000Z',
+        label: 'Mon Salaire Juin',
+        automaticCategoryId: 'SalaireId',
+        localCategoryId: '0',
+        account: 'accountId'
+      },
+      {
+        _id: 'juneSalaire',
+        amount: 2000,
+        date: '2021-06-01T12:00:00.000Z',
+        label: 'Mon Salaire Juillet',
+        automaticCategoryId: 'SalaireId',
+        localCategoryId: '0',
+        account: 'accountId'
+      }
+    ]
+
+    const transactions = [...newNetflixTransactions, ...newSalaireTransactions]
+
+    const expectedBundles = [
+      {
+        categoryIds: ['NetflixId'],
+        amounts: [-50],
+        ops: [...oldTransactions, ...newNetflixTransactions],
+        automaticLabel: 'Netflix',
+        brand: 'Netflix',
+        stats: {
+          deltas: { sigma: 1.1661903789690757, mean: 30.2, median: 31, mad: 0 }
+        },
+        accounts: ['accountId']
+      },
+      {
+        categoryIds: ['SalaireId'],
+        amounts: [2000],
+        ops: newSalaireTransactions,
+        automaticLabel: 'Mon Salaire Mai',
+        brand: null,
+        stats: { deltas: { sigma: 0.5, mean: 30.5, median: 30.5, mad: 0.5 } }
+      }
+    ]
+
+    const bundles = findAndUpdateRecurrences(recurrences, transactions)
+
+    expect(bundles).toMatchObject(expectedBundles)
+  })
+
+  it('should update existing multiple bundles', () => {
+    const oldNetflixTransactions = [
+      {
+        _id: 'january',
+        amount: -50,
+        date: '2021-01-01T12:00:00.000Z',
+        label: 'Netflix',
+        automaticCategoryId: 'NetflixId',
+        localCategoryId: '0',
+        account: 'accountId'
+      },
+      {
+        _id: 'february',
+        amount: -50,
+        date: '2021-02-01T12:00:00.000Z',
+        label: 'Netflix',
+        automaticCategoryId: 'NetflixId',
+        localCategoryId: '0',
+        account: 'accountId'
+      },
+      {
+        _id: 'march',
+        amount: -50,
+        date: '2021-03-01T12:00:00.000Z',
+        label: 'Netflix',
+        automaticCategoryId: 'NetflixId',
+        localCategoryId: '0',
+        account: 'accountId'
+      }
+    ]
+
+    const oldSalaireTransactions = [
+      {
+        _id: 'janSalaire',
+        amount: 2000,
+        date: '2021-01-01T12:00:00.000Z',
+        label: 'Mon Salaire Janvier',
+        automaticCategoryId: 'SalaireId',
+        localCategoryId: '0',
+        account: 'accountId'
+      },
+      {
+        _id: 'febSalaire',
+        amount: 2000,
+        date: '2021-02-01T12:00:00.000Z',
+        label: 'Mon Salaire Février',
+        automaticCategoryId: 'SalaireId',
+        localCategoryId: '0',
+        account: 'accountId'
+      },
+      {
+        _id: 'marchSalaire',
+        amount: 2000,
+        date: '2021-03-01T12:00:00.000Z',
+        label: 'Mon Salaire Mars',
+        automaticCategoryId: 'SalaireId',
+        localCategoryId: '0',
+        account: 'accountId'
+      }
+    ]
+
+    const recurrences = [
+      {
+        categoryIds: ['NetflixId'],
+        amounts: [-50],
+        ops: oldNetflixTransactions,
+        automaticLabel: 'Netflix',
+        brand: 'Netflix',
+        stats: {
+          deltas: { sigma: 1.1661903789690757, mean: 30.2, median: 31, mad: 0 }
+        },
+        accounts: ['accountId']
+      },
+      {
+        categoryIds: ['SalaireId'],
+        amounts: [2000],
+        ops: oldSalaireTransactions,
+        automaticLabel: 'Mon Salaire Mars',
+        brand: null,
+        stats: { deltas: { sigma: 0.5, mean: 30.5, median: 30.5, mad: 0.5 } },
+        accounts: ['accountId']
+      }
+    ]
+
+    const newNetflixTransactions = [
+      {
+        _id: 'aprilNetflix',
+        amount: -50,
+        date: '2021-04-01T12:00:00.000Z',
+        label: 'Netflix',
+        automaticCategoryId: 'NetflixId',
+        localCategoryId: '0',
+        account: 'accountId'
+      },
+      {
+        _id: 'mayNetflix',
+        amount: -50,
+        date: '2021-05-01T12:00:00.000Z',
+        label: 'Netflix',
+        automaticCategoryId: 'NetflixId',
+        localCategoryId: '0',
+        account: 'accountId'
+      },
+      {
+        _id: 'juneNetflix',
+        amount: -50,
+        date: '2021-06-01T12:00:00.000Z',
+        label: 'Netflix',
+        automaticCategoryId: 'NetflixId',
+        localCategoryId: '0',
+        account: 'accountId'
+      }
+    ]
+
+    const newSalaireTransactions = [
+      {
+        _id: 'aprilSalaire',
+        amount: 2000,
+        date: '2021-04-01T12:00:00.000Z',
+        label: 'Mon Salaire Mai',
+        automaticCategoryId: 'SalaireId',
+        localCategoryId: '0',
+        account: 'accountId'
+      },
+      {
+        _id: 'maySalaire',
+        amount: 2000,
+        date: '2021-05-01T12:00:00.000Z',
+        label: 'Mon Salaire Juin',
+        automaticCategoryId: 'SalaireId',
+        localCategoryId: '0',
+        account: 'accountId'
+      },
+      {
+        _id: 'juneSalaire',
+        amount: 2000,
+        date: '2021-06-01T12:00:00.000Z',
+        label: 'Mon Salaire Juillet',
+        automaticCategoryId: 'SalaireId',
+        localCategoryId: '0',
+        account: 'accountId'
+      }
+    ]
+
+    const transactions = [
+      ...newNetflixTransactions,
+      ...newSalaireTransactions,
+      {
+        _id: 'other',
+        amount: 100,
+        date: '2021-04-01T12:00:00.000Z',
+        label: 'Autre',
+        automaticCategoryId: 'OtherId',
+        localCategoryId: '0',
+        account: 'accountId'
+      }
+    ]
+
+    const expectedBundles = [
+      {
+        categoryIds: ['NetflixId'],
+        amounts: [-50],
+        ops: [...oldNetflixTransactions, ...newNetflixTransactions],
+        automaticLabel: 'Netflix',
+        brand: 'Netflix',
+        stats: {
+          deltas: { sigma: 1.1661903789690757, mean: 30.2, median: 31, mad: 0 }
+        },
+        accounts: ['accountId']
+      },
+      {
+        categoryIds: ['SalaireId'],
+        amounts: [2000],
+        ops: [...oldSalaireTransactions, ...newSalaireTransactions],
+        automaticLabel: 'Mon Salaire Mars',
+        brand: null,
+        stats: {
+          deltas: { sigma: 1.1661903789690757, mean: 30.2, median: 31, mad: 0 }
+        }
+      }
+    ]
+
+    const bundles = findAndUpdateRecurrences(recurrences, transactions)
+
+    // console.info(JSON.stringify(bundles))
+
+    expect(bundles).toMatchObject(expectedBundles)
+  })
 })
