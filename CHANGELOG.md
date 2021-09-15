@@ -8,6 +8,7 @@
 * Ability to update old recurrences and create new ones in the same batch
 * Change recurrence lookback date limit from 90 to 100 days
 * Selection mode to change the category of several transactions at once
+* Update cozy-harvest-lib to 6.6.0 to get the correct BI slug for palatine bank
 
 ## 🐛 Bug Fixes
 
