@@ -96,7 +96,6 @@ export const onAccountDelete = async (client, account) => {
 
 export const onGroupDelete = async (client, account) => {
   await deleteOrphanOperations(client, account)
-  await removeAccountFromGroups(client, account)
   await removeStats(client, account)
   await disableOutdatedNotifications(client)
 }
