@@ -10,8 +10,9 @@
 
 ## 🐛 Bug Fixes
 
-* Error when removing a group
+* Error when removing a group on desktop and mobile
 * Correct minimum date is used to create recurrence
+* Fix warming queries with null applicationDate selector
 
 ## 🔧 Tech
 
