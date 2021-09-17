@@ -9,11 +9,10 @@ import { logException } from 'lib/sentry'
 import { useRouter } from 'components/RouterContext'
 import { trackEvent } from 'ducks/tracking/browser'
 
-const RemoveGroupButton = props => {
+const RemoveGroupButton = ({ group }) => {
   const { t } = useI18n()
   const client = useClient()
   const router = useRouter()
-  const { group } = props
 
   const handleRemove = useCallback(async () => {
     try {
