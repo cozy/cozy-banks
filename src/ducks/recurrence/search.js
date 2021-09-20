@@ -13,11 +13,14 @@ import { getLabel } from 'ducks/transactions/helpers'
 import {
   addStats,
   getRulesFromConfig,
-  groupBundles,
-  overEvery
+  groupBundles
 } from 'ducks/recurrence/rules'
 import { addTransactionToBundles } from 'ducks/recurrence/utils'
-import { NB_DAYS_LOOKBACK } from 'ducks/recurrence/service'
+import {
+  NB_DAYS_LOOKBACK,
+  logRecurrencesLabelAndTransactionsNumber
+} from 'ducks/recurrence/service'
+import { log } from './logger'
 
 const ONE_DAY = 86400 * 1000
 
@@ -41,6 +44,7 @@ const assert = (pred, msg) => {
  * @return {array} recurrence groups
  */
 export const findRecurrences = (operations, rules) => {
+  log('info', 'Creating new bundle...')
   const groups = groupBy(operations, x => getCategoryId(x))
 
   let bundles = flatMap(Object.entries(groups), ([categoryId, ops]) => {
@@ -53,20 +57,36 @@ export const findRecurrences = (operations, rules) => {
     }))
   })
 
-  const groupedByStage = groupBy(rules, rule => rule.stage)
-  const stageKeys = Object.keys(groupedByStage).sort()
+  logRecurrencesLabelAndTransactionsNumber({
+    prefix: `Create ${bundles.length} bundles before filtering them:`,
+    recurrences: bundles
+  })
 
-  for (let stageKey of stageKeys) {
-    const ruleInfos = groupedByStage[stageKey]
+  const rulesGroupedByStage = groupBy(rules, rule => rule.stage)
+  const rulesStageKeys = Object.keys(rulesGroupedByStage).sort()
+
+  for (let rulesStageKey of rulesStageKeys) {
+    const rulesInfos = rulesGroupedByStage[rulesStageKey]
     assert(
-      unique(ruleInfos.map(r => r.type)).length === 1,
+      unique(rulesInfos.map(r => r.type)).length === 1,
       'Cannot have multiple types per stage'
     )
-    const type = ruleInfos[0].type
-    const rules = ruleInfos.map(ruleInfo => ruleInfo.rule)
+    const type = rulesInfos[0].type
+    const rules = rulesInfos.map(ruleInfo => ruleInfo.rule)
 
     if (type === 'filter') {
-      bundles = bundles.filter(overEvery(rules))
+      bundles = bundles.filter(bundle => {
+        for (const ruleInfos of rulesInfos) {
+          if (!ruleInfos.rule(bundle)) {
+            logRecurrencesLabelAndTransactionsNumber({
+              prefix: `Excluding bundle from creation. Reason: ${ruleInfos.description}. Excluded bundle:`,
+              recurrences: [bundle]
+            })
+            return false
+          }
+        }
+        return true
+      })
     } else if (type === 'map') {
       bundles = bundles.map(compose(rules))
     } else if (type === 'group') {
@@ -91,6 +111,8 @@ export const updateRecurrences = (bundles, newTransactions, rules) => {
   const minDate = new Date(minBy(newTransactions, 'date').date)
   const dateSpan = (maxDate - minDate) / ONE_DAY
 
+  log('info', `Update recurrences process dateSpan: ${dateSpan}`)
+
   let newBundles = []
   let updatedBundles = []
 
@@ -108,9 +130,22 @@ export const updateRecurrences = (bundles, newTransactions, rules) => {
       transactionsForUpdatedBundles
     )
 
+    logRecurrencesLabelAndTransactionsNumber({
+      prefix: `Found ${updatedBundles.length} bundles to update:`,
+      recurrences: updatedBundles
+    })
+    log(
+      'info',
+      `${remainingTransactions.length} remaining transactions to consider for creating new bundles`
+    )
+
     if (remainingTransactions.length > 0) {
       newBundles = findRecurrences(remainingTransactions, rules)
     }
+    logRecurrencesLabelAndTransactionsNumber({
+      prefix: `Finally create ${newBundles.length} new bundles:`,
+      recurrences: newBundles
+    })
   }
 
   const allBundles = [...updatedBundles, ...newBundles].map(addStats)
@@ -119,6 +154,8 @@ export const updateRecurrences = (bundles, newTransactions, rules) => {
 }
 
 export const findAndUpdateRecurrences = (recurrences, operations) => {
+  log('info', 'Find and update recurrences...')
+
   const rules = getRulesFromConfig(defaultRulesConfig)
 
   let updatedRecurrences
