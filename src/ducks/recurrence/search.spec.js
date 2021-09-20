@@ -125,7 +125,7 @@ describe('recurrence bundles', () => {
   })
 })
 
-describe('recurrence scenario with all operations which have a subcategory', () => {
+describe('recurrence scenario with multiple amounts', () => {
   const transactionsByKey = keyBy(fixtures4[TRANSACTION_DOCTYPE], '_id')
   const transactions = [
     transactionsByKey['february'],
@@ -143,7 +143,7 @@ describe('recurrence scenario with all operations which have a subcategory', () 
     automaticLabel: 'Mon Salaire'
   }
 
-  it('should match 01/06 salary with 2000 and salary in subcategory', () => {
+  it('should reattach new operations to the current recurrence, in the event that the amount of the new transaction is different from the previous one', () => {
     juneTransaction.amount = 2000
 
     const bundleWithJune = findAndUpdateRecurrences(
@@ -171,7 +171,7 @@ describe('recurrence scenario with all operations which have a subcategory', () 
     expect(op5.amount).toBe(2000)
   })
 
-  it('should match 01/06 salary with 2150 and salary in subcategory', () => {
+  it('should reattach new operations to the current recurrence, in the event that the amount of the new transaction is the same from the previous one', () => {
     juneTransaction.amount = 2150
 
     const bundleWithJune = findAndUpdateRecurrences(
@@ -199,7 +199,7 @@ describe('recurrence scenario with all operations which have a subcategory', () 
     expect(op5.amount).toBe(2150)
   })
 
-  it('should not match 01/06 salary with 2100 and salary in subcategory', () => {
+  it('should not reattach the new operations which do not correspond to one of the recurrence amounts', () => {
     juneTransaction.amount = 2100
 
     const bundleWithJune = findAndUpdateRecurrences(
@@ -227,9 +227,7 @@ describe('recurrence scenario with all operations which have a subcategory', () 
     expect(op4.amount).toBe(2150)
   })
 
-  it('should have todoooo match 01/06 salary with 2100 and salary in subcategory with brands', () => {
-    juneTransaction.amount = 2100
-
+  it('should reattach new operations to the current recurrence with Spotify Brand', () => {
     const juneSpot = transactionsByKey['june-spotify']
     const julySpot = transactionsByKey['july-spotify']
     const recurrenceSpot = {
@@ -274,7 +272,7 @@ describe('recurrence scenario with all operations which have a subcategory', () 
   })
 })
 
-describe('recurrence scenario with 01 feb, march and april are to categorize (0)', () => {
+describe('recurrence scenario with multiple amounts and categories', () => {
   const transactionsByKey = keyBy(fixtures5[TRANSACTION_DOCTYPE], '_id')
   const transactions = [
     transactionsByKey['february'],
@@ -294,7 +292,7 @@ describe('recurrence scenario with 01 feb, march and april are to categorize (0)
     automaticLabel: 'Mon Salaire'
   }
 
-  it('01/06 salary with 2000 and subcategory: to categorize', () => {
+  it('should reattach new operations to the current recurrence, in the event that the amount and category of the new transaction is different from the previous one', () => {
     juneTransaction.amount = 2000
     juneTransaction.automaticCategoryId = '0'
 
@@ -324,7 +322,7 @@ describe('recurrence scenario with 01 feb, march and april are to categorize (0)
     expect(op5.amount).toBe(2000)
   })
 
-  it('01/06 salary with 2000 and salary in subcategory', () => {
+  it('should reattach new operations to the current recurrence, in the event that the amount and category of the new transaction is the sme from the previous one and with same category', () => {
     juneTransaction.amount = 2000
     juneTransaction.automaticCategoryId = '200110'
 
