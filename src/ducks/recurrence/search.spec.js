@@ -8,7 +8,7 @@ import keyBy from 'lodash/keyBy'
 import { TRANSACTION_DOCTYPE } from 'doctypes'
 import { td, tr } from 'txt-table-utils'
 
-import { findAndUpdateRecurrences } from './search'
+import { findAndUpdateRecurrences, assert } from './search'
 import { getLabel, getAmount, getFrequencyText } from './utils'
 import fixtures from './fixtures/fixtures.json'
 import fixtures2 from './fixtures/fixtures2.json'
@@ -22,12 +22,6 @@ const formatBundleExtent = bundle => {
   const oldestOp = minBy(bundle.ops, x => x.date)
   const latestOp = maxBy(bundle.ops, x => x.date)
   return `from ${oldestOp.date.slice(0, 10)} to ${latestOp.date.slice(0, 10)}`
-}
-
-const assert = (cond, error) => {
-  if (!cond) {
-    throw new Error(error)
-  }
 }
 
 const assertUniqueOperations = recurrence => {
