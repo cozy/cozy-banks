@@ -1,131 +1,19 @@
-import sortBy from 'lodash/sortBy'
-import minBy from 'lodash/minBy'
-import maxBy from 'lodash/maxBy'
-import uniqBy from 'lodash/uniqBy'
-import isArray from 'lodash/isArray'
 import keyBy from 'lodash/keyBy'
+import sortBy from 'lodash/sortBy'
 
 import { TRANSACTION_DOCTYPE } from 'doctypes'
-import { td, tr } from 'txt-table-utils'
 
 import { findAndUpdateRecurrences } from './search'
-import { getLabel, getAmount, getFrequencyText } from './utils'
-import fixtures from './fixtures/fixtures.json'
-import fixtures2 from './fixtures/fixtures2.json'
-import fixtures3 from './fixtures/fixtures3.json'
+
 import fixtures4 from './fixtures/fixtures4.json'
 import fixtures5 from './fixtures/fixtures5.json'
 import fixtures6 from './fixtures/fixtures6.json'
 import { getT, enLocaleOption } from 'utils/lang'
+import { getFrequencyText } from './utils'
+import fixtures from './fixtures/fixtures.json'
+import { assertValidRecurrence, formatRecurrence } from './search-utils'
 
-const formatBundleExtent = bundle => {
-  const oldestOp = minBy(bundle.ops, x => x.date)
-  const latestOp = maxBy(bundle.ops, x => x.date)
-  return `from ${oldestOp.date.slice(0, 10)} to ${latestOp.date.slice(0, 10)}`
-}
-
-const assert = (cond, error) => {
-  if (!cond) {
-    throw new Error(error)
-  }
-}
-
-const assertUniqueOperations = recurrence => {
-  const uniquedOps = uniqBy(recurrence.ops, op => op._id)
-  assert(
-    recurrence.ops.length === uniquedOps.length,
-    `Duplicate ops in recurrence ${getLabel(recurrence)}`
-  )
-}
-
-const assertValidRecurrence = bundle => {
-  assertUniqueOperations(bundle)
-  assert(isArray(bundle.amounts), 'Bundle should have amounts array')
-  assert(isArray(bundle.categoryIds), 'Bundle should have categoryIds array')
-}
-
-const formatRecurrence = bundle =>
-  tr(
-    td(getLabel(bundle), 50),
-    td(getAmount(bundle), 10, 'right'),
-    td(`${bundle.ops.length} operations`, 17, 'right'),
-    td(formatBundleExtent(bundle), 30, 'right'),
-    td(bundle.stats.deltas.median, 7, 'right')
-  )
-
-describe('recurrence bundles', () => {
-  it('should find new bundles (fixtures1)', () => {
-    const transactions = fixtures[TRANSACTION_DOCTYPE]
-    const recurrences = []
-    const updatedRecurrences = findAndUpdateRecurrences(
-      recurrences,
-      transactions
-    )
-
-    updatedRecurrences.forEach(assertValidRecurrence)
-    // eslint-disable
-    expect(
-      '\n' + sortBy(updatedRecurrences.map(formatRecurrence)).join('\n')
-    ).toMatchSnapshot()
-  })
-
-  it('should find new bundles (split brand necessary)', () => {
-    const transactions = fixtures2[TRANSACTION_DOCTYPE]
-    const recurrences = []
-    const updatedRecurrences = findAndUpdateRecurrences(
-      recurrences,
-      transactions
-    )
-
-    updatedRecurrences.forEach(assertValidRecurrence)
-    // eslint-disable
-    expect(
-      '\n' + sortBy(updatedRecurrences.map(formatRecurrence)).join('\n')
-    ).toMatchSnapshot()
-  })
-
-  it('should find new bundles (fixtures3)', () => {
-    const transactions = fixtures3[TRANSACTION_DOCTYPE]
-    const recurrences = []
-    const updatedRecurrences = findAndUpdateRecurrences(
-      recurrences,
-      transactions
-    )
-
-    updatedRecurrences.forEach(assertValidRecurrence)
-    // eslint-disable
-    expect(
-      '\n' + sortBy(updatedRecurrences.map(formatRecurrence)).join('\n')
-    ).toMatchSnapshot()
-  })
-
-  it('should update existing bundles', () => {
-    const transactions = fixtures[TRANSACTION_DOCTYPE].filter(
-      tr => tr.date < '2019-05'
-    )
-    const recurrences = findAndUpdateRecurrences([], transactions)
-    recurrences.forEach(assertValidRecurrence)
-
-    expect(
-      '\n' + sortBy(recurrences.map(formatRecurrence)).join('\n')
-    ).toMatchSnapshot()
-
-    const newTransactions = fixtures[TRANSACTION_DOCTYPE].filter(
-      tr => tr.date > '2019-05'
-    )
-    const updatedRecurrences = findAndUpdateRecurrences(
-      recurrences,
-      newTransactions
-    )
-    updatedRecurrences.forEach(assertValidRecurrence)
-
-    expect(
-      '\n' + sortBy(updatedRecurrences.map(formatRecurrence)).join('\n')
-    ).toMatchSnapshot()
-  })
-})
-
-describe('recurrence scenario with all operations which have a subcategory', () => {
+describe('recurrence bundles (with existing recurrences)', () => {
   const transactionsByKey = keyBy(fixtures4[TRANSACTION_DOCTYPE], '_id')
   const transactions = [
     transactionsByKey['february'],
@@ -143,7 +31,7 @@ describe('recurrence scenario with all operations which have a subcategory', () 
     automaticLabel: 'Mon Salaire'
   }
 
-  it('should match 01/06 salary with 2000 and salary in subcategory', () => {
+  it('should reattach new operations to the current recurrence, in the event that the amount of the new transaction is different from the previous one', () => {
     juneTransaction.amount = 2000
 
     const bundleWithJune = findAndUpdateRecurrences(
@@ -151,6 +39,7 @@ describe('recurrence scenario with all operations which have a subcategory', () 
       [juneTransaction]
     )
 
+    // TODO rewrite tests with `toMatchObject` for better readability
     const bundle = bundleWithJune[0]
     const [op1, op2, op3, op4, op5] = bundle.ops
     expect(bundleWithJune.length).toBe(1)
@@ -171,7 +60,7 @@ describe('recurrence scenario with all operations which have a subcategory', () 
     expect(op5.amount).toBe(2000)
   })
 
-  it('should match 01/06 salary with 2150 and salary in subcategory', () => {
+  it('should reattach new operations to the current recurrence, in the event that the amount of the new transaction is the same from the previous one', () => {
     juneTransaction.amount = 2150
 
     const bundleWithJune = findAndUpdateRecurrences(
@@ -199,7 +88,7 @@ describe('recurrence scenario with all operations which have a subcategory', () 
     expect(op5.amount).toBe(2150)
   })
 
-  it('should not match 01/06 salary with 2100 and salary in subcategory', () => {
+  it('should not reattach the new operations which do not correspond to one of the recurrence amounts', () => {
     juneTransaction.amount = 2100
 
     const bundleWithJune = findAndUpdateRecurrences(
@@ -227,9 +116,7 @@ describe('recurrence scenario with all operations which have a subcategory', () 
     expect(op4.amount).toBe(2150)
   })
 
-  it('should have todoooo match 01/06 salary with 2100 and salary in subcategory with brands', () => {
-    juneTransaction.amount = 2100
-
+  it('should reattach new operations to the current recurrence with Spotify Brand', () => {
     const juneSpot = transactionsByKey['june-spotify']
     const julySpot = transactionsByKey['july-spotify']
     const recurrenceSpot = {
@@ -274,7 +161,7 @@ describe('recurrence scenario with all operations which have a subcategory', () 
   })
 })
 
-describe('recurrence scenario with 01 feb, march and april are to categorize (0)', () => {
+describe('recurrence scenario with multiple amounts and categories', () => {
   const transactionsByKey = keyBy(fixtures5[TRANSACTION_DOCTYPE], '_id')
   const transactions = [
     transactionsByKey['february'],
@@ -294,7 +181,7 @@ describe('recurrence scenario with 01 feb, march and april are to categorize (0)
     automaticLabel: 'Mon Salaire'
   }
 
-  it('01/06 salary with 2000 and subcategory: to categorize', () => {
+  it('should reattach new operations to the current recurrence, in the event that the amount and category of the new transaction is different from the previous one', () => {
     juneTransaction.amount = 2000
     juneTransaction.automaticCategoryId = '0'
 
@@ -324,7 +211,7 @@ describe('recurrence scenario with 01 feb, march and april are to categorize (0)
     expect(op5.amount).toBe(2000)
   })
 
-  it('01/06 salary with 2000 and salary in subcategory', () => {
+  it('should reattach new operations to the current recurrence, in the event that the amount and category of the new transaction is the sme from the previous one and with same category', () => {
     juneTransaction.amount = 2000
     juneTransaction.automaticCategoryId = '200110'
 
@@ -383,307 +270,7 @@ describe('recurrence scenario with 01 feb, march and april are to categorize (0)
     expect(op2._id).toBe('may')
     expect(op2.amount).toBe(30)
   })
-})
 
-describe('with no existing recurrence', () => {
-  it('should create bundles even with 3 months gap after monthly transactions', () => {
-    const transactions = [
-      {
-        _id: 'january',
-        amount: -50,
-        date: '2021-01-01T12:00:00.000Z',
-        label: 'Netflix',
-        automaticCategoryId: 'NetflixId',
-        localCategoryId: '0'
-      },
-      {
-        _id: 'february',
-        amount: -50,
-        date: '2021-02-01T12:00:00.000Z',
-        label: 'Netflix',
-        automaticCategoryId: 'NetflixId',
-        localCategoryId: '0'
-      },
-      {
-        _id: 'march',
-        amount: -50,
-        date: '2021-03-01T12:00:00.000Z',
-        label: 'Netflix',
-        automaticCategoryId: 'NetflixId',
-        localCategoryId: '0'
-      },
-      {
-        _id: 'july',
-        amount: -50,
-        date: '2021-07-01T12:00:00.000Z',
-        label: 'Netflix',
-        automaticCategoryId: 'NetflixId',
-        localCategoryId: '0'
-      }
-    ]
-
-    const expectedBundles = [
-      {
-        categoryIds: ['NetflixId'],
-        amounts: [-50],
-        ops: transactions,
-        automaticLabel: 'Netflix',
-        brand: 'Netflix',
-        stats: {
-          deltas: {
-            sigma: 43.62211467694899,
-            mean: 60.333333333333336,
-            median: 31,
-            mad: 3
-          }
-        }
-      }
-    ]
-
-    const bundles = findAndUpdateRecurrences([], transactions)
-
-    expect(bundles).toMatchObject(expectedBundles)
-  })
-
-  it('should create bundles even with 3 months gap before monthly transactions', () => {
-    const transactions = [
-      {
-        _id: 'january',
-        amount: -50,
-        date: '2021-01-01T12:00:00.000Z',
-        label: 'Netflix',
-        automaticCategoryId: 'NetflixId',
-        localCategoryId: '0'
-      },
-      {
-        _id: 'may',
-        amount: -50,
-        date: '2021-05-01T12:00:00.000Z',
-        label: 'Netflix',
-        automaticCategoryId: 'NetflixId',
-        localCategoryId: '0'
-      },
-      {
-        _id: 'june',
-        amount: -50,
-        date: '2021-06-01T12:00:00.000Z',
-        label: 'Netflix',
-        automaticCategoryId: 'NetflixId',
-        localCategoryId: '0'
-      },
-      {
-        _id: 'july',
-        amount: -50,
-        date: '2021-07-01T12:00:00.000Z',
-        label: 'Netflix',
-        automaticCategoryId: 'NetflixId',
-        localCategoryId: '0'
-      }
-    ]
-
-    const expectedBundles = [
-      {
-        categoryIds: ['NetflixId'],
-        amounts: [-50],
-        ops: transactions,
-        automaticLabel: 'Netflix',
-        brand: 'Netflix',
-        stats: {
-          deltas: {
-            sigma: 42.19267972317262,
-            mean: 60.333333333333336,
-            median: 31,
-            mad: 1
-          }
-        }
-      }
-    ]
-
-    const bundles = findAndUpdateRecurrences([], transactions)
-
-    expect(bundles).toMatchObject(expectedBundles)
-  })
-
-  it('should not create bundles for 2 monthly transactions and a 1 month gap (mad > 5)', () => {
-    const transactions = [
-      {
-        _id: 'january',
-        amount: -50,
-        date: '2021-01-01T12:00:00.000Z',
-        label: 'Netflix',
-        automaticCategoryId: 'NetflixId',
-        localCategoryId: '0'
-      },
-      {
-        _id: 'february',
-        amount: -50,
-        date: '2021-02-01T12:00:00.000Z',
-        label: 'Netflix',
-        automaticCategoryId: 'NetflixId',
-        localCategoryId: '0'
-      },
-      {
-        _id: 'april',
-        amount: -50,
-        date: '2021-04-01T12:00:00.000Z',
-        label: 'Netflix',
-        automaticCategoryId: 'NetflixId',
-        localCategoryId: '0'
-      }
-    ]
-
-    const expectedBundles = []
-
-    const bundles = findAndUpdateRecurrences([], transactions)
-
-    expect(bundles).toMatchObject(expectedBundles)
-  })
-
-  it('should create bundles for at least 3 monthly transactions', () => {
-    const transactions = [
-      {
-        _id: 'january',
-        amount: -50,
-        date: '2021-01-01T12:00:00.000Z',
-        label: 'Netflix',
-        automaticCategoryId: 'NetflixId',
-        localCategoryId: '0'
-      },
-      {
-        _id: 'february',
-        amount: -50,
-        date: '2021-02-01T12:00:00.000Z',
-        label: 'Netflix',
-        automaticCategoryId: 'NetflixId',
-        localCategoryId: '0'
-      },
-      {
-        _id: 'march',
-        amount: -50,
-        date: '2021-03-01T12:00:00.000Z',
-        label: 'Netflix',
-        automaticCategoryId: 'NetflixId',
-        localCategoryId: '0'
-      }
-    ]
-
-    const expectedBundles = [
-      {
-        categoryIds: ['NetflixId'],
-        amounts: [-50],
-        ops: transactions,
-        automaticLabel: 'Netflix',
-        brand: 'Netflix',
-        stats: {
-          deltas: { sigma: 1.5, mean: 29.5, median: 29.5, mad: 1.5 }
-        }
-      }
-    ]
-
-    const bundles = findAndUpdateRecurrences([], transactions)
-
-    expect(bundles).toMatchObject(expectedBundles)
-  })
-
-  it('should create bundles also for 6 monthly transactions', () => {
-    const transactions = [
-      {
-        _id: 'january',
-        amount: -50,
-        date: '2021-01-01T12:00:00.000Z',
-        label: 'Netflix',
-        automaticCategoryId: 'NetflixId',
-        localCategoryId: '0'
-      },
-      {
-        _id: 'february',
-        amount: -50,
-        date: '2021-02-01T12:00:00.000Z',
-        label: 'Netflix',
-        automaticCategoryId: 'NetflixId',
-        localCategoryId: '0'
-      },
-      {
-        _id: 'march',
-        amount: -50,
-        date: '2021-03-01T12:00:00.000Z',
-        label: 'Netflix',
-        automaticCategoryId: 'NetflixId',
-        localCategoryId: '0'
-      },
-      {
-        _id: 'april',
-        amount: -50,
-        date: '2021-04-01T12:00:00.000Z',
-        label: 'Netflix',
-        automaticCategoryId: 'NetflixId',
-        localCategoryId: '0'
-      },
-      {
-        _id: 'may',
-        amount: -50,
-        date: '2021-05-01T12:00:00.000Z',
-        label: 'Netflix',
-        automaticCategoryId: 'NetflixId',
-        localCategoryId: '0'
-      },
-      {
-        _id: 'june',
-        amount: -50,
-        date: '2021-06-01T12:00:00.000Z',
-        label: 'Netflix',
-        automaticCategoryId: 'NetflixId',
-        localCategoryId: '0'
-      }
-    ]
-
-    const expectedBundles = [
-      {
-        categoryIds: ['NetflixId'],
-        amounts: [-50],
-        ops: transactions,
-        automaticLabel: 'Netflix',
-        brand: 'Netflix',
-        stats: {
-          deltas: { sigma: 1.1661903789690757, mean: 30.2, median: 31, mad: 0 }
-        }
-      }
-    ]
-
-    const bundles = findAndUpdateRecurrences([], transactions)
-
-    expect(bundles).toMatchObject(expectedBundles)
-  })
-
-  it('should not create bundles for less than 3 monthly transactions', () => {
-    const transactions = [
-      {
-        _id: 'january',
-        amount: -50,
-        date: '2021-01-01T12:00:00.000Z',
-        label: 'Netflix',
-        automaticCategoryId: 'NetflixId',
-        localCategoryId: '0'
-      },
-      {
-        _id: 'february',
-        amount: -50,
-        date: '2021-02-01T12:00:00.000Z',
-        label: 'Netflix',
-        automaticCategoryId: 'NetflixId',
-        localCategoryId: '0'
-      }
-    ]
-
-    const expectedBundles = []
-
-    const bundles = findAndUpdateRecurrences([], transactions)
-
-    expect(bundles).toMatchObject(expectedBundles)
-  })
-})
-
-describe('with existing recurrences', () => {
   it('should update existing bundle if the transactions matches', () => {
     const oldTransactions = [
       {
@@ -1229,5 +816,30 @@ describe('with existing recurrences', () => {
     const bundles = findAndUpdateRecurrences(recurrences, transactions)
 
     expect(bundles).toMatchObject(expectedBundles)
+  })
+
+  it('should update existing bundles', () => {
+    const transactions = fixtures[TRANSACTION_DOCTYPE].filter(
+      tr => tr.date < '2019-05'
+    )
+    const recurrences = findAndUpdateRecurrences([], transactions)
+    recurrences.forEach(assertValidRecurrence)
+
+    expect(
+      '\n' + sortBy(recurrences.map(formatRecurrence)).join('\n')
+    ).toMatchSnapshot()
+
+    const newTransactions = fixtures[TRANSACTION_DOCTYPE].filter(
+      tr => tr.date > '2019-05'
+    )
+    const updatedRecurrences = findAndUpdateRecurrences(
+      recurrences,
+      newTransactions
+    )
+    updatedRecurrences.forEach(assertValidRecurrence)
+
+    expect(
+      '\n' + sortBy(updatedRecurrences.map(formatRecurrence)).join('\n')
+    ).toMatchSnapshot()
   })
 })

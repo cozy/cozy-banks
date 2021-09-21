@@ -24,7 +24,7 @@ import { log } from './logger'
 
 const ONE_DAY = 86400 * 1000
 
-const assert = (pred, msg) => {
+export const assert = (pred, msg) => {
   if (!pred) {
     throw new Error(msg)
   }
