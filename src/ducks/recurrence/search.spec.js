@@ -1228,8 +1228,6 @@ describe('with existing recurrences', () => {
 
     const bundles = findAndUpdateRecurrences(recurrences, transactions)
 
-    // console.info(JSON.stringify(bundles))
-
     expect(bundles).toMatchObject(expectedBundles)
   })
 })

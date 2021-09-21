@@ -10,7 +10,7 @@
 
 ## 🔧 Tech
 
-*
+* Add logs to better debugging recurrence
 
 # 1.35.0
 
