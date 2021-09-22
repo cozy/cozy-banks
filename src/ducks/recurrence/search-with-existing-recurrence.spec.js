@@ -9,7 +9,8 @@ import fixtures4 from './fixtures/fixtures4.json'
 import fixtures5 from './fixtures/fixtures5.json'
 import fixtures6 from './fixtures/fixtures6.json'
 import { getT, enLocaleOption } from 'utils/lang'
-import { getFrequencyText } from './utils'
+import * as utils from './utils'
+const { getFrequencyText } = utils
 import fixtures from './fixtures/fixtures.json'
 import { assertValidRecurrence, formatRecurrence } from './search-utils'
 
@@ -841,5 +842,57 @@ describe('recurrence scenario with multiple amounts and categories', () => {
     expect(
       '\n' + sortBy(updatedRecurrences.map(formatRecurrence)).join('\n')
     ).toMatchSnapshot()
+  })
+
+  it('should update existing bundle, even for more than 100 days back', () => {
+    const oldNetflixTransactions = [
+      {
+        _id: 'january',
+        amount: -50,
+        date: '2021-01-01T12:00:00.000Z',
+        label: 'Netflix',
+        automaticCategoryId: 'NetflixId',
+        localCategoryId: '0',
+        account: 'accountId'
+      },
+      {
+        _id: 'february',
+        amount: -50,
+        date: '2021-02-01T12:00:00.000Z',
+        label: 'Netflix',
+        automaticCategoryId: 'NetflixId',
+        localCategoryId: '0',
+        account: 'accountId'
+      },
+      {
+        _id: 'march',
+        amount: -50,
+        date: '2021-03-01T12:00:00.000Z',
+        label: 'Netflix',
+        automaticCategoryId: 'NetflixId',
+        localCategoryId: '0',
+        account: 'accountId'
+      }
+    ]
+
+    const recurrences = [
+      {
+        categoryIds: ['NetflixId'],
+        amounts: [-50],
+        ops: oldNetflixTransactions,
+        automaticLabel: 'Netflix',
+        brand: 'Netflix',
+        stats: {
+          deltas: { sigma: 1.1661903789690757, mean: 30.2, median: 31, mad: 0 }
+        },
+        accounts: ['accountId']
+      }
+    ]
+
+    const transactions = fixtures[TRANSACTION_DOCTYPE]
+    const spyUpdate = jest.spyOn(utils, 'addTransactionToBundles')
+
+    findAndUpdateRecurrences(recurrences, transactions)
+    expect(spyUpdate).toHaveBeenCalled()
   })
 })
