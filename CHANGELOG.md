@@ -23,6 +23,7 @@
 * Groups are not filtered anymore to exclude undefined one in AccountSwitch
 * Remove updateOrCreateGroup() to remove router from dependencies
 * Only deep import for lodash
+* Add logs to better debugging recurrence
 
 # 1.34.0
 
