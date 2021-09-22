@@ -10,7 +10,7 @@
 
 ## 🔧 Tech
 
-* Add logs to better debugging recurrence
+*
 
 # 1.35.0
 
@@ -19,10 +19,12 @@
 * Optimization of the database on mobile (addition of the indexeddb adapter). For old users, a modal appears and allows to launch the data migration.
 * Update cozy-pouch-link to 24.3.2 to be able to migrates database on mobile to indexeddb
 * Remove minimum limit to find recurrence
+* Recurrence creation process will always try to update existing bundle before creating some
 * Ability to update old recurrences and create new ones in the same batch
 * Change recurrence lookback date limit from 90 to 100 days
 * Selection mode to change the category of several transactions at once
 * Update cozy-harvest-lib to 6.6.0 to get the correct BI slug for palatine bank
+* Change migration modal wording
 
 ## 🐛 Bug Fixes
 
@@ -37,6 +39,7 @@
 * Groups are not filtered anymore to exclude undefined one in AccountSwitch
 * Remove updateOrCreateGroup() to remove router from dependencies
 * Only deep import for lodash
+* Add logs to better debugging recurrence
 
 # 1.34.0
 
