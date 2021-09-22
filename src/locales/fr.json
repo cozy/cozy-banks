@@ -934,8 +934,8 @@
   },
 
   "Migration": {
-    "title": "Mise à jour de Cozy Banks",
-    "content": "Cozy Banks doit être mis à jour afin d'améliorer ses performances. Cela peut prendre plusieurs minutes pendant lesquelles vous ne pouvez pas utiliser votre application. Voulez-vous le faire maintenant ? Si vous refusez, nous vous le demanderons à nouveau la prochaine fois",
+    "title": "Rechargement des données nécessaire",
+    "content": "Vos données vont être re-téléchargées dans votre application afin d'améliorer les performances de navigation. Cela nécessite une connexion réseau stable et de patienter environ une minute (parfois plus si vous avez un historique très important). Aucune donnée ne sera supprimée. Merci de patienter jusqu'à ce que l'app ait retéléchargée toutes vos données.",
     "confirm" : "Ok, c'est parti !",
     "cancel": "Non, pas maintenant"
   }
