@@ -2,8 +2,6 @@ import groupBy from 'lodash/groupBy'
 import unique from 'lodash/uniq'
 import uniq from 'lodash/uniq'
 import compose from 'lodash/flowRight'
-import maxBy from 'lodash/maxBy'
-import minBy from 'lodash/minBy'
 import flatMap from 'lodash/flatMap'
 import differenceBy from 'lodash/differenceBy'
 
@@ -16,13 +14,8 @@ import {
   groupBundles
 } from 'ducks/recurrence/rules'
 import { addTransactionToBundles } from 'ducks/recurrence/utils'
-import {
-  NB_DAYS_LOOKBACK,
-  logRecurrencesLabelAndTransactionsNumber
-} from 'ducks/recurrence/service'
+import { logRecurrencesLabelAndTransactionsNumber } from 'ducks/recurrence/service'
 import { log } from './logger'
-
-const ONE_DAY = 86400 * 1000
 
 export const assert = (pred, msg) => {
   if (!pred) {
@@ -58,7 +51,7 @@ export const findRecurrences = (operations, rules) => {
   })
 
   logRecurrencesLabelAndTransactionsNumber({
-    prefix: `Create ${bundles.length} bundles before filtering them:`,
+    prefix: `Should create ${bundles.length} bundles before filtering them:`,
     recurrences: bundles
   })
 
@@ -79,7 +72,7 @@ export const findRecurrences = (operations, rules) => {
         for (const ruleInfos of rulesInfos) {
           if (!ruleInfos.rule(bundle)) {
             logRecurrencesLabelAndTransactionsNumber({
-              prefix: `Excluding bundle from creation. Reason: ${ruleInfos.description}. Excluded bundle:`,
+              prefix: `❗ Excluding bundle from creation. Reason: ${ruleInfos.description}. Excluded bundle:`,
               recurrences: [bundle]
             })
             return false
@@ -99,6 +92,11 @@ export const findRecurrences = (operations, rules) => {
     }
   }
 
+  logRecurrencesLabelAndTransactionsNumber({
+    prefix: `⭐ Created: ${bundles.length} new bundles:`,
+    recurrences: bundles
+  })
+
   return bundles
 }
 
@@ -107,45 +105,27 @@ export const updateRecurrences = (bundles, newTransactions, rules) => {
     return bundles
   }
 
-  const maxDate = new Date(maxBy(newTransactions, 'date').date)
-  const minDate = new Date(minBy(newTransactions, 'date').date)
-  const dateSpan = (maxDate - minDate) / ONE_DAY
-
-  log('info', `Update recurrences process dateSpan: ${dateSpan}`)
-
   let newBundles = []
   let updatedBundles = []
 
-  if (dateSpan > NB_DAYS_LOOKBACK) {
-    newBundles = findRecurrences(newTransactions, rules)
-  } else {
-    const {
-      updatedBundles: newUpdatedBundles,
-      transactionsForUpdatedBundles
-    } = addTransactionToBundles(bundles, newTransactions)
+  const {
+    updatedBundles: newUpdatedBundles,
+    transactionsForUpdatedBundles
+  } = addTransactionToBundles(bundles, newTransactions)
 
-    updatedBundles = newUpdatedBundles
-    const remainingTransactions = differenceBy(
-      newTransactions,
-      transactionsForUpdatedBundles
-    )
+  updatedBundles = newUpdatedBundles
+  const remainingTransactions = differenceBy(
+    newTransactions,
+    transactionsForUpdatedBundles
+  )
 
-    logRecurrencesLabelAndTransactionsNumber({
-      prefix: `Found ${updatedBundles.length} bundles to update:`,
-      recurrences: updatedBundles
-    })
-    log(
-      'info',
-      `${remainingTransactions.length} remaining transactions to consider for creating new bundles`
-    )
+  log(
+    'info',
+    `${remainingTransactions.length} remaining transactions to consider for creating new bundles`
+  )
 
-    if (remainingTransactions.length > 0) {
-      newBundles = findRecurrences(remainingTransactions, rules)
-    }
-    logRecurrencesLabelAndTransactionsNumber({
-      prefix: `Finally create ${newBundles.length} new bundles:`,
-      recurrences: newBundles
-    })
+  if (remainingTransactions.length > 0) {
+    newBundles = findRecurrences(remainingTransactions, rules)
   }
 
   const allBundles = [...updatedBundles, ...newBundles].map(addStats)

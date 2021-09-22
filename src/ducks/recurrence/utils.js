@@ -8,6 +8,7 @@ import {
   getCategoryId,
   getLabel as getTransactionLabel
 } from 'ducks/transactions/helpers'
+import { logRecurrencesLabelAndTransactionsNumber } from 'ducks/recurrence/service'
 
 const RECURRENCE_DOCTYPE = 'io.cozy.bank.recurrence'
 
@@ -143,6 +144,11 @@ export const addTransactionToBundles = (bundles, transactions) => {
     }
 
     return bundle
+  })
+
+  logRecurrencesLabelAndTransactionsNumber({
+    prefix: `⭐ Updated: ${updatedBundles.length} existing bundles:`,
+    recurrences: updatedBundles
   })
 
   return { updatedBundles, transactionsForUpdatedBundles }
