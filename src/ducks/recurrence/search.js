@@ -58,7 +58,7 @@ export const findRecurrences = (operations, rules) => {
   })
 
   logRecurrencesLabelAndTransactionsNumber({
-    prefix: `Create ${bundles.length} bundles before filtering them:`,
+    prefix: `Should create ${bundles.length} bundles before filtering them:`,
     recurrences: bundles
   })
 
@@ -79,7 +79,7 @@ export const findRecurrences = (operations, rules) => {
         for (const ruleInfos of rulesInfos) {
           if (!ruleInfos.rule(bundle)) {
             logRecurrencesLabelAndTransactionsNumber({
-              prefix: `Excluding bundle from creation. Reason: ${ruleInfos.description}. Excluded bundle:`,
+              prefix: `❗ Excluding bundle from creation. Reason: ${ruleInfos.description}. Excluded bundle:`,
               recurrences: [bundle]
             })
             return false
@@ -98,6 +98,11 @@ export const findRecurrences = (operations, rules) => {
       bundles = flatMap(bundles, rules[0])
     }
   }
+
+  logRecurrencesLabelAndTransactionsNumber({
+    prefix: `⭐ Created: ${bundles.length} new bundles:`,
+    recurrences: bundles
+  })
 
   return bundles
 }
@@ -142,10 +147,6 @@ export const updateRecurrences = (bundles, newTransactions, rules) => {
     if (remainingTransactions.length > 0) {
       newBundles = findRecurrences(remainingTransactions, rules)
     }
-    logRecurrencesLabelAndTransactionsNumber({
-      prefix: `Finally create ${newBundles.length} new bundles:`,
-      recurrences: newBundles
-    })
   }
 
   const allBundles = [...updatedBundles, ...newBundles].map(addStats)

@@ -69,9 +69,9 @@ export const logDifferences = (oldRecurrences, updatedRecurrences) => {
   if (logForNewRecurrences.length > 0) {
     log(
       'info',
-      `${
+      `Modified ${
         newRecurrences.length
-      } modifications on recurrences:\n${logForNewRecurrences.join('\n')}`
+      } recurrences:\n${logForNewRecurrences.join('\n')}`
     )
   }
 
@@ -94,7 +94,9 @@ export const logRecurrencesLabelAndTransactionsNumber = ({
     if (!recurrence.ops) {
       return
     }
-    return `${getLabel(recurrence)}: ${recurrence.ops.length} operations`
+    return `${getLabel(recurrence)}: ${
+      recurrence.ops.length
+    } operations, category: ${tree[recurrence.categoryIds[0]]}`
   })
 
   log(
@@ -117,7 +119,7 @@ const main = async ({ client }) => {
     const recurrences = await fetchHydratedBundles(client)
 
     logRecurrencesLabelAndTransactionsNumber({
-      prefix: `Found ${recurrences.length} existing recurrences:`,
+      prefix: `⭐ Founded: ${recurrences.length} existing recurrences:`,
       recurrences
     })
 
@@ -148,16 +150,6 @@ const main = async ({ client }) => {
       recurrencesAmountsCatIdsUpdated.map(r => ({ ...r })),
       transactions
     ).map(x => omit(x, '_type'))
-
-    logRecurrencesLabelAndTransactionsNumber({
-      prefix: `Created/updated ${updatedRecurrences.length} recurrences:`,
-      recurrences: updatedRecurrences
-    })
-    log(
-      'info',
-      `Added ${updatedRecurrences.length - recurrences.length} new recurrences`
-    )
-    logDifferences(recurrences, updatedRecurrences)
 
     const {
       true: emptyRecurrences = [],
