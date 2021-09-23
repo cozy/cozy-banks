@@ -53,7 +53,7 @@ const common = mergeAppConfigs(
     require('./config/webpack.config.plugins'),
     require('cozy-scripts/config/webpack.config.manifest'),
     hotReload ? require(`./config/webpack.config.hot-reload`) : null,
-	  { devtool:false }
+    { devtool: false }
   ].filter(Boolean)
 )
 
