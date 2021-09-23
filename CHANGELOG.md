@@ -7,6 +7,8 @@
 ## 🐛 Bug Fixes
 
 * Update cozy-ui to 52.0.0 to reduce the size of the bundle
+* Exclude some modules to reduce the size of the bundle
+  - 'node-forge', 'node-jose', 'tldjs'
 
 ## 🔧 Tech
 
