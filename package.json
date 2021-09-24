@@ -2,6 +2,7 @@
   "name": "cozy-banks",
   "main": "src/main.jsx",
   "scripts": {
+    "analyze": "COZY_SCRIPTS_ANALYZER=true yarn build",
     "build": "npm run build:browser && npm run build:services",
     "build:browser": "NODE_ENV=${NODE_ENV:-browser:production} npm run commons:build",
     "build:mobile": "NODE_ENV=mobile:production npm run commons:build -- --env.target=mobile",
