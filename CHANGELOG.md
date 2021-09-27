@@ -6,6 +6,9 @@
 
 ## 🐛 Bug Fixes
 
+* Update cozy-ui to 52.0.0 to reduce the size of the bundle
+* Exclude some modules to reduce the size of the bundle
+  - 'node-forge', 'node-jose', 'tldjs'
 * Remove third level import from Mui in HistoryChart
 
 ## 🔧 Tech
@@ -31,7 +34,6 @@
 * Error when removing a group on desktop and mobile
 * Correct minimum date is used to create recurrence
 * Fix warming queries with null applicationDate selector
-* Update cozy-ui to 52.0.0 to reduce the size of the bundle
 
 ## 🔧 Tech
 
