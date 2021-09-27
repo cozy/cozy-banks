@@ -6,7 +6,7 @@
 
 ## 🐛 Bug Fixes
 
-*
+* Remove third level import from Mui in HistoryChart
 
 ## 🔧 Tech
 
