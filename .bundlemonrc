@@ -1,0 +1,21 @@
+{
+    "baseDir": "./build",
+    "files": [
+        {
+            "path": "*.js"
+        },
+        {
+            "path": "main-banks.<hash>.css"
+        }
+    ],
+    "reportOutput": [
+        [
+            "github",
+            {
+                "checkRun": false,
+                "commitStatus": true,
+                "prComment": true
+            }
+        ]
+    ]
+}

@@ -17,7 +17,7 @@ jobs:
     - name: Web build
       stage: build
       <<: *node
-      script: yarn build
+      script: yarn build && yarn bundlemon
       before_deploy: ./scripts/ci/add_ssh_key.sh
       deploy:
         - provider: script
