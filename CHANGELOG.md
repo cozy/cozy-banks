@@ -10,6 +10,7 @@
 * Exclude some modules to reduce the size of the bundle
   - 'node-forge', 'node-jose', 'tldjs'
 * Remove third level import from Mui in HistoryChart
+* fix undefined var in the categ service
 
 ## 🔧 Tech
 
