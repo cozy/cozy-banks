@@ -5,7 +5,7 @@
             "path": "*.js"
         },
         {
-            "path": "main-banks.<hash>.css"
+            "path": "main-banks.<hash>.min.css"
         }
     ],
     "reportOutput": [
