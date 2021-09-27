@@ -11,6 +11,7 @@
   - 'node-forge', 'node-jose', 'tldjs'
 * Remove third level import from Mui in HistoryChart
 * fix undefined var in the categ service
+* Transaction Label is now truncated if too long in the Transaction details modal
 
 ## 🔧 Tech
 
