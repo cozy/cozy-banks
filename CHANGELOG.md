@@ -12,6 +12,7 @@
 * Remove third level import from Mui in HistoryChart
 * fix undefined var in the categ service
 * Transaction Label is now truncated if too long in the Transaction details modal
+* Fix Search Link when clicking on the magnifying glasse if label contained an "/"
 
 ## 🔧 Tech
 
