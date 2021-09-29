@@ -107,10 +107,10 @@ export const logRecurrencesLabelAndTransactionsNumber = ({
 
 /**
  * Fetches
- *   - transactions in the last 3 months
+ *   - transactions in the last 100 days
  *   - current recurrences
- * and update recurrences and operations according to recurrence matching
- * algorithm.
+ * and update recurrences and operations according to recurrence matching algorithm.
+ * The date taken into account to create recurrences is `transaction.date` and not `transaction.realizationDate`.
  *
  * Called inside service.
  */
