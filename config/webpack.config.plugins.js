@@ -6,12 +6,20 @@ const fs = require('fs')
 
 const VersionPlugin = require('cozy-scripts/plugins/VersionPlugin')
 
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
+
 const manifest = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '../manifest.webapp')).toString()
 )
 
 module.exports = {
   plugins: [
+    new LodashModuleReplacementPlugin({
+      shorthands: true,
+      collections: true,
+      flattening: true,
+      paths: true
+    }),
     new webpack.DefinePlugin({
       __APP_VERSION__: JSON.stringify(manifest.version),
       __SENTRY_URL__: JSON.stringify(
