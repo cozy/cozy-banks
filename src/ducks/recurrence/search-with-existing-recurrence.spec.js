@@ -135,104 +135,6 @@ describe('recurrence bundles (with existing recurrences)', () => {
     expect(op3).toMatchObject({ _id: 'april', amount: 2000 })
     expect(op4).toMatchObject({ _id: 'may', amount: 2150 })
   })
-})
-
-describe('recurrence scenario with multiple amounts and categories', () => {
-  const transactionsByKey = keyBy(fixtures5[TRANSACTION_DOCTYPE], '_id')
-  const transactions = [
-    transactionsByKey['february'],
-    transactionsByKey['march'],
-    transactionsByKey['april']
-  ]
-
-  const mayTransaction = transactionsByKey['may']
-  const juneTransaction = transactionsByKey['june']
-
-  const recurrence = {
-    brand: '',
-    categoryIds: ['0', '200110'],
-    amounts: [2000, 2150],
-    accounts: ['1d22740c6c510e5368d1b6b670deee05'],
-    ops: [...transactions, mayTransaction],
-    automaticLabel: 'Mon Salaire'
-  }
-
-  it('should reattach new operations to the current recurrence, in the event that the amount and category of the new transaction is different from the previous one', () => {
-    juneTransaction.amount = 2000
-    juneTransaction.automaticCategoryId = '0'
-
-    const bundleWithJune = findAndUpdateRecurrences(
-      [recurrence],
-      [juneTransaction]
-    )
-
-    const bundle = bundleWithJune[0]
-    const [op1, op2, op3, op4, op5] = bundle.ops
-
-    expect(bundleWithJune.length).toBe(1)
-    expect(bundle.categoryIds).toMatchObject(['0', '200110'])
-    expect(bundle.amounts).toMatchObject([2000, 2150])
-    expect(bundle.ops.length).toBe(5)
-    expect(op1).toMatchObject({ _id: 'february', amount: 2000 })
-    expect(op2).toMatchObject({ _id: 'march', amount: 2000 })
-    expect(op3).toMatchObject({ _id: 'april', amount: 2000 })
-    expect(op4).toMatchObject({ _id: 'may', amount: 2150 })
-    expect(op5).toMatchObject({ _id: 'june', amount: 2000 })
-  })
-
-  it('should reattach new operations to the current recurrence, in the event that the amount and category of the new transaction is the sme from the previous one and with same category', () => {
-    juneTransaction.amount = 2000
-    juneTransaction.automaticCategoryId = '200110'
-
-    const bundleWithJune = findAndUpdateRecurrences(
-      [recurrence],
-      [juneTransaction]
-    )
-
-    const bundle = bundleWithJune[0]
-    const [op1, op2, op3, op4, op5] = bundle.ops
-
-    expect(bundleWithJune.length).toBe(1)
-    expect(bundle.categoryIds).toMatchObject(['0', '200110'])
-    expect(bundle.amounts.length).toBe(2)
-    expect(bundle.amounts).toMatchObject([2000, 2150])
-    expect(bundle.ops.length).toBe(5)
-    expect(op1).toMatchObject({ _id: 'february', amount: 2000 })
-    expect(op2).toMatchObject({ _id: 'march', amount: 2000 })
-    expect(op3).toMatchObject({ _id: 'april', amount: 2000 })
-    expect(op4).toMatchObject({ _id: 'may', amount: 2150 })
-    expect(op5).toMatchObject({ _id: 'june', amount: 2000 })
-  })
-
-  it('reattach next new operations from a new bundle which has 1 operation with "very month" in frequency', () => {
-    const transactionsByKey = keyBy(fixtures6[TRANSACTION_DOCTYPE], '_id')
-    const febTransactionEDF = transactionsByKey['february']
-    const mayTransactionEDF = transactionsByKey['may']
-
-    const recurrence = {
-      categoryIds: ['401080'],
-      amounts: [30],
-      accounts: ['1d22740c6c510e5368d1b6b670deee05'],
-      ops: [febTransactionEDF],
-      automaticLabel: 'EDF'
-    }
-
-    const bundleWithEDF = findAndUpdateRecurrences(
-      [recurrence],
-      [mayTransactionEDF]
-    )
-
-    const bundle = bundleWithEDF[0]
-    expect(bundle.ops.length).toBe(2)
-
-    const t = getT(enLocaleOption)
-    expect(getFrequencyText(t, bundle)).toBe('every month')
-
-    const [op1, op2] = bundle.ops
-
-    expect(op1).toMatchObject({ _id: 'february', amount: 30 })
-    expect(op2).toMatchObject({ _id: 'may', amount: 30 })
-  })
 
   it('should update existing bundle if the transactions matches', () => {
     const oldTransactions = [
@@ -920,5 +822,103 @@ describe('recurrence scenario with multiple amounts and categories', () => {
 
     findAndUpdateRecurrences(recurrences, transactions)
     expect(spyUpdate).toHaveBeenCalled()
+  })
+})
+
+describe('recurrence scenario with multiple amounts and categories', () => {
+  const transactionsByKey = keyBy(fixtures5[TRANSACTION_DOCTYPE], '_id')
+  const transactions = [
+    transactionsByKey['february'],
+    transactionsByKey['march'],
+    transactionsByKey['april']
+  ]
+
+  const mayTransaction = transactionsByKey['may']
+  const juneTransaction = transactionsByKey['june']
+
+  const recurrence = {
+    brand: '',
+    categoryIds: ['0', '200110'],
+    amounts: [2000, 2150],
+    accounts: ['1d22740c6c510e5368d1b6b670deee05'],
+    ops: [...transactions, mayTransaction],
+    automaticLabel: 'Mon Salaire'
+  }
+
+  it('should reattach new operations to the current recurrence, in the event that the amount and category of the new transaction is different from the previous one', () => {
+    juneTransaction.amount = 2000
+    juneTransaction.automaticCategoryId = '0'
+
+    const bundleWithJune = findAndUpdateRecurrences(
+      [recurrence],
+      [juneTransaction]
+    )
+
+    const bundle = bundleWithJune[0]
+    const [op1, op2, op3, op4, op5] = bundle.ops
+
+    expect(bundleWithJune.length).toBe(1)
+    expect(bundle.categoryIds).toMatchObject(['0', '200110'])
+    expect(bundle.amounts).toMatchObject([2000, 2150])
+    expect(bundle.ops.length).toBe(5)
+    expect(op1).toMatchObject({ _id: 'february', amount: 2000 })
+    expect(op2).toMatchObject({ _id: 'march', amount: 2000 })
+    expect(op3).toMatchObject({ _id: 'april', amount: 2000 })
+    expect(op4).toMatchObject({ _id: 'may', amount: 2150 })
+    expect(op5).toMatchObject({ _id: 'june', amount: 2000 })
+  })
+
+  it('should reattach new operations to the current recurrence, in the event that the amount and category of the new transaction is the sme from the previous one and with same category', () => {
+    juneTransaction.amount = 2000
+    juneTransaction.automaticCategoryId = '200110'
+
+    const bundleWithJune = findAndUpdateRecurrences(
+      [recurrence],
+      [juneTransaction]
+    )
+
+    const bundle = bundleWithJune[0]
+    const [op1, op2, op3, op4, op5] = bundle.ops
+
+    expect(bundleWithJune.length).toBe(1)
+    expect(bundle.categoryIds).toMatchObject(['0', '200110'])
+    expect(bundle.amounts.length).toBe(2)
+    expect(bundle.amounts).toMatchObject([2000, 2150])
+    expect(bundle.ops.length).toBe(5)
+    expect(op1).toMatchObject({ _id: 'february', amount: 2000 })
+    expect(op2).toMatchObject({ _id: 'march', amount: 2000 })
+    expect(op3).toMatchObject({ _id: 'april', amount: 2000 })
+    expect(op4).toMatchObject({ _id: 'may', amount: 2150 })
+    expect(op5).toMatchObject({ _id: 'june', amount: 2000 })
+  })
+
+  it('reattach next new operations from a new bundle which has 1 operation with "very month" in frequency', () => {
+    const transactionsByKey = keyBy(fixtures6[TRANSACTION_DOCTYPE], '_id')
+    const febTransactionEDF = transactionsByKey['february']
+    const mayTransactionEDF = transactionsByKey['may']
+
+    const recurrence = {
+      categoryIds: ['401080'],
+      amounts: [30],
+      accounts: ['1d22740c6c510e5368d1b6b670deee05'],
+      ops: [febTransactionEDF],
+      automaticLabel: 'EDF'
+    }
+
+    const bundleWithEDF = findAndUpdateRecurrences(
+      [recurrence],
+      [mayTransactionEDF]
+    )
+
+    const bundle = bundleWithEDF[0]
+    expect(bundle.ops.length).toBe(2)
+
+    const t = getT(enLocaleOption)
+    expect(getFrequencyText(t, bundle)).toBe('every month')
+
+    const [op1, op2] = bundle.ops
+
+    expect(op1).toMatchObject({ _id: 'february', amount: 30 })
+    expect(op2).toMatchObject({ _id: 'may', amount: 30 })
   })
 })
