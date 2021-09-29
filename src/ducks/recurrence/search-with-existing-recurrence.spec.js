@@ -15,125 +15,144 @@ import fixtures from './fixtures/fixtures.json'
 import { assertValidRecurrence, formatRecurrence } from './search-utils'
 
 describe('recurrence bundles (with existing recurrences)', () => {
-  const transactionsByKey = keyBy(fixtures4[TRANSACTION_DOCTYPE], '_id')
-  const transactions = [
-    transactionsByKey['february'],
-    transactionsByKey['march'],
-    transactionsByKey['april']
-  ]
-  const mayTransaction = transactionsByKey['may']
-  const juneTransaction = transactionsByKey['june']
+  describe('amount', () => {
+    const transactionsByKey = keyBy(fixtures4[TRANSACTION_DOCTYPE], '_id')
+    const transactions = [
+      transactionsByKey['february'],
+      transactionsByKey['march'],
+      transactionsByKey['april']
+    ]
+    const mayTransaction = transactionsByKey['may']
+    const juneTransaction = transactionsByKey['june']
 
-  const recurrence = {
-    categoryIds: ['200110'],
-    amounts: [2000, 2150],
-    accounts: ['1d22740c6c510e5368d1b6b670deee05'],
-    ops: [...transactions, mayTransaction],
-    automaticLabel: 'Mon Salaire'
-  }
-
-  it('should reattach new operations to the current recurrence, in the event that the amount of the new transaction is different from the previous one', () => {
-    juneTransaction.amount = 2000
-
-    const bundleWithJune = findAndUpdateRecurrences(
-      [recurrence],
-      [juneTransaction]
-    )
-
-    const bundle = bundleWithJune[0]
-    const [op1, op2, op3, op4, op5] = bundle.ops
-
-    expect(bundleWithJune.length).toBe(1)
-    expect(bundle.categoryIds[0]).toBe('200110')
-    expect(bundle.amounts).toMatchObject([2000, 2150])
-    expect(bundle.ops.length).toBe(5)
-    expect(op1).toMatchObject({ _id: 'february', amount: 2000 })
-    expect(op2).toMatchObject({ _id: 'march', amount: 2000 })
-    expect(op3).toMatchObject({ _id: 'april', amount: 2000 })
-    expect(op4).toMatchObject({ _id: 'may', amount: 2150 })
-    expect(op5).toMatchObject({ _id: 'june', amount: 2000 })
-  })
-
-  it('should reattach new operations to the current recurrence, in the event that the amount of the new transaction is the same from the previous one', () => {
-    juneTransaction.amount = 2150
-
-    const bundleWithJune = findAndUpdateRecurrences(
-      [recurrence],
-      [juneTransaction]
-    )
-
-    const bundle = bundleWithJune[0]
-    const [op1, op2, op3, op4, op5] = bundle.ops
-
-    expect(bundleWithJune.length).toBe(1)
-    expect(bundle.categoryIds[0]).toBe('200110')
-    expect(bundle.amounts).toMatchObject([2000, 2150])
-    expect(bundle.ops.length).toBe(5)
-    expect(op1).toMatchObject({ _id: 'february', amount: 2000 })
-    expect(op2).toMatchObject({ _id: 'march', amount: 2000 })
-    expect(op3).toMatchObject({ _id: 'april', amount: 2000 })
-    expect(op4).toMatchObject({ _id: 'may', amount: 2150 })
-    expect(op5).toMatchObject({ _id: 'june', amount: 2150 })
-  })
-
-  it('should not reattach the new operations which do not correspond to one of the recurrence amounts', () => {
-    juneTransaction.amount = 2100
-
-    const bundleWithJune = findAndUpdateRecurrences(
-      [recurrence],
-      [juneTransaction]
-    )
-
-    expect(bundleWithJune.length).toBe(1)
-
-    const bundle = bundleWithJune[0]
-    const [op1, op2, op3, op4] = bundle.ops
-
-    expect(bundle.categoryIds[0]).toBe('200110')
-    expect(bundle.amounts).toMatchObject([2000, 2150])
-    expect(bundle.ops.length).toBe(4)
-    expect(op1).toMatchObject({ _id: 'february', amount: 2000 })
-    expect(op2).toMatchObject({ _id: 'march', amount: 2000 })
-    expect(op3).toMatchObject({ _id: 'april', amount: 2000 })
-    expect(op4).toMatchObject({ _id: 'may', amount: 2150 })
-  })
-
-  it('should reattach new operations to the current recurrence with Spotify Brand', () => {
-    const juneSpot = transactionsByKey['june-spotify']
-    const julySpot = transactionsByKey['july-spotify']
-    const recurrenceSpot = {
-      brand: 'Spotify',
-      categoryIds: ['400100'],
-      amounts: [10],
+    const recurrence = {
+      categoryIds: ['200110'],
+      amounts: [2000, 2150],
       accounts: ['1d22740c6c510e5368d1b6b670deee05'],
-      ops: [juneSpot],
-      automaticLabel: 'Spotify Abonnement'
+      ops: [...transactions, mayTransaction],
+      automaticLabel: 'Mon Salaire'
     }
 
-    const bundles = sortBy(
-      findAndUpdateRecurrences([recurrence, recurrenceSpot], [julySpot]),
-      b => b.brand
-    )
+    it('should reattach new operations to the current recurrence, in the event that the amount of the new transaction is different from the previous one', () => {
+      juneTransaction.amount = 2000
 
-    expect(bundles.length).toBe(2)
-    const bundle = bundles[0]
+      const bundleWithJune = findAndUpdateRecurrences(
+        [recurrence],
+        [juneTransaction]
+      )
 
-    expect(bundle.brand).toBe('Spotify')
-    expect(bundle.categoryIds[0]).toBe('400100')
-    expect(bundle.amounts).toMatchObject([10])
-    expect(bundle.ops.length).toBe(2)
+      const bundle = bundleWithJune[0]
+      const [op1, op2, op3, op4, op5] = bundle.ops
 
-    const bundle2 = bundles[1]
-    const [op1, op2, op3, op4] = bundle2.ops
+      expect(bundleWithJune.length).toBe(1)
+      expect(bundle.categoryIds[0]).toBe('200110')
+      expect(bundle.amounts).toMatchObject([2000, 2150])
+      expect(bundle.ops.length).toBe(5)
+      expect(op1).toMatchObject({ _id: 'february', amount: 2000 })
+      expect(op2).toMatchObject({ _id: 'march', amount: 2000 })
+      expect(op3).toMatchObject({ _id: 'april', amount: 2000 })
+      expect(op4).toMatchObject({ _id: 'may', amount: 2150 })
+      expect(op5).toMatchObject({ _id: 'june', amount: 2000 })
+    })
 
-    expect(bundle2.brand).toBe(undefined)
-    expect(bundle2.categoryIds[0]).toBe('200110')
-    expect(bundle2.amounts).toMatchObject([2000, 2150])
-    expect(bundle2.ops.length).toBe(4)
-    expect(op1).toMatchObject({ _id: 'february', amount: 2000 })
-    expect(op2).toMatchObject({ _id: 'march', amount: 2000 })
-    expect(op3).toMatchObject({ _id: 'april', amount: 2000 })
-    expect(op4).toMatchObject({ _id: 'may', amount: 2150 })
+    it('should reattach new operations to the current recurrence, in the event that the amount of the new transaction is the same from the previous one', () => {
+      juneTransaction.amount = 2150
+
+      const bundleWithJune = findAndUpdateRecurrences(
+        [recurrence],
+        [juneTransaction]
+      )
+
+      const bundle = bundleWithJune[0]
+      const [op1, op2, op3, op4, op5] = bundle.ops
+
+      expect(bundleWithJune.length).toBe(1)
+      expect(bundle.categoryIds[0]).toBe('200110')
+      expect(bundle.amounts).toMatchObject([2000, 2150])
+      expect(bundle.ops.length).toBe(5)
+      expect(op1).toMatchObject({ _id: 'february', amount: 2000 })
+      expect(op2).toMatchObject({ _id: 'march', amount: 2000 })
+      expect(op3).toMatchObject({ _id: 'april', amount: 2000 })
+      expect(op4).toMatchObject({ _id: 'may', amount: 2150 })
+      expect(op5).toMatchObject({ _id: 'june', amount: 2150 })
+    })
+
+    it('should not reattach the new operations which do not correspond to one of the recurrence amounts', () => {
+      juneTransaction.amount = 2100
+
+      const bundleWithJune = findAndUpdateRecurrences(
+        [recurrence],
+        [juneTransaction]
+      )
+
+      expect(bundleWithJune.length).toBe(1)
+
+      const bundle = bundleWithJune[0]
+      const [op1, op2, op3, op4] = bundle.ops
+
+      expect(bundle.categoryIds[0]).toBe('200110')
+      expect(bundle.amounts).toMatchObject([2000, 2150])
+      expect(bundle.ops.length).toBe(4)
+      expect(op1).toMatchObject({ _id: 'february', amount: 2000 })
+      expect(op2).toMatchObject({ _id: 'march', amount: 2000 })
+      expect(op3).toMatchObject({ _id: 'april', amount: 2000 })
+      expect(op4).toMatchObject({ _id: 'may', amount: 2150 })
+    })
+  })
+
+  describe('brand', () => {
+    const transactionsByKey = keyBy(fixtures4[TRANSACTION_DOCTYPE], '_id')
+    const transactions = [
+      transactionsByKey['february'],
+      transactionsByKey['march'],
+      transactionsByKey['april']
+    ]
+    const mayTransaction = transactionsByKey['may']
+
+    const recurrence = {
+      categoryIds: ['200110'],
+      amounts: [2000, 2150],
+      accounts: ['1d22740c6c510e5368d1b6b670deee05'],
+      ops: [...transactions, mayTransaction],
+      automaticLabel: 'Mon Salaire'
+    }
+    it('should reattach new operations to the current recurrence with Spotify Brand', () => {
+      const juneSpot = transactionsByKey['june-spotify']
+      const julySpot = transactionsByKey['july-spotify']
+      const recurrenceSpot = {
+        brand: 'Spotify',
+        categoryIds: ['400100'],
+        amounts: [10],
+        accounts: ['1d22740c6c510e5368d1b6b670deee05'],
+        ops: [juneSpot],
+        automaticLabel: 'Spotify Abonnement'
+      }
+
+      const bundles = sortBy(
+        findAndUpdateRecurrences([recurrence, recurrenceSpot], [julySpot]),
+        b => b.brand
+      )
+
+      expect(bundles.length).toBe(2)
+      const bundle = bundles[0]
+
+      expect(bundle.brand).toBe('Spotify')
+      expect(bundle.categoryIds[0]).toBe('400100')
+      expect(bundle.amounts).toMatchObject([10])
+      expect(bundle.ops.length).toBe(2)
+
+      const bundle2 = bundles[1]
+      const [op1, op2, op3, op4] = bundle2.ops
+
+      expect(bundle2.brand).toBe(undefined)
+      expect(bundle2.categoryIds[0]).toBe('200110')
+      expect(bundle2.amounts).toMatchObject([2000, 2150])
+      expect(bundle2.ops.length).toBe(4)
+      expect(op1).toMatchObject({ _id: 'february', amount: 2000 })
+      expect(op2).toMatchObject({ _id: 'march', amount: 2000 })
+      expect(op3).toMatchObject({ _id: 'april', amount: 2000 })
+      expect(op4).toMatchObject({ _id: 'may', amount: 2150 })
+    })
   })
 
   it('should update existing bundle if the transactions matches', () => {
