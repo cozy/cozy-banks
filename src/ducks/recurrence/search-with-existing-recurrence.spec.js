@@ -155,6 +155,102 @@ describe('recurrence bundles (with existing recurrences)', () => {
     })
   })
 
+  describe('account', () => {
+    it('should update existing bundle only with transactions on the same account', () => {
+      const oldTransactions = [
+        {
+          _id: 'january',
+          amount: -50,
+          date: '2021-01-01T12:00:00.000Z',
+          label: 'Netflix',
+          automaticCategoryId: 'NetflixId',
+          localCategoryId: '0',
+          account: 'accountId'
+        },
+        {
+          _id: 'february',
+          amount: -50,
+          date: '2021-02-01T12:00:00.000Z',
+          label: 'Netflix',
+          automaticCategoryId: 'NetflixId',
+          localCategoryId: '0',
+          account: 'accountId'
+        },
+        {
+          _id: 'march',
+          amount: -50,
+          date: '2021-03-01T12:00:00.000Z',
+          label: 'Netflix',
+          automaticCategoryId: 'NetflixId',
+          localCategoryId: '0',
+          account: 'accountId'
+        }
+      ]
+
+      const recurrences = [
+        {
+          categoryIds: ['NetflixId'],
+          amounts: [-50],
+          ops: oldTransactions,
+          automaticLabel: 'Netflix',
+          brand: 'Netflix',
+          stats: {
+            deltas: { sigma: 1.5, mean: 29.5, median: 29.5, mad: 1.5 }
+          },
+          accounts: ['accountId']
+        }
+      ]
+
+      const transactions = [
+        {
+          _id: 'april',
+          amount: -50,
+          date: '2021-04-01T12:00:00.000Z',
+          label: 'Netflix',
+          automaticCategoryId: 'NetflixId',
+          localCategoryId: '0',
+          account: 'accountId'
+        },
+        {
+          _id: 'may',
+          amount: -50,
+          date: '2021-05-01T12:00:00.000Z',
+          label: 'Netflix',
+          automaticCategoryId: 'NetflixId',
+          localCategoryId: '0',
+          account: 'otherAccountId'
+        },
+        {
+          _id: 'june',
+          amount: -50,
+          date: '2021-06-01T12:00:00.000Z',
+          label: 'Netflix',
+          automaticCategoryId: 'NetflixId',
+          localCategoryId: '0',
+          account: 'otherAccountId'
+        }
+      ]
+
+      const expectedBundles = [
+        {
+          categoryIds: ['NetflixId'],
+          amounts: [-50],
+          ops: [...oldTransactions, ...[transactions[0]]],
+          automaticLabel: 'Netflix',
+          brand: 'Netflix',
+          stats: {
+            deltas: { sigma: 1.4142135623730951, mean: 30, median: 31, mad: 0 }
+          },
+          accounts: ['accountId']
+        }
+      ]
+
+      const newBundles = findAndUpdateRecurrences(recurrences, transactions)
+
+      expect(newBundles).toMatchObject(expectedBundles)
+    })
+  })
+
   it('should update existing bundle if the transactions matches', () => {
     const oldTransactions = [
       {
