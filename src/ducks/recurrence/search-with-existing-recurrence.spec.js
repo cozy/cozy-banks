@@ -398,6 +398,70 @@ describe('recurrence scenario with multiple amounts and categories', () => {
     ])
   })
 
+  it('should not assign transaction to existing recurrence if not same account', () => {
+    const oldTransactions = [
+      {
+        _id: 'january',
+        amount: -50,
+        date: '2021-01-01T12:00:00.000Z',
+        label: 'Netflix',
+        automaticCategoryId: 'NetflixId',
+        localCategoryId: '0',
+        account: 'accountId'
+      },
+      {
+        _id: 'february',
+        amount: -50,
+        date: '2021-02-01T12:00:00.000Z',
+        label: 'Netflix',
+        automaticCategoryId: 'NetflixId',
+        localCategoryId: '0',
+        account: 'accountId'
+      },
+      {
+        _id: 'march',
+        amount: -50,
+        date: '2021-03-01T12:00:00.000Z',
+        label: 'Netflix',
+        automaticCategoryId: 'NetflixId',
+        localCategoryId: '0',
+        account: 'accountId'
+      }
+    ]
+
+    const recurrences = [
+      {
+        categoryIds: ['NetflixId'],
+        amounts: [-50],
+        ops: oldTransactions,
+        automaticLabel: 'Netflix',
+        brand: 'Netflix',
+        stats: {
+          deltas: { sigma: 1.5, mean: 29.5, median: 29.5, mad: 1.5 }
+        },
+        accounts: ['accountId']
+      }
+    ]
+
+    const newTransaction = [
+      {
+        _id: 'april',
+        amount: -50,
+        date: '2021-04-01T12:00:00.000Z',
+        label: 'Netflix',
+        automaticCategoryId: 'NetflixId',
+        localCategoryId: '0',
+        account: 'otherAccountId'
+      }
+    ]
+
+    const expectedBundles = recurrences
+
+    const newBundles = findAndUpdateRecurrences(recurrences, newTransaction)
+
+    expect(newBundles).toMatchObject(expectedBundles)
+  })
+
   it('should create new bundle if the transactions do not correspond to an existing bundle', () => {
     const oldTransactions = [
       {
