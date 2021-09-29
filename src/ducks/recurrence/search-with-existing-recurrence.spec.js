@@ -40,25 +40,18 @@ describe('recurrence bundles (with existing recurrences)', () => {
       [juneTransaction]
     )
 
-    // TODO rewrite tests with `toMatchObject` for better readability
     const bundle = bundleWithJune[0]
     const [op1, op2, op3, op4, op5] = bundle.ops
+
     expect(bundleWithJune.length).toBe(1)
     expect(bundle.categoryIds[0]).toBe('200110')
-    expect(bundle.amounts.length).toBe(2)
-    expect(bundle.amounts[0]).toBe(2000)
-    expect(bundle.amounts[1]).toBe(2150)
+    expect(bundle.amounts).toMatchObject([2000, 2150])
     expect(bundle.ops.length).toBe(5)
-    expect(op1._id).toBe('february')
-    expect(op1.amount).toBe(2000)
-    expect(op2._id).toBe('march')
-    expect(op2.amount).toBe(2000)
-    expect(op3._id).toBe('april')
-    expect(op3.amount).toBe(2000)
-    expect(op4._id).toBe('may')
-    expect(op4.amount).toBe(2150)
-    expect(op5._id).toBe('june')
-    expect(op5.amount).toBe(2000)
+    expect(op1).toMatchObject({ _id: 'february', amount: 2000 })
+    expect(op2).toMatchObject({ _id: 'march', amount: 2000 })
+    expect(op3).toMatchObject({ _id: 'april', amount: 2000 })
+    expect(op4).toMatchObject({ _id: 'may', amount: 2150 })
+    expect(op5).toMatchObject({ _id: 'june', amount: 2000 })
   })
 
   it('should reattach new operations to the current recurrence, in the event that the amount of the new transaction is the same from the previous one', () => {
@@ -71,22 +64,16 @@ describe('recurrence bundles (with existing recurrences)', () => {
 
     const bundle = bundleWithJune[0]
     const [op1, op2, op3, op4, op5] = bundle.ops
+
     expect(bundleWithJune.length).toBe(1)
     expect(bundle.categoryIds[0]).toBe('200110')
-    expect(bundle.amounts.length).toBe(2)
-    expect(bundle.amounts[0]).toBe(2000)
-    expect(bundle.amounts[1]).toBe(2150)
+    expect(bundle.amounts).toMatchObject([2000, 2150])
     expect(bundle.ops.length).toBe(5)
-    expect(op1._id).toBe('february')
-    expect(op1.amount).toBe(2000)
-    expect(op2._id).toBe('march')
-    expect(op2.amount).toBe(2000)
-    expect(op3._id).toBe('april')
-    expect(op3.amount).toBe(2000)
-    expect(op4._id).toBe('may')
-    expect(op4.amount).toBe(2150)
-    expect(op5._id).toBe('june')
-    expect(op5.amount).toBe(2150)
+    expect(op1).toMatchObject({ _id: 'february', amount: 2000 })
+    expect(op2).toMatchObject({ _id: 'march', amount: 2000 })
+    expect(op3).toMatchObject({ _id: 'april', amount: 2000 })
+    expect(op4).toMatchObject({ _id: 'may', amount: 2150 })
+    expect(op5).toMatchObject({ _id: 'june', amount: 2150 })
   })
 
   it('should not reattach the new operations which do not correspond to one of the recurrence amounts', () => {
@@ -101,20 +88,14 @@ describe('recurrence bundles (with existing recurrences)', () => {
 
     const bundle = bundleWithJune[0]
     const [op1, op2, op3, op4] = bundle.ops
-    // Bundle #1
+
     expect(bundle.categoryIds[0]).toBe('200110')
-    expect(bundle.amounts.length).toBe(2)
-    expect(bundle.amounts[0]).toBe(2000)
-    expect(bundle.amounts[1]).toBe(2150)
+    expect(bundle.amounts).toMatchObject([2000, 2150])
     expect(bundle.ops.length).toBe(4)
-    expect(op1._id).toBe('february')
-    expect(op1.amount).toBe(2000)
-    expect(op2._id).toBe('march')
-    expect(op3.amount).toBe(2000)
-    expect(op3._id).toBe('april')
-    expect(op3.amount).toBe(2000)
-    expect(op4._id).toBe('may')
-    expect(op4.amount).toBe(2150)
+    expect(op1).toMatchObject({ _id: 'february', amount: 2000 })
+    expect(op2).toMatchObject({ _id: 'march', amount: 2000 })
+    expect(op3).toMatchObject({ _id: 'april', amount: 2000 })
+    expect(op4).toMatchObject({ _id: 'may', amount: 2150 })
   })
 
   it('should reattach new operations to the current recurrence with Spotify Brand', () => {
@@ -139,26 +120,20 @@ describe('recurrence bundles (with existing recurrences)', () => {
 
     expect(bundle.brand).toBe('Spotify')
     expect(bundle.categoryIds[0]).toBe('400100')
-    expect(bundle.amounts.length).toBe(1)
-    expect(bundle.amounts[0]).toBe(10)
+    expect(bundle.amounts).toMatchObject([10])
     expect(bundle.ops.length).toBe(2)
 
     const bundle2 = bundles[1]
     const [op1, op2, op3, op4] = bundle2.ops
+
     expect(bundle2.brand).toBe(undefined)
     expect(bundle2.categoryIds[0]).toBe('200110')
-    expect(bundle2.amounts.length).toBe(2)
-    expect(bundle2.amounts[0]).toBe(2000)
-    expect(bundle2.amounts[1]).toBe(2150)
+    expect(bundle2.amounts).toMatchObject([2000, 2150])
     expect(bundle2.ops.length).toBe(4)
-    expect(op1._id).toBe('february')
-    expect(op1.amount).toBe(2000)
-    expect(op2._id).toBe('march')
-    expect(op2.amount).toBe(2000)
-    expect(op3._id).toBe('april')
-    expect(op3.amount).toBe(2000)
-    expect(op4._id).toBe('may')
-    expect(op4.amount).toBe(2150)
+    expect(op1).toMatchObject({ _id: 'february', amount: 2000 })
+    expect(op2).toMatchObject({ _id: 'march', amount: 2000 })
+    expect(op3).toMatchObject({ _id: 'april', amount: 2000 })
+    expect(op4).toMatchObject({ _id: 'may', amount: 2150 })
   })
 })
 
@@ -193,23 +168,16 @@ describe('recurrence scenario with multiple amounts and categories', () => {
 
     const bundle = bundleWithJune[0]
     const [op1, op2, op3, op4, op5] = bundle.ops
+
     expect(bundleWithJune.length).toBe(1)
-    expect(bundle.categoryIds[0]).toBe('0')
-    expect(bundle.categoryIds[1]).toBe('200110')
-    expect(bundle.amounts.length).toBe(2)
-    expect(bundle.amounts[0]).toBe(2000)
-    expect(bundle.amounts[1]).toBe(2150)
+    expect(bundle.categoryIds).toMatchObject(['0', '200110'])
+    expect(bundle.amounts).toMatchObject([2000, 2150])
     expect(bundle.ops.length).toBe(5)
-    expect(op1._id).toBe('february')
-    expect(op1.amount).toBe(2000)
-    expect(op2._id).toBe('march')
-    expect(op2.amount).toBe(2000)
-    expect(op3._id).toBe('april')
-    expect(op3.amount).toBe(2000)
-    expect(op4._id).toBe('may')
-    expect(op4.amount).toBe(2150)
-    expect(op5._id).toBe('june')
-    expect(op5.amount).toBe(2000)
+    expect(op1).toMatchObject({ _id: 'february', amount: 2000 })
+    expect(op2).toMatchObject({ _id: 'march', amount: 2000 })
+    expect(op3).toMatchObject({ _id: 'april', amount: 2000 })
+    expect(op4).toMatchObject({ _id: 'may', amount: 2150 })
+    expect(op5).toMatchObject({ _id: 'june', amount: 2000 })
   })
 
   it('should reattach new operations to the current recurrence, in the event that the amount and category of the new transaction is the sme from the previous one and with same category', () => {
@@ -223,23 +191,17 @@ describe('recurrence scenario with multiple amounts and categories', () => {
 
     const bundle = bundleWithJune[0]
     const [op1, op2, op3, op4, op5] = bundle.ops
+
     expect(bundleWithJune.length).toBe(1)
-    expect(bundle.categoryIds[0]).toBe('0')
-    expect(bundle.categoryIds[1]).toBe('200110')
+    expect(bundle.categoryIds).toMatchObject(['0', '200110'])
     expect(bundle.amounts.length).toBe(2)
-    expect(bundle.amounts[0]).toBe(2000)
-    expect(bundle.amounts[1]).toBe(2150)
+    expect(bundle.amounts).toMatchObject([2000, 2150])
     expect(bundle.ops.length).toBe(5)
-    expect(op1._id).toBe('february')
-    expect(op1.amount).toBe(2000)
-    expect(op2._id).toBe('march')
-    expect(op2.amount).toBe(2000)
-    expect(op3._id).toBe('april')
-    expect(op3.amount).toBe(2000)
-    expect(op4._id).toBe('may')
-    expect(op4.amount).toBe(2150)
-    expect(op5._id).toBe('june')
-    expect(op5.amount).toBe(2000)
+    expect(op1).toMatchObject({ _id: 'february', amount: 2000 })
+    expect(op2).toMatchObject({ _id: 'march', amount: 2000 })
+    expect(op3).toMatchObject({ _id: 'april', amount: 2000 })
+    expect(op4).toMatchObject({ _id: 'may', amount: 2150 })
+    expect(op5).toMatchObject({ _id: 'june', amount: 2000 })
   })
 
   it('reattach next new operations from a new bundle which has 1 operation with "very month" in frequency', () => {
@@ -265,11 +227,11 @@ describe('recurrence scenario with multiple amounts and categories', () => {
 
     const t = getT(enLocaleOption)
     expect(getFrequencyText(t, bundle)).toBe('every month')
+
     const [op1, op2] = bundle.ops
-    expect(op1._id).toBe('february')
-    expect(op1.amount).toBe(30)
-    expect(op2._id).toBe('may')
-    expect(op2.amount).toBe(30)
+
+    expect(op1).toMatchObject({ _id: 'february', amount: 30 })
+    expect(op2).toMatchObject({ _id: 'may', amount: 30 })
   })
 
   it('should update existing bundle if the transactions matches', () => {
