@@ -48,12 +48,9 @@ export const deleteOrphanOperations = async (client, account) => {
 }
 
 const removeAccountFromGroups = async (client, account) => {
-  const groupCollection = client.stackClient.collection(GROUP_DOCTYPE)
-  const groups = (await groupCollection.all()).data
+  const groups = (await client.query(Q(GROUP_DOCTYPE))).data
   const ugroups = groups.map(group => removeAccountFromGroup(group, account))
-  for (let ugroup of ugroups) {
-    await groupCollection.update(ugroup)
-  }
+  await client.saveAll(ugroups)
 }
 
 export const removeStats = async (client, account) => {
