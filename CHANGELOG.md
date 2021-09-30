@@ -16,7 +16,7 @@
 
 ## 🔧 Tech
 
-*
+* Add recurrence test for `not same account` scenario + refactor other recurrence tests
 
 # 1.35.0
 
