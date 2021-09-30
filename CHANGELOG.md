@@ -17,6 +17,7 @@
 ## 🔧 Tech
 
 * Add recurrence test for `not same account` scenario + refactor other recurrence tests
+* Use CozyClient links instead of StackClient in removeAccountFromGroups
 
 # 1.35.0
 
