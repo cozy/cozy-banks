@@ -2,7 +2,8 @@
 
 ## ✨ Features
 
-*
+* Add latest transaction amount value in recurrences
+* Futur balances shows latest transaction amount
 
 ## 🐛 Bug Fixes
 
