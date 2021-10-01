@@ -2,7 +2,7 @@
 
 ## ✨ Features
 
-*
+* Add latest transaction amount value in recurrences
 
 ## 🐛 Bug Fixes
 

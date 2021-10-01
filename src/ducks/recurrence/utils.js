@@ -77,6 +77,7 @@ export const makeRecurrenceFromTransaction = transaction => {
       }
     },
     latestDate: transaction.date,
+    latestAmount: transaction.amount,
     accounts: [accountId],
     amounts: [transaction.amount],
     categoryIds: [getCategoryId(transaction)]

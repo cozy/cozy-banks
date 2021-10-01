@@ -69,6 +69,7 @@ export const createRecurrenceClientBundles = recurrenceClientBundles =>
     withoutOps.automaticLabel = getAutomaticLabelFromBundle(bundle)
     const latestOperation = maxBy(bundle.ops, x => x.date)
     withoutOps.latestDate = latestOperation.date
+    withoutOps.latestAmount = latestOperation.amount
     return withoutOps
   })
 

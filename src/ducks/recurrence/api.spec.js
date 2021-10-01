@@ -39,7 +39,7 @@ describe('fetch hydrated bundles', () => {
 })
 
 describe('createRecurrenceClientBundles', () => {
-  it('should add latestDate and automaticLabel, remove ops and make accounts unique', () => {
+  it('should add latestDate, latestAmount and automaticLabel, remove ops and make accounts unique', () => {
     const transactionsByKey = keyBy(fixtures4[TRANSACTION_DOCTYPE], '_id')
     const transactions = [
       transactionsByKey['february'],
@@ -68,7 +68,8 @@ describe('createRecurrenceClientBundles', () => {
         amounts: [2000, 2150],
         accounts: ['1d22740c6c510e5368d1b6b670deee05'],
         latestDate: '2021-05-01T12:00:00.000Z',
-        automaticLabel: 'Mon Salaire Fevrier'
+        automaticLabel: 'Mon Salaire Fevrier',
+        latestAmount: 2150
       }
     ])
   })
