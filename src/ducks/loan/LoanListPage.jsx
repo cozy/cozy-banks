@@ -61,7 +61,7 @@ const DumbLoanListPage = props => {
                     </Typography>
                   </div>
                 }
-                right={<Icon icon={RightIcon} color="var(--coolGrey)" />}
+                right={<Icon icon={RightIcon} color="var(--borderGhostColor)" />}
                 actions={<LoanProgress account={account} />}
                 className="u-c-pointer"
                 onClick={() => {

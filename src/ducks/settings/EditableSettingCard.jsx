@@ -24,7 +24,7 @@ const styles = {
 
 export const CrossButton = ({ onClick }) => (
   <IconButton onClick={onClick} style={styles.crossButton}>
-    <Icon color="var(--coolGrey)" icon={CrossMediumIcon} size={12} />
+    <Icon color="var(--borderGhostColor)" icon={CrossMediumIcon} size={12} />
   </IconButton>
 )
 

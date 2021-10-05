@@ -19,7 +19,7 @@ const Card = props => {
 
   return (
     <UICard className={cx(styles.Card, className)} {...rest}>
-      <Icon icon={icon} size={16} color="var(--coolGrey)" />
+      <Icon icon={icon} size={16} color="var(--borderGhostColor)" />
       <div className="u-ml-1">
         <Typography variant="body1">{title}</Typography>
         <Typography variant="caption" color="textSecondary">
