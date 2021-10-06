@@ -77,8 +77,14 @@ const fetchRegistryInfo = memoize(
  *
  * @return {ShouldNotifyResult}
  */
-const shouldNotify = async (client, trigger, previousStatesByTriggerId) => {
-  const previousState = previousStatesByTriggerId[trigger._id]
+const shouldNotify = async ({
+  client,
+  trigger,
+  previousStates,
+  serviceTrigger
+}) => {
+  const previousState = previousStates[trigger._id]
+
   if (!previousState) {
     return { ok: false, reason: 'no-previous-state' }
   }
@@ -103,9 +109,10 @@ const shouldNotify = async (client, trigger, previousStatesByTriggerId) => {
   }
 
   // We do not want to send notifications for jobs that were launched manually
+  // Except if the trigger that runs the service is a scheduled one
   const jobId = trigger.current_state.last_executed_job_id
   const { data: job } = await client.query(Q(JOBS_DOCTYPE).getById(jobId))
-  if (job.manual_execution) {
+  if (job.manual_execution && serviceTrigger?.type !== '@at') {
     return { ok: false, reason: 'manual-job' }
   }
 
@@ -154,7 +161,7 @@ export const buildNotification = (client, options) => {
  * @param  {CozyClient} client - Cozy client
  * @return {Promise}
  */
-export const sendTriggerNotifications = async client => {
+export const sendTriggerNotifications = async (client, serviceTrigger) => {
   const { data: cronKonnectorTriggers } = await client.query(
     Q(TRIGGER_DOCTYPE).where({
       worker: 'konnector'
@@ -173,7 +180,12 @@ export const sendTriggerNotifications = async client => {
     cronKonnectorTriggers.map(async trigger => {
       return {
         trigger,
-        shouldNotify: await shouldNotify(client, trigger, previousStates)
+        shouldNotify: await shouldNotify({
+          client,
+          trigger,
+          previousStates,
+          serviceTrigger
+        })
       }
     })
   )).filter(({ trigger, shouldNotify }) => {
