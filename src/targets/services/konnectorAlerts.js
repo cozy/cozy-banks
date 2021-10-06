@@ -9,10 +9,10 @@ import { Q } from 'cozy-client'
 import flag from 'cozy-flags'
 import { sendNotification } from 'cozy-notifications'
 
+import { TRIGGER_DOCTYPE, JOBS_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
 import { runService, dictRequire, lang } from './service'
 import { KonnectorAlertNotification, logger } from 'ducks/konnectorAlerts'
 
-const TRIGGER_STATES_DOC_TYPE = 'io.cozy.bank.settings'
 const TRIGGER_STATES_DOC_ID = 'trigger-states'
 
 const getKonnectorSlug = trigger => trigger.message.konnector
@@ -21,7 +21,7 @@ const getKonnectorSlug = trigger => trigger.message.konnector
 const fetchTriggerStates = async client => {
   try {
     const { data } = await client.query(
-      Q(TRIGGER_STATES_DOC_TYPE).getById(TRIGGER_STATES_DOC_ID)
+      Q(SETTINGS_DOCTYPE).getById(TRIGGER_STATES_DOC_ID)
     )
     return data
   } catch {
@@ -37,7 +37,7 @@ const storeTriggerStates = async (client, triggers, previousDoc) => {
   )
   const doc = {
     _id: TRIGGER_STATES_DOC_ID,
-    _type: TRIGGER_STATES_DOC_TYPE,
+    _type: SETTINGS_DOCTYPE,
     triggerStates: triggerStatesById
   }
   if (previousDoc && previousDoc._rev) {
@@ -104,7 +104,7 @@ const shouldNotify = async (client, trigger, previousStatesByTriggerId) => {
 
   // We do not want to send notifications for jobs that were launched manually
   const jobId = trigger.current_state.last_executed_job_id
-  const { data: job } = await client.query(Q('io.cozy.jobs').getById(jobId))
+  const { data: job } = await client.query(Q(JOBS_DOCTYPE).getById(jobId))
   if (job.manual_execution) {
     return { ok: false, reason: 'manual-job' }
   }
@@ -156,7 +156,7 @@ export const buildNotification = (client, options) => {
  */
 export const sendTriggerNotifications = async client => {
   const { data: cronKonnectorTriggers } = await client.query(
-    Q('io.cozy.triggers').where({
+    Q(TRIGGER_DOCTYPE).where({
       worker: 'konnector'
     })
   )
