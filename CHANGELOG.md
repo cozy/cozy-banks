@@ -6,7 +6,7 @@
 
 ## 🐛 Bug Fixes
 
-*
+* Fix Month / Year selection on iOS in Analysis Page
 
 ## 🔧 Tech
 
