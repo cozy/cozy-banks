@@ -14,6 +14,7 @@ import { runService, dictRequire, lang } from './service'
 import { KonnectorAlertNotification, logger } from 'ducks/konnectorAlerts'
 
 const TRIGGER_STATES_DOC_ID = 'trigger-states'
+const ONE_DAY = 1000 * 60 * 60 * 24 // ms * s * min * hours
 
 const getKonnectorSlug = trigger => trigger.message.konnector
 
@@ -68,6 +69,27 @@ const fetchRegistryInfo = memoize(
   (client, konnectorSlug) => konnectorSlug
 )
 
+const createTriggerAt = async (client, date) => {
+  await client.save({
+    _type: TRIGGER_DOCTYPE,
+    type: '@at',
+    arguments: date.toISOString(),
+    worker: 'service',
+    message: {
+      name: 'konnectorAlerts',
+      slug: 'banks'
+    }
+  })
+}
+
+export const containerForTesting = {
+  createTriggerAt
+}
+
+const dateInDays = (referenceDate, n) => {
+  return new Date(+new Date(referenceDate) + n * ONE_DAY)
+}
+
 /**
  * Returns whether we need to send a notification for a trigger
  *
@@ -77,7 +99,7 @@ const fetchRegistryInfo = memoize(
  *
  * @return {ShouldNotifyResult}
  */
-const shouldNotify = async ({
+export const shouldNotify = async ({
   client,
   trigger,
   previousStates,
@@ -103,8 +125,18 @@ const shouldNotify = async ({
 
   if (
     previousState.status === 'errored' &&
-    isErrorActionable(previousState.last_error)
+    isErrorActionable(previousState.last_error) &&
+    serviceTrigger?.type !== '@at'
   ) {
+    await containerForTesting.createTriggerAt(
+      client,
+      dateInDays(previousState.last_failure, 3)
+    )
+    await containerForTesting.createTriggerAt(
+      client,
+      dateInDays(previousState.last_failure, 7)
+    )
+
     return { ok: false, reason: 'last-failure-already-notified' }
   }
 

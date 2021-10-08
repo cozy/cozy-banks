@@ -4,9 +4,13 @@ import { sendNotification } from 'cozy-notifications'
 import matchAll from 'utils/matchAll'
 import {
   sendTriggerNotifications,
-  destroyObsoleteTrigger
+  destroyObsoleteTrigger,
+  shouldNotify,
+  containerForTesting
 } from './konnectorAlerts'
 import logger from 'ducks/konnectorAlerts/logger'
+
+jest.spyOn(containerForTesting, 'createTriggerAt')
 
 jest.mock('ducks/konnectorAlerts/logger', () => jest.fn())
 
@@ -52,7 +56,45 @@ const events = [
 
   '2020-01-01 konnector-8 OK',
   '2020-01-02 konnector-8 USER_ACTION_NEEDED',
-  '2020-01-03 konnector-8 LOGIN_FAILED'
+  '2020-01-03 konnector-8 LOGIN_FAILED',
+
+  '2020-01-01 konnector-9 OK',
+  '2020-01-02 konnector-9 LOGIN_FAILED', // Days 0
+  '2020-01-05 konnector-9 LOGIN_FAILED', // Days +3
+
+  '2020-01-01 konnector-10 OK',
+  '2020-01-02 konnector-10 LOGIN_FAILED', // Days 0
+  '2020-01-09 konnector-10 LOGIN_FAILED', // Days +7
+
+  '2020-01-01 konnector-11 OK',
+  '2020-01-02 konnector-11 LOGIN_FAILED',
+  '2020-01-04 konnector-11 OK manual',
+  '2020-01-05 konnector-11 OK manual', // D +3
+
+  '2020-01-01 konnector-12 OK',
+  '2020-01-02 konnector-12 LOGIN_FAILED',
+  '2020-01-04 konnector-12 OK manual',
+  '2020-01-09 konnector-12 OK manual', // D +7
+
+  '2020-01-01 konnector-13 OK',
+  '2020-01-02 konnector-13 LOGIN_FAILED',
+  '2020-01-04 konnector-13 OK manual',
+  '2020-01-05 konnector-13 OK', // D +3
+
+  '2020-01-01 konnector-14 OK',
+  '2020-01-02 konnector-14 LOGIN_FAILED',
+  '2020-01-04 konnector-14 OK manual',
+  '2020-01-09 konnector-14 OK', // D +7
+
+  '2020-01-01 konnector-15 OK',
+  '2020-01-02 konnector-15 LOGIN_FAILED',
+  '2020-01-04 konnector-15 LOGIN_FAILED manual',
+  '2020-01-07 konnector-15 LOGIN_FAILED manual', // D +3
+
+  '2020-01-01 konnector-16 OK',
+  '2020-01-02 konnector-16 LOGIN_FAILED',
+  '2020-01-04 konnector-16 LOGIN_FAILED manual',
+  '2020-01-11 konnector-16 LOGIN_FAILED manual' // D +7
 ]
 
 const expectedResults = {
@@ -64,7 +106,15 @@ const expectedResults = {
     'konnector-5 never-been-in-success',
     'konnector-6 sent',
     'konnector-7 sent',
-    'konnector-8 last-failure-already-notified'
+    'konnector-8 last-failure-already-notified',
+    'konnector-9 last-failure-already-notified', // D +3
+    'konnector-10 last-failure-already-notified', // D +7
+    'konnector-11 current-state-is-not-errored', // D +3
+    'konnector-12 current-state-is-not-errored', // D +7
+    'konnector-13 current-state-is-not-errored', // D +3
+    'konnector-14 current-state-is-not-errored', // D +7
+    'konnector-15 last-failure-already-notified', // D +3
+    'konnector-16 last-failure-already-notified' // D +7
   ],
   '@at': [
     'konnector-1 sent',
@@ -74,7 +124,15 @@ const expectedResults = {
     'konnector-5 never-been-in-success',
     'konnector-6 sent',
     'konnector-7 sent',
-    'konnector-8 last-failure-already-notified'
+    'konnector-8 sent',
+    'konnector-9 sent', // D +3
+    'konnector-10 sent', // D +7
+    'konnector-11 current-state-is-not-errored', // D +3
+    'konnector-12 current-state-is-not-errored', // D +7
+    'konnector-13 current-state-is-not-errored', // D +3
+    'konnector-14 current-state-is-not-errored', // D +7
+    'konnector-15 sent', // D +3
+    'konnector-16 sent' // D +7
   ]
 }
 
@@ -229,6 +287,7 @@ describe('job notifications service', () => {
     const executeTestWithTypeTrigger = async triggerType => {
       const { client } = setup()
       await sendTriggerNotifications(client, { type: triggerType })
+
       expect(sendNotification).toHaveBeenCalledTimes(1)
       expect(sendNotification).toHaveBeenCalledWith(client, expect.any(Object))
 
@@ -239,6 +298,7 @@ describe('job notifications service', () => {
       const now = new Date()
       // test that the notification in less than a day
       const interval = +at - now
+
       expect(interval).toBeGreaterThan(0)
       expect(interval).toBeLessThan(86400000)
 
@@ -248,6 +308,7 @@ describe('job notifications service', () => {
         const [konnectorSlug, state] = x.split(' ')
         return { konnectorSlug, state }
       })
+
       expect(notifSlugs).toEqual(
         expectedResultsData
           .filter(x => x.state === 'sent')
@@ -258,11 +319,13 @@ describe('job notifications service', () => {
         if (result.state === 'sent') {
           continue
         }
+
         expect(logger).toHaveBeenCalledWith(
           'info',
           `Will not notify trigger for ${result.konnectorSlug} because ${result.state}`
         )
       }
+
       expectTriggerStatesToHaveBeenSaved(client)
     }
 
@@ -310,5 +373,135 @@ describe('destroyObsoleteTrigger', () => {
       arguments: obsoleteDate
     })
     expect(client.destroy).toHaveBeenCalled()
+  })
+})
+
+describe('shouldNotify', () => {
+  describe('@at triggers creation', () => {
+    const client = createMockClient({})
+    // client.query(Q(JOBS_DOCTYPE).getById(jobId)) has to be mocked in tests
+
+    beforeEach(() => {
+      jest.clearAllMocks()
+    })
+
+    const setup = ({ currentState, previousState } = {}) => {
+      const trigger = {
+        _id: '123',
+        current_state: {
+          ...currentState,
+          last_success: '2020-01-01',
+          last_executed_job_id: 'jobId'
+        },
+        message: {
+          konnector: 'konnectorName'
+        }
+      }
+
+      const previousStates = {
+        '123': {
+          ...previousState,
+          last_failure: '2020-01-01'
+        }
+      }
+
+      return { trigger, previousStates }
+    }
+
+    it('should create @at triggers for LOGIN_FAILED last error', async () => {
+      const { trigger, previousStates } = setup({
+        currentState: {
+          status: 'errored',
+          last_error: 'LOGIN_FAILED'
+        },
+        previousState: {
+          status: 'errored',
+          last_error: 'LOGIN_FAILED'
+        }
+      })
+
+      await shouldNotify({
+        client,
+        trigger,
+        previousStates,
+        serviceTrigger: { type: '@cron' }
+      })
+
+      expect(containerForTesting.createTriggerAt).toHaveBeenCalledTimes(2)
+    })
+
+    it('should create @at triggers for USER_ACTION_NEEDED last error', async () => {
+      const { trigger, previousStates } = setup({
+        currentState: {
+          status: 'errored',
+          last_error: 'USER_ACTION_NEEDED'
+        },
+        previousState: {
+          status: 'errored',
+          last_error: 'USER_ACTION_NEEDED'
+        }
+      })
+
+      await shouldNotify({
+        client,
+        trigger,
+        previousStates,
+        serviceTrigger: { type: '@cron' }
+      })
+
+      expect(containerForTesting.createTriggerAt).toHaveBeenCalledTimes(2)
+    })
+
+    it('should not create @at triggers for another errors', async () => {
+      client.query = jest
+        .fn()
+        .mockResolvedValue({ data: { manual_execution: false } })
+
+      const { trigger, previousStates } = setup({
+        currentState: {
+          status: 'errored',
+          last_error: 'VENDOR_DOWN'
+        },
+        previousState: {
+          status: 'errored',
+          last_error: 'VENDOR_DOWN'
+        }
+      })
+
+      await shouldNotify({
+        client,
+        trigger,
+        previousStates,
+        serviceTrigger: { type: '@cron' }
+      })
+
+      expect(containerForTesting.createTriggerAt).not.toHaveBeenCalled()
+    })
+
+    it('should not create @at triggers if previous status is not errored', async () => {
+      client.query = jest
+        .fn()
+        .mockResolvedValue({ data: { manual_execution: false } })
+
+      const { trigger, previousStates } = setup({
+        currentState: {
+          status: 'errored',
+          last_error: 'USER_ACTION_NEEDED'
+        },
+        previousState: {
+          status: 'success',
+          last_error: 'USER_ACTION_NEEDED'
+        }
+      })
+
+      await shouldNotify({
+        client,
+        trigger,
+        previousStates,
+        serviceTrigger: { type: '@cron' }
+      })
+
+      expect(containerForTesting.createTriggerAt).not.toHaveBeenCalled()
+    })
   })
 })
