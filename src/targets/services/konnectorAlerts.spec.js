@@ -9,6 +9,7 @@ import {
   containerForTesting
 } from './konnectorAlerts'
 import logger from 'ducks/konnectorAlerts/logger'
+import { ONE_DAY } from 'ducks/recurrence/constants'
 
 jest.spyOn(containerForTesting, 'createTriggerAt')
 
@@ -135,8 +136,6 @@ const expectedResults = {
     'konnector-16 sent' // D +7
   ]
 }
-
-const ONE_DAY = 1000 * 60 * 60 * 24 // ms * s * min * hours
 
 /**
  * Makes fake responses from the events

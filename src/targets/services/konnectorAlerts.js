@@ -12,9 +12,9 @@ import { sendNotification } from 'cozy-notifications'
 import { TRIGGER_DOCTYPE, JOBS_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
 import { runService, dictRequire, lang } from './service'
 import { KonnectorAlertNotification, logger } from 'ducks/konnectorAlerts'
+import { ONE_DAY } from 'ducks/recurrence/constants'
 
 const TRIGGER_STATES_DOC_ID = 'trigger-states'
-const ONE_DAY = 1000 * 60 * 60 * 24 // ms * s * min * hours
 
 const getKonnectorSlug = trigger => trigger.message.konnector
 
