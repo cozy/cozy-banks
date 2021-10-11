@@ -1,8 +1,11 @@
-import CozyClient from 'cozy-client'
+import CozyClient, { createMockClient } from 'cozy-client'
 import { sendNotification } from 'cozy-notifications'
 
 import matchAll from 'utils/matchAll'
-import { sendTriggerNotifications } from './konnectorAlerts'
+import {
+  sendTriggerNotifications,
+  destroyObsoleteTrigger
+} from './konnectorAlerts'
 import logger from 'ducks/konnectorAlerts/logger'
 
 jest.mock('ducks/konnectorAlerts/logger', () => jest.fn())
@@ -62,6 +65,8 @@ const expectedResults = [
   'konnector-7 sent',
   'konnector-8 last-failure-already-notified'
 ]
+
+const ONE_DAY = 1000 * 60 * 60 * 24 // ms * s * min * hours
 
 /**
  * Makes fake responses from the events
@@ -240,5 +245,46 @@ describe('job notifications service', () => {
       )
     }
     expectTriggerStatesToHaveBeenSaved(client)
+  })
+})
+
+describe('destroyObsoleteTrigger', () => {
+  const client = createMockClient({})
+  client.destroy = jest.fn()
+
+  it("should not destroy trigger if trigger hasn't obsolete arguments date", async () => {
+    await destroyObsoleteTrigger(client, {})
+    expect(client.destroy).not.toHaveBeenCalled()
+
+    await destroyObsoleteTrigger(client, {
+      arguments: ''
+    })
+    expect(client.destroy).not.toHaveBeenCalled()
+
+    const notObsoleteDate = new Date(Date.now() + ONE_DAY)
+    await destroyObsoleteTrigger(client, {
+      arguments: notObsoleteDate
+    })
+    expect(client.destroy).not.toHaveBeenCalled()
+  })
+
+  it('should not destroy trigger if trigger type is not @at even if it has obsolete arguments date', async () => {
+    const obsoleteDate = new Date(Date.now() - ONE_DAY)
+
+    await destroyObsoleteTrigger(client, {
+      type: '@cron',
+      arguments: obsoleteDate
+    })
+    expect(client.destroy).not.toHaveBeenCalled()
+  })
+
+  it('should destroy trigger if trigger type @at has obsolete arguments date', async () => {
+    const obsoleteDate = new Date(Date.now() - ONE_DAY)
+
+    await destroyObsoleteTrigger(client, {
+      type: '@at',
+      arguments: obsoleteDate
+    })
+    expect(client.destroy).toHaveBeenCalled()
   })
 })

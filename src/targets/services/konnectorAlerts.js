@@ -227,6 +227,24 @@ export const sendTriggerNotifications = async client => {
   await storeTriggerStates(client, cronKonnectorTriggers, triggerStatesDoc)
 }
 
+export const destroyObsoleteTrigger = async (client, trigger) => {
+  if (trigger?.type === '@at') {
+    logger('info', 'Try to destroy @at trigger...')
+
+    const isObsolete = +new Date(trigger?.arguments) < +new Date()
+
+    if (isObsolete) {
+      await client.destroy(trigger)
+      logger('info', `Destroyed @at trigger with id ${trigger._id}`)
+    } else {
+      logger(
+        'info',
+        `Nothing happened, trigger with id ${trigger._id} is not yet obsolete`
+      )
+    }
+  }
+}
+
 const main = async ({ client }) => {
   client.registerPlugin(flag.plugin)
   await client.plugins.flags.refresh()
@@ -240,7 +258,15 @@ const main = async ({ client }) => {
   }
 
   logger('info', 'Executing job notifications service...')
-  await sendTriggerNotifications(client)
+
+  const serviceTrigger = process.env.COZY_TRIGGER_ID
+    ? (await client.query(
+        Q(TRIGGER_DOCTYPE).getById(process.env.COZY_TRIGGER_ID)
+      )).data
+    : undefined
+
+  await sendTriggerNotifications(client, serviceTrigger)
+  await destroyObsoleteTrigger(client, serviceTrigger)
 }
 
 if (require.main === module || process.env.NODE_ENV === 'production') {
