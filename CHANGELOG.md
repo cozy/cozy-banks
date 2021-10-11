@@ -2,7 +2,7 @@
 
 ## ✨ Features
 
-*
+* Add notifications at +3 and +7 days for banking connectors, if the connector is in an actionable error
 
 ## 🐛 Bug Fixes
 
