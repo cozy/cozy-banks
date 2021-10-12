@@ -7,10 +7,11 @@
 ## 🐛 Bug Fixes
 
 * Fix Month / Year selection on iOS in Analysis Page
+* Fix no data displayed in Analysis Page on iOS
 
 ## 🔧 Tech
 
-*
+* Move / Refactor / Split `CategoriesHeader` component
 
 # 1.36.0
 
