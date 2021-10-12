@@ -47,12 +47,12 @@
     }
     window.onerror = handleError
   </script>
-<link href="main-banks.9b959b16f6af55642807.min.css" rel="stylesheet"></head>
+<link href="vendors-banks.faae9aad53eb6c581365.2.min.css" rel="stylesheet"><link href="main-banks.d0f40eed5fbea18394cd.min.css" rel="stylesheet"></head>
 <body>
-<div role="application" data-cozy-token="{{.Token}}" data-cozy-domain="{{.Domain}}" data-cozy-locale="{{.Locale}}" data-cozy-app-name="{{.AppName}}" data-cozy-app-name-prefix="{{.AppNamePrefix}}" data-cozy-app-editor="{{.AppEditor}}" data-cozy-icon-path="{{.IconPath}}" data-cozy-tracking="{{.Tracking}}" data-cozy-app-slug="{{.AppSlug}}" data-cozy-subdomain-type="{{.SubDomain}}" data-cozy-flags="{{.Flags}}"></div>
+<div role="application" data-cozy="{{.CozyData}}"></div>
 
 
 <script src="//{{.Domain}}/assets/js/piwik.js" async></script>
 
-<script src="app.js"></script></body>
+<script src="cozy-bar.bundle.js"></script><script src="vendors.bundle.js"></script><script src="main.bundle.js"></script></body>
 </html>
