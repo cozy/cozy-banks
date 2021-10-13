@@ -12,6 +12,7 @@
 ## 🔧 Tech
 
 * Move / Refactor / Split `CategoriesHeader` component
+* Split bundle into 3 chunks: main, vendor and cozy-bar
 
 # 1.36.0
 
