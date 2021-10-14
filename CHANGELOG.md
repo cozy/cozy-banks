@@ -10,7 +10,7 @@
 
 ## 🔧 Tech
 
-*
+* Update Cozy App Publish (Fix travis icon on mattermost publish announcement)
 
 # 1.37.0
 
