@@ -309,6 +309,8 @@ export const destroyObsoleteTrigger = async (client, trigger) => {
 }
 
 const main = async ({ client }) => {
+  const triggerId = process.env.COZY_TRIGGER_ID
+
   client.registerPlugin(flag.plugin)
   await client.plugins.flags.refresh()
 
@@ -320,12 +322,13 @@ const main = async ({ client }) => {
     return
   }
 
-  logger('info', 'Executing job notifications service...')
+  logger(
+    'info',
+    `Executing job notifications service by trigger ${triggerId}...`
+  )
 
-  const serviceTrigger = process.env.COZY_TRIGGER_ID
-    ? (await client.query(
-        Q(TRIGGER_DOCTYPE).getById(process.env.COZY_TRIGGER_ID)
-      )).data
+  const serviceTrigger = triggerId
+    ? (await client.query(Q(TRIGGER_DOCTYPE).getById(triggerId))).data
     : undefined
 
   await sendTriggerNotifications(client, serviceTrigger)
