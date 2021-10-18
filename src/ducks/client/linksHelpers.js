@@ -69,12 +69,5 @@ export const getWarmupQueries = () => {
     makeWarmupQueryOptions(TRANSACTION_DOCTYPE, ['date', 'account']),
     makeWarmupQueryOptions(TRANSACTION_DOCTYPE, [APPLICATION_DATE, 'account'])
   ]
-
-  if (isIOSApp()) {
-    warmupQueries.push(
-      makeWarmupQueryOptions(TRANSACTION_DOCTYPE, ['date', 'operations'])
-    )
-  }
-
   return warmupQueries
 }
