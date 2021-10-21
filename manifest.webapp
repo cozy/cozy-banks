@@ -1,9 +1,9 @@
 {
-  "name": "Banks",
-  "version": "1.37.0",
-  "name_prefix": "Cozy",
-  "slug": "banks",
-  "registry_namespace": "banks",
+  "name": "Espace personnel MAIF",
+  "version": "1.31.20",
+  "name_prefix": "",
+  "slug": "app",
+  "registry_namespace": "maif",
   "icon": "icon-banks.svg",
   "description": "The banking application for Cozy",
   "category": "cozy",
@@ -254,15 +254,21 @@
       ]
     },
     "apps": {
-      "description": "Required by the cozy-bar to display the icons of the apps",
+      "description": "Required to retrieve links to Documents app",
       "type": "io.cozy.apps",
       "verbs": [
-        "GET"
+        "GET",
+        "POST",
+        "PUT"
       ]
     },
     "triggers": {
-      "description": "Used to configure bank accounts",
-      "type": "io.cozy.triggers"
+      "description": "Required to run the konnectors and get statuses",
+      "type": "io.cozy.triggers",
+      "verbs": [
+        "GET",
+        "POST"
+      ]
     },
     "settings": {
       "description": "Required by the cozy-bar to display Claudy and know which applications are coming soon",
@@ -286,10 +292,13 @@
       ]
     },
     "konnectors": {
-      "description": "Required to know if a konnector is waiting for a manual update",
+      "description": "Required to install and display konnectors",
       "type": "io.cozy.konnectors",
       "verbs": [
-        "GET"
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE"
       ]
     },
     "apps.suggestions": {
@@ -302,21 +311,33 @@
       ]
     },
     "jobs": {
-      "description": "Used in services to start other services",
-      "type": "io.cozy.jobs"
+      "description": "Required to run the konnectors",
+      "type": "io.cozy.jobs",
+      "verbs": [
+        "GET",
+        "POST",
+        "PUT"
+      ]
     },
     "accounts": {
-      "description": "Used to create a temporary account for transfers and to configure accounts",
-      "type": "io.cozy.accounts"
+      "description": "Required to manage accounts associated to konnectors",
+      "type": "io.cozy.accounts",
+      "verbs": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE"
+      ]
     },
     "contacts": {
-      "description": "Used to link accounts to contacts",
+      "description": "Required to access contacts",
       "type": "io.cozy.contacts",
       "verbs": [
         "GET",
         "PUT",
         "POST"
-      ]
+      ],
+      "selector": "me"
     },
     "identities": {
       "description": "Used to update the document storing information entered before a transfer",
@@ -325,6 +346,47 @@
         "GET",
         "PUT",
         "POST"
+      ]
+    },
+    "terms": {
+      "description": "Required to install update terms",
+      "type": "io.cozy.terms",
+      "verbs": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE"
+      ]
+    },
+    "files": {
+      "description": "Required to access folders",
+      "type": "io.cozy.files",
+      "verbs": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ]
+    },
+    "permissions": {
+      "description": "Required to run the konnectors",
+      "type": "io.cozy.permissions",
+      "verbs": [
+        "GET",
+        "POST",
+        "PATCH"
+      ]
+    },
+    "create-a-zip-archive": {
+      "description": "Required to create a zip archive inside the cozy",
+      "type": "io.cozy.jobs",
+      "verbs": [
+        "POST"
+      ],
+      "selector": "worker",
+      "values": [
+        "zip"
       ]
     }
   }
