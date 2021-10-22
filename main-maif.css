@@ -704,6 +704,9 @@ body {
 [role="banner"] .coz-nav {
   display: none !important;
 }
+[role="banner"] .coz-bar-wrapper .coz-bar-burger {
+  display: none;
+}
 .coz-bar-btn.coz-bar-burger[data-tutorial="apps-mobile"] svg {
   display: none;
 }
