@@ -70,16 +70,35 @@ const fetchRegistryInfo = memoize(
 )
 
 const createTriggerAt = async (client, date) => {
-  await client.save({
-    _type: TRIGGER_DOCTYPE,
-    type: '@at',
-    arguments: date.toISOString(),
-    worker: 'service',
-    message: {
-      name: 'konnectorAlerts',
-      slug: 'banks'
-    }
-  })
+  logger(
+    'info',
+    `Try to create new @at trigger for konnectorAlerts service at ${
+      date.toISOString().split('T')[0]
+    }...`
+  )
+  try {
+    await client.save({
+      _type: TRIGGER_DOCTYPE,
+      type: '@at',
+      arguments: date.toISOString(),
+      worker: 'service',
+      message: {
+        name: 'konnectorAlerts',
+        slug: 'banks'
+      }
+    })
+    logger(
+      'info',
+      `⭐ Created: new @at trigger for konnectorAlerts service at ${
+        date.toISOString().split('T')[0]
+      }`
+    )
+  } catch (error) {
+    logger(
+      'error',
+      `❗ Error when creating new @at trigger for konnectorAlerts service: ${error.message}`
+    )
+  }
 }
 
 export const containerForTesting = {
@@ -301,13 +320,35 @@ const main = async ({ client }) => {
     return
   }
 
-  logger('info', 'Executing job notifications service...')
+  const triggerId = process.env.COZY_TRIGGER_ID
+  const jobId = process.env.COZY_JOB_ID.split('/').pop()
 
-  const serviceTrigger = process.env.COZY_TRIGGER_ID
-    ? (await client.query(
-        Q(TRIGGER_DOCTYPE).getById(process.env.COZY_TRIGGER_ID)
-      )).data
+  logger(
+    'info',
+    `Executing job notifications service by trigger: ${triggerId}, job: ${jobId}...`
+  )
+
+  const serviceTrigger = triggerId
+    ? (await client.query(Q(TRIGGER_DOCTYPE).getById(triggerId))).data
     : undefined
+
+  const serviceJob = jobId
+    ? (await client.query(Q(JOBS_DOCTYPE).getById(jobId))).data
+    : undefined
+
+  // Used to execute a script on maif instance
+  // that force the execution of this service
+  // TODO should be removed after executing the script
+  if (serviceJob?.message?.forceIgnoredErrors) {
+    flag(
+      'banks.konnector-alerts.ignored-errors',
+      serviceJob.message.forceIgnoredErrors
+    )
+    logger(
+      'info',
+      `Forced flag banks.konnector-alerts.ignored-errors to: ${serviceJob.message.forceIgnoredErrors}`
+    )
+  }
 
   await sendTriggerNotifications(client, serviceTrigger)
   await destroyObsoleteTrigger(client, serviceTrigger)
