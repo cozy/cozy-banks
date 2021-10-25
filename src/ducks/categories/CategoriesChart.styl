@@ -1,4 +1,5 @@
 @require 'settings/breakpoints'
+@require '~styles/utilities'
 
 .CategoriesChart
     height 182px
@@ -12,10 +13,10 @@
         border-radius 50%
         border 2px solid var(--white)
 
-        +small-screen()
+        +breakpoint-screen()
             margin-top 0
 
-    +small-screen()
+    +breakpoint-screen()
         margin-right auto
         margin-left auto
 
@@ -46,5 +47,5 @@
     font-size 1.5rem
     line-height 1.33
 
-    +small-screen()
+    +breakpoint-screen()
         padding-bottom 0

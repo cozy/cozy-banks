@@ -1,4 +1,5 @@
 @require 'settings/breakpoints'
+@require '~styles/utilities'
 
 select-date-height-small=2.75rem
 
@@ -28,7 +29,7 @@ select-date-height-small=2.75rem
         display none
 
 :global
-    +small-screen()
+    +breakpoint-screen()
         .cz__indicators
             height select-date-height-small
             justify-content center

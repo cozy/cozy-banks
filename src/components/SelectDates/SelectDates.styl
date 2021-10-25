@@ -1,4 +1,5 @@
 @require 'settings/breakpoints'
+@require '~styles/utilities'
 
 // Due to discrepancies between Chrome and Firefox in
 // how select height is computed, we set it directly
@@ -29,7 +30,7 @@ select-date-height-small = 2.75rem
     .SelectDates__separator
         border-left 1px solid var(--silver)
 
-    +small-screen()
+    +breakpoint-screen()
         border-bottom 1px solid var(--silver)
         background var(--white)
         width auto
@@ -67,7 +68,7 @@ select-date-height-small = 2.75rem
         .SelectDatesButtonColor
             color var(--selectDatesButtonPrimaryColor)
 
-    +small-screen()
+    +breakpoint-screen()
         padding .5rem
 
         .SelectDates__chip
@@ -83,7 +84,7 @@ select-date-height-small = 2.75rem
 .SelectDates__month
     width 9rem
 
-+small-screen()
++breakpoint-screen()
     .SelectDates
         z-index 2
         display flex

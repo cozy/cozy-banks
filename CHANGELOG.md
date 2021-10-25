@@ -11,6 +11,7 @@
 ## 🔧 Tech
 
 * Update Cozy App Publish (Fix travis icon on mattermost publish announcement)
+* Allows to have possibility to override the behavior some components. For example, change small breakpoint to medium, it allows to keep mobile behavior in tablet mode
 
 # 1.37.0
 

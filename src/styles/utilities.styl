@@ -27,3 +27,8 @@
             opacity 1
             transform translateY(0px)
 
+screen=force-screen is defined ? force-screen : small-screen
+breakpoint-screen(screen = screen)
+    +screen()
+        {block}
+
