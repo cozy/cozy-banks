@@ -13,6 +13,7 @@
 
 * Move / Refactor / Split `CategoriesHeader` component
 * Split bundle into 3 chunks: main, vendor and cozy-bar
+* Update Cozy App Publish (Fix travis icon on mattermost publish announcement)
 
 # 1.36.0
 
