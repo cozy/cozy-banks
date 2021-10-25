@@ -333,14 +333,17 @@ const main = async ({ client }) => {
     : undefined
 
   const serviceJob = jobId
-  ? (await client.query(Q(JOBS_DOCTYPE).getById(jobId))).data
-  : undefined
+    ? (await client.query(Q(JOBS_DOCTYPE).getById(jobId))).data
+    : undefined
 
   // Used to execute a script on maif instance
   // that force the execution of this service
   // TODO should be removed after executing the script
   if (serviceJob?.message?.forceIgnoredErrors) {
-    flag('banks.konnector-alerts.ignored-errors', serviceJob.message.forceIgnoredErrors)
+    flag(
+      'banks.konnector-alerts.ignored-errors',
+      serviceJob.message.forceIgnoredErrors
+    )
     logger(
       'info',
       `Forced flag banks.konnector-alerts.ignored-errors to: ${serviceJob.message.forceIgnoredErrors}`
