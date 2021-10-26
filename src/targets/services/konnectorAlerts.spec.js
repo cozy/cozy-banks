@@ -2,12 +2,10 @@ import CozyClient, { createMockClient } from 'cozy-client'
 import { sendNotification } from 'cozy-notifications'
 
 import matchAll from 'utils/matchAll'
-import {
-  sendTriggerNotifications,
-  destroyObsoleteTrigger,
-  shouldNotify,
-  containerForTesting
-} from './konnectorAlerts'
+import { sendTriggerNotifications } from './konnectorAlerts/sendTriggerNotifications'
+import { destroyObsoleteTrigger } from './konnectorAlerts/helpers'
+import { shouldNotify } from './konnectorAlerts/shouldNotify'
+import { containerForTesting } from './konnectorAlerts/createTriggerAt'
 import logger from 'ducks/konnectorAlerts/logger'
 import { ONE_DAY } from 'ducks/recurrence/constants'
 
