@@ -78,7 +78,7 @@ describe('recurrence bundles (with existing recurrences)', () => {
     })
 
     it('should not reattach the new operations which do not correspond to one of the recurrence amounts', () => {
-      juneTransaction.amount = 2100
+      juneTransaction.amount = 1000
 
       const bundleWithJune = findAndUpdateRecurrences(
         [recurrence],
@@ -102,6 +102,210 @@ describe('recurrence bundles (with existing recurrences)', () => {
           }
         }
       })
+    })
+
+    it('should reattach operations between 1900 and 2100 (+/- 5%) to the current recurrence with only one amount', () => {
+      const oldTransactions = [
+        {
+          _id: 'january',
+          amount: 2000,
+          date: '2021-01-01T12:00:00.000Z',
+          label: 'Mon Salaire Janvier',
+          automaticCategoryId: '200110',
+          localCategoryId: '0',
+          account: 'accountId'
+        }
+      ]
+
+      const recurrences = [
+        {
+          categoryIds: ['200110'],
+          amounts: [2000],
+          accounts: ['accountId'],
+          ops: oldTransactions,
+          automaticLabel: 'Mon Salaire',
+          stats: {
+            deltas: { sigma: 1.5, mean: 29.5, median: 29.5, mad: 1.5 }
+          }
+        }
+      ]
+
+      const aprilTransaction = {
+        _id: 'april',
+        amount: 1900,
+        date: '2021-04-01T12:00:00.000Z',
+        label: 'Mon Salaire Avril',
+        automaticCategoryId: '200110',
+        localCategoryId: '0',
+        account: 'accountId'
+      }
+
+      const mayTransaction = {
+        _id: 'may',
+        amount: 2100,
+        date: '2021-05-01T12:00:00.000Z',
+        label: 'Mon Salaire Mai',
+        automaticCategoryId: '200110',
+        localCategoryId: '0',
+        account: 'accountId'
+      }
+
+      const transactions = [
+        aprilTransaction,
+        mayTransaction,
+        {
+          _id: 'june',
+          amount: 1899,
+          date: '2021-05-01T12:00:00.000Z',
+          label: 'Mon Salaire Juin',
+          automaticCategoryId: '200110',
+          localCategoryId: '0',
+          account: 'accountId'
+        },
+        {
+          _id: 'july',
+          amount: 2101,
+          date: '2021-05-01T12:00:00.000Z',
+          label: 'Mon Salaire Juillet',
+          automaticCategoryId: '200110',
+          localCategoryId: '0',
+          account: 'accountId'
+        }
+      ]
+
+      const bundles = sortBy(
+        findAndUpdateRecurrences(recurrences, transactions),
+        b => b._id
+      )
+
+      expect(bundles).toMatchObject([
+        {
+          categoryIds: ['200110'],
+          amounts: [2000],
+          accounts: ['accountId'],
+          ops: [...oldTransactions, aprilTransaction, mayTransaction],
+          automaticLabel: 'Mon Salaire',
+          stats: {
+            deltas: {
+              sigma: 30,
+              mean: 60,
+              median: 60,
+              mad: 30
+            }
+          }
+        }
+      ])
+    })
+
+    it('should reattach operations between 1900 and 3150 (+/- 5%) to the current recurrence with multiple amounts in a bundle', () => {
+      const oldTransactions = [
+        {
+          _id: 'january',
+          amount: 2000,
+          date: '2021-01-01T12:00:00.000Z',
+          label: 'Mon Salaire Janvier',
+          automaticCategoryId: '200110',
+          localCategoryId: '0',
+          account: 'accountId'
+        },
+        {
+          _id: 'february',
+          amount: 2500,
+          date: '2021-02-01T12:00:00.000Z',
+          label: 'Mon Salaire Fevrier',
+          automaticCategoryId: '200110',
+          localCategoryId: '0',
+          account: 'accountId'
+        },
+        {
+          _id: 'march',
+          amount: 3000,
+          date: '2021-03-01T12:00:00.000Z',
+          label: 'Mon Salaire Mars',
+          automaticCategoryId: '200110',
+          localCategoryId: '0',
+          account: 'accountId'
+        }
+      ]
+
+      const recurrences = [
+        {
+          categoryIds: ['200110'],
+          amounts: [2000, 2500, 3000],
+          accounts: ['accountId'],
+          ops: oldTransactions,
+          automaticLabel: 'Mon Salaire',
+          stats: {
+            deltas: { sigma: 1.5, mean: 29.5, median: 29.5, mad: 1.5 }
+          }
+        }
+      ]
+
+      const aprilTransaction = {
+        _id: 'april',
+        amount: 1900,
+        date: '2021-04-01T12:00:00.000Z',
+        label: 'Mon Salaire Avril',
+        automaticCategoryId: '200110',
+        localCategoryId: '0',
+        account: 'accountId'
+      }
+
+      const mayTransaction = {
+        _id: 'may',
+        amount: 3150,
+        date: '2021-05-01T12:00:00.000Z',
+        label: 'Mon Salaire Mai',
+        automaticCategoryId: '200110',
+        localCategoryId: '0',
+        account: 'accountId'
+      }
+
+      const transactions = [
+        aprilTransaction,
+        mayTransaction,
+        {
+          _id: 'june',
+          amount: 1899,
+          date: '2021-05-01T12:00:00.000Z',
+          label: 'Mon Salaire Juin',
+          automaticCategoryId: '200110',
+          localCategoryId: '0',
+          account: 'accountId'
+        },
+        {
+          _id: 'july',
+          amount: 3151,
+          date: '2021-05-01T12:00:00.000Z',
+          label: 'Mon Salaire Juillet',
+          automaticCategoryId: '200110',
+          localCategoryId: '0',
+          account: 'accountId'
+        }
+      ]
+
+      const bundles = sortBy(
+        findAndUpdateRecurrences(recurrences, transactions),
+        b => b._id
+      )
+
+      expect(bundles).toMatchObject([
+        {
+          categoryIds: ['200110'],
+          amounts: [2000, 2500, 3000],
+          accounts: ['accountId'],
+          ops: [...oldTransactions, aprilTransaction, mayTransaction],
+          automaticLabel: 'Mon Salaire',
+          stats: {
+            deltas: {
+              sigma: 1.224744871391589,
+              mean: 30,
+              median: 30.5,
+              mad: 0.5
+            }
+          }
+        }
+      ])
     })
   })
 
