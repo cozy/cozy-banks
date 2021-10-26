@@ -321,7 +321,7 @@ const main = async ({ client }) => {
   }
 
   const triggerId = process.env.COZY_TRIGGER_ID
-  const jobId = process.env.COZY_JOB_ID.split('/').pop()
+  const jobId = process.env.COZY_JOB_ID?.split('/').pop()
 
   logger(
     'info',
