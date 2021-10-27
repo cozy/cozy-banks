@@ -47,7 +47,7 @@ const main = async ({ client }) => {
     )
   }
 
-  await sendTriggerNotifications(client, serviceTrigger)
+  await sendTriggerNotifications(client)
   await destroyObsoleteTrigger(client, serviceTrigger)
 }
 

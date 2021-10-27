@@ -24,7 +24,7 @@ import { shouldNotify } from './shouldNotify'
  * @param  {CozyClient} client - Cozy client
  * @return {Promise}
  */
-export const sendTriggerNotifications = async (client, serviceTrigger) => {
+export const sendTriggerNotifications = async client => {
   const { data: cronKonnectorTriggers } = await client.query(
     Q(TRIGGER_DOCTYPE).where({
       worker: 'konnector'
@@ -46,8 +46,7 @@ export const sendTriggerNotifications = async (client, serviceTrigger) => {
         shouldNotify: await shouldNotify({
           client,
           trigger,
-          previousStates,
-          serviceTrigger
+          previousStates
         })
       }
     })

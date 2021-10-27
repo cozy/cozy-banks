@@ -24,12 +24,7 @@ const dateInDays = (referenceDate, n) => {
  *
  * @return {ShouldNotifyResult}
  */
-export const shouldNotify = async ({
-  client,
-  trigger,
-  previousStates,
-  serviceTrigger
-}) => {
+export const shouldNotify = async ({ client, trigger, previousStates }) => {
   const previousState = previousStates[trigger._id]
 
   if (!previousState) {
@@ -50,8 +45,7 @@ export const shouldNotify = async ({
 
   if (
     previousState.status === 'errored' &&
-    isErrorActionable(previousState.last_error) &&
-    serviceTrigger?.type !== '@at'
+    isErrorActionable(previousState.last_error)
   ) {
     await containerForTesting.createTriggerAt(
       client,
@@ -69,7 +63,7 @@ export const shouldNotify = async ({
   // Except if the trigger that runs the service is a scheduled one
   const jobId = trigger.current_state.last_executed_job_id
   const { data: job } = await client.query(Q(JOBS_DOCTYPE).getById(jobId))
-  if (job.manual_execution && serviceTrigger?.type !== '@at') {
+  if (job.manual_execution) {
     return { ok: false, reason: 'manual-job' }
   }
 
