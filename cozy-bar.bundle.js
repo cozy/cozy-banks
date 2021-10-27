@@ -1549,6 +1549,50 @@ var resetCache = function resetCache() {
 
 /***/ }),
 
+/***/ "./node_modules/cozy-bar/node_modules/cozy-ui/node_modules/cozy-ui/transpiled/react/helpers/breakpoints.js":
+/*!*****************************************************************************************************************!*\
+  !*** ./node_modules/cozy-bar/node_modules/cozy-ui/node_modules/cozy-ui/transpiled/react/helpers/breakpoints.js ***!
+  \*****************************************************************************************************************/
+/*! exports provided: getBreakpointsStatus, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getBreakpointsStatus", function() { return getBreakpointsStatus; });
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var lodash_mapValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash/mapValues */ "./node_modules/lodash/mapValues.js");
+/* harmony import */ var lodash_mapValues__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_mapValues__WEBPACK_IMPORTED_MODULE_1__);
+
+
+var large = 1200;
+var medium = 1023;
+var small = 768;
+var tiny = 543;
+var breakpoints = {
+  isExtraLarge: [large + 1],
+  isLarge: [medium + 1, large],
+  isMedium: [small + 1, medium],
+  isSmall: [tiny + 1, small],
+  isTiny: [0, tiny],
+  isDesktop: [medium + 1],
+  isTablet: [small + 1, medium],
+  isMobile: [0, small]
+};
+var getBreakpointsStatus = function getBreakpointsStatus(breakpoints) {
+  var width = window.innerWidth;
+  return lodash_mapValues__WEBPACK_IMPORTED_MODULE_1___default()(breakpoints, function (_ref) {
+    var _ref2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_ref, 2),
+        min = _ref2[0],
+        max = _ref2[1];
+
+    return width >= min && (max === undefined || width <= max);
+  });
+};
+/* harmony default export */ __webpack_exports__["default"] = (breakpoints);
+
+/***/ }),
+
 /***/ "./node_modules/cozy-bar/node_modules/cozy-ui/node_modules/cozy-ui/transpiled/react/helpers/migrateProps.js":
 /*!******************************************************************************************************************!*\
   !*** ./node_modules/cozy-bar/node_modules/cozy-ui/node_modules/cozy-ui/transpiled/react/helpers/migrateProps.js ***!
@@ -1704,7 +1748,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var lodash_throttle__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash/throttle */ "./node_modules/lodash/throttle.js");
 /* harmony import */ var lodash_throttle__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash_throttle__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var cozy_ui_transpiled_react_helpers_breakpoints__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! cozy-ui/transpiled/react/helpers/breakpoints */ "../overrides/cozy-ui/transpiled/react/helpers/breakpoints.js");
+/* harmony import */ var cozy_ui_transpiled_react_helpers_breakpoints__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! cozy-ui/transpiled/react/helpers/breakpoints */ "./node_modules/cozy-bar/node_modules/cozy-ui/node_modules/cozy-ui/transpiled/react/helpers/breakpoints.js");
 
 
 
@@ -3494,7 +3538,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash_throttle__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(lodash_throttle__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var cozy_ui_transpiled_react_helpers_breakpoints__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! cozy-ui/transpiled/react/helpers/breakpoints */ "../overrides/cozy-ui/transpiled/react/helpers/breakpoints.js");
+/* harmony import */ var cozy_ui_transpiled_react_helpers_breakpoints__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! cozy-ui/transpiled/react/helpers/breakpoints */ "./node_modules/cozy-bar/node_modules/cozy-ui/node_modules/cozy-ui/transpiled/react/helpers/breakpoints.js");
 
 
 

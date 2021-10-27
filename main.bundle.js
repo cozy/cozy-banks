@@ -1264,7 +1264,7 @@ var BarCenterWrapped = function BarCenterWrapped(_ref2) {
 
   if (hasNeedNavHeader) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(BarCenter, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "u-w-100 u-mh-1"
+      className: "u-w-100 u-mr-1"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_ui_transpiled_react_BarContextProvider__WEBPACK_IMPORTED_MODULE_6__["default"], {
       client: client,
       store: client.store,
@@ -1851,72 +1851,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _NavHeader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NavHeader */ "../overrides/cozy-banks/src/components/NavHeader/NavHeader.jsx");
 
 /* harmony default export */ __webpack_exports__["default"] = (_NavHeader__WEBPACK_IMPORTED_MODULE_0__["default"]);
-
-/***/ }),
-
-/***/ "../overrides/cozy-banks/src/components/Padded/Padded.styl":
-/*!*****************************************************************!*\
-  !*** ../overrides/cozy-banks/src/components/Padded/Padded.styl ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-module.exports = {"Padded":"Padded--Hlwba","Unpadded--vertical":"Unpadded--vertical--3D7Mt","Unpadded--horizontal":"Unpadded--horizontal--3yNHP"};
-
-/***/ }),
-
-/***/ "../overrides/cozy-banks/src/components/Select/index.jsx":
-/*!***************************************************************!*\
-  !*** ../overrides/cozy-banks/src/components/Select/index.jsx ***!
-  \***************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var original_banks_components_select__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! original-banks/components/select */ "./src/components/select/index.jsx");
-
-/* harmony default export */ __webpack_exports__["default"] = (original_banks_components_select__WEBPACK_IMPORTED_MODULE_0__["default"]);
-
-/***/ }),
-
-/***/ "../overrides/cozy-banks/src/components/Select/styles.styl":
-/*!*****************************************************************!*\
-  !*** ../overrides/cozy-banks/src/components/Select/styles.styl ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-module.exports = {"Select":"Select--215cQ","Select__Icon":"Select__Icon--YIV0n"};
-
-/***/ }),
-
-/***/ "../overrides/cozy-banks/src/components/SelectDates/SelectDates.jsx":
-/*!**************************************************************************!*\
-  !*** ../overrides/cozy-banks/src/components/SelectDates/SelectDates.jsx ***!
-  \**************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var original_banks_components_SelectDates_SelectDates__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! original-banks/components/SelectDates/SelectDates */ "./src/components/SelectDates/SelectDates.jsx");
-
-/* harmony default export */ __webpack_exports__["default"] = (original_banks_components_SelectDates_SelectDates__WEBPACK_IMPORTED_MODULE_0__["default"]);
-
-/***/ }),
-
-/***/ "../overrides/cozy-banks/src/components/SelectDates/SelectDates.styl":
-/*!***************************************************************************!*\
-  !*** ../overrides/cozy-banks/src/components/SelectDates/SelectDates.styl ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-module.exports = {"SelectDates":"SelectDates--25Har","prev-button":"prev-button--Hl0wb","next-button":"next-button--1OJ6n","SelectDatesColor_default":"SelectDatesColor_default--1g1nk","SelectDates__separator":"SelectDates__separator--3b4VO","SelectDates__chip":"SelectDates__chip--1R4GH","SelectDatesColor_inverted":"SelectDatesColor_inverted--BTjHP","SelectDatesButtonDisabled":"SelectDatesButtonDisabled--nFnBN","SelectDates__Button":"SelectDates__Button--25Axb","SelectDatesButtonColor":"SelectDatesButtonColor--2NXNY","SelectDates__Select":"SelectDates__Select--198Qc","SelectDates__month":"SelectDates__month--ZL64d","SelectDates__DateYearSelector":"SelectDates__DateYearSelector--eyup-","SelectDates__SelectYearContainer":"SelectDates__SelectYearContainer--2dpu3","SelectDates__SelectMonthContainer":"SelectDates__SelectMonthContainer--ETGhA","SelectDates__buttons":"SelectDates__buttons--32pws","SelectDates__Button--disabled":"SelectDates__Button--disabled--Ve6kK"};
 
 /***/ }),
 
@@ -3089,49 +3023,10 @@ original_banks_ducks_categories_AddAccountButton__WEBPACK_IMPORTED_MODULE_0__["A
 
 /***/ }),
 
-/***/ "../overrides/cozy-banks/src/ducks/categories/CategoriesChart.jsx":
-/*!************************************************************************!*\
-  !*** ../overrides/cozy-banks/src/ducks/categories/CategoriesChart.jsx ***!
-  \************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var original_banks_ducks_categories_CategoriesChart__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! original-banks/ducks/categories/CategoriesChart */ "./src/ducks/categories/CategoriesChart.jsx");
-
-/* harmony default export */ __webpack_exports__["default"] = (original_banks_ducks_categories_CategoriesChart__WEBPACK_IMPORTED_MODULE_0__["default"]);
-
-/***/ }),
-
-/***/ "../overrides/cozy-banks/src/ducks/categories/CategoriesChart.styl":
+/***/ "../overrides/cozy-banks/src/ducks/categories/CategoriesHeader.jsx":
 /*!*************************************************************************!*\
-  !*** ../overrides/cozy-banks/src/ducks/categories/CategoriesChart.styl ***!
+  !*** ../overrides/cozy-banks/src/ducks/categories/CategoriesHeader.jsx ***!
   \*************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-module.exports = {"CategoriesChart":"CategoriesChart--3gPiE","inverted":"inverted--3Bdvv","NoAccount":"NoAccount--2inAe","CategoriesChart__FigureBlockContainer":"CategoriesChart__FigureBlockContainer--3qn28","CategoriesChart__FigureBlock":"CategoriesChart__FigureBlock--38mDx","CategoriesChart__Figure":"CategoriesChart__Figure--19lzS"};
-
-/***/ }),
-
-/***/ "../overrides/cozy-banks/src/ducks/categories/CategoriesHeader/CategoriesHeader.styl":
-/*!*******************************************************************************************!*\
-  !*** ../overrides/cozy-banks/src/ducks/categories/CategoriesHeader/CategoriesHeader.styl ***!
-  \*******************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-module.exports = {"CategoriesHeader":"CategoriesHeader--121sZ","NoAccount":"NoAccount--mH41C","NoAccount_container":"NoAccount_container--1Gtge","NoAccount_box":"NoAccount_box--1WepA","NoAccount_chart":"NoAccount_chart--3lX7j","SubcategoryChart":"SubcategoryChart--1FvlE","NoAccount_empty":"NoAccount_empty--37b6a","CategoriesHeader__Toggle":"CategoriesHeader__Toggle--3fCfW","normal":"normal--1nmg1","inverted":"inverted--f0dXR"};
-
-/***/ }),
-
-/***/ "../overrides/cozy-banks/src/ducks/categories/CategoriesHeader/index.jsx":
-/*!*******************************************************************************!*\
-  !*** ../overrides/cozy-banks/src/ducks/categories/CategoriesHeader/index.jsx ***!
-  \*******************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3272,7 +3167,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var components_Header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! components/Header */ "./src/components/Header/index.js");
-/* harmony import */ var ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ducks/categories/CategoriesHeader/CategoriesHeader.styl */ "../overrides/cozy-banks/src/ducks/categories/CategoriesHeader/CategoriesHeader.styl");
+/* harmony import */ var ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ducks/categories/CategoriesHeader/CategoriesHeader.styl */ "./src/ducks/categories/CategoriesHeader/CategoriesHeader.styl");
 /* harmony import */ var ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var ducks_categories_CategoryAccountSwitch__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ducks/categories/CategoryAccountSwitch */ "../overrides/cozy-banks/src/ducks/categories/CategoryAccountSwitch.jsx");
 /* harmony import */ var components_Title__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! components/Title */ "./src/components/Title/index.js");
@@ -3758,18 +3653,6 @@ __webpack_require__.r(__webpack_exports__);
 
 original_banks_ducks_settings_Settings__WEBPACK_IMPORTED_MODULE_0__["default"].defaultProps.delayContent = 300;
 /* harmony default export */ __webpack_exports__["default"] = (original_banks_ducks_settings_Settings__WEBPACK_IMPORTED_MODULE_0__["default"]);
-
-/***/ }),
-
-/***/ "../overrides/cozy-banks/src/ducks/settings/Settings.styl":
-/*!****************************************************************!*\
-  !*** ../overrides/cozy-banks/src/ducks/settings/Settings.styl ***!
-  \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-module.exports = {"Header--fixed":"Header--fixed--3-UtC","HeaderColor_normal":"HeaderColor_normal--rPiCM","HeaderColor_inverted":"HeaderColor_inverted--Lt_3p","Header--paper":"Header--paper--E2JJO","Settings__Content":"Settings__Content--22giP"};
 
 /***/ }),
 
@@ -7758,110 +7641,6 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 
-
-/***/ }),
-
-/***/ "../overrides/cozy-ui/transpiled/react/helpers/breakpoints.js":
-/*!********************************************************************!*\
-  !*** ../overrides/cozy-ui/transpiled/react/helpers/breakpoints.js ***!
-  \********************************************************************/
-/*! exports provided: getBreakpointsStatus, default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getBreakpointsStatus", function() { return getBreakpointsStatus; });
-/* harmony import */ var lodash_mapValues__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/mapValues */ "./node_modules/lodash/mapValues.js");
-/* harmony import */ var lodash_mapValues__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_mapValues__WEBPACK_IMPORTED_MODULE_0__);
-function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
-}
-
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
-}
-
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
-  }
-
-  return arr2;
-}
-
-function _iterableToArrayLimit(arr, i) {
-  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
-  var _arr = [];
-  var _n = true;
-  var _d = false;
-  var _e = undefined;
-
-  try {
-    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-      _arr.push(_s.value);
-
-      if (i && _arr.length === i) break;
-    }
-  } catch (err) {
-    _d = true;
-    _e = err;
-  } finally {
-    try {
-      if (!_n && _i["return"] != null) _i["return"]();
-    } finally {
-      if (_d) throw _e;
-    }
-  }
-
-  return _arr;
-}
-
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-/**
- * This file is completely overrided but in the end only the `small constant is modified
- */
-
-
-
-var large = 1200;
-var medium = 1023;
-var small = 1023; // This value is overrided to keep mobile behavior in tablet display
-
-var tiny = 543;
-var breakpoints = {
-  isExtraLarge: [large + 1],
-  isLarge: [medium + 1, large],
-  isMedium: [small + 1, medium],
-  isSmall: [tiny + 1, small],
-  isTiny: [0, tiny],
-  isDesktop: [medium + 1],
-  isTablet: [small + 1, medium],
-  isMobile: [0, small]
-};
-var getBreakpointsStatus = function getBreakpointsStatus(breakpoints) {
-  var width = window.innerWidth;
-  return lodash_mapValues__WEBPACK_IMPORTED_MODULE_0___default()(breakpoints, function (_ref) {
-    var _ref2 = _slicedToArray(_ref, 2),
-        min = _ref2[0],
-        max = _ref2[1];
-
-    return width >= min && (max === undefined || width <= max);
-  });
-};
-/* harmony default export */ __webpack_exports__["default"] = (breakpoints);
 
 /***/ }),
 
@@ -12661,7 +12440,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var components_Padded_Padded_styl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! components/Padded/Padded.styl */ "../overrides/cozy-banks/src/components/Padded/Padded.styl");
+/* harmony import */ var components_Padded_Padded_styl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! components/Padded/Padded.styl */ "./src/components/Padded/Padded.styl");
 /* harmony import */ var components_Padded_Padded_styl__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(components_Padded_Padded_styl__WEBPACK_IMPORTED_MODULE_3__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -12706,6 +12485,18 @@ var Unpadded = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(Unpadded_);
 var MemoPadded = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(Padded);
 MemoPadded.Unpadded = Unpadded;
 /* harmony default export */ __webpack_exports__["default"] = (MemoPadded);
+
+/***/ }),
+
+/***/ "./src/components/Padded/Padded.styl":
+/*!*******************************************!*\
+  !*** ./src/components/Padded/Padded.styl ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+module.exports = {"Padded":"Padded--2G0ky","Unpadded--vertical":"Unpadded--vertical--2Dfk0","Unpadded--horizontal":"Unpadded--horizontal--2y2qz"};
 
 /***/ }),
 
@@ -12972,6 +12763,204 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/components/Select/index.jsx":
+/*!*****************************************!*\
+  !*** ./src/components/Select/index.jsx ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var cozy_ui_transpiled_react_Icon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! cozy-ui/transpiled/react/Icon */ "./node_modules/cozy-ui/transpiled/react/Icon/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_SelectBox__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! cozy-ui/transpiled/react/SelectBox */ "../overrides/cozy-ui/transpiled/react/SelectBox/index.js");
+/* harmony import */ var components_Select_styles_styl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! components/Select/styles.styl */ "./src/components/Select/styles.styl");
+/* harmony import */ var components_Select_styles_styl__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(components_Select_styles_styl__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var lodash_find__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash/find */ "./node_modules/lodash/find.js");
+/* harmony import */ var lodash_find__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash_find__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var cozy_ui_transpiled_react_palette__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! cozy-ui/transpiled/react/palette */ "./node_modules/cozy-ui/transpiled/react/palette.js");
+/* harmony import */ var cozy_ui_transpiled_react_palette__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(cozy_ui_transpiled_react_palette__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var components_Select_styleUtils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! components/Select/styleUtils */ "./src/components/Select/styleUtils.js");
+/* harmony import */ var cozy_ui_transpiled_react_Icons_Bottom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! cozy-ui/transpiled/react/Icons/Bottom */ "./node_modules/cozy-ui/transpiled/react/Icons/Bottom.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? Object(arguments[i]) : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+
+
+var smallArrowStyle = {
+  paddingLeft: '0.25rem'
+};
+
+var IndicatorSeparator = function IndicatorSeparator() {
+  return null;
+};
+
+var SmallArrow = function SmallArrow() {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_ui_transpiled_react_Icon__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    className: components_Select_styles_styl__WEBPACK_IMPORTED_MODULE_3___default.a.Select__Icon,
+    style: smallArrowStyle,
+    icon: cozy_ui_transpiled_react_Icons_Bottom__WEBPACK_IMPORTED_MODULE_7__["default"],
+    width: 12,
+    height: 12
+  });
+};
+
+var componentsOptions = {
+  DropdownIndicator: SmallArrow,
+  IndicatorSeparator: IndicatorSeparator
+};
+
+var mkControlStyle = function mkControlStyle(props) {
+  return function (base) {
+    return _objectSpread({}, base, {
+      border: 0,
+      background: 'transparent',
+      width: props.width || '10rem',
+      boxShadow: 'none',
+      '&:focus': {
+        border: 0,
+        boxShadow: 'none'
+      },
+      flexGrow: 1
+    });
+  };
+};
+
+var singleValueStyle = function singleValueStyle(base) {
+  return _objectSpread({}, base, {
+    color: cozy_ui_transpiled_react_palette__WEBPACK_IMPORTED_MODULE_5___default.a.slateGrey
+  });
+};
+
+var valueContainerStyle = function valueContainerStyle(base) {
+  return _objectSpread({}, base, {
+    paddingLeft: 0
+  });
+};
+
+var menuStyle = function menuStyle(base) {
+  return _objectSpread({}, base, {
+    minWidth: '9.375rem'
+  });
+};
+
+var optionIsFixed = function optionIsFixed(option) {
+  return option.fixed;
+};
+
+var Select = /*#__PURE__*/function (_React$Component) {
+  _inherits(Select, _React$Component);
+
+  function Select(props) {
+    var _this;
+
+    _classCallCheck(this, Select);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Select).call(this, props));
+
+    _this.updateComponent(props);
+
+    _this.updateControlStyle(props);
+
+    return _this;
+  }
+
+  _createClass(Select, [{
+    key: "UNSAFE_componentWillReceiveProps",
+    value: function UNSAFE_componentWillReceiveProps(nextProps) {
+      if (this.props.options !== nextProps.options) {
+        this.updateComponent(nextProps);
+      }
+
+      if (this.props.width !== nextProps.width) {
+        this.updateControlStyle(nextProps);
+      }
+    }
+  }, {
+    key: "updateControlStyle",
+    value: function updateControlStyle(props) {
+      this.controlStyle = mkControlStyle(props);
+    }
+  }, {
+    key: "updateComponent",
+    value: function updateComponent(props) {
+      this.Component = lodash_find__WEBPACK_IMPORTED_MODULE_4___default()(props.options, optionIsFixed) ? cozy_ui_transpiled_react_SelectBox__WEBPACK_IMPORTED_MODULE_2__["SelectBoxWithFixedOptions"] : cozy_ui_transpiled_react_SelectBox__WEBPACK_IMPORTED_MODULE_2__["default"];
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          name = _this$props.name,
+          value = _this$props.value,
+          options = _this$props.options,
+          _onChange = _this$props.onChange,
+          _this$props$styles = _this$props.styles,
+          styles = _this$props$styles === void 0 ? {} : _this$props$styles,
+          placeholder = _this$props.placeholder;
+      var Component = this.Component;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Component, {
+        value: value ? lodash_find__WEBPACK_IMPORTED_MODULE_4___default()(options, function (option) {
+          return option.value == value;
+        }) : options[0],
+        isSearchable: false,
+        getOptionLabel: function getOptionLabel(x) {
+          return x.name;
+        },
+        components: componentsOptions,
+        classNamePrefix: "needsclick cz",
+        formatOptionLabel: function formatOptionLabel(option) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            className: "needsclick"
+          }, option.name);
+        },
+        styles: Object(components_Select_styleUtils__WEBPACK_IMPORTED_MODULE_6__["mergeStyles"])({
+          singleValue: singleValueStyle,
+          control: this.controlStyle,
+          valueContainer: valueContainerStyle,
+          menu: menuStyle
+        }, styles),
+        name: name,
+        placeholder: placeholder,
+        onChange: function onChange(option) {
+          _onChange(option.value, options.indexOf(option.value), name);
+        },
+        options: options
+      });
+    }
+  }]);
+
+  return Select;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (Select);
+
+/***/ }),
+
 /***/ "./src/components/Select/styleUtils.js":
 /*!*********************************************!*\
   !*** ./src/components/Select/styleUtils.js ***!
@@ -13118,6 +13107,18 @@ var mergeStyles = function mergeStyles() {
 
 /***/ }),
 
+/***/ "./src/components/Select/styles.styl":
+/*!*******************************************!*\
+  !*** ./src/components/Select/styles.styl ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+module.exports = {"Select":"Select--1UqU3","Select__Icon":"Select__Icon--2n3lJ"};
+
+/***/ }),
+
 /***/ "./src/components/SelectDates/ConnectedSelectDates.jsx":
 /*!*************************************************************!*\
   !*** ./src/components/SelectDates/ConnectedSelectDates.jsx ***!
@@ -13130,7 +13131,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ConnectedSelectDates", function() { return ConnectedSelectDates; });
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var ducks_filters__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ducks/filters */ "./src/ducks/filters/index.js");
-/* harmony import */ var components_SelectDates_SelectDates__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! components/SelectDates/SelectDates */ "../overrides/cozy-banks/src/components/SelectDates/SelectDates.jsx");
+/* harmony import */ var components_SelectDates_SelectDates__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! components/SelectDates/SelectDates */ "./src/components/SelectDates/SelectDates.jsx");
 
 
 
@@ -13186,9 +13187,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var cozy_ui_transpiled_react_Chip__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! cozy-ui/transpiled/react/Chip */ "./node_modules/cozy-ui/transpiled/react/Chip/index.js");
 /* harmony import */ var cozy_ui_transpiled_react_Icons_Left__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! cozy-ui/transpiled/react/Icons/Left */ "./node_modules/cozy-ui/transpiled/react/Icons/Left.js");
 /* harmony import */ var cozy_ui_transpiled_react_Icons_Right__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! cozy-ui/transpiled/react/Icons/Right */ "./node_modules/cozy-ui/transpiled/react/Icons/Right.js");
-/* harmony import */ var components_SelectDates_SelectDates_styl__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! components/SelectDates/SelectDates.styl */ "../overrides/cozy-banks/src/components/SelectDates/SelectDates.styl");
+/* harmony import */ var components_SelectDates_SelectDates_styl__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! components/SelectDates/SelectDates.styl */ "./src/components/SelectDates/SelectDates.styl");
 /* harmony import */ var components_SelectDates_SelectDates_styl__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(components_SelectDates_SelectDates_styl__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var components_Select__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! components/Select */ "../overrides/cozy-banks/src/components/Select/index.jsx");
+/* harmony import */ var components_Select__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! components/Select */ "./src/components/Select/index.jsx");
 /* harmony import */ var components_SelectDates_utils__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! components/SelectDates/utils */ "./src/components/SelectDates/utils.js");
 /* harmony import */ var components_useTheme__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! components/useTheme */ "./src/components/useTheme.jsx");
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
@@ -13700,6 +13701,18 @@ SelectDates.propTypes = {
 
 /***/ }),
 
+/***/ "./src/components/SelectDates/SelectDates.styl":
+/*!*****************************************************!*\
+  !*** ./src/components/SelectDates/SelectDates.styl ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+module.exports = {"SelectDates":"SelectDates--1JS-v","prev-button":"prev-button--OOpIR","next-button":"next-button--3dY2f","SelectDatesColor_default":"SelectDatesColor_default--1TyJC","SelectDates__separator":"SelectDates__separator--2eEMc","SelectDates__chip":"SelectDates__chip--1QEMF","SelectDatesColor_inverted":"SelectDatesColor_inverted--DOW8w","SelectDatesButtonDisabled":"SelectDatesButtonDisabled--1k5zs","SelectDates__Button":"SelectDates__Button--1um7t","SelectDatesButtonColor":"SelectDatesButtonColor--ZulzM","SelectDates__Select":"SelectDates__Select--2aVLs","SelectDates__month":"SelectDates__month--13175","SelectDates__DateYearSelector":"SelectDates__DateYearSelector--3XBO-","SelectDates__SelectYearContainer":"SelectDates__SelectYearContainer--zhofq","SelectDates__SelectMonthContainer":"SelectDates__SelectMonthContainer--3Fj0-","SelectDates__buttons":"SelectDates__buttons--1DCj5","SelectDates__Button--disabled":"SelectDates__Button--disabled--2ajcE"};
+
+/***/ }),
+
 /***/ "./src/components/SelectDates/index.jsx":
 /*!**********************************************!*\
   !*** ./src/components/SelectDates/index.jsx ***!
@@ -13709,7 +13722,7 @@ SelectDates.propTypes = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var components_SelectDates_SelectDates__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! components/SelectDates/SelectDates */ "../overrides/cozy-banks/src/components/SelectDates/SelectDates.jsx");
+/* harmony import */ var components_SelectDates_SelectDates__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! components/SelectDates/SelectDates */ "./src/components/SelectDates/SelectDates.jsx");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "default", function() { return components_SelectDates_SelectDates__WEBPACK_IMPORTED_MODULE_0__["default"]; });
 
 /* harmony import */ var components_SelectDates_ConnectedSelectDates__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! components/SelectDates/ConnectedSelectDates */ "./src/components/SelectDates/ConnectedSelectDates.jsx");
@@ -14902,204 +14915,6 @@ var scrollToTopOnMount = function scrollToTopOnMount(Component) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (scrollToTopOnMount);
-
-/***/ }),
-
-/***/ "./src/components/select/index.jsx":
-/*!*****************************************!*\
-  !*** ./src/components/select/index.jsx ***!
-  \*****************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var cozy_ui_transpiled_react_Icon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! cozy-ui/transpiled/react/Icon */ "./node_modules/cozy-ui/transpiled/react/Icon/index.js");
-/* harmony import */ var cozy_ui_transpiled_react_SelectBox__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! cozy-ui/transpiled/react/SelectBox */ "../overrides/cozy-ui/transpiled/react/SelectBox/index.js");
-/* harmony import */ var components_Select_styles_styl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! components/Select/styles.styl */ "../overrides/cozy-banks/src/components/Select/styles.styl");
-/* harmony import */ var components_Select_styles_styl__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(components_Select_styles_styl__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var lodash_find__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash/find */ "./node_modules/lodash/find.js");
-/* harmony import */ var lodash_find__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash_find__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var cozy_ui_transpiled_react_palette__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! cozy-ui/transpiled/react/palette */ "./node_modules/cozy-ui/transpiled/react/palette.js");
-/* harmony import */ var cozy_ui_transpiled_react_palette__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(cozy_ui_transpiled_react_palette__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var components_Select_styleUtils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! components/Select/styleUtils */ "./src/components/Select/styleUtils.js");
-/* harmony import */ var cozy_ui_transpiled_react_Icons_Bottom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! cozy-ui/transpiled/react/Icons/Bottom */ "./node_modules/cozy-ui/transpiled/react/Icons/Bottom.js");
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (typeof call === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? Object(arguments[i]) : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-
-
-
-
-
-
-
-var smallArrowStyle = {
-  paddingLeft: '0.25rem'
-};
-
-var IndicatorSeparator = function IndicatorSeparator() {
-  return null;
-};
-
-var SmallArrow = function SmallArrow() {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_ui_transpiled_react_Icon__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    className: components_Select_styles_styl__WEBPACK_IMPORTED_MODULE_3___default.a.Select__Icon,
-    style: smallArrowStyle,
-    icon: cozy_ui_transpiled_react_Icons_Bottom__WEBPACK_IMPORTED_MODULE_7__["default"],
-    width: 12,
-    height: 12
-  });
-};
-
-var componentsOptions = {
-  DropdownIndicator: SmallArrow,
-  IndicatorSeparator: IndicatorSeparator
-};
-
-var mkControlStyle = function mkControlStyle(props) {
-  return function (base) {
-    return _objectSpread({}, base, {
-      border: 0,
-      background: 'transparent',
-      width: props.width || '10rem',
-      boxShadow: 'none',
-      '&:focus': {
-        border: 0,
-        boxShadow: 'none'
-      },
-      flexGrow: 1
-    });
-  };
-};
-
-var singleValueStyle = function singleValueStyle(base) {
-  return _objectSpread({}, base, {
-    color: cozy_ui_transpiled_react_palette__WEBPACK_IMPORTED_MODULE_5___default.a.slateGrey
-  });
-};
-
-var valueContainerStyle = function valueContainerStyle(base) {
-  return _objectSpread({}, base, {
-    paddingLeft: 0
-  });
-};
-
-var menuStyle = function menuStyle(base) {
-  return _objectSpread({}, base, {
-    minWidth: '9.375rem'
-  });
-};
-
-var optionIsFixed = function optionIsFixed(option) {
-  return option.fixed;
-};
-
-var Select = /*#__PURE__*/function (_React$Component) {
-  _inherits(Select, _React$Component);
-
-  function Select(props) {
-    var _this;
-
-    _classCallCheck(this, Select);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Select).call(this, props));
-
-    _this.updateComponent(props);
-
-    _this.updateControlStyle(props);
-
-    return _this;
-  }
-
-  _createClass(Select, [{
-    key: "UNSAFE_componentWillReceiveProps",
-    value: function UNSAFE_componentWillReceiveProps(nextProps) {
-      if (this.props.options !== nextProps.options) {
-        this.updateComponent(nextProps);
-      }
-
-      if (this.props.width !== nextProps.width) {
-        this.updateControlStyle(nextProps);
-      }
-    }
-  }, {
-    key: "updateControlStyle",
-    value: function updateControlStyle(props) {
-      this.controlStyle = mkControlStyle(props);
-    }
-  }, {
-    key: "updateComponent",
-    value: function updateComponent(props) {
-      this.Component = lodash_find__WEBPACK_IMPORTED_MODULE_4___default()(props.options, optionIsFixed) ? cozy_ui_transpiled_react_SelectBox__WEBPACK_IMPORTED_MODULE_2__["SelectBoxWithFixedOptions"] : cozy_ui_transpiled_react_SelectBox__WEBPACK_IMPORTED_MODULE_2__["default"];
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this$props = this.props,
-          name = _this$props.name,
-          value = _this$props.value,
-          options = _this$props.options,
-          _onChange = _this$props.onChange,
-          _this$props$styles = _this$props.styles,
-          styles = _this$props$styles === void 0 ? {} : _this$props$styles,
-          placeholder = _this$props.placeholder;
-      var Component = this.Component;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Component, {
-        value: value ? lodash_find__WEBPACK_IMPORTED_MODULE_4___default()(options, function (option) {
-          return option.value == value;
-        }) : options[0],
-        isSearchable: false,
-        getOptionLabel: function getOptionLabel(x) {
-          return x.name;
-        },
-        components: componentsOptions,
-        classNamePrefix: "needsclick cz",
-        formatOptionLabel: function formatOptionLabel(option) {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-            className: "needsclick"
-          }, option.name);
-        },
-        styles: Object(components_Select_styleUtils__WEBPACK_IMPORTED_MODULE_6__["mergeStyles"])({
-          singleValue: singleValueStyle,
-          control: this.controlStyle,
-          valueContainer: valueContainerStyle,
-          menu: menuStyle
-        }, styles),
-        name: name,
-        placeholder: placeholder,
-        onChange: function onChange(option) {
-          _onChange(option.value, options.indexOf(option.value), name);
-        },
-        options: options
-      });
-    }
-  }]);
-
-  return Select;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
-
-/* harmony default export */ __webpack_exports__["default"] = (Select);
 
 /***/ }),
 
@@ -21887,7 +21702,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var ducks_categories_Chart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ducks/categories/Chart */ "./src/ducks/categories/Chart.jsx");
-/* harmony import */ var ducks_categories_CategoriesChart_styl__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ducks/categories/CategoriesChart.styl */ "../overrides/cozy-banks/src/ducks/categories/CategoriesChart.styl");
+/* harmony import */ var ducks_categories_CategoriesChart_styl__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ducks/categories/CategoriesChart.styl */ "./src/ducks/categories/CategoriesChart.styl");
 /* harmony import */ var ducks_categories_CategoriesChart_styl__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(ducks_categories_CategoriesChart_styl__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var cozy_ui_transpiled_react_Figure__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! cozy-ui/transpiled/react/Figure */ "./node_modules/cozy-ui/transpiled/react/Figure/index.js");
 /* harmony import */ var lodash_sortBy__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash/sortBy */ "./node_modules/lodash/sortBy.js");
@@ -21994,6 +21809,30 @@ var CategoriesChart = function CategoriesChart(props) {
 
 /***/ }),
 
+/***/ "./src/ducks/categories/CategoriesChart.styl":
+/*!***************************************************!*\
+  !*** ./src/ducks/categories/CategoriesChart.styl ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+module.exports = {"CategoriesChart":"CategoriesChart--38fEq","inverted":"inverted--X2-iL","NoAccount":"NoAccount--140Dq","CategoriesChart__FigureBlockContainer":"CategoriesChart__FigureBlockContainer--1ScR9","CategoriesChart__FigureBlock":"CategoriesChart__FigureBlock--3WShs","CategoriesChart__Figure":"CategoriesChart__Figure--2CEkT"};
+
+/***/ }),
+
+/***/ "./src/ducks/categories/CategoriesHeader/CategoriesHeader.styl":
+/*!*********************************************************************!*\
+  !*** ./src/ducks/categories/CategoriesHeader/CategoriesHeader.styl ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+module.exports = {"CategoriesHeader":"CategoriesHeader--fIToZ","NoAccount":"NoAccount--39bHl","NoAccount_container":"NoAccount_container--J5Ppl","NoAccount_box":"NoAccount_box--1ZKSt","NoAccount_chart":"NoAccount_chart--3tX9R","SubcategoryChart":"SubcategoryChart--2Gu0p","NoAccount_empty":"NoAccount_empty--2pzhE","CategoriesHeader__Toggle":"CategoriesHeader__Toggle--cSV4-","normal":"normal--2Ma-d","inverted":"inverted--oUHKE"};
+
+/***/ }),
+
 /***/ "./src/ducks/categories/CategoriesHeader/CategoriesTableHead.jsx":
 /*!***********************************************************************!*\
   !*** ./src/ducks/categories/CategoriesHeader/CategoriesTableHead.jsx ***!
@@ -22074,7 +21913,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var components_Padded__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! components/Padded */ "./src/components/Padded/index.js");
 /* harmony import */ var cozy_ui_transpiled_react_Stack__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! cozy-ui/transpiled/react/Stack */ "./node_modules/cozy-ui/transpiled/react/Stack/index.js");
 /* harmony import */ var components_Table__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! components/Table */ "./src/components/Table/index.jsx");
-/* harmony import */ var ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ducks/categories/CategoriesHeader/CategoriesHeader.styl */ "../overrides/cozy-banks/src/ducks/categories/CategoriesHeader/CategoriesHeader.styl");
+/* harmony import */ var ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ducks/categories/CategoriesHeader/CategoriesHeader.styl */ "./src/ducks/categories/CategoriesHeader/CategoriesHeader.styl");
 /* harmony import */ var ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_9__);
 /* harmony import */ var ducks_categories_AddAccountButton__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ducks/categories/AddAccountButton */ "../overrides/cozy-banks/src/ducks/categories/AddAccountButton.jsx");
 /* harmony import */ var cozy_ui_transpiled_react_Fade__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! cozy-ui/transpiled/react/Fade */ "./node_modules/cozy-ui/transpiled/react/Fade/index.js");
@@ -22185,7 +22024,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var cozy_ui_transpiled_react_Empty__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! cozy-ui/transpiled/react/Empty */ "./node_modules/cozy-ui/transpiled/react/Empty/index.js");
 /* harmony import */ var components_Header__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! components/Header */ "./src/components/Header/index.js");
 /* harmony import */ var components_Padded__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! components/Padded */ "./src/components/Padded/index.js");
-/* harmony import */ var ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ducks/categories/CategoriesHeader/CategoriesHeader.styl */ "../overrides/cozy-banks/src/ducks/categories/CategoriesHeader/CategoriesHeader.styl");
+/* harmony import */ var ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ducks/categories/CategoriesHeader/CategoriesHeader.styl */ "./src/ducks/categories/CategoriesHeader/CategoriesHeader.styl");
 /* harmony import */ var ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var ducks_categories_AddAccountButton__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ducks/categories/AddAccountButton */ "../overrides/cozy-banks/src/ducks/categories/AddAccountButton.jsx");
 /* harmony import */ var components_HeaderLoadingProgress__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! components/HeaderLoadingProgress */ "./src/components/HeaderLoadingProgress.jsx");
@@ -22290,9 +22129,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var components_RouterContext__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! components/RouterContext */ "./src/components/RouterContext.jsx");
 /* harmony import */ var ducks_transactions_TransactionSelectDates__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ducks/transactions/TransactionSelectDates */ "./src/ducks/transactions/TransactionSelectDates.jsx");
 /* harmony import */ var ducks_filters__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ducks/filters */ "./src/ducks/filters/index.js");
-/* harmony import */ var ducks_categories_CategoriesChart__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ducks/categories/CategoriesChart */ "../overrides/cozy-banks/src/ducks/categories/CategoriesChart.jsx");
+/* harmony import */ var ducks_categories_CategoriesChart__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ducks/categories/CategoriesChart */ "./src/ducks/categories/CategoriesChart.jsx");
 /* harmony import */ var ducks_categories_helpers__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ducks/categories/helpers */ "./src/ducks/categories/helpers.js");
-/* harmony import */ var ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ducks/categories/CategoriesHeader/CategoriesHeader.styl */ "../overrides/cozy-banks/src/ducks/categories/CategoriesHeader/CategoriesHeader.styl");
+/* harmony import */ var ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ducks/categories/CategoriesHeader/CategoriesHeader.styl */ "./src/ducks/categories/CategoriesHeader/CategoriesHeader.styl");
 /* harmony import */ var ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var ducks_categories_utils__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ducks/categories/utils */ "./src/ducks/categories/utils.js");
 /* harmony import */ var ducks_categories_IncomeToggle__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ducks/categories/IncomeToggle */ "./src/ducks/categories/IncomeToggle.jsx");
@@ -22481,7 +22320,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ducks_bar_BarTheme__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ducks/bar/BarTheme */ "./src/ducks/bar/BarTheme.jsx");
 /* harmony import */ var ducks_transactions_helpers__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ducks/transactions/helpers */ "./src/ducks/transactions/helpers.js");
 /* harmony import */ var ducks_tracking_browser__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ducks/tracking/browser */ "./src/ducks/tracking/browser.jsx");
-/* harmony import */ var ducks_categories_CategoriesHeader__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ducks/categories/CategoriesHeader */ "../overrides/cozy-banks/src/ducks/categories/CategoriesHeader/index.jsx");
+/* harmony import */ var ducks_categories_CategoriesHeader__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ducks/categories/CategoriesHeader */ "../overrides/cozy-banks/src/ducks/categories/CategoriesHeader.jsx");
 /* harmony import */ var ducks_categories_Categories__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ducks/categories/Categories */ "./src/ducks/categories/Categories.jsx");
 /* harmony import */ var ducks_categories_utils__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ducks/categories/utils */ "./src/ducks/categories/utils.js");
 /* harmony import */ var ducks_categories_CategoriesPage_CategoryTransactions__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ducks/categories/CategoriesPage/CategoryTransactions */ "./src/ducks/categories/CategoriesPage/CategoryTransactions.jsx");
@@ -23399,7 +23238,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var cozy_ui_transpiled_react_CozyTheme__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! cozy-ui/transpiled/react/CozyTheme */ "./node_modules/cozy-ui/transpiled/react/CozyTheme/index.js");
 /* harmony import */ var cozy_ui_transpiled_react_I18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! cozy-ui/transpiled/react/I18n */ "./node_modules/cozy-ui/transpiled/react/I18n/index.js");
 /* harmony import */ var cozy_ui_transpiled_react_MuiCozyTheme_Switch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! cozy-ui/transpiled/react/MuiCozyTheme/Switch */ "./node_modules/cozy-ui/transpiled/react/MuiCozyTheme/Switch/index.js");
-/* harmony import */ var ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ducks/categories/CategoriesHeader/CategoriesHeader.styl */ "../overrides/cozy-banks/src/ducks/categories/CategoriesHeader/CategoriesHeader.styl");
+/* harmony import */ var ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ducks/categories/CategoriesHeader/CategoriesHeader.styl */ "./src/ducks/categories/CategoriesHeader/CategoriesHeader.styl");
 /* harmony import */ var ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_5__);
 
 
@@ -25246,12 +25085,7 @@ var pickAdapter = /*#__PURE__*/function () {
   };
 }();
 var getWarmupQueries = function getWarmupQueries() {
-  var warmupQueries = [makeWarmupQueryOptions(doctypes__WEBPACK_IMPORTED_MODULE_6__["TRANSACTION_DOCTYPE"], ['date']), makeWarmupQueryOptions(doctypes__WEBPACK_IMPORTED_MODULE_6__["TRANSACTION_DOCTYPE"], [ducks_transactions_constants__WEBPACK_IMPORTED_MODULE_7__["APPLICATION_DATE"]]), makeWarmupQueryOptions(doctypes__WEBPACK_IMPORTED_MODULE_6__["TRANSACTION_DOCTYPE"], ['account']), makeWarmupQueryOptions(doctypes__WEBPACK_IMPORTED_MODULE_6__["TRANSACTION_DOCTYPE"], ['date', 'account']), makeWarmupQueryOptions(doctypes__WEBPACK_IMPORTED_MODULE_6__["TRANSACTION_DOCTYPE"], [ducks_transactions_constants__WEBPACK_IMPORTED_MODULE_7__["APPLICATION_DATE"], 'account'])];
-
-  if (Object(cozy_device_helper__WEBPACK_IMPORTED_MODULE_5__["isIOSApp"])()) {
-    warmupQueries.push(makeWarmupQueryOptions(doctypes__WEBPACK_IMPORTED_MODULE_6__["TRANSACTION_DOCTYPE"], ['date', 'operations']));
-  }
-
+  var warmupQueries = [makeWarmupQueryOptions(doctypes__WEBPACK_IMPORTED_MODULE_6__["TRANSACTION_DOCTYPE"], ['date']), makeWarmupQueryOptions(doctypes__WEBPACK_IMPORTED_MODULE_6__["TRANSACTION_DOCTYPE"], [ducks_transactions_constants__WEBPACK_IMPORTED_MODULE_7__["APPLICATION_DATE"]]), makeWarmupQueryOptions(doctypes__WEBPACK_IMPORTED_MODULE_6__["TRANSACTION_DOCTYPE"], ['account']), makeWarmupQueryOptions(doctypes__WEBPACK_IMPORTED_MODULE_6__["TRANSACTION_DOCTYPE"], ['account', 'date']), makeWarmupQueryOptions(doctypes__WEBPACK_IMPORTED_MODULE_6__["TRANSACTION_DOCTYPE"], ['account', ducks_transactions_constants__WEBPACK_IMPORTED_MODULE_7__["APPLICATION_DATE"]])];
   return warmupQueries;
 };
 
@@ -41095,7 +40929,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ducks_settings_AppVersion__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ducks/settings/AppVersion */ "./src/ducks/settings/AppVersion.jsx");
 /* harmony import */ var ducks_bar_BarTheme__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ducks/bar/BarTheme */ "./src/ducks/bar/BarTheme.jsx");
 /* harmony import */ var components_Padded__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! components/Padded */ "./src/components/Padded/index.js");
-/* harmony import */ var ducks_settings_Settings_styl__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ducks/settings/Settings.styl */ "../overrides/cozy-banks/src/ducks/settings/Settings.styl");
+/* harmony import */ var ducks_settings_Settings_styl__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ducks/settings/Settings.styl */ "./src/ducks/settings/Settings.styl");
 /* harmony import */ var ducks_settings_Settings_styl__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(ducks_settings_Settings_styl__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var ducks_legal_LegalMention__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ducks/legal/LegalMention */ "../overrides/cozy-banks/src/ducks/legal/LegalMention.jsx");
 /* harmony import */ var ducks_settings_TabsHeader__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ducks/settings/TabsHeader */ "../overrides/cozy-banks/src/ducks/settings/TabsHeader/index.jsx");
@@ -41133,6 +40967,18 @@ Settings.defaultProps = {
   delayContent: 0
 };
 /* harmony default export */ __webpack_exports__["default"] = (Settings);
+
+/***/ }),
+
+/***/ "./src/ducks/settings/Settings.styl":
+/*!******************************************!*\
+  !*** ./src/ducks/settings/Settings.styl ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+module.exports = {"Header--fixed":"Header--fixed--13jJK","HeaderColor_normal":"HeaderColor_normal--2Iyoo","HeaderColor_inverted":"HeaderColor_inverted--1A7aE","Header--paper":"Header--paper--nfeJG","Settings__Content":"Settings__Content--3HFT0"};
 
 /***/ }),
 
@@ -49626,7 +49472,7 @@ var makeFilteredTransactionsConn = function makeFilteredTransactionsConn(options
         throw new Error('Unsupported filtering doc to create transaction query');
       }
     } else {
-      indexFields = [dateAttribute, '_id'];
+      indexFields = [dateAttribute];
       whereClause = {
         _id: {
           $gt: null
@@ -55174,6 +55020,39 @@ module.exports = __webpack_require__(/*! /Users/florianpires/Developer/cozy/maif
 /***/ }),
 
 /***/ 1:
+/*!************************!*\
+  !*** crypto (ignored) ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 2:
+/*!**********************!*\
+  !*** util (ignored) ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 3:
+/*!**********************!*\
+  !*** util (ignored) ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* (ignored) */
+
+/***/ }),
+
+/***/ 4:
 /*!****************************!*\
   !*** ./nextTick (ignored) ***!
   \****************************/
@@ -55184,7 +55063,7 @@ module.exports = __webpack_require__(/*! /Users/florianpires/Developer/cozy/maif
 
 /***/ }),
 
-/***/ 2:
+/***/ 5:
 /*!**********************!*\
   !*** zlib (ignored) ***!
   \**********************/
@@ -55195,7 +55074,7 @@ module.exports = __webpack_require__(/*! /Users/florianpires/Developer/cozy/maif
 
 /***/ }),
 
-/***/ 3:
+/***/ 6:
 /*!********************!*\
   !*** fs (ignored) ***!
   \********************/
@@ -55206,7 +55085,7 @@ module.exports = __webpack_require__(/*! /Users/florianpires/Developer/cozy/maif
 
 /***/ }),
 
-/***/ 4:
+/***/ 7:
 /*!**********************!*\
   !*** http (ignored) ***!
   \**********************/
@@ -55217,7 +55096,7 @@ module.exports = __webpack_require__(/*! /Users/florianpires/Developer/cozy/maif
 
 /***/ }),
 
-/***/ 5:
+/***/ 8:
 /*!***********************!*\
   !*** https (ignored) ***!
   \***********************/
