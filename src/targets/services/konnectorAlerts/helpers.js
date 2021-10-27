@@ -1,5 +1,4 @@
 import memoize from 'lodash/memoize'
-import mapValues from 'lodash/mapValues'
 import keyBy from 'lodash/keyBy'
 
 import { Q } from 'cozy-client'
@@ -77,17 +76,32 @@ export const fetchTriggerStates = async client => {
   }
 }
 
-/** Stores triggers states in a special doc in the settings */
-export const storeTriggerStates = async (client, triggers, previousDoc) => {
-  const triggerStatesById = mapValues(
-    keyBy(triggers, '_id'),
-    trigger => trigger.current_state
+/** Stores triggers states in a special doc in the settings, with notif infos */
+export const storeTriggerStates = async (
+  client,
+  triggersAndNotifsInfo,
+  previousDoc
+) => {
+  const triggerStatesWithNotifsInfo = triggersAndNotifsInfo.map(
+    ({ trigger, shouldNotify }) => {
+      return {
+        ...trigger.current_state,
+        shouldNotify
+      }
+    }
   )
+
+  const triggerStatesWithNotifsInfoById = keyBy(
+    triggerStatesWithNotifsInfo,
+    'trigger_id'
+  )
+
   const doc = {
     _id: TRIGGER_STATES_DOC_ID,
     _type: SETTINGS_DOCTYPE,
-    triggerStates: triggerStatesById
+    triggerStates: triggerStatesWithNotifsInfoById
   }
+
   if (previousDoc && previousDoc._rev) {
     doc._rev = previousDoc._rev
   }

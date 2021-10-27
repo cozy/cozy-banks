@@ -30,16 +30,17 @@ export const sendTriggerNotifications = async client => {
       worker: 'konnector'
     })
   )
+  logger('info', `${cronKonnectorTriggers.length} konnector triggers`)
+
   const triggerStatesDoc = await fetchTriggerStates(client)
   const previousStates = get(triggerStatesDoc, 'triggerStates', {})
-  logger('info', `${cronKonnectorTriggers.length} konnector triggers`)
 
   const ignoredErrorFlag = flag('banks.konnector-alerts.ignored-errors')
   const ignoredErrors = new Set(
     ignoredErrorFlag ? ignoredErrorFlag.split(',') : []
   )
 
-  const triggerAndNotifsInfo = (await Promise.all(
+  const cronKonnectorTriggersAndNotifsInfo = await Promise.all(
     cronKonnectorTriggers.map(async trigger => {
       return {
         trigger,
@@ -50,23 +51,27 @@ export const sendTriggerNotifications = async client => {
         })
       }
     })
-  )).filter(({ trigger, shouldNotify }) => {
-    if (shouldNotify.ok || ignoredErrors.has(shouldNotify.reason)) {
-      logger('info', `Will notify trigger for ${getKonnectorSlug(trigger)}`)
-      return true
-    } else {
-      logger(
-        'info',
-        `Will not notify trigger for ${getKonnectorSlug(trigger)} because ${
-          shouldNotify.reason
-        }`
-      )
-      return false
+  )
+
+  const willBeNotifiedTriggers = cronKonnectorTriggersAndNotifsInfo.filter(
+    ({ trigger, shouldNotify }) => {
+      if (shouldNotify.ok || ignoredErrors.has(shouldNotify.reason)) {
+        logger('info', `Will notify trigger for ${getKonnectorSlug(trigger)}`)
+        return true
+      } else {
+        logger(
+          'info',
+          `Will not notify trigger for ${getKonnectorSlug(trigger)} because ${
+            shouldNotify.reason
+          }`
+        )
+        return false
+      }
     }
-  })
+  )
 
   const konnectorSlugs = uniq(
-    triggerAndNotifsInfo.map(({ trigger }) => getKonnectorSlug(trigger))
+    willBeNotifiedTriggers.map(({ trigger }) => getKonnectorSlug(trigger))
   )
 
   const konnectorNamesBySlug = fromPairs(
@@ -82,21 +87,28 @@ export const sendTriggerNotifications = async client => {
     )
   )
 
-  logger('info', `${triggerAndNotifsInfo.length} konnector triggers to notify`)
+  logger(
+    'info',
+    `${willBeNotifiedTriggers.length} konnector triggers to notify`
+  )
 
-  if (triggerAndNotifsInfo.length) {
-    const notifView = buildNotification(client, {
-      konnectorAlerts: triggerAndNotifsInfo.map(({ trigger }) => {
-        const konnectorSlug = trigger.message.konnector
-        return {
-          konnectorSlug,
-          konnectorName: konnectorNamesBySlug[konnectorSlug] || konnectorSlug,
-          trigger
-        }
-      })
+  if (willBeNotifiedTriggers.length) {
+    const konnectorAlerts = willBeNotifiedTriggers.map(({ trigger }) => {
+      const konnectorSlug = trigger.message.konnector
+      return {
+        konnectorSlug,
+        konnectorName: konnectorNamesBySlug[konnectorSlug] || konnectorSlug,
+        trigger
+      }
     })
-    await sendNotification(client, notifView)
+
+    const notification = buildNotification(client, { konnectorAlerts })
+    await sendNotification(client, notification)
   }
 
-  await storeTriggerStates(client, cronKonnectorTriggers, triggerStatesDoc)
+  await storeTriggerStates(
+    client,
+    cronKonnectorTriggersAndNotifsInfo,
+    triggerStatesDoc
+  )
 }
