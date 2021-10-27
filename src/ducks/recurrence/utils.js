@@ -138,6 +138,17 @@ export const isDeprecatedBundle = recurrence => {
   return differenceInDays(now, latestDate)
 }
 
+/**
+ * Allows to add transactions to bundles which match with these conditions:
+ * - Amount (with +/- percentage)
+ * - CategoryId
+ * - Account
+ *
+ * @param {Array<Recurrence>} bundles
+ * @param {Array<Transaction>} transactions
+ *
+ * @returns {{transactionsForUpdatedBundles: Array<Transaction>, updatedBundles: Array<Recurrence>}}
+ */
 export const addTransactionToBundles = (bundles, transactions) => {
   let transactionsForUpdatedBundles = []
 
@@ -147,7 +158,6 @@ export const addTransactionToBundles = (bundles, transactions) => {
     const minAmount = getMinAmount(bundle)
     const maxAmount = getMaxAmount(bundle)
 
-    // Matching on Amount, CategoryId and account
     const transactionFounds = transactions.filter(transaction => {
       const hasSomeSameCategoryId = bundle.categoryIds.some(
         catId => getCategoryId(transaction) === catId
