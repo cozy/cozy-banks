@@ -6,6 +6,7 @@ import { logger } from 'ducks/konnectorAlerts'
 import { runService } from './service'
 import { destroyObsoleteTrigger } from './konnectorAlerts/helpers'
 import { sendTriggerNotifications } from './konnectorAlerts/sendTriggerNotifications'
+import { createScheduledTrigger } from './konnectorAlerts/createTriggerAt'
 
 const main = async ({ client }) => {
   client.registerPlugin(flag.plugin)
@@ -49,6 +50,7 @@ const main = async ({ client }) => {
 
   await sendTriggerNotifications(client)
   await destroyObsoleteTrigger(client, serviceTrigger)
+  await createScheduledTrigger(client)
 }
 
 if (require.main === module || process.env.NODE_ENV === 'production') {

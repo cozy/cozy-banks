@@ -3,17 +3,11 @@ import get from 'lodash/get'
 import { Q } from 'cozy-client'
 
 import { JOBS_DOCTYPE } from 'doctypes'
-import { ONE_DAY } from 'ducks/recurrence/constants'
 import {
   getKonnectorSlug,
   fetchRegistryInfo,
   isErrorActionable
 } from './helpers'
-import { containerForTesting } from './createTriggerAt'
-
-const dateInDays = (referenceDate, n) => {
-  return new Date(+new Date(referenceDate) + n * ONE_DAY)
-}
 
 /**
  * Returns whether we need to send a notification for a trigger
@@ -47,15 +41,6 @@ export const shouldNotify = async ({ client, trigger, previousStates }) => {
     previousState.status === 'errored' &&
     isErrorActionable(previousState.last_error)
   ) {
-    await containerForTesting.createTriggerAt(
-      client,
-      dateInDays(previousState.last_failure, 3)
-    )
-    await containerForTesting.createTriggerAt(
-      client,
-      dateInDays(previousState.last_failure, 7)
-    )
-
     return { ok: false, reason: 'last-failure-already-notified' }
   }
 
