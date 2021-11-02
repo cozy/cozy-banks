@@ -1,11 +1,7 @@
-import get from 'lodash/get'
-
-import { Q } from 'cozy-client'
-
 import { TRIGGER_DOCTYPE } from 'doctypes'
 import { logger } from 'ducks/konnectorAlerts'
 import { ONE_DAY } from 'ducks/recurrence/constants'
-import { fetchTriggerStates } from './helpers'
+import { getTriggerStates, fetchRelatedAtTriggers } from './helpers'
 
 const dateInDays = (referenceDate, n) => {
   return new Date(+new Date(referenceDate) + n * ONE_DAY)
@@ -39,13 +35,12 @@ export const containerForTesting = {
 }
 
 export const createScheduledTrigger = async client => {
-  const settingTriggerStatesDoc = await fetchTriggerStates(client)
-  const settingTriggerStates = get(settingTriggerStatesDoc, 'triggerStates', {})
+  const settingTriggerStates = await getTriggerStates(client)
 
   for (const [id, triggerStates] of Object.entries(settingTriggerStates)) {
     logger(
       'info',
-      `Try to create @at triggers for konnectorTriggerId: ${id}...`
+      `⌛ Try to create @at triggers for konnectorTriggerId: ${id}...`
     )
 
     const isLastFailureAlreadyNotified =
@@ -54,22 +49,17 @@ export const createScheduledTrigger = async client => {
     if (!isLastFailureAlreadyNotified) {
       logger(
         'info',
-        `❗ Not created: this konnector trigger doesn't match last-failure-already-notified condition`
+        `⚠️  Not created: this konnector trigger doesn't match last-failure-already-notified condition`
       )
       continue
     }
 
-    const { data: relatedAtTrigger } = await client.query(
-      Q(TRIGGER_DOCTYPE).where({
-        type: '@at',
-        'message.konnectorTriggerId': id
-      })
-    )
+    const relatedAtTriggers = await fetchRelatedAtTriggers(client, id)
 
-    if (relatedAtTrigger.length > 0) {
+    if (relatedAtTriggers.length > 0) {
       logger(
         'info',
-        `❗ Not created: @at triggers already existing for this konnector trigger`
+        `⚠️  Not created: @at triggers already existing for this konnector trigger`
       )
       continue
     }

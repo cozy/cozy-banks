@@ -1,9 +1,10 @@
 import memoize from 'lodash/memoize'
 import keyBy from 'lodash/keyBy'
+import get from 'lodash/get'
 
 import { Q } from 'cozy-client'
 
-import { SETTINGS_DOCTYPE } from 'doctypes'
+import { SETTINGS_DOCTYPE, TRIGGER_DOCTYPE } from 'doctypes'
 import { KonnectorAlertNotification, logger } from 'ducks/konnectorAlerts'
 import { dictRequire, lang } from '../service'
 
@@ -76,6 +77,11 @@ export const fetchTriggerStates = async client => {
   }
 }
 
+export const getTriggerStates = async client => {
+  const settingTriggerStatesDoc = await fetchTriggerStates(client)
+  return get(settingTriggerStatesDoc, 'triggerStates', {})
+}
+
 /** Stores triggers states in a special doc in the settings, with notif infos */
 export const storeTriggerStates = async (
   client,
@@ -114,4 +120,15 @@ export const isErrorActionable = errorMessage => {
     (errorMessage.startsWith('LOGIN_FAILED') ||
       errorMessage.startsWith('USER_ACTION_NEEDED'))
   )
+}
+
+export const fetchRelatedAtTriggers = async (client, id) => {
+  const { data } = await client.query(
+    Q(TRIGGER_DOCTYPE).where({
+      type: '@at',
+      'message.konnectorTriggerId': id
+    })
+  )
+
+  return data
 }
