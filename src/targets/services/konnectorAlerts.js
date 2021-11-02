@@ -4,7 +4,7 @@ import flag from 'cozy-flags'
 import { TRIGGER_DOCTYPE, JOBS_DOCTYPE } from 'doctypes'
 import { logger } from 'ducks/konnectorAlerts'
 import { runService } from './service'
-import { destroyObsoleteTrigger } from './konnectorAlerts/helpers'
+import { destroyTriggerAt } from './konnectorAlerts/destroyTriggerAt'
 import { sendTriggerNotifications } from './konnectorAlerts/sendTriggerNotifications'
 import { createScheduledTrigger } from './konnectorAlerts/createTriggerAt'
 
@@ -49,7 +49,7 @@ const main = async ({ client }) => {
   }
 
   await sendTriggerNotifications(client)
-  await destroyObsoleteTrigger(client, serviceTrigger)
+  await destroyTriggerAt(client)
   await createScheduledTrigger(client)
 }
 

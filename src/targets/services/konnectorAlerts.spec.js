@@ -3,11 +3,9 @@ import { sendNotification } from 'cozy-notifications'
 
 import matchAll from 'utils/matchAll'
 import { sendTriggerNotifications } from './konnectorAlerts/sendTriggerNotifications'
-import { destroyObsoleteTrigger } from './konnectorAlerts/helpers'
 import { shouldNotify } from './konnectorAlerts/shouldNotify'
 import { containerForTesting } from './konnectorAlerts/createTriggerAt'
 import logger from 'ducks/konnectorAlerts/logger'
-import { ONE_DAY } from 'ducks/recurrence/constants'
 
 jest.spyOn(containerForTesting, 'createTriggerAt')
 
@@ -329,47 +327,6 @@ describe('job notifications service', () => {
     await executeTestWithTypeTrigger('@cron')
     jest.clearAllMocks()
     await executeTestWithTypeTrigger('@at')
-  })
-})
-
-describe('destroyObsoleteTrigger', () => {
-  const client = createMockClient({})
-  client.destroy = jest.fn()
-
-  it("should not destroy trigger if trigger hasn't obsolete arguments date", async () => {
-    await destroyObsoleteTrigger(client, {})
-    expect(client.destroy).not.toHaveBeenCalled()
-
-    await destroyObsoleteTrigger(client, {
-      arguments: ''
-    })
-    expect(client.destroy).not.toHaveBeenCalled()
-
-    const notObsoleteDate = new Date(Date.now() + ONE_DAY)
-    await destroyObsoleteTrigger(client, {
-      arguments: notObsoleteDate
-    })
-    expect(client.destroy).not.toHaveBeenCalled()
-  })
-
-  it('should not destroy trigger if trigger type is not @at even if it has obsolete arguments date', async () => {
-    const obsoleteDate = new Date(Date.now() - ONE_DAY)
-
-    await destroyObsoleteTrigger(client, {
-      type: '@cron',
-      arguments: obsoleteDate
-    })
-    expect(client.destroy).not.toHaveBeenCalled()
-  })
-
-  it('should destroy trigger if trigger type @at has obsolete arguments date', async () => {
-    const obsoleteDate = new Date(Date.now() - ONE_DAY)
-
-    await destroyObsoleteTrigger(client, {
-      type: '@at',
-      arguments: obsoleteDate
-    })
-    expect(client.destroy).toHaveBeenCalled()
   })
 })
 

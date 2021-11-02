@@ -5,7 +5,7 @@ import get from 'lodash/get'
 import { Q } from 'cozy-client'
 
 import { SETTINGS_DOCTYPE, TRIGGER_DOCTYPE } from 'doctypes'
-import { KonnectorAlertNotification, logger } from 'ducks/konnectorAlerts'
+import { KonnectorAlertNotification } from 'ducks/konnectorAlerts'
 import { dictRequire, lang } from '../service'
 
 const TRIGGER_STATES_DOC_ID = 'trigger-states'
@@ -45,24 +45,6 @@ export const buildNotification = (client, options) => {
     ...options
   })
   return notification
-}
-
-export const destroyObsoleteTrigger = async (client, trigger) => {
-  if (trigger?.type === '@at') {
-    logger('info', 'Try to destroy @at trigger...')
-
-    const isObsolete = +new Date(trigger?.arguments) < +new Date()
-
-    if (isObsolete) {
-      await client.destroy(trigger)
-      logger('info', `Destroyed @at trigger with id ${trigger._id}`)
-    } else {
-      logger(
-        'info',
-        `Nothing happened, trigger with id ${trigger._id} is not yet obsolete`
-      )
-    }
-  }
 }
 
 /** Fetch triggers states from a special doc in the settings */
