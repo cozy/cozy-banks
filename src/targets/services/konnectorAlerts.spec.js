@@ -93,44 +93,24 @@ const events = [
   '2020-01-11 konnector-16 LOGIN_FAILED manual' // D +7
 ]
 
-const expectedResults = {
-  '@cron': [
-    'konnector-1 sent',
-    'konnector-2 sent',
-    'konnector-3 current-state-is-not-errored',
-    'konnector-4 manual-job',
-    'konnector-5 never-been-in-success',
-    'konnector-6 sent',
-    'konnector-7 sent',
-    'konnector-8 last-failure-already-notified',
-    'konnector-9 last-failure-already-notified', // D +3
-    'konnector-10 last-failure-already-notified', // D +7
-    'konnector-11 current-state-is-not-errored', // D +3
-    'konnector-12 current-state-is-not-errored', // D +7
-    'konnector-13 current-state-is-not-errored', // D +3
-    'konnector-14 current-state-is-not-errored', // D +7
-    'konnector-15 last-failure-already-notified', // D +3
-    'konnector-16 last-failure-already-notified' // D +7
-  ],
-  '@at': [
-    'konnector-1 sent',
-    'konnector-2 sent',
-    'konnector-3 current-state-is-not-errored',
-    'konnector-4 sent',
-    'konnector-5 never-been-in-success',
-    'konnector-6 sent',
-    'konnector-7 sent',
-    'konnector-8 sent',
-    'konnector-9 sent', // D +3
-    'konnector-10 sent', // D +7
-    'konnector-11 current-state-is-not-errored', // D +3
-    'konnector-12 current-state-is-not-errored', // D +7
-    'konnector-13 current-state-is-not-errored', // D +3
-    'konnector-14 current-state-is-not-errored', // D +7
-    'konnector-15 sent', // D +3
-    'konnector-16 sent' // D +7
-  ]
-}
+const expectedResults = [
+  'konnector-1 sent',
+  'konnector-2 sent',
+  'konnector-3 current-state-is-not-errored',
+  'konnector-4 manual-job',
+  'konnector-5 never-been-in-success',
+  'konnector-6 sent',
+  'konnector-7 sent',
+  'konnector-8 last-failure-already-notified',
+  'konnector-9 last-failure-already-notified', // D +3
+  'konnector-10 last-failure-already-notified', // D +7
+  'konnector-11 current-state-is-not-errored', // D +3
+  'konnector-12 current-state-is-not-errored', // D +7
+  'konnector-13 current-state-is-not-errored', // D +3
+  'konnector-14 current-state-is-not-errored', // D +7
+  'konnector-15 last-failure-already-notified', // D +3
+  'konnector-16 last-failure-already-notified' // D +7
+]
 
 /**
  * Makes fake responses from the events
@@ -169,6 +149,7 @@ const makeResponsesFromEvents = () => {
       stateUpdate.last_failed_job_id = jobId
       stateUpdate.last_failure = date
     }
+    stateUpdate.trigger_id = triggerId
 
     trigger.current_state = Object.assign(
       {},
@@ -253,78 +234,66 @@ describe('job notifications service', () => {
   }
 
   it('should not send notifications when no trigger state has been saved yet', async () => {
-    const executeTestWithTypeTrigger = async triggerType => {
-      const { client } = setup({
-        settingsResponse: {
-          data: null
+    const { client } = setup({
+      settingsResponse: {
+        data: null
+      }
+    })
+    await sendTriggerNotifications(client)
+    expect(client.query).toHaveBeenCalledWith(
+      expect.objectContaining({
+        doctype: 'io.cozy.triggers',
+        selector: {
+          worker: 'konnector'
         }
       })
-      await sendTriggerNotifications(client, { type: triggerType })
-      expect(client.query).toHaveBeenCalledWith(
-        expect.objectContaining({
-          doctype: 'io.cozy.triggers',
-          selector: {
-            worker: 'konnector'
-          }
-        })
-      )
-      expect(sendNotification).not.toHaveBeenCalled()
-      expectTriggerStatesToHaveBeenSaved(client)
-    }
-
-    await executeTestWithTypeTrigger('@cron')
-    jest.clearAllMocks()
-    await executeTestWithTypeTrigger('@at')
+    )
+    expect(sendNotification).not.toHaveBeenCalled()
+    expectTriggerStatesToHaveBeenSaved(client)
   })
 
   it('should send a notification with the right content and save trigger states', async () => {
-    const executeTestWithTypeTrigger = async triggerType => {
-      const { client } = setup()
-      await sendTriggerNotifications(client, { type: triggerType })
+    const { client } = setup()
+    await sendTriggerNotifications(client)
 
-      expect(sendNotification).toHaveBeenCalledTimes(1)
-      expect(sendNotification).toHaveBeenCalledWith(client, expect.any(Object))
+    expect(sendNotification).toHaveBeenCalledTimes(1)
+    expect(sendNotification).toHaveBeenCalledWith(client, expect.any(Object))
 
-      const calls = client.stackClient.fetchJSON.mock.calls
-      const payload = calls[calls.length - 1][2]
-      const notifAttributes = payload.data.attributes
-      const at = new Date(notifAttributes.at)
-      const now = new Date()
-      // test that the notification in less than a day
-      const interval = +at - now
+    const calls = client.stackClient.fetchJSON.mock.calls
+    const payload = calls[calls.length - 1][2]
+    const notifAttributes = payload.data.attributes
+    const at = new Date(notifAttributes.at)
+    const now = new Date()
+    // test that the notification in less than a day
+    const interval = +at - now
 
-      expect(interval).toBeGreaterThan(0)
-      expect(interval).toBeLessThan(86400000)
+    expect(interval).toBeGreaterThan(0)
+    expect(interval).toBeLessThan(86400000)
 
-      const notifSlugs = matchAll(notifAttributes.content, /konnector-\d+/)
+    const notifSlugs = matchAll(notifAttributes.content, /konnector-\d+/)
 
-      const expectedResultsData = expectedResults[triggerType].map(x => {
-        const [konnectorSlug, state] = x.split(' ')
-        return { konnectorSlug, state }
-      })
+    const expectedResultsData = expectedResults.map(x => {
+      const [konnectorSlug, state] = x.split(' ')
+      return { konnectorSlug, state }
+    })
 
-      expect(notifSlugs).toEqual(
-        expectedResultsData
-          .filter(x => x.state === 'sent')
-          .map(x => x.konnectorSlug)
-      )
+    const slugsToBeNotified = expectedResultsData
+      .filter(x => x.state === 'sent')
+      .map(x => x.konnectorSlug)
 
-      for (let result of expectedResultsData) {
-        if (result.state === 'sent') {
-          continue
-        }
+    expect(notifSlugs).toEqual(slugsToBeNotified)
 
-        expect(logger).toHaveBeenCalledWith(
-          'info',
-          `Will not notify trigger for ${result.konnectorSlug} because ${result.state}`
-        )
+    for (let result of expectedResultsData) {
+      if (result.state === 'sent') {
+        continue
       }
 
-      expectTriggerStatesToHaveBeenSaved(client)
+      expect(logger).toHaveBeenCalledWith(
+        'info',
+        `Will not notify trigger for ${result.konnectorSlug} because ${result.state}`
+      )
     }
 
-    await executeTestWithTypeTrigger('@cron')
-    jest.clearAllMocks()
-    await executeTestWithTypeTrigger('@at')
+    expectTriggerStatesToHaveBeenSaved(client)
   })
 })
