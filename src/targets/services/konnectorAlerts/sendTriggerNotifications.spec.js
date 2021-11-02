@@ -2,8 +2,8 @@ import CozyClient from 'cozy-client'
 import { sendNotification } from 'cozy-notifications'
 
 import matchAll from 'utils/matchAll'
-import { sendTriggerNotifications } from './konnectorAlerts/sendTriggerNotifications'
-import { containerForTesting } from './konnectorAlerts/createTriggerAt'
+import { sendTriggerNotifications } from './sendTriggerNotifications'
+import { containerForTesting } from './createTriggerAt'
 import logger from 'ducks/konnectorAlerts/logger'
 
 jest.spyOn(containerForTesting, 'createTriggerAt')
@@ -189,7 +189,7 @@ const {
   jobs: mockJobResponse
 } = makeResponsesFromEvents(events)
 
-describe('job notifications service', () => {
+describe('sendTriggerNotifications', () => {
   const setup = ({ triggersResponse, settingsResponse, jobsResponse } = {}) => {
     const client = new CozyClient({})
     client.query = jest.fn(async queryDef => {
