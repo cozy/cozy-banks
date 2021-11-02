@@ -1,9 +1,8 @@
-import CozyClient, { createMockClient } from 'cozy-client'
+import CozyClient from 'cozy-client'
 import { sendNotification } from 'cozy-notifications'
 
 import matchAll from 'utils/matchAll'
 import { sendTriggerNotifications } from './konnectorAlerts/sendTriggerNotifications'
-import { shouldNotify } from './konnectorAlerts/shouldNotify'
 import { containerForTesting } from './konnectorAlerts/createTriggerAt'
 import logger from 'ducks/konnectorAlerts/logger'
 
@@ -327,135 +326,5 @@ describe('job notifications service', () => {
     await executeTestWithTypeTrigger('@cron')
     jest.clearAllMocks()
     await executeTestWithTypeTrigger('@at')
-  })
-})
-
-describe('shouldNotify', () => {
-  describe('@at triggers creation', () => {
-    const client = createMockClient({})
-    // client.query(Q(JOBS_DOCTYPE).getById(jobId)) has to be mocked in tests
-
-    beforeEach(() => {
-      jest.clearAllMocks()
-    })
-
-    const setup = ({ currentState, previousState } = {}) => {
-      const trigger = {
-        _id: '123',
-        current_state: {
-          ...currentState,
-          last_success: '2020-01-01',
-          last_executed_job_id: 'jobId'
-        },
-        message: {
-          konnector: 'konnectorName'
-        }
-      }
-
-      const previousStates = {
-        '123': {
-          ...previousState,
-          last_failure: '2020-01-01'
-        }
-      }
-
-      return { trigger, previousStates }
-    }
-
-    it('should create @at triggers for LOGIN_FAILED last error', async () => {
-      const { trigger, previousStates } = setup({
-        currentState: {
-          status: 'errored',
-          last_error: 'LOGIN_FAILED'
-        },
-        previousState: {
-          status: 'errored',
-          last_error: 'LOGIN_FAILED'
-        }
-      })
-
-      await shouldNotify({
-        client,
-        trigger,
-        previousStates,
-        serviceTrigger: { type: '@cron' }
-      })
-
-      expect(containerForTesting.createTriggerAt).toHaveBeenCalledTimes(2)
-    })
-
-    it('should create @at triggers for USER_ACTION_NEEDED last error', async () => {
-      const { trigger, previousStates } = setup({
-        currentState: {
-          status: 'errored',
-          last_error: 'USER_ACTION_NEEDED'
-        },
-        previousState: {
-          status: 'errored',
-          last_error: 'USER_ACTION_NEEDED'
-        }
-      })
-
-      await shouldNotify({
-        client,
-        trigger,
-        previousStates,
-        serviceTrigger: { type: '@cron' }
-      })
-
-      expect(containerForTesting.createTriggerAt).toHaveBeenCalledTimes(2)
-    })
-
-    it('should not create @at triggers for another errors', async () => {
-      client.query = jest
-        .fn()
-        .mockResolvedValue({ data: { manual_execution: false } })
-
-      const { trigger, previousStates } = setup({
-        currentState: {
-          status: 'errored',
-          last_error: 'VENDOR_DOWN'
-        },
-        previousState: {
-          status: 'errored',
-          last_error: 'VENDOR_DOWN'
-        }
-      })
-
-      await shouldNotify({
-        client,
-        trigger,
-        previousStates,
-        serviceTrigger: { type: '@cron' }
-      })
-
-      expect(containerForTesting.createTriggerAt).not.toHaveBeenCalled()
-    })
-
-    it('should not create @at triggers if previous status is not errored', async () => {
-      client.query = jest
-        .fn()
-        .mockResolvedValue({ data: { manual_execution: false } })
-
-      const { trigger, previousStates } = setup({
-        currentState: {
-          status: 'errored',
-          last_error: 'USER_ACTION_NEEDED'
-        },
-        previousState: {
-          status: 'success',
-          last_error: 'USER_ACTION_NEEDED'
-        }
-      })
-
-      await shouldNotify({
-        client,
-        trigger,
-        previousStates,
-        serviceTrigger: { type: '@cron' }
-      })
-
-      expect(containerForTesting.createTriggerAt).not.toHaveBeenCalled()
-    })
   })
 })
