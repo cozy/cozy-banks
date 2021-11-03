@@ -3,6 +3,9 @@
 ## ✨ Features
 
 * Add notifications at +3 and +7 days for banking connectors, if the connector is in an actionable error
+* Recurrency service: allows to attach transactions whose amount is between 2 extremes of amounts in the existing
+recurrences (+/- 5% by default). This percentage is configurable with the flag `banks.recurrency.percentage-amounts-accepted`.
+Example for 10% set `0.1`
 
 ## 🐛 Bug Fixes
 
