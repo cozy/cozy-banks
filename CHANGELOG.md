@@ -2,9 +2,6 @@
 
 ## ✨ Features
 
-* Recurrency service: allows to attach transactions whose amount is between 2 extremes of amounts in the existing
-recurrences (+/- 5% by default). This percentage is configurable with the flag `banks.recurrency.percentage-amounts-accepted`.
-Example for 10% set `0.1`
 *
 
 ## 🐛 Bug Fixes
@@ -13,13 +10,16 @@ Example for 10% set `0.1`
 
 ## 🔧 Tech
 
-* Update Cozy App Publish (Fix travis icon on mattermost publish announcement)
+*
 
 # 1.37.0
 
 ## ✨ Features
 
 * Add notifications at +3 and +7 days for banking connectors, if the connector is in an actionable error
+* Recurrency service: allows to attach transactions whose amount is between 2 extremes of amounts in the existing
+recurrences (+/- 5% by default). This percentage is configurable with the flag `banks.recurrency.percentage-amounts-accepted`.
+Example for 10% set `0.1`
 
 ## 🐛 Bug Fixes
 
@@ -30,6 +30,7 @@ Example for 10% set `0.1`
 
 * Move / Refactor / Split `CategoriesHeader` component
 * Split bundle into 3 chunks: main, vendor and cozy-bar
+* Update Cozy App Publish (Fix travis icon on mattermost publish announcement)
 
 # 1.36.0
 
