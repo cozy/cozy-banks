@@ -2,7 +2,7 @@
 
 ## ✨ Features
 
-*
+* Alert notifications for KO connectors link to the accounts page in the settings
 
 ## 🐛 Bug Fixes
 

@@ -81,6 +81,7 @@ const Notifications = () => {
           <option value="/balances">balance</option>
           <option value="/analysis/categories">categories</option>
           <option value="/analysis/recurrence">recurrence</option>
+          <option value="/settings/accounts">konnector alerts</option>
         </select>
       </div>
       {notificationRoute === '/balances/details' && (
