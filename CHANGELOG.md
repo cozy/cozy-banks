@@ -25,6 +25,7 @@ Example for 10% set `0.1`
 
 * Fix Month / Year selection on iOS in Analysis Page
 * Fix no data displayed in Analysis Page on iOS
+* Fix Accordion border color and SelectDates text color
 
 ## 🔧 Tech
 
