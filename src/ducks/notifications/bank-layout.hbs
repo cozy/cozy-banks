@@ -1,0 +1,20 @@
+{{#extend "cozy-layout"}}
+  {{#content "logoUrl"}}https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/logo-bank.png{{/content}}
+
+  {{#content "appName"}}
+    Banks
+  {{/content}}
+
+  {{#content "topLogo"}}<mj-image width="100px" src="https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/logo-cozy.png" />{{/content}}
+
+  {{#content "appURL"}}{{ banksUrl }}{{/content}}
+
+  {{#content "footerHelp"}}
+    <a css-class="footer__help" href="{{ settingsUrl }}">
+      {{tGlobal 'settings'}}
+    </a>
+    <a css-class="footer__help" href="https://support.cozy.io/">
+      {{tGlobal 'support'}}
+    </a>
+  {{/content}}
+{{/extend}}

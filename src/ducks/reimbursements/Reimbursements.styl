@@ -1,0 +1,18 @@
+@require 'settings/breakpoints'
+@require '../../components/Header/Header.styl'
+
+.Reimbursements
+    +medium-screen()
+        belowHeader(3rem)
+
+.Reimbursements__figure
+    display inline-block
+
+.Reimbursements__transactionsList
+    +medium-screen('min')
+        border-top: 1px solid var(--silver)
+
+.Caption
+    font-size 14px
+    line-height 1.7
+    color var(--coolGrey)

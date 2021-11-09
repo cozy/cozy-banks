@@ -1,0 +1,34 @@
+@require 'settings/breakpoints'
+
+.TransactionAction
+    cursor pointer
+    text-decoration none
+    // need to reset the padding otherwise since the link
+    // in a menu has a padding to account for the background-icon
+    // TODO remove this padding from the ActionMenu
+    padding 0 !important
+    white-space inherit !important
+
+.TransactionAction-disabled
+    cursor: default
+
+.TransactionActionMenu
+    width 100%
+
+    +medium-screen()
+        text-align center
+
+.TransactionActionMenuItem
+    text-align left
+
+.TransactionActionButton
+    +medium-screen()
+        // This element increases the click area of the button
+        &:before
+            content ''
+            position absolute
+            top 0
+            bottom 0
+            width 1rem
+            right 100%
+

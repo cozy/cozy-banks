@@ -1,0 +1,81 @@
+@require 'settings/breakpoints'
+
+.CategoriesHeader
+    display flex
+    justify-content space-between
+    align-items flex-start
+    flex-shrink 0
+    color var(--primaryTextColor)
+
+    +small-screen()
+        margin-top 3rem
+        display block
+        align-items flex-start
+
+    &.NoAccount
+        position relative
+        height calc(50vh - 24px - 3rem)
+        min-height 354px
+        align-items center
+
+.NoAccount_container
+    display flex
+    flex-direction column
+    flex-shrink 0
+    height calc(100vh - 48px * 3)
+
+    .NoAccount_box
+        display flex
+        flex-direction column
+        justify-content center
+        flex-grow 1
+
+    .NoAccount_chart
+        position relative
+        bottom inherit
+        left inherit
+        margin-top 0
+
++small-screen()
+    .SubcategoryChart
+        margin-top 1rem
+
+.NoAccount_chart
+    position absolute
+    bottom 3.5rem
+    left calc(50% - 93px)
+
+// Styling can be removed when PR #1642 has been merged
+.NoAccount_empty
+    position: relative
+    transform: translateZ(0)
+    height: 140px
+    display: flex
+
+    svg
+        fill var(--secondaryTextColor)
+
+.CategoriesHeader__Toggle
+    > span
+        margin-right 1em
+    > label
+        font-size .8em
+        line-height 1.5rem
+
+    &.normal
+        padding-top 2rem
+
+    &.inverted
+        padding-top 1rem
+        padding-bottom 1rem
+        color var(--categoriesHeaderTogglePrimaryContrastTextColor)
+
+        input + label
+            background-color var(--categoriesHeaderTogglePrimaryBackgroundColor)
+
+        input:checked + label
+            background-color var(--successColor)
+
+    +small-screen()
+        &.normal, &.inverted
+            padding-top 0
