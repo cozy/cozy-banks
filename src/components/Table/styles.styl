@@ -1,0 +1,140 @@
+@require 'settings/breakpoints'
+@require '~styles/mixins.styl'
+
+.Table
+    position        relative
+    display         flex
+    flex-direction  column
+    flex            1 1 100%
+    text-align      left
+
+    &.inverted
+        thead
+            background-color var(--tableHeadPrimaryBackgroundColor)
+            padding .5rem 0
+            tr
+                border-bottom-width 0
+            td
+                padding 0 1rem
+                line-height 1rem
+                font-weight bold
+                color var(--tableHeadPrimaryContrastTextColor)
+                &:last-child
+                    padding-right 2rem
+                &:first-child
+                    padding-left 2rem
+            td + td
+                border-left 1px solid var(--tableHeadSeparatorPrimaryColor)
+
+    thead, tbody
+        display   flex
+        flex-direction column
+        flex-shrink 0
+
+    thead
+        flex-grow 1
+
+
+    tbody
+        max-width 100%
+        flex-basis auto
+        overflow  auto
+
+    tr
+        flex            1 0 auto
+        display         flex
+        flex-direction  row
+        align-items     center
+        border-bottom   1px solid var(--silver)
+
+    tbody
+        tr:hover
+            background-color var(--paleGrey)
+
+    th
+        text-align left
+        font-weight normal
+
+    thead
+        td, th
+            font-size       .75em
+            text-transform  uppercase
+            display block
+        color           var(--coolGrey)
+
+
+    td, th
+        box-sizing  border-box
+        padding 1em 0 1em 2rem
+        font-size 1em
+        flex-grow 1
+        flex-shrink 0
+        display block
+        overflow hidden
+        text-overflow ellipsis
+
+        &:last-child
+            padding-right 2rem
+
+        &.Table-td-secondary
+            font-size .875em
+
+    +medium-screen()
+        tr
+            max-width  100vw
+
+    +small-screen()
+        thead
+            display none
+
+        tbody
+            max-height  100%
+            font-size .9em
+
+        td
+            padding 1em 0 1em 1rem
+            flex-shrink unset
+
+            &:last-child
+                padding-right 1rem
+
++small-screen()
+    .Table
+        .Table__Row
+            flex-wrap wrap
+
+        .Table__Row:first-child
+            border-top 1px solid var(--silver)
+
+        .Table__Cell
+            padding-top .25rem
+            padding-bottom .5rem
+            font-size .75rem
+            color var(--coolGrey)
+            flex-basis auto
+            flex-shrink 0
+            flex-grow 1
+            max-width none
+
+        .Table__Cell--main
+            maxed-flex-basis 100%
+            padding-top .5rem
+            padding-bottom .25rem
+            font-size 1rem
+            color var(--primaryTextColor)
+
+.Table__Row--nav
+    cursor pointer
+
+    +small-screen()
+        padding-right 1.5rem
+        &::after
+            content '\00a0'
+            background-image embedurl('../../assets/icons/icon-chevron-down.svg')
+            display block
+            width 15px
+            height 12px
+            transform rotate(-90deg)
+            position absolute
+            right 1rem
+            background-repeat no-repeat

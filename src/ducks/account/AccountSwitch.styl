@@ -1,0 +1,25 @@
+@require 'tools/mixins.styl'
+@require 'settings/breakpoints'
+
+.AccountSwitch__Select
+    display inline-flex
+    overflow hidden
+    cursor pointer
+    align-items center
+
+    +small-screen()
+        max-width 100%
+
+.AccountSwitch__SelectText
+    margin-bottom 0
+
+    &.disable
+        opacity .64
+
+.DownArrow
+    margin-left 0.5rem
+    color var(--black)
+
+.DownArrowColor_inverted
+    color var(--primaryContrastTextColor)
+

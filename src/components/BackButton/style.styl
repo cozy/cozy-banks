@@ -1,0 +1,19 @@
+@require 'settings/breakpoints'
+
+.BackArrow.BackArrow
+    float left
+    margin-right 0.5rem
+    --iconColor: var(--coolGrey)
+
+    +small-screen()
+        &
+            margin-right .5rem
+
+.BackIcon
+    color var(--iconColor)
+
+.BackIcon--primary
+    --iconColor: white
+
+.BackIcon--inverted
+    --iconColor: white

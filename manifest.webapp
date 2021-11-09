@@ -27,10 +27,7 @@
       "changes": ""
     }
   },
-  "langs": [
-    "en",
-    "fr"
-  ],
+  "langs": ["en", "fr"],
   "screenshots": [
     "screenshots/fr/screenshot1.png",
     "screenshots/fr/screenshot2.png",
@@ -176,51 +173,27 @@
     "bank.groups": {
       "description": "Manage groups of bank accounts",
       "type": "io.cozy.bank.groups",
-      "verbs": [
-        "GET",
-        "POST",
-        "PUT",
-        "DELETE"
-      ]
+      "verbs": ["GET", "POST", "PUT", "DELETE"]
     },
     "bank.accounts": {
       "description": "Used to list your bank accounts",
       "type": "io.cozy.bank.accounts",
-      "verbs": [
-        "GET",
-        "POST",
-        "PUT",
-        "DELETE"
-      ]
+      "verbs": ["GET", "POST", "PUT", "DELETE"]
     },
     "bank.accounts.stats": {
       "description": "Used to aggregate stats about bank accounts",
       "type": "io.cozy.bank.accounts.stats",
-      "verbs": [
-        "GET",
-        "POST",
-        "PUT",
-        "DELETE"
-      ]
+      "verbs": ["GET", "POST", "PUT", "DELETE"]
     },
     "bank.operations": {
       "description": "Used to manage your bank operations",
       "type": "io.cozy.bank.operations",
-      "verbs": [
-        "GET",
-        "POST",
-        "PUT",
-        "DELETE"
-      ]
+      "verbs": ["GET", "POST", "PUT", "DELETE"]
     },
     "bank.settings": {
       "description": "Used to manage your bank settings",
       "type": "io.cozy.bank.settings",
-      "verbs": [
-        "GET",
-        "POST",
-        "PUT"
-      ]
+      "verbs": ["GET", "POST", "PUT"]
     },
     "bank.recipients": {
       "description": "Show recipients of transfers",
@@ -229,36 +202,22 @@
     "bank.recurrence": {
       "description": "Manage your recurring bundles your Cozy",
       "type": "io.cozy.bank.recurrence",
-      "verbs": [
-        "GET",
-        "POST",
-        "PUT",
-        "DELETE"
-      ]
+      "verbs": ["GET", "POST", "PUT", "DELETE"]
     },
     "bills": {
       "description": "Manage bills",
       "type": "io.cozy.bills",
-      "verbs": [
-        "GET",
-        "POST",
-        "PUT",
-        "DELETE"
-      ]
+      "verbs": ["GET", "POST", "PUT", "DELETE"]
     },
     "notifications": {
       "description": "Used to send notifications",
       "type": "io.cozy.notifications",
-      "verbs": [
-        "POST"
-      ]
+      "verbs": ["POST"]
     },
     "apps": {
       "description": "Required by the cozy-bar to display the icons of the apps",
       "type": "io.cozy.apps",
-      "verbs": [
-        "GET"
-      ]
+      "verbs": ["GET"]
     },
     "triggers": {
       "description": "Used to configure bank accounts",
@@ -267,39 +226,27 @@
     "settings": {
       "description": "Required by the cozy-bar to display Claudy and know which applications are coming soon",
       "type": "io.cozy.settings",
-      "verbs": [
-        "GET"
-      ]
+      "verbs": ["GET"]
     },
     "reporting": {
       "description": "Allow to report unexpected errors to the support team",
       "type": "cc.cozycloud.sentry",
-      "verbs": [
-        "POST"
-      ]
+      "verbs": ["POST"]
     },
     "autocategorization": {
       "description": "Allow to anonymously send categorized transactions",
       "type": "cc.cozycloud.autocategorization",
-      "verbs": [
-        "POST"
-      ]
+      "verbs": ["POST"]
     },
     "konnectors": {
       "description": "Required to know if a konnector is waiting for a manual update",
       "type": "io.cozy.konnectors",
-      "verbs": [
-        "GET"
-      ]
+      "verbs": ["GET"]
     },
     "apps.suggestions": {
       "description": "Used to suggest which apps / connectors might be useful for the user",
       "type": "io.cozy.apps.suggestions",
-      "verbs": [
-        "GET",
-        "POST",
-        "PUT"
-      ]
+      "verbs": ["GET", "POST", "PUT"]
     },
     "jobs": {
       "description": "Used in services to start other services",
@@ -312,20 +259,12 @@
     "contacts": {
       "description": "Used to link accounts to contacts",
       "type": "io.cozy.contacts",
-      "verbs": [
-        "GET",
-        "PUT",
-        "POST"
-      ]
+      "verbs": ["GET", "PUT", "POST"]
     },
     "identities": {
       "description": "Used to update the document storing information entered before a transfer",
       "type": "io.cozy.identities",
-      "verbs": [
-        "GET",
-        "PUT",
-        "POST"
-      ]
+      "verbs": ["GET", "PUT", "POST"]
     }
   }
 }

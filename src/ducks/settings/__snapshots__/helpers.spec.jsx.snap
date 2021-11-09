@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`defaulted settings should return defaulted settings 1`] = `
+Object {
+  "_id": "configuration",
+  "_type": "io.cozy.bank.settings",
+  "appSuggestions": Object {
+    "lastSeq": 0,
+  },
+  "autogroups": Object {
+    "processedAccounts": Array [],
+  },
+  "billsMatching": Object {
+    "billsLastSeq": "0",
+    "transactionsLastSeq": "0",
+  },
+  "categorization": Object {
+    "lastSeq": 0,
+  },
+  "categoryBudgetAlerts": Array [],
+  "community": Object {
+    "localModelOverride": Object {
+      "enabled": true,
+    },
+  },
+  "id": "configuration",
+  "linkMyselfToAccounts": Object {
+    "processedAccounts": Array [],
+  },
+  "notifications": Object {
+    "balanceLower": Array [
+      Object {
+        "enabled": false,
+        "id": 0,
+        "value": 100,
+      },
+    ],
+    "delayedDebit": Array [
+      Object {
+        "enabled": false,
+        "id": 0,
+        "value": 2,
+      },
+    ],
+    "healthBillLinked": Object {
+      "enabled": true,
+    },
+    "lastSeq": 0,
+    "lateHealthReimbursement": Object {
+      "enabled": false,
+      "value": 30,
+    },
+    "transactionGreater": Array [
+      Object {
+        "enabled": true,
+        "id": 0,
+        "value": 600,
+      },
+    ],
+  },
+  "showIncomeCategory": true,
+}
+`;
