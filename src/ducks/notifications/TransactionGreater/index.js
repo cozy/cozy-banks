@@ -7,7 +7,6 @@ import groupBy from 'lodash/groupBy'
 import fromPairs from 'lodash/fromPairs'
 
 import log from 'cozy-logger'
-import { toText } from 'cozy-notifications'
 
 import NotificationView from 'ducks/notifications/BaseNotificationView'
 import { getDate, isNew as isNewTransaction } from 'ducks/transactions/helpers'
@@ -21,13 +20,9 @@ import {
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 
 import template from './template.hbs'
-import { formatTransaction } from './utils'
+import { customToText, formatTransaction } from './utils'
 
 const getDocumentId = x => x._id
-
-const ACCOUNT_SEL = '.js-account'
-const DATE_SEL = '.js-date'
-const TRANSACTION_SEL = '.js-transaction'
 
 const SINGLE_TRANSACTION = 'single'
 const MULTI_TRANSACTION = 'multi'
@@ -49,39 +44,6 @@ const MULTI_TRANSACTION_MULTI_RULES = 'multi-rules'
 // is why we deactivate the isNewTransaction during tests
 const isNewTransactionOutsideTests =
   process.env.IS_TESTING === 'test' ? () => true : isNewTransaction
-
-const customToText = cozyHTMLEmail => {
-  const getTextTransactionRow = $row =>
-    $row
-      .find('td')
-      .map((i, td) =>
-        $row
-          .find(td)
-          .text()
-          .trim()
-      )
-      .toArray()
-      .join(' ')
-      .replace(/\n/g, '')
-      .replace(' €', '€')
-      .trim()
-
-  const getContent = $ =>
-    $([ACCOUNT_SEL, DATE_SEL, TRANSACTION_SEL].join(', '))
-      .toArray()
-      .map(node => {
-        const $node = $(node)
-        if ($node.is(ACCOUNT_SEL)) {
-          return '\n\n### ' + $node.text()
-        } else if ($node.is(DATE_SEL)) {
-          return '\n' + $node.text() + '\n'
-        } else if ($node.is(TRANSACTION_SEL)) {
-          return '- ' + getTextTransactionRow($node)
-        }
-      })
-      .join('\n')
-  return toText(cozyHTMLEmail, getContent)
-}
 
 const isTransactionFromAccount = account => transaction =>
   transaction.account === account._id
