@@ -3,6 +3,11 @@
 ## ✨ Features
 
 * Alert notifications for KO connectors link to the accounts page in the settings
+* Change wording push content notification
+    * Change EUR by €
+    * Replace '.' in amount by ','
+    * Capitalize each transaction label word
+    * Show by line 50 char max Example if the label from transaction is `Salaire du mois de Septembre 2021 (01/09/2021)` with an amount `1234.56` so we display that: `Salaire Du Mois De Septembre 2021 (01/0 : 1234,56€`
 
 ## 🐛 Bug Fixes
 
