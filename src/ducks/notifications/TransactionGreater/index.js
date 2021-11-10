@@ -5,14 +5,12 @@ import overEvery from 'lodash/overEvery'
 import merge from 'lodash/merge'
 import groupBy from 'lodash/groupBy'
 import fromPairs from 'lodash/fromPairs'
-import sortBy from 'lodash/sortBy'
 
 import log from 'cozy-logger'
 import { toText } from 'cozy-notifications'
 
 import NotificationView from 'ducks/notifications/BaseNotificationView'
 import { getDate, isNew as isNewTransaction } from 'ducks/transactions/helpers'
-import { getAccountLabel } from 'ducks/account/helpers'
 import { isTransactionAmountGreaterThan } from 'ducks/notifications/helpers'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 import {
@@ -23,6 +21,7 @@ import {
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 
 import template from './template.hbs'
+import { formatTransaction } from './utils'
 
 const getDocumentId = x => x._id
 
@@ -255,34 +254,18 @@ class TransactionGreater extends NotificationView {
   }
 
   getPushContent(templateData) {
-    const notificationSubtype = this.getNotificationSubtype(templateData)
+    const { transactions } = templateData
 
-    const accountsById = templateData.accounts
-    const transactions = templateData.transactions
-    const [transaction] = sortBy(transactions, getDate).reverse()
+    const pushContent =
+      transactions.length > 3
+        ? transactions
+            .slice(0, 3)
+            .map(formatTransaction)
+            .join('\n')
+            .concat('...')
+        : transactions.map(formatTransaction).join('\n')
 
-    if (notificationSubtype === SINGLE_TRANSACTION) {
-      return `${transaction.label} : ${formatAmount(
-        transaction.amount
-      )}${getCurrencySymbol(transaction.currency)}`
-    } else {
-      const transactionGroupedByAccount = groupBy(transactions, x => x.account)
-      const groups = Object.entries(transactionGroupedByAccount).map(
-        ([accountId, transactions]) => ({
-          account: accountsById[accountId],
-          transactions
-        })
-      )
-      return groups
-        .map(
-          g =>
-            `${getAccountLabel(g.account)}: ${this.t(
-              'Notifications.if-transaction-greater.notification.content-transaction-mention',
-              { smart_count: g.transactions.length }
-            )}`
-        )
-        .join('\n')
-    }
+    return pushContent
   }
 }
 
