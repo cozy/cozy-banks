@@ -19,6 +19,8 @@ const main = async ({ client }) => {
     return
   }
 
+  let serviceTrigger = undefined
+  let serviceJob = undefined
   const triggerId = process.env.COZY_TRIGGER_ID
   const jobId = process.env.COZY_JOB_ID?.split('/').pop()
 
@@ -27,13 +29,25 @@ const main = async ({ client }) => {
     `Executing job notifications service by trigger: ${triggerId}, job: ${jobId}...`
   )
 
-  const serviceTrigger = triggerId
-    ? (await client.query(Q(TRIGGER_DOCTYPE).getById(triggerId))).data
-    : undefined
+  try {
+    const { data } = await client.query(Q(TRIGGER_DOCTYPE).getById(triggerId))
+    serviceTrigger = data
+  } catch (e) {
+    logger(
+      'error',
+      `❗ Error when getting trigger with id: ${triggerId}, reason: ${e.message}`
+    )
+  }
 
-  const serviceJob = jobId
-    ? (await client.query(Q(JOBS_DOCTYPE).getById(jobId))).data
-    : undefined
+  try {
+    const { data } = await client.query(Q(JOBS_DOCTYPE).getById(jobId))
+    serviceJob = data
+  } catch (e) {
+    logger(
+      'error',
+      `❗ Error when getting job with id: ${jobId}, reason: ${e.message}`
+    )
+  }
 
   const forcedIgnoredErrors =
     serviceTrigger?.message?.forceIgnoredErrors ||
