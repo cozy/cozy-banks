@@ -195,7 +195,7 @@ const RenameBundleDialog = ({ bundle, dismissAction }) => {
 
   return (
     <Dialog
-      opened={true}
+      open={true}
       size="small"
       title={t('Recurrence.rename.modal-title')}
       content={
@@ -372,13 +372,15 @@ const BundleInfo = ({ bundle }) => {
         </>
       )}
 
-      {showingRename ? (
-        <RenameBundleDialog
-          bundle={bundle}
-          onSuccess={hideRename}
-          dismissAction={hideRename}
-        />
-      ) : null}
+      {showingRename && (
+        <CozyTheme variant="normal">
+          <RenameBundleDialog
+            bundle={bundle}
+            onSuccess={hideRename}
+            dismissAction={hideRename}
+          />
+        </CozyTheme>
+      )}
     </Header>
   )
 }
