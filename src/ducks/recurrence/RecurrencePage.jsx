@@ -90,7 +90,7 @@ const RecurrenceActionMenu = ({
       <ActionMenu {...props}>
         <RenameActionItem onClick={onClickRename} />
         <DeleteActionItem onClick={onClickDelete} />
-        {isMobile ? (
+        {isMobile && (
           <>
             <hr />
             <OngoingActionItem
@@ -102,7 +102,7 @@ const RecurrenceActionMenu = ({
               onClick={onClickFinished}
             />
           </>
-        ) : null}
+        )}
       </ActionMenu>
     </CozyTheme>
   )
@@ -288,7 +288,7 @@ const BundleInfo = ({ bundle }) => {
               <Icon icon={DotsIcon} />
             </IconButton>
           </BarRight>
-          {showingActionsMenu ? (
+          {showingActionsMenu && (
             <RecurrenceActionMenu
               onClose={hideActionsMenu}
               recurrence={bundle}
@@ -297,7 +297,7 @@ const BundleInfo = ({ bundle }) => {
               onClickRename={handleOpenRename}
               onClickDelete={handleDelete}
             />
-          ) : null}
+          )}
         </>
       ) : (
         <>
@@ -429,7 +429,7 @@ const BundleTransactions = ({ bundle }) => {
     <>
       <Wrapper>
         <LegalMention className="u-m-1" />
-        {transactions.length === 0 ? (
+        {transactions.length === 0 && (
           <Padded>
             {fetchStatus === 'failed' ? (
               <>
@@ -444,7 +444,7 @@ const BundleTransactions = ({ bundle }) => {
               />
             )}
           </Padded>
-        ) : null}
+        )}
         {transactions.map(tr => (
           <TransactionRow
             showRecurrence={false}
@@ -484,8 +484,8 @@ const RecurrencePage = () => {
   return (
     <>
       <BarTheme theme="primary" />
-      {bundle ? <BundleInfo bundle={bundle} /> : null}
-      {bundle ? <BundleTransactions bundle={bundle} /> : null}
+      {bundle && <BundleInfo bundle={bundle} />}
+      {bundle && <BundleTransactions bundle={bundle} />}
     </>
   )
 }
