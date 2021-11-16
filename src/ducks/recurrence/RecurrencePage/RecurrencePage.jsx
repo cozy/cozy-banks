@@ -57,7 +57,6 @@ import { BarTitle } from 'components/Title/PageTitle'
 import { BarRight } from 'components/Bar'
 import TransactionsTableHead from 'ducks/transactions/header/TableHead'
 
-import styles from './styles.styl'
 import useToggle from 'components/useToggle'
 import ActionMenuHelper from 'components/ActionMenuHelper'
 
@@ -386,7 +385,7 @@ const BundleInfo = ({ bundle }) => {
 }
 
 const BundleMobileWrapper = ({ children }) => {
-  return <div className={styles.RecurrencesMobileContent}>{children}</div>
+  return <div className="u-mt-3">{children}</div>
 }
 
 const BundleDesktopWrapper = ({ children }) => {
