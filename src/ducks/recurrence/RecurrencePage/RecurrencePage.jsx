@@ -7,7 +7,7 @@ import {
   hasQueryBeenLoaded
 } from 'cozy-client'
 import { recurrenceConn, RECURRENCE_DOCTYPE } from 'doctypes'
-import { bundleTransactionsQueryConn } from './queries'
+import { bundleTransactionsQueryConn } from '../queries'
 
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import { Dialog } from 'cozy-ui/transpiled/react/CozyDialogs'
