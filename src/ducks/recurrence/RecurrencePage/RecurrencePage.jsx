@@ -37,8 +37,12 @@ const RecurrencePage = () => {
   return (
     <>
       <BarTheme theme="primary" />
-      {bundle && <BundleInfo bundle={bundle} />}
-      {bundle && <BundleTransactions bundle={bundle} />}
+      {bundle && (
+        <>
+          <BundleInfo bundle={bundle} />
+          <BundleTransactions bundle={bundle} />
+        </>
+      )}
     </>
   )
 }
