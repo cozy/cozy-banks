@@ -16,7 +16,8 @@ import {
   prepareTransactions,
   getCurrentDate,
   formatAmount,
-  isTransactionAmountGreaterThan
+  isTransactionAmountGreaterThan,
+  makeAtAttributes
 } from 'ducks/notifications/helpers'
 import template from 'ducks/notifications/TransactionGreater/template.hbs'
 import {
@@ -160,13 +161,15 @@ class TransactionGreater extends NotificationView {
   getExtraAttributes() {
     const attributes = super.getExtraAttributes()
     const accountIds = Object.keys(groupBy(this.transactions, x => x.account))
+
     return merge(attributes, {
       data: {
         route:
           accountIds.length == 1
             ? `/balances/${accountIds[0]}/details`
             : `/balances/details`
-      }
+      },
+      at: makeAtAttributes('TransactionGreater')
     })
   }
 

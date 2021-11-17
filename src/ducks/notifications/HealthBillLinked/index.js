@@ -9,7 +9,8 @@ import {
   treatedByFormat,
   prepareTransactions,
   getCurrentDate,
-  getReimbursementBillIds
+  getReimbursementBillIds,
+  makeAtAttributes
 } from 'ducks/notifications/helpers'
 import template from './template.hbs'
 import NotificationView from 'ducks/notifications/BaseNotificationView'
@@ -98,7 +99,8 @@ class HealthBillLinked extends NotificationView {
     return merge(super.getExtraAttributes(), {
       data: {
         route: '/transactions'
-      }
+      },
+      at: makeAtAttributes('HealthBillLinked')
     })
   }
 

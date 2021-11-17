@@ -7,6 +7,8 @@ import flow from 'lodash/flow'
 import unique from 'lodash/uniq'
 import get from 'lodash/get'
 
+import logger from 'cozy-logger'
+
 import { getAccountBalance } from 'ducks/account/helpers'
 import { ONE_DAY } from 'ducks/recurrence/constants'
 import { getDate } from 'ducks/transactions/helpers'
@@ -63,6 +65,24 @@ export const getScheduleDate = currentDate => {
   }
 
   return date
+}
+
+/**
+ * Returns undefined or the scheduled date if it is in the future
+ */
+export const makeAtAttributes = notificationName => {
+  const date = new Date()
+  const scheduledDate = getScheduleDate(date)
+
+  if (date < scheduledDate) {
+    const newDate = scheduledDate.toISOString()
+    logger(
+      'info',
+      `Scheduling notification for ${notificationName} at ${newDate}`
+    )
+    return newDate
+  }
+  return undefined
 }
 
 export const prepareTransactions = function(transactions) {

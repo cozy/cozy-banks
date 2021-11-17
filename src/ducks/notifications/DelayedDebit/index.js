@@ -16,7 +16,8 @@ import {
 import {
   getAccountNewBalance,
   formatAmount,
-  getCurrentDate
+  getCurrentDate,
+  makeAtAttributes
 } from 'ducks/notifications/helpers'
 import template from './template.hbs'
 import NotificationView from '../BaseNotificationView'
@@ -144,7 +145,8 @@ class DelayedDebit extends NotificationView {
     return merge(super.getExtraAttributes(), {
       data: {
         route: '/balances'
-      }
+      },
+      at: makeAtAttributes('DalayedDebit')
     })
   }
 

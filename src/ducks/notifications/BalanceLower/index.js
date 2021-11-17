@@ -10,7 +10,11 @@ import { toText } from 'cozy-notifications'
 import NotificationView from 'ducks/notifications/BaseNotificationView'
 import { getAccountBalance } from 'ducks/account/helpers'
 import { getCurrencySymbol } from 'utils/currencySymbol'
-import { getCurrentDate, formatAmount } from 'ducks/notifications/helpers'
+import {
+  getCurrentDate,
+  formatAmount,
+  makeAtAttributes
+} from 'ducks/notifications/helpers'
 import template from './template.hbs'
 import { ruleAccountFilter } from 'ducks/settings/ruleUtils'
 
@@ -126,7 +130,8 @@ class BalanceLower extends NotificationView {
     return merge(super.getExtraAttributes(), {
       data: {
         route: '/balances'
-      }
+      },
+      at: makeAtAttributes('BalanceLower')
     })
   }
 
