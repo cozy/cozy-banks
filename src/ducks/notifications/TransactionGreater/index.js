@@ -8,19 +8,21 @@ import fromPairs from 'lodash/fromPairs'
 
 import log from 'cozy-logger'
 
+import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import NotificationView from 'ducks/notifications/BaseNotificationView'
 import { getDate, isNew as isNewTransaction } from 'ducks/transactions/helpers'
-import { isTransactionAmountGreaterThan } from 'ducks/notifications/helpers'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 import {
   prepareTransactions,
   getCurrentDate,
-  formatAmount
-} from 'ducks/notifications/utils'
-import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
-
-import template from './template.hbs'
-import { customToText, formatTransaction } from './utils'
+  formatAmount,
+  isTransactionAmountGreaterThan
+} from 'ducks/notifications/helpers'
+import template from 'ducks/notifications/TransactionGreater/template.hbs'
+import {
+  customToText,
+  formatTransaction
+} from 'ducks/notifications/TransactionGreater/utils'
 
 const getDocumentId = x => x._id
 

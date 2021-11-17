@@ -3,7 +3,7 @@ import merge from 'lodash/merge'
 import flag from 'cozy-flags'
 
 import NotificationView from 'ducks/notifications/BaseNotificationView'
-import { getCurrentDate } from 'ducks/notifications/utils'
+import { getCurrentDate } from 'ducks/notifications/helpers'
 
 import template from 'ducks/konnectorAlerts/template.hbs'
 import logger from 'ducks/konnectorAlerts/logger'
