@@ -18,6 +18,7 @@ import { TrackerProvider } from 'ducks/tracking/browser'
 import JobsProvider from 'ducks/context/JobsContext'
 import BanksProvider from 'ducks/context/BanksContext'
 import SelectionProvider from 'ducks/context/SelectionContext'
+import RequestStateProvider from 'ducks/context/RequestStateContext'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import { initTranslation } from 'cozy-ui/transpiled/react/I18n'
 
@@ -61,24 +62,29 @@ const AppContainer = ({ store, lang, history, client }) => {
     <BreakpointsProvider>
       <TrackerProvider>
         <Provider store={store}>
-          <StylesProvider generateClassName={generateClassName}>
-            <CozyProvider client={client}>
-              <I18n
-                lang={lang}
-                dictRequire={lang => require(`locales/${lang}`)}
-              >
-                <JobsProvider client={client} options={jobsProviderOptions(t)}>
-                  <BanksProvider client={client}>
-                    <SelectionProvider>
-                      <MuiCozyTheme>
-                        <Router history={history} routes={AppRoute()} />
-                      </MuiCozyTheme>
-                    </SelectionProvider>
-                  </BanksProvider>
-                </JobsProvider>
-              </I18n>
-            </CozyProvider>
-          </StylesProvider>
+          <RequestStateProvider>
+            <StylesProvider generateClassName={generateClassName}>
+              <CozyProvider client={client}>
+                <I18n
+                  lang={lang}
+                  dictRequire={lang => require(`locales/${lang}`)}
+                >
+                  <JobsProvider
+                    client={client}
+                    options={jobsProviderOptions(t)}
+                  >
+                    <BanksProvider client={client}>
+                      <SelectionProvider>
+                        <MuiCozyTheme>
+                          <Router history={history} routes={AppRoute()} />
+                        </MuiCozyTheme>
+                      </SelectionProvider>
+                    </BanksProvider>
+                  </JobsProvider>
+                </I18n>
+              </CozyProvider>
+            </StylesProvider>
+          </RequestStateProvider>
         </Provider>
       </TrackerProvider>
     </BreakpointsProvider>

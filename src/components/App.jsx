@@ -9,6 +9,7 @@ import CozyDevTools from 'cozy-client/dist/devtools'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import { Content, Layout, Main } from 'cozy-ui/transpiled/react/Layout'
 import UISidebar from 'cozy-ui/transpiled/react/Sidebar'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
 import { settingsConn } from 'doctypes'
 
@@ -24,8 +25,13 @@ import AppSearchBar from 'components/AppSearchBar'
 import useKeyboardState from 'components/useKeyboardState'
 
 import banksPanels from 'ducks/devtools/banksPanels'
+import {
+  useRequestStateContext,
+  REQUEST_FAILED
+} from 'ducks/context/RequestStateContext'
 
 import styles from './App.styl'
+import { getActivatePouch } from 'ducks/client/links'
 
 const KeyboardAwareSidebar = ({ children }) => {
   const showing = useKeyboardState()
@@ -33,8 +39,21 @@ const KeyboardAwareSidebar = ({ children }) => {
 }
 
 const App = props => {
+  const { requestState, setRequestState } = useRequestStateContext()
   const { showBottomNav, settingsCollection } = props
   const settings = getDefaultedSettingsFromCollection(settingsCollection)
+  const { t } = useI18n()
+
+  useEffect(() => {
+    if (!getActivatePouch() && requestState === REQUEST_FAILED) {
+      Alerter.error(t('Error.fetch-error'), {
+        buttonText: t('General.reload'),
+        buttonAction: () => window.location.reload()
+      })
+      setRequestState(null) // Reset network state
+    }
+  }, [requestState, setRequestState, t])
+
   useEffect(() => {
     flag('local-model-override', settings.community.localModelOverride.enabled)
   }, [settings.community.localModelOverride.enabled])
