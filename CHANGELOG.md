@@ -7,7 +7,8 @@
 
 ## 🐛 Bug Fixes
 
-*
+* Show empty page title only for mobile
+* Reimbursement block is visible again on the balance page if it is shown first
 
 ## 🔧 Tech
 
