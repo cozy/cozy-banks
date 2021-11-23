@@ -5,8 +5,11 @@ import { isMobileApp, isIOSApp } from 'cozy-device-helper'
 import flag from 'cozy-flags'
 
 import { offlineDoctypes, TRANSACTION_DOCTYPE } from 'doctypes'
-import { pickAdapter, getAdapterPlugin } from 'ducks/client/linksHelpers'
-import { getWarmupQueries } from './linksHelpers'
+import {
+  pickAdapter,
+  getAdapterPlugin,
+  getWarmupQueries
+} from 'ducks/client/linksHelpers'
 
 export const getActivatePouch = () => __POUCH__ && !flag('banks.pouch.disabled')
 let links = null
