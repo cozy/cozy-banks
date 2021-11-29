@@ -51,7 +51,11 @@ Edit a document and add the fields: `notification_platform` and `notification_de
 
 3. Add a document in .../io-cozy-bank-operations doctype
 
-Ex: To test TransactionGreater, create a document with an amount greater than your settings value.
+Ex: To test TransactionGreater, create a document with an amount greater than your settings value. Using `operation-generic.json` might be useful.
+
+```sh
+$ ach import test/fixtures/matching-service/operation-generic.json -u http://cozy.localhost:8080/
+```
 
 
 4. In a shell
