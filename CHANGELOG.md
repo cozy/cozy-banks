@@ -4,6 +4,7 @@
 
 * Scheduling notifications if sending is between 11pm and 6am
 * Notifications for errored connector are now sent at 6am instead of 8am
+* Show alert message when a request failed (allows to reload the app)
 
 ## 🐛 Bug Fixes
 
