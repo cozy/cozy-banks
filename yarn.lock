@@ -5122,7 +5122,7 @@ cozy-doctypes@^1.62.0:
     lodash "^4.17.19"
     prop-types "^15.7.2"
 
-cozy-doctypes@^1.82.2:
+cozy-doctypes@^1.82.2, cozy-doctypes@^1.83.1:
   version "1.83.1"
   resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.83.1.tgz#939b62f9992199b142221fd88a3ee793776791ec"
   integrity sha512-UROUuo6ums12c+4By3e+KpJ+eGWd1Yh2LyK835Fs0UM247fzLRJ2h2A89271pOE0Hg32CUiPU4x8hWQ2XZY5og==
@@ -5137,17 +5137,6 @@ cozy-doctypes@^1.82.3:
   version "1.82.3"
   resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.82.3.tgz#e8e759c7698fb2718a35c06e46b24c000a2b3cd4"
   integrity sha512-u2WRc2tD8SdR9MMFN49cAk7Wl5d11JgypBNzmrjXrziFUA5dTK3dTxJFA+tGlTfZSjJ+dfwuMYvZFf/iIg0Q4w==
-  dependencies:
-    cozy-logger "^1.7.0"
-    date-fns "^1.30.1"
-    es6-promise-pool "^2.5.0"
-    lodash "^4.17.19"
-    prop-types "^15.7.2"
-
-cozy-doctypes@^1.83.0:
-  version "1.83.0"
-  resolved "https://registry.yarnpkg.com/cozy-doctypes/-/cozy-doctypes-1.83.0.tgz#003ec8a7103bc936d797bf36379878ca28d32b2d"
-  integrity sha512-eb82AaANTI8lyppI0iftmoeHeEnz6Zqm61vfe4LF6i52OTPBbVrueTllOAgD7OOVzwv1Lz0V6CL/0KgGT386Pg==
   dependencies:
     cozy-logger "^1.7.0"
     date-fns "^1.30.1"
@@ -5176,15 +5165,15 @@ cozy-flags@2.7.1:
   dependencies:
     microee "^0.0.6"
 
-cozy-harvest-lib@6.10.0:
-  version "6.10.0"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-6.10.0.tgz#9bbe778fa46b6391b49185ccb03225cf77f7880f"
-  integrity sha512-DKt8Og579eEWF6KSHez5vnakgFSlxUGKQCLUkoa4mNVEehk2AIM/C+iAuJQfsN8DlSrZqhNWsgmK3Xu4DkOwvg==
+cozy-harvest-lib@6.14.4:
+  version "6.14.4"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-6.14.4.tgz#12cd072218b1be9041c65c0bcd1fb44b66fb0dfa"
+  integrity sha512-jpYoUf9e2XTHyTHllFRKddiKWL0g5HGFABukh58S79+aXJY9ObCIAMu8GSSkfoD4cNQfUKB8k/YRw0ck1ge1Yw==
   dependencies:
     "@cozy/minilog" "^1.0.0"
     "@sentry/browser" "^6.0.1"
     cozy-bi-auth "0.0.24"
-    cozy-doctypes "^1.83.0"
+    cozy-doctypes "^1.83.1"
     cozy-logger "^1.7.0"
     date-fns "^1.30.1"
     final-form "^4.18.5"
@@ -13331,7 +13320,6 @@ msgpack5@^4.0.2:
 
 "mui-bottom-sheet@https://github.com/cozy/mui-bottom-sheet.git#v1.0.6":
   version "1.0.6"
-  uid "494c40416ecde95732c864f9b921e7e545075aa5"
   resolved "https://github.com/cozy/mui-bottom-sheet.git#494c40416ecde95732c864f9b921e7e545075aa5"
   dependencies:
     "@juggle/resize-observer" "^3.1.3"
