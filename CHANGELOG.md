@@ -10,6 +10,7 @@
 
 * Show empty page title only for mobile
 * Reimbursement block is visible again on the balance page if it is shown first
+* Show operations by date and by account (and not the reverse) in group details
 
 ## 🔧 Tech
 
