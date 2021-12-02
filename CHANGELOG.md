@@ -12,7 +12,7 @@
 
 ## 🐛 Bug Fixes
 
-*
+* Show operations by date and by account (and not the reverse) in group details
 
 ## 🔧 Tech
 
