@@ -1,3 +1,11 @@
+# 1.40.0
+
+## ✨ Features
+
+## 🐛 Bug Fixes
+
+## 🔧 Tech
+
 # 1.39.0
 
 ## ✨ Features
@@ -12,10 +20,6 @@
 * Reimbursement block is visible again on the balance page if it is shown first
 * Show operations by date and by account (and not the reverse) in group details
 * Fix colors Alerter component and alert message displayed several times
-
-## 🔧 Tech
-
-*
 
 # 1.38.0
 
