@@ -1,12 +1,10 @@
 import { Q } from 'cozy-client'
 import flag from 'cozy-flags'
 
-import { TRIGGER_DOCTYPE, JOBS_DOCTYPE } from 'doctypes'
+import { JOBS_DOCTYPE } from 'doctypes'
 import { logger } from 'ducks/konnectorAlerts'
 
 export const setIgnoredErrorsFlag = async client => {
-  let serviceTrigger = undefined
-  let serviceJob = undefined
   const triggerId = process.env.COZY_TRIGGER_ID
   const jobId = process.env.COZY_JOB_ID?.split('/').pop()
 
@@ -16,34 +14,24 @@ export const setIgnoredErrorsFlag = async client => {
   )
 
   try {
-    const { data } = await client.query(Q(TRIGGER_DOCTYPE).getById(triggerId))
-    serviceTrigger = data
-  } catch (e) {
-    logger(
-      'error',
-      `❗ Error when getting trigger with id: ${triggerId}, reason: ${e.message}`
+    const { data: serviceJob } = await client.query(
+      Q(JOBS_DOCTYPE).getById(jobId)
     )
-  }
+    const forcedIgnoredErrors = serviceJob?.message?.forceIgnoredErrors
 
-  try {
-    const { data } = await client.query(Q(JOBS_DOCTYPE).getById(jobId))
-    serviceJob = data
+    if (forcedIgnoredErrors) {
+      flag('banks.konnector-alerts.ignored-errors', forcedIgnoredErrors)
+      logger(
+        'info',
+        `Forced flag banks.konnector-alerts.ignored-errors to: ${forcedIgnoredErrors}`
+      )
+    } else {
+      logger('info', 'Flag banks.konnector-alerts.ignored-errors not forced')
+    }
   } catch (e) {
     logger(
       'error',
       `❗ Error when getting job with id: ${jobId}, reason: ${e.message}`
-    )
-  }
-
-  const forcedIgnoredErrors =
-    serviceTrigger?.message?.forceIgnoredErrors ||
-    serviceJob?.message?.forceIgnoredErrors
-
-  if (forcedIgnoredErrors) {
-    flag('banks.konnector-alerts.ignored-errors', forcedIgnoredErrors)
-    logger(
-      'info',
-      `Forced flag banks.konnector-alerts.ignored-errors to: ${forcedIgnoredErrors}`
     )
   }
 }
