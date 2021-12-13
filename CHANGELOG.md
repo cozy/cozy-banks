@@ -4,6 +4,8 @@
 
 ## 🐛 Bug Fixes
 
+* Scheduled notification are created only if a notification will be sent in the next day, and only if there is no already notification in the futur
+
 ## 🔧 Tech
 
 # 1.39.0
