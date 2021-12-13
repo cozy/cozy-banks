@@ -1,7 +1,7 @@
 import { TRIGGER_DOCTYPE } from 'doctypes'
 import { logger } from 'ducks/konnectorAlerts'
 import { ONE_DAY } from 'ducks/recurrence/constants'
-import { getTriggerStates, fetchRelatedAtTriggers } from './helpers'
+import { getTriggerStates, fetchRelatedFuturAtTriggers } from './helpers'
 
 const dateInDays = (referenceDate, n) => {
   return new Date(+new Date(referenceDate) + n * ONE_DAY)
@@ -51,12 +51,12 @@ export const createScheduledTrigger = async client => {
       continue
     }
 
-    const relatedAtTriggers = await fetchRelatedAtTriggers(client, id)
+    const relatedFuturAtTriggers = await fetchRelatedFuturAtTriggers(client, id)
 
-    if (relatedAtTriggers.length > 0) {
+    if (relatedFuturAtTriggers.length > 0) {
       logger(
         'info',
-        `⚠️  Not created: @at triggers already existing for this konnector trigger`
+        `⚠️  Not created: @at triggers already existing in the futur for this konnector trigger`
       )
       continue
     }

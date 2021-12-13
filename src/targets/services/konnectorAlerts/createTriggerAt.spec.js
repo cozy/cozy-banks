@@ -1,12 +1,12 @@
 import { createMockClient } from 'cozy-client'
 
 import { createScheduledTrigger, containerForTesting } from './createTriggerAt'
-import { getTriggerStates, fetchRelatedAtTriggers } from './helpers'
+import { getTriggerStates, fetchRelatedFuturAtTriggers } from './helpers'
 
 jest.mock('./helpers', () => ({
   ...jest.requireActual('./helpers'),
   getTriggerStates: jest.fn(),
-  fetchRelatedAtTriggers: jest.fn()
+  fetchRelatedFuturAtTriggers: jest.fn()
 }))
 
 jest.spyOn(containerForTesting, 'createTriggerAt')
@@ -36,13 +36,13 @@ describe('createTriggerAt', () => {
     expect(containerForTesting.createTriggerAt).not.toHaveBeenCalled()
   })
 
-  it('should not create @at triggers if there are already created', async () => {
+  it('should not create @at triggers if there are already created in the futur', async () => {
     getTriggerStates.mockResolvedValue({
       trigger01Id: {
         shouldNotify: { ok: true }
       }
     })
-    fetchRelatedAtTriggers.mockResolvedValue([
+    fetchRelatedFuturAtTriggers.mockResolvedValue([
       { type: '@at', message: { konnectorTriggerId: 'trigger01Id' } }
     ])
 
@@ -57,7 +57,7 @@ describe('createTriggerAt', () => {
         shouldNotify: { ok: true }
       }
     })
-    fetchRelatedAtTriggers.mockResolvedValue([])
+    fetchRelatedFuturAtTriggers.mockResolvedValue([])
 
     await createScheduledTrigger(client)
 
