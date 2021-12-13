@@ -19095,6 +19095,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ducks_reimbursements__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ducks/reimbursements */ "./src/ducks/reimbursements/index.js");
 /* harmony import */ var ducks_bar_BarTheme__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ducks/bar/BarTheme */ "./src/ducks/bar/BarTheme.jsx");
 /* harmony import */ var ducks_filters__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ducks/filters */ "./src/ducks/filters/index.js");
+/* harmony import */ var lib_sentry__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! lib/sentry */ "./src/lib/sentry.js");
+
 
 
 
@@ -19131,6 +19133,7 @@ var getComponent = function getComponent(filteringDoc) {
 };
 
 var RawBalanceDetailsPage = function RawBalanceDetailsPage(props) {
+  Object(lib_sentry__WEBPACK_IMPORTED_MODULE_10__["logMessage"])('> Filtering Doc', JSON.stringify(props.filteringDoc));
   var Component = getComponent(props.filteringDoc);
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ducks_bar_BarTheme__WEBPACK_IMPORTED_MODULE_8__["default"], {
     theme: 'primary'
