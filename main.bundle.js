@@ -7803,7 +7803,7 @@ module.exports = {"c-input-radio":"c-input-radio--w1YoV"};
 /*!********************************************************************!*\
   !*** ../overrides/cozy-ui/transpiled/react/SelectBox/SelectBox.js ***!
   \********************************************************************/
-/*! exports provided: default, Option, CheckboxOption, ActionsOption, computedMenuListHeightStyles, reactSelectControl, components, SelectBox */
+/*! exports provided: Option, CheckboxOption, ActionsOption, computedMenuListHeightStyles, reactSelectControl, components, SelectBox, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -53874,6 +53874,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux_raven_middleware__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux-raven-middleware */ "./node_modules/redux-raven-middleware/index.js");
 /* harmony import */ var redux_raven_middleware__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(redux_raven_middleware__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var lib_cozyUrl__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lib/cozyUrl */ "./src/lib/cozyUrl.js");
+/* harmony import */ var cozy_flags__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! cozy-flags */ "./node_modules/cozy-flags/dist/index.js");
+/* harmony import */ var cozy_flags__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(cozy_flags__WEBPACK_IMPORTED_MODULE_3__);
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -53921,6 +53923,7 @@ function _defineProperty(obj, key, value) {
 
 var domain;
 var slug;
+
 var normalizeData = function normalizeData(data) {
   data = normalizeRequestUrl(data);
   data = normalizeStacktrace(data);
@@ -53963,10 +53966,10 @@ var setURLContext = function setURLContext(url) {
   slug = Object(lib_cozyUrl__WEBPACK_IMPORTED_MODULE_2__["getSlug"])(url);
 };
 var getSentryMiddleware = function getSentryMiddleware(cozyClient) {
-  return redux_raven_middleware__WEBPACK_IMPORTED_MODULE_1___default()('https://ea2067ca88504d9cbc9115b55d0b2d55:e52e64f57486417bb1b5fa6529e1cfcb@sentry.cozycloud.cc/11', getSentryConfiguration(cozyClient));
+  return redux_raven_middleware__WEBPACK_IMPORTED_MODULE_1___default()(cozy_flags__WEBPACK_IMPORTED_MODULE_3___default()('banks.url.sentry'), getSentryConfiguration(cozyClient));
 };
 var configureSentry = function configureSentry(cozyClient) {
-  raven_js__WEBPACK_IMPORTED_MODULE_0___default.a.config('https://ea2067ca88504d9cbc9115b55d0b2d55:e52e64f57486417bb1b5fa6529e1cfcb@sentry.cozycloud.cc/11', getSentryConfiguration(cozyClient)).install();
+  raven_js__WEBPACK_IMPORTED_MODULE_0___default.a.config(cozy_flags__WEBPACK_IMPORTED_MODULE_3___default()('banks.url.sentry'), getSentryConfiguration(cozyClient)).install();
   raven_js__WEBPACK_IMPORTED_MODULE_0___default.a.setTagsContext({
     target: "browser"
   });
@@ -54620,7 +54623,7 @@ var configureStore = function configureStore(cozyClient, persistedState) {
   var middlewares = [redux_thunk__WEBPACK_IMPORTED_MODULE_1__["default"]];
 
   if (Object(cozy_ui_transpiled_react_helpers_tracker__WEBPACK_IMPORTED_MODULE_4__["shouldEnableTracking"])() && Object(cozy_ui_transpiled_react_helpers_tracker__WEBPACK_IMPORTED_MODULE_4__["getTracker"])()) {
-    middlewares.push(Object(cozy_ui_transpiled_react_helpers_tracker__WEBPACK_IMPORTED_MODULE_4__["createTrackerMiddleware"])());
+    middlewares.push(createTrackerMiddleware());
   }
 
   if (cozy_flags__WEBPACK_IMPORTED_MODULE_3___default()('logs') && true) {
