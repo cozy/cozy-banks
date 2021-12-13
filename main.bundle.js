@@ -7200,7 +7200,6 @@ cozy_flags__WEBPACK_IMPORTED_MODULE_1___default()('banks.health-reimbursements.d
 cozy_flags__WEBPACK_IMPORTED_MODULE_1___default()('banks.future-balance', true);
 cozy_flags__WEBPACK_IMPORTED_MODULE_1___default()('banks.transaction-actions.deactivated', true);
 cozy_flags__WEBPACK_IMPORTED_MODULE_1___default()('banks.show-nav-header', true);
-cozy_flags__WEBPACK_IMPORTED_MODULE_1___default()('banks.url.sentry', '_');
 
 /***/ }),
 
